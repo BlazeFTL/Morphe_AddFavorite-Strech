@@ -272,7 +272,7 @@ internal fun HomeCategoryHeader(
     val isSourceGroup = group.sourceUid != null
     val leadingIcon = if (group.collapsed) Icons.Outlined.Folder else Icons.Outlined.FolderOpen
     // Surface pending updates on the header so collapsed groups still hint at work to do
-    val hasPendingUpdate = group.items.any { it.hasUpdate }
+    val hasPendingUpdate = group.items.any { it.showsUpdateBadge }
     val folderTint = if (hasPendingUpdate) MaterialTheme.colorScheme.primary else mutedContentColor
 
     HomeGlassCategoryRow(

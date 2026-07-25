@@ -225,6 +225,7 @@ fun InstalledAppCard(
     onLongClick: (() -> Unit)? = null
 ) {
     val cardStyle = homeAppCardStyle(subtitleAlpha = 0.85f)
+    val showsUpdateBadge = hasUpdate && !isAppDeleted
 
     val versionLabel = stringResource(R.string.version)
     val installedLabel = stringResource(R.string.installed)
@@ -236,7 +237,7 @@ fun InstalledAppCard(
         if (raw.startsWith("v")) raw else "v$raw"
     }
 
-    val contentDesc = remember(displayName, version, versionLabel, installedLabel, hasUpdate, updateAvailableLabel, isAppDeleted, deletedLabel) {
+    val contentDesc = remember(displayName, version, versionLabel, installedLabel, showsUpdateBadge, updateAvailableLabel, isAppDeleted, deletedLabel) {
         buildString {
             append(displayName)
             if (version.isNotEmpty()) {
@@ -244,7 +245,7 @@ fun InstalledAppCard(
             }
             append(", ")
             append(if (isAppDeleted) deletedLabel else installedLabel)
-            if (hasUpdate && !isAppDeleted) append(", $updateAvailableLabel")
+            if (showsUpdateBadge) append(", $updateAvailableLabel")
         }
     }
 
@@ -303,7 +304,7 @@ fun InstalledAppCard(
                 }
 
                 AnimatedVisibility(
-                    visible = hasUpdate && !isAppDeleted,
+                    visible = showsUpdateBadge,
                     enter = MorpheAnimations.expandHorizFadeIn,
                     exit = MorpheAnimations.shrinkHorizFadeOut
                 ) {

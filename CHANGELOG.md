@@ -1,3 +1,11 @@
+# [1.25.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.1...v1.25.0-dev.2) (2026-07-25)
+
+
+### Bug Fixes
+
+* Ignore updates of uninstalled apps in category icon tint ([7f1a5f2](https://github.com/MorpheApp/morphe-manager/commit/7f1a5f2a8a9e337eea95c977b4ddb7a360c6b6dc))
+* Open home app list at the top on launch ([829d151](https://github.com/MorpheApp/morphe-manager/commit/829d151338fee1593ad76b5e4a9e78299b0ae756))
+
 # [1.25.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.24.3...v1.25.0-dev.1) (2026-07-25)
 
 

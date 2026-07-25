@@ -27,7 +27,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -41,12 +40,7 @@ import app.morphe.manager.patcher.patch.ImageSize
 import app.morphe.manager.patcher.patch.Option
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.util.IMAGE_MIMETYPE
-import app.morphe.manager.util.WILDCARD_MIMETYPE
-import app.morphe.manager.util.rememberAdaptiveFilePicker
-import app.morphe.manager.util.rememberFolderPickerWithPermission
-import app.morphe.manager.util.toColorOrNull
-import app.morphe.manager.util.toFilePath
+import app.morphe.manager.util.*
 import kotlinx.collections.immutable.ImmutableList
 
 /**
@@ -1468,62 +1462,6 @@ private fun ImageInputOption(
                 style = MaterialTheme.typography.bodySmall,
                 color = LocalDialogSecondaryTextColor.current
             )
-        }
-    }
-}
-
-/**
- * Header row shown above a picker button (folder/file/image options).
- * Renders the option title, an optional "*" marker for required options,
- * and switches to the theme's error color when the option is required but empty.
- */
-@Composable
-private fun PickerFieldHeader(title: String, required: Boolean, isInvalid: Boolean) {
-    Text(
-        text = if (required) "$title *" else title,
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.Bold,
-        color = if (isInvalid) MaterialTheme.colorScheme.error else LocalDialogTextColor.current,
-    )
-}
-
-/**
- * Picker row: the main "select…" outlined button plus an inline trailing
- * [Icons.Outlined.Clear] icon button. The clear button is only rendered when
- * [selectedPath] is not blank.
- */
-@Composable
-private fun PickerButtonRow(
-    label: String,
-    selectedPath: String,
-    icon: ImageVector,
-    onPick: () -> Unit,
-    onClear: () -> Unit,
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        MorpheDialogOutlinedButton(
-            text = label,
-            textSuffix = selectedPath.takeIf { it.isNotBlank() },
-            icon = icon,
-            onClick = onPick,
-            modifier = Modifier.weight(1f),
-        )
-
-        if (selectedPath.isNotBlank()) {
-            IconButton(
-                onClick = onClear,
-                modifier = Modifier.size(40.dp),
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Clear,
-                    contentDescription = stringResource(R.string.clear),
-                    tint = LocalDialogTextColor.current.copy(alpha = 0.7f),
-                )
-            }
         }
     }
 }

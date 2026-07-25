@@ -13,6 +13,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
@@ -1068,6 +1070,23 @@ fun MainAppsSection(
         } ?: reorderScopePackages?.let { scopePackages ->
             orderedItems.filter { it.packageName in scopePackages }
         } ?: orderedItems
+    }
+
+    // Cards that arrive after the first frame can sort above the anchor, and LazyColumn keeps
+    // the keyed first visible item in place, leaving the list scrolled past its top. Pin to the
+    // top until a real drag, so programmatic scrolls and rotation keep the user's position.
+    var userScrolledList by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(listState) {
+        listState.interactionSource.interactions.collect { interaction ->
+            if (interaction is DragInteraction.Start) userScrolledList = true
+        }
+    }
+    val listOrderKeys = remember(homeAppItems) { homeAppItems.map { it.packageName } }
+    LaunchedEffect(listOrderKeys, userScrolledList) {
+        if (userScrolledList || isReorderMode.value) return@LaunchedEffect
+        if (listState.firstVisibleItemIndex != 0 || listState.firstVisibleItemScrollOffset != 0) {
+            listState.scrollToItem(0)
+        }
     }
 
     // Flat-only: grouped scrolls in onEnterReorder before the items list swaps

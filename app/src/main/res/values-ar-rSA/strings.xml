@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">تم تطبيق التعديلات الموصى بها</string>
     <string name="expert_mode_restore_saved">استعادة التحديد المحفوظ</string>
     <string name="expert_mode_restore_saved_done">تم استعادة التحديد المحفوظ</string>
+    <string name="expert_mode_copy_from_bundle">نسخ التحديد من مجموعة أخرى</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">لا توجد تعديلات مطابقة في هذه المجموعة</string>
     <string name="expert_mode_no_results">لم يتم العثور على تعديلات</string>
     <string name="expert_mode_universal_patches">التعديلات الشاملة</string>
     <string name="expert_mode_new_patches">جديد</string>
@@ -817,7 +819,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_temporary_description">ملفات العمل التي تم إنشاؤها أثناء التعديل</string>
     <string name="settings_system_storage_clear_all">مسح جميع ذاكرات التخزين المؤقت</string>
     <string name="settings_system_storage_clear_all_description">يحرر كل مساحة التخزين المؤقت القابلة للاسترداد دفعة واحدة</string>
-    <string name="settings_system_storage_clear_all_confirm">يؤدي هذا إلى مسح استجابات الشبكة المخزنة مؤقتًا، نسخ أداة التثبيت المؤقتة، والملفات المؤقتة. يتم الاحتفاظ بملفات APK الأصلية والمعدلة</string>
+    <string name="settings_system_storage_clear_all_confirm">يؤدي هذا إلى مسح استجابات الشبكة المخزنة مؤقتًا، نُسخ أداة التثبيت المؤقتة، والملفات المؤقتة. يتم الاحتفاظ بملفات APK الأصلية والمعدلة</string>
     <string name="settings_system_storage_cleared">تم تحرير %s</string>
     <string name="settings_system_storage_nothing_to_clear">لا يوجد ما يمكن مسحه</string>
     <string name="settings_system_storage_open_app_info_title">فتح مساحة تخزين تطبيق Android</string>
@@ -865,6 +867,12 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_selected_patches_section">التعديلات المحددة</string>
     <string name="settings_system_patch_options_section">خيارات التعديل</string>
     <string name="settings_system_no_patches_or_options">لا يوجد تعديلات أو خيارات محفوظة</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">نسخ المحدد من…</string>
+    <string name="copy_selection_confirm_with_count">نسخ %s</string>
+    <string name="copy_selection_empty">لا توجد تحديدات أخرى محفوظة للنسخ منها</string>
+    <string name="copy_selection_available_format">%1$s من %2$s متاح</string>
+    <string name="copy_selection_same_source">نفس المصدر</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">مستعرض ملفات مخصص</string>
     <string name="settings_system_custom_file_picker_description">استخدم مستعرض التخزين المدمج في Morphe بدلًا من مستعرض النظام الافتراضي</string>
@@ -951,6 +959,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="rename">إعادة تسمية</string>
     <string name="import_">استيراد</string>
     <string name="export">تصدير</string>
+    <string name="copy">نسخ</string>
     <string name="download">تنزيل</string>
     <string name="less">أقل</string>
     <string name="expand">توسيع</string>

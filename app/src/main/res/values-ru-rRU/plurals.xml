@@ -96,4 +96,10 @@
         <item quantity="many">%s приложений</item>
         <item quantity="other">%s приложений</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Скопирован %s патч из выбранного набора</item>
+        <item quantity="few">Скопировано %s патча из выбранного набора</item>
+        <item quantity="many">Скопировано %s патчей из выбранного набора</item>
+        <item quantity="other">Скопировано %s патчей из выбранного набора</item>
+    </plurals>
 </resources>

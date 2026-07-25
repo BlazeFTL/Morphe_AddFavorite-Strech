@@ -64,4 +64,8 @@
         <item quantity="one">%s εφαρμογή</item>
         <item quantity="other">%s εφαρμογές</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Αντιγράφηκε η επιλογή %s από την επιλεγμένη δέσμη</item>
+        <item quantity="other">Αντιγράφηκαν οι επιλογές %s από την επιλεγμένη δέσμη</item>
+    </plurals>
 </resources>

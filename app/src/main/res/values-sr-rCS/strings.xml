@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Preporučene zakrpe su primenjene</string>
     <string name="expert_mode_restore_saved">Ponovi poslednji izbor</string>
     <string name="expert_mode_restore_saved_done">Vraćena sačuvana selekcija</string>
+    <string name="expert_mode_copy_from_bundle">Kopiraj selekciju iz drugog paketa</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Nema odgovarajućih zakrpa u ovom paketu</string>
     <string name="expert_mode_no_results">Nema pronađenih zakrpa</string>
     <string name="expert_mode_universal_patches">Univerzalne zakrpe </string>
     <string name="expert_mode_new_patches">Novo</string>
@@ -845,6 +847,12 @@ Detalji: %2$s"</string>
     <string name="settings_system_selected_patches_section">Izabrane zakrpe</string>
     <string name="settings_system_patch_options_section">Opcije zakrpe za </string>
     <string name="settings_system_no_patches_or_options">Nema sačuvanih patch-ova ili opcija</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Kopiraj selekciju iz…</string>
+    <string name="copy_selection_confirm_with_count">Kopiraj %s</string>
+    <string name="copy_selection_empty">Nema drugih sačuvanih selekcija za kopiranje</string>
+    <string name="copy_selection_available_format">%1$s od %2$s dostupno</string>
+    <string name="copy_selection_same_source">Istori izvor</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Prilagođeni odabir datoteka</string>
     <string name="settings_system_custom_file_picker_description">Koristite ugrađeni odabir datoteka u Morpheu umesto fabričkog sistema</string>
@@ -931,6 +939,7 @@ Detalji: %2$s"</string>
     <string name="rename">Preimenovanje</string>
     <string name="import_">Uvoz</string>
     <string name="export">Izvezi</string>
+    <string name="copy">Kopiraj</string>
     <string name="download">Preuzmi</string>
     <string name="less">Manje</string>
     <string name="expand">Proširi</string>

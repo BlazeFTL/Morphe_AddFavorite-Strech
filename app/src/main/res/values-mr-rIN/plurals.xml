@@ -64,4 +64,8 @@
         <item quantity="one">%s ॲप</item>
         <item quantity="other">%s ॲप्स</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">निवडलेल्या बंडलमधून %s पॅच कॉपी केले.</item>
+        <item quantity="other">निवडलेल्या बंडलमधून %s पॅचेस कॉपी केले.</item>
+    </plurals>
 </resources>

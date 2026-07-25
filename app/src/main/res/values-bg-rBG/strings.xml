@@ -215,6 +215,8 @@
     <string name="expert_mode_reset_to_default_done">Приложени са препоръчителните корекции</string>
     <string name="expert_mode_restore_saved">Възстановяване на запазения избор</string>
     <string name="expert_mode_restore_saved_done">Възстановената запазена селекция</string>
+    <string name="expert_mode_copy_from_bundle">Копиране на селекция от друг пакет</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Няма съвпадащи поправки в този пакет</string>
     <string name="expert_mode_no_results">Няма намерени пачове</string>
     <string name="expert_mode_universal_patches">Универсални пачове</string>
     <string name="expert_mode_new_patches">Нов</string>
@@ -863,6 +865,12 @@ morphe_header_custom_dark.png
     <string name="settings_system_selected_patches_section">Избрани пачове</string>
     <string name="settings_system_patch_options_section">Опции за пачове</string>
     <string name="settings_system_no_patches_or_options">Няма запазени пакети или опции</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Копиране на селекция от…</string>
+    <string name="copy_selection_confirm_with_count">Копиране на %s</string>
+    <string name="copy_selection_empty">Няма други запазени селекции за копиране</string>
+    <string name="copy_selection_available_format">%1$s от %2$s налични</string>
+    <string name="copy_selection_same_source">Същият източник</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Персонализиран избор на файлове</string>
     <string name="settings_system_custom_file_picker_description">Използвайте вградения файлов мениджър на Morphe вместо системния.</string>
@@ -949,6 +957,7 @@ morphe_header_custom_dark.png
     <string name="rename">Преименуване</string>
     <string name="import_">Импортиране</string>
     <string name="export">Изтриване на запазена копия</string>
+    <string name="copy">Дублирането на видеа се показва</string>
     <string name="download">Свали</string>
     <string name="less">Morphe</string>
     <string name="expand">Разгъване</string>

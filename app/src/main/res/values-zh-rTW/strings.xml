@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">已套用推薦的修補程式</string>
     <string name="expert_mode_restore_saved">還原儲存的選取範圍</string>
     <string name="expert_mode_restore_saved_done">已儲存的選取已還原</string>
+    <string name="expert_mode_copy_from_bundle">從另一個套件複製選取項目</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">此套件中沒有相符的修補程式</string>
     <string name="expert_mode_no_results">找不到修補程式</string>
     <string name="expert_mode_universal_patches">通用型修補程式</string>
     <string name="expert_mode_new_patches">新增</string>
@@ -858,6 +860,12 @@ morphe_header_custom_dark.png
     <string name="settings_system_selected_patches_section">已選取的修補程式</string>
     <string name="settings_system_patch_options_section">修補選項</string>
     <string name="settings_system_no_patches_or_options">未儲存任何修補程式或選項</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">從…複製選取項目</string>
+    <string name="copy_selection_confirm_with_count">複製 %s</string>
+    <string name="copy_selection_empty">沒有其他已儲存的選取項目可供複製</string>
+    <string name="copy_selection_available_format">%1$s of %2$s 可用</string>
+    <string name="copy_selection_same_source">相同來源</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">自訂檔案選擇器</string>
     <string name="settings_system_custom_file_picker_description">改用 Morphe 內建檔案選擇器，而不是系統預設值</string>
@@ -944,6 +952,7 @@ morphe_header_custom_dark.png
     <string name="rename">重新命名</string>
     <string name="import_">匯入</string>
     <string name="export">匯出</string>
+    <string name="copy">複製</string>
     <string name="download">下載</string>
     <string name="less">顯示較少</string>
     <string name="expand">展開</string>

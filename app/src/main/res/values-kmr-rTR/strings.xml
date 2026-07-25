@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Pelîkên ku hatine pêşniyar kirin hatin çêkirin</string>
     <string name="expert_mode_restore_saved">Şêvikî serdest vegerîne</string>
     <string name="expert_mode_restore_saved_done">Hilbijartina ku hatî parastin</string>
+    <string name="expert_mode_copy_from_bundle">Hilbijarkirina ji pakêtek din kopye bike</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Di vê pakêtê de tu parçe nehatine dîtin</string>
     <string name="expert_mode_no_results">Paqejiyê ne hebin</string>
     <string name="expert_mode_universal_patches">Pêtên hevpar.</string>
     <string name="expert_mode_new_patches">Nû</string>
@@ -860,6 +862,12 @@ Detay: %2$s"</string>
     <string name="settings_system_selected_patches_section">Patchên hilbijartî</string>
     <string name="settings_system_patch_options_section">Vêjeyên Patchê</string>
     <string name="settings_system_no_patches_or_options">Ke tu bejna yâ bejna diteya ne</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Hilbijarkirina ji… kopye bike</string>
+    <string name="copy_selection_confirm_with_count">%s kopye bike</string>
+    <string name="copy_selection_empty">Tu hilbijarkirinên din ên ku hatine tomarkirin ji bo kopyekirinê hene</string>
+    <string name="copy_selection_available_format">%1$s ji %2$s peyda</string>
+    <string name="copy_selection_same_source">Çavkaniya heman</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Hilbijêrkê pelan yê xwerû</string>
     <string name="settings_system_custom_file_picker_description">Li şûna hilbijêrkê pelan yê serî yê sîstemê, hilbijêrkê pelan yê têne çêkirin yê Morphe bikar bîne</string>
@@ -946,6 +954,7 @@ Detay: %2$s"</string>
     <string name="rename">Navê nû bigere</string>
     <string name="import_">Hez kirin</string>
     <string name="export">Dernake</string>
+    <string name="copy">Copî bike</string>
     <string name="download">Download</string>
     <string name="less">Kêm</string>
     <string name="expand">Gihîşîne</string>

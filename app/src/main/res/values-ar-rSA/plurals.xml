@@ -128,4 +128,12 @@
         <item quantity="many">%s تطبيقات</item>
         <item quantity="other">%s تطبيقات</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="zero">تم نسخ %s من التعديلات من الحزمة المحددة</item>
+        <item quantity="one">تم نسخ %s من التعديلات من الحزمة المحددة</item>
+        <item quantity="two">تم نسخ %s من التعديلات من الحزمة المحددة</item>
+        <item quantity="few">تم نسخ %s من التعديلات من الحزمة المحددة</item>
+        <item quantity="many">تم نسخ %s من التعديلات من الحزمة المحددة</item>
+        <item quantity="other">تم نسخ %s من التعديلات من الحزمة المحددة</item>
+    </plurals>
 </resources>

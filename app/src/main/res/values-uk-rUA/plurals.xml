@@ -96,4 +96,10 @@
         <item quantity="many">%s застосунків</item>
         <item quantity="other">%s застосунків</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Скопійовано %s патч із вибраного пакета</item>
+        <item quantity="few">Скопійовано %s патчі із вибраного пакета</item>
+        <item quantity="many">Скопійовано %s патчів із вибраного пакета</item>
+        <item quantity="other">Скопійовано %s патчів із вибраного пакета</item>
+    </plurals>
 </resources>

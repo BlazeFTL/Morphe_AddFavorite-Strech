@@ -216,6 +216,8 @@
     <string name="expert_mode_reset_to_default_done">Patchs recommandés appliqués</string>
     <string name="expert_mode_restore_saved">Restaurer la sélection enregistrée</string>
     <string name="expert_mode_restore_saved_done">Sélection enregistrée restaurée</string>
+    <string name="expert_mode_copy_from_bundle">Copier la sélection depuis un autre bundle</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Aucun patch correspondant dans ce bundle</string>
     <string name="expert_mode_no_results">Aucun patch trouvé</string>
     <string name="expert_mode_universal_patches">Patchs universels</string>
     <string name="expert_mode_new_patches">Nouveau</string>
@@ -869,6 +871,12 @@ Détails : %2$s"</string>
     <string name="settings_system_selected_patches_section">Patchs sélectionnés</string>
     <string name="settings_system_patch_options_section">Options de patchs</string>
     <string name="settings_system_no_patches_or_options">Aucun patch ou option enregistré</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Copier la sélection depuis…</string>
+    <string name="copy_selection_confirm_with_count">Copier %s</string>
+    <string name="copy_selection_empty">Aucune autre sélection enregistrée à partir de laquelle copier</string>
+    <string name="copy_selection_available_format">%1$s sur %2$s disponibles</string>
+    <string name="copy_selection_same_source">Même source</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Sélecteur de fichiers personnalisé</string>
     <string name="settings_system_custom_file_picker_description">Parcourez le stockage avec le sélecteur de fichiers intégré de Morphe au lieu de celui par défaut du système</string>
@@ -955,6 +963,7 @@ Détails : %2$s"</string>
     <string name="rename">Renommer</string>
     <string name="import_">Importer</string>
     <string name="export">Exporter</string>
+    <string name="copy">Copier</string>
     <string name="download">Télécharger</string>
     <string name="less">Moins</string>
     <string name="expand">Étendre</string>

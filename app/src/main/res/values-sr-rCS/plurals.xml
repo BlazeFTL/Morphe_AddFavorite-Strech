@@ -80,4 +80,9 @@
         <item quantity="few">%s aplikacije</item>
         <item quantity="other">%s aplikacija</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Kopirano %s zakrpa iz odabranog paketa</item>
+        <item quantity="few">Kopirano %s zakrpa iz odabranog paketa</item>
+        <item quantity="other">Kopirano %s zakrpa iz odabranog paketa</item>
+    </plurals>
 </resources>

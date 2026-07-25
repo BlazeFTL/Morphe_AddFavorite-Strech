@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">সুপারিশ করা প্যাচগুলি প্রয়োগ করা হয়েছে</string>
     <string name="expert_mode_restore_saved">সংরক্ষিত নির্বাচন পুনরুদ্ধার করুন</string>
     <string name="expert_mode_restore_saved_done">সংরক্ষিত নির্বাচন পুনরুদ্ধার করা হয়েছে</string>
+    <string name="expert_mode_copy_from_bundle">অন্য বান্ডেল থেকে নির্বাচন কপি করুন</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">এই বান্ডেলে কোনো মেলানো প্যাচ নেই</string>
     <string name="expert_mode_no_results">কোনো প্যাচ পাওয়া যায়নি</string>
     <string name="expert_mode_universal_patches">সার্বজনীন প্যাচ</string>
     <string name="expert_mode_new_patches">নতুন</string>
@@ -853,6 +855,12 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_selected_patches_section">নির্বাচিত প্যাচ</string>
     <string name="settings_system_patch_options_section">প্যাচ অপশন</string>
     <string name="settings_system_no_patches_or_options">কোনো সংরক্ষিত প্যাচ বা বিকল্প নেই</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">অন্য বান্ডেল থেকে নির্বাচন কপি করুন…</string>
+    <string name="copy_selection_confirm_with_count">%s কপি করুন</string>
+    <string name="copy_selection_empty">কপি করার জন্য আর কোনো সংরক্ষিত নির্বাচন নেই</string>
+    <string name="copy_selection_available_format">%1$s এর মধ্যে %2$s টি উপলব্ধ</string>
+    <string name="copy_selection_same_source">একই উৎস</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">কাস্টম ফাইল পিকার</string>
     <string name="settings_system_custom_file_picker_description">সিস্টেম ডিফল্টের পরিবর্তে Morphe-এর বিল্ট-ইন ফাইল পিকার দিয়ে স্টোরেজ ব্রাউজ করুন</string>
@@ -939,6 +947,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="rename">রেনেম করুন</string>
     <string name="import_">আমদানি করুন</string>
     <string name="export">এক্সপোর্ট করুন</string>
+    <string name="copy">অনুলিপি করুন</string>
     <string name="download">ডাউনলোড</string>
     <string name="less">কম</string>
     <string name="expand">বিস্তারিত দেখুন</string>

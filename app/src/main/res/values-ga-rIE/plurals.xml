@@ -112,4 +112,11 @@
         <item quantity="many">%s aip</item>
         <item quantity="other">%s aip</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Cóipeáladh %s patch ó bhosca roghnaithe</item>
+        <item quantity="two">Cóipeáladh %s patches ó bhosca roghnaithe</item>
+        <item quantity="few">Cóipeáladh %s patchanna ó bhosca roghnaithe</item>
+        <item quantity="many">Cóipeáladh %s patchanna ó bhosca roghnaithe</item>
+        <item quantity="other">Cóipeáladh %s patchanna ó bhosca roghnaithe</item>
+    </plurals>
 </resources>

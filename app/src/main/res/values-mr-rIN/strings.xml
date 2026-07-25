@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">शिफारस केलेले पॅच लागू केले</string>
     <string name="expert_mode_restore_saved">निवडलेला डेटा पुनर्संचयित करा</string>
     <string name="expert_mode_restore_saved_done">निवड जतन केली पुनर्स्थापित</string>
+    <string name="expert_mode_copy_from_bundle">\u0928\u093e\u0932\u093e\u0928\u093e \u092c\u0941\u0928\u093e\u0932\u093e\u0928\u093e \u0905\u0928\u093e\u0925 \u092c\u0941\u0928\u093e\u0932\u093e\u0928\u093e \u0926\u0941\u0928\u0941\u0928\u093e</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">\u0928\u093e\u0932\u093e \u092a\u093e\u0939\u093e\u0928\u093e \u092c\u0941\u0928\u093e\u0932\u093e\u0928\u093e \u0905\u0928\u093e\u0925 \u092a\u093e\u0939\u093e\u0928\u093e \u0926\u0941\u0928\u0941\u0928\u093e</string>
     <string name="expert_mode_no_results">पॅच आढळले नाहीत</string>
     <string name="expert_mode_universal_patches">युनिव्हर्सल पॅच</string>
     <string name="expert_mode_new_patches">नवीन</string>
@@ -861,6 +863,12 @@ morphe_header_custom_dark.png
     <string name="settings_system_selected_patches_section">निवडलेले पॅच</string>
     <string name="settings_system_patch_options_section">पॅच पर्याय</string>
     <string name="settings_system_no_patches_or_options">कोणतेही पॅच किंवा पर्याय जतन केलेले नाहीत</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">\u0928\u093e\u0932\u093e \u0926\u0941\u0928\u0941\u0928\u093e \u0928\u093e\u0932\u093e…</string>
+    <string name="copy_selection_confirm_with_count">\u0928\u093e\u0932\u093e %s</string>
+    <string name="copy_selection_empty">\u0928\u093e\u0932\u093e \u092c\u0941\u0928\u093e\u0932\u093e\u0928\u093e \u0926\u0941\u0928\u0941\u0928\u093e \u0926\u0941\u0928\u0941\u0928\u093e \u0928\u093e\u0932\u093e \u0926\u094d\u0926\u0947 \u0926\u0941\u0928\u0941\u0928\u093e</string>
+    <string name="copy_selection_available_format">%1$s पैकी %2$s उपलब्ध</string>
+    <string name="copy_selection_same_source">समान स्रोत</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">कस्टम फाइल पिकर</string>
     <string name="settings_system_custom_file_picker_description">सिस्टम डिफॉल्ट ऐवजी मोर्फच्या बिल्ट-इन फाइल पिकरने स्टोरेज ब्राउझ करा</string>
@@ -947,6 +955,7 @@ morphe_header_custom_dark.png
     <string name="rename">पुनर्नामकरण करा</string>
     <string name="import_">आयात</string>
     <string name="export">एक्सपोर्ट करा</string>
+    <string name="copy">कॉपी करा</string>
     <string name="download">डाउनलोड करा</string>
     <string name="less">कमी</string>
     <string name="expand">विस्तार करा</string>

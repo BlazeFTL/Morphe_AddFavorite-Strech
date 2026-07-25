@@ -856,6 +856,9 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_selected_patches_section">Vybrané záplaty</string>
     <string name="settings_system_patch_options_section">Nastavenia záplaty</string>
     <string name="settings_system_no_patches_or_options">Neboli uložené žiadne záplaty ani možnosti</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_available_format">%1$s z %2$s dostupných</string>
+    <string name="copy_selection_same_source">Rovnaký zdroj</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Vlastný výber súborov</string>
     <string name="settings_system_custom_file_picker_description">Použite vlastný prehliadač súborov Morphe namiesto štandardného systému.</string>
@@ -942,6 +945,7 @@ Podrobnosti: %2$s"</string>
     <string name="rename">Premenovať</string>
     <string name="import_">Importovať</string>
     <string name="export">Exportovať</string>
+    <string name="copy">Kopírovať</string>
     <string name="download">Stiahnuť</string>
     <string name="less">Menej</string>
     <string name="expand">Rozbaliť</string>

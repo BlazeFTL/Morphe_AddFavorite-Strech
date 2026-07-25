@@ -64,4 +64,8 @@
         <item quantity="one">%s ta ilova</item>
         <item quantity="other">%s ta ilova</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Tanlangan to\'plamdan %s qo\'shimcha nusxalandi</item>
+        <item quantity="other">Tanlangan to\'plamdan %s qo\'shimcha nusxalandi</item>
+    </plurals>
 </resources>

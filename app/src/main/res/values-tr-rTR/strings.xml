@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Önerilen yamalar uygulandı</string>
     <string name="expert_mode_restore_saved">Kaydedilen seçimi geri yükle</string>
     <string name="expert_mode_restore_saved_done">Kaydedilmiş seçim geri yüklendi</string>
+    <string name="expert_mode_copy_from_bundle">Başka bir demetten seçimi kopyala</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Bu demette eşleşen yama yok</string>
     <string name="expert_mode_no_results">Yama bulunamadı</string>
     <string name="expert_mode_universal_patches">Evrensel yamalar</string>
     <string name="expert_mode_new_patches">Yeni</string>
@@ -860,6 +862,12 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_selected_patches_section">Seçili yamalar</string>
     <string name="settings_system_patch_options_section">Yama seçenekleri</string>
     <string name="settings_system_no_patches_or_options">Hiçbir yama veya seçenek kaydedilmedi</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Seçimi kopyala…</string>
+    <string name="copy_selection_confirm_with_count">%s kopyala</string>
+    <string name="copy_selection_empty">Kopyalanacak başka kaydedilmiş seçim yok</string>
+    <string name="copy_selection_available_format">%1$s / %2$s kullanılabilir</string>
+    <string name="copy_selection_same_source">Aynı kaynak</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Özel dosya seçici</string>
     <string name="settings_system_custom_file_picker_description">Sistem varsayılanı yerine Morphe\'nin yerleşik dosya seçicisini kullanarak depolamaya göz atın</string>
@@ -946,6 +954,7 @@ Ayrıntılar: %2$s"</string>
     <string name="rename">Yeniden adlandır</string>
     <string name="import_">İçe aktar</string>
     <string name="export">Dışa aktar</string>
+    <string name="copy">Kopyala</string>
     <string name="download">İndir</string>
     <string name="less">Daha az</string>
     <string name="expand">Genişlet</string>

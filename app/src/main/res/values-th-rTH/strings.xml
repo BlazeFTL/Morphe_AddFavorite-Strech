@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">ใช้แพตช์ที่แนะนำแล้ว</string>
     <string name="expert_mode_restore_saved">คืนการเลือกที่บันทึกไว้</string>
     <string name="expert_mode_restore_saved_done">การเลือกที่บันทึกไว้ได้รับการกู้คืนแล้ว</string>
+    <string name="expert_mode_copy_from_bundle">คัดลอกส่วนที่เลือกจากบันเดิลอื่น</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">ไม่พบแพตช์ที่ตรงกันในบันเดิลนี้</string>
     <string name="expert_mode_no_results">ไม่พบแพตซ์</string>
     <string name="expert_mode_universal_patches">แพตช์สากล</string>
     <string name="expert_mode_new_patches">ใหม่</string>
@@ -856,6 +858,10 @@ morphe_header_custom_dark.png
     <string name="settings_system_selected_patches_section">แพตช์ที่เลือก</string>
     <string name="settings_system_patch_options_section">ตัวเลือกแพตช์</string>
     <string name="settings_system_no_patches_or_options">ไม่มีการบันทึกแพตช์หรือตัวเลือก</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">คัดลอกส่วนที่เลือกจาก…</string>
+    <string name="copy_selection_confirm_with_count">คัดลอก %s</string>
+    <string name="copy_selection_empty">ไม่มีส่วนที่เลือกไว้ก่อนหน้านี้ที่จะคัดลอก</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">ตัวเลือกไฟล์แบบกำหนดเอง</string>
     <string name="settings_system_custom_file_picker_description">เรียกดูพื้นที่จัดเก็บด้วยตัวเลือกไฟล์ในตัวของ Morphe แทนค่าเริ่มต้นของระบบ</string>

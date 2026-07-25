@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">अनुशंसित पैच लागू किए गए</string>
     <string name="expert_mode_restore_saved">चयन पुनर्स्थापित करें</string>
     <string name="expert_mode_restore_saved_done">सहेजे गए चयन को पुनर्स्थापित किया गया</string>
+    <string name="expert_mode_copy_from_bundle">किसी अन्य बंडल से चयन कॉपी करें</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">इस बंडल में कोई मिलान करने वाला पैच नहीं है</string>
     <string name="expert_mode_no_results">कोई पैच नहीं मिला</string>
     <string name="expert_mode_universal_patches">सार्वभौमिक पैच</string>
     <string name="expert_mode_new_patches">नया</string>
@@ -862,6 +864,12 @@ morphe_header_custom_dark.png
     <string name="settings_system_selected_patches_section">चयनित पैच</string>
     <string name="settings_system_patch_options_section">पैच विकल्प</string>
     <string name="settings_system_no_patches_or_options">कोई पटच या विकल्प सहेजे गए नहीं</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">किसी अन्य बंडल से चयन कॉपी करें…</string>
+    <string name="copy_selection_confirm_with_count">%s कॉपी करें</string>
+    <string name="copy_selection_empty">कॉपी करने के लिए कोई अन्य सहेजा गया चयन नहीं है</string>
+    <string name="copy_selection_available_format">%1$s में से %2$s उपलब्ध हैं</string>
+    <string name="copy_selection_same_source">समान स्रोत</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">कस्टम फ़ाइल पिकर</string>
     <string name="settings_system_custom_file_picker_description">सिस्टम डिफ़ॉल्ट के बजाय मोरफे के बिल्ट-इन फ़ाइल पिकर के साथ संग्रहण ब्राउज़ करें</string>
@@ -948,6 +956,7 @@ morphe_header_custom_dark.png
     <string name="rename">रename</string>
     <string name="import_">आयात करें</string>
     <string name="export">निर्यात करें</string>
+    <string name="copy">कॉपी</string>
     <string name="download">डाउनलोड करें</string>
     <string name="less">Less</string>
     <string name="expand">विस्तार करें</string>

@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Mæltu breytingarnar notaðar</string>
     <string name="expert_mode_restore_saved">Endurheimta valda</string>
     <string name="expert_mode_restore_saved_done">Geymt val endurheimt</string>
+    <string name="expert_mode_copy_from_bundle">Afrita val frá öðrum pakka</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Engar samsvarandi breytingar í þessum pakka</string>
     <string name="expert_mode_no_results">Engar breytistillingar fundust</string>
     <string name="expert_mode_universal_patches">Alhliða breytingar</string>
     <string name="expert_mode_new_patches">Nýtt</string>
@@ -857,6 +859,12 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_selected_patches_section">Valdir brekkur</string>
     <string name="settings_system_patch_options_section">Brekkuaðferðir</string>
     <string name="settings_system_no_patches_or_options">Engar pattaðar valkostir eða valkostir geymdar</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Afrita val frá…</string>
+    <string name="copy_selection_confirm_with_count">Afrita %s</string>
+    <string name="copy_selection_empty">Engin önnur vistað val til að afrita frá</string>
+    <string name="copy_selection_available_format">%1$s af %2$s í boði</string>
+    <string name="copy_selection_same_source">Sama heimild</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Sérsniðin skráaraðjari</string>
     <string name="settings_system_custom_file_picker_description">Skoðu geymslu með innbyggðum skráaraðjara Morphe heldur en staðkerfinu</string>
@@ -943,6 +951,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="rename">Endurnefna</string>
     <string name="import_">Flytja</string>
     <string name="export">Flytja út</string>
+    <string name="copy">Afrita</string>
     <string name="download">Sæka</string>
     <string name="less">Menn</string>
     <string name="expand">Stækka</string>

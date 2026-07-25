@@ -215,6 +215,8 @@
     <string name="expert_mode_reset_to_default_done">התיקונים המומלצים הוחלו</string>
     <string name="expert_mode_restore_saved">שחזור בחירה שמורה</string>
     <string name="expert_mode_restore_saved_done">שחזור הבחירה השמורה הסתיים</string>
+    <string name="expert_mode_copy_from_bundle">העתק את הבחירה מחבילה אחרת</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">לא נמצאו התאמות מדבקות בחבילה זו</string>
     <string name="expert_mode_no_results">לא נמצאו תיקונים</string>
     <string name="expert_mode_universal_patches">עדכונים אוניברסליים</string>
     <string name="expert_mode_new_patches">חדש</string>
@@ -846,6 +848,10 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_selected_patches_section">תיקונים נבחרים</string>
     <string name="settings_system_patch_options_section">אפשרויות תיקון</string>
     <string name="settings_system_no_patches_or_options">אין תיקונים או אפשרויות שמורות</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">העתק בחירה מ…</string>
+    <string name="copy_selection_confirm_with_count">העתק %s</string>
+    <string name="copy_selection_empty">אין בחירות שמורות אחרות להעתקה מהן</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">בחירת קבצים מותאמת אישית</string>
     <string name="settings_system_custom_file_picker_description">דפדף אחסון באמצעות בוחר הקבצים המובנה של Morphe במקום ברירת המערכת</string>

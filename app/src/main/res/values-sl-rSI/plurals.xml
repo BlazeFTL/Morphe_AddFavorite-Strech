@@ -96,4 +96,10 @@
         <item quantity="few">%s aplikacij</item>
         <item quantity="other">%s aplikacij</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Kopiran %s popravek iz izbranega paketa</item>
+        <item quantity="two">Kopirana %s popravka iz izbranega paketa</item>
+        <item quantity="few">Kopirano %s popravkov iz izbranega paketa</item>
+        <item quantity="other">Kopirano %s popravkov iz izbranega paketa</item>
+    </plurals>
 </resources>

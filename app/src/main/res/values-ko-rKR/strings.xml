@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">권장 패치를 적용하였습니다</string>
     <string name="expert_mode_restore_saved">저장된 선택 목록으로 복원하였습니다</string>
     <string name="expert_mode_restore_saved_done">저장된 선택 목록을 복원하였습니다</string>
+    <string name="expert_mode_copy_from_bundle">다른 번들에서 선택 목록 복사</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">이 번들에는 일치하는 패치가 없습니다</string>
     <string name="expert_mode_no_results">패치를 찾을 수 없습니다</string>
     <string name="expert_mode_universal_patches">유니버셜 패치</string>
     <string name="expert_mode_new_patches">신규</string>
@@ -860,6 +862,12 @@ morphe_header_custom_dark.png
     <string name="settings_system_selected_patches_section">선택된 패치</string>
     <string name="settings_system_patch_options_section">패치 옵션</string>
     <string name="settings_system_no_patches_or_options">저장된 패치 또는 옵션이 없습니다</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">선택 목록 복사…</string>
+    <string name="copy_selection_confirm_with_count">%s 개 복사</string>
+    <string name="copy_selection_empty">복사할 다른 저장된 선택 목록이 없습니다</string>
+    <string name="copy_selection_available_format">%2$s 개 중 %1$s 개 사용 가능</string>
+    <string name="copy_selection_same_source">동일한 소스</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">사용자 정의 파일 선택기</string>
     <string name="settings_system_custom_file_picker_description">시스템 기본 파일 선택기 대신 Morphe에 내장된 파일 선택기를 사용하여 저장소를 탐색합니다</string>
@@ -946,6 +954,7 @@ morphe_header_custom_dark.png
     <string name="rename">이름 변경</string>
     <string name="import_">가져오기</string>
     <string name="export">내보내기</string>
+    <string name="copy">복사</string>
     <string name="download">다운로드</string>
     <string name="less">접기</string>
     <string name="expand">펼치기</string>

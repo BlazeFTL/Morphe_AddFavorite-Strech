@@ -96,4 +96,10 @@
         <item quantity="many">%s aplikací</item>
         <item quantity="other">%s aplikací</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Zkopírovaná %s záplata z vybraného balíčku</item>
+        <item quantity="few">Zkopírovány %s záplaty z vybraného balíčku</item>
+        <item quantity="many">Zkopírovány %s záplaty z vybraného balíčku</item>
+        <item quantity="other">Zkopírovány %s záplaty z vybraného balíčku</item>
+    </plurals>
 </resources>

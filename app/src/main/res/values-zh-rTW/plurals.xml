@@ -48,4 +48,7 @@
     <plurals name="home_category_app_count">
         <item quantity="other">%s 個應用程式</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="other">已從選取套件複製 %s 個修補程式</item>
+    </plurals>
 </resources>

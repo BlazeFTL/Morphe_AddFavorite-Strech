@@ -96,4 +96,10 @@
         <item quantity="many">%s אפליקציות</item>
         <item quantity="other">%s אפליקציות</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">הועתקו %s תיקונים מהחבילה הנבחרת</item>
+        <item quantity="two">הועתקו %s תיקונים מהחבילה הנבחרת</item>
+        <item quantity="many">הועתקו %s תיקונים מהחבילה הנבחרת</item>
+        <item quantity="other">הועתקו %s תיקונים מהחבילה הנבחרת</item>
+    </plurals>
 </resources>

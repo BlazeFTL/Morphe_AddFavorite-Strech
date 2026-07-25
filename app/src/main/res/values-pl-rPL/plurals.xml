@@ -96,4 +96,10 @@
         <item quantity="many">%s aplikacji</item>
         <item quantity="other">%s aplikacji</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Skopiowano %s modyfikację z wybranego pakietu</item>
+        <item quantity="few">Skopiowano %s modyfikacje z wybranego pakietu</item>
+        <item quantity="many">Skopiowano %s modyfikacji z wybranego pakietu</item>
+        <item quantity="other">Skopiowano %s modyfikacji z wybranego pakietu</item>
+    </plurals>
 </resources>

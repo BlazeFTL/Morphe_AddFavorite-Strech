@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Suositellut korjaukset asennettu</string>
     <string name="expert_mode_restore_saved">Palauta tallennettu valinta</string>
     <string name="expert_mode_restore_saved_done">Tallennusvalinta palautettu</string>
+    <string name="expert_mode_copy_from_bundle">Kopioi valinta toisesta paketista</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Tästä paketista ei löytynyt vastaavia korjauksia</string>
     <string name="expert_mode_no_results">Lisäosia ei löytynyt</string>
     <string name="expert_mode_universal_patches">Yleispätevät lisäosat</string>
     <string name="expert_mode_new_patches">Uusi</string>
@@ -859,6 +861,12 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_selected_patches_section">Valitut lisäosat</string>
     <string name="settings_system_patch_options_section">Lisäosien asetukset</string>
     <string name="settings_system_no_patches_or_options">Ei lisäosia tai asetuksia tallennettu</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Kopioi valinta…</string>
+    <string name="copy_selection_confirm_with_count">Kopioi %s</string>
+    <string name="copy_selection_empty">Ei muita tallennettuja valintoja kopioitavaksi</string>
+    <string name="copy_selection_available_format">%1$s / %2$s käytettävissä</string>
+    <string name="copy_selection_same_source">Sama lähde</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Mukautettu tiedostonvalitsin</string>
     <string name="settings_system_custom_file_picker_description">Käytä Morphen sisäänrakennettua tiedostonvalitsinta järjestelmän oletusarvon sijaan</string>
@@ -945,6 +953,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="rename">Nimeä uudelleen</string>
     <string name="import_">Tuo</string>
     <string name="export">Vie</string>
+    <string name="copy">Kopioi</string>
     <string name="download">Lataa</string>
     <string name="less">Vähemmän</string>
     <string name="expand">Laajenna</string>

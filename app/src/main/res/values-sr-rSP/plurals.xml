@@ -80,4 +80,9 @@
         <item quantity="few">%s aplikacije</item>
         <item quantity="other">%s aplikacija</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="one">Копиран %s патч из одабраног пакета</item>
+        <item quantity="few">Копирана %s патча из одабраног пакета</item>
+        <item quantity="other">Копирано %s патчева из одабраног пакета</item>
+    </plurals>
 </resources>

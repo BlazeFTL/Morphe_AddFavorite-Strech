@@ -48,4 +48,7 @@
     <plurals name="home_category_app_count">
         <item quantity="other">%s 個のアプリ</item>
     </plurals>
+    <plurals name="expert_mode_copy_from_bundle_done">
+        <item quantity="other">選択したバンドルから %s 個のパッチをコピーしました</item>
+    </plurals>
 </resources>

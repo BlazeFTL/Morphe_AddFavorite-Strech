@@ -860,6 +860,9 @@ Detalii: %2$s"</string>
     <string name="settings_system_selected_patches_section">Patch-uri selectate</string>
     <string name="settings_system_patch_options_section">Opțiuni de patch-uri</string>
     <string name="settings_system_no_patches_or_options">Nicio pachet sau opțiune salvată</string>
+    <!-- Copy selection from another bundle -->
+    <string name="copy_selection_available_format">%1$s din %2$s disponibile</string>
+    <string name="copy_selection_same_source">Aceeași sursă</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Selector de fișiere personalizat</string>
     <string name="settings_system_custom_file_picker_description">Răsfoiește stocarea cu selectorul de fișiere integrat Morphe în loc de cel implicit al sistemului</string>
@@ -946,6 +949,7 @@ Detalii: %2$s"</string>
     <string name="rename">Redenumește</string>
     <string name="import_">Importă</string>
     <string name="export">Exportă</string>
+    <string name="copy">Copiere</string>
     <string name="download">Descărcare</string>
     <string name="less">Mai puțin</string>
     <string name="expand">Extinde</string>

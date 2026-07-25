@@ -1,3 +1,16 @@
+# [1.25.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.24.3...v1.25.0-dev.1) (2026-07-25)
+
+
+### Bug Fixes
+
+* Smooth category reorder animation in Custom sort mode ([607890f](https://github.com/MorpheApp/morphe-manager/commit/607890f7871f948a8621a47b24fb4ed3e78cf078))
+
+
+### Features
+
+* Copy patch selection between bundles ([#769](https://github.com/MorpheApp/morphe-manager/issues/769)) ([011b934](https://github.com/MorpheApp/morphe-manager/commit/011b9342200da38eb3e2fdcbbab356fd9e104396))
+* Tint category folder icon when group has pending updates ([849c119](https://github.com/MorpheApp/morphe-manager/commit/849c11996f0ff7c6ad5736ece8d13fbf5a94456d))
+
 ## [1.24.3](https://github.com/MorpheApp/morphe-manager/compare/v1.24.2...v1.24.3) (2026-07-23)
 
 

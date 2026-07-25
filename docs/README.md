@@ -1,6 +1,6 @@
 # Morphe guides
 
-Step by step guides for using Morphe. If you are new here, start with the first one.
+Step-by-step guides for using Morphe. If you are new here, start with the first one.
 
 ## 🩹 Patching
 

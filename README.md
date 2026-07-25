@@ -132,7 +132,7 @@ For FAQs and troubleshooting, visit **[morphe.software](https://morphe.software)
 
 ## 📙 Contributing
 
-Thank you for considering contributing to Morphe Manager.
+Thank you for considering contributing to Morphe.
 You can find the contribution guidelines [here](CONTRIBUTING.md).
 
 ## ❗ About

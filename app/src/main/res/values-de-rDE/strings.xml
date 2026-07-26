@@ -10,7 +10,7 @@
     <string name="home_app_no_hidden">Keine ausgeblendeten Apps</string>
     <string name="home_app_hidden_apps_title">Ausgeblendete Apps</string>
     <string name="home_app_hidden_apps_hint">Zum Einblenden antippen</string>
-    <string name="android_11_bug_dialog_title">Android 11-Fehler</string>
+    <string name="android_11_bug_dialog_title">Fehler in Android 11</string>
     <string name="android_11_bug_dialog_description">Die App-Installationserlaubnis muss vorab erteilt werden, um einen Fehler im Android-11-System zu vermeiden, der die Benutzererfahrung negativ beeinflussen wird</string>
     <string name="deep_link_add_source_title">Quelle hinzufügen</string>
     <string name="deep_link_add_source_message">Möchtest du diese Patch-Quelle zu Morphe hinzufügen?</string>
@@ -19,7 +19,7 @@
     <string name="home_update_available">Update für Morphe verfügbar</string>
     <string name="home_update_available_subtitle">Neue Version bereit zur Installation</string>
     <string name="home_blocked_source_title">Blockierte Patch-Quelle erkannt</string>
-    <string name="home_blocked_source_subtitle">Tippen Sie zum Überprüfen und Entfernen</string>
+    <string name="home_blocked_source_subtitle">Zum Überprüfen und Entfernen antippen</string>
     <string name="home_metadata_errors_title">Einige Patch-Quellen sind nicht verfügbar</string>
     <string name="home_metadata_errors_subtitle">Tippe, um die Quellen zu überprüfen</string>
     <string name="home_metered_skipped_title">Updates über mobile Daten wurden pausiert</string>
@@ -40,7 +40,7 @@
     <string name="home_app_sort_recommended_description">Installierte und angeheftete Apps zuerst</string>
     <string name="home_app_sort_name_asc_description">Alphabetisch, A bis Z</string>
     <string name="home_app_sort_name_desc_description">Umgekehrte alphabetische Reihenfolge, Z bis A</string>
-    <string name="home_app_sort_updates_first">Patches zuerst aktualisieren</string>
+    <string name="home_app_sort_updates_first">Patch-Updates zuerst</string>
     <string name="home_app_sort_updates_first_description">Apps mit Update-Badges zuerst, dann in empfohlener Reihenfolge</string>
     <string name="home_no_apps_title">Keine Apps verfügbar</string>
     <string name="home_no_apps_subtitle">Eine Patch-Quelle hinzufügen oder eine vorhandene in %s aktivieren</string>
@@ -62,15 +62,15 @@
     <!-- Home Screen - Home Greetings -->
     <string name="home_greeting_1">Welche App möchten Sie patchen?</string>
     <!-- Humorous hype message with light nostalgia -->
-    <string name="home_greeting_2">Bereit, um Apps wieder legendär zu machen?</string>
+    <string name="home_greeting_2">Bereit dazu, Apps wieder legendär zu machen?</string>
     <!-- "Buckle up" referring to fastening your vehicle seat belt. A light-hearted joke to build excitement -->
-    <string name="home_greeting_3">Machen Sie sich bereit! Es wird Zeit zum Patchen</string>
+    <string name="home_greeting_3">Mach dich bereit! Es wird Zeit zum patchen</string>
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
-    <string name="home_greeting_4">Neuer Tag, neues werbefreies Meisterwerk</string>
+    <string name="home_greeting_4">Täglich grüßt die Werbefreiheit</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
-    <string name="home_greeting_5">Haben Sie Bock auf Werbung? Wir nämlich auch nicht!</string>
+    <string name="home_greeting_5">Bock auf Werbung? Ich auch nicht!</string>
     <!-- Friendly, slightly mischievous joke about controlling app behavior -->
-    <string name="home_greeting_6">Bringen wir Ihren Apps Verhalten bei</string>
+    <string name="home_greeting_6">Bringen wir den Apps bei, wie man sich benimmt</string>
     <!-- Whimsical forecast-style joke, not meant literally -->
     <string name="home_greeting_7" formatted="false">Heutige Vorhersage: 100%ige Chance auf Patchen</string>
     <!-- From mediocrity to amazing -->
@@ -80,37 +80,37 @@
     <!-- Light sarcasm, casual and tech-savvy humor -->
     <string name="home_greeting_10">Angetrieben von Koffein und guten Patches</string>
     <!-- Morning greetings (5:00–11:59) -->
-    <string name="home_greeting_morning_1">Aufwachen und patchen</string>
-    <string name="home_greeting_morning_2">Guten Morgen! Apps patchen sich nicht von selbst</string>
+    <string name="home_greeting_morning_1">Der frühe Vogel patched den Wurm</string>
+    <string name="home_greeting_morning_2">Guten Morgen! Apps patchen sich nicht von allein</string>
     <!-- Afternoon greetings (12:00–16:59) -->
     <string name="home_greeting_afternoon_1">Nachmittagstief? Patch etwas</string>
     <string name="home_greeting_afternoon_2">Mittagspatch gefixt – fühlt sich anders an</string>
     <string name="home_greeting_afternoon_3">Der Nachmittagsschicht: Patch-Edition</string>
     <!-- Evening greetings (17:00–21:59) -->
     <string name="home_greeting_evening_1">Guten Abend! Abend-Patches fühlen sich anders an</string>
-    <string name="home_greeting_evening_2">Lockere Runde? Patch zuerst eine App</string>
-    <string name="home_greeting_evening_3">Feierabend? Patch etwas zuerst</string>
+    <string name="home_greeting_evening_2">Der Tag neigt sich dem Ende zu? Patch noch eine App</string>
+    <string name="home_greeting_evening_3">Feierabend? Patch noch etwas</string>
     <!-- Late night greetings (22:00–23:59) -->
-    <string name="home_greeting_late_night_1">Noch wach? Die Apps, die gepatcht werden müssen, auch</string>
-    <string name="home_greeting_late_night_2">Späte Patch-Session? Respekt!</string>
-    <string name="home_greeting_late_night_3">Nachtfuchs-Modus: aktiviert</string>
+    <string name="home_greeting_late_night_1">Noch wach? Geht den Apps, die noch gepatcht werden müssen genauso</string>
+    <string name="home_greeting_late_night_2">So spät noch am Patchen? Respekt!</string>
+    <string name="home_greeting_late_night_3">Schlaf-ist-was-für-Anfänger-Modus: aktiviert</string>
     <!-- Super late night greetings (0:00–4:59) -->
-    <string name="home_greeting_super_late_1">Hochbetrieb für Patches… angeblich</string>
-    <string name="home_greeting_super_late_2">Kannst du nicht schlafen? Patch etwas</string>
+    <string name="home_greeting_super_late_1">Beste Zeit für Patches… angeblich</string>
+    <string name="home_greeting_super_late_2">Kannst nicht schlafen? Patch etwas</string>
     <string name="home_greeting_super_late_3">Bleib lieber wach und patche</string>
-    <string name="home_greeting_super_late_4">Du und die Server, beide wach</string>
+    <string name="home_greeting_super_late_4">Du und die Server, beide noch wach</string>
     <string name="home_greeting_super_late_5">Nachtaktiv und produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch-Quellen</string>
     <string name="sources_sort_title">Patch-Quellen sortieren</string>
     <string name="sources_sort_manual">Manuelle Reihenfolge</string>
-    <string name="sources_sort_manual_hint">Halten Sie eine Quelle gedrückt, um sie neu anzuordnen</string>
+    <string name="sources_sort_manual_hint">Halte eine Quelle gedrückt, um sie neu anzuordnen</string>
     <string name="sources_sort_last_updated">Zuletzt aktualisiert</string>
-    <string name="sources_sort_last_updated_description">Neueste Quellenaktualisierungen zuerst</string>
+    <string name="sources_sort_last_updated_description">Neueste Quellen-Updates zuerst</string>
     <string name="sources_sort_enabled_first">Aktivierte zuerst</string>
     <string name="sources_sort_enabled_first_description">Aktive Quellen vor deaktivierten Quellen anzeigen</string>
     <string name="sources_management_open_in_browser">Im Browser öffnen</string>
-    <string name="sources_management_failed_to_open_url">Öffnen der URL fehlgeschlagen</string>
+    <string name="sources_management_failed_to_open_url">Fehler beim Öffnen der URL</string>
     <string name="sources_management_prerelease_toggle">Vorab-Patches</string>
     <string name="sources_management_prerelease_toggle_description">Erhalten Sie frühzeitigen Zugriff auf neue experimentelle Patch-Versionen</string>
     <string name="sources_management_experimental_versions_toggle">Experimentelle App-Versionen</string>
@@ -121,7 +121,7 @@
     <string name="sources_management_source_blocked_badge">Blockiert</string>
     <string name="sources_management_metadata_unavailable">Metadaten nicht verfügbar</string>
     <string name="sources_management_metadata_unavailable_hint">Die Metadatei des Remote-Servers ist nicht verfügbar. Das Patchen mit dem installierten Paket funktioniert weiterhin, die automatische Aktualisierung ist jedoch für diese Quelle deaktiviert</string>
-    <string name="sources_management_metadata_unavailable_hint_missing">Das Patch-Bundle konnte nicht heruntergeladen werden. Die Quell-URL ist möglicherweise falsch oder die Datei existiert nicht</string>
+    <string name="sources_management_metadata_unavailable_hint_missing">Das Patch-Bundle konnte nicht heruntergeladen werden. Die Quell-URL ist möglicherweise falsch oder die Datei existiert nicht.</string>
     <string name="sources_management_source_enabled">Quelle aktiviert</string>
     <string name="sources_management_source_disabled">Quelle deaktiviert</string>
     <string name="sources_management_source_updating">Quellen werden aktualisiert</string>
@@ -129,18 +129,18 @@
     <string name="sources_dialog_display_name">Anzeigename</string>
     <string name="sources_dialog_rename">Patch-Quelle umbenennen</string>
     <string name="sources_dialog_duplicate_name_error">Eine Patch-Quelle mit diesem Namen existiert bereits</string>
-    <string name="sources_dialog_missing_error">Konnte diese Patch-Quelle nicht aktualisieren</string>
+    <string name="sources_dialog_missing_error">Fehler beim Aktualisieren dieser Patch-Quelle</string>
     <string name="sources_dialog_view_any_version">Beliebige Version</string>
     <string name="sources_dialog_view_any_package">Beliebiges Paket</string>
     <string name="sources_dialog_add_source">Patch-Quelle hinzufügen</string>
-    <string name="sources_dialog_delete_confirm_message">Löschen der Quelle \"%s\"? Dies kann nicht rückgängig gemacht werden</string>
+    <string name="sources_dialog_delete_confirm_message">Quelle \"%s\" löschen? Dies kann nicht rückgängig gemacht werden</string>
     <string name="sources_dialog_remote">Remote</string>
     <string name="sources_dialog_remote_url">URL der Quelle</string>
     <string name="sources_dialog_remote_url_formats_title">Beispiele:</string>
     <string name="sources_dialog_local">Lokal</string>
     <string name="sources_dialog_local_file">Wählen Sie die Patch-Quell-Datei aus</string>
     <string name="sources_dialog_local_file_tap_hint">Tippen Sie, um den Speicher zu durchsuchen</string>
-    <string name="sources_dialog_local_file_description">Wählen Sie eine .MPP Patch Quell-Datei aus</string>
+    <string name="sources_dialog_local_file_description">Wählen Sie eine .mpp-Patch-Quell-Datei aus dem Speicher aus</string>
     <string name="sources_dialog_local_invalid_extension">Die Datei muss die Erweiterung .mpp haben</string>
     <string name="sources_dialog_url_valid">Gültige Repository- oder JSON-URL</string>
     <string name="sources_dialog_url_invalid">Die URL muss auf ein GitHub-/GitLab-Repository oder eine .json Datei verweisen</string>
@@ -148,14 +148,14 @@
     <string name="sources_dialog_preinstalled">Vorinstalliert</string>
     <string name="sources_update_success">Update erfolgreich</string>
     <string name="sources_update_unavailable">Kein Update verfügbar</string>
-    <string name="sources_download_fail">Herunterladen der Quellen fehlgeschlagen: %s</string>
+    <string name="sources_download_fail">Fehler beim Herunterladen der Quellen: %s</string>
     <string name="sources_download_fail_named">\'%s\' konnte nicht aktualisiert werden. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut</string>
     <string name="sources_download_endpoint_not_found">\'%s\': Patch-Metadaten nicht gefunden</string>
     <string name="sources_patch_expert_badge">Experte</string>
     <string name="sources_patch_expert_badge_tooltip">Expertenmodus in den Einstellungen aktivieren, um diesen Patch manuell einzuschließen</string>
     <!-- Home Screen - Dialog 1: APK Availability -->
-    <string name="home_apk_availability_dialog_title">Benötigen Sie Hilfe beim Finden einer originalen, nicht gepatchten APK?</string>
-    <string name="home_apk_availability_dialog_simple">Um &lt;b&gt;%s&lt;/b&gt; zu patchen, benötigen Sie die nicht gepatchte APK-Version:</string>
+    <string name="home_apk_availability_dialog_title">Brauchst du Hilfe bei der Suche nach einer originalen, ungepatchten APK-Datei?</string>
+    <string name="home_apk_availability_dialog_simple">Um &lt;b&gt;%s&lt;/b&gt; zu patchen, benötigst du die ungepatchte APK-Version:</string>
     <string name="home_apk_availability_dialog_expert">Um &lt;b&gt;%s&lt;/b&gt; zu patchen, benötigen Sie eine nicht gepatchte APK der Versionen:</string>
     <string name="home_apk_availability_recommended_label">Empfohlen</string>
     <string name="home_apk_availability_unpatched_label">Nicht gepatcht</string>
@@ -208,7 +208,7 @@
     <string name="expert_mode_proceed">Fortfahren zum Patchen</string>
     <string name="expert_mode_disable_all">Deaktiviere alle</string>
     <string name="expert_mode_disable_all_done">Alle Patches deaktiviert</string>
-    <string name="expert_mode_enable_all">Aktiviere alle</string>
+    <string name="expert_mode_enable_all">Alle aktivieren</string>
     <string name="expert_mode_enable_all_done">Alle Patches aktiviert</string>
     <string name="expert_mode_reset_to_default">Empfohlene Patches aktivieren</string>
     <string name="expert_mode_reset_to_default_done">Empfohlene Patches angewendet</string>
@@ -219,48 +219,48 @@
     <string name="expert_mode_no_results">Keine Patches gefunden</string>
     <string name="expert_mode_universal_patches">Universelle Patches</string>
     <string name="expert_mode_new_patches">Neu</string>
-    <string name="expert_mode_multiple_sources_warning_title">Mehrere Patch Quellen ausgewählt</string>
-    <string name="expert_mode_multiple_sources_warning_message">"Sie haben Patches aus mehreren Patch Quellen ausgewählt. Dies kann Kompatibilitätsprobleme oder unerwartetes Verhalten verursachen.
+    <string name="expert_mode_multiple_sources_warning_title">Mehrere Patch-Quellen ausgewählt</string>
+    <string name="expert_mode_multiple_sources_warning_message">"Du hast Patches aus mehreren Quellen ausgewählt. Dies kann zu Kompatibilitätsproblemen oder unerwartetem Verhalten führen.
 
-Möchten Sie trotzdem fortfahren?"</string>
+Möchtest du trotzdem fortfahren?"</string>
     <!-- Home Screen - Home Sub-Dialogs -->
     <string name="home_invalid_signature_title">Unverifizierte APK</string>
-    <string name="home_invalid_signature_message">Die von Ihnen ausgewählte APK für &lt;b&gt;%s&lt;/b&gt; stimmt nicht mit dem erwarteten Unterzeichnungszertifikat überein. Es wurde möglicherweise geändert oder stammt aus einer nicht vertrauenswürdigen Quelle</string>
+    <string name="home_invalid_signature_message">Die ausgewählte APK für &lt;b&gt;%s&lt;/b&gt; passt nicht zu dem erwarteten Signaturzertifikat. Möglicherweise wurde sie modifiziert oder stammt aus einer nicht vertrauenswürdigen Quelle</string>
     <string name="home_invalid_signature_badge">Diese APK ist möglicherweise nicht die Originalversion</string>
-    <string name="home_split_apk_warning_title">Split APK erkannt</string>
+    <string name="home_split_apk_warning_title">Split-APK erkannt</string>
     <string name="home_split_apk_warning_message">"Diese Datei ist ein APK-Bundle
 (&lt;b&gt;APKM / APKS / XAPK&lt;/b&gt;).
 
-Für optimale Ergebnisse empfiehlt diese App eine &lt;b&gt;vollständige APK&lt;/b&gt; zu patchen."</string>
+Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt;/b&gt; zu patchen."</string>
     <string name="home_split_apk_warning_pick_another">Wählen Sie eine andere APK</string>
     <string name="home_dialog_unsupported_version_experimental_label">Experimentell</string>
-    <string name="home_dialog_unsupported_version_experimental_description">Diese Version hat experimentelle Unterstützung und ist möglicherweise instabil oder unvollständig</string>
-    <string name="morphe_experimental_app_version_dialog_title">Möchten Sie experimentieren? 🧪</string>
-    <string name="morphe_experimental_app_version_dialog_message">Diese Version &lt;b&gt;%s&lt;/b&gt; hat eine frühe, experimentelle Unterstützung&lt;br/&gt;&lt;br/&gt;🔧 Rechnen Sie mit ungewöhnlichem App-Verhalten oder unbekannten Fehler, während die Patches für diese App-Version verfeinert werden</string>
+    <string name="home_dialog_unsupported_version_experimental_description">Diese Version bietet experimentelle Funktionen und ist möglicherweise instabil oder unvollständig</string>
+    <string name="morphe_experimental_app_version_dialog_title">Hast du Lust zu experimentieren? 🧪</string>
+    <string name="morphe_experimental_app_version_dialog_message">Diese Version von &lt;b&gt;%s&lt;/b&gt; befindet sich in einer frühen Testphase mit experimentellen Funktionen&lt;br/&gt;&lt;br/&gt;🔧 Rechne mit ungewöhnlichem App-Verhalten oder unbekannten Fehlern, da die Patches für diese App-Version noch optimiert werden</string>
     <string name="home_dialog_unsupported_version_dialog_title">Nicht unterstützte Version</string>
-    <string name="home_dialog_unsupported_version_dialog_description">Diese APK entspricht keiner empfohlenen App-Version. Fortfahren kann zu einer nicht funktionierenden App führen</string>
+    <string name="home_dialog_unsupported_version_dialog_description">Diese APK-Version wird nicht empfohlen. Fortfahren kann zu einer nicht funktionierenden App führen.</string>
     <string name="home_dialog_unsupported_version_dialog_proceed">Trotzdem fortfahren</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatible Versionen:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Nicht unterstützt</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
     <string name="home_dialog_unsupported_version_build">Build %d</string>
-    <string name="home_dialog_unsupported_version_build_mismatch_description">Dies ist eine andere Build-Version derselben Version. Die Patches erfordern eine bestimmte Build-Version</string>
+    <string name="home_dialog_unsupported_version_build_mismatch_description">Dies ist ein anderer Build derselben Version. Die Patches erfordern einen bestimmten Build</string>
     <string name="home_dialog_wrong_package_title">Falsches Paket ausgewählt</string>
-    <string name="home_dialog_wrong_package_description">Die ausgewählte APK ist nicht für die App bestimmt, die Sie patchen wollten</string>
+    <string name="home_dialog_wrong_package_description">Die ausgewählte APK ist nicht für die App bestimmt, die du patchen wolltest</string>
     <string name="home_dialog_expected_package">Erwartetes Paket:</string>
     <string name="home_dialog_selected_package">Ausgewähltes Paket:</string>
     <string name="home_outdated_patches_dialog_title">Patches könnten veraltet sein</string>
     <string name="home_outdated_patches_dialog_message">Mobile Daten sind aktiv und Patch-Updates sind deaktiviert</string>
     <string name="home_outdated_patches_dialog_warning">Das Patchen mit veralteten Patches kann zu einer defekten App führen</string>
-    <string name="home_outdated_patches_dialog_update_and_patch">Updaten &amp; patchen</string>
+    <string name="home_outdated_patches_dialog_update_and_patch">Aktualisieren &amp; patchen</string>
     <string name="home_low_disk_space_dialog_title">Wenig Speicherplatz</string>
     <string name="home_low_disk_space_dialog_message">Nur %1$.2f GB freier Speicherplatz verfügbar. Das Anwenden der Patches erfordert mindestens %2$.2f GB freien Speicherplatz, um korrekt zu funktionieren</string>
     <string name="home_low_disk_space_dialog_warning">Das Fortfahren kann zu einem \"Datei nicht gefunden\"-Fehler oder einer beschädigten Ausgabe-APK führen</string>
     <string name="home_simple_bundle_select_title">Wählen Sie die Patch-Quelldatei aus</string>
     <!-- Patch Options -->
     <string name="custom_color">Benutzerdefinierte Farbe</string>
-    <string name="hex_color">HEX  Farbcode</string>
-    <string name="patch_option_instructions">Anweisungen</string>
+    <string name="hex_color">Hex-Farbcode</string>
+    <string name="patch_option_instructions">Anleitung</string>
     <string name="patch_option_enter_value">Wert eingeben</string>
     <string name="patch_option_enter_number">Zahl eingeben</string>
     <string name="patch_option_enter_decimal">Dezimalzahl eingeben</string>
@@ -339,7 +339,7 @@ Für optimale Ergebnisse empfiehlt diese App eine &lt;b&gt;vollständige APK&lt;
     <string name="root_pre_patch_installer_description">Dein Gerät hat Root-Zugriff. Wähle, ob diese App für Root-Mount oder Standardinstallation gepatcht werden soll.</string>
     <string name="root_pre_patch_installer_mount_title">Root-Mount-Modus</string>
     <string name="root_pre_patch_installer_mount_description">Patches für Root-Mount und mountet die APK dann über die passende Stock-App. Kein GmsCore erforderlich.</string>
-    <string name="root_mount_module_unmount_warning">Wenn Sie KernelSU oder APatch verwenden, deaktivieren Sie das Auslagern oder Verbergen von Modulen für Apps, die mit Root-Mount installiert wurden. Andernfalls kann die Standard-App weiterhin ausgeführt werden, auch wenn Morphe sie als gemountet anzeigt.</string>
+    <string name="root_mount_module_unmount_warning">Wenn KernelSU standardmäßig das Modul \"Aushängen\" aktiviert hat, öffnen Sie KernelSU &gt; Superuser &gt; die App, die Sie gemountet haben &gt; Profil &gt; Benutzerdefiniert und deaktivieren Sie das Modul \"Aushängen\". Andernfalls kann die gemountete gepatchte APK nicht wirksam werden, auch wenn Morphe sie als gemountet anzeigt.</string>
     <string name="root_pre_patch_installer_standard_title">Standard-Installationsmodus</string>
     <string name="root_pre_patch_installer_standard_description">Patches als normale APK mit GmsCore-Unterstützung. Ihre Installatoreinstellung wird nach dem Patchen verwendet.</string>
     <string name="root_pre_patch_installer_hint">Dieser Patch-Modus ist von Einstellungen &gt; System &gt; Installer getrennt und kann nach dem Patchen nicht mehr geändert werden.</string>
@@ -351,67 +351,68 @@ Für optimale Ergebnisse empfiehlt diese App eine &lt;b&gt;vollständige APK&lt;
     <string name="patcher_tab_logs">Patcher-Protokolle</string>
     <string name="patcher_tab_game">Spiele</string>
     <string name="patcher_long_step_warning">Dieser Schritt kann eine Weile dauern. Bitte warten…</string>
-    <string name="patcher_installing_subtitle">Fast fertig zum Rocken! 🎸</string>
-    <string name="patcher_success_title">Fertig! 🎉</string>
+    <string name="patcher_installing_subtitle">Gleich geht die Party ab! 🎸</string>
+    <string name="patcher_success_title">Alles erledigt! 🎉</string>
     <string name="patcher_success_subtitle">Ihre App ist gepatcht und installiert!</string>
-    <string name="patcher_complete_title">Patchen abgeschlossen! ✨</string>
-    <string name="patcher_failed_title">Hoppla! Etwas ist schiefgelaufen</string>
+    <string name="patcher_complete_title">Patch-Vorgang abgeschlossen! ✨</string>
+    <string name="patcher_failed_title">Hoppla! Da ist etwas schiefgelaufen</string>
     <string name="patcher_failed_subtitle">Überprüfe die Fehlerdetails unten</string>
-    <string name="patcher_failed_dialog_title">Patchen fehlgeschlagen</string>
+    <string name="patcher_failed_dialog_title">Patch-Vorgang fehlgeschlagen</string>
     <string name="patcher_unknown_error">Ein unbekannter Fehler ist aufgetreten</string>
-    <string name="patcher_split_step_extracting">Extrahieren von Split-APKs</string>
+    <string name="patcher_split_step_extracting">Extrahiere Split-APKs</string>
     <string name="patcher_split_step_merging">%s wird zusammengeführt</string>
     <string name="patcher_split_step_writing">Zusammengeführte APK wird geschrieben</string>
     <string name="patcher_split_step_finalizing">Zusammengeführte APK wird fertiggestellt</string>
     <string name="patcher_conflict_title">Paketkonflikt</string>
     <string name="patcher_conflict_subtitle">Du musst die vorhandene Version deinstallieren</string>
-    <string name="patcher_conflict_hint">Die gepatchte App verwendet ein anderes Zertifikat als die installierte Version. Die Deinstallation löscht alle App-Daten</string>
+    <string name="patcher_conflict_hint">Die gepatchte App verwendet ein anderes Zertifikat als die installierte Version. Die Deinstallation löscht alle App-Daten.
+</string>
     <string name="patcher_installed_conflict_title">Deinstallation erforderlich</string>
-    <string name="patcher_installed_conflict_body">"Morphe signiert gepatchte Apps mit seinem eigenen Zertifikat, das sich vom Original unterscheidet. Android erfordert, dass die vorhandene Version entfernt wird, bevor die gepatchte App installiert werden kann.
+    <string name="patcher_installed_conflict_body">"Morphe signiert gepatchte Apps mit seinem eigenen Zertifikat, welches sich von dem des Originals unterscheidet. Unter Android muss die vorhandene Version entfernt werden, bevor die gepatchte App installiert werden kann.
 
 Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
-    <string name="patcher_install_error_title">Installationsfehler</string>
-    <string name="patcher_install_error_subtitle">Versuchen Sie die App zu deinstallieren und erneut zu installieren</string>
-    <string name="patcher_ready_to_install_subtitle">Drücken Sie die Schaltfläche unten zum Installieren</string>
-    <string name="patcher_ready_to_mount_subtitle">Drücke die Schaltfläche unten, um zu mounten</string>
-    <string name="patcher_storage_permission_dialog_title">Speicherpfad kann nicht erreicht werden</string>
+    <string name="patcher_install_error_title">Fehler bei der Installation</string>
+    <string name="patcher_install_error_subtitle">Versuche, die App zu entfernen und erneut zu installieren</string>
+    <string name="patcher_ready_to_install_subtitle">Drücke die Schaltfläche unten zum Installieren</string>
+    <string name="patcher_ready_to_mount_subtitle">Drücke die Schaltfläche unten zum Mounten</string>
+    <string name="patcher_storage_permission_dialog_title">Auf den Speicherpfad kann nicht zugegriffen werden</string>
     <string name="patcher_incompatible_patcher_title">Update erforderlich</string>
-    <string name="patcher_incompatible_patcher_description">Das Bundle &lt;b&gt;%1$s&lt;/b&gt; benötigt Patcher-Version &lt;b&gt;%2$s&lt;/b&gt; oder neuer. Bitte aktualisieren Sie Morphe, um diese App zu patchen</string>
+    <string name="patcher_incompatible_patcher_description">Das Bundle &lt;b&gt;%1$s&lt;/b&gt; benötigt Patcher-Version &lt;b&gt;%2$s&lt;/b&gt; oder neuer. Bitte aktualisiere Morphe, um diese App zu patchen</string>
     <string name="patcher_incompatible_patcher_update_button">Morphe herunterladen und aktualisieren</string>
-    <string name="patcher_storage_permission_description_api30">Eine oder mehrere Patch-Optionen verweisen auf Pfade, die Morphe nicht lesen kann. Gewähren Sie den Speicherzugriff und tippen Sie auf die Schaltfläche, dann beginnt das Patchen automatisch</string>
-    <string name="patcher_storage_permission_description_legacy">Ein oder mehrere Patch-Optionen verweisen auf Pfade, auf die nicht zugegriffen werden kann. Aktualisieren Sie die Pfade in den Patch-Optionen und versuchen Sie es erneut</string>
-    <string name="patcher_storage_permission_grant">Speicherberechtigung gewähren</string>
-    <string name="patcher_storage_permission_denied_warning">Speicherkartenberechtigung wurde abgelehnt. Erteilen Sie die Berechtigung, um diesen Pfad zu verwenden, oder verschieben Sie die Dateien in das private Verzeichnis der App</string>
+    <string name="patcher_storage_permission_description_api30">Eine oder mehrere Patch-Optionen verweisen auf Pfade, die Morphe nicht lesen kann. Erlaube den Speicherzugriff und tippe auf die Schaltfläche, dann beginnt das Patchen automatisch</string>
+    <string name="patcher_storage_permission_description_legacy">Eine oder mehrere Patch-Optionen verweisen auf Pfade, auf die nicht zugegriffen werden kann. Aktualisiere die Pfade in den Patch-Optionen und versuche es erneut</string>
+    <string name="patcher_storage_permission_grant">Speicherberechtigung erteilen</string>
+    <string name="patcher_storage_permission_denied_warning">Speicherberechtigung wurde abgelehnt. Erteile die Berechtigung, um auf diesen Pfad zugreifen zu können oder verschiebe die Dateien in das private Verzeichnis der App</string>
     <string name="patcher_storage_permission_open_settings">Speichereinstellungen öffnen</string>
     <string name="patcher_storage_badge_denied">Berechtigung abgelehnt</string>
     <string name="patcher_storage_badge_missing">Nicht gefunden</string>
-    <string name="patcher_storage_permission_hint">Tipp: Verschieben Sie Dateien nach /Android/data/app.morphe.manager/files/ - keine zusätzlichen Berechtigungen erforderlich</string>
+    <string name="patcher_storage_permission_hint">Tipp: Verschiebe Dateien nach /Android/data/app.morphe.manager/files/ - keine zusätzlichen Berechtigungen erforderlich</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Wird vorbereitet</string>
     <string name="patcher_step_load_patches">Patches werden geladen</string>
     <string name="patcher_step_prepare_split_apk">Split-APK wird zusammengeführt</string>
     <string name="patcher_step_unpack">APK-Datei wird gelesen</string>
-    <string name="patcher_step_group_patching">Wird gepatcht</string>
+    <string name="patcher_step_group_patching">Patche</string>
     <string name="patcher_step_group_saving">Wird gespeichert</string>
     <string name="patcher_step_write_patched">Gepatchte APK-Datei wird geschrieben</string>
     <string name="patcher_step_sign_apk">Gepatchte APK-Datei wird signiert</string>
     <!-- Battery optimization pre-flight dialog -->
-    <string name="battery_optimization_dialog_title">Schutz für Hintergrund-Patching</string>
-    <string name="battery_optimization_dialog_description">Auf einigen Geräten wird das Patchen beendet, wenn die App minimiert wird. Erlauben Sie Morphe ohne Batteriebeschränkungen zu laufen, um sicherzustellen, dass das Patchen zuverlässig abgeschlossen wird</string>
+    <string name="battery_optimization_dialog_title">Schutz vor Hintergrund-Patching</string>
+    <string name="battery_optimization_dialog_description">Auf einigen Geräten wird das Patchen unterbrochen, sobald die App minimiert wird. Erlaube Morphe, ohne Akkuoptimierung im Hintergrund zu laufen, um sicherzustellen, dass der Vorgang zuverlässig abgeschlossen wird</string>
     <string name="battery_optimization_not_now">Nicht jetzt</string>
     <!-- Patcher Screen - Patcher Worker -->
-    <string name="patcher_notification_title">Patchen läuft…</string>
+    <string name="patcher_notification_title">Patch-Vorgang läuft…</string>
     <string name="patcher_notification_text">Zum Patcher zurückkehren</string>
     <string name="patcher_stop_confirm_title">Patcher stoppen</string>
-    <string name="patcher_stop_confirm_description">Möchten Sie den Patchvorgang wirklich stoppen?</string>
+    <string name="patcher_stop_confirm_description">Möchtest du den Patch-Vorgang wirklich stoppen?</string>
     <!-- Patcher Screen - Patcher Messages -->
     <string name="patcher_message_1">Wir verwandeln Ihre App in etwas Großartiges… 🏆</string>
     <string name="patcher_message_2">Wir bringen alten Apps neue Tricks bei… 🎩</string>
     <string name="patcher_message_3">Wir geben Ihrer App ein digitales Tuning… 🔧</string>
-    <string name="patcher_message_4">Wir brauen digitale Magie… ☕</string>
+    <string name="patcher_message_4">Digitale Magie entsteht… ☕</string>
     <string name="patcher_message_5">Kaffeepause empfohlen… ☕</string>
-    <string name="patcher_message_6">Schauen Sie nach draußen, es ist schön dort… 🌤️</string>
-    <string name="patcher_message_7">Justiere 1en und 0en… 🤖</string>
+    <string name="patcher_message_6">Wirf einen Blick nach draußen, dort ist es wundervoll… 🌤️</string>
+    <string name="patcher_message_7">Passe 1en und 0en an… 🤖</string>
     <string name="patcher_message_8">Entwirre digitale Spaghetti… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Behebe Bugs in der ungepatchten App… 🪲</string>
@@ -478,7 +479,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_background_space">Weltraum</string>
     <string name="settings_appearance_background_shapes">Formen</string>
     <string name="settings_appearance_background_snow">Schnee</string>
-    <string name="settings_appearance_background_grid">Gitter</string>
+    <string name="settings_appearance_background_grid">Raster</string>
     <string name="settings_appearance_background_particles">Partikel</string>
     <string name="settings_appearance_background_none">Keine</string>
     <string name="settings_appearance_background_random">Zufällig</string>
@@ -486,18 +487,18 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_background_random_interval_daily">Täglich</string>
     <string name="settings_appearance_background_random_interval_3days">Alle 3 Tage</string>
     <string name="settings_appearance_parallax_effect">Parallax-Effekt</string>
-    <string name="settings_appearance_parallax_effect_description">Glatte Hintergrundverschiebung beim Neigen des Geräts</string>
+    <string name="settings_appearance_parallax_effect_description">Sanfte Hintergrundverschiebung beim Neigen des Geräts</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Thema</string>
-    <string name="settings_appearance_theme_mode">Themenmodus</string>
+    <string name="settings_appearance_theme_mode">Erscheinungsbild</string>
     <string name="settings_appearance_system">System</string>
     <string name="settings_appearance_light">Hell</string>
     <string name="settings_appearance_dark">Dunkel</string>
     <string name="settings_appearance_dynamic">Material You</string>
-    <string name="settings_appearance_monochrome">Monochrom</string>
+    <string name="settings_appearance_monochrome">Einfarbig</string>
     <string name="settings_appearance_color_style">Farbdesign</string>
     <string name="settings_appearance_accent_color">Akzentfarbe</string>
-    <string name="settings_appearance_pure_black">Reines Schwarz</string>
+    <string name="settings_appearance_pure_black">OLED-Optimierung</string>
     <string name="settings_appearance_pure_black_description">Verwendet echte schwarze Hintergründe</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language">App-Sprache</string>
@@ -507,12 +508,12 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
 %s"</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Startbildschirm</string>
-    <string name="settings_appearance_greeting_phrases">Begrüßungsformeln</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">Auf dem Startbildschirm eine Begrüßungsnachricht anzeigen</string>
+    <string name="settings_appearance_greeting_phrases">Begrüßungsnachricht</string>
+    <string name="settings_appearance_greeting_phrases_subtitle">Zeige auf dem Startbildschirm eine Begrüßung an</string>
     <string name="settings_appearance_app_grouping">App-Gruppierung</string>
     <string name="settings_appearance_app_grouping_description">Zeigt einen Home-Bildschirm-Wechsler an, um Apps nach Quelle oder Ihren eigenen Kategorien zu gruppieren und die Auswahl bei Deaktivierung beizubehalten</string>
-    <string name="settings_appearance_sort_button">Sortieren-Button</string>
-    <string name="settings_appearance_sort_button_description">Zeigt den Sortier-Button auf dem Startbildschirm an</string>
+    <string name="settings_appearance_sort_button">Sortierknopf</string>
+    <string name="settings_appearance_sort_button_description">Zeigt eine Schaltfläche zum Sortieren auf dem Startbildschirm an</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App-Icon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>
@@ -730,7 +731,7 @@ Details: %2$s"</string>
     <string name="installer_shizuku_error_invalid_apk">Android konnte diese APK nicht lesen.</string>
     <string name="installer_shizuku_error_user_profile">Android hat dies für den aktuellen Benutzer oder das Arbeitsprofil blockiert.</string>
     <!-- Settings - System Tab - Performance Section -->
-    <string name="settings_system_battery_optimization">Batterieoptimierung</string>
+    <string name="settings_system_battery_optimization">Hintergrundoptimierung</string>
     <string name="settings_system_battery_optimization_description">Behält den Patcher im Betrieb, wenn die App minimiert wird</string>
     <string name="settings_system_background">Hintergrund</string>
     <string name="settings_system_process_runtime">Prozesslaufzeit</string>
@@ -1004,7 +1005,7 @@ Details: %2$s"</string>
     <string name="changelog_older_empty">Keine älteren Versionen zum Anzeigen</string>
     <string name="no_network_toast">Keine Internetverbindung verfügbar</string>
     <string name="update_available">Ein Update ist verfügbar</string>
-    <string name="ready_to_install_update">Bereit, das Update zu installieren</string>
+    <string name="ready_to_install_update">Update bereit zur Installation</string>
     <string name="update_completed">Update installiert</string>
     <string name="install_update_manager_failed">Installation des Updates fehlgeschlagen</string>
     <string name="installing_manager_update">Installiere Update…</string>

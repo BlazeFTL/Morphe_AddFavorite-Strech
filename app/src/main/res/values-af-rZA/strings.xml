@@ -339,7 +339,7 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="root_pre_patch_installer_description">Jou toestel het worteltoegang. Kies of hierdie program gepatch moet word vir wortelmontering of standaardinstallasie</string>
     <string name="root_pre_patch_installer_mount_title">Wortelmonteringsmodus</string>
     <string name="root_pre_patch_installer_mount_description">Patches vir wortelmontering, monteer dan die APK oor die ooreenstemmende standaardprogram. Geen GmsCore benodig nie</string>
-    <string name="root_mount_module_unmount_warning">As jy KernelSU of APatch gebruik, deaktiveer die ontkoppeling of verberging van modules vir toepassings wat met root mount geïnstalleer is. Anders kan die standaard toepassing steeds werk, selfs wanneer Morphe dit as gemonteerd wys.</string>
+    <string name="root_mount_module_unmount_warning">As KernelSU verstek Unmount modules geaktiveer het, maak KernelSU oop > Superuser > die app wat jy gemonteer het > Profiel > Pasgemaak en deaktiveer Unmount modules. Andersins kan die gemonteerde gepatchde APK nie effektief wees nie, selfs al wys Morphe dit as gemonteer.</string>
     <string name="root_pre_patch_installer_standard_title">Standaard installasiemodus</string>
     <string name="root_pre_patch_installer_standard_description">Patches as \'n normale APK met GmsCore ondersteuning. Jou installeringsinstelling word gebruik na die patching.</string>
     <string name="root_pre_patch_installer_hint">Hierdie patch modus is afsonderlik van Instellings > Stelsel > Installeerder en kan nie verander word ná patching nie.</string>

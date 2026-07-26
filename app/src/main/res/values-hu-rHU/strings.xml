@@ -339,7 +339,7 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="root_pre_patch_installer_description">A készülék root hozzáféréssel rendelkezik. Válaszd ki, hogy az alkalmazás root csatoláshoz vagy standard telepítéshez legyen-e javítva</string>
     <string name="root_pre_patch_installer_mount_title">Root csatolási mód</string>
     <string name="root_pre_patch_installer_mount_description">Javítások root csatoláshoz, majd az APK rátöltése a megfelelő gyári alkalmazásra. Nincs szükség GmsCore-ra</string>
-    <string name="root_mount_module_unmount_warning">Ha KernelSU-t vagy APatch-et használsz, tiltsd le a modulok kicsatlakoztatását vagy elrejtését a root joggal telepített alkalmazásoknál. Ellenkező esetben a gyári alkalmazás még akkor is fusson, még akkor is, ha a Morphe csatlakoztatottként jeleníti meg.</string>
+    <string name="root_mount_module_unmount_warning">Ha a KernelSU alapértelmezés szerint engedélyezi a leválasztó modulokat, nyissa meg a KernelSU-t &gt; Szuperfelhasználó &gt; azt az alkalmazást, amelyet rögzített &gt; Profil &gt; Egyéni és tiltsa le a leválasztó modulokat. Ellenkező esetben a rögzített APK nem lép életbe, még akkor sem, ha a Morphe rögzítettként mutatja.</string>
     <string name="root_pre_patch_installer_standard_title">Standard telepítési mód</string>
     <string name="root_pre_patch_installer_standard_description">Folyamatosan APK formátumú javítások GmsCore támogatással. A javítás után a telepítőbeállításaidat használjuk.</string>
     <string name="root_pre_patch_installer_hint">Ez a javítási mód eltér a Beállítások > Rendszer > Telepítő menüponttól, és a javítás után nem módosítható.</string>

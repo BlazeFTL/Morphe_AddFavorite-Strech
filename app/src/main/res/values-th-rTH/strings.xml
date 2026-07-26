@@ -338,7 +338,6 @@
     <string name="root_pre_patch_installer_description">อุปกรณ์ของคุณมีการเข้าถึงสิทธิ์รูท โปรดเลือกแอปนี้ควรแพตช์สำหรับการติดตั้งแบบรูทหรือแบบมาตรฐาน</string>
     <string name="root_pre_patch_installer_mount_title">โหมดการติดตั้งแบบรูท</string>
     <string name="root_pre_patch_installer_mount_description">แพตช์สำหรับการติดตั้งแบบรูท จากนั้นจึงติดตั้ง APK ทับแอปเดิมที่ตรงกัน ไม่จำเป็นต้องใช้ GmsCore</string>
-    <string name="root_mount_module_unmount_warning">หากคุณใช้ KernelSU หรือ APatch โปรดปิดการยกเลิกการติดตั้งหรือซ่อนโมดูลสำหรับแอปที่ติดตั้งด้วยรูทมิวนต์ มิฉะนั้น แอปสต็อกอาจยังคงทำงานได้แม้ว่า Morphe จะแสดงว่าเป็นแบบติดตั้งแล้ว</string>
     <string name="root_pre_patch_installer_standard_title">โหมดการติดตั้งแบบมาตรฐาน</string>
     <string name="root_pre_patch_installer_standard_description">แพตช์เป็น APK ปกติพร้อมการรองรับ GmsCore การตั้งค่าตัวติดตั้งของคุณจะถูกใช้หลังจากการแพตช์</string>
     <string name="root_pre_patch_installer_hint">โหมดแพตช์นี้แยกต่างหากจาก Settings > System > Installer และไม่สามารถเปลี่ยนแปลงได้หลังจากการแพตช์</string>

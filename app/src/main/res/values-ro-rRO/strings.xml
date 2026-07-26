@@ -336,7 +336,6 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="root_pre_patch_installer_description">Dispozitivul tău are acces root. Alege dacă această aplicație ar trebui să fie patch-uită pentru montare root sau instalare standard</string>
     <string name="root_pre_patch_installer_mount_title">Mod de montare root</string>
     <string name="root_pre_patch_installer_mount_description">Patch-uri pentru montare root, apoi montează APK-ul peste aplicația stock corespunzătoare. Nu este necesar GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Dacã foloseşti KernelSU sau APatch, dezactiveazã demontarea sau ascunderea modulului pentru aplicaţiile instalate cu montare root. Altfel, aplicaţia implicitã poate continua sã ruleze chiar dacã Morphe o afişeazã ca fiind montatã.</string>
     <string name="root_pre_patch_installer_standard_title">Mod de instalare standard</string>
     <string name="root_pre_patch_installer_standard_description">Patch-uri ca un APK normal cu suport GmsCore. Setarea de instalare este folositã dupã aplicarea patch-ului.</string>
     <string name="root_pre_patch_installer_hint">Acest mod de patch este separat de Settings &gt; System &gt; Installer şi nu poate fi modificat dupã aplicarea patch-ului.</string>

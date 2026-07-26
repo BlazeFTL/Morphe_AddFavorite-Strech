@@ -339,7 +339,7 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="root_pre_patch_installer_description">Din enhed har root-adgang. Vælg om denne app skal patchettes til root-montering eller standard installation</string>
     <string name="root_pre_patch_installer_mount_title">Root-monteringstilstand</string>
     <string name="root_pre_patch_installer_mount_description">Patches til root-montering og monterer derefter APK\'en over den matchende standardapp. Intet GmsCore er nødvendigt</string>
-    <string name="root_mount_module_unmount_warning">Hvis du bruger KernelSU eller APatch, skal du deaktivere afmontering eller skjuling af moduler for apps installeret med root mount. Ellers kan stock-appen stadig køre, selvom Morphe viser den som monteret.</string>
+    <string name="root_mount_module_unmount_warning">Hvis KernelSU har Unmount-moduler aktiveret som standard, skal du åbne KernelSU &gt; Superuser &gt; den app, du har monteret &gt; Profil &gt; Custom og deaktivere Unmount-moduler. Ellers kan den monterede patched APK muligvis ikke træde i kraft, selvom Morphe viser, at den er monteret</string>
     <string name="root_pre_patch_installer_standard_title">Standard installationsmode</string>
     <string name="root_pre_patch_installer_standard_description">Patches som en normal APK med GmsCore support. Din installationsindstilling bruges efter patching.</string>
     <string name="root_pre_patch_installer_hint">Denne patch-mode er separat fra Indstillinger > System > Installer og kan ikke ændres efter patching.</string>

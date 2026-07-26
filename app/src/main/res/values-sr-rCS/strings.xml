@@ -338,7 +338,6 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="root_pre_patch_installer_description">Vaš uređaj ima root pristup. Izaberite da li bi ova aplikacija trebalo da bude zakrpljena za root montažu ili standardnu instalaciju</string>
     <string name="root_pre_patch_installer_mount_title">Režim root montaže</string>
     <string name="root_pre_patch_installer_mount_description">Zakrpe za root montažu, zatim montira APK preko odgovarajuće fabričke aplikacije. Nije potreban GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Ako koristite KernelSU ili APatch, onemogućite rasklapanje ili sakrivanje modula za aplikacije instalirane sa root pristupom. U suprotnom, fabrička aplikacija može i dalje da radi, čak i kada Morphe pokaže da je montirana</string>
     <string name="root_pre_patch_installer_standard_title">Standardni način instalacije</string>
     <string name="root_pre_patch_installer_standard_description">Paketi kao normalni APK uz podršku GmsCore-a. Vaša postavka instalera se koristi nakon pakovanja</string>
     <string name="root_pre_patch_installer_hint">Ovaj režim pakovanja je odvojen od Podešavanja > Sistem > Instalera i ne može se menjati nakon pakovanja</string>

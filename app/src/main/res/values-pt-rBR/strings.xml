@@ -339,7 +339,7 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="root_pre_patch_installer_description">Seu dispositivo tem acesso root. Escolha se este aplicativo deve ser aplicado um patch para acesso root ou instalação padrão</string>
     <string name="root_pre_patch_installer_mount_title">Modo de montagem root</string>
     <string name="root_pre_patch_installer_mount_description">Patches para montagem root, então monta o APK sobre o aplicativo original correspondente. Sem necessidade de GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Se você usar KernelSU ou APatch, desative o desmonte ou ocultação de módulos para aplicativos instalados com montagem root. Caso contrário, o aplicativo original ainda pode ser executado mesmo quando o Morphe mostrar que ele está montado</string>
+    <string name="root_mount_module_unmount_warning">Se o KernelSU tiver os módulos de Desmontagem habilitados por padrão, abra o KernelSU &gt; Superusuário &gt; o aplicativo que você montou &gt; Perfil &gt; Personalizado e desabilite os módulos de Desmontagem. Caso contrário, o APK montado e corrigido pode não ter efeito, mesmo que o Morphe mostre que ele está montado</string>
     <string name="root_pre_patch_installer_standard_title">Modo de instalação padrão</string>
     <string name="root_pre_patch_installer_standard_description">Patches como um APK normal com suporte ao GmsCore. Sua configuração de instalador é usada após o patching</string>
     <string name="root_pre_patch_installer_hint">Este modo de patch é separado de Configurações > Sistema > Instalador e não pode ser alterado após o patching</string>

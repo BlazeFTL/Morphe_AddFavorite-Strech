@@ -336,7 +336,6 @@
     <string name="root_pre_patch_installer_description">このデバイスはroot権限を持っています。このアプリをrootマウント用にパッチするか、標準インストールするかを選択してください</string>
     <string name="root_pre_patch_installer_mount_title">root権限マウントモード</string>
     <string name="root_pre_patch_installer_mount_description">rootマウント用にパッチし、次にAPKを対応する純正アプリの上にマウントします。GmsCoreは必要ありません</string>
-    <string name="root_mount_module_unmount_warning">KernelSUまたはAPatchをご使用の場合は、rootマウントでインストールされたアプリのモジュールをアンマウントまたは非表示にしないでください。そうしないと、Morpheではマウントされているように表示されても、元のアプリが依然として実行される可能性があります。</string>
     <string name="root_pre_patch_installer_standard_title">標準インストールモード</string>
     <string name="root_pre_patch_installer_standard_description">GmsCoreサポートを備えた通常のAPKとしてパッチを適用します。パッチ適用後には、インストーラーの設定が使用されます。</string>
     <string name="root_pre_patch_installer_hint">このパッチモードは、[設定] > [システム] > [インストーラー]とは別に、パッチ適用後に変更することはできません。</string>

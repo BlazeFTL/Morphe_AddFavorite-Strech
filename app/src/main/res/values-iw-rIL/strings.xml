@@ -339,7 +339,6 @@
     <string name="root_pre_patch_installer_description">למכשיר שלך יש גישת רוט. בחר אם האפליקציה צריכה להיות מטופלת עבור התקנת רוט או התקנה רגילה</string>
     <string name="root_pre_patch_installer_mount_title">מצב התקנת רוט</string>
     <string name="root_pre_patch_installer_mount_description">תיקונים להתקנת רוט, ואז מתקין את ה-APK על גבי האפליקציה המקורית המתאימה. אין צורך ב-GmsCore</string>
-    <string name="root_mount_module_unmount_warning">אם אתה משתמש ב-KernelSU או ב-APatch, השבת את הסרת המודול או הסתרתו עבור אפליקציות שהותקנו עם הרכבת root. אחרת, ייתכן שהאפליקציה המקורית עדיין תפעל גם כאשר Morphe מציג אותה כמוּרכבת.</string>
     <string name="root_pre_patch_installer_standard_title">מצב התקנה רגיל</string>
     <string name="root_pre_patch_installer_standard_description">התקנת תיקונים כקובץ APK רגיל עם תמיכה ב-GmsCore. הגדרת המתקין שלך משמשת לאחר תיקון</string>
     <string name="root_pre_patch_installer_hint">מצב תיקון זה נפרד מ-Settings > System > Installer ואינו יכול להיות שונה לאחר תיקון</string>

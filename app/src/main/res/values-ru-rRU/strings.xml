@@ -339,7 +339,6 @@
     <string name="root_pre_patch_installer_description">У вашего устройства есть root-доступ. Выберите, должен ли этот app быть пропатчен для root монтирования или стандартной установки</string>
     <string name="root_pre_patch_installer_mount_title">Root монтирование</string>
     <string name="root_pre_patch_installer_mount_description">Патчи для root монтирования, затем монтирует APK поверх соответствующего стокового app. GmsCore не требуется</string>
-    <string name="root_mount_module_unmount_warning">Если вы используете KernelSU или APatch, отключите отмонтирование или скрытие модулей для приложений, установленных с root-правами. В противном случае стандартное приложение может продолжать работать, даже если Morphe показывает, что оно смонтировано.</string>
     <string name="root_pre_patch_installer_standard_title">Стандартный режим установки</string>
     <string name="root_pre_patch_installer_standard_description">Патчи как обычный APK с поддержкой GmsCore. Ваша настройка установщика будет использована после применения патча</string>
     <string name="root_pre_patch_installer_hint">Этот режим патча отделен от Settings > System > Installer и не может быть изменен после применения патча</string>

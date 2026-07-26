@@ -337,7 +337,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="root_pre_patch_installer_description">Tækið þitt hefur rót aðgang. Veldu hvort þetta app á að vera flikkað fyrir rót mount eða venjulega uppsetningu</string>
     <string name="root_pre_patch_installer_mount_title">Rót mount stilling</string>
     <string name="root_pre_patch_installer_mount_description">Flikkar fyrir rót mount, og mountar síðan APK yfir samsvarandi lager forrit. Engin GmsCore þarf</string>
-    <string name="root_mount_module_unmount_warning">Ef þú notar KernelSU eða APatch, gerðu rafmagnsrof eða falin gögn óvirk fyrir forrit sem eru sett upp með root mount. Annars getur staðalforritið enn verið í gangi, jafnvel þótt Morphe sýni það sem mountað.</string>
+    <string name="root_mount_module_unmount_warning">Ef KernelSU hefur Unmount modules virka sjálfgefið skaltu opna KernelSU > Superuser > appið sem þú mountaðir > Profile > Custom og slá Unmount modules af. Ef ekki gæti mountað og breytt APK ekki virkað, jafnvel þótt Morphe sýni það sem mountað.</string>
     <string name="root_pre_patch_installer_standard_title">Venjulegur uppsetningarmáti</string>
     <string name="root_pre_patch_installer_standard_description">Pökkun sem venjulegt APK með GmsCore stuðningi. Uppsetningastillingin þín er notuð eftir pökkun</string>
     <string name="root_pre_patch_installer_hint">Þessi pökkunarstilling er aðskilin frá Stillingum > Kerfi > Uppsetningu og ekki er hægt að breyta henni eftir pökkun</string>

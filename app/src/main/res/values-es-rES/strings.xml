@@ -339,7 +339,7 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="root_pre_patch_installer_description">Tu dispositivo tiene acceso root. Elige si esta aplicación debe ser parcheada para montaje root o instalación estándar</string>
     <string name="root_pre_patch_installer_mount_title">Modo de montaje root</string>
     <string name="root_pre_patch_installer_mount_description">Parchea para montaje root, luego monta el APK sobre la aplicación original coincidente. No se necesita GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Si utilizas KernelSU o APatch, desactiva el desmontaje o la ocultación de módulos para las aplicaciones instaladas con montaje root. De lo contrario, la aplicación original aún podría ejecutarse incluso cuando Morphe la muestre como montada.</string>
+    <string name="root_mount_module_unmount_warning">Si KernelSU tiene los módulos Desmontar habilitados de forma predeterminada, abre KernelSU &gt; Superusuario &gt; la aplicación que montaste &gt; Perfil &gt; Personalizado y deshabilita los módulos Desmontar. De lo contrario, la APK parcheada montada podría no tener efecto, incluso si Morphe muestra que está montada</string>
     <string name="root_pre_patch_installer_standard_title">Modo de instalación estándar</string>
     <string name="root_pre_patch_installer_standard_description">Parchea como un APK normal con soporte para GmsCore. Se utilizará tu configuración del instalador tras aplicar los parches.</string>
     <string name="root_pre_patch_installer_hint">Este modo de parcheo es independiente de Configuración &gt; Sistema &gt; Instalador y no se puede cambiar después de aplicar los parches</string>

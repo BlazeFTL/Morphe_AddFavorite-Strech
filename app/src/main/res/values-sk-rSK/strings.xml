@@ -336,7 +336,6 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="root_pre_patch_installer_description">Vaše zariadenie má root prístup. Zvoľte, či má byť táto aplikácia záplatovaná pre root mount alebo štandardnú inštaláciu.</string>
     <string name="root_pre_patch_installer_mount_title">Režim root mount</string>
     <string name="root_pre_patch_installer_mount_description">Záplaty pre root mount, potom namontuje APK na zodpovedajúcu pôvodnú aplikáciu. Nie je potrebný GmsCore.</string>
-    <string name="root_mount_module_unmount_warning">Ak používate KernelSU alebo APatch, zablokujte odmontovanie alebo skrytie modulov pre aplikácie inštalované s root právami. Inak sa pôvodná aplikácia môže spustiť aj keď Morphe ju zobrazuje ako namontovanú.</string>
     <string name="root_pre_patch_installer_standard_title">Štandardná inštalácia</string>
     <string name="root_pre_patch_installer_standard_description">Patche ako bežný APK s podporou GmsCore. Po opatchovaní sa použije vaše nastavenie inštalátora.</string>
     <string name="root_pre_patch_installer_hint">Tento režim patchovania je oddelený od Nastavenia > Systém > Inštalátor a nedá sa zmeniť po opatchovaní.</string>

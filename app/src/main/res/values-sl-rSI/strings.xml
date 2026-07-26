@@ -336,7 +336,6 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="root_pre_patch_installer_description">Vaša naprava ima dostop do višinskih pravic. Izberite, ali naj bo ta aplikacija obliževana za root namestitev ali standardno namestitev.</string>
     <string name="root_pre_patch_installer_mount_title">Način namestitve root</string>
     <string name="root_pre_patch_installer_mount_description">Obliži za namestitev root, nato namesti APK prek ustrezne originalne aplikacije. GmsCore ni potreben.</string>
-    <string name="root_mount_module_unmount_warning">Če uporabljate KernelSU ali APatch, onemogočite razmontiranje ali skrivanje modulov za aplikacije, nameščene z root mountom. V nasprotnem primeru se lahko originalna aplikacija še vedno zažene, tudi če jo Morphe prikazuje kot nameščeno.</string>
     <string name="root_pre_patch_installer_standard_title">Standardni način namestitve</string>
     <string name="root_pre_patch_installer_standard_description">Popravki se namestijo kot običajna datoteka APK z GmsCore podporo. Vaša nastavitev namestitvenega programa se uporabi po popravku.</string>
     <string name="root_pre_patch_installer_hint">Ta način popravka je ločen od Nastavitve > Sistem > Namestitveni program in ga ni mogoče spremeniti po popravku.</string>

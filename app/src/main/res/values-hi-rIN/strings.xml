@@ -339,7 +339,7 @@
     <string name="root_pre_patch_installer_description">आपके डिवाइस में रूट एक्सेस है। चुनें कि क्या इस ऐप को रूट माउंट या मानक इंस्टॉलेशन के लिए पैच किया जाना चाहिए।</string>
     <string name="root_pre_patch_installer_mount_title">रूट माउंट मोड</string>
     <string name="root_pre_patch_installer_mount_description">रूट माउंट के लिए पैच, फिर स्टॉक ऐप से मेल खाने वाले APK पर माउंट करता है। GmsCore की आवश्यकता नहीं है।</string>
-    <string name="root_mount_module_unmount_warning">यदि आप KernelSU या APatch का उपयोग करते हैं, तो रूट माउंट से इंस्टॉल किए गए ऐप्स के लिए मॉड्यूल अनमाउंटिंग या छिपाने को अक्षम करें। अन्यथा स्टॉक ऐप अभी भी चल सकता है भले ही Morphe इसे माउंटेड दिखाए।</string>
+    <string name="root_mount_module_unmount_warning">यदि KernelSU में डिफ़ॉल्ट रूप से अनमाउंट मॉड्यूल सक्षम हैं, तो KernelSU &gt; सुपरयूज़र &gt; वह ऐप जिसे आपने माउंट किया है &gt; प्रोफ़ाइल &gt; कस्टम खोलें और अनमाउंट मॉड्यूल को अक्षम करें। अन्यथा माउंटेड पैच्ड APK प्रभावी नहीं हो सकता है, भले ही Morphe इसे माउंटेड दिखाए।</string>
     <string name="root_pre_patch_installer_standard_title">मानक इंस्टॉलेशन मोड</string>
     <string name="root_pre_patch_installer_standard_description">GmsCore समर्थन के साथ एक सामान्य APK के रूप में पैच। पैचिंग के बाद आपकी इंस्टॉलर सेटिंग का उपयोग किया जाता है।</string>
     <string name="root_pre_patch_installer_hint">यह पैच मोड सेटिंग्स > सिस्टम > इंस्टॉलर से अलग है और पैचिंग के बाद इसे नहीं बदला जा सकता है।</string>

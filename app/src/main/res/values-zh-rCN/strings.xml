@@ -336,7 +336,7 @@
     <string name="root_pre_patch_installer_description">您的设备已获取 root 权限。请选择是否为此应用应用 root 挂载补丁或标准安装</string>
     <string name="root_pre_patch_installer_mount_title">Root 挂载模式</string>
     <string name="root_pre_patch_installer_mount_description">针对 root 挂载的补丁，然后将 APK 覆盖到匹配的库存应用上。无需 GmsCore</string>
-    <string name="root_mount_module_unmount_warning">如果您使用 KernelSU 或 APatch，请禁用模块卸载或隐藏，以防止针对 root 挂载安装的应用被卸载或隐藏。否则，即使 Morphe 显示应用已挂载，系统应用也可能继续运行。</string>
+    <string name="root_mount_module_unmount_warning">如果 KernelSU 默认启用了卸载模块，请打开 KernelSU &gt; Superuser &gt; 您已挂载的应用 &gt; Profile &gt; Custom 并禁用卸载模块。否则，即使 Morphe 显示已挂载，已挂载的修补 APK 也可能无法生效。</string>
     <string name="root_pre_patch_installer_standard_title">标准安装模式</string>
     <string name="root_pre_patch_installer_standard_description">将补丁作为带有 GmsCore 支持的普通 APK 安装。应用补丁后将使用您的安装程序设置。</string>
     <string name="root_pre_patch_installer_hint">此补丁模式与“设置 > 系统 > 安装程序”中的设置分开，并且在应用补丁后无法更改。</string>

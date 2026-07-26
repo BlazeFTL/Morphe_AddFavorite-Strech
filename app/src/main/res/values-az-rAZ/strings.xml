@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Tövsiyə olunan yamaqlar tətbiq olundu</string>
     <string name="expert_mode_restore_saved">Saxlanılan seçimi bərpa et</string>
     <string name="expert_mode_restore_saved_done">Saxlanılan seçim bərpa olundu</string>
+    <string name="expert_mode_copy_from_bundle">Seçimi digər paketdən köçür</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Bu paketdəki yamaqlar uyğun deyil</string>
     <string name="expert_mode_no_results">Yamaqlar tapılmadı</string>
     <string name="expert_mode_universal_patches">Ümumi yamaqlar</string>
     <string name="expert_mode_new_patches">Yeni</string>
@@ -337,7 +339,6 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="root_pre_patch_installer_description">Cihazınızın root girişi var. Bu tətbiqin root montajı yoxsa standart quraşdırma məqsədilə yamaqlanmalı olub-olmadığını seçin</string>
     <string name="root_pre_patch_installer_mount_title">Root montajı rejimi</string>
     <string name="root_pre_patch_installer_mount_description">Root montajı üçün yamaqlayır, sonra APK-nı uyğun əsas tətbiqin üzərinə montaj edir. GmsCore tələb olunmur</string>
-    <string name="root_mount_module_unmount_warning">KernelSU və ya APatch istifadə edirsinizsə, root montajı ilə quraşdırılan tətbiqlər üçün modulun çıxarılmasını və ya gizlədilməsini qapadın. Əks halda, Morphe onun montaj olunduğunu göstərsə də, əsas tətbiq hələ də işləyə bilər</string>
     <string name="root_pre_patch_installer_standard_title">Standart quraşdırma rejimi</string>
     <string name="root_pre_patch_installer_standard_description">GmsCore dəstəyi ilə adi APK kimi yamaqlayır. Quraşdırıcı tənzimləməniz yamaqlanmadan sonra istifadə olunur</string>
     <string name="root_pre_patch_installer_hint">Bu yamaqlama rejimi Tənzimləmələr &gt; Sistem &gt; Quraşdırıcıdan ayrıdır və yamaqlanmadan sonra dəyişdirmək olmur</string>
@@ -860,9 +861,14 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_patch_options_section">Yamaq seçimləri</string>
     <string name="settings_system_no_patches_or_options">Yamaqlar və ya seçimlər saxlanılmayıb</string>
     <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Seçimi buradan köçür…</string>
+    <string name="copy_selection_confirm_with_count">%s köçür</string>
+    <string name="copy_selection_empty">Köçürmək üçün başqa saxlanılmış seçim yoxdur</string>
+    <string name="copy_selection_available_format">%2$s saydan %1$s var</string>
+    <string name="copy_selection_same_source">Eyni mənbə</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Fərdi fayl seçici</string>
-    <string name="settings_system_custom_file_picker_description">Sistem standartı əvəzində Morphe-nin qurulu fayl seçicisi ilə yaddaşı araşdır</string>
+    <string name="settings_system_custom_file_picker_description">Sistem standartı əvəzinə Morphe-nin qurulu fayl seçicisi ilə yaddaşı araşdır</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Əvvəlki kataloq</string>
     <string name="file_picker_no_files">Burada fayl yoxdur</string>
@@ -946,6 +952,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="rename">Təkrar adlandır</string>
     <string name="import_">İdxal et</string>
     <string name="export">Köçür</string>
+    <string name="copy">Köçür</string>
     <string name="download">Yüklə</string>
     <string name="less">Daha az</string>
     <string name="expand">Genişləndir</string>

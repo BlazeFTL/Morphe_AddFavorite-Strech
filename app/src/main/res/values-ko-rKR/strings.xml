@@ -38,8 +38,8 @@
     <string name="home_app_sort_manual_description">앱을 길게 탭한 후에 정렬 버튼을 탭하면 순서를 변경할 수 있습니다</string>
     <string name="home_app_sort_recommended">권장 순서</string>
     <string name="home_app_sort_recommended_description">설치된 앱 및 고정된 앱을 먼저 표시</string>
-    <string name="home_app_sort_name_asc_description">알파벳 오름차순으로 표시</string>
-    <string name="home_app_sort_name_desc_description">알파벳 내림차순으로 표시</string>
+    <string name="home_app_sort_name_asc_description">오름차순으로 정렬하여 표시</string>
+    <string name="home_app_sort_name_desc_description">내림차순으로 정렬하여 표시</string>
     <string name="home_app_sort_updates_first">패치 업데이트 우선</string>
     <string name="home_app_sort_updates_first_description">업데이트 배지가 있는 앱을 먼저, 그 다음 권장 순서대로 표시</string>
     <string name="home_no_apps_title">사용 가능한 앱이 없습니다</string>
@@ -339,7 +339,6 @@
     <string name="root_pre_patch_installer_description">이 기기는 루팅되어 있습니다. 이 앱을 루트 마운트 모드로 설치할지, 일반 설치 모드로 설치할지 선택하세요</string>
     <string name="root_pre_patch_installer_mount_title">루트 마운트 모드</string>
     <string name="root_pre_patch_installer_mount_description">루트 마운트 모드로 패치한 후에 해당 APK를 동일한 순정 앱 위에 마운트합니다. GmsCore는 필요하지 않습니다</string>
-    <string name="root_mount_module_unmount_warning">KernelSU 또는 APatch를 사용하는 경우에는 루트 마운트 모드로 설치한 앱에 대해 모듈 언마운트 또는 숨기기 기능을 비활성화하세요. 그렇지 않으면 Morphe에서는 마운트된 것으로 표시되더라도 실제로는 순정 앱이 계속 실행될 수 있습니다</string>
     <string name="root_pre_patch_installer_standard_title">일반 설치 모드</string>
     <string name="root_pre_patch_installer_standard_description">GmsCore를 지원하는 일반 APK로 패치합니다. 패치가 완료된 후에는 현재 설정된 설치 프로그램 설정을 사용하여 설치됩니다</string>
     <string name="root_pre_patch_installer_hint">이 패치 모드는 \'설정 &gt; 시스템 &gt; 설치 프로그램\' 설정과는 별개이며, 패치가 완료된 후에는 변경할 수 없습니다</string>
@@ -878,8 +877,8 @@ morphe_header_custom_dark.png
     <string name="file_picker_internal_storage">내부 저장소</string>
     <string name="file_picker_sd_card">SD 카드</string>
     <string name="file_picker_root">루트 (/)</string>
-    <string name="file_picker_sort_name_asc">이름 (A–Z)</string>
-    <string name="file_picker_sort_name_desc">이름 (Z–A)</string>
+    <string name="file_picker_sort_name_asc">이름 (오름차순)</string>
+    <string name="file_picker_sort_name_desc">이름 (내림차순)</string>
     <string name="file_picker_sort_size_desc">크기 (큰 순)</string>
     <string name="file_picker_sort_size_asc">크기 (작은 순)</string>
     <string name="file_picker_sort_date_desc">날짜 (최신순)</string>

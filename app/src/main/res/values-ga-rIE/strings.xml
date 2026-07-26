@@ -337,7 +337,6 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="root_pre_patch_installer_description">Tá rochtain fréimhe ag do ghléas. Roghnaigh an bhfuil an aip seo le paisteáil le haghaidh suiteáil fréimhe nó suiteáil chaighdeánach.</string>
     <string name="root_pre_patch_installer_mount_title">Mód gléasta fréimhe</string>
     <string name="root_pre_patch_installer_mount_description">Paistí le haghaidh fréamhghléasadh, ansin gléasann sé an APK thar an aip stoic chomhoiriúnach. Níl GmsCore ag teastáil</string>
-    <string name="root_mount_module_unmount_warning">Má úsáideann tú KernelSU nó APatch, díchumasaigh dífheistiú nó folaigh an mhodúil d’aipeanna atá suiteáilte le feistiú fréimhe. Seachas sin, d’fhéadfadh an aip stoic rith fós fiú nuair a thaispeánann Morphe é mar fheistithe.</string>
     <string name="root_pre_patch_installer_standard_title">Mód suiteála caighdeánach</string>
     <string name="root_pre_patch_installer_standard_description">Paistí mar APK gnáth le tacaíocht GmsCore. Úsáidtear do shocrú suiteálaí tar éis na paistí.</string>
     <string name="root_pre_patch_installer_hint">Tá an modh paiste seo ar leithligh ó Socruithe &gt; Córas &gt; Suiteálaí agus ní féidir é a athrú tar éis paisteála.</string>

@@ -214,8 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Önerilen yamalar uygulandı</string>
     <string name="expert_mode_restore_saved">Kaydedilen seçimi geri yükle</string>
     <string name="expert_mode_restore_saved_done">Kaydedilmiş seçim geri yüklendi</string>
-    <string name="expert_mode_copy_from_bundle">Başka bir demetten seçimi kopyala</string>
-    <string name="expert_mode_copy_from_bundle_no_patches">Bu demette eşleşen yama yok</string>
+    <string name="expert_mode_copy_from_bundle">Başka bir bundle\'dan seçimi kopyala</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Bu bundle\'da eşleşen yama yok</string>
     <string name="expert_mode_no_results">Yama bulunamadı</string>
     <string name="expert_mode_universal_patches">Evrensel yamalar</string>
     <string name="expert_mode_new_patches">Yeni</string>
@@ -336,13 +336,13 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="root_install_apk_required">Root modu, yamalama yapmadan önce orijinal APK\'nin cihazınızda yüklü olmasını gerektirir</string>
     <string name="root_gmscore_excluded">GmsCore destek yaması root modunda hariç tutulmuştur</string>
     <string name="root_pre_patch_installer_title">Yama modunu seçin</string>
-    <string name="root_pre_patch_installer_description">Cihazınız root erişimine sahip. Bu uygulamanın root mount için mi yoksa standart kurulum için mi yama uygulanacağını seçin</string>
+    <string name="root_pre_patch_installer_description">Cihazınız root erişimine sahip. Bu uygulamanın root bağlama ile mi yoksa standart yükleme ile mi yamalanacağını seçin</string>
     <string name="root_pre_patch_installer_mount_title">Root bağlama modu</string>
     <string name="root_pre_patch_installer_mount_description">Root mount için yamalar, ardından APK\'yı eşleşen stok uygulaması üzerinden bağlar. GmsCore\'a gerek yok</string>
-    <string name="root_mount_module_unmount_warning">KernelSU veya APatch kullanıyorsanız, root ile yüklenen uygulamalar için modülün sökülmesini veya gizlenmesini devre dışı bırakın. Aksi takdirde, Morphe tarafından monte edilmiş olarak gösterilse bile, stok uygulaması çalışmaya devam edebilir.</string>
-    <string name="root_pre_patch_installer_standard_title">Standart kurulum modu</string>
-    <string name="root_pre_patch_installer_standard_description">GmsCore desteğiyle normal bir APK olarak yamalar. Yamaladıktan sonra kurulum ayarınız kullanılır</string>
-    <string name="root_pre_patch_installer_hint">Bu yama modu Ayarlar > Sistem > Kurucu\'dan bağımsızdır ve yamaladıktan sonra değiştirilemez</string>
+    <string name="root_mount_module_unmount_warning">KernelSU, varsayılan olarak Sökme modüllerini etkinleştirmişse, KernelSU &gt; Süper Kullanıcı &gt; bağladığınız uygulama &gt; Profil &gt; Özel\'i açın ve Sökme modüllerini devre dışı bırakın. Aksi takdirde, bağlanan yama APK\'sı etkinleşmeyebilir, Morph gösterse bile.</string>
+    <string name="root_pre_patch_installer_standard_title">Standart yükleme modu</string>
+    <string name="root_pre_patch_installer_standard_description">GmsCore desteğiyle normal bir APK olarak yamalar. Yükleme ayarınız yamalamadan sonra kullanılır</string>
+    <string name="root_pre_patch_installer_hint">Bu yama modu Ayarlar &gt; Sistem &gt; Yükleyici\'den bağımsızdır ve yamaladıktan sonra değiştirilemez</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Hata panoya kopyalandı</string>
     <string name="patcher_error_log">Hata günlüğü</string>
@@ -442,7 +442,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patcher_process_exit_message">Patcher işlemi %s kodu ile sonlandı</string>
     <string name="install_app_success">Başarıyla yüklendi</string>
     <string name="install_app_fail">Uygulama yüklenemedi: %s</string>
-    <string name="uninstall_app_fail">Uygulamaönö kurulumu özledi: %s</string>
+    <string name="uninstall_app_fail">Uygulama kaldırılamadı: %s</string>
     <string name="uninstall_timeout">Kaldırma zaman aşımına uğradı</string>
     <string name="save_apk_success">APK Kaydedildi</string>
     <string name="saved_app_export_failed">Yamalanmış uygulama dışa aktarılamadı</string>
@@ -661,12 +661,12 @@ Resim boyutları şu şekilde olmalıdır:
     <!-- Settings - System Tab - Installer Section -->
     <string name="installer">Yükleyici</string>
     <string name="installer_settings_title">Varsayılan yükleyici</string>
-    <string name="installer_title">Yükleyici seçin</string>
+    <string name="installer_title">Yükleyici seç</string>
     <string name="installer_internal_description">Android paket yükleyicisini kullanır</string>
     <string name="installer_play_store_description">Sistem yükleyicisini kullanır ve Google Play Store\'u yükleme kaynağı olarak ayarlar</string>
     <string name="installer_root_play_store_description">Root erişimiyle sessizce yükler ve Google Play Store\'u yükleme kaynağı olarak ayarlar</string>
     <string name="installer_auto_saved_name">Root ile bağlama</string>
-    <string name="installer_auto_saved_description">Root ile bağlama modunda yamalanan uygulamaları bağlar. Standart yamalanmış APK\'lar başka bir kurulum aracı kullanır</string>
+    <string name="installer_auto_saved_description">Root ile bağlama modunda yamalanan uygulamaları bağlar. Standart yamalanmış APK\'ler başka bir yükleyici kullanır</string>
     <string name="installer_shizuku_description">Shizuku veya Sui kullanılarak sessiz modda yüklenir</string>
     <string name="installer_shizuku_play_store_description">Shizuku veya Sui aracılığıyla sessizce yükler ve Google Play Store\'u yükleme kaynağı olarak ayarlar</string>
     <string name="installer_option_none">Yedek yok</string>
@@ -695,7 +695,7 @@ Resim boyutları şu şekilde olmalıdır:
     <string name="installer_play_store_warning_risk">Play Store, değiştirilmiş uygulama için güncelleme sunabilir. Bu güncellemeyi yüklemek, değiştirilmiş APK\'yı orijinal sürümüyle değiştirir ve değişiklikleri kaldırır. Güncelleme yapmanız istenirse, uygulamanın Play Store sayfasındaki üç nokta menüsüne dokunun ve \"Güncellemeleri kapat\" seçeneğini seçin</string>
     <string name="installer_play_store_warning_continue">Anladım, devam et</string>
     <string name="installer_play_store_mode">Play Store olarak mı yüklensin</string>
-    <string name="installer_play_store_mode_description">Bu yükleme yöntemi için Google Play Store\'u kurulum kaynağı olarak kaydet</string>
+    <string name="installer_play_store_mode_description">Bu yükleme yöntemi için Google Play Store\'u yükleme kaynağı olarak kaydet</string>
     <string name="settings_prompt_installer_on_install">Yükleyici seçimi istemi</string>
     <string name="settings_prompt_installer_on_install_description">Yamalanmış bir uygulama her yüklendiğinde yükleyici seçim penceresini gösterir</string>
     <string name="settings_auto_install_with_shizuku">Yamalama sonrası otomatik yükle</string>
@@ -717,12 +717,12 @@ Resim boyutları şu şekilde olmalıdır:
     <string name="installer_shizuku_status_granted">Verildi</string>
     <string name="installer_shizuku_status_missing">Eksik</string>
     <string name="installer_shizuku_request_permission">İzin iste</string>
-    <string name="installer_shizuku_install_fail">Shizuku kurulumu başarısız oldu: %s</string>
-    <string name="installer_shizuku_install_fail_with_details">"Shizuku kurulumu başarısız oldu: %1$s
+    <string name="installer_shizuku_install_fail">Shizuku yüklemesi başarısız oldu: %s</string>
+    <string name="installer_shizuku_install_fail_with_details">"Shizuku yüklemesi başarısız oldu: %1$s
 
 Ayrıntılar: %2$s"</string>
     <string name="installer_shizuku_error_permission">Shizuku izni eksik. Morphe\'ye izin verin ve tekrar deneyin.</string>
-    <string name="installer_shizuku_error_timeout">Shizuku bir kurulum sonucu döndürmedi. Hala çalıştığından emin olun ve tekrar deneyin.</string>
+    <string name="installer_shizuku_error_timeout">Shizuku bir yükleme sonucu döndürmedi. Hala çalıştığından emin olun ve tekrar deneyin</string>
     <string name="installer_shizuku_error_downgrade">Android, bunu mevcut uygulamayı düşürdüğü için engelledi.</string>
     <string name="installer_shizuku_error_signature">Android, yüklenen uygulamanın farklı bir imzaya sahip olması nedeniyle bunu engelledi.</string>
     <string name="installer_shizuku_error_invalid_apk">Android bu APK\'yı okuyamadı.</string>
@@ -841,7 +841,7 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_original_apks_delete_all_title">Tüm orijinal APK\'ler silinsin mi?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Yama seçenekleri</string>
-    <string name="settings_system_patch_selections_description">Kayıtlı yama seçimleri, kaldırıldıktan sonra saklanır</string>
+    <string name="settings_system_patch_selections_description">Kayıtlı yama seçimleri kaldırıldıktan sonra saklanır</string>
     <string name="settings_system_patch_selection_reset_all_confirm_title">Tüm seçimler sıfırlansın mı?</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Paket seçimleri sıfırlansın mı?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Seçili paketler sıfırlansın mı?</string>

@@ -338,7 +338,6 @@
     <string name="root_pre_patch_installer_description">您的設備已獲得root權限。選擇此應用程序是否應為root掛載或標準安裝進行補丁</string>
     <string name="root_pre_patch_installer_mount_title">Root掛載模式</string>
     <string name="root_pre_patch_installer_mount_description">為root掛載補丁，然後將APK覆蓋在匹配的庫存應用程序上。不需要GmsCore</string>
-    <string name="root_mount_module_unmount_warning">如果您使用 KernelSU 或 APatch，請為搭配 Root 掛載安裝的應用程式停用模組卸載或隱藏功能。否則，即使 Morphe 顯示應用程式已掛載，原始應用程式仍可能繼續執行。</string>
     <string name="root_pre_patch_installer_standard_title">標準安裝模式</string>
     <string name="root_pre_patch_installer_standard_description">以支援 GmsCore 的一般 APK 形式修補。修補完成後，將使用您的安裝程式設定。</string>
     <string name="root_pre_patch_installer_hint">此修補模式與「設定」>「系統」>「安裝程式」分開，且修補後無法更改。</string>

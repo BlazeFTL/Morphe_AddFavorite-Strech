@@ -339,7 +339,6 @@
     <string name="root_pre_patch_installer_description">جهازك لديه صلاحيات Root. اختر ما إذا كان يجب تعديل هذا التطبيق بوضعية Root Mount أو التثبيت القياسي</string>
     <string name="root_pre_patch_installer_mount_title">وضع Root Mount</string>
     <string name="root_pre_patch_installer_mount_description">تعديلات لوضعية Root Mount، ثم يتم تركيب ملف APK فوق التطبيق الأصلي المطابق. لا حاجة إلى GmsCore</string>
-    <string name="root_mount_module_unmount_warning">إذا كنت تستخدم KernelSU أو APatch، فعطّل module unmounting أو إخفاء الوحدات النمطية للتطبيقات المثبتة باستخدام Root Mount. وإلا فقد يستمر تشغيل التطبيق الأصلي حتى عندما يعرض Morphe أنه مثبت</string>
     <string name="root_pre_patch_installer_standard_title">وضع التثبيت القياسي</string>
     <string name="root_pre_patch_installer_standard_description">تثبيت كملف APK عادي مع دعم GmsCore. يتم استخدام إعداد أداة التثبيت الخاصة بك بعد التعديل</string>
     <string name="root_pre_patch_installer_hint">وضع التعديل هذا منفصل عن الإعدادات &gt; النظام &gt; أداة التثبيت ولا يمكن تغييره بعد التعديل</string>

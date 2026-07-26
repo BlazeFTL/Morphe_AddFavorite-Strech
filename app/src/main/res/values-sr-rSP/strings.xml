@@ -336,7 +336,6 @@
     <string name="root_pre_patch_installer_description">Ваш уређај има рут приступ. Изаберите да ли ће апликација бити фластерована за рут монтирање или стандардну инсталацију.</string>
     <string name="root_pre_patch_installer_mount_title">Режим фластеровања рут монтирања</string>
     <string name="root_pre_patch_installer_mount_description">Фластери за рут монтирање, затим монтира APK преко одговарајуће оригиналне апликације. Није потребна GmsCore.</string>
-    <string name="root_mount_module_unmount_warning">Ако користите KernelSU или APatch, онемогућите расклањање или скривање модула за апликације инсталиране са рут приступом. У супротном, оригинална апликација може и даље да ради чак и када Morphe покаже да је монтирана.</string>
     <string name="root_pre_patch_installer_standard_title">Стандардна мода инсталације</string>
     <string name="root_pre_patch_installer_standard_description">Закрпе као нормалан APK са GmsCore подршком. Ваша поставка инсталатера се користи након закрпе.</string>
     <string name="root_pre_patch_installer_hint">Овај режим закрпе је посебан од Подешавања > Систем > Инсталатер и не може се променити након закрпе.</string>

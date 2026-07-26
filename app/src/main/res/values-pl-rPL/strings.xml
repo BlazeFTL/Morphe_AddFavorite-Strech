@@ -339,7 +339,6 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="root_pre_patch_installer_description">Twoje urządzenie ma dostęp do roota. Wybierz, czy ta aplikacja ma zostać zmodyfikowana pod montowanie z rootem, czy standardową instalację</string>
     <string name="root_pre_patch_installer_mount_title">Tryb montowania z rootem</string>
     <string name="root_pre_patch_installer_mount_description">Modyfikuje pod kątem montowania z rootem, a następnie montuje plik APK w miejscu oryginalnej aplikacji. Nie wymaga GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Jeśli używasz KernelSU lub APatch, wyłącz odmontowywanie lub ukrywanie modułów dla aplikacji instalowanych przez montowanie z rootem. W przeciwnym razie oryginalna aplikacja może nadal działać, nawet jeśli Morphe pokazuje ją jako zamontowaną</string>
     <string name="root_pre_patch_installer_standard_title">Standardowy tryb instalacji</string>
     <string name="root_pre_patch_installer_standard_description">Modyfikuje jako zwykły plik APK z obsługą GmsCore. Po zakończeniu modyfikacji zostanie użyte twoje ustawienie instalatora</string>
     <string name="root_pre_patch_installer_hint">Ten tryb modyfikacji jest niezależny od opcji Ustawienia &gt; System &gt; Instalator i nie można go zmienić po modyfikacji</string>

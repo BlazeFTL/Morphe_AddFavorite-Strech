@@ -338,7 +338,6 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="root_pre_patch_installer_description">Thiết bị của bạn đã có quyền root. Chọn xem ứng dụng này có nên được vá để gắn kết root hay cài đặt tiêu chuẩn không.</string>
     <string name="root_pre_patch_installer_mount_title">Chế độ gắn kết root</string>
     <string name="root_pre_patch_installer_mount_description">Vá lỗi cho chế độ gắn kết root, sau đó gắn kết tệp APK lên ứng dụng gốc tương ứng. Không cần GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Nếu bạn sử dụng KernelSU hoặc APatch, hãy tắt tính năng gỡ bỏ hoặc ẩn module cho các ứng dụng được cài đặt với quyền root. Nếu không, ứng dụng gốc vẫn có thể chạy ngay cả khi Morphe hiển thị nó là đã được gắn</string>
     <string name="root_pre_patch_installer_standard_title">Chế độ cài đặt tiêu chuẩn</string>
     <string name="root_pre_patch_installer_standard_description">Vá dưới dạng APK thông thường với hỗ trợ GmsCore. Cài đặt của bạn sẽ được sử dụng sau khi vá</string>
     <string name="root_pre_patch_installer_hint">Chế độ vá này khác với Cài đặt > Hệ thống > Trình cài đặt và không thể thay đổi sau khi vá</string>

@@ -340,7 +340,7 @@
     <string name="root_pre_patch_installer_description">Вашето устройство има root достъп. Изберете дали това приложение трябва да бъде пачнато за root монтиране или стандартна инсталация.</string>
     <string name="root_pre_patch_installer_mount_title">Режим на root монтиране</string>
     <string name="root_pre_patch_installer_mount_description">Пачове за root монтиране, след което монтира APK върху съответното стоково приложение. Не е необходим GmsCore.</string>
-    <string name="root_mount_module_unmount_warning">Ако използвате KernelSU или APatch, забранете размонтирането или скриването на модули за приложения, инсталирани с root mount. В противен случай стандартното приложение може да продължи да работи, дори когато Morphe го показва като монтирано.</string>
+    <string name="root_mount_module_unmount_warning">Ако KernelSU има активирани модули за автоматично размонтиране по подразбиране, отворете KernelSU &gt; Superuser &gt; приложението, което сте монтирали &gt; Profile &gt; Custom и деактивирайте модулите за автоматично размонтиране. В противен случай монтираният променен APK може да не влезе в сила, дори ако Morphe го показва като монтиран.</string>
     <string name="root_pre_patch_installer_standard_title">Стандартен режим на инсталиране</string>
     <string name="root_pre_patch_installer_standard_description">Патчове като нормален APK с GmsCore поддръжка. Вашата настройка на инсталатора се използва след патчването</string>
     <string name="root_pre_patch_installer_hint">Този режим на патчване е отделен от Settings > System > Installer и не може да бъде променен след патчването</string>

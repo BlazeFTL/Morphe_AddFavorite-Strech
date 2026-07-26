@@ -340,7 +340,7 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="root_pre_patch_installer_description">Laitteellasi on root-oikeudet. Valitse, tuliko sovelluksen paikkaus tehdä root-asennukselle vai tavalliseen asennukseen</string>
     <string name="root_pre_patch_installer_mount_title">Root-liitostila</string>
     <string name="root_pre_patch_installer_mount_description">Paikkaukset root-liitosta varten ja APK asennetaan vastaavan vakiosovelluksen päälle. GmsCorea ei tarvita.</string>
-    <string name="root_mount_module_unmount_warning">Jos käytät KernelSU:ta tai APatchia, poista moduulin purkaminen tai piilottaminen käytöstä sovelluksille, jotka on asennettu root-liitoksella. Muussa tapauksessa alkuperäinen sovellus saattaa silti käynnistyä, vaikka Morphe näyttäisi sen asennettuna.</string>
+    <string name="root_mount_module_unmount_warning">Jos KernelSU:ssa on oletusarvoisesti asennettuina irrotusmoduulit, avaa KernelSU &gt; Superkäyttäjä &gt; sovellus, jonka asensit &gt; Profiili &gt; Mukautettu ja poista irrotusmoduulit käytöstä. Muuten asennettu korjattu APK ei välttämättä tule voimaan, vaikka Morphe näyttäisi sen asennettuna.</string>
     <string name="root_pre_patch_installer_standard_title">Vakioasennustila</string>
     <string name="root_pre_patch_installer_standard_description">Paikkaa normaalina APK-tiedostona GmsCore-tuella. Asennusasetuksiasi käytetään paikkaamisen jälkeen.</string>
     <string name="root_pre_patch_installer_hint">Tämä paikkaustila on erillinen Asetukset > Järjestelmä > Asennusohjelma -asetuksista, eikä sitä voi muuttaa paikkaamisen jälkeen.</string>

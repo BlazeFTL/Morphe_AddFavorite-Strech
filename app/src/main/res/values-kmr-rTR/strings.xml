@@ -337,7 +337,7 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="root_pre_patch_installer_description">Cihaza te gihîştina root heye. Hilbijêre ku ev serîlêdan ji bo çîna root were pelkirin an sazkirina standard</string>
     <string name="root_pre_patch_installer_mount_title">Moda çîna root</string>
     <string name="root_pre_patch_installer_mount_description">Pelikên ji bo çîna root, paşê APKê li ser serîlêdana stokê yê hevdîtinî çêbike. Pêdivî bi GmsCore nîn e</string>
-    <string name="root_mount_module_unmount_warning">Heke KernelSU an APatch bikarî, rakirina modula veyaşartina moduleya veşartîna sepanên bi riya riya root hatine saz kirin hewce dikare asteng bike. Wekî din, sepanê yê orjînal dê her dem bikare bixebite, lê Morphe ew wekî veşartî nîşan dide</string>
+    <string name="root_mount_module_unmount_warning">Heke KernelSU bi modûlên Dis-mount\'ê bi piranî vekirî heye, KernelSU &gt; Superuser &gt; app\'a ku te li ser wê çêkirî &gt; Profile &gt; Custom veke û modûlên Dis-mount\'ê neçêkire. Wekî din, APK\'a paşguhkirî ya ku li ser wê çêkirî heye, dikare bandordike, heke Morphe wê wekî çêkirî nîşan bide.</string>
     <string name="root_pre_patch_installer_standard_title">Moda sazkirina standard</string>
     <string name="root_pre_patch_installer_standard_description">Pêçekan wekî APK\'yeke normal bi piştgiriya GmsCore. Rêgeziya sazkirina we piştî pêçekirinê tê bikar anîn</string>
     <string name="root_pre_patch_installer_hint">Ev moda pêçekirinê ji Rêgeziya > Pergal > Sazkirinê cûda ye û paşê de nikare bê guhertin</string>

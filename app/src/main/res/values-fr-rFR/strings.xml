@@ -38,7 +38,7 @@
     <string name="home_app_sort_manual_description">Appuyez longuement sur une application, puis appuyez sur le bouton de réorganisation</string>
     <string name="home_app_sort_recommended">Ordre recommandé</string>
     <string name="home_app_sort_recommended_description">Applications installées et épinglées en premier</string>
-    <string name="home_app_sort_name_asc_description">Ordre alphabétique A à Z</string>
+    <string name="home_app_sort_name_asc_description">Ordre alphabétique, A à Z</string>
     <string name="home_app_sort_name_desc_description">Ordre alphabétique inversé, Z à A</string>
     <string name="home_app_sort_updates_first">Mises à jour de patchs en premier</string>
     <string name="home_app_sort_updates_first_description">Applications avec badge de mise à jour en premier, puis ordre recommandé</string>
@@ -342,7 +342,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="root_pre_patch_installer_description">Votre appareil dispose d\'un accès root. Choisissez si cette application doit être patchée pour le montage root ou pour une installation standard</string>
     <string name="root_pre_patch_installer_mount_title">Mode de montage root</string>
     <string name="root_pre_patch_installer_mount_description">Patche pour le montage root, puis monte l\'APK par-dessus l\'application d\'origine correspondante. GmsCore n\'est pas nécessaire</string>
-    <string name="root_mount_module_unmount_warning">Si vous utilisez KernelSU ou APatch, désactivez le démontage ou le masquage des modules pour les applications installées avec le montage root. Sinon, l\'application d\'origine peut continuer à s\'exécuter même si Morphe l\'affiche comme montée</string>
+    <string name="root_mount_module_unmount_warning">Si KernelSU a les modules de démontage activés par défaut, ouvrez KernelSU &gt; Superutilisateur &gt; l\'application que vous avez monté &gt; Profil &gt; Personnalisé et désactivez les modules de démontage. Sinon, l\'APK patché monté risque de ne pas prendre effet, même si Morphe l\'affiche comme monté</string>
     <string name="root_pre_patch_installer_standard_title">Mode d\'installation standard</string>
     <string name="root_pre_patch_installer_standard_description">Patche en tant qu\'APK normal avec prise en charge de GmsCore. Votre paramètre d\'installateur est utilisé après le patchage</string>
     <string name="root_pre_patch_installer_hint">Ce mode de patch est distinct de Paramètres &gt; Système &gt; Installateur et ne peut pas être modifié après le patchage</string>

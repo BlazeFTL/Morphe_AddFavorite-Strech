@@ -339,7 +339,7 @@
     <string name="root_pre_patch_installer_description">Η συσκευή σας έχει πρόσβαση root. Επιλέξτε αν η εφαρμογή θα ενημερωθεί για προσάρτηση root ή τυπική εγκατάσταση</string>
     <string name="root_pre_patch_installer_mount_title">Λειτουργία προσάρτησης root</string>
     <string name="root_pre_patch_installer_mount_description">Ενημερώσεις για προσάρτηση root, στη συνέχεια προσαρτά το APK πάνω από την αντίστοιχη εργοστασιακή εφαρμογή. Δεν απαιτείται GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Εάν χρησιμοποιείτε KernelSU ή APatch, απενεργοποιήστε την αποσυναρμολόγηση ή απόκρυψη module για εφαρμογές που έχουν εγκατασταθεί με root mount. Διαφορετικά, η αρχική εφαρμογή ενδέχεται να εξακολουθεί να εκτελείται ακόμα και όταν το Morphe την εμφανίζει ως προσδεδεμένη</string>
+    <string name="root_mount_module_unmount_warning">Εάν το KernelSU έχει ενεργοποιημένα από προεπιλογή modules Αποσυναρμολόγησης, ανοίξτε το KernelSU > Superuser > την εφαρμογή που τοποθετήσατε > Profile > Custom και απενεργοποιήστε τα modules Αποσυναρμολόγησης. Διαφορετικά, το τοποθετημένο τροποποιημένο APK ενδέχεται να μην έχει αποτέλεσμα, ακόμη και αν το Morphe το εμφανίζει ως τοποθετημένο</string>
     <string name="root_pre_patch_installer_standard_title">Τυπική Εγκατάσταση</string>
     <string name="root_pre_patch_installer_standard_description">Εφαρμογές ενημέρωσης ως ένα κανονικό APK με υποστήριξη GmsCore. Η ρύθμιση του εγκαταστάτη σας χρησιμοποιείται μετά την ενημέρωση</string>
     <string name="root_pre_patch_installer_hint">Αυτή η λειτουργία ενημέρωσης είναι ανεξάρτητη από τις Ρυθμίσεις > Σύστημα > Εγκαταστάτη και δεν μπορεί να αλλάξει μετά την ενημέρωση</string>

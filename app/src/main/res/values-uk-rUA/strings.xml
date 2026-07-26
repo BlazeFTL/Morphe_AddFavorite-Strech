@@ -340,7 +340,7 @@
     <string name="root_pre_patch_installer_description">Ваш пристрій має root-доступ. Оберіть, чи слід патчити цей застосунок для root монтування чи стандартного встановлення</string>
     <string name="root_pre_patch_installer_mount_title">Режим root монтування</string>
     <string name="root_pre_patch_installer_mount_description">Патчить для root монтування, потім монтує APK поверх відповідного стокового застосунку. GmsCore не потрібен</string>
-    <string name="root_mount_module_unmount_warning">Якщо ви використовуєте KernelSU або APatch, вимкніть демонтування або приховування модулів для застосунків, встановлених через root монтування. Інакше стоковий застосунок може продовжувати працювати, навіть коли Morphe показує його як змонтований</string>
+    <string name="root_mount_module_unmount_warning">Якщо в KernelSU увімкнено \"Демонтувати модулі за замовчуванням\", відкрийте KernelSU &gt; Superuser &gt; застосунок, який ви змонтували &gt; Профіль &gt; Власні та вимкніть \"Демонтувати модулі\". Інакше змонтований пропатчений APK може не набути чинності, навіть якщо Morphe показує його як змонтований</string>
     <string name="root_pre_patch_installer_standard_title">Стандартний режим встановлення</string>
     <string name="root_pre_patch_installer_standard_description">Патчить як звичайний APK з підтримкою GmsCore. Ваше налаштування інсталятора використовується після патчингу</string>
     <string name="root_pre_patch_installer_hint">Цей режим патчингу окремий від Налаштування &gt; Система &gt; Інсталятор і не може бути змінений після патчингу</string>

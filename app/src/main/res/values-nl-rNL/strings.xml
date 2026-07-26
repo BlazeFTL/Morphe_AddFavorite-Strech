@@ -339,7 +339,7 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="root_pre_patch_installer_description">Je apparaat heeft root-toegang. Kies of deze app gepatcht moet worden voor root-mount of standaard installatie</string>
     <string name="root_pre_patch_installer_mount_title">Root-mount modus</string>
     <string name="root_pre_patch_installer_mount_description">Patches voor root-mount, en mount vervolgens de APK over de bijbehorende stock app. Geen GmsCore nodig</string>
-    <string name="root_mount_module_unmount_warning">Als je KernelSU of APatch gebruikt, schakel dan de demontage of het verbergen van modules uit voor apps die met root-rechten zijn geïnstalleerd. Anders kan de standaard app nog steeds worden uitgevoerd, zelfs als Morphe aangeeft dat deze is gemount.</string>
+    <string name="root_mount_module_unmount_warning">Als KernelSU standaard het loskoppelen van modules heeft ingeschakeld, open dan KernelSU &gt; Superuser &gt; de app die je hebt gemonteerd &gt; Profiel &gt; Aangepast en schakel het loskoppelen van modules uit. Anders kan de gemonteerde gepatchte APK mogelijk niet effectief worden, zelfs als Morphe aangeeft dat deze is gemonteerd.</string>
     <string name="root_pre_patch_installer_standard_title">Standaard installatiemodus</string>
     <string name="root_pre_patch_installer_standard_description">Patches als een normale APK met GmsCore-ondersteuning. Je installatie-instelling wordt gebruikt na het patchen</string>
     <string name="root_pre_patch_installer_hint">Deze patchmodus is gescheiden van Instellingen &gt; Systeem &gt; Installateur en kan niet worden gewijzigd na het patchen</string>

@@ -1,3 +1,11 @@
+# [1.25.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.2...v1.25.0-dev.3) (2026-07-26)
+
+
+### Bug Fixes
+
+* Preserve mount installs for saved APK flows ([#779](https://github.com/MorpheApp/morphe-manager/issues/779)) ([37cabf6](https://github.com/MorpheApp/morphe-manager/commit/37cabf6745d85ba7529f6a9f01ca229212b607fc))
+* Use the typed option API for folder options in Simple mode ([a9e21d8](https://github.com/MorpheApp/morphe-manager/commit/a9e21d810316f6b9406084e5d0900341934415a0))
+
 # [1.25.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.1...v1.25.0-dev.2) (2026-07-25)
 
 

@@ -54,12 +54,14 @@ import app.morphe.manager.ui.screen.shared.AppIcon
 import app.morphe.manager.ui.screen.shared.MorpheAnimations
 import app.morphe.manager.ui.screen.shared.ShimmerBox
 import app.morphe.manager.ui.screen.shared.drawDiagonalShimmer
+import app.morphe.manager.ui.theme.LocalAppCardColors
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.util.AppDataSource
 
 private data class HomeAppCardStyle(
     val monochrome: Boolean,
+    val cardColors: List<Color>?,
     val iconSize: Dp,
     val titleColor: Color,
     val subtitleColor: Color,
@@ -94,6 +96,7 @@ private fun homeAppCardStyle(subtitleAlpha: Float = 0.75f): HomeAppCardStyle {
 
     return HomeAppCardStyle(
         monochrome = monochrome,
+        cardColors = LocalAppCardColors.current,
         iconSize = 60.dp,
         titleColor = if (monochrome) MaterialTheme.colorScheme.onSurface else Color.White,
         subtitleColor = if (monochrome) {
@@ -123,15 +126,17 @@ private fun homeAppCardStyle(subtitleAlpha: Float = 0.75f): HomeAppCardStyle {
 /**
  * Shared icon + text content for [AppCardLayout] rows.
  *
- * @param packageName    Package name used for icon lookup when [packageInfo] is null.
+ * @param packageName    Package name used for icon lookup when [packageInfo] is null;
+ *   null renders the glass placeholder without resolving an icon.
  * @param packageInfo    Resolved [PackageInfo]; when non-null [packageName] is ignored for the icon.
  * @param displayName    Primary label shown in bold.
  * @param subtitle       Secondary line shown below [displayName]; null → not rendered.
- * @param gradientColors Gradient palette forwarded to [AppIcon] placeholder.
+ * @param gradientColors Gradient palette forwarded to [AppIcon] placeholder, unless the user
+ *   picked fixed card colors in the appearance settings.
  */
 @Composable
 internal fun RowScope.AppCardContent(
-    packageName: String,
+    packageName: String?,
     packageInfo: PackageInfo?,
     displayName: String,
     subtitle: String?,
@@ -145,7 +150,7 @@ internal fun RowScope.AppCardContent(
         contentDescription = null,
         modifier = Modifier.size(cardStyle.iconSize),
         preferredSource = AppDataSource.PATCHED_APK,
-        placeholderGradientColors = gradientColors,
+        placeholderGradientColors = cardStyle.cardColors ?: gradientColors,
         placeholderInnerPadding = 6.dp
     )
 
@@ -203,7 +208,9 @@ private fun GlassChip(
             Text(
                 text = text,
                 style = MaterialTheme.typography.labelSmall,
-                color = cardStyle.chipContentColor
+                color = cardStyle.chipContentColor,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }
@@ -396,9 +403,10 @@ internal fun AppCardLayout(
     val view = LocalView.current
 
     val contentAlpha = if (enabled) 1f else 0.45f
-    val baseColor = gradientColors.firstOrNull() ?: Color.White
-    val midColor = gradientColors.getOrElse(1) { baseColor }
-    val endColor = gradientColors.lastOrNull() ?: baseColor
+    val colors = cardStyle.cardColors ?: gradientColors
+    val baseColor = colors.firstOrNull() ?: Color.White
+    val midColor = colors.getOrElse(1) { baseColor }
+    val endColor = colors.lastOrNull() ?: baseColor
 
     // Disabled state fades everything
     val glassAlpha  = if (enabled) 1f else 0.5f
@@ -605,7 +613,8 @@ fun AppLoadingCard(
                     } else {
                         Modifier.background(
                             brush = Brush.linearGradient(
-                                colors = gradientColors.map { it.copy(alpha = pulseAlpha) },
+                                colors = (cardStyle.cardColors ?: gradientColors)
+                                    .map { it.copy(alpha = pulseAlpha) },
                                 start = Offset(if (rtl) 1000f else 0f, 0f),
                                 end = Offset(if (rtl) 0f else 1000f, 0f)
                             )

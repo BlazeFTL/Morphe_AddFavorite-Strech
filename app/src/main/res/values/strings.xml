@@ -539,6 +539,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_monochrome">Monochrome</string>
     <string name="settings_appearance_color_style">Color style</string>
     <string name="settings_appearance_style_morphe" translatable="false">Morphe</string>
+    <string name="settings_appearance_colors">Colors</string>
     <string name="settings_appearance_accent_color">Accent color</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Uses true black backgrounds</string>
@@ -559,6 +560,19 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_grouping_description">Show a home screen switcher to group apps by source or your own categories, keeping the selection when off</string>
     <string name="settings_appearance_sort_button">Sort button</string>
     <string name="settings_appearance_sort_button_description">Show the sort button on the home screen</string>
+    <string name="settings_appearance_app_card_colors">App card colors</string>
+    <string name="settings_appearance_app_card_colors_default">Default</string>
+    <string name="settings_appearance_app_card_colors_default_description">Give each app the color of its own bundle</string>
+    <string name="settings_appearance_app_card_colors_accent">Accent</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Use the app accent color for home app cards</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Use one custom gradient for home app cards</string>
+    <string name="settings_appearance_app_card_colors_solid">Solid</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Use one custom color for home app cards</string>
+    <string name="settings_appearance_app_card_colors_start">Start color</string>
+    <string name="settings_appearance_app_card_colors_middle">Middle color</string>
+    <string name="settings_appearance_app_card_colors_end">End color</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Solid color</string>
 
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App icon</string>

@@ -1,3 +1,15 @@
+# [1.25.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.3...v1.25.0-dev.4) (2026-07-28)
+
+
+### Bug Fixes
+
+* Fetch metadata for newly imported bundles that are disabled ([98af3c6](https://github.com/MorpheApp/morphe-manager/commit/98af3c6783310ec3217eda595e6119ab14fa4369))
+
+
+### Features
+
+* Add home app card color settings ([#777](https://github.com/MorpheApp/morphe-manager/issues/777)) ([18ba4ba](https://github.com/MorpheApp/morphe-manager/commit/18ba4bac4692ea2e357356e0da47eca9679e76da))
+
 # [1.25.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.2...v1.25.0-dev.3) (2026-07-26)
 
 

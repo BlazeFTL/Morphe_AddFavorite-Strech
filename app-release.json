@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-26T09:08:26",
-  "description": "# [1.25.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.2...v1.25.0-dev.3) (2026-07-26)\n\n\n### Bug Fixes\n\n* Preserve mount installs for saved APK flows ([#779](https://github.com/MorpheApp/morphe-manager/issues/779)) ([37cabf6](https://github.com/MorpheApp/morphe-manager/commit/37cabf6745d85ba7529f6a9f01ca229212b607fc))\n* Use the typed option API for folder options in Simple mode ([a9e21d8](https://github.com/MorpheApp/morphe-manager/commit/a9e21d810316f6b9406084e5d0900341934415a0))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.3/morphe-manager-1.25.0-dev.3.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.3/morphe-manager-1.25.0-dev.3.apk.asc",
-  "version": "1.25.0-dev.3"
+  "created_at": "2026-07-28T15:05:33",
+  "description": "# [1.25.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.3...v1.25.0-dev.4) (2026-07-28)\n\n\n### Bug Fixes\n\n* Fetch metadata for newly imported bundles that are disabled ([98af3c6](https://github.com/MorpheApp/morphe-manager/commit/98af3c6783310ec3217eda595e6119ab14fa4369))\n\n\n### Features\n\n* Add home app card color settings ([#777](https://github.com/MorpheApp/morphe-manager/issues/777)) ([18ba4ba](https://github.com/MorpheApp/morphe-manager/commit/18ba4bac4692ea2e357356e0da47eca9679e76da))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.4/morphe-manager-1.25.0-dev.4.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.4/morphe-manager-1.25.0-dev.4.apk.asc",
+  "version": "1.25.0-dev.4"
 }

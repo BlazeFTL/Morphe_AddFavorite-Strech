@@ -1412,19 +1412,6 @@ class PatchBundleRepository(
         )
     }
 
-    suspend fun updateOnlyMorpheBundle(
-        force: Boolean = false,
-        showToast: Boolean = false
-    ) {
-        store.dispatch(
-            Update(
-                force = force,
-                showToast = showToast,
-                allowUnsafeNetwork = false
-            ) { it.uid == DEFAULT_SOURCE_UID }
-        )
-    }
-
     /**
      * Suspends until any currently active update job completes.
      */
@@ -2081,7 +2068,9 @@ class PatchBundleRepository(
                 onPerBundleProgress = null,
                 predicate = { bundle ->
                     bundle.uid != DEFAULT_SOURCE_UID &&
-                            bundle.enabled &&
+                            // Disabled bundles are not refreshed, but ones that were never
+                            // downloaded still need their initial fetch
+                            (bundle.enabled || bundle.state is PatchBundleSource.State.Missing) &&
                             snapshots.any { s ->
                                 bundle.endpoint.equals(
                                     runCatching { normalizeRemoteBundleUrl(s.source) }.getOrNull(),

@@ -496,6 +496,7 @@
     <string name="settings_appearance_dynamic">मैटेरियल यू</string>
     <string name="settings_appearance_monochrome">मोनोक्रोम</string>
     <string name="settings_appearance_color_style">रंग शैली</string>
+    <string name="settings_appearance_colors">रंग</string>
     <string name="settings_appearance_accent_color">अक्सेंट रंग</string>
     <string name="settings_appearance_pure_black">शुद्ध काला</string>
     <string name="settings_appearance_pure_black_description">सही काले रंग की पृष्ठभूमि का उपयोग करता है।</string>
@@ -513,6 +514,9 @@
     <string name="settings_appearance_app_grouping_description">स्रोत या अपनी श्रेणियों द्वारा ऐप्स को समूहित करने के लिए होम स्क्रीन स्विचर दिखाएं, बंद होने पर चयन को बनाए रखें</string>
     <string name="settings_appearance_sort_button">क्रमबद्ध करें बटन</string>
     <string name="settings_appearance_sort_button_description">होम स्क्रीन पर क्रमबद्ध करें बटन दिखाएँ</string>
+    <string name="settings_appearance_app_card_colors">ऐप कार्ड रंग</string>
+    <string name="settings_appearance_app_card_colors_default">डिफ़ॉल्ट</string>
+    <string name="settings_appearance_app_card_colors_default_description">प्रत्येक ऐप को अपने बंडल का रंग दें</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">एप्लिकेशन आइकॉन</string>
     <string name="settings_appearance_app_icon_default">डिफॉल्ट</string>

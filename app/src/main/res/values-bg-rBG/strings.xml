@@ -497,6 +497,7 @@
     <string name="settings_appearance_dynamic">Материал Ю</string>
     <string name="settings_appearance_monochrome">Монохромен</string>
     <string name="settings_appearance_color_style">Стил на цветовете</string>
+    <string name="settings_appearance_colors">Цветове</string>
     <string name="settings_appearance_accent_color">Цвят на акцент</string>
     <string name="settings_appearance_pure_black">Натурално черно</string>
     <string name="settings_appearance_pure_black_description">Използва истински черни фонове</string>
@@ -514,6 +515,9 @@
     <string name="settings_appearance_app_grouping_description">Покажи превключвател на началния екран за групиране на приложения по източник или по твои категории, запазвайки селекцията, когато е изключено</string>
     <string name="settings_appearance_sort_button">Бутон за сортиране</string>
     <string name="settings_appearance_sort_button_description">Покажи бутона за сортиране на началния екран</string>
+    <string name="settings_appearance_app_card_colors">Цветове на картите на приложенията</string>
+    <string name="settings_appearance_app_card_colors_default">По подразбиране</string>
+    <string name="settings_appearance_app_card_colors_default_description">Присвояване на цвета на пакета на всяко приложение</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Икона на приложението</string>
     <string name="settings_appearance_app_icon_default">По подразбиране</string>

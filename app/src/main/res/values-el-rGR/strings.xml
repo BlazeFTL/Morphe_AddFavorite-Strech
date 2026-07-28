@@ -496,6 +496,7 @@
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Μονόχρωμο</string>
     <string name="settings_appearance_color_style">Στυλ χρώματος</string>
+    <string name="settings_appearance_colors">Χρώματα</string>
     <string name="settings_appearance_accent_color">Χρώμα έμφασης</string>
     <string name="settings_appearance_pure_black">Αληθινό μαύρο</string>
     <string name="settings_appearance_pure_black_description">Χρησιμοποιεί αληθινά μαύρα φόντα</string>
@@ -513,6 +514,9 @@
     <string name="settings_appearance_app_grouping_description">Εμφάνιση διακόπτη στην αρχική οθόνη για ομαδοποίηση εφαρμογών κατά πηγή ή δικές σας κατηγορίες, διατηρώντας την επιλογή όταν είναι απενεργοποιημένη</string>
     <string name="settings_appearance_sort_button">Κουμπί ταξινόμησης</string>
     <string name="settings_appearance_sort_button_description">Εμφάνιση του κουμπιού ταξινόμησης στην αρχική οθόνη</string>
+    <string name="settings_appearance_app_card_colors">Χρώματα καρτών εφαρμογών</string>
+    <string name="settings_appearance_app_card_colors_default">Προεπιλογή</string>
+    <string name="settings_appearance_app_card_colors_default_description">Δώστε σε κάθε εφαρμογή το χρώμα του δικού της πακέτου</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Εικονίδιο εφαρμογής</string>
     <string name="settings_appearance_app_icon_default">Προεπιλογή</string>

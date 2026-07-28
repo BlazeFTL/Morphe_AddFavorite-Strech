@@ -496,6 +496,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Monokrom</string>
     <string name="settings_appearance_color_style">Fargestil</string>
+    <string name="settings_appearance_colors">Farger</string>
     <string name="settings_appearance_accent_color">Accentfarge</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Bruker ekte svarte bakgrunner</string>
@@ -513,6 +514,9 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_app_grouping_description">Vis en startskjermbryter for å gruppere apper etter kilde eller egne kategorier, og behold valget når den er slått av</string>
     <string name="settings_appearance_sort_button">Sorter-knapp</string>
     <string name="settings_appearance_sort_button_description">Vis sorter-knappen på hjemmeskjermen</string>
+    <string name="settings_appearance_app_card_colors">App-kortfarger</string>
+    <string name="settings_appearance_app_card_colors_default">Standard</string>
+    <string name="settings_appearance_app_card_colors_default_description">Gi hver app fargen fra sin egen pakke</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>

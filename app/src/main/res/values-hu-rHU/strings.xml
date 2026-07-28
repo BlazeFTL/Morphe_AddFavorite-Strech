@@ -18,10 +18,10 @@
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe frissítés elérhető</string>
     <string name="home_update_available_subtitle">Az új verzió telepítésre vár</string>
-    <string name="home_blocked_source_title">Blokkolt patchforrás észlelve</string>
-    <string name="home_blocked_source_subtitle">Érintse meg a felülvizsgálathoz és eltávolításhoz</string>
-    <string name="home_metadata_errors_title">Egyes patchforrások nem elérhetők</string>
-    <string name="home_metadata_errors_subtitle">Érintse meg a források áttekintéséhez</string>
+    <string name="home_blocked_source_title">Blokkolt módosításforrás észlelve</string>
+    <string name="home_blocked_source_subtitle">Érintsd meg a felülvizsgálathoz és eltávolításhoz</string>
+    <string name="home_metadata_errors_title">Egyes módosításforrások nem elérhetők</string>
+    <string name="home_metadata_errors_subtitle">Koppints a források áttekintéséhez</string>
     <string name="home_metered_skipped_title">A frissítések szünetelnek mobiladáton</string>
     <string name="home_metered_skipped_subtitle">Érintse meg a frissítések engedélyezéséhez mobiladatokon keresztül</string>
     <string name="home_update_error">A frissítés sikertelen</string>
@@ -496,6 +496,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Monokróm</string>
     <string name="settings_appearance_color_style">Színstílus</string>
+    <string name="settings_appearance_colors">Színek</string>
     <string name="settings_appearance_accent_color">Kiemelőszín</string>
     <string name="settings_appearance_pure_black">Tiszta fekete</string>
     <string name="settings_appearance_pure_black_description">Valódi fekete háttér használata</string>
@@ -512,6 +513,9 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_app_grouping_description">Mutasson egy főképernyő váltót az alkalmazások forrás vagy saját kategóriák szerinti csoportosításához, a kiválasztást megőrizve, ha ki van kapcsolva</string>
     <string name="settings_appearance_sort_button">Rendezés gomb</string>
     <string name="settings_appearance_sort_button_description">Mutassa a rendezés gombot a kezdőképernyőn</string>
+    <string name="settings_appearance_app_card_colors">Alkalmazáskártyák színei</string>
+    <string name="settings_appearance_app_card_colors_default">Alapértelmezett</string>
+    <string name="settings_appearance_app_card_colors_default_description">Minden alkalmazásnak a saját csomagjának színét adja</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Alkalmazásikon</string>
     <string name="settings_appearance_app_icon_default">Alapértelmezett</string>

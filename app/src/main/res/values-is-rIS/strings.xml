@@ -494,6 +494,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_dynamic">Efni-Þú</string>
     <string name="settings_appearance_monochrome">Gráeinkenni</string>
     <string name="settings_appearance_color_style">Litastíll</string>
+    <string name="settings_appearance_colors">Litir</string>
     <string name="settings_appearance_accent_color">Aðallitur</string>
     <string name="settings_appearance_pure_black">Liturjöfur svart</string>
     <string name="settings_appearance_pure_black_description">Nota svarta bakgrunni</string>
@@ -511,6 +512,9 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_app_grouping_description">Sýna rofasa á heimaskjá til að flokka forrit eftir uppruna eða eigin flokkum, halda vali þegar slökkt er á rofanum</string>
     <string name="settings_appearance_sort_button">Röðunarhnappur</string>
     <string name="settings_appearance_sort_button_description">Sýna röðunarhnapp á heimsíðunni</string>
+    <string name="settings_appearance_app_card_colors">Litir á app kortum</string>
+    <string name="settings_appearance_app_card_colors_default">Sjálfgefið</string>
+    <string name="settings_appearance_app_card_colors_default_description">Nota litinn á pakkann fyrir hvert app</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App tákn</string>
     <string name="settings_appearance_app_icon_default">Sjálfgefið</string>

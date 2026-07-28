@@ -496,6 +496,7 @@
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">أحادي اللون</string>
     <string name="settings_appearance_color_style">نمط الألوان</string>
+    <string name="settings_appearance_colors">الألوان</string>
     <string name="settings_appearance_accent_color">لون التمييز</string>
     <string name="settings_appearance_pure_black">اسود نقي</string>
     <string name="settings_appearance_pure_black_description">استخدام خلفيات سوداء حقيقية</string>
@@ -513,6 +514,9 @@
     <string name="settings_appearance_app_grouping_description">عرض مُبدِّل الشاشة الرئيسية لتجميع التطبيقات حسب المصدر أو فئاتك الخاصة، مع الاحتفاظ بالتحديد عند إيقاف تشغيلها</string>
     <string name="settings_appearance_sort_button">زر الفرز</string>
     <string name="settings_appearance_sort_button_description">عرض زر الفرز على الشاشة الرئيسية</string>
+    <string name="settings_appearance_app_card_colors">ألوان بطاقة التطبيق</string>
+    <string name="settings_appearance_app_card_colors_default">الافتراضية</string>
+    <string name="settings_appearance_app_card_colors_default_description">امنح كل تطبيق لون حزمته الخاصة</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">أيقونة التطبيق</string>
     <string name="settings_appearance_app_icon_default">الافتراضي</string>

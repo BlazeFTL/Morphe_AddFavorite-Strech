@@ -113,10 +113,10 @@
         <item quantity="other">%s aip</item>
     </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
-        <item quantity="one">Cóipeáladh %s patch ó bhosca roghnaithe</item>
-        <item quantity="two">Cóipeáladh %s patches ó bhosca roghnaithe</item>
-        <item quantity="few">Cóipeáladh %s patchanna ó bhosca roghnaithe</item>
-        <item quantity="many">Cóipeáladh %s patchanna ó bhosca roghnaithe</item>
-        <item quantity="other">Cóipeáladh %s patchanna ó bhosca roghnaithe</item>
+        <item quantity="one">Cóipeáladh %s paiste ón bpacáiste roghnaithe</item>
+        <item quantity="two">Cóipeáladh %s paistí ón bpacáiste roghnaithe</item>
+        <item quantity="few">Cóipeáladh %s paistí ón bpacáiste roghnaithe</item>
+        <item quantity="many">Cóipeáladh %s paistí ón bpacáiste roghnaithe</item>
+        <item quantity="other">Cóipeáladh %s paistí ón bpacáiste roghnaithe</item>
     </plurals>
 </resources>

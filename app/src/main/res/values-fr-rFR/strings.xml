@@ -342,7 +342,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="root_pre_patch_installer_description">Votre appareil dispose d\'un accès root. Choisissez si cette application doit être patchée pour le montage root ou pour une installation standard</string>
     <string name="root_pre_patch_installer_mount_title">Mode de montage root</string>
     <string name="root_pre_patch_installer_mount_description">Patche pour le montage root, puis monte l\'APK par-dessus l\'application d\'origine correspondante. GmsCore n\'est pas nécessaire</string>
-    <string name="root_mount_module_unmount_warning">Si KernelSU a les modules de démontage activés par défaut, ouvrez KernelSU &gt; Superutilisateur &gt; l\'application que vous avez monté &gt; Profil &gt; Personnalisé et désactivez les modules de démontage. Sinon, l\'APK patché monté risque de ne pas prendre effet, même si Morphe l\'affiche comme monté</string>
+    <string name="root_mount_module_unmount_warning">Si KernelSU a l\'option \'Démontez les modules\' activée par défaut, ouvrez KernelSU &gt; Super-utilisateur &gt; l\'application que vous avez montée &gt; Profile &gt; Personnalisé, puis désactivez \'Démontez les modules\'. Sinon, l\'APK patché monté peut ne pas prendre effet, même si Morphe l\'affiche comme étant monté</string>
     <string name="root_pre_patch_installer_standard_title">Mode d\'installation standard</string>
     <string name="root_pre_patch_installer_standard_description">Patche en tant qu\'APK normal avec prise en charge de GmsCore. Votre paramètre d\'installateur est utilisé après le patchage</string>
     <string name="root_pre_patch_installer_hint">Ce mode de patch est distinct de Paramètres &gt; Système &gt; Installateur et ne peut pas être modifié après le patchage</string>
@@ -499,6 +499,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Monochrome</string>
     <string name="settings_appearance_color_style">Style de couleur</string>
+    <string name="settings_appearance_colors">Couleurs</string>
     <string name="settings_appearance_accent_color">Couleur d\'accentuation</string>
     <string name="settings_appearance_pure_black">Noir pur</string>
     <string name="settings_appearance_pure_black_description">Utilise des fonds véritablement noirs</string>
@@ -516,6 +517,19 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_app_grouping_description">Afficher un sélecteur sur l\'écran d\'accueil pour regrouper les applications par source ou selon vos propres catégories, en conservant la sélection lorsqu\'il est désactivé</string>
     <string name="settings_appearance_sort_button">Bouton de tri</string>
     <string name="settings_appearance_sort_button_description">Afficher le bouton de tri sur l\'écran d\'accueil</string>
+    <string name="settings_appearance_app_card_colors">Couleurs des cartes des applications</string>
+    <string name="settings_appearance_app_card_colors_default">Par défaut</string>
+    <string name="settings_appearance_app_card_colors_default_description">Donner à chaque application la couleur de son propre bundle</string>
+    <string name="settings_appearance_app_card_colors_accent">Accentuation</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Utiliser la couleur d\'accentuation de l\'application pour les cartes de l\'écran d\'accueil</string>
+    <string name="settings_appearance_app_card_colors_gradient">Dégradé</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Utiliser un dégradé personnalisé pour les cartes des applications de l\'écran d\'accueil</string>
+    <string name="settings_appearance_app_card_colors_solid">Unie</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Utiliser une couleur personnalisée pour les cartes des applications de l\'écran d\'accueil</string>
+    <string name="settings_appearance_app_card_colors_start">Couleur de départ</string>
+    <string name="settings_appearance_app_card_colors_middle">Couleur intermédiaire</string>
+    <string name="settings_appearance_app_card_colors_end">Couleur de fin</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Couleur unie</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icône de l\'application</string>
     <string name="settings_appearance_app_icon_default">Par défaut</string>

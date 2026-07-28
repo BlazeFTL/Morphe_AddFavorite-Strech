@@ -493,6 +493,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Monokrominen</string>
     <string name="settings_appearance_color_style">Värityyli</string>
+    <string name="settings_appearance_colors">Värit</string>
     <string name="settings_appearance_accent_color">Korostusväri</string>
     <string name="settings_appearance_pure_black">Täysin musta</string>
     <string name="settings_appearance_pure_black_description">Käytä täysin mustia taustoja</string>
@@ -510,6 +511,9 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_app_grouping_description">Näytä kotinäkymän vaihto, jolla voit ryhmitellä sovellukset lähteen tai omien luokkien mukaan ja säilytä valinta, kun se on poissa päältä</string>
     <string name="settings_appearance_sort_button">Lajittelupainike</string>
     <string name="settings_appearance_sort_button_description">Näytä lajittelupainike aloitusnäytöllä</string>
+    <string name="settings_appearance_app_card_colors">Sovelluksen korttien värit</string>
+    <string name="settings_appearance_app_card_colors_default">Oletus</string>
+    <string name="settings_appearance_app_card_colors_default_description">Anna jokaiselle sovellukselle sen oman paketin väri</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Sovelluskuvake</string>
     <string name="settings_appearance_app_icon_default">Oletus</string>

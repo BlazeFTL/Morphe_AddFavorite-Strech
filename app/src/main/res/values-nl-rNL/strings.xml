@@ -496,6 +496,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Monochroom</string>
     <string name="settings_appearance_color_style">Kleurstijl</string>
+    <string name="settings_appearance_colors">Kleuren</string>
     <string name="settings_appearance_accent_color">Accentkleur</string>
     <string name="settings_appearance_pure_black">Puur Zwart</string>
     <string name="settings_appearance_pure_black_description">Gebruikt echte zwarte achtergronden</string>
@@ -513,6 +514,9 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_app_grouping_description">Toon een schakelaar op het startscherm om apps te groeperen op bron of eigen categorieën, en selecteer deze instelling wanneer deze uit staat</string>
     <string name="settings_appearance_sort_button">Sorteer knop</string>
     <string name="settings_appearance_sort_button_description">Toon de sorteerknop op het startscherm</string>
+    <string name="settings_appearance_app_card_colors">App-kaart kleuren</string>
+    <string name="settings_appearance_app_card_colors_default">Standaard</string>
+    <string name="settings_appearance_app_card_colors_default_description">Geef elke app de kleur van zijn eigen bundle</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App-pictogram</string>
     <string name="settings_appearance_app_icon_default">Standaard</string>

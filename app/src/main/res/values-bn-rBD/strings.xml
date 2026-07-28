@@ -496,6 +496,7 @@
     <string name="settings_appearance_dynamic">এক্সেন্ট কালার</string>
     <string name="settings_appearance_monochrome">একবর্ণ</string>
     <string name="settings_appearance_color_style">রঙের ধরণ</string>
+    <string name="settings_appearance_colors">রং</string>
     <string name="settings_appearance_accent_color">অ্যাকসেন্ট রঙ</string>
     <string name="settings_appearance_pure_black">পুরো কালো</string>
     <string name="settings_appearance_pure_black_description">ব্যবহার করে খাঁটি কালো ব্যাকগ্রাউন্ড।</string>
@@ -513,6 +514,9 @@
     <string name="settings_appearance_app_grouping_description">উৎস অথবা আপনার নিজের বিভাগ অনুসারে অ্যাপ grouping করার জন্য একটি হোম স্ক্রিন সুইচ দেখান, বন্ধ থাকা অবস্থায় নির্বাচন ধরে রাখুন।</string>
     <string name="settings_appearance_sort_button">সর্ট করার বাটন</string>
     <string name="settings_appearance_sort_button_description">হোম স্ক্রিনে সর্ট করার বাটনটি দেখান</string>
+    <string name="settings_appearance_app_card_colors">অ্যাপ কার্ডের রং</string>
+    <string name="settings_appearance_app_card_colors_default">ডিফল্ট</string>
+    <string name="settings_appearance_app_card_colors_default_description">প্রতিটি অ্যাপকে তার নিজস্ব বান্ডেলের রং দিন</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">অ্যাপ আইকন</string>
     <string name="settings_appearance_app_icon_default">ডিফল্ট</string>

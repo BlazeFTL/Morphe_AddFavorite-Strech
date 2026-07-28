@@ -497,6 +497,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Einfarbig</string>
     <string name="settings_appearance_color_style">Farbdesign</string>
+    <string name="settings_appearance_colors">Farben</string>
     <string name="settings_appearance_accent_color">Akzentfarbe</string>
     <string name="settings_appearance_pure_black">OLED-Optimierung</string>
     <string name="settings_appearance_pure_black_description">Verwendet echte schwarze Hintergründe</string>
@@ -514,6 +515,19 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_app_grouping_description">Zeigt einen Home-Bildschirm-Wechsler an, um Apps nach Quelle oder Ihren eigenen Kategorien zu gruppieren und die Auswahl bei Deaktivierung beizubehalten</string>
     <string name="settings_appearance_sort_button">Sortierknopf</string>
     <string name="settings_appearance_sort_button_description">Zeigt eine Schaltfläche zum Sortieren auf dem Startbildschirm an</string>
+    <string name="settings_appearance_app_card_colors">Farben der App-Karten</string>
+    <string name="settings_appearance_app_card_colors_default">Standard</string>
+    <string name="settings_appearance_app_card_colors_default_description">Jeder App die Farbe ihres eigenen Bundles zuweisen</string>
+    <string name="settings_appearance_app_card_colors_accent">Akzentfarbe</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Verwende die App-Akzentfarbe für Home-App-Karten</string>
+    <string name="settings_appearance_app_card_colors_gradient">Farbverlauf</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Verwende einen benutzerdefinierten Farbverlauf für Home-App-Karten.</string>
+    <string name="settings_appearance_app_card_colors_solid">Einfarbig</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Verwende eine benutzerdefinierte Farbe für Home-App-Karten.</string>
+    <string name="settings_appearance_app_card_colors_start">Anfangsfarbe</string>
+    <string name="settings_appearance_app_card_colors_middle">Mittlere Farbe</string>
+    <string name="settings_appearance_app_card_colors_end">Endfarbe</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Farbe</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App-Icon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>

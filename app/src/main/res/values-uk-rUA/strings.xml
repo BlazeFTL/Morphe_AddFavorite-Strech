@@ -64,7 +64,7 @@
     <!-- Humorous hype message with light nostalgia -->
     <string name="home_greeting_2">Готові зробити застосунки знову легендарними?</string>
     <!-- "Buckle up" referring to fastening your vehicle seat belt. A light-hearted joke to build excitement -->
-    <string name="home_greeting_3">Пристебніться - час патчити!</string>
+    <string name="home_greeting_3">Пристебніть ремені, настав час змін!</string>
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
     <string name="home_greeting_4">Ще один день - ще один шедевр без реклами</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
@@ -497,6 +497,7 @@
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Монохромна</string>
     <string name="settings_appearance_color_style">Стиль кольору</string>
+    <string name="settings_appearance_colors">Кольори</string>
     <string name="settings_appearance_accent_color">Акцентний колір</string>
     <string name="settings_appearance_pure_black">Повністю чорний</string>
     <string name="settings_appearance_pure_black_description">Використовує справжній чорний фон</string>
@@ -514,6 +515,9 @@
     <string name="settings_appearance_app_grouping_description">Показує перемикач на головному екрані для групування застосунків за джерелом або власними категоріями, зберігаючи вибір при вимкненні</string>
     <string name="settings_appearance_sort_button">Кнопка сортування</string>
     <string name="settings_appearance_sort_button_description">Показувати кнопку сортування на головному екрані</string>
+    <string name="settings_appearance_app_card_colors">Кольори карт програм</string>
+    <string name="settings_appearance_app_card_colors_default">Стандартна</string>
+    <string name="settings_appearance_app_card_colors_default_description">Надати кожному застосунку колір його власного пакета</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Іконка застосунку</string>
     <string name="settings_appearance_app_icon_default">Стандартна</string>

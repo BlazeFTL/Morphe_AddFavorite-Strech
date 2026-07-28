@@ -496,6 +496,7 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Monocromático</string>
     <string name="settings_appearance_color_style">Estilo de color</string>
+    <string name="settings_appearance_colors">Colores</string>
     <string name="settings_appearance_accent_color">Color de acento</string>
     <string name="settings_appearance_pure_black">Negro puro</string>
     <string name="settings_appearance_pure_black_description">Utiliza fondos de pantalla realmente negros</string>
@@ -513,6 +514,19 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="settings_appearance_app_grouping_description">Mostrar un selector de pantalla de inicio para agrupar aplicaciones por origen o por sus propias categorías, manteniendo la selección cuando esté desactivado</string>
     <string name="settings_appearance_sort_button">Botón de ordenar</string>
     <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar en la pantalla de inicio</string>
+    <string name="settings_appearance_app_card_colors">Colores de la tarjeta de la aplicación</string>
+    <string name="settings_appearance_app_card_colors_default">Predeterminado</string>
+    <string name="settings_appearance_app_card_colors_default_description">Le da a cada aplicación el color de su propio paquete</string>
+    <string name="settings_appearance_app_card_colors_accent">Color de acento</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Usa el color de acento de la aplicación para las tarjetas de la aplicación de inicio</string>
+    <string name="settings_appearance_app_card_colors_gradient">Degradado</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Usar un degradado personalizado para las tarjetas de la aplicación de inicio</string>
+    <string name="settings_appearance_app_card_colors_solid">Sólido</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Usar un color personalizado para las tarjetas de la aplicación de inicio</string>
+    <string name="settings_appearance_app_card_colors_start">Color inicial</string>
+    <string name="settings_appearance_app_card_colors_middle">Color intermedio</string>
+    <string name="settings_appearance_app_card_colors_end">Color final</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Color sólido</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icono de la aplicación</string>
     <string name="settings_appearance_app_icon_default">Predeterminado</string>

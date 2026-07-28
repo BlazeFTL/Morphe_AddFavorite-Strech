@@ -308,6 +308,7 @@
     <string name="header_creator_guide_positioning_body">直接在預覽中，使用雙指縮放和拖動手勢來定位和縮放您的圖像。當圖像靠近中心時，會出現快照指南。您也可以使用預覽下方的滑桿。</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">確定要解除安裝此應用程式？</string>
+    <string name="batch_uninstall_confirm_body">所選取的應用程式將會從您的裝置中永久移除。</string>
     <string name="home_app_info_remove_app_warning">這項操作將永久刪除：</string>
     <string name="home_app_info_delete_item_database">資料庫項目</string>
     <string name="home_app_info_delete_item_patched_apk">已修補的 APK 檔案</string>
@@ -338,6 +339,7 @@
     <string name="root_pre_patch_installer_description">您的設備已獲得root權限。選擇此應用程序是否應為root掛載或標準安裝進行補丁</string>
     <string name="root_pre_patch_installer_mount_title">Root掛載模式</string>
     <string name="root_pre_patch_installer_mount_description">為root掛載補丁，然後將APK覆蓋在匹配的庫存應用程序上。不需要GmsCore</string>
+    <string name="root_mount_module_unmount_warning">若 KernelSU 已開啟「預設卸載模組」功能，請開啟 KernelSU &gt; 超級使用者  &gt; 找到您掛載的應用程式  &gt; 設定檔  &gt; 自訂，並將「卸載模組」關閉。否則，即使 Morphe 顯示已掛載，修補後的 APK 仍可能無法生效。</string>
     <string name="root_pre_patch_installer_standard_title">標準安裝模式</string>
     <string name="root_pre_patch_installer_standard_description">以支援 GmsCore 的一般 APK 形式修補。修補完成後，將使用您的安裝程式設定。</string>
     <string name="root_pre_patch_installer_hint">此修補模式與「設定」>「系統」>「安裝程式」分開，且修補後無法更改。</string>
@@ -494,6 +496,7 @@
     <string name="settings_appearance_dynamic">動態顏色</string>
     <string name="settings_appearance_monochrome">單色</string>
     <string name="settings_appearance_color_style">顏色樣式</string>
+    <string name="settings_appearance_colors">顏色</string>
     <string name="settings_appearance_accent_color">強調色</string>
     <string name="settings_appearance_pure_black">純黑</string>
     <string name="settings_appearance_pure_black_description">使用純黑背景</string>
@@ -510,6 +513,9 @@
     <string name="settings_appearance_app_grouping_description">顯示主畫面切換器，以依來源或您自己的類別分組應用程式，並在關閉時保留選取內容</string>
     <string name="settings_appearance_sort_button">排序按鈕</string>
     <string name="settings_appearance_sort_button_description">在主螢幕上顯示排序按鈕</string>
+    <string name="settings_appearance_app_card_colors">應用程式卡片顏色</string>
+    <string name="settings_appearance_app_card_colors_default">預設</string>
+    <string name="settings_appearance_app_card_colors_default_description">讓每個應用程式都擁有其套件的顏色</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">應用程式圖示</string>
     <string name="settings_appearance_app_icon_default">預設</string>

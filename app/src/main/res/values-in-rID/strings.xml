@@ -340,6 +340,7 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="root_pre_patch_installer_description">Perangkat Anda memiliki akses root. Pilih apakah aplikasi ini akan ditambal untuk mount root atau pemasangan standar</string>
     <string name="root_pre_patch_installer_mount_title">Mode mount root</string>
     <string name="root_pre_patch_installer_mount_description">Tambalan untuk mount root, kemudian mount APK di atas aplikasi original yang cocok. Tidak diperlukan GmsCore</string>
+    <string name="root_mount_module_unmount_warning">Jika KernelSU memiliki module Unmount yang diaktifkan secara bawaan, buka KernelSU &gt; Superuser &gt; aplikasi yang Anda mount &gt; Profil &gt; Kustom dan nonaktifkan module Unmount. Jika tidak, APK yang ditambal dan di-mount mungkin tidak berfungsi, meskipun Morphe menampilkannya sebagai di-mount</string>
     <string name="root_pre_patch_installer_standard_title">Mode pasang standar</string>
     <string name="root_pre_patch_installer_standard_description">Tambalan sebagai APK normal dengan dukungan GmsCore. Pengaturan pemasang Anda digunakan setelah penambalan</string>
     <string name="root_pre_patch_installer_hint">Mode tambal ini terpisah dari Pengaturan &gt; Sistem &gt; Pemasang dan tidak dapat diubah setelah penambalan</string>

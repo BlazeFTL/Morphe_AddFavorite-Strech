@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Paistí molta curtha i bhfeidhm</string>
     <string name="expert_mode_restore_saved">Athchóirigh an rogha sábháilte</string>
     <string name="expert_mode_restore_saved_done">Athchóiríodh an rogha sábháilte</string>
+    <string name="expert_mode_copy_from_bundle">Cóipeáil rogha ó phacáiste eile</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Níl aon phaistí comhoiriúnacha sa phacáiste seo</string>
     <string name="expert_mode_no_results">Níor aimsíodh aon phaistí</string>
     <string name="expert_mode_universal_patches">Paistí uilíocha</string>
     <string name="expert_mode_new_patches">Nua</string>
@@ -337,6 +339,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="root_pre_patch_installer_description">Tá rochtain fréimhe ag do ghléas. Roghnaigh an bhfuil an aip seo le paisteáil le haghaidh suiteáil fréimhe nó suiteáil chaighdeánach.</string>
     <string name="root_pre_patch_installer_mount_title">Mód gléasta fréimhe</string>
     <string name="root_pre_patch_installer_mount_description">Paistí le haghaidh fréamhghléasadh, ansin gléasann sé an APK thar an aip stoic chomhoiriúnach. Níl GmsCore ag teastáil</string>
+    <string name="root_mount_module_unmount_warning">Má tá Díshuiteáil modúil cumasaithe de réir réamhshocraithe ag KernelSU, oscail KerneSU &gt; Superuser &gt; an aip a shuiteáil tú &gt; Profile &gt; Custom agus díchumasaigh Díshuiteáil modúil. Seachas sin, ní bheidh éifeacht leis an APK paiste suite, fiú má thaispeánann Morphe é mar shuiteáilte.</string>
     <string name="root_pre_patch_installer_standard_title">Mód suiteála caighdeánach</string>
     <string name="root_pre_patch_installer_standard_description">Paistí mar APK gnáth le tacaíocht GmsCore. Úsáidtear do shocrú suiteálaí tar éis na paistí.</string>
     <string name="root_pre_patch_installer_hint">Tá an modh paiste seo ar leithligh ó Socruithe &gt; Córas &gt; Suiteálaí agus ní féidir é a athrú tar éis paisteála.</string>
@@ -493,6 +496,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Monacrómach</string>
     <string name="settings_appearance_color_style">Stíl datha</string>
+    <string name="settings_appearance_colors">Dathanna</string>
     <string name="settings_appearance_accent_color">Dath béime</string>
     <string name="settings_appearance_pure_black">Dubh Glan</string>
     <string name="settings_appearance_pure_black_description">Úsáideann sé cúlraí fíor-dhubha</string>
@@ -510,6 +514,9 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_app_grouping_description">Taispeáin an roghchlár scáileáin bhaile chun aipeanna a ghrúpáil de réir foinse nó do chatagóirí féin, agus an rogha a choinneáil nuair a bhíonn sé múchta</string>
     <string name="settings_appearance_sort_button">Cnaipe sórtála</string>
     <string name="settings_appearance_sort_button_description">Taispeáin an cnaipe sórtála ar an scáileán baile</string>
+    <string name="settings_appearance_app_card_colors">Dathanna téama an aip</string>
+    <string name="settings_appearance_app_card_colors_default">Réamhshocrú</string>
+    <string name="settings_appearance_app_card_colors_default_description">Tabhar faoi ghlanadh d\'fhéidearthacht gach aip a dhéanamh comhsheasmhach le hidirbheartanna a bhí </string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Deilbhín aip</string>
     <string name="settings_appearance_app_icon_default">Réamhshocrú</string>
@@ -860,6 +867,11 @@ Sonraí: %2$s"</string>
     <string name="settings_system_patch_options_section">Roghanna paiste</string>
     <string name="settings_system_no_patches_or_options">Gan aon phaistí ná roghanna sábháilte</string>
     <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Cóipeáil rogha ó…</string>
+    <string name="copy_selection_confirm_with_count">Cóipeáil %s</string>
+    <string name="copy_selection_empty">Níl aon roghanna sábháilte eile le cóipeáil uathu</string>
+    <string name="copy_selection_available_format">%1$s de %2$s ar fáil</string>
+    <string name="copy_selection_same_source">An fhoinse chéanna</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Roghnóir comhad saincheaptha</string>
     <string name="settings_system_custom_file_picker_description">Brabhsáil stóras le roghnóir comhad ionsuite Morphe in ionad an roghnóra réamhshocraithe córais</string>
@@ -946,6 +958,7 @@ Sonraí: %2$s"</string>
     <string name="rename">Athainmnigh</string>
     <string name="import_">Iompórtáil</string>
     <string name="export">Easpórtáil</string>
+    <string name="copy">Cóipeáil</string>
     <string name="download">Íoslódáil</string>
     <string name="less">Níos lú</string>
     <string name="expand">Leathnaigh</string>

@@ -574,7 +574,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_card_colors_end">End color</string>
     <string name="settings_appearance_app_card_colors_solid_color">Solid color</string>
     <string name="settings_appearance_app_card_colors_bundle">App bundle color</string>
-    <string name="settings_appearance_app_card_colors_bundle_description">Follow the color of each app\'s own bundle, shaded to suit this stop</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Use each app\'s own color here, shaded automatically to fit</string>
 
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App icon</string>

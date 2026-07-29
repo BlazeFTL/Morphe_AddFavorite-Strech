@@ -1,3 +1,17 @@
+# [1.25.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.5...v1.25.0-dev.6) (2026-07-29)
+
+
+### Bug Fixes
+
+* Keep patch selection of bundles disabled at patch time ([c0d6b8c](https://github.com/MorpheApp/morphe-manager/commit/c0d6b8cf1415bdaa763f97f5ba6df3f4bbfba4a7))
+
+
+### Features
+
+* Add long-press tooltip to icon-only bottom action bar buttons ([2a5158a](https://github.com/MorpheApp/morphe-manager/commit/2a5158a0ca1b80896662086b2d6c4e014be18b7b))
+* Allow gradient stops to follow the app bundle color ([664e5f2](https://github.com/MorpheApp/morphe-manager/commit/664e5f285edd14f7c51e7454d1db3a37dc7451f3))
+* Show reclaimable size on storage cache clear buttons ([40e093c](https://github.com/MorpheApp/morphe-manager/commit/40e093c1744e0d4dc4758934764e0d526e9a5130))
+
 # [1.25.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.4...v1.25.0-dev.5) (2026-07-29)
 
 

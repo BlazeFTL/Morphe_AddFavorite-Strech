@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Sort
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -28,7 +27,6 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
@@ -86,21 +84,6 @@ fun AppearanceTabContent(
     val appCardColorValues = remember(customAppCardColors) {
         AppCardColorDefaults.decodeColorValues(customAppCardColors)
     }
-    val themeAccent = MaterialTheme.colorScheme.primary
-    val appCardColors = remember(
-        appCardColorMode,
-        appCardColorValues,
-        customAccentColorHex,
-        themeAccent
-    ) {
-        AppCardColorDefaults.colors(
-            mode = appCardColorMode,
-            accentHex = customAccentColorHex.orEmpty(),
-            accentFallback = themeAccent,
-            values = appCardColorValues
-        ) ?: AppCardColorDefaults.defaultGradientColors
-    }
-
     val supportsPureBlack = theme != Theme.LIGHT
 
     LaunchedEffect(supportsPureBlack, pureBlackTheme) {
@@ -142,7 +125,6 @@ fun AppearanceTabContent(
             themeStyle = effectiveThemeStyle,
             accentColorHex = customAccentColorHex,
             appCardColorMode = appCardColorMode,
-            appCardColors = appCardColors,
             showAppCardColors = showAppCardColorSetting,
             onAccentSelected = themeViewModel::setCustomAccentColor,
             onAppCardColorsClick = { showAppCardColorDialog.value = true }
@@ -269,9 +251,6 @@ private fun LanguageSection(
                             lineHeight = 20.sp
                         )
                     }
-                },
-                trailingContent = {
-                    MorpheIcon(icon = Icons.Outlined.ChevronRight)
                 }
             )
         }
@@ -351,7 +330,6 @@ private fun ColorsSection(
     themeStyle: ThemeStyle,
     accentColorHex: String?,
     appCardColorMode: AppCardColorMode,
-    appCardColors: List<Color>,
     showAppCardColors: Boolean,
     onAccentSelected: (Color?) -> Unit,
     onAppCardColorsClick: () -> Unit
@@ -386,18 +364,7 @@ private fun ColorsSection(
                 onClick = onAppCardColorsClick,
                 title = stringResource(R.string.settings_appearance_app_card_colors),
                 subtitle = stringResource(appCardColorMode.descriptionResId),
-                leadingContent = {
-                    MorpheIcon(icon = Icons.Outlined.Style)
-                },
-                trailingContent = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        AppCardColorMiniPreview(colors = appCardColors)
-                        MorpheIcon(icon = Icons.Outlined.ChevronRight)
-                    }
-                }
+                leadingContent = { MorpheIcon(icon = Icons.Outlined.Style) }
             )
         }
     }

@@ -123,8 +123,7 @@ fun PatcherTuningSection(
                 onClick = { showBytecodeDialog.value = true },
                 title = stringResource(R.string.settings_advanced_bytecode_mode),
                 subtitle = stringResource(bytecodeMode.labelRes()),
-                leadingContent = { MorpheIcon(icon = Icons.Outlined.Code) },
-                trailingContent = { MorpheIcon(icon = Icons.Outlined.ChevronRight) }
+                leadingContent = { MorpheIcon(icon = Icons.Outlined.Code) }
             )
         }
     }

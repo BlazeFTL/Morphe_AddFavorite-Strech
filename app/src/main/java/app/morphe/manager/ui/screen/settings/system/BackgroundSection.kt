@@ -90,8 +90,7 @@ fun BackgroundSection(
                 onClick = onNotificationsClick,
                 title = stringResource(R.string.settings_system_notifications),
                 subtitle = stringResource(R.string.settings_system_notifications_description),
-                leadingContent = { MorpheIcon(icon = Icons.Outlined.NotificationsActive) },
-                trailingContent = { MorpheIcon(icon = Icons.Outlined.ChevronRight) }
+                leadingContent = { MorpheIcon(icon = Icons.Outlined.NotificationsActive) }
             )
         }
     }

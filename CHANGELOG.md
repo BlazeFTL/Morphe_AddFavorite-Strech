@@ -1,3 +1,10 @@
+# [1.25.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.4...v1.25.0-dev.5) (2026-07-29)
+
+
+### Features
+
+* Add a shared list scrollbar across lists and dialogs ([#780](https://github.com/MorpheApp/morphe-manager/issues/780)) ([0d48d36](https://github.com/MorpheApp/morphe-manager/commit/0d48d368f959be3c8ece42563d658bfea548ff91))
+
 # [1.25.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.3...v1.25.0-dev.4) (2026-07-28)
 
 

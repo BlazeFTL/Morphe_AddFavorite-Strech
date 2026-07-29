@@ -526,6 +526,7 @@
     <string name="settings_appearance_app_card_colors_middle">中間顏色</string>
     <string name="settings_appearance_app_card_colors_end">結束顏色</string>
     <string name="settings_appearance_app_card_colors_solid_color">純色</string>
+    <string name="settings_appearance_app_card_colors_bundle">應用程式主題顏色</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">應用程式圖示</string>
     <string name="settings_appearance_app_icon_default">預設</string>

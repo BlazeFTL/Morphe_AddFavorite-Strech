@@ -528,6 +528,8 @@
     <string name="settings_appearance_app_card_colors_middle">Колір середини</string>
     <string name="settings_appearance_app_card_colors_end">Колір кінця</string>
     <string name="settings_appearance_app_card_colors_solid_color">Суцільний колір</string>
+    <string name="settings_appearance_app_card_colors_bundle">Колір пакета застосунку</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Використовувати власний колір застосунку тут, автоматично затінений для відповідності</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Іконка застосунку</string>
     <string name="settings_appearance_app_icon_default">Стандартна</string>

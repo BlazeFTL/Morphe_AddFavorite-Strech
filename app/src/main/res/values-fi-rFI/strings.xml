@@ -524,6 +524,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_app_card_colors_middle">Keski-väri</string>
     <string name="settings_appearance_app_card_colors_end">Lopetusväri</string>
     <string name="settings_appearance_app_card_colors_solid_color">Yksivärinen väri</string>
+    <string name="settings_appearance_app_card_colors_bundle">Sovelluksen teemavärit</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Sovelluskuvake</string>
     <string name="settings_appearance_app_icon_default">Oletus</string>

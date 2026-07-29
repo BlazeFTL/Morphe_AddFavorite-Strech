@@ -528,6 +528,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_app_card_colors_middle">Mittlere Farbe</string>
     <string name="settings_appearance_app_card_colors_end">Endfarbe</string>
     <string name="settings_appearance_app_card_colors_solid_color">Farbe</string>
+    <string name="settings_appearance_app_card_colors_bundle">Farben des App-Bundles</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App-Icon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>

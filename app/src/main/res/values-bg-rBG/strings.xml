@@ -518,6 +518,7 @@
     <string name="settings_appearance_app_card_colors">Цветове на картите на приложенията</string>
     <string name="settings_appearance_app_card_colors_default">По подразбиране</string>
     <string name="settings_appearance_app_card_colors_default_description">Присвояване на цвета на пакета на всяко приложение</string>
+    <string name="settings_appearance_app_card_colors_bundle">Цвет на пакета приложения</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Икона на приложението</string>
     <string name="settings_appearance_app_icon_default">По подразбиране</string>

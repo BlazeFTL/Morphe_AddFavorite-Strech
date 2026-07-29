@@ -521,6 +521,7 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_appearance_app_card_colors_middle">Rengê navîn</string>
     <string name="settings_appearance_app_card_colors_end">Rengê dawî</string>
     <string name="settings_appearance_app_card_colors_solid_color">Rengê yekreng</string>
+    <string name="settings_appearance_app_card_colors_bundle">Rengê pakêtê app</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Îkonê sepanê</string>
     <string name="settings_appearance_app_icon_default">Serekî</string>

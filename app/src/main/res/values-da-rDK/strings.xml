@@ -526,6 +526,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_app_card_colors_middle">Mellemfarve</string>
     <string name="settings_appearance_app_card_colors_end">Slutfarve</string>
     <string name="settings_appearance_app_card_colors_solid_color">Ensfarvet farve</string>
+    <string name="settings_appearance_app_card_colors_bundle">App-bundelfarve</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>

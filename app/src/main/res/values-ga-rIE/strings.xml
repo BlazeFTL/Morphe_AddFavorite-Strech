@@ -527,6 +527,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_app_card_colors_middle">Dath meánach</string>
     <string name="settings_appearance_app_card_colors_end">Dath deireadhach</string>
     <string name="settings_appearance_app_card_colors_solid_color">Dath solid</string>
+    <string name="settings_appearance_app_card_colors_bundle">Dathanna téama an aip</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Deilbhín aip</string>
     <string name="settings_appearance_app_icon_default">Réamhshocrú</string>

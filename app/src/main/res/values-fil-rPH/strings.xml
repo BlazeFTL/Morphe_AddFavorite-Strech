@@ -523,6 +523,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_app_card_colors_middle">Gitnang kulay</string>
     <string name="settings_appearance_app_card_colors_end">Pangwakas na kulay</string>
     <string name="settings_appearance_app_card_colors_solid_color">Solid na kulay</string>
+    <string name="settings_appearance_app_card_colors_bundle">Kulay ng bundle ng app</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icon ng aplikasyon</string>
     <string name="settings_appearance_app_icon_default">Panimula</string>

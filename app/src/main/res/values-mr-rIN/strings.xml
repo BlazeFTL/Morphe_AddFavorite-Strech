@@ -526,6 +526,7 @@
     <string name="settings_appearance_app_card_colors_middle">मध्य रंग</string>
     <string name="settings_appearance_app_card_colors_end">अंतिम रंग</string>
     <string name="settings_appearance_app_card_colors_solid_color">सॉलिड रंग</string>
+    <string name="settings_appearance_app_card_colors_bundle">ॲप बंडल रंग</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">ॲप आयकॉन</string>
     <string name="settings_appearance_app_icon_default">डिफॉल्ट</string>

@@ -526,6 +526,8 @@
     <string name="settings_appearance_app_card_colors_middle">중간 색상</string>
     <string name="settings_appearance_app_card_colors_end">종료 색상</string>
     <string name="settings_appearance_app_card_colors_solid_color">단색</string>
+    <string name="settings_appearance_app_card_colors_bundle">앱 번들 색상</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">여기에서는 각 앱의 고유 색상을 사용하며, 전체와 어울리도록 자동으로 명암이 조정됩니다</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">앱 아이콘</string>
     <string name="settings_appearance_app_icon_default">기본값</string>

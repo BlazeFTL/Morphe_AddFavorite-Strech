@@ -530,6 +530,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_app_card_colors_middle">Couleur intermédiaire</string>
     <string name="settings_appearance_app_card_colors_end">Couleur de fin</string>
     <string name="settings_appearance_app_card_colors_solid_color">Couleur unie</string>
+    <string name="settings_appearance_app_card_colors_bundle">Couleurs des cartes des applications</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icône de l\'application</string>
     <string name="settings_appearance_app_icon_default">Par défaut</string>

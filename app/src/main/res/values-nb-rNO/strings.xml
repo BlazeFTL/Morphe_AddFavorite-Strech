@@ -527,6 +527,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_app_card_colors_middle">Mellomfarge</string>
     <string name="settings_appearance_app_card_colors_end">Sluttfarge</string>
     <string name="settings_appearance_app_card_colors_solid_color">Ensfarget farge</string>
+    <string name="settings_appearance_app_card_colors_bundle">App-pakke farge</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>

@@ -527,6 +527,7 @@
     <string name="settings_appearance_app_card_colors_middle">لون المنتصف</string>
     <string name="settings_appearance_app_card_colors_end">لون النهاية</string>
     <string name="settings_appearance_app_card_colors_solid_color">لون ثابت</string>
+    <string name="settings_appearance_app_card_colors_bundle">لون حزمة التطبيق</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">أيقونة التطبيق</string>
     <string name="settings_appearance_app_icon_default">الافتراضي</string>

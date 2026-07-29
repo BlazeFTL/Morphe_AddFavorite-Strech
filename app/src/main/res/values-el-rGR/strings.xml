@@ -527,6 +527,7 @@
     <string name="settings_appearance_app_card_colors_middle">Μεσαίο χρώμα</string>
     <string name="settings_appearance_app_card_colors_end">Τελικό χρώμα</string>
     <string name="settings_appearance_app_card_colors_solid_color">Μονόχρωμο χρώμα</string>
+    <string name="settings_appearance_app_card_colors_bundle">Χρώματα θέματος εφαρμογής</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Εικονίδιο εφαρμογής</string>
     <string name="settings_appearance_app_icon_default">Προεπιλογή</string>

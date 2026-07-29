@@ -524,6 +524,7 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_appearance_app_card_colors_middle">Warna tengah</string>
     <string name="settings_appearance_app_card_colors_end">Warna akhir</string>
     <string name="settings_appearance_app_card_colors_solid_color">Warna solid</string>
+    <string name="settings_appearance_app_card_colors_bundle">Warna bundel aplikasi</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikon aplikasi</string>
     <string name="settings_appearance_app_icon_default">Bawaan</string>

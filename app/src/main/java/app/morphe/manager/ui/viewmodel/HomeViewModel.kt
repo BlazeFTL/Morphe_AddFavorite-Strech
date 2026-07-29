@@ -2965,6 +2965,9 @@ class HomeViewModel(
         val selectedApp = expertModeSelectedApp ?: return
         val finalPatches = expertModePatches
         val finalOptions = expertModeOptions
+        // Only the bundles offered by the dialog are covered by this selection, so bundles that
+        // were disabled at patch time keep whatever the user saved for them earlier.
+        val bundleScope = expertModeBundles.mapTo(mutableSetOf()) { it.uid }
         // Strip UI-only empty strings (fields cleared via ✕) so the patcher engine
         // receives null / no key for those options and falls back to its own default,
         // rather than receiving a literal empty string.
@@ -2975,7 +2978,8 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             patchSelectionRepository.updateSelection(
                 packageName = selectedApp.packageName,
-                selection = finalPatches
+                selection = finalPatches,
+                scope = bundleScope
             )
             saveOptions(selectedApp.packageName, finalOptions)
             // Snapshot all bundle patch names so next open can detect genuinely new patches.

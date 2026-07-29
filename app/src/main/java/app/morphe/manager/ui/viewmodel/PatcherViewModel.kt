@@ -671,7 +671,11 @@ class PatcherViewModel(
             selectionPayload
         )
 
-        patchSelectionRepository.updateSelection(packageName, sanitizedSelection)
+        patchSelectionRepository.updateSelection(
+            packageName,
+            sanitizedSelection,
+            scope = scopedBundlesForSelection.keys
+        )
         patchOptionsRepository.saveOptions(packageName, sanitizedOptions)
         appliedSelection = sanitizedSelection
         appliedOptions = sanitizedOptions

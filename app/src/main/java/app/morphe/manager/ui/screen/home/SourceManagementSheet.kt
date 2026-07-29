@@ -73,6 +73,9 @@ import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import java.util.Locale
 
+/** Keeps the scrollbar clear of the sheet's bottom action row. */
+private val SourceListScrollbarBottomInset = 64.dp
+
 /**
  * Bottom sheet for managing patch bundles.
  */
@@ -138,6 +141,15 @@ fun BundleManagementSheet(
     val isManualSort = sourceSortMode == SourceBundleSortMode.MANUAL
     val orderedSources = remember(localOrder, sources, sourceSortMode) {
         sources.sortedForSourceSort(sourceSortMode, localOrder)
+    }
+    val alphabetScrollMode = sourceSortMode == SourceBundleSortMode.NAME_ASC ||
+            sourceSortMode == SourceBundleSortMode.NAME_DESC
+    val sourceScrollTargets = remember(alphabetScrollMode, orderedSources) {
+        if (!alphabetScrollMode) {
+            emptyList()
+        } else {
+            buildIndexedScrollTargets(orderedSources) { source -> source.displayTitle }
+        }
     }
     val haptic = LocalHapticFeedback.current
     val reorderableState = rememberReorderableLazyListState(listState) { from, to ->
@@ -365,7 +377,17 @@ fun BundleManagementSheet(
                         }
                     }
 
-                    ScrollToTopButton(listState = listState)
+                    ListScrollbar(
+                        listState = listState,
+                        alphabetTargets = sourceScrollTargets,
+                        alphabetMode = alphabetScrollMode,
+                        extraBottomPadding = SourceListScrollbarBottomInset
+                    )
+
+                    ScrollToTopButton(
+                        listState = listState,
+                        extraBottomPadding = SourceListScrollbarBottomInset
+                    )
                 }
             }
         }

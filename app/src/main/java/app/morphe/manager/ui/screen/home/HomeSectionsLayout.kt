@@ -1071,6 +1071,38 @@ fun MainAppsSection(
             orderedItems.filter { it.packageName in scopePackages }
         } ?: orderedItems
     }
+    val displayedAppGroups = remember(
+        appGrouping,
+        displayedSourceCategoryGroups,
+        displayedCategoryGroups
+    ) {
+        when (appGrouping) {
+            HomeAppCategoryViewMode.SOURCES -> displayedSourceCategoryGroups
+            HomeAppCategoryViewMode.CUSTOM -> displayedCategoryGroups
+            HomeAppCategoryViewMode.ALL_APPS -> emptyList()
+        }
+    }
+    // Reordering and the Sources grouping have no alphabetical order to jump through
+    val alphabetScrollMode = (apps.sortMode == HomeAppSortMode.NAME_ASC ||
+            apps.sortMode == HomeAppSortMode.NAME_DESC) &&
+            appGrouping != HomeAppCategoryViewMode.SOURCES &&
+            !isReorderMode.value &&
+            !isCategoryReorderMode.value
+    val scrollTargets = remember(
+        alphabetScrollMode,
+        stableLoadingState.value,
+        homeAppItems.isEmpty(),
+        isGroupedAppView,
+        filteredItems,
+        displayedAppGroups
+    ) {
+        when {
+            !alphabetScrollMode -> emptyList()
+            stableLoadingState.value && homeAppItems.isEmpty() -> emptyList()
+            isGroupedAppView -> buildGroupedHomeScrollTargets(displayedAppGroups)
+            else -> buildFlatHomeScrollTargets(filteredItems)
+        }
+    }
 
     // Cards that arrive after the first frame can sort above the anchor, and LazyColumn keeps
     // the keyed first visible item in place, leaving the list scrolled past its top. Pin to the
@@ -1312,14 +1344,7 @@ fun MainAppsSection(
                                         }
                                     }
                                 } else if (isGroupedAppView) {
-                                    // isGroupedAppView already excludes ALL_APPS, so the switch
-                                    // only needs to distinguish between SOURCES and CUSTOM
-                                    val groups = when (appGrouping) {
-                                        HomeAppCategoryViewMode.SOURCES -> displayedSourceCategoryGroups
-                                        else -> displayedCategoryGroups
-                                    }
-
-                                    groups.forEach { group ->
+                                    displayedAppGroups.forEach { group ->
                                         val headerKey = "category_${group.id ?: "uncategorized"}"
                                         item(key = headerKey) {
                                             // Long-press is gated while any other footer mode is
@@ -1560,6 +1585,13 @@ fun MainAppsSection(
                                         }
                                 )
                             }
+
+                            ListScrollbar(
+                                listState = listState,
+                                alphabetTargets = scrollTargets,
+                                alphabetMode = alphabetScrollMode,
+                                extraBottomPadding = if (isMultibarVisible) 96.dp else 0.dp
+                            )
 
                             // Lift extra space for the MultiSelectBar when it's visible
                             ScrollToTopButton(

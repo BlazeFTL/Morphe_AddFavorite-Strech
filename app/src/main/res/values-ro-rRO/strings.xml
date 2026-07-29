@@ -508,6 +508,16 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_app_grouping_description">Afișează un comutator al ecranului principal pentru a grupa aplicațiile după sursă sau după propriile categorii, menținând selecția când este dezactivat</string>
     <string name="settings_appearance_sort_button">Buton sortare</string>
     <string name="settings_appearance_sort_button_description">Afișează butonul de sortare pe ecranul principal</string>
+    <string name="settings_appearance_app_card_colors_accent">Accent</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Use the app accent color for home app cards</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Use one custom gradient for home app cards</string>
+    <string name="settings_appearance_app_card_colors_solid">Solid</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Use one custom color for home app cards</string>
+    <string name="settings_appearance_app_card_colors_start">Start color</string>
+    <string name="settings_appearance_app_card_colors_middle">Middle color</string>
+    <string name="settings_appearance_app_card_colors_end">End color</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Solid color</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Pictogramă aplicație</string>
     <string name="settings_appearance_app_icon_default">Implicit</string>

@@ -517,6 +517,16 @@
     <string name="settings_appearance_app_card_colors">Χρώματα καρτών εφαρμογών</string>
     <string name="settings_appearance_app_card_colors_default">Προεπιλογή</string>
     <string name="settings_appearance_app_card_colors_default_description">Δώστε σε κάθε εφαρμογή το χρώμα του δικού της πακέτου</string>
+    <string name="settings_appearance_app_card_colors_accent">Απόχρωση</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Χρησιμοποιήστε την απόχρωση της εφαρμογής για τις κάρτες της αρχικής οθόνης</string>
+    <string name="settings_appearance_app_card_colors_gradient">Διαβάθμιση</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Χρησιμοποιήστε μία προσαρμοσμένη διαβάθμιση για τις κάρτες της αρχικής οθόνης</string>
+    <string name="settings_appearance_app_card_colors_solid">Μονόχρωμο</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Χρησιμοποιήστε ένα προσαρμοσμένο χρώμα για τις κάρτες της αρχικής οθόνης</string>
+    <string name="settings_appearance_app_card_colors_start">Αρχικό χρώμα</string>
+    <string name="settings_appearance_app_card_colors_middle">Μεσαίο χρώμα</string>
+    <string name="settings_appearance_app_card_colors_end">Τελικό χρώμα</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Μονόχρωμο χρώμα</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Εικονίδιο εφαρμογής</string>
     <string name="settings_appearance_app_icon_default">Προεπιλογή</string>

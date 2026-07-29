@@ -511,6 +511,16 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_appearance_app_grouping_description">Nîşanekê bike ku sepanan bi çavkanî an kategoriyên te kom bike, hilbijarkirina xwe jî dema ku neçalak e parastin</string>
     <string name="settings_appearance_sort_button">Dugmeya rêberkirinê</string>
     <string name="settings_appearance_sort_button_description">Dugmeya rêberkirinê li ser mîhengê nîşan bide</string>
+    <string name="settings_appearance_app_card_colors_accent">Accent</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Rengê dinamiya sepanê ji bo kartên sepanê yên malê bikar bîne</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Ji bo kartên sepanê yên malê yek gradientê xwerû bikar bîne</string>
+    <string name="settings_appearance_app_card_colors_solid">Solid</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Ji bo kartên sepanê yên malê yek rengê xwerû bikar bîne</string>
+    <string name="settings_appearance_app_card_colors_start">Rengê destpêkê</string>
+    <string name="settings_appearance_app_card_colors_middle">Rengê navîn</string>
+    <string name="settings_appearance_app_card_colors_end">Rengê dawî</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Rengê yekreng</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Îkonê sepanê</string>
     <string name="settings_appearance_app_icon_default">Serekî</string>

@@ -509,6 +509,16 @@
     <string name="settings_appearance_app_grouping_description">Прикажи прекидач почетног екрана за груписање апликација по извору или властитим категоријама, задржавајући селекцију када је искључено</string>
     <string name="settings_appearance_sort_button">Дугме за сортирање</string>
     <string name="settings_appearance_sort_button_description">Прикажи дугме за сортирање на почетном екрану</string>
+    <string name="settings_appearance_app_card_colors_accent">Акцент</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Користите боју акцента апликације за почетне картице</string>
+    <string name="settings_appearance_app_card_colors_gradient">Градијент</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Користите један прилагођени градијент за почетне картице</string>
+    <string name="settings_appearance_app_card_colors_solid">Пуно</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Користите једну прилагођену боју за почетне картице</string>
+    <string name="settings_appearance_app_card_colors_start">Почетна боја</string>
+    <string name="settings_appearance_app_card_colors_middle">Средња боја</string>
+    <string name="settings_appearance_app_card_colors_end">Крајња боја</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Пуна боја</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Иконица апликације</string>
     <string name="settings_appearance_app_icon_default">Подразумеван</string>

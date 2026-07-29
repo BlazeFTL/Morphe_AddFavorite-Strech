@@ -517,6 +517,16 @@
     <string name="settings_appearance_app_card_colors">ऐप कार्ड रंग</string>
     <string name="settings_appearance_app_card_colors_default">डिफ़ॉल्ट</string>
     <string name="settings_appearance_app_card_colors_default_description">प्रत्येक ऐप को अपने बंडल का रंग दें</string>
+    <string name="settings_appearance_app_card_colors_accent">एक्सेंट</string>
+    <string name="settings_appearance_app_card_colors_accent_description">होम ऐप कार्ड के लिए ऐप एक्सेंट रंग का उपयोग करें</string>
+    <string name="settings_appearance_app_card_colors_gradient">ग्रेडिएंट</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">होम ऐप कार्ड के लिए एक कस्टम ग्रेडिएंट का उपयोग करें</string>
+    <string name="settings_appearance_app_card_colors_solid">ठोस</string>
+    <string name="settings_appearance_app_card_colors_solid_description">होम ऐप कार्ड के लिए एक कस्टम रंग का उपयोग करें</string>
+    <string name="settings_appearance_app_card_colors_start">शुरूआती रंग</string>
+    <string name="settings_appearance_app_card_colors_middle">मध्य रंग</string>
+    <string name="settings_appearance_app_card_colors_end">अंतिम रंग</string>
+    <string name="settings_appearance_app_card_colors_solid_color">ठोस रंग</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">एप्लिकेशन आइकॉन</string>
     <string name="settings_appearance_app_icon_default">डिफॉल्ट</string>

@@ -517,6 +517,16 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_app_card_colors">App-kaart kleuren</string>
     <string name="settings_appearance_app_card_colors_default">Standaard</string>
     <string name="settings_appearance_app_card_colors_default_description">Geef elke app de kleur van zijn eigen bundle</string>
+    <string name="settings_appearance_app_card_colors_accent">Accent</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Gebruik de accentkleur van de app voor appkaarten op het startscherm</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Gebruik één aangepaste gradient voor appkaarten op het startscherm</string>
+    <string name="settings_appearance_app_card_colors_solid">Effen</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Gebruik één aangepaste kleur voor appkaarten op het startscherm</string>
+    <string name="settings_appearance_app_card_colors_start">Startkleur</string>
+    <string name="settings_appearance_app_card_colors_middle">Middenkleur</string>
+    <string name="settings_appearance_app_card_colors_end">Eindkleur</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Effene kleur</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App-pictogram</string>
     <string name="settings_appearance_app_icon_default">Standaard</string>

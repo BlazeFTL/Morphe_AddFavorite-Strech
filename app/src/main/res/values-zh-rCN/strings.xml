@@ -510,6 +510,16 @@
     <string name="settings_appearance_app_grouping_description">显示主屏幕切换器，按来源或您自己的分类对应用进行分组，并在关闭时保持选择</string>
     <string name="settings_appearance_sort_button">排序按钮</string>
     <string name="settings_appearance_sort_button_description">在主屏幕上显示排序按钮</string>
+    <string name="settings_appearance_app_card_colors_accent">强调色</string>
+    <string name="settings_appearance_app_card_colors_accent_description">将应用强调色用于首页应用卡片</string>
+    <string name="settings_appearance_app_card_colors_gradient">渐变色</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">为首页应用卡片使用一个自定义渐变色</string>
+    <string name="settings_appearance_app_card_colors_solid">纯色</string>
+    <string name="settings_appearance_app_card_colors_solid_description">为首页应用卡片使用一个自定义颜色</string>
+    <string name="settings_appearance_app_card_colors_start">起始颜色</string>
+    <string name="settings_appearance_app_card_colors_middle">中间颜色</string>
+    <string name="settings_appearance_app_card_colors_end">结束颜色</string>
+    <string name="settings_appearance_app_card_colors_solid_color">纯色</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">应用图标</string>
     <string name="settings_appearance_app_icon_default">默认</string>

@@ -520,9 +520,9 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="settings_appearance_app_card_colors_accent">Color de acento</string>
     <string name="settings_appearance_app_card_colors_accent_description">Usa el color de acento de la aplicación para las tarjetas de la aplicación de inicio</string>
     <string name="settings_appearance_app_card_colors_gradient">Degradado</string>
-    <string name="settings_appearance_app_card_colors_gradient_description">Usar un degradado personalizado para las tarjetas de la aplicación de inicio</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Usar un degradado personalizado para las tarjetas de las aplicaciones de Inicio</string>
     <string name="settings_appearance_app_card_colors_solid">Sólido</string>
-    <string name="settings_appearance_app_card_colors_solid_description">Usar un color personalizado para las tarjetas de la aplicación de inicio</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Usar un color personalizado para las tarjetas de las aplicaciones de Inicio</string>
     <string name="settings_appearance_app_card_colors_start">Color inicial</string>
     <string name="settings_appearance_app_card_colors_middle">Color intermedio</string>
     <string name="settings_appearance_app_card_colors_end">Color final</string>
@@ -825,7 +825,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_storage_installer_cache_title">Caché del instalador externo</string>
     <string name="settings_system_storage_installer_cache_description">Copias de APK pasadas a instaladores de terceros</string>
     <string name="settings_system_storage_patcher_workspace_title">Espacio de trabajo del parcheador</string>
-    <string name="settings_system_storage_patcher_workspace_description">Archivos de tiempo de ejecución del modificador y datos temporales huérfanos</string>
+    <string name="settings_system_storage_patcher_workspace_description">Archivos de tiempo de ejecución del parcheador y datos temporales huérfanos</string>
     <string name="settings_system_storage_temporary_title">Archivos temporales</string>
     <string name="settings_system_storage_temporary_description">Archivos de trabajo creados al parchear</string>
     <string name="settings_system_storage_clear_all">Borrar todas las cachés</string>

@@ -516,6 +516,16 @@
     <string name="settings_appearance_app_card_colors">צבעי כרטיסי האפליקציה</string>
     <string name="settings_appearance_app_card_colors_default">ברירת מחדל</string>
     <string name="settings_appearance_app_card_colors_default_description">להעניק לכל אפליקציה את צבע החבילה שלה</string>
+    <string name="settings_appearance_app_card_colors_accent">גוון</string>
+    <string name="settings_appearance_app_card_colors_accent_description">השתמש בצבע הגוון של האפליקציה עבור כרטיסי האפליקציה הביתית</string>
+    <string name="settings_appearance_app_card_colors_gradient">מעבר</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">השתמש במעבר מותאם אישית אחד עבור כרטיסי האפליקציה הביתית</string>
+    <string name="settings_appearance_app_card_colors_solid">מלא</string>
+    <string name="settings_appearance_app_card_colors_solid_description">השתמש בצבע מותאם אישית אחד עבור כרטיסי האפליקציה הביתית</string>
+    <string name="settings_appearance_app_card_colors_start">צבע התחלה</string>
+    <string name="settings_appearance_app_card_colors_middle">צבע אמצע</string>
+    <string name="settings_appearance_app_card_colors_end">צבע סיום</string>
+    <string name="settings_appearance_app_card_colors_solid_color">צבע מלא</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">אייקון האפליקציה</string>
     <string name="settings_appearance_app_icon_default">ברירת מחדל</string>

@@ -512,6 +512,16 @@
     <string name="settings_appearance_app_grouping_description">ホーム画面スイッチャーを表示して、ソース別または独自のカテゴリでアプリをグループ化します。オフにしたときも選択内容は保持されます</string>
     <string name="settings_appearance_sort_button">並べ替えボタン</string>
     <string name="settings_appearance_sort_button_description">ホーム画面に並べ替えボタンを表示します</string>
+    <string name="settings_appearance_app_card_colors_accent">アクセント</string>
+    <string name="settings_appearance_app_card_colors_accent_description">ホームアプリカードにアプリのアクセントカラーを使用する</string>
+    <string name="settings_appearance_app_card_colors_gradient">グラデーション</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">ホームアプリカードにカスタムグラデーションを1つ使用する</string>
+    <string name="settings_appearance_app_card_colors_solid">ソリッド</string>
+    <string name="settings_appearance_app_card_colors_solid_description">ホームアプリカードにカスタムカラーを1つ使用する</string>
+    <string name="settings_appearance_app_card_colors_start">開始色</string>
+    <string name="settings_appearance_app_card_colors_middle">中間色</string>
+    <string name="settings_appearance_app_card_colors_end">終了色</string>
+    <string name="settings_appearance_app_card_colors_solid_color">単色</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">アプリアイコン</string>
     <string name="settings_appearance_app_icon_default">デフォルト</string>

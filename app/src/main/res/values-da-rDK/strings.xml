@@ -516,6 +516,16 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_app_card_colors">App-kort farver</string>
     <string name="settings_appearance_app_card_colors_default">Standard</string>
     <string name="settings_appearance_app_card_colors_default_description">Giv hver app farven af sin egen bundle</string>
+    <string name="settings_appearance_app_card_colors_accent">Accent</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Brug appens accentfarve til hjem-app kort</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Brug en enkelt brugerdefineret gradient til hjem-app kort</string>
+    <string name="settings_appearance_app_card_colors_solid">Ensfarvet</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Brug en enkelt brugerdefineret farve til hjem-app kort</string>
+    <string name="settings_appearance_app_card_colors_start">Startfarve</string>
+    <string name="settings_appearance_app_card_colors_middle">Mellemfarve</string>
+    <string name="settings_appearance_app_card_colors_end">Slutfarve</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Ensfarvet farve</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>

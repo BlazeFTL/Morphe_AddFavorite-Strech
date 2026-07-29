@@ -517,6 +517,16 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_app_card_colors">Dathanna téama an aip</string>
     <string name="settings_appearance_app_card_colors_default">Réamhshocrú</string>
     <string name="settings_appearance_app_card_colors_default_description">Tabhar faoi ghlanadh d\'fhéidearthacht gach aip a dhéanamh comhsheasmhach le hidirbheartanna a bhí </string>
+    <string name="settings_appearance_app_card_colors_accent">Béim</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Úsáid dath béime an aip le haghaidh cáirteanna aip baile</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Úsáid gradient sainráiteach amháin le haghaidh cáirteanna aip baile</string>
+    <string name="settings_appearance_app_card_colors_solid">Solid</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Úsáid dath sainráiteach amháin le haghaidh cáirteanna aip baile</string>
+    <string name="settings_appearance_app_card_colors_start">Dath tosaithe</string>
+    <string name="settings_appearance_app_card_colors_middle">Dath meánach</string>
+    <string name="settings_appearance_app_card_colors_end">Dath deireadhach</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Dath solid</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Deilbhín aip</string>
     <string name="settings_appearance_app_icon_default">Réamhshocrú</string>

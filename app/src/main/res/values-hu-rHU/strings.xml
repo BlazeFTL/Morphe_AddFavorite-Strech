@@ -516,6 +516,16 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_app_card_colors">Alkalmazáskártyák színei</string>
     <string name="settings_appearance_app_card_colors_default">Alapértelmezett</string>
     <string name="settings_appearance_app_card_colors_default_description">Minden alkalmazásnak a saját csomagjának színét adja</string>
+    <string name="settings_appearance_app_card_colors_accent">Kiemelőszín</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Használd az alkalmazás kiemelő színét a kezdőoldal alkalmazáskártyáihoz.</string>
+    <string name="settings_appearance_app_card_colors_gradient">Átfutás</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Használj egy egyedi átfutást a kezdőoldal alkalmazáskártyáihoz.</string>
+    <string name="settings_appearance_app_card_colors_solid">Szín</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Használj egy egyedi színt a kezdőoldal alkalmazáskártyáihoz.</string>
+    <string name="settings_appearance_app_card_colors_start">Kezdő szín</string>
+    <string name="settings_appearance_app_card_colors_middle">Középső szín</string>
+    <string name="settings_appearance_app_card_colors_end">Befejező szín</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Szín</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Alkalmazásikon</string>
     <string name="settings_appearance_app_icon_default">Alapértelmezett</string>

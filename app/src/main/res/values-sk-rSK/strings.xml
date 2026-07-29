@@ -509,6 +509,16 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_app_grouping_description">Zobraziť prepínač na domácej obrazovke na zoskupovanie aplikácií podľa zdroja alebo vlastných kategórií, pričom výber sa zachová aj keď je vypnutý</string>
     <string name="settings_appearance_sort_button">Tlačidlo zoradenia</string>
     <string name="settings_appearance_sort_button_description">Zobraziť tlačidlo zoradenia na domovskej obrazovke</string>
+    <string name="settings_appearance_app_card_colors_accent">Odtiene</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Použite odtieň aplikácie pre karty aplikácií na domovskej obrazovke</string>
+    <string name="settings_appearance_app_card_colors_gradient">Prechod</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Použite jeden vlastný prechod pre karty aplikácií na domovskej obrazovke</string>
+    <string name="settings_appearance_app_card_colors_solid">Jednofarebný</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Použite jednu vlastnú farbu pre karty aplikácií na domovskej obrazovke</string>
+    <string name="settings_appearance_app_card_colors_start">Počiatočná farba</string>
+    <string name="settings_appearance_app_card_colors_middle">Stredná farba</string>
+    <string name="settings_appearance_app_card_colors_end">Koncová farba</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Jednofarebná farba</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikona aplikácie</string>
     <string name="settings_appearance_app_icon_default">Predvolená</string>

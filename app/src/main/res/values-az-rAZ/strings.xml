@@ -496,6 +496,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Saya</string>
     <string name="settings_appearance_color_style">Rəng üslubu</string>
+    <string name="settings_appearance_colors">Rənglər</string>
     <string name="settings_appearance_accent_color">Cila rəngi</string>
     <string name="settings_appearance_pure_black">Təmiz Qara</string>
     <string name="settings_appearance_pure_black_description">Təmiz qara fonlar istifadə edilir</string>
@@ -512,6 +513,19 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_app_grouping_description">Tətbiqləri mənbəyə və ya öz kateqoriyalarınıza görə qruplaşdırmaq üçün əsas ekran keçiricisini göstər, qapalı olduqda seçimi qoruyur</string>
     <string name="settings_appearance_sort_button">Sıralama düyməsi</string>
     <string name="settings_appearance_sort_button_description">Əsas ekranda sıralama düyməsini göstər</string>
+    <string name="settings_appearance_app_card_colors">Tətbiq kartı rəngləri</string>
+    <string name="settings_appearance_app_card_colors_default">İlkin</string>
+    <string name="settings_appearance_app_card_colors_default_description">Hər tətbiqə öz paketinin rəngini ver</string>
+    <string name="settings_appearance_app_card_colors_accent">Cila</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Ev tətbiq kartları üçün tətbiq cila rəngin istifadə et</string>
+    <string name="settings_appearance_app_card_colors_gradient">Axarlı</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Əsas ekran tətbiq kartları üçün fərdi rəng axarı işlət</string>
+    <string name="settings_appearance_app_card_colors_solid">Bütöv</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Əsas ekran tətbiq kartları üçün fərdi rəng işlət</string>
+    <string name="settings_appearance_app_card_colors_start">Başlanğıc rəngi</string>
+    <string name="settings_appearance_app_card_colors_middle">Aralıq rəngi</string>
+    <string name="settings_appearance_app_card_colors_end">Son rəng</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Bütöv rəng</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Tətbiq simvolu</string>
     <string name="settings_appearance_app_icon_default">İlkin</string>

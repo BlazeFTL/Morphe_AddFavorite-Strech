@@ -514,6 +514,16 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_appearance_app_grouping_description">Tampilkan pengalih layar beranda untuk mengelompokkan aplikasi berdasarkan sumber atau kategori Anda sendiri, mempertahankan pilihan saat dinonaktifkan</string>
     <string name="settings_appearance_sort_button">Tombol urutkan</string>
     <string name="settings_appearance_sort_button_description">Tampilkan tombol urutkan di layar utama</string>
+    <string name="settings_appearance_app_card_colors_accent">Aksen</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Gunakan warna aksen aplikasi untuk kartu aplikasi beranda</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradien</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Gunakan satu gradien khusus untuk kartu aplikasi beranda</string>
+    <string name="settings_appearance_app_card_colors_solid">Solid</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Gunakan satu warna khusus untuk kartu aplikasi beranda</string>
+    <string name="settings_appearance_app_card_colors_start">Warna mulai</string>
+    <string name="settings_appearance_app_card_colors_middle">Warna tengah</string>
+    <string name="settings_appearance_app_card_colors_end">Warna akhir</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Warna solid</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikon aplikasi</string>
     <string name="settings_appearance_app_icon_default">Bawaan</string>

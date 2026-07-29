@@ -512,6 +512,16 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_app_card_colors">Barvy karet aplikací</string>
     <string name="settings_appearance_app_card_colors_default">Výchozí</string>
     <string name="settings_appearance_app_card_colors_default_description">Přiřadí každé aplikaci barvu jejího balíčku</string>
+    <string name="settings_appearance_app_card_colors_accent">Akcent</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Použijte barvu akcentu aplikace pro karty domovské obrazovky</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Použijte jeden vlastní gradient pro karty domovské obrazovky</string>
+    <string name="settings_appearance_app_card_colors_solid">Pevná</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Použijte jednu vlastní barvu pro karty domovské obrazovky</string>
+    <string name="settings_appearance_app_card_colors_start">Počáteční barva</string>
+    <string name="settings_appearance_app_card_colors_middle">Střední barva</string>
+    <string name="settings_appearance_app_card_colors_end">Konečná barva</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Pevná barva</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikona aplikace</string>
     <string name="settings_appearance_app_icon_default">Výchozí</string>

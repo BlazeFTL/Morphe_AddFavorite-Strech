@@ -511,6 +511,16 @@
     <string name="settings_appearance_app_grouping_description">Отображать переключатель на главном экране для группировки приложений по источнику или вашим категориям, сохраняя выбор при отключении</string>
     <string name="settings_appearance_sort_button">Кнопка сортировки</string>
     <string name="settings_appearance_sort_button_description">Показывать кнопку сортировки на главном экране</string>
+    <string name="settings_appearance_app_card_colors_accent">Акцент</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Использовать акцентный цвет приложения для карточек на главном экране</string>
+    <string name="settings_appearance_app_card_colors_gradient">Градиент</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Использовать один пользовательский градиент для карточек на главном экране</string>
+    <string name="settings_appearance_app_card_colors_solid">Сплошной</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Использовать один пользовательский цвет для карточек на главном экране</string>
+    <string name="settings_appearance_app_card_colors_start">Начальный цвет</string>
+    <string name="settings_appearance_app_card_colors_middle">Средний цвет</string>
+    <string name="settings_appearance_app_card_colors_end">Конечный цвет</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Сплошной цвет</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Иконка приложения</string>
     <string name="settings_appearance_app_icon_default">По умолчанию</string>

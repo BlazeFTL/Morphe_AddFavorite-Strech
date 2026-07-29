@@ -514,6 +514,16 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_app_grouping_description">Mostra un selettore schermata Home per raggruppare le app per origine o per le tue categorie, mantenendo la selezione quando disattivato</string>
     <string name="settings_appearance_sort_button">Pulsante Ordina</string>
     <string name="settings_appearance_sort_button_description">Mostra il pulsante Ordina nella schermata Home</string>
+    <string name="settings_appearance_app_card_colors_accent">Accento</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Usa il colore di accento dell\'app per le schede app nella schermata Home</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradiente</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Usa un gradiente personalizzato per le schede app nella schermata Home</string>
+    <string name="settings_appearance_app_card_colors_solid">Solido</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Usa un colore personalizzato per le schede app nella schermata Home</string>
+    <string name="settings_appearance_app_card_colors_start">Colore di partenza</string>
+    <string name="settings_appearance_app_card_colors_middle">Colore intermedio</string>
+    <string name="settings_appearance_app_card_colors_end">Colore finale</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Colore solido</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icona dell\'app</string>
     <string name="settings_appearance_app_icon_default">Predefinita</string>

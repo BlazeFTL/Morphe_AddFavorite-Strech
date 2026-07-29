@@ -516,6 +516,16 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_app_card_colors">Uygulama kartı renkleri</string>
     <string name="settings_appearance_app_card_colors_default">Varsayılan</string>
     <string name="settings_appearance_app_card_colors_default_description">Her uygulamaya kendi paketinin rengini ver</string>
+    <string name="settings_appearance_app_card_colors_accent">Vurgu rengi</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Ev uygulamasını kartları için uygulamanın vurgu rengini kullanın</string>
+    <string name="settings_appearance_app_card_colors_gradient">Degrade</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Ev için uygulama kartları için tek özel degrade kullanın</string>
+    <string name="settings_appearance_app_card_colors_solid">Düz renk</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Ev için uygulama kartları için tek özel renk kullanın</string>
+    <string name="settings_appearance_app_card_colors_start">Başlangıç rengi</string>
+    <string name="settings_appearance_app_card_colors_middle">Orta renk</string>
+    <string name="settings_appearance_app_card_colors_end">Bitiş rengi</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Geçersiz renk</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Uygulama simgesi</string>
     <string name="settings_appearance_app_icon_default">Varsayılan</string>

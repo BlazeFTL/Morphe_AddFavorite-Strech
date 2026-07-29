@@ -513,6 +513,16 @@ A desinstalação apagará permanentemente todos os dados do aplicativo."</strin
     <string name="settings_appearance_app_grouping_description">Mostrar um alternador de tela inicial para agrupar aplicativos por origem ou suas próprias categorias, mantendo a seleção quando desativado</string>
     <string name="settings_appearance_sort_button">Botão de Ordenação</string>
     <string name="settings_appearance_sort_button_description">Mostrar o botão de ordenação dos apps na tela inicial</string>
+    <string name="settings_appearance_app_card_colors_accent">Destaque</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Use a cor de destaque do aplicativo para os cartões do aplicativo inicial</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradiente</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Use um gradiente personalizado único para os cartões do aplicativo inicial</string>
+    <string name="settings_appearance_app_card_colors_solid">Sólido</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Use uma cor personalizada única para os cartões do aplicativo inicial</string>
+    <string name="settings_appearance_app_card_colors_start">Cor inicial</string>
+    <string name="settings_appearance_app_card_colors_middle">Cor intermediária</string>
+    <string name="settings_appearance_app_card_colors_end">Cor final</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Cor sólida</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ícone do app</string>
     <string name="settings_appearance_app_icon_default">Padrão</string>

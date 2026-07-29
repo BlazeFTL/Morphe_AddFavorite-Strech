@@ -516,6 +516,16 @@
     <string name="settings_appearance_app_card_colors">應用程式卡片顏色</string>
     <string name="settings_appearance_app_card_colors_default">預設</string>
     <string name="settings_appearance_app_card_colors_default_description">讓每個應用程式都擁有其套件的顏色</string>
+    <string name="settings_appearance_app_card_colors_accent">重點色彩</string>
+    <string name="settings_appearance_app_card_colors_accent_description">為首頁應用卡片使用應用程式重點色彩</string>
+    <string name="settings_appearance_app_card_colors_gradient">漸層</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">為首頁應用卡片使用一個自訂漸層</string>
+    <string name="settings_appearance_app_card_colors_solid">純色</string>
+    <string name="settings_appearance_app_card_colors_solid_description">為首頁應用卡片使用一個自訂顏色</string>
+    <string name="settings_appearance_app_card_colors_start">起始顏色</string>
+    <string name="settings_appearance_app_card_colors_middle">中間顏色</string>
+    <string name="settings_appearance_app_card_colors_end">結束顏色</string>
+    <string name="settings_appearance_app_card_colors_solid_color">純色</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">應用程式圖示</string>
     <string name="settings_appearance_app_icon_default">預設</string>

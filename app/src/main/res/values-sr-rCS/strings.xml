@@ -511,6 +511,16 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_app_grouping_description">Pokaži prekidač na početnom ekranu da bi grupisao aplikacije po izvoru ili vlastitim kategorijama, zadržavajući selekciju kada je isključen</string>
     <string name="settings_appearance_sort_button">Dugme za sortiranje</string>
     <string name="settings_appearance_sort_button_description">Prikaži dugme za sortiranje na početnom ekranu</string>
+    <string name="settings_appearance_app_card_colors_accent">Akcent</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Koristite akcentnu boju aplikacije za kartice na početnom ekranu</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Koristite jedan prilagođeni gradient za kartice aplikacija na početnom ekranu</string>
+    <string name="settings_appearance_app_card_colors_solid">Puno</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Koristite jednu prilagođenu boju za kartice aplikacija na početnom ekranu</string>
+    <string name="settings_appearance_app_card_colors_start">Početna boja</string>
+    <string name="settings_appearance_app_card_colors_middle">Srednja boja</string>
+    <string name="settings_appearance_app_card_colors_end">Završna boja</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Puna boja</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikonica aplikacije</string>
     <string name="settings_appearance_app_icon_default">Podrazumevana</string>

@@ -54,14 +54,15 @@ import app.morphe.manager.ui.screen.shared.AppIcon
 import app.morphe.manager.ui.screen.shared.MorpheAnimations
 import app.morphe.manager.ui.screen.shared.ShimmerBox
 import app.morphe.manager.ui.screen.shared.drawDiagonalShimmer
-import app.morphe.manager.ui.theme.LocalAppCardColors
+import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.util.AppCardColorResolver
 import app.morphe.manager.util.AppDataSource
 
 private data class HomeAppCardStyle(
     val monochrome: Boolean,
-    val cardColors: List<Color>?,
+    val colorResolver: AppCardColorResolver?,
     val iconSize: Dp,
     val titleColor: Color,
     val subtitleColor: Color,
@@ -74,7 +75,15 @@ private data class HomeAppCardStyle(
     val cardHeight: Dp = 80.dp,
     val contentPadding: Dp = 16.dp,
     val contentSpacing: Dp = 16.dp
-)
+) {
+    /**
+     * Applies the card colors chosen in the appearance settings to [bundleColors], the palette
+     * declared by this card's own bundle. Stops bound to the bundle are derived from it, so the
+     * result stays per-app even when the rest of the gradient is fixed.
+     */
+    fun cardColors(bundleColors: List<Color>): List<Color> =
+        colorResolver?.resolve(bundleColors) ?: bundleColors
+}
 
 @Composable
 private fun homeAppCardStyle(subtitleAlpha: Float = 0.75f): HomeAppCardStyle {
@@ -96,7 +105,7 @@ private fun homeAppCardStyle(subtitleAlpha: Float = 0.75f): HomeAppCardStyle {
 
     return HomeAppCardStyle(
         monochrome = monochrome,
-        cardColors = LocalAppCardColors.current,
+        colorResolver = LocalAppCardColorResolver.current,
         iconSize = 60.dp,
         titleColor = if (monochrome) MaterialTheme.colorScheme.onSurface else Color.White,
         subtitleColor = if (monochrome) {
@@ -150,7 +159,7 @@ internal fun RowScope.AppCardContent(
         contentDescription = null,
         modifier = Modifier.size(cardStyle.iconSize),
         preferredSource = AppDataSource.PATCHED_APK,
-        placeholderGradientColors = cardStyle.cardColors ?: gradientColors,
+        placeholderGradientColors = cardStyle.cardColors(gradientColors),
         placeholderInnerPadding = 6.dp
     )
 
@@ -403,7 +412,7 @@ internal fun AppCardLayout(
     val view = LocalView.current
 
     val contentAlpha = if (enabled) 1f else 0.45f
-    val colors = cardStyle.cardColors ?: gradientColors
+    val colors = cardStyle.cardColors(gradientColors)
     val baseColor = colors.firstOrNull() ?: Color.White
     val midColor = colors.getOrElse(1) { baseColor }
     val endColor = colors.lastOrNull() ?: baseColor
@@ -613,7 +622,7 @@ fun AppLoadingCard(
                     } else {
                         Modifier.background(
                             brush = Brush.linearGradient(
-                                colors = (cardStyle.cardColors ?: gradientColors)
+                                colors = cardStyle.cardColors(gradientColors)
                                     .map { it.copy(alpha = pulseAlpha) },
                                 start = Offset(if (rtl) 1000f else 0f, 0f),
                                 end = Offset(if (rtl) 0f else 1000f, 0f)

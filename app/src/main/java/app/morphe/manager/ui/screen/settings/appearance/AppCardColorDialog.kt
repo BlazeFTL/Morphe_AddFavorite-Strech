@@ -33,9 +33,10 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.home.AppCardContent
 import app.morphe.manager.ui.screen.home.AppCardLayout
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.ui.theme.LocalAppCardColors
+import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
+import app.morphe.manager.util.AppCardColorResolver
 import app.morphe.manager.util.AppCardColorStop
 import app.morphe.manager.util.toColorOrNull
 import app.morphe.manager.util.toHexString
@@ -88,15 +89,19 @@ fun AppCardColorDialog(
         draftSolidColorHex = defaultSolidHex
     }
 
+    // Bundle-bound stops have no single color of their own, so previews resolve them against the
+    // default palette
+    val previewBundleColor = AppCardColorDefaults.defaultGradientColors[0]
     val gradientColors = remember(draftStartColorHex, draftMiddleColorHex, draftEndColorHex) {
         AppCardColorDefaults.gradientColors(
             startHex = draftStartColorHex,
             middleHex = draftMiddleColorHex,
-            endHex = draftEndColorHex
+            endHex = draftEndColorHex,
+            bundleColor = previewBundleColor
         )
     }
     val solidColors = remember(draftSolidColorHex) {
-        AppCardColorDefaults.solidColors(draftSolidColorHex)
+        AppCardColorDefaults.solidColors(draftSolidColorHex, previewBundleColor)
     }
     // Null keeps the preview card on the default palette, matching how DEFAULT leaves every
     // home card on the colors declared by its bundle
@@ -183,19 +188,25 @@ fun AppCardColorDialog(
                     AppCardColorMode.GRADIENT -> SettingsGroup {
                         AppCardColorItem(
                             title = stringResource(R.string.settings_appearance_app_card_colors_start),
+                            stop = AppCardColorStop.START,
                             color = gradientColors[0],
+                            followsBundle = AppCardColorDefaults.isBundleColor(draftStartColorHex),
                             onClick = { editingStop = AppCardColorStop.START }
                         )
                         MorpheSettingsDivider()
                         AppCardColorItem(
                             title = stringResource(R.string.settings_appearance_app_card_colors_middle),
+                            stop = AppCardColorStop.MIDDLE,
                             color = gradientColors[1],
+                            followsBundle = AppCardColorDefaults.isBundleColor(draftMiddleColorHex),
                             onClick = { editingStop = AppCardColorStop.MIDDLE }
                         )
                         MorpheSettingsDivider()
                         AppCardColorItem(
                             title = stringResource(R.string.settings_appearance_app_card_colors_end),
+                            stop = AppCardColorStop.END,
                             color = gradientColors[2],
+                            followsBundle = AppCardColorDefaults.isBundleColor(draftEndColorHex),
                             onClick = { editingStop = AppCardColorStop.END }
                         )
                     }
@@ -203,7 +214,9 @@ fun AppCardColorDialog(
                     AppCardColorMode.SOLID -> SettingsGroup {
                         AppCardColorItem(
                             title = stringResource(R.string.settings_appearance_app_card_colors_solid_color),
+                            stop = AppCardColorStop.SOLID,
                             color = solidColors[0],
+                            followsBundle = AppCardColorDefaults.isBundleColor(draftSolidColorHex),
                             onClick = { editingStop = AppCardColorStop.SOLID }
                         )
                     }
@@ -221,9 +234,22 @@ fun AppCardColorDialog(
             AppCardColorStop.END -> gradientColors[2]
             AppCardColorStop.SOLID -> solidColors[0]
         }
+        val storedHex = when (stop) {
+            AppCardColorStop.START -> draftStartColorHex
+            AppCardColorStop.MIDDLE -> draftMiddleColorHex
+            AppCardColorStop.END -> draftEndColorHex
+            AppCardColorStop.SOLID -> draftSolidColorHex
+        }
         ColorPickerDialog(
             title = stringResource(stop.titleResId),
-            currentColor = color.toHexString(),
+            currentColor = storedHex,
+            toggle = ColorPickerToggle(
+                label = stringResource(R.string.settings_appearance_app_card_colors_bundle),
+                description = stringResource(R.string.settings_appearance_app_card_colors_bundle_description),
+                token = AppCardColorDefaults.BUNDLE_COLOR_TOKEN,
+                previewColor = color,
+                previewGradient = remember(stop) { AppCardColorDefaults.bundleStopPreview(stop) }
+            ),
             onColorSelected = { selectedColor ->
                 when (stop) {
                     AppCardColorStop.START -> draftStartColorHex = selectedColor
@@ -265,7 +291,9 @@ fun AppCardColorMiniPreview(
  */
 @Composable
 private fun AppCardColorPreview(colors: List<Color>?) {
-    CompositionLocalProvider(LocalAppCardColors provides colors) {
+    val resolver = remember(colors) { colors?.let { fixed -> AppCardColorResolver { fixed } } }
+
+    CompositionLocalProvider(LocalAppCardColorResolver provides resolver) {
         AppCardLayout(
             gradientColors = AppCardColorDefaults.defaultGradientColors,
             enabled = true,
@@ -285,15 +313,31 @@ private fun AppCardColorPreview(colors: List<Color>?) {
 @Composable
 private fun AppCardColorItem(
     title: String,
+    stop: AppCardColorStop,
     color: Color,
+    followsBundle: Boolean,
     onClick: () -> Unit
 ) {
+    // A bundle-bound stop has no single color to swatch, so it previews as the hue sweep the
+    // picker shows for it
+    val previewColors = remember(stop, color, followsBundle) {
+        if (followsBundle) {
+            AppCardColorDefaults.bundleStopPreview(stop)
+        } else {
+            listOf(color, color)
+        }
+    }
+
     SettingsItem(
         onClick = onClick,
         title = title,
-        subtitle = color.toHexString(),
+        subtitle = if (followsBundle) {
+            stringResource(R.string.settings_appearance_app_card_colors_bundle)
+        } else {
+            color.toHexString()
+        },
         leadingContent = {
-            AppCardColorMiniPreview(colors = listOf(color, color), width = 34.dp, height = 34.dp)
+            AppCardColorMiniPreview(colors = previewColors, width = 34.dp, height = 34.dp)
         }
     )
 }

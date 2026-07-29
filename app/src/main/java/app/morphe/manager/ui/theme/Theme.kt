@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -16,6 +17,7 @@ import androidx.core.view.WindowCompat
 import app.morphe.manager.R
 import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
+import app.morphe.manager.util.AppCardColorResolver
 import app.morphe.manager.util.AppCardColorValues
 import app.morphe.manager.util.toColorOrNull
 import kotlinx.serialization.Serializable
@@ -85,10 +87,10 @@ private val LightColorScheme = lightColorScheme(
 )
 
 /**
- * Home app card colors chosen in the appearance settings, or `null` when cards keep the
+ * Resolves home app card colors from the appearance settings, or `null` when cards keep the
  * per-app colors declared by their bundle.
  */
-val LocalAppCardColors = staticCompositionLocalOf<List<Color>?> { null }
+val LocalAppCardColorResolver = staticCompositionLocalOf<AppCardColorResolver?> { null }
 
 @Composable
 fun ManagerTheme(
@@ -156,21 +158,30 @@ fun ManagerTheme(
         }
     }
 
-    // Monochrome cards draw on neutral theme surfaces, so custom card colors never apply there
-    val appCardColors = if (monochromeTheme) {
-        null
-    } else {
-        AppCardColorDefaults.colors(
-            mode = appCardColorMode,
-            accentHex = accentColorHex.orEmpty(),
-            accentFallback = finalScheme.primary,
-            values = appCardColorValues
-        )
+    // Monochrome cards draw on neutral theme surfaces, so custom card colors never apply there.
+    // Remembered because a new resolver instance would invalidate every card that reads it
+    val appCardColorResolver = remember(
+        monochromeTheme,
+        appCardColorMode,
+        accentColorHex,
+        finalScheme.primary,
+        appCardColorValues
+    ) {
+        if (monochromeTheme) {
+            null
+        } else {
+            AppCardColorDefaults.resolver(
+                mode = appCardColorMode,
+                accentHex = accentColorHex.orEmpty(),
+                accentFallback = finalScheme.primary,
+                values = appCardColorValues
+            )
+        }
     }
 
     CompositionLocalProvider(
         LocalMonochromeTheme provides monochromeTheme,
-        LocalAppCardColors provides appCardColors
+        LocalAppCardColorResolver provides appCardColorResolver
     ) {
         MaterialTheme(
             colorScheme = finalScheme,

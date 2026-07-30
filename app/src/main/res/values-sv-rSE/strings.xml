@@ -49,6 +49,7 @@
     <string name="home_all_apps_hidden_subtitle">Du har dolt alla appar från startskärmen</string>
     <string name="home_category_add">Lägg till kategori</string>
     <string name="home_category_all_apps">Alla appar</string>
+    <string name="home_category_custom">Eget</string>
     <string name="home_category_uncategorized">Okategoriserat</string>
     <string name="home_category_new_title">Ny kategori</string>
     <string name="home_category_rename_title">Byt namn på kategori</string>
@@ -163,6 +164,7 @@
     <string name="home_apk_availability_no">Nej, jag har redan en APK-fil</string>
     <string name="home_apk_use_saved">Använd den sparade APK-filen</string>
     <string name="home_apk_use_installed">Använd den installerade APK-filen</string>
+    <string name="home_apk_use_installed_unverified">Det gick inte att verifiera signaturen för den installerade appen, så den kan redan ha modifierats</string>
     <string name="home_app_info_no_saved_apk">Ingen sparad APK-fil. Modifieringen kräver att du väljer APK-filen igen</string>
     <string name="home_version_requires_android">Kräver Android %s eller senare</string>
     <string name="home_apk_no_compatible_versions_title">Stöds inte på den här enheten</string>
@@ -327,9 +329,18 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="home_app_info_app_deleted_warning">Appen har avinstallerats</string>
     <string name="home_app_info_app_deleted_description">Den här appen avinstallerades utanför Morphe. Modifiera den igen för att återställa funktionaliteten</string>
     <string name="home_app_info_apk_size">Storlek på APK-fil</string>
+    <string name="home_app_info_cpu_arch">CPU-arkitektur</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Rotläget kräver att den ursprungliga APK-filen är installerad på din enhet innan du modifierar appen</string>
     <string name="root_gmscore_excluded">Tillägget för GmsCore-stöd exkluderas i rotläge</string>
+    <string name="root_pre_patch_installer_title">Välj modifieringsläge</string>
+    <string name="root_pre_patch_installer_description">Din enhet har rotåtkomst. Välj om den här appen ska modifieras för rotmontering eller standardinstallation</string>
+    <string name="root_pre_patch_installer_mount_title">Rotmonteringsläge</string>
+    <string name="root_pre_patch_installer_mount_description">Modifierar för rotmontering och monterar sedan APK-filen över den matchande standardappen. Inget stöd för GmsCore behövs</string>
+    <string name="root_mount_module_unmount_warning">Om KernelSU har Unmount modules aktiverat som standard öppnar du KernelSU &gt; Superuser &gt; appen du monterat &gt; Profile &gt; Custom och inaktivera Unmount modules. Annars kan det hända att den modifierade APK-filen som har monterats inte träder i kraft, även om Morphe visar att den är monterad</string>
+    <string name="root_pre_patch_installer_standard_title">Standardinstallationsläge</string>
+    <string name="root_pre_patch_installer_standard_description">Modifierar som en vanlig APK-fil med stöd för GmsCore. Din installerarinställning används efter modifieringen</string>
+    <string name="root_pre_patch_installer_hint">Det här modifieringsläget är separat från Inställningar &gt; System &gt; Installerare och kan inte ändras efter modifieringen</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Felmeddelande kopierades till urklipp</string>
     <string name="patcher_error_log">Fellogg</string>
@@ -427,6 +438,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_process_exit_message">Modifieringsprocessen avslutades med koden %s</string>
     <string name="install_app_success">Installationen lyckades</string>
     <string name="install_app_fail">Det gick inte att installera appen: %s</string>
+    <string name="uninstall_app_fail">Det gick inte att avinstallera appen: %s</string>
+    <string name="uninstall_timeout">Avinstallationen nådde tidsgränsen </string>
     <string name="save_apk_success">APK-fil sparades</string>
     <string name="saved_app_export_failed">Det gick inte att exportera den modifierade appen</string>
     <string name="saved_app_removed_toast">Tog bort den sparade modifierade appen</string>
@@ -472,10 +485,14 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_parallax_effect_description">Bakgrunden flyttas jämnt när enheten lutas</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
+    <string name="settings_appearance_theme_mode">Temaläge</string>
     <string name="settings_appearance_system">System</string>
     <string name="settings_appearance_light">Ljust</string>
     <string name="settings_appearance_dark">Mörkt</string>
     <string name="settings_appearance_dynamic">Material You</string>
+    <string name="settings_appearance_monochrome">Monokrom</string>
+    <string name="settings_appearance_color_style">Färgstil</string>
+    <string name="settings_appearance_colors">Färger</string>
     <string name="settings_appearance_accent_color">Accentfärg</string>
     <string name="settings_appearance_pure_black">Rent svart</string>
     <string name="settings_appearance_pure_black_description">Använder rent svarta bakgrunder</string>
@@ -483,10 +500,19 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_app_language">Appspråk</string>
     <string name="settings_appearance_app_language_current">Aktuellt språk</string>
     <string name="settings_appearance_translations_info_title">Översättningar till vissa språk kan saknas eller vara ofullständiga</string>
+    <string name="settings_appearance_translations_info_text">"Om du vill översätta till nya språk eller förbättra de befintliga översättningarna besöker du
+%s"</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Startskärm</string>
     <string name="settings_appearance_greeting_phrases">Hälsningsfraser</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Visa ett hälsningsmeddelande på startskärmen</string>
+    <string name="settings_appearance_app_grouping">Appgruppering</string>
+    <string name="settings_appearance_app_grouping_description">Visa en uppsättning knappar på startskärmen för att gruppera appar efter källa eller egna kategorier. Valet behålls när du stänger appen</string>
+    <string name="settings_appearance_sort_button">Sorteringsknapp</string>
+    <string name="settings_appearance_sort_button_description">Visa sorteringsknappen på startskärmen</string>
+    <string name="settings_appearance_app_card_colors">Färger för appkort</string>
+    <string name="settings_appearance_app_card_colors_default">Standard</string>
+    <string name="settings_appearance_app_card_colors_accent">Accentfärg</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
     <string name="settings_appearance_app_icon_default">Standard</string>
@@ -874,7 +900,6 @@ Bildernas mått ska vara följande:
     <string name="saved">Sparad</string>
     <string name="update">Uppdatera</string>
     <string name="allow">Tillåt</string>
-    <string name="details">Information</string>
     <string name="hide">Dölj</string>
     <string name="hidden">Dolt</string>
     <string name="unhide">Visa</string>

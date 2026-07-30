@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">Yo\'q, allaqachon APK bor</string>
     <string name="home_apk_use_saved">Saqlangan APKdan foydalanish</string>
     <string name="home_apk_use_installed">O\'rnatilgan APKdan foydalanish</string>
+    <string name="home_apk_use_installed_unverified">O\'rnatilgan ilovaning imzosi tasdiqlanmadi, shuning uchun u allaqachon o\'zgartirilgan bo\'lishi mumkin</string>
     <string name="home_app_info_no_saved_apk">Saqlangan APK yo\'q. Patchlash uchun APK faylini qayta tanlash kerak bo\'ladi</string>
     <string name="home_version_requires_android">Android %s+ talab qilinadi</string>
     <string name="home_apk_no_compatible_versions_title">Ushbu moslamada qo‘llab-quvvatlanmaydi</string>
@@ -998,7 +999,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="saved">O\'chirish</string>
     <string name="update">Yangilash</string>
     <string name="allow">Ruxsat berish</string>
-    <string name="details">Tafsilotlar</string>
     <string name="hide">Yashirish</string>
     <string name="hidden">Yashirilgan</string>
     <string name="unhide">Ko‘rsatish</string>

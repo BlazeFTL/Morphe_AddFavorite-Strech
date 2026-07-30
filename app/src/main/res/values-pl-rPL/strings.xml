@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">Nie, mam już plik APK</string>
     <string name="home_apk_use_saved">Użyj zapisanego pliku APK</string>
     <string name="home_apk_use_installed">Użyj zainstalowanego pliku APK</string>
+    <string name="home_apk_use_installed_unverified">Nie udało się zweryfikować podpisu zainstalowanej aplikacji, więc może być już zmodyfikowana</string>
     <string name="home_app_info_no_saved_apk">Brak zapisanego pliku APK. Modyfikacja będzie wymagać ponownego wybrania pliku</string>
     <string name="home_version_requires_android">Wymaga Androida %s+</string>
     <string name="home_apk_no_compatible_versions_title">Niewspierane na tym urządzeniu</string>
@@ -1000,7 +1001,6 @@ Wymagane są następujące wymiary obrazów:
     <string name="saved">Zapisano</string>
     <string name="update">Aktualizuj</string>
     <string name="allow">Zezwól</string>
-    <string name="details">Szczegóły</string>
     <string name="hide">Ukryj</string>
     <string name="hidden">Ukryte</string>
     <string name="unhide">Pokaż</string>

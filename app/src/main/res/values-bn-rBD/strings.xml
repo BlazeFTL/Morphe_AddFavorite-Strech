@@ -991,7 +991,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="saved">সংরক্ষিত হয়েছে</string>
     <string name="update">আপডেট</string>
     <string name="allow">অনুমতি দিন</string>
-    <string name="details">বিস্তারিত</string>
     <string name="hide">গোপন রাখুন</string>
     <string name="hidden">লুকানো</string>
     <string name="unhide">আনলুকানো</string>

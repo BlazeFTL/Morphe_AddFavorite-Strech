@@ -992,7 +992,6 @@ morphe_header_custom_dark.png
     <string name="saved">保存済み</string>
     <string name="update">アップデート</string>
     <string name="allow">許可</string>
-    <string name="details">詳細</string>
     <string name="hide">非表示にする</string>
     <string name="hidden">非表示</string>
     <string name="unhide">再表示</string>

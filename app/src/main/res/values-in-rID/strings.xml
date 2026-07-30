@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">Tidak, saya sudah memiliki APK</string>
     <string name="home_apk_use_saved">Gunakan APK yang tersimpan</string>
     <string name="home_apk_use_installed">Gunakan APK yang terpasang</string>
+    <string name="home_apk_use_installed_unverified">Tanda tangan aplikasi yang terpasang tidak dapat diverifikasi, jadi kemungkinan aplikasi tersebut sudah ditambal.</string>
     <string name="home_app_info_no_saved_apk">Tidak ada APK yang disimpan. Penambalan akan memerlukan memilih berkas APK lagi</string>
     <string name="home_version_requires_android">Membutuhkan Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Tidak didukung di perangkat ini</string>
@@ -1001,7 +1002,6 @@ Rincian: %2$s"</string>
     <string name="saved">Disimpan</string>
     <string name="update">Perbarui</string>
     <string name="allow">Izinkan</string>
-    <string name="details">Rincian</string>
     <string name="hide">Sembunyikan</string>
     <string name="hidden">Disembunyikan</string>
     <string name="unhide">Tampilkan</string>

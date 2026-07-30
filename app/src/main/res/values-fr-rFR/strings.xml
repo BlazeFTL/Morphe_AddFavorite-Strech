@@ -166,7 +166,7 @@
     <string name="home_apk_availability_no">Non, j\'ai déjà un APK</string>
     <string name="home_apk_use_saved">Utiliser l\'APK enregistré</string>
     <string name="home_apk_use_installed">Utiliser l\'APK installé</string>
-    <string name="home_apk_use_installed_unverified">Impossible de vérifier la signature de l\'application installée, elle pourrait donc déjà avoir été modifiée</string>
+    <string name="home_apk_use_installed_unverified">Impossible de vérifier la signature de l\'application installée, il est donc possible qu\'elle soit déjà patchée</string>
     <string name="home_app_info_no_saved_apk">Aucun APK enregistré. Le patchage nécessitera de sélectionner à nouveau le fichier APK</string>
     <string name="home_version_requires_android">Nécessite Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Non pris en charge sur cet appareil</string>
@@ -963,7 +963,7 @@ Détails : %2$s"</string>
     <string name="enabled">Activé</string>
     <string name="disabled">Désactivé</string>
     <string name="selected">Sélectionné</string>
-    <string name="not_selected">Non sélectionné</string>
+    <string name="not_selected">Non sélectionnée</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="select_all_done">Tous sélectionnés</string>
     <string name="deselect_all">Tout désélectionner</string>
@@ -1008,7 +1008,6 @@ Détails : %2$s"</string>
     <string name="saved">Enregistré</string>
     <string name="update">Mettre à jour</string>
     <string name="allow">Autoriser</string>
-    <string name="details">Détails</string>
     <string name="hide">Masquer</string>
     <string name="hidden">Masqué</string>
     <string name="unhide">Afficher</string>

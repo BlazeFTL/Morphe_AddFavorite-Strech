@@ -997,7 +997,6 @@ morphe_header_custom_dark.png
     <string name="saved">已儲存</string>
     <string name="update">更新</string>
     <string name="allow">允許</string>
-    <string name="details">詳細資料</string>
     <string name="hide">隱藏</string>
     <string name="hidden">已隱藏</string>
     <string name="unhide">取消隱藏</string>

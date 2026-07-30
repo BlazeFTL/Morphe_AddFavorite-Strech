@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">Hayır, bende APK var</string>
     <string name="home_apk_use_saved">Kayıtlı APK\'yi kullan</string>
     <string name="home_apk_use_installed">Yüklü APK\'yi kullan</string>
+    <string name="home_apk_use_installed_unverified">Yüklenen uygulamanın imzası doğrulanamadı, bu nedenle zaten yama uygulanmış olabilir</string>
     <string name="home_app_info_no_saved_apk">Kayıtlı APK yok. Yamayı uygulayabilmek için tekrar APK dosyasını seçmeniz gerekiyor</string>
     <string name="home_version_requires_android">Android %s+ gerektiriyor</string>
     <string name="home_apk_no_compatible_versions_title">Bu cihazda desteklenmiyor</string>
@@ -998,7 +999,6 @@ Ayrıntılar: %2$s"</string>
     <string name="saved">Kaydedildi</string>
     <string name="update">Güncelle</string>
     <string name="allow">İzin ver</string>
-    <string name="details">Detaylar</string>
     <string name="hide">Gizle</string>
     <string name="hidden">Gizlendi</string>
     <string name="unhide">Gizliliği kaldır</string>

@@ -1000,7 +1000,6 @@ morphe_header_custom_dark.png
     <string name="saved">บันทึกแล้ว</string>
     <string name="update">อัปเดต</string>
     <string name="allow">อนุญาต</string>
-    <string name="details">รายละเอียด</string>
     <string name="hide">ซ่อน</string>
     <string name="hidden">ซ่อนแล้ว</string>
     <string name="unhide">แสดง</string>

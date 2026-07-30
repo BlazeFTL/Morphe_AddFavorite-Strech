@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">لا، لدي ملف APK بالفعل</string>
     <string name="home_apk_use_saved">استخدام ملف APK المحفوظ</string>
     <string name="home_apk_use_installed">استخدام ملف APK المثبت</string>
+    <string name="home_apk_use_installed_unverified">تعذر التحقق من توقيع التطبيق المثبت، لذا قد يكون قد تم تعديله بالفعل</string>
     <string name="home_app_info_no_saved_apk">لا يوجد ملف APK محفوظ. ستتطلب عملية التعديل إعادة اختيار ملف APK</string>
     <string name="home_version_requires_android">يتطلب Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">غير مدعوم على هذا الجهاز</string>
@@ -1003,7 +1004,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="saved">محفوظة</string>
     <string name="update">تحديث</string>
     <string name="allow">السماح</string>
-    <string name="details">التفاصيل</string>
     <string name="hide">إخفاء</string>
     <string name="hidden">مخفي</string>
     <string name="unhide">إظهار</string>

@@ -103,7 +103,6 @@
     <string name="rename">ប្ដូរឈ្មោះ</string>
     <string name="import_">នាំចូល</string>
     <string name="allow">អនុញ្ញាត</string>
-    <string name="details">ព័ត៌មានលម្អិត</string>
     <!-- Onboarding coach marks -->
     <!-- %1$d = current step number, %2$d = total number of steps (e.g. "3 of 13") -->
     <!-- Translate "System" the same way as the System settings tab -->

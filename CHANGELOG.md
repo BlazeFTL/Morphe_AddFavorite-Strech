@@ -1,3 +1,18 @@
+# [1.25.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.6...v1.25.0-dev.7) (2026-07-30)
+
+
+### Bug Fixes
+
+* Correct app status, signature and saved APK checks ([#791](https://github.com/MorpheApp/morphe-manager/issues/791)) ([c47ac44](https://github.com/MorpheApp/morphe-manager/commit/c47ac44050ddaf6fcec5df184f3349244cbb84cc))
+* Derive source page and avatar URLs from the source endpoint ([e1c7fdf](https://github.com/MorpheApp/morphe-manager/commit/e1c7fdf52cd4af131ae92fd1de3a827b4010be3c))
+* Remove app card color mini preview ([b394eb8](https://github.com/MorpheApp/morphe-manager/commit/b394eb8c4319ff16198193b49e204dfd352d208f))
+* Treat a mounted install as patched when picking a patch source ([1d84c9e](https://github.com/MorpheApp/morphe-manager/commit/1d84c9e6fa35a71ea04171f362f84078355697f2))
+
+
+### Features
+
+* Fall back to APK and installer signals when signatures are unreadable ([22b3104](https://github.com/MorpheApp/morphe-manager/commit/22b310468b4e2a98e4152e035d0423cbe12ab8a2))
+
 # [1.25.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.5...v1.25.0-dev.6) (2026-07-29)
 
 

@@ -1,3 +1,10 @@
+# [1.25.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.7...v1.25.0-dev.8) (2026-07-30)
+
+
+### Bug Fixes
+
+* Mirror navigation chevrons and isolate version strings in RTL layouts ([ca60cd0](https://github.com/MorpheApp/morphe-manager/commit/ca60cd05e33ef08d78edf84f2a8592243289e117)), closes [/github.com/MorpheApp/morphe-manager/issues/709#issuecomment-5132332365](https://github.com//github.com/MorpheApp/morphe-manager/issues/709/issues/issuecomment-5132332365)
+
 # [1.25.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.6...v1.25.0-dev.7) (2026-07-30)
 
 

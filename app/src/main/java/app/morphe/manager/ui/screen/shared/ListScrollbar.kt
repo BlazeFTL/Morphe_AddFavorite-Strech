@@ -233,9 +233,9 @@ private fun BoxScope.ScrollbarOverlay(
     modifier: Modifier = Modifier,
     extraBottomPadding: Dp = 0.dp
 ) {
+    // Alignments resolve against the layout direction on their own, so the scrollbar mirrors to the
+    // leading edge in RTL without being flipped here. Only the raw draw coordinates below need it
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
-    val sideAlignment = if (rtl) Alignment.CenterStart else Alignment.CenterEnd
-    val topSideAlignment = if (rtl) Alignment.TopStart else Alignment.TopEnd
     val currentResolveSeek by rememberUpdatedState(resolveSeek)
     val currentScrollTo by rememberUpdatedState(scrollTo)
     val scope = rememberCoroutineScope()
@@ -301,7 +301,7 @@ private fun BoxScope.ScrollbarOverlay(
 
     Box(
         modifier = modifier
-            .align(sideAlignment)
+            .align(Alignment.CenterEnd)
             .fillMaxHeight()
             .width(ScrollbarOverlayWidth)
             .padding(
@@ -315,7 +315,7 @@ private fun BoxScope.ScrollbarOverlay(
         // and dragging is unavailable under touch exploration, so screen readers get nothing useful
         Box(
             modifier = Modifier
-                .align(sideAlignment)
+                .align(Alignment.CenterEnd)
                 .fillMaxHeight()
                 .width(ScrollbarTouchWidth)
                 .clearAndSetSemantics { }
@@ -403,9 +403,8 @@ private fun BoxScope.ScrollbarOverlay(
         if (dragging && label != null) {
             AlphabetScrollCallout(
                 label = label,
-                rtl = rtl,
                 modifier = Modifier
-                    .align(topSideAlignment)
+                    .align(Alignment.TopEnd)
                     .layout { measurable, constraints ->
                         val placeable = measurable.measure(constraints)
                         val trackHeight = constraints.maxHeight.toFloat()
@@ -426,10 +425,10 @@ private fun BoxScope.ScrollbarOverlay(
     }
 }
 
+/** The gap trails the bubble so it lands between it and the track, on either layout direction. */
 @Composable
 private fun AlphabetScrollCallout(
     label: String,
-    rtl: Boolean,
     modifier: Modifier = Modifier
 ) {
     val colors = MaterialTheme.colorScheme
@@ -439,7 +438,6 @@ private fun AlphabetScrollCallout(
             .height(AlphabetBubbleHeight),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (rtl) Spacer(Modifier.width(AlphabetBubbleGap))
         Surface(
             modifier = Modifier.size(AlphabetBubbleWidth, AlphabetBubbleHeight),
             shape = RoundedCornerShape(18.dp),
@@ -458,7 +456,7 @@ private fun AlphabetScrollCallout(
                 )
             }
         }
-        if (!rtl) Spacer(Modifier.width(AlphabetBubbleGap))
+        Spacer(Modifier.width(AlphabetBubbleGap))
     }
 }
 

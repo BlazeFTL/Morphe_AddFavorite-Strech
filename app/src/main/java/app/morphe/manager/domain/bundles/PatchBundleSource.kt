@@ -82,6 +82,7 @@ sealed class PatchBundleSource(
 
     companion object Extensions {
         private const val MIN_PATCH_BUNDLE_BYTES = 8L
+        private const val JSON_EXTENSION = ".json"
         val PatchBundleSource.isDefault inline get() = uid == 0
         val PatchBundleSource.asRemoteOrNull inline get() = this as? RemotePatchBundle
 
@@ -122,14 +123,15 @@ sealed class PatchBundleSource(
         }
 
         /**
-         * Get custom bundle avatar URL (patches-bundle.png next to patches-bundle.json).
-         * Returns null if the endpoint does not contain patches-bundle.json.
+         * Get custom bundle avatar URL (the PNG named after the bundle JSON, next to it).
+         * Returns null if the endpoint does not point to a JSON file.
          */
         val PatchBundleSource.bundleAvatarUrl: String? get() {
             val remote = this as? RemotePatchBundle ?: return null
-            return if (remote.endpoint.contains("patches-bundle.json", ignoreCase = true))
-                remote.endpoint.replace("patches-bundle.json", "patches-bundle.png", ignoreCase = true)
-            else null
+            val path = remote.endpoint.substringBefore('?').substringBefore('#')
+            if (!path.endsWith(JSON_EXTENSION, ignoreCase = true)) return null
+            // Keep the query and fragment, they can carry the credentials of a private host
+            return path.dropLast(JSON_EXTENSION.length) + ".png" + remote.endpoint.substring(path.length)
         }
 
         /**

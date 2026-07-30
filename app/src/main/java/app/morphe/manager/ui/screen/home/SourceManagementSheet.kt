@@ -342,9 +342,7 @@ fun BundleManagementSheet(
                                     },
                                     onOpenInBrowser = {
                                         val pageUrl = manualUpdateInfo[bundle.uid]?.pageUrl
-                                            ?: (bundle as? RemotePatchBundle)?.let { remote ->
-                                                RemotePatchBundle.inferPageUrlFromEndpoint(remote.endpoint)
-                                            }
+                                            ?: (bundle as? RemotePatchBundle)?.browsePageUrl
                                             ?: SOURCE_REPO_URL
                                         try {
                                             uriHandler.openUri(pageUrl)

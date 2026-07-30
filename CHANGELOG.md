@@ -1,3 +1,10 @@
+# [1.25.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.8...v1.25.0-dev.9) (2026-07-30)
+
+
+### Bug Fixes
+
+* Mirror the list scrollbar to the correct side in RTL layouts ([e8fd43b](https://github.com/MorpheApp/morphe-manager/commit/e8fd43b5a2fe835aef4d9ea664e04d679f797262))
+
 # [1.25.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.7...v1.25.0-dev.8) (2026-07-30)
 
 

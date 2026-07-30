@@ -339,6 +339,7 @@
     <string name="root_pre_patch_installer_description">جهازك لديه صلاحيات Root. اختر ما إذا كان يجب تعديل هذا التطبيق بوضعية Root Mount أو التثبيت القياسي</string>
     <string name="root_pre_patch_installer_mount_title">وضع Root Mount</string>
     <string name="root_pre_patch_installer_mount_description">تعديلات لوضعية Root Mount، ثم يتم تركيب ملف APK فوق التطبيق الأصلي المطابق. لا حاجة إلى GmsCore</string>
+    <string name="root_mount_module_unmount_warning">إذا كانت ميزة «فك ربط الوحدات النمطية» (Unmount modules) مفعَّلة افتراضيًّا في KernelSU، فافتح KernelSU &gt; Superuser &gt; التطبيق الذي قمت بربطه &gt; Profile &gt; Custom وعطّل ميزة «فك ربط الوحدات النمطية». وإلا، فقد لا يسري مفعول ملف APK المُعدَّل الذي رُبط، حتى لو أظهره Morphe على أنه مربوط</string>
     <string name="root_pre_patch_installer_standard_title">وضع التثبيت القياسي</string>
     <string name="root_pre_patch_installer_standard_description">تثبيت كملف APK عادي مع دعم GmsCore. يتم استخدام إعداد أداة التثبيت الخاصة بك بعد التعديل</string>
     <string name="root_pre_patch_installer_hint">وضع التعديل هذا منفصل عن الإعدادات &gt; النظام &gt; أداة التثبيت ولا يمكن تغييره بعد التعديل</string>
@@ -519,15 +520,16 @@
     <string name="settings_appearance_app_card_colors_default_description">امنح كل تطبيق لون حزمته الخاصة</string>
     <string name="settings_appearance_app_card_colors_accent">لون التمييز</string>
     <string name="settings_appearance_app_card_colors_accent_description">استخدام لون تمييز التطبيق لبطاقات تطبيقات الصفحة الرئيسية</string>
-    <string name="settings_appearance_app_card_colors_gradient">تدرج</string>
+    <string name="settings_appearance_app_card_colors_gradient">التدرج</string>
     <string name="settings_appearance_app_card_colors_gradient_description">استخدام تدرج لوني مخصص لبطاقات تطبيقات الصفحة الرئيسية</string>
     <string name="settings_appearance_app_card_colors_solid">طبقة لون واحد</string>
     <string name="settings_appearance_app_card_colors_solid_description">استخدام لونًا مخصصًا واحدًا لبطاقات تطبيقات الصفحة الرئيسية</string>
     <string name="settings_appearance_app_card_colors_start">لون البداية</string>
     <string name="settings_appearance_app_card_colors_middle">لون المنتصف</string>
-    <string name="settings_appearance_app_card_colors_end">لون النهاية</string>
+    <string name="settings_appearance_app_card_colors_end">لون النهاية </string>
     <string name="settings_appearance_app_card_colors_solid_color">لون ثابت</string>
-    <string name="settings_appearance_app_card_colors_bundle">لون حزمة التطبيق</string>
+    <string name="settings_appearance_app_card_colors_bundle">لون مجموعة التطبيق</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">استخدم لون كل تطبيق هنا، مع تظليله تلقائيًا ليناسب المساحة المتاحة</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">أيقونة التطبيق</string>
     <string name="settings_appearance_app_icon_default">الافتراضي</string>

@@ -214,6 +214,8 @@
     <string name="expert_mode_reset_to_default_done">Uporabljeni priporočeni popravki</string>
     <string name="expert_mode_restore_saved">Obnovi izbrano izbiro</string>
     <string name="expert_mode_restore_saved_done">Obnovljena shranjena izbira</string>
+    <string name="expert_mode_copy_from_bundle">Kopiraj izbiro iz drugega paketa</string>
+    <string name="expert_mode_copy_from_bundle_no_patches">Ni ujemajočih popravkov v tem paketu</string>
     <string name="expert_mode_no_results">Ni najdenih popravkov</string>
     <string name="expert_mode_universal_patches">Univerzalni popravki</string>
     <string name="expert_mode_new_patches">Novo</string>
@@ -306,6 +308,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="header_creator_guide_positioning_body">Uporabite geste stiskanja za povečavo in povlecite neposredno v predogledu, da pozicionirate in skalirate sliko. Vodila se pojavijo, ko je slika blizu sredine. Lahko uporabite tudi drsnik pod predogledom.</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Ali ste prepričani, da želite odstraniti to aplikacijo?</string>
+    <string name="batch_uninstall_confirm_body">Izbrane aplikacije bodo trajno izbrisane iz vaše naprave</string>
     <string name="home_app_info_remove_app_warning">To bo trajno izbrisalo:</string>
     <string name="home_app_info_delete_item_database">Vnos v bazi podatkov</string>
     <string name="home_app_info_delete_item_patched_apk">Popravljena datoteka APK</string>
@@ -336,6 +339,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="root_pre_patch_installer_description">Vaša naprava ima dostop do višinskih pravic. Izberite, ali naj bo ta aplikacija obliževana za root namestitev ali standardno namestitev.</string>
     <string name="root_pre_patch_installer_mount_title">Način namestitve root</string>
     <string name="root_pre_patch_installer_mount_description">Obliži za namestitev root, nato namesti APK prek ustrezne originalne aplikacije. GmsCore ni potreben.</string>
+    <string name="root_mount_module_unmount_warning">Če ima KernelSU privzeto omogočeno Demontiraj module, odpri KernelSU &gt; Superuser &gt; aplikacijo, ki si jo namestil &gt; Profile &gt; Prilagoditve in onemogoči Demontiraj module. Drugače nameščeni popravljeni APK ne bo deloval, kljub temu da ga bo Morphe prikazal kot nameščenega</string>
     <string name="root_pre_patch_installer_standard_title">Standardni način namestitve</string>
     <string name="root_pre_patch_installer_standard_description">Popravki se namestijo kot običajna datoteka APK z GmsCore podporo. Vaša nastavitev namestitvenega programa se uporabi po popravku.</string>
     <string name="root_pre_patch_installer_hint">Ta način popravka je ločen od Nastavitve > Sistem > Namestitveni program in ga ni mogoče spremeniti po popravku.</string>
@@ -492,6 +496,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Enobarvno</string>
     <string name="settings_appearance_color_style">Slog barv</string>
+    <string name="settings_appearance_colors">Barve</string>
     <string name="settings_appearance_accent_color">Barva poudarkov</string>
     <string name="settings_appearance_pure_black">Črnina</string>
     <string name="settings_appearance_pure_black_description">Uporablja prava črne ozadja</string>
@@ -509,6 +514,9 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_app_grouping_description">Prikaži stikalo na začetnem zaslonu za grupiranje aplikacij po izvoru ali lastnih kategorijah, obdrži izbor, ko je izklopljeno</string>
     <string name="settings_appearance_sort_button">Gumb za razvrščanje</string>
     <string name="settings_appearance_sort_button_description">Prikaži gumb za razvrščanje na začetnem zaslonu</string>
+    <string name="settings_appearance_app_card_colors">Barve kartic aplikacij</string>
+    <string name="settings_appearance_app_card_colors_default">Privzeto</string>
+    <string name="settings_appearance_app_card_colors_default_description">Daj vsaki aplikaciji barvo njenega paketa</string>
     <string name="settings_appearance_app_card_colors_accent">Poudarek</string>
     <string name="settings_appearance_app_card_colors_accent_description">Uporabite poudarjeno barvo aplikacije za kartice na začetnem zaslonu</string>
     <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
@@ -519,6 +527,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_app_card_colors_middle">Srednja barva</string>
     <string name="settings_appearance_app_card_colors_end">Končna barva</string>
     <string name="settings_appearance_app_card_colors_solid_color">Šestnajstiška (hex) barva</string>
+    <string name="settings_appearance_app_card_colors_bundle">Barva paketa aplikacije</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Uporabite lastno barvo za vsako aplikacijo tukaj, ki bo samodejno osenčena, da se prilega</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikona aplikacije</string>
     <string name="settings_appearance_app_icon_default">Privzeta</string>
@@ -871,6 +881,9 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_patch_options_section">Možnosti popravkov</string>
     <string name="settings_system_no_patches_or_options">Ni shranjenih popravkov ali možnosti</string>
     <!-- Copy selection from another bundle -->
+    <string name="copy_selection_title">Kopiraj izbiro iz…</string>
+    <string name="copy_selection_confirm_with_count">Kopiraj %s</string>
+    <string name="copy_selection_empty">Ni ostalih shranjenih izbir na voljo za kopiranje</string>
     <string name="copy_selection_available_format">%1$s od %2$s na voljo</string>
     <string name="copy_selection_same_source">Enak vir</string>
     <!-- Settings - System Tab - Custom file picker -->

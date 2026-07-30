@@ -18,7 +18,14 @@
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Uppdatering för Morphe är tillgänglig</string>
     <string name="home_update_available_subtitle">Ny version är redo att installeras</string>
+    <string name="home_blocked_source_title">Blockerad tilläggskälla har identifierats</string>
+    <string name="home_blocked_source_subtitle">Tryck för att granska och ta bort</string>
+    <string name="home_metadata_errors_title">Vissa tilläggskällor är inte tillgängliga</string>
+    <string name="home_metadata_errors_subtitle">Tryck för att granska källor</string>
+    <string name="home_metered_skipped_title">Uppdateringar via mobildata har pausats</string>
+    <string name="home_metered_skipped_subtitle">Tryck för att tillåta uppdateringar via mobildata</string>
     <string name="home_update_error">Uppdatering misslyckades</string>
+    <string name="home_update_error_subtitle">Något gick fel vid uppdatering av källor</string>
     <string name="home_update_skipped_metered">Uppdateringar hoppas över</string>
     <string name="home_update_skipped_metered_subtitle">Mobildata är aktivt</string>
     <string name="home_updating_sources">Uppdaterar källor …</string>
@@ -40,6 +47,17 @@
     <string name="home_no_apps_search_subtitle">Inga appar matchar \"%s\"</string>
     <string name="home_all_apps_hidden_title">Alla appar är dolda</string>
     <string name="home_all_apps_hidden_subtitle">Du har dolt alla appar från startskärmen</string>
+    <string name="home_category_add">Lägg till kategori</string>
+    <string name="home_category_all_apps">Alla appar</string>
+    <string name="home_category_uncategorized">Okategoriserat</string>
+    <string name="home_category_new_title">Ny kategori</string>
+    <string name="home_category_rename_title">Byt namn på kategori</string>
+    <string name="home_category_name">Kategorinamn</string>
+    <string name="home_category_move_to">Flytta till kategori</string>
+    <string name="home_category_move_selected_title">Flytta markerade appar</string>
+    <string name="home_category_delete_confirm_title">Radera kategori</string>
+    <string name="home_category_delete_confirm_message">Radera kategorin &lt;b&gt;%1$s&lt;/b&gt;? Appar i den flyttas tillbaka till &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="home_category_actions_unavailable">Åtgärder är inte tillgängliga för den här kategorin</string>
     <!-- Home Screen - Home Greetings -->
     <string name="home_greeting_1">Vilken app vill du modifiera?</string>
     <!-- Humorous hype message with light nostalgia -->
@@ -98,6 +116,8 @@
     <string name="sources_management_experimental_versions_toggle_description">Modifierar experimentella appmål om sådana finns</string>
     <string name="sources_management_already_exists">Den här källan har redan lagts till</string>
     <string name="sources_management_invalid_url">Ogiltig källadress. Kontrollera adressen och försök igen</string>
+    <string name="sources_management_blocked">Den här tilläggskällan är blockerad och kan inte läggas till</string>
+    <string name="sources_management_source_blocked_badge">Blockerad</string>
     <string name="sources_management_metadata_unavailable">Metadata är inte tillgängliga</string>
     <string name="sources_management_metadata_unavailable_hint">Fjärrfilen för metadata är inte tillgänglig. Modifiering med det installerade arkivet fungerar fortfarande, men automatisk uppdatering är inaktiverad för den här källan</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Det gick inte att ladda ned tilläggsarkivet. Källadressen kan vara felaktig eller så finns inte filen</string>

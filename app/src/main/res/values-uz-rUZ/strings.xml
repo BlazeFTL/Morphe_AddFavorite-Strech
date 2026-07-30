@@ -526,6 +526,8 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="settings_appearance_app_card_colors_middle">O\'rtadagi rang</string>
     <string name="settings_appearance_app_card_colors_end">Tugash rang</string>
     <string name="settings_appearance_app_card_colors_solid_color">Bitta rang</string>
+    <string name="settings_appearance_app_card_colors_bundle">Ilova to\'plamining rangi</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Bu yerda har bir ilovaning o\'z rangini ishlatib, avtomatik ravishda moslash uchun soyalanadi</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ilona belgisi</string>
     <string name="settings_appearance_app_icon_default">Standart</string>

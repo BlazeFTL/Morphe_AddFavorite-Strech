@@ -511,6 +511,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_app_grouping_description">Hiển thị công tắc màn hình chính để nhóm ứng dụng theo nguồn hoặc danh mục của riêng bạn, giữ lựa chọn khi tắt</string>
     <string name="settings_appearance_sort_button">Nút sắp xếp</string>
     <string name="settings_appearance_sort_button_description">Hiển thị nút sắp xếp trên màn hình chính</string>
+    <string name="settings_appearance_app_card_colors_bundle">Màu chủ đề ứng dụng</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Sử dụng màu sắc riêng của từng ứng dụng tại đây, được tô bóng tự động để phù hợp</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Biểu tượng</string>
     <string name="settings_appearance_app_icon_default">Mặc định</string>

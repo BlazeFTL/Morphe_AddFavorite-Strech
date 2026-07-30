@@ -165,6 +165,7 @@ Nessuna patch disponibile</string>
     <string name="home_apk_availability_no">No, ho già un APK</string>
     <string name="home_apk_use_saved">Usa APK salvato</string>
     <string name="home_apk_use_installed">Usa APK installato</string>
+    <string name="home_apk_use_installed_unverified">Impossibile verificare la firma dell\'app installata, pertanto potrebbe essere già stata modificata</string>
     <string name="home_app_info_no_saved_apk">Nessun APK salvato. Il patching richiederà la selezione del file APK</string>
     <string name="home_version_requires_android">Richiede Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Non supportato su questo dispositivo</string>
@@ -525,6 +526,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_app_card_colors_end">Colore finale</string>
     <string name="settings_appearance_app_card_colors_solid_color">Colore solido</string>
     <string name="settings_appearance_app_card_colors_bundle">Colore del pacchetto app</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Usa il colore nativo di ciascuna app qui, con ombreggiatura automatica per adattarsi</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icona dell\'app</string>
     <string name="settings_appearance_app_icon_default">Predefinita</string>

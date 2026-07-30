@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">Nem, már megvan az APK</string>
     <string name="home_apk_use_saved">Mentett APK használata</string>
     <string name="home_apk_use_installed">Telepített APK használata</string>
+    <string name="home_apk_use_installed_unverified">Nem sikerült ellenőrizni a telepített alkalmazás áláísás állását, ezért lehetséges, hogy már másolták.</string>
     <string name="home_app_info_no_saved_apk">Nincs mentett APK. A módosításhoz újra ki kell választanod az APK-fájlt.</string>
     <string name="home_version_requires_android">Android %s+ verziót igényel</string>
     <string name="home_apk_no_compatible_versions_title">Nem támogatott ezen az eszközen</string>
@@ -527,6 +528,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_app_card_colors_end">Befejező szín</string>
     <string name="settings_appearance_app_card_colors_solid_color">Szín</string>
     <string name="settings_appearance_app_card_colors_bundle">Alkalmazáscsomag színe</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Itt használd az egyes alkalmazások saját színét, amely automatikusan árnyalva igazodik a felülethez</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Alkalmazásikon</string>
     <string name="settings_appearance_app_icon_default">Alapértelmezett</string>

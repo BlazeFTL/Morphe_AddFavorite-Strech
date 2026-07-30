@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">नाही, माझ्याकडे आधीपासूनच APK आहे.</string>
     <string name="home_apk_use_saved">आधीच साठवलेली APK वापरा</string>
     <string name="home_apk_use_installed">इंस्टॉल केलेली APK वापरा</string>
+    <string name="home_apk_use_installed_unverified">इंस्टॉल केलेल्या ॲपची सही तपासता आली नाही, त्यामुळे ते आधीच बदललेले असू शकते</string>
     <string name="home_app_info_no_saved_apk">कोणतीही साठवलेली APK नाही. तुम्हाला पुन्हा एकदा APK फाईल निवडावी लागेल.</string>
     <string name="home_version_requires_android">Android %s+ आवश्यक आहे</string>
     <string name="home_apk_no_compatible_versions_title">या डिव्हाइसवर समर्थित नाही</string>
@@ -527,6 +528,7 @@
     <string name="settings_appearance_app_card_colors_end">अंतिम रंग</string>
     <string name="settings_appearance_app_card_colors_solid_color">सॉलिड रंग</string>
     <string name="settings_appearance_app_card_colors_bundle">ॲप बंडल रंग</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">येथे प्रत्येक ॲपचा स्वतःचा रंग वापरा, जो आपोआप फिट होण्यासाठी शेड केलेला असेल</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">ॲप आयकॉन</string>
     <string name="settings_appearance_app_icon_default">डिफॉल्ट</string>

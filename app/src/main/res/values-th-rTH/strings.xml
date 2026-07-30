@@ -4,7 +4,7 @@
     <string name="home_other_apps">แอปพลิเคชันอื่นๆ</string>
     <string name="home_not_patched_yet">ยังไม่ได้รับการแพตซ์</string>
     <string name="home_no_patches_available">ไม่มีแพตซ์รองรับ</string>
-    <string name="home_app_hide_title">ซ่อนแอปหรือไม่</string>
+    <string name="home_app_hide_title">ซ่อนแอปนี้หรือไม่?</string>
     <string name="home_app_hide_message">แอปนี้จะถูกซ่อนจากหน้าจอหลัก คุณสามารถกู้คืนได้ภายหลังโดยใช้ปุ่ม \'\' ที่ด้านล่างของรายการ</string>
     <string name="home_app_will_be_hidden">แอปนี้จะถูกซ่อน</string>
     <string name="home_app_no_hidden">ไม่มีแอปที่ซ่อนอยู่</string>
@@ -28,9 +28,9 @@
     <string name="home_update_error_subtitle">เกิดข้อผิดพลาดขณะอัปเดตแหล่งข้อมูล</string>
     <string name="home_update_skipped_metered">อัปเดตถูกข้าม</string>
     <string name="home_update_skipped_metered_subtitle">กำลังใช้งานข้อมูลมือถือ</string>
-    <string name="home_updating_sources">กำลังอัพเดทข้อมูล…</string>
-    <string name="home_update_progress_format">%s กำลังดำเนินการ</string>
-    <string name="home_update_success">อัพเดทแหล่งที่มาเสร็จสมบูรณ์</string>
+    <string name="home_updating_sources">กำลังอัปเดตแหล่งข้อมูล…</string>
+    <string name="home_update_progress_format">%s ดำเนินการแล้ว</string>
+    <string name="home_update_success">อัปเดตแหล่งที่มาเสร็จสมบูรณ์</string>
     <string name="home_update_success_subtitle">แหล่งทีมาของคุณเป็นเวอร์ชันล่าสุดแล้ว</string>
     <string name="home_sources_are_loading">กำลังโหลดแหล่งที่มา กรุณารอสักครู่…</string>
     <string name="home_search_apps">ค้นหาแอป</string>
@@ -64,7 +64,7 @@
     <!-- Humorous hype message with light nostalgia -->
     <string name="home_greeting_2">พร้อมหรือยังที่จะทำให้แอปของคุณกลับมาเป็นตำนานอีกครั้ง</string>
     <!-- "Buckle up" referring to fastening your vehicle seat belt. A light-hearted joke to build excitement -->
-    <string name="home_greeting_3">รัดเข็มขัดซ่ะ ได้เวลาแพตซ์แอปพลิเคชันแล้ว</string>
+    <string name="home_greeting_3">รัดเข็มขัดซ่ะ ได้เวลาแพตช์แล้ว</string>
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
     <string name="home_greeting_4">ก็อีกแค่วันนึงกับผลงานการบล็อกโฆษณาชิ้นโบว์แดง</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
@@ -129,7 +129,7 @@
     <string name="sources_dialog_display_name">ชื่อที่แสดง</string>
     <string name="sources_dialog_rename">เปลี่ยนชื่อแหล่งที่มา</string>
     <string name="sources_dialog_duplicate_name_error">มีแหล่งที่มาที่ชื่อนี้อยู่แล้ว</string>
-    <string name="sources_dialog_missing_error">ไม่สามารถอัปเดตแหล่งที่มาแล้ว</string>
+    <string name="sources_dialog_missing_error">ไม่สามารถอัปเดตแหล่งที่มานี้</string>
     <string name="sources_dialog_view_any_version">เวอร์ชันใด ๆ</string>
     <string name="sources_dialog_view_any_package">แพ็คเกจใด ๆ</string>
     <string name="sources_dialog_add_source">เพิ่มแหล่งที่มา</string>
@@ -148,7 +148,7 @@
     <string name="sources_dialog_preinstalled">ติดตั้งล่วงหน้าแล้ว</string>
     <string name="sources_update_success">อัปเดตเสร็จสมบูรณ์</string>
     <string name="sources_update_unavailable">ยังไม่มีการอัปเดต</string>
-    <string name="sources_download_fail">ดาวน์โหลดแหล่งที่มาไม่สำเร็จ: %s</string>
+    <string name="sources_download_fail">ไม่สามารถดาวน์โหลดแหล่งที่มาได้: %s</string>
     <string name="sources_download_fail_named">ไม่สามารถอัปเดต \'%s\' ได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณและลองอีกครั้ง</string>
     <string name="sources_download_endpoint_not_found">ไม่พบข้อมูลเมตาแพตช์สำหรับ \'%s\'</string>
     <string name="sources_patch_expert_badge">ผู้เชี่ยวชาญ</string>
@@ -236,7 +236,7 @@
     <string name="home_dialog_unsupported_version_experimental_label">ทดลอง</string>
     <string name="home_dialog_unsupported_version_experimental_description">รุ่นนี้มีการรองรับแบบทดลองและอาจไม่เสถียรหรือไม่สมบูรณ์</string>
     <string name="morphe_experimental_app_version_dialog_title">คุณต้องการทดลองไหม? 🧪</string>
-    <string name="morphe_experimental_app_version_dialog_message">รุ่นนี้ของ &lt;b&gt;%s&lt;/b&gt; มีการรองรับแบบทดลองในระยะเริ่มต้น&lt;br/&gt;&lt;br/&gt;🔧 คาดว่าแอปจะทำงานแปลกๆ หรือมีข้อผิดพลาดที่ไม่สามารถระบุได้ ในขณะที่แพตช์ถูกปรับปรุงสำหรับแอปเวอร์ชันนี้</string>
+    <string name="morphe_experimental_app_version_dialog_message">เวอร์ชั่นนี้ของ &lt;b&gt;%s&lt;/b&gt; มีการรองรับแบบทดลองในระยะเริ่มต้น&lt;br/&gt;&lt;br/&gt;🔧 โปรดคาดว่าแอปจะทำงานแปลกๆ หรือมีข้อผิดพลาดที่ไม่สามารถระบุได้ ในขณะที่แพตช์ถูกปรับปรุงสำหรับแอปเวอร์ชันนี้</string>
     <string name="home_dialog_unsupported_version_dialog_title">เวอร์ชันนี้ไม่รองรับ</string>
     <string name="home_dialog_unsupported_version_dialog_description">ไฟล์ APK นี้ไม่ใช่เวอร์ชันแอปที่แนะนำ หากดำเนินต่อไปอาจจะใช้งานไม่ได้</string>
     <string name="home_dialog_unsupported_version_dialog_proceed">ดำเนินต่อไป</string>
@@ -247,12 +247,12 @@
     <string name="home_dialog_unsupported_version_build_mismatch_description">นี่เป็นบิลด์ที่แตกต่างของเวอร์ชันเดียวกัน การอัปเดตต้องการบิลด์ที่เฉพาะเจาะจง</string>
     <string name="home_dialog_wrong_package_title">แพ็กเกจที่เลือกไม่ถูกต้อง</string>
     <string name="home_dialog_wrong_package_description">ไฟล์ APK ที่เลือกไว้ ไม่ใช่แอปพลิเคชันสำหรับทำการแพตซ์</string>
-    <string name="home_dialog_expected_package">แพคเกจที่คาดหวัง:</string>
+    <string name="home_dialog_expected_package">แพ็กเกจที่คาดหวัง:</string>
     <string name="home_dialog_selected_package">แพตซ์ที่เลือก:</string>
     <string name="home_outdated_patches_dialog_title">อาจมีปรับปรุงที่เลิกใช้แล้ว</string>
     <string name="home_outdated_patches_dialog_message">ข้อมูลเคลื่อนที่มีการใช้งานและปรับปรุงถูกหยุด</string>
     <string name="home_outdated_patches_dialog_warning">อาจมีปัญหาในแอปพลิเคชันถ้าใช้ปรับปรุงที่เลิกใช้แล้ว</string>
-    <string name="home_outdated_patches_dialog_update_and_patch">อัปเดต &amp; ปรับปรุง</string>
+    <string name="home_outdated_patches_dialog_update_and_patch">อัปเดต &amp; แพตช์</string>
     <string name="home_low_disk_space_dialog_title">พื้นที่ดิสก์เหลือน้อย</string>
     <string name="home_low_disk_space_dialog_message">มีพื้นที่ว่างเหลือเพียง %1$.2f GB โปรแกรม Patching ต้องการพื้นที่ว่างอย่างน้อย %2$.2f GB จึงจะทำงานได้อย่างถูกต้อง</string>
     <string name="home_low_disk_space_dialog_warning">การดำเนินการนี้อาจส่งผลให้เกิดข้อผิดพลาด \"ไม่พบไฟล์\" หรือ APK ที่สร้างขึ้นอาจเสียหาย</string>
@@ -309,7 +309,7 @@
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">คุณแน่ใจหรือไม่ว่าต้องการลบแอปนี้?</string>
     <string name="batch_uninstall_confirm_body">แอปที่เลือกจะถูกลบออกจากอุปกรณ์ของคุณอย่างถาวร</string>
-    <string name="home_app_info_remove_app_warning">นี่จะลบถาวร:</string>
+    <string name="home_app_info_remove_app_warning">การดำเนินการนี้จะลบถาวร:</string>
     <string name="home_app_info_delete_item_database">บันทึกฐานข้อมูล</string>
     <string name="home_app_info_delete_item_patched_apk">ไฟล์ APK ที่แก้ไขแล้ว</string>
     <string name="home_app_info_delete_item_original_apk">ไฟล์ APK รุ่นต้นฉบับ</string>
@@ -328,7 +328,7 @@
     <string name="home_app_info_install_type_shizuku_play_store">ติดตั้งจาก Play Store ด้วย Shizuku</string>
     <string name="home_app_info_patch_update_available">มีอัพเดทแพตซ์ใหม่ให้ใช้งานแล้ว</string>
     <string name="home_app_info_patch_update_available_description">มีแพตซ์เวอร์ชันใหม่พร้อมใช้งานแล้ว ให้แพตซ์อีกครั้งเพื่อรับการปรับปรุงและการแก้ไขสำหรับเวอร์ชันล่าสุด</string>
-    <string name="home_app_info_app_deleted_warning">แอปถูกลบออก</string>
+    <string name="home_app_info_app_deleted_warning">แอปถูกถอนการติดตั้ง</string>
     <string name="home_app_info_app_deleted_description">แอปนี้ถูกลบออกนอก Morphe. แพตซ์อีกครั้งเพื่อฟื้นฟูฟังก์ชัน</string>
     <string name="home_app_info_apk_size">ขนาด APK</string>
     <string name="home_app_info_cpu_arch">สถาปัตยกรรม CPU</string>
@@ -398,11 +398,11 @@
     <!-- Battery optimization pre-flight dialog -->
     <string name="battery_optimization_dialog_title">การป้องกันการปรับแก้เบื้องหลัง</string>
     <string name="battery_optimization_dialog_description">อุปกรณ์บางเครื่องอาจหยุดโปรแกรมปรับแก้เมื่อแอปพลิเคชันถูกลดขนาด อนุญาตให้ Morphe ทำงานโดยไม่มีข้อจำกัดด้านแบตเตอรี่เพื่อให้แน่ใจว่าการปรับแก้เสร็จสมบูรณ์ได้อย่างน่าเชื่อถือ</string>
-    <string name="battery_optimization_not_now">ไม่ตอนนี้</string>
+    <string name="battery_optimization_not_now">ไม่ใช่ตอนนี้</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">กำลังดำเนินการแพตช์…</string>
-    <string name="patcher_notification_text">แตะเพื่อกลับไปยัง Patcher</string>
-    <string name="patcher_stop_confirm_title">หยุด Patcher</string>
+    <string name="patcher_notification_text">แตะเพื่อกลับไปยังตัวแพตช์</string>
+    <string name="patcher_stop_confirm_title">หยุดตัวแพตช์</string>
     <string name="patcher_stop_confirm_description">คุณแน่ใจหรือไม่ว่าต้องการหยุดกระบวนการแพตช์?</string>
     <!-- Patcher Screen - Patcher Messages -->
     <string name="patcher_message_1">กำลังแปลงแอปของคุณให้เป็นสิ่งที่ยอดเยี่ยม… 🏆</string>
@@ -414,7 +414,7 @@
     <string name="patcher_message_7">กำลังปรับบิต 1 และ 0… 🤖</string>
     <string name="patcher_message_8">กำลังคลายปมสปาเก็ตตี้ดิจิทัล… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
-    <string name="patcher_message_9">กำลังแก้ไขปัญหาในแอปที่ไม่ถูกปรับแต่ง… 🪲</string>
+    <string name="patcher_message_9">กำลังแก้ไขปัญหาในแอปที่ไม่ถูกแพตช์… 🪲</string>
     <string name="patcher_message_10">แพตช์ดีๆ กับคุ้มค่ากับที่รอคอย… ⏳</string>
     <string name="patcher_message_11">กำลังขัดเกลาเม็ดพิกเซลให้เปล่งประกาย… 💎</string>
     <string name="patcher_message_12">โปรดนั่งรอจนกว่าลูกเรือจะปิดป้ายบอกว่า \'กำลังแก้ไข\' 💺✈️</string>
@@ -422,7 +422,7 @@
     <!-- "bytecode" can be translated from "the app code" -->
     <string name="patcher_message_14">กำลังเจรจาอย่างสุภาพกับไบต์โค้ด… 🤝</string>
     <!-- Space flight communications callout. -->
-    <string name="patcher_message_15">ระบบทั้งหมดทำงานปกติ... เส้นทางการแพตชิ่งเสถียร... 🚀</string>
+    <string name="patcher_message_15">ระบบทั้งหมดทำงานปกติ... เส้นทางการแพตช์เสถียร... 🚀</string>
     <string name="patcher_message_16">รีดพลังงานพิเศษออกมา เหมือนคั้นน้ำจากมะนาวดิจิทัล... 🍋</string>
     <string name="patcher_message_17">ส่งเสริมให้แอปยอมรับตัวเองในเวอร์ชันใหม่ที่ดีกว่า... 🌱</string>
     <!-- Quantum physics (box emoji is a reference to Schrodinger's cat). -->
@@ -431,13 +431,13 @@
     <string name="patcher_message_19">แอปของคุณมีไข้ และวิธีรักษาเดียวคือต้องใช้แพตช์เพิ่ม... 🩺🔔</string>
     <string name="patcher_message_20">กำลังไล่เบา กรุณารอสักครู่… 🗑️</string>
     <!-- Expert patcher Screen -->
-    <string name="patching_app">กำลังปรับปรุงแอป</string>
+    <string name="patching_app">กำลังแพตช์แอป</string>
     <string name="memory_usage">การใช้พื้นที่ความจำ</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">กำลังใช้แพตช์</string>
     <string name="failed_to_execute_patch">ไม่สามารถใช้ %s ได้</string>
-    <string name="patched_app_saved_toast">บันทึกแอปที่แก้ไขแล้วสำหรับภายหลัง</string>
-    <string name="patched_app_save_failed_toast">ไม่สามารถบันทึกแอปที่แก้ไขได้</string>
+    <string name="patched_app_saved_toast">บันทึกแอปที่แพตช์แล้วสำหรับภายหลัง</string>
+    <string name="patched_app_save_failed_toast">ไม่สามารถบันทึกแอปที่แพตช์ได้</string>
     <string name="plugin_activity_dialog_body">ต้องมีการติดต่อผู้ใช้เพื่อดำเนินการต่อไปนี้</string>
     <string name="patcher_process_exit_message">กระบวนการแพตช์เสร็จสิ้นด้วยรหัส %s</string>
     <string name="install_app_success">ติดตั้งสำเร็จแล้ว</string>
@@ -445,8 +445,8 @@
     <string name="uninstall_app_fail">ไม่สามารถถอนการติดตั้งแอป: %s</string>
     <string name="uninstall_timeout">หมดเวลาในการถอนการติดตั้ง</string>
     <string name="save_apk_success">บันทึก APK สำเร็จ</string>
-    <string name="saved_app_export_failed">ส่งออกแอปที่แก้ไขแล้วไม่สำเร็จ</string>
-    <string name="saved_app_removed_toast">ลบแอปที่บันทึกไว้แล้ว</string>
+    <string name="saved_app_export_failed">ไม่สามารถส่งออกแอปที่แพตช์แล้วได้</string>
+    <string name="saved_app_removed_toast">ลบแอปที่แพตช์ที่บันทึกไว้สำเร็จ</string>
     <string name="saved_app_launch_unavailable">ติดตั้งแอปพลิเคชันก่อนเปิดใช้งาน</string>
     <string name="package_name">ชื่อแพ็กเกจ</string>
     <string name="failed_to_mount">ไม่สามารถติดตั้งใช้งานได้: %s</string>
@@ -496,7 +496,8 @@
     <string name="settings_appearance_dynamic">สีไดนามิก</string>
     <string name="settings_appearance_monochrome">ขาวดำ</string>
     <string name="settings_appearance_color_style">รูปแบบสี</string>
-    <string name="settings_appearance_accent_color">สีหลัก</string>
+    <string name="settings_appearance_colors">สี</string>
+    <string name="settings_appearance_accent_color">สีเน้น</string>
     <string name="settings_appearance_pure_black">ดำสีบริสุทธิ์</string>
     <string name="settings_appearance_pure_black_description">ใช้พื้นหลังสีดำสนิท</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -513,16 +514,21 @@
     <string name="settings_appearance_app_grouping_description">แสดงตัวสลับหน้าจอหลักเพื่อจัดกลุ่มแอปตามแหล่งที่มาหรือตามหมวดหมู่ของคุณเอง โดยจะเก็บการเลือกไว้เมื่อปิด</string>
     <string name="settings_appearance_sort_button">ปุ่มเรียงลำดับ</string>
     <string name="settings_appearance_sort_button_description">แสดงปุ่มเรียงลำดับบนหน้าจอหลัก</string>
-    <string name="settings_appearance_app_card_colors_accent">Accent</string>
-    <string name="settings_appearance_app_card_colors_accent_description">Use the app accent color for home app cards</string>
-    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
-    <string name="settings_appearance_app_card_colors_gradient_description">Use one custom gradient for home app cards</string>
-    <string name="settings_appearance_app_card_colors_solid">Solid</string>
-    <string name="settings_appearance_app_card_colors_solid_description">Use one custom color for home app cards</string>
-    <string name="settings_appearance_app_card_colors_start">Start color</string>
-    <string name="settings_appearance_app_card_colors_middle">Middle color</string>
-    <string name="settings_appearance_app_card_colors_end">End color</string>
-    <string name="settings_appearance_app_card_colors_solid_color">Solid color</string>
+    <string name="settings_appearance_app_card_colors">สีการ์ดแอป</string>
+    <string name="settings_appearance_app_card_colors_default">ค่าเริ่มต้น</string>
+    <string name="settings_appearance_app_card_colors_default_description">กำหนดสีให้บันเดิลของแต่ละแอป</string>
+    <string name="settings_appearance_app_card_colors_accent">สีเน้น</string>
+    <string name="settings_appearance_app_card_colors_accent_description">ใช้สีเน้นของแอปสำหรับการ์ดแอปในบ้าน</string>
+    <string name="settings_appearance_app_card_colors_gradient">การไล่ระดับสี</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">ใช้การไล่ระดับสีที่กำหนดเองหนึ่งรายการสำหรับการ์ดแอปในหน้าจอหลัก</string>
+    <string name="settings_appearance_app_card_colors_solid">สีทึบ</string>
+    <string name="settings_appearance_app_card_colors_solid_description">ใช้สีที่กำหนดเองหนึ่งสีสำหรับการ์ดแอปในหน้าจอหลัก</string>
+    <string name="settings_appearance_app_card_colors_start">สีเริ่ม</string>
+    <string name="settings_appearance_app_card_colors_middle">สีกลาง</string>
+    <string name="settings_appearance_app_card_colors_end">สีจบ</string>
+    <string name="settings_appearance_app_card_colors_solid_color">สีทึบ</string>
+    <string name="settings_appearance_app_card_colors_bundle">สีบันเดิลแอป</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">ใช้สีของแอปแต่ละแอปที่นี่ ซึ่งจะปรับเฉดสีโดยอัตโนมัติเพื่อให้เข้ากัน</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">ไอคอนแอป</string>
     <string name="settings_appearance_app_icon_default">ค่าเริ่มต้น</string>
@@ -536,7 +542,7 @@
     <string name="settings_appearance_app_icon_change_dialog_confirm">เปลี่ยนไอคอน</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">อัปเดต</string>
-    <string name="settings_advanced_patcher">Patcher</string>
+    <string name="settings_advanced_patcher">ตัวแพตช์</string>
     <string name="settings_advanced_updates_use_prereleases">อัปเดตแบบพรีรีลีส</string>
     <string name="settings_advanced_updates_use_prereleases_description">เข้าถึงแอป Morphe เวอร์ชันใหม่ก่อนใคร เปิดใช้งานพรีรีลีสตามแหล่งที่มาในแหล่งแพตช์</string>
     <string name="settings_advanced_updates_allow_metered">อัปเดตข้อมูลมือถือ</string>
@@ -565,7 +571,7 @@
     <string name="notification_channel_patcher">การแพตช์</string>
     <string name="notification_channel_patcher_description">แสดงขณะที่ Morphe กำลังแพตช์แอปพลิเคชันในพื้นหลัง</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
-    <string name="settings_advanced_expert">การตั้งค่าแบบผู้เชี่ยวชาญ</string>
+    <string name="settings_advanced_expert">การตั้งค่าโหมดผู้เชี่ยวชาญ</string>
     <string name="settings_advanced_expert_mode">โหมดเชี่ยวชาญ</string>
     <string name="settings_advanced_expert_mode_description">เปิดใช้งานการตั้งค่าการแพตช์และการปรับแต่งขั้นสูงของ Morphe</string>
     <string name="settings_advanced_expert_mode_dialog_title">เปิดใช้งานโหมดเชี่ยวชาญ?</string>
@@ -611,7 +617,7 @@
     <string name="settings_advanced_patch_options_custom_branding_description">เปลี่ยนชื่อแอปพลิเคชันที่แสดงผล</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">ชื่อแอป</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">ป้อนชื่อแบบกำหนดเอง</string>
-    <string name="settings_advanced_patch_options_custom_branding_custom_icon">ไอสัญแบบกำหนดเอง</string>
+    <string name="settings_advanced_patch_options_custom_branding_custom_icon">ไอคอนแบบกำหนดเอง</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"โฟลเดอร์ที่มีรูปภาพสำหรับใช้เป็นไอคอนแบบกำหนดเอง
 
 โฟลเดอร์ต้องมีโฟลเดอร์อย่างน้อยหนึ่งโฟลเดอร์ต่อไปนี้ ขึ้นอยู่กับ DPI ของอุปกรณ์:
@@ -815,7 +821,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_storage_management_description">ตรวจสอบการใช้งานดิสก์และล้างไฟล์ที่แคชไว้</string>
     <string name="settings_system_storage_keystore_title">คีย์สโตร์การลงชื่อ</string>
     <string name="settings_system_storage_app_data_title">ข้อมูลแอป</string>
-    <string name="settings_system_storage_patch_bundles_title">ชุดแพตช์</string>
+    <string name="settings_system_storage_patch_bundles_title">บันเดิลแพตช์</string>
     <string name="settings_system_storage_http_cache_title">แคชเครือข่าย</string>
     <string name="settings_system_storage_http_cache_description">แคชการตอบกลับ HTTP เพื่อเพิ่มความเร็วในการอัปเดต</string>
     <string name="settings_system_storage_installer_cache_title">แคชตัวติดตั้งภายนอก</string>
@@ -1037,7 +1043,7 @@ morphe_header_custom_dark.png
     <string name="onboarding_sources_patches_desc">แตะเพื่อดูแพตช์ทั้งหมดจากแหล่งนี้</string>
     <string name="onboarding_sources_version_desc">แตะที่เวอร์ชันเพื่อดูบันทึกการเปลี่ยนแปลงทั้งหมดสำหรับแหล่งนี้</string>
     <string name="onboarding_sources_prerelease_desc">เปิดใช้งานเพื่อรับแพตช์เวอร์ชันก่อนวางจำหน่ายจากแหล่งนี้</string>
-    <string name="onboarding_appearance_tab_desc">ปรับแต่งรูปลักษณ์ของแอป: ธีม สีหลัก และพื้นหลัง</string>
+    <string name="onboarding_appearance_tab_desc">ปรับแต่งรูปลักษณ์ของแอป: ธีม สีเน้น และพื้นหลัง</string>
     <string name="onboarding_appearance_theme_desc">เลือกระหว่างธีมสว่าง ธีมเข้ม หรือธีมระบบ คุณยังสามารถเลือกสีหลักแบบกำหนดเองหรือเปิดใช้งาน Dynamic Color ได้</string>
     <string name="onboarding_expert_mode_desc">เปิดใช้งานโหมดผู้เชี่ยวชาญเพื่อปลดล็อกการเลือกแพตช์ ตัวเลือกที่กำหนดเอง และคุณสมบัติขั้นสูงอื่นๆ</string>
     <!-- Translate "System" the same way as the System settings tab -->

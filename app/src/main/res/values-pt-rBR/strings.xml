@@ -87,7 +87,7 @@
     <string name="home_greeting_afternoon_2">O patching pós-almoço é diferente</string>
     <string name="home_greeting_afternoon_3">O turno da tarde: edição de patches</string>
     <!-- Evening greetings (17:00–21:59) -->
-    <string name="home_greeting_evening_1">Boa noite! As correções noturnas são diferentes</string>
+    <string name="home_greeting_evening_1">Boa noite! Patches à noite batem diferente</string>
     <string name="home_greeting_evening_2">Quase capotando? Patcheie um app primeiro</string>
     <string name="home_greeting_evening_3">Fim do expediente? Patcheie algo primeiro</string>
     <!-- Late night greetings (22:00–23:59) -->
@@ -164,6 +164,7 @@
     <string name="home_apk_availability_no">Não, eu já tenho um APK</string>
     <string name="home_apk_use_saved">Usar APK salvo</string>
     <string name="home_apk_use_installed">Usar APK instalado</string>
+    <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do aplicativo instalado, portanto, ele pode já estar modificado</string>
     <string name="home_app_info_no_saved_apk">Não há APK salvo. O patch exigirá a seleção do arquivo APK novamente</string>
     <string name="home_version_requires_android">Requer Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Não suportado neste dispositivo</string>
@@ -244,7 +245,7 @@ Para obter os melhores resultados, este app recomenda aplicar os patches em um &
     <string name="home_dialog_unsupported_version_unsupported_label">Não suportado</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
     <string name="home_dialog_unsupported_version_build">Versão %d</string>
-    <string name="home_dialog_unsupported_version_build_mismatch_description">Esta é uma versão diferente da mesma versão. As correções exigem uma versão específica</string>
+    <string name="home_dialog_unsupported_version_build_mismatch_description">Esta é uma versão diferente da mesma versão. Os patches exigem uma versão específica</string>
     <string name="home_dialog_wrong_package_title">Pacote selecionado incorreto</string>
     <string name="home_dialog_wrong_package_description">O APK selecionado não é para o aplicativo que você pretendia aplicar os patches</string>
     <string name="home_dialog_expected_package">Pacote esperado:</string>
@@ -523,6 +524,8 @@ A desinstalação apagará permanentemente todos os dados do aplicativo."</strin
     <string name="settings_appearance_app_card_colors_middle">Cor intermediária</string>
     <string name="settings_appearance_app_card_colors_end">Cor final</string>
     <string name="settings_appearance_app_card_colors_solid_color">Cor sólida</string>
+    <string name="settings_appearance_app_card_colors_bundle">Cor do pacote do aplicativo</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Use o próprio esquema de cores de cada aplicativo aqui, com tons ajustados automaticamente para se adequar</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ícone do app</string>
     <string name="settings_appearance_app_icon_default">Padrão</string>
@@ -704,7 +707,7 @@ As dimensões das imagens devem ser as seguintes:
     <string name="installer_use_standard">Usar padrão</string>
     <string name="installer_play_store_warning_title">Instalar como Play Store?</string>
     <string name="installer_play_store_warning_message">O app corrigido será registrado como instalado da Google Play Store. Isso pode ajudar serviços como o Android Auto a reconhecê-lo como um app da Play Store, mas não é garantido para cada app ou dispositivo. O comportamento pode variar de acordo com a versão do Android, ROM, marca do dispositivo e verificações específicas do app.</string>
-    <string name="installer_play_store_warning_risk">O Play Store pode oferecer atualizações para o aplicativo corrigido. A instalação dessa atualização substituirá o APK corrigido pela versão original e removerá as correções. Se solicitado a atualizar, toque no menu de três pontos na página do aplicativo na Play Store e escolha \"Desativar atualizações\"</string>
+    <string name="installer_play_store_warning_risk">A Play Store pode oferecer atualizações para o app patcheado. A instalação dessa atualização substituirá o APK patcheado pela versão original e removerá os patches. Se solicitado a atualizar, toque no menu de três pontos na página do app na Play Store e escolha \"Desativar atualizações\"</string>
     <string name="installer_play_store_warning_continue">Eu entendo, continuar</string>
     <string name="installer_play_store_mode">Instalar como Play Store</string>
     <string name="installer_play_store_mode_description">Registrar a Google Play Store como a fonte de instalação para este método de instalação</string>

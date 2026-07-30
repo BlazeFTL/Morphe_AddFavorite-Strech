@@ -184,7 +184,7 @@ private fun UpdateCheckIntervalDialog(
             // Current value chip
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
                 color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
             ) {
                 Column(

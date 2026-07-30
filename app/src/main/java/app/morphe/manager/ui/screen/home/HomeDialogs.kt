@@ -881,7 +881,7 @@ private fun DownloadInstructionsDialog(
                                 imageVector = Icons.Filled.Download,
                                 contentDescription = null,
                                 tint = downloadContentColor,
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(MorpheDefaults.IconSizeSmall)
                             )
                             Text(
                                 text = if (isApkBundle) "DOWNLOAD APK BUNDLE" else "DOWNLOAD APK",
@@ -1104,7 +1104,7 @@ private fun InstalledAppPickerDialog(
                 Icon(
                     imageVector = icon,
                     contentDescription = description,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(MorpheDefaults.IconSizeSmall)
                 )
             }
         },
@@ -2232,7 +2232,7 @@ fun DeepLinkAddSourceDialog(
 
             // Bundle details card
             Surface(
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -2323,7 +2323,7 @@ fun MppImportDialog(
 
             // Bundle details card
             Surface(
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                 modifier = Modifier.fillMaxWidth()
             ) {

@@ -8,7 +8,10 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -100,13 +103,13 @@ fun ColorPickerDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
         ) {
-            // Color preview. A gradient carries its own meaning and is labelled by the switch
+            // Color preview. A gradient carries its own meaning and is labeled by the switch
             // below, so the hex readout only makes sense for a single picked color
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(MorpheDefaults.CompactCornerRadius))
                     .then(
                         if (previewGradient != null) {
                             Modifier.background(Brush.horizontalGradient(previewGradient))

@@ -50,10 +50,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.InstalledApp
-import app.morphe.manager.ui.screen.shared.AppIcon
-import app.morphe.manager.ui.screen.shared.MorpheAnimations
-import app.morphe.manager.ui.screen.shared.ShimmerBox
-import app.morphe.manager.ui.screen.shared.drawDiagonalShimmer
+import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
@@ -658,7 +655,7 @@ fun AppLoadingCard(
                 modifier = Modifier
                     .size(60.dp)
                     .padding(6.dp),
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
                 baseColor = Color.White.copy(alpha = 0.2f)
             )
 

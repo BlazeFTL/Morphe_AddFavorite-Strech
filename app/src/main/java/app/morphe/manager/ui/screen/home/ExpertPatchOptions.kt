@@ -463,7 +463,7 @@ fun ColorPresetItem(
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null
 ) {
-    val shape = RoundedCornerShape(12.dp)
+    val shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius)
 
     val isMaterialYou = colorValue.contains("system_neutral", ignoreCase = true) ||
             colorValue.contains("system_accent", ignoreCase = true) ||
@@ -574,7 +574,7 @@ fun ColorPresetItem(
                     },
                     contentDescription = null,
                     tint = contentColor.copy(alpha = 0.7f),
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(MorpheDefaults.IconSizeSmall)
                 )
             }
 
@@ -591,7 +591,7 @@ fun ColorPresetItem(
                     imageVector = Icons.Default.Check,
                     contentDescription = null,
                     tint = contentColor,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(MorpheDefaults.IconSizeSmall)
                 )
             }
         }
@@ -936,7 +936,7 @@ private fun DialogTintedSurface(
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
-    val shape = RoundedCornerShape(12.dp)
+    val shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius)
     Surface(
         modifier = modifier
             .fillMaxWidth()

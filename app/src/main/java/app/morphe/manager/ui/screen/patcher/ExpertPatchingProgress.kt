@@ -63,17 +63,17 @@ import app.morphe.manager.ui.viewmodel.PatcherViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
-/** Brand blue — start of the progress gradient. */
+/** Brand blue - start of the progress gradient. */
 private val PatcherProgressBlueColor = Color(0xFF1E5AA8)
 
-/** Brand teal — used for the live indicator dot, step pipeline, progress bar end, and success state. */
+/** Brand teal - used for the live indicator dot, step pipeline, progress bar end, and success state. */
 private val PatcherProgressTealColor = Color(0xFF00AFAE)
 
 sealed interface LogItem {
     /**
      * Structured card shown at the start of patching.
-     * Aggregates data from "Patching started at …", "Runtime: …",
-     * "Process heap memory limit: …" and "Device: …" log lines.
+     * Aggregates data from "Patching started at …", "Runtime: …", "Process heap memory limit: …"
+     * and "Device: …" log lines.
      */
     data class StartBanner(
         val packageName: String,
@@ -96,8 +96,7 @@ sealed interface LogItem {
 
     /**
      * Structured card shown after patching succeeds.
-     * Aggregates data from "Patching succeeded: …" and
-     * "Process heap after patching: …" log lines.
+     * Aggregates data from "Patching succeeded: …" and "Process heap after patching: …" log lines.
      */
     data class SuccessSummary(
         val outputSizeMb: String,
@@ -111,8 +110,10 @@ sealed interface LogItem {
     data class Entry(val level: LogLevel, val message: String) : LogItem
 }
 
-/** Extracts a space-delimited key=value field from a flat log string.
- *  Supports quoted values (e.g. key="some value with spaces"). */
+/**
+ * Extracts a space-delimited key=value field from a flat log string.
+ * Supports quoted values (e.g. key="some value with spaces").
+ */
 private fun String.logField(key: String): String? {
     val prefix = "$key="
     val start = indexOf(prefix).takeIf { it >= 0 } ?: return null
@@ -581,7 +582,7 @@ private fun HeapUsageGraph(
                 )
             }
 
-            // Bar graph — 60 slots, filled from right
+            // Bar graph - 60 slots, filled from right
             val slotCount = 60
             val padded = List(slotCount - samples.size) { 0 } + samples.takeLast(slotCount)
 
@@ -841,7 +842,7 @@ private fun PatcherInfoCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp, vertical = 6.dp),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
         color = bgColor,
         tonalElevation = 0.dp
     ) {

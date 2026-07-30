@@ -36,7 +36,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
@@ -62,10 +61,7 @@ import app.morphe.manager.domain.manager.SourceBundleSortMode
 import app.morphe.manager.domain.repository.BlocklistRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.util.RemoteAvatar
-import app.morphe.manager.util.SOURCE_REPO_URL
-import app.morphe.manager.util.getRelativeTimeString
-import app.morphe.manager.util.toast
+import app.morphe.manager.util.*
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -681,7 +677,7 @@ private fun BundleManagementCard(
                         ),
                         icon = Icons.Outlined.Update,
                         title = stringResource(R.string.version),
-                        value = bundle.version?.removePrefix("v") ?: "N/A",
+                        value = bundle.version?.removePrefix("v")?.isolateLtr() ?: "N/A",
                         onClick = onVersionClick,
                         enabled = !isUpdating
                     )
@@ -696,7 +692,7 @@ private fun BundleManagementCard(
                                 .semantics {
                                     contentDescription = openInBrowser
                                 },
-                            shape = RoundedCornerShape(12.dp)
+                            shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius)
                         ) {
                             Icon(
                                 Icons.AutoMirrored.Outlined.OpenInNew,
@@ -996,83 +992,6 @@ private fun BundleCardHeader(
                 modifier = Modifier.rotate(rotation),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
-        }
-    }
-}
-
-@Composable
-private fun BundleInfoCard(
-    modifier: Modifier = Modifier,
-    icon: ImageVector,
-    title: String,
-    value: String,
-    onClick: () -> Unit,
-    showChevron: Boolean = true,
-    enabled: Boolean = true
-) {
-    val contentDesc = "$title: $value"
-
-    Surface(
-        modifier = modifier.semantics {
-            contentDescription = contentDesc
-            role = Role.Button
-        },
-        shape = RoundedCornerShape(12.dp),
-        color = if (enabled) {
-            MaterialTheme.colorScheme.secondaryContainer
-        } else {
-            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-        },
-        onClick = onClick,
-        enabled = enabled
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            MorpheIcon(
-                icon = icon,
-                size = 20.dp,
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
-                    maxLines = 1,
-                )
-                if (value.isNotEmpty()) {
-                    Text(
-                        text = value,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        maxLines = 1,
-                    )
-                }
-            }
-
-            if (showChevron && enabled) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Icon(
-                        Icons.Outlined.TouchApp,
-                        contentDescription = null,
-                        modifier = Modifier.size(14.dp),
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
-                    )
-                    Text(
-                        text = stringResource(R.string.details),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
-                    )
-                }
-            }
         }
     }
 }

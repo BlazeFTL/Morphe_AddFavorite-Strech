@@ -350,7 +350,7 @@ private fun LocalTabContent(
             // Selected file
             val isValid = validation == FieldValidation.Valid
             Surface(
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
                 color = if (isValid)
                     MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
                 else
@@ -365,7 +365,7 @@ private fun LocalTabContent(
                     Icon(
                         imageVector = if (isValid) Icons.Outlined.CheckCircle else Icons.Outlined.ErrorOutline,
                         contentDescription = null,
-                        modifier = Modifier.size(20.dp),
+                        modifier = Modifier.size(MorpheDefaults.IconSizeSmall),
                         tint = if (isValid) ColorValid else MaterialTheme.colorScheme.error
                     )
                     Column(modifier = Modifier.weight(1f)) {
@@ -932,7 +932,7 @@ fun PatchItemCard(
                         patch.options.forEach { option ->
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(12.dp),
+                                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
                                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
                             ) {
                                 Column(

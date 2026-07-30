@@ -1876,7 +1876,8 @@ class HomeViewModel(
      *
      * The "Use installed APK" button is suppressed when:
      * - Morphe tracks this package as a patched install, or
-     * - The installed signing certificate doesn't match the bundle's expected original signatures.
+     * - The installed signing certificate doesn't match the bundle's expected original signatures, or
+     * - The APK on disk is signed differently than the system recorded, as with a mounted install.
      *
      * When the certificate cannot be read at all the button stays available, flagged through
      * [InstalledApkInfo.patchStateUnknown] so the dialog can say the check did not happen.
@@ -1887,11 +1888,16 @@ class HomeViewModel(
                 ?: return false to null
 
             // Determine if the installed app is patched, in priority order:
-            // 1. Saved original APK (most reliable - direct signature comparison)
-            // 2. Bundle-declared expected signatures (fallback)
-            // 3. DB tracking (version match only)
-            // 4. Installing package (survives clearing Morphe's data, unlike the DB)
+            // 1. APK on disk signed differently than the system recorded (a mounted install)
+            // 2. Saved original APK (most reliable - direct signature comparison)
+            // 3. Bundle-declared expected signatures (fallback)
+            // 4. DB tracking (version match only)
+            // 5. Installing package (survives clearing Morphe's data, unlike the DB)
             val patchState: InstalledPatchState = run {
+                // Checked first because the certificates below describe the stock app while the
+                // file that "Use installed APK" would copy is the patched one
+                if (pm.hasSourceApkSignatureMismatch(packageName)) return@run InstalledPatchState.Patched
+
                 val savedHashes = originalApkRepository.get(packageName)
                     ?.let { File(it.filePath) }
                     ?.takeIf { it.exists() }

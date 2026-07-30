@@ -167,18 +167,37 @@ class PM(
      * and comes back empty on transaction failures, while the archive is parsed in-process.
      */
     fun getInstalledSignatureHashes(packageName: String): Set<String> {
-        val fromPackageManager = try {
-            val pkgInfo = getPackageInfo(packageName, signingFlags())
-            pkgInfo?.extractSignatures()?.toSha256Hashes().orEmpty()
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to read installed signatures for $packageName", e)
-            emptySet()
-        }
-        if (fromPackageManager.isNotEmpty()) return fromPackageManager
+        val recorded = recordedSignatureHashes(packageName)
+        if (recorded.isNotEmpty()) return recorded
 
         val sourceDir = getApplicationInfo(packageName)?.sourceDir ?: return emptySet()
         return getApkFileSignatureHashes(File(sourceDir))
     }
+
+    /**
+     * Returns true if the APK on disk is signed differently from what the system recorded for
+     * [packageName]. A mounted install looks exactly like that: the package manager keeps reporting
+     * the stock certificate while [ApplicationInfo.sourceDir] is bind-mounted onto the patched APK.
+     * Returns false when either side cannot be read, so an unreadable certificate is never a
+     * mismatch on its own.
+     */
+    fun hasSourceApkSignatureMismatch(packageName: String): Boolean {
+        val recorded = recordedSignatureHashes(packageName)
+        if (recorded.isEmpty()) return false
+        val sourceDir = getApplicationInfo(packageName)?.sourceDir ?: return false
+        val onDisk = getApkFileSignatureHashes(File(sourceDir))
+        if (onDisk.isEmpty()) return false
+        return onDisk.none { it in recorded }
+    }
+
+    /** Certificate fingerprints the package manager holds for [packageName], without disk access. */
+    private fun recordedSignatureHashes(packageName: String): Set<String> =
+        try {
+            getPackageInfo(packageName, signingFlags())?.extractSignatures()?.toSha256Hashes().orEmpty()
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to read installed signatures for $packageName", e)
+            emptySet()
+        }
 
     /**
      * Package that installed [packageName], or null when unknown.

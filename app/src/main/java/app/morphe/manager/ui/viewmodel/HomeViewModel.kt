@@ -142,9 +142,20 @@ data class InstalledApkInfo(
     val version: String,
     val versionCode: Long? = null,
     val apkPath: String,
-    val splitPaths: List<String> = emptyList()
+    val splitPaths: List<String> = emptyList(),
+    val patchStateUnknown: Boolean = false
 ) {
     val isSplit: Boolean get() = splitPaths.isNotEmpty()
+}
+
+/**
+ * Whether an installed app has already been patched.
+ * [Unknown] means the signing certificate could not be read, so the app may be either.
+ */
+enum class InstalledPatchState {
+    Patched,
+    NotPatched,
+    Unknown
 }
 
 /** An installed app entry shown in the universal-patch app picker. */
@@ -1866,6 +1877,9 @@ class HomeViewModel(
      * The "Use installed APK" button is suppressed when:
      * - Morphe tracks this package as a patched install, or
      * - The installed signing certificate doesn't match the bundle's expected original signatures.
+     *
+     * When the certificate cannot be read at all the button stays available, flagged through
+     * [InstalledApkInfo.patchStateUnknown] so the dialog can say the check did not happen.
      */
     private suspend fun loadInstalledInfo(packageName: String): Pair<Boolean, InstalledApkInfo?> {
         return try {
@@ -1875,33 +1889,42 @@ class HomeViewModel(
             // Determine if the installed app is patched, in priority order:
             // 1. Saved original APK (most reliable - direct signature comparison)
             // 2. Bundle-declared expected signatures (fallback)
-            // 3. DB tracking (last resort - version match only)
-            val isPatched: Boolean = run {
-                val savedOriginal = originalApkRepository.get(packageName)
-                val savedFile = savedOriginal?.let { File(it.filePath) }
-                if (savedFile?.exists() == true) {
-                    val savedHashes = pm.getApkFileSignatureHashes(savedFile)
-                    if (savedHashes.isNotEmpty()) {
-                        val installedHashes = pm.getInstalledSignatureHashes(packageName)
-                        if (installedHashes.isNotEmpty()) {
-                            return@run installedHashes.none { it in savedHashes }
-                        }
-                        // Can't read installed signatures → fall through to other checks
-                    }
-                    // Can't read signatures from file → fall through to other checks
+            // 3. DB tracking (version match only)
+            // 4. Installing package (survives clearing Morphe's data, unlike the DB)
+            val patchState: InstalledPatchState = run {
+                val savedHashes = originalApkRepository.get(packageName)
+                    ?.let { File(it.filePath) }
+                    ?.takeIf { it.exists() }
+                    ?.let { pm.getApkFileSignatureHashes(it) }
+                    .orEmpty()
+                val referenceHashes = savedHashes.ifEmpty {
+                    bundleAppMetadataFlow.value[packageName]?.signatures.orEmpty()
                 }
-                val expectedSignatures = bundleAppMetadataFlow.value[packageName]?.signatures
-                if (!expectedSignatures.isNullOrEmpty()) {
+
+                if (referenceHashes.isNotEmpty()) {
                     val installedHashes = pm.getInstalledSignatureHashes(packageName)
                     if (installedHashes.isNotEmpty()) {
-                        return@run installedHashes.none { it in expectedSignatures }
+                        return@run if (installedHashes.none { it in referenceHashes })
+                            InstalledPatchState.Patched
+                        else
+                            InstalledPatchState.NotPatched
                     }
-                    // Can't read installed signatures → fall through to DB tracking
                 }
+
                 val trackedPatch = installedAppRepository.get(packageName)
-                trackedPatch != null && pkgInfo.versionName == trackedPatch.version
+                if (trackedPatch != null && pkgInfo.versionName == trackedPatch.version) {
+                    return@run InstalledPatchState.Patched
+                }
+                if (pm.isInstalledByPatchManager(packageName)) return@run InstalledPatchState.Patched
+
+                // A comparison was possible in principle, so an unreadable certificate leaves the
+                // state genuinely unknown rather than clean
+                if (referenceHashes.isNotEmpty())
+                    InstalledPatchState.Unknown
+                else
+                    InstalledPatchState.NotPatched
             }
-            if (isPatched) return true to null
+            if (patchState == InstalledPatchState.Patched) return true to null
 
             val appInfo = pkgInfo.applicationInfo
                 ?: return true to null
@@ -1912,7 +1935,13 @@ class HomeViewModel(
             val splitPaths = appInfo.splitSourceDirs
                 ?.filter { File(it).exists() }
                 ?: emptyList()
-            true to InstalledApkInfo(version = version, versionCode = pm.getVersionCode(pkgInfo), apkPath = sourceDir, splitPaths = splitPaths)
+            true to InstalledApkInfo(
+                version = version,
+                versionCode = pm.getVersionCode(pkgInfo),
+                apkPath = sourceDir,
+                splitPaths = splitPaths,
+                patchStateUnknown = patchState == InstalledPatchState.Unknown
+            )
         } catch (e: Exception) {
             Log.e(tag, "Failed to load installed app info", e)
             false to null

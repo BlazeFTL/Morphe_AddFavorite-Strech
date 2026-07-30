@@ -688,6 +688,16 @@ private fun ApkAvailabilityDialog(
                         icon = Icons.Outlined.PhoneAndroid,
                         modifier = Modifier.fillMaxWidth()
                     )
+
+                    // The certificate check could not run, so the installed app may already be patched
+                    if (installedApkInfo.patchStateUnknown) {
+                        InfoBadge(
+                            text = stringResource(R.string.home_apk_use_installed_unverified),
+                            style = InfoBadgeStyle.Warning,
+                            icon = Icons.Outlined.Warning,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
                 }
             }
         }

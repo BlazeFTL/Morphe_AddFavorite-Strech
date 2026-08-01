@@ -93,6 +93,7 @@ enum class BatchInstallOutcome { INSTALLED, FAILED }
 data class BatchBundleRef(
     val uid: Int,
     val name: String,
+    val version: String?,
     val patchNames: Set<String>
 )
 

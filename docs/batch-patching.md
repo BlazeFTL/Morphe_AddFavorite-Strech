@@ -93,10 +93,16 @@ each card:
 - **Install failed** - with the reason underneath, in place of the app details.
 
 Use **Install all** at the bottom, or the install button on a single card when you only want
-one. Cards keep their install button after a failure, so you can fix the cause and try again
-without patching anything a second time. Once an app is installed the card offers to open it,
-and an app that failed to patch gets a button for the full error, which is longer than the
-card can show.
+one. An installed app drops out of both: its card swaps the install button for **Open**, and
+**Install all** covers only what is left. After a long run that is how you tell at a glance
+what still needs doing.
+
+A failed install keeps its button, so you can fix the cause and try again without patching
+anything a second time. An app that failed to *patch* gets a button for the full error, which
+is longer than the card can show.
+
+**Export** saves the patched APK wherever you choose, without installing it. It is on every
+card that produced a file, before and after installing.
 
 The refresh button next to the title re-plans the apps that failed or were canceled.
 

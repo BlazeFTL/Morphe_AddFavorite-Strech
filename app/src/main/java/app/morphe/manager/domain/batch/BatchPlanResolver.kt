@@ -221,6 +221,7 @@ class BatchPlanResolver(
     private fun PatchBundleInfo.Scoped.toRef() = BatchBundleRef(
         uid = uid,
         name = name,
+        version = version,
         patchNames = patches.mapTo(mutableSetOf()) { it.name }
     )
 

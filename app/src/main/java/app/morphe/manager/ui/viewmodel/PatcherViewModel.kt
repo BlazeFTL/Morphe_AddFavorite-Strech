@@ -51,7 +51,6 @@ import org.koin.core.component.get
 import org.koin.core.component.inject
 import java.io.File
 import java.io.IOException
-import java.nio.file.Files
 import java.util.UUID
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -638,14 +637,7 @@ class PatcherViewModel(
             _isSaving.value = true
             try {
                 ensureExportMetadata()
-                val exportSucceeded = runCatching {
-                    withContext(Dispatchers.IO) {
-                        app.contentResolver.openOutputStream(targetUri)
-                            ?.use { stream -> Files.copy(outputFile.toPath(), stream) }
-                            ?: throw IOException("Could not open output stream for export")
-                    }
-                }.isSuccess
-                finishExport(exportSucceeded)
+                finishExport(app.exportApkTo(outputFile, targetUri))
             } finally {
                 _isSaving.value = false
             }

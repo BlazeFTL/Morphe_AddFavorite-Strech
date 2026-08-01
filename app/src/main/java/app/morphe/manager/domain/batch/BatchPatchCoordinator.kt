@@ -362,10 +362,9 @@ class BatchPatchCoordinator(
 
         // Only the sources actually contributing patches, so narrowing an app to one source
         // is reflected in the log as well as on the card
-        val versionsByUid = patchBundleRepository.sources.first().associate { it.uid to it.version }
         val patchSources = item.bundles
             .filter { it.uid in item.selection.keys }
-            .map { PatchSourceRef(it.name, versionsByUid[it.uid]) }
+            .map { PatchSourceRef(it.name, it.version) }
 
         val args = PatcherWorker.Args(
             input = selectedApp,

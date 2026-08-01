@@ -6,6 +6,8 @@
 package app.morphe.manager.ui.screen
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
@@ -22,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,7 +48,11 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BatchPatcherViewModel
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.util.APK_FILE_MIME_TYPES
+import app.morphe.manager.util.APK_MIMETYPE
+import app.morphe.manager.util.ExportNameFormatter
+import app.morphe.manager.util.PatchedAppExportData
 import app.morphe.manager.util.rememberAdaptiveFilePicker
+import app.morphe.manager.util.toast
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -87,8 +94,11 @@ fun BatchPatcherScreen(
     InstallerFlowDialogs(installViewModel = installViewModel)
 
     val current = state
+    // Apps already on the device drop out, so "Install all" means what is left and a card
+    // that is done stops offering the button. One list drives both
     val installRequests: List<InstallQueueRequest> = remember(current?.items) {
         current?.patchedItems.orEmpty().mapNotNull { item ->
+            if (item.installOutcome == BatchInstallOutcome.INSTALLED) return@mapNotNull null
             val file = item.patchedFile ?: return@mapNotNull null
             InstallQueueRequest(
                 file = file,
@@ -185,6 +195,38 @@ fun BatchPatcherScreen(
                 },
             onSelect = viewModel::pickSource,
             onDismiss = viewModel::cancelSourcePick
+        )
+    }
+
+    // Saving a patched APK somewhere the user picks, the same export the single-app flow and
+    // the saved APK list offer. Held as state because the file name is built from the item
+    var exportItem by remember { mutableStateOf<BatchPatchItem?>(null) }
+    val exportSuccessMessage = stringResource(R.string.save_apk_success)
+    val exportFailedMessage = stringResource(R.string.saved_app_export_failed)
+    val context = LocalContext.current
+    val exportLauncher = rememberLauncherForActivityResult(CreateDocument(APK_MIMETYPE)) { uri ->
+        val file = exportItem?.patchedFile
+        exportItem = null
+        if (file != null && uri != null) {
+            installViewModel.export(file, uri) { success ->
+                context.toast(if (success) exportSuccessMessage else exportFailedMessage)
+            }
+        }
+    }
+
+    LaunchedEffect(exportItem) {
+        val item = exportItem ?: return@LaunchedEffect
+        exportLauncher.launch(
+            ExportNameFormatter.format(
+                null,
+                PatchedAppExportData(
+                    appName = item.appName,
+                    packageName = item.packageName,
+                    appVersion = item.version,
+                    patchBundleVersions = item.bundles.mapNotNull { it.version?.takeIf(String::isNotBlank) },
+                    patchBundleNames = item.bundles.map { it.name }
+                )
+            )
         )
     }
 
@@ -336,9 +378,8 @@ fun BatchPatcherScreen(
                                     (it.resolvedSelection ?: it.selection).keys.size > 1
                             }
                             ?.let { { viewModel.beginSourcePick(item) } },
-                        // Installing everything is not always what the user wants once they
-                        // see which apps succeeded
                         onInstall = request?.let { { startInstallQueue(listOf(it)) } },
+                        onExport = item.patchedFile?.let { { exportItem = item } },
                         onOpen = item.installedPackageName
                             ?.takeIf { item.installOutcome == BatchInstallOutcome.INSTALLED }
                             ?.let { { viewModel.openApp(it) } },
@@ -537,12 +578,14 @@ private fun BatchItemCard(
     onEditPatches: (() -> Unit)? = null,
     onPickSource: (() -> Unit)? = null,
     onInstall: (() -> Unit)? = null,
+    onExport: (() -> Unit)? = null,
     onOpen: (() -> Unit)? = null,
     onShowError: () -> Unit = {}
 ) {
     val excluded = item.state == BatchItemState.EXCLUDED
     val failed = !editable && item.state == BatchItemState.FAILED && !item.message.isNullOrBlank()
-    val hasResultActions = !editable && (onInstall != null || onOpen != null || failed)
+    val hasResultActions = !editable &&
+            (onInstall != null || onExport != null || onOpen != null || failed)
 
     SectionCard(modifier = Modifier.fillMaxWidth()) {
         Column {
@@ -736,6 +779,16 @@ private fun BatchItemCard(
                                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                                 )
+                            )
+                        }
+
+                        if (onExport != null) {
+                            val exportLabel = stringResource(R.string.export)
+                            ActionPillButton(
+                                onClick = onExport,
+                                icon = Icons.Outlined.SaveAlt,
+                                contentDescription = exportLabel,
+                                tooltip = exportLabel
                             )
                         }
 

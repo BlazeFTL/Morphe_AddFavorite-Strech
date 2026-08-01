@@ -1031,6 +1031,7 @@ Mga Detalye: %2$s"</string>
     <string name="accessibility_select_app">Piliin ang APK</string>
     <string name="accessibility_move_up">Ilipat paitaas</string>
     <string name="accessibility_move_down">Ilipat pababa</string>
+    <string name="accessibility_app_moved_announcement">%1$s ay inilipat sa posisyon %2$s ng %3$s</string>
     <string name="accessibility_scroll_to_top">Mag-scroll sa tuktok ng listahan</string>
     <string name="rename">Palitan</string>
     <string name="import_">I-import</string>
@@ -1098,6 +1099,7 @@ Gusto mo pa bang ituloy?"</string>
     <string name="download_update_confirmation">I-download ang update?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s ng %2$s</string>
     <string name="onboarding_sources_desc">Pamahalaan ang iyong mga pinagmumulan ng patch. Ang bawat pinagmumulan ay nagbibigay ng mga patch na maaaring ilapat sa iyong mga app</string>
     <string name="onboarding_swipe_title">Mga kilos ng pag-swipe</string>
     <string name="onboarding_swipe_desc">Mag-swipe pakanan sa isang card ng app upang makita ang mga available na patch nito. Mag-swipe pakaliwa upang itago ang card mula sa home screen</string>

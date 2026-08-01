@@ -1026,6 +1026,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="accessibility_select_app">Veldu app</string>
     <string name="accessibility_move_up">Færa upp</string>
     <string name="accessibility_move_down">Færa niður</string>
+    <string name="accessibility_app_moved_announcement">%1$s flutt til staðar %2$s af %3$s</string>
     <string name="accessibility_scroll_to_top">Skrúllaðu efst á lista</string>
     <string name="rename">Endurnefna</string>
     <string name="import_">Flytja</string>
@@ -1093,6 +1094,7 @@ Haltu samt sem áður?"</string>
     <string name="download_update_confirmation">Sæka uppfærslu?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s af %2$s</string>
     <string name="onboarding_sources_desc">Stjórna þínum uppsprettum. Hver uppspretta gefur breytingar sem hægt er að beita á þín forrit</string>
     <string name="onboarding_swipe_title">Hreyfingar fingrum</string>
     <string name="onboarding_swipe_desc">Stryndu til hægri á forritskorti til að skoða lausar breytingar. Stryndu til vinstri til að fela kortið af heimaskjánum</string>

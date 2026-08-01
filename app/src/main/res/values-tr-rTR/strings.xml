@@ -168,6 +168,7 @@
     <string name="home_app_info_no_saved_apk">Kayıtlı APK yok. Yamayı uygulayabilmek için tekrar APK dosyasını seçmeniz gerekiyor</string>
     <string name="home_version_requires_android">Android %s+ gerektiriyor</string>
     <string name="home_apk_no_compatible_versions_title">Bu cihazda desteklenmiyor</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; Android %2$s (API %3$s) için desteklenen bir sürümü yok. Bildirilen tüm sürümler daha yüksek bir Android sürümü gerektiriyor.</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Orijinal APK\'yi indir</string>
     <string name="home_download_instructions_steps_title">Talimatlar:</string>
@@ -243,6 +244,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="home_dialog_unsupported_version_compatible_versions"> Uyumlu sürümler:</string>
     <string name="home_dialog_unsupported_version_unsupported_label"> Uyumlu değil</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Yapı %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Bu, aynı sürüme ait farklı bir yapıdır. Yamalar belirli bir yapı gerektirir</string>
     <string name="home_dialog_wrong_package_title">Yanlış paket seçildi</string>
     <string name="home_dialog_wrong_package_description">Seçilen APK, yamalamak istediğiniz uygulama için değil</string>
@@ -310,6 +312,8 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="batch_patch_title">Toplu yama</string>
     <string name="batch_patch_planning">Sıra hazırlanıyor…</string>
     <string name="batch_patch_preparing_next">Bir sonraki uygulama hazırlanıyor…</string>
+    <string name="batch_patch_progress_counter">%2$s için yama %1$s</string>
+    <string name="batch_patch_summary">%1$s yamalandı, %2$s başarısız oldu, %3$s atlandı</string>
     <string name="batch_patch_saved_hint">Yamalanan uygulamalar kaydedildi. Şimdi kurun veya ayarlar bölümündeki yamalı APK listesinden daha sonra kurun</string>
     <string name="batch_patch_multiple_sources">Bazı uygulamalar yamaları birden fazla kaynaktan birleştirir, bu da çakışmalara neden olabilir</string>
     <string name="batch_patch_needs_apk">APK mevcut değil, bir dosya ekleyin</string>
@@ -484,6 +488,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="failed_to_mount">Bağlanamadı: %s</string>
     <string name="failed_to_unmount">Bağlama kaldırılamadı: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Puan %s</string>
+    <string name="mini_game_best">En İyi %s</string>
     <string name="mini_game_new_record">Yeni rekor!</string>
     <string name="mini_game_game_over">Oyun Bitti</string>
     <string name="mini_game_try_again">Tekrar Dene</string>
@@ -1023,6 +1029,7 @@ Ayrıntılar: %2$s"</string>
     <string name="accessibility_select_app">Uygulama seç</string>
     <string name="accessibility_move_up">Yukarı taşı</string>
     <string name="accessibility_move_down">Aşağı taşı</string>
+    <string name="accessibility_app_moved_announcement">%1$s, %3$s\'nin %2$s konumuna taşındı</string>
     <string name="accessibility_scroll_to_top">Listenin en üstüne kaydır</string>
     <string name="rename">Yeniden adlandır</string>
     <string name="import_">İçe aktar</string>
@@ -1090,6 +1097,7 @@ Devam etmek istiyor musunuz?"</string>
     <string name="download_update_confirmation">Güncelleme indirilsin mi?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%2$stan %1$s</string>
     <string name="onboarding_sources_desc">Yama kaynaklarınızı yönetin. Her kaynak, uygulamalarınıza uygulanabilecek yamalar sağlar</string>
     <string name="onboarding_swipe_title">Kaydırma hareketleri</string>
     <string name="onboarding_swipe_desc">Bir uygulama kartında bulunan yamaları görmek için sağa kaydırın. Kartı ana ekranından gizlemek için sola kaydırın</string>

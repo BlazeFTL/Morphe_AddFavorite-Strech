@@ -967,6 +967,7 @@ Detalii: %2$s"</string>
     <string name="reset_order_done">Comanda resetată</string>
     <string name="accessibility_move_up">Mută în sus</string>
     <string name="accessibility_move_down">Mută în jos</string>
+    <string name="accessibility_app_moved_announcement">%1$s a fost mutat pe poziția %2$s din %3$s</string>
     <string name="accessibility_scroll_to_top">Derulează până în partea de sus a listei</string>
     <string name="rename">Redenumește</string>
     <string name="import_">Importă</string>
@@ -1033,6 +1034,7 @@ Doriți totuși să continuați?"</string>
     <string name="download_update_confirmation">Descarci actualizarea?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s din %2$s</string>
     <string name="onboarding_sources_desc">Gestionează sursele de patch-uri. Fiecare sursă oferă patch-uri care pot fi aplicate aplicațiilor tale</string>
     <string name="onboarding_swipe_title">Gesturi de glisare</string>
     <string name="onboarding_swipe_desc">Glisează spre dreapta pe o carte de aplicație pentru a vedea patch-urile disponibile. Glisează spre stânga pentru a ascunde cardul de pe ecranul principal</string>

@@ -1023,6 +1023,7 @@ morphe_header_custom_dark.png
     <string name="accessibility_select_app">アプリを選択</string>
     <string name="accessibility_move_up">上に移動</string>
     <string name="accessibility_move_down">下に移動</string>
+    <string name="accessibility_app_moved_announcement">%1$s を %2$s 番目の位置 (%3$s 個中) に移動しました</string>
     <string name="accessibility_scroll_to_top">リストの一番上にスクロール</string>
     <string name="rename">名前を変更する</string>
     <string name="import_">インポート</string>
@@ -1090,6 +1091,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">アップデートをダウンロードしますか？</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s / %2$s</string>
     <string name="onboarding_sources_desc">パッチソースを管理できます。各ソースは、アプリに適用できるパッチを提供します</string>
     <string name="onboarding_swipe_title">ジェスチャー操作</string>
     <string name="onboarding_swipe_desc">アプリカードを右にスワイプすると、利用可能なパッチを表示できます。左にスワイプすると、ホーム画面からカードを非表示にできます</string>

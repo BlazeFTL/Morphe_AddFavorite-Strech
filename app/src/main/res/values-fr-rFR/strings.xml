@@ -354,7 +354,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_patches_name_default">Patchs</string>
     <string name="home_app_info_patches_name_fallback">Sans nom</string>
     <string name="home_app_info_patches_replace_fail">Échec de l\'importation des patchs : %s</string>
-    <string name="home_app_info_repatch_no_original_apk">APK d\'origine introuvable. Impossible de repatcher cette application</string>
+    <string name="home_app_info_repatch_no_original_apk">APK d\'origine introuvable. Impossible de re-patcher cette application</string>
     <string name="home_app_info_original_package_name">Nom du paquet d\'origine</string>
     <string name="home_app_info_applied_patches">Patchs appliqués</string>
     <string name="home_app_info_patch_source_used">Source de patchs utilisée</string>
@@ -918,7 +918,7 @@ Détails : %2$s"</string>
     <string name="settings_system_original_apks_empty">Aucun APK d\'origine enregistré</string>
     <string name="settings_system_original_apks_deleted">L\'APK d\'origine supprimé avec succès</string>
     <string name="settings_system_original_apks_delete_title">Supprimer l\'APK d\'origine ?</string>
-    <string name="settings_system_original_apks_delete_confirm">Supprimer l\'APK d\'origine pour &lt;b&gt;%s&lt;/b&gt; ? Vous ne pourrez pas repatcher sans fournir un nouvel APK</string>
+    <string name="settings_system_original_apks_delete_confirm">Supprimer l\'APK d\'origine pour &lt;b&gt;%s&lt;/b&gt; ? Vous ne pourrez pas re-patcher sans fournir un nouvel APK</string>
     <string name="settings_system_original_apks_delete_all_title">Supprimer tous les APK d\'origine ?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Sélections de patchs</string>
@@ -1037,6 +1037,7 @@ Détails : %2$s"</string>
     <string name="accessibility_select_app">Sélectionner une application</string>
     <string name="accessibility_move_up">Déplacer vers le haut</string>
     <string name="accessibility_move_down">Déplacer vers le bas</string>
+    <string name="accessibility_app_moved_announcement">%1$s a été déplacé à la position %2$s sur %3$s</string>
     <string name="accessibility_scroll_to_top">Faire défiler jusqu\'en haut de la liste</string>
     <string name="rename">Renommer</string>
     <string name="import_">Importer</string>
@@ -1104,6 +1105,7 @@ Voulez-vous tout de même continuer ?"</string>
     <string name="download_update_confirmation">Télécharger la mise à jour ?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s sur %2$s</string>
     <string name="onboarding_sources_desc">Gérez vos sources de patchs. Chaque source fournit des patchs pouvant être appliqués à vos applications</string>
     <string name="onboarding_swipe_title">Gestes de balayage</string>
     <string name="onboarding_swipe_desc">Balayez vers la droite sur une carte d\'application pour afficher les patchs disponibles. Balayez vers la gauche pour la masquer de l\'écran d\'accueil</string>

@@ -324,8 +324,10 @@
     <string name="batch_patch_source_installed">Встановлений застосунок</string>
     <string name="batch_patch_source_file">Доданий файл</string>
     <string name="batch_patch_source_unavailable">Не вдалося підготувати APK</string>
+    <string name="batch_patch_find_apk">Знайти APK файл</string>
     <string name="batch_patch_attach_apk">Додати APK</string>
     <string name="batch_patch_force_version">Патчити все одно</string>
+    <string name="batch_patch_force_version_done">Все одно додано до черги, патчі для інших версій можуть зламати застосунок</string>
     <string name="batch_patch_edit_patches">Вибрати патчі</string>
     <string name="batch_patch_state_no_apk">Немає APK</string>
     <string name="batch_patch_state_no_patches">Немає патчів</string>

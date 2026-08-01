@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">แอปพลิเคชันอื่นๆ</string>
     <string name="home_not_patched_yet">ยังไม่ได้รับการแพตซ์</string>
-    <string name="home_no_patches_available">ไม่มีแพตซ์รองรับ</string>
+    <string name="home_no_patches_available">ไม่มีแอปที่ใช้งานได้</string>
     <string name="home_app_hide_title">ซ่อนแอปนี้หรือไม่?</string>
     <string name="home_app_hide_message">แอปนี้จะถูกซ่อนจากหน้าจอหลัก คุณสามารถกู้คืนได้ภายหลังโดยใช้ปุ่ม \'\' ที่ด้านล่างของรายการ</string>
     <string name="home_app_will_be_hidden">แอปนี้จะถูกซ่อน</string>
@@ -164,9 +164,11 @@
     <string name="home_apk_availability_no">ไม่, ฉันมี APK แล้ว</string>
     <string name="home_apk_use_saved">ใช้ APK ที่บันทึกไว้</string>
     <string name="home_apk_use_installed">ใช้ APK ที่ติดตั้งไว้</string>
+    <string name="home_apk_use_installed_unverified">ไม่สามารถตรวจสอบลายเซ็นของแอปที่ติดตั้งได้ ดังนั้นจึงอาจได้รับการแพตช์แล้ว</string>
     <string name="home_app_info_no_saved_apk">ไม่มี APK ที่ถูกบันทึก การแพตซ์จะต้องเลือกไฟล์ APK อีกครั้ง</string>
     <string name="home_version_requires_android">ต้องใช้ Android %s ขึ้นไป</string>
     <string name="home_apk_no_compatible_versions_title">ไม่รองรับบนอุปกรณ์นี้</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; ไม่มีเวอร์ชันที่รองรับสำหรับ Android %2$s (API %3$s) เวอร์ชันที่ประกาศทั้งหมดต้องใช้เวอร์ชัน Android ที่สูงกว่า</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">ดาวน์โหลด APK ต้นฉบับ</string>
     <string name="home_download_instructions_steps_title">คำแนะนำ:</string>
@@ -242,6 +244,7 @@
     <string name="home_dialog_unsupported_version_compatible_versions">เวอร์ชันที่เข้ากันได้:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">ไม่รองรับ</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">บิลด์ %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">นี่เป็นบิลด์ที่แตกต่างของเวอร์ชันเดียวกัน การอัปเดตต้องการบิลด์ที่เฉพาะเจาะจง</string>
     <string name="home_dialog_wrong_package_title">แพ็กเกจที่เลือกไม่ถูกต้อง</string>
     <string name="home_dialog_wrong_package_description">ไฟล์ APK ที่เลือกไว้ ไม่ใช่แอปพลิเคชันสำหรับทำการแพตซ์</string>
@@ -305,6 +308,12 @@
     <string name="header_creator_guide_positioning_title">ตำแหน่งและการปรับขนาด</string>
     <string name="header_creator_guide_positioning_body">ใช้ท่าทางหนีบเพื่อซูมและลากโดยตรงในการแสดงตัวอย่างเพื่อวางตำแหน่งและปรับขนาดรูปภาพของคุณ แนวไกด์จะปรากฏขึ้นเมื่อรูปภาพอยู่ใกล้ศูนย์ คุณยังสามารถใช้แถบเลื่อนด้านล่างการแสดงตัวอย่างได้</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">แพตช์ถูกเลือก</string>
+    <string name="batch_patch_title">การแพตช์เป็นชุด</string>
+    <string name="batch_patch_planning">กำลังเตรียมคิว…</string>
+    <string name="batch_patch_preparing_next">กำลังเตรียมแอปถัดไป…</string>
+    <string name="batch_patch_progress_counter">แพตช์แล้ว %1$s จาก %2$s</string>
+    <string name="batch_patch_summary">%1$s ถูกแพตช์, %2$s ล้มเหลว, %3$s ถูกข้าม</string>
     <string name="batch_patch_saved_hint">แอปที่แพตช์แล้วถูกบันทึกไว้ ติดตั้งเลย หรือภายหลังได้จากรายการ APK ที่แพตช์แล้วในตั้งค่า</string>
     <string name="batch_patch_multiple_sources">แอปบางตัวรวมแพตช์จากหลายแหล่ง ซึ่งอาจทำให้เกิดข้อขัดแย้ง</string>
     <string name="batch_patch_needs_apk">ไม่มี APK พร้อมใช้งาน, แนบไฟล์</string>
@@ -479,6 +488,8 @@
     <string name="failed_to_mount">ไม่สามารถติดตั้งใช้งานได้: %s</string>
     <string name="failed_to_unmount">ไม่สามารถยกเลิกการติดตั้งใช้งานได้: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">คะแนน %s</string>
+    <string name="mini_game_best">ดีที่สุด %s</string>
     <string name="mini_game_new_record">บันทึกใหม่!</string>
     <string name="mini_game_game_over">เกมจบ</string>
     <string name="mini_game_try_again">ลองอีกครั้ง</string>
@@ -1020,6 +1031,7 @@ morphe_header_custom_dark.png
     <string name="accessibility_select_app">เลือกแอป</string>
     <string name="accessibility_move_up">ย้ายขึ้น</string>
     <string name="accessibility_move_down">ย้ายลง</string>
+    <string name="accessibility_app_moved_announcement">%1$s ย้ายไปยังตำแหน่งที่ %2$s จาก %3$s แล้ว</string>
     <string name="accessibility_scroll_to_top">เลื่อนไปยังด้านบนของรายการ</string>
     <string name="rename">เปลี่ยนชื่อ</string>
     <string name="import_">นำเข้า</string>
@@ -1087,6 +1099,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">ดาวน์โหลดอัปเดตหรือไม่?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s จาก %2$s</string>
     <string name="onboarding_sources_desc">จัดการแหล่งแพตช์ของคุณ แต่ละแหล่งให้แพตช์ที่สามารถนำไปใช้กับแอปของคุณได้</string>
     <string name="onboarding_swipe_title">ท่าทางสัมผัส</string>
     <string name="onboarding_swipe_desc">ปัดไปทางขวาบนการ์ดแอปเพื่อดูแพตช์ที่มีอยู่ ปัดไปทางซ้ายเพื่อซ่อนการ์ดออกจากหน้าจอหลัก</string>

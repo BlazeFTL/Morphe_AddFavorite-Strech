@@ -34,12 +34,12 @@
     <string name="home_update_success_subtitle">مصادرك محدثة</string>
     <string name="home_sources_are_loading">جارٍ تحميل المصادر، يرجى الانتظار…</string>
     <string name="home_search_apps">البحث عن التطبيقات</string>
-    <string name="home_app_sort_title">ترتيب التطبيقات</string>
+    <string name="home_app_sort_title">فرز التطبيقات</string>
     <string name="home_app_sort_manual_description">اضغط مطولًا على تطبيق، ثم انقر على زر إعادة الترتيب</string>
     <string name="home_app_sort_recommended">الترتيب الموصى به</string>
     <string name="home_app_sort_recommended_description">التطبيقات المنصَّبة والمثبتة أولًا</string>
-    <string name="home_app_sort_name_asc_description">أبجديًا، من الألف إلى الياء</string>
-    <string name="home_app_sort_name_desc_description">عكس أبجدي، من الياء إلى الألف</string>
+    <string name="home_app_sort_name_asc_description">أبجديًا، من A إلى Z</string>
+    <string name="home_app_sort_name_desc_description">عكس أبجدي، من Z إلى A</string>
     <string name="home_app_sort_updates_first">تحديثات التعديل أولًا</string>
     <string name="home_app_sort_updates_first_description">التطبيقات التي تحتوي على شارات التحديث أولًا، ثم الترتيب الموصى به</string>
     <string name="home_no_apps_title">لا توجد تطبيقات متاحة</string>
@@ -102,12 +102,12 @@
     <string name="home_greeting_super_late_5">ليلي ومنتج</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">مصادر التعديل</string>
-    <string name="sources_sort_title">رتّب مصادر التعديل</string>
+    <string name="sources_sort_title">فرز مصادر التعديل</string>
     <string name="sources_sort_manual">ترتيب يدوي</string>
     <string name="sources_sort_manual_hint">اضغط مطولًا على مصدر لإعادة الترتيب</string>
     <string name="sources_sort_last_updated">آخر تحديث</string>
     <string name="sources_sort_last_updated_description">آخر تحديثات المصادر أولًا</string>
-    <string name="sources_sort_enabled_first">مُمَكّن أولًا</string>
+    <string name="sources_sort_enabled_first">المفعّلة أولًا</string>
     <string name="sources_sort_enabled_first_description">عرض المصادر النشطة قبل المصادر المعطلة</string>
     <string name="sources_management_open_in_browser">فتح في المتصفح</string>
     <string name="sources_management_failed_to_open_url">فشل في فتح الرابط</string>
@@ -329,7 +329,7 @@
     <string name="batch_patch_state_no_apk">لا يوجد ملف APK</string>
     <string name="batch_patch_state_no_patches">لا توجد تعديلات</string>
     <string name="batch_patch_policy_install">التثبيت عند الانتهاء</string>
-    <string name="batch_patch_policy_install_description">يقوم بتثبيت كل تطبيق تم تعديله مباشرة بعد انتهاء القائمة الإنتظار. وعند الإيقاف، تُحفظ ملفات APK للاستخدام لاحقًا</string>
+    <string name="batch_patch_policy_install_description">يقوم بتثبيت كل تطبيق تم تعديله مباشرة بعد انتهاء قائمة الإنتظار. وعند الإيقاف، تُحفظ ملفات APK للاستخدام لاحقًا</string>
     <string name="batch_patch_start">بدء التعديل</string>
     <string name="batch_patch_stop_title">إيقاف تعديل عدة تطبيقات؟</string>
     <string name="batch_patch_stop_description">سيتم إلغاء التطبيق الذي يتم تعديله الآن، مع كل العناصر المتبقية في قائمة الانتظار</string>
@@ -549,8 +549,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">عرض رسالة ترحيب على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_grouping">تجميع التطبيقات</string>
     <string name="settings_appearance_app_grouping_description">عرض مُبدِّل الشاشة الرئيسية لتجميع التطبيقات حسب المصدر أو فئاتك الخاصة، مع الاحتفاظ بالتحديد عند إيقاف تشغيلها</string>
-    <string name="settings_appearance_sort_button">زر رتّب</string>
-    <string name="settings_appearance_sort_button_description">اعرض زر رتّب على الشاشة الرئيسية</string>
+    <string name="settings_appearance_sort_button">زر الفرز</string>
+    <string name="settings_appearance_sort_button_description">عرض زر الفرز على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_card_colors">ألوان بطاقة التطبيق</string>
     <string name="settings_appearance_app_card_colors_default">الافتراضية</string>
     <string name="settings_appearance_app_card_colors_default_description">امنح كل تطبيق لون حزمته الخاصة</string>
@@ -637,7 +637,7 @@
     <string name="settings_advanced_strip_unused_libs">تحسين وفق معمارية الجهاز</string>
     <string name="settings_advanced_strip_unused_libs_description">يُزيل مكتبات معمارية المعالج غير المستخدمة ووحدات Split APK</string>
     <!-- Bytecode mode -->
-    <string name="settings_advanced_bytecode_mode">وضع المعالجة Bytecode</string>
+    <string name="settings_advanced_bytecode_mode">وضع معالجة Bytecode</string>
     <string name="settings_advanced_bytecode_mode_dialog_description">يتحكم في كيفية معالجة Bytecode أثناء التعديل. يؤثر على سرعة التعديل، استخدام الذاكرة، وحجم APK الناتج</string>
     <string name="settings_advanced_bytecode_mode_strip_fast_label">(موصى به) Fast</string>
     <string name="settings_advanced_bytecode_mode_strip_fast">Fast</string>
@@ -956,8 +956,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="file_picker_internal_storage">التخزين الداخلي</string>
     <string name="file_picker_sd_card">الذاكرة الخارجية SD</string>
     <string name="file_picker_root">Root (/)</string>
-    <string name="file_picker_sort_name_asc">الاسم (أ–ي)</string>
-    <string name="file_picker_sort_name_desc">الاسم (ي–أ)</string>
+    <string name="file_picker_sort_name_asc">الاسم (A–Z)</string>
+    <string name="file_picker_sort_name_desc">الاسم (Z–A)</string>
     <string name="file_picker_sort_size_desc">الحجم (الأكبر أولًا)</string>
     <string name="file_picker_sort_size_asc">الحجم (الأصغر أولًا)</string>
     <string name="file_picker_sort_date_desc">التاريخ (الأحدث أولًا)</string>
@@ -1004,7 +1004,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="remove">إزالة</string>
     <string name="exclude">استبعاد</string>
     <string name="excluded">مستبعد</string>
-    <string name="include">مدرج</string>
+    <string name="include">إدراج</string>
     <string name="disable">تعطيل</string>
     <string name="enable">تمكين</string>
     <string name="loading">جارٍ التحميل…</string>
@@ -1016,7 +1016,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="view">عرض</string>
     <string name="search">البحث</string>
     <string name="search_no_results">لم يتم العثور على نتائج</string>
-    <string name="sort">رتّب</string>
+    <string name="sort">فرز</string>
     <string name="any_version">أي شي</string>
     <string name="enabled">تمكين</string>
     <string name="disabled">معطّل</string>

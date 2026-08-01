@@ -1031,6 +1031,7 @@ Besonderhede: %2$s"</string>
     <string name="accessibility_select_app">Kies program</string>
     <string name="accessibility_move_up">Beweeg op</string>
     <string name="accessibility_move_down">Beweeg af</string>
+    <string name="accessibility_app_moved_announcement">%1$s het na posisie %2$s van %3$s verskuif</string>
     <string name="accessibility_scroll_to_top">Rol na bo van lys</string>
     <string name="rename">Hernoem</string>
     <string name="import_">Importeer</string>
@@ -1098,6 +1099,7 @@ Wil jy voortgaan?"</string>
     <string name="download_update_confirmation">Opdatering aflaai?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s van %2$s</string>
     <string name="onboarding_sources_desc">Bestuur jou bronne vir pleisters. Elke bron verskaf pleisters wat op jou programme toegepas kan word.</string>
     <string name="onboarding_swipe_title">Swiepgebare</string>
     <string name="onboarding_swipe_desc">Swiep regs op \'n programkaart om die beskikbare pleisters te besigtig. Swiep links om die kaart van die hoofskerm te verberg.</string>

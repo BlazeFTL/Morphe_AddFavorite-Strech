@@ -24,6 +24,34 @@
         <item quantity="one">%s APK vyl</item>
         <item quantity="other">%s APK vyle</item>
     </plurals>
+    <plurals name="batch_install_summary">
+        <item quantity="one">%s app geïnstalleer</item>
+        <item quantity="other">%s toepassings geïnstalleer</item>
+    </plurals>
+    <plurals name="batch_reinstall_summary">
+        <item quantity="one">%s app hergeïnstalleer</item>
+        <item quantity="other">%s toepassings hergeïnstalleer</item>
+    </plurals>
+    <plurals name="batch_uninstall_summary">
+        <item quantity="one">%s app gedeïnstalleer</item>
+        <item quantity="other">%s toepassings gedeïnstalleer</item>
+    </plurals>
+    <plurals name="batch_uninstall_confirm_title">
+        <item quantity="one">%s app verwyder?</item>
+        <item quantity="other">%s toepassings verwyder?</item>
+    </plurals>
+    <plurals name="batch_patch_ready_count">
+        <item quantity="one">%s app gereed om te patsj</item>
+        <item quantity="other">%s toepassings gereed om te patsj</item>
+    </plurals>
+    <plurals name="batch_patch_notification_ready">
+        <item quantity="one">%s app is gereed om te installeer</item>
+        <item quantity="other">%s toepassings is gereed om te installeer</item>
+    </plurals>
+    <plurals name="batch_skipped_summary">
+        <item quantity="one">%s app oorgeslaan</item>
+        <item quantity="other">%s toepassings oorgeslaan</item>
+    </plurals>
     <plurals name="home_app_info_repatch_cleaned_invalid_data">
         <item quantity="one">Verwyder %s veroudered verandering van spaar seleksie</item>
         <item quantity="other">Verwyder %s veroudered veranderinge van spaar seleksie</item>

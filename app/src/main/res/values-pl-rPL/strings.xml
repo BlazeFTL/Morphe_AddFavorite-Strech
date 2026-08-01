@@ -168,6 +168,7 @@
     <string name="home_app_info_no_saved_apk">Brak zapisanego pliku APK. Modyfikacja będzie wymagać ponownego wybrania pliku</string>
     <string name="home_version_requires_android">Wymaga Androida %s+</string>
     <string name="home_apk_no_compatible_versions_title">Niewspierane na tym urządzeniu</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nie ma wersji wspieranych z Androidem %2$s (API %3$s). Wszystkie zadeklarowane wersje wymagają wyższej wersji Androida</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Pobierz oryginalny plik APK</string>
     <string name="home_download_instructions_steps_title">Instrukcja:</string>
@@ -243,6 +244,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="home_dialog_unsupported_version_compatible_versions">Zgodne wersje:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Niewspierana</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Kompilacja %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">To inna kompilacja tej samej wersji. Te modyfikacje wymagają konkretnej kompilacji</string>
     <string name="home_dialog_wrong_package_title">Wybrano nieprawidłowy pakiet</string>
     <string name="home_dialog_wrong_package_description">Wybrany plik APK nie jest przeznaczony dla modyfikowanej aplikacji</string>
@@ -310,6 +312,8 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="batch_patch_title">Modyfikowanie grupowe</string>
     <string name="batch_patch_planning">Przygotowywanie kolejki…</string>
     <string name="batch_patch_preparing_next">Przygotowywanie następnej aplikacji…</string>
+    <string name="batch_patch_progress_counter">Zmodyfikowano %1$s z %2$s</string>
+    <string name="batch_patch_summary">%1$s zmodyfikowano, %2$s nie powiodło się, %3$s pominięto</string>
     <string name="batch_patch_saved_hint">Zmodyfikowane aplikacje zostały zapisane. Zainstaluj je teraz lub później z listy zmodyfikowanych plików APK w ustawieniach</string>
     <string name="batch_patch_multiple_sources">Niektóre aplikacje łączą modyfikacje z więcej niż jednego źródła, co może powodować konflikty</string>
     <string name="batch_patch_needs_apk">Brak dostępnego pliku APK, dołącz plik</string>
@@ -484,6 +488,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="failed_to_mount">Nie udało się zamontować: %s</string>
     <string name="failed_to_unmount">Nie udało się odmontować: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Wynik %s</string>
+    <string name="mini_game_best">Rekord %s</string>
     <string name="mini_game_new_record">Nowy rekord!</string>
     <string name="mini_game_game_over">Koniec gry</string>
     <string name="mini_game_try_again">Spróbuj ponownie</string>
@@ -1025,6 +1031,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="accessibility_select_app">Wybierz aplikację</string>
     <string name="accessibility_move_up">Przenieś w górę</string>
     <string name="accessibility_move_down">Przenieś w dół</string>
+    <string name="accessibility_app_moved_announcement">Przeniesiono %1$s na pozycję %2$s z %3$s</string>
     <string name="accessibility_scroll_to_top">Przewiń do góry listy</string>
     <string name="rename">Zmień nazwę</string>
     <string name="import_">Importuj</string>
@@ -1092,6 +1099,7 @@ Czy mimo to chcesz kontynuować?"</string>
     <string name="download_update_confirmation">Pobrać aktualizację?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s z %2$s</string>
     <string name="onboarding_sources_desc">Zarządzaj źródłami. Każde z nich oferuje modyfikacje, które możesz zastosować w swoich aplikacjach</string>
     <string name="onboarding_swipe_title">Gesty przesunięcia</string>
     <string name="onboarding_swipe_desc">Przesuń kartę aplikacji w prawo, aby zobaczyć dostępne modyfikacje. Przesuń w lewo, aby ukryć ją z ekranu głównego</string>

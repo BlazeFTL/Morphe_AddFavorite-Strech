@@ -168,6 +168,7 @@
     <string name="home_app_info_no_saved_apk">APK kume ne. Berî ev, wê APK ava beke</string>
     <string name="home_version_requires_android">Android %s+ hewce dike.</string>
     <string name="home_apk_no_compatible_versions_title">Li vê cihazê de ne piştgirîkirî</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; ji bo Android %2$s (API %3$s) versiyonek piştgirîkirî nîne. Hemû versiyonên hate ragîhandin hewiyek versiyonek Android bilindtir hene</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">APK-a orîjinalê dakêşîne</string>
     <string name="home_download_instructions_steps_title">Rêberî:</string>
@@ -241,6 +242,7 @@ Ji bo mezgînî, ev sepan pêşniyar dike ku paketek &lt;b&gt;full APK&lt;/b&gt;
     <string name="home_dialog_unsupported_version_compatible_versions">Versiyonên hevrek:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Nefixî</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Çêkirin %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Ev guherînek din a heman versiyonê ye. Guherîn bi hewcehiya buildek taybet hewce ne</string>
     <string name="home_dialog_wrong_package_title">Pakêta xeberdar hilbijartin</string>
     <string name="home_dialog_wrong_package_description">APK ya hilbijartin ji bo sepanek lê çêkirin dirêj nadê</string>
@@ -304,6 +306,8 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="header_creator_guide_positioning_title">Cîkirin û mezînkirin</string>
     <string name="header_creator_guide_positioning_body">Ji bo cîkirin û mezînkirina wêneya we rasterast di pêşdîtinê de tevgerên dîtin û drag bikar bîne. Rêberên snap-ê dema ku wêne nêzî navendê dibe xuya dibin. Hûn dikarin her wiha ji slidera jorîn jî bikar bînin.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_progress_counter">%1$s ê %2$s hat serkirin</string>
+    <string name="batch_patch_summary">%1$s hat serkirin, %2$s têkçû, %3$s hat derbas kirin</string>
     <string name="batch_patch_saved_hint">Sepandina sepanên patchkirî hatin tomar kirin. Naha wan saz bikin, an paşê ji lîsteya APKyên patchkirî di settingsan de</string>
     <string name="batch_patch_multiple_sources">Hinek sepanan patchên ji çavkaniyên cuda bi hev re hevdîtin, ku dikare pevçûn çê bike</string>
     <string name="batch_patch_needs_apk">APK hew nagire, pelê bişîne</string>
@@ -478,6 +482,8 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="failed_to_mount">Serketina çêkirinê: %s</string>
     <string name="failed_to_unmount">Serketina nebûyîna çêkirinê: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Puan %s</string>
+    <string name="mini_game_best">Herî baş %s</string>
     <string name="mini_game_new_record">Rekord nû!</string>
     <string name="mini_game_game_over">Dawî</string>
     <string name="mini_game_try_again">Carek din bicûrbîne</string>
@@ -1015,6 +1021,7 @@ Detay: %2$s"</string>
     <string name="accessibility_select_app">Sepa hilbijêre</string>
     <string name="accessibility_move_up">Bilindabin</string>
     <string name="accessibility_move_down">Bilindabîn</string>
+    <string name="accessibility_app_moved_announcement">\"%1$s\" pozîsyona %2$s\'ê ya %3$s\'ê veguhezt</string>
     <string name="accessibility_scroll_to_top">Lista serê hilkişîne</string>
     <string name="rename">Navê nû bigere</string>
     <string name="import_">Hez kirin</string>
@@ -1082,6 +1089,7 @@ Ma hûn hê jî dixwazin dom bikevin?"</string>
     <string name="download_update_confirmation">Nûvekirinê dakêvin?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s ji %2$s</string>
     <string name="onboarding_sources_desc">Çavkaniyên patchên xwe birêve bike. Her çavkanî patchên ku dikarin li ser sepanên we werin bikaranîn peyda dike</string>
     <string name="onboarding_swipe_title">Hestên swîpê</string>
     <string name="onboarding_swipe_desc">Ji bo dîtina patchên berdest li ser kartê pêşî biçipe. Ji bo veşartina kartê ji ekranê biçîpe çepê</string>

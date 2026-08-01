@@ -169,6 +169,7 @@ Nessuna patch disponibile</string>
     <string name="home_app_info_no_saved_apk">Nessun APK salvato. Il patching richiederà la selezione del file APK</string>
     <string name="home_version_requires_android">Richiede Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Non supportato su questo dispositivo</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; non ha versioni supportate per Android %2$s (API %3$s). Tutte le versioni dichiarate richiedono una versione di Android superiore</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Scarica l\'APK originale</string>
     <string name="home_download_instructions_steps_title">Istruzioni:</string>
@@ -244,6 +245,7 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="home_dialog_unsupported_version_compatible_versions">Versioni compatibili:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Non supportato</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Build %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Questa è una build diversa della stessa versione. Le patch richiedono una build specifica</string>
     <string name="home_dialog_wrong_package_title">Pacchetto selezionato errato</string>
     <string name="home_dialog_wrong_package_description">L\'APK selezionato non è per l’applicazione che volevi patchare</string>
@@ -311,6 +313,8 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="batch_patch_title">Patching di gruppo</string>
     <string name="batch_patch_planning">Preparazione della coda…</string>
     <string name="batch_patch_preparing_next">Preparazione dell\'app successiva…</string>
+    <string name="batch_patch_progress_counter">Patch %1$s di %2$s</string>
+    <string name="batch_patch_summary">%1$s patchati, %2$s non riusciti, %3$s saltati</string>
     <string name="batch_patch_saved_hint">Le app modificate sono state salvate. Installale ora o in seguito dall\'elenco APK modificate nelle impostazioni</string>
     <string name="batch_patch_multiple_sources">Alcune app combinano patch da più fonti, il che può causare conflitti</string>
     <string name="batch_patch_needs_apk">Nessun APK disponibile, allega un file</string>
@@ -485,6 +489,8 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="failed_to_mount">Impossibile montare: %s</string>
     <string name="failed_to_unmount">Impossibile smontare: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Punteggio %s</string>
+    <string name="mini_game_best">Miglior %s</string>
     <string name="mini_game_new_record">Nuovo record!</string>
     <string name="mini_game_game_over">Game Over</string>
     <string name="mini_game_try_again">Riprova</string>
@@ -1026,6 +1032,7 @@ Dettagli: %2$s"</string>
     <string name="accessibility_select_app">Seleziona app</string>
     <string name="accessibility_move_up">Sposta in alto</string>
     <string name="accessibility_move_down">Sposta in basso</string>
+    <string name="accessibility_app_moved_announcement">%1$s spostato nella posizione %2$s di %3$s</string>
     <string name="accessibility_scroll_to_top">Vai in cima alla lista</string>
     <string name="rename">Rinomina</string>
     <string name="import_">Importa</string>
@@ -1093,6 +1100,7 @@ Vuoi comunque continuare?"</string>
     <string name="download_update_confirmation">Scaricare l\'aggiornamento?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s di %2$s</string>
     <string name="onboarding_sources_desc">Gestisci le tue sorgenti di patch. Ogni sorgente fornisce patch che possono essere applicate alle tue app</string>
     <string name="onboarding_swipe_title">Gesti di scorrimento</string>
     <string name="onboarding_swipe_desc">Scorri verso destra su una scheda app per visualizzare le patch disponibili. Scorri verso sinistra per nascondere la scheda dalla schermata Home</string>

@@ -168,6 +168,7 @@
     <string name="home_app_info_no_saved_apk">कोणतीही साठवलेली APK नाही. तुम्हाला पुन्हा एकदा APK फाईल निवडावी लागेल.</string>
     <string name="home_version_requires_android">Android %s+ आवश्यक आहे</string>
     <string name="home_apk_no_compatible_versions_title">या डिव्हाइसवर समर्थित नाही</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; मध्ये Android %2$s (API %3$s) साठी कोणतेही सपोर्टेड व्हर्जन नाही. सर्व घोषित व्हर्जन्सना Android चे उच्च व्हर्जन आवश्यक आहे</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">मूळ APK डाउनलोड करा</string>
     <string name="home_download_instructions_steps_title">सूचना</string>
@@ -242,6 +243,7 @@
     <string name="home_dialog_unsupported_version_compatible_versions">सुसंगत आवृत्त्या:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">असमर्थित</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">बिल्ड %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">हेच version चं वेगळं build आहे. पॅचिंगसाठी विशिष्ट build आवश्यक आहे</string>
     <string name="home_dialog_wrong_package_title">चुकीचे संकुल निवडले आहे</string>
     <string name="home_dialog_wrong_package_description">तुम्ही निवडलेला APK तुम्ही पॅच करू इच्छित असलेल्या ॲप्लिकेशनसाठी नाही</string>
@@ -309,6 +311,8 @@
     <string name="batch_patch_title">बॅच पॅचिंग</string>
     <string name="batch_patch_planning">queue तयार करत आहे…</string>
     <string name="batch_patch_preparing_next">पुढील ॲप तयार करत आहे…</string>
+    <string name="batch_patch_progress_counter">%2$s चे %1$s पॅच केले</string>
+    <string name="batch_patch_summary">%1$s पॅच केले, %2$s अयशस्वी, %3$s वगळले</string>
     <string name="batch_patch_saved_hint">पॅच केलेले ॲप्स सेव्ह झाले आहेत. ते आता इंस्टॉल करा किंवा सेटिंग्जमधील पॅच केलेल्या APK सूचीमधून नंतर इंस्टॉल करा.</string>
     <string name="batch_patch_multiple_sources">काही ॲप्स एकापेक्षा जास्त स्रोतांकडून पॅच एकत्र करतात, ज्यामुळे संघर्ष होऊ शकतात.</string>
     <string name="batch_patch_needs_apk">APK उपलब्ध नाही, फाइल जोडा</string>
@@ -483,6 +487,8 @@
     <string name="failed_to_mount">माउंट करण्यात अयशस्वी: %s</string>
     <string name="failed_to_unmount">अनमाउंट करण्यात अयशस्वी: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">स्कोअर %s</string>
+    <string name="mini_game_best">सर्वोत्तम %s</string>
     <string name="mini_game_new_record">नवीन रेकॉर्ड!</string>
     <string name="mini_game_game_over">गेम ओव्हर</string>
     <string name="mini_game_try_again">पुन्हा प्रयत्न करा</string>
@@ -1024,6 +1030,7 @@ morphe_header_custom_dark.png
     <string name="accessibility_select_app">ॲप निवडा</string>
     <string name="accessibility_move_up">वर सरकवा</string>
     <string name="accessibility_move_down">खाली सरकवा</string>
+    <string name="accessibility_app_moved_announcement">\"%1$s\" ला \"%3$s\" च्या %2$s व्या स्थानावर हलवले</string>
     <string name="accessibility_scroll_to_top">यादीच्या शीर्षस्थानी स्क्रोल करा</string>
     <string name="rename">पुनर्नामकरण करा</string>
     <string name="import_">आयात</string>
@@ -1091,6 +1098,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">अपडेट डाउनलोड करा?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s / %2$s</string>
     <string name="onboarding_sources_desc">तुमचे पॅच स्रोत व्यवस्थापित करा. प्रत्येक स्रोत असे पॅच प्रदान करतो जे तुमच्या ॲप्सवर लागू केले जाऊ शकतात.</string>
     <string name="onboarding_swipe_title">स्वॅप हावभाव</string>
     <string name="onboarding_swipe_desc">ॲप कार्डवर स्वाइप करून त्याचे उपलब्ध पॅच पहा. होम स्क्रीनवरून कार्ड लपवण्यासाठी डावीकडे स्वाइप करा.</string>

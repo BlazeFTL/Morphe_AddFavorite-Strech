@@ -1024,6 +1024,7 @@ morphe_header_custom_dark.png
     <string name="accessibility_select_app">選取應用程式</string>
     <string name="accessibility_move_up">向上移動</string>
     <string name="accessibility_move_down">向下移動</string>
+    <string name="accessibility_app_moved_announcement">%1$s 移至 %3$s 的第 %2$s 個位置</string>
     <string name="accessibility_scroll_to_top">捲動到列表頂端</string>
     <string name="rename">重新命名</string>
     <string name="import_">匯入</string>
@@ -1091,6 +1092,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">要下載更新嗎？</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%2$s 中的 %1$s</string>
     <string name="onboarding_sources_desc">管理您的修補檔案來源。每個來源都提供可用於您應用程式的修補檔案</string>
     <string name="onboarding_swipe_title">手勢</string>
     <string name="onboarding_swipe_desc">向右滑動應用程式卡片以查看其可用的修補。向左滑動可從主螢幕隱藏卡片</string>

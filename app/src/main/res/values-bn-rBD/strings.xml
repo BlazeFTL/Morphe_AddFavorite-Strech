@@ -1022,6 +1022,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="accessibility_select_app">অ্যাপ নির্বাচন করুন</string>
     <string name="accessibility_move_up">উপরে সরান</string>
     <string name="accessibility_move_down">নিচে সরান</string>
+    <string name="accessibility_app_moved_announcement">%1$s কে %3$s এর %2$s অবস্থানে সরানো হয়েছে</string>
     <string name="accessibility_scroll_to_top">তালিকার শীর্ষে স্ক্রোল করুন</string>
     <string name="rename">রেনেম করুন</string>
     <string name="import_">আমদানি করুন</string>
@@ -1089,6 +1090,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="download_update_confirmation">আপডেট ডাউনলোড করবেন?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%2$s এর %1$s</string>
     <string name="onboarding_sources_desc">আপনার প্যাচ উৎসগুলি পরিচালনা করুন। প্রতিটি উৎস এমন প্যাচ সরবরাহ করে যা আপনার অ্যাপগুলিতে প্রয়োগ করা যেতে পারে।</string>
     <string name="onboarding_swipe_title">সোয়াইপ অঙ্গভঙ্গি</string>
     <string name="onboarding_swipe_desc">অ্যাপ কার্ডে সোয়াইপ করে এর উপলব্ধ প্যাচগুলি দেখুন। কার্ডটি হোম স্ক্রীন থেকে লুকানোর জন্য বাম দিকে সোয়াইপ করুন</string>

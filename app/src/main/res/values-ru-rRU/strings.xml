@@ -1015,6 +1015,7 @@ morphe_header_custom_dark.png
     <string name="accessibility_select_app">Выберите приложение</string>
     <string name="accessibility_move_up">Переместить вверх</string>
     <string name="accessibility_move_down">Переместить вниз</string>
+    <string name="accessibility_app_moved_announcement">%1$s перемещен(а) на позицию %2$s из %3$s</string>
     <string name="accessibility_scroll_to_top">Прокрутить к началу списка</string>
     <string name="rename">Переименовать</string>
     <string name="import_">Импортировать</string>
@@ -1082,6 +1083,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">Загрузить обновление?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s из %2$s</string>
     <string name="onboarding_sources_desc">Управляйте источниками патчей. Каждый источник предоставляет патчи, которые можно применить к вашим приложениям</string>
     <string name="onboarding_swipe_title">Жесты смахивания</string>
     <string name="onboarding_swipe_desc">Смахните вправо по карте приложения, чтобы просмотреть доступные патчи. Смахните влево, чтобы скрыть карту с главного экрана</string>

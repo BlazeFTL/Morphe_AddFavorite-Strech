@@ -975,6 +975,7 @@ morphe_header_custom_dark.png
     <string name="reset_order_done">Заявката е възстановена</string>
     <string name="accessibility_move_up">Преместване нагоре</string>
     <string name="accessibility_move_down">Преместване надолу</string>
+    <string name="accessibility_app_moved_announcement">%1$s преместен на позиция %2$s от %3$s</string>
     <string name="accessibility_scroll_to_top">Превъртете до началото на списъка</string>
     <string name="rename">Преименуване</string>
     <string name="import_">Импортиране</string>
@@ -1041,6 +1042,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">Да сваля обновление?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s от %2$s</string>
     <string name="onboarding_sources_desc">Управлявайте източниците на пакети. Всеки източник предоставя пакети, които могат да бъдат приложени към вашите приложения. </string>
     <string name="onboarding_swipe_title">Жестове с плъзгане</string>
     <string name="onboarding_swipe_desc">Плъзнете надясно върху карта на приложение, за да видите наличните пакети. Плъзнете наляво, за да скриете картата от началния екран. </string>

@@ -24,6 +24,22 @@
         <item quantity="one">%s APK faylı</item>
         <item quantity="other">%s APK faylı</item>
     </plurals>
+    <plurals name="batch_uninstall_confirm_title">
+        <item quantity="one">%s tətbiq silinsin?</item>
+        <item quantity="other">%s tətbiq silinsin?</item>
+    </plurals>
+    <plurals name="batch_patch_ready_count">
+        <item quantity="one">%s tətbiq yamaqlanmağa hazırdır</item>
+        <item quantity="other">%s tətbiq yamaqlanmağa hazırdır</item>
+    </plurals>
+    <plurals name="batch_patch_notification_ready">
+        <item quantity="one">%s tətbiq quraşdırılmağa hazırdır</item>
+        <item quantity="other">%s tətbiq quraşdırılmağa hazırdır</item>
+    </plurals>
+    <plurals name="batch_skipped_summary">
+        <item quantity="one">%s tətbiq ötürüldü</item>
+        <item quantity="other">%s tətbiq ötürüldü</item>
+    </plurals>
     <plurals name="home_app_info_repatch_cleaned_invalid_data">
         <item quantity="one">Saxlanılan seçimdən %s köhnəlmiş yamaq silindi</item>
         <item quantity="other">Saxlanılan seçimdən %s köhnəlmiş yamaq silindi</item>

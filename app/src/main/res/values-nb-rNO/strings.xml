@@ -168,6 +168,7 @@
     <string name="home_app_info_no_saved_apk">Ingen lagret APK. Patching krever at du velger APK-filen på nytt</string>
     <string name="home_version_requires_android">Krever Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ikke støttes på denne enheten</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; har ingen støttede versjoner for Android %2$s (API %3$s). Alle deklarerte versjoner krever en høyere Android-versjon</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Last ned den originale APK-filen</string>
     <string name="home_download_instructions_steps_title">Instruksjoner:</string>
@@ -243,6 +244,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatible versjoner:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Ikke støttet</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Bygg %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Dette er en annen build av samme versjon. Patchene krever en spesifikk build</string>
     <string name="home_dialog_wrong_package_title">Feil pakke valgt</string>
     <string name="home_dialog_wrong_package_description">Den valgte APK-en er ikke for applikasjonen du hadde tenkt å patche</string>
@@ -310,6 +312,8 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="batch_patch_title">Batch patching</string>
     <string name="batch_patch_planning">Forbereder køen…</string>
     <string name="batch_patch_preparing_next">Forbereder neste app…</string>
+    <string name="batch_patch_progress_counter">Patchet %1$s av %2$s</string>
+    <string name="batch_patch_summary">%1$s patchet, %2$s feilet, %3$s hoppet over</string>
     <string name="batch_patch_saved_hint">De patchede appene er lagret. Installer dem nå, eller senere fra listen over patchede APK-er i innstillinger</string>
     <string name="batch_patch_multiple_sources">Noen apper kombinerer patcher fra mer enn én kilde, noe som kan føre til konflikter</string>
     <string name="batch_patch_needs_apk">Ingen APK tilgjengelig, legg ved en fil</string>
@@ -484,6 +488,8 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="failed_to_mount">Kunne ikke montere: %s</string>
     <string name="failed_to_unmount">Kunne ikke demontere: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Poengsum %s</string>
+    <string name="mini_game_best">Beste %s</string>
     <string name="mini_game_new_record">Ny rekord!</string>
     <string name="mini_game_game_over">Spillet er over</string>
     <string name="mini_game_try_again">Prøv igjen</string>
@@ -1025,6 +1031,7 @@ Detaljer: %2$s"</string>
     <string name="accessibility_select_app">Velg app</string>
     <string name="accessibility_move_up">Flytt opp</string>
     <string name="accessibility_move_down">Flytt ned</string>
+    <string name="accessibility_app_moved_announcement">%1$s flyttet til posisjon %2$s av %3$s</string>
     <string name="accessibility_scroll_to_top">Rull til toppen av listen</string>
     <string name="rename">Gi nytt navn</string>
     <string name="import_">Importer</string>
@@ -1092,6 +1099,7 @@ Vil du likevel fortsette?"</string>
     <string name="download_update_confirmation">Last ned oppdatering?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s av %2$s</string>
     <string name="onboarding_sources_desc">Administrer kildeinnstillingene dine. Hver kilde gir oppdateringer som kan brukes på appene dine.</string>
     <string name="onboarding_swipe_title">Sveipbevegelser</string>
     <string name="onboarding_swipe_desc">Sveip mot høyre på et app-kort for å se tilgjengelige oppdateringer. Sveip mot venstre for å skjule kortet fra startskjermen.</string>

@@ -24,6 +24,34 @@
         <item quantity="one">%s APK-fil</item>
         <item quantity="other">%s APK-filer</item>
     </plurals>
+    <plurals name="batch_install_summary">
+        <item quantity="one">Installert %s app</item>
+        <item quantity="other">Installert %s apper</item>
+    </plurals>
+    <plurals name="batch_reinstall_summary">
+        <item quantity="one">Installert %s app på nytt</item>
+        <item quantity="other">Installert %s apper på nytt</item>
+    </plurals>
+    <plurals name="batch_uninstall_summary">
+        <item quantity="one">Avinstallert %s app</item>
+        <item quantity="other">Avinstallert %s apper</item>
+    </plurals>
+    <plurals name="batch_uninstall_confirm_title">
+        <item quantity="one">Avinstaller %s app?</item>
+        <item quantity="other">Avinstaller %s apper?</item>
+    </plurals>
+    <plurals name="batch_patch_ready_count">
+        <item quantity="one">%s app klar for oppdatering</item>
+        <item quantity="other">%s apper klare for oppdatering</item>
+    </plurals>
+    <plurals name="batch_patch_notification_ready">
+        <item quantity="one">%s app er klar for installasjon</item>
+        <item quantity="other">%s apper er klare for installasjon</item>
+    </plurals>
+    <plurals name="batch_skipped_summary">
+        <item quantity="one">Hoppet over %s app</item>
+        <item quantity="other">Hoppet over %s apper</item>
+    </plurals>
     <plurals name="home_app_info_repatch_cleaned_invalid_data">
         <item quantity="one">Fjernet %s utdatert oppdatering fra lagrede valg</item>
         <item quantity="other">Fjernet %s utdaterte oppdateringer fra lagrede valg</item>

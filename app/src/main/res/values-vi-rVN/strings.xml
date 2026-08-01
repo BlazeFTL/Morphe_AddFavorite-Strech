@@ -1008,6 +1008,7 @@ Chi tiết: %2$s"</string>
     <string name="accessibility_select_app">Chọn ứng dụng</string>
     <string name="accessibility_move_up">Lên trên</string>
     <string name="accessibility_move_down">Xuống dưới</string>
+    <string name="accessibility_app_moved_announcement">Đã chuyển %1$s đến vị trí %2$s/%3$s</string>
     <string name="accessibility_scroll_to_top">Về đầu danh sách</string>
     <string name="rename">Đổi tên</string>
     <string name="import_">Nhập</string>
@@ -1073,6 +1074,7 @@ Chi tiết: %2$s"</string>
     <string name="download_update_confirmation">Tải bản cập nhật?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s trong %2$s</string>
     <string name="onboarding_sources_desc">Quản lý các nguồn vá. Mỗi nguồn cung cấp các bản vá có thể được áp dụng cho ứng dụng của bạn</string>
     <string name="onboarding_swipe_title">Cử chỉ vuốt</string>
     <string name="onboarding_swipe_desc">Vuốt phải để xem bản vá. Vuốt trái để ẩn thẻ khỏi màn hình chính</string>

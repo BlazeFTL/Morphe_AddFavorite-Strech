@@ -1032,6 +1032,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="accessibility_select_app">Valitse sovellus</string>
     <string name="accessibility_move_up">Siirrä ylös</string>
     <string name="accessibility_move_down">Siirrä alas</string>
+    <string name="accessibility_app_moved_announcement">%1$s siirrettiin kohtaan %2$s %3$s:sta</string>
     <string name="accessibility_scroll_to_top">Siirry listan alkuun</string>
     <string name="rename">Nimeä uudelleen</string>
     <string name="import_">Tuo</string>
@@ -1099,6 +1100,7 @@ Haluatko silti jatkaa?"</string>
     <string name="download_update_confirmation">Ladataanko päivitys?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s / %2$s</string>
     <string name="onboarding_sources_desc">Hallitse korjauslähteitäsi. Jokainen lähde tarjoaa korjauksia, jotka voidaan soveltaa sovelluksiisi</string>
     <string name="onboarding_swipe_title">Pyyhkäisyeleet</string>
     <string name="onboarding_swipe_desc">Pyyhkäise oikealle sovelluskortissa nähdäksesi sen käytettävissä olevat korjaukset. Pyyhkäise vasemmalle piilottaaksesi kortin aloitusnäytöltä</string>

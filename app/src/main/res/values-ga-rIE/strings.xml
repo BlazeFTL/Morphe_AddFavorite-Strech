@@ -164,9 +164,11 @@
     <string name="home_apk_availability_no">Níl, tá APK agam cheana féin</string>
     <string name="home_apk_use_saved">Úsáid APK sábháilte</string>
     <string name="home_apk_use_installed">Úsáid APK suiteáilte</string>
+    <string name="home_apk_use_installed_unverified">Níorbh fhéidir síniú an aip suiteáilte a fhíorú, mar sin d\'fhéadfadh sé go bhfuil paiste air cheana féin</string>
     <string name="home_app_info_no_saved_apk">Níl aon APK sábháilte. Beidh ort an comhad APK a roghnú arís le haghaidh paisteála.</string>
     <string name="home_version_requires_android">Éilíonn Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ní thacaítear leis ar an ngléas seo</string>
+    <string name="home_apk_no_compatible_versions_message">Níl aon leaganacha tacaithe ag &lt;b&gt;%1$s&lt;/b&gt; do Android %2$s (API %3$s). Éilíonn gach leagan dearbhaithe leagan níos airde de Android.</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Íoslódáil an APK bunaidh</string>
     <string name="home_download_instructions_steps_title">Treoracha:</string>
@@ -242,6 +244,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="home_dialog_unsupported_version_compatible_versions">Leaganacha comhoiriúnacha:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Gan tacaíocht</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Tóg %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Is tógáil dhifriúil den leagan céanna é seo. Éilíonn na paistí tógáil shonrach</string>
     <string name="home_dialog_wrong_package_title">Pacáiste mícheart roghnaithe</string>
     <string name="home_dialog_wrong_package_description">Níl an APK roghnaithe don fheidhmchlár arbh eol duit paiste a chur air</string>
@@ -305,6 +308,8 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="header_creator_guide_positioning_title">Suíomh agus scálú</string>
     <string name="header_creator_guide_positioning_body">Bain úsáid as gothaí pinch-to-zúmáil agus tarraing go díreach sa réamhamharc chun d’íomhá a shuíomh agus a scála. Feictear treoracha snap nuair a bhíonn an íomhá gar don lár. Is féidir leat an sleamhnán faoin réamhamharc a úsáid freisin.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">Paiste roghnaithe</string>
+    <string name="batch_patch_title">Paisteáil bhaisc</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">An bhfuil tú cinnte gur mian leat an aip seo a dhíshuiteáil?</string>
     <string name="batch_uninstall_confirm_body">Bainfear na haipeanna roghnaithe go buan de do ghléas</string>

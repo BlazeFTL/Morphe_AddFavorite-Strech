@@ -1030,6 +1030,7 @@ Részletek: %2$s"</string>
     <string name="accessibility_select_app">Alkalmazás kiválasztása</string>
     <string name="accessibility_move_up">Feljebb mozog</string>
     <string name="accessibility_move_down">Lejjebb mozog</string>
+    <string name="accessibility_app_moved_announcement">A(z) %1$s a(z) %3$s %2$s. pozíciójára került</string>
     <string name="accessibility_scroll_to_top">Görgés a lista tetejére</string>
     <string name="rename">Átnevezés</string>
     <string name="import_">Importálás</string>
@@ -1097,6 +1098,7 @@ Szeretnéd folytatni?"</string>
     <string name="download_update_confirmation">Frissítés letöltése?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s / %2$s</string>
     <string name="onboarding_sources_desc">A patch források kezelése. Minden forrás olyan patcheket biztosít, amelyek alkalmazhatók az alkalmazásaidra</string>
     <string name="onboarding_swipe_title">Gesztusvezérléses ujjmozdulatok</string>
     <string name="onboarding_swipe_desc">Csúsztass jobbra egy alkalmazáskártyán a rendelkezésre álló patchekért. Csúsztass balra, hogy elrejtsd a kártyát a kezdőképernyőről</string>

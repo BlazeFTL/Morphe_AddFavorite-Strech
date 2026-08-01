@@ -580,7 +580,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_advanced_bytecode_mode_strip_fast_label">Snabbt (rekommenderas)</string>
     <string name="settings_advanced_bytecode_mode_strip_fast">Snabbt</string>
     <string name="settings_advanced_bytecode_mode_strip_fast_description">Snabbare modifiering och lägre minnesanvändning, på bekostnad av en större APK-fil. Rekommenderas för enheter med lågt RAM-minne eller äldre enheter</string>
-    <string name="settings_advanced_bytecode_mode_full">Fullt</string>
+    <string name="settings_advanced_bytecode_mode_full">Fullständigt</string>
     <string name="settings_advanced_bytecode_mode_full_description">Långsammare modifiering, replikerar gammalt beteende. Rekommenderas endast om läget Snabbt orsakar problem</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat">Personlig åtkomsttoken för GitHub</string>
@@ -706,7 +706,7 @@ Bildernas mått ska vara följande:
     <string name="installer_use_standard">Använd standardinstalleraren</string>
     <string name="installer_play_store_warning_title">Installera som Play Butik?</string>
     <string name="installer_play_store_warning_message">Den modifierade appen registreras som installerad från Google Play Butik. Det här kan hjälpa tjänster som Android Auto att känna igen den som en Play Butik-app, men det kan inte garanteras för alla appar och enheter. Beteendet kan variera beroende på Android-version, ROM, enhetsmärke och appspecifika kontroller</string>
-    <string name="installer_play_store_warning_risk">Play Butik kan erbjuda uppdateringar för den modifierade appen. Om du installerar den uppdateringen skrivs den modifierade APK-filen över med den ursprungliga versionen och tilläggen tas bort. Om du uppmanas att uppdatera, tryck på trepunktsmenyn på appens Play Butik-sida och välj Inaktivera uppdateringar</string>
+    <string name="installer_play_store_warning_risk">Play Butik kan erbjuda uppdateringar för den modifierade appen. Om du installerar uppdateringen skrivs den modifierade APK-filen över med den ursprungliga versionen och tilläggen tas bort. Om du uppmanas att uppdatera trycker du på trepunktsmenyn på appens Play Butik-sida och väljer inställningen för att inaktivera uppdateringar</string>
     <string name="installer_play_store_warning_continue">Jag förstår, fortsätt</string>
     <string name="installer_play_store_mode">Installera som Play Butik</string>
     <string name="installer_play_store_mode_description">Registrera Google Play Butik som installationskälla för den här installationsmetoden</string>

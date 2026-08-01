@@ -168,6 +168,7 @@
     <string name="home_app_info_no_saved_apk">Saqlangan APK yo\'q. Patchlash uchun APK faylini qayta tanlash kerak bo\'ladi</string>
     <string name="home_version_requires_android">Android %s+ talab qilinadi</string>
     <string name="home_apk_no_compatible_versions_title">Ushbu moslamada qo‘llab-quvvatlanmaydi</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; Android %2$s (API %3$s) versiyasi uchun qo‘llab-quvvatlanmaydi. E’lon qilingan barcha versiyalarga yuqori Android versiyasi talab etiladi</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">APK ni yuklab olish bo‘yicha ko‘rsatmalar</string>
     <string name="home_download_instructions_steps_title">Ko‘rsatmalar:</string>
@@ -243,6 +244,7 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="home_dialog_unsupported_version_compatible_versions">Munosib versiyalar:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Qo\'llab-quvvatlanmaydi</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Versiya %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Bu xuddi shu versiyaning boshqa qurilishi. Patchlar muayyan qurilishni talab qiladi</string>
     <string name="home_dialog_wrong_package_title">Noto\'g\'ri paket tanlangan</string>
     <string name="home_dialog_wrong_package_description">E\'lon qiling</string>
@@ -310,6 +312,8 @@ Chekka hudud (chizikli): launcher niqobi tomonidan kesilishi mumkin - muhim tafs
     <string name="batch_patch_title">Rasmlarni ommaviy qo\'llash</string>
     <string name="batch_patch_planning">Navbat tayyorlanmoqda…</string>
     <string name="batch_patch_preparing_next">Keyingi ilova tayyorlanmoqda…</string>
+    <string name="batch_patch_progress_counter">%2$s ning %1$s ga tuzatish</string>
+    <string name="batch_patch_summary">%1$s ta tuzatildi, %2$s ta muvaffaqiyatsiz, %3$s ta o‘tkazib yuborildi</string>
     <string name="batch_patch_saved_hint">Ta’mirlangan ilovalar saqlanadi. Ularni hozir yoki sozlamalardagi ta’mirlangan APK ro‘yxatidan keyinroq o‘rnating</string>
     <string name="batch_patch_multiple_sources">Ba’zi ilovalar bir nechta manbalardan patchlarni birlashtiradi, bu ziddiyatlarga olib kelishi mumkin</string>
     <string name="batch_patch_needs_apk">APK mavjud emas, faylni biriktiring</string>
@@ -483,6 +487,8 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="failed_to_mount">Ulanishda xatolik: %s</string>
     <string name="failed_to_unmount">Ulanishi bekor qilinishida xatolik: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Hisob %s</string>
+    <string name="mini_game_best">Eng yaxshisi %s</string>
     <string name="mini_game_new_record">Yangi rekord!</string>
     <string name="mini_game_game_over">O‘yin tugadi</string>
     <string name="mini_game_try_again">Qayta urinish</string>
@@ -1024,6 +1030,7 @@ Ma’lumotlar: %2$s"</string>
     <string name="accessibility_select_app">Ilovani tanlang</string>
     <string name="accessibility_move_up">Ro\'yxatni yuqoriga surish</string>
     <string name="accessibility_move_down">Ro\'yxatni pastga surish</string>
+    <string name="accessibility_app_moved_announcement">%1$s %3$s ning %2$s pozitsiyasiga ko\'chirildi</string>
     <string name="accessibility_scroll_to_top">Ro\'yxatni yuqoriga siljitish</string>
     <string name="rename">Nomi o\'zgartirish</string>
     <string name="import_">Import</string>
@@ -1091,6 +1098,7 @@ Davom etmoqchimisiz?"</string>
     <string name="download_update_confirmation">Yangilanishni yuklab olmoqchimisiz?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s dan %2$s gacha</string>
     <string name="onboarding_sources_desc">Patch manbalaringizni boshqaring. Har bir manba ilovalaringizga qo\'llanilishi mumkin bo\'lgan patchlarni taqdim etadi</string>
     <string name="onboarding_swipe_title">Jaraylarga su\'rishing</string>
     <string name="onboarding_swipe_desc">Ilovani kortkasida o\'ngga surish orqali mavjud patchlarni ko\'ring. Bosh ekrandan kartkani yashirish uchun chapga suring</string>

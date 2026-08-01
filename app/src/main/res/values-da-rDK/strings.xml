@@ -1025,6 +1025,7 @@ Detaljer: %2$s"</string>
     <string name="accessibility_select_app">Vælg app</string>
     <string name="accessibility_move_up">Flyt op</string>
     <string name="accessibility_move_down">Flyt ned</string>
+    <string name="accessibility_app_moved_announcement">%1$s flyttet til position %2$s af %3$s</string>
     <string name="accessibility_scroll_to_top">Rul til toppen af listen</string>
     <string name="rename">Omdøb</string>
     <string name="import_">Importer</string>
@@ -1092,6 +1093,7 @@ Vil du stadig fortsætte?"</string>
     <string name="download_update_confirmation">Download opdatering?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s af %2$s</string>
     <string name="onboarding_sources_desc">Administrer dine patch-kilder. Hver kilde leverer patches, der kan anvendes på dine apps</string>
     <string name="onboarding_swipe_title">Swipe-gestusser</string>
     <string name="onboarding_swipe_desc">Stryg til højre på et app-kort for at se de tilgængelige patches. Stryg til venstre for at skjule kortet fra startskærmen</string>

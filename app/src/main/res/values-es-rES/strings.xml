@@ -168,6 +168,7 @@
     <string name="home_app_info_no_saved_apk">No hay APK guardado. Para aplicar los parches será necesario seleccionar el archivo APK nuevamente.</string>
     <string name="home_version_requires_android">Requiere Android %s o superior</string>
     <string name="home_apk_no_compatible_versions_title">Incompatible con este dispositivo</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; no tiene versiones compatibles con Android %2$s (API %3$s). Todas las versiones declaradas requieren una versión de Android superior</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descargar el APK original</string>
     <string name="home_download_instructions_steps_title">Instrucciones:</string>
@@ -243,6 +244,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="home_dialog_unsupported_version_compatible_versions">Versiones compatibles:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">No soportado</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Compilación %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Esta es una compilación diferente de la misma versión. Los parches requieren una compilación específica</string>
     <string name="home_dialog_wrong_package_title">Paquete incorrecto seleccionado</string>
     <string name="home_dialog_wrong_package_description">El APK seleccionado no es para la aplicación que pretendías parchear</string>
@@ -310,6 +312,8 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="batch_patch_title">Parcheo por lotes</string>
     <string name="batch_patch_planning">Preparando la cola…</string>
     <string name="batch_patch_preparing_next">Preparando la siguiente aplicación…</string>
+    <string name="batch_patch_progress_counter">Parcheado %1$s de %2$s</string>
+    <string name="batch_patch_summary">%1$s parcheadas, %2$s fallidas, %3$s omitidas</string>
     <string name="batch_patch_saved_hint">Las aplicaciones parcheadas se han guardado. Instálelas ahora, o más tarde desde la lista de APKs parcheados en la configuración</string>
     <string name="batch_patch_multiple_sources">Algunas aplicaciones combinan parches de más de una fuente, lo que puede causar conflictos</string>
     <string name="batch_patch_needs_apk">Ningún APK disponible, adjunte un archivo</string>
@@ -485,6 +489,8 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="failed_to_mount">Error al montar: %s</string>
     <string name="failed_to_unmount">Error al desmontar: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Puntuación %s</string>
+    <string name="mini_game_best">Mejor %s</string>
     <string name="mini_game_new_record">¡Nuevo récord!</string>
     <string name="mini_game_game_over">Fin del juego</string>
     <string name="mini_game_try_again">Inténtalo de nuevo</string>
@@ -1026,6 +1032,7 @@ Detalles: %2$s"</string>
     <string name="accessibility_select_app">Seleccionar aplicación</string>
     <string name="accessibility_move_up">Mover hacia arriba</string>
     <string name="accessibility_move_down">Mover hacia abajo</string>
+    <string name="accessibility_app_moved_announcement">%1$s se ha movido a la posición %2$s de %3$s</string>
     <string name="accessibility_scroll_to_top">Desplazarse al inicio de la lista</string>
     <string name="rename">Renombrar</string>
     <string name="import_">Importar</string>
@@ -1093,6 +1100,7 @@ Detalles: %2$s"</string>
     <string name="download_update_confirmation">¿Descargar actualización?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s de %2$s</string>
     <string name="onboarding_sources_desc">Administrar sus fuentes de parches. Cada fuente proporciona parches que se pueden aplicar a sus aplicaciones.</string>
     <string name="onboarding_swipe_title">Gestos de deslizamiento</string>
     <string name="onboarding_swipe_desc">Deslice el dedo hacia la derecha en una tarjeta de aplicación para ver los parches disponibles. Deslice el dedo hacia la izquierda para ocultar la tarjeta de la pantalla de inicio.</string>

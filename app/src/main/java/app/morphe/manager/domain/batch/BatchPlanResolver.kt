@@ -205,31 +205,37 @@ class BatchPlanResolver(
         val hasIncompatible = bundles.any { it.incompatible.isNotEmpty() }
         val hasUniversal = bundles.any { it.universal.isNotEmpty() }
 
-        fun noPatches(contributing: List<PatchBundleInfo.Scoped> = emptyList()) = BatchPatchItem(
+        val versionMismatch = !hasCompatible && hasIncompatible && !allowIncompatible
+
+        /**
+         * Nothing to run with. Which of the two reasons it is matters: an app whose patches
+         * simply declare other versions still has a way forward, and calling that "no patches"
+         * would hide both the reason and the buttons that fix it.
+         */
+        fun blocked(contributing: List<PatchBundleInfo.Scoped> = emptyList()) = BatchPatchItem(
             packageName = packageName,
             appName = appName,
             source = source,
             selection = emptyMap(),
             options = emptyMap(),
             bundles = contributing.map { it.toRef() },
-            state = BatchItemState.NO_PATCHES
+            suggestedVersion = suggested,
+            state = if (versionMismatch) BatchItemState.VERSION_MISMATCH else BatchItemState.NO_PATCHES
         )
 
-        if (!hasCompatible && !hasIncompatible && !hasUniversal) return noPatches()
+        if (!hasCompatible && !hasIncompatible && !hasUniversal) return blocked()
 
         // Every source that has something to contribute is used, the same way the single-app
         // flow merges them. Picking just one would silently drop patches the user relies on
         val contributing = bundles.filter { it.patchSequence(allowIncompatible).any() }
-        if (contributing.isEmpty()) return noPatches()
+        if (contributing.isEmpty()) return blocked()
 
         val selection = resolveSelection(packageName, contributing, allowIncompatible)
             .let { if (useMount) it.filterGmsCore() else it }
 
-        if (selection.values.sumOf { it.size } == 0) return noPatches(contributing)
+        if (selection.values.sumOf { it.size } == 0) return blocked(contributing)
 
         val options = resolveOptions(packageName, contributing)
-
-        val versionMismatch = !hasCompatible && hasIncompatible && !allowIncompatible
 
         return BatchPatchItem(
             packageName = packageName,

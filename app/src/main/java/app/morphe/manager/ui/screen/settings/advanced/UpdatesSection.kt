@@ -29,6 +29,7 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.worker.UpdateCheckInterval
+import kotlin.math.roundToInt
 
 /**
  * Updates section settings items for the Advanced tab.
@@ -180,7 +181,7 @@ internal fun UpdateCheckIntervalDialog(
 ) {
     val entries = UpdateCheckInterval.entries
     var sliderIndex by remember { mutableFloatStateOf(entries.indexOf(currentInterval).toFloat()) }
-    val selectedInterval = entries[sliderIndex.toInt().coerceIn(entries.indices)]
+    val selectedInterval = entries[sliderIndex.roundToInt().coerceIn(entries.indices)]
 
     MorpheDialog(
         onDismissRequest = onDismiss,

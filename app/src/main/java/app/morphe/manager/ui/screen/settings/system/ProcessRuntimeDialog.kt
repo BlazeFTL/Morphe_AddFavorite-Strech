@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
 import app.morphe.manager.patcher.runtime.*
 import app.morphe.manager.ui.screen.shared.*
+import kotlin.math.roundToInt
 
 /**
  * Dialog for configuring process runtime settings.
@@ -41,6 +42,7 @@ fun ProcessRuntimeDialog(
     )
     var enabled by remember { mutableStateOf(currentEnabled) }
     var sliderValue by remember { mutableFloatStateOf(currentLimit.toFloat()) }
+    val selectedLimit = sliderValue.roundToInt()
 
     MorpheDialog(
         onDismissRequest = onDismiss,
@@ -84,7 +86,7 @@ fun ProcessRuntimeDialog(
                 // Current value display
                 InfoStatBox(
                     modifier = Modifier.padding(bottom = MorpheDefaults.ContentPadding),
-                    value = "${sliderValue.toInt()} MB",
+                    value = "$selectedLimit MB",
                     subtitle = stringResource(R.string.settings_system_memory_limit_subtitle),
                     containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
                     valueColor = LocalDialogTextColor.current
@@ -98,7 +100,7 @@ fun ProcessRuntimeDialog(
                     Slider(
                         value = sliderValue,
                         onValueChange = { sliderValue = it },
-                        onValueChangeFinished = { onLimitChange(sliderValue.toInt()) },
+                        onValueChangeFinished = { onLimitChange(selectedLimit) },
                         valueRange = PROCESS_RUNTIME_MEMORY_MINIMUM.toFloat()..maxLimit.toFloat(),
                         steps = (((maxLimit.toDouble() - PROCESS_RUNTIME_MEMORY_MINIMUM)
                                 / PROCESS_RUNTIME_MEMORY_STEP - 1)).toInt(),

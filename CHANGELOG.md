@@ -1,3 +1,17 @@
+# [1.25.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.10...v1.25.0-dev.11) (2026-08-01)
+
+
+### Bug Fixes
+
+* Reopen the file picker after it was closed without picking ([063093d](https://github.com/MorpheApp/morphe-manager/commit/063093d7d848ef45852ff862d098f88bb25813a9))
+
+
+### Features
+
+* Add APK export and hide install once an app is installed ([6bbfc07](https://github.com/MorpheApp/morphe-manager/commit/6bbfc07cb61415c80cd652b4e11e218ee0504221))
+* Offer to find the right APK from the batch queue ([375da51](https://github.com/MorpheApp/morphe-manager/commit/375da5125d4216211bad8d2233eeb3f8b4c24c71))
+* Warn when a patch source needs a newer version of the manager ([e4d649b](https://github.com/MorpheApp/morphe-manager/commit/e4d649b93b0da592193f2bdcf0f74c05e030340e))
+
 # [1.25.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.9...v1.25.0-dev.10) (2026-08-01)
 
 

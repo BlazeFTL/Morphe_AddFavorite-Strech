@@ -314,6 +314,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="batch_patch_source_installed">Namestitvena aplikacija</string>
     <string name="batch_patch_source_file">Priložena datoteka</string>
     <string name="batch_patch_source_unavailable">APK-ja ni bilo mogoče pripraviti</string>
+    <string name="batch_patch_find_apk">Išči APK</string>
     <string name="batch_patch_attach_apk">Priložite APK</string>
     <string name="batch_patch_force_version">Vseeno popravite</string>
     <string name="batch_patch_edit_patches">Izberite popravke</string>

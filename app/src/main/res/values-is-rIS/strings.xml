@@ -321,8 +321,10 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="batch_patch_source_installed">Uppsett app</string>
     <string name="batch_patch_source_file">Bætt skrá</string>
     <string name="batch_patch_source_unavailable">Ekki tókst að búa til APK</string>
+    <string name="batch_patch_find_apk">Finna APK</string>
     <string name="batch_patch_attach_apk">Bættu við APK</string>
     <string name="batch_patch_force_version">Breyta samt sem áður</string>
+    <string name="batch_patch_force_version_done">Rafmagn gerði samt, sprettur sem gerðar eru fyrir aðrar útgáfur gætu brotið appið</string>
     <string name="batch_patch_edit_patches">Veldu breytingar</string>
     <string name="batch_patch_state_no_apk">Enginn APK</string>
     <string name="batch_patch_state_no_patches">Engar breytingar</string>

@@ -318,6 +318,7 @@
     <string name="batch_patch_source_installed">Установленное приложение</string>
     <string name="batch_patch_source_file">Прикрепленный файл</string>
     <string name="batch_patch_source_unavailable">Не удалось подготовить APK</string>
+    <string name="batch_patch_find_apk">Найти APK</string>
     <string name="batch_patch_attach_apk">Прикрепить APK</string>
     <string name="batch_patch_force_version">Патчить в любом случае</string>
     <string name="batch_patch_edit_patches">Выбрать патчи</string>

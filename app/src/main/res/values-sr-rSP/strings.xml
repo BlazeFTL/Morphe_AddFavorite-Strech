@@ -315,6 +315,7 @@
     <string name="batch_patch_source_installed">Инсталирана апликација</string>
     <string name="batch_patch_source_file">Приложена датотека</string>
     <string name="batch_patch_source_unavailable">APK није могао да се припреми</string>
+    <string name="batch_patch_find_apk">Нађи APK</string>
     <string name="batch_patch_attach_apk">Приложи APK</string>
     <string name="batch_patch_force_version">Ипак настави</string>
     <string name="batch_patch_edit_patches">Изаберите печеве</string>

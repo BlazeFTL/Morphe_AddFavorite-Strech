@@ -323,8 +323,10 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="batch_patch_source_installed">Kurulu uygulama</string>
     <string name="batch_patch_source_file">Ekli dosya</string>
     <string name="batch_patch_source_unavailable">APK hazırlanmadı</string>
+    <string name="batch_patch_find_apk">APK\'yı Bul</string>
     <string name="batch_patch_attach_apk">APK ekle</string>
     <string name="batch_patch_force_version">Yine de yamala</string>
+    <string name="batch_patch_force_version_done">Yine de kuyruğa eklendi, diğer sürümler için yapılan yamalar uygulamayı bozabilir</string>
     <string name="batch_patch_edit_patches">Yamaları seç</string>
     <string name="batch_patch_state_no_apk">APK yok</string>
     <string name="batch_patch_state_no_patches">Yama yok</string>

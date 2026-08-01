@@ -319,6 +319,7 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="batch_patch_source_installed">Nainštalovaná aplikácia</string>
     <string name="batch_patch_source_file">Priložený súbor</string>
     <string name="batch_patch_source_unavailable">APK súbor sa nepodarilo pripraviť</string>
+    <string name="batch_patch_find_apk">Nájdi APK</string>
     <string name="batch_patch_attach_apk">Priložte APK</string>
     <string name="batch_patch_force_version">Aplikovať aj tak</string>
     <string name="batch_patch_edit_patches">Vyberte záplaty</string>

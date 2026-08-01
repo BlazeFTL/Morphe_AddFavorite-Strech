@@ -318,6 +318,7 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="batch_patch_source_installed">Ứng dụng đã cài đặt</string>
     <string name="batch_patch_source_file">Tệp đính kèm</string>
     <string name="batch_patch_source_unavailable">Không thể chuẩn bị APK</string>
+    <string name="batch_patch_find_apk">Tìm APK</string>
     <string name="batch_patch_attach_apk">Đính kèm APK</string>
     <string name="batch_patch_force_version">Vẫn tiếp tục vá</string>
     <string name="batch_patch_edit_patches">Chọn bản vá</string>

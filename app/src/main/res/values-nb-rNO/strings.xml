@@ -323,8 +323,10 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="batch_patch_source_installed">Installert app</string>
     <string name="batch_patch_source_file">Vedlagt fil</string>
     <string name="batch_patch_source_unavailable">APK-en kunne ikke klargjøres</string>
+    <string name="batch_patch_find_apk">Finn APK</string>
     <string name="batch_patch_attach_apk">Legg ved APK</string>
     <string name="batch_patch_force_version">Patch uansett</string>
+    <string name="batch_patch_force_version_done">Køen er likevel startet, og oppdateringer som er laget for andre versjoner kan føre til at appen slutter å fungere</string>
     <string name="batch_patch_edit_patches">Velg patcher</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patcher</string>

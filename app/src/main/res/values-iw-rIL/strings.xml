@@ -320,8 +320,10 @@
     <string name="batch_patch_source_installed">אפליקציה מותקנת</string>
     <string name="batch_patch_source_file">קובץ מצורף</string>
     <string name="batch_patch_source_unavailable">לא ניתן היה להכין את ה-APK</string>
+    <string name="batch_patch_find_apk">APK חפש</string>
     <string name="batch_patch_attach_apk">צרף APK</string>
     <string name="batch_patch_force_version">טלא באופן אוטומטי</string>
+    <string name="batch_patch_force_version_done">תורן בכל זאת, תיקונים שנעשו לגרסאות אחרות עלולים לשבור את האפליקציה</string>
     <string name="batch_patch_edit_patches">בחר טלאים</string>
     <string name="batch_patch_state_no_apk">אין APK</string>
     <string name="batch_patch_state_no_patches">אין טלאים</string>

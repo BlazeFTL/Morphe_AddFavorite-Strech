@@ -22,6 +22,8 @@
     <string name="home_blocked_source_subtitle">Натисніть, щоб переглянути та видалити</string>
     <string name="home_metadata_errors_title">Деякі джерела патчів недоступні</string>
     <string name="home_metadata_errors_subtitle">Натисніть, щоб переглянути джерела</string>
+    <string name="home_outdated_manager_title">Morphe застарів</string>
+    <string name="home_outdated_manager_subtitle">Деякі джерела патчів потребують новішої версії</string>
     <string name="home_metered_skipped_title">Оновлення призупинено в мобільній мережі</string>
     <string name="home_metered_skipped_subtitle">Натисніть, щоб дозволити оновлення в мобільній мережі</string>
     <string name="home_update_error">Помилка оновлення</string>
@@ -123,6 +125,8 @@
     <string name="sources_management_metadata_unavailable">Метадані недоступні</string>
     <string name="sources_management_metadata_unavailable_hint">Віддалений файл метаданих недоступний. Патчинг з встановленим джерелом все ще працює, але автоматичне оновлення цього джерела недоступне</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Не вдалося завантажити пакет патчів. Можливо, URL-адреса джерела неправильна або файл не існує</string>
+    <string name="sources_management_outdated_manager_badge">Оновити Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Це джерело створено для патчера %1$s, але Morphe %2$s містить патчер %3$s. Оновіть Morphe, щоб використовувати його</string>
     <string name="sources_management_source_enabled">Джерело увімкнено</string>
     <string name="sources_management_source_disabled">Джерело вимкнено</string>
     <string name="sources_management_source_updating">Оновлення джерела</string>

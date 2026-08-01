@@ -323,8 +323,10 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="batch_patch_source_installed">Telepített alkalmazás</string>
     <string name="batch_patch_source_file">Csatolt fájl</string>
     <string name="batch_patch_source_unavailable">Az APK nem készíthető elő</string>
+    <string name="batch_patch_find_apk">APK keresése</string>
     <string name="batch_patch_attach_apk">Csatoljon APK-t</string>
     <string name="batch_patch_force_version">Javítsa mégis</string>
+    <string name="batch_patch_force_version_done">A sorba került, a többi verzióhoz készített javítások használhatatlaná tehetik az alkalmazást</string>
     <string name="batch_patch_edit_patches">Válassza ki a javításokat</string>
     <string name="batch_patch_state_no_apk">Nincs APK</string>
     <string name="batch_patch_state_no_patches">Nincs javítás</string>

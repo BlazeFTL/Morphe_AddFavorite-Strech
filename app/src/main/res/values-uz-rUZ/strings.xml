@@ -323,8 +323,10 @@ Chekka hudud (chizikli): launcher niqobi tomonidan kesilishi mumkin - muhim tafs
     <string name="batch_patch_source_installed">O‘rnatilgan ilova</string>
     <string name="batch_patch_source_file">Biriktirilgan fayl</string>
     <string name="batch_patch_source_unavailable">APK tayyorlanmadi</string>
+    <string name="batch_patch_find_apk">APK ni topish</string>
     <string name="batch_patch_attach_apk">APK biriktiring</string>
     <string name="batch_patch_force_version">Hammasini ta’mirlash</string>
+    <string name="batch_patch_force_version_done">Ham qatorga qo\'yildi, boshqa versiyalarga tuzatishlar kiritilgani ilovaning ishlamasligiga olib kelishi mumkin</string>
     <string name="batch_patch_edit_patches">Patchlarni tanlang</string>
     <string name="batch_patch_state_no_apk">APK yo‘q</string>
     <string name="batch_patch_state_no_patches">Hozircha patch qilinmagan</string>

@@ -22,6 +22,8 @@
     <string name="home_blocked_source_subtitle">Докоснете, за да прегледате и премахнете</string>
     <string name="home_metadata_errors_title">Някои източници на корекции не са достъпни</string>
     <string name="home_metadata_errors_subtitle">Докоснете, за да прегледате източниците</string>
+    <string name="home_outdated_manager_title">Morphe е остарял</string>
+    <string name="home_outdated_manager_subtitle">Някои източници на пачове изискват по-нова версия</string>
     <string name="home_metered_skipped_title">Актуализациите са спрени при използване на мобилни данни</string>
     <string name="home_metered_skipped_subtitle">Докоснете, за да разрешите актуализации през мобилни данни</string>
     <string name="home_update_error">Неуспешно актуализиране</string>
@@ -123,6 +125,8 @@
     <string name="sources_management_metadata_unavailable">Метаданни не са налични</string>
     <string name="sources_management_metadata_unavailable_hint">Дистанционният метаданнен файл не е достъпен. Патчването с инсталирания пакет все още работи, но автоматичното обновяване е деактивирано за този източник</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Пакетът за корекции не може да бъде свален. URL адресът на източника може да е неверен или файлът не съществува</string>
+    <string name="sources_management_outdated_manager_badge">Актуализиране на Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Този източник е създаден за пачър %1$s, но Morphe %2$s включва пачър %3$s. Актуализирайте Morphe, за да го използвате.</string>
     <string name="sources_management_source_enabled">Източникът е активиран</string>
     <string name="sources_management_source_disabled">Източникът е деактивиран</string>
     <string name="sources_management_source_updating">Актуализиране на източник</string>
@@ -315,6 +319,8 @@
     <string name="batch_patch_preparing_next">Подготвя се следващото приложение…</string>
     <string name="batch_patch_progress_counter">Коригирана %1$s от %2$s</string>
     <string name="batch_patch_summary">%1$s коригирани, %2$s неуспешни, %3$s пропуснати</string>
+    <string name="batch_patch_find_apk">Намери APK</string>
+    <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Сигурни ли сте, че искате да деинсталирате това приложение?</string>
     <string name="batch_uninstall_confirm_body">Избраните приложения ще бъдат трайно премахнати от вашето устройство</string>

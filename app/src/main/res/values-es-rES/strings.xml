@@ -22,6 +22,8 @@
     <string name="home_blocked_source_subtitle">Pulsa para revisar y eliminar</string>
     <string name="home_metadata_errors_title">Algunas fuentes de parches no están disponibles</string>
     <string name="home_metadata_errors_subtitle">Pulsa para revisar las fuentes</string>
+    <string name="home_outdated_manager_title">Morphe está desactualizado</string>
+    <string name="home_outdated_manager_subtitle">Algunas fuentes de parches necesitan una versión más reciente</string>
     <string name="home_metered_skipped_title">Actualizaciones pausadas con datos móviles</string>
     <string name="home_metered_skipped_subtitle">Pulsa para permitir actualizaciones con datos móviles</string>
     <string name="home_update_error">La actualización falló</string>
@@ -122,6 +124,8 @@
     <string name="sources_management_metadata_unavailable">Metadatos no disponibles</string>
     <string name="sources_management_metadata_unavailable_hint">El archivo de metadatos remoto no está disponible. La aplicación de parches con el paquete instalado sigue funcionando, pero la actualización automática está desactivada para esta fuente</string>
     <string name="sources_management_metadata_unavailable_hint_missing">No se ha podido descargar el paquete de parches. Es posible que la URL de la fuente sea incorrecta o que el archivo no exista</string>
+    <string name="sources_management_outdated_manager_badge">Actualizar Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Esta fuente está creada para el parcheador %1$s, pero Morphe %2$s incluye el parcheador %3$s. Actualiza Morphe para usarlo</string>
     <string name="sources_management_source_enabled">Fuente activada</string>
     <string name="sources_management_source_disabled">Fuente desactivada</string>
     <string name="sources_management_source_updating">Actualizando fuente</string>
@@ -323,8 +327,10 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="batch_patch_source_installed">Aplicación instalada</string>
     <string name="batch_patch_source_file">Archivo adjunto</string>
     <string name="batch_patch_source_unavailable">El APK no pudo ser preparado</string>
+    <string name="batch_patch_find_apk">Buscar APK</string>
     <string name="batch_patch_attach_apk">Adjuntar APK</string>
     <string name="batch_patch_force_version">Continuar de todos modos</string>
+    <string name="batch_patch_force_version_done">En cola de todos modos, los parches creados para otras versiones pueden romper la aplicación</string>
     <string name="batch_patch_edit_patches">Elegir parches</string>
     <string name="batch_patch_state_no_apk">Sin APK</string>
     <string name="batch_patch_state_no_patches">Sin Parches</string>

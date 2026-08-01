@@ -324,8 +324,10 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="batch_patch_source_installed">App installata</string>
     <string name="batch_patch_source_file">File allegato</string>
     <string name="batch_patch_source_unavailable">L\'APK non è stato possibile prepararlo</string>
+    <string name="batch_patch_find_apk">Trova APK</string>
     <string name="batch_patch_attach_apk">Allega APK</string>
     <string name="batch_patch_force_version">Applica comunque</string>
+    <string name="batch_patch_force_version_done">Messo in coda comunque, le patch create per altre versioni potrebbero compromettere il funzionamento dell\'app</string>
     <string name="batch_patch_edit_patches">Scegli patch</string>
     <string name="batch_patch_state_no_apk">Nessun APK</string>
     <string name="batch_patch_state_no_patches">Nessuna patch</string>

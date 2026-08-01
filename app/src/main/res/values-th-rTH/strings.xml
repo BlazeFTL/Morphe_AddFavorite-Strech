@@ -323,8 +323,10 @@
     <string name="batch_patch_source_installed">ติดตั้งแอปแล้ว</string>
     <string name="batch_patch_source_file">ไฟล์ที่แนบมา</string>
     <string name="batch_patch_source_unavailable">ไม่สามารถเตรียม APK ได้</string>
+    <string name="batch_patch_find_apk">ค้นหา APK</string>
     <string name="batch_patch_attach_apk">แนบ APK</string>
     <string name="batch_patch_force_version">แพตช์อยู่ดี</string>
+    <string name="batch_patch_force_version_done">queued anyway, patches made for other versions may break the app</string>
     <string name="batch_patch_edit_patches">เลือกแพตช์</string>
     <string name="batch_patch_state_no_apk">ไม่มี APK</string>
     <string name="batch_patch_state_no_patches">ไม่มีแพตช์</string>

@@ -22,6 +22,8 @@
     <string name="home_blocked_source_subtitle">Tryk for at gennemgå og fjerne</string>
     <string name="home_metadata_errors_title">Nogle patchkilder er ikke tilgængelige</string>
     <string name="home_metadata_errors_subtitle">Tryk for at gennemgå kilder</string>
+    <string name="home_outdated_manager_title">Morphe er forældet</string>
+    <string name="home_outdated_manager_subtitle">Nogle kilde-feeds kræver en nyere version</string>
     <string name="home_metered_skipped_title">Opdateringer pauset på mobildata</string>
     <string name="home_metered_skipped_subtitle">Tryk for at tillade opdateringer over mobildata</string>
     <string name="home_update_error">Opdatering mislykkedes</string>
@@ -122,6 +124,8 @@
     <string name="sources_management_metadata_unavailable">Metadata ikke tilgængelig</string>
     <string name="sources_management_metadata_unavailable_hint">Den eksterne metadatafil er ikke tilgængelig. Opdatering med den installerede pakke fungerer stadig, men automatisk opdatering er deaktiveret for denne kilde</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Opdateringspakken kunne ikke hentes. Kilde-URL\'en kan være forkert, eller filen findes ikke</string>
+    <string name="sources_management_outdated_manager_badge">Opdater Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Denne kilde er bygget til patcher %1$s, men Morphe %2$s indeholder patcher %3$s. Opdater Morphe for at bruge den</string>
     <string name="sources_management_source_enabled">Kilde aktiveret</string>
     <string name="sources_management_source_disabled">Kilde deaktiveret</string>
     <string name="sources_management_source_updating">Opdaterer kilde</string>

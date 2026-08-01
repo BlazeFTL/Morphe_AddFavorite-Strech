@@ -323,8 +323,10 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="batch_patch_source_installed">Installierte App verwenden</string>
     <string name="batch_patch_source_file">Angehängte Datei</string>
     <string name="batch_patch_source_unavailable">Die APK konnte nicht vorbereitet werden</string>
+    <string name="batch_patch_find_apk">APK finden</string>
     <string name="batch_patch_attach_apk">APK anhängen</string>
     <string name="batch_patch_force_version">Trotzdem fortfahren</string>
+    <string name="batch_patch_force_version_done">Warteschlange trotzdem aktiviert. Patches, die für andere Versionen erstellt wurden, können die App beschädigen.</string>
     <string name="batch_patch_edit_patches">Patches auswählen</string>
     <string name="batch_patch_state_no_apk">Keine APK</string>
     <string name="batch_patch_state_no_patches">Keine Patches</string>

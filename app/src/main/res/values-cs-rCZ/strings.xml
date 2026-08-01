@@ -22,6 +22,7 @@
     <string name="home_blocked_source_subtitle">Klepnutím zkontrolujete a odeberete</string>
     <string name="home_metadata_errors_title">Některé zdroje záplat jsou nedostupné</string>
     <string name="home_metadata_errors_subtitle">Klepnutím zkontrolujete zdroje</string>
+    <string name="home_outdated_manager_title">Morphe je zastaralý</string>
     <string name="home_metered_skipped_title">Aktualizace pozastaveny na mobilních datech</string>
     <string name="home_metered_skipped_subtitle">Klepnutím povolíte aktualizace přes mobilní data</string>
     <string name="home_update_error">Aktualizace selhala</string>
@@ -319,6 +320,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="batch_patch_source_installed">Nainstalovaná aplikace</string>
     <string name="batch_patch_source_file">Přiložený soubor</string>
     <string name="batch_patch_source_unavailable">APK se nepodařilo připravit</string>
+    <string name="batch_patch_find_apk">Najít APK</string>
     <string name="batch_patch_attach_apk">Přiložit APK</string>
     <string name="batch_patch_force_version">Aplikovat i tak</string>
     <string name="batch_patch_edit_patches">Zvolit záplaty</string>

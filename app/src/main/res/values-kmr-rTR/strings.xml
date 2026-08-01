@@ -317,8 +317,10 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="batch_patch_source_installed">Sepa hat saz kirin</string>
     <string name="batch_patch_source_file">Pela têxistî</string>
     <string name="batch_patch_source_unavailable">Nexşeya APK nehatibû amadekirin</string>
+    <string name="batch_patch_find_apk">APK-ê bibîne</string>
     <string name="batch_patch_attach_apk">APK bişîne</string>
     <string name="batch_patch_force_version">Bi her halî patch bike</string>
+    <string name="batch_patch_force_version_done">Bi vî awayî li siruşê hat kirin, şîroveyên ji bo guhertoyên din dikarin sepanê bişikînin.</string>
     <string name="batch_patch_edit_patches">Patchan hilbijêre</string>
     <string name="batch_patch_state_no_apk">APK ne heye</string>
     <string name="batch_patch_state_no_patches">Patch ne hene</string>

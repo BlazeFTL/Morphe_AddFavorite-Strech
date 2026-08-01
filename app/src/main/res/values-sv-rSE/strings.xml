@@ -553,7 +553,16 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_advanced_update_interval_weekly">En gång i veckan</string>
     <string name="settings_advanced_update_interval_monthly">En gång i månaden</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Sökningsfrekvens i bakgrunden</string>
-    <string name="settings_advanced_update_interval_battery_warning">Sökningar i bakgrunden kanske inte fungerar tillförlitligt på vissa enheter. Tillverkare som Xiaomi, Huawei, Samsung och OnePlus begränsar ofta aggressivt bakgrundsprocesser för att spara batteri</string>
+    <string name="settings_advanced_update_interval_battery_warning">Kontroller i bakgrunden kanske inte fungerar tillförlitligt på vissa enheter. Tillverkare som Xiaomi, Huawei, Samsung och OnePlus begränsar ofta bakgrundsprocesser aggressivt för att spara batteri</string>
+    <string name="settings_advanced_auto_patch">Modifiera igen automatiskt</string>
+    <string name="settings_advanced_auto_patch_description">Modifierar installerade appar igen i bakgrunden när deras tillägg ändras. Endast appar med en sparad ursprunglig APK-fil omfattas</string>
+    <string name="settings_advanced_auto_patch_interval">Modifieringsfrekvens</string>
+    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Hur ofta modifierade appar byggs om</string>
+    <string name="settings_advanced_auto_patch_charging">Endast när enheten laddas</string>
+    <string name="settings_advanced_auto_patch_charging_description">Modifieringen belastar CPU:n och minnet kraftigt, så den väntar på en laddare</string>
+    <string name="settings_advanced_auto_patch_install">Installera automatiskt</string>
+    <string name="settings_advanced_auto_patch_install_description">Kräver Shizuku som installerare. Med andra installerare sparas de modifierade apparna endast</string>
+    <string name="settings_advanced_external_batch_patch">Tillåt externa utlösare</string>
     <!-- Notification content -->
     <string name="notification_manager_update_title">Uppdatering för Morphe är tillgänglig</string>
     <string name="notification_bundle_update_title">Nya tillägg är tillgängliga </string>

@@ -319,8 +319,10 @@
     <string name="batch_patch_source_installed">इंस्टॉल किया गया ऐप</string>
     <string name="batch_patch_source_file">संलग्न फ़ाइल</string>
     <string name="batch_patch_source_unavailable">APK तैयार नहीं किया जा सका</string>
+    <string name="batch_patch_find_apk">APK खोजें</string>
     <string name="batch_patch_attach_apk">APK संलग्न करें</string>
     <string name="batch_patch_force_version">फिर भी पैच करें</string>
+    <string name="batch_patch_force_version_done">फिर भी कतार में रखा गया, अन्य संस्करणों के लिए बनाए गए पैच ऐप को तोड़ सकते हैं</string>
     <string name="batch_patch_edit_patches">पैच चुनें</string>
     <string name="batch_patch_state_no_apk">कोई APK नहीं</string>
     <string name="batch_patch_state_no_patches">कोई पैच नहीं</string>

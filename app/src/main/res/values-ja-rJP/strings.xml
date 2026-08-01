@@ -319,8 +319,10 @@
     <string name="batch_patch_source_installed">アプリをインストールしました</string>
     <string name="batch_patch_source_file">添付ファイル</string>
     <string name="batch_patch_source_unavailable">APKを準備できませんでした</string>
+    <string name="batch_patch_find_apk">APKを探す</string>
     <string name="batch_patch_attach_apk">APKを添付してください</string>
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
+    <string name="batch_patch_force_version_done">それでもキューに入れました。他のバージョンのパッチはアプリを壊す可能性があります。</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
     <string name="batch_patch_state_no_apk">APKがありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>

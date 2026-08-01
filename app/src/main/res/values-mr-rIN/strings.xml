@@ -322,8 +322,10 @@
     <string name="batch_patch_source_installed">इंस्टॉल केलेले ॲप</string>
     <string name="batch_patch_source_file">जोडलेली फाइल</string>
     <string name="batch_patch_source_unavailable">APK तयार होऊ शकले नाही.</string>
+    <string name="batch_patch_find_apk">APK शोधा</string>
     <string name="batch_patch_attach_apk">APK जोडा</string>
     <string name="batch_patch_force_version">तरीही पॅच करा</string>
+    <string name="batch_patch_force_version_done">असो, रांगेत टाकले, इतर आवृत्त्यांसाठी केलेले पॅच ॲप खराब करू शकतात</string>
     <string name="batch_patch_edit_patches">पॅच निवडा</string>
     <string name="batch_patch_state_no_apk">APK नाही</string>
     <string name="batch_patch_state_no_patches">पॅच नाहीत</string>

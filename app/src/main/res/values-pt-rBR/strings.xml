@@ -319,8 +319,10 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="batch_patch_source_installed">Aplicativo instalado</string>
     <string name="batch_patch_source_file">Arquivo anexado</string>
     <string name="batch_patch_source_unavailable">Não foi possível preparar o APK</string>
+    <string name="batch_patch_find_apk">Localizar APK</string>
     <string name="batch_patch_attach_apk">Anexar APK</string>
     <string name="batch_patch_force_version">Corrigir de qualquer forma</string>
+    <string name="batch_patch_force_version_done">Enfileirado de qualquer forma, patches feitos para outras versões podem quebrar o aplicativo</string>
     <string name="batch_patch_edit_patches">Escolher patches</string>
     <string name="batch_patch_state_no_apk">Sem APK</string>
     <string name="batch_patch_state_no_patches">Sem patches</string>

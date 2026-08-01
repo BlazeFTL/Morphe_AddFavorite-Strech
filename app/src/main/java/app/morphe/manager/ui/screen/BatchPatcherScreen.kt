@@ -150,8 +150,11 @@ fun BatchPatcherScreen(
         )
     }
 
-    LaunchedEffect(viewModel.attachTarget) {
-        if (viewModel.attachTarget != null) openApkPicker()
+    // Opened straight from the actions that need it rather than by watching state: the target
+    // can repeat, and a repeated value is not an event a keyed effect would fire on again
+    val attachApkTo = { packageName: String ->
+        viewModel.requestAttach(packageName)
+        openApkPicker()
     }
 
     // The same dialog the single-app flow uses, pointed at one queued app instead of the
@@ -213,7 +216,10 @@ fun BatchPatcherScreen(
             isOtherApps = false,
             isLoadingInstalledApps = false,
             onDismiss = viewModel::dismissAttachPrompt,
-            onOpenFilePicker = viewModel::attachFromPrompt,
+            onOpenFilePicker = {
+                viewModel.dismissAttachPrompt()
+                attachApkTo(item.packageName)
+            },
             onUseInstalledApp = null
         )
     }
@@ -400,7 +406,7 @@ fun BatchPatcherScreen(
                     BatchItemCard(
                         item = item,
                         editable = current.phase == BatchPhase.PREFLIGHT,
-                        onAttach = { viewModel.requestAttach(item.packageName) },
+                        onAttach = { attachApkTo(item.packageName) },
                         // Offered whenever downloading would get a different file than the one
                         // on hand, which also covers a saved original the sources have moved
                         // past. No point when there is nothing to patch with at all

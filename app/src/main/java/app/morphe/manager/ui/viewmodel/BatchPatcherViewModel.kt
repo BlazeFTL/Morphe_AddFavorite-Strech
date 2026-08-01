@@ -206,12 +206,6 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
         attachPrompt = null
     }
 
-    fun attachFromPrompt() {
-        val item = attachPrompt ?: return
-        attachPrompt = null
-        requestAttach(item.packageName)
-    }
-
     /** Patch selection editor for one queued app, null when none is open. */
     var edit: BatchPatchEdit? by mutableStateOf(null)
         private set

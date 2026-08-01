@@ -168,7 +168,6 @@
     <string name="home_app_info_no_saved_apk">Saxlanılan APK yoxdur. Yamaqlanma APK faylını təkrar seçmək istəyəcək</string>
     <string name="home_version_requires_android">Android %s+ tələb olunur</string>
     <string name="home_apk_no_compatible_versions_title">Bu cihazda dəstəklənmir</string>
-    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; tətbiqinin Android %2$d (API %3$d) üçün dəstəklənən versiyaları yoxdur. Bütün elan olunan versiyalar daha yüksək Android versiyası tələb edir</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Əsil APK-nı Yüklə</string>
     <string name="home_download_instructions_steps_title">Təlimatlar:</string>
@@ -244,7 +243,6 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Uyuşan versiyalar:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Dəstəklənməyən</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
-    <string name="home_dialog_unsupported_version_build">Qurulma %d</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Bu, eyni versiyanın fərqli quruluşudur. Yamaqlar xüsusi quruluş tələb edir</string>
     <string name="home_dialog_wrong_package_title">Yanlış paket seçildi</string>
     <string name="home_dialog_wrong_package_description">Seçilən APK, yamaq üçün təyin etdiyiniz tətbiq üçün deyil</string>
@@ -307,6 +305,7 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="header_creator_guide_themes_body">Əksər tətbiqlər işıqlı və qaranlıq koloritlər üçün ayrı şəkillər tələb edir. Bəzi tətbiqlər (məsələn, YouTube Music) yalnız qaranlıq kolorit istifadə edir, belə ki yalnız həmin bölmə görünür.</string>
     <string name="header_creator_guide_positioning_title">Yerləşdirmə və ölçüləndirmə</string>
     <string name="header_creator_guide_positioning_body">Şəklinizi yerləşdirmək və ölçüləndirmək məqsədilə önizləmədəki birbaşa yaxınlaşdırmaq üçün çimdikləmək və sürükləmək jestlərin istifadə edin. Şəkil mərkəzə yaxındırsa, dartma göstəriciləri görünür. Önizləmənin aşağısındakı sürüşdürməni də istifadə edə bilərsiniz.</string>
+    <!-- Batch patching -->
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Bu tətbiqi silmək istədiyinizə əminsiniz?</string>
     <string name="batch_uninstall_confirm_body">Seçilmiş tətbiqlər cihazınızdan həmişəlik silinəcək</string>
@@ -453,8 +452,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="failed_to_mount">Montajlama uğursuzdu: %s</string>
     <string name="failed_to_unmount">Montajı silmək olmadı: %s</string>
     <!-- Patcher Screen - Mini-games -->
-    <string name="mini_game_score">Hesab %d</string>
-    <string name="mini_game_best">Ən yaxşı %d</string>
     <string name="mini_game_new_record">Yeni rekord!</string>
     <string name="mini_game_game_over">Oyun Bitdi</string>
     <string name="mini_game_try_again">Təkrar cəhd et</string>
@@ -742,7 +739,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="installer_shizuku_error_downgrade">Android bunu blokladı, çünki quraşdırılmış tətbiqin versiyasını aşağı salacaqdı</string>
     <string name="installer_shizuku_error_signature">Android bunu blokladı, çünki quraşdırılmış tətbiqin imzası fərqlidir</string>
     <string name="installer_shizuku_error_invalid_apk">Android bu APK-nı oxuya bilmədi</string>
-    <string name="installer_shizuku_error_user_profile">Android bunu hazırkı istifadəçi və ya iş profili üçün blokladı</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Batareya yaxşılaşdırma</string>
     <string name="settings_system_battery_optimization_description">Tətbiq qısılanda yamaqlayıcını işlək saxlayır</string>
@@ -965,7 +961,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="reset_order_done">Düzülüş sıfırlandı</string>
     <string name="accessibility_move_up">Yuxarı köçür</string>
     <string name="accessibility_move_down">Aşağı köçür</string>
-    <string name="accessibility_app_moved_announcement">%1$s %3$d-dən %2$d mövqeyinə köçürüldü</string>
     <string name="accessibility_scroll_to_top">Siyahının ən yuxarısına sürüşdür</string>
     <string name="rename">Təkrar adlandır</string>
     <string name="import_">İdxal et</string>
@@ -1031,8 +1026,7 @@ Təfərrüatlar: %2$s"</string>
 Hələ də davam etmək istəyirsiniz?"</string>
     <string name="download_update_confirmation">Yeniləmə yüklənilsin?</string>
     <!-- Onboarding coach marks -->
-    <!-- %1$d = current step number, %2$d = total number of steps (e.g. "3 of 13") -->
-    <string name="onboarding_step_of">​%1$d / %2$d</string>
+    <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <string name="onboarding_sources_desc">Yamaq mənbələrinizi idarə edin. Hər mənbə tətbiqlərinizə tətbiq oluna bilən yamaqlar təmin edir</string>
     <string name="onboarding_swipe_title">Sürüşdürmə jestləri</string>
     <string name="onboarding_swipe_desc">Mövcud yamaqlara baxmaq üçün tətbiq kartında sağa sürüşdür. Kartı əsas ekrandan gizlətmək üçün sola sürüşdür</string>

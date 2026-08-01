@@ -1,3 +1,13 @@
+# [1.25.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.11...v1.25.0-dev.12) (2026-08-01)
+
+
+### Bug Fixes
+
+* Put the queue counter inside the patcher layout ([4a4ed2f](https://github.com/MorpheApp/morphe-manager/commit/4a4ed2f65aa7c2f48c2b610eea15bf2219ac59af))
+* Round stepped slider values instead of truncating them ([b4f0c56](https://github.com/MorpheApp/morphe-manager/commit/b4f0c56602eccff113a202e958b85086337a6260))
+* Stop the install queue failing the item it just started ([e333e6b](https://github.com/MorpheApp/morphe-manager/commit/e333e6b63c164d1e6690c27ffc11ce00c54e7b87))
+* Tell an unsupported version apart from an app with no patches ([cd5701b](https://github.com/MorpheApp/morphe-manager/commit/cd5701b417cb1ef7e9f13960cead44dee146c254))
+
 # [1.25.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.10...v1.25.0-dev.11) (2026-08-01)
 
 

@@ -282,6 +282,7 @@ fun ExpertPatchingInProgress(
     patchProgress: PatchProgressSource,
     patcherSucceeded: Boolean? = null,
     miniGameState: MiniGameState,
+    queueHeader: (@Composable () -> Unit)? = null,
     onCancelClick: () -> Unit,
     onInstallClick: () -> Unit = {},
     onHomeClick: () -> Unit
@@ -331,13 +332,17 @@ fun ExpertPatchingInProgress(
                         .fillMaxHeight(),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    ExpertProgressHeader(
-                        progress = progress,
-                        completed = completed,
-                        total = total,
-                        patchProgress = patchProgress,
-                        patcherSucceeded = patcherSucceeded
-                    )
+                    Column {
+                        queueHeader?.invoke()
+
+                        ExpertProgressHeader(
+                            progress = progress,
+                            completed = completed,
+                            total = total,
+                            patchProgress = patchProgress,
+                            patcherSucceeded = patcherSucceeded
+                        )
+                    }
 
                     // Action bar inside left column
                     PatcherBottomActionBar(
@@ -379,6 +384,8 @@ fun ExpertPatchingInProgress(
                     .padding(top = windowSize.contentPadding),
                 verticalArrangement = Arrangement.spacedBy(windowSize.itemSpacing)
             ) {
+                queueHeader?.invoke()
+
                 ExpertProgressHeader(
                     progress = progress,
                     completed = completed,

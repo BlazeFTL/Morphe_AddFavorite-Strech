@@ -308,9 +308,9 @@ fun BatchPatcherScreen(
                     .fillMaxSize()
                     .statusBarsPadding()
             ) {
-                BatchRunHeader(state = current)
-
                 if (activeRun == null) {
+                    BatchRunHeader(state = current)
+
                     // Between apps: the previous run is over and the next has not started, so
                     // there are no live steps to show
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -324,6 +324,7 @@ fun BatchPatcherScreen(
                         patchesProgress = activeRun.patchesProgress,
                         patchProgress = activeRun,
                         miniGameState = miniGameState,
+                        queueHeader = { BatchRunHeader(state = current) },
                         onCancelClick = { showCancelDialog = true },
                         onHomeClick = onBackClick
                     )
@@ -334,6 +335,7 @@ fun BatchPatcherScreen(
                         patchesProgress = activeRun.patchesProgress,
                         patchProgress = activeRun,
                         showLongStepWarning = longStepWarning,
+                        queueHeader = { BatchRunHeader(state = current) },
                         onCancelClick = { showCancelDialog = true },
                         onHomeClick = onBackClick
                     )

@@ -45,6 +45,7 @@ fun SimplePatchingInProgress(
     patchesProgress: Pair<Int, Int>,
     patchProgress: PatchProgressSource,
     showLongStepWarning: Boolean = false,
+    queueHeader: (@Composable () -> Unit)? = null,
     onCancelClick: () -> Unit,
     onHomeClick: () -> Unit
 ) {
@@ -87,6 +88,7 @@ fun SimplePatchingInProgress(
                 total = total,
                 showLongStepWarning = showLongStepWarning,
                 patchProgress = patchProgress,
+                queueHeader = queueHeader,
                 onCancelClick = onCancelClick,
                 onHomeClick = onHomeClick
             )
@@ -120,6 +122,7 @@ private fun AdaptiveProgressContent(
     total: Int,
     showLongStepWarning: Boolean,
     patchProgress: PatchProgressSource,
+    queueHeader: (@Composable () -> Unit)? = null,
     onCancelClick: () -> Unit = {},
     onHomeClick: () -> Unit = {}
 ) {
@@ -143,6 +146,8 @@ private fun AdaptiveProgressContent(
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
+                queueHeader?.invoke()
+
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.Center,
@@ -194,6 +199,8 @@ private fun AdaptiveProgressContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(itemSpacing * 3)
         ) {
+            queueHeader?.invoke()
+
             ProgressMessageSection(currentMessage)
 
             CircularProgressWithStats(

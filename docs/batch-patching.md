@@ -30,8 +30,8 @@ and which source they come from. The badge says whether the app is ready:
 | Badge | Meaning | What to do |
 | --- | --- | --- |
 | **Ready** | An APK and a patch selection were found | Nothing |
-| **No APK** | No saved original, and the installed app cannot be used | **Attach APK** and pick the file |
-| **Version** | This APK version is not covered by the patches | **Patch anyway**, or attach a supported version |
+| **No APK** | No saved original, and the installed app cannot be used | **Find APK**, or **Attach APK** if you already have the file |
+| **Version** | This APK version is not covered by the patches | **Find APK** for a supported version, **Patch anyway**, or attach a file |
 | **No patches** | No enabled source has patches for this app | Enable a source, or exclude the app |
 | **Excluded** | You removed it from this run | **Include** to bring it back |
 
@@ -39,6 +39,11 @@ Where does the APK come from? Morphe looks for a saved original first, then for 
 on the device, and only asks you for a file when neither exists. An installed app is skipped
 when it looks like it was already patched, because patching a patched APK produces a broken
 build.
+
+**Find APK** appears on cards that need one. It works out which version the sources want,
+sends you to the download page for exactly that version, and opens the file picker when you
+come back, so the file lands on the app it was fetched for. It is the same helper the
+single-app flow uses.
 
 **Install when finished** decides what happens after the last app. Off keeps the patched APKs
 so you install them yourself; on hands the whole batch to the installer as soon as patching

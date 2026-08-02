@@ -419,6 +419,8 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="patcher_percentage" translatable="false">%s%%</string>
     <string name="patcher_tab_logs">Patcher logs</string>
     <string name="patcher_tab_game">Games</string>
+    <string name="patcher_logs_waiting">Waiting for log output…</string>
+    <string name="patcher_logs_lost">Log output is not kept across app restarts</string>
     <string name="patcher_long_step_warning">This step may take a while. Please wait…</string>
     <string name="patcher_installing_subtitle">Almost ready to rock! 🎸</string>
     <string name="patcher_success_title">All done! 🎉</string>

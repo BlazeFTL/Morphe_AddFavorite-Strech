@@ -751,9 +751,14 @@ private fun ExpertLogPanel(
                                             horizontalAlignment = Alignment.CenterHorizontally,
                                             verticalArrangement = Arrangement.spacedBy(10.dp)
                                         ) {
-                                            LiveIndicatorDot(size = 10.dp)
+                                            // Nothing is going to arrive for a run whose log died
+                                            // with its process, so the live dot would be a lie
+                                            if (!patchProgress.logsLost) LiveIndicatorDot(size = 10.dp)
                                             Text(
-                                                text = "Waiting for log output…",
+                                                text = stringResource(
+                                                    if (patchProgress.logsLost) R.string.patcher_logs_lost
+                                                    else R.string.patcher_logs_waiting
+                                                ),
                                                 style = MaterialTheme.typography.bodySmall,
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.45f),
                                                 fontFamily = FontFamily.Monospace,

@@ -274,6 +274,7 @@ class HomeViewModel(
     var pendingMppManifest by mutableStateOf<MppManifest?>(null)
 
     fun setPendingMpp(uri: Uri) {
+        dismissOpenDialogs()
         pendingMppUri = uri
         pendingMppFileName = uri.displayName(contentResolver)
         pendingMppManifest = null
@@ -1052,6 +1053,7 @@ class HomeViewModel(
      * Shows a confirmation dialog instead of adding silently.
      */
     fun handleDeepLinkAddSource(url: String, name: String?) {
+        dismissOpenDialogs()
         deepLinkPendingBundle = DeepLinkBundle(url = url, name = name)
     }
 
@@ -1065,6 +1067,33 @@ class HomeViewModel(
     /** User dismissed the deep link confirmation dialog. */
     fun dismissDeepLinkBundle() {
         deepLinkPendingBundle = null
+    }
+
+    /**
+     * Closes every open dialog and sheet so an incoming source confirmation is not stacked behind
+     * one, and so the flow the user resumes afterward is rebuilt from the new set of sources.
+     */
+    private fun dismissOpenDialogs() {
+        cleanupExpertModeData()
+        dismissSimpleBundleSelectDialog()
+        dismissSplitApkWarning()
+        dismissUnsupportedVersionDialog()
+        dismissExperimentalVersionDialog()
+        dismissWrongPackageDialog()
+        dismissInvalidSignatureDialog()
+        dismissPrePatchInstallerDialog()
+        dismissMeteredPatchingDialog()
+        dismissLowDiskSpaceDialog()
+        dismissInstalledAppInfo()
+        showNoCompatibleVersionsDialog = null
+        showAndroid11Dialog = false
+        showBundleManagementSheet = false
+        showRenameBundleDialog = false
+        bundleToRename = null
+        showAddSourceDialog = false
+        selectedBundleUri = null
+        selectedBundlePath = null
+        cleanupPendingData()
     }
 
     /**

@@ -1,3 +1,11 @@
+# [1.25.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.12...v1.25.0-dev.13) (2026-08-02)
+
+
+### Bug Fixes
+
+* Offer to remove the app copy a package rename left behind ([adfe445](https://github.com/MorpheApp/morphe-manager/commit/adfe445ff66aa7e7a3d8527e57e8cdb7dd7b666f))
+* Restore the patch outcome after process death ([2095298](https://github.com/MorpheApp/morphe-manager/commit/20952988876fc8dc0842509014f66a5677f5b7fe))
+
 # [1.25.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.11...v1.25.0-dev.12) (2026-08-01)
 
 

@@ -22,6 +22,8 @@
     <string name="home_blocked_source_subtitle">Dodirnite za pregled i uklanjanje</string>
     <string name="home_metadata_errors_title">Neki izvori patcha nisu dostupni</string>
     <string name="home_metadata_errors_subtitle">Dodirnite za pregled izvora</string>
+    <string name="home_outdated_manager_title">Morphe je zastario</string>
+    <string name="home_outdated_manager_subtitle">Neki izvori patcha trebaju noviju verziju</string>
     <string name="home_metered_skipped_title">Ažuriranja su pauzirana putem mobilnih podataka</string>
     <string name="home_metered_skipped_subtitle">Dodirnite za dopuštanje ažuriranja putem mobilnih podataka</string>
     <string name="home_update_error">Ažuriranje nije uspjelo</string>
@@ -122,6 +124,8 @@
     <string name="sources_management_metadata_unavailable">Metapodaci N/A</string>
     <string name="sources_management_metadata_unavailable_hint">Datoteka udaljenih metapodataka nije dostupna. Patchanje s instaliranim paketom i dalje radi, ali automatsko ažuriranje je onemogućeno za ovaj izvor</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Paket patcheva nije moguće preuzeti. Izvorna poveznica možda nije ispravna ili datoteka ne postoji.</string>
+    <string name="sources_management_outdated_manager_badge">Ažururajte Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Ovaj izvorni kod je napravljen za patcher %1$s, ali Morphe %2$s uključuje patcher %3$s. Ažurirajte Morphe da biste ga koristili.</string>
     <string name="sources_management_source_enabled">Izvor omogućen</string>
     <string name="sources_management_source_disabled">Izvor onemogućen</string>
     <string name="sources_management_source_updating">Ažuriranje izvora</string>
@@ -164,9 +168,11 @@
     <string name="home_apk_availability_no">Ne, već imam aplikaciju</string>
     <string name="home_apk_use_saved">Koristi spremljenu aplikaciju</string>
     <string name="home_apk_use_installed">Koristi instaliranu aplikaciju</string>
+    <string name="home_apk_use_installed_unverified">Nije moguće provjeriti potpis instalirane aplikacije, pa je moguće da je već ažurirana.</string>
     <string name="home_app_info_no_saved_apk">Nema spremljene aplikacije. Patchanje će zahtijevati ponovni odabir aplikacije</string>
     <string name="home_version_requires_android">Zahtijeva Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nije podržano na ovom uređaju</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nema podržane verzije za Android %2$s (API %3$s). Sve deklarirane verzije zahtijevaju višu verziju Androida</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Preuzmite originalnu aplikaciju</string>
     <string name="home_download_instructions_steps_title">Upute:</string>
@@ -244,6 +250,7 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatibilne verzije:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Nije podržano</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Verzija %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Ovo je različita verzija iste verzije. Patchevi zahtijevaju posebnu verziju</string>
     <string name="home_dialog_wrong_package_title">Pogrešan paket odabran</string>
     <string name="home_dialog_wrong_package_description">Odabrana aplikacija nije namijenjena za aplikaciju koju želite patchati</string>
@@ -307,6 +314,20 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="header_creator_guide_positioning_title">Pozicioniranje i skaliranje</string>
     <string name="header_creator_guide_positioning_body">Koristite geste zumiranja i povlačenja izravno u pregledu kako biste pozicionirali i skalirali svoju sliku. Vodiči za snimanje pojavljuju se kada je slika blizu središta. Možete koristiti i klizač ispod pregleda.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">Patch odabran</string>
+    <string name="batch_patch_title">Grupno patchanje</string>
+    <string name="batch_patch_planning">Priprema reda čekanja…</string>
+    <string name="batch_patch_preparing_next">Priprema sljedeće aplikacije…</string>
+    <string name="batch_patch_progress_counter">Patchano %1$s od %2$s</string>
+    <string name="batch_patch_summary">%1$s patchano, %2$s nije uspjelo, %3$s preskočeno</string>
+    <string name="batch_patch_saved_hint">Patchane aplikacije su spremljene. Instalirajte ih sada ili kasnije s popisa zakrpanih APK-ova u postavkama</string>
+    <string name="batch_patch_multiple_sources">Neke aplikacije kombiniraju patcheve iz više izvora, što može uzrokovati sukobe</string>
+    <string name="batch_patch_needs_apk">Nema dostupnog APK-a, priložite datoteku</string>
+    <string name="batch_patch_wrong_package">Priložena datoteka pripada %s</string>
+    <string name="batch_patch_version_mismatch">Verzija %s nije podržana patchevima</string>
+    <string name="batch_patch_source_saved">Original spremljen</string>
+    <string name="batch_patch_source_installed">Instalirana aplikacija</string>
+    <string name="batch_patch_source_file">Priložena datoteka</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Jeste li sigurni da želite deinstalirati ovu aplikaciju?</string>
     <string name="batch_uninstall_confirm_body">Odabrane aplikacije trajno će biti uklonjene s vašeg uređaja</string>

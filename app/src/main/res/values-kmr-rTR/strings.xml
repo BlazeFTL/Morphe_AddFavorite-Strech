@@ -22,6 +22,8 @@
     <string name="home_blocked_source_subtitle">Bixin da ku binêrin û bênin serbest</string>
     <string name="home_metadata_errors_title">Hinek çavkaniyên pelê ne berdest in</string>
     <string name="home_metadata_errors_subtitle">Bixin da ku çavkaniyan binêrin</string>
+    <string name="home_outdated_manager_title">Morphe kevn e</string>
+    <string name="home_outdated_manager_subtitle">Çend çavkaniyên paşêrê hewceyê guherîna vêjêyek nû ne.</string>
     <string name="home_metered_skipped_title">Nûvekirin li ser data mobîlê hatin sekinin</string>
     <string name="home_metered_skipped_subtitle">Bikîne da ku nûvekirinên li ser data mobîl destûr bidî</string>
     <string name="home_update_error">Nûvekirin ji destûr ve çû</string>
@@ -122,6 +124,8 @@
     <string name="sources_management_metadata_unavailable">Metadata N/A</string>
     <string name="sources_management_metadata_unavailable_hint">Pelgeya metadateya dûr nepehwîze. Lê dîsa jî nûkirina bi pakêta ku hatiye saz kirin dixebite, lê nûvekirina otomatîkî ji bo vê çavkaniyê nehate çalak kirin</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Pakêta paşîn nikaribû were dakêşîn. URL-a çavkaniyê dikare ne rast be an pelge ne heye</string>
+    <string name="sources_management_outdated_manager_badge">Morphe nûve bike</string>
+    <string name="sources_management_outdated_manager_hint">Ev çavkanî ji bo patcher %1$s hatî çêkirin, lê Morphe %2$s patcher %3$s vedihewîne. Morphe nûve bike da ku wê bikar bîne</string>
     <string name="sources_management_source_enabled">Çavkanî aktîv kirin</string>
     <string name="sources_management_source_disabled">Çavkanî ne aktîv kirin</string>
     <string name="sources_management_source_updating">Çavkanî nûkirin</string>

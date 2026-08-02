@@ -23,6 +23,8 @@ Nessuna patch disponibile</string>
     <string name="home_blocked_source_subtitle">Tocca per visualizzare e rimuovere</string>
     <string name="home_metadata_errors_title">Alcune fonti di patch non sono disponibili</string>
     <string name="home_metadata_errors_subtitle">Tocca per visualizzare le fonti</string>
+    <string name="home_outdated_manager_title">Morphe non è aggiornato</string>
+    <string name="home_outdated_manager_subtitle">Alcune sorgenti di patch richiedono una versione più recente</string>
     <string name="home_metered_skipped_title">Aggiornamenti in pausa sulla rete dati mobile</string>
     <string name="home_metered_skipped_subtitle">Tocca per consentire gli aggiornamenti sulla rete mobile</string>
     <string name="home_update_error">Aggiornamento non riuscito</string>
@@ -123,6 +125,8 @@ Nessuna patch disponibile</string>
     <string name="sources_management_metadata_unavailable">Metadati non disponibili</string>
     <string name="sources_management_metadata_unavailable_hint">Il file dei metadati remoti non è disponibile. L\'applicazione della patch con il bundle installato funziona ancora, ma l\'aggiornamento automatico è disabilitato per questa sorgente</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Impossibile scaricare il bundle di patch. L\'URL di origine potrebbe essere errato oppure il file inesistente </string>
+    <string name="sources_management_outdated_manager_badge">Aggiorna Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Questa sorgente è stata creata per patcher %1$s, ma Morphe %2$s include patcher %3$s. Aggiorna Morphe per utilizzarlo</string>
     <string name="sources_management_source_enabled">Sorgente abilitata</string>
     <string name="sources_management_source_disabled">Sorgente disabilitata</string>
     <string name="sources_management_source_updating">Aggiornamento sorgente</string>

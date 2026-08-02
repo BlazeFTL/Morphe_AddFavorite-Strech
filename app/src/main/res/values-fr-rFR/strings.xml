@@ -82,7 +82,7 @@
     <!-- Light sarcasm, casual and tech-savvy humor -->
     <string name="home_greeting_10">Alimenté par la caféine et les bons patchs</string>
     <!-- Morning greetings (5:00–11:59) -->
-    <string name="home_greeting_morning_1">Réveil et patch</string>
+    <string name="home_greeting_morning_1">Se lever et patcher</string>
     <string name="home_greeting_morning_2">Bonjour ! Les applications ne se patchent pas toutes seules</string>
     <!-- Afternoon greetings (12:00–16:59) -->
     <string name="home_greeting_afternoon_1">Coup de mou de l\'après-midi ? Patcher quelque chose</string>
@@ -123,7 +123,7 @@
     <string name="sources_management_source_blocked_badge">Bloqué</string>
     <string name="sources_management_metadata_unavailable">Métadonnées ND</string>
     <string name="sources_management_metadata_unavailable_hint">Le fichier de métadonnées distant est indisponible. Le patching avec le bundle installé fonctionne toujours, mais la mise à jour automatique est désactivée pour cette source</string>
-    <string name="sources_management_metadata_unavailable_hint_missing">Le bundle de patch n\'a pas pu être téléchargé. L\'URL de la source est peut-être incorrecte ou le fichier n’existe pas</string>
+    <string name="sources_management_metadata_unavailable_hint_missing">Le bundle de patchs n\'a pas pu être téléchargé. L\'URL de la source est peut-être incorrecte ou le fichier n’existe pas</string>
     <string name="sources_management_outdated_manager_badge">Mettre à jour Morphe</string>
     <string name="sources_management_outdated_manager_hint">Cette source est conçue pour le patcheur %1$s, mais Morphe %2$s inclut le patcher %3$s. Mettez Morphe à jour pour l\'utiliser</string>
     <string name="sources_management_source_enabled">Source activée</string>
@@ -154,7 +154,7 @@
     <string name="sources_update_unavailable">Aucune mise à jour disponible</string>
     <string name="sources_download_fail">Échec du téléchargement des sources : %s</string>
     <string name="sources_download_fail_named">\'%s\' n\'a pas pu être mis à jour. Vérifiez votre connexion internet et réessayez</string>
-    <string name="sources_download_endpoint_not_found">\'%s\' : métadonnées de patch introuvables</string>
+    <string name="sources_download_endpoint_not_found">\'%s\' : métadonnées de patchs introuvables</string>
     <string name="sources_patch_expert_badge">Expert</string>
     <string name="sources_patch_expert_badge_tooltip">Activer le mode Expert dans les Paramètres pour inclure ce patch manuellement
 </string>
@@ -255,6 +255,11 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="home_dialog_wrong_package_description">L\'APK sélectionné ne correspond pas à l\'application que vous aviez l\'intention de patcher</string>
     <string name="home_dialog_expected_package">Paquet attendu :</string>
     <string name="home_dialog_selected_package">Paquet sélectionné :</string>
+    <string name="home_dialog_orphaned_install_title">Copie précédente laissée derrière</string>
+    <string name="home_dialog_orphaned_install_description">Le patching a modifié le nom du paquet, donc la copie que vous avez patchée précédemment est toujours installée comme une application distincte</string>
+    <string name="home_dialog_orphaned_install_warning">Elle n\'est plus suivie et ne recevra plus de mises à jour de patchs</string>
+    <string name="home_dialog_orphaned_install_uninstall">Le désinstaller</string>
+    <string name="home_dialog_orphaned_install_keep">Le conserver</string>
     <string name="home_outdated_patches_dialog_title">Les patchs peuvent être obsolètes</string>
     <string name="home_outdated_patches_dialog_message">Les données mobiles sont activées et les mises à jour de patch sont désactivées</string>
     <string name="home_outdated_patches_dialog_warning">Le patching avec des patchs obsolètes peut rendre l\'application inutilisable</string>
@@ -394,6 +399,8 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="patcher_error_dialog_app_info">Informations sur l\'application</string>
     <string name="patcher_tab_logs">Journaux du patcheur</string>
     <string name="patcher_tab_game">Jeux</string>
+    <string name="patcher_logs_waiting">En attente de la sortie du journal…</string>
+    <string name="patcher_logs_lost">La sortie du journal n\'est pas conservée entre les redémarrages de l\'application</string>
     <string name="patcher_long_step_warning">Cette étape peut prendre un certain temps. Veuillez patienter…</string>
     <string name="patcher_installing_subtitle">Bientôt prêt à mettre le feu  ! 🎸</string>
     <string name="patcher_success_title">Tout est prêt ! 🎉</string>

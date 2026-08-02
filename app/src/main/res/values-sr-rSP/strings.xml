@@ -22,6 +22,7 @@
     <string name="home_blocked_source_subtitle">Додирните да прегледате и уклоните</string>
     <string name="home_metadata_errors_title">Неки извори закрпа нису доступни</string>
     <string name="home_metadata_errors_subtitle">Додирните да прегледате изворе</string>
+    <string name="home_outdated_manager_title">Morphe je zastareo</string>
     <string name="home_metered_skipped_title">Ажурирања су паузирана на мобилним подацима</string>
     <string name="home_metered_skipped_subtitle">Додирните да бисте дозволили ажурирања преко мобилних података</string>
     <string name="home_update_error">Ажурирање није успело</string>

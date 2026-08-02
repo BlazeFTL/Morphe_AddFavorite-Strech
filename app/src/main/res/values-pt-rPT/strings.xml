@@ -22,6 +22,8 @@
     <string name="home_blocked_source_subtitle">Toque para analisar e remover</string>
     <string name="home_metadata_errors_title">Algumas fontes de patch estão indisponíveis</string>
     <string name="home_metadata_errors_subtitle">Toque para analisar as fontes</string>
+    <string name="home_outdated_manager_title">Morphe está desatualizado</string>
+    <string name="home_outdated_manager_subtitle">Algumas fontes de patch precisam de uma versão mais recente</string>
     <string name="home_metered_skipped_title">Atualizações pausadas em dados móveis</string>
     <string name="home_metered_skipped_subtitle">Toque para permitir atualizações usando dados móveis</string>
     <string name="home_update_error">Atualização falhou</string>
@@ -122,6 +124,8 @@
     <string name="sources_management_metadata_unavailable">Metadados não disponíveis</string>
     <string name="sources_management_metadata_unavailable_hint">O ficheiro de metadados remoto está indisponível. A aplicação de modificações com o pacote instalado ainda funciona, mas a atualização automática está desativada para esta fonte</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Não foi possível transferir o pacote de modificações. A URL da fonte pode estar incorreta ou o ficheiro não existe</string>
+    <string name="sources_management_outdated_manager_badge">Atualizar Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Esta fonte foi criada para o patcher %1$s, mas o Morphe %2$s inclui o patcher %3$s. Atualize o Morphe para utilizá-lo</string>
     <string name="sources_management_source_enabled">Fonte ativada</string>
     <string name="sources_management_source_disabled">Fonte desativada</string>
     <string name="sources_management_source_updating">A atualizar fonte</string>

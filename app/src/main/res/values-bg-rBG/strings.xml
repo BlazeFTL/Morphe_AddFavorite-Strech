@@ -255,6 +255,10 @@
     <string name="home_dialog_wrong_package_description">Избраното APK не е за приложението, което искате да поправите</string>
     <string name="home_dialog_expected_package">Очакван пакет:</string>
     <string name="home_dialog_selected_package">Избран пакет:</string>
+    <string name="home_dialog_orphaned_install_title">Предишно копие остана</string>
+    <string name="home_dialog_orphaned_install_description">Промяната на пакета промени името, така че копието, което променихте по-рано, е все още инсталирано като отделно приложение</string>
+    <string name="home_dialog_orphaned_install_warning">То вече не се следи и няма да получава актуализации</string>
+    <string name="home_dialog_orphaned_install_uninstall">Премахнете го</string>
     <string name="home_outdated_patches_dialog_title">Патчовете могат да бъдат остарели</string>
     <string name="home_outdated_patches_dialog_message">Мобилен интернет е активен и патчовете са изключени</string>
     <string name="home_outdated_patches_dialog_warning">Патчване с остарели патчове може да доведе до счупване на приложението</string>

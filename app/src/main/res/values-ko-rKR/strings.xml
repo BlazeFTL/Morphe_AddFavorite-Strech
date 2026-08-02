@@ -1022,7 +1022,7 @@ morphe_header_custom_dark.png
     <string name="enabled">활성화됨</string>
     <string name="disabled">비활성화됨</string>
     <string name="selected">선택됨</string>
-    <string name="not_selected">선택 안 함</string>
+    <string name="not_selected">선택 안함</string>
     <string name="select_all">모두 선택</string>
     <string name="select_all_done">모두 선택하였습니다</string>
     <string name="deselect_all">모두 선택 해제</string>

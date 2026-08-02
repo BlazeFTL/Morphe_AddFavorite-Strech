@@ -9,6 +9,7 @@ import android.net.Uri
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.combinedClickable
@@ -1002,51 +1003,65 @@ private fun PatchDetailsDialog(
                 }
             )
 
-            if (isLoading) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(MorpheDefaults.ContentPaddingExpanded),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
+            AnimatedContent(
+                targetState = isLoading,
+                transitionSpec = MorpheAnimations.fadeCrossfade(),
+                modifier = Modifier.fillMaxWidth(),
+                label = "patchDetails"
+            ) { loading ->
+                if (loading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(MorpheDefaults.ContentPaddingExpanded),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        PulsingLogoIndicator()
+                    }
+
+                    return@AnimatedContent
                 }
-            } else {
+
                 val patchList = details?.patchList ?: emptyList()
                 val optionsMap = details?.optionsMap ?: emptyMap()
 
-                // Patches section
-                if (patchList.isNotEmpty()) {
-                    LabeledSection(
-                        title = stringResource(R.string.settings_system_selected_patches_section),
-                        count = patchList.size
-                    ) {
-                        patchList.forEach { patchName ->
-                            PatchNameRow(name = patchName)
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                ) {
+                    // Patches section
+                    if (patchList.isNotEmpty()) {
+                        LabeledSection(
+                            title = stringResource(R.string.settings_system_selected_patches_section),
+                            count = patchList.size
+                        ) {
+                            patchList.forEach { patchName ->
+                                PatchNameRow(name = patchName)
+                            }
                         }
                     }
-                }
 
-                // Options section
-                if (optionsMap.isNotEmpty()) {
-                    LabeledSection(
-                        title = stringResource(R.string.settings_system_patch_options_section),
-                        count = optionsMap.size
-                    ) {
-                        optionsMap.entries.forEach { (patchName, options) ->
-                            PatchOptionsGroup(patchName = patchName, options = options)
+                    // Options section
+                    if (optionsMap.isNotEmpty()) {
+                        LabeledSection(
+                            title = stringResource(R.string.settings_system_patch_options_section),
+                            count = optionsMap.size
+                        ) {
+                            optionsMap.entries.forEach { (patchName, options) ->
+                                PatchOptionsGroup(patchName = patchName, options = options)
+                            }
                         }
                     }
-                }
 
-                // Empty state
-                if (patchList.isEmpty() && optionsMap.isEmpty()) {
-                    InfoBadge(
-                        text = stringResource(R.string.settings_system_no_patches_or_options),
-                        style = InfoBadgeStyle.Default,
-                        isExpanded = true,
-                        isCentered = true
-                    )
+                    // Empty state
+                    if (patchList.isEmpty() && optionsMap.isEmpty()) {
+                        InfoBadge(
+                            text = stringResource(R.string.settings_system_no_patches_or_options),
+                            style = InfoBadgeStyle.Default,
+                            isExpanded = true,
+                            isCentered = true
+                        )
+                    }
                 }
             }
         }

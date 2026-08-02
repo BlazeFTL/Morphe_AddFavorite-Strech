@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -208,6 +209,7 @@ fun ToggleRow(
             Crossfade(
                 targetState = isLoading,
                 modifier = Modifier.size(width = 52.dp, height = 32.dp),
+                animationSpec = tween(MorpheDefaults.ANIMATION_DURATION),
                 label = "toggle_row_loading"
             ) { loading ->
                 Box(
@@ -746,8 +748,9 @@ fun InfoStatBox(
 /**
  * Prominent hero-style header used at the top of dialogs and sections.
  *
- * [content] is laid out below the header row inside the same surface, for cards that carry a
- * progress bar or similar trailing element.
+ * [footer] is laid out below the header row inside the same surface, for cards that carry a
+ * progress bar or similar trailing element. It deliberately sits before [subtitle] so that a
+ * trailing lambda still binds to the subtitle, the way every caller already writes it.
  */
 @Composable
 fun HeroInfoCard(
@@ -758,8 +761,8 @@ fun HeroInfoCard(
     iconContainerColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
     iconTint: Color = MaterialTheme.colorScheme.primary,
     titleColor: Color = LocalDialogTextColor.current,
-    subtitle: (@Composable RowScope.() -> Unit)? = null,
-    content: (@Composable ColumnScope.() -> Unit)? = null
+    footer: (@Composable ColumnScope.() -> Unit)? = null,
+    subtitle: (@Composable RowScope.() -> Unit)? = null
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -820,7 +823,7 @@ fun HeroInfoCard(
                 }
             }
 
-            content?.invoke(this)
+            footer?.invoke(this)
         }
     }
 }

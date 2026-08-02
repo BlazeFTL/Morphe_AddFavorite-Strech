@@ -565,16 +565,25 @@ fun BundlePatchesDialog(
         scrollable = false,
         contentArrangement = Arrangement.Top
     ) {
-        if (isLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                PulsingLogoIndicator()
+        AnimatedContent(
+            targetState = isLoading,
+            transitionSpec = MorpheAnimations.fadeCrossfade(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            label = "bundlePatches"
+        ) { loading ->
+            if (loading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PulsingLogoIndicator()
+                }
+
+                return@AnimatedContent
             }
-        } else {
+
             val listState = rememberLazyListState()
             var displayedPackages by remember { mutableStateOf(emptySet<String>()) }
             LaunchedEffect(selectedPackages) {

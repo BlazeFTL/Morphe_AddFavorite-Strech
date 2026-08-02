@@ -8,6 +8,7 @@ package app.morphe.manager.ui.screen.home
 import android.content.pm.PackageInfo
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.*
@@ -330,14 +331,24 @@ fun InstalledAppInfoDialog(
         footer = null,
         onEntered = { entered.value = true }
     ) {
-        if (isLoading || installedApp == null) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                PulsingLogoIndicator()
+        AnimatedContent(
+            targetState = isLoading || installedApp == null,
+            transitionSpec = MorpheAnimations.fadeCrossfade(),
+            modifier = Modifier.fillMaxSize(),
+            label = "installedAppInfo"
+        ) { loading ->
+            // installedApp is re-checked here so the body below keeps its non-null smart cast
+            if (loading || installedApp == null) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PulsingLogoIndicator()
+                }
+
+                return@AnimatedContent
             }
-        } else {
+
             val windowSize = rememberWindowSize()
             if (isLandscape()) {
                 // Landscape layout: left sidebar has actions, right panel has header + info

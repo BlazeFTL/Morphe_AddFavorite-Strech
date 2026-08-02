@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -871,6 +872,7 @@ private fun ApkManagementDialogContent(
                 item(key = "summary") {
                     Crossfade(
                         targetState = meta.isLoading,
+                        animationSpec = tween(MorpheDefaults.ANIMATION_DURATION),
                         label = "heroCard"
                     ) { loading ->
                         if (loading) {

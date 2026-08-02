@@ -366,6 +366,27 @@ private fun DownloadProgressCard(
         icon = Icons.Outlined.Download,
         // Names the release being fetched, since the dialog title already says it is downloading
         title = version?.isolateLtr() ?: stringResource(R.string.app_name),
+        footer = {
+            val progressModifier = Modifier
+                .fillMaxWidth()
+                .height(ProgressBarHeight)
+            val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+
+            if (hasKnownSize) {
+                LinearProgressIndicator(
+                    progress = { animatedProgress },
+                    modifier = progressModifier,
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = trackColor
+                )
+            } else {
+                LinearProgressIndicator(
+                    modifier = progressModifier,
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = trackColor
+                )
+            }
+        },
         subtitle = {
             Text(
                 text = if (hasKnownSize) {
@@ -386,27 +407,7 @@ private fun DownloadProgressCard(
                 fontWeight = FontWeight.Medium
             )
         }
-    ) {
-        val progressModifier = Modifier
-            .fillMaxWidth()
-            .height(ProgressBarHeight)
-        val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-
-        if (hasKnownSize) {
-            LinearProgressIndicator(
-                progress = { animatedProgress },
-                modifier = progressModifier,
-                color = MaterialTheme.colorScheme.primary,
-                trackColor = trackColor
-            )
-        } else {
-            LinearProgressIndicator(
-                modifier = progressModifier,
-                color = MaterialTheme.colorScheme.primary,
-                trackColor = trackColor
-            )
-        }
-    }
+    )
 }
 
 /** Installer failure details. The dialog title already states that the install failed. */

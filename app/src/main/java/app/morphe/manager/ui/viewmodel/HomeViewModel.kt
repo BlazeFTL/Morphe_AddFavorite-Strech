@@ -1602,6 +1602,35 @@ class HomeViewModel(
         }
     }
 
+    /** Copies left on the device by a patch that renamed the package. */
+    val orphanedInstalls = installedAppRepository.orphanedInstalls
+
+    /**
+     * Uninstalls a copy that patching left behind under its previous package name.
+     * The prompt is cleared either way: a refused or failed uninstall must not keep reappearing.
+     */
+    fun uninstallOrphanedInstall(orphan: InstalledApp) {
+        viewModelScope.launch {
+            runCatching {
+                val removed = withTimeoutOrNull(BATCH_UNINSTALL_TIMEOUT) {
+                    installerManager.uninstallPackage(orphan.currentPackageName, orphan.installType)
+                    true
+                } == true
+                if (!removed) error(app.getString(R.string.uninstall_timeout))
+            }.onSuccess {
+                notifyAppStateChanged(orphan.currentPackageName)
+            }.onFailure { error ->
+                if (error !is UninstallCancelledException) {
+                    app.toast(app.getString(R.string.uninstall_app_fail, error.simpleMessage()))
+                }
+            }
+            installedAppRepository.forgetOrphanedInstall(orphan)
+        }
+    }
+
+    fun keepOrphanedInstall(orphan: InstalledApp) =
+        installedAppRepository.forgetOrphanedInstall(orphan)
+
     /**
      * Handle app button click.
      */

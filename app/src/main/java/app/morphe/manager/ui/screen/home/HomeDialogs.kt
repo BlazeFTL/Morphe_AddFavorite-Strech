@@ -603,6 +603,17 @@ fun HomeDialogs(
             onDismiss = { patchesItem.value = null }
         )
     }
+
+    // Leftover copy of an app that patching reinstalled under a different package name
+    val orphanedInstalls by homeViewModel.orphanedInstalls.collectAsStateWithLifecycle()
+    orphanedInstalls.firstOrNull()?.let { orphan ->
+        OrphanedInstallDialog(
+            packageName = orphan.currentPackageName,
+            version = orphan.version,
+            onUninstall = { homeViewModel.uninstallOrphanedInstall(orphan) },
+            onKeep = { homeViewModel.keepOrphanedInstall(orphan) }
+        )
+    }
 }
 
 /**
@@ -1656,6 +1667,87 @@ fun WrongPackageDialog(
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * Shown after patching renamed the package: the copy patched earlier stays installed as a separate
+ * app that the manager no longer tracks. Offers to remove it while it can still be identified.
+ */
+@Composable
+fun OrphanedInstallDialog(
+    packageName: String,
+    version: String,
+    onUninstall: () -> Unit,
+    onKeep: () -> Unit
+) {
+    MorpheDialog(
+        onDismissRequest = onKeep,
+        title = stringResource(R.string.home_dialog_orphaned_install_title),
+        padding = DialogPadding.Compact,
+        footer = {
+            MorpheDialogButtonRow(
+                primaryText = stringResource(R.string.home_dialog_orphaned_install_uninstall),
+                onPrimaryClick = onUninstall,
+                isPrimaryDestructive = true,
+                secondaryText = stringResource(R.string.home_dialog_orphaned_install_keep),
+                onSecondaryClick = onKeep
+            )
+        }
+    ) {
+        val secondaryColor = LocalDialogSecondaryTextColor.current
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Layers,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(48.dp)
+            )
+
+            Text(
+                text = stringResource(R.string.home_dialog_orphaned_install_description),
+                style = MaterialTheme.typography.bodyLarge,
+                color = secondaryColor,
+                textAlign = TextAlign.Center
+            )
+
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(14.dp),
+                color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
+                tonalElevation = 1.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = packageName,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                    Text(
+                        text = version,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = secondaryColor
+                    )
+                }
+            }
+
+            InfoBadge(
+                text = stringResource(R.string.home_dialog_orphaned_install_warning),
+                style = InfoBadgeStyle.Warning,
+                icon = Icons.Outlined.Warning,
+                isExpanded = true
+            )
         }
     }
 }

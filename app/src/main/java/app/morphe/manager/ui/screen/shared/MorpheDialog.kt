@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -356,14 +357,23 @@ private fun DialogContent(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center,
-                            color = textColor,
-                            modifier = Modifier.weight(1f)
-                        )
+                        // Dialogs whose title tracks a state (download, install, result) swap
+                        // it in step with their content instead of snapping a new string in
+                        AnimatedContent(
+                            targetState = title,
+                            transitionSpec = MorpheAnimations.fadeCrossfade(),
+                            modifier = Modifier.weight(1f),
+                            label = "dialogTitle"
+                        ) { currentTitle ->
+                            Text(
+                                text = currentTitle,
+                                style = MaterialTheme.typography.headlineMedium,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center,
+                                color = textColor,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                         if (titleTrailingContent != null) titleTrailingContent()
                     }
                 }

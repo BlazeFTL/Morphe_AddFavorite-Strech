@@ -40,7 +40,6 @@ import app.morphe.manager.domain.bundles.AppVersionCatalog
 import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.manager.DownloadUrlResolver
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
-import app.morphe.manager.network.api.MorpheAPI
 import app.morphe.manager.patcher.patch.BundleAppMetadata
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
@@ -63,15 +62,12 @@ import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
 import app.morphe.patcher.patch.AppTarget
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.util.zip.CRC32
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import kotlin.time.Clock
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -220,7 +216,7 @@ class HomeViewModel(
     private val originalApkRepository: OriginalApkRepository,
     private val patchSelectionRepository: PatchSelectionRepository,
     private val optionsRepository: PatchOptionsRepository,
-    private val morpheAPI: MorpheAPI,
+    private val managerUpdateRepository: ManagerUpdateRepository,
     private val networkInfo: NetworkInfo,
     val prefs: PreferencesManager,
     private val pm: PM,
@@ -624,6 +620,7 @@ class HomeViewModel(
     var onStartQuickPatch: ((QuickPatchParams) -> Unit)? = null
 
     init {
+        observeManagerUpdate()
         triggerUpdateCheck()
         observeLoadingState()
         observeInstalledAppUpdates()
@@ -845,24 +842,23 @@ class HomeViewModel(
     }
 
     /**
-     * Checks for a manager update and defers showing the banner until the APK
-     * is likely fully uploaded. If the release is newer than [MANAGER_UPDATE_SHOW_DELAY_SECONDS],
-     * the banner is shown immediately; otherwise we wait out the remaining time.
+     * Mirrors the resolved update into [updatedManagerVersion] so the banner also appears when
+     * a background check finds the release. A failed check is ignored rather than hiding a
+     * banner the user is already looking at.
+     */
+    private fun observeManagerUpdate() = viewModelScope.launch {
+        managerUpdateRepository.availableUpdate.collect { update ->
+            update?.let { updatedManagerVersion = it.version }
+        }
+    }
+
+    /**
+     * Checks for a manager update. The repository only reports releases whose APK is already
+     * downloadable, so the banner can never point at an asset that is still uploading.
      */
     suspend fun checkForManagerUpdates() {
         uiSafe(app, R.string.failed_to_check_updates, "Failed to check for updates") {
-            val update = morpheAPI.getAppUpdate() ?: return@uiSafe
-
-            val releaseAgeSeconds = (Clock.System.now().toEpochMilliseconds() -
-                    update.createdAt.toInstant(TimeZone.UTC).toEpochMilliseconds()) / 1_000L
-
-            if (releaseAgeSeconds < MANAGER_UPDATE_SHOW_DELAY_SECONDS) {
-                val remainingMs = (MANAGER_UPDATE_SHOW_DELAY_SECONDS - releaseAgeSeconds) * 1_000L
-                Log.d(tag, "Manager update ${update.version} is ${releaseAgeSeconds}s old, waiting ${remainingMs / 1000}s before showing banner")
-                delay(remainingMs.milliseconds)
-            }
-
-            updatedManagerVersion = update.version
+            managerUpdateRepository.refresh()
         }
     }
 

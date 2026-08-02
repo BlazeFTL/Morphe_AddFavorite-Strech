@@ -745,6 +745,9 @@ fun InfoStatBox(
 
 /**
  * Prominent hero-style header used at the top of dialogs and sections.
+ *
+ * [content] is laid out below the header row inside the same surface, for cards that carry a
+ * progress bar or similar trailing element.
  */
 @Composable
 fun HeroInfoCard(
@@ -755,61 +758,69 @@ fun HeroInfoCard(
     iconContainerColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
     iconTint: Color = MaterialTheme.colorScheme.primary,
     titleColor: Color = LocalDialogTextColor.current,
-    subtitle: (@Composable RowScope.() -> Unit)? = null
+    subtitle: (@Composable RowScope.() -> Unit)? = null,
+    content: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(MorpheDefaults.SectionCornerRadius),
         color = containerColor
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(MorpheDefaults.ContentPadding),
-            horizontalArrangement = Arrangement.spacedBy(14.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            Surface(
-                shape = CircleShape,
-                color = iconContainerColor,
-                modifier = Modifier.size(56.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(14.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        tint = iconTint,
-                        modifier = Modifier.size(28.dp)
-                    )
+                Surface(
+                    shape = CircleShape,
+                    color = iconContainerColor,
+                    modifier = Modifier.size(56.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            tint = iconTint,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                }
+
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    AnimatedContent(
+                        targetState = title,
+                        transitionSpec = MorpheAnimations.counterTransitionSpec,
+                        label = "heroTitle"
+                    ) { t ->
+                        Text(
+                            text = t,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = titleColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    if (subtitle != null) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            content = subtitle
+                        )
+                    }
                 }
             }
 
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                AnimatedContent(
-                    targetState = title,
-                    transitionSpec = MorpheAnimations.counterTransitionSpec,
-                    label = "heroTitle"
-                ) { t ->
-                    Text(
-                        text = t,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = titleColor,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-                if (subtitle != null) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        content = subtitle
-                    )
-                }
-            }
+            content?.invoke(this)
         }
     }
 }

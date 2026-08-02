@@ -1182,6 +1182,9 @@ Details: %2$s"</string>
     <string name="installing_manager_update">Installing update…</string>
     <string name="downloading_manager_update">Downloading update…</string>
     <string name="manager_update_progress_detail" translatable="false">%1$.1f MB / %2$.1f MB (%3$s%%)</string>
+    <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB downloaded</string>
+    <string name="manager_update_not_ready">This release is still being published. Try again in a few minutes</string>
     <string name="download_manager_failed">Failed to download update: %s</string>
     <string name="failed_to_check_updates">Failed to check for updates: %s</string>
     <string name="failed_to_download_update">Failed to download update: %s</string>

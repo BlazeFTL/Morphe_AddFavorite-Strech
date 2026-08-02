@@ -1,3 +1,16 @@
+# [1.25.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.13...v1.25.0-dev.14) (2026-08-02)
+
+
+### Bug Fixes
+
+* Announce a manager update only once its APK is downloadable ([9939cd1](https://github.com/MorpheApp/morphe-manager/commit/9939cd192cb32083eef4636b8b2560c70c8b41f4))
+* Close open dialogs when a patch source arrives from outside the app ([550926b](https://github.com/MorpheApp/morphe-manager/commit/550926b3091431de1e8f94e6a62ce32bc07f57a4))
+
+
+### Features
+
+* Crossfade dialog content when it swaps between states ([48848f2](https://github.com/MorpheApp/morphe-manager/commit/48848f257f1506745ef699fc293b82048aa22f26))
+
 # [1.25.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.12...v1.25.0-dev.13) (2026-08-02)
 
 

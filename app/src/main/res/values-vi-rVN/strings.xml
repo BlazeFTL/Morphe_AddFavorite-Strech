@@ -251,6 +251,11 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="home_dialog_wrong_package_description">APK đã chọn không dành cho ứng dụng mà bạn định vá</string>
     <string name="home_dialog_expected_package">Cần gói:</string>
     <string name="home_dialog_selected_package">Nhưng bạn lại chọn gói:</string>
+    <string name="home_dialog_orphaned_install_title">Bản sao trước đó còn lại</string>
+    <string name="home_dialog_orphaned_install_description">Việc vá lỗi đã thay đổi tên gói, vì vậy bản sao bạn đã vá trước đó vẫn được cài đặt như một ứng dụng riêng biệt</string>
+    <string name="home_dialog_orphaned_install_warning">Nó không còn được theo dõi và sẽ không nhận được các bản cập nhật vá lỗi</string>
+    <string name="home_dialog_orphaned_install_uninstall">Gỡ cài đặt</string>
+    <string name="home_dialog_orphaned_install_keep">Giữ lại</string>
     <string name="home_outdated_patches_dialog_title">Một số bản vá có thể đã cũ</string>
     <string name="home_outdated_patches_dialog_message">Bạn đang bật dữ liệu di động vì vậy tự động cập nhật bản vá sẽ bị tắt</string>
     <string name="home_outdated_patches_dialog_warning">Sử dụng các bản vá cũ có thể khiến ứng dụng bị hỏng</string>
@@ -384,6 +389,8 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="patcher_error_dialog_app_info">Thông tin ứng dụng</string>
     <string name="patcher_tab_logs">Nhật ký trình vá</string>
     <string name="patcher_tab_game">Trò chơi</string>
+    <string name="patcher_logs_waiting">Đang chờ đầu ra nhật ký…</string>
+    <string name="patcher_logs_lost">Đầu ra nhật ký không được giữ lại sau khi khởi động lại ứng dụng</string>
     <string name="patcher_long_step_warning">Bước này có thể hơi lâu một chút. Vui lòng chờ…</string>
     <string name="patcher_installing_subtitle">Gần xong rồi, chuẩn bị quẩy thôi! 🎸</string>
     <string name="patcher_success_title">Hoàn tất! 🎉</string>
@@ -1071,6 +1078,7 @@ Chi tiết: %2$s"</string>
     <string name="install_update_manager_failed">Không thể cài đặt bản cập nhật</string>
     <string name="installing_manager_update">Đang cài đặt bản cập nhật…</string>
     <string name="downloading_manager_update">Đang tải bản cập nhật…</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">Không thể tải bản cập nhật: %s</string>
     <string name="failed_to_check_updates">Không thể kiểm tra cập nhật: %s</string>
     <string name="failed_to_download_update">Không tải được bản cập nhật: %s</string>

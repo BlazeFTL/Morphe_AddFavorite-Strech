@@ -258,6 +258,7 @@
     <string name="home_dialog_orphaned_install_description">पैचिंग ने पैकेज का नाम बदल दिया है, इसलिए आपने जो कॉपी पहले पैच की थी, वह अभी भी एक अलग ऐप के रूप में स्थापित है</string>
     <string name="home_dialog_orphaned_install_warning">अब इसे ट्रैक नहीं किया जा रहा है और इसे पैच अपडेट प्राप्त नहीं होंगे</string>
     <string name="home_dialog_orphaned_install_uninstall">इसे अनइंस्टॉल करें</string>
+    <string name="home_dialog_orphaned_install_keep">इसे बनाए रखें</string>
     <string name="home_outdated_patches_dialog_title">पैच पुराने हो सकते हैं</string>
     <string name="home_outdated_patches_dialog_message">मोबाइल डेटा सक्रिय है और पैच अपडेट बंद हैं</string>
     <string name="home_outdated_patches_dialog_warning">पुराने पैच से पैच करना हो सकता है कि एप्लिकेशन को तोड़ सकता है</string>
@@ -392,6 +393,8 @@
     <string name="patcher_error_dialog_app_info">ऐप जानकारी</string>
     <string name="patcher_tab_logs">पैचर लॉग</string>
     <string name="patcher_tab_game">खेल</string>
+    <string name="patcher_logs_waiting">लॉग आउटपुट की प्रतीक्षा की जा रही है…</string>
+    <string name="patcher_logs_lost">ऐप रीस्टार्ट होने पर लॉग आउटपुट सहेजा नहीं जाता है</string>
     <string name="patcher_long_step_warning">This step may take a while. Please wait…</string>
     <string name="patcher_installing_subtitle">Almost ready to rock! 🎸</string>
     <string name="patcher_success_title">हो गया! 🎉</string>
@@ -1095,6 +1098,7 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">अपडेट स्थापित करने में विफल</string>
     <string name="installing_manager_update">अपडेट इंस्टॉल हो रहा है…</string>
     <string name="downloading_manager_update">अपडेट डाउनलोड हो रहा है…</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">अपडेट डाउनलोड करने में विफल: %s</string>
     <string name="failed_to_check_updates">अपडेट के लिए जाँच करने में विफल: %s</string>
     <string name="failed_to_download_update">अपडेट डाउनलोड करने में विफल: %s</string>

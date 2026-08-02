@@ -254,6 +254,11 @@
     <string name="home_dialog_wrong_package_description">選択された APK は、パッチを適用しようとしているアプリのものではありません</string>
     <string name="home_dialog_expected_package">想定されるパッケージ:</string>
     <string name="home_dialog_selected_package">選択されたパッケージ:</string>
+    <string name="home_dialog_orphaned_install_title">以前のコピーが残されています</string>
+    <string name="home_dialog_orphaned_install_description">パッチ適用によってパッケージ名が変更されたため、以前にパッチを適用したコピーは別のアプリとしてインストールされたままになっています</string>
+    <string name="home_dialog_orphaned_install_warning">追跡の対象外となっており、パッチの更新も提供されません</string>
+    <string name="home_dialog_orphaned_install_uninstall">アンインストールする</string>
+    <string name="home_dialog_orphaned_install_keep">そのままにしておく</string>
     <string name="home_outdated_patches_dialog_title">パッチが古い可能性があります</string>
     <string name="home_outdated_patches_dialog_message">モバイルデータ通信が有効なため、パッチ更新は無効になっています</string>
     <string name="home_outdated_patches_dialog_warning">古いパッチを適用すると、アプリが壊れる可能性があります</string>
@@ -392,6 +397,8 @@
     <string name="patcher_error_dialog_app_info">アプリ情報</string>
     <string name="patcher_tab_logs">パッチャーのログ</string>
     <string name="patcher_tab_game">ゲーム</string>
+    <string name="patcher_logs_waiting">ログの出力を待機中…</string>
+    <string name="patcher_logs_lost">アプリを再起動してもログの出力は保持されません</string>
     <string name="patcher_long_step_warning">この処理には時間がかかる場合があります。お待ちください…</string>
     <string name="patcher_installing_subtitle">もうすぐ準備完了！🎸</string>
     <string name="patcher_success_title">完了しました！🎉</string>
@@ -1093,6 +1100,7 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">アップデートのインストールに失敗しました</string>
     <string name="installing_manager_update">アップデートをインストールしています…</string>
     <string name="downloading_manager_update">アップデートをダウンロードしています…</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">アップデートのダウンロードに失敗しました: %s</string>
     <string name="failed_to_check_updates">アップデートの確認に失敗しました: %s</string>
     <string name="failed_to_download_update">アップデートのダウンロードに失敗しました: %s</string>

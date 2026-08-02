@@ -1105,6 +1105,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="install_update_manager_failed">فشل تثبيت التحديث</string>
     <string name="installing_manager_update">جارٍ تثبيت التحديث...</string>
     <string name="downloading_manager_update">جارٍ تنزيل التحديث...</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">فشل تنزيل التحديث: %s</string>
     <string name="failed_to_check_updates">فشل التحقق من التحديثات: %s</string>
     <string name="failed_to_download_update">فشل تنزيل التحديث: %s</string>

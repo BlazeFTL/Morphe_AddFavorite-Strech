@@ -1103,6 +1103,7 @@ Detalles: %2$s"</string>
     <string name="install_update_manager_failed">Error al instalar la actualización</string>
     <string name="installing_manager_update">Instalando actualización…</string>
     <string name="downloading_manager_update">Descargando actualización…</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">Error al descargar la actualización: %s</string>
     <string name="failed_to_check_updates">Error al buscar actualizaciones: %s</string>
     <string name="failed_to_download_update">Error al descargar la actualización: %s</string>

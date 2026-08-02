@@ -1034,6 +1034,7 @@ Information: %2$s"</string>
     <string name="install_update_manager_failed">Det gick inte att installera uppdateringen</string>
     <string name="installing_manager_update">Installerar uppdateringen …</string>
     <string name="downloading_manager_update">Laddar ned uppdateringen …</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">Det gick inte att ladda ned uppdateringen: %s</string>
     <string name="failed_to_check_updates">Det gick inte att söka efter uppdateringar: %s</string>
     <string name="failed_to_download_update">Det gick inte att ladda ned uppdateringen: %s</string>

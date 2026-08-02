@@ -1103,6 +1103,9 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">Не вдалося встановити оновлення</string>
     <string name="installing_manager_update">Встановлення оновлення…</string>
     <string name="downloading_manager_update">Завантаження оновлення…</string>
+    <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">Завантажено %1$.1f МБ</string>
+    <string name="manager_update_not_ready">Цей реліз ще публікується. Спробуйте знову за кілька хвилин</string>
     <string name="download_manager_failed">Помилка завантаження оновлення: %s</string>
     <string name="failed_to_check_updates">Не вдалося перевірити наявність оновлень: %s</string>
     <string name="failed_to_download_update">Помилка завантаження оновлення: %s</string>

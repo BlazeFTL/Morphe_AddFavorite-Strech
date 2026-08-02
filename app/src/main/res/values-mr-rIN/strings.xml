@@ -253,6 +253,11 @@
     <string name="home_dialog_wrong_package_description">तुम्ही निवडलेला APK तुम्ही पॅच करू इच्छित असलेल्या ॲप्लिकेशनसाठी नाही</string>
     <string name="home_dialog_expected_package">अपेक्षित पॅकेज:</string>
     <string name="home_dialog_selected_package">निवडलेले पॅकेज:</string>
+    <string name="home_dialog_orphaned_install_title">मागील प्रत मागे राहिली</string>
+    <string name="home_dialog_orphaned_install_description">पॅचिंगमुळे पॅकेजचे नाव बदलले, त्यामुळे तुम्ही पूर्वी पॅच केलेली प्रत अजूनही स्वतंत्र ॲप म्हणून स्थापित आहे</string>
+    <string name="home_dialog_orphaned_install_warning">हे आता ट्रॅक केले जाणार नाही आणि पॅच अपडेट्स मिळणार नाहीत</string>
+    <string name="home_dialog_orphaned_install_uninstall">अनइंस्टॉल करा</string>
+    <string name="home_dialog_orphaned_install_keep">ठेवा</string>
     <string name="home_outdated_patches_dialog_title">पॅच कालबाह्य होऊ शकतात</string>
     <string name="home_outdated_patches_dialog_message">मोबाइल डेटा सक्रिय आहे आणि पॅच अपडेट्स बंद आहेत</string>
     <string name="home_outdated_patches_dialog_warning">कालबाह्य पॅचसह पॅचिंग केल्याने ॲप खंडित होऊ शकते</string>
@@ -391,6 +396,8 @@
     <string name="patcher_error_dialog_app_info">ॲप माहिती</string>
     <string name="patcher_tab_logs">पॅचर लॉग</string>
     <string name="patcher_tab_game">गेम</string>
+    <string name="patcher_logs_waiting">लॉग आउटपुटची प्रतीक्षा करत आहे…</string>
+    <string name="patcher_logs_lost">ॲप रीस्टार्ट झाल्यावर लॉग आउटपुट ठेवला जात नाही</string>
     <string name="patcher_long_step_warning">या स्टेपला थोडा वेळ लागू शकतो. कृपया प्रतीक्षा करा…</string>
     <string name="patcher_installing_subtitle">जवळपास तयार! 🎸</string>
     <string name="patcher_success_title">सर्व पूर्ण झाले! 🎉</string>
@@ -1094,6 +1101,7 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">अपडेट स्थापित करण्यात अयशस्वी</string>
     <string name="installing_manager_update">अपडेट स्थापित करत आहे…</string>
     <string name="downloading_manager_update">अपडेट डाउनलोड करत आहे…</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">अपडेट डाउनलोड करण्यात अयशस्वी: %s</string>
     <string name="failed_to_check_updates">अपडेट तपासण्यात अयशस्वी: %s</string>
     <string name="failed_to_download_update">अपडेट डाउनलोड करण्यात अयशस्वी: %s</string>

@@ -258,6 +258,7 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_dialog_orphaned_install_description">Das Patchen hat den Paketnamen geändert, sodass die zuvor gepatchte Kopie weiterhin als separate App installiert ist</string>
     <string name="home_dialog_orphaned_install_warning">Sie wird nicht mehr nachverfolgt und empfängt keine Patch-Updates mehr</string>
     <string name="home_dialog_orphaned_install_uninstall">Deinstallation erforderlich</string>
+    <string name="home_dialog_orphaned_install_keep">Behalten</string>
     <string name="home_outdated_patches_dialog_title">Patches könnten veraltet sein</string>
     <string name="home_outdated_patches_dialog_message">Mobile Daten sind aktiv und Patch-Updates sind deaktiviert</string>
     <string name="home_outdated_patches_dialog_warning">Das Patchen mit veralteten Patches kann zu einer defekten App führen</string>
@@ -396,6 +397,8 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="patcher_error_dialog_app_info">App-Informationen</string>
     <string name="patcher_tab_logs">Patcher-Protokolle</string>
     <string name="patcher_tab_game">Spiele</string>
+    <string name="patcher_logs_waiting">Warte auf die Log-Ausgabe…</string>
+    <string name="patcher_logs_lost">Die Log-Ausgabe wird zwischen App-Neustarts nicht gespeichert</string>
     <string name="patcher_long_step_warning">Dieser Schritt kann eine Weile dauern. Bitte warten…</string>
     <string name="patcher_installing_subtitle">Gleich geht die Party ab! 🎸</string>
     <string name="patcher_success_title">Alles erledigt! 🎉</string>
@@ -1100,6 +1103,7 @@ Details: %2$s"</string>
     <string name="install_update_manager_failed">Installation des Updates fehlgeschlagen</string>
     <string name="installing_manager_update">Installiere Update…</string>
     <string name="downloading_manager_update">Lade Update herunter…</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <string name="download_manager_failed">Herunterladen des Updates fehlgeschlagen: %s</string>
     <string name="failed_to_check_updates">Prüfung auf Updates fehlgeschlagen: %s</string>
     <string name="failed_to_download_update">Herunterladen des Updates fehlgeschlagen: %s</string>

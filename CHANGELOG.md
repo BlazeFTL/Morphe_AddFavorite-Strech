@@ -1,3 +1,10 @@
+# [1.25.0-dev.17](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.16...v1.25.0-dev.17) (2026-08-03)
+
+
+### Bug Fixes
+
+* Unify badges and version tags ([7c1f46f](https://github.com/MorpheApp/morphe-manager/commit/7c1f46fd7cabd2dc153b1594a4f15763d23a1bdb))
+
 # [1.25.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.15...v1.25.0-dev.16) (2026-08-03)
 
 

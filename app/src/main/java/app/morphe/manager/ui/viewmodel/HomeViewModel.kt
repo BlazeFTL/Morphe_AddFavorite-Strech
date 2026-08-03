@@ -7,6 +7,7 @@ package app.morphe.manager.ui.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.ComponentName
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -68,6 +69,7 @@ import app.morphe.manager.util.PatchSelectionUtils.updateOption
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
 import app.morphe.patcher.patch.ApkArchitecture
+import app.morphe.patcher.patch.ApkFileType
 import app.morphe.patcher.patch.AppTarget
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.*
@@ -2915,6 +2917,62 @@ class HomeViewModel(
             }
             resolvedDownloadUrl = resolved
         }
+    }
+
+    /**
+     * Whether the APK about to be selected will have its signature checked. False on Android 8-10,
+     * where signatures cannot be read from an archive, and when the bundle declares none.
+     */
+    val pendingApkSignatureCheckAvailable: Boolean
+        get() {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return false
+            val packageName = pendingPackageName ?: return false
+            return !bundleAppMetadataFlow.value[packageName]?.signatures.isNullOrEmpty()
+        }
+
+    /**
+     * Build the request for an APK download helper, describing the original APK of the pending app.
+     *
+     * @param component The helper activity the user picked, addressed explicitly.
+     */
+    fun createApkDownloadHelperIntent(component: ComponentName): Intent? {
+        val packageName = pendingPackageName ?: return null
+        val appName = pendingAppName ?: KnownApps.getAppName(packageName)
+        // Use the version selected by the user in Dialog 1; fall back to recommended
+        val requestedVersion = pendingSelectedDownloadVersion ?: pendingRecommendedVersion
+        val apkFileType = bundleAppMetadataFlow.value[packageName]?.apkFileType
+
+        val requestedVersionCodes = pendingCompatibleVersions
+            .filter { it.target.version == requestedVersion?.version }
+            .flatMap { it.buildCodes.orEmpty() }
+            .distinct()
+            .map(Int::toLong)
+            .toLongArray()
+
+        return ApkDownloadHelperContract.createRequestIntent(
+            component = component,
+            callerPackage = app.packageName,
+            packageName = packageName,
+            appName = appName,
+            versionName = requestedVersion?.version,
+            versionCodes = requestedVersionCodes,
+            compatibleVersionNames = pendingCompatibleVersions.mapNotNull { it.target.version }.distinct(),
+            supportedAbis = Build.SUPPORTED_ABIS,
+            fileType = apkFileType?.toHelperFileType(),
+            // Mirrors processSelectedApp - only a required plain APK rules split archives out
+            allowSplitArchive = !(apkFileType?.isApk == true && apkFileType.isRequired),
+            stockInstallRequired = usingMountInstall && pendingTargetAppInstalled != true,
+            fallbackWebUrl = downloadUrlResolver.webSearchUrl(packageName, requestedVersion?.version)
+        )
+    }
+
+    /** Map the bundle's file type onto the stable string constants of the helper protocol. */
+    private fun ApkFileType.toHelperFileType() = when {
+        isApk -> ApkDownloadHelperContract.FILE_TYPE_APK
+        isApkM -> ApkDownloadHelperContract.FILE_TYPE_APKM
+        isApkS -> ApkDownloadHelperContract.FILE_TYPE_APKS
+        isXApk -> ApkDownloadHelperContract.FILE_TYPE_XAPK
+        else -> null
     }
 
     /**

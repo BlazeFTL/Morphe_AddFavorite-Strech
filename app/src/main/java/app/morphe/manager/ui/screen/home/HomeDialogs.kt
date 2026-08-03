@@ -80,6 +80,13 @@ fun HomeDialogs(
     val uriHandler = LocalUriHandler.current
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val apkDownloadHelperEnabled by homeViewModel.prefs.useApkDownloadHelper.getAsState()
+
+    // Kept outside the dialog so the picker state survives the download dialog's exit animation
+    val openApkDownloadHelper = rememberApkDownloadHelperAction(
+        homeViewModel = homeViewModel,
+        enabled = apkDownloadHelperEnabled && homeViewModel.showDownloadInstructionsDialog
+    )
 
     // APK selection processing overlay - blocks interaction while APK is loaded/validated in background
     Overlay(visible = homeViewModel.processingApkSelection) {
@@ -174,7 +181,8 @@ fun HomeDialogs(
             onDismiss = {
                 homeViewModel.showDownloadInstructionsDialog = false
                 homeViewModel.cleanupPendingData()
-            }
+            },
+            onOpenApkDownloadHelper = openApkDownloadHelper
         ) {
             homeViewModel.handleDownloadInstructionsContinue { url ->
                 try {
@@ -829,6 +837,7 @@ internal fun DownloadInstructionsDialog(
     downloadColor: Color,
     isApkBundle: Boolean,
     onDismiss: () -> Unit,
+    onOpenApkDownloadHelper: (() -> Unit)? = null,
     onContinue: () -> Unit
 ) {
     val context = LocalContext.current
@@ -846,12 +855,24 @@ internal fun DownloadInstructionsDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_download_instructions_title),
         footer = {
-            AppDialogButton(
-                text = stringResource(R.string.home_download_instructions_continue),
-                onClick = onContinue,
-                icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                modifier = Modifier.fillMaxWidth()
-            )
+            if (onOpenApkDownloadHelper != null) {
+                AppDialogButtonRow(
+                    primaryText = stringResource(R.string.home_download_instructions_continue),
+                    onPrimaryClick = onContinue,
+                    primaryIcon = Icons.AutoMirrored.Outlined.OpenInNew,
+                    secondaryText = stringResource(R.string.home_apk_helper_download),
+                    onSecondaryClick = onOpenApkDownloadHelper,
+                    secondaryIcon = Icons.Outlined.Download,
+                    layout = DialogButtonLayout.Vertical
+                )
+            } else {
+                AppDialogButton(
+                    text = stringResource(R.string.home_download_instructions_continue),
+                    onClick = onContinue,
+                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     ) {
         val textColor = LocalDialogTextColor.current
@@ -1452,15 +1473,24 @@ fun InvalidSignatureDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_invalid_signature_title),
         footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.home_split_apk_warning_pick_another),
-                onPrimaryClick = onPickAnother,
-                primaryIcon = Icons.Outlined.FolderOpen,
-                secondaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
-                onSecondaryClick = onProceed,
-                isPrimaryDestructive = false,
-                layout = DialogButtonLayout.Vertical,
-            )
+            AppDialogButtonColumn {
+                AppDialogButton(
+                    text = stringResource(R.string.home_split_apk_warning_pick_another),
+                    onClick = onPickAnother,
+                    icon = Icons.Outlined.FolderOpen,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                AppDialogOutlinedButton(
+                    text = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
+                    onClick = onProceed,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                AppDialogOutlinedButton(
+                    text = stringResource(android.R.string.cancel),
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     ) {
         Column(

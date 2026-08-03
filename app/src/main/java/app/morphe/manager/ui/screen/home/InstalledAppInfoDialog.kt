@@ -323,7 +323,7 @@ fun InstalledAppInfoDialog(
     }
 
     // Main Dialog
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = null,
         dismissOnClickOutside = true,
@@ -333,7 +333,7 @@ fun InstalledAppInfoDialog(
     ) {
         AnimatedContent(
             targetState = isLoading || installedApp == null,
-            transitionSpec = MorpheAnimations.fadeCrossfade(),
+            transitionSpec = Animations.fadeCrossfade(),
             modifier = Modifier.fillMaxSize(),
             label = "installedAppInfo"
         ) { loading ->
@@ -360,7 +360,7 @@ fun InstalledAppInfoDialog(
                             .fillMaxHeight()
                             .statusBarsPadding()
                             .navigationBarsPadding()
-                            .padding(horizontal = MorpheDefaults.ContentPadding)
+                            .padding(horizontal = Defaults.ContentPadding)
                     ) {
                         BoxWithConstraints(modifier = Modifier.fillMaxWidth().weight(1f)) {
                             val availableHeight = maxHeight
@@ -369,7 +369,7 @@ fun InstalledAppInfoDialog(
                                     .fillMaxWidth()
                                     .heightIn(min = availableHeight)
                                     .verticalScroll(rememberScrollState()),
-                                verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing, Alignment.CenterVertically)
+                                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterVertically)
                             ) {
                                 StaggeredItem(entered = entered.value, index = 1) {
                                     ActionsSection(
@@ -395,15 +395,15 @@ fun InstalledAppInfoDialog(
                                 }
                                 if (!viewModel.hasOriginalApk) {
                                     StaggeredItem(entered = entered.value, index = 2) {
-                                        MorpheNotice(
+                                        Notice(
                                             text = stringResource(R.string.home_app_info_no_saved_apk),
-                                            tone = MorpheTone.Warning,
+                                            tone = SemanticTone.Warning,
                                             icon = Icons.Outlined.Info
                                         )
                                     }
                                 }
                                 StaggeredItem(entered = entered.value, index = 1) {
-                                    MorpheDialogOutlinedButton(
+                                    AppDialogOutlinedButton(
                                         text = stringResource(R.string.close),
                                         onClick = onDismiss,
                                         modifier = Modifier.fillMaxWidth()
@@ -413,7 +413,7 @@ fun InstalledAppInfoDialog(
                         }
                     }
 
-                    VerticalDivider(modifier = Modifier.statusBarsPadding().navigationBarsPadding().padding(vertical = MorpheDefaults.ContentPadding))
+                    VerticalDivider(modifier = Modifier.statusBarsPadding().navigationBarsPadding().padding(vertical = Defaults.ContentPadding))
 
                     // Right panel: header + banners + info
                     LazyColumn(
@@ -421,8 +421,8 @@ fun InstalledAppInfoDialog(
                             .weight(1f)
                             .fillMaxHeight()
                             .navigationBarsPadding(),
-                        contentPadding = PaddingValues(bottom = MorpheDefaults.ContentPaddingMedium),
-                        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                        contentPadding = PaddingValues(bottom = Defaults.ContentPaddingMedium),
+                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
                     ) {
                         item(contentType = "hero") {
                             AppHeroHeader(
@@ -432,19 +432,19 @@ fun InstalledAppInfoDialog(
                                 accentColor = infoAccentColor,
                                 compact = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded,
                                 modifier = Modifier
-                                    .padding(horizontal = MorpheDefaults.ContentPadding)
-                                    .clip(RoundedCornerShape(bottomStart = MorpheDefaults.CardCornerRadius, bottomEnd = MorpheDefaults.CardCornerRadius))
+                                    .padding(horizontal = Defaults.ContentPadding)
+                                    .clip(RoundedCornerShape(bottomStart = Defaults.CardCornerRadius, bottomEnd = Defaults.CardCornerRadius))
                             )
                         }
                         item(key = "banners") {
                             Column(
-                                modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding),
-                                verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                                modifier = Modifier.padding(horizontal = Defaults.ContentPadding),
+                                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
                             ) {
                                 AnimatedVisibility(
                                     visible = viewModel.isAppDeleted,
-                                    enter = MorpheAnimations.expandFadeEnter,
-                                    exit = MorpheAnimations.shrinkFadeExit
+                                    enter = Animations.expandFadeEnter,
+                                    exit = Animations.shrinkFadeExit
                                 ) {
                                     StaggeredItem(entered = entered.value, index = 2) {
                                         WarningBanner(
@@ -461,8 +461,8 @@ fun InstalledAppInfoDialog(
                                 }
                                 AnimatedVisibility(
                                     visible = hasUpdate && !viewModel.isAppDeleted,
-                                    enter = MorpheAnimations.expandFadeEnter,
-                                    exit = MorpheAnimations.shrinkFadeExit
+                                    enter = Animations.expandFadeEnter,
+                                    exit = Animations.shrinkFadeExit
                                 ) {
                                     StaggeredItem(entered = entered.value, index = 3) {
                                         WarningBanner(
@@ -487,7 +487,7 @@ fun InstalledAppInfoDialog(
                                     bundlesUsedSummary = bundlesUsedSummary,
                                     onShowPatches = { showAppliedPatchesDialog.value = true },
                                     accentColor = infoAccentColor,
-                                    modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding)
+                                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
                                 )
                             }
                         }
@@ -498,7 +498,7 @@ fun InstalledAppInfoDialog(
                 Column(modifier = Modifier.fillMaxSize()) {
                     LazyColumn(
                         modifier = Modifier.weight(1f).fillMaxWidth(),
-                        contentPadding = PaddingValues(bottom = MorpheDefaults.ContentPaddingMedium)
+                        contentPadding = PaddingValues(bottom = Defaults.ContentPaddingMedium)
                     ) {
                         // Hero header
                         item(contentType = "hero") {
@@ -507,7 +507,7 @@ fun InstalledAppInfoDialog(
                                 packageName = packageName,
                                 installedApp = installedApp,
                                 accentColor = infoAccentColor,
-                                modifier = Modifier.clip(RoundedCornerShape(bottomStart = MorpheDefaults.CardCornerRadius, bottomEnd = MorpheDefaults.CardCornerRadius))
+                                modifier = Modifier.clip(RoundedCornerShape(bottomStart = Defaults.CardCornerRadius, bottomEnd = Defaults.CardCornerRadius))
                             )
                         }
 
@@ -522,11 +522,11 @@ fun InstalledAppInfoDialog(
                             Column {
                                 androidx.compose.animation.AnimatedVisibility(
                                     visible = viewModel.isAppDeleted,
-                                    enter = MorpheAnimations.expandFadeEnter,
-                                    exit = MorpheAnimations.shrinkFadeExit
+                                    enter = Animations.expandFadeEnter,
+                                    exit = Animations.shrinkFadeExit
                                 ) {
                                     Column {
-                                        Spacer(Modifier.height(MorpheDefaults.ItemSpacing))
+                                        Spacer(Modifier.height(Defaults.ItemSpacing))
                                         StaggeredItem(entered = entered.value, index = 1) {
                                             WarningBanner(
                                                 icon = Icons.Outlined.Warning,
@@ -539,18 +539,18 @@ fun InstalledAppInfoDialog(
                                                 },
                                                 accentColor = infoAccentColor,
                                                 isError = true,
-                                                modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding)
+                                                modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
                                             )
                                         }
                                     }
                                 }
                                 androidx.compose.animation.AnimatedVisibility(
                                     visible = hasUpdate && !viewModel.isAppDeleted,
-                                    enter = MorpheAnimations.expandFadeEnter,
-                                    exit = MorpheAnimations.shrinkFadeExit
+                                    enter = Animations.expandFadeEnter,
+                                    exit = Animations.shrinkFadeExit
                                 ) {
                                     Column {
-                                        Spacer(Modifier.height(MorpheDefaults.ItemSpacing))
+                                        Spacer(Modifier.height(Defaults.ItemSpacing))
                                         StaggeredItem(entered = entered.value, index = 1) {
                                             WarningBanner(
                                                 icon = Icons.Outlined.Update,
@@ -563,7 +563,7 @@ fun InstalledAppInfoDialog(
                                                 },
                                                 accentColor = infoAccentColor,
                                                 isError = false,
-                                                modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding)
+                                                modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
                                             )
                                         }
                                     }
@@ -574,7 +574,7 @@ fun InstalledAppInfoDialog(
                         // Info Section
                         val infoIdx = staggerIndex++
                         item {
-                            Box(modifier = Modifier.padding(top = MorpheDefaults.ItemSpacing)) {
+                            Box(modifier = Modifier.padding(top = Defaults.ItemSpacing)) {
                                 StaggeredItem(entered = entered.value, index = infoIdx) {
                                     InfoSection(
                                         installedApp = installedApp,
@@ -582,7 +582,7 @@ fun InstalledAppInfoDialog(
                                         bundlesUsedSummary = bundlesUsedSummary,
                                         onShowPatches = { showAppliedPatchesDialog.value = true },
                                         accentColor = infoAccentColor,
-                                        modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding)
+                                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
                                     )
                                 }
                             }
@@ -610,8 +610,8 @@ fun InstalledAppInfoDialog(
                                         showMountWarningDialog.value = true
                                     },
                                     modifier = Modifier
-                                        .padding(horizontal = MorpheDefaults.ContentPadding)
-                                        .padding(top = MorpheDefaults.ItemSpacing)
+                                        .padding(horizontal = Defaults.ContentPadding)
+                                        .padding(top = Defaults.ItemSpacing)
                                 )
                             }
                         }
@@ -621,28 +621,28 @@ fun InstalledAppInfoDialog(
                             val idx = staggerIndex
                             item {
                                 StaggeredItem(entered = entered.value, index = idx) {
-                                    MorpheNotice(
+                                    Notice(
                                         text = stringResource(R.string.home_app_info_no_saved_apk),
-                                        tone = MorpheTone.Warning,
+                                        tone = SemanticTone.Warning,
                                         icon = Icons.Outlined.Info,
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(horizontal = MorpheDefaults.ContentPadding)
-                                            .padding(top = MorpheDefaults.ItemSpacing)
+                                            .padding(horizontal = Defaults.ContentPadding)
+                                            .padding(top = Defaults.ItemSpacing)
                                     )
                                 }
                             }
                         }
                     }
                     StaggeredItem(entered = entered.value, index = 3) {
-                        MorpheDialogOutlinedButton(
+                        AppDialogOutlinedButton(
                             text = stringResource(R.string.close),
                             onClick = onDismiss,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .navigationBarsPadding()
-                                .padding(horizontal = MorpheDefaults.ContentPadding)
-                                .padding(vertical = MorpheDefaults.ItemSpacing)
+                                .padding(horizontal = Defaults.ContentPadding)
+                                .padding(vertical = Defaults.ItemSpacing)
                         )
                     }
                 }
@@ -683,24 +683,24 @@ private fun WarningBanner(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(MorpheDefaults.ItemSpacing))
-            .border(1.dp, borderColor, RoundedCornerShape(MorpheDefaults.ItemSpacing))
+            .clip(RoundedCornerShape(Defaults.ItemSpacing))
+            .border(1.dp, borderColor, RoundedCornerShape(Defaults.ItemSpacing))
             .background(containerColor)
-            .padding(MorpheDefaults.ItemSpacing),
-        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+            .padding(Defaults.ItemSpacing),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Header with icon
         Row(
             modifier = Modifier.wrapContentWidth(),
-            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
                 tint = contentColor,
-                modifier = Modifier.size(MorpheDefaults.ContentPadding)
+                modifier = Modifier.size(Defaults.ContentPadding)
             )
             Text(
                 text = title,
@@ -792,8 +792,8 @@ private fun AppHeroHeader(
                 .fillMaxWidth()
                 .statusBarsPadding()
                 .padding(
-                    horizontal = MorpheDefaults.ContentPadding,
-                    vertical = MorpheDefaults.ContentPaddingSmall
+                    horizontal = Defaults.ContentPadding,
+                    vertical = Defaults.ContentPaddingSmall
                 )
         ) {
             val (chipIcon, chipLabel) = when (installedApp.installType) {
@@ -808,7 +808,7 @@ private fun AppHeroHeader(
             }
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -828,7 +828,7 @@ private fun AppHeroHeader(
                 )
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
                 ) {
                     // Animated app name (leads textProgress)
                     Box(
@@ -866,17 +866,17 @@ private fun AppHeroHeader(
                             translationY = lerp(20f, 0f, chipsProgress)
                             alpha = chipsProgress.coerceIn(0f, 1f)
                         },
-                        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                         horizontalAlignment = Alignment.End
                     ) {
-                        MorpheBadge(
+                        StatusBadge(
                             text = stringResource(chipLabel),
                             icon = chipIcon,
                             containerColor = chipBg,
                             contentColor = onHero
                         )
                         if (relativeTime != null) {
-                            MorpheBadge(
+                            StatusBadge(
                                 text = relativeTime,
                                 icon = Icons.Outlined.Schedule,
                                 containerColor = chipBg,
@@ -889,10 +889,10 @@ private fun AppHeroHeader(
 
             // Normal mode: chips on separate row below
             if (!compact) {
-                Spacer(Modifier.height(MorpheDefaults.ContentPaddingSmall))
+                Spacer(Modifier.height(Defaults.ContentPaddingSmall))
 
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                 ) {
                     // Animated chip 1
                     Box(
@@ -901,7 +901,7 @@ private fun AppHeroHeader(
                             alpha = chipsProgress.coerceIn(0f, 1f)
                         }
                     ) {
-                        MorpheBadge(
+                        StatusBadge(
                             text = stringResource(chipLabel),
                             icon = chipIcon,
                             containerColor = chipBg,
@@ -917,7 +917,7 @@ private fun AppHeroHeader(
                                 alpha = p
                             }
                         ) {
-                            MorpheBadge(
+                            StatusBadge(
                                 text = relativeTime,
                                 icon = Icons.Outlined.Schedule,
                                 containerColor = chipBg,
@@ -1000,8 +1000,8 @@ private fun InfoSection(
         } catch (_: Exception) { emptyList() }
     }
 
-    MorpheCard(
-        cornerRadius = MorpheDefaults.ItemSpacing,
+    SurfaceCard(
+        cornerRadius = Defaults.ItemSpacing,
         borderWidth = 1.dp,
         modifier = modifier
     ) {
@@ -1013,7 +1013,7 @@ private fun InfoSection(
             )
 
             if (installedApp.originalPackageName != installedApp.currentPackageName) {
-                MorpheSettingsDivider()
+                SettingsDivider()
                 InfoRow(
                     icon = Icons.Outlined.Category,
                     label = stringResource(R.string.home_app_info_original_package_name),
@@ -1022,7 +1022,7 @@ private fun InfoSection(
             }
 
             if (apkSize != null) {
-                MorpheSettingsDivider()
+                SettingsDivider()
                 InfoRow(
                     icon = Icons.Outlined.SdCard,
                     label = stringResource(R.string.home_app_info_apk_size),
@@ -1031,7 +1031,7 @@ private fun InfoSection(
             }
 
             if (apkAbis.isNotEmpty()) {
-                MorpheSettingsDivider()
+                SettingsDivider()
                 InfoRow(
                     icon = Icons.Outlined.Memory,
                     label = stringResource(R.string.home_app_info_cpu_arch),
@@ -1040,7 +1040,7 @@ private fun InfoSection(
             }
 
             if (totalPatches > 0) {
-                MorpheSettingsDivider()
+                SettingsDivider()
                 InfoRowWithAction(
                     icon = Icons.Outlined.DoneAll,
                     label = stringResource(R.string.home_app_info_applied_patches),
@@ -1051,7 +1051,7 @@ private fun InfoSection(
             }
 
             if (bundlesUsedSummary.isNotBlank()) {
-                MorpheSettingsDivider()
+                SettingsDivider()
                 InfoRow(
                     icon = Icons.Outlined.Source,
                     label = stringResource(R.string.home_app_info_patch_source_used),
@@ -1071,7 +1071,7 @@ private fun InfoRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = MorpheDefaults.ItemSpacing, vertical = MorpheDefaults.ContentPaddingSmall),
+            .padding(horizontal = Defaults.ItemSpacing, vertical = Defaults.ContentPaddingSmall),
         horizontalArrangement = Arrangement.spacedBy(14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -1111,7 +1111,7 @@ private fun InfoRowWithAction(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = MorpheDefaults.ItemSpacing, vertical = MorpheDefaults.ContentPaddingSmall),
+            .padding(horizontal = Defaults.ItemSpacing, vertical = Defaults.ContentPaddingSmall),
         horizontalArrangement = Arrangement.spacedBy(14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -1347,7 +1347,7 @@ private fun ActionsSection(
         )
     }
 
-    Column(modifier = modifier.animateContentSize(animationSpec = tween(MorpheDefaults.ANIMATION_DURATION)), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column(modifier = modifier.animateContentSize(animationSpec = tween(Defaults.ANIMATION_DURATION)), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         // Primary actions row
         if (primaryActions.isNotEmpty()) {
             primaryActions.forEach { action ->
@@ -1427,7 +1427,7 @@ private fun ActionButton(
         onClick = action.onClick,
         enabled = action.enabled && !action.isLoading,
         modifier = modifier.height(52.dp),
-        shape = RoundedCornerShape(MorpheDefaults.CardCornerRadius),
+        shape = RoundedCornerShape(Defaults.CardCornerRadius),
         color = containerColor,
         contentColor = contentColor,
         border = BorderStroke(1.dp, borderColor)
@@ -1454,12 +1454,12 @@ private fun ActionButton(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = MorpheDefaults.ContentPadding),
+                    .padding(horizontal = Defaults.ContentPadding),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 LoadingOrIcon(action.isLoading, action, contentColor)
-                Spacer(Modifier.width(MorpheDefaults.ContentPaddingSmall))
+                Spacer(Modifier.width(Defaults.ContentPaddingSmall))
                 Text(
                     text = action.text,
                     style = MaterialTheme.typography.titleSmall,
@@ -1530,11 +1530,11 @@ private fun MountWarningDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.warning),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.ok),
                 onPrimaryClick = onConfirm,
                 secondaryText = stringResource(android.R.string.cancel),
@@ -1561,11 +1561,11 @@ private fun DeleteConfirmDialog(
 ) {
     if (!show) return
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.delete),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.delete),
                 onPrimaryClick = onConfirm,
                 isPrimaryDestructive = true,
@@ -1577,7 +1577,7 @@ private fun DeleteConfirmDialog(
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             AppIcon(
                 packageInfo = appInfo,
@@ -1617,11 +1617,11 @@ private fun DeleteConfirmDialog(
                 }
             }
             if (!isSavedOnly) {
-                MorpheNotice(
+                Notice(
                     text = stringResource(R.string.home_app_info_delete_preservation_note),
-                    tone = MorpheTone.Warning,
+                    tone = SemanticTone.Warning,
                     icon = Icons.Outlined.Info,
-                    density = MorpheNoticeDensity.Compact
+                    density = NoticeDensity.Compact
                 )
             }
         }
@@ -1636,11 +1636,11 @@ private fun SignatureConflictDialog(
 ) {
     if (!show) return
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_conflict_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.uninstall),
                 onPrimaryClick = onUninstall,
                 isPrimaryDestructive = true,
@@ -1672,10 +1672,10 @@ private fun AppliedPatchesDialog(
         }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(android.R.string.ok),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -1684,7 +1684,7 @@ private fun AppliedPatchesDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             HeroInfoCard(
                 icon = Icons.Outlined.Extension,
@@ -1712,7 +1712,7 @@ private fun AppliedPatchesDialog(
 
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
                     LabeledSection(
                         title = stringResource(R.string.home_app_info_applied_patches),

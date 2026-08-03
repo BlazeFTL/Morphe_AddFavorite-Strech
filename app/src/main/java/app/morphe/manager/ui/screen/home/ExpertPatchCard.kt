@@ -172,7 +172,7 @@ internal fun PatchCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MorpheDefaults.ContentPadding),
+                .padding(Defaults.ContentPadding),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -199,9 +199,9 @@ internal fun PatchCard(
                         modifier = Modifier.weight(1f, fill = false)
                     )
                     if (isNew) {
-                        MorpheBadge(
+                        StatusBadge(
                             text = stringResource(R.string.expert_mode_new_patches),
-                            tone = MorpheTone.Primary
+                            tone = SemanticTone.Primary
                         )
                     }
                 }

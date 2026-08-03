@@ -118,18 +118,18 @@ fun ExpertModeDialog(
         }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.expert_mode_title),
         titleTrailingContent = {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Count badge
-                MorpheBadge(
+                StatusBadge(
                     text = "$totalSelectedCount/$totalPatchesCount",
-                    tone = if (totalSelectedCount > 0) MorpheTone.Primary else MorpheTone.Neutral
+                    tone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
                 )
 
                 // Search toggle button
@@ -170,13 +170,13 @@ fun ExpertModeDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             // Search bar
             AnimatedVisibility(
                 visible = searchVisible,
-                enter = MorpheAnimations.expandFadeEnter,
-                exit = MorpheAnimations.shrinkFadeExit
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
             ) {
                 val focusRequester = remember { FocusRequester() }
                 val keyboardController = LocalSoftwareKeyboardController.current
@@ -184,7 +184,7 @@ fun ExpertModeDialog(
                     focusRequester.requestFocus()
                     keyboardController?.show()
                 }
-                MorpheDialogTextField(
+                AppDialogTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
                     label = {
@@ -213,7 +213,7 @@ fun ExpertModeDialog(
 
                 // Bundle name header
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     StatusCircleIcon(
@@ -261,7 +261,7 @@ fun ExpertModeDialog(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .verticalScroll(singleBundleScroll),
-                            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                         ) {
                             PatchListWithUniversalSection(
                                 patches = filteredPatches,
@@ -333,7 +333,7 @@ fun ExpertModeDialog(
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
-                                    modifier = Modifier.padding(horizontal = MorpheDefaults.ItemSpacing, vertical = 10.dp)
+                                    modifier = Modifier.padding(horizontal = Defaults.ItemSpacing, vertical = 10.dp)
                                 ) {
                                     Text(
                                         text = bundle.name,
@@ -346,9 +346,9 @@ fun ExpertModeDialog(
                                     Spacer(modifier = Modifier.height(2.dp))
 
                                     // Patch count badge
-                                    MorpheBadge(
+                                    StatusBadge(
                                         text = "$enabledCount/$totalCount",
-                                        tone = if (isSelected && hasResults) MorpheTone.Primary else MorpheTone.Neutral
+                                        tone = if (isSelected && hasResults) SemanticTone.Primary else SemanticTone.Neutral
                                     )
                                 }
                             }
@@ -375,7 +375,7 @@ fun ExpertModeDialog(
                             onRestoreSaved = { patchActions.onRestoreSaved(currentBundle.uid) },
                             onCopyFromBundle = { patchActions.onCopyFromBundle(currentBundle.uid) },
                             hasSavedSelection = savedPatches[currentBundle.uid]?.isNotEmpty() == true,
-                            modifier = Modifier.padding(vertical = MorpheDefaults.ContentPaddingSmall)
+                            modifier = Modifier.padding(vertical = Defaults.ContentPaddingSmall)
                         )
                     } else {
                         // Reserve space so pager height stays stable when a tab has no results
@@ -408,7 +408,7 @@ fun ExpertModeDialog(
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .verticalScroll(pageScroll),
-                                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                                 ) {
                                     PatchListWithUniversalSection(
                                         patches = patches,
@@ -446,7 +446,7 @@ fun ExpertModeDialog(
             }
 
             // Proceed to Patching button
-            MorpheDialogButton(
+            AppDialogButton(
                 text = proceedText,
                 onClick = {
                     // Check if multiple bundles are selected

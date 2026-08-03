@@ -330,7 +330,7 @@ fun BatchPatcherScreen(
         // patcher fades in on its own to soften the switch
         val appear = remember { MutableTransitionState(false).apply { targetState = true } }
 
-        AnimatedVisibility(visibleState = appear, enter = MorpheAnimations.fadeIn) {
+        AnimatedVisibility(visibleState = appear, enter = Animations.fadeIn) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -385,7 +385,7 @@ fun BatchPatcherScreen(
         it.state == BatchItemState.FAILED || it.state == BatchItemState.CANCELLED
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = close,
         title = stringResource(R.string.batch_patch_title),
         titleTrailingContent = if (current?.phase == BatchPhase.FINISHED && hasUnfinished) {
@@ -416,7 +416,7 @@ fun BatchPatcherScreen(
             LazyColumn(
                 state = listState,
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
                 if (current == null) return@LazyColumn
 
@@ -474,7 +474,7 @@ fun BatchPatcherScreen(
         }
     }
 
-    MorpheOverlay(visible = !closing && (current == null || current.phase == BatchPhase.PLANNING)) {
+    Overlay(visible = !closing && (current == null || current.phase == BatchPhase.PLANNING)) {
         PulsingLogoWithCaption(caption = stringResource(R.string.batch_patch_planning))
     }
 }
@@ -489,7 +489,7 @@ private fun BatchDialogButtons(
     onClose: () -> Unit
 ) {
     when (state?.phase) {
-        BatchPhase.PREFLIGHT -> MorpheDialogButtonRow(
+        BatchPhase.PREFLIGHT -> AppDialogButtonRow(
             primaryText = stringResource(R.string.batch_patch_start),
             primaryIcon = Icons.Outlined.PlayArrow,
             onPrimaryClick = onStart,
@@ -499,7 +499,7 @@ private fun BatchDialogButtons(
         )
 
         BatchPhase.FINISHED -> if (canInstall) {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.batch_patch_install_all),
                 primaryIcon = Icons.Outlined.InstallMobile,
                 onPrimaryClick = onInstallAll,
@@ -507,13 +507,13 @@ private fun BatchDialogButtons(
                 onSecondaryClick = onClose
             )
         } else {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.done),
                 onPrimaryClick = onClose
             )
         }
 
-        else -> MorpheDialogButtonRow(
+        else -> AppDialogButtonRow(
             primaryText = stringResource(android.R.string.cancel),
             onPrimaryClick = onClose
         )
@@ -526,14 +526,14 @@ private fun BatchRunHeader(state: BatchRunState) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = MorpheDefaults.ContentPadding)
-            .padding(top = MorpheDefaults.ContentPaddingSmall),
+            .padding(horizontal = Defaults.ContentPadding)
+            .padding(top = Defaults.ContentPaddingSmall),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         AnimatedContent(
             targetState = state.processed to state.total,
-            transitionSpec = MorpheAnimations.counterTransitionSpec,
+            transitionSpec = Animations.counterTransitionSpec,
             label = "batch_run_counter"
         ) { (processed, total) ->
             Text(
@@ -578,12 +578,12 @@ private fun BatchStatusCard(state: BatchRunState) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MorpheDefaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                .padding(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             AnimatedContent(
                 targetState = summary,
-                transitionSpec = MorpheAnimations.counterTransitionSpec,
+                transitionSpec = Animations.counterTransitionSpec,
                 label = "batch_summary"
             ) { text ->
                 Text(
@@ -667,8 +667,8 @@ private fun BatchItemCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(MorpheDefaults.ContentPadding),
-                horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+                    .padding(Defaults.ContentPadding),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AppIcon(
@@ -682,7 +682,7 @@ private fun BatchItemCard(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
@@ -703,14 +703,14 @@ private fun BatchItemCard(
                         // Once installing has been tried, its outcome is the newer and more
                         // useful fact about the app than how the patching went
                         when (item.installOutcome) {
-                            BatchInstallOutcome.INSTALLED -> MorpheBadge(
+                            BatchInstallOutcome.INSTALLED -> StatusBadge(
                                 text = stringResource(R.string.installed),
-                                tone = MorpheTone.Success
+                                tone = SemanticTone.Success
                             )
 
-                            BatchInstallOutcome.FAILED -> MorpheBadge(
+                            BatchInstallOutcome.FAILED -> StatusBadge(
                                 text = stringResource(R.string.batch_patch_install_failed),
-                                tone = MorpheTone.Error
+                                tone = SemanticTone.Error
                             )
 
                             null -> BatchStateBadge(item.state)
@@ -748,15 +748,15 @@ private fun BatchItemCard(
 
             AnimatedVisibility(
                 visible = editable,
-                enter = MorpheAnimations.expandFadeEnter,
-                exit = MorpheAnimations.shrinkFadeExit
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
             ) {
                 Column {
-                    MorpheSettingsDivider()
+                    SettingsDivider()
                     ActionPillRow(
                         modifier = Modifier.padding(
-                            horizontal = MorpheDefaults.ContentPadding,
-                            vertical = MorpheDefaults.ItemSpacing
+                            horizontal = Defaults.ContentPadding,
+                            vertical = Defaults.ItemSpacing
                         )
                     ) {
                         val selectApkLabel = stringResource(R.string.home_select_apk_title)
@@ -824,15 +824,15 @@ private fun BatchItemCard(
 
             AnimatedVisibility(
                 visible = hasResultActions,
-                enter = MorpheAnimations.expandFadeEnter,
-                exit = MorpheAnimations.shrinkFadeExit
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
             ) {
                 Column {
-                    MorpheSettingsDivider()
+                    SettingsDivider()
                     ActionPillRow(
                         modifier = Modifier.padding(
-                            horizontal = MorpheDefaults.ContentPadding,
-                            vertical = MorpheDefaults.ItemSpacing
+                            horizontal = Defaults.ContentPadding,
+                            vertical = Defaults.ItemSpacing
                         )
                     ) {
                         if (failed) {
@@ -931,16 +931,16 @@ private fun itemDetails(item: BatchPatchItem): String = when (item.state) {
 @Composable
 private fun BatchStateBadge(state: BatchItemState) {
     val (labelRes, tone) = when (state) {
-        BatchItemState.READY -> R.string.ready to MorpheTone.Primary
-        BatchItemState.RUNNING -> R.string.patching to MorpheTone.Primary
-        BatchItemState.SUCCEEDED -> R.string.done to MorpheTone.Success
-        BatchItemState.FAILED -> R.string.failed to MorpheTone.Error
-        BatchItemState.CANCELLED -> R.string.cancelled to MorpheTone.Neutral
-        BatchItemState.EXCLUDED -> R.string.excluded to MorpheTone.Neutral
-        BatchItemState.NEEDS_APK -> R.string.batch_patch_state_no_apk to MorpheTone.Error
-        BatchItemState.VERSION_MISMATCH -> R.string.version to MorpheTone.Warning
-        BatchItemState.NO_PATCHES -> R.string.batch_patch_state_no_patches to MorpheTone.Error
+        BatchItemState.READY -> R.string.ready to SemanticTone.Primary
+        BatchItemState.RUNNING -> R.string.patching to SemanticTone.Primary
+        BatchItemState.SUCCEEDED -> R.string.done to SemanticTone.Success
+        BatchItemState.FAILED -> R.string.failed to SemanticTone.Error
+        BatchItemState.CANCELLED -> R.string.cancelled to SemanticTone.Neutral
+        BatchItemState.EXCLUDED -> R.string.excluded to SemanticTone.Neutral
+        BatchItemState.NEEDS_APK -> R.string.batch_patch_state_no_apk to SemanticTone.Error
+        BatchItemState.VERSION_MISMATCH -> R.string.version to SemanticTone.Warning
+        BatchItemState.NO_PATCHES -> R.string.batch_patch_state_no_patches to SemanticTone.Error
     }
-    MorpheBadge(text = stringResource(labelRes), tone = tone)
+    StatusBadge(text = stringResource(labelRes), tone = tone)
 }
 

@@ -59,7 +59,7 @@ fun IncompatiblePatcherVersionDialog(
 ) {
     val context = LocalContext.current
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_incompatible_patcher_title),
         footer = {
@@ -67,7 +67,7 @@ fun IncompatiblePatcherVersionDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                MorpheDialogButton(
+                AppDialogButton(
                     text = stringResource(R.string.patcher_incompatible_patcher_update_button),
                     onClick = {
                         val intent = Intent(Intent.ACTION_VIEW, MORPHE_WEBSITE_URL.toUri())
@@ -76,7 +76,7 @@ fun IncompatiblePatcherVersionDialog(
                     icon = Icons.Outlined.SystemUpdate,
                     modifier = Modifier.fillMaxWidth()
                 )
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(R.string.close),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
@@ -135,7 +135,7 @@ fun StoragePermissionDialog(
         }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_storage_permission_dialog_title),
         footer = {
@@ -145,7 +145,7 @@ fun StoragePermissionDialog(
             ) {
                 if (isApi30Plus) {
                     // Android 11+ open the dedicated all-files-access settings screen
-                    MorpheDialogButton(
+                    AppDialogButton(
                         text = stringResource(R.string.patcher_storage_permission_open_settings),
                         onClick = {
                             // Open the per-app "Allow management of all files" system screen
@@ -164,7 +164,7 @@ fun StoragePermissionDialog(
                     )
                 } else {
                     // Android 10 and below request READ_EXTERNAL_STORAGE inline
-                    MorpheDialogButton(
+                    AppDialogButton(
                         text = stringResource(R.string.patcher_storage_permission_grant),
                         onClick = {
                             permissionDenied.value = false
@@ -175,7 +175,7 @@ fun StoragePermissionDialog(
                     )
                 }
 
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(android.R.string.cancel),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
@@ -187,7 +187,7 @@ fun StoragePermissionDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             Text(
                 text = stringResource(
@@ -207,9 +207,9 @@ fun StoragePermissionDialog(
             // READ_EXTERNAL_STORAGE prompt. Explains they must either grant the
             // permission or move the files to the private app directory
             if (permissionDenied.value) {
-                MorpheNotice(
+                Notice(
                     text = stringResource(R.string.patcher_storage_permission_denied_warning),
-                    tone = MorpheTone.Error,
+                    tone = SemanticTone.Error,
                     icon = Icons.Outlined.Lock
                 )
             }
@@ -258,7 +258,7 @@ fun StoragePermissionDialog(
 
                                 Spacer(Modifier.width(8.dp))
 
-                                MorpheBadge(
+                                StatusBadge(
                                     text = stringResource(
                                         if (isPermissionError) {
                                             R.string.patcher_storage_badge_denied
@@ -266,7 +266,7 @@ fun StoragePermissionDialog(
                                             R.string.patcher_storage_badge_missing
                                         }
                                     ),
-                                    tone = MorpheTone.Error
+                                    tone = SemanticTone.Error
                                 )
                             }
                         }
@@ -275,9 +275,9 @@ fun StoragePermissionDialog(
             }
 
             // Show hint so user knows the workaround even if they dismiss
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.patcher_storage_permission_hint),
-                tone = MorpheTone.Warning,
+                tone = SemanticTone.Warning,
                 icon = Icons.Outlined.FolderOff
             )
         }
@@ -295,7 +295,7 @@ fun BatteryOptimizationDialog(
 ) {
     val context = LocalContext.current
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onResult,
         title = stringResource(R.string.battery_optimization_dialog_title),
         footer = {
@@ -303,7 +303,7 @@ fun BatteryOptimizationDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                MorpheDialogButton(
+                AppDialogButton(
                     text = stringResource(R.string.allow),
                     onClick = {
                         context.startActivity(
@@ -317,7 +317,7 @@ fun BatteryOptimizationDialog(
                     icon = Icons.Outlined.BatterySaver,
                     modifier = Modifier.fillMaxWidth()
                 )
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(R.string.battery_optimization_not_now),
                     onClick = onResult,
                     modifier = Modifier.fillMaxWidth()
@@ -349,13 +349,13 @@ fun PatcherErrorDialog(
     @Suppress("DEPRECATION")
     val clipboardManager = LocalClipboardManager.current
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_failed_dialog_title),
         padding = DialogPadding.Compact,
         scrollable = false,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.copy),
                 onPrimaryClick = {
                     clipboardManager.setText(AnnotatedString(errorMessage))
@@ -384,7 +384,7 @@ fun PatcherErrorDialog(
 
                     if (errorInfo.bundles.isNotEmpty()) {
                         errorInfo.bundles.forEach { bundle ->
-                            MorpheSettingsDivider()
+                            SettingsDivider()
 
                             if (bundle.version != null) {
                                 ErrorInfoRow(bundle.name)
@@ -408,7 +408,7 @@ fun PatcherErrorDialog(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
-                        .padding(horizontal = MorpheDefaults.ContentPadding, vertical = 4.dp),
+                        .padding(horizontal = Defaults.ContentPadding, vertical = 4.dp),
                 ) {
                     Text(
                         text = errorMessage,
@@ -431,7 +431,7 @@ private fun ErrorInfoCard(
     errorBadge: String? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    MorpheCard(
+    SurfaceCard(
         modifier = modifier.fillMaxWidth(),
         elevation = 2.dp,
         cornerRadius = 16.dp
@@ -440,12 +440,12 @@ private fun ErrorInfoCard(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(topStart = MorpheDefaults.SectionCornerRadius, topEnd = MorpheDefaults.SectionCornerRadius)
+                shape = RoundedCornerShape(topStart = Defaults.SectionCornerRadius, topEnd = Defaults.SectionCornerRadius)
             ) {
                 IconTextRow(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                     leadingContent = {
-                        MorpheIcon(
+                        ThemedIcon(
                             icon = icon,
                             size = 18.dp,
                             tint = if (errorBadge != null) MaterialTheme.colorScheme.error
@@ -458,7 +458,7 @@ private fun ErrorInfoCard(
                 )
             }
 
-            MorpheSettingsDivider(fullWidth = true)
+            SettingsDivider(fullWidth = true)
 
             content()
         }

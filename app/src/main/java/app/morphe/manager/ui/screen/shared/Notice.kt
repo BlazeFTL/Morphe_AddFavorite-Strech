@@ -27,12 +27,12 @@ import androidx.compose.ui.unit.dp
  * How much room a notice takes. [Comfortable] is the standalone warning a dialog is built
  * around, [Compact] the aside that sits between other content.
  */
-enum class MorpheNoticeDensity {
+enum class NoticeDensity {
     Comfortable,
     Compact
 }
 
-/** Sizing for a single [MorpheNoticeDensity]. */
+/** Sizing for a single [NoticeDensity]. */
 private data class NoticeMetrics(
     val horizontalPadding: Dp,
     val verticalPadding: Dp,
@@ -65,21 +65,21 @@ private val CompactMetrics = NoticeMetrics(
  * @param modifier Modifier to be applied to the notice
  */
 @Composable
-fun MorpheNotice(
+fun Notice(
     text: String,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
-    tone: MorpheTone = MorpheTone.Neutral,
-    density: MorpheNoticeDensity = MorpheNoticeDensity.Comfortable,
+    tone: SemanticTone = SemanticTone.Neutral,
+    density: NoticeDensity = NoticeDensity.Comfortable,
     isCentered: Boolean = false
 ) {
     val metrics = when (density) {
-        MorpheNoticeDensity.Comfortable -> ComfortableMetrics
-        MorpheNoticeDensity.Compact -> CompactMetrics
+        NoticeDensity.Comfortable -> ComfortableMetrics
+        NoticeDensity.Compact -> CompactMetrics
     }
     val textStyle = when (density) {
-        MorpheNoticeDensity.Comfortable -> MaterialTheme.typography.bodyMedium
-        MorpheNoticeDensity.Compact -> MaterialTheme.typography.bodySmall
+        NoticeDensity.Comfortable -> MaterialTheme.typography.bodyMedium
+        NoticeDensity.Compact -> MaterialTheme.typography.bodySmall
     }
     val contentColor = tone.content
 
@@ -90,7 +90,7 @@ fun MorpheNotice(
 
     Surface(
         modifier = if (isCentered) modifier.wrapContentWidth() else modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
+        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
         color = tone.container
     ) {
         Row(
@@ -106,7 +106,7 @@ fun MorpheNotice(
             verticalAlignment = Alignment.CenterVertically
         ) {
             icon?.let {
-                MorpheIcon(icon = it, tint = contentColor, size = metrics.iconSize)
+                ThemedIcon(icon = it, tint = contentColor, size = metrics.iconSize)
             }
             Text(
                 text = breakableText,

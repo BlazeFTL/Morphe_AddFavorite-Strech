@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
  * version tags built on top of them. One definition, so the same meaning cannot read as two
  * different colors in two screens.
  */
-enum class MorpheTone {
+enum class SemanticTone {
     Neutral,
     Primary,
     Success,
@@ -88,11 +88,11 @@ private object BadgeDefaults {
  * @param modifier Modifier to be applied to the badge
  */
 @Composable
-fun MorpheBadge(
+fun StatusBadge(
     text: String,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
-    tone: MorpheTone = MorpheTone.Neutral,
+    tone: SemanticTone = SemanticTone.Neutral,
     containerColor: Color = tone.container,
     contentColor: Color = tone.content,
     onClick: (() -> Unit)? = null
@@ -115,7 +115,7 @@ fun MorpheBadge(
         verticalAlignment = Alignment.CenterVertically
     ) {
         icon?.let {
-            MorpheIcon(icon = it, tint = contentColor, size = BadgeDefaults.IconSize)
+            ThemedIcon(icon = it, tint = contentColor, size = BadgeDefaults.IconSize)
         }
         Text(
             text = breakableText,
@@ -127,11 +127,11 @@ fun MorpheBadge(
 }
 
 /**
- * Badges stacked at the end of a row, so a long neighbour shortens itself instead of
+ * Badges stacked at the end of a row, so a long neighbor shortens itself instead of
  * squeezing them.
  */
 @Composable
-fun MorpheBadgeColumn(
+fun StatusBadgeColumn(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {

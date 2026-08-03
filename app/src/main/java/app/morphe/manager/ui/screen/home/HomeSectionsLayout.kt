@@ -428,8 +428,8 @@ private fun HomeFooterControls(
     ) {
         AnimatedVisibility(
             visible = showOtherApps,
-            enter = MorpheAnimations.expandFadeEnter,
-            exit = MorpheAnimations.shrinkFadeExit
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
         ) {
             Column {
                 Spacer(modifier = Modifier.height(itemSpacing))
@@ -476,8 +476,8 @@ private fun AppGroupingFooter(
 ) {
     AnimatedVisibility(
         visible = visible,
-        enter = MorpheAnimations.expandFadeEnter,
-        exit = MorpheAnimations.shrinkFadeExit
+        enter = Animations.expandFadeEnter,
+        exit = Animations.shrinkFadeExit
     ) {
         AppGroupingToolbar(
             mode = mode,
@@ -510,7 +510,7 @@ fun GreetingSection(
     ) {
         AnimatedContent(
             targetState = message,
-            transitionSpec = MorpheAnimations.slideUpContentTransitionSpec,
+            transitionSpec = Animations.slideUpContentTransitionSpec,
             label = "greeting_transition"
         ) { targetMessage ->
             Text(
@@ -1040,12 +1040,12 @@ fun MainAppsSection(
 
         AnimatedContent(
             targetState = isEmptyState,
-            transitionSpec = MorpheAnimations.fadeCrossfade(300),
+            transitionSpec = Animations.fadeCrossfade(300),
             label = "home_empty_state"
         ) { empty ->
             if (empty) {
                 if (isAllHiddenState) {
-                    MorpheEmptyState(
+                    HomeEmptyState(
                         icon = Icons.Outlined.VisibilityOff,
                         title = stringResource(R.string.home_all_apps_hidden_title),
                         subtitle = stringResource(R.string.home_all_apps_hidden_subtitle),
@@ -1054,7 +1054,7 @@ fun MainAppsSection(
                         onAction = { state.showHiddenAppsDialog = true }
                     )
                 } else {
-                    MorpheEmptyState(
+                    HomeEmptyState(
                         icon = Icons.Outlined.Inbox,
                         title = stringResource(R.string.home_no_apps_title),
                         subtitle = stringResource(R.string.home_no_apps_subtitle, stringResource(R.string.sources_management_title)),
@@ -1075,8 +1075,8 @@ fun MainAppsSection(
                         // Search bar
                         AnimatedVisibility(
                             visible = searchState.visible,
-                            enter = MorpheAnimations.expandFadeEnter,
-                            exit = MorpheAnimations.shrinkFadeExit
+                            enter = Animations.expandFadeEnter,
+                            exit = Animations.shrinkFadeExit
                         ) {
                             HomeSearchTextField(
                                 value = searchQuery,

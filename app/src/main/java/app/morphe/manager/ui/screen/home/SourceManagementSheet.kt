@@ -181,7 +181,7 @@ fun BundleManagementSheet(
         }
     }
 
-    MorpheBottomSheet(onDismissRequest = onDismissRequest) {
+    AppBottomSheet(onDismissRequest = onDismissRequest) {
         val context = LocalContext.current
         val uriHandler = LocalUriHandler.current
         val failedToOpenUrlText = stringResource(R.string.sources_management_failed_to_open_url)
@@ -592,7 +592,7 @@ private fun BundleManagementCard(
             }
         }
 
-        Column(modifier = Modifier.padding(MorpheDefaults.ContentPadding)) {
+        Column(modifier = Modifier.padding(Defaults.ContentPadding)) {
             // Click target only on the header so expanded children stay independently focusable for screen readers
             BundleCardHeader(
                 bundle = bundle,
@@ -621,57 +621,57 @@ private fun BundleManagementCard(
             // Expanded content
             AnimatedVisibility(
                 visible = expanded,
-                enter = MorpheAnimations.expandVertEnter,
-                exit = MorpheAnimations.shrinkVertExit
+                enter = Animations.expandVertEnter,
+                exit = Animations.shrinkVertExit
             ) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
                     Column {
                         // Blocked source banner (shown when the source appears on the remote blocklist)
                         AnimatedVisibility(
                             visible = blockedInfo != null,
-                            enter = MorpheAnimations.expandFadeEnter,
-                            exit = MorpheAnimations.shrinkFadeExit
+                            enter = Animations.expandFadeEnter,
+                            exit = Animations.shrinkFadeExit
                         ) {
                             val label = stringResource(R.string.sources_management_source_blocked_badge)
                             val reason = blockedInfo?.reason?.trim()?.takeIf { it.isNotEmpty() }
                                 ?.replaceFirstChar { it.uppercaseChar() }
-                            MorpheNotice(
+                            Notice(
                                 text = if (reason != null) "$label: $reason" else label,
                                 icon = Icons.Outlined.Block,
-                                tone = MorpheTone.Error,
-                                density = MorpheNoticeDensity.Compact
+                                tone = SemanticTone.Error,
+                                density = NoticeDensity.Compact
                             )
                         }
 
                         // Metadata unavailable hint (shown when patches-bundle.json / remote fetch failed)
                         AnimatedVisibility(
                             visible = metadataFetchError != null || bundle.state is PatchBundleSource.State.Missing,
-                            enter = MorpheAnimations.expandFadeEnter,
-                            exit = MorpheAnimations.shrinkFadeExit
+                            enter = Animations.expandFadeEnter,
+                            exit = Animations.shrinkFadeExit
                         ) {
                             val hintText = if (bundle.state is PatchBundleSource.State.Missing) {
                                 stringResource(R.string.sources_management_metadata_unavailable_hint_missing)
                             } else {
                                 stringResource(R.string.sources_management_metadata_unavailable_hint)
                             }
-                            MorpheNotice(
+                            Notice(
                                 text = hintText,
                                 icon = Icons.Outlined.CloudOff,
-                                tone = MorpheTone.Error,
-                                density = MorpheNoticeDensity.Compact
+                                tone = SemanticTone.Error,
+                                density = NoticeDensity.Compact
                             )
                         }
 
                         // Outdated manager hint
                         AnimatedVisibility(
                             visible = bundle.requiresManagerUpdate,
-                            enter = MorpheAnimations.expandFadeEnter,
-                            exit = MorpheAnimations.shrinkFadeExit
+                            enter = Animations.expandFadeEnter,
+                            exit = Animations.shrinkFadeExit
                         ) {
-                            MorpheNotice(
+                            Notice(
                                 modifier = Modifier.clickable(onClick = onOutdatedManagerClick),
                                 text = stringResource(
                                     R.string.sources_management_outdated_manager_hint,
@@ -680,8 +680,8 @@ private fun BundleManagementCard(
                                     BuildConfig.PATCHER_VERSION
                                 ),
                                 icon = Icons.Outlined.SystemUpdate,
-                                tone = MorpheTone.Error,
-                                density = MorpheNoticeDensity.Compact
+                                tone = SemanticTone.Error,
+                                density = NoticeDensity.Compact
                             )
                         }
                     }
@@ -728,7 +728,7 @@ private fun BundleManagementCard(
                                 .semantics {
                                     contentDescription = openInBrowser
                                 },
-                            shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius)
+                            shape = RoundedCornerShape(Defaults.CompactCornerRadius)
                         ) {
                             Icon(
                                 Icons.AutoMirrored.Outlined.OpenInNew,
@@ -739,7 +739,7 @@ private fun BundleManagementCard(
                         }
                     }
 
-                    MorpheSettingsDivider(fullWidth = true)
+                    SettingsDivider(fullWidth = true)
 
                     // Resolve prerelease state once
                     val currentUsePrerelease = when (bundle) {
@@ -769,8 +769,8 @@ private fun BundleManagementCard(
                     AnimatedVisibility(
                         visible = hasExperimentalVersions && onExperimentalVersionsToggle != null &&
                                 (onPrereleasesToggle == null || currentUsePrerelease),
-                        enter = MorpheAnimations.expandFadeEnter,
-                        exit = MorpheAnimations.shrinkFadeExit
+                        enter = Animations.expandFadeEnter,
+                        exit = Animations.shrinkFadeExit
                     ) {
                         ToggleRow(
                             title = stringResource(R.string.sources_management_experimental_versions_toggle),
@@ -782,7 +782,7 @@ private fun BundleManagementCard(
                     }
 
                     if (onPrereleasesToggle != null || (hasExperimentalVersions && onExperimentalVersionsToggle != null)) {
-                        MorpheSettingsDivider(fullWidth = true)
+                        SettingsDivider(fullWidth = true)
                     }
 
                     // Action bar
@@ -971,56 +971,56 @@ private fun BundleCardHeader(
                 // Metadata unavailable badge
                 AnimatedVisibility(
                     visible = metadataFetchError != null || bundle.state is PatchBundleSource.State.Missing,
-                    enter = MorpheAnimations.expandHorizFadeIn,
-                    exit = MorpheAnimations.shrinkHorizFadeOut
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
                 ) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.sources_management_metadata_unavailable),
-                        tone = MorpheTone.Error
+                        tone = SemanticTone.Error
                     )
                 }
 
                 // Outdated manager badge
                 AnimatedVisibility(
                     visible = bundle.requiresManagerUpdate,
-                    enter = MorpheAnimations.expandHorizFadeIn,
-                    exit = MorpheAnimations.shrinkHorizFadeOut
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
                 ) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.sources_management_outdated_manager_badge),
-                        tone = MorpheTone.Error
+                        tone = SemanticTone.Error
                     )
                 }
 
                 // Blocked badge
                 AnimatedVisibility(
                     visible = blockedInfo != null,
-                    enter = MorpheAnimations.expandHorizFadeIn,
-                    exit = MorpheAnimations.shrinkHorizFadeOut
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
                 ) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.sources_management_source_blocked_badge),
-                        tone = MorpheTone.Error
+                        tone = SemanticTone.Error
                     )
                 }
 
                 // Disabled badge
                 AnimatedVisibility(
                     visible = !enabled && blockedInfo == null,
-                    enter = MorpheAnimations.expandHorizFadeIn,
-                    exit = MorpheAnimations.shrinkHorizFadeOut
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
                 ) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.disabled),
-                        tone = MorpheTone.Error
+                        tone = SemanticTone.Error
                     )
                 }
 
                 // Update badge
                 if (updateInfo != null) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.update),
-                        tone = MorpheTone.Warning
+                        tone = SemanticTone.Warning
                     )
                 }
             }
@@ -1045,7 +1045,7 @@ fun BundleTypeBadge(type: BundleSourceType) {
         BundleSourceType.Remote -> stringResource(R.string.sources_dialog_remote)
         BundleSourceType.Local -> stringResource(R.string.sources_dialog_local)
     }
-    MorpheBadge(text = text)
+    StatusBadge(text = text)
 }
 
 @Composable

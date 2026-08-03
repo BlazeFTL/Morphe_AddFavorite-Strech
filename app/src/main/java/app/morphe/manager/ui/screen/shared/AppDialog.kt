@@ -40,7 +40,7 @@ val LocalDialogSecondaryTextColor = compositionLocalOf { Color.White.copy(alpha 
 val LocalDialogHorizontalInset = compositionLocalOf { 0.dp }
 
 
-/** Controls outer padding and inset behavior of [MorpheDialog]. */
+/** Controls outer padding and inset behavior of [AppDialog]. */
 enum class DialogPadding {
     /** Standard 32dp outer padding with system bar insets. */
     Normal,
@@ -59,7 +59,7 @@ enum class DialogTitleActionStyle {
 }
 
 /**
- * Unified fullscreen dialog component for Morphe UI.
+ * Unified fullscreen dialog component.
  *
  * @param onDismissRequest Called when user dismisses the dialog.
  * @param title Optional title displayed at the top.
@@ -73,7 +73,7 @@ enum class DialogTitleActionStyle {
  * @param content Dialog content.
  */
 @Composable
-fun MorpheDialog(
+fun AppDialog(
     onDismissRequest: () -> Unit,
     title: String? = null,
     titleTrailingContent: (@Composable () -> Unit)? = null,
@@ -92,7 +92,7 @@ fun MorpheDialog(
         visible = true
         // Notify caller once the enter animation has completed
         if (onEntered != null) {
-            kotlinx.coroutines.delay(MorpheDefaults.ANIMATION_DURATION.toLong().milliseconds)
+            kotlinx.coroutines.delay(Defaults.ANIMATION_DURATION.toLong().milliseconds)
             onEntered()
         }
     }
@@ -130,8 +130,8 @@ fun MorpheDialog(
 
             AnimatedVisibility(
                 visible = visible,
-                enter = MorpheAnimations.dialogEnter,
-                exit = MorpheAnimations.dialogExit,
+                enter = Animations.dialogEnter,
+                exit = Animations.dialogExit,
                 modifier = Modifier.fillMaxSize()
             ) {
                 DialogContent(
@@ -151,18 +151,18 @@ fun MorpheDialog(
 
 /**
  * Fullscreen semi-transparent overlay dialog. Blocks all interaction behind it.
- * Handles its own fade enter/exit animation via [MorpheAnimations].
+ * Handles its own fade enter/exit animation via [Animations].
  */
 @Composable
-fun MorpheOverlay(
+fun Overlay(
     visible: Boolean,
     backgroundAlpha: Float = 0.75f,
     content: @Composable BoxScope.() -> Unit
 ) {
     AnimatedVisibility(
         visible = visible,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         Dialog(
             onDismissRequest = {},
@@ -197,7 +197,7 @@ fun MorpheOverlay(
  * Must be called inside a [BoxScope] (e.g. as the last child of a Box).
  */
 @Composable
-fun BoxScope.MorpheContentOverlay(
+fun BoxScope.ContentOverlay(
     visible: Boolean,
     backgroundAlpha: Float = 0.8f,
     content: @Composable BoxScope.() -> Unit
@@ -205,8 +205,8 @@ fun BoxScope.MorpheContentOverlay(
     AnimatedVisibility(
         visible = visible,
         modifier = Modifier.matchParentSize(),
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         Box(
             modifier = Modifier
@@ -226,7 +226,7 @@ fun BoxScope.MorpheContentOverlay(
 }
 
 /**
- * Icon action rendered inside the [MorpheDialog] title trailing slot. Uniforms the two
+ * Icon action rendered inside the [AppDialog] title trailing slot. Uniforms the two
  * button styles used across dialogs so callers only pick an icon and a semantic style.
  */
 @Composable
@@ -261,7 +261,7 @@ fun DialogTitleAction(
                 Icon(
                     imageVector = icon,
                     contentDescription = contentDescription,
-                    modifier = Modifier.size(MorpheDefaults.IconSizeSmall)
+                    modifier = Modifier.size(Defaults.IconSizeSmall)
                 )
             }
         }
@@ -310,19 +310,19 @@ private fun DialogContent(
     // Box stays full width and its ListScrollbar can sit flush with the dialog edge instead of
     // being pushed inward by the padding
     val horizontalPadding = if (padding == DialogPadding.Compact) {
-        MorpheDefaults.ContentPadding
+        Defaults.ContentPadding
     } else {
-        MorpheDefaults.ContentPaddingExpanded
+        Defaults.ContentPaddingExpanded
     }
     // Compact mode zeroes its top padding when there is no title to fill it
     val topPadding = when (padding) {
-        DialogPadding.Compact -> if (title != null) MorpheDefaults.ContentPadding else 0.dp
-        else -> MorpheDefaults.ContentPaddingExpanded
+        DialogPadding.Compact -> if (title != null) Defaults.ContentPadding else 0.dp
+        else -> Defaults.ContentPaddingExpanded
     }
     val bottomPadding = if (padding == DialogPadding.Compact) {
-        MorpheDefaults.ContentPadding
+        Defaults.ContentPadding
     } else {
-        MorpheDefaults.ContentPaddingExpanded
+        Defaults.ContentPaddingExpanded
     }
 
     Box(
@@ -353,7 +353,7 @@ private fun DialogContent(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = horizontalPadding, end = horizontalPadding, bottom = MorpheDefaults.ContentPadding),
+                            .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.ContentPadding),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -361,7 +361,7 @@ private fun DialogContent(
                         // it in step with their content instead of snapping a new string in
                         AnimatedContent(
                             targetState = title,
-                            transitionSpec = MorpheAnimations.fadeCrossfade(),
+                            transitionSpec = Animations.fadeCrossfade(),
                             modifier = Modifier.weight(1f),
                             label = "dialogTitle"
                         ) { currentTitle ->
@@ -410,7 +410,7 @@ private fun DialogContent(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = horizontalPadding, end = horizontalPadding, top = MorpheDefaults.ContentPadding)
+                            .padding(start = horizontalPadding, end = horizontalPadding, top = Defaults.ContentPadding)
                     ) {
                         footer()
                     }

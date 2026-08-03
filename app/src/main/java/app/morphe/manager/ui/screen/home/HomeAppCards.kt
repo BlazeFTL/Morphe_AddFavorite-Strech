@@ -271,7 +271,7 @@ fun InstalledAppCard(
                 // Frosted-glass colors: a white semi-transparent fill reads on any accent
                 // color the card's bundle brings, and on the user's dynamic theme
                 if (isAppDeleted) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.uninstalled),
                         icon = Icons.Outlined.DeleteOutline,
                         containerColor = cardStyle.chipContainerColor,
@@ -281,10 +281,10 @@ fun InstalledAppCard(
 
                 AnimatedVisibility(
                     visible = showsUpdateBadge,
-                    enter = MorpheAnimations.expandHorizFadeIn,
-                    exit = MorpheAnimations.shrinkHorizFadeOut
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
                 ) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.update),
                         icon = Icons.Outlined.ArrowUpward,
                         containerColor = cardStyle.chipContainerColor,
@@ -626,7 +626,7 @@ fun AppLoadingCard(
                 modifier = Modifier
                     .size(60.dp)
                     .padding(6.dp),
-                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
+                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
                 baseColor = Color.White.copy(alpha = 0.2f)
             )
 

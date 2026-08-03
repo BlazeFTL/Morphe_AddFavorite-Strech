@@ -103,14 +103,14 @@ fun ManagerUpdateDetailsDialog(
         onDispose { updateViewModel.resetOlderManagerEntries() }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(state.title),
         scrollable = false,
         footer = {
             AnimatedContent(
                 targetState = state,
-                transitionSpec = MorpheAnimations.fadeCrossfade(),
+                transitionSpec = Animations.fadeCrossfade(),
                 modifier = Modifier.fillMaxWidth(),
                 label = "updateFooter"
             ) { footerState ->
@@ -124,17 +124,17 @@ fun ManagerUpdateDetailsDialog(
     ) {
         AnimatedContent(
             targetState = updateDialogContentOf(updateViewModel),
-            transitionSpec = MorpheAnimations.fadeCrossfade(),
+            transitionSpec = Animations.fadeCrossfade(),
             modifier = Modifier.fillMaxWidth(),
             label = "updateContent"
         ) { content ->
             when (content) {
                 UpdateDialogContent.DetailsLoading -> ChangelogSectionLoading()
 
-                UpdateDialogContent.DetailsUnavailable -> MorpheNotice(
+                UpdateDialogContent.DetailsUnavailable -> Notice(
                     icon = Icons.Outlined.HourglassEmpty,
                     text = stringResource(R.string.manager_update_not_ready),
-                    tone = MorpheTone.Warning
+                    tone = SemanticTone.Warning
                 )
 
                 UpdateDialogContent.Details -> UpdateDetailsContent(updateViewModel)
@@ -161,17 +161,17 @@ fun ManagerUpdateDetailsDialog(
         }
     }
 
-    MorpheOverlay(visible = updateViewModel.isLoadingOlderEntries) {
+    Overlay(visible = updateViewModel.isLoadingOlderEntries) {
         PulsingLogoWithCaption(caption = stringResource(R.string.loading_older_releases))
     }
 
     // Internet check dialog
     if (updateViewModel.showInternetCheckDialog) {
-        MorpheDialog(
+        AppDialog(
             onDismissRequest = { updateViewModel.showInternetCheckDialog = false },
             title = stringResource(R.string.download_update_confirmation),
             footer = {
-                MorpheDialogButtonRow(
+                AppDialogButtonRow(
                     primaryText = stringResource(R.string.download),
                     onPrimaryClick = {
                         updateViewModel.showInternetCheckDialog = false
@@ -182,10 +182,10 @@ fun ManagerUpdateDetailsDialog(
                 )
             }
         ) {
-            MorpheNotice(
+            Notice(
                 icon = Icons.Outlined.Warning,
                 text = stringResource(R.string.download_confirmation_metered),
-                tone = MorpheTone.Warning
+                tone = SemanticTone.Warning
             )
         }
     }
@@ -202,8 +202,8 @@ private fun UpdateDialogFooter(
 
     when (state) {
         UpdateViewModel.State.CAN_DOWNLOAD -> {
-            MorpheDialogButtonColumn {
-                MorpheDialogButton(
+            AppDialogButtonColumn {
+                AppDialogButton(
                     text = stringResource(
                         if (updateViewModel.canResumeDownload) R.string.resume_download
                         else R.string.download
@@ -218,7 +218,7 @@ private fun UpdateDialogFooter(
                 // Offered once the check has settled on nothing, which is recoverable
                 // on its own a moment later
                 if (releaseInfo == null && !updateViewModel.isCheckingForUpdate) {
-                    MorpheDialogOutlinedButton(
+                    AppDialogOutlinedButton(
                         text = stringResource(R.string.retry),
                         onClick = { updateViewModel.retryUpdateCheck() },
                         icon = Icons.Outlined.Refresh,
@@ -234,7 +234,7 @@ private fun UpdateDialogFooter(
         }
 
         UpdateViewModel.State.DOWNLOADING -> {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -242,8 +242,8 @@ private fun UpdateDialogFooter(
         }
 
         UpdateViewModel.State.CAN_INSTALL -> {
-            MorpheDialogButtonColumn {
-                MorpheDialogButton(
+            AppDialogButtonColumn {
+                AppDialogButton(
                     text = stringResource(R.string.install),
                     onClick = { updateViewModel.installUpdate() },
                     icon = Icons.Outlined.InstallMobile,
@@ -263,10 +263,10 @@ private fun UpdateDialogFooter(
         }
 
         UpdateViewModel.State.FAILED -> {
-            MorpheDialogButtonColumn {
+            AppDialogButtonColumn {
                 if (updateViewModel.canResumeDownload) {
                     // Download failed/canceled - offer to resume
-                    MorpheDialogButton(
+                    AppDialogButton(
                         text = stringResource(R.string.resume_download),
                         onClick = { updateViewModel.downloadUpdate() },
                         icon = Icons.Outlined.Download,
@@ -274,7 +274,7 @@ private fun UpdateDialogFooter(
                     )
                 } else {
                     // Download completed but install failed - offer to retry install
-                    MorpheDialogButton(
+                    AppDialogButton(
                         text = stringResource(R.string.install),
                         onClick = { updateViewModel.installUpdate() },
                         icon = Icons.Outlined.InstallMobile,
@@ -287,7 +287,7 @@ private fun UpdateDialogFooter(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(android.R.string.cancel),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
@@ -296,7 +296,7 @@ private fun UpdateDialogFooter(
         }
 
         UpdateViewModel.State.SUCCESS -> {
-            MorpheDialogButton(
+            AppDialogButton(
                 text = stringResource(android.R.string.ok),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -356,7 +356,7 @@ private fun DownloadProgressCard(
     val hasKnownSize = totalSize > 0L
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
-        animationSpec = tween(MorpheDefaults.ANIMATION_DURATION),
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "downloadProgress"
     )
 
@@ -413,10 +413,10 @@ private fun DownloadProgressCard(
 private fun InstallFailureContent(message: String) {
     if (message.isEmpty()) return
 
-    MorpheNotice(
+    Notice(
         icon = Icons.Outlined.ErrorOutline,
         text = message,
-        tone = MorpheTone.Error
+        tone = SemanticTone.Error
     )
 }
 
@@ -441,9 +441,9 @@ private fun UpdateCompletedContent(version: String?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = MorpheDefaults.ContentPaddingExpanded),
+            .padding(vertical = Defaults.ContentPaddingExpanded),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingMedium)
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingMedium)
     ) {
         Surface(
             shape = CircleShape,
@@ -453,7 +453,7 @@ private fun UpdateCompletedContent(version: String?) {
                 .scale(scale)
         ) {
             Box(contentAlignment = Alignment.Center) {
-                MorpheIcon(
+                ThemedIcon(
                     icon = Icons.Outlined.CheckCircle,
                     tint = MaterialTheme.colorScheme.tertiary,
                     size = SuccessIconSize

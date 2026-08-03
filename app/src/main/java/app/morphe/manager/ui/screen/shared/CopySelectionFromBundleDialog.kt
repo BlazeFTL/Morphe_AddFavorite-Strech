@@ -75,11 +75,11 @@ fun CopySelectionFromBundleDialog(
         stringResource(R.string.copy)
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.copy_selection_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = confirmLabel,
                 onPrimaryClick = { selectedCandidate?.let(onConfirm) },
                 primaryEnabled = canConfirm,
@@ -94,7 +94,7 @@ fun CopySelectionFromBundleDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             HeroInfoCard(
                 icon = Icons.Outlined.Extension,
@@ -148,7 +148,7 @@ private fun ColumnScope.CandidateList(
         LazyColumn(
             state = listState,
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             items(
                 items = candidates.withIndex().toList(),
@@ -197,7 +197,7 @@ private fun CandidateRow(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
             ) {
                 Text(
                     text = candidate.bundleName,
@@ -209,9 +209,9 @@ private fun CandidateRow(
                     modifier = Modifier.weight(1f, fill = false)
                 )
                 if (candidate.isSameSource) {
-                    MorpheBadge(
+                    StatusBadge(
                         text = stringResource(R.string.copy_selection_same_source),
-                        tone = MorpheTone.Primary
+                        tone = SemanticTone.Primary
                     )
                 }
             }
@@ -222,9 +222,9 @@ private fun CandidateRow(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            MorpheBadge(
+            StatusBadge(
                 text = availableText,
-                tone = if (enabled) MorpheTone.Primary else MorpheTone.Neutral,
+                tone = if (enabled) SemanticTone.Primary else SemanticTone.Neutral,
                 icon = Icons.Outlined.CheckCircle
             )
         }

@@ -67,7 +67,7 @@ import java.net.URI
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Container for all MorpheHomeScreen dialogs.
+ * Container for all home screen dialogs.
  */
 @Composable
 fun HomeDialogs(
@@ -82,7 +82,7 @@ fun HomeDialogs(
     val context = LocalContext.current
 
     // APK selection processing overlay - blocks interaction while APK is loaded/validated in background
-    MorpheOverlay(visible = homeViewModel.processingApkSelection) {
+    Overlay(visible = homeViewModel.processingApkSelection) {
         PulsingLogoWithCaption(caption = stringResource(R.string.processing_apk))
     }
 
@@ -91,8 +91,8 @@ fun HomeDialogs(
         visible = homeViewModel.showApkAvailabilityDialog &&
                 homeViewModel.pendingPackageName != null &&
                 homeViewModel.pendingAppName != null,
-        enter = MorpheAnimations.fadeIn,
-        exit = MorpheAnimations.fadeOut(if (homeViewModel.showDownloadInstructionsDialog) 0 else MorpheDefaults.ANIMATION_DURATION)
+        enter = Animations.fadeIn,
+        exit = Animations.fadeOut(if (homeViewModel.showDownloadInstructionsDialog) 0 else Defaults.ANIMATION_DURATION)
     ) {
         val appName = homeViewModel.pendingAppName ?: return@AnimatedVisibility
         val recommendedVersion = homeViewModel.pendingRecommendedVersion
@@ -147,8 +147,8 @@ fun HomeDialogs(
         visible = homeViewModel.showDownloadInstructionsDialog &&
                 homeViewModel.pendingPackageName != null &&
                 homeViewModel.pendingAppName != null,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.fadeOut(if (homeViewModel.showFilePickerPromptDialog) 0 else MorpheDefaults.ANIMATION_DURATION)
+        enter = Animations.overlayEnter,
+        exit = Animations.fadeOut(if (homeViewModel.showFilePickerPromptDialog) 0 else Defaults.ANIMATION_DURATION)
     ) {
         val usingMountInstall = homeViewModel.usingMountInstall
         // Remember packageName to prevent color flickering during exit animation
@@ -190,8 +190,8 @@ fun HomeDialogs(
     // Dialog 3: File picker prompt
     AnimatedVisibility(
         visible = homeViewModel.showFilePickerPromptDialog && homeViewModel.pendingAppName != null,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         val appName = homeViewModel.pendingAppName ?: return@AnimatedVisibility
         val isOtherApps = homeViewModel.pendingPackageName == null
@@ -217,8 +217,8 @@ fun HomeDialogs(
     // Dialog 3.5: Installed app picker (universal patches)
     AnimatedVisibility(
         visible = homeViewModel.showInstalledAppPickerDialog,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         InstalledAppPickerDialog(
             items = homeViewModel.installedAppsForPicker,
@@ -234,8 +234,8 @@ fun HomeDialogs(
     // Unsupported version dialog
     AnimatedVisibility(
         visible = homeViewModel.showUnsupportedVersionDialog != null,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         val dialogState = homeViewModel.showUnsupportedVersionDialog ?: return@AnimatedVisibility
         val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
@@ -258,8 +258,8 @@ fun HomeDialogs(
     // Experimental version warning dialog
     AnimatedVisibility(
         visible = homeViewModel.showExperimentalVersionDialog != null,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         val dialogState = homeViewModel.showExperimentalVersionDialog ?: return@AnimatedVisibility
 
@@ -273,8 +273,8 @@ fun HomeDialogs(
     // Wrong package dialog
     AnimatedVisibility(
         visible = homeViewModel.showWrongPackageDialog != null,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         val dialogState = homeViewModel.showWrongPackageDialog ?: return@AnimatedVisibility
 
@@ -288,8 +288,8 @@ fun HomeDialogs(
     // No compatible versions dialog - shown when every declared version requires a higher SDK
     AnimatedVisibility(
         visible = homeViewModel.showNoCompatibleVersionsDialog != null,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         val packageName = homeViewModel.showNoCompatibleVersionsDialog ?: return@AnimatedVisibility
         val appName = homeViewModel.bundleAppMetadataFlow.value[packageName]?.displayName
@@ -673,7 +673,7 @@ internal fun ApkAvailabilityDialog(
             }
             .toSet()
     }
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_apk_availability_dialog_title),
         padding = DialogPadding.Compact,
@@ -683,7 +683,7 @@ internal fun ApkAvailabilityDialog(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 // Main action buttons
-                MorpheDialogButtonRow(
+                AppDialogButtonRow(
                     primaryText = stringResource(R.string.home_apk_availability_yes),
                     onPrimaryClick = onNeedApk,
                     primaryIcon = Icons.Outlined.Download,
@@ -700,7 +700,7 @@ internal fun ApkAvailabilityDialog(
 
                 // Saved APK button - always shown when a saved APK exists
                 if (savedApkInfo != null) {
-                    MorpheDialogOutlinedButton(
+                    AppDialogOutlinedButton(
                         text = stringResource(R.string.home_apk_use_saved),
                         textSuffix = buildVersionSuffix(savedApkInfo.version, savedApkInfo.versionCode),
                         onClick = onUseSaved,
@@ -711,7 +711,7 @@ internal fun ApkAvailabilityDialog(
 
                 // Installed APK button - hidden when saved mono-APK covers the same split version
                 if (installedApkInfo != null && !preferSavedOverInstalled) {
-                    MorpheDialogOutlinedButton(
+                    AppDialogOutlinedButton(
                         text = stringResource(R.string.home_apk_use_installed),
                         textSuffix = buildVersionSuffix(installedApkInfo.version, installedApkInfo.versionCode),
                         onClick = onUseInstalled,
@@ -721,11 +721,11 @@ internal fun ApkAvailabilityDialog(
 
                     // The certificate check could not run, so the installed app may already be patched
                     if (installedApkInfo.patchStateUnknown) {
-                        MorpheNotice(
+                        Notice(
                             text = stringResource(R.string.home_apk_use_installed_unverified),
-                            tone = MorpheTone.Warning,
+                            tone = SemanticTone.Warning,
                             icon = Icons.Outlined.Warning,
-                            density = MorpheNoticeDensity.Compact
+                            density = NoticeDensity.Compact
                         )
                     }
                 }
@@ -737,7 +737,7 @@ internal fun ApkAvailabilityDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (isExpertMode && compatibleVersions.isNotEmpty()) {
@@ -806,9 +806,9 @@ internal fun ApkAvailabilityDialog(
 
             // Root mode warning - only when app is not yet installed
             if (usingMountInstall && !targetAppInstalled) {
-                MorpheNotice(
+                Notice(
                     text = stringResource(R.string.root_install_apk_required),
-                    tone = MorpheTone.Warning,
+                    tone = SemanticTone.Warning,
                     icon = Icons.Outlined.Warning
                 )
             }
@@ -839,11 +839,11 @@ internal fun DownloadInstructionsDialog(
     )
     var downloadClickCount by remember { mutableIntStateOf(0) }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_download_instructions_title),
         footer = {
-            MorpheDialogButton(
+            AppDialogButton(
                 text = stringResource(R.string.home_download_instructions_continue),
                 onClick = onContinue,
                 icon = Icons.AutoMirrored.Outlined.OpenInNew,
@@ -909,7 +909,7 @@ internal fun DownloadInstructionsDialog(
                                 imageVector = Icons.Filled.Download,
                                 contentDescription = null,
                                 tint = downloadContentColor,
-                                modifier = Modifier.size(MorpheDefaults.IconSizeSmall)
+                                modifier = Modifier.size(Defaults.IconSizeSmall)
                             )
                             Text(
                                 text = if (isApkBundle) "DOWNLOAD APK BUNDLE" else "DOWNLOAD APK",
@@ -1004,7 +1004,7 @@ internal fun FilePickerPromptDialog(
     onOpenFilePicker: () -> Unit,
     onUseInstalledApp: (() -> Unit)?
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(
             if (isOtherApps) {
@@ -1014,30 +1014,30 @@ internal fun FilePickerPromptDialog(
             }
         ),
         footer = {
-            MorpheDialogButtonColumn {
+            AppDialogButtonColumn {
                 if (isOtherApps && onUseInstalledApp != null) {
-                    MorpheDialogButton(
+                    AppDialogButton(
                         text = stringResource(R.string.home_use_installed_app),
                         onClick = onUseInstalledApp,
                         icon = Icons.Outlined.PhoneAndroid,
                         enabled = !isLoadingInstalledApps,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    MorpheDialogOutlinedButton(
+                    AppDialogOutlinedButton(
                         text = stringResource(R.string.home_file_picker_prompt_open_apk),
                         onClick = onOpenFilePicker,
                         icon = Icons.Outlined.FolderOpen,
                         modifier = Modifier.fillMaxWidth()
                     )
                 } else {
-                    MorpheDialogButton(
+                    AppDialogButton(
                         text = stringResource(R.string.home_file_picker_prompt_open_apk),
                         onClick = onOpenFilePicker,
                         icon = Icons.Outlined.FolderOpen,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(android.R.string.cancel),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
@@ -1094,7 +1094,7 @@ private fun InstalledAppPickerDialog(
                 }
             }
     }
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         dismissOnClickOutside = true,
         title = stringResource(R.string.home_installed_app_picker_title),
@@ -1132,12 +1132,12 @@ private fun InstalledAppPickerDialog(
                 Icon(
                     imageVector = icon,
                     contentDescription = description,
-                    modifier = Modifier.size(MorpheDefaults.IconSizeSmall)
+                    modifier = Modifier.size(Defaults.IconSizeSmall)
                 )
             }
         },
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(android.R.string.cancel),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -1159,7 +1159,7 @@ private fun InstalledAppPickerDialog(
                         modifier = Modifier.fillMaxWidth(),
                         color = MaterialTheme.colorScheme.surface
                     ) {
-                        MorpheDialogTextField(
+                        AppDialogTextField(
                             value = searchQuery.value,
                             onValueChange = { searchQuery.value = it },
                             placeholder = { Text(stringResource(R.string.search)) },
@@ -1307,13 +1307,13 @@ private fun UnsupportedVersionWarningDialog(
     val versionCodeMismatch = !isExperimental && versionCode != null && version == recommendedVersion
     val tags = versionTagsOf(isExperimental = isExperimental, isUnsupported = !isExperimental)
     // The card is tinted by the same tag it is badged with, so it cannot read as two verdicts
-    val tone = tags.firstOrNull()?.tone ?: MorpheTone.Error
-    MorpheDialog(
+    val tone = tags.firstOrNull()?.tone ?: SemanticTone.Error
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_dialog_unsupported_version_dialog_title),
         padding = DialogPadding.Compact,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
                 onPrimaryClick = onProceed,
                 isPrimaryDestructive = true,
@@ -1344,7 +1344,7 @@ private fun UnsupportedVersionWarningDialog(
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
                 // Selected version card
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -1445,11 +1445,11 @@ fun InvalidSignatureDialog(
     onProceed: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_invalid_signature_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_split_apk_warning_pick_another),
                 onPrimaryClick = onPickAnother,
                 primaryIcon = Icons.Outlined.FolderOpen,
@@ -1462,7 +1462,7 @@ fun InvalidSignatureDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -1480,9 +1480,9 @@ fun InvalidSignatureDialog(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.home_invalid_signature_badge),
-                tone = MorpheTone.Error,
+                tone = SemanticTone.Error,
                 icon = Icons.Outlined.Warning
             )
         }
@@ -1500,11 +1500,11 @@ fun SplitApkWarningDialog(
     onPickAnother: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_split_apk_warning_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
                 onPrimaryClick = onProceed,
                 secondaryText = stringResource(R.string.home_split_apk_warning_pick_another),
@@ -1516,7 +1516,7 @@ fun SplitApkWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -1548,11 +1548,11 @@ fun ExperimentalVersionWarningDialog(
     onDismiss: () -> Unit,
     onProceed: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.morphe_experimental_app_version_dialog_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
                 onPrimaryClick = onProceed,
                 secondaryText = stringResource(android.R.string.cancel),
@@ -1562,7 +1562,7 @@ fun ExperimentalVersionWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
@@ -1587,12 +1587,12 @@ fun WrongPackageDialog(
     actualPackage: String,
     onDismiss: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_dialog_wrong_package_title),
         padding = DialogPadding.Compact,
         footer = {
-            MorpheDialogButton(
+            AppDialogButton(
                 text = stringResource(android.R.string.ok),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -1615,7 +1615,7 @@ fun WrongPackageDialog(
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
                 // Expected package (green card)
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -1682,12 +1682,12 @@ fun OrphanedInstallDialog(
     onUninstall: () -> Unit,
     onKeep: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onKeep,
         title = stringResource(R.string.home_dialog_orphaned_install_title),
         padding = DialogPadding.Compact,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_orphaned_install_uninstall),
                 onPrimaryClick = onUninstall,
                 isPrimaryDestructive = true,
@@ -1700,7 +1700,7 @@ fun OrphanedInstallDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -1742,9 +1742,9 @@ fun OrphanedInstallDialog(
                 }
             }
 
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.home_dialog_orphaned_install_warning),
-                tone = MorpheTone.Warning,
+                tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
         }
@@ -1762,11 +1762,11 @@ private fun NoCompatibleVersionsDialog(
 ) {
     val deviceSdk = Build.VERSION.SDK_INT
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_apk_no_compatible_versions_title),
         footer = {
-            MorpheDialogButton(
+            AppDialogButton(
                 text = stringResource(android.R.string.ok),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -1775,7 +1775,7 @@ private fun NoCompatibleVersionsDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -2096,11 +2096,11 @@ fun LowDiskSpaceDialog(
     onDismiss: () -> Unit,
     onPatchAnyway: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_low_disk_space_dialog_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
                 onPrimaryClick = onPatchAnyway,
                 isPrimaryDestructive = true,
@@ -2111,7 +2111,7 @@ fun LowDiskSpaceDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -2129,9 +2129,9 @@ fun LowDiskSpaceDialog(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.home_low_disk_space_dialog_warning),
-                tone = MorpheTone.Warning,
+                tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
         }
@@ -2148,7 +2148,7 @@ fun MeteredPatchingDialog(
     onRefreshAndPatch: () -> Unit,
     onPatchAnyway: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_outdated_patches_dialog_title),
         footer = {
@@ -2156,13 +2156,13 @@ fun MeteredPatchingDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                MorpheDialogButton(
+                AppDialogButton(
                     text = stringResource(R.string.home_outdated_patches_dialog_update_and_patch),
                     onClick = onRefreshAndPatch,
                     modifier = Modifier.fillMaxWidth(),
                     icon = Icons.Outlined.SystemUpdateAlt
                 )
-                MorpheDialogButtonRow(
+                AppDialogButtonRow(
                     primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
                     onPrimaryClick = onPatchAnyway,
                     isPrimaryDestructive = true,
@@ -2174,7 +2174,7 @@ fun MeteredPatchingDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -2192,9 +2192,9 @@ fun MeteredPatchingDialog(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.home_outdated_patches_dialog_warning),
-                tone = MorpheTone.Warning,
+                tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
         }
@@ -2212,12 +2212,12 @@ fun DeepLinkAddSourceDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.deep_link_add_source_title),
         padding = DialogPadding.Compact,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.add),
                 onPrimaryClick = onConfirm,
                 primaryIcon = Icons.Outlined.Extension,
@@ -2227,7 +2227,7 @@ fun DeepLinkAddSourceDialog(
         }
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -2274,7 +2274,7 @@ fun DeepLinkAddSourceDialog(
 
             // Bundle details card
             Surface(
-                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
+                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -2299,9 +2299,9 @@ fun DeepLinkAddSourceDialog(
                 }
             }
 
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.deep_link_add_source_warning),
-                tone = MorpheTone.Warning,
+                tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
         }
@@ -2318,12 +2318,12 @@ fun MppImportDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.deep_link_add_source_title),
         padding = DialogPadding.Compact,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.add),
                 onPrimaryClick = onConfirm,
                 primaryIcon = Icons.Outlined.Extension,
@@ -2333,7 +2333,7 @@ fun MppImportDialog(
         }
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -2364,7 +2364,7 @@ fun MppImportDialog(
 
             // Bundle details card
             Surface(
-                shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
+                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -2403,17 +2403,17 @@ fun MppImportDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             manifest.version?.let { version ->
-                                MorpheBadge(
+                                StatusBadge(
                                     text = "v$version",
                                     icon = Icons.Outlined.NewReleases,
-                                    tone = MorpheTone.Primary
+                                    tone = SemanticTone.Primary
                                 )
                             }
                             manifest.author?.let { author ->
-                                MorpheBadge(
+                                StatusBadge(
                                     text = author,
                                     icon = Icons.Outlined.Person,
-                                    tone = MorpheTone.Neutral
+                                    tone = SemanticTone.Neutral
                                 )
                             }
                         }
@@ -2456,9 +2456,9 @@ fun MppImportDialog(
                 }
             }
 
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.deep_link_add_source_warning),
-                tone = MorpheTone.Warning,
+                tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
         }
@@ -2487,12 +2487,12 @@ fun SimpleBundleSelectDialog(
 ) {
     val selected = remember { mutableStateOf(candidates.firstOrNull()?.uid) }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_simple_bundle_select_title),
         padding = DialogPadding.Compact,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),
                 onPrimaryClick = { selected.value?.let { onSelect(it) } },
                 primaryEnabled = selected.value != null,
@@ -2502,7 +2502,7 @@ fun SimpleBundleSelectDialog(
         }
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
             modifier = Modifier
                 .fillMaxWidth()
                 .selectableGroup()
@@ -2549,7 +2549,7 @@ fun SimpleBundleSelectDialog(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
@@ -2596,11 +2596,11 @@ fun Android11Dialog(
     onDismissRequest: () -> Unit,
     onContinue: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismissRequest,
         title = stringResource(R.string.android_11_bug_dialog_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),
                 onPrimaryClick = onContinue,
                 secondaryText = stringResource(android.R.string.cancel),

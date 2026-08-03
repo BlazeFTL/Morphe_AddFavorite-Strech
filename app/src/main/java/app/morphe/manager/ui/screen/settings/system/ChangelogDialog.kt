@@ -43,19 +43,19 @@ fun ChangelogDialog(
         onDispose { updateViewModel.resetOlderManagerEntries() }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.changelog),
         scrollable = false,
         footer = {
-            MorpheDialogButtonColumn {
+            AppDialogButtonColumn {
                 ChangelogButton(
                     pageUrl = entries?.firstOrNull()?.version?.let {
                         releasePageUrl(MANAGER_REPO_URL, it)
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
-                MorpheDialogButton(
+                AppDialogButton(
                     text = stringResource(android.R.string.ok),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
@@ -65,7 +65,7 @@ fun ChangelogDialog(
     ) {
         AnimatedContent(
             targetState = entries,
-            transitionSpec = MorpheAnimations.fadeCrossfade(),
+            transitionSpec = Animations.fadeCrossfade(),
             contentKey = { it != null },
             modifier = Modifier.fillMaxWidth(),
             label = "changelogContent"
@@ -106,7 +106,7 @@ fun ChangelogDialog(
         }
     }
 
-    MorpheOverlay(visible = updateViewModel.isLoadingOlderEntries) {
+    Overlay(visible = updateViewModel.isLoadingOlderEntries) {
         PulsingLogoWithCaption(caption = stringResource(R.string.loading_older_releases))
     }
 }

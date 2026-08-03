@@ -253,15 +253,15 @@ private fun ProgressDetailsSection(
         // Long step warning
         AnimatedVisibility(
             visible = showLongStepWarning,
-            enter = MorpheAnimations.expandFadeEnter,
-            exit = MorpheAnimations.shrinkFadeExit
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
         ) {
-            MorpheNotice(
+            Notice(
                 text = stringResource(R.string.patcher_long_step_warning),
-                tone = MorpheTone.Primary,
+                tone = SemanticTone.Primary,
                 icon = Icons.Outlined.Info,
                 isCentered = true,
-                density = MorpheNoticeDensity.Compact
+                density = NoticeDensity.Compact
             )
         }
 
@@ -293,7 +293,7 @@ private fun AnimatedMessage(messageResId: Int) {
     } else {
         AnimatedContent(
             targetState = message,
-            transitionSpec = MorpheAnimations.fadeCrossfade(1000),
+            transitionSpec = Animations.fadeCrossfade(1000),
             label = "message_animation"
         ) { rotatingMessage ->
             Text(
@@ -412,7 +412,7 @@ fun CurrentStepIndicator(
     } else {
         AnimatedContent(
             targetState = stepName,
-            transitionSpec = MorpheAnimations.fadeCrossfade(400),
+            transitionSpec = Animations.fadeCrossfade(400),
             label = "step_animation"
         ) { name ->
             if (name != null) {

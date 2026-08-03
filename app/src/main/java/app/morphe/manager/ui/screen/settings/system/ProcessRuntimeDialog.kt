@@ -44,11 +44,11 @@ fun ProcessRuntimeDialog(
     var sliderValue by remember { mutableFloatStateOf(currentLimit.toFloat()) }
     val selectedLimit = sliderValue.roundToInt()
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_process_runtime),
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -58,8 +58,8 @@ fun ProcessRuntimeDialog(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = MorpheDefaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+                .padding(vertical = Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             // Enable/Disable toggle
             SettingsSwitchItem(
@@ -78,14 +78,14 @@ fun ProcessRuntimeDialog(
             Column(
                 modifier = Modifier.alpha(if (enabled) 1f else 0.5f)
             ) {
-                MorpheSettingsDivider(
-                    modifier = Modifier.padding(bottom = MorpheDefaults.ContentPadding),
+                SettingsDivider(
+                    modifier = Modifier.padding(bottom = Defaults.ContentPadding),
                     fullWidth = true
                 )
 
                 // Current value display
                 InfoStatBox(
-                    modifier = Modifier.padding(bottom = MorpheDefaults.ContentPadding),
+                    modifier = Modifier.padding(bottom = Defaults.ContentPadding),
                     value = "$selectedLimit MB",
                     subtitle = stringResource(R.string.settings_system_memory_limit_subtitle),
                     containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
@@ -94,8 +94,8 @@ fun ProcessRuntimeDialog(
 
                 // Slider
                 Column(
-                    modifier = Modifier.padding(bottom = MorpheDefaults.ContentPadding),
-                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                    modifier = Modifier.padding(bottom = Defaults.ContentPadding),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
                     Slider(
                         value = sliderValue,
@@ -130,22 +130,22 @@ fun ProcessRuntimeDialog(
                 }
 
                 // Description
-                MorpheNotice(
+                Notice(
                     text = stringResource(R.string.settings_system_process_runtime_memory_limit_description),
-                    tone = MorpheTone.Neutral,
+                    tone = SemanticTone.Neutral,
                     icon = Icons.Outlined.Info
                 )
 
                 // Warning for low values
                 AnimatedVisibility(
                     visible = enabled && selectedLimit < PROCESS_RUNTIME_MEMORY_LOW_WARNING,
-                    enter = MorpheAnimations.expandFadeEnter,
-                    exit = MorpheAnimations.shrinkFadeExit
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
                 ) {
-                    MorpheNotice(
-                        modifier = Modifier.padding(top = MorpheDefaults.ContentPadding),
+                    Notice(
+                        modifier = Modifier.padding(top = Defaults.ContentPadding),
                         text = stringResource(R.string.settings_system_memory_limit_warning),
-                        tone = MorpheTone.Error,
+                        tone = SemanticTone.Error,
                         icon = Icons.Outlined.Warning
                     )
                 }

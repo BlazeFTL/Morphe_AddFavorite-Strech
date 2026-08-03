@@ -46,14 +46,14 @@ sealed interface VersionTag {
     data object Saved : VersionTag
 }
 
-val VersionTag.tone: MorpheTone
+val VersionTag.tone: SemanticTone
     get() = when (this) {
         is VersionTag.RequiresAndroid, VersionTag.Incompatible, VersionTag.Unsupported ->
-            MorpheTone.Error
+            SemanticTone.Error
 
-        VersionTag.Recommended -> MorpheTone.Primary
-        VersionTag.Experimental, VersionTag.Unpatched -> MorpheTone.Warning
-        VersionTag.Saved -> MorpheTone.Neutral
+        VersionTag.Recommended -> SemanticTone.Primary
+        VersionTag.Experimental, VersionTag.Unpatched -> SemanticTone.Warning
+        VersionTag.Saved -> SemanticTone.Neutral
     }
 
 val VersionTag.icon: ImageVector
@@ -125,7 +125,7 @@ fun versionTagsOf(
  */
 @Composable
 fun List<VersionTag>.versionTextColor(default: Color): Color =
-    if (contains(VersionTag.Experimental)) MorpheTone.Warning.accent else default
+    if (contains(VersionTag.Experimental)) SemanticTone.Warning.accent else default
 
 /** Tag labels for a row's content description, read out in the order they are shown. */
 @Composable
@@ -133,7 +133,7 @@ fun List<VersionTag>.labels(): List<String> = map { it.label() }
 
 @Composable
 fun VersionTagBadge(tag: VersionTag, modifier: Modifier = Modifier) {
-    MorpheBadge(
+    StatusBadge(
         modifier = modifier,
         text = tag.label(),
         icon = tag.icon,
@@ -149,7 +149,7 @@ fun VersionTagBadge(tag: VersionTag, modifier: Modifier = Modifier) {
 fun VersionTagBadges(tags: List<VersionTag>, modifier: Modifier = Modifier) {
     if (tags.isEmpty()) return
 
-    MorpheBadgeColumn(modifier = modifier) {
+    StatusBadgeColumn(modifier = modifier) {
         tags.forEach { VersionTagBadge(it) }
     }
 }

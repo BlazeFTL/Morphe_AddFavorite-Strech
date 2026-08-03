@@ -303,7 +303,7 @@ private fun PatchSelectionManagementDialogContent(
         uri?.let { importExportViewModel.exportAllSelections(it) }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = {
             if (multiSelect.isSelectionMode) onExitSelection() else onDismiss()
         },
@@ -324,7 +324,7 @@ private fun PatchSelectionManagementDialogContent(
             if (multiSelect.isSelectionMode) {
                 MultiSelectShell(visible = true) {
                     SelectionActionBar(
-                        modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding, vertical = MorpheDefaults.ItemSpacing),
+                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
                         selectedCount = multiSelect.selectedPackages.size,
                         totalCount = selections.size,
                         onSelectAll = onSelectAll,
@@ -346,9 +346,9 @@ private fun PatchSelectionManagementDialogContent(
                     }
                 }
             } else {
-                MorpheDialogButtonColumn {
+                AppDialogButtonColumn {
                     if (selections.isNotEmpty()) {
-                        MorpheDialogButtonRow(
+                        AppDialogButtonRow(
                             primaryText = stringResource(R.string.export),
                             onPrimaryClick = {
                                 exportAllSelectionsLauncher.launch(
@@ -363,14 +363,14 @@ private fun PatchSelectionManagementDialogContent(
                             layout = DialogButtonLayout.Horizontal
                         )
                     } else {
-                        MorpheDialogButton(
+                        AppDialogButton(
                             text = stringResource(R.string.import_),
                             onClick = { openImportAllSelectionsPicker() },
                             icon = Icons.Outlined.Download,
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
-                    MorpheDialogOutlinedButton(
+                    AppDialogOutlinedButton(
                         text = stringResource(R.string.close),
                         onClick = onDismiss,
                         modifier = Modifier.fillMaxWidth()
@@ -420,7 +420,7 @@ private fun SelectionList(
         LazyColumn(
             state = listState,
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
             // Summary box
             item(key = "summary") {
@@ -554,8 +554,8 @@ private fun PackageSelectionItem(
                                 onEnterSelection()
                             }
                         )
-                        .padding(MorpheDefaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+                        .padding(Defaults.ContentPadding),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // App icon
@@ -579,26 +579,26 @@ private fun PackageSelectionItem(
                         )
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            MorpheBadge(
+                            StatusBadge(
                                 text = pluralStringResource(
                                     R.plurals.patch_count,
                                     totalPatches,
                                     totalPatches
                                 ),
-                                tone = MorpheTone.Primary
+                                tone = SemanticTone.Primary
                             )
 
                             if (bundleMap.size > 1) {
-                                MorpheBadge(
+                                StatusBadge(
                                     text = pluralStringResource(
                                         R.plurals.source_count,
                                         bundleMap.size,
                                         bundleMap.size
                                     ),
-                                    tone = MorpheTone.Neutral
+                                    tone = SemanticTone.Neutral
                                 )
                             }
                         }
@@ -607,8 +607,8 @@ private fun PackageSelectionItem(
                     // Expand icon (hidden in selection mode)
                     AnimatedVisibility(
                         visible = !isSelectionMode,
-                        enter = MorpheAnimations.expandFadeEnter,
-                        exit = MorpheAnimations.shrinkFadeExit
+                        enter = Animations.expandFadeEnter,
+                        exit = Animations.shrinkFadeExit
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.ExpandMore,
@@ -625,16 +625,16 @@ private fun PackageSelectionItem(
                 // Expanded content
                 AnimatedVisibility(
                     visible = effectiveExpanded,
-                    enter = MorpheAnimations.expandTopFadeIn,
-                    exit = MorpheAnimations.shrinkTopFadeOut
+                    enter = Animations.expandTopFadeIn,
+                    exit = Animations.shrinkTopFadeOut
                 ) {
                     Column(
                         modifier = Modifier.padding(
-                            start = MorpheDefaults.ContentPadding,
-                            end = MorpheDefaults.ContentPadding,
-                            bottom = MorpheDefaults.ContentPadding
+                            start = Defaults.ContentPadding,
+                            end = Defaults.ContentPadding,
+                            bottom = Defaults.ContentPadding
                         ),
-                        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
                     ) {
                         bundleMap.forEach { (bundleUid, patchCount) ->
                             BundleSelectionItem(
@@ -654,7 +654,7 @@ private fun PackageSelectionItem(
                             )
                         }
 
-                        MorpheSettingsDivider(fullWidth = true)
+                        SettingsDivider(fullWidth = true)
 
                         // Reset all for this package
                         CardActionRow(
@@ -706,9 +706,9 @@ private fun BundleSelectionItem(
 
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
-        MorpheSettingsDivider(fullWidth = true)
+        SettingsDivider(fullWidth = true)
 
         // Bundle info card
         BundleInfoCard(
@@ -773,11 +773,11 @@ private fun ConfirmResetDialog(
     onDismiss: () -> Unit,
     summaryItems: @Composable () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = title,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = primaryText,
                 onPrimaryClick = onConfirm,
                 secondaryText = stringResource(android.R.string.cancel),
@@ -786,7 +786,7 @@ private fun ConfirmResetDialog(
             )
         }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)) {
+        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyLarge,
@@ -974,10 +974,10 @@ private fun PatchDetailsDialog(
         isLoading = false
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -986,7 +986,7 @@ private fun PatchDetailsDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             HeroInfoCard(
                 icon = Icons.Outlined.Extension,
@@ -1004,7 +1004,7 @@ private fun PatchDetailsDialog(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(MorpheDefaults.ContentPaddingExpanded),
+                        .padding(Defaults.ContentPaddingExpanded),
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator()
@@ -1039,9 +1039,9 @@ private fun PatchDetailsDialog(
 
                 // Empty state
                 if (patchList.isEmpty() && optionsMap.isEmpty()) {
-                    MorpheNotice(
+                    Notice(
                         text = stringResource(R.string.settings_system_no_patches_or_options),
-                        tone = MorpheTone.Neutral,
+                        tone = SemanticTone.Neutral,
                         isCentered = true
                     )
                 }

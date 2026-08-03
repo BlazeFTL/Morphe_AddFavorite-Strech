@@ -1,3 +1,17 @@
+# [1.25.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.14...v1.25.0-dev.15) (2026-08-03)
+
+
+### Bug Fixes
+
+* Deduplicate update checks and install patch bundles atomically ([bf3e4e1](https://github.com/MorpheApp/morphe-manager/commit/bf3e4e1ddfee6fca170e05f3640ab3298a15cf9c))
+* Handle preference IO errors and skip cancellation in uiSafe ([c5b8e26](https://github.com/MorpheApp/morphe-manager/commit/c5b8e267b3b37e25d8cc6f9529378ec6420b0a7c))
+* Reduce startup cost and split the home apps section ([d8ee88f](https://github.com/MorpheApp/morphe-manager/commit/d8ee88fece6a7a994214be7403c4a509bf13a0cb))
+
+
+### Features
+
+* Update the file of a local patch source in place ([f4fc760](https://github.com/MorpheApp/morphe-manager/commit/f4fc760f7b93dfa306900e64f38576991ac5aca9))
+
 # [1.25.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.13...v1.25.0-dev.14) (2026-08-02)
 
 

@@ -126,6 +126,7 @@ class PatchBundleRepository(
 
     private val updateJobMutex = Mutex()
     private var updateJob: Job? = null
+    private var activeUpdateRequest: UpdateRequest? = null
     private val updateStateMutex = Mutex()
     private val _activeUpdateUidsFlow = MutableStateFlow<Set<Int>>(emptySet())
     val activeUpdateUidsFlow: StateFlow<Set<Int>> = _activeUpdateUidsFlow.asStateFlow()
@@ -211,6 +212,7 @@ class PatchBundleRepository(
         updateJobMutex.withLock {
             updateJob?.cancel()
             updateJob = null
+            activeUpdateRequest = null
         }
     }
 
@@ -646,13 +648,56 @@ class PatchBundleRepository(
     private suspend fun toast(@StringRes id: Int, vararg args: Any?) =
         withContext(Dispatchers.Main) { app.toast(app.getString(id, *args)) }
 
+    /**
+     * The bundles an update pass covers. Described declaratively rather than as a bare predicate
+     * so a new request can be compared against the pass already in flight. [custom] is an opaque
+     * selection for one-off callers - a request carrying one is never folded into another.
+     */
+    private data class UpdateTarget(
+        val autoUpdatable: Boolean = false,
+        val uids: Set<Int> = emptySet(),
+        val custom: ((RemotePatchBundle) -> Boolean)? = null,
+    ) {
+        fun covers(other: UpdateTarget) =
+            custom == null && other.custom == null &&
+                    (autoUpdatable || !other.autoUpdatable) &&
+                    uids.containsAll(other.uids)
+
+        operator fun plus(other: UpdateTarget): UpdateTarget {
+            val customs = listOfNotNull(custom, other.custom)
+            return UpdateTarget(
+                autoUpdatable = autoUpdatable || other.autoUpdatable,
+                uids = uids + other.uids,
+                custom = if (customs.isEmpty()) null else ({ bundle -> customs.any { it(bundle) } }),
+            )
+        }
+    }
+
     private data class UpdateRequest(
         val force: Boolean,
         val showToast: Boolean,
         val allowUnsafeNetwork: Boolean,
         val onPerBundleProgress: ((bundle: RemotePatchBundle, bytesRead: Long, bytesTotal: Long?) -> Unit)?,
-        val predicate: (bundle: RemotePatchBundle) -> Boolean,
-    )
+        val target: UpdateTarget,
+    ) {
+        /**
+         * True when running this request already does everything [other] asks for. A request
+         * carrying a progress callback, a toast or a forced redownload has an observable effect
+         * of its own, so it always runs even when its bundles are already being updated.
+         */
+        fun covers(other: UpdateRequest) =
+            other.onPerBundleProgress == null &&
+                    !other.force &&
+                    !other.showToast &&
+                    (allowUnsafeNetwork || !other.allowUnsafeNetwork) &&
+                    target.covers(other.target)
+    }
+
+    private fun predicateFor(target: UpdateTarget): (RemotePatchBundle) -> Boolean = { bundle ->
+        bundle.uid in target.uids ||
+                target.custom?.invoke(bundle) == true ||
+                (target.autoUpdatable && bundle.autoUpdate && bundle.enabled && !isSourceBlocked(bundle))
+    }
 
     private fun mergeUpdateRequests(requests: List<UpdateRequest>): UpdateRequest {
         val callbacks = requests.mapNotNull { it.onPerBundleProgress }
@@ -666,7 +711,7 @@ class PatchBundleRepository(
             showToast = requests.any { it.showToast },
             allowUnsafeNetwork = requests.all { it.allowUnsafeNetwork },
             onPerBundleProgress = mergedCallback,
-            predicate = { bundle -> requests.any { it.predicate(bundle) } }
+            target = requests.map { it.target }.reduce(UpdateTarget::plus),
         )
     }
 
@@ -735,15 +780,17 @@ class PatchBundleRepository(
             if (beingEnabledUids.isNotEmpty()) {
                 Log.d(tag, "Triggering update for re-enabled bundles: $beingEnabledUids")
                 startRemoteUpdateJob(
-                    force = false,
-                    showToast = false,
-                    allowUnsafeNetwork = false,
-                    onPerBundleProgress = null,
-                    predicate = { bundle ->
-                        val matches = bundle.uid in beingEnabledUids && bundle.enabled
-                        Log.d(tag, "  predicate check uid=${bundle.uid} inEnabled=${bundle.uid in beingEnabledUids} enabled=${bundle.enabled} → $matches")
-                        matches
-                    }
+                    UpdateRequest(
+                        force = false,
+                        showToast = false,
+                        allowUnsafeNetwork = false,
+                        onPerBundleProgress = null,
+                        target = UpdateTarget(custom = { bundle ->
+                            val matches = bundle.uid in beingEnabledUids && bundle.enabled
+                            Log.d(tag, "  predicate check uid=${bundle.uid} inEnabled=${bundle.uid in beingEnabledUids} enabled=${bundle.enabled} → $matches")
+                            matches
+                        })
+                    )
                 )
             }
 
@@ -868,11 +915,13 @@ class PatchBundleRepository(
 
         // Trigger update so the new channel takes effect immediately.
         startRemoteUpdateJob(
-            force = true,
-            showToast = false,
-            allowUnsafeNetwork = false,
-            onPerBundleProgress = null,
-            predicate = { it.uid == uid }
+            UpdateRequest(
+                force = true,
+                showToast = false,
+                allowUnsafeNetwork = false,
+                onPerBundleProgress = null,
+                target = UpdateTarget(uids = setOf(uid))
+            )
         )
     }
 
@@ -1418,10 +1467,11 @@ class PatchBundleRepository(
         val uids = sources.map { it.uid }.toSet()
         store.dispatch(
             Update(
+                target = UpdateTarget(uids = uids),
                 showToast = showToast,
                 allowUnsafeNetwork = allowUnsafeNetwork,
                 onPerBundleProgress = onPerBundleProgress,
-            ) { it.uid in uids }
+            )
         )
     }
 
@@ -1440,11 +1490,13 @@ class PatchBundleRepository(
     suspend fun updateCheckAndAwait(allowUnsafeNetwork: Boolean = false) {
         awaitCurrentUpdateJob()
         performRemoteUpdateWithResult(
-            force = false,
-            showToast = false,
-            allowUnsafeNetwork = allowUnsafeNetwork,
-            onPerBundleProgress = null,
-            predicate = { it.autoUpdate && it.enabled && !isSourceBlocked(it) }
+            UpdateRequest(
+                force = false,
+                showToast = false,
+                allowUnsafeNetwork = allowUnsafeNetwork,
+                onPerBundleProgress = null,
+                target = UpdateTarget(autoUpdatable = true),
+            )
         )
     }
 
@@ -1461,9 +1513,12 @@ class PatchBundleRepository(
      *   dialog action).
      */
     suspend fun updateCheck(allowUnsafeNetwork: Boolean = false) {
-        store.dispatch(Update(allowUnsafeNetwork = allowUnsafeNetwork) {
-            it.autoUpdate && it.enabled && !isSourceBlocked(it)
-        })
+        store.dispatch(
+            Update(
+                target = UpdateTarget(autoUpdatable = true),
+                allowUnsafeNetwork = allowUnsafeNetwork,
+            )
+        )
         checkManualUpdates()
     }
 
@@ -1524,11 +1579,11 @@ class PatchBundleRepository(
         store.dispatch(ManualUpdateCheck(bundleUids.toSet().takeIf { it.isNotEmpty() }))
 
     private inner class Update(
+        private val target: UpdateTarget,
         private val force: Boolean = false,
         private val showToast: Boolean = false,
         private val allowUnsafeNetwork: Boolean = false,
         private val onPerBundleProgress: ((bundle: RemotePatchBundle, bytesRead: Long, bytesTotal: Long?) -> Unit)? = null,
-        private val predicate: (bundle: RemotePatchBundle) -> Boolean = { true },
     ) : Action<BundleState> {
         override fun toString() = if (force) "Redownload remote bundles" else "Update check"
 
@@ -1536,11 +1591,13 @@ class PatchBundleRepository(
             current: BundleState
         ): BundleState {
             startRemoteUpdateJob(
-                force = force,
-                showToast = showToast,
-                allowUnsafeNetwork = allowUnsafeNetwork,
-                onPerBundleProgress = onPerBundleProgress,
-                predicate = predicate
+                UpdateRequest(
+                    force = force,
+                    showToast = showToast,
+                    allowUnsafeNetwork = allowUnsafeNetwork,
+                    onPerBundleProgress = onPerBundleProgress,
+                    target = target,
+                )
             )
             return current
         }
@@ -1551,41 +1608,32 @@ class PatchBundleRepository(
         }
     }
 
-    private suspend fun startRemoteUpdateJob(
-        force: Boolean,
-        showToast: Boolean,
-        allowUnsafeNetwork: Boolean,
-        onPerBundleProgress: ((bundle: RemotePatchBundle, bytesRead: Long, bytesTotal: Long?) -> Unit)?,
-        predicate: (bundle: RemotePatchBundle) -> Boolean,
-    ) {
-        val request = UpdateRequest(force, showToast, allowUnsafeNetwork, onPerBundleProgress, predicate)
+    private suspend fun startRemoteUpdateJob(request: UpdateRequest) {
         var queued = false
         updateJobMutex.withLock {
             if (updateJob?.isActive == true) {
+                // Opening the manager checks for updates from the application scope, and again
+                // from HomeScreen when it was launched from an update notification. Both ask for
+                // the same bundles, so running the second one would download them twice and raise
+                // a duplicate progress snackbar
+                if (activeUpdateRequest?.covers(request) == true) {
+                    Log.d(tag, "Skipping update request already covered by the running one")
+                    return
+                }
                 queued = true
             } else {
+                activeUpdateRequest = request
                 updateJob = scope.launch {
                     try {
-                        performRemoteUpdateWithResult(
-                            force = request.force,
-                            showToast = request.showToast,
-                            allowUnsafeNetwork = request.allowUnsafeNetwork,
-                            onPerBundleProgress = request.onPerBundleProgress,
-                            predicate = request.predicate
-                        )
+                        performRemoteUpdateWithResult(request)
                     } finally {
                         updateJobMutex.withLock {
                             updateJob = null
+                            activeUpdateRequest = null
                         }
                         val next = drainPendingUpdateRequests()
                         if (next != null) {
-                            startRemoteUpdateJob(
-                                force = next.force,
-                                showToast = next.showToast,
-                                allowUnsafeNetwork = next.allowUnsafeNetwork,
-                                onPerBundleProgress = next.onPerBundleProgress,
-                                predicate = next.predicate
-                            )
+                            startRemoteUpdateJob(next)
                         }
                     }
                 }
@@ -1596,13 +1644,12 @@ class PatchBundleRepository(
         }
     }
 
-    private suspend fun performRemoteUpdateWithResult(
-        force: Boolean,
-        showToast: Boolean,
-        allowUnsafeNetwork: Boolean,
-        onPerBundleProgress: ((bundle: RemotePatchBundle, bytesRead: Long, bytesTotal: Long?) -> Unit)?,
-        predicate: (bundle: RemotePatchBundle) -> Boolean,
-    ) = coroutineScope {
+    private suspend fun performRemoteUpdateWithResult(request: UpdateRequest) = coroutineScope {
+        val force = request.force
+        val showToast = request.showToast
+        val allowUnsafeNetwork = request.allowUnsafeNetwork
+        val onPerBundleProgress = request.onPerBundleProgress
+        val predicate = predicateFor(request.target)
         try {
             // Check network connectivity first
             if (!networkInfo.isConnected()) {
@@ -2075,22 +2122,24 @@ class PatchBundleRepository(
             val newState = doReload()
 
             startRemoteUpdateJob(
-                force = false,
-                showToast = false,
-                allowUnsafeNetwork = prefs.allowMeteredUpdates.get(),
-                onPerBundleProgress = null,
-                predicate = { bundle ->
-                    bundle.uid != DEFAULT_SOURCE_UID &&
-                            // Disabled bundles are not refreshed, but ones that were never
-                            // downloaded still need their initial fetch
-                            (bundle.enabled || bundle.state is PatchBundleSource.State.Missing) &&
-                            snapshots.any { s ->
-                                bundle.endpoint.equals(
-                                    runCatching { normalizeRemoteBundleUrl(s.source) }.getOrNull(),
-                                    ignoreCase = true
-                                )
-                            }
-                }
+                UpdateRequest(
+                    force = false,
+                    showToast = false,
+                    allowUnsafeNetwork = prefs.allowMeteredUpdates.get(),
+                    onPerBundleProgress = null,
+                    target = UpdateTarget(custom = { bundle ->
+                        bundle.uid != DEFAULT_SOURCE_UID &&
+                                // Disabled bundles are not refreshed, but ones that were never
+                                // downloaded still need their initial fetch
+                                (bundle.enabled || bundle.state is PatchBundleSource.State.Missing) &&
+                                snapshots.any { s ->
+                                    bundle.endpoint.equals(
+                                        runCatching { normalizeRemoteBundleUrl(s.source) }.getOrNull(),
+                                        ignoreCase = true
+                                    )
+                                }
+                    })
+                )
             )
 
             newState

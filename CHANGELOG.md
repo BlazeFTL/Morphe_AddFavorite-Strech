@@ -1,3 +1,16 @@
+# [1.25.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.15...v1.25.0-dev.16) (2026-08-03)
+
+
+### Bug Fixes
+
+* Save the process runtime memory limit when the slider is tapped ([#815](https://github.com/MorpheApp/morphe-manager/issues/815)) ([d9c9079](https://github.com/MorpheApp/morphe-manager/commit/d9c90798fc6ee9fe91f2333e450d2b1ba2c6cec8))
+
+
+### Features
+
+* Flag an experimental APK version on the queue card ([a6446d8](https://github.com/MorpheApp/morphe-manager/commit/a6446d878b127a24500d3a6ffac2d47c6683db28))
+* Merge the queue's APK buttons into one version-aware chooser ([79aff36](https://github.com/MorpheApp/morphe-manager/commit/79aff3692c7019a62548b8bab1dd180b954466cb))
+
 # [1.25.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.14...v1.25.0-dev.15) (2026-08-03)
 
 

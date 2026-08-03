@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-02T19:29:15",
-  "description": "# [1.25.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.13...v1.25.0-dev.14) (2026-08-02)\n\n\n### Bug Fixes\n\n* Announce a manager update only once its APK is downloadable ([9939cd1](https://github.com/MorpheApp/morphe-manager/commit/9939cd192cb32083eef4636b8b2560c70c8b41f4))\n* Close open dialogs when a patch source arrives from outside the app ([550926b](https://github.com/MorpheApp/morphe-manager/commit/550926b3091431de1e8f94e6a62ce32bc07f57a4))\n\n\n### Features\n\n* Crossfade dialog content when it swaps between states ([48848f2](https://github.com/MorpheApp/morphe-manager/commit/48848f257f1506745ef699fc293b82048aa22f26))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.14/morphe-manager-1.25.0-dev.14.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.14/morphe-manager-1.25.0-dev.14.apk.asc",
-  "version": "1.25.0-dev.14"
+  "created_at": "2026-08-03T09:53:11",
+  "description": "# [1.25.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.14...v1.25.0-dev.15) (2026-08-03)\n\n\n### Bug Fixes\n\n* Deduplicate update checks and install patch bundles atomically ([bf3e4e1](https://github.com/MorpheApp/morphe-manager/commit/bf3e4e1ddfee6fca170e05f3640ab3298a15cf9c))\n* Handle preference IO errors and skip cancellation in uiSafe ([c5b8e26](https://github.com/MorpheApp/morphe-manager/commit/c5b8e267b3b37e25d8cc6f9529378ec6420b0a7c))\n* Reduce startup cost and split the home apps section ([d8ee88f](https://github.com/MorpheApp/morphe-manager/commit/d8ee88fece6a7a994214be7403c4a509bf13a0cb))\n\n\n### Features\n\n* Update the file of a local patch source in place ([f4fc760](https://github.com/MorpheApp/morphe-manager/commit/f4fc760f7b93dfa306900e64f38576991ac5aca9))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.15/morphe-manager-1.25.0-dev.15.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.15/morphe-manager-1.25.0-dev.15.apk.asc",
+  "version": "1.25.0-dev.15"
 }

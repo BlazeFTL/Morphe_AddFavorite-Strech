@@ -426,6 +426,9 @@ fun HomeDialogs(
                 }
             ),
             savedPatches = homeViewModel.expertModeInitialPatches,
+            lockStateOf = { patch ->
+                patch.lockState(homeViewModel.currentInstallerType, homeViewModel.currentApkArchitecture)
+            },
             onDismiss = {
                 homeViewModel.cleanupExpertModeData()
             },

@@ -30,7 +30,11 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchInfo
+import app.morphe.manager.patcher.patch.PatchLockState
+import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
+import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.util.*
+import app.morphe.patcher.patch.InstallerType
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
@@ -55,7 +59,8 @@ class BatchPatchEdit(
     val bundles: List<PatchBundleInfo.Scoped>,
     val savedSelection: PatchSelection,
     val newPatches: Map<Int, Set<String>>,
-    initialOptions: Options
+    initialOptions: Options,
+    private val installerType: InstallerType
 ) {
     var selection by mutableStateOf(savedSelection)
         private set
@@ -80,22 +85,37 @@ class BatchPatchEdit(
 
     val hasMultipleBundles get() = selection.count { (_, patches) -> patches.isNotEmpty() } > 1
 
+    /** Lock state of [patch] for the install target this queue runs against. */
+    fun lockStateOf(patch: PatchInfo) = patch.lockState(installerType, SELECTION_APK_ARCHITECTURE)
+
     fun togglePatch(bundleUid: Int, patchName: String) {
+        // Locked patches are toggled only through availability rules; no-op here
+        val patch = bundles.firstOrNull { it.uid == bundleUid }
+            ?.patches
+            ?.firstOrNull { it.name == patchName }
+        if (patch != null && lockStateOf(patch) != PatchLockState.NONE) return
+
         selection = selection.togglePatch(bundleUid, patchName)
     }
 
     fun selectAll(bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) =
-        replaceBundle(bundleUid, patches.mapTo(mutableSetOf()) { (patch, _) -> patch.name })
+        replaceBundle(
+            bundleUid,
+            patches.filterNot { (patch, _) -> lockStateOf(patch) == PatchLockState.LOCKED_OFF }
+                .mapTo(mutableSetOf()) { (patch, _) -> patch.name }
+        )
 
     fun deselectAll(bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) {
-        val removed = patches.mapTo(mutableSetOf()) { (patch, _) -> patch.name }
+        val removed = patches
+            .filterNot { (patch, _) -> lockStateOf(patch) == PatchLockState.LOCKED_ON }
+            .mapTo(mutableSetOf()) { (patch, _) -> patch.name }
         replaceBundle(bundleUid, selection[bundleUid].orEmpty() - removed)
     }
 
     fun resetToDefault(bundleUid: Int, allPatches: List<Pair<PatchInfo, Boolean>>) =
         replaceBundle(
             bundleUid,
-            allPatches.filter { (patch, _) -> patch.include }
+            allPatches.filter { (patch, _) -> patch.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE) }
                 .mapTo(mutableSetOf()) { (patch, _) -> patch.name }
         )
 
@@ -301,7 +321,10 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
                 bundles = bundles,
                 savedSelection = item.selection,
                 newPatches = newPatches,
-                initialOptions = item.options
+                initialOptions = item.options,
+                // The queue resolved its plan against one install target, so the editor has to
+                // lock patches by the same rules the run will be executed with
+                installerType = installerTypeFor(state.value?.useMount == true)
             )
         }
     }

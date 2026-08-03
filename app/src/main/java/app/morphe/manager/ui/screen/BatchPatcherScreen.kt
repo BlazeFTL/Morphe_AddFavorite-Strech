@@ -183,6 +183,7 @@ fun BatchPatcherScreen(
                 onResetOptions = edit::resetOptions
             ),
             savedPatches = edit.savedSelection,
+            lockStateOf = edit::lockStateOf,
             proceedText = stringResource(R.string.save),
             // The queue combines sources by design, and the tabs make it plain enough
             warnOnMultipleBundles = false,

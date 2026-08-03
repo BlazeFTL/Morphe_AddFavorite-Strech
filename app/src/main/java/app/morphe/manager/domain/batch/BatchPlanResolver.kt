@@ -19,6 +19,8 @@ import app.morphe.manager.domain.repository.PatchOptionsRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
+import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
+import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.util.AppDataResolver
@@ -26,6 +28,7 @@ import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PM
 import app.morphe.manager.util.PatchSelection
+import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
@@ -62,8 +65,8 @@ class BatchPlanResolver(
     /**
      * Resolves every package in parallel and returns the items in the requested order.
      *
-     * @param useMount Mount installs replace the stock APK in place, so GmsCore patches are
-     *   dropped from every selection just like the single-app flow does.
+     * @param useMount Picks the install target every selection is resolved against, so patches
+     *   that declare themselves unavailable for it are dropped just like the single-app flow does.
      */
     suspend fun resolve(
         packageNames: List<String>,
@@ -253,8 +256,7 @@ class BatchPlanResolver(
         val contributing = bundles.filter { it.patchSequence(allowIncompatible).any() }
         if (contributing.isEmpty()) return blocked()
 
-        val selection = resolveSelection(packageName, contributing, allowIncompatible)
-            .let { if (useMount) it.filterGmsCore() else it }
+        val selection = resolveSelection(packageName, contributing, allowIncompatible, useMount)
 
         if (selection.values.sumOf { it.size } == 0) return blocked(contributing)
 
@@ -282,13 +284,16 @@ class BatchPlanResolver(
 
     /**
      * Mirrors the single-app selection rules across every contributing bundle: a validated
-     * saved selection wins, otherwise the bundle defaults (`include = true`) are used.
+     * saved selection wins, otherwise the bundle defaults are used. Whichever selection is
+     * reached, the patches' own availability for the install target has the final say.
      */
     private suspend fun resolveSelection(
         packageName: String,
         bundles: List<PatchBundleInfo.Scoped>,
-        allowIncompatible: Boolean
+        allowIncompatible: Boolean,
+        useMount: Boolean
     ): PatchSelection {
+        val installerType = installerTypeFor(useMount)
         val uids = bundles.mapTo(mutableSetOf()) { it.uid }
         val patchesByName = bundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
         val saved = patchSelectionRepository.getAllSelectionsForPackage(packageName)
@@ -301,21 +306,38 @@ class BatchPlanResolver(
                 val seen = patchSelectionRepository.getSeenPatches(packageName, bundle.uid)
                 val known = seen ?: saved[bundle.uid] ?: emptySet()
 
-                // Patches added to the bundle since the last run follow their include default,
+                // Patches added to the bundle since the last run follow their own default,
                 // the same rule the expert dialog applies when it merges new patches in
                 val newDefaults = bundle.patches
-                    .filter { it.name !in known && it.include }
+                    .filter {
+                        it.name !in known && it.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE)
+                    }
                     .mapTo(mutableSetOf()) { it.name }
 
                 bundle.uid to (validated[bundle.uid].orEmpty() + newDefaults)
             }.filterValues { it.isNotEmpty() }
 
-            if (merged.isNotEmpty()) return merged
+            if (merged.isNotEmpty()) {
+                return merged
+                    .applyAvailability(installerType, SELECTION_APK_ARCHITECTURE, patchesByName)
+                    .applyLegacyMountRules(useMount)
+            }
         }
 
-        return bundles.toPatchSelection(allowIncompatible) { _, patch -> patch.include }
+        return bundles
+            .toPatchSelection(allowIncompatible) { _, patch ->
+                patch.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE)
+            }
             .filterValues { it.isNotEmpty() }
+            .applyAvailability(installerType, SELECTION_APK_ARCHITECTURE, patchesByName)
+            .applyLegacyMountRules(useMount)
     }
+
+    // Safety net for bundles that have not adopted the availability API
+    // TODO: Drop this fallback together with PatchSelectionUtils.filterGmsCore
+    @Suppress("DEPRECATION")
+    private fun PatchSelection.applyLegacyMountRules(useMount: Boolean): PatchSelection =
+        if (useMount) filterGmsCore() else this
 
     /**
      * Expert mode stores options per bundle in the database, simple mode derives them from the

@@ -49,6 +49,7 @@ import app.morphe.manager.domain.bundles.BundleSourceType
 import app.morphe.manager.domain.apk.InstalledApkInfo
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.bundles.BundledAppTarget
+import app.morphe.manager.domain.bundles.experimentalVersions
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.repository.PatchBundleRepository
@@ -763,10 +764,7 @@ internal fun ApkAvailabilityDialog(
                 } else {
                     VersionListCard(
                         versions = compatibleVersions.map { it.target.version ?: anyString },
-                        experimentalVersions = compatibleVersions
-                            .filter { it.target.isExperimental }
-                            .mapNotNull { it.target.version }
-                            .toSet(),
+                        experimentalVersions = compatibleVersions.experimentalVersions(),
                         descriptions = compatibleVersions
                             .mapNotNull { b -> b.target.version?.let { v -> b.target.description?.let { d -> v to d } } }
                             .toMap(),

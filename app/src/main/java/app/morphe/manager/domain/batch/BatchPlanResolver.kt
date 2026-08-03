@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo
 import android.util.Log
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.domain.bundles.AppVersionCatalog
+import app.morphe.manager.domain.bundles.AppVersionHints
 import app.morphe.manager.domain.manager.PatchOptionsPreferencesManager
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
@@ -21,7 +22,6 @@ import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelect
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.util.AppDataResolver
-import app.morphe.patcher.patch.AppTarget
 import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PM
@@ -71,10 +71,10 @@ class BatchPlanResolver(
     ): List<BatchPatchItem> = coroutineScope {
         // Built once for the whole plan: it is derived from every patch of every source, and
         // resolving it per app would repeat that work for each one of them
-        val recommended = versionCatalog.recommendedVersions.first()
+        val hints = versionCatalog.hints()
         packageNames
             .distinct()
-            .map { packageName -> async { resolve(packageName, useMount, recommended = recommended) } }
+            .map { packageName -> async { resolve(packageName, useMount, hints = hints[packageName]) } }
             .awaitAll()
     }
 
@@ -86,13 +86,13 @@ class BatchPlanResolver(
         packageName: String,
         useMount: Boolean,
         attachedFile: File? = null,
-        recommended: Map<String, AppTarget>? = null,
+        hints: AppVersionHints? = null,
         allowIncompatible: Boolean = false,
         preferInstalled: Boolean = false
     ): BatchPatchItem = withContext(Dispatchers.IO) {
         val appName = resolveAppName(packageName)
-        val suggested = recommended?.get(packageName)?.version
-            ?: versionCatalog.recommendedVersion(packageName)
+        val versions = hints ?: versionCatalog.hints(packageName)
+        val suggested = versions?.recommendedVersion
 
         val source = try {
             attachedFile?.let { readAttachedFile(it) } ?: findSource(packageName, preferInstalled)
@@ -131,7 +131,15 @@ class BatchPlanResolver(
             }
         }
 
-        buildItem(packageName, appName, source, useMount, suggested, allowIncompatible)
+        buildItem(
+            packageName = packageName,
+            appName = appName,
+            source = source,
+            useMount = useMount,
+            suggested = suggested,
+            experimental = source.version in versions?.experimentalVersions.orEmpty(),
+            forceIncompatible = allowIncompatible
+        )
     }
 
     /**
@@ -205,6 +213,7 @@ class BatchPlanResolver(
         source: BatchApkSource,
         useMount: Boolean,
         suggested: String?,
+        experimental: Boolean,
         forceIncompatible: Boolean
     ): BatchPatchItem {
         val bundles = patchBundleRepository
@@ -232,6 +241,7 @@ class BatchPlanResolver(
             selection = emptyMap(),
             options = emptyMap(),
             bundles = contributing.map { it.toRef() },
+            experimentalVersion = experimental,
             suggestedVersion = suggested,
             state = if (versionMismatch) BatchItemState.VERSION_MISMATCH else BatchItemState.NO_PATCHES
         )
@@ -257,6 +267,7 @@ class BatchPlanResolver(
             selection = selection,
             options = options,
             bundles = contributing.map { it.toRef() },
+            experimentalVersion = experimental,
             suggestedVersion = suggested,
             state = if (versionMismatch) BatchItemState.VERSION_MISMATCH else BatchItemState.READY
         )

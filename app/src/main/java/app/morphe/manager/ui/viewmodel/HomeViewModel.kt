@@ -32,6 +32,7 @@ import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
 import app.morphe.manager.domain.bundles.AppVersionCatalog
 import app.morphe.manager.domain.bundles.BundledAppTarget
+import app.morphe.manager.domain.bundles.experimentalVersions
 import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.asRemoteOrNull
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
@@ -1517,11 +1518,7 @@ class HomeViewModel(
      * Used by the UI to show "Experimental" badges on specific versions.
      */
     fun getExperimentalVersionsForPackage(packageName: String): Set<String> =
-        compatibleVersions[packageName]
-            ?.filter { it.target.isExperimental }
-            ?.mapNotNull { it.target.version }
-            ?.toSet()
-            ?: emptySet()
+        compatibleVersions[packageName].orEmpty().experimentalVersions()
 
     /** Triggers the swipe gesture hint whenever a custom bundle is added. */
     val showSwipeGestureHint = MutableStateFlow(false)

@@ -917,7 +917,16 @@ private fun itemDetails(item: BatchPatchItem): String = when (item.state) {
             .filter { item.selection.isEmpty() || it.uid in item.selection.keys }
             .joinToString(", ") { it.name }
             .takeIf { it.isNotEmpty() }
-        listOfNotNull(item.version, source, patches, bundles).joinToString(" • ")
+        // The queue takes whatever APK is on hand and never stops to warn, so the caveat that
+        // the single-app flow raises a dialog for has to be visible on the card itself
+        val version = item.version?.let {
+            if (item.experimentalVersion) {
+                "$it (${stringResource(R.string.home_dialog_unsupported_version_experimental_label)})"
+            } else {
+                it
+            }
+        }
+        listOfNotNull(version, source, patches, bundles).joinToString(" • ")
     }
 }
 

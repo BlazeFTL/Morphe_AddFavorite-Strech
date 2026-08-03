@@ -28,6 +28,22 @@ data class BundledAppTarget(
 )
 
 /**
+ * Versions any source marks experimental. The single definition every experimental badge and
+ * warning is drawn from, so a version cannot read as stable in one place and not in another.
+ */
+fun List<BundledAppTarget>.experimentalVersions(): Set<String> =
+    filter { it.target.isExperimental }.mapNotNullTo(mutableSetOf()) { it.target.version }
+
+/**
+ * What the enabled sources say about one app's versions: which to suggest, and which come
+ * with the caveat that they are experimental.
+ */
+data class AppVersionHints(
+    val recommendedVersion: String?,
+    val experimentalVersions: Set<String>
+)
+
+/**
  * Which app versions the enabled patch sources can work with, and which one to suggest.
  *
  * Both the single-app flow and the batch queue send users to download a specific version, so
@@ -127,9 +143,26 @@ class AppVersionCatalog(
         }
     }
 
-    /** One-shot lookup for callers that are not observing, such as the batch planner. */
-    suspend fun recommendedVersion(packageName: String): String? =
-        recommendedVersions.first()[packageName]?.version
+    /**
+     * Everything the batch planner needs to say about an app's versions, resolved in one pass.
+     *
+     * The maps behind it are derived from every patch of every source, so a planner that asked
+     * per app would rebuild the whole catalog for each one.
+     */
+    suspend fun hints(): Map<String, AppVersionHints> {
+        val recommended = recommendedVersions.first()
+        val compatible = compatibleVersions.first()
+
+        return compatible.mapValues { (packageName, targets) ->
+            AppVersionHints(
+                recommendedVersion = recommended[packageName]?.version,
+                experimentalVersions = targets.experimentalVersions()
+            )
+        }
+    }
+
+    /** One-shot lookup for a single app, for the entry points that resolve one at a time. */
+    suspend fun hints(packageName: String): AppVersionHints? = hints()[packageName]
 
     private fun extract(
         bundleInfo: Map<Int, PatchBundleInfo>,

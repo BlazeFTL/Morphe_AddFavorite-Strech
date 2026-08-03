@@ -54,7 +54,6 @@ import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
-import app.morphe.manager.domain.manager.filterOptionsForTarget
 import app.morphe.manager.domain.manager.loadCopySelectionCandidates
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.model.SelectedApp
@@ -2791,11 +2790,14 @@ class HomeViewModel(
                     .filter { it in targetPatches }
                     .toSet()
 
-                val sourceOptions = optionsRepository.exportOptionsForBundle(
+                // Read as live values rather than through the raw export, which hands back
+                // JSON encoded strings
+                val filteredOptions = optionsRepository.getOptionsForBundle(
                     packageName = candidate.packageName,
-                    bundleUid = candidate.bundleUid
-                )
-                val filteredOptions = filterOptionsForTarget(sourceOptions, targetPatches)
+                    bundleUid = candidate.bundleUid,
+                    bundlePatchInfo = targetPatches
+                ).filterValues { it.isNotEmpty() }
+
                 filteredPatches to filteredOptions
             }
 

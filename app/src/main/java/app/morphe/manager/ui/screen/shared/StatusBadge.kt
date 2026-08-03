@@ -10,6 +10,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -138,6 +140,22 @@ fun StatusBadgeColumn(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
+        verticalArrangement = Arrangement.spacedBy(BadgeDefaults.ItemSpacing),
+        content = content
+    )
+}
+
+/**
+ * Badges on a line of their own, wrapping onto the next one when they run out of room.
+ */
+@Composable
+fun StatusBadgeRow(
+    modifier: Modifier = Modifier,
+    content: @Composable FlowRowScope.() -> Unit
+) {
+    FlowRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(BadgeDefaults.ItemSpacing),
         verticalArrangement = Arrangement.spacedBy(BadgeDefaults.ItemSpacing),
         content = content
     )

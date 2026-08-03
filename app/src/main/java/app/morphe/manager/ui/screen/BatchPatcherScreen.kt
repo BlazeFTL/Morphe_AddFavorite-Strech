@@ -682,19 +682,18 @@ private fun BatchItemCard(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = item.appName,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = FontWeight.Medium,
-                            color = LocalDialogTextColor.current,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.weight(1f, fill = false)
-                        )
+                    // The name gets a line to itself: badges beside it grow with translation
+                    // and would push it out of the card entirely
+                    Text(
+                        text = item.appName,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Medium,
+                        color = LocalDialogTextColor.current,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+
+                    StatusBadgeRow {
                         // The queue takes whatever APK is on hand and never stops to warn, so
                         // the caveat the single-app flow raises a dialog for is tagged here
                         if (item.experimentalVersion) {

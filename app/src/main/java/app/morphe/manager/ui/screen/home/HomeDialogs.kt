@@ -46,6 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.BundleSourceType
+import app.morphe.manager.domain.apk.InstalledApkInfo
+import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.bundles.RemotePatchBundle
@@ -639,7 +641,7 @@ fun HomeDialogs(
  * In simple mode there is only one version and no selection UI is shown.
  */
 @Composable
-private fun ApkAvailabilityDialog(
+internal fun ApkAvailabilityDialog(
     appName: String,
     recommendedVersion: AppTarget?,
     compatibleVersions: List<BundledAppTarget>,

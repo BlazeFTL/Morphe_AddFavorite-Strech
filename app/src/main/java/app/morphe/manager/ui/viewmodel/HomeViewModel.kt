@@ -26,7 +26,12 @@ import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.platform.NetworkInfo
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
+import app.morphe.manager.domain.apk.InstalledApkInfo
+import app.morphe.manager.domain.apk.LocalApkSources
+import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
+import app.morphe.manager.domain.bundles.AppVersionCatalog
+import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.asRemoteOrNull
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
@@ -35,10 +40,8 @@ import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.installer.RootInstaller
 import app.morphe.manager.domain.installer.UninstallCancelledException
 import app.morphe.manager.domain.manager.*
-import app.morphe.manager.domain.repository.*
-import app.morphe.manager.domain.bundles.AppVersionCatalog
-import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.manager.DownloadUrlResolver
+import app.morphe.manager.domain.repository.*
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
 import app.morphe.manager.patcher.patch.BundleAppMetadata
 import app.morphe.manager.patcher.patch.PatchBundleInfo
@@ -116,35 +119,6 @@ data class QuickPatchParams(
     val patches: PatchSelection,
     val options: Options
 )
-
-/** Saved APK information for display in APK selection dialog. */
-data class SavedApkInfo(
-    val fileName: String,
-    val filePath: String,
-    val version: String,
-    val versionCode: Long? = null
-)
-
-/** Installed APK information for display in APK selection dialog. */
-data class InstalledApkInfo(
-    val version: String,
-    val versionCode: Long? = null,
-    val apkPath: String,
-    val splitPaths: List<String> = emptyList(),
-    val patchStateUnknown: Boolean = false
-) {
-    val isSplit: Boolean get() = splitPaths.isNotEmpty()
-}
-
-/**
- * Whether an installed app has already been patched.
- * [Unknown] means the signing certificate could not be read, so the app may be either.
- */
-enum class InstalledPatchState {
-    Patched,
-    NotPatched,
-    Unknown
-}
 
 /** An installed app entry shown in the universal-patch app picker. */
 data class InstalledAppPickerItem(
@@ -228,7 +202,8 @@ class HomeViewModel(
     private val appDataResolver: AppDataResolver,
     private val batchPatchCoordinator: BatchPatchCoordinator,
     private val downloadUrlResolver: DownloadUrlResolver,
-    versionCatalog: AppVersionCatalog
+    versionCatalog: AppVersionCatalog,
+    private val localApkSources: LocalApkSources
 ) : ViewModel() {
     val availablePatches = patchBundleRepository.bundleInfoFlow.map { it.values.sumOf { bundle -> bundle.patches.size } }
     val bundleUpdateProgress = patchBundleRepository.bundleUpdateProgress
@@ -1736,7 +1711,7 @@ class HomeViewModel(
 
     private suspend fun showPatchDialogInternal(packageName: String) {
         val savedInfo = withContext(Dispatchers.IO) {
-            loadSavedApkInfo(packageName)
+            localApkSources.saved(packageName)
         }
         pendingSavedApkInfo = savedInfo
 
@@ -1793,10 +1768,10 @@ class HomeViewModel(
         val expertMode = isExpertMode()
         coroutineScope {
             val savedJob = if (pendingSavedApkInfo == null) {
-                async(Dispatchers.IO) { loadSavedApkInfo(packageName) }
+                async(Dispatchers.IO) { localApkSources.saved(packageName) }
             } else null
             val installedJob = if (expertMode && pendingTargetAppInstalled == null) {
-                async(Dispatchers.IO) { loadInstalledInfo(packageName) }
+                async(Dispatchers.IO) { localApkSources.installed(packageName) }
             } else null
             savedJob?.await()?.let { pendingSavedApkInfo = it }
             installedJob?.await()?.let { (installed, info) ->
@@ -1822,37 +1797,6 @@ class HomeViewModel(
     }
 
     /**
-     * Load information about saved original APK for a package.
-     */
-    private suspend fun loadSavedApkInfo(packageName: String): SavedApkInfo? {
-        try {
-            val originalApk = originalApkRepository.get(packageName) ?: return null
-            val file = File(originalApk.filePath)
-            if (!file.exists()) return null
-
-            // Use AppDataResolver to get accurate version from APK file
-            val resolvedData = appDataResolver.resolveAppData(
-                packageName = packageName,
-                preferredSource = AppDataSource.ORIGINAL_APK
-            )
-
-            // Use resolved version
-            val version = resolvedData.version
-                ?: originalApk.version
-
-            return SavedApkInfo(
-                fileName = file.name,
-                filePath = file.absolutePath,
-                version = version,
-                versionCode = resolvedData.packageInfo?.let { pm.getVersionCode(it) }
-            )
-        } catch (e: Exception) {
-            Log.e(tag, "Failed to load saved APK info", e)
-            return null
-        }
-    }
-
-    /**
      * Returns true if [installedVersion] is listed in [pendingCompatibleVersions],
      * or if the compatible list is empty / contains an "any version" target.
      */
@@ -1862,91 +1806,6 @@ class HomeViewModel(
         return compatible.any { entry ->
             entry.target.version == installedVersion &&
                 (entry.buildCodes == null || installedVersionCode == null || installedVersionCode.toInt() in entry.buildCodes)
-        }
-    }
-
-    /**
-     * Returns whether the target app is installed and, if it is a single unpatched APK, its info.
-     * First element: true if the package is installed at all (regardless of splits/version).
-     * Second element: non-null only for single-APK installs that appear to be the original app.
-     *
-     * The "Use installed APK" button is suppressed when:
-     * - Morphe tracks this package as a patched install, or
-     * - The installed signing certificate doesn't match the bundle's expected original signatures, or
-     * - The APK on disk is signed differently than the system recorded, as with a mounted install.
-     *
-     * When the certificate cannot be read at all the button stays available, flagged through
-     * [InstalledApkInfo.patchStateUnknown] so the dialog can say the check did not happen.
-     */
-    private suspend fun loadInstalledInfo(packageName: String): Pair<Boolean, InstalledApkInfo?> {
-        return try {
-            val pkgInfo = pm.getPackageInfo(packageName)
-                ?: return false to null
-
-            // Determine if the installed app is patched, in priority order:
-            // 1. APK on disk signed differently than the system recorded (a mounted install)
-            // 2. Saved original APK (most reliable - direct signature comparison)
-            // 3. Bundle-declared expected signatures (fallback)
-            // 4. DB tracking (version match only)
-            // 5. Installing package (survives clearing Morphe's data, unlike the DB)
-            val patchState: InstalledPatchState = run {
-                // Checked first because the certificates below describe the stock app while the
-                // file that "Use installed APK" would copy is the patched one
-                if (pm.hasSourceApkSignatureMismatch(packageName)) return@run InstalledPatchState.Patched
-
-                val savedHashes = originalApkRepository.get(packageName)
-                    ?.let { File(it.filePath) }
-                    ?.takeIf { it.exists() }
-                    ?.let { pm.getApkFileSignatureHashes(it) }
-                    .orEmpty()
-                val referenceHashes = savedHashes.ifEmpty {
-                    bundleAppMetadataFlow.value[packageName]?.signatures.orEmpty()
-                }
-
-                if (referenceHashes.isNotEmpty()) {
-                    val installedHashes = pm.getInstalledSignatureHashes(packageName)
-                    if (installedHashes.isNotEmpty()) {
-                        return@run if (installedHashes.none { it in referenceHashes })
-                            InstalledPatchState.Patched
-                        else
-                            InstalledPatchState.NotPatched
-                    }
-                }
-
-                val trackedPatch = installedAppRepository.get(packageName)
-                if (trackedPatch != null && pkgInfo.versionName == trackedPatch.version) {
-                    return@run InstalledPatchState.Patched
-                }
-                if (pm.isInstalledByPatchManager(packageName)) return@run InstalledPatchState.Patched
-
-                // A comparison was possible in principle, so an unreadable certificate leaves the
-                // state genuinely unknown rather than clean
-                if (referenceHashes.isNotEmpty())
-                    InstalledPatchState.Unknown
-                else
-                    InstalledPatchState.NotPatched
-            }
-            if (patchState == InstalledPatchState.Patched) return true to null
-
-            val appInfo = pkgInfo.applicationInfo
-                ?: return true to null
-            val sourceDir = appInfo.sourceDir ?: return true to null
-            if (!File(sourceDir).exists()) return true to null
-            val version = pkgInfo.versionName?.takeUnless { it.isBlank() }
-                ?: return true to null
-            val splitPaths = appInfo.splitSourceDirs
-                ?.filter { File(it).exists() }
-                ?: emptyList()
-            true to InstalledApkInfo(
-                version = version,
-                versionCode = pm.getVersionCode(pkgInfo),
-                apkPath = sourceDir,
-                splitPaths = splitPaths,
-                patchStateUnknown = patchState == InstalledPatchState.Unknown
-            )
-        } catch (e: Exception) {
-            Log.e(tag, "Failed to load installed app info", e)
-            false to null
         }
     }
 

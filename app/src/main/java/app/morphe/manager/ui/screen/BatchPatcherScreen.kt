@@ -36,6 +36,7 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.ui.screen.home.ApkAvailabilityDialog
 import app.morphe.manager.ui.screen.home.DownloadInstructionsDialog
 import app.morphe.manager.ui.screen.home.ExpertModeDialog
 import app.morphe.manager.ui.screen.home.ExpertPatchActions
@@ -150,6 +151,8 @@ fun BatchPatcherScreen(
         )
     }
 
+    val useExpertMode by prefs.useExpertMode.getAsState()
+
     // Opened straight from the actions that need it rather than by watching state: the target
     // can repeat, and a repeated value is not an event a keyed effect would fire on again
     val attachApkTo = { packageName: String ->
@@ -185,6 +188,32 @@ fun BatchPatcherScreen(
             warnOnMultipleBundles = false,
             onDismiss = viewModel::cancelEdit,
             onProceed = viewModel::applyEdit
+        )
+    }
+
+    // The single-app flow's own APK question, pointed at a queued app. It carries the version
+    // list, so picking a specific or experimental version works here exactly as it does there
+    viewModel.apkChoice?.let { choice ->
+        ApkAvailabilityDialog(
+            appName = choice.item.appName,
+            recommendedVersion = choice.recommended,
+            compatibleVersions = choice.compatible,
+            recommendedBundleVersions = choice.recommendedByBundle,
+            selectedDownloadVersion = choice.selectedVersion,
+            onVersionSelect = viewModel::selectApkVersion,
+            usingMountInstall = false,
+            targetAppInstalled = choice.installedOnDevice,
+            isExpertMode = useExpertMode,
+            savedApkInfo = choice.saved,
+            installedApkInfo = choice.installed,
+            onDismiss = viewModel::cancelApkChoice,
+            onHaveApk = {
+                viewModel.cancelApkChoice()
+                attachApkTo(choice.item.packageName)
+            },
+            onNeedApk = { viewModel.beginApkSearch(choice.item, choice.selectedVersion?.version) },
+            onUseSaved = { viewModel.useApkSource(preferInstalled = false) },
+            onUseInstalled = { viewModel.useApkSource(preferInstalled = true) }
         )
     }
 
@@ -293,7 +322,6 @@ fun BatchPatcherScreen(
     }
 
     val listState = rememberLazyListState()
-    val useExpertMode by prefs.useExpertMode.getAsState()
     val activeRun = current?.activeRun
 
     // Patching an app looks exactly like a single run, with a queue counter on top
@@ -408,14 +436,7 @@ fun BatchPatcherScreen(
                     BatchItemCard(
                         item = item,
                         editable = current.phase == BatchPhase.PREFLIGHT,
-                        onAttach = { attachApkTo(item.packageName) },
-                        // Offered whenever downloading would get a different file than the one
-                        // on hand, which also covers a saved original the sources have moved
-                        // past. No point when there is nothing to patch with at all
-                        onFindApk = item
-                            .takeIf { it.state != BatchItemState.NO_PATCHES }
-                            ?.takeIf { it.suggestedVersion != null && it.suggestedVersion != it.version }
-                            ?.let { { viewModel.beginApkSearch(item) } },
+                        onSelectApk = { viewModel.beginApkChoice(item) },
                         onToggleExcluded = { viewModel.toggleExcluded(item.packageName) },
                         onForceVersion = { viewModel.forceVersion(item.packageName) },
                         // Simple mode never exposes individual patches, and the options edited
@@ -626,8 +647,7 @@ private fun BatchPolicyCard(
 private fun BatchItemCard(
     item: BatchPatchItem,
     editable: Boolean,
-    onAttach: () -> Unit,
-    onFindApk: (() -> Unit)? = null,
+    onSelectApk: () -> Unit,
     onToggleExcluded: () -> Unit,
     onForceVersion: () -> Unit,
     onEditPatches: (() -> Unit)? = null,
@@ -733,22 +753,12 @@ private fun BatchItemCard(
                             vertical = MorpheDefaults.ItemSpacing
                         )
                     ) {
-                        if (onFindApk != null) {
-                            val findLabel = stringResource(R.string.batch_patch_find_apk)
-                            ActionPillButton(
-                                onClick = onFindApk,
-                                icon = Icons.Outlined.Search,
-                                contentDescription = findLabel,
-                                tooltip = findLabel
-                            )
-                        }
-
-                        val attachLabel = stringResource(R.string.batch_patch_attach_apk)
+                        val selectApkLabel = stringResource(R.string.home_select_apk_title)
                         ActionPillButton(
-                            onClick = onAttach,
+                            onClick = onSelectApk,
                             icon = Icons.Outlined.FileOpen,
-                            contentDescription = attachLabel,
-                            tooltip = attachLabel
+                            contentDescription = selectApkLabel,
+                            tooltip = selectApkLabel
                         )
 
                         if (onEditPatches != null) {

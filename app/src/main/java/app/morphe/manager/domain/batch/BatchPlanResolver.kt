@@ -87,14 +87,15 @@ class BatchPlanResolver(
         useMount: Boolean,
         attachedFile: File? = null,
         recommended: Map<String, AppTarget>? = null,
-        allowIncompatible: Boolean = false
+        allowIncompatible: Boolean = false,
+        preferInstalled: Boolean = false
     ): BatchPatchItem = withContext(Dispatchers.IO) {
         val appName = resolveAppName(packageName)
         val suggested = recommended?.get(packageName)?.version
             ?: versionCatalog.recommendedVersion(packageName)
 
         val source = try {
-            attachedFile?.let { readAttachedFile(it) } ?: findSource(packageName)
+            attachedFile?.let { readAttachedFile(it) } ?: findSource(packageName, preferInstalled)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to resolve APK source for $packageName", e)
             null
@@ -172,6 +173,18 @@ class BatchPlanResolver(
             // A forced item stays runnable after swapping its APK, so the user does not have
             // to confirm the same version warning twice, and keeps the patches that came with it
             allowIncompatible = item.forceVersionMismatch
+        ).copy(forceVersionMismatch = item.forceVersionMismatch)
+
+    /**
+     * Re-resolves an app against the APK the user picked in the availability dialog. Only the
+     * order of preference changes: the file itself is still discovered the usual way.
+     */
+    suspend fun useSource(item: BatchPatchItem, useMount: Boolean, preferInstalled: Boolean): BatchPatchItem =
+        resolve(
+            packageName = item.packageName,
+            useMount = useMount,
+            allowIncompatible = item.forceVersionMismatch,
+            preferInstalled = preferInstalled
         ).copy(forceVersionMismatch = item.forceVersionMismatch)
 
     /**
@@ -362,7 +375,10 @@ class BatchPlanResolver(
      * unpatched and already on disk, then the installed APK when it still looks like the
      * stock app.
      */
-    private suspend fun findSource(packageName: String): BatchApkSource? {
+    private suspend fun findSource(packageName: String, preferInstalled: Boolean): BatchApkSource? {
+        if (preferInstalled) {
+            installedSource(packageName)?.let { return it }
+        }
         savedOriginalSource(packageName)?.let { return it }
         return installedSource(packageName)
     }

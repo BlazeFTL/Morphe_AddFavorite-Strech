@@ -348,8 +348,6 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="batch_patch_source_installed">Installed app</string>
     <string name="batch_patch_source_file">Attached file</string>
     <string name="batch_patch_source_unavailable">The APK could not be prepared</string>
-    <string name="batch_patch_find_apk">Find APK</string>
-    <string name="batch_patch_attach_apk">Attach APK</string>
     <string name="batch_patch_force_version">Patch anyway</string>
     <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
     <string name="batch_patch_edit_patches">Choose patches</string>

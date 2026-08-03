@@ -99,8 +99,12 @@ fun ProcessRuntimeDialog(
                 ) {
                     Slider(
                         value = sliderValue,
-                        onValueChange = { sliderValue = it },
-                        onValueChangeFinished = { onLimitChange(selectedLimit) },
+                        // Saved here rather than from `onValueChangeFinished`, which a track tap
+                        // fires in the same pointer event and would persist the pre-tap value
+                        onValueChange = {
+                            sliderValue = it
+                            onLimitChange(it.roundToInt())
+                        },
                         valueRange = PROCESS_RUNTIME_MEMORY_MINIMUM.toFloat()..maxLimit.toFloat(),
                         steps = (((maxLimit.toDouble() - PROCESS_RUNTIME_MEMORY_MINIMUM)
                                 / PROCESS_RUNTIME_MEMORY_STEP - 1)).toInt(),
@@ -133,9 +137,9 @@ fun ProcessRuntimeDialog(
                     isExpanded = true
                 )
 
-                // Warning for low values — top padding inside so shrink includes spacing
+                // Warning for low values
                 AnimatedVisibility(
-                    visible = enabled && sliderValue < PROCESS_RUNTIME_MEMORY_LOW_WARNING,
+                    visible = enabled && selectedLimit < PROCESS_RUNTIME_MEMORY_LOW_WARNING,
                     enter = MorpheAnimations.expandFadeEnter,
                     exit = MorpheAnimations.shrinkFadeExit
                 ) {

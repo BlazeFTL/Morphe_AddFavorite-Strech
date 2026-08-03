@@ -814,13 +814,15 @@ private fun BundleManagementCard(
                             }
                         }
 
-                        if (bundle is RemotePatchBundle) {
+                        val isLocal = bundle is LocalPatchBundle
+                        if (bundle is RemotePatchBundle || isLocal) {
                             val updateVerb = stringResource(R.string.update)
                             val updateDesc = updateVerb + " " + bundle.displayTitle
                             val updateToast = stringResource(R.string.sources_management_source_updating)
-                            // Update button
+                            // Update button. A local source has nothing to fetch from, so it asks
+                            // for a replacement file instead and reports progress once one is picked
                             ActionPillButton(
-                                onClick = withToast(updateToast, onUpdate),
+                                onClick = if (isLocal) onUpdate else withToast(updateToast, onUpdate),
                                 icon = Icons.Outlined.Refresh,
                                 contentDescription = updateDesc,
                                 tooltip = updateVerb,

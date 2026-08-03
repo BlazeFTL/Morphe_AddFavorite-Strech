@@ -449,6 +449,17 @@ fun HomeDialogs(
         }
     }
 
+    // Replacing the file of a local source keeps its uid, so the patch selection and options
+    // stay attached instead of being stranded on a freshly added second source
+    val openLocalBundleUpdatePicker = rememberAdaptiveFilePicker(
+        mimeTypes = MPP_FILE_MIME_TYPES,
+        onResult = { uri ->
+            val uid = homeViewModel.localBundleUpdateUid
+            homeViewModel.localBundleUpdateUid = null
+            if (uri != null && uid != null) homeViewModel.updateLocalSource(uid, uri)
+        }
+    )
+
     // Bundle management sheet
     if (homeViewModel.showBundleManagementSheet) {
         BundleManagementSheet(
@@ -472,6 +483,9 @@ fun HomeDialogs(
                     scope.launch {
                         homeViewModel.patchBundleRepository.update(bundle, showToast = true)
                     }
+                } else {
+                    homeViewModel.localBundleUpdateUid = bundle.uid
+                    openLocalBundleUpdatePicker()
                 }
             },
             onRename = { bundle ->

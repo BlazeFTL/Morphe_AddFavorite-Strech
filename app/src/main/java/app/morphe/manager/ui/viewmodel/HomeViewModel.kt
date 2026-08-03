@@ -65,6 +65,7 @@ import kotlinx.coroutines.flow.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+import java.io.InputStream
 import java.util.zip.CRC32
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -319,6 +320,9 @@ class HomeViewModel(
     // Bundle file selection
     var selectedBundleUri by mutableStateOf<Uri?>(null)
     var selectedBundlePath by mutableStateOf<String?>(null)
+
+    /** Local source waiting for a replacement file, so the picker result knows what it updates. */
+    var localBundleUpdateUid by mutableStateOf<Int?>(null)
 
     // APK selection flow dialogs
     var showApkAvailabilityDialog by mutableStateOf(false)
@@ -988,8 +992,16 @@ class HomeViewModel(
         }
     }
 
+    fun createLocalSource(patchBundle: Uri) = importLocalSource(patchBundle, replacingUid = null)
+
+    /**
+     * Points an existing local source at a newly picked file. Adding the updated file instead
+     * would create a second source and strand the patch selection on the old one.
+     */
+    fun updateLocalSource(uid: Int, patchBundle: Uri) = importLocalSource(patchBundle, replacingUid = uid)
+
     @SuppressLint("Recycle")
-    fun createLocalSource(patchBundle: Uri) = viewModelScope.launch {
+    private fun importLocalSource(patchBundle: Uri, replacingUid: Int?) = viewModelScope.launch {
         withContext(NonCancellable) {
             withPersistentImportToast {
                 val permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -1016,10 +1028,15 @@ class HomeViewModel(
                     // Provider may not support persistable permissions; fall back to transient grant
                 }
 
+                val openStream: suspend () -> InputStream = {
+                    contentResolver.openInputStream(patchBundle)
+                        ?: throw FileNotFoundException("Unable to open $patchBundle")
+                }
                 try {
-                    patchBundleRepository.createLocal(size) {
-                        contentResolver.openInputStream(patchBundle)
-                            ?: throw FileNotFoundException("Unable to open $patchBundle")
+                    if (replacingUid != null) {
+                        patchBundleRepository.replaceLocal(replacingUid, size, openStream)
+                    } else {
+                        patchBundleRepository.createLocal(size, openStream)
                     }
                 } finally {
                     if (persistedPermission) {

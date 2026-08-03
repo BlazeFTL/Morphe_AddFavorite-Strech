@@ -578,14 +578,19 @@ class PatchBundleRepository(
         sortOrder: Int? = null,
         createdAt: Long? = null,
         updatedAt: Long? = null,
-        enabled: Boolean? = null
+        enabled: Boolean? = null,
+        /**
+         * Skips the uniqueness suffix. Set when [name] is a name this source already carries, so
+         * re-saving an existing entry cannot drift into "Name (2)" by colliding with itself.
+         */
+        keepName: Boolean = false
     ): PatchBundleEntity {
         val resolvedUid = uid ?: generateUid()
         val existingProps = dao.getProps(resolvedUid)
         val normalizedDisplayName = displayName?.takeUnless { it.isBlank() }
             ?: existingProps?.displayName?.takeUnless { it.isBlank() }
             ?: if (resolvedUid == DEFAULT_SOURCE_UID) SOURCE_NAME else null
-        val normalizedName = if (resolvedUid == DEFAULT_SOURCE_UID) {
+        val normalizedName = if (resolvedUid == DEFAULT_SOURCE_UID || keepName) {
             name
         } else {
             ensureUniqueName(name, resolvedUid)
@@ -938,7 +943,28 @@ class PatchBundleRepository(
         prefs.bundleExperimentalVersionsEnabled.update(current)
     }
 
-    suspend fun createLocal(expectedSize: Long? = null, createStream: suspend () -> InputStream) {
+    suspend fun createLocal(expectedSize: Long? = null, createStream: suspend () -> InputStream) =
+        importLocal(targetUid = null, expectedSize = expectedSize, createStream = createStream)
+
+    /**
+     * Replaces the file behind an existing local source instead of adding a second one.
+     *
+     * A local source is identified by the hash of its file, so re-adding an updated bundle lands
+     * under a new uid and leaves the patch selection and options - both keyed by uid - behind on
+     * the old entry. Reusing [uid] keeps them attached. Entries for patches the new file no
+     * longer has are ignored on read, exactly as they are after a remote bundle updates.
+     */
+    suspend fun replaceLocal(
+        uid: Int,
+        expectedSize: Long? = null,
+        createStream: suspend () -> InputStream
+    ) = importLocal(targetUid = uid, expectedSize = expectedSize, createStream = createStream)
+
+    private suspend fun importLocal(
+        targetUid: Int?,
+        expectedSize: Long?,
+        createStream: suspend () -> InputStream
+    ) {
         var copyTotal: Long? = expectedSize?.takeIf { it > 0L }
         var copyRead = 0L
         var displayName: String? = null
@@ -1006,15 +1032,7 @@ class PatchBundleRepository(
                         PatchBundle(tempFile.absolutePath).manifestAttributes?.name
                     }.getOrNull()?.takeUnless { it.isBlank() }
 
-                    // Block importing official Morphe source
-//                    if (manifestName?.equals(SOURCE_NAME, ignoreCase = true) == true) {
-//                        withContext(Dispatchers.Main) {
-//                            app.toast(app.getString("This source cannot be added because it is already built-in"))
-//                        }
-//                        return
-//                    }
-
-                    val uid = stableLocalUid(manifestName, tempFile, precomputedDigest)
+                    val uid = targetUid ?: stableLocalUid(manifestName, tempFile, precomputedDigest)
                     val existingProps = dao.getProps(uid)
                     displayName = (manifestName ?: existingProps?.name).orEmpty()
 
@@ -1028,11 +1046,15 @@ class PatchBundleRepository(
                         bytesTotal = replaceTotal,
                     )
 
+                    // Updating a source keeps the name it is listed under: the file it points at
+                    // changed, the source did not, and renaming stays a separate action
+                    val nameToKeep = targetUid?.let { existingProps?.name }
                     val entity = createEntity(
-                        name = manifestName ?: existingProps?.name.orEmpty(),
+                        name = nameToKeep ?: manifestName ?: existingProps?.name.orEmpty(),
                         source = SourceInfo.Local,
                         uid = uid,
-                        displayName = existingProps?.displayName
+                        displayName = existingProps?.displayName,
+                        keepName = nameToKeep != null
                     )
                     val localBundle = entity.load() as LocalPatchBundle
 
@@ -1094,7 +1116,7 @@ class PatchBundleRepository(
                     bytesRead = 0L,
                     bytesTotal = null,
                 )
-                dispatchAction("Add bundle") { doReload() }
+                dispatchAction(if (targetUid != null) "Replace bundle" else "Add bundle") { doReload() }
                 setLocalImportProgress(
                     baseProcessed = baseProcessed,
                     offset = LOCAL_IMPORT_STEPS,

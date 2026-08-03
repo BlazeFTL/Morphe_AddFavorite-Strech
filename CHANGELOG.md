@@ -1,3 +1,16 @@
+# [1.25.0-dev.18](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.17...v1.25.0-dev.18) (2026-08-03)
+
+
+### Bug Fixes
+
+* Decode copied patch options instead of storing them JSON encoded ([ec8f9f2](https://github.com/MorpheApp/morphe-manager/commit/ec8f9f270f635019fa29b947195eeae77263aa82))
+* Stop badges from hiding the app name on batch queue cards ([b924535](https://github.com/MorpheApp/morphe-manager/commit/b924535c026cddd4c27dfee5b7e03efa1c4b1930))
+
+
+### Features
+
+* Add patch availability ([#747](https://github.com/MorpheApp/morphe-manager/issues/747)) ([e5c61d1](https://github.com/MorpheApp/morphe-manager/commit/e5c61d11a8159d45e470e5706eda6271846fbe8e))
+
 # [1.25.0-dev.17](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.16...v1.25.0-dev.17) (2026-08-03)
 
 

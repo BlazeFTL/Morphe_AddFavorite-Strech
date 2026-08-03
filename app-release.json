@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-03T15:30:26",
-  "description": "# [1.25.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.15...v1.25.0-dev.16) (2026-08-03)\n\n\n### Bug Fixes\n\n* Save the process runtime memory limit when the slider is tapped ([#815](https://github.com/MorpheApp/morphe-manager/issues/815)) ([d9c9079](https://github.com/MorpheApp/morphe-manager/commit/d9c90798fc6ee9fe91f2333e450d2b1ba2c6cec8))\n\n\n### Features\n\n* Flag an experimental APK version on the queue card ([a6446d8](https://github.com/MorpheApp/morphe-manager/commit/a6446d878b127a24500d3a6ffac2d47c6683db28))\n* Merge the queue's APK buttons into one version-aware chooser ([79aff36](https://github.com/MorpheApp/morphe-manager/commit/79aff3692c7019a62548b8bab1dd180b954466cb))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.16/morphe-manager-1.25.0-dev.16.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.16/morphe-manager-1.25.0-dev.16.apk.asc",
-  "version": "1.25.0-dev.16"
+  "created_at": "2026-08-03T18:02:53",
+  "description": "# [1.25.0-dev.17](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.16...v1.25.0-dev.17) (2026-08-03)\n\n\n### Bug Fixes\n\n* Unify badges and version tags ([7c1f46f](https://github.com/MorpheApp/morphe-manager/commit/7c1f46fd7cabd2dc153b1594a4f15763d23a1bdb))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.17/morphe-manager-1.25.0-dev.17.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.17/morphe-manager-1.25.0-dev.17.apk.asc",
+  "version": "1.25.0-dev.17"
 }

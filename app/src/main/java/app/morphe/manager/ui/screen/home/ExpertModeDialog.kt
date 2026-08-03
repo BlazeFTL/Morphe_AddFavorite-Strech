@@ -127,10 +127,9 @@ fun ExpertModeDialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Count badge
-                InfoBadge(
+                MorpheBadge(
                     text = "$totalSelectedCount/$totalPatchesCount",
-                    style = if (totalSelectedCount > 0) InfoBadgeStyle.Primary else InfoBadgeStyle.Default,
-                    isCompact = true
+                    tone = if (totalSelectedCount > 0) MorpheTone.Primary else MorpheTone.Neutral
                 )
 
                 // Search toggle button
@@ -347,11 +346,9 @@ fun ExpertModeDialog(
                                     Spacer(modifier = Modifier.height(2.dp))
 
                                     // Patch count badge
-                                    InfoBadge(
+                                    MorpheBadge(
                                         text = "$enabledCount/$totalCount",
-                                        style = if (isSelected && hasResults) InfoBadgeStyle.Primary else InfoBadgeStyle.Default,
-                                        isCompact = true,
-                                        isCentered = true
+                                        tone = if (isSelected && hasResults) MorpheTone.Primary else MorpheTone.Neutral
                                     )
                                 }
                             }

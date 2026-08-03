@@ -694,17 +694,23 @@ private fun BatchItemCard(
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.weight(1f, fill = false)
                         )
+                        // The queue takes whatever APK is on hand and never stops to warn, so
+                        // the caveat the single-app flow raises a dialog for is tagged here
+                        if (item.experimentalVersion) {
+                            VersionTagBadge(VersionTag.Experimental)
+                        }
+
                         // Once installing has been tried, its outcome is the newer and more
                         // useful fact about the app than how the patching went
                         when (item.installOutcome) {
-                            BatchInstallOutcome.INSTALLED -> PillBadge(
+                            BatchInstallOutcome.INSTALLED -> MorpheBadge(
                                 text = stringResource(R.string.installed),
-                                style = InfoBadgeStyle.Success
+                                tone = MorpheTone.Success
                             )
 
-                            BatchInstallOutcome.FAILED -> PillBadge(
+                            BatchInstallOutcome.FAILED -> MorpheBadge(
                                 text = stringResource(R.string.batch_patch_install_failed),
-                                style = InfoBadgeStyle.Error
+                                tone = MorpheTone.Error
                             )
 
                             null -> BatchStateBadge(item.state)
@@ -917,33 +923,24 @@ private fun itemDetails(item: BatchPatchItem): String = when (item.state) {
             .filter { item.selection.isEmpty() || it.uid in item.selection.keys }
             .joinToString(", ") { it.name }
             .takeIf { it.isNotEmpty() }
-        // The queue takes whatever APK is on hand and never stops to warn, so the caveat that
-        // the single-app flow raises a dialog for has to be visible on the card itself
-        val version = item.version?.let {
-            if (item.experimentalVersion) {
-                "$it (${stringResource(R.string.home_dialog_unsupported_version_experimental_label)})"
-            } else {
-                it
-            }
-        }
-        listOfNotNull(version, source, patches, bundles).joinToString(" • ")
+        listOfNotNull(item.version, source, patches, bundles).joinToString(" • ")
     }
 }
 
 /** Compact status pill, sized to its text so the app name keeps the rest of the row. */
 @Composable
 private fun BatchStateBadge(state: BatchItemState) {
-    val (labelRes, style) = when (state) {
-        BatchItemState.READY -> R.string.ready to InfoBadgeStyle.Primary
-        BatchItemState.RUNNING -> R.string.patching to InfoBadgeStyle.Primary
-        BatchItemState.SUCCEEDED -> R.string.done to InfoBadgeStyle.Success
-        BatchItemState.FAILED -> R.string.failed to InfoBadgeStyle.Error
-        BatchItemState.CANCELLED -> R.string.cancelled to InfoBadgeStyle.Default
-        BatchItemState.EXCLUDED -> R.string.excluded to InfoBadgeStyle.Default
-        BatchItemState.NEEDS_APK -> R.string.batch_patch_state_no_apk to InfoBadgeStyle.Error
-        BatchItemState.VERSION_MISMATCH -> R.string.version to InfoBadgeStyle.Warning
-        BatchItemState.NO_PATCHES -> R.string.batch_patch_state_no_patches to InfoBadgeStyle.Error
+    val (labelRes, tone) = when (state) {
+        BatchItemState.READY -> R.string.ready to MorpheTone.Primary
+        BatchItemState.RUNNING -> R.string.patching to MorpheTone.Primary
+        BatchItemState.SUCCEEDED -> R.string.done to MorpheTone.Success
+        BatchItemState.FAILED -> R.string.failed to MorpheTone.Error
+        BatchItemState.CANCELLED -> R.string.cancelled to MorpheTone.Neutral
+        BatchItemState.EXCLUDED -> R.string.excluded to MorpheTone.Neutral
+        BatchItemState.NEEDS_APK -> R.string.batch_patch_state_no_apk to MorpheTone.Error
+        BatchItemState.VERSION_MISMATCH -> R.string.version to MorpheTone.Warning
+        BatchItemState.NO_PATCHES -> R.string.batch_patch_state_no_patches to MorpheTone.Error
     }
-    PillBadge(text = stringResource(labelRes), style = style)
+    MorpheBadge(text = stringResource(labelRes), tone = tone)
 }
 

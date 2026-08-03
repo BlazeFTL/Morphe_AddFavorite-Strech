@@ -638,10 +638,11 @@ private fun BundleManagementCard(
                             val label = stringResource(R.string.sources_management_source_blocked_badge)
                             val reason = blockedInfo?.reason?.trim()?.takeIf { it.isNotEmpty() }
                                 ?.replaceFirstChar { it.uppercaseChar() }
-                            InfoBadge(
+                            MorpheNotice(
                                 text = if (reason != null) "$label: $reason" else label,
                                 icon = Icons.Outlined.Block,
-                                style = InfoBadgeStyle.Error
+                                tone = MorpheTone.Error,
+                                density = MorpheNoticeDensity.Compact
                             )
                         }
 
@@ -656,10 +657,11 @@ private fun BundleManagementCard(
                             } else {
                                 stringResource(R.string.sources_management_metadata_unavailable_hint)
                             }
-                            InfoBadge(
+                            MorpheNotice(
                                 text = hintText,
                                 icon = Icons.Outlined.CloudOff,
-                                style = InfoBadgeStyle.Error
+                                tone = MorpheTone.Error,
+                                density = MorpheNoticeDensity.Compact
                             )
                         }
 
@@ -669,7 +671,7 @@ private fun BundleManagementCard(
                             enter = MorpheAnimations.expandFadeEnter,
                             exit = MorpheAnimations.shrinkFadeExit
                         ) {
-                            InfoBadge(
+                            MorpheNotice(
                                 modifier = Modifier.clickable(onClick = onOutdatedManagerClick),
                                 text = stringResource(
                                     R.string.sources_management_outdated_manager_hint,
@@ -678,7 +680,8 @@ private fun BundleManagementCard(
                                     BuildConfig.PATCHER_VERSION
                                 ),
                                 icon = Icons.Outlined.SystemUpdate,
-                                style = InfoBadgeStyle.Error
+                                tone = MorpheTone.Error,
+                                density = MorpheNoticeDensity.Compact
                             )
                         }
                     }
@@ -971,11 +974,9 @@ private fun BundleCardHeader(
                     enter = MorpheAnimations.expandHorizFadeIn,
                     exit = MorpheAnimations.shrinkHorizFadeOut
                 ) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.sources_management_metadata_unavailable),
-                        style = InfoBadgeStyle.Error,
-                        icon = null,
-                        isCompact = true
+                        tone = MorpheTone.Error
                     )
                 }
 
@@ -985,11 +986,9 @@ private fun BundleCardHeader(
                     enter = MorpheAnimations.expandHorizFadeIn,
                     exit = MorpheAnimations.shrinkHorizFadeOut
                 ) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.sources_management_outdated_manager_badge),
-                        style = InfoBadgeStyle.Error,
-                        icon = null,
-                        isCompact = true
+                        tone = MorpheTone.Error
                     )
                 }
 
@@ -999,11 +998,9 @@ private fun BundleCardHeader(
                     enter = MorpheAnimations.expandHorizFadeIn,
                     exit = MorpheAnimations.shrinkHorizFadeOut
                 ) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.sources_management_source_blocked_badge),
-                        style = InfoBadgeStyle.Error,
-                        icon = null,
-                        isCompact = true
+                        tone = MorpheTone.Error
                     )
                 }
 
@@ -1013,21 +1010,17 @@ private fun BundleCardHeader(
                     enter = MorpheAnimations.expandHorizFadeIn,
                     exit = MorpheAnimations.shrinkHorizFadeOut
                 ) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.disabled),
-                        style = InfoBadgeStyle.Error,
-                        icon = null,
-                        isCompact = true
+                        tone = MorpheTone.Error
                     )
                 }
 
                 // Update badge
                 if (updateInfo != null) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.update),
-                        style = InfoBadgeStyle.Warning,
-                        icon = null,
-                        isCompact = true
+                        tone = MorpheTone.Warning
                     )
                 }
             }
@@ -1052,10 +1045,7 @@ fun BundleTypeBadge(type: BundleSourceType) {
         BundleSourceType.Remote -> stringResource(R.string.sources_dialog_remote)
         BundleSourceType.Local -> stringResource(R.string.sources_dialog_local)
     }
-    InfoBadge(
-        text = text,
-        isCompact = true
-    )
+    MorpheBadge(text = text)
 }
 
 @Composable

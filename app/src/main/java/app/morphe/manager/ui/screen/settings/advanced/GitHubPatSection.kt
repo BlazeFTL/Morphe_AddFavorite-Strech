@@ -156,11 +156,10 @@ private fun GitHubPatDialog(
 
                 // Warning badge if PAT will be included
                 if (includePatInExport.value) {
-                    InfoBadge(
+                    MorpheNotice(
                         text = stringResource(R.string.settings_advanced_github_pat_export_warning),
-                        style = InfoBadgeStyle.Warning,
-                        icon = Icons.Outlined.Warning,
-                        isExpanded = true
+                        tone = MorpheTone.Warning,
+                        icon = Icons.Outlined.Warning
                     )
                 }
             }

@@ -271,11 +271,10 @@ private fun RemoteTabContent(
         }
 
         // URL format hint
-        InfoBadge(
+        MorpheBadge(
             icon = Icons.Outlined.Info,
             text = stringResource(R.string.sources_dialog_remote_url_formats_title),
-            style = InfoBadgeStyle.Default,
-            isCompact = true
+            tone = MorpheTone.Neutral
         )
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             UrlFormatRow(
@@ -848,11 +847,11 @@ fun PatchItemCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    PillBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.sources_dialog_view_any_package),
                         icon = Icons.Outlined.Apps
                     )
-                    PillBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.sources_dialog_view_any_version),
                         icon = Icons.Outlined.Code
                     )
@@ -870,39 +869,27 @@ fun PatchItemCard(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            PillBadge(
+                            MorpheBadge(
                                 text = appName,
                                 icon = Icons.Outlined.Apps,
-                                style = InfoBadgeStyle.Primary,
+                                tone = MorpheTone.Primary,
                                 modifier = Modifier.align(Alignment.CenterVertically)
                             )
 
                             if (versions.isNotEmpty()) {
-                                if (expandVersions) {
-                                    versions.forEach { version ->
-                                        val isExperimental =
-                                            compatiblePackage.experimentalVersions?.contains(version) == true
-                                        PillBadge(
-                                            text = version,
-                                            icon = if (isExperimental) Icons.Outlined.Science else Icons.Outlined.Code,
-                                            style = if (isExperimental) InfoBadgeStyle.Warning else InfoBadgeStyle.Default,
-                                            modifier = Modifier.align(Alignment.CenterVertically)
-                                        )
-                                    }
-                                } else {
-                                    val firstVersion = versions.first()
-                                    val firstIsExperimental =
-                                        compatiblePackage.experimentalVersions?.contains(firstVersion) == true
-                                    PillBadge(
-                                        text = firstVersion,
-                                        icon = if (firstIsExperimental) Icons.Outlined.Science else Icons.Outlined.Code,
-                                        style = if (firstIsExperimental) InfoBadgeStyle.Warning else InfoBadgeStyle.Default,
+                                val shownVersions =
+                                    if (expandVersions) versions else versions.take(1)
+                                shownVersions.forEach { version ->
+                                    PatchVersionBadge(
+                                        version = version,
+                                        isExperimental = compatiblePackage.experimentalVersions
+                                            ?.contains(version) == true,
                                         modifier = Modifier.align(Alignment.CenterVertically)
                                     )
                                 }
 
                                 if (versions.size > 1) {
-                                    PillBadge(
+                                    MorpheBadge(
                                         text = if (expandVersions)
                                             stringResource(R.string.less)
                                         else
@@ -919,10 +906,10 @@ fun PatchItemCard(
 
             // Expert badge - shown only for patches that are disabled by default
             if (!patch.include && onExpertBadgeClick != null) {
-                PillBadge(
+                MorpheBadge(
                     text = stringResource(R.string.sources_patch_expert_badge),
                     icon = Icons.Outlined.Lock,
-                    style = InfoBadgeStyle.Warning,
+                    tone = MorpheTone.Warning,
                     onClick = onExpertBadgeClick
                 )
             }
@@ -967,6 +954,23 @@ fun PatchItemCard(
             }
         }
     }
+}
+
+/**
+ * One version a patch declares support for, tagged the way every version list tags it.
+ */
+@Composable
+private fun PatchVersionBadge(
+    version: String,
+    isExperimental: Boolean,
+    modifier: Modifier = Modifier
+) {
+    MorpheBadge(
+        modifier = modifier,
+        text = version,
+        icon = if (isExperimental) VersionTag.Experimental.icon else Icons.Outlined.Code,
+        tone = if (isExperimental) VersionTag.Experimental.tone else MorpheTone.Neutral
+    )
 }
 
 /**

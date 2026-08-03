@@ -256,11 +256,12 @@ private fun ProgressDetailsSection(
             enter = MorpheAnimations.expandFadeEnter,
             exit = MorpheAnimations.shrinkFadeExit
         ) {
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.patcher_long_step_warning),
-                style = InfoBadgeStyle.Primary,
+                tone = MorpheTone.Primary,
                 icon = Icons.Outlined.Info,
-                isCentered = true
+                isCentered = true,
+                density = MorpheNoticeDensity.Compact
             )
         }
 

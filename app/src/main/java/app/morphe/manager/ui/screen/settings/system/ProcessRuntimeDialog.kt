@@ -130,11 +130,10 @@ fun ProcessRuntimeDialog(
                 }
 
                 // Description
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.settings_system_process_runtime_memory_limit_description),
-                    style = InfoBadgeStyle.Default,
-                    icon = Icons.Outlined.Info,
-                    isExpanded = true
+                    tone = MorpheTone.Neutral,
+                    icon = Icons.Outlined.Info
                 )
 
                 // Warning for low values
@@ -143,12 +142,11 @@ fun ProcessRuntimeDialog(
                     enter = MorpheAnimations.expandFadeEnter,
                     exit = MorpheAnimations.shrinkFadeExit
                 ) {
-                    InfoBadge(
+                    MorpheNotice(
                         modifier = Modifier.padding(top = MorpheDefaults.ContentPadding),
                         text = stringResource(R.string.settings_system_memory_limit_warning),
-                        style = InfoBadgeStyle.Error,
-                        icon = Icons.Outlined.Warning,
-                        isExpanded = true
+                        tone = MorpheTone.Error,
+                        icon = Icons.Outlined.Warning
                     )
                 }
             }

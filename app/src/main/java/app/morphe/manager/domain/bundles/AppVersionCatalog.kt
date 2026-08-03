@@ -35,6 +35,19 @@ fun List<BundledAppTarget>.experimentalVersions(): Set<String> =
     filter { it.target.isExperimental }.mapNotNullTo(mutableSetOf()) { it.target.version }
 
 /**
+ * What one source offers for an app: the version it stands behind, and the version the manager
+ * will actually patch at.
+ *
+ * The experimental toggle only moves the latter. A source does not recommend a version it marks
+ * experimental, so a list that badged one as recommended would put words in its mouth.
+ */
+data class BundleRecommendation(
+    /** Null when a source carries nothing but experimental versions for the app. */
+    val declared: AppTarget?,
+    val effective: AppTarget
+)
+
+/**
  * What the enabled sources say about one app's versions: which to suggest, and which come
  * with the caveat that they are experimental.
  */
@@ -95,7 +108,7 @@ class AppVersionCatalog(
      * independently. Sources differ in which versions they carry and whether experimental
      * ones are enabled for them.
      */
-    val recommendedVersionsByBundle: Flow<Map<String, Map<Int, AppTarget>>> = combine(
+    val recommendedVersionsByBundle: Flow<Map<String, Map<Int, BundleRecommendation>>> = combine(
         compatibleVersions,
         prefs.bundleExperimentalVersionsEnabled.flow,
         patchBundleRepository.bundleInfoFlow,
@@ -116,25 +129,40 @@ class AppVersionCatalog(
             bundledTargets
                 .groupBy { it.bundleUid }
                 .mapValues { (bundleUid, targets) ->
-                    pick(
-                        targets = targets.map { it.target },
-                        preferExperimental = experimentalPackagesByBundle[bundleUid]
-                            ?.contains(packageName) == true
+                    val appTargets = targets.map { it.target }
+                    BundleRecommendation(
+                        declared = declared(appTargets),
+                        effective = pick(
+                            targets = appTargets,
+                            preferExperimental = experimentalPackagesByBundle[bundleUid]
+                                ?.contains(packageName) == true
+                        )
                     )
                 }
         }
     }
 
     /**
-     * Picks the one version to offer out of [targets], which arrive newest first.
-     *
-     * Versions the device cannot install are dropped, unless that would leave nothing, in
-     * which case the newest is offered anyway so the UI has something to show.
+     * Versions the device can install, out of [targets], which arrive newest first. Dropping
+     * them all would leave the UI with nothing to show, so in that case they are kept.
      */
-    private fun pick(targets: List<AppTarget>, preferExperimental: Boolean): AppTarget {
+    private fun installable(targets: List<AppTarget>): List<AppTarget> {
         val deviceSdk = Build.VERSION.SDK_INT
-        val installable = targets.filter { it.minSdk == null || deviceSdk >= it.minSdk!! }
-        val candidates = installable.ifEmpty { targets }
+        return targets
+            .filter { it.minSdk == null || deviceSdk >= it.minSdk!! }
+            .ifEmpty { targets }
+    }
+
+    /**
+     * The version a source stands behind. Null when it carries none the device can install
+     * outside the experimental ones, which a source does not recommend by definition.
+     */
+    private fun declared(targets: List<AppTarget>): AppTarget? =
+        installable(targets).firstOrNull { !it.isExperimental }
+
+    /** Picks the one version to offer out of [targets], which arrive newest first. */
+    private fun pick(targets: List<AppTarget>, preferExperimental: Boolean): AppTarget {
+        val candidates = installable(targets)
 
         return if (preferExperimental) {
             candidates.firstOrNull { it.isExperimental } ?: candidates.first()

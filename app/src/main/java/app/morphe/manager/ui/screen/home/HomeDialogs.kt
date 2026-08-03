@@ -48,6 +48,7 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.BundleSourceType
 import app.morphe.manager.domain.apk.InstalledApkInfo
 import app.morphe.manager.domain.apk.SavedApkInfo
+import app.morphe.manager.domain.bundles.BundleRecommendation
 import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.bundles.experimentalVersions
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
@@ -379,7 +380,7 @@ fun HomeDialogs(
                         ?: homeViewModel.getBundleDisplayName(bundle.uid)
                         ?: bundle.name,
                     patchCount = patches.size,
-                    recommendedVersion = bundleRecommendedVersions[bundle.uid]?.version,
+                    recommendedVersion = bundleRecommendedVersions[bundle.uid]?.effective?.version,
                     patchVersion = source?.version ?: bundle.version,
                     sourceType = source?.sourceType
                 )
@@ -646,7 +647,7 @@ internal fun ApkAvailabilityDialog(
     appName: String,
     recommendedVersion: AppTarget?,
     compatibleVersions: List<BundledAppTarget>,
-    recommendedBundleVersions: Map<Int, AppTarget>,
+    recommendedBundleVersions: Map<Int, BundleRecommendation>,
     selectedDownloadVersion: AppTarget?,
     onVersionSelect: (AppTarget) -> Unit,
     usingMountInstall: Boolean,
@@ -720,11 +721,11 @@ internal fun ApkAvailabilityDialog(
 
                     // The certificate check could not run, so the installed app may already be patched
                     if (installedApkInfo.patchStateUnknown) {
-                        InfoBadge(
+                        MorpheNotice(
                             text = stringResource(R.string.home_apk_use_installed_unverified),
-                            style = InfoBadgeStyle.Warning,
+                            tone = MorpheTone.Warning,
                             icon = Icons.Outlined.Warning,
-                            modifier = Modifier.fillMaxWidth()
+                            density = MorpheNoticeDensity.Compact
                         )
                     }
                 }
@@ -760,6 +761,7 @@ internal fun ApkAvailabilityDialog(
                         anyString = anyString,
                         hasMultipleBundles = compatibleVersions.map { it.bundleUid }.distinct().size > 1,
                         incompatibleSdkVersions = incompatibleSdkVersions,
+                        savedVersion = savedApkInfo?.version,
                     )
                 } else {
                     VersionListCard(
@@ -776,6 +778,7 @@ internal fun ApkAvailabilityDialog(
                                 v to codes
                             }
                             .toMap(),
+                        savedVersion = savedApkInfo?.version,
                     )
                 }
             } else {
@@ -796,18 +799,17 @@ internal fun ApkAvailabilityDialog(
                     versionCodes = compatibleVersions
                         .firstOrNull { it.target.version == recommendedVersion?.version }
                         ?.let { b -> b.target.version?.let { v -> b.buildCodes?.let { mapOf(v to it) } } }
-                        ?: emptyMap()
+                        ?: emptyMap(),
+                    savedVersion = savedApkInfo?.version
                 )
             }
 
             // Root mode warning - only when app is not yet installed
             if (usingMountInstall && !targetAppInstalled) {
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.root_install_apk_required),
-                    style = InfoBadgeStyle.Warning,
-                    icon = Icons.Outlined.Warning,
-                    isExpanded = true,
-                    modifier = Modifier.fillMaxWidth()
+                    tone = MorpheTone.Warning,
+                    icon = Icons.Outlined.Warning
                 )
             }
         }
@@ -1303,6 +1305,9 @@ private fun UnsupportedVersionWarningDialog(
     onProceed: () -> Unit
 ) {
     val versionCodeMismatch = !isExperimental && versionCode != null && version == recommendedVersion
+    val tags = versionTagsOf(isExperimental = isExperimental, isUnsupported = !isExperimental)
+    // The card is tinted by the same tag it is badged with, so it cannot read as two verdicts
+    val tone = tags.firstOrNull()?.tone ?: MorpheTone.Error
     MorpheDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_dialog_unsupported_version_dialog_title),
@@ -1352,10 +1357,7 @@ private fun UnsupportedVersionWarningDialog(
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp),
-                        color = if (isExperimental)
-                            MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.3f)
-                        else
-                            MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
+                        color = tone.container.copy(alpha = 0.3f),
                         tonalElevation = 1.dp
                     ) {
                         Row(
@@ -1371,10 +1373,7 @@ private fun UnsupportedVersionWarningDialog(
                                     style = MaterialTheme.typography.bodyLarge,
                                     fontFamily = FontFamily.Monospace,
                                     fontWeight = FontWeight.Bold,
-                                    color = if (isExperimental)
-                                        MaterialTheme.colorScheme.tertiary
-                                    else
-                                        MaterialTheme.colorScheme.error
+                                    color = tone.accent
                                 )
                                 if (versionCode != null) {
                                     Text(
@@ -1386,19 +1385,7 @@ private fun UnsupportedVersionWarningDialog(
                                 }
                             }
 
-                            if (isExperimental) {
-                                InfoBadge(
-                                    text = stringResource(R.string.home_dialog_unsupported_version_experimental_label),
-                                    style = InfoBadgeStyle.Warning,
-                                    isCompact = true
-                                )
-                            } else {
-                                InfoBadge(
-                                    text = stringResource(R.string.home_dialog_unsupported_version_unsupported_label),
-                                    style = InfoBadgeStyle.Error,
-                                    isCompact = true
-                                )
-                            }
+                            VersionTagBadges(tags)
                         }
                     }
                 }
@@ -1493,11 +1480,10 @@ fun InvalidSignatureDialog(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.home_invalid_signature_badge),
-                style = InfoBadgeStyle.Error,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Error,
+                icon = Icons.Outlined.Warning
             )
         }
     }
@@ -1756,11 +1742,10 @@ fun OrphanedInstallDialog(
                 }
             }
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.home_dialog_orphaned_install_warning),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.Warning
             )
         }
     }
@@ -1829,11 +1814,12 @@ private fun SelectableVersionListCard(
     modifier: Modifier = Modifier,
     versions: List<BundledAppTarget>,
     selectedVersion: AppTarget?,
-    recommendedBundleVersions: Map<Int, AppTarget>,
+    recommendedBundleVersions: Map<Int, BundleRecommendation>,
     onVersionSelect: (AppTarget) -> Unit,
     anyString: String,
     hasMultipleBundles: Boolean,
-    incompatibleSdkVersions: Set<String> = emptySet()
+    incompatibleSdkVersions: Set<String> = emptySet(),
+    savedVersion: String? = null
 ) {
     if (versions.isEmpty()) return
 
@@ -1851,14 +1837,18 @@ private fun SelectableVersionListCard(
                 val versionString = target.version ?: anyString
                 val isIncompatibleSdk = target.version != null && target.version in incompatibleSdkVersions
                 val isSelected = !isIncompatibleSdk && target.version != null && target.version == selectedVersion?.version
+                // The version the source declares, not the one the experimental toggle promotes:
+                // a source does not recommend a version it marks experimental
                 val isRecommended = !isIncompatibleSdk && target.version != null &&
-                        target.version == recommendedBundleVersions[bundled.bundleUid]?.version
-                val recommendedLabel = stringResource(R.string.home_apk_availability_recommended_label)
-                val experimentalLabel = stringResource(R.string.home_dialog_unsupported_version_experimental_label)
+                        target.version == recommendedBundleVersions[bundled.bundleUid]?.declared?.version
                 val selectedLabel = stringResource(R.string.home_selected_version)
-                val requiresAndroidLabel = target.minSdk?.let { sdk ->
-                    stringResource(R.string.home_version_requires_android, sdk.androidVersionName())
-                }
+                val tags = versionTagsOf(
+                    requiresAndroidSdk = target.minSdk.takeIf { isIncompatibleSdk },
+                    isIncompatible = isIncompatibleSdk && target.minSdk == null,
+                    isExperimental = target.isExperimental,
+                    isRecommended = isRecommended,
+                    isSaved = target.version != null && target.version == savedVersion
+                )
 
                 // Bundle section header - only when multiple bundles are present and uid changes
                 if (hasMultipleBundles && bundled.bundleUid != lastBundleUid) {
@@ -1892,38 +1882,10 @@ private fun SelectableVersionListCard(
                     lastBundleUid = bundled.bundleUid
                 }
 
-                val badge: @Composable (() -> Unit)? = when {
-                    isIncompatibleSdk -> ({
-                        InfoBadge(
-                            text = requiresAndroidLabel ?: "API ${target.minSdk ?: "?"}+",
-                            style = InfoBadgeStyle.Error,
-                            isCompact = true
-                        )
-                    })
-                    target.isExperimental -> ({
-                        InfoBadge(
-                            text = experimentalLabel,
-                            style = InfoBadgeStyle.Warning,
-                            isCompact = true
-                        )
-                    })
-                    isRecommended -> ({
-                        InfoBadge(
-                            text = recommendedLabel,
-                            style = InfoBadgeStyle.Default,
-                            isCompact = true
-                        )
-                    })
-                    else -> null
-                }
-
+                val tagLabels = tags.labels()
                 val rowContentDesc = buildString {
                     append(versionString)
-                    when {
-                        isIncompatibleSdk -> requiresAndroidLabel?.let { append(", $it") }
-                        target.isExperimental -> append(", $experimentalLabel")
-                        isRecommended -> append(", $recommendedLabel")
-                    }
+                    tagLabels.forEach { append(", $it") }
                     if (isSelected) append(", $selectedLabel")
                     target.description?.let { append(", $it") }
                     if (hasMultipleBundles) append(", ${bundled.bundleName}")
@@ -1978,16 +1940,17 @@ private fun SelectableVersionListCard(
                                 color = when {
                                     isIncompatibleSdk -> LocalDialogTextColor.current
                                     isSelected -> MaterialTheme.colorScheme.primary
-                                    target.isExperimental -> MaterialTheme.colorScheme.tertiary
-                                    else -> LocalDialogTextColor.current
+                                    else -> tags.versionTextColor(LocalDialogTextColor.current)
                                 },
                                 modifier = Modifier
                                     .weight(1f)
                                     .basicMarquee(iterations = Int.MAX_VALUE),
                                 maxLines = 1,
                             )
-                            badge?.invoke()
+
+                            VersionTagBadges(tags)
                         }
+
                         val description = target.description
                         if (description != null) {
                             Text(
@@ -2024,7 +1987,8 @@ private fun VersionListCard(
     experimentalVersions: Set<String> = emptySet(),
     descriptions: Map<String, String> = emptyMap(),
     incompatibleSdkVersions: Set<String> = emptySet(),
-    versionCodes: Map<String, Set<Int>> = emptyMap()
+    versionCodes: Map<String, Set<Int>> = emptyMap(),
+    savedVersion: String? = null
 ) {
     if (versions.isEmpty()) return
 
@@ -2058,38 +2022,14 @@ private fun VersionListCard(
                 val versionDescription = descriptions[version]
                 val buildCode = versionCodes[version]?.firstOrNull()
 
-                // Resolve badge once - drives both the badge composable and version text color
-                val badge: @Composable (() -> Unit)? = when {
-                    isIncompatibleSdk -> ({
-                        InfoBadge(
-                            text = stringResource(R.string.home_apk_availability_incompatible_label),
-                            style = InfoBadgeStyle.Error,
-                            isCompact = true
-                        )
-                    })
-                    isExperimentalVersion -> ({
-                        InfoBadge(
-                            text = stringResource(R.string.home_dialog_unsupported_version_experimental_label),
-                            style = InfoBadgeStyle.Warning,
-                            isCompact = true
-                        )
-                    })
-                    index == recommendedIndex && !showUnpatchedBadge -> ({
-                        InfoBadge(
-                            text = stringResource(R.string.home_apk_availability_recommended_label),
-                            style = InfoBadgeStyle.Primary,
-                            isCompact = true
-                        )
-                    })
-                    showUnpatchedBadge && versions.size == 1 -> ({
-                        InfoBadge(
-                            text = stringResource(R.string.home_apk_availability_unpatched_label),
-                            style = InfoBadgeStyle.Warning,
-                            isCompact = true
-                        )
-                    })
-                    else -> null
-                }
+                // Resolved once - drives both the badges and the version text color
+                val tags = versionTagsOf(
+                    isIncompatible = isIncompatibleSdk,
+                    isExperimental = isExperimentalVersion,
+                    isUnpatched = showUnpatchedBadge && versions.size == 1,
+                    isRecommended = index == recommendedIndex && !showUnpatchedBadge,
+                    isSaved = version == savedVersion
+                )
 
                 Column(
                     modifier = Modifier
@@ -2097,7 +2037,7 @@ private fun VersionListCard(
                         .then(if (isIncompatibleSdk) Modifier.alpha(0.4f) else Modifier),
                     verticalArrangement = Arrangement.spacedBy(3.dp)
                 ) {
-                    // Version + optional badge inline
+                    // Version + its tags inline
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -2107,15 +2047,12 @@ private fun VersionListCard(
                             style = MaterialTheme.typography.bodyLarge,
                             fontFamily = FontFamily.Monospace,
                             fontWeight = if (index == recommendedIndex) FontWeight.Bold else FontWeight.Normal,
-                            color = if (isExperimentalVersion)
-                                MaterialTheme.colorScheme.tertiary
-                            else
-                                textColor,
+                            color = tags.versionTextColor(textColor),
                             modifier = Modifier.weight(1f),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
-                        badge?.invoke()
+                        VersionTagBadges(tags)
                     }
 
                     // Build number
@@ -2192,11 +2129,10 @@ fun LowDiskSpaceDialog(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.home_low_disk_space_dialog_warning),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.Warning
             )
         }
     }
@@ -2256,11 +2192,10 @@ fun MeteredPatchingDialog(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.home_outdated_patches_dialog_warning),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.Warning
             )
         }
     }
@@ -2364,11 +2299,10 @@ fun DeepLinkAddSourceDialog(
                 }
             }
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.deep_link_add_source_warning),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.Warning
             )
         }
     }
@@ -2469,19 +2403,17 @@ fun MppImportDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             manifest.version?.let { version ->
-                                InfoBadge(
+                                MorpheBadge(
                                     text = "v$version",
                                     icon = Icons.Outlined.NewReleases,
-                                    style = InfoBadgeStyle.Primary,
-                                    isCompact = true
+                                    tone = MorpheTone.Primary
                                 )
                             }
                             manifest.author?.let { author ->
-                                InfoBadge(
+                                MorpheBadge(
                                     text = author,
                                     icon = Icons.Outlined.Person,
-                                    style = InfoBadgeStyle.Default,
-                                    isCompact = true
+                                    tone = MorpheTone.Neutral
                                 )
                             }
                         }
@@ -2524,11 +2456,10 @@ fun MppImportDialog(
                 }
             }
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.deep_link_add_source_warning),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.Warning
             )
         }
     }

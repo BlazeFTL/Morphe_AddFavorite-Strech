@@ -117,30 +117,27 @@ fun PatchOptionsSection(
             }
 
             noPatchesAvailable -> {
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.settings_advanced_patch_options_waiting_for_source),
-                    style = InfoBadgeStyle.Success,
-                    icon = Icons.Outlined.Info,
-                    isExpanded = true
+                    tone = MorpheTone.Success,
+                    icon = Icons.Outlined.Info
                 )
             }
 
             loadError != null -> {
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.settings_advanced_patch_options_load_error) +
                             "\n" + loadError,
-                    style = InfoBadgeStyle.Error,
-                    icon = Icons.Outlined.Error,
-                    isExpanded = true
+                    tone = MorpheTone.Error,
+                    icon = Icons.Outlined.Error
                 )
             }
 
             else -> {
-                InfoBadge(
+                MorpheNotice(
                     icon = Icons.Outlined.Info,
                     text = stringResource(R.string.settings_advanced_patch_options_restart_message),
-                    style = InfoBadgeStyle.Success,
-                    isExpanded = true
+                    tone = MorpheTone.Success
                 )
 
                 // YouTube

@@ -18,9 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,7 +35,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -183,46 +180,6 @@ internal fun RowScope.AppCardContent(
 }
 
 /**
- * Frosted-glass chip for use on gradient card backgrounds.
- * Uses white semi-transparent fill so it reads correctly regardless of
- * the card's accent color or the user's dynamic theme.
- */
-@Composable
-private fun GlassChip(
-    text: String,
-    icon: ImageVector,
-    modifier: Modifier = Modifier
-) {
-    val cardStyle = homeAppCardStyle()
-
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(6.dp),
-        color = cardStyle.chipContainerColor
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = cardStyle.chipContentColor,
-                modifier = Modifier.size(12.dp)
-            )
-            Text(
-                text = text,
-                style = MaterialTheme.typography.labelSmall,
-                color = cardStyle.chipContentColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    }
-}
-
-/**
  * Installed app card with gradient background.
  */
 @Composable
@@ -295,13 +252,15 @@ fun InstalledAppCard(
                 overflow = TextOverflow.Ellipsis
             )
 
-            // Version + deleted status + inline update chip
+            // Version + deleted status + update chip, both pinned to the card edge
             Row(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Fills the row so the chip is pinned to the card edge rather than trailing
+                // a version string of whatever length
                 Text(
-                    modifier = Modifier.weight(1f, fill = false),
+                    modifier = Modifier.weight(1f),
                     text = version,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -309,10 +268,14 @@ fun InstalledAppCard(
                     color = cardStyle.subtitleColor
                 )
 
+                // Frosted-glass colors: a white semi-transparent fill reads on any accent
+                // color the card's bundle brings, and on the user's dynamic theme
                 if (isAppDeleted) {
-                    GlassChip(
+                    MorpheBadge(
                         text = stringResource(R.string.uninstalled),
-                        icon = Icons.Outlined.DeleteOutline
+                        icon = Icons.Outlined.DeleteOutline,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
                     )
                 }
 
@@ -321,9 +284,11 @@ fun InstalledAppCard(
                     enter = MorpheAnimations.expandHorizFadeIn,
                     exit = MorpheAnimations.shrinkHorizFadeOut
                 ) {
-                    GlassChip(
+                    MorpheBadge(
                         text = stringResource(R.string.update),
-                        icon = Icons.Outlined.ArrowUpward
+                        icon = Icons.Outlined.ArrowUpward,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
                     )
                 }
             }

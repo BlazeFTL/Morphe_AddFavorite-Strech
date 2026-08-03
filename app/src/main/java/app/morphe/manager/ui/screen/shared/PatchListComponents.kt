@@ -46,8 +46,8 @@ fun PatchNameRow(
 
 @Composable
 fun LabeledSection(
-    title: String? = null,
     modifier: Modifier = Modifier,
+    title: String? = null,
     version: String? = null,
     count: Int? = null,
     content: @Composable ColumnScope.() -> Unit
@@ -84,10 +84,9 @@ fun LabeledSection(
                     }
                 }
                 if (count != null) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = count.toString(),
-                        style = InfoBadgeStyle.Primary,
-                        isCompact = true
+                        tone = MorpheTone.Primary
                     )
                 }
             }

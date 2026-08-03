@@ -582,25 +582,23 @@ private fun PackageSelectionItem(
                             horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            InfoBadge(
+                            MorpheBadge(
                                 text = pluralStringResource(
                                     R.plurals.patch_count,
                                     totalPatches,
                                     totalPatches
                                 ),
-                                style = InfoBadgeStyle.Primary,
-                                isCompact = true
+                                tone = MorpheTone.Primary
                             )
 
                             if (bundleMap.size > 1) {
-                                InfoBadge(
+                                MorpheBadge(
                                     text = pluralStringResource(
                                         R.plurals.source_count,
                                         bundleMap.size,
                                         bundleMap.size
                                     ),
-                                    style = InfoBadgeStyle.Default,
-                                    isCompact = true
+                                    tone = MorpheTone.Neutral
                                 )
                             }
                         }
@@ -1041,10 +1039,9 @@ private fun PatchDetailsDialog(
 
                 // Empty state
                 if (patchList.isEmpty() && optionsMap.isEmpty()) {
-                    InfoBadge(
+                    MorpheNotice(
                         text = stringResource(R.string.settings_system_no_patches_or_options),
-                        style = InfoBadgeStyle.Default,
-                        isExpanded = true,
+                        tone = MorpheTone.Neutral,
                         isCentered = true
                     )
                 }

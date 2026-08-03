@@ -41,9 +41,9 @@ when it looks like it was already patched, because patching a patched APK produc
 build.
 
 That means an app you have never patched is queued at whatever version is installed. When the
-sources mark that version **experimental**, the card says so next to the version. Nothing stops
-the run, because experimental versions do work, but it is the one caveat the queue cannot ask
-you about mid-run.
+sources mark that version **experimental**, the card is tagged with it next to the app name.
+Nothing stops the run, because experimental versions do work, but it is the one caveat the
+queue cannot ask you about mid-run.
 
 **Select APK** on any card opens the same APK question the single-app flow asks, so the answer
 is the same everywhere. From there you can pick a version, including an experimental one, and

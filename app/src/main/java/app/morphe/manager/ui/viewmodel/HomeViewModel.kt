@@ -31,6 +31,7 @@ import app.morphe.manager.domain.apk.LocalApkSources
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
 import app.morphe.manager.domain.bundles.AppVersionCatalog
+import app.morphe.manager.domain.bundles.BundleRecommendation
 import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.bundles.experimentalVersions
 import app.morphe.manager.domain.bundles.PatchBundleSource
@@ -324,7 +325,7 @@ class HomeViewModel(
     var pendingRecommendedVersion by mutableStateOf<AppTarget?>(null)
     var pendingCompatibleVersions by mutableStateOf<List<BundledAppTarget>>(emptyList())
     // Per-bundle recommended versions for multi-bundle display in ApkAvailabilityDialog
-    var pendingRecommendedBundleVersions by mutableStateOf<Map<Int, AppTarget>>(emptyMap())
+    var pendingRecommendedBundleVersions by mutableStateOf<Map<Int, BundleRecommendation>>(emptyMap())
     // Version selected by the user in Dialog 1 for the APK search query. Defaults to pendingRecommendedVersion
     var pendingSelectedDownloadVersion by mutableStateOf<AppTarget?>(null)
     var pendingSelectedApp by mutableStateOf<SelectedApp?>(null)
@@ -371,8 +372,8 @@ class HomeViewModel(
 
         pendingSelectedBundleUid = bundleUid
 
-        // Update recommended version to the one declared by the chosen bundle
-        val bundleRecommended = recommendedBundleVersions[packageName]?.get(bundleUid)
+        // Update recommended version to the one the chosen bundle will be used at
+        val bundleRecommended = recommendedBundleVersions[packageName]?.get(bundleUid)?.effective
         if (bundleRecommended != null) {
             pendingRecommendedVersion = bundleRecommended
             pendingSelectedDownloadVersion = bundleRecommended
@@ -421,11 +422,12 @@ class HomeViewModel(
      * Returns Map<PackageName, Map<BundleUid, AppTarget>> so the APK availability dialog
      * can show the correct "Recommended" badge independently for each bundle section.
      */
-    val recommendedBundleVersionsFlow: StateFlow<Map<String, Map<Int, AppTarget>>> =
+    val recommendedBundleVersionsFlow: StateFlow<Map<String, Map<Int, BundleRecommendation>>> =
         versionCatalog.recommendedVersionsByBundle
             .stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
 
-    val recommendedBundleVersions: Map<String, Map<Int, AppTarget>> get() = recommendedBundleVersionsFlow.value
+    val recommendedBundleVersions: Map<String, Map<Int, BundleRecommendation>>
+        get() = recommendedBundleVersionsFlow.value
 
     // Track available updates for installed apps
     private val _appUpdatesAvailable = MutableStateFlow<Map<String, Boolean>>(emptyMap())

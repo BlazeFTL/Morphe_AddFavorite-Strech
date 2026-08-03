@@ -209,10 +209,9 @@ private fun CandidateRow(
                     modifier = Modifier.weight(1f, fill = false)
                 )
                 if (candidate.isSameSource) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = stringResource(R.string.copy_selection_same_source),
-                        style = InfoBadgeStyle.Primary,
-                        isCompact = true
+                        tone = MorpheTone.Primary
                     )
                 }
             }
@@ -223,11 +222,10 @@ private fun CandidateRow(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            InfoBadge(
+            MorpheBadge(
                 text = availableText,
-                style = if (enabled) InfoBadgeStyle.Primary else InfoBadgeStyle.Default,
-                icon = Icons.Outlined.CheckCircle,
-                isCompact = true
+                tone = if (enabled) MorpheTone.Primary else MorpheTone.Neutral,
+                icon = Icons.Outlined.CheckCircle
             )
         }
     }

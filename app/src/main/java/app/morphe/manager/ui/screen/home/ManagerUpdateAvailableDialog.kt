@@ -131,11 +131,10 @@ fun ManagerUpdateDetailsDialog(
             when (content) {
                 UpdateDialogContent.DetailsLoading -> ChangelogSectionLoading()
 
-                UpdateDialogContent.DetailsUnavailable -> InfoBadge(
+                UpdateDialogContent.DetailsUnavailable -> MorpheNotice(
                     icon = Icons.Outlined.HourglassEmpty,
                     text = stringResource(R.string.manager_update_not_ready),
-                    style = InfoBadgeStyle.Warning,
-                    isExpanded = true
+                    tone = MorpheTone.Warning
                 )
 
                 UpdateDialogContent.Details -> UpdateDetailsContent(updateViewModel)
@@ -183,11 +182,10 @@ fun ManagerUpdateDetailsDialog(
                 )
             }
         ) {
-            InfoBadge(
+            MorpheNotice(
                 icon = Icons.Outlined.Warning,
                 text = stringResource(R.string.download_confirmation_metered),
-                style = InfoBadgeStyle.Warning,
-                isExpanded = true
+                tone = MorpheTone.Warning
             )
         }
     }
@@ -415,11 +413,10 @@ private fun DownloadProgressCard(
 private fun InstallFailureContent(message: String) {
     if (message.isEmpty()) return
 
-    InfoBadge(
+    MorpheNotice(
         icon = Icons.Outlined.ErrorOutline,
         text = message,
-        style = InfoBadgeStyle.Error,
-        isExpanded = true
+        tone = MorpheTone.Error
     )
 }
 

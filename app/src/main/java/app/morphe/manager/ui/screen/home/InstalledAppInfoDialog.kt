@@ -395,12 +395,10 @@ fun InstalledAppInfoDialog(
                                 }
                                 if (!viewModel.hasOriginalApk) {
                                     StaggeredItem(entered = entered.value, index = 2) {
-                                        InfoBadge(
+                                        MorpheNotice(
                                             text = stringResource(R.string.home_app_info_no_saved_apk),
-                                            style = InfoBadgeStyle.Warning,
-                                            icon = Icons.Outlined.Info,
-                                            isExpanded = true,
-                                            modifier = Modifier.fillMaxWidth()
+                                            tone = MorpheTone.Warning,
+                                            icon = Icons.Outlined.Info
                                         )
                                     }
                                 }
@@ -623,11 +621,10 @@ fun InstalledAppInfoDialog(
                             val idx = staggerIndex
                             item {
                                 StaggeredItem(entered = entered.value, index = idx) {
-                                    InfoBadge(
+                                    MorpheNotice(
                                         text = stringResource(R.string.home_app_info_no_saved_apk),
-                                        style = InfoBadgeStyle.Warning,
+                                        tone = MorpheTone.Warning,
                                         icon = Icons.Outlined.Info,
-                                        isExpanded = true,
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(horizontal = MorpheDefaults.ContentPadding)
@@ -872,14 +869,14 @@ private fun AppHeroHeader(
                         verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
                         horizontalAlignment = Alignment.End
                     ) {
-                        PillBadge(
+                        MorpheBadge(
                             text = stringResource(chipLabel),
                             icon = chipIcon,
                             containerColor = chipBg,
                             contentColor = onHero
                         )
                         if (relativeTime != null) {
-                            PillBadge(
+                            MorpheBadge(
                                 text = relativeTime,
                                 icon = Icons.Outlined.Schedule,
                                 containerColor = chipBg,
@@ -904,7 +901,7 @@ private fun AppHeroHeader(
                             alpha = chipsProgress.coerceIn(0f, 1f)
                         }
                     ) {
-                        PillBadge(
+                        MorpheBadge(
                             text = stringResource(chipLabel),
                             icon = chipIcon,
                             containerColor = chipBg,
@@ -920,7 +917,7 @@ private fun AppHeroHeader(
                                 alpha = p
                             }
                         ) {
-                            PillBadge(
+                            MorpheBadge(
                                 text = relativeTime,
                                 icon = Icons.Outlined.Schedule,
                                 containerColor = chipBg,
@@ -1620,11 +1617,11 @@ private fun DeleteConfirmDialog(
                 }
             }
             if (!isSavedOnly) {
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.home_app_info_delete_preservation_note),
-                    style = InfoBadgeStyle.Warning,
+                    tone = MorpheTone.Warning,
                     icon = Icons.Outlined.Info,
-                    modifier = Modifier.fillMaxWidth()
+                    density = MorpheNoticeDensity.Compact
                 )
             }
         }

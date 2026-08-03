@@ -998,10 +998,9 @@ private fun ListStringInputOption(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 if (value.isNotEmpty()) {
-                    InfoBadge(
+                    MorpheBadge(
                         text = "${value.size}",
-                        style = InfoBadgeStyle.Primary,
-                        isCompact = true
+                        tone = MorpheTone.Primary
                     )
                 }
                 Icon(

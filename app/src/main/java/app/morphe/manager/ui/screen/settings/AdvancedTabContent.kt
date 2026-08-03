@@ -170,11 +170,10 @@ fun AdvancedTabContent(
 
                     // Expert mode notice shown once after enabling
                     if (showExpertModeNotice) {
-                        InfoBadge(
+                        MorpheNotice(
                             icon = Icons.Outlined.Info,
                             text = stringResource(R.string.settings_advanced_patch_options_expert_mode_notice),
-                            style = InfoBadgeStyle.Warning,
-                            isExpanded = true
+                            tone = MorpheTone.Warning
                         )
                     }
                 }

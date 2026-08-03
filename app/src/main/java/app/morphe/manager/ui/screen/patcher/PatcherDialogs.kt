@@ -207,12 +207,10 @@ fun StoragePermissionDialog(
             // READ_EXTERNAL_STORAGE prompt. Explains they must either grant the
             // permission or move the files to the private app directory
             if (permissionDenied.value) {
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.patcher_storage_permission_denied_warning),
-                    style = InfoBadgeStyle.Error,
-                    icon = Icons.Outlined.Lock,
-                    isExpanded = true,
-                    modifier = Modifier.fillMaxWidth()
+                    tone = MorpheTone.Error,
+                    icon = Icons.Outlined.Lock
                 )
             }
 
@@ -260,7 +258,7 @@ fun StoragePermissionDialog(
 
                                 Spacer(Modifier.width(8.dp))
 
-                                InfoBadge(
+                                MorpheBadge(
                                     text = stringResource(
                                         if (isPermissionError) {
                                             R.string.patcher_storage_badge_denied
@@ -268,8 +266,7 @@ fun StoragePermissionDialog(
                                             R.string.patcher_storage_badge_missing
                                         }
                                     ),
-                                    style = InfoBadgeStyle.Error,
-                                    isCompact = true
+                                    tone = MorpheTone.Error
                                 )
                             }
                         }
@@ -278,12 +275,10 @@ fun StoragePermissionDialog(
             }
 
             // Show hint so user knows the workaround even if they dismiss
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.patcher_storage_permission_hint),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.FolderOff,
-                isExpanded = true,
-                modifier = Modifier.fillMaxWidth()
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.FolderOff
             )
         }
     }

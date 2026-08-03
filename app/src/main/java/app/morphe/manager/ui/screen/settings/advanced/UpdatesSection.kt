@@ -256,10 +256,11 @@ internal fun UpdateCheckIntervalDialog(
             }
 
             // Battery optimization warning
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.settings_advanced_update_interval_battery_warning),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.BatteryAlert
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.BatteryAlert,
+                density = MorpheNoticeDensity.Compact
             )
         }
     }

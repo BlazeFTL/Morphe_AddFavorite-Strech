@@ -22,6 +22,7 @@ import app.morphe.manager.domain.apk.LocalApkSources
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.bundles.AppVersionCatalog
+import app.morphe.manager.domain.bundles.BundleRecommendation
 import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.manager.DownloadUrlResolver
 import app.morphe.manager.domain.repository.InstalledAppRepository
@@ -169,7 +170,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
         val item: BatchPatchItem,
         val recommended: AppTarget?,
         val compatible: List<BundledAppTarget>,
-        val recommendedByBundle: Map<Int, AppTarget>,
+        val recommendedByBundle: Map<Int, BundleRecommendation>,
         val saved: SavedApkInfo?,
         val installed: InstalledApkInfo?,
         val installedOnDevice: Boolean,

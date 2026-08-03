@@ -199,10 +199,9 @@ internal fun PatchCard(
                         modifier = Modifier.weight(1f, fill = false)
                     )
                     if (isNew) {
-                        InfoBadge(
+                        MorpheBadge(
                             text = stringResource(R.string.expert_mode_new_patches),
-                            style = InfoBadgeStyle.Primary,
-                            isCompact = true
+                            tone = MorpheTone.Primary
                         )
                     }
                 }

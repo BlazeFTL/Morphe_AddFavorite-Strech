@@ -335,11 +335,10 @@ fun InstallerSelectionDialog(
                 enter = MorpheAnimations.expandFadeEnter,
                 exit = MorpheAnimations.shrinkFadeExit
             ) {
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.root_mount_module_unmount_warning),
-                    style = InfoBadgeStyle.Warning,
-                    icon = Icons.Outlined.Warning,
-                    isExpanded = true
+                    tone = MorpheTone.Warning,
+                    icon = Icons.Outlined.Warning
                 )
             }
 
@@ -529,11 +528,10 @@ private fun AutoUninstallWarningDialog(
                 color = LocalDialogSecondaryTextColor.current
             )
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.settings_auto_uninstall_warning_risk),
-                style = InfoBadgeStyle.Error,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Error,
+                icon = Icons.Outlined.Warning
             )
         }
     }
@@ -614,23 +612,21 @@ private fun ShizukuStatusDialog(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             if (current != null) {
-                InfoBadge(
+                MorpheNotice(
                     text = if (current.availability.available) {
                         stringResource(R.string.installer_shizuku_status_ready)
                     } else {
                         stringResource(R.string.installer_shizuku_status_issue)
                     },
-                    style = if (current.availability.available) InfoBadgeStyle.Success else InfoBadgeStyle.Warning,
-                    icon = if (current.availability.available) Icons.Outlined.CheckCircle else Icons.Outlined.Warning,
-                    isExpanded = true
+                    tone = if (current.availability.available) MorpheTone.Success else MorpheTone.Warning,
+                    icon = if (current.availability.available) Icons.Outlined.CheckCircle else Icons.Outlined.Warning
                 )
 
                 if (issueText != null) {
-                    InfoBadge(
+                    MorpheNotice(
                         text = issueText,
-                        style = InfoBadgeStyle.Primary,
-                        icon = Icons.Outlined.Info,
-                        isExpanded = true
+                        tone = MorpheTone.Primary,
+                        icon = Icons.Outlined.Info
                     )
                 }
 
@@ -871,11 +867,10 @@ fun InstallerUnavailableDialog(
 
             // Error reason badge
             if (reasonText != null) {
-                InfoBadge(
+                MorpheNotice(
                     text = reasonText,
-                    style = InfoBadgeStyle.Error,
-                    icon = Icons.Outlined.Warning,
-                    isExpanded = true
+                    tone = MorpheTone.Error,
+                    icon = Icons.Outlined.Warning
                 )
             }
 
@@ -884,10 +879,9 @@ fun InstallerUnavailableDialog(
                 (state.installerToken == InstallerManager.Token.Shizuku ||
                         state.installerToken == InstallerManager.Token.ShizukuPlayStore)
             ) {
-                InfoBadge(
+                MorpheNotice(
                     text = stringResource(R.string.installer_unavailable_shizuku_hint),
-                    style = InfoBadgeStyle.Primary,
-                    isExpanded = true
+                    tone = MorpheTone.Primary
                 )
             }
         }
@@ -933,11 +927,10 @@ fun PlayStoreInstallerWarningDialog(
                 color = LocalDialogSecondaryTextColor.current
             )
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.installer_play_store_warning_risk),
-                style = InfoBadgeStyle.Error,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Error,
+                icon = Icons.Outlined.Warning
             )
         }
     }
@@ -992,11 +985,10 @@ fun PrePatchInstallerDialog(
                 onClick = onSelectMount
             )
 
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.root_mount_module_unmount_warning),
-                style = InfoBadgeStyle.Warning,
-                icon = Icons.Outlined.Warning,
-                isExpanded = true
+                tone = MorpheTone.Warning,
+                icon = Icons.Outlined.Warning
             )
 
             // Standard Install option
@@ -1008,11 +1000,10 @@ fun PrePatchInstallerDialog(
             )
 
             // Info hint
-            InfoBadge(
+            MorpheNotice(
                 text = stringResource(R.string.root_pre_patch_installer_hint),
-                style = InfoBadgeStyle.Primary,
-                icon = Icons.Outlined.Info,
-                isExpanded = true
+                tone = MorpheTone.Primary,
+                icon = Icons.Outlined.Info
             )
         }
     }

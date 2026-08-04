@@ -1,3 +1,10 @@
+# [1.25.0-dev.19](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.18...v1.25.0-dev.19) (2026-08-04)
+
+
+### Features
+
+* Add APK download helper integration ([#797](https://github.com/MorpheApp/morphe-manager/issues/797)) ([7f7348c](https://github.com/MorpheApp/morphe-manager/commit/7f7348c26de0d706b3b9de6f065ebbc68d489583))
+
 # [1.25.0-dev.18](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.17...v1.25.0-dev.18) (2026-08-03)
 
 

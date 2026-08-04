@@ -219,7 +219,6 @@ Elixe outro APK</string>
     <string name="home_app_info_apk_size">Tamaño da APK</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">O modo raíz (root) require que o arquivo APK orixinal estea instalado no teu dispositivo antes de ser parcheado</string>
-    <string name="root_gmscore_excluded">O parche de soporte para GmsCore está excluído no modo root</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Error copiado ao portapapeis</string>
     <string name="patcher_error_log">Rexistro de erros</string>
@@ -290,6 +289,7 @@ Elixe outro APK</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Acerca de</string>

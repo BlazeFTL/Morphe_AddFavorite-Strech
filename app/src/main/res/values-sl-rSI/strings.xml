@@ -222,6 +222,8 @@
     <string name="expert_mode_no_results">Ni najdenih popravkov</string>
     <string name="expert_mode_universal_patches">Univerzalni popravki</string>
     <string name="expert_mode_new_patches">Novo</string>
+    <string name="expert_mode_patch_required_by_installer">Obvezno za izbrano ciljno namestitev</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Ni na voljo za izbrano ciljno namestitev</string>
     <string name="expert_mode_multiple_sources_warning_title">Izbranih je več virov popravkov</string>
     <string name="expert_mode_multiple_sources_warning_message">"Izbrali ste popravke iz več virov. To lahko povzroči težave s kompatibilnostjo ali nepričakovano obnašanje.
 
@@ -323,8 +325,6 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="batch_patch_source_installed">Namestitvena aplikacija</string>
     <string name="batch_patch_source_file">Priložena datoteka</string>
     <string name="batch_patch_source_unavailable">APK-ja ni bilo mogoče pripraviti</string>
-    <string name="batch_patch_find_apk">Išči APK</string>
-    <string name="batch_patch_attach_apk">Priložite APK</string>
     <string name="batch_patch_force_version">Vseeno popravite</string>
     <string name="batch_patch_edit_patches">Izberite popravke</string>
     <string name="batch_patch_state_no_apk">Ni APK-ja</string>
@@ -371,7 +371,6 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Za način root je potrebno, da je izvirna datoteka APK nameščena na vaši napravi, preden jo popravite.</string>
-    <string name="root_gmscore_excluded">Popravek podpore GmsCore je izključen v načinu root</string>
     <string name="root_pre_patch_installer_title">Izberite način obliževanja</string>
     <string name="root_pre_patch_installer_description">Vaša naprava ima dostop do višinskih pravic. Izberite, ali naj bo ta aplikacija obliževana za root namestitev ali standardno namestitev.</string>
     <string name="root_pre_patch_installer_mount_title">Način namestitve root</string>
@@ -413,6 +412,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_install_error_subtitle">Poskusite aplikacijo ponovno odstraniti in namestiti</string>
     <string name="patcher_ready_to_install_subtitle">Pritisnite gumb spodaj za namestitev</string>
     <string name="patcher_ready_to_mount_subtitle">Pritisnite gumb spodaj za montažo</string>
+    <string name="patcher_patches_excluded_for_installer">Ni na voljo za to metodo namestitve in je izključeno: %s</string>
     <string name="patcher_storage_permission_dialog_title">Dostopa do poti shrambe ni možen</string>
     <string name="patcher_incompatible_patcher_title">Posodobitev je zahtevana</string>
     <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahteva različico popravljalca &lt;b&gt;%2$s&lt;/b&gt; ali novejšo. Posodobite Morphe, da popravite to aplikacijo</string>
@@ -947,6 +947,7 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Izbira datoteke po meri</string>
     <string name="settings_system_custom_file_picker_description">Uporabi vgrajen izbirnik datotek programa Morphe namesto sistemskega privzetega</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Prejšnji imenik</string>
     <string name="file_picker_no_files">Ni datotek tukaj</string>

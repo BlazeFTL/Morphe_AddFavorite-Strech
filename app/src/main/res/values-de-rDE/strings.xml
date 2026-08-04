@@ -332,8 +332,6 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="batch_patch_source_installed">Installierte App verwenden</string>
     <string name="batch_patch_source_file">Angehängte Datei</string>
     <string name="batch_patch_source_unavailable">Die APK konnte nicht vorbereitet werden</string>
-    <string name="batch_patch_find_apk">APK finden</string>
-    <string name="batch_patch_attach_apk">APK anhängen</string>
     <string name="batch_patch_force_version">Trotzdem fortfahren</string>
     <string name="batch_patch_force_version_done">Warteschlange trotzdem aktiviert. Patches, die für andere Versionen erstellt wurden, können die App beschädigen.</string>
     <string name="batch_patch_edit_patches">Patches auswählen</string>
@@ -381,7 +379,6 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_app_info_cpu_arch">CPU-Architektur</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Root-Modus erfordert, dass die originale APK-Datei auf Ihrem Gerät installiert ist, bevor Sie mit dem Patchen beginnen</string>
-    <string name="root_gmscore_excluded">GmsCore-Unterstützungspatch ist im Root-Modus ausgeschlossen</string>
     <string name="root_pre_patch_installer_title">Wähle Patch-Modus</string>
     <string name="root_pre_patch_installer_description">Dein Gerät hat Root-Zugriff. Wähle, ob diese App für Root-Mount oder Standardinstallation gepatcht werden soll.</string>
     <string name="root_pre_patch_installer_mount_title">Root-Mount-Modus</string>
@@ -960,6 +957,7 @@ Details: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Benutzerdefinierter Dateiauswahldialog</string>
     <string name="settings_system_custom_file_picker_description">Durchsuchen Sie den Speicher mit dem integrierten Dateiauswahldialog von Morphe anstelle der systemspezifischen Standardeinstellung</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorheriges Verzeichnis</string>
     <string name="file_picker_no_files">Keine Dateien hier</string>

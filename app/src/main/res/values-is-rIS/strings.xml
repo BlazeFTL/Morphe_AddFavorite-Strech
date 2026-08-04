@@ -330,8 +330,6 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="batch_patch_source_installed">Uppsett app</string>
     <string name="batch_patch_source_file">Bætt skrá</string>
     <string name="batch_patch_source_unavailable">Ekki tókst að búa til APK</string>
-    <string name="batch_patch_find_apk">Finna APK</string>
-    <string name="batch_patch_attach_apk">Bættu við APK</string>
     <string name="batch_patch_force_version">Breyta samt sem áður</string>
     <string name="batch_patch_force_version_done">Rafmagn gerði samt, sprettur sem gerðar eru fyrir aðrar útgáfur gætu brotið appið</string>
     <string name="batch_patch_edit_patches">Veldu breytingar</string>
@@ -379,7 +377,6 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_cpu_arch">CPU arkitektúr</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Róttækni krafa er að upprunaleg APK sé uppsett á tækinu þínu áður en það er pakkað</string>
-    <string name="root_gmscore_excluded">GmsCore stuðningsplagg er útilokað í root stillingu</string>
     <string name="root_pre_patch_installer_title">Veldu stillingu fyrir flikka</string>
     <string name="root_pre_patch_installer_description">Tækið þitt hefur rót aðgang. Veldu hvort þetta app á að vera flikkað fyrir rót mount eða venjulega uppsetningu</string>
     <string name="root_pre_patch_installer_mount_title">Rót mount stilling</string>
@@ -954,6 +951,7 @@ Nánari upplýsingar: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Sérsniðin skráaraðjari</string>
     <string name="settings_system_custom_file_picker_description">Skoðu geymslu með innbyggðum skráaraðjara Morphe heldur en staðkerfinu</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Fyrri skrá</string>
     <string name="file_picker_no_files">Engar skrár hér</string>

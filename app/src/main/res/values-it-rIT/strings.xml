@@ -333,8 +333,6 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="batch_patch_source_installed">App installata</string>
     <string name="batch_patch_source_file">File allegato</string>
     <string name="batch_patch_source_unavailable">L\'APK non è stato possibile prepararlo</string>
-    <string name="batch_patch_find_apk">Trova APK</string>
-    <string name="batch_patch_attach_apk">Allega APK</string>
     <string name="batch_patch_force_version">Applica comunque</string>
     <string name="batch_patch_force_version_done">Messo in coda comunque, le patch create per altre versioni potrebbero compromettere il funzionamento dell\'app</string>
     <string name="batch_patch_edit_patches">Scegli patch</string>
@@ -382,7 +380,6 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="home_app_info_cpu_arch">Architettura CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">La modalità di root richiede che l\'APK originale sia installato sul tuo dispositivo prima del patching</string>
-    <string name="root_gmscore_excluded">Il supporto per GmsCore è escluso in modalità di root</string>
     <string name="root_pre_patch_installer_title">Scegli la modalità patch</string>
     <string name="root_pre_patch_installer_description">Il tuo dispositivo ha accesso root. Scegli se questa app deve essere patchata per l\'installazione con root o standard</string>
     <string name="root_pre_patch_installer_mount_title">Modalità di montaggio root</string>
@@ -960,6 +957,7 @@ Dettagli: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Selettore di file personalizzato</string>
     <string name="settings_system_custom_file_picker_description">Utilizza il selettore di file integrato di Morphe invece di quello predefinito del sistema</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Directory precedente</string>
     <string name="file_picker_no_files">Nessun file qui</string>
@@ -1104,6 +1102,8 @@ Dettagli: %2$s"</string>
     <string name="installing_manager_update">Installazione dell\'aggiornamento in corso…</string>
     <string name="downloading_manager_update">Download dell\'aggiornamento in corso…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB scaricato</string>
+    <string name="manager_update_not_ready">Questa versione è ancora in fase di pubblicazione. Riprova tra qualche minuto</string>
     <string name="download_manager_failed">Impossibile scaricare l\'aggiornamento: %s</string>
     <string name="failed_to_check_updates">Impossibile verificare la presenza degli aggiornamenti: %s</string>
     <string name="failed_to_download_update">Impossibile scaricare l\'aggiornamento: %s</string>

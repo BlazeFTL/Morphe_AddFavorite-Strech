@@ -332,8 +332,6 @@
     <string name="batch_patch_source_installed">অ্যাপ ইনস্টল করা হয়েছে</string>
     <string name="batch_patch_source_file">সংযুক্ত ফাইল</string>
     <string name="batch_patch_source_unavailable">APK প্রস্তুত করা যায়নি</string>
-    <string name="batch_patch_find_apk">APK খুঁজুন</string>
-    <string name="batch_patch_attach_apk">APK সংযুক্ত করুন</string>
     <string name="batch_patch_force_version">যাইহোক প্যাচ করুন</string>
     <string name="batch_patch_force_version_done">যাইহোক, সারিবদ্ধ করা হয়েছে, অন্যান্য সংস্করণের জন্য তৈরি করা প্যাচগুলি অ্যাপটিকে ভেঙে দিতে পারে</string>
     <string name="batch_patch_edit_patches">প্যাচ নির্বাচন করুন</string>
@@ -381,7 +379,6 @@
     <string name="home_app_info_cpu_arch">সিপিইউ আর্কিটেকচার</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">রুট মোডে আরিজিনাল এপিকে ডিভাইসে ইনস্টল করা থাকতে হবে প্যাচিংয়ের আগে</string>
-    <string name="root_gmscore_excluded">রুট মোডে GmsCore সমর্থন প্যাচ বাদ দেওয়া হয়েছে</string>
     <string name="root_pre_patch_installer_title">প্যাচ মোড নির্বাচন করুন</string>
     <string name="root_pre_patch_installer_description">আপনার ডিভাইসে রুট অ্যাক্সেস আছে। এই অ্যাপটি রুট মাউন্ট এর জন্য নাকি স্ট্যান্ডার্ড ইনস্টলের জন্য প্যাচ করা উচিত তা নির্বাচন করুন</string>
     <string name="root_pre_patch_installer_mount_title">রুট মাউন্ট মোড</string>
@@ -950,6 +947,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">কাস্টম ফাইল পিকার</string>
     <string name="settings_system_custom_file_picker_description">সিস্টেম ডিফল্টের পরিবর্তে Morphe-এর বিল্ট-ইন ফাইল পিকার দিয়ে স্টোরেজ ব্রাউজ করুন</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">আগের ডিরেক্টরি</string>
     <string name="file_picker_no_files">এখানে কোন ফাইল নেই</string>

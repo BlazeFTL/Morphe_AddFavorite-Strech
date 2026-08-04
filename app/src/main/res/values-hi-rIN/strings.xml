@@ -328,8 +328,6 @@
     <string name="batch_patch_source_installed">इंस्टॉल किया गया ऐप</string>
     <string name="batch_patch_source_file">संलग्न फ़ाइल</string>
     <string name="batch_patch_source_unavailable">APK तैयार नहीं किया जा सका</string>
-    <string name="batch_patch_find_apk">APK खोजें</string>
-    <string name="batch_patch_attach_apk">APK संलग्न करें</string>
     <string name="batch_patch_force_version">फिर भी पैच करें</string>
     <string name="batch_patch_force_version_done">फिर भी कतार में रखा गया, अन्य संस्करणों के लिए बनाए गए पैच ऐप को तोड़ सकते हैं</string>
     <string name="batch_patch_edit_patches">पैच चुनें</string>
@@ -377,7 +375,6 @@
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">रूट मोड के लिए, पैचिंग शुरू करने से पहले आपके डिवाइस पर APK को इंस्टॉल करना आवश्यक है।</string>
-    <string name="root_gmscore_excluded">श्ळ लेरे सेप्नि साधार्य लैि लुन्यिानि ला</string>
     <string name="root_pre_patch_installer_title">पैच मोड चुनें</string>
     <string name="root_pre_patch_installer_description">आपके डिवाइस में रूट एक्सेस है। चुनें कि क्या इस ऐप को रूट माउंट या मानक इंस्टॉलेशन के लिए पैच किया जाना चाहिए।</string>
     <string name="root_pre_patch_installer_mount_title">रूट माउंट मोड</string>
@@ -955,6 +952,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">कस्टम फ़ाइल पिकर</string>
     <string name="settings_system_custom_file_picker_description">सिस्टम डिफ़ॉल्ट के बजाय मोरफे के बिल्ट-इन फ़ाइल पिकर के साथ संग्रहण ब्राउज़ करें</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">पिछली निर्देशिका</string>
     <string name="file_picker_no_files">यहां कोई फ़ाइलें नहीं हैं</string>

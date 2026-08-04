@@ -166,6 +166,10 @@
     <string name="home_apk_availability_incompatible_label">Neamh-chomhoiriúnach</string>
     <string name="home_apk_availability_yes">Sea, cabhraigh liom APK a aimsiú</string>
     <string name="home_apk_availability_no">Níl, tá APK agam cheana féin</string>
+    <string name="home_apk_helper_warning">Lean ar aghaidh amháin má thuaibh tú an t-app cabhrach seo. Ní chekálann Morphe an pajacht, an leagan, agus an sínáil de aon rud a fhaigheann sé sula n-a phreatáil</string>
+    <string name="home_apk_helper_warning_unverified">Lean ar aghaidh amháin má thuaibh tú an t-app cabhrach seo. Ní féidir le Morphe an sínáil an APK seo a dhearbhú, mar sin ní bheadh comhad athraithe déanta amach</string>
+    <string name="home_apk_helper_no_result">Níor thug an t-app cabhrach APK ar ais</string>
+    <string name="home_apk_helper_no_access">Níor thug an t-app cabhrach rochtain ar an APK a thug sé ar ais</string>
     <string name="home_apk_use_saved">Úsáid APK sábháilte</string>
     <string name="home_apk_use_installed">Úsáid APK suiteáilte</string>
     <string name="home_apk_use_installed_unverified">Níorbh fhéidir síniú an aip suiteáilte a fhíorú, mar sin d\'fhéadfadh sé go bhfuil paiste air cheana féin</string>
@@ -332,8 +336,6 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="batch_patch_source_installed">Aip suiteáilte</string>
     <string name="batch_patch_source_file">Comhad ceangailte</string>
     <string name="batch_patch_source_unavailable">Níorbh fhéidir an APK a ullmhú</string>
-    <string name="batch_patch_find_apk">Aimsigh APK</string>
-    <string name="batch_patch_attach_apk">Ceangail APK</string>
     <string name="batch_patch_force_version">Paiste ar aon nós</string>
     <string name="batch_patch_force_version_done">Sa scuaine ar aon nós, d\'fhéadfadh paistí a rinneadh do leaganacha eile an aip a bhriseadh</string>
     <string name="batch_patch_edit_patches">Roghnaigh paistí</string>
@@ -381,7 +383,6 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_cpu_arch">Ailtireacht LAP</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Éilíonn mód fréimhe go mbeidh an APK bunaidh suiteáilte ar do ghléas sula ndéantar paisteáil</string>
-    <string name="root_gmscore_excluded">Tá paiste tacaíochta GmsCore eiscthe i mód fréimhe</string>
     <string name="root_pre_patch_installer_title">Roghnaigh modh paiste</string>
     <string name="root_pre_patch_installer_description">Tá rochtain fréimhe ag do ghléas. Roghnaigh an bhfuil an aip seo le paisteáil le haghaidh suiteáil fréimhe nó suiteáil chaighdeánach.</string>
     <string name="root_pre_patch_installer_mount_title">Mód gléasta fréimhe</string>
@@ -957,6 +958,9 @@ Sonraí: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Roghnóir comhad saincheaptha</string>
     <string name="settings_system_custom_file_picker_description">Brabhsáil stóras le roghnóir comhad ionsuite Morphe in ionad an roghnóra réamhshocraithe córais</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Cabhairíos/a dóinroscáil APK</string>
+    <string name="settings_system_apk_download_helper_description">Lig do thapp cabhrach atá suiteáilte APKanna bunaiseacha a fháil duit. Tagann an comhad ó an t-app sin, mar sin cuir i bhfeidhm é seo amháin má thuaibh tú é</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Eolaire roimhe seo</string>
     <string name="file_picker_no_files">Níl aon chomhaid anseo</string>
@@ -1101,6 +1105,8 @@ Sonraí: %2$s"</string>
     <string name="installing_manager_update">Ag suiteáil an nuashonraithe…</string>
     <string name="downloading_manager_update">Ag íoslódáil an nuashonraithe…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB inÍochadh sí down</string>
+    <string name="manager_update_not_ready">Tá an scaoileadh seo fós á eisiúint. Bain triail ar ais laistigh de chúpla nóta</string>
     <string name="download_manager_failed">Theip ar an nuashonrú a íoslódáil: %s</string>
     <string name="failed_to_check_updates">Theip ar sheiceáil le haghaidh nuashonruithe: %s</string>
     <string name="failed_to_download_update">Theip ar an nuashonrú a íoslódáil: %s</string>

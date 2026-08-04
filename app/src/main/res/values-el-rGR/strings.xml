@@ -166,6 +166,10 @@
     <string name="home_apk_availability_incompatible_label">Ασύμβατο</string>
     <string name="home_apk_availability_yes">Ναι, βοήθησέ με να βρω ένα APK</string>
     <string name="home_apk_availability_no">Όχι, ήδη έχω ένα APK</string>
+    <string name="home_apk_helper_warning">Συνεχίστε μόνο εάν εμπιστεύεστε αυτή τη βοηθητική εφαρμογή. Η Morphe ελέγχει το πακέτο, την έκδοση και την υπογραφή όποιου κι αν λάβει περιεχόμενο πριν από την εφαρμογή διορθώσεων</string>
+    <string name="home_apk_helper_warning_unverified">Συνεχίστε μόνο εάν εμπιστεύεστε αυτή τη βοηθητική εφαρμογή. Η Morphe δεν μπορεί να επαληθεύσει την υπογραφή αυτού του APK, επομένως ένα τροποποιημένο αρχείο δεν θα ανιχνευθεί</string>
+    <string name="home_apk_helper_no_result">Η βοηθητική εφαρμογή δεν επέστρεψε ένα APK</string>
+    <string name="home_apk_helper_no_access">Η βοηθητική εφαρμογή δεν conceded πρόσβαση στο APK που επέστρεψε</string>
     <string name="home_apk_use_saved">Χρήση αποθηκευμένου APK</string>
     <string name="home_apk_use_installed">Χρήση εγκατεστημένου APK</string>
     <string name="home_apk_use_installed_unverified">Δεν μπόρεσα να επαληθεύσω την υπογραφή της εγκατεστημένης εφαρμογής, επομένως ενδέχεται να έχει ήδη τροποποιηθεί</string>
@@ -224,6 +228,8 @@
     <string name="expert_mode_no_results">Δε βρέθηκαν τροποποιήσεις </string>
     <string name="expert_mode_universal_patches">Γενικές τροποποιήσεις </string>
     <string name="expert_mode_new_patches">Νέο</string>
+    <string name="expert_mode_patch_required_by_installer">Απαραίτητο για τον επιλεγμένο στόχο εγκατάστασης</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Δεν είναι διαθέσιμο για τον επιλεγμένο στόχο εγκατάστασης</string>
     <string name="expert_mode_multiple_sources_warning_title">Επιλέχτηκαν πολλαπλές πηγές τροποποιήσεων</string>
     <string name="expert_mode_multiple_sources_warning_message">"Έχετε επιλέξει τροποποιήσεις από πολλαπλές πηγές. Αυτό μπορεί να προκαλέσει προβλήματα συμβατότητας ή άγνωστη συμπεριφορά.
 
@@ -332,8 +338,6 @@
     <string name="batch_patch_source_installed">Εγκατεστημένη εφαρμογή</string>
     <string name="batch_patch_source_file">Επισυναπτόμενο αρχείο</string>
     <string name="batch_patch_source_unavailable">Το APK δεν μπόρεσε να προετοιμαστεί</string>
-    <string name="batch_patch_find_apk">Βρείτε APK</string>
-    <string name="batch_patch_attach_apk">Επισυνάψτε APK</string>
     <string name="batch_patch_force_version">Διόρθωση ούτως ή άλλως</string>
     <string name="batch_patch_force_version_done">Προστέθηκε στην ουρά ούτως ή άλλως, οι ενημερώσεις για άλλες εκδόσεις ενδέχεται να προκαλέσουν προβλήματα στην εφαρμογή</string>
     <string name="batch_patch_edit_patches">Επιλέξτε διορθώσεις</string>
@@ -381,7 +385,6 @@
     <string name="home_app_info_cpu_arch">Αρχιτεκτονική CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Η λειτουργία root απαιτεί το πρωτότυπο APK να είναι εγκατεστημένο στη συσκευή πριν τροποποιηθεί</string>
-    <string name="root_gmscore_excluded">Η υποστήριξη της τροποποίησης GmsCore εξαιρείται στη λειτουργία root</string>
     <string name="root_pre_patch_installer_title">Επιλέξτε λειτουργία ενημέρωσης</string>
     <string name="root_pre_patch_installer_description">Η συσκευή σας έχει πρόσβαση root. Επιλέξτε αν η εφαρμογή θα ενημερωθεί για προσάρτηση root ή τυπική εγκατάσταση</string>
     <string name="root_pre_patch_installer_mount_title">Λειτουργία προσάρτησης root</string>
@@ -423,6 +426,7 @@
     <string name="patcher_install_error_subtitle">Δοκιμάστε να απεγκαταστήσετε και να εγκαταστήσετε ξανά</string>
     <string name="patcher_ready_to_install_subtitle">Πατήστε το παρακάτω κουμπί για εγκατάσταση</string>
     <string name="patcher_ready_to_mount_subtitle">Πατήστε το παρακάτω κουμπί για προσάρτηση</string>
+    <string name="patcher_patches_excluded_for_installer">Δεν είναι διαθέσιμο για αυτήν τη μέθοδο εγκατάστασης και εξαιρέθηκε: %s</string>
     <string name="patcher_storage_permission_dialog_title">Δεν είναι δυνατή η πρόσβαση στη διαδρομή αποθηκευτικού χώρου</string>
     <string name="patcher_incompatible_patcher_title">Απαιτείται ενημέρωση</string>
     <string name="patcher_incompatible_patcher_description">Το πακέτο &lt;b&gt;%1$s&lt;/b&gt; απαιτεί έκδοση επεξεργαστή &lt;b&gt;%2$s&lt;/b&gt; ή νεότερη. Παρακαλώ ενημερώστε το Morphe για να εφαρμόσετε αυτήν την εφαρμογή</string>
@@ -959,6 +963,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Προσαρμοσμένη επιλογή αρχείων</string>
     <string name="settings_system_custom_file_picker_description">Χρησιμοποιήστε την ενσωματωμένη επιλογή αρχείων του Morphe αντί για την προεπιλεγμένη του συστήματος</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Βοηθητικό εργαλείο λήψης APK</string>
+    <string name="settings_system_apk_download_helper_description">Αφήστε μια εγκατεστημένη βοηθητική εφαρμογή να ανακτήσει αρχικά APK για εσάς. Το αρχείο προέρχεται από αυτή την εφαρμογή, επομένως ενεργοποιήστε το μόνο εάν την εμπιστεύεστε</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Προηγούμενος κατάλογος</string>
     <string name="file_picker_no_files">Δεν υπάρχουν αρχεία εδώ</string>

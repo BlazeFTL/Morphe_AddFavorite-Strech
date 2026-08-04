@@ -42,7 +42,7 @@
     <string name="home_app_sort_recommended_description">Apps instalados e fixados primeiro</string>
     <string name="home_app_sort_name_asc_description">Alfabética, de A a Z</string>
     <string name="home_app_sort_name_desc_description">Ordem alfabética inversa, de Z a A</string>
-    <string name="home_app_sort_updates_first">Atualizações de patch primeiro</string>
+    <string name="home_app_sort_updates_first">Atualizações de patches primeiro</string>
     <string name="home_app_sort_updates_first_description">Apps com selos de atualização primeiro, depois em ordem recomendada</string>
     <string name="home_no_apps_title">Nenhum app disponível</string>
     <string name="home_no_apps_subtitle">Adicione uma fonte de patches ou habilite uma existente em %s</string>
@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Incompatível</string>
     <string name="home_apk_availability_yes">Sim, me ajude a encontrar um APK</string>
     <string name="home_apk_availability_no">Não, eu já tenho um APK</string>
+    <string name="home_apk_helper_download">Usar um app auxiliar</string>
+    <string name="home_apk_helper_title">Fazer o download com um app auxiliar</string>
+    <string name="home_apk_helper_description">O Morphe solicitará ao app auxiliar abaixo para fazer o download do APK original e devolver o arquivo</string>
+    <string name="home_apk_helper_continue">Abrir o app auxiliar</string>
+    <string name="home_apk_helper_warning">Apenas continue se você confiar neste app auxiliar. O Morphe verifica o pacote, a versão e a assinatura de tudo o que receber antes de aplicar os patches</string>
+    <string name="home_apk_helper_warning_unverified">Apenas continue se você confiar neste app auxiliar. O Morphe não pode verificar a assinatura deste APK, portanto, um arquivo modificado não seria detectado</string>
+    <string name="home_apk_helper_no_result">O app auxiliar não devolveu um APK</string>
+    <string name="home_apk_helper_no_access">O app auxiliar não concedeu acesso ao APK que devolveu</string>
     <string name="home_apk_use_saved">Usar APK salvo</string>
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do app instalado, portanto, ele pode já estar patcheado</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Nenhum patch encontrado</string>
     <string name="expert_mode_universal_patches">Patches universais</string>
     <string name="expert_mode_new_patches">Novo</string>
+    <string name="expert_mode_patch_required_by_installer">Obrigatório para o destino de instalação selecionado</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Não disponível para o destino de instalação selecionado</string>
     <string name="expert_mode_multiple_sources_warning_title">Várias fontes de patch selecionadas</string>
     <string name="expert_mode_multiple_sources_warning_message">"Você selecionou patches de várias fontes de patches. Isso pode causar problemas de compatibilidade ou comportamento inesperado.
 
@@ -323,8 +333,8 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="batch_patch_preparing_next">Preparando o próximo app…</string>
     <string name="batch_patch_progress_counter">%1$s corrigido(a) de %2$s</string>
     <string name="batch_patch_summary">%1$s corrigidos, %2$s falharam, %3$s ignorados</string>
-    <string name="batch_patch_saved_hint">Os aplicativos corrigidos foram salvos. Instale-os agora ou mais tarde a partir da lista de APKs corrigidos nas configurações</string>
-    <string name="batch_patch_multiple_sources">Alguns aplicativos combinam patches de mais de uma fonte, o que pode causar conflitos</string>
+    <string name="batch_patch_saved_hint">Os apps patcheados foram salvos. Instale-os agora ou mais tarde a partir da lista de APKs patcheados nas configurações</string>
+    <string name="batch_patch_multiple_sources">Alguns apps combinam patches de mais de uma fonte, o que pode causar conflitos</string>
     <string name="batch_patch_needs_apk">Nenhum APK disponível, anexe um arquivo</string>
     <string name="batch_patch_wrong_package">O arquivo anexado pertence a %s</string>
     <string name="batch_patch_version_mismatch">A versão %s não é suportada pelos patches</string>
@@ -332,8 +342,6 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="batch_patch_source_installed">Aplicativo instalado</string>
     <string name="batch_patch_source_file">Arquivo anexado</string>
     <string name="batch_patch_source_unavailable">Não foi possível preparar o APK</string>
-    <string name="batch_patch_find_apk">Localizar APK</string>
-    <string name="batch_patch_attach_apk">Anexar APK</string>
     <string name="batch_patch_force_version">Corrigir de qualquer forma</string>
     <string name="batch_patch_force_version_done">Enfileirado de qualquer forma, patches feitos para outras versões podem quebrar o aplicativo</string>
     <string name="batch_patch_edit_patches">Escolher patches</string>
@@ -347,15 +355,15 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="batch_patch_install_all">Instalar tudo</string>
     <string name="batch_patch_install_failed">Falha ao instalar</string>
     <string name="batch_patch_in_progress">A correção em lote já está em execução</string>
-    <string name="batch_patch_nothing_outdated">Todos os aplicativos corrigidos estão atualizados</string>
+    <string name="batch_patch_nothing_outdated">Todos os apps patcheados estão atualizados</string>
     <string name="shortcut_repatch_short">Refazer a correção</string>
-    <string name="shortcut_repatch_long">Refazer a correção de aplicativos desatualizados</string>
+    <string name="shortcut_repatch_long">Replicar os patches nos apps desatualizados</string>
     <string name="shortcut_check_updates_short">Verificar atualizações</string>
     <string name="shortcut_check_updates_long">Verificar atualizações de patch</string>
     <string name="shortcut_patch_app">Corrigir %s</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Tem certeza de que deseja desinstalar esse app?</string>
-    <string name="batch_uninstall_confirm_body">Os aplicativos selecionados serão removidos permanentemente do seu dispositivo</string>
+    <string name="batch_uninstall_confirm_body">Os apps selecionados serão removidos permanentemente do seu dispositivo</string>
     <string name="home_app_info_remove_app_warning">Isto irá excluir permanentemente:</string>
     <string name="home_app_info_delete_item_database">Entrada do banco de dados</string>
     <string name="home_app_info_delete_item_patched_apk">Arquivo APK patcheado</string>
@@ -381,7 +389,6 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">O modo raiz requer que o APK original esteja instalado em seu dispositivo antes da aplicação de patches</string>
-    <string name="root_gmscore_excluded">O patch de suporte do GmsCore está excluído no modo root</string>
     <string name="root_pre_patch_installer_title">Escolha o modo de aplicação de patch</string>
     <string name="root_pre_patch_installer_description">Seu dispositivo tem acesso root. Escolha se este aplicativo deve ser aplicado um patch para acesso root ou instalação padrão</string>
     <string name="root_pre_patch_installer_mount_title">Modo de montagem root</string>
@@ -423,6 +430,7 @@ A desinstalação apagará permanentemente todos os dados do aplicativo."</strin
     <string name="patcher_install_error_subtitle">Tente desinstalar e instalar novamente</string>
     <string name="patcher_ready_to_install_subtitle">Pressione o botão abaixo para instalar</string>
     <string name="patcher_ready_to_mount_subtitle">Pressione o botão abaixo para montar</string>
+    <string name="patcher_patches_excluded_for_installer">Não disponível para este método de instalação e excluído: %s</string>
     <string name="patcher_storage_permission_dialog_title">Não é possível acessar o caminho de armazenamento</string>
     <string name="patcher_incompatible_patcher_title">Atualização necessária</string>
     <string name="patcher_incompatible_patcher_description">O pacote &lt;b&gt;%1$s&lt;/b&gt; requer a versão do patcher &lt;b&gt;%2$s&lt;/b&gt; ou mais recente. Atualize o Morphe para aplicar patch neste aplicativo</string>
@@ -614,16 +622,16 @@ A desinstalação apagará permanentemente todos os dados do aplicativo."</strin
     <string name="settings_advanced_auto_patch_charging">Somente enquanto estiver carregando</string>
     <string name="settings_advanced_auto_patch_charging_description">A correção é pesada para a CPU e a memória, portanto, espera por um carregador</string>
     <string name="settings_advanced_auto_patch_install">Instalar automaticamente</string>
-    <string name="settings_advanced_auto_patch_install_description">Requer Shizuku como instalador. Com qualquer outro instalador, os aplicativos corrigidos são apenas salvos</string>
+    <string name="settings_advanced_auto_patch_install_description">Requer o Shizuku como o instalador. Com qualquer outro instalador, os apps patcheados são apenas salvos</string>
     <string name="settings_advanced_external_batch_patch">Permitir gatilhos externos</string>
-    <string name="settings_advanced_external_batch_patch_description">Permite que aplicativos de automação iniciem a correção em lote com uma intenção. Cada solicitação é confirmada antes de qualquer execução</string>
+    <string name="settings_advanced_external_batch_patch_description">Permite que apps de automação iniciem a aplicação de patches em lote via intent. Cada solicitação é confirmada antes de qualquer execução</string>
     <string name="external_batch_patch_title">Iniciar a correção em lote?</string>
-    <string name="external_batch_patch_description">%s quer que o Morphe corrija e instale aplicativos</string>
+    <string name="external_batch_patch_description">%s quer que o Morphe patcheie e instale apps</string>
     <string name="external_batch_patch_trust_caller">Sempre permitir este aplicativo</string>
     <string name="external_batch_patch_unknown_caller">Um aplicativo desconhecido</string>
     <!-- Notification content -->
     <string name="notification_auto_patch_title">Correção automática concluída</string>
-    <string name="notification_auto_patch_running_title">Refazendo a correção de aplicativos</string>
+    <string name="notification_auto_patch_running_title">Reaplicando os patches nos apps</string>
     <string name="notification_auto_patch_blocked_title">A correção automática não foi executada</string>
     <string name="notification_auto_patch_blocked_battery">O sistema bloqueou esta instalação. Em dispositivos Xiaomi e similares, ative \"Instalar via USB\" nas opções de desenvolvedor. Em um perfil de trabalho, as instalações podem ser restritas por política</string>
     <string name="notification_auto_patch_blocked_foreground">O Android não permitiu que a correção fosse iniciada em segundo plano. Abra o Morphe e corrija a partir do aplicativo</string>
@@ -959,6 +967,9 @@ Detalhes: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Seletor de arquivos personalizado</string>
     <string name="settings_system_custom_file_picker_description">Navegue pelo armazenamento com o seletor de arquivos integrado do Morphe, em vez do padrão do sistema.</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Auxiliar de download de APK</string>
+    <string name="settings_system_apk_download_helper_description">Permite que um app auxiliar instalado busque APKs originais para você. O arquivo vem desse app, portanto, ative isso apenas se você confiar nele</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Diretório anterior</string>
     <string name="file_picker_no_files">Nenhum arquivo aqui</string>
@@ -1103,6 +1114,8 @@ Detalhes: %2$s"</string>
     <string name="installing_manager_update">Instalando atualização…</string>
     <string name="downloading_manager_update">Baixando atualização…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB do download concluído</string>
+    <string name="manager_update_not_ready">Esta versão ainda está sendo publicada. Tente novamente em alguns minutos</string>
     <string name="download_manager_failed">Falha ao baixar atualização: %s</string>
     <string name="failed_to_check_updates">Falha ao verificar atualizações: %s</string>
     <string name="failed_to_download_update">Falha ao baixar atualização: %s</string>

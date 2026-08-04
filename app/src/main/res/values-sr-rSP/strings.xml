@@ -320,8 +320,6 @@
     <string name="batch_patch_source_installed">Инсталирана апликација</string>
     <string name="batch_patch_source_file">Приложена датотека</string>
     <string name="batch_patch_source_unavailable">APK није могао да се припреми</string>
-    <string name="batch_patch_find_apk">Нађи APK</string>
-    <string name="batch_patch_attach_apk">Приложи APK</string>
     <string name="batch_patch_force_version">Ипак настави</string>
     <string name="batch_patch_edit_patches">Изаберите печеве</string>
     <string name="batch_patch_state_no_apk">Нема APK-а</string>
@@ -368,7 +366,6 @@
     <string name="home_app_info_cpu_arch">Архитектура процесора</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Root режим захтева да оригинални APK буде инсталиран на вашем уређају пре печовања</string>
-    <string name="root_gmscore_excluded">Печ подршке GmsCore је искључен у root режиму</string>
     <string name="root_pre_patch_installer_title">Изберите режим за фластере</string>
     <string name="root_pre_patch_installer_description">Ваш уређај има рут приступ. Изаберите да ли ће апликација бити фластерована за рут монтирање или стандардну инсталацију.</string>
     <string name="root_pre_patch_installer_mount_title">Режим фластеровања рут монтирања</string>
@@ -942,6 +939,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Подешавач фајлова по мери</string>
     <string name="settings_system_custom_file_picker_description">Прегледајте складиште користећи уграђени изабирач фајлова у Morphe-у уместо подразумеваног у систему</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Претходни директоријум</string>
     <string name="file_picker_no_files">Нема фајлова овде</string>

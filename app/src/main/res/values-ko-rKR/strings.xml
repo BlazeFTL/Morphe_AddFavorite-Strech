@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">호환되지 않음</string>
     <string name="home_apk_availability_yes">네, APK를 찾는데 도움을 주세요</string>
     <string name="home_apk_availability_no">아니요, 이미 APK를 가지고 있습니다</string>
+    <string name="home_apk_helper_download">도우미 앱 사용</string>
+    <string name="home_apk_helper_title">도우미 앱으로 다운로드</string>
+    <string name="home_apk_helper_description">Morphe가 아래의 도우미 앱에 원본 APK를 다운로드하도록 요청한 후, 해당 파일을 다시 반환받습니다</string>
+    <string name="home_apk_helper_continue">도우미 앱 열기</string>
+    <string name="home_apk_helper_warning">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 패치를 적용하기 전에 반환받은 파일의 패키지명, 버전 및 서명을 확인합니다</string>
+    <string name="home_apk_helper_warning_unverified">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 확인할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
+    <string name="home_apk_helper_no_result">도우미 앱에서 APK 파일을 반환하지 않았습니다</string>
+    <string name="home_apk_helper_no_access">도우미 앱이 반환한 APK에 대한 접근 권한을 부여하지 않았습니다</string>
     <string name="home_apk_use_saved">저장된 APK 사용</string>
     <string name="home_apk_use_installed">설치된 APK 사용</string>
     <string name="home_apk_use_installed_unverified">설치된 앱의 서명을 확인할 수 없으므로 이미 패치된 앱일 수 있습니다</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">패치를 찾을 수 없습니다</string>
     <string name="expert_mode_universal_patches">유니버셜 패치</string>
     <string name="expert_mode_new_patches">신규</string>
+    <string name="expert_mode_patch_required_by_installer">선택한 설치 대상에 필요합니다</string>
+    <string name="expert_mode_patch_unavailable_for_installer">선택한 설치 대상에 사용할 수 없습니다</string>
     <string name="expert_mode_multiple_sources_warning_title">여러 패치 소스가 선택됨</string>
     <string name="expert_mode_multiple_sources_warning_message">"여러 패치 소스에서 패치를 선택하였습니다. 호환성 문제나 예상되지 않은 동작이 발생할 수 있습니다.
 
@@ -255,8 +265,8 @@
     <string name="home_dialog_expected_package">예상된 패키지:</string>
     <string name="home_dialog_selected_package">선택된 패키지:</string>
     <string name="home_dialog_orphaned_install_title">이전 복사본이 남아 있습니다</string>
-    <string name="home_dialog_orphaned_install_description">패치로 인해 패키지명이 변경되었으므로, 이전에 패치한 복사본은 별도의 앱으로 설치되어 있습니다</string>
-    <string name="home_dialog_orphaned_install_warning">더 이상 추적되지 않으며 패치 업데이트를 받지 않습니다</string>
+    <string name="home_dialog_orphaned_install_description">패치를 적용하면서 패키지 이름이 변경되었기 때문에, 이전에 패치한 앱은 여전히 별도의 앱으로 설치되어 있습니다</string>
+    <string name="home_dialog_orphaned_install_warning">더 이상 추적되지 않으므로 패치 업데이트를 받을 수 없습니다</string>
     <string name="home_dialog_orphaned_install_uninstall">제거</string>
     <string name="home_dialog_orphaned_install_keep">유지</string>
     <string name="home_outdated_patches_dialog_title">패치가 오래되었을 수 있습니다</string>
@@ -332,8 +342,6 @@
     <string name="batch_patch_source_installed">설치된 앱</string>
     <string name="batch_patch_source_file">첨부된 파일</string>
     <string name="batch_patch_source_unavailable">APK를 준비할 수 없습니다</string>
-    <string name="batch_patch_find_apk">APK 찾기</string>
-    <string name="batch_patch_attach_apk">APK 첨부</string>
     <string name="batch_patch_force_version">버전 강제 적용</string>
     <string name="batch_patch_force_version_done">패치 목록에 추가하였습니다. 다른 버전용으로 제작된 패치는 앱에 문제를 일으킬 수 있습니다</string>
     <string name="batch_patch_edit_patches">패치 선택</string>
@@ -381,7 +389,6 @@
     <string name="home_app_info_cpu_arch">CPU 아키텍처</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">루트 모드에서는 패치 전에 원본 APK가 기기에 설치되어 있어야 합니다</string>
-    <string name="root_gmscore_excluded">루트 모드에서는 \'GmsCore support\' 패치가 제외됩니다</string>
     <string name="root_pre_patch_installer_title">패치 모드 선택</string>
     <string name="root_pre_patch_installer_description">이 기기는 루팅되어 있습니다. 이 앱을 루트 마운트 모드로 설치할지, 일반 설치 모드로 설치할지 선택하세요</string>
     <string name="root_pre_patch_installer_mount_title">루트 마운트 모드</string>
@@ -398,7 +405,7 @@
     <string name="patcher_tab_logs">패처 로그</string>
     <string name="patcher_tab_game">게임</string>
     <string name="patcher_logs_waiting">로그 출력을 기다리는 중…</string>
-    <string name="patcher_logs_lost">앱을 다시 시작하는 경우에 로그 출력이 유지되지 않습니다</string>
+    <string name="patcher_logs_lost">로그 출력은 앱을 다시 시작하면 유지되지 않습니다</string>
     <string name="patcher_long_step_warning">이 단계는 시간이 걸릴 수 있습니다. 잠시만 기다려 주세요…</string>
     <string name="patcher_installing_subtitle">신나게 놀 준비가 거의 다 됐어요🎸</string>
     <string name="patcher_success_title">모두 완료! 🎉</string>
@@ -423,6 +430,7 @@
     <string name="patcher_install_error_subtitle">앱을 제거한 후에 다시 설치하세요</string>
     <string name="patcher_ready_to_install_subtitle">설치하시려면 아래 버튼을 탭하세요</string>
     <string name="patcher_ready_to_mount_subtitle">마운트하려면 아래 버튼을 탭하세요</string>
+    <string name="patcher_patches_excluded_for_installer">이 설치 방법에는 사용할 수 없으며 제외됩니다: %s</string>
     <string name="patcher_storage_permission_dialog_title">저장소 경로에 접근할 수 없음</string>
     <string name="patcher_incompatible_patcher_title">업데이트 필요</string>
     <string name="patcher_incompatible_patcher_description">번들 &lt;b&gt;%1$s&lt;/b&gt;는 패처 버전 &lt;b&gt;%2$s&lt;/b&gt; 이상이 필요합니다. 이 앱을 패치하려면 Morphe를 업데이트하세요</string>
@@ -957,6 +965,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">사용자 정의 파일 선택기</string>
     <string name="settings_system_custom_file_picker_description">시스템 기본 파일 선택기 대신 Morphe에 내장된 파일 선택기를 사용하여 저장소를 탐색합니다</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK 다운로드 도우미</string>
+    <string name="settings_system_apk_download_helper_description">설치된 도우미 앱을 사용하여 원본 APK를 다운로드합니다. 파일은 해당 앱에서 제공되므로, 신뢰할 수 있는 앱인 경우에만 이 기능을 활성화하세요</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">이전 디렉터리</string>
     <string name="file_picker_no_files">파일이 없습니다</string>
@@ -1101,6 +1112,8 @@ morphe_header_custom_dark.png
     <string name="installing_manager_update">업데이트를 설치하는 중…</string>
     <string name="downloading_manager_update">업데이트를 다운로드하는 중…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB 다운로드됨</string>
+    <string name="manager_update_not_ready">이 릴리스를 게시하는 중입니다. 몇 분 후 다시 시도해 주세요</string>
     <string name="download_manager_failed">업데이트를 다운로드할 수 없습니다: %s</string>
     <string name="failed_to_check_updates">업데이트를 확인할 수 없습니다: %s</string>
     <string name="failed_to_download_update">업데이트를 다운로드할 수 없습니다: %s</string>

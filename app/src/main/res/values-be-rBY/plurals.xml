@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <plurals name="patch_count">
+        <item quantity="one">%s патч</item>
+        <item quantity="few">%s Патчы</item>
+        <item quantity="many">%s патчаў</item>
+        <item quantity="other">%s патчаў</item>
+    </plurals>
+    <plurals name="option_count">
+        <item quantity="one">%s опцыя патча</item>
+        <item quantity="few">%s опцыі патчаў</item>
+        <item quantity="many">%s параметры патчаў</item>
+        <item quantity="other">%s параметры патчаў</item>
+    </plurals>
+    <plurals name="source_count">
+        <item quantity="one">%s крыніца</item>
+        <item quantity="few">%s крыніц</item>
+        <item quantity="many">%s крыніц</item>
+        <item quantity="other">%s крыніц</item>
+    </plurals>
+</resources>

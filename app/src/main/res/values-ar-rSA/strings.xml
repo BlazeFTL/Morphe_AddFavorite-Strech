@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">غير متوافق</string>
     <string name="home_apk_availability_yes">نعم، ساعدني في العثور على ملف APK</string>
     <string name="home_apk_availability_no">لا، لدي ملف APK بالفعل</string>
+    <string name="home_apk_helper_download">استخدام تطبيق مساعد</string>
+    <string name="home_apk_helper_title">التنزيل باستخدام تطبيق مساعد</string>
+    <string name="home_apk_helper_description">سيطلب Morphe من التطبيق المساعد أدناه تنزيل ملف APK الأصلي ثم إعادته إليه</string>
+    <string name="home_apk_helper_continue">فتح التطبيق المساعد</string>
+    <string name="home_apk_helper_warning">تابع فقط إذا كنت تثق بهذا التطبيق المساعد. يقوم Morphe بالتحقق من الحزمة، الإصدار والتوقيع لأي ملف يستلمه قبل التعديل</string>
+    <string name="home_apk_helper_warning_unverified">تابع فقط إذا كنت تثق بهذا التطبيق المساعد. لا يستطيع Morphe التحقق من توقيع ملف APK هذا، لذلك قد لا يتم اكتشاف أي ملف معدل</string>
+    <string name="home_apk_helper_no_result">لم يقم التطبيق المساعد بتوفير ملف APK</string>
+    <string name="home_apk_helper_no_access">لم يمنح التطبيق المساعد إذن الوصول إلى ملف APK الذي قام بتوفيره</string>
     <string name="home_apk_use_saved">استخدام ملف APK المحفوظ</string>
     <string name="home_apk_use_installed">استخدام ملف APK المثبت</string>
     <string name="home_apk_use_installed_unverified">تعذر التحقق من توقيع التطبيق المثبت، لذا قد يكون قد تم تعديله بالفعل</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">لم يتم العثور على تعديلات</string>
     <string name="expert_mode_universal_patches">التعديلات الشاملة</string>
     <string name="expert_mode_new_patches">جديد</string>
+    <string name="expert_mode_patch_required_by_installer">مطلوب لوجهة التثبيت المحددة</string>
+    <string name="expert_mode_patch_unavailable_for_installer">غير متاح لوجهة التثبيت المحددة</string>
     <string name="expert_mode_multiple_sources_warning_title">تم تحديد مصادر تعديل متعددة</string>
     <string name="expert_mode_multiple_sources_warning_message">"لقد حددت تعديلات من مصادر متعددة. قد يُسبب ذلك مشاكل في التوافق أو سلوكًا غير متوقع.
 
@@ -332,8 +342,6 @@
     <string name="batch_patch_source_installed">تم تثبيت التطبيق</string>
     <string name="batch_patch_source_file">ملف مرفق</string>
     <string name="batch_patch_source_unavailable">تعذر إعداد ملف APK</string>
-    <string name="batch_patch_find_apk">البحث عن ملف APK</string>
-    <string name="batch_patch_attach_apk">إرفاق ملف APK</string>
     <string name="batch_patch_force_version">تعديل على أي حال</string>
     <string name="batch_patch_force_version_done">تمت إضافتها إلى قائمة الانتظار على أية حال؛ فالتعديلات المُعدّة لإصدارات أخرى قد تتسبب في تعطل التطبيق</string>
     <string name="batch_patch_edit_patches">اختر التعديلات</string>
@@ -381,7 +389,6 @@
     <string name="home_app_info_cpu_arch">معمارية المعالج</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">يتطلب وضع Root تثبيت ملف APK الأصلي على جهازك قبل التعديل</string>
-    <string name="root_gmscore_excluded">تم استبعاد تعديل دعم GmsCore في وضع Root</string>
     <string name="root_pre_patch_installer_title">اختر وضعية التعديل</string>
     <string name="root_pre_patch_installer_description">جهازك لديه صلاحيات Root. اختر ما إذا كان يجب تعديل هذا التطبيق بوضعية Root Mount أو التثبيت القياسي</string>
     <string name="root_pre_patch_installer_mount_title">وضع Root Mount</string>
@@ -423,6 +430,7 @@
     <string name="patcher_install_error_subtitle">جرب إلغاء التثبيت والتثبيت مرة أخرى</string>
     <string name="patcher_ready_to_install_subtitle">اضغط على الزر أدناه للتثبيت</string>
     <string name="patcher_ready_to_mount_subtitle">اضغط على الزر أدناه للتركيب</string>
+    <string name="patcher_patches_excluded_for_installer">غير متاح لطريقة التثبيت هذه وتم استبعاده: %s</string>
     <string name="patcher_storage_permission_dialog_title">لا يمكن الوصول إلى مسار التخزين</string>
     <string name="patcher_incompatible_patcher_title">التحديث مطلوب</string>
     <string name="patcher_incompatible_patcher_description">تتطلب الحزمة &lt;b&gt;%1$s&lt;/b&gt; إصدار أداة التعديل &lt;b&gt;%2$s&lt;/b&gt; أو أحدث. يرجى تحديث Morphe لتعديل هذا التطبيق</string>
@@ -766,7 +774,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="installer_status_shizuku_not_installed">قم بتثبيت Shizuku أو Sui لاستخدام هذا الخيار</string>
     <string name="installer_status_shizuku_not_running">ابدأ بتشغيل Shizuku أو Sui وحاول مرة أخرى</string>
     <string name="installer_status_shizuku_permission">امنح تطبيق Shizuku الإذن بالوصول إلى Morphe من تطبيق Shizuku</string>
-    <string name="installer_mount_warning_install">أداة التثبيت الأساسية الخاصة بك محددة على أداة تثبيت تركيب Rooted. لم يتم تثبيت التطبيق المحفوظ باستخدام التركيب</string>
+    <string name="installer_mount_warning_install">أداة التثبيت الأساسية الخاصة بك محددة على أداة تثبيت Rooted Mount. لم يتم تثبيت التطبيق المحفوظ باستخدام Mount</string>
     <string name="mount_version_mismatch_message">إصدار التطبيق الأصلي (%2$s) لا يتطابق مع إصدار التطبيق المعدل (%1$s). قم بتركيب الإصدار الأصلي المطابق، ثم حاول مرة أخرى</string>
     <string name="mount_stock_restore_failed_message">رفض Android ملف APK الأصلي المحفوظ. قم بتثبيت الإصدار الأصلي المطابق، ثم حاول التركيب مرة أخرى</string>
     <string name="installer_status_shizuku_unsupported">إصدار Shizuku المثبت غير مدعوم</string>
@@ -846,19 +854,19 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_notifications_ringtone_picker_title">اختر نغمة</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">استيراد &amp; تصدير</string>
-    <string name="settings_system_keystore">مخزن المفاتيح</string>
-    <string name="settings_system_import_keystore_description">استيراد أو تصدير مخزن مفاتيح التوقيع الخاص بك</string>
-    <string name="settings_system_import_keystore_dialog_title">أدخل بيانات اعتماد مخزن المفاتيح</string>
-    <string name="settings_system_import_keystore_dialog_description">سوف تحتاج إلى إدخال بيانات اعتماد مخزن المفاتيح لاستيراده</string>
+    <string name="settings_system_keystore">Keystore</string>
+    <string name="settings_system_import_keystore_description">استيراد أو تصدير Keystore التوقيع الخاص بك</string>
+    <string name="settings_system_import_keystore_dialog_title">أدخل بيانات اعتماد Keystore</string>
+    <string name="settings_system_import_keystore_dialog_description">سوف تحتاج إلى إدخال بيانات اعتماد Keystore لاستيراده</string>
     <string name="settings_system_import_keystore_dialog_alias_field">اسم المستخدم (الاسم المستعار)</string>
     <string name="settings_system_import_keystore_dialog_password_field">كلمة المرور</string>
-    <string name="settings_system_import_keystore_dialog_format_field">تنسيق مخزن المفاتيح</string>
-    <string name="settings_system_import_keystore_wrong_credentials">بيانات مخزن المفاتيح غير صحيحة</string>
-    <string name="settings_system_import_keystore_success">تم استيراد مخزن المفاتيح</string>
-    <string name="settings_system_import_keystore_failed">فشل استيراد مخزن المفاتيح</string>
-    <string name="settings_system_export_keystore_unavailable">لا يوجد مخزن مفاتيح للتصدير</string>
-    <string name="settings_system_export_keystore_success">تم تصدير مخزن المفاتيح</string>
-    <string name="settings_system_export_keystore_failed">فشل تصدير مخزن المفاتيح</string>
+    <string name="settings_system_import_keystore_dialog_format_field">تنسيق Keystore</string>
+    <string name="settings_system_import_keystore_wrong_credentials">بيانات Keystore غير صحيحة</string>
+    <string name="settings_system_import_keystore_success">تم استيراد Keystore</string>
+    <string name="settings_system_import_keystore_failed">فشل استيراد Keystore</string>
+    <string name="settings_system_export_keystore_unavailable">لا يوجد Keystore متاح للتصدير</string>
+    <string name="settings_system_export_keystore_success">تم تصدير Keystore</string>
+    <string name="settings_system_export_keystore_failed">فشل تصدير Keystore</string>
     <string name="settings_system_show_password_field">عرض كلمة المرور</string>
     <string name="settings_system_hide_password_field">إخفاء كلمة المرور</string>
     <string name="settings_system_morphe_settings">إعدادات Morphe</string>
@@ -892,7 +900,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">إدارة التخزين</string>
     <string name="settings_system_storage_management_description">مراجعة استخدام مساحة التخزين ومسح الملفات المؤقتة</string>
-    <string name="settings_system_storage_keystore_title">مخزن المفاتيح الموقّعة</string>
+    <string name="settings_system_storage_keystore_title">Keystore الموقّعة</string>
     <string name="settings_system_storage_app_data_title">بيانات التطبيق</string>
     <string name="settings_system_storage_patch_bundles_title">حُزم التعديل</string>
     <string name="settings_system_storage_http_cache_title">ذاكرة التخزين المؤقت للشبكة</string>
@@ -962,6 +970,9 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">مستعرض ملفات مخصص</string>
     <string name="settings_system_custom_file_picker_description">استخدم مستعرض التخزين المدمج في Morphe بدلًا من مستعرض النظام الافتراضي</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">مساعد تنزيل APK</string>
+    <string name="settings_system_apk_download_helper_description">السماح لتطبيق مساعد مُثبّت بجلب ملفات APK الأصلية لك. يأتي الملف من هذا التطبيق، لذا فعّل هذا الخيار فقط إذا كنت تثق به</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">المجلد السابق</string>
     <string name="file_picker_no_files">لا توجد ملفات هنا</string>
@@ -1066,11 +1077,11 @@ morphe_adaptive_monochrome_custom.xml
     <string name="patching">جارٍ التعديل</string>
     <string name="repatch">إعادة التعديل</string>
     <string name="open">فتح</string>
-    <string name="mount">تركيب</string>
-    <string name="mounted">مركّب</string>
-    <string name="unmount">فك التركيب</string>
-    <string name="unmounted">غير مفكوك التركيب</string>
-    <string name="remount">إعادة التركيب</string>
+    <string name="mount">Mount</string>
+    <string name="mounted">Mounted</string>
+    <string name="unmount">Unmount</string>
+    <string name="unmounted">Unmounted</string>
+    <string name="remount">Remount</string>
     <string name="share">مشاركة</string>
     <string name="install">تثبيت</string>
     <string name="installed">مثبت</string>
@@ -1088,8 +1099,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="logs">السجلات</string>
     <string name="sources">المصادر</string>
     <string name="installing_ellipsis">جارٍ التثبيت…</string>
-    <string name="mounting_ellipsis">جارٍ التركيب…</string>
-    <string name="unmounting_ellipsis">جارٍ فك التركيب…</string>
+    <string name="mounting_ellipsis">Mounting…</string>
+    <string name="unmounting_ellipsis">Unmounting…</string>
     <string name="importing_ellipsis">جارٍ استيراد…</string>
     <string name="imported_successfully">تم الاستيراد بنجاح</string>
     <string name="changelog">عرض سجل التغييرات</string>
@@ -1106,6 +1117,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="installing_manager_update">جارٍ تثبيت التحديث...</string>
     <string name="downloading_manager_update">جارٍ تنزيل التحديث...</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f م.ب تم تنزيلها</string>
+    <string name="manager_update_not_ready">هذا الإصدار لا يزال قيد النشر. حاول مرة أخرى بعد بضع دقائق</string>
     <string name="download_manager_failed">فشل تنزيل التحديث: %s</string>
     <string name="failed_to_check_updates">فشل التحقق من التحديثات: %s</string>
     <string name="failed_to_download_update">فشل تنزيل التحديث: %s</string>
@@ -1129,11 +1142,11 @@ morphe_adaptive_monochrome_custom.xml
     <string name="onboarding_expert_mode_desc">قم بتمكين وضع الخبير لفتح اختيار التعديل، الخيارات المخصصة، والميزات المتقدمة الأخرى</string>
     <!-- Translate "System" the same way as the System settings tab -->
     <string name="onboarding_system_tab_title">علامة تبويب النظام</string>
-    <string name="onboarding_system_tab_desc">إدارة المفاتيح، أدوات الاستيراد/التصدير، ومعلومات التطبيق</string>
+    <string name="onboarding_system_tab_desc">إدارة Keystore، أدوات الاستيراد/التصدير، ومعلومات التطبيق</string>
     <string name="onboarding_system_installer_desc">اختر كيفية تثبيت التطبيقات التي تم تعديلها: قياسي، Root Mount، أو Shizuku</string>
     <string name="onboarding_system_process_runtime_desc">تشغيل التعديل في عملية منفصلة لتحسين الاستقرار والتحكم في استخدام الذاكرة.
 موصى به للتطبيقات الكبيرة</string>
-    <string name="onboarding_system_file_picker_desc">قم بتمكين هذا لاستخدام مستعرض الملفات المدمج بدلًا من مستعرض النظام عند تحديد ملفات APK أو المفاتيح</string>
+    <string name="onboarding_system_file_picker_desc">قم بتمكين هذا لاستخدام مستعرض الملفات المدمج بدلًا من مستعرض النظام عند اختيار ملفات APK أو Keystores</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">جولة سريعة في الميزات</string>
     <string name="tour_prompt_desc">هل تريد جولة سريعة في الميزات الرئيسية لـ Morphe؟</string>

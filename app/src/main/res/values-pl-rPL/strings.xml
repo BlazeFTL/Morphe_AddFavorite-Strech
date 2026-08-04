@@ -167,6 +167,14 @@
     <string name="home_apk_availability_incompatible_label">Niezgodna</string>
     <string name="home_apk_availability_yes">Tak, pomóż mi znaleźć plik APK</string>
     <string name="home_apk_availability_no">Nie, mam już plik APK</string>
+    <string name="home_apk_helper_download">Użyj aplikacji pomocniczej</string>
+    <string name="home_apk_helper_title">Pobierz za pomocą aplikacji pomocniczej</string>
+    <string name="home_apk_helper_description">Morphe poprosi poniższą aplikację pomocniczą o pobranie oryginalnego pliku APK i przekazanie go z powrotem</string>
+    <string name="home_apk_helper_continue">Otwórz aplikację pomocniczą</string>
+    <string name="home_apk_helper_warning">Kontynuuj tylko wtedy, gdy ufasz tej aplikacji pomocniczej. Przed rozpoczęciem modyfikowania Morphe sprawdza pakiet, wersję i sygnaturę wszystkiego, co otrzyma</string>
+    <string name="home_apk_helper_warning_unverified">Kontynuuj tylko wtedy, gdy ufasz tej aplikacji pomocniczej. Morphe nie może zweryfikować sygnatury tego pliku APK, więc zmodyfikowany plik nie zostałby wykryty</string>
+    <string name="home_apk_helper_no_result">Aplikacja pomocnicza nie zwróciła pliku APK</string>
+    <string name="home_apk_helper_no_access">Aplikacja pomocnicza nie przyznała dostępu do zwróconego pliku APK</string>
     <string name="home_apk_use_saved">Użyj zapisanego pliku APK</string>
     <string name="home_apk_use_installed">Użyj zainstalowanego pliku APK</string>
     <string name="home_apk_use_installed_unverified">Nie udało się zweryfikować podpisu zainstalowanej aplikacji, więc może być już zmodyfikowana</string>
@@ -225,6 +233,8 @@
     <string name="expert_mode_no_results">Nie znaleziono modyfikacji</string>
     <string name="expert_mode_universal_patches">Uniwersalne modyfikacje</string>
     <string name="expert_mode_new_patches">Nowe</string>
+    <string name="expert_mode_patch_required_by_installer">Wymagane dla wybranego celu instalacji</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Niedostępne dla wybranego celu instalacji</string>
     <string name="expert_mode_multiple_sources_warning_title">Wybrano wiele źródeł modyfikacji</string>
     <string name="expert_mode_multiple_sources_warning_message">"Wybrano modyfikacje z wielu źródeł. Może to spowodować problemy z kompatybilnością lub nieoczekiwane działanie aplikacji.
 
@@ -333,8 +343,6 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="batch_patch_source_installed">Zainstalowana aplikacja</string>
     <string name="batch_patch_source_file">Dołączony plik</string>
     <string name="batch_patch_source_unavailable">Nie udało się przygotować pliku APK</string>
-    <string name="batch_patch_find_apk">Znajdź plik APK</string>
-    <string name="batch_patch_attach_apk">Dołącz plik APK</string>
     <string name="batch_patch_force_version">Zmodyfikuj mimo to</string>
     <string name="batch_patch_force_version_done">Dodano do kolejki mimo to, modyfikacje dla innych wersji mogą uszkodzić aplikację</string>
     <string name="batch_patch_edit_patches">Wybierz modyfikacje</string>
@@ -382,7 +390,6 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_cpu_arch">Architektura procesora</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Tryb root wymaga zainstalowania oryginalnego pliku APK na urządzeniu przed zmodyfikowaniem</string>
-    <string name="root_gmscore_excluded">Wsparcie dla GmsCore jest wyłączone w trybie root</string>
     <string name="root_pre_patch_installer_title">Wybierz tryb modyfikacji</string>
     <string name="root_pre_patch_installer_description">Twoje urządzenie ma dostęp do roota. Wybierz, czy ta aplikacja ma zostać zmodyfikowana pod montowanie z rootem, czy standardową instalację</string>
     <string name="root_pre_patch_installer_mount_title">Tryb montowania z rootem</string>
@@ -424,6 +431,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patcher_install_error_subtitle">Spróbuj odinstalować aplikację i zainstalować ją ponownie</string>
     <string name="patcher_ready_to_install_subtitle">Naciśnij przycisk poniżej, aby zainstalować</string>
     <string name="patcher_ready_to_mount_subtitle">Naciśnij przycisk poniżej, aby zamontować</string>
+    <string name="patcher_patches_excluded_for_installer">Niedostępne dla tej metody instalacji i wykluczone: %s</string>
     <string name="patcher_storage_permission_dialog_title">Brak dostępu do ścieżki pamięci</string>
     <string name="patcher_incompatible_patcher_title">Wymagana aktualizacja</string>
     <string name="patcher_incompatible_patcher_description">Pakiet &lt;b&gt;%1$s&lt;/b&gt; wymaga modyfikatora w wersji &lt;b&gt;%2$s&lt;/b&gt; lub nowszej. Zaktualizuj Morphe, aby zmodyfikować tę aplikację</string>
@@ -960,6 +968,9 @@ Wymagane są następujące wymiary obrazów:
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Własna przeglądarka plików</string>
     <string name="settings_system_custom_file_picker_description">Przeglądaj pamięć za pomocą wbudowanej przeglądarki plików Morphe zamiast domyślnej systemowej</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Aplikacja pomocnicza do pobierania pliku APK</string>
+    <string name="settings_system_apk_download_helper_description">Pozwól zainstalowanej aplikacji pomocniczej pobierać dla Ciebie oryginalne pliki APK. Plik pochodzi z tej aplikacji, więc włącz tę opcję tylko wtedy, gdy jej ufasz</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Poprzedni folder</string>
     <string name="file_picker_no_files">Brak plików</string>
@@ -1104,6 +1115,8 @@ Wymagane są następujące wymiary obrazów:
     <string name="installing_manager_update">Instalowanie aktualizacji…</string>
     <string name="downloading_manager_update">Pobieranie aktualizacji…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">Pobrano %1$.1f MB</string>
+    <string name="manager_update_not_ready">To wydanie jest wciąż publikowane. Spróbuj ponownie za kilka minut</string>
     <string name="download_manager_failed">Nie udało się pobrać aktualizacji: %s</string>
     <string name="failed_to_check_updates">Nie udało się wyszukać aktualizacji: %s</string>
     <string name="failed_to_download_update">Nie udało się pobrać aktualizacji: %s</string>

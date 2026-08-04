@@ -332,8 +332,6 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="batch_patch_source_installed">Telepített alkalmazás</string>
     <string name="batch_patch_source_file">Csatolt fájl</string>
     <string name="batch_patch_source_unavailable">Az APK nem készíthető elő</string>
-    <string name="batch_patch_find_apk">APK keresése</string>
-    <string name="batch_patch_attach_apk">Csatoljon APK-t</string>
     <string name="batch_patch_force_version">Javítsa mégis</string>
     <string name="batch_patch_force_version_done">A sorba került, a többi verzióhoz készített javítások használhatatlaná tehetik az alkalmazást</string>
     <string name="batch_patch_edit_patches">Válassza ki a javításokat</string>
@@ -381,7 +379,6 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="home_app_info_cpu_arch">CPU architektúra</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">A root módhoz az eredeti APK-nak telepítve kell lennie az eszközön a módosítás előtt</string>
-    <string name="root_gmscore_excluded">A GmsCore támogatási módosítás nem érhető el root módban</string>
     <string name="root_pre_patch_installer_title">Válassz javítási módot</string>
     <string name="root_pre_patch_installer_description">A készülék root hozzáféréssel rendelkezik. Válaszd ki, hogy az alkalmazás root csatoláshoz vagy standard telepítéshez legyen-e javítva</string>
     <string name="root_pre_patch_installer_mount_title">Root csatolási mód</string>
@@ -958,6 +955,7 @@ Részletek: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Egyéni fájlválasztó</string>
     <string name="settings_system_custom_file_picker_description">A Morphe beépített fájlválasztóját használja a rendszer alapértelmezett helyett.</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Előző mappa</string>
     <string name="file_picker_no_files">Nincs itt fájl</string>

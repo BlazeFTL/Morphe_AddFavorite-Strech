@@ -287,7 +287,6 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="home_app_info_apk_size">APK dydis</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Norint naudoti root režimą, prieš diegiant pataisą įrenginyje turi būti įdiegtas originalus APK</string>
-    <string name="root_gmscore_excluded">GmsCore palaikymo pataisa neįtraukta į root režimą</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Klaida nukopijuota į iškarpinę</string>
     <string name="patcher_error_log">Klaidų žurnalas</string>
@@ -518,6 +517,7 @@ Pasirinktinai, nuoroda gali turėti pranešimo piktogramą viename iš išvardin
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Apie</string>

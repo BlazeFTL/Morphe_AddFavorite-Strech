@@ -162,6 +162,10 @@
     <string name="home_apk_availability_incompatible_label">Nekompatibilné</string>
     <string name="home_apk_availability_yes">Áno, pomôžte mi nájsť APK súbor</string>
     <string name="home_apk_availability_no">Nie, už mám APK súbor</string>
+    <string name="home_apk_helper_warning">Pokračujte iba v prípade, ak dôverujete tejto pomocnej aplikácii. Morphe pred patchovaním kontroluje balík, verziu a podpis čokoľvek, čo prijme</string>
+    <string name="home_apk_helper_warning_unverified">Pokračujte iba v prípade, ak dôverujete tejto pomocnej aplikácii. Morphe nemôže overiť podpis tohto APK, takže upravený súbor by nebol zachvátený</string>
+    <string name="home_apk_helper_no_result">Pomocná aplikácia nevrátila žiadne APK</string>
+    <string name="home_apk_helper_no_access">Pomocná aplikácia neudelila prístup k vrátenému APK</string>
     <string name="home_apk_use_saved">Použiť uložený APK súbor</string>
     <string name="home_apk_use_installed">Použiť nainštalovaný APK súbor</string>
     <string name="home_apk_use_installed_unverified">Nepodarilo sa overiť podpis nainštalovanej aplikácie, takže môže byť už zaplátaná</string>
@@ -323,8 +327,6 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="batch_patch_source_installed">Nainštalovaná aplikácia</string>
     <string name="batch_patch_source_file">Priložený súbor</string>
     <string name="batch_patch_source_unavailable">APK súbor sa nepodarilo pripraviť</string>
-    <string name="batch_patch_find_apk">Nájdi APK</string>
-    <string name="batch_patch_attach_apk">Priložte APK</string>
     <string name="batch_patch_force_version">Aplikovať aj tak</string>
     <string name="batch_patch_edit_patches">Vyberte záplaty</string>
     <string name="batch_patch_state_no_apk">Žiadny APK</string>
@@ -371,7 +373,6 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="home_app_info_cpu_arch">Architektúra CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Režim root vyžaduje inštaláciu pôvodného APK pred aplikovaním záplat</string>
-    <string name="root_gmscore_excluded">Podporná záplata GmsCore je vylúčená v root režime</string>
     <string name="root_pre_patch_installer_title">Vyberte režim záplatovania</string>
     <string name="root_pre_patch_installer_description">Vaše zariadenie má root prístup. Zvoľte, či má byť táto aplikácia záplatovaná pre root mount alebo štandardnú inštaláciu.</string>
     <string name="root_pre_patch_installer_mount_title">Režim root mount</string>
@@ -945,6 +946,9 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Vlastný výber súborov</string>
     <string name="settings_system_custom_file_picker_description">Použite vlastný prehliadač súborov Morphe namiesto štandardného systému.</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Pomocník sťahovania APK</string>
+    <string name="settings_system_apk_download_helper_description">Nechajte nainštovanú pomocnú aplikáciu, aby vám získala pôvodné APK. Súbor pochádza z tej aplikácie, preto túto funkciu zapnite iba v prípade, ak jej dôverujete</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Predchádzajúci priečinok</string>
     <string name="file_picker_no_files">Tu nie sú žiadne súbory</string>

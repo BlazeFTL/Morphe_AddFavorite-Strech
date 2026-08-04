@@ -166,6 +166,10 @@
     <string name="home_apk_availability_incompatible_label">Onversoenbaar</string>
     <string name="home_apk_availability_yes">Ja, help my om \'n APK te vind</string>
     <string name="home_apk_availability_no">Nee, ek het reeds \'n APK</string>
+    <string name="home_apk_helper_warning">Gaan slegs voort as jy hierdie helper-toepassing vertrou. Morphe kontroleer die pakket, weergawe en handtekening van alles wat dit ontvang voordat dit reggemaak word</string>
+    <string name="home_apk_helper_warning_unverified">Gaan slegs voort as jy hierdie helper-toepassing vertrou. Morphe kan nie die handtekening van hierdie APK verifieer nie, so \'n gewysigde lêer sal nie opgespoor word nie</string>
+    <string name="home_apk_helper_no_result">Die helper-toepassing het nie \'n APK teruggegee nie</string>
+    <string name="home_apk_helper_no_access">Die helper-toepassing het nie toegang tot die APK wat dit teruggegee het, toegelaat nie</string>
     <string name="home_apk_use_saved">Gebruik gestoorde APK</string>
     <string name="home_apk_use_installed">Gebruik geïnstalleerde APK</string>
     <string name="home_apk_use_installed_unverified">Kon nie die handtekening van die geïnstalleerde app verifieer nie, dus is dit moontlik reeds gemodifiseer</string>
@@ -224,6 +228,8 @@
     <string name="expert_mode_no_results">Geen patchings gevind</string>
     <string name="expert_mode_universal_patches">Universele pleisters</string>
     <string name="expert_mode_new_patches">Nuwe</string>
+    <string name="expert_mode_patch_required_by_installer">Vereis vir die gekose installasie-teiken</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Nie beskikbaar vir die gekose installasie-teiken nie</string>
     <string name="expert_mode_multiple_sources_warning_title">Meerdere patch brons gekies</string>
     <string name="expert_mode_multiple_sources_warning_message">"Jy het patches van verskeie patch bronne gekies. Dit kan verenigbaarheidsprobleme of onverwags gedrag veroorsaak.
 
@@ -332,8 +338,6 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="batch_patch_source_installed">Geïnstalleerde program</string>
     <string name="batch_patch_source_file">Aangehegte lêr</string>
     <string name="batch_patch_source_unavailable">Die APK kon nie voorberei word nie</string>
-    <string name="batch_patch_find_apk">Vind APK</string>
-    <string name="batch_patch_attach_apk">Voeg APK by</string>
     <string name="batch_patch_force_version">Patcher tog</string>
     <string name="batch_patch_force_version_done">In tou gesit, maar wysigings wat vir ander weergawes gemaak is, kan die toepassing breek</string>
     <string name="batch_patch_edit_patches">Kies pleisters</string>
@@ -381,7 +385,6 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="home_app_info_cpu_arch">Sentrale prosessorargitektuur</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Root modus vereis dat die original APK op jou toestel geïnstalleer moet word voor patching</string>
-    <string name="root_gmscore_excluded">GmsCore ondersteuningspatch is uitgesluit in wortelmodus</string>
     <string name="root_pre_patch_installer_title">Kies pleistermodus</string>
     <string name="root_pre_patch_installer_description">Jou toestel het worteltoegang. Kies of hierdie program gepatch moet word vir wortelmontering of standaardinstallasie</string>
     <string name="root_pre_patch_installer_mount_title">Wortelmonteringsmodus</string>
@@ -423,6 +426,7 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="patcher_install_error_subtitle">Probeer deïnstalleer en weer installeer</string>
     <string name="patcher_ready_to_install_subtitle">Druk op die knoppie hieronder om te installeer</string>
     <string name="patcher_ready_to_mount_subtitle">Druk op die knoppie hieronder om te monteer</string>
+    <string name="patcher_patches_excluded_for_installer">Nie beskikbaar vir hierdie installasiemethode en uitgesluit: %s</string>
     <string name="patcher_storage_permission_dialog_title">Kan nie toegang tot stoorpad verkry nie</string>
     <string name="patcher_incompatible_patcher_title">Opdatering vereis</string>
     <string name="patcher_incompatible_patcher_description">Die bundel &lt;b&gt;%1$s&lt;/b&gt; vereis weergawe &lt;b&gt;%2$s&lt;/b&gt; of later van die patcher.  Dateer Morphe op om hierdie program te pleister</string>
@@ -959,6 +963,9 @@ Besonderhede: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Pasgemaakte lêerkeurder</string>
     <string name="settings_system_custom_file_picker_description">Gebruik Morphe se ingeboude lêerkeurder in plaas van die stelsel se verstek</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK-aflaaikhulp</string>
+    <string name="settings_system_apk_download_helper_description">Laat \'n geïnstalleerde helper-toepassing oorspronklike APK\'s vir jou ophaal. Die lêer kom van daardie toepassing af, so skakel dit slegs in as jy dit vertrou</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorige gids</string>
     <string name="file_picker_no_files">Geen lêers hier</string>

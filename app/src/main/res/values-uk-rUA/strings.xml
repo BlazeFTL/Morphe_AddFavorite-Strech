@@ -167,6 +167,14 @@
     <string name="home_apk_availability_incompatible_label">Несумісна</string>
     <string name="home_apk_availability_yes">Так, допоможіть мені знайти APK</string>
     <string name="home_apk_availability_no">Ні, я вже маю APK</string>
+    <string name="home_apk_helper_download">Допоміжний застосунок</string>
+    <string name="home_apk_helper_title">Завантажувати за допомогою допоміжного застосунку</string>
+    <string name="home_apk_helper_description">Morphe попросить допоміжний застосунок нижче завантажити оригінальний APK та передати файл назад</string>
+    <string name="home_apk_helper_continue">Відкрити допоміжний застосунок</string>
+    <string name="home_apk_helper_warning">Продовжуйте лише якщо довіряєте цьому допоміжному застосунку. Morphe перевіряє пакет, версію та підпис усього отриманого перед патчингом</string>
+    <string name="home_apk_helper_warning_unverified">Продовжуйте лише якщо довіряєте цьому допоміжному застосунку. Morphe не може перевірити підпис цього APK, тому змінений файл не буде виявлено</string>
+    <string name="home_apk_helper_no_result">Допоміжний застосунок не повернув APK</string>
+    <string name="home_apk_helper_no_access">Допоміжний застосунок не надав доступу до APK, який він повернув</string>
     <string name="home_apk_use_saved">Збережений APK</string>
     <string name="home_apk_use_installed">Встановлений APK</string>
     <string name="home_apk_use_installed_unverified">Не вдалося перевірити підпис встановленого застосунку, тому він може бути вже пропатчений</string>
@@ -225,6 +233,8 @@
     <string name="expert_mode_no_results">Патчі не знайдено</string>
     <string name="expert_mode_universal_patches">Універсальні патчі</string>
     <string name="expert_mode_new_patches">Новий</string>
+    <string name="expert_mode_patch_required_by_installer">Обов\'язково для вибраного об\'єкта встановлення</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Недоступно для вибраного об\'єкта встановлення</string>
     <string name="expert_mode_multiple_sources_warning_title">Вибрано декілька джерел патчів</string>
     <string name="expert_mode_multiple_sources_warning_message">"Ви вибрали патчі з кількох джерел патчів. Це може спричинити проблеми сумісності або неочікувану поведінку.
 
@@ -333,8 +343,6 @@
     <string name="batch_patch_source_installed">Встановлений застосунок</string>
     <string name="batch_patch_source_file">Доданий файл</string>
     <string name="batch_patch_source_unavailable">Не вдалося підготувати APK</string>
-    <string name="batch_patch_find_apk">Знайти APK файл</string>
-    <string name="batch_patch_attach_apk">Додати APK</string>
     <string name="batch_patch_force_version">Патчити все одно</string>
     <string name="batch_patch_force_version_done">Все одно додано до черги, патчі для інших версій можуть зламати застосунок</string>
     <string name="batch_patch_edit_patches">Вибрати патчі</string>
@@ -382,7 +390,6 @@
     <string name="home_app_info_cpu_arch">Архітектура процесора</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Режим root вимагає, щоб оригінальний APK файл був встановлений на вашому пристрої перед патчингом</string>
-    <string name="root_gmscore_excluded">Патч підтримки GmsCore виключено у режимі root</string>
     <string name="root_pre_patch_installer_title">Оберіть режим патчингу</string>
     <string name="root_pre_patch_installer_description">Ваш пристрій має root-доступ. Оберіть, чи слід патчити цей застосунок для root монтування чи стандартного встановлення</string>
     <string name="root_pre_patch_installer_mount_title">Режим root монтування</string>
@@ -424,6 +431,7 @@
     <string name="patcher_install_error_subtitle">Спробуйте видалити та встановити знову</string>
     <string name="patcher_ready_to_install_subtitle">Натисніть кнопку нижче, щоб встановити</string>
     <string name="patcher_ready_to_mount_subtitle">Натисніть кнопку нижче, щоб монтувати</string>
+    <string name="patcher_patches_excluded_for_installer">Недоступно для цього методу встановлення і виключено: %s</string>
     <string name="patcher_storage_permission_dialog_title">Не вдається отримати доступ до шляху зберігання</string>
     <string name="patcher_incompatible_patcher_title">Потрібне оновлення</string>
     <string name="patcher_incompatible_patcher_description">Для джерела &lt;b&gt;%1$s&lt;/b&gt; потрібен патчер версії &lt;b&gt;%2$s&lt;/b&gt; або новіший. Будь ласка, оновіть Morphe, щоб пропатчити цей застосунок</string>
@@ -960,6 +968,9 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Власний вибір файлів</string>
     <string name="settings_system_custom_file_picker_description">Переглядайте сховище за допомогою вбудованого у Morphe вибору файлів замість системного</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Допоміжний застосунок для завантаження APK</string>
+    <string name="settings_system_apk_download_helper_description">Дозволити встановленому допоміжному застосунку завантажувати оригінальні APK для вас. Файл надходить з цього застосунку, тому вмикайте це лише якщо довіряєте йому</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Попередня тека</string>
     <string name="file_picker_no_files">Тут немає файлів</string>

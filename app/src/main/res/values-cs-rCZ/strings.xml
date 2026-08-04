@@ -220,6 +220,8 @@
     <string name="expert_mode_no_results">Nebyly nalezeny žádné záplaty</string>
     <string name="expert_mode_universal_patches">Univerzální záplaty</string>
     <string name="expert_mode_new_patches">Nový</string>
+    <string name="expert_mode_patch_required_by_installer">Vyžadováno pro vybraný cíl instalace</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Není k dispozici pro vybraný cíl instalace</string>
     <string name="expert_mode_multiple_sources_warning_title">Vybráno více zdrojů záplat</string>
     <string name="expert_mode_multiple_sources_warning_message">"Vybrali jste záplaty z více zdrojů. To může způsobit problémy s kompatibilitou nebo neočekávané chování.
 
@@ -324,8 +326,6 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="batch_patch_source_installed">Nainstalovaná aplikace</string>
     <string name="batch_patch_source_file">Přiložený soubor</string>
     <string name="batch_patch_source_unavailable">APK se nepodařilo připravit</string>
-    <string name="batch_patch_find_apk">Najít APK</string>
-    <string name="batch_patch_attach_apk">Přiložit APK</string>
     <string name="batch_patch_force_version">Aplikovat i tak</string>
     <string name="batch_patch_edit_patches">Zvolit záplaty</string>
     <string name="batch_patch_state_no_apk">Žádné APK</string>
@@ -372,7 +372,6 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="home_app_info_cpu_arch">Architektura CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Režim root vyžaduje, aby před záplatováním byl na vašem zařízení nainstalován původní APK</string>
-    <string name="root_gmscore_excluded">Záplata s podporou GmsCore je v root režimu vyloučena</string>
     <string name="root_pre_patch_installer_title">Vyberte režim záplaty</string>
     <string name="root_pre_patch_installer_description">Vaše zařízení má root přístup. Zvolte, zda má být tato aplikace záplatována pro root mount nebo standardní instalaci</string>
     <string name="root_pre_patch_installer_mount_title">Režim root mount</string>
@@ -412,6 +411,7 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="patcher_install_error_subtitle">Zkuste odinstalovat a nainstalovat znovu</string>
     <string name="patcher_ready_to_install_subtitle">Stiskněte tlačítko níže pro instalaci</string>
     <string name="patcher_ready_to_mount_subtitle">Stiskněte tlačítko níže pro zavedení</string>
+    <string name="patcher_patches_excluded_for_installer">Není k dispozici pro tuto metodu instalace a je vyloučeno: %s</string>
     <string name="patcher_storage_permission_dialog_title">Nelze přistupovat k cestě úložiště</string>
     <string name="patcher_incompatible_patcher_title">Aktualizace požadována</string>
     <string name="patcher_incompatible_patcher_description">Balíček &lt;b&gt;%1$s&lt;/b&gt; vyžaduje verzi opravovače &lt;b&gt;%2$s&lt;/b&gt; nebo novější. Aktualizujte Morphe pro opravu této aplikace</string>
@@ -945,6 +945,7 @@ Podrobnosti: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Vlastní výběr souborů</string>
     <string name="settings_system_custom_file_picker_description">Procházet úložiště pomocí vestavěného výběru souborů Morphe místo výchozího systému.</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Předchozí adresář</string>
     <string name="file_picker_no_files">Zde nejsou žádné soubory</string>

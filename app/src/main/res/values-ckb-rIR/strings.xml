@@ -231,7 +231,6 @@
     <string name="home_app_info_apk_size">قەبارەی APK</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">دۆخی ڕۆت پێویستی بە دامەزراندنی APK ی ڕەسەن هەیە لەسەر ئامێرەکەت پێش پینەکردن</string>
-    <string name="root_gmscore_excluded">پاچی پشتیوانی GmsCore لە دۆخی ڕۆت\'دا بەدەرکراوە</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">هەڵە کۆپی کرا بۆ ڕوونووسگە</string>
     <string name="patcher_error_log">تۆماری هەڵە</string>
@@ -447,6 +446,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <!-- Shared strings -->

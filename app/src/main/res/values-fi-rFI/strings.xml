@@ -224,6 +224,7 @@
     <string name="expert_mode_no_results">Lisäosia ei löytynyt</string>
     <string name="expert_mode_universal_patches">Yleispätevät lisäosat</string>
     <string name="expert_mode_new_patches">Uusi</string>
+    <string name="expert_mode_patch_required_by_installer">Vaaditaan valitulle asennuskohteelle</string>
     <string name="expert_mode_multiple_sources_warning_title">Useita lisäosalähteitä on valittu</string>
     <string name="expert_mode_multiple_sources_warning_message">"Olet valinnut lisäosat useista lisäosalähteistä. Tämä saattaa aiheuttaa yhteensopivuusongelmia tai odottamattomia toimintoja.
 
@@ -333,8 +334,8 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="batch_patch_source_installed">Asennettu sovellus</string>
     <string name="batch_patch_source_file">Liitetty tiedosto</string>
     <string name="batch_patch_source_unavailable">APK-tiedostoa ei voitu valmistella</string>
-    <string name="batch_patch_attach_apk">Liitä APK-tiedosto</string>
     <string name="batch_patch_force_version">Korjaa joka tapauksessa</string>
+    <string name="batch_patch_force_version_done">Lisätty jonoon, muille versioille tehdyt muutokset voivat rikkoa sovelluksen</string>
     <string name="batch_patch_edit_patches">Valitse korjaukset</string>
     <string name="batch_patch_state_no_apk">APK-tiedostoa ei ole</string>
     <string name="batch_patch_state_no_patches">Ei korjauksia</string>
@@ -380,7 +381,6 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="home_app_info_cpu_arch">Suorittimen arkkitehtuuri</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Pääkäyttäjätila edellyttää, että alkuperäinen APK on asennettuna laitteeseesi ennen muokkaamista</string>
-    <string name="root_gmscore_excluded">GmsCore-tuen lisäosa on jätetty pois pääkäyttäjätilassa</string>
     <string name="root_pre_patch_installer_title">Valitse paikkaustila</string>
     <string name="root_pre_patch_installer_description">Laitteellasi on root-oikeudet. Valitse, tuliko sovelluksen paikkaus tehdä root-asennukselle vai tavalliseen asennukseen</string>
     <string name="root_pre_patch_installer_mount_title">Root-liitostila</string>
@@ -958,6 +958,7 @@ Yksityiskohdat: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Mukautettu tiedostonvalitsin</string>
     <string name="settings_system_custom_file_picker_description">Käytä Morphen sisäänrakennettua tiedostonvalitsinta järjestelmän oletusarvon sijaan</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Edellinen hakemisto</string>
     <string name="file_picker_no_files">Täällä ei ole tiedostoja</string>
@@ -1102,6 +1103,8 @@ Yksityiskohdat: %2$s"</string>
     <string name="installing_manager_update">Asennetaan päivitystä…</string>
     <string name="downloading_manager_update">Ladataan päivitystä…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB ladattu</string>
+    <string name="manager_update_not_ready">Tätä julkaisua julkaistaan vielä. Yritä uudelleen muutaman minuutin kuluttua</string>
     <string name="download_manager_failed">Päivityksen lataaminen epäonnistui: %s</string>
     <string name="failed_to_check_updates">Päivitysten tarkistaminen epäonnistui: %s</string>
     <string name="failed_to_download_update">Päivityksen lataaminen epäonnistui: %s</string>

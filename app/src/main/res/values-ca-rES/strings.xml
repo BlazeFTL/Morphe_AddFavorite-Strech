@@ -113,6 +113,7 @@
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Quant a</string>

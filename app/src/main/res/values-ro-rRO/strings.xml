@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Incompatibil</string>
     <string name="home_apk_availability_yes">Da, ajută-mă să găsesc un APK</string>
     <string name="home_apk_availability_no">Nu, am deja un APK</string>
+    <string name="home_apk_helper_download">Utilizați o aplicație de asistență</string>
+    <string name="home_apk_helper_title">Descărcare cu o aplicație de asistență</string>
+    <string name="home_apk_helper_description">Morphe va solicita aplicației de asistență de mai jos să descarce APK-ul original și să returneze fișierul</string>
+    <string name="home_apk_helper_continue">Deschideți aplicația de asistență</string>
+    <string name="home_apk_helper_warning">Continuă numai dacă ai încredere în această aplicație auxiliară. Morphe verifică pachetul, versiunea și semnătura oricărui element primit înainte de aplicarea modificărilor</string>
+    <string name="home_apk_helper_warning_unverified">Continuă numai dacă ai încredere în această aplicație auxiliară. Morphe nu poate verifica semnătura acestui APK, astfel încât un fișier modificat nu ar fi detectat</string>
+    <string name="home_apk_helper_no_result">Aplicația auxiliară nu a returnat un APK</string>
+    <string name="home_apk_helper_no_access">Aplicația auxiliară nu a acordat acces la APK-ul returnat</string>
     <string name="home_apk_use_saved">Utilizează APK salvat</string>
     <string name="home_apk_use_installed">Utilizează APK instalat</string>
     <string name="home_apk_use_installed_unverified">Nu s-a putut verifica semnătura aplicației instalate, deci este posibil să fie deja patch-uită</string>
@@ -343,7 +351,6 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_cpu_arch">Arhitectura procesorului</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Modul radical necesită instalarea APK-ului original pe dispozitivul dvs. înainte de a pata</string>
-    <string name="root_gmscore_excluded">Suportul GmsCore este exclus în modul root</string>
     <string name="root_pre_patch_installer_title">Alege modul de aplicare a patch-ului</string>
     <string name="root_pre_patch_installer_description">Dispozitivul tău are acces root. Alege dacă această aplicație ar trebui să fie patch-uită pentru montare root sau instalare standard</string>
     <string name="root_pre_patch_installer_mount_title">Mod de montare root</string>
@@ -896,6 +903,9 @@ Detalii: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Selector de fișiere personalizat</string>
     <string name="settings_system_custom_file_picker_description">Răsfoiește stocarea cu selectorul de fișiere integrat Morphe în loc de cel implicit al sistemului</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Asistent descărcare APK</string>
+    <string name="settings_system_apk_download_helper_description">Permite unei aplicații auxiliare instalate să obțină APK-uri originale pentru tine. Fișierul provine de la acea aplicație, așa că activează această opțiune numai dacă ai încredere în ea</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Director anterior</string>
     <string name="file_picker_no_files">Nu există fișiere aici</string>

@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Incompatible</string>
     <string name="home_apk_availability_yes">Sí, ayúdame a encontrar un APK</string>
     <string name="home_apk_availability_no">No, ya tengo un APK</string>
+    <string name="home_apk_helper_download">Utilizar una aplicación auxiliar</string>
+    <string name="home_apk_helper_title">Descargar con una aplicación auxiliar</string>
+    <string name="home_apk_helper_description">Morphe pedirá a la aplicación auxiliar seleccionada a continuación que descargue el APK original y le devuelva el archivo</string>
+    <string name="home_apk_helper_continue">Abrir aplicación auxiliar</string>
+    <string name="home_apk_helper_warning">Continúe solo si confía en esta aplicación auxiliar. Morphe comprueba el paquete, la versión y la firma de todo lo que recibe antes de parchear</string>
+    <string name="home_apk_helper_warning_unverified">Continúe solo si confía en esta aplicación auxiliar. Morphe no puede verificar la firma de este APK, por lo que no detectaría un archivo modificado</string>
+    <string name="home_apk_helper_no_result">La aplicación auxiliar no devolvió ningún APK</string>
+    <string name="home_apk_helper_no_access">La aplicación auxiliar no concedió acceso al APK que devolvió</string>
     <string name="home_apk_use_saved">Usar APK guardado</string>
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">No se pudo verificar la firma de la aplicación instalada, por lo que es posible que ya esté parcheada</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">No se encontraron parches</string>
     <string name="expert_mode_universal_patches">Parches universales</string>
     <string name="expert_mode_new_patches">Nuevo</string>
+    <string name="expert_mode_patch_required_by_installer">Necesario para el destino de instalación seleccionado</string>
+    <string name="expert_mode_patch_unavailable_for_installer">No disponible para el destino de instalación seleccionado</string>
     <string name="expert_mode_multiple_sources_warning_title">Se han seleccionado varias fuentes de parches</string>
     <string name="expert_mode_multiple_sources_warning_message">"Has seleccionado parches de varias fuentes de parches. Esto puede causar problemas de compatibilidad o comportamiento inesperado.
 
@@ -332,8 +342,6 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="batch_patch_source_installed">Aplicación instalada</string>
     <string name="batch_patch_source_file">Archivo adjunto</string>
     <string name="batch_patch_source_unavailable">El APK no pudo ser preparado</string>
-    <string name="batch_patch_find_apk">Buscar APK</string>
-    <string name="batch_patch_attach_apk">Adjuntar APK</string>
     <string name="batch_patch_force_version">Continuar de todos modos</string>
     <string name="batch_patch_force_version_done">En cola de todos modos, los parches creados para otras versiones pueden romper la aplicación</string>
     <string name="batch_patch_edit_patches">Elegir parches</string>
@@ -382,7 +390,6 @@ Reparchear aplicaciones desactualizadas</string>
     <string name="home_app_info_cpu_arch">Arquitectura de la CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">El modo root requiere que el APK original esté instalado en tu dispositivo antes de aplicar parches.</string>
-    <string name="root_gmscore_excluded">El parche de soporte de GmsCore está excluido en modo root</string>
     <string name="root_pre_patch_installer_title">Elige el modo de parcheo</string>
     <string name="root_pre_patch_installer_description">Tu dispositivo tiene acceso root. Elige si esta aplicación debe ser parcheada para montaje root o instalación estándar</string>
     <string name="root_pre_patch_installer_mount_title">Modo de montaje root</string>
@@ -424,6 +431,7 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="patcher_install_error_subtitle">Intente desinstalar y volver a instalar</string>
     <string name="patcher_ready_to_install_subtitle">Pulsa el botón más abajo para instalar</string>
     <string name="patcher_ready_to_mount_subtitle">Pulsa el botón más abajo para montar</string>
+    <string name="patcher_patches_excluded_for_installer">No disponible para este método de instalación y excluido: %s</string>
     <string name="patcher_storage_permission_dialog_title">No se puede acceder a la ruta de almacenamiento</string>
     <string name="patcher_incompatible_patcher_title">Actualización necesaria</string>
     <string name="patcher_incompatible_patcher_description">El paquete &lt;b&gt;%1$s&lt;/b&gt; requiere la versión &lt;b&gt;%2$s&lt;/b&gt; o más reciente del parcheador. Por favor, actualiza Morphe para parchear esta aplicación</string>
@@ -960,6 +968,9 @@ Detalles: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Selector de archivos personalizado</string>
     <string name="settings_system_custom_file_picker_description">Explorar el almacenamiento con el selector de archivos integrado de Morphe en lugar del predeterminado del sistema</string>
+    <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Aplicación auxiliar para descargar APK</string>
+    <string name="settings_system_apk_download_helper_description">Permite que una aplicación auxiliar instalada descargue los APK originales por ti. El archivo proviene de esa aplicación, así que active esta opción solo si confía en ella</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Directorio anterior</string>
     <string name="file_picker_no_files">No hay archivos aquí</string>
@@ -1104,6 +1115,8 @@ Detalles: %2$s"</string>
     <string name="installing_manager_update">Instalando actualización…</string>
     <string name="downloading_manager_update">Descargando actualización…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB descargados</string>
+    <string name="manager_update_not_ready">Esta versión aún se está publicando. Vuelva a intentarlo en unos minutos</string>
     <string name="download_manager_failed">Error al descargar la actualización: %s</string>
     <string name="failed_to_check_updates">Error al buscar actualizaciones: %s</string>
     <string name="failed_to_download_update">Error al descargar la actualización: %s</string>

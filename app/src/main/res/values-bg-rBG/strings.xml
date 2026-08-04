@@ -324,7 +324,7 @@
     <string name="batch_patch_preparing_next">Подготвя се следващото приложение…</string>
     <string name="batch_patch_progress_counter">Коригирана %1$s от %2$s</string>
     <string name="batch_patch_summary">%1$s коригирани, %2$s неуспешни, %3$s пропуснати</string>
-    <string name="batch_patch_find_apk">Намери APK</string>
+    <string name="batch_patch_saved_hint">Пачните приложения са запазени. Инсталирайте ги сега или по-късно от списъка с пачните APK в настройките</string>
     <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Сигурни ли сте, че искате да деинсталирате това приложение?</string>
@@ -354,7 +354,6 @@
     <string name="home_app_info_cpu_arch">CPU архитектура</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Режимът \"Root\" изисква оригиналния APK да бъде инсталиран на вашето устройство преди да се прилагат патчове</string>
-    <string name="root_gmscore_excluded">Поддръжката на GmsCore е изключена в режим на корен</string>
     <string name="root_pre_patch_installer_title">Изберете режим на пачване</string>
     <string name="root_pre_patch_installer_description">Вашето устройство има root достъп. Изберете дали това приложение трябва да бъде пачнато за root монтиране или стандартна инсталация.</string>
     <string name="root_pre_patch_installer_mount_title">Режим на root монтиране</string>
@@ -910,6 +909,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Персонализиран избор на файлове</string>
     <string name="settings_system_custom_file_picker_description">Използвайте вградения файлов мениджър на Morphe вместо системния.</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Предишна директория</string>
     <string name="file_picker_no_files">Няма файлове тук</string>

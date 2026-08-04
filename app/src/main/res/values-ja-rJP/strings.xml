@@ -332,8 +332,6 @@
     <string name="batch_patch_source_installed">アプリをインストールしました</string>
     <string name="batch_patch_source_file">添付ファイル</string>
     <string name="batch_patch_source_unavailable">APK を準備できませんでした</string>
-    <string name="batch_patch_find_apk">APK を探す</string>
-    <string name="batch_patch_attach_apk">APK ファイルを添付</string>
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
     <string name="batch_patch_force_version_done">いずれにせよキューに追加されますが、他のバージョン向けに作成されたパッチによってアプリが動作しなくなる可能性があります</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
@@ -381,7 +379,6 @@
     <string name="home_app_info_cpu_arch">CPU アーキテクチャ</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">root 権限モードでは、パッチ適用前にオリジナルの APK がインストールされている必要があります</string>
-    <string name="root_gmscore_excluded">GmsCore サポートパッチは root モードでは除外されます</string>
     <string name="root_pre_patch_installer_title">パッチモードを選択</string>
     <string name="root_pre_patch_installer_description">お使いのデバイスには Root 権限があります。このアプリを Root マウント用にパッチするか、標準インストールにするかを選択してください</string>
     <string name="root_pre_patch_installer_mount_title">Root マウントモード</string>
@@ -957,6 +954,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">カスタムファイルピッカー</string>
     <string name="settings_system_custom_file_picker_description">システム標準の代わりに、Morphe の内蔵ファイルピッカーを使用してストレージを閲覧します</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">前のディレクトリ</string>
     <string name="file_picker_no_files">ファイルが見つかりません</string>

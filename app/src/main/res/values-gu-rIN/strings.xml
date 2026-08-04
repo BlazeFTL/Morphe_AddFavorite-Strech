@@ -91,7 +91,6 @@
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_patches_name_default">પેચો</string>
     <!-- Home Screen - Root Mode -->
-    <string name="root_gmscore_excluded">GmsCore સપોર્ટ પેચ રૂટ મોડમાં બાકાત છે</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">ભૂલ ક્લિપબોર્ડ પર કૉપિ કરવામાં આવેલ છે</string>
     <string name="patcher_long_step_warning">આ પગલામાં થોડો સમય લાગી શકે છે. કૃપા કરીને રાહ જુઓ...</string>
@@ -218,6 +217,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_share_website">વેબસાઇટ બાટો </string>

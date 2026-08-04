@@ -327,8 +327,6 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="batch_patch_source_installed">Instalirana aplikacija</string>
     <string name="batch_patch_source_file">Priložena datoteka</string>
     <string name="batch_patch_source_unavailable">APK nije mogao da bude pripremljen</string>
-    <string name="batch_patch_find_apk">Pronadi APK</string>
-    <string name="batch_patch_attach_apk">Priložite APK</string>
     <string name="batch_patch_force_version">Zakrpi bez obzira</string>
     <string name="batch_patch_force_version_done">Zakazano je, bez obzira na to, zakrpe napravljene za druge verzije mogu da oštete aplikaciju</string>
     <string name="batch_patch_edit_patches">Izaberite zakrpe</string>
@@ -376,7 +374,6 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Režim korena zahteva da je originalni APK instaliran na vašem uređaju pre patchanja</string>
-    <string name="root_gmscore_excluded">GmsCore zakrpa za podršku je isključena u root modu</string>
     <string name="root_pre_patch_installer_title">Izaberite režim zakrpe</string>
     <string name="root_pre_patch_installer_description">Vaš uređaj ima root pristup. Izaberite da li bi ova aplikacija trebalo da bude zakrpljena za root montažu ili standardnu instalaciju</string>
     <string name="root_pre_patch_installer_mount_title">Režim root montaže</string>
@@ -934,6 +931,7 @@ Detalji: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Prilagođeni odabir datoteka</string>
     <string name="settings_system_custom_file_picker_description">Koristite ugrađeni odabir datoteka u Morpheu umesto fabričkog sistema</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Prethodna direktorijum</string>
     <string name="file_picker_no_files">Ovde nema datoteka</string>

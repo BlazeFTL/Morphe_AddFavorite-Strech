@@ -327,8 +327,6 @@
     <string name="batch_patch_source_installed">已安裝的應用程式</string>
     <string name="batch_patch_source_file">附加檔案</string>
     <string name="batch_patch_source_unavailable">無法準備 APK</string>
-    <string name="batch_patch_find_apk">尋找 APK</string>
-    <string name="batch_patch_attach_apk">附加 APK</string>
     <string name="batch_patch_force_version">仍要繼續</string>
     <string name="batch_patch_force_version_done">已排隊處理，但為其他版本所做的修補程式可能會導致應用程式出現問題</string>
     <string name="batch_patch_edit_patches">選擇修補程式</string>
@@ -376,7 +374,6 @@
     <string name="home_app_info_cpu_arch">CPU 架构</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Root 模式需要在修補之前將原始 APK 安裝在您的裝置上</string>
-    <string name="root_gmscore_excluded">GmsCore 支援修補程式在 root 模式中被排除</string>
     <string name="root_pre_patch_installer_title">選擇補丁模式</string>
     <string name="root_pre_patch_installer_description">您的設備已獲得root權限。選擇此應用程序是否應為root掛載或標準安裝進行補丁</string>
     <string name="root_pre_patch_installer_mount_title">Root掛載模式</string>
@@ -949,6 +946,7 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">自訂檔案選擇器</string>
     <string name="settings_system_custom_file_picker_description">改用 Morphe 內建檔案選擇器，而不是系統預設值</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">上一目錄</string>
     <string name="file_picker_no_files">這裡沒有檔案</string>

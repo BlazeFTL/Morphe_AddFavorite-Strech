@@ -326,8 +326,6 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="batch_patch_source_installed">Sepa hat saz kirin</string>
     <string name="batch_patch_source_file">Pela têxistî</string>
     <string name="batch_patch_source_unavailable">Nexşeya APK nehatibû amadekirin</string>
-    <string name="batch_patch_find_apk">APK-ê bibîne</string>
-    <string name="batch_patch_attach_apk">APK bişîne</string>
     <string name="batch_patch_force_version">Bi her halî patch bike</string>
     <string name="batch_patch_force_version_done">Bi vî awayî li siruşê hat kirin, şîroveyên ji bo guhertoyên din dikarin sepanê bişikînin.</string>
     <string name="batch_patch_edit_patches">Patchan hilbijêre</string>
@@ -375,7 +373,6 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="home_app_info_cpu_arch">mîmarîya CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Tîrek xwestisê wî de qewımîr APK tê serê îzayê we ev pêwist be pêşbaziyê biqewmê pêş de bîtin da xestes numberê berıkirînda Android bi usayiastî bimezânê</string>
-    <string name="root_gmscore_excluded">Pişta GmsCore di moda root de ji holê derdike</string>
     <string name="root_pre_patch_installer_title">Modê pelikê hilbijêre</string>
     <string name="root_pre_patch_installer_description">Cihaza te gihîştina root heye. Hilbijêre ku ev serîlêdan ji bo çîna root were pelkirin an sazkirina standard</string>
     <string name="root_pre_patch_installer_mount_title">Moda çîna root</string>
@@ -949,6 +946,7 @@ Detay: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Hilbijêrkê pelan yê xwerû</string>
     <string name="settings_system_custom_file_picker_description">Li şûna hilbijêrkê pelan yê serî yê sîstemê, hilbijêrkê pelan yê têne çêkirin yê Morphe bikar bîne</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Pêşîya rêgehê</string>
     <string name="file_picker_no_files">Li vir pel nehatine dîtin</string>

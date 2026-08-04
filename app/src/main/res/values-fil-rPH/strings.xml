@@ -332,7 +332,6 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
     <string name="batch_patch_source_installed">Na-install na app</string>
     <string name="batch_patch_source_file">Naka-attach na file</string>
     <string name="batch_patch_source_unavailable">Hindi maiprepare ang APK</string>
-    <string name="batch_patch_attach_apk">Mag-attach ng APK</string>
     <string name="batch_patch_force_version">Mag-patch pa rin</string>
     <string name="batch_patch_edit_patches">Pumili ng mga patch</string>
     <string name="batch_patch_state_no_apk">Walang APK</string>
@@ -379,7 +378,6 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
     <string name="home_app_info_cpu_arch">Arkitektura ng CPU</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Kinakailangan ng root mode ang orihinal na APK upang mag-install ito sa iyong device bago ito i-patch</string>
-    <string name="root_gmscore_excluded">Hindi kasama ang GmsCore support patch sa root mode</string>
     <string name="root_pre_patch_installer_title">Pumili ng patch mode</string>
     <string name="root_pre_patch_installer_description">May root access ang iyong device. Piliin kung dapat i-patch ang app na ito para sa root mount o standard install</string>
     <string name="root_pre_patch_installer_mount_title">Root mount mode</string>
@@ -957,6 +955,7 @@ Mga Detalye: %2$s"</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Pasadyang pumili ng file</string>
     <string name="settings_system_custom_file_picker_description">Gumamit ng file picker na binuo ng Morphe sa halip na ang default ng sistema</string>
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Nakaraang direktoryo</string>
     <string name="file_picker_no_files">Walang mga file dito</string>

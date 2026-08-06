@@ -29,6 +29,8 @@
     <string name="home_no_apps_search_subtitle">\"%s\"ಗೆ ಹೊಂದಿಕೆಯಾಗುವ ಅಪ್ಲಿಕೇಶನ್‌ಗಳು ಯಾವುದೂ ಇಲ್ಲ</string>
     <string name="home_all_apps_hidden_title">ಎಲ್ಲಾ ಅಪ್ಲಿಕೇಶನ್‌ಗಳು ಮರೆಮಾಡಲಾಗಿದೆ</string>
     <string name="home_all_apps_hidden_subtitle">ನೀವು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ನಿಂದ ಎಲ್ಲಾ ಅಪ್ಲಿಕೇಶನ್‌ಗಳನ್ನು ಮರೆಮಾಡಿದ್ದೀರಿ</string>
+    <string name="home_category_all_apps">ಎಲ್ಲಾ ಅಪ್ಲಿಕೇಶನ್‌ಗಳು</string>
+    <string name="home_category_custom">Custom</string>
     <!-- Home Screen - Home Greetings -->
     <string name="home_greeting_1">ನೀವು ಯಾವ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಪ್ಯಾಚ್ ಮಾಡಲು ಬಯಸುತ್ತೀರಿ?</string>
     <!-- Humorous hype message with light nostalgia -->

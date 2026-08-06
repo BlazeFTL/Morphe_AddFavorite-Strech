@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Incompatível</string>
     <string name="home_apk_availability_yes">Sim, ajuda-me a encontrar um APK</string>
     <string name="home_apk_availability_no">Não, já tenho um APK</string>
+    <string name="home_apk_helper_download">Usar um aplicativo auxiliar</string>
+    <string name="home_apk_helper_title">Baixar com um aplicativo auxiliar</string>
+    <string name="home_apk_helper_description">Morphe solicitará ao aplicativo auxiliar abaixo que baixe o APK original e entregue o arquivo</string>
+    <string name="home_apk_helper_continue">Abrir aplicativo auxiliar</string>
+    <string name="home_apk_helper_warning">Continue apenas se você confiar neste aplicativo auxiliar. Morphe verifica o pacote, a versão e a assinatura do que recebe antes de aplicar o patch</string>
+    <string name="home_apk_helper_warning_unverified">Continue apenas se você confiar neste aplicativo auxiliar. Morphe não pode verificar a assinatura deste APK, então um arquivo modificado não seria detectado</string>
+    <string name="home_apk_helper_no_result">O aplicativo auxiliar não retornou um APK</string>
+    <string name="home_apk_helper_no_access">O aplicativo auxiliar não concedeu acesso ao APK que retornou</string>
     <string name="home_apk_use_saved">Usar APK salvo</string>
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do aplicativo instalado, portanto, ele pode já estar modificado</string>
@@ -319,6 +327,10 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="header_creator_guide_positioning_title">Posicionamento e dimensionamento</string>
     <string name="header_creator_guide_positioning_body">Use gestos de pinça para ampliar e arrastar diretamente na visualização para posicionar e dimensionar sua imagem. Guias de ajuste aparecem quando a imagem está perto do centro. Você também pode usar o controle deslizante abaixo da visualização.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">Modificações selecionadas</string>
+    <string name="batch_patch_title">Aplicação em lote</string>
+    <string name="batch_patch_planning">Preparando a fila…</string>
+    <string name="batch_patch_preparing_next">Preparando o próximo aplicativo…</string>
     <string name="batch_patch_progress_counter">Corrigido %1$s de %2$s</string>
     <string name="batch_patch_summary">%1$s corrigidos, %2$s falhados, %3$s ignorados</string>
     <string name="batch_patch_saved_hint">Os aplicativos corrigidos foram salvos. Instale-os agora ou mais tarde a partir da lista de APKs corrigidos nas configurações</string>
@@ -956,6 +968,8 @@ Detalhes: %2$s"</string>
     <string name="settings_system_custom_file_picker">Seletor de arquivos personalizado</string>
     <string name="settings_system_custom_file_picker_description">Navegue pelo armazenamento com o seletor de arquivos integrado do Morphe, em vez do padrão do sistema</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Aplicativo auxiliar de download de APK</string>
+    <string name="settings_system_apk_download_helper_description">Permitir que um aplicativo auxiliar instalado busque APKs originais para você. O arquivo vem desse aplicativo, então só habilite isso se você confiar nele</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Diretório anterior</string>
     <string name="file_picker_no_files">Nenhum arquivo aqui</string>
@@ -1100,6 +1114,8 @@ Detalhes: %2$s"</string>
     <string name="installing_manager_update">A instalar atualização…</string>
     <string name="downloading_manager_update">A transferir atualização…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB baixado</string>
+    <string name="manager_update_not_ready">Este lançamento ainda está sendo publicado. Tente novamente em alguns minutos</string>
     <string name="download_manager_failed">Erro ao transferir atualização: %s</string>
     <string name="failed_to_check_updates">Erro ao verificar por atualizações: %s</string>
     <string name="failed_to_download_update">Erro ao transferir atualização: %s</string>

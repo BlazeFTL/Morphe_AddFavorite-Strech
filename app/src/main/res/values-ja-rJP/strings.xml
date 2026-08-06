@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">非対応</string>
     <string name="home_apk_availability_yes">はい、 APK を探すのを手伝ってください</string>
     <string name="home_apk_availability_no">いいえ、既に APK を持っています</string>
+    <string name="home_apk_helper_download">ヘルパーアプリを使用する</string>
+    <string name="home_apk_helper_title">ヘルパーアプリでダウンロードする</string>
+    <string name="home_apk_helper_description">Morphe は、以下のヘルパーアプリに元の APK をダウンロードしてもらい、ファイルを返してもらうよう要求します</string>
+    <string name="home_apk_helper_continue">ヘルパーアプリを開く</string>
+    <string name="home_apk_helper_warning">このヘルパーアプリを信頼できる場合にのみ続行してください。Morphe は、パッチを適用する前に、受け取ったパッケージ、バージョン、署名をチェックします</string>
+    <string name="home_apk_helper_warning_unverified">このヘルパーアプリを信頼できる場合にのみ続行してください。Morphe はこの APK の署名を検証できないため、改ざんされたファイルは検出されません</string>
+    <string name="home_apk_helper_no_result">ヘルパーアプリは APK を返しませんでした</string>
+    <string name="home_apk_helper_no_access">ヘルパーアプリは APK へのアクセスを許可しませんでした</string>
     <string name="home_apk_use_saved">保存済みのAPKを使用する</string>
     <string name="home_apk_use_installed">インストール済みのAPKを使用する</string>
     <string name="home_apk_use_installed_unverified">インストールされているアプリの署名を検証できなかったため、すでにパッチが適用されている可能性があります</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">パッチが見つかりません</string>
     <string name="expert_mode_universal_patches">ユニバーサルパッチ</string>
     <string name="expert_mode_new_patches">新規</string>
+    <string name="expert_mode_patch_required_by_installer">選択したインストールターゲットには必須です</string>
+    <string name="expert_mode_patch_unavailable_for_installer">選択したインストールターゲットでは利用できません</string>
     <string name="expert_mode_multiple_sources_warning_title">複数のパッチソースが選択されました</string>
     <string name="expert_mode_multiple_sources_warning_message">"複数のパッチソースからパッチを選択しました。これは互換性の問題や予期しない動作を引き起こす可能性があります。
 
@@ -420,6 +430,7 @@
     <string name="patcher_install_error_subtitle">一度アンインストールしてから、再度インストールしてください</string>
     <string name="patcher_ready_to_install_subtitle">インストールするには以下のボタンを押してください</string>
     <string name="patcher_ready_to_mount_subtitle">マウントするには以下のボタンを押してください</string>
+    <string name="patcher_patches_excluded_for_installer">このインストール方法および除外対象では利用できません: %s</string>
     <string name="patcher_storage_permission_dialog_title">ストレージパスにアクセスできません</string>
     <string name="patcher_incompatible_patcher_title">アップデートが必要です</string>
     <string name="patcher_incompatible_patcher_description">バンドル &lt;b&gt;%1$s&lt;/b&gt; には、パッチャーバージョン &lt;b&gt;%2$s&lt;/b&gt; 以降が必要です。このアプリをパッチするには、Morphe をアップデートしてください</string>
@@ -955,6 +966,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker">カスタムファイルピッカー</string>
     <string name="settings_system_custom_file_picker_description">システム標準の代わりに、Morphe の内蔵ファイルピッカーを使用してストレージを閲覧します</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK ダウンロードヘルパー</string>
+    <string name="settings_system_apk_download_helper_description">インストール済みのヘルパーアプリに元の APK を取得させます。ファイルはアプリから提供されるため、信頼できるアプリでのみ有効にしてください</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">前のディレクトリ</string>
     <string name="file_picker_no_files">ファイルが見つかりません</string>
@@ -1099,6 +1112,8 @@ morphe_header_custom_dark.png
     <string name="installing_manager_update">アップデートをインストールしています…</string>
     <string name="downloading_manager_update">アップデートをダウンロードしています…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB ダウンロード済み</string>
+    <string name="manager_update_not_ready">このリリースはまだ公開中です。しばらくしてから再度お試しください</string>
     <string name="download_manager_failed">アップデートのダウンロードに失敗しました: %s</string>
     <string name="failed_to_check_updates">アップデートの確認に失敗しました: %s</string>
     <string name="failed_to_download_update">アップデートのダウンロードに失敗しました: %s</string>

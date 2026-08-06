@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Inkompatibel</string>
     <string name="home_apk_availability_yes">Ja, hjælp med at finde en APK</string>
     <string name="home_apk_availability_no">Nej, jeg har allerede en APK</string>
+    <string name="home_apk_helper_download">Brug en hjælpeapp</string>
+    <string name="home_apk_helper_title">Download med en hjælpeapp</string>
+    <string name="home_apk_helper_description">Morphe vil bede hjælpeappen nedenfor om at downloade den originale APK og give filen tilbage</string>
+    <string name="home_apk_helper_continue">Åbn hjælpeapp</string>
+    <string name="home_apk_helper_warning">Fortsæt kun, hvis du stoler på denne hjælpeapp. Morphe tjekker pakken, versionen og signaturen af det, den modtager, før den patcer</string>
+    <string name="home_apk_helper_warning_unverified">Fortsæt kun, hvis du stoler på denne hjælpeapp. Morphe kan ikke verificere signaturen af denne APK, så en modificeret fil vil ikke blive opdaget</string>
+    <string name="home_apk_helper_no_result">Hjælpeappen returnerede ikke en APK</string>
+    <string name="home_apk_helper_no_access">Hjælpeappen gav ikke adgang til den APK, den returnerede</string>
     <string name="home_apk_use_saved">Brug gemt APK</string>
     <string name="home_apk_use_installed">Brug installeret APK</string>
     <string name="home_apk_use_installed_unverified">Kunne ikke verificere signaturen af den installerede app, så den kan allerede være blevet patchet</string>
@@ -319,6 +327,10 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="header_creator_guide_positioning_title">Positionering og skalering</string>
     <string name="header_creator_guide_positioning_body">Brug knib-til-zoom og trækbevægelser direkte i forhåndsvisningen for at placere og skalere dit billede. Snappingsguider vises, når billedet er tæt på midten. Du kan også bruge skyderen under forhåndsvisningen.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">Valgt patch</string>
+    <string name="batch_patch_title">Batch patching</string>
+    <string name="batch_patch_planning">Preparing the queue…</string>
+    <string name="batch_patch_preparing_next">Preparing the next app…</string>
     <string name="batch_patch_progress_counter">Patchet %1$s af %2$s</string>
     <string name="batch_patch_summary">%1$s patchet, %2$s mislykkedes, %3$s sprunget over</string>
     <string name="batch_patch_saved_hint">De rettede apps er gemt. Installer dem nu, eller senere fra listen over rettede APK\'er i indstillingerne</string>
@@ -331,6 +343,7 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="batch_patch_source_file">Vedhæftet fil</string>
     <string name="batch_patch_source_unavailable">APK\'en kunne ikke forberedes</string>
     <string name="batch_patch_force_version">Patch alligevel</string>
+    <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
     <string name="batch_patch_edit_patches">Vælg patches</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patches</string>
@@ -953,6 +966,8 @@ Detaljer: %2$s"</string>
     <string name="settings_system_custom_file_picker">Brugerdefineret filvælger</string>
     <string name="settings_system_custom_file_picker_description">Brug Morphes indbyggede filvælger i stedet for systemstandardindstillingen</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK download hjælper</string>
+    <string name="settings_system_apk_download_helper_description">Lad en installeret hjælpeapp hente originale APK\'er for dig. Filen kommer fra denne app, så aktiver kun dette, hvis du stoler på den</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Forrige mappe</string>
     <string name="file_picker_no_files">Ingen filer her</string>
@@ -1097,6 +1112,8 @@ Detaljer: %2$s"</string>
     <string name="installing_manager_update">Installerer opdatering…</string>
     <string name="downloading_manager_update">Downloader opdatering…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB downloadet</string>
+    <string name="manager_update_not_ready">Denne udgivelse er stadig ved at blive publiceret. Prøv igen om et par minutter</string>
     <string name="download_manager_failed">Kunne ikke downloade opdatering: %s</string>
     <string name="failed_to_check_updates">Kunne ikke søge efter opdateringer: %s</string>
     <string name="failed_to_download_update">Kunne ikke downloade opdatering: %s</string>

@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Inkompatibel</string>
     <string name="home_apk_availability_yes">Ja, hilf mir eine APK zu finden</string>
     <string name="home_apk_availability_no">Nein, ich habe bereits eine APK</string>
+    <string name="home_apk_helper_download">Eine Hilfs-App verwenden</string>
+    <string name="home_apk_helper_title">Mit einer Hilfs-App herunterladen</string>
+    <string name="home_apk_helper_description">Morphe wird die untenstehende Hilfs-App bitten, die ursprüngliche APK herunterzuladen und die Datei zurückzugeben</string>
+    <string name="home_apk_helper_continue">Hilfs-App öffnen</string>
+    <string name="home_apk_helper_warning">Fahren Sie nur fort, wenn Sie dieser Hilfs-App vertrauen. Morphe überprüft das Paket, die Version und die Signatur der empfangenen Datei, bevor sie gepatcht wird</string>
+    <string name="home_apk_helper_warning_unverified">Fahren Sie nur fort, wenn Sie dieser Hilfs-App vertrauen. Morphe kann die Signatur dieser APK nicht überprüfen, sodass eine geänderte Datei nicht erkannt würde</string>
+    <string name="home_apk_helper_no_result">Die Hilfs-App hat keine APK zurückgegeben</string>
+    <string name="home_apk_helper_no_access">Die Hilfs-App hat keinen Zugriff auf die zurückgegebene APK gewährt</string>
     <string name="home_apk_use_saved">Gespeicherte APK verwenden</string>
     <string name="home_apk_use_installed">Installierte App verwenden</string>
     <string name="home_apk_use_installed_unverified">Die Signatur der installierten App konnte nicht verifiziert werden. Sie ist möglicherweise bereits gepatcht.</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Keine Patches gefunden</string>
     <string name="expert_mode_universal_patches">Universelle Patches</string>
     <string name="expert_mode_new_patches">Neu</string>
+    <string name="expert_mode_patch_required_by_installer">Für das ausgewählte Installationsziel erforderlich</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Nicht verfügbar für das ausgewählte Installationsziel</string>
     <string name="expert_mode_multiple_sources_warning_title">Mehrere Patch-Quellen ausgewählt</string>
     <string name="expert_mode_multiple_sources_warning_message">"Du hast Patches aus mehreren Quellen ausgewählt. Dies kann zu Kompatibilitätsproblemen oder unerwartetem Verhalten führen.
 
@@ -421,6 +431,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="patcher_install_error_subtitle">Versuche, die App zu entfernen und erneut zu installieren</string>
     <string name="patcher_ready_to_install_subtitle">Drücke die Schaltfläche unten zum Installieren</string>
     <string name="patcher_ready_to_mount_subtitle">Drücke die Schaltfläche unten zum Mounten</string>
+    <string name="patcher_patches_excluded_for_installer">Nicht verfügbar für diese Installationsmethode und ausgeschlossen: %s</string>
     <string name="patcher_storage_permission_dialog_title">Auf den Speicherpfad kann nicht zugegriffen werden</string>
     <string name="patcher_incompatible_patcher_title">Update erforderlich</string>
     <string name="patcher_incompatible_patcher_description">Das Bundle &lt;b&gt;%1$s&lt;/b&gt; benötigt Patcher-Version &lt;b&gt;%2$s&lt;/b&gt; oder neuer. Bitte aktualisiere Morphe, um diese App zu patchen</string>
@@ -958,6 +969,8 @@ Details: %2$s"</string>
     <string name="settings_system_custom_file_picker">Benutzerdefinierter Dateiauswahldialog</string>
     <string name="settings_system_custom_file_picker_description">Durchsuchen Sie den Speicher mit dem integrierten Dateiauswahldialog von Morphe anstelle der systemspezifischen Standardeinstellung</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK-Download-Helfer</string>
+    <string name="settings_system_apk_download_helper_description">Lassen Sie eine installierte Hilfs-App die ursprünglichen APKs für Sie abrufen. Die Datei stammt von dieser App, aktivieren Sie diese Option also nur, wenn Sie ihr vertrauen</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorheriges Verzeichnis</string>
     <string name="file_picker_no_files">Keine Dateien hier</string>
@@ -1102,6 +1115,8 @@ Details: %2$s"</string>
     <string name="installing_manager_update">Installiere Update…</string>
     <string name="downloading_manager_update">Lade Update herunter…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB heruntergeladen</string>
+    <string name="manager_update_not_ready">Diese Version wird noch veröffentlicht. Versuchen Sie es in wenigen Minuten erneut</string>
     <string name="download_manager_failed">Herunterladen des Updates fehlgeschlagen: %s</string>
     <string name="failed_to_check_updates">Prüfung auf Updates fehlgeschlagen: %s</string>
     <string name="failed_to_download_update">Herunterladen des Updates fehlgeschlagen: %s</string>

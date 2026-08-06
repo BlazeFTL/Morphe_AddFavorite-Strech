@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Ósamhæft</string>
     <string name="home_apk_availability_yes">Já, hjálpaðu mér að finna APK</string>
     <string name="home_apk_availability_no">Nei, ég á nú þegar APK</string>
+    <string name="home_apk_helper_download">Notaðu hjálparforrit</string>
+    <string name="home_apk_helper_title">Niðurhal með hjálparforriti</string>
+    <string name="home_apk_helper_description">Morphe mun biðja hjálparforritið hér að neðan um að hala niður upprunalega APK og afhenda skránna</string>
+    <string name="home_apk_helper_continue">Opna hjálparforrit</string>
+    <string name="home_apk_helper_warning">Halda áfram aðeins ef þú treystir þessu hjálparforriti. Morphe yfirfær pakkann, útgáfuna og undirskriftina á því sem það fær áður en því er breytt</string>
+    <string name="home_apk_helper_warning_unverified">Halda áfram aðeins ef þú treystir þessu hjálparforriti. Morphe getur ekki staðfest undirskrift þessa APK, svo breyttri skrá verður ekki greind</string>
+    <string name="home_apk_helper_no_result">Hjálparforritið skilaði ekki APK</string>
+    <string name="home_apk_helper_no_access">Hjálparforritið veitti ekki aðgang að APK sem það skilaði</string>
     <string name="home_apk_use_saved">Nota vistað APK</string>
     <string name="home_apk_use_installed">Nota upphætt APK</string>
     <string name="home_apk_use_installed_unverified">Gat ekki staðfest undirskrift uppsetts forrits, þannig að það gæti þegar verið lagað</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Engar breytistillingar fundust</string>
     <string name="expert_mode_universal_patches">Alhliða breytingar</string>
     <string name="expert_mode_new_patches">Nýtt</string>
+    <string name="expert_mode_patch_required_by_installer">Þetta er nauðsynlegt fyrir valið uppsetningarmark</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Ekki í boði fyrir valið uppsetningarmark</string>
     <string name="expert_mode_multiple_sources_warning_title">Fleiri pakkningagjafar valdar</string>
     <string name="expert_mode_multiple_sources_warning_message">"Þú hefur valið patta úr fleiri pakkningagjöfum. Þetta gæti leitt til samhæfni vandamála eða óvæntra atvika.
 Ertu viss um að þú viljir halda áfram?"</string>
@@ -418,6 +428,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patcher_install_error_subtitle">Reyndu að afinstallera og setja upp aftur</string>
     <string name="patcher_ready_to_install_subtitle">Ýttu á hnappinn hér að neðan til að setja upp</string>
     <string name="patcher_ready_to_mount_subtitle">Ýttu á hnappinn hér að neðan til að festa</string>
+    <string name="patcher_patches_excluded_for_installer">Ekki í boði fyrir þessa uppsetningaraðferð og útilokuð: %s</string>
     <string name="patcher_storage_permission_dialog_title">Ekki hægt að fá aðgang að geymslushörðu</string>
     <string name="patcher_incompatible_patcher_title">Uppfærsla krafist</string>
     <string name="patcher_incompatible_patcher_description">Pakkinn &lt;b&gt;%1$s&lt;/b&gt; krefst Morphe útgáfu &lt;b&gt;%2$s&lt;/b&gt; eða nýrri. Vinsamlegast uppfæra Morphe til að breyta þessari forrit</string>
@@ -952,6 +963,8 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_custom_file_picker">Sérsniðin skráaraðjari</string>
     <string name="settings_system_custom_file_picker_description">Skoðu geymslu með innbyggðum skráaraðjara Morphe heldur en staðkerfinu</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK niðurhalshjálparforrit</string>
+    <string name="settings_system_apk_download_helper_description">Láttu uppsett hjálparforrit hlaða niður upprunalegum APK fyrir þig. Skráin kemur frá því forriti, svo kveiktu á þessu aðeins ef þú treystir því</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Fyrri skrá</string>
     <string name="file_picker_no_files">Engar skrár hér</string>
@@ -1096,6 +1109,8 @@ Nánari upplýsingar: %2$s"</string>
     <string name="installing_manager_update">Sæti uppfærslu…</string>
     <string name="downloading_manager_update">Sæki uppfærslu…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB niðurhalin</string>
+    <string name="manager_update_not_ready">Þessi útgáfa er enn í útgáfuferlinu. Reyndu aftur á nokkrum mínútum</string>
     <string name="download_manager_failed">Ekki tókst að sækja uppfærslu: %s</string>
     <string name="failed_to_check_updates">Ekki tókst að skoða uppfærslur: %s</string>
     <string name="failed_to_download_update">Ekki tókst að sækja uppfærslu: %s</string>

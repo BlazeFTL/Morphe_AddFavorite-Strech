@@ -167,6 +167,14 @@
     <string name="home_apk_availability_incompatible_label">לא תואם</string>
     <string name="home_apk_availability_yes">כן, עזור לי למצוא APK</string>
     <string name="home_apk_availability_no">לא, אני כבר מחזיק APK</string>
+    <string name="home_apk_helper_download">השתמש באפליקציה מסייעת</string>
+    <string name="home_apk_helper_title">הורד באמצעות אפליקציה מסייעת</string>
+    <string name="home_apk_helper_description">Morphe תבקש מהאפליקציה המסייעת להלן להוריד את קובץ ה-APK המקורי ולהחזיר את הקובץ</string>
+    <string name="home_apk_helper_continue">פתח אפליקציה מסייעת</string>
+    <string name="home_apk_helper_warning">המשך רק אם אתה סומך על האפליקציה המסייעת הזו. Morphe בודקת את החבילה, הגרסה והחתימה של כל מה שהיא מקבלת לפני תיקון</string>
+    <string name="home_apk_helper_warning_unverified">המשך רק אם אתה סומך על האפליקציה המסייעת הזו. Morphe אינה יכולה לאמת את החתימה של קובץ ה-APK הזה, ולכן קובץ ששוּנה לא יזוהה</string>
+    <string name="home_apk_helper_no_result">האפליקציה המסייעת לא החזירה APK</string>
+    <string name="home_apk_helper_no_access">האפליקציה המסייעת לא העניקה גישה ל-APK שהוחזר</string>
     <string name="home_apk_use_saved">השתמש ב-APK שמור</string>
     <string name="home_apk_use_installed">השתמש ב-APK מותקן</string>
     <string name="home_apk_use_installed_unverified">לא ניתן לאמת את החתימה של האפליקציה המותקנת, כך שהיא עשויה להיות כבר מטופלת</string>
@@ -225,6 +233,8 @@
     <string name="expert_mode_no_results">לא נמצאו תיקונים</string>
     <string name="expert_mode_universal_patches">עדכונים אוניברסליים</string>
     <string name="expert_mode_new_patches">חדש</string>
+    <string name="expert_mode_patch_required_by_installer">נדרש עבור יעד ההתקנה הנבחר</string>
+    <string name="expert_mode_patch_unavailable_for_installer">לא זמין עבור יעד ההתקנה הנבחר</string>
     <string name="expert_mode_multiple_sources_warning_title">נבחרו מקורות ציורים מרובים</string>
     <string name="expert_mode_multiple_sources_warning_message">"בחרת בקבצי ציורים ממקורות מרובים. זה עשוי לגרום למחלוקות תאימות או התנהגות בלתי צפויה.
 
@@ -421,6 +431,7 @@
     <string name="patcher_install_error_subtitle">נסה להסיר ולהתקין שוב</string>
     <string name="patcher_ready_to_install_subtitle">לחץ על הכפתור למטה כדי להתקין</string>
     <string name="patcher_ready_to_mount_subtitle">לחץ על הכפתור למטה כדי לאתחל</string>
+    <string name="patcher_patches_excluded_for_installer">לא זמין עבור שיטת התקנה זו והוחרג: %s</string>
     <string name="patcher_storage_permission_dialog_title">לא ניתן לגשת לדרך אחסון</string>
     <string name="patcher_incompatible_patcher_title">עדכון נדרש</string>
     <string name="patcher_incompatible_patcher_description">החבילה &lt;b&gt;%1$s&lt;/b&gt; דורשת גרסת מתקן &lt;b&gt;%2$s&lt;/b&gt; ומעלה. אנא עדכן את Morphe כדי לתקן את האפליקציה הזו</string>
@@ -968,6 +979,8 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_custom_file_picker">בחירת קבצים מותאמת אישית</string>
     <string name="settings_system_custom_file_picker_description">דפדף אחסון באמצעות בוחר הקבצים המובנה של Morphe במקום ברירת המערכת</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">מוריד APK מסייע</string>
+    <string name="settings_system_apk_download_helper_description">אפשר לאפליקציה מסייעת מותקנת לאחזר APK מקוריים עבורך. הקובץ מגיע מהאפליקציה הזו, אז הפעל את זה רק אם אתה סומך עליה</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">ספרייה קודמת</string>
     <string name="file_picker_no_files">אין קבצים כאן</string>

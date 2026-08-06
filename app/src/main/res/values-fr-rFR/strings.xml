@@ -168,6 +168,14 @@
     <string name="home_apk_availability_incompatible_label">Incompatible</string>
     <string name="home_apk_availability_yes">Oui, aidez-moi à trouver un APK</string>
     <string name="home_apk_availability_no">Non, j\'ai déjà un APK</string>
+    <string name="home_apk_helper_download">Utiliser une application d\'assistance</string>
+    <string name="home_apk_helper_title">Télécharger avec une application d\'assistance</string>
+    <string name="home_apk_helper_description">Morphe demandera à l\'application d\'assistance ci-dessous de télécharger l\'APK d\'origine et de lui transmettre le fichier</string>
+    <string name="home_apk_helper_continue">Ouvrir l\'application d\'assistance</string>
+    <string name="home_apk_helper_warning">Ne continuez que si vous faites confiance à cette application d\'assistance. Morphe vérifie le paquet, la version et la signature de tout fichier reçu avant le patching</string>
+    <string name="home_apk_helper_warning_unverified">Ne continuez que si vous faites confiance à cette application d\'assistance. Morphe ne peut pas vérifier la signature de cet APK, donc un fichier modifié ne serait pas détecté</string>
+    <string name="home_apk_helper_no_result">L\'application d\'assistance n\'a pas renvoyé de fichier APK</string>
+    <string name="home_apk_helper_no_access">L\'application d\'assistance n\'a pas accordé l\'accès à l\'APK qu\'elle a renvoyé</string>
     <string name="home_apk_use_saved">Utiliser l\'APK enregistré</string>
     <string name="home_apk_use_installed">Utiliser l\'APK installé</string>
     <string name="home_apk_use_installed_unverified">Impossible de vérifier la signature de l\'application installée, il est donc possible qu\'elle soit déjà patchée</string>
@@ -966,6 +974,8 @@ Détails : %2$s"</string>
     <string name="settings_system_custom_file_picker">Sélecteur de fichiers personnalisé</string>
     <string name="settings_system_custom_file_picker_description">Parcourez le stockage avec le sélecteur de fichiers intégré de Morphe au lieu de celui par défaut du système</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Assistant de téléchargement d\'APK</string>
+    <string name="settings_system_apk_download_helper_description">Laissez une application d\'assistance installée récupérer les APK d\'origine pour vous. Le fichier provient de cette application, n\'activez cette option que si vous lui faites confiance</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Dossier précédent</string>
     <string name="file_picker_no_files">Aucun fichier ici</string>

@@ -10,6 +10,7 @@
     <string name="home_update_success">អាប់ដេតប្រភពបានបញ្ចប់</string>
     <string name="home_update_success_subtitle">ប្រភពរបស់អ្នកទាន់សម័យហើយ</string>
     <string name="home_sources_are_loading">ប្រភពកំពុងផ្ទុក សូមរង់ចាំ…</string>
+    <string name="home_category_custom">ផ្ទាល់ខ្លួន</string>
     <!-- Home Screen - Home Greetings -->
     <string name="home_greeting_1">តើកម្មវិធីណាមួយដែលអ្នកចង់ធ្វើបំណេះ?</string>
     <!-- Humorous hype message with light nostalgia -->
@@ -45,6 +46,7 @@
     <!-- Adaptive Icon Creator -->
     <!-- Header Creator -->
     <!-- Batch patching -->
+    <string name="shortcut_check_updates_short">ពិនិត្យបច្ចុប្បន្នភាព</string>
     <!-- Home Screen - App Info Screen -->
     <!-- Home Screen - Root Mode -->
     <!-- Patcher Screen -->
@@ -104,6 +106,7 @@
     <string name="disabled">បានផ្ដាច់</string>
     <string name="rename">ប្ដូរឈ្មោះ</string>
     <string name="import_">នាំចូល</string>
+    <string name="copy">ចម្លង</string>
     <string name="allow">អនុញ្ញាត</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <!-- Onboarding coach marks -->

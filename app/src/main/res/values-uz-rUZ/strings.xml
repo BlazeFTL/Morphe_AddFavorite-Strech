@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Uyushmaslik</string>
     <string name="home_apk_availability_yes">Qayta urinish</string>
     <string name="home_apk_availability_no">Yo\'q, allaqachon APK bor</string>
+    <string name="home_apk_helper_download">Yordamchi ilovadan foydalaning</string>
+    <string name="home_apk_helper_title">Yordamchi ilova orqali yuklab olish</string>
+    <string name="home_apk_helper_description">Morphe quyidagi yordamchi ilovadan asl APK ni yuklab olishni soʻraydi va faylni qaytarib beradi</string>
+    <string name="home_apk_helper_continue">Yordamchi ilovani oching</string>
+    <string name="home_apk_helper_warning">Agar ushbu yordamchi ilovaga ishonmasangiz, davom etmang. Morphe patch yamoqni qoʻllashdan oldin olgan narsaning paketini, versiyasini va imzosini tekshiradi</string>
+    <string name="home_apk_helper_warning_unverified">Agar ushbu yordamchi ilovaga ishonmasangiz, davom etmang. Morphe ushbu APK ning imzosini tasdiqlay olmaydi, shuning uchun oʻzgartirilgan fayl aniqlanmaydi</string>
+    <string name="home_apk_helper_no_result">Yordamchi ilova APK ni qaytarib bermadi</string>
+    <string name="home_apk_helper_no_access">Yordamchi ilova qaytargan APK ga kirish huquqini bermadi</string>
     <string name="home_apk_use_saved">Saqlangan APKdan foydalanish</string>
     <string name="home_apk_use_installed">O\'rnatilgan APKdan foydalanish</string>
     <string name="home_apk_use_installed_unverified">O\'rnatilgan ilovaning imzosi tasdiqlanmadi, shuning uchun u allaqachon o\'zgartirilgan bo\'lishi mumkin</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Tuzatishlar topilmadi</string>
     <string name="expert_mode_universal_patches">Universal patchlar</string>
     <string name="expert_mode_new_patches">Yangi</string>
+    <string name="expert_mode_patch_required_by_installer">Tanlangan oʻrnatish maqsadi uchun talab etiladi</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Tanlangan oʻrnatish maqsadi uchun mavjud emas</string>
     <string name="expert_mode_multiple_sources_warning_title">Bir nechta patch manbalari tanlandi</string>
     <string name="expert_mode_multiple_sources_warning_message">"Siz bir nechta patch manbalaridan patch tanlagansiz. Bu moslik muammolari yoki kutilmagan xatti-harakatlarga olib kelishi mumkin.
 
@@ -419,6 +429,7 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="patcher_install_error_subtitle">Qayta o‘chirishni va o‘rnatishni urinib ko‘ring</string>
     <string name="patcher_ready_to_install_subtitle">O‘rnatish uchun quyidagi tugmani bosing</string>
     <string name="patcher_ready_to_mount_subtitle">Ulanish uchun quyidagi tugmani bosing</string>
+    <string name="patcher_patches_excluded_for_installer">Ushbu oʻrnatish usuli uchun mavjud emas va istisno qilingan: %s</string>
     <string name="patcher_storage_permission_dialog_title">Haqida</string>
     <string name="patcher_incompatible_patcher_title">Yangilash talab qilinadi</string>
     <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; to‘plami patcher versiyasi &lt;b&gt;%2$s&lt;/b&gt; yoki undan yangiroqni talab qiladi. Ushbu ilovani patchlash uchun Morphe ni yangilang</string>
@@ -956,6 +967,8 @@ Ma’lumotlar: %2$s"</string>
     <string name="settings_system_custom_file_picker">Narsangizdan farq qiling</string>
     <string name="settings_system_custom_file_picker_description">Mobil batahot</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK yuklab olish yordamchisi</string>
+    <string name="settings_system_apk_download_helper_description">Oʻrnatilgan yordamchi ilovaga asl APK fayllarini yuklab olish imkonini bering. Fayl oʻsha ilovadan keladi, shuning uchun faqat ishonishingiz mumkin boʻlsa, uni yoqing</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Oldingi katalog</string>
     <string name="file_picker_no_files">Ichki xotira</string>

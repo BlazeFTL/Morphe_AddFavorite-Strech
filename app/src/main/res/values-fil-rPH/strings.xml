@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Hindi tugma</string>
     <string name="home_apk_availability_yes">Oo, tulungan mo akong hanapin ang APK</string>
     <string name="home_apk_availability_no">Hindi, mayroon na akong APK</string>
+    <string name="home_apk_helper_download">Gumamit ng helper app</string>
+    <string name="home_apk_helper_title">I-download gamit ang isang helper app</string>
+    <string name="home_apk_helper_description">Hihingi ang Morphe sa helper app sa ibaba na i-download ang orihinal na APK at ibalik ang file</string>
+    <string name="home_apk_helper_continue">Buksan ang helper app</string>
+    <string name="home_apk_helper_warning">Magpatuloy lamang kung pinagkakatiwalaan mo ang helper app na ito. Sinusuri ng Morphe ang package, bersyon at lagda ng anumang matatanggap nito bago i-patch</string>
+    <string name="home_apk_helper_warning_unverified">Magpatuloy lamang kung pinagkakatiwalaan mo ang helper app na ito. Hindi maaaring i-verify ng Morphe ang lagda ng APK na ito, kaya ang binagong file ay hindi matutukoy</string>
+    <string name="home_apk_helper_no_result">Hindi nagbalik ng APK ang helper app</string>
+    <string name="home_apk_helper_no_access">Hindi nagbigay ng pahintulot ang helper app na i-access ang APK na ibinalik nito</string>
     <string name="home_apk_use_saved">Gamitin ang nakaimbak na APK</string>
     <string name="home_apk_use_installed">Gamitin ang naka-install na APK</string>
     <string name="home_apk_use_installed_unverified">Hindi mapatunayan ang lagda ng naka-install na app, kaya maaaring na-patch na ito</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Walang nakita na patch</string>
     <string name="expert_mode_universal_patches">Mga unibersal na patch</string>
     <string name="expert_mode_new_patches">Bago</string>
+    <string name="expert_mode_patch_required_by_installer">Kinakailangan para sa napiling target ng pag-install</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Hindi magagamit para sa napiling target ng pag-install</string>
     <string name="expert_mode_multiple_sources_warning_title">Maramihang mga mapagkukunang patch ang napili</string>
     <string name="expert_mode_multiple_sources_warning_message">"Pinili mo ang mga patch mula sa maramihang mapagkukunang patch. Maaari itong magdulot ng isyu sa kompatibilidad o hindi inaasahang kilos.
 
@@ -333,6 +343,7 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
     <string name="batch_patch_source_file">Naka-attach na file</string>
     <string name="batch_patch_source_unavailable">Hindi maiprepare ang APK</string>
     <string name="batch_patch_force_version">Mag-patch pa rin</string>
+    <string name="batch_patch_force_version_done">Nakapila pa rin, ang mga patch na ginawa para sa ibang mga bersyon ay maaaring makasira sa app</string>
     <string name="batch_patch_edit_patches">Pumili ng mga patch</string>
     <string name="batch_patch_state_no_apk">Walang APK</string>
     <string name="batch_patch_state_no_patches">Walang mga patch</string>
@@ -419,6 +430,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="patcher_install_error_subtitle">Subukan mong burahin at i-install muli</string>
     <string name="patcher_ready_to_install_subtitle">Pindutin ang button sa ibaba upang ma-install</string>
     <string name="patcher_ready_to_mount_subtitle">Pindutin ang button sa ibaba upang i-mount</string>
+    <string name="patcher_patches_excluded_for_installer">Hindi magagamit para sa paraang ito ng pag-install at hindi kasama: %s</string>
     <string name="patcher_storage_permission_dialog_title">Hindi ma-access ang landas ng imbakan</string>
     <string name="patcher_incompatible_patcher_title">Kinakailangan ang pag-update</string>
     <string name="patcher_incompatible_patcher_description">Ang bundle &lt;b&gt;%1$s&lt;/b&gt; ay nangangailangan ng bersyon ng patcher na &lt;b&gt;%2$s&lt;/b&gt; o mas bago. Pakisuyong i-update ang Morphe upang i-patch ang app na ito</string>
@@ -956,6 +968,8 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_custom_file_picker">Pasadyang pumili ng file</string>
     <string name="settings_system_custom_file_picker_description">Gumamit ng file picker na binuo ng Morphe sa halip na ang default ng sistema</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK download helper</string>
+    <string name="settings_system_apk_download_helper_description">Pahintulutan ang isang naka-install na helper app na kunin ang mga orihinal na APK para sa iyo. Ang file ay nagmumula sa app na iyon, kaya paganahin lamang ito kung pinagkakatiwalaan mo ito</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Nakaraang direktoryo</string>
     <string name="file_picker_no_files">Walang mga file dito</string>
@@ -1100,6 +1114,8 @@ Mga Detalye: %2$s"</string>
     <string name="installing_manager_update">Ini-install ang update…</string>
     <string name="downloading_manager_update">Dina-download ang update…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB ang na-download</string>
+    <string name="manager_update_not_ready">Ang paglalabas na ito ay kasalukuyang pinoproseso. Subukan muli sa loob ng ilang minuto</string>
     <string name="download_manager_failed">Nabigong mai-download ang update: %s</string>
     <string name="failed_to_check_updates">Nabigong suriin ang mga update: %s</string>
     <string name="failed_to_download_update">Nabigong mai-download ang update: %s</string>

@@ -180,6 +180,7 @@
     <string name="home_app_info_no_saved_apk">Niciun APK salvat. Patch-uirea necesită selectarea APK-ului din nou</string>
     <string name="home_version_requires_android">Necesită Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nu este suportat pe acest dispozitiv</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nu are versiuni suportate pentru Android %2$s (API %3$s). Toate versiunile declarate necesită o versiune Android mai mare</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descarcă APK-ul original</string>
     <string name="home_download_instructions_steps_title">Instrucțiuni:</string>
@@ -231,6 +232,8 @@
     <string name="expert_mode_no_results">Nu au fost găsite patch-uri</string>
     <string name="expert_mode_universal_patches">Patch-uri universale</string>
     <string name="expert_mode_new_patches">Nou</string>
+    <string name="expert_mode_patch_required_by_installer">Necesar pentru ținta de instalare selectată</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Nu este disponibil pentru ținta de instalare selectată</string>
     <string name="expert_mode_multiple_sources_warning_title">Mai multe surse de patch-uri selectate</string>
     <string name="expert_mode_multiple_sources_warning_message">"Ai selectat patch-uri din mai multe surse de patch-uri. Asta poate cauza probleme de compatibilitate sau comportamente neașteptate.
 
@@ -255,11 +258,16 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="home_dialog_unsupported_version_compatible_versions">Versiuni compatibile:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Incompatibil</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Construcție %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Aceasta este o versiune diferită a aceleiași versiuni. Pachetele necesită o versiune specifică</string>
     <string name="home_dialog_wrong_package_title">Pachet greșit selectat</string>
     <string name="home_dialog_wrong_package_description">APK-ul selectat nu este pentru aplicația pe care dorești să o patch-uiești</string>
     <string name="home_dialog_expected_package">Pachet așteptat:</string>
     <string name="home_dialog_selected_package">Pachet selectat:</string>
+    <string name="home_dialog_orphaned_install_title">Copie anterioară abandonată</string>
+    <string name="home_dialog_orphaned_install_description">Aplicarea patch-urilor a schimbat numele pachetului, astfel încât copia pe care ai patch-uit-o mai devreme este încă instalată ca o aplicație separată</string>
+    <string name="home_dialog_orphaned_install_warning">Nu mai este urmărită și nu va primi actualizări de patch-uri</string>
+    <string name="home_dialog_orphaned_install_uninstall">Dezinstalează-o</string>
     <string name="home_dialog_orphaned_install_keep">Pãstreazã</string>
     <string name="home_outdated_patches_dialog_title">Patches pot fi depășite</string>
     <string name="home_outdated_patches_dialog_message">Datele mobile sunt active și actualizările patch-urilor sunt dezactivate</string>
@@ -323,6 +331,36 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="batch_patch_title">Patch-uri în lot</string>
     <string name="batch_patch_planning">Se pregătește coada…</string>
     <string name="batch_patch_preparing_next">Se pregătește următoarea aplicație…</string>
+    <string name="batch_patch_progress_counter">Patch %1$s din %2$s</string>
+    <string name="batch_patch_summary">%1$s patch-uit, %2$s eșuat, %3$s omis</string>
+    <string name="batch_patch_saved_hint">Aplicațiile modificate au fost salvate. Instalați-le acum sau mai târziu din lista de aplicații modificate din setări</string>
+    <string name="batch_patch_multiple_sources">Unele aplicații combină patch-uri din mai multe surse, ceea ce poate cauza conflicte</string>
+    <string name="batch_patch_needs_apk">Nu este disponibil niciun APK, atașați un fișier</string>
+    <string name="batch_patch_wrong_package">Fișierul atașat aparține lui %s</string>
+    <string name="batch_patch_version_mismatch">Versiunea %s nu este suportată de patch-uri</string>
+    <string name="batch_patch_source_saved">Original salvat</string>
+    <string name="batch_patch_source_installed">Aplicație instalată</string>
+    <string name="batch_patch_source_file">Fișier atașat</string>
+    <string name="batch_patch_source_unavailable">APK-ul nu a putut fi pregătit</string>
+    <string name="batch_patch_force_version">Aplică patch oricum</string>
+    <string name="batch_patch_force_version_done">Adăugat în coadă oricum, patch-urile realizate pentru alte versiuni pot strica aplicația</string>
+    <string name="batch_patch_edit_patches">Alege patch-uri</string>
+    <string name="batch_patch_state_no_apk">Nu este disponibil niciun APK</string>
+    <string name="batch_patch_state_no_patches">Nu sunt disponibile patch-uri</string>
+    <string name="batch_patch_policy_install">Instalează când este finalizat</string>
+    <string name="batch_patch_policy_install_description">Instalează fiecare aplicație modificată imediat ce coada se termină. Oprire păstrează APK-urile pentru mai târziu</string>
+    <string name="batch_patch_start">Începe aplicarea patch-urilor</string>
+    <string name="batch_patch_stop_title">Oprește aplicarea patch-urilor în masă?</string>
+    <string name="batch_patch_stop_description">Aplicația care se modifică acum și tot ce este încă în coadă va fi anulat</string>
+    <string name="batch_patch_install_all">Instalează tot</string>
+    <string name="batch_patch_install_failed">Instalare eșuată</string>
+    <string name="batch_patch_in_progress">Aplicarea patch-urilor în masă este deja în desfășurare</string>
+    <string name="batch_patch_nothing_outdated">Fiecare aplicație modificată este actualizată</string>
+    <string name="shortcut_repatch_short">Repară</string>
+    <string name="shortcut_repatch_long">Repară aplicațiile depășite</string>
+    <string name="shortcut_check_updates_short">Verifică actualizări</string>
+    <string name="shortcut_check_updates_long">Verifică actualizările patch-ului</string>
+    <string name="shortcut_patch_app">Aplică patch la %s</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Sigur doriți să ștergeți această aplicație?</string>
     <string name="batch_uninstall_confirm_body">Aplicațiile selectate vor fi eliminate permanent de pe dispozitivul dumneavoastră</string>
@@ -392,6 +430,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_install_error_subtitle">Încearcă să dezinstalezi și să instalezi din nou</string>
     <string name="patcher_ready_to_install_subtitle">Apasă butonul de mai jos pentru instalare</string>
     <string name="patcher_ready_to_mount_subtitle">Apăsați butonul de mai jos pentru a monta</string>
+    <string name="patcher_patches_excluded_for_installer">Nu este disponibil pentru această metodă de instalare și exclus: %s</string>
     <string name="patcher_storage_permission_dialog_title">Nu se poate accesa calea de stocare</string>
     <string name="patcher_incompatible_patcher_title">Actualizare necesară</string>
     <string name="patcher_incompatible_patcher_description">Pachetul &lt;b&gt;%1$s&lt;/b&gt; necesită versiunea patcher-ului &lt;b&gt;%2$s&lt;/b&gt; sau mai nouă. Vă rugăm să actualizați Morphe pentru a aplica patch la această aplicație</string>
@@ -470,6 +509,8 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="failed_to_mount">Montare eșuată: %s</string>
     <string name="failed_to_unmount">Demontare eșuată: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Scor %s</string>
+    <string name="mini_game_best">Cel mai bun %s</string>
     <string name="mini_game_new_record">Record nou!</string>
     <string name="mini_game_game_over">Game Over</string>
     <string name="mini_game_try_again">Încearcă din nou</string>
@@ -573,7 +614,28 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_advanced_update_interval_monthly">O dată pe lună</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Frecvența de verificare în fundal</string>
     <string name="settings_advanced_update_interval_battery_warning">Verificările în fundal pot nu funcționa reliable pe unele dispozitive. Fabricanții precum Xiaomi, Huawei, Samsung și OnePlus adesea restrictă procesul în fundal pentru a economisi baterie</string>
+    <string name="settings_advanced_auto_patch">Reparare automată</string>
+    <string name="settings_advanced_auto_patch_description">Repară automat aplicațiile instalate în fundal când patch-urile lor se modifică. Doar aplicațiile cu un APK original salvat sunt acoperite</string>
+    <string name="settings_advanced_auto_patch_interval">Frecvența re-patch-ului</string>
+    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Cât de des sunt reconstruite aplicațiile cu patch-uri</string>
+    <string name="settings_advanced_auto_patch_charging">Doar în timpul încărcării</string>
+    <string name="settings_advanced_auto_patch_charging_description">Aplicarea patch-urilor solicită mult procesorul și memoria, așa că așteaptă un încărcător</string>
+    <string name="settings_advanced_auto_patch_install">Instalează automat</string>
+    <string name="settings_advanced_auto_patch_install_description">Necesită Shizuku ca instalator. Cu orice alt instalator, aplicațiile cu patch-uri sunt doar salvate</string>
+    <string name="settings_advanced_external_batch_patch">Permite declanșatori externi</string>
+    <string name="settings_advanced_external_batch_patch_description">Permite aplicațiilor de automatizare să înceapă aplicarea patch-urilor în masă cu o intenție. Fiecare solicitare este confirmată înainte de a rula</string>
+    <string name="external_batch_patch_title">Începe aplicarea patch-urilor în masă?</string>
+    <string name="external_batch_patch_description">%s dorește ca Morphe să aplice patch-uri și să instaleze aplicații</string>
+    <string name="external_batch_patch_trust_caller">Permite întotdeauna această aplicație</string>
+    <string name="external_batch_patch_unknown_caller">O aplicație necunoscută</string>
     <!-- Notification content -->
+    <string name="notification_auto_patch_title">Reparare automată finalizată</string>
+    <string name="notification_auto_patch_running_title">Reparare automată a aplicațiilor</string>
+    <string name="notification_auto_patch_blocked_title">Reparare automată nu a rulat</string>
+    <string name="notification_auto_patch_blocked_battery">Excepteazã Morphe de la optimizarea bateriei, altfel Android opreşte execuţia înainte de a porni</string>
+    <string name="notification_auto_patch_blocked_foreground">Android nu a permis începerii patching-ului în fundal. Deschide Morphe și aplică patch-uri din aplicație</string>
+    <string name="notification_channel_auto_patch">Reparare automată</string>
+    <string name="notification_channel_auto_patch_description">Progres silențios și notificări de rezultat pentru repararea programată</string>
     <string name="notification_manager_update_title">Actualizare Morphe disponibilă</string>
     <string name="notification_bundle_update_title">Există actualizări disponibile</string>
     <string name="notification_update_text">Versiunea %s este gata de descărcare</string>
@@ -759,6 +821,7 @@ Detalii: %2$s"</string>
     <string name="installer_shizuku_error_downgrade">Android a blocat această acțiune deoarece ar face o retrogradare a aplicației instalate.</string>
     <string name="installer_shizuku_error_signature">Android a blocat această acțiune deoarece aplicația instalată are o semnătură diferită.</string>
     <string name="installer_shizuku_error_invalid_apk">Android nu a putut citi acest fișier APK.</string>
+    <string name="installer_shizuku_error_user_profile">Sistemul a blocat această instalare. Pe Xiaomi și dispozitive similare, activează \"Instalează prin USB\" în opțiunile pentru dezvoltatori. Pe un profil de lucru, instalările pot fi restricționate de politică</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">Optimizarea bateriei</string>
     <string name="settings_system_battery_optimization_description">Menține patcherul în funcțiune când aplicația este minimizată</string>
@@ -944,6 +1007,9 @@ Detalii: %2$s"</string>
     <string name="confirm">Confirmă</string>
     <string name="warning">Atenție</string>
     <string name="error_">Eroare</string>
+    <string name="failed">Eșuat</string>
+    <string name="cancelled">Anulat</string>
+    <string name="ready">Gata</string>
     <string name="retry">Reîncearcă</string>
     <string name="refresh">Reîmprospătează</string>
     <string name="add">Adaugă</string>
@@ -956,6 +1022,9 @@ Detalii: %2$s"</string>
     <string name="delete">Șterge</string>
     <string name="delete_all">Șterge tot</string>
     <string name="remove">Elimină</string>
+    <string name="exclude">Exclude</string>
+    <string name="excluded">Exclus</string>
+    <string name="include">Include</string>
     <string name="disable">Dezactivează</string>
     <string name="enable">Activează</string>
     <string name="loading">Se încarcă…</string>
@@ -982,6 +1051,7 @@ Detalii: %2$s"</string>
     <string name="reorder_done">Ordine salvată</string>
     <string name="reset_order">Resetează ordinea</string>
     <string name="reset_order_done">Comanda resetată</string>
+    <string name="accessibility_select_app">Selectează aplicația</string>
     <string name="accessibility_move_up">Mută în sus</string>
     <string name="accessibility_move_down">Mută în jos</string>
     <string name="accessibility_app_moved_announcement">%1$s a fost mutat pe poziția %2$s din %3$s</string>
@@ -1000,6 +1070,7 @@ Detalii: %2$s"</string>
     <string name="continue_">Continuă</string>
     <string name="version">Versiune</string>
     <string name="patch">Patch-uiește</string>
+    <string name="patching">Se aplică patch-uri</string>
     <string name="repatch">Patch-uiește din nou</string>
     <string name="open">Deschide</string>
     <string name="mount">Montează</string>
@@ -1042,6 +1113,8 @@ Detalii: %2$s"</string>
     <string name="installing_manager_update">Se instalează actualizarea...</string>
     <string name="downloading_manager_update">Se descarcă actualizarea...</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB descărcat</string>
+    <string name="manager_update_not_ready">Această versiune este încă în curs de publicare. Încearcă din nou în câteva minute</string>
     <string name="download_manager_failed">Descărcarea actualizării a eșuat: %s</string>
     <string name="failed_to_check_updates">Nu s-a putut verifica existența actualizărilor: %s</string>
     <string name="failed_to_download_update">Nu s-a putut descărca actualizarea: %s</string>

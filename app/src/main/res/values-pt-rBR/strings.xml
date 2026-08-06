@@ -70,7 +70,7 @@
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
     <string name="home_greeting_4">Mais um dia, mais uma obra-prima com anúncios bloqueados</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
-    <string name="home_greeting_5">Quer assistir a anúncios? Eu também não</string>
+    <string name="home_greeting_5">Cê quer ver anúncios? Eu também não</string>
     <!-- Friendly, slightly mischievous joke about controlling app behavior -->
     <string name="home_greeting_6">Vamos fazer seus apps se comportarem</string>
     <!-- Whimsical forecast-style joke, not meant literally -->

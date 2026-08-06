@@ -166,12 +166,21 @@
     <string name="home_apk_availability_incompatible_label">不兼容</string>
     <string name="home_apk_availability_yes">是的，帮我找个 APK</string>
     <string name="home_apk_availability_no">不，我已经有APK了</string>
+    <string name="home_apk_helper_download">使用辅助应用程序</string>
+    <string name="home_apk_helper_title">使用辅助应用程序下载</string>
+    <string name="home_apk_helper_description">Morphe 将要求下面的辅助应用程序下载原始 APK 并交回该文件</string>
+    <string name="home_apk_helper_continue">打开辅助应用程序</string>
+    <string name="home_apk_helper_warning">只有在您信任此辅助应用程序时才继续。Morphe 会检查它收到的软件包、版本和签名，然后再进行修补</string>
+    <string name="home_apk_helper_warning_unverified">只有在您信任此辅助应用程序时才继续。Morphe 无法验证此 APK 的签名，因此修改后的文件将无法检测到</string>
+    <string name="home_apk_helper_no_result">辅助应用程序未返回 APK</string>
+    <string name="home_apk_helper_no_access">辅助应用程序未授予对其返回的 APK 的访问权限</string>
     <string name="home_apk_use_saved">使用保存的 APK</string>
     <string name="home_apk_use_installed">使用已安装的 APK</string>
     <string name="home_apk_use_installed_unverified">无法验证已安装应用的签名，因此该应用可能已被修补</string>
     <string name="home_app_info_no_saved_apk">没有已保存的 APK 文件, 需要重新选择 APK 文件进行修补</string>
     <string name="home_version_requires_android">需要 Android %s+。</string>
     <string name="home_apk_no_compatible_versions_title">不支持此设备</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; 没有支持 Android %2$s (API %3$s) 的版本。所有声明的版本都需要更高的 Android 版本</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">下载原始 APK</string>
     <string name="home_download_instructions_steps_title">说明：</string>
@@ -223,6 +232,8 @@
     <string name="expert_mode_no_results">未找到修补的应用</string>
     <string name="expert_mode_universal_patches">通用补丁</string>
     <string name="expert_mode_new_patches">新</string>
+    <string name="expert_mode_patch_required_by_installer">所选安装目标需要</string>
+    <string name="expert_mode_patch_unavailable_for_installer">不适用于所选安装目标</string>
     <string name="expert_mode_multiple_sources_warning_title">已选择多个补丁源</string>
     <string name="expert_mode_multiple_sources_warning_message">"您已选择来自多个补丁源的补丁。这可能会导致兼容性问题或意想不到的行为。
 
@@ -247,11 +258,17 @@
     <string name="home_dialog_unsupported_version_compatible_versions">兼容版本：</string>
     <string name="home_dialog_unsupported_version_unsupported_label">不支持</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">构建 %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">这是同一版本的不同构建。补丁需要特定的构建</string>
     <string name="home_dialog_wrong_package_title">选择的 APK 不是您打算修补的应用。</string>
     <string name="home_dialog_wrong_package_description">您选择的 APK 不是您打算修补的应用</string>
     <string name="home_dialog_expected_package">预期包：</string>
     <string name="home_dialog_selected_package">已选择包：</string>
+    <string name="home_dialog_orphaned_install_title">之前复制的副本留下了</string>
+    <string name="home_dialog_orphaned_install_description">修补更改了包名，因此您之前修补的副本仍然安装为单独的应用程序</string>
+    <string name="home_dialog_orphaned_install_warning">它不再被跟踪，也不会收到修补更新</string>
+    <string name="home_dialog_orphaned_install_uninstall">卸载它</string>
+    <string name="home_dialog_orphaned_install_keep">保留它</string>
     <string name="home_outdated_patches_dialog_title">补丁可能已过期</string>
     <string name="home_outdated_patches_dialog_message">移动数据已激活，已禁用补丁更新</string>
     <string name="home_outdated_patches_dialog_warning">使用过期补丁可能会导致应用程序无法使用</string>
@@ -314,7 +331,36 @@
     <string name="batch_patch_title">批量补丁</string>
     <string name="batch_patch_planning">正在准备队列…</string>
     <string name="batch_patch_preparing_next">正在准备下一个应用…</string>
+    <string name="batch_patch_progress_counter">已修补 %1$s，共 %2$s 个应用</string>
+    <string name="batch_patch_summary">%1$s 已修补，%2$s 个失败，%3$s 个已跳过</string>
+    <string name="batch_patch_saved_hint">已修补的应用程序已保存。现在安装它们，或稍后从设置中的已修补 APK 列表中安装</string>
+    <string name="batch_patch_multiple_sources">某些应用程序将来自多个来源的补丁组合在一起，这可能会导致冲突</string>
+    <string name="batch_patch_needs_apk">没有可用的 APK，请附加一个文件</string>
+    <string name="batch_patch_wrong_package">附加的文件属于 %s</string>
+    <string name="batch_patch_version_mismatch">补丁不支持版本 %s</string>
+    <string name="batch_patch_source_saved">已保存原始文件</string>
+    <string name="batch_patch_source_installed">已安装应用</string>
+    <string name="batch_patch_source_file">附加文件</string>
+    <string name="batch_patch_source_unavailable">无法准备 APK</string>
+    <string name="batch_patch_force_version">无论如何应用补丁</string>
     <string name="batch_patch_force_version_done">仍然排队，为其他版本制作的补丁可能会破坏应用程序</string>
+    <string name="batch_patch_edit_patches">选择补丁</string>
+    <string name="batch_patch_state_no_apk">没有 APK</string>
+    <string name="batch_patch_state_no_patches">没有补丁</string>
+    <string name="batch_patch_policy_install">完成时安装</string>
+    <string name="batch_patch_policy_install_description">队列完成后立即安装每个已修补的应用程序。关闭后，APK 将保留以供以后使用</string>
+    <string name="batch_patch_start">开始修补</string>
+    <string name="batch_patch_stop_title">停止批量修补？</string>
+    <string name="batch_patch_stop_description">当前正在修补的应用程序以及所有排队的应用程序将被取消</string>
+    <string name="batch_patch_install_all">全部安装</string>
+    <string name="batch_patch_install_failed">安装失败</string>
+    <string name="batch_patch_in_progress">批量修补已经在运行</string>
+    <string name="batch_patch_nothing_outdated">每个已修补的应用程序都是最新的</string>
+    <string name="shortcut_repatch_short">重新修补</string>
+    <string name="shortcut_repatch_long">重新修补过时的应用程序</string>
+    <string name="shortcut_check_updates_short">检查更新</string>
+    <string name="shortcut_check_updates_long">检查补丁更新</string>
+    <string name="shortcut_patch_app">修补 %s</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">是否要卸载此应用？</string>
     <string name="batch_uninstall_confirm_body">选定的应用将永久从您的设备中移除</string>
@@ -358,6 +404,8 @@
     <string name="patcher_error_dialog_app_info">应用信息</string>
     <string name="patcher_tab_logs">补丁日志</string>
     <string name="patcher_tab_game">游戏</string>
+    <string name="patcher_logs_waiting">正在等待日志输出…</string>
+    <string name="patcher_logs_lost">应用程序重启后，日志输出不会保留</string>
     <string name="patcher_long_step_warning">此步骤可能需要一段时间。请稍候…</string>
     <string name="patcher_installing_subtitle">准备摇滚！ 🎸</string>
     <string name="patcher_success_title">完成！🎉</string>
@@ -382,6 +430,7 @@
     <string name="patcher_install_error_subtitle">尝试重新卸载并安装</string>
     <string name="patcher_ready_to_install_subtitle">按下方按钮安装</string>
     <string name="patcher_ready_to_mount_subtitle">按下方按钮挂载</string>
+    <string name="patcher_patches_excluded_for_installer">不适用于此安装方法并已排除：%s</string>
     <string name="patcher_storage_permission_dialog_title">无法访问存储路径</string>
     <string name="patcher_incompatible_patcher_title">更新要求</string>
     <string name="patcher_incompatible_patcher_description">该补丁包&lt;b&gt;%1$s&lt;/b&gt;需要补丁程序版本&lt;b&gt;%2$s&lt;/b&gt;或更高版本。请更新 Morphe 以补丁此应用</string>
@@ -460,6 +509,8 @@
     <string name="failed_to_mount">挂载失败：%s</string>
     <string name="failed_to_unmount">取消挂载失败：%s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">得分 %s</string>
+    <string name="mini_game_best">最佳 %s</string>
     <string name="mini_game_new_record">新的记录！</string>
     <string name="mini_game_game_over">游戏结束</string>
     <string name="mini_game_try_again">重试</string>
@@ -564,7 +615,28 @@
     <string name="settings_advanced_update_interval_monthly">每月一次</string>
     <string name="settings_advanced_update_interval_chip_subtitle">后台检查频率</string>
     <string name="settings_advanced_update_interval_battery_warning">后台检查在某些设备上可能无法可靠工作。制造商如小米、华为、三星和一加经常积极限制后台进程以节省电池</string>
+    <string name="settings_advanced_auto_patch">自动重新修补</string>
+    <string name="settings_advanced_auto_patch_description">在后台重新修补已安装的应用程序，只要它们的补丁发生更改。仅涵盖具有已保存原始 APK 的应用程序</string>
+    <string name="settings_advanced_auto_patch_interval">重新修补频率</string>
+    <string name="settings_advanced_auto_patch_interval_chip_subtitle">已修补的应用程序被重建的频率</string>
+    <string name="settings_advanced_auto_patch_charging">仅在充电时</string>
+    <string name="settings_advanced_auto_patch_charging_description">修补对 CPU 和内存的消耗很大，因此它会等到充电器</string>
+    <string name="settings_advanced_auto_patch_install">自动安装</string>
+    <string name="settings_advanced_auto_patch_install_description">需要 Shizuku 作为安装程序。使用任何其他安装程序，已修补的应用程序仅会被保存</string>
+    <string name="settings_advanced_external_batch_patch">允许外部触发器</string>
+    <string name="settings_advanced_external_batch_patch_description">允许自动化应用程序使用意图启动批量修补。每个请求在任何操作开始之前都会被确认</string>
+    <string name="external_batch_patch_title">开始批量修补？</string>
+    <string name="external_batch_patch_description">%s 想要 Morphe 修补和安装应用程序</string>
+    <string name="external_batch_patch_trust_caller">始终允许此应用程序</string>
+    <string name="external_batch_patch_unknown_caller">一个未知应用程序</string>
     <!-- Notification content -->
+    <string name="notification_auto_patch_title">自动重新修补完成</string>
+    <string name="notification_auto_patch_running_title">正在重新修补应用程序</string>
+    <string name="notification_auto_patch_blocked_title">自动重新修补未运行</string>
+    <string name="notification_auto_patch_blocked_battery">系统阻止本次安装。在小米等设备上，请在开发者选项中打开“通过 USB 安装”。在工作配置文件中，可以限制通过策略进行安装</string>
+    <string name="notification_auto_patch_blocked_foreground">Android 不允许在后台启动修补。打开 Morphe 并从应用程序中进行修补</string>
+    <string name="notification_channel_auto_patch">自动重新修补</string>
+    <string name="notification_channel_auto_patch_description">计划重新修补的静默进度和结果通知</string>
     <string name="notification_manager_update_title">Morphe update available</string>
     <string name="notification_bundle_update_title">有新的补丁可用</string>
     <string name="notification_update_text">版本 %s 已准备好下载。</string>
@@ -750,6 +822,7 @@ morphe_header_custom_dark.png
     <string name="installer_shizuku_error_downgrade">Android 阻止了此操作，因为它会降级已安装的应用</string>
     <string name="installer_shizuku_error_signature">Android 阻止了此操作，因为已安装的应用具有不同的签名</string>
     <string name="installer_shizuku_error_invalid_apk">Android 无法读取此 APK</string>
+    <string name="installer_shizuku_error_user_profile">系统阻止此安装。在小米等设备上，请在开发者选项中打开“通过 USB 安装”。在工作配置文件中，可以限制通过策略进行安装</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">电池优化</string>
     <string name="settings_system_battery_optimization_description">在应用最小化时，保持修补程序运行</string>
@@ -895,6 +968,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker">自定义文件选择器</string>
     <string name="settings_system_custom_file_picker_description">使用Morphe内置的文件选择器代替系统默认的文件选择器</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK 下载助手</string>
+    <string name="settings_system_apk_download_helper_description">让已安装的辅助应用程序为您获取原始 APK。该文件来自该应用程序，因此只有在您信任它时才启用此选项</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">上一级目录</string>
     <string name="file_picker_no_files">这里没有文件</string>
@@ -933,6 +1008,9 @@ morphe_header_custom_dark.png
     <string name="confirm">确认</string>
     <string name="warning">警告</string>
     <string name="error_">错误</string>
+    <string name="failed">失败</string>
+    <string name="cancelled">已取消</string>
+    <string name="ready">准备就绪</string>
     <string name="retry">重试</string>
     <string name="refresh">刷新</string>
     <string name="add">添加</string>
@@ -945,6 +1023,9 @@ morphe_header_custom_dark.png
     <string name="delete">删除</string>
     <string name="delete_all">全部删除</string>
     <string name="remove">移除</string>
+    <string name="exclude">排除</string>
+    <string name="excluded">已排除</string>
+    <string name="include">包括</string>
     <string name="disable">禁用</string>
     <string name="enable">启用</string>
     <string name="loading">正在加载…</string>
@@ -971,8 +1052,10 @@ morphe_header_custom_dark.png
     <string name="reorder_done">排序已保存</string>
     <string name="reset_order">重置排序</string>
     <string name="reset_order_done">订单已重置</string>
+    <string name="accessibility_select_app">选择应用</string>
     <string name="accessibility_move_up">上移</string>
     <string name="accessibility_move_down">下移</string>
+    <string name="accessibility_app_moved_announcement">已将 %1$s 移动到第 %2$s 位，共 %3$s 位</string>
     <string name="accessibility_scroll_to_top">滚动到列表顶部</string>
     <string name="rename">重命名</string>
     <string name="import_">导入</string>
@@ -1031,6 +1114,8 @@ morphe_header_custom_dark.png
     <string name="installing_manager_update">正在安装更新…</string>
     <string name="downloading_manager_update">正在下载更新…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">已下载 %1$.1f MB</string>
+    <string name="manager_update_not_ready">此版本仍在发布中。几分钟后重试</string>
     <string name="download_manager_failed">下载更新失败：%s</string>
     <string name="failed_to_check_updates">检查更新失败：%s</string>
     <string name="failed_to_download_update">下载更新失败：%s</string>
@@ -1039,6 +1124,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">下载更新？</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">第 %1$s 个，共 %2$s 个</string>
     <string name="onboarding_sources_desc">管理您的补丁源。每个源提供可应用于您的应用程序的补丁</string>
     <string name="onboarding_swipe_title">滑动势</string>
     <string name="onboarding_swipe_desc">向右滑动应用程序卡片以查看其可用补丁。向左滑动可从主屏幕隐藏该卡片</string>

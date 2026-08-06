@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">অসঙ্গতিপূর্ণ</string>
     <string name="home_apk_availability_yes">হ্যাঁ, আমাকে একটি APK খুঁজতে সাহায্য করুন</string>
     <string name="home_apk_availability_no">না, আমি ইতিমধ্যে একটি APK পেয়েছি</string>
+    <string name="home_apk_helper_download">একটি সহায়ক অ্যাপ ব্যবহার করুন</string>
+    <string name="home_apk_helper_title">একটি সহায়ক অ্যাপ দিয়ে ডাউনলোড করুন</string>
+    <string name="home_apk_helper_description">মর্ফে নিচের সহায়ক অ্যাপটিকে মূল APK ডাউনলোড করতে এবং ফাইলটি ফেরত দিতে বলবে</string>
+    <string name="home_apk_helper_continue">সহায়ক অ্যাপ খুলুন</string>
+    <string name="home_apk_helper_warning">আপনি যদি এই সহায়ক অ্যাপটিকে বিশ্বাস করেন তবেই চালিয়ে যান। মর্ফে প্যাচিং করার আগে এটি যা গ্রহণ করে তার প্যাকেজ, সংস্করণ এবং স্বাক্ষর পরীক্ষা করে</string>
+    <string name="home_apk_helper_warning_unverified">আপনি যদি এই সহায়ক অ্যাপটিকে বিশ্বাস করেন তবেই চালিয়ে যান। মর্ফে এই APK-এর স্বাক্ষর যাচাই করতে পারবে না, তাই একটি পরিবর্তিত ফাইল সনাক্ত করা যাবে না</string>
+    <string name="home_apk_helper_no_result">সহায়ক অ্যাপটি একটি APK ফেরত দেয়নি</string>
+    <string name="home_apk_helper_no_access">সহায়ক অ্যাপটি ফেরত দেওয়া APK-এ অ্যাক্সেস দেওয়ার অনুমতি দেয়নি</string>
     <string name="home_apk_use_saved">সেভ করে রাখা APK-টি ব্যবহার করুন</string>
     <string name="home_apk_use_installed">ফোনে ইনস্টল থাকা APK-টি ব্যবহার করুন</string>
     <string name="home_apk_use_installed_unverified">ইনস্টল করা অ্যাপের স্বাক্ষর যাচাই করা যায়নি, তাই এটি ইতোমধ্যেই প্যাচ করা থাকতে পারে</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">কোনো প্যাচ পাওয়া যায়নি</string>
     <string name="expert_mode_universal_patches">সার্বজনীন প্যাচ</string>
     <string name="expert_mode_new_patches">নতুন</string>
+    <string name="expert_mode_patch_required_by_installer">নির্বাচিত ইনস্টল টার্গেটের জন্য এটি প্রয়োজনীয়</string>
+    <string name="expert_mode_patch_unavailable_for_installer">নির্বাচিত ইনস্টল টার্গেটের জন্য এটি পাওয়া যাচ্ছে না</string>
     <string name="expert_mode_multiple_sources_warning_title">বহু প্যাচ সোর্স নির্বাচিত</string>
     <string name="expert_mode_multiple_sources_warning_message">"আপনি একাধিক প্যাচ উৎস থেকে প্যাচ নির্বাচন করেছেন। এটি সামঞ্জस्यতা সমস্যা বা অপ্রত্যাশিত আচরণের কারণ হতে পারে।
 
@@ -420,6 +430,7 @@
     <string name="patcher_install_error_subtitle">আনইনস্টল করে আবার ইনস্টল করার চেষ্টা করুন</string>
     <string name="patcher_ready_to_install_subtitle">ইনস্টল করতে নিচের বোতামটি টিপুন</string>
     <string name="patcher_ready_to_mount_subtitle">মাউন্ট করতে নিচের বোতামটি টিপুন</string>
+    <string name="patcher_patches_excluded_for_installer">এটি এই ইনস্টল পদ্ধতি এবং বাদ দেওয়ার জন্য পাওয়া যাচ্ছে না: %s</string>
     <string name="patcher_storage_permission_dialog_title">স্টোরেজ পথে অ্যাক্সেস করতে পারেনি</string>
     <string name="patcher_incompatible_patcher_title">আপডেট প্রয়োজন</string>
     <string name="patcher_incompatible_patcher_description">বান্ডেল &lt;b&gt;%1$s&lt;/b&gt;-এর জন্য প্যাচার সংস্করণ &lt;b&gt;%2$s&lt;/b&gt; অথবা তার চেয়ে নতুন সংস্করণ প্রয়োজন। এই অ্যাপটি প্যাচ করার জন্য অনুগ্রহ করে Morphe আপডেট করুন</string>
@@ -948,6 +959,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_custom_file_picker">কাস্টম ফাইল পিকার</string>
     <string name="settings_system_custom_file_picker_description">সিস্টেম ডিফল্টের পরিবর্তে Morphe-এর বিল্ট-ইন ফাইল পিকার দিয়ে স্টোরেজ ব্রাউজ করুন</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK ডাউনলোড সহায়ক</string>
+    <string name="settings_system_apk_download_helper_description">একটি ইনস্টল করা সহায়ক অ্যাপকে আপনার জন্য মূল APK আনতে দিন। ফাইলটি সেই অ্যাপ থেকে আসে, তাই আপনি যদি এটিকে বিশ্বাস করেন তবেই এটি সক্ষম করুন</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">আগের ডিরেক্টরি</string>
     <string name="file_picker_no_files">এখানে কোন ফাইল নেই</string>
@@ -1092,6 +1105,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="installing_manager_update">আপডেট ইনস্টল করা হচ্ছে…</string>
     <string name="downloading_manager_update">আপডেট ডাউনলোড হচ্ছে…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f এমবি ডাউনলোড করা হয়েছে</string>
+    <string name="manager_update_not_ready">এই রিলিজটি এখনও প্রকাশ করা হচ্ছে। কয়েক মিনিট পর আবার চেষ্টা করুন।</string>
     <string name="download_manager_failed">আপডেট ডাউনলোড করা যায়নি: %s</string>
     <string name="failed_to_check_updates">আপডেটগুলি পরীক্ষা করতে ব্যর্থ: %s</string>
     <string name="failed_to_download_update">আপডেট ডাউনলোড করতে ব্যর্থ: %s</string>

@@ -166,12 +166,21 @@
     <string name="home_apk_availability_incompatible_label">Nekompatibilan</string>
     <string name="home_apk_availability_yes">Da, pomozi mi da pronađem APK</string>
     <string name="home_apk_availability_no">Ne, već imam APK</string>
+    <string name="home_apk_helper_download">Koristite pomoćnu aplikaciju</string>
+    <string name="home_apk_helper_title">Preuzmite pomoću pomoćne aplikacije</string>
+    <string name="home_apk_helper_description">Morphe će zamoliti pomoćnu aplikaciju u nastavku da preuzme originalni APK i vrati datoteku</string>
+    <string name="home_apk_helper_continue">Otvorite pomoćnu aplikaciju</string>
+    <string name="home_apk_helper_warning">Nastavite samo ako verujete ovoj pomoćnoj aplikaciji. Morphe provere paket, verziju i potpis onošto primi pre krpljenja</string>
+    <string name="home_apk_helper_warning_unverified">Nastavite samo ako verujete ovoj pomoćnoj aplikaciji. Morphe ne može da potvrdi potpis ovog APK-a, pa izmenjena datoteka ne bi bila otkrivena</string>
+    <string name="home_apk_helper_no_result">Pomoćna aplikacija nije vratila APK</string>
+    <string name="home_apk_helper_no_access">Pomoćna aplikacija nije dozvolila pristup APK datoteci koju je vratila</string>
     <string name="home_apk_use_saved">Koristi sačuvani APK</string>
     <string name="home_apk_use_installed">Koristi instalirani APK</string>
     <string name="home_apk_use_installed_unverified">Nije bilo moguće da se potvrdi potpis instalirane aplikacije, tako da je možda već ispravljena</string>
     <string name="home_app_info_no_saved_apk">Nema sačuvanog APK-a. Krpljenje će zahtevati ponovni odabir APK datoteke</string>
     <string name="home_version_requires_android">Zahteva Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nije podržano na ovom uređaju</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nema podržanih verzija za Android %2$s (API %3$s). Sve deklarisane verzije zahtevaju više verziju Androida</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Preuzmi originalnu APK</string>
     <string name="home_download_instructions_steps_title">Uputstva:</string>
@@ -223,6 +232,8 @@
     <string name="expert_mode_no_results">Nema pronađenih zakrpa</string>
     <string name="expert_mode_universal_patches">Univerzalne zakrpe </string>
     <string name="expert_mode_new_patches">Novo</string>
+    <string name="expert_mode_patch_required_by_installer">Potrebno za izabrani cilj instalacije</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Nije dostupno za izabrani cilj instalacije</string>
     <string name="expert_mode_multiple_sources_warning_title">Izabrali ste patch-ove izvišnje izvora</string>
     <string name="expert_mode_multiple_sources_warning_message">"Izabrali ste patch-ove izvišnje izvora. Ovo može uzrokovati kompatibilnost problema ili neočekivano ponašanje.
 
@@ -247,6 +258,7 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatibilni verzije:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Nepodržano</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Izdanje %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Ovo je različita verzija iste verzije. Popravke zahteva specifična verzija</string>
     <string name="home_dialog_wrong_package_title">Izabrani APK nije za aplikaciju koju ste hteli patchirati.</string>
     <string name="home_dialog_wrong_package_description">Odabrani APK nije za aplikaciju koju ste željeli patchirati</string>
@@ -256,6 +268,7 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="home_dialog_orphaned_install_description">Zamenom paketa promenjeno je ime, tako da kopija koju ste ranije zamenili i dalje funkcioniše kao zasebna aplikacija</string>
     <string name="home_dialog_orphaned_install_warning">Više nije praćena i neće primati ažuriranja</string>
     <string name="home_dialog_orphaned_install_uninstall">Deinstaliraj je</string>
+    <string name="home_dialog_orphaned_install_keep">Zadržite ga</string>
     <string name="home_outdated_patches_dialog_title">Patch-ovi mogu biti zastareli</string>
     <string name="home_outdated_patches_dialog_message">Mobilni podaci su aktivni i ažuriranja patch-ova su onemogućena</string>
     <string name="home_outdated_patches_dialog_warning">Ažuriranje sa zastarelima patch-ovima može dovesti do pokvarenog aplikacije</string>
@@ -318,6 +331,8 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="batch_patch_title">Masovno zakrpljivanje</string>
     <string name="batch_patch_planning">Priprema reda…</string>
     <string name="batch_patch_preparing_next">Priprema sledeće aplikacije…</string>
+    <string name="batch_patch_progress_counter">Popravljeno %1$s od %2$s</string>
+    <string name="batch_patch_summary">%1$s popravljeno, %2$s neuspešno, %3$s preskočeno</string>
     <string name="batch_patch_saved_hint">Zakrpljene aplikacije su sačuvane. Instalirajte ih sada ili kasnije sa liste zakrpljenih APK-ova u podešavanjima</string>
     <string name="batch_patch_multiple_sources">Neke aplikacije kombinuju zakrpe iz više izvora, što može uzrokovati sukobe</string>
     <string name="batch_patch_needs_apk">Nema dostupnog APK-a, priložite datoteku</string>
@@ -389,6 +404,8 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="patcher_error_dialog_app_info">Informacije o aplikaciji</string>
     <string name="patcher_tab_logs">Evidencije peča</string>
     <string name="patcher_tab_game">Igre</string>
+    <string name="patcher_logs_waiting">Čeka se izlaz loga…</string>
+    <string name="patcher_logs_lost">Izlaz loga se ne čuva između ponovnih pokretanja aplikacije</string>
     <string name="patcher_long_step_warning">Ovaj korak može potrajati. Molimo sačekajte…</string>
     <string name="patcher_installing_subtitle">Skoro spremni za akciju! 🎸</string>
     <string name="patcher_success_title">Završeno! 🎉</string>
@@ -413,6 +430,7 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="patcher_install_error_subtitle">Pokušajte deinstalirati pa ponovo instalirati</string>
     <string name="patcher_ready_to_install_subtitle">Pritisnite dugme ispod za instalaciju</string>
     <string name="patcher_ready_to_mount_subtitle">Pritisnite dugme ispod za postavljanje</string>
+    <string name="patcher_patches_excluded_for_installer">Nije dostupno za ovu metodu instalacije i isključeno: %s</string>
     <string name="patcher_storage_permission_dialog_title">Ne mogu pristupiti putu za pohranu</string>
     <string name="patcher_incompatible_patcher_title">Ažuriranje je potrebno</string>
     <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahteva verziju zakrpe &lt;b&gt;%2$s&lt;/b&gt; ili noviju. Molimo ažurirajte Morphe da biste zakrpili ovu aplikaciju</string>
@@ -491,6 +509,8 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="failed_to_mount">Nije moguće montirati: %s</string>
     <string name="failed_to_unmount">Nije moguće demontirati: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Rezultat %s</string>
+    <string name="mini_game_best">Najbolji %s</string>
     <string name="mini_game_new_record">Novi rekord!</string>
     <string name="mini_game_game_over">Igra je završena</string>
     <string name="mini_game_try_again">Pokušaj ponovo</string>
@@ -932,6 +952,8 @@ Detalji: %2$s"</string>
     <string name="settings_system_custom_file_picker">Prilagođeni odabir datoteka</string>
     <string name="settings_system_custom_file_picker_description">Koristite ugrađeni odabir datoteka u Morpheu umesto fabričkog sistema</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Preuzimač APK datoteka</string>
+    <string name="settings_system_apk_download_helper_description">Dozvolite instaliranoj pomoćnoj aplikaciji da preuzme originalne APK datoteke za vas. Datoteka dolazi iz te aplikacije, pa ovo omogučite samo ako joj verujete</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Prethodna direktorijum</string>
     <string name="file_picker_no_files">Ovde nema datoteka</string>
@@ -1076,6 +1098,8 @@ Detalji: %2$s"</string>
     <string name="installing_manager_update">Instaliranje ažuriranja…</string>
     <string name="downloading_manager_update">Preuzimanje ažuriranja…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB preuzeto</string>
+    <string name="manager_update_not_ready">Ovo izdanje je i dalje u objavljivanju. Pokušajte ponovo za nekoliko minuta</string>
     <string name="download_manager_failed">Nije uspelo preuzimanje ažuriranja: %s</string>
     <string name="failed_to_check_updates">Nije uspelo proveravanje ažuriranja: %s</string>
     <string name="failed_to_download_update">Neuspešno preuzimanje ažuriranja: %s</string>

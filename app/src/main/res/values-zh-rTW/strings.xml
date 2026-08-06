@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">不相容</string>
     <string name="home_apk_availability_yes">是，協助我尋找 APK</string>
     <string name="home_apk_availability_no">否，我已經有 APK 了</string>
+    <string name="home_apk_helper_download">使用輔助應用程式</string>
+    <string name="home_apk_helper_title">使用輔助應用程式下載</string>
+    <string name="home_apk_helper_description">Morphe 會要求下方的輔助應用程式下載原始 APK 並交回檔案</string>
+    <string name="home_apk_helper_continue">開啟輔助應用程式</string>
+    <string name="home_apk_helper_warning">僅在您信任此輔助應用程式時才繼續。Morphe 在修補之前會檢查其接收到的套件、版本和簽章</string>
+    <string name="home_apk_helper_warning_unverified">僅在您信任此輔助應用程式時才繼續。Morphe 無法驗證此 APK 的簽章，因此無法偵測到已修改的檔案</string>
+    <string name="home_apk_helper_no_result">輔助應用程式未傳回 APK</string>
+    <string name="home_apk_helper_no_access">輔助應用程式未授權存取其傳回的 APK</string>
     <string name="home_apk_use_saved">使用已儲存的 APK</string>
     <string name="home_apk_use_installed">使用已安裝的 APK</string>
     <string name="home_apk_use_installed_unverified">無法驗證已安裝應用程式的簽名，因此可能已經被篡改</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">找不到修補程式</string>
     <string name="expert_mode_universal_patches">通用型修補程式</string>
     <string name="expert_mode_new_patches">新增</string>
+    <string name="expert_mode_patch_required_by_installer">選定安裝目標需要</string>
+    <string name="expert_mode_patch_unavailable_for_installer">未針對選定的安裝目標提供</string>
     <string name="expert_mode_multiple_sources_warning_title">選取了多個修補來源</string>
     <string name="expert_mode_multiple_sources_warning_message">"您已從多個修補來源中選取修補程式，可能會造成相容性問題或非預期行為。
 
@@ -258,6 +268,7 @@
     <string name="home_dialog_orphaned_install_description">修補程式變更套件名稱，因此您先前修補的副本仍以獨立應用程式安裝</string>
     <string name="home_dialog_orphaned_install_warning">它不再受到追蹤，也不會收到修補程式更新</string>
     <string name="home_dialog_orphaned_install_uninstall">解除安裝</string>
+    <string name="home_dialog_orphaned_install_keep">保留它</string>
     <string name="home_outdated_patches_dialog_title">修補程式可能已過時</string>
     <string name="home_outdated_patches_dialog_message">行動數據已啟用且修補程式更新已停用</string>
     <string name="home_outdated_patches_dialog_warning">使用過時的修補程式進行修補可能會導致應用程式損壞</string>
@@ -316,6 +327,10 @@
     <string name="header_creator_guide_positioning_title">定位與縮放</string>
     <string name="header_creator_guide_positioning_body">直接在預覽中，使用雙指縮放和拖動手勢來定位和縮放您的圖像。當圖像靠近中心時，會出現快照指南。您也可以使用預覽下方的滑桿。</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">已選取  個修補程式</string>
+    <string name="batch_patch_title">批次修補</string>
+    <string name="batch_patch_planning">正在準備佇列…</string>
+    <string name="batch_patch_preparing_next">正在準備下一個應用程式…</string>
     <string name="batch_patch_progress_counter">修補 %1$s 的 %2$s</string>
     <string name="batch_patch_summary">%1$s 已修補，%2$s 失敗，%3$s 已略過</string>
     <string name="batch_patch_saved_hint">已儲存已修補的應用程式。立即安裝或稍後從設定中的已修補 APK 清單安裝</string>
@@ -389,6 +404,8 @@
     <string name="patcher_error_dialog_app_info">應用程式資訊</string>
     <string name="patcher_tab_logs">修補程式記錄</string>
     <string name="patcher_tab_game">遊戲</string>
+    <string name="patcher_logs_waiting">正在等待日誌輸出…</string>
+    <string name="patcher_logs_lost">日誌輸出不會跨應用程式重新啟動保留</string>
     <string name="patcher_long_step_warning">此步驟可能需要一些時間。請稍候…</string>
     <string name="patcher_installing_subtitle">幾乎準備就緒！ 🎸</string>
     <string name="patcher_success_title">全部完成！🎉</string>
@@ -413,6 +430,7 @@
     <string name="patcher_install_error_subtitle">嘗試解除安裝並重新安裝</string>
     <string name="patcher_ready_to_install_subtitle">點擊下方的按鈕進行安裝</string>
     <string name="patcher_ready_to_mount_subtitle">點擊下方的按鈕進行掛載</string>
+    <string name="patcher_patches_excluded_for_installer">未針對此安裝方法提供且已排除：%s</string>
     <string name="patcher_storage_permission_dialog_title">無法存取儲存路徑</string>
     <string name="patcher_incompatible_patcher_title">需要更新</string>
     <string name="patcher_incompatible_patcher_description">套件 <b>%1$s</b> 需要修補程式版本 <b>%2$s</b> 或更新版本。請更新 Morphe 以修補此應用程式</string>
@@ -947,6 +965,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker">自訂檔案選擇器</string>
     <string name="settings_system_custom_file_picker_description">改用 Morphe 內建檔案選擇器，而不是系統預設值</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK 下載輔助工具</string>
+    <string name="settings_system_apk_download_helper_description">讓已安裝的輔助應用程式為您擷取原始 APK。檔案來自該應用程式，因此僅在您信任它時才啟用此功能</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">上一目錄</string>
     <string name="file_picker_no_files">這裡沒有檔案</string>
@@ -1091,6 +1111,8 @@ morphe_header_custom_dark.png
     <string name="installing_manager_update">正在安裝更新……</string>
     <string name="downloading_manager_update">正在下載更新……</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">已下載 %1$.1f MB</string>
+    <string name="manager_update_not_ready">此版本仍在發布中。請幾分鐘後再試</string>
     <string name="download_manager_failed">無法下載更新：%s</string>
     <string name="failed_to_check_updates">無法檢查更新：%s</string>
     <string name="failed_to_download_update">無法下載更新：%s</string>

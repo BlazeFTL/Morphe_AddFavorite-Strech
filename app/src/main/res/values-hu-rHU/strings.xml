@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Nem kompatibilis</string>
     <string name="home_apk_availability_yes">Igen, segíts megtalálni az APK-t</string>
     <string name="home_apk_availability_no">Nem, már megvan az APK</string>
+    <string name="home_apk_helper_download">Használj egy segédalkalmazást.</string>
+    <string name="home_apk_helper_title">Töltsd le egy segédalkalmazással.</string>
+    <string name="home_apk_helper_description">A Morphe megkéri az alábbi segédalkalmazást, hogy töltse le az eredeti APK-t, és adja vissza a fájlt.</string>
+    <string name="home_apk_helper_continue">Nyisd meg a segédalkalmazást.</string>
+    <string name="home_apk_helper_warning">Csak akkor folytasd, ha megbízol ebben a segédalkalmazásban. A Morphe ellenőrzi a csomagot, a verziót és az aláírást a kapott fájlnak, mielőtt bármit is javítanál.</string>
+    <string name="home_apk_helper_warning_unverified">Csak akkor folytasd, ha megbízol ebben a segédalkalmazásban. A Morphe nem tudja ellenőrizni ennek az APK-nak az aláírását, így egy módosított fájl nem lenne felismerhető.</string>
+    <string name="home_apk_helper_no_result">A segédalkalmazás nem adott vissza APK-t.</string>
+    <string name="home_apk_helper_no_access">A segédalkalmazás nem engedte hozzáférést a visszaadott APK-hoz.</string>
     <string name="home_apk_use_saved">Mentett APK használata</string>
     <string name="home_apk_use_installed">Telepített APK használata</string>
     <string name="home_apk_use_installed_unverified">Nem sikerült ellenőrizni a telepített alkalmazás áláísás állását, ezért lehetséges, hogy már másolták.</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Nem találhatók módosítások</string>
     <string name="expert_mode_universal_patches">Univerzális módosítások</string>
     <string name="expert_mode_new_patches">Új</string>
+    <string name="expert_mode_patch_required_by_installer">Szükséges a kiválasztott telepítési célhoz.</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Nem érhető el a kiválasztott telepítési célhoz.</string>
     <string name="expert_mode_multiple_sources_warning_title">Több patchforrás van kiválasztva</string>
     <string name="expert_mode_multiple_sources_warning_message">"Több patchforrásból választottál módosításokat. Ez kompatibilitási problémákhoz vagy váratlan viselkedéshez vezethet.
 
@@ -420,6 +430,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patcher_install_error_subtitle">Próbáld meg eltávolítani és újratelepíteni</string>
     <string name="patcher_ready_to_install_subtitle">Nyomd meg az alábbi gombot a telepítéshez</string>
     <string name="patcher_ready_to_mount_subtitle">Nyomd meg az alábbi gombot a csatoláshoz</string>
+    <string name="patcher_patches_excluded_for_installer">Nem érhető el a telepítési módszerhez és kizárt: %s</string>
     <string name="patcher_storage_permission_dialog_title">Az elérési útvonal nem hozzáférhető</string>
     <string name="patcher_incompatible_patcher_title">Frissítés szükséges</string>
     <string name="patcher_incompatible_patcher_description">A &lt;b&gt;%1$s&lt;/b&gt; csomag a &lt;b&gt;%2$s&lt;/b&gt; vagy újabb módosításverziót igényli. Kérjük, frissítsd a Morphe-t az alkalmazás módosításához.</string>
@@ -956,6 +967,8 @@ Részletek: %2$s"</string>
     <string name="settings_system_custom_file_picker">Egyéni fájlválasztó</string>
     <string name="settings_system_custom_file_picker_description">A Morphe beépített fájlválasztóját használja a rendszer alapértelmezett helyett.</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK letöltő segédprogram</string>
+    <string name="settings_system_apk_download_helper_description">Engedélyezd egy telepített segédalkalmazásnak, hogy letöltse az eredeti APK-kat. A fájl ebből az alkalmazásból származik, ezért csak akkor engedélyezd, ha megbízol benne.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Előző mappa</string>
     <string name="file_picker_no_files">Nincs itt fájl</string>
@@ -1100,6 +1113,8 @@ Részletek: %2$s"</string>
     <string name="installing_manager_update">Frissítés telepítése…</string>
     <string name="downloading_manager_update">Frissítés letöltése…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">Letöltve: %1$.1f MB</string>
+    <string name="manager_update_not_ready">A kiadás még folyamatban van. Próbálkozz néhány perc múlva újra.</string>
     <string name="download_manager_failed">A frissítés letöltése sikertelen: %s</string>
     <string name="failed_to_check_updates">A frissítések ellenőrzése sikertelen: %s</string>
     <string name="failed_to_download_update">A frissítés letöltése sikertelen: %s</string>

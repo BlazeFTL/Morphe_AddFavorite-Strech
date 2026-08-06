@@ -970,7 +970,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Explorar el almacenamiento con el selector de archivos integrado de Morphe en lugar del predeterminado del sistema</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Aplicación auxiliar para descargar APK</string>
-    <string name="settings_system_apk_download_helper_description">Permite que una aplicación auxiliar instalada descargue los APK originales por ti. El archivo proviene de esa aplicación, así que active esta opción solo si confía en ella</string>
+    <string name="settings_system_apk_download_helper_description">Permite que una aplicación auxiliar instalada descargue los APK originales por usted. El archivo proviene de esa aplicación, así que active esta opción solo si confía en ella</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Directorio anterior</string>
     <string name="file_picker_no_files">No hay archivos aquí</string>

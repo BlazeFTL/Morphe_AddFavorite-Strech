@@ -23,7 +23,7 @@
     <string name="home_metadata_errors_title">Níl roinnt foinsí paiste ar fáil</string>
     <string name="home_metadata_errors_subtitle">Tapáil chun foinsí a athbhreithniú</string>
     <string name="home_outdated_manager_title">Tá Morphe as dáta</string>
-    <string name="home_outdated_manager_subtitle">Teastaíonn leagan nuaer de roinnt foinsí páta</string>
+    <string name="home_outdated_manager_subtitle">Teastaíonn leagan níos nuaí ó roinnt foinsí paiste</string>
     <string name="home_metered_skipped_title">Nuashonruithe curtha ar sos ar shonraí soghluaiste</string>
     <string name="home_metered_skipped_subtitle">Tapáil chun nuashonruithe ar shonraí soghluaiste a cheadú</string>
     <string name="home_update_error">Theip ar nuashonrú</string>
@@ -124,8 +124,8 @@
     <string name="sources_management_metadata_unavailable">Meiteashonraí N/B</string>
     <string name="sources_management_metadata_unavailable_hint">Níl an cianchomhad meiteashonraí ar fáil. Oibríonn paistí leis an mbeart suiteáilte fós, ach tá uath-nuashonrú díchumasaithe don fhoinse seo</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Níorbh fhéidir an pacáiste paiste a íoslódáil. B’fhéidir go bhfuil an URL foinse mícheart nó nach bhfuil an comhad ann.</string>
-    <string name="sources_management_outdated_manager_badge">Nuashonaigh Morphe</string>
-    <string name="sources_management_outdated_manager_hint">Tá an fhoinse seo tógtha do phéatcher %1$s, ach tá péatcher %3$s sa Morphe %2$s. Nuashonaigh Morphe chun é a úsáid</string>
+    <string name="sources_management_outdated_manager_badge">Nuashonraigh Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Tá an foinse seo tógtha don phaisteoir %1$s, ach tá an paisteoir %3$s san áireamh i Morphe %2$s. Nuashonraigh Morphe chun é a úsáid.</string>
     <string name="sources_management_source_enabled">Foinse cumasaithe</string>
     <string name="sources_management_source_disabled">Foinse díchumasaithe</string>
     <string name="sources_management_source_updating">Foinse á nuashonrú</string>
@@ -166,10 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Neamh-chomhoiriúnach</string>
     <string name="home_apk_availability_yes">Sea, cabhraigh liom APK a aimsiú</string>
     <string name="home_apk_availability_no">Níl, tá APK agam cheana féin</string>
-    <string name="home_apk_helper_warning">Lean ar aghaidh amháin má thuaibh tú an t-app cabhrach seo. Ní chekálann Morphe an pajacht, an leagan, agus an sínáil de aon rud a fhaigheann sé sula n-a phreatáil</string>
-    <string name="home_apk_helper_warning_unverified">Lean ar aghaidh amháin má thuaibh tú an t-app cabhrach seo. Ní féidir le Morphe an sínáil an APK seo a dhearbhú, mar sin ní bheadh comhad athraithe déanta amach</string>
-    <string name="home_apk_helper_no_result">Níor thug an t-app cabhrach APK ar ais</string>
-    <string name="home_apk_helper_no_access">Níor thug an t-app cabhrach rochtain ar an APK a thug sé ar ais</string>
+    <string name="home_apk_helper_download">Bain úsáid as aip chúnta</string>
+    <string name="home_apk_helper_title">Íoslódáil le aip chúnta</string>
+    <string name="home_apk_helper_description">Iarrfaidh Morphe ar an aip chúnta thíos an APK bunaidh a íoslódáil agus an comhad a thabhairt ar ais.</string>
+    <string name="home_apk_helper_continue">Oscail an aip chúnta</string>
+    <string name="home_apk_helper_warning">Ná lean ar aghaidh ach amháin má tá muinín agat as an aip chúnta seo. Seiceálann Morphe an pacáiste, an leagan agus an síniú ar cibé rud a fhaigheann sé sula ndéantar paisteáil air.</string>
+    <string name="home_apk_helper_warning_unverified">Ná lean ar aghaidh ach amháin má tá muinín agat as an aip chúnta seo. Ní féidir le Morphe síniú an APK seo a fhíorú, mar sin ní bhraithfí comhad modhnaithe.</string>
+    <string name="home_apk_helper_no_result">Níor thug an aip chúnta APK ar ais</string>
+    <string name="home_apk_helper_no_access">Níor dheonaigh an aip chúnta rochtain ar an APK a thug sí ar ais</string>
     <string name="home_apk_use_saved">Úsáid APK sábháilte</string>
     <string name="home_apk_use_installed">Úsáid APK suiteáilte</string>
     <string name="home_apk_use_installed_unverified">Níorbh fhéidir síniú an aip suiteáilte a fhíorú, mar sin d\'fhéadfadh sé go bhfuil paiste air cheana féin</string>
@@ -228,6 +232,8 @@
     <string name="expert_mode_no_results">Níor aimsíodh aon phaistí</string>
     <string name="expert_mode_universal_patches">Paistí uilíocha</string>
     <string name="expert_mode_new_patches">Nua</string>
+    <string name="expert_mode_patch_required_by_installer">Riachtanach don sprioc suiteála roghnaithe</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Níl ar fáil don sprioc suiteála a roghnaíodh</string>
     <string name="expert_mode_multiple_sources_warning_title">Ilfhoinsí paiste roghnaithe</string>
     <string name="expert_mode_multiple_sources_warning_message">"Tá paistí roghnaithe agat ó fhoinsí éagsúla paistí. D’fhéadfadh fadhbanna comhoiriúnachta nó iompar gan choinne a bheith mar thoradh air seo.
 
@@ -258,9 +264,9 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="home_dialog_wrong_package_description">Níl an APK roghnaithe don fheidhmchlár arbh eol duit paiste a chur air</string>
     <string name="home_dialog_expected_package">Pacáiste ionchais:</string>
     <string name="home_dialog_selected_package">Pacáiste roghnaithe:</string>
-    <string name="home_dialog_orphaned_install_title">Cóip roimhe seo fágtha ar lár</string>
-    <string name="home_dialog_orphaned_install_description">D\'athraigh pacáistiú an patching an t-ainm pacáiste, mar sin tá an cóip a patcháil tú níos luaithe fós suiteáilte mar aip ar leith</string>
-    <string name="home_dialog_orphaned_install_warning">Ní bhaineann sé le rianú a thuilleadh agus ní gheobhaidh sé nuashonruithe plaistreach</string>
+    <string name="home_dialog_orphaned_install_title">Cóip roimhe seo fágtha ina diaidh</string>
+    <string name="home_dialog_orphaned_install_description">D\'athraigh an paisteáil ainm an phacáiste, mar sin tá an chóip a phaisteáil tú níos luaithe fós suiteáilte mar aip ar leithligh.</string>
+    <string name="home_dialog_orphaned_install_warning">Ní dhéantar rianú air a thuilleadh agus ní bhfaighidh sé nuashonruithe paiste</string>
     <string name="home_dialog_orphaned_install_uninstall">Díshuiteáil é</string>
     <string name="home_dialog_orphaned_install_keep">Coinnigh é</string>
     <string name="home_outdated_patches_dialog_title">B’fhéidir go bhfuil na paistí as dáta</string>
@@ -398,8 +404,8 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="patcher_error_dialog_app_info">Eolas faoin aip</string>
     <string name="patcher_tab_logs">Logaí paisteora</string>
     <string name="patcher_tab_game">Cluichí</string>
-    <string name="patcher_logs_waiting">Ag fanacht le logas aschur…</string>
-    <string name="patcher_logs_lost">Ní shábháiltear logas aschur thar athchóiriú an aipe</string>
+    <string name="patcher_logs_waiting">Ag fanacht le haschur loga…</string>
+    <string name="patcher_logs_lost">Ní choimeádtar aschur loga tar éis atosú aipeanna</string>
     <string name="patcher_long_step_warning">D’fhéadfadh sé go dtógfadh an chéim seo tamall. Fan le do thoil…</string>
     <string name="patcher_installing_subtitle">Beagnach réidh le tosú! 🎸</string>
     <string name="patcher_success_title">Gach rud déanta! 🎉</string>
@@ -424,6 +430,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patcher_install_error_subtitle">Déan iarracht é a dhíshuiteáil agus a shuiteáil arís</string>
     <string name="patcher_ready_to_install_subtitle">Brúigh an cnaipe thíos chun é a shuiteáil</string>
     <string name="patcher_ready_to_mount_subtitle">Brúigh an cnaipe thíos chun é a ghléasadh</string>
+    <string name="patcher_patches_excluded_for_installer">Ní féidir é a shuiteáil agus níl sé ar fáil: %s</string>
     <string name="patcher_storage_permission_dialog_title">Ní féidir rochtain a fháil ar an gcosán stórála</string>
     <string name="patcher_incompatible_patcher_title">Nuashonrú ag teastáil</string>
     <string name="patcher_incompatible_patcher_description">Éilíonn an pacáiste &lt;b&gt;%1$s&lt;/b&gt; leagan paisteora &lt;b&gt;%2$s&lt;/b&gt; nó níos nuaí. Nuashonraigh Morphe le do thoil chun an aip seo a phaisteáil.</string>
@@ -959,8 +966,8 @@ Sonraí: %2$s"</string>
     <string name="settings_system_custom_file_picker">Roghnóir comhad saincheaptha</string>
     <string name="settings_system_custom_file_picker_description">Brabhsáil stóras le roghnóir comhad ionsuite Morphe in ionad an roghnóra réamhshocraithe córais</string>
     <!-- Settings - System Tab - APK download helper -->
-    <string name="settings_system_apk_download_helper">Cabhairíos/a dóinroscáil APK</string>
-    <string name="settings_system_apk_download_helper_description">Lig do thapp cabhrach atá suiteáilte APKanna bunaiseacha a fháil duit. Tagann an comhad ó an t-app sin, mar sin cuir i bhfeidhm é seo amháin má thuaibh tú é</string>
+    <string name="settings_system_apk_download_helper">Cúntóir íoslódála APK</string>
+    <string name="settings_system_apk_download_helper_description">Lig d\'aip chúnta suiteáilte na APKanna bunaidh a fháil duit. Tagann an comhad ón aip sin, mar sin ná cumasaigh é seo ach amháin má tá muinín agat as.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Eolaire roimhe seo</string>
     <string name="file_picker_no_files">Níl aon chomhaid anseo</string>
@@ -1105,8 +1112,8 @@ Sonraí: %2$s"</string>
     <string name="installing_manager_update">Ag suiteáil an nuashonraithe…</string>
     <string name="downloading_manager_update">Ag íoslódáil an nuashonraithe…</string>
     <!-- Shown while resuming a download, before the total size is known -->
-    <string name="manager_update_progress_downloaded">%1$.1f MB inÍochadh sí down</string>
-    <string name="manager_update_not_ready">Tá an scaoileadh seo fós á eisiúint. Bain triail ar ais laistigh de chúpla nóta</string>
+    <string name="manager_update_progress_downloaded">%1$.1f MB íoslódáilte</string>
+    <string name="manager_update_not_ready">Tá an eisiúint seo fós á foilsiú. Déan iarracht arís i gceann cúpla nóiméad.</string>
     <string name="download_manager_failed">Theip ar an nuashonrú a íoslódáil: %s</string>
     <string name="failed_to_check_updates">Theip ar sheiceáil le haghaidh nuashonruithe: %s</string>
     <string name="failed_to_download_update">Theip ar an nuashonrú a íoslódáil: %s</string>

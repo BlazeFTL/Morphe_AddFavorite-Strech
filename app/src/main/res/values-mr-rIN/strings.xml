@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">असंगत</string>
     <string name="home_apk_availability_yes">हो, मला APK शोधण्यात मदत करा.</string>
     <string name="home_apk_availability_no">नाही, माझ्याकडे आधीपासूनच APK आहे.</string>
+    <string name="home_apk_helper_download">एका हेल्पर ॲपचा वापर करा</string>
+    <string name="home_apk_helper_title">हेल्पर ॲप वापरून डाउनलोड करा</string>
+    <string name="home_apk_helper_description">मॉर्फे खालील हेल्पर ॲपला मूळ APK डाउनलोड करण्यास आणि फाइल परत देण्यास सांगेल</string>
+    <string name="home_apk_helper_continue">हेल्पर ॲप उघडा</string>
+    <string name="home_apk_helper_warning">तुम्ही या हेल्पर ॲपवर विश्वास ठेवल्यासच पुढे जा. मॉर्फे पॅच करण्यापूर्वी जे काही प्राप्त होते त्याची पॅकेज, आवृत्ती आणि स्वाक्षरी तपासते.</string>
+    <string name="home_apk_helper_warning_unverified">तुम्ही या हेल्पर ॲपवर विश्वास ठेवल्यासच पुढे जा. मॉर्फे या APKची स्वाक्षरी सत्यापित करू शकत नाही, त्यामुळे सुधारित फाइल शोधली जाणार नाही.</string>
+    <string name="home_apk_helper_no_result">हेल्पर ॲपने APK परत केले नाही</string>
+    <string name="home_apk_helper_no_access">हेल्पर ॲपने APK ॲक्सेस करण्याची परवानगी दिली नाही</string>
     <string name="home_apk_use_saved">आधीच साठवलेली APK वापरा</string>
     <string name="home_apk_use_installed">इंस्टॉल केलेली APK वापरा</string>
     <string name="home_apk_use_installed_unverified">इंस्टॉल केलेल्या ॲपची सही तपासता आली नाही, त्यामुळे ते आधीच बदललेले असू शकते</string>
@@ -959,6 +967,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker">कस्टम फाइल पिकर</string>
     <string name="settings_system_custom_file_picker_description">सिस्टम डिफॉल्ट ऐवजी मोर्फच्या बिल्ट-इन फाइल पिकरने स्टोरेज ब्राउझ करा</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK डाउनलोड हेल्पर</string>
+    <string name="settings_system_apk_download_helper_description">एका स्थापित हेल्पर ॲपला तुमच्यासाठी मूळ APKs मिळवू द्या. फाइल त्या ॲपमधून येते, त्यामुळे तुम्ही त्यावर विश्वास ठेवल्यासच हे सक्षम करा.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">मागील निर्देशिका</string>
     <string name="file_picker_no_files">येथे कोणतीही फाईल नाही</string>
@@ -1103,6 +1113,8 @@ morphe_header_custom_dark.png
     <string name="installing_manager_update">अपडेट स्थापित करत आहे…</string>
     <string name="downloading_manager_update">अपडेट डाउनलोड करत आहे…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB डाउनलोड केले</string>
+    <string name="manager_update_not_ready">हे प्रकाशन अजूनही जारी केले जात आहे. कृपया काही मिनिटांनी पुन्हा प्रयत्न करा.</string>
     <string name="download_manager_failed">अपडेट डाउनलोड करण्यात अयशस्वी: %s</string>
     <string name="failed_to_check_updates">अपडेट तपासण्यात अयशस्वी: %s</string>
     <string name="failed_to_download_update">अपडेट डाउनलोड करण्यात अयशस्वी: %s</string>

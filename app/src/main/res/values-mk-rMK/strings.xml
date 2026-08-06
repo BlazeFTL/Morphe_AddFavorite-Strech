@@ -32,6 +32,7 @@
     <string name="home_no_apps_search_subtitle">Не се пронајдени апликации што одговараат на „%s“</string>
     <string name="home_all_apps_hidden_title">Сите апликации се скриени</string>
     <string name="home_all_apps_hidden_subtitle">Ги скривте сите апликации од почетниот екран</string>
+    <string name="home_category_custom">По нарачка</string>
     <!-- Home Screen - Home Greetings -->
     <string name="home_greeting_1">Која апликација сакате да ја закрпите?</string>
     <!-- Humorous hype message with light nostalgia -->
@@ -251,6 +252,8 @@
     <string name="header_creator_guide_positioning_title">Поставување и скалирање</string>
     <string name="header_creator_guide_positioning_body">Искористете гестови со пинцети за зумирање и превлекување директно во преглед за да ја позиционирате и скалирате вашата слика. Возилата за менување се појавуваат кога сликата е близу центарот. Можете исто така да ја користите лизгалката подолу од прегледот.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">Поправка избрана</string>
+    <string name="shortcut_check_updates_short">Проверете ажурирања</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Дали сте сигурни дека сакате да ја деинсталирате оваа апликација?</string>
     <string name="home_app_info_remove_app_warning">Ова ќе се избрише трајно:</string>
@@ -423,6 +426,7 @@
     <string name="settings_appearance_home_screen">Почетен екран</string>
     <string name="settings_appearance_greeting_phrases">Поздрави</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Прикажи порака за поздрав на почетниот екран</string>
+    <string name="settings_appearance_app_card_colors_default">Стандардно</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Икона на апликација</string>
     <string name="settings_appearance_app_icon_default">По default</string>
@@ -608,6 +612,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_process_runtime_disabled_description">Кликнете за да конфигурирате</string>
     <string name="settings_system_process_runtime_description_not_available">Оваа функција бара Android 11 или подоцна</string>
     <!-- Settings - System Tab - Notifications Section -->
+    <string name="settings_system_notifications_sound_default">Стандардно</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Увоз и извоз</string>
     <string name="settings_system_keystore">Keystore</string>
@@ -668,6 +673,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_export_source_data_success">Податоците од изворот се успешно извезени</string>
     <string name="settings_system_import_source_data_fail">Неуспешен увоз на податоците од изворот</string>
     <string name="settings_system_import_source_data_success">Податоците од изворот се успешно увезени</string>
+    <string name="settings_system_patch_options_section">Опции за закрпа</string>
     <string name="settings_system_no_patches_or_options">Не се зачувани закрпи или опции</string>
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
@@ -740,6 +746,7 @@ morphe_header_custom_dark.png
     <string name="rename">Преименувај</string>
     <string name="import_">Увоз</string>
     <string name="export">Извези</string>
+    <string name="copy">Копирај</string>
     <string name="download">Преземи</string>
     <string name="less">Помалку</string>
     <string name="expand">Шири</string>
@@ -799,6 +806,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">Преземи ажурирање?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s од %2$s</string>
     <string name="onboarding_sources_desc">Управувајте со вашите извори на закрпи. Секој извор обезбедува закрпи што можат да се применат на вашите апликации.</string>
     <string name="onboarding_swipe_title">Гестови на лизгање</string>
     <string name="onboarding_swipe_desc">Повлечете надесно на картичката со апликација за да ги видите достапните закрпи. Повлечете налево за да ја скриете картичката од почетниот екран.</string>

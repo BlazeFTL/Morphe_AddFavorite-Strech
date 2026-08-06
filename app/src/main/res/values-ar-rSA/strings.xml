@@ -900,7 +900,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Storage Management screen -->
     <string name="settings_system_storage_management_title">إدارة التخزين</string>
     <string name="settings_system_storage_management_description">مراجعة استخدام مساحة التخزين ومسح الملفات المؤقتة</string>
-    <string name="settings_system_storage_keystore_title">Keystore الموقّعة</string>
+    <string name="settings_system_storage_keystore_title">Keystore الموقّع</string>
     <string name="settings_system_storage_app_data_title">بيانات التطبيق</string>
     <string name="settings_system_storage_patch_bundles_title">حُزم التعديل</string>
     <string name="settings_system_storage_http_cache_title">ذاكرة التخزين المؤقت للشبكة</string>

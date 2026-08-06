@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Nakamkirê</string>
     <string name="home_apk_availability_yes">Ew, min alîkarê dîtina APK-yê bikîn</string>
     <string name="home_apk_availability_no">Na, ez APK-yek heznikim</string>
+    <string name="home_apk_helper_download">Serlêdanê arîkar bikar bînin</string>
+    <string name="home_apk_helper_title">Bi serlêdanek arîkar dakêşin</string>
+    <string name="home_apk_helper_description">Morphe ji serlêdanê arîkarê jêrîn wê bigire ku APK-ya orjînal dakêşîne û pelê paş de bide</string>
+    <string name="home_apk_helper_continue">Serlêdanê arîkar veke</string>
+    <string name="home_apk_helper_warning">Tenê pêşkeve, heke te ewî serlêdanê arîkar bawer bikî. Morphe paketa, versiyon û îmzeya her tiştê ku werdigire berî girêdayînê kontrol dike</string>
+    <string name="home_apk_helper_warning_unverified">Tenê pêşkeve, heke te ewî serlêdanê arîkar bawer bikî. Morphe nikare îmzaya vê APK-yê verast bike, ji ber vê yekê pelê guherandî nabe dîtin</string>
+    <string name="home_apk_helper_no_result">Serlêdanê arîkar APK-yek negerand</string>
+    <string name="home_apk_helper_no_access">Serlêdanê arîkar destûr nedaye gihîştina APK-ya ku ew gerand</string>
     <string name="home_apk_use_saved">APK ya saved bikar bîne</string>
     <string name="home_apk_use_installed">APK ya sazkirî bikar bîne</string>
     <string name="home_apk_use_installed_unverified">Nezêrbû ku îmzaya sepanê yê ku hatî saz kirin bê xeml kirin, lew re dibe ku jî berê hatî guhertin</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Paqejiyê ne hebin</string>
     <string name="expert_mode_universal_patches">Pêtên hevpar.</string>
     <string name="expert_mode_new_patches">Nû</string>
+    <string name="expert_mode_patch_required_by_installer">Ji bo hedefê ku hatî hilbijartîn hewce ye</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Ji bo hedefê ku hatî hilbijartîn peyda nabe</string>
     <string name="expert_mode_multiple_sources_warning_title">Berî çend seyarên bejna tê</string>
     <string name="expert_mode_multiple_sources_warning_message">"Hûn bejna seyarê berî çendan bejna kirin. Gûma serdebaza pêşçuna bêgîri azre be."</string>
     <!-- Home Screen - Home Sub-Dialogs -->
@@ -315,6 +325,10 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="header_creator_guide_positioning_title">Cîkirin û mezînkirin</string>
     <string name="header_creator_guide_positioning_body">Ji bo cîkirin û mezînkirina wêneya we rasterast di pêşdîtinê de tevgerên dîtin û drag bikar bîne. Rêberên snap-ê dema ku wêne nêzî navendê dibe xuya dibin. Hûn dikarin her wiha ji slidera jorîn jî bikar bînin.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">Hilbijartî pê ve girêdayî</string>
+    <string name="batch_patch_title">Girêdayîna porê</string>
+    <string name="batch_patch_planning">Lîstikê tê amadekirin…</string>
+    <string name="batch_patch_preparing_next">Serlêdanê din tê amadekirin…</string>
     <string name="batch_patch_progress_counter">%1$s ê %2$s hat serkirin</string>
     <string name="batch_patch_summary">%1$s hat serkirin, %2$s têkçû, %3$s hat derbas kirin</string>
     <string name="batch_patch_saved_hint">Sepandina sepanên patchkirî hatin tomar kirin. Naha wan saz bikin, an paşê ji lîsteya APKyên patchkirî di settingsan de</string>
@@ -414,6 +428,7 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="patcher_install_error_subtitle">Heke hewce bike, saz bike û dîsa saz bike</string>
     <string name="patcher_ready_to_install_subtitle">Ji bo saz kirinê ser  duxwe bikşînin</string>
     <string name="patcher_ready_to_mount_subtitle">Ji bo avakirinê ser duxwe bikşînin</string>
+    <string name="patcher_patches_excluded_for_installer">Ji bo rêbazê ku hatî hilbijartîn peyda nabe û tê derxistin: %s</string>
     <string name="patcher_storage_permission_dialog_title">Nabe sererît rêyê wergirtina separe</string>
     <string name="patcher_incompatible_patcher_title">Nûvekirin hewce ye</string>
     <string name="patcher_incompatible_patcher_description">Berhevok &lt;b&gt;%1$s&lt;/b&gt; hewiyeke guhertoyê &lt;b&gt;%2$s&lt;/b&gt; an nûtir hewiyaye. Ji kerem Morphe nûve bike da ku vê serlêdanê guhêrî</string>
@@ -536,6 +551,7 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_appearance_dynamic">Material You</string>
     <string name="settings_appearance_monochrome">Tekrêng</string>
     <string name="settings_appearance_color_style">Şêwey reng</string>
+    <string name="settings_appearance_colors">Reng</string>
     <string name="settings_appearance_accent_color">Rengê serdest</string>
     <string name="settings_appearance_pure_black">Rewşê veşer</string>
     <string name="settings_appearance_pure_black_description">Bêjeya paşnavê reş ê rastîn bikar bîne</string>
@@ -553,6 +569,9 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_appearance_app_grouping_description">Nîşanekê bike ku sepanan bi çavkanî an kategoriyên te kom bike, hilbijarkirina xwe jî dema ku neçalak e parastin</string>
     <string name="settings_appearance_sort_button">Dugmeya rêberkirinê</string>
     <string name="settings_appearance_sort_button_description">Dugmeya rêberkirinê li ser mîhengê nîşan bide</string>
+    <string name="settings_appearance_app_card_colors">Rengên karta sepanê</string>
+    <string name="settings_appearance_app_card_colors_default">Bixweber</string>
+    <string name="settings_appearance_app_card_colors_default_description">Bi her sepanê rengê paketa wê bidin</string>
     <string name="settings_appearance_app_card_colors_accent">Accent</string>
     <string name="settings_appearance_app_card_colors_accent_description">Rengê dinamiya sepanê ji bo kartên sepanê yên malê bikar bîne</string>
     <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
@@ -947,6 +966,8 @@ Detay: %2$s"</string>
     <string name="settings_system_custom_file_picker">Hilbijêrkê pelan yê xwerû</string>
     <string name="settings_system_custom_file_picker_description">Li şûna hilbijêrkê pelan yê serî yê sîstemê, hilbijêrkê pelan yê têne çêkirin yê Morphe bikar bîne</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Arîkareka dakêşina APK-yê</string>
+    <string name="settings_system_apk_download_helper_description">Bi serlêdanek arîkar ku hatiye saz kirin, APK-yên orjînal ji bo we bistîne. Pel ji wê serlêdanê tê, ji ber vê yekê tenê wê pêşkeve heke te wê bawer bikî</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Pêşîya rêgehê</string>
     <string name="file_picker_no_files">Li vir pel nehatine dîtin</string>
@@ -1091,6 +1112,8 @@ Detay: %2$s"</string>
     <string name="installing_manager_update">Sazkirina nûvekirinê…</string>
     <string name="downloading_manager_update">Bar kirina nûvekirinê…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB hat dakêşkirin</string>
+    <string name="manager_update_not_ready">Ev weşan hîn tê weşandin. Çend hûrdan piştî din bicirêbin</string>
     <string name="download_manager_failed">Bar kirina nûvekirinê serket: %s</string>
     <string name="failed_to_check_updates">Serketina kontrolkirina nûvekirinê: %s</string>
     <string name="failed_to_download_update">Bar kirina nûvekirinê serket: %s</string>

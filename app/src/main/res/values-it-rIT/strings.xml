@@ -167,6 +167,14 @@ Nessuna patch disponibile</string>
     <string name="home_apk_availability_incompatible_label">Incompatibile</string>
     <string name="home_apk_availability_yes">Sì, aiutami a trovare un APK</string>
     <string name="home_apk_availability_no">No, ho già un APK</string>
+    <string name="home_apk_helper_download">Usa un\'app di supporto</string>
+    <string name="home_apk_helper_title">Scarica con un\'app di supporto</string>
+    <string name="home_apk_helper_description">Morphe chiederà all\'app di supporto sottostante di scaricare l\'APK originale e restituire il file</string>
+    <string name="home_apk_helper_continue">Apri l\'app di supporto</string>
+    <string name="home_apk_helper_warning">Continua solo se ti fidi di questa app di supporto. Morphe verifica il pacchetto, la versione e la firma di ciò che riceve prima di applicare le patch</string>
+    <string name="home_apk_helper_warning_unverified">Continua solo se ti fidi di questa app di supporto. Morphe non può verificare la firma di questo APK, quindi un file modificato non verrebbe rilevato</string>
+    <string name="home_apk_helper_no_result">L\'app di supporto non ha restituito un APK</string>
+    <string name="home_apk_helper_no_access">L\'app di supporto non ha concesso l\'accesso all\'APK restituito</string>
     <string name="home_apk_use_saved">Usa APK salvato</string>
     <string name="home_apk_use_installed">Usa APK installato</string>
     <string name="home_apk_use_installed_unverified">Impossibile verificare la firma dell\'app installata, pertanto potrebbe essere già stata modificata</string>
@@ -225,6 +233,8 @@ Nessuna patch disponibile</string>
     <string name="expert_mode_no_results">Nessuna patch trovata</string>
     <string name="expert_mode_universal_patches">Patch universali</string>
     <string name="expert_mode_new_patches">Nuovo</string>
+    <string name="expert_mode_patch_required_by_installer">Necessario per la destinazione di installazione selezionata</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Non disponibile per la destinazione di installazione selezionata</string>
     <string name="expert_mode_multiple_sources_warning_title">Molteplici fonti delle patch selezionate</string>
     <string name="expert_mode_multiple_sources_warning_message">"Hai selezionato delle patch da molteplici fonti delle patch. Ciò potrebbe causare problemi di compatibilità o comportamenti imprevisti.
 
@@ -421,6 +431,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_install_error_subtitle">Prova a disinstallare e installare di nuovo</string>
     <string name="patcher_ready_to_install_subtitle">Premi il pulsante qui sotto per installare</string>
     <string name="patcher_ready_to_mount_subtitle">Premi il pulsante qui sotto per montare</string>
+    <string name="patcher_patches_excluded_for_installer">Non disponibile per questo metodo di installazione ed escluso: %s</string>
     <string name="patcher_storage_permission_dialog_title">Non è possibile accedere alla cartella di archiviazione</string>
     <string name="patcher_incompatible_patcher_title">Aggiornamento richiesto</string>
     <string name="patcher_incompatible_patcher_description">Il bundle &lt;b&gt;%1$s&lt;/b&gt; richiede la versione del patcher &lt;b&gt;%2$s&lt;/b&gt; o successiva. Aggiorna Morphe per poter patchare questa app</string>
@@ -958,6 +969,8 @@ Dettagli: %2$s"</string>
     <string name="settings_system_custom_file_picker">Selettore di file personalizzato</string>
     <string name="settings_system_custom_file_picker_description">Utilizza il selettore di file integrato di Morphe invece di quello predefinito del sistema</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">App di supporto per il download di APK</string>
+    <string name="settings_system_apk_download_helper_description">Consenti a un\'app di supporto installata di recuperare gli APK originali per te. Il file proviene da quell\'app, quindi abilita questa opzione solo se ti fidi di essa</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Directory precedente</string>
     <string name="file_picker_no_files">Nessun file qui</string>

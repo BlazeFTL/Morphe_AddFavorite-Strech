@@ -166,6 +166,10 @@
     <string name="home_apk_availability_incompatible_label">Onversoenbaar</string>
     <string name="home_apk_availability_yes">Ja, help my om \'n APK te vind</string>
     <string name="home_apk_availability_no">Nee, ek het reeds \'n APK</string>
+    <string name="home_apk_helper_download">Gebruik \'n hulp-app</string>
+    <string name="home_apk_helper_title">Laai af met \'n hulp-app</string>
+    <string name="home_apk_helper_description">Morphe sal die helper-app hieronder vra om die oorspronklike APK af te laai en die lêer terug te gee</string>
+    <string name="home_apk_helper_continue">Maak helper-app oop</string>
     <string name="home_apk_helper_warning">Gaan slegs voort as jy hierdie helper-toepassing vertrou. Morphe kontroleer die pakket, weergawe en handtekening van alles wat dit ontvang voordat dit reggemaak word</string>
     <string name="home_apk_helper_warning_unverified">Gaan slegs voort as jy hierdie helper-toepassing vertrou. Morphe kan nie die handtekening van hierdie APK verifieer nie, so \'n gewysigde lêer sal nie opgespoor word nie</string>
     <string name="home_apk_helper_no_result">Die helper-toepassing het nie \'n APK teruggegee nie</string>
@@ -1110,6 +1114,8 @@ Besonderhede: %2$s"</string>
     <string name="installing_manager_update">Installeer opdatering…</string>
     <string name="downloading_manager_update">Laai opdatering af…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB afgelaai</string>
+    <string name="manager_update_not_ready">Hierdie weergawe word nog steeds gepubliseer. Probeer weer oor \'n paar minute</string>
     <string name="download_manager_failed">Kon nie opdatering aflaai nie: %s</string>
     <string name="failed_to_check_updates">Kon nie opdaterings nagaan nie: %s</string>
     <string name="failed_to_download_update">Kon nie opdatering aflaai nie: %s</string>

@@ -170,6 +170,10 @@
     <string name="home_apk_helper_title">Downloaden met een hulpprogramma</string>
     <string name="home_apk_helper_description">Morphe vraagt de onderstaande hulpprogramma om de originele APK te downloaden en het bestand terug te geven</string>
     <string name="home_apk_helper_continue">Hulpprogramma openen</string>
+    <string name="home_apk_helper_warning">Ga alleen verder als u deze hulpprogramma-app vertrouwt. Morphe controleert het pakket, de versie en de handtekening van alles wat het ontvangt voordat het gaat patchen.</string>
+    <string name="home_apk_helper_warning_unverified">Ga alleen verder als u deze hulpprogramma-app vertrouwt. Morphe kan de handtekening van deze APK niet verifiëren, dus een gewijzigd bestand zou niet worden gedetecteerd.</string>
+    <string name="home_apk_helper_no_result">De hulpprogramma-app heeft geen APK geretourneerd.</string>
+    <string name="home_apk_helper_no_access">De hulpprogramma-app heeft geen toegang verleend tot de geretourneerde APK.</string>
     <string name="home_apk_use_saved">Gebruik opgeslagen APK</string>
     <string name="home_apk_use_installed">Gebruik geïnstalleerde APK</string>
     <string name="home_apk_use_installed_unverified">Kon de handtekening van de geïnstalleerde app niet verifiëren, dus deze is mogelijk al gepatcht</string>
@@ -228,6 +232,8 @@
     <string name="expert_mode_no_results">Geen patches gevonden</string>
     <string name="expert_mode_universal_patches">Universele patches</string>
     <string name="expert_mode_new_patches">Nieuw</string>
+    <string name="expert_mode_patch_required_by_installer">Vereist voor het geselecteerde installatiedoel</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Niet beschikbaar voor het geselecteerde installatiedoel</string>
     <string name="expert_mode_multiple_sources_warning_title">Meerdere patch-bronnen geselecteerd</string>
     <string name="expert_mode_multiple_sources_warning_message">"U heeft patches geselecteerd van meerdere patch-bronnen. Dit kan compatibiliteitsproblemen of onverwachte gedrag veroorzaken.
 
@@ -424,6 +430,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_install_error_subtitle">Probeer opnieuw te verwijderen en te installeren</string>
     <string name="patcher_ready_to_install_subtitle">Druk op de onderstaande knop om te installeren</string>
     <string name="patcher_ready_to_mount_subtitle">Druk op de onderstaande knop om te koppelen</string>
+    <string name="patcher_patches_excluded_for_installer">Niet beschikbaar voor deze installatiemethode en uitgesloten: %s</string>
     <string name="patcher_storage_permission_dialog_title">Kan opslagpad niet openen</string>
     <string name="patcher_incompatible_patcher_title">Update vereist</string>
     <string name="patcher_incompatible_patcher_description">Het bundel &lt;b&gt;%1$s&lt;/b&gt; vereist patcher versie &lt;b&gt;%2$s&lt;/b&gt; of hoger. Update Morphe om deze app te patchen</string>
@@ -961,6 +968,8 @@ Details: %2$s"</string>
     <string name="settings_system_custom_file_picker">Aangepaste bestandsselector</string>
     <string name="settings_system_custom_file_picker_description">Gebruik de ingebouwde bestandsselector van Morphe in plaats van de standaardinstelling van het systeem</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK-downloadhelper</string>
+    <string name="settings_system_apk_download_helper_description">Laat een geïnstalleerde hulpprogramma-app originele APK\'s voor u ophalen. Het bestand komt van die app, dus schakel dit alleen in als u deze vertrouwt.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorige map</string>
     <string name="file_picker_no_files">Geen bestanden hier</string>

@@ -166,11 +166,21 @@
     <string name="home_apk_availability_incompatible_label">Không tương thích</string>
     <string name="home_apk_availability_yes">Có, giúp tôi với</string>
     <string name="home_apk_availability_no">Không, tôi có APK rồi</string>
+    <string name="home_apk_helper_download">Sử dụng một ứng dụng hỗ trợ</string>
+    <string name="home_apk_helper_title">Tải xuống bằng một ứng dụng hỗ trợ</string>
+    <string name="home_apk_helper_description">Morphe sẽ yêu cầu ứng dụng hỗ trợ bên dưới tải xuống APK gốc và trả lại tệp</string>
+    <string name="home_apk_helper_continue">Mở ứng dụng hỗ trợ</string>
+    <string name="home_apk_helper_warning">Chỉ tiếp tục nếu bạn tin tưởng ứng dụng hỗ trợ này. Morphe sẽ kiểm tra gói, phiên bản và chữ ký của mọi thứ nhận được trước khi vá</string>
+    <string name="home_apk_helper_warning_unverified">Chỉ tiếp tục nếu bạn tin tưởng ứng dụng hỗ trợ này. Morphe không thể xác minh chữ ký của APK này, vì vậy một tệp đã sửa đổi sẽ không được phát hiện</string>
+    <string name="home_apk_helper_no_result">Ứng dụng hỗ trợ không trả về APK</string>
+    <string name="home_apk_helper_no_access">Ứng dụng hỗ trợ không cấp quyền truy cập vào APK mà nó trả về</string>
     <string name="home_apk_use_saved">Sử dụng APK đã lưu</string>
     <string name="home_apk_use_installed">Sử dụng APK đã cài đặt</string>
+    <string name="home_apk_use_installed_unverified">Không thể xác minh chữ ký của ứng dụng đã cài đặt, vì vậy ứng dụng có thể đã bị sửa đổi</string>
     <string name="home_app_info_no_saved_apk">Chưa lưu APK nào. Bạn sẽ phải chọn lại APK khi vá</string>
     <string name="home_version_requires_android">Yêu cầu Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Không hỗ trợ trên thiết bị này</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; không có phiên bản nào hỗ trợ cho Android %2$s (API %3$s). Tất cả các phiên bản đã khai báo đều yêu cầu phiên bản Android cao hơn</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Tải APK gốc</string>
     <string name="home_download_instructions_steps_title">Hướng dẫn:</string>
@@ -222,6 +232,8 @@
     <string name="expert_mode_no_results">Không tìm thấy bản vá nào</string>
     <string name="expert_mode_universal_patches">Bản vá phổ quát</string>
     <string name="expert_mode_new_patches">Mới</string>
+    <string name="expert_mode_patch_required_by_installer">Yêu cầu cho mục cài đặt đã chọn</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Không khả dụng cho mục cài đặt đã chọn</string>
     <string name="expert_mode_multiple_sources_warning_title">Đã chọn nhiều nguồn vá</string>
     <string name="expert_mode_multiple_sources_warning_message">"Bạn đã chọn các bản vá từ nhiều nguồn khác nhau. Điều đó khiến ứng dụng có thể gặp phải các vấn đề về tương thích hoặc không hoạt động như mong muốn.
 
@@ -246,6 +258,7 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="home_dialog_unsupported_version_compatible_versions">Phiên bản tương thích:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Không tương thích</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Bản dựng %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Mặc dù cùng phiên bản, nhưng đây là bản dựng khác. Các bản vá yêu cầu đúng bản dựng mới hỗ trợ</string>
     <string name="home_dialog_wrong_package_title">Chọn sai gói rồi</string>
     <string name="home_dialog_wrong_package_description">APK đã chọn không dành cho ứng dụng mà bạn định vá</string>
@@ -318,6 +331,8 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="batch_patch_title">Đang vá hàng loạt</string>
     <string name="batch_patch_planning">Đang chuẩn bị hàng đợi…</string>
     <string name="batch_patch_preparing_next">Đang chuẩn bị ứng dụng tiếp theo…</string>
+    <string name="batch_patch_progress_counter">Đã vá %1$s của %2$s</string>
+    <string name="batch_patch_summary">%1$s đã vá, %2$s thất bại, %3$s bị bỏ qua</string>
     <string name="batch_patch_saved_hint">Các ứng dụng đã vá đã được lưu. Cài đặt chúng ngay bây giờ hoặc sau từ danh sách APK đã vá trong cài đặt</string>
     <string name="batch_patch_multiple_sources">Một số ứng dụng kết hợp các bản vá từ nhiều nguồn khác nhau, điều này có thể gây ra xung đột</string>
     <string name="batch_patch_needs_apk">Không có APK nào, hãy đính kèm một tệp</string>
@@ -328,6 +343,7 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="batch_patch_source_file">Tệp đính kèm</string>
     <string name="batch_patch_source_unavailable">Không thể chuẩn bị APK</string>
     <string name="batch_patch_force_version">Vẫn tiếp tục vá</string>
+    <string name="batch_patch_force_version_done">Vẫn được xếp vào hàng đợi, các bản vá được tạo cho các phiên bản khác có thể làm hỏng ứng dụng</string>
     <string name="batch_patch_edit_patches">Chọn bản vá</string>
     <string name="batch_patch_state_no_apk">Không có APK</string>
     <string name="batch_patch_state_no_patches">Không có bản vá</string>
@@ -347,6 +363,7 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="shortcut_patch_app">Vá %s</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Bạn có chắc muốn gỡ ứng dụng này không?</string>
+    <string name="batch_uninstall_confirm_body">Các ứng dụng được chọn sẽ bị xóa vĩnh viễn khỏi thiết bị của bạn</string>
     <string name="home_app_info_remove_app_warning">Thao tác này sẽ xóa vĩnh viễn:</string>
     <string name="home_app_info_delete_item_database">Nhật ký cơ sở dữ liệu</string>
     <string name="home_app_info_delete_item_patched_apk">Tệp APK đã vá</string>
@@ -376,6 +393,7 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="root_pre_patch_installer_description">Thiết bị của bạn đã có quyền root. Chọn xem ứng dụng này có nên được vá để gắn kết root hay cài đặt tiêu chuẩn không.</string>
     <string name="root_pre_patch_installer_mount_title">Chế độ gắn kết root</string>
     <string name="root_pre_patch_installer_mount_description">Vá lỗi cho chế độ gắn kết root, sau đó gắn kết tệp APK lên ứng dụng gốc tương ứng. Không cần GmsCore</string>
+    <string name="root_mount_module_unmount_warning">Nếu KernelSU có tùy chọn Gỡ bỏ mô-đun theo mặc định được bật, hãy mở KernelSU > Superuser > ứng dụng bạn đã gắn kết > Profile > Tùy chỉnh và tắt Gỡ bỏ mô-đun. Nếu không, tệp APK đã vá có thể không hoạt động, ngay cả khi Morphe hiển thị nó là đã gắn kết</string>
     <string name="root_pre_patch_installer_standard_title">Chế độ cài đặt tiêu chuẩn</string>
     <string name="root_pre_patch_installer_standard_description">Vá dưới dạng APK thông thường với hỗ trợ GmsCore. Cài đặt của bạn sẽ được sử dụng sau khi vá</string>
     <string name="root_pre_patch_installer_hint">Chế độ vá này khác với Cài đặt > Hệ thống > Trình cài đặt và không thể thay đổi sau khi vá</string>
@@ -412,6 +430,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_install_error_subtitle">Hãy thử gỡ và cài đặt lại</string>
     <string name="patcher_ready_to_install_subtitle">Bấm nút bên dưới để cài đặt</string>
     <string name="patcher_ready_to_mount_subtitle">Bấm nút bên dưới để gắn kết</string>
+    <string name="patcher_patches_excluded_for_installer">Không khả dụng cho phương thức cài đặt này và bị loại trừ: %s</string>
     <string name="patcher_storage_permission_dialog_title">Không thể truy cập đường dẫn bộ nhớ</string>
     <string name="patcher_incompatible_patcher_title">Cần phải cập nhật</string>
     <string name="patcher_incompatible_patcher_description">Gói &lt;b&gt;%1$s&lt;/b&gt; yêu cầu phiên bản trình vá &lt;b&gt;%2$s&lt;/b&gt; trở lên. Vui lòng cập nhật Morphe để vá ứng dụng này</string>
@@ -490,6 +509,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="failed_to_mount">Không thể gắn: %s</string>
     <string name="failed_to_unmount">Không thể gỡ gắn: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Điểm %s</string>
+    <string name="mini_game_best">Cao nhất %s</string>
     <string name="mini_game_new_record">Kỷ lục mới!</string>
     <string name="mini_game_game_over">Bạn đã thua</string>
     <string name="mini_game_try_again">Thử lại</string>
@@ -532,6 +553,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_dynamic">Cá nhân hóa</string>
     <string name="settings_appearance_monochrome">Đơn sắc</string>
     <string name="settings_appearance_color_style">Phong cách màu</string>
+    <string name="settings_appearance_colors">Màu sắc</string>
     <string name="settings_appearance_accent_color">Màu nổi bật</string>
     <string name="settings_appearance_pure_black">Đen tuyền</string>
     <string name="settings_appearance_pure_black_description">Nền đen thực sự</string>
@@ -549,6 +571,19 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_app_grouping_description">Hiển thị công tắc màn hình chính để nhóm ứng dụng theo nguồn hoặc danh mục của riêng bạn, giữ lựa chọn khi tắt</string>
     <string name="settings_appearance_sort_button">Nút sắp xếp</string>
     <string name="settings_appearance_sort_button_description">Hiển thị nút sắp xếp trên màn hình chính</string>
+    <string name="settings_appearance_app_card_colors">Màu thẻ ứng dụng</string>
+    <string name="settings_appearance_app_card_colors_default">Mặc định</string>
+    <string name="settings_appearance_app_card_colors_default_description">Gán màu của gói ứng dụng cho mỗi ứng dụng</string>
+    <string name="settings_appearance_app_card_colors_accent">Nổi bật</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Sử dụng màu nổi bật của ứng dụng cho thẻ ứng dụng trên màn hình chính</string>
+    <string name="settings_appearance_app_card_colors_gradient">Gradient</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Sử dụng một gradient tùy chỉnh cho thẻ ứng dụng trên màn hình chính</string>
+    <string name="settings_appearance_app_card_colors_solid">Solid</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Sử dụng một màu tùy chỉnh cho thẻ ứng dụng trên màn hình chính</string>
+    <string name="settings_appearance_app_card_colors_start">Màu bắt đầu</string>
+    <string name="settings_appearance_app_card_colors_middle">Màu giữa</string>
+    <string name="settings_appearance_app_card_colors_end">Màu kết thúc</string>
+    <string name="settings_appearance_app_card_colors_solid_color">Màu nền</string>
     <string name="settings_appearance_app_card_colors_bundle">Màu chủ đề ứng dụng</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Sử dụng màu sắc riêng của từng ứng dụng tại đây, được tô bóng tự động để phù hợp</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
@@ -933,6 +968,8 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_custom_file_picker">Tùy chỉnh trình chọn tệp</string>
     <string name="settings_system_custom_file_picker_description">Duyệt bộ nhớ bằng trình chọn tệp tích hợp của Morphe thay vì trình chọn mặc định của hệ thống</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Trình hỗ trợ tải xuống APK</string>
+    <string name="settings_system_apk_download_helper_description">Để ứng dụng hỗ trợ đã cài đặt tìm nạp các APK gốc cho bạn. Tệp đến từ ứng dụng đó, vì vậy chỉ bật tính năng này nếu bạn tin tưởng ứng dụng đó</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Thư mục trước</string>
     <string name="file_picker_no_files">Chẳng có gì ở đây cả</string>
@@ -1077,6 +1114,8 @@ Chi tiết: %2$s"</string>
     <string name="installing_manager_update">Đang cài đặt bản cập nhật…</string>
     <string name="downloading_manager_update">Đang tải bản cập nhật…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB đã tải xuống</string>
+    <string name="manager_update_not_ready">Bản phát hành này vẫn đang được đăng tải. Vui lòng thử lại sau vài phút</string>
     <string name="download_manager_failed">Không thể tải bản cập nhật: %s</string>
     <string name="failed_to_check_updates">Không thể kiểm tra cập nhật: %s</string>
     <string name="failed_to_download_update">Không tải được bản cập nhật: %s</string>

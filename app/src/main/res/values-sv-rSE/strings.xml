@@ -313,6 +313,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="header_creator_guide_positioning_body">Nyp och dra direkt i förhandsgranskningen för att flytta och skalförändra bilden. Hjälplinjer visas när bilden är nära mitten. Du kan även använda skjutreglaget under förhandsgranskningen.</string>
     <!-- Batch patching -->
     <string name="batch_patch_action">Modifiera markerade</string>
+    <string name="shortcut_check_updates_short">Sök efter uppdateringar</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Är du säker på att du vill avinstallera den här appen?</string>
     <string name="batch_uninstall_confirm_body">De markerade apparna tas bort från enheten permanent</string>
@@ -456,6 +457,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="failed_to_mount">Det gick inte att montera: %s</string>
     <string name="failed_to_unmount">Det gick inte att avmontera: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Poäng %s</string>
+    <string name="mini_game_best">Rekord %s</string>
     <string name="mini_game_new_record">Nytt rekord!</string>
     <string name="mini_game_game_over">Spelet är slut</string>
     <string name="mini_game_try_again">Försök igen</string>
@@ -570,6 +573,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_advanced_auto_patch_install_description">Kräver Shizuku som installerare. Med andra installerare sparas de modifierade apparna endast</string>
     <string name="settings_advanced_external_batch_patch">Tillåt externa utlösare</string>
     <!-- Notification content -->
+    <string name="notification_channel_auto_patch">Modifiera igen automatiskt</string>
     <string name="notification_manager_update_title">Uppdatering för Morphe är tillgänglig</string>
     <string name="notification_bundle_update_title">Nya tillägg är tillgängliga </string>
     <string name="notification_update_text">Version %s är redo att laddas ned</string>
@@ -938,6 +942,7 @@ Information: %2$s"</string>
     <string name="confirm">Bekräfta</string>
     <string name="warning">Varning</string>
     <string name="error_">Fel</string>
+    <string name="ready">Redo</string>
     <string name="retry">Försök igen</string>
     <string name="refresh">Uppdatera</string>
     <string name="add">Lägg till</string>
@@ -950,6 +955,7 @@ Information: %2$s"</string>
     <string name="delete">Radera</string>
     <string name="delete_all">Radera alla</string>
     <string name="remove">Ta bort</string>
+    <string name="excluded">Undantagen</string>
     <string name="disable">Inaktivera</string>
     <string name="enable">Aktivera</string>
     <string name="loading">Läser in …</string>
@@ -978,6 +984,7 @@ Information: %2$s"</string>
     <string name="reset_order_done">Ordningen återställdes</string>
     <string name="accessibility_move_up">Flytta uppåt</string>
     <string name="accessibility_move_down">Flytta nedåt</string>
+    <string name="accessibility_app_moved_announcement">%1$s flyttades till position %2$s av %3$s</string>
     <string name="accessibility_scroll_to_top">Skrolla till toppen av listan</string>
     <string name="rename">Byt namn</string>
     <string name="import_">Importera</string>
@@ -993,6 +1000,7 @@ Information: %2$s"</string>
     <string name="continue_">Fortsätt</string>
     <string name="version">Version</string>
     <string name="patch">Modifiera</string>
+    <string name="patching">Modifiering</string>
     <string name="repatch">Modifiera igen</string>
     <string name="open">Öppna</string>
     <string name="mount">Montera</string>

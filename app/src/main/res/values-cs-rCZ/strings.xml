@@ -23,6 +23,7 @@
     <string name="home_metadata_errors_title">Některé zdroje záplat jsou nedostupné</string>
     <string name="home_metadata_errors_subtitle">Klepnutím zkontrolujete zdroje</string>
     <string name="home_outdated_manager_title">Morphe je zastaralý</string>
+    <string name="home_outdated_manager_subtitle">Některé zdroje záplat vyžadují novější verzi</string>
     <string name="home_metered_skipped_title">Aktualizace pozastaveny na mobilních datech</string>
     <string name="home_metered_skipped_subtitle">Klepnutím povolíte aktualizace přes mobilní data</string>
     <string name="home_update_error">Aktualizace selhala</string>
@@ -123,6 +124,8 @@
     <string name="sources_management_metadata_unavailable">Metadata N/A</string>
     <string name="sources_management_metadata_unavailable_hint">Soubor s metadaty na vzdáleném serveru není dostupný. Záplatování pomocí nainstalovaného balíčku stále funguje, ale automatická aktualizace je pro tento zdroj zakázána</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Balíček oprav nemohl být stažen. Adresa URL zdroje může být neplatná nebo soubor nemusí existovat</string>
+    <string name="sources_management_outdated_manager_badge">Aktualizovat Morphe</string>
+    <string name="sources_management_outdated_manager_hint">Tento zdroj je vytvořen pro patcher %1$s, ale Morphe %2$s obsahuje patcher %3$s. Aktualizujte Morphe pro jeho použití</string>
     <string name="sources_management_source_enabled">Zdroj aktivován</string>
     <string name="sources_management_source_disabled">Zdroj deaktivován</string>
     <string name="sources_management_source_updating">Aktualizace zdroje</string>
@@ -163,12 +166,21 @@
     <string name="home_apk_availability_incompatible_label">Nekompatibilní</string>
     <string name="home_apk_availability_yes">Ano, pomozte mi najít APK</string>
     <string name="home_apk_availability_no">Ne, už mám APK</string>
+    <string name="home_apk_helper_download">Použít pomocnou aplikaci</string>
+    <string name="home_apk_helper_title">Stáhnout pomocí pomocné aplikace</string>
+    <string name="home_apk_helper_description">Morphe požádá níže uvedenou pomocnou aplikaci o stažení původního APK a vrácení souboru</string>
+    <string name="home_apk_helper_continue">Otevřít pomocnou aplikaci</string>
+    <string name="home_apk_helper_warning">Pokračujte pouze v případě, že této pomocné aplikaci důvěřujete. Morphe před záplatováním kontroluje balíček, verzi a podpis všeho, co obdrží</string>
+    <string name="home_apk_helper_warning_unverified">Pokračujte pouze v případě, že této pomocné aplikaci důvěřujete. Morphe nemůže ověřit podpis tohoto APK, takže upravený soubor by nebyl odhalen</string>
+    <string name="home_apk_helper_no_result">Pomocná aplikace nevrátila APK</string>
+    <string name="home_apk_helper_no_access">Pomocná aplikace neudělila přístup k vrácenému APK</string>
     <string name="home_apk_use_saved">Použít uložený APK</string>
     <string name="home_apk_use_installed">Użyj zainstalowane APK</string>
     <string name="home_apk_use_installed_unverified">Nepodařilo se ověřit podpis nainstalované aplikace, takže může být již opravená</string>
     <string name="home_app_info_no_saved_apk">Není uložené žádné APK. Pro záplatování bude potřeba vybrat soubor APK znovu</string>
     <string name="home_version_requires_android">Vyžaduje Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Není podporováno na tomto zařízení</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nemá podporované verze pro Android %2$s (API %3$s). Všechny deklarované verze vyžadují vyšší verzi Androidu</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Stáhnout původní APK</string>
     <string name="home_download_instructions_steps_title">Postup:</string>
@@ -246,6 +258,7 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatibilní verze:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Nekompatibilní</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Sestavení %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Toto je jiná sestavení stejné verze. Opravy vyžadují specifické sestavení</string>
     <string name="home_dialog_wrong_package_title">Vybrán špatný balíček</string>
     <string name="home_dialog_wrong_package_description">Vybrané APK není pro aplikaci, kterou jste chtěli záplatovat</string>
@@ -255,6 +268,7 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="home_dialog_orphaned_install_description">Oprava změnila název balíčku, takže opravená kopie je stále nainstalována jako samostatná aplikace</string>
     <string name="home_dialog_orphaned_install_warning">Není již sledována a nebude dostávat aktualizace oprav</string>
     <string name="home_dialog_orphaned_install_uninstall">Odinstalovat ji</string>
+    <string name="home_dialog_orphaned_install_keep">Ponechat</string>
     <string name="home_outdated_patches_dialog_title">Záplaty mohou být zastaralé</string>
     <string name="home_outdated_patches_dialog_message">Mobilní data jsou zapnuta a aktualizace záplat je zakázáno</string>
     <string name="home_outdated_patches_dialog_warning">Záplatování pomocí zastaralých záplat může vést k nefunkčnosti aplikace</string>
@@ -317,6 +331,8 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="batch_patch_title">Hromadné záplatování</string>
     <string name="batch_patch_planning">Připravuje se fronta…</string>
     <string name="batch_patch_preparing_next">Připravuje se další aplikace…</string>
+    <string name="batch_patch_progress_counter">Záplatováno %1$s z %2$s</string>
+    <string name="batch_patch_summary">%1$s záplatováno, %2$s selhalo, %3$s přeskočeno</string>
     <string name="batch_patch_saved_hint">Aplikace po záplatování jsou uloženy. Nainstalujte je nyní nebo později ze seznamu záplatovaných APK v nastavení</string>
     <string name="batch_patch_multiple_sources">Některé aplikace kombinují záplaty z více zdrojů, což může způsobit konflikty</string>
     <string name="batch_patch_needs_apk">Žádné APK k dispozici, přiložte soubor</string>
@@ -327,6 +343,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="batch_patch_source_file">Přiložený soubor</string>
     <string name="batch_patch_source_unavailable">APK se nepodařilo připravit</string>
     <string name="batch_patch_force_version">Aplikovat i tak</string>
+    <string name="batch_patch_force_version_done">Přesto zařazeno do fronty, záplaty pro jiné verze mohou rozbít aplikaci</string>
     <string name="batch_patch_edit_patches">Zvolit záplaty</string>
     <string name="batch_patch_state_no_apk">Žádné APK</string>
     <string name="batch_patch_state_no_patches">Žádné záplaty</string>
@@ -387,6 +404,8 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="patcher_error_dialog_app_info">Informace o aplikaci</string>
     <string name="patcher_tab_logs">Protokoly záplat</string>
     <string name="patcher_tab_game">Hry</string>
+    <string name="patcher_logs_waiting">Čekání na výstup logu…</string>
+    <string name="patcher_logs_lost">Výstup logu není uchováván mezi restartováním aplikace</string>
     <string name="patcher_long_step_warning">Tento krok může chvíli trvat. Počkejte prosím…</string>
     <string name="patcher_installing_subtitle">Skoro hotovo! Připrav se na pořádnou jízdu! 🏎️</string>
     <string name="patcher_success_title">Hotovo! 🎉</string>
@@ -397,7 +416,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="patcher_failed_dialog_title">Záplatování selhalo</string>
     <string name="patcher_unknown_error">Došlo k neznámé chybě</string>
     <string name="patcher_split_step_extracting">Extrahování rozdělených APK</string>
-    <string name="patcher_split_step_merging">Slévání %s</string>
+    <string name="patcher_split_step_merging">Slučování %s</string>
     <string name="patcher_split_step_writing">Zápis sloučeného APK</string>
     <string name="patcher_split_step_finalizing">Finalizování sloučeného APK</string>
     <string name="patcher_conflict_title">Konflikt balíčku</string>
@@ -490,6 +509,8 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="failed_to_mount">Selhalo připojení: %s</string>
     <string name="failed_to_unmount">Selhalo odejmutí: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Skóre %s</string>
+    <string name="mini_game_best">Nejlepší %s</string>
     <string name="mini_game_new_record">Nový rekord!</string>
     <string name="mini_game_game_over">Konec hry</string>
     <string name="mini_game_try_again">Zkusit znovu</string>
@@ -946,6 +967,8 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_custom_file_picker">Vlastní výběr souborů</string>
     <string name="settings_system_custom_file_picker_description">Procházet úložiště pomocí vestavěného výběru souborů Morphe místo výchozího systému.</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Pomocník pro stahování APK</string>
+    <string name="settings_system_apk_download_helper_description">Nechte nainstalovanou pomocnou aplikaci stahovat původní APK za vás. Soubor pochází z této aplikace, takže to povolte pouze v případě, že jí důvěřujete</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Předchozí adresář</string>
     <string name="file_picker_no_files">Zde nejsou žádné soubory</string>
@@ -1090,6 +1113,8 @@ Podrobnosti: %2$s"</string>
     <string name="installing_manager_update">Instaluje se aktualizace…</string>
     <string name="downloading_manager_update">Stahování aktualizace…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">Staženo %1$.1f MB</string>
+    <string name="manager_update_not_ready">Toto vydání se stále publikuje. Zkuste to znovu za pár minut</string>
     <string name="download_manager_failed">Selhání stahování aktualizace: %s</string>
     <string name="failed_to_check_updates">Selhání kontroly aktualizací: %s</string>
     <string name="failed_to_download_update">Selhání stahování aktualizace: %s</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="patch_count">
-        <item quantity="one">%s Popravek</item>
+        <item quantity="one">%s popravek</item>
         <item quantity="two">%s Popravka</item>
         <item quantity="few">%s popravki</item>
         <item quantity="other">%s Popravkih</item>
@@ -27,8 +27,8 @@
     <plurals name="patches_executed">
         <item quantity="one">Izveden %s popravek</item>
         <item quantity="two">Izvedena %s popravka</item>
-        <item quantity="few">Izvedena %s popravka</item>
-        <item quantity="other">Izvedeni %s popravki</item>
+        <item quantity="few">Izvedeni %s popravki</item>
+        <item quantity="other">Izvedenih %s popravkov</item>
     </plurals>
     <plurals name="settings_system_apks_count">
         <item quantity="one">%s datoteka APK</item>
@@ -38,27 +38,27 @@
     </plurals>
     <plurals name="batch_install_summary">
         <item quantity="one">Nameščena %s aplikacija</item>
-        <item quantity="two">Nameščene %s aplikaciji</item>
+        <item quantity="two">Nameščeni %s aplikaciji</item>
         <item quantity="few">Nameščene %s aplikacije</item>
         <item quantity="other">Nameščene %s aplikacije</item>
     </plurals>
     <plurals name="batch_reinstall_summary">
         <item quantity="one">Ponovno nameščena %s aplikacija</item>
-        <item quantity="two">Ponovno nameščene %s aplikaciji</item>
+        <item quantity="two">Ponovno nameščeni %s aplikaciji</item>
         <item quantity="few">Ponovno nameščene %s aplikacije</item>
         <item quantity="other">Ponovno nameščene %s aplikacije</item>
     </plurals>
     <plurals name="batch_uninstall_summary">
         <item quantity="one">Odnameščena %s aplikacija</item>
-        <item quantity="two">Odnameščene %s aplikaciji</item>
+        <item quantity="two">Odnameščeni %s aplikaciji</item>
         <item quantity="few">Odnameščene %s aplikacije</item>
         <item quantity="other">Odnameščene %s aplikacije</item>
     </plurals>
     <plurals name="batch_uninstall_confirm_title">
-        <item quantity="one">Odnameščeno %s aplikacijo?</item>
-        <item quantity="two">Odnameščeno %s aplikaciji?</item>
-        <item quantity="few">Odnameščeno %s aplikacije?</item>
-        <item quantity="other">Odnameščeno %s aplikacije?</item>
+        <item quantity="one">Odnamestim %s aplikacijo?</item>
+        <item quantity="two">Odnamestim %s aplikaciji?</item>
+        <item quantity="few">Odnamestim %s aplikacije?</item>
+        <item quantity="other">Odnamestim %s aplikacije?</item>
     </plurals>
     <plurals name="batch_patch_ready_count">
         <item quantity="one">%s aplikacija je pripravljena za popravek</item>
@@ -74,7 +74,7 @@
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">Preskočena %s aplikacija</item>
-        <item quantity="two">Preskočene %s aplikaciji</item>
+        <item quantity="two">Preskočeni %s aplikaciji</item>
         <item quantity="few">Preskočene %s aplikacije</item>
         <item quantity="other">Preskočene %s aplikacije</item>
     </plurals>
@@ -86,7 +86,7 @@
     </plurals>
     <plurals name="sources_management_subtitle">
         <item quantity="one">%s vir nameščen</item>
-        <item quantity="two">%s vira sta nameščena</item>
+        <item quantity="two">%s vira nameščena</item>
         <item quantity="few">%s viri so nameščeni</item>
         <item quantity="other">%s viri so nameščeni</item>
     </plurals>
@@ -105,13 +105,13 @@
     <plurals name="home_category_app_count">
         <item quantity="one">%s aplikacija</item>
         <item quantity="two">%s aplikaciji</item>
-        <item quantity="few">%s aplikacij</item>
-        <item quantity="other">%s aplikacij</item>
+        <item quantity="few">%s aplikacije</item>
+        <item quantity="other">%s aplikacije</item>
     </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="one">Kopiran %s popravek iz izbranega paketa</item>
         <item quantity="two">Kopirana %s popravka iz izbranega paketa</item>
-        <item quantity="few">Kopirano %s popravkov iz izbranega paketa</item>
+        <item quantity="few">Kopirani %s popravki iz izbranega paketa</item>
         <item quantity="other">Kopirano %s popravkov iz izbranega paketa</item>
     </plurals>
 </resources>

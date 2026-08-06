@@ -23,6 +23,7 @@
     <string name="home_metadata_errors_title">Неки извори закрпа нису доступни</string>
     <string name="home_metadata_errors_subtitle">Додирните да прегледате изворе</string>
     <string name="home_outdated_manager_title">Morphe je zastareo</string>
+    <string name="home_outdated_manager_subtitle">Неки извори закрпа захтевају новију верзију</string>
     <string name="home_metered_skipped_title">Ажурирања су паузирана на мобилним подацима</string>
     <string name="home_metered_skipped_subtitle">Додирните да бисте дозволили ажурирања преко мобилних података</string>
     <string name="home_update_error">Ажурирање није успело</string>
@@ -123,6 +124,8 @@
     <string name="sources_management_metadata_unavailable">Метаподаци нису доступни</string>
     <string name="sources_management_metadata_unavailable_hint">Датотека метаподатка са удаљеног извора није доступна. Поправка са инсталираним пакетом и даље функционише, али аутоматска ажурирања су искључена за овај извор</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Пакест за поправку није могао да се преузме. УРЛ адреса извора може бити неисправна или датотека не постоји</string>
+    <string name="sources_management_outdated_manager_badge">Ажурирај Морфе</string>
+    <string name="sources_management_outdated_manager_hint">Овај извор је направљен за закрпљивач %1$s, али Морфе %2$s укључује закрпљивач %3$s. Ажурирај Морфе да би га користио</string>
     <string name="sources_management_source_enabled">Извор омогућен</string>
     <string name="sources_management_source_disabled">Извор онемогућен</string>
     <string name="sources_management_source_updating">Ажурирање извора</string>
@@ -163,12 +166,21 @@
     <string name="home_apk_availability_incompatible_label">Некомпатибилан</string>
     <string name="home_apk_availability_yes">Да, помози ми да нађем АПК</string>
     <string name="home_apk_availability_no">Ne, već imam APK</string>
+    <string name="home_apk_helper_download">Користи помоћну апликацију</string>
+    <string name="home_apk_helper_title">Преузми уз помоћну апликацију</string>
+    <string name="home_apk_helper_description">Морфе ће затражити од помоћне апликације да преузме оригинални APK и врати фајл</string>
+    <string name="home_apk_helper_continue">Отвори помоћну апликацију</string>
+    <string name="home_apk_helper_warning">Наставите само ако верујете овој помоћној апликацији. Морфе проверава пакет, верзију и потпис онога што прими пре закрпљивања</string>
+    <string name="home_apk_helper_warning_unverified">Наставите само ако верујете овој помоћној апликацији. Морфе не може да верификује потпис овог APK-а, тако да модификована датотека не би била откривена</string>
+    <string name="home_apk_helper_no_result">Помоћна апликација није вратила APK</string>
+    <string name="home_apk_helper_no_access">Помоћна апликација није одобрила приступ APK-у који је вратила</string>
     <string name="home_apk_use_saved">Користи сачувани APK</string>
     <string name="home_apk_use_installed">Користи инсталирани APK</string>
     <string name="home_apk_use_installed_unverified">Нисмо могли да потврдимо потпис инсталиране апликације, тако да је она можда већ закрпљена</string>
     <string name="home_app_info_no_saved_apk">Nema saćuvanog APK-a. Patching zahtijeva ponovno odabir APK datoteke</string>
     <string name="home_version_requires_android">Захтева Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Није подржано на овом уређају</string>
+    <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; нема подржане верзије за Android %2$s (API %3$s). Све декларисане верзије захтевају вишу Android верзију</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Преузмите оригинални APK</string>
     <string name="home_download_instructions_steps_title">Упутства:</string>
@@ -220,6 +232,8 @@
     <string name="expert_mode_no_results">Нema пронађених печева</string>
     <string name="expert_mode_universal_patches">Универзалне површине</string>
     <string name="expert_mode_new_patches">Ново</string>
+    <string name="expert_mode_patch_required_by_installer">Захтевно за изабрану циљну инсталацију</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Није доступно за изабрану циљну инсталацију</string>
     <string name="expert_mode_multiple_sources_warning_title">Одабрана су више извора за патч</string>
     <string name="expert_mode_multiple_sources_warning_message">"Одабрали сте патчеве из више извора. Може да дође до проблема са компатибилношћу или неочекиваног понашања.
 
@@ -244,6 +258,7 @@
     <string name="home_dialog_unsupported_version_compatible_versions">Дозвољене верзије:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Недозвољен</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <string name="home_dialog_unsupported_version_build">Изградња %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Ово је другачија изградња исте верзије. Пакети захтевају специфичну изградњу</string>
     <string name="home_dialog_wrong_package_title">Изабран је погрешан пакет</string>
     <string name="home_dialog_wrong_package_description">Изабрани APK није за апликацију коју сте намеравали да печујете</string>
@@ -253,6 +268,7 @@
     <string name="home_dialog_orphaned_install_description">Измена имена пакета је променила пакет, тако да копија коју сте раније променили је и даље инсталирана као засебна апликација</string>
     <string name="home_dialog_orphaned_install_warning">Она више није праћена и неће примати ажурирања</string>
     <string name="home_dialog_orphaned_install_uninstall">Деинсталирајте је</string>
+    <string name="home_dialog_orphaned_install_keep">Држите га</string>
     <string name="home_outdated_patches_dialog_title">Ispravke mogu biti zastarele</string>
     <string name="home_outdated_patches_dialog_message">Mobilni podaci su aktivni, a ažuriranja ispravaka su onemogućena</string>
     <string name="home_outdated_patches_dialog_warning">Patching sa zastarelima ispravkama može rezultirati slomljenim aplikacijama</string>
@@ -311,6 +327,12 @@
     <string name="header_creator_guide_positioning_title">Позиционирање и скалирање</string>
     <string name="header_creator_guide_positioning_body">Користите гестове пецкања за зумирање и превлачење директно у прегледу да бисте позиционирали и скалирали слику. Водичи се појављују када је слика близу центра. Такође можете користити клизач испод прегледа.</string>
     <!-- Batch patching -->
+    <string name="batch_patch_action">Закрпи изабрано</string>
+    <string name="batch_patch_title">Групно закрпљивање</string>
+    <string name="batch_patch_planning">Припрема се редова…</string>
+    <string name="batch_patch_preparing_next">Припрема се следећа апликација…</string>
+    <string name="batch_patch_progress_counter">Закрпљено %1$s од %2$s</string>
+    <string name="batch_patch_summary">%1$s закрпљено, %2$s неуспешно, %3$s прескочено</string>
     <string name="batch_patch_saved_hint">Печене апликације су сачуване. Инсталирајте их сада или касније из листе печених APK-ова у подешавањима</string>
     <string name="batch_patch_multiple_sources">Неке апликације комбинују печеве из више извора, што може изазвати сукобе</string>
     <string name="batch_patch_needs_apk">Нема доступног APK-а, приложите датотеку</string>
@@ -321,6 +343,7 @@
     <string name="batch_patch_source_file">Приложена датотека</string>
     <string name="batch_patch_source_unavailable">APK није могао да се припреми</string>
     <string name="batch_patch_force_version">Ипак настави</string>
+    <string name="batch_patch_force_version_done">Ипак је додато у ред, закрпе направљене за друге верзије могу прекинути рад апликације</string>
     <string name="batch_patch_edit_patches">Изаберите печеве</string>
     <string name="batch_patch_state_no_apk">Нема APK-а</string>
     <string name="batch_patch_state_no_patches">Нема печева</string>
@@ -381,6 +404,8 @@
     <string name="patcher_error_dialog_app_info">Информације о апликацији</string>
     <string name="patcher_tab_logs">Евиденција закрпа</string>
     <string name="patcher_tab_game">Игре</string>
+    <string name="patcher_logs_waiting">Чека се излаз дневника…</string>
+    <string name="patcher_logs_lost">Излаз дневника се не чува током поновног покретања апликације</string>
     <string name="patcher_long_step_warning">Овај корак може потрајати. Молимо сачекајте…</string>
     <string name="patcher_installing_subtitle">Скоро спремно за рад! 🎸</string>
     <string name="patcher_success_title">Готово! 🎉</string>
@@ -405,6 +430,7 @@
     <string name="patcher_install_error_subtitle">Покушајте деинсталирати па поново инсталирати</string>
     <string name="patcher_ready_to_install_subtitle">Притисните дугме испод за инсталирање</string>
     <string name="patcher_ready_to_mount_subtitle">Притисните дугме испод за монтирање</string>
+    <string name="patcher_patches_excluded_for_installer">Није доступно за ову методу инсталације и искључено: %s</string>
     <string name="patcher_storage_permission_dialog_title">Не могу приступити до пута складиштења</string>
     <string name="patcher_incompatible_patcher_title">Захтевано је ажурирање</string>
     <string name="patcher_incompatible_patcher_description">Пакетић &lt;b&gt;%1$s&lt;/b&gt; захтева верзију закрпе &lt;b&gt;%2$s&lt;/b&gt; или новију. Молимо вас да ажурирате Morphe како бисте применили ову апликацију</string>
@@ -483,6 +509,8 @@
     <string name="failed_to_mount">Није успело монтирање: %s</string>
     <string name="failed_to_unmount">Није успело демонтирање: %s</string>
     <!-- Patcher Screen - Mini-games -->
+    <string name="mini_game_score">Резултат %s</string>
+    <string name="mini_game_best">Најбољи %s</string>
     <string name="mini_game_new_record">Нови рекорд!</string>
     <string name="mini_game_game_over">Игра завршена</string>
     <string name="mini_game_try_again">Покушај поново</string>
@@ -940,6 +968,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker">Подешавач фајлова по мери</string>
     <string name="settings_system_custom_file_picker_description">Прегледајте складиште користећи уграђени изабирач фајлова у Morphe-у уместо подразумеваног у систему</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Помоћник за преузимање APK-а</string>
+    <string name="settings_system_apk_download_helper_description">Омогућите инсталираној помоћној апликацији да преузме оригиналне APK-ове за вас. Фајл долази из те апликације, зато омогућите ово само ако јој верујете</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Претходни директоријум</string>
     <string name="file_picker_no_files">Нема фајлова овде</string>
@@ -1025,6 +1055,7 @@ morphe_header_custom_dark.png
     <string name="accessibility_select_app">Изаберите апликацију</string>
     <string name="accessibility_move_up">Помери нагоре</string>
     <string name="accessibility_move_down">Помери надоле</string>
+    <string name="accessibility_app_moved_announcement">%1$s је померен на позицију %2$s од %3$s</string>
     <string name="accessibility_scroll_to_top">Скролуј до врха листе</string>
     <string name="rename">Преименуј</string>
     <string name="import_">Увоз</string>
@@ -1083,6 +1114,8 @@ morphe_header_custom_dark.png
     <string name="installing_manager_update">Инсталирање ажурирања…</string>
     <string name="downloading_manager_update">Преузимање ажурирања…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">Преузето %1$.1f MB</string>
+    <string name="manager_update_not_ready">Овај издање је и даље у процесу објављивања. Покушајте поново за неколико минута</string>
     <string name="download_manager_failed">Није успело преузимање ажурирања: %s</string>
     <string name="failed_to_check_updates">Није успело провера ажурирања: %s</string>
     <string name="failed_to_download_update">Није успело преузимање ажурирања: %s</string>
@@ -1093,6 +1126,7 @@ morphe_header_custom_dark.png
     <string name="download_update_confirmation">Преузети ажурирање?</string>
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
+    <string name="onboarding_step_of">%1$s од %2$s</string>
     <string name="onboarding_sources_desc">Управљајте изворима за закрпе. Сваки извор пружа закрпе које могу да се примене на ваше апликације</string>
     <string name="onboarding_swipe_title">Покрети превлачења</string>
     <string name="onboarding_swipe_desc">Превуците удесно преко картице апликације да бисте видели доступне закрпе. Превуците улево да бисте сакрили картицу са почетног екрана</string>

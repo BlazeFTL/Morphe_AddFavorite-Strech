@@ -170,6 +170,10 @@
     <string name="home_apk_helper_title">Bir yardımcı uygulama ile indirin</string>
     <string name="home_apk_helper_description">Morphe, orijinal APK\'yı indirmesi ve dosyayı geri vermesi için aşağıdaki yardımcı uygulamadan talepte bulunacaktır</string>
     <string name="home_apk_helper_continue">Yardımcı uygulamayı açın</string>
+    <string name="home_apk_helper_warning">Bu yardımcı uygulamayı yalnızca güveniyorsanız devam edin. Morphe, yamalama işleminden önce aldığı paketi, sürümü ve imzayı kontrol eder.</string>
+    <string name="home_apk_helper_warning_unverified">Bu yardımcı uygulamayı yalnızca güveniyorsanız devam edin. Morphe bu APK\'nın imzasını doğrulayamıyor, bu nedenle değiştirilmiş bir dosya tespit edilemez.</string>
+    <string name="home_apk_helper_no_result">Yardımcı uygulama bir APK döndürmedi.</string>
+    <string name="home_apk_helper_no_access">Yardımcı uygulama, döndürdüğü APK\'ya erişim izni vermedi.</string>
     <string name="home_apk_use_saved">Kayıtlı APK\'yi kullan</string>
     <string name="home_apk_use_installed">Yüklü APK\'yi kullan</string>
     <string name="home_apk_use_installed_unverified">Yüklenen uygulamanın imzası doğrulanamadı, bu nedenle zaten yama uygulanmış olabilir</string>
@@ -228,6 +232,8 @@
     <string name="expert_mode_no_results">Yama bulunamadı</string>
     <string name="expert_mode_universal_patches">Evrensel yamalar</string>
     <string name="expert_mode_new_patches">Yeni</string>
+    <string name="expert_mode_patch_required_by_installer">Seçilen kurulum hedefi için gerekli</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Seçilen kurulum hedefi için kullanılamıyor</string>
     <string name="expert_mode_multiple_sources_warning_title">Birden fazla yama kaynağı seçildi</string>
     <string name="expert_mode_multiple_sources_warning_message">"Birden fazla yama kaynağından yama seçtiniz. Bu, uyumluluk sorunlarına veya beklenmedik davranışlara neden olabilir.
 
@@ -424,6 +430,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patcher_install_error_subtitle">Kaldırıp tekrar yüklemeyi deneyin</string>
     <string name="patcher_ready_to_install_subtitle">Yüklemek için aşağıdaki düğmeye basın</string>
     <string name="patcher_ready_to_mount_subtitle">Bağlamak için aşağıdaki düğmeye basın</string>
+    <string name="patcher_patches_excluded_for_installer">Bu kurulum yöntemi için kullanılamıyor ve hariç tutuldu: %s</string>
     <string name="patcher_storage_permission_dialog_title">Depolama yoluna erişilemiyor</string>
     <string name="patcher_incompatible_patcher_title">Güncelleme gerekiyor</string>
     <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; paketi, &lt;b&gt;%2$s&lt;/b&gt; veya daha yeni patcher sürümü gerektiriyor. Bu uygulamayı yamalamak için lütfen Morphe\'yi güncelleyin</string>
@@ -959,6 +966,8 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_custom_file_picker">Özel dosya seçici</string>
     <string name="settings_system_custom_file_picker_description">Sistem varsayılanı yerine Morphe\'nin yerleşik dosya seçicisini kullanarak depolamaya göz atın</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK indirme yardımcısı</string>
+    <string name="settings_system_apk_download_helper_description">Yüklü bir yardımcı uygulamanın sizin için orijinal APK\'ları getirmesine izin verin. Dosya o uygulamadan geldiği için, yalnızca güveniyorsanız bunu etkinleştirin.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Önceki dizin</string>
     <string name="file_picker_no_files">Burada dosya yok</string>
@@ -1103,6 +1112,8 @@ Ayrıntılar: %2$s"</string>
     <string name="installing_manager_update">Güncelleme yükleniyor…</string>
     <string name="downloading_manager_update">Güncelleme indiriliyor…</string>
     <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_downloaded">%1$.1f MB indirildi</string>
+    <string name="manager_update_not_ready">Bu sürüm hala yayınlanıyor. Birkaç dakika sonra tekrar deneyin.</string>
     <string name="download_manager_failed">Güncelleme indirilemedi: %s</string>
     <string name="failed_to_check_updates">Güncellemeler kontrol edilemedi: %s</string>
     <string name="failed_to_download_update">Güncelleme indirilemedi: %s</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home Screen -->
-    <string name="home_other_apps">แอปพลิเคชันอื่นๆ</string>
+    <string name="home_other_apps">แอปอื่น ๆ</string>
     <string name="home_not_patched_yet">ยังไม่ได้รับการแพตซ์</string>
     <string name="home_no_patches_available">ไม่มีแพตซ์ที่ใช้งานได้</string>
     <string name="home_app_hide_title">ซ่อนแอปนี้หรือไม่?</string>
@@ -14,7 +14,7 @@
     <string name="android_11_bug_dialog_description">ต้องอนุญาตเปิดสิทธิเข้าถึงการติดตั้งแอปพลิเคชันก่อน เพื่อหลีกเลี่ยงปัญหาจากระบบปฏิบัติการ Android 11 ที่มีผลกระทบต่อการใช้งานแอปพลิเคชันนี้</string>
     <string name="deep_link_add_source_title">เพิ่มแหล่งที่มา</string>
     <string name="deep_link_add_source_message">คุณต้องการเพิ่มแหล่งที่มาแพตช์นี้ไปยัง Morphe หรือไม่?</string>
-    <string name="deep_link_add_source_warning">เพิ่มแหล่งข้อมูลที่คุณเชื่อถือเท่านั้น</string>
+    <string name="deep_link_add_source_warning">เพิ่มแหล่งที่มาที่คุณเชื่อถือเท่านั้น</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">มีการอัปเดต Morphe พร้อมใช้งาน</string>
     <string name="home_update_available_subtitle">มีเวอร์ชันใหม่พร้อมติดตั้ง</string>
@@ -24,13 +24,13 @@
     <string name="home_metadata_errors_subtitle">แตะเพื่อตรวจสอบแหล่งที่มา</string>
     <string name="home_outdated_manager_title">Morphe ล้าสมัย</string>
     <string name="home_outdated_manager_subtitle">แหล่งแพตช์บางแหล่งจำเป็นต้องใช้เวอร์ชันที่ใหม่กว่า</string>
-    <string name="home_metered_skipped_title">หยุดการอัปเดตเมื่อใช้ข้อมูลมือถือ</string>
+    <string name="home_metered_skipped_title">การอัปเดตถูกหยุดเมื่อใช้ข้อมูลมือถือ</string>
     <string name="home_metered_skipped_subtitle">แตะเพื่ออนุญาตการอัปเดตผ่านข้อมูลมือถือ</string>
-    <string name="home_update_error">อัปเดตล้มเหลว</string>
-    <string name="home_update_error_subtitle">เกิดข้อผิดพลาดขณะอัปเดตแหล่งข้อมูล</string>
-    <string name="home_update_skipped_metered">อัปเดตถูกข้าม</string>
+    <string name="home_update_error">การอัปเดตล้มเหลว</string>
+    <string name="home_update_error_subtitle">เกิดข้อผิดพลาดขณะอัปเดตแหล่งที่มา</string>
+    <string name="home_update_skipped_metered">การอัปเดตถูกข้าม</string>
     <string name="home_update_skipped_metered_subtitle">กำลังใช้งานข้อมูลมือถือ</string>
-    <string name="home_updating_sources">กำลังอัปเดตแหล่งข้อมูล…</string>
+    <string name="home_updating_sources">กำลังอัปเดตแหล่งที่มา…</string>
     <string name="home_update_progress_format">%s ดำเนินการแล้ว</string>
     <string name="home_update_success">อัปเดตแหล่งที่มาเสร็จสมบูรณ์</string>
     <string name="home_update_success_subtitle">แหล่งทีมาของคุณเป็นเวอร์ชันล่าสุดแล้ว</string>
@@ -43,12 +43,12 @@
     <string name="home_app_sort_name_asc_description">ตามลำดับตัวอักษร A ถึง Z</string>
     <string name="home_app_sort_name_desc_description">เรียงตามลำดับตัวอักษรย้อนกลับ Z ถึง A</string>
     <string name="home_app_sort_updates_first">อัปเดตแพตช์ก่อน</string>
-    <string name="home_app_sort_updates_first_description">แอปที่มีแบทจ์อัปเดตก่อน จากนั้นตามลำดับที่แนะนำ</string>
+    <string name="home_app_sort_updates_first_description">แอปที่มีแบตจ์อัปเดตก่อน จากนั้นตามลำดับที่แนะนำ</string>
     <string name="home_no_apps_title">ไม่มีแอปที่ใช้ได้</string>
     <string name="home_no_apps_subtitle">เพิ่มแหล่งที่มาของแพตช์หรือเปิดใช้งานแหล่งที่มาที่มีอยู่แล้วใน %s</string>
     <string name="home_no_apps_search_subtitle">ไม่พบแอปที่ตรงกับ \"%s\"</string>
     <string name="home_all_apps_hidden_title">แอปทั้งหมดถูกซ่อน</string>
-    <string name="home_all_apps_hidden_subtitle">คุณซ่อนแอปทั้งหมดออกจากหน้าจอหลัก</string>
+    <string name="home_all_apps_hidden_subtitle">คุณได้ซ่อนแอปทั้งหมดออกจากหน้าจอหลักแล้ว</string>
     <string name="home_category_add">เพิ่มหมวดหมู่</string>
     <string name="home_category_all_apps">แอปทั้งหมด</string>
     <string name="home_category_custom">กำหนดเอง</string>

@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Несовместимый</string>
     <string name="home_apk_availability_yes">Да, помогите мне найти APK</string>
     <string name="home_apk_availability_no">Нет, у меня уже есть APK</string>
+    <string name="home_apk_helper_download">Использовать вспомогательное приложение</string>
+    <string name="home_apk_helper_title">Загрузить с помощью вспомогательного приложения</string>
+    <string name="home_apk_helper_description">Morphe запросит у вспомогательного приложения, указанного ниже, загрузить исходный APK и передать файл обратно</string>
+    <string name="home_apk_helper_continue">Открыть вспомогательное приложение</string>
+    <string name="home_apk_helper_warning">Продолжайте только в том случае, если вы доверяете этому вспомогательному приложению. Morphe проверяет пакет, версию и подпись любого полученного файла перед применением патча</string>
+    <string name="home_apk_helper_warning_unverified">Продолжайте только в том случае, если вы доверяете этому вспомогательному приложению. Morphe не может проверить подпись этого APK, поэтому измененный файл не будет обнаружен</string>
+    <string name="home_apk_helper_no_result">Вспомогательное приложение не вернуло APK</string>
+    <string name="home_apk_helper_no_access">Вспомогательное приложение не предоставило доступа к возвращенному APK</string>
     <string name="home_apk_use_saved">Использовать сохраненный APK</string>
     <string name="home_apk_use_installed">Использовать установленный APK</string>
     <string name="home_apk_use_installed_unverified">Не удалось проверить подпись установленного приложения, поэтому оно может быть уже пропатчено</string>
@@ -224,6 +232,8 @@
     <string name="expert_mode_no_results">Патчи не найдены</string>
     <string name="expert_mode_universal_patches">Универсальные патчи</string>
     <string name="expert_mode_new_patches">Новые</string>
+    <string name="expert_mode_patch_required_by_installer">Требуется для выбранной цели установки</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Недоступно для выбранной цели установки</string>
     <string name="expert_mode_multiple_sources_warning_title">Выбрано несколько источников патчей</string>
     <string name="expert_mode_multiple_sources_warning_message">"Вы выбрали патчи из нескольких источников патчей. Это может привести к проблеме совместимости или неожиданному поведению.
 
@@ -420,6 +430,7 @@
     <string name="patcher_install_error_subtitle">Попробуйте удалить и установить заново</string>
     <string name="patcher_ready_to_install_subtitle">Нажмите кнопку ниже, чтобы установить</string>
     <string name="patcher_ready_to_mount_subtitle">Нажмите кнопку ниже, чтобы смонтировать</string>
+    <string name="patcher_patches_excluded_for_installer">Недоступно для данного метода установки и исключено: %s</string>
     <string name="patcher_storage_permission_dialog_title">Невозможно получить доступ к пути хранения</string>
     <string name="patcher_incompatible_patcher_title">Требуется обновление</string>
     <string name="patcher_incompatible_patcher_description">Для пакета &lt;b&gt;%1$s&lt;/b&gt; требуется версия патчера &lt;b&gt;%2$s&lt;/b&gt; или более поздняя. Пожалуйста, обновите Morphe, чтобы пропатчить это приложение</string>
@@ -955,6 +966,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker">Пользовательский файловый менеджер</string>
     <string name="settings_system_custom_file_picker_description">Использовать встроенный файловый менеджер Morphe вместо системного по умолчанию</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">Вспомогательное приложение для загрузки APK</string>
+    <string name="settings_system_apk_download_helper_description">Позвольте установленному вспомогательному приложению загружать исходные APK за вас. Файл поступает из этого приложения, поэтому включайте эту функцию, только если вы ему доверяете</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Предыдущий каталог</string>
     <string name="file_picker_no_files">Здесь нет файлов</string>

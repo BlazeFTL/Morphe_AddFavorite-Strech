@@ -166,6 +166,14 @@
     <string name="home_apk_availability_incompatible_label">Yhteensopimaton</string>
     <string name="home_apk_availability_yes">Kyllä, auta minua löytämään APK</string>
     <string name="home_apk_availability_no">Ei, minulla on jo APK</string>
+    <string name="home_apk_helper_download">Käytä apuohjelmaa</string>
+    <string name="home_apk_helper_title">Lataa apuohjelman avulla</string>
+    <string name="home_apk_helper_description">Morphe pyytää alla olevaa apuohjelmaa lataamaan alkuperäisen APK-tiedoston ja palauttamaan tiedoston</string>
+    <string name="home_apk_helper_continue">Avaa apuohjelma</string>
+    <string name="home_apk_helper_warning">Jatka vain, jos luotat tähän apuohjelmaan. Morphe tarkistaa paketin, version ja allekirjoituksen kaikesta, mitä se vastaanottaa ennen korjaamista</string>
+    <string name="home_apk_helper_warning_unverified">Jatka vain, jos luotat tähän apuohjelmaan. Morphe ei voi vahvistaa tämän APK-tiedoston allekirjoitusta, joten muokattua tiedostoa ei havaita</string>
+    <string name="home_apk_helper_no_result">Apuohjelma ei palauttanut APK-tiedostoa</string>
+    <string name="home_apk_helper_no_access">Apuohjelma ei myöntänyt pääsyä palauttamalleen APK-tiedostolle</string>
     <string name="home_apk_use_saved">Käytä tallennettua APK:ta</string>
     <string name="home_apk_use_installed">Käytä asennettua APK:ta</string>
     <string name="home_apk_use_installed_unverified">Sovelluksen asennetun version allekirjoitusta ei voitu vahvistaa, joten se on ehkä jo muutettu</string>
@@ -225,6 +233,7 @@
     <string name="expert_mode_universal_patches">Yleispätevät lisäosat</string>
     <string name="expert_mode_new_patches">Uusi</string>
     <string name="expert_mode_patch_required_by_installer">Vaaditaan valitulle asennuskohteelle</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Ei saatavilla valitulle asennuskohteelle</string>
     <string name="expert_mode_multiple_sources_warning_title">Useita lisäosalähteitä on valittu</string>
     <string name="expert_mode_multiple_sources_warning_message">"Olet valinnut lisäosat useista lisäosalähteistä. Tämä saattaa aiheuttaa yhteensopivuusongelmia tai odottamattomia toimintoja.
 
@@ -422,6 +431,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="patcher_install_error_subtitle">Kokeile poistaa sovelluksen asennus ja asentaa se uudelleen</string>
     <string name="patcher_ready_to_install_subtitle">Asenna napauttamalla alla olevaa painiketta</string>
     <string name="patcher_ready_to_mount_subtitle">Liitä napauttamalla alla olevaa painiketta</string>
+    <string name="patcher_patches_excluded_for_installer">Ei saatavilla tälle asennusmenetelmälle ja pois suljettu: %s</string>
     <string name="patcher_storage_permission_dialog_title">Tallennuspolkua ei voida käyttää</string>
     <string name="patcher_incompatible_patcher_title">Päivitys vaaditaan</string>
     <string name="patcher_incompatible_patcher_description">Paketti &lt;b&gt;%1$s&lt;/b&gt; vaatii muokkaustyökalun version &lt;b&gt;%2$s&lt;/b&gt; tai uudemman. Päivitä Morphe muokataksesi tätä sovellusta</string>
@@ -959,6 +969,8 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_custom_file_picker">Mukautettu tiedostonvalitsin</string>
     <string name="settings_system_custom_file_picker_description">Käytä Morphen sisäänrakennettua tiedostonvalitsinta järjestelmän oletusarvon sijaan</string>
     <!-- Settings - System Tab - APK download helper -->
+    <string name="settings_system_apk_download_helper">APK-latausapuohjelma</string>
+    <string name="settings_system_apk_download_helper_description">Anna asennetun apuohjelman hakea alkuperäiset APK-tiedostot puolestasi. Tiedosto tulee kyseisestä apuohjelmasta, joten ota tämä käyttöön vain, jos luotat siihen</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Edellinen hakemisto</string>
     <string name="file_picker_no_files">Täällä ei ole tiedostoja</string>

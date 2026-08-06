@@ -151,6 +151,7 @@
     <string name="settings_appearance_app_language_current">વર્તમાન ભાષા</string>
     <string name="settings_appearance_translations_info_title">કેટલીક ભાષાઓ માટે અનુવાદો ખૂટતા અથવા અપૂર્ણ હોઈ શકે છે.</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
+    <string name="settings_appearance_app_card_colors_default">ડિફૉલ્ટ</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_default">ડિફૉલ્ટ</string>
     <string name="settings_appearance_app_icon_light_2">આકાશ</string>
@@ -159,6 +160,7 @@
     <string name="settings_appearance_app_icon_dark_2">ખાલીપણું</string>
     <string name="settings_appearance_app_icon_dark_3">ઈન્ડિગો</string>
     <!-- Settings - Advanced Tab - Updates Section -->
+    <string name="settings_advanced_patcher">પેચર</string>
     <!-- Notification content -->
     <string name="notification_manager_update_title">મોર્ફે અદ્યતન ઉપલબ્ધ છે</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -209,12 +211,14 @@ morphe_header_custom_dark.png
     <string name="installer">ઇન્સ્ટૉલર</string>
     <!-- Settings - System Tab - Performance Section -->
     <!-- Settings - System Tab - Notifications Section -->
+    <string name="settings_system_notifications_sound_default">ડિફૉલ્ટ</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <!-- Settings - System Tab - Files & Storage Section -->
     <!-- Settings - System Tab - Storage Management screen -->
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
+    <string name="settings_system_patch_options_section">પેચ વિકલ્પો</string>
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
     <!-- Settings - System Tab - APK download helper -->

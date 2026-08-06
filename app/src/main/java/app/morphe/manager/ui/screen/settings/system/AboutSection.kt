@@ -19,11 +19,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.shared.MorpheDefaults
-import app.morphe.manager.ui.screen.shared.MorpheSettingsDivider
+import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.SettingsDivider
 import app.morphe.manager.ui.screen.shared.SettingsGroup
 import app.morphe.manager.ui.screen.shared.SettingsItem
 import app.morphe.manager.ui.viewmodel.UpdateViewModel
+import app.morphe.manager.util.isolateLtr
 import app.morphe.manager.util.toast
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.androidx.compose.koinViewModel
@@ -47,19 +48,19 @@ fun AboutSection(
         SettingsItem(
             onClick = onAboutClick,
             title = stringResource(R.string.app_name),
-            subtitle = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME,
+            subtitle = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME.isolateLtr(),
             leadingContent = {
                 Image(
                     painter = rememberDrawablePainter(
                         drawable = AppCompatResources.getDrawable(context, R.mipmap.ic_launcher)
                     ),
                     contentDescription = null,
-                    modifier = Modifier.size(MorpheDefaults.IconSize)
+                    modifier = Modifier.size(Defaults.IconSize)
                 )
             }
         )
 
-        MorpheSettingsDivider()
+        SettingsDivider()
 
         SettingsItem(
             icon = Icons.AutoMirrored.Outlined.Article,
@@ -74,7 +75,7 @@ fun AboutSection(
             }
         )
 
-        MorpheSettingsDivider()
+        SettingsDivider()
 
         SettingsItem(
             icon = Icons.Outlined.Public,
@@ -99,7 +100,7 @@ fun AboutSection(
         )
 
         if (onStartTour != null) {
-            MorpheSettingsDivider()
+            SettingsDivider()
 
             SettingsItem(
                 icon = Icons.Outlined.Lightbulb,

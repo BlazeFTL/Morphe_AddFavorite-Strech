@@ -14,6 +14,8 @@ Step-by-step guides for using Morphe. If you are new here, start with the first 
   Shizuku, root mount, and the Play Store install source.
 - **[Updating a patched app](updating-patched-apps.md)** - what the Update badge means, and
   how to repatch without losing app data.
+- **[Patching several apps at once](batch-patching.md)** - queueing a batch, and letting
+  Morphe re-patch on a schedule.
 - **[Managing patch sources](patch-sources.md)** - adding remote and local sources, and what
   the toggles on a source card do.
 - **[How patching works and how to tune it](patching-process.md)** - the steps of a run, the
@@ -34,3 +36,5 @@ Step-by-step guides for using Morphe. If you are new here, start with the first 
   what is safe to clear, and how saved patch selections work.
 - **[Using the built-in file picker](file-picker.md)** - Morphe's own file browser, for when
   the system picker gets in the way.
+- **[Using an APK download helper](apk-download-helper.md)** - letting another app fetch
+  original APKs, and what Morphe checks before patching them.

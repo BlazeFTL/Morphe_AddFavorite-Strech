@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.screen.shared.GradientCircleIcon
-import app.morphe.manager.ui.screen.shared.MorpheAnimations
-import app.morphe.manager.ui.screen.shared.MorpheCard
-import app.morphe.manager.ui.screen.shared.MorpheDefaults
+import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.screen.shared.SurfaceCard
+import app.morphe.manager.ui.screen.shared.Defaults
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -185,9 +185,9 @@ private fun GamePickerGridCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    MorpheCard(
+    SurfaceCard(
         onClick = onClick,
-        cornerRadius = MorpheDefaults.SectionCornerRadius,
+        cornerRadius = Defaults.SectionCornerRadius,
         modifier = modifier
     ) {
         Column(
@@ -228,7 +228,7 @@ internal fun MiniGameContent(
 ) {
     AnimatedContent(
         targetState = state.selectedGame,
-        transitionSpec = MorpheAnimations.fadeCrossfade(200),
+        transitionSpec = Animations.fadeCrossfade(200),
         modifier = Modifier.fillMaxSize(),
         label = "game_picker_game"
     ) { selected ->
@@ -317,10 +317,18 @@ internal fun GameScoreRow(
         }
         Spacer(Modifier.weight(1f))
         GameChip(onClick = onRestart) {
-            Icon(Icons.Outlined.Refresh, contentDescription = null, modifier = Modifier.size(20.dp))
+            Icon(
+                imageVector = Icons.Outlined.Refresh,
+                contentDescription = null,
+                modifier = Modifier.size(Defaults.IconSizeSmall)
+            )
         }
         GameChip(onClick = onChangeGame) {
-            Icon(Icons.Outlined.SportsEsports, contentDescription = null, modifier = Modifier.size(20.dp))
+            Icon(
+                imageVector = Icons.Outlined.SportsEsports,
+                contentDescription = null,
+                modifier = Modifier.size(Defaults.IconSizeSmall)
+            )
         }
     }
 }

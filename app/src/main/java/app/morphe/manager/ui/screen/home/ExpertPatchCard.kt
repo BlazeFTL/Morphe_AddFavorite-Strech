@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -22,11 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
+import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toast
 
 /**
- * Bundle controls: three action buttons (Select All / Default / Deselect All).
+ * Bundle controls: pill row with per-bundle bulk actions.
  */
 @Composable
 internal fun BundlePatchControls(
@@ -36,6 +38,7 @@ internal fun BundlePatchControls(
     onDeselectAll: () -> Unit,
     onResetToDefault: () -> Unit,
     onRestoreSaved: () -> Unit,
+    onCopyFromBundle: () -> Unit,
     hasSavedSelection: Boolean,
     modifier: Modifier = Modifier
 ) {
@@ -50,6 +53,7 @@ internal fun BundlePatchControls(
     val selectAllLabel = stringResource(R.string.expert_mode_enable_all)
     val defaultLabel = stringResource(R.string.expert_mode_reset_to_default)
     val restoreLabel = stringResource(R.string.expert_mode_restore_saved)
+    val copyLabel = stringResource(R.string.expert_mode_copy_from_bundle)
     val deselectAllLabel = stringResource(R.string.expert_mode_disable_all)
 
     val enabledDone = stringResource(R.string.expert_mode_enable_all_done)
@@ -97,6 +101,18 @@ internal fun BundlePatchControls(
             )
         )
         ActionPillButton(
+            onClick = onCopyFromBundle,
+            icon = Icons.Outlined.ContentCopy,
+            contentDescription = copyLabel,
+            tooltip = copyLabel,
+            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.4f),
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            )
+        )
+        ActionPillButton(
             onClick = withToast(disabledDone, onDeselectAll),
             icon = Icons.Outlined.ClearAll,
             contentDescription = deselectAllLabel,
@@ -121,6 +137,7 @@ internal fun PatchCard(
     isEnabled: Boolean,
     isNew: Boolean = false,
     hasRequiredOptionsMissing: Boolean = false,
+    lockState: PatchLockState = PatchLockState.NONE,
     onToggle: () -> Unit,
     onConfigureOptions: () -> Unit,
     hasOptions: Boolean
@@ -132,6 +149,16 @@ internal fun PatchCard(
     val patchState = if (isEnabled) enabledState else disabledState
     val contentDesc = remember(patch.name, patchState) { "${patch.name}, $patchState" }
 
+    val context = LocalContext.current
+    val lockedMessage = when (lockState) {
+        PatchLockState.LOCKED_ON  -> stringResource(R.string.expert_mode_patch_required_by_installer)
+        PatchLockState.LOCKED_OFF -> stringResource(R.string.expert_mode_patch_unavailable_for_installer)
+        PatchLockState.NONE       -> null
+    }
+    val onCardClick: () -> Unit = if (lockedMessage != null) {
+        { context.toast(lockedMessage) }
+    } else onToggle
+
     val colors = MaterialTheme.colorScheme
     val showErrorBorder = hasRequiredOptionsMissing && isEnabled
     val containerColor = when {
@@ -142,7 +169,7 @@ internal fun PatchCard(
     }
 
     SettingsItemCard(
-        onClick = onToggle,
+        onClick = onCardClick,
         color = containerColor,
         borderWidth = 1.dp,
         borderColor = when {
@@ -155,87 +182,123 @@ internal fun PatchCard(
             contentDescription = contentDesc
         }
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(MorpheDefaults.ContentPadding),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Patch info
-            Column(
+        Column {
+            Row(
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(end = if (hasOptions) 8.dp else 0.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                    .fillMaxWidth()
+                    .padding(Defaults.ContentPadding),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Name row: patch name + "New" badge inline
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                // Patch info
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = if (hasOptions) 8.dp else 0.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Text(
-                        text = patch.name,
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold,
-                        color = if (isEnabled)
-                            LocalDialogTextColor.current
-                        else
-                            LocalDialogSecondaryTextColor.current.copy(alpha = 0.5f),
-                        modifier = Modifier.weight(1f, fill = false)
-                    )
-                    if (isNew) {
-                        InfoBadge(
-                            text = stringResource(R.string.expert_mode_new_patches),
-                            style = InfoBadgeStyle.Primary,
-                            isCompact = true
+                    // Name row: patch name + "New" badge inline
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Text(
+                            text = patch.name,
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            color = if (isEnabled)
+                                LocalDialogTextColor.current
+                            else
+                                LocalDialogSecondaryTextColor.current.copy(alpha = 0.5f),
+                            modifier = Modifier.weight(1f, fill = false)
+                        )
+                        if (isNew) {
+                            StatusBadge(
+                                text = stringResource(R.string.expert_mode_new_patches),
+                                tone = SemanticTone.Primary
+                            )
+                        }
+                    }
+
+                    if (!patch.description.isNullOrBlank()) {
+                        Text(
+                            text = patch.description,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = if (isEnabled)
+                                LocalDialogSecondaryTextColor.current
+                            else
+                                LocalDialogSecondaryTextColor.current.copy(alpha = 0.4f)
                         )
                     }
                 }
 
-                if (!patch.description.isNullOrBlank()) {
-                    Text(
-                        text = patch.description,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = if (isEnabled)
-                            LocalDialogSecondaryTextColor.current
-                        else
-                            LocalDialogSecondaryTextColor.current.copy(alpha = 0.4f)
-                    )
+                // Options button (only enabled if patch is enabled)
+                if (hasOptions) {
+                    FilledTonalIconButton(
+                        onClick = {
+                            // Prevent click propagation to card
+                            onConfigureOptions()
+                        },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .semantics {
+                                contentDescription = "${patch.name}, $settings"
+                            },
+                        enabled = isEnabled,
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = if (hasRequiredOptionsMissing && isEnabled)
+                                MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.8f)
+                            else
+                                MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
+                            contentColor = if (hasRequiredOptionsMissing && isEnabled)
+                                MaterialTheme.colorScheme.error
+                            else
+                                MaterialTheme.colorScheme.onSecondaryContainer,
+                            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                            disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Settings,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
                 }
             }
 
-            // Options button (only enabled if patch is enabled)
-            if (hasOptions) {
-                FilledTonalIconButton(
-                    onClick = {
-                        // Prevent click propagation to card
-                        onConfigureOptions()
-                    },
+            if (lockedMessage != null) {
+                HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.5f))
+                Box(
                     modifier = Modifier
-                        .size(36.dp)
-                        .semantics {
-                            contentDescription = "${patch.name}, $settings"
-                        },
-                    enabled = isEnabled,
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = if (hasRequiredOptionsMissing && isEnabled)
-                            MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.8f)
-                        else
-                            MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
-                        contentColor = if (hasRequiredOptionsMissing && isEnabled)
-                            MaterialTheme.colorScheme.error
-                        else
-                            MaterialTheme.colorScheme.onSecondaryContainer,
-                        disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                        disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
-                    )
+                        .fillMaxWidth()
+                        .background(colors.onSurface.copy(alpha = 0.06f))
+                        .padding(
+                            horizontal = Defaults.ContentPadding,
+                            vertical = Defaults.ContentPaddingSmall,
+                        ),
+                    contentAlignment = Alignment.Center,
                 ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Settings,
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp)
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        Icon(
+                            imageVector = when (lockState) {
+                                PatchLockState.LOCKED_ON  -> Icons.Outlined.Lock
+                                PatchLockState.LOCKED_OFF -> Icons.Outlined.Block
+                                PatchLockState.NONE       -> Icons.Outlined.Lock
+                            },
+                            contentDescription = null,
+                            modifier = Modifier.size(14.dp),
+                            tint = colors.onSurfaceVariant,
+                        )
+                        Text(
+                            text = lockedMessage,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = colors.onSurfaceVariant,
+                        )
+                    }
                 }
             }
         }

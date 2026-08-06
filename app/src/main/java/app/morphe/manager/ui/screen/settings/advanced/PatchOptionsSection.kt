@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
@@ -119,30 +117,27 @@ fun PatchOptionsSection(
             }
 
             noPatchesAvailable -> {
-                InfoBadge(
+                Notice(
                     text = stringResource(R.string.settings_advanced_patch_options_waiting_for_source),
-                    style = InfoBadgeStyle.Success,
-                    icon = Icons.Outlined.Info,
-                    isExpanded = true
+                    tone = SemanticTone.Success,
+                    icon = Icons.Outlined.Info
                 )
             }
 
             loadError != null -> {
-                InfoBadge(
+                Notice(
                     text = stringResource(R.string.settings_advanced_patch_options_load_error) +
                             "\n" + loadError,
-                    style = InfoBadgeStyle.Error,
-                    icon = Icons.Outlined.Error,
-                    isExpanded = true
+                    tone = SemanticTone.Error,
+                    icon = Icons.Outlined.Error
                 )
             }
 
             else -> {
-                InfoBadge(
+                Notice(
                     icon = Icons.Outlined.Info,
                     text = stringResource(R.string.settings_advanced_patch_options_restart_message),
-                    style = InfoBadgeStyle.Success,
-                    isExpanded = true
+                    tone = SemanticTone.Success
                 )
 
                 // YouTube
@@ -236,7 +231,7 @@ private fun AppPatchOptionsCard(
 
         // Custom Branding
         if (hasBranding) {
-            MorpheSettingsDivider()
+            SettingsDivider()
 
             SettingsItem(
                 icon = Icons.Outlined.Style,
@@ -248,7 +243,7 @@ private fun AppPatchOptionsCard(
 
         // Custom Header
         if (hasHeader) {
-            MorpheSettingsDivider()
+            SettingsDivider()
 
             SettingsItem(
                 icon = Icons.Outlined.Image,
@@ -289,10 +284,6 @@ private fun HideShortsSection(
     val appShortcutOption = viewModel.getOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_APP_SHORTCUT)
     val widgetOption = viewModel.getOption(hideShortsOptions, PatchOptionKeys.HIDE_SHORTS_WIDGET)
 
-    // Localized strings for accessibility
-    val enabledState = stringResource(R.string.enabled)
-    val disabledState = stringResource(R.string.disabled)
-
     Column {
         // Header
         CardHeader(
@@ -317,25 +308,17 @@ private fun HideShortsSection(
                 R.string.settings_advanced_patch_options_hide_shorts_app_shortcut_description
             )
 
-            SettingsItem(
-                onClick = { viewModel.toggleHideShortsAppShortcut(patchOptionsPrefs, hideShortsAppShortcut) },
+            SettingsSwitchItem(
+                checked = hideShortsAppShortcut,
+                onToggle = { viewModel.toggleHideShortsAppShortcut(patchOptionsPrefs, hideShortsAppShortcut) },
                 title = title,
-                subtitle = description,
-                trailingContent = {
-                    MorpheSwitch(
-                        checked = hideShortsAppShortcut,
-                        onCheckedChange = null,
-                        modifier = Modifier.semantics {
-                            stateDescription = if (hideShortsAppShortcut) enabledState else disabledState
-                        }
-                    )
-                }
+                subtitle = description
             )
         }
 
         // Hide Widget
         if (hasWidgetOption && widgetOption != null) {
-            MorpheSettingsDivider()
+            SettingsDivider()
 
             val hideShortsWidget by patchOptionsPrefs.hideShortsWidget.getAsState()
             val title = getLocalizedOrCustomText(
@@ -351,19 +334,11 @@ private fun HideShortsSection(
                 R.string.settings_advanced_patch_options_hide_shorts_widget_description
             )
 
-            SettingsItem(
-                onClick = { viewModel.toggleHideShortsWidget(patchOptionsPrefs, hideShortsWidget) },
+            SettingsSwitchItem(
+                checked = hideShortsWidget,
+                onToggle = { viewModel.toggleHideShortsWidget(patchOptionsPrefs, hideShortsWidget) },
                 title = title,
-                subtitle = description,
-                trailingContent = {
-                    MorpheSwitch(
-                        checked = hideShortsWidget,
-                        onCheckedChange = null,
-                        modifier = Modifier.semantics {
-                            stateDescription = if (hideShortsWidget) enabledState else disabledState
-                        }
-                    )
-                }
+                subtitle = description
             )
         }
     }

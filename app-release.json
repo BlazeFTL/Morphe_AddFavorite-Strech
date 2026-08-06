@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-23T16:51:42",
-  "description": "## [1.24.3](https://github.com/MorpheApp/morphe-manager/compare/v1.24.2...v1.24.3) (2026-07-23)\n\n\n### Bug Fixes\n\n* Allow root mount when only versionCode differs from patched APK ([#760](https://github.com/MorpheApp/morphe-manager/issues/760)) ([05717c8](https://github.com/MorpheApp/morphe-manager/commit/05717c81874c8a27e0b33d2b00d600a62c0166bf))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.24.3/morphe-manager-1.24.3.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.24.3/morphe-manager-1.24.3.apk.asc",
-  "version": "1.24.3"
+  "created_at": "2026-08-04T05:39:34",
+  "description": "# [1.25.0-dev.19](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0-dev.18...v1.25.0-dev.19) (2026-08-04)\n\n\n### Features\n\n* Add APK download helper integration ([#797](https://github.com/MorpheApp/morphe-manager/issues/797)) ([7f7348c](https://github.com/MorpheApp/morphe-manager/commit/7f7348c26de0d706b3b9de6f065ebbc68d489583))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.19/morphe-manager-1.25.0-dev.19.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.25.0-dev.19/morphe-manager-1.25.0-dev.19.apk.asc",
+  "version": "1.25.0-dev.19"
 }

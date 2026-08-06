@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -27,10 +26,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.role
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -74,6 +69,8 @@ fun PatchSelectionManagementDialog(
     val showResetSelectedConfirmation = remember { mutableStateOf(false) }
     val resetTarget = remember { mutableStateOf<ResetTarget?>(null) }
     val showPatchDetailsTarget = remember { mutableStateOf<PatchDetailsTarget?>(null) }
+    val copyTarget = remember { mutableStateOf<CopyTarget?>(null) }
+    val copyCandidates = remember { mutableStateOf<List<CopySelectionCandidate>?>(null) }
     var pendingImportUri by remember { mutableStateOf<Uri?>(null) }
 
     val selections by settingsViewModel.selectionsSummary.collectAsStateWithLifecycle()
@@ -118,11 +115,52 @@ fun PatchSelectionManagementDialog(
         onShowResetAllConfirmation = { showResetAllConfirmation.value = true },
         onSetResetTarget = { resetTarget.value = it },
         onShowPatchDetails = { showPatchDetailsTarget.value = it },
+        onOpenCopyFromBundle = { target ->
+            copyTarget.value = target
+            copyCandidates.value = null
+            scope.launch {
+                val loaded = settingsViewModel.loadCopySelectionCandidates(
+                    targetPackageName = target.packageName,
+                    targetBundleUid = target.bundleUid
+                )
+                // Discard the result if the picker was closed or retargeted while loading.
+                if (copyTarget.value == target) copyCandidates.value = loaded
+            }
+        },
         onImportUriPicked = { pendingImportUri = it },
         onExitSelection = exitSelection,
         onSelectAll = { selectedPackages.setAll(selections.keys) },
         onShowResetSelectedConfirmation = { showResetSelectedConfirmation.value = true }
     )
+
+    // Confirmed picks are written to the database immediately here, unlike the expert-mode
+    // path which stages changes until the user proceeds to patching.
+    copyTarget.value?.let { target ->
+        CopySelectionFromBundleDialog(
+            target = CopySelectionTarget(
+                packageName = target.packageName,
+                bundleUid = target.bundleUid,
+                bundleName = bundleNames[target.bundleUid]
+                    ?: stringResource(R.string.settings_system_patch_selection_source_format, target.bundleUid),
+                appDisplayName = target.appDisplayName
+            ),
+            candidates = copyCandidates.value,
+            onConfirm = { candidate ->
+                scope.launch {
+                    settingsViewModel.copySelectionFromBundle(
+                        target = target,
+                        candidate = candidate
+                    )
+                    copyTarget.value = null
+                    copyCandidates.value = null
+                }
+            },
+            onDismiss = {
+                copyTarget.value = null
+                copyCandidates.value = null
+            }
+        )
+    }
 
     if (showResetSelectedConfirmation.value) {
         val selectedKeys = selectedPackages.keys.toList()
@@ -246,6 +284,7 @@ private fun PatchSelectionManagementDialogContent(
     onShowResetAllConfirmation: () -> Unit,
     onSetResetTarget: (ResetTarget) -> Unit,
     onShowPatchDetails: (PatchDetailsTarget) -> Unit,
+    onOpenCopyFromBundle: (CopyTarget) -> Unit,
     onImportUriPicked: (Uri) -> Unit,
     onExitSelection: () -> Unit,
     onSelectAll: () -> Unit,
@@ -264,7 +303,7 @@ private fun PatchSelectionManagementDialogContent(
         uri?.let { importExportViewModel.exportAllSelections(it) }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = {
             if (multiSelect.isSelectionMode) onExitSelection() else onDismiss()
         },
@@ -285,7 +324,7 @@ private fun PatchSelectionManagementDialogContent(
             if (multiSelect.isSelectionMode) {
                 MultiSelectShell(visible = true) {
                     SelectionActionBar(
-                        modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding, vertical = MorpheDefaults.ItemSpacing),
+                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
                         selectedCount = multiSelect.selectedPackages.size,
                         totalCount = selections.size,
                         onSelectAll = onSelectAll,
@@ -307,9 +346,9 @@ private fun PatchSelectionManagementDialogContent(
                     }
                 }
             } else {
-                MorpheDialogButtonColumn {
+                AppDialogButtonColumn {
                     if (selections.isNotEmpty()) {
-                        MorpheDialogButtonRow(
+                        AppDialogButtonRow(
                             primaryText = stringResource(R.string.export),
                             onPrimaryClick = {
                                 exportAllSelectionsLauncher.launch(
@@ -324,14 +363,14 @@ private fun PatchSelectionManagementDialogContent(
                             layout = DialogButtonLayout.Horizontal
                         )
                     } else {
-                        MorpheDialogButton(
+                        AppDialogButton(
                             text = stringResource(R.string.import_),
                             onClick = { openImportAllSelectionsPicker() },
                             icon = Icons.Outlined.Download,
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
-                    MorpheDialogOutlinedButton(
+                    AppDialogOutlinedButton(
                         text = stringResource(R.string.close),
                         onClick = onDismiss,
                         modifier = Modifier.fillMaxWidth()
@@ -352,7 +391,9 @@ private fun PatchSelectionManagementDialogContent(
                 settingsViewModel = settingsViewModel,
                 importExportViewModel = importExportViewModel,
                 onSetResetTarget = onSetResetTarget,
-                onShowPatchDetails = onShowPatchDetails
+                onShowPatchDetails = onShowPatchDetails,
+                onOpenCopyFromBundle = onOpenCopyFromBundle,
+                onImport = openImportAllSelectionsPicker
             )
         }
     }
@@ -368,7 +409,9 @@ private fun SelectionList(
     settingsViewModel: SettingsViewModel,
     importExportViewModel: ImportExportViewModel,
     onSetResetTarget: (ResetTarget) -> Unit,
-    onShowPatchDetails: (PatchDetailsTarget) -> Unit
+    onShowPatchDetails: (PatchDetailsTarget) -> Unit,
+    onOpenCopyFromBundle: (CopyTarget) -> Unit,
+    onImport: () -> Unit
 ) {
     val selections = data.selections
     val listState = rememberLazyListState()
@@ -377,7 +420,7 @@ private fun SelectionList(
         LazyColumn(
             state = listState,
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
             // Summary box
             item(key = "summary") {
@@ -420,6 +463,8 @@ private fun SelectionList(
                         onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid))
                     },
                     onShowPatchDetails = onShowPatchDetails,
+                    onOpenCopyFromBundle = onOpenCopyFromBundle,
+                    onImport = onImport,
                     isSelected = multiSelect.selectedPackages.contains(packageName),
                     isSelectionMode = multiSelect.isSelectionMode,
                     onEnterSelection = { multiSelect.onEnterSelection(packageName) },
@@ -436,7 +481,15 @@ private fun SelectionList(
             }
         }
 
-        ScrollToTopButton(listState = listState)
+        ListScrollbar(
+            listState = listState,
+            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+        )
+
+        ScrollToTopButton(
+            listState = listState,
+            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+        )
     }
 }
 
@@ -453,6 +506,8 @@ private fun PackageSelectionItem(
     onResetPackage: () -> Unit,
     onResetPackageBundle: (Int) -> Unit,
     onShowPatchDetails: (PatchDetailsTarget) -> Unit,
+    onOpenCopyFromBundle: (CopyTarget) -> Unit,
+    onImport: () -> Unit,
     isSelected: Boolean,
     isSelectionMode: Boolean,
     onEnterSelection: () -> Unit,
@@ -499,8 +554,8 @@ private fun PackageSelectionItem(
                                 onEnterSelection()
                             }
                         )
-                        .padding(MorpheDefaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+                        .padding(Defaults.ContentPadding),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // App icon
@@ -524,28 +579,26 @@ private fun PackageSelectionItem(
                         )
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            InfoBadge(
+                            StatusBadge(
                                 text = pluralStringResource(
                                     R.plurals.patch_count,
                                     totalPatches,
                                     totalPatches
                                 ),
-                                style = InfoBadgeStyle.Primary,
-                                isCompact = true
+                                tone = SemanticTone.Primary
                             )
 
                             if (bundleMap.size > 1) {
-                                InfoBadge(
+                                StatusBadge(
                                     text = pluralStringResource(
                                         R.plurals.source_count,
                                         bundleMap.size,
                                         bundleMap.size
                                     ),
-                                    style = InfoBadgeStyle.Default,
-                                    isCompact = true
+                                    tone = SemanticTone.Neutral
                                 )
                             }
                         }
@@ -554,8 +607,8 @@ private fun PackageSelectionItem(
                     // Expand icon (hidden in selection mode)
                     AnimatedVisibility(
                         visible = !isSelectionMode,
-                        enter = MorpheAnimations.expandFadeEnter,
-                        exit = MorpheAnimations.shrinkFadeExit
+                        enter = Animations.expandFadeEnter,
+                        exit = Animations.shrinkFadeExit
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.ExpandMore,
@@ -572,16 +625,16 @@ private fun PackageSelectionItem(
                 // Expanded content
                 AnimatedVisibility(
                     visible = effectiveExpanded,
-                    enter = MorpheAnimations.expandTopFadeIn,
-                    exit = MorpheAnimations.shrinkTopFadeOut
+                    enter = Animations.expandTopFadeIn,
+                    exit = Animations.shrinkTopFadeOut
                 ) {
                     Column(
                         modifier = Modifier.padding(
-                            start = MorpheDefaults.ContentPadding,
-                            end = MorpheDefaults.ContentPadding,
-                            bottom = MorpheDefaults.ContentPadding
+                            start = Defaults.ContentPadding,
+                            end = Defaults.ContentPadding,
+                            bottom = Defaults.ContentPadding
                         ),
-                        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
                     ) {
                         bundleMap.forEach { (bundleUid, patchCount) ->
                             BundleSelectionItem(
@@ -593,11 +646,15 @@ private fun PackageSelectionItem(
                                 onReset = { onResetPackageBundle(bundleUid) },
                                 onShowDetails = {
                                     onShowPatchDetails(PatchDetailsTarget(packageName, bundleUid, displayName))
-                                }
+                                },
+                                onCopyFromBundle = {
+                                    onOpenCopyFromBundle(CopyTarget(packageName, bundleUid, displayName))
+                                },
+                                onImport = onImport
                             )
                         }
 
-                        MorpheSettingsDivider(fullWidth = true)
+                        SettingsDivider(fullWidth = true)
 
                         // Reset all for this package
                         CardActionRow(
@@ -628,14 +685,15 @@ private fun BundleSelectionItem(
     patchCount: Int,
     importExportViewModel: ImportExportViewModel,
     onReset: () -> Unit,
-    onShowDetails: () -> Unit
+    onShowDetails: () -> Unit,
+    onCopyFromBundle: () -> Unit,
+    onImport: () -> Unit
 ) {
 
     // Display bundle name or fallback to "Bundle #N"
     val displayName = bundleName
         ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid)
     val patchCountText = pluralStringResource(R.plurals.patch_count, patchCount, patchCount)
-    val contentDesc = "$displayName: $patchCountText"
 
     // Export launcher
     val exportLauncher = rememberLauncherForActivityResult(
@@ -648,78 +706,61 @@ private fun BundleSelectionItem(
 
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
-        MorpheSettingsDivider(fullWidth = true)
+        SettingsDivider(fullWidth = true)
 
         // Bundle info card
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .semantics {
-                    contentDescription = contentDesc
-                    role = Role.Button
-                },
-            shape = RoundedCornerShape(12.dp),
-            color = MaterialTheme.colorScheme.secondaryContainer,
+        BundleInfoCard(
+            modifier = Modifier.fillMaxWidth(),
+            icon = Icons.Outlined.Extension,
+            title = displayName,
+            value = patchCountText,
             onClick = onShowDetails
-        ) {
-            Row(
-                modifier = Modifier.padding(MorpheDefaults.ItemSpacing),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Extension,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp),
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
-                )
+        )
 
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = displayName,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
-                        maxLines = 1
+        ActionPillRow {
+            val copyLabel = stringResource(R.string.copy)
+            ActionPillButton(
+                onClick = onCopyFromBundle,
+                icon = Icons.Outlined.ContentCopy,
+                contentDescription = copyLabel,
+                tooltip = copyLabel
+            )
+
+            val importLabel = stringResource(R.string.import_)
+            ActionPillButton(
+                onClick = onImport,
+                icon = Icons.Outlined.Download,
+                contentDescription = importLabel,
+                tooltip = importLabel
+            )
+
+            val exportLabel = stringResource(R.string.export)
+            ActionPillButton(
+                onClick = {
+                    val fileName = importExportViewModel.getPackageBundleDataExportFileName(
+                        packageName, bundleUid, bundleName
                     )
-                    Text(
-                        text = patchCountText,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        maxLines = 1
-                    )
-                }
+                    exportLauncher.launch(fileName)
+                },
+                icon = Icons.Outlined.Upload,
+                contentDescription = exportLabel,
+                tooltip = exportLabel
+            )
 
-                Icon(
-                    imageVector = Icons.Outlined.ChevronRight,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-            }
-        }
-
-        CardActionRow(
-            actions = listOf(
-                CardAction(
-                    icon = Icons.Outlined.Upload,
-                    label = stringResource(R.string.export),
-                    onClick = {
-                        val fileName = importExportViewModel.getPackageBundleDataExportFileName(
-                            packageName, bundleUid, bundleName
-                        )
-                        exportLauncher.launch(fileName)
-                    }
-                ),
-                CardAction(
-                    icon = Icons.Outlined.Restore,
-                    label = stringResource(R.string.reset),
-                    onClick = onReset,
-                    destructive = true
+            val resetLabel = stringResource(R.string.reset)
+            ActionPillButton(
+                onClick = onReset,
+                icon = Icons.Outlined.Restore,
+                contentDescription = resetLabel,
+                tooltip = resetLabel,
+                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer
                 )
             )
-        )
+        }
     }
 }
 
@@ -732,11 +773,11 @@ private fun ConfirmResetDialog(
     onDismiss: () -> Unit,
     summaryItems: @Composable () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = title,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = primaryText,
                 onPrimaryClick = onConfirm,
                 secondaryText = stringResource(android.R.string.cancel),
@@ -745,7 +786,7 @@ private fun ConfirmResetDialog(
             )
         }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)) {
+        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyLarge,
@@ -933,10 +974,10 @@ private fun PatchDetailsDialog(
         isLoading = false
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -945,7 +986,7 @@ private fun PatchDetailsDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             HeroInfoCard(
                 icon = Icons.Outlined.Extension,
@@ -963,7 +1004,7 @@ private fun PatchDetailsDialog(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(MorpheDefaults.ContentPaddingExpanded),
+                        .padding(Defaults.ContentPaddingExpanded),
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator()
@@ -998,10 +1039,9 @@ private fun PatchDetailsDialog(
 
                 // Empty state
                 if (patchList.isEmpty() && optionsMap.isEmpty()) {
-                    InfoBadge(
+                    Notice(
                         text = stringResource(R.string.settings_system_no_patches_or_options),
-                        style = InfoBadgeStyle.Default,
-                        isExpanded = true,
+                        tone = SemanticTone.Neutral,
                         isCentered = true
                     )
                 }
@@ -1016,6 +1056,13 @@ private sealed interface ResetTarget {
 }
 
 private data class PatchDetailsTarget(
+    val packageName: String,
+    val bundleUid: Int,
+    val appDisplayName: String
+)
+
+/** Destination (package + bundle) for a copy-from-another-bundle operation. */
+data class CopyTarget(
     val packageName: String,
     val bundleUid: Int,
     val appDisplayName: String

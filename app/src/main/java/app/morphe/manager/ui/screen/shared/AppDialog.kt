@@ -5,19 +5,14 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.FilledTonalIconButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,8 +36,11 @@ val LocalDialogTextColor = compositionLocalOf { Color.White }
 /** Provides the secondary/hint text color for dialog content. */
 val LocalDialogSecondaryTextColor = compositionLocalOf { Color.White.copy(alpha = 0.7f) }
 
+/** Horizontal inset of the active [DialogPadding], for offsetting a caller-managed [ListScrollbar] out to the true dialog edge. */
+val LocalDialogHorizontalInset = compositionLocalOf { 0.dp }
 
-/** Controls outer padding and inset behavior of [MorpheDialog]. */
+
+/** Controls outer padding and inset behavior of [AppDialog]. */
 enum class DialogPadding {
     /** Standard 32dp outer padding with system bar insets. */
     Normal,
@@ -61,20 +59,21 @@ enum class DialogTitleActionStyle {
 }
 
 /**
- * Unified fullscreen dialog component for Morphe UI.
+ * Unified fullscreen dialog component.
  *
  * @param onDismissRequest Called when user dismisses the dialog.
  * @param title Optional title displayed at the top.
  * @param titleTrailingContent Optional content displayed after the title.
  * @param footer Optional footer content.
  * @param dismissOnClickOutside Whether clicking outside dismisses the dialog.
- * @param scrollable Whether to wrap content in verticalScroll. Set to false for LazyColumn. Default is true.
+ * @param scrollable Whether to wrap content in verticalScroll and draw a [ListScrollbar] and [ScrollToTopButton] over it.
+ * Set to false for LazyColumn, where the caller wires up its own scroll state, scrollbar and button. Default is true.
  * @param padding Outer padding mode. Default is [DialogPadding.Normal].
  * @param contentArrangement Vertical arrangement of the dialog content.
  * @param content Dialog content.
  */
 @Composable
-fun MorpheDialog(
+fun AppDialog(
     onDismissRequest: () -> Unit,
     title: String? = null,
     titleTrailingContent: (@Composable () -> Unit)? = null,
@@ -93,7 +92,7 @@ fun MorpheDialog(
         visible = true
         // Notify caller once the enter animation has completed
         if (onEntered != null) {
-            kotlinx.coroutines.delay(MorpheDefaults.ANIMATION_DURATION.toLong().milliseconds)
+            kotlinx.coroutines.delay(Defaults.ANIMATION_DURATION.toLong().milliseconds)
             onEntered()
         }
     }
@@ -131,8 +130,8 @@ fun MorpheDialog(
 
             AnimatedVisibility(
                 visible = visible,
-                enter = MorpheAnimations.dialogEnter,
-                exit = MorpheAnimations.dialogExit,
+                enter = Animations.dialogEnter,
+                exit = Animations.dialogExit,
                 modifier = Modifier.fillMaxSize()
             ) {
                 DialogContent(
@@ -152,18 +151,18 @@ fun MorpheDialog(
 
 /**
  * Fullscreen semi-transparent overlay dialog. Blocks all interaction behind it.
- * Handles its own fade enter/exit animation via [MorpheAnimations].
+ * Handles its own fade enter/exit animation via [Animations].
  */
 @Composable
-fun MorpheOverlay(
+fun Overlay(
     visible: Boolean,
     backgroundAlpha: Float = 0.75f,
     content: @Composable BoxScope.() -> Unit
 ) {
     AnimatedVisibility(
         visible = visible,
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         Dialog(
             onDismissRequest = {},
@@ -198,7 +197,7 @@ fun MorpheOverlay(
  * Must be called inside a [BoxScope] (e.g. as the last child of a Box).
  */
 @Composable
-fun BoxScope.MorpheContentOverlay(
+fun BoxScope.ContentOverlay(
     visible: Boolean,
     backgroundAlpha: Float = 0.8f,
     content: @Composable BoxScope.() -> Unit
@@ -206,8 +205,8 @@ fun BoxScope.MorpheContentOverlay(
     AnimatedVisibility(
         visible = visible,
         modifier = Modifier.matchParentSize(),
-        enter = MorpheAnimations.overlayEnter,
-        exit = MorpheAnimations.overlayExit
+        enter = Animations.overlayEnter,
+        exit = Animations.overlayExit
     ) {
         Box(
             modifier = Modifier
@@ -227,7 +226,7 @@ fun BoxScope.MorpheContentOverlay(
 }
 
 /**
- * Icon action rendered inside the [MorpheDialog] title trailing slot. Uniforms the two
+ * Icon action rendered inside the [AppDialog] title trailing slot. Uniforms the two
  * button styles used across dialogs so callers only pick an icon and a semantic style.
  */
 @Composable
@@ -262,7 +261,7 @@ fun DialogTitleAction(
                 Icon(
                     imageVector = icon,
                     contentDescription = contentDescription,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(Defaults.IconSizeSmall)
                 )
             }
         }
@@ -307,22 +306,30 @@ private fun DialogContent(
         return
     }
 
+    // Horizontal inset is applied per-section below rather than on this outer Box, so the content
+    // Box stays full width and its ListScrollbar can sit flush with the dialog edge instead of
+    // being pushed inward by the padding
+    val horizontalPadding = if (padding == DialogPadding.Compact) {
+        Defaults.ContentPadding
+    } else {
+        Defaults.ContentPaddingExpanded
+    }
     // Compact mode zeroes its top padding when there is no title to fill it
-    val outerPadding = when (padding) {
-        DialogPadding.Compact -> PaddingValues(
-            start = MorpheDefaults.ContentPadding,
-            end = MorpheDefaults.ContentPadding,
-            top = if (title != null) MorpheDefaults.ContentPadding else 0.dp,
-            bottom = MorpheDefaults.ContentPadding
-        )
-        else -> PaddingValues(MorpheDefaults.ContentPaddingExpanded)
+    val topPadding = when (padding) {
+        DialogPadding.Compact -> if (title != null) Defaults.ContentPadding else 0.dp
+        else -> Defaults.ContentPaddingExpanded
+    }
+    val bottomPadding = if (padding == DialogPadding.Compact) {
+        Defaults.ContentPadding
+    } else {
+        Defaults.ContentPaddingExpanded
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding()
-            .padding(outerPadding)
+            .padding(top = topPadding, bottom = bottomPadding)
             .pointerInput(Unit) {
                 detectTapGestures { /* Consume clicks */ }
             },
@@ -331,7 +338,8 @@ private fun DialogContent(
         CompositionLocalProvider(
             LocalDialogTextColor provides textColor,
             LocalDialogSecondaryTextColor provides secondaryTextColor,
-            LocalContentColor provides textColor
+            LocalContentColor provides textColor,
+            LocalDialogHorizontalInset provides horizontalPadding
         ) {
             Column(
                 modifier = Modifier
@@ -345,36 +353,56 @@ private fun DialogContent(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = MorpheDefaults.ContentPadding),
+                            .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.ContentPadding),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center,
-                            color = textColor,
-                            modifier = Modifier.weight(1f)
-                        )
+                        // Dialogs whose title tracks a state (download, install, result) swap
+                        // it in step with their content instead of snapping a new string in
+                        AnimatedContent(
+                            targetState = title,
+                            transitionSpec = Animations.fadeCrossfade(),
+                            modifier = Modifier.weight(1f),
+                            label = "dialogTitle"
+                        ) { currentTitle ->
+                            Text(
+                                text = currentTitle,
+                                style = MaterialTheme.typography.headlineMedium,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center,
+                                color = textColor,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                         if (titleTrailingContent != null) titleTrailingContent()
                     }
                 }
 
-                // Content area.
+                // Content area, wrapped in a Box so ListScrollbar can anchor to the true dialog
+                // edge while the scrollable column keeps its own horizontal inset.
                 // Scrollable variant adds verticalScroll + imePadding so the keyboard doesn't cover input fields.
-                // LazyColumn callers pass scrollable=false
+                // LazyColumn callers pass scrollable=false and wire up their own scrollbar
                 val scrollState = if (scrollable) rememberScrollState() else null
-                Column(
-                    modifier = Modifier
-                        .weight(1f, fill = false)
-                        .then(
-                            if (scrollState != null) {
-                                Modifier.verticalScroll(scrollState).imePadding()
-                            } else Modifier
-                        )
+                Box(
+                    modifier = Modifier.weight(1f, fill = false)
                 ) {
-                    content()
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = horizontalPadding)
+                            .then(
+                                if (scrollState != null) {
+                                    Modifier.verticalScroll(scrollState).imePadding()
+                                } else Modifier
+                            )
+                    ) {
+                        content()
+                    }
+
+                    if (scrollState != null) {
+                        ListScrollbar(scrollState = scrollState)
+                        ScrollToTopButton(scrollState = scrollState)
+                    }
                 }
 
                 // Footer section
@@ -382,7 +410,7 @@ private fun DialogContent(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = MorpheDefaults.ContentPadding)
+                            .padding(start = horizontalPadding, end = horizontalPadding, top = Defaults.ContentPadding)
                     ) {
                         footer()
                     }

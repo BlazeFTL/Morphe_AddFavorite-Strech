@@ -36,6 +36,7 @@ import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.AboutViewModel
+import app.morphe.manager.util.isolateLtr
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 /**
@@ -53,17 +54,17 @@ fun AboutDialog(onDismiss: () -> Unit) {
         CreditsDialog(onDismiss = { showCreditsDialog.value = false })
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         footer = {
-            MorpheDialogButtonColumn {
-                MorpheDialogOutlinedButton(
+            AppDialogButtonColumn {
+                AppDialogOutlinedButton(
                     text = stringResource(R.string.credits),
                     onClick = { showCreditsDialog.value = true },
                     icon = Icons.Outlined.People,
                     modifier = Modifier.fillMaxWidth()
                 )
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(R.string.close),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
@@ -127,7 +128,7 @@ fun AboutDialog(onDismiss: () -> Unit) {
                     color = textColor
                 )
                 Text(
-                    text = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME,
+                    text = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME.isolateLtr(),
                     style = MaterialTheme.typography.bodyMedium,
                     color = secondaryColor
                 )

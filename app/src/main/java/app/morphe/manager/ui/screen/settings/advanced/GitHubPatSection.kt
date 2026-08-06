@@ -7,15 +7,15 @@ package app.morphe.manager.ui.screen.settings.advanced
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
@@ -37,7 +37,7 @@ fun GitHubPatSettingsItem(
     SettingsItem(
         onClick = { showDialog.value = true },
         leadingContent = {
-            MorpheIcon(icon = Icons.Outlined.VpnKey)
+            ThemedIcon(icon = Icons.Outlined.VpnKey)
         },
         title = stringResource(R.string.settings_advanced_github_pat),
         subtitle = if (hasPat) {
@@ -45,20 +45,14 @@ fun GitHubPatSettingsItem(
         } else {
             stringResource(R.string.settings_advanced_github_pat_description)
         },
-        trailingContent = {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                StatusCircleIcon(
-                    icon = Icons.Outlined.Check,
-                    containerColor = if (hasPat) MaterialTheme.colorScheme.primaryContainer
-                    else MaterialTheme.colorScheme.surfaceVariant,
-                    contentColor = if (hasPat) MaterialTheme.colorScheme.onPrimaryContainer
-                    else MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                MorpheIcon(icon = Icons.Outlined.ChevronRight)
-            }
+        statusContent = {
+            StatusCircleIcon(
+                icon = Icons.Outlined.Check,
+                containerColor = if (hasPat) MaterialTheme.colorScheme.primaryContainer
+                else MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = if (hasPat) MaterialTheme.colorScheme.onPrimaryContainer
+                else MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     )
 
@@ -93,11 +87,11 @@ private fun GitHubPatDialog(
     val scope = rememberCoroutineScope()
     val generatePatLink = "https://github.com/settings/tokens/new?scopes=public_repo&description=morphe-manager-github-integration"
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_advanced_github_pat_dialog_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.save),
                 onPrimaryClick = {
                     scope.launch {
@@ -112,10 +106,10 @@ private fun GitHubPatDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             // Info button
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.settings_advanced_github_pat_how_to_get),
                 onClick = { showInfoDialog.value = true },
                 icon = Icons.Outlined.Info,
@@ -123,13 +117,13 @@ private fun GitHubPatDialog(
             )
 
             // PAT input
-            MorpheDialogTextField(
+            AppDialogTextField(
                 value = pat.value,
                 onValueChange = { pat.value = it },
                 label = { Text(stringResource(R.string.settings_advanced_github_pat)) },
                 placeholder = { Text("ghp_xxxxxxxxxxxxxxx") },
                 leadingIcon = {
-                    MorpheIcon(
+                    ThemedIcon(
                         icon = Icons.Outlined.Key,
                         tint = LocalDialogTextColor.current.copy(alpha = 0.7f)
                     )
@@ -141,37 +135,31 @@ private fun GitHubPatDialog(
             // Export include toggle + warning
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
             ) {
-                SettingsItem(
-                    onClick = {
+                SettingsSwitchItem(
+                    checked = includePatInExport.value,
+                    onToggle = {
                         if (!includePatInExport.value) showIncludeWarning.value = true
                         else includePatInExport.value = false
                     },
                     showBorder = true,
                     leadingContent = {
-                        MorpheIcon(
+                        ThemedIcon(
                             icon = Icons.Outlined.Upload,
                             tint = LocalDialogTextColor.current
                         )
                     },
                     title = stringResource(R.string.settings_advanced_github_pat_export_include_label),
-                    subtitle = stringResource(R.string.settings_advanced_github_pat_export_include_supporting),
-                    trailingContent = {
-                        MorpheSwitch(
-                            checked = includePatInExport.value,
-                            onCheckedChange = null
-                        )
-                    }
+                    subtitle = stringResource(R.string.settings_advanced_github_pat_export_include_supporting)
                 )
 
                 // Warning badge if PAT will be included
                 if (includePatInExport.value) {
-                    InfoBadge(
+                    Notice(
                         text = stringResource(R.string.settings_advanced_github_pat_export_warning),
-                        style = InfoBadgeStyle.Warning,
-                        icon = Icons.Outlined.Warning,
-                        isExpanded = true
+                        tone = SemanticTone.Warning,
+                        icon = Icons.Outlined.Warning
                     )
                 }
             }
@@ -180,7 +168,7 @@ private fun GitHubPatDialog(
 
     // Info dialog with link to GitHub token creation
     if (showInfoDialog.value) {
-        MorpheDialogWithLinks(
+        AppDialogWithLinks(
             title = stringResource(R.string.settings_advanced_github_pat_how_to_get),
             message = stringResource(R.string.settings_advanced_github_pat_dialog_description, "github.com"),
             urlLink = generatePatLink,
@@ -190,11 +178,11 @@ private fun GitHubPatDialog(
 
     // Include-in-export warning confirmation
     if (showIncludeWarning.value) {
-        MorpheDialog(
+        AppDialog(
             onDismissRequest = { showIncludeWarning.value = false },
             title = stringResource(R.string.warning),
             footer = {
-                MorpheDialogButtonRow(
+                AppDialogButtonRow(
                     primaryText = stringResource(R.string.confirm),
                     onPrimaryClick = {
                         includePatInExport.value = true

@@ -11,17 +11,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Memory
 import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import app.morphe.manager.R
 import app.morphe.manager.patcher.runtime.*
 import app.morphe.manager.ui.screen.shared.*
+import kotlin.math.roundToInt
 
 /**
  * Dialog for configuring process runtime settings.
@@ -39,16 +40,15 @@ fun ProcessRuntimeDialog(
     val maxLimit: Int = calculateAdaptiveMemoryLimit(context).coerceIn(
         PROCESS_RUNTIME_MEMORY_MAX_LIMIT_INITIALIZATION, PROCESS_RUNTIME_MEMORY_MAX_LIMIT
     )
-    val enabledState = stringResource(R.string.enabled)
-    val disabledState = stringResource(R.string.disabled)
     var enabled by remember { mutableStateOf(currentEnabled) }
     var sliderValue by remember { mutableFloatStateOf(currentLimit.toFloat()) }
+    val selectedLimit = sliderValue.roundToInt()
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_process_runtime),
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -58,48 +58,35 @@ fun ProcessRuntimeDialog(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = MorpheDefaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+                .padding(vertical = Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             // Enable/Disable toggle
-            SettingsItem(
-                onClick = {
+            SettingsSwitchItem(
+                checked = enabled,
+                onToggle = {
                     enabled = !enabled
                     onEnabledChange(enabled)
                 },
-                leadingContent = {
-                    MorpheIcon(icon = Icons.Outlined.Memory)
-                },
+                icon = Icons.Outlined.Memory,
                 title = stringResource(R.string.settings_system_process_runtime_enable),
                 subtitle = stringResource(R.string.settings_system_process_runtime_description),
-                showBorder = true,
-                trailingContent = {
-                    MorpheSwitch(
-                        checked = enabled,
-                        onCheckedChange = {
-                            enabled = it
-                            onEnabledChange(it)
-                        },
-                        modifier = Modifier.semantics {
-                            stateDescription = if (enabled) enabledState else disabledState
-                        }
-                    )
-                }
+                showBorder = true
             )
 
             // Memory limit section
             Column(
                 modifier = Modifier.alpha(if (enabled) 1f else 0.5f)
             ) {
-                MorpheSettingsDivider(
-                    modifier = Modifier.padding(bottom = MorpheDefaults.ContentPadding),
+                SettingsDivider(
+                    modifier = Modifier.padding(bottom = Defaults.ContentPadding),
                     fullWidth = true
                 )
 
                 // Current value display
                 InfoStatBox(
-                    modifier = Modifier.padding(bottom = MorpheDefaults.ContentPadding),
-                    value = "${sliderValue.toInt()} MB",
+                    modifier = Modifier.padding(bottom = Defaults.ContentPadding),
+                    value = "$selectedLimit MB",
                     subtitle = stringResource(R.string.settings_system_memory_limit_subtitle),
                     containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
                     valueColor = LocalDialogTextColor.current
@@ -107,13 +94,17 @@ fun ProcessRuntimeDialog(
 
                 // Slider
                 Column(
-                    modifier = Modifier.padding(bottom = MorpheDefaults.ContentPadding),
-                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                    modifier = Modifier.padding(bottom = Defaults.ContentPadding),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
                     Slider(
                         value = sliderValue,
-                        onValueChange = { sliderValue = it },
-                        onValueChangeFinished = { onLimitChange(sliderValue.toInt()) },
+                        // Saved here rather than from `onValueChangeFinished`, which a track tap
+                        // fires in the same pointer event and would persist the pre-tap value
+                        onValueChange = {
+                            sliderValue = it
+                            onLimitChange(it.roundToInt())
+                        },
                         valueRange = PROCESS_RUNTIME_MEMORY_MINIMUM.toFloat()..maxLimit.toFloat(),
                         steps = (((maxLimit.toDouble() - PROCESS_RUNTIME_MEMORY_MINIMUM)
                                 / PROCESS_RUNTIME_MEMORY_STEP - 1)).toInt(),
@@ -139,25 +130,23 @@ fun ProcessRuntimeDialog(
                 }
 
                 // Description
-                InfoBadge(
+                Notice(
                     text = stringResource(R.string.settings_system_process_runtime_memory_limit_description),
-                    style = InfoBadgeStyle.Default,
-                    icon = Icons.Outlined.Info,
-                    isExpanded = true
+                    tone = SemanticTone.Neutral,
+                    icon = Icons.Outlined.Info
                 )
 
-                // Warning for low values — top padding inside so shrink includes spacing
+                // Warning for low values
                 AnimatedVisibility(
-                    visible = enabled && sliderValue < PROCESS_RUNTIME_MEMORY_LOW_WARNING,
-                    enter = MorpheAnimations.expandFadeEnter,
-                    exit = MorpheAnimations.shrinkFadeExit
+                    visible = enabled && selectedLimit < PROCESS_RUNTIME_MEMORY_LOW_WARNING,
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
                 ) {
-                    InfoBadge(
-                        modifier = Modifier.padding(top = MorpheDefaults.ContentPadding),
+                    Notice(
+                        modifier = Modifier.padding(top = Defaults.ContentPadding),
                         text = stringResource(R.string.settings_system_memory_limit_warning),
-                        style = InfoBadgeStyle.Error,
-                        icon = Icons.Outlined.Warning,
-                        isExpanded = true
+                        tone = SemanticTone.Error,
+                        icon = Icons.Outlined.Warning
                     )
                 }
             }

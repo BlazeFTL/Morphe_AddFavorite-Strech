@@ -56,7 +56,7 @@ fun ModernIconOptionCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(MorpheDefaults.ItemSpacing),
+                .padding(Defaults.ItemSpacing),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -90,8 +90,8 @@ fun ModernIconOptionCard(
 }
 
 /**
- * Compact horizontal card for single-row selections.
- * Used for "Not selected" option in color picker.
+ * Compact horizontal card for a single-row selection, typically the full-width option
+ * closing a grid of [ModernIconOptionCard] tiles.
  */
 @Composable
 fun CompactOptionCard(
@@ -102,9 +102,6 @@ fun CompactOptionCard(
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
-    // Increase height slightly in landscape for better text display
-    val cardHeight = if (isLandscape()) 60.dp else 56.dp
-
     SelectionTile(
         selected = selected,
         onClick = onClick,
@@ -112,16 +109,19 @@ fun CompactOptionCard(
         stateDescription = stringResource(
             if (selected) R.string.selected else R.string.not_selected
         ),
-        modifier = modifier.height(cardHeight)
+        modifier = modifier.height(Defaults.MinTouchTarget)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = MorpheDefaults.ContentPadding, vertical = MorpheDefaults.ItemSpacing),
+                .padding(
+                    horizontal = Defaults.ContentPadding,
+                    vertical = Defaults.ContentPaddingSmall
+                ),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            MorpheIcon(
+            ThemedIcon(
                 icon = icon,
                 tint = if (selected) {
                     MaterialTheme.colorScheme.onPrimaryContainer

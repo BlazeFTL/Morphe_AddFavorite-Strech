@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,8 +34,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,6 +41,7 @@ import app.morphe.manager.R
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
+import app.morphe.manager.data.room.apps.installed.supportsMount
 import app.morphe.manager.data.room.apps.original.OriginalApk
 import app.morphe.manager.domain.installer.InstallerFileProvider
 import app.morphe.manager.domain.installer.InstallerManager
@@ -263,10 +263,10 @@ private fun PatchedApksContent(
     fun installRequests(items: List<ApkItemData>) = items.mapNotNull { item ->
         val installedApp = appByKey[item.selectionKey] ?: return@mapNotNull null
         val file = item.file?.takeIf { it.exists() } ?: return@mapNotNull null
-        if (item.installType == InstallType.MOUNT) return@mapNotNull null
         InstallQueueRequest(
             file = file,
             originalPackageName = installedApp.originalPackageName,
+            mountPackageName = installedApp.currentPackageName.takeIf { installedApp.supportsMount },
             onPersistApp = { packageName, installType ->
                 val appliedPatches = repository.getAppliedPatches(installedApp.currentPackageName)
                 repository.addOrUpdate(
@@ -730,9 +730,9 @@ private fun ApkManagementDialogContent(
         }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = {
-            if (isExporting) return@MorpheDialog
+            if (isExporting) return@AppDialog
             if (isMultiSelectMode) { selection.clear(); isMultiSelectMode = false } else onDismissRequest()
         },
         title = meta.title,
@@ -752,7 +752,7 @@ private fun ApkManagementDialogContent(
             if (isMultiSelectMode) {
                 MultiSelectShell(visible = true) {
                     SelectionActionBar(
-                        modifier = Modifier.padding(horizontal = MorpheDefaults.ContentPadding, vertical = MorpheDefaults.ItemSpacing),
+                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
                         selectedCount = selectedItems.size,
                         totalCount = items.size,
                         subtitle = stringResource(
@@ -834,7 +834,7 @@ private fun ApkManagementDialogContent(
                     }
                 }
             } else {
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(R.string.close),
                     onClick = onDismissRequest,
                     modifier = Modifier.fillMaxWidth()
@@ -850,30 +850,20 @@ private fun ApkManagementDialogContent(
             LazyColumn(
                 state = listState,
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
                 if (retentionToggle != null) {
                     item(key = "retention") {
-                        val enabledState = stringResource(R.string.enabled)
-                        val disabledState = stringResource(R.string.disabled)
-                        Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)) {
-                            SettingsItem(
-                                onClick = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
-                                leadingContent = { MorpheIcon(icon = meta.icon, tint = meta.accentColor) },
+                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
+                            SettingsSwitchItem(
+                                checked = retentionToggle.checked,
+                                onToggle = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
+                                leadingContent = { ThemedIcon(icon = meta.icon, tint = meta.accentColor) },
                                 title = retentionToggle.title,
                                 subtitle = retentionToggle.description,
-                                showBorder = true,
-                                trailingContent = {
-                                    MorpheSwitch(
-                                        checked = retentionToggle.checked,
-                                        onCheckedChange = retentionToggle.onCheckedChange,
-                                        modifier = Modifier.semantics {
-                                            stateDescription = if (retentionToggle.checked) enabledState else disabledState
-                                        }
-                                    )
-                                }
+                                showBorder = true
                             )
-                            MorpheSettingsDivider(fullWidth = true)
+                            SettingsDivider(fullWidth = true)
                         }
                     }
                 }
@@ -882,6 +872,7 @@ private fun ApkManagementDialogContent(
                 item(key = "summary") {
                     Crossfade(
                         targetState = meta.isLoading,
+                        animationSpec = tween(Defaults.ANIMATION_DURATION),
                         label = "heroCard"
                     ) { loading ->
                         if (loading) {
@@ -901,7 +892,7 @@ private fun ApkManagementDialogContent(
                                 subtitle = {
                                     AnimatedContent(
                                         targetState = stringResource(R.string.settings_system_apks_size, formatBytes(meta.totalSize)),
-                                        transitionSpec = MorpheAnimations.counterTransitionSpec,
+                                        transitionSpec = Animations.counterTransitionSpec,
                                         label = "heroSize"
                                     ) { sizeText ->
                                         Text(
@@ -942,11 +933,19 @@ private fun ApkManagementDialogContent(
                 }
             }
 
-            ScrollToTopButton(listState = listState)
+            ListScrollbar(
+                listState = listState,
+                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+            )
+
+            ScrollToTopButton(
+                listState = listState,
+                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+            )
         }
     }
 
-    MorpheOverlay(visible = isExporting) {
+    Overlay(visible = isExporting) {
         PulsingLogoWithCaption(caption = stringResource(R.string.exporting_apks))
     }
 
@@ -1046,8 +1045,8 @@ private fun ApkItemCard(
                                 onToggleSelection()
                             }
                         )
-                        .padding(MorpheDefaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+                        .padding(Defaults.ContentPadding),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // App icon
@@ -1096,17 +1095,17 @@ private fun ApkItemCard(
 
                 AnimatedVisibility(
                     visible = !selectionMode,
-                    enter = MorpheAnimations.expandFadeEnter,
-                    exit = MorpheAnimations.shrinkFadeExit
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
                 ) {
                     Column {
-                        MorpheSettingsDivider()
+                        SettingsDivider()
 
                         // Action buttons
                         ActionPillRow(
                             modifier = Modifier.padding(
-                                horizontal = MorpheDefaults.ContentPadding,
-                                vertical = MorpheDefaults.ItemSpacing
+                                horizontal = Defaults.ContentPadding,
+                                vertical = Defaults.ItemSpacing
                             )
                         ) {
                             if (onShare != null) {
@@ -1193,11 +1192,11 @@ private fun DeleteAllConfirmationDialog(
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = title,
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = primaryText,
                 onPrimaryClick = onConfirm,
                 isPrimaryDestructive = true,
@@ -1206,7 +1205,7 @@ private fun DeleteAllConfirmationDialog(
             )
         }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)) {
+        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyLarge,

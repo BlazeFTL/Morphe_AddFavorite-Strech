@@ -24,8 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.core.net.toUri
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.settings.advanced.NotificationPermissionDialog
@@ -49,13 +47,10 @@ fun NotificationsDialog(
     val useManagerPrereleases by prefs.useManagerPrereleases.getAsState()
     val patchesPrereleaseIds by prefs.bundlePrereleasesEnabled.getAsState()
     val updateCheckInterval by prefs.updateCheckInterval.getAsState()
-
     val completionSound by prefs.patcherCompletionSound.getAsState()
     val successSoundUri by prefs.patcherSuccessSoundUri.getAsState()
     val errorSoundUri by prefs.patcherErrorSoundUri.getAsState()
 
-    val enabledState = stringResource(R.string.enabled)
-    val disabledState = stringResource(R.string.disabled)
     val defaultLabel = stringResource(R.string.settings_system_notifications_sound_default)
     val ringtoneTitle = stringResource(R.string.settings_system_notifications_ringtone_picker_title)
 
@@ -147,11 +142,11 @@ fun NotificationsDialog(
         )
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_notifications),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.ok),
                 onPrimaryClick = onDismiss
             )
@@ -160,11 +155,12 @@ fun NotificationsDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             SettingsGroup {
-                SettingsItem(
-                    onClick = {
+                SettingsSwitchItem(
+                    checked = backgroundUpdateNotifications,
+                    onToggle = {
                         settingsViewModel.toggleBackgroundNotifications(
                             currentValue = backgroundUpdateNotifications,
                             useManagerPrereleases = useManagerPrereleases,
@@ -173,42 +169,24 @@ fun NotificationsDialog(
                             onShowPermissionDialog = { showPermissionDialog = true }
                         )
                     },
-                    leadingContent = { MorpheIcon(icon = Icons.Outlined.NotificationsActive) },
+                    icon = Icons.Outlined.NotificationsActive,
                     title = stringResource(R.string.settings_advanced_updates_background_notifications),
                     subtitle = stringResource(
                         if (settingsViewModel.hasGms)
                             R.string.settings_advanced_updates_background_notifications_description_fcm
                         else
                             R.string.settings_advanced_updates_background_notifications_description
-                    ),
-                    trailingContent = {
-                        MorpheSwitch(
-                            checked = backgroundUpdateNotifications,
-                            onCheckedChange = null,
-                            modifier = Modifier.semantics {
-                                stateDescription =
-                                    if (backgroundUpdateNotifications) enabledState else disabledState
-                            }
-                        )
-                    }
+                    )
                 )
 
-                MorpheSettingsDivider()
+                SettingsDivider()
 
-                SettingsItem(
-                    onClick = { settingsViewModel.setPatcherCompletionSound(!completionSound) },
-                    leadingContent = { MorpheIcon(icon = Icons.AutoMirrored.Outlined.VolumeUp) },
+                SettingsSwitchItem(
+                    checked = completionSound,
+                    onToggle = { settingsViewModel.setPatcherCompletionSound(!completionSound) },
+                    icon = Icons.AutoMirrored.Outlined.VolumeUp,
                     title = stringResource(R.string.settings_system_patcher_completion_sound),
-                    subtitle = stringResource(R.string.settings_system_patcher_completion_sound_description),
-                    trailingContent = {
-                        MorpheSwitch(
-                            checked = completionSound,
-                            onCheckedChange = null,
-                            modifier = Modifier.semantics {
-                                stateDescription = if (completionSound) enabledState else disabledState
-                            }
-                        )
-                    }
+                    subtitle = stringResource(R.string.settings_system_patcher_completion_sound_description)
                 )
             }
 
@@ -221,7 +199,7 @@ fun NotificationsDialog(
                     enabled = completionSound,
                     onClick = { showSourcePickerFor = SoundKind.Success }
                 )
-                MorpheSettingsDivider()
+                SettingsDivider()
                 SoundSelectorItem(
                     title = stringResource(R.string.settings_system_notifications_error_sound),
                     icon = Icons.Outlined.ErrorOutline,
@@ -252,7 +230,7 @@ private fun SoundSelectorItem(
         onClick = { if (enabled) onClick() },
         title = title,
         subtitle = subtitle,
-        leadingContent = { MorpheIcon(icon = icon) }
+        leadingContent = { ThemedIcon(icon = icon) }
     )
 }
 
@@ -264,11 +242,11 @@ private fun SoundSourceDialog(
     onReset: () -> Unit,
     canReset: Boolean
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_notifications_sound_picker_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.cancel),
                 onPrimaryClick = onDismiss
             )
@@ -279,20 +257,20 @@ private fun SoundSourceDialog(
             SettingsItem(
                 onClick = onPickRingtone,
                 title = stringResource(R.string.settings_system_notifications_sound_pick_ringtone),
-                leadingContent = { MorpheIcon(icon = Icons.Outlined.MusicNote) }
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.MusicNote) }
             )
-            MorpheSettingsDivider()
+            SettingsDivider()
             SettingsItem(
                 onClick = onPickFile,
                 title = stringResource(R.string.settings_system_notifications_sound_pick_file),
-                leadingContent = { MorpheIcon(icon = Icons.Outlined.FolderOpen) }
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.FolderOpen) }
             )
             if (canReset) {
-                MorpheSettingsDivider()
+                SettingsDivider()
                 SettingsItem(
                     onClick = onReset,
                     title = stringResource(R.string.settings_system_notifications_sound_reset),
-                    leadingContent = { MorpheIcon(icon = Icons.Outlined.RestartAlt) }
+                    leadingContent = { ThemedIcon(icon = Icons.Outlined.RestartAlt) }
                 )
             }
         }

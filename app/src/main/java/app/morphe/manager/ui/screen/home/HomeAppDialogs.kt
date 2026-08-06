@@ -114,7 +114,7 @@ fun AppPatchesDialog(
         result.map { it.first to it.second.toList() }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = {
             when {
                 searchQuery.value.isNotBlank() -> searchQuery.value = ""
@@ -128,7 +128,7 @@ fun AppPatchesDialog(
         scrollable = false,
         contentArrangement = Arrangement.Top,
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -144,7 +144,7 @@ fun AppPatchesDialog(
 
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
             PatchesListSearchRow(
                 searchQuery = searchQuery.value,
@@ -156,8 +156,8 @@ fun AppPatchesDialog(
 
             AnimatedVisibility(
                 visible = selectedBundle.value != null,
-                enter = MorpheAnimations.expandFadeEnter,
-                exit = MorpheAnimations.shrinkFadeExit
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
             ) {
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     InputChip(
@@ -179,7 +179,7 @@ fun AppPatchesDialog(
                 LazyColumn(
                     state = listState,
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
                 ) {
                     // App header
                     item {
@@ -232,11 +232,11 @@ fun AppPatchesDialog(
                                             collapsedBundles.value + uid
                                         }
                                     },
-                                    cornerRadius = MorpheDefaults.SettingsCornerRadius,
+                                    cornerRadius = Defaults.SettingsCornerRadius,
                                     modifier = Modifier
                                         .animateItem(
-                                            fadeInSpec = tween(MorpheDefaults.ANIMATION_DURATION),
-                                            fadeOutSpec = tween(MorpheDefaults.ANIMATION_DURATION_SHORT),
+                                            fadeInSpec = tween(Defaults.ANIMATION_DURATION),
+                                            fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
                                             placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
                                         )
                                 )
@@ -256,8 +256,8 @@ fun AppPatchesDialog(
                                 val isFirstUniversalOfBundle = isUniversal && patch === firstUniversal
                                 Column(
                                     modifier = Modifier.animateItem(
-                                        fadeInSpec = tween(MorpheDefaults.ANIMATION_DURATION),
-                                        fadeOutSpec = tween(MorpheDefaults.ANIMATION_DURATION_SHORT),
+                                        fadeInSpec = tween(Defaults.ANIMATION_DURATION),
+                                        fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
                                         placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
                                     )
                                 ) {
@@ -267,7 +267,7 @@ fun AppPatchesDialog(
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .padding(
-                                                    top = if (hasSpecificInBundle) MorpheDefaults.ContentPaddingSmall else 0.dp,
+                                                    top = if (hasSpecificInBundle) Defaults.ContentPaddingSmall else 0.dp,
                                                     bottom = 4.dp
                                                 ),
                                             verticalAlignment = Alignment.CenterVertically,
@@ -303,14 +303,22 @@ fun AppPatchesDialog(
                     }
                 }
 
-                ScrollToTopButton(listState = listState)
+                ListScrollbar(
+                    listState = listState,
+                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                )
+
+                ScrollToTopButton(
+                    listState = listState,
+                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                )
             }
         }
     }
 
     // Bundle filter bottom sheet (multi-bundle only)
     if (showFilterSheet.value && isMultiBundle) {
-        MorpheBottomSheet(
+        AppBottomSheet(
             onDismissRequest = { showFilterSheet.value = false }
         ) {
             Column(
@@ -371,11 +379,11 @@ internal fun HideAppDialog(
     onDismiss: () -> Unit,
     onHide: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_app_hide_title),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.hide),
                 primaryIcon = Icons.Outlined.VisibilityOff,
                 onPrimaryClick = onHide,
@@ -472,7 +480,7 @@ internal fun HiddenAppsDialog(
         )
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = {
             if (isMultiSelectMode.value) {
                 isMultiSelectMode.value = false
@@ -516,7 +524,7 @@ internal fun HiddenAppsDialog(
                     onCancelReorder = {}
                 )
             } else {
-                MorpheDialogOutlinedButton(
+                AppDialogOutlinedButton(
                     text = stringResource(R.string.close),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
@@ -527,85 +535,99 @@ internal fun HiddenAppsDialog(
         scrollable = false
     ) {
         if (hiddenAppItems.isEmpty()) {
-            MorpheEmptyState(
+            HomeEmptyState(
                 icon = Icons.Outlined.Visibility,
                 title = stringResource(R.string.home_app_no_hidden)
             )
         } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(itemSpacing)
-            ) {
-                items(
-                    items = hiddenAppItems,
-                    key = { it.packageName }
-                ) { item ->
-                    val isSelected = selectedPackages.contains(item.packageName)
-                    val offsetX = remember(item.packageName) { Animatable(0f) }
+            val listState = rememberLazyListState()
+            Box(modifier = Modifier.fillMaxWidth()) {
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(itemSpacing)
+                ) {
+                    items(
+                        items = hiddenAppItems,
+                        key = { it.packageName }
+                    ) { item ->
+                        val isSelected = selectedPackages.contains(item.packageName)
+                        val offsetX = remember(item.packageName) { Animatable(0f) }
 
-                    // Snap card back when entering multi-select
-                    LaunchedEffect(isMultiSelectMode.value) {
-                        if (isMultiSelectMode.value) offsetX.animateTo(0f, tween(200))
-                    }
+                        // Snap card back when entering multi-select
+                        LaunchedEffect(isMultiSelectMode.value) {
+                            if (isMultiSelectMode.value) offsetX.animateTo(0f, tween(200))
+                        }
 
-                    SelectableCard(
-                        modifier = Modifier.animateItem(
-                            fadeInSpec = tween(MorpheDefaults.ANIMATION_DURATION),
-                            fadeOutSpec = tween(MorpheDefaults.ANIMATION_DURATION_SHORT),
-                            placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
-                        ),
-                        isSelected = isSelected,
-                        isSelectionMode = isMultiSelectMode.value
-                    ) {
-                        SwipeableCardContainer(
-                            offsetX = offsetX,
-                            actionThresholdPx = actionThresholdPx,
-                            onLeftSwipe = { onUnhide(item.packageName) },
-                            onRightSwipe = { onShowPatches(item) },
-                            leftHaptic = HapticFeedbackConstants.LONG_PRESS,
-                            rightHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
-                            enabled = !isMultiSelectMode.value,
-                            background = { leftProgress, rightProgress ->
-                                SwipeBackground(
-                                    leftProgress = leftProgress,
-                                    rightProgress = rightProgress,
-                                    leftConfig = leftConfig,
-                                    rightConfig = rightConfig,
-                                    modifier = Modifier
-                                        .matchParentSize()
-                                        .clip(RoundedCornerShape(24.dp))
-                                )
-                            }
+                        SelectableCard(
+                            modifier = Modifier.animateItem(
+                                fadeInSpec = tween(Defaults.ANIMATION_DURATION),
+                                fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
+                                placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
+                            ),
+                            isSelected = isSelected,
+                            isSelectionMode = isMultiSelectMode.value
                         ) {
-                            AppCardLayout(
-                                gradientColors = item.gradientColors,
-                                enabled = true,
-                                onClick = {
-                                    if (isMultiSelectMode.value) {
-                                        selectedPackages.toggle(item.packageName)
-                                    } else {
-                                        onUnhide(item.packageName)
-                                    }
-                                },
-                                onLongClick = {
-                                    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                                    isMultiSelectMode.value = true
-                                    selectedPackages.toggle(item.packageName)
-                                },
-                                modifier = Modifier.fillMaxWidth()
+                            SwipeableCardContainer(
+                                offsetX = offsetX,
+                                actionThresholdPx = actionThresholdPx,
+                                onLeftSwipe = { onUnhide(item.packageName) },
+                                onRightSwipe = { onShowPatches(item) },
+                                leftHaptic = HapticFeedbackConstants.LONG_PRESS,
+                                rightHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
+                                enabled = !isMultiSelectMode.value,
+                                background = { leftProgress, rightProgress ->
+                                    SwipeBackground(
+                                        leftProgress = leftProgress,
+                                        rightProgress = rightProgress,
+                                        leftConfig = leftConfig,
+                                        rightConfig = rightConfig,
+                                        modifier = Modifier
+                                            .matchParentSize()
+                                            .clip(RoundedCornerShape(24.dp))
+                                    )
+                                }
                             ) {
-                                AppCardContent(
-                                    packageName = item.packageName,
-                                    packageInfo = item.packageInfo,
-                                    displayName = item.displayName,
-                                    subtitle = if (isMultiSelectMode.value) null
-                                    else stringResource(R.string.home_app_hidden_apps_hint),
+                                AppCardLayout(
                                     gradientColors = item.gradientColors,
-                                )
+                                    enabled = true,
+                                    onClick = {
+                                        if (isMultiSelectMode.value) {
+                                            selectedPackages.toggle(item.packageName)
+                                        } else {
+                                            onUnhide(item.packageName)
+                                        }
+                                    },
+                                    onLongClick = {
+                                        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                                        isMultiSelectMode.value = true
+                                        selectedPackages.toggle(item.packageName)
+                                    },
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    AppCardContent(
+                                        packageName = item.packageName,
+                                        packageInfo = item.packageInfo,
+                                        displayName = item.displayName,
+                                        subtitle = if (isMultiSelectMode.value) null
+                                        else stringResource(R.string.home_app_hidden_apps_hint),
+                                        gradientColors = item.gradientColors,
+                                    )
+                                }
                             }
                         }
                     }
                 }
+
+                ListScrollbar(
+                    listState = listState,
+                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                )
+
+                ScrollToTopButton(
+                    listState = listState,
+                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                )
             }
         }
     }

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -16,6 +17,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -30,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchInfo
+import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
@@ -44,6 +48,7 @@ class ExpertPatchActions(
     val onDeselectAll: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Unit,
     val onResetToDefault: (bundleUid: Int, allPatches: List<Pair<PatchInfo, Boolean>>) -> Unit,
     val onRestoreSaved: (bundleUid: Int) -> Unit,
+    val onCopyFromBundle: (bundleUid: Int) -> Unit,
     val onOptionChange: (bundleUid: Int, patchName: String, optionKey: String, value: Any?) -> Unit,
     val onResetOptions: (bundleUid: Int, patchName: String) -> Unit
 )
@@ -62,6 +67,10 @@ fun ExpertModeDialog(
     hasMultipleBundles: Boolean,
     patchActions: ExpertPatchActions,
     savedPatches: PatchSelection = emptyMap(),
+    lockStateOf: (PatchInfo) -> PatchLockState = { PatchLockState.NONE },
+    proceedText: String = stringResource(R.string.expert_mode_proceed),
+    /** Off where mixing sources is the norm rather than something the user just did. */
+    warnOnMultipleBundles: Boolean = true,
     onDismiss: () -> Unit,
     onProceed: () -> Unit
 ) {
@@ -111,19 +120,18 @@ fun ExpertModeDialog(
         }
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.expert_mode_title),
         titleTrailingContent = {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Count badge
-                InfoBadge(
+                StatusBadge(
                     text = "$totalSelectedCount/$totalPatchesCount",
-                    style = if (totalSelectedCount > 0) InfoBadgeStyle.Primary else InfoBadgeStyle.Default,
-                    isCompact = true
+                    tone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
                 )
 
                 // Search toggle button
@@ -164,13 +172,13 @@ fun ExpertModeDialog(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             // Search bar
             AnimatedVisibility(
                 visible = searchVisible,
-                enter = MorpheAnimations.expandFadeEnter,
-                exit = MorpheAnimations.shrinkFadeExit
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
             ) {
                 val focusRequester = remember { FocusRequester() }
                 val keyboardController = LocalSoftwareKeyboardController.current
@@ -178,7 +186,7 @@ fun ExpertModeDialog(
                     focusRequester.requestFocus()
                     keyboardController?.show()
                 }
-                MorpheDialogTextField(
+                AppDialogTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
                     label = {
@@ -207,7 +215,7 @@ fun ExpertModeDialog(
 
                 // Bundle name header
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     StatusCircleIcon(
@@ -233,6 +241,7 @@ fun ExpertModeDialog(
                     onDeselectAll = { patchActions.onDeselectAll(bundle.uid, displayPatches) },
                     onResetToDefault = { patchActions.onResetToDefault(bundle.uid, allPatches) },
                     onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
+                    onCopyFromBundle = { patchActions.onCopyFromBundle(bundle.uid) },
                     hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true
                 )
 
@@ -254,12 +263,13 @@ fun ExpertModeDialog(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .verticalScroll(singleBundleScroll),
-                            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                         ) {
                             PatchListWithUniversalSection(
                                 patches = filteredPatches,
                                 newPatchNames = newPatches[bundle.uid] ?: emptySet(),
                                 missingRequiredOptions = patchesWithMissingRequired,
+                                lockStateOf = lockStateOf,
                                 onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
                                 onConfigureOptions = {
                                     if (!it.options.isNullOrEmpty()) selectedPatchForOptions.value = bundle.uid to it
@@ -267,13 +277,34 @@ fun ExpertModeDialog(
                             )
                         }
 
-                        ScrollToTopButton(scrollState = singleBundleScroll)
+                        ListScrollbar(
+                            scrollState = singleBundleScroll,
+                            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                        )
+
+                        ScrollToTopButton(
+                            scrollState = singleBundleScroll,
+                            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                        )
                     }
                 }
             } else {
                 // Multiple bundles tab layout
                 val pagerState = rememberPagerState { allPatchesInfo.size }
                 val coroutineScope = rememberCoroutineScope()
+                // Created up front, outside the pager, so the scrollbar overlay below can track
+                // whichever page is current. HorizontalPager clips each page to its own bounds, so
+                // a scrollbar drawn inside a page can never bleed out to the true dialog edge.
+                // Keyed on the bundle count so pages never inherit a stale sibling's position
+                val pageScrollStates = rememberSaveable(
+                    allPatchesInfo.size,
+                    saver = listSaver(
+                        save = { states -> states.map { it.value } },
+                        restore = { offsets -> offsets.map { ScrollState(it) } }
+                    )
+                ) {
+                    List(allPatchesInfo.size) { ScrollState(0) }
+                }
 
                 Column(
                     modifier = Modifier
@@ -305,7 +336,7 @@ fun ExpertModeDialog(
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
-                                    modifier = Modifier.padding(horizontal = MorpheDefaults.ItemSpacing, vertical = 10.dp)
+                                    modifier = Modifier.padding(horizontal = Defaults.ItemSpacing, vertical = 10.dp)
                                 ) {
                                     Text(
                                         text = bundle.name,
@@ -318,11 +349,9 @@ fun ExpertModeDialog(
                                     Spacer(modifier = Modifier.height(2.dp))
 
                                     // Patch count badge
-                                    InfoBadge(
+                                    StatusBadge(
                                         text = "$enabledCount/$totalCount",
-                                        style = if (isSelected && hasResults) InfoBadgeStyle.Primary else InfoBadgeStyle.Default,
-                                        isCompact = true,
-                                        isCentered = true
+                                        tone = if (isSelected && hasResults) SemanticTone.Primary else SemanticTone.Neutral
                                     )
                                 }
                             }
@@ -347,8 +376,9 @@ fun ExpertModeDialog(
                             onDeselectAll = { patchActions.onDeselectAll(currentBundle.uid, currentFiltered) },
                             onResetToDefault = { patchActions.onResetToDefault(currentBundle.uid, currentAllPatches) },
                             onRestoreSaved = { patchActions.onRestoreSaved(currentBundle.uid) },
+                            onCopyFromBundle = { patchActions.onCopyFromBundle(currentBundle.uid) },
                             hasSavedSelection = savedPatches[currentBundle.uid]?.isNotEmpty() == true,
-                            modifier = Modifier.padding(vertical = MorpheDefaults.ContentPaddingSmall)
+                            modifier = Modifier.padding(vertical = Defaults.ContentPaddingSmall)
                         )
                     } else {
                         // Reserve space so pager height stays stable when a tab has no results
@@ -356,54 +386,75 @@ fun ExpertModeDialog(
                     }
 
                     // Pager
-                    HorizontalPager(
-                        state = pagerState,
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
-                    ) { pageIndex ->
-                        val (bundle, _) = allPatchesInfo.getOrNull(pageIndex) ?: return@HorizontalPager
-                        val patches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
+                    ) {
+                        HorizontalPager(
+                            state = pagerState,
+                            modifier = Modifier.fillMaxSize()
+                        ) { pageIndex ->
+                            val (bundle, _) = allPatchesInfo.getOrNull(pageIndex) ?: return@HorizontalPager
+                            val patches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
 
-                        if (patches == null) {
-                            // No search results for this bundle
-                            EmptyState(
-                                message = stringResource(R.string.expert_mode_no_results),
-                                icon = Icons.Outlined.SearchOff,
-                                modifier = Modifier.fillMaxHeight()
-                            )
-                        } else {
-                            val pageScroll = rememberScrollState()
-                            Box(modifier = Modifier.fillMaxSize()) {
+                            if (patches == null) {
+                                // No search results for this bundle
+                                EmptyState(
+                                    message = stringResource(R.string.expert_mode_no_results),
+                                    icon = Icons.Outlined.SearchOff,
+                                    modifier = Modifier.fillMaxHeight()
+                                )
+                            } else {
+                                val pageScroll = pageScrollStates[pageIndex]
                                 Column(
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .verticalScroll(pageScroll),
-                                    verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                                 ) {
                                     PatchListWithUniversalSection(
                                         patches = patches,
                                         newPatchNames = newPatches[bundle.uid] ?: emptySet(),
                                         missingRequiredOptions = patchesWithMissingRequired,
+                                        lockStateOf = lockStateOf,
                                         onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
                                         onConfigureOptions = {
                                             if (!it.options.isNullOrEmpty()) selectedPatchForOptions.value = bundle.uid to it
                                         }
                                     )
                                 }
-                                ScrollToTopButton(scrollState = pageScroll)
                             }
+                        }
+
+                        // Single overlay for the whole pager, tracking whichever page is current,
+                        // instead of one per page - a page-local scrollbar would be clipped by the
+                        // pager before it could reach the true dialog edge. Pages filtered down to
+                        // an empty state have nothing to scroll, so they get no overlay
+                        val currentPageScroll = allPatchesInfo.getOrNull(pagerState.currentPage)
+                            ?.takeIf { (bundle, _) -> filteredPatchesInfo.any { it.first.uid == bundle.uid } }
+                            ?.let { pageScrollStates.getOrNull(pagerState.currentPage) }
+                        if (currentPageScroll != null) {
+                            ListScrollbar(
+                                scrollState = currentPageScroll,
+                                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                            )
+
+                            ScrollToTopButton(
+                                scrollState = currentPageScroll,
+                                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                            )
                         }
                     }
                 }
             }
 
             // Proceed to Patching button
-            MorpheDialogButton(
-                text = stringResource(R.string.expert_mode_proceed),
+            AppDialogButton(
+                text = proceedText,
                 onClick = {
                     // Check if multiple bundles are selected
-                    if (hasMultipleBundles) {
+                    if (hasMultipleBundles && warnOnMultipleBundles) {
                         showMultipleSourcesWarning.value = true
                     } else {
                         onProceed()
@@ -466,6 +517,7 @@ private fun PatchListWithUniversalSection(
     patches: List<Pair<PatchInfo, Boolean>>,
     newPatchNames: Set<String> = emptySet(),
     missingRequiredOptions: Set<String> = emptySet(),
+    lockStateOf: (PatchInfo) -> PatchLockState = { PatchLockState.NONE },
     onToggle: (String) -> Unit,
     onConfigureOptions: (PatchInfo) -> Unit,
 ) {
@@ -493,6 +545,7 @@ private fun PatchListWithUniversalSection(
             isEnabled = isEnabled,
             isNew = patch.name in newPatchNames,
             hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
+            lockState = lockStateOf(patch),
             onToggle = { onToggle(patch.name) },
             onConfigureOptions = { onConfigureOptions(patch) },
             hasOptions = !patch.options.isNullOrEmpty()

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,10 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.outlined.ChevronRight
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.FolderOff
-import androidx.compose.material.icons.outlined.Upload
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -31,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
@@ -40,18 +39,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 
 // Constants
-object MorpheDefaults {
+object Defaults {
     val CardElevation = 2.dp
     val CardCornerRadius = 16.dp
+    val CompactCornerRadius = 12.dp
     val SettingsCornerRadius = 14.dp
     val SectionCornerRadius = 18.dp
     val IconSize = 24.dp
+    val IconSizeSmall = 20.dp
+
+    val MinTouchTarget = 48.dp
     val ContentPaddingSmall = 8.dp
     val ContentPadding = 16.dp
     val ContentPaddingMedium = 24.dp
@@ -79,12 +83,12 @@ object MorpheDefaults {
  * Base card for all other card types.
  */
 @Composable
-fun MorpheCard(
+fun SurfaceCard(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
     enabled: Boolean = true,
-    elevation: Dp = MorpheDefaults.CardElevation,
-    cornerRadius: Dp = MorpheDefaults.CardCornerRadius,
+    elevation: Dp = Defaults.CardElevation,
+    cornerRadius: Dp = Defaults.CardCornerRadius,
     borderWidth: Dp = 0.dp,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
     color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
@@ -121,7 +125,7 @@ fun MorpheCard(
  * Horizontal divider for settings sections.
  */
 @Composable
-fun MorpheSettingsDivider(
+fun SettingsDivider(
     modifier: Modifier = Modifier,
     fullWidth: Boolean = false
 ) {
@@ -136,7 +140,7 @@ fun MorpheSettingsDivider(
         }
     }
     HorizontalDivider(
-        modifier = if (fullWidth) modifier else modifier.padding(horizontal = MorpheDefaults.ContentPadding),
+        modifier = if (fullWidth) modifier else modifier.padding(horizontal = Defaults.ContentPadding),
         color = color
     )
 }
@@ -181,12 +185,12 @@ fun ToggleRow(
                 .semantics {
                     stateDescription = if (checked) enabledLabel else disabledLabel
                 }
-                .padding(vertical = MorpheDefaults.ContentPaddingSmall, horizontal = 4.dp),
+                .padding(vertical = Defaults.ContentPaddingSmall, horizontal = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             if (icon != null) {
-                MorpheIcon(icon = icon, tint = iconTint)
+                ThemedIcon(icon = icon, tint = iconTint)
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -205,6 +209,7 @@ fun ToggleRow(
             Crossfade(
                 targetState = isLoading,
                 modifier = Modifier.size(width = 52.dp, height = 32.dp),
+                animationSpec = tween(Defaults.ANIMATION_DURATION),
                 label = "toggle_row_loading"
             ) { loading ->
                 Box(
@@ -217,7 +222,7 @@ fun ToggleRow(
                             strokeWidth = 2.dp
                         )
                     } else {
-                        MorpheSwitch(checked = checked, onCheckedChange = null)
+                        ToggleSwitch(checked = checked, onCheckedChange = null)
                     }
                 }
             }
@@ -229,10 +234,10 @@ fun ToggleRow(
  * Reusable icon component with standard styling.
  */
 @Composable
-fun MorpheIcon(
+fun ThemedIcon(
     icon: ImageVector,
     modifier: Modifier = Modifier,
-    size: Dp = MorpheDefaults.IconSize,
+    size: Dp = Defaults.IconSize,
     tint: Color = MaterialTheme.colorScheme.primary,
     contentDescription: String? = null
 ) {
@@ -263,7 +268,7 @@ fun StatusCirclePlaceholder(
  * Switch with check/close icons in the thumb.
  */
 @Composable
-fun MorpheSwitch(
+fun ToggleSwitch(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
@@ -341,11 +346,11 @@ fun ImportExportRow(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(MorpheDefaults.ContentPadding),
-        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+            .padding(Defaults.ContentPadding),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
             verticalAlignment = Alignment.CenterVertically
         ) {
             leadingContent()
@@ -379,9 +384,9 @@ fun GradientCircleIcon(
     icon: ImageVector,
     modifier: Modifier = Modifier,
     size: Dp = 40.dp,
-    iconSize: Dp = MorpheDefaults.IconSize,
+    iconSize: Dp = Defaults.IconSize,
     contentDescription: String? = null,
-    gradientColors: List<Color> = MorpheDefaults.DefaultGradientColors
+    gradientColors: List<Color> = Defaults.DefaultGradientColors
 ) {
     Box(
         modifier = modifier
@@ -390,7 +395,7 @@ fun GradientCircleIcon(
             .background(brush = MonochromeThemeDefaults.iconBackground(gradientColors)),
         contentAlignment = Alignment.Center
     ) {
-        MorpheIcon(
+        ThemedIcon(
             icon = icon,
             contentDescription = contentDescription,
             tint = MonochromeThemeDefaults.iconTint(Color.White),
@@ -414,7 +419,7 @@ fun IconTextRow(
     descriptionStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     descriptionColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     trailingContent: @Composable (() -> Unit)? = null,
-    spacing: Dp = MorpheDefaults.ItemSpacing
+    spacing: Dp = Defaults.ItemSpacing
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -460,11 +465,11 @@ fun SettingsItemCard(
     color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
     content: @Composable () -> Unit
 ) {
-    MorpheCard(
+    SurfaceCard(
         onClick = onClick,
         enabled = enabled,
         elevation = 1.dp,
-        cornerRadius = MorpheDefaults.SettingsCornerRadius,
+        cornerRadius = Defaults.SettingsCornerRadius,
         borderWidth = borderWidth,
         borderColor = borderColor,
         color = color,
@@ -474,12 +479,34 @@ fun SettingsItemCard(
     }
 }
 
-private val defaultChevronTrailing: @Composable () -> Unit = {
-    MorpheIcon(icon = Icons.Outlined.ChevronRight)
+/**
+ * Chevron pointing towards whatever a row navigates to.
+ * Material ships no auto-mirrored variant of [Icons.Outlined.ChevronRight], so RTL layouts
+ * have to be served the mirrored icon explicitly.
+ */
+@Composable
+fun ForwardChevronIcon(
+    modifier: Modifier = Modifier,
+    size: Dp = Defaults.IconSize,
+    tint: Color = MaterialTheme.colorScheme.primary
+) {
+    ThemedIcon(
+        icon = if (LocalLayoutDirection.current == LayoutDirection.Rtl) {
+            Icons.Outlined.ChevronLeft
+        } else {
+            Icons.Outlined.ChevronRight
+        },
+        modifier = modifier,
+        size = size,
+        tint = tint
+    )
 }
 
 /**
  * Standard settings item. Pass [icon] for a simple icon leading, or [leadingContent] for custom leading.
+ *
+ * [statusContent] is placed ahead of [trailingContent] for rows that show a state indicator
+ * next to the chevron, so call sites do not have to rebuild the trailing row themselves.
  */
 @Composable
 fun SettingsItem(
@@ -490,7 +517,8 @@ fun SettingsItem(
     leadingContent: @Composable (() -> Unit)? = null,
     subtitle: String? = null,
     showBorder: Boolean = false,
-    trailingContent: @Composable (() -> Unit)? = defaultChevronTrailing
+    statusContent: @Composable (() -> Unit)? = null,
+    trailingContent: @Composable (() -> Unit)? = { ForwardChevronIcon() }
 ) {
     SettingsItemCard(
         onClick = onClick,
@@ -498,13 +526,64 @@ fun SettingsItem(
         modifier = modifier
     ) {
         IconTextRow(
-            modifier = Modifier.padding(MorpheDefaults.ContentPadding),
-            leadingContent = leadingContent ?: icon?.let { { MorpheIcon(icon = it) } },
+            modifier = Modifier.padding(Defaults.ContentPadding),
+            leadingContent = leadingContent ?: icon?.let { { ThemedIcon(icon = it) } },
             title = title,
             description = subtitle,
-            trailingContent = trailingContent
+            trailingContent = when (statusContent) {
+                null -> trailingContent
+                else -> {
+                    {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            statusContent()
+                            trailingContent?.invoke()
+                        }
+                    }
+                }
+            }
         )
     }
+}
+
+/**
+ * [SettingsItem] trailed by a switch that reflects [checked]. Tapping anywhere on the row
+ * toggles it, so the switch itself stays non-interactive.
+ */
+@Composable
+fun SettingsSwitchItem(
+    checked: Boolean,
+    onToggle: () -> Unit,
+    title: String,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    leadingContent: @Composable (() -> Unit)? = null,
+    subtitle: String? = null,
+    showBorder: Boolean = false
+) {
+    val enabledLabel = stringResource(R.string.enabled)
+    val disabledLabel = stringResource(R.string.disabled)
+
+    SettingsItem(
+        onClick = onToggle,
+        title = title,
+        modifier = modifier,
+        icon = icon,
+        leadingContent = leadingContent,
+        subtitle = subtitle,
+        showBorder = showBorder,
+        trailingContent = {
+            ToggleSwitch(
+                checked = checked,
+                onCheckedChange = null,
+                modifier = Modifier.semantics {
+                    stateDescription = if (checked) enabledLabel else disabledLabel
+                }
+            )
+        }
+    )
 }
 
 /**
@@ -516,10 +595,10 @@ fun SectionCard(
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
-    MorpheCard(
+    SurfaceCard(
         onClick = onClick,
-        elevation = MorpheDefaults.CardElevation,
-        cornerRadius = MorpheDefaults.SectionCornerRadius,
+        elevation = Defaults.CardElevation,
+        cornerRadius = Defaults.SectionCornerRadius,
         borderWidth = 1.dp,
         modifier = modifier
     ) {
@@ -549,7 +628,7 @@ fun SectionTitle(
     icon: ImageVector? = null
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
@@ -582,17 +661,17 @@ fun CardHeader(
         Surface(
             modifier = Modifier.fillMaxWidth(),
             color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-            shape = RoundedCornerShape(topStart = MorpheDefaults.SectionCornerRadius, topEnd = MorpheDefaults.SectionCornerRadius)
+            shape = RoundedCornerShape(topStart = Defaults.SectionCornerRadius, topEnd = Defaults.SectionCornerRadius)
         ) {
             IconTextRow(
-                modifier = Modifier.padding(MorpheDefaults.ContentPadding),
-                leadingContent = { MorpheIcon(icon = icon) },
+                modifier = Modifier.padding(Defaults.ContentPadding),
+                leadingContent = { ThemedIcon(icon = icon) },
                 title = title,
                 description = description
             )
         }
 
-        MorpheSettingsDivider(fullWidth = true)
+        SettingsDivider(fullWidth = true)
     }
 }
 
@@ -609,11 +688,11 @@ fun DeleteListItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = MorpheDefaults.ContentPadding),
-        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+            .padding(horizontal = Defaults.ContentPadding),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        MorpheIcon(
+        ThemedIcon(
             icon = icon,
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -640,11 +719,11 @@ fun InfoStatBox(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
         color = containerColor
     ) {
         Column(
-            modifier = Modifier.padding(MorpheDefaults.ContentPadding),
+            modifier = Modifier.padding(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
@@ -668,6 +747,10 @@ fun InfoStatBox(
 
 /**
  * Prominent hero-style header used at the top of dialogs and sections.
+ *
+ * [footer] is laid out below the header row inside the same surface, for cards that carry a
+ * progress bar or similar trailing element. It deliberately sits before [subtitle] so that a
+ * trailing lambda still binds to the subtitle, the way every caller already writes it.
  */
 @Composable
 fun HeroInfoCard(
@@ -678,61 +761,69 @@ fun HeroInfoCard(
     iconContainerColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
     iconTint: Color = MaterialTheme.colorScheme.primary,
     titleColor: Color = LocalDialogTextColor.current,
+    footer: (@Composable ColumnScope.() -> Unit)? = null,
     subtitle: (@Composable RowScope.() -> Unit)? = null
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(MorpheDefaults.SectionCornerRadius),
+        shape = RoundedCornerShape(Defaults.SectionCornerRadius),
         color = containerColor
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MorpheDefaults.ContentPadding),
-            horizontalArrangement = Arrangement.spacedBy(14.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(Defaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            Surface(
-                shape = CircleShape,
-                color = iconContainerColor,
-                modifier = Modifier.size(56.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(14.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        tint = iconTint,
-                        modifier = Modifier.size(28.dp)
-                    )
+                Surface(
+                    shape = CircleShape,
+                    color = iconContainerColor,
+                    modifier = Modifier.size(56.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            tint = iconTint,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                }
+
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    AnimatedContent(
+                        targetState = title,
+                        transitionSpec = Animations.counterTransitionSpec,
+                        label = "heroTitle"
+                    ) { t ->
+                        Text(
+                            text = t,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = titleColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    if (subtitle != null) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            content = subtitle
+                        )
+                    }
                 }
             }
 
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                AnimatedContent(
-                    targetState = title,
-                    transitionSpec = MorpheAnimations.counterTransitionSpec,
-                    label = "heroTitle"
-                ) { t ->
-                    Text(
-                        text = t,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = titleColor,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-                if (subtitle != null) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        content = subtitle
-                    )
-                }
-            }
+            footer?.invoke(this)
         }
     }
 }
@@ -752,7 +843,7 @@ fun InfoBox(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
         color = containerColor
     ) {
         Row(

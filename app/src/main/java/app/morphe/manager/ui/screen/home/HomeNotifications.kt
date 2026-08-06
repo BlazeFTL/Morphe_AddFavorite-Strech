@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.repository.PatchBundleRepository
-import app.morphe.manager.ui.screen.shared.MorpheAnimations
-import app.morphe.manager.ui.screen.shared.MorpheIcon
+import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.screen.shared.ThemedIcon
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 
 /** Visibility flag paired with the tap callback for a single [AlertSnackbar] slot. */
@@ -46,6 +46,7 @@ data class BundleUpdateState(
 @Immutable
 data class HomeNotificationsUi(
     val managerUpdate: AlertState,
+    val outdatedManager: AlertState,
     val blockedSources: AlertState,
     val metadataErrors: AlertState,
     val meteredSkipped: AlertState,
@@ -78,6 +79,17 @@ fun NotificationsOverlay(
                 subtitle = stringResource(R.string.home_blocked_source_subtitle),
                 onShowDetails = notifications.blockedSources.onShow,
                 swipeEnabled = false,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // A source built for a newer patcher stays unusable until the app itself is updated
+            AlertSnackbar(
+                visible = notifications.outdatedManager.visible,
+                level = AlertLevel.Error,
+                icon = Icons.Outlined.SystemUpdate,
+                title = stringResource(R.string.home_outdated_manager_title),
+                subtitle = stringResource(R.string.home_outdated_manager_subtitle),
+                onShowDetails = notifications.outdatedManager.onShow,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -176,8 +188,8 @@ fun AlertSnackbar(
 
     AnimatedVisibility(
         visible = visible && !dismissed.value,
-        enter = MorpheAnimations.slideUpFadeEnter,
-        exit = MorpheAnimations.slideUpFadeExit,
+        enter = Animations.slideUpFadeEnter,
+        exit = Animations.slideUpFadeExit,
         modifier = modifier
     ) {
         SwipeToDismissBox(
@@ -202,7 +214,7 @@ fun AlertSnackbar(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    MorpheIcon(icon = icon, tint = colors.content)
+                    ThemedIcon(icon = icon, tint = colors.content)
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
@@ -253,8 +265,8 @@ fun BundleUpdateSnackbar(
 
     AnimatedVisibility(
         visible = visible && !dismissed.value,
-        enter = MorpheAnimations.slideUpFadeEnter,
-        exit = MorpheAnimations.slideUpFadeExit,
+        enter = Animations.slideUpFadeEnter,
+        exit = Animations.slideUpFadeExit,
         modifier = modifier
     ) {
         SwipeToDismissBox(
@@ -329,15 +341,15 @@ private fun BundleUpdateSnackbarContent(
                 // Icon based on status
                 Crossfade(targetState = status, label = "snackbarIcon") { s ->
                     when (s) {
-                        BundleUpdateStatus.Success -> MorpheIcon(
+                        BundleUpdateStatus.Success -> ThemedIcon(
                             icon = Icons.Outlined.CheckCircle,
                             tint = contentColor
                         )
-                        BundleUpdateStatus.Warning -> MorpheIcon(
+                        BundleUpdateStatus.Warning -> ThemedIcon(
                             icon = Icons.Outlined.SignalCellularAlt,
                             tint = contentColor
                         )
-                        BundleUpdateStatus.Error -> MorpheIcon(
+                        BundleUpdateStatus.Error -> ThemedIcon(
                             icon = Icons.Outlined.Warning,
                             tint = contentColor
                         )
@@ -398,7 +410,7 @@ private fun BundleUpdateSnackbarContent(
                         AnimatedContent(
                             targetState = subtitleKey to subtitle,
                             contentKey = { it.first },
-                            transitionSpec = MorpheAnimations.fadeCrossfade(200),
+                            transitionSpec = Animations.fadeCrossfade(200),
                             label = "subtitle"
                         ) { (_, text) ->
                             if (text != null) {

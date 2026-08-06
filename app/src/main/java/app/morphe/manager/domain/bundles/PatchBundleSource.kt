@@ -2,10 +2,9 @@ package app.morphe.manager.domain.bundles
 
 import androidx.compose.runtime.Stable
 import app.morphe.manager.patcher.patch.PatchBundle
+import app.morphe.manager.util.isPatcherOutdated
 import java.io.File
-import java.io.FilterOutputStream
 import java.io.IOException
-import java.io.OutputStream
 
 /**
  * A [PatchBundle] source.
@@ -35,10 +34,31 @@ sealed class PatchBundleSource(
     }
 
     val patchBundle get() = (state as? State.Available)?.bundle
-    val version get() = patchBundle?.manifestAttributes?.version
-    val isNameOutOfDate get() = patchBundle?.manifestAttributes?.name?.let { it != name } == true
+
+    /**
+     * Manifest of the installed patches.jar. Read straight from the file instead of going through
+     * [patchBundle] so name, version and patcher requirements stay visible when the patches
+     * themselves cannot be loaded, which is exactly the case a patcher mismatch produces.
+     */
+    private val manifestAttributes by lazy {
+        (patchBundle ?: patchesFile.takeIf { it.exists() }?.let { PatchBundle(it.absolutePath) })
+            ?.manifestAttributes
+    }
+
+    val version get() = manifestAttributes?.version
+    val isNameOutOfDate get() = manifestAttributes?.name?.let { it != name } == true
     val error get() = (state as? State.Failed)?.throwable
     val displayTitle get() = displayName?.takeUnless { it.isBlank() } ?: name
+
+    /** Patcher version this bundle was built for, null for bundles built before the attribute existed. */
+    val requiredPatcherVersion get() = manifestAttributes?.patcherVersion
+
+    /**
+     * True when the bundle was built for a newer patcher than the one shipped in this manager.
+     * Such bundles either fail to load outright or break during patching, so the manager has to
+     * be updated first.
+     */
+    val requiresManagerUpdate get() = requiredPatcherVersion?.let { isPatcherOutdated(it) } == true
 
     abstract fun copy(
         error: Throwable? = this.error,
@@ -51,25 +71,39 @@ sealed class PatchBundleSource(
 
     protected fun hasInstalled() = patchesFile.exists()
 
-    protected fun patchBundleOutputStream(): OutputStream = with(patchesFile) {
-        // Android 14+ requires dex containers to be readonly.
-        setWritable(true, true)
-        val base = outputStream()
-        object : FilterOutputStream(base) {
-            override fun close() {
-                try {
-                    super.close()
-                } finally {
-                    setReadOnly()
-                }
+    /**
+     * Installs a new patches.jar by writing it to a staging file that replaces the installed one
+     * only once it is complete. Metadata is reloaded while downloads are still running, and a
+     * reader must never observe the container half-written or writable - Android 14+ rejects a
+     * writable dex container outright.
+     *
+     * [write] receives the staging file and is responsible for filling it.
+     */
+    protected suspend fun installPatchBundle(context: String, write: suspend (staging: File) -> Unit) {
+        val staging = directory.resolve(STAGING_FILE_NAME)
+        try {
+            directory.mkdirs()
+            runCatching { staging.setWritable(true, true) }
+            runCatching { staging.delete() }
+            write(staging)
+            requireNonEmptyBundleFile(staging, context)
+            staging.setReadOnly()
+            // Replaces the installed bundle in a single step, so readers see either the old
+            // file or the new one
+            if (!staging.renameTo(patchesFile)) {
+                throw IOException("$context could not replace the installed patch bundle")
             }
+        } catch (t: Throwable) {
+            runCatching { staging.setWritable(true, true) }
+            runCatching { staging.delete() }
+            throw t
         }
     }
 
-    protected fun requireNonEmptyPatchesFile(context: String) {
-        val length = runCatching { patchesFile.length() }.getOrDefault(0L)
+    protected fun requireNonEmptyBundleFile(file: File, context: String) {
+        val length = runCatching { file.length() }.getOrDefault(0L)
         if (length < MIN_PATCH_BUNDLE_BYTES) {
-            runCatching { patchesFile.delete() }
+            runCatching { file.delete() }
             throw IOException("$context produced an empty or truncated patch bundle (size=$length)")
         }
     }
@@ -82,6 +116,8 @@ sealed class PatchBundleSource(
 
     companion object Extensions {
         private const val MIN_PATCH_BUNDLE_BYTES = 8L
+        private const val STAGING_FILE_NAME = "patches.jar.tmp"
+        private const val JSON_EXTENSION = ".json"
         val PatchBundleSource.isDefault inline get() = uid == 0
         val PatchBundleSource.asRemoteOrNull inline get() = this as? RemotePatchBundle
 
@@ -122,14 +158,15 @@ sealed class PatchBundleSource(
         }
 
         /**
-         * Get custom bundle avatar URL (patches-bundle.png next to patches-bundle.json).
-         * Returns null if the endpoint does not contain patches-bundle.json.
+         * Get custom bundle avatar URL (the PNG named after the bundle JSON, next to it).
+         * Returns null if the endpoint does not point to a JSON file.
          */
         val PatchBundleSource.bundleAvatarUrl: String? get() {
             val remote = this as? RemotePatchBundle ?: return null
-            return if (remote.endpoint.contains("patches-bundle.json", ignoreCase = true))
-                remote.endpoint.replace("patches-bundle.json", "patches-bundle.png", ignoreCase = true)
-            else null
+            val path = remote.endpoint.substringBefore('?').substringBefore('#')
+            if (!path.endsWith(JSON_EXTENSION, ignoreCase = true)) return null
+            // Keep the query and fragment, they can carry the credentials of a private host
+            return path.dropLast(JSON_EXTENSION.length) + ".png" + remote.endpoint.substring(path.length)
         }
 
         /**

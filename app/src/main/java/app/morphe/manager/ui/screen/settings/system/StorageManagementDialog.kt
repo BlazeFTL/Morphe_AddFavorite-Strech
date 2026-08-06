@@ -76,7 +76,7 @@ fun StorageManagementDialog(
         )
     }
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismissRequest,
         title = stringResource(R.string.settings_system_storage_management_title),
         padding = DialogPadding.Compact,
@@ -91,14 +91,14 @@ fun StorageManagementDialog(
             )
         },
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismissRequest,
                 modifier = Modifier.fillMaxWidth()
             )
         }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)) {
+        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
             key(histogramNonce) {
                 StorageHistogram(
                     used = stats.appUsedBytes,
@@ -115,7 +115,7 @@ fun StorageManagementDialog(
                     description = stringResource(R.string.settings_system_original_apks_description),
                     onClick = { apkDialog = ApkManagementType.ORIGINAL }
                 )
-                MorpheSettingsDivider()
+                SettingsDivider()
                 DataRow(
                     icon = Icons.Outlined.Apps,
                     accentColor = StorageColors.PatchedApks,
@@ -131,43 +131,43 @@ fun StorageManagementDialog(
                     accentColor = StorageColors.HttpCache,
                     title = stringResource(R.string.settings_system_storage_http_cache_title),
                     description = stringResource(R.string.settings_system_storage_http_cache_description),
-                    enabled = stats.httpCacheBytes > 0L,
+                    bytes = stats.httpCacheBytes,
                     onClear = { viewModel.clearHttpCache(onCleared) }
                 )
-                MorpheSettingsDivider()
+                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.Share,
                     accentColor = StorageColors.InstallerShare,
                     title = stringResource(R.string.settings_system_storage_installer_cache_title),
                     description = stringResource(R.string.settings_system_storage_installer_cache_description),
-                    enabled = stats.installerShareBytes > 0L,
+                    bytes = stats.installerShareBytes,
                     onClear = { viewModel.clearInstallerShareCache(onCleared) }
                 )
-                MorpheSettingsDivider()
+                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.Build,
                     accentColor = StorageColors.PatcherWorkspace,
                     title = stringResource(R.string.settings_system_storage_patcher_workspace_title),
                     description = stringResource(R.string.settings_system_storage_patcher_workspace_description),
-                    enabled = stats.patcherWorkspaceBytes > 0L,
+                    bytes = stats.patcherWorkspaceBytes,
                     onClear = { viewModel.clearPatcherWorkspace(onCleared) }
                 )
-                MorpheSettingsDivider()
+                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.HourglassEmpty,
                     accentColor = StorageColors.Temporary,
                     title = stringResource(R.string.settings_system_storage_temporary_title),
                     description = stringResource(R.string.settings_system_storage_temporary_description),
-                    enabled = stats.temporaryBytes > 0L,
+                    bytes = stats.temporaryBytes,
                     onClear = { viewModel.clearTemporary(onCleared) }
                 )
-                MorpheSettingsDivider()
+                SettingsDivider()
                 CacheActionRow(
                     icon = Icons.Outlined.DeleteSweep,
                     accentColor = MaterialTheme.colorScheme.error,
                     title = stringResource(R.string.settings_system_storage_clear_all),
                     description = stringResource(R.string.settings_system_storage_clear_all_description),
-                    enabled = stats.totalCacheBytes > 0L,
+                    bytes = stats.totalCacheBytes,
                     onClear = { showClearAllConfirm = true }
                 )
             }
@@ -177,7 +177,7 @@ fun StorageManagementDialog(
                     onClick = { openAndroidAppStorage(context) },
                     title = stringResource(R.string.settings_system_storage_open_app_info_title),
                     subtitle = stringResource(R.string.settings_system_storage_open_app_info_description),
-                    leadingContent = { MorpheIcon(icon = Icons.AutoMirrored.Outlined.Launch) }
+                    leadingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.Launch) }
                 )
             }
         }
@@ -206,7 +206,7 @@ private fun DataRow(
         onClick = onClick,
         title = title,
         subtitle = description,
-        leadingContent = { MorpheIcon(icon = icon, tint = accentColor) }
+        leadingContent = { ThemedIcon(icon = icon, tint = accentColor) }
     )
 }
 
@@ -216,17 +216,17 @@ private fun CacheActionRow(
     accentColor: Color,
     title: String,
     description: String,
-    enabled: Boolean,
+    bytes: Long,
     onClear: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(MorpheDefaults.ContentPadding),
-        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)
+            .padding(Defaults.ContentPadding),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
     ) {
         IconTextRow(
-            leadingContent = { MorpheIcon(icon = icon, tint = accentColor) },
+            leadingContent = { ThemedIcon(icon = icon, tint = accentColor) },
             title = title,
             description = description
         )
@@ -234,9 +234,9 @@ private fun CacheActionRow(
             actions = listOf(
                 CardAction(
                     icon = Icons.Outlined.DeleteSweep,
-                    label = stringResource(R.string.clear),
+                    label = "${stringResource(R.string.clear)} (${formatBytes(bytes)})",
                     onClick = onClear,
-                    enabled = enabled,
+                    enabled = bytes > 0L,
                     destructive = true
                 )
             )
@@ -250,11 +250,11 @@ private fun ClearCachesConfirmationDialog(
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_storage_clear_all),
         footer = {
-            MorpheDialogButtonRow(
+            AppDialogButtonRow(
                 primaryText = stringResource(R.string.settings_system_storage_clear_all),
                 onPrimaryClick = onConfirm,
                 isPrimaryDestructive = true,
@@ -263,7 +263,7 @@ private fun ClearCachesConfirmationDialog(
             )
         }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPadding)) {
+        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
             Text(
                 text = stringResource(R.string.settings_system_storage_clear_all_confirm),
                 style = MaterialTheme.typography.bodyLarge,

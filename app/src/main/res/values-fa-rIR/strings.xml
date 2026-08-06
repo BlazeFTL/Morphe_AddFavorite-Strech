@@ -169,6 +169,9 @@
     <string name="adaptive_icon_created_success">آیکون تطبیقی با موفقیت ایجاد شد</string>
     <string name="adaptive_icon_creation_failed">ایجاد آیکون تطبیقی موفقیت‌آمیز نبود</string>
     <!-- Header Creator -->
+    <!-- Batch patching -->
+    <string name="batch_patch_action">پچ انتخاب شد</string>
+    <string name="shortcut_check_updates_short">بررسی به‌روزرسانی‌ها</string>
     <!-- Home Screen - App Info Screen -->
     <!-- Home Screen - Root Mode -->
     <!-- Patcher Screen -->
@@ -185,6 +188,8 @@
     <!-- Patcher Screen - Other hidden strings -->
     <!-- Patcher Screen - Mini-games -->
     <!-- Settings -->
+    <string name="advanced">پیشرفته</string>
+    <string name="system">سیستم</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background_none">موردی وجود ندارد</string>
     <!-- Settings - Appearance Tab - Theme -->
@@ -214,18 +219,22 @@
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
+    <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
+    <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">درباره</string>
     <!-- Shared strings -->
+    <string name="settings">تنظیمات</string>
     <string name="remove">حذف</string>
     <string name="enabled">فعال</string>
     <string name="disabled">غیرفعال</string>
+    <string name="download">دانلود</string>
     <string name="allow">اجازه</string>
-    <string name="details">جزئیات</string>
+    <!-- Shown while resuming a download, before the total size is known -->
     <!-- Onboarding coach marks -->
-    <!-- %1$d = current step number, %2$d = total number of steps (e.g. "3 of 13") -->
+    <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <!-- Translate "System" the same way as the System settings tab -->
     <!-- Tour prompt dialog shown after first successful patch install -->
 </resources>

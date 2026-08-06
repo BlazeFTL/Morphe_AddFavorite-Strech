@@ -53,11 +53,11 @@ fun LanguagePickerDialog(
 
     val listState = rememberLazyListState()
 
-    MorpheDialog(
+    AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_appearance_app_language),
         footer = {
-            MorpheDialogOutlinedButton(
+            AppDialogOutlinedButton(
                 text = stringResource(android.R.string.cancel),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
@@ -67,10 +67,10 @@ fun LanguagePickerDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
             // Search field
-            MorpheDialogTextField(
+            AppDialogTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
                 label = {
@@ -80,7 +80,7 @@ fun LanguagePickerDialog(
                     )
                 },
                 leadingIcon = {
-                    MorpheIcon(
+                    ThemedIcon(
                         icon = Icons.Outlined.Search,
                         tint = LocalDialogSecondaryTextColor.current
                     )
@@ -89,32 +89,44 @@ fun LanguagePickerDialog(
             )
 
             // Language list
-            LazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                items(filteredLanguages) { language ->
-                    LanguageItem(
-                        language = language,
-                        isSelected = currentLanguage == language.code,
-                        onClick = { onLanguageSelected(language.code) }
-                    )
-                }
-
-                if (filteredLanguages.isEmpty()) {
-                    item {
-                        Text(
-                            text = stringResource(R.string.search_no_results),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = LocalDialogSecondaryTextColor.current.copy(alpha = 0.7f),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 32.dp),
-                            textAlign = TextAlign.Center
+            Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    items(filteredLanguages) { language ->
+                        LanguageItem(
+                            language = language,
+                            isSelected = currentLanguage == language.code,
+                            onClick = { onLanguageSelected(language.code) }
                         )
                     }
+
+                    if (filteredLanguages.isEmpty()) {
+                        item {
+                            Text(
+                                text = stringResource(R.string.search_no_results),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = LocalDialogSecondaryTextColor.current.copy(alpha = 0.7f),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 32.dp),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
                 }
+
+                ListScrollbar(
+                    listState = listState,
+                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                )
+
+                ScrollToTopButton(
+                    listState = listState,
+                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                )
             }
         }
     }

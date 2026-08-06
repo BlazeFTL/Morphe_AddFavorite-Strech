@@ -13,7 +13,7 @@
 * Handle preference IO errors and skip cancellation in uiSafe ([c5b8e26](https://github.com/MorpheApp/morphe-manager/commit/c5b8e267b3b37e25d8cc6f9529378ec6420b0a7c))
 * Ignore updates of uninstalled apps in category icon tint ([7f1a5f2](https://github.com/MorpheApp/morphe-manager/commit/7f1a5f2a8a9e337eea95c977b4ddb7a360c6b6dc))
 * Keep patch selection of bundles disabled at patch time ([c0d6b8c](https://github.com/MorpheApp/morphe-manager/commit/c0d6b8cf1415bdaa763f97f5ba6df3f4bbfba4a7))
-* Mirror navigation chevrons and isolate version strings in RTL layouts ([ca60cd0](https://github.com/MorpheApp/morphe-manager/commit/ca60cd05e33ef08d78edf84f2a8592243289e117)), closes [/github.com/MorpheApp/morphe-manager/issues/709#issuecomment-5132332365](https://github.com//github.com/MorpheApp/morphe-manager/issues/709/issues/issuecomment-5132332365)
+* Mirror navigation chevrons and isolate version strings in RTL layouts ([ca60cd0](https://github.com/MorpheApp/morphe-manager/commit/ca60cd05e33ef08d78edf84f2a8592243289e117))
 * Mirror the list scrollbar to the correct side in RTL layouts ([e8fd43b](https://github.com/MorpheApp/morphe-manager/commit/e8fd43b5a2fe835aef4d9ea664e04d679f797262))
 * Offer to remove the app copy a package rename left behind ([adfe445](https://github.com/MorpheApp/morphe-manager/commit/adfe445ff66aa7e7a3d8527e57e8cdb7dd7b666f))
 * Open home app list at the top on launch ([829d151](https://github.com/MorpheApp/morphe-manager/commit/829d151338fee1593ad76b5e4a9e78299b0ae756))

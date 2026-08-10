@@ -485,6 +485,12 @@ Uninstalling will permanently erase all app data"</string>
     <string name="battery_optimization_dialog_description">Some devices may stop the patcher when the app is minimized. Allow Morphe to run without battery restrictions to ensure patching completes reliably</string>
     <string name="battery_optimization_not_now">Not now</string>
 
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Not enough memory</string>
+    <string name="patcher_memory_adjustment_description">The patcher was stopped by the system while running with a %1$d MB memory limit. Lowering the limit to %2$d MB makes the patcher a smaller target and can let the run finish</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">The patcher was stopped by the system while running with a %1$d MB memory limit, which is already the lowest available. Try patching with fewer patch sources, or select fewer patches</string>
+    <string name="patcher_memory_adjustment_apply">Lower to %1$d MB</string>
+
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching in progress…</string>
     <string name="patcher_notification_text">Tap to return to the patcher</string>
@@ -529,6 +535,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">User interaction is required in order to proceed with this plugin</string>
     <string name="patcher_process_exit_message">Patcher process exited with code %s</string>
+    <string name="patcher_heap_exhausted_message">The patcher ran out of memory with a %1$d MB heap. This app is too large for the selected patches. Try patching with fewer patch sources, or select fewer patches</string>
 
     <string name="install_app_success">Installed successfully</string>
     <string name="install_app_fail">Failed to install app: %s</string>

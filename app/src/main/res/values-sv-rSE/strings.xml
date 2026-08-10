@@ -404,6 +404,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="battery_optimization_dialog_title">Skydd för modifiering i bakgrunden</string>
     <string name="battery_optimization_dialog_description">Vissa enheter kan stoppa modifieringsverktyget när appen minimeras. Tillåt att Morphe körs utan batteribegränsningar för att säkerställa att modifieringen slutförs tillförlitligt</string>
     <string name="battery_optimization_not_now">Inte nu</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Modifiering pågår …</string>
     <string name="patcher_notification_text">Tryck för att återgå till modifieringen</string>

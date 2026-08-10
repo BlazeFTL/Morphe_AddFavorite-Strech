@@ -174,6 +174,10 @@
     <string name="home_apk_helper_warning_unverified">Ga alleen verder als u deze hulpprogramma-app vertrouwt. Morphe kan de handtekening van deze APK niet verifiëren, dus een gewijzigd bestand zou niet worden gedetecteerd.</string>
     <string name="home_apk_helper_no_result">De hulpprogramma-app heeft geen APK geretourneerd.</string>
     <string name="home_apk_helper_no_access">De hulpprogramma-app heeft geen toegang verleend tot de geretourneerde APK.</string>
+    <string name="home_apk_helper_no_package">De helper-app heeft niet aangegeven welke geïnstalleerde app gebruikt moet worden</string>
+    <string name="home_apk_helper_wrong_package">De helper-app retourneerde een andere app dan degene die wordt gepatcht</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe kon de geïnstalleerde app niet gebruiken</string>
+    <string name="home_apk_helper_installed_incompatible">De geïnstalleerde versie kan niet worden gepatcht</string>
     <string name="home_apk_use_saved">Gebruik opgeslagen APK</string>
     <string name="home_apk_use_installed">Gebruik geïnstalleerde APK</string>
     <string name="home_apk_use_installed_unverified">Kon de handtekening van de geïnstalleerde app niet verifiëren, dus deze is mogelijk al gepatcht</string>
@@ -456,6 +460,11 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="battery_optimization_dialog_title">Bescherming tegen achtergrond patching</string>
     <string name="battery_optimization_dialog_description">Sommige apparaten kunnen de patcher stoppen wanneer de app geminimaliseerd is. Sta Morphe toe om zonder batterijbeperkingen te draaien om ervoor te zorgen dat het patchen betrouwbaar voltooid wordt.</string>
     <string name="battery_optimization_not_now">Niet nu</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Onvoldoende geheugen</string>
+    <string name="patcher_memory_adjustment_description">De patcher is door het systeem gestopt terwijl deze draaide met een geheugenlimiet van %1$d MB. Het verlagen van de limiet naar %2$d MB maakt de patcher een kleiner doelwit en kan de run laten voltooien.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">De patcher is door het systeem gestopt terwijl deze draaide met een geheugenlimiet van %1$d MB, wat al het laagst beschikbare is. Probeer te patchen met minder patchbronnen of selecteer minder patches.</string>
+    <string name="patcher_memory_adjustment_apply">Verlaag naar %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patchen bezig…</string>
     <string name="patcher_notification_text">Tik om terug te keren naar de patcher</string>

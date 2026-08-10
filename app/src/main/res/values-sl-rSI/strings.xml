@@ -174,6 +174,10 @@
     <string name="home_apk_helper_warning_unverified">Nadaljuj samo, če zaupaš temu pomožnemu programu. Morphe ne more preveriti podpisa tega APK-ja, zato spremenjena datoteka ne bi bila zaznana.</string>
     <string name="home_apk_helper_no_result">Pomožni program ni vrnil APK-ja</string>
     <string name="home_apk_helper_no_access">Pomožni program ni odobril dostopa do APK-ja, ki ga je vrnil</string>
+    <string name="home_apk_helper_no_package">Pomožna aplikacija ni povedala, katero nameščeno aplikacijo uporabiti.</string>
+    <string name="home_apk_helper_wrong_package">Pomožna aplikacija je vrnila drugo aplikacijo, kot je tista, ki se popravlja.</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe ni mogel uporabiti nameščene aplikacije.</string>
+    <string name="home_apk_helper_installed_incompatible">Nameščene različice ni mogoče popraviti.</string>
     <string name="home_apk_use_saved">Uporabite shranjen APK</string>
     <string name="home_apk_use_installed">Uporabite nameščen APK</string>
     <string name="home_apk_use_installed_unverified">Ni je bilo mogoče preveriti podpis nameščenega programa, zato je morda že spremenjen.</string>
@@ -456,6 +460,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="battery_optimization_dialog_title">Zaščita popravljanja v ozadju</string>
     <string name="battery_optimization_dialog_description">Nekatere naprave lahko ustavijo popravek, ko je aplikacija minimizirana. Dovolite programu Morphe, da se izvaja brez omejitev baterije, da zagotovite zanesljivo dokončanje popravljanja.</string>
     <string name="battery_optimization_not_now">Pozneje</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Popravljanje v teku …</string>
     <string name="patcher_notification_text">Dotaknite se, da se vrnete k popravilu</string>

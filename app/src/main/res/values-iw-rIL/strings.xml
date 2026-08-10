@@ -175,6 +175,10 @@
     <string name="home_apk_helper_warning_unverified">המשך רק אם אתה סומך על האפליקציה המסייעת הזו. Morphe אינה יכולה לאמת את החתימה של קובץ ה-APK הזה, ולכן קובץ ששוּנה לא יזוהה</string>
     <string name="home_apk_helper_no_result">האפליקציה המסייעת לא החזירה APK</string>
     <string name="home_apk_helper_no_access">האפליקציה המסייעת לא העניקה גישה ל-APK שהוחזר</string>
+    <string name="home_apk_helper_no_package">אפליקציית העזר לא ציינה באיזו אפליקציה מותקנת להשתמש</string>
+    <string name="home_apk_helper_wrong_package">אפליקציית העזר החזירה אפליקציה שונה מזו שמתוקנת</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe לא הצליח להשתמש באפליקציה המותקנת</string>
+    <string name="home_apk_helper_installed_incompatible">לא ניתן לתקן את הגרסה המותקנת</string>
     <string name="home_apk_use_saved">השתמש ב-APK שמור</string>
     <string name="home_apk_use_installed">השתמש ב-APK מותקן</string>
     <string name="home_apk_use_installed_unverified">לא ניתן לאמת את החתימה של האפליקציה המותקנת, כך שהיא עשויה להיות כבר מטופלת</string>
@@ -457,6 +461,7 @@
     <string name="battery_optimization_dialog_title">הגנה על תיקון רקע</string>
     <string name="battery_optimization_dialog_description">ייתכן שמכשירים מסוימים יפסיקו את המתקן כאשר האפליקציה מצומצמת. אפשר ל-Morphe לפעול ללא הגבלות סוללה כדי להבטיח שהתיקון יושלם באופן מהימן</string>
     <string name="battery_optimization_not_now">לא עכשיו</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">התיקון מתבצע…</string>
     <string name="patcher_notification_text">הקש כדי לחזור למתקן</string>

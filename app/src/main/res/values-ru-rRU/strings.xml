@@ -174,6 +174,10 @@
     <string name="home_apk_helper_warning_unverified">Продолжайте только в том случае, если вы доверяете этому вспомогательному приложению. Morphe не может проверить подпись этого APK, поэтому измененный файл не будет обнаружен</string>
     <string name="home_apk_helper_no_result">Вспомогательное приложение не вернуло APK</string>
     <string name="home_apk_helper_no_access">Вспомогательное приложение не предоставило доступа к возвращенному APK</string>
+    <string name="home_apk_helper_no_package">Вспомогательное приложение не указало, какое установленное приложение использовать.</string>
+    <string name="home_apk_helper_wrong_package">Вспомогательное приложение вернуло другое приложение, чем то, которое пропатчивается</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe не смог использовать установленное приложение</string>
+    <string name="home_apk_helper_installed_incompatible">Установленную версию невозможно пропатчить</string>
     <string name="home_apk_use_saved">Использовать сохраненный APK</string>
     <string name="home_apk_use_installed">Использовать установленный APK</string>
     <string name="home_apk_use_installed_unverified">Не удалось проверить подпись установленного приложения, поэтому оно может быть уже пропатчено</string>
@@ -456,6 +460,7 @@
     <string name="battery_optimization_dialog_title">Защита от патчей в фоновом режиме</string>
     <string name="battery_optimization_dialog_description">На некоторых устройствах патчер может быть остановлен, когда приложение свернуто. Разрешите Morphe работать без ограничений заряда батареи, чтобы гарантировать надежное завершение патчинга.</string>
     <string name="battery_optimization_not_now">Не сейчас</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Идет установка исправлений…</string>
     <string name="patcher_notification_text">Нажмите, чтобы вернуться к патчеру</string>

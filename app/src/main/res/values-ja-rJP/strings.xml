@@ -174,6 +174,10 @@
     <string name="home_apk_helper_warning_unverified">このヘルパーアプリを信頼できる場合にのみ続行してください。Morphe はこの APK の署名を検証できないため、改ざんされたファイルは検出されません</string>
     <string name="home_apk_helper_no_result">ヘルパーアプリは APK を返しませんでした</string>
     <string name="home_apk_helper_no_access">ヘルパーアプリは APK へのアクセスを許可しませんでした</string>
+    <string name="home_apk_helper_no_package">ヘルパーアプリは、使用するインストール済みアプリを指定しませんでした。</string>
+    <string name="home_apk_helper_wrong_package">ヘルパーアプリが、パッチ適用中のアプリとは異なるアプリを返しました。</string>
+    <string name="home_apk_helper_installed_unavailable">Morpheはインストール済みアプリを使用できませんでした。</string>
+    <string name="home_apk_helper_installed_incompatible">インストール済みバージョンはパッチ適用できません。</string>
     <string name="home_apk_use_saved">保存済みのAPKを使用する</string>
     <string name="home_apk_use_installed">インストール済みのAPKを使用する</string>
     <string name="home_apk_use_installed_unverified">インストールされているアプリの署名を検証できなかったため、すでにパッチが適用されている可能性があります</string>
@@ -456,6 +460,7 @@
     <string name="battery_optimization_dialog_title">バックグラウンドパッチ保護</string>
     <string name="battery_optimization_dialog_description">一部のデバイスでは、アプリを最小化するとパッチャーが停止する場合があります。確実にパッチ処理を完了するため、Morphe をバッテリー制限の対象外にしてください</string>
     <string name="battery_optimization_not_now">後で</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">パッチを適用中…</string>
     <string name="patcher_notification_text">パッチ画面に戻るにはタップ</string>

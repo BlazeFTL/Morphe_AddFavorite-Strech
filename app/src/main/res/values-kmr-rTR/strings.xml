@@ -174,6 +174,10 @@
     <string name="home_apk_helper_warning_unverified">Tenê pêşkeve, heke te ewî serlêdanê arîkar bawer bikî. Morphe nikare îmzaya vê APK-yê verast bike, ji ber vê yekê pelê guherandî nabe dîtin</string>
     <string name="home_apk_helper_no_result">Serlêdanê arîkar APK-yek negerand</string>
     <string name="home_apk_helper_no_access">Serlêdanê arîkar destûr nedaye gihîştina APK-ya ku ew gerand</string>
+    <string name="home_apk_helper_no_package">Appa alîkar ne got ku kîjan appa sazkirî were bikaranîn</string>
+    <string name="home_apk_helper_wrong_package">Appa alîkar appek cuda vegerand ji ya ku tê patchkirin</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe nekarî appa sazkirî bikar bîne</string>
+    <string name="home_apk_helper_installed_incompatible">Guhertoya sazkirî nayê patchkirin</string>
     <string name="home_apk_use_saved">APK ya saved bikar bîne</string>
     <string name="home_apk_use_installed">APK ya sazkirî bikar bîne</string>
     <string name="home_apk_use_installed_unverified">Nezêrbû ku îmzaya sepanê yê ku hatî saz kirin bê xeml kirin, lew re dibe ku jî berê hatî guhertin</string>
@@ -454,6 +458,7 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="battery_optimization_dialog_title">Parastina parêzgeha paşgirê</string>
     <string name="battery_optimization_dialog_description">Heke sepan biçikînin, hin cîhazan dikarin paşgirê rawestînin. Ji bo ku paşgirê bi pêvehiyê qediya, bihêle Morphe bêyî astengiyên serfkirina batêriyê bixebite.</string>
     <string name="battery_optimization_not_now">Niha ne</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patch kirin di pêşbaziyê de ye…</string>
     <string name="patcher_notification_text">Hêla bimeşin ser patcher</string>

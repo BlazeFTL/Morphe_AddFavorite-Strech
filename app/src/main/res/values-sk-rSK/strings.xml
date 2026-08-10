@@ -174,6 +174,10 @@
     <string name="home_apk_helper_warning_unverified">Pokračujte iba v prípade, ak dôverujete tejto pomocnej aplikácii. Morphe nemôže overiť podpis tohto APK, takže upravený súbor by nebol zachvátený</string>
     <string name="home_apk_helper_no_result">Pomocná aplikácia nevrátila žiadne APK</string>
     <string name="home_apk_helper_no_access">Pomocná aplikácia neudelila prístup k vrátenému APK</string>
+    <string name="home_apk_helper_no_package">Pomocná aplikácia nepovedala, ktorú nainštalovanú aplikáciu použiť.</string>
+    <string name="home_apk_helper_wrong_package">Pomocná aplikácia vrátila inú aplikáciu, ako je tá, ktorá sa patchuje.</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe nemohol použiť nainštalovanú aplikáciu.</string>
+    <string name="home_apk_helper_installed_incompatible">Nainštalovanú verziu nie je možné patchovať.</string>
     <string name="home_apk_use_saved">Použiť uložený APK súbor</string>
     <string name="home_apk_use_installed">Použiť nainštalovaný APK súbor</string>
     <string name="home_apk_use_installed_unverified">Nepodarilo sa overiť podpis nainštalovanej aplikácie, takže môže byť už zaplátaná</string>
@@ -456,6 +460,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="battery_optimization_dialog_title">Ochrana pred záplatami na pozadí</string>
     <string name="battery_optimization_dialog_description">Na niektorých zariadeniach sa záplatovač môže zastaviť, keď je aplikácia minimalizovaná. Povolenie aplikácii Morphe spúšťanie bez obmedzení batérie zabezpečí spoľahlivé dokončenie záplatovania.</string>
     <string name="battery_optimization_not_now">Neskoršie</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Prebieha plátanie...</string>
     <string name="patcher_notification_text">Ťuknite pre návrat do plátača</string>

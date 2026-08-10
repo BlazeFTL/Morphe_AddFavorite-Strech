@@ -174,6 +174,10 @@
     <string name="home_apk_helper_warning_unverified">Fahren Sie nur fort, wenn Sie dieser Hilfs-App vertrauen. Morphe kann die Signatur dieser APK nicht überprüfen, sodass eine geänderte Datei nicht erkannt würde</string>
     <string name="home_apk_helper_no_result">Die Hilfs-App hat keine APK zurückgegeben</string>
     <string name="home_apk_helper_no_access">Die Hilfs-App hat keinen Zugriff auf die zurückgegebene APK gewährt</string>
+    <string name="home_apk_helper_no_package">Die Helfer-App hat nicht angegeben, welche installierte App verwendet werden soll.</string>
+    <string name="home_apk_helper_wrong_package">Die Hilfs-App hat eine andere App zurückgegeben als die, die gepatcht wird. Der key ist \"home_apk_helper_wrong_package\"? Nein, das ist nur eine Übersetzung, aber wir müssen das JSON behalten. Also ich übersetze nur den Text. Eigentlich sollte ich nur den Text ändern, aber ich habe das ganze Objekt übernommen. Ich sollte nur den Text-Feld ändern. Also im JSON: {</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe konnte die installierte App nicht verwenden</string>
+    <string name="home_apk_helper_installed_incompatible">Die installierte Version kann nicht gepatcht werden</string>
     <string name="home_apk_use_saved">Gespeicherte APK verwenden</string>
     <string name="home_apk_use_installed">Installierte App verwenden</string>
     <string name="home_apk_use_installed_unverified">Die Signatur der installierten App konnte nicht verifiziert werden. Sie ist möglicherweise bereits gepatcht.</string>
@@ -457,6 +461,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="battery_optimization_dialog_title">Schutz vor Hintergrund-Patching</string>
     <string name="battery_optimization_dialog_description">Auf einigen Geräten wird das Patchen unterbrochen, sobald die App minimiert wird. Erlaube Morphe, ohne Akkuoptimierung im Hintergrund zu laufen, um sicherzustellen, dass der Vorgang zuverlässig abgeschlossen wird</string>
     <string name="battery_optimization_not_now">Nicht jetzt</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patch-Vorgang läuft…</string>
     <string name="patcher_notification_text">Zum Patcher zurückkehren</string>

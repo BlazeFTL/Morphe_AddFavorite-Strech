@@ -175,6 +175,10 @@
     <string name="home_apk_helper_warning_unverified">Kontynuuj tylko wtedy, gdy ufasz tej aplikacji pomocniczej. Morphe nie może zweryfikować sygnatury tego pliku APK, więc zmodyfikowany plik nie zostałby wykryty</string>
     <string name="home_apk_helper_no_result">Aplikacja pomocnicza nie zwróciła pliku APK</string>
     <string name="home_apk_helper_no_access">Aplikacja pomocnicza nie przyznała dostępu do zwróconego pliku APK</string>
+    <string name="home_apk_helper_no_package">Aplikacja pomocnicza nie wskazała, której zainstalowanej aplikacji użyć</string>
+    <string name="home_apk_helper_wrong_package">Aplikacja pomocnicza zwróciła inną aplikację niż ta, która jest modyfikowana</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe nie mógł użyć zainstalowanej aplikacji</string>
+    <string name="home_apk_helper_installed_incompatible">Zainstalowana wersja nie może zostać zmodyfikowana</string>
     <string name="home_apk_use_saved">Użyj zapisanego pliku APK</string>
     <string name="home_apk_use_installed">Użyj zainstalowanego pliku APK</string>
     <string name="home_apk_use_installed_unverified">Nie udało się zweryfikować podpisu zainstalowanej aplikacji, więc może być już zmodyfikowana</string>
@@ -457,6 +461,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="battery_optimization_dialog_title">Ochrona modyfikowania w tle</string>
     <string name="battery_optimization_dialog_description">Niektóre urządzenia mogą zatrzymać modyfikator, gdy aplikacja jest zminimalizowana. Zezwól Morphe na działanie bez ograniczeń baterii, aby proces modyfikowania zakończył się pomyślnie</string>
     <string name="battery_optimization_not_now">Nie teraz</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Modyfikowanie w toku…</string>
     <string name="patcher_notification_text">Dotknij, aby wrócić do modyfikatora</string>

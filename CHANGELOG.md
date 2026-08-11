@@ -1,3 +1,16 @@
+# [1.26.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.2...v1.26.0-dev.3) (2026-08-11)
+
+
+### Bug Fixes
+
+* Validate saved APKs and tracked installs ([#831](https://github.com/MorpheApp/morphe-manager/issues/831)) ([e4eb040](https://github.com/MorpheApp/morphe-manager/commit/e4eb040527e1a6fd3b40d85895f3662e1fa22868))
+
+
+### Features
+
+* Add search and A-Z sorting to APK, patch selections, and patch sources screens ([#844](https://github.com/MorpheApp/morphe-manager/issues/844)) ([6742d5a](https://github.com/MorpheApp/morphe-manager/commit/6742d5aa8d41325742fb71ae0ede10fccd1a35ca))
+* Export per-source prerelease and experimental version toggles ([#845](https://github.com/MorpheApp/morphe-manager/issues/845)) ([69a45df](https://github.com/MorpheApp/morphe-manager/commit/69a45df3c3bf64039d1cda56b4b34e44ac347c68))
+
 # [1.26.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.1...v1.26.0-dev.2) (2026-08-11)
 
 

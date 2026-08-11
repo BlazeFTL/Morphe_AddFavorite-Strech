@@ -11,6 +11,9 @@ import app.morphe.manager.R
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
+import app.morphe.manager.domain.apk.InstalledPatchState
+import app.morphe.manager.domain.apk.LocalApkSources
+import app.morphe.manager.domain.apk.canRemoveTrackedRecord
 import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.installer.RootInstaller
 import app.morphe.manager.domain.installer.UninstallCancelledException
@@ -39,6 +42,7 @@ class InstalledAppInfoViewModel(
     private val originalApkRepository: OriginalApkRepository by inject()
     private val filesystem: Filesystem by inject()
     private val applicationScope: AppCoroutineScope by inject()
+    private val localApkSources: LocalApkSources by inject()
 
     lateinit var onBackClick: () -> Unit
     var onAppStateChanged: ((packageName: String) -> Unit)? = null
@@ -47,6 +51,7 @@ class InstalledAppInfoViewModel(
         private set
     var appInfo: PackageInfo? by mutableStateOf(null)
         private set
+    private var usableSavedApk: File? = null
 
     private val _appliedPatches = MutableStateFlow<PatchSelection?>(null)
     var appliedPatches: PatchSelection?
@@ -61,6 +66,10 @@ class InstalledAppInfoViewModel(
     var hasOriginalApk by mutableStateOf(false)
         private set
     var isAppDeleted by mutableStateOf(false)
+        private set
+    var isInstallStateUnknown by mutableStateOf(false)
+        private set
+    var canRemoveRecord by mutableStateOf(false)
         private set
     var isLoading by mutableStateOf(true)
         private set
@@ -124,7 +133,17 @@ class InstalledAppInfoViewModel(
         if (app.installType == InstallType.SAVED) {
             context.toast(context.getString(R.string.saved_app_launch_unavailable))
         } else {
-            pm.launch(app.currentPackageName)
+            viewModelScope.launch {
+                if (localApkSources.trackedPatchState(app) == InstalledPatchState.Patched) {
+                    pm.launch(app.currentPackageName)
+                } else {
+                    // Covers both a package replaced under an open dialog and one whose identity
+                    // cannot be established, so the message must not claim which of the two it is
+                    context.toast(context.getString(R.string.launch_app_unverified))
+                    refreshAppState(app)
+                    onAppStateChanged?.invoke(app.currentPackageName)
+                }
+            }
         }
     }
 
@@ -140,6 +159,12 @@ class InstalledAppInfoViewModel(
             InstallType.SAVED -> {
                 viewModelScope.launch {
                     try {
+                        if (localApkSources.trackedPatchState(app) != InstalledPatchState.Patched) {
+                            context.toast(context.getString(R.string.uninstall_app_unverified))
+                            refreshAppState(app)
+                            onAppStateChanged?.invoke(app.currentPackageName)
+                            return@launch
+                        }
                         installerManager.uninstallPackage(app.currentPackageName, app.installType)
                         refreshCurrentAppState()
                         onAppStateChanged?.invoke(app.currentPackageName)
@@ -151,6 +176,8 @@ class InstalledAppInfoViewModel(
                 }
             }
 
+            // No verification gate: unmounting only removes the bind mount and the module files,
+            // so it never touches whichever package currently owns the name
             InstallType.MOUNT -> applicationScope.launch {
                 // Detached from viewModelScope: dialog dismissal must not abort the cleanup
                 rootInstaller.uninstall(app.currentPackageName)
@@ -204,9 +231,27 @@ class InstalledAppInfoViewModel(
 
         // Delete patched APK file
         withContext(Dispatchers.IO) {
-            savedApkFile(app)?.delete()
+            savedApkCandidates(app).forEach { it.delete() }
         }
+        usableSavedApk = null
         hasSavedCopy = false
+    }
+
+    /**
+     * Both storage paths this app can occupy, minus any that another record owns.
+     * A rename leaves a copy under the original package name, but that same path is where a
+     * separate, unrenamed record would keep its own APK.
+     */
+    private suspend fun savedApkCandidates(app: InstalledApp): List<File> {
+        val paths = mutableListOf(filesystem.getPatchedAppFile(app.currentPackageName, app.version))
+
+        if (app.originalPackageName != app.currentPackageName &&
+            installedAppRepository.get(app.originalPackageName) == null
+        ) {
+            paths.add(filesystem.getPatchedAppFile(app.originalPackageName, app.version))
+        }
+
+        return paths.distinctBy { it.absolutePath }
     }
 
     suspend fun updateInstallType(packageName: String, newInstallType: InstallType) {
@@ -227,36 +272,31 @@ class InstalledAppInfoViewModel(
         refreshAppState(app.copy(installType = newInstallType, currentPackageName = packageName))
     }
 
-    fun savedApkFile(app: InstalledApp? = this.installedApp): File? {
-        val target = app ?: return null
-        val candidates = listOf(
-            filesystem.getPatchedAppFile(target.currentPackageName, target.version),
-            filesystem.getPatchedAppFile(target.originalPackageName, target.version)
-        ).distinct()
-        return candidates.firstOrNull { it.exists() && it.length() > 0 }
-    }
+    fun savedApkFile(): File? = usableSavedApk
 
     private suspend fun refreshAppState(app: InstalledApp) {
-        val installedInfo = withContext(Dispatchers.IO) {
-            pm.getPackageInfo(app.currentPackageName)
-        }
-        hasSavedCopy = withContext(Dispatchers.IO) { savedApkFile(app) != null }
+        val snapshot = localApkSources.trackedAppSnapshot(app)
+        val installedInfo = snapshot.installedPackageInfo
+        usableSavedApk = snapshot.savedPatchedApk
+        hasSavedCopy = usableSavedApk != null
+        val trackedPatchState = snapshot.patchState
 
-        if (installedInfo != null) {
+        if (installedInfo != null && trackedPatchState == InstalledPatchState.Patched) {
             isInstalledOnDevice = true
             isAppDeleted = false
+            isInstallStateUnknown = false
             appInfo = installedInfo
         } else {
             isInstalledOnDevice = false
-            // App is deleted if it was installed on device but now missing
-            isAppDeleted = pm.isAppDeleted(
-                packageName = app.currentPackageName,
-                wasInstalledOnDevice = app.installType != InstallType.SAVED
-            )
-            appInfo = withContext(Dispatchers.IO) {
-                savedApkFile(app)?.let(pm::getPackageInfo)
-            }
+            // A missing or stock package means the tracked patched build is gone. Unknown is kept
+            // separate so the UI stays honest while still withholding destructive app actions.
+            isAppDeleted = app.installType != InstallType.SAVED &&
+                    (trackedPatchState == null || trackedPatchState == InstalledPatchState.NotPatched)
+            isInstallStateUnknown = trackedPatchState == InstalledPatchState.Unknown
+            appInfo = snapshot.savedPatchedApkInfo
         }
+
+        canRemoveRecord = canRemoveTrackedRecord(app.installType, trackedPatchState, hasSavedCopy)
 
         // Update mounted state
         isMounted = rootInstaller.isDeviceRooted() && rootInstaller.isAppMounted(app.currentPackageName)

@@ -43,6 +43,8 @@ import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.data.room.apps.installed.supportsMount
 import app.morphe.manager.data.room.apps.original.OriginalApk
+import app.morphe.manager.domain.apk.InstalledPatchState
+import app.morphe.manager.domain.apk.LocalApkSources
 import app.morphe.manager.domain.installer.InstallerFileProvider
 import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.installer.UninstallCancelledException
@@ -196,6 +198,7 @@ private fun PatchedApksContent(
     val appDataResolver: AppDataResolver = koinInject()
     val prefs: PreferencesManager = koinInject()
     val pm: PM = koinInject()
+    val localApkSources: LocalApkSources = koinInject()
     val installerManager: InstallerManager = koinInject()
     val savePatchedApks by prefs.savePatchedApks.getAsState()
 
@@ -206,28 +209,34 @@ private fun PatchedApksContent(
             state = ApkLoadState.Loaded(
                 withContext(Dispatchers.IO) {
                     apps.mapNotNull { app ->
-                        // Check if saved APK file exists
-                        val savedFile = listOf(
+                        val storedFile = listOf(
                             filesystem.getPatchedAppFile(app.currentPackageName, app.version),
                             filesystem.getPatchedAppFile(app.originalPackageName, app.version)
                         ).distinct().firstOrNull { it.exists() } ?: return@mapNotNull null
+                        val snapshot = localApkSources.trackedAppSnapshot(app)
+                        val savedFile = snapshot.savedPatchedApk
 
                         // Use AppDataResolver to get data
                         val resolvedData = appDataResolver.resolveAppData(
                             app.currentPackageName,
                             preferredSource = AppDataSource.PATCHED_APK
                         )
+                        // Taken from the archive the row actually points at, which can differ from
+                        // the resolver's answer once the installed app is no longer the patched one
+                        val savedDisplayName = snapshot.savedPatchedApkInfo
+                            ?.let { packageInfo -> runCatching { with(pm) { packageInfo.label() } }.getOrNull() }
+                            ?.takeUnless(String::isBlank)
 
                         ApkItemDataWithApp(
                             packageName = app.currentPackageName,
-                            displayName = resolvedData.displayName,
+                            displayName = savedDisplayName ?: resolvedData.displayName,
                             version = app.version,
-                            fileSize = savedFile.length(),
+                            fileSize = (savedFile ?: storedFile).length(),
                             installedApp = app,
                             file = savedFile,
                             installType = app.installType,
-                            isInstalledOnDevice = pm.getPackageInfo(app.currentPackageName) != null,
-                            abis = NativeLibStripper.extractAbisFromApk(savedFile)
+                            isInstalledOnDevice = snapshot.patchState == InstalledPatchState.Patched,
+                            abis = savedFile?.let(NativeLibStripper::extractAbisFromApk).orEmpty()
                         )
                     }
                 }
@@ -294,15 +303,25 @@ private fun PatchedApksContent(
 
     val uninstallTimeoutText = stringResource(R.string.uninstall_timeout)
     val uninstallFailTemplate = stringResource(R.string.uninstall_app_fail)
+    val uninstallUnverifiedText = stringResource(R.string.uninstall_app_unverified)
 
     fun uninstallItems(items: List<ApkItemData>) {
         if (items.isEmpty()) return
         scope.launch {
             var completed = 0
             var skipped = 0
+            var unverified = 0
             for (item in items) {
                 val installedApp = appByKey[item.selectionKey]
                 val result = runCatching {
+                    // Unmounting is safe without verification, every other mode removes a package
+                    if (item.installType != InstallType.MOUNT &&
+                        (installedApp == null ||
+                                localApkSources.trackedPatchState(installedApp) != InstalledPatchState.Patched)
+                    ) {
+                        unverified++
+                        return@runCatching false
+                    }
                     val removed = withTimeoutOrNull(BATCH_UNINSTALL_TIMEOUT) {
                         uninstallStorageItem(
                             item = item,
@@ -313,9 +332,10 @@ private fun PatchedApksContent(
                         true
                     } == true
                     if (!removed) error(uninstallTimeoutText)
+                    true
                 }
-                result.onSuccess {
-                    completed++
+                result.onSuccess { removed ->
+                    if (removed) completed++ else skipped++
                     updateInstalledState(item.packageName, false)
                 }.onFailure { error ->
                     skipped++
@@ -324,6 +344,7 @@ private fun PatchedApksContent(
                     }
                 }
             }
+            if (unverified > 0) context.toast(uninstallUnverifiedText)
             context.batchActionSummary(R.plurals.batch_uninstall_summary, completed, skipped)
                 ?.let { context.toast(it) }
         }

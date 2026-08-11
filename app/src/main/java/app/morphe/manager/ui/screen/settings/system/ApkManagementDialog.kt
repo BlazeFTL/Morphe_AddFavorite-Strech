@@ -62,6 +62,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import java.io.File
+import java.util.Locale
 
 /** Type of APKs to manage. */
 enum class ApkManagementType {
@@ -86,6 +87,9 @@ private val ApkItemData.selectionKey: String
 
 private val ApkItemData.isInstallableFromStorage: Boolean
     get() = file?.exists() == true && installType != InstallType.MOUNT
+
+private fun List<ApkItemData>.sortedByDisplayName(): List<ApkItemData> =
+    sortedBy { it.displayName.lowercase(Locale.ROOT) }
 
 private val ApkItemData.installLabelRes: Int
     get() = when (installType) {
@@ -251,7 +255,7 @@ private fun PatchedApksContent(
     var deleteDisplayName by remember { mutableStateOf("") }
 
     // Look up by selectionKey to avoid index shifts on concurrent list updates
-    val displayItems = remember(state) { apkItems.map { it.toApkItemData() } }
+    val displayItems = remember(state) { apkItems.map { it.toApkItemData() }.sortedByDisplayName() }
     val appByKey = remember(state) {
         apkItems.associate { it.toApkItemData().selectionKey to it.installedApp }
     }
@@ -514,7 +518,7 @@ private fun OriginalApksContent(
 
     val isLoading = state is ApkLoadState.Loading
     val entries = (state as? ApkLoadState.Loaded)?.items ?: emptyList()
-    val apkItems = remember(state) { entries.map { it.data } }
+    val apkItems = remember(state) { entries.map { it.data }.sortedByDisplayName() }
     val apkByKey = remember(state) { entries.associate { it.data.selectionKey to it.apk } }
     val totalSize = remember(state) { apkItems.sumOf { it.fileSize } }
     val itemToDelete = remember { mutableStateOf<OriginalApk?>(null) }
@@ -709,6 +713,16 @@ private fun ApkManagementDialogContent(
     var isMultiSelectMode by remember { mutableStateOf(false) }
     var isExporting by remember { mutableStateOf(false) }
     val selection = rememberSelectionState<String>()
+    // Nothing to narrow down while loading or with a single entry
+    val isSearchable = !meta.isLoading && items.size >= 2
+    val search = rememberSearchFieldState(searchable = isSearchable)
+    val filteredItems = remember(items, search.query) {
+        if (search.query.isBlank()) items
+        else items.filter {
+            it.displayName.contains(search.query, ignoreCase = true) ||
+                    it.packageName.contains(search.query, ignoreCase = true)
+        }
+    }
     val selectedItems = items.filter { selection.contains(it.selectionKey) }
     val selectedFiles = selectedItems.mapNotNull { item -> item.file?.takeIf { it.exists() } }
     val selectedInstalledItems = selectedItems.filter { it.isInstalledOnDevice }
@@ -721,6 +735,8 @@ private fun ApkManagementDialogContent(
     val canInstallSelected = selectedItems.isNotEmpty() &&
             selectedInstallableItems.size == selectedItems.size &&
             actions.onInstallSelected != null
+    val canDeleteAll = selectedItems.isEmpty() && items.isNotEmpty() &&
+            actions.onDeleteAllConfirm != null
     val selectedTotalSize = selectedItems.sumOf { it.fileSize }
     val zipExportSuccessText = stringResource(R.string.settings_system_apks_export_zip_success)
     val zipExportFailedText = stringResource(R.string.settings_system_apks_export_zip_failed)
@@ -757,14 +773,25 @@ private fun ApkManagementDialogContent(
             if (isMultiSelectMode) { selection.clear(); isMultiSelectMode = false } else onDismissRequest()
         },
         title = meta.title,
-        titleTrailingContent = if (selectedItems.isEmpty() && items.isNotEmpty() && actions.onDeleteAllConfirm != null) {
+        titleTrailingContent = if (isSearchable || canDeleteAll) {
             {
-                DialogTitleAction(
-                    icon = Icons.Outlined.DeleteForever,
-                    contentDescription = stringResource(R.string.delete_all),
-                    onClick = { showDeleteAllConfirmation = true },
-                    style = DialogTitleActionStyle.Destructive
-                )
+                if (isSearchable) {
+                    TitleAction(
+                        icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                        contentDescription = stringResource(R.string.search),
+                        onClick = { search.toggle() },
+                        style = TitleActionStyle.Toggle,
+                        active = search.visible
+                    )
+                }
+                if (canDeleteAll) {
+                    TitleAction(
+                        icon = Icons.Outlined.DeleteForever,
+                        contentDescription = stringResource(R.string.delete_all),
+                        onClick = { showDeleteAllConfirmation = true },
+                        style = TitleActionStyle.Destructive
+                    )
+                }
             }
         } else {
             null
@@ -775,12 +802,13 @@ private fun ApkManagementDialogContent(
                     SelectionActionBar(
                         modifier = Modifier.padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
                         selectedCount = selectedItems.size,
-                        totalCount = items.size,
+                        // Scoped to the filtered list so "select all" never reaches hidden entries
+                        totalCount = filteredItems.size,
                         subtitle = stringResource(
                             R.string.settings_system_apks_size,
                             formatBytes(selectedTotalSize)
                         ),
-                        onSelectAll = { selection.setAll(items.map { it.selectionKey }) },
+                        onSelectAll = { selection.setAll(filteredItems.map { it.selectionKey }) },
                         onDeselectAll = { selection.clear() },
                         onCancel = { selection.clear(); isMultiSelectMode = false }
                     ) {
@@ -866,6 +894,8 @@ private fun ApkManagementDialogContent(
         padding = DialogPadding.Compact,
         contentArrangement = Arrangement.Top
     ) {
+        SearchFieldBackHandler(search)
+
         val listState = rememberLazyListState()
         Box(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
@@ -873,6 +903,17 @@ private fun ApkManagementDialogContent(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
+                if (isSearchable) {
+                    stickyHeader(key = "search") {
+                        AppDialogSearchHeader(
+                            visible = search.visible,
+                            value = search.query,
+                            onValueChange = { search.query = it },
+                            label = stringResource(R.string.home_search_apps)
+                        )
+                    }
+                }
+
                 if (retentionToggle != null) {
                     item(key = "retention") {
                         Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
@@ -933,7 +974,13 @@ private fun ApkManagementDialogContent(
                     // Show shimmer while loading
                     meta.isLoading -> items(3) { ShimmerApkItem() }
                     meta.isEmpty -> item { EmptyState(message = meta.emptyMessage) }
-                    else -> items(items = items, key = { it.selectionKey }) { item ->
+                    filteredItems.isEmpty() -> item(key = "search_empty") {
+                        EmptyState(
+                            message = stringResource(R.string.search_no_results),
+                            icon = Icons.Outlined.SearchOff
+                        )
+                    }
+                    else -> items(items = filteredItems, key = { it.selectionKey }) { item ->
                         val selected = selection.contains(item.selectionKey)
                         ApkItemCard(
                             data = item,

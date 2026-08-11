@@ -7,12 +7,7 @@ package app.morphe.manager.ui.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.ContentResolver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.net.Uri
@@ -36,31 +31,19 @@ import app.morphe.manager.domain.apk.InstalledPatchState
 import app.morphe.manager.domain.apk.LocalApkSources
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
-import app.morphe.manager.domain.bundles.AppVersionCatalog
-import app.morphe.manager.domain.bundles.BundleRecommendation
-import app.morphe.manager.domain.bundles.BundledAppTarget
-import app.morphe.manager.domain.bundles.experimentalVersions
-import app.morphe.manager.domain.bundles.PatchBundleSource
+import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.asRemoteOrNull
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
-import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.installer.RootInstaller
 import app.morphe.manager.domain.installer.UninstallCancelledException
 import app.morphe.manager.domain.manager.*
-import app.morphe.manager.domain.manager.DownloadUrlResolver
 import app.morphe.manager.domain.repository.*
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
-import app.morphe.manager.patcher.patch.BundleAppMetadata
-import app.morphe.manager.patcher.patch.PatchBundleInfo
+import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
-import app.morphe.manager.patcher.patch.PatchInfo
-import app.morphe.manager.patcher.patch.PatchLockState
-import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
-import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
-import app.morphe.manager.domain.manager.loadCopySelectionCandidates
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.model.SelectedApp
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
@@ -478,7 +461,7 @@ class HomeViewModel(
         pendingPackageChanges
             .filter { it.isNotEmpty() }
             .collectLatest { pending ->
-                delay(PACKAGE_CHANGE_DEBOUNCE_MS)
+                delay(PACKAGE_CHANGE_DEBOUNCE_MS.milliseconds)
                 pending.forEach { appDataResolver.invalidate(it) }
                 _appStateTicker.value = System.currentTimeMillis()
                 pendingPackageChanges.value = emptySet()
@@ -3099,7 +3082,8 @@ class HomeViewModel(
         // Use the version selected by the user in Dialog 1; fall back to recommended
         val version = (pendingSelectedDownloadVersion ?: pendingRecommendedVersion)?.version
 
-        // Shown while the redirect is still being followed, so the dialog never waits on it
+        // Marks the destination as unknown, which is what the dialog waits on before it can
+        // say anything about the download or let the user leave for it
         resolvedDownloadUrl = downloadUrlResolver.apiSearchUrl(packageName, version)
 
         viewModelScope.launch {

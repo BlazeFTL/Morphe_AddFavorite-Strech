@@ -14,8 +14,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.*
+import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.SaveAlt
+import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -240,6 +245,10 @@ internal fun DownloadInstructionsDialog(
             ?.let { source = it }
     }
 
+    // Nothing can be said about the download until the redirect lands, and the link on hand
+    // until then is the unfollowed one, which is exactly what must not be opened
+    val resolving = source == ApkDownloadSource.Unresolved
+
     val continueText = stringResource(
         R.string.home_download_instructions_continue_to,
         source.destinationLabel()
@@ -254,6 +263,7 @@ internal fun DownloadInstructionsDialog(
                     primaryText = continueText,
                     onPrimaryClick = onContinue,
                     primaryIcon = Icons.AutoMirrored.Outlined.OpenInNew,
+                    primaryEnabled = !resolving,
                     secondaryText = stringResource(R.string.home_apk_helper_download),
                     onSecondaryClick = onOpenApkDownloadHelper,
                     secondaryIcon = Icons.Outlined.Download,
@@ -264,6 +274,7 @@ internal fun DownloadInstructionsDialog(
                     text = continueText,
                     onClick = onContinue,
                     icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                    enabled = !resolving,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -272,66 +283,71 @@ internal fun DownloadInstructionsDialog(
         val textColor = LocalDialogTextColor.current
         val secondaryColor = LocalDialogSecondaryTextColor.current
 
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.home_download_instructions_steps_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = textColor
+        // Waiting shows as waiting rather than as instructions that rewrite themselves once
+        // the destination turns out to be a different website
+        Crossfade(
+            targetState = source,
+            // Neither the wait nor the site specific steps are the same height, so the dialog
+            // grows into whatever it ends up holding
+            modifier = Modifier.animateContentSize(),
+            animationSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
+            label = "downloadInstructions"
+        ) { currentSource ->
+            if (currentSource == ApkDownloadSource.Unresolved) {
+                PulsingLogoWithCaption(
+                    caption = stringResource(R.string.home_download_instructions_finding),
+                    size = 96.dp,
+                    spacing = 12.dp
+                )
+                return@Crossfade
+            }
+
+            val mountInstallRequired = usingMountInstall && !targetAppInstalled
+            val steps = currentSource.instructionSteps(
+                requestedVersion = requestedVersion,
+                mountInstallRequired = mountInstallRequired
             )
 
-            // The redirect resolves while the dialog is already up, so the steps are swapped
-            // for the site specific ones as soon as the destination is known
-            Crossfade(
-                targetState = source,
-                // Site specific steps are not all the same height, so the dialog grows into them
-                modifier = Modifier.animateContentSize(),
-                animationSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-                label = "downloadInstructions"
-            ) { currentSource ->
-                val mountInstallRequired = usingMountInstall && !targetAppInstalled
-                val steps = currentSource.instructionSteps(
-                    requestedVersion = requestedVersion,
-                    mountInstallRequired = mountInstallRequired
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.home_download_instructions_steps_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = textColor
                 )
 
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    steps.forEachIndexed { index, step ->
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            InstructionStep(
-                                number = "${index + 1}",
-                                text = step.text,
-                                textColor = textColor,
-                                secondaryColor = secondaryColor
-                            )
+                steps.forEachIndexed { index, step ->
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        InstructionStep(
+                            number = "${index + 1}",
+                            text = step.text,
+                            textColor = textColor,
+                            secondaryColor = secondaryColor
+                        )
 
-                            step.button?.let { button ->
-                                Box(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    SiteDownloadButton(
-                                        button = button,
-                                        downloadColor = downloadColor,
-                                        isApkBundle = isApkBundle
-                                    )
-                                }
-                            }
-
-                            step.note?.let { note ->
-                                Notice(
-                                    text = note,
-                                    tone = SemanticTone.Warning,
-                                    icon = Icons.Outlined.Warning,
-                                    density = NoticeDensity.Compact
+                        step.button?.let { button ->
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                SiteDownloadButton(
+                                    button = button,
+                                    downloadColor = downloadColor,
+                                    isApkBundle = isApkBundle
                                 )
                             }
+                        }
+
+                        step.note?.let { note ->
+                            Notice(
+                                text = note,
+                                tone = SemanticTone.Warning,
+                                icon = Icons.Outlined.Warning,
+                                density = NoticeDensity.Compact
+                            )
                         }
                     }
                 }

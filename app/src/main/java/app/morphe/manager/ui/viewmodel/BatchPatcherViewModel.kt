@@ -254,8 +254,8 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
     /**
      * App the download instructions are open for, with the best URL known so far.
      *
-     * The API redirect takes a moment, so the unresolved search URL is published first and
-     * replaced once it resolves. That way the dialog is never waiting on the network.
+     * The unfollowed search URL is published first and replaced once the redirect resolves,
+     * which is what tells the dialog the destination is not known yet.
      */
     data class ApkSearch(val item: BatchPatchItem, val version: String?, val url: String)
 

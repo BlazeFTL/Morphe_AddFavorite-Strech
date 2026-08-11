@@ -12,8 +12,10 @@ import app.morphe.manager.util.KnownApps
 import app.morphe.manager.util.MORPHE_API_URL
 import app.morphe.manager.util.tag
 import io.ktor.http.encodeURLPath
+import kotlinx.coroutines.withTimeoutOrNull
 import java.net.URI
 import java.net.URLEncoder
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Works out where a specific version of an app can be downloaded from.
@@ -28,7 +30,14 @@ class DownloadUrlResolver(private val morpheAPI: MorpheAPI) {
      * and the download sites redirect for reasons of their own, so only the end of the chain
      * says what the user will actually get.
      */
-    suspend fun resolve(packageName: String, version: String?): String {
+    suspend fun resolve(packageName: String, version: String?): String =
+        // The instructions wait on this, so a host that never answers has to end the wait itself
+        withTimeoutOrNull(RESOLVE_TIMEOUT) { follow(packageName, version) } ?: run {
+            Log.w(tag, "Timed out resolving the download page")
+            webSearchUrl(packageName, version)
+        }
+
+    private suspend fun follow(packageName: String, version: String?): String {
         val searchUrl = apiSearchUrl(packageName, version)
         Log.d(tag, "Using search url: $searchUrl")
 
@@ -48,7 +57,7 @@ class DownloadUrlResolver(private val morpheAPI: MorpheAPI) {
         return webSearchUrl(packageName, version)
     }
 
-    /** The unresolved API URL, usable immediately while [resolve] is still working. */
+    /** The unfollowed API URL, standing in for the destination until [resolve] has one. */
     fun apiSearchUrl(packageName: String, version: String?): String {
         val query = "$packageName~${version ?: "any"}~${Build.SUPPORTED_ABIS.first()}".encodeURLPath()
         return "$MORPHE_API_URL/v2/web-search/$query"
@@ -84,6 +93,8 @@ class DownloadUrlResolver(private val morpheAPI: MorpheAPI) {
         // Enough for the API pointing at itself and a site or two moving the page, while still
         // ending a redirect loop
         const val MAX_REDIRECTS = 5
+
+        val RESOLVE_TIMEOUT = 8.seconds
 
         // Kept in step with the mirrors the API falls back to, so a search started here and one
         // started by the API lead to the same set of sites

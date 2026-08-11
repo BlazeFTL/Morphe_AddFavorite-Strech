@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nocturne et productif</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sources de patchs</string>
+    <string name="sources_search">Rechercher des sources</string>
     <string name="sources_sort_title">Trier les sources de patchs</string>
     <string name="sources_sort_manual">Ordre manuel</string>
     <string name="sources_sort_manual_hint">Appuyez longuement sur une source pour la réorganiser</string>
@@ -131,7 +132,7 @@
     <string name="sources_management_source_blocked_badge">Bloqué</string>
     <string name="sources_management_metadata_unavailable">Métadonnées ND</string>
     <string name="sources_management_metadata_unavailable_hint">Le fichier de métadonnées distant est indisponible. Le patching avec le bundle installé fonctionne toujours, mais la mise à jour automatique est désactivée pour cette source</string>
-    <string name="sources_management_metadata_unavailable_hint_missing">Le bundle de patchs n\'a pas pu être téléchargé. L\'URL de la source est peut-être incorrecte ou le fichier n’existe pas</string>
+    <string name="sources_management_metadata_unavailable_hint_missing">Le bundle de patchs n\'a pas pu être téléchargé. L\'URL de la source est peut-être incorrecte ou le fichier n\'existe pas</string>
     <string name="sources_management_outdated_manager_badge">Mettre à jour Morphe</string>
     <string name="sources_management_outdated_manager_hint">Cette source est conçue pour le patcheur %1$s, mais Morphe %2$s inclut le patcher %3$s. Mettez Morphe à jour pour l\'utiliser</string>
     <string name="sources_management_source_enabled">Source activée</string>
@@ -191,6 +192,8 @@
     <string name="home_apk_use_saved">Utiliser l\'APK enregistré</string>
     <string name="home_apk_use_installed">Utiliser l\'APK installé</string>
     <string name="home_apk_use_installed_unverified">Impossible de vérifier la signature de l\'application installée, il est donc possible qu\'elle soit déjà patchée</string>
+    <string name="home_unverified">Non vérifiéé</string>
+    <string name="home_app_info_install_unverified">Morphe ne peut pas confirmer que l\'application installée correspond à la version qu\'il a patchée. Réinstallez-la à partir de l\'APK enregistré afin de restaurer ses actions</string>
     <string name="home_app_info_no_saved_apk">Aucun APK enregistré. Le patching nécessitera de sélectionner à nouveau le fichier APK</string>
     <string name="home_version_requires_android">Nécessite Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Non pris en charge sur cet appareil</string>
@@ -218,14 +221,14 @@
     <string name="home_recommended_version">Version recommandée</string>
     <string name="home_selected_version">Version sélectionnée</string>
     <string name="home_select_apk_title">Sélectionner un APK</string>
-    <string name="home_select_any_apk_description">Sélectionnez un fichier APK de n’importe quelle application, ou choisissez une application déjà installée sur cet appareil</string>
+    <string name="home_select_any_apk_description">Sélectionnez un fichier APK de n\'importe quelle application, ou choisissez une application déjà installée sur cet appareil</string>
     <string name="home_use_installed_app">Utiliser l\'application installée</string>
     <string name="home_installed_app_picker_title">Sélectionner l\'application installée</string>
     <string name="home_installed_app_picker_empty">Aucune application trouvée</string>
     <string name="home_installed_app_picker_filter_all">Toutes les applications</string>
     <string name="home_installed_app_picker_filter_user">Applications utilisateur uniquement</string>
     <string name="home_installed_app_picker_filter_system">Applications système uniquement</string>
-    <string name="home_invalid_apk_unreadable">Impossible de lire le fichier. Vérifiez que le \'Stockage externe\' n’est pas restreint par la batterie</string>
+    <string name="home_invalid_apk_unreadable">Impossible de lire le fichier. Vérifiez que le \'Stockage externe\' n\'est pas restreint par la batterie</string>
     <string name="home_invalid_apk_not_an_apk">Le fichier sélectionné n\'est pas un APK valide</string>
     <string name="home_invalid_apk_io_error">Échec de l\'ouverture du fichier. Veuillez réessayer</string>
     <string name="home_external_apk_expert_mode_required">Cette fonctionnalité est uniquement disponible en mode Expert</string>
@@ -351,7 +354,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="batch_patch_multiple_sources">Certaines applications combinent des patchs provenant de plusieurs sources, ce qui peut provoquer des conflits</string>
     <string name="batch_patch_needs_apk">Aucun APK disponible, joignez un fichier</string>
     <string name="batch_patch_wrong_package">Le fichier joint appartient à %s</string>
-    <string name="batch_patch_version_mismatch">La version %s n’est pas prise en charge par les patchs</string>
+    <string name="batch_patch_version_mismatch">La version %s n\'est pas prise en charge par les patchs</string>
     <string name="batch_patch_source_saved">Original enregistré</string>
     <string name="batch_patch_source_installed">Application installée</string>
     <string name="batch_patch_source_file">Fichier joint</string>
@@ -521,6 +524,8 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="install_app_success">Installé avec succès</string>
     <string name="install_app_fail">Impossible d\'installer l\'application : %s</string>
     <string name="uninstall_app_fail">Échec de la désinstallation de l\'application : %s</string>
+    <string name="uninstall_app_unverified">Laissé en place : Morphe n\'a pas pu vérifier que l\'application installée correspond à la version qu\'il a patchée</string>
+    <string name="launch_app_unverified">Morphe n\'a pas pu vérifier que l\'application installée correspond bien à la version qu\'il a patchée</string>
     <string name="uninstall_timeout">Délai d\'attente de la désinstallation dépassé</string>
     <string name="save_apk_success">APK enregistré</string>
     <string name="saved_app_export_failed">Échec de l\'exportation de l\'application patchée</string>

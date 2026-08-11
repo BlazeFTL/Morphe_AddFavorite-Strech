@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">使用保存的 APK</string>
     <string name="home_apk_use_installed">使用已安装的 APK</string>
     <string name="home_apk_use_installed_unverified">无法验证已安装应用的签名，因此该应用可能已被修补</string>
+    <string name="home_unverified">未验证</string>
+    <string name="home_app_info_install_unverified">Morphe 无法确认已安装的应用是它修补的构建。请从保存的 APK 重新安装以恢复其操作。</string>
     <string name="home_app_info_no_saved_apk">没有已保存的 APK 文件, 需要重新选择 APK 文件进行修补</string>
     <string name="home_version_requires_android">需要 Android %s+。</string>
     <string name="home_apk_no_compatible_versions_title">不支持此设备</string>
@@ -519,6 +521,8 @@
     <string name="install_app_success">安装成功</string>
     <string name="install_app_fail">应用安装失败：%s</string>
     <string name="uninstall_app_fail">卸载应用失败：%s</string>
+    <string name="uninstall_app_unverified">保留：Morphe 无法验证已安装的应用是它修补的构建。</string>
+    <string name="launch_app_unverified">Morphe 无法验证已安装的应用是它修补的构建。</string>
     <string name="uninstall_timeout">卸载超时</string>
     <string name="save_apk_success">APK 已保存</string>
     <string name="saved_app_export_failed">导出修补的应用失败</string>

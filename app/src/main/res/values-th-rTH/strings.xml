@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">ตื่นตอนกลางคืนและยังทำงานได้</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">จัดการแหล่งที่มา</string>
+    <string name="sources_search">ค้นหาแหล่งที่มา</string>
     <string name="sources_sort_title">เรียงลำดับแหล่งที่มาของแพตช์</string>
     <string name="sources_sort_manual">จัดเรียงด้วยตนเอง</string>
     <string name="sources_sort_manual_hint">แตะค้างที่แหล่งข้อมูลเพื่อจัดเรียงใหม่</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">ใช้ APK ที่บันทึกไว้</string>
     <string name="home_apk_use_installed">ใช้ APK ที่ติดตั้งไว้</string>
     <string name="home_apk_use_installed_unverified">ไม่สามารถตรวจสอบลายเซ็นของแอปที่ติดตั้งได้ ดังนั้นจึงอาจได้รับการแพตช์แล้ว</string>
+    <string name="home_unverified">ไม่ได้รับการยืนยัน</string>
+    <string name="home_app_info_install_unverified">Morphe ไม่สามารถยืนยันได้ว่าแอปที่ติดตั้งนั้นเป็นรุ่นที่ได้รับการแพตช์แล้ว ติดตั้งใหม่จาก APK ที่บันทึกไว้เพื่อคืนค่าการดำเนินการ</string>
     <string name="home_app_info_no_saved_apk">ไม่มี APK ที่ถูกบันทึก การแพตซ์จะต้องเลือกไฟล์ APK อีกครั้ง</string>
     <string name="home_version_requires_android">ต้องใช้ Android %s ขึ้นไป</string>
     <string name="home_apk_no_compatible_versions_title">ไม่รองรับบนอุปกรณ์นี้</string>
@@ -512,13 +515,15 @@
     <string name="applying_patches">กำลังใช้แพตช์</string>
     <string name="failed_to_execute_patch">ไม่สามารถใช้ %s ได้</string>
     <string name="patched_app_saved_toast">บันทึกแอปที่แพตช์แล้วสำหรับภายหลัง</string>
-    <string name="patched_app_save_failed_toast">ไม่สามารถบันทึกแอปที่แพตช์ได้</string>
+    <string name="patched_app_save_failed_toast">ไม่สามารถบันทึกแอปที่แก้ไขได้</string>
     <string name="plugin_activity_dialog_body">ต้องมีการติดต่อผู้ใช้เพื่อดำเนินการต่อไปนี้</string>
     <string name="patcher_process_exit_message">กระบวนการแพตช์เสร็จสิ้นด้วยรหัส %s</string>
     <string name="patcher_heap_exhausted_message">แพตเชอร์ใช้หน่วยความจำไม่เพียงพอสำหรับฮีปขนาด %1$d MB แอปนี้ใหญ่เกินไปสำหรับแพตช์ที่เลือกไว้ ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์ให้น้อยลง</string>
     <string name="install_app_success">ติดตั้งสำเร็จแล้ว</string>
     <string name="install_app_fail">ไม่สามารถติดตั้งแอปได้: %s</string>
     <string name="uninstall_app_fail">ไม่สามารถถอนการติดตั้งแอป: %s</string>
+    <string name="uninstall_app_unverified">ทิ้งไว้ที่เดิม: Morphe ไม่สามารถยืนยันได้ว่าแอปที่ติดตั้งนั้นเป็นรุ่นที่ได้รับการแพตช์แล้ว</string>
+    <string name="launch_app_unverified">Morphe ไม่สามารถยืนยันได้ว่าแอปที่ติดตั้งนั้นเป็นรุ่นที่ได้รับการแพตช์แล้ว</string>
     <string name="uninstall_timeout">หมดเวลาในการถอนการติดตั้ง</string>
     <string name="save_apk_success">บันทึก APK สำเร็จ</string>
     <string name="saved_app_export_failed">ไม่สามารถส่งออกแอปที่แพตช์แล้วได้</string>

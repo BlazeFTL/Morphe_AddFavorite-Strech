@@ -36,6 +36,13 @@
     <string name="home_update_success_subtitle">Mənbələriniz yenilənib</string>
     <string name="home_sources_are_loading">Mənbələr yüklənilir, xahiş olunur gözləyin...</string>
     <string name="home_search_apps">Tətbiqləri axtar</string>
+    <string name="home_app_list_options_title">Sırala və filtrlə</string>
+    <string name="home_app_list_options_state_description">%1$s üzrə sıralanıb, %2$s üzrə filtrlənib</string>
+    <string name="home_app_filter_all_description">Əsas ekrandakı hər bir tətbiq</string>
+    <string name="home_app_filter_patched_description">Morphe ilə yamaqladığınız və ya saxladığınız tətbiqlər</string>
+    <string name="home_app_filter_not_patched_description">Morphe-də hələ yamaqlamadığınız tətbiqlər</string>
+    <string name="home_app_filter_installed_description">Hazırda bu cihazda quraşdırılmış tətbiqlər</string>
+    <string name="home_app_filter_uninstalled_description">Morphe ilə yamaqlanmış, artıq bu cihazda olmayan tətbiqlər</string>
     <string name="home_app_sort_manual_description">Tətbiqə uzun bas, sonra yenidən sıralama düyməsinə toxun</string>
     <string name="home_app_sort_recommended">Tövsiyə olunan düzülüş</string>
     <string name="home_app_sort_recommended_description">Əvvəlcə quraşdırılmış və nişanlanmış tətbiqlər</string>
@@ -48,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">\"%s\" ilə uyuşan tətbiq yoxdur</string>
     <string name="home_all_apps_hidden_title">Bütün tətbiqlər gizlidir</string>
     <string name="home_all_apps_hidden_subtitle">Bütün tətbiqləri əsas ekrandan gizlətmisiniz</string>
+    <string name="home_no_apps_filter_title">Bu filtrə uyğun tətbiq tapılmadı</string>
+    <string name="home_no_apps_filter_subtitle">%s üçün heç nə uyğun gəlmədi</string>
     <string name="home_category_add">Kateqoriya əlavə et</string>
     <string name="home_category_all_apps">Bütün tətbiqlər</string>
     <string name="home_category_custom">Fərdi</string>
@@ -180,6 +189,8 @@
     <string name="home_apk_use_saved">Saxlanılan APK-nı istifadə et</string>
     <string name="home_apk_use_installed">Quraşdırılan APK-nı istifadə et</string>
     <string name="home_apk_use_installed_unverified">Quraşdırılmış tətbiqin imzasını təsdiqləmək olmadı, mümkündür ki, artıq yamaqlanmış ola bilər</string>
+    <string name="home_unverified">Təsdiqlənməmiş</string>
+    <string name="home_app_info_install_unverified">Morphe quraşdırılmış tətbiqin öz yamaqladığı qurulma olduğunu təsdiqləyə bilmir. Fəaliyyətlərini bərpa etmək üçün onu saxlanılan APK-dan yenidən quraşdır</string>
     <string name="home_app_info_no_saved_apk">Saxlanılan APK yoxdur. Yamaqlanma APK faylını təkrar seçmək istəyəcək</string>
     <string name="home_version_requires_android">Android %s+ tələb olunur</string>
     <string name="home_apk_no_compatible_versions_title">Bu cihazda dəstəklənmir</string>
@@ -226,6 +237,7 @@
     <string name="expert_mode_disable_all_done">Bütün yamaqlar qapadılıb</string>
     <string name="expert_mode_enable_all">Hamısını aktivləşdir</string>
     <string name="expert_mode_enable_all_done">Bütün yamaqlar işləkdir</string>
+    <string name="expert_mode_enable_all_universal_pending">Ümumi yamaqlar üçün təkrar toxun</string>
     <string name="expert_mode_reset_to_default">Tövsiyə olunan yamaqları aktivləşdir</string>
     <string name="expert_mode_reset_to_default_done">Tövsiyə olunan yamaqlar tətbiq olundu</string>
     <string name="expert_mode_restore_saved">Saxlanılan seçimi bərpa et</string>

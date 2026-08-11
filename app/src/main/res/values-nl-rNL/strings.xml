@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">Gebruik opgeslagen APK</string>
     <string name="home_apk_use_installed">Gebruik geïnstalleerde APK</string>
     <string name="home_apk_use_installed_unverified">Kon de handtekening van de geïnstalleerde app niet verifiëren, dus deze is mogelijk al gepatcht</string>
+    <string name="home_unverified">Ongeverifieerd</string>
+    <string name="home_app_info_install_unverified">Morphe kan niet bevestigen dat de geïnstalleerde app de build is die het heeft gepatcht. Installeer het opnieuw vanuit de opgeslagen APK om de acties te herstellen.</string>
     <string name="home_app_info_no_saved_apk">Er is geen APK opgeslagen. Om de patch uit te voeren, moet u het APK opnieuw selecteren</string>
     <string name="home_version_requires_android">Vereist Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Niet ondersteund voor dit apparaat</string>
@@ -519,6 +521,8 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="install_app_success">Succesvol geïnstalleerd</string>
     <string name="install_app_fail">Kon app niet installeren: %s</string>
     <string name="uninstall_app_fail">Kon de app niet verwijderen: %s</string>
+    <string name="uninstall_app_unverified">Op zijn plaats gelaten: Morphe kon niet verifiëren dat de geïnstalleerde app de build is die het heeft gepatcht.</string>
+    <string name="launch_app_unverified">Morphe kon niet verifiëren dat de geïnstalleerde app de build is die het heeft gepatcht.</string>
     <string name="uninstall_timeout">De-installatie is mislukt door time-out</string>
     <string name="save_apk_success">APK opgeslagen</string>
     <string name="saved_app_export_failed">Kan gepatchte app niet exporteren</string>

@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">Gespeicherte APK verwenden</string>
     <string name="home_apk_use_installed">Installierte App verwenden</string>
     <string name="home_apk_use_installed_unverified">Die Signatur der installierten App konnte nicht verifiziert werden. Sie ist möglicherweise bereits gepatcht.</string>
+    <string name="home_unverified">Unbestätigt</string>
+    <string name="home_app_info_install_unverified">Morphe kann nicht bestätigen, dass die installierte App der von ihm gepatchte Build ist. Installieren Sie sie erneut aus der gespeicherten APK, um ihre Aktionen wiederherzustellen</string>
     <string name="home_app_info_no_saved_apk">Keine gespeicherte APK. Das Patchen erfordert die erneute Auswahl der APK-Datei</string>
     <string name="home_version_requires_android">Benötigt Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Wird auf diesem Gerät nicht unterstützt</string>
@@ -520,6 +522,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="install_app_success">Erfolgreich installiert</string>
     <string name="install_app_fail">Installation der App fehlgeschlagen: %s</string>
     <string name="uninstall_app_fail">App konnte nicht deinstalliert werden: %s</string>
+    <string name="uninstall_app_unverified">An Ort und Stelle belassen: Morphe konnte nicht überprüfen, dass die installierte App der von ihm gepatchte Build ist</string>
+    <string name="launch_app_unverified">Morphe konnte nicht überprüfen, dass die installierte App der von ihm gepatchte Build ist</string>
     <string name="uninstall_timeout">Deinstallation zeitüberschritten</string>
     <string name="save_apk_success">APK gespeichert</string>
     <string name="saved_app_export_failed">Export der gepatchten App fehlgeschlagen</string>

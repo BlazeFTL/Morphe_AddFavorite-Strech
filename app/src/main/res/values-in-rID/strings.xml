@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">Gunakan APK yang tersimpan</string>
     <string name="home_apk_use_installed">Gunakan APK yang terpasang</string>
     <string name="home_apk_use_installed_unverified">Tanda tangan aplikasi yang terpasang tidak dapat diverifikasi, jadi kemungkinan aplikasi tersebut sudah ditambal.</string>
+    <string name="home_unverified">Tidak Terverifikasi</string>
+    <string name="home_app_info_install_unverified">Morphe tidak dapat memastikan bahwa aplikasi yang terpasang adalah build yang ditambalnya. Pasang ulang dari APK yang disimpan untuk memulihkan tindakannya</string>
     <string name="home_app_info_no_saved_apk">Tidak ada APK yang disimpan. Penambalan akan memerlukan memilih berkas APK lagi</string>
     <string name="home_version_requires_android">Membutuhkan Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Tidak didukung di perangkat ini</string>
@@ -520,6 +522,8 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="install_app_success">Berhasil dipasang</string>
     <string name="install_app_fail">Gagal memasang aplikasi: %s</string>
     <string name="uninstall_app_fail">Gagal menghapus aplikasi: %s</string>
+    <string name="uninstall_app_unverified">Dibiarkan di tempat: Morphe tidak dapat memverifikasi bahwa aplikasi yang terpasang adalah build yang ditambalnya</string>
+    <string name="launch_app_unverified">Morphe tidak dapat memverifikasi bahwa aplikasi yang terpasang adalah build yang ditambalnya</string>
     <string name="uninstall_timeout">Waktu penghapusan instalasi habis</string>
     <string name="save_apk_success">APK Tersimpan</string>
     <string name="saved_app_export_failed">Gagal mengekspor aplikasi hasil patch</string>

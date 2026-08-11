@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">Nota vistað APK</string>
     <string name="home_apk_use_installed">Nota upphætt APK</string>
     <string name="home_apk_use_installed_unverified">Gat ekki staðfest undirskrift uppsetts forrits, þannig að það gæti þegar verið lagað</string>
+    <string name="home_unverified">Óstaðfest</string>
+    <string name="home_app_info_install_unverified">Morphe getur ekki staðfest að uppsetta forritið sé byggingin sem það plástraði. Settu það upp aftur frá vistuðu APK til að endurheimta aðgerðir þess</string>
     <string name="home_app_info_no_saved_apk">Engin geymd APK. Pökkun mun þurfa að velja APK skrá aftur</string>
     <string name="home_version_requires_android">Krefst Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ekki studd á þessari tæki</string>
@@ -517,6 +519,8 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="install_app_success">Uppsett með góðum árangri</string>
     <string name="install_app_fail">Ekki tókst að setja upp app: %s</string>
     <string name="uninstall_app_fail">Ekki tókst að afinstalla app: %s</string>
+    <string name="uninstall_app_unverified">Skilið eftir á sínum stað: Morphe gat ekki staðfest að uppsetta forritið sé byggingin sem það plástraði</string>
+    <string name="launch_app_unverified">Morphe gat ekki staðfest að uppsetta forritið sé byggingin sem það plástraði</string>
     <string name="uninstall_timeout">Afhenting af uppsetningu tók of langa tíma</string>
     <string name="save_apk_success">APK skrá vistuð</string>
     <string name="saved_app_export_failed">Ekki tókst að flytja breytt app</string>

@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">Mentett APK használata</string>
     <string name="home_apk_use_installed">Telepített APK használata</string>
     <string name="home_apk_use_installed_unverified">Nem sikerült ellenőrizni a telepített alkalmazás áláísás állását, ezért lehetséges, hogy már másolták.</string>
+    <string name="home_unverified">Nem ellenőrzött</string>
+    <string name="home_app_info_install_unverified">A Morphe nem tudja megerősíteni, hogy a telepített alkalmazás az a build, amelyet javított. Telepítse újra a mentett APK-ból a műveletek visszaállításához</string>
     <string name="home_app_info_no_saved_apk">Nincs mentett APK. A módosításhoz újra ki kell választanod az APK-fájlt.</string>
     <string name="home_version_requires_android">Android %s+ verziót igényel</string>
     <string name="home_apk_no_compatible_versions_title">Nem támogatott ezen az eszközen</string>
@@ -519,6 +521,8 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="install_app_success">Sikeresen telepítve</string>
     <string name="install_app_fail">Nem sikerült telepíteni az alkalmazást: %s</string>
     <string name="uninstall_app_fail">Nem sikerült eltávolítani az alkalmazást: %s</string>
+    <string name="uninstall_app_unverified">A helyén hagyva: a Morphe nem tudta ellenőrizni, hogy a telepített alkalmazás az a build, amelyet javított</string>
+    <string name="launch_app_unverified">A Morphe nem tudta ellenőrizni, hogy a telepített alkalmazás az a build, amelyet javított</string>
     <string name="uninstall_timeout">Az eltávolítás időtúllépése</string>
     <string name="save_apk_success">APK mentve</string>
     <string name="saved_app_export_failed">Nem sikerült exportálni a módosított alkalmazást</string>

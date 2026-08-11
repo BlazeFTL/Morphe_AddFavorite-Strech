@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">सहेजी गई APK का उपयोग करें</string>
     <string name="home_apk_use_installed">स्थापित APK का उपयोग करें</string>
     <string name="home_apk_use_installed_unverified">इंस्टॉल किए गए ऐप के हस्ताक्षर को सत्यापित नहीं किया जा सका, इसलिए यह पहले से ही पैच किया जा सकता है</string>
+    <string name="home_unverified">असत्यापित</string>
+    <string name="home_app_info_install_unverified">Morphe पुष्टि नहीं कर सकता कि इंस्टॉल किया गया ऐप वही बिल्ड है जिसे उसने पैच किया था। इसकी क्रियाओं को पुनर्स्थापित करने के लिए इसे सहेजे गए APK से पुनः इंस्टॉल करें</string>
     <string name="home_app_info_no_saved_apk">कोई प्रतिलिपि APK नहीं है। पट्च करना पुनः APK फ़ाइल का चयन करना आवश्यक होगा</string>
     <string name="home_version_requires_android">Android %s+ की आवश्यकता है</string>
     <string name="home_apk_no_compatible_versions_title">इस डिवाइस पर समर्थित नहीं है</string>
@@ -519,6 +521,8 @@
     <string name="install_app_success">सफलतापूर्वक इंस्टॉल हो गया</string>
     <string name="install_app_fail">अप्लिकेशन को तैयार करना असफल रहा: %s</string>
     <string name="uninstall_app_fail">ऐप को अनइंस्टॉल करने में विफल: %s</string>
+    <string name="uninstall_app_unverified">स्थान पर छोड़ दिया गया: Morphe सत्यापित नहीं कर सका कि इंस्टॉल किया गया ऐप वही बिल्ड है जिसे उसने पैच किया था</string>
+    <string name="launch_app_unverified">Morphe सत्यापित नहीं कर सका कि इंस्टॉल किया गया ऐप वही बिल्ड है जिसे उसने पैच किया था</string>
     <string name="uninstall_timeout">अनइंस्टॉल समय समाप्त हो गया</string>
     <string name="save_apk_success">एपीके सहेजा गया</string>
     <string name="saved_app_export_failed">\"पैच किया गया ऐप एक्सपोर्ट करने में विफल।\"</string>

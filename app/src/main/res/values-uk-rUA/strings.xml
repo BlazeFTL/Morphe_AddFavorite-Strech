@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Нічний та продуктивний</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Джерела патчів</string>
+    <string name="sources_search">Пошук джерел</string>
     <string name="sources_sort_title">Сортувати джерела патчів</string>
     <string name="sources_sort_manual">Ручне сортування</string>
     <string name="sources_sort_manual_hint">Утримуйте джерело, щоб змінити порядок</string>
@@ -190,6 +191,8 @@
     <string name="home_apk_use_saved">Збережений APK</string>
     <string name="home_apk_use_installed">Встановлений APK</string>
     <string name="home_apk_use_installed_unverified">Не вдалося перевірити підпис встановленого застосунку, тому він може бути вже пропатчений</string>
+    <string name="home_unverified">Непідтверджено</string>
+    <string name="home_app_info_install_unverified">Morphe не може підтвердити, що встановлений застосунок є тією ж збіркою, яку він пропатчив. Перевстановіть його зі збереженого APK, щоб відновити його дії</string>
     <string name="home_app_info_no_saved_apk">Немає збереженого APK файлу. Для патчингу потрібно буде знову вибрати APK файл</string>
     <string name="home_version_requires_android">Потрібен Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Не підтримується на цьому пристрої</string>
@@ -520,6 +523,8 @@
     <string name="install_app_success">Встановлено успішно</string>
     <string name="install_app_fail">Неможливо встановити застосунок: %s</string>
     <string name="uninstall_app_fail">Не вдалося видалити застосунок: %s</string>
+    <string name="uninstall_app_unverified">Залишено без змін: Morphe не зміг підтвердити, що встановлений застосунок є тією ж збіркою, яку він пропатчив</string>
+    <string name="launch_app_unverified">Morphe не зміг підтвердити, що встановлений застосунок є тією ж збіркою, яку він пропатчив</string>
     <string name="uninstall_timeout">Час очікування видалення вичерпано</string>
     <string name="save_apk_success">APK файл збережено</string>
     <string name="saved_app_export_failed">Не вдалося експортувати патчений застосунок</string>

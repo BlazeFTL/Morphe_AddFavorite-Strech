@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">Χρήση αποθηκευμένου APK</string>
     <string name="home_apk_use_installed">Χρήση εγκατεστημένου APK</string>
     <string name="home_apk_use_installed_unverified">Δεν μπόρεσα να επαληθεύσω την υπογραφή της εγκατεστημένης εφαρμογής, επομένως ενδέχεται να έχει ήδη τροποποιηθεί</string>
+    <string name="home_unverified">Μη επαληθευμένο</string>
+    <string name="home_app_info_install_unverified">Η Morphe δεν μπορεί να επιβεβαιώσει ότι η εγκατεστημένη εφαρμογή είναι η έκδοση που επιδιόρθωσε. Επανεγκαταστήστε την από το αποθηκευμένο APK για να επαναφέρετε τις ενέργειές της</string>
     <string name="home_app_info_no_saved_apk">Δεν υπάρχει αποθηκευμένο APK. Η τροποποίηση κώδικα θα απαιτήσει την επιλογή του αρχείου APK ξανά</string>
     <string name="home_version_requires_android">Απαιτείται Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Δεν υποστηρίζεται σε αυτή τη συσκευή</string>
@@ -519,6 +521,8 @@
     <string name="install_app_success">Επιτυχής εγκατάσταση</string>
     <string name="install_app_fail">Απέτυχε η εγκατάσταση της εφαρμογής: %s</string>
     <string name="uninstall_app_fail">Αποfailed να απεγκατασταθεί η εφαρμογή: %s</string>
+    <string name="uninstall_app_unverified">Παρέμεινε στη θέση του: Η Morphe δεν μπόρεσε να επαληθεύσει ότι η εγκατεστημένη εφαρμογή είναι η έκδοση που επιδιόρθωσε</string>
+    <string name="launch_app_unverified">Η Morphe δεν μπόρεσε να επαληθεύσει ότι η εγκατεστημένη εφαρμογή είναι η έκδοση που επιδιόρθωσε</string>
     <string name="uninstall_timeout">Η απεγκατάσταση έληξε</string>
     <string name="save_apk_success">Το APK αποθηκεύτηκε</string>
     <string name="saved_app_export_failed">Η εξαγωγή της τροποποιημένης εφαρμογής απέτυχε</string>

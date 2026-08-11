@@ -190,6 +190,8 @@ Nessuna patch disponibile</string>
     <string name="home_apk_use_saved">Usa APK salvato</string>
     <string name="home_apk_use_installed">Usa APK installato</string>
     <string name="home_apk_use_installed_unverified">Impossibile verificare la firma dell\'app installata, pertanto potrebbe essere già stata modificata</string>
+    <string name="home_unverified">Non verificata</string>
+    <string name="home_app_info_install_unverified">Morphe non può confermare che l\'app installata sia la build che ha patchato. Reinstallala dall\'APK salvato per ripristinare le sue azioni.</string>
     <string name="home_app_info_no_saved_apk">Nessun APK salvato. Il patching richiederà la selezione del file APK</string>
     <string name="home_version_requires_android">Richiede Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Non supportato su questo dispositivo</string>
@@ -520,6 +522,8 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="install_app_success">Installato correttamente</string>
     <string name="install_app_fail">Impossibile installare l\'app: %s</string>
     <string name="uninstall_app_fail">Impossibile disinstallare l\'app: %s</string>
+    <string name="uninstall_app_unverified">Lasciata al suo posto: Morphe non ha potuto verificare che l\'app installata sia la build che ha patchato.</string>
+    <string name="launch_app_unverified">Morphe non ha potuto verificare che l\'app installata sia la build che ha patchato.</string>
     <string name="uninstall_timeout">Timeout dell\'installazione</string>
     <string name="save_apk_success">APK salvato</string>
     <string name="saved_app_export_failed">Impossibile esportare l\'app patchata</string>

@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">استخدام ملف APK المحفوظ</string>
     <string name="home_apk_use_installed">استخدام ملف APK المثبت</string>
     <string name="home_apk_use_installed_unverified">تعذر التحقق من توقيع التطبيق المثبت، لذا قد يكون قد تم تعديله بالفعل</string>
+    <string name="home_unverified">غير معتمد</string>
+    <string name="home_app_info_install_unverified">لا يمكن لـ Morphe تأكيد أن التطبيق المثبت هو الإصدار الذي قام بتصحيحه. أعد تثبيته من APK المحفوظ لاستعادة إجراءاته</string>
     <string name="home_app_info_no_saved_apk">لا يوجد ملف APK محفوظ. ستتطلب عملية التعديل إعادة اختيار ملف APK</string>
     <string name="home_version_requires_android">يتطلب Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">غير مدعوم على هذا الجهاز</string>
@@ -523,6 +525,8 @@
     <string name="install_app_success">تم التثبيت بنجاح</string>
     <string name="install_app_fail">فشل تثبيت التطبيق: %s</string>
     <string name="uninstall_app_fail">فشل إلغاء تثبيت التطبيق: %s</string>
+    <string name="uninstall_app_unverified">متبقٍ في مكانه: لم يتمكن Morphe من التحقق من أن التطبيق المثبت هو الإصدار الذي قام بتصحيحه</string>
+    <string name="launch_app_unverified">لم يتمكن Morphe من التحقق من أن التطبيق المثبت هو الإصدار الذي قام بتصحيحه</string>
     <string name="uninstall_timeout">انتهت مهلة إلغاء التثبيت</string>
     <string name="save_apk_success">تم حفظ APK</string>
     <string name="saved_app_export_failed">فشل تصدير التطبيق المعدل</string>

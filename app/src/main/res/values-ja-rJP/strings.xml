@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">ソースは最新の状態です</string>
     <string name="home_sources_are_loading">ソースを読み込んでいます。しばらくお待ちください…</string>
     <string name="home_search_apps">アプリを検索</string>
-    <string name="home_app_sort_title">アプリを並べ替え</string>
+    <string name="home_app_list_options_title">並べ替えと絞り込み</string>
+    <string name="home_app_list_options_state_description">%1$s で並べ替え、%2$s で絞り込み</string>
+    <string name="home_app_filter_all_description">ホーム画面上のすべてのアプリ</string>
+    <string name="home_app_filter_patched_description">Morphe でパッチを適用した、または保存したアプリ</string>
+    <string name="home_app_filter_not_patched_description">Morphe でまだパッチを適用していないアプリ</string>
+    <string name="home_app_filter_installed_description">このデバイスに現在インストールされているアプリ</string>
+    <string name="home_app_filter_uninstalled_description">Morphe でパッチ適用されたアプリのうち、このデバイス上にもう存在しないもの</string>
     <string name="home_app_sort_manual_description">アプリを長押しして、並べ替えボタンをタップ</string>
     <string name="home_app_sort_recommended">推奨順</string>
     <string name="home_app_sort_recommended_description">インストール済みのアプリと固定アプリを優先</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">「%s」に一致するアプリはありません</string>
     <string name="home_all_apps_hidden_title">すべてのアプリが非表示です</string>
     <string name="home_all_apps_hidden_subtitle">ホーム画面からすべてのアプリを非表示にしました</string>
+    <string name="home_no_apps_filter_title">このフィルターに一致するアプリがありません</string>
+    <string name="home_no_apps_filter_subtitle">%s に一致するものはありません</string>
     <string name="home_category_add">カテゴリを追加</string>
     <string name="home_category_all_apps">すべてのアプリ</string>
     <string name="home_category_custom">カスタム</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">すべてのパッチが無効になりました</string>
     <string name="expert_mode_enable_all">全て有効化</string>
     <string name="expert_mode_enable_all_done">すべてのパッチが有効になりました</string>
+    <string name="expert_mode_enable_all_universal_pending">ユニバーサルパッチを有効にするには、もう一度タップしてください</string>
     <string name="expert_mode_reset_to_default">推奨パッチの有効化</string>
     <string name="expert_mode_reset_to_default_done">推奨パッチが適用されました</string>
     <string name="expert_mode_restore_saved">保存済みのパッチ セレクションの復元</string>
@@ -461,6 +470,10 @@
     <string name="battery_optimization_dialog_description">一部のデバイスでは、アプリを最小化するとパッチャーが停止する場合があります。確実にパッチ処理を完了するため、Morphe をバッテリー制限の対象外にしてください</string>
     <string name="battery_optimization_not_now">後で</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">メモリ不足</string>
+    <string name="patcher_memory_adjustment_description">メモリ上限 %1$d MB で実行中に、パッチャーがシステムによって停止されました。上限を %2$d MB に引き下げると、パッチャーが停止されにくくなり、実行を完了できる可能性があります。</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">メモリ上限 %1$d MB（すでに利用可能な最低値）で実行中に、パッチャーがシステムによって停止されました。パッチソースを減らすか、選択するパッチを減らしてお試しください。</string>
+    <string name="patcher_memory_adjustment_apply">%1$d MB に下げる</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">パッチを適用中…</string>
     <string name="patcher_notification_text">パッチ画面に戻るにはタップ</string>
@@ -502,6 +515,7 @@
     <string name="patched_app_save_failed_toast">パッチ適用済みアプリの保存に失敗しました</string>
     <string name="plugin_activity_dialog_body">このプラグインを続行するには、ユーザーの操作が必要です</string>
     <string name="patcher_process_exit_message">パッチ処理がコード %s で終了しました</string>
+    <string name="patcher_heap_exhausted_message">パッチャーが %1$d MB のヒープメモリを使い果たしました。このアプリは選択したパッチには大きすぎます。パッチソースを減らしてパッチを適用するか、選択するパッチを減らしてください。</string>
     <string name="install_app_success">正常にインストールされました</string>
     <string name="install_app_fail">アプリのインストールに失敗しました: %s</string>
     <string name="uninstall_app_fail">アプリのアンインストールに失敗しました: %s</string>
@@ -573,8 +587,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">ホーム画面に挨拶メッセージを表示します</string>
     <string name="settings_appearance_app_grouping">アプリのグループ化</string>
     <string name="settings_appearance_app_grouping_description">ホーム画面スイッチャーを表示して、ソース別または独自のカテゴリでアプリをグループ化します。オフにしたときも選択内容は保持されます</string>
-    <string name="settings_appearance_sort_button">並べ替えボタン</string>
-    <string name="settings_appearance_sort_button_description">ホーム画面に並べ替えボタンを表示します</string>
+    <string name="settings_appearance_sort_button">並べ替えとフィルターボタン</string>
+    <string name="settings_appearance_sort_button_description">ホーム画面に並べ替えとフィルターボタンを表示する</string>
     <string name="settings_appearance_app_card_colors">アプリカードの色</string>
     <string name="settings_appearance_app_card_colors_default">デフォルト</string>
     <string name="settings_appearance_app_card_colors_default_description">アプリの色を、それぞれのバンドルカラーにする</string>
@@ -1075,6 +1089,7 @@ morphe_header_custom_dark.png
     <string name="version">バージョン</string>
     <string name="patch">パッチ</string>
     <string name="patching">パッチ処理</string>
+    <string name="patched">パッチの適用</string>
     <string name="repatch">再パッチ</string>
     <string name="open">開く</string>
     <string name="mount">マウント</string>

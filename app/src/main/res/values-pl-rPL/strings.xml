@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Źródła są aktualne</string>
     <string name="home_sources_are_loading">Wczytywanie źródeł, proszę czekać…</string>
     <string name="home_search_apps">Szukaj aplikacji</string>
-    <string name="home_app_sort_title">Sortuj aplikacje</string>
+    <string name="home_app_list_options_title">Sortuj i filtruj</string>
+    <string name="home_app_list_options_state_description">Posortowane według %1$s, filtrowane według %2$s</string>
+    <string name="home_app_filter_all_description">Wszystkie aplikacje na ekranie głównym</string>
+    <string name="home_app_filter_patched_description">Aplikacje zmodyfikowane lub zapisane za pomocą Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplikacje jeszcze niezmodyfikowane w Morphe</string>
+    <string name="home_app_filter_installed_description">Aplikacje obecnie zainstalowane na tym urządzeniu</string>
+    <string name="home_app_filter_uninstalled_description">Aplikacje zmodyfikowane za pomocą Morphe, których nie ma już na tym urządzeniu</string>
     <string name="home_app_sort_manual_description">Przytrzymaj aplikację, a następnie dotknij przycisku zmiany kolejności</string>
     <string name="home_app_sort_recommended">Zalecana kolejność</string>
     <string name="home_app_sort_recommended_description">Najpierw zainstalowane i przypięte aplikacje</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Brak aplikacji pasujących do \"%s\"</string>
     <string name="home_all_apps_hidden_title">Wszystkie aplikacje są ukryte</string>
     <string name="home_all_apps_hidden_subtitle">Ukryto wszystkie aplikacje na ekranie głównym</string>
+    <string name="home_no_apps_filter_title">Brak aplikacji pasujących do tego filtru</string>
+    <string name="home_no_apps_filter_subtitle">Nic nie pasuje do %s</string>
     <string name="home_category_add">Dodaj kategorię</string>
     <string name="home_category_all_apps">Wszystkie aplikacje</string>
     <string name="home_category_custom">Własne</string>
@@ -228,6 +236,7 @@
     <string name="expert_mode_disable_all_done">Wyłączono wszystkie modyfikacje</string>
     <string name="expert_mode_enable_all">Włącz wszystkie</string>
     <string name="expert_mode_enable_all_done">Włączono wszystkie modyfikacje</string>
+    <string name="expert_mode_enable_all_universal_pending">Dotknij ponownie dla uniwersalnych modyfikacji</string>
     <string name="expert_mode_reset_to_default">Włącz zalecane modyfikacje</string>
     <string name="expert_mode_reset_to_default_done">Zastosowano zalecane modyfikacje</string>
     <string name="expert_mode_restore_saved">Przywróć zapisany wybór</string>
@@ -462,6 +471,10 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="battery_optimization_dialog_description">Niektóre urządzenia mogą zatrzymać modyfikator, gdy aplikacja jest zminimalizowana. Zezwól Morphe na działanie bez ograniczeń baterii, aby proces modyfikowania zakończył się pomyślnie</string>
     <string name="battery_optimization_not_now">Nie teraz</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Za mało pamięci</string>
+    <string name="patcher_memory_adjustment_description">System zatrzymał modyfikator podczas działania z limitem pamięci %1$d MB. Obniżenie limitu do %2$d MB sprawia, że modyfikator staje się mniejszym celem dla systemu i może pozwolić na ukończenie procesu</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">System zatrzymał modyfikator podczas działania z limitem pamięci %1$d MB, który jest już najniższym z dostępnych. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
+    <string name="patcher_memory_adjustment_apply">Obniż do %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Modyfikowanie w toku…</string>
     <string name="patcher_notification_text">Dotknij, aby wrócić do modyfikatora</string>
@@ -503,6 +516,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patched_app_save_failed_toast">Nie udało się zapisać zmodyfikowanej aplikacji</string>
     <string name="plugin_activity_dialog_body">Wymagana jest interakcja użytkownika, aby kontynuować działanie tej wtyczki</string>
     <string name="patcher_process_exit_message">Proces modyfikatora zakończył się kodem %s</string>
+    <string name="patcher_heap_exhausted_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$d MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
     <string name="install_app_success">Zainstalowano pomyślnie</string>
     <string name="install_app_fail">Nie udało się zainstalować aplikacji: %s</string>
     <string name="uninstall_app_fail">Nie udało się odinstalować aplikacji: %s</string>
@@ -575,8 +589,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wyświetlaj powitanie na ekranie głównym</string>
     <string name="settings_appearance_app_grouping">Grupowanie aplikacji</string>
     <string name="settings_appearance_app_grouping_description">Wyświetl na ekranie głównym przełącznik do grupowania aplikacji według źródła lub własnych kategorii, zachowując wybór po wyłączeniu</string>
-    <string name="settings_appearance_sort_button">Przycisk sortowania</string>
-    <string name="settings_appearance_sort_button_description">Pokaż przycisk sortowania na ekranie głównym</string>
+    <string name="settings_appearance_sort_button">Przycisk sortowania i filtrowania</string>
+    <string name="settings_appearance_sort_button_description">Pokaż przycisk sortowania i filtrowania na ekranie głównym</string>
     <string name="settings_appearance_app_card_colors">Kolory kart aplikacji</string>
     <string name="settings_appearance_app_card_colors_default">Domyślne</string>
     <string name="settings_appearance_app_card_colors_default_description">Nadaj każdej aplikacji kolor z jego własnego pakietu</string>
@@ -1078,6 +1092,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="version">Wersja</string>
     <string name="patch">Modyfikuj</string>
     <string name="patching">Modyfikowanie</string>
+    <string name="patched">Zmodyfikowano</string>
     <string name="repatch">Modyfikuj ponownie</string>
     <string name="open">Otwórz</string>
     <string name="mount">Zamontuj</string>

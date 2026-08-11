@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Lähteet ovat ajan tasalla</string>
     <string name="home_sources_are_loading">Lähteitä ladataan, odota…</string>
     <string name="home_search_apps">Hae sovelluksia</string>
-    <string name="home_app_sort_title">Järjestä sovellukset</string>
+    <string name="home_app_list_options_title">Lajittelu ja suodatus</string>
+    <string name="home_app_list_options_state_description">Lajiteltu: %1$s, suodatettu: %2$s</string>
+    <string name="home_app_filter_all_description">Kaikki aloitusnäytön sovellukset</string>
+    <string name="home_app_filter_patched_description">Morphella paikkaamasi tai tallentamasi sovellukset</string>
+    <string name="home_app_filter_not_patched_description">Sovellukset, joita et ole vielä paikannut Morphessa</string>
+    <string name="home_app_filter_installed_description">Sovellukset, jotka on tällä hetkellä asennettu tähän laitteeseen</string>
+    <string name="home_app_filter_uninstalled_description">Morphella muokatut sovellukset, joita ei ole enää tällä laitteella</string>
     <string name="home_app_sort_manual_description">Paina sovellusta pitkään ja napauta sitten uudelleenjärjestä-painiketta</string>
     <string name="home_app_sort_recommended">Suositeltu järjestys</string>
     <string name="home_app_sort_recommended_description">Asennetut ja kiinnitetyt sovellukset ensin</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">\"%s\" ei vastaa yhtään sovellusta</string>
     <string name="home_all_apps_hidden_title">Kaikki sovellukset on piilotettu</string>
     <string name="home_all_apps_hidden_subtitle">Olet piilottanut kaikki sovellukset aloitusnäytöstä</string>
+    <string name="home_no_apps_filter_title">Mikään sovellus ei vastaa tätä suodatinta</string>
+    <string name="home_no_apps_filter_subtitle">Mikään ei vastannut suodatinta %s</string>
     <string name="home_category_add">Lisää kategoria</string>
     <string name="home_category_all_apps">Kaikki sovellukset</string>
     <string name="home_category_custom">Mukautettu</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Kaikki korjaukset poistettu käytöstä</string>
     <string name="expert_mode_enable_all">Ota kaikki käyttöön</string>
     <string name="expert_mode_enable_all_done">Kaikki korjaukset käytössä</string>
+    <string name="expert_mode_enable_all_universal_pending">Napauta uudelleen ottaaksesi universaalit korjaukset käyttöön</string>
     <string name="expert_mode_reset_to_default">Ota suositellut lisäosat käyttöön</string>
     <string name="expert_mode_reset_to_default_done">Suositellut korjaukset asennettu</string>
     <string name="expert_mode_restore_saved">Palauta tallennettu valinta</string>
@@ -507,6 +516,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="patched_app_save_failed_toast">Muokatun sovelluksen tallennus epäonnistui</string>
     <string name="plugin_activity_dialog_body">Tämän liitännäisen käyttöönoton jatkamiseksi tarvitaan käyttäjän toimia.</string>
     <string name="patcher_process_exit_message">Muokkausprosessi päättyi koodilla %s</string>
+    <string name="patcher_heap_exhausted_message">Paikkaajalta loppui muisti %1$d MB:n kekomuistilla. Tämä sovellus on liian suuri valituille paikkauksille. Yritä paikata vähemmillä paikkalähteillä tai valitse vähemmän paikkauksia.</string>
     <string name="install_app_success">Asennus onnistui</string>
     <string name="install_app_fail">Sovelluksen asentaminen epäonnistui: %s</string>
     <string name="uninstall_app_fail">Sovelluksen poistaminen epäonnistui: %s</string>
@@ -579,8 +589,8 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Näytä tervehdysviesti aloitusnäytöllä</string>
     <string name="settings_appearance_app_grouping">Sovellusten ryhmittely</string>
     <string name="settings_appearance_app_grouping_description">Näytä kotinäkymän vaihto, jolla voit ryhmitellä sovellukset lähteen tai omien luokkien mukaan ja säilytä valinta, kun se on poissa päältä</string>
-    <string name="settings_appearance_sort_button">Lajittelupainike</string>
-    <string name="settings_appearance_sort_button_description">Näytä lajittelupainike aloitusnäytöllä</string>
+    <string name="settings_appearance_sort_button">Lajittelu- ja suodatuspainike</string>
+    <string name="settings_appearance_sort_button_description">Näytä lajittelu- ja suodatuspainike aloitusnäytöllä</string>
     <string name="settings_appearance_app_card_colors">Sovelluksen korttien värit</string>
     <string name="settings_appearance_app_card_colors_default">Oletus</string>
     <string name="settings_appearance_app_card_colors_default_description">Anna jokaiselle sovellukselle sen oman paketin väri</string>
@@ -1082,6 +1092,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="version">Versio</string>
     <string name="patch">Muokkaa</string>
     <string name="patching">Korjataan</string>
+    <string name="patched">Muokatut</string>
     <string name="repatch">Muokkaa uudelleen</string>
     <string name="open">Avaa</string>
     <string name="mount">Liitä</string>

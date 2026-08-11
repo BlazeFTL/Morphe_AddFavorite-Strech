@@ -477,6 +477,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="download">دابەزاندن</string>
     <string name="continue_">بەردەوامبوون</string>
     <string name="patching">پینەکردن</string>
+    <string name="patched">پینەکراو</string>
     <string name="allow">ڕێگەپێدان</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <!-- Onboarding coach marks -->

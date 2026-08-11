@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Ваши извори су ажурни</string>
     <string name="home_sources_are_loading">Извори се учитавају, молимо сачекајте…</string>
     <string name="home_search_apps">Претрага апликација</string>
-    <string name="home_app_sort_title">Сортирај апликације</string>
+    <string name="home_app_list_options_title">Сортирање и филтрирање</string>
+    <string name="home_app_list_options_state_description">Сортирано по %1$s, филтрирано по %2$s</string>
+    <string name="home_app_filter_all_description">Свака апликација на почетном екрану</string>
+    <string name="home_app_filter_patched_description">Апликације које сте закрпили или сачували помоћу Morphe</string>
+    <string name="home_app_filter_not_patched_description">Апликације које још нисте закрпили у Morphe-у</string>
+    <string name="home_app_filter_installed_description">Апликације које су тренутно инсталиране на овом уређају</string>
+    <string name="home_app_filter_uninstalled_description">Апликације закрпљене помоћу Morphe-а које више нису на овом уређају</string>
     <string name="home_app_sort_manual_description">Притисните и задржите апликацију, затим додирните дугме за поредање</string>
     <string name="home_app_sort_recommended">Препоручени поредак</string>
     <string name="home_app_sort_recommended_description">Инсталиране и причвршћене апликације прво</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Нема апликација које одговарају на \"%s\"</string>
     <string name="home_all_apps_hidden_title">Све апликације су скривене</string>
     <string name="home_all_apps_hidden_subtitle">Скрио/Скриле сте све апликације са почетног екрана</string>
+    <string name="home_no_apps_filter_title">Ниједна апликација не одговара овом филтеру</string>
+    <string name="home_no_apps_filter_subtitle">Ништа није пронађено за %s</string>
     <string name="home_category_add">Додај категорију</string>
     <string name="home_category_all_apps">Све апликације</string>
     <string name="home_category_custom">Прилагођено</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Сви закрпе су деактивиране</string>
     <string name="expert_mode_enable_all">Омогући све</string>
     <string name="expert_mode_enable_all_done">Све закрпе су активиране</string>
+    <string name="expert_mode_enable_all_universal_pending">Додирните поново за универзалне закрпе</string>
     <string name="expert_mode_reset_to_default">Омогући препоручене исправке</string>
     <string name="expert_mode_reset_to_default_done">Примењене препоручене закрпе</string>
     <string name="expert_mode_restore_saved">Поврати сачувани избор</string>
@@ -461,6 +470,10 @@
     <string name="battery_optimization_dialog_description">На неким уређајима, подешавач може бити заустављен када је апликација минимизована. Дозволите Morphe-у да ради без ограничења батерије како бисте осигурали поуздано подешавање.</string>
     <string name="battery_optimization_not_now">Касније</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Нема довољно меморије</string>
+    <string name="patcher_memory_adjustment_description">Систем је зауставио патчера док је радио са меморијским ограничењем од %1$d MB. Смањење ограничења на %2$d MB чини патчера мањом метом и може омогућити да се извршавање заврши.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Систем је зауставио патчера док је радио са меморијским ограничењем од %1$d MB, што је већ најниже доступно. Покушајте да покренете патчовање са мање извора патчева, или изаберите мање патчева.</string>
+    <string name="patcher_memory_adjustment_apply">Смањи на %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Закрпљавање је у току…</string>
     <string name="patcher_notification_text">Додирните да бисте се вратили на поправку</string>
@@ -502,6 +515,7 @@
     <string name="patched_app_save_failed_toast">Није успело чување крпељом потписане апликације</string>
     <string name="plugin_activity_dialog_body">Неопходна је корисничка интеракција да бисте наставили са овом додатком.</string>
     <string name="patcher_process_exit_message">Процес закрпе је завршен са кодом %s</string>
+    <string name="patcher_heap_exhausted_message">Патчеру је понестало меморије са хеапом од %1$d MB. Ова апликација је превише велика за изабране патчеве. Покушајте да патчирате са мање извора патчева, или изаберите мање патчева.</string>
     <string name="install_app_success">Успешно инсталирано</string>
     <string name="install_app_fail">Није успело инсталирање апликације: %s</string>
     <string name="uninstall_app_fail">Неуспешно деинсталирана апликација: %s</string>
@@ -574,8 +588,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Прикажи поруку на почетном екрану</string>
     <string name="settings_appearance_app_grouping">Груписање апликација</string>
     <string name="settings_appearance_app_grouping_description">Прикажи прекидач почетног екрана за груписање апликација по извору или властитим категоријама, задржавајући селекцију када је искључено</string>
-    <string name="settings_appearance_sort_button">Дугме за сортирање</string>
-    <string name="settings_appearance_sort_button_description">Прикажи дугме за сортирање на почетном екрану</string>
+    <string name="settings_appearance_sort_button">Дугме за сортирање и филтрирање</string>
+    <string name="settings_appearance_sort_button_description">Прикажи дугме за сортирање и филтрирање на почетном екрану</string>
     <string name="settings_appearance_app_card_colors">Боје картица апликација</string>
     <string name="settings_appearance_app_card_colors_default">Подразумевано</string>
     <string name="settings_appearance_app_card_colors_default_description">Додели свакој апликацији боју њеног пакета</string>
@@ -1077,6 +1091,7 @@ morphe_header_custom_dark.png
     <string name="version">Верзија</string>
     <string name="patch">Печ</string>
     <string name="patching">Пецање</string>
+    <string name="patched">Закрпљене</string>
     <string name="repatch">Поново патч</string>
     <string name="open">Отворити</string>
     <string name="mount">Монтирај</string>

@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">आपके स्रोत अप टू डेट हैं</string>
     <string name="home_sources_are_loading">स्रोत लोड हो रहे हैं, कृपया प्रतीक्षा करें…</string>
     <string name="home_search_apps">ऐप्स खोजें</string>
-    <string name="home_app_sort_title">ऐप्स को क्रमबद्ध करें</string>
+    <string name="home_app_list_options_title">क्रमबद्ध करें और फ़िल्टर करें</string>
+    <string name="home_app_list_options_state_description">%1$s के अनुसार क्रमबद्ध, %2$s के अनुसार फ़िल्टर किया गया</string>
+    <string name="home_app_filter_all_description">होम स्क्रीन पर मौजूद हर ऐप</string>
+    <string name="home_app_filter_patched_description">वे ऐप जिन्हें आपने Morphe के साथ पैच किया है या सहेजा है</string>
+    <string name="home_app_filter_not_patched_description">वे ऐप जिन्हें आपने अभी तक Morphe में पैच नहीं किया है</string>
+    <string name="home_app_filter_installed_description">इस डिवाइस पर वर्तमान में इंस्टॉल किए गए ऐप्स</string>
+    <string name="home_app_filter_uninstalled_description">Morphe से पैच किए गए ऐप्स जो अब इस डिवाइस पर नहीं हैं</string>
     <string name="home_app_sort_manual_description">किसी ऐप को देर तक दबाएं, फिर पुन: व्यवस्थित करें बटन पर टैप करें</string>
     <string name="home_app_sort_recommended">अनुशंसित क्रम</string>
     <string name="home_app_sort_recommended_description">स्थापित और पिन किए गए ऐप्स पहले</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">\"%s\" से मेल खाने वाला कोई ऐप नहीं है</string>
     <string name="home_all_apps_hidden_title">सभी ऐप्स छिपे हुए हैं</string>
     <string name="home_all_apps_hidden_subtitle">आपने होम स्क्रीन से सभी ऐप्स छिपा दिए हैं</string>
+    <string name="home_no_apps_filter_title">इस फ़िल्टर से कोई ऐप मेल नहीं खाता</string>
+    <string name="home_no_apps_filter_subtitle">कुछ भी %s से मेल नहीं खाया</string>
     <string name="home_category_add">श्रेणी जोड़ें</string>
     <string name="home_category_all_apps">सभी ऐप्स</string>
     <string name="home_category_custom">कस्टम</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">सभी पैच अक्षम किए गए</string>
     <string name="expert_mode_enable_all">सभी को सक्षम करें</string>
     <string name="expert_mode_enable_all_done">सभी पैच सक्षम किए गए</string>
+    <string name="expert_mode_enable_all_universal_pending">यूनिवर्सल पैच के लिए फिर से टैप करें</string>
     <string name="expert_mode_reset_to_default">अनुशंसित पैच सक्षम करें</string>
     <string name="expert_mode_reset_to_default_done">अनुशंसित पैच लागू किए गए</string>
     <string name="expert_mode_restore_saved">चयन पुनर्स्थापित करें</string>
@@ -461,6 +470,10 @@
     <string name="battery_optimization_dialog_description">कुछ डिवाइस ऐप को मिनिमाइज किए जाने पर पैचर को रोक सकते हैं। पैचिंग को विश्वसनीय रूप से पूरा करने के लिए मोर्फ़ को बैटरी प्रतिबंधों के बिना चलाने की अनुमति दें।</string>
     <string name="battery_optimization_not_now">अभी नहीं</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">पर्याप्त मेमोरी नहीं है</string>
+    <string name="patcher_memory_adjustment_description">पैचर को %1$d MB मेमोरी सीमा के साथ चलाते समय सिस्टम ने रोक दिया। सीमा को घटाकर %2$d MB करने से पैचर छोटा लक्ष्य बन जाता है और प्रक्रिया पूरी हो सकती है।</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">पैचर को %1$d MB मेमोरी सीमा के साथ चलाते समय सिस्टम ने रोक दिया, जो पहले से ही उपलब्ध सबसे कम सीमा है। कम पैच स्रोतों के साथ पैच करने का प्रयास करें, या कम पैच चुनें।</string>
+    <string name="patcher_memory_adjustment_apply">%1$d MB तक कम करें</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching in progress…</string>
     <string name="patcher_notification_text">Tap to return to the patcher</string>
@@ -502,6 +515,7 @@
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">इस प्लगइन के लिए आगे बढ़ने के लिए उपयोगकर्ता इंटरैक्शन आवश्यक है।</string>
     <string name="patcher_process_exit_message">पैचर प्रक्रिया कोड %s के साथ समाप्त हो गई।</string>
+    <string name="patcher_heap_exhausted_message">पैचर %1$d MB हीप के साथ मेमोरी से बाहर हो गया। यह ऐप चयनित पैच के लिए बहुत बड़ा है। कम पैच स्रोतों के साथ पैच करने का प्रयास करें, या कम पैच चुनें।</string>
     <string name="install_app_success">सफलतापूर्वक इंस्टॉल हो गया</string>
     <string name="install_app_fail">अप्लिकेशन को तैयार करना असफल रहा: %s</string>
     <string name="uninstall_app_fail">ऐप को अनइंस्टॉल करने में विफल: %s</string>
@@ -574,8 +588,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">मुखपृष्ठ पर अभिवादन संदेश दिखाएँ</string>
     <string name="settings_appearance_app_grouping">ऐप समूहीकरण</string>
     <string name="settings_appearance_app_grouping_description">स्रोत या अपनी श्रेणियों द्वारा ऐप्स को समूहित करने के लिए होम स्क्रीन स्विचर दिखाएं, बंद होने पर चयन को बनाए रखें</string>
-    <string name="settings_appearance_sort_button">क्रमबद्ध करें बटन</string>
-    <string name="settings_appearance_sort_button_description">होम स्क्रीन पर क्रमबद्ध करें बटन दिखाएँ</string>
+    <string name="settings_appearance_sort_button">सॉर्ट और फ़िल्टर बटन</string>
+    <string name="settings_appearance_sort_button_description">होम स्क्रीन पर सॉर्ट और फ़िल्टर बटन दिखाएँ</string>
     <string name="settings_appearance_app_card_colors">ऐप कार्ड रंग</string>
     <string name="settings_appearance_app_card_colors_default">डिफ़ॉल्ट</string>
     <string name="settings_appearance_app_card_colors_default_description">प्रत्येक ऐप को अपने बंडल का रंग दें</string>
@@ -1077,6 +1091,7 @@ morphe_header_custom_dark.png
     <string name="version">Version</string>
     <string name="patch">पैच</string>
     <string name="patching">पैचिंग</string>
+    <string name="patched">पैच किया गया</string>
     <string name="repatch">Repatch</string>
     <string name="open">खुला</string>
     <string name="mount">माउंट करें</string>

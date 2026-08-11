@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">แหล่งทีมาของคุณเป็นเวอร์ชันล่าสุดแล้ว</string>
     <string name="home_sources_are_loading">กำลังโหลดแหล่งที่มา กรุณารอสักครู่…</string>
     <string name="home_search_apps">ค้นหาแอป</string>
-    <string name="home_app_sort_title">จัดเรียงแอป</string>
+    <string name="home_app_list_options_title">จัดเรียงและกรอง</string>
+    <string name="home_app_list_options_state_description">เรียงตาม %1$s, กรองตาม %2$s</string>
+    <string name="home_app_filter_all_description">ทุกแอปบนหน้าจอหลัก</string>
+    <string name="home_app_filter_patched_description">แอปที่คุณแพตช์หรือบันทึกด้วย Morphe แล้ว</string>
+    <string name="home_app_filter_not_patched_description">แอปที่คุณยังไม่ได้แพตช์ใน Morphe</string>
+    <string name="home_app_filter_installed_description">แอปที่ติดตั้งอยู่บนอุปกรณ์นี้ในขณะนี้</string>
+    <string name="home_app_filter_uninstalled_description">แอปที่แพตช์ด้วย Morphe ซึ่งไม่ได้อยู่บนอุปกรณ์นี้แล้ว</string>
     <string name="home_app_sort_manual_description">แตะแอปค้างไว้ แล้วแตะปุ่มจัดเรียงใหม่</string>
     <string name="home_app_sort_recommended">เรียงตามที่แนะนำ</string>
     <string name="home_app_sort_recommended_description">แอปที่ติดตั้งและตรึงไว้ก่อน</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">ไม่พบแอปที่ตรงกับ \"%s\"</string>
     <string name="home_all_apps_hidden_title">แอปทั้งหมดถูกซ่อน</string>
     <string name="home_all_apps_hidden_subtitle">คุณได้ซ่อนแอปทั้งหมดออกจากหน้าจอหลักแล้ว</string>
+    <string name="home_no_apps_filter_title">ไม่มีแอปที่ตรงกับตัวกรองนี้</string>
+    <string name="home_no_apps_filter_subtitle">ไม่พบสิ่งที่ตรงกับ %s</string>
     <string name="home_category_add">เพิ่มหมวดหมู่</string>
     <string name="home_category_all_apps">แอปทั้งหมด</string>
     <string name="home_category_custom">กำหนดเอง</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">ปิดการใช้งานแพตช์ทั้งหมดแล้ว</string>
     <string name="expert_mode_enable_all">เปิดการแพตซ์ทั้งหมด</string>
     <string name="expert_mode_enable_all_done">เปิดใช้งานแพตช์ทั้งหมดแล้ว</string>
+    <string name="expert_mode_enable_all_universal_pending">แตะอีกครั้งสำหรับแพตช์สากล</string>
     <string name="expert_mode_reset_to_default">เปิดใช้งานแพตช์ที่แนะนำ</string>
     <string name="expert_mode_reset_to_default_done">ใช้แพตช์ที่แนะนำแล้ว</string>
     <string name="expert_mode_restore_saved">คืนการเลือกที่บันทึกไว้</string>
@@ -461,6 +470,10 @@
     <string name="battery_optimization_dialog_description">อุปกรณ์บางเครื่องอาจหยุดโปรแกรมปรับแก้เมื่อแอปพลิเคชันถูกลดขนาด อนุญาตให้ Morphe ทำงานโดยไม่มีข้อจำกัดด้านแบตเตอรี่เพื่อให้แน่ใจว่าการปรับแก้เสร็จสมบูรณ์ได้อย่างน่าเชื่อถือ</string>
     <string name="battery_optimization_not_now">ไม่ใช่ตอนนี้</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">หน่วยความจำไม่เพียงพอ</string>
+    <string name="patcher_memory_adjustment_description">ตัวแพตช์ถูกหยุดโดยระบบขณะทำงานด้วยขีดจำกัดหน่วยความจำ %1$d MB การลดขีดจำกัดลงเป็น %2$d MB จะทำให้แพตเชอร์เป็นเป้าหมายที่เล็กลงและอาจทำให้การทำงานเสร็จสมบูรณ์</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">ตัวแพตช์ถูกหยุดโดยระบบขณะทำงานด้วยขีดจำกัดหน่วยความจำ %1$d MB ซึ่งเป็นค่าต่ำสุดที่มีอยู่แล้ว ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์น้อยลง</string>
+    <string name="patcher_memory_adjustment_apply">ลดเป็น %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">กำลังดำเนินการแพตช์…</string>
     <string name="patcher_notification_text">แตะเพื่อกลับไปยังตัวแพตช์</string>
@@ -502,6 +515,7 @@
     <string name="patched_app_save_failed_toast">ไม่สามารถบันทึกแอปที่แพตช์ได้</string>
     <string name="plugin_activity_dialog_body">ต้องมีการติดต่อผู้ใช้เพื่อดำเนินการต่อไปนี้</string>
     <string name="patcher_process_exit_message">กระบวนการแพตช์เสร็จสิ้นด้วยรหัส %s</string>
+    <string name="patcher_heap_exhausted_message">แพตเชอร์ใช้หน่วยความจำไม่เพียงพอสำหรับฮีปขนาด %1$d MB แอปนี้ใหญ่เกินไปสำหรับแพตช์ที่เลือกไว้ ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์ให้น้อยลง</string>
     <string name="install_app_success">ติดตั้งสำเร็จแล้ว</string>
     <string name="install_app_fail">ไม่สามารถติดตั้งแอปได้: %s</string>
     <string name="uninstall_app_fail">ไม่สามารถถอนการติดตั้งแอป: %s</string>
@@ -574,8 +588,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">แสดงข้อความทักทายบนหน้าจอหลัก</string>
     <string name="settings_appearance_app_grouping">การจัดกลุ่มแอป</string>
     <string name="settings_appearance_app_grouping_description">แสดงตัวสลับหน้าจอหลักเพื่อจัดกลุ่มแอปตามแหล่งที่มาหรือตามหมวดหมู่ของคุณเอง โดยจะเก็บการเลือกไว้เมื่อปิด</string>
-    <string name="settings_appearance_sort_button">ปุ่มเรียงลำดับ</string>
-    <string name="settings_appearance_sort_button_description">แสดงปุ่มเรียงลำดับบนหน้าจอหลัก</string>
+    <string name="settings_appearance_sort_button">ปุ่มเรียงลำดับและกรอง</string>
+    <string name="settings_appearance_sort_button_description">แสดงปุ่มเรียงลำดับและกรองบนหน้าจอหลัก</string>
     <string name="settings_appearance_app_card_colors">สีการ์ดแอป</string>
     <string name="settings_appearance_app_card_colors_default">ค่าเริ่มต้น</string>
     <string name="settings_appearance_app_card_colors_default_description">กำหนดสีให้บันเดิลของแต่ละแอป</string>
@@ -1077,6 +1091,7 @@ morphe_header_custom_dark.png
     <string name="version">เวอร์ชัน</string>
     <string name="patch">แพตช์</string>
     <string name="patching">กำลังแพตช์</string>
+    <string name="patched">แพตช์แล้ว</string>
     <string name="repatch">แพตช์ใหม่</string>
     <string name="open">เปิด</string>
     <string name="mount">เมานต์</string>

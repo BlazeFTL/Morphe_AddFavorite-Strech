@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Ваші джерела актуальні</string>
     <string name="home_sources_are_loading">Джерела завантажуються, будь ласка, зачекайте…</string>
     <string name="home_search_apps">Пошук застосунків</string>
-    <string name="home_app_sort_title">Сортувати застосунки</string>
+    <string name="home_app_list_options_title">Сортування та фільтрування</string>
+    <string name="home_app_list_options_state_description">Сортовано за %1$s, фільтровано за %2$s</string>
+    <string name="home_app_filter_all_description">Кожен застосунок на головному екрані</string>
+    <string name="home_app_filter_patched_description">Застосунки, які ви пропатчили або зберегли за допомогою Morphe</string>
+    <string name="home_app_filter_not_patched_description">Застосунки, які ви ще не пропатчили в Morphe</string>
+    <string name="home_app_filter_installed_description">Застосунки, наразі встановлені на цьому пристрої</string>
+    <string name="home_app_filter_uninstalled_description">Застосунки, пропатчені за допомогою Morphe, яких більше немає на цьому пристрої</string>
     <string name="home_app_sort_manual_description">Натисніть та утримуйте на картці застосунку, потім натисніть кнопку зміни порядку</string>
     <string name="home_app_sort_recommended">Рекомендований порядок</string>
     <string name="home_app_sort_recommended_description">Спочатку встановлені та закріплені застосунки</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Не знайдено застосунків за запитом \"%s\"</string>
     <string name="home_all_apps_hidden_title">Усі застосунки приховані</string>
     <string name="home_all_apps_hidden_subtitle">Ви приховали всі застосунки з головного екрану</string>
+    <string name="home_no_apps_filter_title">Немає застосунків, що відповідають цьому фільтру</string>
+    <string name="home_no_apps_filter_subtitle">Нічого не знайдено для %s</string>
     <string name="home_category_add">Додати категорію</string>
     <string name="home_category_all_apps">Усі застосунки</string>
     <string name="home_category_custom">Власна</string>
@@ -228,6 +236,7 @@
     <string name="expert_mode_disable_all_done">Усі патчі вимкнено</string>
     <string name="expert_mode_enable_all">Увімкнути всі</string>
     <string name="expert_mode_enable_all_done">Усі патчі ввімкнено</string>
+    <string name="expert_mode_enable_all_universal_pending">Натисніть ще раз для універсальних патчів</string>
     <string name="expert_mode_reset_to_default">Увімкнути рекомендовані патчі</string>
     <string name="expert_mode_reset_to_default_done">Рекомендовані патчі застосовано</string>
     <string name="expert_mode_restore_saved">Відновити збережений вибір</string>
@@ -580,8 +589,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Показувати вітальне повідомлення на головному екрані</string>
     <string name="settings_appearance_app_grouping">Групування застосунків</string>
     <string name="settings_appearance_app_grouping_description">Показує перемикач на головному екрані для групування застосунків за джерелом або власними категоріями, зберігаючи вибір при вимкненні</string>
-    <string name="settings_appearance_sort_button">Кнопка сортування</string>
-    <string name="settings_appearance_sort_button_description">Показувати кнопку сортування на головному екрані</string>
+    <string name="settings_appearance_sort_button">Кнопка сортування та фільтрування</string>
+    <string name="settings_appearance_sort_button_description">Показувати кнопку сортування та фільтрування на головному екрані</string>
     <string name="settings_appearance_app_card_colors">Кольори картки застосунку</string>
     <string name="settings_appearance_app_card_colors_default">Стандартний</string>
     <string name="settings_appearance_app_card_colors_default_description">Надавати кожному застосунку колір його власного пакета</string>
@@ -1083,6 +1092,7 @@ morphe_header_custom_dark.png
     <string name="version">Версія</string>
     <string name="patch">Патчити</string>
     <string name="patching">Патчинг</string>
+    <string name="patched">Пропатчено</string>
     <string name="repatch">Репатчити</string>
     <string name="open">Відкрити</string>
     <string name="mount">Монтувати</string>

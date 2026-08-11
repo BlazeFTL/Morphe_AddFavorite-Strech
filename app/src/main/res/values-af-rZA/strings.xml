@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Jou oorspronge is opgedateer</string>
     <string name="home_sources_are_loading">Oorsprong word gelaai, wag asseblief…</string>
     <string name="home_search_apps">Soek programme</string>
-    <string name="home_app_sort_title">Sorteer programme</string>
+    <string name="home_app_list_options_title">Sorteer en filter</string>
+    <string name="home_app_list_options_state_description">Gesorteer volgens %1$s, gefiltreer volgens %2$s</string>
+    <string name="home_app_filter_all_description">Elke app op die tuisskerm</string>
+    <string name="home_app_filter_patched_description">Apps wat jy met Morphe gepatch of gestoor het</string>
+    <string name="home_app_filter_not_patched_description">Apps wat jy nog nie in Morphe gepatch het nie</string>
+    <string name="home_app_filter_installed_description">Toepassings wat tans op hierdie toestel geïnstalleer is</string>
+    <string name="home_app_filter_uninstalled_description">Toepassings wat met Morphe gepatch is en nie meer op hierdie toestel is nie</string>
     <string name="home_app_sort_manual_description">Druk lank op \'n program, en tik dan op die herordeneer knoppie</string>
     <string name="home_app_sort_recommended">Aanbevole volgorde</string>
     <string name="home_app_sort_recommended_description">Geïnstalleerde en vasgestelde programme eerste</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Geen programme gelyk aan \"%s\" nie</string>
     <string name="home_all_apps_hidden_title">Alle programme is versteek</string>
     <string name="home_all_apps_hidden_subtitle">Jy het alle programme van die tuisskerm versteek</string>
+    <string name="home_no_apps_filter_title">Geen toepassings pas by hierdie filter nie</string>
+    <string name="home_no_apps_filter_subtitle">Niks het met %s ooreengestem nie</string>
     <string name="home_category_add">Kategorie byvoeg</string>
     <string name="home_category_all_apps">Alle toepassings</string>
     <string name="home_category_custom">Pasgemaak</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Alle pleisters gedeaktiveer</string>
     <string name="expert_mode_enable_all">Aktiveer alles</string>
     <string name="expert_mode_enable_all_done">Alle pleisters geaktiveer</string>
+    <string name="expert_mode_enable_all_universal_pending">Tik weer vir universele patches</string>
     <string name="expert_mode_reset_to_default">Aktiveer aanbevole pleisters</string>
     <string name="expert_mode_reset_to_default_done">Aanbevole pleisters toegepas</string>
     <string name="expert_mode_restore_saved">Ingevoeg suksesvol</string>
@@ -506,6 +515,7 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="patched_app_save_failed_toast">Kon nie gepatchte app stoor nie</string>
     <string name="plugin_activity_dialog_body">Gebruikers interaksie is vereis om met hierdie inprop voort te gaan</string>
     <string name="patcher_process_exit_message">Patcherproses het met kode %s afgehandel</string>
+    <string name="patcher_heap_exhausted_message">Die patcher het nie genoeg geheue gehad nie met \'n %1$d MB-heap. Hierdie app is te groot vir die geselekteerde patches. Probeer om met minder patchbronne te patch, of kies minder patches.</string>
     <string name="install_app_success">Suksesvol geïnstalleer</string>
     <string name="install_app_fail">Kon nie app installeer nie: %s</string>
     <string name="uninstall_app_fail">Kon nie app verwyder nie: %s</string>
@@ -578,8 +588,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wys \'n groet-boodskap op die tuisskerm</string>
     <string name="settings_appearance_app_grouping">Toepassingsgroepering</string>
     <string name="settings_appearance_app_grouping_description">Wys \'n tuisskermskakelaar om toepassings volgens bron of jou eie kategorieë te groepeer, en die keuse te behou wanneer dit af is</string>
-    <string name="settings_appearance_sort_button">Sorteer knoppie</string>
-    <string name="settings_appearance_sort_button_description">Wys die sorteer knoppie op die tuisskerm</string>
+    <string name="settings_appearance_sort_button">Sorteer- en filterknoppie</string>
+    <string name="settings_appearance_sort_button_description">Wys die sorteer- en filterknoppie op die tuisskerm</string>
     <string name="settings_appearance_app_card_colors">App-kaartkleure</string>
     <string name="settings_appearance_app_card_colors_default">Verstek</string>
     <string name="settings_appearance_app_card_colors_default_description">Gee elke app die kleur van sy eie bundel</string>
@@ -1081,6 +1091,7 @@ Besonderhede: %2$s"</string>
     <string name="version">Weergawe</string>
     <string name="patch">Verandering</string>
     <string name="patching">Pleister</string>
+    <string name="patched">Gepatch</string>
     <string name="repatch">Herpatch</string>
     <string name="open">Open</string>
     <string name="mount">Monteer</string>

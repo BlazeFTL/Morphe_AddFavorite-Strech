@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Tá do foinsí suas chun dáta</string>
     <string name="home_sources_are_loading">Tá na foinsí ag lódáil, fan le do thoil…</string>
     <string name="home_search_apps">Cuardaigh aipeanna</string>
-    <string name="home_app_sort_title">Sórtáil aipeanna</string>
+    <string name="home_app_list_options_title">Sórtáil agus scagadh</string>
+    <string name="home_app_list_options_state_description">Sórtáilte de réir %1$s, scagtha de réir %2$s</string>
+    <string name="home_app_filter_all_description">Gach aip ar an scáileán baile</string>
+    <string name="home_app_filter_patched_description">Aipeanna atá paitseáilte nó sábháilte agat le Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aipeanna nach bhfuil paitseáilte agat i Morphe fós</string>
+    <string name="home_app_filter_installed_description">Aipeanna atá suiteáilte ar an ngléas seo faoi láthair</string>
+    <string name="home_app_filter_uninstalled_description">Aipeanna paisteáilte le Morphe nach bhfuil ar an ngléas seo a thuilleadh</string>
     <string name="home_app_sort_manual_description">Brúigh go fada ar aip, ansin tapáil an cnaipe athordaithe</string>
     <string name="home_app_sort_recommended">Ordú molta</string>
     <string name="home_app_sort_recommended_description">Aipeanna suiteáilte agus bioráilte ar dtús</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Níl aon aip ag teacht le \"%s\"</string>
     <string name="home_all_apps_hidden_title">Tá gach aipeanna i bhfolach</string>
     <string name="home_all_apps_hidden_subtitle">Tá na haipeanna go léir i bhfolach agat ón scáileán baile</string>
+    <string name="home_no_apps_filter_title">Níl aon aip a oireann don scagaire seo</string>
+    <string name="home_no_apps_filter_subtitle">Níor oir aon rud do %s</string>
     <string name="home_category_add">Cuir catagóir leis</string>
     <string name="home_category_all_apps">Gach aip</string>
     <string name="home_category_custom">Saincheaptha</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Gach paiste díchumasaithe</string>
     <string name="expert_mode_enable_all">Cumasaigh gach rud</string>
     <string name="expert_mode_enable_all_done">Gach paiste cumasaithe</string>
+    <string name="expert_mode_enable_all_universal_pending">Tapaigh arís chun paistí uilíocha</string>
     <string name="expert_mode_reset_to_default">Cumasaigh paistí molta</string>
     <string name="expert_mode_reset_to_default_done">Paistí molta curtha i bhfeidhm</string>
     <string name="expert_mode_restore_saved">Athchóirigh an rogha sábháilte</string>
@@ -461,6 +470,10 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="battery_optimization_dialog_description">D\'fhéadfadh roinnt feistí an paiste a stopadh nuair a íoslaghdaítear an aip. Lig do Morphe rith gan srianta ceallraí chun a chinntiú go gcríochnaítear an paiste go hiontaofa</string>
     <string name="battery_optimization_not_now">Ní anois</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Níl go leor cuimhne ann</string>
+    <string name="patcher_memory_adjustment_description">Stopadh an paisteálaí ag an gcóras agus é ag rith le teorainn chuimhne %1$d MB. Má ísleofar an teorainn go %2$d MB, déanfar sprioc níos lú den phaisteálaí agus féadfaidh an rith críochnú.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Stopadh an paisteálaí ag an gcóras agus é ag rith le teorainn chuimhne %1$d MB, agus is í sin an teorainn is ísle atá ar fáil cheana. Bain triail as an bpaisteáil le níos lú foinsí paisteála, nó roghnaigh níos lú paistí.</string>
+    <string name="patcher_memory_adjustment_apply">Ísligh go dtí %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Paisteáil ar siúl…</string>
     <string name="patcher_notification_text">Tapáil chun filleadh ar an paisteálaí</string>
@@ -502,6 +515,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patched_app_save_failed_toast">Theip ar aip chomhfhiosach a shábháil</string>
     <string name="plugin_activity_dialog_body">Tá idirghníomhaíocht úsáideora ag teastáil chun dul ar aghaidh leis an mbreiseán seo</string>
     <string name="patcher_process_exit_message">Próiseas paisteála scoirthe leis an gcód %s</string>
+    <string name="patcher_heap_exhausted_message">Rith an chuimhne as an bpaisteálaí le carn %1$d MB. Tá an aip seo rómhór do na paistí roghnaithe. Bain triail as paisteáil le níos lú foinsí paisteála, nó roghnaigh níos lú paistí.</string>
     <string name="install_app_success">Suiteáilte go rathúil</string>
     <string name="install_app_fail">Theip ar aip a shuiteáil: %s</string>
     <string name="uninstall_app_fail">Theip ar dhíshuiteáil an aip: %s</string>
@@ -574,8 +588,8 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Taispeáin teachtaireacht beannachta ar an scáileán baile</string>
     <string name="settings_appearance_app_grouping">Grúpáil aipeanna</string>
     <string name="settings_appearance_app_grouping_description">Taispeáin an roghchlár scáileáin bhaile chun aipeanna a ghrúpáil de réir foinse nó do chatagóirí féin, agus an rogha a choinneáil nuair a bhíonn sé múchta</string>
-    <string name="settings_appearance_sort_button">Cnaipe sórtála</string>
-    <string name="settings_appearance_sort_button_description">Taispeáin an cnaipe sórtála ar an scáileán baile</string>
+    <string name="settings_appearance_sort_button">Cnaipe sórtála agus scagtha</string>
+    <string name="settings_appearance_sort_button_description">Taispeáin an cnaipe sórtála agus scagtha ar an scáileán baile</string>
     <string name="settings_appearance_app_card_colors">Dathanna cártaí aipeanna</string>
     <string name="settings_appearance_app_card_colors_default">Réamhshocrú</string>
     <string name="settings_appearance_app_card_colors_default_description">Tabhair dath a phacáiste féin do gach aip</string>
@@ -1075,6 +1089,7 @@ Sonraí: %2$s"</string>
     <string name="version">Leagan</string>
     <string name="patch">Paiste</string>
     <string name="patching">Paisteáil</string>
+    <string name="patched">Paisteáilte</string>
     <string name="repatch">Athphaitseáil</string>
     <string name="open">Oscail</string>
     <string name="mount">Ceangail</string>

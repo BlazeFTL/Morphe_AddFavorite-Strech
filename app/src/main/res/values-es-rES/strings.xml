@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Tus fuentes están al día</string>
     <string name="home_sources_are_loading">Cargando fuentes, por favor espera…</string>
     <string name="home_search_apps">Buscar aplicaciones</string>
-    <string name="home_app_sort_title">Ordenar aplicaciones</string>
+    <string name="home_app_list_options_title">Ordenar y filtrar</string>
+    <string name="home_app_list_options_state_description">Ordenado por %1$s, filtrado por %2$s</string>
+    <string name="home_app_filter_all_description">Todas las apps de la pantalla de inicio</string>
+    <string name="home_app_filter_patched_description">Apps que has parcheado o guardado con Morphe</string>
+    <string name="home_app_filter_not_patched_description">Apps que aún no has parcheado en Morphe</string>
+    <string name="home_app_filter_installed_description">Apps instaladas actualmente en este dispositivo</string>
+    <string name="home_app_filter_uninstalled_description">Apps parcheadas con Morphe que ya no están en este dispositivo</string>
     <string name="home_app_sort_manual_description">Mantén pulsada una aplicación, luego pulsa el botón de reordenar</string>
     <string name="home_app_sort_recommended">Orden recomendado</string>
     <string name="home_app_sort_recommended_description">Aplicaciones instaladas y fijadas primero</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">No hay aplicaciones que coincidan con \"%s\"</string>
     <string name="home_all_apps_hidden_title">Todas las aplicaciones están ocultas</string>
     <string name="home_all_apps_hidden_subtitle">Has ocultado todas las aplicaciones de la pantalla de inicio</string>
+    <string name="home_no_apps_filter_title">Ninguna app coincide con este filtro</string>
+    <string name="home_no_apps_filter_subtitle">No hay coincidencias con %s</string>
     <string name="home_category_add">Añadir categoría</string>
     <string name="home_category_all_apps">Todas las aplicaciones</string>
     <string name="home_category_custom">Personalizado</string>
@@ -82,7 +90,7 @@
     <!-- Light sarcasm, casual and tech-savvy humor -->
     <string name="home_greeting_10">Impulsado por cafeína y buenos parches</string>
     <!-- Morning greetings (5:00–11:59) -->
-    <string name="home_greeting_morning_1">Álzate y parchea</string>
+    <string name="home_greeting_morning_1">Levántate y parchea</string>
     <string name="home_greeting_morning_2">¡Buenos días! Las aplicaciones no se parchearán solas</string>
     <!-- Afternoon greetings (12:00–16:59) -->
     <string name="home_greeting_afternoon_1">¿Aburrido por la tarde? ¡Parchea algo!</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Todos los parches desactivados</string>
     <string name="expert_mode_enable_all">Activar todo</string>
     <string name="expert_mode_enable_all_done">Todos los parches activados</string>
+    <string name="expert_mode_enable_all_universal_pending">Pulsa de nuevo para ver parches universales</string>
     <string name="expert_mode_reset_to_default">Activar parches recomendados</string>
     <string name="expert_mode_reset_to_default_done">Parches recomendados aplicados</string>
     <string name="expert_mode_restore_saved">Restaurar selección guardada</string>
@@ -464,7 +473,7 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <!-- Memory limit dialog, shown after the patcher process was killed -->
     <string name="patcher_memory_adjustment_title">No hay suficiente memoria</string>
     <string name="patcher_memory_adjustment_description">El sistema detuvo el parcheador mientras se ejecutaba con un límite de memoria de %1$d MB. Reducir el límite a %2$d MB hace que el parcheador sea un objetivo más pequeño y puede permitir que la ejecución finalice</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">El sistema detuvo el parcheador mientras se ejecutaba con un límite de memoria de %1$d MB, que ya es el más bajo disponible. Intente parchear con menos fuentes de parches o seleccione menos parches</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">El sistema detuvo el parcheador mientras se ejecutaba con un límite de memoria de %1$d MB, que ya es el más bajo disponible. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
     <string name="patcher_memory_adjustment_apply">Reducir a %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Aplicando parches...</string>
@@ -507,6 +516,7 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="patched_app_save_failed_toast">Error al guardar la aplicación parcheada</string>
     <string name="plugin_activity_dialog_body">Es necesaria la interacción del usuario para continuar con este complemento</string>
     <string name="patcher_process_exit_message">El proceso del parcheador terminó con el código %s</string>
+    <string name="patcher_heap_exhausted_message">El parcheador se quedó sin memoria con %1$d MB de memoria disponible. Esta aplicación es demasiado grande para los parches seleccionados. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
     <string name="install_app_success">Instalado correctamente</string>
     <string name="install_app_fail">Error al instalar la aplicación: %s</string>
     <string name="uninstall_app_fail">Error al desinstalar la aplicación: %s</string>
@@ -579,8 +589,8 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="settings_appearance_greeting_phrases_subtitle">Mostrar un mensaje de saludo en la pantalla de inicio</string>
     <string name="settings_appearance_app_grouping">Agrupación de aplicaciones</string>
     <string name="settings_appearance_app_grouping_description">Mostrar un selector de pantalla de inicio para agrupar aplicaciones por origen o por tus propias categorías, manteniendo la selección cuando esté desactivado</string>
-    <string name="settings_appearance_sort_button">Botón de ordenar</string>
-    <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar en la pantalla de inicio</string>
+    <string name="settings_appearance_sort_button">Botón de ordenar y filtrar</string>
+    <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar y filtrar en la pantalla de inicio</string>
     <string name="settings_appearance_app_card_colors">Colores de la tarjeta de la aplicación</string>
     <string name="settings_appearance_app_card_colors_default">Predeterminado</string>
     <string name="settings_appearance_app_card_colors_default_description">Le da a cada aplicación el color de su propio paquete</string>
@@ -1082,6 +1092,7 @@ Detalles: %2$s"</string>
     <string name="version">Versión</string>
     <string name="patch">Parchear</string>
     <string name="patching">Parcheando</string>
+    <string name="patched">Parcheada</string>
     <string name="repatch">Reaplicar parche</string>
     <string name="open">Abrir</string>
     <string name="mount">Montar</string>

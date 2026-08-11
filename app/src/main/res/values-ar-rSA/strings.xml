@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">مصادرك محدثة</string>
     <string name="home_sources_are_loading">جارٍ تحميل المصادر، يرجى الانتظار…</string>
     <string name="home_search_apps">البحث عن التطبيقات</string>
-    <string name="home_app_sort_title">فرز التطبيقات</string>
+    <string name="home_app_list_options_title">فرز وتصفية</string>
+    <string name="home_app_list_options_state_description">تم الفرز حسب %1$s، تمت التصفية حسب %2$s</string>
+    <string name="home_app_filter_all_description">جميع التطبيقات على الشاشة الرئيسية</string>
+    <string name="home_app_filter_patched_description">التطبيقات التي قمت بتعديلها أو حفظها باستخدام Morphe</string>
+    <string name="home_app_filter_not_patched_description">التطبيقات التي لم تقم بتعديلها في Morphe بعد</string>
+    <string name="home_app_filter_installed_description">التطبيقات المثبتة حاليًا على هذا الجهاز</string>
+    <string name="home_app_filter_uninstalled_description">التطبيقات المعدّلة باستخدام Morphe التي لم تعد موجودة على هذا الجهاز</string>
     <string name="home_app_sort_manual_description">اضغط مطولًا على تطبيق، ثم انقر على زر إعادة الترتيب</string>
     <string name="home_app_sort_recommended">الترتيب الموصى به</string>
     <string name="home_app_sort_recommended_description">التطبيقات المنصَّبة والمثبتة أولًا</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">لا يوجد تطبيقات تطابق \"%s\"</string>
     <string name="home_all_apps_hidden_title">تم إخفاء جميع التطبيقات</string>
     <string name="home_all_apps_hidden_subtitle">لقد أخفيت جميع التطبيقات من الشاشة الرئيسية</string>
+    <string name="home_no_apps_filter_title">لا توجد تطبيقات تطابق عامل التصفية هذا</string>
+    <string name="home_no_apps_filter_subtitle">لا شيء يطابق %s</string>
     <string name="home_category_add">إضافة فئة</string>
     <string name="home_category_all_apps">كل التطبيقات</string>
     <string name="home_category_custom">مخصّص</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">تم تعطيل كل التعديلات</string>
     <string name="expert_mode_enable_all">تمكين الكل</string>
     <string name="expert_mode_enable_all_done">تم تمكين كل التعديلات</string>
+    <string name="expert_mode_enable_all_universal_pending">انقر مرة أخرى لتطبيق التعديلات الشاملة</string>
     <string name="expert_mode_reset_to_default">تمكين التعديلات الموصى بها</string>
     <string name="expert_mode_reset_to_default_done">تم تطبيق التعديلات الموصى بها</string>
     <string name="expert_mode_restore_saved">استعادة التحديد المحفوظ</string>
@@ -463,9 +472,10 @@
     <string name="battery_optimization_not_now">ليس الآن</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
     <string name="patcher_memory_adjustment_title">الذاكرة غير كافية</string>
-    <string name="patcher_memory_adjustment_description">تم إيقاف أداة الترقيع بواسطة النظام أثناء تشغيلها بحد ذاكرة يبلغ %1$d ميغابايت. تخفيض الحد إلى %2$d ميغابايت يجعل أداة الترقيع هدفًا أصغر وقد يسمح بإكمال العملية.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">تم إيقاف أداة الترقيع بواسطة النظام أثناء تشغيلها بحد ذاكرة يبلغ %1$d ميغابايت، وهو بالفعل أقل حد متاح. جرّب الترقيع بعدد أقل من مصادر الترقيع، أو اختر عددًا أقل من الرقع.</string>
-    <string name="patcher_memory_adjustment_apply">خفض الحد إلى %1$d ميغابايت</string>
+    <string name="patcher_memory_adjustment_description">أوقف النظام أداة التعديل أثناء تشغيلها بحد ذاكرة قدره %1$d ميجابايت. سيؤدي خفض الحد إلى %2$d ميجابايت إلى تقليل حجم أداة التعديل، مما يسمح بإكمال عملية التعديل</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">أوقف النظام أداة التعديل أثناء تشغيلها بحد ذاكرة يبلغ %1$d ميجابايت، وهو الحد الأدنى المتاح. حاول التعديل باستخدام عدد أقل من مصادر التعديل، أو حدد عددًا أقل من التعديلات
+</string>
+    <string name="patcher_memory_adjustment_apply">خفِّض الحد إلى %1$d ميغابايت</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">جارٍ التعديل…</string>
     <string name="patcher_notification_text">انقر للعودة إلى أداة التعديل</string>
@@ -507,6 +517,9 @@
     <string name="patched_app_save_failed_toast">فشل حفظ التطبيق المعدل</string>
     <string name="plugin_activity_dialog_body">يلزم تفاعل المستخدم للمتابعة باستخدام هذا المكون الإضافي</string>
     <string name="patcher_process_exit_message">انتهت عملية أداة التعديل بالرمز %s</string>
+    <string name="patcher_heap_exhausted_message">نفدت ذاكرة أداة التعديل، حيث بلغ حجم الكومة %1$d ميجابايت. هذا التطبيق كبير جدًا بالنسبة للتعديلات المحددة. حاول التعديل باستخدام عدد أقل من مصادر التعديل، أو حدد عددًا أقل من التعديلات
+
+</string>
     <string name="install_app_success">تم التثبيت بنجاح</string>
     <string name="install_app_fail">فشل تثبيت التطبيق: %s</string>
     <string name="uninstall_app_fail">فشل إلغاء تثبيت التطبيق: %s</string>
@@ -579,8 +592,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">عرض رسالة ترحيب على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_grouping">تجميع التطبيقات</string>
     <string name="settings_appearance_app_grouping_description">عرض مُبدِّل الشاشة الرئيسية لتجميع التطبيقات حسب المصدر أو فئاتك الخاصة، مع الاحتفاظ بالتحديد عند إيقاف تشغيلها</string>
-    <string name="settings_appearance_sort_button">زر الفرز</string>
-    <string name="settings_appearance_sort_button_description">عرض زر الفرز على الشاشة الرئيسية</string>
+    <string name="settings_appearance_sort_button">زر الفرز والتصفية</string>
+    <string name="settings_appearance_sort_button_description">عرض زر الفرز والتصفية على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_card_colors">ألوان بطاقة التطبيق</string>
     <string name="settings_appearance_app_card_colors_default">الافتراضية</string>
     <string name="settings_appearance_app_card_colors_default_description">امنح كل تطبيق لون حزمته الخاصة</string>
@@ -845,7 +858,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_process_runtime_enable">تمكين وقت تشغيل العملية</string>
     <string name="settings_system_memory_limit_subtitle">الذاكرة المتاحة للتعديل</string>
     <string name="settings_system_memory_limit_warning">الحد الأدنى للذاكرة قد يتسبب في فشل عند تعديل التطبيقات الأكبر حجمًا</string>
-    <string name="settings_system_process_runtime_enabled_description">حد %s ميغابايت</string>
+    <string name="settings_system_process_runtime_enabled_description">حد %s ميجابايت</string>
     <string name="settings_system_process_runtime_disabled_description">انقر هنا للتهيئة</string>
     <string name="settings_system_process_runtime_description_not_available">تتطلب هذه الميزة Android 11 أو أحدث</string>
     <string name="settings_system_patcher_completion_sound">صوت الإكمال</string>
@@ -1084,6 +1097,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="version">الإصدار</string>
     <string name="patch">تعديل</string>
     <string name="patching">جارٍ التعديل</string>
+    <string name="patched">تم التعديل</string>
     <string name="repatch">إعادة التعديل</string>
     <string name="open">فتح</string>
     <string name="mount">Mount</string>

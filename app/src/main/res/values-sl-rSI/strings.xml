@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Viri so posodobljeni</string>
     <string name="home_sources_are_loading">Viri se nalagajo, počakajte…</string>
     <string name="home_search_apps">Poišči aplikacije</string>
-    <string name="home_app_sort_title">Razvrsti aplikacije</string>
+    <string name="home_app_list_options_title">Razvrščanje in filtriranje</string>
+    <string name="home_app_list_options_state_description">Razvrščeno po %1$s, filtrirano po %2$s</string>
+    <string name="home_app_filter_all_description">Vse aplikacije na domačem zaslonu</string>
+    <string name="home_app_filter_patched_description">Aplikacije, ki ste jih zakrpali ali shranili z Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplikacije, ki jih v Morphe še niste zakrpali</string>
+    <string name="home_app_filter_installed_description">Aplikacije, trenutno nameščene na tej napravi</string>
+    <string name="home_app_filter_uninstalled_description">Aplikacije, popravljene z Morphe, ki niso več na tej napravi</string>
     <string name="home_app_sort_manual_description">Dolgo pritisnite aplikacijo, nato tapnite gumb za ponovno razvrstitev</string>
     <string name="home_app_sort_recommended">Priporočen vrstni red</string>
     <string name="home_app_sort_recommended_description">Nameščene in pripete aplikacije naj bodo prve</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Nobena aplikacija se ne ujema z \"%s\"</string>
     <string name="home_all_apps_hidden_title">Vse aplikacije so skrite</string>
     <string name="home_all_apps_hidden_subtitle">Skrili ste vse aplikacije z začetnega zaslona</string>
+    <string name="home_no_apps_filter_title">Nobena aplikacija ne ustreza temu filtru</string>
+    <string name="home_no_apps_filter_subtitle">Nič ni ustrezalo %s</string>
     <string name="home_category_add">Dodaj kategorijo</string>
     <string name="home_category_all_apps">Vse aplikacije</string>
     <string name="home_category_custom">Prilagoditve</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Vsi popravke so onemogočeni</string>
     <string name="expert_mode_enable_all">Omogoči vse</string>
     <string name="expert_mode_enable_all_done">Vsi popravki so omogočeni</string>
+    <string name="expert_mode_enable_all_universal_pending">Ponovno se dotaknite za univerzalne popravke.</string>
     <string name="expert_mode_reset_to_default">Omogoči priporočene popravke</string>
     <string name="expert_mode_reset_to_default_done">Uporabljeni priporočeni popravki</string>
     <string name="expert_mode_restore_saved">Obnovi izbrano izbiro</string>
@@ -461,6 +470,10 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="battery_optimization_dialog_description">Nekatere naprave lahko ustavijo popravek, ko je aplikacija minimizirana. Dovolite programu Morphe, da se izvaja brez omejitev baterije, da zagotovite zanesljivo dokončanje popravljanja.</string>
     <string name="battery_optimization_not_now">Pozneje</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Ni dovolj pomnilnika</string>
+    <string name="patcher_memory_adjustment_description">Sistem je ustavil patcher, ko je ta deloval z omejitvijo pomnilnika %1$d MB. Znižanje omejitve na %2$d MB naredi iz patcherja manjšo tarčo in lahko omogoči, da se izvajanje zaključi.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Sistem je ustavil patcher, ko je ta deloval z omejitvijo pomnilnika %1$d MB, kar je že najnižja razpoložljiva omejitev. Poskusite krpati z manj viri popravkov ali izberite manj popravkov.</string>
+    <string name="patcher_memory_adjustment_apply">Znižaj na %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Popravljanje v teku …</string>
     <string name="patcher_notification_text">Dotaknite se, da se vrnete k popravilu</string>
@@ -502,6 +515,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patched_app_save_failed_toast">Ni uspelo shraniti popravljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Za nadaljevanje s tem dodatkom je potrebna uporabniško sodelovanje.</string>
     <string name="patcher_process_exit_message">Postopek popravljanja se je končal s kodo %s</string>
+    <string name="patcher_heap_exhausted_message">Patcherju je zmanjkalo pomnilnika s kopico velikosti %1$d MB. Ta aplikacija je prevelika za izbrane popravke. Poskusite uporabiti manj virov popravkov ali izberite manj popravkov.</string>
     <string name="install_app_success">Namestitev je uspela</string>
     <string name="install_app_fail">Ni uspelo namestiti aplikacije: %s</string>
     <string name="uninstall_app_fail">Neuspelo odstranjevanje aplikacije: %s</string>
@@ -574,8 +588,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Prikaži pozdravno sporočilo na začetnem zaslonu</string>
     <string name="settings_appearance_app_grouping">Grupiranje aplikacij</string>
     <string name="settings_appearance_app_grouping_description">Prikaži stikalo na začetnem zaslonu za grupiranje aplikacij po izvoru ali lastnih kategorijah, obdrži izbor, ko je izklopljeno</string>
-    <string name="settings_appearance_sort_button">Gumb za razvrščanje</string>
-    <string name="settings_appearance_sort_button_description">Prikaži gumb za razvrščanje na začetnem zaslonu</string>
+    <string name="settings_appearance_sort_button">Gumb za razvrščanje in filtriranje</string>
+    <string name="settings_appearance_sort_button_description">Prikaži gumb za razvrščanje in filtriranje na začetnem zaslonu</string>
     <string name="settings_appearance_app_card_colors">Barve kartic aplikacij</string>
     <string name="settings_appearance_app_card_colors_default">Privzeto</string>
     <string name="settings_appearance_app_card_colors_default_description">Daj vsaki aplikaciji barvo njenega paketa</string>
@@ -1077,6 +1091,7 @@ Podrobnosti: %2$s"</string>
     <string name="version">Različica</string>
     <string name="patch">Popravi</string>
     <string name="patching">Popravljanje</string>
+    <string name="patched">Popravljeno</string>
     <string name="repatch">Ponovno popravi</string>
     <string name="open">Odpri</string>
     <string name="mount">Montiraj</string>

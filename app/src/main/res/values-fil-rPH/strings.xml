@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Napapanahon ang iyong mga mapagkukunan</string>
     <string name="home_sources_are_loading">Naglo-load ang iyong mga mapagkukunan, mangyaring maghintay…</string>
     <string name="home_search_apps">Maghanap ng mga app</string>
-    <string name="home_app_sort_title">Pagbukud-bukurin ang mga app</string>
+    <string name="home_app_list_options_title">Pagbukud-bukurin at i-filter</string>
+    <string name="home_app_list_options_state_description">Inayos ayon sa %1$s, sinala ayon sa %2$s</string>
+    <string name="home_app_filter_all_description">Lahat ng app sa home screen</string>
+    <string name="home_app_filter_patched_description">Mga app na na-patch o na-save mo gamit ang Morphe</string>
+    <string name="home_app_filter_not_patched_description">Mga app na hindi mo pa na-patch sa Morphe</string>
+    <string name="home_app_filter_installed_description">Mga app na kasalukuyang naka-install sa device na ito</string>
+    <string name="home_app_filter_uninstalled_description">Mga app na na-patch gamit ang Morphe na wala na sa device na ito</string>
     <string name="home_app_sort_manual_description">Pindutin nang matagal ang isang app, pagkatapos ay i-tap ang button na muling ayusin</string>
     <string name="home_app_sort_recommended">Inirerekomendang bersyon</string>
     <string name="home_app_sort_recommended_description">Mga naka-install at naka-pin na app muna</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Walang app na tumutugma sa \"%s\"</string>
     <string name="home_all_apps_hidden_title">Nakatago ang lahat ng apps</string>
     <string name="home_all_apps_hidden_subtitle">Nakatago mo ang lahat ng apps sa home screen</string>
+    <string name="home_no_apps_filter_title">Walang app na tumutugma sa filter na ito</string>
+    <string name="home_no_apps_filter_subtitle">Walang tumugma sa %s</string>
     <string name="home_category_add">Magdagdag ng kategorya</string>
     <string name="home_category_all_apps">Lahat ng apps</string>
     <string name="home_category_custom">Pasadya</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Lahat ng mga patch ay hindi pinagana</string>
     <string name="expert_mode_enable_all">Paganahin lahat</string>
     <string name="expert_mode_enable_all_done">Lahat ng mga patch ay pinagana</string>
+    <string name="expert_mode_enable_all_universal_pending">I-tap muli para sa mga unibersal na patch</string>
     <string name="expert_mode_reset_to_default">Paganahin ang inirekumendang mga patch</string>
     <string name="expert_mode_reset_to_default_done">Na-apply ang mga inirerekomendang patch</string>
     <string name="expert_mode_restore_saved">Ibalik ang nakaimbak na pagpili</string>
@@ -506,6 +515,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="patched_app_save_failed_toast">Nabigong ma-save ang na-patch na aplikasyon</string>
     <string name="plugin_activity_dialog_body">Kinakailangan ng pakikipag-ugnayan sa tagagamit upang magpatuloy sa plugin na ito</string>
     <string name="patcher_process_exit_message">Lumabas ang proseso ng patcher na may code %s</string>
+    <string name="patcher_heap_exhausted_message">Naubos ang memorya ng patcher na may %1$d MB na heap. Masyadong malaki ang app na ito para sa mga napiling patch. Subukang mag-patch na may mas kaunting patch source, o pumili ng mas kaunting patch.</string>
     <string name="install_app_success">Matagumpay na na-install</string>
     <string name="install_app_fail">Nabigong ma-install ang aplikasyon: %s</string>
     <string name="uninstall_app_fail">Nabigong i-uninstall ang app: %s</string>
@@ -578,8 +588,8 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ipakita ang mensahe ng pagbati sa pangunahing iskrin</string>
     <string name="settings_appearance_app_grouping">Pagpapangkat ng app</string>
     <string name="settings_appearance_app_grouping_description">Magpakita ng home screen switcher upang pangkatin ang mga app ayon sa pinagmulan o iyong sariling mga kategorya, pinapanatili ang pagpili kapag naka-off</string>
-    <string name="settings_appearance_sort_button">Pindutan ng Pagbukod-bukod</string>
-    <string name="settings_appearance_sort_button_description">Ipakita ang pindutan ng pagbukod-bukod sa pangunahing screen</string>
+    <string name="settings_appearance_sort_button">Button ng pag-uuri at pagsala</string>
+    <string name="settings_appearance_sort_button_description">Ipakita ang button ng pag-uuri at pagsala sa home screen</string>
     <string name="settings_appearance_app_card_colors">Mga kulay ng card ng app</string>
     <string name="settings_appearance_app_card_colors_default">Panimula</string>
     <string name="settings_appearance_app_card_colors_default_description">Bigyan ang bawat app ng kulay ng sarili nitong bundle</string>
@@ -1081,6 +1091,7 @@ Mga Detalye: %2$s"</string>
     <string name="version">Bersyon</string>
     <string name="patch">Patch</string>
     <string name="patching">Nagpa-patch</string>
+    <string name="patched">Naka-patch</string>
     <string name="repatch">Ire-patch</string>
     <string name="open">Buksan</string>
     <string name="mount">I-mount</string>

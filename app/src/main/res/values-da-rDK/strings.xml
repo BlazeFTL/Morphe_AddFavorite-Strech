@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Dine kilder er opdaterede</string>
     <string name="home_sources_are_loading">Kilder hentes, vent venligst…</string>
     <string name="home_search_apps">Søg apps</string>
-    <string name="home_app_sort_title">Sortér apps</string>
+    <string name="home_app_list_options_title">Sorter og filtrer</string>
+    <string name="home_app_list_options_state_description">Sorteret efter %1$s, filtreret efter %2$s</string>
+    <string name="home_app_filter_all_description">Alle apps på startskærmen</string>
+    <string name="home_app_filter_patched_description">Apps, som du har patchet eller gemt med Morphe</string>
+    <string name="home_app_filter_not_patched_description">Apps, som du ikke har patchet i Morphe endnu</string>
+    <string name="home_app_filter_installed_description">Apps, der aktuelt er installeret på denne enhed</string>
+    <string name="home_app_filter_uninstalled_description">Apps patchet med Morphe, som ikke længere er på denne enhed</string>
     <string name="home_app_sort_manual_description">Hold en app nede, og tryk derefter på omdør knappen</string>
     <string name="home_app_sort_recommended">Anbefalet rækkefølge</string>
     <string name="home_app_sort_recommended_description">Installerede og fastgjorte apps først</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Ingen apps matcher \"%s\"</string>
     <string name="home_all_apps_hidden_title">Alle apps er skjult</string>
     <string name="home_all_apps_hidden_subtitle">Du har skjult alle apps fra startskærmen</string>
+    <string name="home_no_apps_filter_title">Ingen apps matcher dette filter</string>
+    <string name="home_no_apps_filter_subtitle">Intet matchede %s</string>
     <string name="home_category_add">Tilføj kategori</string>
     <string name="home_category_all_apps">Alle apps</string>
     <string name="home_category_custom">Brugerdefineret</string>
@@ -225,6 +233,7 @@
     <string name="expert_mode_disable_all_done">Alle patches deaktiveret</string>
     <string name="expert_mode_enable_all">Aktiver alle</string>
     <string name="expert_mode_enable_all_done">Alle patches aktiveret</string>
+    <string name="expert_mode_enable_all_universal_pending">Tryk igen for universelle patches</string>
     <string name="expert_mode_reset_to_default">Aktivér anbefalede patches</string>
     <string name="expert_mode_reset_to_default_done">Anbefalede patches anvendt</string>
     <string name="expert_mode_restore_saved">Gendan gemt valg</string>
@@ -504,6 +513,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="patched_app_save_failed_toast">Kunne ikke gemme patchet app</string>
     <string name="plugin_activity_dialog_body">Brugerinteraktion er nødvendig for at fortsætte med dette plugin</string>
     <string name="patcher_process_exit_message">Patcher-processen lukkede med koden %s</string>
+    <string name="patcher_heap_exhausted_message">Patcheren løb tør for hukommelse med en heap på %1$d MB. Denne app er for stor til de valgte patches. Prøv at patche med færre patchkilder, eller vælg færre patches.</string>
     <string name="install_app_success">Installeret</string>
     <string name="install_app_fail">Kunne ikke installere app: %s</string>
     <string name="uninstall_app_fail">Kunne ikke afinstallere appen: %s</string>
@@ -575,8 +585,8 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Vis en hilsenbesked på startskærmen</string>
     <string name="settings_appearance_app_grouping">App-gruppering</string>
     <string name="settings_appearance_app_grouping_description">Vis en hjemmeskærms-skifter til at gruppere apps efter kilde eller dine egne kategorier, og bevar udvælgelsen, når den er slået fra</string>
-    <string name="settings_appearance_sort_button">Sortér knap</string>
-    <string name="settings_appearance_sort_button_description">Vis sorteringsknappen på startskærmen</string>
+    <string name="settings_appearance_sort_button">Sorterings- og filterknap</string>
+    <string name="settings_appearance_sort_button_description">Vis sorterings- og filterknappen på hjemmeskærmen</string>
     <string name="settings_appearance_app_card_colors">App-kort farver</string>
     <string name="settings_appearance_app_card_colors_default">Standard</string>
     <string name="settings_appearance_app_card_colors_default_description">Giv hver app farven af sin egen bundle</string>
@@ -1077,6 +1087,7 @@ Detaljer: %2$s"</string>
     <string name="version">Version</string>
     <string name="patch">Patch</string>
     <string name="patching">Patchning</string>
+    <string name="patched">Patchet</string>
     <string name="repatch">Patch igen</string>
     <string name="open">Åben</string>
     <string name="mount">Monter</string>

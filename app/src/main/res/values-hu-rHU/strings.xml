@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">A forrásaid naprakészek</string>
     <string name="home_sources_are_loading">Források betöltése...</string>
     <string name="home_search_apps">Alkalmazások keresése</string>
-    <string name="home_app_sort_title">Alkalmazások rendezése</string>
+    <string name="home_app_list_options_title">Rendezés és szűrés</string>
+    <string name="home_app_list_options_state_description">Rendezés: %1$s, szűrés: %2$s</string>
+    <string name="home_app_filter_all_description">Minden alkalmazás a kezdőképernyőn</string>
+    <string name="home_app_filter_patched_description">A Morphe segítségével patchelt vagy elmentett alkalmazások</string>
+    <string name="home_app_filter_not_patched_description">A Morphe segítségével még nem patchelt alkalmazások</string>
+    <string name="home_app_filter_installed_description">A jelenleg ezen az eszközön telepített alkalmazások</string>
+    <string name="home_app_filter_uninstalled_description">A Morphe programmal módosított alkalmazások, amelyek már nincsenek ezen az eszközön</string>
     <string name="home_app_sort_manual_description">Nyomja meg hosszan az alkalmazást, majd érintse meg a sorrend módosítása gombot</string>
     <string name="home_app_sort_recommended">Ajánlott sorrend</string>
     <string name="home_app_sort_recommended_description">Először a telepített és rögzített alkalmazások</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Nincs találat erre: „%s”</string>
     <string name="home_all_apps_hidden_title">Minden alkalmazás el van rejtve</string>
     <string name="home_all_apps_hidden_subtitle">Minden alkalmazást elrejtettél a kezdőképernyőről</string>
+    <string name="home_no_apps_filter_title">Nincs ennek a szűrőnek megfelelő alkalmazás</string>
+    <string name="home_no_apps_filter_subtitle">Semmi sem felelt meg a(z) %s szűrőnek</string>
     <string name="home_category_add">Kategória hozzáadása</string>
     <string name="home_category_all_apps">Összes alkalmazás</string>
     <string name="home_category_custom">Egyedi</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Az összes patch le van tiltva</string>
     <string name="expert_mode_enable_all">Minden módosítás engedélyezése</string>
     <string name="expert_mode_enable_all_done">Az összes patch engedélyezve van</string>
+    <string name="expert_mode_enable_all_universal_pending">Koppintson újra az univerzális javításokhoz.</string>
     <string name="expert_mode_reset_to_default">Ajánlott módosítások engedélyezése</string>
     <string name="expert_mode_reset_to_default_done">A javasolt patch-ek alkalmazva</string>
     <string name="expert_mode_restore_saved">Mentett összeállítás visszaállítása</string>
@@ -461,6 +470,10 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="battery_optimization_dialog_description">Bizonyos eszközök leállíthatják a javítót, ha az alkalmazás minimalizálva van. Engedélyezze a Morphe akadálytalan futását akkumulátor-korlátozások nélkül, hogy a javítás megbízhatóan befejeződjön.</string>
     <string name="battery_optimization_not_now">Most nem</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Nincs elég memória</string>
+    <string name="patcher_memory_adjustment_description">A rendszer leállította a patchert, miközben %1$d MB memóriakorláttal futott. A korlát %2$d MB-ra csökkentése kisebb célponttá teszi a patchert, és lehetővé teheti a futás befejezését.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">A rendszer leállította a patchert, miközben %1$d MB memóriakorláttal futott; ez a korlát már a legalacsonyabb elérhető. Próbáljon meg kevesebb patchforrással patchelni, vagy válasszon kevesebb patch-et.</string>
+    <string name="patcher_memory_adjustment_apply">Csökkentés %1$d MB-ra</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Módosítás folyamatban…</string>
     <string name="patcher_notification_text">Koppints a módosítóhoz való visszatéréshez</string>
@@ -502,6 +515,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patched_app_save_failed_toast">A módosított alkalmazás mentése sikertelen</string>
     <string name="plugin_activity_dialog_body">A bővítmény használatához felhasználói beavatkozásra van szükség</string>
     <string name="patcher_process_exit_message">A módosítási folyamat %s kóddal kilépett</string>
+    <string name="patcher_heap_exhausted_message">A javítóprogram kifutott a memóriából egy %1$d MB méretű heap-pel. Ez az alkalmazás túl nagy a kiválasztott javításokhoz. Próbáljon kevesebb javítási forrással javítani, vagy válasszon kevesebb javítást.</string>
     <string name="install_app_success">Sikeresen telepítve</string>
     <string name="install_app_fail">Nem sikerült telepíteni az alkalmazást: %s</string>
     <string name="uninstall_app_fail">Nem sikerült eltávolítani az alkalmazást: %s</string>
@@ -573,8 +587,8 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Üdvözlő üzenet megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_grouping">Alkalmazáscsoportosítás</string>
     <string name="settings_appearance_app_grouping_description">Mutasson egy főképernyő váltót az alkalmazások forrás vagy saját kategóriák szerinti csoportosításához, a kiválasztást megőrizve, ha ki van kapcsolva</string>
-    <string name="settings_appearance_sort_button">Rendezés gomb</string>
-    <string name="settings_appearance_sort_button_description">Mutassa a rendezés gombot a kezdőképernyőn</string>
+    <string name="settings_appearance_sort_button">Rendezés és szűrés gomb</string>
+    <string name="settings_appearance_sort_button_description">A rendezés és szűrés gomb megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_card_colors">Alkalmazáskártyák színei</string>
     <string name="settings_appearance_app_card_colors_default">Alapértelmezett</string>
     <string name="settings_appearance_app_card_colors_default_description">Minden alkalmazásnak a saját csomagjának színét adja</string>
@@ -1076,6 +1090,7 @@ Részletek: %2$s"</string>
     <string name="version">Verzió</string>
     <string name="patch">Módosítás</string>
     <string name="patching">Javítás</string>
+    <string name="patched">Módosított</string>
     <string name="repatch">Módosítás újra</string>
     <string name="open">Megnyitás</string>
     <string name="mount">Csatolás</string>

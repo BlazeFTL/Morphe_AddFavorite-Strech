@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Вашите източници са актуални</string>
     <string name="home_sources_are_loading">Зареждане на източниците, моля изчакайте…</string>
     <string name="home_search_apps">Търсене на приложения</string>
-    <string name="home_app_sort_title">Сортиране на приложения</string>
+    <string name="home_app_list_options_title">Сортиране и филтриране</string>
+    <string name="home_app_list_options_state_description">Сортирано по %1$s, филтрирано по %2$s</string>
+    <string name="home_app_filter_all_description">Всяко приложение на началния екран</string>
+    <string name="home_app_filter_patched_description">Приложения, които сте патчвали или запазили с Morphe</string>
+    <string name="home_app_filter_not_patched_description">Приложения, които все още не сте патчвали в Morphe</string>
+    <string name="home_app_filter_installed_description">Приложения, инсталирани в момента на това устройство</string>
+    <string name="home_app_filter_uninstalled_description">Приложения, пачвани с Morphe, които вече не са на това устройство</string>
     <string name="home_app_sort_manual_description">Натиснете и задръжте приложение, след което докоснете бутона за пренареждане</string>
     <string name="home_app_sort_recommended">Препоръчителен ред</string>
     <string name="home_app_sort_recommended_description">Инсталирани и закрепени приложения първо</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Няма приложения, които отговарят на \"%s\"</string>
     <string name="home_all_apps_hidden_title">Всички приложения са скрити</string>
     <string name="home_all_apps_hidden_subtitle">Скрили сте всички приложения от началния екран</string>
+    <string name="home_no_apps_filter_title">Няма приложения, които да отговарят на този филтър</string>
+    <string name="home_no_apps_filter_subtitle">Нищо не съвпада с %s</string>
     <string name="home_category_add">Добави категория</string>
     <string name="home_category_all_apps">Всички приложения</string>
     <string name="home_category_custom">По избор</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Всички корекции са деактивирани</string>
     <string name="expert_mode_enable_all">Включи всички</string>
     <string name="expert_mode_enable_all_done">Всички корекции са активирани</string>
+    <string name="expert_mode_enable_all_universal_pending">Докоснете отново за универсални кръпки</string>
     <string name="expert_mode_reset_to_default">Активиране на препоръчаните поправки</string>
     <string name="expert_mode_reset_to_default_done">Приложени са препоръчителните корекции</string>
     <string name="expert_mode_restore_saved">Възстановяване на запазения избор</string>
@@ -506,6 +515,7 @@
     <string name="patched_app_save_failed_toast">Import</string>
     <string name="plugin_activity_dialog_body">Потребителски интеракция е нужна, за да продължите с този плагин.</string>
     <string name="patcher_process_exit_message">Процесът на патчването излязъл с код %s</string>
+    <string name="patcher_heap_exhausted_message">Пачърът изчерпа паметта при heap от %1$d MB. Това приложение е твърде голямо за избраните пачове. Опитайте се да пачвате с по-малко източници на пачове или изберете по-малко пачове.</string>
     <string name="install_app_success">Инсталирано успешно</string>
     <string name="install_app_fail">Неуспешно инсталиране на приложението: %s</string>
     <string name="uninstall_app_fail">Неуспешно изтриване на приложението: %s</string>
@@ -578,8 +588,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Показване на поздравително съобщение на началния екран</string>
     <string name="settings_appearance_app_grouping">Групиране на приложения</string>
     <string name="settings_appearance_app_grouping_description">Покажи превключвател на началния екран за групиране на приложения по източник или по твои категории, запазвайки селекцията, когато е изключено</string>
-    <string name="settings_appearance_sort_button">Бутон за сортиране</string>
-    <string name="settings_appearance_sort_button_description">Покажи бутона за сортиране на началния екран</string>
+    <string name="settings_appearance_sort_button">Бутон за сортиране и филтриране</string>
+    <string name="settings_appearance_sort_button_description">Показване на бутона за сортиране и филтриране на началния екран</string>
     <string name="settings_appearance_app_card_colors">Цветове на картите на приложенията</string>
     <string name="settings_appearance_app_card_colors_default">По подразбиране</string>
     <string name="settings_appearance_app_card_colors_default_description">Присвояване на цвета на пакета на всяко приложение</string>
@@ -1081,6 +1091,7 @@ morphe_header_custom_dark.png
     <string name="version">New downloader plugins available. Click here to configure them.</string>
     <string name="patch">Пач</string>
     <string name="patching">Закърпване</string>
+    <string name="patched">Пачвани</string>
     <string name="repatch">Репатчи</string>
     <string name="open">Отваряне</string>
     <string name="mount">Монтирай</string>

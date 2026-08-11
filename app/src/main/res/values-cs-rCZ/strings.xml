@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Vaše zdroje jsou aktuální</string>
     <string name="home_sources_are_loading">Zdroje se načítají, počkejte prosím…</string>
     <string name="home_search_apps">Hledat aplikace</string>
-    <string name="home_app_sort_title">Řazení aplikací</string>
+    <string name="home_app_list_options_title">Řadit a filtrovat</string>
+    <string name="home_app_list_options_state_description">Seřazeno podle %1$s, filtrováno podle %2$s</string>
+    <string name="home_app_filter_all_description">Všechny aplikace na domovské obrazovce</string>
+    <string name="home_app_filter_patched_description">Aplikace, které jste patchovali nebo uložili pomocí Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplikace, které jste v Morphe ještě nepatchovali</string>
+    <string name="home_app_filter_installed_description">Aplikace aktuálně nainstalované v tomto zařízení</string>
+    <string name="home_app_filter_uninstalled_description">Aplikace záplatované pomocí Morphe, které již nejsou v tomto zařízení</string>
     <string name="home_app_sort_manual_description">Dlouze stiskněte aplikaci a poté klepněte na tlačítko pro změnu pořadí</string>
     <string name="home_app_sort_recommended">Doporučené pořadí</string>
     <string name="home_app_sort_recommended_description">Nejprve nainstalované a připnuté aplikace</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Žádná aplikace neodpovídá \"%s\"</string>
     <string name="home_all_apps_hidden_title">Všechny aplikace jsou skryté</string>
     <string name="home_all_apps_hidden_subtitle">Všechny aplikace jste schovali z domovské obrazovky</string>
+    <string name="home_no_apps_filter_title">Tomuto filtru neodpovídá žádná aplikace</string>
+    <string name="home_no_apps_filter_subtitle">Nic neodpovídá %s</string>
     <string name="home_category_add">Přidat kategorii</string>
     <string name="home_category_all_apps">Všechny aplikace</string>
     <string name="home_category_custom">Vlastní</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Všechny záplaty vypnuté</string>
     <string name="expert_mode_enable_all">Zapnout vše</string>
     <string name="expert_mode_enable_all_done">Všechny záplaty zapnuté</string>
+    <string name="expert_mode_enable_all_universal_pending">Klepněte znovu pro univerzální opravy</string>
     <string name="expert_mode_reset_to_default">Povolit doporučené záplaty</string>
     <string name="expert_mode_reset_to_default_done">Doporučené záplaty aplikovány</string>
     <string name="expert_mode_restore_saved">Obnovit uloženou hodnotu</string>
@@ -506,6 +515,7 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="patched_app_save_failed_toast">Chyba při ukládání zastaralé aplikace</string>
     <string name="plugin_activity_dialog_body">Provedení je vyžadováno pro pokračování v tomto rozšíření</string>
     <string name="patcher_process_exit_message">Proces opravy skončil s kódem %s</string>
+    <string name="patcher_heap_exhausted_message">Patcheru došla paměť při velikosti haldy %1$d MB. Tato aplikace je pro vybrané patche příliš velká. Zkuste patchovat s menším počtem zdrojů patchů nebo vyberte méně patchů.</string>
     <string name="install_app_success">Úspěšně nainstalováno</string>
     <string name="install_app_fail">Selhání instalace aplikace: %s</string>
     <string name="uninstall_app_fail">Nepodařilo se odinstalovat aplikaci: %s</string>
@@ -577,8 +587,8 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazit pozdravný vzkaz na domovské obrazovce</string>
     <string name="settings_appearance_app_grouping">Kreslení aplikací</string>
     <string name="settings_appearance_app_grouping_description">Zobrazit přepínač domovské obrazovky pro seskupení aplikací podle zdroje nebo vlastních kategorií, s ponecháním výběru při vypnutí</string>
-    <string name="settings_appearance_sort_button">Tlačítko pro řazení</string>
-    <string name="settings_appearance_sort_button_description">Zobrazit tlačítko pro řazení na domovské obrazovce</string>
+    <string name="settings_appearance_sort_button">Tlačítko pro řazení a filtrování</string>
+    <string name="settings_appearance_sort_button_description">Zobrazit tlačítko pro řazení a filtrování na domovské obrazovce</string>
     <string name="settings_appearance_app_card_colors">Barvy karet aplikací</string>
     <string name="settings_appearance_app_card_colors_default">Výchozí</string>
     <string name="settings_appearance_app_card_colors_default_description">Přiřadí každé aplikaci barvu jejího balíčku</string>
@@ -1080,6 +1090,7 @@ Podrobnosti: %2$s"</string>
     <string name="version">Verze</string>
     <string name="patch">Záplata</string>
     <string name="patching">Záplatování</string>
+    <string name="patched">Záplatováno</string>
     <string name="repatch">Znovu zalepit</string>
     <string name="open">Otevřít</string>
     <string name="mount">Připojit</string>

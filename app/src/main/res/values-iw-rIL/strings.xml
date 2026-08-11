@@ -37,7 +37,13 @@
     <string name="home_update_success_subtitle">המקורות שלך מעודכנים</string>
     <string name="home_sources_are_loading">המקורות נטענים, נא להמתין…</string>
     <string name="home_search_apps">חיפוש אפליקציות</string>
-    <string name="home_app_sort_title">מיין אפליקציות</string>
+    <string name="home_app_list_options_title">מיון וסינון</string>
+    <string name="home_app_list_options_state_description">ממוינת לפי %1$s, מסוננת לפי %2$s</string>
+    <string name="home_app_filter_all_description">כל אפליקציה במסך הבית</string>
+    <string name="home_app_filter_patched_description">אפליקציות שתיקנת או שמרת עם Morphe</string>
+    <string name="home_app_filter_not_patched_description">אפליקציות שעדיין לא תיקנת ב-Morphe</string>
+    <string name="home_app_filter_installed_description">אפליקציות שמותקנות כעת במכשיר זה</string>
+    <string name="home_app_filter_uninstalled_description">אפליקציות שתוקנו באמצעות Morphe ושאינן מותקנות עוד במכשיר זה</string>
     <string name="home_app_sort_manual_description">החזק לחיצה ארוכה על אפליקציה, ולאחר מכן הקש על כפתור הסדר מחדש</string>
     <string name="home_app_sort_recommended">סדר מומלץ</string>
     <string name="home_app_sort_recommended_description">אפליקציות מותקנות ומעוגנות ראשונות</string>
@@ -50,6 +56,8 @@
     <string name="home_no_apps_search_subtitle">אף אפליקציה לא תואמת ל-\"%s\"</string>
     <string name="home_all_apps_hidden_title">כל האפליקציות מוסתרות</string>
     <string name="home_all_apps_hidden_subtitle">הסתרת את כל האפליקציות מהמסך הראשי</string>
+    <string name="home_no_apps_filter_title">אין אפליקציות שתואמות למסנן זה</string>
+    <string name="home_no_apps_filter_subtitle">שום דבר לא תואם ל-%s</string>
     <string name="home_category_add">הוסף קטגוריה</string>
     <string name="home_category_all_apps">כל האפליקציות</string>
     <string name="home_category_custom">מותאם אישית</string>
@@ -228,6 +236,7 @@
     <string name="expert_mode_disable_all_done">כל התיקונים מושבתים</string>
     <string name="expert_mode_enable_all">הפעל את כולם</string>
     <string name="expert_mode_enable_all_done">כל התיקונים מופעלים</string>
+    <string name="expert_mode_enable_all_universal_pending">הקש שוב עבור תיקונים אוניברסליים</string>
     <string name="expert_mode_reset_to_default">להפעיל תיקונים מומלצים</string>
     <string name="expert_mode_reset_to_default_done">התיקונים המומלצים הוחלו</string>
     <string name="expert_mode_restore_saved">שחזור בחירה שמורה</string>
@@ -462,6 +471,10 @@
     <string name="battery_optimization_dialog_description">ייתכן שמכשירים מסוימים יפסיקו את המתקן כאשר האפליקציה מצומצמת. אפשר ל-Morphe לפעול ללא הגבלות סוללה כדי להבטיח שהתיקון יושלם באופן מהימן</string>
     <string name="battery_optimization_not_now">לא עכשיו</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">אין מספיק זיכרון</string>
+    <string name="patcher_memory_adjustment_description">המתקן הופסק על ידי המערכת בזמן שפעל עם מגבלת זיכרון של %1$d MB. הורדת המגבלה ל-%2$d MB הופכת את המתקן למטרה קטנה יותר ויכולה לאפשר להריצה להסתיים.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">המתקן הופסק על ידי המערכת בזמן שפעל עם מגבלת זיכרון של %1$d MB, שהיא כבר הנמוכה ביותר הזמינה. נסה לתקן עם פחות מקורות תיקון, או בחר פחות תיקונים.</string>
+    <string name="patcher_memory_adjustment_apply">הורד ל-%1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">התיקון מתבצע…</string>
     <string name="patcher_notification_text">הקש כדי לחזור למתקן</string>
@@ -503,6 +516,7 @@
     <string name="patched_app_save_failed_toast">נכשל לשמור אפליקציה מתוקנת</string>
     <string name="plugin_activity_dialog_body">נדרש אינטראקציה של המשתמש כדי להמשיך עם תוסף זה</string>
     <string name="patcher_process_exit_message">פועל הפייסר יצא עם קוד %s</string>
+    <string name="patcher_heap_exhausted_message">למתקן נגמר הזיכרון עם ערימת %1$d מגה-בייט. האפליקציה הזו גדולה מדי עבור התיקונים שנבחרו. נסה לתקן עם פחות מקורות תיקון, או בחר פחות תיקונים.</string>
     <string name="install_app_success">הותקן בהצלחה</string>
     <string name="install_app_fail">נכשל להתקין את האפליקציה: %s</string>
     <string name="uninstall_app_fail">נכשלה הסרת האפליקציה: %s</string>
@@ -575,8 +589,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">הצגת הודעת פתיחה על מסך הבית</string>
     <string name="settings_appearance_app_grouping">קיבוץ אפליקציות</string>
     <string name="settings_appearance_app_grouping_description">הצג מחליף מסך בית לקיבוץ אפליקציות לפי מקור או קטגוריות משלך, ושמור את הבחירה כאשר הוא כבוי</string>
-    <string name="settings_appearance_sort_button">כפתור מיון</string>
-    <string name="settings_appearance_sort_button_description">הצג את כפתור המיון במסך הבית</string>
+    <string name="settings_appearance_sort_button">כפתור מיון וסינון</string>
+    <string name="settings_appearance_sort_button_description">הצג את כפתור המיון והסינון במסך הבית</string>
     <string name="settings_appearance_app_card_colors">צבעי כרטיסי האפליקציה</string>
     <string name="settings_appearance_app_card_colors_default">ברירת מחדל</string>
     <string name="settings_appearance_app_card_colors_default_description">להעניק לכל אפליקציה את צבע החבילה שלה</string>
@@ -1088,6 +1102,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="version">גרסה</string>
     <string name="patch">תיקון</string>
     <string name="patching">מתקן</string>
+    <string name="patched">מתוקנות</string>
     <string name="repatch">החל תיקון</string>
     <string name="open">פתח</string>
     <string name="mount">הרכבה</string>

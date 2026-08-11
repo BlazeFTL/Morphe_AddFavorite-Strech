@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Sizning manbalaringiz yangilandi</string>
     <string name="home_sources_are_loading">Manbalar yuklanayapti, iltimos kuting…</string>
     <string name="home_search_apps">Ilovalarni qidiring</string>
-    <string name="home_app_sort_title">Tampilkan file tersembunyi</string>
+    <string name="home_app_list_options_title">Saralash va filtrlash</string>
+    <string name="home_app_list_options_state_description">%1$s bo\'yicha saralangan, %2$s bo\'yicha filtrlangan</string>
+    <string name="home_app_filter_all_description">Bosh ekrandagi barcha ilovalar</string>
+    <string name="home_app_filter_patched_description">Morphe bilan yamalgan yoki saqlangan ilovalar</string>
+    <string name="home_app_filter_not_patched_description">Morphe\'da hali yamalmagan ilovalar</string>
+    <string name="home_app_filter_installed_description">Ushbu qurilmada hozir o\'rnatilgan ilovalar</string>
+    <string name="home_app_filter_uninstalled_description">Morphe yordamida yamalgan, endi bu qurilmada mavjud bo\'lmagan ilovalar</string>
     <string name="home_app_sort_manual_description">Urutkan aplikasi</string>
     <string name="home_app_sort_recommended">Tekan lama sebuah aplikasi, lalu ketuk tombol urutkan ulang</string>
     <string name="home_app_sort_recommended_description">Urutan yang direkomendasikan</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">\"%s\" ga mos ilovalar yo‘q</string>
     <string name="home_all_apps_hidden_title">Barcha ilovalar yashirilgan</string>
     <string name="home_all_apps_hidden_subtitle">Barcha ilovalarni asosiy ekrandan yashirdingiz</string>
+    <string name="home_no_apps_filter_title">Bu filtrga mos keladigan ilovalar yo\'q</string>
+    <string name="home_no_apps_filter_subtitle">Hech narsa %s ga mos kelmadi</string>
     <string name="home_category_add">Kategoriya qo\'shish</string>
     <string name="home_category_all_apps">Barcha ilovalar</string>
     <string name="home_category_custom">Maxsus</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Barcha patchlar o‘chirilgan</string>
     <string name="expert_mode_enable_all">Hammasini yoqish</string>
     <string name="expert_mode_enable_all_done">Barcha patchlar yoqildi</string>
+    <string name="expert_mode_enable_all_universal_pending">Universal yamalar uchun yana bir marta bosing</string>
     <string name="expert_mode_reset_to_default">Tavsiya etilgan patchlarni yoqing</string>
     <string name="expert_mode_reset_to_default_done">Tavsiya etilgan patchlar qo‘llandi</string>
     <string name="expert_mode_restore_saved">Saqlangan tanlovni tiklash</string>
@@ -460,6 +469,10 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="battery_optimization_dialog_description">Ba\'zi moslamalar ilovani minimallashtirganda patcherni to‘xtatishi mumkin. Patchlash ishonchli bajarilishini ta\'minlash uchun Morphe batareyani cheklashsiz ishlay olishiga ruxsat bering</string>
     <string name="battery_optimization_not_now">Hozir emas</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Xotira yetarli emas</string>
+    <string name="patcher_memory_adjustment_description">Patcher %1$d MB xotira chegarasi bilan ishlayotganda tizim tomonidan to\'xtatildi. Chegarani %2$d MB ga tushirish patcherni kichikroq nishonga aylantiradi va ishni yakunlashga imkon berishi mumkin.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Patcher %1$d MB xotira chegarasi bilan ishlayotganda tizim tomonidan to\'xtatildi, bu allaqachon mavjud bo\'lgan eng past chegaradir. Kamroq yamoq manbalari bilan yamoqlashni sinab ko\'ring yoki kamroq yamoqlarni tanlang.</string>
+    <string name="patcher_memory_adjustment_apply">%1$d MB ga tushirish</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patchlash jarayonida…</string>
     <string name="patcher_notification_text">Patcherni ko‘rish uchun bosish</string>
@@ -501,6 +514,7 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="patched_app_save_failed_toast">Patchlangan ilovni saqlashda xatolik</string>
     <string name="plugin_activity_dialog_body">Ushbu plagin bilan davom etish uchun foydalanuvchi aralashuvi kerak</string>
     <string name="patcher_process_exit_message">Patcher jarayoni %s kodi bilan chiqdi</string>
+    <string name="patcher_heap_exhausted_message">Patcherda %1$d MB hajmli xotira tugadi. Bu ilova tanlangan patchlar uchun juda katta. Kamroq patch manbalari bilan patchlashni urinib ko‘ring yoki kamroq patchlarni tanlang.</string>
     <string name="install_app_success">O‘rnatish muvaffaqiyatli yakunlandi</string>
     <string name="install_app_fail">Ilovni o‘rnatishda xatolik: %s</string>
     <string name="uninstall_app_fail">Ilova o\'rnatishda xatolik: %s</string>
@@ -573,8 +587,8 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Bosh ekranda salomlashish xabarini ko‘rsatish</string>
     <string name="settings_appearance_app_grouping">Ilovalarni guruhlash</string>
     <string name="settings_appearance_app_grouping_description">Ilovalarni manbaiga yoki o\'zingizning kategoriyalaringizga qarab guruhlash uchun uy ekrani almashtirgichni ko\'rsating, o\'chirilganda tanlovni saqlab qolish</string>
-    <string name="settings_appearance_sort_button">Tartiblash tugmasi</string>
-    <string name="settings_appearance_sort_button_description">Bosh ekranda tartiblash tugmasini ko‘rsatish</string>
+    <string name="settings_appearance_sort_button">Saralash va filtrlash tugmasi</string>
+    <string name="settings_appearance_sort_button_description">Bosh ekranda saralash va filtrlash tugmasini ko\'rsatish</string>
     <string name="settings_appearance_app_card_colors">Ilovalar kartasining ranglari</string>
     <string name="settings_appearance_app_card_colors_default">Standart</string>
     <string name="settings_appearance_app_card_colors_default_description">Har bir ilovaga o\'z to\'plamining rangini bering</string>
@@ -1076,6 +1090,7 @@ Ma’lumotlar: %2$s"</string>
     <string name="version">Versiya</string>
     <string name="patch">Patch</string>
     <string name="patching">Ta’mirlash</string>
+    <string name="patched">Yamalgan</string>
     <string name="repatch">Qayta patchlash</string>
     <string name="open">Qayta o\'rnatish</string>
     <string name="mount">Ulanish</string>

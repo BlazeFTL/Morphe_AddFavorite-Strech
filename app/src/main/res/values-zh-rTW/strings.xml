@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">來源已是最新狀態</string>
     <string name="home_sources_are_loading">正在載入來源，請稍候…</string>
     <string name="home_search_apps">搜尋應用程式</string>
-    <string name="home_app_sort_title">排序應用程式</string>
+    <string name="home_app_list_options_title">排序與篩選</string>
+    <string name="home_app_list_options_state_description">依 %1$s 排序，依 %2$s 篩選</string>
+    <string name="home_app_filter_all_description">主畫面上的每個應用程式</string>
+    <string name="home_app_filter_patched_description">您已使用 Morphe 修補或儲存的應用程式</string>
+    <string name="home_app_filter_not_patched_description">您尚未在 Morphe 中修補的應用程式</string>
+    <string name="home_app_filter_installed_description">目前安裝在此裝置上的應用程式</string>
+    <string name="home_app_filter_uninstalled_description">已使用 Morphe 修補但已不在這部裝置上的應用程式</string>
     <string name="home_app_sort_manual_description">長按應用程式，然後點選重新排序按鈕</string>
     <string name="home_app_sort_recommended">推薦順序</string>
     <string name="home_app_sort_recommended_description">優先顯示已安裝和固定應用程式</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">沒有符合「%s」的應用程式</string>
     <string name="home_all_apps_hidden_title">所有應用程式皆已隱藏</string>
     <string name="home_all_apps_hidden_subtitle">您已從主畫面隱藏所有應用程式</string>
+    <string name="home_no_apps_filter_title">沒有符合此篩選條件的應用程式</string>
+    <string name="home_no_apps_filter_subtitle">沒有符合「%s」的項目</string>
     <string name="home_category_add">新增類別</string>
     <string name="home_category_all_apps">所有應用程式</string>
     <string name="home_category_custom">自訂</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">已停用所有修補程式</string>
     <string name="expert_mode_enable_all">全部啟用</string>
     <string name="expert_mode_enable_all_done">已啟用所有修補程式</string>
+    <string name="expert_mode_enable_all_universal_pending">再點按一次以套用通用修補程式</string>
     <string name="expert_mode_reset_to_default">啟用推薦的修補程式</string>
     <string name="expert_mode_reset_to_default_done">已套用推薦的修補程式</string>
     <string name="expert_mode_restore_saved">還原儲存的選取範圍</string>
@@ -506,6 +515,7 @@
     <string name="patched_app_save_failed_toast">無法儲存修補後的應用程式</string>
     <string name="plugin_activity_dialog_body">需要使用者互動才能繼續使用此外掛程式</string>
     <string name="patcher_process_exit_message">修補程序已結束，代碼為 %s</string>
+    <string name="patcher_heap_exhausted_message">修補程式在堆積大小為 %1$d MB 時記憶體不足。此應用程式對所選的修補程式而言過大。請嘗試使用較少的修補程式來源進行修補，或選擇較少的修補程式。</string>
     <string name="install_app_success">安裝成功</string>
     <string name="install_app_fail">無法安裝應用程式：%s</string>
     <string name="uninstall_app_fail">無法解除安裝應用程式：%s</string>
@@ -577,8 +587,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">在主螢幕上顯示問候訊息</string>
     <string name="settings_appearance_app_grouping">應用程式分組</string>
     <string name="settings_appearance_app_grouping_description">顯示主畫面切換器，以依來源或您自己的類別分組應用程式，並在關閉時保留選取內容</string>
-    <string name="settings_appearance_sort_button">排序按鈕</string>
-    <string name="settings_appearance_sort_button_description">在主螢幕上顯示排序按鈕</string>
+    <string name="settings_appearance_sort_button">排序與篩選按鈕</string>
+    <string name="settings_appearance_sort_button_description">在主畫面上顯示排序與篩選按鈕</string>
     <string name="settings_appearance_app_card_colors">應用程式卡片顏色</string>
     <string name="settings_appearance_app_card_colors_default">預設</string>
     <string name="settings_appearance_app_card_colors_default_description">讓每個應用程式都擁有其套件的顏色</string>
@@ -1078,6 +1088,7 @@ morphe_header_custom_dark.png
     <string name="version">版本</string>
     <string name="patch">修補</string>
     <string name="patching">修補中</string>
+    <string name="patched">修補時間</string>
     <string name="repatch">重新修補</string>
     <string name="open">開啟</string>
     <string name="mount">掛載</string>

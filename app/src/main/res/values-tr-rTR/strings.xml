@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Kaynaklarınız güncel</string>
     <string name="home_sources_are_loading">Kaynaklar yükleniyor, lütfen bekleyin…</string>
     <string name="home_search_apps">Uygulamaları ara</string>
-    <string name="home_app_sort_title">Uygulamaları sırala</string>
+    <string name="home_app_list_options_title">Sırala ve filtrele</string>
+    <string name="home_app_list_options_state_description">Sıralama: %1$s, Filtre: %2$s</string>
+    <string name="home_app_filter_all_description">Ana ekrandaki tüm uygulamalar</string>
+    <string name="home_app_filter_patched_description">Morphe ile yamaladığınız veya kaydettiğiniz uygulamalar</string>
+    <string name="home_app_filter_not_patched_description">Morphe\'de henüz yamalamadığınız uygulamalar</string>
+    <string name="home_app_filter_installed_description">Bu cihazda şu anda yüklü olan uygulamalar</string>
+    <string name="home_app_filter_uninstalled_description">Morphe ile yamalanmış ve bu cihazda artık bulunmayan uygulamalar</string>
     <string name="home_app_sort_manual_description">Bir uygulamaya uzun basın, ardından yeniden sıralama düğmesine dokunun</string>
     <string name="home_app_sort_recommended">Önerilen sıra</string>
     <string name="home_app_sort_recommended_description">Önce yüklenen ve sabitlenen uygulamalar</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">\"%s\" ile eşleşen uygulama yok</string>
     <string name="home_all_apps_hidden_title">Tüm uygulamalar gizlendi</string>
     <string name="home_all_apps_hidden_subtitle">Ana ekrandaki tüm uygulamaları gizlediniz</string>
+    <string name="home_no_apps_filter_title">Bu filtreye uyan uygulama yok</string>
+    <string name="home_no_apps_filter_subtitle">%s ile eşleşen bir şey yok</string>
     <string name="home_category_add">Kategori ekle</string>
     <string name="home_category_all_apps">Tüm uygulamalar</string>
     <string name="home_category_custom">Özel</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Tüm yamalar devre dışı bırakıldı</string>
     <string name="expert_mode_enable_all">Hepsini etkinleştir</string>
     <string name="expert_mode_enable_all_done">Tüm yamalar etkinleştirildi</string>
+    <string name="expert_mode_enable_all_universal_pending">Evrensel yamalar için tekrar dokunun</string>
     <string name="expert_mode_reset_to_default">Önerilen yamaları etkinleştir</string>
     <string name="expert_mode_reset_to_default_done">Önerilen yamalar uygulandı</string>
     <string name="expert_mode_restore_saved">Kaydedilen seçimi geri yükle</string>
@@ -461,6 +470,10 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="battery_optimization_dialog_description">Bazı cihazlar, uygulama küçültüldüğünde patcher\'ı durdurabilir. Yamalamanın güvenilir bir şekilde tamamlanmasını sağlamak için Morphe\'nin pil kısıtlamaları olmadan çalışmasına izin verin</string>
     <string name="battery_optimization_not_now">Şimdi değil</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Yetersiz bellek</string>
+    <string name="patcher_memory_adjustment_description">Yamalayıcı, %1$d MB bellek sınırıyla çalışırken sistem tarafından durduruldu. Sınırı %2$d MB değerine düşürmek yamalayıcıyı daha küçük bir hedef haline getirir ve çalıştırmanın tamamlanmasını sağlayabilir.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Yamalayıcı, zaten mevcut en düşük değer olan %1$d MB bellek sınırıyla çalışırken sistem tarafından durduruldu. Daha az yama kaynağıyla yamalamayı deneyin veya daha az yama seçin.</string>
+    <string name="patcher_memory_adjustment_apply">Sınırı %1$d MB değerine düşür</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Yamalama devam ediyor…</string>
     <string name="patcher_notification_text">Patcher\'a dönmek için dokunun</string>
@@ -502,6 +515,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patched_app_save_failed_toast">Yamalanmış uygulama kaydedilemedi</string>
     <string name="plugin_activity_dialog_body">Bu eklentinin çalışmaya devam edebilmesi için kullanıcı etkileşimi gereklidir</string>
     <string name="patcher_process_exit_message">Patcher işlemi %s kodu ile sonlandı</string>
+    <string name="patcher_heap_exhausted_message">Yama uygulayıcının belleği, %1$d MB\'lik bir yığın ile tükendi. Bu uygulama seçilen yamalar için çok büyük. Daha az yama kaynağıyla yama uygulamayı deneyin veya daha az yama seçin.</string>
     <string name="install_app_success">Başarıyla yüklendi</string>
     <string name="install_app_fail">Uygulama yüklenemedi: %s</string>
     <string name="uninstall_app_fail">Uygulama kaldırılamadı: %s</string>
@@ -573,8 +587,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ana ekranda bir selamlama mesajı göster</string>
     <string name="settings_appearance_app_grouping">Uygulama gruplandırma</string>
     <string name="settings_appearance_app_grouping_description">Uygulamaları kaynaklarına veya kendi kategorilerinize göre gruplamak için bir ana ekran değiştirici göster. Kapalıyken seçimi korur</string>
-    <string name="settings_appearance_sort_button">Sıralama düğmesi</string>
-    <string name="settings_appearance_sort_button_description">Ana ekranda sıralama düğmesini göster</string>
+    <string name="settings_appearance_sort_button">Sıralama ve filtreleme düğmesi</string>
+    <string name="settings_appearance_sort_button_description">Ana ekranda sıralama ve filtreleme düğmesini göster</string>
     <string name="settings_appearance_app_card_colors">Uygulama kartı renkleri</string>
     <string name="settings_appearance_app_card_colors_default">Varsayılan</string>
     <string name="settings_appearance_app_card_colors_default_description">Her uygulamaya kendi paketinin rengini ver</string>
@@ -1075,6 +1089,7 @@ Ayrıntılar: %2$s"</string>
     <string name="version">Sürüm</string>
     <string name="patch">Yamala</string>
     <string name="patching">Yamalanıyor</string>
+    <string name="patched">Yamalı</string>
     <string name="repatch">Yeniden yamala</string>
     <string name="open">Aç</string>
     <string name="mount">Bağla</string>

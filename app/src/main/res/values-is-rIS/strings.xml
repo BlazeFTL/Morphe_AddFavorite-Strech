@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Heimildir þínar eru upp til daglegt</string>
     <string name="home_sources_are_loading">Heimildir eru að hlaða, vinsamlegast bíðu…</string>
     <string name="home_search_apps">Leita að forritum</string>
-    <string name="home_app_sort_title">Raða forritum</string>
+    <string name="home_app_list_options_title">Raða og sía</string>
+    <string name="home_app_list_options_state_description">Raðað eftir %1$s, síað eftir %2$s</string>
+    <string name="home_app_filter_all_description">Öll forrit á heimaskjánum</string>
+    <string name="home_app_filter_patched_description">Forrit sem þú hefur plástrað eða vistað með Morphe</string>
+    <string name="home_app_filter_not_patched_description">Forrit sem þú hefur ekki ennþá plástrað í Morphe</string>
+    <string name="home_app_filter_installed_description">Forrit sem nú eru uppsett á þessu tæki</string>
+    <string name="home_app_filter_uninstalled_description">Forrit sem voru plástruð með Morphe en eru ekki lengur á þessu tæki</string>
     <string name="home_app_sort_manual_description">Langt ýta á forrit, þá smelltu á endurraða hnappinn</string>
     <string name="home_app_sort_recommended">Rækt ráðlagður röð</string>
     <string name="home_app_sort_recommended_description">Uppsett og fest forrit fyrst</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Engin forrit passa við \"%s\"</string>
     <string name="home_all_apps_hidden_title">Öll app eru faldin</string>
     <string name="home_all_apps_hidden_subtitle">Þú hefur falið öll app frá heimaskjánum</string>
+    <string name="home_no_apps_filter_title">Engin forrit passa við þessa síu</string>
+    <string name="home_no_apps_filter_subtitle">Ekkert passaði við %s</string>
     <string name="home_category_add">Bæta við flokki</string>
     <string name="home_category_all_apps">Allar apps</string>
     <string name="home_category_custom">Sérsniðin</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Allar breytingar gerða óvirkar</string>
     <string name="expert_mode_enable_all">Gerðu allt virkt</string>
     <string name="expert_mode_enable_all_done">Allar breytingar virkar</string>
+    <string name="expert_mode_enable_all_universal_pending">Ýttu aftur til að fá algilda plástra</string>
     <string name="expert_mode_reset_to_default">Virkja mæltu breytingar</string>
     <string name="expert_mode_reset_to_default_done">Mæltu breytingarnar notaðar</string>
     <string name="expert_mode_restore_saved">Endurheimta valda</string>
@@ -459,6 +468,10 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="battery_optimization_dialog_description">Sum tæki gætu stöðvað breytingasmáttana þegar appið er lágmarks. Leyfðu Morphe að keyra án rafhlöðubindingar til að tryggja áreiðanlega breytinga</string>
     <string name="battery_optimization_not_now">Ekki núna</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Ekki nóg minni</string>
+    <string name="patcher_memory_adjustment_description">Patcher var stöðvaður af kerfinu á meðan hann keyrði með %1$d MB minnismörk. Lækkun minnismarkanna í %2$d MB gerir hann að minna skotmarki og getur leyft keyrslunni að ljúka.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Patcher var stöðvaður af kerfinu á meðan hann keyrði með %1$d MB minnismörk, sem eru þegar þau lægstu sem í boði eru. Reyndu að plástra með færri uppsprettum, eða veldu færri plástra.</string>
+    <string name="patcher_memory_adjustment_apply">Lækka í %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Breytistilling í gangi…</string>
     <string name="patcher_notification_text">Tappaðu til að snúa aftur á breytistillinguna</string>
@@ -500,6 +513,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patched_app_save_failed_toast">Ekki tókst að vista breytt app</string>
     <string name="plugin_activity_dialog_body">Þú þarft að grípa í gagnvirkt á hugbuginn til að fara áfram</string>
     <string name="patcher_process_exit_message">Breytingavinnsla endaði með kóða %s</string>
+    <string name="patcher_heap_exhausted_message">Plástrarinn kláraði minnið með %1$d MB minnisgeymi. Þetta forrit er of stórt fyrir valda plástra. Reyndu að nota færri plástrauppsprettur, eða veldu færri plástra.</string>
     <string name="install_app_success">Uppsett með góðum árangri</string>
     <string name="install_app_fail">Ekki tókst að setja upp app: %s</string>
     <string name="uninstall_app_fail">Ekki tókst að afinstalla app: %s</string>
@@ -572,8 +586,8 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Sýna kveðju skilaboð á heimaskjá</string>
     <string name="settings_appearance_app_grouping">Forritaflokkun</string>
     <string name="settings_appearance_app_grouping_description">Sýna rofasa á heimaskjá til að flokka forrit eftir uppruna eða eigin flokkum, halda vali þegar slökkt er á rofanum</string>
-    <string name="settings_appearance_sort_button">Röðunarhnappur</string>
-    <string name="settings_appearance_sort_button_description">Sýna röðunarhnapp á heimsíðunni</string>
+    <string name="settings_appearance_sort_button">Röðunar- og síunarhnappur</string>
+    <string name="settings_appearance_sort_button_description">Sýna röðunar- og síunarhnappinn á heimaskjánum</string>
     <string name="settings_appearance_app_card_colors">Litir á app kortum</string>
     <string name="settings_appearance_app_card_colors_default">Sjálfgefið</string>
     <string name="settings_appearance_app_card_colors_default_description">Nota litinn á pakkann fyrir hvert app</string>
@@ -1072,6 +1086,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="version">Útgáfa</string>
     <string name="patch">Breytistilling</string>
     <string name="patching">Breytingar</string>
+    <string name="patched">Plástrað</string>
     <string name="repatch">Breytistilla aftur</string>
     <string name="open">Opna</string>
     <string name="mount">Festa</string>

@@ -37,7 +37,13 @@ Nessuna patch disponibile</string>
     <string name="home_update_success_subtitle">Le tue fonti sono aggiornate</string>
     <string name="home_sources_are_loading">Le fonti si stanno caricando, si prega di attendere…</string>
     <string name="home_search_apps">Cerca app</string>
-    <string name="home_app_sort_title">Ordina app</string>
+    <string name="home_app_list_options_title">Ordina e filtra</string>
+    <string name="home_app_list_options_state_description">Ordinate per %1$s, filtrate per %2$s</string>
+    <string name="home_app_filter_all_description">Tutte le app nella schermata Home</string>
+    <string name="home_app_filter_patched_description">App che hai patchato o salvato con Morphe</string>
+    <string name="home_app_filter_not_patched_description">App che non hai ancora patchato in Morphe</string>
+    <string name="home_app_filter_installed_description">App attualmente installate su questo dispositivo</string>
+    <string name="home_app_filter_uninstalled_description">App patchate con Morphe che non sono più presenti su questo dispositivo</string>
     <string name="home_app_sort_manual_description">Tieni premuta un\'app, quindi tocca il pulsante di riordino</string>
     <string name="home_app_sort_recommended">Ordine consigliato</string>
     <string name="home_app_sort_recommended_description">App installate e fissate per prime</string>
@@ -50,6 +56,8 @@ Nessuna patch disponibile</string>
     <string name="home_no_apps_search_subtitle">Nessuna app corrisponde a \"%s\"</string>
     <string name="home_all_apps_hidden_title">Tutte le app sono nascoste</string>
     <string name="home_all_apps_hidden_subtitle">Hai nascosto tutte le app dalla schermata Home</string>
+    <string name="home_no_apps_filter_title">Nessuna app corrisponde a questo filtro</string>
+    <string name="home_no_apps_filter_subtitle">Nessun risultato per %s</string>
     <string name="home_category_add">Aggiungi categoria</string>
     <string name="home_category_all_apps">Tutte le app</string>
     <string name="home_category_custom">Personalizzato</string>
@@ -228,6 +236,7 @@ Nessuna patch disponibile</string>
     <string name="expert_mode_disable_all_done">Tutte le patch disabilitate</string>
     <string name="expert_mode_enable_all">Abilita tutte</string>
     <string name="expert_mode_enable_all_done">Tutte le patch abilitate</string>
+    <string name="expert_mode_enable_all_universal_pending">Tocca di nuovo per le patch universali</string>
     <string name="expert_mode_reset_to_default">Abilitare patch consigliate</string>
     <string name="expert_mode_reset_to_default_done">Patch consigliate applicate</string>
     <string name="expert_mode_restore_saved">Ripristinare la selezione salvata</string>
@@ -462,6 +471,10 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="battery_optimization_dialog_description">Alcuni dispositivi potrebbero interrompere l\'applicazione patch quando l\'app è minimizzata. Consenti a Morphe di funzionare senza restrizioni sulla batteria per garantire che l\'applicazione patch venga completata in modo affidabile.</string>
     <string name="battery_optimization_not_now">Non ora</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Memoria insufficiente</string>
+    <string name="patcher_memory_adjustment_description">Il patcher è stato interrotto dal sistema mentre era in esecuzione con un limite di memoria di %1$d MB. Ridurre il limite a %2$d MB rende il patcher un bersaglio più piccolo e può consentire il completamento dell\'esecuzione.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Il patcher è stato interrotto dal sistema mentre era in esecuzione con un limite di memoria di %1$d MB, che è già il più basso disponibile. Prova a eseguire il patching con meno sorgenti di patch oppure seleziona meno patch.</string>
+    <string name="patcher_memory_adjustment_apply">Riduci a %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patching in corso…</string>
     <string name="patcher_notification_text">Tocca per tornare al patcher</string>
@@ -503,6 +516,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patched_app_save_failed_toast">Impossibile salvare l\'app modificata</string>
     <string name="plugin_activity_dialog_body">È richiesta l\'interazione dell\'utente per procedere con questo plugin</string>
     <string name="patcher_process_exit_message">Il processo del patcher è terminato con codice %s</string>
+    <string name="patcher_heap_exhausted_message">Il patcher ha esaurito la memoria con un heap di %1$d MB. Questa app è troppo grande per le patch selezionate. Prova a eseguire il patching con meno sorgenti di patch oppure seleziona meno patch.</string>
     <string name="install_app_success">Installato correttamente</string>
     <string name="install_app_fail">Impossibile installare l\'app: %s</string>
     <string name="uninstall_app_fail">Impossibile disinstallare l\'app: %s</string>
@@ -575,8 +589,8 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Mostra un messaggio di saluto nella schermata principale</string>
     <string name="settings_appearance_app_grouping">Raggruppamento app</string>
     <string name="settings_appearance_app_grouping_description">Mostra un selettore schermata Home per raggruppare le app per origine o per le tue categorie, mantenendo la selezione quando disattivato</string>
-    <string name="settings_appearance_sort_button">Pulsante Ordina</string>
-    <string name="settings_appearance_sort_button_description">Mostra il pulsante Ordina nella schermata Home</string>
+    <string name="settings_appearance_sort_button">Pulsante per ordinare e filtrare</string>
+    <string name="settings_appearance_sort_button_description">Mostra il pulsante per ordinare e filtrare nella schermata Home</string>
     <string name="settings_appearance_app_card_colors">Colori delle schede app</string>
     <string name="settings_appearance_app_card_colors_default">Predefinita</string>
     <string name="settings_appearance_app_card_colors_default_description">Assegna a ciascuna app il colore del proprio bundle</string>
@@ -1078,6 +1092,7 @@ Dettagli: %2$s"</string>
     <string name="version">Versione</string>
     <string name="patch">Patch</string>
     <string name="patching">Modifica</string>
+    <string name="patched">Patchate</string>
     <string name="repatch">Ripatcha</string>
     <string name="open">Apri</string>
     <string name="mount">Monta</string>

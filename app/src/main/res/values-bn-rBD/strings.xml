@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">আপনার সোর্সগুলি আপ-টু-ডেট আছে</string>
     <string name="home_sources_are_loading">সোর্স লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন…</string>
     <string name="home_search_apps">অ্যাপস অনুসন্ধান করুন</string>
-    <string name="home_app_sort_title">অ্যাপস সাজান</string>
+    <string name="home_app_list_options_title">সাজান এবং ফিল্টার করুন</string>
+    <string name="home_app_list_options_state_description">%1$s অনুসারে সাজানো হয়েছে, %2$s অনুসারে ফিল্টার করা হয়েছে</string>
+    <string name="home_app_filter_all_description">হোম স্ক্রিনে থাকা প্রতিটি অ্যাপ</string>
+    <string name="home_app_filter_patched_description">Morphe দিয়ে আপনি যেসব অ্যাপ প্যাচ করেছেন বা সংরক্ষণ করেছেন</string>
+    <string name="home_app_filter_not_patched_description">Morphe-এ আপনি যেসব অ্যাপ এখনও প্যাচ করেননি</string>
+    <string name="home_app_filter_installed_description">এই ডিভাইসে বর্তমানে ইনস্টল করা অ্যাপগুলো</string>
+    <string name="home_app_filter_uninstalled_description">Morphe দিয়ে প্যাচ করা অ্যাপগুলো যেগুলো আর এই ডিভাইসে নেই</string>
     <string name="home_app_sort_manual_description">কোনো অ্যাপ দীর্ঘক্ষণ চাপুন, তারপর পুনর্বিন্যাস বোতামে আলতো চাপুন</string>
     <string name="home_app_sort_recommended">সুপারিশকৃত ক্রম</string>
     <string name="home_app_sort_recommended_description">ইনস্টল করা এবং পিন করা অ্যাপগুলি প্রথমে</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">\"%s\" এর সাথে মেলে এমন কোনো অ্যাপ নেই</string>
     <string name="home_all_apps_hidden_title">সমস্ত অ্যাপ্লিকেশন লুকানো হয়েছে</string>
     <string name="home_all_apps_hidden_subtitle">আপনি হোম স্ক্রীন থেকে সমস্ত অ্যাপ্লিকেশন লুকিয়ে ফেলেছেন</string>
+    <string name="home_no_apps_filter_title">এই ফিল্টারের সাথে কোনো অ্যাপ মেলে না</string>
+    <string name="home_no_apps_filter_subtitle">%s-এর সাথে কিছুই মেলেনি</string>
     <string name="home_category_add">বিভাগ যোগ করুন</string>
     <string name="home_category_all_apps">সমস্ত অ্যাপস</string>
     <string name="home_category_custom">কাস্টম</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">সমস্ত প্যাচ নিষ্ক্রিয় করা হয়েছে</string>
     <string name="expert_mode_enable_all">সবকিছুক্ষমতাকার্তা করুন</string>
     <string name="expert_mode_enable_all_done">সমস্ত প্যাচ সক্রিয় করা হয়েছে</string>
+    <string name="expert_mode_enable_all_universal_pending">সর্বজনীন প্যাচের জন্য আবার ট্যাপ করুন</string>
     <string name="expert_mode_reset_to_default">প্রস্তাবিত প্যাচগুলি সক্ষম করুন</string>
     <string name="expert_mode_reset_to_default_done">সুপারিশ করা প্যাচগুলি প্রয়োগ করা হয়েছে</string>
     <string name="expert_mode_restore_saved">সংরক্ষিত নির্বাচন পুনরুদ্ধার করুন</string>
@@ -506,6 +515,7 @@
     <string name="patched_app_save_failed_toast">প্যাচ করা অ্যাপ সংরক্ষণ করতে ব্যর্থ</string>
     <string name="plugin_activity_dialog_body">এই প্লাগইন চালিয়ে যেতে জন্য ব্যবহারকারীর ইন্টারেকশন প্রয়োজন</string>
     <string name="patcher_process_exit_message">প্যাচার প্রক্রিয়া %s কোড দিয়ে সম্পন্ন হয়েছে</string>
+    <string name="patcher_heap_exhausted_message">প্যাচারটি %1$d MB হিপ মেমরি শেষ করে ফেলেছে। নির্বাচিত প্যাচগুলির জন্য এই অ্যাপটি খুব বড়। কম প্যাচ উৎস দিয়ে প্যাচ করার চেষ্টা করুন, অথবা কম প্যাচ নির্বাচন করুন।</string>
     <string name="install_app_success">সাফল্য়ের সাথে ইনস্টল করা হয়েছে</string>
     <string name="install_app_fail">অ্যাপ ইনস্টল করতে ব্যর্থ: %s</string>
     <string name="uninstall_app_fail">অ্যাপ আনইনস্টল করতে ব্যর্থ: %s</string>
@@ -578,8 +588,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">হোম স্ক্রিনে একটি শুভেচ্ছা বার্তা দেখান</string>
     <string name="settings_appearance_app_grouping">অ্যাপ grouping</string>
     <string name="settings_appearance_app_grouping_description">উৎস অথবা আপনার নিজের বিভাগ অনুসারে অ্যাপ grouping করার জন্য একটি হোম স্ক্রিন সুইচ দেখান, বন্ধ থাকা অবস্থায় নির্বাচন ধরে রাখুন।</string>
-    <string name="settings_appearance_sort_button">সর্ট করার বাটন</string>
-    <string name="settings_appearance_sort_button_description">হোম স্ক্রিনে সর্ট করার বাটনটি দেখান</string>
+    <string name="settings_appearance_sort_button">সাজানো ও ফিল্টার বাটন</string>
+    <string name="settings_appearance_sort_button_description">হোম স্ক্রিনে সাজানো ও ফিল্টার বাটন দেখান</string>
     <string name="settings_appearance_app_card_colors">অ্যাপ কার্ডের রং</string>
     <string name="settings_appearance_app_card_colors_default">ডিফল্ট</string>
     <string name="settings_appearance_app_card_colors_default_description">প্রতিটি অ্যাপকে তার নিজস্ব বান্ডেলের রং দিন</string>
@@ -1072,6 +1082,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="version">সংস্করণ</string>
     <string name="patch">প্যাচ</string>
     <string name="patching">প্যাচিং</string>
+    <string name="patched">প্যাচ করা</string>
     <string name="repatch">রিপ্যাচ</string>
     <string name="open">খুলুন</string>
     <string name="mount">মাউন্ট</string>

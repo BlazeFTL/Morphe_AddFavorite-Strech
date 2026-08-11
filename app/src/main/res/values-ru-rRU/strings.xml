@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Ваши источники обновлены</string>
     <string name="home_sources_are_loading">Загрузка источников, пожалуйста, подождите…</string>
     <string name="home_search_apps">Поиск приложений</string>
-    <string name="home_app_sort_title">Сортировка приложений</string>
+    <string name="home_app_list_options_title">Сортировка и фильтрация</string>
+    <string name="home_app_list_options_state_description">Отсортировано по %1$s, отфильтровано по %2$s</string>
+    <string name="home_app_filter_all_description">Все приложения на главном экране</string>
+    <string name="home_app_filter_patched_description">Приложения, которые вы пропатчили или сохранили с помощью Morphe</string>
+    <string name="home_app_filter_not_patched_description">Приложения, которые вы ещё не пропатчили в Morphe</string>
+    <string name="home_app_filter_installed_description">Приложения, установленные на этом устройстве</string>
+    <string name="home_app_filter_uninstalled_description">Приложения, пропатченные с помощью Morphe, которых больше нет на этом устройстве</string>
     <string name="home_app_sort_manual_description">Нажмите и удерживайте значок приложения, затем нажмите кнопку изменения порядка</string>
     <string name="home_app_sort_recommended">Рекомендуемый порядок</string>
     <string name="home_app_sort_recommended_description">Сначала установленные и закреплённые приложения</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Нет соответствующих приложений \"%s\"</string>
     <string name="home_all_apps_hidden_title">Все приложения скрыты</string>
     <string name="home_all_apps_hidden_subtitle">Вы скрыли все приложения с главного экрана</string>
+    <string name="home_no_apps_filter_title">Ни одно приложение не соответствует этому фильтру</string>
+    <string name="home_no_apps_filter_subtitle">Ничего не соответствует %s</string>
     <string name="home_category_add">Добавить категорию</string>
     <string name="home_category_all_apps">Все приложения</string>
     <string name="home_category_custom">Пользовательское</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Все патчи отключены</string>
     <string name="expert_mode_enable_all">Включить все</string>
     <string name="expert_mode_enable_all_done">Все патчи включены</string>
+    <string name="expert_mode_enable_all_universal_pending">Нажмите еще раз для универсальных патчей</string>
     <string name="expert_mode_reset_to_default">Включить рекомендованные патчи</string>
     <string name="expert_mode_reset_to_default_done">Рекомендуемые патчи применены</string>
     <string name="expert_mode_restore_saved">Восстановить сохраненный выбор</string>
@@ -461,6 +470,10 @@
     <string name="battery_optimization_dialog_description">На некоторых устройствах патчер может быть остановлен, когда приложение свернуто. Разрешите Morphe работать без ограничений заряда батареи, чтобы гарантировать надежное завершение патчинга.</string>
     <string name="battery_optimization_not_now">Не сейчас</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Недостаточно памяти</string>
+    <string name="patcher_memory_adjustment_description">Патчер был остановлен системой при работе с лимитом памяти %1$d МБ. Снижение лимита до %2$d МБ делает патчер менее заметной целью и может позволить завершить процесс.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Патчер был остановлен системой при работе с лимитом памяти %1$d МБ, что уже является минимально возможным. Попробуйте выполнить патчинг с меньшим количеством источников патчей или выберите меньшее количество патчей.</string>
+    <string name="patcher_memory_adjustment_apply">Снизить до %1$d МБ</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Идет установка исправлений…</string>
     <string name="patcher_notification_text">Нажмите, чтобы вернуться к патчеру</string>
@@ -502,6 +515,7 @@
     <string name="patched_app_save_failed_toast">Не удалось сохранить исправленное приложение</string>
     <string name="plugin_activity_dialog_body">Требуется взаимодействие пользователя для продолжения работы с этим плагином</string>
     <string name="patcher_process_exit_message">Процесс патчера завершился с кодом %s</string>
+    <string name="patcher_heap_exhausted_message">Патчеру не хватило памяти при куче размером %1$d МБ. Это приложение слишком велико для выбранных патчей. Попробуйте использовать меньше источников патчей или выберите меньше патчей.</string>
     <string name="install_app_success">Успешно установлено</string>
     <string name="install_app_fail">Не удалось установить приложение: %s</string>
     <string name="uninstall_app_fail">Не удалось удалить приложение: %s</string>
@@ -573,8 +587,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Показывать приветственное сообщение на главном экране</string>
     <string name="settings_appearance_app_grouping">Группировка приложений</string>
     <string name="settings_appearance_app_grouping_description">Отображать переключатель на главном экране для группировки приложений по источнику или вашим категориям, сохраняя выбор при отключении</string>
-    <string name="settings_appearance_sort_button">Кнопка сортировки</string>
-    <string name="settings_appearance_sort_button_description">Показывать кнопку сортировки на главном экране</string>
+    <string name="settings_appearance_sort_button">Кнопка сортировки и фильтрации</string>
+    <string name="settings_appearance_sort_button_description">Показывать кнопку сортировки и фильтрации на главном экране</string>
     <string name="settings_appearance_app_card_colors">Цвета карточек приложений</string>
     <string name="settings_appearance_app_card_colors_default">По умолчанию</string>
     <string name="settings_appearance_app_card_colors_default_description">Присваивать каждому приложению цвет его собственного набора</string>
@@ -1075,6 +1089,7 @@ morphe_header_custom_dark.png
     <string name="version">Версия</string>
     <string name="patch">Патч</string>
     <string name="patching">Патчинг</string>
+    <string name="patched">Пропатчен</string>
     <string name="repatch">Применить патч</string>
     <string name="open">Открыть</string>
     <string name="mount">Смонтировать</string>

@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Kanalan we nû kirin</string>
     <string name="home_sources_are_loading">Kanalan ketin, ji kerema xwe bibeku</string>
     <string name="home_search_apps">İlave avakurîn</string>
-    <string name="home_app_sort_title">Serîkirina sepanan</string>
+    <string name="home_app_list_options_title">Rêzkirin û fîltrekirin</string>
+    <string name="home_app_list_options_state_description">Rêzkirî li gorî %1$s, fîltrekirî li gorî %2$s</string>
+    <string name="home_app_filter_all_description">Her sepana li ser ekrana sereke</string>
+    <string name="home_app_filter_patched_description">Sepanên ku we bi Morphe pîne kirine an jî tomar kirine</string>
+    <string name="home_app_filter_not_patched_description">Sepanên ku we hê di Morphe de pîne nekirine</string>
+    <string name="home_app_filter_installed_description">Sepanên ku niha li ser vê cîhazê sazkirî ne</string>
+    <string name="home_app_filter_uninstalled_description">Sepanên ku bi Morphe ve hatine patchkirin û êdî li ser vê cîhazê nînin</string>
     <string name="home_app_sort_manual_description">Sepana dirêj bike, paşê bişîne ser butona rijandinê</string>
     <string name="home_app_sort_recommended">Rêza pêşniyarkirî</string>
     <string name="home_app_sort_recommended_description">Sepanên saz kirî û têxîkirî pêşî</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Tu din li gor \'%s\' hene</string>
     <string name="home_all_apps_hidden_title">Hemû serlêdanan veşartin</string>
     <string name="home_all_apps_hidden_subtitle">Ez hemû serlêdanan ji ekranê pêşîn veşartim</string>
+    <string name="home_no_apps_filter_title">Tu sepan bi vê parzûnê re li hev nayê</string>
+    <string name="home_no_apps_filter_subtitle">Tiştek bi %s re li hev nehat</string>
     <string name="home_category_add">Kategoriyê zêde bike</string>
     <string name="home_category_all_apps">Hemû sepan</string>
     <string name="home_category_custom">Sazkirî</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Hemû pelikên guherînê neçalak hatin kirin</string>
     <string name="expert_mode_enable_all">Hemû çêbakîne</string>
     <string name="expert_mode_enable_all_done">Hemû pelikên guherînê aktîv hatin kirin</string>
+    <string name="expert_mode_enable_all_universal_pending">Dîsa bikirtîne ji bo pêçekên gerdûnî</string>
     <string name="expert_mode_reset_to_default">Pêşdixeşinên pêşniyar kirî çêbêje</string>
     <string name="expert_mode_reset_to_default_done">Pelîkên ku hatine pêşniyar kirin hatin çêkirin</string>
     <string name="expert_mode_restore_saved">Şêvikî serdest vegerîne</string>
@@ -459,6 +468,10 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="battery_optimization_dialog_description">Heke sepan biçikînin, hin cîhazan dikarin paşgirê rawestînin. Ji bo ku paşgirê bi pêvehiyê qediya, bihêle Morphe bêyî astengiyên serfkirina batêriyê bixebite.</string>
     <string name="battery_optimization_not_now">Niha ne</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Bîra têra nake</string>
+    <string name="patcher_memory_adjustment_description">Patcher ji aliyê pergalê ve hate rawestandin dema ku bi sînorê bîrê %1$d MB dixebitî. Daxistina sînorî bo %2$d MB patcherê dike hedefeke piçûktir û dikare xebatê biqedîne.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Patcher ji aliyê pergalê ve hate rawestandin dema ku bi sînorê bîrê %1$d MB dixebitî, ku ev jixwe kêmtirîn sînorê berdest e. Hewl bidin ku bi çavkaniyên patchê yên kêmtir patch bikin, an jî patchên kêmtir hilbijêrin.</string>
+    <string name="patcher_memory_adjustment_apply">Daxîne bo %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patch kirin di pêşbaziyê de ye…</string>
     <string name="patcher_notification_text">Hêla bimeşin ser patcher</string>
@@ -500,6 +513,7 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="patched_app_save_failed_toast">Hate parastina sepeya patch kirî</string>
     <string name="plugin_activity_dialog_body">Bixweştana mêz rêk û pê dei bilinge da pêşbaziyê bi zaniye vê plugin you bo lazmî bîye se</string>
     <string name="patcher_process_exit_message">Prosesa guheztinê bi kodê %s xilas bû.</string>
+    <string name="patcher_heap_exhausted_message">Bîra patcherê bi heapê %1$d MB jî têr nekir. Ev sepan ji bo patchên hilbijartî pir mezin e. Hewl bidin ku bi çavkaniyên patchan ên kêmtir patch bikin, an patchên kêmtir hilbijêrin.</string>
     <string name="install_app_success">Bi ser ketin</string>
     <string name="install_app_fail">Serketina kuştina sepanê: %s</string>
     <string name="uninstall_app_fail">Serêxistina rakirina sepanê têk çû: %s</string>
@@ -572,8 +586,8 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_appearance_greeting_phrases_subtitle">Nîşanekê bi xêrhatinê li ser mîna malê nîşan bide</string>
     <string name="settings_appearance_app_grouping">Komkirina sepanan</string>
     <string name="settings_appearance_app_grouping_description">Nîşanekê bike ku sepanan bi çavkanî an kategoriyên te kom bike, hilbijarkirina xwe jî dema ku neçalak e parastin</string>
-    <string name="settings_appearance_sort_button">Dugmeya rêberkirinê</string>
-    <string name="settings_appearance_sort_button_description">Dugmeya rêberkirinê li ser mîhengê nîşan bide</string>
+    <string name="settings_appearance_sort_button">Bişkoka rêzkirin û parzûnkirinê</string>
+    <string name="settings_appearance_sort_button_description">Bişkoka rêzkirin û parzûnkirinê li ser ekrana malê nîşan bide</string>
     <string name="settings_appearance_app_card_colors">Rengên karta sepanê</string>
     <string name="settings_appearance_app_card_colors_default">Bixweber</string>
     <string name="settings_appearance_app_card_colors_default_description">Bi her sepanê rengê paketa wê bidin</string>
@@ -1075,6 +1089,7 @@ Detay: %2$s"</string>
     <string name="version">Versiyon</string>
     <string name="patch">Dîrok</string>
     <string name="patching">Patchkirin</string>
+    <string name="patched">Patchkirî</string>
     <string name="repatch">Sererêxane</string>
     <string name="open">Veşêre</string>
     <string name="mount">Çêkirin</string>

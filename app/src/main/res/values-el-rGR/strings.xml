@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Οι πηγές σας είναι ενημερωμένες</string>
     <string name="home_sources_are_loading">Οι πηγές φορτώνονται, παρακαλώ περιμένετε…</string>
     <string name="home_search_apps">Αναζήτηση εφαρμογών</string>
-    <string name="home_app_sort_title">Ταξινόμηση εφαρμογών</string>
+    <string name="home_app_list_options_title">Ταξινόμηση και φιλτράρισμα</string>
+    <string name="home_app_list_options_state_description">Ταξινομημένες κατά %1$s, φιλτραρισμένες κατά %2$s</string>
+    <string name="home_app_filter_all_description">Κάθε εφαρμογή στην αρχική οθόνη</string>
+    <string name="home_app_filter_patched_description">Εφαρμογές που έχετε επιδιορθώσει ή αποθηκεύσει με το Morphe</string>
+    <string name="home_app_filter_not_patched_description">Εφαρμογές που δεν έχετε επιδιορθώσει ακόμα στο Morphe</string>
+    <string name="home_app_filter_installed_description">Εφαρμογές που είναι εγκατεστημένες αυτήν τη στιγμή σε αυτήν τη συσκευή</string>
+    <string name="home_app_filter_uninstalled_description">Εφαρμογές που έχουν επιδιορθωθεί με το Morphe και δεν βρίσκονται πλέον σε αυτήν τη συσκευή</string>
     <string name="home_app_sort_manual_description">Πατήστε παρατεταμένα μια εφαρμογή, στη συνέχεια πατήστε το κουμπί αναδιάταξης</string>
     <string name="home_app_sort_recommended">Προτεινόμενη έκδοση</string>
     <string name="home_app_sort_recommended_description">Εγκατεστημένες και закрепленные εφαρμογές πρώτα</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Καμία εφαρμογή δεν ταιριάζει με το \"%s\"</string>
     <string name="home_all_apps_hidden_title">Όλες οι εφαρμογές είναι κρυφές</string>
     <string name="home_all_apps_hidden_subtitle">Έχετε αποκρύψει όλες τις εφαρμογές από την αρχική οθόνη</string>
+    <string name="home_no_apps_filter_title">Καμία εφαρμογή δεν ταιριάζει με αυτό το φίλτρο</string>
+    <string name="home_no_apps_filter_subtitle">Τίποτα δεν ταιριάζει με %s</string>
     <string name="home_category_add">Προσθήκη κατηγορίας</string>
     <string name="home_category_all_apps">Όλες οι εφαρμογές</string>
     <string name="home_category_custom">Προσαρμοσμένο</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Όλες οι διορθώσεις απενεργοποιήθηκαν</string>
     <string name="expert_mode_enable_all">Ενεργοποίηση όλων</string>
     <string name="expert_mode_enable_all_done">Όλες οι διορθώσεις ενεργοποιήθηκαν</string>
+    <string name="expert_mode_enable_all_universal_pending">Πατήστε ξανά για καθολικά patches</string>
     <string name="expert_mode_reset_to_default">Ενεργοποίηση συνιστώμενων διορθώσεων</string>
     <string name="expert_mode_reset_to_default_done">Εφαρμόστηκαν οι προτεινόμενες διορθώσεις</string>
     <string name="expert_mode_restore_saved">Επαναφορά αποθηκευμένης επιλογής</string>
@@ -461,6 +470,10 @@
     <string name="battery_optimization_dialog_description">Ορισμένες συσκευές ενδέχεται να σταματήσουν το πρόγραμμα επισκευής όταν η εφαρμογή ελαχιστοποιηθεί. Επιτρέψτε στο Morphe να εκτελείται χωρίς περιορισμούς μπαταρίας για να διασφαλίσετε ότι η επισκευή ολοκληρώνεται αξιόπιστα</string>
     <string name="battery_optimization_not_now">Όχι τώρα</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Δεν υπάρχει αρκετή μνήμη</string>
+    <string name="patcher_memory_adjustment_description">Το patcher σταμάτησε από το σύστημα ενώ εκτελούνταν με όριο μνήμης %1$d MB. Η μείωση του ορίου σε %2$d MB καθιστά το patcher μικρότερο στόχο και μπορεί να επιτρέψει την ολοκλήρωση της εκτέλεσης.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Το patcher σταμάτησε από το σύστημα ενώ εκτελούνταν με όριο μνήμης %1$d MB, το οποίο είναι ήδη το χαμηλότερο διαθέσιμο. Δοκιμάστε να επιδιορθώσετε με λιγότερες πηγές επιδιόρθωσης ή επιλέξτε λιγότερες επιδιορθώσεις.</string>
+    <string name="patcher_memory_adjustment_apply">Μειώστε σε %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Τροποποίηση σε εξέλιξη…</string>
     <string name="patcher_notification_text">Πατήστε για να επιστρέψετε στο πρόγραμμα τροποποίησης</string>
@@ -502,6 +515,7 @@
     <string name="patched_app_save_failed_toast">Αποτυχία αποθήκευσης της τροποποιημένης εφαρμογής</string>
     <string name="plugin_activity_dialog_body">Απαιτείται αλληλεπίδραση χρήστη για να συνεχίσετε με αυτό το πρόσθετο.</string>
     <string name="patcher_process_exit_message">Η διαδικασία του τροποποιητή σταμάτησε με κωδικό %s</string>
+    <string name="patcher_heap_exhausted_message">Ο patcher εξάντλησε τη μνήμη με μέγεθος σωρού %1$d MB. Αυτή η εφαρμογή είναι πολύ μεγάλη για τα επιλεγμένα patches. Δοκιμάστε να κάνετε patch με λιγότερες πηγές patch ή επιλέξτε λιγότερα patches.</string>
     <string name="install_app_success">Επιτυχής εγκατάσταση</string>
     <string name="install_app_fail">Απέτυχε η εγκατάσταση της εφαρμογής: %s</string>
     <string name="uninstall_app_fail">Αποfailed να απεγκατασταθεί η εφαρμογή: %s</string>
@@ -574,8 +588,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Εμφάνιση μηνύματος υποδοχής στην αρχική οθόνη</string>
     <string name="settings_appearance_app_grouping">Ομαδοποίηση εφαρμογών</string>
     <string name="settings_appearance_app_grouping_description">Εμφάνιση διακόπτη στην αρχική οθόνη για ομαδοποίηση εφαρμογών κατά πηγή ή δικές σας κατηγορίες, διατηρώντας την επιλογή όταν είναι απενεργοποιημένη</string>
-    <string name="settings_appearance_sort_button">Κουμπί ταξινόμησης</string>
-    <string name="settings_appearance_sort_button_description">Εμφάνιση του κουμπιού ταξινόμησης στην αρχική οθόνη</string>
+    <string name="settings_appearance_sort_button">Κουμπί ταξινόμησης και φιλτραρίσματος</string>
+    <string name="settings_appearance_sort_button_description">Εμφάνιση του κουμπιού ταξινόμησης και φιλτραρίσματος στην αρχική οθόνη</string>
     <string name="settings_appearance_app_card_colors">Χρώματα καρτών εφαρμογών</string>
     <string name="settings_appearance_app_card_colors_default">Προεπιλογή</string>
     <string name="settings_appearance_app_card_colors_default_description">Δώστε σε κάθε εφαρμογή το χρώμα του δικού της πακέτου</string>
@@ -1077,6 +1091,7 @@ morphe_header_custom_dark.png
     <string name="version">Έκδοση</string>
     <string name="patch">Τροποποίηση</string>
     <string name="patching">Τροποποίηση</string>
+    <string name="patched">Τροποποιήθηκε</string>
     <string name="repatch">Επανεφαρμογή τροποποιήσεων</string>
     <string name="open">Άνοιγμα</string>
     <string name="mount">Προσάρτηση</string>

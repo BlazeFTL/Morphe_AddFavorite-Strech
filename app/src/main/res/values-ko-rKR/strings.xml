@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">소스가 최신 상태입니다</string>
     <string name="home_sources_are_loading">소스를 불러오는 중, 잠시만 기다려 주세요…</string>
     <string name="home_search_apps">앱 검색</string>
-    <string name="home_app_sort_title">앱 정렬</string>
+    <string name="home_app_list_options_title">정렬 및 필터</string>
+    <string name="home_app_list_options_state_description">%1$s 기준으로 정렬, %2$s 기준으로 필터링됨</string>
+    <string name="home_app_filter_all_description">홈 화면의 모든 앱</string>
+    <string name="home_app_filter_patched_description">Morphe로 패치하거나 저장한 앱</string>
+    <string name="home_app_filter_not_patched_description">아직 Morphe에서 패치하지 않은 앱</string>
+    <string name="home_app_filter_installed_description">현재 이 기기에 설치된 앱</string>
+    <string name="home_app_filter_uninstalled_description">Morphe로 패치되었지만 더 이상 이 기기에 없는 앱</string>
     <string name="home_app_sort_manual_description">앱을 길게 탭한 후에 정렬 버튼을 탭하면 순서를 변경할 수 있습니다</string>
     <string name="home_app_sort_recommended">권장 순서</string>
     <string name="home_app_sort_recommended_description">설치된 앱 및 고정된 앱을 먼저 표시</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">\'%s\'와 일치하는 앱이 없습니다</string>
     <string name="home_all_apps_hidden_title">모든 앱이 숨겨집니다</string>
     <string name="home_all_apps_hidden_subtitle">홈 화면에서 모든 앱이 숨겨집니다</string>
+    <string name="home_no_apps_filter_title">이 필터와 일치하는 앱이 없습니다</string>
+    <string name="home_no_apps_filter_subtitle">\'%s\'와 일치하는 항목이 없습니다</string>
     <string name="home_category_add">카테고리 추가</string>
     <string name="home_category_all_apps">모든 앱</string>
     <string name="home_category_custom">사용자 정의</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">모든 패치를 비활성화하였습니다</string>
     <string name="expert_mode_enable_all">모두 활성화</string>
     <string name="expert_mode_enable_all_done">모든 패치를 활성화하였습니다</string>
+    <string name="expert_mode_enable_all_universal_pending">유니버설 패치를 위해 다시 탭하세요</string>
     <string name="expert_mode_reset_to_default">패치 기본값으로 초기화</string>
     <string name="expert_mode_reset_to_default_done">권장 패치를 적용하였습니다</string>
     <string name="expert_mode_restore_saved">저장된 선택 목록으로 복원</string>
@@ -234,7 +243,7 @@
     <string name="expert_mode_copy_from_bundle">다른 번들에서 선택 목록 복사</string>
     <string name="expert_mode_copy_from_bundle_no_patches">이 번들에는 일치하는 패치가 없습니다</string>
     <string name="expert_mode_no_results">패치를 찾을 수 없습니다</string>
-    <string name="expert_mode_universal_patches">유니버셜 패치</string>
+    <string name="expert_mode_universal_patches">유니버설 패치</string>
     <string name="expert_mode_new_patches">신규</string>
     <string name="expert_mode_patch_required_by_installer">선택한 설치 대상에 필요합니다</string>
     <string name="expert_mode_patch_unavailable_for_installer">선택한 설치 대상에 사용할 수 없습니다</string>
@@ -578,8 +587,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">홈 화면에 인사말을 표시합니다</string>
     <string name="settings_appearance_app_grouping">앱 그룹화</string>
     <string name="settings_appearance_app_grouping_description">앱 출처 또는 사용자 정의 카테고리별로 앱을 그룹화하는 홈 화면 전환기를 표시하며, 비활성화할 경우에는 선택 사항을 유지합니다</string>
-    <string name="settings_appearance_sort_button">정렬 버튼</string>
-    <string name="settings_appearance_sort_button_description">홈 화면에 정렬 버튼을 표시합니다</string>
+    <string name="settings_appearance_sort_button">정렬 및 필터 버튼</string>
+    <string name="settings_appearance_sort_button_description">홈 화면에 정렬 및 필터 버튼을 표시합니다</string>
     <string name="settings_appearance_app_card_colors">앱 카드 색상</string>
     <string name="settings_appearance_app_card_colors_default">기본값</string>
     <string name="settings_appearance_app_card_colors_default_description">각 앱에 해당 앱 번들의 고유 색상을 적용합니다</string>
@@ -801,7 +810,7 @@ morphe_header_custom_dark.png
     <string name="installer_play_store_mode">Play 스토어로 설치</string>
     <string name="installer_play_store_mode_description">이 설치 방법의 앱 설치 출처로 Google Play 스토어를 기록합니다</string>
     <string name="settings_prompt_installer_on_install">설치 프로그램 선택 프롬프트</string>
-    <string name="settings_prompt_installer_on_install_description">패치된 앱을 설치할 때마다 설치 프로그램 선택 다이얼로그를 표시합니다</string>
+    <string name="settings_prompt_installer_on_install_description">패치된 앱을 설치할 때마다 설치 프로그램 선택 대화 상자를 표시합니다</string>
     <string name="settings_auto_install_with_shizuku">패치 후 자동 설치</string>
     <string name="settings_auto_install_with_shizuku_description">패치가 완료되는 즉시 패치된 APK를 자동으로 설치합니다</string>
     <string name="settings_auto_uninstall_with_shizuku">충돌 시 자동 제거</string>
@@ -1080,6 +1089,7 @@ morphe_header_custom_dark.png
     <string name="version">버전</string>
     <string name="patch">패치</string>
     <string name="patching">패치</string>
+    <string name="patched">패치 일자</string>
     <string name="repatch">다시 패치</string>
     <string name="open">열기</string>
     <string name="mount">마운트</string>

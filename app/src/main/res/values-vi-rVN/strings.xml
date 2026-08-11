@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Đã cập nhật tất cả nguồn lên mới nhất</string>
     <string name="home_sources_are_loading">Đang tải nguồn, vui lòng chờ…</string>
     <string name="home_search_apps">Tìm ứng dụng</string>
-    <string name="home_app_sort_title">Sắp xếp ứng dụng</string>
+    <string name="home_app_list_options_title">Sắp xếp và lọc</string>
+    <string name="home_app_list_options_state_description">Đã sắp xếp theo %1$s, đã lọc theo %2$s</string>
+    <string name="home_app_filter_all_description">Mọi ứng dụng trên màn hình chính</string>
+    <string name="home_app_filter_patched_description">Các ứng dụng bạn đã vá hoặc lưu bằng Morphe</string>
+    <string name="home_app_filter_not_patched_description">Các ứng dụng bạn chưa vá trong Morphe</string>
+    <string name="home_app_filter_installed_description">Ứng dụng hiện đang được cài đặt trên thiết bị này</string>
+    <string name="home_app_filter_uninstalled_description">Ứng dụng đã vá bằng Morphe không còn trên thiết bị này</string>
     <string name="home_app_sort_manual_description">Bấm giữ một ứng dụng, sau đó chọn nút sắp xếp lại</string>
     <string name="home_app_sort_recommended">Thứ tự đề xuất</string>
     <string name="home_app_sort_recommended_description">Ưu tiên ứng dụng đã cài đặt và được ghim trước</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Không có ứng dụng nào khớp với \"%s\"</string>
     <string name="home_all_apps_hidden_title">Tất cả ứng dụng đã bị ẩn</string>
     <string name="home_all_apps_hidden_subtitle">Bạn đã ẩn tất cả ứng dụng khỏi trang chủ</string>
+    <string name="home_no_apps_filter_title">Không có ứng dụng nào khớp với bộ lọc này</string>
+    <string name="home_no_apps_filter_subtitle">Không có gì khớp với %s</string>
     <string name="home_category_add">Thêm danh mục</string>
     <string name="home_category_all_apps">Tất cả ứng dụng</string>
     <string name="home_category_custom">Tùy chỉnh</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Đã tắt tất cả bản vá</string>
     <string name="expert_mode_enable_all">Bật tất cả</string>
     <string name="expert_mode_enable_all_done">Đã bật tất cả bản vá</string>
+    <string name="expert_mode_enable_all_universal_pending">Chạm lại để dùng các bản vá phổ quát</string>
     <string name="expert_mode_reset_to_default">Bật các bản vá đề xuất</string>
     <string name="expert_mode_reset_to_default_done">Đã áp dụng các bản vá đề xuất</string>
     <string name="expert_mode_restore_saved">Khôi phục lựa chọn đã lưu</string>
@@ -461,6 +470,10 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="battery_optimization_dialog_description">Một số thiết bị có thể tắt trình vá khi ứng dụng bị thu nhỏ. Cho phép Morphe chạy không giới hạn pin để quá trình vá hoàn thành ổn định</string>
     <string name="battery_optimization_not_now">Từ từ</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Không đủ bộ nhớ</string>
+    <string name="patcher_memory_adjustment_description">Trình vá đã bị hệ thống dừng khi đang chạy với giới hạn bộ nhớ %1$d MB. Hạ giới hạn xuống %2$d MB khiến trình vá trở thành mục tiêu nhỏ hơn và có thể giúp quá trình chạy hoàn tất.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Trình vá đã bị hệ thống dừng khi đang chạy với giới hạn bộ nhớ %1$d MB, vốn đã là mức thấp nhất hiện có. Hãy thử vá với ít nguồn vá hơn hoặc chọn ít bản vá hơn.</string>
+    <string name="patcher_memory_adjustment_apply">Hạ xuống %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Đang vá…</string>
     <string name="patcher_notification_text">Bấm để quay trở lại trình vá</string>
@@ -502,6 +515,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patched_app_save_failed_toast">Không thể lưu ứng dụng đã vá</string>
     <string name="plugin_activity_dialog_body">Bạn vẫn cần tự thao tác để tải ứng dụng</string>
     <string name="patcher_process_exit_message">Đã dừng tiến trình vá với mã lỗi %s</string>
+    <string name="patcher_heap_exhausted_message">Trình vá đã hết bộ nhớ với heap %1$d MB. Ứng dụng này quá lớn so với các bản vá đã chọn. Hãy thử vá với ít nguồn vá hơn hoặc chọn ít bản vá hơn.</string>
     <string name="install_app_success">Đã cài đặt thành công</string>
     <string name="install_app_fail">Không thể cài đặt ứng dụng: %s</string>
     <string name="uninstall_app_fail">Không thể gỡ cài đặt: %s</string>
@@ -574,8 +588,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_greeting_phrases_subtitle">Hiện thông điệp trên trang chủ</string>
     <string name="settings_appearance_app_grouping">Nhóm ứng dụng</string>
     <string name="settings_appearance_app_grouping_description">Hiển thị công tắc màn hình chính để nhóm ứng dụng theo nguồn hoặc danh mục của riêng bạn, giữ lựa chọn khi tắt</string>
-    <string name="settings_appearance_sort_button">Nút sắp xếp</string>
-    <string name="settings_appearance_sort_button_description">Hiển thị nút sắp xếp trên màn hình chính</string>
+    <string name="settings_appearance_sort_button">Nút sắp xếp và lọc</string>
+    <string name="settings_appearance_sort_button_description">Hiển thị nút sắp xếp và lọc trên màn hình chính</string>
     <string name="settings_appearance_app_card_colors">Màu thẻ ứng dụng</string>
     <string name="settings_appearance_app_card_colors_default">Mặc định</string>
     <string name="settings_appearance_app_card_colors_default_description">Gán màu của gói ứng dụng cho mỗi ứng dụng</string>
@@ -1077,6 +1091,7 @@ Chi tiết: %2$s"</string>
     <string name="version">Phiên bản</string>
     <string name="patch">Vá</string>
     <string name="patching">Đang vá</string>
+    <string name="patched">Đã vá</string>
     <string name="repatch">Vá lại</string>
     <string name="open">Mở</string>
     <string name="mount">Gắn kết</string>

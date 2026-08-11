@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Sursele tale sunt actualizate</string>
     <string name="home_sources_are_loading">Se încarcă sursele…</string>
     <string name="home_search_apps">Caută aplicații</string>
-    <string name="home_app_sort_title">Sortați aplicațiile</string>
+    <string name="home_app_list_options_title">Sortare și filtrare</string>
+    <string name="home_app_list_options_state_description">Sortate după %1$s, filtrate după %2$s</string>
+    <string name="home_app_filter_all_description">Fiecare aplicație de pe ecranul principal</string>
+    <string name="home_app_filter_patched_description">Aplicațiile pe care le-ai modificat sau salvat cu Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplicațiile pe care nu le-ai modificat încă în Morphe</string>
+    <string name="home_app_filter_installed_description">Aplicații instalate în prezent pe acest dispozitiv</string>
+    <string name="home_app_filter_uninstalled_description">Aplicații patch-uite cu Morphe care nu mai sunt pe acest dispozitiv</string>
     <string name="home_app_sort_manual_description">Apăsați lung pe o aplicație, apoi atingeți butonul de reordonare</string>
     <string name="home_app_sort_recommended">Ordinare recomandată</string>
     <string name="home_app_sort_recommended_description">Aplicațiile instalate și fixate primele</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Nici o aplicație nu corespunde cu \"%s\"</string>
     <string name="home_all_apps_hidden_title">Toate aplicațiile sunt ascunse</string>
     <string name="home_all_apps_hidden_subtitle">Ați ascuns toate aplicațiile de pe ecranul principal</string>
+    <string name="home_no_apps_filter_title">Nicio aplicație nu corespunde acestui filtru</string>
+    <string name="home_no_apps_filter_subtitle">Nimic nu corespunde cu %s</string>
     <string name="home_category_add">Adaugă categorie</string>
     <string name="home_category_all_apps">Toate aplicațiile</string>
     <string name="home_category_custom">Personalizat</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Toate patch-urile dezactivate</string>
     <string name="expert_mode_enable_all">Activează toate</string>
     <string name="expert_mode_enable_all_done">Toate patch-urile activate</string>
+    <string name="expert_mode_enable_all_universal_pending">Atingeți din nou pentru patch-uri universale</string>
     <string name="expert_mode_reset_to_default">Activează patch-urile recomandate</string>
     <string name="expert_mode_reset_to_default_done">Patch-urile recomandate au fost aplicate</string>
     <string name="expert_mode_restore_saved">Restaurarea selecției salvate</string>
@@ -461,6 +470,10 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="battery_optimization_dialog_description">Unele dispozitive pot opri patcher-ul când aplicația este minimizată. Permiteți aplicației Morphe să ruleze fără restricții de baterie pentru a asigura finalizarea fiabilă a patch-urilor</string>
     <string name="battery_optimization_not_now">Nu acum</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Memorie insuficientă</string>
+    <string name="patcher_memory_adjustment_description">Patcher-ul a fost oprit de sistem în timp ce rula cu o limită de memorie de %1$d MB. Scăderea limitei la %2$d MB face din patcher o țintă mai mică și poate permite finalizarea rulării.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Patcher-ul a fost oprit de sistem în timp ce rula cu o limită de memorie de %1$d MB, care este deja cea mai mică disponibilă. Încearcă să aplici patch-uri cu mai puține surse de patch-uri sau selectează mai puține patch-uri.</string>
+    <string name="patcher_memory_adjustment_apply">Scade la %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Se aplică modificările…</string>
     <string name="patcher_notification_text">Atinge pentru a reveni la patcher</string>
@@ -502,6 +515,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patched_app_save_failed_toast">Eroare la salvarea aplicației modificate</string>
     <string name="plugin_activity_dialog_body">Este necesară interacțiunea utilizatorului pentru a continua cu acest plugin</string>
     <string name="patcher_process_exit_message">Procesul patcher-ului s-a încheiat cu codul %s</string>
+    <string name="patcher_heap_exhausted_message">Patcher-ul a rămas fără memorie cu un heap de %1$d MB. Această aplicație este prea mare pentru patch-urile selectate. Încearcă să aplici patch-uri cu mai puține surse de patch-uri sau selectează mai puține patch-uri.</string>
     <string name="install_app_success">Instalat cu succes</string>
     <string name="install_app_fail">Nu s-a putut instala aplicația: %s</string>
     <string name="uninstall_app_fail">Eșuat la dezinstalarea aplicației: %s</string>
@@ -573,8 +587,8 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Afișează un mesaj de salut pe ecranul principal</string>
     <string name="settings_appearance_app_grouping">Gruparea aplicațiilor</string>
     <string name="settings_appearance_app_grouping_description">Afișează un comutator al ecranului principal pentru a grupa aplicațiile după sursă sau după propriile categorii, menținând selecția când este dezactivat</string>
-    <string name="settings_appearance_sort_button">Buton sortare</string>
-    <string name="settings_appearance_sort_button_description">Afișează butonul de sortare pe ecranul principal</string>
+    <string name="settings_appearance_sort_button">Buton de sortare și filtrare</string>
+    <string name="settings_appearance_sort_button_description">Afișează butonul de sortare și filtrare pe ecranul de pornire</string>
     <string name="settings_appearance_app_card_colors">Culori card aplicație</string>
     <string name="settings_appearance_app_card_colors_default">Implicit</string>
     <string name="settings_appearance_app_card_colors_default_description">Oferă fiecărei aplicații culoarea propriului pachet</string>
@@ -1076,6 +1090,7 @@ Detalii: %2$s"</string>
     <string name="version">Versiune</string>
     <string name="patch">Patch-uiește</string>
     <string name="patching">Se aplică patch-uri</string>
+    <string name="patched">Patch-uite</string>
     <string name="repatch">Patch-uiește din nou</string>
     <string name="open">Deschide</string>
     <string name="mount">Montează</string>

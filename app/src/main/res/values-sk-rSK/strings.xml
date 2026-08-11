@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Vaše zdroje sú aktuálne</string>
     <string name="home_sources_are_loading">Zdroje sa načítavajú, prosím počkajte…</string>
     <string name="home_search_apps">Vyhľadávanie aplikácií</string>
-    <string name="home_app_sort_title">Zoradiť aplikácie</string>
+    <string name="home_app_list_options_title">Zoradiť a filtrovať</string>
+    <string name="home_app_list_options_state_description">Zoradené podľa %1$s, filtrované podľa %2$s</string>
+    <string name="home_app_filter_all_description">Všetky aplikácie na domovskej obrazovke</string>
+    <string name="home_app_filter_patched_description">Aplikácie, ktoré ste opatchovali alebo uložili pomocou Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplikácie, ktoré ste v Morphe ešte neopatchovali</string>
+    <string name="home_app_filter_installed_description">Aplikácie aktuálne nainštalované v tomto zariadení</string>
+    <string name="home_app_filter_uninstalled_description">Aplikácie opatchované pomocou Morphe, ktoré už nie sú v tomto zariadení</string>
     <string name="home_app_sort_manual_description">Dlhým stlačením aplikácie a potom klepnutím na tlačidlo zoradiť</string>
     <string name="home_app_sort_recommended">Odporúčaná verzia</string>
     <string name="home_app_sort_recommended_description">Najprv nainštalované a pripnuté aplikácie</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Žiadne aplikácie sa nezhodujú s \"%s\"</string>
     <string name="home_all_apps_hidden_title">Všetky aplikácie sú skryté</string>
     <string name="home_all_apps_hidden_subtitle">Skryli ste všetky aplikácie z domovskej obrazovky</string>
+    <string name="home_no_apps_filter_title">Žiadne aplikácie nezodpovedajú tomuto filtru</string>
+    <string name="home_no_apps_filter_subtitle">Nič nezodpovedá %s</string>
     <string name="home_category_add">Pridať kategóriu</string>
     <string name="home_category_all_apps">Všetky aplikácie</string>
     <string name="home_category_custom">Vlastné</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Všetky záplaty sú vypnuté</string>
     <string name="expert_mode_enable_all">Povoliť všetko</string>
     <string name="expert_mode_enable_all_done">Všetky záplaty sú zapnuté</string>
+    <string name="expert_mode_enable_all_universal_pending">Klepnite znova pre univerzálne záplaty</string>
     <string name="expert_mode_reset_to_default">Povoľte odporúčané záplaty</string>
     <string name="expert_mode_reset_to_default_done">Odporúčané záplaty boli použité</string>
     <string name="expert_mode_restore_saved">Obnoviť uloženú voľbu</string>
@@ -461,6 +470,10 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="battery_optimization_dialog_description">Na niektorých zariadeniach sa záplatovač môže zastaviť, keď je aplikácia minimalizovaná. Povolenie aplikácii Morphe spúšťanie bez obmedzení batérie zabezpečí spoľahlivé dokončenie záplatovania.</string>
     <string name="battery_optimization_not_now">Neskoršie</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Nedostatok pamäte</string>
+    <string name="patcher_memory_adjustment_description">Patcher bol zastavený systémom počas behu s limitom pamäte %1$d MB. Zníženie limitu na %2$d MB z neho urobí menší cieľ a môže umožniť dokončenie behu.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Patcher bol zastavený systémom počas behu s limitom pamäte %1$d MB, ktorý je už najnižší dostupný. Skúste použiť menej zdrojov opráv alebo vyberte menej opráv.</string>
+    <string name="patcher_memory_adjustment_apply">Znížiť na %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Prebieha plátanie...</string>
     <string name="patcher_notification_text">Ťuknite pre návrat do plátača</string>
@@ -502,6 +515,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="patched_app_save_failed_toast">Nepodarilo sa uložiť zaplátanú aplikáciu</string>
     <string name="plugin_activity_dialog_body">Vyžaduje sa interakcia používateľa, aby bolo možné pokračovať s týmto pluginom</string>
     <string name="patcher_process_exit_message">Proces plátania skončil s kódom %s</string>
+    <string name="patcher_heap_exhausted_message">Patcheru došla pamäť s haldou veľkosti %1$d MB. Táto aplikácia je príliš veľká na vybrané patche. Skúste patchovať s menším počtom zdrojov patchov alebo vyberte menej patchov.</string>
     <string name="install_app_success">Úspešne nainštalované</string>
     <string name="install_app_fail">Nepodarilo sa nainštalovať aplikáciu: %s</string>
     <string name="uninstall_app_fail">Nepodarilo sa odinštalovať aplikáciu: %s</string>
@@ -574,8 +588,8 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazovať pozdravnú správu na domovskej obrazovke</string>
     <string name="settings_appearance_app_grouping">Zoskupovanie aplikácií</string>
     <string name="settings_appearance_app_grouping_description">Zobraziť prepínač na domácej obrazovke na zoskupovanie aplikácií podľa zdroja alebo vlastných kategórií, pričom výber sa zachová aj keď je vypnutý</string>
-    <string name="settings_appearance_sort_button">Tlačidlo zoradenia</string>
-    <string name="settings_appearance_sort_button_description">Zobraziť tlačidlo zoradenia na domovskej obrazovke</string>
+    <string name="settings_appearance_sort_button">Tlačidlo triedenia a filtrovania</string>
+    <string name="settings_appearance_sort_button_description">Zobraziť tlačidlo triedenia a filtrovania na domovskej obrazovke</string>
     <string name="settings_appearance_app_card_colors">Farby karty aplikácie</string>
     <string name="settings_appearance_app_card_colors_default">Predvolená</string>
     <string name="settings_appearance_app_card_colors_default_description">Priradiť každej aplikácii farbu jej vlastného balíka</string>
@@ -1077,6 +1091,7 @@ Podrobnosti: %2$s"</string>
     <string name="version">Verzia</string>
     <string name="patch">Zaplátať</string>
     <string name="patching">Záplatovanie</string>
+    <string name="patched">Zaplátané</string>
     <string name="repatch">Znovu zaplátať</string>
     <string name="open">Otvoriť</string>
     <string name="mount">Pripojiť</string>

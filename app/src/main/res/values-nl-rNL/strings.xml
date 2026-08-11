@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Uw bronnen zijn up-to-date</string>
     <string name="home_sources_are_loading">Bronnen worden geladen, even geduld…</string>
     <string name="home_search_apps">Apps zoeken</string>
-    <string name="home_app_sort_title">Sorteer apps</string>
+    <string name="home_app_list_options_title">Sorteren en filteren</string>
+    <string name="home_app_list_options_state_description">Gesorteerd op %1$s, gefilterd op %2$s</string>
+    <string name="home_app_filter_all_description">Elke app op het startscherm</string>
+    <string name="home_app_filter_patched_description">Apps die je met Morphe hebt gepatcht of opgeslagen</string>
+    <string name="home_app_filter_not_patched_description">Apps die je nog niet in Morphe hebt gepatcht</string>
+    <string name="home_app_filter_installed_description">Apps die momenteel op dit apparaat zijn geïnstalleerd</string>
+    <string name="home_app_filter_uninstalled_description">Apps die met Morphe zijn gepatcht en niet meer op dit apparaat staan</string>
     <string name="home_app_sort_manual_description">Houd een app ingedrukt en tik vervolgens op de herordenen-knop</string>
     <string name="home_app_sort_recommended">Aanbevolen volgorde</string>
     <string name="home_app_sort_recommended_description">Geïnstalleerde en vastgezette apps eerst</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Er zijn geen apps die overeenkomen met \"%s\"</string>
     <string name="home_all_apps_hidden_title">Alle apps zijn verborgen</string>
     <string name="home_all_apps_hidden_subtitle">U heeft alle apps van het startscherm verborgen</string>
+    <string name="home_no_apps_filter_title">Geen apps voldoen aan dit filter</string>
+    <string name="home_no_apps_filter_subtitle">Niets kwam overeen met %s</string>
     <string name="home_category_add">Categorie toevoegen</string>
     <string name="home_category_all_apps">Alle apps</string>
     <string name="home_category_custom">Aangepast</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Alle patches uitgeschakeld</string>
     <string name="expert_mode_enable_all">Alles inschakelen</string>
     <string name="expert_mode_enable_all_done">Alle patches ingeschakeld</string>
+    <string name="expert_mode_enable_all_universal_pending">Tik opnieuw voor universele patches</string>
     <string name="expert_mode_reset_to_default">Aanbevolen patches inschakelen</string>
     <string name="expert_mode_reset_to_default_done">Aanbevolen patches toegepast</string>
     <string name="expert_mode_restore_saved">Selectie opslaan herstellen</string>
@@ -506,6 +515,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patched_app_save_failed_toast">Kon gepatchte app niet opslaan</string>
     <string name="plugin_activity_dialog_body">Gebruikersinteractie is vereist om te kunnen doorgaan met deze plugin</string>
     <string name="patcher_process_exit_message">Patcher-proces is afgesloten met code %s</string>
+    <string name="patcher_heap_exhausted_message">De patcher heeft onvoldoende geheugen met een heap van %1$d MB. Deze app is te groot voor de geselecteerde patches. Probeer te patchen met minder patchbronnen, of selecteer minder patches.</string>
     <string name="install_app_success">Succesvol geïnstalleerd</string>
     <string name="install_app_fail">Kon app niet installeren: %s</string>
     <string name="uninstall_app_fail">Kon de app niet verwijderen: %s</string>
@@ -578,8 +588,8 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Toon een begroetingsbericht op de startscherm</string>
     <string name="settings_appearance_app_grouping">App-groepering</string>
     <string name="settings_appearance_app_grouping_description">Toon een schakelaar op het startscherm om apps te groeperen op bron of eigen categorieën, en selecteer deze instelling wanneer deze uit staat</string>
-    <string name="settings_appearance_sort_button">Sorteer knop</string>
-    <string name="settings_appearance_sort_button_description">Toon de sorteerknop op het startscherm</string>
+    <string name="settings_appearance_sort_button">Sorteer- en filterknop</string>
+    <string name="settings_appearance_sort_button_description">Toon de sorteer- en filterknop op het startscherm</string>
     <string name="settings_appearance_app_card_colors">App-kaart kleuren</string>
     <string name="settings_appearance_app_card_colors_default">Standaard</string>
     <string name="settings_appearance_app_card_colors_default_description">Geef elke app de kleur van zijn eigen bundle</string>
@@ -1081,6 +1091,7 @@ Details: %2$s"</string>
     <string name="version">Versie</string>
     <string name="patch">Patchen</string>
     <string name="patching">Patchen</string>
+    <string name="patched">Gepatcht</string>
     <string name="repatch">Opnieuw patchen</string>
     <string name="open">Openen</string>
     <string name="mount">Mount</string>

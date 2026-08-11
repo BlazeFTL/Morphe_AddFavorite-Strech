@@ -36,7 +36,13 @@
     <string name="home_update_success_subtitle">Deine Quellen sind auf dem neuesten Stand</string>
     <string name="home_sources_are_loading"> Quellen werden geladen, bitte warten…</string>
     <string name="home_search_apps">Apps suchen</string>
-    <string name="home_app_sort_title">Apps sortieren</string>
+    <string name="home_app_list_options_title">Sortieren und Filtern</string>
+    <string name="home_app_list_options_state_description">Sortiert nach %1$s, gefiltert nach %2$s</string>
+    <string name="home_app_filter_all_description">Jede App auf dem Startbildschirm</string>
+    <string name="home_app_filter_patched_description">Apps, die du mit Morphe gepatcht oder gespeichert hast</string>
+    <string name="home_app_filter_not_patched_description">Apps, die du noch nicht in Morphe gepatcht hast</string>
+    <string name="home_app_filter_installed_description">Apps, die derzeit auf diesem Gerät installiert sind</string>
+    <string name="home_app_filter_uninstalled_description">Apps, die mit Morphe gepatcht wurden und nicht mehr auf diesem Gerät vorhanden sind</string>
     <string name="home_app_sort_manual_description">Halte eine App lange gedrückt und tippe dann auf die Schaltfläche zum Sortieren</string>
     <string name="home_app_sort_recommended">Empfohlene Reihenfolge</string>
     <string name="home_app_sort_recommended_description">Installierte und angeheftete Apps zuerst</string>
@@ -49,6 +55,8 @@
     <string name="home_no_apps_search_subtitle">Keine Apps passen zu \"%s\"</string>
     <string name="home_all_apps_hidden_title">Alle Apps sind ausgeblendet</string>
     <string name="home_all_apps_hidden_subtitle">Sie haben alle Apps vom Startbildschirm ausgeblendet</string>
+    <string name="home_no_apps_filter_title">Keine Apps entsprechen diesem Filter</string>
+    <string name="home_no_apps_filter_subtitle">Nichts entspricht %s</string>
     <string name="home_category_add">Kategorie hinzufügen</string>
     <string name="home_category_all_apps">Alle Apps</string>
     <string name="home_category_custom">Benutzerdefiniert</string>
@@ -227,6 +235,7 @@
     <string name="expert_mode_disable_all_done">Alle Patches deaktiviert</string>
     <string name="expert_mode_enable_all">Alle aktivieren</string>
     <string name="expert_mode_enable_all_done">Alle Patches aktiviert</string>
+    <string name="expert_mode_enable_all_universal_pending">Tippe erneut für universelle Patches</string>
     <string name="expert_mode_reset_to_default">Empfohlene Patches aktivieren</string>
     <string name="expert_mode_reset_to_default_done">Empfohlene Patches angewendet</string>
     <string name="expert_mode_restore_saved">Gespeicherte Auswahl wiederherstellen</string>
@@ -462,6 +471,10 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="battery_optimization_dialog_description">Auf einigen Geräten wird das Patchen unterbrochen, sobald die App minimiert wird. Erlaube Morphe, ohne Akkuoptimierung im Hintergrund zu laufen, um sicherzustellen, dass der Vorgang zuverlässig abgeschlossen wird</string>
     <string name="battery_optimization_not_now">Nicht jetzt</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Nicht genügend Speicher</string>
+    <string name="patcher_memory_adjustment_description">Der Patcher wurde vom System beendet, während er mit einem Speicherlimit von %1$d MB ausgeführt wurde. Das Senken des Limits auf %2$d MB macht den Patcher zu einem kleineren Ziel und kann dafür sorgen, dass der Lauf abgeschlossen wird.</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Der Patcher wurde vom System beendet, während er mit einem Speicherlimit von %1$d MB ausgeführt wurde, was bereits das niedrigste verfügbare Limit ist. Versuche, mit weniger Patchquellen zu patchen, oder wähle weniger Patches aus.</string>
+    <string name="patcher_memory_adjustment_apply">Auf %1$d MB senken</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Patch-Vorgang läuft…</string>
     <string name="patcher_notification_text">Zum Patcher zurückkehren</string>
@@ -503,6 +516,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="patched_app_save_failed_toast">Speichern der gepatchten App fehlgeschlagen</string>
     <string name="plugin_activity_dialog_body">Benutzerinteraktion ist erforderlich, um dieses Plugin fortzusetzen</string>
     <string name="patcher_process_exit_message">Patcher-Prozess wurde mit Code %s beendet</string>
+    <string name="patcher_heap_exhausted_message">Dem Patcher ging bei einem Heap von %1$d MB der Speicher aus. Diese App ist zu groß für die ausgewählten Patches. Versuche, mit weniger Patch-Quellen zu patchen, oder wähle weniger Patches.</string>
     <string name="install_app_success">Erfolgreich installiert</string>
     <string name="install_app_fail">Installation der App fehlgeschlagen: %s</string>
     <string name="uninstall_app_fail">App konnte nicht deinstalliert werden: %s</string>
@@ -575,8 +589,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zeige auf dem Startbildschirm eine Begrüßung an</string>
     <string name="settings_appearance_app_grouping">App-Gruppierung</string>
     <string name="settings_appearance_app_grouping_description">Zeigt einen Home-Bildschirm-Wechsler an, um Apps nach Quelle oder Ihren eigenen Kategorien zu gruppieren und die Auswahl bei Deaktivierung beizubehalten</string>
-    <string name="settings_appearance_sort_button">Sortierknopf</string>
-    <string name="settings_appearance_sort_button_description">Zeigt eine Schaltfläche zum Sortieren auf dem Startbildschirm an</string>
+    <string name="settings_appearance_sort_button">Schaltfläche zum Sortieren und Filtern</string>
+    <string name="settings_appearance_sort_button_description">Zeigt eine Schaltfläche zum Sortieren und Filtern auf dem Startbildschirm an</string>
     <string name="settings_appearance_app_card_colors">Farben der App-Karten</string>
     <string name="settings_appearance_app_card_colors_default">Standard</string>
     <string name="settings_appearance_app_card_colors_default_description">Jeder App die Farbe ihres eigenen Bundles zuweisen</string>
@@ -1078,6 +1092,7 @@ Details: %2$s"</string>
     <string name="version">Version</string>
     <string name="patch">Patchen</string>
     <string name="patching">Patchen</string>
+    <string name="patched">Gepatcht am</string>
     <string name="repatch">Repatchen</string>
     <string name="open">Öffnen</string>
     <string name="mount">Mounten</string>

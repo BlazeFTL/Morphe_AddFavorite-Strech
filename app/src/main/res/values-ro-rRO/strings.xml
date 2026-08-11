@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nocturn și productiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Surse de patch-uri</string>
+    <string name="sources_search">Căutare surse</string>
     <string name="sources_sort_title">Sortare surse de patch-uri</string>
     <string name="sources_sort_manual">Comandă manuală</string>
     <string name="sources_sort_manual_hint">Țineți apăsat pe o sursă pentru a reordona</string>
@@ -208,7 +209,6 @@
     <string name="home_download_instructions_step3_mount">Așteaptă ca descărcarea să se finalizeze, și &lt;b&gt;instalează&lt;/b&gt; APK-ul</string>
     <string name="home_download_instructions_step4">După ce descărcarea se termină, revino la Morphe</string>
     <string name="home_download_instructions_step4_mount">După instalarea APK-ului original, revino la Morphe</string>
-    <string name="home_download_instructions_continue">Continuă către APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Selectează APK-ul descărcat</string>
     <string name="home_file_picker_prompt_description">Selectează fișierul APK &lt;b&gt;%s&lt;/b&gt; pe care tocmai l-ai descărcat</string>
@@ -508,6 +508,8 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Se patch-uiește aplicația</string>
     <string name="memory_usage">Utilizare memorie</string>
+    <string name="cpu_usage">Utilizare CPU</string>
+    <string name="storage_io_usage">I/O stocare</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Se aplică patch-urile</string>
     <string name="failed_to_execute_patch">Nu s-a putut aplica %s</string>

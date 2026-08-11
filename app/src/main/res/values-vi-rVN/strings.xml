@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Cú đêm năng suất thật đấy</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Nguồn vá</string>
+    <string name="sources_search">Tìm kiếm nguồn</string>
     <string name="sources_sort_title">Sắp xếp các nguồn vá</string>
     <string name="sources_sort_manual">Sắp xếp thủ công</string>
     <string name="sources_sort_manual_hint">Bấm giữ một nguồn để sắp xếp lại</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Sử dụng APK đã lưu</string>
     <string name="home_apk_use_installed">Sử dụng APK đã cài đặt</string>
     <string name="home_apk_use_installed_unverified">Không thể xác minh chữ ký của ứng dụng đã cài đặt, vì vậy ứng dụng có thể đã bị sửa đổi</string>
+    <string name="home_unverified">Chưa xác minh</string>
+    <string name="home_app_info_install_unverified">Morphe không thể xác nhận rằng ứng dụng đã cài đặt là bản mà nó đã vá. Cài đặt lại từ APK đã lưu để khôi phục các hành động của nó</string>
     <string name="home_app_info_no_saved_apk">Chưa lưu APK nào. Bạn sẽ phải chọn lại APK khi vá</string>
     <string name="home_version_requires_android">Yêu cầu Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Không hỗ trợ trên thiết bị này</string>
@@ -208,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Đợi tải xong, sau đó &lt;b&gt;cài APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Quay lại Morphe</string>
     <string name="home_download_instructions_step4_mount">Sau khi cài xong, hãy quay lại Morphe</string>
-    <string name="home_download_instructions_continue">Đi đến APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Chọn APK đã tải</string>
     <string name="home_file_picker_prompt_description">Chọn tệp APK &lt;b&gt;%s&lt;/b&gt; bạn vừa tải</string>
@@ -508,6 +510,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <!-- Expert patcher Screen -->
     <string name="patching_app">Đang vá ứng dụng</string>
     <string name="memory_usage">Bộ nhớ đã dùng</string>
+    <string name="cpu_usage">Mức sử dụng CPU</string>
+    <string name="storage_io_usage">I/O lưu trữ</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Đang áp dụng các bản vá</string>
     <string name="failed_to_execute_patch">Không thể áp dụng %s</string>
@@ -519,6 +523,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="install_app_success">Đã cài đặt thành công</string>
     <string name="install_app_fail">Không thể cài đặt ứng dụng: %s</string>
     <string name="uninstall_app_fail">Không thể gỡ cài đặt: %s</string>
+    <string name="uninstall_app_unverified">Để nguyên: Morphe không thể xác minh rằng ứng dụng đã cài đặt là bản mà nó đã vá</string>
+    <string name="launch_app_unverified">Morphe không thể xác minh rằng ứng dụng đã cài đặt là bản mà nó đã vá</string>
     <string name="uninstall_timeout">Gỡ cài đặt hết thời gian</string>
     <string name="save_apk_success">Đã lưu APK</string>
     <string name="saved_app_export_failed">Không thể xuất ứng dụng đã vá</string>

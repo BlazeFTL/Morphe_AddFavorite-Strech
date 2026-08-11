@@ -113,6 +113,7 @@
     <string name="home_greeting_super_late_5">Нощни птици и продуктивни</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Източници за поправки</string>
+    <string name="sources_search">Търсене на източници</string>
     <string name="sources_sort_title">Сортиране на източници на поправки</string>
     <string name="sources_sort_manual">Ръчна подредба</string>
     <string name="sources_sort_manual_hint">Натиснете и задръжте източник, за да го пренаредите</string>
@@ -198,8 +199,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Изтеглете оригинален APK</string>
     <string name="home_download_instructions_steps_title">Инструкции:</string>
+    <string name="home_download_instructions_finding">Намиране на страницата за изтегляне…</string>
     <string name="home_download_instructions_step1">Натиснете бутона \'%s\' отдолу</string>
     <string name="home_download_instructions_step2_part1">Скролни надолу страницата и натиснете</string>
+    <string name="home_download_instructions_step2_generic">Скролнете надолу страницата и натиснете нейния бутон за изтегляне.</string>
+    <string name="home_download_instructions_step2_variant">Скролнете надолу страницата и натиснете бутона за изтегляне на най-горния &lt;b&gt;APK вариант&lt;/b&gt;.</string>
+    <string name="home_download_instructions_step2_search">Отворете резултат от търсене от уебсайт, на който имате доверие.</string>
+    <string name="home_download_instructions_step2_search_note">Morphe не може да гарантира за тези уебсайтове. Пропуснете тези, които предлагат собствен магазин за приложения вместо APK файл.</string>
+    <string name="home_download_instructions_step3_search">На този уебсайт изтеглете APK на версия &lt;b&gt;%s&lt;/b&gt;, а не най-новата.</string>
+    <string name="home_download_instructions_step3_search_any">На този уебсайт изтеглете APK на приложението. &lt;b&gt;Всяка версия&lt;/b&gt; може да бъде кръпната.</string>
     <string name="home_download_instructions_download_button_toast">Натиснете \"Изтеглете\" на уебсайта, а не тук 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Чудесно! Сега натиснете продължи и отидете на уебсайта 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Практиката прави майстора и ти се справяш добре 💪</string>
@@ -210,7 +218,8 @@
     <string name="home_download_instructions_step3_mount">Чакајте да се завърши изтеглянето, след това &lt;b&gt;инсталирайте&lt;/b&gt; APK</string>
     <string name="home_download_instructions_step4">След завършване на свалянето, върнете се в Morphe</string>
     <string name="home_download_instructions_step4_mount">След инсталирането на оригиналния APK, върнете се в Morphe</string>
-    <string name="home_download_instructions_continue">Продължете към APKMirror.com</string>
+    <string name="home_download_instructions_continue_to">Продължете към %s</string>
+    <string name="home_download_instructions_destination">страницата за изтегляне</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Изберете сваления APK</string>
     <string name="home_file_picker_prompt_description">Изберете APK файла &lt;b&gt;%s&lt;/b&gt;, който току-що изтеглихте</string>
@@ -510,6 +519,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Патчване на приложението</string>
     <string name="memory_usage">Използване на памет</string>
+    <string name="cpu_usage">Използване на процесора</string>
+    <string name="storage_io_usage">Дисков I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Error</string>
     <string name="failed_to_execute_patch">Неуспешно прилагане на %s</string>

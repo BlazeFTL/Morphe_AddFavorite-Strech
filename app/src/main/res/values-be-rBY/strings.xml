@@ -199,7 +199,6 @@
     <string name="home_download_instructions_step3_mount">Дачакайцеся завяршэння спампоўкі, затым &lt;b&gt;усталюйце APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Пасля завяршэння спампоўкі вярніцеся да Morphe</string>
     <string name="home_download_instructions_step4_mount">Пасля ўсталявання арыгінальнага APK, вярніцеся да Morphe</string>
-    <string name="home_download_instructions_continue">Працягнуць на APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Выберыце спампаваны APK</string>
     <string name="home_file_picker_prompt_description">Выберыце &lt;b&gt;%s&lt;/b&gt; файл APK, які вы толькі што спампавалі</string>

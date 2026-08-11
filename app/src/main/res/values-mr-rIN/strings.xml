@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">रात्रीचे आणि productive</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">सुधारणांची मुळे</string>
+    <string name="sources_search">स्रोत शोधा</string>
     <string name="sources_sort_title">सुधारणा स्रोत क्रमवारी लावा</string>
     <string name="sources_sort_manual">मॅन्युअल ऑर्डर</string>
     <string name="sources_sort_manual_hint">पुन्हा क्रमवारी लावण्यासाठी स्रोतावर दाबून ठेवा</string>
@@ -210,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">डाउनलोड पूर्ण होण्याची प्रतीक्षा करा, त्यानंतर  &lt;b&gt;APK इन्स्टॉल करा&lt;b&gt;</string>
     <string name="home_download_instructions_step4">डाउनलोड झाल्यावर पुन्हा Morphe उघडा.</string>
     <string name="home_download_instructions_step4_mount">इन्स्टॉलेशन पूर्ण झाल्यावर Morphe कडे परत वळा.</string>
-    <string name="home_download_instructions_continue">APKMirror.com उघडा</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">डाउनलोड केलेली APK निवडा</string>
     <string name="home_file_picker_prompt_description">तुम्ही आत्ताच डाउनलोड केलेली &lt;b&gt;%s&lt;/b&gt; APK फाईल निवडा</string>
@@ -509,6 +509,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">ॲप पॅचिंग</string>
     <string name="memory_usage">मेमरी वापर</string>
+    <string name="cpu_usage">CPU वापर</string>
+    <string name="storage_io_usage">स्टोरेज इनपुट/आउटपुट</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">पॅच लावत आहे</string>
     <string name="failed_to_execute_patch">%s लागू करण्यात अयशस्वी</string>

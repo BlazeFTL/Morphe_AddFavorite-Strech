@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nagtelike en produktief</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Verandering oorspronge</string>
+    <string name="sources_search">Soek bronne</string>
     <string name="sources_sort_title">Sorteer foutbronne</string>
     <string name="sources_sort_manual">Handmatige volgorde</string>
     <string name="sources_sort_manual_hint">Druk lank op \'n bron om te herschik</string>
@@ -198,8 +199,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Laai die oorspronklike APK af</string>
     <string name="home_download_instructions_steps_title">Instruksies:</string>
+    <string name="home_download_instructions_finding">Besig om die aflaaibladsy te vind…</string>
     <string name="home_download_instructions_step1">Druk op die \'%s\' knoppie hieronder</string>
     <string name="home_download_instructions_step2_part1">Rol af op die webblad en druk</string>
+    <string name="home_download_instructions_step2_generic">Rol af op die webblad en druk op sy aflaaiknoppie</string>
+    <string name="home_download_instructions_step2_variant">Rol af op die webblad en druk op die aflaaiknoppie van die boonste &lt;b&gt;APK-variant&lt;/b&gt;</string>
+    <string name="home_download_instructions_step2_search">Maak ’n soekresultaat oop van ’n webwerf wat jy vertrou</string>
+    <string name="home_download_instructions_step2_search_note">Morphe kan nie vir hierdie webwerwe instaan nie. Slaan dié oor wat hul eie appwinkel in plaas van ’n APK-lêer aanbied</string>
+    <string name="home_download_instructions_step3_search">Op daardie webwerf, laai die APK van weergawe &lt;b&gt;%s&lt;/b&gt; af, nie die nuutste een nie</string>
+    <string name="home_download_instructions_step3_search_any">Op daardie webwerf, laai die APK van die app af. &lt;b&gt;Enige weergawe&lt;/b&gt; kan gepatch word</string>
     <string name="home_download_instructions_download_button_toast">Druk op aflaai op die webwerf, en nie hier nie 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Fantasties! Klik nou op \"Gaan voort\" en besoek die webwerf 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Oefening maak perfeksie en jy kom daar 🔥</string>
@@ -210,7 +218,8 @@
     <string name="home_download_instructions_step3_mount">Wag vir die aflaai om voltooi te wees, en &lt;b&gt;installeer dan die APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Nadat die aflaai voltooi is, keer terug na Morphe</string>
     <string name="home_download_instructions_step4_mount">Nadat die oorspronklike APK geïnstalleer is, keer terug na Morphe</string>
-    <string name="home_download_instructions_continue">Gaan voort na APKMirror.com</string>
+    <string name="home_download_instructions_continue_to">Gaan voort na %s</string>
+    <string name="home_download_instructions_destination">die aflaaibladsy</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Kies afgelaaide APK</string>
     <string name="home_file_picker_prompt_description">Kies die &lt;b&gt;%s&lt;/b&gt; APK-vyl wat jy pas afgelaai het</string>
@@ -510,6 +519,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">App word gepleister</string>
     <string name="memory_usage">Geheiebruik</string>
+    <string name="cpu_usage">SVE-gebruik</string>
+    <string name="storage_io_usage">Berging I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Patchings toedien</string>
     <string name="failed_to_execute_patch">Kon nie %s toepas nie</string>

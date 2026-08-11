@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Gececi ve üretken</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yama kaynakları</string>
+    <string name="sources_search">Kaynakları Ara</string>
     <string name="sources_sort_title">Yama kaynaklarını sırala</string>
     <string name="sources_sort_manual">Manuel sıra</string>
     <string name="sources_sort_manual_hint">Yeniden sıralamak için bir kaynağa uzun basın</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Kayıtlı APK\'yi kullan</string>
     <string name="home_apk_use_installed">Yüklü APK\'yi kullan</string>
     <string name="home_apk_use_installed_unverified">Yüklenen uygulamanın imzası doğrulanamadı, bu nedenle zaten yama uygulanmış olabilir</string>
+    <string name="home_unverified">Doğrulanmamış</string>
+    <string name="home_app_info_install_unverified">Morphe, yüklü uygulamanın yamaladığı sürüm olduğunu doğrulayamıyor. Eylemlerini geri yüklemek için kaydedilen APK\'dan yeniden yükleyin.</string>
     <string name="home_app_info_no_saved_apk">Kayıtlı APK yok. Yamayı uygulayabilmek için tekrar APK dosyasını seçmeniz gerekiyor</string>
     <string name="home_version_requires_android">Android %s+ gerektiriyor</string>
     <string name="home_apk_no_compatible_versions_title">Bu cihazda desteklenmiyor</string>
@@ -208,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">İndirmenin tamamlanmasını bekleyin, ardından &lt;b&gt;APK\'yi yükleyin&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">İndirme tamamlandıktan sonra Morphe\'ye geri dönün</string>
     <string name="home_download_instructions_step4_mount">Orijinal APK\'yi yükledikten sonra Morphe\'ye geri dönün</string>
-    <string name="home_download_instructions_continue">APKMirror.com\'a devam et</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">İndirilen APK\'yi seç</string>
     <string name="home_file_picker_prompt_description">İndirdiğiniz &lt;b&gt;%s&lt;/b&gt; APK dosyasını seçin</string>
@@ -508,6 +510,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Uygulama yamalanıyor</string>
     <string name="memory_usage"> Bellek kullanımı</string>
+    <string name="cpu_usage">CPU kullanımı</string>
+    <string name="storage_io_usage">Depolama G/Ç</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Yamalar uygulanıyor</string>
     <string name="failed_to_execute_patch">%s uygulanamadı</string>
@@ -519,6 +523,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="install_app_success">Başarıyla yüklendi</string>
     <string name="install_app_fail">Uygulama yüklenemedi: %s</string>
     <string name="uninstall_app_fail">Uygulama kaldırılamadı: %s</string>
+    <string name="uninstall_app_unverified">Yerinde bırakıldı: Morphe, yüklü uygulamanın yamaladığı sürüm olduğunu doğrulayamadı.</string>
+    <string name="launch_app_unverified">Morphe, yüklü uygulamanın yamaladığı sürüm olduğunu doğrulayamadı.</string>
     <string name="uninstall_timeout">Kaldırma zaman aşımına uğradı</string>
     <string name="save_apk_success">APK Kaydedildi</string>
     <string name="saved_app_export_failed">Yamalanmış uygulama dışa aktarılamadı</string>

@@ -187,7 +187,6 @@
     <string name="home_download_instructions_step3_mount">Vänta tills nedladdningen är klar och &lt;b&gt;installera sedan APK-filen&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Öppna Morphe igen när nedladdningen har slutförts</string>
     <string name="home_download_instructions_step4_mount"> Öppna Morphe igen när du har installerat den ursprungliga APK-filen</string>
-    <string name="home_download_instructions_continue">Fortsätt till APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Välj den nedladdade APK-filen</string>
     <string name="home_file_picker_prompt_description">Välj den &lt;b&gt;%s&lt;/b&gt;-APK-fil som du just laddade ned</string>

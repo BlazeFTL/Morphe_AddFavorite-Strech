@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Éjszakai és produktív</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Módosításforrások</string>
+    <string name="sources_search">Források keresése</string>
     <string name="sources_sort_title">Javításforrások rendezése</string>
     <string name="sources_sort_manual">Kézi sorrend</string>
     <string name="sources_sort_manual_hint">Nyomja meg hosszan egy forrást a sorrend megváltoztatásához.</string>
@@ -210,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Várj, amíg a letöltés befejeződik, majd &lt;b&gt;telepítsd az APK-t&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">A letöltés után térj vissza a Morphe alkalmazásba</string>
     <string name="home_download_instructions_step4_mount">Az eredeti APK telepítése után térj vissza Morphe alkalmazásba</string>
-    <string name="home_download_instructions_continue">Tovább az APKMirror.com oldalra</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Válaszd ki a letöltött APK-t</string>
     <string name="home_file_picker_prompt_description">Válaszd ki a most letöltött &lt;b&gt;%s&lt;/b&gt; APK fájlt</string>
@@ -510,6 +510,8 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Alkalmazás módosítása</string>
     <string name="memory_usage">Memóriahasználat</string>
+    <string name="cpu_usage">CPU-használat</string>
+    <string name="storage_io_usage">Tárhely I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Módosítások alkalmazása</string>
     <string name="failed_to_execute_patch">Nem sikerült alkalmazni: %s</string>

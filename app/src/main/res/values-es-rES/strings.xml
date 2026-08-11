@@ -97,7 +97,7 @@
     <string name="home_greeting_afternoon_2">El parcheo después de comer sabe diferente</string>
     <string name="home_greeting_afternoon_3">El turno de tarde: toca parchear</string>
     <!-- Evening greetings (17:00–21:59) -->
-    <string name="home_greeting_evening_1">¡Buenas noches! Los parches nocturnos tienen otro nivel</string>
+    <string name="home_greeting_evening_1">¡Buenas tardes! Los parches de la tarde tienen otro nivel</string>
     <string name="home_greeting_evening_2">¿Relajándote? Parchea alguna aplicación primero</string>
     <string name="home_greeting_evening_3">¿Acabando la jornada? Parchea algo antes</string>
     <!-- Late night greetings (22:00–23:59) -->
@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nocturno y productivo</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fuentes de parches</string>
+    <string name="sources_search">Buscar fuentes</string>
     <string name="sources_sort_title">Ordenar fuentes de parches</string>
     <string name="sources_sort_manual">Orden manual</string>
     <string name="sources_sort_manual_hint">Mantén pulsada una fuente para reordenarla</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Usar APK guardado</string>
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">No se pudo verificar la firma de la aplicación instalada, por lo que es posible que ya esté parcheada</string>
+    <string name="home_unverified">No verificado</string>
+    <string name="home_app_info_install_unverified">Morphe no puede confirmar que la aplicación instalada sea la compilación que parcheó. Reinstala desde el APK guardado para restaurar sus acciones.</string>
     <string name="home_app_info_no_saved_apk">No hay APK guardado. Para aplicar los parches será necesario seleccionar el archivo APK nuevamente.</string>
     <string name="home_version_requires_android">Requiere Android %s o superior</string>
     <string name="home_apk_no_compatible_versions_title">Incompatible con este dispositivo</string>
@@ -196,8 +199,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descargar el APK original</string>
     <string name="home_download_instructions_steps_title">Instrucciones:</string>
+    <string name="home_download_instructions_finding">Buscando la página de descarga...</string>
     <string name="home_download_instructions_step1">Pulsa el botón \"%s\" de abajo</string>
     <string name="home_download_instructions_step2_part1">Desplázate hacia abajo en la página web y pulsa</string>
+    <string name="home_download_instructions_step2_generic">Desplázate hacia abajo en la página web y pulsa el botón de descarga</string>
+    <string name="home_download_instructions_step2_variant">Desplázate hacia abajo en la página web y pulsa el botón de descarga de la &lt;b&gt;variante APK&lt;/b&gt; superior</string>
+    <string name="home_download_instructions_step2_search">Abre un resultado de búsqueda de un sitio web de confianza</string>
+    <string name="home_download_instructions_step2_search_note">Morphe no puede responder por estos sitios web. Evita los que ofrecen su propia tienda de aplicaciones en lugar de un archivo APK</string>
+    <string name="home_download_instructions_step3_search">En ese sitio web, descarga el APK de la versión &lt;b&gt;%s&lt;/b&gt;, no el más reciente</string>
+    <string name="home_download_instructions_step3_search_any">En ese sitio web, descarga el APK de la aplicación. &lt;b&gt;Cualquier versión&lt;/b&gt; se puede parchear</string>
     <string name="home_download_instructions_download_button_toast">Pulsa descargar en el sitio web, no aquí 😊</string>
     <string name="home_download_instructions_download_button_toast_2">¡Genial! Ahora pulsa en \"Continuar\" y ve al sitio web 👆</string>
     <string name="home_download_instructions_download_button_toast_3">La práctica hace al maestro y estás en camino 💪</string>
@@ -208,7 +218,8 @@
     <string name="home_download_instructions_step3_mount">Espera a que la descarga se complete, luego &lt;b&gt;instala el APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Después de que la descarga termine, vuelve a Morphe</string>
     <string name="home_download_instructions_step4_mount">Después de instalar el APK original, vuelve a Morphe</string>
-    <string name="home_download_instructions_continue">Continuar a APKMirror.com</string>
+    <string name="home_download_instructions_continue_to">Continuar a %s</string>
+    <string name="home_download_instructions_destination">la página de descarga</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Selecciona el APK descargado</string>
     <string name="home_file_picker_prompt_description">Selecciona el archivo APK de &lt;b&gt;%s&lt;/b&gt; que acabas de descargar</string>
@@ -509,6 +520,8 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <!-- Expert patcher Screen -->
     <string name="patching_app">Parcheando la aplicación</string>
     <string name="memory_usage">Uso de memoria</string>
+    <string name="cpu_usage">Uso de CPU</string>
+    <string name="storage_io_usage">E/S de almacenamiento</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Aplicando parches</string>
     <string name="failed_to_execute_patch">Error al aplicar %s</string>
@@ -520,6 +533,8 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="install_app_success">Instalado correctamente</string>
     <string name="install_app_fail">Error al instalar la aplicación: %s</string>
     <string name="uninstall_app_fail">Error al desinstalar la aplicación: %s</string>
+    <string name="uninstall_app_unverified">Dejada en su lugar: Morphe no pudo verificar que la aplicación instalada sea la compilación que parcheó.</string>
+    <string name="launch_app_unverified">Morphe no pudo verificar que la aplicación instalada sea la compilación que parcheó.</string>
     <string name="uninstall_timeout">Tiempo de espera de desinstalación agotado</string>
     <string name="save_apk_success">APK guardado</string>
     <string name="saved_app_export_failed">Error al exportar la aplicación parcheada</string>

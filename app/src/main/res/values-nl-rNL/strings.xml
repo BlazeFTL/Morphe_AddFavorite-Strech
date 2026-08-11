@@ -210,7 +210,6 @@
     <string name="home_download_instructions_step3_mount">Wacht tot de download is voltooid, en &lt;b&gt;installeer de APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Na het downloaden, ga terug naar Morphe</string>
     <string name="home_download_instructions_step4_mount">Na het installeren van het oorspronkelijke APK, ga terug naar Morphe</string>
-    <string name="home_download_instructions_continue">Doorgaan naar APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Selecteer gedownloade APK</string>
     <string name="home_file_picker_prompt_description">Selecteer het &lt;b&gt;%s&lt;/b&gt; APK bestand dat u net gedownload hebt</string>
@@ -510,6 +509,8 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">App aanpassen</string>
     <string name="memory_usage">Geheugengebruik</string>
+    <string name="cpu_usage">CPU-gebruik</string>
+    <string name="storage_io_usage">Opslag-I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Patches toepassen</string>
     <string name="failed_to_execute_patch">Kon %s niet toepassen</string>

@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Noturno e produtivo</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fontes de modificações</string>
+    <string name="sources_search">Pesquisar fontes</string>
     <string name="sources_sort_title">Ordenar fontes de patch</string>
     <string name="sources_sort_manual">Ordem manual</string>
     <string name="sources_sort_manual_hint">Mantenha pressionado uma fonte para reorganizar</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Usar APK salvo</string>
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do aplicativo instalado, portanto, ele pode já estar modificado</string>
+    <string name="home_unverified">Não verificado</string>
+    <string name="home_app_info_install_unverified">Morphe não pode confirmar que o aplicativo instalado é a compilação que ele corrigiu. Reinstale-o a partir do APK salvo para restaurar suas ações.</string>
     <string name="home_app_info_no_saved_apk">Não existe um APK guardado. A modificação exigirá a seleção do ficheiro APK novamente</string>
     <string name="home_version_requires_android">Requer o Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Não suportado neste dispositivo</string>
@@ -208,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Aguarda pela conclusão da transferência, e depois &lt;b&gt;instala o APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Depois da transferência terminar, volta para o Morphe</string>
     <string name="home_download_instructions_step4_mount">Após instalares o APK original, volta para o Morphe</string>
-    <string name="home_download_instructions_continue">Continua para APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Seleciona o APK transferido</string>
     <string name="home_file_picker_prompt_description">Seleciona o ficheiro &lt;b&gt;%s&lt;/b&gt; APK que acabaste de transferir</string>
@@ -508,6 +510,8 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">A modificar aplicação</string>
     <string name="memory_usage">Uso de memória</string>
+    <string name="cpu_usage">Uso da CPU</string>
+    <string name="storage_io_usage">E/S de armazenamento</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">A aplicar modificações</string>
     <string name="failed_to_execute_patch">Erro ao aplicar %s</string>
@@ -519,6 +523,8 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="install_app_success">Instalado com sucesso</string>
     <string name="install_app_fail">Erro ao instalar a aplicação: %s</string>
     <string name="uninstall_app_fail">Falha ao desinstalar o aplicativo: %s</string>
+    <string name="uninstall_app_unverified">Deixado no lugar: Morphe não pôde verificar que o aplicativo instalado é a compilação que ele corrigiu.</string>
+    <string name="launch_app_unverified">Morphe não pôde verificar que o aplicativo instalado é a compilação que ele corrigiu.</string>
     <string name="uninstall_timeout">Tempo limite de desinstalação excedido</string>
     <string name="save_apk_success">APK guardado</string>
     <string name="saved_app_export_failed">Erro ao exportar a aplicação modificada</string>

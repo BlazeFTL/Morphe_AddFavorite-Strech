@@ -56,7 +56,7 @@
     <string name="home_all_apps_hidden_title">모든 앱이 숨겨졌습니다</string>
     <string name="home_all_apps_hidden_subtitle">홈 화면에서 모든 앱이 숨겨졌습니다</string>
     <string name="home_no_apps_filter_title">이 필터와 일치하는 앱이 없습니다</string>
-    <string name="home_no_apps_filter_subtitle">\'%s\'와 일치하는 항목이 없습니다</string>
+    <string name="home_no_apps_filter_subtitle">\'%s\'과 일치하는 항목이 없습니다</string>
     <string name="home_category_add">카테고리 추가</string>
     <string name="home_category_all_apps">모든 앱</string>
     <string name="home_category_custom">사용자 정의</string>
@@ -211,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">다운로드가 완료되면, &lt;b&gt;APK 파일을 설치하세요&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">다운로드가 완료되면 Morphe로 돌아오세요</string>
     <string name="home_download_instructions_step4_mount">원본 APK를 설치한 후에 Morphe로 돌아오세요</string>
-    <string name="home_download_instructions_continue">APKMirror.com으로 이동</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">다운로드된 APK 선택</string>
     <string name="home_file_picker_prompt_description">방금 다운로드한 &lt;b&gt;%s&lt;/b&gt; APK 파일을 선택하세요</string>
@@ -511,6 +510,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">앱 패치</string>
     <string name="memory_usage">메모리 사용량</string>
+    <string name="cpu_usage">CPU 사용량</string>
+    <string name="storage_io_usage">저장소 I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">패치를 적용하는 중</string>
     <string name="failed_to_execute_patch">\'%s\'을 적용할 수 없습니다</string>
@@ -1094,7 +1095,7 @@ morphe_header_custom_dark.png
     <string name="version">버전</string>
     <string name="patch">패치</string>
     <string name="patching">패치</string>
-    <string name="patched">패치 일자</string>
+    <string name="patched">패치됨</string>
     <string name="repatch">다시 패치</string>
     <string name="open">열기</string>
     <string name="mount">마운트</string>

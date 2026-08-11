@@ -210,7 +210,6 @@
     <string name="home_download_instructions_step3_mount">Περιμένετε μέχρι να ολοκληρωθεί η λήψη, και μετά &lt;b&gt;εγκαταστήστε το APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Μετά την ολοκλήρωση της λήψης, επιστρέψτε στο Morphe</string>
     <string name="home_download_instructions_step4_mount">Μετά την εγκατάσταση του πρωτότυπου APK, επιστρέψτε στο Morphe</string>
-    <string name="home_download_instructions_continue">Συνέχεια στο APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Επιλογή ληφθέντος APK</string>
     <string name="home_file_picker_prompt_description">Επιλέξτε το &lt;b&gt;%s&lt;/b&gt; APK που μόλις ελήφθη</string>
@@ -510,6 +509,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Τροποποίηση εφαρμογής</string>
     <string name="memory_usage">Χρήση μνήμης</string>
+    <string name="cpu_usage">Χρήση CPU</string>
+    <string name="storage_io_usage">I/O αποθήκευσης</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Εφαρμογή τροποποιήσεων</string>
     <string name="failed_to_execute_patch">Απέτυχε η εφαρμογή του %s</string>

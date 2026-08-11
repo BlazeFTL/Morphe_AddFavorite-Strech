@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Ноћни и продуктивни</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Извор печовања</string>
+    <string name="sources_search">Претражите изворе</string>
     <string name="sources_sort_title">Сортирај изворе закрпа</string>
     <string name="sources_sort_manual">Ручно поређање</string>
     <string name="sources_sort_manual_hint">Притисните и задржите извор да бисте променили редослед</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Користи сачувани APK</string>
     <string name="home_apk_use_installed">Користи инсталирани APK</string>
     <string name="home_apk_use_installed_unverified">Нисмо могли да потврдимо потпис инсталиране апликације, тако да је она можда већ закрпљена</string>
+    <string name="home_unverified">Неверификовано. Морпхе не може да потврди да је инсталирана апликација верзија коју је закрпио. Поново је инсталирајте из сачуваног АПК-а да бисте вратили његове радње.</string>
+    <string name="home_app_info_install_unverified">Morphe не може да потврди да је инсталирана апликација верзија коју је закрпио. Поново је инсталирајте из сачуваног АПК-а да бисте вратили њене акције.Key: home_app_info_install_unverified→Context: home_app_info_install_unverifiedMaxLength: nullTmSuggestions: []Terms: [{\"source\":\"APK\",\"translatable\":false,\"translation\":\"APK\",\"partOfSpeech\":\"PROPN\"},{\"source\":\"Morphe\",\"translatable\":false,\"translation\":\"Morphe\",\"partOfSpeech\":\"PROPN\"}]Translating...Let\'s do it.Translate each string:1. </string>
     <string name="home_app_info_no_saved_apk">Nema saćuvanog APK-a. Patching zahtijeva ponovno odabir APK datoteke</string>
     <string name="home_version_requires_android">Захтева Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Није подржано на овом уређају</string>
@@ -208,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Сачекајте да преузимање буде завршено, а затим &lt;b&gt;инсталирајте APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">После завршетка преузимања, вратите се на Morphe</string>
     <string name="home_download_instructions_step4_mount">Након инсталирања оригиналног АПК-а, вратите се у Морфе</string>
-    <string name="home_download_instructions_continue">Настави на APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Odaberite preuzete APK</string>
     <string name="home_file_picker_prompt_description">Изаберите &lt;b&gt;%s&lt;/b&gt; APK фајл који сте управо преузели</string>
@@ -508,6 +510,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Пешање апликације</string>
     <string name="memory_usage">Коришћење меморије</string>
+    <string name="cpu_usage">Искоришћење процесора</string>
+    <string name="storage_io_usage">I/O складишта</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Примена крпења</string>
     <string name="failed_to_execute_patch">Није успело да се примени %s</string>
@@ -519,6 +523,8 @@
     <string name="install_app_success">Успешно инсталирано</string>
     <string name="install_app_fail">Није успело инсталирање апликације: %s</string>
     <string name="uninstall_app_fail">Неуспешно деинсталирана апликација: %s</string>
+    <string name="uninstall_app_unverified">Остављено на месту: Morphe није могао да потврди да је инсталирана апликација верзија коју је закрпио.</string>
+    <string name="launch_app_unverified">Morphe није могао да потврди да је инсталирана апликација верзија коју је закрпио.</string>
     <string name="uninstall_timeout">Време за деинсталацију је истекло</string>
     <string name="save_apk_success">АПК је сачуван</string>
     <string name="saved_app_export_failed">Није успео извоз покрпљене апликације</string>

@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nachtaktiv und produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch-Quellen</string>
+    <string name="sources_search">Quellen suchen</string>
     <string name="sources_sort_title">Patch-Quellen sortieren</string>
     <string name="sources_sort_manual">Manuelle Reihenfolge</string>
     <string name="sources_sort_manual_hint">Halte eine Quelle gedrückt, um sie neu anzuordnen</string>
@@ -210,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Warten Sie bis der Download abgeschlossen ist, dann &lt;b&gt;installieren Sie die APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Nachdem der Download abgeschlossen ist, kehren Sie zu Morphe zurück</string>
     <string name="home_download_instructions_step4_mount">Nach der Installation der originalen APK, kehren Sie zu Morphe zurück</string>
-    <string name="home_download_instructions_continue">Weiter zu APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Heruntergeladene APK-Datei auswählen</string>
     <string name="home_file_picker_prompt_description">Wählen Sie die &lt;b&gt;%s&lt;/b&gt; APK-Datei aus, die Sie gerade heruntergeladen haben</string>
@@ -511,6 +511,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">App wird gepatcht</string>
     <string name="memory_usage">Speichernutzung</string>
+    <string name="cpu_usage">CPU-Auslastung</string>
+    <string name="storage_io_usage">Speicher-I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Patches werden angewendet</string>
     <string name="failed_to_execute_patch">%s konnte nicht angewendet werden</string>

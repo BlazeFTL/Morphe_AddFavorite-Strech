@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nocny i produktywny</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Źródła modyfikacji</string>
+    <string name="sources_search">Szukaj źródeł</string>
     <string name="sources_sort_title">Sortuj źródła modyfikacji</string>
     <string name="sources_sort_manual">Ręczna kolejność</string>
     <string name="sources_sort_manual_hint">Przytrzymaj źródło, aby zmienić kolejność</string>
@@ -190,6 +191,8 @@
     <string name="home_apk_use_saved">Użyj zapisanego pliku APK</string>
     <string name="home_apk_use_installed">Użyj zainstalowanego pliku APK</string>
     <string name="home_apk_use_installed_unverified">Nie udało się zweryfikować podpisu zainstalowanej aplikacji, więc może być już zmodyfikowana</string>
+    <string name="home_unverified">Niezweryfikowano</string>
+    <string name="home_app_info_install_unverified">Morphe nie może potwierdzić, że zainstalowana aplikacja to wersja, którą zmodyfikował. Zainstaluj ją ponownie z zapisanego pliku APK, aby przywrócić jej akcje</string>
     <string name="home_app_info_no_saved_apk">Brak zapisanego pliku APK. Modyfikacja będzie wymagać ponownego wybrania pliku</string>
     <string name="home_version_requires_android">Wymaga Androida %s+</string>
     <string name="home_apk_no_compatible_versions_title">Niewspierane na tym urządzeniu</string>
@@ -209,7 +212,6 @@
     <string name="home_download_instructions_step3_mount">Poczekaj na zakończenie pobierania, a następnie &lt;b&gt;zainstaluj plik APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Po zakończeniu pobierania wróć do Morphe</string>
     <string name="home_download_instructions_step4_mount">Po zainstalowaniu oryginalnego pliku APK wróć do Morphe</string>
-    <string name="home_download_instructions_continue">Przejdź do APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Wybierz pobrany plik APK</string>
     <string name="home_file_picker_prompt_description">Wybierz pobrany przed chwilą plik APK &lt;b&gt;%s&lt;/b&gt;</string>
@@ -509,6 +511,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Modyfikowanie aplikacji</string>
     <string name="memory_usage">Zużycie pamięci</string>
+    <string name="cpu_usage">Użycie procesora</string>
+    <string name="storage_io_usage">Wejście/wyjście pamięci</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Stosowanie modyfikacji</string>
     <string name="failed_to_execute_patch">Nie udało się zastosować %s</string>
@@ -520,6 +524,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="install_app_success">Zainstalowano pomyślnie</string>
     <string name="install_app_fail">Nie udało się zainstalować aplikacji: %s</string>
     <string name="uninstall_app_fail">Nie udało się odinstalować aplikacji: %s</string>
+    <string name="uninstall_app_unverified">Pozostawiono bez zmian: Morphe nie mógł zweryfikować, czy zainstalowana aplikacja to wersja, którą zmodyfikował</string>
+    <string name="launch_app_unverified">Morphe nie mógł zweryfikować, czy zainstalowana aplikacja to wersja, którą zmodyfikował</string>
     <string name="uninstall_timeout">Przekroczono limit czasu odinstalowywania</string>
     <string name="save_apk_success">Zapisano plik APK</string>
     <string name="saved_app_export_failed">Nie udało się wyeksportować zmodyfikowanej aplikacji</string>

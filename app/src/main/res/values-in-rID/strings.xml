@@ -36,11 +36,11 @@
     <string name="home_update_success_subtitle">Sumber Anda sudah yang terbaru</string>
     <string name="home_sources_are_loading">Sumber sedang dimuat, harap tunggu…</string>
     <string name="home_search_apps">Cari aplikasi</string>
-    <string name="home_app_list_options_title">Urutkan dan filter</string>
-    <string name="home_app_list_options_state_description">Diurutkan berdasarkan %1$s, difilter berdasarkan %2$s</string>
+    <string name="home_app_list_options_title">Urutkan dan saring</string>
+    <string name="home_app_list_options_state_description">Diurutkan berdasarkan %1$s, disaring berdasarkan %2$s</string>
     <string name="home_app_filter_all_description">Semua aplikasi di layar utama</string>
-    <string name="home_app_filter_patched_description">Aplikasi yang sudah Anda patch atau simpan dengan Morphe</string>
-    <string name="home_app_filter_not_patched_description">Aplikasi yang belum Anda patch di Morphe</string>
+    <string name="home_app_filter_patched_description">Aplikasi yang sudah Anda tambal atau simpan dengan Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplikasi yang belum Anda tambal di Morphe</string>
     <string name="home_app_filter_installed_description">Aplikasi yang saat ini terpasang di perangkat ini</string>
     <string name="home_app_filter_uninstalled_description">Aplikasi yang ditambal dengan Morphe dan tidak lagi berada di perangkat ini</string>
     <string name="home_app_sort_manual_description">Tekan lama sebuah aplikasi, lalu ketuk tombol urutkan</string>
@@ -55,7 +55,7 @@
     <string name="home_no_apps_search_subtitle">Tidak ada aplikasi yang cocok \"%s\"</string>
     <string name="home_all_apps_hidden_title">Semua aplikasi disembunyikan</string>
     <string name="home_all_apps_hidden_subtitle">Anda telah menyembunyikan semua aplikasi dari layar utama</string>
-    <string name="home_no_apps_filter_title">Tidak ada aplikasi yang cocok dengan filter ini</string>
+    <string name="home_no_apps_filter_title">Tidak ada aplikasi yang cocok dengan penyaring ini</string>
     <string name="home_no_apps_filter_subtitle">Tidak ada yang cocok dengan %s</string>
     <string name="home_category_add">Tambahkan kategori</string>
     <string name="home_category_all_apps">Semua aplikasi</string>
@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Aktif di malam hari dan produktif</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sumber tambalan</string>
+    <string name="sources_search">Cari sumber</string>
     <string name="sources_sort_title">Urutkan sumber tambalan</string>
     <string name="sources_sort_manual">Urutan manual</string>
     <string name="sources_sort_manual_hint">Tekan lama sumber untuk mengubah urutan</string>
@@ -210,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Tunggu hingga unduhan selesai, kemudian &lt;b&gt;pasang APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Setelah proses unduh selesai, kembali ke Morphe</string>
     <string name="home_download_instructions_step4_mount">Setelah memasang APK asli, kembali ke Morphe</string>
-    <string name="home_download_instructions_continue">Lanjutkan ke APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Pilih APK yang telah diunduh</string>
     <string name="home_file_picker_prompt_description">Pilih berkas APK &lt;b&gt;%s&lt;/b&gt; yang baru saja Anda unduh</string>
@@ -474,8 +474,8 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="battery_optimization_not_now">Nanti saja</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
     <string name="patcher_memory_adjustment_title">Memori tidak cukup</string>
-    <string name="patcher_memory_adjustment_description">Patcher dihentikan oleh sistem saat berjalan dengan batas memori %1$d MB. Menurunkan batas menjadi %2$d MB membuat patcher menjadi target yang lebih kecil dan dapat membuat prosesnya selesai.</string>
-    <string name="patcher_memory_adjustment_description_at_minimum">Patcher dihentikan oleh sistem saat berjalan dengan batas memori %1$d MB, yang sudah merupakan batas terendah yang tersedia. Coba lakukan patching dengan lebih sedikit sumber patch, atau pilih lebih sedikit patch.</string>
+    <string name="patcher_memory_adjustment_description">Penambal dihentikan oleh sistem saat berjalan dengan batas memori %1$d MB. Menurunkan batas menjadi %2$d MB membuat penambal menjadi target yang lebih kecil dan dapat membuat prosesnya selesai</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">Penambal dihentikan oleh sistem saat berjalan dengan batas memori %1$d MB, yang merupakan batas terendah yang tersedia. Coba lakukan penambalan dengan lebih sedikit sumber tambalan, atau pilih lebih sedikit tambalan</string>
     <string name="patcher_memory_adjustment_apply">Turunkan ke %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Penyematan sedang berlangsung…</string>
@@ -511,6 +511,8 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <!-- Expert patcher Screen -->
     <string name="patching_app">Menambal aplikasi</string>
     <string name="memory_usage">Pemakaian memori</string>
+    <string name="cpu_usage">Penggunaan CPU</string>
+    <string name="storage_io_usage">I/O penyimpanan</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Menerapkan tambalan</string>
     <string name="failed_to_execute_patch">Gagal menerapkan %s</string>
@@ -518,7 +520,7 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="patched_app_save_failed_toast">Gagal menyimpan aplikasi yang ditambal</string>
     <string name="plugin_activity_dialog_body">Interaksi pengguna diperlukan untuk melanjutkan plugin ini</string>
     <string name="patcher_process_exit_message">Proses Penambal dihentikan dengan kode %s</string>
-    <string name="patcher_heap_exhausted_message">Patcher kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk patch yang dipilih. Coba menambal dengan lebih sedikit sumber patch, atau pilih lebih sedikit patch.</string>
+    <string name="patcher_heap_exhausted_message">Penambal kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk tambalan yang dipilih. Coba menambal dengan lebih sedikit sumber tambalan, atau pilih lebih sedikit tambalan</string>
     <string name="install_app_success">Berhasil dipasang</string>
     <string name="install_app_fail">Gagal memasang aplikasi: %s</string>
     <string name="uninstall_app_fail">Gagal menghapus aplikasi: %s</string>
@@ -593,8 +595,8 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_appearance_greeting_phrases_subtitle">Tampilkan pesan sapaan di layar beranda</string>
     <string name="settings_appearance_app_grouping">Pengelompokan aplikasi</string>
     <string name="settings_appearance_app_grouping_description">Tampilkan pengalih layar beranda untuk mengelompokkan aplikasi berdasarkan sumber atau kategori Anda sendiri, mempertahankan pilihan saat dinonaktifkan</string>
-    <string name="settings_appearance_sort_button">Tombol urutkan dan filter</string>
-    <string name="settings_appearance_sort_button_description">Tampilkan tombol urutkan dan filter di layar utama</string>
+    <string name="settings_appearance_sort_button">Tombol urutkan dan saring</string>
+    <string name="settings_appearance_sort_button_description">Tampilkan tombol urutkan dan fsaring di layar utama</string>
     <string name="settings_appearance_app_card_colors">Warna kartu aplikasi</string>
     <string name="settings_appearance_app_card_colors_default">Bawaan</string>
     <string name="settings_appearance_app_card_colors_default_description">Beri setiap aplikasi warna dari bundelnya sendiri</string>
@@ -614,9 +616,9 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_appearance_app_icon_selector_title">Ikon aplikasi</string>
     <string name="settings_appearance_app_icon_default">Bawaan</string>
     <string name="settings_appearance_app_icon_light_2">Langit</string>
-    <string name="settings_appearance_app_icon_light_3">Matahari terbenam</string>
+    <string name="settings_appearance_app_icon_light_3">Senja</string>
     <string name="settings_appearance_app_icon_dark_1">Samudra</string>
-    <string name="settings_appearance_app_icon_dark_2">Kosong</string>
+    <string name="settings_appearance_app_icon_dark_2">Hampa</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Ubah ikon aplikasi?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Ubah menjadi &lt;b&gt;%s&lt;/b&gt; dan mulai ulang?</string>

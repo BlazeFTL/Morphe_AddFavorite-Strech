@@ -189,6 +189,8 @@
     <string name="home_apk_use_saved">Использовать сохраненный APK</string>
     <string name="home_apk_use_installed">Использовать установленный APK</string>
     <string name="home_apk_use_installed_unverified">Не удалось проверить подпись установленного приложения, поэтому оно может быть уже пропатчено</string>
+    <string name="home_unverified">Непроверенный</string>
+    <string name="home_app_info_install_unverified">Morphe не может подтвердить, что установленное приложение является сборкой, которую он пропатчил. Переустановите его из сохраненного APK, чтобы восстановить его действия.</string>
     <string name="home_app_info_no_saved_apk">Нет сохраненного APK. Для патча нужно будет снова выбрать APK файл</string>
     <string name="home_version_requires_android">Требуется Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Не поддерживается на этом устройстве</string>
@@ -208,7 +210,6 @@
     <string name="home_download_instructions_step3_mount">Дождитесь завершения загрузки, затем &lt;b&gt;установите APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">После завершения загрузки, вернитесь в Morphe</string>
     <string name="home_download_instructions_step4_mount">После установки оригинального APK, вернитесь в Morphe</string>
-    <string name="home_download_instructions_continue">Перейти на APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Выберите загруженный APK</string>
     <string name="home_file_picker_prompt_description">Выберите файл %s APK, который вы только что загрузили</string>
@@ -508,6 +509,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">Патчинг приложения</string>
     <string name="memory_usage">Использование памяти</string>
+    <string name="cpu_usage">Использование ЦП</string>
+    <string name="storage_io_usage">Ввод-вывод хранилища</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Применение патчей</string>
     <string name="failed_to_execute_patch">Не удалось применить %s</string>
@@ -519,6 +522,8 @@
     <string name="install_app_success">Успешно установлено</string>
     <string name="install_app_fail">Не удалось установить приложение: %s</string>
     <string name="uninstall_app_fail">Не удалось удалить приложение: %s</string>
+    <string name="uninstall_app_unverified">Оставлено на месте: Morphe не удалось проверить, что установленное приложение является сборкой, которую он пропатчил.</string>
+    <string name="launch_app_unverified">Morphe не удалось проверить, что установленное приложение является сборкой, которую он пропатчил.</string>
     <string name="uninstall_timeout">Время ожидания удаления истекло</string>
     <string name="save_apk_success">APK сохранен</string>
     <string name="saved_app_export_failed">Не удалось экспортировать исправленное приложение</string>

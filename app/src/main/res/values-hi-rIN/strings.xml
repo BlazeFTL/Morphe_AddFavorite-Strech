@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">रात के समय और उत्पादक</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">पैच स्रोत</string>
+    <string name="sources_search">स्रोत खोजें</string>
     <string name="sources_sort_title">पैच स्रोत क्रमबद्ध करें</string>
     <string name="sources_sort_manual">मैन्युअल ऑर्डर</string>
     <string name="sources_sort_manual_hint">पुन:क्रमित करने के लिए किसी स्रोत को देर तक दबाएं</string>
@@ -210,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">डाउनलोड पूरा होने का इंतज़ार करें. इसके बाद,  &lt;b&gt;APK को इंस्टाल करें&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">डाउनलोड पूरा हो जाने के बाद, इस ऐप्लिकेशन को दोबारा खोलें</string>
     <string name="home_download_instructions_step4_mount">अपने APK को इंस्टॉल करने के बाद, वापस मॉर्फ पर जाएं</string>
-    <string name="home_download_instructions_continue">APKMirror.com पर जाएं</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">चयनित डाउनलोड एपीके</string>
     <string name="home_file_picker_prompt_description">अपना डाउनलोड की गई &lt;b&gt;b>%s&lt;b&gt;/b> APK फ़ाइल चुनें</string>
@@ -510,6 +510,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">एप्लिकेशन को पैच करना</string>
     <string name="memory_usage">मेमोरी का उपयोग</string>
+    <string name="cpu_usage">CPU उपयोग</string>
+    <string name="storage_io_usage">स्टोरेज I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Applying patches</string>
     <string name="failed_to_execute_patch">Failed to execute %s</string>

@@ -191,7 +191,6 @@
     <string name="home_download_instructions_step3_mount">Pričekajte da se preuzimanje završi, a zatim &lt;b&gt;instalirajte aplikaciju&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Nakon što preuzimanje završi, vrati se u Morphe</string>
     <string name="home_download_instructions_step4_mount">Nakon instaliranja originalne aplikacije, vrati se u Morphe</string>
-    <string name="home_download_instructions_continue">Nastavite na APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Odaberite preuzetu aplikaciju</string>
     <string name="home_file_picker_prompt_description">Odaberite &lt;b&gt;%s&lt;/b&gt; aplikaciju koju ste upravo preuzeli</string>

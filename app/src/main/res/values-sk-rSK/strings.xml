@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nočný a produktívny</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Zdroje záplat</string>
+    <string name="sources_search">Vyhľadávať zdroje</string>
     <string name="sources_sort_title">Zoradiť zdroje záplat</string>
     <string name="sources_sort_manual">Manuálne zoradenie</string>
     <string name="sources_sort_manual_hint">Dlhým stlačením položky zdroja ju môžete presunúť</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Použiť uložený APK súbor</string>
     <string name="home_apk_use_installed">Použiť nainštalovaný APK súbor</string>
     <string name="home_apk_use_installed_unverified">Nepodarilo sa overiť podpis nainštalovanej aplikácie, takže môže byť už zaplátaná</string>
+    <string name="home_unverified">Neoverené</string>
+    <string name="home_app_info_install_unverified">Morphe nemôže potvrdiť, že nainštalovaná aplikácia je zostava, ktorú opatchoval. Preinštalujte ju z uloženého APK, aby ste obnovili jej funkcie.</string>
     <string name="home_app_info_no_saved_apk">Nie je uložený žiadny súbor APK. Na zaplátanie bude potrebné znova vybrať APK súbor</string>
     <string name="home_version_requires_android">Vyžaduje Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nepodporované na tomto zariadení</string>
@@ -208,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Počkajte kým sa súbor stiahne a potom ho &lt;b&gt;nainštalujte&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Po dokončení sťahovania sa vráťte do Morphe</string>
     <string name="home_download_instructions_step4_mount">Po nainštalovaní pôvodného APK súboru sa vráťte do Morphe</string>
-    <string name="home_download_instructions_continue">Prejdite na APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Vyberte stiahnutý APK súbor</string>
     <string name="home_file_picker_prompt_description">Vyberte &lt;b&gt;%s&lt;/b&gt; APK súbor, ktorý ste práve stiahli</string>
@@ -508,6 +510,8 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Plátam aplikáciu</string>
     <string name="memory_usage">Využitie pamäte</string>
+    <string name="cpu_usage">Využitie CPU</string>
+    <string name="storage_io_usage">I/O úložiska</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Aplikujem záplaty</string>
     <string name="failed_to_execute_patch">Nepodarilo sa aplikovať %s</string>
@@ -519,6 +523,8 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="install_app_success">Úspešne nainštalované</string>
     <string name="install_app_fail">Nepodarilo sa nainštalovať aplikáciu: %s</string>
     <string name="uninstall_app_fail">Nepodarilo sa odinštalovať aplikáciu: %s</string>
+    <string name="uninstall_app_unverified">Ponechané na mieste: Morphe nemohol overiť, že nainštalovaná aplikácia je zostava, ktorú opatchoval.</string>
+    <string name="launch_app_unverified">Morphe nemohol overiť, že nainštalovaná aplikácia je zostava, ktorú opatchoval.</string>
     <string name="uninstall_timeout">Inštalácia sa časovo obmedzená.</string>
     <string name="save_apk_success">APK súbor uložený</string>
     <string name="saved_app_export_failed">Nepodarilo sa exportovať zaplátanú aplikáciu</string>

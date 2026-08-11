@@ -210,7 +210,6 @@
     <string name="home_download_instructions_step3_mount">Binevin destpêkirina daxistnê biqedîne, paşê &lt;b&gt;APKê nas bike&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Pi serîdana daxistinê bi dawî bû, vegerin ser Morphe</string>
     <string name="home_download_instructions_step4_mount">Pi naskindina APK\'ya bilavkirinê, vegerin Morphe</string>
-    <string name="home_download_instructions_continue">Bibe APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">APKê daxistî hilbijêre</string>
     <string name="home_file_picker_prompt_description">Pelê APK ya &lt;b&gt;%s&lt;/b&gt; ya hûn niha dakêşandî hilbijêrin.</string>
@@ -508,6 +507,8 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <!-- Expert patcher Screen -->
     <string name="patching_app">Dirûtîna sepanê</string>
     <string name="memory_usage">Baxê hevalê</string>
+    <string name="cpu_usage">Bikaranîna CPU</string>
+    <string name="storage_io_usage">I/O ya hilanînê</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Kêm</string>
     <string name="failed_to_execute_patch">Şeva pek dabeşin %s</string>

@@ -112,6 +112,8 @@
     <string name="home_greeting_super_late_5">Pang-gabi at produktibo</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">I-patch ang mapagkukunan</string>
+    <string name="sources_search">Maghanap ng mga mapagkukunan → Maghanap ng mga mapagkukunan
+Please note: The translation is complete. The arrow is for clarity and not part of the actual text. The actual text is: Maghanap ng mga mapagkukunan</string>
     <string name="sources_sort_title">Idagdag ang mapagkukunan ng patch</string>
     <string name="sources_sort_manual">Manu-manong pagkakasunud-sunod</string>
     <string name="sources_sort_manual_hint">Pindutin nang matagal ang isang pinagmulan upang muling ayusin</string>
@@ -210,7 +212,6 @@
     <string name="home_download_instructions_step3_mount">Hintaying makumpleto ang pag-download, pagkatapos &lt;b&gt;i-install ang APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Pagkatapos ang pag-download, bumalik sa Morphe</string>
     <string name="home_download_instructions_step4_mount">Pagkatapos ang pag-install ng orihinal na APK, bumalik sa Morphe</string>
-    <string name="home_download_instructions_continue">Magpatuloy sa APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Piliin ang na-download na APK</string>
     <string name="home_file_picker_prompt_description">Piliin ang &lt;b&gt;%s&lt;/b&gt; APK file na kakadownload mo lang</string>
@@ -510,6 +511,8 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Pag-patch ng app</string>
     <string name="memory_usage">Paggamit ng memory</string>
+    <string name="cpu_usage">Paggamit ng CPU</string>
+    <string name="storage_io_usage">I/O ng storage</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Inilalapat ang mga patch</string>
     <string name="failed_to_execute_patch">Nabigong ilapat %s</string>

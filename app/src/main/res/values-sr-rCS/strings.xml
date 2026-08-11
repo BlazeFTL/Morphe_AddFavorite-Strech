@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Noćni i produktivan</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Izvori zakrpe</string>
+    <string name="sources_search">Pretraži izvore</string>
     <string name="sources_sort_title">Sortiraj izvore zakrpa</string>
     <string name="sources_sort_manual">Ručna postavka</string>
     <string name="sources_sort_manual_hint">Pritisnite i zadržite izvor da biste ga preuredili</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Koristi sačuvani APK</string>
     <string name="home_apk_use_installed">Koristi instalirani APK</string>
     <string name="home_apk_use_installed_unverified">Nije bilo moguće da se potvrdi potpis instalirane aplikacije, tako da je možda već ispravljena</string>
+    <string name="home_unverified">Neverifikovano</string>
+    <string name="home_app_info_install_unverified">Morphe ne može da potvrdi da je instalirana aplikacija verzija koju je zakrpio. Ponovo je instalirajte iz sačuvane APK datoteke da biste obnovili njene akcije.</string>
     <string name="home_app_info_no_saved_apk">Nema sačuvanog APK-a. Krpljenje će zahtevati ponovni odabir APK datoteke</string>
     <string name="home_version_requires_android">Zahteva Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nije podržano na ovom uređaju</string>
@@ -208,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Sačekajte da preuzimanje bude završeno, a onda &lt;b&gt;instalirajte APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Nakon što se preuzimanje završi, vratite se na Morphe</string>
     <string name="home_download_instructions_step4_mount">Nakon instaliranja originalnog APK-a, vratite se na Morphe</string>
-    <string name="home_download_instructions_continue">Nastavi na APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Izaberite preuzete APK</string>
     <string name="home_file_picker_prompt_description">Odaberite &lt;b&gt;%s&lt;/b&gt; APK fajl koji ste nedavno preuzeli</string>
@@ -508,6 +510,8 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Uređivanje aplikacija</string>
     <string name="memory_usage">Upotreba memorije</string>
+    <string name="cpu_usage">Iskorišćenost CPU-a</string>
+    <string name="storage_io_usage">I/O skladišta</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Primenjivanje zakrpe</string>
     <string name="failed_to_execute_patch">Došlo je do greške pri primeni %s</string>
@@ -519,6 +523,8 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="install_app_success">Uspešno instalirano</string>
     <string name="install_app_fail">Nije uspelo instaliranje aplikacije: %s</string>
     <string name="uninstall_app_fail">Nije uspešno deinstalirana aplikacija: %s</string>
+    <string name="uninstall_app_unverified">Ostavljeno na mestu: Morphe nije mogao da potvrdi da je instalirana aplikacija verzija koju je zakrpio.</string>
+    <string name="launch_app_unverified">Morphe nije mogao da potvrdi da je instalirana aplikacija verzija koju je zakrpio.</string>
     <string name="uninstall_timeout">Vreme isteka deinstalacije je isteklo</string>
     <string name="save_apk_success">Sačuvana APK datoteka</string>
     <string name="saved_app_export_failed">Nije uspelo izvoz zakrpljene aplikacije</string>

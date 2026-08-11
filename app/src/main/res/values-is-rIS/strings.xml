@@ -210,7 +210,6 @@
     <string name="home_download_instructions_step3_mount">Bíðu þar til niðuhlaðningu er lokið, þá &lt;b&gt;setja upp APK skrárna&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Eftir að niðursöltunin er lokið, farðu aftur til Morphe</string>
     <string name="home_download_instructions_step4_mount">Eftir að setja upp upprunalega APK-skrána, farðu aftur til Morphe</string>
-    <string name="home_download_instructions_continue">Halda áfram á APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Velja skrá</string>
     <string name="home_file_picker_prompt_description">Veldu &lt;b&gt;%s&lt;/b&gt; APK skrána sem þú hlaðið niður</string>
@@ -508,6 +507,8 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Pakkning app</string>
     <string name="memory_usage">Minniskot</string>
+    <string name="cpu_usage">CPU notkun</string>
+    <string name="storage_io_usage">Geymslu I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Á breytistillingar</string>
     <string name="failed_to_execute_patch">Ekki tókst að á breytistillingu %s</string>

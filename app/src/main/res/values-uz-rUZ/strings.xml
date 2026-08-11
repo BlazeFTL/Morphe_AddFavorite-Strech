@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Tunki va unumli</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Tuzatish manbalari</string>
+    <string name="sources_search">Manbalarni qidirish</string>
     <string name="sources_sort_title">Aplikasi dengan lencana pembaruan terlebih dahulu, lalu urutan yang direkomendasikan</string>
     <string name="sources_sort_manual">Pesanan manual</string>
     <string name="sources_sort_manual_hint">Tekan lama sumber untuk mengatur ulang</string>
@@ -189,6 +190,8 @@
     <string name="home_apk_use_saved">Saqlangan APKdan foydalanish</string>
     <string name="home_apk_use_installed">O\'rnatilgan APKdan foydalanish</string>
     <string name="home_apk_use_installed_unverified">O\'rnatilgan ilovaning imzosi tasdiqlanmadi, shuning uchun u allaqachon o\'zgartirilgan bo\'lishi mumkin</string>
+    <string name="home_unverified">Tasdiqlanmagan</string>
+    <string name="home_app_info_install_unverified">Morphe o\'rnatilgan ilova u yamagan build ekanligini tasdiqlay olmaydi. Uning amallarini tiklash uchun saqlangan APK dan qayta o\'rnating.</string>
     <string name="home_app_info_no_saved_apk">Saqlangan APK yo\'q. Patchlash uchun APK faylini qayta tanlash kerak bo\'ladi</string>
     <string name="home_version_requires_android">Android %s+ talab qilinadi</string>
     <string name="home_apk_no_compatible_versions_title">Ushbu moslamada qo‘llab-quvvatlanmaydi</string>
@@ -208,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Yuklab olish tugagandan so‘ng &lt;b&gt;APK ni o‘rnating&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Yuklab olish tugagandan so\'ng, Morphe ga qayting</string>
     <string name="home_download_instructions_step4_mount">Asl APKni o\'rnatgandan so\'ng Morphe ga qayting</string>
-    <string name="home_download_instructions_continue">APKMirror.com saytiga o‘ting</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Yuklab olingan APKni tanlang</string>
     <string name="home_file_picker_prompt_description">Yaqinda yuklab olingan &lt;b&gt;%s&lt;/b&gt; APK faylini tanlang</string>
@@ -507,6 +509,8 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">O\'rnatish muvaffaqiyatsiz yakunlandi. Yana urinib ko\'ring yoki boshqa o\'rnatuvchiga o\'ting</string>
     <string name="memory_usage">Xotira ishlatilishi</string>
+    <string name="cpu_usage">CPU ishlatilishi</string>
+    <string name="storage_io_usage">Saqlash kiritish/chiqishi</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Patchlarni qo‘llash</string>
     <string name="failed_to_execute_patch">%s ni qo‘llashda xatolik</string>
@@ -518,6 +522,8 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="install_app_success">O‘rnatish muvaffaqiyatli yakunlandi</string>
     <string name="install_app_fail">Ilovni o‘rnatishda xatolik: %s</string>
     <string name="uninstall_app_fail">Ilova o\'rnatishda xatolik: %s</string>
+    <string name="uninstall_app_unverified">Joyida qoldirildi: Morphe o\'rnatilgan ilova u yamagan build ekanligini tasdiqlay olmadi.</string>
+    <string name="launch_app_unverified">Morphe o\'rnatilgan ilova u yamagan build ekanligini tasdiqlay olmadi.</string>
     <string name="uninstall_timeout">O\'rnatish vaqti tugadi</string>
     <string name="save_apk_success">APK saqlab qolindi</string>
     <string name="saved_app_export_failed">Patchlangan ilovni eksport qilishda xatolik</string>

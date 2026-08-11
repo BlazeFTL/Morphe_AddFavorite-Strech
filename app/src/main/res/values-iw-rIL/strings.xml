@@ -113,6 +113,7 @@
     <string name="home_greeting_super_late_5">ליליים ופרודוקטיביים</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">מקורות תיקונים</string>
+    <string name="sources_search">חיפוש מקורות</string>
     <string name="sources_sort_title">מקורות תיקונים</string>
     <string name="sources_sort_manual">הזמנה ידנית</string>
     <string name="sources_sort_manual_hint">לחץ לחיצה ארוכה על מקור כדי לשנות את הסדר</string>
@@ -211,7 +212,6 @@
     <string name="home_download_instructions_step3_mount">המתן להשלמת ההורדה, ואז &lt;b&gt;התקן את ה-APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">לאחר סיום ההורדה, חזרו ל-Morphe</string>
     <string name="home_download_instructions_step4_mount">לאחר התקנת APK המקורית, חזרו ל-Morphe</string>
-    <string name="home_download_instructions_continue">המשך ל-APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">בחרו קובץ APK שהורד</string>
     <string name="home_file_picker_prompt_description">בחר את קובץ ה-APK &lt;b&gt;%s&lt;/b&gt; שהורדת זה עתה</string>
@@ -511,6 +511,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">מילוי אפליקציה</string>
     <string name="memory_usage">שימוש בזיכרון</string>
+    <string name="cpu_usage">שימוש במעבד</string>
+    <string name="storage_io_usage">קלט/פלט של אחסון</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">החלת טלאים</string>
     <string name="failed_to_execute_patch">נכשל להחיל %s</string>

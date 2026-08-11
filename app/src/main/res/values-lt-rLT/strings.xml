@@ -151,7 +151,6 @@
     <string name="home_download_instructions_step3_mount">Palaukite, kol atsisiuntimas baigsis, tada &lt;b&gt;diegaite APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Po atsisiuntimo, grįžkite į Morphe</string>
     <string name="home_download_instructions_step4_mount">Po originalaus APK diegimo grįžkite į Morphe</string>
-    <string name="home_download_instructions_continue">Tęskite į APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Pasirinkite atsisiųstą APK</string>
     <string name="home_file_picker_prompt_description">Pasirinkite &lt;b&gt;%s&lt;/b&gt; APK kuri tika atsisiuntete</string>

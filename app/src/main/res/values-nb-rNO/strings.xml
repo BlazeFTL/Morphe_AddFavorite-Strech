@@ -112,6 +112,7 @@
     <string name="home_greeting_super_late_5">Nattaktiv og produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patchkilder</string>
+    <string name="sources_search">Søk kilder</string>
     <string name="sources_sort_title">Sorter patch-kilder</string>
     <string name="sources_sort_manual">Manuell rekkefølge</string>
     <string name="sources_sort_manual_hint">Trykk og hold nede en kilde for å endre rekkefølgen</string>
@@ -210,7 +211,6 @@
     <string name="home_download_instructions_step3_mount">Vent til nedlastingen er fullført, og &lt;b&gt;installer APK-filen&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Etter at nedlastingen er fullført, gå tilbake til Morphe</string>
     <string name="home_download_instructions_step4_mount">Etter installasjon av den originale APK-filen, gå tilbake til Morphe</string>
-    <string name="home_download_instructions_continue">Fortsett til APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Velg nedlastet APK-fil</string>
     <string name="home_file_picker_prompt_description">Velg den &lt;b&gt;%s&lt;/b&gt; APK-filen du nettopp lastet ned</string>
@@ -510,6 +510,8 @@ Avinstallering vil permanent slette alle appdata"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Patche app</string>
     <string name="memory_usage">Minnebruk</string>
+    <string name="cpu_usage">CPU-bruk</string>
+    <string name="storage_io_usage">Lagrings-I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Bruker patcher</string>
     <string name="failed_to_execute_patch">Kunne ikke bruke %s</string>

@@ -1,3 +1,16 @@
+# [1.26.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.3...v1.26.0-dev.4) (2026-08-11)
+
+
+### Bug Fixes
+
+* Wait for the download page before showing its instructions ([ab9d53f](https://github.com/MorpheApp/morphe-manager/commit/ab9d53fbb5f279bb3eedd007858af1e1fe47ce6c))
+
+
+### Features
+
+* Add CPU and storage I/O graphs to the expert patching screen ([#849](https://github.com/MorpheApp/morphe-manager/issues/849)) ([3465561](https://github.com/MorpheApp/morphe-manager/commit/3465561d6de44f9430fc7deb896ddb9237a117dd))
+* Match the download instructions to the website the APK link leads to ([#848](https://github.com/MorpheApp/morphe-manager/issues/848)) ([71e4675](https://github.com/MorpheApp/morphe-manager/commit/71e4675e8552d348846adeee60d813e019304581))
+
 # [1.26.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.2...v1.26.0-dev.3) (2026-08-11)
 
 

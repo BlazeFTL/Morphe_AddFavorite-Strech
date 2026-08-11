@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-10T15:03:08",
-  "description": "# [1.26.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.25.1-dev.1...v1.26.0-dev.1) (2026-08-10)\n\n\n### Bug Fixes\n\n* Stop the patch counter from doubling when patching restarts ([df8a0eb](https://github.com/MorpheApp/morphe-manager/commit/df8a0ebe8e9fb0418e67d98716d4afb9789a629f))\n\n\n### Features\n\n* Accept helper installed-app results ([#838](https://github.com/MorpheApp/morphe-manager/issues/838)) ([50e3f51](https://github.com/MorpheApp/morphe-manager/commit/50e3f51ecf12e2332e54a99b0d09ff08b9e2c6aa))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.1/morphe-manager-1.26.0-dev.1.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.1/morphe-manager-1.26.0-dev.1.apk.asc",
-  "version": "1.26.0-dev.1"
+  "created_at": "2026-08-11T05:25:32",
+  "description": "# [1.26.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.1...v1.26.0-dev.2) (2026-08-11)\n\n\n### Bug Fixes\n\n* Stage universal patches behind a second \"Enable all\" tap ([#840](https://github.com/MorpheApp/morphe-manager/issues/840)) ([3485ca4](https://github.com/MorpheApp/morphe-manager/commit/3485ca41c5938dbd76d09c6bc191a5a9a1a5bbff))\n\n\n### Features\n\n* Filter the home app list by patch and install state ([#829](https://github.com/MorpheApp/morphe-manager/issues/829)) ([cf0f2f9](https://github.com/MorpheApp/morphe-manager/commit/cf0f2f961f012122021ba43d903a89967719dd28))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.2/morphe-manager-1.26.0-dev.2.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.2/morphe-manager-1.26.0-dev.2.apk.asc",
+  "version": "1.26.0-dev.2"
 }

@@ -42,6 +42,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
+import app.morphe.manager.data.room.apps.installed.SelectionPayload
 import app.morphe.manager.data.room.apps.installed.supportsMount
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.util.NativeLibStripper
@@ -64,6 +65,33 @@ data class AppliedPatchBundleUi(
     val patchInfos: List<PatchInfo>,
     val fallbackNames: List<String>,
     val bundleAvailable: Boolean
+)
+
+/** How a bundle that patched an app is named and versioned in its information dialog. */
+data class AppliedBundleAttribution(
+    val title: String,
+    val version: String?
+)
+
+/**
+ * Describes the bundle from the live source first, then from what patching recorded.
+ * An internal uid is never part of the answer, so a deleted source reads as one.
+ */
+fun resolveAppliedBundleAttribution(
+    sourceTitle: String?,
+    bundleName: String?,
+    bundleVersion: String?,
+    storedVersion: String?,
+    recorded: SelectionPayload.BundleSelection?,
+    fallbackTitle: String
+): AppliedBundleAttribution = AppliedBundleAttribution(
+    title = sourceTitle?.takeUnless { it.isBlank() }
+        ?: bundleName?.takeUnless { it.isBlank() }
+        ?: recorded?.bundleName?.takeUnless { it.isBlank() }
+        ?: fallbackTitle,
+    version = storedVersion?.takeUnless { it.isBlank() }
+        ?: recorded?.bundleVersion?.takeUnless { it.isBlank() }
+        ?: bundleVersion?.takeUnless { it.isBlank() }
 )
 
 /**

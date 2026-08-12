@@ -338,12 +338,16 @@ class PatchBundleRepository(
     }
 
     fun snapshotSelection(selection: PatchSelection): SelectionPayload {
+        val sourcesByUid = sources.value.associateBy { it.uid }
         return SelectionPayload(
             bundles = selection.map { (bundleUid, patches) ->
+                val source = sourcesByUid[bundleUid]
                 SelectionPayload.BundleSelection(
                     bundleUid = bundleUid,
                     patches = patches.toList(),
-                    options = emptyMap()
+                    options = emptyMap(),
+                    bundleName = source?.displayTitle,
+                    bundleVersion = source?.version
                 )
             }
         )

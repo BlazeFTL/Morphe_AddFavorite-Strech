@@ -24,11 +24,17 @@ enum class InstallType(val stringResource: Int) {
 data class SelectionPayload(
     val bundles: List<BundleSelection>
 ) {
+    /**
+     * [bundleName] and [bundleVersion] are the source as it was when the app was patched. They
+     * outlive its deletion, which cascades the applied patches away along with their attribution.
+     */
     @Serializable
     data class BundleSelection(
         val bundleUid: Int,
         val patches: List<String>,
-        val options: Map<String, Map<String, String>> = emptyMap()
+        val options: Map<String, Map<String, String>> = emptyMap(),
+        val bundleName: String? = null,
+        val bundleVersion: String? = null
     )
 }
 

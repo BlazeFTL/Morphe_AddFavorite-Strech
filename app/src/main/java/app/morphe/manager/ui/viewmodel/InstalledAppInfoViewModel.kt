@@ -21,6 +21,7 @@ import app.morphe.manager.domain.repository.*
 import app.morphe.manager.ui.model.displayedPackageInfo
 import app.morphe.manager.ui.model.trackedInstallPresentation
 import app.morphe.manager.ui.screen.home.AppliedPatchBundleUi
+import app.morphe.manager.ui.screen.home.resolveAppliedBundleAttribution
 import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -341,10 +342,18 @@ class InstalledAppInfoViewModel(
                 val fallbackName = if (bundleUid == 0) {
                     context.getString(R.string.home_app_info_patches_name_default)
                 } else {
-                    context.getString(R.string.home_app_info_patches_name_fallback)
+                    context.getString(R.string.home_app_info_patches_source_removed)
                 }
-                val title = source?.displayTitle ?: info?.name ?: "$fallbackName (#$bundleUid)"
-                val version = storedVersions[bundleUid] ?: info?.version
+                val attribution = resolveAppliedBundleAttribution(
+                    sourceTitle = source?.displayTitle,
+                    bundleName = info?.name,
+                    bundleVersion = info?.version,
+                    storedVersion = storedVersions[bundleUid],
+                    recorded = app.selectionPayload?.bundles?.firstOrNull { it.bundleUid == bundleUid },
+                    fallbackTitle = fallbackName
+                )
+                val title = attribution.title
+                val version = attribution.version
                 // Scoped to the app the patches were picked for, so keys match what was stored
                 val patchInfos = info?.forPackage(app.originalPackageName, null)?.patches
                     ?.filter { it.name in bundlePatches }

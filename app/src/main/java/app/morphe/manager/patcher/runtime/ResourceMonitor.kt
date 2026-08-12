@@ -27,6 +27,9 @@ object ResourceMonitor {
     const val LOG_USAGE_FIELD_IO_READ = "ioRead"
     const val LOG_USAGE_FIELD_IO_WRITE = "ioWrite"
 
+    const val LOG_USAGE_PREFIX_DONE = "Usage after patching:"
+    const val LOG_USAGE_FIELD_IO_PEAK = "ioPeak"
+
     private const val MONITOR_INTERVAL = 2000L
 
     @Volatile
@@ -44,6 +47,10 @@ object ResourceMonitor {
     @Volatile
     private var memoryUsedMax = 0L
 
+    /** Null until the first I/O sample, on devices that expose none the done line stays out too. */
+    @Volatile
+    private var ioPeakKbPerSec: Int? = null
+
     fun startPolling(logger: Logger) {
         // A queued run starts the monitor again while the previous thread may still be sleeping
         // off its last interval, and two of them would report over each other forever
@@ -52,6 +59,7 @@ object ResourceMonitor {
         memoryPollSamples = 0
         memoryUsedAverage = 0
         memoryUsedMax = 0
+        ioPeakKbPerSec = null
         polling = true
 
         pollingThread = Thread {
@@ -96,6 +104,10 @@ object ResourceMonitor {
             "$LOG_MEMORY_PREFIX_DONE $LOG_MEMORY_FIELD_AVERAGE=${memoryUsedAverage}MB " +
                     "$LOG_MEMORY_FIELD_MAX=${memoryUsedMax}MB"
         )
+
+        ioPeakKbPerSec?.let { peak ->
+            logger.info("$LOG_USAGE_PREFIX_DONE $LOG_USAGE_FIELD_IO_PEAK=$peak")
+        }
     }
 
     /**
@@ -105,6 +117,10 @@ object ResourceMonitor {
     private fun logUsage(logger: Logger, cpuSampler: CpuUsageSampler, ioSampler: IoUsageSampler) {
         val coreLoads = cpuSampler.sample()
         val io = ioSampler.sample()
+
+        if (io != null) {
+            ioPeakKbPerSec = max(ioPeakKbPerSec ?: 0, io.readKbPerSec + io.writeKbPerSec)
+        }
 
         val fields = buildList {
             if (coreLoads.isNotEmpty()) {

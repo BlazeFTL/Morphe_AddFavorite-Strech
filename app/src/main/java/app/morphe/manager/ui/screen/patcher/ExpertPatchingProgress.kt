@@ -43,6 +43,8 @@ import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_MEMORY_FIELD_AVERAGE
 import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_MEMORY_FIELD_MAX
 import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_MEMORY_PREFIX_DONE
+import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_USAGE_FIELD_IO_PEAK
+import app.morphe.manager.patcher.runtime.ResourceMonitor.LOG_USAGE_PREFIX_DONE
 import app.morphe.manager.patcher.runtime.process.PatcherProcess.Companion.LOG_PROCESS_PREFIX_PROCESS_HEAP
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_PROCESS_PREFIX_COROUTINE_HEAP
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_FIELD_ANDROID
@@ -117,6 +119,8 @@ sealed interface LogItem {
         // null when using CoroutineRuntime (no separate process)
         val processHeapAverageMb: String?,
         val processHeapMaxMb: String?,
+        // null on devices that expose no I/O counters to sample
+        val ioPeakRate: String?,
     ) : LogItem
 
     /** Standard single-line log entry. */
@@ -142,6 +146,7 @@ internal fun List<Pair<LogLevel, String>>.toLogItems(): List<LogItem> {
     var runtimeMemoryLimitMb: String? = null
     var processHeapAverageMb: String? = null
     var processHeapMaxMb: String? = null
+    var ioPeakKbPerSec: Int? = null
     var androidVersion: String? = null
     var ramAvailable: String? = null
     var ramTotal: String? = null
@@ -185,6 +190,9 @@ internal fun List<Pair<LogLevel, String>>.toLogItems(): List<LogItem> {
                 processHeapAverageMb  = message.logField(LOG_MEMORY_FIELD_AVERAGE)
                 processHeapMaxMb   = message.logField(LOG_MEMORY_FIELD_MAX)
             }
+            message.startsWith(LOG_USAGE_PREFIX_DONE) -> {
+                ioPeakKbPerSec = message.logField(LOG_USAGE_FIELD_IO_PEAK)?.toIntOrNull()
+            }
         }
     }
 
@@ -192,6 +200,7 @@ internal fun List<Pair<LogLevel, String>>.toLogItems(): List<LogItem> {
         LOG_PROCESS_PREFIX_PROCESS_HEAP,
         LOG_PROCESS_PREFIX_COROUTINE_HEAP,
         LOG_MEMORY_PREFIX_DONE,
+        LOG_USAGE_PREFIX_DONE,
         LOG_WORKER_PREFIX_DEVICE,
         LOG_WORKER_PREFIX_RUNTIME,
         LOG_WORKER_PREFIX_SOURCE,
@@ -244,6 +253,7 @@ internal fun List<Pair<LogLevel, String>>.toLogItems(): List<LogItem> {
                     ),
                     processHeapAverageMb  = processHeapAverageMb,
                     processHeapMaxMb   = processHeapMaxMb,
+                    ioPeakRate = ioPeakKbPerSec?.let(::formatRate),
                 )
             }
 
@@ -984,6 +994,18 @@ private fun SuccessSummaryCard(item: LogItem.SuccessSummary) {
                 BannerFieldCell(
                     label = "Memory max",
                     value = item.processHeapMaxMb ?: "?",
+                    modifier = Modifier.weight(1f))
+            }
+        }
+
+        if (item.ioPeakRate != null) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                BannerFieldCell(
+                    label = "Storage I/O peak",
+                    value = item.ioPeakRate,
                     modifier = Modifier.weight(1f))
             }
         }

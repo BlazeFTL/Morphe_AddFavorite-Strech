@@ -20,7 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +31,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -132,6 +135,11 @@ fun PatchingUsageGraphs(
 
     val metrics = usageMetrics(compact)
 
+    // Every label reserves one line until one of them actually needs two, at which point they
+    // all do: the panels sit side by side, so only the row as a whole can afford the extra height
+    var reserveTwoLines by remember(compact) { mutableStateOf(false) }
+    val onLabelWraps = { if (!reserveTwoLines) reserveTwoLines = true }
+
     // CPU and storage are rates, so they only exist once a second poll has something to subtract.
     // Waiting for it brings the whole group in at once instead of heap first and the rest after.
     AnimatedVisibility(
@@ -141,13 +149,19 @@ fun PatchingUsageGraphs(
     ) {
         // Both histories sit together, and the per-core bars close the group rather than split it
         UsagePanelLayout(compact = compact, metrics = metrics) { panelModifier ->
-            HeapUsagePanel(heapSamples, heapLimitMb, compact, metrics, panelModifier)
+            HeapUsagePanel(
+                heapSamples, heapLimitMb, compact, metrics, reserveTwoLines, onLabelWraps, panelModifier
+            )
 
             if (ioSamples.isNotEmpty()) {
-                IoUsagePanel(ioSamples, compact, metrics, panelModifier)
+                IoUsagePanel(
+                    ioSamples, compact, metrics, reserveTwoLines, onLabelWraps, panelModifier
+                )
             }
             if (coreLoads.isNotEmpty()) {
-                CpuUsagePanel(coreLoads, compact, metrics, panelModifier)
+                CpuUsagePanel(
+                    coreLoads, compact, metrics, reserveTwoLines, onLabelWraps, panelModifier
+                )
             }
         }
     }
@@ -186,6 +200,8 @@ private fun HeapUsagePanel(
     limitMb: Int,
     compact: Boolean,
     metrics: UsageMetrics,
+    reserveTwoLines: Boolean,
+    onLabelWraps: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val accentColor = MaterialTheme.colorScheme.primary
@@ -216,6 +232,8 @@ private fun HeapUsagePanel(
         accentColor = lerp(accentColor, warnColor, warnRamp(colorFractions.lastOrNull() ?: 0f)),
         compact = compact,
         metrics = metrics,
+        reserveTwoLines = reserveTwoLines,
+        onLabelWraps = onLabelWraps,
         modifier = modifier
     ) {
         UsageHistoryBars(
@@ -234,6 +252,8 @@ private fun CpuUsagePanel(
     coreLoads: List<Int>,
     compact: Boolean,
     metrics: UsageMetrics,
+    reserveTwoLines: Boolean,
+    onLabelWraps: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val accentColor = MaterialTheme.colorScheme.tertiary
@@ -247,6 +267,8 @@ private fun CpuUsagePanel(
         accentColor = lerp(accentColor, warnColor, warnRamp(average / 100f)),
         compact = compact,
         metrics = metrics,
+        reserveTwoLines = reserveTwoLines,
+        onLabelWraps = onLabelWraps,
         modifier = modifier
     ) {
         CoreLoadBars(coreLoads, accentColor, warnColor, compact, metrics.graphHeight)
@@ -258,6 +280,8 @@ private fun IoUsagePanel(
     samples: List<IoSample>,
     compact: Boolean,
     metrics: UsageMetrics,
+    reserveTwoLines: Boolean,
+    onLabelWraps: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     // Storage has no limit to plot against, so the busiest sample on screen sets the scale.
@@ -281,6 +305,8 @@ private fun IoUsagePanel(
         accentColor = accentColor,
         compact = compact,
         metrics = metrics,
+        reserveTwoLines = reserveTwoLines,
+        onLabelWraps = onLabelWraps,
         modifier = modifier
     ) {
         // A tall bar here means "the most so far" rather than "nearly out of headroom", so
@@ -301,9 +327,16 @@ private fun UsagePanel(
     accentColor: Color,
     compact: Boolean,
     metrics: UsageMetrics,
+    reserveTwoLines: Boolean,
+    onLabelWraps: () -> Unit,
     modifier: Modifier = Modifier,
     graph: @Composable () -> Unit
 ) {
+    val labelLineHeight = 12.sp
+    // The dot sits next to the label's first line specifically, not centred on the two-line
+    // block the row may reserve, so it needs its own slot the height of just that one line
+    val firstLineHeight = with(LocalDensity.current) { labelLineHeight.toDp() }
+
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(14.dp),
@@ -322,22 +355,32 @@ private fun UsagePanel(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
                 Box(
-                    modifier = Modifier
-                        .size(6.dp)
-                        .clip(CircleShape)
-                        .background(accentColor)
-                )
+                    modifier = Modifier.height(firstLineHeight),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(6.dp)
+                            .clip(CircleShape)
+                            .background(accentColor)
+                    )
+                }
 
                 Text(
                     text = label,
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f),
                     fontSize = 10.sp,
-                    maxLines = 1,
+                    lineHeight = labelLineHeight,
+                    // Only reserved at two lines once the group has learned that at least one of
+                    // its labels actually needs the second, so most locales stay a single line
+                    minLines = if (reserveTwoLines) 2 else 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
+                    onTextLayout = { if (it.lineCount > 1) onLabelWraps() },
                     modifier = Modifier.weight(1f, fill = false)
                 )
 
@@ -350,7 +393,8 @@ private fun UsagePanel(
                         fontFamily = FontFamily.Monospace,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                         fontSize = 10.sp,
-                        maxLines = 1
+                        maxLines = 1,
+                        modifier = Modifier.align(Alignment.CenterVertically)
                     )
                 }
             }
@@ -411,9 +455,14 @@ private fun CoreLoadBars(
     compact: Boolean,
     height: Dp
 ) {
+    // Sorted ascending so a pinned core always lands in the same slot: raw core order jumps a
+    // bar from one side of the row to the other as the scheduler moves load between cores, even
+    // when the overall picture has not changed at all
+    val sortedLoads = loads.sorted()
+
     // Polling is slow enough that stepping straight to each reading reads as noise
-    val fractions = loads.mapIndexed { core, load ->
-        key(core) {
+    val fractions = sortedLoads.mapIndexed { rank, load ->
+        key(rank) {
             animateFloatAsState(
                 targetValue = (load / 100f).coerceIn(0f, 1f),
                 animationSpec = tween(600, easing = FastOutSlowInEasing),
@@ -520,7 +569,7 @@ private fun warnRamp(fraction: Float) =
 
 private fun Float.asPercent() = "${(this * 100).toInt()}%"
 
-private fun formatRate(kbPerSec: Int) = if (kbPerSec >= 1024) {
+internal fun formatRate(kbPerSec: Int) = if (kbPerSec >= 1024) {
     "%.1f MB/s".format(kbPerSec / 1024f)
 } else {
     "$kbPerSec KB/s"

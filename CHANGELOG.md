@@ -1,3 +1,11 @@
+# [1.26.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.6...v1.26.0-dev.7) (2026-08-12)
+
+
+### Bug Fixes
+
+* Recover patch bundle downloads when github.com is unreachable ([02a9aa6](https://github.com/MorpheApp/morphe-manager/commit/02a9aa64f4382bd40fe25d56db634b60cf3f3687))
+* Route manager updates through the same download fallback as patch bundles ([ab154cb](https://github.com/MorpheApp/morphe-manager/commit/ab154cba6f3c5d7125ea71cffcd49b9c31a5e644))
+
 # [1.26.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.5...v1.26.0-dev.6) (2026-08-12)
 
 

@@ -11,12 +11,55 @@ import app.morphe.manager.network.utils.getOrNull
 import app.morphe.manager.util.*
 import io.ktor.client.request.header
 import io.ktor.client.request.url
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Instant
+
+private const val GITHUB_DOWNLOAD_PREFIX = "https://github.com/"
+
+/** Coordinates of a single asset inside a GitHub release download link. */
+internal data class ReleaseAssetRef(
+    val owner: String,
+    val repo: String,
+    val tag: String,
+    val fileName: String
+) {
+    /** Asset names are compared against both forms because the link may percent-encode them. */
+    val decodedFileName: String
+        get() = runCatching {
+            java.net.URLDecoder.decode(fileName, Charsets.UTF_8.name())
+        }.getOrDefault(fileName)
+}
+
+/**
+ * Splits a github.com release download link into its coordinates.
+ *
+ * Returns null for anything that is not `/{owner}/{repo}/releases/download/{tag}/{file}`, which
+ * keeps callers from turning unrelated URLs into API lookups.
+ */
+internal fun parseReleaseAssetUrl(downloadUrl: String): ReleaseAssetRef? {
+    if (!downloadUrl.startsWith(GITHUB_DOWNLOAD_PREFIX)) return null
+
+    val parts = downloadUrl.removePrefix(GITHUB_DOWNLOAD_PREFIX)
+        .substringBefore('?')
+        .split("/")
+    if (parts.size < 6 || parts[2] != "releases" || parts[3] != "download") return null
+    if (parts.take(2).any { it.isBlank() } || parts[4].isBlank()) return null
+
+    val fileName = parts.drop(5).joinToString("/")
+    if (fileName.isBlank()) return null
+
+    return ReleaseAssetRef(
+        owner = parts[0],
+        repo = parts[1],
+        tag = parts[4],
+        fileName = fileName
+    )
+}
 
 /**
  * High-level network layer for Morphe.
@@ -47,6 +90,17 @@ class MorpheAPI(
         fun rawFileUrl(branch: String, path: String): String =
             "https://raw.githubusercontent.com/$owner/$name/$branch/$path"
     }
+
+    /**
+     * Token GitHub has already turned down, kept so it is not sent again.
+     *
+     * Repeated failed authentications count against the caller and can get the address throttled,
+     * which would be a worse outcome than simply falling back to the anonymous rate limit. Holding
+     * the token itself rather than a flag means a newly entered one is tried again.
+     */
+    @Volatile
+    @PublishedApi
+    internal var rejectedPat: String? = null
 
     // Lazy so URL parsing doesn't happen on construction — only when first needed
     private val managerConfig: RepoConfig by lazy { parseRepoUrl(MANAGER_REPO_URL) }
@@ -102,29 +156,42 @@ class MorpheAPI(
     /**
      * Makes a GitHub REST API request to [path] relative to the repository API base.
      * Attaches the user's PAT (if configured) as a Bearer token.
+     *
+     * A rejected token falls back to an anonymous request: most endpoints answer without
+     * credentials, and a PAT that has expired or been revoked should cost the lower rate limit
+     * rather than the endpoint itself.
      */
     private suspend inline fun <reified T> githubRequest(
         config: RepoConfig,
         path: String
     ): APIResponse<T> {
-        val pat = prefs.gitHubPat.get()
-        return client.request {
-            pat.takeIf { it.isNotBlank() }?.let { header("Authorization", "Bearer $it") }
-            url("${config.apiBase}/${path.trimStart('/')}")
+        val url = "${config.apiBase}/${path.trimStart('/')}"
+        val pat = prefs.gitHubPat.get().takeIf { it.isNotBlank() && it != rejectedPat }
+            ?: return client.request { url(url) }
+
+        val response: APIResponse<T> = client.request {
+            header("Authorization", "Bearer $pat")
+            url(url)
         }
+
+        val rejected = response is APIResponse.Error &&
+                response.error.statusCode == HttpStatusCode.Unauthorized
+        if (!rejected) return response
+
+        rejectedPat = pat
+        Log.w(tag, "GitHub rejected the configured PAT, retrying $path anonymously")
+        return client.request { url(url) }
     }
 
     /**
-     * Makes a request to the Morphe backend API at [route], with generic retry on failure.
+     * Makes a request to the Morphe backend API at [route].
      *
-     * Note: [HttpService.request] already handles 429 retry internally. This adds an extra
-     * [HttpService.runWithRetry] layer for transient network errors specific to Morphe API calls.
+     * Note: [HttpService.request] already retries 429 and dropped connections internally, so
+     * wrapping it in another retry layer here would only multiply the attempts.
      */
     private suspend inline fun <reified T> apiRequest(route: String): APIResponse<T> {
         val url = "$MORPHE_API_URL/v2/${route.trimStart('/')}"
-        return client.runWithRetry(route) {
-            client.request { url(url) }
-        }
+        return client.request { url(url) }
     }
 
     /**
@@ -138,6 +205,32 @@ class MorpheAPI(
         val url = cacheBusted(config.rawFileUrl(branch, "patches-bundle.json"))
         Log.d(tag, "rawPatchesBundleRequest: $url")
         return client.request { url(url) }
+    }
+
+    /**
+     * Resolves the API URL serving the same bytes as a github.com release download link.
+     *
+     * Source manifests point their `download_url` at github.com because that is what release
+     * tooling emits, but some networks drop that host while leaving api.github.com reachable.
+     * The API route redirects to release-assets.githubusercontent.com and supports ranges, so a
+     * download behaves identically once switched over.
+     *
+     * Returns null when [downloadUrl] is not a release link or the asset cannot be located,
+     * which leaves the caller with its original error.
+     */
+    suspend fun releaseAssetApiUrl(downloadUrl: String): String? {
+        val ref = parseReleaseAssetUrl(downloadUrl) ?: return null
+        val config = runCatching {
+            parseRepoUrl("$GITHUB_DOWNLOAD_PREFIX${ref.owner}/${ref.repo}")
+        }.getOrNull() ?: return null
+
+        val release = githubRequest<GitHubRelease>(config, "releases/tags/${ref.tag}").getOrNull()
+            ?: return null
+
+        return release.assets
+            .firstOrNull { it.name == ref.fileName || it.name == ref.decodedFileName }
+            ?.url
+            .also { Log.d(tag, "releaseAssetApiUrl: $downloadUrl -> $it") }
     }
 
     /**

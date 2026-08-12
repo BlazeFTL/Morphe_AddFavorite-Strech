@@ -1,3 +1,13 @@
+# [1.26.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.4...v1.26.0-dev.5) (2026-08-12)
+
+
+### Bug Fixes
+
+* Distinguish present non-patched tracked apps ([#851](https://github.com/MorpheApp/morphe-manager/issues/851)) ([dc64a06](https://github.com/MorpheApp/morphe-manager/commit/dc64a0669baa534a7b823d54df9e498007bbd2df))
+* Narrow the scrollbar's invisible drag strip to stop stealing edge scrolls ([63afb26](https://github.com/MorpheApp/morphe-manager/commit/63afb2695c239583744409b66a0e53715fe96181))
+* Stack CPU load bars by rank, reserve two-line labels only when needed, and surface peak I/O ([15ec752](https://github.com/MorpheApp/morphe-manager/commit/15ec752b80572943fd5e5892b48cd23f6d5e7211))
+* Stop re-verifying every tracked APK on each cold start ([#852](https://github.com/MorpheApp/morphe-manager/issues/852)) ([c2bb659](https://github.com/MorpheApp/morphe-manager/commit/c2bb659846df88dcacac125a06dab056738460c7))
+
 # [1.26.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.3...v1.26.0-dev.4) (2026-08-11)
 
 

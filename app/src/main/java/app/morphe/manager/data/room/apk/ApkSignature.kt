@@ -9,6 +9,9 @@ import androidx.room.PrimaryKey
  *
  * [fileSize] and [lastModified] identify the archive they were taken from, so a file rewritten
  * at the same path no longer matches.
+ *
+ * Every row can be recovered by reading the archive again, so a schema change may drop and
+ * recreate this table rather than migrate its contents.
  */
 @Entity(tableName = "apk_signatures")
 data class ApkSignature(

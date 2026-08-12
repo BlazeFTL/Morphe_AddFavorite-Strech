@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">इंस्टॉल केलेली APK वापरा</string>
     <string name="home_apk_use_installed_unverified">इंस्टॉल केलेल्या ॲपची सही तपासता आली नाही, त्यामुळे ते आधीच बदललेले असू शकते</string>
     <string name="home_unverified">असत्यापित</string>
+    <string name="home_install_verification_pending">इंस्टॉल तपासत आहे…</string>
     <string name="home_app_info_install_unverified">Morphe हे पुष्टी करू शकत नाही की स्थापित अॅप हा त्याने पॅच केलेला बिल्ड आहे. त्याची क्रिया पुनर्संचयित करण्यासाठी सेव्ह केलेल्या APK मधून ते पुन्हा स्थापित करा.</string>
     <string name="home_app_info_no_saved_apk">कोणतीही साठवलेली APK नाही. तुम्हाला पुन्हा एकदा APK फाईल निवडावी लागेल.</string>
     <string name="home_version_requires_android">Android %s+ आवश्यक आहे</string>

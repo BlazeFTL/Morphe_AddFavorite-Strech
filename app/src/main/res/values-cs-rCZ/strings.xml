@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Użyj zainstalowane APK</string>
     <string name="home_apk_use_installed_unverified">Nepodařilo se ověřit podpis nainstalované aplikace, takže může být již opravená</string>
     <string name="home_unverified">Neověřené</string>
+    <string name="home_install_verification_pending">Kontroluji instalaci…</string>
     <string name="home_app_info_install_unverified">Morphe nemůže potvrdit, že nainstalovaná aplikace je sestavení, které opatchoval. Znovu ji nainstalujte z uloženého APK, abyste obnovili její akce.</string>
     <string name="home_app_info_no_saved_apk">Není uložené žádné APK. Pro záplatování bude potřeba vybrat soubor APK znovu</string>
     <string name="home_version_requires_android">Vyžaduje Android %s+</string>

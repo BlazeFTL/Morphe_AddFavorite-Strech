@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">使用已安裝的 APK</string>
     <string name="home_apk_use_installed_unverified">無法驗證已安裝應用程式的簽名，因此可能已經被篡改</string>
     <string name="home_unverified">未驗證</string>
+    <string name="home_install_verification_pending">正在檢查安裝…</string>
     <string name="home_app_info_install_unverified">Morphe 無法確認安裝的應用程式是它所修補的版本。請從已儲存的 APK 重新安裝，以恢復其操作。</string>
     <string name="home_app_info_no_saved_apk">沒有已儲存的 APK。修補時需要再次選取 APK 檔案</string>
     <string name="home_version_requires_android">需要 Android %s 以上版本</string>

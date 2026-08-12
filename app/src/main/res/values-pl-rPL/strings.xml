@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Inne aplikacje</string>
     <string name="home_not_patched_yet">Jeszcze niezmodyfikowana</string>
-    <string name="home_unpatched_version_installed">Zainstalowano niezałataną wersję</string>
+    <string name="home_unpatched_version_installed">Zainstalowano niezmodyfikowaną wersję</string>
     <string name="home_no_patches_available">Brak dostępnych modyfikacji</string>
     <string name="home_app_hide_title">Ukryć tę aplikację?</string>
     <string name="home_app_hide_message">Ta aplikacja zostanie ukryta na ekranie głównym. Możesz ją później przywrócić z ukrytych aplikacji za pomocą przycisku na dole listy</string>
@@ -193,6 +193,7 @@
     <string name="home_apk_use_installed">Użyj zainstalowanego pliku APK</string>
     <string name="home_apk_use_installed_unverified">Nie udało się zweryfikować podpisu zainstalowanej aplikacji, więc może być już zmodyfikowana</string>
     <string name="home_unverified">Niezweryfikowano</string>
+    <string name="home_install_verification_pending">Sprawdzanie instalacji…</string>
     <string name="home_app_info_install_unverified">Morphe nie może potwierdzić, że zainstalowana aplikacja to wersja, którą zmodyfikował. Zainstaluj ją ponownie z zapisanego pliku APK, aby przywrócić jej akcje</string>
     <string name="home_app_info_no_saved_apk">Brak zapisanego pliku APK. Modyfikacja będzie wymagać ponownego wybrania pliku</string>
     <string name="home_version_requires_android">Wymaga Androida %s+</string>

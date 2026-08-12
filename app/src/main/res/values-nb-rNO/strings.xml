@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Bruk installert APK</string>
     <string name="home_apk_use_installed_unverified">Kunne ikke verifisere signaturen til den installerte appen, så den kan allerede være patchet</string>
     <string name="home_unverified">Uverifisert</string>
+    <string name="home_install_verification_pending">Sjekker installasjon…</string>
     <string name="home_app_info_install_unverified">Morphe kan ikke bekrefte at den installerte appen er bygget den patchet. Installer den på nytt fra den lagrede APK-en for å gjenopprette handlingene.</string>
     <string name="home_app_info_no_saved_apk">Ingen lagret APK. Patching krever at du velger APK-filen på nytt</string>
     <string name="home_version_requires_android">Krever Android %s+</string>

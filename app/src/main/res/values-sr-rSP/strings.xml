@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Користи инсталирани APK</string>
     <string name="home_apk_use_installed_unverified">Нисмо могли да потврдимо потпис инсталиране апликације, тако да је она можда већ закрпљена</string>
     <string name="home_unverified">Неверификовано. Морпхе не може да потврди да је инсталирана апликација верзија коју је закрпио. Поново је инсталирајте из сачуваног АПК-а да бисте вратили његове радње.</string>
+    <string name="home_install_verification_pending">Проверавање инсталације…</string>
     <string name="home_app_info_install_unverified">Morphe не може да потврди да је инсталирана апликација верзија коју је закрпио. Поново је инсталирајте из сачуваног АПК-а да бисте вратили њене акције.Key: home_app_info_install_unverified→Context: home_app_info_install_unverifiedMaxLength: nullTmSuggestions: []Terms: [{\"source\":\"APK\",\"translatable\":false,\"translation\":\"APK\",\"partOfSpeech\":\"PROPN\"},{\"source\":\"Morphe\",\"translatable\":false,\"translation\":\"Morphe\",\"partOfSpeech\":\"PROPN\"}]Translating...Let\'s do it.Translate each string:1. </string>
     <string name="home_app_info_no_saved_apk">Nema saćuvanog APK-a. Patching zahtijeva ponovno odabir APK datoteke</string>
     <string name="home_version_requires_android">Захтева Android %s+</string>

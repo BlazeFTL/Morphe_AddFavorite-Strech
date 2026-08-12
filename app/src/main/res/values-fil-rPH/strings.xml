@@ -193,6 +193,7 @@ Please note: The translation is complete. The arrow is for clarity and not part 
     <string name="home_apk_use_installed">Gamitin ang naka-install na APK</string>
     <string name="home_apk_use_installed_unverified">Hindi mapatunayan ang lagda ng naka-install na app, kaya maaaring na-patch na ito</string>
     <string name="home_unverified">Hindi na-verify</string>
+    <string name="home_install_verification_pending">Sinusuri ang pag-install…</string>
     <string name="home_app_info_install_unverified">Hindi makumpirma ng Morphe na ang naka-install na app ay ang build na ni-patch nito. I-install itong muli mula sa naka-save na APK upang maibalik ang mga aksyon nito</string>
     <string name="home_app_info_no_saved_apk">Walang nakaimbak na APK. Ang pag-patch na ito ay mangangailangan ng muling pagpili ng APK file</string>
     <string name="home_version_requires_android">Nangangailangan ng Android %s+</string>

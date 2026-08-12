@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">تطبيقات أخرى</string>
     <string name="home_not_patched_yet">لم يتم تعديله بعد</string>
-    <string name="home_unpatched_version_installed">تم تثبيت إصدار غير مُصَحَّح</string>
+    <string name="home_unpatched_version_installed">تم تثبيت إصدار غير معدل</string>
     <string name="home_no_patches_available">لا يوجد تعديلات متاحة</string>
     <string name="home_app_hide_title">إخفاء هذا التطبيق؟</string>
     <string name="home_app_hide_message">سيتم إخفاء هذا التطبيق من الشاشة الرئيسية. يمكنك استعادته لاحقًا من قائمة التطبيقات المخفية باستخدام الزر الموجود أسفل القائمة.</string>
@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">استخدام ملف APK المثبت</string>
     <string name="home_apk_use_installed_unverified">تعذر التحقق من توقيع التطبيق المثبت، لذا قد يكون قد تم تعديله بالفعل</string>
     <string name="home_unverified">غير معتمد</string>
+    <string name="home_install_verification_pending">جارٍ التحقق من التثبيت…</string>
     <string name="home_app_info_install_unverified">لا يمكن لـ Morphe تأكيد أن التطبيق المثبت هو الإصدار الذي قام بتعديله. أعد تثبيته من APK المحفوظ لاستعادة إجراءاته</string>
     <string name="home_app_info_no_saved_apk">لا يوجد ملف APK محفوظ. ستتطلب عملية التعديل إعادة اختيار ملف APK</string>
     <string name="home_version_requires_android">يتطلب Android %s+</string>
@@ -410,7 +411,7 @@
     <string name="home_app_info_patch_update_available_description">إصدار أحدث من التعديلات متاح. اعد تعديل التطبيق للحصول على آخر التحسينات و الإصلاحات</string>
     <string name="home_app_info_app_deleted_warning">التطبيق غير مثبت</string>
     <string name="home_app_info_app_deleted_description">تم إلغاء تثبيت هذا التطبيق من خارج Morphe. اعد تعديله لاستعادة الوظائف</string>
-    <string name="home_app_info_not_patched_description">تم تثبيت إصدار غير مُصَحَّح من هذا التطبيق. لا تزال Morphe تحتفظ بسجل التصحيح السابق.</string>
+    <string name="home_app_info_not_patched_description">تم تثبيت إصدار غير معدل من هذا التطبيق. لا يزال Morphe يحتفظ بسجل التعديل السابق</string>
     <string name="home_app_info_apk_size">حجم ملف APK</string>
     <string name="home_app_info_cpu_arch">معمارية المعالج</string>
     <!-- Home Screen - Root Mode -->

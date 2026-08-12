@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">स्थापित APK का उपयोग करें</string>
     <string name="home_apk_use_installed_unverified">इंस्टॉल किए गए ऐप के हस्ताक्षर को सत्यापित नहीं किया जा सका, इसलिए यह पहले से ही पैच किया जा सकता है</string>
     <string name="home_unverified">असत्यापित</string>
+    <string name="home_install_verification_pending">इंस्टॉल की जाँच हो रही है…</string>
     <string name="home_app_info_install_unverified">Morphe पुष्टि नहीं कर सकता कि इंस्टॉल किया गया ऐप वही बिल्ड है जिसे उसने पैच किया था। इसकी क्रियाओं को पुनर्स्थापित करने के लिए इसे सहेजे गए APK से पुनः इंस्टॉल करें</string>
     <string name="home_app_info_no_saved_apk">कोई प्रतिलिपि APK नहीं है। पट्च करना पुनः APK फ़ाइल का चयन करना आवश्यक होगा</string>
     <string name="home_version_requires_android">Android %s+ की आवश्यकता है</string>

@@ -193,6 +193,7 @@ Nessuna patch disponibile</string>
     <string name="home_apk_use_installed">Usa APK installato</string>
     <string name="home_apk_use_installed_unverified">Impossibile verificare la firma dell\'app installata, pertanto potrebbe essere già stata modificata</string>
     <string name="home_unverified">Non verificata</string>
+    <string name="home_install_verification_pending">Controllo dell\'installazione…</string>
     <string name="home_app_info_install_unverified">Morphe non può confermare che l\'app installata sia la build che ha patchato. Reinstallala dall\'APK salvato per ripristinare le sue azioni.</string>
     <string name="home_app_info_no_saved_apk">Nessun APK salvato. Il patching richiederà la selezione del file APK</string>
     <string name="home_version_requires_android">Richiede Android %s+</string>

@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Autres applications</string>
     <string name="home_not_patched_yet">Pas encore patchée</string>
-    <string name="home_unpatched_version_installed">Version non corrigée installée</string>
+    <string name="home_unpatched_version_installed">Version non patchée installée</string>
     <string name="home_no_patches_available">Aucun patch disponible</string>
     <string name="home_app_hide_title">Masquer cette application ?</string>
     <string name="home_app_hide_message">Cette application sera masquée de l\'écran d\'accueil. Vous pourrez la restaurer plus tard depuis les applications masquées en utilisant le bouton situé en bas de la liste</string>
@@ -194,6 +194,7 @@
     <string name="home_apk_use_installed">Utiliser l\'APK installé</string>
     <string name="home_apk_use_installed_unverified">Impossible de vérifier la signature de l\'application installée, il est donc possible qu\'elle soit déjà patchée</string>
     <string name="home_unverified">Non vérifiéé</string>
+    <string name="home_install_verification_pending">Vérification de l\'installation…</string>
     <string name="home_app_info_install_unverified">Morphe ne peut pas confirmer que l\'application installée correspond à la version qu\'il a patchée. Réinstallez-la à partir de l\'APK enregistré afin de restaurer ses actions</string>
     <string name="home_app_info_no_saved_apk">Aucun APK enregistré. Le patching nécessitera de sélectionner à nouveau le fichier APK</string>
     <string name="home_version_requires_android">Nécessite Android %s+</string>
@@ -208,7 +209,7 @@
     <string name="home_download_instructions_step2_generic">Faites défiler la page web vers le bas et appuyez sur son bouton de téléchargement</string>
     <string name="home_download_instructions_step2_variant">Faites défiler la page web vers le bas et appuyez sur le bouton de téléchargement de la première &lt;b&gt;variante APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step2_search">Ouvrez un résultat de recherche provenant d\'un site web auquel vous faites confiance</string>
-    <string name="home_download_instructions_step2_search_note">Morphe ne peut pas garantir la fiabilité de ces sites web. Ignorez ceux qui proposent leur propre boutique d\'applications au lieu d\'un fichier APK.</string>
+    <string name="home_download_instructions_step2_search_note">Morphe ne peut pas garantir la fiabilité de ces sites web. Ignorez ceux qui proposent leur propre boutique d\'applications au lieu d\'un fichier APK</string>
     <string name="home_download_instructions_step3_search">Sur ce site web, téléchargez l\'APK de la version &lt;b&gt;%s&lt;/b&gt;, et non la plus récente</string>
     <string name="home_download_instructions_step3_search_any">Sur ce site web, téléchargez l\'APK de l\'application. &lt;b&gt;N\'importe quelle version&lt;/b&gt; peut être patchée</string>
     <string name="home_download_instructions_download_button_toast">Appuyez sur télécharger sur le site Web, et non ici 😊</string>
@@ -412,7 +413,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_app_deleted_warning">L\'application a été désinstallée</string>
     <string name="home_app_info_app_deleted_description">Cette application a été désinstallée en dehors de Morphe. Re-patchez-la pour restaurer les fonctionnalités
 </string>
-    <string name="home_app_info_not_patched_description">Une version non corrigée de cette application est installée. Morphe a toujours son enregistrement de correctif précédent</string>
+    <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
     <string name="home_app_info_apk_size">Taille de l\'APK</string>
     <string name="home_app_info_cpu_arch">Architecture du CPU</string>
     <!-- Home Screen - Root Mode -->

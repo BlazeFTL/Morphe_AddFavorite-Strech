@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Outros aplicativos</string>
     <string name="home_not_patched_yet">Ainda não patcheado </string>
-    <string name="home_unpatched_version_installed">Versão não corrigida instalada</string>
+    <string name="home_unpatched_version_installed">Versão não patcheada instalada</string>
     <string name="home_no_patches_available">Nenhum patch disponível</string>
     <string name="home_app_hide_title">Ocultar esse app?</string>
     <string name="home_app_hide_message">Este aplicativo será ocultado da tela inicial. Você pode restaurá-lo mais tarde a partir dos aplicativos ocultos usando o botão no final da lista</string>
@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do aplicativo instalado, portanto ele já pode estar com o patch aplicado</string>
     <string name="home_unverified">Não verificado</string>
+    <string name="home_install_verification_pending">Verificando instalação…</string>
     <string name="home_app_info_install_unverified">O Morphe não consegue confirmar que o aplicativo instalado é a versão que ele aplicou o patch. Reinstale-o a partir do APK salvo para restaurar suas ações.</string>
     <string name="home_app_info_no_saved_apk">Nenhum APK salvo. A aplicação de patch exigirá selecionar o arquivo APK novamente</string>
     <string name="home_version_requires_android">Requer Android %s+</string>
@@ -410,7 +411,7 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="home_app_info_patch_update_available_description">Uma versão mais nova dos patches está disponível. Refaça os patches no seu aplicativo para obter as últimas melhorias e correções</string>
     <string name="home_app_info_app_deleted_warning">Aplicaitvo desinstalado</string>
     <string name="home_app_info_app_deleted_description">Esse aplicativo foi desinstalado fora do Morphe. Refaça os patches para restaurar a funcionalidade</string>
-    <string name="home_app_info_not_patched_description">Uma versão não corrigida deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
+    <string name="home_app_info_not_patched_description">Uma versão não patcheada deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
     <string name="home_app_info_apk_size">Tamanho do APK</string>
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->

@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Brug installeret APK</string>
     <string name="home_apk_use_installed_unverified">Kunne ikke verificere signaturen af den installerede app, så den kan allerede være blevet patchet</string>
     <string name="home_unverified">Uverificeret</string>
+    <string name="home_install_verification_pending">Kontrollerer installation…</string>
     <string name="home_app_info_install_unverified">Morphe kan ikke bekræfte, at den installerede app er den build, den har patchet. Geninstallér den fra den gemte APK for at gendanne dens handlinger</string>
     <string name="home_app_info_no_saved_apk">Ingen gemt APK. Patchning kræver at du vælger APK-filen igen</string>
     <string name="home_version_requires_android">Kræver Android %s+</string>

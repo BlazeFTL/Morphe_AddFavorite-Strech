@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Digər tətbiqlər</string>
     <string name="home_not_patched_yet">Hələ yamaqlanmayıb</string>
+    <string name="home_unpatched_version_installed">Yamaqlanmayan versiya quraşdırılıb</string>
     <string name="home_no_patches_available">Yamaqlar əlçatan deyil</string>
     <string name="home_app_hide_title">Bu tətbiq gizlədilsin?</string>
     <string name="home_app_hide_message">Bu tətbiq əsas ekrandan gizlədiləcək. Siyahının aşağısındakı düyməni istifadə edərək onu daha sonra gizli tətbiqlərdən qaytara bilərsiniz</string>
@@ -409,6 +410,7 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="home_app_info_patch_update_available_description">Yamaqların daha yeni versiyası var. Ən son təkmilləşdirmələr və düzəlişlər üçün tətbiqinizi təkrar yamaqlayın</string>
     <string name="home_app_info_app_deleted_warning">Tətbiq quraşdırması silindi</string>
     <string name="home_app_info_app_deleted_description">Bu tətbiq Morphe xarici silindi. Funksionallığı qaytarmaq üçün onu təkrar quraşdır</string>
+    <string name="home_app_info_not_patched_description">Bu tətbiqin yamaqlanmamış versiyası quraşdırılıb. Morphe-də hələ də əvvəlki yamaq qeydi qalır</string>
     <string name="home_app_info_apk_size">APK həcmi</string>
     <string name="home_app_info_cpu_arch">CPU quruluşu</string>
     <!-- Home Screen - Root Mode -->

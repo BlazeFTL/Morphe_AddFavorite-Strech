@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Otras aplicaciones</string>
     <string name="home_not_patched_yet">Aún sin parchear</string>
-    <string name="home_unpatched_version_installed">Versión sin parche instalada</string>
+    <string name="home_unpatched_version_installed">Versión sin parchear instalada</string>
     <string name="home_no_patches_available">No hay parches disponibles</string>
     <string name="home_app_hide_title">¿Ocultar esta aplicación?</string>
     <string name="home_app_hide_message">Esta aplicación se ocultará de la pantalla de inicio. Puedes restaurarla más tarde desde las apps ocultas usando el botón situado en la parte inferior de la lista</string>
@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">No se pudo verificar la firma de la aplicación instalada, por lo que es posible que ya esté parcheada</string>
     <string name="home_unverified">No verificado</string>
+    <string name="home_install_verification_pending">Comprobando instalación…</string>
     <string name="home_app_info_install_unverified">Morphe no puede confirmar que la aplicación instalada sea la compilación que parcheó. Reinstala desde el APK guardado para restaurar sus acciones.</string>
     <string name="home_app_info_no_saved_apk">No hay APK guardado. Para aplicar los parches será necesario seleccionar el archivo APK nuevamente.</string>
     <string name="home_version_requires_android">Requiere Android %s o superior</string>
@@ -411,7 +412,7 @@ Reparchear aplicaciones desactualizadas</string>
     <string name="home_app_info_patch_update_available_description">Hay disponible una versión más reciente de los parches. Vuelve a parchear tu aplicación para obtener las últimas mejoras y correcciones</string>
     <string name="home_app_info_app_deleted_warning">La aplicación fue desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicación fue desinstalada fuera de Morphe. Vuelve a parchearla para restaurar su funcionalidad</string>
-    <string name="home_app_info_not_patched_description">Una versión sin parche de esta aplicación está instalada. Morphe todavía tiene su registro de parche anterior</string>
+    <string name="home_app_info_not_patched_description">Una versión sin parchear de esta aplicación está instalada. Morphe aún conserva su registro de parches anterior</string>
     <string name="home_app_info_apk_size">Tamaño del APK</string>
     <string name="home_app_info_cpu_arch">Arquitectura de la CPU</string>
     <!-- Home Screen - Root Mode -->

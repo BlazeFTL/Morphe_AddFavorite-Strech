@@ -193,6 +193,7 @@
     <string name="home_apk_use_installed">השתמש ב-APK מותקן</string>
     <string name="home_apk_use_installed_unverified">לא ניתן לאמת את החתימה של האפליקציה המותקנת, כך שהיא עשויה להיות כבר מטופלת</string>
     <string name="home_unverified">לא מאומת</string>
+    <string name="home_install_verification_pending">מתבצעת בדיקת התקנה…</string>
     <string name="home_app_info_install_unverified">Morphe אינה יכולה לאשר שהאפליקציה המותקנת היא הגרסה שתיקנה. התקן אותה מחדש מה-APK השמור כדי לשחזר את הפעולות שלה.</string>
     <string name="home_app_info_no_saved_apk">אין אפאק שמור. תיקון ידרש לבחור את קובץ האפאק שוב</string>
     <string name="home_version_requires_android">דורש Android %s+‎</string>

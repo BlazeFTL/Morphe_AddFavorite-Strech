@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Koristi instalirani APK</string>
     <string name="home_apk_use_installed_unverified">Nije bilo moguće da se potvrdi potpis instalirane aplikacije, tako da je možda već ispravljena</string>
     <string name="home_unverified">Neverifikovano</string>
+    <string name="home_install_verification_pending">Provera instalacije…</string>
     <string name="home_app_info_install_unverified">Morphe ne može da potvrdi da je instalirana aplikacija verzija koju je zakrpio. Ponovo je instalirajte iz sačuvane APK datoteke da biste obnovili njene akcije.</string>
     <string name="home_app_info_no_saved_apk">Nema sačuvanog APK-a. Krpljenje će zahtevati ponovni odabir APK datoteke</string>
     <string name="home_version_requires_android">Zahteva Android %s+</string>

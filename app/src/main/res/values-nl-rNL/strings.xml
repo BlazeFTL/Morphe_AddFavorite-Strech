@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Gebruik geïnstalleerde APK</string>
     <string name="home_apk_use_installed_unverified">Kon de handtekening van de geïnstalleerde app niet verifiëren, dus deze is mogelijk al gepatcht</string>
     <string name="home_unverified">Ongeverifieerd</string>
+    <string name="home_install_verification_pending">Installatie controleren…</string>
     <string name="home_app_info_install_unverified">Morphe kan niet bevestigen dat de geïnstalleerde app de build is die het heeft gepatcht. Installeer het opnieuw vanuit de opgeslagen APK om de acties te herstellen.</string>
     <string name="home_app_info_no_saved_apk">Er is geen APK opgeslagen. Om de patch uit te voeren, moet u het APK opnieuw selecteren</string>
     <string name="home_version_requires_android">Vereist Android %s+</string>

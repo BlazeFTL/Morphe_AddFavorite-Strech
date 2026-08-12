@@ -193,6 +193,7 @@
     <string name="home_apk_use_installed">Използвайте инсталиран APK</string>
     <string name="home_apk_use_installed_unverified">Не успяхме да потвърдим подписа на инсталираното приложение, затова е възможно вече да е променено</string>
     <string name="home_unverified">Неверифицирано</string>
+    <string name="home_install_verification_pending">Проверка на инсталацията…</string>
     <string name="home_app_info_install_unverified">Morphe не може да потвърди, че инсталираното приложение е сборката, която е кръпкирал. Преинсталирайте го от запазения APK, за да възстановите действията му.</string>
     <string name="home_app_info_no_saved_apk">Няма запазено APK. Пatching ще изисква отново да изберете APK файл.</string>
     <string name="home_version_requires_android">Изисква Android %s+</string>

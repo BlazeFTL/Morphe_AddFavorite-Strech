@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Χρήση εγκατεστημένου APK</string>
     <string name="home_apk_use_installed_unverified">Δεν μπόρεσα να επαληθεύσω την υπογραφή της εγκατεστημένης εφαρμογής, επομένως ενδέχεται να έχει ήδη τροποποιηθεί</string>
     <string name="home_unverified">Μη επαληθευμένο</string>
+    <string name="home_install_verification_pending">Έλεγχος εγκατάστασης…</string>
     <string name="home_app_info_install_unverified">Η Morphe δεν μπορεί να επιβεβαιώσει ότι η εγκατεστημένη εφαρμογή είναι η έκδοση που επιδιόρθωσε. Επανεγκαταστήστε την από το αποθηκευμένο APK για να επαναφέρετε τις ενέργειές της</string>
     <string name="home_app_info_no_saved_apk">Δεν υπάρχει αποθηκευμένο APK. Η τροποποίηση κώδικα θα απαιτήσει την επιλογή του αρχείου APK ξανά</string>
     <string name="home_version_requires_android">Απαιτείται Android %s+</string>

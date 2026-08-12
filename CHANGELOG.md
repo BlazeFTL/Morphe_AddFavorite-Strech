@@ -1,3 +1,11 @@
+# [1.26.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.5...v1.26.0-dev.6) (2026-08-12)
+
+
+### Bug Fixes
+
+* Keep patch source attribution after the source is deleted ([219e4ee](https://github.com/MorpheApp/morphe-manager/commit/219e4ee648583a36e8d0a5de2186e277a1d0f356))
+* Keep tracked install verification state fresh ([#853](https://github.com/MorpheApp/morphe-manager/issues/853)) ([e7ebbe9](https://github.com/MorpheApp/morphe-manager/commit/e7ebbe938181d404a857a0799fd1a5c3d81ab775))
+
 # [1.26.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.4...v1.26.0-dev.5) (2026-08-12)
 
 

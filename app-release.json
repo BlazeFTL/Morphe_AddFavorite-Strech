@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-12T16:03:43",
-  "description": "# [1.26.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.5...v1.26.0-dev.6) (2026-08-12)\n\n\n### Bug Fixes\n\n* Keep patch source attribution after the source is deleted ([219e4ee](https://github.com/MorpheApp/morphe-manager/commit/219e4ee648583a36e8d0a5de2186e277a1d0f356))\n* Keep tracked install verification state fresh ([#853](https://github.com/MorpheApp/morphe-manager/issues/853)) ([e7ebbe9](https://github.com/MorpheApp/morphe-manager/commit/e7ebbe938181d404a857a0799fd1a5c3d81ab775))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.6/morphe-manager-1.26.0-dev.6.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.6/morphe-manager-1.26.0-dev.6.apk.asc",
-  "version": "1.26.0-dev.6"
+  "created_at": "2026-08-12T21:41:20",
+  "description": "# [1.26.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.6...v1.26.0-dev.7) (2026-08-12)\n\n\n### Bug Fixes\n\n* Recover patch bundle downloads when github.com is unreachable ([02a9aa6](https://github.com/MorpheApp/morphe-manager/commit/02a9aa64f4382bd40fe25d56db634b60cf3f3687))\n* Route manager updates through the same download fallback as patch bundles ([ab154cb](https://github.com/MorpheApp/morphe-manager/commit/ab154cba6f3c5d7125ea71cffcd49b9c31a5e644))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.7/morphe-manager-1.26.0-dev.7.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.7/morphe-manager-1.26.0-dev.7.apk.asc",
+  "version": "1.26.0-dev.7"
 }

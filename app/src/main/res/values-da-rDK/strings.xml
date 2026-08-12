@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Andre apps</string>
     <string name="home_not_patched_yet">Ikke patchet endnu</string>
+    <string name="home_unpatched_version_installed">Upatchet version installeret</string>
     <string name="home_no_patches_available">Ingen patches tilgængelige</string>
     <string name="home_app_hide_title">Skjul denne app?</string>
     <string name="home_app_hide_message">Denne app vil være skjult fra startskærmen. Du kan gendanne den senere fra de skjulte apps ved hjælp af knappen nederst i listen.</string>
@@ -185,6 +186,8 @@
     <string name="home_apk_helper_no_access">Hjælpeappen gav ikke adgang til den APK, den returnerede</string>
     <string name="home_apk_helper_no_package">Hjælpeappen angav ikke, hvilken installeret app der skulle bruges</string>
     <string name="home_apk_helper_wrong_package">Hjælpeappen returnerede en anden app end den, der bliver patchet</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe kunne ikke bruge den installerede app</string>
+    <string name="home_apk_helper_installed_incompatible">Den installerede version kan ikke blive patchet</string>
     <string name="home_apk_use_saved">Brug gemt APK</string>
     <string name="home_apk_use_installed">Brug installeret APK</string>
     <string name="home_apk_use_installed_unverified">Kunne ikke verificere signaturen af den installerede app, så den kan allerede være blevet patchet</string>
@@ -197,8 +200,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Download den originale APK</string>
     <string name="home_download_instructions_steps_title">Instruktioner:</string>
+    <string name="home_download_instructions_finding">Finder downloadsiden…</string>
     <string name="home_download_instructions_step1">Tryk på \'%s\' knappen nedenfor</string>
     <string name="home_download_instructions_step2_part1">Rul ned på websiden og tryk</string>
+    <string name="home_download_instructions_step2_generic">Rul ned på websiden, og tryk på dens downloadknap</string>
+    <string name="home_download_instructions_step2_variant">Rul ned på websiden, og tryk på downloadknappen for den øverste &lt;b&gt;APK-variant&lt;/b&gt;</string>
+    <string name="home_download_instructions_step2_search">Åbn et søgeresultat fra et websted, som du stoler på</string>
+    <string name="home_download_instructions_step2_search_note">Morphe kan ikke stå inde for disse websteder. Spring dem over, der tilbyder deres egen app-butik i stedet for en APK-fil</string>
+    <string name="home_download_instructions_step3_search">På det websted skal du downloade APK\'en for version &lt;b&gt;%s&lt;/b&gt;, ikke den nyeste</string>
+    <string name="home_download_instructions_step3_search_any">På det websted skal du downloade appens APK. &lt;b&gt;Enhver version&lt;/b&gt; kan blive patchet</string>
     <string name="home_download_instructions_download_button_toast">Tryk på download på hjemmesiden, og ikke her 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Fantastisk! Klik nu på fortsæt og gå til hjemmesiden 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Øvelse gør mester, og du er godt på vej 💪</string>
@@ -209,6 +219,8 @@
     <string name="home_download_instructions_step3_mount">Vent på at downloaden er færdig, og &lt;b&gt;installer APK\'en&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Når downloaden er færdigt, vend tilbage til Morphe</string>
     <string name="home_download_instructions_step4_mount">Når det originale APK er installeret, vend tilbage til Morphe</string>
+    <string name="home_download_instructions_continue_to">Fortsæt til %s</string>
+    <string name="home_download_instructions_destination">downloadsiden</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Vælg den downloadede APK</string>
     <string name="home_file_picker_prompt_description">Vælg det &lt;b&gt;%s&lt;/b&gt; APK-fil du lige har downloadet</string>
@@ -398,6 +410,7 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="home_app_info_patch_update_available_description">En nyere version af patches er tilgængelig. Repatch din app for at få de seneste forbedringer og rettelser</string>
     <string name="home_app_info_app_deleted_warning">Appen blev fjernet</string>
     <string name="home_app_info_app_deleted_description">Denne app blev fjernet udenfor Morphe. Repatch den for at gendanne funktionalitet</string>
+    <string name="home_app_info_not_patched_description">En upatchet version af denne app er installeret. Morphe har stadig sin tidligere patch-registrering</string>
     <string name="home_app_info_apk_size">APK-størrelse</string>
     <string name="home_app_info_cpu_arch">CPU-arkitektur</string>
     <!-- Home Screen - Root Mode -->

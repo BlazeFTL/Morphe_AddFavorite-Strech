@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Outros aplicativos</string>
     <string name="home_not_patched_yet">Ainda não patcheado </string>
+    <string name="home_unpatched_version_installed">Versão não corrigida instalada</string>
     <string name="home_no_patches_available">Nenhum patch disponível</string>
     <string name="home_app_hide_title">Ocultar esse app?</string>
     <string name="home_app_hide_message">Este aplicativo será ocultado da tela inicial. Você pode restaurá-lo mais tarde a partir dos aplicativos ocultos usando o botão no final da lista</string>
@@ -199,6 +200,7 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Baixar o APK original</string>
     <string name="home_download_instructions_steps_title">Instruções:</string>
+    <string name="home_download_instructions_finding">Encontrando a página de download…</string>
     <string name="home_download_instructions_step1">Pressione o botão \'%s\' abaixo</string>
     <string name="home_download_instructions_step2_part1">Role a página para baixo e pressione</string>
     <string name="home_download_instructions_step2_generic">Role a página da web para baixo e pressione o botão de download</string>
@@ -206,6 +208,7 @@
     <string name="home_download_instructions_step2_search">Abra um resultado de pesquisa de um site de sua confiança</string>
     <string name="home_download_instructions_step2_search_note">O Morphe não se responsabiliza por esses sites. Ignore os que oferecem uma loja de aplicativos própria em vez de um arquivo APK</string>
     <string name="home_download_instructions_step3_search">Nesse site, baixe o APK da versão &lt;b&gt;%s&lt;/b&gt; e não a mais recente</string>
+    <string name="home_download_instructions_step3_search_any">Nesse site, baixe o APK do aplicativo. É possível aplicar o patch em &lt;b&gt;Qualquer versão&lt;/b&gt;</string>
     <string name="home_download_instructions_download_button_toast">Pressiona o botão \"download\" no site, e não aqui 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Ótimo! Agora clique em continuar e vá para o site 👆</string>
     <string name="home_download_instructions_download_button_toast_3">A prática leva à perfeição e você está chegando lá 💪</string>
@@ -216,6 +219,8 @@
     <string name="home_download_instructions_step3_mount">Aguarde o download terminar, então &lt;b&gt;instale o APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Depois da conclusão do download, volte para o Morphe</string>
     <string name="home_download_instructions_step4_mount">Depois de instalar o APK original, volte para o Morphe</string>
+    <string name="home_download_instructions_continue_to">Continuar para %s</string>
+    <string name="home_download_instructions_destination">a página de download</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Selecione o APK baixado</string>
     <string name="home_file_picker_prompt_description">Selecione o arquivo &lt;b&gt;%s&lt;/b&gt; APK que você acabou de baixar </string>
@@ -405,6 +410,7 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="home_app_info_patch_update_available_description">Uma versão mais nova dos patches está disponível. Refaça os patches no seu aplicativo para obter as últimas melhorias e correções</string>
     <string name="home_app_info_app_deleted_warning">Aplicaitvo desinstalado</string>
     <string name="home_app_info_app_deleted_description">Esse aplicativo foi desinstalado fora do Morphe. Refaça os patches para restaurar a funcionalidade</string>
+    <string name="home_app_info_not_patched_description">Uma versão não corrigida deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
     <string name="home_app_info_apk_size">Tamanho do APK</string>
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->

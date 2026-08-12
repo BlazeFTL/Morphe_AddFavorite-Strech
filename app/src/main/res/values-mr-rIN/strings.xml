@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">इतर ॲप्स</string>
     <string name="home_not_patched_yet">अजून सुधारणा केलेली नाही</string>
+    <string name="home_unpatched_version_installed">अनपॅच केलेली आवृत्ती स्थापित</string>
     <string name="home_no_patches_available">सुधारणा उपलब्ध नाहीत</string>
     <string name="home_app_hide_title">हे ॲप लपवायचे का</string>
     <string name="home_app_hide_message">हे ॲप मुख्य पानावरून लपवले जाईल. तुम्ही नंतर यादीच्या तळाशी असलेल्या  \'\' बटणाचा वापर करून ते पुन्हा मिळवू शकता.</string>
@@ -199,8 +200,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">मूळ APK डाउनलोड करा</string>
     <string name="home_download_instructions_steps_title">सूचना</string>
+    <string name="home_download_instructions_finding">डाउनलोड पेज शोधत आहे…</string>
     <string name="home_download_instructions_step1">खालील \'%s\' बटण दाबा</string>
     <string name="home_download_instructions_step2_part1">वेबपेजवर खाली स्क्रोल करा आणि दाबा</string>
+    <string name="home_download_instructions_step2_generic">वेबपेजवर खाली स्क्रोल करा आणि त्याचे डाउनलोड बटण दाबा</string>
+    <string name="home_download_instructions_step2_variant">वेबपेजवर खाली स्क्रोल करा आणि सर्वात वरच्या &lt;b&gt;APK व्हेरिएंट&lt;/b&gt; चे डाउनलोड बटण दाबा</string>
+    <string name="home_download_instructions_step2_search">तुम्ही विश्वास ठेवलेल्या वेबसाइटवरून शोध निकाल उघडा</string>
+    <string name="home_download_instructions_step2_search_note">Morphe या वेबसाइट्सची हमी देऊ शकत नाही. APK फाईलऐवजी स्वतःचा अॅप स्टोअर देणाऱ्या वेबसाइट्स वगळा</string>
+    <string name="home_download_instructions_step3_search">त्या वेबसाइटवर, आवृत्ती &lt;b&gt;%s&lt;/b&gt; चा APK डाउनलोड करा, सर्वात नवीन आवृत्ती नाही</string>
+    <string name="home_download_instructions_step3_search_any">त्या वेबसाइटवर, अॅपचा APK डाउनलोड करा. &lt;b&gt;कोणतीही आवृत्ती&lt;/b&gt; पॅच केली जाऊ शकते</string>
     <string name="home_download_instructions_download_button_toast">वेबसाइटवर असलेल्या डाउनलोड बटणावर दाबा, येथे नाही. 😊</string>
     <string name="home_download_instructions_download_button_toast_2">उत्तम! आता पुढे क्लिक करा आणि वेबसाइटवर जा 👆</string>
     <string name="home_download_instructions_download_button_toast_3">सरावाने माणूस पारंगत होतो आणि तुम्ही तिथे पोहोचत आहात 💪</string>
@@ -211,6 +219,8 @@
     <string name="home_download_instructions_step3_mount">डाउनलोड पूर्ण होण्याची प्रतीक्षा करा, त्यानंतर  &lt;b&gt;APK इन्स्टॉल करा&lt;b&gt;</string>
     <string name="home_download_instructions_step4">डाउनलोड झाल्यावर पुन्हा Morphe उघडा.</string>
     <string name="home_download_instructions_step4_mount">इन्स्टॉलेशन पूर्ण झाल्यावर Morphe कडे परत वळा.</string>
+    <string name="home_download_instructions_continue_to">%s वर पुढे जा</string>
+    <string name="home_download_instructions_destination">डाउनलोड पेज</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">डाउनलोड केलेली APK निवडा</string>
     <string name="home_file_picker_prompt_description">तुम्ही आत्ताच डाउनलोड केलेली &lt;b&gt;%s&lt;/b&gt; APK फाईल निवडा</string>
@@ -399,6 +409,7 @@
     <string name="home_app_info_patch_update_available_description">पॅचची नवीन आवृत्ती उपलब्ध आहे. नवीनतम सुधारणा आणि निराकरणे मिळवण्यासाठी तुमचे ॲप पुन्हा पॅच करा</string>
     <string name="home_app_info_app_deleted_warning">ॲप अनइंस्टॉल केले होते</string>
     <string name="home_app_info_app_deleted_description">हे ॲप Morphe बाहेर अनइंस्टॉल केले गेले होते. कार्यक्षमता पुनर्संचयित करण्यासाठी ते पुन्हा पॅच करा</string>
+    <string name="home_app_info_not_patched_description">या अॅपची अनपॅच केलेली आवृत्ती स्थापित आहे. Morphe कडे अजूनही त्याचा मागील पॅच रेकॉर्ड आहे.</string>
     <string name="home_app_info_apk_size">APK आकार</string>
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->

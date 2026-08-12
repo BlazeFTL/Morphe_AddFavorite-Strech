@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Ostale aplikacije</string>
     <string name="home_not_patched_yet">Še ni popravljeno</string>
+    <string name="home_unpatched_version_installed">Nameščena je nepopravljena različica</string>
     <string name="home_no_patches_available">Na voljo ni nobenih popravkov</string>
     <string name="home_app_hide_title">Skrijem to aplikacijo?</string>
     <string name="home_app_hide_message">Ta aplikacija bo skrita iz začetnega zaslona. Lahko jo obnovite pozneje iz skritih aplikacij s klikom na gumb na dnu seznama.</string>
@@ -199,8 +200,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Prenesi izvirni APK</string>
     <string name="home_download_instructions_steps_title">Navodila:</string>
+    <string name="home_download_instructions_finding">Iskanje strani za prenos…</string>
     <string name="home_download_instructions_step1">Pritisnite gumb \"%s\" spodaj</string>
     <string name="home_download_instructions_step2_part1">Podrsajte po spletni strani navzdol in pritisni</string>
+    <string name="home_download_instructions_step2_generic">Pomaknite se navzdol po spletni strani in pritisnite njen gumb za prenos</string>
+    <string name="home_download_instructions_step2_variant">Pomaknite se navzdol po spletni strani in pritisnite gumb za prenos zgornje &lt;b&gt;različice APK&lt;/b&gt;</string>
+    <string name="home_download_instructions_step2_search">Odprite rezultat iskanja s spletne strani, ki ji zaupate</string>
+    <string name="home_download_instructions_step2_search_note">Morphe ne more jamčiti za te spletne strani. Preskočite tiste, ki ponujajo svojo trgovino z aplikacijami namesto datoteke APK</string>
+    <string name="home_download_instructions_step3_search">Na tisti spletni strani prenesite APK različice &lt;b&gt;%s&lt;/b&gt;, ne najnovejše</string>
+    <string name="home_download_instructions_step3_search_any">Na tisti spletni strani prenesite APK aplikacije. &lt;b&gt;Katero koli različico&lt;/b&gt; je mogoče zakrpati</string>
     <string name="home_download_instructions_download_button_toast">Pritisnite na gumb za prenos na spletni strani, ne tukaj 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Super! Sedaj kliknite na gumb \"nadaljuj\" spodaj in obiščite spletno stran 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Vaja dela mojstra, skoraj ste že tam 💪</string>
@@ -211,6 +219,8 @@
     <string name="home_download_instructions_step3_mount">Počakaj, da se prenos konča, nato &lt;b&gt;namestite APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Po končanem prenosu se vrnite v Morphe</string>
     <string name="home_download_instructions_step4_mount">Po namestitvi izvirnega APK se vrnite v Morphe</string>
+    <string name="home_download_instructions_continue_to">Nadaljujte na %s</string>
+    <string name="home_download_instructions_destination">stran za prenos</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Izberite prenesen APK</string>
     <string name="home_file_picker_prompt_description">Izberite datoteko &lt;b&gt;%s&lt;/b&gt; APK, ki ste jo pravkar prenesli</string>
@@ -400,6 +410,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_patch_update_available_description">Na voljo je novejša različica popravkov. Popravite svojo aplikacijo, da pridobite najnovejše izboljšave in popravke.</string>
     <string name="home_app_info_app_deleted_warning">Aplikacija je bila odstranjena</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacija je bila odstranjena izven aplikacije Morphe. Ponovno jo popravite, da obnovite funkcionalnost</string>
+    <string name="home_app_info_not_patched_description">Nameščena je nepopravljena različica te aplikacije. Morphe še vedno ima svoj prejšnji zapis o popravku.</string>
     <string name="home_app_info_apk_size">Velikost APK</string>
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->

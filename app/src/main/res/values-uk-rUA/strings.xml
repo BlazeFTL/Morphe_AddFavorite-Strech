@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Інші застосунки</string>
     <string name="home_not_patched_yet">Ще не патчено</string>
+    <string name="home_unpatched_version_installed">Встановлено непатчену версію</string>
     <string name="home_no_patches_available">Немає доступних патчів</string>
     <string name="home_app_hide_title">Приховати цей застосунок?</string>
     <string name="home_app_hide_message">Цей застосунок буде приховано з головного екрану. Ви можете відновити його пізніше, використовуючи кнопку \"\" внизу списку</string>
@@ -410,6 +411,7 @@
     <string name="home_app_info_patch_update_available_description">Доступна новіша версія патчів. Перепатчіть застосунок, щоб отримати останні покращення та виправлення</string>
     <string name="home_app_info_app_deleted_warning">Застосунок було видалено</string>
     <string name="home_app_info_app_deleted_description">Це застосунок було видалено поза менеджером Morphe. Перепатчіть його, щоб відновити функціональність</string>
+    <string name="home_app_info_not_patched_description">Встановлено непатчену версію цього застосунку. Morphe все ще має свій попередній запис патча</string>
     <string name="home_app_info_apk_size">Розмір APK</string>
     <string name="home_app_info_cpu_arch">Архітектура процесора</string>
     <!-- Home Screen - Root Mode -->

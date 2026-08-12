@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">แอปอื่น ๆ</string>
     <string name="home_not_patched_yet">ยังไม่ได้รับการแพตซ์</string>
+    <string name="home_unpatched_version_installed">ติดตั้งเวอร์ชันที่ไม่ได้รับการแพตช์</string>
     <string name="home_no_patches_available">ไม่มีแพตซ์ที่ใช้งานได้</string>
     <string name="home_app_hide_title">ซ่อนแอปนี้หรือไม่?</string>
     <string name="home_app_hide_message">แอปนี้จะถูกซ่อนจากหน้าจอหลัก คุณสามารถกู้คืนได้ภายหลังโดยใช้ปุ่ม \'\' ที่ด้านล่างของรายการ</string>
@@ -199,8 +200,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">ดาวน์โหลด APK ต้นฉบับ</string>
     <string name="home_download_instructions_steps_title">คำแนะนำ:</string>
+    <string name="home_download_instructions_finding">กำลังค้นหาหน้าดาวน์โหลด…</string>
     <string name="home_download_instructions_step1">กดปุ่ม \'%s\' ด้านล่าง</string>
     <string name="home_download_instructions_step2_part1">เลื่อนลงมาที่หน้าเว็บแล้วกดปุ่ม</string>
+    <string name="home_download_instructions_step2_generic">เลื่อนลงมาที่หน้าเว็บแล้วกดปุ่มดาวน์โหลด</string>
+    <string name="home_download_instructions_step2_variant">เลื่อนลงมาที่หน้าเว็บแล้วกดปุ่มดาวน์โหลดของ &lt;b&gt;รูปแบบ APK&lt;/b&gt; ที่อยู่ด้านบน</string>
+    <string name="home_download_instructions_step2_search">เปิดผลการค้นหาจากเว็บไซต์ที่คุณเชื่อถือ</string>
+    <string name="home_download_instructions_step2_search_note">Morphe ไม่สามารถรับรองเว็บไซต์เหล่านี้ได้ ข้ามเว็บไซต์ที่เสนอแอปสโตร์ของตัวเองแทนไฟล์ APK</string>
+    <string name="home_download_instructions_step3_search">บนเว็บไซต์นั้น ให้ดาวน์โหลด APK ของเวอร์ชัน &lt;b&gt;%s&lt;/b&gt; ไม่ใช่เวอร์ชันล่าสุด</string>
+    <string name="home_download_instructions_step3_search_any">บนเว็บไซต์นั้น ให้ดาวน์โหลด APK ของแอป &lt;b&gt;ไม่ว่าเวอร์ชันใด&lt;/b&gt;ก็สามารถแพตช์ได้</string>
     <string name="home_download_instructions_download_button_toast">กดดาวน์โหลดบนเว็บไซต์ อย่ากดที่นี่ 😊</string>
     <string name="home_download_instructions_download_button_toast_2">เยี่ยมเลย! ตอนนี้ก็คลิกดำเนินการต่อแล้วไปที่เว็บไซต์ 👆</string>
     <string name="home_download_instructions_download_button_toast_3">การฝึกฝนทำให้สมบูรณ์แบบ และคุณก็กำลังไปถึงจุดนั้น 💪</string>
@@ -211,6 +219,8 @@
     <string name="home_download_instructions_step3_mount">รอให้การดาวน์โหลดเสร็จสิ้น แล้ว &lt;b&gt;ติดตั้ง APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">หลังจากที่การดาวน์โหลดเสร็จสิ้น ให้กลับมาที่ Morphe</string>
     <string name="home_download_instructions_step4_mount">หลังจากติดตั้ง APK ต้นฉบับเสร็จสิ้น กลับมาที่ Morphe</string>
+    <string name="home_download_instructions_continue_to">ไปยัง %s</string>
+    <string name="home_download_instructions_destination">หน้าดาวน์โหลด</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">เลือก APK ที่ดาวน์โหลด</string>
     <string name="home_file_picker_prompt_description">เลือกไฟล์ APK &lt;b&gt;%s&lt;/b&gt; ที่คุณดาวน์โหลด</string>
@@ -400,6 +410,7 @@
     <string name="home_app_info_patch_update_available_description">มีแพตซ์เวอร์ชันใหม่พร้อมใช้งานแล้ว ให้แพตซ์อีกครั้งเพื่อรับการปรับปรุงและการแก้ไขสำหรับเวอร์ชันล่าสุด</string>
     <string name="home_app_info_app_deleted_warning">แอปถูกถอนการติดตั้ง</string>
     <string name="home_app_info_app_deleted_description">แอปนี้ถูกลบออกนอก Morphe. แพตซ์อีกครั้งเพื่อฟื้นฟูฟังก์ชัน</string>
+    <string name="home_app_info_not_patched_description">แอปเวอร์ชันที่ไม่ได้รับการแพตช์ถูกติดตั้งไว้ Morphe ยังคงมีบันทึกแพตช์ก่อนหน้า</string>
     <string name="home_app_info_apk_size">ขนาด APK</string>
     <string name="home_app_info_cpu_arch">สถาปัตยกรรม CPU</string>
     <!-- Home Screen - Root Mode -->

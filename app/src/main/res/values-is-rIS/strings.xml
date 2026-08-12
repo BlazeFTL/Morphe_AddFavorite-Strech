@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Önnur app</string>
     <string name="home_not_patched_yet">Ekki breytt ennþá</string>
+    <string name="home_unpatched_version_installed">Óplötuð útgáfa uppsett</string>
     <string name="home_no_patches_available">Engar breytistillingar eru til staðar</string>
     <string name="home_app_hide_title">Fela þetta app?</string>
     <string name="home_app_hide_message">Þetta app verður falið frá heimaskjánum. Hægt er að endurheimta það síðar frá falinu forritum með því að nota hnappinn neðst á listanum</string>
@@ -112,6 +113,7 @@
     <string name="home_greeting_super_late_5">Næturhægur og afkastamikill</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Heimildir breytistillinga</string>
+    <string name="sources_search">Leita að uppruna</string>
     <string name="sources_sort_title">Flokka uppfærslujöfn</string>
     <string name="sources_sort_manual">Handvirkuð pöntun</string>
     <string name="sources_sort_manual_hint">Halðu lengi á uppspretta til að raða á ný</string>
@@ -198,8 +200,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Sæktu upprunalega APK skrána</string>
     <string name="home_download_instructions_steps_title">Leiðbeiningar:</string>
+    <string name="home_download_instructions_finding">Finn niðurhalssíðuna…</string>
     <string name="home_download_instructions_step1">Ýttu á \"%s\" hnappinn hér að neðan</string>
     <string name="home_download_instructions_step2_part1">Scrollaðu niður á vefsíðuna og ýttu á</string>
+    <string name="home_download_instructions_step2_generic">Skrunaðu niður vefsíðuna og ýttu á niðurhalstakkann hennar</string>
+    <string name="home_download_instructions_step2_variant">Skrunaðu niður vefsíðuna og ýttu á niðurhalstakkann á efsta &lt;b&gt;APK afbrigðinu&lt;/b&gt;</string>
+    <string name="home_download_instructions_step2_search">Opnaðu leitarniðurstöðu af vefsíðu sem þú treystir</string>
+    <string name="home_download_instructions_step2_search_note">Morphe getur ekki ábyrgst þessar vefsíður. Slepptu þeim sem bjóða upp á eigin app-verslun í stað APK skráar</string>
+    <string name="home_download_instructions_step3_search">Á þeirri vefsíðu skaltu sækja APK af útgáfunni &lt;b&gt;%s&lt;/b&gt;, ekki þeirri nýjustu</string>
+    <string name="home_download_instructions_step3_search_any">Á þeirri vefsíðu skaltu sækja APK appið. &lt;b&gt;Sérhver útgáfa&lt;/b&gt; er hægt að plástra</string>
     <string name="home_download_instructions_download_button_toast">Ýttu á niðuhlaðningu á vefsíðunni, og ekki hér 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Frábært! Smelltu áfram og farðu á vefsíðuna 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Æfingin skapar meistarann og þú ert á góðri leið 💪</string>
@@ -210,6 +219,8 @@
     <string name="home_download_instructions_step3_mount">Bíðu þar til niðuhlaðningu er lokið, þá &lt;b&gt;setja upp APK skrárna&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Eftir að niðursöltunin er lokið, farðu aftur til Morphe</string>
     <string name="home_download_instructions_step4_mount">Eftir að setja upp upprunalega APK-skrána, farðu aftur til Morphe</string>
+    <string name="home_download_instructions_continue_to">Halda áfram til %s</string>
+    <string name="home_download_instructions_destination">niðurhalssíðan</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Velja skrá</string>
     <string name="home_file_picker_prompt_description">Veldu &lt;b&gt;%s&lt;/b&gt; APK skrána sem þú hlaðið niður</string>
@@ -397,6 +408,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_patch_update_available_description">Nýrri útgáfa af patta er í boði. Endurpakkalaðu þitt app til að fá nýjustu endurbætur og lagfæringar</string>
     <string name="home_app_info_app_deleted_warning">App var afhent</string>
     <string name="home_app_info_app_deleted_description">Þetta app var afhent utan Morphe. Endurpakkalaðu það til að endurheimta virkni</string>
+    <string name="home_app_info_not_patched_description">Óplötuð útgáfa af þessu forriti er uppsett. Morphe hefur enn fyrri plástursskrá sína</string>
     <string name="home_app_info_apk_size">APK stærð</string>
     <string name="home_app_info_cpu_arch">CPU arkitektúr</string>
     <!-- Home Screen - Root Mode -->

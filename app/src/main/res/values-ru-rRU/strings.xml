@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Другие приложения</string>
     <string name="home_not_patched_yet">Еще не пропатчено</string>
+    <string name="home_unpatched_version_installed">Установлена непатченная версия</string>
     <string name="home_no_patches_available">Нет доступных патчей</string>
     <string name="home_app_hide_title">Скрыть это приложение?</string>
     <string name="home_app_hide_message">Это приложение будет скрыто из домашнего экрана. Вы можете восстановить его позже из скрытых приложений, используя кнопку внизу списка.</string>
@@ -112,6 +113,7 @@
     <string name="home_greeting_super_late_5">Ночной и продуктивный</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Источники патчей</string>
+    <string name="sources_search">Поиск источников</string>
     <string name="sources_sort_title">Сортировка источников патчей</string>
     <string name="sources_sort_manual">Ручная сортировка</string>
     <string name="sources_sort_manual_hint">Нажмите и удерживайте источник, чтобы изменить порядок</string>
@@ -198,8 +200,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Загрузить оригинальный APK</string>
     <string name="home_download_instructions_steps_title">Инструкции:</string>
+    <string name="home_download_instructions_finding">Поиск страницы загрузки…</string>
     <string name="home_download_instructions_step1">Нажмите \'%s\' кнопке ниже</string>
     <string name="home_download_instructions_step2_part1">Прокрутите страницу вниз и нажмите</string>
+    <string name="home_download_instructions_step2_generic">Прокрутите страницу вниз и нажмите её кнопку загрузки</string>
+    <string name="home_download_instructions_step2_variant">Прокрутите страницу вниз и нажмите кнопку загрузки верхнего &lt;b&gt;варианта APK&lt;/b&gt;</string>
+    <string name="home_download_instructions_step2_search">Откройте результат поиска на сайте, которому вы доверяете</string>
+    <string name="home_download_instructions_step2_search_note">Morphe не может поручиться за эти сайты. Пропустите те, которые предлагают собственный магазин приложений вместо APK-файла</string>
+    <string name="home_download_instructions_step3_search">На этом сайте скачайте APK версии &lt;b&gt;%s&lt;/b&gt;, а не последней</string>
+    <string name="home_download_instructions_step3_search_any">На этом сайте скачайте APK приложения. &lt;b&gt;Любую версию&lt;/b&gt; можно пропатчить</string>
     <string name="home_download_instructions_download_button_toast">Нажмите скачать на веб-сайте, а не здесь 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Отлично! Теперь нажмите \"Продолжить\" и перейдите на сайт 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Практика — залог успеха, и у вас всё получается 💪</string>
@@ -210,6 +219,8 @@
     <string name="home_download_instructions_step3_mount">Дождитесь завершения загрузки, затем &lt;b&gt;установите APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">После завершения загрузки, вернитесь в Morphe</string>
     <string name="home_download_instructions_step4_mount">После установки оригинального APK, вернитесь в Morphe</string>
+    <string name="home_download_instructions_continue_to">Перейти на %s</string>
+    <string name="home_download_instructions_destination">страницу загрузки</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Выберите загруженный APK</string>
     <string name="home_file_picker_prompt_description">Выберите файл %s APK, который вы только что загрузили</string>
@@ -399,6 +410,7 @@
     <string name="home_app_info_patch_update_available_description">Доступна более новая версия патчей. Обновите приложение, чтобы получить последние улучшения и исправления.</string>
     <string name="home_app_info_app_deleted_warning">Приложение было удалено.</string>
     <string name="home_app_info_app_deleted_description">Это приложение было удалено вне устройства Morphe. Переустановите его, чтобы восстановить работоспособность.</string>
+    <string name="home_app_info_not_patched_description">Установлена непатченная версия этого приложения. Morphe по-прежнему имеет свою предыдущую запись о патче.</string>
     <string name="home_app_info_apk_size">Размер APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процессора</string>
     <!-- Home Screen - Root Mode -->

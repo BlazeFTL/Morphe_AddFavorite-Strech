@@ -198,8 +198,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">APK-a orîjinalê dakêşîne</string>
     <string name="home_download_instructions_steps_title">Rêberî:</string>
+    <string name="home_download_instructions_finding">Rûpela daxistinê tê dîtin…</string>
     <string name="home_download_instructions_step1">Butona \'%s\' ya jêr lê deynin.</string>
     <string name="home_download_instructions_step2_part1">Li ser rûbera malperê biqewime û bikşîne</string>
+    <string name="home_download_instructions_step2_generic">Rûpela webê berjêr bigerînin û pêlî bişkoka daxistinê ya wê bikin</string>
+    <string name="home_download_instructions_step2_variant">Rûpela webê berjêr bigerînin û pêlî bişkoka daxistinê ya <b>guhertoya APK</b> ya jorîn bikin</string>
+    <string name="home_download_instructions_step2_search">Netîceyek lêgerînê ji malpereke ku hûn pê bawer in vekin</string>
+    <string name="home_download_instructions_step2_search_note">Morphe nikare ji bo van malperan garantiyê bide. Yên ku li şûna dosyeyeke APK firoşgeha xwe ya sepanan pêşkêş dikin derbas bikin</string>
+    <string name="home_download_instructions_step3_search">Li ser wê malperê, APK-ya guhertoya <b>%s</b> daxînin, ne guhertoya herî nû</string>
+    <string name="home_download_instructions_step3_search_any">Li ser wê malperê, APK-ya sepanê daxînin. <b>Her guhertoyek</b> dikare were patch kirin</string>
     <string name="home_download_instructions_download_button_toast">Li ser malpera çapa serdest bike, ne ku xwer li vir 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Serkeftî! Naha bikîne virê û biçin ser malperê 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Ezberkirin baş e û hûn nêzîk dibin 💪</string>
@@ -210,6 +217,8 @@
     <string name="home_download_instructions_step3_mount">Binevin destpêkirina daxistnê biqedîne, paşê &lt;b&gt;APKê nas bike&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Pi serîdana daxistinê bi dawî bû, vegerin ser Morphe</string>
     <string name="home_download_instructions_step4_mount">Pi naskindina APK\'ya bilavkirinê, vegerin Morphe</string>
+    <string name="home_download_instructions_continue_to">Berdewam bikin ser %s</string>
+    <string name="home_download_instructions_destination">rûpela daxistinê</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">APKê daxistî hilbijêre</string>
     <string name="home_file_picker_prompt_description">Pelê APK ya &lt;b&gt;%s&lt;/b&gt; ya hûn niha dakêşandî hilbijêrin.</string>

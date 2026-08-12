@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Други приложения</string>
     <string name="home_not_patched_yet">Все още не е патчнато</string>
+    <string name="home_unpatched_version_installed">Инсталирана е версия без пачове</string>
     <string name="home_no_patches_available">Няма достъпни патчове</string>
     <string name="home_app_hide_title">Скриване на това приложение?</string>
     <string name="home_app_hide_message">Това приложение ще бъде скрито от началния екран. Можете да го възстановите по-късно от скритите приложения, като използвате бутона в долната част на списъка.</string>
@@ -187,6 +188,7 @@
     <string name="home_apk_helper_no_package">Помощното приложение не посочи кое инсталирано приложение да се използва</string>
     <string name="home_apk_helper_wrong_package">Помощното приложение върна различно приложение от това, което се кърпи.</string>
     <string name="home_apk_helper_installed_unavailable">Morphe не можа да използва инсталираното приложение</string>
+    <string name="home_apk_helper_installed_incompatible">Инсталираната версия не може да бъде кръпната</string>
     <string name="home_apk_use_saved">Използвайте запазен APK</string>
     <string name="home_apk_use_installed">Използвайте инсталиран APK</string>
     <string name="home_apk_use_installed_unverified">Не успяхме да потвърдим подписа на инсталираното приложение, затова е възможно вече да е променено</string>
@@ -409,6 +411,7 @@
     <string name="home_app_info_patch_update_available_description">Достъпна е по-нова версия на поправките. Поправете отново приложението си, за да получите последното подобрение и поправки</string>
     <string name="home_app_info_app_deleted_warning">Приложението беше деинсталирано</string>
     <string name="home_app_info_app_deleted_description">Това приложение беше деинсталирано извън Morphe. Поправете го отново, за да възстановите функционалността</string>
+    <string name="home_app_info_not_patched_description">Инсталирана е версия без пачове на това приложение. Morphe все още има своя предишен запис за пач</string>
     <string name="home_app_info_apk_size">Размер на APK</string>
     <string name="home_app_info_cpu_arch">CPU архитектура</string>
     <!-- Home Screen - Root Mode -->

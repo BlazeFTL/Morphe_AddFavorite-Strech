@@ -20,10 +20,13 @@ import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.material.icons.outlined.HourglassEmpty
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,6 +59,10 @@ import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.util.AppCardColorResolver
 import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.withVersionPrefix
+import kotlinx.coroutines.delay
+
+// A verdict answered from cache lands within a frame, so the badge waits rather than flashing
+private const val INSTALL_VERIFICATION_BADGE_DELAY_MS = 400L
 
 private data class HomeAppCardStyle(
     val monochrome: Boolean,
@@ -197,13 +204,15 @@ fun InstalledAppCard(
     isAppDeleted: Boolean = false,
     isInstallStateNotPatched: Boolean = false,
     isInstallStateUnknown: Boolean = false,
+    isInstallStatePending: Boolean = false,
     onLongClick: (() -> Unit)? = null
 ) {
     val cardStyle = homeAppCardStyle(subtitleAlpha = 0.85f)
     val showsUpdateBadge = hasUpdate &&
             !isAppDeleted &&
             !isInstallStateNotPatched &&
-            !isInstallStateUnknown
+            !isInstallStateUnknown &&
+            !isInstallStatePending
 
     val versionLabel = stringResource(R.string.version)
     val installedLabel = stringResource(R.string.installed)
@@ -211,6 +220,17 @@ fun InstalledAppCard(
     val deletedLabel = stringResource(R.string.uninstalled)
     val replacementLabel = stringResource(R.string.home_unpatched_version_installed)
     val unverifiedLabel = stringResource(R.string.home_unverified)
+    val pendingLabel = stringResource(R.string.home_install_verification_pending)
+
+    val showsPendingBadge = remember { mutableStateOf(false) }
+    LaunchedEffect(isInstallStatePending) {
+        if (!isInstallStatePending) {
+            showsPendingBadge.value = false
+            return@LaunchedEffect
+        }
+        delay(INSTALL_VERIFICATION_BADGE_DELAY_MS)
+        showsPendingBadge.value = true
+    }
 
     val version = remember(packageInfo, installedApp, isAppDeleted) {
         val raw = packageInfo?.versionName ?: installedApp.version
@@ -229,7 +249,9 @@ fun InstalledAppCard(
         isInstallStateNotPatched,
         replacementLabel,
         isInstallStateUnknown,
-        unverifiedLabel
+        unverifiedLabel,
+        showsPendingBadge.value,
+        pendingLabel
     ) {
         buildString {
             append(displayName)
@@ -239,6 +261,7 @@ fun InstalledAppCard(
             append(", ")
             append(
                 when {
+                    showsPendingBadge.value -> pendingLabel
                     isInstallStateNotPatched -> replacementLabel
                     isAppDeleted -> deletedLabel
                     isInstallStateUnknown -> unverifiedLabel
@@ -322,6 +345,15 @@ fun InstalledAppCard(
                     StatusBadge(
                         text = unverifiedLabel,
                         icon = Icons.AutoMirrored.Outlined.HelpOutline,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
+                    )
+                }
+
+                if (showsPendingBadge.value) {
+                    StatusBadge(
+                        text = pendingLabel,
+                        icon = Icons.Outlined.HourglassEmpty,
                         containerColor = cardStyle.chipContainerColor,
                         contentColor = cardStyle.chipContentColor
                     )

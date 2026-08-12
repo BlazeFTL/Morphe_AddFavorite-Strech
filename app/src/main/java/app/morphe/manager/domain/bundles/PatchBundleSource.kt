@@ -1,7 +1,9 @@
 package app.morphe.manager.domain.bundles
 
 import androidx.compose.runtime.Stable
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.gitlabAvatarUrl
 import app.morphe.manager.patcher.patch.PatchBundle
+import app.morphe.manager.util.hasZipHeader
 import app.morphe.manager.util.isPatcherOutdated
 import java.io.File
 import java.io.IOException
@@ -107,22 +109,13 @@ sealed class PatchBundleSource(
             throw IOException("$context produced an empty or truncated patch bundle (size=$length)")
         }
 
-        // A download can succeed and still hand back the wrong thing: an API serving metadata
-        // instead of the asset, or a captive portal answering with HTML. Both look like a healthy
-        // transfer and would be installed as a bundle, so the archive header is checked here
-        if (!hasZipHeader(file)) {
+        // Patch bundles are zip archives whether they arrive as .mpp or .jar, so a response that
+        // transferred cleanly but is not one must not be installed
+        if (!file.hasZipHeader()) {
             runCatching { file.delete() }
             throw IOException("$context produced a file that is not a patch bundle archive")
         }
     }
-
-    /** Patch bundles are zip archives, whether they arrive as .mpp, .jar or an extracted asset. */
-    private fun hasZipHeader(file: File): Boolean = runCatching {
-        file.inputStream().use { input ->
-            val header = ByteArray(ZIP_HEADER.size)
-            input.read(header) == header.size && header.contentEquals(ZIP_HEADER)
-        }
-    }.getOrDefault(false)
 
     sealed interface State {
         data object Missing : State
@@ -132,8 +125,6 @@ sealed class PatchBundleSource(
 
     companion object Extensions {
         private const val MIN_PATCH_BUNDLE_BYTES = 8L
-        /** Local file header of a zip archive, the container every patch bundle uses. */
-        private val ZIP_HEADER = byteArrayOf(0x50, 0x4B, 0x03, 0x04)
         private const val STAGING_FILE_NAME = "patches.jar.tmp"
         private const val JSON_EXTENSION = ".json"
         val PatchBundleSource.isDefault inline get() = uid == 0

@@ -1,29 +1,24 @@
 package app.morphe.manager.domain.bundles
 
-import android.util.Log
 import app.morphe.manager.domain.bundles.RemotePatchBundle.Companion.CHANGELOG_CACHE_TTL
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.network.api.MorpheAPI
 import app.morphe.manager.network.dto.MorpheAsset
+import app.morphe.manager.network.service.AssetDownloader
 import app.morphe.manager.network.service.HttpService
-import app.morphe.manager.network.service.isTransientNetworkError
 import app.morphe.manager.network.utils.getOrThrow
 import app.morphe.manager.util.ChangelogEntry
 import app.morphe.manager.util.SOURCE_REPO_URL
 import app.morphe.manager.util.compareVersions
 import app.morphe.manager.util.releasePageUrl
-import app.morphe.manager.util.tag
 import io.ktor.client.request.header
 import io.ktor.client.request.prepareGet
 import io.ktor.client.request.url
 import io.ktor.client.statement.bodyAsChannel
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
 import io.ktor.http.contentLength
 import io.ktor.http.contentType
 import io.ktor.utils.io.jvm.javaio.toInputStream
 import io.ktor.utils.io.readAvailable
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -60,6 +55,7 @@ sealed class RemotePatchBundle(
     enabled: Boolean,
 ) : PatchBundleSource(name, uid, displayName, createdAt, updatedAt, error, directory, enabled), KoinComponent {
     protected val http: HttpService by inject()
+    private val assetDownloader: AssetDownloader by inject()
 
     protected abstract suspend fun getLatestInfo(): MorpheAsset
     abstract fun copy(
@@ -84,7 +80,11 @@ sealed class RemotePatchBundle(
     protected open suspend fun download(info: MorpheAsset, onProgress: PatchBundleDownloadProgress? = null) =
         withContext(Dispatchers.IO) {
             installPatchBundle("Downloading patch bundle") { staging ->
-                downloadAsset(info.downloadUrl, staging, onProgress)
+                assetDownloader.downloadToFile(
+                    downloadUrl = info.downloadUrl,
+                    saveLocation = staging,
+                    onProgress = onProgress
+                )
             }
 
             PatchBundleDownloadResult(
@@ -94,50 +94,6 @@ sealed class RemotePatchBundle(
                 }.getOrNull()
             )
         }
-
-    /**
-     * Downloads [downloadUrl] into [staging], falling back to the GitHub API copy of the asset
-     * when the direct link cannot be reached.
-     *
-     * Networks that drop github.com while leaving api.github.com alone are common enough that a
-     * source is otherwise unusable there. The fallback costs two extra API calls against a 60 per
-     * hour unauthenticated quota, so it is only taken once the direct link has actually failed.
-     */
-    private suspend fun downloadAsset(
-        downloadUrl: String,
-        staging: File,
-        onProgress: PatchBundleDownloadProgress?
-    ) {
-        try {
-            http.downloadToFile(
-                saveLocation = staging,
-                builder = { url(downloadUrl) },
-                onProgress = onProgress
-            )
-        } catch (e: Exception) {
-            if (e is CancellationException || !isTransientNetworkError(e)) throw e
-
-            val api: MorpheAPI by inject()
-            val prefs: PreferencesManager by inject()
-            val assetUrl = api.releaseAssetApiUrl(downloadUrl) ?: throw e
-            val pat = prefs.gitHubPat.get()
-
-            // The API serves the asset bytes only when octet-stream is the sole Accept value, and
-            // the shared client always appends its own JSON one. Resolving the redirect gives a
-            // signed URL that carries the content type itself and needs no headers to download.
-            val signedUrl = http.resolveRedirect(assetUrl) {
-                header(HttpHeaders.Accept, ContentType.Application.OctetStream.toString())
-                pat.takeIf { it.isNotBlank() }?.let { header(HttpHeaders.Authorization, "Bearer $it") }
-            } ?: throw e
-
-            Log.i(tag, "Retrying $downloadUrl through the GitHub API")
-            http.downloadToFile(
-                saveLocation = staging,
-                builder = { url(signedUrl) },
-                onProgress = onProgress
-            )
-        }
-    }
 
     /**
      * [getLatestInfo] with the manifest page URL remembered, so [browsePageUrl] can use it without

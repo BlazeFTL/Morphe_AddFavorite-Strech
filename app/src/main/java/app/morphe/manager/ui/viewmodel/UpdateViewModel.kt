@@ -19,13 +19,13 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.ManagerUpdateRepository
 import app.morphe.manager.network.api.MorpheAPI
 import app.morphe.manager.network.dto.MorpheAsset
-import app.morphe.manager.network.service.HttpService
+import app.morphe.manager.network.service.AssetDownloader
 import app.morphe.manager.util.*
-import io.ktor.client.plugins.onDownload
-import io.ktor.client.request.url
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.io.File
+import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
 class UpdateViewModel(
@@ -35,7 +35,7 @@ class UpdateViewModel(
     private val app: Application by inject()
     private val morpheAPI: MorpheAPI by inject()
     private val managerUpdateRepository: ManagerUpdateRepository by inject()
-    private val http: HttpService by inject()
+    private val assetDownloader: AssetDownloader by inject()
     private val sessionInstaller: SessionInstaller by inject()
     private val networkInfo: NetworkInfo by inject()
     private val fs: Filesystem by inject()
@@ -168,25 +168,19 @@ class UpdateViewModel(
 
             try {
                 withContext(Dispatchers.IO) {
-                    if (resumeOffset == 0L) {
-                        http.downloadToFile(
-                            saveLocation = location,
-                            builder = { url(release.downloadUrl) },
-                            onProgress = { bytesRead, contentLength ->
-                                downloadedSize = bytesRead
-                                totalSize = contentLength ?: totalSize
-                            }
-                        )
-                    } else {
-                        http.download(location, resumeOffset) {
-                            url(release.downloadUrl)
-                            onDownload { bytesSentTotal, contentLength ->
-                                downloadedSize = resumeOffset + bytesSentTotal
-                                totalSize = resumeOffset + (contentLength ?: totalSize)
-                            }
+                    // Routed through AssetDownloader so the manager update survives a blocked
+                    // github.com the same way patch bundles do
+                    assetDownloader.downloadToFile(
+                        downloadUrl = release.downloadUrl,
+                        saveLocation = location,
+                        resumeFrom = resumeOffset,
+                        onProgress = { bytesRead, contentLength ->
+                            downloadedSize = bytesRead
+                            totalSize = contentLength ?: totalSize
                         }
-                    }
+                    )
                 }
+                requireApkArchive(location)
                 canResumeDownload = false
                 installUpdate().join()
             } catch (error: Exception) {
@@ -200,6 +194,19 @@ class UpdateViewModel(
                 throw error
             }
         }
+    }
+
+    /**
+     * Rejects a download that transferred cleanly but is not an APK, so the installer is never
+     * handed an error page or an API response that arrived in the file's place. The partial file
+     * is dropped as well, otherwise the next attempt would resume on top of it.
+     */
+    private suspend fun requireApkArchive(location: File) = withContext(Dispatchers.IO) {
+        if (location.hasZipHeader()) return@withContext
+
+        val size = runCatching { location.length() }.getOrDefault(0L)
+        runCatching { location.delete() }
+        throw IOException("The downloaded update is not an APK (size=$size)")
     }
 
     fun installUpdate() = viewModelScope.launch {

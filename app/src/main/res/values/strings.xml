@@ -995,6 +995,7 @@ Details: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Delete selected APKs?</string>
     <string name="settings_system_apks_delete_selected_confirm">This will permanently delete the selected APK files</string>
     <string name="settings_system_apks_deleted_all">APKs deleted successfully</string>
+    <string name="settings_system_apks_delete_failed">Some APK files could not be deleted</string>
     <string name="settings_system_apks_export_zip_success">Selected APKs exported</string>
     <string name="settings_system_apks_export_zip_failed">Failed to export selected APKs</string>
     <string name="settings_system_apk_item_info" translatable="false">v%s • %s</string>

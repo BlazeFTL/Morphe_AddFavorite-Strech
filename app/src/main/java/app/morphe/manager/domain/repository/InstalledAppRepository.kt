@@ -38,6 +38,28 @@ internal fun retainedPatchedApkOwners(
 internal fun outlivesRetainedPatchedApk(installType: InstallType) =
     installType != InstallType.SAVED
 
+/**
+ * Deletes every retained copy in [files] and returns those still on storage afterwards.
+ * Storage has the last word rather than the return value of the delete: a path something else
+ * cleared in the meantime reports failure while being gone all the same.
+ */
+internal fun deleteRetainedCopies(files: List<File>): List<File> = files.filter { file ->
+    runCatching { file.delete() }
+    file.exists()
+}
+
+/** What became of the retained copies a record owned after a delete pass over them. */
+private enum class SavedApkDeletion {
+    /** The record owned no copy on storage. */
+    Nothing,
+
+    /** Every copy the record owned is gone. */
+    Deleted,
+
+    /** At least one copy survived and still occupies storage. */
+    Failed
+}
+
 class InstalledAppRepository(
     db: AppDatabase,
     private val patchBundleRepository: PatchBundleRepository,
@@ -184,37 +206,45 @@ class InstalledAppRepository(
             filesystem.getPatchedAppFile(packageName, installedApp.version)
         }
 
-    /** Deletes every retained copy this record owns and reports whether any of them existed. */
-    private suspend fun deleteSavedPatchedApkFiles(installedApp: InstalledApp): Boolean {
+    /** Deletes every retained copy this record owns and reports what became of them. */
+    private suspend fun deleteSavedPatchedApkFiles(installedApp: InstalledApp): SavedApkDeletion {
         val savedFiles = savedPatchedApkFiles(installedApp).filter { it.exists() }
         if (savedFiles.isEmpty()) {
             Log.d(TAG, "No saved APK found for ${installedApp.currentPackageName} v${installedApp.version}")
-            return false
+            return SavedApkDeletion.Nothing
         }
 
-        savedFiles.forEach { savedFile ->
-            if (runCatching { savedFile.delete() }.getOrDefault(false)) {
-                Log.d(TAG, "Deleted patched APK: ${savedFile.absolutePath}")
-            } else {
-                Log.w(TAG, "Failed to delete patched APK: ${savedFile.absolutePath}")
-            }
+        val survivors = deleteRetainedCopies(savedFiles)
+        if (survivors.isNotEmpty()) {
+            Log.w(TAG, "Patched APKs left behind: ${survivors.map { it.absolutePath }}")
+            return SavedApkDeletion.Failed
         }
-        // Reported even when a delete failed, so the listing rebuilds from what is actually there
-        return true
+
+        Log.d(TAG, "Deleted patched APKs for ${installedApp.currentPackageName} v${installedApp.version}")
+        return SavedApkDeletion.Deleted
     }
 
     /**
      * Deletes retained patched APK files while preserving the records that describe an install.
      * A saved-only record describes nothing once its archive is gone, so it goes with the file.
+     * A copy that survives the attempt keeps its record: the listing is built from records, so
+     * dropping one would leave the file occupying storage with nothing left to remove it with.
      * Consumers are notified because this changes the evidence used to verify live installs.
+     *
+     * @return whether every copy the given records owned is gone.
      */
-    suspend fun deleteSavedPatchedApks(installedApps: Collection<InstalledApp>) =
+    suspend fun deleteSavedPatchedApks(installedApps: Collection<InstalledApp>): Boolean =
         withContext(Dispatchers.IO) {
+            var deletedEverything = true
             val changedPackages = buildSet {
                 installedApps.forEach { installedApp ->
-                    if (!deleteSavedPatchedApkFiles(installedApp)) return@forEach
-                    if (!outlivesRetainedPatchedApk(installedApp.installType)) {
-                        dao.delete(installedApp)
+                    when (deleteSavedPatchedApkFiles(installedApp)) {
+                        SavedApkDeletion.Nothing -> return@forEach
+                        SavedApkDeletion.Failed -> deletedEverything = false
+                        SavedApkDeletion.Deleted ->
+                            if (!outlivesRetainedPatchedApk(installedApp.installType)) {
+                                dao.delete(installedApp)
+                            }
                     }
                     add(installedApp.currentPackageName)
                     add(installedApp.originalPackageName)
@@ -223,6 +253,7 @@ class InstalledAppRepository(
             if (changedPackages.isNotEmpty()) {
                 _savedPatchedApkChanges.emit(changedPackages)
             }
+            deletedEverything
         }
 
     suspend fun deleteSavedPatchedApk(installedApp: InstalledApp) =

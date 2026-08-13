@@ -199,6 +199,7 @@ private fun PatchedApksContent(
     val saveApkSuccessText = stringResource(R.string.save_apk_success)
     val patchedApksDeletedText = stringResource(R.string.settings_system_patched_apks_deleted)
     val apksDeletedAllText = stringResource(R.string.settings_system_apks_deleted_all)
+    val apksDeleteFailedText = stringResource(R.string.settings_system_apks_delete_failed)
     val repository: InstalledAppRepository = koinInject()
     val appDataResolver: AppDataResolver = koinInject()
     val prefs: PreferencesManager = koinInject()
@@ -439,15 +440,15 @@ private fun PatchedApksContent(
             onDeleteSelectedConfirm = { selectedItems ->
                 val appsToDelete = selectedItems.mapNotNull { appByKey[it.selectionKey] }
                 scope.launch {
-                    repository.deleteSavedPatchedApks(appsToDelete)
-                    context.toast(apksDeletedAllText)
+                    val deleted = repository.deleteSavedPatchedApks(appsToDelete)
+                    context.toast(if (deleted) apksDeletedAllText else apksDeleteFailedText)
                 }
             },
             onDeleteAllConfirm = {
                 val appsToDelete = apkItems.map { it.installedApp }
                 scope.launch {
-                    repository.deleteSavedPatchedApks(appsToDelete)
-                    context.toast(apksDeletedAllText)
+                    val deleted = repository.deleteSavedPatchedApks(appsToDelete)
+                    context.toast(if (deleted) apksDeletedAllText else apksDeleteFailedText)
                 }
             }
         ),
@@ -463,8 +464,8 @@ private fun PatchedApksContent(
             onDismiss = { itemToDelete.value = null },
             onConfirm = {
                 scope.launch {
-                    repository.deleteSavedPatchedApk(itemToDelete.value!!)
-                    context.toast(patchedApksDeletedText)
+                    val deleted = repository.deleteSavedPatchedApk(itemToDelete.value!!)
+                    context.toast(if (deleted) patchedApksDeletedText else apksDeleteFailedText)
                     itemToDelete.value = null
                 }
             }

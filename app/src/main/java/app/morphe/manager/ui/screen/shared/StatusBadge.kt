@@ -7,13 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.FlowRowScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,7 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
@@ -77,6 +73,18 @@ private object BadgeDefaults {
     val IconSize = 14.dp
     val ItemSpacing = 5.dp
 }
+
+/**
+ * Height a [StatusBadge] occupies at the current font scale. Rows that carry a badge only in
+ * some states reserve it up front, so the rest of their content stays put when one appears.
+ */
+val statusBadgeHeight: Dp
+    @Composable get() {
+        val labelHeight = with(LocalDensity.current) {
+            MaterialTheme.typography.labelMedium.lineHeight.toDp()
+        }
+        return maxOf(labelHeight, BadgeDefaults.IconSize) + BadgeDefaults.VerticalPadding * 2
+    }
 
 /**
  * Inline status marker, sized to its content.

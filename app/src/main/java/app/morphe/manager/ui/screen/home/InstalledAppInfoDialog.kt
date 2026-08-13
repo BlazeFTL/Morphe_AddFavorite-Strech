@@ -936,7 +936,7 @@ private fun AppHeroHeader(
                 )
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     // Animated app name (leads textProgress)
                     Box(

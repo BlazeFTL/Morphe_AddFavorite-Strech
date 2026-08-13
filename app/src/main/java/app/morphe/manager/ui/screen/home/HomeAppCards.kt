@@ -23,11 +23,7 @@ import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.HourglassEmpty
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -53,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
@@ -60,6 +58,7 @@ import app.morphe.manager.util.AppCardColorResolver
 import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.withVersionPrefix
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 // A verdict answered from cache lands within a frame, so the badge waits rather than flashing
 private const val INSTALL_VERIFICATION_BADGE_DELAY_MS = 400L
@@ -181,6 +180,11 @@ internal fun RowScope.AppCardContent(
 
         if (subtitle != null) {
             Text(
+                // Matches the badge-height subtitle row of the installed cards, so names line up
+                // across every card in the list
+                modifier = Modifier
+                    .height(statusBadgeHeight)
+                    .wrapContentHeight(Alignment.CenterVertically),
                 text = subtitle,
                 style = cardStyle.subtitleStyle,
                 color = cardStyle.subtitleColor
@@ -228,7 +232,7 @@ fun InstalledAppCard(
             showsPendingBadge.value = false
             return@LaunchedEffect
         }
-        delay(INSTALL_VERIFICATION_BADGE_DELAY_MS)
+        delay(INSTALL_VERIFICATION_BADGE_DELAY_MS.milliseconds)
         showsPendingBadge.value = true
     }
 
@@ -307,6 +311,9 @@ fun InstalledAppCard(
 
             // Version + deleted status + update chip, both pinned to the card edge
             Row(
+                // Badge height is reserved whether a badge is showing, otherwise the row
+                // grows around it and nudges the app name above out of place
+                modifier = Modifier.height(statusBadgeHeight),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -654,6 +661,10 @@ fun AppLoadingCard(
     val shape = RoundedCornerShape(cardStyle.cardRadius)
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 
+    // Skeleton rows carry the height of the text they stand in for, so the card does not
+    // re-lay-out its content the moment the real app resolves
+    val titleRowHeight = with(LocalDensity.current) { cardStyle.titleStyle.lineHeight.toDp() }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -697,38 +708,48 @@ fun AppLoadingCard(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                .padding(horizontal = cardStyle.contentPadding),
+            horizontalArrangement = Arrangement.spacedBy(cardStyle.contentSpacing),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Icon skeleton
+            // Icon skeleton, inset and rounded like the glass placeholder it stands in for
             ShimmerBox(
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(cardStyle.iconSize)
                     .padding(6.dp),
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+                shape = RoundedCornerShape(percent = 20),
                 baseColor = Color.White.copy(alpha = 0.2f)
             )
 
             // Text skeleton
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                ShimmerBox(
-                    modifier = Modifier
-                        .fillMaxWidth(0.6f)
-                        .height(20.dp),
-                    shape = RoundedCornerShape(4.dp),
-                    baseColor = Color.White.copy(alpha = 0.25f)
-                )
-                ShimmerBox(
-                    modifier = Modifier
-                        .fillMaxWidth(0.4f)
-                        .height(14.dp),
-                    shape = RoundedCornerShape(4.dp),
-                    baseColor = Color.White.copy(alpha = 0.15f)
-                )
+                Box(
+                    modifier = Modifier.height(titleRowHeight),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    ShimmerBox(
+                        modifier = Modifier
+                            .fillMaxWidth(0.6f)
+                            .height(20.dp),
+                        shape = RoundedCornerShape(4.dp),
+                        baseColor = Color.White.copy(alpha = 0.25f)
+                    )
+                }
+                Box(
+                    modifier = Modifier.height(statusBadgeHeight),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    ShimmerBox(
+                        modifier = Modifier
+                            .fillMaxWidth(0.4f)
+                            .height(14.dp),
+                        shape = RoundedCornerShape(4.dp),
+                        baseColor = Color.White.copy(alpha = 0.15f)
+                    )
+                }
             }
         }
     }

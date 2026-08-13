@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Использовать установленный APK</string>
     <string name="home_apk_use_installed_unverified">Не удалось проверить подпись установленного приложения, поэтому оно может быть уже пропатчено</string>
     <string name="home_unverified">Непроверенный</string>
+    <string name="home_install_verification_pending">Проверка установки…</string>
     <string name="home_app_info_install_unverified">Morphe не может подтвердить, что установленное приложение является сборкой, которую он пропатчил. Переустановите его из сохраненного APK, чтобы восстановить его действия.</string>
     <string name="home_app_info_no_saved_apk">Нет сохраненного APK. Для патча нужно будет снова выбрать APK файл</string>
     <string name="home_version_requires_android">Требуется Android %s+</string>
@@ -230,7 +231,7 @@
     <string name="home_select_apk_title">Выбрать APK</string>
     <string name="home_select_any_apk_description">Выберите APK-файл любого приложения или выберите приложение, уже установленное на этом устройстве</string>
     <string name="home_use_installed_app">Использовать установленное приложение</string>
-    <string name="home_installed_app_picker_title">Выберите установленное приложение</string>
+    <string name="home_installed_app_picker_title">Установленные приложения</string>
     <string name="home_installed_app_picker_empty">Приложения не найдены</string>
     <string name="home_installed_app_picker_filter_all">Все приложения</string>
     <string name="home_installed_app_picker_filter_user">Только пользовательские приложения</string>
@@ -396,6 +397,7 @@
     <string name="home_app_info_delete_preservation_note">Выбранные патчи и параметры будут сохранены для будущего патчинга</string>
     <string name="home_app_info_patches_name_default">Патчи</string>
     <string name="home_app_info_patches_name_fallback">Безымянный</string>
+    <string name="home_app_info_patches_source_removed">Источник патчей удален</string>
     <string name="home_app_info_patches_replace_fail">Не удалось импортировать патчи: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Оригинальный APK-файл не найден. Невозможно повторно пропатчить это приложение.</string>
     <string name="home_app_info_original_package_name">Исходное имя пакета</string>

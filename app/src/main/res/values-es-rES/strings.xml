@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Selecciona el APK</string>
     <string name="home_select_any_apk_description">Selecciona un archivo APK de cualquier aplicación o elige una aplicación que ya esté instalada en este dispositivo</string>
     <string name="home_use_installed_app">Usar aplicación instalada</string>
-    <string name="home_installed_app_picker_title">Seleccionar aplicación instalada</string>
+    <string name="home_installed_app_picker_title">Apps instaladas</string>
     <string name="home_installed_app_picker_empty">No se encontraron aplicaciones</string>
     <string name="home_installed_app_picker_filter_all">Todas las aplicaciones</string>
     <string name="home_installed_app_picker_filter_user">Solo aplicaciones de usuario</string>
@@ -398,6 +398,7 @@ Reparchear aplicaciones desactualizadas</string>
     <string name="home_app_info_delete_preservation_note">Tu selección de parches y opciones se conservarán para futuros parcheos</string>
     <string name="home_app_info_patches_name_default">Parches</string>
     <string name="home_app_info_patches_name_fallback">Sin nombre</string>
+    <string name="home_app_info_patches_source_removed">Fuente de parches eliminada</string>
     <string name="home_app_info_patches_replace_fail">No se pudieron importar los parches: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK original no encontrado. No se puede volver a parchear esta aplicación</string>
     <string name="home_app_info_original_package_name">Nombre original del paquete</string>

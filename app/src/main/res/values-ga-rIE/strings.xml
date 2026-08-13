@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Roghnaigh APK</string>
     <string name="home_select_any_apk_description">Roghnaigh comhad APK d\'aon aip, nó roghnaigh aip atá suiteáilte cheana féin ar an ngléas seo</string>
     <string name="home_use_installed_app">Bain úsáid as aip suiteáilte</string>
-    <string name="home_installed_app_picker_title">Roghnaigh aip suiteáilte</string>
+    <string name="home_installed_app_picker_title">Aipanna suiteáilte</string>
     <string name="home_installed_app_picker_empty">Níor aimsíodh aon aipeanna</string>
     <string name="home_installed_app_picker_filter_all">Gach aip</string>
     <string name="home_installed_app_picker_filter_user">Aipeanna úsáideora amháin</string>
@@ -397,6 +397,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_delete_preservation_note">Coinneofar do rogha paiste agus roghanna le haghaidh paistí amach anseo</string>
     <string name="home_app_info_patches_name_default">Paistí</string>
     <string name="home_app_info_patches_name_fallback">Gan ainm</string>
+    <string name="home_app_info_patches_source_removed">Foinse paiste scriosta</string>
     <string name="home_app_info_patches_replace_fail">Theip ar phaistí a iompórtáil: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK bunaidh gan teacht air. Ní féidir an aip seo a athphaisteáil</string>
     <string name="home_app_info_original_package_name">Ainm an phacáiste bhunaidh</string>

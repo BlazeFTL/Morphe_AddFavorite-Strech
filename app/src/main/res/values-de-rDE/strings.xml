@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Installierte App verwenden</string>
     <string name="home_apk_use_installed_unverified">Die Signatur der installierten App konnte nicht verifiziert werden. Sie ist möglicherweise bereits gepatcht.</string>
     <string name="home_unverified">Unbestätigt</string>
+    <string name="home_install_verification_pending">Installation wird überprüft…</string>
     <string name="home_app_info_install_unverified">Morphe kann nicht bestätigen, dass die installierte App der von ihm gepatchte Build ist. Installieren Sie sie erneut aus der gespeicherten APK, um ihre Aktionen wiederherzustellen</string>
     <string name="home_app_info_no_saved_apk">Keine gespeicherte APK. Das Patchen erfordert die erneute Auswahl der APK-Datei</string>
     <string name="home_version_requires_android">Benötigt Android %s+</string>
@@ -230,7 +231,7 @@
     <string name="home_select_apk_title">APK auswählen</string>
     <string name="home_select_any_apk_description">Wählen Sie eine APK-Datei einer beliebigen App aus oder wählen Sie eine App, die bereits auf diesem Gerät installiert ist</string>
     <string name="home_use_installed_app">Installierte App verwenden</string>
-    <string name="home_installed_app_picker_title">Installierte App auswählen</string>
+    <string name="home_installed_app_picker_title">Installierte Apps</string>
     <string name="home_installed_app_picker_empty">Keine Apps gefunden</string>
     <string name="home_installed_app_picker_filter_all">Alle Apps</string>
     <string name="home_installed_app_picker_filter_user">Nur Benutzer-Apps</string>
@@ -396,6 +397,7 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_app_info_delete_preservation_note">Ihre Patch Auswahl und Optionen bleiben für zukünftiges Patchen erhalten</string>
     <string name="home_app_info_patches_name_default">Patches</string>
     <string name="home_app_info_patches_name_fallback">Unbenannt</string>
+    <string name="home_app_info_patches_source_removed">Gelöschte Patch-Quelle</string>
     <string name="home_app_info_patches_replace_fail">Importieren der Patches fehlgeschlagen: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Originale APK nicht gefunden. Diese App kann nicht neu gepatcht werden</string>
     <string name="home_app_info_original_package_name">Originaler Paketname</string>

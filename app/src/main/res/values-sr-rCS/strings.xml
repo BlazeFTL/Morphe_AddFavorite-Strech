@@ -231,7 +231,6 @@
     <string name="home_select_apk_title">Izaberi APK</string>
     <string name="home_select_any_apk_description">Odaberite APK datoteku bilo koje aplikacije ili odaberite aplikaciju koja je već instalirana na ovom uređaju</string>
     <string name="home_use_installed_app">Koristi instaliranu aplikaciju</string>
-    <string name="home_installed_app_picker_title">Odabir instalirane aplikacije</string>
     <string name="home_installed_app_picker_empty">Nema pronađenih aplikacija</string>
     <string name="home_installed_app_picker_filter_all">Sve aplikacije</string>
     <string name="home_installed_app_picker_filter_user">Samo korisničke aplikacije</string>
@@ -397,6 +396,7 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="home_app_info_delete_preservation_note">Vaš odabir patch-a i opcije će biti sačuvane za buduće patchiranje</string>
     <string name="home_app_info_patches_name_default">Patches</string>
     <string name="home_app_info_patches_name_fallback">Nema imena</string>
+    <string name="home_app_info_patches_source_removed">Izbrisan izvor zakrpe</string>
     <string name="home_app_info_patches_replace_fail">Nijeleženo uvoz patchova: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Originalni APK nije pronađen. Nemoguće je repatchirati ovu aplikaciju</string>
     <string name="home_app_info_original_package_name">Orginalno ime paketa</string>

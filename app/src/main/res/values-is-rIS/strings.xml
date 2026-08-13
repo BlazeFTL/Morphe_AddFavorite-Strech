@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Veldu APK</string>
     <string name="home_select_any_apk_description">Veldu APK skrá af hvaða forriti sem er, eða veldu forrit sem er þegar uppsett á þessari tæki</string>
     <string name="home_use_installed_app">Nota uppsett forrit</string>
-    <string name="home_installed_app_picker_title">Veldu uppsett forrit</string>
+    <string name="home_installed_app_picker_title">Uppsett forrit</string>
     <string name="home_installed_app_picker_empty">Engin forrit fundust</string>
     <string name="home_installed_app_picker_filter_all">Öll forrit</string>
     <string name="home_installed_app_picker_filter_user">Aðeins notendaförrit</string>
@@ -395,6 +395,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_delete_preservation_note">Pattaðar valkostir þínar og valkostir munu verða varðveittir fyrir framtíðarpökkun</string>
     <string name="home_app_info_patches_name_default">Breytistillingar</string>
     <string name="home_app_info_patches_name_fallback">Nafnlaust</string>
+    <string name="home_app_info_patches_source_removed">Patch upprunanum eytt</string>
     <string name="home_app_info_patches_replace_fail">Ekki tókst að flytja breytistillingar: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Upprunaleg APK fannst ekki. Ekki er hægt að endurpakka þetta app</string>
     <string name="home_app_info_original_package_name">Upprunalegt pakkannafn</string>

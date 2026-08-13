@@ -230,7 +230,6 @@
     <string name="home_select_apk_title">เลือกไฟล์ APK</string>
     <string name="home_select_any_apk_description">เลือกไฟล์ APK ของแอปใดก็ได้ หรือเลือกแอปที่ติดตั้งบนอุปกรณ์นี้อยู่แล้ว</string>
     <string name="home_use_installed_app">ใช้แอปที่ติดตั้งแล้ว</string>
-    <string name="home_installed_app_picker_title">เลือกแอปที่ติดตั้ง</string>
     <string name="home_installed_app_picker_empty">ไม่พบแอปพลิเคชัน</string>
     <string name="home_installed_app_picker_filter_all">แอปพลิเคชันทั้งหมด</string>
     <string name="home_installed_app_picker_filter_user">เฉพาะแอปพลิเคชันของผู้ใช้</string>
@@ -396,6 +395,7 @@
     <string name="home_app_info_delete_preservation_note">แพตซ์ที่คุณเลือกไว้และการตั้งค่าของคุณจะถูกเก็บไว้สำหรับการแพตช์ในอนาคต</string>
     <string name="home_app_info_patches_name_default">แพตช์</string>
     <string name="home_app_info_patches_name_fallback">ไม่มีชื่อ</string>
+    <string name="home_app_info_patches_source_removed">แหล่งที่มาของแพตช์ถูกลบ</string>
     <string name="home_app_info_patches_replace_fail">ไม่สามารถนำเข้าแพตช์: %s</string>
     <string name="home_app_info_repatch_no_original_apk">ไม่พบ APK รุ่นต้นฉบับ. ไม่สามารถปรับแก้แอปนี้ได้อีก</string>
     <string name="home_app_info_original_package_name">ชื่อแพ็กเกจดังเดิม</string>

@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Ezkrifên din</string>
     <string name="home_not_patched_yet">Henda ne paqijkirin</string>
+    <string name="home_unpatched_version_installed">Versiyona ne-patchkirî hatîn sazkirin</string>
     <string name="home_no_patches_available">Paqijî ne hebin.</string>
     <string name="home_app_hide_title">Epp şifre bike?</string>
     <string name="home_app_hide_message">Evê app wê ji dîroka sereke ve bê neşînîn. Hûn dikarin paşê wê ji appên veşartî vegerînin bişkoika li jorî navnîşê re.</string>
@@ -112,6 +113,7 @@
     <string name="home_greeting_super_late_5">Şevparêz û berdêl</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Kanalan saz bike</string>
+    <string name="sources_search">Li çavkaniyan bigere</string>
     <string name="sources_sort_title">Sort kirina çavkaniyên patchê</string>
     <string name="sources_sort_manual">Fermanê destî</string>
     <string name="sources_sort_manual_hint">Çavdêriyeke dirêj li ser çavkaniyê bike da ku rêzê guhezîne</string>
@@ -229,7 +231,7 @@
     <string name="home_select_apk_title">APK safînak</string>
     <string name="home_select_any_apk_description">Hilbijartina dosyeyekê APK yê ji her programê, yan jî programa ku berê li ser vê cîhazê hatiye saz kirin hilbijartin</string>
     <string name="home_use_installed_app">Programa saz kirî bikar bîne</string>
-    <string name="home_installed_app_picker_title">Programa saz kirî hilbijartin</string>
+    <string name="home_installed_app_picker_title">Sepanên sazkirî</string>
     <string name="home_installed_app_picker_empty">Çêbî app nayê dîtin</string>
     <string name="home_installed_app_picker_filter_all">Hemû app</string>
     <string name="home_installed_app_picker_filter_user">Tenê app\'ên bikarîner</string>
@@ -393,6 +395,7 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="home_app_info_delete_preservation_note">Epîna hilbijartinê û selegirên te ji bo nûçeyên paşê ve têne parastin</string>
     <string name="home_app_info_patches_name_default">Paqijkirin</string>
     <string name="home_app_info_patches_name_fallback">Bê nav</string>
+    <string name="home_app_info_patches_source_removed">Çavkaniya patchê hate jêbirin</string>
     <string name="home_app_info_patches_replace_fail">Paqijkirinê ne serketin: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK oraniyali destran nayê dîtin. Hûn nikaribin vê sepanê repatch.</string>
     <string name="home_app_info_original_package_name">Navê pakêta orjînal</string>
@@ -407,6 +410,7 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="home_app_info_patch_update_available_description">Versîyonê nû ya qelvaton ava bûye. Bo cîgirtinê sepanê bi qelbûna herî dawî, pêşbirîyên nûîn kirin û çareseriyê bibin</string>
     <string name="home_app_info_app_deleted_warning">App hate laşkirin</string>
     <string name="home_app_info_app_deleted_description">Epp li derve ji Morphe hate laşkirin. Serpêş pêlavînê da serê ku serê bi sist ki.</string>
+    <string name="home_app_info_not_patched_description">Versiyoneka ne-patchkirî ya vê aplikasyonê hatîn sazkirin. Morphe hîna tomarê patchê yê berê yê xweye</string>
     <string name="home_app_info_apk_size">Mezinahiya APK\'yê</string>
     <string name="home_app_info_cpu_arch">mîmarîya CPU</string>
     <!-- Home Screen - Root Mode -->

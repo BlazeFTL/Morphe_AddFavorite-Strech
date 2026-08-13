@@ -231,7 +231,6 @@
     <string name="home_select_apk_title">Selectează APK</string>
     <string name="home_select_any_apk_description">Selectați un fișier APK al oricărei aplicații sau alege o aplicație deja instalată pe acest dispozitiv</string>
     <string name="home_use_installed_app">Utilizează aplicația instalată</string>
-    <string name="home_installed_app_picker_title">Selectează aplicația instalată</string>
     <string name="home_installed_app_picker_empty">Nu au fost găsite aplicații</string>
     <string name="home_installed_app_picker_filter_all">Toate aplicațiile</string>
     <string name="home_installed_app_picker_filter_user">Doar aplicații de utilizator</string>
@@ -397,6 +396,7 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_delete_preservation_note">Selectia și opțiunile de modificare vor fi păstrate pentru viitoarele modificări</string>
     <string name="home_app_info_patches_name_default">Patachuri</string>
     <string name="home_app_info_patches_name_fallback">Fără nume</string>
+    <string name="home_app_info_patches_source_removed">Sursă de patch ștearsă</string>
     <string name="home_app_info_patches_replace_fail">Nu s-a putut importa patachuri: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK original nu găsit. Nu se poate repata acest aplicație</string>
     <string name="home_app_info_original_package_name">Numele pachetului original</string>

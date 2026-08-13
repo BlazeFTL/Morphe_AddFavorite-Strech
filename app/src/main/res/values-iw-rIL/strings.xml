@@ -232,7 +232,7 @@
     <string name="home_select_apk_title">בחר APK</string>
     <string name="home_select_any_apk_description">בחר קובץ APK של כל אפליקציה, או בחר אפליקציה שכבר מותקנת במכשיר זה</string>
     <string name="home_use_installed_app">השתמש באפליקציה מותקנת</string>
-    <string name="home_installed_app_picker_title">בחר אפליקציה מותקנת</string>
+    <string name="home_installed_app_picker_title">אפליקציות מותקנות</string>
     <string name="home_installed_app_picker_empty">לא נמצאו אפליקציות</string>
     <string name="home_installed_app_picker_filter_all">כל האפליקציות</string>
     <string name="home_installed_app_picker_filter_user">אפליקציות משתמש בלבד</string>
@@ -398,6 +398,7 @@
     <string name="home_app_info_delete_preservation_note">הבחירה שלך ותצורה תישמרו לשימוש עתידי</string>
     <string name="home_app_info_patches_name_default">פיצ\'ים</string>
     <string name="home_app_info_patches_name_fallback">לא מוגדר</string>
+    <string name="home_app_info_patches_source_removed">מקור התיקונים נמחק</string>
     <string name="home_app_info_patches_replace_fail">שגגה להוריד פיצ\'ים: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK מקורי לא נמצא. לא ניתן לשחזר את האפליקציה הזו</string>
     <string name="home_app_info_original_package_name">שם חבילה מקורי</string>
@@ -940,6 +941,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_apks_delete_selected_title">למחוק קבצי APK שנבחרו?</string>
     <string name="settings_system_apks_delete_selected_confirm">זה ימחק לצמיתות את קבצי ה-APK שנבחרו</string>
     <string name="settings_system_apks_deleted_all">קבצי APK נמחקו בהצלחה</string>
+    <string name="settings_system_apks_delete_failed">חלק מקבצי ה-APK לא נמחקו</string>
     <string name="settings_system_apks_export_zip_success">אפקים נבחרים יוצאים</string>
     <string name="settings_system_apks_export_zip_failed">נכשל ייצוא אפקים נבחרים</string>
     <!-- Settings - System Tab - Storage Management screen -->

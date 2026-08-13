@@ -232,7 +232,7 @@ Please note: The translation is complete. The arrow is for clarity and not part 
     <string name="home_select_apk_title">Piliin ang APK</string>
     <string name="home_select_any_apk_description">Pumili ng APK file ng anumang app, o pumili ng app na naka-install na sa device na ito.</string>
     <string name="home_use_installed_app">Gamitin ang naka-install na app</string>
-    <string name="home_installed_app_picker_title">Piliin ang naka-install na app</string>
+    <string name="home_installed_app_picker_title">Mga naka-install na app</string>
     <string name="home_installed_app_picker_empty">Walang aplikasyon na natagpuan</string>
     <string name="home_installed_app_picker_filter_all">Lahat ng aplikasyon</string>
     <string name="home_installed_app_picker_filter_user">Mga aplikasyon ng gumagamit lamang</string>
@@ -398,6 +398,7 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
     <string name="home_app_info_delete_preservation_note">Ang iyong pinili na patch at opsyon ay papanatilihin para sa susunod na pag-patch</string>
     <string name="home_app_info_patches_name_default">Mga patch</string>
     <string name="home_app_info_patches_name_fallback">Walang pangalan</string>
+    <string name="home_app_info_patches_source_removed">Tinanggal na mapagkukunan ng patch</string>
     <string name="home_app_info_patches_replace_fail">Nabigong mag-import ang mga patch: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Hindi mahanap ang orihinal na APK. Hindi marere-patch ang aplikasyong ito</string>
     <string name="home_app_info_original_package_name">Orihinal na pangalan ng pakete</string>

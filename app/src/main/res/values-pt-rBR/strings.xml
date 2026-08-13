@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Selecionar APK</string>
     <string name="home_select_any_apk_description">Selecione um arquivo APK de qualquer aplicativo, ou escolha um aplicativo já instalado neste dispositivo</string>
     <string name="home_use_installed_app">Usar aplicativo instalado</string>
-    <string name="home_installed_app_picker_title">Selecionar aplicativo instalado</string>
+    <string name="home_installed_app_picker_title">Aplicativos instalados</string>
     <string name="home_installed_app_picker_empty">Nenhum aplicativo encontrado</string>
     <string name="home_installed_app_picker_filter_all">Todos os aplicativos</string>
     <string name="home_installed_app_picker_filter_user">Apenas aplicativos do usuário</string>
@@ -397,6 +397,7 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="home_app_info_delete_preservation_note">Sua seleção de patches e opções serão preservadas para aplicações futuras</string>
     <string name="home_app_info_patches_name_default">Patches</string>
     <string name="home_app_info_patches_name_fallback">Sem nome</string>
+    <string name="home_app_info_patches_source_removed">Fonte de patches removida</string>
     <string name="home_app_info_patches_replace_fail">Falha ao importar patches: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK original não encontrado. Não é possível repatchear este app</string>
     <string name="home_app_info_original_package_name">Nome do pacote original</string>
@@ -930,6 +931,7 @@ Detalhes: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Excluir APKs selecionados?</string>
     <string name="settings_system_apks_delete_selected_confirm">Isso apagará permanentemente os arquivos APK selecionados</string>
     <string name="settings_system_apks_deleted_all">APKs excluídos com sucesso</string>
+    <string name="settings_system_apks_delete_failed">Alguns arquivos APK não puderam ser excluídos</string>
     <string name="settings_system_apks_export_zip_success">APKs selecionados exportados</string>
     <string name="settings_system_apks_export_zip_failed">Falha ao exportar os APKs selecionados</string>
     <!-- Settings - System Tab - Storage Management screen -->

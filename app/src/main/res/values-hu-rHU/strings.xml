@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">APK kiválasztása</string>
     <string name="home_select_any_apk_description">Válasszon egy APK fájlt bármely alkalmazásból, vagy válasszon egy alkalmazást, amely már telepítve van ezen az eszközön</string>
     <string name="home_use_installed_app">Telepített alkalmazás használata</string>
-    <string name="home_installed_app_picker_title">Telepített alkalmazás kiválasztása</string>
+    <string name="home_installed_app_picker_title">Telepített alkalmazások</string>
     <string name="home_installed_app_picker_empty">Nincs alkalmazás található</string>
     <string name="home_installed_app_picker_filter_all">Összes alkalmazás</string>
     <string name="home_installed_app_picker_filter_user">Csak felhasználói alkalmazások</string>
@@ -397,6 +397,7 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="home_app_info_delete_preservation_note">A módosítási kiválasztás és beállításaik a jövőbeni módosításokhoz megmaradnak</string>
     <string name="home_app_info_patches_name_default">Módosítások</string>
     <string name="home_app_info_patches_name_fallback">Névtelen</string>
+    <string name="home_app_info_patches_source_removed">Törölt módosításforrás</string>
     <string name="home_app_info_patches_replace_fail">Nem sikerült a módosítások importálása: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Az eredeti APK nem található. Nem lehet ismét módosítani az alkalmazást</string>
     <string name="home_app_info_original_package_name">Eredeti csomagnév</string>

@@ -158,7 +158,6 @@
     <string name="home_select_apk_title">Pilih APK</string>
     <string name="home_select_any_apk_description">Memilih mana-mana fail APK atau aplikasi yang telah dipasang pada peranti ini</string>
     <string name="home_use_installed_app">Gunakan aplikasi terpasang</string>
-    <string name="home_installed_app_picker_title">Pilih aplikasi terpasang</string>
     <string name="home_installed_app_picker_empty">Tiada aplikasi dijumpai</string>
     <string name="home_installed_app_picker_filter_all">Semua aplikasi</string>
     <string name="home_installed_app_picker_filter_user">Aplikasi pengguna sahaja</string>

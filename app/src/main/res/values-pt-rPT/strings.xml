@@ -230,7 +230,6 @@
     <string name="home_select_apk_title">Selecionar APK</string>
     <string name="home_select_any_apk_description">Selecione um arquivo APK de qualquer aplicativo, ou escolha um aplicativo já instalado neste dispositivo</string>
     <string name="home_use_installed_app">Usar aplicativo instalado</string>
-    <string name="home_installed_app_picker_title">Selecionar aplicativo instalado</string>
     <string name="home_installed_app_picker_empty">Nenhum aplicativo encontrado</string>
     <string name="home_installed_app_picker_filter_all">Todos os aplicativos</string>
     <string name="home_installed_app_picker_filter_user">Apenas aplicativos do usuário</string>
@@ -396,6 +395,7 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="home_app_info_delete_preservation_note">A tua escolha de modificações e opções serão preservadas para futuras modificações </string>
     <string name="home_app_info_patches_name_default">Modificações</string>
     <string name="home_app_info_patches_name_fallback">Sem nome</string>
+    <string name="home_app_info_patches_source_removed">Fonte do patch excluída</string>
     <string name="home_app_info_patches_replace_fail">Erro ao importar modificações: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK original não encontrado. Não foi possível modificar a aplicação de novo</string>
     <string name="home_app_info_original_package_name">Nome do pacote original</string>

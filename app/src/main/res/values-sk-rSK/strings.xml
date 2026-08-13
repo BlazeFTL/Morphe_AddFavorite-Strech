@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Použiť nainštalovaný APK súbor</string>
     <string name="home_apk_use_installed_unverified">Nepodarilo sa overiť podpis nainštalovanej aplikácie, takže môže byť už zaplátaná</string>
     <string name="home_unverified">Neoverené</string>
+    <string name="home_install_verification_pending">Overenie inštalácie…</string>
     <string name="home_app_info_install_unverified">Morphe nemôže potvrdiť, že nainštalovaná aplikácia je zostava, ktorú opatchoval. Preinštalujte ju z uloženého APK, aby ste obnovili jej funkcie.</string>
     <string name="home_app_info_no_saved_apk">Nie je uložený žiadny súbor APK. Na zaplátanie bude potrebné znova vybrať APK súbor</string>
     <string name="home_version_requires_android">Vyžaduje Android %s+</string>
@@ -230,7 +231,7 @@
     <string name="home_select_apk_title">Vybrať APK súbor</string>
     <string name="home_select_any_apk_description">Vyberte APK súbor ľubovoľnej aplikácie, alebo vyberte aplikáciu, ktorá je už nainštalovaná v tomto zariadení</string>
     <string name="home_use_installed_app">Použiť nainštalovanú aplikáciu</string>
-    <string name="home_installed_app_picker_title">Vybrať nainštalovanú aplikáciu</string>
+    <string name="home_installed_app_picker_title">Nainštalované aplikácie</string>
     <string name="home_installed_app_picker_empty">Nenašli sa žiadne aplikácie</string>
     <string name="home_installed_app_picker_filter_all">Všetky aplikácie</string>
     <string name="home_installed_app_picker_filter_user">Iba používateľské aplikácie</string>
@@ -396,6 +397,7 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="home_app_info_delete_preservation_note">Výber a nastavenia záplat budú uložené pre budúce plátanie</string>
     <string name="home_app_info_patches_name_default">Záplaty</string>
     <string name="home_app_info_patches_name_fallback">Nepomenované</string>
+    <string name="home_app_info_patches_source_removed">Zmazaný zdroj záplaty</string>
     <string name="home_app_info_patches_replace_fail">Nepodarilo sa importovať záplaty: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Nebol nájdený pôvodný APK súbor. Nie je možné znovu zaplátať túto aplikáciu</string>
     <string name="home_app_info_original_package_name">Pôvodný názov balíka</string>

@@ -230,7 +230,6 @@
     <string name="home_select_apk_title">Izberi APK</string>
     <string name="home_select_any_apk_description">Izberite datoteko APK katere koli aplikacije ali izberite aplikacijo, ki je že nameščena na tej napravi</string>
     <string name="home_use_installed_app">Uporabi nameščeno aplikacijo</string>
-    <string name="home_installed_app_picker_title">Izberi nameščeno aplikacijo</string>
     <string name="home_installed_app_picker_empty">Ni najdenih aplikacij</string>
     <string name="home_installed_app_picker_filter_all">Vse aplikacije</string>
     <string name="home_installed_app_picker_filter_user">Samo uporabniške aplikacije</string>
@@ -396,6 +395,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_delete_preservation_note">Vaše izbire in možnosti popravkov bodo ohranjene za prihodnje popravke.</string>
     <string name="home_app_info_patches_name_default">Popravki</string>
     <string name="home_app_info_patches_name_fallback">Neimenovano</string>
+    <string name="home_app_info_patches_source_removed">Odstranjen vir popravkov</string>
     <string name="home_app_info_patches_replace_fail">Napaka pri uvozu popravkov: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Izvirna datoteka APK ni najdena. Te aplikacije ni mogoče več popraviti.</string>
     <string name="home_app_info_original_package_name">Izvirno ime paketa</string>

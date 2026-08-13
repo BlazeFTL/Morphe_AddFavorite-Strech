@@ -193,7 +193,7 @@
     <string name="home_apk_use_saved">Utiliser l\'APK enregistré</string>
     <string name="home_apk_use_installed">Utiliser l\'APK installé</string>
     <string name="home_apk_use_installed_unverified">Impossible de vérifier la signature de l\'application installée, il est donc possible qu\'elle soit déjà patchée</string>
-    <string name="home_unverified">Non vérifiéé</string>
+    <string name="home_unverified">Non vérifiée</string>
     <string name="home_install_verification_pending">Vérification de l\'installation…</string>
     <string name="home_app_info_install_unverified">Morphe ne peut pas confirmer que l\'application installée correspond à la version qu\'il a patchée. Réinstallez-la à partir de l\'APK enregistré afin de restaurer ses actions</string>
     <string name="home_app_info_no_saved_apk">Aucun APK enregistré. Le patching nécessitera de sélectionner à nouveau le fichier APK</string>
@@ -233,7 +233,6 @@
     <string name="home_select_apk_title">Sélectionner un APK</string>
     <string name="home_select_any_apk_description">Sélectionnez un fichier APK de n\'importe quelle application, ou choisissez une application déjà installée sur cet appareil</string>
     <string name="home_use_installed_app">Utiliser l\'application installée</string>
-    <string name="home_installed_app_picker_title">Sélectionner l\'application installée</string>
     <string name="home_installed_app_picker_empty">Aucune application trouvée</string>
     <string name="home_installed_app_picker_filter_all">Toutes les applications</string>
     <string name="home_installed_app_picker_filter_user">Applications utilisateur uniquement</string>
@@ -398,6 +397,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_delete_preservation_note">Votre sélection de patchs et vos options seront conservées pour les futurs patching</string>
     <string name="home_app_info_patches_name_default">Patchs</string>
     <string name="home_app_info_patches_name_fallback">Sans nom</string>
+    <string name="home_app_info_patches_source_removed">Source de patchs supprimée</string>
     <string name="home_app_info_patches_replace_fail">Échec de l\'importation des patchs : %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK d\'origine introuvable. Impossible de re-patcher cette application</string>
     <string name="home_app_info_original_package_name">Nom du paquet d\'origine</string>
@@ -1128,7 +1128,7 @@ Détails : %2$s"</string>
     <string name="installed">Installé</string>
     <string name="reinstall">Réinstaller</string>
     <string name="uninstall">Désinstaller</string>
-    <string name="uninstalled">Désinstallé</string>
+    <string name="uninstalled">Désinstallée</string>
     <string name="save">Enregistrer</string>
     <string name="saved">Enregistré</string>
     <string name="update">Mettre à jour</string>

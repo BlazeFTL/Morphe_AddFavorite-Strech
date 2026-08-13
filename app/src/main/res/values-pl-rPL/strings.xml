@@ -232,7 +232,7 @@
     <string name="home_select_apk_title">Wybierz plik APK</string>
     <string name="home_select_any_apk_description">Wybierz plik APK dowolnej aplikacji lub wybierz aplikację już zainstalowaną na tym urządzeniu</string>
     <string name="home_use_installed_app">Użyj zainstalowanej aplikacji</string>
-    <string name="home_installed_app_picker_title">Wybierz zainstalowaną aplikację</string>
+    <string name="home_installed_app_picker_title">Zainstalowane aplikacje</string>
     <string name="home_installed_app_picker_empty">Nie znaleziono aplikacji</string>
     <string name="home_installed_app_picker_filter_all">Wszystkie aplikacje</string>
     <string name="home_installed_app_picker_filter_user">Tylko aplikacje użytkownika</string>
@@ -398,6 +398,7 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_delete_preservation_note">Wybrane modyfikacje i opcje zostaną zachowane do przyszłego modyfikowania</string>
     <string name="home_app_info_patches_name_default">Modyfikacje</string>
     <string name="home_app_info_patches_name_fallback">Brak nazwy</string>
+    <string name="home_app_info_patches_source_removed">Usunięte źródło modyfikacji</string>
     <string name="home_app_info_patches_replace_fail">Nie udało się zaimportować modyfikacji: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Nie znaleziono oryginalnego pliku APK. Nie można ponownie zmodyfikować tej aplikacji</string>
     <string name="home_app_info_original_package_name">Oryginalna nazwa pakietu</string>
@@ -930,6 +931,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_apks_delete_selected_title">Usunąć wybrane pliki APK?</string>
     <string name="settings_system_apks_delete_selected_confirm">Spowoduje to trwałe usunięcie wybranych plików APK</string>
     <string name="settings_system_apks_deleted_all">Usunięto pliki APK</string>
+    <string name="settings_system_apks_delete_failed">Nie udało się usunąć niektórych plików APK</string>
     <string name="settings_system_apks_export_zip_success">Wyeksportowano wybrane pliki APK</string>
     <string name="settings_system_apks_export_zip_failed">Nie udało się wyeksportować wybranych plików APK</string>
     <!-- Settings - System Tab - Storage Management screen -->

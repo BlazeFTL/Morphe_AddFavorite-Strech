@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">APK चुनें</string>
     <string name="home_select_any_apk_description">किसी भी ऐप की APK फ़ाइल चुनें, या इस डिवाइस पर पहले से इंस्टॉल किए गए ऐप को चुनें</string>
     <string name="home_use_installed_app">इंस्टॉल किए गए ऐप का उपयोग करें</string>
-    <string name="home_installed_app_picker_title">इंस्टॉल किया गया ऐप चुनें</string>
+    <string name="home_installed_app_picker_title">इंस्टॉल किए गए ऐप्स</string>
     <string name="home_installed_app_picker_empty">कोई ऐप नहीं मिला</string>
     <string name="home_installed_app_picker_filter_all">सभी ऐप</string>
     <string name="home_installed_app_picker_filter_user">केवल उपयोगकर्ता ऐप</string>

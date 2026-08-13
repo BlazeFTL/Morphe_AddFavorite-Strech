@@ -192,6 +192,7 @@
     <string name="home_apk_use_installed">Yüklü APK\'yi kullan</string>
     <string name="home_apk_use_installed_unverified">Yüklenen uygulamanın imzası doğrulanamadı, bu nedenle zaten yama uygulanmış olabilir</string>
     <string name="home_unverified">Doğrulanmamış</string>
+    <string name="home_install_verification_pending">Kurulum kontrol ediliyor…</string>
     <string name="home_app_info_install_unverified">Morphe, yüklü uygulamanın yamaladığı sürüm olduğunu doğrulayamıyor. Eylemlerini geri yüklemek için kaydedilen APK\'dan yeniden yükleyin.</string>
     <string name="home_app_info_no_saved_apk">Kayıtlı APK yok. Yamayı uygulayabilmek için tekrar APK dosyasını seçmeniz gerekiyor</string>
     <string name="home_version_requires_android">Android %s+ gerektiriyor</string>
@@ -230,7 +231,6 @@
     <string name="home_select_apk_title">APK seç</string>
     <string name="home_select_any_apk_description">Herhangi bir uygulamanın APK dosyasını seçin veya bu cihazda zaten yüklü olan bir uygulamayı seçin</string>
     <string name="home_use_installed_app">Yüklü uygulamayı kullan</string>
-    <string name="home_installed_app_picker_title">Yüklü uygulamayı seç</string>
     <string name="home_installed_app_picker_empty">Uygulama bulunamadı</string>
     <string name="home_installed_app_picker_filter_all">Tüm uygulamalar</string>
     <string name="home_installed_app_picker_filter_user">Yalnızca kullanıcı uygulamaları</string>
@@ -396,6 +396,7 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="home_app_info_delete_preservation_note">Seçtiğiniz yamalar ve seçenekler gelecekteki yamalar için saklanacaktır</string>
     <string name="home_app_info_patches_name_default">Yamalar</string>
     <string name="home_app_info_patches_name_fallback">Adlandırılmamış</string>
+    <string name="home_app_info_patches_source_removed">Silinen yama kaynağı</string>
     <string name="home_app_info_patches_replace_fail">Yamalar içe aktarılamadı: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Orijinal APK bulunamadı. Bu uygulama tekrar yamalanamıyor</string>
     <string name="home_app_info_original_package_name">Orijinal paket adı</string>

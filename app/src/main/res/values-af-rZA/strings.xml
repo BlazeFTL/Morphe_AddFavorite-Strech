@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Kies APK</string>
     <string name="home_select_any_apk_description">Kies \'n APK-lêer van enige toepassing, of kies \'n toepassing wat reeds op hierdie toestel geïnstalleer is</string>
     <string name="home_use_installed_app">Gebruik geïnstalleerde toepassing</string>
-    <string name="home_installed_app_picker_title">Kies geïnstalleerde toepassing</string>
+    <string name="home_installed_app_picker_title">Geïnstalleerde apps</string>
     <string name="home_installed_app_picker_empty">Geen toepings gevind</string>
     <string name="home_installed_app_picker_filter_all">Alle toepings</string>
     <string name="home_installed_app_picker_filter_user">Slegs gebruikerstoepings</string>
@@ -397,6 +397,7 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="home_app_info_delete_preservation_note">Jou patch seleksies en opsies sal bewaar bly vir toekomstige patching</string>
     <string name="home_app_info_patches_name_default">Patchings</string>
     <string name="home_app_info_patches_name_fallback">Nie genoem nie</string>
+    <string name="home_app_info_patches_source_removed">Verwyderde verandering oorsprong</string>
     <string name="home_app_info_patches_replace_fail">Kon nie patchings invoer nie: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Original APK nie gevind nie. Kan hierdie app nie herpatch nie</string>
     <string name="home_app_info_original_package_name">Oorspronklike pakketnaam</string>

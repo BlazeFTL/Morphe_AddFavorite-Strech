@@ -229,7 +229,6 @@
     <string name="home_select_apk_title">APK ni tanlang</string>
     <string name="home_select_any_apk_description">Kechiryapsiz</string>
     <string name="home_use_installed_app">Jumal ayting</string>
-    <string name="home_installed_app_picker_title">Xulosa qilish va eskizni tanlash</string>
     <string name="home_installed_app_picker_empty">Yuklab olishingiz mumkin</string>
     <string name="home_installed_app_picker_filter_all">Garchi bu erda bo‘lsangiz ham katta vaqt o‘tkazib, ularni katta hajmdagina o‘zingiz kutib borasiz</string>
     <string name="home_installed_app_picker_filter_user">Hakamning birinchi kirishi bilan ko‘rish</string>

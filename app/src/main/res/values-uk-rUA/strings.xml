@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Інші застосунки</string>
     <string name="home_not_patched_yet">Ще не патчено</string>
-    <string name="home_unpatched_version_installed">Встановлено непатчену версію</string>
+    <string name="home_unpatched_version_installed">Встановлено непропатчену версію</string>
     <string name="home_no_patches_available">Немає доступних патчів</string>
     <string name="home_app_hide_title">Приховати цей застосунок?</string>
     <string name="home_app_hide_message">Цей застосунок буде приховано з головного екрану. Ви можете відновити його пізніше, використовуючи кнопку \"\" внизу списку</string>
@@ -193,6 +193,7 @@
     <string name="home_apk_use_installed">Встановлений APK</string>
     <string name="home_apk_use_installed_unverified">Не вдалося перевірити підпис встановленого застосунку, тому він може бути вже пропатчений</string>
     <string name="home_unverified">Непідтверджено</string>
+    <string name="home_install_verification_pending">Перевірка встановлення…</string>
     <string name="home_app_info_install_unverified">Morphe не може підтвердити, що встановлений застосунок є тією ж збіркою, яку він пропатчив. Перевстановіть його зі збереженого APK, щоб відновити його дії</string>
     <string name="home_app_info_no_saved_apk">Немає збереженого APK файлу. Для патчингу потрібно буде знову вибрати APK файл</string>
     <string name="home_version_requires_android">Потрібен Android %s+</string>
@@ -231,7 +232,7 @@
     <string name="home_select_apk_title">Вибрати APK файл</string>
     <string name="home_select_any_apk_description">Виберіть APK-файл будь-якого застосунку або виберіть застосунок, уже встановлений на цьому пристрої</string>
     <string name="home_use_installed_app">Встановлений застосунок</string>
-    <string name="home_installed_app_picker_title">Вибрати встановлений застосунок</string>
+    <string name="home_installed_app_picker_title">Встановлені застосунки</string>
     <string name="home_installed_app_picker_empty">Не знайдено застосунків</string>
     <string name="home_installed_app_picker_filter_all">Усі застосунки</string>
     <string name="home_installed_app_picker_filter_user">Лише користувацькі застосунки</string>
@@ -397,6 +398,7 @@
     <string name="home_app_info_delete_preservation_note">Ваш вибір патчів та параметри будуть збережені для майбутнього патчингу</string>
     <string name="home_app_info_patches_name_default">Патчі</string>
     <string name="home_app_info_patches_name_fallback">Без назви</string>
+    <string name="home_app_info_patches_source_removed">Видалене джерело патчів</string>
     <string name="home_app_info_patches_replace_fail">Не вдалося імпортувати патчі: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Оригінальний APK файл не знайдено. Неможливо перепатчити цей застосунок</string>
     <string name="home_app_info_original_package_name">Оригінальна назва пакета</string>
@@ -411,7 +413,7 @@
     <string name="home_app_info_patch_update_available_description">Доступна новіша версія патчів. Перепатчіть застосунок, щоб отримати останні покращення та виправлення</string>
     <string name="home_app_info_app_deleted_warning">Застосунок було видалено</string>
     <string name="home_app_info_app_deleted_description">Це застосунок було видалено поза менеджером Morphe. Перепатчіть його, щоб відновити функціональність</string>
-    <string name="home_app_info_not_patched_description">Встановлено непатчену версію цього застосунку. Morphe все ще має свій попередній запис патча</string>
+    <string name="home_app_info_not_patched_description">Встановлено непропатчену версію цього застосунку. Morphe все ще має попередній запис про патчинг</string>
     <string name="home_app_info_apk_size">Розмір APK</string>
     <string name="home_app_info_cpu_arch">Архітектура процесора</string>
     <!-- Home Screen - Root Mode -->
@@ -929,6 +931,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">Видалити вибрані APK?</string>
     <string name="settings_system_apks_delete_selected_confirm">Це назавжди видалить вибрані файли APK</string>
     <string name="settings_system_apks_deleted_all">Файли APK успішно видалено</string>
+    <string name="settings_system_apks_delete_failed">Деякі файли APK не вдалося видалити</string>
     <string name="settings_system_apks_export_zip_success">Вибрані APK експортовано</string>
     <string name="settings_system_apks_export_zip_failed">Не вдалося експортувати вибрані APK</string>
     <!-- Settings - System Tab - Storage Management screen -->

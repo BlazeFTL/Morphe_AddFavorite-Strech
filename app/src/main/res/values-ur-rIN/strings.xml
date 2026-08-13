@@ -76,6 +76,7 @@
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <!-- Shared strings -->
+    <string name="copy">کاپی کریں</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

@@ -230,7 +230,6 @@
     <string name="home_select_apk_title">选择APK</string>
     <string name="home_select_any_apk_description">选择任何应用程序的 APK 文件，或选择已安装在此设备上的应用程序</string>
     <string name="home_use_installed_app">使用已安装的应用程序</string>
-    <string name="home_installed_app_picker_title">选择已安装的应用程序</string>
     <string name="home_installed_app_picker_empty">未找到应用</string>
     <string name="home_installed_app_picker_filter_all">所有应用</string>
     <string name="home_installed_app_picker_filter_user">仅用户应用</string>
@@ -396,6 +395,7 @@
     <string name="home_app_info_delete_preservation_note">您的修补选择和选项将保留以进行将来修补</string>
     <string name="home_app_info_patches_name_default">补丁</string>
     <string name="home_app_info_patches_name_fallback">未命名</string>
+    <string name="home_app_info_patches_source_removed">已删除补丁源</string>
     <string name="home_app_info_patches_replace_fail">导入补丁失败：%s</string>
     <string name="home_app_info_repatch_no_original_apk">找不到原始 APK。无法修补此应用</string>
     <string name="home_app_info_original_package_name">原始包名</string>

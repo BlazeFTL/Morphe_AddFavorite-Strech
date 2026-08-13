@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Selecteer APK</string>
     <string name="home_select_any_apk_description">Selecteer een APK-bestand van een app, of kies een app die al op dit apparaat is geïnstalleerd</string>
     <string name="home_use_installed_app">Geïnstalleerde app gebruiken</string>
-    <string name="home_installed_app_picker_title">Geïnstalleerde app selecteren</string>
+    <string name="home_installed_app_picker_title">Geïnstalleerde apps</string>
     <string name="home_installed_app_picker_empty">Geen apps gevonden</string>
     <string name="home_installed_app_picker_filter_all">Alle apps</string>
     <string name="home_installed_app_picker_filter_user">Alleen gebruikersapps</string>
@@ -397,6 +397,7 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="home_app_info_delete_preservation_note">Uw patch-keuze en opties worden bewaard voor toekomstig patchen</string>
     <string name="home_app_info_patches_name_default">Patches</string>
     <string name="home_app_info_patches_name_fallback">Naamloos</string>
+    <string name="home_app_info_patches_source_removed">Patchbron verwijderd</string>
     <string name="home_app_info_patches_replace_fail">Kan patches niet importeren: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Originele APK niet gevonden. Kan deze app niet opnieuw patchen</string>
     <string name="home_app_info_original_package_name">Originele pakketnaam</string>

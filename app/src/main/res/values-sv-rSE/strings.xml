@@ -230,7 +230,6 @@
     <string name="home_select_apk_title">Välj APK-fil</string>
     <string name="home_select_any_apk_description">Välj en APK-fil för valfri app, eller välj en app som redan är installerad på enheten</string>
     <string name="home_use_installed_app">Använd en installerad app</string>
-    <string name="home_installed_app_picker_title">Välj installerad app</string>
     <string name="home_installed_app_picker_empty">Inga appar hittades</string>
     <string name="home_installed_app_picker_filter_all">Alla appar</string>
     <string name="home_installed_app_picker_filter_user">Endast användarappar</string>

@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Vælg APK</string>
     <string name="home_select_any_apk_description">Vælg en APK-fil fra en hvilken som helst app, eller vælg en app, der allerede er installeret på denne enhed</string>
     <string name="home_use_installed_app">Brug installeret app</string>
-    <string name="home_installed_app_picker_title">Vælg installeret app</string>
+    <string name="home_installed_app_picker_title">Installerede apps</string>
     <string name="home_installed_app_picker_empty">Ingen apps fundet</string>
     <string name="home_installed_app_picker_filter_all">Alle apps</string>
     <string name="home_installed_app_picker_filter_user">Kun brugerapps</string>
@@ -397,6 +397,7 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="home_app_info_delete_preservation_note">Dine patchvalg og indstillinger vil blive bevaret til fremtidig patching</string>
     <string name="home_app_info_patches_name_default">Patches</string>
     <string name="home_app_info_patches_name_fallback">Unavngivet</string>
+    <string name="home_app_info_patches_source_removed">Slettet patchkilde</string>
     <string name="home_app_info_patches_replace_fail">Kunne ikke importere patches: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Original APK ikke fundet. Kan ikke genpatche denne app</string>
     <string name="home_app_info_original_package_name">Originalt pakkenavn</string>

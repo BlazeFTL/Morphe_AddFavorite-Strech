@@ -232,7 +232,6 @@
     <string name="home_select_apk_title">Избор на APK</string>
     <string name="home_select_any_apk_description">Изберете APK файл на което и да е приложение или изберете приложение, вече инсталирано на това устройство</string>
     <string name="home_use_installed_app">Използвай инсталирано приложение</string>
-    <string name="home_installed_app_picker_title">Избор на инсталирано приложение</string>
     <string name="home_installed_app_picker_empty">Не са намерени приложения</string>
     <string name="home_installed_app_picker_filter_all">Всички приложения</string>
     <string name="home_installed_app_picker_filter_user">Само потребителски приложения</string>
@@ -398,6 +397,7 @@
     <string name="home_app_info_delete_preservation_note">Вашият избор за поправка и опции ще бъдат запазени за бъдещи поправки</string>
     <string name="home_app_info_patches_name_default">Замества</string>
     <string name="home_app_info_patches_name_fallback">Без име</string>
+    <string name="home_app_info_patches_source_removed">Изтрит източник на кръпка</string>
     <string name="home_app_info_patches_replace_fail">Неуспешно заместим патчове: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Оригиналният APK не е намерен. Не може да се препачва това приложение.</string>
     <string name="home_app_info_original_package_name">Име на оригиналното пакети</string>

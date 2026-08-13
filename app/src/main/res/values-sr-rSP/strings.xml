@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Изаберите APK</string>
     <string name="home_select_any_apk_description">Изаберите APK фајл било које апликације или изаберите апликацију која је већ инсталирана на овом уређају</string>
     <string name="home_use_installed_app">Користи инсталирану апликацију</string>
-    <string name="home_installed_app_picker_title">Изаберите инсталирану апликацију</string>
+    <string name="home_installed_app_picker_title">Инсталиране апликације</string>
     <string name="home_installed_app_picker_empty">Нема пронађених апликација</string>
     <string name="home_installed_app_picker_filter_all">Све апликације</string>
     <string name="home_installed_app_picker_filter_user">Само корисничке апликације</string>
@@ -397,6 +397,7 @@
     <string name="home_app_info_delete_preservation_note">Ваша патч селекција и опције ће бити сачуване за будуће патчење</string>
     <string name="home_app_info_patches_name_default">Патчеви</string>
     <string name="home_app_info_patches_name_fallback">Без имена</string>
+    <string name="home_app_info_patches_source_removed">Извор закрпе је обрисан</string>
     <string name="home_app_info_patches_replace_fail">Неуспешно увоз извора: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Оригинални АПК није пронађен. Не можете поново да патчирате ову апликацију.</string>
     <string name="home_app_info_original_package_name">Назив пакета</string>

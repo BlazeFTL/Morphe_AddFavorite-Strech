@@ -230,7 +230,6 @@
     <string name="home_select_apk_title">Pilih APK</string>
     <string name="home_select_any_apk_description">Pilih berkas APK dari aplikasi apa pun, atau pilih aplikasi yang sudah terpasang di perangkat ini</string>
     <string name="home_use_installed_app">Gunakan aplikasi yang terpasang</string>
-    <string name="home_installed_app_picker_title">Pilih aplikasi terpasang</string>
     <string name="home_installed_app_picker_empty">Tidak ditemukan aplikasi</string>
     <string name="home_installed_app_picker_filter_all">Semua aplikasi</string>
     <string name="home_installed_app_picker_filter_user">Aplikasi pengguna saja</string>
@@ -397,6 +396,7 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="home_app_info_delete_preservation_note">Pemilihan tambalan dan pilihan Anda akan disimpan untuk proses penambalan di masa mendatang</string>
     <string name="home_app_info_patches_name_default">Tambalan</string>
     <string name="home_app_info_patches_name_fallback">Tanpa nama</string>
+    <string name="home_app_info_patches_source_removed">Sumber tambalan dihapus</string>
     <string name="home_app_info_patches_replace_fail">Gagal mengimpor tambalan: %s</string>
     <string name="home_app_info_repatch_no_original_apk">APK asli tidak ditemukan. Tidak dapat menambal ulang aplikasi ini</string>
     <string name="home_app_info_original_package_name">Nama paket asli</string>

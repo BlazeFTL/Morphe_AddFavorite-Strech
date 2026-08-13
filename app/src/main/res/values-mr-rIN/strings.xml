@@ -231,7 +231,6 @@
     <string name="home_select_apk_title">APK निवडा</string>
     <string name="home_select_any_apk_description">एखाद्या ॲपची APK फाइल निवडा, किंवा या डिव्हाइसवर आधीपासून इंस्टॉल केलेले ॲप निवडा</string>
     <string name="home_use_installed_app">इंस्टॉल केलेले ॲप वापरा</string>
-    <string name="home_installed_app_picker_title">इंस्टॉल केलेले ॲप निवडा</string>
     <string name="home_installed_app_picker_empty">ॲप्स आढळले नाहीत</string>
     <string name="home_installed_app_picker_filter_all">सर्व ॲप्स</string>
     <string name="home_installed_app_picker_filter_user">केवळ वापरकर्ता ॲप्स</string>
@@ -396,6 +395,7 @@
     <string name="home_app_info_delete_preservation_note">तुमची पॅच निवड आणि पर्याय भविष्यातील पॅचिंगसाठी जतन केले जातील</string>
     <string name="home_app_info_patches_name_default">सुधारणा</string>
     <string name="home_app_info_patches_name_fallback">अनाम</string>
+    <string name="home_app_info_patches_source_removed">Deleted patch source</string>
     <string name="home_app_info_patches_replace_fail">पॅच आयात करण्यात अयशस्वी: %s</string>
     <string name="home_app_info_repatch_no_original_apk">मूळ APK सापडला नाही. या ॲपला पुन्हा पॅच करता येणार नाही</string>
     <string name="home_app_info_original_package_name">मूळ पॅकेजचे नाव</string>

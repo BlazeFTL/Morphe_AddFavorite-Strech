@@ -230,7 +230,7 @@
     <string name="home_select_apk_title">Valitse APK</string>
     <string name="home_select_any_apk_description">Valitse APK-tiedosto mistä tahansa sovelluksesta tai valitse laitteelle jo asennettu sovellus</string>
     <string name="home_use_installed_app">Käytä asennettua sovellusta</string>
-    <string name="home_installed_app_picker_title">Valitse asennettu sovellus</string>
+    <string name="home_installed_app_picker_title">Asennetut sovellukset</string>
     <string name="home_installed_app_picker_empty">Sovelluksia ei löytynyt</string>
     <string name="home_installed_app_picker_filter_all">Kaikki sovellukset</string>
     <string name="home_installed_app_picker_filter_user">Vain käyttäjän sovellukset</string>
@@ -397,6 +397,7 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="home_app_info_delete_preservation_note">Lisäosavalinnat ja -asetukset säilytetään myöhempiä muokkauksia varten</string>
     <string name="home_app_info_patches_name_default">Lisäosat</string>
     <string name="home_app_info_patches_name_fallback">Nimetön</string>
+    <string name="home_app_info_patches_source_removed">Lisäosien lähde poistettu</string>
     <string name="home_app_info_patches_replace_fail">Lisäosien tuonti epäonnistui: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Alkuperäistä APK:ta ei löytynyt. Tätä sovellusta ei voi muokata uudelleen</string>
     <string name="home_app_info_original_package_name">Alkuperäinen paketin nimi</string>

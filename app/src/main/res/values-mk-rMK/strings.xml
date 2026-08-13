@@ -143,7 +143,6 @@
     <string name="home_select_apk_title">Избери APK</string>
     <string name="home_select_any_apk_description">Изберете APK датотека на било која апликација или изберете апликација веќе инсталирана на оваа уредба</string>
     <string name="home_use_installed_app">Користете инсталирана апликација</string>
-    <string name="home_installed_app_picker_title">Изберете инсталирана апликација</string>
     <string name="home_installed_app_picker_empty">Не се пронајдени апликации</string>
     <string name="home_installed_app_picker_filter_all">Сите апликации</string>
     <string name="home_installed_app_picker_filter_user">Само кориснички апликации</string>

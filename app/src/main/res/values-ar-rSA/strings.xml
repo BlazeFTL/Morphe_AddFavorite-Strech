@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">تحديد ملف APK</string>
     <string name="home_select_any_apk_description">اختر ملف APK لأي تطبيق، أو اختر تطبيقًا مثبتًا بالفعل على هذا الجهاز</string>
     <string name="home_use_installed_app">استخدم التطبيق المثبت</string>
-    <string name="home_installed_app_picker_title">اختر التطبيق المثبت</string>
+    <string name="home_installed_app_picker_title">التطبيقات المثبتة</string>
     <string name="home_installed_app_picker_empty">لم يتم العثور على تطبيقات</string>
     <string name="home_installed_app_picker_filter_all">كل التطبيقات</string>
     <string name="home_installed_app_picker_filter_user">تطبيقات المستخدم فقط</string>
@@ -397,6 +397,7 @@
     <string name="home_app_info_delete_preservation_note">سيتم الاحتفاظ باختياراتك وخياراتك للتعديلات المستقبلية</string>
     <string name="home_app_info_patches_name_default">التعديلات</string>
     <string name="home_app_info_patches_name_fallback">بدون اسم</string>
+    <string name="home_app_info_patches_source_removed">تم حذف مصدر التعديل</string>
     <string name="home_app_info_patches_replace_fail">فشل استيراد التعديلات: %s</string>
     <string name="home_app_info_repatch_no_original_apk">لم يتم العثور على ملف APK الأصلي. لا يمكن إعادة تعديل هذا التطبيق</string>
     <string name="home_app_info_original_package_name">اسم الحزمة الأصلي</string>
@@ -977,7 +978,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_original_apks_deleted">تم حذف ملف APK الأصلي بنجاح</string>
     <string name="settings_system_original_apks_delete_title">حذف ملف APK الأصلي؟</string>
     <string name="settings_system_original_apks_delete_confirm">هل تريد بالتأكيد حذف ملف APK الأصلي لـ &lt;b&gt;%s&lt;/b&gt;؟ لن تتمكن من إعادة التعديل دون توفير ملف APK جديد</string>
-    <string name="settings_system_original_apks_delete_all_title">حذف جميع ملفات APK الأصلية؟</string>
+    <string name="settings_system_original_apks_delete_all_title">حذف كل ملفات APK الأصلية؟</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">اختيارات التعديل</string>
     <string name="settings_system_patch_selections_description">يحفظ اختيارات التعديل، وتبقى محفوظة بعد إلغاء التثبيت</string>

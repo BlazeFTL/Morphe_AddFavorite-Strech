@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Επιλογή APK</string>
     <string name="home_select_any_apk_description">Επιλέξτε ένα αρχείο APK οποιασδήποτε εφαρμογής ή επιλέξτε μια εφαρμογή που είναι ήδη εγκατεστημένη σε αυτήν τη συσκευή</string>
     <string name="home_use_installed_app">Χρήση εγκατεστημένης εφαρμογής</string>
-    <string name="home_installed_app_picker_title">Επιλογή εγκατεστημένης εφαρμογής</string>
+    <string name="home_installed_app_picker_title">Εγκατεστημένες εφαρμογές</string>
     <string name="home_installed_app_picker_empty">Δεν βρέθηκαν εφαρμογές</string>
     <string name="home_installed_app_picker_filter_all">Όλες οι εφαρμογές</string>
     <string name="home_installed_app_picker_filter_user">Μόνο εφαρμογές χρήστη</string>
@@ -397,6 +397,7 @@
     <string name="home_app_info_delete_preservation_note">Οι επιλεγμένες τροποποιήσεις και οι ρυθμίσεις σου θα διατηρηθούν για μελλοντική τροποποίηση</string>
     <string name="home_app_info_patches_name_default">Τροποποιήσεις</string>
     <string name="home_app_info_patches_name_fallback">Χωρίς όνομα</string>
+    <string name="home_app_info_patches_source_removed">Διαγράφηκε η πηγή τροποποίησης</string>
     <string name="home_app_info_patches_replace_fail">Αποτυχία εισαγωγής τροποποιήσεων: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Δε βρέθηκε το πρωτότυπο APK. Δεν είναι δυνατή η τροποποίηση αυτής της εφαρμογής</string>
     <string name="home_app_info_original_package_name">Αρχικό όνομα πακέτου</string>

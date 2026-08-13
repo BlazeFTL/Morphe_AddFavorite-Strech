@@ -160,7 +160,6 @@
     <string name="home_select_apk_title">Pasirinkite APK</string>
     <string name="home_select_any_apk_description">Pasirinkite bet kurios programos APK failą arba pasirinkite įdiegtą programą šiame įrenginyje</string>
     <string name="home_use_installed_app">Naudoti įdiegtą programą</string>
-    <string name="home_installed_app_picker_title">Pasirinkite įdiegtą programą</string>
     <string name="home_installed_app_picker_empty">Nėra rastų programų</string>
     <string name="home_installed_app_picker_filter_all">Visos programos</string>
     <string name="home_installed_app_picker_filter_user">Tik naudotojo programos</string>

@@ -231,7 +231,7 @@
     <string name="home_select_apk_title">Vybrat APK</string>
     <string name="home_select_any_apk_description">Vyberte APK soubor jakékoli aplikace, nebo vyberte aplikaci již nainstalovanou v tomto zařízení</string>
     <string name="home_use_installed_app">Použít nainstalovanou aplikaci</string>
-    <string name="home_installed_app_picker_title">Vyberte nainstalovanou aplikaci</string>
+    <string name="home_installed_app_picker_title">Nainstalované aplikace</string>
     <string name="home_installed_app_picker_empty">Nebyly nalezeny žádné aplikace</string>
     <string name="home_installed_app_picker_filter_all">Všechny aplikace</string>
     <string name="home_installed_app_picker_filter_user">Pouze uživatelské aplikace</string>
@@ -397,6 +397,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="home_app_info_delete_preservation_note">Vaše výběry záplaty a nastavení budou uchovány pro budoucí záplaty.</string>
     <string name="home_app_info_patches_name_default">Záplaty</string>
     <string name="home_app_info_patches_name_fallback">Bez názvu</string>
+    <string name="home_app_info_patches_source_removed">Odstraněný zdroj záplat</string>
     <string name="home_app_info_patches_replace_fail">Selhalo importování záplat: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Originální soubor APK nebyl nalezen. Nelze opětovně záplatovat tuto aplikaci</string>
     <string name="home_app_info_original_package_name">Původní název balíčku</string>

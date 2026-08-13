@@ -249,6 +249,13 @@ internal fun DownloadInstructionsDialog(
     // until then is the unfollowed one, which is exactly what must not be opened
     val resolving = source == ApkDownloadSource.Unresolved
 
+    // Latched for the same reason as the instructions above: dismissing the dialog withdraws the
+    // helper action at once, and a footer that drops a button mid-exit reads as a glitch
+    var offersHelper by remember { mutableStateOf(false) }
+    LaunchedEffect(onOpenApkDownloadHelper != null) {
+        if (onOpenApkDownloadHelper != null) offersHelper = true
+    }
+
     val continueText = stringResource(
         R.string.home_download_instructions_continue_to,
         source.destinationLabel()
@@ -258,14 +265,16 @@ internal fun DownloadInstructionsDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_download_instructions_title),
         footer = {
-            if (onOpenApkDownloadHelper != null) {
+            if (offersHelper) {
                 AppDialogButtonRow(
                     primaryText = continueText,
                     onPrimaryClick = onContinue,
                     primaryIcon = Icons.AutoMirrored.Outlined.OpenInNew,
                     primaryEnabled = !resolving,
                     secondaryText = stringResource(R.string.home_apk_helper_download),
-                    onSecondaryClick = onOpenApkDownloadHelper,
+                    // Nothing to open once the action is withdrawn, which is only the case
+                    // while the dialog is on its way out
+                    onSecondaryClick = { onOpenApkDownloadHelper?.invoke() },
                     secondaryIcon = Icons.Outlined.Download,
                     layout = DialogButtonLayout.Vertical
                 )

@@ -241,7 +241,7 @@
     <string name="home_select_apk_title">Select APK</string>
     <string name="home_select_any_apk_description">Select an APK file of any app, or pick an app already installed on this device</string>
     <string name="home_use_installed_app">Use installed app</string>
-    <string name="home_installed_app_picker_title">Select installed app</string>
+    <string name="home_installed_app_picker_title">Installed apps</string>
     <string name="home_installed_app_picker_empty">No apps found</string>
     <string name="home_installed_app_picker_filter_all">All apps</string>
     <string name="home_installed_app_picker_filter_user">User apps only</string>

@@ -8,7 +8,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.morphe.manager.R
-import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.domain.apk.InstalledPatchState
@@ -17,7 +16,9 @@ import app.morphe.manager.domain.apk.canRemoveTrackedRecord
 import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.installer.RootInstaller
 import app.morphe.manager.domain.installer.UninstallCancelledException
-import app.morphe.manager.domain.repository.*
+import app.morphe.manager.domain.repository.InstalledAppRepository
+import app.morphe.manager.domain.repository.OriginalApkRepository
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.displayedPackageInfo
 import app.morphe.manager.ui.model.trackedInstallPresentation
 import app.morphe.manager.ui.screen.home.AppliedPatchBundleUi
@@ -43,7 +44,6 @@ class InstalledAppInfoViewModel(
     private val rootInstaller: RootInstaller by inject()
     private val installerManager: InstallerManager by inject()
     private val originalApkRepository: OriginalApkRepository by inject()
-    private val filesystem: Filesystem by inject()
     private val applicationScope: AppCoroutineScope by inject()
     private val localApkSources: LocalApkSources by inject()
 
@@ -231,32 +231,10 @@ class InstalledAppInfoViewModel(
      * Note: Patch selection and options are NOT deleted - they remain for future patching.
      */
     private suspend fun deleteRecordAndApk(app: InstalledApp) {
-        // Delete database record
+        // Removes the record together with every retained copy it owns
         installedAppRepository.delete(app)
-
-        // Delete patched APK file
-        withContext(Dispatchers.IO) {
-            savedApkCandidates(app).forEach { it.delete() }
-        }
         usableSavedApk = null
         hasSavedCopy = false
-    }
-
-    /**
-     * Both storage paths this app can occupy, minus any that another record owns.
-     * A rename leaves a copy under the original package name, but that same path is where a
-     * separate, unrenamed record would keep its own APK.
-     */
-    private suspend fun savedApkCandidates(app: InstalledApp): List<File> {
-        val paths = mutableListOf(filesystem.getPatchedAppFile(app.currentPackageName, app.version))
-
-        if (app.originalPackageName != app.currentPackageName &&
-            installedAppRepository.get(app.originalPackageName) == null
-        ) {
-            paths.add(filesystem.getPatchedAppFile(app.originalPackageName, app.version))
-        }
-
-        return paths.distinctBy { it.absolutePath }
     }
 
     suspend fun updateInstallType(packageName: String, newInstallType: InstallType) {

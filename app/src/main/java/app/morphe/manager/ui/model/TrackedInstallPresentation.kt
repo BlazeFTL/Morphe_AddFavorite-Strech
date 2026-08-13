@@ -52,8 +52,9 @@ internal fun <T> displayedHomePackageInfo(
  * Keeps a present, confirmed non-patched package distinct from a package that is absent.
  *
  * A confirmed replacement is present, not deleted, but it remains distinct from both the patched
- * build in Morphe's record and an app that has never been patched. [showsInstalledPackage] lets
- * the UI use the replacement's current icon and version only when its identity is confirmed.
+ * build in Morphe's record and an app that has never been patched.
+ * [TrackedInstallPresentation.showsInstalledPackage] lets the UI use the replacement's current
+ * icon and version only when its identity is confirmed.
  */
 internal fun trackedInstallPresentation(
     installType: InstallType,

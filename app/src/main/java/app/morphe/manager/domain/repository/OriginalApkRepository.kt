@@ -8,6 +8,7 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.util.FilenameUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import java.io.File
 
@@ -40,6 +41,12 @@ class OriginalApkRepository(
             Log.d(TAG, "Original APK retention disabled, skipping save for $packageName")
             return@withContext null
         }
+        // Create new file path
+        val safePackage = FilenameUtils.sanitize(packageName)
+        val safeVersion = FilenameUtils.sanitize(version.ifBlank { "unspecified" })
+        val targetFile = originalApksDir.resolve("${safePackage}_${safeVersion}_original.apk")
+        val copies = sourceFile != targetFile
+
         try {
             // Delete old version if exists
             val existing = dao.get(packageName)
@@ -51,13 +58,8 @@ class OriginalApkRepository(
                 }
             }
 
-            // Create new file path
-            val safePackage = FilenameUtils.sanitize(packageName)
-            val safeVersion = FilenameUtils.sanitize(version.ifBlank { "unspecified" })
-            val targetFile = originalApksDir.resolve("${safePackage}_${safeVersion}_original.apk")
-
             // Copy file if source is different
-            if (sourceFile != targetFile) {
+            if (copies) {
                 sourceFile.copyTo(targetFile, overwrite = true)
             }
 
@@ -75,6 +77,8 @@ class OriginalApkRepository(
             targetFile
         } catch (e: Exception) {
             Log.e(TAG, "Failed to save original APK for $packageName", e)
+            // Only a copy this call made is safe to drop, and no record points at it
+            if (copies) targetFile.delete()
             null
         }
     }
@@ -84,6 +88,19 @@ class OriginalApkRepository(
      */
     suspend fun markUsed(packageName: String) {
         dao.updateLastUsed(packageName)
+    }
+
+    /**
+     * Drops records whose retained file is gone.
+     * A record here is only a pointer to its archive, so without the file it has nothing left to
+     * describe and would otherwise keep reporting its old size and offering actions that no-op.
+     */
+    suspend fun pruneMissingApks() = withContext(Dispatchers.IO) {
+        dao.getAll().first().forEach { originalApk ->
+            if (File(originalApk.filePath).exists()) return@forEach
+            dao.delete(originalApk)
+            Log.d(TAG, "Dropped original APK record without a file for ${originalApk.packageName}")
+        }
     }
 
     /**

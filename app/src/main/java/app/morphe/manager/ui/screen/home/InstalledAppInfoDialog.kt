@@ -49,6 +49,7 @@ import app.morphe.manager.patcher.util.NativeLibStripper
 import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstallViewModel
@@ -918,9 +919,10 @@ private fun AppHeroHeader(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Animated app icon
+                // Animated app icon, resolved by name when the record has no metadata to show
                 AppIcon(
                     packageInfo = appInfo,
+                    packageName = packageName,
                     contentDescription = null,
                     modifier = Modifier
                         .size(iconSize)

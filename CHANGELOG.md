@@ -1,3 +1,18 @@
+# [1.26.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.7...v1.26.0-dev.8) (2026-08-13)
+
+
+### Bug Fixes
+
+* Keep APK records and archives when file operations fail ([f896574](https://github.com/MorpheApp/morphe-manager/commit/f896574c948aadd0eceb3165fab842e2c54319da))
+* Keep app card text from shifting when a status badge appears ([2d1eb63](https://github.com/MorpheApp/morphe-manager/commit/2d1eb637056d282d4f348c0522072c2a26a10076))
+* Keep the helper app button through the download dialog's exit ([3ff73bc](https://github.com/MorpheApp/morphe-manager/commit/3ff73bcc16901ba739c07637756e6b25acc85863))
+* Preserve tracked state after deleting saved APKs ([#859](https://github.com/MorpheApp/morphe-manager/issues/859)) ([3dd233a](https://github.com/MorpheApp/morphe-manager/commit/3dd233a6d9058cca212748e611fdf3f54dd3fdf5))
+
+
+### Features
+
+* Add collapsible search to installed app picker ([e765393](https://github.com/MorpheApp/morphe-manager/commit/e76539324171f0f2ac16c4dcce1ca35106b394a7))
+
 # [1.26.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.6...v1.26.0-dev.7) (2026-08-12)
 
 

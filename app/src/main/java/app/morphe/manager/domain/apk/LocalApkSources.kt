@@ -10,16 +10,11 @@ import android.util.Log
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
+import app.morphe.manager.domain.manager.KeystoreManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
-import app.morphe.manager.util.AOSP_INSTALLER_PACKAGE
-import app.morphe.manager.util.AOSP_INSTALLER_PACKAGE_LEGACY
-import app.morphe.manager.util.AppDataResolver
-import app.morphe.manager.util.AppDataSource
-import app.morphe.manager.util.PLAY_STORE_INSTALLER_PACKAGE
-import app.morphe.manager.util.PM
-import app.morphe.manager.util.tag
+import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -75,6 +70,7 @@ internal fun resolveTrackedPatchState(
     installedHashes: Set<String>,
     savedPatchedHashes: Set<String>,
     originalHashes: Set<String>,
+    managerSigningHashes: Set<String>,
     installedByPatchManager: Boolean,
     installerAttributionMatches: Boolean,
     installedAfterPatching: Boolean
@@ -88,6 +84,12 @@ internal fun resolveTrackedPatchState(
 
     if (installedHashes.any { it in originalHashes }) {
         return InstalledPatchState.NotPatched
+    }
+
+    // Patching signs with Morphe's own keystore, so its certificate outlives both archives and
+    // still identifies the build after the retained APKs have been deleted
+    if (installedHashes.any { it in managerSigningHashes }) {
+        return InstalledPatchState.Patched
     }
 
     if (installedByPatchManager) return InstalledPatchState.Patched
@@ -128,6 +130,7 @@ class LocalApkSources(
     private val patchBundleRepository: PatchBundleRepository,
     private val appDataResolver: AppDataResolver,
     private val filesystem: Filesystem,
+    private val keystoreManager: KeystoreManager,
     private val pm: PM
 ) {
     // Keyed by the tracked package, kept only while the evidence behind it is unchanged
@@ -223,10 +226,11 @@ class LocalApkSources(
         val installer = installedPackageInfo?.let {
             pm.getInstallerPackageName(app.currentPackageName)
         }
-        val fingerprint = trackedAppFingerprint(app, installedPackageInfo, installer)
+        val signingHashes = keystoreManager.signingCertificateHashes()
+        val fingerprint = trackedAppFingerprint(app, installedPackageInfo, installer, signingHashes)
         cachedSnapshot(app.currentPackageName, fingerprint)?.let { return@withContext it }
 
-        val snapshot = resolveTrackedAppSnapshot(app, installedPackageInfo, installer)
+        val snapshot = resolveTrackedAppSnapshot(app, installedPackageInfo, installer, signingHashes)
         cacheSnapshot(app.currentPackageName, fingerprint, snapshot)
         snapshot
     }
@@ -239,7 +243,8 @@ class LocalApkSources(
     private suspend fun resolveTrackedAppSnapshot(
         app: InstalledApp,
         installedPackageInfo: PackageInfo?,
-        installer: String?
+        installer: String?,
+        signingHashes: Set<String>
     ): TrackedAppSnapshot {
         val savedPatched = validatedPatchedApk(app)
         val savedPatchedApk: File? = savedPatched?.first
@@ -253,6 +258,7 @@ class LocalApkSources(
             installedHashes = pm.getInstalledSignatureHashes(app.currentPackageName),
             savedPatchedHashes = savedPatchedApk?.let(pm::getApkFileSignatureHashes).orEmpty(),
             originalHashes = referenceSignatureHashes(app.originalPackageName),
+            managerSigningHashes = signingHashes,
             installedByPatchManager = pm.isPatchManagerInstaller(installer),
             installerAttributionMatches = installerMatchesRecord(app.installType, installer),
             installedAfterPatching = installedAfterPatching(app, installedPackageInfo)
@@ -291,7 +297,8 @@ class LocalApkSources(
     private suspend fun trackedAppFingerprint(
         app: InstalledApp,
         installedPackageInfo: PackageInfo?,
-        installer: String?
+        installer: String?,
+        signingHashes: Set<String>
     ): String {
         val installedApk = installedPackageInfo?.applicationInfo?.sourceDir?.let(::File)
         val originalApk = originalApkRepository.get(app.originalPackageName)
@@ -314,6 +321,8 @@ class LocalApkSources(
             append('|').append(originalApk?.version).append('|')
             append(originalFile?.absolutePath).append(':').append(fileStamp(originalFile)).append('|')
             bundleSignatures.sorted().joinTo(this, ",")
+            append('|')
+            signingHashes.sorted().joinTo(this, ",")
         }
     }
 
@@ -341,8 +350,10 @@ class LocalApkSources(
                     installer == AOSP_INSTALLER_PACKAGE ||
                     installer == AOSP_INSTALLER_PACKAGE_LEGACY
 
-            // Shizuku installs leave no attribution behind, so anything else replaced the package
-            InstallType.SHIZUKU, InstallType.SAVED -> installer == null
+            // Shizuku runs as the shell user, so its installs are attributed either to the shell
+            // package or to nothing at all, and anything else replaced the package
+            InstallType.SHIZUKU, InstallType.SAVED -> installer == null ||
+                    installer == SHELL_INSTALLER_PACKAGE
         }
 
     /**
@@ -386,25 +397,29 @@ class LocalApkSources(
     }
 
     /**
-     * Decided in priority order, most reliable first: a mounted install, the saved original's
-     * own certificate, the certificates the bundle declares, Morphe's own records, and finally
-     * who installed the package.
+     * Decided in priority order, most reliable first: a mounted install, Morphe's own signing
+     * certificate, the saved original's own certificate, the certificates the bundle declares,
+     * Morphe's own records, and finally who installed the package.
      */
     private suspend fun patchState(packageName: String, installedVersion: String?): InstalledPatchState {
         // Checked first because the certificates below describe the stock app while the file
         // that "Use installed APK" would copy is the patched one
         if (pm.hasSourceApkSignatureMismatch(packageName)) return InstalledPatchState.Patched
 
+        val installedHashes = pm.getInstalledSignatureHashes(packageName)
+
+        // Morphe's signature identifies its own output even when nothing was kept to compare against
+        if (installedHashes.any { it in keystoreManager.signingCertificateHashes() }) {
+            return InstalledPatchState.Patched
+        }
+
         val referenceHashes = referenceSignatureHashes(packageName)
 
-        if (referenceHashes.isNotEmpty()) {
-            val installedHashes = pm.getInstalledSignatureHashes(packageName)
-            if (installedHashes.isNotEmpty()) {
-                return if (installedHashes.none { it in referenceHashes }) {
-                    InstalledPatchState.Patched
-                } else {
-                    InstalledPatchState.NotPatched
-                }
+        if (referenceHashes.isNotEmpty() && installedHashes.isNotEmpty()) {
+            return if (installedHashes.none { it in referenceHashes }) {
+                InstalledPatchState.Patched
+            } else {
+                InstalledPatchState.NotPatched
             }
         }
 

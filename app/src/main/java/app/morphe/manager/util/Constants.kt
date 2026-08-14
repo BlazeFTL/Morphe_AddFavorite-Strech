@@ -139,6 +139,10 @@ const val PLAY_STORE_INSTALLER_PACKAGE = "com.android.vending"
 const val AOSP_INSTALLER_PACKAGE        = "com.google.android.packageinstaller"
 const val AOSP_INSTALLER_PACKAGE_LEGACY = "com.android.packageinstaller"
 const val AOSP_INSTALLER_LABEL          = "Package installer"
+
+// Attribution left behind by anything running as the shell user, which is how Shizuku installs
+const val SHELL_INSTALLER_PACKAGE = "com.android.shell"
+
 const val JSON_MIMETYPE     = "application/json"
 const val BIN_MIMETYPE      = "application/octet-stream"
 const val TEXT_MIMETYPE     = "text/plain"

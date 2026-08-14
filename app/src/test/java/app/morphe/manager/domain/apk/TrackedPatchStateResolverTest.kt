@@ -13,6 +13,7 @@ class TrackedPatchStateResolverTest {
         installedHashes: Set<String> = emptySet(),
         savedPatchedHashes: Set<String> = emptySet(),
         originalHashes: Set<String> = emptySet(),
+        managerSigningHashes: Set<String> = emptySet(),
         installedByPatchManager: Boolean = false,
         installerAttributionMatches: Boolean = true,
         installedAfterPatching: Boolean = false
@@ -20,6 +21,7 @@ class TrackedPatchStateResolverTest {
         installedHashes = installedHashes,
         savedPatchedHashes = savedPatchedHashes,
         originalHashes = originalHashes,
+        managerSigningHashes = managerSigningHashes,
         installedByPatchManager = installedByPatchManager,
         installerAttributionMatches = installerAttributionMatches,
         installedAfterPatching = installedAfterPatching
@@ -78,6 +80,42 @@ class TrackedPatchStateResolverTest {
             resolve(
                 installedHashes = setOf("unrecognized"),
                 originalHashes = setOf("stock")
+            )
+        )
+    }
+
+    @Test
+    fun `manager signing certificate identifies a patched install with nothing retained`() {
+        assertEquals(
+            InstalledPatchState.Patched,
+            resolve(
+                installedHashes = setOf("morphe"),
+                managerSigningHashes = setOf("morphe")
+            )
+        )
+    }
+
+    @Test
+    fun `manager signing certificate outweighs a foreign newer installation`() {
+        assertEquals(
+            InstalledPatchState.Patched,
+            resolve(
+                installedHashes = setOf("morphe"),
+                managerSigningHashes = setOf("morphe"),
+                installerAttributionMatches = false,
+                installedAfterPatching = true
+            )
+        )
+    }
+
+    @Test
+    fun `stock certificate stays a replacement even when the keystore is readable`() {
+        assertEquals(
+            InstalledPatchState.NotPatched,
+            resolve(
+                installedHashes = setOf("stock"),
+                originalHashes = setOf("stock"),
+                managerSigningHashes = setOf("morphe")
             )
         )
     }

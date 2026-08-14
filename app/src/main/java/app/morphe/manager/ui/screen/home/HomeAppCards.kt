@@ -223,6 +223,7 @@ fun InstalledAppCard(
     val updateAvailableLabel = stringResource(R.string.update_available)
     val deletedLabel = stringResource(R.string.uninstalled)
     val replacementLabel = stringResource(R.string.home_unpatched_version_installed)
+    val replacementBadgeLabel = stringResource(R.string.home_unpatched_badge)
     val unverifiedLabel = stringResource(R.string.home_unverified)
     val pendingLabel = stringResource(R.string.home_install_verification_pending)
 
@@ -341,7 +342,7 @@ fun InstalledAppCard(
 
                 if (isInstallStateNotPatched) {
                     StatusBadge(
-                        text = replacementLabel,
+                        text = replacementBadgeLabel,
                         icon = Icons.Outlined.AutoFixHigh,
                         containerColor = cardStyle.chipContainerColor,
                         contentColor = cardStyle.chipContentColor

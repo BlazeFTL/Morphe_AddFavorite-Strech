@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-13T16:00:25",
-  "description": "# [1.26.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.7...v1.26.0-dev.8) (2026-08-13)\n\n\n### Bug Fixes\n\n* Keep APK records and archives when file operations fail ([f896574](https://github.com/MorpheApp/morphe-manager/commit/f896574c948aadd0eceb3165fab842e2c54319da))\n* Keep app card text from shifting when a status badge appears ([2d1eb63](https://github.com/MorpheApp/morphe-manager/commit/2d1eb637056d282d4f348c0522072c2a26a10076))\n* Keep the helper app button through the download dialog's exit ([3ff73bc](https://github.com/MorpheApp/morphe-manager/commit/3ff73bcc16901ba739c07637756e6b25acc85863))\n* Preserve tracked state after deleting saved APKs ([#859](https://github.com/MorpheApp/morphe-manager/issues/859)) ([3dd233a](https://github.com/MorpheApp/morphe-manager/commit/3dd233a6d9058cca212748e611fdf3f54dd3fdf5))\n\n\n### Features\n\n* Add collapsible search to installed app picker ([e765393](https://github.com/MorpheApp/morphe-manager/commit/e76539324171f0f2ac16c4dcce1ca35106b394a7))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.8/morphe-manager-1.26.0-dev.8.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.8/morphe-manager-1.26.0-dev.8.apk.asc",
-  "version": "1.26.0-dev.8"
+  "created_at": "2026-08-14T09:17:02",
+  "description": "# [1.26.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.8...v1.26.0-dev.9) (2026-08-14)\n\n\n### Bug Fixes\n\n* Identify patched installs by Morphe's own signing certificate ([4016976](https://github.com/MorpheApp/morphe-manager/commit/4016976bfdc16b7bb75e27f24a685d0bca9cf50e))\n* Keep a tracked app's name and icon after its artifacts are gone ([03f444b](https://github.com/MorpheApp/morphe-manager/commit/03f444b10b381f74bdf977a946265709aff63a83))\n* Polish clear-cache dialog and unverified install text ([724e345](https://github.com/MorpheApp/morphe-manager/commit/724e345e153a89428270a6f5df8aea8b3b18dbc0))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.9/morphe-manager-1.26.0-dev.9.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.9/morphe-manager-1.26.0-dev.9.apk.asc",
+  "version": "1.26.0-dev.9"
 }

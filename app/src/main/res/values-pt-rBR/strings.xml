@@ -4,6 +4,7 @@
     <string name="home_other_apps">Outros aplicativos</string>
     <string name="home_not_patched_yet">Ainda não patcheado </string>
     <string name="home_unpatched_version_installed">Versão não patcheada instalada</string>
+    <string name="home_unpatched_badge">Não patcheado</string>
     <string name="home_no_patches_available">Nenhum patch disponível</string>
     <string name="home_app_hide_title">Ocultar esse app?</string>
     <string name="home_app_hide_message">Este aplicativo será ocultado da tela inicial. Você pode restaurá-lo mais tarde a partir dos aplicativos ocultos usando o botão no final da lista</string>
@@ -193,7 +194,6 @@
     <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do aplicativo instalado, portanto ele já pode estar com o patch aplicado</string>
     <string name="home_unverified">Não verificado</string>
     <string name="home_install_verification_pending">Verificando instalação…</string>
-    <string name="home_app_info_install_unverified">O Morphe não consegue confirmar que o aplicativo instalado é a versão que ele aplicou o patch. Reinstale-o a partir do APK salvo para restaurar suas ações.</string>
     <string name="home_app_info_no_saved_apk">Nenhum APK salvo. A aplicação de patch exigirá selecionar o arquivo APK novamente</string>
     <string name="home_version_requires_android">Requer Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Não suportado neste dispositivo</string>

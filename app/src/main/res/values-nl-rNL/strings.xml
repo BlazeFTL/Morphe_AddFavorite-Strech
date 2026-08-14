@@ -4,6 +4,7 @@
     <string name="home_other_apps">Andere apps</string>
     <string name="home_not_patched_yet">Nog niet gepatcht</string>
     <string name="home_unpatched_version_installed">Niet-gepatchte versie geïnstalleerd</string>
+    <string name="home_unpatched_badge">Niet gepatcht</string>
     <string name="home_no_patches_available">Geen patches beschikbaar</string>
     <string name="home_app_hide_title">Deze app verbergen?</string>
     <string name="home_app_hide_message">Deze app wordt verborgen op het startscherm. Je kunt hem later weer zichtbaar maken met de knop \'\' onderaan de lijst.</string>
@@ -193,7 +194,7 @@
     <string name="home_apk_use_installed_unverified">Kon de handtekening van de geïnstalleerde app niet verifiëren, dus deze is mogelijk al gepatcht</string>
     <string name="home_unverified">Ongeverifieerd</string>
     <string name="home_install_verification_pending">Installatie controleren…</string>
-    <string name="home_app_info_install_unverified">Morphe kan niet bevestigen dat de geïnstalleerde app de build is die het heeft gepatcht. Installeer het opnieuw vanuit de opgeslagen APK om de acties te herstellen.</string>
+    <string name="home_app_info_install_unverified">Morphe kan niet bevestigen dat de geïnstalleerde app de build is die is gepatcht. Patch deze opnieuw of installeer deze opnieuw vanuit de opgeslagen APK om de acties te herstellen</string>
     <string name="home_app_info_no_saved_apk">Er is geen APK opgeslagen. Om de patch uit te voeren, moet u het APK opnieuw selecteren</string>
     <string name="home_version_requires_android">Vereist Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Niet ondersteund voor dit apparaat</string>

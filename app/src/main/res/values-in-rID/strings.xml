@@ -192,7 +192,7 @@
     <string name="home_apk_use_installed">Gunakan APK yang terpasang</string>
     <string name="home_apk_use_installed_unverified">Tanda tangan aplikasi yang terpasang tidak dapat diverifikasi, jadi kemungkinan aplikasi tersebut sudah ditambal.</string>
     <string name="home_unverified">Tidak Terverifikasi</string>
-    <string name="home_app_info_install_unverified">Morphe tidak dapat memastikan bahwa aplikasi yang terpasang adalah build yang ditambalnya. Pasang ulang dari APK yang disimpan untuk memulihkan tindakannya</string>
+    <string name="home_install_verification_pending">Memeriksa pemasangan…</string>
     <string name="home_app_info_no_saved_apk">Tidak ada APK yang disimpan. Penambalan akan memerlukan memilih berkas APK lagi</string>
     <string name="home_version_requires_android">Membutuhkan Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Tidak didukung di perangkat ini</string>
@@ -230,6 +230,7 @@
     <string name="home_select_apk_title">Pilih APK</string>
     <string name="home_select_any_apk_description">Pilih berkas APK dari aplikasi apa pun, atau pilih aplikasi yang sudah terpasang di perangkat ini</string>
     <string name="home_use_installed_app">Gunakan aplikasi yang terpasang</string>
+    <string name="home_installed_app_picker_title">Aplikasi terpasang</string>
     <string name="home_installed_app_picker_empty">Tidak ditemukan aplikasi</string>
     <string name="home_installed_app_picker_filter_all">Semua aplikasi</string>
     <string name="home_installed_app_picker_filter_user">Aplikasi pengguna saja</string>
@@ -929,6 +930,7 @@ Rincian: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Hapus APK yang dipilih?</string>
     <string name="settings_system_apks_delete_selected_confirm">Ini akan menghapus secara permanen berkas APK yang dipilih</string>
     <string name="settings_system_apks_deleted_all">APK berhasil dihapus</string>
+    <string name="settings_system_apks_delete_failed">Beberapa berkas APK tidak dapat dihapus.</string>
     <string name="settings_system_apks_export_zip_success">APK yang dipilih telah diekspor</string>
     <string name="settings_system_apks_export_zip_failed">Gagal mengekspor APK yang dipilih</string>
     <!-- Settings - System Tab - Storage Management screen -->

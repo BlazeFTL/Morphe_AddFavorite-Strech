@@ -4,6 +4,7 @@
     <string name="home_other_apps">Други приложения</string>
     <string name="home_not_patched_yet">Все още не е патчнато</string>
     <string name="home_unpatched_version_installed">Инсталирана е версия без пачове</string>
+    <string name="home_unpatched_badge">Не е патчнато</string>
     <string name="home_no_patches_available">Няма достъпни патчове</string>
     <string name="home_app_hide_title">Скриване на това приложение?</string>
     <string name="home_app_hide_message">Това приложение ще бъде скрито от началния екран. Можете да го възстановите по-късно от скритите приложения, като използвате бутона в долната част на списъка.</string>
@@ -194,7 +195,7 @@
     <string name="home_apk_use_installed_unverified">Не успяхме да потвърдим подписа на инсталираното приложение, затова е възможно вече да е променено</string>
     <string name="home_unverified">Неверифицирано</string>
     <string name="home_install_verification_pending">Проверка на инсталацията…</string>
-    <string name="home_app_info_install_unverified">Morphe не може да потвърди, че инсталираното приложение е сборката, която е кръпкирал. Преинсталирайте го от запазения APK, за да възстановите действията му.</string>
+    <string name="home_app_info_install_unverified">Morphe не може да потвърди, че инсталираното приложение е версията, която е патчнала. Патчнете го отново или го инсталирайте от запазения APK, за да възстановите действията му</string>
     <string name="home_app_info_no_saved_apk">Няма запазено APK. Пatching ще изисква отново да изберете APK файл.</string>
     <string name="home_version_requires_android">Изисква Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Не се поддържа на това устройство</string>

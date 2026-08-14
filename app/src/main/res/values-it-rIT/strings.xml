@@ -4,6 +4,7 @@
     <string name="home_other_apps">Altre app</string>
     <string name="home_not_patched_yet">Non ancora modificato</string>
     <string name="home_unpatched_version_installed">Versione non patchata installata</string>
+    <string name="home_unpatched_badge">Non modificato</string>
     <string name="home_no_patches_available">
 Nessuna patch disponibile</string>
     <string name="home_app_hide_title">Nascondere questa app?</string>
@@ -194,7 +195,7 @@ Nessuna patch disponibile</string>
     <string name="home_apk_use_installed_unverified">Impossibile verificare la firma dell\'app installata, pertanto potrebbe essere già stata modificata</string>
     <string name="home_unverified">Non verificata</string>
     <string name="home_install_verification_pending">Controllo dell\'installazione…</string>
-    <string name="home_app_info_install_unverified">Morphe non può confermare che l\'app installata sia la build che ha patchato. Reinstallala dall\'APK salvato per ripristinare le sue azioni.</string>
+    <string name="home_app_info_install_unverified">Morphe non può confermare che l\'app installata sia la build modificata. Modificala di nuovo o reinstallala dall\'APK salvato per ripristinare le sue azioni</string>
     <string name="home_app_info_no_saved_apk">Nessun APK salvato. Il patching richiederà la selezione del file APK</string>
     <string name="home_version_requires_android">Richiede Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Non supportato su questo dispositivo</string>

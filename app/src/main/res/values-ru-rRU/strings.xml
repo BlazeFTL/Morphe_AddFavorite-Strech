@@ -4,6 +4,7 @@
     <string name="home_other_apps">Другие приложения</string>
     <string name="home_not_patched_yet">Еще не пропатчено</string>
     <string name="home_unpatched_version_installed">Установлена непатченная версия</string>
+    <string name="home_unpatched_badge">Не пропатчено</string>
     <string name="home_no_patches_available">Нет доступных патчей</string>
     <string name="home_app_hide_title">Скрыть это приложение?</string>
     <string name="home_app_hide_message">Это приложение будет скрыто из домашнего экрана. Вы можете восстановить его позже из скрытых приложений, используя кнопку внизу списка.</string>
@@ -193,7 +194,7 @@
     <string name="home_apk_use_installed_unverified">Не удалось проверить подпись установленного приложения, поэтому оно может быть уже пропатчено</string>
     <string name="home_unverified">Непроверенный</string>
     <string name="home_install_verification_pending">Проверка установки…</string>
-    <string name="home_app_info_install_unverified">Morphe не может подтвердить, что установленное приложение является сборкой, которую он пропатчил. Переустановите его из сохраненного APK, чтобы восстановить его действия.</string>
+    <string name="home_app_info_install_unverified">Morphe не может подтвердить, что установленное приложение является той самой сборкой, которую оно патчило. Перепатчите или переустановите его из сохраненного APK, чтобы восстановить его функции</string>
     <string name="home_app_info_no_saved_apk">Нет сохраненного APK. Для патча нужно будет снова выбрать APK файл</string>
     <string name="home_version_requires_android">Требуется Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Не поддерживается на этом устройстве</string>

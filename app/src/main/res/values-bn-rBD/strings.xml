@@ -192,7 +192,6 @@
     <string name="home_apk_use_installed">ফোনে ইনস্টল থাকা APK-টি ব্যবহার করুন</string>
     <string name="home_apk_use_installed_unverified">ইনস্টল করা অ্যাপের স্বাক্ষর যাচাই করা যায়নি, তাই এটি ইতোমধ্যেই প্যাচ করা থাকতে পারে</string>
     <string name="home_unverified">অপ্রমাণিত</string>
-    <string name="home_app_info_install_unverified">Morphe নিশ্চিত করতে পারে না যে ইনস্টল করা অ্যাপটি এটি প্যাচ করা বিল্ডটি। সংরক্ষিত APK থেকে এটি পুনরায় ইনস্টল করুন এর ক্রিয়া পুনরুদ্ধার করতে।</string>
     <string name="home_app_info_no_saved_apk">কোন সংরক্ষিত APK নেই। প্যাচিংয়ের জন্য আবার APK ফাইল নির্বাচন করতে হবে</string>
     <string name="home_version_requires_android">Android %s+ প্রয়োজন</string>
     <string name="home_apk_no_compatible_versions_title">এই ডিভাইসে সমর্থিত নয়</string>

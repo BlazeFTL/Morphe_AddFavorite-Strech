@@ -4,6 +4,7 @@
     <string name="home_other_apps">Muut sovellukset</string>
     <string name="home_not_patched_yet">Ei vielä muokattu</string>
     <string name="home_unpatched_version_installed">Korjaamaton versio asennettu</string>
+    <string name="home_unpatched_badge">Ei muokattu</string>
     <string name="home_no_patches_available">Lisäosia ei ole saatavilla</string>
     <string name="home_app_hide_title">Piilota tämä sovellus?</string>
     <string name="home_app_hide_message">Tämä sovellus piilotetaan aloitusnäytöstä. Voit palauttaa sen myöhemmin piilotettujen sovellusten joukosta luettelon alareunassa olevalla painikkeella.</string>
@@ -192,7 +193,6 @@
     <string name="home_apk_use_installed">Käytä asennettua APK:ta</string>
     <string name="home_apk_use_installed_unverified">Sovelluksen asennetun version allekirjoitusta ei voitu vahvistaa, joten se on ehkä jo muutettu</string>
     <string name="home_unverified">Vahvistamaton</string>
-    <string name="home_app_info_install_unverified">Morphe ei voi vahvistaa, että asennettu sovellus on se сборка, jonka se korjasi. Asenna se uudelleen tallennetusta APK:sta palauttaaksesi sen toiminnot</string>
     <string name="home_app_info_no_saved_apk">Ei tallennettua APK:ta. Muokkaaminen edellyttää APK-tiedoston valitsemista uudelleen.</string>
     <string name="home_version_requires_android">Vaatii Android-version %s tai uudemman</string>
     <string name="home_apk_no_compatible_versions_title">Ei tueta tällä laitteella</string>

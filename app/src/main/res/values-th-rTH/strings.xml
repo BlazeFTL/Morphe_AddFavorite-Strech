@@ -192,7 +192,6 @@
     <string name="home_apk_use_installed">ใช้ APK ที่ติดตั้งไว้</string>
     <string name="home_apk_use_installed_unverified">ไม่สามารถตรวจสอบลายเซ็นของแอปที่ติดตั้งได้ ดังนั้นจึงอาจได้รับการแพตช์แล้ว</string>
     <string name="home_unverified">ไม่ได้รับการยืนยัน</string>
-    <string name="home_app_info_install_unverified">Morphe ไม่สามารถยืนยันได้ว่าแอปที่ติดตั้งนั้นเป็นรุ่นที่ได้รับการแพตช์แล้ว ติดตั้งใหม่จาก APK ที่บันทึกไว้เพื่อคืนค่าการดำเนินการ</string>
     <string name="home_app_info_no_saved_apk">ไม่มี APK ที่ถูกบันทึก การแพตซ์จะต้องเลือกไฟล์ APK อีกครั้ง</string>
     <string name="home_version_requires_android">ต้องใช้ Android %s ขึ้นไป</string>
     <string name="home_apk_no_compatible_versions_title">ไม่รองรับบนอุปกรณ์นี้</string>

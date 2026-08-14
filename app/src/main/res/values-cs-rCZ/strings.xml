@@ -4,6 +4,7 @@
     <string name="home_other_apps">Ostatní aplikace</string>
     <string name="home_not_patched_yet">Ještě nezáplatováno</string>
     <string name="home_unpatched_version_installed">Nainstalovaná neopatchovaná verze</string>
+    <string name="home_unpatched_badge">Nezáplatováno</string>
     <string name="home_no_patches_available">Žádné záplaty k dispozici</string>
     <string name="home_app_hide_title">Skrýt tuto aplikaci?</string>
     <string name="home_app_hide_message">Tato aplikace bude skryta z domovské obrazovky. Můžete ji později obnovit pomocí tlačítka na konci seznamu</string>
@@ -193,7 +194,7 @@
     <string name="home_apk_use_installed_unverified">Nepodařilo se ověřit podpis nainstalované aplikace, takže může být již opravená</string>
     <string name="home_unverified">Neověřené</string>
     <string name="home_install_verification_pending">Kontroluji instalaci…</string>
-    <string name="home_app_info_install_unverified">Morphe nemůže potvrdit, že nainstalovaná aplikace je sestavení, které opatchoval. Znovu ji nainstalujte z uloženého APK, abyste obnovili její akce.</string>
+    <string name="home_app_info_install_unverified">Morphe nemůže potvrdit, že nainstalovaná aplikace je verzí, kterou záplatoval. Pro obnovení funkcí ji znovu záplatujte nebo reinstallujte ze saved APK</string>
     <string name="home_app_info_no_saved_apk">Není uložené žádné APK. Pro záplatování bude potřeba vybrat soubor APK znovu</string>
     <string name="home_version_requires_android">Vyžaduje Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Není podporováno na tomto zařízení</string>

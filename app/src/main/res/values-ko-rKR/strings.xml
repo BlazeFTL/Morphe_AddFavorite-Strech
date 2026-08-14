@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">그 외의 앱</string>
     <string name="home_not_patched_yet">아직 패치되지 않음</string>
-    <string name="home_unpatched_version_installed">패치되지 않은 버전이 설치됨</string>
+    <string name="home_unpatched_version_installed">미패치된 버전이 설치됨</string>
     <string name="home_no_patches_available">사용 가능한 패치 없음</string>
     <string name="home_app_hide_title">이 앱을 숨기시겠습니까?</string>
     <string name="home_app_hide_message">이 앱은 홈 화면에서 숨겨집니다. 목록 하단에 있는 버튼을 사용하여 숨겨진 앱 목록에서 나중에 복원할 수 있습니다</string>
@@ -181,7 +181,7 @@
     <string name="home_apk_helper_description">Morphe는 아래의 도우미 앱에 원본 APK를 다운로드하고 파일을 다시 전달하도록 요청합니다</string>
     <string name="home_apk_helper_continue">도우미 앱 열기</string>
     <string name="home_apk_helper_warning">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 패치하기 전에 수신하는 모든 파일의 패키지, 버전 및 서명을 확인합니다</string>
-    <string name="home_apk_helper_warning_unverified">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 확인할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
+    <string name="home_apk_helper_warning_unverified">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 검증할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
     <string name="home_apk_helper_no_result">도우미 앱에서 APK 파일을 반환하지 않았습니다</string>
     <string name="home_apk_helper_no_access">도우미 앱이 반환한 APK에 대한 접근 권한을 부여하지 않았습니다</string>
     <string name="home_apk_helper_no_package">도우미 앱에서 어떤 설치된 앱을 사용해야 하는지 지정하지 않았습니다</string>
@@ -190,10 +190,9 @@
     <string name="home_apk_helper_installed_incompatible">설치된 버전은 패치할 수 없습니다</string>
     <string name="home_apk_use_saved">저장된 APK 사용</string>
     <string name="home_apk_use_installed">설치된 APK 사용</string>
-    <string name="home_apk_use_installed_unverified">설치된 앱의 서명을 확인할 수 없으므로 이미 패치된 앱일 수 있습니다</string>
-    <string name="home_unverified">확인되지 않음</string>
+    <string name="home_apk_use_installed_unverified">설치된 앱의 서명을 검증할 수 없으므로 이미 패치된 앱일 수 있습니다</string>
+    <string name="home_unverified">검증되지 않음</string>
     <string name="home_install_verification_pending">설치를 확인하는 중…</string>
-    <string name="home_app_info_install_unverified">Morphe는 현재 설치된 앱이 자신이 패치한 빌드인지 확인할 수 없습니다. 기능을 복원하려면 저장된 APK에서 앱을 다시 설치하세요</string>
     <string name="home_app_info_no_saved_apk">저장된 APK가 없습니다. 패치하려면 APK 파일을 다시 선택하세요</string>
     <string name="home_version_requires_android">Android %s+ 필요</string>
     <string name="home_apk_no_compatible_versions_title">이 기기에서는 지원되지 않음</string>
@@ -265,7 +264,7 @@
 
 그래도 계속하시겠습니까?"</string>
     <!-- Home Screen - Home Sub-Dialogs -->
-    <string name="home_invalid_signature_title">검증되지 않은 APK</string>
+    <string name="home_invalid_signature_title">미검증된 APK</string>
     <string name="home_invalid_signature_message">선택된 &lt;b&gt;%s&lt;/b&gt;에 대한 APK는 예상된 서명 인증서와 일치하지 않습니다. 수정되었거나 신뢰할 수 없는 출처에서 가져온 파일일 수 있습니다</string>
     <string name="home_invalid_signature_badge">이 파일은 순정 APK가 아닐 수 있습니다</string>
     <string name="home_split_apk_warning_title">분할 APK가 감지되었습니다</string>
@@ -536,8 +535,8 @@
     <string name="install_app_success">성공적으로 설치하였습니다</string>
     <string name="install_app_fail">앱을 설치할 수 없습니다: %s</string>
     <string name="uninstall_app_fail">앱을 제거할 수 없습니다: %s</string>
-    <string name="uninstall_app_unverified">그대로 유지됨: Morphe는 현재 설치된 앱이 자신이 패치한 빌드인지 확인할 수 없습니다</string>
-    <string name="launch_app_unverified">Morphe는 현재 설치된 앱이 자신이 패치한 빌드인지 확인할 수 없습니다</string>
+    <string name="uninstall_app_unverified">그대로 유지됨: Morphe는 현재 설치된 앱이 자신이 패치한 빌드인지 검증할 수 없습니다</string>
+    <string name="launch_app_unverified">Morphe는 현재 설치된 앱이 자신이 패치한 빌드인지 검증할 수 없습니다</string>
     <string name="uninstall_timeout">제거 시간이 초과되었습니다</string>
     <string name="save_apk_success">APK를 저장하였습니다</string>
     <string name="saved_app_export_failed">패치된 앱을 내보낼 수 없습니다</string>

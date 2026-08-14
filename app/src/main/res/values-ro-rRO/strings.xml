@@ -193,7 +193,6 @@
     <string name="home_apk_use_installed_unverified">Nu s-a putut verifica semnătura aplicației instalate, deci este posibil să fie deja patch-uită</string>
     <string name="home_unverified">Neverificat</string>
     <string name="home_install_verification_pending">Verificare instalare…</string>
-    <string name="home_app_info_install_unverified">Morphe nu poate confirma că aplicația instalată este build-ul pe care l-a patch-uit. Reinstaleaz-o din APK-ul salvat pentru a-i restabili acțiunile</string>
     <string name="home_app_info_no_saved_apk">Niciun APK salvat. Patch-uirea necesită selectarea APK-ului din nou</string>
     <string name="home_version_requires_android">Necesită Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nu este suportat pe acest dispozitiv</string>

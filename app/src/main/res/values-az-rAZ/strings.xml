@@ -193,7 +193,6 @@
     <string name="home_apk_use_installed_unverified">Quraşdırılmış tətbiqin imzasını təsdiqləmək olmadı, mümkündür ki, artıq yamaqlanmış ola bilər</string>
     <string name="home_unverified">Təsdiqlənməmiş</string>
     <string name="home_install_verification_pending">Quraşdırmanı yoxlayır...</string>
-    <string name="home_app_info_install_unverified">Morphe quraşdırılmış tətbiqin öz yamaqladığı qurulma olduğunu təsdiqləyə bilmir. Fəaliyyətlərini bərpa etmək üçün onu saxlanılan APK-dan yenidən quraşdır</string>
     <string name="home_app_info_no_saved_apk">Saxlanılan APK yoxdur. Yamaqlanma APK faylını təkrar seçmək istəyəcək</string>
     <string name="home_version_requires_android">Android %s+ tələb olunur</string>
     <string name="home_apk_no_compatible_versions_title">Bu cihazda dəstəklənmir</string>
@@ -231,6 +230,7 @@
     <string name="home_select_apk_title">APK Seçin</string>
     <string name="home_select_any_apk_description">İstənilən tətbiqin APK faylını yaxud bu cihazda artıq quraşdırılan tətbiqi seç</string>
     <string name="home_use_installed_app">Quraşdırılan tətbiqi istifadə et</string>
+    <string name="home_installed_app_picker_title">Quraşdırılmış tətbiqlər</string>
     <string name="home_installed_app_picker_empty">Tətbiq tapılmadı</string>
     <string name="home_installed_app_picker_filter_all">Bütün tətbiqlər</string>
     <string name="home_installed_app_picker_filter_user">Ancaq istifadəçi tətbiqləri</string>
@@ -926,6 +926,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Seçilmiş APK-lar silinsin?</string>
     <string name="settings_system_apks_delete_selected_confirm">Bu, seçilmiş APK fayllarını həmişəlik siləcək</string>
     <string name="settings_system_apks_deleted_all">APK-lar uğurla silindi</string>
+    <string name="settings_system_apks_delete_failed">Bəzi APK faylları silinə bilmədi</string>
     <string name="settings_system_apks_export_zip_success">Seçilmiş APK-lar köçürüldü</string>
     <string name="settings_system_apks_export_zip_failed">Seçilmiş APK-ları köçürmək olmadı</string>
     <!-- Settings - System Tab - Storage Management screen -->

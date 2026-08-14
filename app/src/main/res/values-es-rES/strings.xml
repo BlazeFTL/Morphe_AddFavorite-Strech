@@ -39,11 +39,11 @@
     <string name="home_search_apps">Buscar aplicaciones</string>
     <string name="home_app_list_options_title">Ordenar y filtrar</string>
     <string name="home_app_list_options_state_description">Ordenado por %1$s, filtrado por %2$s</string>
-    <string name="home_app_filter_all_description">Todas las apps de la pantalla de inicio</string>
-    <string name="home_app_filter_patched_description">Apps que has parcheado o guardado con Morphe</string>
-    <string name="home_app_filter_not_patched_description">Apps que aún no has parcheado en Morphe</string>
-    <string name="home_app_filter_installed_description">Apps instaladas actualmente en este dispositivo</string>
-    <string name="home_app_filter_uninstalled_description">Apps parcheadas con Morphe que ya no están en este dispositivo</string>
+    <string name="home_app_filter_all_description">Todas las aplicaciones de la pantalla de inicio</string>
+    <string name="home_app_filter_patched_description">Aplicaciones que has parcheado o guardado con Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplicaciones que aún no has parcheado en Morphe</string>
+    <string name="home_app_filter_installed_description">Aplicaciones instaladas actualmente en este dispositivo</string>
+    <string name="home_app_filter_uninstalled_description">Aplicaciones parcheadas con Morphe que ya no están en este dispositivo</string>
     <string name="home_app_sort_manual_description">Mantén pulsada una aplicación, luego pulsa el botón de reordenar</string>
     <string name="home_app_sort_recommended">Orden recomendado</string>
     <string name="home_app_sort_recommended_description">Aplicaciones instaladas y fijadas primero</string>
@@ -56,7 +56,7 @@
     <string name="home_no_apps_search_subtitle">No hay aplicaciones que coincidan con \"%s\"</string>
     <string name="home_all_apps_hidden_title">Todas las aplicaciones están ocultas</string>
     <string name="home_all_apps_hidden_subtitle">Has ocultado todas las aplicaciones de la pantalla de inicio</string>
-    <string name="home_no_apps_filter_title">Ninguna app coincide con este filtro</string>
+    <string name="home_no_apps_filter_title">Ninguna aplicación coincide con este filtro</string>
     <string name="home_no_apps_filter_subtitle">No hay coincidencias con %s</string>
     <string name="home_category_add">Añadir categoría</string>
     <string name="home_category_all_apps">Todas las aplicaciones</string>
@@ -120,7 +120,7 @@
     <string name="sources_sort_last_updated">Último actualizado</string>
     <string name="sources_sort_last_updated_description">Actualizaciones de fuentes más recientes primero</string>
     <string name="sources_sort_enabled_first">Activadas primero</string>
-    <string name="sources_sort_enabled_first_description">Mostrar fuentes activas antes que las desactivadas</string>
+    <string name="sources_sort_enabled_first_description">Muestra las fuentes activas antes que las desactivadas</string>
     <string name="sources_management_open_in_browser">Abrir en el navegador</string>
     <string name="sources_management_failed_to_open_url">No se pudo abrir la URL</string>
     <string name="sources_management_prerelease_toggle">Parches pre-lanzamiento</string>
@@ -193,7 +193,6 @@
     <string name="home_apk_use_installed_unverified">No se pudo verificar la firma de la aplicación instalada, por lo que es posible que ya esté parcheada</string>
     <string name="home_unverified">No verificado</string>
     <string name="home_install_verification_pending">Comprobando instalación…</string>
-    <string name="home_app_info_install_unverified">Morphe no puede confirmar que la aplicación instalada sea la compilación que parcheó. Reinstala desde el APK guardado para restaurar sus acciones.</string>
     <string name="home_app_info_no_saved_apk">No hay APK guardado. Para aplicar los parches será necesario seleccionar el archivo APK nuevamente.</string>
     <string name="home_version_requires_android">Requiere Android %s o superior</string>
     <string name="home_apk_no_compatible_versions_title">Incompatible con este dispositivo</string>
@@ -231,7 +230,7 @@
     <string name="home_select_apk_title">Selecciona el APK</string>
     <string name="home_select_any_apk_description">Selecciona un archivo APK de cualquier aplicación o elige una aplicación que ya esté instalada en este dispositivo</string>
     <string name="home_use_installed_app">Usar aplicación instalada</string>
-    <string name="home_installed_app_picker_title">Apps instaladas</string>
+    <string name="home_installed_app_picker_title">Aplicaciones instaladas</string>
     <string name="home_installed_app_picker_empty">No se encontraron aplicaciones</string>
     <string name="home_installed_app_picker_filter_all">Todas las aplicaciones</string>
     <string name="home_installed_app_picker_filter_user">Solo aplicaciones de usuario</string>
@@ -291,7 +290,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="home_dialog_expected_package">Paquete esperado:</string>
     <string name="home_dialog_selected_package">Paquete seleccionado:</string>
     <string name="home_dialog_orphaned_install_title">Copia anterior olvidada</string>
-    <string name="home_dialog_orphaned_install_description">El parcheo cambió el nombre del paquete, por lo que la copia que parcheaste anteriormente sigue instalada como una aplicación separada</string>
+    <string name="home_dialog_orphaned_install_description">Se cambió el nombre del paquete al parchear, por lo que la copia que parcheaste anteriormente sigue instalada como una aplicación separada</string>
     <string name="home_dialog_orphaned_install_warning">Ya no se hace seguimiento y no recibirá actualizaciones de parches</string>
     <string name="home_dialog_orphaned_install_uninstall">Desinstalarla</string>
     <string name="home_dialog_orphaned_install_keep">Conservarla</string>
@@ -334,9 +333,9 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="adaptive_icon_guide_safe_zones_body">"Zona interior (sólida): el contenido siempre queda a la vista en todas las formas del launcher.
 Zona exterior (discontinua): puede quedar recortada por la máscara del launcher; mantén los detalles importantes dentro de la zona interior."</string>
     <string name="adaptive_icon_guide_notification_title">Icono de notificación</string>
-    <string name="adaptive_icon_guide_notification_body">Generado automáticamente a partir de la imagen del primer plano. Ajusta su tamaño usando el control deslizante de Notificación. Todo el contenido visible aparece en blanco en la barra de estado.</string>
+    <string name="adaptive_icon_guide_notification_body">Generado automáticamente a partir de la imagen en primer plano. Ajusta su tamaño usando el control deslizante de Notificación. Todo el contenido visible aparece en blanco en la barra de estado.</string>
     <string name="adaptive_icon_guide_monochrome_title">Icono monocromático</string>
-    <string name="adaptive_icon_guide_monochrome_body">Generado automáticamente a partir de la imagen del primer plano utilizando las mismas transformaciones de icono adaptable. Aparece tintado del color de acento del fondo de pantalla en Android 13 y versiones posteriores.</string>
+    <string name="adaptive_icon_guide_monochrome_body">Generado automáticamente a partir de la imagen en primer plano utilizando las mismas transformaciones de icono adaptable. Aparece tintado del color de acento del fondo de pantalla en Android 13 y versiones posteriores.</string>
     <string name="notification_icon_preview">Notificación</string>
     <!-- Header Creator -->
     <string name="header_creator_create">Crear encabezado personalizado</string>
@@ -377,14 +376,13 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="batch_patch_policy_install_description">Instala cada aplicación parcheada en cuanto finaliza la cola. Desactivado conserva los APK para más tarde</string>
     <string name="batch_patch_start">Comenzar a parchear</string>
     <string name="batch_patch_stop_title">¿Detener el parcheo por lotes?</string>
-    <string name="batch_patch_stop_description">La aplicación que se está parcheando ahora y todo lo que esté en cola se cancelará</string>
+    <string name="batch_patch_stop_description">Se cancelará la aplicación que se está parcheando ahora y todo lo que esté en la cola</string>
     <string name="batch_patch_install_all">Instalar todo</string>
     <string name="batch_patch_install_failed">Instalación fallida</string>
     <string name="batch_patch_in_progress">El parcheo por lotes ya está en ejecución</string>
     <string name="batch_patch_nothing_outdated">Todas las aplicaciones parcheadas están actualizadas</string>
     <string name="shortcut_repatch_short">Reparchear</string>
-    <string name="shortcut_repatch_long">
-Reparchear aplicaciones desactualizadas</string>
+    <string name="shortcut_repatch_long">Reparchear aplicaciones desactualizadas</string>
     <string name="shortcut_check_updates_short">Buscar actualizaciones</string>
     <string name="shortcut_check_updates_long">Buscar actualizaciones de los parches</string>
     <string name="shortcut_patch_app">Parchear %s</string>
@@ -450,11 +448,11 @@ Reparchear aplicaciones desactualizadas</string>
     <string name="patcher_split_step_finalizing">Completando el APK combinado</string>
     <string name="patcher_conflict_title">Conflicto del paquete</string>
     <string name="patcher_conflict_subtitle">Debes desinstalar la versión existente</string>
-    <string name="patcher_conflict_hint">La aplicación parcheada utiliza un certificado diferente al de la versión instalada. Al desinstalarla, se borrarán todos los datos de la aplicación.</string>
+    <string name="patcher_conflict_hint">La aplicación parcheada utiliza un certificado diferente al de la versión instalada. Al desinstalarla, se borrarán todos los datos de la aplicación</string>
     <string name="patcher_installed_conflict_title">Desinstalación necesaria</string>
-    <string name="patcher_installed_conflict_body">"Morphe firma las aplicaciones parcheadas con su propio certificado, que es diferente al original. Android requiere eliminar la versión existente antes de que se pueda instalar la aplicación parcheada.
+    <string name="patcher_installed_conflict_body">"Morphe firma las aplicaciones parcheadas con su propio certificado, que es diferente del original. Android requiere eliminar la versión existente antes de que se pueda instalar la aplicación parcheada.
 
-Desinstalar borrará permanentemente todos los datos de la aplicación."</string>
+Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"</string>
     <string name="patcher_install_error_title">Error de instalación</string>
     <string name="patcher_install_error_subtitle">Intenta desinstalar y volver a instalar</string>
     <string name="patcher_ready_to_install_subtitle">Pulsa el botón de abajo para instalar</string>
@@ -483,7 +481,7 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="patcher_step_sign_apk">Firmando archivo APK parcheado</string>
     <!-- Battery optimization pre-flight dialog -->
     <string name="battery_optimization_dialog_title">Protección de parcheo en segundo plano</string>
-    <string name="battery_optimization_dialog_description">Algunos dispositivos pueden detener el parcheador cuando la aplicación se minimiza. Permite que Morphe se ejecute sin restricciones de batería para garantizar que el parcheo se complete de manera fiable.</string>
+    <string name="battery_optimization_dialog_description">Algunos dispositivos pueden detener el parcheador cuando la aplicación se minimiza. Permite que Morphe se ejecute sin restricciones de batería para garantizar que el parcheo se complete de manera fiable</string>
     <string name="battery_optimization_not_now">Ahora no</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
     <string name="patcher_memory_adjustment_title">No hay suficiente memoria</string>
@@ -533,12 +531,12 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="patched_app_save_failed_toast">Error al guardar la aplicación parcheada</string>
     <string name="plugin_activity_dialog_body">Es necesaria la interacción del usuario para continuar con este complemento</string>
     <string name="patcher_process_exit_message">El proceso del parcheador terminó con el código %s</string>
-    <string name="patcher_heap_exhausted_message">El parcheador se quedó sin memoria con %1$d MB de memoria disponible. Esta aplicación es demasiado grande para los parches seleccionados. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
+    <string name="patcher_heap_exhausted_message">El parcheador se quedó sin memoria con %1$d MB de memoria asignada. Esta aplicación es demasiado grande para los parches seleccionados. Intenta parchear con menos fuentes de parches o selecciona menos parches</string>
     <string name="install_app_success">Instalado correctamente</string>
     <string name="install_app_fail">Error al instalar la aplicación: %s</string>
     <string name="uninstall_app_fail">Error al desinstalar la aplicación: %s</string>
-    <string name="uninstall_app_unverified">Dejada en su lugar: Morphe no pudo verificar que la aplicación instalada sea la compilación que parcheó.</string>
-    <string name="launch_app_unverified">Morphe no pudo verificar que la aplicación instalada sea la compilación que parcheó.</string>
+    <string name="uninstall_app_unverified">Dejada en su lugar: Morphe no pudo verificar que la aplicación instalada sea la compilación que parcheó</string>
+    <string name="launch_app_unverified">Morphe no pudo verificar que la aplicación instalada sea la compilación que parcheó</string>
     <string name="uninstall_timeout">Tiempo de espera de desinstalación agotado</string>
     <string name="save_apk_success">APK guardado</string>
     <string name="saved_app_export_failed">Error al exportar la aplicación parcheada</string>
@@ -605,20 +603,20 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Pantalla de inicio</string>
     <string name="settings_appearance_greeting_phrases">Frases de saludo</string>
-    <string name="settings_appearance_greeting_phrases_subtitle">Mostrar un mensaje de saludo en la pantalla de inicio</string>
+    <string name="settings_appearance_greeting_phrases_subtitle">Muestra un mensaje de saludo en la pantalla de inicio</string>
     <string name="settings_appearance_app_grouping">Agrupación de aplicaciones</string>
-    <string name="settings_appearance_app_grouping_description">Mostrar un selector de pantalla de inicio para agrupar aplicaciones por origen o por tus propias categorías, manteniendo la selección cuando esté desactivado</string>
+    <string name="settings_appearance_app_grouping_description">Muestra un selector de pantalla de inicio para agrupar aplicaciones por origen o por tus propias categorías, manteniendo la selección cuando esté desactivado</string>
     <string name="settings_appearance_sort_button">Botón de ordenar y filtrar</string>
     <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar y filtrar en la pantalla de inicio</string>
-    <string name="settings_appearance_app_card_colors">Colores de la tarjeta de la aplicación</string>
+    <string name="settings_appearance_app_card_colors">Colores de las tarjetas de aplicaciones</string>
     <string name="settings_appearance_app_card_colors_default">Predeterminado</string>
-    <string name="settings_appearance_app_card_colors_default_description">Le da a cada aplicación el color de su propio paquete</string>
+    <string name="settings_appearance_app_card_colors_default_description">Dar a cada aplicación el color de su propio paquete</string>
     <string name="settings_appearance_app_card_colors_accent">Color de acento</string>
-    <string name="settings_appearance_app_card_colors_accent_description">Usa el color de acento de la aplicación para las tarjetas de la aplicación de inicio</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Usar el color de acento de la aplicación para las tarjetas de aplicaciones de inicio</string>
     <string name="settings_appearance_app_card_colors_gradient">Degradado</string>
-    <string name="settings_appearance_app_card_colors_gradient_description">Usar un degradado personalizado para las tarjetas de las aplicaciones de Inicio</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Usar un degradado personalizado para las tarjetas de aplicaciones de Inicio</string>
     <string name="settings_appearance_app_card_colors_solid">Sólido</string>
-    <string name="settings_appearance_app_card_colors_solid_description">Usar un color personalizado para las tarjetas de las aplicaciones de Inicio</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Usar un color personalizado para las tarjetas de aplicaciones de inicio</string>
     <string name="settings_appearance_app_card_colors_start">Color inicial</string>
     <string name="settings_appearance_app_card_colors_middle">Color intermedio</string>
     <string name="settings_appearance_app_card_colors_end">Color final</string>
@@ -640,7 +638,7 @@ Desinstalar borrará permanentemente todos los datos de la aplicación."</string
     <string name="settings_advanced_updates">Actualizaciones</string>
     <string name="settings_advanced_patcher">Parcheador</string>
     <string name="settings_advanced_updates_use_prereleases">Actualizaciones pre-lanzamiento</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Acceso anticipado a las nuevas versiones de la aplicación Morphe. Activa las versiones pre-lanzamiento en cada fuente de parches.</string>
+    <string name="settings_advanced_updates_use_prereleases_description">Acceso anticipado a las nuevas versiones de la aplicación Morphe. Activa las versiones pre-lanzamiento en cada fuente de parches</string>
     <string name="settings_advanced_updates_allow_metered">Actualizaciones con datos móviles</string>
     <string name="settings_advanced_updates_allow_metered_description">Permite que Morphe y las actualizaciones de los parches se descarguen a través de datos móviles</string>
     <string name="settings_advanced_updates_background_notifications">Notificaciones de actualización en segundo plano</string>
@@ -811,8 +809,8 @@ Las dimensiones de la imagen deben ser las siguientes:
     <string name="installer_status_shizuku_not_installed">Instala Shizuku o Sui para usar esta opción.</string>
     <string name="installer_status_shizuku_not_running">Inicia Shizuku o Sui y vuelve a intentarlo.</string>
     <string name="installer_status_shizuku_permission">Otorgar permiso a Morphe desde la aplicación Shizuku</string>
-    <string name="installer_mount_warning_install">Tu instalador principal está configurado en el instalador montado en raíz. Esta aplicación guardada no se instaló con montaje.</string>
-    <string name="mount_version_mismatch_message">La versión de la aplicación de stock (%2$s) no coincide con la versión de la aplicación parcheada (%1$s). Monta la versión de stock que coincida, luego vuelve a intentarlo.</string>
+    <string name="installer_mount_warning_install">Tu instalador principal está configurado como el instalador de montaje root. Esta aplicación guardada no se instaló con montaje</string>
+    <string name="mount_version_mismatch_message">La versión de la aplicación original (%2$s) no coincide con la versión de la aplicación parcheada (%1$s). Monta la versión original que coincida, luego vuelve a intentarlo</string>
     <string name="mount_stock_restore_failed_message">Android rechazó el APK original guardado. Instala la versión original correspondiente y luego intenta Montar nuevamente</string>
     <string name="installer_status_shizuku_unsupported">La versión de Shizuku instalada no es compatible.</string>
     <string name="installer_action_open_shizuku">Abrir Shizuku</string>
@@ -839,7 +837,7 @@ Las dimensiones de la imagen deben ser las siguientes:
     <string name="settings_auto_uninstall_with_shizuku_description">Cuando se instala automáticamente con Shizuku, desinstala primero la aplicación existente si Android informa de un conflicto de firma. Esto puede eliminar los datos de la aplicación</string>
     <string name="settings_auto_uninstall_warning_title">¿Activar desinstalación automática?</string>
     <string name="settings_auto_uninstall_warning_message">Si Android informa de un conflicto de firma durante la instalación automática de Shizuku, Morphe desinstalará la aplicación existente antes de instalar el APK parcheado</string>
-    <string name="settings_auto_uninstall_warning_risk">Esto puede eliminar los datos de la aplicación. Si el APK parcheado falla al instalarse después de desinstalarlo, es posible que la aplicación anterior ya haya desaparecido</string>
+    <string name="settings_auto_uninstall_warning_risk">Esto puede eliminar los datos de la aplicación. Si el APK parcheado falla al instalarse después de la desinstalación, es posible que la aplicación anterior ya no esté disponible</string>
     <string name="installer_shizuku_status_action">Verificar estado de Shizuku</string>
     <string name="installer_shizuku_status_title">Estado de Shizuku</string>
     <string name="installer_shizuku_status_ready">Listo</string>
@@ -866,10 +864,10 @@ Detalles: %2$s"</string>
     <string name="settings_system_battery_optimization">Optimización de batería</string>
     <string name="settings_system_battery_optimization_description">Mantiene el parcheador en funcionamiento cuando la aplicación está minimizada</string>
     <string name="settings_system_background">Segundo plano</string>
-    <string name="settings_system_process_runtime">Tiempo de ejecución del proceso</string>
+    <string name="settings_system_process_runtime">Ejecución del proceso</string>
     <string name="settings_system_process_runtime_description">Ejecuta el parcheo en un proceso separado para mejorar la estabilidad</string>
     <string name="settings_system_process_runtime_memory_limit_description">Los límites superiores aceleran el parcheo en los dispositivos compatibles</string>
-    <string name="settings_system_process_runtime_enable">Activar tiempo de ejecución del proceso</string>
+    <string name="settings_system_process_runtime_enable">Activar ejecución en un proceso independiente</string>
     <string name="settings_system_memory_limit_subtitle">Memoria disponible para parches</string>
     <string name="settings_system_memory_limit_warning">Un límite de memoria bajo puede causar errores al parchear aplicaciones más grandes</string>
     <string name="settings_system_process_runtime_enabled_description">Límite de %s MB</string>
@@ -931,6 +929,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">¿Eliminar los APK seleccionados?</string>
     <string name="settings_system_apks_delete_selected_confirm">Esto eliminará permanentemente los archivos APK seleccionados</string>
     <string name="settings_system_apks_deleted_all">APKs eliminados correctamente</string>
+    <string name="settings_system_apks_delete_failed">No se pudieron eliminar algunos archivos APK</string>
     <string name="settings_system_apks_export_zip_success">APKs seleccionados exportados</string>
     <string name="settings_system_apks_export_zip_failed">Error al exportar los APKs seleccionados</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -968,7 +967,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_patched_apks_delete_all_title">¿Eliminar todos los APKs parcheados?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <string name="settings_system_original_apks_title">APKs originales</string>
-    <string name="settings_system_original_apks_description">Guardado para volver a parchear. Se mantiene una versión por aplicación</string>
+    <string name="settings_system_original_apks_description">Guardado para volver a parchear. Se conserva una versión por aplicación</string>
     <string name="settings_system_original_apks_empty">No hay APKs originales almacenados</string>
     <string name="settings_system_original_apks_deleted">APK original eliminado correctamente</string>
     <string name="settings_system_original_apks_delete_title">¿Eliminar APK original?</string>
@@ -1027,7 +1026,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_about">Acerca de Morphe</string>
     <string name="settings_system_share_website">Compartir sitio web</string>
     <string name="settings_system_share_website_description">Comparte el sitio web oficial de Morphe</string>
-    <string name="settings_system_manager_description">Un proyecto de código abierto para la aplicación moderna y optimizada de parches en aplicaciones populares de Android, impulsado por los comentarios y las contribuciones de la comunidad</string>
+    <string name="settings_system_manager_description">Un proyecto de código abierto para parchear aplicaciones populares de Android de forma moderna y eficiente, impulsado por la comunidad con sus comentarios y contribuciones</string>
     <string name="credits">Créditos</string>
     <string name="credits_current_development">Desarrollo actual</string>
     <string name="credits_prior_development">Desarrollo anterior</string>

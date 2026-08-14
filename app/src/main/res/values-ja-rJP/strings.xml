@@ -192,7 +192,6 @@
     <string name="home_apk_use_installed">インストール済みのAPKを使用する</string>
     <string name="home_apk_use_installed_unverified">インストールされているアプリの署名を検証できなかったため、すでにパッチが適用されている可能性があります</string>
     <string name="home_unverified">未検証</string>
-    <string name="home_app_info_install_unverified">Morpheは、インストールされたアプリがパッチを適用したビルドであることを確認できません。保存されたAPKから再インストールして、そのアクションを復元してください。</string>
     <string name="home_app_info_no_saved_apk">保存済みの APK がありません。パッチを適用するには、 APK ファイルを再度選択してください</string>
     <string name="home_version_requires_android">Android %s 以降が必要です</string>
     <string name="home_apk_no_compatible_versions_title">このデバイスではサポートされていません</string>

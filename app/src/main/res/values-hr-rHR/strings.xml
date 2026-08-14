@@ -3,6 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Ostale aplikacije</string>
     <string name="home_not_patched_yet">Još nije patchano</string>
+    <string name="home_unpatched_version_installed">Instalirana nepatchana verzija</string>
     <string name="home_no_patches_available">Nema dostupnih patcheva</string>
     <string name="home_app_hide_title">Sakriti ovu aplikaciju?</string>
     <string name="home_app_hide_message">Ova će aplikacija biti skrivena na početnom zaslonu. Kasnije je možete vratiti iz skrivenih aplikacija pomoću tipke pri dnu popisa</string>

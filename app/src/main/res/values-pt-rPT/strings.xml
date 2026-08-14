@@ -4,6 +4,7 @@
     <string name="home_other_apps">Outras aplicações</string>
     <string name="home_not_patched_yet">Ainda não foi modificado</string>
     <string name="home_unpatched_version_installed">Versão não corrigida instalada</string>
+    <string name="home_unpatched_badge">Não modificado</string>
     <string name="home_no_patches_available">Não há modificações disponíveis</string>
     <string name="home_app_hide_title">Esconder esta aplicação?</string>
     <string name="home_app_hide_message">Esta aplicação irá ficar oculta do ecrã principal. Podes restaurá-la posteriormente a partir das aplicações ocultas utilizando o botão na parte inferior da lista.</string>
@@ -192,7 +193,6 @@
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do aplicativo instalado, portanto, ele pode já estar modificado</string>
     <string name="home_unverified">Não verificado</string>
-    <string name="home_app_info_install_unverified">Morphe não pode confirmar que o aplicativo instalado é a compilação que ele corrigiu. Reinstale-o a partir do APK salvo para restaurar suas ações.</string>
     <string name="home_app_info_no_saved_apk">Não existe um APK guardado. A modificação exigirá a seleção do ficheiro APK novamente</string>
     <string name="home_version_requires_android">Requer o Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Não suportado neste dispositivo</string>

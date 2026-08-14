@@ -192,7 +192,6 @@
     <string name="home_apk_use_installed">Sử dụng APK đã cài đặt</string>
     <string name="home_apk_use_installed_unverified">Không thể xác minh chữ ký của ứng dụng đã cài đặt, vì vậy ứng dụng có thể đã bị sửa đổi</string>
     <string name="home_unverified">Chưa xác minh</string>
-    <string name="home_app_info_install_unverified">Morphe không thể xác nhận rằng ứng dụng đã cài đặt là bản mà nó đã vá. Cài đặt lại từ APK đã lưu để khôi phục các hành động của nó</string>
     <string name="home_app_info_no_saved_apk">Chưa lưu APK nào. Bạn sẽ phải chọn lại APK khi vá</string>
     <string name="home_version_requires_android">Yêu cầu Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Không hỗ trợ trên thiết bị này</string>

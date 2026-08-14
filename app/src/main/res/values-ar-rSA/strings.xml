@@ -193,7 +193,6 @@
     <string name="home_apk_use_installed_unverified">تعذر التحقق من توقيع التطبيق المثبت، لذا قد يكون قد تم تعديله بالفعل</string>
     <string name="home_unverified">غير معتمد</string>
     <string name="home_install_verification_pending">جارٍ التحقق من التثبيت…</string>
-    <string name="home_app_info_install_unverified">لا يمكن لـ Morphe تأكيد أن التطبيق المثبت هو الإصدار الذي قام بتعديله. أعد تثبيته من APK المحفوظ لاستعادة إجراءاته</string>
     <string name="home_app_info_no_saved_apk">لا يوجد ملف APK محفوظ. ستتطلب عملية التعديل إعادة اختيار ملف APK</string>
     <string name="home_version_requires_android">يتطلب Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">غير مدعوم على هذا الجهاز</string>
@@ -936,6 +935,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_apks_delete_selected_title">حذف ملفات APK المحددة؟</string>
     <string name="settings_system_apks_delete_selected_confirm">سيؤدي هذا إلى حذف ملفات APK المحددة بشكل دائم</string>
     <string name="settings_system_apks_deleted_all">تم حذف ملفات APK بنجاح</string>
+    <string name="settings_system_apks_delete_failed">تعذر حذف بعض ملفات APK</string>
     <string name="settings_system_apks_export_zip_success">تم تصدير ملفات APK المحددة</string>
     <string name="settings_system_apks_export_zip_failed">فشل تصدير ملفات APK المحددة</string>
     <!-- Settings - System Tab - Storage Management screen -->

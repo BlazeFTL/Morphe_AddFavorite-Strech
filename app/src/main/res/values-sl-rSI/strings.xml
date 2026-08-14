@@ -192,7 +192,6 @@
     <string name="home_apk_use_installed">Uporabite nameščen APK</string>
     <string name="home_apk_use_installed_unverified">Ni je bilo mogoče preveriti podpis nameščenega programa, zato je morda že spremenjen.</string>
     <string name="home_unverified">Nepotrjeno</string>
-    <string name="home_app_info_install_unverified">Morphe ne more potrditi, da je nameščena aplikacija graditev, ki jo je zakrpala. Znova jo namestite iz shranjene datoteke APK, da obnovite njeno delovanje.</string>
     <string name="home_app_info_no_saved_apk">Ni shranjenega APK. Popravilo bo zahtevalo ponovno izbiro datoteke APK.</string>
     <string name="home_version_requires_android">Zahteva Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ni podprto na tej napravi</string>

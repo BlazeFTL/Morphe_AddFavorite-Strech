@@ -193,7 +193,6 @@
     <string name="home_apk_use_installed_unverified">Níorbh fhéidir síniú an aip suiteáilte a fhíorú, mar sin d\'fhéadfadh sé go bhfuil paiste air cheana féin</string>
     <string name="home_unverified">Gan fhíorú</string>
     <string name="home_install_verification_pending">Ag seiceáil an tsuiteáil…</string>
-    <string name="home_app_info_install_unverified">Ní féidir le Morphe a dhearbhú gurb é an aip atá suiteáilte an leagan a phaisteáladh. Athshuiteáil é ón APK sábháilte chun a ghníomhartha a athbhunú.</string>
     <string name="home_app_info_no_saved_apk">Níl aon APK sábháilte. Beidh ort an comhad APK a roghnú arís le haghaidh paisteála.</string>
     <string name="home_version_requires_android">Éilíonn Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ní thacaítear leis ar an ngléas seo</string>

@@ -192,7 +192,8 @@
     <string name="home_apk_use_installed">使用已安装的 APK</string>
     <string name="home_apk_use_installed_unverified">无法验证已安装应用的签名，因此该应用可能已被修补</string>
     <string name="home_unverified">未验证</string>
-    <string name="home_app_info_install_unverified">Morphe 无法确认已安装的应用是它修补的构建。请从保存的 APK 重新安装以恢复其操作。</string>
+    <string name="home_install_verification_pending">正在检查安装...
+</string>
     <string name="home_app_info_no_saved_apk">没有已保存的 APK 文件, 需要重新选择 APK 文件进行修补</string>
     <string name="home_version_requires_android">需要 Android %s+。</string>
     <string name="home_apk_no_compatible_versions_title">不支持此设备</string>
@@ -230,6 +231,7 @@
     <string name="home_select_apk_title">选择APK</string>
     <string name="home_select_any_apk_description">选择任何应用程序的 APK 文件，或选择已安装在此设备上的应用程序</string>
     <string name="home_use_installed_app">使用已安装的应用程序</string>
+    <string name="home_installed_app_picker_title">已安装的应用</string>
     <string name="home_installed_app_picker_empty">未找到应用</string>
     <string name="home_installed_app_picker_filter_all">所有应用</string>
     <string name="home_installed_app_picker_filter_user">仅用户应用</string>
@@ -928,6 +930,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">删除选中的 APK？</string>
     <string name="settings_system_apks_delete_selected_confirm">这将永久删除选中的 APK 文件</string>
     <string name="settings_system_apks_deleted_all">已成功删除 APK</string>
+    <string name="settings_system_apks_delete_failed">一些 APK 安装包无法被删除</string>
     <string name="settings_system_apks_export_zip_success">已导出的 APK</string>
     <string name="settings_system_apks_export_zip_failed">导出选定的 APK 失败</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1025,7 +1028,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_share_website">分享网站</string>
     <string name="settings_system_share_website_description">分享官方 Morphe 网站</string>
     <string name="settings_system_manager_description">一个开源项目，用于现代化的、流线型的流行 Android 应用补丁，由社区反馈和贡献驱动</string>
-    <string name="credits">积分</string>
+    <string name="credits">功劳</string>
     <string name="credits_current_development">当前开发</string>
     <string name="credits_prior_development">先前开发</string>
     <string name="opensource_licenses">开源许可证</string>

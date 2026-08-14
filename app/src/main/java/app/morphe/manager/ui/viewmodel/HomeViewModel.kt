@@ -1315,6 +1315,13 @@ class HomeViewModel(
     val bundleAppMetadataFlow: StateFlow<Map<String, BundleAppMetadata>> =
         patchBundleRepository.appMetadata
 
+    /**
+     * [bundleAppMetadataFlow] widened to every bundle, for the tracked records whose own source is
+     * no longer enabled and which have nothing else left describing them.
+     */
+    val allBundleAppMetadataFlow: StateFlow<Map<String, BundleAppMetadata>> =
+        patchBundleRepository.allAppMetadata
+
     private val _homeCategoryPrefsFlow = combine(
         homeAppButtonPrefs.categoryState,
         homeAppButtonPrefs.categoryViewMode,
@@ -1377,6 +1384,8 @@ class HomeViewModel(
 
         val enabledInfo = ready.info.filter { (_, info) -> info.enabled }
         val metadata = BundleAppMetadata.buildFrom(enabledInfo)
+        // Names only, for records whose bundle the user has since disabled
+        val allMetadata = BundleAppMetadata.buildFrom(ready.info)
         val packages = metadata.keys
         val sourceGroups = buildHomeAppSourceGroups(
             enabledInfo = enabledInfo,
@@ -1397,9 +1406,15 @@ class HomeViewModel(
                 packageName = packageName,
                 preferredSource = AppDataSource.PATCHED_APK
             )
+            // Down to the name the record kept from patch time, which is all that outlives both
+            // the artifacts and the bundle the app came from
             val displayName = resolvedData.displayName.takeIf {
                 resolvedData.source == AppDataSource.INSTALLED || resolvedData.source == AppDataSource.PATCHED_APK
-            } ?: bundleMeta?.displayName ?: KnownApps.getAppName(packageName)
+            }
+                ?: bundleMeta?.displayName
+                ?: allMetadata[packageName]?.displayName
+                ?: installedApp?.appLabel
+                ?: KnownApps.getAppName(packageName)
             val trackedEntry = installedApp?.let { tracked ->
                 trackedSnapshots[tracked.currentPackageName]?.takeIf { it.app == tracked }
             }

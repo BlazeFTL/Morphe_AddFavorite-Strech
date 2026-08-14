@@ -108,6 +108,16 @@ class PatchBundleRepository(
             .map { BundleAppMetadata.buildFrom(it) }
             .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
+    /**
+     * [appMetadata] widened to every bundle, disabled and blocked ones included.
+     * A patched app outlives the state of the source it came from, so what the bundle knows about
+     * it stays the last description of an app whose own artifacts are gone.
+     */
+    val allAppMetadata: StateFlow<Map<String, BundleAppMetadata>> =
+        allBundlesInfoFlow
+            .map { BundleAppMetadata.buildFrom(it) }
+            .stateIn(scope, SharingStarted.Eagerly, emptyMap())
+
     fun scopedBundleInfoFlow(packageName: String, version: String?, versionCode: Long? = null) = enabledBundlesInfoFlow.map {
         it.map { (_, bundleInfo) ->
             bundleInfo.forPackage(packageName, version, versionCode)

@@ -97,3 +97,10 @@ val MIGRATION_12_13 = object : Migration(12, 13) {
         )
     }
 }
+
+val MIGRATION_13_14 = object : Migration(13, 14) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        // Existing records fill their name in the next time they are written
+        db.execSQL("ALTER TABLE installed_app ADD COLUMN app_label TEXT")
+    }
+}

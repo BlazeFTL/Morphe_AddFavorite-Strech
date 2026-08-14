@@ -293,7 +293,11 @@ fun InstalledAppCard(
             packageName = installedApp.originalPackageName,
             contentDescription = null,
             modifier = Modifier.size(cardStyle.iconSize),
-            preferredSource = AppDataSource.INSTALLED
+            preferredSource = AppDataSource.INSTALLED,
+            // A record can outlive every artifact carrying its icon, and the glass placeholder is
+            // what the rest of the list shows in that case
+            placeholderGradientColors = cardStyle.cardColors(gradientColors),
+            placeholderInnerPadding = 6.dp
         )
 
         // App info

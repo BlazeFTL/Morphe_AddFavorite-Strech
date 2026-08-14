@@ -284,7 +284,10 @@ class AppDataResolver(
      * Returns null if bundles are not yet loaded or package isn't in any bundle.
      */
     private fun tryGetFromBundleMetadata(packageName: String): ResolvedAppData? {
+        // Disabled bundles are still consulted, because a name is worth more than the package of
+        // an app whose source the user has since turned off
         val displayName = patchBundleRepository.appMetadata.value[packageName]?.displayName
+            ?: patchBundleRepository.allAppMetadata.value[packageName]?.displayName
             ?: return null
         return ResolvedAppData(
             packageName = packageName,

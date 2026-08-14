@@ -157,8 +157,15 @@ fun InstalledAppInfoDialog(
     val bundlesUsedSummary by viewModel.bundlesUsedSummary.collectAsStateWithLifecycle()
     val availablePatches by viewModel.availablePatches.collectAsStateWithLifecycle()
 
-    val appLabel = remember(appInfo, packageName) {
-        appInfo?.applicationInfo?.loadLabel(context.packageManager)?.toString() ?: packageName
+    // Same order the home card resolves its name in, so a record reads the same in both places
+    val allBundleAppMetadata by homeViewModel.allBundleAppMetadataFlow.collectAsStateWithLifecycle()
+    val appLabel = remember(appInfo, installedApp, bundleAppMetadata, allBundleAppMetadata, packageName) {
+        val original = installedApp?.originalPackageName ?: packageName
+        appInfo?.applicationInfo?.loadLabel(context.packageManager)?.toString()
+            ?: bundleAppMetadata[original]?.displayName
+            ?: allBundleAppMetadata[original]?.displayName
+            ?: installedApp?.appLabel
+            ?: KnownApps.getAppName(packageName)
     }
 
     // Export strings
@@ -338,6 +345,7 @@ fun InstalledAppInfoDialog(
         appInfo = viewModel.appInfo,
         packageName = packageName,
         appLabel = appLabel,
+        accentColor = infoAccentColor,
         hasSavedApk = viewModel.hasSavedCopy,
         hasOriginalApk = viewModel.hasOriginalApk,
         onConfirm = {
@@ -465,6 +473,7 @@ fun InstalledAppInfoDialog(
                             AppHeroHeader(
                                 appInfo = appInfo,
                                 packageName = packageName,
+                                appLabel = appLabel,
                                 installedApp = installedApp,
                                 accentColor = infoAccentColor,
                                 compact = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded,
@@ -572,6 +581,7 @@ fun InstalledAppInfoDialog(
                             AppHeroHeader(
                                 appInfo = appInfo,
                                 packageName = packageName,
+                                appLabel = appLabel,
                                 installedApp = installedApp,
                                 accentColor = infoAccentColor,
                                 modifier = Modifier.clip(RoundedCornerShape(bottomStart = Defaults.CardCornerRadius, bottomEnd = Defaults.CardCornerRadius))
@@ -843,6 +853,7 @@ private fun WarningBanner(
 private fun AppHeroHeader(
     appInfo: PackageInfo?,
     packageName: String,
+    appLabel: String,
     installedApp: InstalledApp,
     accentColor: Color,
     modifier: Modifier = Modifier,
@@ -924,6 +935,11 @@ private fun AppHeroHeader(
                     packageInfo = appInfo,
                     packageName = packageName,
                     contentDescription = null,
+                    // A record whose artifacts are gone carries no icon either, and the glass
+                    // placeholder tinted to the app's accent is what the home card shows for it.
+                    // The inset keeps its own rounding clear of the clip the real icons need.
+                    placeholderGradientColors = listOf(accentColor),
+                    placeholderInnerPadding = 6.dp,
                     modifier = Modifier
                         .size(iconSize)
                         .clip(RoundedCornerShape(iconCorner))
@@ -952,7 +968,7 @@ private fun AppHeroHeader(
                                 fontSize = 22.sp,
                                 color = onHero
                             ),
-                            defaultText = packageName
+                            defaultText = appLabel
                         )
                     }
                     // Animated version (slightly behind name via sub-range)
@@ -1665,6 +1681,7 @@ private fun DeleteConfirmDialog(
     appInfo: PackageInfo?,
     packageName: String,
     appLabel: String,
+    accentColor: Color,
     hasSavedApk: Boolean,
     hasOriginalApk: Boolean,
     onConfirm: () -> Unit,
@@ -1694,6 +1711,8 @@ private fun DeleteConfirmDialog(
                 packageInfo = appInfo,
                 packageName = packageName,
                 contentDescription = null,
+                placeholderGradientColors = listOf(accentColor),
+                placeholderInnerPadding = 6.dp,
                 modifier = Modifier.size(64.dp)
             )
             Text(

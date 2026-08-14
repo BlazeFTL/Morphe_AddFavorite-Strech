@@ -1,5 +1,6 @@
 package app.morphe.manager.domain.repository
 
+import android.content.pm.PackageInfo
 import android.util.Log
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.AppDatabase
@@ -30,6 +31,16 @@ internal fun retainedPatchedApkOwners(
 } else {
     listOf(currentPackageName, originalPackageName)
 }
+
+/**
+ * The name a record keeps: the label just read from an artifact, unless it says nothing the
+ * package name does not already say, in which case an earlier write's answer still stands.
+ */
+internal fun rememberedAppLabel(
+    readLabel: String?,
+    packageName: String,
+    previousLabel: String?
+): String? = readLabel?.takeUnless { it.isBlank() || it == packageName } ?: previousLabel
 
 /**
  * Whether the record still describes something once its retained copies are gone.
@@ -141,11 +152,38 @@ class InstalledAppRepository(
                 version = version,
                 installType = installType,
                 selectionPayload = selectionPayload,
-                patchedAt = patchedAt
+                patchedAt = patchedAt,
+                appLabel = resolveAppLabel(currentPackageName, version)
             ),
             appliedPatches
         )
     }
+
+    /**
+     * Reads the app's own name while the artifacts carrying it are still around: the install that
+     * was just made, otherwise the patched APK kept beside the record.
+     *
+     * A record whose name was already resolved keeps it, since the sources are read in the order
+     * they disappear and the last known name beats falling back to the package.
+     */
+    private suspend fun resolveAppLabel(currentPackageName: String, version: String): String? =
+        withContext(Dispatchers.IO) {
+            val labeled = readLabel { pm.getPackageInfo(currentPackageName) }
+                ?: readLabel {
+                    val file = filesystem.getPatchedAppFile(currentPackageName, version)
+                    pm.readSavedApkInfo(file, version, currentPackageName)
+                }
+
+            rememberedAppLabel(
+                readLabel = labeled,
+                packageName = currentPackageName,
+                previousLabel = dao.get(currentPackageName)?.appLabel
+            )
+        }
+
+    /** Loading a label reaches into an archive that may have no application entry to read. */
+    private fun readLabel(packageInfo: () -> PackageInfo?): String? =
+        runCatching { packageInfo()?.let { with(pm) { it.label() } } }.getOrNull()
 
     /**
      * A package rename does not replace the previous install, it installs alongside it, so the

@@ -46,7 +46,12 @@ data class InstalledApp(
     @ColumnInfo(name = "version") val version: String,
     @ColumnInfo(name = "install_type") val installType: InstallType,
     @ColumnInfo(name = "selection_payload") val selectionPayload: SelectionPayload? = null,
-    @ColumnInfo(name = "patched_at") val patchedAt: Long? = null
+    @ColumnInfo(name = "patched_at") val patchedAt: Long? = null,
+    /**
+     * The app's own name as it read at patch time. Records outlive the APKs and the bundle that
+     * could describe them, and nothing else is left to show in their place but the package name.
+     */
+    @ColumnInfo(name = "app_label") val appLabel: String? = null
 )
 
 /**

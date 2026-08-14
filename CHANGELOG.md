@@ -1,3 +1,12 @@
+# [1.26.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.8...v1.26.0-dev.9) (2026-08-14)
+
+
+### Bug Fixes
+
+* Identify patched installs by Morphe's own signing certificate ([4016976](https://github.com/MorpheApp/morphe-manager/commit/4016976bfdc16b7bb75e27f24a685d0bca9cf50e))
+* Keep a tracked app's name and icon after its artifacts are gone ([03f444b](https://github.com/MorpheApp/morphe-manager/commit/03f444b10b381f74bdf977a946265709aff63a83))
+* Polish clear-cache dialog and unverified install text ([724e345](https://github.com/MorpheApp/morphe-manager/commit/724e345e153a89428270a6f5df8aea8b3b18dbc0))
+
 # [1.26.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.7...v1.26.0-dev.8) (2026-08-13)
 
 

@@ -1,3 +1,11 @@
+# [1.26.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.10...v1.26.0-dev.11) (2026-08-15)
+
+
+### Bug Fixes
+
+* Installs renamed by patches are tracked as clones ([c4b50b2](https://github.com/MorpheApp/morphe-manager/commit/c4b50b2a095b4000ce52fa87ae3f8cda9388f6c8))
+* Root modules cannot be enabled in KernelSU ([0263f9e](https://github.com/MorpheApp/morphe-manager/commit/0263f9e3b100b985caff129a9c35cd4a983c0679))
+
 # [1.26.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.9...v1.26.0-dev.10) (2026-08-15)
 
 

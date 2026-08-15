@@ -29,7 +29,8 @@ data class HomeAppItem(
     val isInstallStatePending: Boolean,
     val savedApkFile: File?,
     val hasUpdate: Boolean,
-    val patchCount: Int
+    val patchCount: Int,
+    val isClone: Boolean
 ) {
     val hasSavedCopy: Boolean get() = savedApkFile != null
 
@@ -42,32 +43,41 @@ data class HomeAppItem(
             !isInstallStateNotPatched &&
             !isInstallStateUnknown &&
             !isInstallStatePending
-
-    /** Whether this card is a clone rather than the app it was cloned from. */
-    val isClone: Boolean get() = id != packageName
 }
 
-/** What a home screen card is about, before anything is read off the device to describe it. */
+/**
+ * What a home screen card is about, before anything is read off the device to describe it.
+ *
+ * @param isClone Whether the card is about a copy of the app rather than about the app itself.
+ */
 data class HomeAppSlot(
     val id: String,
     val packageName: String,
-    val installedApp: InstalledApp?
+    val installedApp: InstalledApp?,
+    val isClone: Boolean
 )
 
 /**
- * The cards one app is shown as: the app itself, followed by every install cloning gave a package
- * name of its own, ordered by that name so the list does not move around between reads.
+ * The cards one app is shown as: the app itself, followed by every further install of it, ordered
+ * by package name so the list does not move around between reads.
  *
- * The app keeps a card of its own even once every install of it is a clone, because that card is
- * the only place another copy can be made from.
+ * A rename is not what earns an install a card of its own. Patches rename an app for reasons of
+ * their own, and such a build is still the install the app has, so it belongs on the app's card,
+ * which is where the user goes to rebuild it. The app keeps that card even once its only installs
+ * are copies, because it is the only place another copy can be made from.
  */
 fun homeAppSlots(packageName: String, records: List<InstalledApp>): List<HomeAppSlot> {
-    val (own, clones) = records.partition { it.currentPackageName == packageName }
+    // Two records can describe the app's own install, a mount and a renamed build side by side.
+    // The card goes to the one answering to the app's name, and the other keeps a card of its own
+    // rather than dropping out of reach of the actions that manage it
+    val own = records.firstOrNull { !it.isClone && it.currentPackageName == packageName }
+        ?: records.filterNot { it.isClone }.minByOrNull { it.currentPackageName }
+    val separate = records.filter { it.currentPackageName != own?.currentPackageName }
 
     return buildList {
-        add(HomeAppSlot(packageName, packageName, own.firstOrNull()))
-        clones.sortedBy { it.currentPackageName }.forEach { clone ->
-            add(HomeAppSlot(clone.currentPackageName, packageName, clone))
+        add(HomeAppSlot(packageName, packageName, own, isClone = false))
+        separate.sortedBy { it.currentPackageName }.forEach { record ->
+            add(HomeAppSlot(record.currentPackageName, packageName, record, record.isClone))
         }
     }
 }

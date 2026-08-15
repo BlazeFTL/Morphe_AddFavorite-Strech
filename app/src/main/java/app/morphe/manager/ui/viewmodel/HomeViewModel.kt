@@ -1480,7 +1480,8 @@ class HomeViewModel(
                 isInstallStatePending = isInstallStatePending,
                 savedApkFile = savedPatchedApk,
                 hasUpdate = hasUpdate,
-                patchCount = 0
+                patchCount = 0,
+                isClone = slot.isClone
             )
         }
 
@@ -1842,6 +1843,7 @@ class HomeViewModel(
         installedAppRepository.addOrUpdate(
             currentPackageName = packageName,
             originalPackageName = app.originalPackageName,
+            isClone = app.isClone,
             version = app.version,
             installType = installType,
             patchSelection = appliedPatches,
@@ -3320,9 +3322,7 @@ class HomeViewModel(
             selection = selection,
             options = options,
             declaresPackageName = { bundleUid, patchName ->
-                targetBundlePatchInfos(bundleUid)[patchName]
-                    ?.options
-                    ?.any { it.key == PACKAGE_NAME_OPTION_KEY } == true
+                targetBundlePatchInfos(bundleUid)[patchName]?.declaresPackageName == true
             }
         ) ?: return null
 

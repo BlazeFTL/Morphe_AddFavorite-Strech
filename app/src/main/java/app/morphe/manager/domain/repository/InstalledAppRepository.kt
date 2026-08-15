@@ -106,10 +106,14 @@ class InstalledAppRepository(
      * A run that renamed the package describes a second install rather than a replacement: the
      * rename leaves the previous copy on the device, so it keeps the record that tracks it and
      * goes on receiving updates of its own.
+     *
+     * @param isClone Whether the install is a copy the user asked for. Callers rewriting a record
+     *   that already exists pass what it says, since only the run that built it knows the answer.
      */
     suspend fun addOrUpdate(
         currentPackageName: String,
         originalPackageName: String,
+        isClone: Boolean,
         version: String,
         installType: InstallType,
         patchSelection: PatchSelection,
@@ -147,7 +151,8 @@ class InstalledAppRepository(
                 installType = installType,
                 selectionPayload = selectionPayload,
                 patchedAt = patchedAt,
-                appLabel = resolveAppLabel(currentPackageName, version)
+                appLabel = resolveAppLabel(currentPackageName, version),
+                isClone = isClone
             ),
             appliedPatches
         )

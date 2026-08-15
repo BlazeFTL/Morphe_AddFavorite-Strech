@@ -44,6 +44,7 @@ import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.data.room.apps.installed.SelectionPayload
 import app.morphe.manager.data.room.apps.installed.supportsMount
+import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.util.NativeLibStripper
 import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
@@ -365,7 +366,7 @@ fun InstalledAppInfoDialog(
     // appear between closing this dialog and opening the next one
     fun handlePatchClick() {
         val app = viewModel.installedApp ?: return
-        onTriggerPatchFlow(app.originalPackageName, app.currentPackageName)
+        onTriggerPatchFlow(app.originalPackageName, app.trackingKey)
     }
 
     // Main Dialog
@@ -500,7 +501,7 @@ fun InstalledAppInfoDialog(
                                             description = stringResource(R.string.home_app_info_app_deleted_description),
                                             buttonText = stringResource(R.string.patch),
                                             buttonIcon = Icons.Outlined.AutoFixHigh,
-                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName) },
+                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
                                             accentColor = infoAccentColor,
                                             isError = true
                                         )
@@ -518,7 +519,7 @@ fun InstalledAppInfoDialog(
                                             description = stringResource(R.string.home_app_info_not_patched_description),
                                             buttonText = stringResource(R.string.patch),
                                             buttonIcon = Icons.Outlined.AutoFixHigh,
-                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName) },
+                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
                                             accentColor = infoAccentColor
                                         )
                                     }
@@ -548,7 +549,7 @@ fun InstalledAppInfoDialog(
                                             description = stringResource(R.string.home_app_info_patch_update_available_description),
                                             buttonText = stringResource(R.string.patch),
                                             buttonIcon = Icons.Outlined.AutoFixHigh,
-                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName) },
+                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
                                             accentColor = infoAccentColor,
                                             isError = false
                                         )
@@ -613,7 +614,7 @@ fun InstalledAppInfoDialog(
                                                 buttonText = stringResource(R.string.patch),
                                                 buttonIcon = Icons.Outlined.AutoFixHigh,
                                                 onClick = {
-                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName)
+                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey)
                                                 },
                                                 accentColor = infoAccentColor,
                                                 isError = true,
@@ -637,7 +638,7 @@ fun InstalledAppInfoDialog(
                                                 buttonText = stringResource(R.string.patch),
                                                 buttonIcon = Icons.Outlined.AutoFixHigh,
                                                 onClick = {
-                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName)
+                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey)
                                                 },
                                                 accentColor = infoAccentColor,
                                                 modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
@@ -677,7 +678,7 @@ fun InstalledAppInfoDialog(
                                                 buttonText = stringResource(R.string.patch),
                                                 buttonIcon = Icons.Outlined.AutoFixHigh,
                                                 onClick = {
-                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName)
+                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey)
                                                 },
                                                 accentColor = infoAccentColor,
                                                 isError = false,

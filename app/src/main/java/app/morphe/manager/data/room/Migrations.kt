@@ -104,3 +104,30 @@ val MIGRATION_13_14 = object : Migration(13, 14) {
         db.execSQL("ALTER TABLE installed_app ADD COLUMN app_label TEXT")
     }
 }
+
+val MIGRATION_14_15 = object : Migration(14, 15) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        // Records predating the flag describe the install their app has, renamed by patches or
+        // not. Runs that produce a copy from here on say so themselves
+        db.execSQL("ALTER TABLE installed_app ADD COLUMN is_clone INTEGER NOT NULL DEFAULT 0")
+
+        // The patches a record was built with are the only trace left of why it was renamed, and
+        // the patch that copies an app is named here because no record kept anything else of it.
+        // Both stores are read: applied_patch drops patches whose source is gone, while the
+        // payload keeps every name but only exists on records written since it was introduced
+        db.execSQL(
+            """
+            UPDATE installed_app SET is_clone = 1
+            WHERE current_package_name != original_package_name
+                AND (
+                    selection_payload LIKE '%"Clone app"%'
+                    OR EXISTS (
+                        SELECT 1 FROM applied_patch
+                        WHERE applied_patch.package_name = installed_app.current_package_name
+                            AND applied_patch.patch_name = 'Clone app'
+                    )
+                )
+            """.trimIndent()
+        )
+    }
+}

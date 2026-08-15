@@ -524,10 +524,15 @@ class BatchPatchCoordinator(
 
         saveOriginalApk(item, selectedApp, version)
 
+        val isClone = item.producesCloneAs(currentPackageName)
+        // A configuration belongs to the card it was built from, which is the app itself unless
+        // the run produced a copy, whatever package name the patches settled on
+        val configurationKey = if (isClone) currentPackageName else item.configurationKey
+
         // What the user chose to patch with is recorded whether the APK is kept: the
         // two are separate settings, and the summary can still install from the workspace
         patchSelectionRepository.updateSelection(
-            currentPackageName,
+            configurationKey,
             item.selection,
             // Scoped to every source the plan considered, so a source the user ended up taking
             // nothing from has its stale selection cleared rather than left behind
@@ -537,7 +542,7 @@ class BatchPatchCoordinator(
         // added since, and would keep re-enabling every deselected default
         item.bundles.forEach { bundle ->
             patchSelectionRepository.saveSeenPatches(
-                packageName = currentPackageName,
+                packageName = configurationKey,
                 bundleUid = bundle.uid,
                 patchNames = bundle.patchNames
             )
@@ -545,7 +550,7 @@ class BatchPatchCoordinator(
         // Simple mode derives its options from the per-app preference screen rather than the
         // database, so only an expert-mode selection is worth writing back
         if (prefs.useExpertMode.get()) {
-            patchOptionsRepository.saveOptions(currentPackageName, item.options)
+            patchOptionsRepository.saveOptions(configurationKey, item.options)
         }
 
         if (!prefs.savePatchedApks.get()) {
@@ -568,6 +573,7 @@ class BatchPatchCoordinator(
         installedAppRepository.addOrUpdate(
             currentPackageName,
             item.packageName,
+            isClone,
             version,
             InstallType.SAVED,
             item.selection,

@@ -290,6 +290,7 @@ private fun PatchedApksContent(
                 repository.addOrUpdate(
                     currentPackageName = packageName,
                     originalPackageName = installedApp.originalPackageName,
+                    isClone = installedApp.isClone,
                     version = installedApp.version,
                     installType = installType,
                     patchSelection = appliedPatches,

@@ -35,7 +35,8 @@ class HomeAppFilterModeTest {
             isInstallStatePending = false,
             savedApkFile = null,
             hasUpdate = false,
-            patchCount = 0
+            patchCount = 0,
+            isClone = false
         )
 
         assertTrue(HomeAppFilterMode.PATCHED.matches(item))
@@ -66,7 +67,8 @@ class HomeAppFilterModeTest {
             isInstallStatePending = true,
             savedApkFile = null,
             hasUpdate = true,
-            patchCount = 0
+            patchCount = 0,
+            isClone = false
         )
 
         assertTrue(HomeAppFilterMode.INSTALLED.matches(item))

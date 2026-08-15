@@ -193,6 +193,7 @@ class AutoPatchWorker(
             installedAppRepository.addOrUpdate(
                 currentPackageName = targetPackage,
                 originalPackageName = item.packageName,
+                isClone = item.producesCloneAs(targetPackage),
                 version = version,
                 installType = if (asPlayStore) InstallType.SHIZUKU_PLAY_STORE else InstallType.SHIZUKU,
                 patchSelection = item.selection,

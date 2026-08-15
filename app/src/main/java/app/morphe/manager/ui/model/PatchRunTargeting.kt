@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.model
 
+import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
 
@@ -13,6 +14,28 @@ import app.morphe.manager.util.PatchSelection
  * which patch renames an app, but the name that patch was given is right there to be read.
  */
 const val PACKAGE_NAME_OPTION_KEY = "packageName"
+
+/** Whether this patch is one that builds the app under a package name of its own. */
+val PatchInfo.declaresPackageName: Boolean
+    get() = options?.any { it.key == PACKAGE_NAME_OPTION_KEY } == true
+
+/**
+ * Whether a run builds a copy of the app rather than the install the app itself has.
+ *
+ * A package name of its own is what a copy needs, not what makes it one: patches rename an app
+ * for reasons of their own, and such a build is still the app's only install. What separates the
+ * two is who asked for the rename, and a patch that renames only ends up in [selection] when the
+ * user selected it. A patch pulled in as a dependency renames just the same and is never in there.
+ */
+internal fun producesClone(
+    originalPackageName: String,
+    resultPackageName: String,
+    selection: PatchSelection,
+    declaresPackageName: (bundleUid: Int, patchName: String) -> Boolean
+): Boolean = resultPackageName != originalPackageName &&
+        selection.any { (bundleUid, patchNames) ->
+            patchNames.any { declaresPackageName(bundleUid, it) }
+        }
 
 /**
  * A run whose patches build the app under a package it was not aimed at, so it will install

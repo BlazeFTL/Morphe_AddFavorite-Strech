@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.supportsMount
+import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.PatchBundleRepository
@@ -178,7 +179,7 @@ fun HomeScreen(
         val targets = items.map { item ->
             BatchTarget(
                 packageName = item.packageName,
-                repatchedPackageName = item.installedApp?.currentPackageName
+                repatchedPackageName = item.installedApp?.trackingKey
             )
         }
         when {

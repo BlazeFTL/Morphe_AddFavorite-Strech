@@ -647,9 +647,22 @@ class PatcherViewModel(
 
         val selectionPayload = patchBundleRepository.snapshotSelection(sanitizedSelection)
 
+        val isClone = producesClone(
+            originalPackageName = packageName,
+            resultPackageName = finalPackageName,
+            selection = sanitizedSelection,
+            declaresPackageName = { bundleUid, patchName ->
+                scopedBundlesForSelection[bundleUid]
+                    ?.patches
+                    ?.firstOrNull { it.name == patchName }
+                    ?.declaresPackageName == true
+            }
+        )
+
         installedAppRepository.addOrUpdate(
             finalPackageName,
             packageName,
+            isClone,
             finalVersion,
             installType,
             sanitizedSelection,
@@ -657,7 +670,9 @@ class PatcherViewModel(
         )
 
         persistConfiguration(
-            finalPackageName = finalPackageName,
+            // A copy keeps a configuration of its own, while the app's install reads and writes
+            // the app's, whichever package name the patches ended up building it under
+            configurationPackageName = if (isClone) finalPackageName else packageName,
             selection = sanitizedSelection,
             options = sanitizedOptions,
             bundles = scopedBundlesForSelection
@@ -673,27 +688,27 @@ class PatcherViewModel(
      * Stores the patches and options this run was built with under the install it produced.
      *
      * A configuration describes an install, and every install of an app keeps its own. A run that
-     * came out under a different package name therefore leaves the one it started from untouched:
-     * what it writes is a copy, taken at the moment the copy came into being.
+     * produced a copy therefore leaves the one it started from untouched: what it writes is a
+     * copy, taken at the moment the copy came into being.
      */
     private suspend fun persistConfiguration(
-        finalPackageName: String,
+        configurationPackageName: String,
         selection: PatchSelection,
         options: Options,
         bundles: Map<Int, PatchBundleInfo.Scoped>
     ) {
         patchSelectionRepository.updateSelection(
-            finalPackageName,
+            configurationPackageName,
             selection,
             scope = bundles.keys
         )
-        patchOptionsRepository.saveOptions(finalPackageName, options)
+        patchOptionsRepository.saveOptions(configurationPackageName, options)
 
-        // Taken here as well as before patching, because a renamed install starts out with no
-        // snapshot of its own and would flag every patch it was just built with as new
+        // Taken here as well as before patching, because a copy starts out with no snapshot of
+        // its own and would flag every patch it was just built with as new
         bundles.forEach { (uid, bundle) ->
             patchSelectionRepository.saveSeenPatches(
-                packageName = finalPackageName,
+                packageName = configurationPackageName,
                 bundleUid = uid,
                 patchNames = bundle.patches.mapTo(mutableSetOf()) { it.name }
             )

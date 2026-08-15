@@ -7,10 +7,13 @@ package app.morphe.manager.ui.model
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 private const val CAKE = "me.mycake"
 private const val CLONE = "me.mycake.morphe"
+private const val RENAMED = "app.morphe.mycake"
 private const val BUNDLE = 7
 private const val CLONE_PATCH = "Clone app"
 private const val OTHER_PATCH = "Enable Plus"
@@ -120,5 +123,32 @@ class PendingRenameTest {
             PendingRename("me.mycake.morphe2"),
             rename(targetPackageName = CLONE, declaredName = "me.mycake.morphe2")
         )
+    }
+}
+
+class ProducesCloneTest {
+    private fun producedClone(
+        resultPackageName: String,
+        selectedPatches: Set<String> = setOf(CLONE_PATCH)
+    ) = producesClone(
+        originalPackageName = CAKE,
+        resultPackageName = resultPackageName,
+        selection = mapOf(BUNDLE to selectedPatches),
+        declaresPackageName = { _, patchName -> patchName == CLONE_PATCH }
+    )
+
+    @Test
+    fun `a selected renaming patch builds a copy`() {
+        assertTrue(producedClone(CLONE))
+    }
+
+    @Test
+    fun `a rename no selected patch asked for is the app's own install`() {
+        assertFalse(producedClone(RENAMED, selectedPatches = setOf(OTHER_PATCH)))
+    }
+
+    @Test
+    fun `a run that kept the app's name built no copy whatever it selected`() {
+        assertFalse(producedClone(CAKE))
     }
 }

@@ -8,6 +8,7 @@ package app.morphe.manager.domain.batch
 import android.content.pm.PackageInfo
 import android.util.Log
 import app.morphe.manager.data.platform.Filesystem
+import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.domain.bundles.AppVersionCatalog
 import app.morphe.manager.domain.bundles.AppVersionHints
 import app.morphe.manager.domain.manager.PatchOptionsPreferencesManager
@@ -23,6 +24,7 @@ import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
+import app.morphe.manager.ui.model.declaresPackageName
 import app.morphe.manager.util.AppDataResolver
 import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.Options
@@ -175,7 +177,7 @@ class BatchPlanResolver(
             .map { installed ->
                 BatchTarget(
                     packageName = installed.originalPackageName,
-                    repatchedPackageName = installed.currentPackageName
+                    repatchedPackageName = installed.trackingKey
                 )
             }
     }
@@ -289,7 +291,10 @@ class BatchPlanResolver(
         uid = uid,
         name = name,
         version = version,
-        patchNames = patches.mapTo(mutableSetOf()) { it.name }
+        patchNames = patches.mapTo(mutableSetOf()) { it.name },
+        renamingPatchNames = patches
+            .filter { it.declaresPackageName }
+            .mapTo(mutableSetOf()) { it.name }
     )
 
     /**

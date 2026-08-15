@@ -120,6 +120,7 @@ class InstalledAppInfoViewModel(
             installedAppRepository.addOrUpdate(
                 app.currentPackageName,
                 app.originalPackageName,
+                app.isClone,
                 app.version,
                 app.installType,
                 persistableSelection,
@@ -244,6 +245,7 @@ class InstalledAppInfoViewModel(
             installedAppRepository.addOrUpdate(
                 packageName,
                 app.originalPackageName,
+                app.isClone,
                 app.version,
                 newInstallType,
                 appliedPatches ?: emptyMap(),

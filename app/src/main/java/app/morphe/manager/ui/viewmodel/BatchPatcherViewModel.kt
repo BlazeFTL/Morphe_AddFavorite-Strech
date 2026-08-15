@@ -484,6 +484,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
         installedAppRepository.addOrUpdate(
             currentPackageName = installedPackageName,
             originalPackageName = item.packageName,
+            isClone = item.producesCloneAs(installedPackageName),
             version = version,
             installType = installType,
             patchSelection = item.selection,

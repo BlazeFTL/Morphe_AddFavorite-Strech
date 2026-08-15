@@ -51,7 +51,15 @@ data class InstalledApp(
      * The app's own name as it read at patch time. Records outlive the APKs and the bundle that
      * could describe them, and nothing else is left to show in their place but the package name.
      */
-    @ColumnInfo(name = "app_label") val appLabel: String? = null
+    @ColumnInfo(name = "app_label") val appLabel: String? = null,
+    /**
+     * Whether this install is a copy the user asked for rather than the app's own install.
+     *
+     * A package name of its own is what makes a copy installable, but it is not what makes it a
+     * copy: patches rename the app for reasons of their own, and those builds are still the one
+     * install the app has. Only the run knows which it produced, so it records the answer here.
+     */
+    @ColumnInfo(name = "is_clone") val isClone: Boolean = false
 )
 
 /**
@@ -60,3 +68,13 @@ data class InstalledApp(
  */
 val InstalledApp.supportsMount: Boolean
     get() = currentPackageName == originalPackageName
+
+/**
+ * How the manager refers to this install everywhere the package name is not enough: home cards,
+ * batch targets and the saved configuration a rebuild reads back.
+ *
+ * The app answers for its own install whatever name the patches built it under, so only a copy
+ * is referred to by a name of its own, which is the one thing it cannot share with the app.
+ */
+val InstalledApp.trackingKey: String
+    get() = if (isClone) currentPackageName else originalPackageName

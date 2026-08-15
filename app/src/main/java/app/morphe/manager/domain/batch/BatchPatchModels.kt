@@ -7,6 +7,7 @@ package app.morphe.manager.domain.batch
 
 import android.os.Parcelable
 import app.morphe.manager.ui.model.PatchRunProgress
+import app.morphe.manager.ui.model.producesClone
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
 import kotlinx.parcelize.Parcelize
@@ -107,12 +108,15 @@ enum class BatchInstallOutcome { INSTALLED, FAILED }
  * @param patchNames Every patch the source offered at plan time, written back as the seen
  *   snapshot after a successful run so the next plan can tell a genuinely new patch from one
  *   the user deselected.
+ * @param renamingPatchNames Those of [patchNames] that build the app under a package name of
+ *   their own, which is what a run needs to know to tell a copy of the app from the app itself.
  */
 data class BatchBundleRef(
     val uid: Int,
     val name: String,
     val version: String?,
-    val patchNames: Set<String>
+    val patchNames: Set<String>,
+    val renamingPatchNames: Set<String>
 )
 
 /**
@@ -158,6 +162,19 @@ data class BatchPatchItem(
 
     val patchCount get() = selection.values.sumOf { it.size }
     val version get() = source?.version
+
+    /**
+     * Whether patching this item under [resultPackageName] produced a copy of the app rather
+     * than the install the app itself has.
+     */
+    fun producesCloneAs(resultPackageName: String) = producesClone(
+        originalPackageName = packageName,
+        resultPackageName = resultPackageName,
+        selection = selection,
+        declaresPackageName = { bundleUid, patchName ->
+            bundles.any { it.uid == bundleUid && patchName in it.renamingPatchNames }
+        }
+    )
 }
 
 /** What the queue does with each APK once patching succeeds. */

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-15T17:40:20",
-  "description": "# [1.26.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.9...v1.26.0-dev.10) (2026-08-15)\n\n\n### Bug Fixes\n\n* `GMSCore patch` cannot be disabled during multi-bundle patching ([0e35191](https://github.com/MorpheApp/morphe-manager/commit/0e35191b7d0523c8ab7a22778e2803a9b214c7a8))\n\n\n### Features\n\n* Track every cloned install of an app as its own entry ([af9c779](https://github.com/MorpheApp/morphe-manager/commit/af9c779e924c103a85e2790bce8df8e0d0e19a12))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.10/morphe-manager-1.26.0-dev.10.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.10/morphe-manager-1.26.0-dev.10.apk.asc",
-  "version": "1.26.0-dev.10"
+  "created_at": "2026-08-15T20:49:51",
+  "description": "# [1.26.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.10...v1.26.0-dev.11) (2026-08-15)\n\n\n### Bug Fixes\n\n* Installs renamed by patches are tracked as clones ([c4b50b2](https://github.com/MorpheApp/morphe-manager/commit/c4b50b2a095b4000ce52fa87ae3f8cda9388f6c8))\n* Root modules cannot be enabled in KernelSU ([0263f9e](https://github.com/MorpheApp/morphe-manager/commit/0263f9e3b100b985caff129a9c35cd4a983c0679))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.11/morphe-manager-1.26.0-dev.11.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.26.0-dev.11/morphe-manager-1.26.0-dev.11.apk.asc",
+  "version": "1.26.0-dev.11"
 }

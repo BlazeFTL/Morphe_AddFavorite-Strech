@@ -290,11 +290,6 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="home_dialog_wrong_package_description">Valittu APK ei ole sovellukselle, jota aioit muokata</string>
     <string name="home_dialog_expected_package">Odotettu paketti:</string>
     <string name="home_dialog_selected_package">Valittu paketti:</string>
-    <string name="home_dialog_orphaned_install_title">Aiempi kopio jäi jäljelle</string>
-    <string name="home_dialog_orphaned_install_description">Paketin nimen muuttaminen muutti myös kopiotasi, joten aiemmin korjaamasi kopio on edelleen asennettuna erillisenä sovelluksena</string>
-    <string name="home_dialog_orphaned_install_warning">Sitä ei enää seurata, eikä se saa päivityksiä</string>
-    <string name="home_dialog_orphaned_install_uninstall">Poista se</string>
-    <string name="home_dialog_orphaned_install_keep">Pidä</string>
     <string name="home_outdated_patches_dialog_title">Lisäosat voivat olla vanhentuneita</string>
     <string name="home_outdated_patches_dialog_message">Mobiilidata on käytössä ja lisäosien päivitykset on poistettu käytöstä</string>
     <string name="home_outdated_patches_dialog_warning">Muokkaaminen vanhentuneilla lisäosilla voi rikkoa sovelluksen</string>

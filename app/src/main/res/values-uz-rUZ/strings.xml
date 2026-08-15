@@ -286,11 +286,6 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="home_dialog_wrong_package_description">E\'lon qiling</string>
     <string name="home_dialog_expected_package">Kutilgan paket:</string>
     <string name="home_dialog_selected_package">Tanlangan paket:</string>
-    <string name="home_dialog_orphaned_install_title">Old nusxa qoldirilgan</string>
-    <string name="home_dialog_orphaned_install_description">Qo\'llanilgan yangilash paket nomi o\'zgartirilgan, shuning uchun avval qo\'llagan nusxangiz alohida ilova sifatida o\'rnatilgan</string>
-    <string name="home_dialog_orphaned_install_warning">U endi kuzatilmaydi va yangilash paketlariga ega bo\'lmaydi</string>
-    <string name="home_dialog_orphaned_install_uninstall">Uni o\'chirib tashlang</string>
-    <string name="home_dialog_orphaned_install_keep">Saqlab qolish</string>
     <string name="home_outdated_patches_dialog_title">Patchlar eskirgan bo\'lishi mumkin</string>
     <string name="home_outdated_patches_dialog_message">Ilovani ochishdan oldin o\'rnating</string>
     <string name="home_outdated_patches_dialog_warning">O\'rnatuvchini tanlang</string>

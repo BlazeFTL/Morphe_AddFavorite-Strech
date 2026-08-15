@@ -287,11 +287,6 @@
     <string name="home_dialog_wrong_package_description">तुम्ही निवडलेला APK तुम्ही पॅच करू इच्छित असलेल्या ॲप्लिकेशनसाठी नाही</string>
     <string name="home_dialog_expected_package">अपेक्षित पॅकेज:</string>
     <string name="home_dialog_selected_package">निवडलेले पॅकेज:</string>
-    <string name="home_dialog_orphaned_install_title">मागील प्रत मागे राहिली</string>
-    <string name="home_dialog_orphaned_install_description">पॅचिंगमुळे पॅकेजचे नाव बदलले, त्यामुळे तुम्ही पूर्वी पॅच केलेली प्रत अजूनही स्वतंत्र ॲप म्हणून स्थापित आहे</string>
-    <string name="home_dialog_orphaned_install_warning">हे आता ट्रॅक केले जाणार नाही आणि पॅच अपडेट्स मिळणार नाहीत</string>
-    <string name="home_dialog_orphaned_install_uninstall">अनइंस्टॉल करा</string>
-    <string name="home_dialog_orphaned_install_keep">ठेवा</string>
     <string name="home_outdated_patches_dialog_title">पॅच कालबाह्य होऊ शकतात</string>
     <string name="home_outdated_patches_dialog_message">मोबाइल डेटा सक्रिय आहे आणि पॅच अपडेट्स बंद आहेत</string>
     <string name="home_outdated_patches_dialog_warning">कालबाह्य पॅचसह पॅचिंग केल्याने ॲप खंडित होऊ शकते</string>

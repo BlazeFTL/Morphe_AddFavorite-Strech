@@ -289,11 +289,6 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="home_dialog_wrong_package_description">Den valgte APK matcher ikke den app, du tilsigtede at patche</string>
     <string name="home_dialog_expected_package">Forventet pakke:</string>
     <string name="home_dialog_selected_package">Valgt pakke:</string>
-    <string name="home_dialog_orphaned_install_title">Tidligere kopi efterladt</string>
-    <string name="home_dialog_orphaned_install_description">Patchen ændrede pakkenavnet, så den kopi, du patched tidligere, er stadig installeret som en separat app</string>
-    <string name="home_dialog_orphaned_install_warning">Den spores ikke længere og vil ikke modtage patch-opdateringer</string>
-    <string name="home_dialog_orphaned_install_uninstall">Afinstaller den</string>
-    <string name="home_dialog_orphaned_install_keep">Behold</string>
     <string name="home_outdated_patches_dialog_title">Patches kan være forældede</string>
     <string name="home_outdated_patches_dialog_message">Mobildata er aktiv og patchopdateringer er deaktiveret</string>
     <string name="home_outdated_patches_dialog_warning">At patche med forældede patches kan resultere i en defekt app</string>

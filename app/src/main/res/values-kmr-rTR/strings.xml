@@ -287,11 +287,6 @@ Ji bo mezgînî, ev sepan pêşniyar dike ku paketek &lt;b&gt;full APK&lt;/b&gt;
     <string name="home_dialog_wrong_package_description">APK ya hilbijartin ji bo sepanek lê çêkirin dirêj nadê</string>
     <string name="home_dialog_expected_package">Pakê dîtbar:</string>
     <string name="home_dialog_selected_package">Pakê hilbijartin:</string>
-    <string name="home_dialog_orphaned_install_title">Nusxeya berê ma nû ve şopîne</string>
-    <string name="home_dialog_orphaned_install_description">Pêşdehatina paketê navê guherand, ji ber vê jî nusxeya ku hûn berê şopand hewşa wek serîlêdana veqetî install e</string>
-    <string name="home_dialog_orphaned_install_warning">Ew neyê şopandin û dê pêşdehatinên paşê werne wergirtin</string>
-    <string name="home_dialog_orphaned_install_uninstall">Dev ji wê bikin</string>
-    <string name="home_dialog_orphaned_install_keep">Parastînin</string>
     <string name="home_outdated_patches_dialog_title">Dirûtinan dibin kevn</string>
     <string name="home_outdated_patches_dialog_message">Dane mobîl aktîv e û nûvekirina dirûtinan qut kirin</string>
     <string name="home_outdated_patches_dialog_warning">Dirûtîna bi dirûtinên kevn dibe sedî sepanê tê birçîbûn</string>
@@ -410,6 +405,7 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="home_app_info_app_deleted_warning">App hate laşkirin</string>
     <string name="home_app_info_app_deleted_description">Epp li derve ji Morphe hate laşkirin. Serpêş pêlavînê da serê ku serê bi sist ki.</string>
     <string name="home_app_info_not_patched_description">Versiyoneka ne-patchkirî ya vê aplikasyonê hatîn sazkirin. Morphe hîna tomarê patchê yê berê yê xweye</string>
+    <string name="home_dialog_rename_title">Ev dê kopekê instalação bike</string>
     <string name="home_app_info_apk_size">Mezinahiya APK\'yê</string>
     <string name="home_app_info_cpu_arch">mîmarîya CPU</string>
     <!-- Home Screen - Root Mode -->

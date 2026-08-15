@@ -289,11 +289,6 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="home_dialog_wrong_package_description">Die gekose APK is nie vir die aansoek wat jy wou patch nie</string>
     <string name="home_dialog_expected_package">Verwagte pakket:</string>
     <string name="home_dialog_selected_package">Gekose pakket:</string>
-    <string name="home_dialog_orphaned_install_title">Vorige kopie agtergelaat</string>
-    <string name="home_dialog_orphaned_install_description">Patcher het die pakketnaam verander, dus die kopie wat u vroeër gepatch het, is steeds as \'n aparte app geïnstalleer</string>
-    <string name="home_dialog_orphaned_install_warning">Dit word nie meer dopgehou nie en sal nie patch-opdaterings ontvang nie</string>
-    <string name="home_dialog_orphaned_install_uninstall">Deïnstalleer dit</string>
-    <string name="home_dialog_orphaned_install_keep">Hou dit</string>
     <string name="home_outdated_patches_dialog_title">Plesters kan verouder wees</string>
     <string name="home_outdated_patches_dialog_message">Mobiele data is aktief en pleisteropdaterings is gedeaktiveer</string>
     <string name="home_outdated_patches_dialog_warning">Pleister met verouderde pleisters kan \'n gebroke app tot gevolg hê</string>

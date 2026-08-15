@@ -288,11 +288,6 @@ Para obteres os melhores resultados, este ficheiro recomenda a modificação de 
     <string name="home_dialog_wrong_package_description">O APK selecionado não serve para a aplicação que pretendes modificar</string>
     <string name="home_dialog_expected_package">Pacote esperado:</string>
     <string name="home_dialog_selected_package">Pacote selecionado:</string>
-    <string name="home_dialog_orphaned_install_title">Cópia anterior deixada para trás</string>
-    <string name="home_dialog_orphaned_install_description">A aplicação de patch alterou o nome do pacote, então a cópia que você aplicou patch anteriormente ainda está instalada como um aplicativo separado</string>
-    <string name="home_dialog_orphaned_install_warning">Não está mais sendo rastreada e não receberá atualizações de patch</string>
-    <string name="home_dialog_orphaned_install_uninstall">Desinstale-a</string>
-    <string name="home_dialog_orphaned_install_keep">Mantenha</string>
     <string name="home_outdated_patches_dialog_title">As modificações podem estar desatualizadas</string>
     <string name="home_outdated_patches_dialog_message">Os dados móveis estão ativados e as atualizações de modificações estão desativadas</string>
     <string name="home_outdated_patches_dialog_warning">Modificar utilizando modificações desatualizadas pode resultar numa aplicação não funcional</string>
@@ -411,6 +406,7 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="home_app_info_app_deleted_warning">A aplicação foi desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicação foi desinstalada fora do Morphe. Modifica-a de novo para restaurar as funcionalidades</string>
     <string name="home_app_info_not_patched_description">Uma versão não corrigida deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
+    <string name="home_dialog_rename_title">Isso instalará uma cópia</string>
     <string name="home_app_info_apk_size">Tamanho do APK</string>
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->

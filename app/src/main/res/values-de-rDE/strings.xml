@@ -291,11 +291,6 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_dialog_wrong_package_description">Die ausgewählte APK ist nicht für die App bestimmt, die du patchen wolltest</string>
     <string name="home_dialog_expected_package">Erwartetes Paket:</string>
     <string name="home_dialog_selected_package">Ausgewähltes Paket:</string>
-    <string name="home_dialog_orphaned_install_title">Vorherige Kopie wurde zurückgelassen</string>
-    <string name="home_dialog_orphaned_install_description">Das Patchen hat den Paketnamen geändert, sodass die zuvor gepatchte Kopie weiterhin als separate App installiert ist</string>
-    <string name="home_dialog_orphaned_install_warning">Sie wird nicht mehr nachverfolgt und empfängt keine Patch-Updates mehr</string>
-    <string name="home_dialog_orphaned_install_uninstall">Deinstallation erforderlich</string>
-    <string name="home_dialog_orphaned_install_keep">Behalten</string>
     <string name="home_outdated_patches_dialog_title">Patches könnten veraltet sein</string>
     <string name="home_outdated_patches_dialog_message">Mobile Daten sind aktiv und Patch-Updates sind deaktiviert</string>
     <string name="home_outdated_patches_dialog_warning">Das Patchen mit veralteten Patches kann zu einer defekten App führen</string>
@@ -414,6 +409,10 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_app_info_app_deleted_warning">App wurde deinstalliert</string>
     <string name="home_app_info_app_deleted_description">Diese App wurde außerhalb von Morphe deinstalliert. Repatchen Sie sie, um die Funktionalität wiederherzustellen</string>
     <string name="home_app_info_not_patched_description">Eine ungepatchte Version dieser App ist installiert. Morphe hat immer noch seinen vorherigen Patch-Datensatz</string>
+    <string name="home_dialog_rename_title">Dies wird eine Kopie installieren</string>
+    <string name="home_dialog_rename_description">Die ausgewählten Patches bauen diese App unter einem eigenen Paketnamen, sodass das Ergebnis neben &lt;b&gt;%s&lt;/b&gt; installiert wird, anstatt sie zu aktualisieren</string>
+    <string name="home_dialog_rename_result_package">Wird installiert als</string>
+    <string name="home_dialog_rename_replaces">Eine Kopie verwendet bereits diesen Namen und wird neu erstellt</string>
     <string name="home_app_info_apk_size">APK-Größe</string>
     <string name="home_app_info_cpu_arch">CPU-Architektur</string>
     <!-- Home Screen - Root Mode -->
@@ -1110,6 +1109,7 @@ Details: %2$s"</string>
     <string name="available">Verfügbar</string>
     <string name="continue_">Weiter</string>
     <string name="version">Version</string>
+    <string name="clone">Klonen</string>
     <string name="patch">Patchen</string>
     <string name="patching">Patchen</string>
     <string name="patched">Gepatcht am</string>

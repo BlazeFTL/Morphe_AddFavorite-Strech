@@ -287,11 +287,6 @@
     <string name="home_dialog_wrong_package_description">ไฟล์ APK ที่เลือกไว้ ไม่ใช่แอปพลิเคชันที่คุณต้องการแพตซ์</string>
     <string name="home_dialog_expected_package">แพ็กเกจที่คาดหวัง:</string>
     <string name="home_dialog_selected_package">แพตซ์ที่เลือก:</string>
-    <string name="home_dialog_orphaned_install_title">สำเนาเก่าที่ถูกทิ้งไว้</string>
-    <string name="home_dialog_orphaned_install_description">การแพตช์เปลี่ยนชื่อแพ็กเกจ ดังนั้นสำเนาที่คุณแพตช์ก่อนหน้านี้ยังคงติดตั้งเป็นแอปแยกต่างหาก</string>
-    <string name="home_dialog_orphaned_install_warning">จะไม่ได้รับการติดตามและจะไม่ได้รับการอัปเดตแพตช์</string>
-    <string name="home_dialog_orphaned_install_uninstall">ถอนการติดตั้ง</string>
-    <string name="home_dialog_orphaned_install_keep">เก็บไว้</string>
     <string name="home_outdated_patches_dialog_title">อาจมีปรับปรุงที่เลิกใช้แล้ว</string>
     <string name="home_outdated_patches_dialog_message">ข้อมูลเคลื่อนที่มีการใช้งานและปรับปรุงถูกหยุด</string>
     <string name="home_outdated_patches_dialog_warning">อาจมีปัญหาในแอปพลิเคชันถ้าใช้ปรับปรุงที่เลิกใช้แล้ว</string>

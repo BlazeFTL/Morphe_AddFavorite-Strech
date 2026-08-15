@@ -289,11 +289,6 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="home_dialog_wrong_package_description">​A kiválasztott APK nem a módosítani kívánt alkalmazáshoz tartozik</string>
     <string name="home_dialog_expected_package">Várt csomag:</string>
     <string name="home_dialog_selected_package">Kiválasztott csomag:</string>
-    <string name="home_dialog_orphaned_install_title">Korábbi másolat maradt hátra</string>
-    <string name="home_dialog_orphaned_install_description">A javítás megváltoztatta a csomag nevét, így a korábban javított másolat továbbra is külön alkalmazásként van telepítve.</string>
-    <string name="home_dialog_orphaned_install_warning">Nem követi nyomon rendszerünk, és nem fogja megkapni a javításokat.</string>
-    <string name="home_dialog_orphaned_install_uninstall">Eltávolítása</string>
-    <string name="home_dialog_orphaned_install_keep">Tartsa meg</string>
     <string name="home_outdated_patches_dialog_title">A módosítások elavultak lehetnek</string>
     <string name="home_outdated_patches_dialog_message">A mobiladat aktív és a módosítások frissítése le van tiltva</string>
     <string name="home_outdated_patches_dialog_warning">Az elavult módosítások használata hibás alkalmazást eredményezhet</string>
@@ -412,6 +407,7 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="home_app_info_app_deleted_warning">Az alkalmazást eltávolították</string>
     <string name="home_app_info_app_deleted_description">Ezt az alkalmazást a Morphén kívül távolították el. Alkalmazd újra a módosításokat a működés helyreállításához.</string>
     <string name="home_app_info_not_patched_description">Az alkalmazás nem javított verziója van telepítve. A Morphe még mindig tartalmazza a korábbi javítási rekordját.</string>
+    <string name="home_dialog_rename_title">Ez egy példányt telepít</string>
     <string name="home_app_info_apk_size">APK méret</string>
     <string name="home_app_info_cpu_arch">CPU architektúra</string>
     <!-- Home Screen - Root Mode -->

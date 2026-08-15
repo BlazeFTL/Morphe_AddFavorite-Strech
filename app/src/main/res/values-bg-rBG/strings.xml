@@ -233,6 +233,7 @@
     <string name="home_select_apk_title">Избор на APK</string>
     <string name="home_select_any_apk_description">Изберете APK файл на което и да е приложение или изберете приложение, вече инсталирано на това устройство</string>
     <string name="home_use_installed_app">Използвай инсталирано приложение</string>
+    <string name="home_installed_app_picker_title">Инсталирани приложения</string>
     <string name="home_installed_app_picker_empty">Не са намерени приложения</string>
     <string name="home_installed_app_picker_filter_all">Всички приложения</string>
     <string name="home_installed_app_picker_filter_user">Само потребителски приложения</string>
@@ -291,11 +292,6 @@
     <string name="home_dialog_wrong_package_description">Избраното APK не е за приложението, което искате да поправите</string>
     <string name="home_dialog_expected_package">Очакван пакет:</string>
     <string name="home_dialog_selected_package">Избран пакет:</string>
-    <string name="home_dialog_orphaned_install_title">Предишно копие остана</string>
-    <string name="home_dialog_orphaned_install_description">Промяната на пакета промени името, така че копието, което променихте по-рано, е все още инсталирано като отделно приложение</string>
-    <string name="home_dialog_orphaned_install_warning">То вече не се следи и няма да получава актуализации</string>
-    <string name="home_dialog_orphaned_install_uninstall">Премахнете го</string>
-    <string name="home_dialog_orphaned_install_keep">Запази</string>
     <string name="home_outdated_patches_dialog_title">Патчовете могат да бъдат остарели</string>
     <string name="home_outdated_patches_dialog_message">Мобилен интернет е активен и патчовете са изключени</string>
     <string name="home_outdated_patches_dialog_warning">Патчване с остарели патчове може да доведе до счупване на приложението</string>
@@ -931,6 +927,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">Изтриване на избраните APK файлове?</string>
     <string name="settings_system_apks_delete_selected_confirm">Това ще изтрие трайно избраните APK файлове</string>
     <string name="settings_system_apks_deleted_all">APK файловете са изтрити успешно</string>
+    <string name="settings_system_apks_delete_failed">Някои APK файлове не можаха да бъдат изтрити</string>
     <string name="settings_system_apks_export_zip_success">Експортирани избрани APK файлове</string>
     <string name="settings_system_apks_export_zip_failed">Неуспешно експортиране на избрани APK файлове</string>
     <!-- Settings - System Tab - Storage Management screen -->

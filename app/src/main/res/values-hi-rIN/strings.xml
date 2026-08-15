@@ -289,11 +289,6 @@
     <string name="home_dialog_wrong_package_description">चुनी गई APK, आपने पथच करने के लिए इरादत किया गया एप्लिकेशन के लिए नहीं है।</string>
     <string name="home_dialog_expected_package">अनुकूलित पैकेज:</string>
     <string name="home_dialog_selected_package">चयनित पैकेज:</string>
-    <string name="home_dialog_orphaned_install_title">पिछली कॉपी पीछे छूट गई</string>
-    <string name="home_dialog_orphaned_install_description">पैचिंग ने पैकेज का नाम बदल दिया है, इसलिए आपने जो कॉपी पहले पैच की थी, वह अभी भी एक अलग ऐप के रूप में स्थापित है</string>
-    <string name="home_dialog_orphaned_install_warning">अब इसे ट्रैक नहीं किया जा रहा है और इसे पैच अपडेट प्राप्त नहीं होंगे</string>
-    <string name="home_dialog_orphaned_install_uninstall">इसे अनइंस्टॉल करें</string>
-    <string name="home_dialog_orphaned_install_keep">इसे बनाए रखें</string>
     <string name="home_outdated_patches_dialog_title">पैच पुराने हो सकते हैं</string>
     <string name="home_outdated_patches_dialog_message">मोबाइल डेटा सक्रिय है और पैच अपडेट बंद हैं</string>
     <string name="home_outdated_patches_dialog_warning">पुराने पैच से पैच करना हो सकता है कि एप्लिकेशन को तोड़ सकता है</string>

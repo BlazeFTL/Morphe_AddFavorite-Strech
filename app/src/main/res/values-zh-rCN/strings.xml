@@ -290,11 +290,6 @@
     <string name="home_dialog_wrong_package_description">您选择的 APK 不是您打算修补的应用</string>
     <string name="home_dialog_expected_package">预期包：</string>
     <string name="home_dialog_selected_package">已选择包：</string>
-    <string name="home_dialog_orphaned_install_title">之前复制的副本留下了</string>
-    <string name="home_dialog_orphaned_install_description">修补更改了包名，因此您之前修补的副本仍然安装为单独的应用程序</string>
-    <string name="home_dialog_orphaned_install_warning">它不再被跟踪，也不会收到修补更新</string>
-    <string name="home_dialog_orphaned_install_uninstall">卸载它</string>
-    <string name="home_dialog_orphaned_install_keep">保留它</string>
     <string name="home_outdated_patches_dialog_title">补丁可能已过期</string>
     <string name="home_outdated_patches_dialog_message">移动数据已激活，已禁用补丁更新</string>
     <string name="home_outdated_patches_dialog_warning">使用过期补丁可能会导致应用程序无法使用</string>

@@ -4,6 +4,7 @@
     <string name="home_other_apps">Alte aplicații</string>
     <string name="home_not_patched_yet">Nepatch-uit încă</string>
     <string name="home_unpatched_version_installed">Versiune necorectată instalată</string>
+    <string name="home_unpatched_badge">Nepatch-uit</string>
     <string name="home_no_patches_available">Niciun patch disponibil</string>
     <string name="home_app_hide_title">Ascunzi aplicația?</string>
     <string name="home_app_hide_message">Aplicația va fi ascunsă de pe ecranul principal. O vei putea restaura mai târziu folosind butonul de la capătul listei.</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Nu s-a putut verifica semnătura aplicației instalate, deci este posibil să fie deja patch-uită</string>
     <string name="home_unverified">Neverificat</string>
     <string name="home_install_verification_pending">Verificare instalare…</string>
+    <string name="home_app_info_install_unverified">Morphe nu poate confirma că aplicația instalată este versiunea pe care a patch-uit-o. Patch-uiește din nou sau reinstaleaz-o din fișierul APK salvat pentru a-i restaura acțiunile</string>
     <string name="home_app_info_no_saved_apk">Niciun APK salvat. Patch-uirea necesită selectarea APK-ului din nou</string>
     <string name="home_version_requires_android">Necesită Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nu este suportat pe acest dispozitiv</string>
@@ -230,6 +232,7 @@
     <string name="home_select_apk_title">Selectează APK</string>
     <string name="home_select_any_apk_description">Selectați un fișier APK al oricărei aplicații sau alege o aplicație deja instalată pe acest dispozitiv</string>
     <string name="home_use_installed_app">Utilizează aplicația instalată</string>
+    <string name="home_installed_app_picker_title">Aplicații instalate</string>
     <string name="home_installed_app_picker_empty">Nu au fost găsite aplicații</string>
     <string name="home_installed_app_picker_filter_all">Toate aplicațiile</string>
     <string name="home_installed_app_picker_filter_user">Doar aplicații de utilizator</string>
@@ -288,11 +291,6 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="home_dialog_wrong_package_description">APK-ul selectat nu este pentru aplicația pe care dorești să o patch-uiești</string>
     <string name="home_dialog_expected_package">Pachet așteptat:</string>
     <string name="home_dialog_selected_package">Pachet selectat:</string>
-    <string name="home_dialog_orphaned_install_title">Copie anterioară abandonată</string>
-    <string name="home_dialog_orphaned_install_description">Aplicarea patch-urilor a schimbat numele pachetului, astfel încât copia pe care ai patch-uit-o mai devreme este încă instalată ca o aplicație separată</string>
-    <string name="home_dialog_orphaned_install_warning">Nu mai este urmărită și nu va primi actualizări de patch-uri</string>
-    <string name="home_dialog_orphaned_install_uninstall">Dezinstalează-o</string>
-    <string name="home_dialog_orphaned_install_keep">Pãstreazã</string>
     <string name="home_outdated_patches_dialog_title">Patches pot fi depășite</string>
     <string name="home_outdated_patches_dialog_message">Datele mobile sunt active și actualizările patch-urilor sunt dezactivate</string>
     <string name="home_outdated_patches_dialog_warning">Folosirea patch-urilor învechite poate duce la o aplicație defectuoasă</string>
@@ -411,6 +409,7 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_app_deleted_warning">Aplicația a fost dezinstalată</string>
     <string name="home_app_info_app_deleted_description">Această aplicație a fost dezinstalată în afara Morphe. Aplica-o din nou pentru a restabili funcționalitatea</string>
     <string name="home_app_info_not_patched_description">O versiune necorectată a acestei aplicații este instalată. Morphe încă are înregistrarea anterioară a corecțiilor sale.</string>
+    <string name="home_dialog_rename_title">Acest lucru va instala o copie</string>
     <string name="home_app_info_apk_size">Dimensiunea APK</string>
     <string name="home_app_info_cpu_arch">Arhitectura procesorului</string>
     <!-- Home Screen - Root Mode -->
@@ -927,6 +926,7 @@ Detalii: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Ștergi APK-urile selectate?</string>
     <string name="settings_system_apks_delete_selected_confirm">Aceasta va șterge definitiv fișierele APK selectate</string>
     <string name="settings_system_apks_deleted_all">APK-urile au fost șterse cu succes</string>
+    <string name="settings_system_apks_delete_failed">Unele fișiere APK nu au putut fi șterse</string>
     <string name="settings_system_apks_export_zip_success">APK-uri selectate exportate</string>
     <string name="settings_system_apks_export_zip_failed">Exportarea APK-urilor selectate a eșuat</string>
     <!-- Settings - System Tab - Storage Management screen -->

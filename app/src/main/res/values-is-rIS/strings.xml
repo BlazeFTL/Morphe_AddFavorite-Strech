@@ -4,6 +4,7 @@
     <string name="home_other_apps">Önnur app</string>
     <string name="home_not_patched_yet">Ekki breytt ennþá</string>
     <string name="home_unpatched_version_installed">Óplötuð útgáfa uppsett</string>
+    <string name="home_unpatched_badge">Ekki púttað</string>
     <string name="home_no_patches_available">Engar breytistillingar eru til staðar</string>
     <string name="home_app_hide_title">Fela þetta app?</string>
     <string name="home_app_hide_message">Þetta app verður falið frá heimaskjánum. Hægt er að endurheimta það síðar frá falinu forritum með því að nota hnappinn neðst á listanum</string>
@@ -288,11 +289,6 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_dialog_wrong_package_description">Valin pakkning er ekki fyrir það app sem þú ætlaðir að patta</string>
     <string name="home_dialog_expected_package">Vænt pakkning:</string>
     <string name="home_dialog_selected_package">Valinn pakkning:</string>
-    <string name="home_dialog_orphaned_install_title">Eldri afrit skilinn eftir</string>
-    <string name="home_dialog_orphaned_install_description">Breytin á pakkanafninu breytti þannig að afritið sem þú breyttir áður er ennþá uppsett sem sérstök app</string>
-    <string name="home_dialog_orphaned_install_warning">Það er ekki lengur fylgst með því og mun ekki fá flíkauppfærslur</string>
-    <string name="home_dialog_orphaned_install_uninstall">Afstilla það</string>
-    <string name="home_dialog_orphaned_install_keep">Halda því</string>
     <string name="home_outdated_patches_dialog_title">Nýjar pakkningar í boði</string>
     <string name="home_outdated_patches_dialog_message">Vinskilanir eru virkar og pakkning uppfærsla er skert</string>
     <string name="home_outdated_patches_dialog_warning">Pökkun með útgáfuna má skert áhrif á app</string>
@@ -410,6 +406,10 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_app_deleted_warning">App var afhent</string>
     <string name="home_app_info_app_deleted_description">Þetta app var afhent utan Morphe. Endurpakkalaðu það til að endurheimta virkni</string>
     <string name="home_app_info_not_patched_description">Óplötuð útgáfa af þessu forriti er uppsett. Morphe hefur enn fyrri plástursskrá sína</string>
+    <string name="home_dialog_rename_title">Þetta mun uppsetja afrit</string>
+    <string name="home_dialog_rename_description">Valnuðu plöstrarnir byggja þessa forrit undir eigin pakkanafni, svo niðurstaðan uppsetist saman með &lt;b&gt;%s&lt;/b&gt; í stað þess að uppfæra það</string>
+    <string name="home_dialog_rename_result_package">Verður sett upp sem</string>
+    <string name="home_dialog_rename_replaces">Afrit notar það nafn þegar og mun vera endurbygð</string>
     <string name="home_app_info_apk_size">APK stærð</string>
     <string name="home_app_info_cpu_arch">CPU arkitektúr</string>
     <!-- Home Screen - Root Mode -->
@@ -924,6 +924,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Eyða valdum APK skráum?</string>
     <string name="settings_system_apks_delete_selected_confirm">Þetta mun eyða valdum APK skráum á varanlegan hátt</string>
     <string name="settings_system_apks_deleted_all">APK skrárnar voru eyðdar árangursríkt</string>
+    <string name="settings_system_apks_delete_failed">{one} Gat ekki eytt APK-skrá{, other} Gat ekki eytt sumum APK-skrám</string>
     <string name="settings_system_apks_export_zip_success">Valdir APK-skrá</string>
     <string name="settings_system_apks_export_zip_failed">Útflutningur valdra APK-skráa tókst ekki</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1102,6 +1103,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="available">Í boði</string>
     <string name="continue_">Halda áfram</string>
     <string name="version">Útgáfa</string>
+    <string name="clone">Klóna</string>
     <string name="patch">Breytistilling</string>
     <string name="patching">Breytingar</string>
     <string name="patched">Plástrað</string>

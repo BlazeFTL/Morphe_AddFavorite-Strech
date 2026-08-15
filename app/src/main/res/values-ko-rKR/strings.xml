@@ -4,6 +4,7 @@
     <string name="home_other_apps">그 외의 앱</string>
     <string name="home_not_patched_yet">아직 패치되지 않음</string>
     <string name="home_unpatched_version_installed">미패치된 버전이 설치됨</string>
+    <string name="home_unpatched_badge">패치되지 않음</string>
     <string name="home_no_patches_available">사용 가능한 패치 없음</string>
     <string name="home_app_hide_title">이 앱을 숨기시겠습니까?</string>
     <string name="home_app_hide_message">이 앱은 홈 화면에서 숨겨집니다. 목록 하단에 있는 버튼을 사용하여 숨겨진 앱 목록에서 나중에 복원할 수 있습니다</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">설치된 앱의 서명을 검증할 수 없으므로 이미 패치된 앱일 수 있습니다</string>
     <string name="home_unverified">검증되지 않음</string>
     <string name="home_install_verification_pending">설치를 확인하는 중…</string>
+    <string name="home_app_info_install_unverified">Morphe는 설치된 앱이 패치한 빌드인지 확인할 수 없습니다. 다시 패치하거나 저장된 APK에서 다시 설치하여 작업을 복원하세요</string>
     <string name="home_app_info_no_saved_apk">저장된 APK가 없습니다. 패치하려면 APK 파일을 다시 선택하세요</string>
     <string name="home_version_requires_android">Android %s+ 필요</string>
     <string name="home_apk_no_compatible_versions_title">이 기기에서는 지원되지 않음</string>
@@ -289,11 +291,6 @@
     <string name="home_dialog_wrong_package_description">선택된 APK는 패치하려는 애플리케이션이 아닙니다</string>
     <string name="home_dialog_expected_package">예상된 패키지:</string>
     <string name="home_dialog_selected_package">선택된 패키지:</string>
-    <string name="home_dialog_orphaned_install_title">이전 복사본이 남아 있습니다</string>
-    <string name="home_dialog_orphaned_install_description">패치를 적용하면서 패키지 이름이 변경되었기 때문에, 이전에 패치한 앱은 여전히 별도의 앱으로 설치되어 있습니다</string>
-    <string name="home_dialog_orphaned_install_warning">더 이상 추적되지 않으므로 패치 업데이트를 받을 수 없습니다</string>
-    <string name="home_dialog_orphaned_install_uninstall">제거</string>
-    <string name="home_dialog_orphaned_install_keep">유지</string>
     <string name="home_outdated_patches_dialog_title">패치가 오래되었을 수 있습니다</string>
     <string name="home_outdated_patches_dialog_message">모바일 데이터가 활성화되어 있고 패치 업데이트가 비활성화되었습니다</string>
     <string name="home_outdated_patches_dialog_warning">오래된 패치를 사용하면 앱이 손상될 수 있습니다</string>
@@ -412,6 +409,10 @@
     <string name="home_app_info_app_deleted_warning">앱이 제거되었습니다</string>
     <string name="home_app_info_app_deleted_description">이 앱은 Morphe 외부에서 제거되었습니다. 기능을 복원하려면 다시 패치하세요</string>
     <string name="home_app_info_not_patched_description">이 앱의 패치되지 않은 버전이 설치되어 있습니다. Morphe는 여전히 이전 패치 기록을 보유하고 있습니다</string>
+    <string name="home_dialog_rename_title">복사본이 설치됩니다</string>
+    <string name="home_dialog_rename_description">선택된 패치가 자체 패키지 이름으로 이 앱을 빌드하므로, 기존 앱을 업데이트하는 대신 &lt;b&gt;%s&lt;/b&gt;와 함께 별도로 설치됩니다</string>
+    <string name="home_dialog_rename_result_package">다음 이름으로 설치됩니다</string>
+    <string name="home_dialog_rename_replaces">이미 해당 이름을 사용하는 복사본이 있으며, 다시 빌드됩니다</string>
     <string name="home_app_info_apk_size">APK 크기</string>
     <string name="home_app_info_cpu_arch">CPU 아키텍처</string>
     <!-- Home Screen - Root Mode -->
@@ -535,8 +536,8 @@
     <string name="install_app_success">성공적으로 설치하였습니다</string>
     <string name="install_app_fail">앱을 설치할 수 없습니다: %s</string>
     <string name="uninstall_app_fail">앱을 제거할 수 없습니다: %s</string>
-    <string name="uninstall_app_unverified">그대로 유지됨: Morphe는 현재 설치된 앱이 자신이 패치한 빌드인지 검증할 수 없습니다</string>
-    <string name="launch_app_unverified">Morphe는 현재 설치된 앱이 자신이 패치한 빌드인지 검증할 수 없습니다</string>
+    <string name="uninstall_app_unverified">그대로 유지됨: Morphe는 설치된 앱이 패치한 빌드인지 검증할 수 없습니다.</string>
+    <string name="launch_app_unverified">Morphe는 설치된 앱이 패치한 빌드인지 검증할 수 없습니다</string>
     <string name="uninstall_timeout">제거 시간이 초과되었습니다</string>
     <string name="save_apk_success">APK를 저장하였습니다</string>
     <string name="saved_app_export_failed">패치된 앱을 내보낼 수 없습니다</string>
@@ -1106,6 +1107,7 @@ morphe_header_custom_dark.png
     <string name="available">사용 가능</string>
     <string name="continue_">계속</string>
     <string name="version">버전</string>
+    <string name="clone">복제</string>
     <string name="patch">패치</string>
     <string name="patching">패치</string>
     <string name="patched">패치됨</string>

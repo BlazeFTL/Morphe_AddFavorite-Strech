@@ -291,11 +291,6 @@
     <string name="home_dialog_wrong_package_description">Изабрани APK није за апликацију коју сте намеравали да печујете</string>
     <string name="home_dialog_expected_package">Очекивани пакет:</string>
     <string name="home_dialog_selected_package">Изабрани пакет:</string>
-    <string name="home_dialog_orphaned_install_title">Претходна копија је остављена</string>
-    <string name="home_dialog_orphaned_install_description">Измена имена пакета је променила пакет, тако да копија коју сте раније променили је и даље инсталирана као засебна апликација</string>
-    <string name="home_dialog_orphaned_install_warning">Она више није праћена и неће примати ажурирања</string>
-    <string name="home_dialog_orphaned_install_uninstall">Деинсталирајте је</string>
-    <string name="home_dialog_orphaned_install_keep">Држите га</string>
     <string name="home_outdated_patches_dialog_title">Ispravke mogu biti zastarele</string>
     <string name="home_outdated_patches_dialog_message">Mobilni podaci su aktivni, a ažuriranja ispravaka su onemogućena</string>
     <string name="home_outdated_patches_dialog_warning">Patching sa zastarelima ispravkama može rezultirati slomljenim aplikacijama</string>

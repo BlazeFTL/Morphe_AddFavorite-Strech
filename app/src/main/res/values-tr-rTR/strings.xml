@@ -4,6 +4,7 @@
     <string name="home_other_apps">Diğer uygulamalar</string>
     <string name="home_not_patched_yet">Henüz yamalanmadı</string>
     <string name="home_unpatched_version_installed">Yamalanmamış sürüm yüklendi</string>
+    <string name="home_unpatched_badge">Yamalanmadı</string>
     <string name="home_no_patches_available">Yama mevcut değil</string>
     <string name="home_app_hide_title">Uygulama gizlensin mi?</string>
     <string name="home_app_hide_message">Bu uygulama ana ekrandan gizlenecektir. Daha sonra listenin altındaki düğmeyi kullanarak gizli uygulamalardan geri getirebilirsiniz</string>
@@ -288,11 +289,6 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="home_dialog_wrong_package_description">Seçilen APK, yamalamak istediğiniz uygulama için değil</string>
     <string name="home_dialog_expected_package">Beklenen paket:</string>
     <string name="home_dialog_selected_package">Seçilen paket:</string>
-    <string name="home_dialog_orphaned_install_title">Önceki kopya geride kaldı</string>
-    <string name="home_dialog_orphaned_install_description">Yama paket adını değiştirdi, bu nedenle daha önce yamaladığınız kopya ayrı bir uygulama olarak hala yüklü</string>
-    <string name="home_dialog_orphaned_install_warning">Artık izlenmiyor ve yama güncellemeleri almayacak</string>
-    <string name="home_dialog_orphaned_install_uninstall">Kaldırılıyor</string>
-    <string name="home_dialog_orphaned_install_keep">Sakla</string>
     <string name="home_outdated_patches_dialog_title">Yamalar eskimiş olabilir</string>
     <string name="home_outdated_patches_dialog_message">Mobil veri etkin ve yama güncellemeleri devre dışı bırakıldı</string>
     <string name="home_outdated_patches_dialog_warning">Eskimiş yamaları kullanmak uygulamanın bozulmasına neden olabilir</string>
@@ -411,6 +407,10 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="home_app_info_app_deleted_warning">Uygulama kaldırıldı</string>
     <string name="home_app_info_app_deleted_description">Bu uygulama Morphe dışından kaldırıldı. İşlevselliği geri getirmek için yeniden yamalayın</string>
     <string name="home_app_info_not_patched_description">Bu uygulamanın yamalanmamış bir sürümü yüklü. Morphe hâlâ önceki yama kaydına sahiptir</string>
+    <string name="home_dialog_rename_title">Bu işlem bir kopya yükleyecektir</string>
+    <string name="home_dialog_rename_description">Seçilen yamalar bu uygulamayı kendi paket adları altında oluşturur, bu nedenle sonuç &lt;b&gt;%s&lt;/b&gt; uygulamasını güncellemek yerine onun yanına yüklenir</string>
+    <string name="home_dialog_rename_result_package">Şu adla yüklenecek:</string>
+    <string name="home_dialog_rename_replaces">Bir kopya zaten bu adı kullanıyor ve yeniden oluşturulacak</string>
     <string name="home_app_info_apk_size">APK boyutu</string>
     <string name="home_app_info_cpu_arch">CPU mimarisi</string>
     <!-- Home Screen - Root Mode -->

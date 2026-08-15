@@ -289,11 +289,6 @@
     <string name="home_dialog_wrong_package_description">Το επιλεγμένο APK δεν είναι για την εφαρμογή που επιθυμείτε να τροποποιήσετε</string>
     <string name="home_dialog_expected_package">Αναμενόμενο πακέτο:</string>
     <string name="home_dialog_selected_package">Επιλεγμένο πακέτο:</string>
-    <string name="home_dialog_orphaned_install_title">Προηγούμενο αντίγραφο που παραμένει</string>
-    <string name="home_dialog_orphaned_install_description">Η επιδιόρθωση άλλαξε το όνομα του πακέτου, επομένως το αντίγραφο που επιδιορθώσατε νωρίτερα εξακολουθεί να είναι εγκατεστημένο ως ξεχωριστή εφαρμογή</string>
-    <string name="home_dialog_orphaned_install_warning">Δεν παρακολουθείται πλέον και δεν θα λάβει ενημερώσεις επιδιόρθωσης</string>
-    <string name="home_dialog_orphaned_install_uninstall">Απεγκατάσταση</string>
-    <string name="home_dialog_orphaned_install_keep">Διατήρησέ το</string>
     <string name="home_outdated_patches_dialog_title">Οι τροποποιήσεις μπορεί να είναι απαρχαιωμένες</string>
     <string name="home_outdated_patches_dialog_message">Τα δεδομένα κινητής τηλεφωνίας είναι ενεργά και οι ενημερώσεις τροποποιήσεων είναι απενεργοποιημένες</string>
     <string name="home_outdated_patches_dialog_warning">Η τροποποίηση με απαρχαιωμένες εκδόσεις των τροποποιήσεων μπορεί να καταλήξει σε ένα κατεστραμμένο πρόγραμμα</string>

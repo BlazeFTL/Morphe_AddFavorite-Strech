@@ -4,6 +4,7 @@
     <string name="home_other_apps">Aipeanna eile</string>
     <string name="home_not_patched_yet">Gan paisteáil fós</string>
     <string name="home_unpatched_version_installed">Leagan neamhpháitithe suiteáilte</string>
+    <string name="home_unpatched_badge">Gan paisteáil</string>
     <string name="home_no_patches_available">Níl aon phaistí ar fáil</string>
     <string name="home_app_hide_title">An bhfuil tú ag iarraidh an aip seo a cheilt?</string>
     <string name="home_app_hide_message">Beidh an aip seo i bhfolach ón scáileán baile. Is féidir leat é a chur ar ais níos déanaí ó na apps i bhfolach ag baint úsáide as an gcnaipe ag bun an liosta</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Níorbh fhéidir síniú an aip suiteáilte a fhíorú, mar sin d\'fhéadfadh sé go bhfuil paiste air cheana féin</string>
     <string name="home_unverified">Gan fhíorú</string>
     <string name="home_install_verification_pending">Ag seiceáil an tsuiteáil…</string>
+    <string name="home_app_info_install_unverified">Ní féidir le Morphe a dhearbhú gurb é an aip atá suiteáilte an leagan a phaisteáladh. Athphaisteáil nó athshuiteáil é ón APK sábháilte chun a ghníomhartha a athbhunú.</string>
     <string name="home_app_info_no_saved_apk">Níl aon APK sábháilte. Beidh ort an comhad APK a roghnú arís le haghaidh paisteála.</string>
     <string name="home_version_requires_android">Éilíonn Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ní thacaítear leis ar an ngléas seo</string>
@@ -230,7 +232,7 @@
     <string name="home_select_apk_title">Roghnaigh APK</string>
     <string name="home_select_any_apk_description">Roghnaigh comhad APK d\'aon aip, nó roghnaigh aip atá suiteáilte cheana féin ar an ngléas seo</string>
     <string name="home_use_installed_app">Bain úsáid as aip suiteáilte</string>
-    <string name="home_installed_app_picker_title">Aipanna suiteáilte</string>
+    <string name="home_installed_app_picker_title">Aipeanna suiteáilte</string>
     <string name="home_installed_app_picker_empty">Níor aimsíodh aon aipeanna</string>
     <string name="home_installed_app_picker_filter_all">Gach aip</string>
     <string name="home_installed_app_picker_filter_user">Aipeanna úsáideora amháin</string>
@@ -289,11 +291,6 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="home_dialog_wrong_package_description">Níl an APK roghnaithe don fheidhmchlár arbh eol duit paiste a chur air</string>
     <string name="home_dialog_expected_package">Pacáiste ionchais:</string>
     <string name="home_dialog_selected_package">Pacáiste roghnaithe:</string>
-    <string name="home_dialog_orphaned_install_title">Cóip roimhe seo fágtha ina diaidh</string>
-    <string name="home_dialog_orphaned_install_description">D\'athraigh an paisteáil ainm an phacáiste, mar sin tá an chóip a phaisteáil tú níos luaithe fós suiteáilte mar aip ar leithligh.</string>
-    <string name="home_dialog_orphaned_install_warning">Ní dhéantar rianú air a thuilleadh agus ní bhfaighidh sé nuashonruithe paiste</string>
-    <string name="home_dialog_orphaned_install_uninstall">Díshuiteáil é</string>
-    <string name="home_dialog_orphaned_install_keep">Coinnigh é</string>
     <string name="home_outdated_patches_dialog_title">B’fhéidir go bhfuil na paistí as dáta</string>
     <string name="home_outdated_patches_dialog_message">Tá sonraí soghluaiste gníomhach agus tá nuashonruithe paiste díchumasaithe</string>
     <string name="home_outdated_patches_dialog_warning">D’fhéadfadh go mbeadh aip briste mar thoradh ar phaistí le paistí atá as dáta</string>
@@ -927,6 +924,7 @@ Sonraí: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Scrios na APKanna roghnaithe?</string>
     <string name="settings_system_apks_delete_selected_confirm">Scriosfaidh sé seo na comhaid APK roghnaithe go buan</string>
     <string name="settings_system_apks_deleted_all">APKanna scriosta go rathúil</string>
+    <string name="settings_system_apks_delete_failed">Níorbh fhéidir roinnt comhad APK a scriosadh</string>
     <string name="settings_system_apks_export_zip_success">APKanna roghnaithe easpórtáilte</string>
     <string name="settings_system_apks_export_zip_failed">Theip ar na APKanna roghnaithe a onnmhairiú</string>
     <!-- Settings - System Tab - Storage Management screen -->

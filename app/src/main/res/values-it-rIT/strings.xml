@@ -292,11 +292,6 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="home_dialog_wrong_package_description">L\'APK selezionato non è per l’applicazione che volevi patchare</string>
     <string name="home_dialog_expected_package">Pacchetto atteso:</string>
     <string name="home_dialog_selected_package">Pacchetto selezionato:</string>
-    <string name="home_dialog_orphaned_install_title">Copia precedente abbandonata</string>
-    <string name="home_dialog_orphaned_install_description">L\'applicazione di una patch ha modificato il nome del pacchetto, quindi la copia che hai applicato una patch in precedenza è ancora installata come app separata</string>
-    <string name="home_dialog_orphaned_install_warning">Non è più tracciata e non riceverà aggiornamenti di patch</string>
-    <string name="home_dialog_orphaned_install_uninstall">Disinstallala</string>
-    <string name="home_dialog_orphaned_install_keep">Mantienilo</string>
     <string name="home_outdated_patches_dialog_title">Le patch potrebbero essere obsolete</string>
     <string name="home_outdated_patches_dialog_message">La connessione con i dati mobili è attiva e gli aggiornamenti delle patch sono disabilitati</string>
     <string name="home_outdated_patches_dialog_warning">Il patching con patch obsolete potrebbe risultare in un\'app non funzionante</string>
@@ -415,6 +410,7 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="home_app_info_app_deleted_warning">L\'app è stata disinstallata</string>
     <string name="home_app_info_app_deleted_description">Questa app è stata disinstallata al di fuori di Morphe. Ripatchala per ripristinare la funzionalità</string>
     <string name="home_app_info_not_patched_description">Una versione non patchata di questa app è installata. Morphe ha ancora il suo record di patch precedente</string>
+    <string name="home_dialog_rename_title">Questo installerà una copia</string>
     <string name="home_app_info_apk_size">Dimensione APK</string>
     <string name="home_app_info_cpu_arch">Architettura CPU</string>
     <!-- Home Screen - Root Mode -->

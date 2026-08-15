@@ -292,11 +292,6 @@
     <string name="home_dialog_wrong_package_description">Вибраний APK файл не відповідає застосунку, який ви збиралися пропатчити</string>
     <string name="home_dialog_expected_package">Очікуваний пакет:</string>
     <string name="home_dialog_selected_package">Вибраний пакет:</string>
-    <string name="home_dialog_orphaned_install_title">Попередня копія залишена</string>
-    <string name="home_dialog_orphaned_install_description">Патчинг змінив назву пакета, тому копія, яку ви пропатчили раніше, все ще встановлена як окремий застосунок</string>
-    <string name="home_dialog_orphaned_install_warning">Вона більше не відстежується і не отримуватиме оновлення патчів</string>
-    <string name="home_dialog_orphaned_install_uninstall">Видалити її</string>
-    <string name="home_dialog_orphaned_install_keep">Залишити її</string>
     <string name="home_outdated_patches_dialog_title">Патчі можуть бути застарілими</string>
     <string name="home_outdated_patches_dialog_message">Мобільна мережа активна, оновлення патчів вимкнено</string>
     <string name="home_outdated_patches_dialog_warning">Патчинг застарілими патчами може призвести до несправності застосунку</string>
@@ -415,6 +410,10 @@
     <string name="home_app_info_app_deleted_warning">Застосунок було видалено</string>
     <string name="home_app_info_app_deleted_description">Це застосунок було видалено поза менеджером Morphe. Перепатчіть його, щоб відновити функціональність</string>
     <string name="home_app_info_not_patched_description">Встановлено непропатчену версію цього застосунку. Morphe все ще має попередній запис про патчинг</string>
+    <string name="home_dialog_rename_title">Це встановить копію</string>
+    <string name="home_dialog_rename_description">Вибрані патчі створюють цей застосунок під власною назвою пакета, тому результат встановлюється поруч із &lt;b&gt;%s&lt;/b&gt; замість оновлення</string>
+    <string name="home_dialog_rename_result_package">Буде встановлено як</string>
+    <string name="home_dialog_rename_replaces">Копія з цією назвою вже існує і буде перебудована</string>
     <string name="home_app_info_apk_size">Розмір APK</string>
     <string name="home_app_info_cpu_arch">Архітектура процесора</string>
     <!-- Home Screen - Root Mode -->
@@ -1111,6 +1110,7 @@ morphe_header_custom_dark.png
     <string name="available">Доступно</string>
     <string name="continue_">Продовжити</string>
     <string name="version">Версія</string>
+    <string name="clone">Клон</string>
     <string name="patch">Патчити</string>
     <string name="patching">Патчинг</string>
     <string name="patched">Пропатчено</string>

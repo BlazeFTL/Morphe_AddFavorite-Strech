@@ -4,6 +4,7 @@
     <string name="home_other_apps">Övriga appar</string>
     <string name="home_not_patched_yet">Inte modifierad än</string>
     <string name="home_unpatched_version_installed">Omodifierad version installerad</string>
+    <string name="home_unpatched_badge">Ej modifierad</string>
     <string name="home_no_patches_available">Inga tillägg är tillgängliga</string>
     <string name="home_app_hide_title">Dölj den här appen?</string>
     <string name="home_app_hide_message">Den här appen döljs från startskärmen. Du kan återställa den senare från de dolda apparna med knappen längst ned i listan</string>
@@ -192,6 +193,8 @@
     <string name="home_apk_use_installed">Använd den installerade APK-filen</string>
     <string name="home_apk_use_installed_unverified">Det gick inte att verifiera signaturen för den installerade appen, så den kan redan ha modifierats</string>
     <string name="home_unverified">Overifierad</string>
+    <string name="home_install_verification_pending">Kontrollerar installation…</string>
+    <string name="home_app_info_install_unverified">Morphe kan inte bekräfta att den installerade appen är den version som modifierades. Modifiera om eller installera om den från den sparade APK-filen för att återställa dess funktioner</string>
     <string name="home_app_info_no_saved_apk">Ingen sparad APK-fil. Modifieringen kräver att du väljer APK-filen igen</string>
     <string name="home_version_requires_android">Kräver Android %s eller senare</string>
     <string name="home_apk_no_compatible_versions_title">Stöds inte på den här enheten</string>
@@ -229,6 +232,7 @@
     <string name="home_select_apk_title">Välj APK-fil</string>
     <string name="home_select_any_apk_description">Välj en APK-fil för valfri app, eller välj en app som redan är installerad på enheten</string>
     <string name="home_use_installed_app">Använd en installerad app</string>
+    <string name="home_installed_app_picker_title">Installerade appar</string>
     <string name="home_installed_app_picker_empty">Inga appar hittades</string>
     <string name="home_installed_app_picker_filter_all">Alla appar</string>
     <string name="home_installed_app_picker_filter_user">Endast användarappar</string>
@@ -287,11 +291,6 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="home_dialog_wrong_package_description">Den valda APK-filen är inte för den app du avsåg att modifiera</string>
     <string name="home_dialog_expected_package">Förväntat paket:</string>
     <string name="home_dialog_selected_package">Valt paket:</string>
-    <string name="home_dialog_orphaned_install_title">Tidigare kopia kvar</string>
-    <string name="home_dialog_orphaned_install_description">Modifieringen ändrade paketnamnet, så kopian du modifierade tidigare är fortfarande installerad som en separat app.</string>
-    <string name="home_dialog_orphaned_install_warning">Den spåras inte längre och kommer inte att få tilläggsuppdateringar.</string>
-    <string name="home_dialog_orphaned_install_uninstall">Avinstallera den</string>
-    <string name="home_dialog_orphaned_install_keep">Behåll den</string>
     <string name="home_outdated_patches_dialog_title">Tillägg kan vara inaktuella</string>
     <string name="home_outdated_patches_dialog_message">Mobildata är aktivt och tilläggsuppdateringar har inaktiverats</string>
     <string name="home_outdated_patches_dialog_warning">Om du modifierar med inaktuella tillägg kan det leda till en trasig app</string>
@@ -394,6 +393,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="home_app_info_delete_preservation_note">Tilläggsurvalet och dess inställningar sparas för framtida modifiering</string>
     <string name="home_app_info_patches_name_default">Tillägg</string>
     <string name="home_app_info_patches_name_fallback">Namnlös</string>
+    <string name="home_app_info_patches_source_removed">Borttagen tilläggskälla</string>
     <string name="home_app_info_patches_replace_fail">Det gick inte att importera tillägg: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Den ursprungliga APK-filen hittades inte. Det går inte att modifiera den här appen igen</string>
     <string name="home_app_info_original_package_name">Ursprungligt paketnamn</string>
@@ -924,6 +924,7 @@ Information: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Radera markerade APK-filer?</string>
     <string name="settings_system_apks_delete_selected_confirm">Det här raderar de markerade APK-filerna permanent</string>
     <string name="settings_system_apks_deleted_all">APK-filerna har raderats</string>
+    <string name="settings_system_apks_delete_failed">Vissa APK-filer kunde inte tas bort</string>
     <string name="settings_system_apks_export_zip_success">De markerade APK-filerna har exporterats</string>
     <string name="settings_system_apks_export_zip_failed">Det gick inte att exportera de markerade APK-filerna</string>
     <!-- Settings - System Tab - Storage Management screen -->

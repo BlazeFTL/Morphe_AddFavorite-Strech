@@ -4,9 +4,10 @@
     <string name="home_other_apps">Otras aplicaciones</string>
     <string name="home_not_patched_yet">Aún sin parchear</string>
     <string name="home_unpatched_version_installed">Versión sin parchear instalada</string>
+    <string name="home_unpatched_badge">Sin parchear</string>
     <string name="home_no_patches_available">No hay parches disponibles</string>
     <string name="home_app_hide_title">¿Ocultar esta aplicación?</string>
-    <string name="home_app_hide_message">Esta aplicación se ocultará de la pantalla de inicio. Puedes restaurarla más tarde desde las apps ocultas usando el botón situado en la parte inferior de la lista</string>
+    <string name="home_app_hide_message">Esta aplicación se ocultará de la pantalla de inicio. Puedes restaurarla más tarde desde las aplicaciones ocultas usando el botón situado en la parte inferior de la lista</string>
     <string name="home_app_will_be_hidden">Esta aplicación se ocultará</string>
     <string name="home_app_no_hidden">No hay aplicaciones ocultas</string>
     <string name="home_app_hidden_apps_title">Aplicaciones ocultas</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">No se pudo verificar la firma de la aplicación instalada, por lo que es posible que ya esté parcheada</string>
     <string name="home_unverified">No verificado</string>
     <string name="home_install_verification_pending">Comprobando instalación…</string>
+    <string name="home_app_info_install_unverified">Morphe no puede confirmar que la aplicación instalada corresponda a la compilación que parcheó. Vuelve a parchearla o reinstálala desde el APK guardado para restaurar su funcionalidad</string>
     <string name="home_app_info_no_saved_apk">No hay APK guardado. Para aplicar los parches será necesario seleccionar el archivo APK nuevamente.</string>
     <string name="home_version_requires_android">Requiere Android %s o superior</string>
     <string name="home_apk_no_compatible_versions_title">Incompatible con este dispositivo</string>
@@ -289,11 +291,6 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="home_dialog_wrong_package_description">El APK seleccionado no es para la aplicación que pretendías parchear</string>
     <string name="home_dialog_expected_package">Paquete esperado:</string>
     <string name="home_dialog_selected_package">Paquete seleccionado:</string>
-    <string name="home_dialog_orphaned_install_title">Copia anterior olvidada</string>
-    <string name="home_dialog_orphaned_install_description">Se cambió el nombre del paquete al parchear, por lo que la copia que parcheaste anteriormente sigue instalada como una aplicación separada</string>
-    <string name="home_dialog_orphaned_install_warning">Ya no se hace seguimiento y no recibirá actualizaciones de parches</string>
-    <string name="home_dialog_orphaned_install_uninstall">Desinstalarla</string>
-    <string name="home_dialog_orphaned_install_keep">Conservarla</string>
     <string name="home_outdated_patches_dialog_title">Los parches podrían estar desactualizados</string>
     <string name="home_outdated_patches_dialog_message">Los datos móviles están activos y las actualizaciones de parches están desactivadas</string>
     <string name="home_outdated_patches_dialog_warning">Usar parches desactualizados puede provocar que la aplicación deje de funcionar correctamente</string>
@@ -412,6 +409,10 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="home_app_info_app_deleted_warning">La aplicación fue desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicación fue desinstalada fuera de Morphe. Vuelve a parchearla para restaurar su funcionalidad</string>
     <string name="home_app_info_not_patched_description">Una versión sin parchear de esta aplicación está instalada. Morphe aún conserva su registro de parches anterior</string>
+    <string name="home_dialog_rename_title">Esto instalará una copia</string>
+    <string name="home_dialog_rename_description">Los parches seleccionados compilan esta aplicación con un nombre de paquete propio, por lo que el resultado se instala junto a &lt;b&gt;%s&lt;/b&gt; en lugar de actualizarla</string>
+    <string name="home_dialog_rename_result_package">Se instalará como</string>
+    <string name="home_dialog_rename_replaces">Una copia ya usa ese nombre y será reconstruida</string>
     <string name="home_app_info_apk_size">Tamaño del APK</string>
     <string name="home_app_info_cpu_arch">Arquitectura de la CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -434,7 +435,7 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="patcher_logs_waiting">Esperando la salida del registro...</string>
     <string name="patcher_logs_lost">La salida del registro no se conserva al reiniciar la aplicación</string>
     <string name="patcher_long_step_warning">Este paso puede tardar un tiempo. Por favor, espera…</string>
-    <string name="patcher_installing_subtitle">¡Casi listo para empezar! 🎸</string>
+    <string name="patcher_installing_subtitle">¡A punto de despegar! 🚀</string>
     <string name="patcher_success_title">¡Listo! 🎉</string>
     <string name="patcher_success_subtitle">¡Tu aplicación está parcheada e instalada!</string>
     <string name="patcher_complete_title">¡Parcheo completado! ✨</string>
@@ -867,7 +868,7 @@ Detalles: %2$s"</string>
     <string name="settings_system_process_runtime">Ejecución del proceso</string>
     <string name="settings_system_process_runtime_description">Ejecuta el parcheo en un proceso separado para mejorar la estabilidad</string>
     <string name="settings_system_process_runtime_memory_limit_description">Los límites superiores aceleran el parcheo en los dispositivos compatibles</string>
-    <string name="settings_system_process_runtime_enable">Activar ejecución en un proceso independiente</string>
+    <string name="settings_system_process_runtime_enable">Activar ejecución del proceso</string>
     <string name="settings_system_memory_limit_subtitle">Memoria disponible para parches</string>
     <string name="settings_system_memory_limit_warning">Un límite de memoria bajo puede causar errores al parchear aplicaciones más grandes</string>
     <string name="settings_system_process_runtime_enabled_description">Límite de %s MB</string>
@@ -1108,6 +1109,7 @@ Detalles: %2$s"</string>
     <string name="available">Disponible</string>
     <string name="continue_">Continuar</string>
     <string name="version">Versión</string>
+    <string name="clone">Clon</string>
     <string name="patch">Parchear</string>
     <string name="patching">Parcheando</string>
     <string name="patched">Parcheada</string>

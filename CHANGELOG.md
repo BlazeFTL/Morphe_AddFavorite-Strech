@@ -1,3 +1,15 @@
+# [1.26.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.9...v1.26.0-dev.10) (2026-08-15)
+
+
+### Bug Fixes
+
+* `GMSCore patch` cannot be disabled during multi-bundle patching ([0e35191](https://github.com/MorpheApp/morphe-manager/commit/0e35191b7d0523c8ab7a22778e2803a9b214c7a8))
+
+
+### Features
+
+* Track every cloned install of an app as its own entry ([af9c779](https://github.com/MorpheApp/morphe-manager/commit/af9c779e924c103a85e2790bce8df8e0d0e19a12))
+
 # [1.26.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.8...v1.26.0-dev.9) (2026-08-14)
 
 

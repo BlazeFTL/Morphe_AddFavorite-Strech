@@ -574,7 +574,7 @@ fun MainAppsSection(
     val isCustomCategoryView = appGrouping == HomeAppCategoryViewMode.CUSTOM
 
     val state = rememberHomeAppsSectionState(
-        initialOrder = homeAppItems.map { it.packageName },
+        initialOrder = homeAppItems.map { it.id },
         initialSourceGroupOrder = apps.sourceGroups.map { it.uid },
         initialCategoryOrder = apps.categoryState.categories.map { it.id },
         hasContent = homeAppItems.isNotEmpty() || hiddenAppItems.isNotEmpty(),
@@ -590,7 +590,7 @@ fun MainAppsSection(
 
     // Back gesture/button exits reorder mode without saving
     BackHandler(enabled = state.isReorderMode) {
-        state.exitReorder(homeAppItems.map { it.packageName })
+        state.exitReorder(homeAppItems.map { it.id })
     }
 
     BackHandler(enabled = state.isCategoryBarVisible) { state.closeCategoryBar() }
@@ -605,7 +605,7 @@ fun MainAppsSection(
     }
     // Sync selection and local order with current item list
     LaunchedEffect(homeAppItems) {
-        val currentPackages = homeAppItems.mapTo(mutableSetOf()) { it.packageName }
+        val currentPackages = homeAppItems.mapTo(mutableSetOf()) { it.id }
         selectedPackages.retain { it in currentPackages }
         if (selectedPackages.isEmpty) {
             state.isMultiSelectMode = false
@@ -613,9 +613,9 @@ fun MainAppsSection(
         }
 
         if (!state.isReorderMode) {
-            state.localOrder = homeAppItems.map { it.packageName }
+            state.localOrder = homeAppItems.map { it.id }
         } else {
-            val pkgSet = homeAppItems.mapTo(mutableSetOf()) { it.packageName }
+            val pkgSet = homeAppItems.mapTo(mutableSetOf()) { it.id }
             state.scopedSourceOrder = state.scopedSourceOrder?.filter { it in pkgSet }
             val kept = state.localOrder.filter { it in pkgSet }
             val keptSet = kept.toSet()
@@ -655,7 +655,8 @@ fun MainAppsSection(
     fun HomeAppItem.matchesSearch(): Boolean =
         searchQuery.isBlank() ||
                 displayName.contains(searchQuery, ignoreCase = true) ||
-                packageName.contains(searchQuery, ignoreCase = true)
+                packageName.contains(searchQuery, ignoreCase = true) ||
+                id.contains(searchQuery, ignoreCase = true)
 
     // Filtered visible items based on selected status filter and search query
     val filteredItems = remember(homeAppItems, searchQuery, filterMode) {
@@ -800,7 +801,7 @@ fun MainAppsSection(
             return@remember null
         }
         val hasSelected: (HomeCategoryGroup) -> Boolean = { group ->
-            group.items.any { it.packageName == firstSelectedPackage }
+            group.items.any { it.id == firstSelectedPackage }
         }
         val keyMatch = state.selectedGroupKey?.let { key ->
             groupedReorderGroups.firstOrNull { it.selectionKey() == key && hasSelected(it) }
@@ -810,7 +811,7 @@ fun MainAppsSection(
     val groupedSelectionPackages = remember(groupedSelectionGroup) {
         groupedSelectionGroup
             ?.items
-            ?.mapTo(linkedSetOf()) { it.packageName }
+            ?.mapTo(linkedSetOf()) { it.id }
     }
 
     val listState = rememberLazyListState()
@@ -941,7 +942,7 @@ fun MainAppsSection(
     }
 
     val homeItemsByPackage = remember(homeAppItems) {
-        homeAppItems.associateBy { it.packageName }
+        homeAppItems.associateBy { it.id }
     }
     val orderedItems = remember(state.localOrder, homeItemsByPackage) {
         state.localOrder.mapNotNull { homeItemsByPackage[it] }
@@ -950,7 +951,7 @@ fun MainAppsSection(
         state.scopedSourceOrder?.let { sourceOrder ->
             sourceOrder.mapNotNull { homeItemsByPackage[it] }
         } ?: state.reorderScopePackages?.let { scopePackages ->
-            orderedItems.filter { it.packageName in scopePackages }
+            orderedItems.filter { it.id in scopePackages }
         } ?: orderedItems
     }
     val displayedAppGroups = remember(
@@ -995,7 +996,7 @@ fun MainAppsSection(
             if (interaction is DragInteraction.Start) userScrolledList = true
         }
     }
-    val listOrderKeys = remember(homeAppItems) { homeAppItems.map { it.packageName } }
+    val listOrderKeys = remember(homeAppItems) { homeAppItems.map { it.id } }
     LaunchedEffect(listOrderKeys, userScrolledList) {
         if (userScrolledList || state.isReorderMode) return@LaunchedEffect
         if (listState.firstVisibleItemIndex != 0 || listState.firstVisibleItemScrollOffset != 0) {
@@ -1008,7 +1009,7 @@ fun MainAppsSection(
         if (state.isReorderMode && state.reorderScopePackages == null) {
             val targets = state.reorderFocusPackages
             if (targets.isNotEmpty()) {
-                val topIndex = reorderItems.indexOfFirst { it.packageName in targets }
+                val topIndex = reorderItems.indexOfFirst { it.id in targets }
                 if (topIndex >= 0) listState.scrollToItem(topIndex)
             }
             state.reorderFocusPackages = emptySet()
@@ -1184,7 +1185,7 @@ fun MainAppsSection(
                                         state = state,
                                         groups = displayedAppGroups,
                                         appGrouping = appGrouping,
-                                        firstFilteredPackage = filteredItems.firstOrNull()?.packageName,
+                                        firstFilteredPackage = filteredItems.firstOrNull()?.id,
                                         showGestureHint = apps.showGestureHint,
                                         appActions = appActions,
                                         categoryReorderableState = categoryReorderableState,

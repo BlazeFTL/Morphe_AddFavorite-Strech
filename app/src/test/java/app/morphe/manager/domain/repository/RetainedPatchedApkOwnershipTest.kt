@@ -15,11 +15,11 @@ class RetainedPatchedApkOwnershipTest {
     private fun owners(
         currentPackageName: String = "app.morphe.youtube",
         originalPackageName: String = "com.google.android.youtube",
-        originalPackageIsTracked: Boolean = false
+        hasSiblingRecords: Boolean = false
     ) = retainedPatchedApkOwners(
         currentPackageName = currentPackageName,
         originalPackageName = originalPackageName,
-        originalPackageIsTracked = originalPackageIsTracked
+        hasSiblingRecords = hasSiblingRecords
     )
 
     @Test
@@ -31,7 +31,15 @@ class RetainedPatchedApkOwnershipTest {
     fun `renamed record leaves the original name to the record that occupies it`() {
         assertEquals(
             listOf("app.morphe.youtube"),
-            owners(originalPackageIsTracked = true)
+            owners(hasSiblingRecords = true)
+        )
+    }
+
+    @Test
+    fun `cloned record never claims a copy a sibling clone could have written`() {
+        assertEquals(
+            listOf("com.google.android.youtube.morphe2"),
+            owners(currentPackageName = "com.google.android.youtube.morphe2", hasSiblingRecords = true)
         )
     }
 
@@ -41,7 +49,7 @@ class RetainedPatchedApkOwnershipTest {
             listOf("com.google.android.youtube"),
             owners(
                 currentPackageName = "com.google.android.youtube",
-                originalPackageIsTracked = true
+                hasSiblingRecords = true
             )
         )
     }

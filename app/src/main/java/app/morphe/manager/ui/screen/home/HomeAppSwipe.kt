@@ -351,7 +351,7 @@ internal fun DynamicAppCard(
                 Crossfade(
                     targetState = isLoading,
                     animationSpec = tween(300),
-                    label = "app_card_crossfade_${item.packageName}"
+                    label = "app_card_crossfade_${item.id}"
                 ) { loading ->
                     if (loading) {
                         AppLoadingCard(gradientColors = item.gradientColors)
@@ -362,6 +362,7 @@ internal fun DynamicAppCard(
                                 packageInfo = item.packageInfo,
                                 displayName = item.displayName,
                                 gradientColors = item.gradientColors,
+                                isClone = item.isClone,
                                 onClick = onAppClick,
                                 hasUpdate = hasUpdate,
                                 isAppDeleted = item.isDeleted,
@@ -494,6 +495,7 @@ internal fun HiddenSearchAppCard(
                     packageInfo = item.packageInfo,
                     displayName = item.displayName,
                     gradientColors = item.gradientColors,
+                    isClone = item.isClone,
                     onClick = onAppClick,
                     hasUpdate = item.hasUpdate,
                     isAppDeleted = item.isDeleted,

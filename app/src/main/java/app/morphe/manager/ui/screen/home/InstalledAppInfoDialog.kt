@@ -102,7 +102,7 @@ fun resolveAppliedBundleAttribution(
 fun InstalledAppInfoDialog(
     packageName: String,
     onDismiss: () -> Unit,
-    onTriggerPatchFlow: (originalPackageName: String) -> Unit,
+    onTriggerPatchFlow: (originalPackageName: String, repatchedPackageName: String?) -> Unit,
     homeViewModel: HomeViewModel,
     viewModel: InstalledAppInfoViewModel,
     installViewModel: InstallViewModel = koinViewModel(),
@@ -364,7 +364,8 @@ fun InstalledAppInfoDialog(
     // before navigating to PatcherScreen. This eliminates the flash of background that would
     // appear between closing this dialog and opening the next one
     fun handlePatchClick() {
-        onTriggerPatchFlow(viewModel.installedApp?.originalPackageName ?: return)
+        val app = viewModel.installedApp ?: return
+        onTriggerPatchFlow(app.originalPackageName, app.currentPackageName)
     }
 
     // Main Dialog
@@ -427,7 +428,7 @@ fun InstalledAppInfoDialog(
                                         showsUpdateBanner = showsUpdateBanner,
                                         accentColor = infoAccentColor,
                                         onPatchClick = { handlePatchClick() },
-                                        onUninstall = { showUninstallConfirm.value = true },
+                                            onUninstall = { showUninstallConfirm.value = true },
                                         onDelete = { showDeleteDialog.value = true },
                                         onExport = { exportSavedLauncher.launch(exportFileName) },
                                         onShowMountWarning = { action ->
@@ -499,7 +500,7 @@ fun InstalledAppInfoDialog(
                                             description = stringResource(R.string.home_app_info_app_deleted_description),
                                             buttonText = stringResource(R.string.patch),
                                             buttonIcon = Icons.Outlined.AutoFixHigh,
-                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName) },
+                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName) },
                                             accentColor = infoAccentColor,
                                             isError = true
                                         )
@@ -517,7 +518,7 @@ fun InstalledAppInfoDialog(
                                             description = stringResource(R.string.home_app_info_not_patched_description),
                                             buttonText = stringResource(R.string.patch),
                                             buttonIcon = Icons.Outlined.AutoFixHigh,
-                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName) },
+                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName) },
                                             accentColor = infoAccentColor
                                         )
                                     }
@@ -547,7 +548,7 @@ fun InstalledAppInfoDialog(
                                             description = stringResource(R.string.home_app_info_patch_update_available_description),
                                             buttonText = stringResource(R.string.patch),
                                             buttonIcon = Icons.Outlined.AutoFixHigh,
-                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName) },
+                                            onClick = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName) },
                                             accentColor = infoAccentColor,
                                             isError = false
                                         )
@@ -612,7 +613,7 @@ fun InstalledAppInfoDialog(
                                                 buttonText = stringResource(R.string.patch),
                                                 buttonIcon = Icons.Outlined.AutoFixHigh,
                                                 onClick = {
-                                                    onTriggerPatchFlow(installedApp.originalPackageName)
+                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName)
                                                 },
                                                 accentColor = infoAccentColor,
                                                 isError = true,
@@ -636,7 +637,7 @@ fun InstalledAppInfoDialog(
                                                 buttonText = stringResource(R.string.patch),
                                                 buttonIcon = Icons.Outlined.AutoFixHigh,
                                                 onClick = {
-                                                    onTriggerPatchFlow(installedApp.originalPackageName)
+                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName)
                                                 },
                                                 accentColor = infoAccentColor,
                                                 modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
@@ -676,7 +677,7 @@ fun InstalledAppInfoDialog(
                                                 buttonText = stringResource(R.string.patch),
                                                 buttonIcon = Icons.Outlined.AutoFixHigh,
                                                 onClick = {
-                                                    onTriggerPatchFlow(installedApp.originalPackageName)
+                                                    onTriggerPatchFlow(installedApp.originalPackageName, installedApp.currentPackageName)
                                                 },
                                                 accentColor = infoAccentColor,
                                                 isError = false,
@@ -925,6 +926,16 @@ private fun AppHeroHeader(
                 InstallType.DEFAULT -> Icons.Outlined.InstallMobile to R.string.home_app_info_install_type_system_installer
             }
 
+            // What the install is, then when it was made. The clone chip sits between them: it
+            // qualifies the install the same way its type does, rather than dating it
+            val heroChips = buildList {
+                add(chipIcon to stringResource(chipLabel))
+                if (installedApp.currentPackageName != installedApp.originalPackageName) {
+                    add(Icons.Outlined.ContentCopy to stringResource(R.string.clone))
+                }
+                relativeTime?.let { add(Icons.Outlined.Schedule to it) }
+            }
+
             Row(
                 horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
                 verticalAlignment = Alignment.CenterVertically,
@@ -993,16 +1004,10 @@ private fun AppHeroHeader(
                         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                         horizontalAlignment = Alignment.End
                     ) {
-                        StatusBadge(
-                            text = stringResource(chipLabel),
-                            icon = chipIcon,
-                            containerColor = chipBg,
-                            contentColor = onHero
-                        )
-                        if (relativeTime != null) {
+                        heroChips.forEach { (icon, label) ->
                             StatusBadge(
-                                text = relativeTime,
-                                icon = Icons.Outlined.Schedule,
+                                text = label,
+                                icon = icon,
                                 containerColor = chipBg,
                                 contentColor = onHero
                             )
@@ -1015,35 +1020,22 @@ private fun AppHeroHeader(
             if (!compact) {
                 Spacer(Modifier.height(Defaults.ContentPaddingSmall))
 
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                ) {
-                    // Animated chip 1
-                    Box(
-                        modifier = Modifier.graphicsLayer {
-                            translationY = lerp(20f, 0f, chipsProgress)
-                            alpha = chipsProgress.coerceIn(0f, 1f)
-                        }
-                    ) {
-                        StatusBadge(
-                            text = stringResource(chipLabel),
-                            icon = chipIcon,
-                            containerColor = chipBg,
-                            contentColor = onHero
-                        )
-                    }
-                    // Animated chip 2 (sub-range: starts when chip1 is 30% done)
-                    if (relativeTime != null) {
+                // Wraps rather than clips: a clone carries a chip more than other installs do
+                StatusBadgeRow {
+                    heroChips.forEachIndexed { index, (icon, label) ->
+                        // Each chip starts a third of the way into the one before it, so they
+                        // arrive in sequence off a single clock
                         Box(
                             modifier = Modifier.graphicsLayer {
-                                val p = ((chipsProgress - 0.3f) / 0.7f).coerceIn(0f, 1f)
+                                val start = index * 0.3f
+                                val p = ((chipsProgress - start) / (1f - start)).coerceIn(0f, 1f)
                                 translationY = lerp(20f, 0f, p)
                                 alpha = p
                             }
                         ) {
                             StatusBadge(
-                                text = relativeTime,
-                                icon = Icons.Outlined.Schedule,
+                                text = label,
+                                icon = icon,
                                 containerColor = chipBg,
                                 contentColor = onHero
                             )

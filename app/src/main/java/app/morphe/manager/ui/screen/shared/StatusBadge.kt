@@ -89,7 +89,8 @@ val statusBadgeHeight: Dp
 /**
  * Inline status marker, sized to its content.
  *
- * @param text Badge label
+ * @param text Badge label, or null for a badge that is only its [icon]. Dropping the label is
+ *   for markers sharing a row with badges that need the room for their own words.
  * @param icon Optional icon drawn before the label
  * @param tone Semantic color role
  * @param containerColor Background override, for badges drawn over custom artwork
@@ -99,7 +100,7 @@ val statusBadgeHeight: Dp
  */
 @Composable
 fun StatusBadge(
-    text: String,
+    text: String?,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     tone: SemanticTone = SemanticTone.Neutral,
@@ -109,7 +110,7 @@ fun StatusBadge(
 ) {
     // Add zero-width space so long tokens can break at "/" and "." - cached per text value.
     val breakableText = remember(text) {
-        text.replace("/", "/​").replace(".", ".​")
+        text?.replace("/", "/​")?.replace(".", ".​")
     }
 
     Row(
@@ -127,12 +128,14 @@ fun StatusBadge(
         icon?.let {
             ThemedIcon(icon = it, tint = contentColor, size = BadgeDefaults.IconSize)
         }
-        Text(
-            text = breakableText,
-            style = MaterialTheme.typography.labelMedium,
-            color = contentColor,
-            fontWeight = FontWeight.Medium
-        )
+        breakableText?.let {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.labelMedium,
+                color = contentColor,
+                fontWeight = FontWeight.Medium
+            )
+        }
     }
 }
 

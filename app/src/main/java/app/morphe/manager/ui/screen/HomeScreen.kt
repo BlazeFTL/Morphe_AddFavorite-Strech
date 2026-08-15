@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.supportsMount
+import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
@@ -43,7 +44,7 @@ import kotlin.time.Duration.Companion.milliseconds
 fun HomeScreen(
     onSettingsClick: () -> Unit,
     onStartQuickPatch: (QuickPatchParams) -> Unit,
-    onStartBatchPatch: (List<String>, Boolean) -> Unit,
+    onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
     homeViewModel: HomeViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
     homeAppButtonPrefs: HomeAppButtonPreferences = koinInject(),
@@ -172,19 +173,26 @@ fun HomeScreen(
 
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
     val startBatchPatch: (List<HomeAppItem>) -> Unit = { items ->
-        val packageNames = items.map { it.packageName }
+        // A card that stands for an install queues that install, so cloned copies are each
+        // rebuilt as themselves rather than collapsing into the app they came from
+        val targets = items.map { item ->
+            BatchTarget(
+                packageName = item.packageName,
+                repatchedPackageName = item.installedApp?.currentPackageName
+            )
+        }
         when {
             availablePatches <= 0 -> context.toast(sourcesLoadingText)
             homeViewModel.android11BugActive -> homeViewModel.showAndroid11Dialog = true
-            packageNames.isEmpty() -> Unit
+            targets.isEmpty() -> Unit
             // A live queue keeps its own selection, so open it instead of swapping the apps
             homeViewModel.batchPatchRunning -> {
                 context.toast(batchInProgressText)
-                onStartBatchPatch(packageNames, false)
+                onStartBatchPatch(targets, false)
             }
             // The queue installs through the standard installer, never by mounting, so the
             // single-app mount choice must not carry over into the patches it resolves
-            else -> onStartBatchPatch(packageNames, false)
+            else -> onStartBatchPatch(targets, false)
         }
     }
 

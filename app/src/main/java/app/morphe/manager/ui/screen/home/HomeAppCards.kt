@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.AutoFixHigh
+import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.HourglassEmpty
 import androidx.compose.material3.MaterialTheme
@@ -204,6 +205,7 @@ fun InstalledAppCard(
     gradientColors: List<Color>,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isClone: Boolean = false,
     hasUpdate: Boolean = false,
     isAppDeleted: Boolean = false,
     isInstallStateNotPatched: Boolean = false,
@@ -219,6 +221,7 @@ fun InstalledAppCard(
             !isInstallStatePending
 
     val versionLabel = stringResource(R.string.version)
+    val cloneLabel = stringResource(R.string.clone)
     val installedLabel = stringResource(R.string.installed)
     val updateAvailableLabel = stringResource(R.string.update_available)
     val deletedLabel = stringResource(R.string.uninstalled)
@@ -246,6 +249,8 @@ fun InstalledAppCard(
         displayName,
         version,
         versionLabel,
+        isClone,
+        cloneLabel,
         installedLabel,
         showsUpdateBadge,
         updateAvailableLabel,
@@ -260,6 +265,7 @@ fun InstalledAppCard(
     ) {
         buildString {
             append(displayName)
+            if (isClone) append(", $cloneLabel")
             if (version.isNotEmpty()) {
                 append(", $versionLabel $version")
             }
@@ -290,7 +296,9 @@ fun InstalledAppCard(
         // App icon
         AppIcon(
             packageInfo = packageInfo,
-            packageName = installedApp.originalPackageName,
+            // The install's own package: a clone carries its own icon, which is regularly the
+            // whole point of keeping several copies of an app apart
+            packageName = installedApp.currentPackageName,
             contentDescription = null,
             modifier = Modifier.size(cardStyle.iconSize),
             preferredSource = AppDataSource.INSTALLED,
@@ -322,6 +330,18 @@ fun InstalledAppCard(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Says what the card is rather than how its install is doing, so it leads the
+                // row and stays put while the state badges at the end come and go. Wordless
+                // because the badges it shares the row with need the width for their own labels
+                if (isClone) {
+                    StatusBadge(
+                        text = null,
+                        icon = Icons.Outlined.ContentCopy,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
+                    )
+                }
+
                 // Fills the row so the chip is pinned to the card edge rather than trailing
                 // a version string of whatever length
                 Text(

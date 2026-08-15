@@ -46,6 +46,7 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
+import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.util.*
 import app.morphe.patcher.patch.AppTarget
 import kotlinx.coroutines.delay
@@ -359,8 +360,11 @@ fun HomeDialogs(
             InstalledAppInfoDialog(
                 packageName = packageName,
                 onDismiss = homeViewModel::dismissInstalledAppInfo,
-                onTriggerPatchFlow = { originalPackageName ->
-                    homeViewModel.showPatchDialog(originalPackageName)
+                onTriggerPatchFlow = { originalPackageName, repatchedPackageName ->
+                    homeViewModel.showPatchDialog(
+                        packageName = originalPackageName,
+                        repatchedPackageName = repatchedPackageName
+                    )
                 },
                 homeViewModel = homeViewModel,
                 viewModel = installedAppInfoViewModel
@@ -629,15 +633,74 @@ fun HomeDialogs(
         )
     }
 
-    // Leftover copy of an app that patching reinstalled under a different package name
-    val orphanedInstalls by homeViewModel.orphanedInstalls.collectAsStateWithLifecycle()
-    orphanedInstalls.firstOrNull()?.let { orphan ->
-        OrphanedInstallDialog(
-            packageName = orphan.currentPackageName,
-            version = orphan.version,
-            onUninstall = { homeViewModel.uninstallOrphanedInstall(orphan) },
-            onKeep = { homeViewModel.keepOrphanedInstall(orphan) }
+    // The confirmed patch list renames the app, so the run will not update what it was opened for
+    homeViewModel.renameWarning?.let { warning ->
+        RenameWarningDialog(
+            warning = warning,
+            onContinue = homeViewModel::confirmRenameWarning,
+            onDismiss = homeViewModel::dismissRenameWarning
         )
+    }
+}
+
+/**
+ * Shown when the patches about to run carry a package name of their own: the result installs
+ * beside the app instead of updating it, which is a surprise unless cloning was the intent.
+ */
+@Composable
+private fun RenameWarningDialog(
+    warning: RenameWarning,
+    onContinue: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AppDialog(
+        onDismissRequest = onDismiss,
+        title = stringResource(R.string.home_dialog_rename_title),
+        padding = DialogPadding.Compact,
+        footer = {
+            AppDialogButtonRow(
+                primaryText = stringResource(R.string.continue_),
+                onPrimaryClick = onContinue,
+                secondaryText = stringResource(android.R.string.cancel),
+                onSecondaryClick = onDismiss
+            )
+        }
+    ) {
+        val secondaryColor = LocalDialogSecondaryTextColor.current
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = htmlAnnotatedString(
+                    stringResource(
+                        R.string.home_dialog_rename_description,
+                        warning.targetPackageName
+                    )
+                ),
+                style = MaterialTheme.typography.bodyLarge,
+                color = secondaryColor,
+                textAlign = TextAlign.Center
+            )
+
+            // Only when the patches were given a name; otherwise the patch picks one itself
+            warning.resultPackageName?.let { resultPackageName ->
+                MonospaceValuePanel(
+                    value = resultPackageName,
+                    label = stringResource(R.string.home_dialog_rename_result_package)
+                )
+            }
+
+            if (warning.replacesExisting) {
+                Notice(
+                    text = stringResource(R.string.home_dialog_rename_replaces),
+                    tone = SemanticTone.Warning,
+                    icon = Icons.Outlined.Warning
+                )
+            }
+        }
     }
 }
 
@@ -1231,136 +1294,19 @@ fun WrongPackageDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
-                // Expected package (green card)
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.home_dialog_expected_package),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
-                    )
+                // The two are read against each other, so the tone carries which is which
+                MonospaceValuePanel(
+                    value = expectedPackage,
+                    label = stringResource(R.string.home_dialog_expected_package),
+                    tone = SemanticTone.Success
+                )
 
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
-                        color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.25f),
-                        tonalElevation = 1.dp
-                    ) {
-                        Text(
-                            text = expectedPackage,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Green.copy(alpha = 0.9f),
-                            modifier = Modifier.padding(16.dp)
-                        )
-                    }
-                }
-
-                // Selected package (red card)
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.home_dialog_selected_package),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
-                    )
-
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
-                        color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
-                        tonalElevation = 1.dp
-                    ) {
-                        Text(
-                            text = actualPackage,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(16.dp)
-                        )
-                    }
-                }
+                MonospaceValuePanel(
+                    value = actualPackage,
+                    label = stringResource(R.string.home_dialog_selected_package),
+                    tone = SemanticTone.Error
+                )
             }
-        }
-    }
-}
-
-/**
- * Shown after patching renamed the package: the copy patched earlier stays installed as a separate
- * app that the manager no longer tracks. Offers to remove it while it can still be identified.
- */
-@Composable
-fun OrphanedInstallDialog(
-    packageName: String,
-    version: String,
-    onUninstall: () -> Unit,
-    onKeep: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onKeep,
-        title = stringResource(R.string.home_dialog_orphaned_install_title),
-        padding = DialogPadding.Compact,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.home_dialog_orphaned_install_uninstall),
-                onPrimaryClick = onUninstall,
-                isPrimaryDestructive = true,
-                secondaryText = stringResource(R.string.home_dialog_orphaned_install_keep),
-                onSecondaryClick = onKeep
-            )
-        }
-    ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Layers,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
-
-            Text(
-                text = stringResource(R.string.home_dialog_orphaned_install_description),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center
-            )
-
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(14.dp),
-                color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
-                tonalElevation = 1.dp
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = packageName,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                    Text(
-                        text = version,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
-                    )
-                }
-            }
-
-            Notice(
-                text = stringResource(R.string.home_dialog_orphaned_install_warning),
-                tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
-            )
         }
     }
 }

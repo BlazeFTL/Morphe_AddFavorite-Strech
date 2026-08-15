@@ -70,7 +70,7 @@ internal fun buildHomeCategoryGroups(
     uncategorizedTitle: String,
     ignoreCollapsed: Boolean
 ): List<HomeCategoryGroup> {
-    val assigned = items.groupBy { item -> categoryState.assignments[item.packageName] }
+    val assigned = items.groupBy { item -> categoryState.assignments[item.id] }
     val groups = categoryState.categories.mapNotNull { category ->
         val categoryItems = assigned[category.id].orEmpty()
         if (categoryItems.isEmpty() && ignoreCollapsed) return@mapNotNull null
@@ -86,7 +86,7 @@ internal fun buildHomeCategoryGroups(
 
     val knownCategoryIds = categoryState.categories.mapTo(mutableSetOf()) { it.id }
     val uncategorizedItems = items.filter { item ->
-        categoryState.assignments[item.packageName] !in knownCategoryIds
+        categoryState.assignments[item.id] !in knownCategoryIds
     }
     val uncategorizedGroup = uncategorizedItems.takeIf { it.isNotEmpty() }?.let {
         HomeCategoryGroup(
@@ -122,10 +122,11 @@ internal fun buildHomeSourceGroups(
         }
     }
     val itemsPerSource = HashMap<Int, MutableList<HomeAppItem>>(sourceGroups.size)
-    val claimedPackages = HashSet<String>(items.size)
+    // Cards, not packages: every clone of an app belongs to the source that declares the app
+    val claimedCards = HashSet<String>(items.size)
     items.forEach { item ->
         val owners = sourcesByPackage[item.packageName] ?: return@forEach
-        claimedPackages.add(item.packageName)
+        claimedCards.add(item.id)
         owners.forEach { sourceGroup ->
             itemsPerSource.getOrPut(sourceGroup.uid) { ArrayList() }.add(item)
         }
@@ -151,7 +152,7 @@ internal fun buildHomeSourceGroups(
         }
     }
 
-    val uncategorizedItems = items.filter { item -> item.packageName !in claimedPackages }
+    val uncategorizedItems = items.filter { item -> item.id !in claimedCards }
     val uncategorizedGroup = uncategorizedItems.takeIf { it.isNotEmpty() }?.let {
         HomeCategoryGroup(
             id = null,
@@ -170,7 +171,7 @@ private fun List<HomeAppItem>.orderedByPackageOrder(packageOrder: List<String>):
     if (packageOrder.isEmpty()) return this
 
     val orderIndex = packageOrder.mapIndexed { index, pkg -> pkg to index }.toMap()
-    return sortedBy { orderIndex[it.packageName] ?: Int.MAX_VALUE }
+    return sortedBy { orderIndex[it.id] ?: Int.MAX_VALUE }
 }
 
 /**

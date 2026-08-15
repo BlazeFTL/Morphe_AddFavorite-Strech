@@ -5,10 +5,28 @@
 
 package app.morphe.manager.domain.batch
 
+import android.os.Parcelable
 import app.morphe.manager.ui.model.PatchRunProgress
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
+import kotlinx.parcelize.Parcelize
 import java.io.File
+
+/**
+ * One app a batch run is aimed at.
+ *
+ * @param packageName The app itself, which is what its APK and its patches are found by.
+ * @param repatchedPackageName The tracked install to rebuild, when the run is aimed at one of
+ *   several the app was cloned into. Null rebuilds the app's own install, or creates it.
+ */
+@Parcelize
+data class BatchTarget(
+    val packageName: String,
+    val repatchedPackageName: String? = null
+) : Parcelable {
+    /** Identifies the queued app, which the package name alone cannot once clones exist. */
+    val id get() = repatchedPackageName ?: packageName
+}
 
 /**
  * Where the unpatched APK for a queued app comes from.
@@ -110,7 +128,7 @@ data class BatchBundleRef(
  *   on the app it belongs to rather than only in a toast that is gone a moment later.
  */
 data class BatchPatchItem(
-    val packageName: String,
+    val target: BatchTarget,
     val appName: String,
     val source: BatchApkSource?,
     val selection: PatchSelection,
@@ -132,6 +150,12 @@ data class BatchPatchItem(
     /** Package the app ended up under, which patching may have renamed. */
     val installedPackageName: String? = null
 ) {
+    val id get() = target.id
+    val packageName get() = target.packageName
+
+    /** Where this item's patches and options are saved, which for a clone is its own package. */
+    val configurationKey get() = target.id
+
     val patchCount get() = selection.values.sumOf { it.size }
     val version get() = source?.version
 }

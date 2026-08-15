@@ -53,7 +53,7 @@ import java.io.File
  * applied, which keeps a canceled edit from touching the plan.
  */
 class BatchPatchEdit(
-    val packageName: String,
+    val itemId: String,
     val bundles: List<PatchBundleInfo.Scoped>,
     val savedSelection: PatchSelection,
     val newPatches: Map<Int, Set<String>>,
@@ -184,14 +184,14 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
      * state instead of throwing away progress, and a run that already covers exactly these
      * apps is reused so rotation does not restart planning.
      */
-    fun ensurePlan(packageNames: List<String>, useMount: Boolean) {
+    fun ensurePlan(targets: List<BatchTarget>, useMount: Boolean) {
         val current = state.value
         if (current != null) {
             if (current.phase == BatchPhase.PLANNING || current.phase == BatchPhase.RUNNING) return
-            if (current.items.map { it.packageName } == packageNames) return
+            if (current.items.map { it.target } == targets) return
             coordinator.clear()
         }
-        coordinator.plan(packageNames, useMount, BatchInstallPolicy.SAVE_ONLY)
+        coordinator.plan(targets, useMount, BatchInstallPolicy.SAVE_ONLY)
     }
 
     fun requestAttach(packageName: String) {
@@ -248,7 +248,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
     fun useApkSource(preferInstalled: Boolean) {
         val choice = apkChoice ?: return
         apkChoice = null
-        coordinator.useSource(choice.item.packageName, preferInstalled)
+        coordinator.useSource(choice.item.id, preferInstalled)
     }
 
     /**
@@ -327,14 +327,14 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
             // run. Without a snapshot there is no "last run" to compare against, so nothing
             // is badged rather than everything
             val newPatches = bundles.associate { bundle ->
-                val seen = patchSelectionRepository.getSeenPatches(item.packageName, bundle.uid)
+                val seen = patchSelectionRepository.getSeenPatches(item.configurationKey, bundle.uid)
                 bundle.uid to bundle.patches
                     .filter { seen != null && it.name !in seen }
                     .mapTo(mutableSetOf()) { it.name }
             }.filterValues { it.isNotEmpty() }
 
             edit = BatchPatchEdit(
-                packageName = item.packageName,
+                itemId = item.id,
                 bundles = bundles,
                 savedSelection = item.selection,
                 newPatches = newPatches,
@@ -370,12 +370,12 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
     fun pickSource(bundleUid: Int) {
         val item = sourcePick ?: return
         sourcePick = null
-        coordinator.narrowToSource(item.packageName, bundleUid)
+        coordinator.narrowToSource(item.id, bundleUid)
     }
 
     fun applyEdit() {
         val current = edit ?: return
-        coordinator.updateSelection(current.packageName, current.selection, current.options)
+        coordinator.updateSelection(current.itemId, current.selection, current.options)
         edit = null
     }
 
@@ -384,9 +384,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
      * resolver, because the content URI is not readable once the picker session ends.
      */
     fun onApkPicked(uri: Uri?) {
-        val packageName = attachTarget
+        val itemId = attachTarget
         attachTarget = null
-        if (uri == null || packageName == null) return
+        if (uri == null || itemId == null) return
 
         viewModelScope.launch {
             val file = withContext(Dispatchers.IO) { copyToWorkspace(uri) }
@@ -394,32 +394,32 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
                 app.toast(app.getString(R.string.home_invalid_apk_io_error))
                 return@launch
             }
-            coordinator.attachApk(packageName, file)
+            coordinator.attachApk(itemId, file)
         }
     }
 
-    fun toggleExcluded(packageName: String) = coordinator.toggleExcluded(packageName)
+    fun toggleExcluded(itemId: String) = coordinator.toggleExcluded(itemId)
 
     /**
      * Accepts an unsupported version. Confirmed with a toast because the card only swaps a
      * badge, which does not say what was just taken on.
      */
-    fun forceVersion(packageName: String) {
-        coordinator.forceVersion(packageName)
+    fun forceVersion(itemId: String) {
+        coordinator.forceVersion(itemId)
         app.toast(app.getString(R.string.batch_patch_force_version_done))
     }
 
     fun setPolicy(policy: BatchInstallPolicy) = coordinator.setPolicy(policy)
 
-    fun markInstalled(packageName: String, installedPackageName: String) =
+    fun markInstalled(itemId: String, installedPackageName: String) =
         coordinator.markInstallResult(
-            packageName = packageName,
+            itemId = itemId,
             outcome = BatchInstallOutcome.INSTALLED,
             installedPackageName = installedPackageName
         )
 
-    fun markInstallFailed(packageName: String, message: String?) =
-        coordinator.markInstallResult(packageName, BatchInstallOutcome.FAILED, message)
+    fun markInstallFailed(itemId: String, message: String?) =
+        coordinator.markInstallResult(itemId, BatchInstallOutcome.FAILED, message)
 
     /** Launches an app the summary just installed. */
     fun openApp(packageName: String) {
@@ -438,15 +438,15 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
      */
     fun retryUnfinished() {
         val current = state.value ?: return
-        val packages = current.items
+        val targets = current.items
             .filter { it.state == BatchItemState.FAILED || it.state == BatchItemState.CANCELLED }
-            .map { it.packageName }
-        if (packages.isEmpty()) return
+            .map { it.target }
+        if (targets.isEmpty()) return
 
         val useMount = current.useMount
         val policy = current.policy
         coordinator.clear()
-        coordinator.plan(packages, useMount, policy)
+        coordinator.plan(targets, useMount, policy)
     }
 
     /**

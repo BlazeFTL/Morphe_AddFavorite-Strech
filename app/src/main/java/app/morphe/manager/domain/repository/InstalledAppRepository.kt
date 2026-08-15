@@ -18,15 +18,16 @@ import java.io.File
 private const val TAG = "Morphe InstalledAppRepository"
 
 /**
- * Package names a record keeps its retained copies under, given whether a record already occupies
- * its original name. A rename leaves a copy under the original package name, but that same path is
- * where a separate, unrenamed record would keep its own APK.
+ * Package names a record keeps its retained copies under, given whether the same app is described
+ * by more than one record. A rename leaves a copy under the original package name, but that path
+ * is only attributable while a single record can claim it: any sibling record, renamed or not,
+ * could have written it just as well.
  */
 internal fun retainedPatchedApkOwners(
     currentPackageName: String,
     originalPackageName: String,
-    originalPackageIsTracked: Boolean
-): List<String> = if (originalPackageName == currentPackageName || originalPackageIsTracked) {
+    hasSiblingRecords: Boolean
+): List<String> = if (originalPackageName == currentPackageName || hasSiblingRecords) {
     listOf(currentPackageName)
 } else {
     listOf(currentPackageName, originalPackageName)
@@ -80,15 +81,7 @@ class InstalledAppRepository(
     private val dao = db.installedAppDao()
     private val bundleDao = db.patchBundleDao()
 
-    private val _orphanedInstalls = MutableStateFlow<List<InstalledApp>>(emptyList())
     private val _savedPatchedApkChanges = MutableSharedFlow<Set<String>>(extraBufferCapacity = 1)
-
-    /**
-     * Copies that patching left behind on the device under their previous package name.
-     * They are no longer tracked in the database, so the UI offers to remove them before
-     * they turn into installs nothing points at.
-     */
-    val orphanedInstalls = _orphanedInstalls.asStateFlow()
 
     /** Package names whose retained patched APK evidence changed without changing its record. */
     val savedPatchedApkChanges = _savedPatchedApkChanges.asSharedFlow()
@@ -107,6 +100,13 @@ class InstalledAppRepository(
         dao.getBundleVersions(packageName)
             .associate { it.bundleUid to it.version }
 
+    /**
+     * Records an install under the package name it ended up with.
+     *
+     * A run that renamed the package describes a second install rather than a replacement: the
+     * rename leaves the previous copy on the device, so it keeps the record that tracks it and
+     * goes on receiving updates of its own.
+     */
     suspend fun addOrUpdate(
         currentPackageName: String,
         originalPackageName: String,
@@ -119,12 +119,6 @@ class InstalledAppRepository(
         // Get current bundle versions at the time of patching
         val bundleVersions = patchBundleRepository.sources.first()
             .associate { it.uid to it.version }
-
-        // Remove stale records for the same original package but different current package name
-        // This happens when repatching with a different bundle
-        val staleEntries = dao.getStaleEntries(originalPackageName, currentPackageName)
-        staleEntries.forEach { dao.delete(it) }
-        rememberOrphanedInstalls(staleEntries)
 
         // Skip applied patches whose bundle uid is no longer in patch_bundles:
         // the FK constraint would otherwise abort the entire upsert transaction.
@@ -186,36 +180,6 @@ class InstalledAppRepository(
         runCatching { packageInfo()?.let { with(pm) { it.label() } } }.getOrNull()
 
     /**
-     * A package rename does not replace the previous install, it installs alongside it, so the
-     * records dropped above may still have a live app behind them. Collect those so the user can
-     * remove the leftovers instead of ending up with an untracked copy that never sees an update.
-     *
-     * Only apps a patch manager put there are offered: a record can outlive the patched APK it
-     * described, and by then the package name may well belong to the stock app from the Play Store.
-     * Mount installs never qualify anyway, since their package is the stock app and has to be
-     * unmounted rather than uninstalled.
-     */
-    private fun rememberOrphanedInstalls(staleEntries: List<InstalledApp>) {
-        val stillInstalled = staleEntries.filter {
-            it.installType != InstallType.MOUNT &&
-                    pm.getPackageInfo(it.currentPackageName) != null &&
-                    pm.isInstalledByPatchManager(it.currentPackageName)
-        }
-        if (stillInstalled.isEmpty()) return
-
-        _orphanedInstalls.update { current ->
-            val known = current.mapTo(mutableSetOf()) { it.currentPackageName }
-            current + stillInstalled.filter { it.currentPackageName !in known }
-        }
-        Log.i(TAG, "Orphaned installs left by rename: ${stillInstalled.map { it.currentPackageName }}")
-    }
-
-    /** Stops offering [installedApp] for cleanup once the user has removed or kept it. */
-    fun forgetOrphanedInstall(installedApp: InstalledApp) = _orphanedInstalls.update { current ->
-        current.filterNot { it.currentPackageName == installedApp.currentPackageName }
-    }
-
-    /**
      * Update only the [InstalledApp.version] of an existing record and drop the orphan
      * patched APKs it owned at the old version path. Applied patches and selectionPayload
      * are left untouched.
@@ -239,7 +203,10 @@ class InstalledAppRepository(
         retainedPatchedApkOwners(
             currentPackageName = installedApp.currentPackageName,
             originalPackageName = installedApp.originalPackageName,
-            originalPackageIsTracked = dao.get(installedApp.originalPackageName) != null
+            hasSiblingRecords = dao.countSiblings(
+                originalPackageName = installedApp.originalPackageName,
+                currentPackageName = installedApp.currentPackageName
+            ) > 0
         ).map { packageName ->
             filesystem.getPatchedAppFile(packageName, installedApp.version)
         }

@@ -62,13 +62,13 @@ internal fun HomeAppsFooterBars(
         when {
             state.isReorderMode -> reorderItems
             groupedSelectionGroup != null -> groupedSelectionGroup.items
-            activeAppScopePackages != null -> listedItems.filter { it.packageName in activeAppScopePackages }
+            activeAppScopePackages != null -> listedItems.filter { it.id in activeAppScopePackages }
             else -> listedItems
         }
     }
     val selectedAppItems = remember(selectedPackages.keys.toList(), homeAppItems) {
         val selected = selectedPackages.keys.toSet()
-        homeAppItems.filter { it.packageName in selected }
+        homeAppItems.filter { it.id in selected }
     }
     val selectedInstalledItems = remember(selectedAppItems) {
         // Apps that are on the device but were never patched here have nothing Morphe can
@@ -95,7 +95,7 @@ internal fun HomeAppsFooterBars(
         visible = state.isFooterBarVisible,
         isReorderMode = state.isReorderMode,
         onSelectAll = {
-            selectedPackages.setAll(activeAppScopeItems.map { it.packageName })
+            selectedPackages.setAll(activeAppScopeItems.map { it.id })
         },
         onDeselectAll = {
             selectedPackages.clear()
@@ -158,7 +158,7 @@ internal fun HomeAppsFooterBars(
             val sourceOrder = groupedSelectionGroup
                 ?.takeIf { it.sourceUid != null }
                 ?.items
-                ?.map { it.packageName }
+                ?.map { it.id }
             state.scopedSourceOrder = sourceOrder
             val focusTargets = selectedPackages.keys.toSet()
             // Grouped pre-scrolls below (before flipping mode) so the LazyColumn doesn't hold a
@@ -172,8 +172,8 @@ internal fun HomeAppsFooterBars(
             groupedSelectionPackages?.let { scopePackages ->
                 val scopedItems = sourceOrder
                     ?.mapNotNull { itemsByPackage[it] }
-                    ?: orderedItems.filter { it.packageName in scopePackages }
-                val focusIndex = scopedItems.indexOfFirst { it.packageName in focusTargets }
+                    ?: orderedItems.filter { it.id in scopePackages }
+                val focusIndex = scopedItems.indexOfFirst { it.id in focusTargets }
                 scope.launch {
                     listState.scrollToItem(focusIndex.coerceAtLeast(0))
                     state.isReorderMode = true
@@ -187,7 +187,7 @@ internal fun HomeAppsFooterBars(
             if (sourceUid != null) {
                 appActions.onSaveSourceOrder(
                     sourceUid,
-                    state.scopedSourceOrder ?: reorderItems.map { it.packageName }
+                    state.scopedSourceOrder ?: reorderItems.map { it.id }
                 )
             } else {
                 appActions.onSaveOrder(state.localOrder)
@@ -201,9 +201,9 @@ internal fun HomeAppsFooterBars(
             } else {
                 appActions.onResetOrder()
             }
-            state.exitReorder(homeAppItems.map { it.packageName })
+            state.exitReorder(homeAppItems.map { it.id })
         },
-        onCancelReorder = { state.exitReorder(homeAppItems.map { it.packageName }) },
+        onCancelReorder = { state.exitReorder(homeAppItems.map { it.id }) },
         modifier = modifier
     )
 

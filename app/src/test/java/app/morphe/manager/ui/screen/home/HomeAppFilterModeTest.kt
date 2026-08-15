@@ -16,6 +16,7 @@ class HomeAppFilterModeTest {
     @Test
     fun `confirmed replacement is historically patched and currently installed`() {
         val item = HomeAppItem(
+            id = "app.example",
             packageName = "app.example",
             displayName = "Example",
             gradientColors = emptyList(),
@@ -46,6 +47,7 @@ class HomeAppFilterModeTest {
     @Test
     fun `pending verification stays physically installed without showing an update verdict`() {
         val item = HomeAppItem(
+            id = "app.example",
             packageName = "app.example",
             displayName = "Example",
             gradientColors = emptyList(),

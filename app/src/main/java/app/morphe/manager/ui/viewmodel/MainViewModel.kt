@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
 import app.morphe.manager.domain.batch.BatchPlanResolver
+import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.PreferencesManager
 import kotlinx.coroutines.launch
 
@@ -114,11 +115,11 @@ class MainViewModel(
     fun onShortcutBatchRequest() {
         pendingOutdatedBatch = false
         viewModelScope.launch {
-            val packageNames = batchPlanResolver.findOutdatedPackages()
-            if (packageNames.isEmpty()) {
+            val targets = batchPlanResolver.findOutdatedTargets()
+            if (targets.isEmpty()) {
                 nothingToRepatch = true
             } else {
-                approvedBatchPatch = BatchPatchRequest(packageNames, callerPackage = null)
+                approvedBatchPatch = BatchPatchRequest(targets, callerPackage = null)
             }
         }
     }
@@ -128,14 +129,14 @@ class MainViewModel(
     }
 
     /**
-     * Reopens the queue an automatic run left behind. Navigating with its own package list
+     * Reopens the queue an automatic run left behind. Navigating with its own target list
      * keeps the finished state, which the batch screen would otherwise re-plan away.
      */
     fun onShowBatchResult() {
         pendingBatchResult = false
-        val packageNames = batchPatchCoordinator.state.value?.items?.map { it.packageName }
-        if (packageNames.isNullOrEmpty()) return
-        approvedBatchPatch = BatchPatchRequest(packageNames, callerPackage = null)
+        val targets = batchPatchCoordinator.state.value?.items?.map { it.target }
+        if (targets.isNullOrEmpty()) return
+        approvedBatchPatch = BatchPatchRequest(targets, callerPackage = null)
     }
 
     fun dismissExternalBatch() {
@@ -154,7 +155,7 @@ class MainViewModel(
      * @param callerPackage Package that sent the intent, null when it could not be determined.
      */
     data class BatchPatchRequest(
-        val packageNames: List<String>,
+        val targets: List<BatchTarget>,
         val callerPackage: String?
     )
 }

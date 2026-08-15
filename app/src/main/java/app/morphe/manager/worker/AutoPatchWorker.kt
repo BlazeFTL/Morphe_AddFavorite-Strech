@@ -100,7 +100,7 @@ class AutoPatchWorker(
             return Result.success()
         }
 
-        val candidates = planResolver.findOutdatedPackages()
+        val candidates = planResolver.findOutdatedTargets()
         if (candidates.isEmpty()) {
             Log.d(tag, "AutoPatchWorker: no patched apps are out of date")
             return Result.success()

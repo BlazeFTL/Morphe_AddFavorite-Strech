@@ -294,7 +294,7 @@ fun AppPatchesDialog(
 
                                     PatchItemCard(
                                         patch = patch,
-                                        saveStateKey = "app_patches_${item.packageName}_$uid",
+                                        saveStateKey = "app_patches_${item.id}_$uid",
                                         accentColor = bundleAccentColors[uid],
                                     )
                                 }
@@ -405,7 +405,7 @@ internal fun HideAppDialog(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 AppCardContent(
-                    packageName = item.packageName,
+                    packageName = item.id,
                     packageInfo = item.packageInfo,
                     displayName = item.displayName,
                     subtitle = stringResource(R.string.home_app_will_be_hidden),
@@ -447,7 +447,7 @@ internal fun HiddenAppsDialog(
 
     // Sync selection with current item list; exit mode if no items remain
     LaunchedEffect(hiddenAppItems) {
-        val currentPackages = hiddenAppItems.mapTo(mutableSetOf()) { it.packageName }
+        val currentPackages = hiddenAppItems.mapTo(mutableSetOf()) { it.id }
         selectedPackages.retain { it in currentPackages }
         if (selectedPackages.isEmpty) isMultiSelectMode.value = false
     }
@@ -499,7 +499,7 @@ internal fun HiddenAppsDialog(
                     visible = true,
                     showReorderButton = false,
                     onSelectAll = {
-                        selectedPackages.setAll(hiddenAppItems.map { it.packageName })
+                        selectedPackages.setAll(hiddenAppItems.map { it.id })
                     },
                     onDeselectAll = { selectedPackages.clear() },
                     onAction = {
@@ -549,10 +549,10 @@ internal fun HiddenAppsDialog(
                 ) {
                     items(
                         items = hiddenAppItems,
-                        key = { it.packageName }
+                        key = { it.id }
                     ) { item ->
-                        val isSelected = selectedPackages.contains(item.packageName)
-                        val offsetX = remember(item.packageName) { Animatable(0f) }
+                        val isSelected = selectedPackages.contains(item.id)
+                        val offsetX = remember(item.id) { Animatable(0f) }
 
                         // Snap card back when entering multi-select
                         LaunchedEffect(isMultiSelectMode.value) {
@@ -571,7 +571,7 @@ internal fun HiddenAppsDialog(
                             SwipeableCardContainer(
                                 offsetX = offsetX,
                                 actionThresholdPx = actionThresholdPx,
-                                onLeftSwipe = { onUnhide(item.packageName) },
+                                onLeftSwipe = { onUnhide(item.id) },
                                 onRightSwipe = { onShowPatches(item) },
                                 leftHaptic = HapticFeedbackConstants.LONG_PRESS,
                                 rightHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
@@ -593,20 +593,20 @@ internal fun HiddenAppsDialog(
                                     enabled = true,
                                     onClick = {
                                         if (isMultiSelectMode.value) {
-                                            selectedPackages.toggle(item.packageName)
+                                            selectedPackages.toggle(item.id)
                                         } else {
-                                            onUnhide(item.packageName)
+                                            onUnhide(item.id)
                                         }
                                     },
                                     onLongClick = {
                                         view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                                         isMultiSelectMode.value = true
-                                        selectedPackages.toggle(item.packageName)
+                                        selectedPackages.toggle(item.id)
                                     },
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
                                     AppCardContent(
-                                        packageName = item.packageName,
+                                        packageName = item.id,
                                         packageInfo = item.packageInfo,
                                         displayName = item.displayName,
                                         subtitle = if (isMultiSelectMode.value) null

@@ -197,11 +197,11 @@ internal fun LazyListScope.hiddenSearchAndShowHiddenItems(
         }
         itemsIndexed(
             items = filteredHiddenItems,
-            key = { _, item -> "${keyPrefix}hidden_${item.packageName}" }
+            key = { _, item -> "${keyPrefix}hidden_${item.id}" }
         ) { _, item ->
             HiddenSearchAppCard(
                 item = item,
-                onUnhide = { appActions.onUnhideApp(item.packageName) },
+                onUnhide = { appActions.onUnhideApp(item.id) },
                 onAppClick = { appActions.onAppClick(item) },
                 onShowPatches = { appActions.onShowPatches(item) },
                 modifier = Modifier.animateItem()

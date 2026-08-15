@@ -39,6 +39,7 @@ import app.morphe.manager.ui.model.navigation.ComplexParameter
 import app.morphe.manager.ui.model.navigation.HomeScreen
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.model.navigation.Settings
+import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.ui.screen.BatchPatcherScreen
 import app.morphe.manager.ui.screen.HomeScreen
 import app.morphe.manager.ui.screen.PatcherScreen
@@ -186,7 +187,8 @@ class MainActivity : AppCompatActivity() {
                 vm.pendingOutdatedBatch = true
             } else {
                 vm.pendingBatchPatch = MainViewModel.BatchPatchRequest(
-                    packageNames = packageNames,
+                    // An external request names apps, so it rebuilds each one's own install
+                    targets = packageNames.map { BatchTarget(it) },
                     // Only the system-supplied caller is trustworthy here. getReferrer() reads
                     // EXTRA_REFERRER, which the sender fills in itself, so it could name any
                     // package and both skip the confirmation and misname it in the dialog
@@ -349,7 +351,7 @@ private fun MorpheManager(vm: MainViewModel) {
             navController.navigateComplex(
                 BatchPatcher,
                 BatchPatcher.ViewModelParams(
-                    packageNames = request.packageNames,
+                    targets = request.targets,
                     useMount = false
                 )
             )
@@ -359,7 +361,7 @@ private fun MorpheManager(vm: MainViewModel) {
     vm.batchPatchConfirmation?.let { request ->
         ExternalBatchPatchDialog(
             callerPackage = request.callerPackage,
-            packageCount = request.packageNames.size,
+            packageCount = request.targets.size,
             onConfirm = { trustCaller -> vm.approveExternalBatch(trustCaller) },
             onDismiss = vm::dismissExternalBatch
         )
@@ -546,12 +548,12 @@ private fun MorpheManager(vm: MainViewModel) {
                             )
                         }
                     },
-                    onStartBatchPatch = { packageNames, useMount ->
+                    onStartBatchPatch = { targets, useMount ->
                         entry.lifecycleScope.launch {
                             navController.navigateComplex(
                                 BatchPatcher,
                                 BatchPatcher.ViewModelParams(
-                                    packageNames = packageNames,
+                                    targets = targets,
                                     useMount = useMount
                                 )
                             )
@@ -570,7 +572,7 @@ private fun MorpheManager(vm: MainViewModel) {
             composable<BatchPatcher> { entry ->
                 val params = entry.getComplexArg<BatchPatcher.ViewModelParams>() ?: return@composable
                 BatchPatcherScreen(
-                    packageNames = params.packageNames,
+                    targets = params.targets,
                     useMount = params.useMount,
                     onBackClick = { navController.popBackStack() },
                     onAppStateChanged = homeViewModel::notifyAppStateChanged

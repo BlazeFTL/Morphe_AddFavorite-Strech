@@ -656,17 +656,48 @@ class PatcherViewModel(
             selectionPayload
         )
 
-        patchSelectionRepository.updateSelection(
-            packageName,
-            sanitizedSelection,
-            scope = scopedBundlesForSelection.keys
+        persistConfiguration(
+            finalPackageName = finalPackageName,
+            selection = sanitizedSelection,
+            options = sanitizedOptions,
+            bundles = scopedBundlesForSelection
         )
-        patchOptionsRepository.saveOptions(packageName, sanitizedOptions)
         appliedSelection = sanitizedSelection
         appliedOptions = sanitizedOptions
 
         savedPatchedApp = savedPatchedApp || installType == InstallType.SAVED || savedCopy.exists()
         true
+    }
+
+    /**
+     * Stores the patches and options this run was built with under the install it produced.
+     *
+     * A configuration describes an install, and every install of an app keeps its own. A run that
+     * came out under a different package name therefore leaves the one it started from untouched:
+     * what it writes is a copy, taken at the moment the copy came into being.
+     */
+    private suspend fun persistConfiguration(
+        finalPackageName: String,
+        selection: PatchSelection,
+        options: Options,
+        bundles: Map<Int, PatchBundleInfo.Scoped>
+    ) {
+        patchSelectionRepository.updateSelection(
+            finalPackageName,
+            selection,
+            scope = bundles.keys
+        )
+        patchOptionsRepository.saveOptions(finalPackageName, options)
+
+        // Taken here as well as before patching, because a renamed install starts out with no
+        // snapshot of its own and would flag every patch it was just built with as new
+        bundles.forEach { (uid, bundle) ->
+            patchSelectionRepository.saveSeenPatches(
+                packageName = finalPackageName,
+                bundleUid = uid,
+                patchNames = bundle.patches.mapTo(mutableSetOf()) { it.name }
+            )
+        }
     }
 
     override var downloadProgress by savedStateHandle.saveable(
@@ -953,7 +984,7 @@ class PatcherViewModel(
                 )
                 val currentLimit = if (previousFromWorker > 0) previousFromWorker else prefs.patcherProcessMemoryLimit.get()
                 // One step down, on the same scale the setting and the memory retries use, so
-                // accepting this lands on a value the slider can represent and the runtime honours
+                // accepting this lands on a value the slider can represent and the runtime honors
                 val suggestedLimit = (currentLimit - PROCESS_RUNTIME_MEMORY_STEP)
                     .coerceAtLeast(PROCESS_RUNTIME_MEMORY_MINIMUM)
                 // The setting is left alone until the user accepts the suggestion: silently

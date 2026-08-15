@@ -43,10 +43,10 @@ import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
-import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.util.*
 import app.morphe.patcher.patch.AppTarget
 import kotlinx.coroutines.delay
@@ -433,9 +433,7 @@ fun HomeDialogs(
                 }
             ),
             savedPatches = homeViewModel.expertModeInitialPatches,
-            lockStateOf = { patch ->
-                patch.lockState(homeViewModel.currentInstallerType, homeViewModel.currentApkArchitecture)
-            },
+            lockStateOf = homeViewModel::expertModeLockState,
             holdsUniversalPatches = homeViewModel::expertModeSelectAllHoldsUniversal,
             onDismiss = {
                 homeViewModel.cleanupExpertModeData()

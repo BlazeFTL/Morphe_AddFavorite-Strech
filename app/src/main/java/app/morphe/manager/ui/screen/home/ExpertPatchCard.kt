@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.PatchLockState
+import app.morphe.manager.patcher.patch.blocksToggle
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toast
 
@@ -161,7 +162,7 @@ internal fun PatchCard(
         PatchLockState.LOCKED_OFF -> stringResource(R.string.expert_mode_patch_unavailable_for_installer)
         PatchLockState.NONE       -> null
     }
-    val onCardClick: () -> Unit = if (lockedMessage != null) {
+    val onCardClick: () -> Unit = if (lockState.blocksToggle(isEnabled) && lockedMessage != null) {
         { context.toast(lockedMessage) }
     } else onToggle
 

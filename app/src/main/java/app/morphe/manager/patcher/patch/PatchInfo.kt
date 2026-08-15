@@ -103,11 +103,19 @@ data class PatchInfo(
     /**
      * Whether the user can toggle this patch for the given install target, and in which direction
      * it is locked when they cannot.
+     *
+     * [enforceRequired] is false while the run draws patches from more than one bundle. A REQUIRED
+     * patch then only starts out selected instead of locking, because a patch that cannot be
+     * unselected would keep its bundle in a run the user is trying to move away from.
      */
-    fun lockState(installerType: InstallerType, apkArchitecture: ApkArchitecture): PatchLockState {
+    fun lockState(
+        installerType: InstallerType,
+        apkArchitecture: ApkArchitecture,
+        enforceRequired: Boolean = true
+    ): PatchLockState {
         val resolver = availabilityResolver ?: return PatchLockState.NONE
         return when (resolver.resolve(installerType, apkArchitecture)) {
-            PatchAvailability.REQUIRED    -> PatchLockState.LOCKED_ON
+            PatchAvailability.REQUIRED    -> if (enforceRequired) PatchLockState.LOCKED_ON else PatchLockState.NONE
             PatchAvailability.UNAVAILABLE -> PatchLockState.LOCKED_OFF
             PatchAvailability.ENABLED,
             PatchAvailability.DISABLED    -> PatchLockState.NONE

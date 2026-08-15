@@ -248,13 +248,57 @@ class PatchSelectionExtensionsTest {
     fun `a required patch is added even when the user did not pick it`() {
         val bundles = mapOf(
             0 to mapOf(
+                "Plain patch" to patch("Plain patch"),
                 "Required patch" to patch("Required patch") { _, _ -> PatchAvailability.REQUIRED }
             )
         )
 
         assertEquals(
-            mapOf(0 to setOf("Required patch")),
-            emptyMap<Int, Set<String>>().applyAvailability(installer, architecture, bundles)
+            mapOf(0 to setOf("Plain patch", "Required patch")),
+            mapOf(0 to setOf("Plain patch")).applyAvailability(installer, architecture, bundles)
+        )
+    }
+
+    @Test
+    fun `a required patch stays out of a bundle the run draws nothing from`() {
+        val bundles = mapOf(
+            0 to mapOf("Plain patch" to patch("Plain patch")),
+            1 to mapOf("Required patch" to patch("Required patch") { _, _ -> PatchAvailability.REQUIRED })
+        )
+        val selection = mapOf(0 to setOf("Plain patch"))
+
+        assertEquals(selection, selection.applyAvailability(installer, architecture, bundles))
+    }
+
+    @Test
+    fun `a required patch is not forced back in while the run spans several bundles`() {
+        val bundles = mapOf(
+            0 to mapOf(
+                "Plain patch" to patch("Plain patch"),
+                "Required patch" to patch("Required patch") { _, _ -> PatchAvailability.REQUIRED }
+            ),
+            1 to mapOf("Other patch" to patch("Other patch"))
+        )
+        // The user unselected the required patch to move this run over to the other bundle
+        val selection = mapOf(0 to setOf("Plain patch"), 1 to setOf("Other patch"))
+
+        assertEquals(selection, selection.applyAvailability(installer, architecture, bundles))
+    }
+
+    @Test
+    fun `an unavailable patch is removed no matter how many bundles the run spans`() {
+        val bundles = mapOf(
+            0 to mapOf(
+                "Plain patch" to patch("Plain patch"),
+                "Blocked patch" to patch("Blocked patch") { _, _ -> PatchAvailability.UNAVAILABLE }
+            ),
+            1 to mapOf("Other patch" to patch("Other patch"))
+        )
+        val selection = mapOf(0 to setOf("Plain patch", "Blocked patch"), 1 to setOf("Other patch"))
+
+        assertEquals(
+            mapOf(0 to setOf("Plain patch"), 1 to setOf("Other patch")),
+            selection.applyAvailability(installer, architecture, bundles)
         )
     }
 

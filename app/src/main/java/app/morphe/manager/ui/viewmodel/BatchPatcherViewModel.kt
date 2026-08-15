@@ -30,9 +30,11 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.util.*
+import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
+import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
 import app.morphe.patcher.patch.AppTarget
@@ -85,19 +87,28 @@ class BatchPatchEdit(
 
     val totalPatchesCount get() = allPatchesInfo.sumOf { it.second.size }
 
-    val hasMultipleBundles get() = selection.count { (_, patches) -> patches.isNotEmpty() } > 1
+    val hasMultipleBundles get() = selection.spansMultipleBundles()
 
-    /** Lock state of [patch] for the install target this queue runs against. */
-    fun lockStateOf(patch: PatchInfo) = patch.lockState(installerType, SELECTION_APK_ARCHITECTURE)
+    private val patchesByName = bundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
+
+    /**
+     * Lock state of [patch] for the install target this queue runs against.
+     *
+     * A REQUIRED patch only locks while the item draws its patches from one bundle, see
+     * [PatchSelectionUtils.applyAvailability].
+     */
+    fun lockStateOf(patch: PatchInfo) =
+        patch.lockState(installerType, SELECTION_APK_ARCHITECTURE, !hasMultipleBundles)
 
     fun togglePatch(bundleUid: Int, patchName: String) {
         // Locked patches are toggled only through availability rules; no-op here
         val patch = bundles.firstOrNull { it.uid == bundleUid }
             ?.patches
             ?.firstOrNull { it.name == patchName }
-        if (patch != null && lockStateOf(patch) != PatchLockState.NONE) return
+        val selected = patchName in selection[bundleUid].orEmpty()
+        if (patch != null && lockStateOf(patch).blocksToggle(selected)) return
 
-        selection = selection.togglePatch(bundleUid, patchName)
+        selection = selection.togglePatch(bundleUid, patchName).applyItemAvailability()
     }
 
     /**
@@ -109,7 +120,9 @@ class BatchPatchEdit(
         val updated = bulkEnablePatches(patches, selected, universalArmed(bundleUid, selected), ::lockStateOf)
 
         replaceBundle(bundleUid, updated)
-        universalArmedFor = bundleUid to updated
+        // Armed against what the availability rules left behind, so the next tap sees the
+        // selection it is compared to
+        universalArmedFor = bundleUid to selection[bundleUid].orEmpty()
     }
 
     /** True when the next [selectAll] holds universal patches back for another tap. */
@@ -148,10 +161,14 @@ class BatchPatchEdit(
     }
 
     private fun replaceBundle(bundleUid: Int, patches: Set<String>) {
-        selection = selection.toMutableMap().apply {
-            if (patches.isEmpty()) remove(bundleUid) else put(bundleUid, patches)
-        }
+        selection = selection.toMutableMap()
+            .apply { if (patches.isEmpty()) remove(bundleUid) else put(bundleUid, patches) }
+            .applyItemAvailability()
     }
+
+    /** Availability rules of the install target, so an edit lands on the plan already settled. */
+    private fun PatchSelection.applyItemAvailability() =
+        applyAvailability(installerType, SELECTION_APK_ARCHITECTURE, patchesByName)
 }
 
 /**

@@ -26,6 +26,18 @@ enum class PatchLockState {
 }
 
 /**
+ * Whether a tap on a patch that is currently [selected] has to be ignored.
+ *
+ * A required patch may still be put into the selection, only taking it back out is refused. That
+ * keeps the one way back open for a patch the rules left out of a bundle the run does not use yet.
+ */
+fun PatchLockState.blocksToggle(selected: Boolean) = when (this) {
+    PatchLockState.NONE       -> false
+    PatchLockState.LOCKED_ON  -> selected
+    PatchLockState.LOCKED_OFF -> true
+}
+
+/**
  * Install target handed to availability resolvers. Only mount vs non-mount is known while patches
  * are being selected; the concrete non-mount installer is picked after patching.
  */

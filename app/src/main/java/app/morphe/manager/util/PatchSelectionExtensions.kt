@@ -7,6 +7,7 @@ import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
 import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
+import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.InstallerType
 import app.morphe.patcher.patch.PatchAvailability
@@ -257,6 +258,9 @@ object PatchSelectionUtils {
         }.toMap()
     }
 
+    /** True when the run draws patches from more than one bundle. */
+    fun PatchSelection.spansMultipleBundles() = count { (_, patches) -> patches.isNotEmpty() } > 1
+
     /**
      * Apply per-patch availability rules to a selection.
      *
@@ -266,6 +270,13 @@ object PatchSelectionUtils {
      *  - UNAVAILABLE: remove the patch from the selection even if the user did pick it
      *  - ENABLED / DISABLED: leave the selection untouched (user choice wins)
      *
+     * Only bundles the run draws patches from are touched. A bundle nothing is selected from takes
+     * no part in the run, so no rule of its own may pull it back in. REQUIRED additionally stops
+     * forcing once the selection [spansMultipleBundles]: the user has to stay free to drop one of
+     * them, and a patch that cannot be unselected would hold its bundle in the run for good. Such a
+     * patch still starts out selected through [PatchInfo.defaultSelected], it merely stays
+     * unlockable until the run is down to a single bundle again.
+     *
      * Patches without an availability resolver are left untouched here. Legacy GmsCore hardcoding
      * lives in [filterGmsCore] for the transition period.
      */
@@ -274,26 +285,26 @@ object PatchSelectionUtils {
         apkArchitecture: ApkArchitecture,
         allBundlePatches: Map<Int, Map<String, PatchInfo>>,
     ): PatchSelection {
-        val result = this.toMutableMap()
+        val enforceRequired = !spansMultipleBundles()
 
-        allBundlePatches.forEach { (bundleUid, patchesInBundle) ->
-            val current = result[bundleUid]?.toMutableSet() ?: mutableSetOf()
+        return mapNotNull { (bundleUid, selected) ->
+            if (selected.isEmpty()) return@mapNotNull null
+            val patchesInBundle = allBundlePatches[bundleUid] ?: return@mapNotNull bundleUid to selected
 
+            val current = selected.toMutableSet()
             patchesInBundle.values.forEach { info ->
                 val resolver = info.availabilityResolver ?: return@forEach
 
                 when (resolver.resolve(installerType, apkArchitecture)) {
-                    PatchAvailability.REQUIRED    -> current.add(info.name)
+                    PatchAvailability.REQUIRED    -> if (enforceRequired) current.add(info.name)
                     PatchAvailability.UNAVAILABLE -> current.remove(info.name)
                     PatchAvailability.ENABLED,
                     PatchAvailability.DISABLED    -> Unit
                 }
             }
 
-            if (current.isEmpty()) result.remove(bundleUid) else result[bundleUid] = current
-        }
-
-        return result
+            if (current.isEmpty()) null else bundleUid to current.toSet()
+        }.toMap()
     }
 
     /**

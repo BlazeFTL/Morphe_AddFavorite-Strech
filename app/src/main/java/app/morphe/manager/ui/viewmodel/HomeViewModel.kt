@@ -41,16 +41,7 @@ import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
-import app.morphe.manager.ui.model.HomeAppItem
-import app.morphe.manager.ui.model.HomeAppSlot
-import app.morphe.manager.ui.model.PACKAGE_NAME_OPTION_KEY
-import app.morphe.manager.ui.model.RenameWarning
-import app.morphe.manager.ui.model.SelectedApp
-import app.morphe.manager.ui.model.configurationKey
-import app.morphe.manager.ui.model.displayedHomePackageInfo
-import app.morphe.manager.ui.model.homeAppSlots
-import app.morphe.manager.ui.model.pendingRename
-import app.morphe.manager.ui.model.trackedInstallPresentation
+import app.morphe.manager.ui.model.*
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
@@ -59,6 +50,7 @@ import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
 import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
+import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
@@ -2994,7 +2986,7 @@ class HomeViewModel(
 
     /** True when patches from more than one bundle are selected (triggers warning on proceed). */
     val expertModeHasMultipleBundles: Boolean
-        get() = expertModePatches.count { (_, patches) -> patches.isNotEmpty() } > 1
+        get() = expertModePatches.spansMultipleBundles()
 
     /**
      * Toggle patch in expert mode.
@@ -3006,9 +2998,11 @@ class HomeViewModel(
             .firstOrNull { it.uid == bundleUid }
             ?.patches
             ?.firstOrNull { it.name == patchName }
-        if (patch != null && patch.lockState(currentInstallerType, currentApkArchitecture) != PatchLockState.NONE) return
+        val selected = patchName in expertModePatches[bundleUid].orEmpty()
+        if (patch != null && expertModeLockState(patch).blocksToggle(selected)) return
 
         expertModePatches = expertModePatches.togglePatch(bundleUid, patchName)
+            .applyExpertModeAvailability()
     }
 
     /**
@@ -3028,8 +3022,12 @@ class HomeViewModel(
             ::expertModeLockState
         )
 
-        expertModePatches = expertModePatches.toMutableMap().apply { put(bundleUid, updated) }
-        expertModeUniversalArmedFor = bundleUid to updated
+        expertModePatches = expertModePatches.toMutableMap()
+            .apply { put(bundleUid, updated) }
+            .applyExpertModeAvailability()
+        // Armed against what the availability rules left behind, so the next tap sees the
+        // selection it is compared to
+        expertModeUniversalArmedFor = bundleUid to expertModePatches[bundleUid].orEmpty()
     }
 
     /** True when the next [expertModeSelectAll] holds universal patches back for another tap. */
@@ -3042,8 +3040,14 @@ class HomeViewModel(
         )
     }
 
-    private fun expertModeLockState(patch: PatchInfo) =
-        patch.lockState(currentInstallerType, currentApkArchitecture)
+    /**
+     * Lock state of [patch] for the install target the dialog is configuring.
+     *
+     * A REQUIRED patch only locks while the selection stays within one bundle, see
+     * [PatchSelectionUtils.applyAvailability].
+     */
+    fun expertModeLockState(patch: PatchInfo) =
+        patch.lockState(currentInstallerType, currentApkArchitecture, !expertModeHasMultipleBundles)
 
     private fun expertModeUniversalArmed(bundleUid: Int, selected: Set<String>) =
         expertModeUniversalArmedFor == (bundleUid to selected)
@@ -3056,11 +3060,11 @@ class HomeViewModel(
         val current = expertModePatches.toMutableMap()
         val set = current[bundleUid]?.toMutableSet() ?: mutableSetOf()
         patches.forEach { (patch, enabled) ->
-            if (patch.lockState(currentInstallerType, currentApkArchitecture) == PatchLockState.LOCKED_ON) return@forEach
+            if (expertModeLockState(patch) == PatchLockState.LOCKED_ON) return@forEach
             if (enabled) set.remove(patch.name)
         }
         if (set.isEmpty()) current.remove(bundleUid) else current[bundleUid] = set
-        expertModePatches = current
+        expertModePatches = current.applyExpertModeAvailability()
     }
 
     /**
@@ -3074,7 +3078,7 @@ class HomeViewModel(
             .mapTo(mutableSetOf()) { (patch, _) -> patch.name }
         val current = expertModePatches.toMutableMap()
         if (defaults.isEmpty()) current.remove(bundleUid) else current[bundleUid] = defaults
-        expertModePatches = current
+        expertModePatches = current.applyExpertModeAvailability()
     }
 
     /**
@@ -3085,7 +3089,7 @@ class HomeViewModel(
         val savedForBundle = expertModeInitialPatches[bundleUid] ?: return
         val current = expertModePatches.toMutableMap()
         if (savedForBundle.isEmpty()) current.remove(bundleUid) else current[bundleUid] = savedForBundle
-        expertModePatches = current
+        expertModePatches = current.applyExpertModeAvailability()
     }
 
     /**

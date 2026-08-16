@@ -104,8 +104,11 @@ class MainActivity : AppCompatActivity() {
 
         val vm: MainViewModel = getActivityViewModel()
 
-        // Handle deep link on cold start
-        handleDeepLinkIntent(intent, vm)
+        // Handle deep link on cold start. The task keeps the intent that started it, so a restore
+        // after the process was reclaimed - or any recreate - would replay a link already acted on
+        if (savedInstanceState == null) {
+            handleDeepLinkIntent(intent, vm)
+        }
 
         setContent {
             val theme by vm.prefs.theme.getAsState()
@@ -143,6 +146,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        // Replaces the launch intent, so a later recreate restores this one rather than the
+        // link the task was originally started from
+        setIntent(intent)
         handleDeepLinkIntent(intent, getActivityViewModel())
     }
 

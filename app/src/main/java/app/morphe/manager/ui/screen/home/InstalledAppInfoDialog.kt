@@ -938,7 +938,7 @@ private fun AppHeroHeader(
             // qualifies the install the same way its type does, rather than dating it
             val heroChips = buildList {
                 add(chipIcon to stringResource(chipLabel))
-                if (installedApp.currentPackageName != installedApp.originalPackageName) {
+                if (installedApp.isClone) {
                     add(Icons.Outlined.ContentCopy to stringResource(R.string.clone))
                 }
                 relativeTime?.let { add(Icons.Outlined.Schedule to it) }

@@ -90,6 +90,15 @@ patched one.
 > This erases that app's data. If the patched APK then fails to install for another reason,
 > the previous app is already gone.
 
+### Install anyway
+
+Rooted devices only. The signature conflict dialog offers **Install anyway** next to
+**Uninstall**, which installs over the existing app and keeps its data.
+
+Root alone is not enough for this to succeed. Android still verifies the certificate, so the
+install only goes through on devices running a module that patches that verification out of the
+framework. Without one, the install is rejected and the conflict dialog comes back.
+
 ### Installer selection prompt
 
 Shows the installer dialog every time a patched app is installed, so you can choose per
@@ -162,7 +171,7 @@ with a **Mount** chip and offers **Remount** and **Unmount**, an unmounted one o
 
 | Problem | What to do |
 | --- | --- |
-| "Uninstall required" or a signature conflict | The unpatched app is still installed. Uninstall it, which erases its data, or use root mount instead |
+| "Uninstall required" or a signature conflict | The unpatched app is still installed. Uninstall it, which erases its data, or use root mount instead. On rooted devices you can also try **Install anyway** |
 | Shizuku option is greyed out | Shizuku or Sui is not installed, not running, or has not granted Morphe permission. **Check Shizuku status** shows which |
 | "Your preferred installer is unavailable" | Fix the underlying issue and retry, or let Morphe fall back to the standard installer |
 | Play Store replaced the patched app with the original | Turn off updates for that app on its Play Store page, then patch and install again |

@@ -146,8 +146,7 @@ fun InstalledAppInfoDialog(
     val showDeleteDialog = remember { mutableStateOf(false) }
     val showAppliedPatchesDialog = remember { mutableStateOf(false) }
     val showMountWarningDialog = remember { mutableStateOf(false) }
-    val showSignatureConflictDialog = remember { mutableStateOf(false) }
-    val conflictPackageName = remember { mutableStateOf<String?>(null) }
+    val signatureConflict = remember { mutableStateOf<InstallViewModel.InstallState.Conflict?>(null) }
     val pendingMountWarningAction = remember { mutableStateOf<(() -> Unit)?>(null) }
 
     // Content entrance animation
@@ -247,8 +246,7 @@ fun InstalledAppInfoDialog(
                 homeViewModel.notifyAppStateChanged(finalPackageName)
             }
             is InstallViewModel.InstallState.Conflict -> {
-                conflictPackageName.value = installState.packageName
-                showSignatureConflictDialog.value = true
+                signatureConflict.value = installState
             }
             is InstallViewModel.InstallState.Error -> {
                 // Show error toast
@@ -326,19 +324,28 @@ fun InstalledAppInfoDialog(
         )
     }
 
-    SignatureConflictDialog(
-        show = showSignatureConflictDialog.value,
-        onUninstall = {
-            showSignatureConflictDialog.value = false
-            conflictPackageName.value?.let {
-                installViewModel.requestUninstall(it, installAfterUninstall = true)
+    signatureConflict.value?.let { conflict ->
+        SignatureConflictDialog(
+            title = stringResource(R.string.patcher_conflict_title),
+            message = stringResource(R.string.patcher_conflict_subtitle),
+            onUninstall = {
+                signatureConflict.value = null
+                installViewModel.requestUninstall(conflict.packageName, installAfterUninstall = true)
+            },
+            onDismiss = {
+                signatureConflict.value = null
+                installViewModel.resetInstallState()
+            },
+            onIgnore = if (conflict.canIgnoreSignatureMismatch) {
+                {
+                    signatureConflict.value = null
+                    installViewModel.installIgnoringSignatureMismatch()
+                }
+            } else {
+                null
             }
-        },
-        onDismiss = {
-            showSignatureConflictDialog.value = false
-            installViewModel.resetInstallState()
-        }
-    )
+        )
+    }
 
     DeleteConfirmDialog(
         show = showDeleteDialog.value,
@@ -1752,35 +1759,6 @@ private fun DeleteConfirmDialog(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun SignatureConflictDialog(
-    show: Boolean,
-    onUninstall: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    if (!show) return
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.patcher_conflict_title),
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.uninstall),
-                onPrimaryClick = onUninstall,
-                isPrimaryDestructive = true,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
-        Text(
-            text = stringResource(R.string.patcher_conflict_subtitle),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current
-        )
     }
 }
 

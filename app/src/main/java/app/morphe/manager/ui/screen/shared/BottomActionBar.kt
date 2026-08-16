@@ -5,19 +5,22 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.animateBounds
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.LookaheadScope
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
@@ -27,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 
 private val BarMaxWidth = 540.dp
-private const val EnterFadeMillis = 200
+private const val EnterMillis = 200
 
 /** Emphasis of a [BottomActionButton], resolved through [GlassButtonDefaults]. */
 enum class BottomActionTone {
@@ -41,7 +44,7 @@ enum class BottomActionTone {
 class BottomActionBarScope internal constructor(
     rowScope: RowScope,
     val showLabels: Boolean,
-    internal val lookaheadScope: LookaheadScope?
+    internal val animateEntry: Boolean
 ) : RowScope by rowScope
 
 /**
@@ -56,34 +59,30 @@ fun BottomActionBar(
 ) {
     val reduceMotion = rememberAccessibilityEnabled()
 
-    Box(
-        modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
-    ) {
-        BoxWithConstraints(
+    // Buttons present when the bar itself appears are drawn in place; only later arrivals fade
+    val settled = remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { settled.value = true }
+
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val barWidth = maxWidth.coerceAtMost(BarMaxWidth)
+        val showLabels = labelsFit(labels, barWidth)
+
+        Row(
             modifier = Modifier
-                .widthIn(max = BarMaxWidth)
-                .fillMaxWidth()
+                .width(barWidth)
+                .align(Alignment.Center)
+                // The gap between buttons and the gap below them are one rhythm, so the
+                // bar reads as evenly spaced rather than wider in one direction
+                .padding(bottom = Defaults.ItemSpacing)
+                .padding(horizontal = Defaults.ContentPadding),
+            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            val showLabels = labelsFit(labels, maxWidth)
-            LookaheadScope {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        // The gap between buttons and the gap below them are one rhythm, so the
-                        // bar reads as evenly spaced rather than wider in one direction
-                        .padding(bottom = Defaults.ItemSpacing)
-                        .padding(horizontal = Defaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    BottomActionBarScope(
-                        rowScope = this,
-                        showLabels = showLabels,
-                        lookaheadScope = if (reduceMotion) null else this@LookaheadScope
-                    ).content()
-                }
-            }
+            BottomActionBarScope(
+                rowScope = this,
+                showLabels = showLabels,
+                animateEntry = settled.value && !reduceMotion
+            ).content()
         }
     }
 }
@@ -118,15 +117,13 @@ fun BottomActionBarScope.BottomActionButton(
         }
     }
 
-    // A button joining a live bar has no previous bounds to grow from, so it fades in while its
-    // neighbours give way; leaving is instant, the row simply closes over it
-    var entered by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) { entered = true }
-    val enterAlpha by animateFloatAsState(
-        targetValue = if (entered || lookaheadScope == null) 1f else 0f,
-        animationSpec = tween(EnterFadeMillis),
-        label = "bottom_action_enter"
-    )
+    // Entry is animated through the weight, so the row genuinely reflows and neighbors can never
+    // be drawn over each other. A button that arrives with the bar is laid out at full width
+    val entering = remember { animateEntry }
+    val entry = remember { Animatable(if (entering) 0f else 1f) }
+    LaunchedEffect(Unit) {
+        if (entering) entry.animateTo(1f, tween(EnterMillis))
+    }
 
     val button: @Composable (Modifier) -> Unit = { outerModifier ->
         GlassButton(
@@ -157,12 +154,15 @@ fun BottomActionBarScope.BottomActionButton(
         )
     }
 
-    // The weight/positioning modifier must land on this Box so Row still sees it as the direct
-    // child; TooltipBox applies its own modifier to an inner wrapper, which Row can't see
+    // The weight must land on this Box so Row still sees it as the direct child; TooltipBox
+    // applies its own modifier to an inner wrapper, which Row can't see. Weight has to stay
+    // above zero, and the content is clipped while the slot is still narrower than it
     Box(
-        modifier = modifier
-            .then(lookaheadScope?.let { Modifier.animateBounds(it) } ?: Modifier)
-            .graphicsLayer { alpha = enterAlpha }
+        modifier = Modifier
+            .weight(entry.value.coerceAtLeast(0.001f))
+            .clipToBounds()
+            .then(if (entering) Modifier.graphicsLayer { alpha = entry.value } else Modifier)
+            .then(modifier)
     ) {
         // Only surface a tooltip when the label itself is hidden; otherwise the two would repeat
         if (!showLabel && text != null) {
@@ -192,7 +192,10 @@ private fun labelsFit(labels: List<String>, barWidth: Dp): Boolean {
     return remember(labels, barWidth, style, density, measurer) {
         val slotWidth = (barWidth - Defaults.ContentPadding * 2 -
                 Defaults.ItemSpacing * (labels.size - 1)) / labels.size
-        val labelWidth = slotWidth - GlassButtonDefaults.LabelInset
+        // What a button spends on everything but the label
+        val inset = GlassButtonDefaults.HorizontalPadding * 2 +
+                GlassButtonDefaults.IconSize + GlassButtonDefaults.IconLabelSpacing
+        val labelWidth = slotWidth - inset
         labelWidth > 0.dp && labels.all { label ->
             val measured = with(density) { measurer.measure(label, style).size.width.toDp() }
             measured <= labelWidth

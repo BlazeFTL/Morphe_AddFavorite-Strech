@@ -30,9 +30,6 @@ object GlassButtonDefaults {
     val HorizontalPadding = 12.dp
     val IconLabelSpacing = 8.dp
 
-    /** Width a glass button spends on everything but the label, for callers that measure a fit. */
-    val LabelInset = HorizontalPadding * 2 + IconSize + IconLabelSpacing
-
     /** Typography of the button label, shared so a measured fit matches what gets drawn. */
     val labelStyle: TextStyle
         @Composable get() = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Medium)

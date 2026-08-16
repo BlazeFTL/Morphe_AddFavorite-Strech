@@ -13,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -229,41 +228,47 @@ fun AppDialogActions(
 ) {
     if (actions.isEmpty()) return
 
-    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val useVertical = when (layout) {
-            DialogButtonLayout.Horizontal -> false
-            DialogButtonLayout.Vertical -> true
-            DialogButtonLayout.Auto -> !actionsFitInRow(actions, maxWidth)
+    when (layout) {
+        DialogButtonLayout.Vertical -> ActionColumn(actions, modifier)
+        DialogButtonLayout.Horizontal -> ActionRow(actions, modifier)
+        // Only the automatic layout has to know how much room a row would get, and only it
+        // pays for the subcomposition that measures it
+        DialogButtonLayout.Auto -> BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+            if (actionsFitInRow(actions, maxWidth)) ActionRow(actions) else ActionColumn(actions)
         }
+    }
+}
 
-        if (useVertical) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)
-            ) {
-                actions.forEachIndexed { index, action ->
-                    DialogActionButton(
-                        action = action,
-                        filled = action.isFilled(index),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-            }
-        } else {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                // Reversed so the primary action sits on the right, but emphasis still follows
-                // the priority order the caller listed
-                actions.withIndex().reversed().forEach { (index, action) ->
-                    DialogActionButton(
-                        action = action,
-                        filled = action.isFilled(index),
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
+@Composable
+private fun ActionColumn(actions: List<DialogAction>, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)
+    ) {
+        actions.forEachIndexed { index, action ->
+            DialogActionButton(
+                action = action,
+                filled = action.isFilled(index),
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+@Composable
+private fun ActionRow(actions: List<DialogAction>, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+    ) {
+        // Reversed so the primary action sits on the right, but emphasis still follows
+        // the priority order the caller listed
+        actions.withIndex().reversed().forEach { (index, action) ->
+            DialogActionButton(
+                action = action,
+                filled = action.isFilled(index),
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
@@ -367,23 +372,6 @@ private fun actionsFitInRow(actions: List<DialogAction>, availableWidth: Dp): Bo
             labelWidth + action.labelInset() <= slotWidth
         }
     }
-}
-
-/**
- * Vertically stacked footer group for layouts a flat [AppDialogActions] list cannot express,
- * such as a row of paired actions above a full-width one.
- */
-@Composable
-fun AppDialogButtonColumn(
-    modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        content = content
-    )
 }
 
 /** Width a dialog button spends on everything but its label. */

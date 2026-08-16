@@ -365,34 +365,50 @@ private fun PatchSelectionManagementDialogContent(
                     }
                 }
             } else {
-                AppDialogButtonColumn {
+                // Two groups rather than one: the transfer pair shares a row, close keeps its own
+                Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)) {
                     if (selections.isNotEmpty()) {
-                        AppDialogButtonRow(
-                            primaryText = stringResource(R.string.export),
-                            onPrimaryClick = {
-                                exportAllSelectionsLauncher.launch(
-                                    importExportViewModel.getAllSelectionsExportFileName()
+                        AppDialogActions(
+                            actions = listOf(
+                                DialogAction(
+                                    text = stringResource(R.string.export),
+                                    onClick = {
+                                        exportAllSelectionsLauncher.launch(
+                                            importExportViewModel.getAllSelectionsExportFileName()
+                                        )
+                                    },
+                                    icon = Icons.Outlined.Upload
+                                ),
+                                DialogAction(
+                                    text = stringResource(R.string.import_),
+                                    onClick = { openImportAllSelectionsPicker() },
+                                    icon = Icons.Outlined.Download,
+                                    emphasis = DialogActionEmphasis.Filled
                                 )
-                            },
-                            primaryIcon = Icons.Outlined.Upload,
-                            secondaryText = stringResource(R.string.import_),
-                            onSecondaryClick = { openImportAllSelectionsPicker() },
-                            secondaryIcon = Icons.Outlined.Download,
-                            isSecondaryPrimary = true,
+                            ),
                             layout = DialogButtonLayout.Horizontal
                         )
                     } else {
-                        AppDialogButton(
-                            text = stringResource(R.string.import_),
-                            onClick = { openImportAllSelectionsPicker() },
-                            icon = Icons.Outlined.Download,
-                            modifier = Modifier.fillMaxWidth()
+                        AppDialogActions(
+                            actions = listOf(
+                                DialogAction(
+                                    text = stringResource(R.string.import_),
+                                    onClick = { openImportAllSelectionsPicker() },
+                                    icon = Icons.Outlined.Download
+                                )
+                            ),
+                            layout = DialogButtonLayout.Vertical
                         )
                     }
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.close),
-                        onClick = onDismiss,
-                        modifier = Modifier.fillMaxWidth()
+                    AppDialogActions(
+                        actions = listOf(
+                            DialogAction(
+                                text = stringResource(R.string.close),
+                                onClick = onDismiss,
+                                emphasis = DialogActionEmphasis.Outlined
+                            )
+                        ),
+                        layout = DialogButtonLayout.Vertical
                     )
                 }
             }

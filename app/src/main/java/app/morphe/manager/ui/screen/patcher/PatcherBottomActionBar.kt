@@ -87,8 +87,7 @@ fun PatcherBottomActionBar(
                 icon = Icons.Outlined.InstallMobile,
                 text = leadingLabel,
                 showLabel = showLabels,
-                tone = BottomActionTone.Accent,
-                modifier = Modifier.weight(1f)
+                tone = BottomActionTone.Accent
             )
         } else if (showCancelButton) {
             BottomActionButton(
@@ -96,16 +95,14 @@ fun PatcherBottomActionBar(
                 icon = Icons.Default.Close,
                 text = leadingLabel,
                 showLabel = showLabels,
-                tone = BottomActionTone.Destructive,
-                modifier = Modifier.weight(1f)
+                tone = BottomActionTone.Destructive
             )
         } else if (showLogsButton) {
             BottomActionButton(
                 onClick = onLogsClick,
                 icon = Icons.AutoMirrored.Outlined.Article,
                 text = leadingLabel,
-                showLabel = showLabels,
-                modifier = Modifier.weight(1f)
+                showLabel = showLabels
             )
         }
 
@@ -115,8 +112,7 @@ fun PatcherBottomActionBar(
                 onClick = onHomeClick,
                 icon = Icons.Default.Home,
                 text = homeLabel,
-                showLabel = showLabels,
-                modifier = Modifier.weight(1f)
+                showLabel = showLabels
             )
         }
 
@@ -135,8 +131,7 @@ fun PatcherBottomActionBar(
                 text = trailingLabel,
                 showLabel = showLabels,
                 // The tone alone reports the copy, so the label keeps a stable width
-                tone = if (copied.value) BottomActionTone.Highlight else BottomActionTone.Neutral,
-                modifier = Modifier.weight(1f)
+                tone = if (copied.value) BottomActionTone.Highlight else BottomActionTone.Neutral
             )
         } else if (showSaveButton || showErrorButton) {
             BottomActionButton(
@@ -146,8 +141,7 @@ fun PatcherBottomActionBar(
                 showLabel = showLabels,
                 tone = if (showErrorButton) BottomActionTone.Destructive else BottomActionTone.Neutral,
                 enabled = !isSaving,
-                showProgress = isSaving && !showErrorButton,
-                modifier = Modifier.weight(1f)
+                showProgress = isSaving && !showErrorButton
             )
         }
     }

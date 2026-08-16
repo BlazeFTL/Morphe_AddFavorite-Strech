@@ -55,6 +55,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
+import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.parametersOf
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -65,22 +66,33 @@ private enum class OnboardingPhase { HOME, SHEET, SETTINGS, DONE }
 class MainActivity : AppCompatActivity() {
 
     /**
+     * Applies the interface scale to the activity context, so every window it opens is drawn at
+     * that scale rather than only the composition inside [setContent].
+     *
      * On Android < 13, AppCompatDelegate.setApplicationLocales() is unreliable on some
      * devices and OEMs - the locale is saved correctly but never applied on cold start.
      * Wrap the base context manually to guarantee the correct locale is always applied.
      */
     override fun attachBaseContext(newBase: Context) {
+        var context = newBase
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            val storedLang = readLanguageFromPrefs(newBase)
+            val storedLang = readLanguageFromPrefs(context)
             val locale = parseLocaleCode(storedLang)
             if (locale != null) {
-                val config = newBase.resources.configuration
+                val config = context.resources.configuration
                 config.setLocale(locale)
-                super.attachBaseContext(newBase.createConfigurationContext(config))
-                return
+                context = context.createConfigurationContext(config)
             }
         }
-        super.attachBaseContext(newBase)
+
+        // Koin is started in Application.onCreate, which has already run by the time an activity
+        // attaches. A scale that cannot be read must not take the launch down with it
+        val scale = runCatching {
+            GlobalContext.get().get<PreferencesManager>().uiScale.getBlocking()
+        }.getOrDefault(UI_SCALE_DEFAULT)
+
+        super.attachBaseContext(context.withUiScale(scale))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +111,6 @@ class MainActivity : AppCompatActivity() {
             val theme by vm.prefs.theme.getAsState()
             val themeStyle by vm.prefs.themeStyle.getAsState()
             val pureBlackTheme by vm.prefs.pureBlackTheme.getAsState()
-            val uiScale by vm.prefs.uiScale.getAsState()
             val customAccentColor by vm.prefs.customAccentColor.getAsState()
             val customThemeColor by vm.prefs.customThemeColor.getAsState()
             val appCardColorMode by vm.prefs.appCardColorMode.getAsState()
@@ -115,19 +126,17 @@ class MainActivity : AppCompatActivity() {
                 Theme.SYSTEM -> isSystemInDarkTheme()
             }
 
-            UiScaleProvider(uiScale) {
-                ManagerTheme(
-                    darkTheme = darkTheme,
-                    dynamicColor = effectiveThemeStyle == ThemeStyle.MATERIAL_YOU,
-                    pureBlackTheme = pureBlackTheme,
-                    monochromeTheme = effectiveThemeStyle == ThemeStyle.MONOCHROME,
-                    accentColorHex = customAccentColor.takeUnless { it.isBlank() },
-                    themeColorHex = customThemeColor.takeUnless { it.isBlank() },
-                    appCardColorMode = appCardColorMode,
-                    appCardColorValues = appCardColorValues
-                ) {
-                    MorpheManager(vm)
-                }
+            ManagerTheme(
+                darkTheme = darkTheme,
+                dynamicColor = effectiveThemeStyle == ThemeStyle.MATERIAL_YOU,
+                pureBlackTheme = pureBlackTheme,
+                monochromeTheme = effectiveThemeStyle == ThemeStyle.MONOCHROME,
+                accentColorHex = customAccentColor.takeUnless { it.isBlank() },
+                themeColorHex = customThemeColor.takeUnless { it.isBlank() },
+                appCardColorMode = appCardColorMode,
+                appCardColorValues = appCardColorValues
+            ) {
+                MorpheManager(vm)
             }
         }
     }

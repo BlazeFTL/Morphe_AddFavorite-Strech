@@ -48,7 +48,7 @@ fun HomeBottomActionBar(
     val expertModeLabel = stringResource(R.string.settings_advanced_expert_mode)
 
     // Only the buttons on screen take part: the optional ones give their share back to the row
-    // instead of holding an empty slot, and the bar animates the neighbours into the new widths
+    // instead of holding an empty slot, and the bar animates the neighbors into the new widths
     val labels = remember(sourcesLabel, searchLabel, sortLabel, settingsLabel, showSearchButton, showSortButton) {
         listOfNotNull(
             sourcesLabel,
@@ -65,13 +65,9 @@ fun HomeBottomActionBar(
             icon = Icons.Outlined.Source,
             text = sourcesLabel,
             showLabel = showLabels,
-            modifier = Modifier
-                .weight(1f)
-                .then(
-                    if (onSourcesPositioned != null) Modifier.onGloballyPositioned { coords ->
-                        onSourcesPositioned(coords.boundsInWindow())
-                    } else Modifier
-                )
+            modifier = if (onSourcesPositioned != null) {
+                Modifier.onGloballyPositioned { onSourcesPositioned(it.boundsInWindow()) }
+            } else Modifier
         )
 
         // Center: Search button
@@ -83,8 +79,7 @@ fun HomeBottomActionBar(
                 icon = if (searchActive) Icons.Outlined.SearchOff else Icons.Outlined.Search,
                 text = searchLabel,
                 showLabel = showLabels,
-                stateDescription = if (searchActive) searchExpandedLabel else searchCollapsedLabel,
-                modifier = Modifier.weight(1f)
+                stateDescription = if (searchActive) searchExpandedLabel else searchCollapsedLabel
             )
         }
 
@@ -97,8 +92,7 @@ fun HomeBottomActionBar(
                 text = sortLabel,
                 showLabel = showLabels,
                 tone = if (filterActive) BottomActionTone.Highlight else BottomActionTone.Neutral,
-                stateDescription = homeAppListOptionsStateDescription(sortMode, filterMode),
-                modifier = Modifier.weight(1f)
+                stateDescription = homeAppListOptionsStateDescription(sortMode, filterMode)
             )
         }
 
@@ -110,13 +104,9 @@ fun HomeBottomActionBar(
             showLabel = showLabels,
             tone = if (isExpertModeEnabled) BottomActionTone.Highlight else BottomActionTone.Neutral,
             contentDescription = if (isExpertModeEnabled) "$settingsLabel, $expertModeLabel" else null,
-            modifier = Modifier
-                .weight(1f)
-                .then(
-                    if (onSettingsPositioned != null) Modifier.onGloballyPositioned { coords ->
-                        onSettingsPositioned(coords.boundsInWindow())
-                    } else Modifier
-                )
+            modifier = if (onSettingsPositioned != null) {
+                Modifier.onGloballyPositioned { onSettingsPositioned(it.boundsInWindow()) }
+            } else Modifier
         )
     }
 }

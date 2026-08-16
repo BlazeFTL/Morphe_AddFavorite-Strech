@@ -1,12 +1,7 @@
 package app.morphe.manager.ui.theme
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Configuration
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -32,37 +27,18 @@ fun Float.coerceToUiScale(): Float {
 fun Float.toUiScalePercent(): Int = (this * 100).roundToInt()
 
 /**
- * Scales everything below by [scale] the way the system screen zoom does, by resolving every dp
- * and sp against a denser or sparser [Density].
+ * Wraps this context in [scale] the way the system screen zoom does, so every window the activity
+ * opens later - dialogs, menus, sheets - resolves dp and sp against the same density.
  *
- * The configuration is scaled with it so window size classes keep describing the room the content
- * actually has: the same screen holds fewer dp once the scale grows.
+ * Only the density is overridden. A full configuration would pin orientation and screen size to
+ * their values at attach time, and this activity handles rotation without being recreated.
  */
-@SuppressLint("ConfigurationScreenWidthHeight")
-@Composable
-fun UiScaleProvider(scale: Float, content: @Composable () -> Unit) {
-    val density = LocalDensity.current
-    val configuration = LocalConfiguration.current
-    val effectiveScale = scale.coerceToUiScale()
+fun Context.withUiScale(scale: Float): Context {
+    val baseDensityDpi = resources.configuration.densityDpi
+    val scaledDensityDpi = (baseDensityDpi * scale.coerceToUiScale()).roundToInt()
+    if (scaledDensityDpi == baseDensityDpi) return this
 
-    val scaledDensity = remember(density, effectiveScale) {
-        ScaledDensity(density, effectiveScale)
-    }
-
-    val scaledConfiguration = remember(configuration, effectiveScale) {
-        Configuration(configuration).apply {
-            densityDpi = (configuration.densityDpi * effectiveScale).roundToInt()
-            screenWidthDp = (configuration.screenWidthDp / effectiveScale).roundToInt()
-            screenHeightDp = (configuration.screenHeightDp / effectiveScale).roundToInt()
-            smallestScreenWidthDp = (configuration.smallestScreenWidthDp / effectiveScale).roundToInt()
-        }
-    }
-
-    CompositionLocalProvider(
-        LocalDensity provides scaledDensity,
-        LocalConfiguration provides scaledConfiguration,
-        content = content
-    )
+    return createConfigurationContext(Configuration().apply { densityDpi = scaledDensityDpi })
 }
 
 /**

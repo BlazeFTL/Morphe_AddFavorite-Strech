@@ -183,7 +183,14 @@ fun AppearanceTabContent(
     ) {
         UiScaleDialog(
             currentScale = uiScale,
-            onApply = themeViewModel::setUiScale,
+            // The scale lives on the activity context, so it takes effect on the next attach.
+            // The write has to land first, or that attach would read the previous value
+            onApply = { scale ->
+                scope.launch {
+                    themeViewModel.setUiScale(scale).join()
+                    (context as? Activity)?.recreate()
+                }
+            },
             onDismiss = { showUiScaleDialog.value = false }
         )
     }

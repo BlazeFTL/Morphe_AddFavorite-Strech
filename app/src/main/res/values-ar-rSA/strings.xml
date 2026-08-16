@@ -306,6 +306,9 @@
     <string name="patch_option_enter_value">أدخل القيمة</string>
     <string name="patch_option_enter_number">أدخل العدد</string>
     <string name="patch_option_enter_decimal">أدخل رقمًا عشريًا</string>
+    <string name="patch_option_slider_edit">أدخل قيمة دقيقة</string>
+    <string name="patch_option_slider_range_start">مِن</string>
+    <string name="patch_option_slider_range_end">إلى</string>
     <string name="patch_option_list_duplicate">القيمة موجودة بالفعل</string>
     <string name="patch_option_list_empty">لا يمكن أن تكون القيمة فارغة</string>
     <string name="patch_option_list_empty_state">لم يتم إضافة أي قيم حتى الآن</string>
@@ -409,6 +412,10 @@
     <string name="home_app_info_app_deleted_warning">التطبيق غير مثبت</string>
     <string name="home_app_info_app_deleted_description">تم إلغاء تثبيت هذا التطبيق من خارج Morphe. اعد تعديله لاستعادة الوظائف</string>
     <string name="home_app_info_not_patched_description">تم تثبيت إصدار غير معدل من هذا التطبيق. لا يزال Morphe يحتفظ بسجل التعديل السابق</string>
+    <string name="home_dialog_rename_title">سيؤدي هذا إلى تثبيت نسخة</string>
+    <string name="home_dialog_rename_description">التعديلات المحددة تقوم ببناء هذا التطبيق باستخدام اسم حزمة خاص بها، لذا يتم تثبيته إلى جانب &lt;b&gt;%s&lt;/b&gt; بدلًا من تحديثه</string>
+    <string name="home_dialog_rename_result_package">سيتم التثبيت كـ</string>
+    <string name="home_dialog_rename_replaces">توجد نسخة تستخدم هذا الاسم بالفعل وسيتم إعادة بنائها</string>
     <string name="home_app_info_apk_size">حجم ملف APK</string>
     <string name="home_app_info_cpu_arch">معمارية المعالج</string>
     <!-- Home Screen - Root Mode -->
@@ -1111,6 +1118,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="available">متاح</string>
     <string name="continue_">متابعة</string>
     <string name="version">الإصدار</string>
+    <string name="clone">استنساخ</string>
     <string name="patch">تعديل</string>
     <string name="patching">جارٍ التعديل</string>
     <string name="patched">تم التعديل</string>

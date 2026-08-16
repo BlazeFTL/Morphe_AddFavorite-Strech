@@ -307,6 +307,9 @@
     <string name="patch_option_enter_value">Введіть значення</string>
     <string name="patch_option_enter_number">Введіть число</string>
     <string name="patch_option_enter_decimal">Введіть десяткове число</string>
+    <string name="patch_option_slider_edit">Введіть точне значення</string>
+    <string name="patch_option_slider_range_start">З</string>
+    <string name="patch_option_slider_range_end">По</string>
     <string name="patch_option_list_duplicate">Це значення вже існує</string>
     <string name="patch_option_list_empty">Значення не може бути порожнім</string>
     <string name="patch_option_list_empty_state">Значень ще не додано</string>

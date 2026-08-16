@@ -410,6 +410,10 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="home_app_info_app_deleted_warning">Aplikasi telah dihapus</string>
     <string name="home_app_info_app_deleted_description">Aplikasi ini telah dihapus di luar Morphe. Tambal ulang untuk mengembalikan fungsinya</string>
     <string name="home_app_info_not_patched_description">Versi tanpa tambalan dari aplikasi ini terpasang. Morphe masih memiliki catatan tambalan sebelumnya</string>
+    <string name="home_dialog_rename_title">Ini akan memasang salinan</string>
+    <string name="home_dialog_rename_description">Tambalan yang dipilih membangun aplikasi ini dengan nama paket tersendiri, sehingga hasilnya terpasang berdampingan dengan &lt;b&gt;%s&lt;/b&gt; daripada memperbaruinya</string>
+    <string name="home_dialog_rename_result_package">Akan dipasang sebagai</string>
+    <string name="home_dialog_rename_replaces">Sudah ada salinan yang menggunakan nama tersebut dan akan dibangun ulang</string>
     <string name="home_app_info_apk_size">Ukuran APK</string>
     <string name="home_app_info_cpu_arch">Arsitektur CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -1106,6 +1110,7 @@ Rincian: %2$s"</string>
     <string name="available">Tersedia</string>
     <string name="continue_">Lanjutkan</string>
     <string name="version">Versi</string>
+    <string name="clone">Duplikat</string>
     <string name="patch">Tambalan</string>
     <string name="patching">Menambal</string>
     <string name="patched">Ditambal</string>

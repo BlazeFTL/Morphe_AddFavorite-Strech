@@ -306,6 +306,9 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="patch_option_enter_value">Zadejte hodnotu</string>
     <string name="patch_option_enter_number">Zadejte číslo</string>
     <string name="patch_option_enter_decimal">Zadejte desetinné číslo</string>
+    <string name="patch_option_slider_edit">Zadejte přesnou hodnotu</string>
+    <string name="patch_option_slider_range_start">Od</string>
+    <string name="patch_option_slider_range_end">Do</string>
     <string name="patch_option_list_duplicate">Tato hodnota již existuje</string>
     <string name="patch_option_list_empty">Hodnota nesmí být prázdná</string>
     <string name="patch_option_list_empty_state">Ještě jste nepřidali žádné hodnoty</string>

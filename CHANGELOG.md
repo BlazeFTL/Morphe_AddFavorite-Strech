@@ -1,3 +1,15 @@
+# [1.26.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.11...v1.26.0-dev.12) (2026-08-16)
+
+
+### Bug Fixes
+
+* Honor a non default port in remote bundle URLs ([#868](https://github.com/MorpheApp/morphe-manager/issues/868)) ([2f76213](https://github.com/MorpheApp/morphe-manager/commit/2f7621386eb001959365f03bbeff1f06cd54ad92))
+
+
+### Features
+
+* Add sliders for patch options ([#867](https://github.com/MorpheApp/morphe-manager/issues/867)) ([24023d9](https://github.com/MorpheApp/morphe-manager/commit/24023d9759342156670052d0c823d6eff03e5f78))
+
 # [1.26.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.10...v1.26.0-dev.11) (2026-08-15)
 
 

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FormatSize
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -36,6 +37,13 @@ fun UiScaleDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_appearance_ui_scale),
+        titleTrailingContent = {
+            TitleAction(
+                icon = Icons.Outlined.Restore,
+                contentDescription = stringResource(R.string.reset),
+                onClick = { selectedScale = UI_SCALE_DEFAULT }
+            )
+        },
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.apply),
@@ -67,14 +75,7 @@ fun UiScaleDialog(
                     // Snapped here rather than on read, so the handle rests on the stops the scale has
                     onValueChange = { selectedScale = it.coerceToUiScale() },
                     valueRange = UI_SCALE_MIN..UI_SCALE_MAX,
-                    icon = Icons.Outlined.FormatSize,
-                    trailing = {
-                        SliderResetAction(
-                            visible = selectedScale != UI_SCALE_DEFAULT,
-                            contentDescription = stringResource(R.string.reset),
-                            onReset = { selectedScale = UI_SCALE_DEFAULT }
-                        )
-                    }
+                    icon = Icons.Outlined.FormatSize
                 )
 
                 SliderScaleLabels(

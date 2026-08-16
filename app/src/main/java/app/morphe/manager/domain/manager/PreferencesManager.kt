@@ -15,6 +15,8 @@ import app.morphe.manager.patcher.runtime.calculateAdaptiveMemoryLimit
 import app.morphe.manager.ui.screen.shared.BackgroundType
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
+import app.morphe.manager.ui.theme.UI_SCALE_DEFAULT
+import app.morphe.manager.ui.theme.coerceToUiScale
 import app.morphe.manager.ui.viewmodel.BundleSnapshot
 import app.morphe.manager.ui.viewmodel.RandomInterval
 import app.morphe.manager.util.AppCardColorMode
@@ -43,6 +45,9 @@ class PreferencesManager(
     val customAppCardColors = stringPreference("custom_app_card_colors", "")
     val theme = enumPreference("theme", Theme.SYSTEM)
     val themeStyle = enumPreference("theme_style", ThemeStyle.MORPHE)
+
+    /** Display scale of the whole interface, applied on top of the system screen zoom. */
+    val uiScale = floatPreference("ui_scale", UI_SCALE_DEFAULT)
 
     /** Guards the one-shot migration that folds the retired `dynamic_color` toggle into [themeStyle]. */
     private val themeStyleMigrated = booleanPreference("theme_style_migrated_v1", false)
@@ -224,6 +229,7 @@ class PreferencesManager(
         val stripUnusedNativeLibs: Boolean? = null,
         val theme: Theme? = null,
         val themeStyle: ThemeStyle? = null,
+        val uiScale: Float? = null,
         val appLanguage: String? = null,
         val api: String? = null,
         val gitHubPat: String? = null,
@@ -297,6 +303,7 @@ class PreferencesManager(
         stripUnusedNativeLibs = stripUnusedNativeLibs.get(),
         theme = theme.get(),
         themeStyle = themeStyle.get(),
+        uiScale = uiScale.get(),
         appLanguage = appLanguage.get(),
         gitHubPat = gitHubPat.get().takeIf { includeGitHubPatInExports.get() },
         includeGitHubPatInExports = includeGitHubPatInExports.get(),
@@ -355,6 +362,8 @@ class PreferencesManager(
                 // Pre-migration snapshots only carry `dynamicColor`; treat it as the missing style
                 if (snapshot.dynamicColor == true) themeStyle.value = ThemeStyle.MATERIAL_YOU
             }
+        // Snapped rather than taken as-is, so a scale from a build with a different range still fits
+        snapshot.uiScale?.let { uiScale.value = it.coerceToUiScale() }
         snapshot.appLanguage?.let { appLanguage.value = it }
         snapshot.gitHubPat?.let { gitHubPat.value = it }
         snapshot.includeGitHubPatInExports?.let { includeGitHubPatInExports.value = it }

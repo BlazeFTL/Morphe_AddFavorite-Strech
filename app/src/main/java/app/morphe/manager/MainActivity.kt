@@ -33,29 +33,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import app.morphe.manager.domain.manager.PreferencesManager
-import app.morphe.manager.ui.model.navigation.BatchPatcher
-import app.morphe.manager.ui.model.navigation.ComplexParameter
-import app.morphe.manager.ui.model.navigation.HomeScreen
-import app.morphe.manager.ui.model.navigation.Patcher
-import app.morphe.manager.ui.model.navigation.Settings
 import app.morphe.manager.domain.batch.BatchTarget
+import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.ui.model.navigation.*
 import app.morphe.manager.ui.screen.BatchPatcherScreen
 import app.morphe.manager.ui.screen.HomeScreen
 import app.morphe.manager.ui.screen.PatcherScreen
 import app.morphe.manager.ui.screen.SettingsScreen
-import app.morphe.manager.ui.screen.home.ExternalBatchPatchDialog
-import app.morphe.manager.ui.screen.home.GlobalOnboardingState
-import app.morphe.manager.ui.screen.home.OnboardingShowcase
-import app.morphe.manager.ui.screen.home.OnboardingState
-import app.morphe.manager.ui.screen.home.StepDef
+import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.shared.AnimatedBackground
-import app.morphe.manager.ui.screen.shared.BackgroundType
 import app.morphe.manager.ui.screen.shared.Animations
-import app.morphe.manager.ui.theme.ManagerTheme
-import app.morphe.manager.ui.theme.Theme
-import app.morphe.manager.ui.theme.ThemeStyle
-import app.morphe.manager.ui.theme.resolveThemeStyle
+import app.morphe.manager.ui.screen.shared.BackgroundType
+import app.morphe.manager.ui.theme.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.MainViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
@@ -110,6 +99,7 @@ class MainActivity : AppCompatActivity() {
             val theme by vm.prefs.theme.getAsState()
             val themeStyle by vm.prefs.themeStyle.getAsState()
             val pureBlackTheme by vm.prefs.pureBlackTheme.getAsState()
+            val uiScale by vm.prefs.uiScale.getAsState()
             val customAccentColor by vm.prefs.customAccentColor.getAsState()
             val customThemeColor by vm.prefs.customThemeColor.getAsState()
             val appCardColorMode by vm.prefs.appCardColorMode.getAsState()
@@ -125,17 +115,19 @@ class MainActivity : AppCompatActivity() {
                 Theme.SYSTEM -> isSystemInDarkTheme()
             }
 
-            ManagerTheme(
-                darkTheme = darkTheme,
-                dynamicColor = effectiveThemeStyle == ThemeStyle.MATERIAL_YOU,
-                pureBlackTheme = pureBlackTheme,
-                monochromeTheme = effectiveThemeStyle == ThemeStyle.MONOCHROME,
-                accentColorHex = customAccentColor.takeUnless { it.isBlank() },
-                themeColorHex = customThemeColor.takeUnless { it.isBlank() },
-                appCardColorMode = appCardColorMode,
-                appCardColorValues = appCardColorValues
-            ) {
-                MorpheManager(vm)
+            UiScaleProvider(uiScale) {
+                ManagerTheme(
+                    darkTheme = darkTheme,
+                    dynamicColor = effectiveThemeStyle == ThemeStyle.MATERIAL_YOU,
+                    pureBlackTheme = pureBlackTheme,
+                    monochromeTheme = effectiveThemeStyle == ThemeStyle.MONOCHROME,
+                    accentColorHex = customAccentColor.takeUnless { it.isBlank() },
+                    themeColorHex = customThemeColor.takeUnless { it.isBlank() },
+                    appCardColorMode = appCardColorMode,
+                    appCardColorValues = appCardColorValues
+                ) {
+                    MorpheManager(vm)
+                }
             }
         }
     }

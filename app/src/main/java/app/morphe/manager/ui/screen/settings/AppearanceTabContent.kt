@@ -37,6 +37,7 @@ import app.morphe.manager.ui.screen.shared.LanguageRepository.getLanguageDisplay
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
 import app.morphe.manager.ui.theme.resolveThemeStyle
+import app.morphe.manager.ui.theme.toUiScalePercent
 import app.morphe.manager.ui.viewmodel.RandomInterval
 import app.morphe.manager.ui.viewmodel.ThemeSettingsViewModel
 import app.morphe.manager.util.AppCardColorDefaults
@@ -78,7 +79,10 @@ fun AppearanceTabContent(
     val effectiveThemeStyle = resolveThemeStyle(themeStyle, supportsDynamicColor)
     val showAppCardColorSetting = effectiveThemeStyle != ThemeStyle.MONOCHROME
 
+    val uiScale by themeViewModel.prefs.uiScale.getAsState()
+
     val showLanguageDialog = remember { mutableStateOf(false) }
+    val showUiScaleDialog = remember { mutableStateOf(false) }
     val showTranslationInfoDialog = remember { mutableStateOf(false) }
     val showAppCardColorDialog = remember { mutableStateOf(false) }
     val appCardColorValues = remember(customAppCardColors) {
@@ -103,9 +107,11 @@ fun AppearanceTabContent(
             .verticalScroll(scrollState)
             .padding(horizontal = contentPadding, vertical = Defaults.ContentPadding)
     ) {
-        LanguageSection(
+        LanguageAndDisplaySection(
             appLanguage = appLanguage,
-            onLanguageClick = { showTranslationInfoDialog.value = true }
+            uiScale = uiScale,
+            onLanguageClick = { showTranslationInfoDialog.value = true },
+            onUiScaleClick = { showUiScaleDialog.value = true }
         )
 
         ThemeSection(
@@ -169,6 +175,19 @@ fun AppearanceTabContent(
         )
     }
 
+    // Interface scale dialog
+    AnimatedVisibility(
+        visible = showUiScaleDialog.value,
+        enter = Animations.fadeIn,
+        exit = Animations.fadeOut
+    ) {
+        UiScaleDialog(
+            currentScale = uiScale,
+            onApply = themeViewModel::setUiScale,
+            onDismiss = { showUiScaleDialog.value = false }
+        )
+    }
+
     // Translation info dialog
     AnimatedVisibility(
         visible = showTranslationInfoDialog.value,
@@ -212,12 +231,15 @@ fun AppearanceTabContent(
 }
 
 /**
- * Language selection section.
+ * How the app presents itself before any styling: the language it speaks and the scale it is
+ * drawn at.
  */
 @Composable
-private fun LanguageSection(
+private fun LanguageAndDisplaySection(
     appLanguage: String,
-    onLanguageClick: () -> Unit
+    uiScale: Float,
+    onLanguageClick: () -> Unit,
+    onUiScaleClick: () -> Unit
 ) {
     val context = LocalContext.current
     val currentLanguage = remember(appLanguage, context) {
@@ -231,7 +253,7 @@ private fun LanguageSection(
 
     Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
         SectionTitle(
-            text = stringResource(R.string.settings_appearance_app_language),
+            text = stringResource(R.string.settings_appearance_language_and_display),
             icon = Icons.Outlined.Language
         )
 
@@ -252,6 +274,13 @@ private fun LanguageSection(
                         )
                     }
                 }
+            )
+            SettingsDivider()
+            SettingsItem(
+                onClick = onUiScaleClick,
+                title = stringResource(R.string.settings_appearance_ui_scale),
+                subtitle = "${uiScale.toUiScalePercent()}%",
+                leadingContent = { ThemedIcon(icon = Icons.Outlined.FormatSize) }
             )
         }
     }

@@ -44,26 +44,24 @@ fun SignatureConflictDialog(
                     onSecondaryClick = onDismiss
                 )
             } else {
-                AppDialogButtonColumn {
-                    AppDialogButton(
-                        text = stringResource(R.string.uninstall),
-                        onClick = onUninstall,
-                        isDestructive = true,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.install_ignore_signature),
-                        onClick = onIgnore,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    AppDialogOutlinedButton(
-                        text = stringResource(android.R.string.cancel),
-                        onClick = onDismiss,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                AppDialogActions(
+                    actions = listOf(
+                        DialogAction(
+                            text = stringResource(R.string.uninstall),
+                            onClick = onUninstall,
+                            isDestructive = true
+                        ),
+                        DialogAction(
+                            text = stringResource(R.string.install_ignore_signature),
+                            onClick = onIgnore
+                        ),
+                        DialogAction(
+                            text = stringResource(android.R.string.cancel),
+                            onClick = onDismiss
+                        )
+                    ),
+                    layout = DialogButtonLayout.Vertical
+                )
             }
         }
     ) {

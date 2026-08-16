@@ -48,19 +48,22 @@ fun ChangelogDialog(
         title = stringResource(R.string.changelog),
         scrollable = false,
         footer = {
-            AppDialogButtonColumn {
-                ChangelogButton(
-                    pageUrl = entries?.firstOrNull()?.version?.let {
-                        releasePageUrl(MANAGER_REPO_URL, it)
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogButton(
-                    text = stringResource(android.R.string.ok),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            val changelog = changelogAction(
+                pageUrl = entries?.firstOrNull()?.version?.let {
+                    releasePageUrl(MANAGER_REPO_URL, it)
+                }
+            )
+            AppDialogActions(
+                actions = listOfNotNull(
+                    changelog,
+                    DialogAction(
+                        text = stringResource(android.R.string.ok),
+                        onClick = onDismiss,
+                        emphasis = DialogActionEmphasis.Filled
+                    )
+                ),
+                layout = DialogButtonLayout.Vertical
+            )
         }
     ) {
         AnimatedContent(

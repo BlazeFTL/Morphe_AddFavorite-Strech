@@ -56,6 +56,10 @@ object Defaults {
     val IconSizeSmall = 20.dp
 
     val MinTouchTarget = 48.dp
+
+    /** Roomier than [MinTouchTarget], for rows that carry an action rather than merely allow one. */
+    val TallTouchTarget = 52.dp
+
     val ContentPaddingSmall = 8.dp
     val ContentPadding = 16.dp
     val ContentPaddingMedium = 24.dp

@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
@@ -457,7 +456,6 @@ private fun HomeFooterControls(
                         .padding(bottom = 12.dp),
                     containerColor = GlassButtonDefaults.containerColor(),
                     contentColor = GlassButtonDefaults.contentColor(),
-                    shape = RoundedCornerShape(20.dp),
                     border = BorderStroke(1.dp, GlassButtonDefaults.borderColor()),
                     role = Role.Button,
                     pressScale = true,

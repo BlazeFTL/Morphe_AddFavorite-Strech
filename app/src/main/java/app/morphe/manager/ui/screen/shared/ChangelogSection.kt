@@ -33,21 +33,20 @@ import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.State as MarkdownRenderState
 
 /**
- * Opens the GitHub release page for the given [pageUrl].
+ * Footer action opening the GitHub release page for [pageUrl].
+ * Null when there is no page to open, so callers can drop it from the group.
  */
 @Composable
-fun ChangelogButton(
-    pageUrl: String?,
-    modifier: Modifier = Modifier
-) {
+fun changelogAction(pageUrl: String?): DialogAction? {
     val uriHandler = LocalUriHandler.current
+    val text = stringResource(R.string.changelog)
 
-    pageUrl?.let { url ->
-        AppDialogOutlinedButton(
-            text = stringResource(R.string.changelog),
+    return pageUrl?.let { url ->
+        DialogAction(
+            text = text,
             onClick = { uriHandler.openUri(url) },
             icon = Icons.AutoMirrored.Outlined.Article,
-            modifier = modifier.fillMaxWidth()
+            emphasis = DialogActionEmphasis.Outlined
         )
     }
 }

@@ -8,7 +8,6 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Category
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppCategoryViewMode
+import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.GlassButton
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
 
@@ -38,7 +38,7 @@ internal fun AppGroupingToolbar(
         modifier = modifier
             .fillMaxWidth()
             .animateContentSize(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AppGroupingModeButton(
@@ -77,7 +77,6 @@ private fun RowScope.AppGroupingModeButton(
         modifier = if (selected) Modifier.weight(1f) else Modifier.width(48.dp),
         containerColor = GlassButtonDefaults.containerColor(selected),
         contentColor = GlassButtonDefaults.contentColor(selected),
-        shape = RoundedCornerShape(20.dp),
         border = BorderStroke(1.dp, GlassButtonDefaults.borderColor(selected)),
         pressScale = true,
         hapticFeedback = true

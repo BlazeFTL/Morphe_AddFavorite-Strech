@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppSortMode
+import app.morphe.manager.ui.screen.shared.Defaults
 
 /**
  * Landscape sidebar panel: nav items (Search / Sources / Settings) centered vertically.
@@ -127,14 +128,14 @@ private fun HomeSidebarNavItem(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp)
+            .height(Defaults.TallTouchTarget)
             .semantics {
                 role = Role.Button
                 selected = isSelected
                 if (stateDescription != null) this.stateDescription = stateDescription
             },
         color = containerColor,
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(Defaults.CardCornerRadius)
     ) {
         Row(
             modifier = Modifier

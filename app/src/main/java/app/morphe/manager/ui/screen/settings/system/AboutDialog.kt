@@ -57,19 +57,21 @@ fun AboutDialog(onDismiss: () -> Unit) {
     AppDialog(
         onDismissRequest = onDismiss,
         footer = {
-            AppDialogButtonColumn {
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.credits),
-                    onClick = { showCreditsDialog.value = true },
-                    icon = Icons.Outlined.People,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogActions(
+                actions = listOf(
+                    DialogAction(
+                        text = stringResource(R.string.credits),
+                        onClick = { showCreditsDialog.value = true },
+                        icon = Icons.Outlined.People,
+                        emphasis = DialogActionEmphasis.Outlined
+                    ),
+                    DialogAction(
+                        text = stringResource(R.string.close),
+                        onClick = onDismiss
+                    )
+                ),
+                layout = DialogButtonLayout.Vertical
+            )
         }
     ) {
         val textColor = LocalDialogTextColor.current

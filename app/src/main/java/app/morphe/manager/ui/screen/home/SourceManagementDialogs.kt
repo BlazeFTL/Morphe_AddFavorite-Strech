@@ -1060,33 +1060,33 @@ fun BundleChangelogDialog(
         footer = {
             when (val current = state) {
                 is BundleChangelogState.Entries -> {
-                    AppDialogButtonColumn {
-                        current.latestPageUrl?.let { url ->
-                            ChangelogButton(
-                                pageUrl = url,
-                                modifier = Modifier.fillMaxWidth()
+                    AppDialogActions(
+                        actions = listOfNotNull(
+                            changelogAction(current.latestPageUrl),
+                            DialogAction(
+                                text = stringResource(android.R.string.ok),
+                                onClick = onDismissRequest,
+                                emphasis = DialogActionEmphasis.Filled
                             )
-                        }
-                        AppDialogButton(
-                            text = stringResource(android.R.string.ok),
-                            onClick = onDismissRequest,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
+                        ),
+                        layout = DialogButtonLayout.Vertical
+                    )
                 }
                 is BundleChangelogState.Error -> {
-                    AppDialogButtonColumn {
-                        AppDialogButton(
-                            text = stringResource(R.string.retry),
-                            onClick = { fetchTrigger++ },
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        AppDialogButton(
-                            text = stringResource(android.R.string.ok),
-                            onClick = onDismissRequest,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
+                    AppDialogActions(
+                        actions = listOf(
+                            DialogAction(
+                                text = stringResource(R.string.retry),
+                                onClick = { fetchTrigger++ }
+                            ),
+                            DialogAction(
+                                text = stringResource(android.R.string.ok),
+                                onClick = onDismissRequest,
+                                emphasis = DialogActionEmphasis.Filled
+                            )
+                        ),
+                        layout = DialogButtonLayout.Vertical
+                    )
                 }
                 BundleChangelogState.Loading -> {
                     AppDialogButton(

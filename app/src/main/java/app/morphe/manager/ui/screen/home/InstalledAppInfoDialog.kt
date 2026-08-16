@@ -1550,7 +1550,7 @@ private fun ActionButton(
     Surface(
         onClick = action.onClick,
         enabled = action.enabled && !action.isLoading,
-        modifier = modifier.height(52.dp),
+        modifier = modifier.height(Defaults.TallTouchTarget),
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         color = containerColor,
         contentColor = contentColor,

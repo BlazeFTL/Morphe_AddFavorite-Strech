@@ -906,35 +906,34 @@ internal fun FilePickerPromptDialog(
             }
         ),
         footer = {
-            AppDialogButtonColumn {
-                if (isOtherApps && onUseInstalledApp != null) {
-                    AppDialogButton(
-                        text = stringResource(R.string.home_use_installed_app),
-                        onClick = onUseInstalledApp,
-                        icon = Icons.Outlined.PhoneAndroid,
-                        enabled = !isLoadingInstalledApps,
-                        modifier = Modifier.fillMaxWidth()
+            AppDialogActions(
+                actions = buildList {
+                    if (isOtherApps && onUseInstalledApp != null) {
+                        add(
+                            DialogAction(
+                                text = stringResource(R.string.home_use_installed_app),
+                                onClick = onUseInstalledApp,
+                                icon = Icons.Outlined.PhoneAndroid,
+                                enabled = !isLoadingInstalledApps
+                            )
+                        )
+                    }
+                    add(
+                        DialogAction(
+                            text = stringResource(R.string.home_file_picker_prompt_open_apk),
+                            onClick = onOpenFilePicker,
+                            icon = Icons.Outlined.FolderOpen
+                        )
                     )
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.home_file_picker_prompt_open_apk),
-                        onClick = onOpenFilePicker,
-                        icon = Icons.Outlined.FolderOpen,
-                        modifier = Modifier.fillMaxWidth()
+                    add(
+                        DialogAction(
+                            text = stringResource(android.R.string.cancel),
+                            onClick = onDismiss
+                        )
                     )
-                } else {
-                    AppDialogButton(
-                        text = stringResource(R.string.home_file_picker_prompt_open_apk),
-                        onClick = onOpenFilePicker,
-                        icon = Icons.Outlined.FolderOpen,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+                },
+                layout = DialogButtonLayout.Vertical
+            )
         }
     ) {
         val secondaryColor = LocalDialogSecondaryTextColor.current
@@ -1115,24 +1114,24 @@ fun InvalidSignatureDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_invalid_signature_title),
         footer = {
-            AppDialogButtonColumn {
-                AppDialogButton(
-                    text = stringResource(R.string.home_split_apk_warning_pick_another),
-                    onClick = onPickAnother,
-                    icon = Icons.Outlined.FolderOpen,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
-                    onClick = onProceed,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogActions(
+                actions = listOf(
+                    DialogAction(
+                        text = stringResource(R.string.home_split_apk_warning_pick_another),
+                        onClick = onPickAnother,
+                        icon = Icons.Outlined.FolderOpen
+                    ),
+                    DialogAction(
+                        text = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
+                        onClick = onProceed
+                    ),
+                    DialogAction(
+                        text = stringResource(android.R.string.cancel),
+                        onClick = onDismiss
+                    )
+                ),
+                layout = DialogButtonLayout.Vertical
+            )
         }
     ) {
         Column(

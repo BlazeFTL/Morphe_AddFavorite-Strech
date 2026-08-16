@@ -26,6 +26,7 @@ import app.morphe.manager.ui.viewmodel.BundleSnapshot
 import app.morphe.manager.util.*
 import io.ktor.client.plugins.ResponseException
 import io.ktor.http.Url
+import io.ktor.http.hostWithPortIfSpecified
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.mutate
 import kotlinx.collections.immutable.persistentMapOf
@@ -1465,7 +1466,9 @@ class PatchBundleRepository(
         }
 
         val query = parsed.encodedQuery.takeIf { it.isNotEmpty() }?.let { "?$it" }.orEmpty()
-        return "https://$host$normalizedPath$query"
+        // Rebuilt from the host and port rather than the host alone, so that a bundle served on a
+        // custom port is not silently requested on the protocol default one
+        return "https://${parsed.hostWithPortIfSpecified}$normalizedPath$query"
     }
 
     /** Returns true if [uid] corresponds to a currently loaded bundle. */

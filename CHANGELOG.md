@@ -1,3 +1,13 @@
+# [1.26.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.13...v1.26.0-dev.14) (2026-08-16)
+
+
+### Bug Fixes
+
+* App info dialog marks renamed installs as clones ([251180a](https://github.com/MorpheApp/morphe-manager/commit/251180a04ff950e6a647c7dbf95fba28d9ef2b4b))
+* Apply the interface scale to dialogs, menus and sheets ([1ffd3a0](https://github.com/MorpheApp/morphe-manager/commit/1ffd3a0d9076ff48283d07f31586b6b4d512d12d))
+* Deep link no longer replays when the activity is restored ([a3d5c58](https://github.com/MorpheApp/morphe-manager/commit/a3d5c5832e3199da93a6ceeb2faab2288068824d))
+* Unify action bars and dialog footer buttons ([696caaf](https://github.com/MorpheApp/morphe-manager/commit/696caaf38f3512553da485b628055f3fe55a90e4))
+
 # [1.26.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.12...v1.26.0-dev.13) (2026-08-16)
 
 

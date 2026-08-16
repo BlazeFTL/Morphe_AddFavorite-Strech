@@ -1,3 +1,11 @@
+# [1.26.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.12...v1.26.0-dev.13) (2026-08-16)
+
+
+### Features
+
+* Allow changing the interface scale of the app ([b1b4cfc](https://github.com/MorpheApp/morphe-manager/commit/b1b4cfc2f2fca4e1d6dad278560d396c72403c05))
+* Allow installing over a signature mismatch on rooted devices ([9a7e424](https://github.com/MorpheApp/morphe-manager/commit/9a7e424b84552a5d67fed7bd95eb2544fff98728))
+
 # [1.26.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.11...v1.26.0-dev.12) (2026-08-16)
 
 

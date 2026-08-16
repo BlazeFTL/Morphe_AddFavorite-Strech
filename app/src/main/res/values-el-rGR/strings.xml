@@ -529,6 +529,8 @@
     <string name="patcher_heap_exhausted_message">Ο patcher εξάντλησε τη μνήμη με μέγεθος σωρού %1$d MB. Αυτή η εφαρμογή είναι πολύ μεγάλη για τα επιλεγμένα patches. Δοκιμάστε να κάνετε patch με λιγότερες πηγές patch ή επιλέξτε λιγότερα patches.</string>
     <string name="install_app_success">Επιτυχής εγκατάσταση</string>
     <string name="install_app_fail">Απέτυχε η εγκατάσταση της εφαρμογής: %s</string>
+    <string name="install_ignore_signature">Εγκατάσταση οτιδήποτε</string>
+    <string name="install_ignore_signature_description">Διατηρεί τα δεδομένα της εφαρμογής, αλλά λειτουργεί μόνο εάν μια ρίζα (root) ενότητα απενεργοποιήσει την επαλήθευση υπογραφής του Android</string>
     <string name="uninstall_app_fail">Αποfailed να απεγκατασταθεί η εφαρμογή: %s</string>
     <string name="uninstall_app_unverified">Παρέμεινε στη θέση του: Η Morphe δεν μπόρεσε να επαληθεύσει ότι η εγκατεστημένη εφαρμογή είναι η έκδοση που επιδιόρθωσε</string>
     <string name="launch_app_unverified">Η Morphe δεν μπόρεσε να επαληθεύσει ότι η εγκατεστημένη εφαρμογή είναι η έκδοση που επιδιόρθωσε</string>
@@ -590,11 +592,16 @@
     <string name="settings_appearance_pure_black">Αληθινό μαύρο</string>
     <string name="settings_appearance_pure_black_description">Χρησιμοποιεί αληθινά μαύρα φόντα</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Γλώσσα και εμφάνιση</string>
     <string name="settings_appearance_app_language">Γλώσσα εφαρμογής</string>
     <string name="settings_appearance_app_language_current">Τρέχουσα γλώσσα</string>
     <string name="settings_appearance_translations_info_title">Οι μεταφράσεις για ορισμένες γλώσσες μπορεί να λείπουν ή να μην είναι ολοκληρωμένες</string>
     <string name="settings_appearance_translations_info_text">"Για να μεταφράσετε νέες γλώσσες ή να βελτιώσετε τις υπάρχουσες μεταφράσεις, επισκεφτείτε
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Κλίμακα διεπαφής</string>
+    <string name="settings_appearance_ui_scale_current">Τρέχουσα κλίμακα</string>
+    <string name="settings_appearance_ui_scale_description">Κλιμακώνει τα πάντα στην εφαρμογή, επιπλέον από τη μεγέθυνση οθόνης και το μέγεθος γραμματοχάρτης του συστήματος</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Αρχική οθόνη</string>
     <string name="settings_appearance_greeting_phrases">Φράσεις υποδοχής</string>

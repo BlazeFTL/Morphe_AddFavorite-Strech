@@ -306,6 +306,9 @@
     <string name="patch_option_enter_value">Введите значение</string>
     <string name="patch_option_enter_number">Введите число</string>
     <string name="patch_option_enter_decimal">Введите десятичную дробь</string>
+    <string name="patch_option_slider_edit">Введите точное значение</string>
+    <string name="patch_option_slider_range_start">От</string>
+    <string name="patch_option_slider_range_end">До</string>
     <string name="patch_option_list_duplicate">Это значение уже существует</string>
     <string name="patch_option_list_empty">Значение не может быть пустым</string>
     <string name="patch_option_list_empty_state">Значения еще не добавлены</string>
@@ -593,10 +596,17 @@
     <string name="settings_appearance_pure_black">Чисто черный</string>
     <string name="settings_appearance_pure_black_description">Использует настоящие черные фоны</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Язык и отображение</string>
     <string name="settings_appearance_app_language">Язык приложения</string>
     <string name="settings_appearance_app_language_current">Текущий язык</string>
     <string name="settings_appearance_translations_info_title">Переводы для некоторых языков могут отсутствовать или быть неполными</string>
     <string name="settings_appearance_translations_info_text">"Для перевода на новые языки или улучшения существующих переводов посетите %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Масштаб интерфейса</string>
+    <string name="settings_appearance_ui_scale_current">Текущий масштаб</string>
+    <string name="settings_appearance_ui_scale_description">Масштабирует все элементы приложения в дополнение к системному масштабу экрана и размеру шрифта</string>
+    <string name="settings_appearance_ui_scale_preview_title">Пример настройки</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Текст и элементы управления при таком масштабе</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Главный экран</string>
     <string name="settings_appearance_greeting_phrases">Приветственные фразы</string>
@@ -1039,6 +1049,7 @@ morphe_header_custom_dark.png
     <string name="filter">Фильтр</string>
     <string name="reset">Сбросить</string>
     <string name="reset_all">Сбросить все</string>
+    <string name="apply">Применить</string>
     <string name="confirm">Подтвердить</string>
     <string name="warning">Предупреждение</string>
     <string name="error_">Ошибка</string>

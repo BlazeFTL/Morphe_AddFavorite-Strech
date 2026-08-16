@@ -530,6 +530,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="patcher_heap_exhausted_message">Naubos ang memorya ng patcher na may %1$d MB na heap. Masyadong malaki ang app na ito para sa mga napiling patch. Subukang mag-patch na may mas kaunting patch source, o pumili ng mas kaunting patch.</string>
     <string name="install_app_success">Matagumpay na na-install</string>
     <string name="install_app_fail">Nabigong ma-install ang aplikasyon: %s</string>
+    <string name="install_ignore_signature">I-install pa rin</string>
     <string name="uninstall_app_fail">Nabigong i-uninstall ang app: %s</string>
     <string name="uninstall_app_unverified">Iniwan sa lugar: Hindi ma-verify ng Morphe na ang naka-install na app ay ang build na ni-patch nito</string>
     <string name="launch_app_unverified">Hindi ma-verify ng Morphe na ang naka-install na app ay ang build na ni-patch nito</string>
@@ -596,6 +597,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_translations_info_title">Maaaring nawawala o hindi kumpleto ang pagsasalin-wika para sa ibang wika</string>
     <string name="settings_appearance_translations_info_text">"Upang isalin ang mga bagong wika o pagbutihin ang mga umiiral na pagsasalin-wika, bisitahin ang
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Pangunahing iskrin</string>
     <string name="settings_appearance_greeting_phrases">Mga pagbati</string>

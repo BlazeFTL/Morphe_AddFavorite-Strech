@@ -592,6 +592,7 @@
     <string name="settings_appearance_app_language_current">目前語言</string>
     <string name="settings_appearance_translations_info_title">某些語言的翻譯可能遺失或不完整</string>
     <string name="settings_appearance_translations_info_text">"若要翻譯新語言或改善現有翻譯，請造訪 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">主螢幕</string>
     <string name="settings_appearance_greeting_phrases">問候語</string>

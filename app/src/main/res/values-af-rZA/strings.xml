@@ -595,6 +595,7 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_translations_info_title">Vertalings vir sommige tale is dalk ontbrekend of onvoltooid</string>
     <string name="settings_appearance_translations_info_text">"Om nuwe tale te vertaal of die bestaande vertalings te verbeter, besoek
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Tuisskerm</string>
     <string name="settings_appearance_greeting_phrases">Groetfrases</string>

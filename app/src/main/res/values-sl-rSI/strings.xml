@@ -306,6 +306,9 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="patch_option_enter_value">Vnesite vrednost</string>
     <string name="patch_option_enter_number">Vnesite številko</string>
     <string name="patch_option_enter_decimal">Vnesite decimalno mesto</string>
+    <string name="patch_option_slider_edit">Vnesite točno vrednost</string>
+    <string name="patch_option_slider_range_start">Od</string>
+    <string name="patch_option_slider_range_end">Do</string>
     <string name="patch_option_list_duplicate">Ta vrednost že obstaja</string>
     <string name="patch_option_list_empty">Vrednost ne more biti prazna</string>
     <string name="patch_option_list_empty_state">Še nobena vrednost ni bila dodana</string>
@@ -593,11 +596,16 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_pure_black">Črnina</string>
     <string name="settings_appearance_pure_black_description">Uporablja prava črne ozadja</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Jezik in prikaz</string>
     <string name="settings_appearance_app_language">Jezik aplikacije</string>
     <string name="settings_appearance_app_language_current">Trenutni jezik</string>
     <string name="settings_appearance_translations_info_title">Prevodi za nekatera jezika so lahko manjkajoči ali nepopolni</string>
     <string name="settings_appearance_translations_info_text">"Za prevajanje novih jezikov ali izboljšanje obstoječih prevodov obiščite
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Razmerje vmesnika</string>
+    <string name="settings_appearance_ui_scale_current">Trenutno razmerje</string>
+    <string name="settings_appearance_ui_scale_description">Razmerja vse v aplikaciji, dodatno do sistemskega povečave zaslona in velikosti pisave</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Začetni zaslon</string>
     <string name="settings_appearance_greeting_phrases">Pozdravna sporočila</string>

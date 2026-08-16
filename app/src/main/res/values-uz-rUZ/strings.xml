@@ -301,6 +301,7 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="patch_option_enter_value">Qiymat kiriting</string>
     <string name="patch_option_enter_number">Raqam kiriting</string>
     <string name="patch_option_enter_decimal">O\'nlik kiriting</string>
+    <string name="patch_option_slider_edit">Aniq qiymatni kiriting</string>
     <string name="patch_option_list_duplicate">Ushbu qiymat allaqachon mavjud</string>
     <string name="patch_option_list_empty">Qiymat bo\'sh bo\'lishi mumkin emas</string>
     <string name="patch_option_list_empty_state">Hali hech qanday qiymatlar qo\'shilmagan</string>
@@ -589,6 +590,9 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="settings_appearance_translations_info_title">Ba\'zi tillar uchun tarjimaning yo\'qligi yoki to\'liq bo\'lmasligi mumkin</string>
     <string name="settings_appearance_translations_info_text">"Yangi tillarni tarjima qilish yoki mavjud tarjimalarni yaxshilash uchun,
 %s ga tashrif buyuring"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale_preview_title">Namuna sozlamasi</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Ushbu masshtabdagi matnlar va boshqaruvlar</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Uy ekran</string>
     <string name="settings_appearance_greeting_phrases">Salomlashish iborasi</string>
@@ -1031,6 +1035,7 @@ Ma’lumotlar: %2$s"</string>
     <string name="filter">Filtrlash</string>
     <string name="reset">Qayta o‘rnatish</string>
     <string name="reset_all">Hammasini qayta tiklash</string>
+    <string name="apply">Qo\'llash</string>
     <string name="confirm">Yaxshi</string>
     <string name="warning">Diqqat</string>
     <string name="error_">Qidirish</string>

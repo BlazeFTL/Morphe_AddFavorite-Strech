@@ -594,10 +594,15 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_pure_black">Saf Siyah</string>
     <string name="settings_appearance_pure_black_description">Gerçek siyah arka plan kullanır</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Dil ve ekran</string>
     <string name="settings_appearance_app_language">Uygulama dili</string>
     <string name="settings_appearance_app_language_current">Mevcut dil</string>
     <string name="settings_appearance_translations_info_title">Çeviriler bazı diller için eksik veya tamamlanmamış olabilir</string>
     <string name="settings_appearance_translations_info_text">"Yeni diller eklemek veya mevcut çevirileri iyileştirmek için %s adresini ziyaret edin"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Arayüz ölçeği</string>
+    <string name="settings_appearance_ui_scale_current">Şu anki ölçek</string>
+    <string name="settings_appearance_ui_scale_description">Sistem ekran yakınlaştırması ve yazı tipi boyutuna ek olarak uygulamadaki her şeyi ölçeklendirir</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Ana ekran</string>
     <string name="settings_appearance_greeting_phrases">Selamlama cümleleri</string>

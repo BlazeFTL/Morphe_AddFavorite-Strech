@@ -595,6 +595,9 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_app_language_current">Jelenlegi nyelv</string>
     <string name="settings_appearance_translations_info_title">Egyes nyelvek fordításai hiányozhatnak vagy hiányosak lehetnek</string>
     <string name="settings_appearance_translations_info_text">"Új nyelvek fordításához vagy a meglévő fordítások javításához látogass el a következő oldalra: %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale_preview_title">Mintabeállítás</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Szövegek és vezérlők ezen a méretekben</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Kezdőképernyő</string>
     <string name="settings_appearance_greeting_phrases">Üdvözlő szövegek</string>
@@ -1037,6 +1040,7 @@ Részletek: %2$s"</string>
     <string name="filter">Szűrő</string>
     <string name="reset">Visszaállítás</string>
     <string name="reset_all">Összes visszaállítása</string>
+    <string name="apply">Alkalmaz</string>
     <string name="confirm">Megerősítés</string>
     <string name="warning">Figyelmeztetés</string>
     <string name="error_">Hiba</string>

@@ -597,6 +597,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_translations_info_title">Vertalingen voor sommige talen kunnen ontbreken of onvolledig zijn</string>
     <string name="settings_appearance_translations_info_text">"Om nieuwe talen te vertalen of de bestaande vertalingen te verbeteren, bezoek
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Startscherm</string>
     <string name="settings_appearance_greeting_phrases">Begroetingszinnen</string>
@@ -1039,6 +1040,7 @@ Details: %2$s"</string>
     <string name="filter">Filter</string>
     <string name="reset">Reset</string>
     <string name="reset_all">Alles resetten</string>
+    <string name="apply">Toepassen</string>
     <string name="confirm">Bevestigen</string>
     <string name="warning">Waarschuwing</string>
     <string name="error_">Fout</string>

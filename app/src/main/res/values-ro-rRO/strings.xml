@@ -593,10 +593,17 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_pure_black">Negru pur</string>
     <string name="settings_appearance_pure_black_description">Folosește fundaluri negre pure</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Limbă și afișare</string>
     <string name="settings_appearance_app_language">Limbă aplicație</string>
     <string name="settings_appearance_app_language_current">Limba curentă</string>
     <string name="settings_appearance_translations_info_title">Traduțiile pentru unele limbi pot lipsi sau să fie incomplet</string>
     <string name="settings_appearance_translations_info_text">"Pentru a traduce în noi limbi sau să îmbunătățești traducerile existente, vizitează %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Scara interfeței</string>
+    <string name="settings_appearance_ui_scale_current">Scara curentă</string>
+    <string name="settings_appearance_ui_scale_description">Scalează totul în aplicație, peste zoom-ul ecranului de sistem și dimensiunea fontului</string>
+    <string name="settings_appearance_ui_scale_preview_title">Setare exemplu</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Textul și controalele la această scară</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Ecranul principal</string>
     <string name="settings_appearance_greeting_phrases">Fraze de salut</string>
@@ -1040,6 +1047,7 @@ Detalii: %2$s"</string>
     <string name="filter">Filtru</string>
     <string name="reset">Resetează</string>
     <string name="reset_all">Resetează tot</string>
+    <string name="apply">Aplică</string>
     <string name="confirm">Confirmă</string>
     <string name="warning">Atenție</string>
     <string name="error_">Eroare</string>

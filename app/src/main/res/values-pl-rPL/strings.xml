@@ -307,6 +307,9 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="patch_option_enter_value">Wprowadź wartość</string>
     <string name="patch_option_enter_number">Wprowadź liczbę</string>
     <string name="patch_option_enter_decimal">Wprowadź liczbę dziesiętną</string>
+    <string name="patch_option_slider_edit">Wprowadź dokładną wartość</string>
+    <string name="patch_option_slider_range_start">Od</string>
+    <string name="patch_option_slider_range_end">Do</string>
     <string name="patch_option_list_duplicate">Ta wartość już istnieje</string>
     <string name="patch_option_list_empty">Wartość nie może być pusta</string>
     <string name="patch_option_list_empty_state">Nie dodano jeszcze wartości</string>
@@ -597,11 +600,18 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_pure_black">Głęboka czerń</string>
     <string name="settings_appearance_pure_black_description">Używa prawdziwie czarnego tła</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Język i wyświetlanie</string>
     <string name="settings_appearance_app_language">Język aplikacji</string>
     <string name="settings_appearance_app_language_current">Bieżący język</string>
     <string name="settings_appearance_translations_info_title">Tłumaczenia dla niektórych języków mogą być niekompletne lub może ich brakować</string>
     <string name="settings_appearance_translations_info_text">"Aby przetłumaczyć aplikację na nowe języki lub poprawić istniejące tłumaczenia, odwiedź stronę
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Skala interfejsu</string>
+    <string name="settings_appearance_ui_scale_current">Bieżąca skala</string>
+    <string name="settings_appearance_ui_scale_description">Skaluje wszystkie elementy w aplikacji, dodatkowo do systemowego przybliżenia ekranu i rozmiaru czcionki</string>
+    <string name="settings_appearance_ui_scale_preview_title">Przykładowe ustawienie</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Tekst i elementy sterujące przy tej skali</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Ekran główny</string>
     <string name="settings_appearance_greeting_phrases">Powitania</string>
@@ -1045,6 +1055,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="filter">Filtr</string>
     <string name="reset">Zresetuj</string>
     <string name="reset_all">Zresetuj wszystko</string>
+    <string name="apply">Zastosuj</string>
     <string name="confirm">Potwierdź</string>
     <string name="warning">Ostrzeżenie</string>
     <string name="error_">Błąd</string>

@@ -527,6 +527,8 @@
     <string name="patcher_heap_exhausted_message">パッチャーが %1$d MB のヒープメモリを使い果たしました。このアプリは選択したパッチには大きすぎます。パッチソースを減らしてパッチを適用するか、選択するパッチを減らしてください。</string>
     <string name="install_app_success">正常にインストールされました</string>
     <string name="install_app_fail">アプリのインストールに失敗しました: %s</string>
+    <string name="install_ignore_signature">そのままインストール</string>
+    <string name="install_ignore_signature_description">アプリデータは保持されますが、ルートモジュールでAndroidの署名検証を無効にしている場合にのみ機能します</string>
     <string name="uninstall_app_fail">アプリのアンインストールに失敗しました: %s</string>
     <string name="uninstall_app_unverified">そのまま残されています: Morpheは、インストールされたアプリがパッチを適用したビルドであることを確認できませんでした。</string>
     <string name="launch_app_unverified">Morpheは、インストールされたアプリがパッチを適用したビルドであることを確認できませんでした。</string>
@@ -592,6 +594,7 @@
     <string name="settings_appearance_app_language_current">現在の言語</string>
     <string name="settings_appearance_translations_info_title">一部の言語では、翻訳が存在しない、または不完全である可能性があります</string>
     <string name="settings_appearance_translations_info_text">"新しい言語の翻訳や既存の翻訳の改善には、%s にアクセスしてください"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">ホーム画面</string>
     <string name="settings_appearance_greeting_phrases">挨拶メッセージ</string>

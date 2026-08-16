@@ -306,6 +306,9 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="patch_option_enter_value">Dəyər qeyd edin</string>
     <string name="patch_option_enter_number">Sayı qeyd edin</string>
     <string name="patch_option_enter_decimal">Onluq qeyd edin</string>
+    <string name="patch_option_slider_edit">Dəqiq dəyər daxil et</string>
+    <string name="patch_option_slider_range_start">Burdan</string>
+    <string name="patch_option_slider_range_end">Bura</string>
     <string name="patch_option_list_duplicate">Bu dəyər artıq var</string>
     <string name="patch_option_list_empty">Dəyər boş ola bilməz</string>
     <string name="patch_option_list_empty_state">Hələ dəyər əlavə edilməyib</string>
@@ -409,6 +412,10 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="home_app_info_app_deleted_warning">Tətbiq quraşdırması silindi</string>
     <string name="home_app_info_app_deleted_description">Bu tətbiq Morphe xarici silindi. Funksionallığı qaytarmaq üçün onu təkrar quraşdır</string>
     <string name="home_app_info_not_patched_description">Bu tətbiqin yamaqlanmamış versiyası quraşdırılıb. Morphe-də hələ də əvvəlki yamaq qeydi qalır</string>
+    <string name="home_dialog_rename_title">Bu nüsxəni quraşdıracaq</string>
+    <string name="home_dialog_rename_description">Seçilmiş yamaqlar bu tətbiqi öz paket adı altında qurur, ona görə də nəticə onu yeniləmək əvəzinə &lt;b&gt;%s&lt;/b&gt; ilə birlikdə quraşdırılır</string>
+    <string name="home_dialog_rename_result_package">Bu adla quraşdırılacaq</string>
+    <string name="home_dialog_rename_replaces">Bir nüsxə artıq həmin adı istifadə edir və yenidən qurulacaq</string>
     <string name="home_app_info_apk_size">APK həcmi</string>
     <string name="home_app_info_cpu_arch">CPU quruluşu</string>
     <!-- Home Screen - Root Mode -->
@@ -596,6 +603,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_app_language_current">Hazırkı dil</string>
     <string name="settings_appearance_translations_info_title">Bəzi dillər üçün tərcümələr əskik və ya nöqsanlı ola bilər.</string>
     <string name="settings_appearance_translations_info_text">"Yeni dilləri tərcümə etmək və ya mövcud tərcümələri təkmilləşdirmək üçün %s -i ziyarət et"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Əsas ekran</string>
     <string name="settings_appearance_greeting_phrases">Salamlaşma ifadələri</string>
@@ -1102,6 +1110,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="available">Əlçatan</string>
     <string name="continue_">Davam et</string>
     <string name="version">Versiya</string>
+    <string name="clone">Klon</string>
     <string name="patch">Yamaqla</string>
     <string name="patching">Yamaqlanır</string>
     <string name="patched">Yamaqlandı</string>

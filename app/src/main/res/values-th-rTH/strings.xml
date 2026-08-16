@@ -593,6 +593,7 @@
     <string name="settings_appearance_translations_info_title">อาจมีคำแปลสำหรับบางภาษาขาดหายไปหรือไม่สมบูรณ์</string>
     <string name="settings_appearance_translations_info_text">"หากต้องการแปลภาษาใหม่หรือปรับปรุงคำแปลที่มีอยู่ โปรดไปที่
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">หน้าจอหลัก</string>
     <string name="settings_appearance_greeting_phrases">วลีทักทาย</string>

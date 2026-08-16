@@ -596,6 +596,7 @@
     <string name="settings_appearance_translations_info_title">某些语言的翻译可能缺失或不完整</string>
     <string name="settings_appearance_translations_info_text">"要翻译新的语言或改进现有的翻译，请访问
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">主屏幕</string>
     <string name="settings_appearance_greeting_phrases">问候语</string>
@@ -1039,6 +1040,7 @@ morphe_header_custom_dark.png
     <string name="filter">筛选</string>
     <string name="reset">重置</string>
     <string name="reset_all">重置所有</string>
+    <string name="apply">应用</string>
     <string name="confirm">确认</string>
     <string name="warning">警告</string>
     <string name="error_">错误</string>

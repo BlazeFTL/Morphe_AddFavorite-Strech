@@ -532,6 +532,8 @@
     <string name="patcher_heap_exhausted_message">Пачърът изчерпа паметта при heap от %1$d MB. Това приложение е твърде голямо за избраните пачове. Опитайте се да пачвате с по-малко източници на пачове или изберете по-малко пачове.</string>
     <string name="install_app_success">Инсталирано успешно</string>
     <string name="install_app_fail">Неуспешно инсталиране на приложението: %s</string>
+    <string name="install_ignore_signature">Инсталирай все пак</string>
+    <string name="install_ignore_signature_description">Запазва данните на приложението, но работи само ако root модул деактивира проверката на подпис в Android</string>
     <string name="uninstall_app_fail">Неуспешно изтриване на приложението: %s</string>
     <string name="uninstall_app_unverified">Оставено на място: Morphe не можа да потвърди, че инсталираното приложение е сборката, която е кръпкирал.</string>
     <string name="launch_app_unverified">Morphe не можа да потвърди, че инсталираното приложение е сборката, която е кръпкирал.</string>
@@ -598,6 +600,9 @@
     <string name="settings_appearance_translations_info_title">Недостъпни или неполни преводи за някои езици</string>
     <string name="settings_appearance_translations_info_text">"За да преведете нови езици или да подобрите съществуващите преводи, посетете
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale_preview_title">Примерна настройка</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Текст и контроли при този мащаб</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Начален екран</string>
     <string name="settings_appearance_greeting_phrases">Поздравителни фрази</string>
@@ -1041,6 +1046,7 @@ morphe_header_custom_dark.png
     <string name="filter">Филтър</string>
     <string name="reset">Нулирай</string>
     <string name="reset_all">Възстановяване на всичко</string>
+    <string name="apply">Приложи</string>
     <string name="confirm">Потвърдете</string>
     <string name="warning">Предупреждение</string>
     <string name="error_">Грешка</string>

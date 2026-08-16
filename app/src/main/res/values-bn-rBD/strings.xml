@@ -601,6 +601,7 @@
     <string name="settings_appearance_translations_info_title">কিছু ভাষার জন্য অনুবাদ বা সম্পূর্ণ অনুবাদ উপলব্ধ নেই</string>
     <string name="settings_appearance_translations_info_text">"নতুন ভাষা অনুবাদ করতে বা বিদ্যমান অনুবাদ উন্নত করতে, অনুগ্রহ করে
 %s দেখুন"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">হোম স্ক্রিন</string>
     <string name="settings_appearance_greeting_phrases">শুভেচ্ছা বার্তা</string>

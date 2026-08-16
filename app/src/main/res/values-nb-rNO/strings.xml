@@ -595,6 +595,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_translations_info_title">Oversettelser for noen språk mangler eller er ufullstendige</string>
     <string name="settings_appearance_translations_info_text">"For å oversette nye språk eller forbedre eksisterende oversettelser, besøk
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Hjemmeskjerm</string>
     <string name="settings_appearance_greeting_phrases">Hilsenfraser</string>

@@ -599,6 +599,9 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_translations_info_title">Le traduzioni per alcune lingue potrebbero essere incomplete o mancanti</string>
     <string name="settings_appearance_translations_info_text">"Per tradurre nuove lingue o migliorare le traduzioni esistenti, visita
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale_preview_title">Impostazione di esempio</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Testo e controlli a questa scala</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Schermata home</string>
     <string name="settings_appearance_greeting_phrases">Frasi di saluto</string>
@@ -1042,6 +1045,7 @@ Dettagli: %2$s"</string>
     <string name="filter">Filtra</string>
     <string name="reset">Reimposta</string>
     <string name="reset_all">Ripristina Tutto</string>
+    <string name="apply">Applica</string>
     <string name="confirm">Conferma</string>
     <string name="warning">Attenzione</string>
     <string name="error_">Errore</string>

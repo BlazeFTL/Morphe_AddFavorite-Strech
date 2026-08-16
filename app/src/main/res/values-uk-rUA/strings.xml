@@ -600,11 +600,18 @@
     <string name="settings_appearance_pure_black">Повністю чорний</string>
     <string name="settings_appearance_pure_black_description">Використовує справжній чорний фон</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Мова та відображення</string>
     <string name="settings_appearance_app_language">Мова застосунку</string>
     <string name="settings_appearance_app_language_current">Поточна мова</string>
     <string name="settings_appearance_translations_info_title">Переклади деяких мов можуть бути відсутніми або неповними</string>
     <string name="settings_appearance_translations_info_text">"Щоб перекласти нові мови або покращити наявні переклади, відвідайте
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Масштаб інтерфейсу</string>
+    <string name="settings_appearance_ui_scale_current">Поточний масштаб</string>
+    <string name="settings_appearance_ui_scale_description">Масштабує все в застосунку, на додаток до системного масштабування екрана та розміру шрифту</string>
+    <string name="settings_appearance_ui_scale_preview_title">Приклад налаштування</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Текст і елементи керування в цьому масштабі</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Головний екран</string>
     <string name="settings_appearance_greeting_phrases">Вітальні фрази</string>
@@ -1048,6 +1055,7 @@ morphe_header_custom_dark.png
     <string name="filter">Фільтр</string>
     <string name="reset">Скинути</string>
     <string name="reset_all">Скинути все</string>
+    <string name="apply">Застосувати</string>
     <string name="confirm">Підтвердити</string>
     <string name="warning">Попередження</string>
     <string name="error_">Помилка</string>

@@ -593,11 +593,18 @@
     <string name="settings_appearance_pure_black">שחור טהור</string>
     <string name="settings_appearance_pure_black_description">משתמש ברקעים שחורים אמיתיים</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">שפה ותצוגה</string>
     <string name="settings_appearance_app_language">שפת היישום</string>
     <string name="settings_appearance_app_language_current">שפה נוכחית</string>
     <string name="settings_appearance_translations_info_title">ייתכן שתרגומים עבור חלק מהשפות חסרים או לא שלמים</string>
     <string name="settings_appearance_translations_info_text">"כדי לתרגם שפות חדשות או לשפר את התרגומים הקיימים, בקר בכתובת
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">קנה מידה של הממשק</string>
+    <string name="settings_appearance_ui_scale_current">קנה מידה נוכחי</string>
+    <string name="settings_appearance_ui_scale_description">מגדיל את כל רכיבי האפליקציה, בנוסף לזום המסך ולגודל הגופן של המערכת</string>
+    <string name="settings_appearance_ui_scale_preview_title">הגדרה לדוגמה</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">טקסט ובקרים בקנה מידה זה</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">מסך הבית</string>
     <string name="settings_appearance_greeting_phrases">משפטי פתיחה</string>
@@ -1051,6 +1058,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="filter">סינון</string>
     <string name="reset">איפוס</string>
     <string name="reset_all">אפס הכל</string>
+    <string name="apply">החל</string>
     <string name="confirm">אשר</string>
     <string name="warning">אזהרה</string>
     <string name="error_">שגיאה</string>

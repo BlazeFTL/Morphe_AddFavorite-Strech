@@ -593,6 +593,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_translations_info_title">Một số ngôn ngữ có thể bị thiếu hoặc chưa hoàn thiện</string>
     <string name="settings_appearance_translations_info_text">"Để dịch các ngôn ngữ mới hoặc cải thiện bản dịch hiện có, vui lòng truy cập
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Trang chủ</string>
     <string name="settings_appearance_greeting_phrases">Thông điệp</string>
@@ -1035,6 +1036,7 @@ Chi tiết: %2$s"</string>
     <string name="filter">Bộ lọc</string>
     <string name="reset">Đặt lại</string>
     <string name="reset_all">Đặt lại tất cả</string>
+    <string name="apply">Áp dụng</string>
     <string name="confirm">OK</string>
     <string name="warning">Cảnh báo</string>
     <string name="error_">Lỗi</string>

@@ -150,6 +150,7 @@
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_app_language_current">વર્તમાન ભાષા</string>
     <string name="settings_appearance_translations_info_title">કેટલીક ભાષાઓ માટે અનુવાદો ખૂટતા અથવા અપૂર્ણ હોઈ શકે છે.</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_app_card_colors_default">ડિફૉલ્ટ</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->

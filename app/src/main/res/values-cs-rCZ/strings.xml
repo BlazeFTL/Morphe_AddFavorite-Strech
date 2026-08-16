@@ -599,10 +599,17 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_pure_black">Čistá černá</string>
     <string name="settings_appearance_pure_black_description">Používá pravě černou barvu pozadí</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Jazyk a zobrazení</string>
     <string name="settings_appearance_app_language">Jazyk aplikace</string>
     <string name="settings_appearance_app_language_current">Aktuální jazyk</string>
     <string name="settings_appearance_translations_info_title">Pro některé jazyky mohou chybět nebo být neúplné.</string>
     <string name="settings_appearance_translations_info_text">"Chcete přidat nový jazyk nebo vylepšit existující překlady? Navštivte %s."</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Měřítko rozhraní</string>
+    <string name="settings_appearance_ui_scale_current">Aktuální měřítko</string>
+    <string name="settings_appearance_ui_scale_description">Změní měřítko všech prvků v aplikaci navíc k systémovému přiblížení obrazovky a velikosti písma</string>
+    <string name="settings_appearance_ui_scale_preview_title">Ukázkové nastavení</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Text a ovládací prvky v tomto měřítku</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Domovská obrazovka</string>
     <string name="settings_appearance_greeting_phrases">Pozdravné fráze</string>
@@ -1045,6 +1052,7 @@ Podrobnosti: %2$s"</string>
     <string name="filter">Filtr</string>
     <string name="reset">Resetovat</string>
     <string name="reset_all">Resetovat vše</string>
+    <string name="apply">Použít</string>
     <string name="confirm">Potvrdit</string>
     <string name="warning">Varování</string>
     <string name="error_">Chyba</string>

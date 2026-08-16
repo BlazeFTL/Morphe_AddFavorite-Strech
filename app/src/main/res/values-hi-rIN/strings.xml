@@ -594,6 +594,7 @@
     <string name="settings_appearance_translations_info_title">कुछ भाषाओं के लिए अनुवाद या अपूर्ण अनुवाद उपलब्ध हो सकते हैं</string>
     <string name="settings_appearance_translations_info_text">"नई भाषाएँ अनुवाद करने या मौजूदा अनुवादों को बेहतर बनाने के लिए,
 %s पर जाएँ"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">मुखपृष्ठ</string>
     <string name="settings_appearance_greeting_phrases">अभिवादन वाक्यांश</string>

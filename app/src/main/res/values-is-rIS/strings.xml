@@ -304,6 +304,9 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="patch_option_enter_value">Sláðu inn gildi</string>
     <string name="patch_option_enter_number">Sláðu inn númer</string>
     <string name="patch_option_enter_decimal">Sláðu inn desimal tölur</string>
+    <string name="patch_option_slider_edit">Sláðu inn nákvæmaseðu</string>
+    <string name="patch_option_slider_range_start">Frá</string>
+    <string name="patch_option_slider_range_end">Til</string>
     <string name="patch_option_list_duplicate">Þetta gildi er þegar í notkun</string>
     <string name="patch_option_list_empty">Gildi má ekki vera tómt</string>
     <string name="patch_option_list_empty_state">Engin gildi bætt við enn</string>
@@ -598,6 +601,9 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_translations_info_title">Þýðingar fyrir sum lönd eru kannski vantar eða eru ófullkomnar</string>
     <string name="settings_appearance_translations_info_text">"Til að þýða ný tungumál eða bæta núverandi þýðingar skaltu heimsækja
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale_preview_title">Sýnishljóðstilling</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Texti og stýringar við þessa stærð</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Heimaskjár</string>
     <string name="settings_appearance_greeting_phrases">Greeting frases</string>
@@ -1038,6 +1044,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="filter">Sía</string>
     <string name="reset">Endurstilla</string>
     <string name="reset_all">Endurstilla allt</string>
+    <string name="apply">Sýna</string>
     <string name="confirm">Staðfesta</string>
     <string name="warning">Vara</string>
     <string name="error_">Villa</string>

@@ -595,6 +595,9 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="settings_appearance_translations_info_title">As traduções para alguns idiomas podem estar ausentes ou incompletas</string>
     <string name="settings_appearance_translations_info_text">"Para traduzires novos idiomas ou melhorares as traduções existentes, visita
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale_preview_title">Configuração de exemplo</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Texto e controles nesta escala</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Ecrã principal</string>
     <string name="settings_appearance_greeting_phrases">Frases de boas-vindas</string>
@@ -1037,6 +1040,7 @@ Detalhes: %2$s"</string>
     <string name="filter">Filtrar</string>
     <string name="reset">Repor</string>
     <string name="reset_all">Redefinir Tudo</string>
+    <string name="apply">Aplicar</string>
     <string name="confirm">Confirmar</string>
     <string name="warning">Aviso</string>
     <string name="error_">Erro</string>

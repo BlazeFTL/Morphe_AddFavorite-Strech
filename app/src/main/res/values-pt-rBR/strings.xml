@@ -306,6 +306,9 @@ Para obter os melhores resultados, este aplicativo recomenda corrigir um(a) &lt;
     <string name="patch_option_enter_value">Digite o valor</string>
     <string name="patch_option_enter_number">Digite um número</string>
     <string name="patch_option_enter_decimal">Digite um decimal</string>
+    <string name="patch_option_slider_edit">Insira um valor exato</string>
+    <string name="patch_option_slider_range_start">De</string>
+    <string name="patch_option_slider_range_end">Para</string>
     <string name="patch_option_list_duplicate">Este valor já existe</string>
     <string name="patch_option_list_empty">Valor não pode estar vazio</string>
     <string name="patch_option_list_empty_state">Nenhum valor adicionado ainda</string>
@@ -602,6 +605,7 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="settings_appearance_translations_info_title">As traduções para alguns idiomas podem estar ausentes ou incompletas</string>
     <string name="settings_appearance_translations_info_text">"Para traduzir novos idiomas ou melhorar as traduções existentes, visite
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Tela inicial</string>
     <string name="settings_appearance_greeting_phrases">Frases de saudação</string>

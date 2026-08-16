@@ -306,6 +306,9 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="patch_option_enter_value">Ingresar valor</string>
     <string name="patch_option_enter_number">Ingresar número</string>
     <string name="patch_option_enter_decimal">Ingresar decimal</string>
+    <string name="patch_option_slider_edit">Ingrese un valor exacto</string>
+    <string name="patch_option_slider_range_start">Desde</string>
+    <string name="patch_option_slider_range_end">Hasta</string>
     <string name="patch_option_list_duplicate">Este valor ya existe</string>
     <string name="patch_option_list_empty">El valor no puede estar vacío</string>
     <string name="patch_option_list_empty_state">No se han añadido valores todavía</string>
@@ -601,6 +604,8 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_translations_info_title">Las traducciones para algunos idiomas pueden faltar o estar incompletas</string>
     <string name="settings_appearance_translations_info_text">"Para traducir nuevos idiomas o mejorar las traducciones existentes, visita
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale_preview_title">Ajuste de muestra</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Pantalla de inicio</string>
     <string name="settings_appearance_greeting_phrases">Frases de saludo</string>

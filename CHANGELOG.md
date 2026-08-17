@@ -1,3 +1,35 @@
+# [1.26.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.14...v1.26.0-dev.15) (2026-08-17)
+
+
+### Bug Fixes
+
+* App card colors reset moves to the dialog title row ([5ef5e53](https://github.com/MorpheApp/morphe-manager/commit/5ef5e5357fee4b5e9fd207bbf0b922404bce08a8))
+* Dialog buttons share one implementation and button metrics move to Defaults ([70b9c30](https://github.com/MorpheApp/morphe-manager/commit/70b9c308adf843f3c3c6906bb229b992827b4056))
+* Interface scale slider no longer jumps at the default value ([b1aa81d](https://github.com/MorpheApp/morphe-manager/commit/b1aa81d8db53d81be9b4caab485fd29d37b9ec59))
+* Loading icon placeholder no longer looks larger than the icon ([8510907](https://github.com/MorpheApp/morphe-manager/commit/85109071d7d566344d9ba84e909fff32b2db6e1b))
+
+
+### Features
+
+* App info dialog buttons sink on press ([3adca56](https://github.com/MorpheApp/morphe-manager/commit/3adca567dc35887f04c19588fe9848c085f133b4))
+* Dialog and title buttons sink on press like the glass ones ([63c2ce2](https://github.com/MorpheApp/morphe-manager/commit/63c2ce20e4d6960555e847207800d754d6a51233))
+
+
+### Performance Improvements
+
+* Animated background no longer composites through an offscreen layer ([2d080d1](https://github.com/MorpheApp/morphe-manager/commit/2d080d1e359da7583179145ad89a7adc52fac694))
+* Animated backgrounds pause under full-screen dialogs ([0475a0f](https://github.com/MorpheApp/morphe-manager/commit/0475a0f6622bc50a13b1598526d269ae56b946b8))
+* Animated backgrounds step at 60 Hz instead of the display rate ([0a3fe7c](https://github.com/MorpheApp/morphe-manager/commit/0a3fe7ce6d546816b152f6bb754167dc886f5205))
+* Animated backgrounds stop ticking while the app is not resumed ([f5d1164](https://github.com/MorpheApp/morphe-manager/commit/f5d1164904bf3742c52985624f0b73975e27e9eb))
+* App card gradients are no longer rebuilt on every frame ([43fbe79](https://github.com/MorpheApp/morphe-manager/commit/43fbe79315465e65658902585d311a7668f7df11))
+* App cards paint one gradient pass instead of five ([5fe46e5](https://github.com/MorpheApp/morphe-manager/commit/5fe46e568eb70f6af6c2e6cc3e2d3c6a9425b1df))
+* App icons no longer subcompose on every measure pass ([6310053](https://github.com/MorpheApp/morphe-manager/commit/6310053b492b5bbe72e1df05c6a8991c61d3ee37))
+* Background parallax no longer restarts its springs on every sensor sample ([476ff00](https://github.com/MorpheApp/morphe-manager/commit/476ff0009ca35320e4f1815f784a1a9c358e019e))
+* List fade overlay no longer blends across the whole list ([dfd84e2](https://github.com/MorpheApp/morphe-manager/commit/dfd84e2dab07510f670df9c8f4d42dc5b9354d5c))
+* Live indicator dot no longer recomposes on every pulse frame ([d6f8f82](https://github.com/MorpheApp/morphe-manager/commit/d6f8f822812fc6a5db0f043b88b71f5259955404))
+* Placeholder icon paints one gradient pass instead of five ([91763b3](https://github.com/MorpheApp/morphe-manager/commit/91763b30ac84b3fd1be18cf9b06a95562d13ef8b))
+* Sources sheet no longer re-measures every card on each frame ([a54c240](https://github.com/MorpheApp/morphe-manager/commit/a54c24023fb557f5c65b09e4b28de395a15c0cb6))
+
 # [1.26.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.13...v1.26.0-dev.14) (2026-08-16)
 
 

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -80,11 +81,19 @@ fun AppDialogButton(
     isDestructive: Boolean = false
 ) {
     val colors = resolveButtonColors(isDestructive, filled = true)
+    val interactionSource = remember { MutableInteractionSource() }
 
     Button(
         onClick = onClick,
-        modifier = modifier.height(Defaults.TallTouchTarget),
+        modifier = modifier
+            .height(Defaults.TallTouchTarget)
+            .pressScale(
+                interactionSource = interactionSource,
+                enabled = enabled,
+                label = "dialog_button_press_scale"
+            ),
         enabled = enabled,
+        interactionSource = interactionSource,
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         colors = ButtonDefaults.buttonColors(
             containerColor = colors.containerColor,
@@ -129,11 +138,19 @@ fun AppDialogOutlinedButton(
     textSuffix: String? = null
 ) {
     val colors = resolveButtonColors(isDestructive, filled = false)
+    val interactionSource = remember { MutableInteractionSource() }
 
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.height(Defaults.TallTouchTarget),
+        modifier = modifier
+            .height(Defaults.TallTouchTarget)
+            .pressScale(
+                interactionSource = interactionSource,
+                enabled = enabled,
+                label = "dialog_outlined_button_press_scale"
+            ),
         enabled = enabled,
+        interactionSource = interactionSource,
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = Color.Transparent,

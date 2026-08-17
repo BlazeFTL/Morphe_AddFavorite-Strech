@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.TextStyle
@@ -63,18 +62,17 @@ fun GlassButton(
     val isSelectable = role == Role.Tab
 
     val interactionSource = remember { MutableInteractionSource() }
-    val scale = rememberPressScale(
-        interactionSource = interactionSource,
-        enabled = pressScale,
-        label = "glass_button_press_scale"
-    )
     val clickHandler = if (hapticFeedback) rememberHapticClick(onClick) else onClick
 
     Surface(
         onClick = clickHandler,
         modifier = modifier
             .height(height)
-            .graphicsLayer { scaleX = scale; scaleY = scale }
+            .pressScale(
+                interactionSource = interactionSource,
+                enabled = pressScale,
+                label = "glass_button_press_scale"
+            )
             // Mirror the surface shape on the outer modifier so the ripple stays inside
             // the rounded bounds instead of drawing a square
             .clip(shape)

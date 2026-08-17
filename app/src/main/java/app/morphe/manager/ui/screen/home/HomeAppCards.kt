@@ -12,7 +12,6 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -498,21 +497,15 @@ internal fun AppCardLayout(
 
     // Press scale animation
     val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.97f else 1f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness    = Spring.StiffnessMedium
-        ),
-        label = "card_press_scale"
-    )
 
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(cardStyle.cardHeight)
-            .graphicsLayer { scaleX = scale; scaleY = scale }
+            .pressScale(
+                interactionSource = interactionSource,
+                label = "card_press_scale"
+            )
             .clip(shape)
             // Brushes are rebuilt only when the size or the palette changes, so scrolling a list
             // of cards does not reallocate them on every frame

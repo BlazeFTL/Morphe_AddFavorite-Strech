@@ -14,7 +14,6 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.semantics.Role
@@ -50,11 +49,6 @@ fun ActionPillButton(
     val textStyle = if (large) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelSmall
 
     val interactionSource = remember { MutableInteractionSource() }
-    val scale = rememberPressScale(
-        interactionSource = interactionSource,
-        enabled = pressScale && enabled,
-        label = "action_pill_press_scale"
-    )
 
     // Surface rather than FilledTonalIconButton: the latter always centers its content in a
     // fixed icon-sized box, so a labeled pill can never measure itself against its own text
@@ -69,7 +63,11 @@ fun ActionPillButton(
             modifier = outerModifier
                 .height(height)
                 .widthIn(min = minWidth)
-                .graphicsLayer { scaleX = scale; scaleY = scale }
+                .pressScale(
+                    interactionSource = interactionSource,
+                    enabled = pressScale && enabled,
+                    label = "action_pill_press_scale"
+                )
                 .semantics { role = Role.Button }
         ) {
             Box(contentAlignment = Alignment.Center) {

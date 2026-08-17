@@ -282,6 +282,46 @@ private fun AdaptiveContent(
     // so the greeting and cards center together as one block
     val isGroupedAppView = apps.categoryViewMode != HomeAppCategoryViewMode.ALL_APPS
 
+    val state = rememberHomeAppsSectionState(
+        initialOrder = apps.visible.map { it.id },
+        initialSourceGroupOrder = apps.sourceGroups.map { it.uid },
+        initialCategoryOrder = apps.categoryState.categories.map { it.id },
+        hasContent = apps.visible.isNotEmpty() || apps.hidden.isNotEmpty(),
+    )
+
+    // Horizontal swipe on the background cycles through the visible grouping modes
+    val modes = HomeAppCategoryViewMode.entries
+    val currentModeIndex = modes.indexOf(apps.categoryViewMode)
+    val canSwipeMode = apps.showCategoryViewSwitcher &&
+            !state.isMultiSelectMode &&
+            !state.isReorderMode &&
+            !state.isCategoryBarVisible &&
+            !searchState.visible
+    val swipeThresholdPx = with(LocalDensity.current) { 64.dp.toPx() }
+    val layoutDirection = LocalLayoutDirection.current
+    val modeSwipe = if (canSwipeMode) {
+        Modifier.pointerInput(currentModeIndex, layoutDirection) {
+            var accumulator = 0f
+            detectHorizontalDragGestures(
+                onDragStart = { accumulator = 0f },
+                onDragEnd = {
+                    val direction = if (layoutDirection == LayoutDirection.Rtl) -1 else 1
+                    val delta = accumulator * direction
+                    when {
+                        delta <= -swipeThresholdPx && currentModeIndex < modes.lastIndex ->
+                            appActions.onCategoryViewModeChange(modes[currentModeIndex + 1])
+                        delta >= swipeThresholdPx && currentModeIndex > 0 ->
+                            appActions.onCategoryViewModeChange(modes[currentModeIndex - 1])
+                    }
+                    accumulator = 0f
+                },
+                onDragCancel = { accumulator = 0f }
+            ) { _, dragAmount -> accumulator += dragAmount }
+        }
+    } else {
+        Modifier
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         if (useTwoColumns) {
             // Sidebar layout for landscape
@@ -317,7 +357,8 @@ private fun AdaptiveContent(
                     Column(
                         modifier = Modifier
                             .weight(1f)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .then(modeSwipe),
                         verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -333,6 +374,7 @@ private fun AdaptiveContent(
                             MainAppsSection(
                                 apps = apps,
                                 appActions = appActions,
+                                state = state,
                                 searchState = searchState,
                                 filterMode = filterMode,
                                 onClearFilter = onClearFilter,
@@ -365,7 +407,8 @@ private fun AdaptiveContent(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .then(modeSwipe),
                 verticalArrangement = if (isGroupedAppView) Arrangement.Top else Arrangement.Center
             ) {
                 // Section 2: Greeting - when disabled, show a small top spacer so
@@ -386,6 +429,7 @@ private fun AdaptiveContent(
                     MainAppsSection(
                         apps = apps,
                         appActions = appActions,
+                        state = state,
                         searchState = searchState,
                         filterMode = filterMode,
                         onClearFilter = onClearFilter,
@@ -544,9 +588,10 @@ fun GreetingSection(
  */
 @SuppressLint("FrequentlyChangingValue")
 @Composable
-fun MainAppsSection(
+internal fun MainAppsSection(
     apps: HomeAppListUi,
     appActions: HomeAppActions,
+    state: HomeAppsSectionState,
     searchState: HomeSearchState,
     filterMode: HomeAppFilterMode,
     onClearFilter: () -> Unit,
@@ -572,12 +617,6 @@ fun MainAppsSection(
     val isGroupedAppView = appGrouping != HomeAppCategoryViewMode.ALL_APPS
     val isCustomCategoryView = appGrouping == HomeAppCategoryViewMode.CUSTOM
 
-    val state = rememberHomeAppsSectionState(
-        initialOrder = homeAppItems.map { it.id },
-        initialSourceGroupOrder = apps.sourceGroups.map { it.uid },
-        initialCategoryOrder = apps.categoryState.categories.map { it.id },
-        hasContent = homeAppItems.isNotEmpty() || hiddenAppItems.isNotEmpty(),
-    )
     val selectedPackages = state.selectedPackages
     val haptic = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
@@ -593,7 +632,7 @@ fun MainAppsSection(
         if (footerBarVisible) {
             isFooterSlotReserved = true
         } else {
-            delay(Defaults.ANIMATION_DURATION.milliseconds)
+            delay(Animations.SLIDE_DOWN_EXIT_DURATION.milliseconds)
             isFooterSlotReserved = false
         }
     }
@@ -1046,42 +1085,8 @@ fun MainAppsSection(
     val isFilterEmpty = isListEmpty && isFilterActive
     val isSearchEmpty = isListEmpty && !isFilterActive && searchQuery.isNotBlank()
 
-    // Horizontal swipe on the background cycles through the visible grouping modes
-    val modes = HomeAppCategoryViewMode.entries
-    val currentModeIndex = modes.indexOf(appGrouping)
-    val canSwipeMode = apps.showCategoryViewSwitcher &&
-            !state.isMultiSelectMode &&
-            !state.isReorderMode &&
-            !state.isCategoryBarVisible &&
-            !searchState.visible
-    val swipeThresholdPx = with(LocalDensity.current) { 64.dp.toPx() }
-    val layoutDirection = LocalLayoutDirection.current
-
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .then(
-                if (canSwipeMode) {
-                    Modifier.pointerInput(currentModeIndex, layoutDirection) {
-                        var accumulator = 0f
-                        detectHorizontalDragGestures(
-                            onDragStart = { accumulator = 0f },
-                            onDragEnd = {
-                                val direction = if (layoutDirection == LayoutDirection.Rtl) -1 else 1
-                                val delta = accumulator * direction
-                                when {
-                                    delta <= -swipeThresholdPx && currentModeIndex < modes.lastIndex ->
-                                        appActions.onCategoryViewModeChange(modes[currentModeIndex + 1])
-                                    delta >= swipeThresholdPx && currentModeIndex > 0 ->
-                                        appActions.onCategoryViewModeChange(modes[currentModeIndex - 1])
-                                }
-                                accumulator = 0f
-                            },
-                            onDragCancel = { accumulator = 0f }
-                        ) { _, dragAmount -> accumulator += dragAmount }
-                    }
-                } else Modifier
-            ),
+        modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         // Hidden polite live region used to announce the result of TalkBack Move up/down actions
@@ -1157,10 +1162,12 @@ fun MainAppsSection(
                                 PaddingValues(
                                     start = horizontalPadding,
                                     end = horizontalPadding,
-                                    // Extra bottom padding so cards aren't hidden behind the action bar
-                                    // MultiSelectBar surface height (100dp) minus bar's own
-                                    // 8dp top padding, plus itemSpacing for consistent card gap
-                                    bottom = if (isFooterSlotReserved) 92.dp + itemSpacing else 0.dp
+                                    // Clears the action bar, plus itemSpacing for a consistent card gap
+                                    bottom = if (isFooterSlotReserved) {
+                                        MultiSelectBarDefaults.ListClearance + itemSpacing
+                                    } else {
+                                        0.dp
+                                    }
                                 )
                             }
                             val listArrangement = remember(itemSpacing, isGroupedAppView) {
@@ -1313,13 +1320,21 @@ fun MainAppsSection(
                                 listState = listState,
                                 alphabetTargets = scrollTargets,
                                 alphabetMode = alphabetScrollMode,
-                                extraBottomPadding = if (isFooterSlotReserved) 96.dp else 0.dp
+                                extraBottomPadding = if (isFooterSlotReserved) {
+                                    MultiSelectBarDefaults.ControlClearance
+                                } else {
+                                    0.dp
+                                }
                             )
 
                             // Lift extra space for the MultiSelectBar when it's visible
                             ScrollToTopButton(
                                 listState = listState,
-                                extraBottomPadding = if (isFooterSlotReserved) 96.dp else 0.dp
+                                extraBottomPadding = if (isFooterSlotReserved) {
+                                    MultiSelectBarDefaults.ControlClearance
+                                } else {
+                                    0.dp
+                                }
                             )
                         }
 

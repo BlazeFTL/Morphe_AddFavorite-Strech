@@ -125,30 +125,21 @@ fun AppCardColorDialog(
             )
         },
         footer = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-            ) {
-                AppDialogButtonRow(
-                    primaryText = stringResource(R.string.save),
-                    onPrimaryClick = {
-                        onApply(
-                            draftMode,
-                            draftStartColorHex,
-                            draftMiddleColorHex,
-                            draftEndColorHex,
-                            draftSolidColorHex
-                        )
-                        onDismiss()
-                    }
-                )
-
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogButtonRow(
+                primaryText = stringResource(R.string.save),
+                onPrimaryClick = {
+                    onApply(
+                        draftMode,
+                        draftStartColorHex,
+                        draftMiddleColorHex,
+                        draftEndColorHex,
+                        draftSolidColorHex
+                    )
+                    onDismiss()
+                },
+                secondaryText = stringResource(android.R.string.cancel),
+                onSecondaryClick = onDismiss
+            )
         }
     ) {
         Column(

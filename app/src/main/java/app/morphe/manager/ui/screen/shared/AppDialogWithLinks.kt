@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import app.morphe.manager.R
 
 /**
  * Dialog to show a message with a clickable link.
@@ -26,7 +25,7 @@ import app.morphe.manager.R
  * @param title Dialog title
  * @param message Main message text before the link
  * @param urlLink URL to open in browser
- * @param onDismiss Callback when the dialog is closed
+ * @param onDismiss Callback when OK is pressed
  */
 @Composable
 fun AppDialogWithLinks(
@@ -71,7 +70,7 @@ fun AppDialogWithLinks(
         title = title,
         footer = {
             AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
+                text = stringResource(android.R.string.ok),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )

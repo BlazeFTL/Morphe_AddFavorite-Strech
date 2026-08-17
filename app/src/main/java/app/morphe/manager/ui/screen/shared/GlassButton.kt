@@ -42,7 +42,7 @@ fun GlassButton(
     shape: Shape = GlassButtonDefaults.ButtonShape,
     border: BorderStroke? = null,
     iconSize: Dp = GlassButtonDefaults.IconSize,
-    height: Dp = Defaults.MinTouchTarget,
+    height: Dp = Defaults.GlassButtonHeight,
     horizontalPadding: Dp = GlassButtonDefaults.HorizontalPadding,
     iconLabelSpacing: Dp = GlassButtonDefaults.IconLabelSpacing,
     textStyle: TextStyle = GlassButtonDefaults.labelStyle,

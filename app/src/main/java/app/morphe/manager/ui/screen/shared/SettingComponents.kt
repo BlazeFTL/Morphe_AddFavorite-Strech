@@ -60,6 +60,25 @@ object Defaults {
     /** Roomier than [MinTouchTarget], for rows that carry an action rather than merely allow one. */
     val TallTouchTarget = 52.dp
 
+    // Button metrics, kept together so the families stay comparable at a glance.
+    // Heights climb with how much the button is meant to carry: a pill sits in a card row,
+    // a glass button is a tab, a dialog button is the action the whole dialog exists for.
+
+    /** Compact pill holding an icon alone. */
+    val PillHeight = 36.dp
+
+    /** Pill that carries a label next to its icon. */
+    val PillHeightLarge = 40.dp
+
+    /** Fully rounded shape shared by the pill buttons. */
+    val PillShape = RoundedCornerShape(50)
+
+    /** Height of a glass tab or toggle. Matches [MinTouchTarget]. */
+    val GlassButtonHeight = MinTouchTarget
+
+    /** Height of a dialog action button. Matches [TallTouchTarget]. */
+    val DialogButtonHeight = TallTouchTarget
+
     val ContentPaddingSmall = 8.dp
     val ContentPadding = 16.dp
     val ContentPaddingMedium = 24.dp

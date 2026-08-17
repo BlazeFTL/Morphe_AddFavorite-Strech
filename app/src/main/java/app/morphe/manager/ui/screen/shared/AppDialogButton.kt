@@ -79,53 +79,20 @@ fun AppDialogButton(
     enabled: Boolean = true,
     icon: ImageVector? = null,
     isDestructive: Boolean = false
-) {
-    val colors = resolveButtonColors(isDestructive, filled = true)
-    val interactionSource = remember { MutableInteractionSource() }
-
-    Button(
-        onClick = onClick,
-        modifier = modifier
-            .height(Defaults.TallTouchTarget)
-            .pressScale(
-                interactionSource = interactionSource,
-                enabled = enabled,
-                label = "dialog_button_press_scale"
-            ),
-        enabled = enabled,
-        interactionSource = interactionSource,
-        shape = RoundedCornerShape(Defaults.CardCornerRadius),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = colors.containerColor,
-            contentColor = colors.contentColor,
-            disabledContainerColor = colors.containerColor.copy(alpha = 0.5f),
-            disabledContentColor = colors.contentColor.copy(alpha = 0.5f)
-        ),
-        border = BorderStroke(1.dp, colors.borderColor),
-        contentPadding = PaddingValues(
-            horizontal = DialogButtonHorizontalPadding,
-            vertical = DialogButtonVerticalPadding
-        )
-    ) {
-        if (icon != null) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier.size(Defaults.IconSizeSmall)
-            )
-            Spacer(Modifier.width(DialogButtonIconSpacing))
-        }
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelLarge,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-    }
-}
+) = DialogButton(
+    text = text,
+    onClick = onClick,
+    filled = true,
+    modifier = modifier,
+    enabled = enabled,
+    icon = icon,
+    isDestructive = isDestructive
+)
 
 /**
  * Semi-transparent outlined button for dialogs.
+ *
+ * @param textSuffix Trailing value shown after [text], marqueed when it does not fit.
  */
 @Composable
 fun AppDialogOutlinedButton(
@@ -136,61 +103,126 @@ fun AppDialogOutlinedButton(
     icon: ImageVector? = null,
     isDestructive: Boolean = false,
     textSuffix: String? = null
+) = DialogButton(
+    text = text,
+    onClick = onClick,
+    filled = false,
+    modifier = modifier,
+    enabled = enabled,
+    icon = icon,
+    isDestructive = isDestructive,
+    textSuffix = textSuffix
+)
+
+/**
+ * Both dialog buttons share every metric and only part ways on the container they draw, so the
+ * layout lives here once and the two public entry points pick the variant.
+ */
+@Composable
+private fun DialogButton(
+    text: String,
+    onClick: () -> Unit,
+    filled: Boolean,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    icon: ImageVector? = null,
+    isDestructive: Boolean = false,
+    textSuffix: String? = null
 ) {
-    val colors = resolveButtonColors(isDestructive, filled = false)
+    val colors = resolveButtonColors(isDestructive, filled)
     val interactionSource = remember { MutableInteractionSource() }
 
-    OutlinedButton(
-        onClick = onClick,
-        modifier = modifier
-            .height(Defaults.TallTouchTarget)
-            .pressScale(
-                interactionSource = interactionSource,
-                enabled = enabled,
-                label = "dialog_outlined_button_press_scale"
-            ),
-        enabled = enabled,
-        interactionSource = interactionSource,
-        shape = RoundedCornerShape(Defaults.CardCornerRadius),
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color.Transparent,
-            contentColor = colors.contentColor,
-            disabledContainerColor = Color.Transparent,
-            disabledContentColor = colors.contentColor.copy(alpha = 0.4f)
-        ),
-        border = BorderStroke(1.dp, colors.borderColor),
-        contentPadding = PaddingValues(
-            horizontal = DialogButtonHorizontalPadding,
-            vertical = DialogButtonVerticalPadding
+    val buttonModifier = modifier
+        .height(Defaults.DialogButtonHeight)
+        .pressScale(
+            interactionSource = interactionSource,
+            enabled = enabled,
+            label = "dialog_button_press_scale"
         )
-    ) {
-        if (icon != null) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier.size(Defaults.IconSizeSmall)
-            )
-            Spacer(Modifier.width(DialogButtonIconSpacing))
-        }
+    val shape = RoundedCornerShape(Defaults.CardCornerRadius)
+    val border = BorderStroke(1.dp, colors.borderColor)
+    val contentPadding = PaddingValues(
+        horizontal = DialogButtonHorizontalPadding,
+        vertical = DialogButtonVerticalPadding
+    )
+    val content: @Composable RowScope.() -> Unit = {
+        DialogButtonContent(text = text, icon = icon, textSuffix = textSuffix, filled = filled)
+    }
+
+    if (filled) {
+        Button(
+            onClick = onClick,
+            modifier = buttonModifier,
+            enabled = enabled,
+            interactionSource = interactionSource,
+            shape = shape,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colors.containerColor,
+                contentColor = colors.contentColor,
+                disabledContainerColor = colors.containerColor.copy(alpha = 0.5f),
+                disabledContentColor = colors.contentColor.copy(alpha = 0.5f)
+            ),
+            border = border,
+            contentPadding = contentPadding,
+            content = content
+        )
+    } else {
+        OutlinedButton(
+            onClick = onClick,
+            modifier = buttonModifier,
+            enabled = enabled,
+            interactionSource = interactionSource,
+            shape = shape,
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = Color.Transparent,
+                contentColor = colors.contentColor,
+                disabledContainerColor = Color.Transparent,
+                disabledContentColor = colors.contentColor.copy(alpha = 0.4f)
+            ),
+            border = border,
+            contentPadding = contentPadding,
+            content = content
+        )
+    }
+}
+
+@Composable
+private fun RowScope.DialogButtonContent(
+    text: String,
+    icon: ImageVector?,
+    textSuffix: String?,
+    filled: Boolean
+) {
+    if (icon != null) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(Defaults.IconSizeSmall)
+        )
+        Spacer(Modifier.width(DialogButtonIconSpacing))
+    }
+
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelLarge,
+        maxLines = 1,
+        // The outlined variant may carry a suffix, so its label holds one line and yields the
+        // remaining width rather than wrapping the suffix out of view
+        softWrap = filled,
+        overflow = if (textSuffix == null) TextOverflow.Ellipsis else TextOverflow.Clip
+    )
+
+    if (textSuffix != null) {
+        Spacer(Modifier.width(4.dp))
         Text(
-            text = text,
+            text = textSuffix,
             style = MaterialTheme.typography.labelLarge,
             maxLines = 1,
-            softWrap = false,
-            overflow = if (textSuffix == null) TextOverflow.Ellipsis else TextOverflow.Clip
+            overflow = TextOverflow.Clip,
+            modifier = Modifier
+                .weight(1f, fill = false)
+                .basicMarquee()
         )
-        if (textSuffix != null) {
-            Spacer(Modifier.width(4.dp))
-            Text(
-                text = textSuffix,
-                style = MaterialTheme.typography.labelLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Clip,
-                modifier = Modifier
-                    .weight(1f, fill = false)
-                    .basicMarquee()
-            )
-        }
     }
 }
 

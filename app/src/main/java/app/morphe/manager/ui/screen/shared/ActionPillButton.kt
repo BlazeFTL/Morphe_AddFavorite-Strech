@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-private val PillShape = RoundedCornerShape(50)
+private val PillShape = Defaults.PillShape
 
 /**
  * Pill-shaped action button with an icon, optional text label, and optional long-press tooltip.
@@ -43,7 +43,7 @@ fun ActionPillButton(
     colors: IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors(),
     pressScale: Boolean = true
 ) {
-    val height = if (large) 40.dp else 36.dp
+    val height = if (large) Defaults.PillHeightLarge else Defaults.PillHeight
     val minWidth = if (large) 80.dp else 72.dp
     val iconSize = if (large) 20.dp else 18.dp
     val textStyle = if (large) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelSmall

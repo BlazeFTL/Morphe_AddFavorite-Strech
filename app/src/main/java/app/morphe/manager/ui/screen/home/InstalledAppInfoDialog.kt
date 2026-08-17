@@ -1792,7 +1792,7 @@ private fun AppliedPatchesDialog(
         onDismissRequest = onDismiss,
         footer = {
             AppDialogOutlinedButton(
-                text = stringResource(android.R.string.ok),
+                text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )

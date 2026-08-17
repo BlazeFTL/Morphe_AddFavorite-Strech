@@ -354,8 +354,8 @@ fun HeaderCreatorDialog(
             onDismissRequest = { showInfoDialog.value = false },
             title = stringResource(R.string.header_creator_guide),
             footer = {
-                AppDialogButton(
-                    text = stringResource(android.R.string.ok),
+                AppDialogOutlinedButton(
+                    text = stringResource(R.string.close),
                     onClick = { showInfoDialog.value = false },
                     modifier = Modifier.fillMaxWidth()
                 )

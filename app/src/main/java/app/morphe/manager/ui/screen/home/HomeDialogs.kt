@@ -1266,8 +1266,8 @@ fun WrongPackageDialog(
         title = stringResource(R.string.home_dialog_wrong_package_title),
         padding = DialogPadding.Compact,
         footer = {
-            AppDialogButton(
-                text = stringResource(android.R.string.ok),
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -1323,8 +1323,8 @@ private fun NoCompatibleVersionsDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_apk_no_compatible_versions_title),
         footer = {
-            AppDialogButton(
-                text = stringResource(android.R.string.ok),
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )

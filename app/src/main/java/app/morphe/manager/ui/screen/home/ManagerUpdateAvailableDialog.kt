@@ -279,8 +279,9 @@ private fun UpdateDialogFooter(
 
         UpdateViewModel.State.SUCCESS -> listOf(
             DialogAction(
-                text = stringResource(android.R.string.ok),
-                onClick = onDismiss
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                emphasis = DialogActionEmphasis.Outlined
             )
         )
     }

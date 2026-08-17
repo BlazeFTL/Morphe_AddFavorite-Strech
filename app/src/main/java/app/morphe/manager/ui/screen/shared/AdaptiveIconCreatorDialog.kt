@@ -473,8 +473,8 @@ fun AdaptiveIconCreatorDialog(
             onDismissRequest = { showInfoDialog.value = false },
             title = stringResource(R.string.adaptive_icon_guide),
             footer = {
-                AppDialogButton(
-                    text = stringResource(android.R.string.ok),
+                AppDialogOutlinedButton(
+                    text = stringResource(R.string.close),
                     onClick = { showInfoDialog.value = false },
                     modifier = Modifier.fillMaxWidth()
                 )

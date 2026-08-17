@@ -146,9 +146,10 @@ fun NotificationsDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_notifications),
         footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(android.R.string.ok),
-                onPrimaryClick = onDismiss
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
             )
         },
         padding = DialogPadding.Compact

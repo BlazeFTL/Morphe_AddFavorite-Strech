@@ -608,7 +608,7 @@ private fun ShizukuStatusDialog(
 
                     add(
                         DialogAction(
-                            text = stringResource(android.R.string.ok),
+                            text = stringResource(R.string.close),
                             onClick = onDismiss,
                             emphasis = DialogActionEmphasis.Outlined
                         )

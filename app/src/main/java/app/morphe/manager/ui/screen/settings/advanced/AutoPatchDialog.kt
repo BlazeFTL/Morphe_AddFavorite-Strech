@@ -67,9 +67,10 @@ fun AutoPatchDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_advanced_auto_patch),
         footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(android.R.string.ok),
-                onPrimaryClick = onDismiss
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
             )
         },
         padding = DialogPadding.Compact

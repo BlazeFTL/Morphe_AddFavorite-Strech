@@ -1064,9 +1064,9 @@ fun BundleChangelogDialog(
                         actions = listOfNotNull(
                             changelogAction(current.latestPageUrl),
                             DialogAction(
-                                text = stringResource(android.R.string.ok),
+                                text = stringResource(R.string.close),
                                 onClick = onDismissRequest,
-                                emphasis = DialogActionEmphasis.Filled
+                                emphasis = DialogActionEmphasis.Outlined
                             )
                         ),
                         layout = DialogButtonLayout.Vertical
@@ -1080,17 +1080,17 @@ fun BundleChangelogDialog(
                                 onClick = { fetchTrigger++ }
                             ),
                             DialogAction(
-                                text = stringResource(android.R.string.ok),
+                                text = stringResource(R.string.close),
                                 onClick = onDismissRequest,
-                                emphasis = DialogActionEmphasis.Filled
+                                emphasis = DialogActionEmphasis.Outlined
                             )
                         ),
                         layout = DialogButtonLayout.Vertical
                     )
                 }
                 BundleChangelogState.Loading -> {
-                    AppDialogButton(
-                        text = stringResource(android.R.string.ok),
+                    AppDialogOutlinedButton(
+                        text = stringResource(R.string.close),
                         onClick = onDismissRequest,
                         modifier = Modifier.fillMaxWidth()
                     )

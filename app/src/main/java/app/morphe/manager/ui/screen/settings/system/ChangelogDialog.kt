@@ -57,9 +57,9 @@ fun ChangelogDialog(
                 actions = listOfNotNull(
                     changelog,
                     DialogAction(
-                        text = stringResource(android.R.string.ok),
+                        text = stringResource(R.string.close),
                         onClick = onDismiss,
-                        emphasis = DialogActionEmphasis.Filled
+                        emphasis = DialogActionEmphasis.Outlined
                     )
                 ),
                 layout = DialogButtonLayout.Vertical

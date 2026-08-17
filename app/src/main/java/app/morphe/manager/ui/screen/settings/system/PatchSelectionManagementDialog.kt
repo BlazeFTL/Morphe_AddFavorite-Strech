@@ -371,6 +371,11 @@ private fun PatchSelectionManagementDialogContent(
                         AppDialogActions(
                             actions = listOf(
                                 DialogAction(
+                                    text = stringResource(R.string.import_),
+                                    onClick = { openImportAllSelectionsPicker() },
+                                    icon = Icons.Outlined.Download
+                                ),
+                                DialogAction(
                                     text = stringResource(R.string.export),
                                     onClick = {
                                         exportAllSelectionsLauncher.launch(
@@ -378,12 +383,6 @@ private fun PatchSelectionManagementDialogContent(
                                         )
                                     },
                                     icon = Icons.Outlined.Upload
-                                ),
-                                DialogAction(
-                                    text = stringResource(R.string.import_),
-                                    onClick = { openImportAllSelectionsPicker() },
-                                    icon = Icons.Outlined.Download,
-                                    emphasis = DialogActionEmphasis.Filled
                                 )
                             ),
                             layout = DialogButtonLayout.Horizontal
@@ -415,7 +414,8 @@ private fun PatchSelectionManagementDialogContent(
         },
         scrollable = false,
         padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true
     ) {
         SearchFieldBackHandler(search)
 

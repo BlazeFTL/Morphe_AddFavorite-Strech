@@ -42,6 +42,7 @@ import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.screen.shared.*
@@ -609,8 +610,10 @@ fun HomeDialogs(
             item.installedApp != null &&
                     item.packageName !in homeViewModel.bundleAppMetadataFlow.value
         }
-        val patchesByBundle = if (isUniversalOnly) {
-            produceState(initialValue = emptyMap(), item.packageName) {
+        // Null until the applied patches are read back, which the dialog shows as loading
+        // rather than as a list that happens to be empty
+        val patchesByBundle: Map<Int, List<PatchInfo>>? = if (isUniversalOnly) {
+            produceState<Map<Int, List<PatchInfo>>?>(initialValue = null, item.packageName) {
                 value = homeViewModel.getAppliedPatchesForPackage(item.packageName)
             }.value
         } else {
@@ -619,14 +622,15 @@ fun HomeDialogs(
             }
         }
         val bundleNames = remember(patchesByBundle) {
-            patchesByBundle.keys.associateWith { uid ->
+            patchesByBundle.orEmpty().keys.associateWith { uid ->
                 homeViewModel.getBundleDisplayName(uid) ?: uid.toString()
             }
         }
         AppPatchesDialog(
             item = item,
-            patchesByBundle = patchesByBundle,
+            patchesByBundle = patchesByBundle.orEmpty(),
             bundleNames = bundleNames,
+            isLoading = patchesByBundle == null,
             onDismiss = { patchesItem.value = null }
         )
     }

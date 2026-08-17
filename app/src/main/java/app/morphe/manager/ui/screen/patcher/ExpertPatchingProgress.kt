@@ -24,6 +24,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -1125,7 +1126,7 @@ private val LogLevel.logBadge: String
  */
 @Composable
 private fun LiveIndicatorDot(size: Dp = 8.dp, isLive: Boolean = true) {
-    val alpha: Float = if (isLive) {
+    val alpha = if (isLive) {
         val infiniteTransition = rememberInfiniteTransition(label = "live_dot")
         infiniteTransition.animateFloat(
             initialValue = 0.25f,
@@ -1135,15 +1136,18 @@ private fun LiveIndicatorDot(size: Dp = 8.dp, isLive: Boolean = true) {
                 repeatMode = RepeatMode.Reverse
             ),
             label = "live_alpha"
-        ).value
+        )
     } else {
-        1f
+        remember { mutableFloatStateOf(1f) }
     }
 
+    // The pulse is read while drawing rather than while composing, so the dot repaints
+    // without recomposing itself on every frame of the patch run
     Box(
         modifier = Modifier
             .size(size)
-            .clip(RoundedCornerShape(50))
-            .background(PatcherProgressTealColor.copy(alpha = alpha))
+            .drawBehind {
+                drawCircle(color = PatcherProgressTealColor.copy(alpha = alpha.value))
+            }
     )
 }

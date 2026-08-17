@@ -45,7 +45,7 @@ class ExpertPatchActions(
     val onPatchToggle: (bundleUid: Int, patchName: String) -> Unit,
     val onSelectAll: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Unit,
     val onDeselectAll: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Unit,
-    val onResetToDefault: (bundleUid: Int, allPatches: List<Pair<PatchInfo, Boolean>>) -> Unit,
+    val onResetToDefault: (bundleUid: Int) -> Unit,
     val onRestoreSaved: (bundleUid: Int) -> Unit,
     val onCopyFromBundle: (bundleUid: Int) -> Unit,
     val onOptionChange: (bundleUid: Int, patchName: String, optionKey: String, value: Any?) -> Unit,
@@ -182,7 +182,7 @@ fun ExpertModeDialog(
             val hasMultipleBundleLayout = allPatchesInfo.size > 1
 
             if (!hasMultipleBundleLayout) {
-                val (bundle, allPatches) = allPatchesInfo.firstOrNull() ?: return@Column
+                val (bundle, _) = allPatchesInfo.firstOrNull() ?: return@Column
                 val filteredPatches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
                 val displayPatches = filteredPatches ?: emptyList()
                 val enabledCount = displayPatches.count { it.second }
@@ -215,7 +215,7 @@ fun ExpertModeDialog(
                     holdsUniversalPatches = holdsUniversalPatches(bundle.uid, displayPatches),
                     onSelectAll = { patchActions.onSelectAll(bundle.uid, displayPatches) },
                     onDeselectAll = { patchActions.onDeselectAll(bundle.uid, displayPatches) },
-                    onResetToDefault = { patchActions.onResetToDefault(bundle.uid, allPatches) },
+                    onResetToDefault = { patchActions.onResetToDefault(bundle.uid) },
                     onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
                     onCopyFromBundle = { patchActions.onCopyFromBundle(bundle.uid) },
                     hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true
@@ -341,7 +341,7 @@ fun ExpertModeDialog(
 
                     // Controls fixed below the tab row
                     val currentIndex = pagerState.currentPage
-                    val (currentBundle, currentAllPatches) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
+                    val (currentBundle, _) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
                     val currentFiltered = filteredPatchesInfo.firstOrNull { it.first.uid == currentBundle.uid }?.second
 
                     if (currentFiltered != null) {
@@ -351,7 +351,7 @@ fun ExpertModeDialog(
                             holdsUniversalPatches = holdsUniversalPatches(currentBundle.uid, currentFiltered),
                             onSelectAll = { patchActions.onSelectAll(currentBundle.uid, currentFiltered) },
                             onDeselectAll = { patchActions.onDeselectAll(currentBundle.uid, currentFiltered) },
-                            onResetToDefault = { patchActions.onResetToDefault(currentBundle.uid, currentAllPatches) },
+                            onResetToDefault = { patchActions.onResetToDefault(currentBundle.uid) },
                             onRestoreSaved = { patchActions.onRestoreSaved(currentBundle.uid) },
                             onCopyFromBundle = { patchActions.onCopyFromBundle(currentBundle.uid) },
                             hasSavedSelection = savedPatches[currentBundle.uid]?.isNotEmpty() == true,

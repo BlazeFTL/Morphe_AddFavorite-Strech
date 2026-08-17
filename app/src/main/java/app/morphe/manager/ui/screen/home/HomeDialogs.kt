@@ -417,8 +417,8 @@ fun HomeDialogs(
                 onDeselectAll = { bundleUid, patches ->
                     homeViewModel.expertModeDeselectAll(bundleUid, patches)
                 },
-                onResetToDefault = { bundleUid, allPatches ->
-                    homeViewModel.expertModeResetToDefault(bundleUid, allPatches)
+                onResetToDefault = { bundleUid ->
+                    homeViewModel.expertModeResetToDefault(bundleUid)
                 },
                 onRestoreSaved = { bundleUid ->
                     homeViewModel.expertModeRestoreSaved(bundleUid)

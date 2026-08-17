@@ -25,6 +25,7 @@ import app.morphe.manager.domain.bundles.AppVersionCatalog
 import app.morphe.manager.domain.bundles.BundleRecommendation
 import app.morphe.manager.domain.bundles.BundledAppTarget
 import app.morphe.manager.domain.manager.DownloadUrlResolver
+import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
@@ -60,7 +61,10 @@ class BatchPatchEdit(
     val savedSelection: PatchSelection,
     val newPatches: Map<Int, Set<String>>,
     initialOptions: Options,
-    private val installerType: InstallerType
+    private val installerType: InstallerType,
+    // Whether the queue reaches patches that declare other app versions, so bulk actions offer
+    // the same set the plan was resolved from
+    private val allowIncompatible: Boolean
 ) {
     var selection by mutableStateOf(savedSelection)
         private set
@@ -141,12 +145,22 @@ class BatchPatchEdit(
         replaceBundle(bundleUid, selection[bundleUid].orEmpty() - removed)
     }
 
-    fun resetToDefault(bundleUid: Int, allPatches: List<Pair<PatchInfo, Boolean>>) =
+    /**
+     * Reset a bundle's selection to what the plan would have resolved on its own.
+     *
+     * Defaults are read from the bundle instead of the dialog's list: the list also carries the
+     * patches declaring other app versions so they can be enabled by hand, and those belong to
+     * the defaults only where the run itself reaches them.
+     */
+    fun resetToDefault(bundleUid: Int) {
+        val bundle = bundles.firstOrNull { it.uid == bundleUid } ?: return
         replaceBundle(
             bundleUid,
-            allPatches.filter { (patch, _) -> patch.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE) }
-                .mapTo(mutableSetOf()) { (patch, _) -> patch.name }
+            bundle.patchSequence(allowIncompatible)
+                .filter { it.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE) }
+                .mapTo(mutableSetOf()) { it.name }
         )
+    }
 
     fun restoreSaved(bundleUid: Int) {
         replaceBundle(bundleUid, savedSelection[bundleUid] ?: return)
@@ -189,6 +203,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
     private val downloadUrlResolver: DownloadUrlResolver by inject()
     private val versionCatalog: AppVersionCatalog by inject()
     private val localApkSources: LocalApkSources by inject()
+    private val prefs: PreferencesManager by inject()
 
     val state = coordinator.state
 
@@ -358,7 +373,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
                 initialOptions = item.options,
                 // The queue resolved its plan against one install target, so the editor has to
                 // lock patches by the same rules the run will be executed with
-                installerType = installerTypeFor(state.value?.useMount == true)
+                installerType = installerTypeFor(state.value?.useMount == true),
+                // Same rule the plan was resolved with, see BatchPlanResolver
+                allowIncompatible = item.forceVersionMismatch || prefs.disablePatchVersionCompatCheck.get()
             )
         }
     }

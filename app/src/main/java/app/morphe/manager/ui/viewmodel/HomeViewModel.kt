@@ -291,6 +291,9 @@ class HomeViewModel(
     // Bundle and selection left behind by the last "Enable all". Universal patches are applied
     // only while this still matches the live selection, so any other edit disarms them again
     private var expertModeUniversalArmedFor by mutableStateOf<Pair<Int, Set<String>>?>(null)
+    // Whether the run this dialog configures reaches patches that declare other app versions,
+    // so bulk actions offer the same set the selection was built from
+    private var expertModeAllowIncompatible = false
 
     /** Target bundle uid for the in-flight copy-from-another-bundle picker; null while the picker is closed. */
     var expertModeCopyTargetBundleUid by mutableStateOf<Int?>(null)
@@ -2812,6 +2815,7 @@ class HomeViewModel(
 
             expertModeSelectedApp = selectedApp
             expertModeBundles = allBundles
+            expertModeAllowIncompatible = allowIncompatible
             patches.toMutableMap().also { expertModePatches = it; expertModeInitialPatches = it }
             expertModeOptions = validatedOptions.toMutableMap()
             expertModeNewPatches = newPatchesMap
@@ -2850,6 +2854,7 @@ class HomeViewModel(
 
                 expertModeSelectedApp = selectedApp
                 expertModeBundles = allBundles
+                expertModeAllowIncompatible = allowIncompatible
                 savedSelections.applyInstallerRules().toMutableMap()
                     .also { expertModePatches = it; expertModeInitialPatches = it }
                 expertModeOptions = savedOptions.toMutableMap()
@@ -3071,13 +3076,17 @@ class HomeViewModel(
 
     /**
      * Reset a bundle's selection to the default patches for the current install target.
-     * [allPatches] is the full unfiltered list for that bundle so defaults
-     * are computed from the complete set, not just search results.
+     *
+     * Defaults are read from the bundle itself rather than the dialog's list, so they cover the
+     * complete set instead of just search results and reach only the patches the run would have
+     * started with: the dialog lists patches declaring other app versions so they can be enabled
+     * by hand, but they are no more part of the defaults here than they were on first open.
      */
-    fun expertModeResetToDefault(bundleUid: Int, allPatches: List<Pair<PatchInfo, Boolean>>) {
-        val defaults = allPatches
-            .filter { (patch, _) -> patch.defaultSelected(currentInstallerType, currentApkArchitecture) }
-            .mapTo(mutableSetOf()) { (patch, _) -> patch.name }
+    fun expertModeResetToDefault(bundleUid: Int) {
+        val bundle = expertModeBundles.firstOrNull { it.uid == bundleUid } ?: return
+        val defaults = bundle.patchSequence(expertModeAllowIncompatible)
+            .filter { it.defaultSelected(currentInstallerType, currentApkArchitecture) }
+            .mapTo(mutableSetOf()) { it.name }
         val current = expertModePatches.toMutableMap()
         if (defaults.isEmpty()) current.remove(bundleUid) else current[bundleUid] = defaults
         expertModePatches = current.applyExpertModeAvailability()
@@ -3125,6 +3134,7 @@ class HomeViewModel(
         expertModeOptions = emptyMap()
         expertModeNewPatches = emptyMap()
         expertModeUniversalArmedFor = null
+        expertModeAllowIncompatible = false
         closeExpertModeCopyDialog()
     }
 

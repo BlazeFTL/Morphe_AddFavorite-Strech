@@ -316,28 +316,22 @@ private fun PatchSelectionManagementDialogContent(
             if (multiSelect.isSelectionMode) onExitSelection() else onDismiss()
         },
         title = stringResource(R.string.settings_system_patch_selections_title),
-        titleTrailingContent = if (isSearchable || canResetAll) {
-            {
-                if (isSearchable) {
-                    TitleAction(
-                        icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                        contentDescription = stringResource(R.string.search),
-                        onClick = { search.toggle() },
-                        style = TitleActionStyle.Toggle,
-                        active = search.visible
-                    )
-                }
-                if (canResetAll) {
-                    TitleAction(
-                        icon = Icons.Outlined.Restore,
-                        contentDescription = stringResource(R.string.reset),
-                        onClick = onShowResetAllConfirmation,
-                        style = TitleActionStyle.Destructive
-                    )
-                }
-            }
-        } else {
-            null
+        titleTrailingContent = {
+            TitleAction(
+                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                contentDescription = stringResource(R.string.search),
+                onClick = { search.toggle() },
+                style = TitleActionStyle.Toggle,
+                active = search.visible,
+                enabled = isSearchable
+            )
+            TitleAction(
+                icon = Icons.Outlined.Restore,
+                contentDescription = stringResource(R.string.reset),
+                onClick = onShowResetAllConfirmation,
+                style = TitleActionStyle.Destructive,
+                enabled = canResetAll
+            )
         },
         footer = {
             if (multiSelect.isSelectionMode) {

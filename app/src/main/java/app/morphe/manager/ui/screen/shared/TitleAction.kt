@@ -17,6 +17,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 
+/** Opacity of a [TitleAction] that is present but out of reach. */
+private const val DisabledAlpha = 0.38f
+
 /** Visual style of a [TitleAction]. */
 enum class TitleActionStyle {
     /** Flat [IconButton] with the surrounding text tint. Use for info and reset actions */
@@ -36,6 +39,8 @@ enum class TitleActionStyle {
  * button styles used across headers so callers only pick an icon and a semantic style.
  *
  * @param active Whether a [TitleActionStyle.Toggle] or [TitleActionStyle.AccentToggle] is engaged.
+ * @param enabled Whether the action can be used. A header keeps its actions in place while they
+ * are out of reach, so the title never shifts as they come and go.
  */
 @Composable
 fun TitleAction(
@@ -44,7 +49,8 @@ fun TitleAction(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     style: TitleActionStyle = TitleActionStyle.Plain,
-    active: Boolean = false
+    active: Boolean = false,
+    enabled: Boolean = true
 ) {
     // Pinned to the container the button already draws, otherwise it reserves the 48dp touch
     // target around it and doubles the gap the title row asks for
@@ -71,6 +77,7 @@ fun TitleAction(
     val interactionSource = remember { MutableInteractionSource() }
     val pressedModifier = sizedModifier.pressScale(
         interactionSource = interactionSource,
+        enabled = enabled,
         label = "title_action_press_scale"
     )
 
@@ -78,21 +85,27 @@ fun TitleAction(
         IconButton(
             onClick = onClick,
             modifier = pressedModifier,
+            enabled = enabled,
             interactionSource = interactionSource
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = contentDescription,
                 modifier = Modifier.size(Defaults.IconSize),
-                tint = LocalDialogTextColor.current
+                tint = LocalDialogTextColor.current.copy(alpha = if (enabled) 1f else DisabledAlpha)
             )
         }
     } else {
         FilledTonalIconButton(
             onClick = onClick,
             modifier = pressedModifier,
+            enabled = enabled,
             interactionSource = interactionSource,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(containerColor = containerColor)
+            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                containerColor = containerColor,
+                disabledContainerColor = containerColor.copy(alpha = DisabledAlpha),
+                disabledContentColor = LocalDialogTextColor.current.copy(alpha = DisabledAlpha)
+            )
         ) {
             Icon(
                 imageVector = icon,

@@ -781,28 +781,22 @@ private fun ApkManagementDialogContent(
             if (isMultiSelectMode) { selection.clear(); isMultiSelectMode = false } else onDismissRequest()
         },
         title = meta.title,
-        titleTrailingContent = if (isSearchable || canDeleteAll) {
-            {
-                if (isSearchable) {
-                    TitleAction(
-                        icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                        contentDescription = stringResource(R.string.search),
-                        onClick = { search.toggle() },
-                        style = TitleActionStyle.Toggle,
-                        active = search.visible
-                    )
-                }
-                if (canDeleteAll) {
-                    TitleAction(
-                        icon = Icons.Outlined.DeleteForever,
-                        contentDescription = stringResource(R.string.delete_all),
-                        onClick = { showDeleteAllConfirmation = true },
-                        style = TitleActionStyle.Destructive
-                    )
-                }
-            }
-        } else {
-            null
+        titleTrailingContent = {
+            TitleAction(
+                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                contentDescription = stringResource(R.string.search),
+                onClick = { search.toggle() },
+                style = TitleActionStyle.Toggle,
+                active = search.visible,
+                enabled = isSearchable
+            )
+            TitleAction(
+                icon = Icons.Outlined.DeleteForever,
+                contentDescription = stringResource(R.string.delete_all),
+                onClick = { showDeleteAllConfirmation = true },
+                style = TitleActionStyle.Destructive,
+                enabled = canDeleteAll
+            )
         },
         footer = {
             if (isMultiSelectMode) {

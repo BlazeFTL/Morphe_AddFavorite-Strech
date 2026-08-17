@@ -16,6 +16,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import app.morphe.manager.ui.screen.shared.FullscreenDialogs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,16 +32,20 @@ private const val TILT_TARGET_THRESHOLD = 0.02f
 internal const val BACKGROUND_STEP_INTERVAL_MS = 16f
 
 /**
- * Runs [frameLoop] for as long as the host stays resumed and cancels it the moment it is not.
- * A background left ticking behind the lock screen or another activity keeps the frame clock
- * awake and repaints the full-screen canvas for nobody.
+ * Runs [frameLoop] for as long as the host stays resumed and nothing opaque covers it, cancelling
+ * the moment either stops holding. A background left ticking behind the lock screen, another
+ * activity or a full-screen dialog keeps the frame clock awake and repaints the canvas for nobody.
+ * Sheets are deliberately not included: the backdrop still shows around them.
  * Named with uppercase as required by Compose convention for Unit-returning Composables.
  */
 @Composable
 fun AnimationFrameEffect(frameLoop: suspend CoroutineScope.() -> Unit) {
     val lifecycleOwner = LocalLifecycleOwner.current
+    val covered = FullscreenDialogs.anyOpen
 
-    LaunchedEffect(lifecycleOwner) {
+    LaunchedEffect(lifecycleOwner, covered) {
+        if (covered) return@LaunchedEffect
+
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
             frameLoop()
         }

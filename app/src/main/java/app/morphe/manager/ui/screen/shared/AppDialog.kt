@@ -41,6 +41,25 @@ val LocalDialogSecondaryTextColor = compositionLocalOf { Color.White.copy(alpha 
 val LocalDialogHorizontalInset = compositionLocalOf { 0.dp }
 
 
+/**
+ * Counts the [AppDialog]s currently on screen. Each one paints an opaque full-screen background,
+ * so whatever the activity draws behind it is invisible and free to stand still until it closes.
+ */
+object FullscreenDialogs {
+    private val openCount = mutableIntStateOf(0)
+
+    val anyOpen: Boolean
+        get() = openCount.intValue > 0
+
+    internal fun onOpened() {
+        openCount.intValue++
+    }
+
+    internal fun onClosed() {
+        openCount.intValue--
+    }
+}
+
 /** Controls outer padding and inset behavior of [AppDialog]. */
 enum class DialogPadding {
     /** Standard 32dp outer padding with system bar insets. */
@@ -80,6 +99,14 @@ fun AppDialog(
 ) {
     val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
     var visible by remember { mutableStateOf(false) }
+
+    DisposableEffect(Unit) {
+        FullscreenDialogs.onOpened()
+
+        onDispose {
+            FullscreenDialogs.onClosed()
+        }
+    }
 
     LaunchedEffect(Unit) {
         visible = true

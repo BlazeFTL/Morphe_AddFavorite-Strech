@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
@@ -1264,6 +1265,9 @@ fun MainAppsSection(
                                         .matchParentSize()
                                         .drawWithContent {
                                             drawContent()
+                                            // Each rect is bound to its own band. Left unbounded it
+                                            // covers the whole list, and the clamped tail of the
+                                            // gradient still costs a blend pass over every pixel
                                             if (topAlpha > 0f) {
                                                 drawRect(
                                                     brush = Brush.verticalGradient(
@@ -1271,6 +1275,7 @@ fun MainAppsSection(
                                                         startY = 0f,
                                                         endY = fadePx
                                                     ),
+                                                    size = Size(size.width, fadePx),
                                                     alpha = topAlpha
                                                 )
                                             }
@@ -1281,6 +1286,8 @@ fun MainAppsSection(
                                                         startY = size.height - fadePx,
                                                         endY = size.height
                                                     ),
+                                                    topLeft = Offset(0f, size.height - fadePx),
+                                                    size = Size(size.width, fadePx),
                                                     alpha = bottomAlpha
                                                 )
                                             }

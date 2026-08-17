@@ -3,6 +3,7 @@ package app.morphe.manager.ui.screen.shared
 import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -19,7 +20,8 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.util.AppDataResolver
 import app.morphe.manager.util.AppDataSource
 import coil.compose.AsyncImage
-import coil.compose.SubcomposeAsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
 import org.koin.compose.koinInject
 
 /**
@@ -98,12 +100,21 @@ private fun SimpleAppIcon(
             .build()
     }
 
-    SubcomposeAsyncImage(
-        model = request,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        loading = { ShimmerBox(modifier = Modifier.fillMaxSize()) }
-    )
+    // Painter rather than the subcomposing variant: subcomposition runs during measurement, and a
+    // list of icons pays for it on every measure pass. The loading state is cheap to overlay here
+    val painter = rememberAsyncImagePainter(request)
+
+    Box(modifier = modifier) {
+        if (painter.state is AsyncImagePainter.State.Loading) {
+            ShimmerBox(modifier = Modifier.fillMaxSize())
+        }
+
+        Image(
+            painter = painter,
+            contentDescription = contentDescription,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }
 
 /**

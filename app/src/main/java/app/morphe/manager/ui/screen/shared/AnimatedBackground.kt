@@ -65,7 +65,7 @@ fun AnimatedBackground(
     val resolvedPatchingCompleted = patchingCompleted()
 
     // No background blends across its own layers, so clipping alone is enough. Compositing offscreen
-    // would allocate a full-screen render target and re-composite it every frame for nothing.
+    // would allocate a full-screen render target and re-composite it every frame for nothing
     Box(
         modifier = Modifier
             .fillMaxSize()

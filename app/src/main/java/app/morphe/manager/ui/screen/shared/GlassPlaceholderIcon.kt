@@ -47,7 +47,7 @@ fun GlassPlaceholderIcon(
                 val endX = if (isRtl) 0f else w
 
                 // One sweep from the frosted top-start highlight into the tinted bottom-end. Every
-                // translucent layer is another blend pass, paid once per placeholder on screen.
+                // translucent layer is another blend pass, paid once per placeholder on screen
                 val glass = Brush.linearGradient(
                     colors = listOf(
                         Color.White.copy(alpha = 0.50f),

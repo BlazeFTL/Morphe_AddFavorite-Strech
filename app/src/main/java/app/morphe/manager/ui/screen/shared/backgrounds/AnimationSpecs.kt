@@ -128,7 +128,7 @@ fun rememberParallaxState(
     val tiltTarget = remember { MutableStateFlow(Offset.Zero) }
 
     // A single pair of springs chases the latest target. Starting a fresh pair per sensor event
-    // meant a hundred coroutines a second, each cancelling the spring the one before had just begun.
+    // meant a hundred coroutines a second, each cancelling the spring the one before had just begun
     LaunchedEffect(enableParallax) {
         if (!enableParallax) {
             tiltTarget.value = Offset.Zero

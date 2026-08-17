@@ -188,12 +188,13 @@ fun InstalledAppPickerDialog(
                                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
+                                // Sized to the three text lines beside it so the row reads as one block
                                 AppIcon(
                                     packageInfo = item.packageInfo,
                                     contentDescription = null,
                                     modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(RoundedCornerShape(10.dp))
+                                        .size(56.dp)
+                                        .clip(RoundedCornerShape(14.dp))
                                 )
                                 Column(
                                     modifier = Modifier.weight(1f),

@@ -535,7 +535,7 @@ internal fun AppCardLayout(
 
                 // One sweep from the bottom-start tint through to the top-end accent. Every
                 // translucent layer costs the GPU a full blend pass over the card, and a list of
-                // them scrolling is what pushed the frame past its budget.
+                // them scrolling is what pushed the frame past its budget
                 val glass = Brush.linearGradient(
                     colors = listOf(
                         baseColor.copy(alpha = 0.70f * glassAlpha),

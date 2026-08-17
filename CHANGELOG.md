@@ -1,3 +1,20 @@
+# [1.26.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.15...v1.26.0-dev.16) (2026-08-17)
+
+
+### Bug Fixes
+
+* Batch queue installs unattended when the manager is in the background ([0389089](https://github.com/MorpheApp/morphe-manager/commit/0389089ffafe297708ce2fc30ee8733977b23cfe))
+* Dialog buttons sit at the bottom of list dialogs ([33060ff](https://github.com/MorpheApp/morphe-manager/commit/33060ffa8917ea8207f62e0cf272a94f4e65b2ea))
+* Dialog footers lay out on one row ([082e5bf](https://github.com/MorpheApp/morphe-manager/commit/082e5bf7467f2e1368e993ef8fd21df3d0ceb8ac))
+* Dialogs that only close use an outlined Close button ([aa15882](https://github.com/MorpheApp/morphe-manager/commit/aa158829817f7cf2c12c5bf0b7da9a6a64876843))
+* Grouping swipe works anywhere in the app area ([4095029](https://github.com/MorpheApp/morphe-manager/commit/4095029bd943ce1d1dbd7a9b96cca46f7effd831))
+* List dialogs keep their title actions in place while the list loads ([1accc1c](https://github.com/MorpheApp/morphe-manager/commit/1accc1ce2ff5cfe46f15e68de0a02f11839ba35a))
+* Multi-select bar metrics live next to the bar ([e96b6b7](https://github.com/MorpheApp/morphe-manager/commit/e96b6b7ea1d5493704ef6eb2590450c8cd95d175))
+* Multi-select bar no longer jumps up over a card while sliding out ([46a8a24](https://github.com/MorpheApp/morphe-manager/commit/46a8a24bb5f4170772d91070fc6a0917c46d6a0e))
+* Patch selection dialog leads with Import ([79bcbcd](https://github.com/MorpheApp/morphe-manager/commit/79bcbcdbbb2c5a5f323a91b7c0bf2f0657353a36))
+* Patches dialog shows the loading logo instead of an empty list ([863dcc3](https://github.com/MorpheApp/morphe-manager/commit/863dcc377b35b4908bab0c1b5d3c9da68719136a))
+* Recommended patches button skips patches for other app versions ([3e32739](https://github.com/MorpheApp/morphe-manager/commit/3e32739c741a65166d9ec5487b35453a0aec1d7b))
+
 # [1.26.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0-dev.14...v1.26.0-dev.15) (2026-08-17)
 
 

@@ -464,13 +464,9 @@ fun AppButton(
 /**
  * Shared content layout for app cards and buttons.
  *
- * Uses a multi-layer frosted glass effect:
- * - radial gradient base tinted from card colors
- * - top-left specular shine
- * - bottom-right warm glow from card accent color
- * - diagonal sweep highlight
- * - subtle horizontal frost band
- * - gradient border
+ * Uses a frosted glass effect built from two passes:
+ * - a diagonal sweep carrying the card colors from the bottom-start tint to the top-end accent
+ * - a gradient border
  */
 @Composable
 internal fun AppCardLayout(
@@ -518,8 +514,8 @@ internal fun AppCardLayout(
             .height(cardStyle.cardHeight)
             .graphicsLayer { scaleX = scale; scaleY = scale }
             .clip(shape)
-            // Gradient shaders are rebuilt only when the size or the palette changes. Building them
-            // per frame instead costs more than the fill itself once a list of cards is scrolling.
+            // Brushes are rebuilt only when the size or the palette changes, so scrolling a list
+            // of cards does not reallocate them on every frame
             .drawWithCache {
                 val w  = size.width
                 val h  = size.height
@@ -537,58 +533,17 @@ internal fun AppCardLayout(
                     }
                 }
 
-                // Layer 1: radial base - color blooms from bottom-start
-                val baseBloom = Brush.radialGradient(
+                // One sweep from the bottom-start tint through to the top-end accent. Every
+                // translucent layer costs the GPU a full blend pass over the card, and a list of
+                // them scrolling is what pushed the frame past its budget.
+                val glass = Brush.linearGradient(
                     colors = listOf(
-                        baseColor.copy(alpha = 0.80f * glassAlpha),
-                        midColor.copy(alpha = 0.60f * glassAlpha),
-                        endColor.copy(alpha = 0.40f * glassAlpha)
+                        baseColor.copy(alpha = 0.70f * glassAlpha),
+                        midColor.copy(alpha = 0.58f * glassAlpha),
+                        endColor.copy(alpha = 0.64f * glassAlpha)
                     ),
-                    center = Offset(if (rtl) w * 0.85f else w * 0.15f, h * 0.85f),
-                    radius = w * 1.1f
-                )
-
-                // Layer 2: secondary radial bloom from top-end (accent)
-                val accentBloom = Brush.radialGradient(
-                    colors = listOf(
-                        endColor.copy(alpha = 0.55f * glassAlpha),
-                        midColor.copy(alpha = 0.25f * glassAlpha),
-                        Color.Transparent
-                    ),
-                    center = Offset(if (rtl) w * 0.12f else w * 0.88f, h * 0.12f),
-                    radius = w * 0.75f
-                )
-
-                // Layer 3: frosted white overlay - very subtle, just adds glass texture
-                val frost = Brush.verticalGradient(
-                    colors = listOf(
-                        Color.White.copy(alpha = 0.03f * glassAlpha),
-                        Color.White.copy(alpha = 0.01f * glassAlpha),
-                        Color.White.copy(alpha = 0.02f * glassAlpha)
-                    ),
-                    startY = 0f,
-                    endY = h
-                )
-
-                // Layer 4: diagonal sweep highlight (top-start → mid) - thin specular only
-                val specular = Brush.linearGradient(
-                    colors = listOf(
-                        Color.White.copy(alpha = 0.08f * glassAlpha),
-                        Color.White.copy(alpha = 0.02f * glassAlpha),
-                        Color.Transparent
-                    ),
-                    start = Offset(if (rtl) w else 0f, 0f),
-                    end   = Offset(w * 0.5f, h)
-                )
-
-                // Layer 5: bottom edge warm reflection
-                val bottomReflection = Brush.radialGradient(
-                    colors = listOf(
-                        Color.Transparent,
-                        endColor.copy(alpha = 0.22f * glassAlpha)
-                    ),
-                    center = Offset(w * 0.5f, h),
-                    radius = w * 0.65f
+                    start = Offset(if (rtl) w else 0f, h),
+                    end   = Offset(if (rtl) 0f else w, 0f)
                 )
 
                 // Border: bright top-start → faded bottom-end
@@ -605,11 +560,7 @@ internal fun AppCardLayout(
                 val borderStroke = Stroke(width = 1.5.dp.toPx())
 
                 onDrawWithContent {
-                    drawRoundRect(brush = baseBloom, cornerRadius = cr)
-                    drawRoundRect(brush = accentBloom, cornerRadius = cr)
-                    drawRoundRect(brush = frost, cornerRadius = cr)
-                    drawRoundRect(brush = specular, cornerRadius = cr)
-                    drawRoundRect(brush = bottomReflection, cornerRadius = cr)
+                    drawRoundRect(brush = glass, cornerRadius = cr)
 
                     drawContent()
 

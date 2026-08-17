@@ -12,8 +12,6 @@ import androidx.compose.runtime.Composable
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.graphics.CompositingStrategy
-import androidx.compose.ui.graphics.graphicsLayer
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.backgrounds.*
 
@@ -66,13 +64,12 @@ fun AnimatedBackground(
     val resolvedSpeed = speedMultiplier()
     val resolvedPatchingCompleted = patchingCompleted()
 
+    // No background blends across its own layers, so clipping alone is enough. Compositing offscreen
+    // would allocate a full-screen render target and re-composite it every frame for nothing.
     Box(
         modifier = Modifier
             .fillMaxSize()
             .clipToBounds()
-            .graphicsLayer {
-                compositingStrategy = CompositingStrategy.Offscreen
-            }
     ) {
         when (effectiveType) {
             BackgroundType.CIRCLES -> CirclesBackground(

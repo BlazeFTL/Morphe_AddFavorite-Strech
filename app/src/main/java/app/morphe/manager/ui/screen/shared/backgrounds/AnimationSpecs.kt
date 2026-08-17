@@ -25,6 +25,10 @@ import kotlinx.coroutines.launch
 // Tilt shifts the artwork by about a dozen pixels at full range, so smaller steps land under a pixel
 private const val TILT_TARGET_THRESHOLD = 0.02f
 
+// Backgrounds drift slowly enough that a 60 Hz step is indistinguishable from a 120 Hz one,
+// and every skipped step is a full-screen repaint the GPU does not have to make
+private const val BACKGROUND_STEP_INTERVAL_MS = 16f
+
 /**
  * Runs [frameLoop] for as long as the host stays resumed and cancels it the moment it is not.
  * A background left ticking behind the lock screen or another activity keeps the frame clock
@@ -46,6 +50,8 @@ fun AnimationFrameEffect(frameLoop: suspend CoroutineScope.() -> Unit) {
  * Frame-based time accumulator that respects a [speedMultiplier].
  * Returns a [State<Float>] that increases every frame by (deltaMs * speedMultiplier).
  * This allows smooth speed changes without restarting animations.
+ * The value only steps once per [BACKGROUND_STEP_INTERVAL_MS], so a high refresh rate display
+ * does not repaint the backdrop more often than its slow drift can show.
  */
 @Composable
 fun rememberAnimatedTime(speedMultiplier: Float): State<Float> {
@@ -57,6 +63,10 @@ fun rememberAnimatedTime(speedMultiplier: Float): State<Float> {
     AnimationFrameEffect {
         var lastFrameMs = withInfiniteAnimationFrameMillis { it }
         var currentSpeed = targetSpeed.floatValue
+        // Real elapsed time gates the step, while the scaled time is what the backdrop reads,
+        // so changing the speed never changes how often the canvas is invalidated
+        var elapsedMs = 0f
+        var pendingTime = 0f
         while (true) {
             withInfiniteAnimationFrameMillis { frameMs ->
                 val delta = (frameMs - lastFrameMs).coerceIn(0L, 64L).toFloat()
@@ -64,7 +74,15 @@ fun rememberAnimatedTime(speedMultiplier: Float): State<Float> {
                 // Smooth lerp: 2.5/sec ramp — ~0.8s to reach target speed.
                 // High enough to feel reactive, low enough to avoid jarring jumps.
                 currentSpeed += (targetSpeed.floatValue - currentSpeed) * (delta / 1000f) * 2.5f
-                time.floatValue += delta * currentSpeed
+
+                elapsedMs += delta
+                pendingTime += delta * currentSpeed
+                if (elapsedMs >= BACKGROUND_STEP_INTERVAL_MS) {
+                    time.floatValue += pendingTime
+                    // Carry the remainder so the step keeps its cadence on 90 Hz panels too
+                    elapsedMs -= BACKGROUND_STEP_INTERVAL_MS
+                    pendingTime = 0f
+                }
             }
         }
     }

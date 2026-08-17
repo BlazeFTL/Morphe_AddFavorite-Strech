@@ -81,8 +81,11 @@ object Animations {
         initialOffsetY = { it }
     ) + fadeIn(tween(Defaults.ANIMATION_DURATION_SHORT))
 
+    /** Duration of [springSlideDownExit]. Layouts that reserve space for a sliding bar hold it this long. */
+    const val SLIDE_DOWN_EXIT_DURATION = Defaults.ANIMATION_DURATION
+
     val springSlideDownExit = slideOutVertically(
-        animationSpec = defaultTween(easing = FastOutSlowInEasing),
+        animationSpec = defaultTween(SLIDE_DOWN_EXIT_DURATION, FastOutSlowInEasing),
         targetOffsetY = { it }
     ) + fadeOut(tween(Defaults.ANIMATION_DURATION_SHORT))
 

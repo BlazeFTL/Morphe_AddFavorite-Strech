@@ -12,8 +12,28 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.compose.animation.core.*
 import androidx.compose.runtime.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+/**
+ * Runs [frameLoop] for as long as the host stays resumed and cancels it the moment it is not.
+ * A background left ticking behind the lock screen or another activity keeps the frame clock
+ * awake and repaints the full-screen canvas for nobody.
+ * Named with uppercase as required by Compose convention for Unit-returning Composables.
+ */
+@Composable
+fun AnimationFrameEffect(frameLoop: suspend CoroutineScope.() -> Unit) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(lifecycleOwner) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            frameLoop()
+        }
+    }
+}
 
 /**
  * Frame-based time accumulator that respects a [speedMultiplier].
@@ -27,7 +47,7 @@ fun rememberAnimatedTime(speedMultiplier: Float): State<Float> {
     val targetSpeed = remember { mutableFloatStateOf(speedMultiplier) }
     SideEffect { targetSpeed.floatValue = speedMultiplier }
 
-    LaunchedEffect(Unit) {
+    AnimationFrameEffect {
         var lastFrameMs = withInfiniteAnimationFrameMillis { it }
         var currentSpeed = targetSpeed.floatValue
         while (true) {

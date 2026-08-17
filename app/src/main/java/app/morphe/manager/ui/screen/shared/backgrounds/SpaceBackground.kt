@@ -75,12 +75,12 @@ fun SpaceBackground(
     }
 
     // targetSpeedState is written every recomposition via SideEffect so the frame loop
-    // can read it reactively without restarting LaunchedEffect.
+    // can read it reactively without being restarted.
     val targetSpeedState = remember { mutableFloatStateOf(speedMultiplier) }
     SideEffect { targetSpeedState.floatValue = speedMultiplier }
 
     // Main star animation loop - runs every frame via withInfiniteAnimationFrameMillis
-    LaunchedEffect(Unit) {
+    AnimationFrameEffect {
         var lastFrameMs = withInfiniteAnimationFrameMillis { it }
         var currentSpeed = targetSpeedState.floatValue
         while (true) {

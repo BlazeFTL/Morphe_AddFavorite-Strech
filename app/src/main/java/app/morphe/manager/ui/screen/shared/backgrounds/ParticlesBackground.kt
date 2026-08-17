@@ -92,7 +92,7 @@ fun ParticlesBackground(
     }
 
     // Physics loop - runs every display frame independently of Compose animation clock
-    LaunchedEffect(Unit) {
+    AnimationFrameEffect {
         var lastFrameMs = withInfiniteAnimationFrameMillis { it }
         var currentSpeed = targetSpeedState.floatValue
         while (true) {

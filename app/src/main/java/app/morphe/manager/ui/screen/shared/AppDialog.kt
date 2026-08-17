@@ -82,6 +82,10 @@ enum class DialogPadding {
  * Set to false for LazyColumn, where the caller wires up its own scroll state, scrollbar and button. Default is true.
  * @param padding Outer padding mode. Default is [DialogPadding.Normal].
  * @param contentArrangement Vertical arrangement of the dialog content.
+ * @param fillContentHeight Whether the content area claims the free space, which pins the footer
+ * to the bottom of the dialog. Set to true for list dialogs, where the buttons belong at the
+ * bottom however short the list is. Compact dialogs leave it false so their content and buttons
+ * stay together as one centered block. Default is false.
  * @param content Dialog content.
  */
 @Composable
@@ -94,6 +98,7 @@ fun AppDialog(
     scrollable: Boolean = true,
     padding: DialogPadding = DialogPadding.Normal,
     contentArrangement: Arrangement.Vertical = Arrangement.Center,
+    fillContentHeight: Boolean = false,
     onEntered: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -162,6 +167,7 @@ fun AppDialog(
                     scrollable = scrollable,
                     padding = padding,
                     contentArrangement = contentArrangement,
+                    fillContentHeight = fillContentHeight,
                     content = content
                 )
             }
@@ -257,6 +263,7 @@ private fun DialogContent(
     scrollable: Boolean,
     padding: DialogPadding,
     contentArrangement: Arrangement.Vertical,
+    fillContentHeight: Boolean,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val isLandscape = isLandscape()
@@ -367,7 +374,7 @@ private fun DialogContent(
                 // LazyColumn callers pass scrollable=false and wire up their own scrollbar
                 val scrollState = if (scrollable) rememberScrollState() else null
                 Box(
-                    modifier = Modifier.weight(1f, fill = false)
+                    modifier = Modifier.weight(1f, fill = fillContentHeight)
                 ) {
                     Column(
                         modifier = Modifier

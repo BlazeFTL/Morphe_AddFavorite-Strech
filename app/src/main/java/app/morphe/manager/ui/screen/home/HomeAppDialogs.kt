@@ -122,6 +122,7 @@ fun AppPatchesDialog(
         padding = DialogPadding.Compact,
         scrollable = false,
         contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),

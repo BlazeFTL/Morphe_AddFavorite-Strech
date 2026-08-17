@@ -900,7 +900,8 @@ private fun ApkManagementDialogContent(
         },
         scrollable = false,
         padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true
     ) {
         SearchFieldBackHandler(search)
 

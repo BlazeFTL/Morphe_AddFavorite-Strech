@@ -13,6 +13,9 @@ import app.morphe.manager.ManagerApplication
 import app.morphe.manager.R
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
+import app.morphe.manager.domain.installer.InstallResult
+import app.morphe.manager.domain.installer.InstallerManager
+import app.morphe.manager.domain.installer.SessionInstaller
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.*
 import app.morphe.manager.domain.worker.WorkerRepository
@@ -63,6 +66,8 @@ class BatchPatchCoordinator(
     private val installedAppRepository: InstalledAppRepository,
     private val originalApkRepository: OriginalApkRepository,
     private val notificationManager: UpdateNotificationManager,
+    private val installerManager: InstallerManager,
+    private val sessionInstaller: SessionInstaller,
     private val scope: AppCoroutineScope
 ) {
     private val workManager = WorkManager.getInstance(app)
@@ -272,6 +277,7 @@ class BatchPatchCoordinator(
             } finally {
                 withContext(NonCancellable) {
                     activeWorkId = null
+                    installUnattendedIfRequested()
                     _state.update { it.copy(phase = BatchPhase.FINISHED, activeIndex = null, activeRun = null) }
                     announceCompletion()
                 }
@@ -297,6 +303,78 @@ class BatchPatchCoordinator(
         runJob?.cancel()
         runJob = null
         _state.value = null
+    }
+
+    /**
+     * Installs what the run produced before the queue reports itself finished, for a run the
+     * user left. The batch screen installs from its own summary, but only while it is on
+     * screen: it stops collecting the run once the activity is stopped, so a queue that ended
+     * in the background would sit there until the manager came back.
+     *
+     * Installing here rather than there is only possible without a confirmation dialog, so a
+     * run the user is watching keeps going through the summary, which shows its progress.
+     */
+    private suspend fun installUnattendedIfRequested() {
+        val state = _state.value ?: return
+        if (state.policy != BatchInstallPolicy.INSTALL_AFTER) return
+        // A scheduled run is installed by its own worker, which decides by its own preference
+        if (state.scheduled) return
+        if (ManagerApplication.isInForeground) return
+
+        installPatchedUnattended(state.patchedItems)
+    }
+
+    /**
+     * Installs [items] through Shizuku, the only installer that never asks, and records what
+     * happened on the run. Returns how many apps went in, leaving the rest for whoever asked
+     * to fall back on the interactive installer.
+     */
+    suspend fun installPatchedUnattended(items: List<BatchPatchItem>): Int {
+        val token = installerManager.getPrimaryToken()
+        val asPlayStore = token == InstallerManager.Token.ShizukuPlayStore
+        if (token != InstallerManager.Token.Shizuku && !asPlayStore) {
+            Log.d(TAG, "Primary installer cannot install unattended")
+            return 0
+        }
+
+        var installed = 0
+        for (item in items) {
+            if (item.installOutcome == BatchInstallOutcome.INSTALLED) continue
+            val file = item.patchedFile?.takeIf { it.exists() } ?: continue
+            val info = pm.getPackageInfo(file)
+            val targetPackage = info?.packageName ?: item.packageName
+
+            val result = runCatching {
+                if (asPlayStore) {
+                    sessionInstaller.installShizukuAsPlayStore(file, targetPackage)
+                } else {
+                    sessionInstaller.installShizuku(file, targetPackage)
+                }
+            }.getOrElse { error ->
+                Log.w(TAG, "Unattended install failed for $targetPackage", error)
+                null
+            }
+
+            if (result !is InstallResult.Success) continue
+
+            val version = info?.versionName?.takeUnless { it.isBlank() } ?: item.version ?: continue
+            installedAppRepository.addOrUpdate(
+                currentPackageName = targetPackage,
+                originalPackageName = item.packageName,
+                isClone = item.producesCloneAs(targetPackage),
+                version = version,
+                installType = if (asPlayStore) InstallType.SHIZUKU_PLAY_STORE else InstallType.SHIZUKU,
+                patchSelection = item.selection,
+                selectionPayload = patchBundleRepository.snapshotSelection(item.selection)
+            )
+            markInstallResult(
+                itemId = item.id,
+                outcome = BatchInstallOutcome.INSTALLED,
+                installedPackageName = targetPackage
+            )
+            installed++
+        }
+        return installed
     }
 
     /**

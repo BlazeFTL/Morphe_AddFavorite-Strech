@@ -12,19 +12,11 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.work.*
 import app.morphe.manager.R
-import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.domain.batch.BatchInstallPolicy
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
-import app.morphe.manager.domain.batch.BatchPatchItem
 import app.morphe.manager.domain.batch.BatchPlanResolver
 import app.morphe.manager.domain.batch.BatchPhase
-import app.morphe.manager.domain.installer.InstallResult
-import app.morphe.manager.domain.installer.InstallerManager
-import app.morphe.manager.domain.installer.SessionInstaller
 import app.morphe.manager.domain.manager.PreferencesManager
-import app.morphe.manager.domain.repository.InstalledAppRepository
-import app.morphe.manager.domain.repository.PatchBundleRepository
-import app.morphe.manager.util.PM
 import app.morphe.manager.util.UpdateNotificationManager
 import app.morphe.manager.util.tag
 import kotlinx.coroutines.flow.first
@@ -52,12 +44,7 @@ class AutoPatchWorker(
     private val prefs: PreferencesManager by inject()
     private val coordinator: BatchPatchCoordinator by inject()
     private val planResolver: BatchPlanResolver by inject()
-    private val installedAppRepository: InstalledAppRepository by inject()
-    private val patchBundleRepository: PatchBundleRepository by inject()
-    private val installerManager: InstallerManager by inject()
-    private val sessionInstaller: SessionInstaller by inject()
     private val notificationManager: UpdateNotificationManager by inject()
-    private val pm: PM by inject()
 
     override suspend fun getForegroundInfo(): ForegroundInfo = foregroundInfo(0)
 
@@ -147,7 +134,11 @@ class AutoPatchWorker(
             return Result.success()
         }
 
-        val installed = if (prefs.autoPatchInstall.get()) installSilently(patched) else 0
+        val installed = if (prefs.autoPatchInstall.get()) {
+            coordinator.installPatchedUnattended(patched)
+        } else {
+            0
+        }
         notificationManager.showAutoPatchNotification(
             installed = installed,
             pending = patched.size - installed
@@ -155,52 +146,6 @@ class AutoPatchWorker(
 
         // The finished state is left in place so opening the app shows the summary
         return Result.success()
-    }
-
-    /**
-     * Installs the patched APKs through Shizuku, the only installer that never shows a
-     * confirmation dialog. Returns how many apps were actually installed.
-     */
-    private suspend fun installSilently(items: List<BatchPatchItem>): Int {
-        val token = installerManager.getPrimaryToken()
-        val asPlayStore = token == InstallerManager.Token.ShizukuPlayStore
-        if (token != InstallerManager.Token.Shizuku && !asPlayStore) {
-            Log.d(tag, "AutoPatchWorker: primary installer cannot install unattended")
-            return 0
-        }
-
-        var installed = 0
-        for (item in items) {
-            val file = item.patchedFile?.takeIf { it.exists() } ?: continue
-            val info = pm.getPackageInfo(file)
-            val targetPackage = info?.packageName ?: item.packageName
-
-            val result = runCatching {
-                if (asPlayStore) {
-                    sessionInstaller.installShizukuAsPlayStore(file, targetPackage)
-                } else {
-                    sessionInstaller.installShizuku(file, targetPackage)
-                }
-            }.getOrElse { error ->
-                Log.w(tag, "AutoPatchWorker: install failed for $targetPackage", error)
-                null
-            }
-
-            if (result !is InstallResult.Success) continue
-
-            installed++
-            val version = info?.versionName?.takeUnless { it.isBlank() } ?: item.version ?: continue
-            installedAppRepository.addOrUpdate(
-                currentPackageName = targetPackage,
-                originalPackageName = item.packageName,
-                isClone = item.producesCloneAs(targetPackage),
-                version = version,
-                installType = if (asPlayStore) InstallType.SHIZUKU_PLAY_STORE else InstallType.SHIZUKU,
-                patchSelection = item.selection,
-                selectionPayload = patchBundleRepository.snapshotSelection(item.selection)
-            )
-        }
-        return installed
     }
 
     companion object {

@@ -9,7 +9,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -1013,8 +1012,9 @@ private fun BundleCardHeader(
 
             Spacer(Modifier.height(2.dp))
 
+            // The badges inside animate their own entry and exit, so animating the row on top of
+            // that only buys a second measure pass per frame while the list is scrolling
             FlowRow(
-                modifier = Modifier.animateContentSize(),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {

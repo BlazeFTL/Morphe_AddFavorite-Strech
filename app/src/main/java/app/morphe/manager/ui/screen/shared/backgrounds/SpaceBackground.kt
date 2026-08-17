@@ -83,6 +83,9 @@ fun SpaceBackground(
     AnimationFrameEffect {
         var lastFrameMs = withInfiniteAnimationFrameMillis { it }
         var currentSpeed = targetSpeedState.floatValue
+        // The warp integrates the time it skipped, so a slower step covers the same distance
+        var elapsedMs = 0f
+        var pendingDelta = 0f
         while (true) {
             withInfiniteAnimationFrameMillis { frameMs ->
                 val delta = (frameMs - lastFrameMs).coerceIn(0L, 64L).toFloat()
@@ -95,8 +98,14 @@ fun SpaceBackground(
                 // 5.0/sec ramp gives ~0.4s to reach full speed, matching the "warp engine" feel.
                 currentSpeed += (1f + (targetSpeedState.floatValue - 1f) * speedBoost - currentSpeed) * (delta / 1000f) * 5.0f
 
+                elapsedMs += delta
+                pendingDelta += delta
+                if (elapsedMs < BACKGROUND_STEP_INTERVAL_MS) return@withInfiniteAnimationFrameMillis
+                elapsedMs -= BACKGROUND_STEP_INTERVAL_MS
+
                 // Normalize baseProgress increment to 60fps baseline so delta spikes don't jump
-                baseProgress += 0.0025f * currentSpeed * (delta / 16.67f)
+                baseProgress += 0.0025f * currentSpeed * (pendingDelta / 16.67f)
+                pendingDelta = 0f
 
                 // Regenerate stars that have passed the camera (adjustedProgress wraps to 0..1)
                 stars.forEachIndexed { index, star ->

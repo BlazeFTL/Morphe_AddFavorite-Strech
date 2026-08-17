@@ -26,8 +26,9 @@ import kotlinx.coroutines.launch
 private const val TILT_TARGET_THRESHOLD = 0.02f
 
 // Backgrounds drift slowly enough that a 60 Hz step is indistinguishable from a 120 Hz one,
-// and every skipped step is a full-screen repaint the GPU does not have to make
-private const val BACKGROUND_STEP_INTERVAL_MS = 16f
+// and every skipped step is a full-screen repaint the GPU does not have to make.
+// The cadence stays the same behind sheets and dialogs, where the backdrop is still on screen
+internal const val BACKGROUND_STEP_INTERVAL_MS = 16f
 
 /**
  * Runs [frameLoop] for as long as the host stays resumed and cancels it the moment it is not.

@@ -194,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Gat ekki staðfest undirskrift uppsetts forrits, þannig að það gæti þegar verið lagað</string>
     <string name="home_unverified">Óstaðfest</string>
     <string name="home_install_verification_pending">Athuga uppsetningu…</string>
+    <string name="home_app_info_install_unverified">Morphe getur ekki staðfest að uppsett forrit sé sú útgáfa sem það breytti. Breytið það aftur eða setjið það upp aftur úr vistuðum APK til að endurkalla aðgerningarnar</string>
     <string name="home_app_info_no_saved_apk">Engin geymd APK. Pökkun mun þurfa að velja APK skrá aftur</string>
     <string name="home_version_requires_android">Krefst Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ekki studd á þessari tæki</string>
@@ -535,6 +536,8 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patcher_heap_exhausted_message">Plástrarinn kláraði minnið með %1$d MB minnisgeymi. Þetta forrit er of stórt fyrir valda plástra. Reyndu að nota færri plástrauppsprettur, eða veldu færri plástra.</string>
     <string name="install_app_success">Uppsett með góðum árangri</string>
     <string name="install_app_fail">Ekki tókst að setja upp app: %s</string>
+    <string name="install_ignore_signature">Setja upp samt</string>
+    <string name="install_ignore_signature_description">Geymir gögn forritsins, en virkar aðeins ef root-módúll slökkvar á staðfestingu undirskrifana í Android</string>
     <string name="uninstall_app_fail">Ekki tókst að afinstalla app: %s</string>
     <string name="uninstall_app_unverified">Skilið eftir á sínum stað: Morphe gat ekki staðfest að uppsetta forritið sé byggingin sem það plástraði</string>
     <string name="launch_app_unverified">Morphe gat ekki staðfest að uppsetta forritið sé byggingin sem það plástraði</string>
@@ -596,12 +599,16 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_pure_black">Liturjöfur svart</string>
     <string name="settings_appearance_pure_black_description">Nota svarta bakgrunni</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Tungumál og sýnishringur</string>
     <string name="settings_appearance_app_language">App tungumál</string>
     <string name="settings_appearance_app_language_current">Núverandi tungumál</string>
     <string name="settings_appearance_translations_info_title">Þýðingar fyrir sum lönd eru kannski vantar eða eru ófullkomnar</string>
     <string name="settings_appearance_translations_info_text">"Til að þýða ný tungumál eða bæta núverandi þýðingar skaltu heimsækja
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Stærð viðmítsins</string>
+    <string name="settings_appearance_ui_scale_current">Núverandi stærð</string>
+    <string name="settings_appearance_ui_scale_description">Stækkar allt í forritinu, auk skjástókunar og leturstærðar kerfisins</string>
     <string name="settings_appearance_ui_scale_preview_title">Sýnishljóðstilling</string>
     <string name="settings_appearance_ui_scale_preview_subtitle">Texti og stýringar við þessa stærð</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->

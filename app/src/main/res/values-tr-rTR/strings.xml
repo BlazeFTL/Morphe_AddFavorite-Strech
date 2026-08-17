@@ -194,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Yüklenen uygulamanın imzası doğrulanamadı, bu nedenle zaten yama uygulanmış olabilir</string>
     <string name="home_unverified">Doğrulanmamış</string>
     <string name="home_install_verification_pending">Kurulum kontrol ediliyor…</string>
+    <string name="home_app_info_install_unverified">Morphe, yüklü uygulamanın yamaladığı sürüm olduğunu doğrulayamıyor. İşlemleri geri yüklemek için yeniden yamalayın veya kayıtlı APK\'dan yeniden yükleyin</string>
     <string name="home_app_info_no_saved_apk">Kayıtlı APK yok. Yamayı uygulayabilmek için tekrar APK dosyasını seçmeniz gerekiyor</string>
     <string name="home_version_requires_android">Android %s+ gerektiriyor</string>
     <string name="home_apk_no_compatible_versions_title">Bu cihazda desteklenmiyor</string>
@@ -231,6 +232,7 @@
     <string name="home_select_apk_title">APK seç</string>
     <string name="home_select_any_apk_description">Herhangi bir uygulamanın APK dosyasını seçin veya bu cihazda zaten yüklü olan bir uygulamayı seçin</string>
     <string name="home_use_installed_app">Yüklü uygulamayı kullan</string>
+    <string name="home_installed_app_picker_title">Yüklü uygulamalar</string>
     <string name="home_installed_app_picker_empty">Uygulama bulunamadı</string>
     <string name="home_installed_app_picker_filter_all">Tüm uygulamalar</string>
     <string name="home_installed_app_picker_filter_user">Yalnızca kullanıcı uygulamaları</string>
@@ -304,6 +306,9 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="patch_option_enter_value">Değer girin</string>
     <string name="patch_option_enter_number">Sayı girin</string>
     <string name="patch_option_enter_decimal">Ondalık girin</string>
+    <string name="patch_option_slider_edit">Kesin bir değer girin</string>
+    <string name="patch_option_slider_range_start">Başlangıç</string>
+    <string name="patch_option_slider_range_end">Bitiş</string>
     <string name="patch_option_list_duplicate">Bu değer zaten mevcut</string>
     <string name="patch_option_list_empty">Değer boş olamaz</string>
     <string name="patch_option_list_empty_state">Henüz hiçbir değer eklenmedi</string>
@@ -533,6 +538,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patcher_heap_exhausted_message">Yama uygulayıcının belleği, %1$d MB\'lik bir yığın ile tükendi. Bu uygulama seçilen yamalar için çok büyük. Daha az yama kaynağıyla yama uygulamayı deneyin veya daha az yama seçin.</string>
     <string name="install_app_success">Başarıyla yüklendi</string>
     <string name="install_app_fail">Uygulama yüklenemedi: %s</string>
+    <string name="install_ignore_signature">Yine de yükle</string>
+    <string name="install_ignore_signature_description">Uygulama verilerini korur, ancak yalnızca bir root modülü Android\'in imza doğrulamasını devre dışı bıraktığında çalışır</string>
     <string name="uninstall_app_fail">Uygulama kaldırılamadı: %s</string>
     <string name="uninstall_app_unverified">Yerinde bırakıldı: Morphe, yüklü uygulamanın yamaladığı sürüm olduğunu doğrulayamadı.</string>
     <string name="launch_app_unverified">Morphe, yüklü uygulamanın yamaladığı sürüm olduğunu doğrulayamadı.</string>
@@ -603,6 +610,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_ui_scale">Arayüz ölçeği</string>
     <string name="settings_appearance_ui_scale_current">Şu anki ölçek</string>
     <string name="settings_appearance_ui_scale_description">Sistem ekran yakınlaştırması ve yazı tipi boyutuna ek olarak uygulamadaki her şeyi ölçeklendirir</string>
+    <string name="settings_appearance_ui_scale_preview_title">Örnek ayar</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Bu ölçekteki metinler ve kontroller</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Ana ekran</string>
     <string name="settings_appearance_greeting_phrases">Selamlama cümleleri</string>
@@ -931,6 +940,7 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Seçili APK\'ler silinsin mi?</string>
     <string name="settings_system_apks_delete_selected_confirm">Bu, seçili APK dosyalarını kalıcı olarak silecektir</string>
     <string name="settings_system_apks_deleted_all">APK\'ler başarıyla silindi</string>
+    <string name="settings_system_apks_delete_failed">Bazı APK dosyaları silinemedi</string>
     <string name="settings_system_apks_export_zip_success">Seçili APK\'ler dışa aktarıldı</string>
     <string name="settings_system_apks_export_zip_failed">Seçili APK\'lerin dışa aktarılması başarısız oldu</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1044,6 +1054,7 @@ Ayrıntılar: %2$s"</string>
     <string name="filter">Filtre</string>
     <string name="reset">Sıfırla</string>
     <string name="reset_all">Tümünü Sıfırla</string>
+    <string name="apply">Uygula</string>
     <string name="confirm">Onayla</string>
     <string name="warning">Uyarı</string>
     <string name="error_">Hata</string>
@@ -1109,6 +1120,7 @@ Ayrıntılar: %2$s"</string>
     <string name="available">Mevcut</string>
     <string name="continue_">Devam et</string>
     <string name="version">Sürüm</string>
+    <string name="clone">Klonla</string>
     <string name="patch">Yamala</string>
     <string name="patching">Yamalanıyor</string>
     <string name="patched">Yamalı</string>

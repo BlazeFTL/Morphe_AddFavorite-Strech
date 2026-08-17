@@ -592,7 +592,6 @@
     <string name="settings_appearance_pure_black">Αληθινό μαύρο</string>
     <string name="settings_appearance_pure_black_description">Χρησιμοποιεί αληθινά μαύρα φόντα</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Γλώσσα και εμφάνιση</string>
     <string name="settings_appearance_app_language">Γλώσσα εφαρμογής</string>
     <string name="settings_appearance_app_language_current">Τρέχουσα γλώσσα</string>
     <string name="settings_appearance_translations_info_title">Οι μεταφράσεις για ορισμένες γλώσσες μπορεί να λείπουν ή να μην είναι ολοκληρωμένες</string>

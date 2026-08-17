@@ -596,7 +596,6 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_pure_black">Čistá čierna</string>
     <string name="settings_appearance_pure_black_description">Použiť úplne čierne pozadie</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Jazyk a zobrazenie</string>
     <string name="settings_appearance_app_language">Jazyk aplikácie</string>
     <string name="settings_appearance_app_language_current">Aktuálny jazyk</string>
     <string name="settings_appearance_translations_info_title">Preklady pre niektoré jazyky sa môžu byť neúplné</string>

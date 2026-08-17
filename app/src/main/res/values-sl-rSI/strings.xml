@@ -413,6 +413,9 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_app_deleted_description">Ta aplikacija je bila odstranjena izven aplikacije Morphe. Ponovno jo popravite, da obnovite funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Nameščena je nepopravljena različica te aplikacije. Morphe še vedno ima svoj prejšnji zapis o popravku.</string>
     <string name="home_dialog_rename_title">S tem bo nameščena kopija</string>
+    <string name="home_dialog_rename_description">Izbrani popravki Gradle buildajo to aplikacijo pod lastnim imenom paketa, zato se rezultat namesti poleg &lt;b&gt;%s&lt;/b&gt; namesto da bi jo posodobila</string>
+    <string name="home_dialog_rename_result_package">Namesti se kot</string>
+    <string name="home_dialog_rename_replaces">Kopija že uporablja to ime in bo ponovno zgrajena</string>
     <string name="home_app_info_apk_size">Velikost APK</string>
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->
@@ -535,6 +538,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_heap_exhausted_message">Patcherju je zmanjkalo pomnilnika s kopico velikosti %1$d MB. Ta aplikacija je prevelika za izbrane popravke. Poskusite uporabiti manj virov popravkov ali izberite manj popravkov.</string>
     <string name="install_app_success">Namestitev je uspela</string>
     <string name="install_app_fail">Ni uspelo namestiti aplikacije: %s</string>
+    <string name="install_ignore_signature">Namesti vse ostalo</string>
+    <string name="install_ignore_signature_description">Ohrani podatke aplikacije, vendar deluje samo, če modul root onemogoči preverjanje podpisa Androida</string>
     <string name="uninstall_app_fail">Neuspelo odstranjevanje aplikacije: %s</string>
     <string name="uninstall_app_unverified">Pustite na mestu: Morphe ni mogel potrditi, da je nameščena aplikacija graditev, ki jo je zakrpala.</string>
     <string name="launch_app_unverified">Morphe ni mogel potrditi, da je nameščena aplikacija graditev, ki jo je zakrpala.</string>
@@ -606,6 +611,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_ui_scale">Razmerje vmesnika</string>
     <string name="settings_appearance_ui_scale_current">Trenutno razmerje</string>
     <string name="settings_appearance_ui_scale_description">Razmerja vse v aplikaciji, dodatno do sistemskega povečave zaslona in velikosti pisave</string>
+    <string name="settings_appearance_ui_scale_preview_title">Primer nastavitve</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Besedilo in kontrole pri tej lestvici</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Začetni zaslon</string>
     <string name="settings_appearance_greeting_phrases">Pozdravna sporočila</string>
@@ -1049,6 +1056,7 @@ Podrobnosti: %2$s"</string>
     <string name="filter">Filtriraj</string>
     <string name="reset">Ponastavi</string>
     <string name="reset_all">Ponastavi vse</string>
+    <string name="apply">Uporabi</string>
     <string name="confirm">Potrdi</string>
     <string name="warning">Opozorilo</string>
     <string name="error_">Napaka</string>
@@ -1114,6 +1122,7 @@ Podrobnosti: %2$s"</string>
     <string name="available">Na voljo</string>
     <string name="continue_">Naprej</string>
     <string name="version">Različica</string>
+    <string name="clone">Kloniraj</string>
     <string name="patch">Popravi</string>
     <string name="patching">Popravljanje</string>
     <string name="patched">Popravljeno</string>

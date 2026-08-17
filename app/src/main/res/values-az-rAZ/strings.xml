@@ -538,6 +538,8 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patcher_heap_exhausted_message">Yamaqlayıcının %1$d MB-lıq yaddaş yığını tükəndi. Bu tətbiq seçilmiş yamaqlar üçün çox böyükdür. Daha az yamaq mənbəyi ilə yamaqlamağa çalış və ya daha az yamaq seç</string>
     <string name="install_app_success">Uğurla quraşdırıldı</string>
     <string name="install_app_fail">Tətbiqi quraşdırmaq olmadı: %s</string>
+    <string name="install_ignore_signature">Yenə də quraşdır</string>
+    <string name="install_ignore_signature_description">Tətbiq məlumatlarını saxlayır, lakin yalnız root modulu Android-in imza təsdiqləməsini qapatdıqda işləyir</string>
     <string name="uninstall_app_fail">Tətbiqi silmək olmadı: %s</string>
     <string name="uninstall_app_unverified">Yerində saxlanıldı: Morphe quraşdırılmış tətbiqin öz yamaqladığı qurulma olduğunu təsdiqləyə bilmədi</string>
     <string name="launch_app_unverified">Morphe quraşdırılmış tətbiqin öz yamaqladığı qurulma olduğunu təsdiqləyə bilmədi</string>
@@ -599,11 +601,17 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_pure_black">Təmiz Qara</string>
     <string name="settings_appearance_pure_black_description">Təmiz qara fonlar istifadə edilir</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Dil &amp; göstərmə</string>
     <string name="settings_appearance_app_language">Tətbiq dili</string>
     <string name="settings_appearance_app_language_current">Hazırkı dil</string>
     <string name="settings_appearance_translations_info_title">Bəzi dillər üçün tərcümələr əskik və ya nöqsanlı ola bilər.</string>
     <string name="settings_appearance_translations_info_text">"Yeni dilləri tərcümə etmək və ya mövcud tərcümələri təkmilləşdirmək üçün %s -i ziyarət et"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">İnterfeys miqyası</string>
+    <string name="settings_appearance_ui_scale_current">Cari miqyas</string>
+    <string name="settings_appearance_ui_scale_description">Sistemin ekran miqyası və şrift ölçüsünə əlavə olaraq, tətbiqdəki hər şeyi miqyaslandırır</string>
+    <string name="settings_appearance_ui_scale_preview_title">Nümunə tənzimləməsi</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Bu miqyasda mətn və idarəetmələr</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Əsas ekran</string>
     <string name="settings_appearance_greeting_phrases">Salamlaşma ifadələri</string>
@@ -1045,6 +1053,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="filter">Filtr</string>
     <string name="reset">Qaytar</string>
     <string name="reset_all">Hamısını Sıfırla</string>
+    <string name="apply">Tətbiq et</string>
     <string name="confirm">Təsdiqlə</string>
     <string name="warning">Xəbərdarlıq</string>
     <string name="error_">Xəta</string>

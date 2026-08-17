@@ -4,6 +4,7 @@
     <string name="home_other_apps">Ander programme</string>
     <string name="home_not_patched_yet">Nog nie verander nie</string>
     <string name="home_unpatched_version_installed">Ongepatchte weergawe geïnstalleer</string>
+    <string name="home_unpatched_badge">Nie gepatch nie</string>
     <string name="home_no_patches_available">Geen veranderinge beskikbaar</string>
     <string name="home_app_hide_title">Versteek hierdie program?</string>
     <string name="home_app_hide_message">Hierdie app sal van die tuisskerm weggesteek word. Jy kan dit later herstel deur die \'\'-knoppie onderaan die lys te gebruik</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Kon nie die handtekening van die geïnstalleerde app verifieer nie, dus is dit moontlik reeds gemodifiseer</string>
     <string name="home_unverified">Ongeverifieer</string>
     <string name="home_install_verification_pending">Kontroleer installasie…</string>
+    <string name="home_app_info_install_unverified">Morphe kan nie bevestig dat die geïnstalleerde toepassing die weergawe is wat dit gepatch het nie. Herpatch of herinstalleer dit vanaf die gestoorde APK om sy aksies te herstel.</string>
     <string name="home_app_info_no_saved_apk">Geen gestoorde APK nie. Verandering sal vereis dat jy die APK vyl weer kies</string>
     <string name="home_version_requires_android">Vereis Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Nie op hierdie toestel ondersteun nie</string>
@@ -304,6 +306,9 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="patch_option_enter_value">Gee waarde in</string>
     <string name="patch_option_enter_number">Gee getal in</string>
     <string name="patch_option_enter_decimal">Gee desimaal in</string>
+    <string name="patch_option_slider_edit">Voer \'n presiese waarde in</string>
+    <string name="patch_option_slider_range_start">Van</string>
+    <string name="patch_option_slider_range_end">Tot</string>
     <string name="patch_option_list_duplicate">Hierdie waarde bestaan ​​reeds</string>
     <string name="patch_option_list_empty">Waarde kan nie leeg wees nie</string>
     <string name="patch_option_list_empty_state">Geen waardes bygevoeg nie</string>
@@ -407,6 +412,10 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="home_app_info_app_deleted_warning">App is verwyder</string>
     <string name="home_app_info_app_deleted_description">Hierdie app is buite Morphe verwyder. Pleister dit weer om funksionaliteit te herstel</string>
     <string name="home_app_info_not_patched_description">\'n Ongepatchte weergawe van hierdie app is geïnstalleer. Morphe het steeds sy vorige pleisterrekord.</string>
+    <string name="home_dialog_rename_title">Dit sal \'n kopie installeer</string>
+    <string name="home_dialog_rename_description">Die geselekteerde patches bou hierdie toepassing onder \'n eie pakketnaam, sodat die resultaat langs &lt;b&gt;%s&lt;/b&gt; installeer in plaas van dit op te dateer.</string>
+    <string name="home_dialog_rename_result_package">Sal installeer as</string>
+    <string name="home_dialog_rename_replaces">\'n Kopie gebruik reeds daardie naam en sal herbou word</string>
     <string name="home_app_info_apk_size">APK-grootte</string>
     <string name="home_app_info_cpu_arch">Sentrale prosessorargitektuur</string>
     <!-- Home Screen - Root Mode -->
@@ -529,6 +538,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="patcher_heap_exhausted_message">Die patcher het nie genoeg geheue gehad nie met \'n %1$d MB-heap. Hierdie app is te groot vir die geselekteerde patches. Probeer om met minder patchbronne te patch, of kies minder patches.</string>
     <string name="install_app_success">Suksesvol geïnstalleer</string>
     <string name="install_app_fail">Kon nie app installeer nie: %s</string>
+    <string name="install_ignore_signature">Installeer nietemin</string>
+    <string name="install_ignore_signature_description">Bewaar die app-data, maar werk slegs as \'n wortelmodule die Android-handtekeningverifikasie deaktiveer</string>
     <string name="uninstall_app_fail">Kon nie app verwyder nie: %s</string>
     <string name="uninstall_app_unverified">Gelaat in plek: Morphe kon nie verifieer dat die geïnstalleerde app die weergawe is wat dit gepatch het nie.</string>
     <string name="launch_app_unverified">Morphe kon nie verifieer dat die geïnstalleerde app die weergawe is wat dit gepatch het nie.</string>
@@ -590,12 +601,18 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Gebruik ware swart agtergronde</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Taal en vertoning</string>
     <string name="settings_appearance_app_language">App taal</string>
     <string name="settings_appearance_app_language_current">Huidige taal</string>
     <string name="settings_appearance_translations_info_title">Vertalings vir sommige tale is dalk ontbrekend of onvoltooid</string>
     <string name="settings_appearance_translations_info_text">"Om nuwe tale te vertaal of die bestaande vertalings te verbeter, besoek
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Koppelvlak-skaal</string>
+    <string name="settings_appearance_ui_scale_current">Huidige skaal</string>
+    <string name="settings_appearance_ui_scale_description">Skaal alles in die toepassing, bo-op die stelsel se skermzoem en lettergrootte.</string>
+    <string name="settings_appearance_ui_scale_preview_title">Voorbeeldinstelling</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Teks en kontroles op hierdie skaal</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Tuisskerm</string>
     <string name="settings_appearance_greeting_phrases">Groetfrases</string>
@@ -925,6 +942,7 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Geselekteerde APK\'s uitvee?</string>
     <string name="settings_system_apks_delete_selected_confirm">Dit sal die geselekteerde APK-lêers permanent uitvee.</string>
     <string name="settings_system_apks_deleted_all">APK\'s suksesvol uitgevee</string>
+    <string name="settings_system_apks_delete_failed">Sommige APK-lêers kon nie verwyder word nie</string>
     <string name="settings_system_apks_export_zip_success">Geselekteerde APK\'s uitgevoer</string>
     <string name="settings_system_apks_export_zip_failed">Kon nie die geselekteerde APK\'s uitvoer nie</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1038,6 +1056,7 @@ Besonderhede: %2$s"</string>
     <string name="filter">Filter</string>
     <string name="reset">Herstel</string>
     <string name="reset_all">Herstel Alles</string>
+    <string name="apply">Pas toe</string>
     <string name="confirm">Bevestig</string>
     <string name="warning">Waarskuwing</string>
     <string name="error_">Fout</string>
@@ -1103,6 +1122,7 @@ Besonderhede: %2$s"</string>
     <string name="available">Beskikbaar</string>
     <string name="continue_">Gaan voort</string>
     <string name="version">Weergawe</string>
+    <string name="clone">Kloon</string>
     <string name="patch">Verandering</string>
     <string name="patching">Pleister</string>
     <string name="patched">Gepatch</string>

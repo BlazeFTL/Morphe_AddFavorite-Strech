@@ -306,6 +306,9 @@
     <string name="patch_option_enter_value">মান দিন</string>
     <string name="patch_option_enter_number">সংখ্যা দিন</string>
     <string name="patch_option_enter_decimal">ডেসিমাল দিন</string>
+    <string name="patch_option_slider_edit">একটি সঠিক মান লিখুন</string>
+    <string name="patch_option_slider_range_start">থেকে</string>
+    <string name="patch_option_slider_range_end">পর্যন্ত</string>
     <string name="patch_option_list_duplicate">এই মানটি ইতিমধ্যে বিদ্যমান</string>
     <string name="patch_option_list_empty">মানটি খালি হতে পারে না</string>
     <string name="patch_option_list_empty_state">এখনো কোনো মান যোগ করা হয়নি</string>
@@ -535,6 +538,8 @@
     <string name="patcher_heap_exhausted_message">প্যাচারটি %1$d MB হিপ মেমরি শেষ করে ফেলেছে। নির্বাচিত প্যাচগুলির জন্য এই অ্যাপটি খুব বড়। কম প্যাচ উৎস দিয়ে প্যাচ করার চেষ্টা করুন, অথবা কম প্যাচ নির্বাচন করুন।</string>
     <string name="install_app_success">সাফল্য়ের সাথে ইনস্টল করা হয়েছে</string>
     <string name="install_app_fail">অ্যাপ ইনস্টল করতে ব্যর্থ: %s</string>
+    <string name="install_ignore_signature">যাই হোক ইনস্টল করুন</string>
+    <string name="install_ignore_signature_description">অ্যাপ ডেটা সংরক্ষণ করে, তবে এটি কেবল তখনই কাজ করে যদি একটি রুট মডিউল অ্যান্ড্রয়েডের সিগনেচার ভেরিফিকেশন নিষ্ক্রিয় করে</string>
     <string name="uninstall_app_fail">অ্যাপ আনইনস্টল করতে ব্যর্থ: %s</string>
     <string name="uninstall_app_unverified">জায়গায় রেখে দেওয়া হয়েছে: Morphe নিশ্চিত করতে পারেনি যে ইনস্টল করা অ্যাপটি এটি প্যাচ করা বিল্ডটি।</string>
     <string name="launch_app_unverified">Morphe নিশ্চিত করতে পারেনি যে ইনস্টল করা অ্যাপটি এটি প্যাচ করা বিল্ডটি।</string>
@@ -596,12 +601,18 @@
     <string name="settings_appearance_pure_black">পুরো কালো</string>
     <string name="settings_appearance_pure_black_description">ব্যবহার করে খাঁটি কালো ব্যাকগ্রাউন্ড।</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">ভাষা এবং ডিসপ্লে</string>
     <string name="settings_appearance_app_language">অ্যাপ্লিকেশনের ভাষা</string>
     <string name="settings_appearance_app_language_current">বর্তমান ভাষা</string>
     <string name="settings_appearance_translations_info_title">কিছু ভাষার জন্য অনুবাদ বা সম্পূর্ণ অনুবাদ উপলব্ধ নেই</string>
     <string name="settings_appearance_translations_info_text">"নতুন ভাষা অনুবাদ করতে বা বিদ্যমান অনুবাদ উন্নত করতে, অনুগ্রহ করে
 %s দেখুন"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">ইন্টারফেস স্কেল</string>
+    <string name="settings_appearance_ui_scale_current">বর্তমান স্কেল</string>
+    <string name="settings_appearance_ui_scale_description">সিস্টেম স্ক্রিন জুম এবং ফন্ট সাইজের পাশাপাশি অ্যাপের সবকিছু স্কেল করে</string>
+    <string name="settings_appearance_ui_scale_preview_title">নমুনা সেটিংস</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">এই স্কেলে টেক্সট এবং কন্ট্রোল</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">হোম স্ক্রিন</string>
     <string name="settings_appearance_greeting_phrases">শুভেচ্ছা বার্তা</string>
@@ -1036,6 +1047,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="filter">ফিল্টার</string>
     <string name="reset">আবার সেট করুন</string>
     <string name="reset_all">সব রিসেট করুন</string>
+    <string name="apply">প্রয়োগ করুন</string>
     <string name="confirm">নিশ্চিত করুন</string>
     <string name="warning">সতর্কবার্তা</string>
     <string name="error_">ত্রুটি</string>
@@ -1101,6 +1113,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="available">উপলব্ধ</string>
     <string name="continue_">এগিয়ে যান</string>
     <string name="version">সংস্করণ</string>
+    <string name="clone">ক্লোন করুন</string>
     <string name="patch">প্যাচ</string>
     <string name="patching">প্যাচিং</string>
     <string name="patched">প্যাচ করা</string>

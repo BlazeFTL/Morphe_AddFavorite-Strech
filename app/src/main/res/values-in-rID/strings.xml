@@ -539,6 +539,8 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="patcher_heap_exhausted_message">Penambal kehabisan memori dengan heap %1$d MB. Aplikasi ini terlalu besar untuk tambalan yang dipilih. Coba menambal dengan lebih sedikit sumber tambalan, atau pilih lebih sedikit tambalan</string>
     <string name="install_app_success">Berhasil dipasang</string>
     <string name="install_app_fail">Gagal memasang aplikasi: %s</string>
+    <string name="install_ignore_signature">Tetap pasang</string>
+    <string name="install_ignore_signature_description">Menyimpan data aplikasi, tetapi hanya berfungsi jika modul root menonaktifkan verifikasi tanda tangan Android</string>
     <string name="uninstall_app_fail">Gagal menghapus aplikasi: %s</string>
     <string name="uninstall_app_unverified">Dibiarkan di tempat: Morphe tidak dapat memverifikasi bahwa aplikasi yang terpasang adalah build yang ditambalnya</string>
     <string name="launch_app_unverified">Morphe tidak dapat memverifikasi bahwa aplikasi yang terpasang adalah build yang ditambalnya</string>
@@ -600,12 +602,18 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_appearance_pure_black">Hitam Pekat</string>
     <string name="settings_appearance_pure_black_description">Menggunakan latar belakang hitam pekat</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Bahasa &amp; tampilan</string>
     <string name="settings_appearance_app_language">Bahasa aplikasi</string>
     <string name="settings_appearance_app_language_current">Bahasa saat ini</string>
     <string name="settings_appearance_translations_info_title">Terjemahan untuk beberapa bahasa mungkin belum tersedia atau belum lengkap.</string>
     <string name="settings_appearance_translations_info_text">"Untuk menerjemahkan bahasa baru atau meningkatkan terjemahan yang ada, kunjungi
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Skala antarmuka</string>
+    <string name="settings_appearance_ui_scale_current">Skala saat ini</string>
+    <string name="settings_appearance_ui_scale_description">Menyesuaikan semua elemen di dalam aplikasi, di atas pengaturan perbesaran layar dan ukuran font sistem</string>
+    <string name="settings_appearance_ui_scale_preview_title">Contoh pengaturan</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Teks dan kontrol dalam skala ini</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Layar beranda</string>
     <string name="settings_appearance_greeting_phrases">Frasa sapaan</string>
@@ -1049,6 +1057,7 @@ Rincian: %2$s"</string>
     <string name="filter">Penyaring</string>
     <string name="reset">Setel ulang</string>
     <string name="reset_all">Atur ulang Semua</string>
+    <string name="apply">Terapkan</string>
     <string name="confirm">Konfirmasi</string>
     <string name="warning">Peringatan</string>
     <string name="error_">Kesalahan</string>

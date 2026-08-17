@@ -539,6 +539,8 @@
     <string name="patcher_heap_exhausted_message">Патчеру не вистачило пам\'яті з heap розміром %1$d МБ. Цей застосунок занадто великий для вибраних патчів. Спробуйте патчити з меншою кількістю джерел патчів або оберіть менше патчів</string>
     <string name="install_app_success">Встановлено успішно</string>
     <string name="install_app_fail">Неможливо встановити застосунок: %s</string>
+    <string name="install_ignore_signature">Все одно встановити</string>
+    <string name="install_ignore_signature_description">Зберігає дані застосунку, але працює лише якщо модуль root вимикає перевірку підпису Android</string>
     <string name="uninstall_app_fail">Не вдалося видалити застосунок: %s</string>
     <string name="uninstall_app_unverified">Залишено без змін: Morphe не зміг підтвердити, що встановлений застосунок є тією ж збіркою, яку він пропатчив</string>
     <string name="launch_app_unverified">Morphe не зміг підтвердити, що встановлений застосунок є тією ж збіркою, яку він пропатчив</string>

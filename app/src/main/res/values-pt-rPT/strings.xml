@@ -193,6 +193,8 @@
     <string name="home_apk_use_installed">Usar APK instalado</string>
     <string name="home_apk_use_installed_unverified">Não foi possível verificar a assinatura do aplicativo instalado, portanto, ele pode já estar modificado</string>
     <string name="home_unverified">Não verificado</string>
+    <string name="home_install_verification_pending">Verificando instalação…</string>
+    <string name="home_app_info_install_unverified">O Morphe não consegue confirmar que o app instalado é a build que ele patchou. Patchou novamente ou reinstale-o a partir do APK salvo para restaurar suas ações</string>
     <string name="home_app_info_no_saved_apk">Não existe um APK guardado. A modificação exigirá a seleção do ficheiro APK novamente</string>
     <string name="home_version_requires_android">Requer o Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Não suportado neste dispositivo</string>
@@ -230,6 +232,7 @@
     <string name="home_select_apk_title">Selecionar APK</string>
     <string name="home_select_any_apk_description">Selecione um arquivo APK de qualquer aplicativo, ou escolha um aplicativo já instalado neste dispositivo</string>
     <string name="home_use_installed_app">Usar aplicativo instalado</string>
+    <string name="home_installed_app_picker_title">Apps instalados</string>
     <string name="home_installed_app_picker_empty">Nenhum aplicativo encontrado</string>
     <string name="home_installed_app_picker_filter_all">Todos os aplicativos</string>
     <string name="home_installed_app_picker_filter_user">Apenas aplicativos do usuário</string>
@@ -303,6 +306,9 @@ Para obteres os melhores resultados, este ficheiro recomenda a modificação de 
     <string name="patch_option_enter_value">Inserir valor</string>
     <string name="patch_option_enter_number">Inserir número</string>
     <string name="patch_option_enter_decimal">Inserir decimal</string>
+    <string name="patch_option_slider_edit">Insira um valor exato</string>
+    <string name="patch_option_slider_range_start">De</string>
+    <string name="patch_option_slider_range_end">Para</string>
     <string name="patch_option_list_duplicate">Este valor já existe</string>
     <string name="patch_option_list_empty">Valor não pode estar vazio</string>
     <string name="patch_option_list_empty_state">Ainda não foi adicionado nenhum valor</string>
@@ -407,6 +413,9 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="home_app_info_app_deleted_description">Esta aplicação foi desinstalada fora do Morphe. Modifica-a de novo para restaurar as funcionalidades</string>
     <string name="home_app_info_not_patched_description">Uma versão não corrigida deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
     <string name="home_dialog_rename_title">Isso instalará uma cópia</string>
+    <string name="home_dialog_rename_description">Os patches selecionados constroem este app sob um nome de pacote próprio, portanto o resultado é instalado ao lado de &lt;b&gt;%s&lt;/b&gt; em vez de atualizá-lo</string>
+    <string name="home_dialog_rename_result_package">Será instalado como</string>
+    <string name="home_dialog_rename_replaces">Uma cópia já usa esse nome e será reconstruída</string>
     <string name="home_app_info_apk_size">Tamanho do APK</string>
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -529,6 +538,8 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="patcher_heap_exhausted_message">O patcher ficou sem memória com um heap de %1$d MB. Este aplicativo é grande demais para os patches selecionados. Tente aplicar patches com menos fontes de patches ou selecione menos patches.</string>
     <string name="install_app_success">Instalado com sucesso</string>
     <string name="install_app_fail">Erro ao instalar a aplicação: %s</string>
+    <string name="install_ignore_signature">Instalar mesmo assim</string>
+    <string name="install_ignore_signature_description">Mantém os dados do app, mas só funciona se um módulo root desabilitar a verificação de assinatura do Android</string>
     <string name="uninstall_app_fail">Falha ao desinstalar o aplicativo: %s</string>
     <string name="uninstall_app_unverified">Deixado no lugar: Morphe não pôde verificar que o aplicativo instalado é a compilação que ele corrigiu.</string>
     <string name="launch_app_unverified">Morphe não pôde verificar que o aplicativo instalado é a compilação que ele corrigiu.</string>
@@ -590,12 +601,16 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="settings_appearance_pure_black">Preto Puro</string>
     <string name="settings_appearance_pure_black_description">Usar fundos pretos puros</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Idioma e exibição</string>
     <string name="settings_appearance_app_language">Idioma da aplicação</string>
     <string name="settings_appearance_app_language_current">Idioma atual</string>
     <string name="settings_appearance_translations_info_title">As traduções para alguns idiomas podem estar ausentes ou incompletas</string>
     <string name="settings_appearance_translations_info_text">"Para traduzires novos idiomas ou melhorares as traduções existentes, visita
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Escala da interface</string>
+    <string name="settings_appearance_ui_scale_current">Escala atual</string>
+    <string name="settings_appearance_ui_scale_description">Escala tudo no app, além do zoom de tela e do tamanho da fonte do sistema</string>
     <string name="settings_appearance_ui_scale_preview_title">Configuração de exemplo</string>
     <string name="settings_appearance_ui_scale_preview_subtitle">Texto e controles nesta escala</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
@@ -927,6 +942,7 @@ Detalhes: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Eliminar APKs selecionados?</string>
     <string name="settings_system_apks_delete_selected_confirm">Isto irá eliminar permanentemente os ficheiros APK selecionados</string>
     <string name="settings_system_apks_deleted_all">APKs eliminados com sucesso</string>
+    <string name="settings_system_apks_delete_failed">Alguns arquivos APK não puderam ser excluídos</string>
     <string name="settings_system_apks_export_zip_success">APKs selecionados exportados</string>
     <string name="settings_system_apks_export_zip_failed">Falha ao exportar os APKs selecionados</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1106,6 +1122,7 @@ Detalhes: %2$s"</string>
     <string name="available">Disponível</string>
     <string name="continue_">Continuar</string>
     <string name="version">Versão</string>
+    <string name="clone">Clonar</string>
     <string name="patch">Aplicar modificações</string>
     <string name="patching">A modificar</string>
     <string name="patched">Modificado</string>

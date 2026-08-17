@@ -538,6 +538,8 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="patcher_heap_exhausted_message">Patcheru došla paměť při velikosti haldy %1$d MB. Tato aplikace je pro vybrané patche příliš velká. Zkuste patchovat s menším počtem zdrojů patchů nebo vyberte méně patchů.</string>
     <string name="install_app_success">Úspěšně nainstalováno</string>
     <string name="install_app_fail">Selhání instalace aplikace: %s</string>
+    <string name="install_ignore_signature">Přesto instalovat</string>
+    <string name="install_ignore_signature_description">Zachovává data aplikace, ale funguje pouze v případě, že root modul zakáže ověřování podpisu systému Android.</string>
     <string name="uninstall_app_fail">Nepodařilo se odinstalovat aplikaci: %s</string>
     <string name="uninstall_app_unverified">Ponecháno na místě: Morphe nemohl ověřit, že nainstalovaná aplikace je sestavení, které opatchoval.</string>
     <string name="launch_app_unverified">Morphe nemohl ověřit, že nainstalovaná aplikace je sestavení, které opatchoval.</string>
@@ -599,7 +601,7 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_pure_black">Čistá černá</string>
     <string name="settings_appearance_pure_black_description">Používá pravě černou barvu pozadí</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Jazyk a zobrazení</string>
+    <string name="settings_appearance_language_and_display">Jazyk &amp; zobrazení</string>
     <string name="settings_appearance_app_language">Jazyk aplikace</string>
     <string name="settings_appearance_app_language_current">Aktuální jazyk</string>
     <string name="settings_appearance_translations_info_title">Pro některé jazyky mohou chybět nebo být neúplné.</string>
@@ -939,6 +941,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Smazat vybrané soubory APK?</string>
     <string name="settings_system_apks_delete_selected_confirm">Toto trvale smaže vybrané APK soubory</string>
     <string name="settings_system_apks_deleted_all">Soubory APK byly úspěšně smazány</string>
+    <string name="settings_system_apks_delete_failed">Některé soubory APK se nepodařilo smazat</string>
     <string name="settings_system_apks_export_zip_success">Exportované APK soubory</string>
     <string name="settings_system_apks_export_zip_failed">Nepodařilo se exportovat vybrané APK soubory</string>
     <!-- Settings - System Tab - Storage Management screen -->

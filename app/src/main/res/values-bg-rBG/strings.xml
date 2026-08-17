@@ -307,6 +307,9 @@
     <string name="patch_option_enter_value">Въведете стойност</string>
     <string name="patch_option_enter_number">Въведете число</string>
     <string name="patch_option_enter_decimal">Въведете десетично число</string>
+    <string name="patch_option_slider_edit">Въведете точна стойност</string>
+    <string name="patch_option_slider_range_start">От</string>
+    <string name="patch_option_slider_range_end">До</string>
     <string name="patch_option_list_duplicate">Тази стойност вече съществува</string>
     <string name="patch_option_list_empty">Стойността не може да бъде празна</string>
     <string name="patch_option_list_empty_state">Още не са добавени стойности</string>
@@ -410,6 +413,10 @@
     <string name="home_app_info_app_deleted_warning">Приложението беше деинсталирано</string>
     <string name="home_app_info_app_deleted_description">Това приложение беше деинсталирано извън Morphe. Поправете го отново, за да възстановите функционалността</string>
     <string name="home_app_info_not_patched_description">Инсталирана е версия без пачове на това приложение. Morphe все още има своя предишен запис за пач</string>
+    <string name="home_dialog_rename_title">Това ще инсталира копие</string>
+    <string name="home_dialog_rename_description">Избраните пачове изграждат това приложение под собствено име на пакет, така че резултатът се инсталира успоредно с &lt;b&gt;%s&lt;/b&gt; вместо да го актуализира</string>
+    <string name="home_dialog_rename_result_package">Ще се инсталира като</string>
+    <string name="home_dialog_rename_replaces">Копие вече използва това име и ще бъде изградено повторно</string>
     <string name="home_app_info_apk_size">Размер на APK</string>
     <string name="home_app_info_cpu_arch">CPU архитектура</string>
     <!-- Home Screen - Root Mode -->
@@ -595,12 +602,16 @@
     <string name="settings_appearance_pure_black">Натурално черно</string>
     <string name="settings_appearance_pure_black_description">Използва истински черни фонове</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Език и дисплей</string>
     <string name="settings_appearance_app_language">Език на приложението</string>
     <string name="settings_appearance_app_language_current">Текущият език</string>
     <string name="settings_appearance_translations_info_title">Недостъпни или неполни преводи за някои езици</string>
     <string name="settings_appearance_translations_info_text">"За да преведете нови езици или да подобрите съществуващите преводи, посетете
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Мащаб на интерфейса</string>
+    <string name="settings_appearance_ui_scale_current">Текущ мащаб</string>
+    <string name="settings_appearance_ui_scale_description">Мащабира всичко в приложението, допълнително към системното увеличение на екрана и размера на шрифта</string>
     <string name="settings_appearance_ui_scale_preview_title">Примерна настройка</string>
     <string name="settings_appearance_ui_scale_preview_subtitle">Текст и контроли при този мащаб</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
@@ -1112,6 +1123,7 @@ morphe_header_custom_dark.png
     <string name="available">Достъпен</string>
     <string name="continue_">Toast</string>
     <string name="version">New downloader plugins available. Click here to configure them.</string>
+    <string name="clone">Клониране</string>
     <string name="patch">Пач</string>
     <string name="patching">Закърпване</string>
     <string name="patched">Пачвани</string>

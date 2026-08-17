@@ -595,7 +595,6 @@
     <string name="settings_appearance_pure_black">Svetlo crno</string>
     <string name="settings_appearance_pure_black_description">Користи праву црну позадину</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Језик и приказ</string>
     <string name="settings_appearance_app_language">Језик апликације</string>
     <string name="settings_appearance_app_language_current">Тренутна језика</string>
     <string name="settings_appearance_translations_info_title">Недостаје превода за неке језике</string>

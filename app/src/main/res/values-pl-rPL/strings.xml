@@ -539,6 +539,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patcher_heap_exhausted_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$d MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
     <string name="install_app_success">Zainstalowano pomyślnie</string>
     <string name="install_app_fail">Nie udało się zainstalować aplikacji: %s</string>
+    <string name="install_ignore_signature">Zainstaluj mimo to</string>
+    <string name="install_ignore_signature_description">Zachowuje dane aplikacji, ale działa tylko, jeśli moduł root wyłącza weryfikację podpisów Androida</string>
     <string name="uninstall_app_fail">Nie udało się odinstalować aplikacji: %s</string>
     <string name="uninstall_app_unverified">Pozostawiono bez zmian: Morphe nie mógł zweryfikować, czy zainstalowana aplikacja to wersja, którą zmodyfikował</string>
     <string name="launch_app_unverified">Morphe nie mógł zweryfikować, czy zainstalowana aplikacja to wersja, którą zmodyfikował</string>
@@ -609,9 +611,9 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">Skala interfejsu</string>
     <string name="settings_appearance_ui_scale_current">Bieżąca skala</string>
-    <string name="settings_appearance_ui_scale_description">Skaluje wszystkie elementy w aplikacji, dodatkowo do systemowego przybliżenia ekranu i rozmiaru czcionki</string>
+    <string name="settings_appearance_ui_scale_description">Skaluje wszystko w aplikacji, nakładając się na systemowe powiększenie ekranu i rozmiar czcionki</string>
     <string name="settings_appearance_ui_scale_preview_title">Przykładowe ustawienie</string>
-    <string name="settings_appearance_ui_scale_preview_subtitle">Tekst i elementy sterujące przy tej skali</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Tekst i elementy sterujące w tej skali</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Ekran główny</string>
     <string name="settings_appearance_greeting_phrases">Powitania</string>

@@ -306,6 +306,9 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="patch_option_enter_value">Cuir isteach luach</string>
     <string name="patch_option_enter_number">Cuir isteach uimhir</string>
     <string name="patch_option_enter_decimal">Cuir isteach deachúil</string>
+    <string name="patch_option_slider_edit">Cuir isteach luach cruinn</string>
+    <string name="patch_option_slider_range_start">Ó</string>
+    <string name="patch_option_slider_range_end">Chuig</string>
     <string name="patch_option_list_duplicate">Tá an luach seo ann cheana féin</string>
     <string name="patch_option_list_empty">Ní féidir luach a fhágáil folamh</string>
     <string name="patch_option_list_empty_state">Níl aon luachanna curtha leis fós</string>
@@ -409,6 +412,10 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_app_deleted_warning">Díshuiteáladh an aip</string>
     <string name="home_app_info_app_deleted_description">Díshuiteáladh an aip seo lasmuigh de Morphe. Athphaisteáil í chun feidhmiúlacht a athbhunú.</string>
     <string name="home_app_info_not_patched_description">Tá leagan neamhphaiste den aip seo suiteáilte. Tá taifead paiste roimhe seo Morphe fós.</string>
+    <string name="home_dialog_rename_title">Suiteálfaidh sé seo cóip</string>
+    <string name="home_dialog_rename_description">Tógálann na paistí roghnaithe an aip seo faoi ainm pacáiste dá gcuid féin, mar sin suiteálann an toradh taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú.</string>
+    <string name="home_dialog_rename_result_package">Suiteálfar mar</string>
+    <string name="home_dialog_rename_replaces">Tá cóip ann cheana féin a úsáideann an t-ainm sin agus atógfar í.</string>
     <string name="home_app_info_apk_size">Méid APK</string>
     <string name="home_app_info_cpu_arch">Ailtireacht LAP</string>
     <!-- Home Screen - Root Mode -->
@@ -531,6 +538,8 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patcher_heap_exhausted_message">Bhí an paisteálaí as cuimhne le carn %1$d MB. Tá an aip seo ró-mhór do na paistí roghnaithe. Bain triail as paisteáil le níos lú foinsí paiste, nó roghnaigh níos lú paistí</string>
     <string name="install_app_success">Suiteáilte go rathúil</string>
     <string name="install_app_fail">Theip ar aip a shuiteáil: %s</string>
+    <string name="install_ignore_signature">Suiteáil ar aon nós</string>
+    <string name="install_ignore_signature_description">Coinníonn sé sonraí an aip, ach ní oibríonn sé ach amháin má dhíchumasaíonn modúl fréimhe fíorú sínithe Android</string>
     <string name="uninstall_app_fail">Theip ar dhíshuiteáil an aip: %s</string>
     <string name="uninstall_app_unverified">Fágtha ina áit: Níorbh fhéidir le Morphe a fhíorú gurb é an aip suiteáilte an leagan a phaisteáladh</string>
     <string name="launch_app_unverified">Níorbh fhéidir le Morphe a fhíorú gurb é an aip suiteáilte an leagan a phaisteáladh</string>
@@ -592,15 +601,18 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_pure_black">Dubh Glan</string>
     <string name="settings_appearance_pure_black_description">Úsáideann sé cúlraí fíor-dhubha</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Teanga agus taispeántas</string>
+    <string name="settings_appearance_language_and_display">Teanga &amp; taispeáint</string>
     <string name="settings_appearance_app_language">Teanga an aip</string>
     <string name="settings_appearance_app_language_current">Teanga reatha</string>
     <string name="settings_appearance_translations_info_title">D’fhéadfadh aistriúcháin do roinnt teangacha a bheith ar iarraidh nó neamhiomlán</string>
     <string name="settings_appearance_translations_info_text">"Chun teangacha nua a aistriú nó na haistriúcháin atá ann cheana a fheabhsú, tabhair cuairt ar
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
-    <string name="settings_appearance_ui_scale_preview_title">Socruithe sampla</string>
-    <string name="settings_appearance_ui_scale_preview_subtitle">Téacs agus rialaithe ag an scál seo</string>
+    <string name="settings_appearance_ui_scale">Scála comhéadain</string>
+    <string name="settings_appearance_ui_scale_current">Scála reatha</string>
+    <string name="settings_appearance_ui_scale_description">Scálaíonn sé gach rud san aip, ar bharr súmáil scáileáin an chórais agus méid an chló.</string>
+    <string name="settings_appearance_ui_scale_preview_title">Suíomh samplach</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Téacs agus rialuithe ag an scála seo</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Home screen</string>
     <string name="settings_appearance_greeting_phrases">Frásaí beannachta</string>
@@ -1108,6 +1120,7 @@ Sonraí: %2$s"</string>
     <string name="available">Ar fáil</string>
     <string name="continue_">Lean ar aghaidh</string>
     <string name="version">Leagan</string>
+    <string name="clone">Clónáil</string>
     <string name="patch">Paiste</string>
     <string name="patching">Paisteáil</string>
     <string name="patched">Paisteáilte</string>

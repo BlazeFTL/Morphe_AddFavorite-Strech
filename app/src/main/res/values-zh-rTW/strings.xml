@@ -4,6 +4,7 @@
     <string name="home_other_apps">其他應用程式</string>
     <string name="home_not_patched_yet">尚未修補</string>
     <string name="home_unpatched_version_installed">已安裝未修補版本</string>
+    <string name="home_unpatched_badge">尚未修補</string>
     <string name="home_no_patches_available">沒有可用的修補程式</string>
     <string name="home_app_hide_title">要隱藏這個應用程式嗎？</string>
     <string name="home_app_hide_message">此應用程式將從主螢幕隱藏。您之後可以在 [隱藏的應用程式] 中，使用清單底部的按鈕將其還原</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">無法驗證已安裝應用程式的簽名，因此可能已經被篡改</string>
     <string name="home_unverified">未驗證</string>
     <string name="home_install_verification_pending">正在檢查安裝…</string>
+    <string name="home_app_info_install_unverified">Morphe 無法確認已安裝的應用程式是其修補過的版本。請從已儲存的 APK 重新修補或重新安裝，以還原其操作。</string>
     <string name="home_app_info_no_saved_apk">沒有已儲存的 APK。修補時需要再次選取 APK 檔案</string>
     <string name="home_version_requires_android">需要 Android %s 以上版本</string>
     <string name="home_apk_no_compatible_versions_title">此裝置不支援</string>
@@ -230,6 +232,7 @@
     <string name="home_select_apk_title">選取 APK</string>
     <string name="home_select_any_apk_description">選取任何應用程式的 APK 檔案，或選擇已安裝在本機上的應用程式</string>
     <string name="home_use_installed_app">使用已安裝的應用程式</string>
+    <string name="home_installed_app_picker_title">已安裝的應用程式</string>
     <string name="home_installed_app_picker_empty">找不到應用程式</string>
     <string name="home_installed_app_picker_filter_all">所有應用程式</string>
     <string name="home_installed_app_picker_filter_user">僅限使用者應用程式</string>
@@ -303,6 +306,9 @@
     <string name="patch_option_enter_value">輸入值</string>
     <string name="patch_option_enter_number">輸入數字</string>
     <string name="patch_option_enter_decimal">輸入小數</string>
+    <string name="patch_option_slider_edit">輸入精確數值</string>
+    <string name="patch_option_slider_range_start">從</string>
+    <string name="patch_option_slider_range_end">至</string>
     <string name="patch_option_list_duplicate">此值已存在</string>
     <string name="patch_option_list_empty">值不能為空</string>
     <string name="patch_option_list_empty_state">尚未新增任何值</string>
@@ -390,6 +396,7 @@
     <string name="home_app_info_delete_preservation_note">您的修補程式選擇和選項將被保留，以供未來修補使用</string>
     <string name="home_app_info_patches_name_default">修補程式</string>
     <string name="home_app_info_patches_name_fallback">未命名</string>
+    <string name="home_app_info_patches_source_removed">已刪除修補來源</string>
     <string name="home_app_info_patches_replace_fail">無法匯入修補程式：%s</string>
     <string name="home_app_info_repatch_no_original_apk">找不到原始 APK。無法重新修補此應用程式</string>
     <string name="home_app_info_original_package_name">原始套件名稱</string>
@@ -405,6 +412,10 @@
     <string name="home_app_info_app_deleted_warning">應用程式已解除安裝</string>
     <string name="home_app_info_app_deleted_description">此應用程式已在 Morphe 外部被解除安裝。重新修補以還原功能</string>
     <string name="home_app_info_not_patched_description">已安裝此應用程式的未修補版本。Morphe 仍保留其先前的修補記錄。</string>
+    <string name="home_dialog_rename_title">這將安裝一個副本</string>
+    <string name="home_dialog_rename_description">所選的修補會以它們自己的套件名稱建置此應用程式，因此結果會與&lt;b&gt;%s&lt;/b&gt;並行安裝，而不是更新它。</string>
+    <string name="home_dialog_rename_result_package">將安裝為</string>
+    <string name="home_dialog_rename_replaces">已有副本使用該名稱，將重新建置</string>
     <string name="home_app_info_apk_size">APK 大小</string>
     <string name="home_app_info_cpu_arch">CPU 架构</string>
     <!-- Home Screen - Root Mode -->
@@ -527,6 +538,8 @@
     <string name="patcher_heap_exhausted_message">修補程式在堆積大小為 %1$d MB 時記憶體不足。此應用程式對所選的修補程式而言過大。請嘗試使用較少的修補程式來源進行修補，或選擇較少的修補程式。</string>
     <string name="install_app_success">安裝成功</string>
     <string name="install_app_fail">無法安裝應用程式：%s</string>
+    <string name="install_ignore_signature">仍要安裝</string>
+    <string name="install_ignore_signature_description">保留應用程式資料，但僅在 root 模組停用 Android 的簽章驗證時有效</string>
     <string name="uninstall_app_fail">無法解除安裝應用程式：%s</string>
     <string name="uninstall_app_unverified">保留在原地：Morphe 無法驗證安裝的應用程式是它所修補的版本。</string>
     <string name="launch_app_unverified">Morphe 無法驗證安裝的應用程式是它所修補的版本。</string>
@@ -588,11 +601,17 @@
     <string name="settings_appearance_pure_black">純黑</string>
     <string name="settings_appearance_pure_black_description">使用純黑背景</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">語言與顯示</string>
     <string name="settings_appearance_app_language">應用程式語言</string>
     <string name="settings_appearance_app_language_current">目前語言</string>
     <string name="settings_appearance_translations_info_title">某些語言的翻譯可能遺失或不完整</string>
     <string name="settings_appearance_translations_info_text">"若要翻譯新語言或改善現有翻譯，請造訪 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">介面縮放</string>
+    <string name="settings_appearance_ui_scale_current">目前縮放</string>
+    <string name="settings_appearance_ui_scale_description">縮放應用程式中的所有內容，在系統螢幕縮放和字型大小之上</string>
+    <string name="settings_appearance_ui_scale_preview_title">範例設定</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">此縮放下的文字和控制項</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">主螢幕</string>
     <string name="settings_appearance_greeting_phrases">問候語</string>
@@ -920,6 +939,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">刪除選取的 APK？</string>
     <string name="settings_system_apks_delete_selected_confirm">這將永久刪除選取的 APK 檔案</string>
     <string name="settings_system_apks_deleted_all">APK 刪除成功</string>
+    <string name="settings_system_apks_delete_failed">部分APK檔案無法刪除</string>
     <string name="settings_system_apks_export_zip_success">已匯出的 APK</string>
     <string name="settings_system_apks_export_zip_failed">匯出選取的 APK 失敗</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1033,6 +1053,7 @@ morphe_header_custom_dark.png
     <string name="filter">過濾</string>
     <string name="reset">重設</string>
     <string name="reset_all">重設全部</string>
+    <string name="apply">套用</string>
     <string name="confirm">確認</string>
     <string name="warning">警告</string>
     <string name="error_">錯誤</string>
@@ -1098,6 +1119,7 @@ morphe_header_custom_dark.png
     <string name="available">可用</string>
     <string name="continue_">繼續</string>
     <string name="version">版本</string>
+    <string name="clone">複製</string>
     <string name="patch">修補</string>
     <string name="patching">修補中</string>
     <string name="patched">修補時間</string>

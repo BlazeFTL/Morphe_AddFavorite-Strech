@@ -413,9 +413,9 @@
     <string name="home_app_info_app_deleted_description">이 앱은 Morphe 외부에서 제거되었습니다. 기능을 복원하려면 다시 패치하세요</string>
     <string name="home_app_info_not_patched_description">이 앱의 패치되지 않은 버전이 설치되어 있습니다. Morphe는 여전히 이전 패치 기록을 보유하고 있습니다</string>
     <string name="home_dialog_rename_title">복사본이 설치됩니다</string>
-    <string name="home_dialog_rename_description">선택된 패치가 자체 패키지명으로 이 앱을 빌드하므로, 기존 앱을 업데이트하는 대신 &lt;b&gt;%s&lt;/b&gt;와 함께 별도로 설치됩니다</string>
+    <string name="home_dialog_rename_description">선택된 패치는 이 앱을 사용자가 설정한 패키지명으로 빌드하므로, 기존 앱을 업데이트하는 것이 아니라 &lt;b&gt;%s&lt;/b&gt;와 함께 별도로 설치됩니다</string>
     <string name="home_dialog_rename_result_package">다음 패키지명으로 설치됩니다</string>
-    <string name="home_dialog_rename_replaces">이미 해당 이름을 사용하는 복사본이 있으며, 다시 빌드됩니다</string>
+    <string name="home_dialog_rename_replaces">이미 해당 패키지명을 사용하는 복사본이 있으므로 다시 빌드됩니다</string>
     <string name="home_app_info_apk_size">APK 크기</string>
     <string name="home_app_info_cpu_arch">CPU 아키텍처</string>
     <!-- Home Screen - Root Mode -->
@@ -609,7 +609,7 @@
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">인터페이스 배율</string>
     <string name="settings_appearance_ui_scale_current">현재 배율</string>
-    <string name="settings_appearance_ui_scale_description">시스템 화면 확대/축소 및 글꼴 크기 설정에 더해 앱의 모든 요소 크기를 조절할 수 있습니다</string>
+    <string name="settings_appearance_ui_scale_description">시스템 화면 확대/축소 및 글꼴 크기 외에도 앱의 모든 요소 크기를 조절할 수 있습니다</string>
     <string name="settings_appearance_ui_scale_preview_title">설정 예시</string>
     <string name="settings_appearance_ui_scale_preview_subtitle">이 배율에서의 텍스트 및 컨트롤</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->

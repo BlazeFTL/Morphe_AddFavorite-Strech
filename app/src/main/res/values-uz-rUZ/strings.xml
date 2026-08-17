@@ -524,6 +524,7 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="patcher_heap_exhausted_message">Patcherda %1$d MB hajmli xotira tugadi. Bu ilova tanlangan patchlar uchun juda katta. Kamroq patch manbalari bilan patchlashni urinib ko‘ring yoki kamroq patchlarni tanlang.</string>
     <string name="install_app_success">O‘rnatish muvaffaqiyatli yakunlandi</string>
     <string name="install_app_fail">Ilovni o‘rnatishda xatolik: %s</string>
+    <string name="install_ignore_signature">Bari bir o\'rnatish</string>
     <string name="uninstall_app_fail">Ilova o\'rnatishda xatolik: %s</string>
     <string name="uninstall_app_unverified">Joyida qoldirildi: Morphe o\'rnatilgan ilova u yamagan build ekanligini tasdiqlay olmadi.</string>
     <string name="launch_app_unverified">Morphe o\'rnatilgan ilova u yamagan build ekanligini tasdiqlay olmadi.</string>

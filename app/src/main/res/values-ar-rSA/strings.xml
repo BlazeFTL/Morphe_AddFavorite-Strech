@@ -542,6 +542,8 @@
 </string>
     <string name="install_app_success">تم التثبيت بنجاح</string>
     <string name="install_app_fail">فشل تثبيت التطبيق: %s</string>
+    <string name="install_ignore_signature">التثبيت على أي حال</string>
+    <string name="install_ignore_signature_description">يحتفظ ببيانات التطبيق، ولكنه يعمل فقط إذا قامت وحدة Root بتعطيل التحقق من التوقيع في نظام Android</string>
     <string name="uninstall_app_fail">فشل إلغاء تثبيت التطبيق: %s</string>
     <string name="uninstall_app_unverified">متبقٍ في مكانه: لم يتمكن Morphe من التحقق من أن التطبيق المثبت هو الإصدار الذي قام بتعديله</string>
     <string name="launch_app_unverified">لم يتمكن Morphe من التحقق من أن التطبيق المثبت هو الإصدار الذي قام بتعديله</string>
@@ -603,7 +605,7 @@
     <string name="settings_appearance_pure_black">اسود نقي</string>
     <string name="settings_appearance_pure_black_description">استخدام خلفيات سوداء حقيقية</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">اللغة والعرض</string>
+    <string name="settings_appearance_language_and_display">اللغة &amp; العرض</string>
     <string name="settings_appearance_app_language">لغة التطبيق</string>
     <string name="settings_appearance_app_language_current">اللغة الحالية</string>
     <string name="settings_appearance_translations_info_title">قد تكون ترجمات بعض اللغات مفقودة أو غير مكتملة</string>
@@ -611,7 +613,10 @@
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">مقياس الواجهة</string>
+    <string name="settings_appearance_ui_scale_current">المقياس الحالي</string>
+    <string name="settings_appearance_ui_scale_description">يُغيّر حجم كل شيء في التطبيق، بالإضافة إلى إعدادات تكبير الشاشة وحجم الخط الخاصة بالنظام</string>
     <string name="settings_appearance_ui_scale_preview_title">إعداد تجريبي</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">النص وعناصر التحكم بهذا المقياس</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">الشاشة الرئيسية</string>
     <string name="settings_appearance_greeting_phrases">عبارات الترحيب</string>

@@ -415,7 +415,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
 </string>
     <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
     <string name="home_dialog_rename_title">Cela installera une copie</string>
-    <string name="home_dialog_rename_description">Les patchs sélectionnés compilent cette application sous leur propre nom de paquet, de sorte que le résultat s’installe à côté de &lt;b&gt;%s&lt;/b&gt; au lieu de le mettre à jour</string>
+    <string name="home_dialog_rename_description">Les patchs sélectionnés compilent cette application sous leur propre nom de paquet, de sorte que le résultat s\'installe à côté de &lt;b&gt;%s&lt;/b&gt; au lieu de le mettre à jour</string>
     <string name="home_dialog_rename_result_package">Sera installé en tant que</string>
     <string name="home_dialog_rename_replaces">Une copie utilise déjà ce nom et sera reconstruite</string>
     <string name="home_app_info_apk_size">Taille de l\'APK</string>
@@ -541,7 +541,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="install_app_success">Installé avec succès</string>
     <string name="install_app_fail">Impossible d\'installer l\'application : %s</string>
     <string name="install_ignore_signature">Installer quand même</string>
-    <string name="install_ignore_signature_description">Conserve les données de l\'application, mais ne fonctionne que si un module root désactive la vérification de la signature d\'Android</string>
+    <string name="install_ignore_signature_description">Conserve les données de l\'application, mais ne fonctionne que si un module root désactive la vérification de signature d\'Android</string>
     <string name="uninstall_app_fail">Échec de la désinstallation de l\'application : %s</string>
     <string name="uninstall_app_unverified">Laissé en place : Morphe n\'a pas pu vérifier que l\'application installée correspond à la version qu\'il a patchée</string>
     <string name="launch_app_unverified">Morphe n\'a pas pu vérifier que l\'application installée correspond bien à la version qu\'il a patchée</string>
@@ -603,7 +603,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_pure_black">Noir pur</string>
     <string name="settings_appearance_pure_black_description">Utilise des fonds véritablement noirs</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Langue et affichage</string>
+    <string name="settings_appearance_language_and_display">Langue &amp; affichage</string>
     <string name="settings_appearance_app_language">Langue de l\'application</string>
     <string name="settings_appearance_app_language_current">Langue actuelle</string>
     <string name="settings_appearance_translations_info_title">Certaines traductions peuvent être manquantes ou incomplètes</string>
@@ -612,7 +612,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <!-- Settings - Appearance Tab - Interface Scale -->
     <string name="settings_appearance_ui_scale">Échelle de l\'interface</string>
     <string name="settings_appearance_ui_scale_current">Échelle actuelle</string>
-    <string name="settings_appearance_ui_scale_description">Redimensionne tout dans l\'application, en complément du zoom de l\'écran et de la taille de la police du système</string>
+    <string name="settings_appearance_ui_scale_description">Met à l\'échelle tous les éléments de l\'application, en plus du zoom de l\'écran et de la taille de police du système</string>
     <string name="settings_appearance_ui_scale_preview_title">Paramètre d\'exemple</string>
     <string name="settings_appearance_ui_scale_preview_subtitle">Texte et commandes à cette échelle</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
@@ -947,7 +947,7 @@ Détails : %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Supprimer les APK sélectionnés ?</string>
     <string name="settings_system_apks_delete_selected_confirm">Cela supprimera définitivement les fichiers APK sélectionnés</string>
     <string name="settings_system_apks_deleted_all">Les APK ont été supprimés avec succès</string>
-    <string name="settings_system_apks_delete_failed">Certains fichiers APK n’ont pas pu être supprimés</string>
+    <string name="settings_system_apks_delete_failed">Certains fichiers APK n\'ont pas pu être supprimés</string>
     <string name="settings_system_apks_export_zip_success">Les APK sélectionnés ont été exportés</string>
     <string name="settings_system_apks_export_zip_failed">Échec de l\'exportation des APK sélectionnés</string>
     <!-- Settings - System Tab - Storage Management screen -->

@@ -539,6 +539,8 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="patcher_heap_exhausted_message">O aplicador de patch ficou sem memória com um heap de %1$d MB. Este aplicativo é grande demais para os patches selecionados. Tente aplicar o patch com menos fontes ou selecione menos patches</string>
     <string name="install_app_success">Instalado com sucesso</string>
     <string name="install_app_fail">Falha ao instalar o aplicativo: %s</string>
+    <string name="install_ignore_signature">Instalar mesmo assim</string>
+    <string name="install_ignore_signature_description">Mantém os dados do aplicativo, mas só funciona se um módulo root desativar a verificação de assinatura do Android</string>
     <string name="uninstall_app_fail">Falha ao desinstalar o aplicativo: %s</string>
     <string name="uninstall_app_unverified">Mantido no lugar: O Morphe não pôde verificar que o aplicativo instalado é a versão que ele aplicou o patch</string>
     <string name="launch_app_unverified">O Morphe não pôde verificar que o aplicativo instalado é a versão que ele aplicacou o patch.</string>
@@ -600,12 +602,18 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="settings_appearance_pure_black">Preto Puro</string>
     <string name="settings_appearance_pure_black_description">Usa fundos pretos verdadeiros</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Idioma e exibição</string>
     <string name="settings_appearance_app_language">Idioma do aplicativo</string>
     <string name="settings_appearance_app_language_current">Idioma atual</string>
     <string name="settings_appearance_translations_info_title">As traduções para alguns idiomas podem estar ausentes ou incompletas</string>
     <string name="settings_appearance_translations_info_text">"Para traduzir novos idiomas ou melhorar as traduções existentes, visite
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Escala da interface</string>
+    <string name="settings_appearance_ui_scale_current">Escala atual</string>
+    <string name="settings_appearance_ui_scale_description">Redimensiona tudo no aplicativo, além do zoom da tela e do tamanho da fonte do sistema</string>
+    <string name="settings_appearance_ui_scale_preview_title">Exemplo de configuração</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Texto e controles nesta escala</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Tela inicial</string>
     <string name="settings_appearance_greeting_phrases">Frases de saudação</string>
@@ -1049,6 +1057,7 @@ Detalhes: %2$s"</string>
     <string name="filter">Filtrar</string>
     <string name="reset">Resetar</string>
     <string name="reset_all">Redefinir tudo</string>
+    <string name="apply">Aplicar</string>
     <string name="confirm">Confirmar</string>
     <string name="warning">Atenção</string>
     <string name="error_">Erro</string>

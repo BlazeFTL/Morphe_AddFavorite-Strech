@@ -413,6 +413,9 @@
     <string name="home_app_info_app_deleted_description">Это приложение было удалено вне устройства Morphe. Переустановите его, чтобы восстановить работоспособность.</string>
     <string name="home_app_info_not_patched_description">Установлена непатченная версия этого приложения. Morphe по-прежнему имеет свою предыдущую запись о патче.</string>
     <string name="home_dialog_rename_title">Будет установлена копия</string>
+    <string name="home_dialog_rename_description">Выбранные патчи собирают это приложение под собственным именем пакета, поэтому результат будет установлен рядом с &lt;b&gt;%s&lt;/b&gt; вместо его обновления</string>
+    <string name="home_dialog_rename_result_package">Будет установлено как</string>
+    <string name="home_dialog_rename_replaces">Копия уже использует это имя и будет пересобрана</string>
     <string name="home_app_info_apk_size">Размер APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процессора</string>
     <!-- Home Screen - Root Mode -->
@@ -535,6 +538,8 @@
     <string name="patcher_heap_exhausted_message">Патчеру не хватило памяти при куче размером %1$d МБ. Это приложение слишком велико для выбранных патчей. Попробуйте использовать меньше источников патчей или выберите меньше патчей.</string>
     <string name="install_app_success">Успешно установлено</string>
     <string name="install_app_fail">Не удалось установить приложение: %s</string>
+    <string name="install_ignore_signature">Установить в любом случае</string>
+    <string name="install_ignore_signature_description">Сохраняет данные приложения, но работает только в том случае, если root-модуль отключает проверку подписи Android</string>
     <string name="uninstall_app_fail">Не удалось удалить приложение: %s</string>
     <string name="uninstall_app_unverified">Оставлено на месте: Morphe не удалось проверить, что установленное приложение является сборкой, которую он пропатчил.</string>
     <string name="launch_app_unverified">Morphe не удалось проверить, что установленное приложение является сборкой, которую он пропатчил.</string>
@@ -596,7 +601,7 @@
     <string name="settings_appearance_pure_black">Чисто черный</string>
     <string name="settings_appearance_pure_black_description">Использует настоящие черные фоны</string>
     <!-- Settings - Appearance Tab - Language Selector -->
-    <string name="settings_appearance_language_and_display">Язык и отображение</string>
+    <string name="settings_appearance_language_and_display">Язык и экран</string>
     <string name="settings_appearance_app_language">Язык приложения</string>
     <string name="settings_appearance_app_language_current">Текущий язык</string>
     <string name="settings_appearance_translations_info_title">Переводы для некоторых языков могут отсутствовать или быть неполными</string>
@@ -1115,6 +1120,7 @@ morphe_header_custom_dark.png
     <string name="available">Доступно</string>
     <string name="continue_">Продолжить</string>
     <string name="version">Версия</string>
+    <string name="clone">Клонировать</string>
     <string name="patch">Патч</string>
     <string name="patching">Патчинг</string>
     <string name="patched">Пропатчен</string>

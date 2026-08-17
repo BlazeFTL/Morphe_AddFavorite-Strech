@@ -4,6 +4,7 @@
     <string name="home_other_apps">其他应用</string>
     <string name="home_not_patched_yet">尚未修补</string>
     <string name="home_unpatched_version_installed">已安装未修补版本</string>
+    <string name="home_unpatched_badge">未修补</string>
     <string name="home_no_patches_available">没有可用的补丁</string>
     <string name="home_app_hide_title">隐藏此应用？</string>
     <string name="home_app_hide_message">此应用将从主屏幕隐藏。您可以使用列表底部的按钮稍后从隐藏的应用中恢复它。</string>
@@ -194,6 +195,7 @@
     <string name="home_unverified">未验证</string>
     <string name="home_install_verification_pending">正在检查安装...
 </string>
+    <string name="home_app_info_install_unverified">Morphe 无法确认已安装的应用是它修补的构建版本。请从保存的 APK 重新修补或重新安装以恢复其操作。</string>
     <string name="home_app_info_no_saved_apk">没有已保存的 APK 文件, 需要重新选择 APK 文件进行修补</string>
     <string name="home_version_requires_android">需要 Android %s+。</string>
     <string name="home_apk_no_compatible_versions_title">不支持此设备</string>
@@ -305,6 +307,9 @@
     <string name="patch_option_enter_value">输入值</string>
     <string name="patch_option_enter_number">输入数字</string>
     <string name="patch_option_enter_decimal">输入小数</string>
+    <string name="patch_option_slider_edit">输入精确值</string>
+    <string name="patch_option_slider_range_start">从</string>
+    <string name="patch_option_slider_range_end">至</string>
     <string name="patch_option_list_duplicate">此值已存在</string>
     <string name="patch_option_list_empty">值不能为空</string>
     <string name="patch_option_list_empty_state">尚未添加任何值</string>
@@ -408,6 +413,10 @@
     <string name="home_app_info_app_deleted_warning">应用已卸载</string>
     <string name="home_app_info_app_deleted_description">此应用已在 Morphe 外卸载。重新安装以恢复功能</string>
     <string name="home_app_info_not_patched_description">此应用安装的是未修补版本。Morphe仍保留其先前的补丁记录。</string>
+    <string name="home_dialog_rename_title">这将安装一个副本。</string>
+    <string name="home_dialog_rename_description">所选补丁会以自己的包名构建此应用，因此结果将安装在与 &lt;b&gt;%s&lt;/b&gt; 并列的位置，而不是更新它。</string>
+    <string name="home_dialog_rename_result_package">将安装为</string>
+    <string name="home_dialog_rename_replaces">已有副本使用该名称，将被重新构建。</string>
     <string name="home_app_info_apk_size">APK大小</string>
     <string name="home_app_info_cpu_arch">CPU 架构</string>
     <!-- Home Screen - Root Mode -->
@@ -530,6 +539,8 @@
     <string name="patcher_heap_exhausted_message">补丁程序在堆内存为 %1$d MB 时内存不足。此应用对于所选补丁来说太大。请尝试使用更少的补丁源进行修补，或选择更少的补丁。</string>
     <string name="install_app_success">安装成功</string>
     <string name="install_app_fail">应用安装失败：%s</string>
+    <string name="install_ignore_signature">仍然安装</string>
+    <string name="install_ignore_signature_description">保留应用数据，但仅在根模块禁用 Android 的签名验证时才有效。</string>
     <string name="uninstall_app_fail">卸载应用失败：%s</string>
     <string name="uninstall_app_unverified">保留：Morphe 无法验证已安装的应用是它修补的构建。</string>
     <string name="launch_app_unverified">Morphe 无法验证已安装的应用是它修补的构建。</string>
@@ -591,12 +602,18 @@
     <string name="settings_appearance_pure_black">纯黑</string>
     <string name="settings_appearance_pure_black_description">使用真正的黑色背景</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">语言 &amp; 显示</string>
     <string name="settings_appearance_app_language">应用语言</string>
     <string name="settings_appearance_app_language_current">当前语言</string>
     <string name="settings_appearance_translations_info_title">某些语言的翻译可能缺失或不完整</string>
     <string name="settings_appearance_translations_info_text">"要翻译新的语言或改进现有的翻译，请访问
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">界面缩放</string>
+    <string name="settings_appearance_ui_scale_current">当前缩放</string>
+    <string name="settings_appearance_ui_scale_description">缩放应用中的所有内容，叠加在系统屏幕缩放和字体大小之上。</string>
+    <string name="settings_appearance_ui_scale_preview_title">示例设置</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">此比例下的文本和控件</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">主屏幕</string>
     <string name="settings_appearance_greeting_phrases">问候语</string>
@@ -1106,6 +1123,7 @@ morphe_header_custom_dark.png
     <string name="available">可用</string>
     <string name="continue_">继续</string>
     <string name="version">版本</string>
+    <string name="clone">克隆</string>
     <string name="patch">修补</string>
     <string name="patching">正在修补</string>
     <string name="patched">已修补</string>

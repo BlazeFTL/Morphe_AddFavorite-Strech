@@ -307,6 +307,9 @@
     <string name="patch_option_enter_value">הזן ערך</string>
     <string name="patch_option_enter_number">הזן מספר</string>
     <string name="patch_option_enter_decimal">הזן ספרתי</string>
+    <string name="patch_option_slider_edit">הזן ערך מדויק</string>
+    <string name="patch_option_slider_range_start">מ-</string>
+    <string name="patch_option_slider_range_end">עד</string>
     <string name="patch_option_list_duplicate">ערך זה כבר קיים</string>
     <string name="patch_option_list_empty">ערך לא יכול להיות ריק</string>
     <string name="patch_option_list_empty_state">עדיין לא נוספו ערכים</string>
@@ -410,6 +413,10 @@
     <string name="home_app_info_app_deleted_warning">האפליקציה הוסרה</string>
     <string name="home_app_info_app_deleted_description">האפליקציה הוסרה מחוץ ל-Morphe. התאם כדי לשחזר את הפונקציונליות</string>
     <string name="home_app_info_not_patched_description">מותקנת גרסה לא מתוקנת של אפליקציה זו. ל-Morphe עדיין יש רשומת תיקון קודמת.</string>
+    <string name="home_dialog_rename_title">פעולה זו תתקין עותק</string>
+    <string name="home_dialog_rename_description">התיקונים הנבחרים בונים את האפליקציה הזו תחת שם חבילה משלהם, לכן התוצאה תותקן לצד &lt;b&gt;%s&lt;/b&gt; במקום לעדכן אותה</string>
+    <string name="home_dialog_rename_result_package">יותקן כ-</string>
+    <string name="home_dialog_rename_replaces">עותק כבר משתמש בשם זה וייבנה מחדש</string>
     <string name="home_app_info_apk_size">גודל APK</string>
     <string name="home_app_info_cpu_arch">ארכיטקטורת מעבד</string>
     <!-- Home Screen - Root Mode -->
@@ -532,6 +539,8 @@
     <string name="patcher_heap_exhausted_message">למתקן נגמר הזיכרון עם ערימת %1$d מגה-בייט. האפליקציה הזו גדולה מדי עבור התיקונים שנבחרו. נסה לתקן עם פחות מקורות תיקון, או בחר פחות תיקונים.</string>
     <string name="install_app_success">הותקן בהצלחה</string>
     <string name="install_app_fail">נכשל להתקין את האפליקציה: %s</string>
+    <string name="install_ignore_signature">התקן בכל זאת</string>
+    <string name="install_ignore_signature_description">שומר על נתוני האפליקציה, אך עובד רק אם מודול root מבטל את אימות החתימה של Android</string>
     <string name="uninstall_app_fail">נכשלה הסרת האפליקציה: %s</string>
     <string name="uninstall_app_unverified">הושאר במקום: Morphe לא יכלה לאמת שהאפליקציה המותקנת היא הגרסה שתיקנה.</string>
     <string name="launch_app_unverified">Morphe לא יכלה לאמת שהאפליקציה המותקנת היא הגרסה שתיקנה.</string>
@@ -1124,6 +1133,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="available">זמין</string>
     <string name="continue_">המשך</string>
     <string name="version">גרסה</string>
+    <string name="clone">שכפול</string>
     <string name="patch">תיקון</string>
     <string name="patching">מתקן</string>
     <string name="patched">מתוקנות</string>

@@ -584,6 +584,20 @@ fun MainAppsSection(
 
     val isSourceCategoryView = appGrouping == HomeAppCategoryViewMode.SOURCES
 
+    // The footer slot stays reserved until the bar has finished sliding out. The bar is anchored
+    // to the bottom of a column that wraps its content, so releasing the space the moment the
+    // mode flips shortens that column and throws the still-sliding bar up over the last card
+    val footerBarVisible = state.isFooterBarVisible
+    var isFooterSlotReserved by remember { mutableStateOf(footerBarVisible) }
+    LaunchedEffect(footerBarVisible) {
+        if (footerBarVisible) {
+            isFooterSlotReserved = true
+        } else {
+            delay(Defaults.ANIMATION_DURATION.milliseconds)
+            isFooterSlotReserved = false
+        }
+    }
+
     // Back gesture/button cancels multi-select instead of navigating back
     BackHandler(enabled = state.isMultiSelectMode) { state.exitMultiSelect() }
 
@@ -1139,14 +1153,14 @@ fun MainAppsSection(
                         ) {
                             // Cached so the LazyColumn doesn't allocate a new PaddingValues on
                             // every recomposition (which can be per-frame under scroll)
-                            val listContentPadding = remember(horizontalPadding, itemSpacing, state.isFooterBarVisible) {
+                            val listContentPadding = remember(horizontalPadding, itemSpacing, isFooterSlotReserved) {
                                 PaddingValues(
                                     start = horizontalPadding,
                                     end = horizontalPadding,
                                     // Extra bottom padding so cards aren't hidden behind the action bar
                                     // MultiSelectBar surface height (100dp) minus bar's own
                                     // 8dp top padding, plus itemSpacing for consistent card gap
-                                    bottom = if (state.isFooterBarVisible) 92.dp + itemSpacing else 0.dp
+                                    bottom = if (isFooterSlotReserved) 92.dp + itemSpacing else 0.dp
                                 )
                             }
                             val listArrangement = remember(itemSpacing, isGroupedAppView) {
@@ -1299,13 +1313,13 @@ fun MainAppsSection(
                                 listState = listState,
                                 alphabetTargets = scrollTargets,
                                 alphabetMode = alphabetScrollMode,
-                                extraBottomPadding = if (state.isFooterBarVisible) 96.dp else 0.dp
+                                extraBottomPadding = if (isFooterSlotReserved) 96.dp else 0.dp
                             )
 
                             // Lift extra space for the MultiSelectBar when it's visible
                             ScrollToTopButton(
                                 listState = listState,
-                                extraBottomPadding = if (state.isFooterBarVisible) 96.dp else 0.dp
+                                extraBottomPadding = if (isFooterSlotReserved) 96.dp else 0.dp
                             )
                         }
 

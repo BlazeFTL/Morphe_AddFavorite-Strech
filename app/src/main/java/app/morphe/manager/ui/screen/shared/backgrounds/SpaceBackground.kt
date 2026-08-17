@@ -27,6 +27,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Animated space background with stars moving towards the viewer (warp-style perspective).
@@ -49,8 +50,7 @@ fun SpaceBackground(
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
         sensitivity = 0.3f,
-        context = context,
-        coroutineScope = coroutineScope
+        context = context
     )
 
     val stars = remember(isDarkTheme) {
@@ -125,7 +125,7 @@ fun SpaceBackground(
     val meteorProgress = remember { Animatable(0f) }
     LaunchedEffect(Unit) {
         while (true) {
-            delay(Random.nextLong(40000, 60000))
+            delay(Random.nextLong(40000, 60000).milliseconds)
             val direction = Random.nextInt(2)
             val angle = when (direction) {
                 0    -> 130f + Random.nextFloat() * 20f // Right to left

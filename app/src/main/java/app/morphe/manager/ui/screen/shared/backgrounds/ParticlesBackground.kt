@@ -44,8 +44,7 @@ fun ParticlesBackground(
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
         sensitivity = 0.2f,
-        context = context,
-        coroutineScope = coroutineScope
+        context = context
     )
 
     // Particle state - mutable so physics loop can update positions each frame

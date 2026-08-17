@@ -12,11 +12,18 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.compose.animation.core.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+// Tilt shifts the artwork by about a dozen pixels at full range, so smaller steps land under a pixel
+private const val TILT_TARGET_THRESHOLD = 0.02f
 
 /**
  * Runs [frameLoop] for as long as the host stays resumed and cancels it the moment it is not.
@@ -95,29 +102,43 @@ data class ParallaxState(
 fun rememberParallaxState(
     enableParallax: Boolean,
     sensitivity: Float = 0.3f,
-    context: Context,
-    coroutineScope: CoroutineScope
+    context: Context
 ): ParallaxState {
     val smoothTiltX = remember { Animatable(0f) }
     val smoothTiltY = remember { Animatable(0f) }
+    val tiltTarget = remember { MutableStateFlow(Offset.Zero) }
 
-    var baselineX by remember { mutableFloatStateOf(0f) }
-    var baselineY by remember { mutableFloatStateOf(0f) }
-    var isCalibrated by remember { mutableStateOf(false) }
-
-    // Reset when parallax is toggled
+    // A single pair of springs chases the latest target. Starting a fresh pair per sensor event
+    // meant a hundred coroutines a second, each cancelling the spring the one before had just begun.
     LaunchedEffect(enableParallax) {
         if (!enableParallax) {
+            tiltTarget.value = Offset.Zero
             smoothTiltX.snapTo(0f)
             smoothTiltY.snapTo(0f)
-            isCalibrated = false
-            baselineX = 0f
-            baselineY = 0f
-        } else {
-            // Reset calibration when enabling
-            isCalibrated = false
-            baselineX = 0f
-            baselineY = 0f
+            return@LaunchedEffect
+        }
+
+        tiltTarget.collectLatest { target ->
+            coroutineScope {
+                launch {
+                    smoothTiltX.animateTo(
+                        targetValue = target.x,
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioMediumBouncy,
+                            stiffness = Spring.StiffnessLow
+                        )
+                    )
+                }
+                launch {
+                    smoothTiltY.animateTo(
+                        targetValue = target.y,
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioMediumBouncy,
+                            stiffness = Spring.StiffnessLow
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -132,6 +153,11 @@ fun rememberParallaxState(
             ?: // No accelerometer available
             return@DisposableEffect onDispose { }
 
+        // Calibration belongs to one registration, so the baseline resets with the listener itself
+        var baselineX = 0f
+        var baselineY = 0f
+        var isCalibrated = false
+
         val listener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent) {
                 if (!isCalibrated) {
@@ -142,34 +168,23 @@ fun rememberParallaxState(
 
                 val rawTiltX = event.values[0] - baselineX
                 val rawTiltY = -(event.values[1] - baselineY)
+                val target = Offset(rawTiltX * sensitivity, rawTiltY * sensitivity)
 
-                coroutineScope.launch {
-                    smoothTiltX.animateTo(
-                        targetValue = rawTiltX * sensitivity,
-                        animationSpec = spring(
-                            dampingRatio = Spring.DampingRatioMediumBouncy,
-                            stiffness = Spring.StiffnessLow
-                        )
-                    )
-                }
-                coroutineScope.launch {
-                    smoothTiltY.animateTo(
-                        targetValue = rawTiltY * sensitivity,
-                        animationSpec = spring(
-                            dampingRatio = Spring.DampingRatioMediumBouncy,
-                            stiffness = Spring.StiffnessLow
-                        )
-                    )
+                // Sensor noise alone would retarget the springs forever, keeping the frame clock
+                // awake even with the device flat on a table
+                if ((target - tiltTarget.value).getDistance() > TILT_TARGET_THRESHOLD) {
+                    tiltTarget.value = target
                 }
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
         }
 
+        // The spring does the smoothing, so a faster stream only produces targets it never reaches
         sensorManager.registerListener(
             listener,
             accelerometer,
-            SensorManager.SENSOR_DELAY_GAME
+            SensorManager.SENSOR_DELAY_UI
         )
 
         onDispose {

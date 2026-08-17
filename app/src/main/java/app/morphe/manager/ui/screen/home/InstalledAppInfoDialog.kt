@@ -22,6 +22,7 @@ import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -1547,14 +1548,24 @@ private fun ActionButton(
     modifier: Modifier = Modifier,
     vertical: Boolean = false
 ) {
+    val isEnabled = action.enabled && !action.isLoading
+    val interactionSource = remember { MutableInteractionSource() }
+
     Surface(
         onClick = action.onClick,
-        enabled = action.enabled && !action.isLoading,
-        modifier = modifier.height(Defaults.TallTouchTarget),
+        enabled = isEnabled,
+        modifier = modifier
+            .height(Defaults.TallTouchTarget)
+            .pressScale(
+                interactionSource = interactionSource,
+                enabled = isEnabled,
+                label = "info_action_press_scale"
+            ),
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         color = containerColor,
         contentColor = contentColor,
-        border = BorderStroke(1.dp, borderColor)
+        border = BorderStroke(1.dp, borderColor),
+        interactionSource = interactionSource
     ) {
         if (vertical) {
             Column(

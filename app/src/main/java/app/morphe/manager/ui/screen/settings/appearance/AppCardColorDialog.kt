@@ -117,6 +117,13 @@ fun AppCardColorDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_appearance_app_card_colors),
+        titleTrailingContent = {
+            TitleAction(
+                icon = Icons.Outlined.Restore,
+                contentDescription = stringResource(R.string.reset),
+                onClick = resetDraft
+            )
+        },
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -133,10 +140,7 @@ fun AppCardColorDialog(
                             draftSolidColorHex
                         )
                         onDismiss()
-                    },
-                    secondaryText = stringResource(R.string.reset),
-                    onSecondaryClick = resetDraft,
-                    secondaryIcon = Icons.Outlined.Restore
+                    }
                 )
 
                 AppDialogOutlinedButton(

@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Застосунки, які ви ще не пропатчили в Morphe</string>
     <string name="home_app_filter_installed_description">Застосунки, наразі встановлені на цьому пристрої</string>
     <string name="home_app_filter_uninstalled_description">Застосунки, пропатчені за допомогою Morphe, яких більше немає на цьому пристрої</string>
+    <string name="home_app_filter_clones">Клони</string>
+    <string name="home_app_filter_clones_description">Застосунки, створені під власною назвою пакета, встановлені поруч з оригіналом</string>
     <string name="home_app_sort_manual_description">Натисніть та утримуйте на картці застосунку, потім натисніть кнопку зміни порядку</string>
     <string name="home_app_sort_recommended">Рекомендований порядок</string>
     <string name="home_app_sort_recommended_description">Спочатку встановлені та закріплені застосунки</string>
@@ -413,10 +415,10 @@
     <string name="home_app_info_app_deleted_warning">Застосунок було видалено</string>
     <string name="home_app_info_app_deleted_description">Це застосунок було видалено поза менеджером Morphe. Перепатчіть його, щоб відновити функціональність</string>
     <string name="home_app_info_not_patched_description">Встановлено непропатчену версію цього застосунку. Morphe все ще має попередній запис про патчинг</string>
-    <string name="home_dialog_rename_title">Це встановить копію</string>
-    <string name="home_dialog_rename_description">Вибрані патчі створюють цей застосунок під власною назвою пакета, тому результат встановлюється поруч із &lt;b&gt;%s&lt;/b&gt; замість оновлення</string>
-    <string name="home_dialog_rename_result_package">Буде встановлено як</string>
-    <string name="home_dialog_rename_replaces">Копія з цією назвою вже існує і буде перебудована</string>
+    <string name="patcher_rename_title">Це встановить клон</string>
+    <string name="patcher_rename_description">Патчі створили цей застосунок під власною назвою пакета, тому встановлення додає клон поруч із &lt;b&gt;%s&lt;/b&gt; замість оновлення</string>
+    <string name="patcher_rename_result_package">Буде встановлено як</string>
+    <string name="patcher_rename_replaces">Застосунок із цією назвою вже встановлено, і він буде замінений</string>
     <string name="home_app_info_apk_size">Розмір APK</string>
     <string name="home_app_info_cpu_arch">Архітектура процесора</string>
     <!-- Home Screen - Root Mode -->

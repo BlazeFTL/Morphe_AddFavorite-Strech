@@ -412,10 +412,6 @@
     <string name="home_app_info_app_deleted_warning">एप्लिकेशन उन्मोदन किया गया</string>
     <string name="home_app_info_app_deleted_description">इस ऐप को बाहर से उन्मोदन किया गया था। मॉर्फी में पुनः स्थापित करें कार्यक्षमता पुनः प्राप्त करने के लिए</string>
     <string name="home_app_info_not_patched_description">इस ऐप का एक अनपैच्ड संस्करण स्थापित है। Morphe के पास अभी भी उसका पिछला पैच रिकॉर्ड है</string>
-    <string name="home_dialog_rename_title">यह एक प्रति स्थापित करेगा</string>
-    <string name="home_dialog_rename_description">चयनित पैच इस ऐप को उनके अपने पैकेज नाम के तहत बनाते हैं, इसलिए परिणाम इसे अपडेट करने के बजाय &lt;b&gt;%s&lt;/b&gt; के साथ स्थापित होता है</string>
-    <string name="home_dialog_rename_result_package">इस रूप में स्थापित होगा</string>
-    <string name="home_dialog_rename_replaces">एक प्रति पहले से उस नाम का उपयोग करती है और इसे फिर से बनाया जाएगा</string>
     <string name="home_app_info_apk_size">APK आकार</string>
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->

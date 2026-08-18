@@ -413,10 +413,9 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="home_app_info_app_deleted_warning">Sovellus poistettiin</string>
     <string name="home_app_info_app_deleted_description">Tämä sovellus poistettiin Morphen ulkopuolelta. Muokkaa sitä uudelleen palauttaaksesi toiminnot</string>
     <string name="home_app_info_not_patched_description">Tästä sovelluksesta on asennettu korjaamaton versio. Morphella on edelleen aiempi korjaustietue.</string>
-    <string name="home_dialog_rename_title">Tämä asentaa kopion</string>
-    <string name="home_dialog_rename_description">Valitut korjaukset rakentavat tämän sovelluksen omalla paketinimellään, joten tulos asennetaan &lt;b&gt;%s&lt;/b&gt; -sovelluksen rinnalle sen päivittämisen sijaan.</string>
-    <string name="home_dialog_rename_result_package">Asennetaan nimellä</string>
-    <string name="home_dialog_rename_replaces">Kopio käyttää jo tätä nimeä, ja se rakennetaan uudelleen</string>
+    <string name="patcher_rename_title">Tämä asentaa kloonin</string>
+    <string name="patcher_rename_description">Laastarit rakensivat tämän sovelluksen omalla pakettinimellään, joten sen asentaminen lisää kloonin &lt;b&gt;%s&lt;/b&gt; rinnalle päivittämisen sijaan</string>
+    <string name="patcher_rename_result_package">Asennetaan nimellä</string>
     <string name="home_app_info_apk_size">APK:n koko</string>
     <string name="home_app_info_cpu_arch">Suorittimen arkkitehtuuri</string>
     <!-- Home Screen - Root Mode -->

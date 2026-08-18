@@ -412,10 +412,7 @@
     <string name="home_app_info_app_deleted_warning">แอปถูกถอนการติดตั้ง</string>
     <string name="home_app_info_app_deleted_description">แอปนี้ถูกลบออกนอก Morphe. แพตช์อีกครั้งเพื่อฟื้นฟูฟังก์ชัน</string>
     <string name="home_app_info_not_patched_description">แอปเวอร์ชันที่ไม่ได้รับการแพตช์ถูกติดตั้งไว้ Morphe ยังคงมีบันทึกแพตช์ก่อนหน้า</string>
-    <string name="home_dialog_rename_title">การดำเนินการนี้จะติดตั้งสำเนาใหม่</string>
-    <string name="home_dialog_rename_description">แพตช์ที่เลือกจะสร้างแอปนี้ภายใต้ชื่อแพ็คเกจของตนเอง ดังนั้นผลลัพธ์จะติดตั้งควบคู่ไปกับ &lt;b&gt;%s&lt;/b&gt; แทนที่จะอัปเดต</string>
-    <string name="home_dialog_rename_result_package">จะติดตั้งเป็น</string>
-    <string name="home_dialog_rename_replaces">สำเนาใช้ชื่อนั้นแล้วและจะถูกสร้างขึ้นใหม่</string>
+    <string name="patcher_rename_result_package">จะติดตั้งเป็น</string>
     <string name="home_app_info_apk_size">ขนาด APK</string>
     <string name="home_app_info_cpu_arch">สถาปัตยกรรม CPU</string>
     <!-- Home Screen - Root Mode -->

@@ -412,10 +412,6 @@ Chekka hudud (chizikli): launcher niqobi tomonidan kesilishi mumkin - muhim tafs
     <string name="home_app_info_app_deleted_warning">Ilova o\'rnatilmagan</string>
     <string name="home_app_info_app_deleted_description">Ushbu ilova Morphe tashqarisida o\'rnatilmagan. Funksiyalarni qayta tiklash uchun patchlang</string>
     <string name="home_app_info_not_patched_description">Ushbu ilovaning patch qilinmagan versiyasi oʻrnatilgan. Morphe hali ham avvalgi patch yozuviga ega.</string>
-    <string name="home_dialog_rename_title">Bu nusxani oʻrnatadi</string>
-    <string name="home_dialog_rename_description">Tanlangan patchlar bu ilovani oʻz paket nomi ostida quradi, shuning uchun natija &lt;b&gt;%s&lt;/b&gt; bilan birga oʻrnatiladi, uni yangilash oʻrniga.</string>
-    <string name="home_dialog_rename_result_package">Oʻrnatiladi</string>
-    <string name="home_dialog_rename_replaces">Bu nomdan allaqachon nusxa foydalanadi va qayta quriladi</string>
     <string name="home_app_info_apk_size">APK hajmi</string>
     <string name="home_app_info_cpu_arch">CPU arxitekturasi</string>
     <!-- Home Screen - Root Mode -->

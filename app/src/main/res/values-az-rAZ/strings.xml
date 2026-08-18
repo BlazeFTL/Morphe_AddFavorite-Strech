@@ -412,10 +412,7 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="home_app_info_app_deleted_warning">Tətbiq quraşdırması silindi</string>
     <string name="home_app_info_app_deleted_description">Bu tətbiq Morphe xarici silindi. Funksionallığı qaytarmaq üçün onu təkrar quraşdır</string>
     <string name="home_app_info_not_patched_description">Bu tətbiqin yamaqlanmamış versiyası quraşdırılıb. Morphe-də hələ də əvvəlki yamaq qeydi qalır</string>
-    <string name="home_dialog_rename_title">Bu nüsxəni quraşdıracaq</string>
-    <string name="home_dialog_rename_description">Seçilmiş yamaqlar bu tətbiqi öz paket adı altında qurur, ona görə də nəticə onu yeniləmək əvəzinə &lt;b&gt;%s&lt;/b&gt; ilə birlikdə quraşdırılır</string>
-    <string name="home_dialog_rename_result_package">Bu adla quraşdırılacaq</string>
-    <string name="home_dialog_rename_replaces">Bir nüsxə artıq həmin adı istifadə edir və yenidən qurulacaq</string>
+    <string name="patcher_rename_result_package">Bu adla quraşdırılacaq</string>
     <string name="home_app_info_apk_size">APK həcmi</string>
     <string name="home_app_info_cpu_arch">CPU quruluşu</string>
     <!-- Home Screen - Root Mode -->

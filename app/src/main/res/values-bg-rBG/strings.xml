@@ -413,10 +413,9 @@
     <string name="home_app_info_app_deleted_warning">Приложението беше деинсталирано</string>
     <string name="home_app_info_app_deleted_description">Това приложение беше деинсталирано извън Morphe. Поправете го отново, за да възстановите функционалността</string>
     <string name="home_app_info_not_patched_description">Инсталирана е версия без пачове на това приложение. Morphe все още има своя предишен запис за пач</string>
-    <string name="home_dialog_rename_title">Това ще инсталира копие</string>
-    <string name="home_dialog_rename_description">Избраните пачове изграждат това приложение под собствено име на пакет, така че резултатът се инсталира успоредно с &lt;b&gt;%s&lt;/b&gt; вместо да го актуализира</string>
-    <string name="home_dialog_rename_result_package">Ще се инсталира като</string>
-    <string name="home_dialog_rename_replaces">Копие вече използва това име и ще бъде изградено повторно</string>
+    <string name="patcher_rename_title">Това ще инсталира клонинг</string>
+    <string name="patcher_rename_description">Пачовете изградиха това приложение под собствено име на пакет, така че инсталирането му добавя клонинг до &lt;b&gt;%s&lt;/b&gt;, вместо да го актуализира</string>
+    <string name="patcher_rename_result_package">Ще се инсталира като</string>
     <string name="home_app_info_apk_size">Размер на APK</string>
     <string name="home_app_info_cpu_arch">CPU архитектура</string>
     <!-- Home Screen - Root Mode -->

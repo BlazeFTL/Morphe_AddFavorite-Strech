@@ -410,10 +410,6 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_app_deleted_warning">App var afhent</string>
     <string name="home_app_info_app_deleted_description">Þetta app var afhent utan Morphe. Endurpakkalaðu það til að endurheimta virkni</string>
     <string name="home_app_info_not_patched_description">Óplötuð útgáfa af þessu forriti er uppsett. Morphe hefur enn fyrri plástursskrá sína</string>
-    <string name="home_dialog_rename_title">Þetta mun uppsetja afrit</string>
-    <string name="home_dialog_rename_description">Valnuðu plöstrarnir byggja þessa forrit undir eigin pakkanafni, svo niðurstaðan uppsetist saman með &lt;b&gt;%s&lt;/b&gt; í stað þess að uppfæra það</string>
-    <string name="home_dialog_rename_result_package">Verður sett upp sem</string>
-    <string name="home_dialog_rename_replaces">Afrit notar það nafn þegar og mun vera endurbygð</string>
     <string name="home_app_info_apk_size">APK stærð</string>
     <string name="home_app_info_cpu_arch">CPU arkitektúr</string>
     <!-- Home Screen - Root Mode -->

@@ -410,10 +410,6 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="home_app_info_app_deleted_warning">App hate laşkirin</string>
     <string name="home_app_info_app_deleted_description">Epp li derve ji Morphe hate laşkirin. Serpêş pêlavînê da serê ku serê bi sist ki.</string>
     <string name="home_app_info_not_patched_description">Versiyoneka ne-patchkirî ya vê aplikasyonê hatîn sazkirin. Morphe hîna tomarê patchê yê berê yê xweye</string>
-    <string name="home_dialog_rename_title">Ev dê kopekê instalação bike</string>
-    <string name="home_dialog_rename_description">Patchên hilbijartî vê sepanê di bin navê pakêtê ya xwe de ava dikin, ji ber vê yekê encam li kêleka &lt;b&gt;%s&lt;/b&gt; tê sazkirin li şûna ku ew nûve bike.</string>
-    <string name="home_dialog_rename_result_package">Dê wekî were sazkirin</string>
-    <string name="home_dialog_rename_replaces">Kopiyek jixwe vî navî bi kar tîne û dê ji nû ve were avakirin.</string>
     <string name="home_app_info_apk_size">Mezinahiya APK\'yê</string>
     <string name="home_app_info_cpu_arch">mîmarîya CPU</string>
     <!-- Home Screen - Root Mode -->

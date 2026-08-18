@@ -45,6 +45,7 @@
     <string name="home_app_filter_not_patched_description">아직 Morphe에서 패치하지 않은 앱</string>
     <string name="home_app_filter_installed_description">현재 이 기기에 설치된 앱</string>
     <string name="home_app_filter_uninstalled_description">Morphe로 패치되었지만 더 이상 이 기기에 없는 앱</string>
+    <string name="home_app_filter_clones">복제본</string>
     <string name="home_app_sort_manual_description">앱을 길게 탭한 후에 정렬 버튼을 탭하면 순서를 변경할 수 있습니다</string>
     <string name="home_app_sort_recommended">권장 순서</string>
     <string name="home_app_sort_recommended_description">설치된 앱 및 고정된 앱을 먼저 표시</string>
@@ -412,10 +413,10 @@
     <string name="home_app_info_app_deleted_warning">앱이 제거되었습니다</string>
     <string name="home_app_info_app_deleted_description">이 앱은 Morphe 외부에서 제거되었습니다. 기능을 복원하려면 다시 패치하세요</string>
     <string name="home_app_info_not_patched_description">이 앱의 패치되지 않은 버전이 설치되어 있습니다. Morphe는 여전히 이전 패치 기록을 보유하고 있습니다</string>
-    <string name="home_dialog_rename_title">복사본이 설치됩니다</string>
-    <string name="home_dialog_rename_description">선택된 패치는 이 앱을 사용자가 설정한 패키지명으로 빌드하므로, 기존 앱을 업데이트하는 것이 아니라 &lt;b&gt;%s&lt;/b&gt;와 함께 별도로 설치됩니다</string>
-    <string name="home_dialog_rename_result_package">다음 패키지명으로 설치됩니다</string>
-    <string name="home_dialog_rename_replaces">이미 해당 패키지명을 사용하는 복사본이 있으므로 다시 빌드됩니다</string>
+    <string name="patcher_rename_title">복제본이 설치됩니다</string>
+    <string name="patcher_rename_description">이 패치는 이 앱을 사용자가 설정한 자체 패키지명으로 빌드하므로, 설치하면 &lt;b&gt;%s&lt;/b&gt;를 업데이트하는 것이 아니라 그 옆에 복제본이 추가됩니다</string>
+    <string name="patcher_rename_result_package">다음 패키지명으로 설치됩니다</string>
+    <string name="patcher_rename_replaces">해당 이름으로 이미 앱이 설치되어 있으며, 기존 앱은 교체됩니다</string>
     <string name="home_app_info_apk_size">APK 크기</string>
     <string name="home_app_info_cpu_arch">CPU 아키텍처</string>
     <!-- Home Screen - Root Mode -->

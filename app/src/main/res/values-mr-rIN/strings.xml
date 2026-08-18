@@ -411,10 +411,6 @@
     <string name="home_app_info_app_deleted_warning">ॲप अनइंस्टॉल केले होते</string>
     <string name="home_app_info_app_deleted_description">हे ॲप Morphe बाहेर अनइंस्टॉल केले गेले होते. कार्यक्षमता पुनर्संचयित करण्यासाठी ते पुन्हा पॅच करा</string>
     <string name="home_app_info_not_patched_description">या अॅपची अनपॅच केलेली आवृत्ती स्थापित आहे. Morphe कडे अजूनही त्याचा मागील पॅच रेकॉर्ड आहे.</string>
-    <string name="home_dialog_rename_title">हे एक प्रत स्थापित करेल</string>
-    <string name="home_dialog_rename_description">निवडलेले पॅच हे ॲप त्यांच्या स्वतःच्या पॅकेज नावाखाली बांधतात, त्यामुळे परिणाम ते अपडेट करण्याऐवजी &lt;b&gt;%s&lt;/b&gt; च्या शेजारी स्थापित होतो.</string>
-    <string name="home_dialog_rename_result_package">याप्रमाणे स्थापित होईल</string>
-    <string name="home_dialog_rename_replaces">एक प्रत आधीच ते नाव वापरते आणि ती पुन्हा बांधली जाईल</string>
     <string name="home_app_info_apk_size">APK आकार</string>
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->

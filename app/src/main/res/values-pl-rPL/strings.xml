@@ -413,10 +413,7 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_app_deleted_warning">Aplikacja została odinstalowana</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacja została odinstalowana poza Morphe. Zmodyfikuj ją ponownie, aby przywrócić jej funkcjonalność</string>
     <string name="home_app_info_not_patched_description">Zainstalowano niezmodyfikowaną wersję tej aplikacji. Morphe wciąż posiada zapis jej poprzedniej modyfikacji</string>
-    <string name="home_dialog_rename_title">To zainstaluje kopię</string>
-    <string name="home_dialog_rename_description">Wybrane modyfikacje budują tę aplikację pod własną nazwą pakietu, więc wynik zainstaluje się obok &lt;b&gt;%s&lt;/b&gt; zamiast ją aktualizować</string>
-    <string name="home_dialog_rename_result_package">Zainstaluje się jako</string>
-    <string name="home_dialog_rename_replaces">Kopia już używa tej nazwy i zostanie przebudowana</string>
+    <string name="patcher_rename_result_package">Zainstaluje się jako</string>
     <string name="home_app_info_apk_size">Rozmiar pliku APK</string>
     <string name="home_app_info_cpu_arch">Architektura procesora</string>
     <!-- Home Screen - Root Mode -->

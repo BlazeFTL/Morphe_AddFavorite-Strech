@@ -412,10 +412,6 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nezakrpana verzija ove aplikacije. Morphe i dalje ima svoj prethodni zapis o zakrpi</string>
-    <string name="home_dialog_rename_title">Ovo će instalirati kopiju</string>
-    <string name="home_dialog_rename_description">Izabrane zakrpe grade ovu aplikaciju pod sopstvenim imenom paketa, tako da se rezultat instalira pored &lt;b&gt;%s&lt;/b&gt; umesto da je ažurira</string>
-    <string name="home_dialog_rename_result_package">Instaliraće se kao</string>
-    <string name="home_dialog_rename_replaces">Kopija već koristi to ime i biće ponovo izgrađena</string>
     <string name="home_app_info_apk_size">Veličina APK-a</string>
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->

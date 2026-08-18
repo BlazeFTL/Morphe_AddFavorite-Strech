@@ -412,10 +412,6 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="home_app_info_app_deleted_warning">Appen blev fjernet</string>
     <string name="home_app_info_app_deleted_description">Denne app blev fjernet udenfor Morphe. Repatch den for at gendanne funktionalitet</string>
     <string name="home_app_info_not_patched_description">En upatchet version af denne app er installeret. Morphe har stadig sin tidligere patch-registrering</string>
-    <string name="home_dialog_rename_title">Dette vil installere en kopi</string>
-    <string name="home_dialog_rename_description">De valgte patches bygger denne app under et pakkenavn, der er deres eget, så resultatet installeres ved siden af &lt;b&gt;%s&lt;/b&gt; i stedet for at opdatere den</string>
-    <string name="home_dialog_rename_result_package">Installerer som</string>
-    <string name="home_dialog_rename_replaces">En kopi bruger allerede dette navn og vil blive genopbygget</string>
     <string name="home_app_info_apk_size">APK-størrelse</string>
     <string name="home_app_info_cpu_arch">CPU-arkitektur</string>
     <!-- Home Screen - Root Mode -->

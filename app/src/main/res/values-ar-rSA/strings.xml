@@ -412,10 +412,9 @@
     <string name="home_app_info_app_deleted_warning">التطبيق غير مثبت</string>
     <string name="home_app_info_app_deleted_description">تم إلغاء تثبيت هذا التطبيق من خارج Morphe. اعد تعديله لاستعادة الوظائف</string>
     <string name="home_app_info_not_patched_description">تم تثبيت إصدار غير معدل من هذا التطبيق. لا يزال Morphe يحتفظ بسجل التعديل السابق</string>
-    <string name="home_dialog_rename_title">سيؤدي هذا إلى تثبيت نسخة</string>
-    <string name="home_dialog_rename_description">التعديلات المحددة تقوم ببناء هذا التطبيق باستخدام اسم حزمة خاص بها، لذا يتم تثبيته إلى جانب &lt;b&gt;%s&lt;/b&gt; بدلًا من تحديثه</string>
-    <string name="home_dialog_rename_result_package">سيتم التثبيت كـ</string>
-    <string name="home_dialog_rename_replaces">توجد نسخة تستخدم هذا الاسم بالفعل وسيتم إعادة بنائها</string>
+    <string name="patcher_rename_title">سيؤدي هذا إلى تثبيت نسخة</string>
+    <string name="patcher_rename_description">قامت التعديلات ببناء هذا التطبيق باستخدام اسم حزمة خاص بها، لذا فإن تثبيته يضيف نسخة مطابقة إلى جانب &lt;b&gt;%s&lt;/b&gt; بدلًا من تحديثه</string>
+    <string name="patcher_rename_result_package">سيتم التثبيت كـ</string>
     <string name="home_app_info_apk_size">حجم ملف APK</string>
     <string name="home_app_info_cpu_arch">معمارية المعالج</string>
     <!-- Home Screen - Root Mode -->

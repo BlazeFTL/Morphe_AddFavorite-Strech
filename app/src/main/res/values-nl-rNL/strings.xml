@@ -412,10 +412,9 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="home_app_info_app_deleted_warning">App was verwijderd</string>
     <string name="home_app_info_app_deleted_description">Deze app is buiten Morphe verwijderd. Installeer de patch om de functionaliteit te herstellen</string>
     <string name="home_app_info_not_patched_description">Er is een niet-gepatchte versie van deze app geïnstalleerd. Morphe heeft nog steeds zijn eerdere patchrecord.</string>
-    <string name="home_dialog_rename_title">Dit installeert een kopie</string>
-    <string name="home_dialog_rename_description">De geselecteerde patches bouwen deze app onder een eigen pakketnaam, dus het resultaat wordt naast &lt;b&gt;%s&lt;/b&gt; geïnstalleerd in plaats van het bij te werken.</string>
-    <string name="home_dialog_rename_result_package">Wordt geïnstalleerd als</string>
-    <string name="home_dialog_rename_replaces">Een kopie gebruikt al die naam en wordt opnieuw opgebouwd</string>
+    <string name="patcher_rename_title">Dit zal een kloon installeren</string>
+    <string name="patcher_rename_description">De patches hebben deze app gebouwd onder een eigen pakketnaam, dus het installeren voegt een kloon toe naast <b>%s</b> in plaats van het bij te werken</string>
+    <string name="patcher_rename_result_package">Zal installeren als</string>
     <string name="home_app_info_apk_size">APK-grootte</string>
     <string name="home_app_info_cpu_arch">CPU-architectuur</string>
     <!-- Home Screen - Root Mode -->

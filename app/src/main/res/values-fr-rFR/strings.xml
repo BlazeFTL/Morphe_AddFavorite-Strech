@@ -414,10 +414,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_app_deleted_description">Cette application a été désinstallée en dehors de Morphe. Re-patchez-la pour restaurer les fonctionnalités
 </string>
     <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
-    <string name="home_dialog_rename_title">Cela installera une copie</string>
-    <string name="home_dialog_rename_description">Les patchs sélectionnés compilent cette application sous leur propre nom de paquet, de sorte que le résultat s\'installe à côté de &lt;b&gt;%s&lt;/b&gt; au lieu de le mettre à jour</string>
-    <string name="home_dialog_rename_result_package">Sera installé en tant que</string>
-    <string name="home_dialog_rename_replaces">Une copie utilise déjà ce nom et sera reconstruite</string>
+    <string name="patcher_rename_result_package">Sera installé en tant que</string>
     <string name="home_app_info_apk_size">Taille de l\'APK</string>
     <string name="home_app_info_cpu_arch">Architecture du CPU</string>
     <!-- Home Screen - Root Mode -->

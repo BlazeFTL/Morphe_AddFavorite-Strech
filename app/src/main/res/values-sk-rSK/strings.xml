@@ -412,10 +412,6 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="home_app_info_app_deleted_warning">Aplikácia bola odinštalovaná</string>
     <string name="home_app_info_app_deleted_description">Táto aplikácia bola odinštalovaná mimo Morphe. Znovu ju zaplátajte aby ste obnovili jej funkčnosť</string>
     <string name="home_app_info_not_patched_description">Nainštalovaná je nezapatchovaná verzia tejto aplikácie. Morphe má stále svoj predchádzajúci záznam o oprave</string>
-    <string name="home_dialog_rename_title">Týmto sa nainštaluje kópiou</string>
-    <string name="home_dialog_rename_description">Vybrané patche vytvoria túto aplikáciu pod vlastným názvom balíka, takže výsledok sa nainštaluje popri &lt;b&gt;%s&lt;/b&gt; namiesto jej aktualizácie.</string>
-    <string name="home_dialog_rename_result_package">Nainštaluje sa ako</string>
-    <string name="home_dialog_rename_replaces">Kópia už používa tento názov a bude znovu zostavená.</string>
     <string name="home_app_info_apk_size">Veľkosť APK</string>
     <string name="home_app_info_cpu_arch">Architektúra CPU</string>
     <!-- Home Screen - Root Mode -->

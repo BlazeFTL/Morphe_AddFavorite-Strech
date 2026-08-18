@@ -412,10 +412,9 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="home_app_info_app_deleted_warning">App is verwyder</string>
     <string name="home_app_info_app_deleted_description">Hierdie app is buite Morphe verwyder. Pleister dit weer om funksionaliteit te herstel</string>
     <string name="home_app_info_not_patched_description">\'n Ongepatchte weergawe van hierdie app is geïnstalleer. Morphe het steeds sy vorige pleisterrekord.</string>
-    <string name="home_dialog_rename_title">Dit sal \'n kopie installeer</string>
-    <string name="home_dialog_rename_description">Die geselekteerde patches bou hierdie toepassing onder \'n eie pakketnaam, sodat die resultaat langs &lt;b&gt;%s&lt;/b&gt; installeer in plaas van dit op te dateer.</string>
-    <string name="home_dialog_rename_result_package">Sal installeer as</string>
-    <string name="home_dialog_rename_replaces">\'n Kopie gebruik reeds daardie naam en sal herbou word</string>
+    <string name="patcher_rename_title">Dit sal \'n kloon installeer</string>
+    <string name="patcher_rename_description">Die patches het hierdie app onder \'n eie pakketnaam gebou, so die installering daarvan voeg \'n kloon langs &lt;b&gt;%s&lt;/b&gt; by in plaas daarvan om dit op te dateer</string>
+    <string name="patcher_rename_result_package">Sal installeer as</string>
     <string name="home_app_info_apk_size">APK-grootte</string>
     <string name="home_app_info_cpu_arch">Sentrale prosessorargitektuur</string>
     <!-- Home Screen - Root Mode -->

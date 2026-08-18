@@ -412,10 +412,9 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="home_app_info_app_deleted_warning">Aplikace byla odinstalována</string>
     <string name="home_app_info_app_deleted_description">Tuto aplikaci bylo odinstalováno mimo Morphe. Zápalte ji znovu, abyste obnovili funkčnost</string>
     <string name="home_app_info_not_patched_description">Je nainstalována neopatchovaná verze této aplikace. Morphe má stále svůj předchozí záznam o záplatě</string>
-    <string name="home_dialog_rename_title">Tímto se nainstaluje kopie</string>
-    <string name="home_dialog_rename_description">Vybrané patche sestavují tuto aplikaci pod vlastním názvem balíčku, takže výsledek se nainstaluje vedle &lt;b&gt;%s&lt;/b&gt; namísto její aktualizace</string>
-    <string name="home_dialog_rename_result_package">Bude nainstalováno jako</string>
-    <string name="home_dialog_rename_replaces">Kopie již používá tento název a bude znovu sestavena</string>
+    <string name="patcher_rename_title">Toto nainstaluje klon</string>
+    <string name="patcher_rename_description">Záplaty vytvořily tuto aplikaci pod vlastním názvem balíčku, takže instalace přidá klon vedle &lt;b&gt;%s&lt;/b&gt; místo aktualizace.</string>
+    <string name="patcher_rename_result_package">Nainstaluje se jako</string>
     <string name="home_app_info_apk_size">Velikost APK</string>
     <string name="home_app_info_cpu_arch">Architektura CPU</string>
     <!-- Home Screen - Root Mode -->

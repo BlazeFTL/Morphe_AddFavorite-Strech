@@ -412,10 +412,6 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="home_app_info_app_deleted_warning">Az alkalmazást eltávolították</string>
     <string name="home_app_info_app_deleted_description">Ezt az alkalmazást a Morphén kívül távolították el. Alkalmazd újra a módosításokat a működés helyreállításához.</string>
     <string name="home_app_info_not_patched_description">Az alkalmazás nem javított verziója van telepítve. A Morphe még mindig tartalmazza a korábbi javítási rekordját.</string>
-    <string name="home_dialog_rename_title">Ez egy példányt telepít</string>
-    <string name="home_dialog_rename_description">A kiválasztott javítások saját csomagnév alatt építik fel ezt az alkalmazást, így az eredmény a &lt;b&gt;%s&lt;/b&gt; mellett települ, ahelyett hogy frissítené azt.</string>
-    <string name="home_dialog_rename_result_package">Telepítés mint</string>
-    <string name="home_dialog_rename_replaces">Egy másolat már használja ezt a nevet, és újra lesz építve.</string>
     <string name="home_app_info_apk_size">APK méret</string>
     <string name="home_app_info_cpu_arch">CPU architektúra</string>
     <!-- Home Screen - Root Mode -->

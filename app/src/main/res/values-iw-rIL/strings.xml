@@ -413,10 +413,6 @@
     <string name="home_app_info_app_deleted_warning">האפליקציה הוסרה</string>
     <string name="home_app_info_app_deleted_description">האפליקציה הוסרה מחוץ ל-Morphe. התאם כדי לשחזר את הפונקציונליות</string>
     <string name="home_app_info_not_patched_description">מותקנת גרסה לא מתוקנת של אפליקציה זו. ל-Morphe עדיין יש רשומת תיקון קודמת.</string>
-    <string name="home_dialog_rename_title">פעולה זו תתקין עותק</string>
-    <string name="home_dialog_rename_description">התיקונים הנבחרים בונים את האפליקציה הזו תחת שם חבילה משלהם, לכן התוצאה תותקן לצד &lt;b&gt;%s&lt;/b&gt; במקום לעדכן אותה</string>
-    <string name="home_dialog_rename_result_package">יותקן כ-</string>
-    <string name="home_dialog_rename_replaces">עותק כבר משתמש בשם זה וייבנה מחדש</string>
     <string name="home_app_info_apk_size">גודל APK</string>
     <string name="home_app_info_cpu_arch">ארכיטקטורת מעבד</string>
     <!-- Home Screen - Root Mode -->

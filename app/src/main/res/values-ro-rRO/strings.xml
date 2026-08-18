@@ -412,10 +412,6 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_app_deleted_warning">Aplicația a fost dezinstalată</string>
     <string name="home_app_info_app_deleted_description">Această aplicație a fost dezinstalată în afara Morphe. Aplica-o din nou pentru a restabili funcționalitatea</string>
     <string name="home_app_info_not_patched_description">O versiune necorectată a acestei aplicații este instalată. Morphe încă are înregistrarea anterioară a corecțiilor sale.</string>
-    <string name="home_dialog_rename_title">Acest lucru va instala o copie</string>
-    <string name="home_dialog_rename_description">Patch-urile selectate construiesc această aplicație sub un nume de pachet propriu, astfel încât rezultatul se instalează alături de &lt;b&gt;%s&lt;/b&gt; în loc să o actualizeze. Câmpul este obligatoriu.</string>
-    <string name="home_dialog_rename_result_package">Se va instala ca</string>
-    <string name="home_dialog_rename_replaces">O copie folosește deja acest nume și va fi reconstruită</string>
     <string name="home_app_info_apk_size">Dimensiunea APK</string>
     <string name="home_app_info_cpu_arch">Arhitectura procesorului</string>
     <!-- Home Screen - Root Mode -->

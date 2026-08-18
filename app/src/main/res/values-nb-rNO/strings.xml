@@ -412,10 +412,6 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="home_app_info_app_deleted_warning">Appen ble avinstallert</string>
     <string name="home_app_info_app_deleted_description">Denne appen ble avinstallert utenfor Morphe. Patch den på nytt for å gjenopprette funksjonaliteten</string>
     <string name="home_app_info_not_patched_description">En uoppdatert versjon av denne appen er installert. Morphe har fortsatt sin tidligere patchregistrering</string>
-    <string name="home_dialog_rename_title">Dette vil installere en kopi</string>
-    <string name="home_dialog_rename_description">De valgte patchene bygger denne appen under et pakkenavn som er deres eget, så resultatet installeres ved siden av &lt;b&gt;%s&lt;/b&gt; i stedet for å oppdatere den.</string>
-    <string name="home_dialog_rename_result_package">Vil installere som</string>
-    <string name="home_dialog_rename_replaces">En kopi bruker allerede det navnet og vil bli bygget om.</string>
     <string name="home_app_info_apk_size">APK-størrelse</string>
     <string name="home_app_info_cpu_arch">CPU-arkitektur</string>
     <!-- Home Screen - Root Mode -->

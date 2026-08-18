@@ -412,10 +412,6 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="home_app_info_app_deleted_warning">Aplicaitvo desinstalado</string>
     <string name="home_app_info_app_deleted_description">Esse aplicativo foi desinstalado fora do Morphe. Refaça os patches para restaurar a funcionalidade</string>
     <string name="home_app_info_not_patched_description">Uma versão não patcheada deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
-    <string name="home_dialog_rename_title">Isso instalará uma cópia</string>
-    <string name="home_dialog_rename_description">Os patches selecionados compilam este app sob um nome de pacote próprio, portanto o resultado será instalado ao lado de &lt;b&gt;%s&lt;/b&gt; em vez de atualizá-lo</string>
-    <string name="home_dialog_rename_result_package">Será instalado como</string>
-    <string name="home_dialog_rename_replaces">Uma cópia já usa esse nome e será reconstruída</string>
     <string name="home_app_info_apk_size">Tamanho do APK</string>
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->

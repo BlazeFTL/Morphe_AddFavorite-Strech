@@ -413,10 +413,6 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="home_app_info_app_deleted_warning">L\'app è stata disinstallata</string>
     <string name="home_app_info_app_deleted_description">Questa app è stata disinstallata al di fuori di Morphe. Ripatchala per ripristinare la funzionalità</string>
     <string name="home_app_info_not_patched_description">Una versione non patchata di questa app è installata. Morphe ha ancora il suo record di patch precedente</string>
-    <string name="home_dialog_rename_title">Questo installerà una copia</string>
-    <string name="home_dialog_rename_description">Le patch selezionate compilano questa app con un nome di pacchetto proprio, quindi il risultato si installa accanto a &lt;b&gt;%s&lt;/b&gt; invece di aggiornarla.</string>
-    <string name="home_dialog_rename_result_package">Verrà installato come</string>
-    <string name="home_dialog_rename_replaces">Una copia usa già quel nome e verrà ricostruita</string>
     <string name="home_app_info_apk_size">Dimensione APK</string>
     <string name="home_app_info_cpu_arch">Architettura CPU</string>
     <!-- Home Screen - Root Mode -->

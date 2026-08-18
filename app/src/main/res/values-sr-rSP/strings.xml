@@ -412,10 +412,6 @@
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Инсталирана је незакрпљена верзија ове апликације. Morphe и даље има свој претходни запис о закрпама</string>
-    <string name="home_dialog_rename_title">Ово ће инсталирати копију</string>
-    <string name="home_dialog_rename_description">Одабране закрпе граде ову апликацију под сопственим именом пакета, па се резултат инсталира упоредо са &lt;b&gt;%s&lt;/b&gt; уместо да је ажурира</string>
-    <string name="home_dialog_rename_result_package">Инсталираће се као</string>
-    <string name="home_dialog_rename_replaces">Копија већ користи то име и биће поново направљена</string>
     <string name="home_app_info_apk_size">Величина APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процесора</string>
     <!-- Home Screen - Root Mode -->

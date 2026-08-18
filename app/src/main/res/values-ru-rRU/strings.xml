@@ -412,10 +412,6 @@
     <string name="home_app_info_app_deleted_warning">Приложение было удалено.</string>
     <string name="home_app_info_app_deleted_description">Это приложение было удалено вне устройства Morphe. Переустановите его, чтобы восстановить работоспособность.</string>
     <string name="home_app_info_not_patched_description">Установлена непатченная версия этого приложения. Morphe по-прежнему имеет свою предыдущую запись о патче.</string>
-    <string name="home_dialog_rename_title">Будет установлена копия</string>
-    <string name="home_dialog_rename_description">Выбранные патчи собирают это приложение под собственным именем пакета, поэтому результат будет установлен рядом с &lt;b&gt;%s&lt;/b&gt; вместо его обновления</string>
-    <string name="home_dialog_rename_result_package">Будет установлено как</string>
-    <string name="home_dialog_rename_replaces">Копия уже использует это имя и будет пересобрана</string>
     <string name="home_app_info_apk_size">Размер APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процессора</string>
     <!-- Home Screen - Root Mode -->
@@ -1120,7 +1116,7 @@ morphe_header_custom_dark.png
     <string name="available">Доступно</string>
     <string name="continue_">Продолжить</string>
     <string name="version">Версия</string>
-    <string name="clone">Клонировать</string>
+    <string name="clone">Клон</string>
     <string name="patch">Патч</string>
     <string name="patching">Патчинг</string>
     <string name="patched">Пропатчен</string>

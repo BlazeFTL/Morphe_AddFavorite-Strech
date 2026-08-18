@@ -412,10 +412,6 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="home_app_info_app_deleted_warning">Uygulama kaldırıldı</string>
     <string name="home_app_info_app_deleted_description">Bu uygulama Morphe dışından kaldırıldı. İşlevselliği geri getirmek için yeniden yamalayın</string>
     <string name="home_app_info_not_patched_description">Bu uygulamanın yamalanmamış bir sürümü yüklü. Morphe hâlâ önceki yama kaydına sahiptir</string>
-    <string name="home_dialog_rename_title">Bu işlem bir kopya yükleyecektir</string>
-    <string name="home_dialog_rename_description">Seçilen yamalar bu uygulamayı kendi paket adları altında oluşturur, bu nedenle sonuç &lt;b&gt;%s&lt;/b&gt; uygulamasını güncellemek yerine onun yanına yüklenir</string>
-    <string name="home_dialog_rename_result_package">Şu adla yüklenecek:</string>
-    <string name="home_dialog_rename_replaces">Bir kopya zaten bu adı kullanıyor ve yeniden oluşturulacak</string>
     <string name="home_app_info_apk_size">APK boyutu</string>
     <string name="home_app_info_cpu_arch">CPU mimarisi</string>
     <!-- Home Screen - Root Mode -->

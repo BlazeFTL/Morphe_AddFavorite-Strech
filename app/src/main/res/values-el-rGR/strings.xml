@@ -412,10 +412,6 @@
     <string name="home_app_info_app_deleted_warning">Η εφαρμογή έχει απεγκατασταθεί</string>
     <string name="home_app_info_app_deleted_description">Η εφαρμογή αυτή απεγκαταστάθηκε εκτός του Morphe. Τροποποιήστε την ξανά για την επαναφορά λειτουργικότητά της</string>
     <string name="home_app_info_not_patched_description">Μια μη ενημερωμένη έκδοση αυτής της εφαρμογής είναι εγκατεστημένη. Το Morphe εξακολουθεί να έχει το προηγούμενο αρχείο επιδιορθώσεων.</string>
-    <string name="home_dialog_rename_title">Αυτό θα εγκαταστήσει ένα αντίγραφο</string>
-    <string name="home_dialog_rename_description">Οι επιλεγμένες τροποποιήσεις δημιουργούν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, έτσι το αποτέλεσμα εγκαθίσταται δίπλα στο &lt;b&gt;%s&lt;/b&gt; αντί να την ενημερώνει</string>
-    <string name="home_dialog_rename_result_package">Θα εγκατασταθεί ως</string>
-    <string name="home_dialog_rename_replaces">Ένα αντίγραφο χρησιμοποιεί ήδη αυτό το όνομα και θα ανακατασκευαστεί</string>
     <string name="home_app_info_apk_size">Μέγεθος APK</string>
     <string name="home_app_info_cpu_arch">Αρχιτεκτονική CPU</string>
     <!-- Home Screen - Root Mode -->

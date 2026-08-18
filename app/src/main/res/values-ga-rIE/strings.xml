@@ -412,10 +412,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_app_deleted_warning">Díshuiteáladh an aip</string>
     <string name="home_app_info_app_deleted_description">Díshuiteáladh an aip seo lasmuigh de Morphe. Athphaisteáil í chun feidhmiúlacht a athbhunú.</string>
     <string name="home_app_info_not_patched_description">Tá leagan neamhphaiste den aip seo suiteáilte. Tá taifead paiste roimhe seo Morphe fós.</string>
-    <string name="home_dialog_rename_title">Suiteálfaidh sé seo cóip</string>
-    <string name="home_dialog_rename_description">Tógálann na paistí roghnaithe an aip seo faoi ainm pacáiste dá gcuid féin, mar sin suiteálann an toradh taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú.</string>
-    <string name="home_dialog_rename_result_package">Suiteálfar mar</string>
-    <string name="home_dialog_rename_replaces">Tá cóip ann cheana féin a úsáideann an t-ainm sin agus atógfar í.</string>
+    <string name="patcher_rename_result_package">Suiteálfar mar</string>
     <string name="home_app_info_apk_size">Méid APK</string>
     <string name="home_app_info_cpu_arch">Ailtireacht LAP</string>
     <!-- Home Screen - Root Mode -->

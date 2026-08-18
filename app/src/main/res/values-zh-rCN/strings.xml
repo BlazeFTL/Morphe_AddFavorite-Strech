@@ -413,10 +413,6 @@
     <string name="home_app_info_app_deleted_warning">应用已卸载</string>
     <string name="home_app_info_app_deleted_description">此应用已在 Morphe 外卸载。重新安装以恢复功能</string>
     <string name="home_app_info_not_patched_description">此应用安装的是未修补版本。Morphe仍保留其先前的补丁记录。</string>
-    <string name="home_dialog_rename_title">这将安装一个副本。</string>
-    <string name="home_dialog_rename_description">所选补丁会以自己的包名构建此应用，因此结果将安装在与 &lt;b&gt;%s&lt;/b&gt; 并列的位置，而不是更新它。</string>
-    <string name="home_dialog_rename_result_package">将安装为</string>
-    <string name="home_dialog_rename_replaces">已有副本使用该名称，将被重新构建。</string>
     <string name="home_app_info_apk_size">APK大小</string>
     <string name="home_app_info_cpu_arch">CPU 架构</string>
     <!-- Home Screen - Root Mode -->

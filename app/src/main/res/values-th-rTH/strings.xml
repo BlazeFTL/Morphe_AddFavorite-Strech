@@ -590,7 +590,7 @@
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">ระบบ</string>
     <string name="settings_appearance_theme_mode">โหมดสี</string>
-    <string name="settings_appearance_system">เบา</string>
+    <string name="settings_appearance_system">ระบบ</string>
     <string name="settings_appearance_light">สว่าง</string>
     <string name="settings_appearance_dark">มืด</string>
     <string name="settings_appearance_dynamic">สีไดนามิก</string>

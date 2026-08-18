@@ -29,7 +29,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
@@ -39,11 +38,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import app.morphe.manager.ui.screen.shared.Defaults.MinTouchTarget
+import app.morphe.manager.ui.screen.shared.Defaults.TallTouchTarget
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.util.isRtl
 
 // Constants
 object Defaults {
@@ -514,7 +515,7 @@ fun ForwardChevronIcon(
     tint: Color = MaterialTheme.colorScheme.primary
 ) {
     ThemedIcon(
-        icon = if (LocalLayoutDirection.current == LayoutDirection.Rtl) {
+        icon = if (isRtl()) {
             Icons.Outlined.ChevronLeft
         } else {
             Icons.Outlined.ChevronRight

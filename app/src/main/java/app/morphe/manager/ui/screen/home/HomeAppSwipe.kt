@@ -24,7 +24,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -40,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.SelectableCard
+import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.startToEndGradient
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
@@ -57,24 +58,27 @@ internal data class SwipeActionConfig(
  */
 @Composable
 internal fun SwipeBackground(
-    leftProgress: Float,
-    rightProgress: Float,
-    leftConfig: SwipeActionConfig?,
-    rightConfig: SwipeActionConfig?,
+    startProgress: Float,
+    endProgress: Float,
+    startConfig: SwipeActionConfig?,
+    endConfig: SwipeActionConfig?,
     modifier: Modifier = Modifier
 ) {
+    val rtl = isRtl()
+
     Box(modifier = modifier) {
-        // Left edge
-        if (leftConfig != null && leftProgress > 0.01f) {
+        // Dragging toward the start edge uncovers the end edge
+        if (startConfig != null && startProgress > 0.01f) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth()
                     .align(Alignment.CenterEnd)
                     .background(
-                        Brush.horizontalGradient(
-                            0f to leftConfig.containerColor.copy(alpha = 0f),
-                            1f to leftConfig.containerColor.copy(alpha = 0.85f * leftProgress)
+                        startToEndGradient(
+                            startColor = startConfig.containerColor.copy(alpha = 0f),
+                            endColor = startConfig.containerColor.copy(alpha = 0.85f * startProgress),
+                            rtl = rtl
                         )
                     ),
                 contentAlignment = Alignment.CenterEnd
@@ -82,37 +86,38 @@ internal fun SwipeBackground(
                 Column(
                     modifier = Modifier
                         .padding(end = 20.dp)
-                        .graphicsLayer { alpha = leftProgress },
+                        .graphicsLayer { alpha = startProgress },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Icon(
-                        imageVector = leftConfig.icon,
+                        imageVector = startConfig.icon,
                         contentDescription = null,
-                        tint = leftConfig.contentColor,
+                        tint = startConfig.contentColor,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = leftConfig.label,
+                        text = startConfig.label,
                         style = MaterialTheme.typography.labelSmall,
-                        color = leftConfig.contentColor,
+                        color = startConfig.contentColor,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
             }
         }
 
-        // Right edge
-        if (rightConfig != null && rightProgress > 0.01f) {
+        // Dragging toward the end edge uncovers the start edge
+        if (endConfig != null && endProgress > 0.01f) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth()
                     .align(Alignment.CenterStart)
                     .background(
-                        Brush.horizontalGradient(
-                            0f to rightConfig.containerColor.copy(alpha = 0.85f * rightProgress),
-                            1f to rightConfig.containerColor.copy(alpha = 0f)
+                        startToEndGradient(
+                            startColor = endConfig.containerColor.copy(alpha = 0.85f * endProgress),
+                            endColor = endConfig.containerColor.copy(alpha = 0f),
+                            rtl = rtl
                         )
                     ),
                 contentAlignment = Alignment.CenterStart
@@ -120,20 +125,20 @@ internal fun SwipeBackground(
                 Column(
                     modifier = Modifier
                         .padding(start = 20.dp)
-                        .graphicsLayer { alpha = rightProgress },
+                        .graphicsLayer { alpha = endProgress },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Icon(
-                        imageVector = rightConfig.icon,
+                        imageVector = endConfig.icon,
                         contentDescription = null,
-                        tint = rightConfig.contentColor,
+                        tint = endConfig.contentColor,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = rightConfig.label,
+                        text = endConfig.label,
                         style = MaterialTheme.typography.labelSmall,
-                        color = rightConfig.contentColor,
+                        color = endConfig.contentColor,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
@@ -150,42 +155,47 @@ internal fun SwipeableCardContainer(
     modifier: Modifier = Modifier,
     offsetX: Animatable<Float, AnimationVector1D>,
     actionThresholdPx: Float,
-    onLeftSwipe: () -> Unit,
-    onRightSwipe: () -> Unit,
-    leftHaptic: Int = HapticFeedbackConstants.LONG_PRESS,
-    rightHaptic: Int = HapticFeedbackConstants.VIRTUAL_KEY,
+    onSwipeToStart: () -> Unit,
+    onSwipeToEnd: () -> Unit,
+    startHaptic: Int = HapticFeedbackConstants.LONG_PRESS,
+    endHaptic: Int = HapticFeedbackConstants.VIRTUAL_KEY,
     enabled: Boolean = true,
-    background: @Composable BoxScope.(leftProgress: Float, rightProgress: Float) -> Unit,
+    background: @Composable BoxScope.(startProgress: Float, endProgress: Float) -> Unit,
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
     val scope = rememberCoroutineScope()
 
+    // The offset is held in layout coordinates (negative drags the card toward the start edge),
+    // while pointer deltas and translationX are physical, so both are mirrored in RTL
+    val rtl = isRtl()
+    val directionSign = if (rtl) -1f else 1f
+
     // Progress values for background reveal [0..1]
-    val leftProgress by remember { derivedStateOf { (-offsetX.value / actionThresholdPx).coerceIn(0f, 1f) } }
-    val rightProgress by remember { derivedStateOf { (offsetX.value / actionThresholdPx).coerceIn(0f, 1f) } }
+    val startProgress by remember { derivedStateOf { (-offsetX.value / actionThresholdPx).coerceIn(0f, 1f) } }
+    val endProgress by remember { derivedStateOf { (offsetX.value / actionThresholdPx).coerceIn(0f, 1f) } }
 
     Box(modifier = modifier.fillMaxWidth()) {
-        background(leftProgress, rightProgress)
+        background(startProgress, endProgress)
 
         Box(
             modifier = Modifier
-                .graphicsLayer { translationX = offsetX.value }
+                .graphicsLayer { translationX = offsetX.value * directionSign }
                 .then(
-                    if (enabled) Modifier.pointerInput(Unit) {
+                    if (enabled) Modifier.pointerInput(rtl) {
                         detectHorizontalDragGestures(
                             onDragEnd = {
                                 scope.launch {
                                     when {
                                         offsetX.value < -actionThresholdPx -> {
-                                            view.performHapticFeedback(leftHaptic)
+                                            view.performHapticFeedback(startHaptic)
                                             offsetX.animateTo(0f, tween(200))
-                                            onLeftSwipe()
+                                            onSwipeToStart()
                                         }
                                         offsetX.value > actionThresholdPx -> {
-                                            view.performHapticFeedback(rightHaptic)
+                                            view.performHapticFeedback(endHaptic)
                                             offsetX.animateTo(0f, tween(200))
-                                            onRightSwipe()
+                                            onSwipeToEnd()
                                         }
                                         else -> offsetX.animateTo(
                                             0f,
@@ -211,7 +221,7 @@ internal fun SwipeableCardContainer(
                             onHorizontalDrag = { change, dragAmount ->
                                 change.consume()
                                 scope.launch {
-                                    val clamped = (offsetX.value + dragAmount)
+                                    val clamped = (offsetX.value + dragAmount * directionSign)
                                         .coerceIn(-actionThresholdPx * 1.5f, actionThresholdPx * 1.5f)
                                     offsetX.snapTo(clamped)
                                 }
@@ -227,8 +237,8 @@ internal fun SwipeableCardContainer(
 
 /**
  * Single dynamic app card with horizontal swipe gestures:
- * - Swipe LEFT  → reveal hide action
- * - Swipe RIGHT → reveal patches dialog
+ * - Swipe toward the start → reveal hide action
+ * - Swipe toward the end   → reveal patches dialog
  *
  * On first appearance plays a one-time nudge hint animation.
  */
@@ -263,7 +273,7 @@ internal fun DynamicAppCard(
         if (isMultiSelectMode) offsetX.animateTo(0f, tween(200))
     }
 
-    // Hint animation: nudge right then left, once (only first card)
+    // Hint animation: nudge toward the end then the start, once (only first card)
     LaunchedEffect(showGestureHint, isLoading) {
         if (!showGestureHint || isLoading) {
             offsetX.snapTo(0f)
@@ -289,7 +299,7 @@ internal fun DynamicAppCard(
     val primaryContainer = MaterialTheme.colorScheme.primaryContainer
     val onPrimaryContainer = MaterialTheme.colorScheme.onPrimaryContainer
 
-    val leftConfig = remember(hideLabel, errorContainer, onErrorContainer) {
+    val startConfig = remember(hideLabel, errorContainer, onErrorContainer) {
         SwipeActionConfig(
             icon = Icons.Outlined.VisibilityOff,
             label = hideLabel,
@@ -297,7 +307,7 @@ internal fun DynamicAppCard(
             contentColor = onErrorContainer
         )
     }
-    val rightConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
+    val endConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
         SwipeActionConfig(
             icon = Icons.Outlined.Extension,
             label = patchesLabel,
@@ -329,15 +339,15 @@ internal fun DynamicAppCard(
         SwipeableCardContainer(
             offsetX = offsetX,
             actionThresholdPx = actionThresholdPx,
-            onLeftSwipe = { showHideDialog.value = true },
-            onRightSwipe = onShowPatches,
+            onSwipeToStart = { showHideDialog.value = true },
+            onSwipeToEnd = onShowPatches,
             enabled = swipeActionsEnabled && !isMultiSelectMode,
-            background = { leftProgress, rightProgress ->
+            background = { startProgress, endProgress ->
                 SwipeBackground(
-                    leftProgress = leftProgress,
-                    rightProgress = rightProgress,
-                    leftConfig = leftConfig,
-                    rightConfig = rightConfig,
+                    startProgress = startProgress,
+                    endProgress = endProgress,
+                    startConfig = startConfig,
+                    endConfig = endConfig,
                     modifier = Modifier
                         .matchParentSize()
                         .clip(RoundedCornerShape(24.dp))
@@ -424,8 +434,8 @@ internal fun DynamicAppCard(
 
 /**
  * App card for hidden apps shown in search results.
- * - Swipe LEFT  → Patches dialog
- * - Swipe RIGHT → Unhide
+ * - Swipe toward the start → unhide
+ * - Swipe toward the end   → patches dialog
  *
  * Rendered at reduced opacity to signal the hidden state.
  */
@@ -448,7 +458,7 @@ internal fun HiddenSearchAppCard(
     val tertiaryContainer = MaterialTheme.colorScheme.tertiaryContainer
     val onTertiaryContainer = MaterialTheme.colorScheme.onTertiaryContainer
 
-    val leftConfig = remember(unhideLabel, tertiaryContainer, onTertiaryContainer) {
+    val startConfig = remember(unhideLabel, tertiaryContainer, onTertiaryContainer) {
         SwipeActionConfig(
             icon = Icons.Outlined.Visibility,
             label = unhideLabel,
@@ -456,7 +466,7 @@ internal fun HiddenSearchAppCard(
             contentColor = onTertiaryContainer
         )
     }
-    val rightConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
+    val endConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
         SwipeActionConfig(
             icon = Icons.Outlined.Extension,
             label = patchesLabel,
@@ -473,16 +483,16 @@ internal fun HiddenSearchAppCard(
         SwipeableCardContainer(
             offsetX = offsetX,
             actionThresholdPx = actionThresholdPx,
-            onLeftSwipe = onUnhide,
-            onRightSwipe = onShowPatches,
-            leftHaptic = HapticFeedbackConstants.LONG_PRESS,
-            rightHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
-            background = { leftProgress, rightProgress ->
+            onSwipeToStart = onUnhide,
+            onSwipeToEnd = onShowPatches,
+            startHaptic = HapticFeedbackConstants.LONG_PRESS,
+            endHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
+            background = { startProgress, endProgress ->
                 SwipeBackground(
-                    leftProgress = leftProgress,
-                    rightProgress = rightProgress,
-                    leftConfig = leftConfig,
-                    rightConfig = rightConfig,
+                    startProgress = startProgress,
+                    endProgress = endProgress,
+                    startConfig = startConfig,
+                    endConfig = endConfig,
                     modifier = Modifier
                         .matchParentSize()
                         .clip(RoundedCornerShape(24.dp))

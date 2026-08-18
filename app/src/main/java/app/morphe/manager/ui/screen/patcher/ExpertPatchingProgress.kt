@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
@@ -73,6 +72,8 @@ import app.morphe.manager.ui.screen.patcher.game.MiniGameContent
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.startToEndGradient
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -544,6 +545,12 @@ private fun ExpertLinearProgressBar(progress: Float) {
         label = "expert_linear_progress"
     )
 
+    // The fill grows from the start edge, so the sweep has to follow it and run end to start in RTL
+    val rtl = isRtl()
+    val fillBrush = remember(rtl) {
+        startToEndGradient(listOf(PatcherProgressBlueColor, PatcherProgressTealColor), rtl)
+    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -556,7 +563,7 @@ private fun ExpertLinearProgressBar(progress: Float) {
                 .fillMaxHeight()
                 .fillMaxWidth(fraction = animated.coerceIn(0f, 1f))
                 .clip(RoundedCornerShape(5.dp))
-                .background(Brush.horizontalGradient(listOf(PatcherProgressBlueColor, PatcherProgressTealColor)))
+                .background(fillBrush)
         )
     }
 }

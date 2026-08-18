@@ -484,7 +484,7 @@ internal fun HiddenAppsDialog(
     val tertiaryContainer = MaterialTheme.colorScheme.tertiaryContainer
     val onTertiaryContainer = MaterialTheme.colorScheme.onTertiaryContainer
 
-    val leftConfig = remember(unhideLabel, tertiaryContainer, onTertiaryContainer) {
+    val startConfig = remember(unhideLabel, tertiaryContainer, onTertiaryContainer) {
         SwipeActionConfig(
             icon = Icons.Outlined.Visibility,
             label = unhideLabel,
@@ -492,7 +492,7 @@ internal fun HiddenAppsDialog(
             contentColor = onTertiaryContainer
         )
     }
-    val rightConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
+    val endConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
         SwipeActionConfig(
             icon = Icons.Outlined.Extension,
             label = patchesLabel,
@@ -592,17 +592,17 @@ internal fun HiddenAppsDialog(
                             SwipeableCardContainer(
                                 offsetX = offsetX,
                                 actionThresholdPx = actionThresholdPx,
-                                onLeftSwipe = { onUnhide(item.id) },
-                                onRightSwipe = { onShowPatches(item) },
-                                leftHaptic = HapticFeedbackConstants.LONG_PRESS,
-                                rightHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
+                                onSwipeToStart = { onUnhide(item.id) },
+                                onSwipeToEnd = { onShowPatches(item) },
+                                startHaptic = HapticFeedbackConstants.LONG_PRESS,
+                                endHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
                                 enabled = !isMultiSelectMode.value,
-                                background = { leftProgress, rightProgress ->
+                                background = { startProgress, endProgress ->
                                     SwipeBackground(
-                                        leftProgress = leftProgress,
-                                        rightProgress = rightProgress,
-                                        leftConfig = leftConfig,
-                                        rightConfig = rightConfig,
+                                        startProgress = startProgress,
+                                        endProgress = endProgress,
+                                        startConfig = startConfig,
+                                        endConfig = endConfig,
                                         modifier = Modifier
                                             .matchParentSize()
                                             .clip(RoundedCornerShape(24.dp))

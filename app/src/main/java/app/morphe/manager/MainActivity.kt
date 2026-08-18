@@ -550,7 +550,8 @@ private fun MorpheManager(vm: MainViewModel) {
                                 Patcher.ViewModelParams(
                                     selectedApp = params.selectedApp,
                                     selectedPatches = params.patches,
-                                    options = params.options
+                                    options = params.options,
+                                    targetPackageName = params.targetPackageName
                                 )
                             )
                         }

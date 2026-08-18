@@ -144,6 +144,7 @@ internal fun PatchCard(
     isEnabled: Boolean,
     modifier: Modifier = Modifier,
     isNew: Boolean = false,
+    buildsClone: Boolean = false,
     hasRequiredOptionsMissing: Boolean = false,
     lockState: PatchLockState = PatchLockState.NONE,
     onToggle: () -> Unit,
@@ -155,7 +156,13 @@ internal fun PatchCard(
     val enabledState = stringResource(R.string.enabled)
     val disabledState = stringResource(R.string.disabled)
     val patchState = if (isEnabled) enabledState else disabledState
-    val contentDesc = remember(patch.displayName, patchState) { "${patch.displayName}, $patchState" }
+    val newLabel = stringResource(R.string.expert_mode_new_patches)
+    val cloneLabel = stringResource(R.string.clone)
+    // The card speaks for its whole contents, so the badges have to be read out here or not at all
+    val badges = listOfNotNull(newLabel.takeIf { isNew }, cloneLabel.takeIf { buildsClone })
+    val contentDesc = remember(patch.displayName, patchState, badges) {
+        (listOf(patch.displayName, patchState) + badges).joinToString(", ")
+    }
 
     val context = LocalContext.current
     val lockedMessage = when (lockState) {
@@ -222,8 +229,17 @@ internal fun PatchCard(
                         )
                         if (isNew) {
                             StatusBadge(
-                                text = stringResource(R.string.expert_mode_new_patches),
+                                text = newLabel,
                                 tone = SemanticTone.Primary
+                            )
+                        }
+                        // Read from how the patch declares its option, so it warns early without
+                        // being relied on: the run itself is checked against the APK it produced
+                        if (buildsClone) {
+                            StatusBadge(
+                                text = cloneLabel,
+                                icon = Icons.Outlined.ContentCopy,
+                                tone = SemanticTone.Warning
                             )
                         }
                     }

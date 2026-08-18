@@ -34,6 +34,7 @@ import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.PatchLockState
+import app.morphe.manager.ui.model.renamesByDefault
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
@@ -617,6 +618,7 @@ private fun LazyListScope.patchRows(
         patch = patch,
         isEnabled = isEnabled,
         isNew = patch.name in newPatchNames,
+        buildsClone = patch.renamesByDefault,
         hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
         lockState = lockStateOf(patch),
         onToggle = { onToggle(patch.name) },

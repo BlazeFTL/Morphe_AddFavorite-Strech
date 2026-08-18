@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import app.morphe.manager.R
+import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import app.morphe.manager.util.PathValidationResult
@@ -95,6 +97,63 @@ fun IncompatiblePatcherVersionDialog(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
+    }
+}
+
+/**
+ * Shown when the finished APK answers to a package name of its own: installing it adds a clone
+ * instead of updating the app the run was aimed at, which is a surprise unless cloning was the
+ * intent. Offered before the install rather than the run, because only the output carries the name.
+ */
+@Composable
+fun RenameWarningDialog(
+    warning: RenameWarning,
+    onContinue: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AppDialog(
+        onDismissRequest = onDismiss,
+        title = stringResource(R.string.patcher_rename_title),
+        padding = DialogPadding.Compact,
+        footer = {
+            AppDialogButtonRow(
+                primaryText = stringResource(R.string.continue_),
+                onPrimaryClick = onContinue,
+                secondaryText = stringResource(android.R.string.cancel),
+                onSecondaryClick = onDismiss
+            )
+        }
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = htmlAnnotatedString(
+                    stringResource(
+                        R.string.patcher_rename_description,
+                        warning.targetPackageName
+                    )
+                ),
+                style = MaterialTheme.typography.bodyLarge,
+                color = LocalDialogSecondaryTextColor.current,
+                textAlign = TextAlign.Center
+            )
+
+            MonospaceValuePanel(
+                value = warning.resultPackageName,
+                label = stringResource(R.string.patcher_rename_result_package)
+            )
+
+            if (warning.replacesExisting) {
+                Notice(
+                    text = stringResource(R.string.patcher_rename_replaces),
+                    tone = SemanticTone.Warning,
+                    icon = Icons.Outlined.Warning
+                )
+            }
+        }
     }
 }
 

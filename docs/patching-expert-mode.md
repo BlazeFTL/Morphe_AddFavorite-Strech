@@ -94,6 +94,11 @@ settings icon that opens their options, for example a custom app name, header lo
 theme colors, see [Creating a custom app icon](custom-app-icon.md). Newly added patches are
 highlighted with a **New** badge.
 
+A **Clone** badge marks a patch that builds the app under a package name of its own. Selecting
+one means the result installs next to the original app instead of updating it, leaving you with
+both. The manager confirms this against the finished APK and asks before installing, so the badge
+is an early hint rather than the final word.
+
 If patches for this app come from more than one source, each source gets its own tab and
 the row of action buttons applies to the source you are currently viewing, see
 [Managing patch sources](patch-sources.md).

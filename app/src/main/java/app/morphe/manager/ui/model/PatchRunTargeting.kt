@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.model
 
 import app.morphe.manager.patcher.patch.PatchInfo
-import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
 
 /**
@@ -18,6 +17,17 @@ const val PACKAGE_NAME_OPTION_KEY = "packageName"
 /** Whether this patch is one that builds the app under a package name of its own. */
 val PatchInfo.declaresPackageName: Boolean
     get() = options?.any { it.key == PACKAGE_NAME_OPTION_KEY } == true
+
+/**
+ * Whether this patch names the app it builds without being asked to, so selecting it is by itself
+ * enough to produce a clone.
+ *
+ * A patch that picks the name itself ships a default to fall back on, while one taking the name
+ * only as an override leaves it unset and reads the app's own instead. Patch authors are free to
+ * break that convention, so this carries no further than the label on a patch in the list.
+ */
+val PatchInfo.renamesByDefault: Boolean
+    get() = options?.firstOrNull { it.key == PACKAGE_NAME_OPTION_KEY }?.default != null
 
 /**
  * Whether a run builds a copy of the app rather than the install the app itself has.
@@ -38,22 +48,20 @@ internal fun producesClone(
         }
 
 /**
- * A run whose patches build the app under a package it was not aimed at, so it will install
- * beside the app rather than update it.
+ * A finished build that answers to a package the run was not aimed at, so installing it adds a
+ * clone rather than updating the app it was built from.
  *
- * @param resultPackageName The name the patches were given, or null when they were left to pick
- *   one themselves and only the patch knows what it will be.
- * @param replacesExisting Whether an install already answers to [resultPackageName], which is
- *   the case the user has most reason to hear about: that install is about to be rebuilt.
+ * A patch names the app it builds in its own code, so this is read off the output once the run
+ * is over and holds however the patch arrived at the name.
+ *
+ * @param replacesExisting Whether the device already has an install under [resultPackageName],
+ *   which is the case the user has most reason to hear about: it is about to be overwritten.
  */
 data class RenameWarning(
     val targetPackageName: String,
-    val resultPackageName: String?,
+    val resultPackageName: String,
     val replacesExisting: Boolean
 )
-
-/** The rename [pendingRename] found, kept apart from what the manager then makes of it. */
-internal data class PendingRename(val declaredPackageName: String?)
 
 /**
  * The package a run reads its saved patches and options from.
@@ -71,40 +79,4 @@ internal fun configurationKey(
     repatchedPackageName == null || repatchedPackageName == originalPackageName -> originalPackageName
     repatchedHasOwnConfiguration -> repatchedPackageName
     else -> originalPackageName
-}
-
-/**
- * The rename [selection] will perform, or null whenever the result can be shown to answer to
- * [targetPackageName] after all.
- *
- * A value that is no package name at all is the patch's own default, which leaves the result
- * unnamed here: only the patch knows what it will pick. That is worth saying when the app itself
- * is being rebuilt, and worth nothing when a copy is, since the same default is what named that
- * copy to begin with and will name it again.
- *
- * @param declaresPackageName Whether the given patch is one that builds under a name of its own.
- */
-internal fun pendingRename(
-    originalPackageName: String,
-    targetPackageName: String,
-    selection: PatchSelection,
-    options: Options,
-    declaresPackageName: (bundleUid: Int, patchName: String) -> Boolean
-): PendingRename? {
-    val (bundleUid, patchName) = selection.entries.firstNotNullOfOrNull { (bundleUid, patchNames) ->
-        patchNames.firstOrNull { declaresPackageName(bundleUid, it) }?.let { bundleUid to it }
-    } ?: return null
-
-    val declaredName = (options[bundleUid]?.get(patchName)?.get(PACKAGE_NAME_OPTION_KEY) as? String)
-        ?.takeIf { it.isNotBlank() && it.contains('.') }
-
-    return when (declaredName) {
-        // The user pointed the rename back at the install being rebuilt, so nothing moves
-        targetPackageName -> null
-
-        // Rebuilding a copy is how that copy got its name, and it lands on the same one again
-        null -> PendingRename(null).takeIf { targetPackageName == originalPackageName }
-
-        else -> PendingRename(declaredName)
-    }
 }

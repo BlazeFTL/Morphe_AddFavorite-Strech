@@ -42,6 +42,7 @@ import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.manager.InstallerPreferenceTokens
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.patcher.patch.installerTypeFor
+import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.model.State
 import app.morphe.manager.ui.screen.patcher.*
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
@@ -64,6 +65,12 @@ import kotlin.math.exp
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
+
+/** An install held back until the user accepts that it lands beside the app rather than on it. */
+private data class HeldInstall(
+    val warning: RenameWarning,
+    val start: () -> Unit
+)
 
 /**
  * Patcher screen with progress tracking.
@@ -158,18 +165,37 @@ fun PatcherScreen(
     val primaryInstallerPref by prefs.installerPrimary.getAsState()
     val promptInstallerOnInstall by prefs.promptInstallerOnInstall.getAsState()
 
+    // A build that answers to a package name of its own installs beside the app instead of
+    // updating it, so every install path waits here until the user has been told once
+    var renameConfirmed by rememberSaveable { mutableStateOf(false) }
+    var renameDeclined by remember { mutableStateOf(false) }
+    var heldInstall by remember { mutableStateOf<HeldInstall?>(null) }
+
+    suspend fun startInstall(install: () -> Unit) {
+        // A fresh attempt supersedes whatever the user answered to the previous one
+        renameDeclined = false
+        val warning = if (renameConfirmed) null else patcherViewModel.renameWarning()
+        if (warning == null) {
+            install()
+        } else {
+            heldInstall = HeldInstall(warning, install)
+        }
+    }
+
     // Auto-install: driven by ViewModel so it fires in the background even if the app is not
     // in the foreground when patching completes. UI-only guards checked here.
     LaunchedEffect(Unit) {
         patcherViewModel.autoInstallEvent.collect {
             if (usingMountInstall) return@collect
             if (installViewModel.installState !is InstallViewModel.InstallState.Ready) return@collect
-            installViewModel.install(
-                outputFile = outputFile,
-                originalPackageName = patcherViewModel.packageName,
-                onPersistApp = { pkg, type -> patcherViewModel.persistPatchedApp(pkg, type) },
-                autoUninstallOnConflict = true
-            )
+            startInstall {
+                installViewModel.install(
+                    outputFile = outputFile,
+                    originalPackageName = patcherViewModel.packageName,
+                    onPersistApp = { pkg, type -> patcherViewModel.persistPatchedApp(pkg, type) },
+                    autoUninstallOnConflict = true
+                )
+            }
         }
     }
 
@@ -476,6 +502,22 @@ fun PatcherScreen(
         }
     }
 
+    // Where the finished APK will actually install, when that is not what the run was aimed at
+    heldInstall?.let { held ->
+        RenameWarningDialog(
+            warning = held.warning,
+            onContinue = {
+                renameConfirmed = true
+                heldInstall = null
+                held.start()
+            },
+            onDismiss = {
+                renameDeclined = true
+                heldInstall = null
+            }
+        )
+    }
+
     // Error dialog
     if (state.showErrorDialog) {
         PatcherErrorDialog(
@@ -602,7 +644,10 @@ fun PatcherScreen(
                                     patcherSucceeded == true &&
                                     !usingMountInstall &&
                                     !promptInstallerOnInstall &&
-                                    installState is InstallViewModel.InstallState.Ready
+                                    installState is InstallViewModel.InstallState.Ready &&
+                                    // Auto-install stops at the rename warning, so the screen must
+                                    // not go on claiming an install the user has yet to allow
+                                    heldInstall == null && !renameDeclined
                             )
                     PatchingSuccess(
                         isInstalling = effectiveIsInstalling,
@@ -635,13 +680,17 @@ fun PatcherScreen(
                                 )
                             } else {
                                 // Regular installation with pre-conflict check
-                                installViewModel.install(
-                                    outputFile = outputFile,
-                                    originalPackageName = patcherViewModel.packageName,
-                                    onPersistApp = { pkg, type ->
-                                        patcherViewModel.persistPatchedApp(pkg, type)
+                                scope.launch {
+                                    startInstall {
+                                        installViewModel.install(
+                                            outputFile = outputFile,
+                                            originalPackageName = patcherViewModel.packageName,
+                                            onPersistApp = { pkg, type ->
+                                                patcherViewModel.persistPatchedApp(pkg, type)
+                                            }
+                                        )
                                     }
-                                )
+                                }
                             }
                         },
                         onUninstall = { packageName ->

@@ -116,11 +116,17 @@ data class InvalidSignatureDialogState(
     val appName: String,
 )
 
-/** Quick patch parameters. */
+/**
+ * Quick patch parameters.
+ *
+ * @param targetPackageName The install being rebuilt when that is a clone rather than the app's
+ *   own, so the run can tell the name it was aimed at from the one its patches produce.
+ */
 data class QuickPatchParams(
     val selectedApp: SelectedApp,
     val patches: PatchSelection,
-    val options: Options
+    val options: Options,
+    val targetPackageName: String? = null
 )
 
 
@@ -320,10 +326,6 @@ class HomeViewModel(
     var processingApkSelection by mutableStateOf(false)
 
     // Error/warning dialogs
-    /** Set when the confirmed patch list would install beside the app instead of updating it. */
-    var renameWarning by mutableStateOf<RenameWarning?>(null)
-        private set
-    private var pendingRenamedRun: QuickPatchParams? = null
     var showUnsupportedVersionDialog by mutableStateOf<UnsupportedVersionDialogState?>(null)
     var showExperimentalVersionDialog by mutableStateOf<UnsupportedVersionDialogState?>(null)
     var showWrongPackageDialog by mutableStateOf<WrongPackageDialogState?>(null)
@@ -2948,7 +2950,10 @@ class HomeViewModel(
             QuickPatchParams(
                 selectedApp = selectedApp,
                 patches = patches,
-                options = options
+                options = options,
+                // Handed over before the state below is cleared, since the run has no other way
+                // to learn which install it was started for
+                targetPackageName = pendingRepatchPackageName
             )
         )
 
@@ -3295,70 +3300,11 @@ class HomeViewModel(
             saveOptions(configurationKey, finalOptions)
             // Snapshot all bundle patch names so next open can detect genuinely new patches.
             saveSeenPatchesForBundles(configurationKey)
-            val rename = pendingRenameWarning(selectedApp.packageName, finalPatches, finalOptions)
             withContext(Dispatchers.Main) {
-                if (rename != null) {
-                    // Held until the user has seen where this run is actually headed. The expert
-                    // dialog keeps its state so dismissing lands back on the patch that renames
-                    pendingRenamedRun = QuickPatchParams(selectedApp, finalPatches, patcherOptions)
-                    renameWarning = rename
-                } else {
-                    proceedWithPatching(selectedApp, finalPatches, patcherOptions)
-                    cleanupExpertModeData()
-                }
+                proceedWithPatching(selectedApp, finalPatches, patcherOptions)
+                cleanupExpertModeData()
             }
         }
-    }
-
-    /**
-     * What this run will install under, when that is not what it was aimed at.
-     *
-     * Which patch renames an app is the bundle's business, but a patch that does declares the
-     * name as an option, and that is enough to tell a run rebuilding an install from one quietly
-     * building a copy beside it.
-     *
-     * Null whenever the two can be shown to agree: an explicit name pointing back at the install,
-     * or a copy rebuilt with the name left to the patch that named it to begin with.
-     */
-    private suspend fun pendingRenameWarning(
-        originalPackageName: String,
-        selection: PatchSelection,
-        options: Options
-    ): RenameWarning? {
-        val target = pendingRepatchPackageName ?: originalPackageName
-        val rename = pendingRename(
-            originalPackageName = originalPackageName,
-            targetPackageName = target,
-            selection = selection,
-            options = options,
-            declaresPackageName = { bundleUid, patchName ->
-                targetBundlePatchInfos(bundleUid)[patchName]?.declaresPackageName == true
-            }
-        ) ?: return null
-
-        val declaredName = rename.declaredPackageName
-        return RenameWarning(
-            targetPackageName = target,
-            resultPackageName = declaredName,
-            replacesExisting = declaredName != null && withContext(Dispatchers.IO) {
-                installedAppRepository.get(declaredName) != null
-            }
-        )
-    }
-
-    /** Dismissed by returning to the patch list, where the rename can be turned off. */
-    fun dismissRenameWarning() {
-        renameWarning = null
-        pendingRenamedRun = null
-        showExpertModeDialog = true
-    }
-
-    fun confirmRenameWarning() {
-        val run = pendingRenamedRun ?: return
-        renameWarning = null
-        pendingRenamedRun = null
-        proceedWithPatching(run.selectedApp, run.patches, run.options)
-        cleanupExpertModeData()
     }
 
     /**

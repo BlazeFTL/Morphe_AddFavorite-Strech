@@ -129,6 +129,25 @@ class PatcherViewModel(
     val version = selectedApp.version
 
     /**
+     * How the finished APK differs from the install this run was aimed at, or null when it lands
+     * on that install after all. The name a patch builds under exists only once it has run, so
+     * the output is the only place it can be read.
+     */
+    suspend fun renameWarning(): RenameWarning? = withContext(Dispatchers.IO) {
+        val target = input.targetPackageName ?: packageName
+        val result = pm.getPackageInfo(outputFile)?.packageName ?: return@withContext null
+        if (result == target) return@withContext null
+
+        RenameWarning(
+            targetPackageName = target,
+            resultPackageName = result,
+            // Asked of the device rather than the manager's records: what gets overwritten is
+            // whatever holds the name, tracked here or not
+            replacesExisting = pm.getPackageInfo(result) != null
+        )
+    }
+
+    /**
      * Offered after the patcher process was killed, holding the lower limit that might get the
      * run through. The limit is the user's setting, so it is only ever a suggestion.
      */

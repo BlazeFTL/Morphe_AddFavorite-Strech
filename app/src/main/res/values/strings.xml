@@ -430,10 +430,10 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="home_app_info_app_deleted_warning">App was uninstalled</string>
     <string name="home_app_info_app_deleted_description">This app was uninstalled outside the Morphe. Repatch it to restore functionality</string>
     <string name="home_app_info_not_patched_description">An unpatched version of this app is installed. Morphe still has its previous patch record</string>
-    <string name="home_dialog_rename_title">This will install a copy</string>
-    <string name="home_dialog_rename_description">The selected patches build this app under a package name of their own, so the result installs alongside &lt;b&gt;%s&lt;/b&gt; instead of updating it</string>
-    <string name="home_dialog_rename_result_package">Will install as</string>
-    <string name="home_dialog_rename_replaces">A copy already uses that name and will be rebuilt</string>
+    <string name="patcher_rename_title">This will install a clone</string>
+    <string name="patcher_rename_description">The patches built this app under a package name of their own, so installing it adds a clone alongside &lt;b&gt;%s&lt;/b&gt; instead of updating it</string>
+    <string name="patcher_rename_result_package">Will install as</string>
+    <string name="patcher_rename_replaces">An app is already installed under that name and will be replaced</string>
     <string name="home_app_info_apk_size">APK size</string>
     <string name="home_app_info_cpu_arch">CPU architecture</string>
 

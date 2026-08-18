@@ -306,6 +306,9 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="patch_option_enter_value">Wert eingeben</string>
     <string name="patch_option_enter_number">Zahl eingeben</string>
     <string name="patch_option_enter_decimal">Dezimalzahl eingeben</string>
+    <string name="patch_option_slider_edit">Einen genauen Wert eingeben</string>
+    <string name="patch_option_slider_range_start">Von</string>
+    <string name="patch_option_slider_range_end">Bis</string>
     <string name="patch_option_list_duplicate">Dieser Wert existiert bereits</string>
     <string name="patch_option_list_empty">Wert darf nicht leer sein</string>
     <string name="patch_option_list_empty_state">Noch keine Werte hinzugefügt</string>
@@ -536,6 +539,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="patcher_heap_exhausted_message">Dem Patcher ging bei einem Heap von %1$d MB der Speicher aus. Diese App ist zu groß für die ausgewählten Patches. Versuche, mit weniger Patch-Quellen zu patchen, oder wähle weniger Patches.</string>
     <string name="install_app_success">Erfolgreich installiert</string>
     <string name="install_app_fail">Installation der App fehlgeschlagen: %s</string>
+    <string name="install_ignore_signature">Trotzdem installieren</string>
+    <string name="install_ignore_signature_description">Behält die App-Daten, funktioniert aber nur, wenn ein Root-Modul die Signaturprüfung von Android deaktiviert</string>
     <string name="uninstall_app_fail">App konnte nicht deinstalliert werden: %s</string>
     <string name="uninstall_app_unverified">An Ort und Stelle belassen: Morphe konnte nicht überprüfen, dass die installierte App der von ihm gepatchte Build ist</string>
     <string name="launch_app_unverified">Morphe konnte nicht überprüfen, dass die installierte App der von ihm gepatchte Build ist</string>
@@ -607,6 +612,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_ui_scale">Interface-Skalierung</string>
     <string name="settings_appearance_ui_scale_current">Aktuelle Skalierung</string>
     <string name="settings_appearance_ui_scale_description">Skaliert alles in der App, zusätzlich zum System-Bildschirmzoom und der Schriftgröße</string>
+    <string name="settings_appearance_ui_scale_preview_title">Beispieleinstellung</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Text und Steuerelemente in dieser Skalierung</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Startbildschirm</string>
     <string name="settings_appearance_greeting_phrases">Begrüßungsnachricht</string>
@@ -936,6 +943,7 @@ Details: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Ausgewählte APKs löschen?</string>
     <string name="settings_system_apks_delete_selected_confirm">Dies löscht die ausgewählten APK-Dateien dauerhaft.</string>
     <string name="settings_system_apks_deleted_all">APKs erfolgreich gelöscht</string>
+    <string name="settings_system_apks_delete_failed">Einige APK-Dateien konnten nicht gelöscht werden</string>
     <string name="settings_system_apks_export_zip_success">Ausgewählte APKs exportiert</string>
     <string name="settings_system_apks_export_zip_failed">Exportieren der ausgewählten APKs fehlgeschlagen</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1049,6 +1057,7 @@ Details: %2$s"</string>
     <string name="filter">Filter</string>
     <string name="reset">Zurücksetzen</string>
     <string name="reset_all">Alles zurücksetzen</string>
+    <string name="apply">Übernehmen</string>
     <string name="confirm">Bestätigen</string>
     <string name="warning">Warnung</string>
     <string name="error_">Fehler</string>

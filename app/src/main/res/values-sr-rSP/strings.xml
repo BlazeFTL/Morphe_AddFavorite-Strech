@@ -412,6 +412,10 @@
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Инсталирана је незакрпљена верзија ове апликације. Morphe и даље има свој претходни запис о закрпама</string>
+    <string name="home_dialog_rename_title">Ово ће инсталирати копију</string>
+    <string name="home_dialog_rename_description">Одабране закрпе граде ову апликацију под сопственим именом пакета, па се резултат инсталира упоредо са &lt;b&gt;%s&lt;/b&gt; уместо да је ажурира</string>
+    <string name="home_dialog_rename_result_package">Инсталираће се као</string>
+    <string name="home_dialog_rename_replaces">Копија већ користи то име и биће поново направљена</string>
     <string name="home_app_info_apk_size">Величина APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процесора</string>
     <!-- Home Screen - Root Mode -->
@@ -534,6 +538,8 @@
     <string name="patcher_heap_exhausted_message">Патчеру је понестало меморије са хеапом од %1$d MB. Ова апликација је превише велика за изабране патчеве. Покушајте да патчирате са мање извора патчева, или изаберите мање патчева.</string>
     <string name="install_app_success">Успешно инсталирано</string>
     <string name="install_app_fail">Није успело инсталирање апликације: %s</string>
+    <string name="install_ignore_signature">Ипак инсталирај</string>
+    <string name="install_ignore_signature_description">Чува податке апликације, али ради само ако root модул онемогући проверу потписа Андроида</string>
     <string name="uninstall_app_fail">Неуспешно деинсталирана апликација: %s</string>
     <string name="uninstall_app_unverified">Остављено на месту: Morphe није могао да потврди да је инсталирана апликација верзија коју је закрпио.</string>
     <string name="launch_app_unverified">Morphe није могао да потврди да је инсталирана апликација верзија коју је закрпио.</string>
@@ -595,6 +601,7 @@
     <string name="settings_appearance_pure_black">Svetlo crno</string>
     <string name="settings_appearance_pure_black_description">Користи праву црну позадину</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Језик &amp; приказ</string>
     <string name="settings_appearance_app_language">Језик апликације</string>
     <string name="settings_appearance_app_language_current">Тренутна језика</string>
     <string name="settings_appearance_translations_info_title">Недостаје превода за неке језике</string>
@@ -605,6 +612,7 @@
     <string name="settings_appearance_ui_scale_current">Тренутна размера</string>
     <string name="settings_appearance_ui_scale_description">Скалира све у апликацији, поред системског зума екрана и величине字体</string>
     <string name="settings_appearance_ui_scale_preview_title">Примерак подешавања</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Текст и контроле у овој размери</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Почетни екран</string>
     <string name="settings_appearance_greeting_phrases">Почетне фразе</string>
@@ -934,6 +942,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">Избрисати изабране APK фајлове?</string>
     <string name="settings_system_apks_delete_selected_confirm">Ово ће трајно избрисати изабране APK фајлове</string>
     <string name="settings_system_apks_deleted_all">APK фајлови успешно избрисани</string>
+    <string name="settings_system_apks_delete_failed">Неке APK датотеке нису могле бити обрисане</string>
     <string name="settings_system_apks_export_zip_success">Извезени изабрани APK-ови</string>
     <string name="settings_system_apks_export_zip_failed">Извоз изабраних APK-ова није успео</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1047,6 +1056,7 @@ morphe_header_custom_dark.png
     <string name="filter">Филтер</string>
     <string name="reset">Ресетуј</string>
     <string name="reset_all">Ресетуј све</string>
+    <string name="apply">Примени</string>
     <string name="confirm">Potvrdite</string>
     <string name="warning">Упозорење</string>
     <string name="error_">Грешка</string>
@@ -1112,6 +1122,7 @@ morphe_header_custom_dark.png
     <string name="available">Доступно</string>
     <string name="continue_">Настави</string>
     <string name="version">Верзија</string>
+    <string name="clone">Клон</string>
     <string name="patch">Печ</string>
     <string name="patching">Пецање</string>
     <string name="patched">Закрпљене</string>

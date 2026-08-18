@@ -306,6 +306,9 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="patch_option_enter_value">Introduceți valoarea</string>
     <string name="patch_option_enter_number">Introduceți numărul</string>
     <string name="patch_option_enter_decimal">Introduceți decimal</string>
+    <string name="patch_option_slider_edit">Introdu o valoare exactă</string>
+    <string name="patch_option_slider_range_start">De la</string>
+    <string name="patch_option_slider_range_end">La</string>
     <string name="patch_option_list_duplicate">Această valoare există deja</string>
     <string name="patch_option_list_empty">Valoarea nu poate fi goală</string>
     <string name="patch_option_list_empty_state">Nu au fost adăugate valori încă</string>
@@ -410,6 +413,9 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_app_deleted_description">Această aplicație a fost dezinstalată în afara Morphe. Aplica-o din nou pentru a restabili funcționalitatea</string>
     <string name="home_app_info_not_patched_description">O versiune necorectată a acestei aplicații este instalată. Morphe încă are înregistrarea anterioară a corecțiilor sale.</string>
     <string name="home_dialog_rename_title">Acest lucru va instala o copie</string>
+    <string name="home_dialog_rename_description">Patch-urile selectate construiesc această aplicație sub un nume de pachet propriu, astfel încât rezultatul se instalează alături de &lt;b&gt;%s&lt;/b&gt; în loc să o actualizeze. Câmpul este obligatoriu.</string>
+    <string name="home_dialog_rename_result_package">Se va instala ca</string>
+    <string name="home_dialog_rename_replaces">O copie folosește deja acest nume și va fi reconstruită</string>
     <string name="home_app_info_apk_size">Dimensiunea APK</string>
     <string name="home_app_info_cpu_arch">Arhitectura procesorului</string>
     <!-- Home Screen - Root Mode -->
@@ -532,6 +538,8 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_heap_exhausted_message">Patcher-ul a rămas fără memorie cu un heap de %1$d MB. Această aplicație este prea mare pentru patch-urile selectate. Încearcă să aplici patch-uri cu mai puține surse de patch-uri sau selectează mai puține patch-uri.</string>
     <string name="install_app_success">Instalat cu succes</string>
     <string name="install_app_fail">Nu s-a putut instala aplicația: %s</string>
+    <string name="install_ignore_signature">Instalează oricum</string>
+    <string name="install_ignore_signature_description">Păstrează datele aplicației, dar funcționează doar dacă un modul root dezactivează verificarea semnăturii Android</string>
     <string name="uninstall_app_fail">Eșuat la dezinstalarea aplicației: %s</string>
     <string name="uninstall_app_unverified">Rămas instalat: Morphe nu a putut verifica că aplicația instalată este build-ul pe care l-a patch-uit</string>
     <string name="launch_app_unverified">Morphe nu a putut verifica că aplicația instalată este build-ul pe care l-a patch-uit</string>
@@ -1113,6 +1121,7 @@ Detalii: %2$s"</string>
     <string name="available">Disponibil</string>
     <string name="continue_">Continuă</string>
     <string name="version">Versiune</string>
+    <string name="clone">Clonă</string>
     <string name="patch">Patch-uiește</string>
     <string name="patching">Se aplică patch-uri</string>
     <string name="patched">Patch-uite</string>

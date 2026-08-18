@@ -193,6 +193,8 @@
     <string name="home_apk_use_installed">Käytä asennettua APK:ta</string>
     <string name="home_apk_use_installed_unverified">Sovelluksen asennetun version allekirjoitusta ei voitu vahvistaa, joten se on ehkä jo muutettu</string>
     <string name="home_unverified">Vahvistamaton</string>
+    <string name="home_install_verification_pending">Tarkistetaan asennusta…</string>
+    <string name="home_app_info_install_unverified">Morphe ei voi vahvistaa, että asennettu sovellus on se koontiversio, jonka se korjasi. Tee korjaus uudelleen tai asenna sovellus uudelleen tallennetusta APK:sta palauttaaksesi sen toiminnot.</string>
     <string name="home_app_info_no_saved_apk">Ei tallennettua APK:ta. Muokkaaminen edellyttää APK-tiedoston valitsemista uudelleen.</string>
     <string name="home_version_requires_android">Vaatii Android-version %s tai uudemman</string>
     <string name="home_apk_no_compatible_versions_title">Ei tueta tällä laitteella</string>
@@ -305,6 +307,9 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="patch_option_enter_value">Anna arvo</string>
     <string name="patch_option_enter_number">Anna luku</string>
     <string name="patch_option_enter_decimal">Anna desimaaliluku</string>
+    <string name="patch_option_slider_edit">Anna tarkka arvo</string>
+    <string name="patch_option_slider_range_start">Alkaen</string>
+    <string name="patch_option_slider_range_end">Asti</string>
     <string name="patch_option_list_duplicate">Tämä arvo on jo olemassa</string>
     <string name="patch_option_list_empty">Arvo ei voi olla tyhjä</string>
     <string name="patch_option_list_empty_state">Arvoja ei ole vielä lisätty</string>
@@ -408,6 +413,10 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="home_app_info_app_deleted_warning">Sovellus poistettiin</string>
     <string name="home_app_info_app_deleted_description">Tämä sovellus poistettiin Morphen ulkopuolelta. Muokkaa sitä uudelleen palauttaaksesi toiminnot</string>
     <string name="home_app_info_not_patched_description">Tästä sovelluksesta on asennettu korjaamaton versio. Morphella on edelleen aiempi korjaustietue.</string>
+    <string name="home_dialog_rename_title">Tämä asentaa kopion</string>
+    <string name="home_dialog_rename_description">Valitut korjaukset rakentavat tämän sovelluksen omalla paketinimellään, joten tulos asennetaan &lt;b&gt;%s&lt;/b&gt; -sovelluksen rinnalle sen päivittämisen sijaan.</string>
+    <string name="home_dialog_rename_result_package">Asennetaan nimellä</string>
+    <string name="home_dialog_rename_replaces">Kopio käyttää jo tätä nimeä, ja se rakennetaan uudelleen</string>
     <string name="home_app_info_apk_size">APK:n koko</string>
     <string name="home_app_info_cpu_arch">Suorittimen arkkitehtuuri</string>
     <!-- Home Screen - Root Mode -->
@@ -530,6 +539,8 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="patcher_heap_exhausted_message">Paikkaajalta loppui muisti %1$d MB:n kekomuistilla. Tämä sovellus on liian suuri valituille paikkauksille. Yritä paikata vähemmillä paikkalähteillä tai valitse vähemmän paikkauksia.</string>
     <string name="install_app_success">Asennus onnistui</string>
     <string name="install_app_fail">Sovelluksen asentaminen epäonnistui: %s</string>
+    <string name="install_ignore_signature">Asenna silti</string>
+    <string name="install_ignore_signature_description">Säilyttää sovellustiedot, mutta toimii vain, jos root-moduuli poistaa Androidin allekirjoituksen vahvistuksen käytöstä.</string>
     <string name="uninstall_app_fail">Sovelluksen poistaminen epäonnistui: %s</string>
     <string name="uninstall_app_unverified">Jätetty paikalleen: Morphe ei voinut vahvistaa, että asennettu sovellus on se сборка, jonka se korjasi</string>
     <string name="launch_app_unverified">Morphe ei voinut vahvistaa, että asennettu sovellus on se сборка, jonka se korjasi</string>
@@ -591,12 +602,18 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_pure_black">Täysin musta</string>
     <string name="settings_appearance_pure_black_description">Käytä täysin mustia taustoja</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Kieli &amp; näyttö</string>
     <string name="settings_appearance_app_language">Sovelluksen kieli</string>
     <string name="settings_appearance_app_language_current">Nykyinen kieli</string>
     <string name="settings_appearance_translations_info_title">Joidenkin kielten käännökset saattavat puuttua tai olla puutteellisia</string>
     <string name="settings_appearance_translations_info_text">"Uusien kielten kääntämiseksi tai nykyisten käännösten parantamiseksi, vieraile osoitteessa
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Käyttöliittymän skaalaus</string>
+    <string name="settings_appearance_ui_scale_current">Nykyinen skaalaus</string>
+    <string name="settings_appearance_ui_scale_description">Skaalaa kaiken sovelluksessa järjestelmän näytön zoomauksen ja fonttikoon lisäksi.</string>
+    <string name="settings_appearance_ui_scale_preview_title">Esimerkkiasetus</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Teksti ja säätimet tässä mittakaavassa</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Aloitusnäyttö</string>
     <string name="settings_appearance_greeting_phrases">Tervehdysviestit</string>
@@ -926,6 +943,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Poistetaanko valitut APK-tiedostot?</string>
     <string name="settings_system_apks_delete_selected_confirm">Tämä poistaa pysyvästi valitut APK-tiedostot</string>
     <string name="settings_system_apks_deleted_all">APK-tiedostot poistettiin onnistuneesti</string>
+    <string name="settings_system_apks_delete_failed">Joitakin APK-tiedostoja ei voitu poistaa</string>
     <string name="settings_system_apks_export_zip_success">Valitut APK-tiedostot viety</string>
     <string name="settings_system_apks_export_zip_failed">Valittujen APK-tiedostojen vienti epäonnistui</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1039,6 +1057,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="filter">Suodatin</string>
     <string name="reset">Nollaa</string>
     <string name="reset_all">Nollaa kaikki</string>
+    <string name="apply">Käytä</string>
     <string name="confirm">Vahvista</string>
     <string name="warning">Varoitus</string>
     <string name="error_">Virhe</string>
@@ -1104,6 +1123,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="available">Saatavilla</string>
     <string name="continue_">Jatka</string>
     <string name="version">Versio</string>
+    <string name="clone">Kloonaa</string>
     <string name="patch">Muokkaa</string>
     <string name="patching">Korjataan</string>
     <string name="patched">Muokatut</string>

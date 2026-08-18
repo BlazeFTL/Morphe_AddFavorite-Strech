@@ -307,6 +307,9 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="patch_option_enter_value">Inserisci il valore</string>
     <string name="patch_option_enter_number">Inserisci il numero</string>
     <string name="patch_option_enter_decimal">Inserisci il decimale</string>
+    <string name="patch_option_slider_edit">Inserisci un valore esatto</string>
+    <string name="patch_option_slider_range_start">Da</string>
+    <string name="patch_option_slider_range_end">A</string>
     <string name="patch_option_list_duplicate">Questo valore esiste già</string>
     <string name="patch_option_list_empty">Il valore non può essere vuoto</string>
     <string name="patch_option_list_empty_state">Nessun valore aggiunto ancora</string>
@@ -411,6 +414,9 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="home_app_info_app_deleted_description">Questa app è stata disinstallata al di fuori di Morphe. Ripatchala per ripristinare la funzionalità</string>
     <string name="home_app_info_not_patched_description">Una versione non patchata di questa app è installata. Morphe ha ancora il suo record di patch precedente</string>
     <string name="home_dialog_rename_title">Questo installerà una copia</string>
+    <string name="home_dialog_rename_description">Le patch selezionate compilano questa app con un nome di pacchetto proprio, quindi il risultato si installa accanto a &lt;b&gt;%s&lt;/b&gt; invece di aggiornarla.</string>
+    <string name="home_dialog_rename_result_package">Verrà installato come</string>
+    <string name="home_dialog_rename_replaces">Una copia usa già quel nome e verrà ricostruita</string>
     <string name="home_app_info_apk_size">Dimensione APK</string>
     <string name="home_app_info_cpu_arch">Architettura CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -533,6 +539,8 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_heap_exhausted_message">Il patcher ha esaurito la memoria con un heap di %1$d MB. Questa app è troppo grande per le patch selezionate. Prova a eseguire il patching con meno sorgenti di patch oppure seleziona meno patch.</string>
     <string name="install_app_success">Installato correttamente</string>
     <string name="install_app_fail">Impossibile installare l\'app: %s</string>
+    <string name="install_ignore_signature">Installa comunque</string>
+    <string name="install_ignore_signature_description">Mantiene i dati dell\'app, ma funziona solo se un modulo root disabilita la verifica della firma di Android.</string>
     <string name="uninstall_app_fail">Impossibile disinstallare l\'app: %s</string>
     <string name="uninstall_app_unverified">Lasciata al suo posto: Morphe non ha potuto verificare che l\'app installata sia la build che ha patchato.</string>
     <string name="launch_app_unverified">Morphe non ha potuto verificare che l\'app installata sia la build che ha patchato.</string>
@@ -594,12 +602,16 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_pure_black">Nero assoluto</string>
     <string name="settings_appearance_pure_black_description">Usa sfondi con neri assoluti</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Lingua &amp; display</string>
     <string name="settings_appearance_app_language">Lingua dell\'app</string>
     <string name="settings_appearance_app_language_current">Lingua attuale</string>
     <string name="settings_appearance_translations_info_title">Le traduzioni per alcune lingue potrebbero essere incomplete o mancanti</string>
     <string name="settings_appearance_translations_info_text">"Per tradurre nuove lingue o migliorare le traduzioni esistenti, visita
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Scala dell\'interfaccia</string>
+    <string name="settings_appearance_ui_scale_current">Scala attuale</string>
+    <string name="settings_appearance_ui_scale_description">Scala tutto nell\'app, oltre allo zoom dello schermo e alla dimensione del carattere di sistema.</string>
     <string name="settings_appearance_ui_scale_preview_title">Impostazione di esempio</string>
     <string name="settings_appearance_ui_scale_preview_subtitle">Testo e controlli a questa scala</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
@@ -1111,6 +1123,7 @@ Dettagli: %2$s"</string>
     <string name="available">Disponibile</string>
     <string name="continue_">Continua</string>
     <string name="version">Versione</string>
+    <string name="clone">Clona</string>
     <string name="patch">Patch</string>
     <string name="patching">Modifica</string>
     <string name="patched">Patchate</string>

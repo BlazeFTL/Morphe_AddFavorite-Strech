@@ -4,6 +4,7 @@
     <string name="home_other_apps">Egyéb alkalmazások</string>
     <string name="home_not_patched_yet">Még nincs módosítva</string>
     <string name="home_unpatched_version_installed">A nem javított verzió van telepítve</string>
+    <string name="home_unpatched_badge">Nincs módosítva</string>
     <string name="home_no_patches_available">Nincsenek elérhető módosítások</string>
     <string name="home_app_hide_title">Elrejted az alkalmazást?</string>
     <string name="home_app_hide_message">Ez az alkalmazás el lesz rejtve a főképernyőről. Később visszaállíthatod a lista alján található gomb segítségével.</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Nem sikerült ellenőrizni a telepített alkalmazás áláísás állását, ezért lehetséges, hogy már másolták.</string>
     <string name="home_unverified">Nem ellenőrzött</string>
     <string name="home_install_verification_pending">Telepítés ellenőrzése…</string>
+    <string name="home_app_info_install_unverified">A Morphe nem tudja megerősíteni, hogy a telepített alkalmazás az a build, amelyet módosított. Módosítsa újra, vagy telepítse újra a mentett APK-ból a műveleteinek visszaállításához.</string>
     <string name="home_app_info_no_saved_apk">Nincs mentett APK. A módosításhoz újra ki kell választanod az APK-fájlt.</string>
     <string name="home_version_requires_android">Android %s+ verziót igényel</string>
     <string name="home_apk_no_compatible_versions_title">Nem támogatott ezen az eszközen</string>
@@ -304,6 +306,9 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="patch_option_enter_value">Érték megadása</string>
     <string name="patch_option_enter_number">Szám megadása</string>
     <string name="patch_option_enter_decimal">Tizedes megadása</string>
+    <string name="patch_option_slider_edit">Adjon meg egy pontos értéket</string>
+    <string name="patch_option_slider_range_start">Tól</string>
+    <string name="patch_option_slider_range_end">Ig</string>
     <string name="patch_option_list_duplicate">Ez az érték már létezik</string>
     <string name="patch_option_list_empty">Az érték nem lehet üres</string>
     <string name="patch_option_list_empty_state">Még nincsenek hozzáadott értékek</string>
@@ -408,6 +413,9 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="home_app_info_app_deleted_description">Ezt az alkalmazást a Morphén kívül távolították el. Alkalmazd újra a módosításokat a működés helyreállításához.</string>
     <string name="home_app_info_not_patched_description">Az alkalmazás nem javított verziója van telepítve. A Morphe még mindig tartalmazza a korábbi javítási rekordját.</string>
     <string name="home_dialog_rename_title">Ez egy példányt telepít</string>
+    <string name="home_dialog_rename_description">A kiválasztott javítások saját csomagnév alatt építik fel ezt az alkalmazást, így az eredmény a &lt;b&gt;%s&lt;/b&gt; mellett települ, ahelyett hogy frissítené azt.</string>
+    <string name="home_dialog_rename_result_package">Telepítés mint</string>
+    <string name="home_dialog_rename_replaces">Egy másolat már használja ezt a nevet, és újra lesz építve.</string>
     <string name="home_app_info_apk_size">APK méret</string>
     <string name="home_app_info_cpu_arch">CPU architektúra</string>
     <!-- Home Screen - Root Mode -->
@@ -530,6 +538,8 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patcher_heap_exhausted_message">A javítóprogram kifutott a memóriából egy %1$d MB méretű heap-pel. Ez az alkalmazás túl nagy a kiválasztott javításokhoz. Próbáljon kevesebb javítási forrással javítani, vagy válasszon kevesebb javítást.</string>
     <string name="install_app_success">Sikeresen telepítve</string>
     <string name="install_app_fail">Nem sikerült telepíteni az alkalmazást: %s</string>
+    <string name="install_ignore_signature">Telepítés mindenképpen</string>
+    <string name="install_ignore_signature_description">Megőrzi az alkalmazás adatait, de csak akkor működik, ha egy root modul letiltja az Android aláírás-ellenőrzését.</string>
     <string name="uninstall_app_fail">Nem sikerült eltávolítani az alkalmazást: %s</string>
     <string name="uninstall_app_unverified">A helyén hagyva: a Morphe nem tudta ellenőrizni, hogy a telepített alkalmazás az a build, amelyet javított</string>
     <string name="launch_app_unverified">A Morphe nem tudta ellenőrizni, hogy a telepített alkalmazás az a build, amelyet javított</string>
@@ -591,11 +601,15 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_pure_black">Tiszta fekete</string>
     <string name="settings_appearance_pure_black_description">Valódi fekete háttér használata</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Nyelv &amp; megjelenítés</string>
     <string name="settings_appearance_app_language">Alkalmazás nyelve</string>
     <string name="settings_appearance_app_language_current">Jelenlegi nyelv</string>
     <string name="settings_appearance_translations_info_title">Egyes nyelvek fordításai hiányozhatnak vagy hiányosak lehetnek</string>
     <string name="settings_appearance_translations_info_text">"Új nyelvek fordításához vagy a meglévő fordítások javításához látogass el a következő oldalra: %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Felület mérete</string>
+    <string name="settings_appearance_ui_scale_current">Jelenlegi méret</string>
+    <string name="settings_appearance_ui_scale_description">Az alkalmazásban mindent méretez a rendszer képernyő-nagyítása és betűmérete mellett.</string>
     <string name="settings_appearance_ui_scale_preview_title">Mintabeállítás</string>
     <string name="settings_appearance_ui_scale_preview_subtitle">Szövegek és vezérlők ezen a méretekben</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
@@ -927,6 +941,7 @@ Részletek: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Kiválasztott APK-k törlése?</string>
     <string name="settings_system_apks_delete_selected_confirm">Ez véglegesen törli a kiválasztott APK fájlokat.</string>
     <string name="settings_system_apks_deleted_all">Az APK-k sikeresen törölve lettek.</string>
+    <string name="settings_system_apks_delete_failed">Néhány APK-fájl törlése sikertelen.</string>
     <string name="settings_system_apks_export_zip_success">A kiválasztott APK-k exportálva</string>
     <string name="settings_system_apks_export_zip_failed">A kiválasztott APK-k exportálása sikertelen</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1106,6 +1121,7 @@ Részletek: %2$s"</string>
     <string name="available">Elérhető</string>
     <string name="continue_">Folytatás</string>
     <string name="version">Verzió</string>
+    <string name="clone">Klón</string>
     <string name="patch">Módosítás</string>
     <string name="patching">Javítás</string>
     <string name="patched">Módosított</string>

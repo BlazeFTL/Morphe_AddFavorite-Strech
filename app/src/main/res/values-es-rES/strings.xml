@@ -103,7 +103,7 @@
     <string name="home_greeting_evening_2">¿Relajándote? Parchea alguna aplicación primero</string>
     <string name="home_greeting_evening_3">¿Acabando la jornada? Parchea algo antes</string>
     <!-- Late night greetings (22:00–23:59) -->
-    <string name="home_greeting_late_night_1">¿Aún despierto? También lo están las aplicaciones que necesitan parcheo</string>
+    <string name="home_greeting_late_night_1">¿Aún despierto? Aprovecha para parchear</string>
     <string name="home_greeting_late_night_2">¿Sesión de parcheo nocturna? Respeto</string>
     <string name="home_greeting_late_night_3">Modo noctámbulo: activado</string>
     <!-- Super late night greetings (0:00–4:59) -->

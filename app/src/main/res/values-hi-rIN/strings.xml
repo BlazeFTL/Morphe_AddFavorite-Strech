@@ -4,6 +4,7 @@
     <string name="home_other_apps">अन्य ऐप्स</string>
     <string name="home_not_patched_yet">अभी तक पट्च नहीं किया गया है</string>
     <string name="home_unpatched_version_installed">अनपैच्ड संस्करण स्थापित है</string>
+    <string name="home_unpatched_badge">पैच नहीं किया गया</string>
     <string name="home_no_patches_available">कोई पैच उपलब्ध नहीं है</string>
     <string name="home_app_hide_title">इस ऐप को छुपाएं?</string>
     <string name="home_app_hide_message">यह ऐप होम स्क्रीन से छिपा दिया जाएगा। आप सूची के नीचे दिए गए बटन का उपयोग करके छिपे हुए ऐप्स से इसे बाद में पुनर्स्थापित कर सकते हैं</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">इंस्टॉल किए गए ऐप के हस्ताक्षर को सत्यापित नहीं किया जा सका, इसलिए यह पहले से ही पैच किया जा सकता है</string>
     <string name="home_unverified">असत्यापित</string>
     <string name="home_install_verification_pending">इंस्टॉल की जाँच हो रही है…</string>
+    <string name="home_app_info_install_unverified">Morphe यह पुष्टि नहीं कर सकता कि स्थापित ऐप वही बिल्ड है जिसे उसने पैच किया था। इसकी क्रियाएँ बहाल करने के लिए इसे दोबारा पैच करें या सहेजे गए APK से पुनः स्थापित करें।</string>
     <string name="home_app_info_no_saved_apk">कोई प्रतिलिपि APK नहीं है। पट्च करना पुनः APK फ़ाइल का चयन करना आवश्यक होगा</string>
     <string name="home_version_requires_android">Android %s+ की आवश्यकता है</string>
     <string name="home_apk_no_compatible_versions_title">इस डिवाइस पर समर्थित नहीं है</string>
@@ -304,6 +306,9 @@
     <string name="patch_option_enter_value">मूल्य दर्ज करें</string>
     <string name="patch_option_enter_number">नंबर दर्ज करें</string>
     <string name="patch_option_enter_decimal">दशमलव दर्ज करें</string>
+    <string name="patch_option_slider_edit">सटीक मान दर्ज करें</string>
+    <string name="patch_option_slider_range_start">से</string>
+    <string name="patch_option_slider_range_end">तक</string>
     <string name="patch_option_list_duplicate">यह मान पहले से मौजूद है</string>
     <string name="patch_option_list_empty">मान खाली नहीं हो सकता</string>
     <string name="patch_option_list_empty_state">अभी तक कोई मान नहीं जोड़ा गया है</string>
@@ -391,6 +396,7 @@
     <string name="home_app_info_delete_preservation_note">आपका पथच चयन और विकल्प भविष्य के पथच के लिए सुरक्षित रहेंगे।</string>
     <string name="home_app_info_patches_name_default">पैच</string>
     <string name="home_app_info_patches_name_fallback">अनाम</string>
+    <string name="home_app_info_patches_source_removed">पैच स्रोत हटाया गया</string>
     <string name="home_app_info_patches_replace_fail">पैच आयात करने में विफल हो गया: %s</string>
     <string name="home_app_info_repatch_no_original_apk"> मूल APK नहीं मिला. इस ऐप को पुनः पैच करना संभव नहीं है।</string>
     <string name="home_app_info_original_package_name">ओरिजिनल पैकेज नाम</string>
@@ -406,6 +412,10 @@
     <string name="home_app_info_app_deleted_warning">एप्लिकेशन उन्मोदन किया गया</string>
     <string name="home_app_info_app_deleted_description">इस ऐप को बाहर से उन्मोदन किया गया था। मॉर्फी में पुनः स्थापित करें कार्यक्षमता पुनः प्राप्त करने के लिए</string>
     <string name="home_app_info_not_patched_description">इस ऐप का एक अनपैच्ड संस्करण स्थापित है। Morphe के पास अभी भी उसका पिछला पैच रिकॉर्ड है</string>
+    <string name="home_dialog_rename_title">यह एक प्रति स्थापित करेगा</string>
+    <string name="home_dialog_rename_description">चयनित पैच इस ऐप को उनके अपने पैकेज नाम के तहत बनाते हैं, इसलिए परिणाम इसे अपडेट करने के बजाय &lt;b&gt;%s&lt;/b&gt; के साथ स्थापित होता है</string>
+    <string name="home_dialog_rename_result_package">इस रूप में स्थापित होगा</string>
+    <string name="home_dialog_rename_replaces">एक प्रति पहले से उस नाम का उपयोग करती है और इसे फिर से बनाया जाएगा</string>
     <string name="home_app_info_apk_size">APK आकार</string>
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->
@@ -528,6 +538,8 @@
     <string name="patcher_heap_exhausted_message">पैचर %1$d MB हीप के साथ मेमोरी से बाहर हो गया। यह ऐप चयनित पैच के लिए बहुत बड़ा है। कम पैच स्रोतों के साथ पैच करने का प्रयास करें, या कम पैच चुनें।</string>
     <string name="install_app_success">सफलतापूर्वक इंस्टॉल हो गया</string>
     <string name="install_app_fail">अप्लिकेशन को तैयार करना असफल रहा: %s</string>
+    <string name="install_ignore_signature">फिर भी स्थापित करें</string>
+    <string name="install_ignore_signature_description">ऐप डेटा रखता है, लेकिन केवल तभी काम करता है जब कोई रूट मॉड्यूल Android की हस्ताक्षर सत्यापन अक्षम करता है।</string>
     <string name="uninstall_app_fail">ऐप को अनइंस्टॉल करने में विफल: %s</string>
     <string name="uninstall_app_unverified">स्थान पर छोड़ दिया गया: Morphe सत्यापित नहीं कर सका कि इंस्टॉल किया गया ऐप वही बिल्ड है जिसे उसने पैच किया था</string>
     <string name="launch_app_unverified">Morphe सत्यापित नहीं कर सका कि इंस्टॉल किया गया ऐप वही बिल्ड है जिसे उसने पैच किया था</string>
@@ -589,12 +601,18 @@
     <string name="settings_appearance_pure_black">शुद्ध काला</string>
     <string name="settings_appearance_pure_black_description">सही काले रंग की पृष्ठभूमि का उपयोग करता है।</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">भाषा &amp; प्रदर्शन</string>
     <string name="settings_appearance_app_language">एप्लिकेशन भाषा</string>
     <string name="settings_appearance_app_language_current">वर्तमान भाषा</string>
     <string name="settings_appearance_translations_info_title">कुछ भाषाओं के लिए अनुवाद या अपूर्ण अनुवाद उपलब्ध हो सकते हैं</string>
     <string name="settings_appearance_translations_info_text">"नई भाषाएँ अनुवाद करने या मौजूदा अनुवादों को बेहतर बनाने के लिए,
 %s पर जाएँ"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">इंटरफ़ेस स्केल</string>
+    <string name="settings_appearance_ui_scale_current">वर्तमान स्केल</string>
+    <string name="settings_appearance_ui_scale_description">सिस्टम स्क्रीन ज़ूम और फ़ॉन्ट आकार के अतिरिक्त, ऐप में सब कुछ स्केल करता है</string>
+    <string name="settings_appearance_ui_scale_preview_title">नमूना सेटिंग</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">इस स्केल पर पाठ और नियंत्रण</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">मुखपृष्ठ</string>
     <string name="settings_appearance_greeting_phrases">अभिवादन वाक्यांश</string>
@@ -924,6 +942,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">चयनित APK हटाएं?</string>
     <string name="settings_system_apks_delete_selected_confirm">यह चयनित APK फ़ाइलों को स्थायी रूप से हटा देगा</string>
     <string name="settings_system_apks_deleted_all">APK सफलतापूर्वक हटाए गए</string>
+    <string name="settings_system_apks_delete_failed">कुछ APK फ़ाइलें हटाई नहीं जा सकीं</string>
     <string name="settings_system_apks_export_zip_success">निर्यात किए गए APK</string>
     <string name="settings_system_apks_export_zip_failed">चयनित APK निर्यात करने में विफल।</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1037,6 +1056,7 @@ morphe_header_custom_dark.png
     <string name="filter">फ़िल्टर</string>
     <string name="reset">रीसेट करें</string>
     <string name="reset_all">सभी रीसेट करें</string>
+    <string name="apply">लागू करें</string>
     <string name="confirm">पुष्टि करें</string>
     <string name="warning">चेतावनी</string>
     <string name="error_">त्रुटि</string>
@@ -1102,6 +1122,7 @@ morphe_header_custom_dark.png
     <string name="available">उपलब्ध</string>
     <string name="continue_">Continue</string>
     <string name="version">Version</string>
+    <string name="clone">क्लोन</string>
     <string name="patch">पैच</string>
     <string name="patching">पैचिंग</string>
     <string name="patched">पैच किया गया</string>

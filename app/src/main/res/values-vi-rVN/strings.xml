@@ -4,6 +4,7 @@
     <string name="home_other_apps">Các ứng dụng khác</string>
     <string name="home_not_patched_yet">Chưa vá</string>
     <string name="home_unpatched_version_installed">Đã cài đặt phiên bản chưa được vá</string>
+    <string name="home_unpatched_badge">Chưa vá</string>
     <string name="home_no_patches_available">Không có bản vá nào</string>
     <string name="home_app_hide_title">Ẩn ứng dụng này?</string>
     <string name="home_app_hide_message">Ứng dụng này sẽ bị ẩn khỏi trang chủ. Bạn có thể khôi phục lại từ danh sách ứng dụng đang ẩn ở cuối danh sách</string>
@@ -192,6 +193,8 @@
     <string name="home_apk_use_installed">Sử dụng APK đã cài đặt</string>
     <string name="home_apk_use_installed_unverified">Không thể xác minh chữ ký của ứng dụng đã cài đặt, vì vậy ứng dụng có thể đã bị sửa đổi</string>
     <string name="home_unverified">Chưa xác minh</string>
+    <string name="home_install_verification_pending">Đang kiểm tra cài đặt…</string>
+    <string name="home_app_info_install_unverified">Morphe không thể xác nhận rằng ứng dụng đã cài đặt là bản dựng mà nó đã vá. Hãy vá lại hoặc cài đặt lại từ tệp APK đã lưu để khôi phục các hành động của nó</string>
     <string name="home_app_info_no_saved_apk">Chưa lưu APK nào. Bạn sẽ phải chọn lại APK khi vá</string>
     <string name="home_version_requires_android">Yêu cầu Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Không hỗ trợ trên thiết bị này</string>
@@ -229,6 +232,7 @@
     <string name="home_select_apk_title">Chọn APK</string>
     <string name="home_select_any_apk_description">Chọn một tệp APK của bất kỳ ứng dụng nào, hoặc chọn một ứng dụng đã được cài đặt trên máy bạn</string>
     <string name="home_use_installed_app">Dùng ứng dụng đã cài</string>
+    <string name="home_installed_app_picker_title">Ứng dụng đã cài đặt</string>
     <string name="home_installed_app_picker_empty">Không tìm thấy ứng dụng nào</string>
     <string name="home_installed_app_picker_filter_all">Tất cả ứng dụng</string>
     <string name="home_installed_app_picker_filter_user">Chỉ ứng dụng đã cài</string>
@@ -302,6 +306,9 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="patch_option_enter_value">Nhập giá trị</string>
     <string name="patch_option_enter_number">Nhập số</string>
     <string name="patch_option_enter_decimal">Nhập số thập phân</string>
+    <string name="patch_option_slider_edit">Nhập giá trị chính xác</string>
+    <string name="patch_option_slider_range_start">Từ</string>
+    <string name="patch_option_slider_range_end">Đến</string>
     <string name="patch_option_list_duplicate">Giá trị này đã tồn tại rồi</string>
     <string name="patch_option_list_empty">Không được để trống</string>
     <string name="patch_option_list_empty_state">Chưa thêm giá trị nào</string>
@@ -405,6 +412,10 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="home_app_info_app_deleted_warning">Ứng dụng đã bị gỡ cài đặt</string>
     <string name="home_app_info_app_deleted_description">Ứng dụng này đã bị gỡ bên ngoài Morphe. Hãy vá lại để khôi phục chức năng</string>
     <string name="home_app_info_not_patched_description">Một phiên bản chưa được vá của ứng dụng này đã được cài đặt. Morphe vẫn còn lưu bản ghi vá trước đó.</string>
+    <string name="home_dialog_rename_title">Thao tác này sẽ cài đặt một bản sao</string>
+    <string name="home_dialog_rename_description">Các bản vá đã chọn xây dựng ứng dụng này dưới một tên gói riêng, vì vậy kết quả cài đặt sẽ nằm cùng với &lt;b&gt;%s&lt;/b&gt; thay vì cập nhật nó</string>
+    <string name="home_dialog_rename_result_package">Sẽ cài đặt dưới tên</string>
+    <string name="home_dialog_rename_replaces">Một bản sao đã sử dụng tên đó và sẽ được xây dựng lại</string>
     <string name="home_app_info_apk_size">Kích thước APK</string>
     <string name="home_app_info_cpu_arch">Kiến trúc CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -527,6 +538,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_heap_exhausted_message">Trình vá đã hết bộ nhớ với heap %1$d MB. Ứng dụng này quá lớn so với các bản vá đã chọn. Hãy thử vá với ít nguồn vá hơn hoặc chọn ít bản vá hơn.</string>
     <string name="install_app_success">Đã cài đặt thành công</string>
     <string name="install_app_fail">Không thể cài đặt ứng dụng: %s</string>
+    <string name="install_ignore_signature">Vẫn cài đặt</string>
+    <string name="install_ignore_signature_description">Giữ dữ liệu ứng dụng, nhưng chỉ hoạt động nếu mô-đun root vô hiệu hóa xác minh chữ ký của Android</string>
     <string name="uninstall_app_fail">Không thể gỡ cài đặt: %s</string>
     <string name="uninstall_app_unverified">Để nguyên: Morphe không thể xác minh rằng ứng dụng đã cài đặt là bản mà nó đã vá</string>
     <string name="launch_app_unverified">Morphe không thể xác minh rằng ứng dụng đã cài đặt là bản mà nó đã vá</string>
@@ -588,12 +601,18 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_pure_black">Đen tuyền</string>
     <string name="settings_appearance_pure_black_description">Nền đen thực sự</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Ngôn ngữ &amp; hiển thị</string>
     <string name="settings_appearance_app_language">Ngôn ngữ</string>
     <string name="settings_appearance_app_language_current">Ngôn ngữ hiện tại</string>
     <string name="settings_appearance_translations_info_title">Một số ngôn ngữ có thể bị thiếu hoặc chưa hoàn thiện</string>
     <string name="settings_appearance_translations_info_text">"Để dịch các ngôn ngữ mới hoặc cải thiện bản dịch hiện có, vui lòng truy cập
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Tỷ lệ giao diện</string>
+    <string name="settings_appearance_ui_scale_current">Tỷ lệ hiện tại</string>
+    <string name="settings_appearance_ui_scale_description">Phóng to tất cả nội dung trong ứng dụng, ngoài tính năng phóng to và cỡ chữ của hệ thống</string>
+    <string name="settings_appearance_ui_scale_preview_title">Mẫu cài đặt</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Văn bản và điều khiển ở tỷ lệ này</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Trang chủ</string>
     <string name="settings_appearance_greeting_phrases">Thông điệp</string>
@@ -923,6 +942,7 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Xóa các tệp APK đã chọn?</string>
     <string name="settings_system_apks_delete_selected_confirm">Thao tác này sẽ xóa vĩnh viễn các tệp APK đã chọn</string>
     <string name="settings_system_apks_deleted_all">Đã xóa các tệp APK thành công</string>
+    <string name="settings_system_apks_delete_failed">Không thể xóa một số tệp APK</string>
     <string name="settings_system_apks_export_zip_success">Đã xuất APK đã chọn</string>
     <string name="settings_system_apks_export_zip_failed">Không thể xuất các APK đã chọn</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1102,6 +1122,7 @@ Chi tiết: %2$s"</string>
     <string name="available">Khả dụng</string>
     <string name="continue_">Tiếp</string>
     <string name="version">Phiên bản</string>
+    <string name="clone">Bản sao</string>
     <string name="patch">Vá</string>
     <string name="patching">Đang vá</string>
     <string name="patched">Đã vá</string>

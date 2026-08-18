@@ -4,6 +4,7 @@
     <string name="home_other_apps">Άλλες εφαρμογές</string>
     <string name="home_not_patched_yet">Δεν τροποποιήθηκε ακόμη</string>
     <string name="home_unpatched_version_installed">Εγκαταστάθηκε μη ενημερωμένη έκδοση</string>
+    <string name="home_unpatched_badge">Δεν τροποποιήθηκε</string>
     <string name="home_no_patches_available">Δεν υπάρχουν διαθέσιμες τροποποιήσεις</string>
     <string name="home_app_hide_title"> Απόκρυψη αυτής της εφαρμογής;</string>
     <string name="home_app_hide_message">Αυτή η εφαρμογή θα αποκρυφθεί από την αρχική οθόνη. Μπορείτε να την επαναφέρετε αργότερα από τις κρυφές εφαρμογές χρησιμοποιώντας το κουμπί στο κάτω μέρος της λίστας</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Δεν μπόρεσα να επαληθεύσω την υπογραφή της εγκατεστημένης εφαρμογής, επομένως ενδέχεται να έχει ήδη τροποποιηθεί</string>
     <string name="home_unverified">Μη επαληθευμένο</string>
     <string name="home_install_verification_pending">Έλεγχος εγκατάστασης…</string>
+    <string name="home_app_info_install_unverified">Η Morphe δεν μπορεί να επιβεβαιώσει ότι η εγκατεστημένη εφαρμογή είναι η έκδοση που τροποποίησε. Επαναλάβετε την τροποποίηση ή επανεγκαταστήστε την από το αποθηκευμένο APK για να επαναφέρετε τις ενέργειές της</string>
     <string name="home_app_info_no_saved_apk">Δεν υπάρχει αποθηκευμένο APK. Η τροποποίηση κώδικα θα απαιτήσει την επιλογή του αρχείου APK ξανά</string>
     <string name="home_version_requires_android">Απαιτείται Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Δεν υποστηρίζεται σε αυτή τη συσκευή</string>
@@ -304,6 +306,9 @@
     <string name="patch_option_enter_value">Εισαγωγή τιμής</string>
     <string name="patch_option_enter_number">Εισαγωγή αριθμού</string>
     <string name="patch_option_enter_decimal">Εισαγωγή δεκαδικού</string>
+    <string name="patch_option_slider_edit">Εισαγάγετε μια ακριβή τιμή</string>
+    <string name="patch_option_slider_range_start">Από</string>
+    <string name="patch_option_slider_range_end">Έως</string>
     <string name="patch_option_list_duplicate">Αυτή η τιμή υπάρχει ήδη</string>
     <string name="patch_option_list_empty">Η τιμή δεν μπορεί να είναι κενή</string>
     <string name="patch_option_list_empty_state">Δεν προστέθηκαν ακόμη τιμές</string>
@@ -407,6 +412,10 @@
     <string name="home_app_info_app_deleted_warning">Η εφαρμογή έχει απεγκατασταθεί</string>
     <string name="home_app_info_app_deleted_description">Η εφαρμογή αυτή απεγκαταστάθηκε εκτός του Morphe. Τροποποιήστε την ξανά για την επαναφορά λειτουργικότητά της</string>
     <string name="home_app_info_not_patched_description">Μια μη ενημερωμένη έκδοση αυτής της εφαρμογής είναι εγκατεστημένη. Το Morphe εξακολουθεί να έχει το προηγούμενο αρχείο επιδιορθώσεων.</string>
+    <string name="home_dialog_rename_title">Αυτό θα εγκαταστήσει ένα αντίγραφο</string>
+    <string name="home_dialog_rename_description">Οι επιλεγμένες τροποποιήσεις δημιουργούν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, έτσι το αποτέλεσμα εγκαθίσταται δίπλα στο &lt;b&gt;%s&lt;/b&gt; αντί να την ενημερώνει</string>
+    <string name="home_dialog_rename_result_package">Θα εγκατασταθεί ως</string>
+    <string name="home_dialog_rename_replaces">Ένα αντίγραφο χρησιμοποιεί ήδη αυτό το όνομα και θα ανακατασκευαστεί</string>
     <string name="home_app_info_apk_size">Μέγεθος APK</string>
     <string name="home_app_info_cpu_arch">Αρχιτεκτονική CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -592,6 +601,7 @@
     <string name="settings_appearance_pure_black">Αληθινό μαύρο</string>
     <string name="settings_appearance_pure_black_description">Χρησιμοποιεί αληθινά μαύρα φόντα</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Γλώσσα &amp; οθόνη</string>
     <string name="settings_appearance_app_language">Γλώσσα εφαρμογής</string>
     <string name="settings_appearance_app_language_current">Τρέχουσα γλώσσα</string>
     <string name="settings_appearance_translations_info_title">Οι μεταφράσεις για ορισμένες γλώσσες μπορεί να λείπουν ή να μην είναι ολοκληρωμένες</string>
@@ -601,6 +611,8 @@
     <string name="settings_appearance_ui_scale">Κλίμακα διεπαφής</string>
     <string name="settings_appearance_ui_scale_current">Τρέχουσα κλίμακα</string>
     <string name="settings_appearance_ui_scale_description">Κλιμακώνει τα πάντα στην εφαρμογή, επιπλέον από τη μεγέθυνση οθόνης και το μέγεθος γραμματοχάρτης του συστήματος</string>
+    <string name="settings_appearance_ui_scale_preview_title">Δείγμα ρύθμισης</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Κείμενο και στοιχεία ελέγχου σε αυτήν την κλίμακα</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Αρχική οθόνη</string>
     <string name="settings_appearance_greeting_phrases">Φράσεις υποδοχής</string>
@@ -930,6 +942,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">Διαγραφή επιλεγμένων APK;</string>
     <string name="settings_system_apks_delete_selected_confirm">Αυτό θα διαγράψει οριστικά τα επιλεγμένα αρχεία APK</string>
     <string name="settings_system_apks_deleted_all">APK διαγράφηκαν με επιτυχία</string>
+    <string name="settings_system_apks_delete_failed">Ορισμένα αρχεία APK δεν ήταν δυνατό να διαγραφούν</string>
     <string name="settings_system_apks_export_zip_success">Εξαγωγή επιλεγμένων APK</string>
     <string name="settings_system_apks_export_zip_failed">Αποτυχία εξαγωγής επιλεγμένων APK</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1043,6 +1056,7 @@ morphe_header_custom_dark.png
     <string name="filter">Φίλτρο</string>
     <string name="reset">Επαναφορά</string>
     <string name="reset_all">Επαναφορά Όλων</string>
+    <string name="apply">Εφαρμογή</string>
     <string name="confirm">Επιβεβαίωση</string>
     <string name="warning">Προειδοποίηση</string>
     <string name="error_">Σφάλμα</string>
@@ -1108,6 +1122,7 @@ morphe_header_custom_dark.png
     <string name="available">Διαθέσιμο</string>
     <string name="continue_">Συνέχεια</string>
     <string name="version">Έκδοση</string>
+    <string name="clone">Κλώνος</string>
     <string name="patch">Τροποποίηση</string>
     <string name="patching">Τροποποίηση</string>
     <string name="patched">Τροποποιήθηκε</string>

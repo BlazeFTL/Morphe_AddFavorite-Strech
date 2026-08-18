@@ -413,6 +413,9 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="home_app_info_app_deleted_description">Táto aplikácia bola odinštalovaná mimo Morphe. Znovu ju zaplátajte aby ste obnovili jej funkčnosť</string>
     <string name="home_app_info_not_patched_description">Nainštalovaná je nezapatchovaná verzia tejto aplikácie. Morphe má stále svoj predchádzajúci záznam o oprave</string>
     <string name="home_dialog_rename_title">Týmto sa nainštaluje kópiou</string>
+    <string name="home_dialog_rename_description">Vybrané patche vytvoria túto aplikáciu pod vlastným názvom balíka, takže výsledok sa nainštaluje popri &lt;b&gt;%s&lt;/b&gt; namiesto jej aktualizácie.</string>
+    <string name="home_dialog_rename_result_package">Nainštaluje sa ako</string>
+    <string name="home_dialog_rename_replaces">Kópia už používa tento názov a bude znovu zostavená.</string>
     <string name="home_app_info_apk_size">Veľkosť APK</string>
     <string name="home_app_info_cpu_arch">Architektúra CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -535,6 +538,8 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="patcher_heap_exhausted_message">Patcheru došla pamäť s haldou veľkosti %1$d MB. Táto aplikácia je príliš veľká na vybrané patche. Skúste patchovať s menším počtom zdrojov patchov alebo vyberte menej patchov.</string>
     <string name="install_app_success">Úspešne nainštalované</string>
     <string name="install_app_fail">Nepodarilo sa nainštalovať aplikáciu: %s</string>
+    <string name="install_ignore_signature">Nainštalovať napriek tomu</string>
+    <string name="install_ignore_signature_description">Zachováva dáta aplikácie, ale funguje iba vtedy, ak root modul vypne overovanie podpisu systému Android.</string>
     <string name="uninstall_app_fail">Nepodarilo sa odinštalovať aplikáciu: %s</string>
     <string name="uninstall_app_unverified">Ponechané na mieste: Morphe nemohol overiť, že nainštalovaná aplikácia je zostava, ktorú opatchoval.</string>
     <string name="launch_app_unverified">Morphe nemohol overiť, že nainštalovaná aplikácia je zostava, ktorú opatchoval.</string>
@@ -596,6 +601,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_pure_black">Čistá čierna</string>
     <string name="settings_appearance_pure_black_description">Použiť úplne čierne pozadie</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Jazyk &amp; zobrazenie</string>
     <string name="settings_appearance_app_language">Jazyk aplikácie</string>
     <string name="settings_appearance_app_language_current">Aktuálny jazyk</string>
     <string name="settings_appearance_translations_info_title">Preklady pre niektoré jazyky sa môžu byť neúplné</string>
@@ -936,6 +942,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Vymazať vybrané APK súbory?</string>
     <string name="settings_system_apks_delete_selected_confirm">Týmto trvalo vymažete vybrané APK súbory</string>
     <string name="settings_system_apks_deleted_all">APK súbory boli úspešne vymazané</string>
+    <string name="settings_system_apks_delete_failed">Niektoré súbory APK sa nepodarilo odstrániť.</string>
     <string name="settings_system_apks_export_zip_success">Exportované APK súbory</string>
     <string name="settings_system_apks_export_zip_failed">Nepodarilo sa exportovať vybrané APK súbory</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1115,6 +1122,7 @@ Podrobnosti: %2$s"</string>
     <string name="available">Dostupné</string>
     <string name="continue_">Pokračovať</string>
     <string name="version">Verzia</string>
+    <string name="clone">Klonovať</string>
     <string name="patch">Zaplátať</string>
     <string name="patching">Záplatovanie</string>
     <string name="patched">Zaplátané</string>

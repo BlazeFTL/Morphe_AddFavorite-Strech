@@ -232,6 +232,7 @@
     <string name="home_select_apk_title">Izaberi APK</string>
     <string name="home_select_any_apk_description">Odaberite APK datoteku bilo koje aplikacije ili odaberite aplikaciju koja je već instalirana na ovom uređaju</string>
     <string name="home_use_installed_app">Koristi instaliranu aplikaciju</string>
+    <string name="home_installed_app_picker_title">Instalirane aplikacije</string>
     <string name="home_installed_app_picker_empty">Nema pronađenih aplikacija</string>
     <string name="home_installed_app_picker_filter_all">Sve aplikacije</string>
     <string name="home_installed_app_picker_filter_user">Samo korisničke aplikacije</string>
@@ -305,6 +306,9 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="patch_option_enter_value">Unesite vrednost</string>
     <string name="patch_option_enter_number">Unesite broj</string>
     <string name="patch_option_enter_decimal">Unesite decimalni broj</string>
+    <string name="patch_option_slider_edit">Unesite tačnu vrednost</string>
+    <string name="patch_option_slider_range_start">Od</string>
+    <string name="patch_option_slider_range_end">Do</string>
     <string name="patch_option_list_duplicate">Ova vrednost već postoji</string>
     <string name="patch_option_list_empty">Vrednost ne može biti prazna</string>
     <string name="patch_option_list_empty_state">Još nisu dodate vrednosti</string>
@@ -408,6 +412,10 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nezakrpana verzija ove aplikacije. Morphe i dalje ima svoj prethodni zapis o zakrpi</string>
+    <string name="home_dialog_rename_title">Ovo će instalirati kopiju</string>
+    <string name="home_dialog_rename_description">Izabrane zakrpe grade ovu aplikaciju pod sopstvenim imenom paketa, tako da se rezultat instalira pored &lt;b&gt;%s&lt;/b&gt; umesto da je ažurira</string>
+    <string name="home_dialog_rename_result_package">Instaliraće se kao</string>
+    <string name="home_dialog_rename_replaces">Kopija već koristi to ime i biće ponovo izgrađena</string>
     <string name="home_app_info_apk_size">Veličina APK-a</string>
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->
@@ -530,6 +538,8 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="patcher_heap_exhausted_message">Patcher je ostao bez memorije sa %1$d MB heap-om. Ova aplikacija je prevelika za izabrane zakrpe. Pokušajte da zakrpate uz manje izvora zakrpa ili izaberite manje zakrpa.</string>
     <string name="install_app_success">Uspešno instalirano</string>
     <string name="install_app_fail">Nije uspelo instaliranje aplikacije: %s</string>
+    <string name="install_ignore_signature">Ipak instaliraj</string>
+    <string name="install_ignore_signature_description">Čuva podatke aplikacije, ali funkcioniše samo ako root modul onemogući verifikaciju potpisa Androida</string>
     <string name="uninstall_app_fail">Nije uspešno deinstalirana aplikacija: %s</string>
     <string name="uninstall_app_unverified">Ostavljeno na mestu: Morphe nije mogao da potvrdi da je instalirana aplikacija verzija koju je zakrpio.</string>
     <string name="launch_app_unverified">Morphe nije mogao da potvrdi da je instalirana aplikacija verzija koju je zakrpio.</string>
@@ -591,12 +601,18 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_pure_black">Čisto Crna</string>
     <string name="settings_appearance_pure_black_description">Koristi istinski crne pozadine</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Jezik &amp; prikaz</string>
     <string name="settings_appearance_app_language">Jezik aplikacije</string>
     <string name="settings_appearance_app_language_current">Trenutni jezik</string>
     <string name="settings_appearance_translations_info_title">Prevodi za neke jezike mogu biti nepotpuni ili nedostajati</string>
     <string name="settings_appearance_translations_info_text">"Da biste preveli nove jezike ili poboljšali postojeće prevode, posetite
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Razmera interfejsa</string>
+    <string name="settings_appearance_ui_scale_current">Trenutna razmera</string>
+    <string name="settings_appearance_ui_scale_description">Skalira sve u aplikaciji, pored sistemskog zumiranja ekrana i veličine fonta</string>
+    <string name="settings_appearance_ui_scale_preview_title">Primer podešavanja</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Tekst i kontrole u ovoj razmeri</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Početni ekran</string>
     <string name="settings_appearance_greeting_phrases">Pozdravne poruke</string>
@@ -910,6 +926,7 @@ Detalji: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Izbrisati izabrane APK-ove?</string>
     <string name="settings_system_apks_delete_selected_confirm">Ovo će trajno izbrisati izabrane APK fajlove</string>
     <string name="settings_system_apks_deleted_all">APK-ovi su uspešno izbrisani</string>
+    <string name="settings_system_apks_delete_failed">Neke APK datoteke nisu mogle biti obrisane</string>
     <string name="settings_system_apks_export_zip_success">Izvezeni APK-ovi</string>
     <string name="settings_system_apks_export_zip_failed">Nije uspeo izvoz selektovanih APK-ova</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1023,6 +1040,7 @@ Detalji: %2$s"</string>
     <string name="filter">Filter</string>
     <string name="reset">Poništi</string>
     <string name="reset_all">Poništi sve</string>
+    <string name="apply">Primeni</string>
     <string name="confirm">Potvrdi</string>
     <string name="warning">Upozorenje</string>
     <string name="error_">Greška</string>
@@ -1088,6 +1106,7 @@ Detalji: %2$s"</string>
     <string name="available">Dostupno</string>
     <string name="continue_">Nastavi</string>
     <string name="version">Verzija</string>
+    <string name="clone">Klon</string>
     <string name="patch">Zakrpi</string>
     <string name="patching">Zakrpljivanje</string>
     <string name="patched">Zakrpljene</string>

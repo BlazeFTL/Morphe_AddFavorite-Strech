@@ -4,6 +4,7 @@
     <string name="home_other_apps">Andre apper</string>
     <string name="home_not_patched_yet">Ikke patchet ennå</string>
     <string name="home_unpatched_version_installed">Uoppdatert versjon installert</string>
+    <string name="home_unpatched_badge">Ikke patchet</string>
     <string name="home_no_patches_available">Ingen patcher tilgjengelig</string>
     <string name="home_app_hide_title">Skjul denne appen?</string>
     <string name="home_app_hide_message">Denne appen vil være skjult fra startskjermen. Du kan gjenopprette den senere fra de skjulte appene ved hjelp av knappen nederst i listen</string>
@@ -193,6 +194,7 @@
     <string name="home_apk_use_installed_unverified">Kunne ikke verifisere signaturen til den installerte appen, så den kan allerede være patchet</string>
     <string name="home_unverified">Uverifisert</string>
     <string name="home_install_verification_pending">Sjekker installasjon…</string>
+    <string name="home_app_info_install_unverified">Morphe kan ikke bekrefte at den installerte appen er bygget den patchet. Repatcher eller installer den på nytt fra den lagrede APK-en for å gjenopprette handlingene.</string>
     <string name="home_app_info_no_saved_apk">Ingen lagret APK. Patching krever at du velger APK-filen på nytt</string>
     <string name="home_version_requires_android">Krever Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">Ikke støttes på denne enheten</string>
@@ -304,6 +306,9 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="patch_option_enter_value">Skriv inn verdi</string>
     <string name="patch_option_enter_number">Skriv inn tall</string>
     <string name="patch_option_enter_decimal">Skriv inn desimaltall</string>
+    <string name="patch_option_slider_edit">Angi en nøyaktig verdi</string>
+    <string name="patch_option_slider_range_start">Fra</string>
+    <string name="patch_option_slider_range_end">Til</string>
     <string name="patch_option_list_duplicate">Denne verdien finnes allerede</string>
     <string name="patch_option_list_empty">Verdien kan ikke være tom</string>
     <string name="patch_option_list_empty_state">Ingen verdier lagt til ennå</string>
@@ -407,6 +412,10 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="home_app_info_app_deleted_warning">Appen ble avinstallert</string>
     <string name="home_app_info_app_deleted_description">Denne appen ble avinstallert utenfor Morphe. Patch den på nytt for å gjenopprette funksjonaliteten</string>
     <string name="home_app_info_not_patched_description">En uoppdatert versjon av denne appen er installert. Morphe har fortsatt sin tidligere patchregistrering</string>
+    <string name="home_dialog_rename_title">Dette vil installere en kopi</string>
+    <string name="home_dialog_rename_description">De valgte patchene bygger denne appen under et pakkenavn som er deres eget, så resultatet installeres ved siden av &lt;b&gt;%s&lt;/b&gt; i stedet for å oppdatere den.</string>
+    <string name="home_dialog_rename_result_package">Vil installere som</string>
+    <string name="home_dialog_rename_replaces">En kopi bruker allerede det navnet og vil bli bygget om.</string>
     <string name="home_app_info_apk_size">APK-størrelse</string>
     <string name="home_app_info_cpu_arch">CPU-arkitektur</string>
     <!-- Home Screen - Root Mode -->
@@ -529,6 +538,8 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="patcher_heap_exhausted_message">Patcheren gikk tom for minne med en heap på %1$d MB. Denne appen er for stor for de valgte patcherene. Prøv å patche med færre patchkilder, eller velg færre patcher.</string>
     <string name="install_app_success">Installert vellykket</string>
     <string name="install_app_fail">Kunne ikke installere app: %s</string>
+    <string name="install_ignore_signature">Installer likevel</string>
+    <string name="install_ignore_signature_description">Beholder appdata, men fungerer bare hvis en rotmodul deaktiverer Androids signaturverifisering.</string>
     <string name="uninstall_app_fail">Kunne ikke avinstallere app: %s</string>
     <string name="uninstall_app_unverified">Latt på plass: Morphe kunne ikke bekrefte at den installerte appen er bygget den patchet.</string>
     <string name="launch_app_unverified">Morphe kunne ikke bekrefte at den installerte appen er bygget den patchet.</string>
@@ -590,12 +601,18 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Bruker ekte svarte bakgrunner</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Språk &amp; skjerm</string>
     <string name="settings_appearance_app_language">Appspråk</string>
     <string name="settings_appearance_app_language_current">Gjeldende språk</string>
     <string name="settings_appearance_translations_info_title">Oversettelser for noen språk mangler eller er ufullstendige</string>
     <string name="settings_appearance_translations_info_text">"For å oversette nye språk eller forbedre eksisterende oversettelser, besøk
 %s"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Grensesnittskala</string>
+    <string name="settings_appearance_ui_scale_current">Nåværende skala</string>
+    <string name="settings_appearance_ui_scale_description">Skalerer alt i appen, i tillegg til systemets skjermzoom og skriftstørrelse.</string>
+    <string name="settings_appearance_ui_scale_preview_title">Eksempelinnstilling</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Tekst og kontroller i denne skalaen</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Hjemmeskjerm</string>
     <string name="settings_appearance_greeting_phrases">Hilsenfraser</string>
@@ -925,6 +942,7 @@ Detaljer: %2$s"</string>
     <string name="settings_system_apks_delete_selected_title">Slette valgte APK-er?</string>
     <string name="settings_system_apks_delete_selected_confirm">Dette vil slette de valgte APK-filene permanent.</string>
     <string name="settings_system_apks_deleted_all">APK-er slettet.</string>
+    <string name="settings_system_apks_delete_failed">Noen APK-filer kunne ikke slettes</string>
     <string name="settings_system_apks_export_zip_success">Valgte APK-er eksportert</string>
     <string name="settings_system_apks_export_zip_failed">Kunne ikke eksportere valgte APK-er</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1038,6 +1056,7 @@ Detaljer: %2$s"</string>
     <string name="filter">Filter</string>
     <string name="reset">Tilbakestill</string>
     <string name="reset_all">Tilbakestill alt</string>
+    <string name="apply">Bruk</string>
     <string name="confirm">Bekreft</string>
     <string name="warning">Advarsel</string>
     <string name="error_">Feil</string>
@@ -1103,6 +1122,7 @@ Detaljer: %2$s"</string>
     <string name="available">Tilgjengelig</string>
     <string name="continue_">Fortsett</string>
     <string name="version">Versjon</string>
+    <string name="clone">Klon</string>
     <string name="patch">Patch</string>
     <string name="patching">Patching</string>
     <string name="patched">Patchet</string>

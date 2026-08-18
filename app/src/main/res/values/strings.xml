@@ -49,6 +49,8 @@
     <string name="home_app_filter_not_patched_description">Apps you have not patched in Morphe yet</string>
     <string name="home_app_filter_installed_description">Apps currently installed on this device</string>
     <string name="home_app_filter_uninstalled_description">Apps patched with Morphe that are no longer on this device</string>
+    <string name="home_app_filter_clones">Clones</string>
+    <string name="home_app_filter_clones_description">Apps built under a package name of their own, installed alongside the original</string>
     <string name="home_app_sort_manual_description">Long-press an app, then tap reorder button</string>
     <string name="home_app_sort_recommended">Recommended order</string>
     <string name="home_app_sort_recommended_description">Installed and pinned apps first</string>

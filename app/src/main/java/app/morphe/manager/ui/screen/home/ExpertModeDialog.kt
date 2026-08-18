@@ -281,11 +281,6 @@ fun ExpertModeDialog(
                             listState = singleBundleList,
                             modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                         )
-
-                        ScrollToTopButton(
-                            listState = singleBundleList,
-                            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                        )
                     }
                 }
             } else {
@@ -452,11 +447,6 @@ fun ExpertModeDialog(
                             ?.let { pageListStates.getOrNull(pagerState.currentPage) }
                         if (currentPageList != null) {
                             ListScrollbar(
-                                listState = currentPageList,
-                                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                            )
-
-                            ScrollToTopButton(
                                 listState = currentPageList,
                                 modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                             )

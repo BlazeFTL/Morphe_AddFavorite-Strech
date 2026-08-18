@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-18T13:27:04",
-  "description": "# [1.27.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.1...v1.27.0-dev.2) (2026-08-18)\n\n\n### Bug Fixes\n\n* Clone warning is read from the built APK instead of guessed from the patch list ([834aa4a](https://github.com/MorpheApp/morphe-manager/commit/834aa4a8b5d97ac79aab19817c22aef82d6d5d14))\n\n\n### Features\n\n* Home app list can be filtered down to clones ([ba9ebda](https://github.com/MorpheApp/morphe-manager/commit/ba9ebdae3da2007b11bd89eefb935d7fce483d31))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.2/morphe-manager-1.27.0-dev.2.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.2/morphe-manager-1.27.0-dev.2.apk.asc",
-  "version": "1.27.0-dev.2"
+  "created_at": "2026-08-18T16:23:22",
+  "description": "# [1.27.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.2...v1.27.0-dev.3) (2026-08-18)\n\n\n### Bug Fixes\n\n* Clone warning stays quiet for renames no selected patch asked for ([1ada7a7](https://github.com/MorpheApp/morphe-manager/commit/1ada7a783abd16fc219757391f1722299dedbd3c))\n* Content on a translucent fill keeps a readable contrast ([8fbd162](https://github.com/MorpheApp/morphe-manager/commit/8fbd1625b0a83dee12c4bf903279657942e31f9e))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.3/morphe-manager-1.27.0-dev.3.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.3/morphe-manager-1.27.0-dev.3.apk.asc",
+  "version": "1.27.0-dev.3"
 }

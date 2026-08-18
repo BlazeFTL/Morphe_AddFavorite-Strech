@@ -1,3 +1,11 @@
+# [1.27.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.2...v1.27.0-dev.3) (2026-08-18)
+
+
+### Bug Fixes
+
+* Clone warning stays quiet for renames no selected patch asked for ([1ada7a7](https://github.com/MorpheApp/morphe-manager/commit/1ada7a783abd16fc219757391f1722299dedbd3c))
+* Content on a translucent fill keeps a readable contrast ([8fbd162](https://github.com/MorpheApp/morphe-manager/commit/8fbd1625b0a83dee12c4bf903279657942e31f9e))
+
 # [1.27.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.1...v1.27.0-dev.2) (2026-08-18)
 
 

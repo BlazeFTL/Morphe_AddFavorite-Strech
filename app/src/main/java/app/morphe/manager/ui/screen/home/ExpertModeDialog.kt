@@ -570,19 +570,15 @@ private fun LazyListScope.patchSections(
 ) {
     val patchKey = { (patch, _): Pair<PatchInfo, Boolean> -> "$bundleUid:${patch.name}" }
 
-    items(sections.specific, key = patchKey) { (patch, isEnabled) ->
-        PatchCard(
-            patch = patch,
-            isEnabled = isEnabled,
-            isNew = patch.name in newPatchNames,
-            hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
-            lockState = lockStateOf(patch),
-            onToggle = { onToggle(patch.name) },
-            onConfigureOptions = { onConfigureOptions(patch) },
-            hasOptions = !patch.options.isNullOrEmpty(),
-            modifier = Modifier.animatedListItem(this)
-        )
-    }
+    patchRows(
+        rows = sections.specific,
+        key = patchKey,
+        newPatchNames = newPatchNames,
+        missingRequiredOptions = missingRequiredOptions,
+        lockStateOf = lockStateOf,
+        onToggle = onToggle,
+        onConfigureOptions = onConfigureOptions
+    )
 
     if (sections.universal.isEmpty()) return
 
@@ -603,16 +599,39 @@ private fun LazyListScope.patchSections(
 
     if (!isExpanded) return
 
-    items(sections.universal, key = patchKey) { (patch, isEnabled) ->
-        PatchCard(
-            patch = patch,
-            isEnabled = isEnabled,
-            isNew = patch.name in newPatchNames,
-            hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
-            onToggle = { onToggle(patch.name) },
-            onConfigureOptions = { onConfigureOptions(patch) },
-            hasOptions = !patch.options.isNullOrEmpty(),
-            modifier = Modifier.animatedListItem(this)
-        )
-    }
+    patchRows(
+        rows = sections.universal,
+        key = patchKey,
+        newPatchNames = newPatchNames,
+        missingRequiredOptions = missingRequiredOptions,
+        lockStateOf = lockStateOf,
+        onToggle = onToggle,
+        onConfigureOptions = onConfigureOptions
+    )
+}
+
+/**
+ * The patch rows themselves. Availability is resolved per patch, so a universal patch the
+ * installer requires or rules out carries the same lock as an app-specific one.
+ */
+private fun LazyListScope.patchRows(
+    rows: List<Pair<PatchInfo, Boolean>>,
+    key: (Pair<PatchInfo, Boolean>) -> Any,
+    newPatchNames: Set<String>,
+    missingRequiredOptions: Set<String>,
+    lockStateOf: (PatchInfo) -> PatchLockState,
+    onToggle: (String) -> Unit,
+    onConfigureOptions: (PatchInfo) -> Unit
+) = items(rows, key = key) { (patch, isEnabled) ->
+    PatchCard(
+        patch = patch,
+        isEnabled = isEnabled,
+        isNew = patch.name in newPatchNames,
+        hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
+        lockState = lockStateOf(patch),
+        onToggle = { onToggle(patch.name) },
+        onConfigureOptions = { onConfigureOptions(patch) },
+        hasOptions = !patch.options.isNullOrEmpty(),
+        modifier = Modifier.animatedListItem(this)
+    )
 }

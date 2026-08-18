@@ -26,16 +26,14 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.lerp as lerpColor
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import app.morphe.manager.util.isRtl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -44,6 +42,7 @@ import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.milliseconds
+import androidx.compose.ui.graphics.lerp as lerpColor
 
 private val ScrollbarEdgePadding = 4.dp
 private val ScrollbarVerticalPadding = 8.dp
@@ -236,7 +235,7 @@ private fun BoxScope.ScrollbarOverlay(
 ) {
     // Alignments resolve against the layout direction on their own, so the scrollbar mirrors to the
     // leading edge in RTL without being flipped here. Only the raw draw coordinates below need it
-    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val rtl = isRtl()
     val currentResolveSeek by rememberUpdatedState(resolveSeek)
     val currentScrollTo by rememberUpdatedState(scrollTo)
     val scope = rememberCoroutineScope()

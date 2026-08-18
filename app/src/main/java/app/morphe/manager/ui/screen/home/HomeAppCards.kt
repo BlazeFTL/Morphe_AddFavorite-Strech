@@ -16,11 +16,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
-import androidx.compose.material.icons.outlined.ArrowUpward
-import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.HourglassEmpty
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -37,7 +33,6 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
@@ -45,7 +40,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.InstalledApp
@@ -54,9 +48,7 @@ import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
-import app.morphe.manager.util.AppCardColorResolver
-import app.morphe.manager.util.AppDataSource
-import app.morphe.manager.util.withVersionPrefix
+import app.morphe.manager.util.*
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -513,7 +505,7 @@ internal fun AppCardLayout(
                 val w  = size.width
                 val h  = size.height
                 val cr = CornerRadius(cardStyle.cardRadius.toPx())
-                val rtl = layoutDirection == LayoutDirection.Rtl
+                val rtl = layoutDirection.isRtl
 
                 if (cardStyle.monochrome) {
                     return@drawWithCache onDrawWithContent {
@@ -535,8 +527,8 @@ internal fun AppCardLayout(
                         midColor.copy(alpha = 0.58f * glassAlpha),
                         endColor.copy(alpha = 0.64f * glassAlpha)
                     ),
-                    start = Offset(if (rtl) w else 0f, h),
-                    end   = Offset(if (rtl) 0f else w, 0f)
+                    start = Offset(startEdgeX(w, rtl), h),
+                    end   = Offset(endEdgeX(w, rtl), 0f)
                 )
 
                 // Border: bright top-start → faded bottom-end
@@ -547,8 +539,8 @@ internal fun AppCardLayout(
                         endColor.copy(alpha = 0.15f * borderAlpha),
                         Color.White.copy(alpha = 0.20f * borderAlpha)
                     ),
-                    start = Offset(if (rtl) w else 0f, 0f),
-                    end   = Offset(if (rtl) 0f else w, h)
+                    start = Offset(startEdgeX(w, rtl), 0f),
+                    end   = Offset(endEdgeX(w, rtl), h)
                 )
                 val borderStroke = Stroke(width = 1.5.dp.toPx())
 
@@ -627,7 +619,7 @@ fun AppLoadingCard(
 
     val cardStyle = homeAppCardStyle()
     val shape = RoundedCornerShape(cardStyle.cardRadius)
-    val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val rtl = isRtl()
 
     // Skeleton rows carry the height of the text they stand in for, so the card does not
     // re-lay-out its content the moment the real app resolves
@@ -651,8 +643,8 @@ fun AppLoadingCard(
                             brush = Brush.linearGradient(
                                 colors = cardStyle.cardColors(gradientColors)
                                     .map { it.copy(alpha = pulseAlpha) },
-                                start = Offset(if (rtl) 1000f else 0f, 0f),
-                                end = Offset(if (rtl) 0f else 1000f, 0f)
+                                start = Offset(startEdgeX(1000f, rtl), 0f),
+                                end = Offset(endEdgeX(1000f, rtl), 0f)
                             )
                         )
                     }

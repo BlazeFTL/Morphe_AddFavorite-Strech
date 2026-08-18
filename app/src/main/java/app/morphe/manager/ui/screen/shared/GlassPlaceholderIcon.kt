@@ -10,10 +10,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.util.endEdgeX
+import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.startEdgeX
 
 /**
  * Glass placeholder icon for apps that have not been patched yet.
@@ -31,7 +32,7 @@ fun GlassPlaceholderIcon(
     val baseColor = gradientColors.firstOrNull() ?: Color.White
     val midColor = gradientColors.getOrElse(1) { baseColor }
     val endColor = gradientColors.lastOrNull() ?: baseColor
-    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val rtl = isRtl()
 
     Box(
         modifier = modifier
@@ -43,8 +44,8 @@ fun GlassPlaceholderIcon(
                 val cr = CornerRadius(minOf(size.width, size.height) * 0.20f)
                 val w = size.width
                 val h = size.height
-                val startX = if (isRtl) w else 0f
-                val endX = if (isRtl) 0f else w
+                val startX = startEdgeX(w, rtl)
+                val endX = endEdgeX(w, rtl)
 
                 // One sweep from the frosted top-start highlight into the tinted bottom-end. Every
                 // translucent layer is another blend pass, paid once per placeholder on screen

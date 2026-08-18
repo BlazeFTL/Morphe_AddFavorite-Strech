@@ -39,14 +39,12 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppCategoryState
@@ -56,6 +54,7 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.KnownApps
+import app.morphe.manager.util.isRtl
 import kotlinx.coroutines.delay
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import kotlin.time.Duration.Companion.milliseconds
@@ -298,14 +297,14 @@ private fun AdaptiveContent(
             !state.isCategoryBarVisible &&
             !searchState.visible
     val swipeThresholdPx = with(LocalDensity.current) { 64.dp.toPx() }
-    val layoutDirection = LocalLayoutDirection.current
+    val rtl = isRtl()
     val modeSwipe = if (canSwipeMode) {
-        Modifier.pointerInput(currentModeIndex, layoutDirection) {
+        Modifier.pointerInput(currentModeIndex, rtl) {
             var accumulator = 0f
             detectHorizontalDragGestures(
                 onDragStart = { accumulator = 0f },
                 onDragEnd = {
-                    val direction = if (layoutDirection == LayoutDirection.Rtl) -1 else 1
+                    val direction = if (rtl) -1 else 1
                     val delta = accumulator * direction
                     when {
                         delta <= -swipeThresholdPx && currentModeIndex < modes.lastIndex ->

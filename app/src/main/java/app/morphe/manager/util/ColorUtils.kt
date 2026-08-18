@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.toColorInt
+import kotlin.math.max
+import kotlin.math.min
 
 /** Determine if a color represents a dark background. */
 fun Color.isDarkBackground(): Boolean = luminance() < 0.5f
@@ -25,6 +27,30 @@ fun Color.compositeOver(background: Color, alpha: Float = this.alpha): Color = C
  * Uses WCAG relative luminance threshold.
  */
 fun Color.requiresLightContent(): Boolean = luminance() < 0.5f
+
+/** WCAG contrast ratio against [background], from 1 for identical colors to 21 for black on white. */
+fun Color.contrastAgainst(background: Color): Float {
+    val content = luminance()
+    val behind = background.luminance()
+    return (max(content, behind) + 0.05f) / (min(content, behind) + 0.05f)
+}
+
+/**
+ * This color when it stays legible on a [fill] drawn over [surface], or plain black or white when
+ * it does not. Any transparency of its own is carried over, so a dimmed color stays dimmed.
+ *
+ * A palette pairs every container with an on-container color, but that pairing describes an opaque
+ * fill. Draw the fill translucent and the content lands on a blend the pairing says nothing about.
+ * Wallpaper palettes are what expose it, their tints having never been picked against these
+ * surfaces. [minRatio] defaults to the WCAG AA bar for large text.
+ */
+fun Color.readableOn(fill: Color, surface: Color, minRatio: Float = 3f): Color {
+    val background = fill.compositeOver(surface)
+    if (contrastAgainst(background) >= minRatio) return this
+
+    val replacement = if (background.requiresLightContent()) Color.White else Color.Black
+    return replacement.copy(alpha = alpha)
+}
 
 /**
  * Lighten a color by mixing with white

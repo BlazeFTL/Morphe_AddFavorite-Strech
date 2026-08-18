@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.util.readableOn
 
 /**
  * Frosted-glass button that pairs an optional [icon] with a [label].
@@ -60,6 +61,9 @@ fun GlassButton(
 
     // Selection is only meaningful for a tab; a plain button would be read as unselected
     val isSelectable = role == Role.Tab
+
+    // The fill is translucent, so the caller's pairing describes a background that is never drawn
+    val contentColor = contentColor.readableOn(containerColor, MaterialTheme.colorScheme.surface)
 
     val interactionSource = remember { MutableInteractionSource() }
     val clickHandler = if (hapticFeedback) rememberHapticClick(onClick) else onClick

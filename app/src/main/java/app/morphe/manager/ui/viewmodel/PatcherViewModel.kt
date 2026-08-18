@@ -138,6 +138,13 @@ class PatcherViewModel(
         val result = pm.getPackageInfo(outputFile)?.packageName ?: return@withContext null
         if (result == target) return@withContext null
 
+        // Patches rename an app for reasons of their own, and a build the user never asked to
+        // clone is still the app's only install however it ended up named
+        val bundles = scopedBundles()
+        if (!producedClone(result, sanitizeSelection(appliedSelection, bundles), bundles)) {
+            return@withContext null
+        }
+
         RenameWarning(
             targetPackageName = target,
             resultPackageName = result,
@@ -146,6 +153,31 @@ class PatcherViewModel(
             replacesExisting = pm.getPackageInfo(result) != null
         )
     }
+
+    /** The sources this run drew from, scoped to the app it started from. */
+    private suspend fun scopedBundles(): Map<Int, PatchBundleInfo.Scoped> =
+        patchBundleRepository.scopedBundleInfoFlow(
+            packageName,
+            input.selectedApp.version,
+            input.selectedApp.versionCode
+        ).first().associateBy { it.uid }
+
+    /**
+     * Whether this run built a clone rather than the app's own install, judged the same way here
+     * and where the result is recorded so the warning cannot contradict what gets stored.
+     */
+    private fun producedClone(
+        resultPackageName: String,
+        selection: PatchSelection,
+        bundles: Map<Int, PatchBundleInfo.Scoped>
+    ) = producesClone(
+        originalPackageName = packageName,
+        resultPackageName = resultPackageName,
+        selection = selection,
+        declaresPackageName = { bundleUid, patchName ->
+            bundles[bundleUid]?.patches?.firstOrNull { it.name == patchName }?.declaresPackageName == true
+        }
+    )
 
     /**
      * Offered after the patcher process was killed, holding the lower limit that might get the
@@ -654,29 +686,15 @@ class PatcherViewModel(
             exportMetadata = metadata
         }
 
-        // Use original package name to get scoped bundles for selection persistence
-        // This ensures all applied patches are correctly saved
-        val scopedBundlesForSelection = patchBundleRepository.scopedBundleInfoFlow(
-            packageName,
-            input.selectedApp.version,
-            input.selectedApp.versionCode
-        ).first().associateBy { it.uid }
+        // Scoped to the original package name, so every applied patch is still recognized once
+        // the run has built the app under a name of its own
+        val scopedBundlesForSelection = scopedBundles()
         val sanitizedSelection = sanitizeSelection(appliedSelection, scopedBundlesForSelection)
         val sanitizedOptions = sanitizeOptions(appliedOptions, scopedBundlesForSelection)
 
         val selectionPayload = patchBundleRepository.snapshotSelection(sanitizedSelection)
 
-        val isClone = producesClone(
-            originalPackageName = packageName,
-            resultPackageName = finalPackageName,
-            selection = sanitizedSelection,
-            declaresPackageName = { bundleUid, patchName ->
-                scopedBundlesForSelection[bundleUid]
-                    ?.patches
-                    ?.firstOrNull { it.name == patchName }
-                    ?.declaresPackageName == true
-            }
-        )
+        val isClone = producedClone(finalPackageName, sanitizedSelection, scopedBundlesForSelection)
 
         installedAppRepository.addOrUpdate(
             finalPackageName,

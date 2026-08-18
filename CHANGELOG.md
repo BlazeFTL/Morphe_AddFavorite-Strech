@@ -1,3 +1,10 @@
+## [1.26.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0...v1.26.1-dev.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* Progress gradient and card swipe actions mirror in RTL layouts ([9e0a087](https://github.com/MorpheApp/morphe-manager/commit/9e0a08757bf6196d2fe41d441dd3076ebd772437))
+
 # [1.26.0](https://github.com/MorpheApp/morphe-manager/compare/v1.25.0...v1.26.0) (2026-08-18)
 
 

@@ -36,6 +36,7 @@
     <!-- Patcher Screen -->
     <!-- Patcher Screen - Patcher Steps -->
     <!-- Battery optimization pre-flight dialog -->
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <!-- Patcher Screen - Patcher Messages -->
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
@@ -50,6 +51,7 @@
     <!-- Settings - Appearance Tab - Background animation -->
     <!-- Settings - Appearance Tab - Theme -->
     <!-- Settings - Appearance Tab - Language Selector -->
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <!-- Settings - Advanced Tab - Updates Section -->

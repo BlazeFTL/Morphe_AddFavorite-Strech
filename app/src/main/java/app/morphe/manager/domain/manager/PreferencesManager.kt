@@ -15,6 +15,8 @@ import app.morphe.manager.patcher.runtime.calculateAdaptiveMemoryLimit
 import app.morphe.manager.ui.screen.shared.BackgroundType
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
+import app.morphe.manager.ui.theme.UI_SCALE_DEFAULT
+import app.morphe.manager.ui.theme.coerceToUiScale
 import app.morphe.manager.ui.viewmodel.BundleSnapshot
 import app.morphe.manager.ui.viewmodel.RandomInterval
 import app.morphe.manager.util.AppCardColorMode
@@ -43,6 +45,9 @@ class PreferencesManager(
     val customAppCardColors = stringPreference("custom_app_card_colors", "")
     val theme = enumPreference("theme", Theme.SYSTEM)
     val themeStyle = enumPreference("theme_style", ThemeStyle.MORPHE)
+
+    /** Display scale of the whole interface, applied on top of the system screen zoom. */
+    val uiScale = floatPreference("ui_scale", UI_SCALE_DEFAULT)
 
     /** Guards the one-shot migration that folds the retired `dynamic_color` toggle into [themeStyle]. */
     private val themeStyleMigrated = booleanPreference("theme_style_migrated_v1", false)
@@ -215,7 +220,6 @@ class PreferencesManager(
 
     @Serializable
     data class SettingsSnapshot(
-        /** Retired flag, kept so pre-migration snapshots still deserialize into [themeStyle]. */
         val dynamicColor: Boolean? = null,
         val pureBlackTheme: Boolean? = null,
         val customAccentColor: String? = null,
@@ -225,6 +229,7 @@ class PreferencesManager(
         val stripUnusedNativeLibs: Boolean? = null,
         val theme: Theme? = null,
         val themeStyle: ThemeStyle? = null,
+        val uiScale: Float? = null,
         val appLanguage: String? = null,
         val api: String? = null,
         val gitHubPat: String? = null,
@@ -244,6 +249,8 @@ class PreferencesManager(
         val firstLaunch: Boolean? = null,
         val showManagerUpdateDialogOnLaunch: Boolean? = null,
         val useManagerPrereleases: Boolean? = null,
+        val officialBundlePrerelease: Boolean? = null,
+        val officialBundleExperimentalVersions: Boolean? = null,
         val bundlePrereleasesEnabled: Set<String>? = null,
         val bundleExperimentalVersionsEnabled: Set<String>? = null,
         val disablePatchVersionCompatCheck: Boolean? = null,
@@ -296,6 +303,7 @@ class PreferencesManager(
         stripUnusedNativeLibs = stripUnusedNativeLibs.get(),
         theme = theme.get(),
         themeStyle = themeStyle.get(),
+        uiScale = uiScale.get(),
         appLanguage = appLanguage.get(),
         gitHubPat = gitHubPat.get().takeIf { includeGitHubPatInExports.get() },
         includeGitHubPatInExports = includeGitHubPatInExports.get(),
@@ -310,8 +318,11 @@ class PreferencesManager(
         keystorePassword = keystorePassword.get().takeIf { it.isNotEmpty() },
         firstLaunch = firstLaunch.get(),
         useManagerPrereleases = useManagerPrereleases.get(),
-        bundlePrereleasesEnabled = bundlePrereleasesEnabled.get(),
-        bundleExperimentalVersionsEnabled = bundleExperimentalVersionsEnabled.get(),
+        // Custom sources carry prerelease/experimental toggles in customBundles, and the official
+        // source (UID 0) gets readable booleans below - so raw UID sets are no longer exported
+        officialBundlePrerelease = bundlePrereleasesEnabled.get().contains(DEFAULT_SOURCE_UID.toString()),
+        officialBundleExperimentalVersions =
+            bundleExperimentalVersionsEnabled.get().contains(DEFAULT_SOURCE_UID.toString()),
         disablePatchVersionCompatCheck = disablePatchVersionCompatCheck.get(),
         showGreetingPhrases = showGreetingPhrases.get(),
         backgroundType = backgroundType.get(),
@@ -351,6 +362,8 @@ class PreferencesManager(
                 // Pre-migration snapshots only carry `dynamicColor`; treat it as the missing style
                 if (snapshot.dynamicColor == true) themeStyle.value = ThemeStyle.MATERIAL_YOU
             }
+        // Snapped rather than taken as-is, so a scale from a build with a different range still fits
+        snapshot.uiScale?.let { uiScale.value = it.coerceToUiScale() }
         snapshot.appLanguage?.let { appLanguage.value = it }
         snapshot.gitHubPat?.let { gitHubPat.value = it }
         snapshot.includeGitHubPatInExports?.let { includeGitHubPatInExports.value = it }
@@ -365,8 +378,23 @@ class PreferencesManager(
         snapshot.keystorePassword?.let { keystorePassword.value = it }
         snapshot.firstLaunch?.let { firstLaunch.value = it }
         snapshot.useManagerPrereleases?.let { useManagerPrereleases.value = it }
-        snapshot.bundlePrereleasesEnabled?.let { bundlePrereleasesEnabled.value = it }
-        snapshot.bundleExperimentalVersionsEnabled?.let { bundleExperimentalVersionsEnabled.value = it }
+        // Exports carry the official source's toggles as readable booleans; older ones only have
+        // the UID sets, where the official source is the one UID that is stable across devices
+        val officialUid = DEFAULT_SOURCE_UID.toString()
+        val officialPrerelease = snapshot.officialBundlePrerelease
+            ?: snapshot.bundlePrereleasesEnabled?.contains(officialUid)
+        val officialExperimental = snapshot.officialBundleExperimentalVersions
+            ?: snapshot.bundleExperimentalVersionsEnabled?.contains(officialUid)
+        officialPrerelease?.let { enabled ->
+            val current = bundlePrereleasesEnabled.value.toMutableSet()
+            if (enabled) current.add(officialUid) else current.remove(officialUid)
+            bundlePrereleasesEnabled.value = current
+        }
+        officialExperimental?.let { enabled ->
+            val current = bundleExperimentalVersionsEnabled.value.toMutableSet()
+            if (enabled) current.add(officialUid) else current.remove(officialUid)
+            bundleExperimentalVersionsEnabled.value = current
+        }
         snapshot.disablePatchVersionCompatCheck?.let { disablePatchVersionCompatCheck.value = it }
         snapshot.showGreetingPhrases?.let { showGreetingPhrases.value = it }
         snapshot.backgroundType?.let { backgroundType.value = it }
@@ -394,9 +422,7 @@ class PreferencesManager(
     }
 
     companion object {
-        /**
-         * Check if current version is a development/prerelease version.
-         */
+        /** Check if current version is a development/prerelease version. */
         fun isDevVersion(): Boolean {
             return BuildConfig.VERSION_NAME.contains("-dev", ignoreCase = true)
         }

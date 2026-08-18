@@ -1,34 +1,30 @@
 package app.morphe.manager.patcher.patch
 
 import androidx.compose.runtime.Immutable
-import app.morphe.patcher.patch.ApkArchitecture
-import app.morphe.patcher.patch.AppTarget
-import app.morphe.patcher.patch.AvailabilityResolver
-import app.morphe.patcher.patch.InstallerType
-import app.morphe.patcher.patch.Patch
-import app.morphe.patcher.patch.PatchAvailability
-import app.morphe.patcher.patch.ApkFileType
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.ImmutableMap
-import kotlinx.collections.immutable.ImmutableSet
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.collections.immutable.toImmutableMap
-import kotlinx.collections.immutable.toImmutableSet
+import app.morphe.patcher.patch.*
+import kotlinx.collections.immutable.*
 import kotlin.reflect.KType
 import app.morphe.patcher.patch.ColorOption as PatchColorOption
 import app.morphe.patcher.patch.FilePathOption as PatchFilePathOption
 import app.morphe.patcher.patch.FilesOption as PatchFilesOption
+import app.morphe.patcher.patch.FloatRangeOption as PatchFloatRangeOption
+import app.morphe.patcher.patch.FloatSliderOption as PatchFloatSliderOption
 import app.morphe.patcher.patch.FolderOption as PatchFolderOption
 import app.morphe.patcher.patch.ImageOption as PatchImageOption
+import app.morphe.patcher.patch.IntRangeOption as PatchIntRangeOption
+import app.morphe.patcher.patch.IntSliderOption as PatchIntSliderOption
 import app.morphe.patcher.patch.Option as PatchOption
 
 data class PatchInfo(
+    /** Key for selections and options, unique within one app's list: [displayName], suffixed on collision. */
     val name: String,
     val description: String?,
     val include: Boolean,
     val compatiblePackages: ImmutableList<CompatiblePackage>?,
     val options: ImmutableList<Option<*>>?,
     val availabilityResolver: AvailabilityResolver? = null,
+    /** The name as declared by the bundle, for anything the user reads. */
+    val displayName: String = name,
 ) {
     @Suppress("DEPRECATION")
     constructor(patch: Patch<*>) : this(
@@ -111,16 +107,27 @@ data class PatchInfo(
     /**
      * Whether the user can toggle this patch for the given install target, and in which direction
      * it is locked when they cannot.
+     *
+     * [enforceRequired] is false while the run draws patches from more than one bundle. A REQUIRED
+     * patch then only starts out selected instead of locking, because a patch that cannot be
+     * unselected would keep its bundle in a run the user is trying to move away from.
      */
-    fun lockState(installerType: InstallerType, apkArchitecture: ApkArchitecture): PatchLockState {
+    fun lockState(
+        installerType: InstallerType,
+        apkArchitecture: ApkArchitecture,
+        enforceRequired: Boolean = true
+    ): PatchLockState {
         val resolver = availabilityResolver ?: return PatchLockState.NONE
         return when (resolver.resolve(installerType, apkArchitecture)) {
-            PatchAvailability.REQUIRED    -> PatchLockState.LOCKED_ON
+            PatchAvailability.REQUIRED    -> if (enforceRequired) PatchLockState.LOCKED_ON else PatchLockState.NONE
             PatchAvailability.UNAVAILABLE -> PatchLockState.LOCKED_OFF
             PatchAvailability.ENABLED,
             PatchAvailability.DISABLED    -> PatchLockState.NONE
         }
     }
+
+    /** Universal patches declare no compatible packages and therefore apply to any app. */
+    val isUniversal get() = compatiblePackages.isNullOrEmpty()
 
     fun compatibleWith(packageName: String) =
         compatiblePackages == null ||
@@ -174,6 +181,32 @@ data class PatchInfo(
 
 }
 
+/** Compatible package names, sorted, or empty for a universal patch. */
+private fun PatchInfo.compatibilityKey() =
+    compatiblePackages?.mapNotNull { it.packageName }?.sorted()?.joinToString().orEmpty()
+
+/**
+ * Selection keys for [patches], in the same order, keeping same-named ones apart so they cannot
+ * share one entry. Scoped to a single app's list, because that is how selections are stored.
+ */
+fun uniqueNames(patches: List<PatchInfo>): List<String> {
+    val keys = patches.mapTo(mutableListOf()) { it.name }
+    val duplicates = patches.withIndex().groupBy { it.value.name }.filterValues { it.size > 1 }
+    if (duplicates.isEmpty()) return keys
+
+    val taken = patches.mapTo(mutableSetOf()) { it.name }
+    duplicates.forEach { (name, group) ->
+        // The most specific patch keeps the plain name, so already stored keys stay valid
+        group.sortedByDescending { it.value.compatibilityKey() }.drop(1).forEach { (index, _) ->
+            var occurrence = 1
+            var key = name
+            while (!taken.add(key)) key = "$name (${++occurrence})"
+            keys[index] = key
+        }
+    }
+    return keys
+}
+
 @Immutable
 data class CompatiblePackage(
     /** Package name of the target app. **Null means universal patch** - compatible with any package. */
@@ -205,10 +238,19 @@ fun AppTarget.buildCodesOrNull(): Set<Int>? = versionCodes?.values?.toSet()?.ifE
  * (e.g. [PatchFolderOption], [PatchFilePathOption]). Null when the underlying
  * option is a plain untyped [PatchOption].
  */
-enum class ExplicitOptionKind { Folder, FilePath, Files, Image, Color }
+enum class ExplicitOptionKind {
+    Folder, FilePath, Files, Image, Color, IntSlider, FloatSlider, IntRange, FloatRange
+}
 
 /** Recommended pixel dimensions for an [ExplicitOptionKind.Image] option. */
 data class ImageSize(val width: Int, val height: Int)
+
+/**
+ * Bounds declared by a slider option, normalized so one carrier serves the integer and the
+ * floating point kinds alike. [ExplicitOptionKind] says which of the two the value is.
+ * A null [step] means the slider is continuous.
+ */
+data class SliderBounds(val min: Float, val max: Float, val step: Float?)
 
 @Immutable
 data class Option<T>(
@@ -226,6 +268,8 @@ data class Option<T>(
     val allowedExtensions: ImmutableList<String>? = null,
     /** Recommended image dimensions declared by an Image option. */
     val recommendedSize: ImageSize? = null,
+    /** Bounds declared by a slider or range option. Null for every other kind. */
+    val sliderBounds: SliderBounds? = null,
 ) {
     @Suppress("DEPRECATION")
     constructor(option: PatchOption<T>) : this(
@@ -240,15 +284,20 @@ data class Option<T>(
         explicitKind = extractExplicitKind(option),
         allowedExtensions = extractAllowedExtensions(option)?.toImmutableList(),
         recommendedSize = extractRecommendedSize(option),
+        sliderBounds = extractSliderBounds(option),
     )
 }
 
 private fun extractExplicitKind(option: PatchOption<*>): ExplicitOptionKind? = when (option) {
-    is PatchFolderOption   -> ExplicitOptionKind.Folder
-    is PatchFilePathOption -> ExplicitOptionKind.FilePath
-    is PatchFilesOption    -> ExplicitOptionKind.Files
-    is PatchImageOption    -> ExplicitOptionKind.Image
-    is PatchColorOption    -> ExplicitOptionKind.Color
+    is PatchFolderOption      -> ExplicitOptionKind.Folder
+    is PatchFilePathOption    -> ExplicitOptionKind.FilePath
+    is PatchFilesOption       -> ExplicitOptionKind.Files
+    is PatchImageOption       -> ExplicitOptionKind.Image
+    is PatchColorOption       -> ExplicitOptionKind.Color
+    is PatchIntSliderOption   -> ExplicitOptionKind.IntSlider
+    is PatchFloatSliderOption -> ExplicitOptionKind.FloatSlider
+    is PatchIntRangeOption    -> ExplicitOptionKind.IntRange
+    is PatchFloatRangeOption  -> ExplicitOptionKind.FloatRange
     else -> null
 }
 
@@ -261,5 +310,13 @@ private fun extractAllowedExtensions(option: PatchOption<*>): List<String>? = wh
 
 private fun extractRecommendedSize(option: PatchOption<*>): ImageSize? = when (option) {
     is PatchImageOption -> option.recommendedSize?.let { ImageSize(it.width, it.height) }
+    else -> null
+}
+
+private fun extractSliderBounds(option: PatchOption<*>): SliderBounds? = when (option) {
+    is PatchIntSliderOption   -> SliderBounds(option.min.toFloat(), option.max.toFloat(), option.step.toFloat())
+    is PatchFloatSliderOption -> SliderBounds(option.min, option.max, option.step)
+    is PatchIntRangeOption    -> SliderBounds(option.min.toFloat(), option.max.toFloat(), option.step.toFloat())
+    is PatchFloatRangeOption  -> SliderBounds(option.min, option.max, option.step)
     else -> null
 }

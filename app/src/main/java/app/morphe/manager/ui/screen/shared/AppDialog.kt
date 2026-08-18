@@ -12,12 +12,13 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalView
@@ -40,6 +41,25 @@ val LocalDialogSecondaryTextColor = compositionLocalOf { Color.White.copy(alpha 
 val LocalDialogHorizontalInset = compositionLocalOf { 0.dp }
 
 
+/**
+ * Counts the [AppDialog]s currently on screen. Each one paints an opaque full-screen background,
+ * so whatever the activity draws behind it is invisible and free to stand still until it closes.
+ */
+object FullscreenDialogs {
+    private val openCount = mutableIntStateOf(0)
+
+    val anyOpen: Boolean
+        get() = openCount.intValue > 0
+
+    internal fun onOpened() {
+        openCount.intValue++
+    }
+
+    internal fun onClosed() {
+        openCount.intValue--
+    }
+}
+
 /** Controls outer padding and inset behavior of [AppDialog]. */
 enum class DialogPadding {
     /** Standard 32dp outer padding with system bar insets. */
@@ -50,43 +70,48 @@ enum class DialogPadding {
     None
 }
 
-/** Visual style of a [DialogTitleAction]. */
-enum class DialogTitleActionStyle {
-    /** Flat [IconButton], 24dp icon, dialog text tint. Use for info/reset actions */
-    Plain,
-    /** Tonal 36dp circle with errorContainer palette, 20dp icon. Use for bulk destructive actions */
-    Destructive
-}
-
 /**
  * Unified fullscreen dialog component.
  *
  * @param onDismissRequest Called when user dismisses the dialog.
  * @param title Optional title displayed at the top.
- * @param titleTrailingContent Optional content displayed after the title.
+ * @param titleTrailingContent Optional actions displayed after the title, laid out in a row.
  * @param footer Optional footer content.
  * @param dismissOnClickOutside Whether clicking outside dismisses the dialog.
  * @param scrollable Whether to wrap content in verticalScroll and draw a [ListScrollbar] and [ScrollToTopButton] over it.
  * Set to false for LazyColumn, where the caller wires up its own scroll state, scrollbar and button. Default is true.
  * @param padding Outer padding mode. Default is [DialogPadding.Normal].
  * @param contentArrangement Vertical arrangement of the dialog content.
+ * @param fillContentHeight Whether the content area claims the free space, which pins the footer
+ * to the bottom of the dialog. Set to true for list dialogs, where the buttons belong at the
+ * bottom however short the list is. Compact dialogs leave it false so their content and buttons
+ * stay together as one centered block. Default is false.
  * @param content Dialog content.
  */
 @Composable
 fun AppDialog(
     onDismissRequest: () -> Unit,
     title: String? = null,
-    titleTrailingContent: (@Composable () -> Unit)? = null,
+    titleTrailingContent: (@Composable RowScope.() -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
     dismissOnClickOutside: Boolean = false,
     scrollable: Boolean = true,
     padding: DialogPadding = DialogPadding.Normal,
     contentArrangement: Arrangement.Vertical = Arrangement.Center,
+    fillContentHeight: Boolean = false,
     onEntered: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
     var visible by remember { mutableStateOf(false) }
+
+    DisposableEffect(Unit) {
+        FullscreenDialogs.onOpened()
+
+        onDispose {
+            FullscreenDialogs.onClosed()
+        }
+    }
 
     LaunchedEffect(Unit) {
         visible = true
@@ -142,6 +167,7 @@ fun AppDialog(
                     scrollable = scrollable,
                     padding = padding,
                     contentArrangement = contentArrangement,
+                    fillContentHeight = fillContentHeight,
                     content = content
                 )
             }
@@ -226,60 +252,18 @@ fun BoxScope.ContentOverlay(
 }
 
 /**
- * Icon action rendered inside the [AppDialog] title trailing slot. Uniforms the two
- * button styles used across dialogs so callers only pick an icon and a semantic style.
- */
-@Composable
-fun DialogTitleAction(
-    icon: ImageVector,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    style: DialogTitleActionStyle = DialogTitleActionStyle.Plain
-) {
-    when (style) {
-        DialogTitleActionStyle.Plain -> {
-            IconButton(onClick = onClick, modifier = modifier) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = contentDescription,
-                    modifier = Modifier.size(24.dp),
-                    tint = LocalDialogTextColor.current
-                )
-            }
-        }
-
-        DialogTitleActionStyle.Destructive -> {
-            FilledTonalIconButton(
-                onClick = onClick,
-                modifier = modifier.size(36.dp),
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                )
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = contentDescription,
-                    modifier = Modifier.size(Defaults.IconSizeSmall)
-                )
-            }
-        }
-    }
-}
-
-/**
  * Main dialog content area.
  */
 @Composable
 private fun DialogContent(
     title: String?,
-    titleTrailingContent: (@Composable () -> Unit)?,
+    titleTrailingContent: (@Composable RowScope.() -> Unit)?,
     footer: (@Composable () -> Unit)?,
     isDarkTheme: Boolean,
     scrollable: Boolean,
     padding: DialogPadding,
     contentArrangement: Arrangement.Vertical,
+    fillContentHeight: Boolean,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val isLandscape = isLandscape()
@@ -374,7 +358,13 @@ private fun DialogContent(
                                 modifier = Modifier.fillMaxWidth()
                             )
                         }
-                        if (titleTrailingContent != null) titleTrailingContent()
+                        if (titleTrailingContent != null) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                                verticalAlignment = Alignment.CenterVertically,
+                                content = titleTrailingContent
+                            )
+                        }
                     }
                 }
 
@@ -384,7 +374,7 @@ private fun DialogContent(
                 // LazyColumn callers pass scrollable=false and wire up their own scrollbar
                 val scrollState = if (scrollable) rememberScrollState() else null
                 Box(
-                    modifier = Modifier.weight(1f, fill = false)
+                    modifier = Modifier.weight(1f, fill = fillContentHeight)
                 ) {
                     Column(
                         modifier = Modifier

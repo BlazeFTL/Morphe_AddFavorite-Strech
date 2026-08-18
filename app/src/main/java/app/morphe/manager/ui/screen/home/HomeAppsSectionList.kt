@@ -39,30 +39,30 @@ internal fun LazyListScope.reorderableAppCards(
     val selectedPackages = state.selectedPackages
     itemsIndexed(
         items = items,
-        key = { _, item -> item.packageName }
+        key = { _, item -> item.id }
     ) { _, item ->
-        ReorderableItem(reorderableState, key = item.packageName) { itemIsDragging ->
+        ReorderableItem(reorderableState, key = item.id) { itemIsDragging ->
             DynamicAppCard(
                 item = item,
                 isLoading = false,
                 hasUpdate = item.hasUpdate,
                 onAppClick = {
                     if (selectedPackages.isNotEmpty) {
-                        selectedPackages.toggle(item.packageName)
+                        selectedPackages.toggle(item.id)
                     }
                 },
                 onHide = {},
                 onShowPatches = {},
                 showGestureHint = false,
                 onGestureHintShown = {},
-                isSelected = selectedPackages.contains(item.packageName),
+                isSelected = selectedPackages.contains(item.id),
                 isMultiSelectMode = selectedPackages.isNotEmpty,
-                onLongPress = { selectedPackages.toggle(item.packageName) },
+                onLongPress = { selectedPackages.toggle(item.id) },
                 swipeActionsEnabled = false,
                 dragHandleModifier = Modifier.draggableHandle(
                     onDragStarted = {
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        val currentPkg = item.packageName
+                        val currentPkg = item.id
                         val selected = selectedPackages.keys
                         state.reorderGroupFollowers = if (selected.size > 1 && currentPkg in selected) {
                             (state.scopedSourceOrder ?: state.localOrder)
@@ -75,7 +75,7 @@ internal fun LazyListScope.reorderableAppCards(
                         if (followers.isNullOrEmpty()) return@draggableHandle
                         val currentOrder = state.scopedSourceOrder ?: state.localOrder
                         val withoutFollowers = currentOrder.filter { it !in followers }
-                        val dropIdx = withoutFollowers.indexOf(item.packageName)
+                        val dropIdx = withoutFollowers.indexOf(item.id)
                         if (dropIdx < 0) return@draggableHandle
                         val nextOrder = buildList {
                             addAll(withoutFollowers.take(dropIdx + 1))
@@ -165,10 +165,10 @@ internal fun LazyListScope.groupedAppCards(
         if (!group.collapsed) {
             items(
                 items = group.items,
-                key = { item -> "category_${group.id ?: "uncategorized"}_${item.packageName}" }
+                key = { item -> "category_${group.id ?: "uncategorized"}_${item.id}" }
             ) { item ->
                 val groupKey = group.selectionKey()
-                val isSelected = selectedPackages.contains(item.packageName) &&
+                val isSelected = selectedPackages.contains(item.id) &&
                         (state.selectedGroupKey == null || state.selectedGroupKey == groupKey)
                 DynamicAppCard(
                     item = item,
@@ -176,14 +176,14 @@ internal fun LazyListScope.groupedAppCards(
                     hasUpdate = item.hasUpdate,
                     onAppClick = {
                         if (state.isMultiSelectMode) {
-                            state.toggleInGroup(item.packageName, groupKey)
+                            state.toggleInGroup(item.id, groupKey)
                         } else {
                             appActions.onAppClick(item)
                         }
                     },
-                    onHide = { appActions.onHideApp(item.packageName) },
+                    onHide = { appActions.onHideApp(item.id) },
                     onShowPatches = { appActions.onShowPatches(item) },
-                    showGestureHint = item.packageName == firstFilteredPackage && showGestureHint,
+                    showGestureHint = item.id == firstFilteredPackage && showGestureHint,
                     onGestureHintShown = appActions.onGestureHintShown,
                     isSelected = isSelected,
                     isMultiSelectMode = state.isMultiSelectMode,
@@ -191,7 +191,7 @@ internal fun LazyListScope.groupedAppCards(
                         // Skip so the category bar doesn't overlap with app multi-select
                         if (!state.isCategoryBarVisible) {
                             state.isMultiSelectMode = true
-                            state.toggleInGroup(item.packageName, groupKey)
+                            state.toggleInGroup(item.id, groupKey)
                         }
                     },
                     modifier = Modifier.animateItem()
@@ -216,13 +216,13 @@ internal fun LazyListScope.flatAppCards(
     val selectedPackages = state.selectedPackages
     itemsIndexed(
         items = items,
-        key = { _, item -> item.packageName }
+        key = { _, item -> item.id }
     ) { index, item ->
         // Moves the card one step and reports where it landed, so a screen reader user hears
         // the result of an action they cannot see
         fun moveBy(offset: Int, announcePosition: Int) {
             val current = state.localOrder.toMutableList()
-            val from = current.indexOf(item.packageName)
+            val from = current.indexOf(item.id)
             val target = from + offset
             if (from < 0 || target !in current.indices) return
             val moved = current.removeAt(from)
@@ -242,22 +242,22 @@ internal fun LazyListScope.flatAppCards(
             onAppClick = {
                 if (state.isMultiSelectMode) {
                     // In multi-select mode taps toggle selection
-                    selectedPackages.toggle(item.packageName)
+                    selectedPackages.toggle(item.id)
                 } else {
                     appActions.onAppClick(item)
                 }
             },
-            onHide = { appActions.onHideApp(item.packageName) },
+            onHide = { appActions.onHideApp(item.id) },
             onShowPatches = { appActions.onShowPatches(item) },
             // Hint plays only on the first card
             showGestureHint = index == 0 && showGestureHint,
             onGestureHintShown = appActions.onGestureHintShown,
-            isSelected = selectedPackages.contains(item.packageName),
+            isSelected = selectedPackages.contains(item.id),
             isMultiSelectMode = state.isMultiSelectMode,
             onLongPress = {
                 // Long-press enters multi-select and toggles this card
                 state.isMultiSelectMode = true
-                selectedPackages.toggle(item.packageName)
+                selectedPackages.toggle(item.id)
             },
             onMoveUp = if (directReorderAllowed && index > 0) {
                 { moveBy(offset = -1, announcePosition = 0) }

@@ -8,6 +8,7 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.screen.shared.BackgroundType
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
+import app.morphe.manager.ui.theme.coerceToUiScale
 import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.applyAppLanguage
@@ -126,6 +127,10 @@ class ThemeSettingsViewModel(
         if (theme == Theme.LIGHT) {
             prefs.pureBlackTheme.update(false)
         }
+    }
+
+    fun setUiScale(scale: Float) = viewModelScope.launch {
+        prefs.uiScale.update(scale.coerceToUiScale())
     }
 
     fun setThemeStyle(style: ThemeStyle) = viewModelScope.launch {

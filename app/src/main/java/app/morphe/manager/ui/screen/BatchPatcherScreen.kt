@@ -36,13 +36,7 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
-import app.morphe.manager.ui.screen.home.ApkAvailabilityDialog
-import app.morphe.manager.ui.screen.home.DownloadInstructionsDialog
-import app.morphe.manager.ui.screen.home.ExpertModeDialog
-import app.morphe.manager.ui.screen.home.ExpertPatchActions
-import app.morphe.manager.ui.screen.home.FilePickerPromptDialog
-import app.morphe.manager.ui.screen.home.SimpleBundleCandidate
-import app.morphe.manager.ui.screen.home.SimpleBundleSelectDialog
+import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.patcher.ExpertPatchingInProgress
 import app.morphe.manager.ui.screen.patcher.PatcherErrorDialog
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
@@ -52,13 +46,7 @@ import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BatchPatcherViewModel
 import app.morphe.manager.ui.viewmodel.InstallViewModel
-import app.morphe.manager.util.APK_FILE_MIME_TYPES
-import app.morphe.manager.util.APK_MIMETYPE
-import app.morphe.manager.util.ExportNameFormatter
-import app.morphe.manager.util.KnownApps
-import app.morphe.manager.util.PatchedAppExportData
-import app.morphe.manager.util.rememberAdaptiveFilePicker
-import app.morphe.manager.util.toast
+import app.morphe.manager.util.*
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -71,7 +59,7 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun BatchPatcherScreen(
-    packageNames: List<String>,
+    targets: List<BatchTarget>,
     useMount: Boolean,
     onBackClick: () -> Unit,
     viewModel: BatchPatcherViewModel = koinViewModel(),
@@ -84,8 +72,8 @@ fun BatchPatcherScreen(
     val scope = rememberCoroutineScope()
     val miniGameState = remember { MiniGameState(prefs, scope) }
 
-    LaunchedEffect(packageNames, useMount) {
-        viewModel.ensurePlan(packageNames, useMount)
+    LaunchedEffect(targets, useMount) {
+        viewModel.ensurePlan(targets, useMount)
     }
 
     val openApkPicker = rememberAdaptiveFilePicker(
@@ -103,24 +91,27 @@ fun BatchPatcherScreen(
     val current = state
     // Apps already on the device drop out, so "Install all" means what is left and a card
     // that is done stops offering the button. One list drives both
-    val installRequests: List<InstallQueueRequest> = remember(current?.items) {
+    // Keyed by item rather than by package: an app queued in several cloned copies produces one
+    // request per copy, and they all share the package name they were cloned from
+    val installRequestsByItem: Map<String, InstallQueueRequest> = remember(current?.items) {
         current?.patchedItems.orEmpty().mapNotNull { item ->
             if (item.installOutcome == BatchInstallOutcome.INSTALLED) return@mapNotNull null
             val file = item.patchedFile ?: return@mapNotNull null
-            InstallQueueRequest(
+            item.id to InstallQueueRequest(
                 file = file,
                 originalPackageName = item.packageName,
                 onPersistApp = { packageName, installType ->
                     viewModel.persistInstalled(item, packageName, installType)
                 },
                 onInstalled = { installedPackage ->
-                    viewModel.markInstalled(item.packageName, installedPackage)
+                    viewModel.markInstalled(item.id, installedPackage)
                     onAppStateChanged(installedPackage)
                 },
-                onFailed = { message -> viewModel.markInstallFailed(item.packageName, message) }
+                onFailed = { message -> viewModel.markInstallFailed(item.id, message) }
             )
-        }
+        }.toMap()
     }
+    val installRequests: List<InstallQueueRequest> = installRequestsByItem.values.toList()
 
     LaunchedEffect(current?.phase, current?.policy) {
         if (current?.phase == BatchPhase.FINISHED &&
@@ -155,8 +146,8 @@ fun BatchPatcherScreen(
 
     // Opened straight from the actions that need it rather than by watching state: the target
     // can repeat, and a repeated value is not an event a keyed effect would fire on again
-    val attachApkTo = { packageName: String ->
-        viewModel.requestAttach(packageName)
+    val attachApkTo = { itemId: String ->
+        viewModel.requestAttach(itemId)
         openApkPicker()
     }
 
@@ -184,6 +175,7 @@ fun BatchPatcherScreen(
             ),
             savedPatches = edit.savedSelection,
             lockStateOf = edit::lockStateOf,
+            holdsUniversalPatches = edit::selectAllHoldsUniversal,
             proceedText = stringResource(R.string.save),
             // The queue combines sources by design, and the tabs make it plain enough
             warnOnMultipleBundles = false,
@@ -210,7 +202,7 @@ fun BatchPatcherScreen(
             onDismiss = viewModel::cancelApkChoice,
             onHaveApk = {
                 viewModel.cancelApkChoice()
-                attachApkTo(choice.item.packageName)
+                attachApkTo(choice.item.id)
             },
             onNeedApk = { viewModel.beginApkSearch(choice.item, choice.selectedVersion?.version) },
             onUseSaved = { viewModel.useApkSource(preferInstalled = false) },
@@ -226,6 +218,8 @@ fun BatchPatcherScreen(
         val metadata = bundleMetadata[search.item.packageName]
 
         DownloadInstructionsDialog(
+            downloadUrl = search.url,
+            requestedVersion = search.version,
             usingMountInstall = false,
             targetAppInstalled = search.item.source is BatchApkSource.Installed,
             downloadColor = metadata?.downloadColor ?: KnownApps.DEFAULT_DOWNLOAD_COLOR,
@@ -248,7 +242,7 @@ fun BatchPatcherScreen(
             onDismiss = viewModel::dismissAttachPrompt,
             onOpenFilePicker = {
                 viewModel.dismissAttachPrompt()
-                attachApkTo(item.packageName)
+                attachApkTo(item.id)
             },
             onUseInstalledApp = null
         )
@@ -296,7 +290,7 @@ fun BatchPatcherScreen(
                 null,
                 PatchedAppExportData(
                     appName = item.appName,
-                    packageName = item.packageName,
+                    packageName = item.id,
                     appVersion = item.version,
                     patchBundleVersions = item.bundles.mapNotNull { it.version?.takeIf(String::isNotBlank) },
                     patchBundleNames = item.bundles.map { it.name }
@@ -391,7 +385,7 @@ fun BatchPatcherScreen(
         title = stringResource(R.string.batch_patch_title),
         titleTrailingContent = if (current?.phase == BatchPhase.FINISHED && hasUnfinished) {
             {
-                DialogTitleAction(
+                TitleAction(
                     icon = Icons.Outlined.Refresh,
                     contentDescription = stringResource(R.string.retry),
                     onClick = viewModel::retryUnfinished
@@ -411,7 +405,8 @@ fun BatchPatcherScreen(
         },
         scrollable = false,
         padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
@@ -432,14 +427,14 @@ fun BatchPatcherScreen(
                     }
                 }
 
-                items(current.items, key = { it.packageName }) { item ->
-                    val request = installRequests.firstOrNull { it.originalPackageName == item.packageName }
+                items(current.items, key = { it.id }) { item ->
+                    val request = installRequestsByItem[item.id]
                     BatchItemCard(
                         item = item,
                         editable = current.phase == BatchPhase.PREFLIGHT,
                         onSelectApk = { viewModel.beginApkChoice(item) },
-                        onToggleExcluded = { viewModel.toggleExcluded(item.packageName) },
-                        onForceVersion = { viewModel.forceVersion(item.packageName) },
+                        onToggleExcluded = { viewModel.toggleExcluded(item.id) },
+                        onForceVersion = { viewModel.forceVersion(item.id) },
                         // Simple mode never exposes individual patches, and the options edited
                         // here would not be persisted for it. Nothing to choose from until an
                         // APK resolves either, the patch list is scoped to its exact version
@@ -538,7 +533,11 @@ private fun BatchRunHeader(state: BatchRunState) {
             label = "batch_run_counter"
         ) { (processed, total) ->
             Text(
-                text = stringResource(R.string.batch_patch_progress_counter, processed, total),
+                text = stringResource(
+                    R.string.batch_patch_progress_counter,
+                    processed.toString(),
+                    total.toString()
+                ),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -673,7 +672,7 @@ private fun BatchItemCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AppIcon(
-                    packageName = item.packageName,
+                    packageName = item.id,
                     contentDescription = null,
                     modifier = Modifier.size(48.dp)
                 )
@@ -717,8 +716,9 @@ private fun BatchItemCard(
                         }
                     }
 
+                    // The install's own package, which is what tells clones of one app apart
                     Text(
-                        text = item.packageName,
+                        text = item.id,
                         style = MaterialTheme.typography.bodySmall,
                         color = LocalDialogSecondaryTextColor.current,
                         maxLines = 1,

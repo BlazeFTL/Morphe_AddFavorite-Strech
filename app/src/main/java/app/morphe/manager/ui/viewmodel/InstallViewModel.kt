@@ -53,8 +53,15 @@ class InstallViewModel : ViewModel(), KoinComponent {
         /** Successfully installed - shows Open button. */
         data class Installed(val packageName: String) : InstallState()
 
-        /** Signature conflict detected - shows Uninstall button. */
-        data class Conflict(val packageName: String) : InstallState()
+        /**
+         * Signature conflict detected - shows Uninstall button.
+         * [canIgnoreSignatureMismatch] is set on rooted devices, where a module patching the
+         * platform signature verification can still install the update over the existing app.
+         */
+        data class Conflict(
+            val packageName: String,
+            val canIgnoreSignatureMismatch: Boolean = false
+        ) : InstallState()
 
         /** Installation error - shows error message and retry. */
         data class Error(val message: String) : InstallState()
@@ -102,6 +109,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
     private var selectedInstallerToken: InstallerManager.Token? = null
     private var pendingInstallToken: InstallerManager.Token? = null
     private var pendingAutoUninstallOnConflict: Boolean = false
+    private var pendingAllowSignatureMismatch: Boolean = false
 
     var mountOperation: MountOperation? by mutableStateOf(null)
         private set
@@ -172,12 +180,16 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
     /**
      * Start installation process using user's preferred installer or prompt for selection.
+     *
+     * @param allowSignatureMismatch Skips the signature pre-check and lets the platform decide,
+     * for rooted devices where a module removes the signature verification.
      */
     fun install(
         outputFile: File,
         originalPackageName: String,
         onPersistApp: suspend (String, InstallType) -> Boolean,
-        autoUninstallOnConflict: Boolean = false
+        autoUninstallOnConflict: Boolean = false,
+        allowSignatureMismatch: Boolean = false
     ) {
         if (installState is InstallState.Installing) return
 
@@ -187,6 +199,7 @@ class InstallViewModel : ViewModel(), KoinComponent {
         pendingPersistCallback = onPersistApp
         pendingInstallToken = oneTimeInstallerToken ?: installerManager.getPrimaryToken()
         pendingAutoUninstallOnConflict = autoUninstallOnConflict
+        pendingAllowSignatureMismatch = allowSignatureMismatch
 
         viewModelScope.launch {
             // Check if we should prompt for installer selection
@@ -219,14 +232,16 @@ class InstallViewModel : ViewModel(), KoinComponent {
                     }
                     // Check signature mismatch before launching the installer - avoids
                     // INSTALL_FAILED_UPDATE_INCOMPATIBLE from the system PackageInstaller
-                    val mismatch = withContext(Dispatchers.IO) {
-                        pm.hasSignatureMismatch(targetPackageName, outputFile)
-                    }
-                    if (mismatch) {
-                        if (!tryAutoUninstallSignatureConflict(targetPackageName)) {
-                            Log.i(TAG, "Signature mismatch detected for $targetPackageName - showing conflict")
-                            installState = InstallState.Conflict(targetPackageName)
-                            return@launch
+                    if (!allowSignatureMismatch) {
+                        val mismatch = withContext(Dispatchers.IO) {
+                            pm.hasSignatureMismatch(targetPackageName, outputFile)
+                        }
+                        if (mismatch) {
+                            if (!tryAutoUninstallSignatureConflict(targetPackageName)) {
+                                Log.i(TAG, "Signature mismatch detected for $targetPackageName - showing conflict")
+                                installState = signatureConflictState(targetPackageName)
+                                return@launch
+                            }
                         }
                     }
                 }
@@ -472,11 +487,17 @@ class InstallViewModel : ViewModel(), KoinComponent {
         }
         val targetPackageName = packageInfo.packageName
 
-        withContext(Dispatchers.IO) {
-            if (rootInstaller.hasRootAccess() && rootInstaller.isAppMounted(targetPackageName)) {
-                rootInstaller.unmount(targetPackageName)
+        try {
+            withContext(Dispatchers.IO) {
+                if (rootInstaller.hasRootAccess() && rootInstaller.isAppMounted(targetPackageName)) {
+                    rootInstaller.unmount(targetPackageName)
+                }
+                rootInstaller.installAsPlayStore(outputFile)
             }
-            rootInstaller.installAsPlayStore(outputFile)
+        } catch (e: Exception) {
+            if (!e.isSignatureRejection()) throw e
+            handleConflict(targetPackageName, e.simpleMessage())
+            return
         }
 
         onPersistApp(targetPackageName, InstallType.ROOT_PLAY_STORE)
@@ -539,6 +560,8 @@ class InstallViewModel : ViewModel(), KoinComponent {
                     onPersistApp(targetPackageName, InstallType.SHIZUKU_PLAY_STORE)
                     handleInstallSuccess(targetPackageName)
                     app.toast(app.getString(R.string.install_app_success))
+                } else if (result.message.isSignatureRejection()) {
+                    handleConflict(targetPackageName, result.message)
                 } else {
                     handleInstallError(formatShizukuInstallError(result.message))
                 }
@@ -586,6 +609,8 @@ class InstallViewModel : ViewModel(), KoinComponent {
                     onPersistApp(targetPackageName, InstallType.SHIZUKU)
                     handleInstallSuccess(targetPackageName)
                     app.toast(app.getString(R.string.install_app_success))
+                } else if (result.message.isSignatureRejection()) {
+                    handleConflict(targetPackageName, result.message)
                 } else {
                     handleInstallError(formatShizukuInstallError(result.message))
                 }
@@ -1061,8 +1086,9 @@ class InstallViewModel : ViewModel(), KoinComponent {
         val originalPkg = pendingOriginalPackageName ?: return
         val callback = pendingPersistCallback ?: return
         val autoUninstallOnConflict = pendingAutoUninstallOnConflict
+        val allowSignatureMismatch = pendingAllowSignatureMismatch
 
-        install(file, originalPkg, callback, autoUninstallOnConflict)
+        install(file, originalPkg, callback, autoUninstallOnConflict, allowSignatureMismatch)
     }
 
     /**
@@ -1112,8 +1138,9 @@ class InstallViewModel : ViewModel(), KoinComponent {
         val originalPkg = pendingOriginalPackageName ?: return
         val callback = pendingPersistCallback ?: return
         val autoUninstallOnConflict = pendingAutoUninstallOnConflict
+        val allowSignatureMismatch = pendingAllowSignatureMismatch
 
-        install(file, originalPkg, callback, autoUninstallOnConflict)
+        install(file, originalPkg, callback, autoUninstallOnConflict, allowSignatureMismatch)
     }
 
     /**
@@ -1144,10 +1171,32 @@ class InstallViewModel : ViewModel(), KoinComponent {
             } catch (_: UninstallCancelledException) {
                 // User dismissed the dialog - keep current state
                 if (installAfterUninstall) {
-                    installState = InstallState.Conflict(packageName)
+                    installState = signatureConflictState(packageName)
                 }
             }
         }
+    }
+
+    /**
+     * Retry the pending install with the signature check skipped, keeping the app data in place.
+     * This only completes on devices where a root module patches the platform signature
+     * verification; anywhere else the platform rejects the install and the conflict comes back.
+     */
+    fun installIgnoringSignatureMismatch() {
+        val file = pendingInstallFile ?: return
+        val originalPkg = pendingOriginalPackageName ?: return
+        val callback = pendingPersistCallback ?: return
+
+        Log.i(TAG, "Retrying install of $originalPkg with the signature check skipped")
+        pendingInstallToken?.let { oneTimeInstallerToken = it }
+        installState = InstallState.Ready
+        install(
+            outputFile = file,
+            originalPackageName = originalPkg,
+            onPersistApp = callback,
+            autoUninstallOnConflict = pendingAutoUninstallOnConflict,
+            allowSignatureMismatch = true
+        )
     }
 
     private suspend fun uninstallForPendingInstall(
@@ -1350,15 +1399,39 @@ class InstallViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    private fun handleConflict(targetPackageName: String, conflictMessage: String?) {
+    private suspend fun handleConflict(targetPackageName: String, conflictMessage: String?) {
         Log.i(TAG, "Signature conflict for $targetPackageName")
         if (pm.getPackageInfo(targetPackageName) != null) {
-            installState = InstallState.Conflict(targetPackageName)
+            installState = signatureConflictState(targetPackageName)
         } else {
             // Target not installed - not a real signature conflict (e.g. renamed package)
             handleInstallError(app.getString(R.string.install_app_fail, conflictMessage ?: "Unknown error"))
         }
     }
+
+    /**
+     * Conflict state for [packageName], offering the signature bypass only when the certificates
+     * are the actual blocker, the device has root, and the current attempt did not already skip
+     * the check. Reading the signatures beats parsing installer output, because the platform
+     * reports downgrades and certificate mismatches through the same conflict status.
+     */
+    private suspend fun signatureConflictState(packageName: String): InstallState.Conflict {
+        val outputFile = pendingInstallFile
+        val canIgnore = !pendingAllowSignatureMismatch && outputFile != null &&
+                withContext(Dispatchers.IO) {
+                    rootInstaller.hasRootAccess() && pm.hasSignatureMismatch(packageName, outputFile)
+                }
+
+        return InstallState.Conflict(packageName, canIgnore)
+    }
+
+    /** True for package manager output meaning the install was rejected over differing certificates. */
+    private fun String?.isSignatureRejection(): Boolean {
+        val text = this?.lowercase() ?: return false
+        return "update_incompatible" in text || "signatures do not match" in text
+    }
+
+    private fun Throwable.isSignatureRejection() = simpleMessage().isSignatureRejection()
 
     companion object {
         private const val TAG = "Morphe Install"

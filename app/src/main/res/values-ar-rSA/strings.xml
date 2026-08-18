@@ -3,6 +3,8 @@
     <!-- Home Screen -->
     <string name="home_other_apps">تطبيقات أخرى</string>
     <string name="home_not_patched_yet">لم يتم تعديله بعد</string>
+    <string name="home_unpatched_version_installed">تم تثبيت إصدار غير معدل</string>
+    <string name="home_unpatched_badge">لم يتم تعديله</string>
     <string name="home_no_patches_available">لا يوجد تعديلات متاحة</string>
     <string name="home_app_hide_title">إخفاء هذا التطبيق؟</string>
     <string name="home_app_hide_message">سيتم إخفاء هذا التطبيق من الشاشة الرئيسية. يمكنك استعادته لاحقًا من قائمة التطبيقات المخفية باستخدام الزر الموجود أسفل القائمة.</string>
@@ -36,7 +38,13 @@
     <string name="home_update_success_subtitle">مصادرك محدثة</string>
     <string name="home_sources_are_loading">جارٍ تحميل المصادر، يرجى الانتظار…</string>
     <string name="home_search_apps">البحث عن التطبيقات</string>
-    <string name="home_app_sort_title">فرز التطبيقات</string>
+    <string name="home_app_list_options_title">فرز وتصفية</string>
+    <string name="home_app_list_options_state_description">تم الفرز حسب %1$s، تمت التصفية حسب %2$s</string>
+    <string name="home_app_filter_all_description">جميع التطبيقات على الشاشة الرئيسية</string>
+    <string name="home_app_filter_patched_description">التطبيقات التي قمت بتعديلها أو حفظها باستخدام Morphe</string>
+    <string name="home_app_filter_not_patched_description">التطبيقات التي لم تقم بتعديلها في Morphe بعد</string>
+    <string name="home_app_filter_installed_description">التطبيقات المثبتة حاليًا على هذا الجهاز</string>
+    <string name="home_app_filter_uninstalled_description">التطبيقات المعدّلة باستخدام Morphe التي لم تعد موجودة على هذا الجهاز</string>
     <string name="home_app_sort_manual_description">اضغط مطولًا على تطبيق، ثم انقر على زر إعادة الترتيب</string>
     <string name="home_app_sort_recommended">الترتيب الموصى به</string>
     <string name="home_app_sort_recommended_description">التطبيقات المنصَّبة والمثبتة أولًا</string>
@@ -49,9 +57,11 @@
     <string name="home_no_apps_search_subtitle">لا يوجد تطبيقات تطابق \"%s\"</string>
     <string name="home_all_apps_hidden_title">تم إخفاء جميع التطبيقات</string>
     <string name="home_all_apps_hidden_subtitle">لقد أخفيت جميع التطبيقات من الشاشة الرئيسية</string>
+    <string name="home_no_apps_filter_title">لا توجد تطبيقات تطابق عامل التصفية هذا</string>
+    <string name="home_no_apps_filter_subtitle">لا شيء يطابق %s</string>
     <string name="home_category_add">إضافة فئة</string>
     <string name="home_category_all_apps">كل التطبيقات</string>
-    <string name="home_category_custom">مخصص</string>
+    <string name="home_category_custom">مخصّص</string>
     <string name="home_category_uncategorized">غير مصنف</string>
     <string name="home_category_new_title">فئة جديدة</string>
     <string name="home_category_rename_title">إعادة تسمية الفئة</string>
@@ -104,6 +114,7 @@
     <string name="home_greeting_super_late_5">ليلي ومنتج</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">مصادر التعديل</string>
+    <string name="sources_search">بحث عن المصادر</string>
     <string name="sources_sort_title">فرز مصادر التعديل</string>
     <string name="sources_sort_manual">ترتيب يدوي</string>
     <string name="sources_sort_manual_hint">اضغط مطولًا على مصدر لإعادة الترتيب</string>
@@ -174,9 +185,16 @@
     <string name="home_apk_helper_warning_unverified">تابع فقط إذا كنت تثق بهذا التطبيق المساعد. لا يستطيع Morphe التحقق من توقيع ملف APK هذا، لذلك قد لا يتم اكتشاف أي ملف معدل</string>
     <string name="home_apk_helper_no_result">لم يقم التطبيق المساعد بتوفير ملف APK</string>
     <string name="home_apk_helper_no_access">لم يمنح التطبيق المساعد إذن الوصول إلى ملف APK الذي قام بتوفيره</string>
+    <string name="home_apk_helper_no_package">لم يحدد التطبيق المساعد أي تطبيق مثبت يجب استخدامه</string>
+    <string name="home_apk_helper_wrong_package">أعاد التطبيق المساعد تطبيقًا مختلفًا عن التطبيق الذي يتم تعديله</string>
+    <string name="home_apk_helper_installed_unavailable">تعذر على Morphe استخدام التطبيق المثبت</string>
+    <string name="home_apk_helper_installed_incompatible">لا يمكن تعديل الإصدار المثبت</string>
     <string name="home_apk_use_saved">استخدام ملف APK المحفوظ</string>
     <string name="home_apk_use_installed">استخدام ملف APK المثبت</string>
     <string name="home_apk_use_installed_unverified">تعذر التحقق من توقيع التطبيق المثبت، لذا قد يكون قد تم تعديله بالفعل</string>
+    <string name="home_unverified">غير معتمد</string>
+    <string name="home_install_verification_pending">جارٍ التحقق من التثبيت…</string>
+    <string name="home_app_info_install_unverified">لا يمكن لـ Morphe تأكيد أن التطبيق المثبت هو الإصدار الذي قام بتعديله. أعد تثبيته أو تعديله من ملف APK المحفوظ لاستعادة إجراءاته</string>
     <string name="home_app_info_no_saved_apk">لا يوجد ملف APK محفوظ. ستتطلب عملية التعديل إعادة اختيار ملف APK</string>
     <string name="home_version_requires_android">يتطلب Android %s+</string>
     <string name="home_apk_no_compatible_versions_title">غير مدعوم على هذا الجهاز</string>
@@ -184,8 +202,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">تنزيل ملف APK الأصلي</string>
     <string name="home_download_instructions_steps_title">التعليمات:</string>
+    <string name="home_download_instructions_finding">جارٍ العثور على صفحة التنزيل…</string>
     <string name="home_download_instructions_step1">انقر على زر \'%s\' أدناه</string>
     <string name="home_download_instructions_step2_part1">مرر لأسفل صفحة الويب واضغط</string>
+    <string name="home_download_instructions_step2_generic">مرّر لأسفل صفحة الويب واضغط زر التنزيل</string>
+    <string name="home_download_instructions_step2_variant">مرّر لأسفل صفحة الويب واضغط على زر التنزيل الخاص بأول &lt;b&gt;APK Variant&lt;/b&gt;</string>
+    <string name="home_download_instructions_step2_search">افتح نتيجة بحث من موقع ويب تثق به</string>
+    <string name="home_download_instructions_step2_search_note">لا تضمن Morphe هذه المواقع. تخطَّ تلك التي تقدم متجر تطبيقات خاصًا بها بدلًا من ملف APK</string>
+    <string name="home_download_instructions_step3_search">على ذلك الموقع، نزّل ملف APK الخاص بالإصدار &lt;b&gt;%s&lt;/b&gt;، وليس الأحدث</string>
+    <string name="home_download_instructions_step3_search_any">على ذلك الموقع، نَزِّل ملف APK الخاص بالتطبيق. &lt;b&gt;أي إصدار&lt;/b&gt; يمكن تعديله</string>
     <string name="home_download_instructions_download_button_toast">اضغط على التنزيل من الموقع الإلكتروني، وليس هنا 😊</string>
     <string name="home_download_instructions_download_button_toast_2">رائع! الآن انقر على المتابعة وانتقل إلى الموقع الإلكتروني 👆</string>
     <string name="home_download_instructions_download_button_toast_3">الممارسة تؤدي إلى الإتقان، وأنت تقترب من ذلك 💪</string>
@@ -196,7 +221,8 @@
     <string name="home_download_instructions_step3_mount">انتظر حتى يكتمل التنزيل، ثم &lt;b&gt;قم بتثبيت ملف APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">بعد انتهاء التنزيل، ارجع إلى Morphe</string>
     <string name="home_download_instructions_step4_mount">بعد تثبيت ملف APK الأصلي، ارجع إلى Morphe</string>
-    <string name="home_download_instructions_continue">المتابعة إلى APKMirror.com</string>
+    <string name="home_download_instructions_continue_to">متابعة إلى %s</string>
+    <string name="home_download_instructions_destination">صفحة التنزيل</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">تحديد ملف APK الذي تم تنزيله</string>
     <string name="home_file_picker_prompt_description">الآن حدد ملف APK &lt;b&gt;%s&lt;/b&gt; الذي قمت بتنزيله للتو</string>
@@ -206,7 +232,7 @@
     <string name="home_select_apk_title">تحديد ملف APK</string>
     <string name="home_select_any_apk_description">اختر ملف APK لأي تطبيق، أو اختر تطبيقًا مثبتًا بالفعل على هذا الجهاز</string>
     <string name="home_use_installed_app">استخدم التطبيق المثبت</string>
-    <string name="home_installed_app_picker_title">اختر التطبيق المثبت</string>
+    <string name="home_installed_app_picker_title">التطبيقات المثبتة</string>
     <string name="home_installed_app_picker_empty">لم يتم العثور على تطبيقات</string>
     <string name="home_installed_app_picker_filter_all">كل التطبيقات</string>
     <string name="home_installed_app_picker_filter_user">تطبيقات المستخدم فقط</string>
@@ -223,6 +249,7 @@
     <string name="expert_mode_disable_all_done">تم تعطيل كل التعديلات</string>
     <string name="expert_mode_enable_all">تمكين الكل</string>
     <string name="expert_mode_enable_all_done">تم تمكين كل التعديلات</string>
+    <string name="expert_mode_enable_all_universal_pending">انقر مرة أخرى لتطبيق التعديلات الشاملة</string>
     <string name="expert_mode_reset_to_default">تمكين التعديلات الموصى بها</string>
     <string name="expert_mode_reset_to_default_done">تم تطبيق التعديلات الموصى بها</string>
     <string name="expert_mode_restore_saved">استعادة التحديد المحفوظ</string>
@@ -264,11 +291,6 @@
     <string name="home_dialog_wrong_package_description">ملف APK المحدد ليس للتطبيق الذي كنت تنوي تعديله</string>
     <string name="home_dialog_expected_package">الحزمة المتوقعة:</string>
     <string name="home_dialog_selected_package">الحزمة المحددة:</string>
-    <string name="home_dialog_orphaned_install_title">نسخة سابقة متبقية</string>
-    <string name="home_dialog_orphaned_install_description">تم تغيير اسم الحزمة أثناء التعديل، لذلك لا تزال النسخة التي عدّلتها سابقًا مثبتة كتطبيق منفصل</string>
-    <string name="home_dialog_orphaned_install_warning">لم تعد هذه النسخة مُتتبَّعة ولن تتلقى تحديثات</string>
-    <string name="home_dialog_orphaned_install_uninstall">إلغاء تثبيتها</string>
-    <string name="home_dialog_orphaned_install_keep">الاحتفاظ بها</string>
     <string name="home_outdated_patches_dialog_title">قد تكون التعديلات قديمة</string>
     <string name="home_outdated_patches_dialog_message">بيانات الجوّال نشطة وتحديثات التعديلات معطلة</string>
     <string name="home_outdated_patches_dialog_warning">قد يؤدي التعديل باستخدام تعديلات قديمة إلى حدوث عطل في التطبيق</string>
@@ -284,6 +306,9 @@
     <string name="patch_option_enter_value">أدخل القيمة</string>
     <string name="patch_option_enter_number">أدخل العدد</string>
     <string name="patch_option_enter_decimal">أدخل رقمًا عشريًا</string>
+    <string name="patch_option_slider_edit">أدخل قيمة دقيقة</string>
+    <string name="patch_option_slider_range_start">مِن</string>
+    <string name="patch_option_slider_range_end">إلى</string>
     <string name="patch_option_list_duplicate">القيمة موجودة بالفعل</string>
     <string name="patch_option_list_empty">لا يمكن أن تكون القيمة فارغة</string>
     <string name="patch_option_list_empty_state">لم يتم إضافة أي قيم حتى الآن</string>
@@ -371,6 +396,7 @@
     <string name="home_app_info_delete_preservation_note">سيتم الاحتفاظ باختياراتك وخياراتك للتعديلات المستقبلية</string>
     <string name="home_app_info_patches_name_default">التعديلات</string>
     <string name="home_app_info_patches_name_fallback">بدون اسم</string>
+    <string name="home_app_info_patches_source_removed">تم حذف مصدر التعديل</string>
     <string name="home_app_info_patches_replace_fail">فشل استيراد التعديلات: %s</string>
     <string name="home_app_info_repatch_no_original_apk">لم يتم العثور على ملف APK الأصلي. لا يمكن إعادة تعديل هذا التطبيق</string>
     <string name="home_app_info_original_package_name">اسم الحزمة الأصلي</string>
@@ -385,6 +411,11 @@
     <string name="home_app_info_patch_update_available_description">إصدار أحدث من التعديلات متاح. اعد تعديل التطبيق للحصول على آخر التحسينات و الإصلاحات</string>
     <string name="home_app_info_app_deleted_warning">التطبيق غير مثبت</string>
     <string name="home_app_info_app_deleted_description">تم إلغاء تثبيت هذا التطبيق من خارج Morphe. اعد تعديله لاستعادة الوظائف</string>
+    <string name="home_app_info_not_patched_description">تم تثبيت إصدار غير معدل من هذا التطبيق. لا يزال Morphe يحتفظ بسجل التعديل السابق</string>
+    <string name="home_dialog_rename_title">سيؤدي هذا إلى تثبيت نسخة</string>
+    <string name="home_dialog_rename_description">التعديلات المحددة تقوم ببناء هذا التطبيق باستخدام اسم حزمة خاص بها، لذا يتم تثبيته إلى جانب &lt;b&gt;%s&lt;/b&gt; بدلًا من تحديثه</string>
+    <string name="home_dialog_rename_result_package">سيتم التثبيت كـ</string>
+    <string name="home_dialog_rename_replaces">توجد نسخة تستخدم هذا الاسم بالفعل وسيتم إعادة بنائها</string>
     <string name="home_app_info_apk_size">حجم ملف APK</string>
     <string name="home_app_info_cpu_arch">معمارية المعالج</string>
     <!-- Home Screen - Root Mode -->
@@ -457,6 +488,12 @@
     <string name="battery_optimization_dialog_description">قد توقف بعض الأجهزة عملية أداة التعديل عند تصغير التطبيق.
 اسمح لتطبيق Morphe بالعمل دون قيود على البطارية لضمان اكتمال التعديل بشكل موثوق</string>
     <string name="battery_optimization_not_now">ليس الآن</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">الذاكرة غير كافية</string>
+    <string name="patcher_memory_adjustment_description">أوقف النظام أداة التعديل أثناء تشغيلها بحد ذاكرة قدره %1$d ميجابايت. سيؤدي خفض الحد إلى %2$d ميجابايت إلى تقليل حجم أداة التعديل، مما يسمح بإكمال عملية التعديل</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">أوقف النظام أداة التعديل أثناء تشغيلها بحد ذاكرة يبلغ %1$d ميجابايت، وهو الحد الأدنى المتاح. حاول التعديل باستخدام عدد أقل من مصادر التعديل، أو حدد عددًا أقل من التعديلات
+</string>
+    <string name="patcher_memory_adjustment_apply">خفِّض الحد إلى %1$d ميغابايت</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">جارٍ التعديل…</string>
     <string name="patcher_notification_text">انقر للعودة إلى أداة التعديل</string>
@@ -491,6 +528,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">تعديل التطبيق</string>
     <string name="memory_usage">استخدام الذاكرة</string>
+    <string name="cpu_usage">استخدام المعالج</string>
+    <string name="storage_io_usage">قراءة/كتابة التخزين</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">جارٍ تطبيق التعديلات</string>
     <string name="failed_to_execute_patch">فشل تطبيق %s</string>
@@ -498,9 +537,16 @@
     <string name="patched_app_save_failed_toast">فشل حفظ التطبيق المعدل</string>
     <string name="plugin_activity_dialog_body">يلزم تفاعل المستخدم للمتابعة باستخدام هذا المكون الإضافي</string>
     <string name="patcher_process_exit_message">انتهت عملية أداة التعديل بالرمز %s</string>
+    <string name="patcher_heap_exhausted_message">نفدت ذاكرة أداة التعديل، حيث بلغ حجم الكومة %1$d ميجابايت. هذا التطبيق كبير جدًا بالنسبة للتعديلات المحددة. حاول التعديل باستخدام عدد أقل من مصادر التعديل، أو حدد عددًا أقل من التعديلات
+
+</string>
     <string name="install_app_success">تم التثبيت بنجاح</string>
     <string name="install_app_fail">فشل تثبيت التطبيق: %s</string>
+    <string name="install_ignore_signature">التثبيت على أي حال</string>
+    <string name="install_ignore_signature_description">يحتفظ ببيانات التطبيق، ولكنه يعمل فقط إذا قامت وحدة Root بتعطيل التحقق من التوقيع في نظام Android</string>
     <string name="uninstall_app_fail">فشل إلغاء تثبيت التطبيق: %s</string>
+    <string name="uninstall_app_unverified">متبقٍ في مكانه: لم يتمكن Morphe من التحقق من أن التطبيق المثبت هو الإصدار الذي قام بتعديله</string>
+    <string name="launch_app_unverified">لم يتمكن Morphe من التحقق من أن التطبيق المثبت هو الإصدار الذي قام بتعديله</string>
     <string name="uninstall_timeout">انتهت مهلة إلغاء التثبيت</string>
     <string name="save_apk_success">تم حفظ APK</string>
     <string name="saved_app_export_failed">فشل تصدير التطبيق المعدل</string>
@@ -559,19 +605,26 @@
     <string name="settings_appearance_pure_black">اسود نقي</string>
     <string name="settings_appearance_pure_black_description">استخدام خلفيات سوداء حقيقية</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">اللغة &amp; العرض</string>
     <string name="settings_appearance_app_language">لغة التطبيق</string>
     <string name="settings_appearance_app_language_current">اللغة الحالية</string>
     <string name="settings_appearance_translations_info_title">قد تكون ترجمات بعض اللغات مفقودة أو غير مكتملة</string>
     <string name="settings_appearance_translations_info_text">"لترجمة لغات جديدة أو تحسين الترجمات الحالية، تفضل بزيارة
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">مقياس الواجهة</string>
+    <string name="settings_appearance_ui_scale_current">المقياس الحالي</string>
+    <string name="settings_appearance_ui_scale_description">يُغيّر حجم كل شيء في التطبيق، بالإضافة إلى إعدادات تكبير الشاشة وحجم الخط الخاصة بالنظام</string>
+    <string name="settings_appearance_ui_scale_preview_title">إعداد تجريبي</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">النص وعناصر التحكم بهذا المقياس</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">الشاشة الرئيسية</string>
     <string name="settings_appearance_greeting_phrases">عبارات الترحيب</string>
     <string name="settings_appearance_greeting_phrases_subtitle">عرض رسالة ترحيب على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_grouping">تجميع التطبيقات</string>
     <string name="settings_appearance_app_grouping_description">عرض مُبدِّل الشاشة الرئيسية لتجميع التطبيقات حسب المصدر أو فئاتك الخاصة، مع الاحتفاظ بالتحديد عند إيقاف تشغيلها</string>
-    <string name="settings_appearance_sort_button">زر الفرز</string>
-    <string name="settings_appearance_sort_button_description">عرض زر الفرز على الشاشة الرئيسية</string>
+    <string name="settings_appearance_sort_button">زر الفرز والتصفية</string>
+    <string name="settings_appearance_sort_button_description">عرض زر الفرز والتصفية على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_card_colors">ألوان بطاقة التطبيق</string>
     <string name="settings_appearance_app_card_colors_default">الافتراضية</string>
     <string name="settings_appearance_app_card_colors_default_description">امنح كل تطبيق لون حزمته الخاصة</string>
@@ -836,7 +889,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_process_runtime_enable">تمكين وقت تشغيل العملية</string>
     <string name="settings_system_memory_limit_subtitle">الذاكرة المتاحة للتعديل</string>
     <string name="settings_system_memory_limit_warning">الحد الأدنى للذاكرة قد يتسبب في فشل عند تعديل التطبيقات الأكبر حجمًا</string>
-    <string name="settings_system_process_runtime_enabled_description">حد %s ميغابايت</string>
+    <string name="settings_system_process_runtime_enabled_description">حد %s ميجابايت</string>
     <string name="settings_system_process_runtime_disabled_description">انقر هنا للتهيئة</string>
     <string name="settings_system_process_runtime_description_not_available">تتطلب هذه الميزة Android 11 أو أحدث</string>
     <string name="settings_system_patcher_completion_sound">صوت الإكمال</string>
@@ -895,6 +948,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_apks_delete_selected_title">حذف ملفات APK المحددة؟</string>
     <string name="settings_system_apks_delete_selected_confirm">سيؤدي هذا إلى حذف ملفات APK المحددة بشكل دائم</string>
     <string name="settings_system_apks_deleted_all">تم حذف ملفات APK بنجاح</string>
+    <string name="settings_system_apks_delete_failed">تعذر حذف بعض ملفات APK</string>
     <string name="settings_system_apks_export_zip_success">تم تصدير ملفات APK المحددة</string>
     <string name="settings_system_apks_export_zip_failed">فشل تصدير ملفات APK المحددة</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -906,7 +960,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_http_cache_title">ذاكرة التخزين المؤقت للشبكة</string>
     <string name="settings_system_storage_http_cache_description">تم تخزين استجابات HTTP لتسريع التحديثات</string>
     <string name="settings_system_storage_installer_cache_title">ذاكرة التخزين المؤقت لأداة التثبيت الخارجية</string>
-    <string name="settings_system_storage_installer_cache_description">نسخ APK التي تم تمريرها إلى أدوات التثبيت الخارجية</string>
+    <string name="settings_system_storage_installer_cache_description">نُسَخ APK التي تم تمريرها إلى أدوات التثبيت الخارجية</string>
     <string name="settings_system_storage_patcher_workspace_title">مساحة عمل أداة التعديل</string>
     <string name="settings_system_storage_patcher_workspace_description">ملفات وقت التشغيل لأداة التعديل والبيانات المؤقتة غير المستخدمة</string>
     <string name="settings_system_storage_temporary_title">ملفات مؤقتة</string>
@@ -919,7 +973,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_storage_open_app_info_title">فتح مساحة تخزين تطبيق Android</string>
     <string name="settings_system_storage_open_app_info_description">إدارة أو مسح جميع بيانات Morphe من خلال إعدادات النظام</string>
     <string name="settings_system_save_original_apks_title">احتفظ بملفات APK الأصلية</string>
-    <string name="settings_system_save_original_apks_description">حفظ ملف APK قبل التعديل حتى يمكن إعادة استخدامه للتعديل مرة أخرى دون الحاجة إلى تحميله وتحديده من مستعرض الملفات مرة أخرى</string>
+    <string name="settings_system_save_original_apks_description">حفظ ملف APK قبل التعديل حتى تتمكن من إعادة استخدامه عند إعادة التعديل دون الحاجة إلى اختيار الملف مرة أخرى</string>
     <string name="settings_system_save_patched_apks_title">احتفظ بملفات APK المعدلة</string>
     <string name="settings_system_save_patched_apks_description">حفظ نسخة من ملف APK المعدل للتصدير لاحقًا أو لإعادة التثبيت من خلال المدير</string>
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
@@ -937,7 +991,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_original_apks_deleted">تم حذف ملف APK الأصلي بنجاح</string>
     <string name="settings_system_original_apks_delete_title">حذف ملف APK الأصلي؟</string>
     <string name="settings_system_original_apks_delete_confirm">هل تريد بالتأكيد حذف ملف APK الأصلي لـ &lt;b&gt;%s&lt;/b&gt;؟ لن تتمكن من إعادة التعديل دون توفير ملف APK جديد</string>
-    <string name="settings_system_original_apks_delete_all_title">حذف جميع ملفات APK الأصلية؟</string>
+    <string name="settings_system_original_apks_delete_all_title">حذف كل ملفات APK الأصلية؟</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">اختيارات التعديل</string>
     <string name="settings_system_patch_selections_description">يحفظ اختيارات التعديل، وتبقى محفوظة بعد إلغاء التثبيت</string>
@@ -1008,6 +1062,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="filter">تصفية</string>
     <string name="reset">إعادة التعيين</string>
     <string name="reset_all">إعادة تعيين الكل</string>
+    <string name="apply">تطبيق</string>
     <string name="confirm">تأكيد</string>
     <string name="warning">تحذير</string>
     <string name="error_">خطأ</string>
@@ -1073,8 +1128,10 @@ morphe_adaptive_monochrome_custom.xml
     <string name="available">متاح</string>
     <string name="continue_">متابعة</string>
     <string name="version">الإصدار</string>
+    <string name="clone">استنساخ</string>
     <string name="patch">تعديل</string>
     <string name="patching">جارٍ التعديل</string>
+    <string name="patched">تم التعديل</string>
     <string name="repatch">إعادة التعديل</string>
     <string name="open">فتح</string>
     <string name="mount">Mount</string>

@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.PatchLockState
+import app.morphe.manager.patcher.patch.blocksToggle
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toast
 
@@ -34,6 +35,7 @@ import app.morphe.manager.util.toast
 internal fun BundlePatchControls(
     enabledCount: Int,
     totalCount: Int,
+    holdsUniversalPatches: Boolean,
     onSelectAll: () -> Unit,
     onDeselectAll: () -> Unit,
     onResetToDefault: () -> Unit,
@@ -56,7 +58,12 @@ internal fun BundlePatchControls(
     val copyLabel = stringResource(R.string.expert_mode_copy_from_bundle)
     val deselectAllLabel = stringResource(R.string.expert_mode_disable_all)
 
-    val enabledDone = stringResource(R.string.expert_mode_enable_all_done)
+    // Universal patches stay off until a second tap, so the first one must not claim otherwise
+    val enabledDone = if (holdsUniversalPatches) {
+        stringResource(R.string.expert_mode_enable_all_universal_pending)
+    } else {
+        stringResource(R.string.expert_mode_enable_all_done)
+    }
     val disabledDone = stringResource(R.string.expert_mode_disable_all_done)
     val resetDone = stringResource(R.string.expert_mode_reset_to_default_done)
     val restoredDone = stringResource(R.string.expert_mode_restore_saved_done)
@@ -147,7 +154,7 @@ internal fun PatchCard(
     val enabledState = stringResource(R.string.enabled)
     val disabledState = stringResource(R.string.disabled)
     val patchState = if (isEnabled) enabledState else disabledState
-    val contentDesc = remember(patch.name, patchState) { "${patch.name}, $patchState" }
+    val contentDesc = remember(patch.displayName, patchState) { "${patch.displayName}, $patchState" }
 
     val context = LocalContext.current
     val lockedMessage = when (lockState) {
@@ -155,7 +162,7 @@ internal fun PatchCard(
         PatchLockState.LOCKED_OFF -> stringResource(R.string.expert_mode_patch_unavailable_for_installer)
         PatchLockState.NONE       -> null
     }
-    val onCardClick: () -> Unit = if (lockedMessage != null) {
+    val onCardClick: () -> Unit = if (lockState.blocksToggle(isEnabled) && lockedMessage != null) {
         { context.toast(lockedMessage) }
     } else onToggle
 
@@ -203,7 +210,7 @@ internal fun PatchCard(
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Text(
-                            text = patch.name,
+                            text = patch.displayName,
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.SemiBold,
                             color = if (isEnabled)
@@ -242,7 +249,7 @@ internal fun PatchCard(
                         modifier = Modifier
                             .size(36.dp)
                             .semantics {
-                                contentDescription = "${patch.name}, $settings"
+                                contentDescription = "${patch.displayName}, $settings"
                             },
                         enabled = isEnabled,
                         colors = IconButtonDefaults.filledTonalIconButtonColors(

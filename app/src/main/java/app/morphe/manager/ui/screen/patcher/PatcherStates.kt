@@ -129,8 +129,10 @@ fun PatchingSuccess(
     usingMountInstall: Boolean,
     excludedPatches: List<String> = emptyList(),
     isExpertMode: Boolean = false,
+    canIgnoreSignatureMismatch: Boolean = false,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
+    onIgnoreSignatureMismatch: () -> Unit,
     onOpen: () -> Unit,
     onHomeClick: () -> Unit,
     onLogsClick: () -> Unit,
@@ -189,8 +191,10 @@ fun PatchingSuccess(
                 excludedPatches = excludedPatches,
                 errorMessage = errorMessage,
                 conflictPackageName = conflictPackageName,
+                canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
                 onInstall = onInstall,
                 onUninstall = onUninstall,
+                onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
                 onOpen = onOpen,
                 isExpertMode = isExpertMode,
                 onHomeClick = onHomeClick,
@@ -237,8 +241,10 @@ private fun AdaptiveSuccessContent(
     excludedPatches: List<String>,
     errorMessage: String?,
     conflictPackageName: String?,
+    canIgnoreSignatureMismatch: Boolean,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
+    onIgnoreSignatureMismatch: () -> Unit,
     onOpen: () -> Unit,
     isExpertMode: Boolean = false,
     onHomeClick: () -> Unit = {},
@@ -338,15 +344,17 @@ private fun AdaptiveSuccessContent(
 
                 Spacer(Modifier.height(itemSpacing))
 
-                InstallActionButton(
+                InstallActions(
                     isInstalling = isInstalling,
                     isInstalled = isInstalled,
                     isError = isError,
                     isConflict = isConflict,
                     conflictPackageName = conflictPackageName,
                     usingMountInstall = usingMountInstall,
+                    canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
                     onInstall = onInstall,
                     onUninstall = onUninstall,
+                    onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
                     onOpen = onOpen
                 )
             }
@@ -397,15 +405,17 @@ private fun AdaptiveSuccessContent(
                 isReady = !isInstalling && !isInstalled && !isError && !isConflict
             )
 
-            InstallActionButton(
+            InstallActions(
                 isInstalling = isInstalling,
                 isInstalled = isInstalled,
                 isError = isError,
                 isConflict = isConflict,
                 conflictPackageName = conflictPackageName,
                 usingMountInstall = usingMountInstall,
+                canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
                 onInstall = onInstall,
                 onUninstall = onUninstall,
+                onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
                 onOpen = onOpen
             )
         }
@@ -605,6 +615,54 @@ private fun SuccessHint(
                     text = text,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Install action button, with the signature bypass offered below it on devices that can use it.
+ */
+@Composable
+private fun InstallActions(
+    isInstalling: Boolean,
+    isInstalled: Boolean,
+    isError: Boolean,
+    isConflict: Boolean,
+    conflictPackageName: String?,
+    usingMountInstall: Boolean,
+    canIgnoreSignatureMismatch: Boolean,
+    onInstall: () -> Unit,
+    onUninstall: (String) -> Unit,
+    onIgnoreSignatureMismatch: () -> Unit,
+    onOpen: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+    ) {
+        InstallActionButton(
+            isInstalling = isInstalling,
+            isInstalled = isInstalled,
+            isError = isError,
+            isConflict = isConflict,
+            conflictPackageName = conflictPackageName,
+            usingMountInstall = usingMountInstall,
+            onInstall = onInstall,
+            onUninstall = onUninstall,
+            onOpen = onOpen
+        )
+
+        AnimatedVisibility(
+            visible = isConflict && canIgnoreSignatureMismatch && !isInstalling,
+            enter = Animations.fadeIn,
+            exit = Animations.fadeOut
+        ) {
+            TextButton(onClick = onIgnoreSignatureMismatch) {
+                Text(
+                    text = stringResource(R.string.install_ignore_signature),
+                    style = MaterialTheme.typography.labelLarge
                 )
             }
         }

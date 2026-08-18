@@ -6,29 +6,21 @@
 package app.morphe.manager.ui.screen.home
 
 import android.os.Build
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
@@ -45,18 +37,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
-import app.morphe.manager.domain.bundles.BundleSourceType
 import app.morphe.manager.domain.apk.InstalledApkInfo
 import app.morphe.manager.domain.apk.SavedApkInfo
-import app.morphe.manager.domain.bundles.BundleRecommendation
-import app.morphe.manager.domain.bundles.BundledAppTarget
-import app.morphe.manager.domain.bundles.experimentalVersions
+import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
-import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.ui.viewmodel.*
+import app.morphe.manager.ui.viewmodel.HomeViewModel
+import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.util.*
 import app.morphe.patcher.patch.AppTarget
 import kotlinx.coroutines.delay
@@ -160,6 +151,10 @@ fun HomeDialogs(
         val usingMountInstall = homeViewModel.usingMountInstall
         // Remember packageName to prevent color flickering during exit animation
         val packageName = remember { homeViewModel.pendingPackageName }
+        // Settled in dialog 1 and remembered for the same reason, so the steps stay put on the way out
+        val requestedVersion = remember {
+            (homeViewModel.pendingSelectedDownloadVersion ?: homeViewModel.pendingRecommendedVersion)?.version
+        }
 
         // Resolve download button color: bundle declared → default
         val bundleMetadata by homeViewModel.bundleAppMetadataFlow.collectAsStateWithLifecycle()
@@ -174,6 +169,8 @@ fun HomeDialogs(
         }
 
         DownloadInstructionsDialog(
+            downloadUrl = homeViewModel.resolvedDownloadUrl,
+            requestedVersion = requestedVersion,
             usingMountInstall = usingMountInstall,
             targetAppInstalled = homeViewModel.pendingTargetAppInstalled == true,
             downloadColor = downloadColor,
@@ -364,8 +361,11 @@ fun HomeDialogs(
             InstalledAppInfoDialog(
                 packageName = packageName,
                 onDismiss = homeViewModel::dismissInstalledAppInfo,
-                onTriggerPatchFlow = { originalPackageName ->
-                    homeViewModel.showPatchDialog(originalPackageName)
+                onTriggerPatchFlow = { originalPackageName, repatchedPackageName ->
+                    homeViewModel.showPatchDialog(
+                        packageName = originalPackageName,
+                        repatchedPackageName = repatchedPackageName
+                    )
                 },
                 homeViewModel = homeViewModel,
                 viewModel = installedAppInfoViewModel
@@ -417,8 +417,8 @@ fun HomeDialogs(
                 onDeselectAll = { bundleUid, patches ->
                     homeViewModel.expertModeDeselectAll(bundleUid, patches)
                 },
-                onResetToDefault = { bundleUid, allPatches ->
-                    homeViewModel.expertModeResetToDefault(bundleUid, allPatches)
+                onResetToDefault = { bundleUid ->
+                    homeViewModel.expertModeResetToDefault(bundleUid)
                 },
                 onRestoreSaved = { bundleUid ->
                     homeViewModel.expertModeRestoreSaved(bundleUid)
@@ -434,9 +434,8 @@ fun HomeDialogs(
                 }
             ),
             savedPatches = homeViewModel.expertModeInitialPatches,
-            lockStateOf = { patch ->
-                patch.lockState(homeViewModel.currentInstallerType, homeViewModel.currentApkArchitecture)
-            },
+            lockStateOf = homeViewModel::expertModeLockState,
+            holdsUniversalPatches = homeViewModel::expertModeSelectAllHoldsUniversal,
             onDismiss = {
                 homeViewModel.cleanupExpertModeData()
             },
@@ -611,8 +610,10 @@ fun HomeDialogs(
             item.installedApp != null &&
                     item.packageName !in homeViewModel.bundleAppMetadataFlow.value
         }
-        val patchesByBundle = if (isUniversalOnly) {
-            produceState(initialValue = emptyMap(), item.packageName) {
+        // Null until the applied patches are read back, which the dialog shows as loading
+        // rather than as a list that happens to be empty
+        val patchesByBundle: Map<Int, List<PatchInfo>>? = if (isUniversalOnly) {
+            produceState<Map<Int, List<PatchInfo>>?>(initialValue = null, item.packageName) {
                 value = homeViewModel.getAppliedPatchesForPackage(item.packageName)
             }.value
         } else {
@@ -621,27 +622,87 @@ fun HomeDialogs(
             }
         }
         val bundleNames = remember(patchesByBundle) {
-            patchesByBundle.keys.associateWith { uid ->
+            patchesByBundle.orEmpty().keys.associateWith { uid ->
                 homeViewModel.getBundleDisplayName(uid) ?: uid.toString()
             }
         }
         AppPatchesDialog(
             item = item,
-            patchesByBundle = patchesByBundle,
+            patchesByBundle = patchesByBundle.orEmpty(),
             bundleNames = bundleNames,
+            isLoading = patchesByBundle == null,
             onDismiss = { patchesItem.value = null }
         )
     }
 
-    // Leftover copy of an app that patching reinstalled under a different package name
-    val orphanedInstalls by homeViewModel.orphanedInstalls.collectAsStateWithLifecycle()
-    orphanedInstalls.firstOrNull()?.let { orphan ->
-        OrphanedInstallDialog(
-            packageName = orphan.currentPackageName,
-            version = orphan.version,
-            onUninstall = { homeViewModel.uninstallOrphanedInstall(orphan) },
-            onKeep = { homeViewModel.keepOrphanedInstall(orphan) }
+    // The confirmed patch list renames the app, so the run will not update what it was opened for
+    homeViewModel.renameWarning?.let { warning ->
+        RenameWarningDialog(
+            warning = warning,
+            onContinue = homeViewModel::confirmRenameWarning,
+            onDismiss = homeViewModel::dismissRenameWarning
         )
+    }
+}
+
+/**
+ * Shown when the patches about to run carry a package name of their own: the result installs
+ * beside the app instead of updating it, which is a surprise unless cloning was the intent.
+ */
+@Composable
+private fun RenameWarningDialog(
+    warning: RenameWarning,
+    onContinue: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AppDialog(
+        onDismissRequest = onDismiss,
+        title = stringResource(R.string.home_dialog_rename_title),
+        padding = DialogPadding.Compact,
+        footer = {
+            AppDialogButtonRow(
+                primaryText = stringResource(R.string.continue_),
+                onPrimaryClick = onContinue,
+                secondaryText = stringResource(android.R.string.cancel),
+                onSecondaryClick = onDismiss
+            )
+        }
+    ) {
+        val secondaryColor = LocalDialogSecondaryTextColor.current
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = htmlAnnotatedString(
+                    stringResource(
+                        R.string.home_dialog_rename_description,
+                        warning.targetPackageName
+                    )
+                ),
+                style = MaterialTheme.typography.bodyLarge,
+                color = secondaryColor,
+                textAlign = TextAlign.Center
+            )
+
+            // Only when the patches were given a name; otherwise the patch picks one itself
+            warning.resultPackageName?.let { resultPackageName ->
+                MonospaceValuePanel(
+                    value = resultPackageName,
+                    label = stringResource(R.string.home_dialog_rename_result_package)
+                )
+            }
+
+            if (warning.replacesExisting) {
+                Notice(
+                    text = stringResource(R.string.home_dialog_rename_replaces),
+                    tone = SemanticTone.Warning,
+                    icon = Icons.Outlined.Warning
+                )
+            }
+        }
     }
 }
 
@@ -828,195 +889,6 @@ internal fun ApkAvailabilityDialog(
 }
 
 /**
- * Dialog 2: Download instructions dialog.
- */
-@Composable
-internal fun DownloadInstructionsDialog(
-    usingMountInstall: Boolean,
-    targetAppInstalled: Boolean,
-    downloadColor: Color,
-    isApkBundle: Boolean,
-    onDismiss: () -> Unit,
-    onOpenApkDownloadHelper: (() -> Unit)? = null,
-    onContinue: () -> Unit
-) {
-    val context = LocalContext.current
-    val downloadButtonToasts = listOf(
-        stringResource(R.string.home_download_instructions_download_button_toast),
-        stringResource(R.string.home_download_instructions_download_button_toast_2),
-        stringResource(R.string.home_download_instructions_download_button_toast_3),
-        stringResource(R.string.home_download_instructions_download_button_toast_4),
-        stringResource(R.string.home_download_instructions_download_button_toast_5),
-        stringResource(R.string.home_download_instructions_download_button_toast_6),
-    )
-    var downloadClickCount by remember { mutableIntStateOf(0) }
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_download_instructions_title),
-        footer = {
-            if (onOpenApkDownloadHelper != null) {
-                AppDialogButtonRow(
-                    primaryText = stringResource(R.string.home_download_instructions_continue),
-                    onPrimaryClick = onContinue,
-                    primaryIcon = Icons.AutoMirrored.Outlined.OpenInNew,
-                    secondaryText = stringResource(R.string.home_apk_helper_download),
-                    onSecondaryClick = onOpenApkDownloadHelper,
-                    secondaryIcon = Icons.Outlined.Download,
-                    layout = DialogButtonLayout.Vertical
-                )
-            } else {
-                AppDialogButton(
-                    text = stringResource(R.string.home_download_instructions_continue),
-                    onClick = onContinue,
-                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        }
-    ) {
-        val textColor = LocalDialogTextColor.current
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.home_download_instructions_steps_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = textColor
-            )
-
-            InstructionStep(
-                number = "1",
-                text = stringResource(
-                    R.string.home_download_instructions_step1,
-                    stringResource(R.string.home_download_instructions_continue)
-                ),
-                textColor = textColor,
-                secondaryColor = secondaryColor
-            )
-
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                InstructionStep(
-                    number = "2",
-                    text = stringResource(R.string.home_download_instructions_step2_part1),
-                    textColor = textColor,
-                    secondaryColor = secondaryColor
-                )
-
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    val adjustedDownloadColor = downloadColor.ensureContrast(MaterialTheme.colorScheme.background)
-                    val downloadContentColor = if (adjustedDownloadColor.requiresLightContent()) Color.White else Color.Black
-                    Surface(
-                        onClick = {
-                            downloadClickCount++
-                            context.toast(
-                                string = downloadButtonToasts.getOrElse(downloadClickCount - 1) { downloadButtonToasts.last() },
-                                duration = Toast.LENGTH_LONG
-                            )
-                        },
-                        shape = RoundedCornerShape(1.dp),
-                        color = adjustedDownloadColor
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Download,
-                                contentDescription = null,
-                                tint = downloadContentColor,
-                                modifier = Modifier.size(Defaults.IconSizeSmall)
-                            )
-                            Text(
-                                text = if (isApkBundle) "DOWNLOAD APK BUNDLE" else "DOWNLOAD APK",
-                                style = MaterialTheme.typography.labelLarge,
-                                color = downloadContentColor
-                            )
-                        }
-                    }
-                }
-            }
-
-            val mountInstallRequired = usingMountInstall && !targetAppInstalled
-
-            InstructionStep(
-                number = "3",
-                text = htmlAnnotatedString(
-                    stringResource(
-                        if (mountInstallRequired) {
-                            R.string.home_download_instructions_step3_mount
-                        } else {
-                            R.string.home_download_instructions_step3
-                        }
-                    )
-                ),
-                textColor = textColor,
-                secondaryColor = secondaryColor
-            )
-
-            InstructionStep(
-                number = "4",
-                text = stringResource(
-                    if (mountInstallRequired) R.string.home_download_instructions_step4_mount
-                    else R.string.home_download_instructions_step4
-                ),
-                textColor = textColor,
-                secondaryColor = secondaryColor
-            )
-        }
-    }
-}
-
-@Composable
-private fun InstructionStep(
-    number: String,
-    text: AnnotatedString,
-    textColor: Color,
-    secondaryColor: Color
-) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.Top
-    ) {
-        Text(
-            text = number,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = textColor.copy(alpha = 0.6f)
-        )
-        Text(
-            text = text,
-            style = MaterialTheme.typography.bodyMedium,
-            color = secondaryColor,
-            modifier = Modifier.weight(1f)
-        )
-    }
-}
-
-@Composable
-private fun InstructionStep(
-    number: String,
-    text: String,
-    textColor: Color,
-    secondaryColor: Color
-) {
-    InstructionStep(
-        number = number,
-        text = AnnotatedString(text),
-        textColor = textColor,
-        secondaryColor = secondaryColor
-    )
-}
-
-/**
  * Dialog 3: File picker prompt dialog.
  */
 @Composable
@@ -1038,35 +910,34 @@ internal fun FilePickerPromptDialog(
             }
         ),
         footer = {
-            AppDialogButtonColumn {
-                if (isOtherApps && onUseInstalledApp != null) {
-                    AppDialogButton(
-                        text = stringResource(R.string.home_use_installed_app),
-                        onClick = onUseInstalledApp,
-                        icon = Icons.Outlined.PhoneAndroid,
-                        enabled = !isLoadingInstalledApps,
-                        modifier = Modifier.fillMaxWidth()
+            AppDialogActions(
+                actions = buildList {
+                    if (isOtherApps && onUseInstalledApp != null) {
+                        add(
+                            DialogAction(
+                                text = stringResource(R.string.home_use_installed_app),
+                                onClick = onUseInstalledApp,
+                                icon = Icons.Outlined.PhoneAndroid,
+                                enabled = !isLoadingInstalledApps
+                            )
+                        )
+                    }
+                    add(
+                        DialogAction(
+                            text = stringResource(R.string.home_file_picker_prompt_open_apk),
+                            onClick = onOpenFilePicker,
+                            icon = Icons.Outlined.FolderOpen
+                        )
                     )
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.home_file_picker_prompt_open_apk),
-                        onClick = onOpenFilePicker,
-                        icon = Icons.Outlined.FolderOpen,
-                        modifier = Modifier.fillMaxWidth()
+                    add(
+                        DialogAction(
+                            text = stringResource(android.R.string.cancel),
+                            onClick = onDismiss
+                        )
                     )
-                } else {
-                    AppDialogButton(
-                        text = stringResource(R.string.home_file_picker_prompt_open_apk),
-                        onClick = onOpenFilePicker,
-                        icon = Icons.Outlined.FolderOpen,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+                },
+                layout = DialogButtonLayout.Vertical
+            )
         }
     ) {
         val secondaryColor = LocalDialogSecondaryTextColor.current
@@ -1082,232 +953,6 @@ internal fun FilePickerPromptDialog(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
-    }
-}
-
-private enum class AppFilter { All, UserOnly, SystemOnly }
-
-/**
- * Dialog that shows all installed apps for the universal-patch flow.
- * User picks an app; its APK is extracted and sent through the patch pipeline.
- */
-@Composable
-private fun InstalledAppPickerDialog(
-    items: List<InstalledAppPickerItem>,
-    isLoading: Boolean,
-    onDismiss: () -> Unit,
-    onSelect: (InstalledAppPickerItem) -> Unit
-) {
-    val context = LocalContext.current
-    val searchQuery = remember { mutableStateOf("") }
-    var appFilter by remember { mutableStateOf(AppFilter.UserOnly) }
-    val filtered = remember(items, searchQuery.value, appFilter) {
-        items
-            .let { list ->
-                when (appFilter) {
-                    AppFilter.UserOnly -> list.filter { !it.isSystemApp }
-                    AppFilter.SystemOnly -> list.filter { it.isSystemApp }
-                    AppFilter.All -> list
-                }
-            }
-            .let { list ->
-                if (searchQuery.value.isBlank()) list
-                else list.filter {
-                    it.label.contains(searchQuery.value, ignoreCase = true) ||
-                            it.packageName.contains(searchQuery.value, ignoreCase = true)
-                }
-            }
-    }
-    AppDialog(
-        onDismissRequest = onDismiss,
-        dismissOnClickOutside = true,
-        title = stringResource(R.string.home_installed_app_picker_title),
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        titleTrailingContent = {
-            val labelAll = stringResource(R.string.home_installed_app_picker_filter_all)
-            val labelUser = stringResource(R.string.home_installed_app_picker_filter_user)
-            val labelSystem = stringResource(R.string.home_installed_app_picker_filter_system)
-            val (icon, description) = when (appFilter) {
-                AppFilter.All -> Icons.Outlined.FilterList to labelAll
-                AppFilter.UserOnly -> Icons.Outlined.Person to labelUser
-                AppFilter.SystemOnly -> Icons.Outlined.Android to labelSystem
-            }
-            FilledTonalIconButton(
-                onClick = {
-                    appFilter = when (appFilter) {
-                        AppFilter.All -> AppFilter.UserOnly
-                        AppFilter.UserOnly -> AppFilter.SystemOnly
-                        AppFilter.SystemOnly -> AppFilter.All
-                    }
-                    context.toast(
-                        when (appFilter) {
-                            AppFilter.All -> labelAll
-                            AppFilter.UserOnly -> labelUser
-                            AppFilter.SystemOnly -> labelSystem
-                        }
-                    )
-                },
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = description,
-                    modifier = Modifier.size(Defaults.IconSizeSmall)
-                )
-            }
-        },
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(android.R.string.cancel),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    ) {
-        val textColor = LocalDialogTextColor.current
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
-        val listState = rememberLazyListState()
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxWidth(),
-                userScrollEnabled = !isLoading
-            ) {
-                stickyHeader {
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.surface
-                    ) {
-                        AppDialogTextField(
-                            value = searchQuery.value,
-                            onValueChange = { searchQuery.value = it },
-                            placeholder = { Text(stringResource(R.string.search)) },
-                            leadingIcon = {
-                                Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
-                            },
-                            showClearButton = true,
-                            enabled = !isLoading,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 4.dp)
-                        )
-                    }
-                }
-
-                if (isLoading) {
-                    items(10) { index ->
-                        ShimmerInstalledAppRow()
-                        if (index < 9) {
-                            HorizontalDivider(
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                            )
-                        }
-                    }
-                } else {
-                    if (filtered.isEmpty()) {
-                        item(key = "empty_state") {
-                            Box(
-                                modifier = Modifier
-                                    .animateItem()
-                                    .fillMaxWidth()
-                                    .padding(vertical = 48.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.SearchOff,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(48.dp),
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = stringResource(R.string.home_installed_app_picker_empty),
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        textAlign = TextAlign.Center
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    itemsIndexed(filtered, key = { _, item -> item.packageName }) { index, item ->
-                        Column(modifier = Modifier.animateItem()) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickable { onSelect(item) }
-                                    .padding(horizontal = 4.dp, vertical = 10.dp),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                AppIcon(
-                                    packageInfo = item.packageInfo,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(RoundedCornerShape(10.dp))
-                                )
-                                Column(
-                                    modifier = Modifier.weight(1f),
-                                    verticalArrangement = Arrangement.spacedBy(2.dp)
-                                ) {
-                                    Text(
-                                        text = item.label,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        fontWeight = FontWeight.Medium,
-                                        color = textColor,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                    Text(
-                                        text = item.packageName,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = secondaryColor,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                    Text(
-                                        text = if (item.info.versionCode != null) {
-                                            "v${item.info.version} (${item.info.versionCode})"
-                                        } else {
-                                            "v${item.info.version}"
-                                        },
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = secondaryColor.copy(alpha = 0.6f),
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                            }
-                            if (index < filtered.size - 1) {
-                                HorizontalDivider(
-                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-        }
     }
 }
 
@@ -1473,24 +1118,24 @@ fun InvalidSignatureDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_invalid_signature_title),
         footer = {
-            AppDialogButtonColumn {
-                AppDialogButton(
-                    text = stringResource(R.string.home_split_apk_warning_pick_another),
-                    onClick = onPickAnother,
-                    icon = Icons.Outlined.FolderOpen,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
-                    onClick = onProceed,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogActions(
+                actions = listOf(
+                    DialogAction(
+                        text = stringResource(R.string.home_split_apk_warning_pick_another),
+                        onClick = onPickAnother,
+                        icon = Icons.Outlined.FolderOpen
+                    ),
+                    DialogAction(
+                        text = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
+                        onClick = onProceed
+                    ),
+                    DialogAction(
+                        text = stringResource(android.R.string.cancel),
+                        onClick = onDismiss
+                    )
+                ),
+                layout = DialogButtonLayout.Vertical
+            )
         }
     ) {
         Column(
@@ -1625,8 +1270,8 @@ fun WrongPackageDialog(
         title = stringResource(R.string.home_dialog_wrong_package_title),
         padding = DialogPadding.Compact,
         footer = {
-            AppDialogButton(
-                text = stringResource(android.R.string.ok),
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -1650,136 +1295,19 @@ fun WrongPackageDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
-                // Expected package (green card)
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.home_dialog_expected_package),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
-                    )
+                // The two are read against each other, so the tone carries which is which
+                MonospaceValuePanel(
+                    value = expectedPackage,
+                    label = stringResource(R.string.home_dialog_expected_package),
+                    tone = SemanticTone.Success
+                )
 
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
-                        color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.25f),
-                        tonalElevation = 1.dp
-                    ) {
-                        Text(
-                            text = expectedPackage,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Green.copy(alpha = 0.9f),
-                            modifier = Modifier.padding(16.dp)
-                        )
-                    }
-                }
-
-                // Selected package (red card)
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.home_dialog_selected_package),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
-                    )
-
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
-                        color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
-                        tonalElevation = 1.dp
-                    ) {
-                        Text(
-                            text = actualPackage,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(16.dp)
-                        )
-                    }
-                }
+                MonospaceValuePanel(
+                    value = actualPackage,
+                    label = stringResource(R.string.home_dialog_selected_package),
+                    tone = SemanticTone.Error
+                )
             }
-        }
-    }
-}
-
-/**
- * Shown after patching renamed the package: the copy patched earlier stays installed as a separate
- * app that the manager no longer tracks. Offers to remove it while it can still be identified.
- */
-@Composable
-fun OrphanedInstallDialog(
-    packageName: String,
-    version: String,
-    onUninstall: () -> Unit,
-    onKeep: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onKeep,
-        title = stringResource(R.string.home_dialog_orphaned_install_title),
-        padding = DialogPadding.Compact,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.home_dialog_orphaned_install_uninstall),
-                onPrimaryClick = onUninstall,
-                isPrimaryDestructive = true,
-                secondaryText = stringResource(R.string.home_dialog_orphaned_install_keep),
-                onSecondaryClick = onKeep
-            )
-        }
-    ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Layers,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
-
-            Text(
-                text = stringResource(R.string.home_dialog_orphaned_install_description),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center
-            )
-
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(14.dp),
-                color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
-                tonalElevation = 1.dp
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = packageName,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                    Text(
-                        text = version,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
-                    )
-                }
-            }
-
-            Notice(
-                text = stringResource(R.string.home_dialog_orphaned_install_warning),
-                tone = SemanticTone.Warning,
-                icon = Icons.Outlined.Warning
-            )
         }
     }
 }
@@ -1799,8 +1327,8 @@ private fun NoCompatibleVersionsDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_apk_no_compatible_versions_title),
         footer = {
-            AppDialogButton(
-                text = stringResource(android.R.string.ok),
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )

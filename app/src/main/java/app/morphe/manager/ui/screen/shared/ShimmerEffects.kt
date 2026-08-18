@@ -325,9 +325,13 @@ fun ShimmerInstalledAppRow() {
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Holds the slot of the icon the row settles into, inset like the adaptive icons that
+        // land there so the placeholder does not read as the larger of the two
         ShimmerBox(
-            modifier = Modifier.size(40.dp),
-            shape = RoundedCornerShape(10.dp)
+            modifier = Modifier
+                .size(56.dp)
+                .padding(6.dp),
+            shape = RoundedCornerShape(11.dp)
         )
         Column(
             modifier = Modifier.weight(1f),

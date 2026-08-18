@@ -1,6 +1,7 @@
 package app.morphe.manager.ui.model.navigation
 
 import android.os.Parcelable
+import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.ui.model.SelectedApp
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
@@ -20,7 +21,7 @@ object Settings
 data object BatchPatcher : ComplexParameter<BatchPatcher.ViewModelParams> {
     @Parcelize
     data class ViewModelParams(
-        val packageNames: List<String>,
+        val targets: List<BatchTarget>,
         val useMount: Boolean
     ) : Parcelable
 }

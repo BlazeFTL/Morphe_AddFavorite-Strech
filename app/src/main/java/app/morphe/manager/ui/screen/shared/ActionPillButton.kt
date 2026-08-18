@@ -14,7 +14,6 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.semantics.Role
@@ -25,7 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-private val PillShape = RoundedCornerShape(50)
+private val PillShape = Defaults.PillShape
 
 /**
  * Pill-shaped action button with an icon, optional text label, and optional long-press tooltip.
@@ -44,17 +43,12 @@ fun ActionPillButton(
     colors: IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors(),
     pressScale: Boolean = true
 ) {
-    val height = if (large) 40.dp else 36.dp
+    val height = if (large) Defaults.PillHeightLarge else Defaults.PillHeight
     val minWidth = if (large) 80.dp else 72.dp
     val iconSize = if (large) 20.dp else 18.dp
     val textStyle = if (large) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelSmall
 
     val interactionSource = remember { MutableInteractionSource() }
-    val scale = rememberPressScale(
-        interactionSource = interactionSource,
-        enabled = pressScale && enabled,
-        label = "action_pill_press_scale"
-    )
 
     // Surface rather than FilledTonalIconButton: the latter always centers its content in a
     // fixed icon-sized box, so a labeled pill can never measure itself against its own text
@@ -69,7 +63,11 @@ fun ActionPillButton(
             modifier = outerModifier
                 .height(height)
                 .widthIn(min = minWidth)
-                .graphicsLayer { scaleX = scale; scaleY = scale }
+                .pressScale(
+                    interactionSource = interactionSource,
+                    enabled = pressScale && enabled,
+                    label = "action_pill_press_scale"
+                )
                 .semantics { role = Role.Button }
         ) {
             Box(contentAlignment = Alignment.Center) {

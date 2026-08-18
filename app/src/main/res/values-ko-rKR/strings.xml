@@ -3,6 +3,8 @@
     <!-- Home Screen -->
     <string name="home_other_apps">그 외의 앱</string>
     <string name="home_not_patched_yet">아직 패치되지 않음</string>
+    <string name="home_unpatched_version_installed">미패치된 버전이 설치됨</string>
+    <string name="home_unpatched_badge">패치되지 않음</string>
     <string name="home_no_patches_available">사용 가능한 패치 없음</string>
     <string name="home_app_hide_title">이 앱을 숨기시겠습니까?</string>
     <string name="home_app_hide_message">이 앱은 홈 화면에서 숨겨집니다. 목록 하단에 있는 버튼을 사용하여 숨겨진 앱 목록에서 나중에 복원할 수 있습니다</string>
@@ -36,7 +38,13 @@
     <string name="home_update_success_subtitle">소스가 최신 상태입니다</string>
     <string name="home_sources_are_loading">소스를 불러오는 중, 잠시만 기다려 주세요…</string>
     <string name="home_search_apps">앱 검색</string>
-    <string name="home_app_sort_title">앱 정렬</string>
+    <string name="home_app_list_options_title">정렬 및 필터</string>
+    <string name="home_app_list_options_state_description">%1$s 기준으로 정렬, %2$s 기준으로 필터링됨</string>
+    <string name="home_app_filter_all_description">홈 화면의 모든 앱</string>
+    <string name="home_app_filter_patched_description">Morphe로 패치하거나 저장한 앱</string>
+    <string name="home_app_filter_not_patched_description">아직 Morphe에서 패치하지 않은 앱</string>
+    <string name="home_app_filter_installed_description">현재 이 기기에 설치된 앱</string>
+    <string name="home_app_filter_uninstalled_description">Morphe로 패치되었지만 더 이상 이 기기에 없는 앱</string>
     <string name="home_app_sort_manual_description">앱을 길게 탭한 후에 정렬 버튼을 탭하면 순서를 변경할 수 있습니다</string>
     <string name="home_app_sort_recommended">권장 순서</string>
     <string name="home_app_sort_recommended_description">설치된 앱 및 고정된 앱을 먼저 표시</string>
@@ -47,8 +55,10 @@
     <string name="home_no_apps_title">사용 가능한 앱이 없습니다</string>
     <string name="home_no_apps_subtitle">%s에 패치 소스를 추가하거나 기존 패치 소스를 활성화하세요</string>
     <string name="home_no_apps_search_subtitle">\'%s\'와 일치하는 앱이 없습니다</string>
-    <string name="home_all_apps_hidden_title">모든 앱이 숨겨집니다</string>
-    <string name="home_all_apps_hidden_subtitle">홈 화면에서 모든 앱이 숨겨집니다</string>
+    <string name="home_all_apps_hidden_title">모든 앱이 숨겨졌습니다</string>
+    <string name="home_all_apps_hidden_subtitle">홈 화면에서 모든 앱이 숨겨졌습니다</string>
+    <string name="home_no_apps_filter_title">이 필터와 일치하는 앱이 없습니다</string>
+    <string name="home_no_apps_filter_subtitle">\'%s\'과 일치하는 항목이 없습니다</string>
     <string name="home_category_add">카테고리 추가</string>
     <string name="home_category_all_apps">모든 앱</string>
     <string name="home_category_custom">사용자 정의</string>
@@ -104,6 +114,7 @@
     <string name="home_greeting_super_late_5">야행성이면서 생산적이네요</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">패치 소스</string>
+    <string name="sources_search">소스 검색</string>
     <string name="sources_sort_title">패치 소스 정렬</string>
     <string name="sources_sort_manual">수동 정렬</string>
     <string name="sources_sort_manual_hint">소스를 길게 탭하여 순서를 변경하세요</string>
@@ -171,12 +182,19 @@
     <string name="home_apk_helper_description">Morphe는 아래의 도우미 앱에 원본 APK를 다운로드하고 파일을 다시 전달하도록 요청합니다</string>
     <string name="home_apk_helper_continue">도우미 앱 열기</string>
     <string name="home_apk_helper_warning">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 패치하기 전에 수신하는 모든 파일의 패키지, 버전 및 서명을 확인합니다</string>
-    <string name="home_apk_helper_warning_unverified">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 확인할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
+    <string name="home_apk_helper_warning_unverified">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 검증할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
     <string name="home_apk_helper_no_result">도우미 앱에서 APK 파일을 반환하지 않았습니다</string>
     <string name="home_apk_helper_no_access">도우미 앱이 반환한 APK에 대한 접근 권한을 부여하지 않았습니다</string>
+    <string name="home_apk_helper_no_package">도우미 앱에서 어떤 설치된 앱을 사용해야 하는지 지정하지 않았습니다</string>
+    <string name="home_apk_helper_wrong_package">도우미 앱이 패치하려는 앱과 다른 앱을 반환하였습니다</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe가 설치된 앱을 사용할 수 없습니다</string>
+    <string name="home_apk_helper_installed_incompatible">설치된 버전은 패치할 수 없습니다</string>
     <string name="home_apk_use_saved">저장된 APK 사용</string>
     <string name="home_apk_use_installed">설치된 APK 사용</string>
-    <string name="home_apk_use_installed_unverified">설치된 앱의 서명을 확인할 수 없으므로 이미 패치된 앱일 수 있습니다</string>
+    <string name="home_apk_use_installed_unverified">설치된 앱의 서명을 검증할 수 없으므로 이미 패치된 앱일 수 있습니다</string>
+    <string name="home_unverified">검증되지 않음</string>
+    <string name="home_install_verification_pending">설치를 확인하는 중…</string>
+    <string name="home_app_info_install_unverified">Morphe는 설치된 앱이 패치한 빌드인지 확인할 수 없습니다. 다시 패치하거나 저장된 APK에서 다시 설치하여 작업을 복원하세요</string>
     <string name="home_app_info_no_saved_apk">저장된 APK가 없습니다. 패치하려면 APK 파일을 다시 선택하세요</string>
     <string name="home_version_requires_android">Android %s+ 필요</string>
     <string name="home_apk_no_compatible_versions_title">이 기기에서는 지원되지 않음</string>
@@ -184,8 +202,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">원본 APK 다운로드</string>
     <string name="home_download_instructions_steps_title">설명서:</string>
+    <string name="home_download_instructions_finding">다운로드 페이지를 찾는 중…</string>
     <string name="home_download_instructions_step1">아래 \'%s\' 버튼을 탭하세요</string>
     <string name="home_download_instructions_step2_part1">웹페이지를 아래로 스크롤 한 후에 이 버튼을 탭하세요</string>
+    <string name="home_download_instructions_step2_generic">웹페이지를 아래로 스크롤한 후에 해당 다운로드 버튼을 탭하세요</string>
+    <string name="home_download_instructions_step2_variant">웹페이지를 아래로 스크롤한 후에 상단에 있는 &lt;b&gt;APK 변형&lt;/b&gt;의 다운로드 버튼을 탭하세요</string>
+    <string name="home_download_instructions_step2_search">신뢰하는 웹사이트에서 검색 결과를 여세요</string>
+    <string name="home_download_instructions_step2_search_note">Morphe는 이러한 웹사이트를 보증할 수 없습니다. APK 파일 대신 자체 앱 스토어를 제공하는 웹사이트는 건너뛰세요</string>
+    <string name="home_download_instructions_step3_search">해당 웹사이트에서 최신 버전이 아닌 &lt;b&gt;%s&lt;/b&gt; 버전의 APK를 다운로드하세요</string>
+    <string name="home_download_instructions_step3_search_any">해당 웹사이트에서 앱의 APK를 다운로드하세요. &lt;b&gt;어떤 버전이든&lt;/b&gt; 패치할 수 있습니다</string>
     <string name="home_download_instructions_download_button_toast">여기 말고, 웹사이트에서 다운로드 버튼을 탭하세요 😊</string>
     <string name="home_download_instructions_download_button_toast_2">좋아요! 이제 계속 버튼을 탭하여 웹사이트로 이동하세요 👆</string>
     <string name="home_download_instructions_download_button_toast_3">연습할수록 실력이 늘고, 당신도 잘하고 있어요 💪</string>
@@ -196,7 +221,8 @@
     <string name="home_download_instructions_step3_mount">다운로드가 완료되면, &lt;b&gt;APK 파일을 설치하세요&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">다운로드가 완료되면 Morphe로 돌아오세요</string>
     <string name="home_download_instructions_step4_mount">원본 APK를 설치한 후에 Morphe로 돌아오세요</string>
-    <string name="home_download_instructions_continue">APKMirror.com으로 이동</string>
+    <string name="home_download_instructions_continue_to">%s으로 계속</string>
+    <string name="home_download_instructions_destination">다운로드 페이지</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">다운로드된 APK 선택</string>
     <string name="home_file_picker_prompt_description">방금 다운로드한 &lt;b&gt;%s&lt;/b&gt; APK 파일을 선택하세요</string>
@@ -206,7 +232,7 @@
     <string name="home_select_apk_title">APK 선택</string>
     <string name="home_select_any_apk_description">APK 파일을 선택하거나, 이 기기에 이미 설치된 앱을 선택하세요</string>
     <string name="home_use_installed_app">설치된 앱 사용</string>
-    <string name="home_installed_app_picker_title">설치된 앱 선택</string>
+    <string name="home_installed_app_picker_title">설치된 앱</string>
     <string name="home_installed_app_picker_empty">앱을 찾을 수 없습니다</string>
     <string name="home_installed_app_picker_filter_all">모든 앱</string>
     <string name="home_installed_app_picker_filter_user">사용자 앱만</string>
@@ -223,6 +249,7 @@
     <string name="expert_mode_disable_all_done">모든 패치를 비활성화하였습니다</string>
     <string name="expert_mode_enable_all">모두 활성화</string>
     <string name="expert_mode_enable_all_done">모든 패치를 활성화하였습니다</string>
+    <string name="expert_mode_enable_all_universal_pending">유니버설 패치를 위해 다시 탭하세요</string>
     <string name="expert_mode_reset_to_default">패치 기본값으로 초기화</string>
     <string name="expert_mode_reset_to_default_done">권장 패치를 적용하였습니다</string>
     <string name="expert_mode_restore_saved">저장된 선택 목록으로 복원</string>
@@ -230,7 +257,7 @@
     <string name="expert_mode_copy_from_bundle">다른 번들에서 선택 목록 복사</string>
     <string name="expert_mode_copy_from_bundle_no_patches">이 번들에는 일치하는 패치가 없습니다</string>
     <string name="expert_mode_no_results">패치를 찾을 수 없습니다</string>
-    <string name="expert_mode_universal_patches">유니버셜 패치</string>
+    <string name="expert_mode_universal_patches">유니버설 패치</string>
     <string name="expert_mode_new_patches">신규</string>
     <string name="expert_mode_patch_required_by_installer">선택한 설치 대상에 필요합니다</string>
     <string name="expert_mode_patch_unavailable_for_installer">선택한 설치 대상에 사용할 수 없습니다</string>
@@ -239,7 +266,7 @@
 
 그래도 계속하시겠습니까?"</string>
     <!-- Home Screen - Home Sub-Dialogs -->
-    <string name="home_invalid_signature_title">검증되지 않은 APK</string>
+    <string name="home_invalid_signature_title">미검증된 APK</string>
     <string name="home_invalid_signature_message">선택된 &lt;b&gt;%s&lt;/b&gt;에 대한 APK는 예상된 서명 인증서와 일치하지 않습니다. 수정되었거나 신뢰할 수 없는 출처에서 가져온 파일일 수 있습니다</string>
     <string name="home_invalid_signature_badge">이 파일은 순정 APK가 아닐 수 있습니다</string>
     <string name="home_split_apk_warning_title">분할 APK가 감지되었습니다</string>
@@ -264,11 +291,6 @@
     <string name="home_dialog_wrong_package_description">선택된 APK는 패치하려는 애플리케이션이 아닙니다</string>
     <string name="home_dialog_expected_package">예상된 패키지:</string>
     <string name="home_dialog_selected_package">선택된 패키지:</string>
-    <string name="home_dialog_orphaned_install_title">이전 복사본이 남아 있습니다</string>
-    <string name="home_dialog_orphaned_install_description">패치를 적용하면서 패키지 이름이 변경되었기 때문에, 이전에 패치한 앱은 여전히 별도의 앱으로 설치되어 있습니다</string>
-    <string name="home_dialog_orphaned_install_warning">더 이상 추적되지 않으므로 패치 업데이트를 받을 수 없습니다</string>
-    <string name="home_dialog_orphaned_install_uninstall">제거</string>
-    <string name="home_dialog_orphaned_install_keep">유지</string>
     <string name="home_outdated_patches_dialog_title">패치가 오래되었을 수 있습니다</string>
     <string name="home_outdated_patches_dialog_message">모바일 데이터가 활성화되어 있고 패치 업데이트가 비활성화되었습니다</string>
     <string name="home_outdated_patches_dialog_warning">오래된 패치를 사용하면 앱이 손상될 수 있습니다</string>
@@ -284,6 +306,9 @@
     <string name="patch_option_enter_value">값 입력</string>
     <string name="patch_option_enter_number">숫자 입력</string>
     <string name="patch_option_enter_decimal">소수점 입력</string>
+    <string name="patch_option_slider_edit">정확한 값 입력</string>
+    <string name="patch_option_slider_range_start">시작</string>
+    <string name="patch_option_slider_range_end">끝</string>
     <string name="patch_option_list_duplicate">이 값은 이미 존재합니다</string>
     <string name="patch_option_list_empty">값을 비워 둘 수 없습니다</string>
     <string name="patch_option_list_empty_state">아직 값이 추가되지 않았습니다</string>
@@ -371,6 +396,7 @@
     <string name="home_app_info_delete_preservation_note">패치 선택 목록 및 옵션은 향후 패치를 위해 저장됩니다</string>
     <string name="home_app_info_patches_name_default">패치</string>
     <string name="home_app_info_patches_name_fallback">이름 없음</string>
+    <string name="home_app_info_patches_source_removed">삭제된 패치 소스</string>
     <string name="home_app_info_patches_replace_fail">패치를 가져올 수 없습니다: %s</string>
     <string name="home_app_info_repatch_no_original_apk">원본 APK를 찾을 수 없습니다. 이 앱을 다시 패치할 수 없습니다</string>
     <string name="home_app_info_original_package_name">원본 앱 패키지명</string>
@@ -385,6 +411,11 @@
     <string name="home_app_info_patch_update_available_description">새 버전의 패치가 있습니다. 최신 개선 사항 및 수정 사항을 적용하려면 앱을 다시 패치하세요</string>
     <string name="home_app_info_app_deleted_warning">앱이 제거되었습니다</string>
     <string name="home_app_info_app_deleted_description">이 앱은 Morphe 외부에서 제거되었습니다. 기능을 복원하려면 다시 패치하세요</string>
+    <string name="home_app_info_not_patched_description">이 앱의 패치되지 않은 버전이 설치되어 있습니다. Morphe는 여전히 이전 패치 기록을 보유하고 있습니다</string>
+    <string name="home_dialog_rename_title">복사본이 설치됩니다</string>
+    <string name="home_dialog_rename_description">선택된 패치는 이 앱을 사용자가 설정한 패키지명으로 빌드하므로, 기존 앱을 업데이트하는 것이 아니라 &lt;b&gt;%s&lt;/b&gt;와 함께 별도로 설치됩니다</string>
+    <string name="home_dialog_rename_result_package">다음 패키지명으로 설치됩니다</string>
+    <string name="home_dialog_rename_replaces">이미 해당 패키지명을 사용하는 복사본이 있으므로 다시 빌드됩니다</string>
     <string name="home_app_info_apk_size">APK 크기</string>
     <string name="home_app_info_cpu_arch">CPU 아키텍처</string>
     <!-- Home Screen - Root Mode -->
@@ -456,6 +487,11 @@
     <string name="battery_optimization_dialog_title">백그라운드 패치 보호</string>
     <string name="battery_optimization_dialog_description">일부 기기에서는 앱이 최소화되면 패처가 중지될 수 있습니다. 패치가 안정적으로 완료되도록 Morphe가 배터리 제한 없이 실행되도록 허용하세요</string>
     <string name="battery_optimization_not_now">나중에</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">메모리가 부족합니다</string>
+    <string name="patcher_memory_adjustment_description">패처가 %1$d MB 메모리 제한으로 실행되는 동안 시스템에 의해 중지되었습니다. 제한을 %2$d MB로 낮추면 패처가 사용하는 메모리가 줄어들어 작업이 완료될 수 있습니다</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">패처가 %1$d MB 메모리 제한으로 실행되는 동안 시스템에 의해 중지되었습니다. 이 제한은 이미 설정 가능한 가장 낮은 값입니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
+    <string name="patcher_memory_adjustment_apply">%1$d MB로 낮추기</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">패치를 진행하는 중…</string>
     <string name="patcher_notification_text">패처로 돌아가려면 여기를 탭하세요</string>
@@ -490,6 +526,8 @@
     <!-- Expert patcher Screen -->
     <string name="patching_app">앱 패치</string>
     <string name="memory_usage">메모리 사용량</string>
+    <string name="cpu_usage">CPU 사용량</string>
+    <string name="storage_io_usage">저장소 I/O</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">패치를 적용하는 중</string>
     <string name="failed_to_execute_patch">\'%s\'을 적용할 수 없습니다</string>
@@ -497,9 +535,14 @@
     <string name="patched_app_save_failed_toast">패치된 앱을 저장할 수 없습니다</string>
     <string name="plugin_activity_dialog_body">이 플러그인을 사용하려면 사용자 상호작용이 필요합니다</string>
     <string name="patcher_process_exit_message">패처 프로세스를 코드 \'%s\'로 종료하였습니다</string>
+    <string name="patcher_heap_exhausted_message">패처가 %1$d MB 힙 메모리를 사용하는 동안 메모리가 부족해졌습니다. 이 앱은 선택한 패치를 적용하기에는 너무 큽니다. 패치 소스를 더 적게 사용하거나 패치를 더 적게 선택한 후 다시 패치해 보세요</string>
     <string name="install_app_success">성공적으로 설치하였습니다</string>
     <string name="install_app_fail">앱을 설치할 수 없습니다: %s</string>
+    <string name="install_ignore_signature">무시하고 설치</string>
+    <string name="install_ignore_signature_description">앱 데이터를 유지하지만, 루트 모듈이 Android의 서명 검증을 비활성화한 경우에만 작동합니다</string>
     <string name="uninstall_app_fail">앱을 제거할 수 없습니다: %s</string>
+    <string name="uninstall_app_unverified">그대로 유지됨: Morphe는 설치된 앱이 패치한 빌드인지 검증할 수 없습니다.</string>
+    <string name="launch_app_unverified">Morphe는 설치된 앱이 패치한 빌드인지 검증할 수 없습니다</string>
     <string name="uninstall_timeout">제거 시간이 초과되었습니다</string>
     <string name="save_apk_success">APK를 저장하였습니다</string>
     <string name="saved_app_export_failed">패치된 앱을 내보낼 수 없습니다</string>
@@ -558,18 +601,25 @@
     <string name="settings_appearance_pure_black">순수 검정</string>
     <string name="settings_appearance_pure_black_description">순수 검정 배경을 사용합니다</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">언어 및 디스플레이</string>
     <string name="settings_appearance_app_language">앱 언어</string>
     <string name="settings_appearance_app_language_current">현재 언어</string>
     <string name="settings_appearance_translations_info_title">일부 언어의 번역이 누락되거나 불완전할 수 있습니다</string>
     <string name="settings_appearance_translations_info_text">"새 언어를 번역하거나 기존 번역을 개선하려면 %s 를 방문하세요"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">인터페이스 배율</string>
+    <string name="settings_appearance_ui_scale_current">현재 배율</string>
+    <string name="settings_appearance_ui_scale_description">시스템 화면 확대/축소 및 글꼴 크기 외에도 앱의 모든 요소 크기를 조절할 수 있습니다</string>
+    <string name="settings_appearance_ui_scale_preview_title">설정 예시</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">이 배율에서의 텍스트 및 컨트롤</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">홈 화면</string>
     <string name="settings_appearance_greeting_phrases">인사말</string>
     <string name="settings_appearance_greeting_phrases_subtitle">홈 화면에 인사말을 표시합니다</string>
     <string name="settings_appearance_app_grouping">앱 그룹화</string>
     <string name="settings_appearance_app_grouping_description">앱 출처 또는 사용자 정의 카테고리별로 앱을 그룹화하는 홈 화면 전환기를 표시하며, 비활성화할 경우에는 선택 사항을 유지합니다</string>
-    <string name="settings_appearance_sort_button">정렬 버튼</string>
-    <string name="settings_appearance_sort_button_description">홈 화면에 정렬 버튼을 표시합니다</string>
+    <string name="settings_appearance_sort_button">정렬 및 필터 버튼</string>
+    <string name="settings_appearance_sort_button_description">홈 화면에 정렬 및 필터 버튼을 표시합니다</string>
     <string name="settings_appearance_app_card_colors">앱 카드 색상</string>
     <string name="settings_appearance_app_card_colors_default">기본값</string>
     <string name="settings_appearance_app_card_colors_default_description">각 앱에 해당 앱 번들의 고유 색상을 적용합니다</string>
@@ -791,7 +841,7 @@ morphe_header_custom_dark.png
     <string name="installer_play_store_mode">Play 스토어로 설치</string>
     <string name="installer_play_store_mode_description">이 설치 방법의 앱 설치 출처로 Google Play 스토어를 기록합니다</string>
     <string name="settings_prompt_installer_on_install">설치 프로그램 선택 프롬프트</string>
-    <string name="settings_prompt_installer_on_install_description">패치된 앱을 설치할 때마다 설치 프로그램 선택 다이얼로그를 표시합니다</string>
+    <string name="settings_prompt_installer_on_install_description">패치된 앱을 설치할 때마다 설치 프로그램 선택 대화 상자를 표시합니다</string>
     <string name="settings_auto_install_with_shizuku">패치 후 자동 설치</string>
     <string name="settings_auto_install_with_shizuku_description">패치가 완료되는 즉시 패치된 APK를 자동으로 설치합니다</string>
     <string name="settings_auto_uninstall_with_shizuku">충돌 시 자동 제거</string>
@@ -890,6 +940,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">선택된 APK를 삭제하시겠습니까?</string>
     <string name="settings_system_apks_delete_selected_confirm">선택된 APK 파일을 영구적으로 삭제합니다</string>
     <string name="settings_system_apks_deleted_all">APK를 성공적으로 삭제하였습니다</string>
+    <string name="settings_system_apks_delete_failed">일부 APK 파일을 삭제할 수 없습니다</string>
     <string name="settings_system_apks_export_zip_success">선택된 APK를 내보냈습니다</string>
     <string name="settings_system_apks_export_zip_failed">선택된 APK를 내보낼 수 없습니다</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1003,6 +1054,7 @@ morphe_header_custom_dark.png
     <string name="filter">필터</string>
     <string name="reset">초기화</string>
     <string name="reset_all">모두 초기화</string>
+    <string name="apply">적용</string>
     <string name="confirm">확인</string>
     <string name="warning">경고</string>
     <string name="error_">오류</string>
@@ -1046,7 +1098,7 @@ morphe_header_custom_dark.png
     <string name="deselect_all">모두 선택 해제</string>
     <string name="deselect_all_done">모두 선택 해제하였습니다</string>
     <string name="reorder_list">목록 다시 정렬</string>
-    <string name="reorder_list_hint">앱을 드래그하여 순서를 변경하세요</string>
+    <string name="reorder_list_hint">드래그하여 순서를 변경하세요</string>
     <string name="reorder_done">순서를 저장하였습니다</string>
     <string name="reset_order">순서 초기화</string>
     <string name="reset_order_done">순서를 초기화하였습니다</string>
@@ -1068,8 +1120,10 @@ morphe_header_custom_dark.png
     <string name="available">사용 가능</string>
     <string name="continue_">계속</string>
     <string name="version">버전</string>
+    <string name="clone">복제</string>
     <string name="patch">패치</string>
     <string name="patching">패치</string>
+    <string name="patched">패치됨</string>
     <string name="repatch">다시 패치</string>
     <string name="open">열기</string>
     <string name="mount">마운트</string>

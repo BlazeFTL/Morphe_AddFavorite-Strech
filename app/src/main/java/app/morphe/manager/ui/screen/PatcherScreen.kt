@@ -280,6 +280,9 @@ fun PatcherScreen(
     } }
     val installedPackageName by remember { derivedStateOf { installViewModel.installedPackageName } }
     val conflictPackageName by remember { derivedStateOf { (installViewModel.installState as? InstallViewModel.InstallState.Conflict)?.packageName } }
+    val canIgnoreSignatureMismatch by remember { derivedStateOf {
+        (installViewModel.installState as? InstallViewModel.InstallState.Conflict)?.canIgnoreSignatureMismatch == true
+    } }
     val errorMessage by remember { derivedStateOf { (installViewModel.installState as? InstallViewModel.InstallState.Error)?.message } }
 
     val showInstalledSourceConflictDialog = remember { mutableStateOf(false) }
@@ -301,11 +304,10 @@ fun PatcherScreen(
     }
 
     if (showInstalledSourceConflictDialog.value) {
-        ConfirmDialog(
+        SignatureConflictDialog(
             title = stringResource(R.string.patcher_installed_conflict_title),
             message = stringResource(R.string.patcher_installed_conflict_body),
-            primaryText = stringResource(R.string.uninstall),
-            onConfirm = {
+            onUninstall = {
                 showInstalledSourceConflictDialog.value = false
                 conflictPackageName?.let {
                     installViewModel.requestUninstall(it, installAfterUninstall = true)
@@ -314,6 +316,14 @@ fun PatcherScreen(
             onDismiss = {
                 showInstalledSourceConflictDialog.value = false
                 installViewModel.resetInstallState()
+            },
+            onIgnore = if (canIgnoreSignatureMismatch) {
+                {
+                    showInstalledSourceConflictDialog.value = false
+                    installViewModel.installIgnoringSignatureMismatch()
+                }
+            } else {
+                null
             }
         )
     }
@@ -450,6 +460,20 @@ fun PatcherScreen(
         BatteryOptimizationDialog(
             onResult = patcherViewModel::onBatteryOptimizationDialogResult
         )
+    }
+
+    // Memory limit dialog, shown after the system killed the patcher process.
+    // Waits for the error dialog to close: that one explains the failure this one offers a fix for
+    if (!state.showErrorDialog) {
+        patcherViewModel.memoryAdjustmentDialog?.let { dialogState ->
+            MemoryAdjustmentDialog(
+                currentLimit = dialogState.currentLimit,
+                suggestedLimit = dialogState.suggestedLimit,
+                canAdjust = dialogState.canAdjust,
+                onApply = patcherViewModel::applyMemoryAdjustment,
+                onDismiss = patcherViewModel::dismissMemoryAdjustment
+            )
+        }
     }
 
     // Error dialog
@@ -623,6 +647,8 @@ fun PatcherScreen(
                         onUninstall = { packageName ->
                             installViewModel.requestUninstall(packageName, installAfterUninstall = true)
                         },
+                        canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
+                        onIgnoreSignatureMismatch = installViewModel::installIgnoringSignatureMismatch,
                         onOpen = {
                             installViewModel.openApp()
                         },

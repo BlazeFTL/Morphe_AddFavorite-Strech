@@ -117,34 +117,29 @@ fun AppCardColorDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_appearance_app_card_colors),
+        titleTrailingContent = {
+            TitleAction(
+                icon = Icons.Outlined.Restore,
+                contentDescription = stringResource(R.string.reset),
+                onClick = resetDraft
+            )
+        },
         footer = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-            ) {
-                AppDialogButtonRow(
-                    primaryText = stringResource(R.string.save),
-                    onPrimaryClick = {
-                        onApply(
-                            draftMode,
-                            draftStartColorHex,
-                            draftMiddleColorHex,
-                            draftEndColorHex,
-                            draftSolidColorHex
-                        )
-                        onDismiss()
-                    },
-                    secondaryText = stringResource(R.string.reset),
-                    onSecondaryClick = resetDraft,
-                    secondaryIcon = Icons.Outlined.Restore
-                )
-
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogButtonRow(
+                primaryText = stringResource(R.string.save),
+                onPrimaryClick = {
+                    onApply(
+                        draftMode,
+                        draftStartColorHex,
+                        draftMiddleColorHex,
+                        draftEndColorHex,
+                        draftSolidColorHex
+                    )
+                    onDismiss()
+                },
+                secondaryText = stringResource(android.R.string.cancel),
+                onSecondaryClick = onDismiss
+            )
         }
     ) {
         Column(

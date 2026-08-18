@@ -152,7 +152,8 @@ class RootInstaller(
         val assets = app.assets
 
         // Use new path for new installations
-        val modulePath = "$MODULES_PATH/$packageName-morphe"
+        val moduleId = moduleId(packageName)
+        val modulePath = "$MODULES_PATH/$moduleId"
 
         unmount(packageName)
 
@@ -201,6 +202,7 @@ class RootInstaller(
                             .replace("\r\n", "\n")
                             .replace("\r", "\n")
                             .replace("__PKG_NAME__", packageName)
+                            .replace("__MODULE_ID__", moduleId)
                             .replace("__VERSION__", version)
                             .replace("__LABEL__", label)
                             .toByteArray()
@@ -269,7 +271,7 @@ class RootInstaller(
         if (isAppMounted(packageName))
             unmount(packageName)
 
-        val moduleDir = remoteFS.getFile("$MODULES_PATH/$packageName-morphe")
+        val moduleDir = remoteFS.getFile("$MODULES_PATH/${moduleId(packageName)}")
 
         if (!moduleDir.exists()) return
 
@@ -283,7 +285,7 @@ class RootInstaller(
      */
     private suspend fun resolvePatchedApkPath(packageName: String): String {
         val remoteFS = awaitRemoteFS()
-        val moduleApk = "$MODULES_PATH/$packageName-morphe/$packageName.apk"
+        val moduleApk = "$MODULES_PATH/${moduleId(packageName)}/$packageName.apk"
         if (remoteFS.getFile(moduleApk).exists()) return moduleApk
 
         throw Exception("Patched APK not found for mount")
@@ -390,6 +392,13 @@ class RootInstaller(
 
     companion object {
         const val MODULES_PATH = "/data/adb/modules"
+
+        /**
+         * The module an app is mounted by, which is both the directory holding it and the id it
+         * declares. Root implementations look a module up by its id and expect to find it at
+         * that path, so the two are the same string or the module cannot be managed at all.
+         */
+        fun moduleId(packageName: String) = "$packageName-morphe"
 
         private fun Shell.Result.assertSuccess(errorMessage: String) {
             if (!isSuccess) {

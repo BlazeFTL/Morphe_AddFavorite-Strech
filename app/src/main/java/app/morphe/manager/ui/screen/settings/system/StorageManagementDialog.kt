@@ -81,7 +81,7 @@ fun StorageManagementDialog(
         title = stringResource(R.string.settings_system_storage_management_title),
         padding = DialogPadding.Compact,
         titleTrailingContent = {
-            DialogTitleAction(
+            TitleAction(
                 icon = Icons.Outlined.Refresh,
                 contentDescription = stringResource(R.string.refresh),
                 onClick = {
@@ -255,7 +255,7 @@ private fun ClearCachesConfirmationDialog(
         title = stringResource(R.string.settings_system_storage_clear_all),
         footer = {
             AppDialogButtonRow(
-                primaryText = stringResource(R.string.settings_system_storage_clear_all),
+                primaryText = stringResource(R.string.clear),
                 onPrimaryClick = onConfirm,
                 isPrimaryDestructive = true,
                 secondaryText = stringResource(android.R.string.cancel),

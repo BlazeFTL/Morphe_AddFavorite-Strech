@@ -12,22 +12,23 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.ArrowUpward
+import androidx.compose.material.icons.outlined.AutoFixHigh
+import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.material.icons.outlined.HourglassEmpty
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -48,11 +50,18 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.util.AppCardColorResolver
 import app.morphe.manager.util.AppDataSource
+import app.morphe.manager.util.withVersionPrefix
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
+
+// A verdict answered from cache lands within a frame, so the badge waits rather than flashing
+private const val INSTALL_VERIFICATION_BADGE_DELAY_MS = 400L
 
 private data class HomeAppCardStyle(
     val monochrome: Boolean,
@@ -171,6 +180,11 @@ internal fun RowScope.AppCardContent(
 
         if (subtitle != null) {
             Text(
+                // Matches the badge-height subtitle row of the installed cards, so names line up
+                // across every card in the list
+                modifier = Modifier
+                    .height(statusBadgeHeight)
+                    .wrapContentHeight(Alignment.CenterVertically),
                 text = subtitle,
                 style = cardStyle.subtitleStyle,
                 color = cardStyle.subtitleColor
@@ -190,31 +204,80 @@ fun InstalledAppCard(
     gradientColors: List<Color>,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isClone: Boolean = false,
     hasUpdate: Boolean = false,
     isAppDeleted: Boolean = false,
+    isInstallStateNotPatched: Boolean = false,
+    isInstallStateUnknown: Boolean = false,
+    isInstallStatePending: Boolean = false,
     onLongClick: (() -> Unit)? = null
 ) {
     val cardStyle = homeAppCardStyle(subtitleAlpha = 0.85f)
-    val showsUpdateBadge = hasUpdate && !isAppDeleted
+    val showsUpdateBadge = hasUpdate &&
+            !isAppDeleted &&
+            !isInstallStateNotPatched &&
+            !isInstallStateUnknown &&
+            !isInstallStatePending
 
     val versionLabel = stringResource(R.string.version)
+    val cloneLabel = stringResource(R.string.clone)
     val installedLabel = stringResource(R.string.installed)
     val updateAvailableLabel = stringResource(R.string.update_available)
     val deletedLabel = stringResource(R.string.uninstalled)
+    val replacementLabel = stringResource(R.string.home_unpatched_version_installed)
+    val replacementBadgeLabel = stringResource(R.string.home_unpatched_badge)
+    val unverifiedLabel = stringResource(R.string.home_unverified)
+    val pendingLabel = stringResource(R.string.home_install_verification_pending)
+
+    val showsPendingBadge = remember { mutableStateOf(false) }
+    LaunchedEffect(isInstallStatePending) {
+        if (!isInstallStatePending) {
+            showsPendingBadge.value = false
+            return@LaunchedEffect
+        }
+        delay(INSTALL_VERIFICATION_BADGE_DELAY_MS.milliseconds)
+        showsPendingBadge.value = true
+    }
 
     val version = remember(packageInfo, installedApp, isAppDeleted) {
         val raw = packageInfo?.versionName ?: installedApp.version
-        if (raw.startsWith("v")) raw else "v$raw"
+        raw.withVersionPrefix()
     }
 
-    val contentDesc = remember(displayName, version, versionLabel, installedLabel, showsUpdateBadge, updateAvailableLabel, isAppDeleted, deletedLabel) {
+    val contentDesc = remember(
+        displayName,
+        version,
+        versionLabel,
+        isClone,
+        cloneLabel,
+        installedLabel,
+        showsUpdateBadge,
+        updateAvailableLabel,
+        isAppDeleted,
+        deletedLabel,
+        isInstallStateNotPatched,
+        replacementLabel,
+        isInstallStateUnknown,
+        unverifiedLabel,
+        showsPendingBadge.value,
+        pendingLabel
+    ) {
         buildString {
             append(displayName)
+            if (isClone) append(", $cloneLabel")
             if (version.isNotEmpty()) {
                 append(", $versionLabel $version")
             }
             append(", ")
-            append(if (isAppDeleted) deletedLabel else installedLabel)
+            append(
+                when {
+                    showsPendingBadge.value -> pendingLabel
+                    isInstallStateNotPatched -> replacementLabel
+                    isAppDeleted -> deletedLabel
+                    isInstallStateUnknown -> unverifiedLabel
+                    else -> installedLabel
+                }
+            )
             if (showsUpdateBadge) append(", $updateAvailableLabel")
         }
     }
@@ -232,10 +295,16 @@ fun InstalledAppCard(
         // App icon
         AppIcon(
             packageInfo = packageInfo,
-            packageName = installedApp.originalPackageName,
+            // The install's own package: a clone carries its own icon, which is regularly the
+            // whole point of keeping several copies of an app apart
+            packageName = installedApp.currentPackageName,
             contentDescription = null,
             modifier = Modifier.size(cardStyle.iconSize),
-            preferredSource = AppDataSource.INSTALLED
+            preferredSource = AppDataSource.INSTALLED,
+            // A record can outlive every artifact carrying its icon, and the glass placeholder is
+            // what the rest of the list shows in that case
+            placeholderGradientColors = cardStyle.cardColors(gradientColors),
+            placeholderInnerPadding = 6.dp
         )
 
         // App info
@@ -254,9 +323,24 @@ fun InstalledAppCard(
 
             // Version + deleted status + update chip, both pinned to the card edge
             Row(
+                // Badge height is reserved whether a badge is showing, otherwise the row
+                // grows around it and nudges the app name above out of place
+                modifier = Modifier.height(statusBadgeHeight),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Says what the card is rather than how its install is doing, so it leads the
+                // row and stays put while the state badges at the end come and go. Wordless
+                // because the badges it shares the row with need the width for their own labels
+                if (isClone) {
+                    StatusBadge(
+                        text = null,
+                        icon = Icons.Outlined.ContentCopy,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
+                    )
+                }
+
                 // Fills the row so the chip is pinned to the card edge rather than trailing
                 // a version string of whatever length
                 Text(
@@ -270,10 +354,37 @@ fun InstalledAppCard(
 
                 // Frosted-glass colors: a white semi-transparent fill reads on any accent
                 // color the card's bundle brings, and on the user's dynamic theme
-                if (isAppDeleted) {
+                if (isAppDeleted && !isInstallStateNotPatched) {
                     StatusBadge(
                         text = stringResource(R.string.uninstalled),
                         icon = Icons.Outlined.DeleteOutline,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
+                    )
+                }
+
+                if (isInstallStateNotPatched) {
+                    StatusBadge(
+                        text = replacementBadgeLabel,
+                        icon = Icons.Outlined.AutoFixHigh,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
+                    )
+                }
+
+                if (isInstallStateUnknown) {
+                    StatusBadge(
+                        text = unverifiedLabel,
+                        icon = Icons.AutoMirrored.Outlined.HelpOutline,
+                        containerColor = cardStyle.chipContainerColor,
+                        contentColor = cardStyle.chipContentColor
+                    )
+                }
+
+                if (showsPendingBadge.value) {
+                    StatusBadge(
+                        text = pendingLabel,
+                        icon = Icons.Outlined.HourglassEmpty,
                         containerColor = cardStyle.chipContainerColor,
                         contentColor = cardStyle.chipContentColor
                     )
@@ -352,13 +463,9 @@ fun AppButton(
 /**
  * Shared content layout for app cards and buttons.
  *
- * Uses a multi-layer frosted glass effect:
- * - radial gradient base tinted from card colors
- * - top-left specular shine
- * - bottom-right warm glow from card accent color
- * - diagonal sweep highlight
- * - subtle horizontal frost band
- * - gradient border
+ * Uses a frosted glass effect built from two passes:
+ * - a diagonal sweep carrying the card colors from the bottom-start tint to the top-end accent
+ * - a gradient border
  */
 @Composable
 internal fun AppCardLayout(
@@ -390,124 +497,72 @@ internal fun AppCardLayout(
 
     // Press scale animation
     val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.97f else 1f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness    = Spring.StiffnessMedium
-        ),
-        label = "card_press_scale"
-    )
 
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(cardStyle.cardHeight)
-            .graphicsLayer { scaleX = scale; scaleY = scale }
+            .pressScale(
+                interactionSource = interactionSource,
+                label = "card_press_scale"
+            )
             .clip(shape)
-            .drawWithContent {
+            // Brushes are rebuilt only when the size or the palette changes, so scrolling a list
+            // of cards does not reallocate them on every frame
+            .drawWithCache {
                 val w  = size.width
                 val h  = size.height
                 val cr = CornerRadius(cardStyle.cardRadius.toPx())
                 val rtl = layoutDirection == LayoutDirection.Rtl
 
                 if (cardStyle.monochrome) {
-                    drawRoundRect(
-                        color = cardStyle.cardColor,
-                        cornerRadius = cr
-                    )
+                    return@drawWithCache onDrawWithContent {
+                        drawRoundRect(
+                            color = cardStyle.cardColor,
+                            cornerRadius = cr
+                        )
 
-                    drawContent()
-                    return@drawWithContent
+                        drawContent()
+                    }
                 }
 
-                // Layer 1: radial base - color blooms from bottom-start
-                drawRoundRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            baseColor.copy(alpha = 0.80f * glassAlpha),
-                            midColor.copy(alpha = 0.60f * glassAlpha),
-                            endColor.copy(alpha = 0.40f * glassAlpha)
-                        ),
-                        center = Offset(if (rtl) w * 0.85f else w * 0.15f, h * 0.85f),
-                        radius = w * 1.1f
+                // One sweep from the bottom-start tint through to the top-end accent. Every
+                // translucent layer costs the GPU a full blend pass over the card, and a list of
+                // them scrolling is what pushed the frame past its budget
+                val glass = Brush.linearGradient(
+                    colors = listOf(
+                        baseColor.copy(alpha = 0.70f * glassAlpha),
+                        midColor.copy(alpha = 0.58f * glassAlpha),
+                        endColor.copy(alpha = 0.64f * glassAlpha)
                     ),
-                    cornerRadius = cr
+                    start = Offset(if (rtl) w else 0f, h),
+                    end   = Offset(if (rtl) 0f else w, 0f)
                 )
-
-                // Layer 2: secondary radial bloom from top-end (accent)
-                drawRoundRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            endColor.copy(alpha = 0.55f * glassAlpha),
-                            midColor.copy(alpha = 0.25f * glassAlpha),
-                            Color.Transparent
-                        ),
-                        center = Offset(if (rtl) w * 0.12f else w * 0.88f, h * 0.12f),
-                        radius = w * 0.75f
-                    ),
-                    cornerRadius = cr
-                )
-
-                // Layer 3: frosted white overlay - very subtle, just adds glass texture
-                drawRoundRect(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = 0.03f * glassAlpha),
-                            Color.White.copy(alpha = 0.01f * glassAlpha),
-                            Color.White.copy(alpha = 0.02f * glassAlpha)
-                        ),
-                        startY = 0f,
-                        endY = h
-                    ),
-                    cornerRadius = cr
-                )
-
-                // Layer 4: diagonal sweep highlight (top-start → mid) - thin specular only
-                drawRoundRect(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = 0.08f * glassAlpha),
-                            Color.White.copy(alpha = 0.02f * glassAlpha),
-                            Color.Transparent
-                        ),
-                        start = Offset(if (rtl) w else 0f, 0f),
-                        end   = Offset(w * 0.5f, h)
-                    ),
-                    cornerRadius = cr
-                )
-
-                // Layer 5: bottom edge warm reflection
-                drawRoundRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            endColor.copy(alpha = 0.22f * glassAlpha)
-                        ),
-                        center = Offset(w * 0.5f, h),
-                        radius = w * 0.65f
-                    ),
-                    cornerRadius = cr
-                )
-
-                drawContent()
 
                 // Border: bright top-start → faded bottom-end
-                drawRoundRect(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = 0.65f * borderAlpha),
-                            midColor.copy(alpha = 0.30f * borderAlpha),
-                            endColor.copy(alpha = 0.15f * borderAlpha),
-                            Color.White.copy(alpha = 0.20f * borderAlpha)
-                        ),
-                        start = Offset(if (rtl) w else 0f, 0f),
-                        end   = Offset(if (rtl) 0f else w, h)
+                val border = Brush.linearGradient(
+                    colors = listOf(
+                        Color.White.copy(alpha = 0.65f * borderAlpha),
+                        midColor.copy(alpha = 0.30f * borderAlpha),
+                        endColor.copy(alpha = 0.15f * borderAlpha),
+                        Color.White.copy(alpha = 0.20f * borderAlpha)
                     ),
-                    cornerRadius = cr,
-                    style = Stroke(width = 1.5.dp.toPx())
+                    start = Offset(if (rtl) w else 0f, 0f),
+                    end   = Offset(if (rtl) 0f else w, h)
                 )
+                val borderStroke = Stroke(width = 1.5.dp.toPx())
+
+                onDrawWithContent {
+                    drawRoundRect(brush = glass, cornerRadius = cr)
+
+                    drawContent()
+
+                    drawRoundRect(
+                        brush = border,
+                        cornerRadius = cr,
+                        style = borderStroke
+                    )
+                }
             }
             .combinedClickable(
                 enabled = enabled,
@@ -574,6 +629,10 @@ fun AppLoadingCard(
     val shape = RoundedCornerShape(cardStyle.cardRadius)
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 
+    // Skeleton rows carry the height of the text they stand in for, so the card does not
+    // re-lay-out its content the moment the real app resolves
+    val titleRowHeight = with(LocalDensity.current) { cardStyle.titleStyle.lineHeight.toDp() }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -617,38 +676,48 @@ fun AppLoadingCard(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                .padding(horizontal = cardStyle.contentPadding),
+            horizontalArrangement = Arrangement.spacedBy(cardStyle.contentSpacing),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Icon skeleton
+            // Icon skeleton, inset and rounded like the glass placeholder it stands in for
             ShimmerBox(
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(cardStyle.iconSize)
                     .padding(6.dp),
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+                shape = RoundedCornerShape(percent = 20),
                 baseColor = Color.White.copy(alpha = 0.2f)
             )
 
             // Text skeleton
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                ShimmerBox(
-                    modifier = Modifier
-                        .fillMaxWidth(0.6f)
-                        .height(20.dp),
-                    shape = RoundedCornerShape(4.dp),
-                    baseColor = Color.White.copy(alpha = 0.25f)
-                )
-                ShimmerBox(
-                    modifier = Modifier
-                        .fillMaxWidth(0.4f)
-                        .height(14.dp),
-                    shape = RoundedCornerShape(4.dp),
-                    baseColor = Color.White.copy(alpha = 0.15f)
-                )
+                Box(
+                    modifier = Modifier.height(titleRowHeight),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    ShimmerBox(
+                        modifier = Modifier
+                            .fillMaxWidth(0.6f)
+                            .height(20.dp),
+                        shape = RoundedCornerShape(4.dp),
+                        baseColor = Color.White.copy(alpha = 0.25f)
+                    )
+                }
+                Box(
+                    modifier = Modifier.height(statusBadgeHeight),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    ShimmerBox(
+                        modifier = Modifier
+                            .fillMaxWidth(0.4f)
+                            .height(14.dp),
+                        shape = RoundedCornerShape(4.dp),
+                        baseColor = Color.White.copy(alpha = 0.15f)
+                    )
+                }
             }
         }
     }

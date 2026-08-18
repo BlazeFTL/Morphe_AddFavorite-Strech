@@ -126,6 +126,12 @@ object KnownApps {
  */
 val BATCH_UNINSTALL_TIMEOUT: Duration = 2.minutes
 
+/**
+ * Window used to collect package add, remove and replace broadcasts into a single home refresh.
+ * A store updating several apps emits them in bursts, and each refresh re-inspects tracked apps.
+ */
+const val PACKAGE_CHANGE_DEBOUNCE_MS = 400L
+
 const val APK_MIMETYPE  = "application/vnd.android.package-archive"
 
 const val PLAY_STORE_INSTALLER_PACKAGE = "com.android.vending"
@@ -133,6 +139,10 @@ const val PLAY_STORE_INSTALLER_PACKAGE = "com.android.vending"
 const val AOSP_INSTALLER_PACKAGE        = "com.google.android.packageinstaller"
 const val AOSP_INSTALLER_PACKAGE_LEGACY = "com.android.packageinstaller"
 const val AOSP_INSTALLER_LABEL          = "Package installer"
+
+// Attribution left behind by anything running as the shell user, which is how Shizuku installs
+const val SHELL_INSTALLER_PACKAGE = "com.android.shell"
+
 const val JSON_MIMETYPE     = "application/json"
 const val BIN_MIMETYPE      = "application/octet-stream"
 const val TEXT_MIMETYPE     = "text/plain"

@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -36,7 +36,9 @@ fun GlassPlaceholderIcon(
     Box(
         modifier = modifier
             .padding(innerPadding)
-            .drawWithContent {
+            // Brushes are rebuilt only when the size or the palette changes, so a list full of
+            // placeholders does not reallocate them on every frame
+            .drawWithCache {
                 // Corner radius = ~20% of the shorter side, matching adaptive icon rounding
                 val cr = CornerRadius(minOf(size.width, size.height) * 0.20f)
                 val w = size.width
@@ -44,89 +46,34 @@ fun GlassPlaceholderIcon(
                 val startX = if (isRtl) w else 0f
                 val endX = if (isRtl) 0f else w
 
-                // Layer 1: tinted frosted base
-                drawRoundRect(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = 0.22f),
-                            baseColor.copy(alpha = 0.12f)
-                        ),
-                        start = Offset(startX, 0f),
-                        end = Offset(endX, h)
+                // One sweep from the frosted top-start highlight into the tinted bottom-end. Every
+                // translucent layer is another blend pass, paid once per placeholder on screen
+                val glass = Brush.linearGradient(
+                    colors = listOf(
+                        Color.White.copy(alpha = 0.50f),
+                        baseColor.copy(alpha = 0.22f),
+                        endColor.copy(alpha = 0.20f)
                     ),
-                    cornerRadius = cr
-                )
-
-                // Layer 2: top-left specular shine
-                drawRoundRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = 0.45f),
-                            Color.White.copy(alpha = 0.10f),
-                            Color.Transparent
-                        ),
-                        center = Offset(startX, 0f),
-                        radius = w * 0.75f
-                    ),
-                    cornerRadius = cr
-                )
-
-                // Layer 3: bottom-right soft reflection
-                drawRoundRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            endColor.copy(alpha = 0.18f)
-                        ),
-                        center = Offset(endX, h),
-                        radius = w * 0.9f
-                    ),
-                    cornerRadius = cr
-                )
-
-                // Layer 4: subtle vertical frost streak
-                drawRoundRect(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color.White.copy(alpha = 0.08f),
-                            Color.White.copy(alpha = 0.13f),
-                            Color.White.copy(alpha = 0.06f),
-                            Color.Transparent
-                        ),
-                        startY = 0f,
-                        endY = h
-                    ),
-                    cornerRadius = cr
-                )
-
-                // Layer 5: bottom-right dark edge
-                drawRoundRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color.Black.copy(alpha = 0.12f)
-                        ),
-                        center = Offset(endX, h),
-                        radius = w * 0.6f
-                    ),
-                    cornerRadius = cr
+                    start = Offset(startX, 0f),
+                    end = Offset(endX, h)
                 )
 
                 // Border
-                drawRoundRect(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = 0.55f),
-                            midColor.copy(alpha = 0.30f),
-                            Color.White.copy(alpha = 0.35f)
-                        ),
-                        start = Offset(startX, 0f),
-                        end = Offset(endX, h)
+                val border = Brush.linearGradient(
+                    colors = listOf(
+                        Color.White.copy(alpha = 0.55f),
+                        midColor.copy(alpha = 0.30f),
+                        Color.White.copy(alpha = 0.35f)
                     ),
-                    cornerRadius = cr,
-                    style = Stroke(width = 1.dp.toPx())
+                    start = Offset(startX, 0f),
+                    end = Offset(endX, h)
                 )
+                val borderStroke = Stroke(width = 1.dp.toPx())
+
+                onDrawBehind {
+                    drawRoundRect(brush = glass, cornerRadius = cr)
+                    drawRoundRect(brush = border, cornerRadius = cr, style = borderStroke)
+                }
             }
     )
 }

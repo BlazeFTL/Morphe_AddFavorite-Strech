@@ -9,7 +9,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -93,7 +92,7 @@ fun BundleManagementSheet(
     val prefs: PreferencesManager = koinInject()
     val scope = rememberCoroutineScope()
 
-    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle(emptyList())
+    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
     val patchCounts by patchBundleRepository.patchCountsFlow.collectAsStateWithLifecycle(emptyMap())
     val manualUpdateInfo by patchBundleRepository.manualUpdateInfo.collectAsStateWithLifecycle(emptyMap())
     val activeUpdateUids by patchBundleRepository.activeUpdateUidsFlow.collectAsStateWithLifecycle(emptySet())
@@ -106,6 +105,9 @@ fun BundleManagementSheet(
 
     val bundleToDelete = remember { mutableStateOf<PatchBundleSource?>(null) }
     var showSortDialog by remember { mutableStateOf(false) }
+    // Search is offered from two sources up
+    val isSearchable = sources.size >= 2
+    val search = rememberSearchFieldState(searchable = isSearchable)
     // Expanded state lifted out of LazyColumn so it survives scroll-off-screen recomposition
     var expandedBundleUids by remember { mutableStateOf<Set<Int>>(emptySet()) }
 
@@ -140,13 +142,20 @@ fun BundleManagementSheet(
     val orderedSources = remember(localOrder, sources, sourceSortMode) {
         sources.sortedForSourceSort(sourceSortMode, localOrder)
     }
+    val visibleSources = remember(orderedSources, search.query) {
+        if (search.query.isBlank()) orderedSources
+        else orderedSources.filter { source ->
+            source.displayTitle.contains(search.query, ignoreCase = true) ||
+                    source.name.contains(search.query, ignoreCase = true)
+        }
+    }
     val alphabetScrollMode = sourceSortMode == SourceBundleSortMode.NAME_ASC ||
             sourceSortMode == SourceBundleSortMode.NAME_DESC
-    val sourceScrollTargets = remember(alphabetScrollMode, orderedSources) {
+    val sourceScrollTargets = remember(alphabetScrollMode, visibleSources) {
         if (!alphabetScrollMode) {
             emptyList()
         } else {
-            buildIndexedScrollTargets(orderedSources) { source -> source.displayTitle }
+            buildIndexedScrollTargets(visibleSources) { source -> source.displayTitle }
         }
     }
     val haptic = LocalHapticFeedback.current
@@ -186,6 +195,9 @@ fun BundleManagementSheet(
         val uriHandler = LocalUriHandler.current
         val failedToOpenUrlText = stringResource(R.string.sources_management_failed_to_open_url)
 
+        // Registered inside the sheet content so it outranks the sheet's own dismiss handler
+        SearchFieldBackHandler(search)
+
         Box {
             Column(Modifier.fillMaxWidth()) {
                 // Header - outside scrollable area
@@ -215,39 +227,58 @@ fun BundleManagementSheet(
                         }
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            AnimatedVisibility(visible = sources.size >= 2) {
-                                val activeSortLabel = stringResource(sourceSortMode.labelRes)
-                                FilledIconButton(
-                                    onClick = { showSortDialog = true },
-                                    modifier = Modifier.semantics {
-                                        role = Role.Button
-                                        stateDescription = activeSortLabel
-                                    },
-                                    colors = IconButtonDefaults.filledIconButtonColors(
-                                        containerColor = MaterialTheme.colorScheme.primaryContainer
-                                    )
+                            AnimatedVisibility(visible = isSearchable) {
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Icon(
-                                        imageVector = Icons.AutoMirrored.Outlined.Sort,
-                                        contentDescription = stringResource(R.string.sort)
+                                    TitleAction(
+                                        icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                                        contentDescription = stringResource(R.string.search),
+                                        onClick = { search.toggle() },
+                                        style = TitleActionStyle.AccentToggle,
+                                        active = search.visible
+                                    )
+
+                                    val activeSortLabel = stringResource(sourceSortMode.labelRes)
+                                    TitleAction(
+                                        icon = Icons.AutoMirrored.Outlined.Sort,
+                                        contentDescription = stringResource(R.string.sort),
+                                        onClick = { showSortDialog = true },
+                                        modifier = Modifier.semantics {
+                                            role = Role.Button
+                                            stateDescription = activeSortLabel
+                                        },
+                                        style = TitleActionStyle.Accent
                                     )
                                 }
                             }
-                            FilledIconButton(
+                            TitleAction(
+                                icon = Icons.Default.Add,
+                                contentDescription = stringResource(R.string.add),
                                 onClick = onAddSource,
-                                colors = IconButtonDefaults.filledIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                                )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Add,
-                                    contentDescription = stringResource(R.string.add)
-                                )
-                            }
+                                style = TitleActionStyle.Accent
+                            )
                         }
+                    }
+
+                    AnimatedVisibility(
+                        visible = search.visible,
+                        enter = Animations.expandFadeEnter,
+                        exit = Animations.shrinkFadeExit
+                    ) {
+                        HomeSearchTextField(
+                            value = search.query,
+                            onValueChange = { search.query = it },
+                            label = stringResource(R.string.sources_search),
+                            requestFocus = true,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 8.dp)
+                        )
                     }
 
                     Spacer(Modifier.height(8.dp))
@@ -272,7 +303,16 @@ fun BundleManagementSheet(
                             bottom = 16.dp
                         )
                     ) {
-                        items(orderedSources, key = { bundle -> bundle.uid }) { bundle ->
+                        if (search.isFiltering && visibleSources.isEmpty()) {
+                            item(key = "search_empty") {
+                                EmptyState(
+                                    message = stringResource(R.string.search_no_results),
+                                    icon = Icons.Outlined.SearchOff
+                                )
+                            }
+                        }
+
+                        items(visibleSources, key = { bundle -> bundle.uid }) { bundle ->
                             val hasExperimentalVersions = remember(bundle.uid, bundleInfo) {
                                 bundleInfo[bundle.uid]?.patches?.any { patch ->
                                     patch.compatiblePackages?.any { pkg ->
@@ -282,8 +322,18 @@ fun BundleManagementSheet(
                             }
                             val useExperimentalVersions = bundle.uid.toString() in experimentalVersionsEnabled
 
-                            val isFirstCard = bundle.uid == orderedSources.firstOrNull()?.uid
-                            ReorderableItem(reorderableState, key = bundle.uid) { itemIsDragging ->
+                            val isFirstCard = bundle.uid == visibleSources.firstOrNull()?.uid
+                            ReorderableItem(
+                                reorderableState,
+                                key = bundle.uid,
+                                // Only wanted while dragging: elsewhere it lags behind a card growing
+                                // on expand, letting it overlap the one below
+                                animateItemModifier = if (isDragging) {
+                                    Modifier.animateItem()
+                                } else {
+                                    Modifier.animateItem(placementSpec = null)
+                                }
+                            ) { itemIsDragging ->
                                 BundleManagementCard(
                                     bundle = bundle,
                                     patchCount = patchCounts[bundle.uid] ?: 0,
@@ -352,7 +402,9 @@ fun BundleManagementSheet(
                                     },
                                     forceExpanded = isSingleDefaultBundle,
                                     isDragging = itemIsDragging,
-                                    longPressModifier = if (isManualSort) {
+                                    // Reorder maps list positions onto the full order, so a
+                                    // filtered list would move the wrong sources
+                                    longPressModifier = if (isManualSort && !search.isFiltering) {
                                         Modifier.longPressDraggableHandle(
                                             onDragStarted = {
                                                 isDragging = true
@@ -960,8 +1012,9 @@ private fun BundleCardHeader(
 
             Spacer(Modifier.height(2.dp))
 
+            // The badges inside animate their own entry and exit, so animating the row on top of
+            // that only buys a second measure pass per frame while the list is scrolling
             FlowRow(
-                modifier = Modifier.animateContentSize(),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {

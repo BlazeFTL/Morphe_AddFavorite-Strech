@@ -90,7 +90,6 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_use_installed_app">ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದ ಅಪ್ಲಿಕೇಶನ್ ಬಳಸಿ</string>
-    <string name="home_installed_app_picker_title">ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದ ಅಪ್ಲಿಕೇಶನ್ ಬಳಸಿ</string>
     <string name="home_installed_app_picker_empty">ಆ್ಯಪ್‌ಗಳು ಕಂಡುಬರಲಿಲ್ಲ</string>
     <string name="home_installed_app_picker_filter_all">ಎಲ್ಲಾ ಅಪ್ಲಿಕೇಶನ್‌ಗಳು</string>
     <string name="home_installed_app_picker_filter_user">రಪರಸಲ್ి్ಕಾರ್సేరు಻స్వ్సై</string>
@@ -117,6 +116,7 @@
     <!-- Patcher Screen -->
     <!-- Patcher Screen - Patcher Steps -->
     <!-- Battery optimization pre-flight dialog -->
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <!-- Patcher Screen - Patcher Messages -->
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
@@ -131,6 +131,7 @@
     <!-- Settings - Appearance Tab - Background animation -->
     <!-- Settings - Appearance Tab - Theme -->
     <!-- Settings - Appearance Tab - Language Selector -->
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <!-- Settings - Advanced Tab - Updates Section -->

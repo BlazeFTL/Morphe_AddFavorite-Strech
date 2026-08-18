@@ -12,9 +12,15 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalView
+
+/** How far a control sinks while held. Shared so every button gives the same push-back. */
+const val PressedScale = 0.97f
 
 /**
  * Shared spring-based press-scale factor.
@@ -23,11 +29,12 @@ import androidx.compose.ui.platform.LocalView
 fun rememberPressScale(
     interactionSource: InteractionSource,
     enabled: Boolean = true,
-    pressedScale: Float = 0.97f,
+    pressedScale: Float = PressedScale,
     label: String = "press_scale"
-): Float {
+): State<Float> {
     val isPressed by interactionSource.collectIsPressedAsState()
-    val scale by animateFloatAsState(
+
+    return animateFloatAsState(
         targetValue = if (enabled && isPressed) pressedScale else 1f,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
@@ -35,7 +42,25 @@ fun rememberPressScale(
         ),
         label = label
     )
-    return scale
+}
+
+/**
+ * Sinks the node while [interactionSource] reports a press. The animated value is read inside
+ * the layer, so holding a button repaints it instead of recomposing it on every frame.
+ */
+@Composable
+fun Modifier.pressScale(
+    interactionSource: InteractionSource,
+    enabled: Boolean = true,
+    pressedScale: Float = PressedScale,
+    label: String = "press_scale"
+): Modifier {
+    val scale = rememberPressScale(interactionSource, enabled, pressedScale, label)
+
+    return graphicsLayer {
+        scaleX = scale.value
+        scaleY = scale.value
+    }
 }
 
 /**

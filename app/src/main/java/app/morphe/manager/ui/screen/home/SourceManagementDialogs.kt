@@ -112,58 +112,20 @@ fun AddSourceDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             // Type selector cards
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                listOf(
-                    0 to (stringResource(R.string.sources_dialog_remote) to Icons.Outlined.Language),
-                    1 to (stringResource(R.string.sources_dialog_local) to Icons.AutoMirrored.Outlined.InsertDriveFile)
-                ).forEach { (index, pair) ->
-                    val (label, icon) = pair
-                    val isSelected = selectedTab == index
-                    Surface(
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable { selectedTab = index },
-                        shape = RoundedCornerShape(16.dp),
-                        color = if (isSelected)
-                            MaterialTheme.colorScheme.surfaceVariant
-                        else
-                            Color.Transparent,
-                        border = BorderStroke(
-                            width = if (isSelected) 1.5.dp else 0.5.dp,
-                            color = if (isSelected)
-                                LocalDialogTextColor.current.copy(alpha = 0.5f)
-                            else
-                                LocalDialogTextColor.current.copy(alpha = 0.2f)
-                        )
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(14.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            ThemedIcon(
-                                icon = icon,
-                                tint = if (isSelected)
-                                    LocalDialogTextColor.current
-                                else
-                                    LocalDialogTextColor.current.copy(alpha = 0.4f)
-                            )
-                            Text(
-                                text = label,
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
-                                color = if (isSelected)
-                                    LocalDialogTextColor.current
-                                else
-                                    LocalDialogTextColor.current.copy(alpha = 0.5f)
-                            )
-                        }
-                    }
-                }
-            }
+            CardSelectorRow(
+                options = listOf(
+                    CardSelectorOption(
+                        label = stringResource(R.string.sources_dialog_remote),
+                        icon = Icons.Outlined.Language
+                    ),
+                    CardSelectorOption(
+                        label = stringResource(R.string.sources_dialog_local),
+                        icon = Icons.AutoMirrored.Outlined.InsertDriveFile
+                    )
+                ),
+                selectedIndex = selectedTab,
+                onSelect = { selectedTab = it }
+            )
 
             // Tab content
             AnimatedContent(
@@ -517,19 +479,20 @@ fun BundlePatchesDialog(
 
     val hasMultiplePackages = appLabels.size > 1
 
-    val filteredPatches: List<PatchInfo> = remember(patches, searchQuery, selectedPackages) {
-        patches
-            .filter { patch ->
+    // Carries each patch's position in the unfiltered list: a bundle may declare several patches
+    // under one name and compatibility, so nothing derived from the patch itself is a unique key
+    val filteredPatches: List<IndexedValue<PatchInfo>> = remember(patches, searchQuery, selectedPackages) {
+        patches.withIndex()
+            .filter { (_, patch) ->
                 val packageMatch = selectedPackages.isEmpty() ||
                         patch.compatiblePackages
                             ?.any { it.packageName in selectedPackages } == true
                 val queryMatch = searchQuery.isBlank() ||
-                        patch.name.contains(searchQuery, ignoreCase = true) ||
+                        patch.displayName.contains(searchQuery, ignoreCase = true) ||
                         patch.description?.contains(searchQuery, ignoreCase = true) == true
                 packageMatch && queryMatch
             }
-            .sortedBy { it.name }
-            .distinctBy { it.name }
+            .sortedBy { (_, patch) -> patch.displayName }
     }
 
     // Per-patch accent color: first non-null appIconColor across all compatible packages,
@@ -652,10 +615,8 @@ fun BundlePatchesDialog(
                         // Filtered patches list
                         items(
                             filteredPatches,
-                            key = { patch ->
-                                patch.name + (patch.compatiblePackages?.joinToString { it.packageName.orEmpty() }.orEmpty())
-                            }
-                        ) { patch ->
+                            key = { (index, _) -> index }
+                        ) { (_, patch) ->
                             val context = LocalContext.current
                             val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
                             val accentColor = patchAccentColors[patch.name]
@@ -812,7 +773,7 @@ fun PatchItemCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = patch.name,
+                    text = patch.displayName,
                     color = textColor,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Medium,
@@ -842,7 +803,7 @@ fun PatchItemCard(
             }
 
             // Compatibility info
-            if (patch.compatiblePackages.isNullOrEmpty()) {
+            if (patch.isUniversal) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -860,7 +821,7 @@ fun PatchItemCard(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    patch.compatiblePackages.forEach { compatiblePackage ->
+                    patch.compatiblePackages.orEmpty().forEach { compatiblePackage ->
                         val anyString = stringResource(R.string.any_version)
                         val appName = compatiblePackage.displayName ?: compatiblePackage.packageName ?: anyString
                         val versions = compatiblePackage.versions.orEmpty()
@@ -1099,37 +1060,37 @@ fun BundleChangelogDialog(
         footer = {
             when (val current = state) {
                 is BundleChangelogState.Entries -> {
-                    AppDialogButtonColumn {
-                        current.latestPageUrl?.let { url ->
-                            ChangelogButton(
-                                pageUrl = url,
-                                modifier = Modifier.fillMaxWidth()
+                    AppDialogActions(
+                        actions = listOfNotNull(
+                            changelogAction(current.latestPageUrl),
+                            DialogAction(
+                                text = stringResource(R.string.close),
+                                onClick = onDismissRequest,
+                                emphasis = DialogActionEmphasis.Outlined
                             )
-                        }
-                        AppDialogButton(
-                            text = stringResource(android.R.string.ok),
-                            onClick = onDismissRequest,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
+                        ),
+                        layout = DialogButtonLayout.Vertical
+                    )
                 }
                 is BundleChangelogState.Error -> {
-                    AppDialogButtonColumn {
-                        AppDialogButton(
-                            text = stringResource(R.string.retry),
-                            onClick = { fetchTrigger++ },
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        AppDialogButton(
-                            text = stringResource(android.R.string.ok),
-                            onClick = onDismissRequest,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
+                    AppDialogActions(
+                        actions = listOf(
+                            DialogAction(
+                                text = stringResource(R.string.retry),
+                                onClick = { fetchTrigger++ }
+                            ),
+                            DialogAction(
+                                text = stringResource(R.string.close),
+                                onClick = onDismissRequest,
+                                emphasis = DialogActionEmphasis.Outlined
+                            )
+                        ),
+                        layout = DialogButtonLayout.Vertical
+                    )
                 }
                 BundleChangelogState.Loading -> {
-                    AppDialogButton(
-                        text = stringResource(android.R.string.ok),
+                    AppDialogOutlinedButton(
+                        text = stringResource(R.string.close),
                         onClick = onDismissRequest,
                         modifier = Modifier.fillMaxWidth()
                     )

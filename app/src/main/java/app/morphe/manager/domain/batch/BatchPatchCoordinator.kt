@@ -13,6 +13,9 @@ import app.morphe.manager.ManagerApplication
 import app.morphe.manager.R
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
+import app.morphe.manager.domain.installer.InstallResult
+import app.morphe.manager.domain.installer.InstallerManager
+import app.morphe.manager.domain.installer.SessionInstaller
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.*
 import app.morphe.manager.domain.worker.WorkerRepository
@@ -63,6 +66,8 @@ class BatchPatchCoordinator(
     private val installedAppRepository: InstalledAppRepository,
     private val originalApkRepository: OriginalApkRepository,
     private val notificationManager: UpdateNotificationManager,
+    private val installerManager: InstallerManager,
+    private val sessionInstaller: SessionInstaller,
     private val scope: AppCoroutineScope
 ) {
     private val workManager = WorkManager.getInstance(app)
@@ -80,11 +85,11 @@ class BatchPatchCoordinator(
     val isRunning: Boolean get() = _state.value?.isActive == true
 
     /**
-     * Builds a plan for [packageNames] and parks it in the preflight phase so the user can
+     * Builds a plan for [targets] and parks it in the preflight phase so the user can
      * attach missing APKs or drop items before anything is patched.
      */
     fun plan(
-        packageNames: List<String>,
+        targets: List<BatchTarget>,
         useMount: Boolean,
         policy: BatchInstallPolicy,
         scheduled: Boolean = false
@@ -93,52 +98,52 @@ class BatchPatchCoordinator(
         runJob?.cancel()
         runJob = scope.launch {
             _state.value = BatchRunState(
-                items = packageNames.map { placeholder(it) },
+                items = targets.map { placeholder(it) },
                 phase = BatchPhase.PLANNING,
                 policy = policy,
                 useMount = useMount,
                 scheduled = scheduled
             )
-            val items = resolver.resolve(packageNames, useMount)
+            val items = resolver.resolve(targets, useMount)
             _state.update { it.copy(items = items, phase = BatchPhase.PREFLIGHT) }
         }
     }
 
     /** Re-resolves a single item against a manually attached APK. */
-    fun attachApk(packageName: String, file: File) {
+    fun attachApk(itemId: String, file: File) {
         val current = _state.value ?: return
         if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.packageName == packageName } ?: return
+        val item = current.items.firstOrNull { it.id == itemId } ?: return
 
         scope.launch {
             val resolved = resolver.reattach(item, file, current.useMount)
             _state.update { state ->
-                state.copy(items = state.items.map { if (it.packageName == packageName) resolved else it })
+                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
             }
         }
     }
 
     /** Re-resolves one item against the APK the user picked, saved original or installed app. */
-    fun useSource(packageName: String, preferInstalled: Boolean) {
+    fun useSource(itemId: String, preferInstalled: Boolean) {
         val current = _state.value ?: return
         if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.packageName == packageName } ?: return
+        val item = current.items.firstOrNull { it.id == itemId } ?: return
 
         scope.launch {
             val resolved = resolver.useSource(item, current.useMount, preferInstalled)
             _state.update { state ->
-                state.copy(items = state.items.map { if (it.packageName == packageName) resolved else it })
+                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
             }
         }
     }
 
     /** Toggles an item between excluded and its resolved state. */
-    fun toggleExcluded(packageName: String) {
+    fun toggleExcluded(itemId: String) {
         _state.update { state ->
             if (state.phase != BatchPhase.PREFLIGHT) return@update state
             state.copy(
                 items = state.items.map { item ->
-                    if (item.packageName != packageName) return@map item
+                    if (item.id != itemId) return@map item
                     when (item.state) {
                         BatchItemState.EXCLUDED -> item.copy(
                             state = item.restoreState ?: BatchItemState.READY,
@@ -162,16 +167,16 @@ class BatchPatchCoordinator(
      * version is what brings in the patches that declare a different one. Without that the
      * app would be patched with nothing but the universal patches.
      */
-    fun forceVersion(packageName: String) {
+    fun forceVersion(itemId: String) {
         val current = _state.value ?: return
         if (current.phase != BatchPhase.PREFLIGHT) return
-        val item = current.items.firstOrNull { it.packageName == packageName } ?: return
+        val item = current.items.firstOrNull { it.id == itemId } ?: return
         if (item.state != BatchItemState.VERSION_MISMATCH) return
 
         scope.launch {
             val resolved = resolver.forceVersion(item, current.useMount)
             _state.update { state ->
-                state.copy(items = state.items.map { if (it.packageName == packageName) resolved else it })
+                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
             }
         }
     }
@@ -181,12 +186,12 @@ class BatchPatchCoordinator(
      * preflight screen. Deselecting everything leaves nothing to run, which is the same
      * situation as a source that contributes no patches.
      */
-    fun updateSelection(packageName: String, selection: PatchSelection, options: Options) {
+    fun updateSelection(itemId: String, selection: PatchSelection, options: Options) {
         _state.update { state ->
             if (state.phase != BatchPhase.PREFLIGHT) return@update state
             state.copy(
                 items = state.items.map { item ->
-                    if (item.packageName != packageName) return@map item
+                    if (item.id != itemId) return@map item
 
                     val empty = selection.values.sumOf { it.size } == 0
                     item.copy(
@@ -210,12 +215,12 @@ class BatchPatchCoordinator(
      * Options are left alone: they are keyed by source, and the patcher ignores those it has
      * no selected patch for.
      */
-    fun narrowToSource(packageName: String, bundleUid: Int) {
+    fun narrowToSource(itemId: String, bundleUid: Int) {
         _state.update { state ->
             if (state.phase != BatchPhase.PREFLIGHT) return@update state
             state.copy(
                 items = state.items.map { item ->
-                    if (item.packageName != packageName) return@map item
+                    if (item.id != itemId) return@map item
 
                     val resolved = item.resolvedSelection ?: item.selection
                     item.copy(
@@ -233,7 +238,7 @@ class BatchPatchCoordinator(
 
     /** Records what the installer did with one patched app, for the summary to show. */
     fun markInstallResult(
-        packageName: String,
+        itemId: String,
         outcome: BatchInstallOutcome,
         message: String? = null,
         installedPackageName: String? = null
@@ -241,7 +246,7 @@ class BatchPatchCoordinator(
         _state.update { state ->
             state.copy(
                 items = state.items.map { item ->
-                    if (item.packageName == packageName) {
+                    if (item.id == itemId) {
                         item.copy(
                             installOutcome = outcome,
                             installMessage = message,
@@ -272,6 +277,7 @@ class BatchPatchCoordinator(
             } finally {
                 withContext(NonCancellable) {
                     activeWorkId = null
+                    installUnattendedIfRequested()
                     _state.update { it.copy(phase = BatchPhase.FINISHED, activeIndex = null, activeRun = null) }
                     announceCompletion()
                 }
@@ -297,6 +303,78 @@ class BatchPatchCoordinator(
         runJob?.cancel()
         runJob = null
         _state.value = null
+    }
+
+    /**
+     * Installs what the run produced before the queue reports itself finished, for a run the
+     * user left. The batch screen installs from its own summary, but only while it is on
+     * screen: it stops collecting the run once the activity is stopped, so a queue that ended
+     * in the background would sit there until the manager came back.
+     *
+     * Installing here rather than there is only possible without a confirmation dialog, so a
+     * run the user is watching keeps going through the summary, which shows its progress.
+     */
+    private suspend fun installUnattendedIfRequested() {
+        val state = _state.value ?: return
+        if (state.policy != BatchInstallPolicy.INSTALL_AFTER) return
+        // A scheduled run is installed by its own worker, which decides by its own preference
+        if (state.scheduled) return
+        if (ManagerApplication.isInForeground) return
+
+        installPatchedUnattended(state.patchedItems)
+    }
+
+    /**
+     * Installs [items] through Shizuku, the only installer that never asks, and records what
+     * happened on the run. Returns how many apps went in, leaving the rest for whoever asked
+     * to fall back on the interactive installer.
+     */
+    suspend fun installPatchedUnattended(items: List<BatchPatchItem>): Int {
+        val token = installerManager.getPrimaryToken()
+        val asPlayStore = token == InstallerManager.Token.ShizukuPlayStore
+        if (token != InstallerManager.Token.Shizuku && !asPlayStore) {
+            Log.d(TAG, "Primary installer cannot install unattended")
+            return 0
+        }
+
+        var installed = 0
+        for (item in items) {
+            if (item.installOutcome == BatchInstallOutcome.INSTALLED) continue
+            val file = item.patchedFile?.takeIf { it.exists() } ?: continue
+            val info = pm.getPackageInfo(file)
+            val targetPackage = info?.packageName ?: item.packageName
+
+            val result = runCatching {
+                if (asPlayStore) {
+                    sessionInstaller.installShizukuAsPlayStore(file, targetPackage)
+                } else {
+                    sessionInstaller.installShizuku(file, targetPackage)
+                }
+            }.getOrElse { error ->
+                Log.w(TAG, "Unattended install failed for $targetPackage", error)
+                null
+            }
+
+            if (result !is InstallResult.Success) continue
+
+            val version = info?.versionName?.takeUnless { it.isBlank() } ?: item.version ?: continue
+            installedAppRepository.addOrUpdate(
+                currentPackageName = targetPackage,
+                originalPackageName = item.packageName,
+                isClone = item.producesCloneAs(targetPackage),
+                version = version,
+                installType = if (asPlayStore) InstallType.SHIZUKU_PLAY_STORE else InstallType.SHIZUKU,
+                patchSelection = item.selection,
+                selectionPayload = patchBundleRepository.snapshotSelection(item.selection)
+            )
+            markInstallResult(
+                itemId = item.id,
+                outcome = BatchInstallOutcome.INSTALLED,
+                installedPackageName = targetPackage
+            )
+            installed++
+        }
+        return installed
     }
 
     /**
@@ -377,7 +455,8 @@ class BatchPatchCoordinator(
             return
         }
 
-        val outputFile = workspace.resolve("${item.packageName}.apk")
+        // Named after the item rather than the app, so two clones of it never share a path
+        val outputFile = workspace.resolve("${item.id}.apk")
 
         // Only the sources actually contributing patches, so narrowing an app to one source
         // is reflected in the log as well as on the card
@@ -392,6 +471,7 @@ class BatchPatchCoordinator(
             options = item.options.sanitizeForPatcher(),
             logger = runProgress.logger,
             onPatchCompleted = { runProgress.onPatchCompleted() },
+            onPatchingRestarted = { runProgress.onRestart() },
             setInputFile = { file, needsSplit, merged ->
                 runProgress.updateSplitRequirement(file, needsSplit, merged)
             },
@@ -522,10 +602,15 @@ class BatchPatchCoordinator(
 
         saveOriginalApk(item, selectedApp, version)
 
+        val isClone = item.producesCloneAs(currentPackageName)
+        // A configuration belongs to the card it was built from, which is the app itself unless
+        // the run produced a copy, whatever package name the patches settled on
+        val configurationKey = if (isClone) currentPackageName else item.configurationKey
+
         // What the user chose to patch with is recorded whether the APK is kept: the
         // two are separate settings, and the summary can still install from the workspace
         patchSelectionRepository.updateSelection(
-            item.packageName,
+            configurationKey,
             item.selection,
             // Scoped to every source the plan considered, so a source the user ended up taking
             // nothing from has its stale selection cleared rather than left behind
@@ -535,7 +620,7 @@ class BatchPatchCoordinator(
         // added since, and would keep re-enabling every deselected default
         item.bundles.forEach { bundle ->
             patchSelectionRepository.saveSeenPatches(
-                packageName = item.packageName,
+                packageName = configurationKey,
                 bundleUid = bundle.uid,
                 patchNames = bundle.patchNames
             )
@@ -543,7 +628,7 @@ class BatchPatchCoordinator(
         // Simple mode derives its options from the per-app preference screen rather than the
         // database, so only an expert-mode selection is worth writing back
         if (prefs.useExpertMode.get()) {
-            patchOptionsRepository.saveOptions(item.packageName, item.options)
+            patchOptionsRepository.saveOptions(configurationKey, item.options)
         }
 
         if (!prefs.savePatchedApks.get()) {
@@ -566,6 +651,7 @@ class BatchPatchCoordinator(
         installedAppRepository.addOrUpdate(
             currentPackageName,
             item.packageName,
+            isClone,
             version,
             InstallType.SAVED,
             item.selection,
@@ -643,9 +729,9 @@ class BatchPatchCoordinator(
         }
     }
 
-    private fun placeholder(packageName: String) = BatchPatchItem(
-        packageName = packageName,
-        appName = packageName,
+    private fun placeholder(target: BatchTarget) = BatchPatchItem(
+        target = target,
+        appName = target.packageName,
         source = null,
         selection = emptyMap(),
         options = emptyMap(),

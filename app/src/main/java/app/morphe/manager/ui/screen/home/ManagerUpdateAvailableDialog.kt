@@ -199,11 +199,12 @@ private fun UpdateDialogFooter(
     onDismiss: () -> Unit
 ) {
     val releaseInfo = updateViewModel.releaseInfo
+    val changelog = changelogAction(releaseInfo?.pageUrl)
 
-    when (state) {
-        UpdateViewModel.State.CAN_DOWNLOAD -> {
-            AppDialogButtonColumn {
-                AppDialogButton(
+    val actions: List<DialogAction> = when (state) {
+        UpdateViewModel.State.CAN_DOWNLOAD -> buildList {
+            add(
+                DialogAction(
                     text = stringResource(
                         if (updateViewModel.canResumeDownload) R.string.resume_download
                         else R.string.download
@@ -211,98 +212,81 @@ private fun UpdateDialogFooter(
                     onClick = { updateViewModel.downloadUpdate() },
                     icon = Icons.Outlined.Download,
                     // Nothing to download until the check resolves an actual release
-                    enabled = releaseInfo != null,
-                    modifier = Modifier.fillMaxWidth()
+                    enabled = releaseInfo != null
                 )
+            )
 
-                // Offered once the check has settled on nothing, which is recoverable
-                // on its own a moment later
-                if (releaseInfo == null && !updateViewModel.isCheckingForUpdate) {
-                    AppDialogOutlinedButton(
+            // Offered once the check has settled on nothing, which is recoverable
+            // on its own a moment later
+            if (releaseInfo == null && !updateViewModel.isCheckingForUpdate) {
+                add(
+                    DialogAction(
                         text = stringResource(R.string.retry),
                         onClick = { updateViewModel.retryUpdateCheck() },
-                        icon = Icons.Outlined.Refresh,
-                        modifier = Modifier.fillMaxWidth()
+                        icon = Icons.Outlined.Refresh
                     )
-                }
-
-                ChangelogButton(
-                    pageUrl = releaseInfo?.pageUrl,
-                    modifier = Modifier.fillMaxWidth()
                 )
             }
+
+            changelog?.let(::add)
         }
 
-        UpdateViewModel.State.DOWNLOADING -> {
-            AppDialogOutlinedButton(
+        UpdateViewModel.State.DOWNLOADING -> listOf(
+            DialogAction(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
+                emphasis = DialogActionEmphasis.Outlined
             )
-        }
+        )
 
-        UpdateViewModel.State.CAN_INSTALL -> {
-            AppDialogButtonColumn {
-                AppDialogButton(
-                    text = stringResource(R.string.install),
-                    onClick = { updateViewModel.installUpdate() },
-                    icon = Icons.Outlined.InstallMobile,
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                ChangelogButton(
-                    pageUrl = releaseInfo?.pageUrl,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        }
+        UpdateViewModel.State.CAN_INSTALL -> listOfNotNull(
+            DialogAction(
+                text = stringResource(R.string.install),
+                onClick = { updateViewModel.installUpdate() },
+                icon = Icons.Outlined.InstallMobile
+            ),
+            changelog
+        )
 
         UpdateViewModel.State.INSTALLING -> {
             // No cancel button during installation - can't cancel system dialog
             // User can close our dialog, but install will continue
+            emptyList()
         }
 
-        UpdateViewModel.State.FAILED -> {
-            AppDialogButtonColumn {
-                if (updateViewModel.canResumeDownload) {
-                    // Download failed/canceled - offer to resume
-                    AppDialogButton(
-                        text = stringResource(R.string.resume_download),
-                        onClick = { updateViewModel.downloadUpdate() },
-                        icon = Icons.Outlined.Download,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                } else {
-                    // Download completed but install failed - offer to retry install
-                    AppDialogButton(
-                        text = stringResource(R.string.install),
-                        onClick = { updateViewModel.installUpdate() },
-                        icon = Icons.Outlined.InstallMobile,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-
-                ChangelogButton(
-                    pageUrl = releaseInfo?.pageUrl,
-                    modifier = Modifier.fillMaxWidth()
+        UpdateViewModel.State.FAILED -> listOfNotNull(
+            if (updateViewModel.canResumeDownload) {
+                // Download failed/canceled - offer to resume
+                DialogAction(
+                    text = stringResource(R.string.resume_download),
+                    onClick = { updateViewModel.downloadUpdate() },
+                    icon = Icons.Outlined.Download
                 )
-
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
+            } else {
+                // Download completed but install failed - offer to retry install
+                DialogAction(
+                    text = stringResource(R.string.install),
+                    onClick = { updateViewModel.installUpdate() },
+                    icon = Icons.Outlined.InstallMobile
                 )
-            }
-        }
-
-        UpdateViewModel.State.SUCCESS -> {
-            AppDialogButton(
-                text = stringResource(android.R.string.ok),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
+            },
+            changelog,
+            DialogAction(
+                text = stringResource(android.R.string.cancel),
+                onClick = onDismiss
             )
-        }
+        )
+
+        UpdateViewModel.State.SUCCESS -> listOf(
+            DialogAction(
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                emphasis = DialogActionEmphasis.Outlined
+            )
+        )
     }
+
+    AppDialogActions(actions = actions, layout = DialogButtonLayout.Vertical)
 }
 
 /**

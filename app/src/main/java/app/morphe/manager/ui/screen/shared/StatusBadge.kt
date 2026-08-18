@@ -7,13 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.FlowRowScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,7 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
@@ -79,9 +75,22 @@ private object BadgeDefaults {
 }
 
 /**
+ * Height a [StatusBadge] occupies at the current font scale. Rows that carry a badge only in
+ * some states reserve it up front, so the rest of their content stays put when one appears.
+ */
+val statusBadgeHeight: Dp
+    @Composable get() {
+        val labelHeight = with(LocalDensity.current) {
+            MaterialTheme.typography.labelMedium.lineHeight.toDp()
+        }
+        return maxOf(labelHeight, BadgeDefaults.IconSize) + BadgeDefaults.VerticalPadding * 2
+    }
+
+/**
  * Inline status marker, sized to its content.
  *
- * @param text Badge label
+ * @param text Badge label, or null for a badge that is only its [icon]. Dropping the label is
+ *   for markers sharing a row with badges that need the room for their own words.
  * @param icon Optional icon drawn before the label
  * @param tone Semantic color role
  * @param containerColor Background override, for badges drawn over custom artwork
@@ -91,7 +100,7 @@ private object BadgeDefaults {
  */
 @Composable
 fun StatusBadge(
-    text: String,
+    text: String?,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     tone: SemanticTone = SemanticTone.Neutral,
@@ -101,7 +110,7 @@ fun StatusBadge(
 ) {
     // Add zero-width space so long tokens can break at "/" and "." - cached per text value.
     val breakableText = remember(text) {
-        text.replace("/", "/​").replace(".", ".​")
+        text?.replace("/", "/​")?.replace(".", ".​")
     }
 
     Row(
@@ -119,12 +128,14 @@ fun StatusBadge(
         icon?.let {
             ThemedIcon(icon = it, tint = contentColor, size = BadgeDefaults.IconSize)
         }
-        Text(
-            text = breakableText,
-            style = MaterialTheme.typography.labelMedium,
-            color = contentColor,
-            fontWeight = FontWeight.Medium
-        )
+        breakableText?.let {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.labelMedium,
+                color = contentColor,
+                fontWeight = FontWeight.Medium
+            )
+        }
     }
 }
 

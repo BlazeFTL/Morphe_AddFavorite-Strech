@@ -26,6 +26,7 @@ import app.morphe.manager.ui.viewmodel.BundleSnapshot
 import app.morphe.manager.util.*
 import io.ktor.client.plugins.ResponseException
 import io.ktor.http.Url
+import io.ktor.http.hostWithPortIfSpecified
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.mutate
 import kotlinx.collections.immutable.persistentMapOf
@@ -65,7 +66,10 @@ class PatchBundleRepository(
     val bundleState: StateFlow<BundleState> = store.state
         .stateIn(scope, SharingStarted.Eagerly, BundleState.Loading)
 
-    val sources = store.state.map { (it as? BundleState.Ready)?.sources?.values?.toList() ?: emptyList() }
+    // Hot so collectors see the loaded sources on their first frame instead of an empty list
+    val sources = store.state
+        .map { (it as? BundleState.Ready)?.sources?.values?.toList() ?: emptyList() }
+        .stateIn(scope, SharingStarted.Eagerly, emptyList())
     val bundles = store.state.map {
         (it as? BundleState.Ready)?.sources?.mapNotNull { (uid, src) ->
             uid to (src.patchBundle ?: return@mapNotNull null)
@@ -102,6 +106,16 @@ class PatchBundleRepository(
      */
     val appMetadata: StateFlow<Map<String, BundleAppMetadata>> =
         bundleInfoFlow
+            .map { BundleAppMetadata.buildFrom(it) }
+            .stateIn(scope, SharingStarted.Eagerly, emptyMap())
+
+    /**
+     * [appMetadata] widened to every bundle, disabled and blocked ones included.
+     * A patched app outlives the state of the source it came from, so what the bundle knows about
+     * it stays the last description of an app whose own artifacts are gone.
+     */
+    val allAppMetadata: StateFlow<Map<String, BundleAppMetadata>> =
+        allBundlesInfoFlow
             .map { BundleAppMetadata.buildFrom(it) }
             .stateIn(scope, SharingStarted.Eagerly, emptyMap())
 
@@ -335,12 +349,16 @@ class PatchBundleRepository(
     }
 
     fun snapshotSelection(selection: PatchSelection): SelectionPayload {
+        val sourcesByUid = sources.value.associateBy { it.uid }
         return SelectionPayload(
             bundles = selection.map { (bundleUid, patches) ->
+                val source = sourcesByUid[bundleUid]
                 SelectionPayload.BundleSelection(
                     bundleUid = bundleUid,
                     patches = patches.toList(),
-                    options = emptyMap()
+                    options = emptyMap(),
+                    bundleName = source?.displayTitle,
+                    bundleVersion = source?.version
                 )
             }
         )
@@ -1448,7 +1466,9 @@ class PatchBundleRepository(
         }
 
         val query = parsed.encodedQuery.takeIf { it.isNotEmpty() }?.let { "?$it" }.orEmpty()
-        return "https://$host$normalizedPath$query"
+        // Rebuilt from the host and port rather than the host alone, so that a bundle served on a
+        // custom port is not silently requested on the protocol default one
+        return "https://${parsed.hostWithPortIfSpecified}$normalizedPath$query"
     }
 
     /** Returns true if [uid] corresponds to a currently loaded bundle. */
@@ -2021,9 +2041,20 @@ class PatchBundleRepository(
     )
 
     /**
+     * Adds or removes [uid] from a set of bundle UID preference keys, reporting whether it changed.
+     */
+    private fun MutableSet<String>.toggleUid(uid: Int, enabled: Boolean) =
+        if (enabled) add(uid.toString()) else remove(uid.toString())
+
+    /**
      * Export all third-party remote bundles as a list of snapshots.
      */
     suspend fun exportCustomBundles(): List<BundleSnapshot> {
+        // Only the toggles the user set are exported. Prerelease implied by a "dev" endpoint is
+        // derived from the URL again on import, so it must not be baked into the snapshot
+        val prereleaseUids = prefs.bundlePrereleasesEnabled.get()
+        val experimentalUids = prefs.bundleExperimentalVersionsEnabled.get()
+
         return dao.all()
             .filter { it.uid != DEFAULT_SOURCE_UID && it.source !is Source.Local }
             .map { entity ->
@@ -2036,6 +2067,8 @@ class PatchBundleRepository(
                     sortOrder = entity.sortOrder,
                     createdAt = entity.createdAt,
                     updatedAt = entity.updatedAt,
+                    prerelease = entity.uid.toString() in prereleaseUids,
+                    experimentalVersions = entity.uid.toString() in experimentalUids,
                 )
             }
     }
@@ -2079,6 +2112,12 @@ class PatchBundleRepository(
 
             var changedAny = false
 
+            // Toggles are collected here and written once at the end, so a backup with many
+            // sources does not commit the preference store twice per source
+            val prereleaseUids = prefs.bundlePrereleasesEnabled.get().toMutableSet()
+            val experimentalUids = prefs.bundleExperimentalVersionsEnabled.get().toMutableSet()
+            var togglesChanged = false
+
             // Replace mode: remove custom remotes whose endpoint is not in the backup
             if (mode == ImportMode.Replace) {
                 val toRemove = customRemotes
@@ -2089,6 +2128,10 @@ class PatchBundleRepository(
                         directoryOf(bundle.uid).deleteRecursively()
                     }
                     val removedUids = toRemove.map { it.uid }.toSet()
+                    removedUids.forEach { uid ->
+                        togglesChanged = prereleaseUids.toggleUid(uid, false) || togglesChanged
+                        togglesChanged = experimentalUids.toggleUid(uid, false) || togglesChanged
+                    }
                     metadataFetchErrorsFlow.update { it - removedUids }
                     val (affectedCount, remaining) = cancelRemoteUpdates(removedUids)
                     updateProgressAfterRemoval(affectedCount, remaining)
@@ -2116,6 +2159,14 @@ class PatchBundleRepository(
                         updateDb(bundle.uid) { it.copy(enabled = snapshot.enabled) }
                         changedAny = true
                     }
+                    // Reconcile prerelease and experimental-version toggles by endpoint,
+                    // so they survive a cross-device import
+                    snapshot.prerelease?.let {
+                        togglesChanged = prereleaseUids.toggleUid(bundle.uid, it) || togglesChanged
+                    }
+                    snapshot.experimentalVersions?.let {
+                        togglesChanged = experimentalUids.toggleUid(bundle.uid, it) || togglesChanged
+                    }
                 }
             }
 
@@ -2126,7 +2177,7 @@ class PatchBundleRepository(
 
                 if (normalizedUrl.lowercase(Locale.US) in keptEndpoints) return@forEach
 
-                createEntity(
+                val created = createEntity(
                     name = snapshot.name,
                     source = Source.from(normalizedUrl),
                     autoUpdate = snapshot.autoUpdate,
@@ -2136,6 +2187,21 @@ class PatchBundleRepository(
                     updatedAt = snapshot.updatedAt,
                     enabled = snapshot.enabled,
                 )
+                // New bundles get fresh UIDs, so carry the toggles over by UID
+                if (snapshot.prerelease == true) {
+                    togglesChanged = prereleaseUids.toggleUid(created.uid, true) || togglesChanged
+                }
+                if (snapshot.experimentalVersions == true) {
+                    togglesChanged = experimentalUids.toggleUid(created.uid, true) || togglesChanged
+                }
+                changedAny = true
+            }
+
+            if (togglesChanged) {
+                prefs.edit {
+                    prefs.bundlePrereleasesEnabled.value = prereleaseUids.toSet()
+                    prefs.bundleExperimentalVersionsEnabled.value = experimentalUids.toSet()
+                }
                 changedAny = true
             }
 

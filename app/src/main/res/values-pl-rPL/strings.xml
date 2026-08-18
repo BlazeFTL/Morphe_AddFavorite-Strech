@@ -3,6 +3,8 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Inne aplikacje</string>
     <string name="home_not_patched_yet">Jeszcze niezmodyfikowana</string>
+    <string name="home_unpatched_version_installed">Zainstalowano niezmodyfikowaną wersję</string>
+    <string name="home_unpatched_badge">Nie zmodyfikowano</string>
     <string name="home_no_patches_available">Brak dostępnych modyfikacji</string>
     <string name="home_app_hide_title">Ukryć tę aplikację?</string>
     <string name="home_app_hide_message">Ta aplikacja zostanie ukryta na ekranie głównym. Możesz ją później przywrócić z ukrytych aplikacji za pomocą przycisku na dole listy</string>
@@ -36,7 +38,13 @@
     <string name="home_update_success_subtitle">Źródła są aktualne</string>
     <string name="home_sources_are_loading">Wczytywanie źródeł, proszę czekać…</string>
     <string name="home_search_apps">Szukaj aplikacji</string>
-    <string name="home_app_sort_title">Sortuj aplikacje</string>
+    <string name="home_app_list_options_title">Sortuj i filtruj</string>
+    <string name="home_app_list_options_state_description">Posortowane według %1$s, filtrowane według %2$s</string>
+    <string name="home_app_filter_all_description">Wszystkie aplikacje na ekranie głównym</string>
+    <string name="home_app_filter_patched_description">Aplikacje zmodyfikowane lub zapisane za pomocą Morphe</string>
+    <string name="home_app_filter_not_patched_description">Aplikacje jeszcze niezmodyfikowane w Morphe</string>
+    <string name="home_app_filter_installed_description">Aplikacje obecnie zainstalowane na tym urządzeniu</string>
+    <string name="home_app_filter_uninstalled_description">Aplikacje zmodyfikowane za pomocą Morphe, których nie ma już na tym urządzeniu</string>
     <string name="home_app_sort_manual_description">Przytrzymaj aplikację, a następnie dotknij przycisku zmiany kolejności</string>
     <string name="home_app_sort_recommended">Zalecana kolejność</string>
     <string name="home_app_sort_recommended_description">Najpierw zainstalowane i przypięte aplikacje</string>
@@ -49,6 +57,8 @@
     <string name="home_no_apps_search_subtitle">Brak aplikacji pasujących do \"%s\"</string>
     <string name="home_all_apps_hidden_title">Wszystkie aplikacje są ukryte</string>
     <string name="home_all_apps_hidden_subtitle">Ukryto wszystkie aplikacje na ekranie głównym</string>
+    <string name="home_no_apps_filter_title">Brak aplikacji pasujących do tego filtru</string>
+    <string name="home_no_apps_filter_subtitle">Nic nie pasuje do %s</string>
     <string name="home_category_add">Dodaj kategorię</string>
     <string name="home_category_all_apps">Wszystkie aplikacje</string>
     <string name="home_category_custom">Własne</string>
@@ -104,6 +114,7 @@
     <string name="home_greeting_super_late_5">Nocny i produktywny</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Źródła modyfikacji</string>
+    <string name="sources_search">Szukaj źródeł</string>
     <string name="sources_sort_title">Sortuj źródła modyfikacji</string>
     <string name="sources_sort_manual">Ręczna kolejność</string>
     <string name="sources_sort_manual_hint">Przytrzymaj źródło, aby zmienić kolejność</string>
@@ -175,9 +186,16 @@
     <string name="home_apk_helper_warning_unverified">Kontynuuj tylko wtedy, gdy ufasz tej aplikacji pomocniczej. Morphe nie może zweryfikować sygnatury tego pliku APK, więc zmodyfikowany plik nie zostałby wykryty</string>
     <string name="home_apk_helper_no_result">Aplikacja pomocnicza nie zwróciła pliku APK</string>
     <string name="home_apk_helper_no_access">Aplikacja pomocnicza nie przyznała dostępu do zwróconego pliku APK</string>
+    <string name="home_apk_helper_no_package">Aplikacja pomocnicza nie wskazała, której zainstalowanej aplikacji użyć</string>
+    <string name="home_apk_helper_wrong_package">Aplikacja pomocnicza zwróciła inną aplikację niż ta, która jest modyfikowana</string>
+    <string name="home_apk_helper_installed_unavailable">Morphe nie mógł użyć zainstalowanej aplikacji</string>
+    <string name="home_apk_helper_installed_incompatible">Zainstalowana wersja nie może zostać zmodyfikowana</string>
     <string name="home_apk_use_saved">Użyj zapisanego pliku APK</string>
     <string name="home_apk_use_installed">Użyj zainstalowanego pliku APK</string>
     <string name="home_apk_use_installed_unverified">Nie udało się zweryfikować podpisu zainstalowanej aplikacji, więc może być już zmodyfikowana</string>
+    <string name="home_unverified">Niezweryfikowano</string>
+    <string name="home_install_verification_pending">Sprawdzanie instalacji…</string>
+    <string name="home_app_info_install_unverified">Morphe nie może potwierdzić, że zainstalowana aplikacja to wersja, którą zmodyfikował. Zmodyfikuj ją ponownie lub zainstaluj z zapisanego pliku APK, aby przywrócić jej akcje</string>
     <string name="home_app_info_no_saved_apk">Brak zapisanego pliku APK. Modyfikacja będzie wymagać ponownego wybrania pliku</string>
     <string name="home_version_requires_android">Wymaga Androida %s+</string>
     <string name="home_apk_no_compatible_versions_title">Niewspierane na tym urządzeniu</string>
@@ -185,8 +203,15 @@
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Pobierz oryginalny plik APK</string>
     <string name="home_download_instructions_steps_title">Instrukcja:</string>
+    <string name="home_download_instructions_finding">Szukanie strony pobierania…</string>
     <string name="home_download_instructions_step1">Naciśnij przycisk \"%s\" poniżej</string>
     <string name="home_download_instructions_step2_part1">Przewiń stronę w dół i naciśnij</string>
+    <string name="home_download_instructions_step2_generic">Przewiń stronę w dół i naciśnij jej przycisk pobierania</string>
+    <string name="home_download_instructions_step2_variant">Przewiń stronę w dół i naciśnij przycisk pobierania najwyższego &lt;b&gt;wariantu APK&lt;/b&gt;</string>
+    <string name="home_download_instructions_step2_search">Otwórz wynik wyszukiwania ze strony, której ufasz</string>
+    <string name="home_download_instructions_step2_search_note">Morphe nie ręczy za te strony. Pomiń te, które oferują własny sklep z aplikacjami zamiast pliku APK</string>
+    <string name="home_download_instructions_step3_search">Na tej stronie pobierz plik APK w wersji &lt;b&gt;%s&lt;/b&gt;, nie tej najnowszej</string>
+    <string name="home_download_instructions_step3_search_any">Na tej stronie pobierz plik APK aplikacji. &lt;b&gt;Dowolna wersja&lt;/b&gt; może zostać zmodyfikowana</string>
     <string name="home_download_instructions_download_button_toast">Naciśnij \"Download\" na stronie, a nie tutaj 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Świetnie! Teraz kliknij \"Kontynuuj\" i przejdź na stronę 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Praktyka czyni mistrza, jesteś na dobrej drodze 💪</string>
@@ -197,7 +222,8 @@
     <string name="home_download_instructions_step3_mount">Poczekaj na zakończenie pobierania, a następnie &lt;b&gt;zainstaluj plik APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Po zakończeniu pobierania wróć do Morphe</string>
     <string name="home_download_instructions_step4_mount">Po zainstalowaniu oryginalnego pliku APK wróć do Morphe</string>
-    <string name="home_download_instructions_continue">Przejdź do APKMirror.com</string>
+    <string name="home_download_instructions_continue_to">Przejdź do %s</string>
+    <string name="home_download_instructions_destination">strony pobierania</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Wybierz pobrany plik APK</string>
     <string name="home_file_picker_prompt_description">Wybierz pobrany przed chwilą plik APK &lt;b&gt;%s&lt;/b&gt;</string>
@@ -207,7 +233,7 @@
     <string name="home_select_apk_title">Wybierz plik APK</string>
     <string name="home_select_any_apk_description">Wybierz plik APK dowolnej aplikacji lub wybierz aplikację już zainstalowaną na tym urządzeniu</string>
     <string name="home_use_installed_app">Użyj zainstalowanej aplikacji</string>
-    <string name="home_installed_app_picker_title">Wybierz zainstalowaną aplikację</string>
+    <string name="home_installed_app_picker_title">Zainstalowane aplikacje</string>
     <string name="home_installed_app_picker_empty">Nie znaleziono aplikacji</string>
     <string name="home_installed_app_picker_filter_all">Wszystkie aplikacje</string>
     <string name="home_installed_app_picker_filter_user">Tylko aplikacje użytkownika</string>
@@ -224,6 +250,7 @@
     <string name="expert_mode_disable_all_done">Wyłączono wszystkie modyfikacje</string>
     <string name="expert_mode_enable_all">Włącz wszystkie</string>
     <string name="expert_mode_enable_all_done">Włączono wszystkie modyfikacje</string>
+    <string name="expert_mode_enable_all_universal_pending">Dotknij ponownie dla uniwersalnych modyfikacji</string>
     <string name="expert_mode_reset_to_default">Włącz zalecane modyfikacje</string>
     <string name="expert_mode_reset_to_default_done">Zastosowano zalecane modyfikacje</string>
     <string name="expert_mode_restore_saved">Przywróć zapisany wybór</string>
@@ -265,11 +292,6 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="home_dialog_wrong_package_description">Wybrany plik APK nie jest przeznaczony dla modyfikowanej aplikacji</string>
     <string name="home_dialog_expected_package">Oczekiwany pakiet:</string>
     <string name="home_dialog_selected_package">Wybrany pakiet:</string>
-    <string name="home_dialog_orphaned_install_title">Pozostała poprzednia kopia</string>
-    <string name="home_dialog_orphaned_install_description">Modyfikowanie zmieniło nazwę pakietu, więc wcześniej zmodyfikowana kopia jest nadal zainstalowana jako osobna aplikacja</string>
-    <string name="home_dialog_orphaned_install_warning">Nie jest już śledzona i nie będzie otrzymywać aktualizacji modyfikacji</string>
-    <string name="home_dialog_orphaned_install_uninstall">Odinstaluj ją</string>
-    <string name="home_dialog_orphaned_install_keep">Zachowaj ją</string>
     <string name="home_outdated_patches_dialog_title">Modyfikacje mogą być przestarzałe</string>
     <string name="home_outdated_patches_dialog_message">Dane mobilne są aktywne, a aktualizacje modyfikacji wyłączone</string>
     <string name="home_outdated_patches_dialog_warning">Modyfikowanie za pomocą przestarzałych modyfikacji może zepsuć aplikację</string>
@@ -285,6 +307,9 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="patch_option_enter_value">Wprowadź wartość</string>
     <string name="patch_option_enter_number">Wprowadź liczbę</string>
     <string name="patch_option_enter_decimal">Wprowadź liczbę dziesiętną</string>
+    <string name="patch_option_slider_edit">Wprowadź dokładną wartość</string>
+    <string name="patch_option_slider_range_start">Od</string>
+    <string name="patch_option_slider_range_end">Do</string>
     <string name="patch_option_list_duplicate">Ta wartość już istnieje</string>
     <string name="patch_option_list_empty">Wartość nie może być pusta</string>
     <string name="patch_option_list_empty_state">Nie dodano jeszcze wartości</string>
@@ -372,6 +397,7 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_delete_preservation_note">Wybrane modyfikacje i opcje zostaną zachowane do przyszłego modyfikowania</string>
     <string name="home_app_info_patches_name_default">Modyfikacje</string>
     <string name="home_app_info_patches_name_fallback">Brak nazwy</string>
+    <string name="home_app_info_patches_source_removed">Usunięte źródło modyfikacji</string>
     <string name="home_app_info_patches_replace_fail">Nie udało się zaimportować modyfikacji: %s</string>
     <string name="home_app_info_repatch_no_original_apk">Nie znaleziono oryginalnego pliku APK. Nie można ponownie zmodyfikować tej aplikacji</string>
     <string name="home_app_info_original_package_name">Oryginalna nazwa pakietu</string>
@@ -386,6 +412,11 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_patch_update_available_description">Dostępna jest nowsza wersja modyfikacji. Zmodyfikuj aplikację ponownie, aby otrzymać najnowsze ulepszenia i poprawki</string>
     <string name="home_app_info_app_deleted_warning">Aplikacja została odinstalowana</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacja została odinstalowana poza Morphe. Zmodyfikuj ją ponownie, aby przywrócić jej funkcjonalność</string>
+    <string name="home_app_info_not_patched_description">Zainstalowano niezmodyfikowaną wersję tej aplikacji. Morphe wciąż posiada zapis jej poprzedniej modyfikacji</string>
+    <string name="home_dialog_rename_title">To zainstaluje kopię</string>
+    <string name="home_dialog_rename_description">Wybrane modyfikacje budują tę aplikację pod własną nazwą pakietu, więc wynik zainstaluje się obok &lt;b&gt;%s&lt;/b&gt; zamiast ją aktualizować</string>
+    <string name="home_dialog_rename_result_package">Zainstaluje się jako</string>
+    <string name="home_dialog_rename_replaces">Kopia już używa tej nazwy i zostanie przebudowana</string>
     <string name="home_app_info_apk_size">Rozmiar pliku APK</string>
     <string name="home_app_info_cpu_arch">Architektura procesora</string>
     <!-- Home Screen - Root Mode -->
@@ -457,6 +488,11 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="battery_optimization_dialog_title">Ochrona modyfikowania w tle</string>
     <string name="battery_optimization_dialog_description">Niektóre urządzenia mogą zatrzymać modyfikator, gdy aplikacja jest zminimalizowana. Zezwól Morphe na działanie bez ograniczeń baterii, aby proces modyfikowania zakończył się pomyślnie</string>
     <string name="battery_optimization_not_now">Nie teraz</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
+    <string name="patcher_memory_adjustment_title">Za mało pamięci</string>
+    <string name="patcher_memory_adjustment_description">System zatrzymał modyfikator podczas działania z limitem pamięci %1$d MB. Obniżenie limitu do %2$d MB sprawia, że modyfikator staje się mniejszym celem dla systemu i może pozwolić na ukończenie procesu</string>
+    <string name="patcher_memory_adjustment_description_at_minimum">System zatrzymał modyfikator podczas działania z limitem pamięci %1$d MB, który jest już najniższym z dostępnych. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
+    <string name="patcher_memory_adjustment_apply">Obniż do %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Modyfikowanie w toku…</string>
     <string name="patcher_notification_text">Dotknij, aby wrócić do modyfikatora</string>
@@ -491,6 +527,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Modyfikowanie aplikacji</string>
     <string name="memory_usage">Zużycie pamięci</string>
+    <string name="cpu_usage">Zużycie procesora</string>
+    <string name="storage_io_usage">Zapis/odczyt danych</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Stosowanie modyfikacji</string>
     <string name="failed_to_execute_patch">Nie udało się zastosować %s</string>
@@ -498,9 +536,14 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patched_app_save_failed_toast">Nie udało się zapisać zmodyfikowanej aplikacji</string>
     <string name="plugin_activity_dialog_body">Wymagana jest interakcja użytkownika, aby kontynuować działanie tej wtyczki</string>
     <string name="patcher_process_exit_message">Proces modyfikatora zakończył się kodem %s</string>
+    <string name="patcher_heap_exhausted_message">Modyfikatorowi zabrakło pamięci przy rozmiarze sterty %1$d MB. Ta aplikacja jest zbyt duża dla wybranych modyfikacji. Spróbuj zmodyfikować z mniejszą liczbą źródeł modyfikacji lub wybierz mniej modyfikacji</string>
     <string name="install_app_success">Zainstalowano pomyślnie</string>
     <string name="install_app_fail">Nie udało się zainstalować aplikacji: %s</string>
+    <string name="install_ignore_signature">Zainstaluj mimo to</string>
+    <string name="install_ignore_signature_description">Zachowuje dane aplikacji, ale działa tylko, jeśli moduł root wyłącza weryfikację podpisów Androida</string>
     <string name="uninstall_app_fail">Nie udało się odinstalować aplikacji: %s</string>
+    <string name="uninstall_app_unverified">Pozostawiono bez zmian: Morphe nie mógł zweryfikować, czy zainstalowana aplikacja to wersja, którą zmodyfikował</string>
+    <string name="launch_app_unverified">Morphe nie mógł zweryfikować, czy zainstalowana aplikacja to wersja, którą zmodyfikował</string>
     <string name="uninstall_timeout">Przekroczono limit czasu odinstalowywania</string>
     <string name="save_apk_success">Zapisano plik APK</string>
     <string name="saved_app_export_failed">Nie udało się wyeksportować zmodyfikowanej aplikacji</string>
@@ -559,19 +602,26 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_pure_black">Głęboka czerń</string>
     <string name="settings_appearance_pure_black_description">Używa prawdziwie czarnego tła</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">Język i wyświetlanie</string>
     <string name="settings_appearance_app_language">Język aplikacji</string>
     <string name="settings_appearance_app_language_current">Bieżący język</string>
     <string name="settings_appearance_translations_info_title">Tłumaczenia dla niektórych języków mogą być niekompletne lub może ich brakować</string>
     <string name="settings_appearance_translations_info_text">"Aby przetłumaczyć aplikację na nowe języki lub poprawić istniejące tłumaczenia, odwiedź stronę
 %s"</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">Skala interfejsu</string>
+    <string name="settings_appearance_ui_scale_current">Bieżąca skala</string>
+    <string name="settings_appearance_ui_scale_description">Skaluje wszystko w aplikacji, nakładając się na systemowe powiększenie ekranu i rozmiar czcionki</string>
+    <string name="settings_appearance_ui_scale_preview_title">Przykładowe ustawienie</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">Tekst i elementy sterujące w tej skali</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Ekran główny</string>
     <string name="settings_appearance_greeting_phrases">Powitania</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wyświetlaj powitanie na ekranie głównym</string>
     <string name="settings_appearance_app_grouping">Grupowanie aplikacji</string>
     <string name="settings_appearance_app_grouping_description">Wyświetl na ekranie głównym przełącznik do grupowania aplikacji według źródła lub własnych kategorii, zachowując wybór po wyłączeniu</string>
-    <string name="settings_appearance_sort_button">Przycisk sortowania</string>
-    <string name="settings_appearance_sort_button_description">Pokaż przycisk sortowania na ekranie głównym</string>
+    <string name="settings_appearance_sort_button">Przycisk sortowania i filtrowania</string>
+    <string name="settings_appearance_sort_button_description">Pokaż przycisk sortowania i filtrowania na ekranie głównym</string>
     <string name="settings_appearance_app_card_colors">Kolory kart aplikacji</string>
     <string name="settings_appearance_app_card_colors_default">Domyślne</string>
     <string name="settings_appearance_app_card_colors_default_description">Nadaj każdej aplikacji kolor z jego własnego pakietu</string>
@@ -893,6 +943,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_apks_delete_selected_title">Usunąć wybrane pliki APK?</string>
     <string name="settings_system_apks_delete_selected_confirm">Spowoduje to trwałe usunięcie wybranych plików APK</string>
     <string name="settings_system_apks_deleted_all">Usunięto pliki APK</string>
+    <string name="settings_system_apks_delete_failed">Nie udało się usunąć niektórych plików APK</string>
     <string name="settings_system_apks_export_zip_success">Wyeksportowano wybrane pliki APK</string>
     <string name="settings_system_apks_export_zip_failed">Nie udało się wyeksportować wybranych plików APK</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1006,6 +1057,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="filter">Filtr</string>
     <string name="reset">Zresetuj</string>
     <string name="reset_all">Zresetuj wszystko</string>
+    <string name="apply">Zastosuj</string>
     <string name="confirm">Potwierdź</string>
     <string name="warning">Ostrzeżenie</string>
     <string name="error_">Błąd</string>
@@ -1071,8 +1123,10 @@ Wymagane są następujące wymiary obrazów:
     <string name="available">Dostępne</string>
     <string name="continue_">Kontynuuj</string>
     <string name="version">Wersja</string>
+    <string name="clone">Klonuj</string>
     <string name="patch">Modyfikuj</string>
     <string name="patching">Modyfikowanie</string>
+    <string name="patched">Zmodyfikowano</string>
     <string name="repatch">Modyfikuj ponownie</string>
     <string name="open">Otwórz</string>
     <string name="mount">Zamontuj</string>

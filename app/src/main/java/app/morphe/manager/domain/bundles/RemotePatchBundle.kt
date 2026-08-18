@@ -4,6 +4,7 @@ import app.morphe.manager.domain.bundles.RemotePatchBundle.Companion.CHANGELOG_C
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.network.api.MorpheAPI
 import app.morphe.manager.network.dto.MorpheAsset
+import app.morphe.manager.network.service.AssetDownloader
 import app.morphe.manager.network.service.HttpService
 import app.morphe.manager.network.utils.getOrThrow
 import app.morphe.manager.util.ChangelogEntry
@@ -54,6 +55,7 @@ sealed class RemotePatchBundle(
     enabled: Boolean,
 ) : PatchBundleSource(name, uid, displayName, createdAt, updatedAt, error, directory, enabled), KoinComponent {
     protected val http: HttpService by inject()
+    private val assetDownloader: AssetDownloader by inject()
 
     protected abstract suspend fun getLatestInfo(): MorpheAsset
     abstract fun copy(
@@ -78,9 +80,9 @@ sealed class RemotePatchBundle(
     protected open suspend fun download(info: MorpheAsset, onProgress: PatchBundleDownloadProgress? = null) =
         withContext(Dispatchers.IO) {
             installPatchBundle("Downloading patch bundle") { staging ->
-                http.downloadToFile(
+                assetDownloader.downloadToFile(
+                    downloadUrl = info.downloadUrl,
                     saveLocation = staging,
-                    builder = { url(info.downloadUrl) },
                     onProgress = onProgress
                 )
             }

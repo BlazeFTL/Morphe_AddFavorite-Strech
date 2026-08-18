@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
@@ -46,7 +45,7 @@ class ExpertPatchActions(
     val onPatchToggle: (bundleUid: Int, patchName: String) -> Unit,
     val onSelectAll: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Unit,
     val onDeselectAll: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Unit,
-    val onResetToDefault: (bundleUid: Int, allPatches: List<Pair<PatchInfo, Boolean>>) -> Unit,
+    val onResetToDefault: (bundleUid: Int) -> Unit,
     val onRestoreSaved: (bundleUid: Int) -> Unit,
     val onCopyFromBundle: (bundleUid: Int) -> Unit,
     val onOptionChange: (bundleUid: Int, patchName: String, optionKey: String, value: Any?) -> Unit,
@@ -68,6 +67,8 @@ fun ExpertModeDialog(
     patchActions: ExpertPatchActions,
     savedPatches: PatchSelection = emptyMap(),
     lockStateOf: (PatchInfo) -> PatchLockState = { PatchLockState.NONE },
+    /** True while "Enable all" still holds the universal patches of the given list back. */
+    holdsUniversalPatches: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Boolean = { _, _ -> false },
     proceedText: String = stringResource(R.string.expert_mode_proceed),
     /** Off where mixing sources is the norm rather than something the user just did. */
     warnOnMultipleBundles: Boolean = true,
@@ -75,8 +76,7 @@ fun ExpertModeDialog(
     onProceed: () -> Unit
 ) {
     val selectedPatchForOptions = remember { mutableStateOf<Pair<Int, PatchInfo>?>(null) }
-    var searchQuery by remember { mutableStateOf("") }
-    var searchVisible by remember { mutableStateOf(false) }
+    val search = rememberSearchFieldState()
     val showMultipleSourcesWarning = remember { mutableStateOf(false) }
     val context = LocalContext.current
 
@@ -106,14 +106,14 @@ fun ExpertModeDialog(
     }
 
     // Filter patches based on search query
-    val filteredPatchesInfo = remember(allPatchesInfo, searchQuery) {
-        if (searchQuery.isBlank()) {
+    val filteredPatchesInfo = remember(allPatchesInfo, search.query) {
+        if (search.query.isBlank()) {
             allPatchesInfo
         } else {
             allPatchesInfo.mapNotNull { (bundle, patches) ->
                 val filtered = patches.filter { (patch, _) ->
-                    patch.name.contains(searchQuery, ignoreCase = true) ||
-                            patch.description?.contains(searchQuery, ignoreCase = true) == true
+                    patch.displayName.contains(search.query, ignoreCase = true) ||
+                            patch.description?.contains(search.query, ignoreCase = true) == true
                 }
                 if (filtered.isEmpty()) null else bundle to filtered
             }
@@ -124,51 +124,25 @@ fun ExpertModeDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.expert_mode_title),
         titleTrailingContent = {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Count badge
-                StatusBadge(
-                    text = "$totalSelectedCount/$totalPatchesCount",
-                    tone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
-                )
+            StatusBadge(
+                text = "$totalSelectedCount/$totalPatchesCount",
+                tone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
+            )
 
-                // Search toggle button
-                FilledTonalIconButton(
-                    onClick = {
-                        if (searchVisible) searchQuery = ""
-                        searchVisible = !searchVisible
-                    },
-                    modifier = Modifier.size(36.dp),
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = if (searchVisible)
-                            MaterialTheme.colorScheme.primaryContainer
-                        else
-                            MaterialTheme.colorScheme.surfaceVariant,
-                        contentColor = if (searchVisible)
-                            MaterialTheme.colorScheme.onPrimaryContainer
-                        else
-                            MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                ) {
-                    Icon(
-                        imageVector = if (searchVisible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                        contentDescription = stringResource(R.string.expert_mode_search),
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
-            }
+            TitleAction(
+                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                contentDescription = stringResource(R.string.expert_mode_search),
+                onClick = { search.toggle() },
+                style = TitleActionStyle.Toggle,
+                active = search.visible
+            )
         },
         dismissOnClickOutside = false,
         footer = null,
         padding = DialogPadding.Compact,
         scrollable = false
     ) {
-        BackHandler(enabled = searchVisible) {
-            searchQuery = ""
-            searchVisible = false
-        }
+        SearchFieldBackHandler(search)
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -176,7 +150,7 @@ fun ExpertModeDialog(
         ) {
             // Search bar
             AnimatedVisibility(
-                visible = searchVisible,
+                visible = search.visible,
                 enter = Animations.expandFadeEnter,
                 exit = Animations.shrinkFadeExit
             ) {
@@ -187,15 +161,16 @@ fun ExpertModeDialog(
                     keyboardController?.show()
                 }
                 AppDialogTextField(
-                    value = searchQuery,
-                    onValueChange = { searchQuery = it },
+                    value = search.query,
+                    onValueChange = { search.query = it },
                     label = {
                         Text(stringResource(R.string.expert_mode_search))
                     },
                     leadingIcon = {
+                        // The label already announces the field, so the icon stays decorative
                         Icon(
                             imageVector = Icons.Outlined.Search,
-                            contentDescription = stringResource(R.string.expert_mode_search)
+                            contentDescription = null
                         )
                     },
                     showClearButton = true,
@@ -207,7 +182,7 @@ fun ExpertModeDialog(
             val hasMultipleBundleLayout = allPatchesInfo.size > 1
 
             if (!hasMultipleBundleLayout) {
-                val (bundle, allPatches) = allPatchesInfo.firstOrNull() ?: return@Column
+                val (bundle, _) = allPatchesInfo.firstOrNull() ?: return@Column
                 val filteredPatches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
                 val displayPatches = filteredPatches ?: emptyList()
                 val enabledCount = displayPatches.count { it.second }
@@ -237,9 +212,10 @@ fun ExpertModeDialog(
                 BundlePatchControls(
                     enabledCount = enabledCount,
                     totalCount = totalCount,
+                    holdsUniversalPatches = holdsUniversalPatches(bundle.uid, displayPatches),
                     onSelectAll = { patchActions.onSelectAll(bundle.uid, displayPatches) },
                     onDeselectAll = { patchActions.onDeselectAll(bundle.uid, displayPatches) },
-                    onResetToDefault = { patchActions.onResetToDefault(bundle.uid, allPatches) },
+                    onResetToDefault = { patchActions.onResetToDefault(bundle.uid) },
                     onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
                     onCopyFromBundle = { patchActions.onCopyFromBundle(bundle.uid) },
                     hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true
@@ -365,16 +341,17 @@ fun ExpertModeDialog(
 
                     // Controls fixed below the tab row
                     val currentIndex = pagerState.currentPage
-                    val (currentBundle, currentAllPatches) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
+                    val (currentBundle, _) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
                     val currentFiltered = filteredPatchesInfo.firstOrNull { it.first.uid == currentBundle.uid }?.second
 
                     if (currentFiltered != null) {
                         BundlePatchControls(
                             enabledCount = currentFiltered.count { it.second },
                             totalCount = currentFiltered.size,
+                            holdsUniversalPatches = holdsUniversalPatches(currentBundle.uid, currentFiltered),
                             onSelectAll = { patchActions.onSelectAll(currentBundle.uid, currentFiltered) },
                             onDeselectAll = { patchActions.onDeselectAll(currentBundle.uid, currentFiltered) },
-                            onResetToDefault = { patchActions.onResetToDefault(currentBundle.uid, currentAllPatches) },
+                            onResetToDefault = { patchActions.onResetToDefault(currentBundle.uid) },
                             onRestoreSaved = { patchActions.onRestoreSaved(currentBundle.uid) },
                             onCopyFromBundle = { patchActions.onCopyFromBundle(currentBundle.uid) },
                             hasSavedSelection = savedPatches[currentBundle.uid]?.isNotEmpty() == true,
@@ -486,7 +463,7 @@ fun ExpertModeDialog(
     val patchForOptions = selectedPatchForOptions.value
     if (patchForOptions != null) {
         val (bundleUid, patch) = patchForOptions
-        val missingOptionsMessage = stringResource(R.string.patch_option_required_missing, patch.name)
+        val missingOptionsMessage = stringResource(R.string.patch_option_required_missing, patch.displayName)
         PatchOptionsDialog(
             patch = patch,
             isDefaultBundle = bundleUid == 0,
@@ -522,7 +499,7 @@ private fun PatchListWithUniversalSection(
     onConfigureOptions: (PatchInfo) -> Unit,
 ) {
     val (regular, universal) = remember(patches) {
-        patches.partition { (patch, _) -> !patch.compatiblePackages.isNullOrEmpty() }
+        patches.partition { (patch, _) -> !patch.isUniversal }
     }
 
     // New patches float to the top; within each group order is alphabetical

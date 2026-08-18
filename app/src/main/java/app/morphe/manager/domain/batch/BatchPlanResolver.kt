@@ -8,6 +8,7 @@ package app.morphe.manager.domain.batch
 import android.content.pm.PackageInfo
 import android.util.Log
 import app.morphe.manager.data.platform.Filesystem
+import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.domain.bundles.AppVersionCatalog
 import app.morphe.manager.domain.bundles.AppVersionHints
 import app.morphe.manager.domain.manager.PatchOptionsPreferencesManager
@@ -23,6 +24,7 @@ import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
+import app.morphe.manager.ui.model.declaresPackageName
 import app.morphe.manager.util.AppDataResolver
 import app.morphe.manager.util.AppDataSource
 import app.morphe.manager.util.Options
@@ -69,31 +71,32 @@ class BatchPlanResolver(
      *   that declare themselves unavailable for it are dropped just like the single-app flow does.
      */
     suspend fun resolve(
-        packageNames: List<String>,
+        targets: List<BatchTarget>,
         useMount: Boolean
     ): List<BatchPatchItem> = coroutineScope {
         // Built once for the whole plan: it is derived from every patch of every source, and
         // resolving it per app would repeat that work for each one of them
         val hints = versionCatalog.hints()
-        packageNames
-            .distinct()
-            .map { packageName -> async { resolve(packageName, useMount, hints = hints[packageName]) } }
+        targets
+            .distinctBy { it.id }
+            .map { target -> async { resolve(target, useMount, hints = hints[target.packageName]) } }
             .awaitAll()
     }
 
     /**
-     * Resolves a single package. [attachedFile] overrides source discovery and is used when
+     * Resolves a single target. [attachedFile] overrides source discovery and is used when
      * the user attaches an APK from the preflight screen.
      */
     suspend fun resolve(
-        packageName: String,
+        target: BatchTarget,
         useMount: Boolean,
         attachedFile: File? = null,
         hints: AppVersionHints? = null,
         allowIncompatible: Boolean = false,
         preferInstalled: Boolean = false
     ): BatchPatchItem = withContext(Dispatchers.IO) {
-        val appName = resolveAppName(packageName)
+        val packageName = target.packageName
+        val appName = resolveAppName(target)
         val versions = hints ?: versionCatalog.hints(packageName)
         val suggested = versions?.recommendedVersion
 
@@ -106,7 +109,7 @@ class BatchPlanResolver(
 
         if (source == null) {
             return@withContext BatchPatchItem(
-                packageName = packageName,
+                target = target,
                 appName = appName,
                 source = null,
                 selection = emptyMap(),
@@ -121,7 +124,7 @@ class BatchPlanResolver(
             val actualPackage = readAttachedPackageName(attachedFile)
             if (actualPackage != null && actualPackage != packageName) {
                 return@withContext BatchPatchItem(
-                    packageName = packageName,
+                    target = target,
                     appName = appName,
                     source = null,
                     selection = emptyMap(),
@@ -135,7 +138,7 @@ class BatchPlanResolver(
         }
 
         buildItem(
-            packageName = packageName,
+            target = target,
             appName = appName,
             source = source,
             useMount = useMount,
@@ -146,13 +149,16 @@ class BatchPlanResolver(
     }
 
     /**
-     * Packages whose patches have moved on since they were last built: any bundle an app was
+     * Installs whose patches have moved on since they were last built: any bundle an install was
      * patched with now reports a different version than the one recorded at patch time.
+     *
+     * Every install is answered for separately, so an app kept in several cloned copies has each
+     * of them rebuilt rather than only whichever copy the app's package name resolves to.
      *
      * Shared by the automatic schedule and the launcher shortcut, both of which need the same
      * answer to the question "what is worth re-patching right now".
      */
-    suspend fun findOutdatedPackages(): List<String> = withContext(Dispatchers.IO) {
+    suspend fun findOutdatedTargets(): List<BatchTarget> = withContext(Dispatchers.IO) {
         // Scoped to the sources planning will actually use. A disabled or blocked source moving
         // on is not a reason to re-patch, and the plan would only report No patches anyway
         val currentVersions = patchBundleRepository.enabledBundlesInfoFlow.first()
@@ -168,8 +174,12 @@ class BatchPlanResolver(
                     storedVersion != null && storedVersion != currentVersion
                 }
             }
-            .map { it.originalPackageName }
-            .distinct()
+            .map { installed ->
+                BatchTarget(
+                    packageName = installed.originalPackageName,
+                    repatchedPackageName = installed.trackingKey
+                )
+            }
     }
 
     /**
@@ -178,7 +188,7 @@ class BatchPlanResolver(
      */
     suspend fun reattach(item: BatchPatchItem, file: File, useMount: Boolean): BatchPatchItem =
         resolve(
-            packageName = item.packageName,
+            target = item.target,
             useMount = useMount,
             attachedFile = file,
             // A forced item stays runnable after swapping its APK, so the user does not have
@@ -192,7 +202,7 @@ class BatchPlanResolver(
      */
     suspend fun useSource(item: BatchPatchItem, useMount: Boolean, preferInstalled: Boolean): BatchPatchItem =
         resolve(
-            packageName = item.packageName,
+            target = item.target,
             useMount = useMount,
             allowIncompatible = item.forceVersionMismatch,
             preferInstalled = preferInstalled
@@ -204,14 +214,14 @@ class BatchPlanResolver(
      */
     suspend fun forceVersion(item: BatchPatchItem, useMount: Boolean): BatchPatchItem =
         resolve(
-            packageName = item.packageName,
+            target = item.target,
             useMount = useMount,
             attachedFile = (item.source as? BatchApkSource.UserFile)?.file,
             allowIncompatible = true
         ).copy(forceVersionMismatch = true)
 
     private suspend fun buildItem(
-        packageName: String,
+        target: BatchTarget,
         appName: String,
         source: BatchApkSource,
         useMount: Boolean,
@@ -219,6 +229,7 @@ class BatchPlanResolver(
         experimental: Boolean,
         forceIncompatible: Boolean
     ): BatchPatchItem {
+        val packageName = target.packageName
         val bundles = patchBundleRepository
             .scopedBundleInfoFlow(packageName, source.version, source.versionCode)
             .first()
@@ -238,7 +249,7 @@ class BatchPlanResolver(
          * would hide both the reason and the buttons that fix it.
          */
         fun blocked(contributing: List<PatchBundleInfo.Scoped> = emptyList()) = BatchPatchItem(
-            packageName = packageName,
+            target = target,
             appName = appName,
             source = source,
             selection = emptyMap(),
@@ -256,14 +267,15 @@ class BatchPlanResolver(
         val contributing = bundles.filter { it.patchSequence(allowIncompatible).any() }
         if (contributing.isEmpty()) return blocked()
 
-        val selection = resolveSelection(packageName, contributing, allowIncompatible, useMount)
+        val configurationKey = configurationKeyFor(target)
+        val selection = resolveSelection(configurationKey, contributing, allowIncompatible, useMount)
 
         if (selection.values.sumOf { it.size } == 0) return blocked(contributing)
 
-        val options = resolveOptions(packageName, contributing)
+        val options = resolveOptions(target, configurationKey, contributing)
 
         return BatchPatchItem(
-            packageName = packageName,
+            target = target,
             appName = appName,
             source = source,
             selection = selection,
@@ -279,7 +291,10 @@ class BatchPlanResolver(
         uid = uid,
         name = name,
         version = version,
-        patchNames = patches.mapTo(mutableSetOf()) { it.name }
+        patchNames = patches.mapTo(mutableSetOf()) { it.name },
+        renamingPatchNames = patches
+            .filter { it.declaresPackageName }
+            .mapTo(mutableSetOf()) { it.name }
     )
 
     /**
@@ -288,7 +303,7 @@ class BatchPlanResolver(
      * reached, the patches' own availability for the install target has the final say.
      */
     private suspend fun resolveSelection(
-        packageName: String,
+        configurationKey: String,
         bundles: List<PatchBundleInfo.Scoped>,
         allowIncompatible: Boolean,
         useMount: Boolean
@@ -296,14 +311,14 @@ class BatchPlanResolver(
         val installerType = installerTypeFor(useMount)
         val uids = bundles.mapTo(mutableSetOf()) { it.uid }
         val patchesByName = bundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
-        val saved = patchSelectionRepository.getAllSelectionsForPackage(packageName)
+        val saved = patchSelectionRepository.getAllSelectionsForPackage(configurationKey)
             .filterKeys { it in uids }
 
         if (saved.isNotEmpty()) {
             val validated = validatePatchSelection(saved, patchesByName)
 
             val merged = bundles.associate { bundle ->
-                val seen = patchSelectionRepository.getSeenPatches(packageName, bundle.uid)
+                val seen = patchSelectionRepository.getSeenPatches(configurationKey, bundle.uid)
                 val known = seen ?: saved[bundle.uid] ?: emptySet()
 
                 // Patches added to the bundle since the last run follow their own default,
@@ -342,30 +357,48 @@ class BatchPlanResolver(
     /**
      * Expert mode stores options per bundle in the database, simple mode derives them from the
      * per-app preference screen. The patcher is handed whichever set the active mode owns.
+     *
+     * Only the database is keyed per install: the preference screen belongs to the app, so every
+     * copy of it is built with what the user set there.
      */
     private suspend fun resolveOptions(
-        packageName: String,
+        target: BatchTarget,
+        configurationKey: String,
         bundles: List<PatchBundleInfo.Scoped>
     ): Options {
         if (!prefs.useExpertMode.get()) {
-            return runCatching { patchOptionsPrefs.exportPatchOptions(packageName) }
+            return runCatching { patchOptionsPrefs.exportPatchOptions(target.packageName) }
                 .getOrDefault(emptyMap())
         }
 
         val uids = bundles.mapTo(mutableSetOf()) { it.uid }
         val patchesByName = bundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
-        val saved = patchOptionsRepository.getAllOptionsForPackage(packageName, patchesByName)
+        val saved = patchOptionsRepository.getAllOptionsForPackage(configurationKey, patchesByName)
             .filterKeys { it in uids }
         return validatePatchOptions(saved, patchesByName)
+    }
+
+    /**
+     * Where a target's saved patches and options live: its own package once it is an install of
+     * its own, falling back to the app for a clone that predates configurations of their own.
+     */
+    private suspend fun configurationKeyFor(target: BatchTarget): String {
+        val repatched = target.repatchedPackageName?.takeUnless { it == target.packageName }
+            ?: return target.packageName
+
+        val hasOwnConfiguration = patchSelectionRepository
+            .getAllSelectionsForPackage(repatched)
+            .isNotEmpty()
+        return if (hasOwnConfiguration) repatched else target.packageName
     }
 
     /**
      * Same resolution the home screen uses. Patching renames packages, so an app that is only
      * saved can be named from its APK alone, which is what the resolver falls back through.
      */
-    private suspend fun resolveAppName(packageName: String): String =
+    private suspend fun resolveAppName(target: BatchTarget): String =
         appDataResolver.resolveAppData(
-            packageName = packageName,
+            packageName = target.id,
             preferredSource = AppDataSource.ORIGINAL_APK
         ).displayName
 

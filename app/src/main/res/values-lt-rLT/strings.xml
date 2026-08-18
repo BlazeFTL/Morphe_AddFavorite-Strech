@@ -151,7 +151,6 @@
     <string name="home_download_instructions_step3_mount">Palaukite, kol atsisiuntimas baigsis, tada &lt;b&gt;diegaite APK&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">Po atsisiuntimo, grįžkite į Morphe</string>
     <string name="home_download_instructions_step4_mount">Po originalaus APK diegimo grįžkite į Morphe</string>
-    <string name="home_download_instructions_continue">Tęskite į APKMirror.com</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Pasirinkite atsisiųstą APK</string>
     <string name="home_file_picker_prompt_description">Pasirinkite &lt;b&gt;%s&lt;/b&gt; APK kuri tika atsisiuntete</string>
@@ -161,7 +160,6 @@
     <string name="home_select_apk_title">Pasirinkite APK</string>
     <string name="home_select_any_apk_description">Pasirinkite bet kurios programos APK failą arba pasirinkite įdiegtą programą šiame įrenginyje</string>
     <string name="home_use_installed_app">Naudoti įdiegtą programą</string>
-    <string name="home_installed_app_picker_title">Pasirinkite įdiegtą programą</string>
     <string name="home_installed_app_picker_empty">Nėra rastų programų</string>
     <string name="home_installed_app_picker_filter_all">Visos programos</string>
     <string name="home_installed_app_picker_filter_user">Tik naudotojo programos</string>
@@ -347,6 +345,7 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="battery_optimization_dialog_title">Foninio taisymo apsauga</string>
     <string name="battery_optimization_dialog_description">Kai kurie prietaisai gali sustabdyti taisytoją kai programa yra sumažinama. Leiskite Morphe veikti be baterijos apribojimų, kad pataisymas būtų įvykdytas patikimai</string>
     <string name="battery_optimization_not_now">Ne dabar</string>
+    <!-- Memory limit dialog, shown after the patcher process was killed -->
     <!-- Patcher Screen - Patcher Worker -->
     <string name="patcher_notification_title">Vyksta taisymas…</string>
     <string name="patcher_notification_text">Paspauskite, kad grįžtumėte į taisytoją</string>
@@ -432,6 +431,7 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="settings_appearance_app_language">Programėlės kalba</string>
     <string name="settings_appearance_app_language_current">Dabartinė kalba</string>
     <string name="settings_appearance_translations_info_title">Kai kurių kalbų vertimų gali trūkti arba jie gali būti nepilni</string>
+    <!-- Settings - Appearance Tab - Interface Scale -->
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">Pagrindinis ekranas</string>
     <string name="settings_appearance_greeting_phrases">Pasveikinimo frazės</string>

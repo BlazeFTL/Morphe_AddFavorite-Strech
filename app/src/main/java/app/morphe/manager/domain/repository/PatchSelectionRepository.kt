@@ -5,8 +5,6 @@ import app.morphe.manager.data.room.AppDatabase.Companion.generateUid
 import app.morphe.manager.data.room.selection.PatchSelection
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 
 class PatchSelectionRepository(db: AppDatabase) {
     private val dao = db.selectionDao()
@@ -46,10 +44,6 @@ class PatchSelectionRepository(db: AppDatabase) {
             getOrCreateSelection(sourceUid, packageName)
         })
     }
-
-    /** Get all packages that have saved selections for any bundle. */
-    fun getPackagesWithSavedSelection() =
-        dao.getPackagesWithSelection().map(Iterable<String>::toSet).distinctUntilChanged()
 
     /**
      * Get data about saved selections per bundle+package.

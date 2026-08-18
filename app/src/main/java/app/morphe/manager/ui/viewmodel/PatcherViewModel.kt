@@ -34,6 +34,8 @@ import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
+import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_MINIMUM
+import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_STEP
 import app.morphe.manager.patcher.runtime.ProcessRuntime
 import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.patcher.worker.PatcherWorker
@@ -126,14 +128,29 @@ class PatcherViewModel(
     val packageName = selectedApp.packageName
     val version = selectedApp.version
 
+    /**
+     * Offered after the patcher process was killed, holding the lower limit that might get the
+     * run through. The limit is the user's setting, so it is only ever a suggestion.
+     */
     data class MemoryAdjustmentDialogState(
-        val previousLimit: Int,
-        val newLimit: Int,
-        val adjusted: Boolean
+        val currentLimit: Int,
+        val suggestedLimit: Int,
+        val canAdjust: Boolean
     )
 
     var memoryAdjustmentDialog by mutableStateOf<MemoryAdjustmentDialogState?>(null)
         private set
+
+    fun applyMemoryAdjustment() {
+        val state = memoryAdjustmentDialog ?: return
+        memoryAdjustmentDialog = null
+        if (!state.canAdjust) return
+        viewModelScope.launch { prefs.patcherProcessMemoryLimit.update(state.suggestedLimit) }
+    }
+
+    fun dismissMemoryAdjustment() {
+        memoryAdjustmentDialog = null
+    }
 
     data class MissingPatchWarningState(
         val patchNames: List<String>
@@ -214,11 +231,13 @@ class PatcherViewModel(
      */
     suspend fun unavailablePatchNames(installerType: InstallerType): List<String> =
         gatherScopedBundles().values
+            .asSequence()
             .flatMap { it.patches }
             .filter { it.lockState(installerType, SELECTION_APK_ARCHITECTURE) == PatchLockState.LOCKED_OFF }
-            .map { it.name }
+            .map { it.displayName }
             .distinct()
             .sorted()
+            .toList()
 
     suspend fun collectSelectedBundleMetadata(): List<PatchSourceRef> {
         val globalBundles = patchBundleRepository.bundleInfoFlow.first()
@@ -628,26 +647,72 @@ class PatcherViewModel(
 
         val selectionPayload = patchBundleRepository.snapshotSelection(sanitizedSelection)
 
+        val isClone = producesClone(
+            originalPackageName = packageName,
+            resultPackageName = finalPackageName,
+            selection = sanitizedSelection,
+            declaresPackageName = { bundleUid, patchName ->
+                scopedBundlesForSelection[bundleUid]
+                    ?.patches
+                    ?.firstOrNull { it.name == patchName }
+                    ?.declaresPackageName == true
+            }
+        )
+
         installedAppRepository.addOrUpdate(
             finalPackageName,
             packageName,
+            isClone,
             finalVersion,
             installType,
             sanitizedSelection,
             selectionPayload
         )
 
-        patchSelectionRepository.updateSelection(
-            packageName,
-            sanitizedSelection,
-            scope = scopedBundlesForSelection.keys
+        persistConfiguration(
+            // A copy keeps a configuration of its own, while the app's install reads and writes
+            // the app's, whichever package name the patches ended up building it under
+            configurationPackageName = if (isClone) finalPackageName else packageName,
+            selection = sanitizedSelection,
+            options = sanitizedOptions,
+            bundles = scopedBundlesForSelection
         )
-        patchOptionsRepository.saveOptions(packageName, sanitizedOptions)
         appliedSelection = sanitizedSelection
         appliedOptions = sanitizedOptions
 
         savedPatchedApp = savedPatchedApp || installType == InstallType.SAVED || savedCopy.exists()
         true
+    }
+
+    /**
+     * Stores the patches and options this run was built with under the install it produced.
+     *
+     * A configuration describes an install, and every install of an app keeps its own. A run that
+     * produced a copy therefore leaves the one it started from untouched: what it writes is a
+     * copy, taken at the moment the copy came into being.
+     */
+    private suspend fun persistConfiguration(
+        configurationPackageName: String,
+        selection: PatchSelection,
+        options: Options,
+        bundles: Map<Int, PatchBundleInfo.Scoped>
+    ) {
+        patchSelectionRepository.updateSelection(
+            configurationPackageName,
+            selection,
+            scope = bundles.keys
+        )
+        patchOptionsRepository.saveOptions(configurationPackageName, options)
+
+        // Taken here as well as before patching, because a copy starts out with no snapshot of
+        // its own and would flag every patch it was just built with as new
+        bundles.forEach { (uid, bundle) ->
+            patchSelectionRepository.saveSeenPatches(
+                packageName = configurationPackageName,
+                bundleUid = uid,
+                patchNames = bundle.patches.mapTo(mutableSetOf()) { it.name }
+            )
+        }
     }
 
     override var downloadProgress by savedStateHandle.saveable(
@@ -817,6 +882,7 @@ class PatcherViewModel(
             mergedOptions,
             patchRun.logger,
             onPatchCompleted = { patchRun.onPatchCompleted() },
+            onPatchingRestarted = { patchRun.onRestart() },
             setInputFile = { file, needsSplit, merged ->
                 val storedFile = if (shouldPreserveInput) {
                     val existing = inputFile
@@ -921,7 +987,9 @@ class PatcherViewModel(
     private fun handleWorkerFailure(workInfo: WorkInfo) {
         if (!handledFailureIds.add(workInfo.id)) return
         val exitCode = workInfo.outputData.getInt(PatcherWorker.PROCESS_EXIT_CODE_KEY, Int.MIN_VALUE)
-        if (exitCode == ProcessRuntime.OOM_EXIT_CODE) {
+        // A process the system killed is exactly what a lower limit is meant to prevent, so
+        // both ways it can be killed for memory lead here
+        if (exitCode == ProcessRuntime.OOM_EXIT_CODE || exitCode == ProcessRuntime.SIGKILL_EXIT_CODE) {
             viewModelScope.launch {
                 if (!prefs.useProcessRuntime.get()) return@launch
                 forceKeepLocalInput = true
@@ -929,16 +997,17 @@ class PatcherViewModel(
                     PatcherWorker.PROCESS_PREVIOUS_LIMIT_KEY,
                     -1
                 )
-                val previousLimit = if (previousFromWorker > 0) previousFromWorker else prefs.patcherProcessMemoryLimit.get()
-                val newLimit = (previousLimit - MEMORY_ADJUSTMENT_MB).coerceAtLeast(MIN_LIMIT_MB)
-                val adjusted = newLimit < previousLimit
-                if (adjusted) {
-                    prefs.patcherProcessMemoryLimit.update(newLimit)
-                }
+                val currentLimit = if (previousFromWorker > 0) previousFromWorker else prefs.patcherProcessMemoryLimit.get()
+                // One step down, on the same scale the setting and the memory retries use, so
+                // accepting this lands on a value the slider can represent and the runtime honors
+                val suggestedLimit = (currentLimit - PROCESS_RUNTIME_MEMORY_STEP)
+                    .coerceAtLeast(PROCESS_RUNTIME_MEMORY_MINIMUM)
+                // The setting is left alone until the user accepts the suggestion: silently
+                // lowering it made the configured limit drift down across failed runs
                 memoryAdjustmentDialog = MemoryAdjustmentDialogState(
-                    previousLimit = previousLimit,
-                    newLimit = if (adjusted) newLimit else previousLimit,
-                    adjusted = adjusted
+                    currentLimit = currentLimit,
+                    suggestedLimit = suggestedLimit,
+                    canAdjust = suggestedLimit < currentLimit
                 )
             }
         }
@@ -1033,8 +1102,6 @@ class PatcherViewModel(
 
     private companion object {
         private const val TAG = "Morphe Patcher"
-        private const val MEMORY_ADJUSTMENT_MB = 200
-        private const val MIN_LIMIT_MB = 200
 
         private const val KEY_PROGRESS = "patch_progress"
         private const val KEY_STEPS = "steps"

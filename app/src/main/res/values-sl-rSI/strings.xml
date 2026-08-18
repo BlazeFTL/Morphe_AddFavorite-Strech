@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplikacije, ki jih v Morphe še niste zakrpali</string>
     <string name="home_app_filter_installed_description">Aplikacije, trenutno nameščene na tej napravi</string>
     <string name="home_app_filter_uninstalled_description">Aplikacije, popravljene z Morphe, ki niso več na tej napravi</string>
+    <string name="home_app_filter_clones">Klonirane aplikacije</string>
+    <string name="home_app_filter_clones_description">Aplikacije, zgrajene z lastnim imenom paketa, nameščene ob originalni</string>
     <string name="home_app_sort_manual_description">Dolgo pritisnite aplikacijo, nato tapnite gumb za ponovno razvrstitev</string>
     <string name="home_app_sort_recommended">Priporočen vrstni red</string>
     <string name="home_app_sort_recommended_description">Nameščene in pripete aplikacije naj bodo prve</string>
@@ -412,6 +414,10 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_app_deleted_warning">Aplikacija je bila odstranjena</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacija je bila odstranjena izven aplikacije Morphe. Ponovno jo popravite, da obnovite funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Nameščena je nepopravljena različica te aplikacije. Morphe še vedno ima svoj prejšnji zapis o popravku.</string>
+    <string name="patcher_rename_title">To bo namestilo klon</string>
+    <string name="patcher_rename_description">Popravki so to aplikacijo zgradili pod lastnim imenom paketa, zato njena namestitev doda klon poleg &lt;b&gt;%s&lt;/b&gt; namesto da bi jo posodobila</string>
+    <string name="patcher_rename_result_package">Bo nameščeno kot</string>
+    <string name="patcher_rename_replaces">Aplikacija s tem imenom je že nameščena in bo nadomeščena</string>
     <string name="home_app_info_apk_size">Velikost APK</string>
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->

@@ -405,6 +405,9 @@
     <string name="home_app_info_app_deleted_warning">アプリがアンインストールされました</string>
     <string name="home_app_info_app_deleted_description">Morphe 外でアプリがアンインストールされました。機能を復元するには、再パッチしてください</string>
     <string name="home_app_info_not_patched_description">このアプリの未パッチ版がインストールされています。Morpheは以前のパッチ記録を保持しています</string>
+    <string name="patcher_rename_title">これはクローンをインストールします</string>
+    <string name="patcher_rename_description">パッチはこのアプリを独自のパッケージ名で構築したため、インストールすると更新ではなく &lt;b&gt;%s&lt;/b&gt; の横にクローンが追加されます</string>
+    <string name="patcher_rename_result_package">インストール先</string>
     <string name="home_app_info_apk_size">APK サイズ</string>
     <string name="home_app_info_cpu_arch">CPU アーキテクチャ</string>
     <!-- Home Screen - Root Mode -->

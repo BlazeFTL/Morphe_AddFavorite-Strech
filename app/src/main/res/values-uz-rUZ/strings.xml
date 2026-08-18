@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Morphe\'da hali yamalmagan ilovalar</string>
     <string name="home_app_filter_installed_description">Ushbu qurilmada hozir o\'rnatilgan ilovalar</string>
     <string name="home_app_filter_uninstalled_description">Morphe yordamida yamalgan, endi bu qurilmada mavjud bo\'lmagan ilovalar</string>
+    <string name="home_app_filter_clones">Klonlar</string>
+    <string name="home_app_filter_clones_description">O\'z paket nomi ostida qurilgan, asl ilova bilan birga o\'rnatilgan ilovalar</string>
     <string name="home_app_sort_manual_description">Urutkan aplikasi</string>
     <string name="home_app_sort_recommended">Tekan lama sebuah aplikasi, lalu ketuk tombol urutkan ulang</string>
     <string name="home_app_sort_recommended_description">Urutan yang direkomendasikan</string>
@@ -412,6 +414,10 @@ Chekka hudud (chizikli): launcher niqobi tomonidan kesilishi mumkin - muhim tafs
     <string name="home_app_info_app_deleted_warning">Ilova o\'rnatilmagan</string>
     <string name="home_app_info_app_deleted_description">Ushbu ilova Morphe tashqarisida o\'rnatilmagan. Funksiyalarni qayta tiklash uchun patchlang</string>
     <string name="home_app_info_not_patched_description">Ushbu ilovaning patch qilinmagan versiyasi oʻrnatilgan. Morphe hali ham avvalgi patch yozuviga ega.</string>
+    <string name="patcher_rename_title">Bu klonni o\'rnatadi</string>
+    <string name="patcher_rename_description">Patchlar bu ilovani o\'z paket nomi ostida qurgan, shuning uchun uni o\'rnatish &lt;b&gt;%s&lt;/b&gt; yoniga klon qo\'shadi, yangilash o\'rniga</string>
+    <string name="patcher_rename_result_package">O\'rnatiladi</string>
+    <string name="patcher_rename_replaces">Ushbu nom ostida ilova allaqachon o\'rnatilgan va almashtiriladi</string>
     <string name="home_app_info_apk_size">APK hajmi</string>
     <string name="home_app_info_cpu_arch">CPU arxitekturasi</string>
     <!-- Home Screen - Root Mode -->

@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Mga app na hindi mo pa na-patch sa Morphe</string>
     <string name="home_app_filter_installed_description">Mga app na kasalukuyang naka-install sa device na ito</string>
     <string name="home_app_filter_uninstalled_description">Mga app na na-patch gamit ang Morphe na wala na sa device na ito</string>
+    <string name="home_app_filter_clones">Mga clone</string>
+    <string name="home_app_filter_clones_description">Mga app na binuo gamit ang sariling package name, na naka-install kasama ng orihinal</string>
     <string name="home_app_sort_manual_description">Pindutin nang matagal ang isang app, pagkatapos ay i-tap ang button na muling ayusin</string>
     <string name="home_app_sort_recommended">Inirerekomendang bersyon</string>
     <string name="home_app_sort_recommended_description">Mga naka-install at naka-pin na app muna</string>
@@ -416,6 +418,7 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
     <string name="patcher_rename_title">Ito ay mag-i-install ng clone</string>
     <string name="patcher_rename_description">Ang mga patch ay nagbuo ng app na ito sa ilalim ng kanilang sariling package name, kaya ang pag-install nito ay nagdaragdag ng clone sa tabi ng &lt;b&gt;%s&lt;/b&gt; sa halip na i-update ito</string>
     <string name="patcher_rename_result_package">I-install bilang</string>
+    <string name="patcher_rename_replaces">May naka-install nang app sa ilalim ng pangalang iyon at papalitan ito</string>
     <string name="home_app_info_apk_size">Laki ng APK</string>
     <string name="home_app_info_cpu_arch">Arkitektura ng CPU</string>
     <!-- Home Screen - Root Mode -->

@@ -412,7 +412,10 @@
     <string name="home_app_info_app_deleted_warning">แอปถูกถอนการติดตั้ง</string>
     <string name="home_app_info_app_deleted_description">แอปนี้ถูกลบออกนอก Morphe. แพตช์อีกครั้งเพื่อฟื้นฟูฟังก์ชัน</string>
     <string name="home_app_info_not_patched_description">แอปเวอร์ชันที่ไม่ได้รับการแพตช์ถูกติดตั้งไว้ Morphe ยังคงมีบันทึกแพตช์ก่อนหน้า</string>
+    <string name="patcher_rename_title">การดำเนินการนี้จะติดตั้งโคลน</string>
+    <string name="patcher_rename_description">แพตช์ได้สร้างแอปนี้ภายใต้ชื่อแพ็คเกจของตนเอง ดังนั้นการติดตั้งจะเพิ่มโคลนควบคู่ไปกับ &lt;b&gt;%s&lt;/b&gt; แทนที่จะอัปเดต</string>
     <string name="patcher_rename_result_package">จะติดตั้งเป็น</string>
+    <string name="patcher_rename_replaces">มีแอปติดตั้งอยู่แล้วภายใต้ชื่อนั้นและจะถูกแทนที่</string>
     <string name="home_app_info_apk_size">ขนาด APK</string>
     <string name="home_app_info_cpu_arch">สถาปัตยกรรม CPU</string>
     <!-- Home Screen - Root Mode -->

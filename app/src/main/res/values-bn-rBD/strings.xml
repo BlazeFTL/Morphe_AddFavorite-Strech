@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Morphe-এ আপনি যেসব অ্যাপ এখনও প্যাচ করেননি</string>
     <string name="home_app_filter_installed_description">এই ডিভাইসে বর্তমানে ইনস্টল করা অ্যাপগুলো</string>
     <string name="home_app_filter_uninstalled_description">Morphe দিয়ে প্যাচ করা অ্যাপগুলো যেগুলো আর এই ডিভাইসে নেই</string>
+    <string name="home_app_filter_clones">ক্লোন</string>
+    <string name="home_app_filter_clones_description">নিজস্ব প্যাকেজ নামে তৈরি, মূল অ্যাপের পাশাপাশি ইনস্টল করা অ্যাপ</string>
     <string name="home_app_sort_manual_description">কোনো অ্যাপ দীর্ঘক্ষণ চাপুন, তারপর পুনর্বিন্যাস বোতামে আলতো চাপুন</string>
     <string name="home_app_sort_recommended">সুপারিশকৃত ক্রম</string>
     <string name="home_app_sort_recommended_description">ইনস্টল করা এবং পিন করা অ্যাপগুলি প্রথমে</string>
@@ -415,6 +417,7 @@
     <string name="patcher_rename_title">এটি একটি ক্লোন ইনস্টল করবে</string>
     <string name="patcher_rename_description">প্যাচগুলো এই অ্যাপটি তাদের নিজস্ব প্যাকেজ নামে তৈরি করেছে, তাই এটি ইনস্টল করলে <b>%s</b>-এর পাশাপাশি একটি ক্লোন যুক্ত হবে, এটি আপডেট করার পরিবর্তে।</string>
     <string name="patcher_rename_result_package">হিসাবে ইনস্টল হবে</string>
+    <string name="patcher_rename_replaces">এই নামে একটি অ্যাপ ইতিমধ্যে ইনস্টল করা আছে এবং এটি প্রতিস্থাপিত হবে</string>
     <string name="home_app_info_apk_size">APK এর আকার</string>
     <string name="home_app_info_cpu_arch">সিপিইউ আর্কিটেকচার</string>
     <!-- Home Screen - Root Mode -->

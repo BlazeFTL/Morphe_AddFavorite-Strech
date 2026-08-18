@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Apper du ikke har patchet i Morphe ennå</string>
     <string name="home_app_filter_installed_description">Apper som er installert på denne enheten</string>
     <string name="home_app_filter_uninstalled_description">Apper patchet med Morphe som ikke lenger er på denne enheten</string>
+    <string name="home_app_filter_clones">Kloner</string>
+    <string name="home_app_filter_clones_description">Apper bygget under et eget pakkenavn, installert ved siden av originalen</string>
     <string name="home_app_sort_manual_description">Trykk og hold på en app, og trykk deretter på sorter-knappen</string>
     <string name="home_app_sort_recommended">Anbefalt rekkefølge</string>
     <string name="home_app_sort_recommended_description">Installerte og fastsatte apper først</string>
@@ -412,6 +414,7 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="home_app_info_app_deleted_warning">Appen ble avinstallert</string>
     <string name="home_app_info_app_deleted_description">Denne appen ble avinstallert utenfor Morphe. Patch den på nytt for å gjenopprette funksjonaliteten</string>
     <string name="home_app_info_not_patched_description">En uoppdatert versjon av denne appen er installert. Morphe har fortsatt sin tidligere patchregistrering</string>
+    <string name="patcher_rename_replaces">En app er allerede installert under det navnet og vil bli erstattet</string>
     <string name="home_app_info_apk_size">APK-størrelse</string>
     <string name="home_app_info_cpu_arch">CPU-arkitektur</string>
     <!-- Home Screen - Root Mode -->

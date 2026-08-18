@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Applications que vous n\'avez pas encore patchées dans Morphe</string>
     <string name="home_app_filter_installed_description">Applications actuellement installées sur cet appareil</string>
     <string name="home_app_filter_uninstalled_description">Applications patchées avec Morphe qui ne sont plus sur cet appareil</string>
+    <string name="home_app_filter_clones">Clones</string>
+    <string name="home_app_filter_clones_description">Des applications créées sous leur propre nom de paquet, installées à côté de l\'original</string>
     <string name="home_app_sort_manual_description">Appuyez longuement sur une application, puis appuyez sur le bouton de réorganisation</string>
     <string name="home_app_sort_recommended">Ordre recommandé</string>
     <string name="home_app_sort_recommended_description">Applications installées et épinglées en premier</string>
@@ -414,7 +416,10 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_app_deleted_description">Cette application a été désinstallée en dehors de Morphe. Re-patchez-la pour restaurer les fonctionnalités
 </string>
     <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
+    <string name="patcher_rename_title">Cela installera un clone</string>
+    <string name="patcher_rename_description">Les patchs ont compilé cette application sous leur propre nom de paquet, donc l\'installer ajoute un clone à côté de <b>%s</b> au lieu de le mettre à jour</string>
     <string name="patcher_rename_result_package">Sera installé en tant que</string>
+    <string name="patcher_rename_replaces">Une application est déjà installée sous ce nom et sera remplacée</string>
     <string name="home_app_info_apk_size">Taille de l\'APK</string>
     <string name="home_app_info_cpu_arch">Architecture du CPU</string>
     <!-- Home Screen - Root Mode -->

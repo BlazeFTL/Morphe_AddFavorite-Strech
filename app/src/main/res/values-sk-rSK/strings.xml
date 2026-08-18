@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplikácie, ktoré ste v Morphe ešte neopatchovali</string>
     <string name="home_app_filter_installed_description">Aplikácie aktuálne nainštalované v tomto zariadení</string>
     <string name="home_app_filter_uninstalled_description">Aplikácie opatchované pomocou Morphe, ktoré už nie sú v tomto zariadení</string>
+    <string name="home_app_filter_clones">Klonované</string>
+    <string name="home_app_filter_clones_description">Aplikácie vytvorené pod vlastným názvom balíka, inštalované popri origináli</string>
     <string name="home_app_sort_manual_description">Dlhým stlačením aplikácie a potom klepnutím na tlačidlo zoradiť</string>
     <string name="home_app_sort_recommended">Odporúčaná verzia</string>
     <string name="home_app_sort_recommended_description">Najprv nainštalované a pripnuté aplikácie</string>
@@ -412,6 +414,10 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="home_app_info_app_deleted_warning">Aplikácia bola odinštalovaná</string>
     <string name="home_app_info_app_deleted_description">Táto aplikácia bola odinštalovaná mimo Morphe. Znovu ju zaplátajte aby ste obnovili jej funkčnosť</string>
     <string name="home_app_info_not_patched_description">Nainštalovaná je nezapatchovaná verzia tejto aplikácie. Morphe má stále svoj predchádzajúci záznam o oprave</string>
+    <string name="patcher_rename_title">Toto nainštaluje klon</string>
+    <string name="patcher_rename_description">Záplaty vytvorili túto aplikáciu pod vlastným názvom balíka, takže jej inštalácia pridá klon vedľa &lt;b&gt;%s&lt;/b&gt; namiesto jej aktualizácie</string>
+    <string name="patcher_rename_result_package">Nainštaluje sa ako</string>
+    <string name="patcher_rename_replaces">Aplikácia s týmto názvom je už nainštalovaná a bude nahradená</string>
     <string name="home_app_info_apk_size">Veľkosť APK</string>
     <string name="home_app_info_cpu_arch">Architektúra CPU</string>
     <!-- Home Screen - Root Mode -->

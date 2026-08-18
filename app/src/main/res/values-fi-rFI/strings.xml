@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Sovellukset, joita et ole vielä paikannut Morphessa</string>
     <string name="home_app_filter_installed_description">Sovellukset, jotka on tällä hetkellä asennettu tähän laitteeseen</string>
     <string name="home_app_filter_uninstalled_description">Morphella muokatut sovellukset, joita ei ole enää tällä laitteella</string>
+    <string name="home_app_filter_clones">Kloonit</string>
+    <string name="home_app_filter_clones_description">Sovellukset, jotka on rakennettu oman pakettinimen alle ja asennettu alkuperäisen rinnalle</string>
     <string name="home_app_sort_manual_description">Paina sovellusta pitkään ja napauta sitten uudelleenjärjestä-painiketta</string>
     <string name="home_app_sort_recommended">Suositeltu järjestys</string>
     <string name="home_app_sort_recommended_description">Asennetut ja kiinnitetyt sovellukset ensin</string>
@@ -416,6 +418,7 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="patcher_rename_title">Tämä asentaa kloonin</string>
     <string name="patcher_rename_description">Laastarit rakensivat tämän sovelluksen omalla pakettinimellään, joten sen asentaminen lisää kloonin &lt;b&gt;%s&lt;/b&gt; rinnalle päivittämisen sijaan</string>
     <string name="patcher_rename_result_package">Asennetaan nimellä</string>
+    <string name="patcher_rename_replaces">Sovellus on jo asennettu tällä nimellä ja se korvataan</string>
     <string name="home_app_info_apk_size">APK:n koko</string>
     <string name="home_app_info_cpu_arch">Suorittimen arkkitehtuuri</string>
     <!-- Home Screen - Root Mode -->

@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Apps wat jy nog nie in Morphe gepatch het nie</string>
     <string name="home_app_filter_installed_description">Toepassings wat tans op hierdie toestel geïnstalleer is</string>
     <string name="home_app_filter_uninstalled_description">Toepassings wat met Morphe gepatch is en nie meer op hierdie toestel is nie</string>
+    <string name="home_app_filter_clones">Klone</string>
+    <string name="home_app_filter_clones_description">Toepassings wat onder \'n eie pakketnaam gebou is, langs die oorspronklike geïnstalleer</string>
     <string name="home_app_sort_manual_description">Druk lank op \'n program, en tik dan op die herordeneer knoppie</string>
     <string name="home_app_sort_recommended">Aanbevole volgorde</string>
     <string name="home_app_sort_recommended_description">Geïnstalleerde en vasgestelde programme eerste</string>
@@ -415,6 +417,7 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="patcher_rename_title">Dit sal \'n kloon installeer</string>
     <string name="patcher_rename_description">Die patches het hierdie app onder \'n eie pakketnaam gebou, so die installering daarvan voeg \'n kloon langs &lt;b&gt;%s&lt;/b&gt; by in plaas daarvan om dit op te dateer</string>
     <string name="patcher_rename_result_package">Sal installeer as</string>
+    <string name="patcher_rename_replaces">\'n Toepassing is reeds onder daardie naam geïnstalleer en sal vervang word</string>
     <string name="home_app_info_apk_size">APK-grootte</string>
     <string name="home_app_info_cpu_arch">Sentrale prosessorargitektuur</string>
     <!-- Home Screen - Root Mode -->

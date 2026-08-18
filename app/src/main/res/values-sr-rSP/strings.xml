@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Апликације које још нисте закрпили у Morphe-у</string>
     <string name="home_app_filter_installed_description">Апликације које су тренутно инсталиране на овом уређају</string>
     <string name="home_app_filter_uninstalled_description">Апликације закрпљене помоћу Morphe-а које више нису на овом уређају</string>
+    <string name="home_app_filter_clones">Клонови</string>
+    <string name="home_app_filter_clones_description">Апликације направљене под сопственим именом пакета, инсталиране уз оригинал</string>
     <string name="home_app_sort_manual_description">Притисните и задржите апликацију, затим додирните дугме за поредање</string>
     <string name="home_app_sort_recommended">Препоручени поредак</string>
     <string name="home_app_sort_recommended_description">Инсталиране и причвршћене апликације прво</string>
@@ -412,6 +414,7 @@
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Инсталирана је незакрпљена верзија ове апликације. Morphe и даље има свој претходни запис о закрпама</string>
+    <string name="patcher_rename_replaces">Апликација је већ инсталирана под тим именом и биће замењена</string>
     <string name="home_app_info_apk_size">Величина APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процесора</string>
     <!-- Home Screen - Root Mode -->

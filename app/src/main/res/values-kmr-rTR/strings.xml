@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Sepanên ku we hê di Morphe de pîne nekirine</string>
     <string name="home_app_filter_installed_description">Sepanên ku niha li ser vê cîhazê sazkirî ne</string>
     <string name="home_app_filter_uninstalled_description">Sepanên ku bi Morphe ve hatine patchkirin û êdî li ser vê cîhazê nînin</string>
+    <string name="home_app_filter_clones">Klon</string>
+    <string name="home_app_filter_clones_description">Serlêdanên ku bi navekî pakêtê yê taybet hatine çêkirin, li kêleka orîjînal têne sazkirin</string>
     <string name="home_app_sort_manual_description">Sepana dirêj bike, paşê bişîne ser butona rijandinê</string>
     <string name="home_app_sort_recommended">Rêza pêşniyarkirî</string>
     <string name="home_app_sort_recommended_description">Sepanên saz kirî û têxîkirî pêşî</string>
@@ -410,6 +412,10 @@ Herêma derveyî (qutkirî): dikare ji aliyê maskeya launcher'ê ve were qutkir
     <string name="home_app_info_app_deleted_warning">App hate laşkirin</string>
     <string name="home_app_info_app_deleted_description">Epp li derve ji Morphe hate laşkirin. Serpêş pêlavînê da serê ku serê bi sist ki.</string>
     <string name="home_app_info_not_patched_description">Versiyoneka ne-patchkirî ya vê aplikasyonê hatîn sazkirin. Morphe hîna tomarê patchê yê berê yê xweye</string>
+    <string name="patcher_rename_title">Ev ê klonek saz bike</string>
+    <string name="patcher_rename_description">Pêvajoya pêçanê ev sepan bi navê pakêta xwe çêkir, ji ber vê yekê sazkirina wê klonek li kêleka &lt;b&gt;%s&lt;/b&gt; zêde dike, li şûna ku wê nûve bike.</string>
+    <string name="patcher_rename_result_package">Dê wek saz bibe</string>
+    <string name="patcher_rename_replaces">Serlêdanek bi wî navî jixwe hatiye sazkirin û dê were guherandin</string>
     <string name="home_app_info_apk_size">Mezinahiya APK\'yê</string>
     <string name="home_app_info_cpu_arch">mîmarîya CPU</string>
     <!-- Home Screen - Root Mode -->

@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Forrit sem þú hefur ekki ennþá plástrað í Morphe</string>
     <string name="home_app_filter_installed_description">Forrit sem nú eru uppsett á þessu tæki</string>
     <string name="home_app_filter_uninstalled_description">Forrit sem voru plástruð með Morphe en eru ekki lengur á þessu tæki</string>
+    <string name="home_app_filter_clones">Klónar</string>
+    <string name="home_app_filter_clones_description">Forrit byggð undir eigin pakkanafni, sett upp við hlið upprunalegs forrits</string>
     <string name="home_app_sort_manual_description">Langt ýta á forrit, þá smelltu á endurraða hnappinn</string>
     <string name="home_app_sort_recommended">Rækt ráðlagður röð</string>
     <string name="home_app_sort_recommended_description">Uppsett og fest forrit fyrst</string>
@@ -410,6 +412,10 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_app_deleted_warning">App var afhent</string>
     <string name="home_app_info_app_deleted_description">Þetta app var afhent utan Morphe. Endurpakkalaðu það til að endurheimta virkni</string>
     <string name="home_app_info_not_patched_description">Óplötuð útgáfa af þessu forriti er uppsett. Morphe hefur enn fyrri plástursskrá sína</string>
+    <string name="patcher_rename_title">Þetta mun setja upp klón</string>
+    <string name="patcher_rename_description">Plástrarnir byggðu þetta forrit undir pakkanafni sínu, svo að uppsetning þess bætir við klóni við hliðina á <b>%s</b> í stað þess að uppfæra það</string>
+    <string name="patcher_rename_result_package">Mun setja upp sem</string>
+    <string name="patcher_rename_replaces">Forrit er þegar sett upp undir þessu nafni og verður skipt út</string>
     <string name="home_app_info_apk_size">APK stærð</string>
     <string name="home_app_info_cpu_arch">CPU arkitektúr</string>
     <!-- Home Screen - Root Mode -->

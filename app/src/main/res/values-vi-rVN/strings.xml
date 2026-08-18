@@ -412,6 +412,10 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="home_app_info_app_deleted_warning">Ứng dụng đã bị gỡ cài đặt</string>
     <string name="home_app_info_app_deleted_description">Ứng dụng này đã bị gỡ bên ngoài Morphe. Hãy vá lại để khôi phục chức năng</string>
     <string name="home_app_info_not_patched_description">Một phiên bản chưa được vá của ứng dụng này đã được cài đặt. Morphe vẫn còn lưu bản ghi vá trước đó.</string>
+    <string name="patcher_rename_title">Điều này sẽ cài đặt một bản sao</string>
+    <string name="patcher_rename_description">Các bản vá đã xây dựng ứng dụng này dưới một tên gói riêng của chúng, vì vậy việc cài đặt nó sẽ thêm một bản sao bên cạnh <b>%s</b> thay vì cập nhật nó</string>
+    <string name="patcher_rename_result_package">Sẽ cài đặt dưới tên</string>
+    <string name="patcher_rename_replaces">Một ứng dụng đã được cài đặt với tên đó và sẽ được thay thế</string>
     <string name="home_app_info_apk_size">Kích thước APK</string>
     <string name="home_app_info_cpu_arch">Kiến trúc CPU</string>
     <!-- Home Screen - Root Mode -->

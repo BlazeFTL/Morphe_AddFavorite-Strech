@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aipeanna nár phaisteáil tú i Morphe go fóill</string>
     <string name="home_app_filter_installed_description">Aipeanna atá suiteáilte ar an ngléas seo faoi láthair</string>
     <string name="home_app_filter_uninstalled_description">Aipeanna atá paisteáilte le Morphe nach bhfuil ar an ngléas seo a thuilleadh</string>
+    <string name="home_app_filter_clones">Clónanna</string>
+    <string name="home_app_filter_clones_description">Aipeanna tógtha faoi ainm pacáiste dá gcuid féin, suiteáilte taobh leis an mbunleagan.</string>
     <string name="home_app_sort_manual_description">Brúigh go fada ar aip, ansin tapáil an cnaipe athordaithe</string>
     <string name="home_app_sort_recommended">Ordú molta</string>
     <string name="home_app_sort_recommended_description">Aipeanna suiteáilte agus bioráilte ar dtús</string>
@@ -412,7 +414,10 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_app_deleted_warning">Díshuiteáladh an aip</string>
     <string name="home_app_info_app_deleted_description">Díshuiteáladh an aip seo lasmuigh de Morphe. Athphaisteáil í chun feidhmiúlacht a athbhunú.</string>
     <string name="home_app_info_not_patched_description">Tá leagan neamhphaiste den aip seo suiteáilte. Tá taifead paiste roimhe seo Morphe fós.</string>
+    <string name="patcher_rename_title">Suiteálfaidh sé seo clón</string>
+    <string name="patcher_rename_description">Thóg na paistí an aip seo faoi ainm pacáiste dá gcuid féin, mar sin suiteáiltear clón taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú.</string>
     <string name="patcher_rename_result_package">Suiteálfar mar</string>
+    <string name="patcher_rename_replaces">Tá aip suiteáilte cheana faoin ainm sin agus cuirfear ina áit í.</string>
     <string name="home_app_info_apk_size">Méid APK</string>
     <string name="home_app_info_cpu_arch">Ailtireacht LAP</string>
     <!-- Home Screen - Root Mode -->

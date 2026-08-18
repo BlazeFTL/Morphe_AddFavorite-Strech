@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplicaciones que aún no has parcheado en Morphe</string>
     <string name="home_app_filter_installed_description">Aplicaciones instaladas actualmente en este dispositivo</string>
     <string name="home_app_filter_uninstalled_description">Aplicaciones parcheadas con Morphe que ya no están en este dispositivo</string>
+    <string name="home_app_filter_clones">Clones</string>
+    <string name="home_app_filter_clones_description">Aplicaciones compiladas con un nombre de paquete propio, instaladas junto a la original</string>
     <string name="home_app_sort_manual_description">Mantén pulsada una aplicación, luego pulsa el botón de reordenar</string>
     <string name="home_app_sort_recommended">Orden recomendado</string>
     <string name="home_app_sort_recommended_description">Aplicaciones instaladas y fijadas primero</string>
@@ -412,6 +414,10 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="home_app_info_app_deleted_warning">La aplicación fue desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicación fue desinstalada fuera de Morphe. Vuelve a parchearla para restaurar su funcionalidad</string>
     <string name="home_app_info_not_patched_description">Una versión sin parchear de esta aplicación está instalada. Morphe aún conserva su registro de parches anterior</string>
+    <string name="patcher_rename_title">Esto instalará un clon</string>
+    <string name="patcher_rename_description">Los parches han compilado esta aplicación con un nombre de paquete propio, por lo que al instalarla se añade un clon junto a &lt;b&gt;%s&lt;/b&gt; en lugar de actualizarla</string>
+    <string name="patcher_rename_result_package">Se instalará como</string>
+    <string name="patcher_rename_replaces">Ya hay una aplicación instalada con ese nombre y será reemplazada</string>
     <string name="home_app_info_apk_size">Tamaño del APK</string>
     <string name="home_app_info_cpu_arch">Arquitectura de la CPU</string>
     <!-- Home Screen - Root Mode -->

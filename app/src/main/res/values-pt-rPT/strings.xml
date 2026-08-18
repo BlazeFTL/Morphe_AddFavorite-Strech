@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Apps que você ainda não modificou no Morphe</string>
     <string name="home_app_filter_installed_description">Aplicações atualmente instaladas neste dispositivo</string>
     <string name="home_app_filter_uninstalled_description">Aplicações corrigidas com Morphe que já não estão neste dispositivo</string>
+    <string name="home_app_filter_clones">Clones</string>
+    <string name="home_app_filter_clones_description">Aplicativos criados com um nome de pacote próprio, instalados juntamente com o original</string>
     <string name="home_app_sort_manual_description">Pressione e segure um aplicativo, depois toque no botão de reordenar</string>
     <string name="home_app_sort_recommended">Ordem recomendada</string>
     <string name="home_app_sort_recommended_description">Aplicativos instalados e fixados primeiro</string>
@@ -412,6 +414,7 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="home_app_info_app_deleted_warning">A aplicação foi desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicação foi desinstalada fora do Morphe. Modifica-a de novo para restaurar as funcionalidades</string>
     <string name="home_app_info_not_patched_description">Uma versão não corrigida deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
+    <string name="patcher_rename_replaces">Um aplicativo já está instalado com esse nome e será substituído</string>
     <string name="home_app_info_apk_size">Tamanho do APK</string>
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->

@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">你尚未在 Morphe 中修补的应用</string>
     <string name="home_app_filter_installed_description">此设备上当前安装的应用</string>
     <string name="home_app_filter_uninstalled_description">使用 Morphe 修补过且已不在本设备上的应用</string>
+    <string name="home_app_filter_clones">克隆应用</string>
+    <string name="home_app_filter_clones_description">以自有包名构建，与原始应用一起安装的应用</string>
     <string name="home_app_sort_manual_description">长按一个应用，然后点击重新排序按钮</string>
     <string name="home_app_sort_recommended">推荐顺序</string>
     <string name="home_app_sort_recommended_description">优先显示已安装和固定应用</string>
@@ -413,6 +415,7 @@
     <string name="home_app_info_app_deleted_warning">应用已卸载</string>
     <string name="home_app_info_app_deleted_description">此应用已在 Morphe 外卸载。重新安装以恢复功能</string>
     <string name="home_app_info_not_patched_description">此应用安装的是未修补版本。Morphe仍保留其先前的补丁记录。</string>
+    <string name="patcher_rename_replaces">已安装同名应用，该应用将被替换</string>
     <string name="home_app_info_apk_size">APK大小</string>
     <string name="home_app_info_cpu_arch">CPU 架构</string>
     <!-- Home Screen - Root Mode -->

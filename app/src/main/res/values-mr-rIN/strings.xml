@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">तुम्ही Morphe मध्ये अद्याप पॅच न केलेले अॅप्स</string>
     <string name="home_app_filter_installed_description">या डिव्हाइसवर सध्या इंस्टॉल केलेले ॲप्स</string>
     <string name="home_app_filter_uninstalled_description">Morphe वापरून पॅच केलेले आणि या डिव्हाइसवर यापुढे नसलेले ॲप्स</string>
+    <string name="home_app_filter_clones">क्लोन्स</string>
+    <string name="home_app_filter_clones_description">मूळ अॅपसोबत स्थापित, स्वतःच्या पॅकेज नावाखाली तयार केलेली अॅप्स</string>
     <string name="home_app_sort_manual_description">एका ॲपला लांब दाबा, मग पुन्हा क्रमवारी लावा बटणावर टॅप करा</string>
     <string name="home_app_sort_recommended">सुचवलेला क्रम</string>
     <string name="home_app_sort_recommended_description">इंस्टॉल केलेले आणि पिन केलेले ॲप्स प्रथम</string>
@@ -411,6 +413,7 @@
     <string name="home_app_info_app_deleted_warning">ॲप अनइंस्टॉल केले होते</string>
     <string name="home_app_info_app_deleted_description">हे ॲप Morphe बाहेर अनइंस्टॉल केले गेले होते. कार्यक्षमता पुनर्संचयित करण्यासाठी ते पुन्हा पॅच करा</string>
     <string name="home_app_info_not_patched_description">या अॅपची अनपॅच केलेली आवृत्ती स्थापित आहे. Morphe कडे अजूनही त्याचा मागील पॅच रेकॉर्ड आहे.</string>
+    <string name="patcher_rename_replaces">त्या नावाखाली एक अॅप आधीच स्थापित आहे आणि तो बदलला जाईल</string>
     <string name="home_app_info_apk_size">APK आकार</string>
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->

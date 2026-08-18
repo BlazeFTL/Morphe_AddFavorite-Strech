@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Apps, die du noch nicht in Morphe gepatcht hast</string>
     <string name="home_app_filter_installed_description">Apps, die derzeit auf diesem Gerät installiert sind</string>
     <string name="home_app_filter_uninstalled_description">Apps, die mit Morphe gepatcht wurden und nicht mehr auf diesem Gerät vorhanden sind</string>
+    <string name="home_app_filter_clones">Klone</string>
+    <string name="home_app_filter_clones_description">Apps, die unter einem eigenen Paketnamen erstellt und neben der Original-App installiert werden</string>
     <string name="home_app_sort_manual_description">Halte eine App lange gedrückt und tippe dann auf die Schaltfläche zum Sortieren</string>
     <string name="home_app_sort_recommended">Empfohlene Reihenfolge</string>
     <string name="home_app_sort_recommended_description">Installierte und angeheftete Apps zuerst</string>
@@ -412,6 +414,10 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_app_info_app_deleted_warning">App wurde deinstalliert</string>
     <string name="home_app_info_app_deleted_description">Diese App wurde außerhalb von Morphe deinstalliert. Repatchen Sie sie, um die Funktionalität wiederherzustellen</string>
     <string name="home_app_info_not_patched_description">Eine ungepatchte Version dieser App ist installiert. Morphe hat immer noch seinen vorherigen Patch-Datensatz</string>
+    <string name="patcher_rename_title">Dies installiert einen Klon</string>
+    <string name="patcher_rename_description">Die Patches haben diese App unter einem eigenen Paketnamen erstellt, daher fügt die Installation einen Klon neben &lt;b&gt;%s&lt;/b&gt; hinzu, anstatt es zu aktualisieren</string>
+    <string name="patcher_rename_result_package">Wird installiert als</string>
+    <string name="patcher_rename_replaces">Eine App ist bereits unter diesem Namen installiert und wird ersetzt</string>
     <string name="home_app_info_apk_size">APK-Größe</string>
     <string name="home_app_info_cpu_arch">CPU-Architektur</string>
     <!-- Home Screen - Root Mode -->

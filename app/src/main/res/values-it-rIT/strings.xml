@@ -46,6 +46,8 @@ Nessuna patch disponibile</string>
     <string name="home_app_filter_not_patched_description">App che non hai ancora patchato in Morphe</string>
     <string name="home_app_filter_installed_description">App attualmente installate su questo dispositivo</string>
     <string name="home_app_filter_uninstalled_description">App patchate con Morphe che non sono più presenti su questo dispositivo</string>
+    <string name="home_app_filter_clones">Cloni</string>
+    <string name="home_app_filter_clones_description">App create con un nome pacchetto proprio, installate accanto all\'originale</string>
     <string name="home_app_sort_manual_description">Tieni premuta un\'app, quindi tocca il pulsante di riordino</string>
     <string name="home_app_sort_recommended">Ordine consigliato</string>
     <string name="home_app_sort_recommended_description">App installate e fissate per prime</string>
@@ -413,6 +415,10 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="home_app_info_app_deleted_warning">L\'app è stata disinstallata</string>
     <string name="home_app_info_app_deleted_description">Questa app è stata disinstallata al di fuori di Morphe. Ripatchala per ripristinare la funzionalità</string>
     <string name="home_app_info_not_patched_description">Una versione non patchata di questa app è installata. Morphe ha ancora il suo record di patch precedente</string>
+    <string name="patcher_rename_title">Questo installerà un clone</string>
+    <string name="patcher_rename_description">Le patch hanno compilato questa app con un nome del pacchetto proprio, quindi installarla aggiunge un clone accanto a &lt;b&gt;%s&lt;/b&gt; invece di aggiornarla</string>
+    <string name="patcher_rename_result_package">Verrà installato come</string>
+    <string name="patcher_rename_replaces">Un\'app è già installata con quel nome e verrà sostituita</string>
     <string name="home_app_info_apk_size">Dimensione APK</string>
     <string name="home_app_info_cpu_arch">Architettura CPU</string>
     <!-- Home Screen - Root Mode -->

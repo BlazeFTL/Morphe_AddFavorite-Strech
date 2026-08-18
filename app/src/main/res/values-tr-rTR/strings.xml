@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Morphe\'de henüz yamalamadığınız uygulamalar</string>
     <string name="home_app_filter_installed_description">Bu cihazda şu anda yüklü olan uygulamalar</string>
     <string name="home_app_filter_uninstalled_description">Morphe ile yamalanmış ve bu cihazda artık bulunmayan uygulamalar</string>
+    <string name="home_app_filter_clones">Klonlar</string>
+    <string name="home_app_filter_clones_description">Kendi paket adıyla oluşturulan ve orijinalin yanına kurulan uygulamalar</string>
     <string name="home_app_sort_manual_description">Bir uygulamaya uzun basın, ardından yeniden sıralama düğmesine dokunun</string>
     <string name="home_app_sort_recommended">Önerilen sıra</string>
     <string name="home_app_sort_recommended_description">Önce yüklenen ve sabitlenen uygulamalar</string>
@@ -412,6 +414,10 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="home_app_info_app_deleted_warning">Uygulama kaldırıldı</string>
     <string name="home_app_info_app_deleted_description">Bu uygulama Morphe dışından kaldırıldı. İşlevselliği geri getirmek için yeniden yamalayın</string>
     <string name="home_app_info_not_patched_description">Bu uygulamanın yamalanmamış bir sürümü yüklü. Morphe hâlâ önceki yama kaydına sahiptir</string>
+    <string name="patcher_rename_title">Bu bir klon yükleyecek</string>
+    <string name="patcher_rename_description">Yamalar bu uygulamayı kendi paket adlarıyla oluşturdu, bu yüzden yüklemek, onu güncellemek yerine &lt;b&gt;%s&lt;/b&gt; yanına bir klon ekler</string>
+    <string name="patcher_rename_result_package">Olarak yüklenecek</string>
+    <string name="patcher_rename_replaces">Bu adla zaten yüklü bir uygulama var ve değiştirilecek</string>
     <string name="home_app_info_apk_size">APK boyutu</string>
     <string name="home_app_info_cpu_arch">CPU mimarisi</string>
     <!-- Home Screen - Root Mode -->

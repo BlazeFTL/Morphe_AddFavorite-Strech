@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplicativos em que você ainda não aplicou patch no Morphe</string>
     <string name="home_app_filter_installed_description">Aplicativos atualmente instalados neste dispositivo</string>
     <string name="home_app_filter_uninstalled_description">Aplicativos com patch do Morphe que não estão mais neste dispositivo</string>
+    <string name="home_app_filter_clones">Clones</string>
+    <string name="home_app_filter_clones_description">Aplicativos criados com um nome de pacote próprio, instalados ao lado do original.</string>
     <string name="home_app_sort_manual_description">Pressione e segure um aplicativo, depois toque no botão de reordenar</string>
     <string name="home_app_sort_recommended">Ordem recomendada</string>
     <string name="home_app_sort_recommended_description">Aplicativos instalados e fixados primeiro</string>
@@ -412,6 +414,10 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="home_app_info_app_deleted_warning">Aplicaitvo desinstalado</string>
     <string name="home_app_info_app_deleted_description">Esse aplicativo foi desinstalado fora do Morphe. Refaça os patches para restaurar a funcionalidade</string>
     <string name="home_app_info_not_patched_description">Uma versão não patcheada deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
+    <string name="patcher_rename_title">Isso instalará um clone</string>
+    <string name="patcher_rename_description">Os patches criaram este aplicativo com um nome de pacote próprio, então instalá-lo adiciona um clone ao lado de &lt;b&gt;%s&lt;/b&gt; em vez de atualizá-lo</string>
+    <string name="patcher_rename_result_package">Será instalado como</string>
+    <string name="patcher_rename_replaces">Um aplicativo já está instalado com esse nome e será substituído.</string>
     <string name="home_app_info_apk_size">Tamanho do APK</string>
     <string name="home_app_info_cpu_arch">Arquitetura da CPU</string>
     <!-- Home Screen - Root Mode -->

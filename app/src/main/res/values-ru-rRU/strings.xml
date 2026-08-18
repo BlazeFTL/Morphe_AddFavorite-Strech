@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Приложения, которые вы ещё не пропатчили в Morphe</string>
     <string name="home_app_filter_installed_description">Приложения, установленные на этом устройстве</string>
     <string name="home_app_filter_uninstalled_description">Приложения, пропатченные с помощью Morphe, которых больше нет на этом устройстве</string>
+    <string name="home_app_filter_clones">Клоны</string>
+    <string name="home_app_filter_clones_description">Приложения, собранные под собственным именем пакета, установленные вместе с оригиналом</string>
     <string name="home_app_sort_manual_description">Нажмите и удерживайте значок приложения, затем нажмите кнопку изменения порядка</string>
     <string name="home_app_sort_recommended">Рекомендуемый порядок</string>
     <string name="home_app_sort_recommended_description">Сначала установленные и закреплённые приложения</string>
@@ -412,6 +414,10 @@
     <string name="home_app_info_app_deleted_warning">Приложение было удалено.</string>
     <string name="home_app_info_app_deleted_description">Это приложение было удалено вне устройства Morphe. Переустановите его, чтобы восстановить работоспособность.</string>
     <string name="home_app_info_not_patched_description">Установлена непатченная версия этого приложения. Morphe по-прежнему имеет свою предыдущую запись о патче.</string>
+    <string name="patcher_rename_title">Это установит клон</string>
+    <string name="patcher_rename_description">Патчи собрали это приложение под собственным именем пакета, поэтому его установка добавит клон рядом с <b>%s</b> вместо обновления</string>
+    <string name="patcher_rename_result_package">Будет установлено как</string>
+    <string name="patcher_rename_replaces">Приложение уже установлено под этим именем и будет заменено</string>
     <string name="home_app_info_apk_size">Размер APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процессора</string>
     <!-- Home Screen - Root Mode -->

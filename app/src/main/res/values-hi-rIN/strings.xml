@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">वे ऐप जिन्हें आपने अभी तक Morphe में पैच नहीं किया है</string>
     <string name="home_app_filter_installed_description">इस डिवाइस पर वर्तमान में इंस्टॉल किए गए ऐप्स</string>
     <string name="home_app_filter_uninstalled_description">Morphe से पैच किए गए ऐप्स जो अब इस डिवाइस पर नहीं हैं</string>
+    <string name="home_app_filter_clones">क्लोन</string>
+    <string name="home_app_filter_clones_description">अपने स्वयं के पैकेज नाम के तहत बनाए गए ऐप्स, मूल ऐप के साथ इंस्टॉल किए गए</string>
     <string name="home_app_sort_manual_description">किसी ऐप को देर तक दबाएं, फिर पुन: व्यवस्थित करें बटन पर टैप करें</string>
     <string name="home_app_sort_recommended">अनुशंसित क्रम</string>
     <string name="home_app_sort_recommended_description">स्थापित और पिन किए गए ऐप्स पहले</string>
@@ -412,6 +414,10 @@
     <string name="home_app_info_app_deleted_warning">एप्लिकेशन उन्मोदन किया गया</string>
     <string name="home_app_info_app_deleted_description">इस ऐप को बाहर से उन्मोदन किया गया था। मॉर्फी में पुनः स्थापित करें कार्यक्षमता पुनः प्राप्त करने के लिए</string>
     <string name="home_app_info_not_patched_description">इस ऐप का एक अनपैच्ड संस्करण स्थापित है। Morphe के पास अभी भी उसका पिछला पैच रिकॉर्ड है</string>
+    <string name="patcher_rename_title">यह एक क्लोन स्थापित करेगा</string>
+    <string name="patcher_rename_description">पैच ने इस ऐप को अपने पैकेज नाम के साथ बनाया है, इसलिए इसे इंस्टॉल करने पर &lt;b&gt;%s&lt;/b&gt; के साथ एक क्लोन जुड़ जाता है, बजाय इसे अपडेट करने के।</string>
+    <string name="patcher_rename_result_package">इस रूप में इंस्टॉल होगा</string>
+    <string name="patcher_rename_replaces">उस नाम से एक ऐप पहले से इंस्टॉल है और उसे बदल दिया जाएगा</string>
     <string name="home_app_info_apk_size">APK आकार</string>
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->

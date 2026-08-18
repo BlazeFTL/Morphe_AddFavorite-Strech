@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Приложения, които все още не сте патчвали в Morphe</string>
     <string name="home_app_filter_installed_description">Приложения, инсталирани в момента на това устройство</string>
     <string name="home_app_filter_uninstalled_description">Приложения, пачвани с Morphe, които вече не са на това устройство</string>
+    <string name="home_app_filter_clones">Клонинги</string>
+    <string name="home_app_filter_clones_description">Приложения, създадени под собствено име на пакета, инсталирани заедно с оригинала</string>
     <string name="home_app_sort_manual_description">Натиснете и задръжте приложение, след което докоснете бутона за пренареждане</string>
     <string name="home_app_sort_recommended">Препоръчителен ред</string>
     <string name="home_app_sort_recommended_description">Инсталирани и закрепени приложения първо</string>
@@ -416,6 +418,7 @@
     <string name="patcher_rename_title">Това ще инсталира клонинг</string>
     <string name="patcher_rename_description">Пачовете изградиха това приложение под собствено име на пакет, така че инсталирането му добавя клонинг до &lt;b&gt;%s&lt;/b&gt;, вместо да го актуализира</string>
     <string name="patcher_rename_result_package">Ще се инсталира като</string>
+    <string name="patcher_rename_replaces">Приложение с това име вече е инсталирано и ще бъде заменено</string>
     <string name="home_app_info_apk_size">Размер на APK</string>
     <string name="home_app_info_cpu_arch">CPU архитектура</string>
     <!-- Home Screen - Root Mode -->

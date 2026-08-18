@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">您尚未在 Morphe 中修補的應用程式</string>
     <string name="home_app_filter_installed_description">目前安裝在此裝置上的應用程式</string>
     <string name="home_app_filter_uninstalled_description">已使用 Morphe 修補但已不在這部裝置上的應用程式</string>
+    <string name="home_app_filter_clones">克隆</string>
+    <string name="home_app_filter_clones_description">使用自己的套件名稱建置，並與原始應用程式一同安裝的應用程式</string>
     <string name="home_app_sort_manual_description">長按應用程式，然後點選重新排序按鈕</string>
     <string name="home_app_sort_recommended">推薦順序</string>
     <string name="home_app_sort_recommended_description">優先顯示已安裝和固定應用程式</string>
@@ -415,6 +417,7 @@
     <string name="patcher_rename_title">這將安裝一個克隆應用程式</string>
     <string name="patcher_rename_description">這些修補程式是以它們自己的套件名稱來建置此應用程式，因此安裝它會在&lt;b&gt;%s&lt;/b&gt;旁新增一個克隆，而不是更新它</string>
     <string name="patcher_rename_result_package">將安裝為</string>
+    <string name="patcher_rename_replaces">已安裝同名應用程式，將被取代</string>
     <string name="home_app_info_apk_size">APK 大小</string>
     <string name="home_app_info_cpu_arch">CPU 架构</string>
     <!-- Home Screen - Root Mode -->

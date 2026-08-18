@@ -6,13 +6,17 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -20,10 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.shared.HeroInfoCard
 import app.morphe.manager.ui.screen.shared.Animations
-import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.AppDialogTextField
+import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.HeroInfoCard
 
 /**
  * Header card shown at the top of patches-list dialogs.
@@ -68,6 +72,57 @@ internal fun PatchesListHeaderCard(
             )
         }
     }
+}
+
+/**
+ * Collapsible section header for the universal patches of one bundle.
+ *
+ * A null [onToggle] drops the chevron and the click, for the cases where the section has
+ * nothing left to fold away.
+ */
+@Composable
+internal fun UniversalPatchesHeader(
+    count: Int,
+    isExpanded: Boolean,
+    onToggle: (() -> Unit)?,
+    modifier: Modifier = Modifier
+) {
+    // One chevron that turns, so the fold reads as the same control in both states
+    val chevronRotation by animateFloatAsState(
+        targetValue = if (isExpanded) 180f else 0f,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "universal_patches_chevron"
+    )
+
+    HomeGlassCategoryRow(
+        title = stringResource(R.string.expert_mode_universal_patches),
+        count = pluralStringResource(R.plurals.patch_count, count, count),
+        onClick = onToggle,
+        leading = {
+            Icon(
+                imageVector = Icons.Outlined.Public,
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        },
+        trailing = {
+            if (onToggle != null) {
+                Icon(
+                    imageVector = Icons.Outlined.ExpandMore,
+                    contentDescription = stringResource(
+                        if (isExpanded) R.string.collapse else R.string.expand
+                    ),
+                    modifier = Modifier
+                        .size(24.dp)
+                        .graphicsLayer { rotationZ = chevronRotation },
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        },
+        cornerRadius = Defaults.SettingsCornerRadius,
+        modifier = modifier
+    )
 }
 
 /**

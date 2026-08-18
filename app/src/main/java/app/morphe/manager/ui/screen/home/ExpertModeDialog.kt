@@ -6,14 +6,15 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.AutoFixHigh
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.SearchOff
+import androidx.compose.material.icons.outlined.Source
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
@@ -102,6 +103,17 @@ fun ExpertModeDialog(
                     if (hasMissing) add(patch.name)
                 }
             }
+        }
+    }
+
+    // Universal sections fold per bundle. The state lives here because "enable all" opens the
+    // section on the tap that finally reaches the universal patches
+    val expandedUniversal = remember { mutableStateOf(emptySet<Int>()) }
+    fun setUniversalExpanded(bundleUid: Int, expanded: Boolean) {
+        expandedUniversal.value = if (expanded) {
+            expandedUniversal.value + bundleUid
+        } else {
+            expandedUniversal.value - bundleUid
         }
     }
 
@@ -209,11 +221,16 @@ fun ExpertModeDialog(
                     )
                 }
 
+                val holdsUniversal = holdsUniversalPatches(bundle.uid, displayPatches)
                 BundlePatchControls(
                     enabledCount = enabledCount,
                     totalCount = totalCount,
-                    holdsUniversalPatches = holdsUniversalPatches(bundle.uid, displayPatches),
-                    onSelectAll = { patchActions.onSelectAll(bundle.uid, displayPatches) },
+                    holdsUniversalPatches = holdsUniversal,
+                    onSelectAll = {
+                        // This tap enables the universal patches, so it has to show what it turned on
+                        if (!holdsUniversal) setUniversalExpanded(bundle.uid, true)
+                        patchActions.onSelectAll(bundle.uid, displayPatches)
+                    },
                     onDeselectAll = { patchActions.onDeselectAll(bundle.uid, displayPatches) },
                     onResetToDefault = { patchActions.onResetToDefault(bundle.uid) },
                     onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
@@ -229,20 +246,27 @@ fun ExpertModeDialog(
                         modifier = Modifier.weight(1f)
                     )
                 } else {
-                    val singleBundleScroll = rememberScrollState()
+                    val singleBundleList = rememberLazyListState()
+                    val sections = rememberPatchSections(
+                        patches = filteredPatches,
+                        newPatchNames = newPatches[bundle.uid] ?: emptySet()
+                    )
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .verticalScroll(singleBundleScroll),
+                        LazyColumn(
+                            state = singleBundleList,
+                            modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                         ) {
-                            PatchListWithUniversalSection(
-                                patches = filteredPatches,
+                            patchSections(
+                                bundleUid = bundle.uid,
+                                sections = sections,
+                                isSearching = search.query.isNotBlank(),
+                                isUniversalExpanded = bundle.uid in expandedUniversal.value,
+                                onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
                                 newPatchNames = newPatches[bundle.uid] ?: emptySet(),
                                 missingRequiredOptions = patchesWithMissingRequired,
                                 lockStateOf = lockStateOf,
@@ -254,12 +278,12 @@ fun ExpertModeDialog(
                         }
 
                         ListScrollbar(
-                            scrollState = singleBundleScroll,
+                            listState = singleBundleList,
                             modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                         )
 
                         ScrollToTopButton(
-                            scrollState = singleBundleScroll,
+                            listState = singleBundleList,
                             modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                         )
                     }
@@ -272,14 +296,18 @@ fun ExpertModeDialog(
                 // whichever page is current. HorizontalPager clips each page to its own bounds, so
                 // a scrollbar drawn inside a page can never bleed out to the true dialog edge.
                 // Keyed on the bundle count so pages never inherit a stale sibling's position
-                val pageScrollStates = rememberSaveable(
+                val pageListStates = rememberSaveable(
                     allPatchesInfo.size,
                     saver = listSaver(
-                        save = { states -> states.map { it.value } },
-                        restore = { offsets -> offsets.map { ScrollState(it) } }
+                        save = { states ->
+                            states.flatMap { listOf(it.firstVisibleItemIndex, it.firstVisibleItemScrollOffset) }
+                        },
+                        restore = { saved ->
+                            saved.chunked(2).map { (index, offset) -> LazyListState(index, offset) }
+                        }
                     )
                 ) {
-                    List(allPatchesInfo.size) { ScrollState(0) }
+                    List(allPatchesInfo.size) { LazyListState() }
                 }
 
                 Column(
@@ -345,11 +373,16 @@ fun ExpertModeDialog(
                     val currentFiltered = filteredPatchesInfo.firstOrNull { it.first.uid == currentBundle.uid }?.second
 
                     if (currentFiltered != null) {
+                        val holdsUniversal = holdsUniversalPatches(currentBundle.uid, currentFiltered)
                         BundlePatchControls(
                             enabledCount = currentFiltered.count { it.second },
                             totalCount = currentFiltered.size,
-                            holdsUniversalPatches = holdsUniversalPatches(currentBundle.uid, currentFiltered),
-                            onSelectAll = { patchActions.onSelectAll(currentBundle.uid, currentFiltered) },
+                            holdsUniversalPatches = holdsUniversal,
+                            onSelectAll = {
+                                // This tap enables the universal patches, so it has to show what it turned on
+                                if (!holdsUniversal) setUniversalExpanded(currentBundle.uid, true)
+                                patchActions.onSelectAll(currentBundle.uid, currentFiltered)
+                            },
                             onDeselectAll = { patchActions.onDeselectAll(currentBundle.uid, currentFiltered) },
                             onResetToDefault = { patchActions.onResetToDefault(currentBundle.uid) },
                             onRestoreSaved = { patchActions.onRestoreSaved(currentBundle.uid) },
@@ -383,15 +416,21 @@ fun ExpertModeDialog(
                                     modifier = Modifier.fillMaxHeight()
                                 )
                             } else {
-                                val pageScroll = pageScrollStates[pageIndex]
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .verticalScroll(pageScroll),
+                                val sections = rememberPatchSections(
+                                    patches = patches,
+                                    newPatchNames = newPatches[bundle.uid] ?: emptySet()
+                                )
+                                LazyColumn(
+                                    state = pageListStates[pageIndex],
+                                    modifier = Modifier.fillMaxSize(),
                                     verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                                 ) {
-                                    PatchListWithUniversalSection(
-                                        patches = patches,
+                                    patchSections(
+                                        bundleUid = bundle.uid,
+                                        sections = sections,
+                                        isSearching = search.query.isNotBlank(),
+                                        isUniversalExpanded = bundle.uid in expandedUniversal.value,
+                                        onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
                                         newPatchNames = newPatches[bundle.uid] ?: emptySet(),
                                         missingRequiredOptions = patchesWithMissingRequired,
                                         lockStateOf = lockStateOf,
@@ -408,17 +447,17 @@ fun ExpertModeDialog(
                         // instead of one per page - a page-local scrollbar would be clipped by the
                         // pager before it could reach the true dialog edge. Pages filtered down to
                         // an empty state have nothing to scroll, so they get no overlay
-                        val currentPageScroll = allPatchesInfo.getOrNull(pagerState.currentPage)
+                        val currentPageList = allPatchesInfo.getOrNull(pagerState.currentPage)
                             ?.takeIf { (bundle, _) -> filteredPatchesInfo.any { it.first.uid == bundle.uid } }
-                            ?.let { pageScrollStates.getOrNull(pagerState.currentPage) }
-                        if (currentPageScroll != null) {
+                            ?.let { pageListStates.getOrNull(pagerState.currentPage) }
+                        if (currentPageList != null) {
                             ListScrollbar(
-                                scrollState = currentPageScroll,
+                                listState = currentPageList,
                                 modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                             )
 
                             ScrollToTopButton(
-                                scrollState = currentPageScroll,
+                                listState = currentPageList,
                                 modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                             )
                         }
@@ -485,38 +524,53 @@ fun ExpertModeDialog(
     }
 }
 
+/** One bundle's patches, split into the ones written for this app and the universal ones. */
+@Immutable
+private data class PatchSections(
+    val specific: List<Pair<PatchInfo, Boolean>>,
+    val universal: List<Pair<PatchInfo, Boolean>>
+)
+
 /**
- * Renders a patch list split into regular patches and a "Universal patches" section at the bottom.
- * Universal patches are those with no compatible packages defined.
+ * Splits and orders one bundle's patches for display. New patches float to the top of each
+ * group; within a group the order is alphabetical.
  */
 @Composable
-private fun PatchListWithUniversalSection(
+private fun rememberPatchSections(
     patches: List<Pair<PatchInfo, Boolean>>,
-    newPatchNames: Set<String> = emptySet(),
-    missingRequiredOptions: Set<String> = emptySet(),
-    lockStateOf: (PatchInfo) -> PatchLockState = { PatchLockState.NONE },
+    newPatchNames: Set<String>
+): PatchSections = remember(patches, newPatchNames) {
+    val displayOrder = compareByDescending<Pair<PatchInfo, Boolean>> { (patch, _) ->
+        patch.name in newPatchNames
+    }.thenBy { (patch, _) -> patch.name }
+
+    val (universal, specific) = patches.partition { (patch, _) -> patch.isUniversal }
+    PatchSections(
+        specific = specific.sortedWith(displayOrder),
+        universal = universal.sortedWith(displayOrder)
+    )
+}
+
+/**
+ * Rows for one bundle: the patches written for this app first, then the universal ones behind a
+ * collapsible header. Every row animates its own placement, so search results and the fold
+ * settle instead of jumping.
+ */
+private fun LazyListScope.patchSections(
+    bundleUid: Int,
+    sections: PatchSections,
+    isSearching: Boolean,
+    isUniversalExpanded: Boolean,
+    onUniversalExpandedChange: (Boolean) -> Unit,
+    newPatchNames: Set<String>,
+    missingRequiredOptions: Set<String>,
+    lockStateOf: (PatchInfo) -> PatchLockState,
     onToggle: (String) -> Unit,
-    onConfigureOptions: (PatchInfo) -> Unit,
+    onConfigureOptions: (PatchInfo) -> Unit
 ) {
-    val (regular, universal) = remember(patches) {
-        patches.partition { (patch, _) -> !patch.isUniversal }
-    }
+    val patchKey = { (patch, _): Pair<PatchInfo, Boolean> -> "$bundleUid:${patch.name}" }
 
-    // New patches float to the top; within each group order is alphabetical
-    val sortedRegular = remember(regular, newPatchNames) {
-        regular.sortedWith(
-            compareByDescending<Pair<PatchInfo, Boolean>> { (patch, _) -> patch.name in newPatchNames }
-                .thenBy { (patch, _) -> patch.name }
-        )
-    }
-    val sortedUniversal = remember(universal, newPatchNames) {
-        universal.sortedWith(
-            compareByDescending<Pair<PatchInfo, Boolean>> { (patch, _) -> patch.name in newPatchNames }
-                .thenBy { (patch, _) -> patch.name }
-        )
-    }
-
-    sortedRegular.forEach { (patch, isEnabled) ->
+    items(sections.specific, key = patchKey) { (patch, isEnabled) ->
         PatchCard(
             patch = patch,
             isEnabled = isEnabled,
@@ -525,46 +579,40 @@ private fun PatchListWithUniversalSection(
             lockState = lockStateOf(patch),
             onToggle = { onToggle(patch.name) },
             onConfigureOptions = { onConfigureOptions(patch) },
-            hasOptions = !patch.options.isNullOrEmpty()
+            hasOptions = !patch.options.isNullOrEmpty(),
+            modifier = Modifier.animatedListItem(this)
         )
     }
 
-    if (sortedUniversal.isNotEmpty()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = if (sortedRegular.isNotEmpty()) 8.dp else 0.dp, bottom = 4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Public,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(14.dp)
-            )
-            Text(
-                text = stringResource(R.string.expert_mode_universal_patches),
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            HorizontalDivider(
-                modifier = Modifier.weight(1f),
-                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                thickness = 0.5.dp
-            )
-        }
+    if (sections.universal.isEmpty()) return
 
-        sortedUniversal.forEach { (patch, isEnabled) ->
-            PatchCard(
-                patch = patch,
-                isEnabled = isEnabled,
-                isNew = patch.name in newPatchNames,
-                hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
-                onToggle = { onToggle(patch.name) },
-                onConfigureOptions = { onConfigureOptions(patch) },
-                hasOptions = !patch.options.isNullOrEmpty()
-            )
-        }
+    // Universal patches apply to every app and would otherwise bury the ones written for this
+    // one. There is nothing worth folding away when they are the whole list, or when a search
+    // already narrows it
+    val alwaysOpen = isSearching || sections.specific.isEmpty()
+    val isExpanded = alwaysOpen || isUniversalExpanded
+
+    item(key = "universal_header_$bundleUid") {
+        UniversalPatchesHeader(
+            count = sections.universal.size,
+            isExpanded = isExpanded,
+            onToggle = if (alwaysOpen) null else { { onUniversalExpandedChange(!isUniversalExpanded) } },
+            modifier = Modifier.animatedListItem(this)
+        )
+    }
+
+    if (!isExpanded) return
+
+    items(sections.universal, key = patchKey) { (patch, isEnabled) ->
+        PatchCard(
+            patch = patch,
+            isEnabled = isEnabled,
+            isNew = patch.name in newPatchNames,
+            hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
+            onToggle = { onToggle(patch.name) },
+            onConfigureOptions = { onConfigureOptions(patch) },
+            hasOptions = !patch.options.isNullOrEmpty(),
+            modifier = Modifier.animatedListItem(this)
+        )
     }
 }

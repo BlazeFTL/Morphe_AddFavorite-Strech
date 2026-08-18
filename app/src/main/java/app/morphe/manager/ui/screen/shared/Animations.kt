@@ -7,7 +7,25 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import app.morphe.manager.ui.screen.shared.Animations.springSlideDownExit
+
+/**
+ * Placement and fade animation for a lazy list row, so a list that filters, folds or reorders
+ * settles instead of jumping. Kept next to the transitions below so list and dialog motion
+ * stay in step.
+ */
+@Composable
+fun Modifier.animatedListItem(itemScope: LazyItemScope): Modifier = with(itemScope) {
+    this@animatedListItem.animateItem(
+        fadeInSpec = tween(Defaults.ANIMATION_DURATION),
+        fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
+        placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
+    )
+}
 
 /**
  * Shared [EnterTransition] and [ExitTransition] for all AppDialog instances and

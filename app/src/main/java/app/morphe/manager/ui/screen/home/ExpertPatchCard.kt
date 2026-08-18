@@ -142,6 +142,7 @@ internal fun BundlePatchControls(
 internal fun PatchCard(
     patch: PatchInfo,
     isEnabled: Boolean,
+    modifier: Modifier = Modifier,
     isNew: Boolean = false,
     hasRequiredOptionsMissing: Boolean = false,
     lockState: PatchLockState = PatchLockState.NONE,
@@ -184,7 +185,7 @@ internal fun PatchCard(
             !isEnabled -> colors.outlineVariant.copy(alpha = 0.5f)
             else -> colors.outlineVariant
         },
-        modifier = Modifier.semantics {
+        modifier = modifier.semantics {
             stateDescription = patchState
             contentDescription = contentDesc
         }

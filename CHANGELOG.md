@@ -1,3 +1,15 @@
+# [1.27.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.1...v1.27.0-dev.2) (2026-08-18)
+
+
+### Bug Fixes
+
+* Clone warning is read from the built APK instead of guessed from the patch list ([834aa4a](https://github.com/MorpheApp/morphe-manager/commit/834aa4a8b5d97ac79aab19817c22aef82d6d5d14))
+
+
+### Features
+
+* Home app list can be filtered down to clones ([ba9ebda](https://github.com/MorpheApp/morphe-manager/commit/ba9ebdae3da2007b11bd89eefb935d7fce483d31))
+
 # [1.27.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.26.1...v1.27.0-dev.1) (2026-08-18)
 
 

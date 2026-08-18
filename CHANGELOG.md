@@ -1,3 +1,16 @@
+# [1.27.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.26.1...v1.27.0-dev.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* Expert mode patch cards are no longer covered by the scroll to top button ([fefcf97](https://github.com/MorpheApp/morphe-manager/commit/fefcf9755fcbd4ede6a374b8f8903372983f4051))
+* Universal patches carry the installer lock state like app-specific ones ([65988ee](https://github.com/MorpheApp/morphe-manager/commit/65988ee8aca7aadc346d61a033de805e20112ec9))
+
+
+### Features
+
+* Universal patches fold behind a collapsible header in the patch lists ([f88d403](https://github.com/MorpheApp/morphe-manager/commit/f88d403245d4fa0915463b23bac3b0007db7e504))
+
 ## [1.26.1](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0...v1.26.1) (2026-08-18)
 
 

@@ -114,8 +114,10 @@ fun StatusBadge(
         text?.replace("/", "/​")?.replace(".", ".​")
     }
 
+    // Only where the card says what it holds; guessing picks a color by theme, not by the ground
+    val card = LocalCardBackground.current
     val fill = containerColor.distinctFromCard()
-    val content = contentColor.readableOn(fill, MaterialTheme.colorScheme.surface)
+    val content = if (card != null) contentColor.readableOn(fill, card) else contentColor
 
     Row(
         modifier = modifier

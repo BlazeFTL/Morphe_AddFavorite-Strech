@@ -179,9 +179,10 @@
     <string name="home_low_disk_space_dialog_message">تەنها %1$.2f گێگەبایت لە کۆگای خۆرایی بەردەستە. پینەکردن لانی کەم %2$.2f گێگابایت بۆشایی ئازادی پێویستە بۆ کارکردن بەڕاستی</string>
     <string name="home_low_disk_space_dialog_warning">لەوانەیە بەردەوامبوون ببێتە هۆی هەڵەی \'فایل نەدۆزرایەوە\' یان APK ی دەرچووی تێکچوو</string>
     <string name="home_simple_bundle_select_title">سەرچاوەی پینە دیاریبکە</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">ڕەنگی باو</string>
     <string name="hex_color">ڕەنگی هێکس</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">ڕێنماییەکان</string>
     <string name="patch_option_enter_value">بەها بنووسە</string>
     <string name="patch_option_enter_number">ژمارە بنووسە</string>

@@ -302,9 +302,10 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="home_low_disk_space_dialog_message">Vain %1$.2f Gt vapaata tallennustilaa. Muokkaaminen edellyttää vähintään %2$.2f Gt vapaata tilaa, jotta se toimii oikein</string>
     <string name="home_low_disk_space_dialog_warning">Jatkamisesta voi seurata, että saat virheilmoituksen siitä, että tiedostoa ei löydy, tai APK-tiedosto voi vioittua</string>
     <string name="home_simple_bundle_select_title">Valitse lisäosien lähde</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Oma väri</string>
     <string name="hex_color">HEX-väri</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Ohjeet</string>
     <string name="patch_option_enter_value">Anna arvo</string>
     <string name="patch_option_enter_number">Anna luku</string>

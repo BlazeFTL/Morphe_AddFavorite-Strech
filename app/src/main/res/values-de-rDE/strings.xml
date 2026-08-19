@@ -301,9 +301,12 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_low_disk_space_dialog_message">Nur %1$.2f GB freier Speicherplatz verfügbar. Das Anwenden der Patches erfordert mindestens %2$.2f GB freien Speicherplatz, um korrekt zu funktionieren</string>
     <string name="home_low_disk_space_dialog_warning">Das Fortfahren kann zu einem \"Datei nicht gefunden\"-Fehler oder einer beschädigten Ausgabe-APK führen</string>
     <string name="home_simple_bundle_select_title">Wählen Sie die Patch-Quelldatei aus</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Benutzerdefinierte Farbe</string>
     <string name="hex_color">Hex-Farbcode</string>
+    <string name="color_picker_shade">Sättigung und Helligkeit</string>
+    <string name="color_picker_hue">Farbton</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Anleitung</string>
     <string name="patch_option_enter_value">Wert eingeben</string>
     <string name="patch_option_enter_number">Zahl eingeben</string>

@@ -302,9 +302,12 @@
     <string name="home_low_disk_space_dialog_message">Само %1$.2f GB свободно място за съхранение. За да работи правилно, обновяването изисква поне %2$.2f GB свободно място</string>
     <string name="home_low_disk_space_dialog_warning">Продължаването може да доведе до грешка \"файлът не е намерен\" или повреден изходен APK</string>
     <string name="home_simple_bundle_select_title">Изберете източник на пач</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Навикнат цвят</string>
     <string name="hex_color">Хекс цвят</string>
+    <string name="color_picker_shade">Наситеност и яркост</string>
+    <string name="color_picker_hue">Нюанс</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Инструкции</string>
     <string name="patch_option_enter_value">Въведете стойност</string>
     <string name="patch_option_enter_number">Въведете число</string>

@@ -301,9 +301,11 @@
     <string name="home_low_disk_space_dialog_message">केवल %1$.2f GB खाली भंडारण उपलब्ध है। पैचिंग के लिए ठीक से काम करने के लिए कम से कम %2$.2f GB खाली जगह की आवश्यकता होती है</string>
     <string name="home_low_disk_space_dialog_warning">आगे बढ़ने पर \"फ़ाइल नहीं मिली\" त्रुटि या करप्ट आउटपुट APK हो सकता है</string>
     <string name="home_simple_bundle_select_title">पैच स्रोत चुनें</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">कस्टम रंग</string>
     <string name="hex_color">हेक्स रंग</string>
+    <string name="color_picker_shade">संतृप्ति और चमक</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">निर्देश</string>
     <string name="patch_option_enter_value">मूल्य दर्ज करें</string>
     <string name="patch_option_enter_number">नंबर दर्ज करें</string>

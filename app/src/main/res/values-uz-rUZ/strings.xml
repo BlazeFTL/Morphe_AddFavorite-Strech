@@ -301,9 +301,12 @@ Eng yaxshi natijalar uchun ushbu ilova to‘liq &lt;b&gt;APK&lt;/b&gt;ni patchla
     <string name="home_low_disk_space_dialog_message">Erkin xotira %1$.2f GB, patchlash uchun kamida %2$.2f GB erkin joy kerak</string>
     <string name="home_low_disk_space_dialog_warning">Davom etish \"fayl topilmadi\" xatoligiga yoki buzilgan APK natijasiga olib kelishi mumkin</string>
     <string name="home_simple_bundle_select_title">Patch manbai tanlang</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Maxsus rang</string>
     <string name="hex_color">Hex rang</string>
+    <string name="color_picker_shade">To\'yinganlik va yorqinlik</string>
+    <string name="color_picker_hue">Rang tus</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Ko\'rsatmalar</string>
     <string name="patch_option_enter_value">Qiymat kiriting</string>
     <string name="patch_option_enter_number">Raqam kiriting</string>

@@ -80,9 +80,10 @@
     <string name="home_dialog_wrong_package_title">ખોટું પેકેજ પસંદ કર્યું</string>
     <string name="home_dialog_expected_package">અપેક્ષિત પેકેજ:</string>
     <string name="home_dialog_selected_package">પસંદ કરેલ પેકેજ:</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">કસ્ટમ રંગ</string>
     <string name="hex_color">હેક્સ રંગ</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">સૂચનાઓ</string>
     <!-- Adaptive Icon Creator -->
     <!-- Header Creator -->

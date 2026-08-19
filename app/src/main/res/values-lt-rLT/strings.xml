@@ -220,9 +220,10 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="home_low_disk_space_dialog_message">Laisvos vietos liko tik %1$.2f GB. Atnaujinimui reikia bent %2$.2f GB laisvos vietos, kad veiktų tinkamai</string>
     <string name="home_low_disk_space_dialog_warning">Tęsiant gali atsirasti klaida „failas nerastas“ arba sugadintas išvesties APK</string>
     <string name="home_simple_bundle_select_title">Pasirinkite pataisos šaltinio failą</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Pasirinktinė spalva</string>
     <string name="hex_color">„Hex“ spalvos kodas</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instrukcijos</string>
     <string name="patch_option_enter_value">Įveskite reikšmę</string>
     <string name="patch_option_enter_number">Įveskite numerį</string>

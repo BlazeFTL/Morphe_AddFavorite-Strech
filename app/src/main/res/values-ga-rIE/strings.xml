@@ -45,8 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aipeanna nár phaisteáil tú i Morphe go fóill</string>
     <string name="home_app_filter_installed_description">Aipeanna atá suiteáilte ar an ngléas seo faoi láthair</string>
     <string name="home_app_filter_uninstalled_description">Aipeanna atá paisteáilte le Morphe nach bhfuil ar an ngléas seo a thuilleadh</string>
-    <string name="home_app_filter_clones">Clónanna</string>
-    <string name="home_app_filter_clones_description">Aipeanna tógtha faoi ainm pacáiste dá gcuid féin, suiteáilte taobh leis an mbunleagan.</string>
+    <string name="home_app_filter_clones">Clóin</string>
+    <string name="home_app_filter_clones_description">Aipeanna a tógadh faoi ainm pacáiste dá gcuid féin, suiteáilte taobh leis an gceann bunaidh</string>
     <string name="home_app_sort_manual_description">Brúigh go fada ar aip, ansin tapáil an cnaipe athordaithe</string>
     <string name="home_app_sort_recommended">Ordú molta</string>
     <string name="home_app_sort_recommended_description">Aipeanna suiteáilte agus bioráilte ar dtús</string>
@@ -301,9 +301,12 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="home_low_disk_space_dialog_message">Níl ach %1$.2f GB de spás saor in aisce ar fáil. Éilíonn paisteáil ar a laghad %2$.2f GB de spás saor in aisce le go n-oibreoidh sé i gceart.</string>
     <string name="home_low_disk_space_dialog_warning">D’fhéadfadh earráid \"comhad gan aimsiú\" nó APK aschuir truaillithe a bheith mar thoradh ar dhul ar aghaidh.</string>
     <string name="home_simple_bundle_select_title">Roghnaigh foinse paiste</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Dath saincheaptha</string>
     <string name="hex_color">Dath heicsidheachúlach</string>
+    <string name="color_picker_shade">Sáithiú agus gile</string>
+    <string name="color_picker_hue">Lí</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Treoracha</string>
     <string name="patch_option_enter_value">Cuir isteach luach</string>
     <string name="patch_option_enter_number">Cuir isteach uimhir</string>
@@ -414,10 +417,10 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_app_deleted_warning">Díshuiteáladh an aip</string>
     <string name="home_app_info_app_deleted_description">Díshuiteáladh an aip seo lasmuigh de Morphe. Athphaisteáil í chun feidhmiúlacht a athbhunú.</string>
     <string name="home_app_info_not_patched_description">Tá leagan neamhphaiste den aip seo suiteáilte. Tá taifead paiste roimhe seo Morphe fós.</string>
-    <string name="patcher_rename_title">Suiteálfaidh sé seo clón</string>
-    <string name="patcher_rename_description">Thóg na paistí an aip seo faoi ainm pacáiste dá gcuid féin, mar sin suiteáiltear clón taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú.</string>
-    <string name="patcher_rename_result_package">Suiteálfar mar</string>
-    <string name="patcher_rename_replaces">Tá aip suiteáilte cheana faoin ainm sin agus cuirfear ina áit í.</string>
+    <string name="patcher_rename_title">Déanfaidh sé seo clón a shuiteáil</string>
+    <string name="patcher_rename_description">Thóg na paistí an aip seo faoina n-ainm pacáiste féin, mar sin má shuiteáiltear é cuirfear clón leis taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú</string>
+    <string name="patcher_rename_result_package">Suiteáil mar</string>
+    <string name="patcher_rename_replaces">Tá app suiteáilte cheana féin faoin ainm sin agus cuirfear in ionad é</string>
     <string name="home_app_info_apk_size">Méid APK</string>
     <string name="home_app_info_cpu_arch">Ailtireacht LAP</string>
     <!-- Home Screen - Root Mode -->

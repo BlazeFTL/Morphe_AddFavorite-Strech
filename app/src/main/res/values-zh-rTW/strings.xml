@@ -301,9 +301,10 @@
     <string name="home_low_disk_space_dialog_message">僅有 %1$.2f GB 的可用儲存空間。修補需要至少 %2$.2f GB 的可用空間才能正常運作</string>
     <string name="home_low_disk_space_dialog_warning">繼續操作可能會導致「找不到檔案」錯誤或損壞的輸出 APK</string>
     <string name="home_simple_bundle_select_title">選取修補來源</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">自訂顏色</string>
     <string name="hex_color">十六進位顏色</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">指示</string>
     <string name="patch_option_enter_value">輸入值</string>
     <string name="patch_option_enter_number">輸入數字</string>

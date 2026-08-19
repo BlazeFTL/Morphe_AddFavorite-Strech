@@ -301,9 +301,12 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="home_low_disk_space_dialog_message">Na voljo je samo %1$.2f GB prostega prostora. Za delovanje popravkov je potrebnih najmanj %2$.2f GB prostega prostora</string>
     <string name="home_low_disk_space_dialog_warning">Nadaljevanje lahko povzroči napako \"datoteka ni najdena\" ali pa okvarjeno izhodno APK</string>
     <string name="home_simple_bundle_select_title">Izberite vir popravkov</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Prilagojena barva</string>
     <string name="hex_color">Šestnajstiška (hex) barva</string>
+    <string name="color_picker_shade">Nasičenost in svetlost</string>
+    <string name="color_picker_hue">Odtenek</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Navodila</string>
     <string name="patch_option_enter_value">Vnesite vrednost</string>
     <string name="patch_option_enter_number">Vnesite številko</string>

@@ -301,9 +301,12 @@ Vir die beste resultate beveel hierdie app aan om 'n &lt;b&gt;volle APK&lt;/b&gt
     <string name="home_low_disk_space_dialog_message">Slegs %1$.2f GB vrye stoorplek beskikbaar. Pleister benodig ten minste %2$.2f GB vrye ruimte om behoorlik te werk</string>
     <string name="home_low_disk_space_dialog_warning">Voortgaan kan \'n \"lêer nie gevind\"-fout of \'n beskadigde APK tot gevolg hê</string>
     <string name="home_simple_bundle_select_title">Kies verandering oorsprong bylaag</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Pasgemaakte kleur</string>
     <string name="hex_color">Seshoekskleur</string>
+    <string name="color_picker_shade">Versadiging en helderheid</string>
+    <string name="color_picker_hue">Kleurtoon</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instruksies</string>
     <string name="patch_option_enter_value">Gee waarde in</string>
     <string name="patch_option_enter_number">Gee getal in</string>

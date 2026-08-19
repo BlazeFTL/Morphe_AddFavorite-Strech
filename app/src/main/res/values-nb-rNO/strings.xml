@@ -301,9 +301,11 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="home_low_disk_space_dialog_message">Kun %1$.2f GB med ledig lagringsplass tilgjengelig. Patching krever minst %2$.2f GB med ledig plass for å fungere korrekt</string>
     <string name="home_low_disk_space_dialog_warning">Fortsetter du, kan det føre til en «fil ikke funnet»-feil eller en korrupt APK-fil</string>
     <string name="home_simple_bundle_select_title">%s bekreftet ikke installasjonen. Sjekk den andre appen og prøv igjen</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Egendefinert farge</string>
     <string name="hex_color">Hex-farge</string>
+    <string name="color_picker_shade">Metning og lysstyrke</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instruksjoner</string>
     <string name="patch_option_enter_value">Skriv inn verdi</string>
     <string name="patch_option_enter_number">Skriv inn tall</string>

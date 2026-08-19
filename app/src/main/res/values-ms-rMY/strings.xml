@@ -220,9 +220,10 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="home_low_disk_space_dialog_message">Hanya %1$.2f GB storan bebas yang tersedia. Tampalan memerlukan sekurang-kurangnya %2$.2f GB ruang kosong untuk berfungsi dengan baik</string>
     <string name="home_low_disk_space_dialog_warning">Teruskan mungkin boleh mengakibatkan ralat \"Fail tidak dijumpai\" atau memcemarkan keluaran APK</string>
     <string name="home_simple_bundle_select_title">Pilih sumber tampalan</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Warna tersuai</string>
     <string name="hex_color">Warna Hex</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Panduan</string>
     <string name="patch_option_enter_value">Masukkan nilai</string>
     <string name="patch_option_enter_number">Masukkan nombor</string>

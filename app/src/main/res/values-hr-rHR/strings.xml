@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplikacije koje još niste patchali u Morpheu</string>
     <string name="home_app_filter_installed_description">Aplikacije trenutno instalirane na ovom uređaju</string>
     <string name="home_app_filter_uninstalled_description">Aplikacije patchane s Morpheom koje više nisu na ovom uređaju</string>
+    <string name="home_app_filter_clones">Klonovi</string>
+    <string name="home_app_filter_clones_description">Aplikacije izgrađene pod vlastitim nazivom paketa, instalirane uz original</string>
     <string name="home_app_sort_manual_description">Dugo pritisnite aplikaciju, a zatim dodirnite tipku za promjenu redoslijeda</string>
     <string name="home_app_sort_recommended">Preporučeni redoslijed</string>
     <string name="home_app_sort_recommended_description">Instalirane i pričvršćene aplikacije prvo</string>
@@ -301,9 +303,10 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="home_low_disk_space_dialog_message">Dostupno je samo %1$.2f GB slobodnog prostora. Za ispravan rad patchanja potrebno je najmanje %2$.2f GB slobodnog prostora</string>
     <string name="home_low_disk_space_dialog_warning">Nastavak može rezultirati greškom \"datoteka nije pronađena\" ili oštećenom izlaznom aplikacijom</string>
     <string name="home_simple_bundle_select_title">Odaberite izvor patcha</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Prilagođena boja</string>
     <string name="hex_color">Hex boja</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Upute</string>
     <string name="patch_option_enter_value">Unesite vrijednost</string>
     <string name="patch_option_enter_number">Unesite broj</string>
@@ -415,7 +418,10 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova je aplikacija deinstalirana izvan Morphea. Ponovno je patchajte kako biste vratili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nepatchana verzija ove aplikacije. Morphe i dalje ima prethodni zapis patchanja</string>
+    <string name="patcher_rename_title">Ovo će instalirati klon</string>
+    <string name="patcher_rename_description">Patchevi grade ovu aplikaciju pod vlastitim nazivom paketa, pa se instaliranjem dodaje klon &lt;b&gt;%s&lt;/b&gt; umjesto ažuriranja</string>
     <string name="patcher_rename_result_package">Instalirat će se kao</string>
+    <string name="patcher_rename_replaces">Aplikacija je već instalirana pod tim imenom i bit će zamijenjena</string>
     <string name="home_app_info_apk_size">Veličina APK datoteke</string>
     <string name="home_app_info_cpu_arch">Arhitektura CPU-a</string>
     <!-- Home Screen - Root Mode -->

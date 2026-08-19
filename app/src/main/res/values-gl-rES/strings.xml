@@ -182,9 +182,10 @@ Elixe outro APK</string>
     <string name="home_outdated_patches_dialog_message">Os datos móbiles están activos e as actualizacións de parche desactivadas</string>
     <string name="home_outdated_patches_dialog_warning">Parchear con parches desactualizados pode provocar que a aplicación deixe de funcionar correctamente</string>
     <string name="home_outdated_patches_dialog_update_and_patch">Actualizar e parchear</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Cor personalizada</string>
     <string name="hex_color">Cor Hexadecimal</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instrucións</string>
     <string name="patch_option_enter_value">Inserir valor</string>
     <string name="patch_option_enter_number">Inserir número</string>

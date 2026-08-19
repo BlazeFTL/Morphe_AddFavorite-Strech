@@ -299,9 +299,10 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="home_low_disk_space_dialog_message">Endast %1$.2f GB ledigt utrymme är tillgängligt. Modifieringen kräver minst %2$.2f GB ledigt utrymme för att fungera korrekt</string>
     <string name="home_low_disk_space_dialog_warning">Om du fortsätter kan det leda till att du får ett felmeddelande om att filen inte hittades eller en skadad APK-fil</string>
     <string name="home_simple_bundle_select_title">Välj tilläggskälla</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Anpassad färg</string>
     <string name="hex_color">Hexfärg</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Anvisningar</string>
     <string name="patch_option_enter_value">Ange värde</string>
     <string name="patch_option_enter_number">Ange tal</string>

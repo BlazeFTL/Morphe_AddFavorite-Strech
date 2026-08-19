@@ -302,9 +302,12 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="home_low_disk_space_dialog_message">Seulement %1$.2f Go d\'espace de stockage libre disponible. Le patching nécessite au moins %2$.2f Go d\'espace libre pour fonctionner correctement</string>
     <string name="home_low_disk_space_dialog_warning">Continuer peut entraîner une erreur \"fichier introuvable\" ou un APK corrompu</string>
     <string name="home_simple_bundle_select_title">Sélectionner une source de patchs</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Couleur personnalisée</string>
     <string name="hex_color">Couleur hexadécimale</string>
+    <string name="color_picker_shade">Saturation et luminosité</string>
+    <string name="color_picker_hue">Teinte</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instructions</string>
     <string name="patch_option_enter_value">Entrez la valeur</string>
     <string name="patch_option_enter_number">Entrez un nombre</string>

@@ -302,9 +302,10 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="home_low_disk_space_dialog_message">Tanging %1$.2f GB ng libreng imbakan ang available. Ang pag-aayos ay nangangailangan ng hindi bababa sa %2$.2f GB ng malayang espasyo upang gumana nang tama</string>
     <string name="home_low_disk_space_dialog_warning">Ang pagpapatuloy ay maaaring magresulta sa isang error na \"file not found\" o isang corrupt na output APK</string>
     <string name="home_simple_bundle_select_title">Piliin ang file ng mapagkukunang patch</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Pasadyang kulay</string>
     <string name="hex_color">Kulay ng Hex</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Mga Tagubilin</string>
     <string name="patch_option_enter_value">Ilagay ang halaga</string>
     <string name="patch_option_enter_number">Ilagay ang numero</string>

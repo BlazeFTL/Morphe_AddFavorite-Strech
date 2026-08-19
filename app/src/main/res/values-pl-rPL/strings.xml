@@ -302,9 +302,10 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="home_low_disk_space_dialog_message">Dostępne tylko %1$.2f GB wolnego miejsca. Modyfikowanie wymaga co najmniej %2$.2f GB wolnej przestrzeni do poprawnego działania</string>
     <string name="home_low_disk_space_dialog_warning">Kontynuowanie może skutkować błędem \"Nie znaleziono pliku\" lub uszkodzeniem wyjściowego pliku APK</string>
     <string name="home_simple_bundle_select_title">Wybierz źródło modyfikacji</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Kolor niestandardowy</string>
     <string name="hex_color">Kolor HEX</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instrukcja</string>
     <string name="patch_option_enter_value">Wprowadź wartość</string>
     <string name="patch_option_enter_number">Wprowadź liczbę</string>

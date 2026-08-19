@@ -25,7 +25,7 @@
     <string name="home_metadata_errors_title">Beberapa sumber tambalan tidak tersedia</string>
     <string name="home_metadata_errors_subtitle">Ketuk untuk meninjau sumber</string>
     <string name="home_outdated_manager_title">Morphe sudah tidak terbaru</string>
-    <string name="home_outdated_manager_subtitle">Beberapa sumber patch memerlukan versi yang lebih baru</string>
+    <string name="home_outdated_manager_subtitle">Beberapa sumber tambalan memerlukan versi terbaru</string>
     <string name="home_metered_skipped_title">Pembaruan dijeda pada data seluler</string>
     <string name="home_metered_skipped_subtitle">Ketuk untuk mengizinkan pembaruan pada data seluler</string>
     <string name="home_update_error">Pembaruan gagal</string>
@@ -300,9 +300,11 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="home_low_disk_space_dialog_message">Hanya %1$.2f GB ruang penyimpanan yang tersedia. Penambalan memerlukan setidaknya %2$.2f GB ruang kosong untuk berfungsi dengan baik</string>
     <string name="home_low_disk_space_dialog_warning">Melanjutkan dapat mengakibatkan kesalahan \"berkas tidak ditemukan\" atau menghasilkan APK yang rusak</string>
     <string name="home_simple_bundle_select_title">Pilih sumber tambalan</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Warna Khusus</string>
     <string name="hex_color">Warna hex</string>
+    <string name="color_picker_shade">Saturasi dan kecerahan</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Petunjuk</string>
     <string name="patch_option_enter_value">Masukkan nilai</string>
     <string name="patch_option_enter_number">Masukkan nomor</string>
@@ -414,6 +416,7 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="home_app_info_app_deleted_description">Aplikasi ini telah dihapus di luar Morphe. Tambal ulang untuk mengembalikan fungsinya</string>
     <string name="home_app_info_not_patched_description">Versi tanpa tambalan dari aplikasi ini terpasang. Morphe masih memiliki catatan tambalan sebelumnya</string>
     <string name="patcher_rename_result_package">Akan dipasang sebagai</string>
+    <string name="patcher_rename_replaces">Aplikasi dengan nama tersebut sudah terpasang dan akan diganti</string>
     <string name="home_app_info_apk_size">Ukuran APK</string>
     <string name="home_app_info_cpu_arch">Arsitektur CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -686,7 +689,7 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="notification_channel_auto_patch">Penambalan ulang otomatis</string>
     <string name="notification_channel_auto_patch_description">Notifikasi kemajuan dan hasil secara senyap untuk pembaruan tambalan terjadwal.</string>
     <string name="notification_manager_update_title">Pembaruan Morphe tersedia</string>
-    <string name="notification_bundle_update_title">Patches baru tersedia</string>
+    <string name="notification_bundle_update_title">Tambalan baru tersedia</string>
     <string name="notification_update_text">Versi %s siap untuk diunduh</string>
     <string name="notification_bundle_update_text_unversioned">Ketuk untuk membuka Morphe dan memperbarui</string>
     <string name="notification_permission_dialog_title">Izinkan pemberitahuan</string>

@@ -301,9 +301,10 @@ Para obteres os melhores resultados, este ficheiro recomenda a modificação de 
     <string name="home_low_disk_space_dialog_message">Apenas %1$.2f GB de espaço de armazenamento disponível. Para modificar aplicações corretamente, são necessários pelo menos %2$.2f GB de espaço livre</string>
     <string name="home_low_disk_space_dialog_warning">Continuar pode resultar num erro de \"ficheiro não encontrado\" ou um APK de saída corrompido</string>
     <string name="home_simple_bundle_select_title">Selecionar fonte da modificação</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Cor personalizada</string>
     <string name="hex_color">Cor hexadecimal</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instruções</string>
     <string name="patch_option_enter_value">Inserir valor</string>
     <string name="patch_option_enter_number">Inserir número</string>

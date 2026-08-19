@@ -200,9 +200,10 @@
     <string name="home_low_disk_space_dialog_message">Достапни се само %1$.2f GB слободен простор. Закрпувањето бара најмалку %2$.2f GB слободен простор за да работи правилно</string>
     <string name="home_low_disk_space_dialog_warning">Постапката може да резултира со грешка „Не е пронајдена датотека“ или оштетен излезен APK</string>
     <string name="home_simple_bundle_select_title">Изберете извор на закрпи</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Прилагодена боја</string>
     <string name="hex_color">Хексадецимална боја</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Инструкции</string>
     <string name="patch_option_enter_value">Внесете вредност</string>
     <string name="patch_option_enter_number">Внесете број</string>

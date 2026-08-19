@@ -299,9 +299,12 @@ Ji bo mezgînî, ev sepan pêşniyar dike ku paketek &lt;b&gt;full APK&lt;/b&gt;
     <string name="home_low_disk_space_dialog_message">Ten %1$.2f GB ajala weşanê azad heye. Sazûdekirin ji bo ku bi rastî bixebite, tişta kêmtir %2$.2f GB ajala fermangeşiyê hewce ye</string>
     <string name="home_low_disk_space_dialog_warning">Li pêşveçûn dikare di xeberê de çewisika \"pel nêzike\" an APK-ya derketî ya qels bibe.</string>
     <string name="home_simple_bundle_select_title">Hilbijartina çavkaniya patchê</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Rengê standard</string>
     <string name="hex_color">Rengê hex</string>
+    <string name="color_picker_shade">Têrbûn û ronahî</string>
+    <string name="color_picker_hue">Reng</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Fermanî</string>
     <string name="patch_option_enter_value">Qîmet biqîze</string>
     <string name="patch_option_enter_number">Hejmar biqîze</string>

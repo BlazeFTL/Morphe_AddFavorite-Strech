@@ -301,14 +301,17 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="home_low_disk_space_dialog_message">Solo hay %1$.2f GB de almacenamiento libre. El parcheo requiere al menos %2$.2f GB de espacio libre para funcionar correctamente</string>
     <string name="home_low_disk_space_dialog_warning">Continuar puede provocar un error de \"archivo no encontrado\" o un APK final corrupto</string>
     <string name="home_simple_bundle_select_title">Selecciona la fuente de parcheo</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Color personalizado</string>
     <string name="hex_color">Color HEX</string>
+    <string name="color_picker_shade">Saturación y brillo</string>
+    <string name="color_picker_hue">Tono</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instrucciones</string>
     <string name="patch_option_enter_value">Ingresar valor</string>
     <string name="patch_option_enter_number">Ingresar número</string>
     <string name="patch_option_enter_decimal">Ingresar decimal</string>
-    <string name="patch_option_slider_edit">Ingrese un valor exacto</string>
+    <string name="patch_option_slider_edit">Ingresa un valor exacto</string>
     <string name="patch_option_slider_range_start">Desde</string>
     <string name="patch_option_slider_range_end">Hasta</string>
     <string name="patch_option_list_duplicate">Este valor ya existe</string>

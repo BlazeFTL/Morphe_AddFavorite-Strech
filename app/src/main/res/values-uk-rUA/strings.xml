@@ -302,9 +302,10 @@
     <string name="home_low_disk_space_dialog_message">Доступно лише %1$.2f ГБ вільного місця. Для коректної роботи патчингу потрібно щонайменше %2$.2f ГБ вільного місця</string>
     <string name="home_low_disk_space_dialog_warning">Продовження може призвести до помилки \"файл не знайдено\" або пошкодження вихідного APK файлу</string>
     <string name="home_simple_bundle_select_title">Виберіть джерело патчів</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Власний колір</string>
     <string name="hex_color">Шістнадцятковий колір</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Інструкції</string>
     <string name="patch_option_enter_value">Введіть значення</string>
     <string name="patch_option_enter_number">Введіть число</string>

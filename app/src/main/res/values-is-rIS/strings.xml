@@ -300,9 +300,12 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_low_disk_space_dialog_message">Aðeins %1$.2f GB af fríu geymslu í boði. Breyting þarf að minnst %2$.2f GB af fríu plássi til að virka rétt</string>
     <string name="home_low_disk_space_dialog_warning">Að halda áfram gæti leitt til \"skrá finnst ekki\" villu eða skemmdra APK</string>
     <string name="home_simple_bundle_select_title">Veldu breytilega uppspretta</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Sérstakur litur</string>
     <string name="hex_color">Hex litur</string>
+    <string name="color_picker_shade">Mettun og birtustig</string>
+    <string name="color_picker_hue">Litblær</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Leiðbeiningar</string>
     <string name="patch_option_enter_value">Sláðu inn gildi</string>
     <string name="patch_option_enter_number">Sláðu inn númer</string>

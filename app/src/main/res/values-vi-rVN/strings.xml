@@ -299,9 +299,10 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="home_low_disk_space_dialog_message">Chỉ còn %1$.2f GB dung lượng trống. Trong khi đó bạn cần tối thiểu %2$.2f GB để quá trình vá ổn định</string>
     <string name="home_low_disk_space_dialog_warning">Tiếp tục có thể dẫn đến lỗi \"không tìm thấy tệp\" hoặc vá ra apk bị hỏng</string>
     <string name="home_simple_bundle_select_title">Chọn nguồn vá</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Tùy chỉnh màu</string>
     <string name="hex_color">Mã hex</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Hướng dẫn</string>
     <string name="patch_option_enter_value">Nhập giá trị</string>
     <string name="patch_option_enter_number">Nhập số</string>

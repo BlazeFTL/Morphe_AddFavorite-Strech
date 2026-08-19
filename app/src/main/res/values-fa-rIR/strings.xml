@@ -147,9 +147,10 @@
     <string name="home_outdated_patches_dialog_update_and_patch">به‌روزرسانی &amp; پچ</string>
     <string name="home_low_disk_space_dialog_title">فضای دیسک کم است</string>
     <string name="home_low_disk_space_dialog_warning">ادامه ممکن است باعث ایجاد خطای «فایل پیدا نشد» یا تولید APK خراب شود</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">رنگ سفارشی</string>
     <string name="hex_color">رنگ شش ضلعی </string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">دستورالعمل‌ها</string>
     <string name="patch_option_enter_value">مقدار را وارد کنید</string>
     <string name="patch_option_enter_number">عدد را وارد کنید</string>

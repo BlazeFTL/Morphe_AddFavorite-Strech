@@ -796,7 +796,9 @@ fun HeroInfoCard(
     subtitle: (@Composable RowScope.() -> Unit)? = null
 ) {
     val surface = MaterialTheme.colorScheme.surface
+    val cardBackground = containerColor.compositeOver(surface)
     val accentColor = iconTint.readableOn(containerColor, surface)
+    val iconColor = iconTint.readableOn(iconContainerColor, cardBackground)
 
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -823,7 +825,7 @@ fun HeroInfoCard(
                         Icon(
                             imageVector = icon,
                             contentDescription = null,
-                            tint = iconTint.readableOn(iconContainerColor.compositeOver(containerColor), surface),
+                            tint = iconColor,
                             modifier = Modifier.size(28.dp)
                         )
                     }

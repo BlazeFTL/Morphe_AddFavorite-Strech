@@ -9,6 +9,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -149,7 +150,7 @@ private fun AppIconCard(
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
                 color = if (isSelected) {
-                    MaterialTheme.colorScheme.onPrimaryContainer
+                    LocalContentColor.current
                 } else {
                     MaterialTheme.colorScheme.onSurface
                 },

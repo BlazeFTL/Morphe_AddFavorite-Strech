@@ -36,19 +36,21 @@ fun Color.contrastAgainst(background: Color): Float {
 }
 
 /**
- * This color when it stays legible on a [fill] drawn over [surface], or plain black or white when
- * it does not. Any transparency of its own is carried over, so a dimmed color stays dimmed.
+ * This color when it suits a [fill] drawn over [surface], or plain black or white when it does not.
+ * Any transparency of its own is carried over, so a dimmed color stays dimmed.
  *
- * A palette pairs every container with an on-container color, but that pairing describes an opaque
- * fill. Draw the fill translucent and the content lands on a blend the pairing says nothing about.
- * Wallpaper palettes are what expose it, their tints having never been picked against these
- * surfaces. [minRatio] defaults to the WCAG AA bar for large text.
+ * A palette pairs each container with an on-color meant for that container drawn opaque. Tinted,
+ * the fill becomes a blend the pairing never described, and a light container blends dark while
+ * its on-color stays dark. Contrast alone passes that, so polarity is weighed alongside [minRatio].
  */
 fun Color.readableOn(fill: Color, surface: Color, minRatio: Float = 3f): Color {
     val background = fill.compositeOver(surface)
-    if (contrastAgainst(background) >= minRatio) return this
+    val wantsLightContent = background.requiresLightContent()
 
-    val replacement = if (background.requiresLightContent()) Color.White else Color.Black
+    val agreesWithFill = wantsLightContent != requiresLightContent()
+    if (agreesWithFill && contrastAgainst(background) >= minRatio) return this
+
+    val replacement = if (wantsLightContent) Color.White else Color.Black
     return replacement.copy(alpha = alpha)
 }
 

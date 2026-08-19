@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.settings.appearance
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -63,8 +64,10 @@ fun ModernIconOptionCard(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
+                // Selected tiles carry what the tile resolved against its own fill, the rest keep
+                // the accent they are drawn in
                 tint = if (selected) {
-                    MaterialTheme.colorScheme.onPrimaryContainer
+                    LocalContentColor.current
                 } else {
                     MaterialTheme.colorScheme.primary
                 }.copy(alpha = if (enabled) 1f else 0.5f),
@@ -75,7 +78,7 @@ fun ModernIconOptionCard(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,
                 color = if (selected) {
-                    MaterialTheme.colorScheme.onPrimaryContainer
+                    LocalContentColor.current
                 } else {
                     MaterialTheme.colorScheme.onSurface
                 }.copy(alpha = if (enabled) 1f else 0.5f),
@@ -124,7 +127,7 @@ fun CompactOptionCard(
             ThemedIcon(
                 icon = icon,
                 tint = if (selected) {
-                    MaterialTheme.colorScheme.onPrimaryContainer
+                    LocalContentColor.current
                 } else {
                     MaterialTheme.colorScheme.primary
                 }.copy(alpha = if (enabled) 1f else 0.5f)
@@ -134,7 +137,7 @@ fun CompactOptionCard(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium,
                 color = if (selected) {
-                    MaterialTheme.colorScheme.onPrimaryContainer
+                    LocalContentColor.current
                 } else {
                     MaterialTheme.colorScheme.onSurface
                 }.copy(alpha = if (enabled) 1f else 0.5f),

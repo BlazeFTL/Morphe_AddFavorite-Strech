@@ -55,6 +55,30 @@ class ColorContrastTest {
     }
 
     @Test
+    fun `a label is replaced when the fill it lands on flips polarity`() {
+        // A light accent container pairs with a dark on-color, and tinting takes the fill dark
+        // underneath it, which contrast alone lets through
+        val fill = Color(0xFFFEE27F).copy(alpha = 0.55f)
+        val label = Color.Black
+        val drawn = fill.compositeOver(PureBlack)
+
+        assertTrue(label.contrastAgainst(drawn) >= MinRatio)
+        assertEquals(Color.White, label.readableOn(fill, PureBlack))
+    }
+
+    @Test
+    fun `a flipped label is replaced even where it also reads worse`() {
+        // Same shape in orange, where the palette's own pick is the weaker of the two as well
+        val fill = Color(0xFFFFAF70).copy(alpha = 0.55f)
+        val drawn = fill.compositeOver(PureBlack)
+
+        val replaced = Color.Black.readableOn(fill, PureBlack)
+
+        assertEquals(Color.White, replaced)
+        assertTrue(replaced.contrastAgainst(drawn) > Color.Black.contrastAgainst(drawn))
+    }
+
+    @Test
     fun `a dimmed label stays dimmed after being replaced`() {
         val fill = Color(0xFFC8CFFD).copy(alpha = 0.55f)
         val label = Color(0xFFADAFC8).copy(alpha = 0.5f)

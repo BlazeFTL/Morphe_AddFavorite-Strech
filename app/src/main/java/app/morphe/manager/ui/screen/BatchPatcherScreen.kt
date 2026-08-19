@@ -143,6 +143,13 @@ fun BatchPatcherScreen(
     }
 
     val useExpertMode by prefs.useExpertMode.getAsState()
+    val apkDownloadHelperEnabled by prefs.useApkDownloadHelper.getAsState()
+
+    // Kept outside the dialog so the picker state survives the download dialog's exit animation
+    val openApkDownloadHelper = rememberApkDownloadHelperAction(
+        host = viewModel,
+        enabled = apkDownloadHelperEnabled && viewModel.apkSearch != null
+    )
 
     // Opened straight from the actions that need it rather than by watching state: the target
     // can repeat, and a repeated value is not an event a keyed effect would fire on again
@@ -224,7 +231,8 @@ fun BatchPatcherScreen(
             targetAppInstalled = search.item.source is BatchApkSource.Installed,
             downloadColor = metadata?.downloadColor ?: KnownApps.DEFAULT_DOWNLOAD_COLOR,
             isApkBundle = metadata?.apkFileType?.isApk == false,
-            onDismiss = viewModel::cancelApkSearch
+            onDismiss = viewModel::cancelApkSearch,
+            onOpenApkDownloadHelper = openApkDownloadHelper
         ) {
             viewModel.confirmApkSearch { url ->
                 runCatching { uriHandler.openUri(url) }.isSuccess
@@ -435,6 +443,7 @@ fun BatchPatcherScreen(
                         onSelectApk = { viewModel.beginApkChoice(item) },
                         onToggleExcluded = { viewModel.toggleExcluded(item.id) },
                         onForceVersion = { viewModel.forceVersion(item.id) },
+                        onAcceptSignature = { viewModel.acceptUnverifiedSignature(item.id) },
                         // Simple mode never exposes individual patches, and the options edited
                         // here would not be persisted for it. Nothing to choose from until an
                         // APK resolves either, the patch list is scoped to its exact version
@@ -650,6 +659,7 @@ private fun BatchItemCard(
     onSelectApk: () -> Unit,
     onToggleExcluded: () -> Unit,
     onForceVersion: () -> Unit,
+    onAcceptSignature: () -> Unit,
     onEditPatches: (() -> Unit)? = null,
     onPickSource: (() -> Unit)? = null,
     onInstall: (() -> Unit)? = null,
@@ -801,6 +811,22 @@ private fun BatchItemCard(
                             )
                         }
 
+                        if (item.state == BatchItemState.UNVERIFIED_SIGNATURE) {
+                            // The same wording the single-app flow answers this very question with
+                            val acceptLabel =
+                                stringResource(R.string.home_dialog_unsupported_version_dialog_proceed)
+                            ActionPillButton(
+                                onClick = onAcceptSignature,
+                                icon = Icons.Outlined.GppBad,
+                                contentDescription = acceptLabel,
+                                tooltip = acceptLabel,
+                                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            )
+                        }
+
                         val toggleLabel = stringResource(
                             if (excluded) R.string.include else R.string.exclude
                         )
@@ -903,6 +929,8 @@ private fun itemDetails(item: BatchPatchItem): String = when (item.state) {
         item.version.orEmpty()
     )
 
+    BatchItemState.UNVERIFIED_SIGNATURE -> stringResource(R.string.home_invalid_signature_badge)
+
     BatchItemState.FAILED -> item.message ?: stringResource(R.string.patcher_unknown_error)
 
     else -> {
@@ -939,6 +967,8 @@ private fun BatchStateBadge(state: BatchItemState) {
         BatchItemState.EXCLUDED -> R.string.excluded to SemanticTone.Neutral
         BatchItemState.NEEDS_APK -> R.string.batch_patch_state_no_apk to SemanticTone.Error
         BatchItemState.VERSION_MISMATCH -> R.string.version to SemanticTone.Warning
+        BatchItemState.UNVERIFIED_SIGNATURE -> R.string.home_unverified to SemanticTone.Warning
+
         BatchItemState.NO_PATCHES -> R.string.batch_patch_state_no_patches to SemanticTone.Error
     }
     StatusBadge(text = stringResource(labelRes), tone = tone)

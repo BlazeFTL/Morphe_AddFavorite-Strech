@@ -56,7 +56,6 @@ import app.morphe.manager.util.PatchSelectionUtils.updateOption
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
 import app.morphe.patcher.patch.ApkArchitecture
-import app.morphe.patcher.patch.ApkFileType
 import app.morphe.patcher.patch.AppTarget
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.*
@@ -214,7 +213,7 @@ class HomeViewModel(
     private val downloadUrlResolver: DownloadUrlResolver,
     versionCatalog: AppVersionCatalog,
     private val localApkSources: LocalApkSources
-) : ViewModel() {
+) : ViewModel(), ApkDownloadHelperHost {
     val availablePatches = patchBundleRepository.bundleInfoFlow.map { it.values.sumOf { bundle -> bundle.patches.size } }
     val bundleUpdateProgress = patchBundleRepository.bundleUpdateProgress
     private val contentResolver: ContentResolver = app.contentResolver
@@ -3327,11 +3326,7 @@ class HomeViewModel(
         }
     }
 
-    /**
-     * Whether the APK about to be selected will have its signature checked. False on Android 8-10,
-     * where signatures cannot be read from an archive, and when the bundle declares none.
-     */
-    val pendingApkSignatureCheckAvailable: Boolean
+    override val helperSignatureCheckAvailable: Boolean
         get() {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return false
             val packageName = pendingPackageName ?: return false
@@ -3340,10 +3335,8 @@ class HomeViewModel(
 
     /**
      * Build the request for an APK download helper, describing the original APK of the pending app.
-     *
-     * @param component The helper activity the user picked, addressed explicitly.
      */
-    fun createApkDownloadHelperIntent(component: ComponentName): Intent? {
+    override fun createApkDownloadHelperIntent(component: ComponentName): Intent? {
         val packageName = pendingPackageName ?: return null
         val appName = pendingAppName ?: KnownApps.getAppName(packageName)
         // Use the version selected by the user in Dialog 1; fall back to recommended
@@ -3374,13 +3367,20 @@ class HomeViewModel(
         )
     }
 
-    /** Map the bundle's file type onto the stable string constants of the helper protocol. */
-    private fun ApkFileType.toHelperFileType() = when {
-        isApk -> ApkDownloadHelperContract.FILE_TYPE_APK
-        isApkM -> ApkDownloadHelperContract.FILE_TYPE_APKM
-        isApkS -> ApkDownloadHelperContract.FILE_TYPE_APKS
-        isXApk -> ApkDownloadHelperContract.FILE_TYPE_XAPK
-        else -> null
+    /**
+     * The download dialogs are closed before the APK is taken on, because processing it puts up
+     * an overlay of its own and two of them on screen at once reads as a stuck flow.
+     */
+    override fun onHelperApkReceived(uri: Uri) {
+        showDownloadInstructionsDialog = false
+        showFilePickerPromptDialog = false
+        handleApkSelection(uri)
+    }
+
+    override fun onHelperInstalledAppChosen(packageName: String) {
+        showDownloadInstructionsDialog = false
+        showFilePickerPromptDialog = false
+        handleHelperInstalledAppSelection(packageName)
     }
 
     /**

@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
+import app.morphe.manager.ui.model.ApkDownloadHelperHost
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.toast
 import kotlinx.coroutines.Dispatchers
@@ -33,12 +33,13 @@ import kotlinx.coroutines.withContext
  * Wires up the optional APK download helper flow and returns the action that starts it,
  * or null when no helper can serve the request.
  *
+ * @param host The patching flow asking for the APK, which is what a result is handed back to.
  * @param enabled Whether a helper may be used at all. Resolving helpers queries PackageManager,
  * so callers pass true only while the download instructions dialog is on screen.
  */
 @Composable
 fun rememberApkDownloadHelperAction(
-    homeViewModel: HomeViewModel,
+    host: ApkDownloadHelperHost,
     enabled: Boolean
 ): (() -> Unit)? {
     val context = LocalContext.current
@@ -69,9 +70,7 @@ fun rememberApkDownloadHelperAction(
                 return@rememberLauncherForActivityResult
             }
 
-            homeViewModel.showDownloadInstructionsDialog = false
-            homeViewModel.showFilePickerPromptDialog = false
-            homeViewModel.handleHelperInstalledAppSelection(packageName)
+            host.onHelperInstalledAppChosen(packageName)
             return@rememberLauncherForActivityResult
         }
 
@@ -88,19 +87,17 @@ fun rememberApkDownloadHelperAction(
             return@rememberLauncherForActivityResult
         }
 
-        homeViewModel.showDownloadInstructionsDialog = false
-        homeViewModel.showFilePickerPromptDialog = false
-        homeViewModel.handleApkSelection(uri)
+        host.onHelperApkReceived(uri)
     }
 
     if (showPicker && helpers.isNotEmpty()) {
         ApkDownloadHelperDialog(
             helpers = helpers,
-            signatureCheckAvailable = homeViewModel.pendingApkSignatureCheckAvailable,
+            signatureCheckAvailable = host.helperSignatureCheckAvailable,
             onDismiss = { showPicker = false },
             onConfirm = { helper ->
                 showPicker = false
-                homeViewModel.createApkDownloadHelperIntent(helper.componentName)?.let { intent ->
+                host.createApkDownloadHelperIntent(helper.componentName)?.let { intent ->
                     try {
                         helperLauncher.launch(intent)
                     } catch (_: ActivityNotFoundException) {

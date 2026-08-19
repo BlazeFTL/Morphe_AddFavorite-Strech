@@ -79,6 +79,9 @@ enum class BatchItemState {
     /** The source version is not covered by any enabled bundle. */
     VERSION_MISMATCH,
 
+    /** The attached APK is not signed with a certificate the bundles declare for this app. */
+    UNVERIFIED_SIGNATURE,
+
     /** No enabled bundle contributes any patch for this package. */
     NO_PATCHES,
 
@@ -94,7 +97,8 @@ enum class BatchItemState {
     val isRunnable get() = this == READY
 
     /** True when the item is blocked by something the user can fix on the preflight screen. */
-    val needsAttention get() = this == NEEDS_APK || this == VERSION_MISMATCH || this == NO_PATCHES
+    val needsAttention get() =
+        this == NEEDS_APK || this == VERSION_MISMATCH || this == UNVERIFIED_SIGNATURE || this == NO_PATCHES
 
     val isTerminal get() = this == SUCCEEDED || this == FAILED || this == CANCELLED
 }
@@ -126,6 +130,8 @@ data class BatchBundleRef(
  * @param bundles Every enabled source that contributes patches to this app. An app covered by
  *   more than one source is patched with all of them at once, exactly like the single-app flow.
  * @param forceVersionMismatch Set when the user chose to patch despite an unsupported version.
+ * @param forceUnverifiedSignature Set when the user chose to patch an APK whose signing certificate
+ *   none of the bundles vouch for. Carried along so re-resolving the item does not ask again.
  * @param restoreState State to return to when the user un-excludes the item.
  * @param patchedFile Populated after a successful run with the retained patched APK.
  * @param installOutcome Set once the user installs from the summary, so a failure is visible
@@ -145,6 +151,7 @@ data class BatchPatchItem(
     /** Version the sources recommend, offered for download when the APK is missing or wrong. */
     val suggestedVersion: String? = null,
     val forceVersionMismatch: Boolean = false,
+    val forceUnverifiedSignature: Boolean = false,
     /** Selection before the user narrowed it to one source, so another can still be chosen. */
     val resolvedSelection: PatchSelection? = null,
     val restoreState: BatchItemState? = null,

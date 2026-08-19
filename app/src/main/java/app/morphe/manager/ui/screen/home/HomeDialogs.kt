@@ -74,7 +74,7 @@ fun HomeDialogs(
 
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val openApkDownloadHelper = rememberApkDownloadHelperAction(
-        homeViewModel = homeViewModel,
+        host = homeViewModel,
         enabled = apkDownloadHelperEnabled && homeViewModel.showDownloadInstructionsDialog
     )
 

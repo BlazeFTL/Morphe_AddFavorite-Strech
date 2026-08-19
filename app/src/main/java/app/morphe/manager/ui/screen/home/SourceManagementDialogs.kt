@@ -675,20 +675,18 @@ fun BundlePatchesDialog(
                     item {
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             // "All" chip
-                            FilterChip(
+                            AppFilterChip(
                                 selected = selectedPackages.isEmpty(),
                                 onClick = { selectedPackages = emptySet() },
-                                label = { Text(stringResource(R.string.all)) },
-                                leadingIcon = if (selectedPackages.isEmpty()) {
-                                    { Icon(Icons.Outlined.DoneAll, null, Modifier.size(16.dp)) }
-                                } else null
+                                label = stringResource(R.string.all),
+                                selectedIcon = Icons.Outlined.DoneAll
                             )
                             // Per-app chips
                             appLabels.entries
                                 .sortedBy { it.value }
                                 .forEach { (pkg, label) ->
                                     val isSelected = pkg in selectedPackages
-                                    FilterChip(
+                                    AppFilterChip(
                                         selected = isSelected,
                                         onClick = {
                                             selectedPackages = if (isSelected)
@@ -696,10 +694,7 @@ fun BundlePatchesDialog(
                                             else
                                                 selectedPackages + pkg
                                         },
-                                        label = { Text(label) },
-                                        leadingIcon = if (isSelected) {
-                                            { Icon(Icons.Outlined.Done, null, Modifier.size(16.dp)) }
-                                        } else null
+                                        label = label
                                     )
                                 }
                         }

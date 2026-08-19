@@ -351,29 +351,24 @@ fun AppPatchesDialog(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     // "All" chip
-                    FilterChip(
+                    AppFilterChip(
                         selected = selectedBundle.value == null,
                         onClick = { selectedBundle.value = null },
-                        label = { Text(stringResource(R.string.all)) },
-                        leadingIcon = if (selectedBundle.value == null) {
-                            { Icon(Icons.Outlined.DoneAll, null, Modifier.size(16.dp)) }
-                        } else null
+                        label = stringResource(R.string.all),
+                        selectedIcon = Icons.Outlined.DoneAll
                     )
                     // Per-bundle chips
                     bundleNames.entries
                         .sortedBy { it.value }
                         .forEach { (uid, name) ->
                             val isSelected = uid == selectedBundle.value
-                            FilterChip(
+                            AppFilterChip(
                                 selected = isSelected,
                                 onClick = {
                                     selectedBundle.value = if (isSelected) null else uid
                                     showFilterSheet.value = false
                                 },
-                                label = { Text(name) },
-                                leadingIcon = if (isSelected) {
-                                    { Icon(Icons.Outlined.Done, null, Modifier.size(16.dp)) }
-                                } else null
+                                label = name
                             )
                         }
                 }

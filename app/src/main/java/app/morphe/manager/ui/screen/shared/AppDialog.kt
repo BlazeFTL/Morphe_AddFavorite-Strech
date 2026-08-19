@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
+import androidx.core.view.WindowCompat
 import app.morphe.manager.util.isDarkBackground
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -131,14 +132,7 @@ fun AppDialog(
             decorFitsSystemWindows = false
         )
     ) {
-        // Remove standard system backgrounds/window shadows
-        val dialogWindow = (LocalView.current.parent as? DialogWindowProvider)?.window
-        SideEffect {
-            dialogWindow?.let {
-                it.setDimAmount(0f)
-                it.setBackgroundDrawableResource(android.R.color.transparent)
-            }
-        }
+        DialogWindowEffect(isDarkTheme)
 
         Box(
             modifier = Modifier
@@ -176,6 +170,30 @@ fun AppDialog(
 }
 
 /**
+ * Strips a dialog window down to its content and points the system bars at [isDarkTheme].
+ *
+ * A dialog gets a window of its own, with an insets controller of its own, so what the activity
+ * set in its theme never reaches it. Left alone, the bar icons keep the platform default and go
+ * invisible against a light dialog.
+ */
+@Composable
+private fun DialogWindowEffect(isDarkTheme: Boolean) {
+    val dialogWindow = (LocalView.current.parent as? DialogWindowProvider)?.window
+
+    SideEffect {
+        dialogWindow?.let {
+            // Remove standard system backgrounds/window shadows
+            it.setDimAmount(0f)
+            it.setBackgroundDrawableResource(android.R.color.transparent)
+
+            val insets = WindowCompat.getInsetsController(it, it.decorView)
+            insets.isAppearanceLightStatusBars = !isDarkTheme
+            insets.isAppearanceLightNavigationBars = !isDarkTheme
+        }
+    }
+}
+
+/**
  * Fullscreen semi-transparent overlay dialog. Blocks all interaction behind it.
  * Handles its own fade enter/exit animation via [Animations].
  */
@@ -185,6 +203,10 @@ fun Overlay(
     backgroundAlpha: Float = 0.75f,
     content: @Composable BoxScope.() -> Unit
 ) {
+    // Drawn over the theme background, so the bars read against the same thing an AppDialog gives
+    // them even though this one lets some of the screen behind show through
+    val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
+
     AnimatedVisibility(
         visible = visible,
         enter = Animations.overlayEnter,
@@ -199,13 +221,8 @@ fun Overlay(
                 decorFitsSystemWindows = false
             )
         ) {
-            val dialogWindow = (LocalView.current.parent as? DialogWindowProvider)?.window
-            SideEffect {
-                dialogWindow?.let {
-                    it.setDimAmount(0f)
-                    it.setBackgroundDrawableResource(android.R.color.transparent)
-                }
-            }
+            DialogWindowEffect(isDarkTheme)
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()

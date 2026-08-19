@@ -6,11 +6,11 @@
 * Badges only restyle their text where the background is actually known ([6a129fb](https://github.com/MorpheApp/morphe-manager/commit/6a129fbc319f8d4cd332358a6d7433b8d225974b))
 * Dialog status bar stays all white in light theme ([#879](https://github.com/MorpheApp/morphe-manager/issues/879)) ([d56be32](https://github.com/MorpheApp/morphe-manager/commit/d56be3283f8d3fbaec626e06a8cf8f83fe9bcbb0))
 * Fills and text on tinted cards stay distinct from what they sit on ([c29f375](https://github.com/MorpheApp/morphe-manager/commit/c29f375be5b1c6907a00657b4f0ae620913a2cdf))
-* Filter chips no longer blend into the sheet behind them ([b9f5a6a](https://github.com/MorpheApp/morphe-manager/commit/b9f5a6a5700d0a3e7c8e0ddf4093b21490e7ed88)), closes [/github.com/MorpheApp/morphe-manager/issues/875#issuecomment-5339055352](https://github.com//github.com/MorpheApp/morphe-manager/issues/875/issues/issuecomment-5339055352)
+* Filter chips no longer blend into the sheet behind them ([b9f5a6a](https://github.com/MorpheApp/morphe-manager/commit/b9f5a6a5700d0a3e7c8e0ddf4093b21490e7ed88))
 * Hero card and monochrome section icons pick a tint their own fill supports ([5b81845](https://github.com/MorpheApp/morphe-manager/commit/5b81845e4a2db89a76fd2dc614a76e8ef3df80c5))
 * Hero card subtitles stay readable on their own tinted background ([ac77444](https://github.com/MorpheApp/morphe-manager/commit/ac77444301917dd341b170a73989c2410b0e69fc))
 * Home cards pick content and skeleton colors from the gradient they land on ([91e557e](https://github.com/MorpheApp/morphe-manager/commit/91e557e6fac9e6a8e7b78d66274f88771b35844c))
-* Selected tiles and tabs no longer invert their content on light accents ([cd57a13](https://github.com/MorpheApp/morphe-manager/commit/cd57a1333194f4ce207b164d03174849560b98c8)), closes [/github.com/MorpheApp/morphe-manager/issues/875#issuecomment-5333117635](https://github.com//github.com/MorpheApp/morphe-manager/issues/875/issues/issuecomment-5333117635)
+* Selected tiles and tabs no longer invert their content on light accents ([cd57a13](https://github.com/MorpheApp/morphe-manager/commit/cd57a1333194f4ce207b164d03174849560b98c8))
 * Sticky search rows match the dialog body instead of the surface role ([f617a80](https://github.com/MorpheApp/morphe-manager/commit/f617a80438b486a82045d433015359e7cd7d6660))
 
 

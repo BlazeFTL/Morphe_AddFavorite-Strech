@@ -1,3 +1,15 @@
+# [1.27.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.4...v1.27.0-dev.5) (2026-08-19)
+
+
+### Bug Fixes
+
+* Keep the apksig ASN.1 members that signing builds by reflection ([222c6ca](https://github.com/MorpheApp/morphe-manager/commit/222c6cae56ffd016669a1c9dd6bb8a611f857738))
+
+
+### Features
+
+* Batch patching offers the download helper and checks what it hands back ([f69f03a](https://github.com/MorpheApp/morphe-manager/commit/f69f03ae36d76d3086cc41145f016611b54b7ee2))
+
 # [1.27.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.3...v1.27.0-dev.4) (2026-08-19)
 
 

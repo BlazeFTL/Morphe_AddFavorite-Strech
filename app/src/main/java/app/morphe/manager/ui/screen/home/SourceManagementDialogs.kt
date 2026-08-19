@@ -749,159 +749,165 @@ fun PatchItemCard(
         } else null
     }
 
+    val effectiveCardColor = cardColor ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+    // Card colors come from the app's own icon, so no fixed badge fill can be counted on to show
+    val cardBackground = effectiveCardColor.compositeOver(MaterialTheme.colorScheme.background)
+
     SettingsItemCard(
         onClick = if (!patch.options.isNullOrEmpty()) {
             { expandOptions = !expandOptions }
         } else null,
         modifier = modifier,
         borderWidth = 1.dp,
-        color = cardColor ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+        color = effectiveCardColor
     ) {
-        Column(
-            modifier = Modifier.padding(Defaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-        ) {
-            // Header
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+        CompositionLocalProvider(LocalCardBackground provides cardBackground) {
+            Column(
+                modifier = Modifier.padding(Defaults.ContentPadding),
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
             ) {
-                Text(
-                    text = patch.displayName,
-                    color = textColor,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.weight(1f)
-                )
-
-                if (!patch.options.isNullOrEmpty()) {
-                    ThemedIcon(
-                        icon = Icons.Outlined.ExpandMore,
-                        contentDescription = if (expandOptions)
-                            stringResource(R.string.collapse)
-                        else
-                            stringResource(R.string.expand),
-                        tint = secondaryColor,
-                        modifier = Modifier.rotate(rotationAngle)
-                    )
-                }
-            }
-
-            // Description
-            patch.description?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = secondaryColor
-                )
-            }
-
-            // Compatibility info
-            if (patch.isUniversal) {
+                // Header
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    StatusBadge(
-                        text = stringResource(R.string.sources_dialog_view_any_package),
-                        icon = Icons.Outlined.Apps
+                    Text(
+                        text = patch.displayName,
+                        color = textColor,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.weight(1f)
                     )
-                    StatusBadge(
-                        text = stringResource(R.string.sources_dialog_view_any_version),
-                        icon = Icons.Outlined.Code
+
+                    if (!patch.options.isNullOrEmpty()) {
+                        ThemedIcon(
+                            icon = Icons.Outlined.ExpandMore,
+                            contentDescription = if (expandOptions)
+                                stringResource(R.string.collapse)
+                            else
+                                stringResource(R.string.expand),
+                            tint = secondaryColor,
+                            modifier = Modifier.rotate(rotationAngle)
+                        )
+                    }
+                }
+
+                // Description
+                patch.description?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = secondaryColor
                     )
                 }
-            } else {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    patch.compatiblePackages.orEmpty().forEach { compatiblePackage ->
-                        val anyString = stringResource(R.string.any_version)
-                        val appName = compatiblePackage.displayName ?: compatiblePackage.packageName ?: anyString
-                        val versions = compatiblePackage.versions.orEmpty()
 
-                        FlowRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            StatusBadge(
-                                text = appName,
-                                icon = Icons.Outlined.Apps,
-                                tone = SemanticTone.Primary,
-                                modifier = Modifier.align(Alignment.CenterVertically)
-                            )
+                // Compatibility info
+                if (patch.isUniversal) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        StatusBadge(
+                            text = stringResource(R.string.sources_dialog_view_any_package),
+                            icon = Icons.Outlined.Apps
+                        )
+                        StatusBadge(
+                            text = stringResource(R.string.sources_dialog_view_any_version),
+                            icon = Icons.Outlined.Code
+                        )
+                    }
+                } else {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        patch.compatiblePackages.orEmpty().forEach { compatiblePackage ->
+                            val anyString = stringResource(R.string.any_version)
+                            val appName = compatiblePackage.displayName ?: compatiblePackage.packageName ?: anyString
+                            val versions = compatiblePackage.versions.orEmpty()
 
-                            if (versions.isNotEmpty()) {
-                                val shownVersions =
-                                    if (expandVersions) versions else versions.take(1)
-                                shownVersions.forEach { version ->
-                                    PatchVersionBadge(
-                                        version = version,
-                                        isExperimental = compatiblePackage.experimentalVersions
-                                            ?.contains(version) == true,
-                                        modifier = Modifier.align(Alignment.CenterVertically)
-                                    )
-                                }
+                            FlowRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                StatusBadge(
+                                    text = appName,
+                                    icon = Icons.Outlined.Apps,
+                                    tone = SemanticTone.Primary,
+                                    modifier = Modifier.align(Alignment.CenterVertically)
+                                )
 
-                                if (versions.size > 1) {
-                                    StatusBadge(
-                                        text = if (expandVersions)
-                                            stringResource(R.string.less)
-                                        else
-                                            "+${versions.size - 1}",
-                                        modifier = Modifier.align(Alignment.CenterVertically),
-                                        onClick = { expandVersions = !expandVersions }
-                                    )
+                                if (versions.isNotEmpty()) {
+                                    val shownVersions =
+                                        if (expandVersions) versions else versions.take(1)
+                                    shownVersions.forEach { version ->
+                                        PatchVersionBadge(
+                                            version = version,
+                                            isExperimental = compatiblePackage.experimentalVersions
+                                                ?.contains(version) == true,
+                                            modifier = Modifier.align(Alignment.CenterVertically)
+                                        )
+                                    }
+
+                                    if (versions.size > 1) {
+                                        StatusBadge(
+                                            text = if (expandVersions)
+                                                stringResource(R.string.less)
+                                            else
+                                                "+${versions.size - 1}",
+                                            modifier = Modifier.align(Alignment.CenterVertically),
+                                            onClick = { expandVersions = !expandVersions }
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            // Expert badge - shown only for patches that are disabled by default
-            if (!patch.include && onExpertBadgeClick != null) {
-                StatusBadge(
-                    text = stringResource(R.string.sources_patch_expert_badge),
-                    icon = Icons.Outlined.Lock,
-                    tone = SemanticTone.Warning,
-                    onClick = onExpertBadgeClick
-                )
-            }
+                // Expert badge - shown only for patches that are disabled by default
+                if (!patch.include && onExpertBadgeClick != null) {
+                    StatusBadge(
+                        text = stringResource(R.string.sources_patch_expert_badge),
+                        icon = Icons.Outlined.Lock,
+                        tone = SemanticTone.Warning,
+                        onClick = onExpertBadgeClick
+                    )
+                }
 
-            // Options
-            if (!patch.options.isNullOrEmpty()) {
-                AnimatedVisibility(
-                    visible = expandOptions,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
-                    Column(
-                        modifier = Modifier.padding(top = 4.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                // Options
+                if (!patch.options.isNullOrEmpty()) {
+                    AnimatedVisibility(
+                        visible = expandOptions,
+                        enter = Animations.expandFadeEnter,
+                        exit = Animations.shrinkFadeExit
                     ) {
-                        patch.options.forEach { option ->
-                            Surface(
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                            ) {
-                                Column(
-                                    modifier = Modifier.padding(12.dp),
-                                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                        Column(
+                            modifier = Modifier.padding(top = 4.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            patch.options.forEach { option ->
+                                Surface(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+                                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
                                 ) {
-                                    Text(
-                                        text = option.title,
-                                        style = MaterialTheme.typography.titleSmall,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = textColor
-                                    )
-                                    Text(
-                                        text = option.description,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = secondaryColor
-                                    )
+                                    Column(
+                                        modifier = Modifier.padding(12.dp),
+                                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Text(
+                                            text = option.title,
+                                            style = MaterialTheme.typography.titleSmall,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = textColor
+                                        )
+                                        Text(
+                                            text = option.description,
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = secondaryColor
+                                        )
+                                    }
                                 }
                             }
                         }

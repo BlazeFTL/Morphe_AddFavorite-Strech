@@ -660,7 +660,9 @@ class BatchPatchCoordinator(
         val retained = fs.getPatchedAppFile(currentPackageName, version)
         val stored = runCatching {
             retained.parentFile?.mkdirs()
-            outputFile.copyTo(retained, overwrite = true)
+            // Staged, so a reader that refreshes while the copy runs never opens a half
+            // written archive at the path the app already reports as the saved build
+            copyThroughStaging(outputFile, retained)
             retained
         }.getOrElse {
             Log.w(TAG, "Failed to retain patched APK for ${item.packageName}", it)

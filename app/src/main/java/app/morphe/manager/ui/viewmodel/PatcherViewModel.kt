@@ -670,7 +670,9 @@ class PatcherViewModel(
         if (savePatchedEnabled) {
             try {
                 savedCopy.parentFile?.mkdirs()
-                outputFile.copyTo(savedCopy, overwrite = true)
+                // Staged, so a reader that refreshes while the copy runs never opens a half
+                // written archive at the path the app already reports as the saved build
+                copyThroughStaging(outputFile, savedCopy)
             } catch (error: IOException) {
                 if (installType == InstallType.SAVED) {
                     Log.e(TAG, "Failed to copy patched APK for later", error)

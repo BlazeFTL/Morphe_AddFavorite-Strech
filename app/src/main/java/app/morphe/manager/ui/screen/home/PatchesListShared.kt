@@ -49,7 +49,7 @@ internal fun PatchesListHeaderCard(
         Icon(
             imageVector = Icons.Outlined.Widgets,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = LocalContentColor.current,
             modifier = Modifier.size(16.dp)
         )
         val patchCountLabel = pluralStringResource(
@@ -67,7 +67,7 @@ internal fun PatchesListHeaderCard(
             Text(
                 text = count,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.primary,
+                color = LocalContentColor.current,
                 fontWeight = FontWeight.Medium
             )
         }

@@ -73,6 +73,9 @@ import java.util.Locale
 /** Keeps the scrollbar clear of the sheet's bottom action row. */
 private val SourceListScrollbarBottomInset = 64.dp
 
+/** Enough placeholder rows to fill the sheet on open without implying a count. */
+private val SourceShimmerRows = (0 until 4).toList()
+
 /**
  * Bottom sheet for managing patch bundles.
  */
@@ -93,6 +96,8 @@ fun BundleManagementSheet(
     val scope = rememberCoroutineScope()
 
     val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+    val bundleState by patchBundleRepository.bundleState.collectAsStateWithLifecycle()
+    val isLoadingSources = bundleState is PatchBundleRepository.BundleState.Loading
     val patchCounts by patchBundleRepository.patchCountsFlow.collectAsStateWithLifecycle(emptyMap())
     val manualUpdateInfo by patchBundleRepository.manualUpdateInfo.collectAsStateWithLifecycle(emptyMap())
     val activeUpdateUids by patchBundleRepository.activeUpdateUidsFlow.collectAsStateWithLifecycle(emptySet())
@@ -303,6 +308,12 @@ fun BundleManagementSheet(
                             bottom = 16.dp
                         )
                     ) {
+                        if (isLoadingSources) {
+                            items(SourceShimmerRows, key = { index -> "shimmer_$index" }) {
+                                ShimmerBundleRow()
+                            }
+                        }
+
                         if (search.isFiltering && visibleSources.isEmpty()) {
                             item(key = "search_empty") {
                                 EmptyState(

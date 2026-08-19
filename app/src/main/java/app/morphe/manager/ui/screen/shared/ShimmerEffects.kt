@@ -7,10 +7,12 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
@@ -340,6 +342,43 @@ fun ShimmerInstalledAppRow() {
             ShimmerText(widthFraction = 0.5f, height = 16.dp)
             ShimmerText(widthFraction = 0.7f, height = 12.dp)
             ShimmerText(widthFraction = 0.35f, height = 12.dp)
+        }
+    }
+}
+
+/**
+ * Placeholder for one collapsed source card, for the moment between the sheet opening and the
+ * bundle store having read the database.
+ */
+@Composable
+fun ShimmerBundleRow() {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Defaults.ContentPadding),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            ShimmerBox(modifier = Modifier.size(48.dp), shape = CircleShape)
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                ShimmerText(widthFraction = 0.55f, height = 18.dp)
+                ShimmerText(widthFraction = 0.4f, height = 12.dp)
+                ShimmerBox(
+                    modifier = Modifier
+                        .fillMaxWidth(0.3f)
+                        .height(24.dp),
+                    shape = RoundedCornerShape(50)
+                )
+            }
         }
     }
 }

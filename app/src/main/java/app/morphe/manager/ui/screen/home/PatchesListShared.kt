@@ -139,7 +139,7 @@ internal fun PatchesListSearchRow(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surface
+        color = MaterialTheme.colorScheme.background
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

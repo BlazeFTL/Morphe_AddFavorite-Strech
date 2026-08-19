@@ -78,6 +78,25 @@ private data class HomeAppCardStyle(
      */
     fun cardColors(bundleColors: List<Color>): List<Color> =
         colorResolver?.resolve(bundleColors) ?: bundleColors
+
+    /**
+     * This style adjusted to the gradient it will be drawn on. White reads on the colors a bundle
+     * declares for itself, but the appearance settings let a card be any color, including one
+     * light enough to swallow it.
+     */
+    fun onCard(bundleColors: List<Color>): HomeAppCardStyle {
+        if (monochrome) return this
+
+        val fill = cardColors(bundleColors).blend()
+        if (fill.requiresLightContent()) return this
+
+        return copy(
+            titleColor = Color.Black,
+            subtitleColor = Color.Black.copy(alpha = subtitleColor.alpha),
+            chipContainerColor = Color.Black.copy(alpha = chipContainerColor.alpha),
+            chipContentColor = Color.Black
+        )
+    }
 }
 
 @Composable
@@ -146,7 +165,7 @@ internal fun RowScope.AppCardContent(
     subtitle: String?,
     gradientColors: List<Color>
 ) {
-    val cardStyle = homeAppCardStyle()
+    val cardStyle = homeAppCardStyle().onCard(gradientColors)
 
     AppIcon(
         packageInfo = packageInfo,
@@ -204,7 +223,7 @@ fun InstalledAppCard(
     isInstallStatePending: Boolean = false,
     onLongClick: (() -> Unit)? = null
 ) {
-    val cardStyle = homeAppCardStyle(subtitleAlpha = 0.85f)
+    val cardStyle = homeAppCardStyle(subtitleAlpha = 0.85f).onCard(gradientColors)
     val showsUpdateBadge = hasUpdate &&
             !isAppDeleted &&
             !isInstallStateNotPatched &&
@@ -468,7 +487,7 @@ internal fun AppCardLayout(
     onLongClick: (() -> Unit)? = null,
     content: @Composable RowScope.() -> Unit
 ) {
-    val cardStyle = homeAppCardStyle()
+    val cardStyle = homeAppCardStyle().onCard(gradientColors)
     val shape = RoundedCornerShape(cardStyle.cardRadius)
     val view = LocalView.current
 
@@ -617,13 +636,16 @@ fun AppLoadingCard(
         label = "shimmer_offset"
     )
 
-    val cardStyle = homeAppCardStyle()
+    val cardStyle = homeAppCardStyle().onCard(gradientColors)
     val shape = RoundedCornerShape(cardStyle.cardRadius)
     val rtl = isRtl()
 
     // Skeleton rows carry the height of the text they stand in for, so the card does not
     // re-lay-out its content the moment the real app resolves
     val titleRowHeight = with(LocalDensity.current) { cardStyle.titleStyle.lineHeight.toDp() }
+
+    // Follows the content the card settled on, so the skeleton stays visible on a light gradient
+    val skeletonColor = cardStyle.titleColor
 
     Box(
         modifier = modifier
@@ -659,7 +681,7 @@ fun AppLoadingCard(
                 .drawBehind {
                     drawDiagonalShimmer(
                         progress = (shimmerOffset + 1f) / 3f,
-                        color = Color.White.copy(alpha = 0.3f)
+                        color = skeletonColor.copy(alpha = 0.3f)
                     )
                 }
         )
@@ -678,7 +700,7 @@ fun AppLoadingCard(
                     .size(cardStyle.iconSize)
                     .padding(6.dp),
                 shape = RoundedCornerShape(percent = 20),
-                baseColor = Color.White.copy(alpha = 0.2f)
+                baseColor = skeletonColor.copy(alpha = 0.2f)
             )
 
             // Text skeleton
@@ -695,7 +717,7 @@ fun AppLoadingCard(
                             .fillMaxWidth(0.6f)
                             .height(20.dp),
                         shape = RoundedCornerShape(4.dp),
-                        baseColor = Color.White.copy(alpha = 0.25f)
+                        baseColor = skeletonColor.copy(alpha = 0.25f)
                     )
                 }
                 Box(
@@ -707,7 +729,7 @@ fun AppLoadingCard(
                             .fillMaxWidth(0.4f)
                             .height(14.dp),
                         shape = RoundedCornerShape(4.dp),
-                        baseColor = Color.White.copy(alpha = 0.15f)
+                        baseColor = skeletonColor.copy(alpha = 0.15f)
                     )
                 }
             }

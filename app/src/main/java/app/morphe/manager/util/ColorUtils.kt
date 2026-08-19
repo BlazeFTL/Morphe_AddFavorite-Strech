@@ -19,6 +19,18 @@ fun Color.toHsv(): Triple<Float, Float, Float> {
     return Triple(hsv[0], hsv[1], hsv[2])
 }
 
+/** Even blend of these colors, for judging what a gradient reads as overall. */
+fun List<Color>.blend(): Color = when {
+    isEmpty() -> Color.Transparent
+    size == 1 -> first()
+    else -> Color(
+        red = sumOf { it.red.toDouble() }.toFloat() / size,
+        green = sumOf { it.green.toDouble() }.toFloat() / size,
+        blue = sumOf { it.blue.toDouble() }.toFloat() / size,
+        alpha = sumOf { it.alpha.toDouble() }.toFloat() / size
+    )
+}
+
 /** Determine if a color represents a dark background. */
 fun Color.isDarkBackground(): Boolean = luminance() < 0.5f
 

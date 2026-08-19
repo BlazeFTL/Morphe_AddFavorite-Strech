@@ -7,6 +7,18 @@ import androidx.core.graphics.toColorInt
 import kotlin.math.max
 import kotlin.math.min
 
+/**
+ * Hue in degrees, saturation and value in 0..1, the axes a color picker actually offers.
+ *
+ * Gray has no hue to speak of and the conversion reports 0 for it, which would swing the picker
+ * back to red the moment a color loses its saturation, so callers keep the hue they were showing.
+ */
+fun Color.toHsv(): Triple<Float, Float, Float> {
+    val hsv = FloatArray(3)
+    android.graphics.Color.colorToHSV(toArgb(), hsv)
+    return Triple(hsv[0], hsv[1], hsv[2])
+}
+
 /** Determine if a color represents a dark background. */
 fun Color.isDarkBackground(): Boolean = luminance() < 0.5f
 
@@ -120,16 +132,6 @@ fun parseColorToRgb(color: String): Triple<Float, Float, Float> {
     return color.toColorOrNull()?.let {
         Triple(it.red, it.green, it.blue)
     } ?: Triple(0f, 0f, 0f)
-}
-
-/**
- * Parse hex color string to RGB float values
- * Supports both #RRGGBB and #AARRGGBB formats
- */
-fun parseHexToRgb(hex: String): Triple<Float, Float, Float>? {
-    return hex.toColorOrNull()?.let {
-        Triple(it.red, it.green, it.blue)
-    }
 }
 
 /**

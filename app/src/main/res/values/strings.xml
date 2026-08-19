@@ -314,9 +314,13 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="home_low_disk_space_dialog_warning">Proceeding may result in a \"file not found\" error or a corrupt output APK</string>
     <string name="home_simple_bundle_select_title">Select patch source</string>
 
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Custom color</string>
     <string name="hex_color">Hex color</string>
+    <string name="color_picker_shade">Saturation and brightness</string>
+    <string name="color_picker_hue">Hue</string>
+
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instructions</string>
     <string name="patch_option_enter_value">Enter value</string>
     <string name="patch_option_enter_number">Enter number</string>

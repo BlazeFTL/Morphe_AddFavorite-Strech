@@ -546,6 +546,9 @@ private fun rememberPatchSections(
  * Rows for one bundle: the patches written for this app first, then the universal ones behind a
  * collapsible header. Every row animates its own placement, so search results and the fold
  * settle instead of jumping.
+ *
+ * Availability is resolved per patch, so a universal patch the installer requires or rules out
+ * carries the same lock as an app-specific one.
  */
 private fun LazyListScope.patchSections(
     bundleUid: Int,
@@ -558,62 +561,15 @@ private fun LazyListScope.patchSections(
     lockStateOf: (PatchInfo) -> PatchLockState,
     onToggle: (String) -> Unit,
     onConfigureOptions: (PatchInfo) -> Unit
-) {
-    val patchKey = { (patch, _): Pair<PatchInfo, Boolean> -> "$bundleUid:${patch.name}" }
-
-    patchRows(
-        rows = sections.specific,
-        key = patchKey,
-        newPatchNames = newPatchNames,
-        missingRequiredOptions = missingRequiredOptions,
-        lockStateOf = lockStateOf,
-        onToggle = onToggle,
-        onConfigureOptions = onConfigureOptions
-    )
-
-    if (sections.universal.isEmpty()) return
-
-    // Universal patches apply to every app and would otherwise bury the ones written for this
-    // one. There is nothing worth folding away when they are the whole list, or when a search
-    // already narrows it
-    val alwaysOpen = isSearching || sections.specific.isEmpty()
-    val isExpanded = alwaysOpen || isUniversalExpanded
-
-    item(key = "universal_header_$bundleUid") {
-        UniversalPatchesHeader(
-            count = sections.universal.size,
-            isExpanded = isExpanded,
-            onToggle = if (alwaysOpen) null else { { onUniversalExpandedChange(!isUniversalExpanded) } },
-            modifier = Modifier.animatedListItem(this)
-        )
-    }
-
-    if (!isExpanded) return
-
-    patchRows(
-        rows = sections.universal,
-        key = patchKey,
-        newPatchNames = newPatchNames,
-        missingRequiredOptions = missingRequiredOptions,
-        lockStateOf = lockStateOf,
-        onToggle = onToggle,
-        onConfigureOptions = onConfigureOptions
-    )
-}
-
-/**
- * The patch rows themselves. Availability is resolved per patch, so a universal patch the
- * installer requires or rules out carries the same lock as an app-specific one.
- */
-private fun LazyListScope.patchRows(
-    rows: List<Pair<PatchInfo, Boolean>>,
-    key: (Pair<PatchInfo, Boolean>) -> Any,
-    newPatchNames: Set<String>,
-    missingRequiredOptions: Set<String>,
-    lockStateOf: (PatchInfo) -> PatchLockState,
-    onToggle: (String) -> Unit,
-    onConfigureOptions: (PatchInfo) -> Unit
-) = items(rows, key = key) { (patch, isEnabled) ->
+) = patchSectionRows(
+    sectionKey = bundleUid,
+    specific = sections.specific,
+    universal = sections.universal,
+    key = { (patch, _): Pair<PatchInfo, Boolean> -> "$bundleUid:${patch.name}" },
+    isSearching = isSearching,
+    isUniversalExpanded = isUniversalExpanded,
+    onUniversalExpandedChange = onUniversalExpandedChange
+) { (patch, isEnabled) ->
     PatchCard(
         patch = patch,
         isEnabled = isEnabled,

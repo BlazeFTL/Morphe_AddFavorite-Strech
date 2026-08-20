@@ -5,8 +5,6 @@
 
 package app.morphe.manager.ui.screen.home
 
-import android.graphics.Color.argb
-import android.graphics.Color.colorToHSV
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -732,22 +730,7 @@ fun PatchItemCard(
         label = "expand_rotation"
     )
 
-    // Cache the card background color: colorToHSV is a native call that allocates a FloatArray
-    val cardColor = remember(accentColor) {
-        if (accentColor != null) {
-            val hsv = FloatArray(3)
-            colorToHSV(
-                argb(
-                    255,
-                    (accentColor.red * 255).toInt(),
-                    (accentColor.green * 255).toInt(),
-                    (accentColor.blue * 255).toInt()
-                ),
-                hsv
-            )
-            Color.hsl(hue = hsv[0], saturation = 0.35f, lightness = 0.55f, alpha = 0.2f)
-        } else null
-    }
+    val cardColor = rememberAccentCardColor(accentColor)
 
     val effectiveCardColor = cardColor ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
     // Card colors come from the app's own icon, so no fixed badge fill can be counted on to show

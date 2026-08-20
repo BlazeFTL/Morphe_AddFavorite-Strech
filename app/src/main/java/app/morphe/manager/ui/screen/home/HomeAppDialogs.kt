@@ -237,6 +237,7 @@ fun AppPatchesDialog(
                                                 tint = MaterialTheme.colorScheme.primary
                                             )
                                         },
+                                        color = rememberAccentCardColor(bundleAccentColors[uid]),
                                         trailing = {
                                             Icon(
                                                 imageVector = if (isCollapsed) Icons.Outlined.ExpandMore else Icons.Outlined.ExpandLess,
@@ -260,55 +261,31 @@ fun AppPatchesDialog(
 
                             if (uid !in collapsedBundles.value) {
                                 val (specificPatches, universalPatches) = bundlePatches.partition { !it.isUniversal }
-                                val patchKey = { patch: PatchInfo ->
-                                    "$uid:${patch.name}:${patch.compatiblePackages?.joinToString { it.packageName.orEmpty() }.orEmpty()}"
-                                }
 
-                                items(specificPatches, key = patchKey) { patch ->
+                                patchSectionRows(
+                                    sectionKey = uid,
+                                    specific = specificPatches,
+                                    universal = universalPatches,
+                                    key = { patch: PatchInfo ->
+                                        "$uid:${patch.name}:${patch.compatiblePackages?.joinToString { it.packageName.orEmpty() }.orEmpty()}"
+                                    },
+                                    isSearching = isFiltering,
+                                    isUniversalExpanded = uid in expandedUniversal.value,
+                                    onUniversalExpandedChange = { expanded ->
+                                        expandedUniversal.value = if (expanded) {
+                                            expandedUniversal.value + uid
+                                        } else {
+                                            expandedUniversal.value - uid
+                                        }
+                                    },
+                                    accentColor = bundleAccentColors[uid]
+                                ) { patch ->
                                     PatchItemCard(
                                         patch = patch,
                                         saveStateKey = "app_patches_${item.id}_$uid",
                                         accentColor = bundleAccentColors[uid],
                                         modifier = Modifier.animatedListItem(this)
                                     )
-                                }
-
-                                if (universalPatches.isNotEmpty()) {
-                                    // Universal patches apply to every app and would otherwise bury the
-                                    // handful written for this one. There is nothing worth folding away
-                                    // when they are the whole list, or when a search already narrows it
-                                    val alwaysOpen = isFiltering || specificPatches.isEmpty()
-                                    val isExpanded = alwaysOpen || uid in expandedUniversal.value
-
-                                    item(key = "universal_header_$uid") {
-                                        UniversalPatchesHeader(
-                                            count = universalPatches.size,
-                                            isExpanded = isExpanded,
-                                            onToggle = if (alwaysOpen) {
-                                                null
-                                            } else {
-                                                {
-                                                    expandedUniversal.value = if (uid in expandedUniversal.value) {
-                                                        expandedUniversal.value - uid
-                                                    } else {
-                                                        expandedUniversal.value + uid
-                                                    }
-                                                }
-                                            },
-                                            modifier = Modifier.animatedListItem(this)
-                                        )
-                                    }
-
-                                    if (isExpanded) {
-                                        items(universalPatches, key = patchKey) { patch ->
-                                            PatchItemCard(
-                                                patch = patch,
-                                                saveStateKey = "app_patches_${item.id}_$uid",
-                                                accentColor = bundleAccentColors[uid],
-                                                modifier = Modifier.animatedListItem(this)
-                                            )
-                                        }
-                                    }
                                 }
                             }
                         }

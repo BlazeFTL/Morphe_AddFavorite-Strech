@@ -1,3 +1,15 @@
+# [1.27.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.5...v1.27.0-dev.6) (2026-08-20)
+
+
+### Bug Fixes
+
+* Retained patched APKs land in place only once written in full ([4228f3e](https://github.com/MorpheApp/morphe-manager/commit/4228f3ea7dedd8852a7cdb9584fe5da238c8ad4c))
+
+
+### Features
+
+* Category rows in the patches list carry the color of the source they belong to ([29e4951](https://github.com/MorpheApp/morphe-manager/commit/29e49513f134991ea3d17cc338044ca08cd48f8a))
+
 # [1.27.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.4...v1.27.0-dev.5) (2026-08-19)
 
 

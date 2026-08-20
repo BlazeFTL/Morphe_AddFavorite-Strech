@@ -374,6 +374,7 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="batch_patch_source_unavailable">Die APK kon nie voorberei word nie</string>
     <string name="batch_patch_force_version">Patcher tog</string>
     <string name="batch_patch_force_version_done">In tou gesit, maar wysigings wat vir ander weergawes gemaak is, kan die toepassing breek</string>
+    <string name="batch_patch_accept_signature_done">In elk geval in die tou geplaas, hierdie APK is moontlik nie die oorspronklike nie.</string>
     <string name="batch_patch_edit_patches">Kies pleisters</string>
     <string name="batch_patch_state_no_apk">Geen APK</string>
     <string name="batch_patch_state_no_patches">Geen pleisters</string>

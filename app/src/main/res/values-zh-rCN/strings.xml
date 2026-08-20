@@ -373,6 +373,7 @@
     <string name="batch_patch_source_unavailable">无法准备 APK</string>
     <string name="batch_patch_force_version">无论如何应用补丁</string>
     <string name="batch_patch_force_version_done">仍然排队，为其他版本制作的补丁可能会破坏应用程序</string>
+    <string name="batch_patch_accept_signature_done">已排队，但此APK可能不是原始版本。</string>
     <string name="batch_patch_edit_patches">选择补丁</string>
     <string name="batch_patch_state_no_apk">没有 APK</string>
     <string name="batch_patch_state_no_patches">没有补丁</string>

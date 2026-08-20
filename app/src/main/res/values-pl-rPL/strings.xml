@@ -305,6 +305,8 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <!-- Color picker -->
     <string name="custom_color">Kolor niestandardowy</string>
     <string name="hex_color">Kolor HEX</string>
+    <string name="color_picker_shade">Nasycenie i jasność</string>
+    <string name="color_picker_hue">Odcień</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Instrukcja</string>
     <string name="patch_option_enter_value">Wprowadź wartość</string>
@@ -373,6 +375,7 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="batch_patch_source_unavailable">Nie udało się przygotować pliku APK</string>
     <string name="batch_patch_force_version">Zmodyfikuj mimo to</string>
     <string name="batch_patch_force_version_done">Dodano do kolejki mimo to, modyfikacje dla innych wersji mogą uszkodzić aplikację</string>
+    <string name="batch_patch_accept_signature_done">Zakolejkowano mimo to, ten plik APK może nie być oryginalny</string>
     <string name="batch_patch_edit_patches">Wybierz modyfikacje</string>
     <string name="batch_patch_state_no_apk">Brak pliku APK</string>
     <string name="batch_patch_state_no_patches">Brak modyfikacji</string>

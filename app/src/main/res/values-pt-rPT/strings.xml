@@ -372,6 +372,7 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="batch_patch_source_unavailable">O APK não pôde ser preparado</string>
     <string name="batch_patch_force_version">Corrigir de qualquer maneira</string>
     <string name="batch_patch_force_version_done">Enfileirado de qualquer forma, as correções feitas para outras versões podem quebrar o aplicativo</string>
+    <string name="batch_patch_accept_signature_done">Enfileirado mesmo assim, este APK pode não ser o original</string>
     <string name="batch_patch_edit_patches">Escolher patches</string>
     <string name="batch_patch_state_no_apk">Nenhum APK</string>
     <string name="batch_patch_state_no_patches">Nenhum patch encontrado</string>

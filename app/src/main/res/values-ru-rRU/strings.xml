@@ -372,6 +372,7 @@
     <string name="batch_patch_source_unavailable">Не удалось подготовить APK</string>
     <string name="batch_patch_force_version">Патчить в любом случае</string>
     <string name="batch_patch_force_version_done">Все равно в очереди; патчи, созданные для других версий, могут нарушить работу приложения</string>
+    <string name="batch_patch_accept_signature_done">Поставлено в очередь в любом случае, этот APK может не быть оригинальным</string>
     <string name="batch_patch_edit_patches">Выбрать патчи</string>
     <string name="batch_patch_state_no_apk">Нет APK</string>
     <string name="batch_patch_state_no_patches">Нет патчей</string>

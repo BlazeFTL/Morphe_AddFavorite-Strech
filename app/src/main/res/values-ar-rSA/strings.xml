@@ -374,6 +374,7 @@
     <string name="batch_patch_source_unavailable">تعذر إعداد ملف APK</string>
     <string name="batch_patch_force_version">تعديل على أي حال</string>
     <string name="batch_patch_force_version_done">تمت إضافتها إلى قائمة الانتظار على أية حال؛ فالتعديلات المُعدّة لإصدارات أخرى قد تتسبب في تعطل التطبيق</string>
+    <string name="batch_patch_accept_signature_done">تمت الإضافة إلى قائمة الانتظار، رغم ذلك قد لا يكون ملف APK هذا هو النسخة الأصلية</string>
     <string name="batch_patch_edit_patches">اختر التعديلات</string>
     <string name="batch_patch_state_no_apk">لا يوجد ملف APK</string>
     <string name="batch_patch_state_no_patches">لا توجد تعديلات</string>

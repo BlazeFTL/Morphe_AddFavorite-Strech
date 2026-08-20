@@ -373,6 +373,7 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="batch_patch_source_unavailable">APK nije mogao da bude pripremljen</string>
     <string name="batch_patch_force_version">Zakrpi bez obzira</string>
     <string name="batch_patch_force_version_done">Zakazano je, bez obzira na to, zakrpe napravljene za druge verzije mogu da oštete aplikaciju</string>
+    <string name="batch_patch_accept_signature_done">Svejedno je stavljen u red čekanja, ovaj APK možda nije originalan</string>
     <string name="batch_patch_edit_patches">Izaberite zakrpe</string>
     <string name="batch_patch_state_no_apk">Nema APK-a</string>
     <string name="batch_patch_state_no_patches">Nema zakrpa</string>

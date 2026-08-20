@@ -375,6 +375,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="batch_patch_source_unavailable">L\'APK n\'a pas pu être préparé</string>
     <string name="batch_patch_force_version">Patcher quand même</string>
     <string name="batch_patch_force_version_done">Mis en file d\'attente malgré tout, les patchs conçus pour d\'autres versions peuvent rendre l\'application inutilisable</string>
+    <string name="batch_patch_accept_signature_done">En attente quand même, cet APK n\'est peut-être pas celui d\'origine</string>
     <string name="batch_patch_edit_patches">Choisissez les patchs</string>
     <string name="batch_patch_state_no_apk">Aucun APK</string>
     <string name="batch_patch_state_no_patches">Aucun patch</string>

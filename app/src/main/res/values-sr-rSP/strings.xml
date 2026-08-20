@@ -373,6 +373,7 @@
     <string name="batch_patch_source_unavailable">APK није могао да се припреми</string>
     <string name="batch_patch_force_version">Ипак настави</string>
     <string name="batch_patch_force_version_done">Ипак је додато у ред, закрпе направљене за друге верзије могу прекинути рад апликације</string>
+    <string name="batch_patch_accept_signature_done">Ипак у реду, овај APK можда није оригинал</string>
     <string name="batch_patch_edit_patches">Изаберите печеве</string>
     <string name="batch_patch_state_no_apk">Нема APK-а</string>
     <string name="batch_patch_state_no_patches">Нема печева</string>

@@ -375,6 +375,7 @@
     <string name="batch_patch_source_unavailable">לא ניתן היה להכין את ה-APK</string>
     <string name="batch_patch_force_version">טלא באופן אוטומטי</string>
     <string name="batch_patch_force_version_done">תורן בכל זאת, תיקונים שנעשו לגרסאות אחרות עלולים לשבור את האפליקציה</string>
+    <string name="batch_patch_accept_signature_done">הועלה לתור בכל זאת, ייתכן ש-APK זה אינו המקורי</string>
     <string name="batch_patch_edit_patches">בחר טלאים</string>
     <string name="batch_patch_state_no_apk">אין APK</string>
     <string name="batch_patch_state_no_patches">אין טלאים</string>

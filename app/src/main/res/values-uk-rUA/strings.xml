@@ -305,6 +305,8 @@
     <!-- Color picker -->
     <string name="custom_color">Власний колір</string>
     <string name="hex_color">Шістнадцятковий колір</string>
+    <string name="color_picker_shade">Насиченість та яскравість</string>
+    <string name="color_picker_hue">Відтінок</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Інструкції</string>
     <string name="patch_option_enter_value">Введіть значення</string>
@@ -373,6 +375,7 @@
     <string name="batch_patch_source_unavailable">Не вдалося підготувати APK</string>
     <string name="batch_patch_force_version">Патчити все одно</string>
     <string name="batch_patch_force_version_done">Все одно додано до черги, патчі для інших версій можуть зламати застосунок</string>
+    <string name="batch_patch_accept_signature_done">Все одно додано до черги, цей APK може бути не оригінальним</string>
     <string name="batch_patch_edit_patches">Вибрати патчі</string>
     <string name="batch_patch_state_no_apk">Немає APK</string>
     <string name="batch_patch_state_no_patches">Немає патчів</string>

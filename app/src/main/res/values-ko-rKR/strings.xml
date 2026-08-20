@@ -374,6 +374,7 @@
     <string name="batch_patch_source_unavailable">APK를 준비할 수 없습니다</string>
     <string name="batch_patch_force_version">버전 강제 적용</string>
     <string name="batch_patch_force_version_done">패치 목록에 추가하였습니다. 다른 버전용으로 제작된 패치는 앱에 문제를 일으킬 수 있습니다</string>
+    <string name="batch_patch_accept_signature_done">그래도 패치 목록에 추가되었습니다. 이 APK는 원본이 아닐 수 있습니다</string>
     <string name="batch_patch_edit_patches">패치 선택</string>
     <string name="batch_patch_state_no_apk">APK 없음</string>
     <string name="batch_patch_state_no_patches">패치 없음</string>

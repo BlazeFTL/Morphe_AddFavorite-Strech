@@ -374,6 +374,7 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="batch_patch_source_unavailable">APK\'en kunne ikke forberedes</string>
     <string name="batch_patch_force_version">Patch alligevel</string>
     <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
+    <string name="batch_patch_accept_signature_done">Sat i kø alligevel, denne APK er muligvis ikke den originale</string>
     <string name="batch_patch_edit_patches">Vælg patches</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patches</string>

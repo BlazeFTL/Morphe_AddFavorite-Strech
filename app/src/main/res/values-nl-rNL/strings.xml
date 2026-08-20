@@ -370,6 +370,7 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="batch_patch_source_unavailable">De APK kon niet worden voorbereid</string>
     <string name="batch_patch_force_version">Toch patchen</string>
     <string name="batch_patch_force_version_done">Toch in de wachtrij geplaatst, patches voor andere versies kunnen de app beschadigen</string>
+    <string name="batch_patch_accept_signature_done">Toch in wachtrij geplaatst, deze APK is mogelijk niet het origineel</string>
     <string name="batch_patch_edit_patches">Patches kiezen</string>
     <string name="batch_patch_state_no_apk">Geen APK</string>
     <string name="batch_patch_state_no_patches">Geen patches</string>

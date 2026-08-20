@@ -375,6 +375,7 @@
     <string name="batch_patch_source_unavailable">APK файлът не може да бъде подготвен</string>
     <string name="batch_patch_force_version">Пачовай въпреки това</string>
     <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
+    <string name="batch_patch_accept_signature_done">Въпреки това е поставено на опашка, този APK може да не е оригиналът</string>
     <string name="batch_patch_edit_patches">Избор на пачове</string>
     <string name="batch_patch_state_no_apk">Няма APK</string>
     <string name="batch_patch_state_no_patches">Няма пачове</string>

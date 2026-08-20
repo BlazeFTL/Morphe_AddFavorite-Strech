@@ -304,6 +304,8 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <!-- Color picker -->
     <string name="custom_color">Xüsusi rəng</string>
     <string name="hex_color">Altı dəyərli rəng</string>
+    <string name="color_picker_shade">Dolğunluq və parlaqlıq</string>
+    <string name="color_picker_hue">Çalar</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Təlimatlar</string>
     <string name="patch_option_enter_value">Dəyər qeyd edin</string>
@@ -372,6 +374,7 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="batch_patch_source_unavailable">APK hazır vəziyyətə gətirilə bilmədi</string>
     <string name="batch_patch_force_version">Yenə də yamaqla</string>
     <string name="batch_patch_force_version_done">Yenə də növbəyə əlavə edildi, digər versiyalar üçün hazırlanmış yamaqlar tətbiqin işini poza bilər</string>
+    <string name="batch_patch_accept_signature_done">Yenə də növbəyə alındı, bu APK orijinal olmaya da bilər</string>
     <string name="batch_patch_edit_patches">Yamaqları seç</string>
     <string name="batch_patch_state_no_apk">APK Yoxdur</string>
     <string name="batch_patch_state_no_patches">Yamaq yoxdur</string>

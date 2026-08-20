@@ -374,6 +374,7 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="batch_patch_source_unavailable">APK súbor sa nepodarilo pripraviť</string>
     <string name="batch_patch_force_version">Aplikovať aj tak</string>
     <string name="batch_patch_force_version_done">Radšej ponechať v poradí, opravy vytvorené pre iné verzie môžu spôsobiť problémy s aplikáciou</string>
+    <string name="batch_patch_accept_signature_done">Napriek tomu zaradené do frontu, tento APK nemusí byť pôvodný.</string>
     <string name="batch_patch_edit_patches">Vyberte záplaty</string>
     <string name="batch_patch_state_no_apk">Žiadny APK</string>
     <string name="batch_patch_state_no_patches">Žiadne záplaty</string>

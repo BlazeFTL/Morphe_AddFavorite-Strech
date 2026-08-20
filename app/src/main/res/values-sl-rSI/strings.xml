@@ -374,6 +374,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="batch_patch_source_unavailable">APK-ja ni bilo mogoče pripraviti</string>
     <string name="batch_patch_force_version">Vseeno popravite</string>
     <string name="batch_patch_force_version_done">Kljub temu dodano v vrsto, popravki za druge različice lahko povzročijo okvaro programa.</string>
+    <string name="batch_patch_accept_signature_done">Vseeno v čakalni vrsti, ta APK morda ni originalen</string>
     <string name="batch_patch_edit_patches">Izberite popravke</string>
     <string name="batch_patch_state_no_apk">Ni APK-ja</string>
     <string name="batch_patch_state_no_patches">Ni popravkov</string>

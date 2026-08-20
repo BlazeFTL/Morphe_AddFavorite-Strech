@@ -374,6 +374,7 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="batch_patch_source_unavailable">El APK no pudo ser preparado</string>
     <string name="batch_patch_force_version">Continuar de todos modos</string>
     <string name="batch_patch_force_version_done">En cola de todos modos, los parches creados para otras versiones pueden romper la aplicación</string>
+    <string name="batch_patch_accept_signature_done">En cola de todos modos, este APK podría no ser el original</string>
     <string name="batch_patch_edit_patches">Elegir parches</string>
     <string name="batch_patch_state_no_apk">Sin APK</string>
     <string name="batch_patch_state_no_patches">Sin Parches</string>

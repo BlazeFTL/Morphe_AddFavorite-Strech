@@ -372,6 +372,7 @@
     <string name="batch_patch_source_unavailable">無法準備 APK</string>
     <string name="batch_patch_force_version">仍要繼續</string>
     <string name="batch_patch_force_version_done">已排隊處理，但為其他版本所做的修補程式可能會導致應用程式出現問題</string>
+    <string name="batch_patch_accept_signature_done">無論如何已排入佇列，此 APK 可能不是原始檔案</string>
     <string name="batch_patch_edit_patches">選擇修補程式</string>
     <string name="batch_patch_state_no_apk">沒有 APK</string>
     <string name="batch_patch_state_no_patches">沒有修補程式</string>

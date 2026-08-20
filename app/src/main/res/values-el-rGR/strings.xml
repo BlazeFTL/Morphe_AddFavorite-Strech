@@ -372,6 +372,7 @@
     <string name="batch_patch_source_unavailable">Το APK δεν μπόρεσε να προετοιμαστεί</string>
     <string name="batch_patch_force_version">Διόρθωση ούτως ή άλλως</string>
     <string name="batch_patch_force_version_done">Προστέθηκε στην ουρά ούτως ή άλλως, οι ενημερώσεις για άλλες εκδόσεις ενδέχεται να προκαλέσουν προβλήματα στην εφαρμογή</string>
+    <string name="batch_patch_accept_signature_done">Προστέθηκε στην ουρά ούτως ή άλλως, αυτό το APK μπορεί να μην είναι το πρωτότυπο</string>
     <string name="batch_patch_edit_patches">Επιλέξτε διορθώσεις</string>
     <string name="batch_patch_state_no_apk">Δεν υπάρχει APK</string>
     <string name="batch_patch_state_no_patches">Δεν υπάρχουν διορθώσεις</string>

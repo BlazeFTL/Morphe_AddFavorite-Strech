@@ -373,6 +373,7 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="batch_patch_source_unavailable">APK-tiedostoa ei voitu valmistella</string>
     <string name="batch_patch_force_version">Korjaa joka tapauksessa</string>
     <string name="batch_patch_force_version_done">Lisätty jonoon, muille versioille tehdyt muutokset voivat rikkoa sovelluksen</string>
+    <string name="batch_patch_accept_signature_done">Jonoon lisätty joka tapauksessa, tämä APK ei välttämättä ole alkuperäinen</string>
     <string name="batch_patch_edit_patches">Valitse korjaukset</string>
     <string name="batch_patch_state_no_apk">APK-tiedostoa ei ole</string>
     <string name="batch_patch_state_no_patches">Ei korjauksia</string>

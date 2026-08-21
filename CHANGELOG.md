@@ -1,3 +1,10 @@
+# [1.27.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.6...v1.27.0-dev.7) (2026-08-21)
+
+
+### Bug Fixes
+
+* Sources added after an app was configured stay out of its batch selection ([29262ce](https://github.com/MorpheApp/morphe-manager/commit/29262ce0b7793220817169f6712586e5ec82e6b7))
+
 # [1.27.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.5...v1.27.0-dev.6) (2026-08-20)
 
 

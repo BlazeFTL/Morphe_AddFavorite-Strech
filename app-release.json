@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-21T08:11:33",
-  "description": "# [1.27.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.6...v1.27.0-dev.7) (2026-08-21)\n\n\n### Bug Fixes\n\n* Sources added after an app was configured stay out of its batch selection ([29262ce](https://github.com/MorpheApp/morphe-manager/commit/29262ce0b7793220817169f6712586e5ec82e6b7))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.7/morphe-manager-1.27.0-dev.7.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.7/morphe-manager-1.27.0-dev.7.apk.asc",
-  "version": "1.27.0-dev.7"
+  "created_at": "2026-08-21T21:17:56",
+  "description": "# [1.27.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.7...v1.27.0-dev.8) (2026-08-21)\n\n\n### Bug Fixes\n\n* Remove Simple mode theme color options and leftover dead code ([840eb7f](https://github.com/MorpheApp/morphe-manager/commit/840eb7fb2157b47986001af15254d283e55b2a4f))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.8/morphe-manager-1.27.0-dev.8.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.27.0-dev.8/morphe-manager-1.27.0-dev.8.apk.asc",
+  "version": "1.27.0-dev.8"
 }

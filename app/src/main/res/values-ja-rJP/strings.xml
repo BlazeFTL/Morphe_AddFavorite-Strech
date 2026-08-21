@@ -4,6 +4,7 @@
     <string name="home_other_apps">その他のアプリ</string>
     <string name="home_not_patched_yet">まだパッチを適用していません</string>
     <string name="home_unpatched_version_installed">未パッチ版がインストールされています</string>
+    <string name="home_unpatched_badge">未パッチ</string>
     <string name="home_no_patches_available">利用可能なパッチはありません</string>
     <string name="home_app_hide_title">このアプリを非表示にしますか？</string>
     <string name="home_app_hide_message">このアプリはホーム画面から非表示になります。リスト下部のボタンから再表示できます</string>
@@ -44,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Morphe でまだパッチを適用していないアプリ</string>
     <string name="home_app_filter_installed_description">このデバイスに現在インストールされているアプリ</string>
     <string name="home_app_filter_uninstalled_description">Morphe でパッチ適用されたアプリのうち、このデバイス上にもう存在しないもの</string>
+    <string name="home_app_filter_clones">クローン</string>
+    <string name="home_app_filter_clones_description">独自のパッケージ名でビルドされたアプリで、元のアプリと一緒にインストールされます</string>
     <string name="home_app_sort_manual_description">アプリを長押しして、並べ替えボタンをタップ</string>
     <string name="home_app_sort_recommended">推奨順</string>
     <string name="home_app_sort_recommended_description">インストール済みのアプリと固定アプリを優先</string>
@@ -192,6 +195,8 @@
     <string name="home_apk_use_installed">インストール済みのAPKを使用する</string>
     <string name="home_apk_use_installed_unverified">インストールされているアプリの署名を検証できなかったため、すでにパッチが適用されている可能性があります</string>
     <string name="home_unverified">未検証</string>
+    <string name="home_install_verification_pending">インストールを確認中…</string>
+    <string name="home_app_info_install_unverified">Morpheは、インストールされたアプリがパッチを適用したビルドであることを確認できません。保存されたAPKから再パッチまたは再インストールして、アクションを復元してください</string>
     <string name="home_app_info_no_saved_apk">保存済みの APK がありません。パッチを適用するには、 APK ファイルを再度選択してください</string>
     <string name="home_version_requires_android">Android %s 以降が必要です</string>
     <string name="home_apk_no_compatible_versions_title">このデバイスではサポートされていません</string>
@@ -229,6 +234,7 @@
     <string name="home_select_apk_title">APK を選択</string>
     <string name="home_select_any_apk_description">APK ファイルを選択するか、このデバイスにインストールされているアプリを選択してください</string>
     <string name="home_use_installed_app">インストール済みアプリを使用</string>
+    <string name="home_installed_app_picker_title">インストール済みアプリ</string>
     <string name="home_installed_app_picker_empty">アプリが見つかりません</string>
     <string name="home_installed_app_picker_filter_all">すべてのアプリ</string>
     <string name="home_installed_app_picker_filter_user">ユーザーアプリのみ</string>
@@ -305,6 +311,9 @@
     <string name="patch_option_enter_value">値を入力してください</string>
     <string name="patch_option_enter_number">数値を入力してください</string>
     <string name="patch_option_enter_decimal">小数点を入力してください</string>
+    <string name="patch_option_slider_edit">正確な値を入力</string>
+    <string name="patch_option_slider_range_start">開始</string>
+    <string name="patch_option_slider_range_end">終了</string>
     <string name="patch_option_list_duplicate">この値はすでに存在します</string>
     <string name="patch_option_list_empty">値は空にできません</string>
     <string name="patch_option_list_empty_state">まだ値が追加されていません</string>
@@ -365,6 +374,7 @@
     <string name="batch_patch_source_unavailable">APK を準備できませんでした</string>
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
     <string name="batch_patch_force_version_done">いずれにせよキューに追加されますが、他のバージョン向けに作成されたパッチによってアプリが動作しなくなる可能性があります</string>
+    <string name="batch_patch_accept_signature_done">とにかくキューに入れます。このAPKはオリジナルではない可能性があります</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
     <string name="batch_patch_state_no_apk">APK がありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>
@@ -411,6 +421,7 @@
     <string name="patcher_rename_title">これはクローンをインストールします</string>
     <string name="patcher_rename_description">パッチはこのアプリを独自のパッケージ名で構築したため、インストールすると更新ではなく &lt;b&gt;%s&lt;/b&gt; の横にクローンが追加されます</string>
     <string name="patcher_rename_result_package">インストール先</string>
+    <string name="patcher_rename_replaces">その名前のアプリが既にインストールされているため、置き換えられます</string>
     <string name="home_app_info_apk_size">APK サイズ</string>
     <string name="home_app_info_cpu_arch">CPU アーキテクチャ</string>
     <!-- Home Screen - Root Mode -->
@@ -596,11 +607,17 @@
     <string name="settings_appearance_pure_black">ピュアブラック</string>
     <string name="settings_appearance_pure_black_description">真っ黒な背景を使用します</string>
     <!-- Settings - Appearance Tab - Language Selector -->
+    <string name="settings_appearance_language_and_display">言語 &amp; 表示</string>
     <string name="settings_appearance_app_language">アプリの言語</string>
     <string name="settings_appearance_app_language_current">現在の言語</string>
     <string name="settings_appearance_translations_info_title">一部の言語では、翻訳が存在しない、または不完全である可能性があります</string>
     <string name="settings_appearance_translations_info_text">"新しい言語の翻訳や既存の翻訳の改善には、%s にアクセスしてください"</string>
     <!-- Settings - Appearance Tab - Interface Scale -->
+    <string name="settings_appearance_ui_scale">インターフェースのスケール</string>
+    <string name="settings_appearance_ui_scale_current">現在のスケール</string>
+    <string name="settings_appearance_ui_scale_description">システムの画面ズームとフォントサイズに加えて、アプリ内のすべてのスケールを変更します</string>
+    <string name="settings_appearance_ui_scale_preview_title">サンプル設定</string>
+    <string name="settings_appearance_ui_scale_preview_subtitle">このスケールでのテキストとコントロール</string>
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <string name="settings_appearance_home_screen">ホーム画面</string>
     <string name="settings_appearance_greeting_phrases">挨拶メッセージ</string>
@@ -929,6 +946,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_apks_delete_selected_title">選択した APK を削除しますか？</string>
     <string name="settings_system_apks_delete_selected_confirm">選択した APK ファイルを完全に削除します</string>
     <string name="settings_system_apks_deleted_all">APK を正常に削除しました</string>
+    <string name="settings_system_apks_delete_failed">一部のAPKファイルを削除できませんでした</string>
     <string name="settings_system_apks_export_zip_success">選択された APK をエクスポートしました</string>
     <string name="settings_system_apks_export_zip_failed">選択された APK のエクスポートに失敗しました</string>
     <!-- Settings - System Tab - Storage Management screen -->
@@ -1042,6 +1060,7 @@ morphe_header_custom_dark.png
     <string name="filter">フィルター</string>
     <string name="reset">リセット</string>
     <string name="reset_all">すべてリセット</string>
+    <string name="apply">適用</string>
     <string name="confirm">確認</string>
     <string name="warning">警告</string>
     <string name="error_">エラー</string>
@@ -1107,6 +1126,7 @@ morphe_header_custom_dark.png
     <string name="available">利用可能</string>
     <string name="continue_">続行</string>
     <string name="version">バージョン</string>
+    <string name="clone">クローン</string>
     <string name="patch">パッチ</string>
     <string name="patching">パッチ処理</string>
     <string name="patched">パッチの適用</string>

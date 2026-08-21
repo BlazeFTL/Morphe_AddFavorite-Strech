@@ -305,6 +305,8 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <!-- Color picker -->
     <string name="custom_color">Oma väri</string>
     <string name="hex_color">HEX-väri</string>
+    <string name="color_picker_shade">Kylläisyys ja kirkkaus</string>
+    <string name="color_picker_hue">Sävy</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Ohjeet</string>
     <string name="patch_option_enter_value">Anna arvo</string>

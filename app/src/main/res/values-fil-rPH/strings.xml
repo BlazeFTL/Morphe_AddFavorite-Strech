@@ -305,6 +305,8 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <!-- Color picker -->
     <string name="custom_color">Pasadyang kulay</string>
     <string name="hex_color">Kulay ng Hex</string>
+    <string name="color_picker_shade">Saturasyon at liwanag</string>
+    <string name="color_picker_hue">Tono</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Mga Tagubilin</string>
     <string name="patch_option_enter_value">Ilagay ang halaga</string>
@@ -373,6 +375,7 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
     <string name="batch_patch_source_unavailable">Hindi maiprepare ang APK</string>
     <string name="batch_patch_force_version">Mag-patch pa rin</string>
     <string name="batch_patch_force_version_done">Nakapila pa rin, ang mga patch na ginawa para sa ibang mga bersyon ay maaaring makasira sa app</string>
+    <string name="batch_patch_accept_signature_done">Queued anyway, this APK may not be the original</string>
     <string name="batch_patch_edit_patches">Pumili ng mga patch</string>
     <string name="batch_patch_state_no_apk">Walang APK</string>
     <string name="batch_patch_state_no_patches">Walang mga patch</string>

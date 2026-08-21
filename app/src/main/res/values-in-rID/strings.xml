@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplikasi yang belum Anda tambal di Morphe</string>
     <string name="home_app_filter_installed_description">Aplikasi yang saat ini terpasang di perangkat ini</string>
     <string name="home_app_filter_uninstalled_description">Aplikasi yang ditambal dengan Morphe dan tidak lagi berada di perangkat ini</string>
+    <string name="home_app_filter_clones">Klon</string>
+    <string name="home_app_filter_clones_description">Aplikasi yang dibangun dengan nama paket tersendiri, diinstal di samping aplikasi asli</string>
     <string name="home_app_sort_manual_description">Tekan lama sebuah aplikasi, lalu ketuk tombol urutkan</string>
     <string name="home_app_sort_recommended">Urutan yang Direkomendasikan</string>
     <string name="home_app_sort_recommended_description">Aplikasi yang sudah dipasang dan disematkan terlebih dahulu</string>
@@ -304,6 +306,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="custom_color">Warna Khusus</string>
     <string name="hex_color">Warna hex</string>
     <string name="color_picker_shade">Saturasi dan kecerahan</string>
+    <string name="color_picker_hue">Rona</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Petunjuk</string>
     <string name="patch_option_enter_value">Masukkan nilai</string>
@@ -372,6 +375,7 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="batch_patch_source_unavailable">APK tidak dapat disiapkan</string>
     <string name="batch_patch_force_version">Tetap tambal</string>
     <string name="batch_patch_force_version_done">Tetap diantrekan, tambalan yang dibuat untuk versi lain mungkin dapat merusak aplikasi</string>
+    <string name="batch_patch_accept_signature_done">Masuk antrean, APK ini mungkin bukan yang asli</string>
     <string name="batch_patch_edit_patches">Pilih tambalan</string>
     <string name="batch_patch_state_no_apk">Tidak ada APK</string>
     <string name="batch_patch_state_no_patches">Tidak ada tambalan</string>
@@ -415,6 +419,8 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="home_app_info_app_deleted_warning">Aplikasi telah dihapus</string>
     <string name="home_app_info_app_deleted_description">Aplikasi ini telah dihapus di luar Morphe. Tambal ulang untuk mengembalikan fungsinya</string>
     <string name="home_app_info_not_patched_description">Versi tanpa tambalan dari aplikasi ini terpasang. Morphe masih memiliki catatan tambalan sebelumnya</string>
+    <string name="patcher_rename_title">Ini akan memasang klon</string>
+    <string name="patcher_rename_description">Tambalan ini membangun aplikasi ini dengan nama paket tersendiri, sehingga menginstalnya menambahkan klon di samping &lt;b&gt;%s&lt;/b&gt; daripada memperbaruinya</string>
     <string name="patcher_rename_result_package">Akan dipasang sebagai</string>
     <string name="patcher_rename_replaces">Aplikasi dengan nama tersebut sudah terpasang dan akan diganti</string>
     <string name="home_app_info_apk_size">Ukuran APK</string>

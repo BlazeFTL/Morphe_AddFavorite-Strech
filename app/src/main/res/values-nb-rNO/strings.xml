@@ -305,6 +305,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="custom_color">Egendefinert farge</string>
     <string name="hex_color">Hex-farge</string>
     <string name="color_picker_shade">Metning og lysstyrke</string>
+    <string name="color_picker_hue">Fargetone</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Instruksjoner</string>
     <string name="patch_option_enter_value">Skriv inn verdi</string>
@@ -373,6 +374,7 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="batch_patch_source_unavailable">APK-en kunne ikke klargjøres</string>
     <string name="batch_patch_force_version">Patch uansett</string>
     <string name="batch_patch_force_version_done">Køen er likevel startet, og patcher som er laget for andre versjoner kan føre til at appen slutter å fungere</string>
+    <string name="batch_patch_accept_signature_done">Satt i kø likevel, denne APK-en er kanskje ikke originalen</string>
     <string name="batch_patch_edit_patches">Velg patcher</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patcher</string>
@@ -416,6 +418,9 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="home_app_info_app_deleted_warning">Appen ble avinstallert</string>
     <string name="home_app_info_app_deleted_description">Denne appen ble avinstallert utenfor Morphe. Patch den på nytt for å gjenopprette funksjonaliteten</string>
     <string name="home_app_info_not_patched_description">En uoppdatert versjon av denne appen er installert. Morphe har fortsatt sin tidligere patchregistrering</string>
+    <string name="patcher_rename_title">Dette vil installere en klon</string>
+    <string name="patcher_rename_description">Patchene bygde denne appen under et eget pakkenavn, så installasjonen legger til en klon sammen med &lt;b&gt;%s&lt;/b&gt; i stedet for å oppdatere den</string>
+    <string name="patcher_rename_result_package">Vil installere som</string>
     <string name="patcher_rename_replaces">En app er allerede installert under det navnet og vil bli erstattet</string>
     <string name="home_app_info_apk_size">APK-størrelse</string>
     <string name="home_app_info_cpu_arch">CPU-arkitektur</string>

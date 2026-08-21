@@ -305,6 +305,8 @@
     <!-- Color picker -->
     <string name="custom_color">自定义颜色</string>
     <string name="hex_color">十六进制颜色</string>
+    <string name="color_picker_shade">饱和度和亮度</string>
+    <string name="color_picker_hue">色调</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">说明</string>
     <string name="patch_option_enter_value">输入值</string>
@@ -417,6 +419,9 @@
     <string name="home_app_info_app_deleted_warning">应用已卸载</string>
     <string name="home_app_info_app_deleted_description">此应用已在 Morphe 外卸载。重新安装以恢复功能</string>
     <string name="home_app_info_not_patched_description">此应用安装的是未修补版本。Morphe仍保留其先前的补丁记录。</string>
+    <string name="patcher_rename_title">这将安装一个克隆</string>
+    <string name="patcher_rename_description">补丁以它们自己的包名构建了这个应用，因此安装它会添加一个克隆，与 &lt;b&gt;%s&lt;/b&gt; 并列，而不是更新它。</string>
+    <string name="patcher_rename_result_package">将安装为</string>
     <string name="patcher_rename_replaces">已安装同名应用，该应用将被替换</string>
     <string name="home_app_info_apk_size">APK大小</string>
     <string name="home_app_info_cpu_arch">CPU 架构</string>

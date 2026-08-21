@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Các ứng dụng bạn chưa vá trong Morphe</string>
     <string name="home_app_filter_installed_description">Ứng dụng hiện đang được cài đặt trên thiết bị này</string>
     <string name="home_app_filter_uninstalled_description">Ứng dụng đã vá bằng Morphe không còn trên thiết bị này</string>
+    <string name="home_app_filter_clones">Bản sao</string>
+    <string name="home_app_filter_clones_description">Các ứng dụng được tạo dưới tên gói riêng, được cài đặt bên cạnh bản gốc</string>
     <string name="home_app_sort_manual_description">Bấm giữ một ứng dụng, sau đó chọn nút sắp xếp lại</string>
     <string name="home_app_sort_recommended">Thứ tự đề xuất</string>
     <string name="home_app_sort_recommended_description">Ưu tiên ứng dụng đã cài đặt và được ghim trước</string>
@@ -302,6 +304,8 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <!-- Color picker -->
     <string name="custom_color">Tùy chỉnh màu</string>
     <string name="hex_color">Mã hex</string>
+    <string name="color_picker_shade">Độ bão hòa và độ sáng</string>
+    <string name="color_picker_hue">Sắc thái</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Hướng dẫn</string>
     <string name="patch_option_enter_value">Nhập giá trị</string>
@@ -370,6 +374,7 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="batch_patch_source_unavailable">Không thể chuẩn bị APK</string>
     <string name="batch_patch_force_version">Vẫn tiếp tục vá</string>
     <string name="batch_patch_force_version_done">Vẫn được xếp vào hàng đợi, các bản vá được tạo cho các phiên bản khác có thể làm hỏng ứng dụng</string>
+    <string name="batch_patch_accept_signature_done">Đã xếp vào hàng đợi, nhưng APK này có thể không phải bản gốc</string>
     <string name="batch_patch_edit_patches">Chọn bản vá</string>
     <string name="batch_patch_state_no_apk">Không có APK</string>
     <string name="batch_patch_state_no_patches">Không có bản vá</string>

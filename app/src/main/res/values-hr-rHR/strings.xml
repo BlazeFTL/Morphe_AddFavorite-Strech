@@ -306,6 +306,8 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <!-- Color picker -->
     <string name="custom_color">Prilagođena boja</string>
     <string name="hex_color">Hex boja</string>
+    <string name="color_picker_shade">Zasićenje i svjetlina</string>
+    <string name="color_picker_hue">Nijansa</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Upute</string>
     <string name="patch_option_enter_value">Unesite vrijednost</string>
@@ -374,6 +376,7 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="batch_patch_source_unavailable">Odabrani APK nije mogao biti pripremljen</string>
     <string name="batch_patch_force_version">Patchaj svejedno</string>
     <string name="batch_patch_force_version_done">Ionako u redu čekanja, patchevi napravljeni za druge verzije mogu poremetiti rad aplikacije</string>
+    <string name="batch_patch_accept_signature_done">Svejedno je u redu čekanja, ovaj APK možda nije originalan</string>
     <string name="batch_patch_edit_patches">Odaberite patcheve</string>
     <string name="batch_patch_state_no_apk">Nema APK-a</string>
     <string name="batch_patch_state_no_patches">Nema patcheva </string>

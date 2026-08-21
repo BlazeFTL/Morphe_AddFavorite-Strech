@@ -304,6 +304,8 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <!-- Color picker -->
     <string name="custom_color">Özel renk</string>
     <string name="hex_color">Hex rengi</string>
+    <string name="color_picker_shade">Doygunluk ve parlaklık</string>
+    <string name="color_picker_hue">Ton</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Talimatlar</string>
     <string name="patch_option_enter_value">Değer girin</string>
@@ -372,6 +374,7 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="batch_patch_source_unavailable">APK hazırlanmadı</string>
     <string name="batch_patch_force_version">Yine de yamala</string>
     <string name="batch_patch_force_version_done">Yine de kuyruğa eklendi, diğer sürümler için yapılan yamalar uygulamayı bozabilir</string>
+    <string name="batch_patch_accept_signature_done">Yine de kuyruğa alındı, bu APK orijinal olmayabilir</string>
     <string name="batch_patch_edit_patches">Yamaları seç</string>
     <string name="batch_patch_state_no_apk">APK yok</string>
     <string name="batch_patch_state_no_patches">Yama yok</string>

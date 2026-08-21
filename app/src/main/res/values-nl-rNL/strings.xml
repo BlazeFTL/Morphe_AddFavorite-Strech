@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Apps die je nog niet in Morphe hebt gepatcht</string>
     <string name="home_app_filter_installed_description">Apps die momenteel op dit apparaat zijn geïnstalleerd</string>
     <string name="home_app_filter_uninstalled_description">Apps die met Morphe zijn gepatcht en niet meer op dit apparaat staan</string>
+    <string name="home_app_filter_clones">Klonen</string>
+    <string name="home_app_filter_clones_description">Apps die onder een eigen pakketnaam zijn gebouwd en naast het origineel zijn geïnstalleerd</string>
     <string name="home_app_sort_manual_description">Houd een app ingedrukt en tik vervolgens op de herordenen-knop</string>
     <string name="home_app_sort_recommended">Aanbevolen volgorde</string>
     <string name="home_app_sort_recommended_description">Geïnstalleerde en vastgezette apps eerst</string>
@@ -302,6 +304,8 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <!-- Color picker -->
     <string name="custom_color">Aangepaste kleur</string>
     <string name="hex_color">Hex-kleur</string>
+    <string name="color_picker_shade">Verzadiging en helderheid</string>
+    <string name="color_picker_hue">Tint</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Instructies</string>
     <string name="patch_option_enter_value">Waarde invoeren</string>
@@ -417,6 +421,7 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="patcher_rename_title">Dit zal een kloon installeren</string>
     <string name="patcher_rename_description">De patches hebben deze app gebouwd onder een eigen pakketnaam, dus het installeren voegt een kloon toe naast <b>%s</b> in plaats van het bij te werken</string>
     <string name="patcher_rename_result_package">Zal installeren als</string>
+    <string name="patcher_rename_replaces">Er is al een app met die naam geïnstalleerd en deze wordt vervangen</string>
     <string name="home_app_info_apk_size">APK-grootte</string>
     <string name="home_app_info_cpu_arch">CPU-architectuur</string>
     <!-- Home Screen - Root Mode -->

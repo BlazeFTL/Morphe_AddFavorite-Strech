@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplikace, které jste v Morphe ještě nepatchovali</string>
     <string name="home_app_filter_installed_description">Aplikace aktuálně nainstalované v tomto zařízení</string>
     <string name="home_app_filter_uninstalled_description">Aplikace záplatované pomocí Morphe, které již nejsou v tomto zařízení</string>
+    <string name="home_app_filter_clones">Klonované aplikace nainstalované vedle původní aplikace pod jiným názvem balíčku</string>
+    <string name="home_app_filter_clones_description">Aplikace vytvořené pod jiným názvem balíčku, nainstalované vedle původní aplikace</string>
     <string name="home_app_sort_manual_description">Dlouze stiskněte aplikaci a poté klepněte na tlačítko pro změnu pořadí</string>
     <string name="home_app_sort_recommended">Doporučené pořadí</string>
     <string name="home_app_sort_recommended_description">Nejprve nainstalované a připnuté aplikace</string>
@@ -372,6 +374,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="batch_patch_source_unavailable">APK se nepodařilo připravit</string>
     <string name="batch_patch_force_version">Aplikovat i tak</string>
     <string name="batch_patch_force_version_done">Přesto zařazeno do fronty, záplaty pro jiné verze mohou rozbít aplikaci</string>
+    <string name="batch_patch_accept_signature_done">Přesto zařazeno do fronty, tento APK nemusí být původní</string>
     <string name="batch_patch_edit_patches">Zvolit záplaty</string>
     <string name="batch_patch_state_no_apk">Žádné APK</string>
     <string name="batch_patch_state_no_patches">Žádné záplaty</string>
@@ -418,6 +421,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="patcher_rename_title">Toto nainstaluje klon</string>
     <string name="patcher_rename_description">Záplaty vytvořily tuto aplikaci pod vlastním názvem balíčku, takže instalace přidá klon vedle &lt;b&gt;%s&lt;/b&gt; místo aktualizace.</string>
     <string name="patcher_rename_result_package">Nainstaluje se jako</string>
+    <string name="patcher_rename_replaces">An app is already installed under that name and will be replaced</string>
     <string name="home_app_info_apk_size">Velikost APK</string>
     <string name="home_app_info_cpu_arch">Architektura CPU</string>
     <!-- Home Screen - Root Mode -->

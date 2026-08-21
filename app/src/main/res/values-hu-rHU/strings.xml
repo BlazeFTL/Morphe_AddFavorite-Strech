@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">A Morphe segítségével még nem patchelt alkalmazások</string>
     <string name="home_app_filter_installed_description">A jelenleg ezen az eszközön telepített alkalmazások</string>
     <string name="home_app_filter_uninstalled_description">A Morphe programmal módosított alkalmazások, amelyek már nincsenek ezen az eszközön</string>
+    <string name="home_app_filter_clones">Klónok</string>
+    <string name="home_app_filter_clones_description">Az eredeti mellett települő, saját csomagnévvel rendelkező alkalmazások</string>
     <string name="home_app_sort_manual_description">Nyomja meg hosszan az alkalmazást, majd érintse meg a sorrend módosítása gombot</string>
     <string name="home_app_sort_recommended">Ajánlott sorrend</string>
     <string name="home_app_sort_recommended_description">Először a telepített és rögzített alkalmazások</string>

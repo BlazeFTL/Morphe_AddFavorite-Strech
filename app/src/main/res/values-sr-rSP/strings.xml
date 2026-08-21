@@ -305,6 +305,7 @@
     <string name="custom_color">Prilagođena boja</string>
     <string name="hex_color">Boja u heksadecimalnom formatu</string>
     <string name="color_picker_shade">Засићеност и осветленост</string>
+    <string name="color_picker_hue">Нијанса</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Упутства</string>
     <string name="patch_option_enter_value">Унесите вредност</string>
@@ -417,6 +418,9 @@
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Инсталирана је незакрпљена верзија ове апликације. Morphe и даље има свој претходни запис о закрпама</string>
+    <string name="patcher_rename_title">Ово ће инсталирати клон</string>
+    <string name="patcher_rename_description">Пачови су направили ову апликацију под сопственим именом пакета, тако да инсталација додаје клон поред &lt;b&gt;%s&lt;/b&gt; уместо да је ажурира</string>
+    <string name="patcher_rename_result_package">Инсталираће се као</string>
     <string name="patcher_rename_replaces">Апликација је већ инсталирана под тим именом и биће замењена</string>
     <string name="home_app_info_apk_size">Величина APK</string>
     <string name="home_app_info_cpu_arch">Архитектура процесора</string>

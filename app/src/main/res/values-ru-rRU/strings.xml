@@ -304,6 +304,8 @@
     <!-- Color picker -->
     <string name="custom_color">Свой цвет</string>
     <string name="hex_color">Hex цвет</string>
+    <string name="color_picker_shade">Насыщенность и яркость</string>
+    <string name="color_picker_hue">Тон</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Инструкции</string>
     <string name="patch_option_enter_value">Введите значение</string>

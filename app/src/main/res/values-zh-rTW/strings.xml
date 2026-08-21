@@ -304,6 +304,8 @@
     <!-- Color picker -->
     <string name="custom_color">自訂顏色</string>
     <string name="hex_color">十六進位顏色</string>
+    <string name="color_picker_shade">飽和度和亮度</string>
+    <string name="color_picker_hue">色相</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">指示</string>
     <string name="patch_option_enter_value">輸入值</string>

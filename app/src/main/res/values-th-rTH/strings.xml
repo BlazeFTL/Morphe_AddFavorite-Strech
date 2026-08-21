@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">แอปที่คุณยังไม่ได้แพตช์ใน Morphe</string>
     <string name="home_app_filter_installed_description">แอปที่ติดตั้งอยู่บนอุปกรณ์นี้ในขณะนี้</string>
     <string name="home_app_filter_uninstalled_description">แอปที่แพตช์ด้วย Morphe ซึ่งไม่ได้อยู่บนอุปกรณ์นี้แล้ว</string>
+    <string name="home_app_filter_clones">โคลน</string>
+    <string name="home_app_filter_clones_description">แอปที่สร้างด้วยชื่อแพ็กเกจของตัวเอง ติดตั้งเคียงข้างแอปต้นฉบับ</string>
     <string name="home_app_sort_manual_description">แตะแอปค้างไว้ แล้วแตะปุ่มจัดเรียงใหม่</string>
     <string name="home_app_sort_recommended">เรียงตามที่แนะนำ</string>
     <string name="home_app_sort_recommended_description">แอปที่ติดตั้งและตรึงไว้ก่อน</string>
@@ -372,6 +374,7 @@
     <string name="batch_patch_source_unavailable">ไม่สามารถเตรียม APK ได้</string>
     <string name="batch_patch_force_version">แพตช์อยู่ดี</string>
     <string name="batch_patch_force_version_done">อย่างไรก็ตาม แพตช์ที่สร้างขึ้นสำหรับเวอร์ชันอื่นอาจทำให้แอปเสียหายได้</string>
+    <string name="batch_patch_accept_signature_done">แม้จะถูกจัดคิวแล้ว APK นี้ก็อาจไม่ใช่ต้นฉบับ</string>
     <string name="batch_patch_edit_patches">เลือกแพตช์</string>
     <string name="batch_patch_state_no_apk">ไม่มี APK</string>
     <string name="batch_patch_state_no_patches">ไม่มีแพตช์</string>

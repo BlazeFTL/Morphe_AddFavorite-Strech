@@ -305,6 +305,8 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <!-- Color picker -->
     <string name="custom_color">Colore personalizzato</string>
     <string name="hex_color">Colore esadecimale</string>
+    <string name="color_picker_shade">Saturazione e luminosità</string>
+    <string name="color_picker_hue">Tonalità</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Istruzioni</string>
     <string name="patch_option_enter_value">Inserisci il valore</string>
@@ -373,6 +375,7 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="batch_patch_source_unavailable">L\'APK non è stato possibile prepararlo</string>
     <string name="batch_patch_force_version">Applica comunque</string>
     <string name="batch_patch_force_version_done">Messo in coda comunque, le patch create per altre versioni potrebbero compromettere il funzionamento dell\'app</string>
+    <string name="batch_patch_accept_signature_done">Queued anyway, this APK may not be the originalI\'ll translate the provided JSON, fixing the QA issue by removing the trailing period from the translation. The final output is a JSON object with the same structure, where the `broken_translation` is corrected to </string>
     <string name="batch_patch_edit_patches">Scegli patch</string>
     <string name="batch_patch_state_no_apk">Nessun APK</string>
     <string name="batch_patch_state_no_patches">Nessuna patch</string>

@@ -45,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">Aplicațiile pe care nu le-ai modificat încă în Morphe</string>
     <string name="home_app_filter_installed_description">Aplicații instalate în prezent pe acest dispozitiv</string>
     <string name="home_app_filter_uninstalled_description">Aplicații patch-uite cu Morphe care nu mai sunt pe acest dispozitiv</string>
+    <string name="home_app_filter_clones">Clone</string>
+    <string name="home_app_filter_clones_description">Aplicații create sub un nume de pachet propriu, instalate alături de original</string>
     <string name="home_app_sort_manual_description">Apăsați lung pe o aplicație, apoi atingeți butonul de reordonare</string>
     <string name="home_app_sort_recommended">Ordinare recomandată</string>
     <string name="home_app_sort_recommended_description">Aplicațiile instalate și fixate primele</string>
@@ -302,6 +304,8 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <!-- Color picker -->
     <string name="custom_color">Culoare personalizată</string>
     <string name="hex_color">Culoare hexazecimală</string>
+    <string name="color_picker_shade">Saturație și luminozitate</string>
+    <string name="color_picker_hue">Nuanță</string>
     <!-- Patch Options -->
     <string name="patch_option_instructions">Instrucțiuni</string>
     <string name="patch_option_enter_value">Introduceți valoarea</string>
@@ -370,6 +374,7 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="batch_patch_source_unavailable">APK-ul nu a putut fi pregătit</string>
     <string name="batch_patch_force_version">Aplică patch oricum</string>
     <string name="batch_patch_force_version_done">Adăugat în coadă oricum, patch-urile realizate pentru alte versiuni pot strica aplicația</string>
+    <string name="batch_patch_accept_signature_done">Pus în coadă oricum, acest APK poate să nu fie original</string>
     <string name="batch_patch_edit_patches">Alege patch-uri</string>
     <string name="batch_patch_state_no_apk">Nu este disponibil niciun APK</string>
     <string name="batch_patch_state_no_patches">Nu sunt disponibile patch-uri</string>
@@ -416,6 +421,7 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="patcher_rename_title">Aceasta va instala o clonă</string>
     <string name="patcher_rename_description">Patch-urile au construit această aplicație sub un nume de pachet propriu, așa că instalarea acesteia adaugă o clonă alături de &lt;b&gt;%s&lt;/b&gt; în loc să o actualizeze.</string>
     <string name="patcher_rename_result_package">Se va instala ca</string>
+    <string name="patcher_rename_replaces">O aplicație este deja instalată sub acest nume și va fi înlocuită</string>
     <string name="home_app_info_apk_size">Dimensiunea APK</string>
     <string name="home_app_info_cpu_arch">Arhitectura procesorului</string>
     <!-- Home Screen - Root Mode -->

@@ -374,6 +374,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="batch_patch_source_unavailable">Níorbh fhéidir an APK a ullmhú</string>
     <string name="batch_patch_force_version">Paiste ar aon nós</string>
     <string name="batch_patch_force_version_done">Sa scuaine ar aon nós, d\'fhéadfadh paistí a rinneadh do leaganacha eile an aip a bhriseadh</string>
+    <string name="batch_patch_accept_signature_done">Ciúáilte ar aon nós, b\'fhéidir nach é an APK seo an bunleagan</string>
     <string name="batch_patch_edit_patches">Roghnaigh paistí</string>
     <string name="batch_patch_state_no_apk">Gan APK</string>
     <string name="batch_patch_state_no_patches">Gan paistí</string>

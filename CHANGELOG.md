@@ -1,3 +1,10 @@
+# [1.27.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.7...v1.27.0-dev.8) (2026-08-21)
+
+
+### Bug Fixes
+
+* Remove Simple mode theme color options and leftover dead code ([840eb7f](https://github.com/MorpheApp/morphe-manager/commit/840eb7fb2157b47986001af15254d283e55b2a4f))
+
 # [1.27.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.6...v1.27.0-dev.7) (2026-08-21)
 
 

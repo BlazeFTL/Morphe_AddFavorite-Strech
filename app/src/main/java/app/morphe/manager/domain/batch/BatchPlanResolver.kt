@@ -21,6 +21,7 @@ import app.morphe.manager.domain.repository.PatchOptionsRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
+import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
@@ -35,6 +36,8 @@ import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
+import app.morphe.patcher.patch.ApkArchitecture
+import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -63,6 +66,28 @@ internal fun apkSignatureAccepted(sdkInt: Int, declared: Set<String>?, hashes: S
     if (declared.isNullOrEmpty()) return true
     if (hashes == null) return true
     return hashes.any { it in declared }
+}
+
+/**
+ * The patches of a source that appeared since a saved configuration was last written, and so are
+ * selected by their own default rather than by what the user saved.
+ *
+ * [known] is what that configuration recorded for the source: its seen-patch snapshot, or the
+ * saved selection itself where no snapshot exists yet. Null means the source was not part of the
+ * configuration at all, which is a different thing entirely from a source whose patches are all
+ * new: a source added after the app was configured contributes nothing until the user picks from
+ * it, the same way the expert dialog leaves it alone.
+ */
+internal fun newlyAddedDefaults(
+    patches: List<PatchInfo>,
+    known: Set<String>?,
+    installerType: InstallerType,
+    apkArchitecture: ApkArchitecture
+): Set<String> {
+    if (known == null) return emptySet()
+    return patches
+        .filter { it.name !in known && it.defaultSelected(installerType, apkArchitecture) }
+        .mapTo(mutableSetOf()) { it.name }
 }
 
 /**
@@ -380,15 +405,15 @@ class BatchPlanResolver(
 
             val merged = bundles.associate { bundle ->
                 val seen = patchSelectionRepository.getSeenPatches(configurationKey, bundle.uid)
-                val known = seen ?: saved[bundle.uid] ?: emptySet()
 
                 // Patches added to the bundle since the last run follow their own default,
                 // the same rule the expert dialog applies when it merges new patches in
-                val newDefaults = bundle.patches
-                    .filter {
-                        it.name !in known && it.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE)
-                    }
-                    .mapTo(mutableSetOf()) { it.name }
+                val newDefaults = newlyAddedDefaults(
+                    patches = bundle.patches,
+                    known = seen ?: saved[bundle.uid],
+                    installerType = installerType,
+                    apkArchitecture = SELECTION_APK_ARCHITECTURE
+                )
 
                 bundle.uid to (validated[bundle.uid].orEmpty() + newDefaults)
             }.filterValues { it.isNotEmpty() }

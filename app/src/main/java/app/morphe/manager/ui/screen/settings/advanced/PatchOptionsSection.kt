@@ -71,15 +71,6 @@ fun PatchOptionsSection(
             loadError == null &&
             youtubePatches.isEmpty() && youtubeMusicPatches.isEmpty()
 
-    patchOptionsViewModel.showThemeDialogFor?.let { packageName ->
-        ThemeColorDialog(
-            patchOptionsPrefs = patchOptionsPrefs,
-            patchOptionsViewModel = patchOptionsViewModel,
-            packageName = packageName,
-            onDismiss = { patchOptionsViewModel.dismissThemeDialog() }
-        )
-    }
-
     patchOptionsViewModel.showBrandingDialogFor?.let { packageName ->
         CustomBrandingDialog(
             patchOptionsPrefs = patchOptionsPrefs,
@@ -149,7 +140,6 @@ fun PatchOptionsSection(
                             title = KnownApps.getAppName(KnownApps.YOUTUBE),
                             description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
                             patchOptionsViewModel = patchOptionsViewModel,
-                            onThemeClick = { patchOptionsViewModel.openThemeDialog(KnownApps.YOUTUBE) },
                             onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE) },
                             onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE) }
                         )
@@ -181,7 +171,6 @@ fun PatchOptionsSection(
                             title = KnownApps.getAppName(KnownApps.YOUTUBE_MUSIC),
                             description = stringResource(R.string.settings_advanced_patch_options_youtube_description),
                             patchOptionsViewModel = patchOptionsViewModel,
-                            onThemeClick = { patchOptionsViewModel.openThemeDialog(KnownApps.YOUTUBE_MUSIC) },
                             onBrandingClick = { patchOptionsViewModel.openBrandingDialog(KnownApps.YOUTUBE_MUSIC) },
                             onHeaderClick = { patchOptionsViewModel.openHeaderDialog(KnownApps.YOUTUBE_MUSIC) }
                         )
@@ -202,12 +191,10 @@ private fun AppPatchOptionsCard(
     title: String,
     description: String,
     patchOptionsViewModel: PatchOptionsViewModel,
-    onThemeClick: () -> Unit,
     onBrandingClick: () -> Unit,
     onHeaderClick: () -> Unit
 ) {
     // Get available patches for this app type
-    val hasTheme = patchOptionsViewModel.getThemeOptions(packageName) != null
     val hasBranding = patchOptionsViewModel.getBrandingOptions(packageName) != null
     val hasHeader = patchOptionsViewModel.getHeaderOptions(packageName) != null
 
@@ -219,20 +206,8 @@ private fun AppPatchOptionsCard(
             description = description
         )
 
-        // Theme Colors
-        if (hasTheme) {
-            SettingsItem(
-                icon = Icons.Outlined.Palette,
-                title = stringResource(R.string.settings_advanced_patch_options_theme_colors),
-                subtitle = stringResource(R.string.settings_advanced_patch_options_theme_colors_description),
-                onClick = onThemeClick
-            )
-        }
-
         // Custom Branding
         if (hasBranding) {
-            SettingsDivider()
-
             SettingsItem(
                 icon = Icons.Outlined.Style,
                 title = stringResource(R.string.settings_advanced_patch_options_custom_branding),
@@ -243,7 +218,7 @@ private fun AppPatchOptionsCard(
 
         // Custom Header
         if (hasHeader) {
-            SettingsDivider()
+            if (hasBranding) SettingsDivider()
 
             SettingsItem(
                 icon = Icons.Outlined.Image,
@@ -254,7 +229,7 @@ private fun AppPatchOptionsCard(
         }
 
         // Show message if no options available for this app
-        if (!hasTheme && !hasBranding && !hasHeader) {
+        if (!hasBranding && !hasHeader) {
             Text(
                 text = stringResource(R.string.settings_advanced_patch_options_no_available),
                 style = MaterialTheme.typography.bodySmall,

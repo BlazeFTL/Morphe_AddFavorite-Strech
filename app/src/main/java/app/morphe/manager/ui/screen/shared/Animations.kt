@@ -107,10 +107,6 @@ object Animations {
         targetOffsetY = { it }
     ) + fadeOut(tween(Defaults.ANIMATION_DURATION_SHORT))
 
-    // Scale Transitions
-    val fadeScaleIn = fadeIn + scaleIn(defaultTween(), initialScale = Defaults.DIALOG_SCALE)
-    val fadeScaleOut = fadeOut + scaleOut(defaultTween(), targetScale = Defaults.DIALOG_SCALE)
-
     // Floating Button (FAB / scroll-to-top). Pops in from below with a stronger scale
     val fabEnter = fadeIn + scaleIn(defaultTween(), initialScale = 0.85f) +
             slideInVertically(defaultTween()) { it / 2 }

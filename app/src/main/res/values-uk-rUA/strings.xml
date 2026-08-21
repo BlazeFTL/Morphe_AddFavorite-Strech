@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Оновлення пропущено</string>
     <string name="home_update_skipped_metered_subtitle">Мобільна мережа активна</string>
     <string name="home_updating_sources">Оновлення джерел…</string>
-    <string name="home_update_progress_format">%s оброблено</string>
     <string name="home_update_success">Оновлення джерел завершено</string>
     <string name="home_update_success_subtitle">Ваші джерела актуальні</string>
     <string name="home_sources_are_loading">Джерела завантажуються, будь ласка, зачекайте…</string>
@@ -538,7 +537,6 @@
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Застосування патчів</string>
     <string name="failed_to_execute_patch">Не вдалося застосувати %s</string>
-    <string name="patched_app_saved_toast">Патчений застосунок збережено для подальшого використання</string>
     <string name="patched_app_save_failed_toast">Не вдалося зберегти патчений застосунок</string>
     <string name="plugin_activity_dialog_body">Для продовження потрібна взаємодія користувача з цим плагіном</string>
     <string name="patcher_process_exit_message">Процес патчера завершився з кодом %s</string>
@@ -734,15 +732,9 @@
     <string name="settings_advanced_github_pat_export_warning">Не поширюйте свій PAT (Personal access token). Якщо ви включаєте його в експорт налаштувань, збережіть цей файл приватним, оскільки він містить токен</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Параметри патчів</string>
-    <string name="settings_advanced_patch_options_youtube_description">Параметри теми, брендингу та заголовку</string>
+    <string name="settings_advanced_patch_options_youtube_description">Параметри брендингу та заголовку</string>
     <string name="settings_advanced_patch_options_restart_message">Щоб зміни параметрів патчів набрали чинності, потрібно повторно патчити застосунок</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">У режимі експерта параметри патчів будуть доступні під час процесу патчингу</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Кольори теми застосунку</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Змінює колір фону</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Колір фону темної теми</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Колір фону світлої теми</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Може бути hex-колір (#RRGGBB) або посилання на ресурс кольору</string>
     <string name="settings_advanced_patch_options_loading">Завантаження параметрів патчів...</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Очікування оновлення джерела патчів</string>
     <string name="settings_advanced_patch_options_load_error">Не вдалося завантажити параметри патчів</string>
@@ -1000,11 +992,9 @@ morphe_header_custom_dark.png
     <string name="settings_system_patch_selection_reset_package_confirm_title">Скинути вибір пакетів?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Скинути вибрані пакети?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Скинути вибір джерела?</string>
-    <string name="settings_system_patch_selection_no_saved">Немає збереженого вибору патчів</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s поміж %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s у %2$s</string>
     <string name="settings_system_patch_selection_source_format">Джерело #%s</string>
-    <string name="settings_system_patch_selection_will_delete">Це видалить:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Це назавжди видалить весь збережений вибір патчів для всіх пакетів та джерел</string>
     <string name="settings_system_patch_selection_reset_package_warning">Це назавжди видалить весь збережений вибір патчів для &lt;b&gt;%s&lt;/b&gt; у всіх джерелах</string>
     <string name="settings_system_patch_selection_reset_source_warning">Це назавжди видалить збережений вибір патчів для &lt;b&gt;%1$s&lt;/b&gt; у &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1133,7 +1123,6 @@ morphe_header_custom_dark.png
     <string name="patch">Патчити</string>
     <string name="patching">Патчинг</string>
     <string name="patched">Пропатчено</string>
-    <string name="repatch">Репатчити</string>
     <string name="open">Відкрити</string>
     <string name="mount">Монтувати</string>
     <string name="mounted">Монтовано</string>

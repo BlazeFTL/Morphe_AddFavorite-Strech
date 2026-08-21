@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Aktualizácia preskočená</string>
     <string name="home_update_skipped_metered_subtitle">Mobilné dáta sú aktívne</string>
     <string name="home_updating_sources">Aktualizácia zdrojov…</string>
-    <string name="home_update_progress_format">%s spracované</string>
     <string name="home_update_success">Aktualizácia zdrojov dokončená</string>
     <string name="home_update_success_subtitle">Vaše zdroje sú aktuálne</string>
     <string name="home_sources_are_loading">Zdroje sa načítavajú, prosím počkajte…</string>
@@ -537,7 +536,6 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Aplikujem záplaty</string>
     <string name="failed_to_execute_patch">Nepodarilo sa aplikovať %s</string>
-    <string name="patched_app_saved_toast">Zaplátaná aplikácia uložená na neskôr</string>
     <string name="patched_app_save_failed_toast">Nepodarilo sa uložiť zaplátanú aplikáciu</string>
     <string name="plugin_activity_dialog_body">Vyžaduje sa interakcia používateľa, aby bolo možné pokračovať s týmto pluginom</string>
     <string name="patcher_process_exit_message">Proces plátania skončil s kódom %s</string>
@@ -733,15 +731,8 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_advanced_github_pat_export_warning">Nezdieľajte vaše PAT. Ak ho zahrniete do exportu nastavení, uchovajte tento súbor v súkromí, pretože obsahuje token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Nastavenia záplaty</string>
-    <string name="settings_advanced_patch_options_youtube_description">Možnosti vzhľadu, značky a hlavičky</string>
     <string name="settings_advanced_patch_options_restart_message">Ak chcete aplikovať zmeny možností záplat, musíte aplikáciu znova zaplátať</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">V režime pre skúsených budú aj počas plátania dostupné možnosti záplat</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Farby motívu aplikácie</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Zmeniť farbu pozadia</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Farba pozadia tmavého motívu</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Farba pozadia svetlého motívu</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Môže to byť hexadecimálna farba (#RRGGBB) alebo odkaz na farebný zdroj</string>
     <string name="settings_advanced_patch_options_loading">Načítavam možnosti záplat…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Počkajte, kým sa zdroj záplat aktualizuje</string>
     <string name="settings_advanced_patch_options_load_error">Nepodarilo sa načítať možnosti záplaty</string>
@@ -999,11 +990,9 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Obnoviť výbery balíkov?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Resetovať vybrané balíky?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Obnoviť výbery zdrojov?</string>
-    <string name="settings_system_patch_selection_no_saved">Žiadne uložené výbery záplat</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s z %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s v %2$s</string>
     <string name="settings_system_patch_selection_source_format">Zdroj #%s</string>
-    <string name="settings_system_patch_selection_will_delete">Týmto odstránite:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Týmto trvalo vymažete všetky uložené výbery záplat pre všetky balíky a zdroje</string>
     <string name="settings_system_patch_selection_reset_package_warning">Týmto trvalo vymažete všetky uložené výbery záplat pre &lt;b&gt;%s&lt;/b&gt; zo všetkých zdrojov</string>
     <string name="settings_system_patch_selection_reset_source_warning">Týmto trvalo vymažete všetky uložené výbery záplat pre &lt;b&gt;%1$s&lt;/b&gt; v &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1132,7 +1121,6 @@ Podrobnosti: %2$s"</string>
     <string name="patch">Zaplátať</string>
     <string name="patching">Záplatovanie</string>
     <string name="patched">Zaplátané</string>
-    <string name="repatch">Znovu zaplátať</string>
     <string name="open">Otvoriť</string>
     <string name="mount">Pripojiť</string>
     <string name="mounted">Pripojené</string>

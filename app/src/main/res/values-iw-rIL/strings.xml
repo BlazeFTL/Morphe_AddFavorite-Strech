@@ -34,7 +34,6 @@
     <string name="home_update_skipped_metered">עדכונים שדולגו</string>
     <string name="home_update_skipped_metered_subtitle">הנתונים הניידים פעילים</string>
     <string name="home_updating_sources">מעדכן מקורות…</string>
-    <string name="home_update_progress_format">%s עובד</string>
     <string name="home_update_success">עדכון המקורות הושלם</string>
     <string name="home_update_success_subtitle">המקורות שלך מעודכנים</string>
     <string name="home_sources_are_loading">המקורות נטענים, נא להמתין…</string>
@@ -538,7 +537,6 @@
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">החלת טלאים</string>
     <string name="failed_to_execute_patch">נכשל להחיל %s</string>
-    <string name="patched_app_saved_toast">אפליקציה מתוקנת נשמרה למועד מאוחר יותר</string>
     <string name="patched_app_save_failed_toast">נכשל לשמור אפליקציה מתוקנת</string>
     <string name="plugin_activity_dialog_body">נדרש אינטראקציה של המשתמש כדי להמשיך עם תוסף זה</string>
     <string name="patcher_process_exit_message">פועל הפייסר יצא עם קוד %s</string>
@@ -734,15 +732,8 @@
     <string name="settings_advanced_github_pat_export_warning">אל תשתף את הטוקן שלך. אם תכלילו אותו בהגדרות ייצוא, שמור את הקובץ הפרטי כי הוא מכיל את הטוקן</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">אפשרויות תיקון</string>
-    <string name="settings_advanced_patch_options_youtube_description">נושא, מיתוג ואפשרויות כותרת</string>
     <string name="settings_advanced_patch_options_restart_message">שנה את שמה של הגרסה</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">במצב מומחה, אפשרויות התיקון יהיו זמינות במהלך תהליך התיקון</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">צבעי ערכת נושא של האפליקציה</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">משנה צבע רקע</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">צבעי רקע כהה</string>
-    <string name="settings_advanced_patch_options_light_theme_color">צבעי רקע בהיר</string>
-    <string name="settings_advanced_patch_options_theme_color_description">יכול להיות צבע הקסדצימלי (#RRGGBB) או מקור צבע</string>
     <string name="settings_advanced_patch_options_loading">טוען אפשרויות תיקון…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">המתן עד לעדכון מקור התיקון</string>
     <string name="settings_advanced_patch_options_load_error">טעינת אפשרויות תיקון נכשלה</string>
@@ -1010,11 +1001,9 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_patch_selection_reset_package_confirm_title">להחזיר את בחירת החבילה?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">לאפס את החבילות שנשארו?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">להחזיר את בחירת מקור?</string>
-    <string name="settings_system_patch_selection_no_saved">אין בחירות שמורות</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s על %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s ב-%2$s</string>
     <string name="settings_system_patch_selection_source_format">מקור #%s</string>
-    <string name="settings_system_patch_selection_will_delete">פעולה זו תמחק:</string>
     <string name="settings_system_patch_selection_reset_all_warning">פעולה זו תמחק לצמיתות את כל בחירות התיקונים שנשמרו עבור כל החבילות והמקורות</string>
     <string name="settings_system_patch_selection_reset_package_warning">פעולה זו תמחק לצמיתות את כל בחירות התיקונים שנשמרו עבור &lt;b&gt;%s&lt;/b&gt; בכל המקורות.</string>
     <string name="settings_system_patch_selection_reset_source_warning">פעולה זו תמחק לצמיתות את בחירות התיקונים שנשמרו עבור &lt;b&gt;%1$s&lt;/b&gt; בתוך &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1143,7 +1132,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="patch">תיקון</string>
     <string name="patching">מתקן</string>
     <string name="patched">מתוקנות</string>
-    <string name="repatch">החל תיקון</string>
     <string name="open">פתח</string>
     <string name="mount">הרכבה</string>
     <string name="mounted">מורכב</string>

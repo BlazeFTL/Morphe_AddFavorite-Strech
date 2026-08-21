@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Opdaterings oorgeslaan</string>
     <string name="home_update_skipped_metered_subtitle">Selfoon data is aktief</string>
     <string name="home_updating_sources">Opdatering van oorspronge…</string>
-    <string name="home_update_progress_format">%s verwerk</string>
     <string name="home_update_success">Opdatering van oorspronge voltooi</string>
     <string name="home_update_success_subtitle">Jou oorspronge is opgedateer</string>
     <string name="home_sources_are_loading">Oorsprong word gelaai, wag asseblief…</string>
@@ -537,7 +536,6 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Patchings toedien</string>
     <string name="failed_to_execute_patch">Kon nie %s toepas nie</string>
-    <string name="patched_app_saved_toast">Gepatchte app gered vir later</string>
     <string name="patched_app_save_failed_toast">Kon nie gepatchte app stoor nie</string>
     <string name="plugin_activity_dialog_body">Gebruikers interaksie is vereis om met hierdie inprop voort te gaan</string>
     <string name="patcher_process_exit_message">Patcherproses het met kode %s afgehandel</string>
@@ -733,15 +731,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_advanced_github_pat_export_warning">Moenie jou PAT deel nie. As jy dit in \'n settings eksport insluit, hou daardie lêer privaat want dit bevat die token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Patch opsies</string>
-    <string name="settings_advanced_patch_options_youtube_description">Tema, handelsmerk en opsies vir opskrif</string>
     <string name="settings_advanced_patch_options_restart_message">Om patch opsies te verander vereis herpatching van die app om in werking te tree</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">In Spesialismodus sal patch opsies beskikbaar wees tydens die patch proses</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">App tema kleure</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Verander agtergrondkleur</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Donker tema agtergrondkleur</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Ligte tema agtergrondkleur</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Kan \'n hekskleur wees (#RRGGBB) of \'n kleurbron verwysing</string>
     <string name="settings_advanced_patch_options_loading">Laai patch opsies…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Wag totdat die patch bron opgedateer is</string>
     <string name="settings_advanced_patch_options_load_error">Kon nie patch opsies laai nie</string>
@@ -999,11 +990,9 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Herstel pakket seleksies?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Geselekteerde pakkette terugstel?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Herstel bron seleksie?</string>
-    <string name="settings_system_patch_selection_no_saved">Geen gestoorde patch seleksies nie</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s oor %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s in %2$s</string>
     <string name="settings_system_patch_selection_source_format">Bron #%s</string>
-    <string name="settings_system_patch_selection_will_delete">Dit sal verwyder:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Dit sal permanent alle gestoorde patch seleksies vir alle pakkette en bronne uitvee</string>
     <string name="settings_system_patch_selection_reset_package_warning">Dit sal permanent alle gestoorde patch-seleksies vir &lt;b&gt;%s&lt;/b&gt; oor alle bronne verwyder.</string>
     <string name="settings_system_patch_selection_reset_source_warning">Dit sal permanent gestoorde patch-seleksies vir &lt;b&gt;%1$s&lt;/b&gt; in &lt;b&gt;%2$s&lt;/b&gt; verwyder.</string>
@@ -1132,7 +1121,6 @@ Besonderhede: %2$s"</string>
     <string name="patch">Verandering</string>
     <string name="patching">Pleister</string>
     <string name="patched">Gepatch</string>
-    <string name="repatch">Herpatch</string>
     <string name="open">Open</string>
     <string name="mount">Monteer</string>
     <string name="mounted">Gemonteer</string>

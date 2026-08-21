@@ -13,60 +13,23 @@
     <string name="home_app_hidden_apps_title">හංගපු ඇප්</string>
     <string name="home_app_hidden_apps_hint">ගැංගීමට ඔබන්න</string>
     <string name="android_11_bug_dialog_title">Android 11 දෝශය</string>
-    <string name="android_11_bug_dialog_description">The app installation permission must be granted ahead of time to avoid a bug in the Android 11 system that will negatively affect the user experience</string>
-    <string name="deep_link_add_source_title">මූලාශ්‍රය එක් කරන්න</string>
-    <string name="deep_link_add_source_message">Do you want to add this patch source to Morphe?</string>
-    <string name="deep_link_add_source_warning">Only add sources you trust</string>
     <!-- Home Screen - Update Notifications -->
-    <string name="home_update_available">Morphe update available</string>
-    <string name="home_update_available_subtitle">New version ready to install</string>
-    <string name="home_blocked_source_title">Blocked patch source detected</string>
-    <string name="home_blocked_source_subtitle">Tap to review and remove</string>
-    <string name="home_metadata_errors_title">Some patch sources are unavailable</string>
-    <string name="home_metadata_errors_subtitle">Tap to review sources</string>
-    <string name="home_outdated_manager_title">Morphe is out of date</string>
-    <string name="home_no_apps_search_subtitle">No apps match \"%s\"</string>
-    <string name="home_category_delete_confirm_message">Delete category &lt;b&gt;%1$s&lt;/b&gt;? Apps in it will move back to &lt;b&gt;%2$s&lt;/b&gt;</string>
     <!-- Home Screen - Home Greetings -->
     <!-- Humorous hype message with light nostalgia -->
     <!-- "Buckle up" referring to fastening your vehicle seat belt. A light-hearted joke to build excitement -->
-    <string name="home_greeting_3">Buckle up, it\'s patching time</string>
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
-    <string name="home_greeting_4">Another day, another ad-blocked masterpiece</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
-    <string name="home_greeting_5">Want to watch ads? Me neither</string>
     <!-- Friendly, slightly mischievous joke about controlling app behavior -->
-    <string name="home_greeting_6">Let\'s make your apps behave</string>
     <!-- Whimsical forecast-style joke, not meant literally -->
-    <string name="home_greeting_7" formatted="false">Today\'s forecast: 100% chance of patching</string>
     <!-- From mediocrity to amazing -->
-    <string name="home_greeting_8">Ready to change underwhelming into awesome?</string>
     <!-- Playful exaggeration, making patching feel heroic -->
-    <string name="home_greeting_9">Saving apps from themselves since today</string>
     <!-- Light sarcasm, casual and tech-savvy humor -->
-    <string name="home_greeting_10">Powered by caffeine and good patches</string>
     <!-- Morning greetings (5:00–11:59) -->
-    <string name="home_greeting_morning_1">Rise and patch</string>
-    <string name="home_greeting_morning_2">Good morning! Apps won\'t patch themselves</string>
     <!-- Afternoon greetings (12:00–16:59) -->
-    <string name="home_greeting_afternoon_1">Afternoon slump? Patch something</string>
-    <string name="home_greeting_afternoon_2">Post-lunch patching hits different</string>
-    <string name="home_greeting_afternoon_3">The afternoon shift: patch edition</string>
     <!-- Evening greetings (17:00–21:59) -->
-    <string name="home_greeting_evening_1">Good evening! Evening patches hit different</string>
-    <string name="home_greeting_evening_2">Winding down? Patch an app first</string>
-    <string name="home_greeting_evening_3">Clocking out? Patch something first</string>
     <!-- Late night greetings (22:00–23:59) -->
-    <string name="home_greeting_late_night_1">Still up? So are the apps that need patching</string>
-    <string name="home_greeting_late_night_2">Late night patch session? Respect</string>
-    <string name="home_greeting_late_night_3">Night owl mode: activated</string>
     <!-- Super late night greetings (0:00–4:59) -->
-    <string name="home_greeting_super_late_4">You and the servers, both awake</string>
-    <string name="home_greeting_super_late_5">Nocturnal and productive</string>
     <!-- Home Screen - Sources Management -->
-    <string name="sources_search">Search sources</string>
-    <string name="sources_sort_title">Sort patch sources</string>
-    <string name="sources_sort_enabled_first">Enabled first</string>
     <!-- Home Screen - Sources Dialogs -->
     <!-- Home Screen - Dialog 1: APK Availability -->
     <!-- Home Screen - Dialog 2: Download Instructions -->
@@ -108,7 +71,6 @@
     <!-- Bytecode mode -->
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <!-- Settings - Advanced Tab - Patch Options Section -->
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Branding -->
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Header -->
     <!-- Settings - Advanced Tab - Patch Options Section: Hide Shorts -->

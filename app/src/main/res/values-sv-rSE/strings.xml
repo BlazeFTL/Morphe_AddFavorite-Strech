@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Uppdateringar hoppas över</string>
     <string name="home_update_skipped_metered_subtitle">Mobildata är aktivt</string>
     <string name="home_updating_sources">Uppdaterar källor …</string>
-    <string name="home_update_progress_format">%s har bearbetats</string>
     <string name="home_update_success">Uppdatering av källor är klar</string>
     <string name="home_update_success_subtitle">Dina källor är uppdaterade</string>
     <string name="home_sources_are_loading">Källor läses in, vänta …</string>
@@ -535,7 +534,6 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Tillämpar tillägg</string>
     <string name="failed_to_execute_patch">Det gick inte att tillämpa %s</string>
-    <string name="patched_app_saved_toast">Den modifierade appen sparades till senare</string>
     <string name="patched_app_save_failed_toast">Det gick inte att spara den modifierade appen</string>
     <string name="plugin_activity_dialog_body">Användarinteraktion krävs för att fortsätta med den här insticksmodulen</string>
     <string name="patcher_process_exit_message">Modifieringsprocessen avslutades med koden %s</string>
@@ -731,15 +729,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_advanced_github_pat_export_warning">Dela inte din personliga åtkomsttoken. Om du inkluderar den i en inställningsexport ska du hålla filen privat eftersom den innehåller din token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Tilläggsalternativ</string>
-    <string name="settings_advanced_patch_options_youtube_description">Alternativ för tema, varumärkesanpassning och sidhuvud</string>
     <string name="settings_advanced_patch_options_restart_message">Om du ändrar tilläggsalternativen måste du modifiera appen igen för att ändringarna ska träda i kraft</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">I expertläget blir tilläggsalternativ tillgängliga under modifieringsprocessen</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Temafärger för appen</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Ändrar bakgrundsfärg</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Bakgrundsfärg för mörkt tema</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Bakgrundsfärg för ljust tema</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Kan vara en hexfärg (#RRGGBB) eller en färgresursreferens</string>
     <string name="settings_advanced_patch_options_loading">Läser in tilläggsalternativ …</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Vänta tills tilläggskällan har uppdaterats</string>
     <string name="settings_advanced_patch_options_load_error">Det gick inte att läsa in tilläggsalternativ</string>
@@ -997,11 +988,9 @@ Information: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Återställ paketurvalen?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Återställ de markerade paketen?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Återställ källurvalet?</string>
-    <string name="settings_system_patch_selection_no_saved">Inga sparade tilläggsurval</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s i %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s i %2$s</string>
     <string name="settings_system_patch_selection_source_format">Källa nr %s</string>
-    <string name="settings_system_patch_selection_will_delete">Detta raderar:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Det här raderar alla sparade tilläggsurval för alla paket och källor permanent</string>
     <string name="settings_system_patch_selection_reset_package_warning">Det här raderar alla sparade tilläggsurval för &lt;b&gt;%s&lt;/b&gt; i alla källor permanent</string>
     <string name="settings_system_patch_selection_reset_source_warning">Det här raderar det sparade tilläggsurvalet för &lt;b&gt;%1$s&lt;/b&gt; i &lt;b&gt;%2$s&lt;/b&gt; permanent</string>
@@ -1130,7 +1119,6 @@ Information: %2$s"</string>
     <string name="patch">Modifiera</string>
     <string name="patching">Modifiering</string>
     <string name="patched">Modifierades</string>
-    <string name="repatch">Modifiera igen</string>
     <string name="open">Öppna</string>
     <string name="mount">Montera</string>
     <string name="mounted">Monterad</string>

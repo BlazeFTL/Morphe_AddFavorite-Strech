@@ -12,7 +12,7 @@
     <string name="home_app_no_hidden">No hay aplicaciones ocultas</string>
     <string name="home_app_hidden_apps_title">Aplicaciones ocultas</string>
     <string name="home_app_hidden_apps_hint">Pulsa para mostrar</string>
-    <string name="android_11_bug_dialog_title"> Error de Android 11</string>
+    <string name="android_11_bug_dialog_title">Error de Android 11</string>
     <string name="android_11_bug_dialog_description">El permiso para instalar aplicaciones debe concederse antes para evitar un problema de Android 11 que afecta negativamente a la experiencia de usuario</string>
     <string name="deep_link_add_source_title">Agregar fuente</string>
     <string name="deep_link_add_source_message">¿Quieres agregar esta fuente de parches a Morphe?</string>
@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Actualizaciones omitidas</string>
     <string name="home_update_skipped_metered_subtitle">Los datos móviles están activos</string>
     <string name="home_updating_sources">Actualizando fuentes…</string>
-    <string name="home_update_progress_format">%s procesado</string>
     <string name="home_update_success">Actualización de fuentes completada</string>
     <string name="home_update_success_subtitle">Tus fuentes están al día</string>
     <string name="home_sources_are_loading">Cargando fuentes, por favor espera…</string>
@@ -120,7 +119,7 @@
     <string name="sources_sort_title">Ordenar fuentes de parches</string>
     <string name="sources_sort_manual">Orden manual</string>
     <string name="sources_sort_manual_hint">Mantén pulsada una fuente para reordenarla</string>
-    <string name="sources_sort_last_updated">Último actualizado</string>
+    <string name="sources_sort_last_updated">Última actualización</string>
     <string name="sources_sort_last_updated_description">Actualizaciones de fuentes más recientes primero</string>
     <string name="sources_sort_enabled_first">Activadas primero</string>
     <string name="sources_sort_enabled_first_description">Muestra las fuentes activas antes que las desactivadas</string>
@@ -537,7 +536,6 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Aplicando parches</string>
     <string name="failed_to_execute_patch">Error al aplicar %s</string>
-    <string name="patched_app_saved_toast">Aplicación parcheada guardada para más tarde</string>
     <string name="patched_app_save_failed_toast">Error al guardar la aplicación parcheada</string>
     <string name="plugin_activity_dialog_body">Es necesaria la interacción del usuario para continuar con este complemento</string>
     <string name="patcher_process_exit_message">El proceso del parcheador terminó con el código %s</string>
@@ -733,15 +731,8 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_advanced_github_pat_export_warning">No compartas tu token de acceso personal. Si lo incluyes al exportar las configuraciones, mantén ese archivo privado porque contiene el token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opciones de parches</string>
-    <string name="settings_advanced_patch_options_youtube_description">Opciones de tema, marca y encabezado</string>
     <string name="settings_advanced_patch_options_restart_message">Para que los cambios en las opciones de parches surtan efecto, es necesario volver a parchear la aplicación</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">En el modo Experto, las opciones de parches estarán disponibles durante el proceso de parcheo</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Colores del tema de la aplicación</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Cambia el color de fondo</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Color de fondo del tema oscuro</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Color de fondo del tema claro</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Puede ser un color hexadecimal (#RRGGBB) o una referencia de recurso de color</string>
     <string name="settings_advanced_patch_options_loading">Cargando opciones de parches…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Esperar hasta que la fuente de parches se actualice</string>
     <string name="settings_advanced_patch_options_load_error">No se pudieron cargar las opciones de parches</string>
@@ -999,11 +990,9 @@ Detalles: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">¿Restablecer las selecciones de paquetes?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">¿Restablecer los paquetes seleccionados?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">¿Restablecer las selecciones de fuentes?</string>
-    <string name="settings_system_patch_selection_no_saved">No hay selecciones de parches guardadas</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s a través de %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s en %2$s</string>
     <string name="settings_system_patch_selection_source_format">Fuente #%s</string>
-    <string name="settings_system_patch_selection_will_delete">Esto eliminará:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Esto eliminará permanentemente todas las selecciones de parches guardadas para todos los paquetes y fuentes.</string>
     <string name="settings_system_patch_selection_reset_package_warning">Esto eliminará permanentemente todas las selecciones de parches guardadas para &lt;b&gt;%s&lt;/b&gt; en todas las fuentes</string>
     <string name="settings_system_patch_selection_reset_source_warning">Esto eliminará permanentemente todas las selecciones de parches guardadas para &lt;b&gt;%1$s&lt;/b&gt; en &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1059,7 +1048,7 @@ Detalles: %2$s"</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="all">Todo</string>
-    <string name="filter">Filtro</string>
+    <string name="filter">Filtrar</string>
     <string name="reset">Restablecer</string>
     <string name="reset_all">Restablecer todo</string>
     <string name="apply">Aplicar</string>
@@ -1131,8 +1120,7 @@ Detalles: %2$s"</string>
     <string name="clone">Clon</string>
     <string name="patch">Parchear</string>
     <string name="patching">Parcheando</string>
-    <string name="patched">Parcheada</string>
-    <string name="repatch">Reaplicar parche</string>
+    <string name="patched">Parcheado</string>
     <string name="open">Abrir</string>
     <string name="mount">Montar</string>
     <string name="mounted">Montado</string>

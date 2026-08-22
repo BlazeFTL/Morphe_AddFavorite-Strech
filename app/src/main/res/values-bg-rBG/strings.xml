@@ -732,6 +732,7 @@
     <string name="settings_advanced_github_pat_export_warning">Не споделяйте вашия PAT. Ако го включите в извеждане на настройки, пазете този файл в приватен режим, защото съдържа токена</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Опции за замести</string>
+    <string name="settings_advanced_patch_options_youtube_description">Опции за брандиране и заглавка</string>
     <string name="settings_advanced_patch_options_restart_message">Промените на опциите за замести трябва да бъдат приложени отново, за да влязат в сила</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">В режима за експерти опциите за замести ще бъдат налични по време на заместителния процес</string>
     <string name="settings_advanced_patch_options_loading">Зареждане на опции за замести…</string>

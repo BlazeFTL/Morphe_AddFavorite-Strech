@@ -729,6 +729,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_advanced_github_pat_export_warning">PAT-ınızı paylaşmayın. Bunu tənzimləmələr ixracına daxil etsəniz, o faylı gizli saxlayın, çünki onun token-i var</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Yamaq seçimləri</string>
+    <string name="settings_advanced_patch_options_youtube_description">Markalanma və sərlövhə seçimləri</string>
     <string name="settings_advanced_patch_options_restart_message">Yamaq seçimlərini dəyişdirmə təsir etmək üçün tətbiqi təkrar yamaqlamağa ehtiyac duyur</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Mütəxəssis rejimində yamaq seçimləri yamaqlanma prosesi əsnasında əlçatan olacaq</string>
     <string name="settings_advanced_patch_options_loading">Yamaq seçimləri yüklənilir…</string>

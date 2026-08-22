@@ -731,6 +731,7 @@
     <string name="settings_advanced_github_pat_export_warning">Ne delite svoj PAT. Ako ga uključite u postavke izvoza, držite taj fajl privatno jer sadrži token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Опције патчева</string>
+    <string name="settings_advanced_patch_options_youtube_description">Опције брендирања и заглавља</string>
     <string name="settings_advanced_patch_options_restart_message">Промене патчеви захтевају понову ажурирању да би узели на снагу</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">У режиму „Нави моћ“ опције патчева ће бити доступне током патчирања</string>
     <string name="settings_advanced_patch_options_loading">Учитавање опција патчева…</string>

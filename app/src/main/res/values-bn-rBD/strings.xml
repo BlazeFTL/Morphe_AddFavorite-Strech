@@ -730,6 +730,7 @@
     <string name="settings_advanced_github_pat_export_warning">আপনার PAT কে শেয়ার করবেন না। যদি আপনি এটি সেটিংসে অন্তর্ভুক্ত করেন, তাহলে সেই ফাইলটি বেসিক রাখুন, কারণ এটি টোকেন ধারণ করে</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">প্যাচ বিকল্পগুলি</string>
+    <string name="settings_advanced_patch_options_youtube_description">ব্র্যান্ডিং এবং হেডার অপশন</string>
     <string name="settings_advanced_patch_options_restart_message">প্যাচ বিকল্পগুলি পরিবর্তন করতে পুনরায় প্যাচ করুন</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">বিশেষ্ট মোডে প্যাচ বিকল্পগুলি সক্রিয় করা হবে</string>
     <string name="settings_advanced_patch_options_loading">প্যাচ বিকল্পগুলি লোড করা হচ্ছে…</string>

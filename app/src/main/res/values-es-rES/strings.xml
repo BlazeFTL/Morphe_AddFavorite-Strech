@@ -731,6 +731,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_advanced_github_pat_export_warning">No compartas tu token de acceso personal. Si lo incluyes al exportar las configuraciones, mantén ese archivo privado porque contiene el token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opciones de parches</string>
+    <string name="settings_advanced_patch_options_youtube_description">Opciones de marca y encabezado</string>
     <string name="settings_advanced_patch_options_restart_message">Para que los cambios en las opciones de parches surtan efecto, es necesario volver a parchear la aplicación</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">En el modo Experto, las opciones de parches estarán disponibles durante el proceso de parcheo</string>
     <string name="settings_advanced_patch_options_loading">Cargando opciones de parches…</string>

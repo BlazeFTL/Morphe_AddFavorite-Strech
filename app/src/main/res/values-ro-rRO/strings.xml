@@ -730,6 +730,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_advanced_github_pat_export_warning">Nu partaja PAT-ul tău. Dacă îl incluzi într-un export de setări, păstrează acel fișier privat, deoarece conține jetonul</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opțiuni de patch-uire</string>
+    <string name="settings_advanced_patch_options_youtube_description">Opțiuni de branding și antet</string>
     <string name="settings_advanced_patch_options_restart_message">Schimbarea opțiunilor de patach necesită repatachizarea aplicației pentru a fi aplicată</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">În mod expert, opțiunile de patach vor fi disponibile în timpul procesului de patachizare</string>
     <string name="settings_advanced_patch_options_loading">Se încarcă opțiunile de patach…</string>

@@ -731,6 +731,7 @@
     <string name="settings_advanced_github_pat_export_warning">Δεν πρέπει να μοιράζεστε το PAT. Εάν το συμπεριλάβετε στις εξαγόμενες ρυθμίσεις, διατηρήστε το αρχείο ιδιωτικό διότι περιέχει το κλειδί</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Επιλογές τροποποιήσεων</string>
+    <string name="settings_advanced_patch_options_youtube_description">Επιλογές επωνυμίας και επικεφαλίδας</string>
     <string name="settings_advanced_patch_options_restart_message">Η αλλαγή στις ρυθμίσεις των τροποποιήσεων απαιτεί την τροποποίηση της εφαρμογής ξανά για να εφαρμοστούν</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Στη λειτουργία εξειδικευμένου χρήστη οι ρυθμίσεις των τροποποιήσεων θα είναι διαθέσιμες κατά τη διάρκεια της τροποποίησης</string>
     <string name="settings_advanced_patch_options_loading">Φόρτωση επιλογών τροποποίησης…</string>

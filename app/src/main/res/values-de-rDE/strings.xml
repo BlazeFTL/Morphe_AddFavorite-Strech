@@ -732,6 +732,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_advanced_github_pat_export_warning">Teilen Sie Ihren PAT nicht. Wenn Sie ihn mitexportieren, halten Sie die Datei privat, da sie den Token enthält</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Patch-Optionen</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding- und Header-Optionen</string>
     <string name="settings_advanced_patch_options_restart_message">Änderungen an Patch-Optionen erfordern ein erneutes Patchen der App, um wirksam zu werden.</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Im Experten-Modus sind Patch-Optionen während des Patchvorgangs verfügbar.</string>
     <string name="settings_advanced_patch_options_loading">Lade Patch-Optionen…</string>

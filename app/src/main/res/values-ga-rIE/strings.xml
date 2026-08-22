@@ -731,6 +731,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_advanced_github_pat_export_warning">Ná roinn do PAT. Má chuireann tú san áireamh é in easpórtáil socruithe, coinnigh an comhad sin príobháideach mar go bhfuil an comhartha ann.</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Roghanna paiste</string>
+    <string name="settings_advanced_patch_options_youtube_description">Roghanna brandála agus ceanntásca</string>
     <string name="settings_advanced_patch_options_restart_message">Éilíonn athrú roghanna paiste athphaisteáil ar an aip le go dtiocfaidh sé i bhfeidhm</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">I mód Saineolaí beidh roghanna paiste ar fáil le linn an phróisis paisteála</string>
     <string name="settings_advanced_patch_options_loading">Ag lódáil roghanna paiste…</string>

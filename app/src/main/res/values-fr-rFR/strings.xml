@@ -733,6 +733,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_advanced_github_pat_export_warning">Ne partagez pas votre jeton d\'accès personnel. Si vous l\'incluez dans l\'export des paramètres, gardez ce fichier privé car il contient le jeton</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Options de patch</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding et options d\'en-tête</string>
     <string name="settings_advanced_patch_options_restart_message">La modification des options de patch nécessite un re-patching de l\'application pour prendre effet</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">En mode Expert, les options de patch seront disponibles pendant le processus de patching</string>
     <string name="settings_advanced_patch_options_loading">Chargement des options de patch…</string>

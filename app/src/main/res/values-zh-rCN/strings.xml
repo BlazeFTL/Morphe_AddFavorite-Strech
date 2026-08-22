@@ -732,6 +732,7 @@
     <string name="settings_advanced_github_pat_export_warning">请勿共享您的 PAT。如果您在设置导出中包含它，请将该文件保持为私有，因为它包含令牌</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">补丁选项</string>
+    <string name="settings_advanced_patch_options_youtube_description">品牌和标题选项</string>
     <string name="settings_advanced_patch_options_restart_message">更改补丁选项需要重新修补应用以生效</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">高级模式下补丁选项将在修补过程中可用</string>
     <string name="settings_advanced_patch_options_loading">加载补丁选项…</string>

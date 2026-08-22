@@ -729,6 +729,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_advanced_github_pat_export_warning">Ekki deila þínu PAT. Ef þú tekur það með í stillingarútflutningi, geymdu þá skrána einkaleyndlega því hún inniheldur táknið</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Breytistallakosti</string>
+    <string name="settings_advanced_patch_options_youtube_description">Vörumerkis- og hausavalkostir</string>
     <string name="settings_advanced_patch_options_restart_message">Breyting breytistallakosta krefst endurbreytingar apps til að vinna</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Í sérstökum háttum verða breytistallakosti til staðar á breytistillingerferðinni</string>
     <string name="settings_advanced_patch_options_loading">Hlaða breytistillingar…</string>

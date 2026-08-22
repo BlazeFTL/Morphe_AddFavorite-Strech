@@ -731,6 +731,7 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_advanced_github_pat_export_warning">Ne deli svoj PAT. Ako ga uključiš u postavke izvoza, drž taj fajl privatno jer sadrži token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opcije patchiranja</string>
+    <string name="settings_advanced_patch_options_youtube_description">Opcije brendiranja i zaglavlja</string>
     <string name="settings_advanced_patch_options_restart_message">Promene u patchiranju se primenjuju tek kada se ponovno patchira aplikacija</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">U naprednom načinu opcije patchiranja će biti dostupne tokom procesa patchiranja</string>
     <string name="settings_advanced_patch_options_loading">Učitavanje opcija patchiranja…</string>

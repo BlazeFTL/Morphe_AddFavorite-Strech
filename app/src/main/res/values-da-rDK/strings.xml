@@ -729,6 +729,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_advanced_github_pat_export_warning">Del ikke dit PAT. Hvis du inkluderer det i en eksportering af indstillinger, så hold filen hemmelig, da den indeholder din token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Patchvalg</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding og headerindstillinger</string>
     <string name="settings_advanced_patch_options_restart_message">Ændring af patch indstillinger kræver re-patching af appen for at træde i kraft</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">I Eksperttilstand vil patchvalg være tilgængelige under patchprocessen</string>
     <string name="settings_advanced_patch_options_loading">Indlæser patchvalg…</string>

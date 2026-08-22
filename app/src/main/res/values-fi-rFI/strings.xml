@@ -732,6 +732,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_advanced_github_pat_export_warning">Älä jaka tämä PAT. Jos sisällytät sen asetuksien viedossa, pidä tiedosto yksityisenä, koska se sisältää tokenin</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Lisäosien asetukset</string>
+    <string name="settings_advanced_patch_options_youtube_description">Brändäys- ja ylätunnisteasetukset</string>
     <string name="settings_advanced_patch_options_restart_message">Lisäosien asetusten muuttaminen edellyttää sovelluksen muokkaamista uudelleen, jotta muutokset tulevat voimaan</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Asiantuntijatilassa lisäosa-asetukset ovat käytettävissä muokkausprosessin aikana</string>
     <string name="settings_advanced_patch_options_loading">Ladataan lisäosa-asetuksia…</string>

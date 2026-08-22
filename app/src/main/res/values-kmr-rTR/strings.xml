@@ -729,6 +729,7 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_advanced_github_pat_export_warning">PAT xwe veqêtin neyê. Ger ew di qeyrek sazî de zêde kirin, wê qeyrê têr çaveke rê bibe ji ber ew token hegirdê</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Selekîyên rayekê</string>
+    <string name="settings_advanced_patch_options_youtube_description">Vebijarkên branding û sernivîsê</string>
     <string name="settings_advanced_patch_options_restart_message">Guhertina selekîyên rayekê divê app vêjere da ku berfere</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Di mode ekspert de, selekîyên rayekê wê di dema rayekirinê de peyvdar bin</string>
     <string name="settings_advanced_patch_options_loading">Rayekirina selekîyên rayekê…</string>

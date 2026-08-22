@@ -731,6 +731,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_advanced_github_pat_export_warning">Ne delite svojega PAT. Če ga vključite v izvoz nastavitev, shranite to datoteko zasebno, saj vsebuje vaš ključ</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Možnosti popravkov</string>
+    <string name="settings_advanced_patch_options_youtube_description">Možnosti blagovne znamke in glave</string>
     <string name="settings_advanced_patch_options_restart_message">Sprememba možnosti popravkov zahteva ponovno popravljanje aplikacije, da stopi v veljavo</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">V načinu strokovnjaka bodo možnosti popravkov na voljo med procesom popravljanja</string>
     <string name="settings_advanced_patch_options_loading">Nalaganje možnosti popravkov…</string>

@@ -732,6 +732,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_advanced_github_pat_export_warning">Nie udostępniaj swojego tokena. Jeśli dołączysz go do eksportu ustawień, zachowaj ten plik prywatnie, ponieważ zawiera on token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opcje modyfikacji</string>
+    <string name="settings_advanced_patch_options_youtube_description">Opcje marki i nagłówka</string>
     <string name="settings_advanced_patch_options_restart_message">Zmiana opcji wymaga ponownego zmodyfikowania aplikacji</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">W trybie eksperckim opcje modyfikacji będą dostępne podczas modyfikowania</string>
     <string name="settings_advanced_patch_options_loading">Wczytywanie opcji modyfikacji…</string>

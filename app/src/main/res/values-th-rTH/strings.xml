@@ -731,6 +731,7 @@
     <string name="settings_advanced_github_pat_export_warning">อย่าแชร์โทเคนส่วนตัวของคุณ ถ้าคุณรวมมันเข้าไปในการส่งออกการตั้งค่า ให้เก็บไฟล์นั้นเป็นส่วนตัว เพราะมันมีโทเค็นไว้ในไฟล์</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">ตัวเลือกแพตช์</string>
+    <string name="settings_advanced_patch_options_youtube_description">ตัวเลือกแบรนด์และส่วนหัว</string>
     <string name="settings_advanced_patch_options_restart_message">เปลี่ยนตัวเลือกแพตช์ต้องรีสตาร์ทอีกครั้ง</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">ในการตั้งค่าแบบเชี่ยวชาญจะมีตัวเลือกแพตช์ในระหว่างกระบวนการแพตช์</string>
     <string name="settings_advanced_patch_options_loading">กำลังโหลด...</string>

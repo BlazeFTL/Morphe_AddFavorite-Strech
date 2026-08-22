@@ -731,6 +731,7 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="settings_advanced_github_pat_export_warning">Não partilhes a tua PAT. Se o incluíres numa exportação de definições, mantém esse ficheiro privado pois este contém o token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opções de modificação</string>
+    <string name="settings_advanced_patch_options_youtube_description">Opções de marca e cabeçalho</string>
     <string name="settings_advanced_patch_options_restart_message">Alterar as definições da modificação requer que apliques as modificações de novo na aplicação para estas terem efeito</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">No modo avançado, as opções das modificações estarão disponíveis durante o processo de modificação</string>
     <string name="settings_advanced_patch_options_loading">A carregar definições de modificações…</string>

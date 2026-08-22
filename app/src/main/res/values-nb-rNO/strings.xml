@@ -731,6 +731,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_advanced_github_pat_export_warning">Ikke del din PAT. Hvis du inkluderer den i en eksport av innstillinger, må du holde den filen privat, da den inneholder tokenet</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Patch-alternativer</string>
+    <string name="settings_advanced_patch_options_youtube_description">Merkevare- og topptekstalternativer</string>
     <string name="settings_advanced_patch_options_restart_message">Endring av patch-alternativer krever repatching av appen for å tre i kraft</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">I ekspertmodus vil patch-alternativer være tilgjengelige under patching-prosessen</string>
     <string name="settings_advanced_patch_options_loading">Laster patch-alternativer…</string>

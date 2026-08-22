@@ -731,6 +731,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_advanced_github_pat_export_warning">Nezdieľajte vaše PAT. Ak ho zahrniete do exportu nastavení, uchovajte tento súbor v súkromí, pretože obsahuje token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Nastavenia záplaty</string>
+    <string name="settings_advanced_patch_options_youtube_description">Možnosti značky a hlavičky</string>
     <string name="settings_advanced_patch_options_restart_message">Ak chcete aplikovať zmeny možností záplat, musíte aplikáciu znova zaplátať</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">V režime pre skúsených budú aj počas plátania dostupné možnosti záplat</string>
     <string name="settings_advanced_patch_options_loading">Načítavam možnosti záplat…</string>

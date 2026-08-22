@@ -732,6 +732,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_advanced_github_pat_export_warning">Huwag mong ibahagi ang iyong PAT. Kung isasama mo ito sa isang settings export, panatilihing pribado ang file na iyon dahil naglalaman ito ng token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Mga pagpipilian ng patch</string>
+    <string name="settings_advanced_patch_options_youtube_description">Mga opsyon sa pagba-brand at header</string>
     <string name="settings_advanced_patch_options_restart_message">Mangangailangan ng muling pag-patch sa aplikasyon ang binagong opsyon ng patch upang magkabisa</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Sa Expert mode magagamit ang mga pagpipilian ng patch sa panahon ng pagpoproseso ng patch</string>
     <string name="settings_advanced_patch_options_loading">Nilo-load ang mga pagpipilian sa patch…</string>

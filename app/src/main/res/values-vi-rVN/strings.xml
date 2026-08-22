@@ -730,6 +730,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_advanced_github_pat_export_warning">Đừng chia sẻ PAT. Nếu bạn xuất cài đặt có chứa nó, hãy giữ tệp đó thật kín vì bên trong có token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Tùy chỉnh</string>
+    <string name="settings_advanced_patch_options_youtube_description">Tùy chọn thương hiệu và tiêu đề</string>
     <string name="settings_advanced_patch_options_restart_message">Sau khi tùy chỉnh bạn cần vá lại ứng dụng để áp dụng những thay đổi</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Trong chế độ chuyên gia, bạn có thể tùy chỉnh bản vá ngay trước khi vá</string>
     <string name="settings_advanced_patch_options_loading">Đang tải tùy chỉnh bản vá…</string>

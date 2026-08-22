@@ -730,6 +730,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_advanced_github_pat_export_warning">Soha ne oszd meg a PAT-odat! Ha exportálod a beállításokkal kezeld bizalmasan a fájlt, mert tartalmazza a tokent</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Módosítási opciók</string>
+    <string name="settings_advanced_patch_options_youtube_description">Márka és fejléc beállítások</string>
     <string name="settings_advanced_patch_options_restart_message">A módosítási opciók megváltoztatása után az alkalmazást újra kell módosítani az érvénybe lépéshez</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Szakértői módban a módosítási opciók a folyamat során lesznek elérhetők</string>
     <string name="settings_advanced_patch_options_loading">Módosítási opciók betöltése…</string>

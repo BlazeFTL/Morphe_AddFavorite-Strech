@@ -730,6 +730,7 @@
     <string name="settings_advanced_github_pat_export_warning">請勿分享您的 PAT。如果您將其包含在設定匯出中，請將該檔案保密，因為它包含該權杖</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">修補選項</string>
+    <string name="settings_advanced_patch_options_youtube_description">品牌和標頭選項</string>
     <string name="settings_advanced_patch_options_restart_message">變更修補選項需要重新修補應用程式才能生效</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">在專家模式下，修補選項將在修補過程中可用</string>
     <string name="settings_advanced_patch_options_loading">正在載入修補選項……</string>

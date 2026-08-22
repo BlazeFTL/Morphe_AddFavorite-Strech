@@ -726,6 +726,7 @@
     <string name="settings_advanced_github_pat_export_warning">तुमचे PAT सामायिक करू नका. तुम्ही ते सेटिंग्ज एक्सपोर्टमध्ये समाविष्ट केल्यास, ती फाईल खाजगी ठेवा कारण त्यात टोकन आहे</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">पॅच पर्याय</string>
+    <string name="settings_advanced_patch_options_youtube_description">ब्रँडिंग आणि हेडर पर्याय</string>
     <string name="settings_advanced_patch_options_restart_message">पॅच पर्याय बदलण्यासाठी ॲपला पुन्हा पॅच करणे आवश्यक आहे</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">तज्ञ मोडमध्ये पॅच पर्याय पॅचिंग प्रक्रियेदरम्यान उपलब्ध असतील</string>
     <string name="settings_advanced_patch_options_loading">पॅच पर्याय लोड होत आहे…</string>

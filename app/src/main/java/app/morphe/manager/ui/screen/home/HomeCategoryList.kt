@@ -180,6 +180,9 @@ private fun List<HomeAppItem>.orderedByPackageOrder(packageOrder: List<String>):
  * When both [onClick] and [onLongClick] are non-null a `combinedClickable` is wired; when
  * only [onLongClick] is present, [onClick] falls back to a no-op so long-press can still fire
  * on a non-tappable row.
+ *
+ * A non-null [color] replaces the frosted fill, for rows that belong to something already
+ * carrying a color of its own.
  */
 @Composable
 internal fun HomeGlassCategoryRow(
@@ -190,10 +193,11 @@ internal fun HomeGlassCategoryRow(
     leading: (@Composable () -> Unit)? = null,
     count: String? = null,
     cornerRadius: Dp = 20.dp,
+    color: Color? = null,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
     val shape = RoundedCornerShape(cornerRadius)
-    val containerColor = GlassButtonDefaults.containerColor()
+    val containerColor = color ?: GlassButtonDefaults.containerColor()
     val borderColor = GlassButtonDefaults.borderColor()
     val contentColor = MaterialTheme.colorScheme.onSurface
     val mutedContentColor = MaterialTheme.colorScheme.onSurfaceVariant

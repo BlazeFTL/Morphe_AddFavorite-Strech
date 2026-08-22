@@ -13,26 +13,15 @@ import android.content.pm.PackageManager.PackageInfoFlags
 import android.content.pm.Signature
 import android.net.Uri
 import android.os.Build
-import android.os.Parcelable
 import android.provider.Settings
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.compose.runtime.Immutable
 import androidx.core.content.pm.PackageInfoCompat
 import app.morphe.manager.domain.apk.ApkSignatureCache
-import kotlinx.parcelize.Parcelize
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.File
 import java.security.MessageDigest
-
-@Immutable
-@Parcelize
-data class AppInfo(
-    val packageName: String,
-    val patches: Int?,
-    val packageInfo: PackageInfo?
-) : Parcelable
 
 @SuppressLint("QueryPermissionsNeeded")
 class PM(

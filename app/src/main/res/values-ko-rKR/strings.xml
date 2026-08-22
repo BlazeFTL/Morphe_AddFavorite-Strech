@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">업데이트를 건너뜁니다</string>
     <string name="home_update_skipped_metered_subtitle">모바일 데이터가 활성화되어 있습니다</string>
     <string name="home_updating_sources">소스를 업데이트하는 중…</string>
-    <string name="home_update_progress_format">%s 처리됨</string>
     <string name="home_update_success">소스 업데이트 완료</string>
     <string name="home_update_success_subtitle">소스가 최신 상태입니다</string>
     <string name="home_sources_are_loading">소스를 불러오는 중, 잠시만 기다려 주세요…</string>
@@ -45,6 +44,8 @@
     <string name="home_app_filter_not_patched_description">아직 Morphe에서 패치하지 않은 앱</string>
     <string name="home_app_filter_installed_description">현재 이 기기에 설치된 앱</string>
     <string name="home_app_filter_uninstalled_description">Morphe로 패치되었지만 더 이상 이 기기에 없는 앱</string>
+    <string name="home_app_filter_clones">복제본</string>
+    <string name="home_app_filter_clones_description">자체 패키지명으로 빌드되어 원본 앱과 함께 설치된 앱</string>
     <string name="home_app_sort_manual_description">앱을 길게 탭한 후에 정렬 버튼을 탭하면 순서를 변경할 수 있습니다</string>
     <string name="home_app_sort_recommended">권장 순서</string>
     <string name="home_app_sort_recommended_description">설치된 앱 및 고정된 앱을 먼저 표시</string>
@@ -221,7 +222,7 @@
     <string name="home_download_instructions_step3_mount">다운로드가 완료되면, &lt;b&gt;APK 파일을 설치하세요&lt;/b&gt;</string>
     <string name="home_download_instructions_step4">다운로드가 완료되면 Morphe로 돌아오세요</string>
     <string name="home_download_instructions_step4_mount">원본 APK를 설치한 후에 Morphe로 돌아오세요</string>
-    <string name="home_download_instructions_continue_to">%s으로 계속</string>
+    <string name="home_download_instructions_continue_to">%s으로 이동</string>
     <string name="home_download_instructions_destination">다운로드 페이지</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">다운로드된 APK 선택</string>
@@ -299,9 +300,12 @@
     <string name="home_low_disk_space_dialog_message">사용 가능한 저장 공간이 %1$.2f GB뿐입니다. 패치가 정상적으로 작동하려면 최소 %2$.2f GB이상의 여유 공간이 필요합니다</string>
     <string name="home_low_disk_space_dialog_warning">계속 진행하면 “파일을 찾을 수 없습니다” 오류가 발생하거나 손상된 APK 파일이 생성될 수 있습니다</string>
     <string name="home_simple_bundle_select_title">패치 소스 선택</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">커스텀 색상</string>
     <string name="hex_color">헥스 색상 코드</string>
+    <string name="color_picker_shade">채도 및 밝기</string>
+    <string name="color_picker_hue">색상</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">설명서</string>
     <string name="patch_option_enter_value">값 입력</string>
     <string name="patch_option_enter_number">숫자 입력</string>
@@ -369,6 +373,7 @@
     <string name="batch_patch_source_unavailable">APK를 준비할 수 없습니다</string>
     <string name="batch_patch_force_version">버전 강제 적용</string>
     <string name="batch_patch_force_version_done">패치 목록에 추가하였습니다. 다른 버전용으로 제작된 패치는 앱에 문제를 일으킬 수 있습니다</string>
+    <string name="batch_patch_accept_signature_done">그래도 패치 목록에 추가되었습니다. 이 APK는 원본이 아닐 수 있습니다</string>
     <string name="batch_patch_edit_patches">패치 선택</string>
     <string name="batch_patch_state_no_apk">APK 없음</string>
     <string name="batch_patch_state_no_patches">패치 없음</string>
@@ -412,10 +417,10 @@
     <string name="home_app_info_app_deleted_warning">앱이 제거되었습니다</string>
     <string name="home_app_info_app_deleted_description">이 앱은 Morphe 외부에서 제거되었습니다. 기능을 복원하려면 다시 패치하세요</string>
     <string name="home_app_info_not_patched_description">이 앱의 패치되지 않은 버전이 설치되어 있습니다. Morphe는 여전히 이전 패치 기록을 보유하고 있습니다</string>
-    <string name="home_dialog_rename_title">복사본이 설치됩니다</string>
-    <string name="home_dialog_rename_description">선택된 패치는 이 앱을 사용자가 설정한 패키지명으로 빌드하므로, 기존 앱을 업데이트하는 것이 아니라 &lt;b&gt;%s&lt;/b&gt;와 함께 별도로 설치됩니다</string>
-    <string name="home_dialog_rename_result_package">다음 패키지명으로 설치됩니다</string>
-    <string name="home_dialog_rename_replaces">이미 해당 패키지명을 사용하는 복사본이 있으므로 다시 빌드됩니다</string>
+    <string name="patcher_rename_title">복제본이 설치됩니다</string>
+    <string name="patcher_rename_description">이 패치는 이 앱을 사용자가 설정한 자체 패키지명으로 빌드하므로, 설치하면 &lt;b&gt;%s&lt;/b&gt;를 업데이트하는 것이 아니라 그 옆에 복제본이 추가됩니다</string>
+    <string name="patcher_rename_result_package">다음 패키지명으로 설치됩니다</string>
+    <string name="patcher_rename_replaces">해당 이름으로 이미 앱이 설치되어 있으며, 기존 앱은 교체됩니다</string>
     <string name="home_app_info_apk_size">APK 크기</string>
     <string name="home_app_info_cpu_arch">CPU 아키텍처</string>
     <!-- Home Screen - Root Mode -->
@@ -531,7 +536,6 @@
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">패치를 적용하는 중</string>
     <string name="failed_to_execute_patch">\'%s\'을 적용할 수 없습니다</string>
-    <string name="patched_app_saved_toast">패치된 앱을 나중을 위해 저장하였습니다</string>
     <string name="patched_app_save_failed_toast">패치된 앱을 저장할 수 없습니다</string>
     <string name="plugin_activity_dialog_body">이 플러그인을 사용하려면 사용자 상호작용이 필요합니다</string>
     <string name="patcher_process_exit_message">패처 프로세스를 코드 \'%s\'로 종료하였습니다</string>
@@ -725,15 +729,9 @@
     <string name="settings_advanced_github_pat_export_warning">개인 액세스 토큰을 공유하지 마세요. 설정 내보내기에 포함되는 경우에는 토큰이 포함되어 있으므로 해당 파일을 비공개로 유지하세요</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">패치 옵션</string>
-    <string name="settings_advanced_patch_options_youtube_description">테마, 브랜딩 및 헤더 옵션</string>
+    <string name="settings_advanced_patch_options_youtube_description">브랜딩 및 헤더 옵션</string>
     <string name="settings_advanced_patch_options_restart_message">패치 옵션을 변경하려면 앱을 다시 패치해야 합니다</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">전문가 모드에서는 패치 과정 중에 패치 옵션을 사용할 수 있습니다</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">앱 테마 색상</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">배경 색상을 변경해 보세요</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">어두운 테마 배경 색상</string>
-    <string name="settings_advanced_patch_options_light_theme_color">밝은 테마 배경 색상</string>
-    <string name="settings_advanced_patch_options_theme_color_description">색상 리소스를 참조하거나 헥스 색상 코드를 변경하여 원하는 테마 색상으로 변경해 보세요</string>
     <string name="settings_advanced_patch_options_loading">패치 옵션을 불러오는 중…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">패치 소스가 업데이트될 때까지 기다려 주세요</string>
     <string name="settings_advanced_patch_options_load_error">패치 옵션을 불러올 수 없습니다</string>
@@ -991,11 +989,9 @@ morphe_header_custom_dark.png
     <string name="settings_system_patch_selection_reset_package_confirm_title">패키지 선택 목록 초기화</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">선택된 패키지 초기화</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">스소 선택 목록 초기화</string>
-    <string name="settings_system_patch_selection_no_saved">저장된 패치 선택 목록이 없습니다</string>
     <string name="settings_system_patch_selection_total_summary_format">%2$s의 %1$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%2$s의 %1$s</string>
     <string name="settings_system_patch_selection_source_format">소스 #%s</string>
-    <string name="settings_system_patch_selection_will_delete">다음 항목을 삭제합니다:</string>
     <string name="settings_system_patch_selection_reset_all_warning">모든 패키지 및 소스에 대해 저장된 모든 패치 선택 목록을 영구적으로 삭제합니다</string>
     <string name="settings_system_patch_selection_reset_package_warning">모든 소스에서 &lt;b&gt;%s&lt;/b&gt;에 대한 저장된 패치 선택 목록을 영구적으로 삭제합니다</string>
     <string name="settings_system_patch_selection_reset_source_warning">이 작업은 &lt;b&gt;%2$s&lt;/b&gt;에서 &lt;b&gt;%1$s&lt;/b&gt;에 대한 저장된 패치 선택 목록을 영구적으로 삭제합니다</string>
@@ -1124,7 +1120,6 @@ morphe_header_custom_dark.png
     <string name="patch">패치</string>
     <string name="patching">패치</string>
     <string name="patched">패치됨</string>
-    <string name="repatch">다시 패치</string>
     <string name="open">열기</string>
     <string name="mount">마운트</string>
     <string name="mounted">마운트됨</string>

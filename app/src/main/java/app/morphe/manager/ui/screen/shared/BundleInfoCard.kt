@@ -22,6 +22,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import app.morphe.manager.util.readableOn
 
 /**
  * Tappable card showing a labeled bundle property ([title]) and its [value], trailed by a chevron.
@@ -36,7 +37,16 @@ fun BundleInfoCard(
     enabled: Boolean = true
 ) {
     val contentDesc = "$title: $value"
-    val contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+    val scheme = MaterialTheme.colorScheme
+
+    // Disabling swaps the fill for a neutral one, so the content has to move with it
+    val containerColor = if (enabled) {
+        scheme.secondaryContainer
+    } else {
+        scheme.surfaceVariant.copy(alpha = 0.5f)
+    }.distinctFromCard()
+    val contentColor = (if (enabled) scheme.onSecondaryContainer else scheme.onSurfaceVariant)
+        .readableOn(containerColor, scheme.surface)
 
     Surface(
         modifier = modifier.semantics {
@@ -44,11 +54,7 @@ fun BundleInfoCard(
             role = Role.Button
         },
         shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-        color = if (enabled) {
-            MaterialTheme.colorScheme.secondaryContainer
-        } else {
-            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-        },
+        color = containerColor,
         onClick = onClick,
         enabled = enabled
     ) {

@@ -44,7 +44,6 @@ import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
-import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
@@ -75,7 +74,7 @@ fun HomeDialogs(
 
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val openApkDownloadHelper = rememberApkDownloadHelperAction(
-        homeViewModel = homeViewModel,
+        host = homeViewModel,
         enabled = apkDownloadHelperEnabled && homeViewModel.showDownloadInstructionsDialog
     )
 
@@ -633,76 +632,6 @@ fun HomeDialogs(
             isLoading = patchesByBundle == null,
             onDismiss = { patchesItem.value = null }
         )
-    }
-
-    // The confirmed patch list renames the app, so the run will not update what it was opened for
-    homeViewModel.renameWarning?.let { warning ->
-        RenameWarningDialog(
-            warning = warning,
-            onContinue = homeViewModel::confirmRenameWarning,
-            onDismiss = homeViewModel::dismissRenameWarning
-        )
-    }
-}
-
-/**
- * Shown when the patches about to run carry a package name of their own: the result installs
- * beside the app instead of updating it, which is a surprise unless cloning was the intent.
- */
-@Composable
-private fun RenameWarningDialog(
-    warning: RenameWarning,
-    onContinue: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_dialog_rename_title),
-        padding = DialogPadding.Compact,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.continue_),
-                onPrimaryClick = onContinue,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = htmlAnnotatedString(
-                    stringResource(
-                        R.string.home_dialog_rename_description,
-                        warning.targetPackageName
-                    )
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center
-            )
-
-            // Only when the patches were given a name; otherwise the patch picks one itself
-            warning.resultPackageName?.let { resultPackageName ->
-                MonospaceValuePanel(
-                    value = resultPackageName,
-                    label = stringResource(R.string.home_dialog_rename_result_package)
-                )
-            }
-
-            if (warning.replacesExisting) {
-                Notice(
-                    text = stringResource(R.string.home_dialog_rename_replaces),
-                    tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.Warning
-                )
-            }
-        }
     }
 }
 

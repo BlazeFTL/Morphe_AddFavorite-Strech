@@ -33,6 +33,11 @@ The search field filters the list by app name. **Sort apps** offers:
 | **Patch updates first** | Apps carrying an update badge on top, then recommended order |
 | **Manual order** | Your own order, long-press an app and use the reorder button |
 
+The same dialog has a **Filter** tab that narrows the list to apps you have patched, apps you
+have not, apps currently installed, apps no longer on the device, or **Clones**, the builds that
+carry a package name of their own and sit next to the original app. Filtering is temporary and
+leaves your order untouched, and the sort button stays highlighted while one is active.
+
 ## Grouping
 
 **Settings → Appearance → App grouping** adds a switcher above the list, with:

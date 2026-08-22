@@ -34,7 +34,6 @@
     <string name="home_update_skipped_metered">עדכונים שדולגו</string>
     <string name="home_update_skipped_metered_subtitle">הנתונים הניידים פעילים</string>
     <string name="home_updating_sources">מעדכן מקורות…</string>
-    <string name="home_update_progress_format">%s עובד</string>
     <string name="home_update_success">עדכון המקורות הושלם</string>
     <string name="home_update_success_subtitle">המקורות שלך מעודכנים</string>
     <string name="home_sources_are_loading">המקורות נטענים, נא להמתין…</string>
@@ -46,6 +45,8 @@
     <string name="home_app_filter_not_patched_description">אפליקציות שעדיין לא תיקנת ב-Morphe</string>
     <string name="home_app_filter_installed_description">אפליקציות שמותקנות כעת במכשיר זה</string>
     <string name="home_app_filter_uninstalled_description">אפליקציות שתוקנו באמצעות Morphe ושאינן מותקנות עוד במכשיר זה</string>
+    <string name="home_app_filter_clones">שיבוטים</string>
+    <string name="home_app_filter_clones_description">אפליקציות שנבנו תחת שם חבילה משלהן, מותקנות לצד המקורית</string>
     <string name="home_app_sort_manual_description">החזק לחיצה ארוכה על אפליקציה, ולאחר מכן הקש על כפתור הסדר מחדש</string>
     <string name="home_app_sort_recommended">סדר מומלץ</string>
     <string name="home_app_sort_recommended_description">אפליקציות מותקנות ומעוגנות ראשונות</string>
@@ -300,9 +301,12 @@
     <string name="home_low_disk_space_dialog_message">רק %1$.2f GB של שטח אחסון פנוי זמין. התקנת עדכונים דורשת לפחות %2$.2f GB של שטח פנוי כדי לעבוד כראוי.</string>
     <string name="home_low_disk_space_dialog_warning">המשך עלול לגרום לשגיאת \"קובץ לא נמצא\" או APK פלט פגום</string>
     <string name="home_simple_bundle_select_title">בחר מקור תיקון</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">צבע מותאם אישית</string>
     <string name="hex_color">צבע הקסדצימלי</string>
+    <string name="color_picker_shade">רוויה ובהירות</string>
+    <string name="color_picker_hue">גוון</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">הוראות</string>
     <string name="patch_option_enter_value">הזן ערך</string>
     <string name="patch_option_enter_number">הזן מספר</string>
@@ -370,6 +374,7 @@
     <string name="batch_patch_source_unavailable">לא ניתן היה להכין את ה-APK</string>
     <string name="batch_patch_force_version">טלא באופן אוטומטי</string>
     <string name="batch_patch_force_version_done">תורן בכל זאת, תיקונים שנעשו לגרסאות אחרות עלולים לשבור את האפליקציה</string>
+    <string name="batch_patch_accept_signature_done">הועלה לתור בכל זאת, ייתכן ש-APK זה אינו המקורי</string>
     <string name="batch_patch_edit_patches">בחר טלאים</string>
     <string name="batch_patch_state_no_apk">אין APK</string>
     <string name="batch_patch_state_no_patches">אין טלאים</string>
@@ -413,10 +418,10 @@
     <string name="home_app_info_app_deleted_warning">האפליקציה הוסרה</string>
     <string name="home_app_info_app_deleted_description">האפליקציה הוסרה מחוץ ל-Morphe. התאם כדי לשחזר את הפונקציונליות</string>
     <string name="home_app_info_not_patched_description">מותקנת גרסה לא מתוקנת של אפליקציה זו. ל-Morphe עדיין יש רשומת תיקון קודמת.</string>
-    <string name="home_dialog_rename_title">פעולה זו תתקין עותק</string>
-    <string name="home_dialog_rename_description">התיקונים הנבחרים בונים את האפליקציה הזו תחת שם חבילה משלהם, לכן התוצאה תותקן לצד &lt;b&gt;%s&lt;/b&gt; במקום לעדכן אותה</string>
-    <string name="home_dialog_rename_result_package">יותקן כ-</string>
-    <string name="home_dialog_rename_replaces">עותק כבר משתמש בשם זה וייבנה מחדש</string>
+    <string name="patcher_rename_title">זה יתקין שיבוט</string>
+    <string name="patcher_rename_description">התיקונים בנו את האפליקציה תחת שם חבילה משלהם, ולכן התקנתה תוסיף שיבוט לצד &lt;b&gt;%s&lt;/b&gt; במקום לעדכן אותה</string>
+    <string name="patcher_rename_result_package">יותקן כ</string>
+    <string name="patcher_rename_replaces">אפליקציה כבר מותקנת תחת השם הזה ותוחלף</string>
     <string name="home_app_info_apk_size">גודל APK</string>
     <string name="home_app_info_cpu_arch">ארכיטקטורת מעבד</string>
     <!-- Home Screen - Root Mode -->
@@ -532,7 +537,6 @@
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">החלת טלאים</string>
     <string name="failed_to_execute_patch">נכשל להחיל %s</string>
-    <string name="patched_app_saved_toast">אפליקציה מתוקנת נשמרה למועד מאוחר יותר</string>
     <string name="patched_app_save_failed_toast">נכשל לשמור אפליקציה מתוקנת</string>
     <string name="plugin_activity_dialog_body">נדרש אינטראקציה של המשתמש כדי להמשיך עם תוסף זה</string>
     <string name="patcher_process_exit_message">פועל הפייסר יצא עם קוד %s</string>
@@ -728,15 +732,9 @@
     <string name="settings_advanced_github_pat_export_warning">אל תשתף את הטוקן שלך. אם תכלילו אותו בהגדרות ייצוא, שמור את הקובץ הפרטי כי הוא מכיל את הטוקן</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">אפשרויות תיקון</string>
-    <string name="settings_advanced_patch_options_youtube_description">נושא, מיתוג ואפשרויות כותרת</string>
+    <string name="settings_advanced_patch_options_youtube_description">אפשרויות מיתוג וכותרת עליונה</string>
     <string name="settings_advanced_patch_options_restart_message">שנה את שמה של הגרסה</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">במצב מומחה, אפשרויות התיקון יהיו זמינות במהלך תהליך התיקון</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">צבעי ערכת נושא של האפליקציה</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">משנה צבע רקע</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">צבעי רקע כהה</string>
-    <string name="settings_advanced_patch_options_light_theme_color">צבעי רקע בהיר</string>
-    <string name="settings_advanced_patch_options_theme_color_description">יכול להיות צבע הקסדצימלי (#RRGGBB) או מקור צבע</string>
     <string name="settings_advanced_patch_options_loading">טוען אפשרויות תיקון…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">המתן עד לעדכון מקור התיקון</string>
     <string name="settings_advanced_patch_options_load_error">טעינת אפשרויות תיקון נכשלה</string>
@@ -1004,11 +1002,9 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_patch_selection_reset_package_confirm_title">להחזיר את בחירת החבילה?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">לאפס את החבילות שנשארו?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">להחזיר את בחירת מקור?</string>
-    <string name="settings_system_patch_selection_no_saved">אין בחירות שמורות</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s על %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s ב-%2$s</string>
     <string name="settings_system_patch_selection_source_format">מקור #%s</string>
-    <string name="settings_system_patch_selection_will_delete">פעולה זו תמחק:</string>
     <string name="settings_system_patch_selection_reset_all_warning">פעולה זו תמחק לצמיתות את כל בחירות התיקונים שנשמרו עבור כל החבילות והמקורות</string>
     <string name="settings_system_patch_selection_reset_package_warning">פעולה זו תמחק לצמיתות את כל בחירות התיקונים שנשמרו עבור &lt;b&gt;%s&lt;/b&gt; בכל המקורות.</string>
     <string name="settings_system_patch_selection_reset_source_warning">פעולה זו תמחק לצמיתות את בחירות התיקונים שנשמרו עבור &lt;b&gt;%1$s&lt;/b&gt; בתוך &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1137,7 +1133,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="patch">תיקון</string>
     <string name="patching">מתקן</string>
     <string name="patched">מתוקנות</string>
-    <string name="repatch">החל תיקון</string>
     <string name="open">פתח</string>
     <string name="mount">הרכבה</string>
     <string name="mounted">מורכב</string>

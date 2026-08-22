@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Posodobitve so bile preskočene</string>
     <string name="home_update_skipped_metered_subtitle">Mobilni podatki so vklopljeni </string>
     <string name="home_updating_sources">Posodabljanje virov...</string>
-    <string name="home_update_progress_format">%s obdelano</string>
     <string name="home_update_success">Posodabljanje virov končano</string>
     <string name="home_update_success_subtitle">Viri so posodobljeni</string>
     <string name="home_sources_are_loading">Viri se nalagajo, počakajte…</string>
@@ -45,6 +44,8 @@
     <string name="home_app_filter_not_patched_description">Aplikacije, ki jih v Morphe še niste zakrpali</string>
     <string name="home_app_filter_installed_description">Aplikacije, trenutno nameščene na tej napravi</string>
     <string name="home_app_filter_uninstalled_description">Aplikacije, popravljene z Morphe, ki niso več na tej napravi</string>
+    <string name="home_app_filter_clones">Klonirane aplikacije</string>
+    <string name="home_app_filter_clones_description">Aplikacije, zgrajene z lastnim imenom paketa, nameščene ob originalni</string>
     <string name="home_app_sort_manual_description">Dolgo pritisnite aplikacijo, nato tapnite gumb za ponovno razvrstitev</string>
     <string name="home_app_sort_recommended">Priporočen vrstni red</string>
     <string name="home_app_sort_recommended_description">Nameščene in pripete aplikacije naj bodo prve</string>
@@ -299,9 +300,12 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="home_low_disk_space_dialog_message">Na voljo je samo %1$.2f GB prostega prostora. Za delovanje popravkov je potrebnih najmanj %2$.2f GB prostega prostora</string>
     <string name="home_low_disk_space_dialog_warning">Nadaljevanje lahko povzroči napako \"datoteka ni najdena\" ali pa okvarjeno izhodno APK</string>
     <string name="home_simple_bundle_select_title">Izberite vir popravkov</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Prilagojena barva</string>
     <string name="hex_color">Šestnajstiška (hex) barva</string>
+    <string name="color_picker_shade">Nasičenost in svetlost</string>
+    <string name="color_picker_hue">Odtenek</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Navodila</string>
     <string name="patch_option_enter_value">Vnesite vrednost</string>
     <string name="patch_option_enter_number">Vnesite številko</string>
@@ -369,6 +373,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="batch_patch_source_unavailable">APK-ja ni bilo mogoče pripraviti</string>
     <string name="batch_patch_force_version">Vseeno popravite</string>
     <string name="batch_patch_force_version_done">Kljub temu dodano v vrsto, popravki za druge različice lahko povzročijo okvaro programa.</string>
+    <string name="batch_patch_accept_signature_done">Vseeno v čakalni vrsti, ta APK morda ni originalen</string>
     <string name="batch_patch_edit_patches">Izberite popravke</string>
     <string name="batch_patch_state_no_apk">Ni APK-ja</string>
     <string name="batch_patch_state_no_patches">Ni popravkov</string>
@@ -412,10 +417,10 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_app_deleted_warning">Aplikacija je bila odstranjena</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacija je bila odstranjena izven aplikacije Morphe. Ponovno jo popravite, da obnovite funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Nameščena je nepopravljena različica te aplikacije. Morphe še vedno ima svoj prejšnji zapis o popravku.</string>
-    <string name="home_dialog_rename_title">S tem bo nameščena kopija</string>
-    <string name="home_dialog_rename_description">Izbrani popravki Gradle buildajo to aplikacijo pod lastnim imenom paketa, zato se rezultat namesti poleg &lt;b&gt;%s&lt;/b&gt; namesto da bi jo posodobila</string>
-    <string name="home_dialog_rename_result_package">Namesti se kot</string>
-    <string name="home_dialog_rename_replaces">Kopija že uporablja to ime in bo ponovno zgrajena</string>
+    <string name="patcher_rename_title">To bo namestilo klon</string>
+    <string name="patcher_rename_description">Popravki so to aplikacijo zgradili pod lastnim imenom paketa, zato njena namestitev doda klon poleg &lt;b&gt;%s&lt;/b&gt; namesto da bi jo posodobila</string>
+    <string name="patcher_rename_result_package">Bo nameščeno kot</string>
+    <string name="patcher_rename_replaces">Aplikacija s tem imenom je že nameščena in bo nadomeščena</string>
     <string name="home_app_info_apk_size">Velikost APK</string>
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->
@@ -531,7 +536,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Nanašanje popravkov</string>
     <string name="failed_to_execute_patch">Ni uspelo nanesti %s</string>
-    <string name="patched_app_saved_toast">Popravljena aplikacija je shranjena za kasnejšo uporabo</string>
     <string name="patched_app_save_failed_toast">Ni uspelo shraniti popravljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Za nadaljevanje s tem dodatkom je potrebna uporabniško sodelovanje.</string>
     <string name="patcher_process_exit_message">Postopek popravljanja se je končal s kodo %s</string>
@@ -727,15 +731,9 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_advanced_github_pat_export_warning">Ne delite svojega PAT. Če ga vključite v izvoz nastavitev, shranite to datoteko zasebno, saj vsebuje vaš ključ</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Možnosti popravkov</string>
-    <string name="settings_advanced_patch_options_youtube_description">Tema, blagovna znamka in možnosti glave</string>
+    <string name="settings_advanced_patch_options_youtube_description">Možnosti blagovne znamke in glave</string>
     <string name="settings_advanced_patch_options_restart_message">Sprememba možnosti popravkov zahteva ponovno popravljanje aplikacije, da stopi v veljavo</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">V načinu strokovnjaka bodo možnosti popravkov na voljo med procesom popravljanja</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Barve teme</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Spremeni barvo ozadja</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Barva ozadja temne teme</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Barva ozadja svetle teme</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Barvna koda je lahko v hex (npr. #RRGGBB) ali referenca na barvno datoteko</string>
     <string name="settings_advanced_patch_options_loading">Nalaganje možnosti popravkov…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Počakajte, da se vir popravkov posodobi</string>
     <string name="settings_advanced_patch_options_load_error">Ni uspelo naložiti možnosti popravkov</string>
@@ -993,11 +991,9 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Ponastavi izbire paketov?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Ponastaviti izbrane pakete?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Ponastavi izbiro virov?</string>
-    <string name="settings_system_patch_selection_no_saved">Ni shranjenih izbir popravkov</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s od %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s v %2$s</string>
     <string name="settings_system_patch_selection_source_format">Vir #%s</string>
-    <string name="settings_system_patch_selection_will_delete">To bo izbrisalo:</string>
     <string name="settings_system_patch_selection_reset_all_warning">To bo trajno izbrisalo vse shranjene izbire popravkov za vse pakete in vire</string>
     <string name="settings_system_patch_selection_reset_package_warning">To bo trajno izbrisalo vse shranjene izbire popravkov za &lt;b&gt;%s&lt;/b&gt; za vse vire.</string>
     <string name="settings_system_patch_selection_reset_source_warning">To bo trajno izbrisalo shranjene izbire popravkov za &lt;b&gt;%1$s&lt;/b&gt; v &lt;b&gt;%2$s&lt;/b&gt;.</string>
@@ -1126,7 +1122,6 @@ Podrobnosti: %2$s"</string>
     <string name="patch">Popravi</string>
     <string name="patching">Popravljanje</string>
     <string name="patched">Popravljeno</string>
-    <string name="repatch">Ponovno popravi</string>
     <string name="open">Odpri</string>
     <string name="mount">Montiraj</string>
     <string name="mounted">Montirano</string>

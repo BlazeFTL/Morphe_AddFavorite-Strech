@@ -182,6 +182,26 @@ class BatchPatchCoordinator(
     }
 
     /**
+     * Accepts an APK the bundles do not vouch for, mirroring the single-app warning dialog.
+     *
+     * The item is resolved again rather than just flipped to runnable, because everything the
+     * run needs was left unresolved while the file was in question.
+     */
+    fun acceptUnverifiedSignature(itemId: String) {
+        val current = _state.value ?: return
+        if (current.phase != BatchPhase.PREFLIGHT) return
+        val item = current.items.firstOrNull { it.id == itemId } ?: return
+        if (item.state != BatchItemState.UNVERIFIED_SIGNATURE) return
+
+        scope.launch {
+            val resolved = resolver.acceptUnverifiedSignature(item, current.useMount)
+            _state.update { state ->
+                state.copy(items = state.items.map { if (it.id == itemId) resolved else it })
+            }
+        }
+    }
+
+    /**
      * Replaces what one queued app will be patched with, after the user edited it on the
      * preflight screen. Deselecting everything leaves nothing to run, which is the same
      * situation as a source that contributes no patches.
@@ -640,7 +660,9 @@ class BatchPatchCoordinator(
         val retained = fs.getPatchedAppFile(currentPackageName, version)
         val stored = runCatching {
             retained.parentFile?.mkdirs()
-            outputFile.copyTo(retained, overwrite = true)
+            // Staged, so a reader that refreshes while the copy runs never opens a half
+            // written archive at the path the app already reports as the saved build
+            copyThroughStaging(outputFile, retained)
             retained
         }.getOrElse {
             Log.w(TAG, "Failed to retain patched APK for ${item.packageName}", it)

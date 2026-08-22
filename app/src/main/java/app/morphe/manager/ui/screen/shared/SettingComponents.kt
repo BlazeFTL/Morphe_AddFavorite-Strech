@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +45,9 @@ import app.morphe.manager.ui.screen.shared.Defaults.MinTouchTarget
 import app.morphe.manager.ui.screen.shared.Defaults.TallTouchTarget
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.util.compositeOver
 import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.readableOn
 
 // Constants
 object Defaults {
@@ -325,6 +328,10 @@ fun StatusCircleIcon(
     modifier: Modifier = Modifier,
     size: Dp = 28.dp
 ) {
+    // Callers tint the circle translucent, which leaves the icon on a blend of the tint and the
+    // surface rather than on the container the palette paired it with
+    val tint = contentColor.readableOn(containerColor, MaterialTheme.colorScheme.surface)
+
     Box(
         modifier = modifier
             .size(size)
@@ -335,7 +342,7 @@ fun StatusCircleIcon(
             imageVector = icon,
             contentDescription = null,
             modifier = Modifier.size(size * 0.6f),
-            tint = contentColor
+            tint = tint
         )
     }
 }
@@ -788,6 +795,11 @@ fun HeroInfoCard(
     footer: (@Composable ColumnScope.() -> Unit)? = null,
     subtitle: (@Composable RowScope.() -> Unit)? = null
 ) {
+    val surface = MaterialTheme.colorScheme.surface
+    val cardBackground = containerColor.compositeOver(surface)
+    val accentColor = iconTint.readableOn(containerColor, surface)
+    val iconColor = iconTint.readableOn(iconContainerColor, cardBackground)
+
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(Defaults.SectionCornerRadius),
@@ -813,7 +825,7 @@ fun HeroInfoCard(
                         Icon(
                             imageVector = icon,
                             contentDescription = null,
-                            tint = iconTint,
+                            tint = iconColor,
                             modifier = Modifier.size(28.dp)
                         )
                     }
@@ -838,11 +850,13 @@ fun HeroInfoCard(
                         )
                     }
                     if (subtitle != null) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(6.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            content = subtitle
-                        )
+                        CompositionLocalProvider(LocalContentColor provides accentColor) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                content = subtitle
+                            )
+                        }
                     }
                 }
             }

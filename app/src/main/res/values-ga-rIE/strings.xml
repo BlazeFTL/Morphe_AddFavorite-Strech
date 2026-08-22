@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Nuashonruithe scipeáilte</string>
     <string name="home_update_skipped_metered_subtitle">Tá sonraí soghluaiste gníomhach</string>
     <string name="home_updating_sources">Ag nuashonrú na foinsí…</string>
-    <string name="home_update_progress_format">%s próiseáilte</string>
     <string name="home_update_success">Foinsí nuashonraithe críochnaithe</string>
     <string name="home_update_success_subtitle">Tá do foinsí suas chun dáta</string>
     <string name="home_sources_are_loading">Tá na foinsí ag lódáil, fan le do thoil…</string>
@@ -45,6 +44,8 @@
     <string name="home_app_filter_not_patched_description">Aipeanna nár phaisteáil tú i Morphe go fóill</string>
     <string name="home_app_filter_installed_description">Aipeanna atá suiteáilte ar an ngléas seo faoi láthair</string>
     <string name="home_app_filter_uninstalled_description">Aipeanna atá paisteáilte le Morphe nach bhfuil ar an ngléas seo a thuilleadh</string>
+    <string name="home_app_filter_clones">Clóin</string>
+    <string name="home_app_filter_clones_description">Aipeanna a tógadh faoi ainm pacáiste dá gcuid féin, suiteáilte taobh leis an gceann bunaidh</string>
     <string name="home_app_sort_manual_description">Brúigh go fada ar aip, ansin tapáil an cnaipe athordaithe</string>
     <string name="home_app_sort_recommended">Ordú molta</string>
     <string name="home_app_sort_recommended_description">Aipeanna suiteáilte agus bioráilte ar dtús</string>
@@ -299,9 +300,12 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="home_low_disk_space_dialog_message">Níl ach %1$.2f GB de spás saor in aisce ar fáil. Éilíonn paisteáil ar a laghad %2$.2f GB de spás saor in aisce le go n-oibreoidh sé i gceart.</string>
     <string name="home_low_disk_space_dialog_warning">D’fhéadfadh earráid \"comhad gan aimsiú\" nó APK aschuir truaillithe a bheith mar thoradh ar dhul ar aghaidh.</string>
     <string name="home_simple_bundle_select_title">Roghnaigh foinse paiste</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Dath saincheaptha</string>
     <string name="hex_color">Dath heicsidheachúlach</string>
+    <string name="color_picker_shade">Sáithiú agus gile</string>
+    <string name="color_picker_hue">Lí</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Treoracha</string>
     <string name="patch_option_enter_value">Cuir isteach luach</string>
     <string name="patch_option_enter_number">Cuir isteach uimhir</string>
@@ -369,6 +373,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="batch_patch_source_unavailable">Níorbh fhéidir an APK a ullmhú</string>
     <string name="batch_patch_force_version">Paiste ar aon nós</string>
     <string name="batch_patch_force_version_done">Sa scuaine ar aon nós, d\'fhéadfadh paistí a rinneadh do leaganacha eile an aip a bhriseadh</string>
+    <string name="batch_patch_accept_signature_done">Ciúáilte ar aon nós, b\'fhéidir nach é an APK seo an bunleagan</string>
     <string name="batch_patch_edit_patches">Roghnaigh paistí</string>
     <string name="batch_patch_state_no_apk">Gan APK</string>
     <string name="batch_patch_state_no_patches">Gan paistí</string>
@@ -412,10 +417,10 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_app_deleted_warning">Díshuiteáladh an aip</string>
     <string name="home_app_info_app_deleted_description">Díshuiteáladh an aip seo lasmuigh de Morphe. Athphaisteáil í chun feidhmiúlacht a athbhunú.</string>
     <string name="home_app_info_not_patched_description">Tá leagan neamhphaiste den aip seo suiteáilte. Tá taifead paiste roimhe seo Morphe fós.</string>
-    <string name="home_dialog_rename_title">Suiteálfaidh sé seo cóip</string>
-    <string name="home_dialog_rename_description">Tógálann na paistí roghnaithe an aip seo faoi ainm pacáiste dá gcuid féin, mar sin suiteálann an toradh taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú.</string>
-    <string name="home_dialog_rename_result_package">Suiteálfar mar</string>
-    <string name="home_dialog_rename_replaces">Tá cóip ann cheana féin a úsáideann an t-ainm sin agus atógfar í.</string>
+    <string name="patcher_rename_title">Déanfaidh sé seo clón a shuiteáil</string>
+    <string name="patcher_rename_description">Thóg na paistí an aip seo faoina n-ainm pacáiste féin, mar sin má shuiteáiltear é cuirfear clón leis taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú</string>
+    <string name="patcher_rename_result_package">Suiteáil mar</string>
+    <string name="patcher_rename_replaces">Tá app suiteáilte cheana féin faoin ainm sin agus cuirfear in ionad é</string>
     <string name="home_app_info_apk_size">Méid APK</string>
     <string name="home_app_info_cpu_arch">Ailtireacht LAP</string>
     <!-- Home Screen - Root Mode -->
@@ -531,7 +536,6 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Paistí á gcur i bhfeidhm</string>
     <string name="failed_to_execute_patch">Theip ar %s a chur i bhfeidhm</string>
-    <string name="patched_app_saved_toast">Comhadaithe aip sábháilte le haghaidh níos déanaí</string>
     <string name="patched_app_save_failed_toast">Theip ar aip chomhfhiosach a shábháil</string>
     <string name="plugin_activity_dialog_body">Tá idirghníomhaíocht úsáideora ag teastáil chun dul ar aghaidh leis an mbreiseán seo</string>
     <string name="patcher_process_exit_message">Próiseas paisteála scoirthe leis an gcód %s</string>
@@ -727,15 +731,9 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_advanced_github_pat_export_warning">Ná roinn do PAT. Má chuireann tú san áireamh é in easpórtáil socruithe, coinnigh an comhad sin príobháideach mar go bhfuil an comhartha ann.</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Roghanna paiste</string>
-    <string name="settings_advanced_patch_options_youtube_description">Roghanna téama, brandála agus ceanntásca</string>
+    <string name="settings_advanced_patch_options_youtube_description">Roghanna brandála agus ceanntásca</string>
     <string name="settings_advanced_patch_options_restart_message">Éilíonn athrú roghanna paiste athphaisteáil ar an aip le go dtiocfaidh sé i bhfeidhm</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">I mód Saineolaí beidh roghanna paiste ar fáil le linn an phróisis paisteála</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Dathanna téama an aip</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Athraíonn dath an chúlra</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Dath cúlra téama dorcha</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Dath cúlra téama éadrom</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Is féidir dath heicsidheachúlach (#RRGGBB) nó tagairt acmhainne datha a bheith ann</string>
     <string name="settings_advanced_patch_options_loading">Ag lódáil roghanna paiste…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Fan go dtí go mbeidh foinse an phaiste nuashonraithe</string>
     <string name="settings_advanced_patch_options_load_error">Theip ar na roghanna paiste a luchtú</string>
@@ -991,11 +989,9 @@ Sonraí: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Athshocraigh roghanna pacáiste?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Athshocraigh na pacáistí roghnaithe?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Athshocraigh an rogha foinse?</string>
-    <string name="settings_system_patch_selection_no_saved">Gan aon roghanna paiste sábháilte</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s trasna %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s i %2$s</string>
     <string name="settings_system_patch_selection_source_format">Foinse #%s</string>
-    <string name="settings_system_patch_selection_will_delete">Scriosfaidh sé seo:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Scriosfaidh sé seo go buan na roghanna paiste sábháilte go léir do na pacáistí agus na foinsí go léir.</string>
     <string name="settings_system_patch_selection_reset_package_warning">Scriosfaidh sé seo go buan gach rogha paiste sábháilte do &lt;b&gt;%s&lt;/b&gt; thar na foinsí uile.</string>
     <string name="settings_system_patch_selection_reset_source_warning">Scriosfaidh sé seo go buan na roghanna paiste sábháilte le haghaidh &lt;b&gt;%1$s&lt;/b&gt; i &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1124,7 +1120,6 @@ Sonraí: %2$s"</string>
     <string name="patch">Paiste</string>
     <string name="patching">Paisteáil</string>
     <string name="patched">Paisteáilte</string>
-    <string name="repatch">Athphaitseáil</string>
     <string name="open">Oscail</string>
     <string name="mount">Ceangail</string>
     <string name="mounted">Ceangailte</string>

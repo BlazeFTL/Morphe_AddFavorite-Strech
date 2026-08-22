@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Ažuriranja su preskočena</string>
     <string name="home_update_skipped_metered_subtitle">Mobilni podaci su aktivni</string>
     <string name="home_updating_sources">Ažuriranje izvora…</string>
-    <string name="home_update_progress_format">%s obrađeno</string>
     <string name="home_update_success">Ažuriranje izvora završeno</string>
     <string name="home_update_success_subtitle">Vaši izvori su ažurirani</string>
     <string name="home_sources_are_loading">Izvori se učitavaju, molimo sačekajte…</string>
@@ -45,6 +44,8 @@
     <string name="home_app_filter_not_patched_description">Aplikacije koje još niste zakrpili u aplikaciji Morphe</string>
     <string name="home_app_filter_installed_description">Aplikacije koje su trenutno instalirane na ovom uređaju</string>
     <string name="home_app_filter_uninstalled_description">Aplikacije zakrpljene pomoću Morphe-a koje više nisu na ovom uređaju</string>
+    <string name="home_app_filter_clones">Klonovi</string>
+    <string name="home_app_filter_clones_description">Aplikacije napravljene pod sopstvenim imenom paketa, instalirane pored originala</string>
     <string name="home_app_sort_manual_description">Pritisnite i zadržite aplikaciju, zatim dodirnite dugme za promenu reda</string>
     <string name="home_app_sort_recommended">Preporučeni redosled</string>
     <string name="home_app_sort_recommended_description">Instalirane i pričvršćene aplikacije prvo</string>
@@ -299,9 +300,12 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="home_low_disk_space_dialog_message">Samo %1$.2f GB besplatne memorije je dostupno. Popravljanje zahteva najmanje %2$.2f GB besplatnog prostora da bi ispravno radilo</string>
     <string name="home_low_disk_space_dialog_warning">Nastavak može dovesti do greške „datoteka nije pronađena“ ili oštećenog APK-a za izlaz</string>
     <string name="home_simple_bundle_select_title">Izaberi izvor zakrpe</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Prilagođena boja</string>
     <string name="hex_color">Boja u heksadecimalnom formatu</string>
+    <string name="color_picker_shade">Zasićenje i osvetljenost</string>
+    <string name="color_picker_hue">Nijansa</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Upute</string>
     <string name="patch_option_enter_value">Unesite vrednost</string>
     <string name="patch_option_enter_number">Unesite broj</string>
@@ -369,6 +373,7 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="batch_patch_source_unavailable">APK nije mogao da bude pripremljen</string>
     <string name="batch_patch_force_version">Zakrpi bez obzira</string>
     <string name="batch_patch_force_version_done">Zakazano je, bez obzira na to, zakrpe napravljene za druge verzije mogu da oštete aplikaciju</string>
+    <string name="batch_patch_accept_signature_done">Svejedno je stavljen u red čekanja, ovaj APK možda nije originalan</string>
     <string name="batch_patch_edit_patches">Izaberite zakrpe</string>
     <string name="batch_patch_state_no_apk">Nema APK-a</string>
     <string name="batch_patch_state_no_patches">Nema zakrpa</string>
@@ -412,10 +417,10 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nezakrpana verzija ove aplikacije. Morphe i dalje ima svoj prethodni zapis o zakrpi</string>
-    <string name="home_dialog_rename_title">Ovo će instalirati kopiju</string>
-    <string name="home_dialog_rename_description">Izabrane zakrpe grade ovu aplikaciju pod sopstvenim imenom paketa, tako da se rezultat instalira pored &lt;b&gt;%s&lt;/b&gt; umesto da je ažurira</string>
-    <string name="home_dialog_rename_result_package">Instaliraće se kao</string>
-    <string name="home_dialog_rename_replaces">Kopija već koristi to ime i biće ponovo izgrađena</string>
+    <string name="patcher_rename_title">Ovo će instalirati klon</string>
+    <string name="patcher_rename_description">Zakrpe su napravile ovu aplikaciju pod sopstvenim imenom paketa, tako da njeno instaliranje dodaje klon pored &lt;b&gt;%s&lt;/b&gt; umesto da je ažurira.</string>
+    <string name="patcher_rename_result_package">Instaliraće se kao</string>
+    <string name="patcher_rename_replaces">Aplikacija je već instalirana pod tim imenom i biće zamenjena</string>
     <string name="home_app_info_apk_size">Veličina APK-a</string>
     <string name="home_app_info_cpu_arch">CPU arhitektura</string>
     <!-- Home Screen - Root Mode -->
@@ -531,7 +536,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Primenjivanje zakrpe</string>
     <string name="failed_to_execute_patch">Došlo je do greške pri primeni %s</string>
-    <string name="patched_app_saved_toast">Zakrpljena aplikacija sačuvana za kasnije</string>
     <string name="patched_app_save_failed_toast">Došlo je do greške pri čuvanju zakrpljene aplikacije</string>
     <string name="plugin_activity_dialog_body">Potrebna je interakcija korisnika da bi se nastavilo sa ovim dodatkom</string>
     <string name="patcher_process_exit_message">Proces zakrpivanja je završen sa kodom %s</string>
@@ -727,15 +731,9 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_advanced_github_pat_export_warning">Ne deli svoj PAT. Ako ga uključiš u postavke izvoza, drž taj fajl privatno jer sadrži token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opcije patchiranja</string>
-    <string name="settings_advanced_patch_options_youtube_description">Tema, brendiranje i opcije zaglavlja</string>
+    <string name="settings_advanced_patch_options_youtube_description">Opcije brendiranja i zaglavlja</string>
     <string name="settings_advanced_patch_options_restart_message">Promene u patchiranju se primenjuju tek kada se ponovno patchira aplikacija</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">U naprednom načinu opcije patchiranja će biti dostupne tokom procesa patchiranja</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Boje aplikacije</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Menja boju pozadine</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Mapa sa slikama za korištenje kao prilagođena pozadina</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Boja pozadine za svjetlo</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Moguće je hex boja (#RRGGBB) ili referenca na resurs boje</string>
     <string name="settings_advanced_patch_options_loading">Učitavanje opcija patchiranja…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Čekajte dok se patch izvor ne ažurira</string>
     <string name="settings_advanced_patch_options_load_error">Nijeleženo učitavanje opcija patchiranja</string>
@@ -977,11 +975,9 @@ Detalji: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Poništiti odabire paketa?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Resetovati selektovane pakete?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Poništiti odabir izvora?</string>
-    <string name="settings_system_patch_selection_no_saved">Nema sačuvanih odabira patch-a</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s po %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s u %2$s</string>
     <string name="settings_system_patch_selection_source_format">Izvor #%s</string>
-    <string name="settings_system_patch_selection_will_delete">Ovo će da obriše:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Ovo će permanentno obrisati sve sačuvane odabire patch-a za sve pakete i izvore</string>
     <string name="settings_system_patch_selection_reset_package_warning">Ovo će trajno obrisati sve sačuvane selekcije zakrpa za &lt;b&gt;%s&lt;/b&gt; u svim izvorima</string>
     <string name="settings_system_patch_selection_reset_source_warning">Ovo će trajno obrisati sačuvane selekcije zakrpa za &lt;b&gt;%1$s&lt;/b&gt; u &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1110,7 +1106,6 @@ Detalji: %2$s"</string>
     <string name="patch">Zakrpi</string>
     <string name="patching">Zakrpljivanje</string>
     <string name="patched">Zakrpljene</string>
-    <string name="repatch">Vrati zakrpu</string>
     <string name="open">Otvori</string>
     <string name="mount">Montiraj</string>
     <string name="mounted">Montirano</string>

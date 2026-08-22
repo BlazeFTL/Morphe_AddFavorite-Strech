@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">Aktualizace přeskočeny</string>
     <string name="home_update_skipped_metered_subtitle">Mobilní data jsou aktivní</string>
     <string name="home_updating_sources">Probíhá aktualizace zdrojů…</string>
-    <string name="home_update_progress_format">%s zpracováno</string>
     <string name="home_update_success">Aktualizace zdrojů dokončena</string>
     <string name="home_update_success_subtitle">Vaše zdroje jsou aktuální</string>
     <string name="home_sources_are_loading">Zdroje se načítají, počkejte prosím…</string>
@@ -45,6 +44,8 @@
     <string name="home_app_filter_not_patched_description">Aplikace, které jste v Morphe ještě nepatchovali</string>
     <string name="home_app_filter_installed_description">Aplikace aktuálně nainstalované v tomto zařízení</string>
     <string name="home_app_filter_uninstalled_description">Aplikace záplatované pomocí Morphe, které již nejsou v tomto zařízení</string>
+    <string name="home_app_filter_clones">Klonované aplikace nainstalované vedle původní aplikace pod jiným názvem balíčku</string>
+    <string name="home_app_filter_clones_description">Aplikace vytvořené pod jiným názvem balíčku, nainstalované vedle původní aplikace</string>
     <string name="home_app_sort_manual_description">Dlouze stiskněte aplikaci a poté klepněte na tlačítko pro změnu pořadí</string>
     <string name="home_app_sort_recommended">Doporučené pořadí</string>
     <string name="home_app_sort_recommended_description">Nejprve nainstalované a připnuté aplikace</string>
@@ -299,9 +300,12 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="home_low_disk_space_dialog_message">Dostupných je pouze %1$.2f GB volného místa. Záplatování vyžaduje alespoň %2$.2f GB volného místa, aby fungovalo správně</string>
     <string name="home_low_disk_space_dialog_warning">Pokračování může vést k chybě \"soubor nenalezen\" nebo poškodit výslednou APK</string>
     <string name="home_simple_bundle_select_title">Vybrat zdroj záplaty</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Vlastní barva</string>
     <string name="hex_color">Barva ve formátu Hex</string>
+    <string name="color_picker_shade">Sytost a jas</string>
+    <string name="color_picker_hue">Odstín</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instrukce</string>
     <string name="patch_option_enter_value">Zadejte hodnotu</string>
     <string name="patch_option_enter_number">Zadejte číslo</string>
@@ -369,6 +373,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="batch_patch_source_unavailable">APK se nepodařilo připravit</string>
     <string name="batch_patch_force_version">Aplikovat i tak</string>
     <string name="batch_patch_force_version_done">Přesto zařazeno do fronty, záplaty pro jiné verze mohou rozbít aplikaci</string>
+    <string name="batch_patch_accept_signature_done">Přesto zařazeno do fronty, tento APK nemusí být původní</string>
     <string name="batch_patch_edit_patches">Zvolit záplaty</string>
     <string name="batch_patch_state_no_apk">Žádné APK</string>
     <string name="batch_patch_state_no_patches">Žádné záplaty</string>
@@ -412,10 +417,10 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="home_app_info_app_deleted_warning">Aplikace byla odinstalována</string>
     <string name="home_app_info_app_deleted_description">Tuto aplikaci bylo odinstalováno mimo Morphe. Zápalte ji znovu, abyste obnovili funkčnost</string>
     <string name="home_app_info_not_patched_description">Je nainstalována neopatchovaná verze této aplikace. Morphe má stále svůj předchozí záznam o záplatě</string>
-    <string name="home_dialog_rename_title">Tímto se nainstaluje kopie</string>
-    <string name="home_dialog_rename_description">Vybrané patche sestavují tuto aplikaci pod vlastním názvem balíčku, takže výsledek se nainstaluje vedle &lt;b&gt;%s&lt;/b&gt; namísto její aktualizace</string>
-    <string name="home_dialog_rename_result_package">Bude nainstalováno jako</string>
-    <string name="home_dialog_rename_replaces">Kopie již používá tento název a bude znovu sestavena</string>
+    <string name="patcher_rename_title">Toto nainstaluje klon</string>
+    <string name="patcher_rename_description">Záplaty vytvořily tuto aplikaci pod vlastním názvem balíčku, takže instalace přidá klon vedle &lt;b&gt;%s&lt;/b&gt; místo aktualizace.</string>
+    <string name="patcher_rename_result_package">Nainstaluje se jako</string>
+    <string name="patcher_rename_replaces">An app is already installed under that name and will be replaced</string>
     <string name="home_app_info_apk_size">Velikost APK</string>
     <string name="home_app_info_cpu_arch">Architektura CPU</string>
     <!-- Home Screen - Root Mode -->
@@ -531,7 +536,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Aplikují se záplaty</string>
     <string name="failed_to_execute_patch">Selhalo aplikování %s</string>
-    <string name="patched_app_saved_toast">Zastaralá aplikace uložena pro později</string>
     <string name="patched_app_save_failed_toast">Chyba při ukládání zastaralé aplikace</string>
     <string name="plugin_activity_dialog_body">Provedení je vyžadováno pro pokračování v tomto rozšíření</string>
     <string name="patcher_process_exit_message">Proces opravy skončil s kódem %s</string>
@@ -726,15 +730,9 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_advanced_github_pat_export_warning">Nesdílejte svůj PAT. Pokud ho zahrnete do exportu nastavení, uchovejte tento soubor v soukromí, protože obsahuje token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Nastavení záplaty</string>
-    <string name="settings_advanced_patch_options_youtube_description">Téma, branding, záhlaví a možnosti</string>
+    <string name="settings_advanced_patch_options_youtube_description">Možnosti brandingu a záhlaví</string>
     <string name="settings_advanced_patch_options_restart_message">Pro změnu nastavení záplaty je nutné aplikaci opětovně záplatovat</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">V Expertním režimu budou možnosti záplat dostupné během procesu záplatování</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">Barvy tématu aplikace</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Změní barvu pozadí</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Barva pozadí temného tématu</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Barva pozadí světlého tématu</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Může být barva ve formátu hex (#RRGGBB) nebo reference na prostředek barvy</string>
     <string name="settings_advanced_patch_options_loading">Načítám možnosti záplaty…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Počkejte, dokud se zdroj záplat neaktualizuje</string>
     <string name="settings_advanced_patch_options_load_error">Nepodařilo se načíst nastavení záplaty</string>
@@ -992,11 +990,9 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Resetovat výběry balíčku?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Resetovat vybrané balíčky?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Resetovat výběr zdroje?</string>
-    <string name="settings_system_patch_selection_no_saved">Žádné uložené výběry záplaty</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s z %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s v %2$s</string>
     <string name="settings_system_patch_selection_source_format">Zdroj #%s</string>
-    <string name="settings_system_patch_selection_will_delete">Toto smaže:</string>
     <string name="settings_system_patch_selection_reset_all_warning">Toto trvale smaže všechny uložené výběry záplaty pro všechny balíčky a zdroje</string>
     <string name="settings_system_patch_selection_reset_package_warning">Tímto bude trvale smazán veškerý uložený výběr záplat pro &lt;b&gt;%s&lt;/b&gt; ve všech zdrojích</string>
     <string name="settings_system_patch_selection_reset_source_warning">Tímto bude trvale smazána uložená výběry záplat pro &lt;b&gt;%1$s&lt;/b&gt; v &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1125,7 +1121,6 @@ Podrobnosti: %2$s"</string>
     <string name="patch">Záplata</string>
     <string name="patching">Záplatování</string>
     <string name="patched">Záplatováno</string>
-    <string name="repatch">Znovu zalepit</string>
     <string name="open">Otevřít</string>
     <string name="mount">Připojit</string>
     <string name="mounted">Připojeno</string>

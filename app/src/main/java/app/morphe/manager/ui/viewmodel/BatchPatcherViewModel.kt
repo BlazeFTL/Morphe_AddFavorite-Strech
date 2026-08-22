@@ -6,7 +6,10 @@
 package app.morphe.manager.ui.viewmodel
 
 import android.app.Application
+import android.content.ComponentName
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.provider.OpenableColumns
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -30,6 +33,8 @@ import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.*
+import app.morphe.manager.ui.model.ApkDownloadHelperHost
+import app.morphe.manager.ui.model.toHelperFileType
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
@@ -192,7 +197,7 @@ class BatchPatchEdit(
  * the batch screen keeps a queue going. This ViewModel only owns screen state such as which
  * item a file picker was opened for.
  */
-class BatchPatcherViewModel : ViewModel(), KoinComponent {
+class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost {
     private val app: Application by inject()
     private val fs: Filesystem by inject()
     private val pm: PM by inject()
@@ -289,18 +294,30 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
      * The unfollowed search URL is published first and replaced once the redirect resolves,
      * which is what tells the dialog the destination is not known yet.
      */
-    data class ApkSearch(val item: BatchPatchItem, val version: String?, val url: String)
+    data class ApkSearch(
+        val item: BatchPatchItem,
+        val version: String?,
+        val url: String,
+        /**
+         * Versions the sources cover, carried so a download helper can be told what else is
+         * acceptable when the requested version is no longer offered anywhere.
+         */
+        val compatible: List<BundledAppTarget> = emptyList()
+    )
 
     var apkSearch: ApkSearch? by mutableStateOf(null)
         private set
 
     /** [version] is what the user picked in the availability dialog, not just the recommended one. */
     fun beginApkSearch(item: BatchPatchItem, version: String?) {
+        // Read before the choice is dropped, which is where the covered versions were resolved
+        val compatible = apkChoice?.takeIf { it.item.id == item.id }?.compatible.orEmpty()
         apkChoice = null
         apkSearch = ApkSearch(
             item = item,
             version = version,
-            url = downloadUrlResolver.apiSearchUrl(item.packageName, version)
+            url = downloadUrlResolver.apiSearchUrl(item.packageName, version),
+            compatible = compatible
         )
         viewModelScope.launch {
             val resolved = withContext(Dispatchers.IO) {
@@ -337,6 +354,74 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
 
     fun dismissAttachPrompt() {
         attachPrompt = null
+    }
+
+    override val helperSignatureCheckAvailable: Boolean
+        get() {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return false
+            val packageName = apkSearch?.item?.packageName ?: return false
+            return !patchBundleRepository.appMetadata.value[packageName]?.signatures.isNullOrEmpty()
+        }
+
+    /**
+     * Build the request for an APK download helper, describing the original APK of the queued app
+     * the download instructions are open for.
+     */
+    override fun createApkDownloadHelperIntent(component: ComponentName): Intent? {
+        val search = apkSearch ?: return null
+        val packageName = search.item.packageName
+        val apkFileType = patchBundleRepository.appMetadata.value[packageName]?.apkFileType
+
+        val requestedVersionCodes = search.compatible
+            .filter { it.target.version == search.version }
+            .flatMap { it.buildCodes.orEmpty() }
+            .distinct()
+            .map(Int::toLong)
+            .toLongArray()
+
+        return ApkDownloadHelperContract.createRequestIntent(
+            component = component,
+            callerPackage = app.packageName,
+            packageName = packageName,
+            appName = search.item.appName,
+            versionName = search.version,
+            versionCodes = requestedVersionCodes,
+            compatibleVersionNames = search.compatible.mapNotNull { it.target.version }.distinct(),
+            supportedAbis = Build.SUPPORTED_ABIS,
+            fileType = apkFileType?.toHelperFileType(),
+            // Mirrors the single-app request - only a required plain APK rules split archives out
+            allowSplitArchive = !(apkFileType?.isApk == true && apkFileType.isRequired),
+            stockInstallRequired = state.value?.useMount == true &&
+                    search.item.source !is BatchApkSource.Installed,
+            fallbackWebUrl = downloadUrlResolver.webSearchUrl(packageName, search.version)
+        )
+    }
+
+    /**
+     * Takes the archive a helper downloaded for the queued app, which then goes through the same
+     * package, version and signature checks an attached file does.
+     */
+    override fun onHelperApkReceived(uri: Uri) {
+        val item = apkSearch?.item ?: return
+        apkSearch = null
+        attachPrompt = null
+        requestAttach(item.id)
+        onApkPicked(uri)
+    }
+
+    override fun onHelperInstalledAppChosen(packageName: String) {
+        val item = apkSearch?.item ?: return
+        if (packageName != item.packageName) {
+            // The helper answered about an app the queue never asked to patch
+            app.toast(app.getString(R.string.home_apk_helper_wrong_package))
+            return
+        }
+
+        apkSearch = null
+        attachPrompt = null
+        // Re-resolved rather than taken on the helper's word: an installed app is only accepted
+        // while it still looks like the stock one, see BatchPlanResolver
+        coordinator.useSource(item.id, preferInstalled = true)
     }
 
     /** Patch selection editor for one queued app, null when none is open. */
@@ -441,6 +526,15 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent {
     fun forceVersion(itemId: String) {
         coordinator.forceVersion(itemId)
         app.toast(app.getString(R.string.batch_patch_force_version_done))
+    }
+
+    /**
+     * Accepts an APK signed by someone the sources do not vouch for. Confirmed with a toast for
+     * the same reason as [forceVersion]: the card only swaps a badge.
+     */
+    fun acceptUnverifiedSignature(itemId: String) {
+        coordinator.acceptUnverifiedSignature(itemId)
+        app.toast(app.getString(R.string.batch_patch_accept_signature_done))
     }
 
     fun setPolicy(policy: BatchInstallPolicy) = coordinator.setPolicy(policy)

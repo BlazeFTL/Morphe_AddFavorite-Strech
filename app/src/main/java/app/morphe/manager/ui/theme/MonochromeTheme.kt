@@ -131,7 +131,11 @@ object MonochromeThemeDefaults {
             Brush.linearGradient(gradient)
         }
 
+    /**
+     * Paired with [iconBackground], which fills these icons with the primary container. Primary
+     * itself sits too close to that fill once a custom accent derives both from one color.
+     */
     @Composable
     fun iconTint(base: Color): Color =
-        if (LocalMonochromeTheme.current) MaterialTheme.colorScheme.primary else base
+        if (LocalMonochromeTheme.current) MaterialTheme.colorScheme.onPrimaryContainer else base
 }

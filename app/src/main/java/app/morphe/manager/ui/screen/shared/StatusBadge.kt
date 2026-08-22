@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.util.readableOn
 
 /**
  * Semantic color roles shared by everything that carries a tint: badges, notices and the
@@ -113,10 +114,15 @@ fun StatusBadge(
         text?.replace("/", "/​")?.replace(".", ".​")
     }
 
+    // Only where the card says what it holds; guessing picks a color by theme, not by the ground
+    val card = LocalCardBackground.current
+    val fill = containerColor.distinctFromCard()
+    val content = if (card != null) contentColor.readableOn(fill, card) else contentColor
+
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(percent = 50))
-            .background(containerColor)
+            .background(fill)
             .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .padding(
                 horizontal = BadgeDefaults.HorizontalPadding,
@@ -126,13 +132,13 @@ fun StatusBadge(
         verticalAlignment = Alignment.CenterVertically
     ) {
         icon?.let {
-            ThemedIcon(icon = it, tint = contentColor, size = BadgeDefaults.IconSize)
+            ThemedIcon(icon = it, tint = content, size = BadgeDefaults.IconSize)
         }
         breakableText?.let {
             Text(
                 text = it,
                 style = MaterialTheme.typography.labelMedium,
-                color = contentColor,
+                color = content,
                 fontWeight = FontWeight.Medium
             )
         }

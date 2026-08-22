@@ -5,10 +5,13 @@
 
 package app.morphe.manager.ui.model
 
+import app.morphe.manager.patcher.patch.Option
+import app.morphe.manager.patcher.patch.PatchInfo
+import kotlinx.collections.immutable.toImmutableList
+import kotlin.reflect.typeOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 private const val CAKE = "me.mycake"
@@ -68,61 +71,50 @@ class ConfigurationKeyTest {
     }
 }
 
-class PendingRenameTest {
-    private fun rename(
-        targetPackageName: String,
-        selectedPatches: Set<String> = setOf(CLONE_PATCH),
-        declaredName: String? = null
-    ): PendingRename? = pendingRename(
-        originalPackageName = CAKE,
-        targetPackageName = targetPackageName,
-        selection = mapOf(BUNDLE to selectedPatches),
-        options = declaredName
-            ?.let { mapOf(BUNDLE to mapOf(CLONE_PATCH to mapOf(PACKAGE_NAME_OPTION_KEY to it))) }
-            .orEmpty(),
-        declaresPackageName = { _, patchName -> patchName == CLONE_PATCH }
+/**
+ * The rule the patch list labels a renaming patch by. Only a badge rides on it, but one that
+ * fires on every patch merely reading the package name teaches the user to ignore it.
+ */
+class RenamesByDefaultTest {
+    private fun patchWithPackageNameOption(default: String?) = PatchInfo(
+        name = CLONE_PATCH,
+        description = null,
+        include = true,
+        compatiblePackages = null,
+        options = listOf(
+            Option(
+                title = PACKAGE_NAME_OPTION_KEY,
+                key = PACKAGE_NAME_OPTION_KEY,
+                description = "",
+                required = false,
+                type = typeOf<String>(),
+                default = default,
+                presets = null,
+                validator = { true }
+            )
+        ).toImmutableList()
     )
 
     @Test
-    fun `patches that build under the app's own name never rename it`() {
-        assertNull(rename(targetPackageName = CAKE, selectedPatches = setOf(OTHER_PATCH)))
+    fun `a patch carrying a name to fall back on renames on its own`() {
+        assertTrue(patchWithPackageNameOption("Default").renamesByDefault)
     }
 
     @Test
-    fun `a named rename away from the app is reported with the name`() {
-        assertEquals(
-            PendingRename(CLONE),
-            rename(targetPackageName = CAKE, declaredName = CLONE)
+    fun `a patch that only accepts an override reads the app's own name`() {
+        assertFalse(patchWithPackageNameOption(null).renamesByDefault)
+    }
+
+    @Test
+    fun `a patch with no package name option at all never renames`() {
+        val patch = PatchInfo(
+            name = OTHER_PATCH,
+            description = null,
+            include = true,
+            compatiblePackages = null,
+            options = null
         )
-    }
-
-    @Test
-    fun `a rename pointed back at the install being rebuilt is no rename`() {
-        assertNull(rename(targetPackageName = CLONE, declaredName = CLONE))
-    }
-
-    @Test
-    fun `an unnamed rename of the app itself is reported without a name`() {
-        assertEquals(PendingRename(null), rename(targetPackageName = CAKE))
-    }
-
-    @Test
-    fun `an unnamed rename while rebuilding a copy lands on that same copy`() {
-        assertNull(rename(targetPackageName = CLONE))
-    }
-
-    @Test
-    fun `a value that is no package name is the patch naming the result itself`() {
-        assertEquals(PendingRename(null), rename(targetPackageName = CAKE, declaredName = "Default"))
-        assertEquals(PendingRename(null), rename(targetPackageName = CAKE, declaredName = " "))
-    }
-
-    @Test
-    fun `a copy rebuilt under a name of another copy is reported`() {
-        assertEquals(
-            PendingRename("me.mycake.morphe2"),
-            rename(targetPackageName = CLONE, declaredName = "me.mycake.morphe2")
-        )
+        assertFalse(patch.renamesByDefault)
     }
 }
 

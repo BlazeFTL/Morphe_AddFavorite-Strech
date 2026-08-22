@@ -34,7 +34,6 @@
     <string name="home_update_skipped_metered">Updates skipped</string>
     <string name="home_update_skipped_metered_subtitle">Mobile data is active</string>
     <string name="home_updating_sources">Updating sources…</string>
-    <string name="home_update_progress_format">%s processed</string>
     <string name="home_update_download_progress" translatable="false">%1$.1f MB / %2$.1f MB (%3$s%%)</string>
     <string name="home_update_bundle_count" translatable="false">%1$d / %2$d</string>
     <string name="home_update_bundle_count_with_bytes" translatable="false">%1$d / %2$d  ·  %3$.1f / %4$.1f MB (%5$d%%)</string>
@@ -49,6 +48,8 @@
     <string name="home_app_filter_not_patched_description">Apps you have not patched in Morphe yet</string>
     <string name="home_app_filter_installed_description">Apps currently installed on this device</string>
     <string name="home_app_filter_uninstalled_description">Apps patched with Morphe that are no longer on this device</string>
+    <string name="home_app_filter_clones">Clones</string>
+    <string name="home_app_filter_clones_description">Apps built under a package name of their own, installed alongside the original</string>
     <string name="home_app_sort_manual_description">Long-press an app, then tap reorder button</string>
     <string name="home_app_sort_recommended">Recommended order</string>
     <string name="home_app_sort_recommended_description">Installed and pinned apps first</string>
@@ -312,9 +313,13 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="home_low_disk_space_dialog_warning">Proceeding may result in a \"file not found\" error or a corrupt output APK</string>
     <string name="home_simple_bundle_select_title">Select patch source</string>
 
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">Custom color</string>
     <string name="hex_color">Hex color</string>
+    <string name="color_picker_shade">Saturation and brightness</string>
+    <string name="color_picker_hue">Hue</string>
+
+    <!-- Patch Options -->
     <string name="patch_option_instructions">Instructions</string>
     <string name="patch_option_enter_value">Enter value</string>
     <string name="patch_option_enter_number">Enter number</string>
@@ -385,6 +390,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="batch_patch_source_unavailable">The APK could not be prepared</string>
     <string name="batch_patch_force_version">Patch anyway</string>
     <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
+    <string name="batch_patch_accept_signature_done">Queued anyway, this APK may not be the original</string>
     <string name="batch_patch_edit_patches">Choose patches</string>
     <string name="batch_patch_state_no_apk">No APK</string>
     <string name="batch_patch_state_no_patches">No patches</string>
@@ -430,10 +436,10 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="home_app_info_app_deleted_warning">App was uninstalled</string>
     <string name="home_app_info_app_deleted_description">This app was uninstalled outside the Morphe. Repatch it to restore functionality</string>
     <string name="home_app_info_not_patched_description">An unpatched version of this app is installed. Morphe still has its previous patch record</string>
-    <string name="home_dialog_rename_title">This will install a copy</string>
-    <string name="home_dialog_rename_description">The selected patches build this app under a package name of their own, so the result installs alongside &lt;b&gt;%s&lt;/b&gt; instead of updating it</string>
-    <string name="home_dialog_rename_result_package">Will install as</string>
-    <string name="home_dialog_rename_replaces">A copy already uses that name and will be rebuilt</string>
+    <string name="patcher_rename_title">This will install a clone</string>
+    <string name="patcher_rename_description">The patches built this app under a package name of their own, so installing it adds a clone alongside &lt;b&gt;%s&lt;/b&gt; instead of updating it</string>
+    <string name="patcher_rename_result_package">Will install as</string>
+    <string name="patcher_rename_replaces">An app is already installed under that name and will be replaced</string>
     <string name="home_app_info_apk_size">APK size</string>
     <string name="home_app_info_cpu_arch">CPU architecture</string>
 
@@ -560,7 +566,6 @@ Uninstalling will permanently erase all app data"</string>
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Applying patches</string>
     <string name="failed_to_execute_patch">Failed to apply %s</string>
-    <string name="patched_app_saved_toast">Patched app saved for later</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">User interaction is required in order to proceed with this plugin</string>
     <string name="patcher_process_exit_message">Patcher process exited with code %s</string>
@@ -785,16 +790,9 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Patch options</string>
-    <string name="settings_advanced_patch_options_youtube_description">Theme, branding, and header options</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding and header options</string>
     <string name="settings_advanced_patch_options_restart_message">Changing patch options requires re-patching the app to take effect</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">In Expert mode patch options will be available during the patching process</string>
-
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">App theme colors</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">Changes background color</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">Dark theme background color</string>
-    <string name="settings_advanced_patch_options_light_theme_color">Light theme background color</string>
-    <string name="settings_advanced_patch_options_theme_color_description">Can be a hex color (#RRGGBB) or a color resource reference</string>
     <string name="settings_advanced_patch_options_loading">Loading patch options…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Wait until the patch source is updated</string>
     <string name="settings_advanced_patch_options_load_error">Failed to load patch options</string>
@@ -1066,11 +1064,9 @@ Details: %2$s"</string>
     <string name="settings_system_patch_selection_reset_package_confirm_title">Reset package selections?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">Reset selected packages?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">Reset source selection?</string>
-    <string name="settings_system_patch_selection_no_saved">No saved patch selections</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s across %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s in %2$s</string>
     <string name="settings_system_patch_selection_source_format">Source #%s</string>
-    <string name="settings_system_patch_selection_will_delete">This will delete:</string>
     <string name="settings_system_patch_selection_reset_all_warning">This will permanently delete all saved patch selections for all packages and sources</string>
     <string name="settings_system_patch_selection_reset_package_warning">This will permanently delete all saved patch selections for &lt;b&gt;%s&lt;/b&gt; across all sources</string>
     <string name="settings_system_patch_selection_reset_source_warning">This will permanently delete saved patch selections for &lt;b&gt;%1$s&lt;/b&gt; in &lt;b&gt;%2$s&lt;/b&gt;</string>
@@ -1206,7 +1202,6 @@ Details: %2$s"</string>
     <string name="patch">Patch</string>
     <string name="patching">Patching</string>
     <string name="patched">Patched</string>
-    <string name="repatch">Repatch</string>
     <string name="open">Open</string>
     <string name="mount">Mount</string>
     <string name="mounted">Mounted</string>

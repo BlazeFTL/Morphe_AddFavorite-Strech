@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.util.readableOn
 
 private val PillShape = Defaults.PillShape
 
@@ -50,6 +51,13 @@ fun ActionPillButton(
 
     val interactionSource = remember { MutableInteractionSource() }
 
+    // These fills are tinted translucent, so the palette's own pairing describes a background
+    // that never gets drawn and the content has to be checked against the real one
+    val surface = MaterialTheme.colorScheme.surface
+    val containerColor = if (enabled) colors.containerColor else colors.disabledContainerColor
+    val contentColor = (if (enabled) colors.contentColor else colors.disabledContentColor)
+        .readableOn(containerColor, surface)
+
     // Surface rather than FilledTonalIconButton: the latter always centers its content in a
     // fixed icon-sized box, so a labeled pill can never measure itself against its own text
     val pill: @Composable (Modifier) -> Unit = { outerModifier ->
@@ -57,8 +65,8 @@ fun ActionPillButton(
             onClick = onClick,
             enabled = enabled,
             shape = PillShape,
-            color = if (enabled) colors.containerColor else colors.disabledContainerColor,
-            contentColor = if (enabled) colors.contentColor else colors.disabledContentColor,
+            color = containerColor,
+            contentColor = contentColor,
             interactionSource = interactionSource,
             modifier = outerModifier
                 .height(height)

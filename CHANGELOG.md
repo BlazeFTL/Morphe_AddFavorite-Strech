@@ -1,3 +1,95 @@
+# [1.27.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.7...v1.27.0-dev.8) (2026-08-21)
+
+
+### Bug Fixes
+
+* Remove Simple mode theme color options and leftover dead code ([840eb7f](https://github.com/MorpheApp/morphe-manager/commit/840eb7fb2157b47986001af15254d283e55b2a4f))
+
+# [1.27.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.6...v1.27.0-dev.7) (2026-08-21)
+
+
+### Bug Fixes
+
+* Sources added after an app was configured stay out of its batch selection ([29262ce](https://github.com/MorpheApp/morphe-manager/commit/29262ce0b7793220817169f6712586e5ec82e6b7))
+
+# [1.27.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.5...v1.27.0-dev.6) (2026-08-20)
+
+
+### Bug Fixes
+
+* Retained patched APKs land in place only once written in full ([4228f3e](https://github.com/MorpheApp/morphe-manager/commit/4228f3ea7dedd8852a7cdb9584fe5da238c8ad4c))
+
+
+### Features
+
+* Category rows in the patches list carry the color of the source they belong to ([29e4951](https://github.com/MorpheApp/morphe-manager/commit/29e49513f134991ea3d17cc338044ca08cd48f8a))
+
+# [1.27.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.4...v1.27.0-dev.5) (2026-08-19)
+
+
+### Bug Fixes
+
+* Keep the apksig ASN.1 members that signing builds by reflection ([222c6ca](https://github.com/MorpheApp/morphe-manager/commit/222c6cae56ffd016669a1c9dd6bb8a611f857738))
+
+
+### Features
+
+* Batch patching offers the download helper and checks what it hands back ([f69f03a](https://github.com/MorpheApp/morphe-manager/commit/f69f03ae36d76d3086cc41145f016611b54b7ee2))
+
+# [1.27.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.3...v1.27.0-dev.4) (2026-08-19)
+
+
+### Bug Fixes
+
+* Badges only restyle their text where the background is actually known ([6a129fb](https://github.com/MorpheApp/morphe-manager/commit/6a129fbc319f8d4cd332358a6d7433b8d225974b))
+* Dialog status bar stays all white in light theme ([#879](https://github.com/MorpheApp/morphe-manager/issues/879)) ([d56be32](https://github.com/MorpheApp/morphe-manager/commit/d56be3283f8d3fbaec626e06a8cf8f83fe9bcbb0))
+* Fills and text on tinted cards stay distinct from what they sit on ([c29f375](https://github.com/MorpheApp/morphe-manager/commit/c29f375be5b1c6907a00657b4f0ae620913a2cdf))
+* Filter chips no longer blend into the sheet behind them ([b9f5a6a](https://github.com/MorpheApp/morphe-manager/commit/b9f5a6a5700d0a3e7c8e0ddf4093b21490e7ed88))
+* Hero card and monochrome section icons pick a tint their own fill supports ([5b81845](https://github.com/MorpheApp/morphe-manager/commit/5b81845e4a2db89a76fd2dc614a76e8ef3df80c5))
+* Hero card subtitles stay readable on their own tinted background ([ac77444](https://github.com/MorpheApp/morphe-manager/commit/ac77444301917dd341b170a73989c2410b0e69fc))
+* Home cards pick content and skeleton colors from the gradient they land on ([91e557e](https://github.com/MorpheApp/morphe-manager/commit/91e557e6fac9e6a8e7b78d66274f88771b35844c))
+* Selected tiles and tabs no longer invert their content on light accents ([cd57a13](https://github.com/MorpheApp/morphe-manager/commit/cd57a1333194f4ce207b164d03174849560b98c8))
+* Sticky search rows match the dialog body instead of the surface role ([f617a80](https://github.com/MorpheApp/morphe-manager/commit/f617a80438b486a82045d433015359e7cd7d6660))
+
+
+### Features
+
+* Color picker works in hue, saturation and value instead of RGB sliders ([eb8b0c3](https://github.com/MorpheApp/morphe-manager/commit/eb8b0c3daf632bb8887b3dcacd8bea51550550bd))
+* Source sheet shows placeholders while the bundle store is still loading ([be9e7ba](https://github.com/MorpheApp/morphe-manager/commit/be9e7ba427843d1913d6399ae4c99af421687ee3))
+
+# [1.27.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.2...v1.27.0-dev.3) (2026-08-18)
+
+
+### Bug Fixes
+
+* Clone warning stays quiet for renames no selected patch asked for ([1ada7a7](https://github.com/MorpheApp/morphe-manager/commit/1ada7a783abd16fc219757391f1722299dedbd3c))
+* Content on a translucent fill keeps a readable contrast ([8fbd162](https://github.com/MorpheApp/morphe-manager/commit/8fbd1625b0a83dee12c4bf903279657942e31f9e))
+
+# [1.27.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0-dev.1...v1.27.0-dev.2) (2026-08-18)
+
+
+### Bug Fixes
+
+* Clone warning is read from the built APK instead of guessed from the patch list ([834aa4a](https://github.com/MorpheApp/morphe-manager/commit/834aa4a8b5d97ac79aab19817c22aef82d6d5d14))
+
+
+### Features
+
+* Home app list can be filtered down to clones ([ba9ebda](https://github.com/MorpheApp/morphe-manager/commit/ba9ebdae3da2007b11bd89eefb935d7fce483d31))
+
+# [1.27.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.26.1...v1.27.0-dev.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* Expert mode patch cards are no longer covered by the scroll to top button ([fefcf97](https://github.com/MorpheApp/morphe-manager/commit/fefcf9755fcbd4ede6a374b8f8903372983f4051))
+* Universal patches carry the installer lock state like app-specific ones ([65988ee](https://github.com/MorpheApp/morphe-manager/commit/65988ee8aca7aadc346d61a033de805e20112ec9))
+
+
+### Features
+
+* Universal patches fold behind a collapsible header in the patch lists ([f88d403](https://github.com/MorpheApp/morphe-manager/commit/f88d403245d4fa0915463b23bac3b0007db7e504))
+
 ## [1.26.1](https://github.com/MorpheApp/morphe-manager/compare/v1.26.0...v1.26.1) (2026-08-18)
 
 

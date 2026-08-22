@@ -36,7 +36,7 @@ fun BackgroundSelector(
         WindowWidthSizeClass.Expanded -> 5
     }
 
-    // All types except RANDOM — shown in the main grid
+    // All types except RANDOM - shown in the main grid
     val gridTypes = BackgroundType.entries.filter { it != BackgroundType.RANDOM }
 
     SectionCard {
@@ -65,7 +65,7 @@ fun BackgroundSelector(
                 }
             }
 
-            // RANDOM option — full-width compact card at the bottom
+            // RANDOM option - full-width compact card at the bottom
             CompactOptionCard(
                 selected = selectedBackground == BackgroundType.RANDOM,
                 onClick = { onBackgroundSelected(BackgroundType.RANDOM) },
@@ -74,7 +74,7 @@ fun BackgroundSelector(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Interval selector — visible only when RANDOM is active
+            // Interval selector - visible only when RANDOM is active
             AnimatedVisibility(
                 visible = selectedBackground == BackgroundType.RANDOM,
                 enter = Animations.expandFadeEnter,

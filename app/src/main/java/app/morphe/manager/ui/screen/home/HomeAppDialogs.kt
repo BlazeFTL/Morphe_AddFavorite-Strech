@@ -10,7 +10,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -88,6 +87,7 @@ fun AppPatchesDialog(
     val selectedBundle = remember { mutableStateOf<Int?>(null) }
     val showFilterSheet = remember { mutableStateOf(false) }
     val collapsedBundles = remember { mutableStateOf(emptySet<Int>()) }
+    val expandedUniversal = remember { mutableStateOf(emptySet<Int>()) }
 
     val filteredPatches = remember(allPatches, searchQuery.value, selectedBundle.value) {
         allPatches.filter { (uid, patch) ->
@@ -237,6 +237,7 @@ fun AppPatchesDialog(
                                                 tint = MaterialTheme.colorScheme.primary
                                             )
                                         },
+                                        color = rememberAccentCardColor(bundleAccentColors[uid]),
                                         trailing = {
                                             Icon(
                                                 imageVector = if (isCollapsed) Icons.Outlined.ExpandMore else Icons.Outlined.ExpandLess,
@@ -253,71 +254,38 @@ fun AppPatchesDialog(
                                             }
                                         },
                                         cornerRadius = Defaults.SettingsCornerRadius,
-                                        modifier = Modifier
-                                            .animateItem(
-                                                fadeInSpec = tween(Defaults.ANIMATION_DURATION),
-                                                fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-                                                placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
-                                            )
+                                        modifier = Modifier.animatedListItem(this)
                                     )
                                 }
                             }
 
                             if (uid !in collapsedBundles.value) {
-                                val firstUniversal = bundlePatches.firstOrNull { it.isUniversal }
-                                val hasSpecificInBundle = bundlePatches.any { !it.isUniversal }
-                                items(
-                                    bundlePatches,
-                                    key = { patch ->
-                                        "$uid:${patch.name}:${patch.compatiblePackages?.joinToString { it.packageName.orEmpty() }.orEmpty()}"
-                                    }
-                                ) { patch ->
-                                    val isUniversal = patch.isUniversal
-                                    val isFirstUniversalOfBundle = isUniversal && patch === firstUniversal
-                                    Column(
-                                        modifier = Modifier.animateItem(
-                                            fadeInSpec = tween(Defaults.ANIMATION_DURATION),
-                                            fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-                                            placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
-                                        )
-                                    ) {
-                                        // Universal patches divider - before first universal patch of each bundle
-                                        if (isFirstUniversalOfBundle) {
-                                            Row(
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .padding(
-                                                        top = if (hasSpecificInBundle) Defaults.ContentPaddingSmall else 0.dp,
-                                                        bottom = 4.dp
-                                                    ),
-                                                verticalAlignment = Alignment.CenterVertically,
-                                                horizontalArrangement = Arrangement.spacedBy(6.dp)
-                                            ) {
-                                                Icon(
-                                                    imageVector = Icons.Outlined.Public,
-                                                    contentDescription = null,
-                                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                    modifier = Modifier.size(14.dp)
-                                                )
-                                                Text(
-                                                    text = stringResource(R.string.expert_mode_universal_patches),
-                                                    style = MaterialTheme.typography.labelMedium,
-                                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                                )
-                                                HorizontalDivider(
-                                                    modifier = Modifier.weight(1f),
-                                                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                                                    thickness = 0.5.dp
-                                                )
-                                            }
-                                        }
+                                val (specificPatches, universalPatches) = bundlePatches.partition { !it.isUniversal }
 
-                                        PatchItemCard(
-                                            patch = patch,
-                                            saveStateKey = "app_patches_${item.id}_$uid",
-                                            accentColor = bundleAccentColors[uid],
-                                        )
-                                    }
+                                patchSectionRows(
+                                    sectionKey = uid,
+                                    specific = specificPatches,
+                                    universal = universalPatches,
+                                    key = { patch: PatchInfo ->
+                                        "$uid:${patch.name}:${patch.compatiblePackages?.joinToString { it.packageName.orEmpty() }.orEmpty()}"
+                                    },
+                                    isSearching = isFiltering,
+                                    isUniversalExpanded = uid in expandedUniversal.value,
+                                    onUniversalExpandedChange = { expanded ->
+                                        expandedUniversal.value = if (expanded) {
+                                            expandedUniversal.value + uid
+                                        } else {
+                                            expandedUniversal.value - uid
+                                        }
+                                    },
+                                    accentColor = bundleAccentColors[uid]
+                                ) { patch ->
+                                    PatchItemCard(
+                                        patch = patch,
+                                        saveStateKey = "app_patches_${item.id}_$uid",
+                                        accentColor = bundleAccentColors[uid],
+                                        modifier = Modifier.animatedListItem(this)
+                                    )
                                 }
                             }
                         }
@@ -360,29 +328,24 @@ fun AppPatchesDialog(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     // "All" chip
-                    FilterChip(
+                    AppFilterChip(
                         selected = selectedBundle.value == null,
                         onClick = { selectedBundle.value = null },
-                        label = { Text(stringResource(R.string.all)) },
-                        leadingIcon = if (selectedBundle.value == null) {
-                            { Icon(Icons.Outlined.DoneAll, null, Modifier.size(16.dp)) }
-                        } else null
+                        label = stringResource(R.string.all),
+                        selectedIcon = Icons.Outlined.DoneAll
                     )
                     // Per-bundle chips
                     bundleNames.entries
                         .sortedBy { it.value }
                         .forEach { (uid, name) ->
                             val isSelected = uid == selectedBundle.value
-                            FilterChip(
+                            AppFilterChip(
                                 selected = isSelected,
                                 onClick = {
                                     selectedBundle.value = if (isSelected) null else uid
                                     showFilterSheet.value = false
                                 },
-                                label = { Text(name) },
-                                leadingIcon = if (isSelected) {
-                                    { Icon(Icons.Outlined.Done, null, Modifier.size(16.dp)) }
-                                } else null
+                                label = name
                             )
                         }
                 }
@@ -581,11 +544,7 @@ internal fun HiddenAppsDialog(
                         }
 
                         SelectableCard(
-                            modifier = Modifier.animateItem(
-                                fadeInSpec = tween(Defaults.ANIMATION_DURATION),
-                                fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-                                placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
-                            ),
+                            modifier = Modifier.animatedListItem(this),
                             isSelected = isSelected,
                             isSelectionMode = isMultiSelectMode.value
                         ) {

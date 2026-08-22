@@ -31,7 +31,6 @@
     <string name="home_update_skipped_metered">Абнаўленні прыпушчаны</string>
     <string name="home_update_skipped_metered_subtitle">Мабільныя даныя актыўныя</string>
     <string name="home_updating_sources">Абнаўленне крыніц…</string>
-    <string name="home_update_progress_format">Апрацавана %s</string>
     <string name="home_update_success">Абнаўленне крыніц завершана</string>
     <string name="home_update_success_subtitle">Вашы крыніцы абноўлены</string>
     <string name="home_sources_are_loading">Крыніцы загружаюцца, калі ласка, пачакайце…</string>
@@ -206,6 +205,7 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <!-- Home Screen - Home Sub-Dialogs -->
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <!-- Color picker -->
     <!-- Patch Options -->
     <!-- Adaptive Icon Creator -->
     <!-- Header Creator -->
@@ -240,7 +240,6 @@
     <!-- Bytecode mode -->
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <!-- Settings - Advanced Tab - Patch Options Section -->
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Branding -->
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Header -->
     <!-- Settings - Advanced Tab - Patch Options Section: Hide Shorts -->

@@ -15,9 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.util.readableOn
 
 /**
- * Grid-style selectable tile used in the appearance pickers.
+ * Grid-style selectable tile used in the appearance pickers. Its own shape and layout, but the
+ * glass button palette, so a tile and a tab offering the same kind of choice cannot drift apart.
+ * Content draws in 'LocalContentColor', which the tinted fill decides.
  */
 @Composable
 fun SelectionTile(
@@ -29,7 +32,13 @@ fun SelectionTile(
     contentDescription: String? = null,
     content: @Composable BoxScope.() -> Unit
 ) {
-    val colors = MaterialTheme.colorScheme
+    val containerColor = GlassButtonDefaults.containerColor(selected)
+    val borderColor = if (enabled) {
+        GlassButtonDefaults.borderColor(selected)
+    } else {
+        MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
+    }
+
     Surface(
         modifier = modifier.semantics(mergeDescendants = true) {
             role = Role.RadioButton
@@ -38,15 +47,10 @@ fun SelectionTile(
             if (contentDescription != null) this.contentDescription = contentDescription
         },
         shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
-        color = if (selected) colors.primaryContainer else colors.surface,
-        border = BorderStroke(
-            width = if (selected) 2.dp else 1.dp,
-            color = when {
-                !enabled -> colors.outline.copy(alpha = 0.5f)
-                selected -> colors.primary
-                else -> colors.outline
-            }
-        ),
+        color = containerColor,
+        contentColor = GlassButtonDefaults.contentColor(selected)
+            .readableOn(containerColor, MaterialTheme.colorScheme.surface),
+        border = BorderStroke(if (selected) 2.dp else 1.dp, borderColor),
         onClick = onClick,
         enabled = enabled
     ) {

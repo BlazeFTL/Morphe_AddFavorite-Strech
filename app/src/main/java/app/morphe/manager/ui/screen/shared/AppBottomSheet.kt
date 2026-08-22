@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -93,6 +94,14 @@ fun AppBottomSheet(
             }
         } else null,
         contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
-        content = content
+        content = {
+            // Shared with dialogs, and their default is white for want of anything better, which
+            // a sheet in the light theme would otherwise hand to everything it holds
+            CompositionLocalProvider(
+                LocalDialogTextColor provides contentColor,
+                LocalDialogSecondaryTextColor provides contentColor.copy(alpha = 0.7f),
+                content = { content() }
+            )
+        }
     )
 }

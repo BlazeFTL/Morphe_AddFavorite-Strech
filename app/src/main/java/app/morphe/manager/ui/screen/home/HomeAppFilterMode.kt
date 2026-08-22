@@ -17,7 +17,8 @@ enum class HomeAppFilterMode(
     PATCHED(R.string.patched, R.string.home_app_filter_patched_description),
     NOT_PATCHED(R.string.home_not_patched_yet, R.string.home_app_filter_not_patched_description),
     INSTALLED(R.string.installed, R.string.home_app_filter_installed_description),
-    UNINSTALLED(R.string.uninstalled, R.string.home_app_filter_uninstalled_description);
+    UNINSTALLED(R.string.uninstalled, R.string.home_app_filter_uninstalled_description),
+    CLONES(R.string.home_app_filter_clones, R.string.home_app_filter_clones_description);
 
     val isActive: Boolean get() = this != ALL
 
@@ -27,5 +28,6 @@ enum class HomeAppFilterMode(
         NOT_PATCHED -> item.installedApp == null
         INSTALLED -> item.isInstalledOnDevice && !item.isDeleted
         UNINSTALLED -> item.installedApp != null && (!item.isInstalledOnDevice || item.isDeleted)
+        CLONES -> item.isClone
     }
 }

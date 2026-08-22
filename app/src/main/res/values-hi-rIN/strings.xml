@@ -33,7 +33,6 @@
     <string name="home_update_skipped_metered">अपडेट छोड़ दिए गए</string>
     <string name="home_update_skipped_metered_subtitle">मोबाइल डेटा सक्रिय है</string>
     <string name="home_updating_sources">स्रोतों को अपडेट कर रहा हूँ…</string>
-    <string name="home_update_progress_format">%s संसाधित</string>
     <string name="home_update_success">स्रोत अपडेट पूर्ण हुआ</string>
     <string name="home_update_success_subtitle">आपके स्रोत अप टू डेट हैं</string>
     <string name="home_sources_are_loading">स्रोत लोड हो रहे हैं, कृपया प्रतीक्षा करें…</string>
@@ -45,6 +44,8 @@
     <string name="home_app_filter_not_patched_description">वे ऐप जिन्हें आपने अभी तक Morphe में पैच नहीं किया है</string>
     <string name="home_app_filter_installed_description">इस डिवाइस पर वर्तमान में इंस्टॉल किए गए ऐप्स</string>
     <string name="home_app_filter_uninstalled_description">Morphe से पैच किए गए ऐप्स जो अब इस डिवाइस पर नहीं हैं</string>
+    <string name="home_app_filter_clones">क्लोन</string>
+    <string name="home_app_filter_clones_description">अपने स्वयं के पैकेज नाम के तहत बनाए गए ऐप्स, मूल ऐप के साथ इंस्टॉल किए गए</string>
     <string name="home_app_sort_manual_description">किसी ऐप को देर तक दबाएं, फिर पुन: व्यवस्थित करें बटन पर टैप करें</string>
     <string name="home_app_sort_recommended">अनुशंसित क्रम</string>
     <string name="home_app_sort_recommended_description">स्थापित और पिन किए गए ऐप्स पहले</string>
@@ -299,9 +300,12 @@
     <string name="home_low_disk_space_dialog_message">केवल %1$.2f GB खाली भंडारण उपलब्ध है। पैचिंग के लिए ठीक से काम करने के लिए कम से कम %2$.2f GB खाली जगह की आवश्यकता होती है</string>
     <string name="home_low_disk_space_dialog_warning">आगे बढ़ने पर \"फ़ाइल नहीं मिली\" त्रुटि या करप्ट आउटपुट APK हो सकता है</string>
     <string name="home_simple_bundle_select_title">पैच स्रोत चुनें</string>
-    <!-- Patch Options -->
+    <!-- Color picker -->
     <string name="custom_color">कस्टम रंग</string>
     <string name="hex_color">हेक्स रंग</string>
+    <string name="color_picker_shade">संतृप्ति और चमक</string>
+    <string name="color_picker_hue">रंग</string>
+    <!-- Patch Options -->
     <string name="patch_option_instructions">निर्देश</string>
     <string name="patch_option_enter_value">मूल्य दर्ज करें</string>
     <string name="patch_option_enter_number">नंबर दर्ज करें</string>
@@ -369,6 +373,7 @@
     <string name="batch_patch_source_unavailable">APK तैयार नहीं किया जा सका</string>
     <string name="batch_patch_force_version">फिर भी पैच करें</string>
     <string name="batch_patch_force_version_done">फिर भी कतार में रखा गया, अन्य संस्करणों के लिए बनाए गए पैच ऐप को तोड़ सकते हैं</string>
+    <string name="batch_patch_accept_signature_done">वैसे भी कतारबद्ध, यह APK मूल नहीं हो सकता</string>
     <string name="batch_patch_edit_patches">पैच चुनें</string>
     <string name="batch_patch_state_no_apk">कोई APK नहीं</string>
     <string name="batch_patch_state_no_patches">कोई पैच नहीं</string>
@@ -412,10 +417,10 @@
     <string name="home_app_info_app_deleted_warning">एप्लिकेशन उन्मोदन किया गया</string>
     <string name="home_app_info_app_deleted_description">इस ऐप को बाहर से उन्मोदन किया गया था। मॉर्फी में पुनः स्थापित करें कार्यक्षमता पुनः प्राप्त करने के लिए</string>
     <string name="home_app_info_not_patched_description">इस ऐप का एक अनपैच्ड संस्करण स्थापित है। Morphe के पास अभी भी उसका पिछला पैच रिकॉर्ड है</string>
-    <string name="home_dialog_rename_title">यह एक प्रति स्थापित करेगा</string>
-    <string name="home_dialog_rename_description">चयनित पैच इस ऐप को उनके अपने पैकेज नाम के तहत बनाते हैं, इसलिए परिणाम इसे अपडेट करने के बजाय &lt;b&gt;%s&lt;/b&gt; के साथ स्थापित होता है</string>
-    <string name="home_dialog_rename_result_package">इस रूप में स्थापित होगा</string>
-    <string name="home_dialog_rename_replaces">एक प्रति पहले से उस नाम का उपयोग करती है और इसे फिर से बनाया जाएगा</string>
+    <string name="patcher_rename_title">यह एक क्लोन स्थापित करेगा</string>
+    <string name="patcher_rename_description">पैच ने इस ऐप को अपने पैकेज नाम के साथ बनाया है, इसलिए इसे इंस्टॉल करने पर &lt;b&gt;%s&lt;/b&gt; के साथ एक क्लोन जुड़ जाता है, बजाय इसे अपडेट करने के।</string>
+    <string name="patcher_rename_result_package">इस रूप में इंस्टॉल होगा</string>
+    <string name="patcher_rename_replaces">उस नाम से एक ऐप पहले से इंस्टॉल है और उसे बदल दिया जाएगा</string>
     <string name="home_app_info_apk_size">APK आकार</string>
     <string name="home_app_info_cpu_arch">CPU आर्किटेक्चर</string>
     <!-- Home Screen - Root Mode -->
@@ -531,7 +536,6 @@
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Applying patches</string>
     <string name="failed_to_execute_patch">Failed to execute %s</string>
-    <string name="patched_app_saved_toast">Patched app saved for later</string>
     <string name="patched_app_save_failed_toast">Failed to save patched app</string>
     <string name="plugin_activity_dialog_body">इस प्लगइन के लिए आगे बढ़ने के लिए उपयोगकर्ता इंटरैक्शन आवश्यक है।</string>
     <string name="patcher_process_exit_message">पैचर प्रक्रिया कोड %s के साथ समाप्त हो गई।</string>
@@ -727,15 +731,9 @@
     <string name="settings_advanced_github_pat_export_warning">आपका PAT को न शेयर करें। अगर आप इसे सेटिंग्ज एक्सपोर्ट में शामिल करते हैं, तो उस फाइल को निजी रखें क्योंकि इसमें टोकन है</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">पैच ऑप्शंस</string>
-    <string name="settings_advanced_patch_options_youtube_description">विषय, ब्रांडिंग और हेडर विकल्प</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding and header options</string>
     <string name="settings_advanced_patch_options_restart_message">पैच ऑप्शंस को बदलने के लिए फिर से पैच करना आवश्यक होगा</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">एक्सपर्ट मोड में पैच ऑप्शंस एडिटिंग के दौरान उपलब्ध होंगेगा</string>
-    <!-- Settings - Advanced Tab - Patch Options Section: Theme Colors -->
-    <string name="settings_advanced_patch_options_theme_colors">एप्लिकेशन थीम रंग</string>
-    <string name="settings_advanced_patch_options_theme_colors_description">पृष्ठभूमि रंग बदलता है।</string>
-    <string name="settings_advanced_patch_options_dark_theme_color">डार्क थीम बैकग्राउंड रंग</string>
-    <string name="settings_advanced_patch_options_light_theme_color">लाइट थीम बैकग्राउंड रंग</string>
-    <string name="settings_advanced_patch_options_theme_color_description">बन सकता है एक हेक्स रंग (#RRGGBB) या एक रंग संसाधन संदर्भ</string>
     <string name="settings_advanced_patch_options_loading">पैच ऑप्शंस लोडिंग…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">पैच स्रोत को अपडेट होने तक प्रतीक्षा करें</string>
     <string name="settings_advanced_patch_options_load_error">पैच ऑप्शंस लोड करने में विफल हो गया</string>
@@ -993,11 +991,9 @@ morphe_header_custom_dark.png
     <string name="settings_system_patch_selection_reset_package_confirm_title">पैकेज चयन रीसेट करें?</string>
     <string name="settings_system_patch_selection_reset_selected_confirm_title">चयनित पैकेजों को रीसेट करें?</string>
     <string name="settings_system_patch_selection_reset_source_confirm_title">स्रोत चयन रीसेट करें?</string>
-    <string name="settings_system_patch_selection_no_saved">कोई सहेजा गया पटच चयन नहीं</string>
     <string name="settings_system_patch_selection_total_summary_format">%1$s Across %2$s</string>
     <string name="settings_system_patch_selection_patches_in_sources_format">%1$s in %2$s</string>
     <string name="settings_system_patch_selection_source_format">स्रोत #%s</string>
-    <string name="settings_system_patch_selection_will_delete">यह हटाएगा:</string>
     <string name="settings_system_patch_selection_reset_all_warning">यह सभी पैकेजों और स्रोतों के लिए सहेजे गए सभी पटच चयन को स्थायी रूप से हटाएगा</string>
     <string name="settings_system_patch_selection_reset_package_warning">यह सभी स्रोतों में &lt;b&gt;%s&lt;/b&gt; के लिए सहेजे गए सभी पैच चयन को स्थायी रूप से हटा देगा</string>
     <string name="settings_system_patch_selection_reset_source_warning">यह &lt;b&gt;%1$s&lt;/b&gt; में &lt;b&gt;%2$s&lt;/b&gt; के लिए सहेजे गए पैच चयन को स्थायी रूप से हटा देगा</string>
@@ -1126,7 +1122,6 @@ morphe_header_custom_dark.png
     <string name="patch">पैच</string>
     <string name="patching">पैचिंग</string>
     <string name="patched">पैच किया गया</string>
-    <string name="repatch">Repatch</string>
     <string name="open">खुला</string>
     <string name="mount">माउंट करें</string>
     <string name="mounted">माउंटेड</string>

@@ -474,6 +474,7 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="settings_advanced_github_pat_export_warning">Jangan kongsi PAT anda. Jika anda menyertakannya dalam satu eksport tetapan, simpan fail tersebut sebagai sulit kerana ia mengandungi token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Pilihan tampalan</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding and header options</string>
     <string name="settings_advanced_patch_options_restart_message">Mengubah pilihan tampalan memerlukan aplikasi ditampal semula agar berkesan</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Dalam mod Pakar pilihan tampalan akan tersedia semasa proses tampalan</string>
     <string name="settings_advanced_patch_options_loading">Memuatkan pilihan tampalan…</string>

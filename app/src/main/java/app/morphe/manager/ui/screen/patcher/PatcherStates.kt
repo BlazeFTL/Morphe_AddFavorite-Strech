@@ -130,7 +130,7 @@ fun PatchingSuccess(
     usingMountInstall: Boolean,
     excludedPatches: List<String> = emptyList(),
     isExpertMode: Boolean = false,
-    hasPausedGame: Boolean = false,
+    showBackToGameHint: Boolean = false,
     canIgnoreSignatureMismatch: Boolean = false,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
@@ -199,7 +199,7 @@ fun PatchingSuccess(
                 onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
                 onOpen = onOpen,
                 isExpertMode = isExpertMode,
-                hasPausedGame = hasPausedGame,
+                showBackToGameHint = showBackToGameHint,
                 onHomeClick = onHomeClick,
                 onLogsClick = onLogsClick,
                 onSaveClick = onSaveClick,
@@ -209,6 +209,8 @@ fun PatchingSuccess(
 
         // Bottom action bar (portrait only - in landscape it lives inside the left column)
         if (!isLandscape()) {
+            BackToGameCallout(visible = showBackToGameHint && !isError && !isConflict)
+
             PatcherBottomActionBar(
                 showCancelButton = false,
                 showLogsButton = isExpertMode,
@@ -250,7 +252,7 @@ private fun AdaptiveSuccessContent(
     onIgnoreSignatureMismatch: () -> Unit,
     onOpen: () -> Unit,
     isExpertMode: Boolean = false,
-    hasPausedGame: Boolean = false,
+    showBackToGameHint: Boolean = false,
     onHomeClick: () -> Unit = {},
     onLogsClick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
@@ -302,6 +304,8 @@ private fun AdaptiveSuccessContent(
                     }
                 }
 
+                BackToGameCallout(visible = showBackToGameHint && !isError && !isConflict)
+
                 PatcherBottomActionBar(
                     showCancelButton = false,
                     showLogsButton = isExpertMode,
@@ -345,8 +349,6 @@ private fun AdaptiveSuccessContent(
                     excludedPatches = excludedPatches,
                     isReady = !isInstalling && !isInstalled && !isError && !isConflict
                 )
-
-                SuccessPausedGameHint(hasPausedGame = hasPausedGame && !isError && !isConflict)
 
                 Spacer(Modifier.height(itemSpacing))
 
@@ -410,8 +412,6 @@ private fun AdaptiveSuccessContent(
                 excludedPatches = excludedPatches,
                 isReady = !isInstalling && !isInstalled && !isError && !isConflict
             )
-
-            SuccessPausedGameHint(hasPausedGame = hasPausedGame && !isError && !isConflict)
 
             InstallActions(
                 isInstalling = isInstalling,
@@ -591,17 +591,19 @@ private fun SuccessExcludedPatchesHint(
 }
 
 /**
- * Success screen hint naming the button that leads back to a round left unfinished, which this
- * screen took the place of. The way back is not obvious from a button labeled after the logs.
+ * Callout pointing at the button that leads back to the mini-game this screen took the place of.
+ * It sits on the button because the way back is not obvious from a label reading "Logs".
  */
 @Composable
-private fun SuccessPausedGameHint(hasPausedGame: Boolean) {
-    SuccessHint(
-        visible = hasPausedGame,
-        text = stringResource(R.string.patcher_paused_game_hint, stringResource(R.string.logs)),
-        icon = Icons.Outlined.SportsEsports,
-        containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
-        iconTint = MaterialTheme.colorScheme.secondary
+private fun BackToGameCallout(visible: Boolean) {
+    if (!visible) return
+
+    BottomActionCallout(
+        text = stringResource(R.string.patcher_back_to_game_hint, stringResource(R.string.logs)),
+        // Logs comes first in a bar of Logs, Home and Save
+        slot = 0,
+        slots = 3,
+        icon = Icons.Outlined.SportsEsports
     )
 }
 

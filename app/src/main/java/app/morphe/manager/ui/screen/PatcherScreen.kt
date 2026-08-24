@@ -612,6 +612,10 @@ fun PatcherScreen(
     ) {
         val useExpertMode by prefs.useExpertMode.getAsState()
 
+        // Retired for good once the user has taken the way back it points at
+        val backToGameHintSeen by prefs.backToGameHintSeen.getAsState()
+        val showBackToGameHint = useExpertMode && miniGameState.hasOpenGame && !backToGameHintSeen
+
         AnimatedContent(
             targetState = if (showSuccessScreen) state.currentPatcherState else PatcherState.IN_PROGRESS,
             transitionSpec = if (reduceMotion) {
@@ -675,8 +679,14 @@ fun PatcherScreen(
                         usingMountInstall = usingMountInstall,
                         excludedPatches = excludedPatches,
                         isExpertMode = useExpertMode,
-                        hasPausedGame = useExpertMode && miniGameState.hasPausedRound,
-                        onLogsClick = { patcherViewModel.hideSuccessScreen() },
+                        showBackToGameHint = showBackToGameHint,
+                        onLogsClick = {
+                            // Only the hint that was actually on screen counts as found
+                            if (showBackToGameHint) {
+                                scope.launch { prefs.backToGameHintSeen.update(true) }
+                            }
+                            patcherViewModel.hideSuccessScreen()
+                        },
                         onInstall = {
                             if (usingMountInstall) {
                                 // Mount install

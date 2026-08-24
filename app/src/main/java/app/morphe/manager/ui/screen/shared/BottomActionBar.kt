@@ -8,7 +8,9 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -19,12 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -84,6 +88,90 @@ fun BottomActionBar(
                 animateEntry = settled.value && !reduceMotion
             ).content()
         }
+    }
+}
+
+private val TailWidth = 14.dp
+private val TailHeight = 7.dp
+
+/**
+ * Callout that sits above a [BottomActionBar] and points down at the button at [slot].
+ *
+ * The tail is placed by a row shaped like the bar itself, so it lands on the button whatever
+ * width the bar works out to.
+ */
+@Composable
+fun BottomActionCallout(
+    text: String,
+    slot: Int,
+    slots: Int,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer
+) {
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val barWidth = maxWidth.coerceAtMost(BarMaxWidth)
+
+        Column(
+            modifier = Modifier
+                .width(barWidth)
+                .align(Alignment.Center)
+                .padding(horizontal = Defaults.ContentPadding)
+        ) {
+            Surface(
+                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
+                color = containerColor,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (icon != null) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            tint = contentColor,
+                            modifier = Modifier.size(Defaults.IconSizeSmall)
+                        )
+                    }
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = contentColor,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            ) {
+                repeat(slots) { index ->
+                    Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.TopCenter) {
+                        if (index == slot) CalloutTail(color = containerColor)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CalloutTail(color: Color) {
+    Canvas(modifier = Modifier.size(width = TailWidth, height = TailHeight)) {
+        drawPath(
+            path = Path().apply {
+                moveTo(0f, 0f)
+                lineTo(size.width, 0f)
+                lineTo(size.width / 2f, size.height)
+                close()
+            },
+            color = color
+        )
     }
 }
 

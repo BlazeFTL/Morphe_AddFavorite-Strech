@@ -142,10 +142,11 @@ class MiniGameState(prefs: PreferencesManager, scope: CoroutineScope) {
     val isPlaying get() = activeState?.isPlaying == true
 
     /**
-     * True while a round is waiting to be resumed rather than finished, which is what the screen
-     * that took its place points the player back to.
+     * True once a game has been picked, which is what the screen that took its place points the
+     * player back to. Deliberately not narrowed to a paused round: the screen waits for the round
+     * to end before it appears, so by then there is usually nothing paused left to point at.
      */
-    val hasPausedRound get() = activeState?.isPaused == true
+    val hasOpenGame get() = selectedGame != null
 
     /** Pauses the currently selected game if it is active (started and not game-over). */
     fun pauseActiveGame() {

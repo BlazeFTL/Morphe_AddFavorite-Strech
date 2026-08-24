@@ -37,6 +37,9 @@ class PreferencesManager(
     val enableBackgroundParallax = booleanPreference("enable_background_parallax", true)
     val randomBackgroundInterval = enumPreference("random_background_interval", RandomInterval.ON_LAUNCH)
 
+    /** Whether the hidden Matrix background has been found and taken. */
+    val matrixBackgroundUnlocked = booleanPreference("matrix_background_unlocked", false)
+
     val pureBlackTheme = booleanPreference("pure_black_theme", false)
     val showGreetingPhrases = booleanPreference("show_greeting_phrases", true)
     val customAccentColor = stringPreference("custom_accent_color", "")
@@ -255,6 +258,7 @@ class PreferencesManager(
         val showGreetingPhrases: Boolean? = null,
         val backgroundType: BackgroundType? = null,
         val randomBackgroundInterval: RandomInterval? = null,
+        val matrixBackgroundUnlocked: Boolean? = null,
         val useExpertMode: Boolean? = null,
         val updateCheckInterval: UpdateCheckInterval? = null,
         val autoPatchEnabled: Boolean? = null,
@@ -313,6 +317,7 @@ class PreferencesManager(
         showGreetingPhrases = showGreetingPhrases.get(),
         backgroundType = backgroundType.get(),
         randomBackgroundInterval = randomBackgroundInterval.get(),
+        matrixBackgroundUnlocked = matrixBackgroundUnlocked.get(),
         useExpertMode = useExpertMode.get(),
         updateCheckInterval = updateCheckInterval.get(),
         autoPatchEnabled = autoPatchEnabled.get(),
@@ -385,6 +390,7 @@ class PreferencesManager(
         snapshot.showGreetingPhrases?.let { showGreetingPhrases.value = it }
         snapshot.backgroundType?.let { backgroundType.value = it }
         snapshot.randomBackgroundInterval?.let { randomBackgroundInterval.value = it }
+        snapshot.matrixBackgroundUnlocked?.let { matrixBackgroundUnlocked.value = it }
         snapshot.useExpertMode?.let { useExpertMode.value = it }
         snapshot.updateCheckInterval?.let { updateCheckInterval.value = it }
         snapshot.autoPatchEnabled?.let { autoPatchEnabled.value = it }

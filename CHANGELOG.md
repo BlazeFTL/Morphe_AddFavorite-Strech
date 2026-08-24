@@ -1,3 +1,17 @@
+# [1.28.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.27.1-dev.1...v1.28.0-dev.1) (2026-08-24)
+
+
+### Bug Fixes
+
+* Draw the success screen from the install state instead of flags split out of it ([18fb83e](https://github.com/MorpheApp/morphe-manager/commit/18fb83e5397427e9b984d01889f8614fcd0b16a9))
+
+
+### Features
+
+* Hold the success screen back while a mini-game round is running ([eb3b915](https://github.com/MorpheApp/morphe-manager/commit/eb3b91531b1b70dc706cd4a29ecc5be8647fe632))
+* Point the success screen back at a mini-game left behind ([2f25005](https://github.com/MorpheApp/morphe-manager/commit/2f25005977d5f31474ac22c5a02a59a67450369a))
+* Resolve the APK architecture patches declare their availability against ([1e1cf1c](https://github.com/MorpheApp/morphe-manager/commit/1e1cf1cdf7338edffe5355317948a97f32e767b1))
+
 ## [1.27.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0...v1.27.1-dev.1) (2026-08-23)
 
 

@@ -30,10 +30,10 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.*
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
 import app.morphe.manager.domain.worker.WorkerRepository
+import app.morphe.manager.patcher.patch.ApkArchitectureResolver
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.patcher.patch.PatchSourceRef
-import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
 import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_MINIMUM
 import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_STEP
 import app.morphe.manager.patcher.runtime.ProcessRuntime
@@ -44,6 +44,7 @@ import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
 import app.morphe.manager.util.*
 import app.morphe.manager.worker.UpdateCheckWorker
+import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -269,6 +270,8 @@ class PatcherViewModel(
         }
     }
 
+    private var apkArchitecture: ApkArchitecture? = null
+
     private suspend fun gatherScopedBundles(): Map<Int, PatchBundleInfo.Scoped> =
         patchBundleRepository.scopedBundleInfoFlow(
             packageName,
@@ -280,15 +283,21 @@ class PatcherViewModel(
      * Patches the sources declare unavailable for [installerType], so the finished app can name
      * what it was built without instead of leaving the user to spot the missing patch.
      */
-    suspend fun unavailablePatchNames(installerType: InstallerType): List<String> =
-        gatherScopedBundles().values
+    suspend fun unavailablePatchNames(installerType: InstallerType): List<String> {
+        // Kept once resolved, because the input a temporary APK was read from is gone by the time
+        // the install target changes and the list is asked for again
+        val architecture = apkArchitecture
+            ?: ApkArchitectureResolver.resolve(selectedApp, pm).also { apkArchitecture = it }
+
+        return gatherScopedBundles().values
             .asSequence()
             .flatMap { it.patches }
-            .filter { it.lockState(installerType, SELECTION_APK_ARCHITECTURE) == PatchLockState.LOCKED_OFF }
+            .filter { it.lockState(installerType, architecture) == PatchLockState.LOCKED_OFF }
             .map { it.displayName }
             .distinct()
             .sorted()
             .toList()
+    }
 
     suspend fun collectSelectedBundleMetadata(): List<PatchSourceRef> {
         val globalBundles = patchBundleRepository.bundleInfoFlow.first()

@@ -43,6 +43,7 @@ import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
+import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.AppTarget
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.Dispatchers
@@ -67,6 +68,7 @@ class BatchPatchEdit(
     val newPatches: Map<Int, Set<String>>,
     initialOptions: Options,
     private val installerType: InstallerType,
+    private val apkArchitecture: ApkArchitecture,
     // Whether the queue reaches patches that declare other app versions, so bulk actions offer
     // the same set the plan was resolved from
     private val allowIncompatible: Boolean
@@ -107,7 +109,7 @@ class BatchPatchEdit(
      * [PatchSelectionUtils.applyAvailability].
      */
     fun lockStateOf(patch: PatchInfo) =
-        patch.lockState(installerType, SELECTION_APK_ARCHITECTURE, !hasMultipleBundles)
+        patch.lockState(installerType, apkArchitecture, !hasMultipleBundles)
 
     fun togglePatch(bundleUid: Int, patchName: String) {
         // Locked patches are toggled only through availability rules; no-op here
@@ -162,7 +164,7 @@ class BatchPatchEdit(
         replaceBundle(
             bundleUid,
             bundle.patchSequence(allowIncompatible)
-                .filter { it.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE) }
+                .filter { it.defaultSelected(installerType, apkArchitecture) }
                 .mapTo(mutableSetOf()) { it.name }
         )
     }
@@ -187,7 +189,7 @@ class BatchPatchEdit(
 
     /** Availability rules of the install target, so an edit lands on the plan already settled. */
     private fun PatchSelection.applyItemAvailability() =
-        applyAvailability(installerType, SELECTION_APK_ARCHITECTURE, patchesByName)
+        applyAvailability(installerType, apkArchitecture, patchesByName)
 }
 
 /**
@@ -459,6 +461,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
                 // The queue resolved its plan against one install target, so the editor has to
                 // lock patches by the same rules the run will be executed with
                 installerType = installerTypeFor(state.value?.useMount == true),
+                // Read from the same APK the plan was resolved against, so an edit answers the
+                // architecture rules with what the run will hand the patcher
+                apkArchitecture = source.apkArchitecture(),
                 // Same rule the plan was resolved with, see BatchPlanResolver
                 allowIncompatible = item.forceVersionMismatch || prefs.disablePatchVersionCompatCheck.get()
             )

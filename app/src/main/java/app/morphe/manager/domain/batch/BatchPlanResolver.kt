@@ -19,10 +19,10 @@ import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchOptionsRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
+import app.morphe.manager.patcher.patch.ApkArchitectureResolver
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
 import app.morphe.manager.patcher.patch.PatchInfo
-import app.morphe.manager.patcher.patch.SELECTION_APK_ARCHITECTURE
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
@@ -88,6 +88,14 @@ internal fun newlyAddedDefaults(
     return patches
         .filter { it.name !in known && it.defaultSelected(installerType, apkArchitecture) }
         .mapTo(mutableSetOf()) { it.name }
+}
+
+/** Architecture of the APK an item is patched from, see [ApkArchitectureResolver]. */
+internal suspend fun BatchApkSource.apkArchitecture() = when (this) {
+    is BatchApkSource.SavedOriginal -> ApkArchitectureResolver.resolve(file)
+    is BatchApkSource.UserFile -> ApkArchitectureResolver.resolve(file)
+    is BatchApkSource.Installed ->
+        ApkArchitectureResolver.resolve((listOf(apkPath) + splitPaths).map(::File))
 }
 
 /**
@@ -354,7 +362,13 @@ class BatchPlanResolver(
         if (contributing.isEmpty()) return blocked()
 
         val configurationKey = configurationKeyFor(target)
-        val selection = resolveSelection(configurationKey, contributing, allowIncompatible, useMount)
+        val selection = resolveSelection(
+            configurationKey = configurationKey,
+            bundles = contributing,
+            allowIncompatible = allowIncompatible,
+            useMount = useMount,
+            apkArchitecture = source.apkArchitecture()
+        )
 
         if (selection.values.sumOf { it.size } == 0) return blocked(contributing)
 
@@ -392,7 +406,8 @@ class BatchPlanResolver(
         configurationKey: String,
         bundles: List<PatchBundleInfo.Scoped>,
         allowIncompatible: Boolean,
-        useMount: Boolean
+        useMount: Boolean,
+        apkArchitecture: ApkArchitecture
     ): PatchSelection {
         val installerType = installerTypeFor(useMount)
         val uids = bundles.mapTo(mutableSetOf()) { it.uid }
@@ -412,7 +427,7 @@ class BatchPlanResolver(
                     patches = bundle.patches,
                     known = seen ?: saved[bundle.uid],
                     installerType = installerType,
-                    apkArchitecture = SELECTION_APK_ARCHITECTURE
+                    apkArchitecture = apkArchitecture
                 )
 
                 bundle.uid to (validated[bundle.uid].orEmpty() + newDefaults)
@@ -420,17 +435,17 @@ class BatchPlanResolver(
 
             if (merged.isNotEmpty()) {
                 return merged
-                    .applyAvailability(installerType, SELECTION_APK_ARCHITECTURE, patchesByName)
+                    .applyAvailability(installerType, apkArchitecture, patchesByName)
                     .applyLegacyMountRules(useMount)
             }
         }
 
         return bundles
             .toPatchSelection(allowIncompatible) { _, patch ->
-                patch.defaultSelected(installerType, SELECTION_APK_ARCHITECTURE)
+                patch.defaultSelected(installerType, apkArchitecture)
             }
             .filterValues { it.isNotEmpty() }
-            .applyAvailability(installerType, SELECTION_APK_ARCHITECTURE, patchesByName)
+            .applyAvailability(installerType, apkArchitecture, patchesByName)
             .applyLegacyMountRules(useMount)
     }
 

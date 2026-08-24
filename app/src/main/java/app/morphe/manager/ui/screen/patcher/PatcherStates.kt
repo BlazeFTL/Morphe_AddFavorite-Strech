@@ -34,9 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.ui.viewmodel.InstallViewModel
+import app.morphe.manager.ui.viewmodel.InstallViewModel.InstallState
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
 
 /**
@@ -110,28 +109,20 @@ fun rememberPatcherScreenState(
     }
 }
 
+/** Error and conflict are the two install states the success screen paints as a failure. */
+private val InstallState.failed get() = this is InstallState.Error || this is InstallState.Conflict
+
 /**
  * Patching success screen.
  */
 @Composable
 fun PatchingSuccess(
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
+    installState: InstallState,
     installedPackageName: String?,
-    conflictPackageName: String?,
-    errorMessage: String?,
-    installerUnavailableDialog: InstallViewModel.InstallerUnavailableState?,
-    onOpenInstallerApp: () -> Unit,
-    onRetryInstaller: () -> Unit,
-    onUseFallbackInstaller: () -> Unit,
-    onDismissInstallerDialog: () -> Unit,
     usingMountInstall: Boolean,
     excludedPatches: List<String> = emptyList(),
     isExpertMode: Boolean = false,
     showBackToGameHint: Boolean = false,
-    canIgnoreSignatureMismatch: Boolean = false,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
     onIgnoreSignatureMismatch: () -> Unit,
@@ -143,28 +134,13 @@ fun PatchingSuccess(
 ) {
     val windowSize = rememberWindowSize()
 
-    // Installer unavailable dialog
-    if (installerUnavailableDialog != null) {
-        InstallerUnavailableDialog(
-            state = installerUnavailableDialog,
-            onOpenApp = onOpenInstallerApp,
-            onRetry = onRetryInstaller,
-            onUseFallback = onUseFallbackInstaller,
-            onDismiss = onDismissInstallerDialog
-        )
-    }
-
-    val iconTint = if (isError || isConflict) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-    val iconBackgroundColor = if (isError || isConflict) {
+    val iconTint = if (installState.failed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+    val iconBackgroundColor = if (installState.failed) {
         MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f)
     } else {
         MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
     }
-    val icon = when {
-        isInstalled -> Icons.Default.Check
-        isError || isConflict -> Icons.Default.Close
-        else -> Icons.Default.Check
-    }
+    val icon = if (installState.failed) Icons.Default.Close else Icons.Default.Check
 
     // Main content area
     Column(
@@ -184,16 +160,10 @@ fun PatchingSuccess(
                 icon = icon,
                 iconTint = iconTint,
                 iconBackgroundColor = iconBackgroundColor,
-                isInstalling = isInstalling,
-                isInstalled = isInstalled,
-                isError = isError,
-                isConflict = isConflict,
+                installState = installState,
                 installedPackageName = installedPackageName,
                 usingMountInstall = usingMountInstall,
                 excludedPatches = excludedPatches,
-                errorMessage = errorMessage,
-                conflictPackageName = conflictPackageName,
-                canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
                 onInstall = onInstall,
                 onUninstall = onUninstall,
                 onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
@@ -209,7 +179,7 @@ fun PatchingSuccess(
 
         // Bottom action bar (portrait only - in landscape it lives inside the left column)
         if (!isLandscape()) {
-            BackToGameCallout(visible = showBackToGameHint && !isError && !isConflict)
+            BackToGameCallout(visible = showBackToGameHint && !installState.failed)
 
             PatcherBottomActionBar(
                 showCancelButton = false,
@@ -237,16 +207,10 @@ private fun AdaptiveSuccessContent(
     icon: ImageVector,
     iconTint: Color,
     iconBackgroundColor: Color,
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
+    installState: InstallState,
     installedPackageName: String?,
     usingMountInstall: Boolean,
     excludedPatches: List<String>,
-    errorMessage: String?,
-    conflictPackageName: String?,
-    canIgnoreSignatureMismatch: Boolean,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
     onIgnoreSignatureMismatch: () -> Unit,
@@ -294,17 +258,14 @@ private fun AdaptiveSuccessContent(
                         )
 
                         SuccessStatusText(
-                            isInstalling = isInstalling,
-                            isInstalled = isInstalled,
-                            isError = isError,
-                            isConflict = isConflict,
+                            installState = installState,
                             installedPackageName = installedPackageName,
                             windowSize = windowSize
                         )
                     }
                 }
 
-                BackToGameCallout(visible = showBackToGameHint && !isError && !isConflict)
+                BackToGameCallout(visible = showBackToGameHint && !installState.failed)
 
                 PatcherBottomActionBar(
                     showCancelButton = false,
@@ -330,36 +291,25 @@ private fun AdaptiveSuccessContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 SuccessInstructionsText(
-                    isInstalling = isInstalling,
-                    isInstalled = isInstalled,
-                    isError = isError,
-                    isConflict = isConflict,
+                    installState = installState,
                     installedPackageName = installedPackageName,
                     usingMountInstall = usingMountInstall
                 )
 
-                SuccessErrorMessage(
-                    errorMessage = errorMessage,
-                    isError = isError
-                )
+                SuccessErrorMessage(installState = installState)
 
-                SuccessConflictHint(isConflict = isConflict)
+                SuccessConflictHint(installState = installState)
 
                 SuccessExcludedPatchesHint(
                     excludedPatches = excludedPatches,
-                    isReady = !isInstalling && !isInstalled && !isError && !isConflict
+                    isReady = installState is InstallState.Ready
                 )
 
                 Spacer(Modifier.height(itemSpacing))
 
                 InstallActions(
-                    isInstalling = isInstalling,
-                    isInstalled = isInstalled,
-                    isError = isError,
-                    isConflict = isConflict,
-                    conflictPackageName = conflictPackageName,
+                    installState = installState,
                     usingMountInstall = usingMountInstall,
-                    canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
                     onInstall = onInstall,
                     onUninstall = onUninstall,
                     onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
@@ -384,43 +334,29 @@ private fun AdaptiveSuccessContent(
             )
 
             SuccessStatusText(
-                isInstalling = isInstalling,
-                isInstalled = isInstalled,
-                isError = isError,
-                isConflict = isConflict,
+                installState = installState,
                 installedPackageName = installedPackageName,
                 windowSize = windowSize
             )
 
             SuccessInstructionsText(
-                isInstalling = isInstalling,
-                isInstalled = isInstalled,
-                isError = isError,
-                isConflict = isConflict,
+                installState = installState,
                 installedPackageName = installedPackageName,
                 usingMountInstall = usingMountInstall
             )
 
-            SuccessErrorMessage(
-                errorMessage = errorMessage,
-                isError = isError
-            )
+            SuccessErrorMessage(installState = installState)
 
-            SuccessConflictHint(isConflict = isConflict)
+            SuccessConflictHint(installState = installState)
 
             SuccessExcludedPatchesHint(
                 excludedPatches = excludedPatches,
-                isReady = !isInstalling && !isInstalled && !isError && !isConflict
+                isReady = installState is InstallState.Ready
             )
 
             InstallActions(
-                isInstalling = isInstalling,
-                isInstalled = isInstalled,
-                isError = isError,
-                isConflict = isConflict,
-                conflictPackageName = conflictPackageName,
+                installState = installState,
                 usingMountInstall = usingMountInstall,
-                canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
                 onInstall = onInstall,
                 onUninstall = onUninstall,
                 onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
@@ -465,15 +401,12 @@ private fun SuccessIcon(
  */
 @Composable
 private fun SuccessStatusText(
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
+    installState: InstallState,
     installedPackageName: String?,
     windowSize: WindowSize
 ) {
     AnimatedContent(
-        targetState = getTitleForState(isInstalling, isInstalled, isError, isConflict, installedPackageName),
+        targetState = titleFor(installState, installedPackageName),
         transitionSpec = Animations.fadeCrossfade(500),
         label = "title_animation"
     ) { titleRes ->
@@ -485,7 +418,7 @@ private fun SuccessStatusText(
                 MaterialTheme.typography.headlineMedium
             },
             fontWeight = FontWeight.Bold,
-            color = if (isError || isConflict) {
+            color = if (installState.failed) {
                 MaterialTheme.colorScheme.error
             } else {
                 MaterialTheme.colorScheme.onBackground
@@ -501,15 +434,12 @@ private fun SuccessStatusText(
  */
 @Composable
 private fun SuccessInstructionsText(
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
+    installState: InstallState,
     installedPackageName: String?,
     usingMountInstall: Boolean
 ) {
     AnimatedContent(
-        targetState = getSubtitleForState(isInstalling, isInstalled, isError, isConflict, installedPackageName, usingMountInstall),
+        targetState = subtitleFor(installState, installedPackageName, usingMountInstall),
         transitionSpec = Animations.fadeCrossfade(500),
         label = "subtitle_animation"
     ) { subtitleRes ->
@@ -529,12 +459,11 @@ private fun SuccessInstructionsText(
  * Success screen error message.
  */
 @Composable
-private fun SuccessErrorMessage(
-    errorMessage: String?,
-    isError: Boolean
-) {
+private fun SuccessErrorMessage(installState: InstallState) {
+    val errorMessage = (installState as? InstallState.Error)?.message
+
     AnimatedVisibility(
-        visible = errorMessage != null && isError,
+        visible = errorMessage != null,
         enter = Animations.fadeIn,
         exit = Animations.fadeOut
     ) {
@@ -560,9 +489,9 @@ private fun SuccessErrorMessage(
  * Success screen conflict hint.
  */
 @Composable
-private fun SuccessConflictHint(isConflict: Boolean) {
+private fun SuccessConflictHint(installState: InstallState) {
     SuccessHint(
-        visible = isConflict,
+        visible = installState is InstallState.Conflict,
         text = stringResource(R.string.patcher_conflict_hint),
         icon = Icons.Outlined.Warning,
         containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
@@ -651,13 +580,8 @@ private fun SuccessHint(
  */
 @Composable
 private fun InstallActions(
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
-    conflictPackageName: String?,
+    installState: InstallState,
     usingMountInstall: Boolean,
-    canIgnoreSignatureMismatch: Boolean,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
     onIgnoreSignatureMismatch: () -> Unit,
@@ -668,11 +592,7 @@ private fun InstallActions(
         verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
         InstallActionButton(
-            isInstalling = isInstalling,
-            isInstalled = isInstalled,
-            isError = isError,
-            isConflict = isConflict,
-            conflictPackageName = conflictPackageName,
+            installState = installState,
             usingMountInstall = usingMountInstall,
             onInstall = onInstall,
             onUninstall = onUninstall,
@@ -680,7 +600,7 @@ private fun InstallActions(
         )
 
         AnimatedVisibility(
-            visible = isConflict && canIgnoreSignatureMismatch && !isInstalling,
+            visible = (installState as? InstallState.Conflict)?.canIgnoreSignatureMismatch == true,
             enter = Animations.fadeIn,
             exit = Animations.fadeOut
         ) {
@@ -699,18 +619,18 @@ private fun InstallActions(
  */
 @Composable
 private fun InstallActionButton(
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
-    conflictPackageName: String?,
+    installState: InstallState,
     usingMountInstall: Boolean,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
     onOpen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val buttonColors = if (isConflict || isError) {
+    val isInstalling = installState is InstallState.Installing
+    val isInstalled = installState is InstallState.Installed
+    val conflictPackageName = (installState as? InstallState.Conflict)?.packageName
+
+    val buttonColors = if (installState.failed) {
         ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.error,
             contentColor = MaterialTheme.colorScheme.onError
@@ -726,7 +646,7 @@ private fun InstallActionButton(
         onClick = {
             when {
                 isInstalled -> onOpen()
-                isConflict -> conflictPackageName?.let { onUninstall(it) }
+                conflictPackageName != null -> onUninstall(conflictPackageName)
                 else -> onInstall()
             }
         },
@@ -755,7 +675,7 @@ private fun InstallActionButton(
             ThemedIcon(
                 icon = when {
                     isInstalled -> Icons.AutoMirrored.Outlined.Launch
-                    isConflict -> Icons.Default.DeleteForever
+                    conflictPackageName != null -> Icons.Default.DeleteForever
                     usingMountInstall -> Icons.Outlined.Link
                     else -> Icons.Outlined.InstallMobile
                 },
@@ -766,7 +686,7 @@ private fun InstallActionButton(
                 text = stringResource(
                     when {
                         isInstalled -> R.string.open
-                        isConflict -> R.string.uninstall
+                        conflictPackageName != null -> R.string.uninstall
                         usingMountInstall -> R.string.mount
                         else -> R.string.install
                     }
@@ -781,35 +701,26 @@ private fun InstallActionButton(
 /**
  * Get title resource based on state.
  */
-private fun getTitleForState(
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
-    installedPackageName: String?
-): Int = when {
-    isInstalling -> R.string.installing_ellipsis
-    installedPackageName != null || isInstalled -> R.string.patcher_success_title
-    isConflict -> R.string.patcher_conflict_title
-    isError -> R.string.patcher_install_error_title
+private fun titleFor(installState: InstallState, installedPackageName: String?): Int = when {
+    installState is InstallState.Installing -> R.string.installing_ellipsis
+    installedPackageName != null || installState is InstallState.Installed -> R.string.patcher_success_title
+    installState is InstallState.Conflict -> R.string.patcher_conflict_title
+    installState is InstallState.Error -> R.string.patcher_install_error_title
     else -> R.string.patcher_complete_title
 }
 
 /**
  * Get subtitle resource based on state.
  */
-private fun getSubtitleForState(
-    isInstalling: Boolean,
-    isInstalled: Boolean,
-    isError: Boolean,
-    isConflict: Boolean,
+private fun subtitleFor(
+    installState: InstallState,
     installedPackageName: String?,
     usingMountInstall: Boolean
 ): Int = when {
-    isInstalling -> R.string.patcher_installing_subtitle
-    installedPackageName != null || isInstalled -> R.string.patcher_success_subtitle
-    isConflict -> R.string.patcher_conflict_subtitle
-    isError -> R.string.patcher_install_error_subtitle
+    installState is InstallState.Installing -> R.string.patcher_installing_subtitle
+    installedPackageName != null || installState is InstallState.Installed -> R.string.patcher_success_subtitle
+    installState is InstallState.Conflict -> R.string.patcher_conflict_subtitle
+    installState is InstallState.Error -> R.string.patcher_install_error_subtitle
     else -> if (usingMountInstall) R.string.patcher_ready_to_mount_subtitle else R.string.patcher_ready_to_install_subtitle
 }
 

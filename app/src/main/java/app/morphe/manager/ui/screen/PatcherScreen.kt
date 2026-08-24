@@ -48,6 +48,7 @@ import app.morphe.manager.ui.screen.patcher.*
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
 import app.morphe.manager.ui.screen.settings.advanced.NotificationPermissionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
+import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
@@ -307,19 +308,10 @@ fun PatcherScreen(
     // Trigger notification prompt after first successful install
     val installState = installViewModel.installState
     val isInstalling by remember { derivedStateOf { installViewModel.installState is InstallViewModel.InstallState.Installing } }
-    val isInstalled by remember { derivedStateOf { installViewModel.installState is InstallViewModel.InstallState.Installed } }
-    val isError by remember { derivedStateOf { installViewModel.installState is InstallViewModel.InstallState.Error } }
     // Conflict is expected when patching from installed (non-root): handled via dialog instead of UI state
     val autoHandleConflict = patcherViewModel.patchedFromInstalledDevice && !usingMountInstall
-    val isConflict by remember { derivedStateOf {
-        installViewModel.installState is InstallViewModel.InstallState.Conflict && !autoHandleConflict
-    } }
+    // The installer reports the app it installed even after the state has moved on
     val installedPackageName by remember { derivedStateOf { installViewModel.installedPackageName } }
-    val conflictPackageName by remember { derivedStateOf { (installViewModel.installState as? InstallViewModel.InstallState.Conflict)?.packageName } }
-    val canIgnoreSignatureMismatch by remember { derivedStateOf {
-        (installViewModel.installState as? InstallViewModel.InstallState.Conflict)?.canIgnoreSignatureMismatch == true
-    } }
-    val errorMessage by remember { derivedStateOf { (installViewModel.installState as? InstallViewModel.InstallState.Error)?.message } }
 
     val showInstalledSourceConflictDialog = remember { mutableStateOf(false) }
     val shouldPromptTour by patcherViewModel.shouldPromptTour.collectAsStateWithLifecycle()
@@ -340,20 +332,22 @@ fun PatcherScreen(
     }
 
     if (showInstalledSourceConflictDialog.value) {
+        val conflict = installState as? InstallViewModel.InstallState.Conflict
+
         SignatureConflictDialog(
             title = stringResource(R.string.patcher_installed_conflict_title),
             message = stringResource(R.string.patcher_installed_conflict_body),
             onUninstall = {
                 showInstalledSourceConflictDialog.value = false
-                conflictPackageName?.let {
-                    installViewModel.requestUninstall(it, installAfterUninstall = true)
+                conflict?.let {
+                    installViewModel.requestUninstall(it.packageName, installAfterUninstall = true)
                 }
             },
             onDismiss = {
                 showInstalledSourceConflictDialog.value = false
                 installViewModel.resetInstallState()
             },
-            onIgnore = if (canIgnoreSignatureMismatch) {
+            onIgnore = if (conflict?.canIgnoreSignatureMismatch == true) {
                 {
                     showInstalledSourceConflictDialog.value = false
                     installViewModel.installIgnoringSignatureMismatch()
@@ -537,6 +531,16 @@ fun PatcherScreen(
         )
     }
 
+    installViewModel.installerUnavailableDialog?.let { unavailable ->
+        InstallerUnavailableDialog(
+            state = unavailable,
+            onOpenApp = installViewModel::openInstallerApp,
+            onRetry = installViewModel::retryWithPreferredInstaller,
+            onUseFallback = installViewModel::proceedWithFallbackInstaller,
+            onDismiss = installViewModel::dismissInstallerUnavailableDialog
+        )
+    }
+
     // Installer selection dialog for patcher screen
     if (installViewModel.showInstallerSelectionDialog) {
         val installerManager: InstallerManager = koinInject()
@@ -663,19 +667,19 @@ fun PatcherScreen(
                                     // not go on claiming an install the user has yet to allow
                                     heldInstall == null && !renameDeclined
                             )
+                    // The state the screen is drawn from answers two things the installer's own
+                    // does not: an auto-install is under way before it is reported, and a conflict
+                    // this run resolves by dialog is not a screen state at all
+                    val shownInstallState = when {
+                        effectiveIsInstalling -> InstallViewModel.InstallState.Installing
+                        installState is InstallViewModel.InstallState.Conflict && autoHandleConflict ->
+                            InstallViewModel.InstallState.Ready
+                        else -> installState
+                    }
+
                     PatchingSuccess(
-                        isInstalling = effectiveIsInstalling,
-                        isInstalled = isInstalled,
-                        isError = isError,
-                        isConflict = isConflict,
+                        installState = shownInstallState,
                         installedPackageName = installedPackageName,
-                        conflictPackageName = conflictPackageName,
-                        errorMessage = errorMessage,
-                        installerUnavailableDialog = installViewModel.installerUnavailableDialog,
-                        onOpenInstallerApp = installViewModel::openInstallerApp,
-                        onRetryInstaller = installViewModel::retryWithPreferredInstaller,
-                        onUseFallbackInstaller = installViewModel::proceedWithFallbackInstaller,
-                        onDismissInstallerDialog = installViewModel::dismissInstallerUnavailableDialog,
                         usingMountInstall = usingMountInstall,
                         excludedPatches = excludedPatches,
                         isExpertMode = useExpertMode,
@@ -717,7 +721,6 @@ fun PatcherScreen(
                         onUninstall = { packageName ->
                             installViewModel.requestUninstall(packageName, installAfterUninstall = true)
                         },
-                        canIgnoreSignatureMismatch = canIgnoreSignatureMismatch,
                         onIgnoreSignatureMismatch = installViewModel::installIgnoringSignatureMismatch,
                         onOpen = {
                             installViewModel.openApp()

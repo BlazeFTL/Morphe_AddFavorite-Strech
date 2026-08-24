@@ -1,3 +1,10 @@
+# [1.28.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.1...v1.28.0-dev.2) (2026-08-24)
+
+
+### Bug Fixes
+
+* Keep an error while sampling resources from taking down the patcher ([51fe957](https://github.com/MorpheApp/morphe-manager/commit/51fe95704f4c6e23aa003c73b92a1b2cdb7ef48f))
+
 # [1.28.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.27.1-dev.1...v1.28.0-dev.1) (2026-08-24)
 
 

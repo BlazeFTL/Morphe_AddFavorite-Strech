@@ -70,26 +70,33 @@ object ResourceMonitor {
             val cpuSampler = CpuUsageSampler()
             val ioSampler = IoUsageSampler()
 
-            while (polling) {
-                val used = (rt.totalMemory() - rt.freeMemory()) / (1024 * 1024)
-                memoryUsedMax = max(memoryUsedMax, used)
+            // Sampling allocates like anything else, so a run that exhausts the heap can throw
+            // here first. Nothing this thread reports is worth the process: it steps aside and
+            // lets the run fail through the patcher, which knows how to retry on less memory
+            try {
+                while (polling) {
+                    val used = (rt.totalMemory() - rt.freeMemory()) / (1024 * 1024)
+                    memoryUsedMax = max(memoryUsedMax, used)
 
-                memoryUsedAverage =
-                    (memoryUsedAverage * memoryPollSamples + used) / ++memoryPollSamples
+                    memoryUsedAverage =
+                        (memoryUsedAverage * memoryPollSamples + used) / ++memoryPollSamples
 
-                logger.info(
-                    "$LOG_MEMORY_PREFIX_CURRENT${used}MB " +
-                            "average=${memoryUsedAverage}MB " +
-                            "max=${memoryUsedMax}MB"
-                )
+                    logger.info(
+                        "$LOG_MEMORY_PREFIX_CURRENT${used}MB " +
+                                "average=${memoryUsedAverage}MB " +
+                                "max=${memoryUsedMax}MB"
+                    )
 
-                logUsage(logger, cpuSampler, ioSampler)
+                    logUsage(logger, cpuSampler, ioSampler)
 
-                try {
-                    Thread.sleep(MONITOR_INTERVAL)
-                } catch (_: InterruptedException) {
-                    break
+                    try {
+                        Thread.sleep(MONITOR_INTERVAL)
+                    } catch (_: InterruptedException) {
+                        break
+                    }
                 }
+            } catch (_: Throwable) {
+                // The counters keep whatever was sampled, so stopPolling still has its summary
             }
         }.also { it.start() }
     }

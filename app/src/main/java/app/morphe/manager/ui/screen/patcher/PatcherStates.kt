@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.InstallMobile
 import androidx.compose.material.icons.outlined.Link
+import androidx.compose.material.icons.outlined.SportsEsports
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -129,6 +130,7 @@ fun PatchingSuccess(
     usingMountInstall: Boolean,
     excludedPatches: List<String> = emptyList(),
     isExpertMode: Boolean = false,
+    hasPausedGame: Boolean = false,
     canIgnoreSignatureMismatch: Boolean = false,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
@@ -197,6 +199,7 @@ fun PatchingSuccess(
                 onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
                 onOpen = onOpen,
                 isExpertMode = isExpertMode,
+                hasPausedGame = hasPausedGame,
                 onHomeClick = onHomeClick,
                 onLogsClick = onLogsClick,
                 onSaveClick = onSaveClick,
@@ -247,6 +250,7 @@ private fun AdaptiveSuccessContent(
     onIgnoreSignatureMismatch: () -> Unit,
     onOpen: () -> Unit,
     isExpertMode: Boolean = false,
+    hasPausedGame: Boolean = false,
     onHomeClick: () -> Unit = {},
     onLogsClick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
@@ -342,6 +346,8 @@ private fun AdaptiveSuccessContent(
                     isReady = !isInstalling && !isInstalled && !isError && !isConflict
                 )
 
+                SuccessPausedGameHint(hasPausedGame = hasPausedGame && !isError && !isConflict)
+
                 Spacer(Modifier.height(itemSpacing))
 
                 InstallActions(
@@ -404,6 +410,8 @@ private fun AdaptiveSuccessContent(
                 excludedPatches = excludedPatches,
                 isReady = !isInstalling && !isInstalled && !isError && !isConflict
             )
+
+            SuccessPausedGameHint(hasPausedGame = hasPausedGame && !isError && !isConflict)
 
             InstallActions(
                 isInstalling = isInstalling,
@@ -579,6 +587,21 @@ private fun SuccessExcludedPatchesHint(
         icon = Icons.Outlined.Info,
         containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
         iconTint = MaterialTheme.colorScheme.primary
+    )
+}
+
+/**
+ * Success screen hint naming the button that leads back to a round left unfinished, which this
+ * screen took the place of. The way back is not obvious from a button labeled after the logs.
+ */
+@Composable
+private fun SuccessPausedGameHint(hasPausedGame: Boolean) {
+    SuccessHint(
+        visible = hasPausedGame,
+        text = stringResource(R.string.patcher_paused_game_hint, stringResource(R.string.logs)),
+        icon = Icons.Outlined.SportsEsports,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
+        iconTint = MaterialTheme.colorScheme.secondary
     )
 }
 

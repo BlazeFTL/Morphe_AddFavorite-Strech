@@ -119,8 +119,28 @@ class PatcherViewModel(
     var showSuccessScreen: Boolean by mutableStateOf(false)
         private set
 
-    fun showSuccess() { showSuccessScreen = true }
+    // A finished run that arrived while the user was playing, waiting for them to be done
+    private var successScreenHeldBack = false
+    private var successScreenDeferred = false
+
+    fun showSuccess() {
+        successScreenHeldBack = false
+        showSuccessScreen = true
+    }
+
     fun hideSuccessScreen() { showSuccessScreen = false }
+
+    /**
+     * Holds the automatic switch to the success screen back while the user is busy with something
+     * the run has no right to interrupt, currently a mini-game, and releases it again afterward.
+     *
+     * A run that finishes meanwhile is not lost: the progress screen turns its own action bar into
+     * an install button, and the screen appears on its own once [defer] goes back to false.
+     */
+    fun deferSuccessScreen(defer: Boolean) {
+        successScreenDeferred = defer
+        if (!defer && successScreenHeldBack) showSuccess()
+    }
 
     var isPatching: Boolean by mutableStateOf(true)
         private set
@@ -1019,7 +1039,7 @@ class PatcherViewModel(
     private fun scheduleSuccessScreen() = viewModelScope.launch {
         val elapsed = patchingCompletedAt?.let { System.currentTimeMillis() - it } ?: 0L
         delay((2000L - elapsed).coerceAtLeast(0L).milliseconds)
-        showSuccessScreen = true
+        if (successScreenDeferred) successScreenHeldBack = true else showSuccessScreen = true
     }
 
     private fun scheduleAutoInstallIfNeeded() = viewModelScope.launch {

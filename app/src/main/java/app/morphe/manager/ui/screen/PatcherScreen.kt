@@ -116,6 +116,13 @@ fun PatcherScreen(
         if (showSuccessScreen) miniGameState.pauseActiveGame()
     }
 
+    // A run that finishes mid-round waits for the player instead of taking the screen away. The
+    // action bar below the game turns into an install button meanwhile, so the way on is in reach
+    LaunchedEffect(miniGameState) {
+        snapshotFlow { miniGameState.isPlaying }
+            .collect { patcherViewModel.deferSuccessScreen(it) }
+    }
+
     // Skip the 1.5s tween on every progress tick when TalkBack is active so the main thread
     // isn't constantly busy interpolating and can serve accessibility events instead
     val reduceMotion = rememberAccessibilityEnabled()
@@ -188,6 +195,9 @@ fun PatcherScreen(
         patcherViewModel.autoInstallEvent.collect {
             if (usingMountInstall) return@collect
             if (installViewModel.installState !is InstallViewModel.InstallState.Ready) return@collect
+            // An install starting on its own is the one case the game does not get to hold up:
+            // the flow is already moving and the user has to see where it went
+            patcherViewModel.deferSuccessScreen(false)
             startInstall {
                 installViewModel.install(
                     outputFile = outputFile,
@@ -665,6 +675,7 @@ fun PatcherScreen(
                         usingMountInstall = usingMountInstall,
                         excludedPatches = excludedPatches,
                         isExpertMode = useExpertMode,
+                        hasPausedGame = useExpertMode && miniGameState.hasPausedRound,
                         onLogsClick = { patcherViewModel.hideSuccessScreen() },
                         onInstall = {
                             if (usingMountInstall) {

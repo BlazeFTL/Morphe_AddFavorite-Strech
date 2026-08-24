@@ -64,7 +64,7 @@ data class DinoCloud(
 @Stable
 class DinoGameState(
     initialHighScore: Int = 0,
-    private val onHighScoreUpdated: (Int) -> Unit = {}
+    onHighScoreUpdated: (Int) -> Unit = {}
 ) : MiniGameStateBase {
     var dinoJump by mutableFloatStateOf(0f)  // upward offset from ground, fraction of canvas height
         private set
@@ -72,17 +72,16 @@ class DinoGameState(
         private set
     var obstacles by mutableStateOf<List<DinoObstacle>>(emptyList())
         private set
-    override var score by mutableIntStateOf(0)
-        private set
-    override var highScore by mutableIntStateOf(initialHighScore)
-        private set
-    var isGameOver by mutableStateOf(false)
+    private val points = GameScore(initialHighScore, onHighScoreUpdated)
+    override val score get() = points.value
+    override val highScore get() = points.high
+    override var isGameOver by mutableStateOf(false)
         private set
     var isStarted by mutableStateOf(false)
         private set
     var legPhase by mutableIntStateOf(0)
         private set
-    var isPaused by mutableStateOf(false)
+    override var isPaused by mutableStateOf(false)
         private set
     var seagulls by mutableStateOf<List<DinoSeagull>>(emptyList())
         private set
@@ -110,7 +109,7 @@ class DinoGameState(
 
         val speed = min(BASE_SPEED + elapsedSec * 0.03f, MAX_SPEED)
         distanceTraveled += speed * dt
-        score = (distanceTraveled * 100).toInt()
+        points.value = (distanceTraveled * 100).toInt()
 
         // Leg animation when on ground
         if (dinoJump == 0f) legPhase = ((nowMs / 150) % 2).toInt()
@@ -147,7 +146,7 @@ class DinoGameState(
         }
         obstacles = moved
         if (hit) {
-            if (score > highScore) { highScore = score; onHighScoreUpdated(highScore) }
+            points.commit()
             isGameOver = true
         }
 
@@ -183,7 +182,7 @@ class DinoGameState(
         dinoJump = 0f
         velocity = 0f
         obstacles = emptyList()
-        score = 0
+        points.reset()
         isGameOver = false
         isStarted = false
         isPaused = false
@@ -201,13 +200,14 @@ class DinoGameState(
         lastCloudMs = 0L
     }
 
-    fun pause() { if (isStarted && !isGameOver) isPaused = true }
-    fun resume() { isPaused = false; lastTickMs = 0L }
+    override val isPlaying get() = isStarted && !isGameOver && !isPaused
+
+    override fun pause() { if (isStarted && !isGameOver) isPaused = true }
+    override fun resume() { isPaused = false; lastTickMs = 0L }
 }
 
 @Composable
 fun DinoGame(state: DinoGameState) {
-    GameOverHaptic { state.isGameOver }
     LaunchedEffect(Unit) {
         while (isActive) {
             withFrameMillis { state.tick(it) }
@@ -340,18 +340,6 @@ private fun DinoCanvas(state: DinoGameState, modifier: Modifier) {
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                 )
             }
-        }
-
-        if (state.isGameOver) {
-            GameOverOverlay(
-                score = state.score,
-                highScore = state.highScore,
-                onRestart = state::restart,
-                modifier = Modifier.fillMaxSize()
-            )
-        }
-        if (state.isPaused) {
-            GamePauseOverlay(onResume = state::resume, modifier = Modifier.fillMaxSize())
         }
     }
 }

@@ -68,6 +68,13 @@ class InstalledAppInfoViewModel(
         private set
     var hasOriginalApk by mutableStateOf(false)
         private set
+
+    /**
+     * Whether removing this record is what takes the original APK archive with it, which is not
+     * the case while another record of the same app can still repatch from that archive.
+     */
+    var deletesOriginalApk by mutableStateOf(false)
+        private set
     var isAppDeleted by mutableStateOf(false)
         private set
     var isInstallStateNotPatched by mutableStateOf(false)
@@ -92,12 +99,14 @@ class InstalledAppInfoViewModel(
                     // Run all checks in parallel
                     val deferredMounted = async { rootInstaller.isDeviceRooted() && rootInstaller.isAppMounted(app.currentPackageName) }
                     val deferredOriginalApk = async { originalApkRepository.get(app.originalPackageName) != null }
+                    val deferredSiblings = async { installedAppRepository.hasSiblingRecords(app) }
                     val deferredAppState = async { refreshAppState(app) }
                     val deferredPatches = async { resolveAppliedSelection(app) }
 
                     // Wait for all to complete
                     isMounted = deferredMounted.await()
                     hasOriginalApk = deferredOriginalApk.await()
+                    deletesOriginalApk = hasOriginalApk && !deferredSiblings.await()
                     deferredAppState.await()
                     appliedPatches = deferredPatches.await()
                 }
@@ -198,18 +207,22 @@ class InstalledAppInfoViewModel(
     }
 
     /**
-     * Remove app completely: database record, patched APK and original APK.
+     * Remove app completely: database record, patched APK and the original APK it was built from.
      * Patch selection and options are preserved for future patching.
      */
     fun removeAppCompletely() = applicationScope.launch {
         // Detached from viewModelScope: dialog dismissal must not abort the cleanup
         val app = installedApp ?: return@launch
+        // The archive is kept under the app's own package name and answers for every record of
+        // it, so it only leaves along with the last record that could repatch from it
+        val keepsOriginalApk = installedAppRepository.hasSiblingRecords(app)
         deleteRecordAndApk(app)
 
-        // Also delete original APK if it exists
         withContext(Dispatchers.IO) {
-            originalApkRepository.get(app.originalPackageName)?.let { originalApk ->
-                originalApkRepository.delete(originalApk)
+            if (!keepsOriginalApk) {
+                originalApkRepository.get(app.originalPackageName)?.let { originalApk ->
+                    originalApkRepository.delete(originalApk)
+                }
             }
         }
 

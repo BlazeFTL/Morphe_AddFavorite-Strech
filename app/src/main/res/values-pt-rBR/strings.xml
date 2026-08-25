@@ -585,7 +585,6 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="settings_appearance_background_snow">Neve</string>
     <string name="settings_appearance_background_grid">Grade</string>
     <string name="settings_appearance_background_particles">Partículas</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Nenhum</string>
     <string name="settings_appearance_background_random">Aleatório</string>
     <string name="settings_appearance_background_random_interval_launch">Na inicialização</string>

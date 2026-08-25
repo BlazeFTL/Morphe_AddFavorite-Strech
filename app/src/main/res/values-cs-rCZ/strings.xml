@@ -584,7 +584,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_background_snow">Sníh</string>
     <string name="settings_appearance_background_grid">Mřížka</string>
     <string name="settings_appearance_background_particles">Částice</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Žádné</string>
     <string name="settings_appearance_background_random">Náhodné</string>
     <string name="settings_appearance_background_random_interval_launch">Při spuštění</string>

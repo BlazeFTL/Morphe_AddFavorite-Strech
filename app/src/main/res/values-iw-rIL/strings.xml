@@ -586,7 +586,6 @@
     <string name="settings_appearance_background_snow">שלג</string>
     <string name="settings_appearance_background_grid">רשת</string>
     <string name="settings_appearance_background_particles">חלקיקים</string>
-    <string name="settings_appearance_background_matrix">מטריקס</string>
     <string name="settings_appearance_background_none">אין</string>
     <string name="settings_appearance_background_random">אקראי</string>
     <string name="settings_appearance_background_random_interval_launch">בפתיחה</string>

@@ -586,7 +586,6 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_background_snow">Schnee</string>
     <string name="settings_appearance_background_grid">Raster</string>
     <string name="settings_appearance_background_particles">Partikel</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Keine</string>
     <string name="settings_appearance_background_random">Zufällig</string>
     <string name="settings_appearance_background_random_interval_launch">Beim Start</string>

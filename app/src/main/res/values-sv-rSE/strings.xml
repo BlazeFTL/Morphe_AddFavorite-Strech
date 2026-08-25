@@ -582,7 +582,6 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_background_snow">Snö</string>
     <string name="settings_appearance_background_grid">Rutnät</string>
     <string name="settings_appearance_background_particles">Partiklar</string>
-    <string name="settings_appearance_background_matrix">Matris</string>
     <string name="settings_appearance_background_none">Ingen</string>
     <string name="settings_appearance_background_random">Slumpmässig</string>
     <string name="settings_appearance_background_random_interval_launch">Vid start</string>

@@ -586,7 +586,6 @@
     <string name="settings_appearance_background_snow">Снег</string>
     <string name="settings_appearance_background_grid">Решетка</string>
     <string name="settings_appearance_background_particles">Частици</string>
-    <string name="settings_appearance_background_matrix">Матрица</string>
     <string name="settings_appearance_background_none">Без</string>
     <string name="settings_appearance_background_random">Случайно</string>
     <string name="settings_appearance_background_random_interval_launch">При стартиране</string>

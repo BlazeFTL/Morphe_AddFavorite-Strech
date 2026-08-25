@@ -586,7 +586,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_background_snow">Lumi</string>
     <string name="settings_appearance_background_grid">Ruudukko</string>
     <string name="settings_appearance_background_particles">Hiukkaset</string>
-    <string name="settings_appearance_background_matrix">Matriisi</string>
     <string name="settings_appearance_background_none">Ei mitään</string>
     <string name="settings_appearance_background_random">Satunnainen</string>
     <string name="settings_appearance_background_random_interval_launch">Käynnistys</string>

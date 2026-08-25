@@ -585,7 +585,6 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_background_snow">Sneachta</string>
     <string name="settings_appearance_background_grid">Eangach</string>
     <string name="settings_appearance_background_particles">Cáithníní</string>
-    <string name="settings_appearance_background_matrix">Maitrís</string>
     <string name="settings_appearance_background_none">Dada</string>
     <string name="settings_appearance_background_random">Randamach</string>
     <string name="settings_appearance_background_random_interval_launch">Ar an seoladh</string>

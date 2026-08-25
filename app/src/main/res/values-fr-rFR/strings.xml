@@ -587,7 +587,6 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_background_snow">Neige</string>
     <string name="settings_appearance_background_grid">Grille</string>
     <string name="settings_appearance_background_particles">Particules</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Aucune</string>
     <string name="settings_appearance_background_random">Aléatoire</string>
     <string name="settings_appearance_background_random_interval_launch">Au démarrage</string>

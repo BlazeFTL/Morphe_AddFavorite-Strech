@@ -585,7 +585,6 @@
     <string name="settings_appearance_background_snow">눈송이</string>
     <string name="settings_appearance_background_grid">격자</string>
     <string name="settings_appearance_background_particles">입자</string>
-    <string name="settings_appearance_background_matrix">매트릭스</string>
     <string name="settings_appearance_background_none">없음</string>
     <string name="settings_appearance_background_random">무작의</string>
     <string name="settings_appearance_background_random_interval_launch">앱 실행 시</string>

@@ -585,7 +585,6 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_background_snow">Sneeu</string>
     <string name="settings_appearance_background_grid">Rooster</string>
     <string name="settings_appearance_background_particles">Deeltjies</string>
-    <string name="settings_appearance_background_matrix">Standards</string>
     <string name="settings_appearance_background_none">Geen</string>
     <string name="settings_appearance_background_random">Ewekansig</string>
     <string name="settings_appearance_background_random_interval_launch">Daagliks</string>

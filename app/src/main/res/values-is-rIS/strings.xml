@@ -583,7 +583,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_background_snow">Snjór</string>
     <string name="settings_appearance_background_grid">Rúta</string>
     <string name="settings_appearance_background_particles">Agnir</string>
-    <string name="settings_appearance_background_matrix">Fylki</string>
     <string name="settings_appearance_background_none">Engin</string>
     <string name="settings_appearance_background_random">Slembirað</string>
     <string name="settings_appearance_background_random_interval_launch">Við ræsinguna</string>

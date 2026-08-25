@@ -585,7 +585,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_background_snow">Qar</string>
     <string name="settings_appearance_background_grid">Şəbəkə</string>
     <string name="settings_appearance_background_particles">Zərrəciklər</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Heç biri</string>
     <string name="settings_appearance_background_random">Təsadüfi</string>
     <string name="settings_appearance_background_random_interval_launch">Açılışda</string>

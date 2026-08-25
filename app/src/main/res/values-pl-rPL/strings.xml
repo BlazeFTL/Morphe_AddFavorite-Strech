@@ -586,7 +586,6 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_background_snow">Śnieg</string>
     <string name="settings_appearance_background_grid">Kratka</string>
     <string name="settings_appearance_background_particles">Cząsteczki</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Brak</string>
     <string name="settings_appearance_background_random">Losowa</string>
     <string name="settings_appearance_background_random_interval_launch">Przy uruchomieniu</string>

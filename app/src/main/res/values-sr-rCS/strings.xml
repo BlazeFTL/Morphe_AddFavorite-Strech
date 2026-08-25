@@ -585,7 +585,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_background_snow">Sneg</string>
     <string name="settings_appearance_background_grid">Rešetka</string>
     <string name="settings_appearance_background_particles">Čestice</string>
-    <string name="settings_appearance_background_matrix">Matrica</string>
     <string name="settings_appearance_background_none">Bez</string>
     <string name="settings_appearance_background_random">Nasumično</string>
     <string name="settings_appearance_background_random_interval_launch">Pokretanje</string>

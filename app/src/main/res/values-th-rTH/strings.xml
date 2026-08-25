@@ -585,7 +585,6 @@
     <string name="settings_appearance_background_snow">หิมะ</string>
     <string name="settings_appearance_background_grid">ตาราง</string>
     <string name="settings_appearance_background_particles">อนุภาค</string>
-    <string name="settings_appearance_background_matrix">เมทริกซ์</string>
     <string name="settings_appearance_background_none">ไม่มี</string>
     <string name="settings_appearance_background_random">สุ่ม</string>
     <string name="settings_appearance_background_random_interval_launch">เมื่อเปิดแอป</string>

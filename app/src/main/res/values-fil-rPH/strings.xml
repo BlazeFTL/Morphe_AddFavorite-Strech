@@ -586,7 +586,6 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_background_snow">Niyebe</string>
     <string name="settings_appearance_background_grid">Griyá</string>
     <string name="settings_appearance_background_particles">Partikulo</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Wala</string>
     <string name="settings_appearance_background_random">Random</string>
     <string name="settings_appearance_background_random_interval_launch">Sa paglunsad</string>

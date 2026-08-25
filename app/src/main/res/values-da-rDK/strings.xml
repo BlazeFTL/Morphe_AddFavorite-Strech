@@ -585,7 +585,6 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_background_snow">Sne</string>
     <string name="settings_appearance_background_grid">Linjer</string>
     <string name="settings_appearance_background_particles">Partikler</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Ingen</string>
     <string name="settings_appearance_background_random">Tilfældig</string>
     <string name="settings_appearance_background_random_interval_launch">Ved opstart</string>

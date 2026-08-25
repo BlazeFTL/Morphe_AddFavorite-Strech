@@ -585,7 +585,6 @@
     <string name="settings_appearance_background_snow">নেই</string>
     <string name="settings_appearance_background_grid">গ্রিড</string>
     <string name="settings_appearance_background_particles">কণা</string>
-    <string name="settings_appearance_background_matrix">ম্যাট্রিক্স</string>
     <string name="settings_appearance_background_none">থিম</string>
     <string name="settings_appearance_background_random">র্যান্ডম</string>
     <string name="settings_appearance_background_random_interval_launch">চালু করার সময়</string>

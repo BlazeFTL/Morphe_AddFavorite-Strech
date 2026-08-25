@@ -589,7 +589,6 @@
     <string name="settings_appearance_background_snow">ثلج</string>
     <string name="settings_appearance_background_grid">شبكة</string>
     <string name="settings_appearance_background_particles">جسيمات</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">بدون</string>
     <string name="settings_appearance_background_random">عشوائي</string>
     <string name="settings_appearance_background_random_interval_launch">عند التشغيل</string>

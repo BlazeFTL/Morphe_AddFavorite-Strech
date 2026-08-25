@@ -584,7 +584,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="settings_appearance_background_snow">Qor</string>
     <string name="settings_appearance_background_grid">Toralash</string>
     <string name="settings_appearance_background_particles">Zarrachalar</string>
-    <string name="settings_appearance_background_matrix">Matritsa</string>
     <string name="settings_appearance_background_none">Hech narsa</string>
     <string name="settings_appearance_background_random">Tasodifiy</string>
     <string name="settings_appearance_background_random_interval_launch">Ishga tushirishda</string>

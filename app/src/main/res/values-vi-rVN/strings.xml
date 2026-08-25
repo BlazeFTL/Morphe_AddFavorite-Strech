@@ -585,7 +585,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_background_snow">Tuyết</string>
     <string name="settings_appearance_background_grid">Lưới ô</string>
     <string name="settings_appearance_background_particles">Hạt</string>
-    <string name="settings_appearance_background_matrix">Ma trận</string>
     <string name="settings_appearance_background_none">Không</string>
     <string name="settings_appearance_background_random">Ngẫu nhiên</string>
     <string name="settings_appearance_background_random_interval_launch">Khi khởi động</string>

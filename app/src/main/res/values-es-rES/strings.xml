@@ -585,7 +585,6 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_background_snow">Nieve</string>
     <string name="settings_appearance_background_grid">Cuadrícula</string>
     <string name="settings_appearance_background_particles">Partículas</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Ninguna</string>
     <string name="settings_appearance_background_random">Aleatorio</string>
     <string name="settings_appearance_background_random_interval_launch">Al inicio</string>

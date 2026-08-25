@@ -585,7 +585,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_background_snow">Kar</string>
     <string name="settings_appearance_background_grid">Izgara</string>
     <string name="settings_appearance_background_particles">Parçacıklar</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Yok</string>
     <string name="settings_appearance_background_random">Rastgele</string>
     <string name="settings_appearance_background_random_interval_launch">Başlangıçta</string>

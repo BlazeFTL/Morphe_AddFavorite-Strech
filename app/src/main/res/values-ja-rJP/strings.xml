@@ -585,7 +585,6 @@
     <string name="settings_appearance_background_snow">雪</string>
     <string name="settings_appearance_background_grid">グリッド</string>
     <string name="settings_appearance_background_particles">パーティクル</string>
-    <string name="settings_appearance_background_matrix">マトリックス</string>
     <string name="settings_appearance_background_none">なし</string>
     <string name="settings_appearance_background_random">ランダム</string>
     <string name="settings_appearance_background_random_interval_launch">起動時</string>

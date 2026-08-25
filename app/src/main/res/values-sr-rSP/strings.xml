@@ -585,7 +585,6 @@
     <string name="settings_appearance_background_snow">Снег</string>
     <string name="settings_appearance_background_grid">Мрежа</string>
     <string name="settings_appearance_background_particles">Партикле</string>
-    <string name="settings_appearance_background_matrix">Матрица</string>
     <string name="settings_appearance_background_none">Ништа</string>
     <string name="settings_appearance_background_random">Насумично</string>
     <string name="settings_appearance_background_random_interval_launch">При покретању</string>

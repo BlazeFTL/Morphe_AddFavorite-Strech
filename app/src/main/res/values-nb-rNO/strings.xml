@@ -585,7 +585,6 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_background_snow">Snø</string>
     <string name="settings_appearance_background_grid">Rutenett</string>
     <string name="settings_appearance_background_particles">Partikler</string>
-    <string name="settings_appearance_background_matrix">Matrise</string>
     <string name="settings_appearance_background_none">Ingen</string>
     <string name="settings_appearance_background_random">Tilfeldig</string>
     <string name="settings_appearance_background_random_interval_launch">Daglig</string>

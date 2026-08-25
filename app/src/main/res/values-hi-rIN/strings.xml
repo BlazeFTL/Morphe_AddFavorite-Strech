@@ -585,7 +585,6 @@
     <string name="settings_appearance_background_snow">बारिशक</string>
     <string name="settings_appearance_background_grid">ग्रिड</string>
     <string name="settings_appearance_background_particles">कण</string>
-    <string name="settings_appearance_background_matrix">मैट्रिक्स</string>
     <string name="settings_appearance_background_none">कुछ</string>
     <string name="settings_appearance_background_random">यादृच्छिक</string>
     <string name="settings_appearance_background_random_interval_launch">लॉन्च पर</string>

@@ -585,7 +585,6 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_background_snow">Neve</string>
     <string name="settings_appearance_background_grid">Griglia</string>
     <string name="settings_appearance_background_particles">Particelle</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Nessuna</string>
     <string name="settings_appearance_background_random">Casuale</string>
     <string name="settings_appearance_background_random_interval_launch">All\'avvio</string>

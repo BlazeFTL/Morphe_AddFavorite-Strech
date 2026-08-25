@@ -585,7 +585,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_background_snow">Sneg</string>
     <string name="settings_appearance_background_grid">Mreža</string>
     <string name="settings_appearance_background_particles">Delci</string>
-    <string name="settings_appearance_background_matrix">Matrika</string>
     <string name="settings_appearance_background_none">Brez</string>
     <string name="settings_appearance_background_random">Naključno</string>
     <string name="settings_appearance_background_random_interval_launch">Ob zagonu</string>

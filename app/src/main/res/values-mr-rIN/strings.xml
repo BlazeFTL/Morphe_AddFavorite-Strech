@@ -579,7 +579,6 @@
     <string name="settings_appearance_background_snow">काहीही नाही</string>
     <string name="settings_appearance_background_grid">ग्रीड</string>
     <string name="settings_appearance_background_particles">कण</string>
-    <string name="settings_appearance_background_matrix">मॅट्रिक्स</string>
     <string name="settings_appearance_background_none">थीम</string>
     <string name="settings_appearance_background_random"> randomly </string>
     <string name="settings_appearance_background_random_interval_launch"> चालू केल्यावर </string>

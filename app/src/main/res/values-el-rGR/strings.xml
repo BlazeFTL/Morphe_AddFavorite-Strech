@@ -585,7 +585,6 @@
     <string name="settings_appearance_background_snow">Χιόνι</string>
     <string name="settings_appearance_background_grid">Στίγματα</string>
     <string name="settings_appearance_background_particles">Σωματίδια</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Κανένα</string>
     <string name="settings_appearance_background_random">Τυχαίο</string>
     <string name="settings_appearance_background_random_interval_launch">Κατά την εκκίνηση</string>

@@ -586,7 +586,6 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_appearance_background_snow">Salju</string>
     <string name="settings_appearance_background_grid">Jaring</string>
     <string name="settings_appearance_background_particles">Partikel</string>
-    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Tidak ada</string>
     <string name="settings_appearance_background_random">Acak</string>
     <string name="settings_appearance_background_random_interval_launch">Saat diluncurkan</string>

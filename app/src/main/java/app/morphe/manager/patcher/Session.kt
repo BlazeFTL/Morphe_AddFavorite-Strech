@@ -35,13 +35,19 @@ class Session(
         onProgress(name, state, message)
 
     private val tempDir = File(cacheDir).resolve("patcher").also { it.mkdirs() }
+
+    // Scratch space for patches. Not under tempDir because the patcher wipes that directory
+    // when it starts, and not the cache root to avoid colliding with the other caches there
+    private val fileWorkspace =
+        androidContext.cacheDir.resolve("patch-workspace").also { it.mkdirs() }
+
     private val patcher = Patcher(
         PatcherConfig(
             apkFile = input,
             temporaryFilesPath = tempDir,
             frameworkFileDirectory = frameworkDir,
             useBytecodeMode = bytecodeMode,
-            fileWorkspacePath = androidContext.cacheDir,
+            fileWorkspacePath = fileWorkspace,
         )
     )
 
@@ -124,6 +130,7 @@ class Session(
 
     override fun close() {
         tempDir.deleteRecursively()
+        fileWorkspace.deleteRecursively()
         patcher.close()
     }
 

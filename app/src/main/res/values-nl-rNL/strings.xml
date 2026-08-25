@@ -467,6 +467,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_ready_to_install_subtitle">Druk op de onderstaande knop om te installeren</string>
     <string name="patcher_ready_to_mount_subtitle">Druk op de onderstaande knop om te koppelen</string>
     <string name="patcher_patches_excluded_for_installer">Niet beschikbaar voor deze installatiemethode en uitgesloten: %s</string>
+    <string name="patcher_back_to_game_hint">Tik op %1$s om terug te keren naar je spel</string>
     <string name="patcher_storage_permission_dialog_title">Kan opslagpad niet openen</string>
     <string name="patcher_incompatible_patcher_title">Update vereist</string>
     <string name="patcher_incompatible_patcher_description">Het bundel &lt;b&gt;%1$s&lt;/b&gt; vereist patcher versie &lt;b&gt;%2$s&lt;/b&gt; of hoger. Update Morphe om deze app te patchen</string>
@@ -509,7 +510,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_message_4">Digitale magie aan het brouwen… ☕</string>
     <string name="patcher_message_5">Koffiepauze aanbevolen… ☕</string>
     <string name="patcher_message_6">Kijk naar buiten, het is er mooi… 🌤️</string>
-    <string name="patcher_message_7">1\'en en 0\'en aan het aanpassen… 🤖</string>
+    <string name="patcher_message_7">Bezig met aanpassen van enen en nullen… 🤖</string>
     <string name="patcher_message_8">Digitale spaghetti aan het ontwarren… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Bugs in de ongepatchte app worden opgelost… 🪲</string>
@@ -731,6 +732,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_advanced_github_pat_export_warning">Deel uw PAT niet. Als u deze in een exportbestand met instellingen opneemt, houd dat bestand dan privé, omdat het de token bevat</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Patchopties</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding- en headeropties</string>
     <string name="settings_advanced_patch_options_restart_message">Het wijzigen van patchopties vereist dat de app opnieuw wordt gepatcht om de wijzigingen door te voeren</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">In Expertmodus zijn patchopties beschikbaar tijdens het patchingproces</string>
     <string name="settings_advanced_patch_options_loading">Patchopties laden…</string>
@@ -1039,6 +1041,12 @@ Details: %2$s"</string>
     <string name="credits_current_development">Huidige ontwikkeling</string>
     <string name="credits_prior_development">Eerdere ontwikkeling</string>
     <string name="opensource_licenses">Open-source licenties</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_red_toast">Matrix-achtergrond ontgrendeld</string>
+    <string name="easter_egg_pill_blue_toast">De advertenties wachten op je</string>
+    <string name="easter_egg_pill_message_again">Je bent al in de Matrix. De rode pil brengt je terug naar de regen, de blauwe maakt je wakker.</string>
+    <string name="easter_egg_pill_red_toast_again">Terug in de regen</string>
+    <string name="easter_egg_pill_blue_toast_again">Losgekoppeld. De weg terug is waar hij altijd was.</string>
     <!-- Shared strings -->
     <string name="select_file">Selecteer bestand</string>
     <string name="select_folder">Map selecteren</string>

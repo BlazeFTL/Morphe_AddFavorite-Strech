@@ -468,6 +468,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patcher_ready_to_install_subtitle">Naciśnij przycisk poniżej, aby zainstalować</string>
     <string name="patcher_ready_to_mount_subtitle">Naciśnij przycisk poniżej, aby zamontować</string>
     <string name="patcher_patches_excluded_for_installer">Niedostępne dla tej metody instalacji i wykluczone: %s</string>
+    <string name="patcher_back_to_game_hint">Dotknij %1$s, aby wrócić do gry</string>
     <string name="patcher_storage_permission_dialog_title">Brak dostępu do ścieżki pamięci</string>
     <string name="patcher_incompatible_patcher_title">Wymagana aktualizacja</string>
     <string name="patcher_incompatible_patcher_description">Pakiet &lt;b&gt;%1$s&lt;/b&gt; wymaga modyfikatora w wersji &lt;b&gt;%2$s&lt;/b&gt; lub nowszej. Zaktualizuj Morphe, aby zmodyfikować tę aplikację</string>
@@ -585,6 +586,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_background_snow">Śnieg</string>
     <string name="settings_appearance_background_grid">Kratka</string>
     <string name="settings_appearance_background_particles">Cząsteczki</string>
+    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Brak</string>
     <string name="settings_appearance_background_random">Losowa</string>
     <string name="settings_appearance_background_random_interval_launch">Przy uruchomieniu</string>
@@ -1041,6 +1043,16 @@ Wymagane są następujące wymiary obrazów:
     <string name="credits_current_development">Obecni twórcy</string>
     <string name="credits_prior_development">Poprzedni twórcy</string>
     <string name="opensource_licenses">Licencje otwartoźródłowe</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Wybór</string>
+    <string name="easter_egg_pill_message">Weź niebieską pigułkę, a reklamy zostaną dokładnie tam, gdzie są. Weź czerwoną i przekonaj się, jak głęboko sięga kod bajtowy</string>
+    <string name="easter_egg_pill_red">Czerwona pigułka</string>
+    <string name="easter_egg_pill_blue">Niebieska pigułka</string>
+    <string name="easter_egg_pill_red_toast">Odblokowano tło Matrix</string>
+    <string name="easter_egg_pill_blue_toast">Reklamy będą na Ciebie czekać</string>
+    <string name="easter_egg_pill_message_again">Jesteś już w Matrixie. Czerwona pigułka wrzuca Cię z powrotem w deszcz, niebieska Cię budzi</string>
+    <string name="easter_egg_pill_red_toast_again">Z powrotem w deszczu</string>
+    <string name="easter_egg_pill_blue_toast_again">Odłączono. Droga powrotna jest tam, gdzie zawsze była</string>
     <!-- Shared strings -->
     <string name="select_file">Wybierz plik</string>
     <string name="select_folder">Wybierz folder</string>

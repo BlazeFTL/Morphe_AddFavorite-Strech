@@ -467,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">Нажмите кнопку ниже, чтобы установить</string>
     <string name="patcher_ready_to_mount_subtitle">Нажмите кнопку ниже, чтобы смонтировать</string>
     <string name="patcher_patches_excluded_for_installer">Недоступно для данного метода установки и исключено: %s</string>
+    <string name="patcher_back_to_game_hint">Нажмите %1$s, чтобы вернуться в игру</string>
     <string name="patcher_storage_permission_dialog_title">Невозможно получить доступ к пути хранения</string>
     <string name="patcher_incompatible_patcher_title">Требуется обновление</string>
     <string name="patcher_incompatible_patcher_description">Для пакета &lt;b&gt;%1$s&lt;/b&gt; требуется версия патчера &lt;b&gt;%2$s&lt;/b&gt; или более поздняя. Пожалуйста, обновите Morphe, чтобы пропатчить это приложение</string>
@@ -509,7 +510,7 @@
     <string name="patcher_message_4">Варим цифровое зелье… ☕</string>
     <string name="patcher_message_5">Рекомендуется перерыв на кофе… ☕</string>
     <string name="patcher_message_6">Посмотрите в окно, там солнечно… 🌤️</string>
-    <string name="patcher_message_7">Настраиваем 1\'s из 0\'s… 🤖</string>
+    <string name="patcher_message_7">Настраиваем единицы и нули… 🤖</string>
     <string name="patcher_message_8">Распутываем цифровые спагетти… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Исправляем ошибки в пропатченном приложении… 🪲</string>
@@ -584,6 +585,7 @@
     <string name="settings_appearance_background_snow">Снег</string>
     <string name="settings_appearance_background_grid">Сетка</string>
     <string name="settings_appearance_background_particles">Частицы</string>
+    <string name="settings_appearance_background_matrix">Матрица</string>
     <string name="settings_appearance_background_none">Нет</string>
     <string name="settings_appearance_background_random">Случайный</string>
     <string name="settings_appearance_background_random_interval_launch">При запуске</string>
@@ -1038,6 +1040,16 @@ morphe_header_custom_dark.png
     <string name="credits_current_development">Текущая разработка</string>
     <string name="credits_prior_development">Предыдущая разработка</string>
     <string name="opensource_licenses">Лицензии открытого кода</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Выбор</string>
+    <string name="easter_egg_pill_message">Прими синюю таблетку — и реклама останется на месте. Прими красную — и узнаешь, насколько глубоко уходит байткод.</string>
+    <string name="easter_egg_pill_red">Красная таблетка</string>
+    <string name="easter_egg_pill_blue">Синяя таблетка</string>
+    <string name="easter_egg_pill_red_toast">Фон матрицы разблокирован</string>
+    <string name="easter_egg_pill_blue_toast">Реклама будет ждать вас</string>
+    <string name="easter_egg_pill_message_again">Вы уже в Матрице. Красная таблетка вернёт вас в дождь, синяя разбудит вас.</string>
+    <string name="easter_egg_pill_red_toast_again">Обратно в дождь</string>
+    <string name="easter_egg_pill_blue_toast_again">Отключено. Путь назад там, где он всегда был.</string>
     <!-- Shared strings -->
     <string name="select_file">Выберите файл</string>
     <string name="select_folder">Выбрать папку</string>

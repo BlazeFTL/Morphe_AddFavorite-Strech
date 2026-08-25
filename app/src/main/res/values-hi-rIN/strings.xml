@@ -467,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">Press the button below to install</string>
     <string name="patcher_ready_to_mount_subtitle">Press the button below to mount</string>
     <string name="patcher_patches_excluded_for_installer">यह इंस्टॉलेशन विधि के लिए उपलब्ध नहीं है और बहिष्कृत है: %s</string>
+    <string name="patcher_back_to_game_hint">अपने गेम पर वापस जाने के लिए %1$s टैप करें</string>
     <string name="patcher_storage_permission_dialog_title">स्तोरेज पथ तक पहुंच नहीं हो सकती है</string>
     <string name="patcher_incompatible_patcher_title">अपडेट आवश्यक है</string>
     <string name="patcher_incompatible_patcher_description">बंडल &lt;b&gt;%1$s&lt;/b&gt; को पैचर संस्करण &lt;b&gt;%2$s&lt;/b&gt; या नया संस्करण की आवश्यकता है। कृपया इस ऐप को पैच करने के लिए Morphe को अपडेट करें।</string>
@@ -509,7 +510,7 @@
     <string name="patcher_message_4">Giving your app a digital tune-up… 🔧</string>
     <string name="patcher_message_5">Brewing digital magic… ☕</string>
     <string name="patcher_message_6">Coffee break recommended… ☕</string>
-    <string name="patcher_message_7">Look outside, it\'s nice out there… 🌤️</string>
+    <string name="patcher_message_7">1s और 0s समायोजित किए जा रहे हैं… 🤖</string>
     <string name="patcher_message_8">Adjusting 1\'s and 0\'s… 🤖</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">अपैच किए गए ऐप में बग्स को ठीक कर रहा हूँ… 🪲</string>
@@ -584,6 +585,7 @@
     <string name="settings_appearance_background_snow">बारिशक</string>
     <string name="settings_appearance_background_grid">ग्रिड</string>
     <string name="settings_appearance_background_particles">कण</string>
+    <string name="settings_appearance_background_matrix">मैट्रिक्स</string>
     <string name="settings_appearance_background_none">कुछ</string>
     <string name="settings_appearance_background_random">यादृच्छिक</string>
     <string name="settings_appearance_background_random_interval_launch">लॉन्च पर</string>
@@ -1040,6 +1042,16 @@ morphe_header_custom_dark.png
     <string name="credits_current_development">वर्तमान विकास</string>
     <string name="credits_prior_development">पिछला विकास</string>
     <string name="opensource_licenses">ओपन-सोर्स लाइसेंस</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">एक विकल्प</string>
+    <string name="easter_egg_pill_message">नीली गोली लो और विज्ञापन ठीक वहीं रहेंगे। लाल गोली लो और देखो कि बाइटकोड कितना गहरा है।</string>
+    <string name="easter_egg_pill_red">लाल गोली</string>
+    <string name="easter_egg_pill_blue">नीली गोली</string>
+    <string name="easter_egg_pill_red_toast">मैट्रिक्स बैकग्राउंड अनलॉक हो गया</string>
+    <string name="easter_egg_pill_blue_toast">विज्ञापन आपका इंतज़ार कर रहे होंगे</string>
+    <string name="easter_egg_pill_message_again">आप पहले से ही मैट्रिक्स में हैं। लाल गोली आपको वापस बारिश में गिरा देती है, नीली गोली आपको जगा देती है</string>
+    <string name="easter_egg_pill_red_toast_again">बारिश में वापस</string>
+    <string name="easter_egg_pill_blue_toast_again">अनप्लग किया गया। वापसी का रास्ता वही है जहाँ वह हमेशा था</string>
     <!-- Shared strings -->
     <string name="select_file">फ़ाइल चुनें</string>
     <string name="select_folder">फ़ोल्डर चुनें</string>

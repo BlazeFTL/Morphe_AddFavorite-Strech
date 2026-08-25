@@ -358,7 +358,6 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="patcher_message_4">Verdama skaitmeninė magija… ☕</string>
     <string name="patcher_message_5">Rekomenduojama kavos pertraukėlė… ☕</string>
     <string name="patcher_message_6">Pažiūrėkite į lauką, ten gražu… 🌤️</string>
-    <string name="patcher_message_7">Koreguojami 1\'ai ir 0\'iai… 🤖</string>
     <string name="patcher_message_8">Išpainiojami skaitmeniniai spagečiai… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Taisomi vabalai nepataisytoje programoje… 🪲</string>
@@ -529,6 +528,7 @@ Pasirinktinai, nuoroda gali turėti pranešimo piktogramą viename iš išvardin
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Apie</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="search">Ieškoti</string>
     <string name="patching">Taisoma</string>

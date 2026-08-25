@@ -469,6 +469,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_ready_to_install_subtitle">Appuyez sur le bouton ci-dessous pour installer</string>
     <string name="patcher_ready_to_mount_subtitle">Appuyez sur le bouton ci-dessous pour monter</string>
     <string name="patcher_patches_excluded_for_installer">Indisponible pour cette méthode d\'installation et exclu : %s</string>
+    <string name="patcher_back_to_game_hint">Appuyez sur %1$s pour revenir à votre jeu</string>
     <string name="patcher_storage_permission_dialog_title">Impossible d\'accéder au chemin de stockage</string>
     <string name="patcher_incompatible_patcher_title">Mise à jour nécessaire</string>
     <string name="patcher_incompatible_patcher_description">Le bundle &lt;b&gt;%1$s&lt;/b&gt; nécessite la version &lt;b&gt;%2$s&lt;/b&gt; du patcheur ou une version plus récente. Veuillez mettre à jour Morphe pour patcher cette application</string>
@@ -586,6 +587,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_background_snow">Neige</string>
     <string name="settings_appearance_background_grid">Grille</string>
     <string name="settings_appearance_background_particles">Particules</string>
+    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Aucune</string>
     <string name="settings_appearance_background_random">Aléatoire</string>
     <string name="settings_appearance_background_random_interval_launch">Au démarrage</string>
@@ -1046,6 +1048,16 @@ Détails : %2$s"</string>
     <string name="credits_current_development">Développement en cours</string>
     <string name="credits_prior_development">Développements antérieurs</string>
     <string name="opensource_licenses">Licences open-source</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Un choix</string>
+    <string name="easter_egg_pill_message">Prenez la pilule bleue et les publicités resteront exactement là où elles sont. Prenez la rouge et découvrez jusqu\'où va le bytecode</string>
+    <string name="easter_egg_pill_red">Pilule rouge</string>
+    <string name="easter_egg_pill_blue">Pilule bleue</string>
+    <string name="easter_egg_pill_red_toast">Arrière-plan Matrix débloqué</string>
+    <string name="easter_egg_pill_blue_toast">Les publicités vous attendront</string>
+    <string name="easter_egg_pill_message_again">Vous êtes déjà dans la Matrice. La pilule rouge vous ramène sous la pluie, tandis que la pilule bleue vous réveille</string>
+    <string name="easter_egg_pill_red_toast_again">De retour sous la pluie</string>
+    <string name="easter_egg_pill_blue_toast_again">Débranché. Le chemin du retour est là où il a toujours été</string>
     <!-- Shared strings -->
     <string name="select_file">Sélectionner un fichier</string>
     <string name="select_folder">Sélectionner un dossier</string>

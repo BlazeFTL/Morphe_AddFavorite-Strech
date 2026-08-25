@@ -509,7 +509,7 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="patcher_message_4">Vařím digitální magii… ☕</string>
     <string name="patcher_message_5">Pauza na kávu doporučena… ☕</string>
     <string name="patcher_message_6">Podívejte se ven, je tam pěkně… 🌤️</string>
-    <string name="patcher_message_7">Nastavuji 1 a 0… 🤖</string>
+    <string name="patcher_message_7">Upravuji jedničky a nuly… 🤖</string>
     <string name="patcher_message_8">Rozmotávám digitální špagety… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Opravuji chyby v nezáplatované aplikaci… 🪲</string>
@@ -584,6 +584,7 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_background_snow">Sníh</string>
     <string name="settings_appearance_background_grid">Mřížka</string>
     <string name="settings_appearance_background_particles">Částice</string>
+    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Žádné</string>
     <string name="settings_appearance_background_random">Náhodné</string>
     <string name="settings_appearance_background_random_interval_launch">Při spuštění</string>
@@ -1039,6 +1040,16 @@ Podrobnosti: %2$s"</string>
     <string name="credits_current_development">Současný vývoj</string>
     <string name="credits_prior_development">Předchozí vývoj</string>
     <string name="opensource_licenses">Open-source licence</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Volba</string>
+    <string name="easter_egg_pill_message">Vezmi si modrou pilulku a reklamy zůstanou přesně tam, kde jsou. Vezmi si červenou a uvidíš, jak hluboko sahá bytecode.</string>
+    <string name="easter_egg_pill_red">Červená pilulka</string>
+    <string name="easter_egg_pill_blue">Modrá pilulka</string>
+    <string name="easter_egg_pill_red_toast">Pozadí Matrixu odemčeno</string>
+    <string name="easter_egg_pill_blue_toast">Budou na vás čekat reklamy.</string>
+    <string name="easter_egg_pill_message_again">Už jste v Matrixu. Červená pilulka vás vrátí zpět do deště, modrá vás probudí.</string>
+    <string name="easter_egg_pill_red_toast_again">Zpět v dešti</string>
+    <string name="easter_egg_pill_blue_toast_again">Odpojen. Cesta zpět je tam, kde vždy byla.</string>
     <!-- Shared strings -->
     <string name="select_file">Vyberte soubor</string>
     <string name="select_folder">Vyberte složku</string>

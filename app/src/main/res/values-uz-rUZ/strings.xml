@@ -466,6 +466,7 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="patcher_ready_to_install_subtitle">O‘rnatish uchun quyidagi tugmani bosing</string>
     <string name="patcher_ready_to_mount_subtitle">Ulanish uchun quyidagi tugmani bosing</string>
     <string name="patcher_patches_excluded_for_installer">Ushbu oʻrnatish usuli uchun mavjud emas va istisno qilingan: %s</string>
+    <string name="patcher_back_to_game_hint">O\'yiningizga qaytish uchun %1$s ni bosing</string>
     <string name="patcher_storage_permission_dialog_title">Haqida</string>
     <string name="patcher_incompatible_patcher_title">Yangilash talab qilinadi</string>
     <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; to‘plami patcher versiyasi &lt;b&gt;%2$s&lt;/b&gt; yoki undan yangiroqni talab qiladi. Ushbu ilovani patchlash uchun Morphe ni yangilang</string>
@@ -508,7 +509,7 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="patcher_message_4">Raqamli sehr yaratayapmiz… ☕</string>
     <string name="patcher_message_5">Kofe tanaffusi tavsiya etiladi… ☕</string>
     <string name="patcher_message_6">Tashqariga qarang, havoning ajoyibligi… 🌤️</string>
-    <string name="patcher_message_7">1 va 0larni sozlayapmiz… 🤖</string>
+    <string name="patcher_message_7">1 va 0 larni sozlash… 🤖</string>
     <string name="patcher_message_8">Raqamli spagettini yechayapmiz… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Tuzatishlar patlayotgan ilovalardagi xatoliklarni tuzatmoqda 🐛</string>
@@ -583,6 +584,7 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="settings_appearance_background_snow">Qor</string>
     <string name="settings_appearance_background_grid">Toralash</string>
     <string name="settings_appearance_background_particles">Zarrachalar</string>
+    <string name="settings_appearance_background_matrix">Matritsa</string>
     <string name="settings_appearance_background_none">Hech narsa</string>
     <string name="settings_appearance_background_random">Tasodifiy</string>
     <string name="settings_appearance_background_random_interval_launch">Ishga tushirishda</string>
@@ -1039,6 +1041,16 @@ Ma’lumotlar: %2$s"</string>
     <string name="credits_current_development">Hozirgi rivojlanish</string>
     <string name="credits_prior_development">Oldingi rivojlanish</string>
     <string name="opensource_licenses">Ochiq kodli litsenziyalar</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Tanlov</string>
+    <string name="easter_egg_pill_message">Ko\'k tabletkani oling va reklamalar aynan shu joyda qoladi. Qizil tabletkani oling va bayt-kod qanchalik chuqur ekanini ko\'ring.</string>
+    <string name="easter_egg_pill_red">Qizil tabletka</string>
+    <string name="easter_egg_pill_blue">Ko\'k tabletka</string>
+    <string name="easter_egg_pill_red_toast">Matrix foni ochildi</string>
+    <string name="easter_egg_pill_blue_toast">Reklamalar sizni kutadi</string>
+    <string name="easter_egg_pill_message_again">Siz allaqachon Matrixdasiz. Qizil tabletka sizni yomg\'irga qaytaradi, ko\'k tabletka sizni uyg\'otadi.</string>
+    <string name="easter_egg_pill_red_toast_again">Yana yomg\'irda</string>
+    <string name="easter_egg_pill_blue_toast_again">Uzilgan. Orqaga yo\'l har doim bo\'lgan joyda.</string>
     <!-- Shared strings -->
     <string name="select_file">Faylni tanlang</string>
     <string name="select_folder">Sana o‘zgarishini almashtirish protokolini saqlash</string>

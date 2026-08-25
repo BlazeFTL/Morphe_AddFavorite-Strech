@@ -467,6 +467,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patcher_ready_to_install_subtitle">Yüklemek için aşağıdaki düğmeye basın</string>
     <string name="patcher_ready_to_mount_subtitle">Bağlamak için aşağıdaki düğmeye basın</string>
     <string name="patcher_patches_excluded_for_installer">Bu kurulum yöntemi için kullanılamıyor ve hariç tutuldu: %s</string>
+    <string name="patcher_back_to_game_hint">Geri dönmek için %1$s\'e dokunun</string>
     <string name="patcher_storage_permission_dialog_title">Depolama yoluna erişilemiyor</string>
     <string name="patcher_incompatible_patcher_title">Güncelleme gerekiyor</string>
     <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; paketi, &lt;b&gt;%2$s&lt;/b&gt; veya daha yeni patcher sürümü gerektiriyor. Bu uygulamayı yamalamak için lütfen Morphe\'yi güncelleyin</string>
@@ -584,6 +585,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_background_snow">Kar</string>
     <string name="settings_appearance_background_grid">Izgara</string>
     <string name="settings_appearance_background_particles">Parçacıklar</string>
+    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Yok</string>
     <string name="settings_appearance_background_random">Rastgele</string>
     <string name="settings_appearance_background_random_interval_launch">Başlangıçta</string>
@@ -729,6 +731,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_advanced_github_pat_export_warning">PAT\'i paylaşmayın. Ayarları dışa aktarırken dahil ederseniz, token içerdiği için bu dosyayı gizli tutun</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Yama seçenekleri</string>
+    <string name="settings_advanced_patch_options_youtube_description">Marka ve başlık seçenekleri</string>
     <string name="settings_advanced_patch_options_restart_message">Yama seçeneklerinde değişiklik yapılması, değişikliklerin etkili olması için uygulamanın yeniden yamalanmasını gerektirir</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Uzman modunda yama seçenekleri yama işlemi sırasında kullanılabilir olacaktır</string>
     <string name="settings_advanced_patch_options_loading">Yama seçenekleri yükleniyor…</string>
@@ -1037,6 +1040,16 @@ Ayrıntılar: %2$s"</string>
     <string name="credits_current_development">Mevcut geliştirme</string>
     <string name="credits_prior_development">Önceki geliştirme</string>
     <string name="opensource_licenses">Açık kaynak lisansları</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Bir seçim</string>
+    <string name="easter_egg_pill_message">Mavi hapı al ve reklamlar tam olarak oldukları yerde kalsın. Kırmızı olanı al ve bayt kodunun ne kadar derin olduğunu gör.</string>
+    <string name="easter_egg_pill_red">Kırmızı hap</string>
+    <string name="easter_egg_pill_blue">Mavi hap</string>
+    <string name="easter_egg_pill_red_toast">Matrix arka planı açıldı</string>
+    <string name="easter_egg_pill_blue_toast">Reklamlar seni bekliyor olacak</string>
+    <string name="easter_egg_pill_message_again">Zaten Matrix\'desin. Kırmızı hap seni yağmura geri bırakır, mavi olan seni uyandırır.</string>
+    <string name="easter_egg_pill_red_toast_again">Tekrar yağmurda</string>
+    <string name="easter_egg_pill_blue_toast_again">Bağlantısı kesildi. Geri dönüş yolu her zaman olduğu yerde.</string>
     <!-- Shared strings -->
     <string name="select_file">Dosya seç</string>
     <string name="select_folder">Klasör seç</string>

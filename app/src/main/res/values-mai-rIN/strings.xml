@@ -77,6 +77,7 @@
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">के बारे में</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="skip">हाइलाइटमा जानुहोस्</string>
     <string name="disable">डिसएबल करी</string>

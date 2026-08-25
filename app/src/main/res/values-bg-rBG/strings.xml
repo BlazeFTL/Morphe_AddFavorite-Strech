@@ -468,6 +468,7 @@
     <string name="patcher_ready_to_install_subtitle">Натиснете бутона по-долу за инсталиране</string>
     <string name="patcher_ready_to_mount_subtitle">Натиснете бутона по-долу за монтиране</string>
     <string name="patcher_patches_excluded_for_installer">Не е налично за този метод на инсталиране и е изключено: %s</string>
+    <string name="patcher_back_to_game_hint">Докоснете %1$s, за да се върнете към играта си</string>
     <string name="patcher_storage_permission_dialog_title">Не е възможно да се достъпи до пата за съхранение</string>
     <string name="patcher_incompatible_patcher_title">Необходима е актуализация</string>
     <string name="patcher_incompatible_patcher_description">Пакетът &lt;b&gt;%1$s&lt;/b&gt; изисква версия на пачера &lt;b&gt;%2$s&lt;/b&gt; или по-нова. Моля, актуализирайте Morphe, за да пачнете това приложение</string>
@@ -510,7 +511,7 @@
     <string name="patcher_message_4">Сготвяме дигитална магия… ☕</string>
     <string name="patcher_message_5">Препоръчва се почивка за кафе… ☕</string>
     <string name="patcher_message_6">Гледни навън, там е хубаво… ☀️</string>
-    <string name="patcher_message_7">Настройка 1-ва и 0-ва… 🤖</string>
+    <string name="patcher_message_7">Настройка на 1 и 0… 🤖</string>
     <string name="patcher_message_8">Разплитаме дигитална спагети… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Поправяне на грешки в некоригираното приложение 🪲</string>
@@ -585,6 +586,7 @@
     <string name="settings_appearance_background_snow">Снег</string>
     <string name="settings_appearance_background_grid">Решетка</string>
     <string name="settings_appearance_background_particles">Частици</string>
+    <string name="settings_appearance_background_matrix">Матрица</string>
     <string name="settings_appearance_background_none">Без</string>
     <string name="settings_appearance_background_random">Случайно</string>
     <string name="settings_appearance_background_random_interval_launch">При стартиране</string>
@@ -1041,6 +1043,16 @@ morphe_header_custom_dark.png
     <string name="credits_current_development">Текущо развитие</string>
     <string name="credits_prior_development">Предишно развитие</string>
     <string name="opensource_licenses">Лицензи с отворен код</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Избор</string>
+    <string name="easter_egg_pill_message">Вземи синьото хапче и рекламите си остават точно където са. Вземи червеното и виж колко дълбоко отива байткодът.</string>
+    <string name="easter_egg_pill_red">Червено хапче</string>
+    <string name="easter_egg_pill_blue">Синьо хапче</string>
+    <string name="easter_egg_pill_red_toast">Фонът на Матрицата е отключен</string>
+    <string name="easter_egg_pill_blue_toast">Рекламите ще те чакат</string>
+    <string name="easter_egg_pill_message_again">Ти вече си в Матрицата. Червеното хапче те връща обратно в дъжда, синьото те събужда.</string>
+    <string name="easter_egg_pill_red_toast_again">Обратно в дъжда</string>
+    <string name="easter_egg_pill_blue_toast_again">Изключен. Пътят назад е там, където винаги е бил.</string>
     <!-- Shared strings -->
     <string name="select_file">Избери файл</string>
     <string name="select_folder">Избери папка</string>

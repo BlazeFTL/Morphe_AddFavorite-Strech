@@ -467,6 +467,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patcher_ready_to_install_subtitle">Quraşdırmaq üçün aşağıdakı düyməyə toxun</string>
     <string name="patcher_ready_to_mount_subtitle">Montajlamaq üçün aşağıdakı düyməyə toxun</string>
     <string name="patcher_patches_excluded_for_installer">Bu quraşdırma üsulu üçün əlçatan deyil və xaric edilib: %s</string>
+    <string name="patcher_back_to_game_hint">Oyununuza qayıtmaq üçün %1$s toxunun</string>
     <string name="patcher_storage_permission_dialog_title">Yaddaş keçidinə keçmək olmur</string>
     <string name="patcher_incompatible_patcher_title">Yenilənmə tələb olundu</string>
     <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; paketi &lt;b&gt;%2$s&lt;/b&gt; və ya daha yeni versiya yamaqlayıcı tələb edir. Xahiş olunur, bu tətbiqi yamaqlamaq üçün Morphe-ni yenilə</string>
@@ -584,6 +585,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_background_snow">Qar</string>
     <string name="settings_appearance_background_grid">Şəbəkə</string>
     <string name="settings_appearance_background_particles">Zərrəciklər</string>
+    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Heç biri</string>
     <string name="settings_appearance_background_random">Təsadüfi</string>
     <string name="settings_appearance_background_random_interval_launch">Açılışda</string>
@@ -1037,6 +1039,16 @@ Təfərrüatlar: %2$s"</string>
     <string name="credits_current_development">Hazırkı inkişaf</string>
     <string name="credits_prior_development">Əvvəlki inkişaf</string>
     <string name="opensource_licenses">Açıq mənbə lisenziyaları</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Seçim</string>
+    <string name="easter_egg_pill_message">Mavi həbi seçsəniz, reklamlar olduğu kimi qalacaq. Qırmızı həbi seçin və baytkodun nə qədər dərinə getdiyini görün</string>
+    <string name="easter_egg_pill_red">Qırmızı həb</string>
+    <string name="easter_egg_pill_blue">Mavi həb</string>
+    <string name="easter_egg_pill_red_toast">Matrix fonu kiliddən açıldı</string>
+    <string name="easter_egg_pill_blue_toast">Reklamlar sizi gözləyəcək</string>
+    <string name="easter_egg_pill_message_again">Siz artıq Matrisdəsiniz. Qırmızı həb sizi yenidən yağışa qaytarır, mavi həb isə oyandırır</string>
+    <string name="easter_egg_pill_red_toast_again">Yenidən yağışda</string>
+    <string name="easter_egg_pill_blue_toast_again">Şəbəkədən ayrıldı. Geriyə yol həmişə olduğu yerdədir</string>
     <!-- Shared strings -->
     <string name="select_file">Faylı seç</string>
     <string name="select_folder">Qovluq seç</string>

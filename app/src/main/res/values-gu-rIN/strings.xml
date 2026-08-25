@@ -115,7 +115,6 @@
     <string name="patcher_message_4">ડિજિટલ જાદૂ ઉકાળી રહ્યા છીએ… ☕</string>
     <string name="patcher_message_5">કોફી બ્રેકની ભલામણ કરવામાં આવી રહી છે... ☕</string>
     <string name="patcher_message_6">બહાર જુઓ, ત્યાં સરસ છે… 🌤️</string>
-    <string name="patcher_message_7">1 અને 0 ને સમાયોજિત કરી રહ્યા છીએ… 🤖</string>
     <string name="patcher_message_8">ડિજિટલ સ્પેગેટી ગૂંચવણ ઉકેલી રહ્યા છીએ… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">પેચ વગરની એપમાં બગ ફિક્સ કરી રહ્યા છીએ… 🪲</string>
@@ -221,6 +220,7 @@ morphe_header_custom_dark.png
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_share_website">વેબસાઇટ બાટો </string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="patches">પેચો</string>
     <string name="settings">સેટિંગ્સ</string>

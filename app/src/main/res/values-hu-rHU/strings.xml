@@ -1039,6 +1039,12 @@ Részletek: %2$s"</string>
     <string name="credits_current_development">Jelenlegi fejlesztők</string>
     <string name="credits_prior_development">Korábbi fejlesztők</string>
     <string name="opensource_licenses">Nyílt forráskódú licencek</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_red_toast">Mátrix háttér feloldva</string>
+    <string name="easter_egg_pill_blue_toast">A reklámok várni fognak rád</string>
+    <string name="easter_egg_pill_message_again">Már a Mátrixban vagy. A piros pirula visszadob az esőbe, a kék pedig felébreszt.</string>
+    <string name="easter_egg_pill_red_toast_again">Vissza az esőbe</string>
+    <string name="easter_egg_pill_blue_toast_again">Kihúzva. A visszaút ott van, ahol mindig is volt.</string>
     <!-- Shared strings -->
     <string name="select_file">Fájl kiválasztása</string>
     <string name="select_folder">Mappa kiválasztása</string>

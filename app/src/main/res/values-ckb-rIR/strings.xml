@@ -294,7 +294,6 @@
     <string name="patcher_message_4">دروستکردنی جادووی دیجیتاڵی… ☕</string>
     <string name="patcher_message_5">پشووی قاوە پێشنیار کراوە… ☕</string>
     <string name="patcher_message_6">سەیری دەرەوە بکە، دەرەوە خۆشە… 🌤️</string>
-    <string name="patcher_message_7">ڕێکخستنی 1 و 0… 🤖</string>
     <string name="patcher_message_8">هەڵوەشاندنەوەی سپاگێتی دیجیتاڵی… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">چارەسەرکردنی کێشەکان لە ئەپە پینەنەکراوەکە… 🪲</string>
@@ -462,6 +461,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">دربارە</string>
     <string name="credits">کۆددان</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="patches">پینەکان</string>
     <string name="settings">ڕێکخستنەکان</string>

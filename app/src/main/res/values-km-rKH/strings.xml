@@ -101,6 +101,7 @@
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">អំពីកម្មវិធីនេះ</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="home">ទំព័រដើម</string>
     <string name="remove">ដកចេញ</string>

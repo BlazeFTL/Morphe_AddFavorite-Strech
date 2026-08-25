@@ -467,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">Притисните дугме испод за инсталирање</string>
     <string name="patcher_ready_to_mount_subtitle">Притисните дугме испод за монтирање</string>
     <string name="patcher_patches_excluded_for_installer">Није доступно за ову методу инсталације и искључено: %s</string>
+    <string name="patcher_back_to_game_hint">Додирните %1$s да се вратите на своју игру</string>
     <string name="patcher_storage_permission_dialog_title">Не могу приступити до пута складиштења</string>
     <string name="patcher_incompatible_patcher_title">Захтевано је ажурирање</string>
     <string name="patcher_incompatible_patcher_description">Пакетић &lt;b&gt;%1$s&lt;/b&gt; захтева верзију закрпе &lt;b&gt;%2$s&lt;/b&gt; или новију. Молимо вас да ажурирате Morphe како бисте применили ову апликацију</string>
@@ -509,7 +510,7 @@
     <string name="patcher_message_4">Кувамо дигиталну магију… ☕</string>
     <string name="patcher_message_5">Препоручује се пауза за кафу… ☕</string>
     <string name="patcher_message_6">Погледајте напоље, лепо је време… 🌤️</string>
-    <string name="patcher_message_7">Подешавамо 1 и 0… 🤖</string>
+    <string name="patcher_message_7">Подешавање 1 и 0… 🤖</string>
     <string name="patcher_message_8">Распетљавамо дигитални шпагети… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Поправљамо грешке у непечованој апликацији… 🪲</string>
@@ -584,6 +585,7 @@
     <string name="settings_appearance_background_snow">Снег</string>
     <string name="settings_appearance_background_grid">Мрежа</string>
     <string name="settings_appearance_background_particles">Партикле</string>
+    <string name="settings_appearance_background_matrix">Матрица</string>
     <string name="settings_appearance_background_none">Ништа</string>
     <string name="settings_appearance_background_random">Насумично</string>
     <string name="settings_appearance_background_random_interval_launch">При покретању</string>
@@ -1040,6 +1042,16 @@ morphe_header_custom_dark.png
     <string name="credits_current_development">Тренутни развој</string>
     <string name="credits_prior_development">Претходни развој</string>
     <string name="opensource_licenses">Лиценце отвореног кода</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Избор</string>
+    <string name="easter_egg_pill_message">Узми плаву пилулу и рекламе остају тачно где јесу. Узми црвену и види колико дубоко иде бајткод.</string>
+    <string name="easter_egg_pill_red">Црвена пилула</string>
+    <string name="easter_egg_pill_blue">Плава пилула</string>
+    <string name="easter_egg_pill_red_toast">Matrix позадина откључана</string>
+    <string name="easter_egg_pill_blue_toast">Огласи ће вас чекати</string>
+    <string name="easter_egg_pill_message_again">Већ сте у Matrix-у. Црвена пилула вас враћа назад у кишу, плава вас буди.</string>
+    <string name="easter_egg_pill_red_toast_again">Поново у киши</string>
+    <string name="easter_egg_pill_blue_toast_again">Искључен. Пут назад је тамо где је одувек био.</string>
     <!-- Shared strings -->
     <string name="select_file">Изаберите датотеку</string>
     <string name="select_folder">Изаберите фолдер</string>

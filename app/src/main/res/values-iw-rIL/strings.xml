@@ -468,6 +468,7 @@
     <string name="patcher_ready_to_install_subtitle">לחץ על הכפתור למטה כדי להתקין</string>
     <string name="patcher_ready_to_mount_subtitle">לחץ על הכפתור למטה כדי לאתחל</string>
     <string name="patcher_patches_excluded_for_installer">לא זמין עבור שיטת התקנה זו והוחרג: %s</string>
+    <string name="patcher_back_to_game_hint">הקש על %1$s כדי לחזור למשחק שלך</string>
     <string name="patcher_storage_permission_dialog_title">לא ניתן לגשת לדרך אחסון</string>
     <string name="patcher_incompatible_patcher_title">עדכון נדרש</string>
     <string name="patcher_incompatible_patcher_description">החבילה &lt;b&gt;%1$s&lt;/b&gt; דורשת גרסת מתקן &lt;b&gt;%2$s&lt;/b&gt; ומעלה. אנא עדכן את Morphe כדי לתקן את האפליקציה הזו</string>
@@ -510,7 +511,7 @@
     <string name="patcher_message_4">מבשלים קסם דיגיטלי… ☕</string>
     <string name="patcher_message_5">מומלצת הפסקת קפה… ☕</string>
     <string name="patcher_message_6">הציצו החוצה, יפה שם בחוץ… 🌤️</string>
-    <string name="patcher_message_7">מכווננים 1 ו-0… 🤖</string>
+    <string name="patcher_message_7">מתאים 1 ו-0… 🤖</string>
     <string name="patcher_message_8">מתירים ספגטי דיגיטלי… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">מתקן בעיות באפליקציה בלתי מתוקנת… 🪲</string>
@@ -585,6 +586,7 @@
     <string name="settings_appearance_background_snow">שלג</string>
     <string name="settings_appearance_background_grid">רשת</string>
     <string name="settings_appearance_background_particles">חלקיקים</string>
+    <string name="settings_appearance_background_matrix">מטריקס</string>
     <string name="settings_appearance_background_none">אין</string>
     <string name="settings_appearance_background_random">אקראי</string>
     <string name="settings_appearance_background_random_interval_launch">בפתיחה</string>
@@ -1051,6 +1053,16 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="credits_current_development">פיתוח נוכחי</string>
     <string name="credits_prior_development">פיתוח קודם</string>
     <string name="opensource_licenses">רישיונות קוד פתוח</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">בחירה</string>
+    <string name="easter_egg_pill_message">קח את הגלולה הכחולה והמודעות יישארו בדיוק במקומן. קח את האדומה וראה עד כמה עמוק מגיע הבייט קוד.</string>
+    <string name="easter_egg_pill_red">גלולה אדומה</string>
+    <string name="easter_egg_pill_blue">גלולה כחולה</string>
+    <string name="easter_egg_pill_red_toast">רקע מטריקס נפתח</string>
+    <string name="easter_egg_pill_blue_toast">המודעות יחכו לך</string>
+    <string name="easter_egg_pill_message_again">אתה כבר במטריקס. הגלולה האדומה מפילה אותך חזרה לגשם, הכחולה מעירה אותך.</string>
+    <string name="easter_egg_pill_red_toast_again">חזרה בגשם</string>
+    <string name="easter_egg_pill_blue_toast_again">מנותק. הדרך חזרה היא במקום שבו תמיד הייתה.</string>
     <!-- Shared strings -->
     <string name="select_file">בחר קובץ</string>
     <string name="select_folder">בחר תיקייה</string>

@@ -467,6 +467,7 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="patcher_ready_to_install_subtitle">Pritisnite dugme ispod za instalaciju</string>
     <string name="patcher_ready_to_mount_subtitle">Pritisnite dugme ispod za postavljanje</string>
     <string name="patcher_patches_excluded_for_installer">Nije dostupno za ovu metodu instalacije i isključeno: %s</string>
+    <string name="patcher_back_to_game_hint">Dodirni %1$s da se vratiš u svoju igru.}}</string>
     <string name="patcher_storage_permission_dialog_title">Ne mogu pristupiti putu za pohranu</string>
     <string name="patcher_incompatible_patcher_title">Ažuriranje je potrebno</string>
     <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahteva verziju zakrpe &lt;b&gt;%2$s&lt;/b&gt; ili noviju. Molimo ažurirajte Morphe da biste zakrpili ovu aplikaciju</string>
@@ -509,7 +510,7 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="patcher_message_4">Priprema digitalne čarolije… ☕</string>
     <string name="patcher_message_5">Preporučena pauza za kafu… ☕</string>
     <string name="patcher_message_6">Pogledajte napolje, lepo je tamo… 🌤️</string>
-    <string name="patcher_message_7">Podešavanje 1 i 0… 🤖</string>
+    <string name="patcher_message_7">Podešavam jedinice i nule… 🤖</string>
     <string name="patcher_message_8">Odvajanje digitalnih špageta… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Popravljam greške u nepatchiranoj aplikaciji… 🪲</string>
@@ -584,6 +585,7 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_background_snow">Sneg</string>
     <string name="settings_appearance_background_grid">Rešetka</string>
     <string name="settings_appearance_background_particles">Čestice</string>
+    <string name="settings_appearance_background_matrix">Matrica</string>
     <string name="settings_appearance_background_none">Bez</string>
     <string name="settings_appearance_background_random">Nasumično</string>
     <string name="settings_appearance_background_random_interval_launch">Pokretanje</string>
@@ -1024,6 +1026,16 @@ Detalji: %2$s"</string>
     <string name="credits_current_development">Тренутни развој</string>
     <string name="credits_prior_development">Претходни развој</string>
     <string name="opensource_licenses">Open-source licence</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Izbor</string>
+    <string name="easter_egg_pill_message">Uzmi plavu pilulu i oglasi ostaju tačno gde jesu. Uzmi crvenu i vidi koliko duboko ide bajtkod.</string>
+    <string name="easter_egg_pill_red">Crvena pilula</string>
+    <string name="easter_egg_pill_blue">Plava pilula</string>
+    <string name="easter_egg_pill_red_toast">Pozadina Matrixa otključana</string>
+    <string name="easter_egg_pill_blue_toast">Reklame će vas čekati</string>
+    <string name="easter_egg_pill_message_again">Već ste u Matrixu. Crvena pilula vas vraća nazad u kišu, a plava vas budi.</string>
+    <string name="easter_egg_pill_red_toast_again">Nazad na kiši</string>
+    <string name="easter_egg_pill_blue_toast_again">Isključen. Put nazad je tamo gde je oduvek bio.</string>
     <!-- Shared strings -->
     <string name="select_file">Izaberi datoteku</string>
     <string name="select_folder">Izaberi folder</string>

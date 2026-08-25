@@ -468,6 +468,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="patcher_ready_to_install_subtitle">Pindutin ang button sa ibaba upang ma-install</string>
     <string name="patcher_ready_to_mount_subtitle">Pindutin ang button sa ibaba upang i-mount</string>
     <string name="patcher_patches_excluded_for_installer">Hindi magagamit para sa paraang ito ng pag-install at hindi kasama: %s</string>
+    <string name="patcher_back_to_game_hint">I-tap ang %1$s upang bumalik sa iyong laro</string>
     <string name="patcher_storage_permission_dialog_title">Hindi ma-access ang landas ng imbakan</string>
     <string name="patcher_incompatible_patcher_title">Kinakailangan ang pag-update</string>
     <string name="patcher_incompatible_patcher_description">Ang bundle &lt;b&gt;%1$s&lt;/b&gt; ay nangangailangan ng bersyon ng patcher na &lt;b&gt;%2$s&lt;/b&gt; o mas bago. Pakisuyong i-update ang Morphe upang i-patch ang app na ito</string>
@@ -585,6 +586,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_background_snow">Niyebe</string>
     <string name="settings_appearance_background_grid">Griyá</string>
     <string name="settings_appearance_background_particles">Partikulo</string>
+    <string name="settings_appearance_background_matrix">Matrix</string>
     <string name="settings_appearance_background_none">Wala</string>
     <string name="settings_appearance_background_random">Random</string>
     <string name="settings_appearance_background_random_interval_launch">Sa paglunsad</string>
@@ -1041,6 +1043,16 @@ Mga Detalye: %2$s"</string>
     <string name="credits_current_development">Kasalukuyang pag-unlad</string>
     <string name="credits_prior_development">Naunang pag-unlad</string>
     <string name="opensource_licenses">Open-source licenses</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Isang pagpipilian</string>
+    <string name="easter_egg_pill_message">Kunin ang asul na tableta at mananatili ang mga ad sa eksaktong lugar nila. Kunin ang pula at tingnan kung gaano kalalim ang bytecode.</string>
+    <string name="easter_egg_pill_red">Pulang tableta</string>
+    <string name="easter_egg_pill_blue">Asul na tableta</string>
+    <string name="easter_egg_pill_red_toast">Na-unlock ang background ng Matrix</string>
+    <string name="easter_egg_pill_blue_toast">Ang mga ad ay maghihintay sa iyo</string>
+    <string name="easter_egg_pill_message_again">Ikaw ay nasa Matrix na. Ang pulang tableta ay naghuhulog sa iyo pabalik sa ulan, ang asul na tableta ay gumigising sa iyo</string>
+    <string name="easter_egg_pill_red_toast_again">Bumalik sa ulan</string>
+    <string name="easter_egg_pill_blue_toast_again">Hindi na nakakonekta. Ang daan ay kung saan ito palaging naroroon</string>
     <!-- Shared strings -->
     <string name="select_file">Pumili ng file</string>
     <string name="select_folder">Piliin ang folder</string>

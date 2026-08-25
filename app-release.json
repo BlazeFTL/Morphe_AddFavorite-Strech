@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-24T16:46:12",
-  "description": "# [1.28.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.2...v1.28.0-dev.3) (2026-08-24)\n\n\n### Bug Fixes\n\n* Build the resource configurations of patches without a dense entry table ([eff74b6](https://github.com/MorpheApp/morphe-manager/commit/eff74b6752850171f1f57a21de71d6e154f4fb3d))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.28.0-dev.3/morphe-manager-1.28.0-dev.3.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.28.0-dev.3/morphe-manager-1.28.0-dev.3.apk.asc",
-  "version": "1.28.0-dev.3"
+  "created_at": "2026-08-25T09:52:56",
+  "description": "# [1.28.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.3...v1.28.0-dev.4) (2026-08-25)\n\n\n### Bug Fixes\n\n* Keep dialog content and buttons above the keyboard ([2c81da2](https://github.com/MorpheApp/morphe-manager/commit/2c81da2bf6d5fd145ed0d0b31f1a6743178dc5a4))\n* Strip the raw indentation from patch option instructions ([b38049c](https://github.com/MorpheApp/morphe-manager/commit/b38049cf608611b6deab490688a44b05436e7bef))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.28.0-dev.4/morphe-manager-1.28.0-dev.4.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.28.0-dev.4/morphe-manager-1.28.0-dev.4.apk.asc",
+  "version": "1.28.0-dev.4"
 }

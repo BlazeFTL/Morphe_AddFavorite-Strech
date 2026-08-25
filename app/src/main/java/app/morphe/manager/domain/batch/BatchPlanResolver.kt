@@ -33,7 +33,6 @@ import app.morphe.manager.util.Options
 import app.morphe.manager.util.PM
 import app.morphe.manager.util.PatchSelection
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
-import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
 import app.morphe.patcher.patch.ApkArchitecture
@@ -434,9 +433,7 @@ class BatchPlanResolver(
             }.filterValues { it.isNotEmpty() }
 
             if (merged.isNotEmpty()) {
-                return merged
-                    .applyAvailability(installerType, apkArchitecture, patchesByName)
-                    .applyLegacyMountRules(useMount)
+                return merged.applyAvailability(installerType, apkArchitecture, patchesByName)
             }
         }
 
@@ -446,14 +443,7 @@ class BatchPlanResolver(
             }
             .filterValues { it.isNotEmpty() }
             .applyAvailability(installerType, apkArchitecture, patchesByName)
-            .applyLegacyMountRules(useMount)
     }
-
-    // Safety net for bundles that have not adopted the availability API
-    // TODO: Drop this fallback together with PatchSelectionUtils.filterGmsCore
-    @Suppress("DEPRECATION")
-    private fun PatchSelection.applyLegacyMountRules(useMount: Boolean): PatchSelection =
-        if (useMount) filterGmsCore() else this
 
     /**
      * Expert mode stores options per bundle in the database, simple mode derives them from the

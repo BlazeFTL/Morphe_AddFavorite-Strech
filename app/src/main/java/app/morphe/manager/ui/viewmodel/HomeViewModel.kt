@@ -47,7 +47,6 @@ import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
-import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
@@ -2686,13 +2685,10 @@ class HomeViewModel(
 
         val configurationKey = configurationKeyFor(selectedApp.packageName)
 
-        // Apply patch-declared rules first, then keep the legacy GmsCore filter as a safety
-        // net for bundles that have not adopted the availability API
-        // TODO: Drop this fallback together with PatchSelectionUtils.filterGmsCore
-        @Suppress("DEPRECATION")
+        // Whatever selection is reached below, the patches' own availability for the install
+        // target has the final say on what the run starts with
         fun PatchSelection.applyInstallerRules(): PatchSelection =
             applyAvailability(currentInstallerType, currentApkArchitecture, bundlesMap)
-                .let { if (usingMountInstall) it.filterGmsCore() else it }
 
         if (isExpertMode()) {
             // Expert Mode: Load saved selections and options only for current bundles

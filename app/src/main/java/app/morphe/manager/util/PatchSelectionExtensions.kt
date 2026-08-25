@@ -5,7 +5,6 @@ import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
-import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.patcher.patch.ApkArchitecture
@@ -277,8 +276,7 @@ object PatchSelectionUtils {
      * patch still starts out selected through [PatchInfo.defaultSelected], it merely stays
      * unlockable until the run is down to a single bundle again.
      *
-     * Patches without an availability resolver are left untouched here. Legacy GmsCore hardcoding
-     * lives in [filterGmsCore] for the transition period.
+     * Patches without an availability resolver are left untouched here.
      */
     fun PatchSelection.applyAvailability(
         installerType: InstallerType,
@@ -306,25 +304,4 @@ object PatchSelectionUtils {
             if (current.isEmpty()) null else bundleUid to current.toSet()
         }.toMap()
     }
-
-    /**
-     * Filter out GmsCore support patch from selection (for mount installs).
-     *
-     * Safety net for bundles that predate the availability API or come from third-party sources
-     * that have not adopted it yet. Matches strictly by patch name so it becomes a no-op the
-     * moment the bundle's own resolver removes the patch first.
-     */
-    // TODO: Delete once the patches release declaring `availability {}` for "GmsCore support"
-    //  has propagated to users, together with both call sites:
-    //  HomeViewModel.applyInstallerRules and BatchPlanResolver.applyLegacyMountRules
-    @Deprecated(
-        message = "Kept for legacy bundles. Prefer applyAvailability with the patch-declared resolver.",
-        replaceWith = ReplaceWith("applyAvailability(InstallerType.MOUNT, apkArchitecture, allBundlePatches)")
-    )
-    fun PatchSelection.filterGmsCore(): PatchSelection {
-        return mapValues { (_, patches) ->
-            patches.filterNot { it.equals("GmsCore support", ignoreCase = true) }.toSet()
-        }.filterValues { it.isNotEmpty() }
-    }
-
 }

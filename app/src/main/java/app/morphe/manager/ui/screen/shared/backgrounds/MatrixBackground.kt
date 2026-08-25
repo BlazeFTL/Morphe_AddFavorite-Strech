@@ -86,6 +86,10 @@ private const val EXTRA_STREAM_CHANCE = 0.45f
 // A glyph that changes faster than this reads as noise rather than as falling code
 private const val MUTATION_INTERVAL_MS = 90f
 
+// Skia merges blits that share a paint, so a tail is drawn in bands of one alpha rather than
+// changing the paint at every glyph. Fine enough that the fade still reads as continuous
+private const val ALPHA_BANDS = 16
+
 // Same wrap as the other backgrounds use, short enough for float time to stay precise
 private const val CYCLE_MS = 120000f
 private const val CYCLE_FADE_MS = 1500f
@@ -168,6 +172,12 @@ fun MatrixBackground(
         // exchange for the blit, so the filters are built per column rather than per glyph
         val tints = remember(columnCount, isDarkTheme) { ColumnTints(columnCount, isDarkTheme) }
 
+        // Glyphs are gathered before they are drawn, so the buffer only has to hold as many of
+        // them as the longest column this deal came out with
+        val batches = remember(columns) {
+            ColumnBatches(columns.maxOf { column -> column.streams.sumOf { it.tail } })
+        }
+
         Canvas(modifier = Modifier.fillMaxSize()) {
             val tiltX = parallaxState.tiltX.value
             val tiltY = parallaxState.tiltY.value
@@ -190,6 +200,7 @@ fun MatrixBackground(
             drawIntoCanvas { canvas ->
                 columns.forEachIndexed { columnIndex, column ->
                     val x = columnIndex * columnStep + columnStep / 2f + parallaxX
+                    batches.clear()
 
                     column.streams.forEach { stream ->
                         // A phrase is only worth hiding if it can be read, so it keeps an even
@@ -211,13 +222,38 @@ fun MatrixBackground(
                                 ?: RANDOM_GLYPH_INDICES[column.randomGlyphAt(row, mutationTick)]
                             if (glyph == BLANK) continue
 
-                            atlas.selectGlyph(glyph, source)
                             val centerY = row * rowStep + rowStep / 2f + parallaxY
+
+                            // The leading glyph carries a color of its own, and there is only one
+                            // of it per stream, so it is drawn where it falls rather than banded
+                            if (offset == 0) {
+                                glyphPaint.colorFilter = tints.filterFor(columnIndex, head = true)
+                                glyphPaint.alpha = (alpha * 255).toInt()
+                                atlas.selectGlyph(glyph, source)
+                                destination.set(x - half, centerY - half, x + half, centerY + half)
+                                canvas.nativeCanvas.drawBitmap(atlas.bitmap, source, destination, glyphPaint)
+                            } else {
+                                batches.add(alphaBandOf(alpha), glyph, centerY)
+                            }
+                        }
+                    }
+
+                    // Glyphs of a column share its tint, so what is left after the heads goes out
+                    // one alpha band at a time, the paint holding still for every blit in between
+                    glyphPaint.colorFilter = tints.filterFor(columnIndex, head = false)
+
+                    for (band in 0 until ALPHA_BANDS) {
+                        val count = batches.countAt(band)
+                        if (count == 0) continue
+
+                        glyphPaint.alpha = bandAlpha(band)
+                        val glyphs = batches.glyphsAt(band)
+                        val centers = batches.centersAt(band)
+
+                        for (index in 0 until count) {
+                            atlas.selectGlyph(glyphs[index], source)
+                            val centerY = centers[index]
                             destination.set(x - half, centerY - half, x + half, centerY + half)
-
-                            glyphPaint.colorFilter = tints.filterFor(columnIndex, head = offset == 0)
-                            glyphPaint.alpha = (alpha * 255).toInt()
-
                             canvas.nativeCanvas.drawBitmap(atlas.bitmap, source, destination, glyphPaint)
                         }
                     }
@@ -284,6 +320,40 @@ private class MatrixColumn(
         return (hash and Int.MAX_VALUE) % RANDOM_GLYPH_INDICES.size
     }
 }
+
+/**
+ * Glyphs of one column, held per alpha band so that a band can go out under a single paint.
+ * Reused between frames, a column never showing more glyphs than its streams are long.
+ */
+private class ColumnBatches(capacity: Int) {
+    private val glyphs = Array(ALPHA_BANDS) { IntArray(capacity) }
+    private val centers = Array(ALPHA_BANDS) { FloatArray(capacity) }
+    private val counts = IntArray(ALPHA_BANDS)
+
+    fun clear() = counts.fill(0)
+
+    fun add(band: Int, glyph: Int, centerY: Float) {
+        val count = counts[band]
+        // The capacity covers every glyph a column can hold at once, so a full band means the
+        // columns were dealt again and the buffer is about to be replaced anyway
+        if (count == glyphs[band].size) return
+
+        glyphs[band][count] = glyph
+        centers[band][count] = centerY
+        counts[band] = count + 1
+    }
+
+    fun countAt(band: Int) = counts[band]
+
+    fun glyphsAt(band: Int) = glyphs[band]
+
+    fun centersAt(band: Int) = centers[band]
+}
+
+/** The band an alpha falls in, rounded to the middle of the band on the way back out. */
+private fun alphaBandOf(alpha: Float) = (alpha * ALPHA_BANDS).toInt().coerceIn(0, ALPHA_BANDS - 1)
+
+private fun bandAlpha(band: Int) = (((band + 0.5f) / ALPHA_BANDS) * 255f).toInt()
 
 /** The alphabet rasterized side by side into one bitmap, a square cell per character. */
 private class GlyphAtlas(glyphPx: Float) {

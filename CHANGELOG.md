@@ -1,3 +1,11 @@
+# [1.28.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.3...v1.28.0-dev.4) (2026-08-25)
+
+
+### Bug Fixes
+
+* Keep dialog content and buttons above the keyboard ([2c81da2](https://github.com/MorpheApp/morphe-manager/commit/2c81da2bf6d5fd145ed0d0b31f1a6743178dc5a4))
+* Strip the raw indentation from patch option instructions ([b38049c](https://github.com/MorpheApp/morphe-manager/commit/b38049cf608611b6deab490688a44b05436e7bef))
+
 # [1.28.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.2...v1.28.0-dev.3) (2026-08-24)
 
 

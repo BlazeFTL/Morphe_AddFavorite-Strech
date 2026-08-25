@@ -468,6 +468,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="patcher_ready_to_install_subtitle">Asenna napauttamalla alla olevaa painiketta</string>
     <string name="patcher_ready_to_mount_subtitle">Liitä napauttamalla alla olevaa painiketta</string>
     <string name="patcher_patches_excluded_for_installer">Ei saatavilla tälle asennusmenetelmälle ja pois suljettu: %s</string>
+    <string name="patcher_back_to_game_hint">Napauta %1$s palataksesi peliisi</string>
     <string name="patcher_storage_permission_dialog_title">Tallennuspolkua ei voida käyttää</string>
     <string name="patcher_incompatible_patcher_title">Päivitys vaaditaan</string>
     <string name="patcher_incompatible_patcher_description">Paketti &lt;b&gt;%1$s&lt;/b&gt; vaatii muokkaustyökalun version &lt;b&gt;%2$s&lt;/b&gt; tai uudemman. Päivitä Morphe muokataksesi tätä sovellusta</string>
@@ -1041,6 +1042,16 @@ Yksityiskohdat: %2$s"</string>
     <string name="credits_current_development">Nykyinen kehitys</string>
     <string name="credits_prior_development">Aikaisempi kehitys</string>
     <string name="opensource_licenses">Avoimen lähdekoodin lisenssit</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Valinta</string>
+    <string name="easter_egg_pill_message">Ota sininen pilleri ja mainokset pysyvät tarkalleen paikoillaan. Ota punainen ja katso kuinka syvälle tavukoodi menee.</string>
+    <string name="easter_egg_pill_red">Punainen pilleri</string>
+    <string name="easter_egg_pill_blue">Sininen pilleri</string>
+    <string name="easter_egg_pill_red_toast">Matrix-tausta avattu</string>
+    <string name="easter_egg_pill_blue_toast">Mainokset odottavat sinua</string>
+    <string name="easter_egg_pill_message_again">Olet jo Matrixissa. Punainen pilleri pudottaa sinut takaisin sateeseen, sininen pilleri herättää sinut.</string>
+    <string name="easter_egg_pill_red_toast_again">Takaisin sateessa</string>
+    <string name="easter_egg_pill_blue_toast_again">Irrotettu. Paluutie on siellä missä se aina oli.</string>
     <!-- Shared strings -->
     <string name="select_file">Valitse tiedosto</string>
     <string name="select_folder">Valitse kansio</string>

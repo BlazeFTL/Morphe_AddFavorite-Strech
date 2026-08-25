@@ -31,6 +31,7 @@ import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.worker.Worker
 import app.morphe.manager.domain.worker.WorkerRepository
 import app.morphe.manager.patcher.logger.Logger
+import app.morphe.manager.patcher.patch.ApkArchitectureResolver
 import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.patcher.runtime.CoroutineRuntime
 import app.morphe.manager.patcher.runtime.ProcessRuntime
@@ -324,6 +325,11 @@ class PatcherWorker(
             val useProcessRuntime = prefs.useProcessRuntime.get()
             val stripNativeLibs = prefs.stripUnusedNativeLibs.get()
             val inputIsSplitArchive = SplitApkPreparer.isSplitArchive(inputFile)
+            // The architecture the patches were selected against, worth a line of its own now
+            // that a patch can declare itself unavailable for the one the input carries. Read
+            // from the app rather than from [inputFile], which for an installed one is the base
+            // APK alone and says nothing about the split its native libraries live in
+            val apkArchitecture = ApkArchitectureResolver.resolve(args.input, pm)
             val selectedCount = args.selectedPatches.values.sumOf { it.size }
 
             // Log device environment for diagnostics
@@ -357,7 +363,7 @@ class PatcherWorker(
                 "Patching started at ${System.currentTimeMillis()} " +
                         "pkg=${args.packageName} version=${args.input.version} " +
                         "input=${inputFile.absolutePath} size=${inputFile.length()} " +
-                        "split=$inputIsSplitArchive patches=$selectedCount " +
+                        "split=$inputIsSplitArchive arch=$apkArchitecture patches=$selectedCount " +
                         "device=${Build.MANUFACTURER} model=${Build.MODEL}"
             )
 

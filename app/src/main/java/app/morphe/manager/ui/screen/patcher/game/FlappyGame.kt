@@ -55,7 +55,7 @@ data class FlappyPipe(
 @Stable
 class FlappyGameState(
     initialHighScore: Int = 0,
-    private val onHighScoreUpdated: (Int) -> Unit = {}
+    onHighScoreUpdated: (Int) -> Unit = {}
 ) : MiniGameStateBase {
     var birdY by mutableFloatStateOf(0.45f)
         private set
@@ -63,15 +63,14 @@ class FlappyGameState(
         private set
     var pipes by mutableStateOf<List<FlappyPipe>>(emptyList())
         private set
-    override var score by mutableIntStateOf(0)
-        private set
-    override var highScore by mutableIntStateOf(initialHighScore)
-        private set
-    var isGameOver by mutableStateOf(false)
+    private val points = GameScore(initialHighScore, onHighScoreUpdated)
+    override val score get() = points.value
+    override val highScore get() = points.high
+    override var isGameOver by mutableStateOf(false)
         private set
     var isStarted by mutableStateOf(false)
         private set
-    var isPaused by mutableStateOf(false)
+    override var isPaused by mutableStateOf(false)
         private set
 
     private var lastTickMs = 0L
@@ -91,7 +90,7 @@ class FlappyGameState(
         birdY += velocity * dt
 
         if (birdY - BIRD_RADIUS < 0f || birdY + BIRD_RADIUS > 1f) {
-            if (score > highScore) { highScore = score; onHighScoreUpdated(highScore) }
+            points.commit()
             isGameOver = true; return
         }
 
@@ -107,7 +106,7 @@ class FlappyGameState(
             val nx = pipe.x - PIPE_SPEED * dt
             if (nx + PIPE_WIDTH < 0f) return@mapNotNull null
             val nowPassed = !pipe.passed && (nx + PIPE_WIDTH) < BIRD_X
-            if (nowPassed) score++
+            if (nowPassed) points.value++
             if (BIRD_X + hitR > nx && BIRD_X - hitR < nx + PIPE_WIDTH) {
                 val gapTop = pipe.gapCenter - PIPE_GAP / 2f
                 val gapBottom = pipe.gapCenter + PIPE_GAP / 2f
@@ -116,7 +115,7 @@ class FlappyGameState(
             pipe.copy(x = nx, passed = pipe.passed || nowPassed)
         }
         if (hit) {
-            if (score > highScore) { highScore = score; onHighScoreUpdated(highScore) }
+            points.commit()
             isGameOver = true
         }
     }
@@ -125,20 +124,21 @@ class FlappyGameState(
         birdY = 0.45f
         velocity = 0f
         pipes = emptyList()
-        score = 0
+        points.reset()
         isGameOver = false
         isStarted = false
         isPaused = false
         lastTickMs = 0L
     }
 
-    fun pause() { if (isStarted && !isGameOver) isPaused = true }
-    fun resume() { isPaused = false; lastTickMs = 0L }
+    override val isPlaying get() = isStarted && !isGameOver && !isPaused
+
+    override fun pause() { if (isStarted && !isGameOver) isPaused = true }
+    override fun resume() { isPaused = false; lastTickMs = 0L }
 }
 
 @Composable
 fun FlappyBirdGame(state: FlappyGameState) {
-    GameOverHaptic { state.isGameOver }
     // Runs every vsync; tick() is a no-op when the game is paused or over
     LaunchedEffect(Unit) {
         while (isActive) {
@@ -237,18 +237,6 @@ private fun FlappyCanvas(state: FlappyGameState, modifier: Modifier) {
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                 )
             }
-        }
-
-        if (state.isGameOver) {
-            GameOverOverlay(
-                score = state.score,
-                highScore = state.highScore,
-                onRestart = state::restart,
-                modifier = Modifier.fillMaxSize()
-            )
-        }
-        if (state.isPaused) {
-            GamePauseOverlay(onResume = state::resume, modifier = Modifier.fillMaxSize())
         }
     }
 }

@@ -467,6 +467,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_ready_to_install_subtitle">Pritisnite gumb spodaj za namestitev</string>
     <string name="patcher_ready_to_mount_subtitle">Pritisnite gumb spodaj za montažo</string>
     <string name="patcher_patches_excluded_for_installer">Ni na voljo za to metodo namestitve in je izključeno: %s</string>
+    <string name="patcher_back_to_game_hint">Dotakni se %1$s, da se vrneš v svojo igro.</string>
     <string name="patcher_storage_permission_dialog_title">Dostopa do poti shrambe ni možen</string>
     <string name="patcher_incompatible_patcher_title">Posodobitev je zahtevana</string>
     <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahteva različico popravljalca &lt;b&gt;%2$s&lt;/b&gt; ali novejšo. Posodobite Morphe, da popravite to aplikacijo</string>
@@ -509,7 +510,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_message_4">Kuham digitalno magijo… ☕</string>
     <string name="patcher_message_5">Priporočljiva je pavza za  kavo… ☕</string>
     <string name="patcher_message_6">Poglej ven, lepo je… 🌤️</string>
-    <string name="patcher_message_7">Prilagajam 1 in 0… 🤖</string>
+    <string name="patcher_message_7">Prilagajanje enic in ničel… 🤖</string>
     <string name="patcher_message_8">Razrešujem digitalne špagete… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Popravljanje napak v nepopravljeni aplikaciji 🪲</string>
@@ -1040,6 +1041,16 @@ Podrobnosti: %2$s"</string>
     <string name="credits_current_development">Trenuten razvoj</string>
     <string name="credits_prior_development">Dosedanji razvoj</string>
     <string name="opensource_licenses">Odprtokodne licence</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Izbira</string>
+    <string name="easter_egg_pill_message">Vzemi modro tableto in oglasi ostanejo natanko tam, kjer so. Vzemi rdečo in poglej, kako globoko gre bajtkod.</string>
+    <string name="easter_egg_pill_red">Rdeča tableta</string>
+    <string name="easter_egg_pill_blue">Modra tableta</string>
+    <string name="easter_egg_pill_red_toast">Ozadje Matrixa odklenjeno</string>
+    <string name="easter_egg_pill_blue_toast">Oglasi te bodo čakali</string>
+    <string name="easter_egg_pill_message_again">Že si v Matrixu. Rdeča tableta te vrže nazaj v dež, modra te zbudi</string>
+    <string name="easter_egg_pill_red_toast_again">Nazaj v dežju</string>
+    <string name="easter_egg_pill_blue_toast_again">Odklopljen. Pot nazaj je tam, kjer je bila vedno</string>
     <!-- Shared strings -->
     <string name="select_file">Izberi datoteko</string>
     <string name="select_folder">Izberi mapo</string>

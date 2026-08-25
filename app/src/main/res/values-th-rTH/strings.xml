@@ -467,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">กดปุ่มด้านล่างเพื่อติดตั้ง</string>
     <string name="patcher_ready_to_mount_subtitle">กดปุ่มด้านล่างเพื่อ Mount</string>
     <string name="patcher_patches_excluded_for_installer">ไม่สามารถใช้ได้กับวิธีการติดตั้งนี้ และไม่รวม: %s</string>
+    <string name="patcher_back_to_game_hint">แตะ %1$s เพื่อกลับไปยังเกมของคุณ</string>
     <string name="patcher_storage_permission_dialog_title">ไม่สามารถเข้าถึงเส้นทางเก็บข้อมูล</string>
     <string name="patcher_incompatible_patcher_title">จำเป็นต้องอัปเดต</string>
     <string name="patcher_incompatible_patcher_description">ชุดข้อมูล &lt;b&gt;%1$s&lt;/b&gt; จำเป็นต้องใช้ตัวแพตช์เวอร์ชัน &lt;b&gt;%2$s&lt;/b&gt; หรือใหม่กว่า โปรดอัปเดต Morphe เพื่อแพตช์แอปนี้</string>
@@ -1040,6 +1041,16 @@ morphe_header_custom_dark.png
     <string name="credits_current_development">การพัฒนาปัจจุบัน</string>
     <string name="credits_prior_development">การพัฒนาที่ผ่านมา</string>
     <string name="opensource_licenses">สัญญาอนุญาตโอเพนซอร์ส</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">ทางเลือก</string>
+    <string name="easter_egg_pill_message">กินยาเม็ดสีฟ้า โฆษณาก็จะยังคงอยู่ที่เดิม กินยาเม็ดสีแดง แล้วจะได้เห็นว่าไบต์โค้ดลึกแค่ไหน</string>
+    <string name="easter_egg_pill_red">ยาเม็ดสีแดง</string>
+    <string name="easter_egg_pill_blue">ยาเม็ดสีฟ้า</string>
+    <string name="easter_egg_pill_red_toast">ปลดล็อกพื้นหลังเมทริกซ์แล้ว</string>
+    <string name="easter_egg_pill_blue_toast">โฆษณาจะรอคุณอยู่</string>
+    <string name="easter_egg_pill_message_again">คุณอยู่ในเมทริกซ์แล้ว. ยาเม็ดแดงทำให้คุณกลับไปในสายฝน, ยาเม็ดสีฟ้าปลุกคุณให้ตื่น</string>
+    <string name="easter_egg_pill_red_toast_again">กลับไปในสายฝน</string>
+    <string name="easter_egg_pill_blue_toast_again">ถอดปลั๊กแล้ว. ทางกลับคือที่เดิม</string>
     <!-- Shared strings -->
     <string name="select_file">เลือกไฟล์</string>
     <string name="select_folder">เลือกโฟลเดอร์</string>

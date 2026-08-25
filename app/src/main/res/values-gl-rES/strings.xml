@@ -246,7 +246,6 @@ Elixe outro APK</string>
     <string name="patcher_message_4">Preparando maxia dixital… ☕</string>
     <string name="patcher_message_5">Pausa para o café recomendada… ☕</string>
     <string name="patcher_message_6">Mira fóra, vai bo tempo... 🌤️</string>
-    <string name="patcher_message_7">Axustando uns e ceros... 🤖</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <!-- "bytecode" can be translated from "the app code" -->
     <!-- Space flight communications callout. -->
@@ -302,6 +301,7 @@ Elixe outro APK</string>
     <string name="credits">Créditos</string>
     <string name="credits_current_development">Desenvolvemento actual</string>
     <string name="credits_prior_development">Desenvolvemento previo</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="remove">Eliminar</string>
     <string name="search">Busca</string>

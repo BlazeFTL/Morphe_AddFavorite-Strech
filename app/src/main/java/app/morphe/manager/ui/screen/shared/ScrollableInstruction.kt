@@ -5,12 +5,9 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -18,15 +15,20 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+
+/** Height the text fades out over once there is more of it below the box. */
+private val FadeHeight = 24.dp
 
 /**
  * Scrollable instructions box with fade at bottom.
@@ -38,48 +40,47 @@ fun ScrollableInstruction(
     maxHeight: Dp = 300.dp
 ) {
     val scrollState = rememberScrollState()
-    Box(
+
+    // Bundle descriptions carry the indentation of the raw string the patch author wrote them in,
+    // which trimIndent leaves in place as soon as one line of the block starts at column zero
+    val instructions = remember(description) {
+        description.lines().joinToString("\n") { it.trim() }.trim()
+    }
+
+    // Fades the text itself rather than laying a strip of one color over it: the box is dropped
+    // on surfaces of its own tint, which no single gradient color can be right for
+    val fadeHeight = with(LocalDensity.current) { FadeHeight.toPx() }
+
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(max = maxHeight)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(scrollState)
-                .padding(horizontal = 12.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            SettingsDivider(fullWidth = true)
+            .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
+            .drawWithContent {
+                drawContent()
 
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                lineHeight = MaterialTheme.typography.bodySmall.lineHeight * 1.4f
-            )
-        }
-
-        // Fade at bottom
-        val showFade by remember {
-            derivedStateOf { scrollState.value < scrollState.maxValue }
-        }
-
-        if (showFade) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-                    .height(24.dp)
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                MaterialTheme.colorScheme.surface
-                            )
-                        )
+                if (scrollState.value < scrollState.maxValue) {
+                    drawRect(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(Color.Black, Color.Transparent),
+                            startY = size.height - fadeHeight,
+                            endY = size.height
+                        ),
+                        blendMode = BlendMode.DstIn
                     )
-            )
-        }
+                }
+            }
+            .verticalScroll(scrollState)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        SettingsDivider(fullWidth = true)
+
+        Text(
+            text = instructions,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+            lineHeight = MaterialTheme.typography.bodySmall.lineHeight * 1.4f
+        )
     }
 }

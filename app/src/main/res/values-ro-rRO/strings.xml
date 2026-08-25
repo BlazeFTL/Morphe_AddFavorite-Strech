@@ -467,6 +467,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_ready_to_install_subtitle">Apasă butonul de mai jos pentru instalare</string>
     <string name="patcher_ready_to_mount_subtitle">Apăsați butonul de mai jos pentru a monta</string>
     <string name="patcher_patches_excluded_for_installer">Nu este disponibil pentru această metodă de instalare și exclus: %s</string>
+    <string name="patcher_back_to_game_hint">Atinge %1$s pentru a reveni la jocul tău</string>
     <string name="patcher_storage_permission_dialog_title">Nu se poate accesa calea de stocare</string>
     <string name="patcher_incompatible_patcher_title">Actualizare necesară</string>
     <string name="patcher_incompatible_patcher_description">Pachetul &lt;b&gt;%1$s&lt;/b&gt; necesită versiunea patcher-ului &lt;b&gt;%2$s&lt;/b&gt; sau mai nouă. Vă rugăm să actualizați Morphe pentru a aplica patch la această aplicație</string>
@@ -509,7 +510,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_message_4">Preparare magică digitală… ☕</string>
     <string name="patcher_message_5">Pauză de cafea recomandată… ☕</string>
     <string name="patcher_message_6">Privește pe fereastră, e frumos afară… 🌤️</string>
-    <string name="patcher_message_7">Ajustare 1-uri și 0-uri… 🤖</string>
+    <string name="patcher_message_7">Ajustez 1 și 0… 🤖</string>
     <string name="patcher_message_8">Descurcarea spaghetti-ului digital… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Se încerca repararea bug-urilor din aplicația nepatcheată… 🪲</string>
@@ -1039,6 +1040,12 @@ Detalii: %2$s"</string>
     <string name="credits_current_development">Dezvoltare curentă</string>
     <string name="credits_prior_development">Dezvoltare anterioară</string>
     <string name="opensource_licenses">Licențe open-source</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_red_toast">Fundal Matrix deblocat</string>
+    <string name="easter_egg_pill_blue_toast">Reclamele te vor aștepta</string>
+    <string name="easter_egg_pill_message_again">Ești deja în Matrix. Pastila roșie te aruncă înapoi în ploaie, cea albastră te trezește.</string>
+    <string name="easter_egg_pill_red_toast_again">Înapoi în ploaie</string>
+    <string name="easter_egg_pill_blue_toast_again">Deconectat. Calea de întoarcere este acolo unde a fost întotdeauna.</string>
     <!-- Shared strings -->
     <string name="select_file">Selectează fișierul</string>
     <string name="select_folder">Selecteazã folderul</string>

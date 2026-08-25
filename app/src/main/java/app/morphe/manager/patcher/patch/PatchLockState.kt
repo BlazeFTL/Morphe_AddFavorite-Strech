@@ -5,7 +5,6 @@
 
 package app.morphe.manager.patcher.patch
 
-import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.InstallerType
 
 /**
@@ -43,5 +42,3 @@ fun PatchLockState.blocksToggle(selected: Boolean) = when (this) {
  */
 fun installerTypeFor(useMount: Boolean) = if (useMount) InstallerType.MOUNT else InstallerType.STANDARD
 
-/** No patch conditions on ABI today, so UNIVERSAL is a stable default. */
-val SELECTION_APK_ARCHITECTURE = ApkArchitecture.UNIVERSAL

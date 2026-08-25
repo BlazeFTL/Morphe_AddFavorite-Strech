@@ -27,7 +27,8 @@ fun BackgroundSelector(
     selectedBackground: BackgroundType,
     onBackgroundSelected: (BackgroundType) -> Unit,
     selectedInterval: RandomInterval,
-    onIntervalSelected: (RandomInterval) -> Unit
+    onIntervalSelected: (RandomInterval) -> Unit,
+    matrixUnlocked: Boolean = false
 ) {
     val windowSize = rememberWindowSize()
     val columns = when (windowSize.widthSizeClass) {
@@ -36,8 +37,10 @@ fun BackgroundSelector(
         WindowWidthSizeClass.Expanded -> 5
     }
 
-    // All types except RANDOM - shown in the main grid
-    val gridTypes = BackgroundType.entries.filter { it != BackgroundType.RANDOM }
+    // All types except RANDOM - shown in the main grid, minus the hidden ones still to be found
+    val gridTypes = BackgroundType.entries.filter {
+        it != BackgroundType.RANDOM && (matrixUnlocked || it !in BackgroundType.HIDDEN)
+    }
 
     SectionCard {
         Column(
@@ -128,6 +131,7 @@ private fun getBackgroundIcon(type: BackgroundType): ImageVector = when (type) {
     BackgroundType.SNOW      -> Icons.Outlined.AcUnit
     BackgroundType.GRID      -> Icons.Outlined.Apps
     BackgroundType.PARTICLES -> Icons.Outlined.BubbleChart
+    BackgroundType.MATRIX    -> Icons.Outlined.Code
     BackgroundType.NONE      -> Icons.Outlined.VisibilityOff
     BackgroundType.RANDOM    -> Icons.Outlined.Shuffle
 }

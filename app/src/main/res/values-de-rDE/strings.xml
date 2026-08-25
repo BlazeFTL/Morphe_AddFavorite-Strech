@@ -468,6 +468,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="patcher_ready_to_install_subtitle">Drücke die Schaltfläche unten zum Installieren</string>
     <string name="patcher_ready_to_mount_subtitle">Drücke die Schaltfläche unten zum Mounten</string>
     <string name="patcher_patches_excluded_for_installer">Nicht verfügbar für diese Installationsmethode und ausgeschlossen: %s</string>
+    <string name="patcher_back_to_game_hint">Tippe auf %1$s, um zu deinem Spiel zurückzukehren</string>
     <string name="patcher_storage_permission_dialog_title">Auf den Speicherpfad kann nicht zugegriffen werden</string>
     <string name="patcher_incompatible_patcher_title">Update erforderlich</string>
     <string name="patcher_incompatible_patcher_description">Das Bundle &lt;b&gt;%1$s&lt;/b&gt; benötigt Patcher-Version &lt;b&gt;%2$s&lt;/b&gt; oder neuer. Bitte aktualisiere Morphe, um diese App zu patchen</string>
@@ -1041,6 +1042,16 @@ Details: %2$s"</string>
     <string name="credits_current_development">Aktuelle Entwicklung</string>
     <string name="credits_prior_development">Frühere Entwicklung</string>
     <string name="opensource_licenses">Open-Source-Lizenzen</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Eine Wahl</string>
+    <string name="easter_egg_pill_message">Nimm die blaue Pille und die Werbung bleibt genau dort, wo sie ist. Nimm die rote Pille und sieh, wie tief der Bytecode geht.</string>
+    <string name="easter_egg_pill_red">Rote Pille</string>
+    <string name="easter_egg_pill_blue">Blaue Pille</string>
+    <string name="easter_egg_pill_red_toast">Matrix-Hintergrund freigeschaltet</string>
+    <string name="easter_egg_pill_blue_toast">Die Anzeigen werden auf dich warten</string>
+    <string name="easter_egg_pill_message_again">Du bist bereits in der Matrix. Die rote Pille lässt dich zurück in den Regen fallen, die blaue weckt dich auf.</string>
+    <string name="easter_egg_pill_red_toast_again">Zurück im Regen</string>
+    <string name="easter_egg_pill_blue_toast_again">Ausgesteckt. Der Weg zurück ist, wo er immer war.</string>
     <!-- Shared strings -->
     <string name="select_file">Datei auswählen</string>
     <string name="select_folder">Ordner auswählen</string>

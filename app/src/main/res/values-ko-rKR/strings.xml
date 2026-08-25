@@ -209,7 +209,7 @@
     <string name="home_download_instructions_step2_generic">웹페이지를 아래로 스크롤한 후에 해당 다운로드 버튼을 탭하세요</string>
     <string name="home_download_instructions_step2_variant">웹페이지를 아래로 스크롤한 후에 상단에 있는 &lt;b&gt;APK 변형&lt;/b&gt;의 다운로드 버튼을 탭하세요</string>
     <string name="home_download_instructions_step2_search">신뢰하는 웹사이트에서 검색 결과를 여세요</string>
-    <string name="home_download_instructions_step2_search_note">Morphe는 이러한 웹사이트를 보증할 수 없습니다. APK 파일 대신 자체 앱 스토어를 제공하는 웹사이트는 건너뛰세요</string>
+    <string name="home_download_instructions_step2_search_note">Morphe는 APK 파일 대신 자체 앱 스토어를 제공하는 웹사이트를 보증할 수 없습니다. 이러한 웹사이트는 건너뛰세요</string>
     <string name="home_download_instructions_step3_search">해당 웹사이트에서 최신 버전이 아닌 &lt;b&gt;%s&lt;/b&gt; 버전의 APK를 다운로드하세요</string>
     <string name="home_download_instructions_step3_search_any">해당 웹사이트에서 앱의 APK를 다운로드하세요. &lt;b&gt;어떤 버전이든&lt;/b&gt; 패치할 수 있습니다</string>
     <string name="home_download_instructions_download_button_toast">여기 말고, 웹사이트에서 다운로드 버튼을 탭하세요 😊</string>
@@ -467,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">설치하시려면 아래 버튼을 탭하세요</string>
     <string name="patcher_ready_to_mount_subtitle">마운트하려면 아래 버튼을 탭하세요</string>
     <string name="patcher_patches_excluded_for_installer">이 설치 방법에는 사용할 수 없으며 제외됩니다: %s</string>
+    <string name="patcher_back_to_game_hint">게임으로 돌아가려면 \'%1$s\'를 탭하세요</string>
     <string name="patcher_storage_permission_dialog_title">저장소 경로에 접근할 수 없음</string>
     <string name="patcher_incompatible_patcher_title">업데이트 필요</string>
     <string name="patcher_incompatible_patcher_description">번들 &lt;b&gt;%1$s&lt;/b&gt;는 패처 버전 &lt;b&gt;%2$s&lt;/b&gt; 이상이 필요합니다. 이 앱을 패치하려면 Morphe를 업데이트하세요</string>
@@ -1038,6 +1039,16 @@ morphe_header_custom_dark.png
     <string name="credits_current_development">현재 개발</string>
     <string name="credits_prior_development">이전 개발</string>
     <string name="opensource_licenses">오픈 소스 라이선스</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">알약 선택</string>
+    <string name="easter_egg_pill_message">파란 알약을 먹으면 광고가 지금 있는 그대로 남아 있습니다. 빨간 알약을 먹으면 바이트코드가 얼마나 깊이 들어가는지 볼 수 있습니다</string>
+    <string name="easter_egg_pill_red">빨간 알약</string>
+    <string name="easter_egg_pill_blue">파란 알약</string>
+    <string name="easter_egg_pill_red_toast">매트릭스 배경이 잠금 해제되었습니다</string>
+    <string name="easter_egg_pill_blue_toast">광고가 당신을 기다리고 있을 겁니다</string>
+    <string name="easter_egg_pill_message_again">당신은 이미 매트릭스 안에 있습니다. 빨간 알약은 당신을 다시 비 속으로 떨어뜨리고, 파란 알약은 당신을 깨웁니다</string>
+    <string name="easter_egg_pill_red_toast_again">다시 비 속으로</string>
+    <string name="easter_egg_pill_blue_toast_again">플러그를 뽑았습니다. 돌아가는 길은 언제나 그곳에 있었습니다</string>
     <!-- Shared strings -->
     <string name="select_file">파일 선택</string>
     <string name="select_folder">폴더 선택</string>

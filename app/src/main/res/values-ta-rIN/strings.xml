@@ -79,6 +79,7 @@
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">விபரம்</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="enabled">செயலில்பாட்டில் உள்ளது</string>
     <string name="disabled">முடக்கப்பட்டது</string>

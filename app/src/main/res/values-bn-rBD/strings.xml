@@ -467,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">ইনস্টল করতে নিচের বোতামটি টিপুন</string>
     <string name="patcher_ready_to_mount_subtitle">মাউন্ট করতে নিচের বোতামটি টিপুন</string>
     <string name="patcher_patches_excluded_for_installer">এটি এই ইনস্টল পদ্ধতি এবং বাদ দেওয়ার জন্য পাওয়া যাচ্ছে না: %s</string>
+    <string name="patcher_back_to_game_hint">আপনার গেমে ফিরে যেতে %1$s ট্যাপ করুন</string>
     <string name="patcher_storage_permission_dialog_title">স্টোরেজ পথে অ্যাক্সেস করতে পারেনি</string>
     <string name="patcher_incompatible_patcher_title">আপডেট প্রয়োজন</string>
     <string name="patcher_incompatible_patcher_description">বান্ডেল &lt;b&gt;%1$s&lt;/b&gt;-এর জন্য প্যাচার সংস্করণ &lt;b&gt;%2$s&lt;/b&gt; অথবা তার চেয়ে নতুন সংস্করণ প্রয়োজন। এই অ্যাপটি প্যাচ করার জন্য অনুগ্রহ করে Morphe আপডেট করুন</string>
@@ -1031,6 +1032,16 @@ morphe_adaptive_monochrome_custom.xml
     <string name="credits_current_development">চলমান উন্নয়ন</string>
     <string name="credits_prior_development">পূর্ববর্তী উন্নয়ন</string>
     <string name="opensource_licenses">ওপেন-সোর্স লাইসেন্স।</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">একটি পছন্দ</string>
+    <string name="easter_egg_pill_message">নীল পিলটি নিন এবং বিজ্ঞাপনগুলো ঠিক যেখানে আছে সেখানেই থাকবে। লালটি নিন এবং দেখুন বাইটকোড কত গভীরে যায়।</string>
+    <string name="easter_egg_pill_red">লাল পিল</string>
+    <string name="easter_egg_pill_blue">নীল পিল</string>
+    <string name="easter_egg_pill_red_toast">ম্যাট্রিক্স ব্যাকগ্রাউন্ড আনলক হয়েছে</string>
+    <string name="easter_egg_pill_blue_toast">বিজ্ঞাপনগুলো আপনার জন্য অপেক্ষা করবে</string>
+    <string name="easter_egg_pill_message_again">আপনি ইতিমধ্যে ম্যাট্রিক্সে আছেন। লাল বড়িটি আপনাকে আবার বৃষ্টিতে ফেলে দেয়, নীল বড়িটি আপনাকে জাগিয়ে তোলে।</string>
+    <string name="easter_egg_pill_red_toast_again">আবার বৃষ্টিতে</string>
+    <string name="easter_egg_pill_blue_toast_again">আনপ্লাগড। ফিরে যাওয়ার পথ সবসময় যেখানে ছিল সেখানেই।</string>
     <!-- Shared strings -->
     <string name="select_file">ফাইল নির্বাচন করুন</string>
     <string name="select_folder">ফোল্ডার নির্বাচন করুন</string>

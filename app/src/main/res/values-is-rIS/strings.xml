@@ -465,6 +465,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patcher_ready_to_install_subtitle">Ýttu á hnappinn hér að neðan til að setja upp</string>
     <string name="patcher_ready_to_mount_subtitle">Ýttu á hnappinn hér að neðan til að festa</string>
     <string name="patcher_patches_excluded_for_installer">Ekki í boði fyrir þessa uppsetningaraðferð og útilokuð: %s</string>
+    <string name="patcher_back_to_game_hint">Ýttu á %1$s til að fara aftur í leikinn</string>
     <string name="patcher_storage_permission_dialog_title">Ekki hægt að fá aðgang að geymslushörðu</string>
     <string name="patcher_incompatible_patcher_title">Uppfærsla krafist</string>
     <string name="patcher_incompatible_patcher_description">Pakkinn &lt;b&gt;%1$s&lt;/b&gt; krefst Morphe útgáfu &lt;b&gt;%2$s&lt;/b&gt; eða nýrri. Vinsamlegast uppfæra Morphe til að breyta þessari forrit</string>
@@ -507,7 +508,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patcher_message_4">Bruggum digitala töfrabrögð… ☕</string>
     <string name="patcher_message_5">Kaffipásar mæltu með… ☕</string>
     <string name="patcher_message_6">Lítu út um gluggann, það er gott veður úti… 🌤️</string>
-    <string name="patcher_message_7">Stillum 1 og 0… 🤖</string>
+    <string name="patcher_message_7">Stilli 1ur og 0ur… 🤖</string>
     <string name="patcher_message_8">Tengjum digital spaghetti… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Lækna bugga í óbreyttu appinu… 🪲</string>
@@ -1035,6 +1036,16 @@ Nánari upplýsingar: %2$s"</string>
     <string name="credits_current_development">Núverandi þróun</string>
     <string name="credits_prior_development">Fyrri þróun</string>
     <string name="opensource_licenses">Open-source leyfisveitingar</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Val</string>
+    <string name="easter_egg_pill_message">Taktu bláu pilluna og auglýsingarnar haldast nákvæmlega þar sem þær eru. Taktu rauðu pilluna og sjáðu hversu djúpt bytecode-ið fer.</string>
+    <string name="easter_egg_pill_red">Rauð pilla</string>
+    <string name="easter_egg_pill_blue">Blá pilla</string>
+    <string name="easter_egg_pill_red_toast">Bakgrunnur Matrixs opnaður</string>
+    <string name="easter_egg_pill_blue_toast">Auglýsingarnar munu bíða eftir þér</string>
+    <string name="easter_egg_pill_message_again">Þú ert nú þegar í Matrix. Rauða pillan fleygir þér aftur í rigninguna, og sú bláa vekur þig upp</string>
+    <string name="easter_egg_pill_red_toast_again">Aftur í rigningunni</string>
+    <string name="easter_egg_pill_blue_toast_again">Aftengdur. Leiðin til baka er þar sem hún var alltaf</string>
     <!-- Shared strings -->
     <string name="select_file">Velja skrá</string>
     <string name="select_folder">Velja möppu</string>

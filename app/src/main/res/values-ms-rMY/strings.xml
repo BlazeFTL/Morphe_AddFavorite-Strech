@@ -343,7 +343,6 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="patcher_message_4">Membancuh magik digital… ☕</string>
     <string name="patcher_message_5">Rehat berserta kopi disyorkan… ☕</string>
     <string name="patcher_message_6">Pandang ke luar, ia bagus di luar sana… 🌤️</string>
-    <string name="patcher_message_7">Melaraskan 1 dan 0… 🤖</string>
     <string name="patcher_message_8">Menguraikan spageti digital… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Membetulkan pepijat dalam aplikasi yang belum ditampal… 🪲</string>
@@ -474,6 +473,7 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="settings_advanced_github_pat_export_warning">Jangan kongsi PAT anda. Jika anda menyertakannya dalam satu eksport tetapan, simpan fail tersebut sebagai sulit kerana ia mengandungi token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Pilihan tampalan</string>
+    <string name="settings_advanced_patch_options_youtube_description">Branding and header options</string>
     <string name="settings_advanced_patch_options_restart_message">Mengubah pilihan tampalan memerlukan aplikasi ditampal semula agar berkesan</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">Dalam mod Pakar pilihan tampalan akan tersedia semasa proses tampalan</string>
     <string name="settings_advanced_patch_options_loading">Memuatkan pilihan tampalan…</string>
@@ -631,6 +631,7 @@ Dimensi gambar mestilah seperti berikut:
     <string name="credits_current_development">Pembangunan semasa</string>
     <string name="credits_prior_development">Pembangunan sebelumnya</string>
     <string name="opensource_licenses">Lesen sumber terbuka</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="patches">Tampalan</string>
     <string name="home">Rumah</string>

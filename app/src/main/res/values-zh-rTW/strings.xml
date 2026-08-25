@@ -467,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">點擊下方的按鈕進行安裝</string>
     <string name="patcher_ready_to_mount_subtitle">點擊下方的按鈕進行掛載</string>
     <string name="patcher_patches_excluded_for_installer">未針對此安裝方法提供且已排除：%s</string>
+    <string name="patcher_back_to_game_hint">點擊%1$s返回您的遊戲</string>
     <string name="patcher_storage_permission_dialog_title">無法存取儲存路徑</string>
     <string name="patcher_incompatible_patcher_title">需要更新</string>
     <string name="patcher_incompatible_patcher_description">套件 <b>%1$s</b> 需要修補程式版本 <b>%2$s</b> 或更新版本。請更新 Morphe 以修補此應用程式</string>
@@ -509,7 +510,7 @@
     <string name="patcher_message_4">釀造數位魔法… ☕</string>
     <string name="patcher_message_5">建議喝杯咖啡休息一下… ☕</string>
     <string name="patcher_message_6">看看外面，天氣很好… 🌤️</string>
-    <string name="patcher_message_7">調整 1 和 0… 🤖</string>
+    <string name="patcher_message_7">正在調整 1 和 0… 🤖</string>
     <string name="patcher_message_8">解開數位義大利麵… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">修復未修補應用程式中的錯誤… 🪲</string>
@@ -1037,6 +1038,7 @@ morphe_header_custom_dark.png
     <string name="credits_current_development">目前開發</string>
     <string name="credits_prior_development">先前開發</string>
     <string name="opensource_licenses">開源授權</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="select_file">選擇檔案</string>
     <string name="select_folder">選取資料夾</string>

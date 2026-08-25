@@ -467,6 +467,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="patcher_ready_to_install_subtitle">Tryk på knappen nedenfor for at installere</string>
     <string name="patcher_ready_to_mount_subtitle">Tryk på knappen nedenfor for at montere</string>
     <string name="patcher_patches_excluded_for_installer">Ikke tilgængelig for denne installationsmetode og udeladt: %s</string>
+    <string name="patcher_back_to_game_hint">Tryk på %1$s for at gå tilbage til dit spil</string>
     <string name="patcher_storage_permission_dialog_title">Kan ikke tilgå lagringssti</string>
     <string name="patcher_incompatible_patcher_title">Opdatering påkrævet</string>
     <string name="patcher_incompatible_patcher_description">Bundtet &lt;b&gt;%1$s&lt;/b&gt; kræver patcher version &lt;b&gt;%2$s&lt;/b&gt; eller nyere. Opdater venligst Morphe for at patche denne app</string>
@@ -1038,6 +1039,16 @@ Detaljer: %2$s"</string>
     <string name="credits_current_development">Current development</string>
     <string name="credits_prior_development">Prior development</string>
     <string name="opensource_licenses">Open-source licenser</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Et valg</string>
+    <string name="easter_egg_pill_message">Tag den blå pille, og reklamerne forbliver præcis, hvor de er. Tag den røde, og se, hvor dybt bytekoden går.</string>
+    <string name="easter_egg_pill_red">Rød pille</string>
+    <string name="easter_egg_pill_blue">Blå pille</string>
+    <string name="easter_egg_pill_red_toast">Matrix-baggrunden er låst op</string>
+    <string name="easter_egg_pill_blue_toast">Annoncerne vil vente på dig</string>
+    <string name="easter_egg_pill_message_again">Du er allerede i Matrix. Den røde pille sender dig tilbage i regnen, den blå vækker dig</string>
+    <string name="easter_egg_pill_red_toast_again">Tilbage i regnen</string>
+    <string name="easter_egg_pill_blue_toast_again">Frakoblet. Vejen tilbage er, hvor den altid var</string>
     <!-- Shared strings -->
     <string name="select_file">Vælg fil</string>
     <string name="select_folder">Vælg mappe</string>

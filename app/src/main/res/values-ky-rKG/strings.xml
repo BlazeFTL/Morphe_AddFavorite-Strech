@@ -79,6 +79,7 @@
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Маалымат</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="enabled">Ишке киргизилген</string>
     <string name="disabled">Иштен чыгарылган</string>

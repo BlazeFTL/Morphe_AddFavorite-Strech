@@ -24,8 +24,8 @@
     <string name="home_blocked_source_subtitle">点击查看并移除</string>
     <string name="home_metadata_errors_title">部分补丁源不可用</string>
     <string name="home_metadata_errors_subtitle">点击查看源</string>
-    <string name="home_outdated_manager_title">Morphe 近甘</string>
-    <string name="home_outdated_manager_subtitle">有一个财经源需要更新版本</string>
+    <string name="home_outdated_manager_title">Morphe 管理器需要更新</string>
+    <string name="home_outdated_manager_subtitle">部分补丁需要更新管理器版本</string>
     <string name="home_metered_skipped_title">在移动数据上暂停更新</string>
     <string name="home_metered_skipped_subtitle">点击允许在移动数据上更新</string>
     <string name="home_update_error">更新失败</string>
@@ -137,7 +137,7 @@
     <string name="sources_management_metadata_unavailable_hint">远程元数据文件不可用。使用已安装的程序包进行修补仍然有效，但此源的自动更新已禁用</string>
     <string name="sources_management_metadata_unavailable_hint_missing">无法下载补丁包。源URL可能不正确或文件不存在</string>
     <string name="sources_management_outdated_manager_badge">更新 Morphe</string>
-    <string name="sources_management_outdated_manager_hint">这源在 %1$s 主机上生成，例如 Morphe %2$s 包含 %3$s 主机。更新 Morphe 能够使用关注主机</string>
+    <string name="sources_management_outdated_manager_hint">此补丁源需要修补器版本 %1$s，而 Morphe %2$s 内置修补器版本为 %3$s 。需要更新 Morphe 才能应用该补丁</string>
     <string name="sources_management_source_enabled">源已启用</string>
     <string name="sources_management_source_disabled">源已禁用</string>
     <string name="sources_management_source_updating">正在更新源</string>
@@ -194,8 +194,7 @@
     <string name="home_apk_use_installed">使用已安装的 APK</string>
     <string name="home_apk_use_installed_unverified">无法验证已安装应用的签名，因此该应用可能已被修补</string>
     <string name="home_unverified">未验证</string>
-    <string name="home_install_verification_pending">正在检查安装...
-</string>
+    <string name="home_install_verification_pending">正在检查安装...</string>
     <string name="home_app_info_install_unverified">Morphe 无法确认已安装的应用是它修补的构建版本。请从保存的 APK 重新修补或重新安装以恢复其操作。</string>
     <string name="home_app_info_no_saved_apk">没有已保存的 APK 文件, 需要重新选择 APK 文件进行修补</string>
     <string name="home_version_requires_android">需要 Android %s+。</string>
@@ -296,7 +295,7 @@
     <string name="home_outdated_patches_dialog_title">补丁可能已过期</string>
     <string name="home_outdated_patches_dialog_message">移动数据已激活，已禁用补丁更新</string>
     <string name="home_outdated_patches_dialog_warning">使用过期补丁可能会导致应用程序无法使用</string>
-    <string name="home_outdated_patches_dialog_update_and_patch">更新并补丁</string>
+    <string name="home_outdated_patches_dialog_update_and_patch">更新&amp;修补</string>
     <string name="home_low_disk_space_dialog_title">磁盘空间不足</string>
     <string name="home_low_disk_space_dialog_message">只有 %1$.2f GB 的可用存储空间。修复至少需要 %2$.2f GB 的可用空间才能正常工作</string>
     <string name="home_low_disk_space_dialog_warning">继续可能会导致“文件未找到”错误或损坏的输出 APK</string>
@@ -468,6 +467,7 @@
     <string name="patcher_ready_to_install_subtitle">按下方按钮安装</string>
     <string name="patcher_ready_to_mount_subtitle">按下方按钮挂载</string>
     <string name="patcher_patches_excluded_for_installer">不适用于此安装方法并已排除：%s</string>
+    <string name="patcher_back_to_game_hint">点击%1$s返回游戏</string>
     <string name="patcher_storage_permission_dialog_title">无法访问存储路径</string>
     <string name="patcher_incompatible_patcher_title">更新要求</string>
     <string name="patcher_incompatible_patcher_description">该补丁包&lt;b&gt;%1$s&lt;/b&gt;需要补丁程序版本&lt;b&gt;%2$s&lt;/b&gt;或更高版本。请更新 Morphe 以补丁此应用</string>
@@ -510,7 +510,7 @@
     <string name="patcher_message_4">正在醸造数字魔法… ☕</string>
     <string name="patcher_message_5">建议休息一下… ☕</string>
     <string name="patcher_message_6">看看外面，天气真好… 🌤️</string>
-    <string name="patcher_message_7">正在调整 1 和 0… 🤖</string>
+    <string name="patcher_message_7">正在调整1和0… 🤖</string>
     <string name="patcher_message_8">正在解开数字意大利面条… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">正在修复未修补应用中的错误… 🪲</string>
@@ -1037,10 +1037,15 @@ morphe_header_custom_dark.png
     <string name="settings_system_share_website">分享网站</string>
     <string name="settings_system_share_website_description">分享官方 Morphe 网站</string>
     <string name="settings_system_manager_description">一个开源项目，用于现代化的、流线型的流行 Android 应用补丁，由社区反馈和贡献驱动</string>
-    <string name="credits">功劳</string>
+    <string name="credits">功劳簿</string>
     <string name="credits_current_development">当前开发</string>
     <string name="credits_prior_development">先前开发</string>
     <string name="opensource_licenses">开源许可证</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">一个选择</string>
+    <string name="easter_egg_pill_message">服用蓝色药丸，广告就会保持原样。服用红色药丸，看看字节码究竟有多深。</string>
+    <string name="easter_egg_pill_red">红色药丸</string>
+    <string name="easter_egg_pill_blue">蓝色药丸</string>
     <!-- Shared strings -->
     <string name="select_file">选择文件</string>
     <string name="select_folder">选择文件夹</string>

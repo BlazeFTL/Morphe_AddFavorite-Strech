@@ -468,6 +468,7 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="patcher_ready_to_install_subtitle">Tekan tombol di bawah untuk memasang</string>
     <string name="patcher_ready_to_mount_subtitle">Tekan tombol di bawah untuk mount</string>
     <string name="patcher_patches_excluded_for_installer">Tidak tersedia untuk metode pemasangan ini dan dikecualikan: %s</string>
+    <string name="patcher_back_to_game_hint">Ketuk %1$s untuk kembali ke permainan Anda</string>
     <string name="patcher_storage_permission_dialog_title">Tidak dapat mengakses jalur penyimpanan</string>
     <string name="patcher_incompatible_patcher_title">Pembaruan diperlukan</string>
     <string name="patcher_incompatible_patcher_description">Bundle &lt;b&gt;%1$s&lt;/b&gt; memerlukan versi penambal &lt;b&gt;%2$s&lt;/b&gt; atau lebih baru. Silahkan perbarui Morphe untuk menambal aplikasi ini</string>
@@ -1041,6 +1042,16 @@ Rincian: %2$s"</string>
     <string name="credits_current_development">Pengembangan saat ini</string>
     <string name="credits_prior_development">Pengembangan sebelumnya</string>
     <string name="opensource_licenses">Lisensi sumber terbuka</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Sebuah pilihan</string>
+    <string name="easter_egg_pill_message">Ambil pil biru dan iklan tetap di tempatnya. Ambil pil merah dan lihat seberapa dalam bytecode itu</string>
+    <string name="easter_egg_pill_red">Pil merah</string>
+    <string name="easter_egg_pill_blue">Pil biru</string>
+    <string name="easter_egg_pill_red_toast">Latar belakang Matrix terbuka</string>
+    <string name="easter_egg_pill_blue_toast">Iklan akan menunggumu</string>
+    <string name="easter_egg_pill_message_again">Kamu sudah berada di dalam Matrix. Pil merah menjatuhkanmu kembali ke dalam hujan, pil biru membangunkanmu</string>
+    <string name="easter_egg_pill_red_toast_again">Kembali ke dalam hujan</string>
+    <string name="easter_egg_pill_blue_toast_again">Terputus. Jalan kembali selalu ada di sana</string>
     <!-- Shared strings -->
     <string name="select_file">Pilih berkas</string>
     <string name="select_folder">Pilih folder</string>

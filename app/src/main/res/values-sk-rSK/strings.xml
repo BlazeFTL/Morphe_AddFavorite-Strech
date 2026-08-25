@@ -467,6 +467,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="patcher_ready_to_install_subtitle">Stlačte tlačidlo nižšie pre inštaláciu</string>
     <string name="patcher_ready_to_mount_subtitle">Stlačte tlačidlo nižšie na pripojenie</string>
     <string name="patcher_patches_excluded_for_installer">Nie je dostupné pre tento spôsob inštalácie a vylúčené: %s</string>
+    <string name="patcher_back_to_game_hint">Klepnutím na %1$s sa vrátite do svojej hry.</string>
     <string name="patcher_storage_permission_dialog_title">Nedá sa získať prístup k ceste na úložisku</string>
     <string name="patcher_incompatible_patcher_title">Aktualizácia je potrebná</string>
     <string name="patcher_incompatible_patcher_description">Balíček &lt;b&gt;%1$s&lt;/b&gt; vyžaduje verziu záplatovača &lt;b&gt;%2$s&lt;/b&gt; alebo novšiu. Aktualizujte Morphe, aby ste mohli opraviť túto aplikáciu.</string>
@@ -1040,6 +1041,12 @@ Podrobnosti: %2$s"</string>
     <string name="credits_current_development">Aktuálny vývoj</string>
     <string name="credits_prior_development">Predchádzajúci vývoj</string>
     <string name="opensource_licenses">Licencie otvoreného zdroja</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_red_toast">Pozadie Matrixu odomknuté</string>
+    <string name="easter_egg_pill_blue_toast">Reklamy na teba budú čakať.</string>
+    <string name="easter_egg_pill_message_again">Už si v Matrixe. Červená pilulka ťa vráti späť do dažďa, modrá ťa prebudí.</string>
+    <string name="easter_egg_pill_red_toast_again">Späť v daždi.</string>
+    <string name="easter_egg_pill_blue_toast_again">Odpojený. Cesta späť je tam, kde vždy bola.</string>
     <!-- Shared strings -->
     <string name="select_file">Vybrať súbor</string>
     <string name="select_folder">Vybrať priečinok</string>

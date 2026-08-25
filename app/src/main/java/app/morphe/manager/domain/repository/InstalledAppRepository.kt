@@ -203,15 +203,22 @@ class InstalledAppRepository(
             Log.i(TAG, "Reconciled version for ${app.currentPackageName}: ${app.version} → $newVersion")
         }
 
+    /**
+     * Whether another record describes an install of the same app, which is what keeps the
+     * artifacts they share alive once one of those records goes.
+     */
+    suspend fun hasSiblingRecords(installedApp: InstalledApp): Boolean =
+        dao.countSiblings(
+            originalPackageName = installedApp.originalPackageName,
+            currentPackageName = installedApp.currentPackageName
+        ) > 0
+
     /** Every storage path this record owns a retained copy at, current and legacy. */
     suspend fun savedPatchedApkFiles(installedApp: InstalledApp): List<File> =
         retainedPatchedApkOwners(
             currentPackageName = installedApp.currentPackageName,
             originalPackageName = installedApp.originalPackageName,
-            hasSiblingRecords = dao.countSiblings(
-                originalPackageName = installedApp.originalPackageName,
-                currentPackageName = installedApp.currentPackageName
-            ) > 0
+            hasSiblingRecords = hasSiblingRecords(installedApp)
         ).map { packageName ->
             filesystem.getPatchedAppFile(packageName, installedApp.version)
         }

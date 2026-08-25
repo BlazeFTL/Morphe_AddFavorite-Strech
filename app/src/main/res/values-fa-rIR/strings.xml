@@ -225,6 +225,7 @@
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">درباره</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="settings">تنظیمات</string>
     <string name="remove">حذف</string>

@@ -1,3 +1,46 @@
+# [1.28.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.3...v1.28.0-dev.4) (2026-08-25)
+
+
+### Bug Fixes
+
+* Keep dialog content and buttons above the keyboard ([2c81da2](https://github.com/MorpheApp/morphe-manager/commit/2c81da2bf6d5fd145ed0d0b31f1a6743178dc5a4))
+* Strip the raw indentation from patch option instructions ([b38049c](https://github.com/MorpheApp/morphe-manager/commit/b38049cf608611b6deab490688a44b05436e7bef))
+
+# [1.28.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.2...v1.28.0-dev.3) (2026-08-24)
+
+
+### Bug Fixes
+
+* Build the resource configurations of patches without a dense entry table ([eff74b6](https://github.com/MorpheApp/morphe-manager/commit/eff74b6752850171f1f57a21de71d6e154f4fb3d))
+
+# [1.28.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0-dev.1...v1.28.0-dev.2) (2026-08-24)
+
+
+### Bug Fixes
+
+* Keep an error while sampling resources from taking down the patcher ([51fe957](https://github.com/MorpheApp/morphe-manager/commit/51fe95704f4c6e23aa003c73b92a1b2cdb7ef48f))
+
+# [1.28.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.27.1-dev.1...v1.28.0-dev.1) (2026-08-24)
+
+
+### Bug Fixes
+
+* Draw the success screen from the install state instead of flags split out of it ([18fb83e](https://github.com/MorpheApp/morphe-manager/commit/18fb83e5397427e9b984d01889f8614fcd0b16a9))
+
+
+### Features
+
+* Hold the success screen back while a mini-game round is running ([eb3b915](https://github.com/MorpheApp/morphe-manager/commit/eb3b91531b1b70dc706cd4a29ecc5be8647fe632))
+* Point the success screen back at a mini-game left behind ([2f25005](https://github.com/MorpheApp/morphe-manager/commit/2f25005977d5f31474ac22c5a02a59a67450369a))
+* Resolve the APK architecture patches declare their availability against ([1e1cf1c](https://github.com/MorpheApp/morphe-manager/commit/1e1cf1cdf7338edffe5355317948a97f32e767b1))
+
+## [1.27.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0...v1.27.1-dev.1) (2026-08-23)
+
+
+### Bug Fixes
+
+* Update patcher ([0bc569f](https://github.com/MorpheApp/morphe-manager/commit/0bc569fe5991305e59e332a201baf32e2a295831))
+
 # [1.27.0](https://github.com/MorpheApp/morphe-manager/compare/v1.26.1...v1.27.0) (2026-08-22)
 
 

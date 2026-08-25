@@ -1041,6 +1041,16 @@ Detalhes: %2$s"</string>
     <string name="credits_current_development">Desenvolvimento atual</string>
     <string name="credits_prior_development">Desenvolvimento anterior</string>
     <string name="opensource_licenses">Licenças de código aberto</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Uma escolha</string>
+    <string name="easter_egg_pill_message">Tome a pílula azul e os anúncios permanecem exatamente onde estão. Tome a pílula vermelha e veja até onde o bytecode vai.</string>
+    <string name="easter_egg_pill_red">Pílula vermelha</string>
+    <string name="easter_egg_pill_blue">Pílula azul</string>
+    <string name="easter_egg_pill_red_toast">Fundo da Matrix desbloqueado</string>
+    <string name="easter_egg_pill_blue_toast">Os anúncios estarão esperando por você</string>
+    <string name="easter_egg_pill_message_again">Você já está na Matrix. A pílula vermelha te leva de volta para a chuva, a azul te acorda.</string>
+    <string name="easter_egg_pill_red_toast_again">De volta na chuva</string>
+    <string name="easter_egg_pill_blue_toast_again">Desconectado. O caminho de volta é onde sempre esteve.</string>
     <!-- Shared strings -->
     <string name="select_file">Selecionar arquivo</string>
     <string name="select_folder">Selecionar pasta</string>

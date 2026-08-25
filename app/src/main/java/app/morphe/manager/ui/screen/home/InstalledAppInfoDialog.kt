@@ -356,7 +356,7 @@ fun InstalledAppInfoDialog(
         appLabel = appLabel,
         accentColor = infoAccentColor,
         hasSavedApk = viewModel.hasSavedCopy,
-        hasOriginalApk = viewModel.hasOriginalApk,
+        deletesOriginalApk = viewModel.deletesOriginalApk,
         onConfirm = {
             viewModel.removeAppCompletely()
             showDeleteDialog.value = false
@@ -1694,7 +1694,7 @@ private fun DeleteConfirmDialog(
     appLabel: String,
     accentColor: Color,
     hasSavedApk: Boolean,
-    hasOriginalApk: Boolean,
+    deletesOriginalApk: Boolean,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -1753,7 +1753,7 @@ private fun DeleteConfirmDialog(
                             text = stringResource(R.string.home_app_info_delete_item_patched_apk)
                         )
                     }
-                    if (hasOriginalApk) {
+                    if (deletesOriginalApk) {
                         DeleteListItem(
                             icon = Icons.Outlined.FilePresent,
                             text = stringResource(R.string.home_app_info_delete_item_original_apk)

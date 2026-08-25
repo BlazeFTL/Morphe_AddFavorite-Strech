@@ -79,6 +79,7 @@
     <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="remove">Noņemt</string>
     <string name="search">Meklēt</string>

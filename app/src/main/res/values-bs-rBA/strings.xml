@@ -80,6 +80,7 @@
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">O Morphe</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <!-- Shown while resuming a download, before the total size is known -->
     <!-- Onboarding coach marks -->

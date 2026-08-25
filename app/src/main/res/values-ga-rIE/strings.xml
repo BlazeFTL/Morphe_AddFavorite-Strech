@@ -467,6 +467,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patcher_ready_to_install_subtitle">Brúigh an cnaipe thíos chun é a shuiteáil</string>
     <string name="patcher_ready_to_mount_subtitle">Brúigh an cnaipe thíos chun é a ghléasadh</string>
     <string name="patcher_patches_excluded_for_installer">Ní féidir é a shuiteáil agus níl sé ar fáil: %s</string>
+    <string name="patcher_back_to_game_hint">Tapáil %1$s chun dul ar ais chuig do chluiche</string>
     <string name="patcher_storage_permission_dialog_title">Ní féidir rochtain a fháil ar an gcosán stórála</string>
     <string name="patcher_incompatible_patcher_title">Nuashonrú ag teastáil</string>
     <string name="patcher_incompatible_patcher_description">Éilíonn an pacáiste &lt;b&gt;%1$s&lt;/b&gt; leagan paisteora &lt;b&gt;%2$s&lt;/b&gt; nó níos nuaí. Nuashonraigh Morphe le do thoil chun an aip seo a phaisteáil.</string>
@@ -509,7 +510,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patcher_message_4">Ag grúdáil draíocht dhigiteach… ☕</string>
     <string name="patcher_message_5">Sos caife molta… ☕</string>
     <string name="patcher_message_6">Breathnaigh amach, tá sé go deas lasmuigh... 🌤️</string>
-    <string name="patcher_message_7">Ag coigeartú 1anna agus 0anna... 🤖</string>
+    <string name="patcher_message_7">Ag coigeartú 1anna agus 0anna… 🤖</string>
     <string name="patcher_message_8">Ag díthaclaíocht spagetti digiteach... 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Ag socrú fabhtanna san aip neamhphaisteáilte… 🪲</string>
@@ -1038,6 +1039,16 @@ Sonraí: %2$s"</string>
     <string name="credits_current_development">Forbairt reatha</string>
     <string name="credits_prior_development">Forbairt roimhe seo</string>
     <string name="opensource_licenses">Ceadúnais foinse oscailte</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Rogha</string>
+    <string name="easter_egg_pill_message">Tóg an piolla gorm agus fanfaidh na fógraí díreach mar atá siad. Tóg an ceann dearg agus feicfidh tú cé chomh domhain agus a théann an beartchód.</string>
+    <string name="easter_egg_pill_red">Piolla dearg</string>
+    <string name="easter_egg_pill_blue">Piolla gorm</string>
+    <string name="easter_egg_pill_red_toast">Cúlra Matrix díghlasáilte</string>
+    <string name="easter_egg_pill_blue_toast">Beidh na fógraí ag fanacht leat</string>
+    <string name="easter_egg_pill_message_again">Tá tú cheana sa Matrix. Cuireann an piolla dearg thú ar ais sa bháisteach, agus dúisíonn an ceann gorm thú</string>
+    <string name="easter_egg_pill_red_toast_again">Ar ais sa bháisteach</string>
+    <string name="easter_egg_pill_blue_toast_again">Dícheangailte. Tá an bealach ar ais san áit a raibh sé i gcónaí</string>
     <!-- Shared strings -->
     <string name="select_file">Roghnaigh comhad</string>
     <string name="select_folder">Roghnaigh fillteán</string>

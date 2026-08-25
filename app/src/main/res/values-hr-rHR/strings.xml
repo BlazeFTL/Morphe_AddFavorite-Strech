@@ -733,6 +733,7 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="settings_advanced_github_pat_export_warning">Ne dijelite svoj PAT. Ako ga uključite u postavke izvoza, držite tu datoteku privatnom jer sadrži token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opcije patchanja</string>
+    <string name="settings_advanced_patch_options_youtube_description">Opcije brendiranja i zaglavlja</string>
     <string name="settings_advanced_patch_options_restart_message">Promjena opcija patchanja zahtijeva ponovno instaliranje patcha da bi imalo efekta</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">U naprednom načinu opcije patchanja će biti dostupne tijekom procesa patchanja</string>
     <string name="settings_advanced_patch_options_loading">Učitavanje opcija patchanja…</string>
@@ -1041,6 +1042,7 @@ Detalji: %2$s"</string>
     <string name="credits_current_development">Trenutni razvoj</string>
     <string name="credits_prior_development">Prijašnji razvoj</string>
     <string name="opensource_licenses">Licence otvorenog koda</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <!-- Shared strings -->
     <string name="select_file">Odaberite datoteku</string>
     <string name="select_folder">Odaberite mapu</string>

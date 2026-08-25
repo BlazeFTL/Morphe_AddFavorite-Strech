@@ -657,8 +657,9 @@ class HomeViewModel(
     val currentInstallerType: InstallerType
         get() = installerTypeFor(usingMountInstall)
 
-    val currentApkArchitecture: ApkArchitecture
-        get() = SELECTION_APK_ARCHITECTURE
+    // Architecture of the APK the run starts from, read from it before patches are selected
+    var currentApkArchitecture: ApkArchitecture = ApkArchitecture.UNIVERSAL
+        private set
 
     // Controls the pre-patching mode selection dialog for root-capable devices.
     var showPrePatchInstallerDialog by mutableStateOf(false)
@@ -2679,6 +2680,10 @@ class HomeViewModel(
         selectedApp: SelectedApp,
         allowIncompatible: Boolean
     ) {
+        // Read before the first selection is resolved, so every rule below and every later edit
+        // in the expert dialog is answered for the APK this run actually starts from
+        currentApkArchitecture = ApkArchitectureResolver.resolve(selectedApp, pm)
+
         val allBundles = patchBundleRepository
             .scopedBundleInfoFlow(selectedApp.packageName, selectedApp.version, selectedApp.versionCode)
             .first()
@@ -3423,7 +3428,7 @@ class HomeViewModel(
             }
             pendingSelectedApp = null
             // Kept while the app is, because the dialogs that pause the flow resume into the
-            // same run and it must still know which install it was aimed at
+            // same run, and it must still know which install it was aimed at
             pendingRepatchPackageName = null
         }
         showApkAvailabilityDialog = false

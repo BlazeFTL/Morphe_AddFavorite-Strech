@@ -467,6 +467,7 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="patcher_ready_to_install_subtitle">Druk op die knoppie hieronder om te installeer</string>
     <string name="patcher_ready_to_mount_subtitle">Druk op die knoppie hieronder om te monteer</string>
     <string name="patcher_patches_excluded_for_installer">Nie beskikbaar vir hierdie installasiemethode en uitgesluit: %s</string>
+    <string name="patcher_back_to_game_hint">Tik op %1$s om terug te gaan na jou speletjie</string>
     <string name="patcher_storage_permission_dialog_title">Kan nie toegang tot stoorpad verkry nie</string>
     <string name="patcher_incompatible_patcher_title">Opdatering vereis</string>
     <string name="patcher_incompatible_patcher_description">Die bundel &lt;b&gt;%1$s&lt;/b&gt; vereis weergawe &lt;b&gt;%2$s&lt;/b&gt; of later van die patcher.  Dateer Morphe op om hierdie program te pleister</string>
@@ -509,7 +510,7 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="patcher_message_4">Braai digitale magie… ☕</string>
     <string name="patcher_message_5">Koffiepouse aanbeveel… ☕</string>
     <string name="patcher_message_6">Kyk buite, dit is lekker daarbuite… 🌤️</string>
-    <string name="patcher_message_7">Pas 1\'s en 0\'s aan… 🤖</string>
+    <string name="patcher_message_7">Pas 1\'e en 0\'e aan… 🤖</string>
     <string name="patcher_message_8">Ontwar digitale spaghetti… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Regmaak van foute in die ongepatchte app… 🪲</string>
@@ -1040,6 +1041,16 @@ Besonderhede: %2$s"</string>
     <string name="credits_current_development">Huidige ontwikkeling</string>
     <string name="credits_prior_development">Vorige ontwikkeling</string>
     <string name="opensource_licenses">Open-source lisensies</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">\'n Keuse</string>
+    <string name="easter_egg_pill_message">Neem die blou pil en die advertensies bly presies waar hulle is. Neem die rooi een en kyk hoe diep die bytekode gaan.</string>
+    <string name="easter_egg_pill_red">Rooi pil</string>
+    <string name="easter_egg_pill_blue">Blou pil</string>
+    <string name="easter_egg_pill_red_toast">Matrix agtergrond ontsluit</string>
+    <string name="easter_egg_pill_blue_toast">Die advertensies sal op jou wag</string>
+    <string name="easter_egg_pill_message_again">Jy is reeds in die Matrix. Die rooi pil laat jou terugval in die reën, die blou een maak jou wakker</string>
+    <string name="easter_egg_pill_red_toast_again">Terug in die reën</string>
+    <string name="easter_egg_pill_blue_toast_again">Ontkoppel. Die pad terug is waar dit altyd was</string>
     <!-- Shared strings -->
     <string name="select_file">Kies lêer</string>
     <string name="select_folder">Kies vouer</string>

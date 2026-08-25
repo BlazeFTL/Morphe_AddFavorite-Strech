@@ -467,6 +467,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="patcher_ready_to_install_subtitle">Pulsa el botón de abajo para instalar</string>
     <string name="patcher_ready_to_mount_subtitle">Pulsa el botón más abajo para montar</string>
     <string name="patcher_patches_excluded_for_installer">No disponible para este método de instalación y excluido: %s</string>
+    <string name="patcher_back_to_game_hint">Pulsa %1$s para volver a tu juego</string>
     <string name="patcher_storage_permission_dialog_title">No se puede acceder a la ruta de almacenamiento</string>
     <string name="patcher_incompatible_patcher_title">Actualización necesaria</string>
     <string name="patcher_incompatible_patcher_description">El paquete &lt;b&gt;%1$s&lt;/b&gt; requiere la versión &lt;b&gt;%2$s&lt;/b&gt; o más reciente del parcheador. Por favor, actualiza Morphe para parchear esta aplicación</string>
@@ -1040,6 +1041,16 @@ Detalles: %2$s"</string>
     <string name="credits_current_development">Desarrollo actual</string>
     <string name="credits_prior_development">Desarrollo anterior</string>
     <string name="opensource_licenses">Licencias de código abierto</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Una elección</string>
+    <string name="easter_egg_pill_message">Toma la pastilla azul y los anuncios se quedan exactamente donde están. Toma la roja y descubre hasta dónde llega el bytecode</string>
+    <string name="easter_egg_pill_red">Pastilla roja</string>
+    <string name="easter_egg_pill_blue">Pastilla azul</string>
+    <string name="easter_egg_pill_red_toast">Fondo de Matrix desbloqueado</string>
+    <string name="easter_egg_pill_blue_toast">Los anuncios te estarán esperando</string>
+    <string name="easter_egg_pill_message_again">Ya estás en la Matrix. La pastilla roja te deja caer de nuevo bajo la lluvia, la azul te despierta</string>
+    <string name="easter_egg_pill_red_toast_again">De nuevo bajo la lluvia</string>
+    <string name="easter_egg_pill_blue_toast_again">Desconectado. El camino de regreso está donde siempre estuvo</string>
     <!-- Shared strings -->
     <string name="select_file">Seleccionar archivo</string>
     <string name="select_folder">Seleccionar carpeta</string>

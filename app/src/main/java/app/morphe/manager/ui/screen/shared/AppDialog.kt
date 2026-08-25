@@ -329,7 +329,9 @@ private fun DialogContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
+            // The keyboard is one more thing the dialog has to fit above, and its inset already
+            // spans the navigation bar, so the two are taken together rather than stacked
+            .windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.ime))
             .padding(top = topPadding, bottom = bottomPadding)
             .pointerInput(Unit) {
                 detectTapGestures { /* Consume clicks */ }
@@ -387,7 +389,8 @@ private fun DialogContent(
 
                 // Content area, wrapped in a Box so ListScrollbar can anchor to the true dialog
                 // edge while the scrollable column keeps its own horizontal inset.
-                // Scrollable variant adds verticalScroll + imePadding so the keyboard doesn't cover input fields.
+                // Scrollable variant wraps the content in verticalScroll, which is what carries a
+                // focused field up into the room the keyboard inset leaves above it
                 // LazyColumn callers pass scrollable=false and wire up their own scrollbar
                 val scrollState = if (scrollable) rememberScrollState() else null
                 Box(
@@ -399,7 +402,7 @@ private fun DialogContent(
                             .padding(horizontal = horizontalPadding)
                             .then(
                                 if (scrollState != null) {
-                                    Modifier.verticalScroll(scrollState).imePadding()
+                                    Modifier.verticalScroll(scrollState)
                                 } else Modifier
                             )
                     ) {

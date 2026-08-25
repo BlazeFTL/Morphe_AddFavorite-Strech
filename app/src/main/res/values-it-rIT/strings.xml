@@ -510,7 +510,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_message_4">Stiamo creando magia digitale… ☕</string>
     <string name="patcher_message_5">Pausa caffè consigliata… ☕</string>
     <string name="patcher_message_6">Guarda fuori, è bello là fuori… 🌤️</string>
-    <string name="patcher_message_7">Regolando 1 e 0... 🤖</string>
+    <string name="patcher_message_7">Regolando 1 e 0… 🤖</string>
     <string name="patcher_message_8">Districando gli spaghetti digitali… 🍝</string>
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <string name="patcher_message_9">Risolvendo i problemi nell\'app non patchata… 🪲</string>
@@ -1041,6 +1041,11 @@ Dettagli: %2$s"</string>
     <string name="credits_current_development">Sviluppo attuale</string>
     <string name="credits_prior_development">Sviluppo precedente</string>
     <string name="opensource_licenses">Licenze open-source</string>
+    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Una scelta</string>
+    <string name="easter_egg_pill_message">Prendi la pillola blu e gli annunci restano esattamente dove sono. Prendi quella rossa e vedi quanto è profondo il bytecode</string>
+    <string name="easter_egg_pill_red">Pillola rossa</string>
+    <string name="easter_egg_pill_blue">Pillola blu</string>
     <!-- Shared strings -->
     <string name="select_file">Seleziona file</string>
     <string name="select_folder">Seleziona cartella</string>

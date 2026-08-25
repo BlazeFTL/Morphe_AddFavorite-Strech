@@ -76,6 +76,7 @@ fun AppearanceTabContent(
     val backgroundType by themeViewModel.prefs.backgroundType.getAsState()
     val enableParallax by themeViewModel.prefs.enableBackgroundParallax.getAsState()
     val randomInterval by themeViewModel.prefs.randomBackgroundInterval.getAsState()
+    val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
     val effectiveThemeStyle = resolveThemeStyle(themeStyle, supportsDynamicColor)
     val showAppCardColorSetting = effectiveThemeStyle != ThemeStyle.MONOCHROME
 
@@ -149,6 +150,7 @@ fun AppearanceTabContent(
             backgroundType = backgroundType,
             randomInterval = randomInterval,
             enableParallax = enableParallax,
+            matrixUnlocked = matrixUnlocked,
             onBackgroundSelected = themeViewModel::setBackgroundType,
             onIntervalSelected = themeViewModel::setRandomInterval,
             onParallaxToggle = { themeViewModel.toggleBackgroundParallax(enableParallax) }
@@ -184,7 +186,7 @@ fun AppearanceTabContent(
         UiScaleDialog(
             currentScale = uiScale,
             // The scale lives on the activity context, so it takes effect on the next attach.
-            // The write has to land first, or that attach would read the previous value
+            // To write has to land first, or that attach would read the previous value
             onApply = { scale ->
                 scope.launch {
                     themeViewModel.setUiScale(scale).join()
@@ -458,6 +460,7 @@ private fun BackgroundSection(
     backgroundType: BackgroundType,
     randomInterval: RandomInterval,
     enableParallax: Boolean,
+    matrixUnlocked: Boolean,
     onBackgroundSelected: (BackgroundType) -> Unit,
     onIntervalSelected: (RandomInterval) -> Unit,
     onParallaxToggle: () -> Unit
@@ -472,7 +475,8 @@ private fun BackgroundSection(
             selectedBackground = backgroundType,
             onBackgroundSelected = onBackgroundSelected,
             selectedInterval = randomInterval,
-            onIntervalSelected = onIntervalSelected
+            onIntervalSelected = onIntervalSelected,
+            matrixUnlocked = matrixUnlocked
         )
     }
 

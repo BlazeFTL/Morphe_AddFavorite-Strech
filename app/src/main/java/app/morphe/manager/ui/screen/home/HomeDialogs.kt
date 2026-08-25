@@ -664,6 +664,21 @@ internal fun ApkAvailabilityDialog(
 ) {
     val deviceSdk = Build.VERSION.SDK_INT
 
+    // The installed APK is dropped upstream when the patches do not target it, but a saved
+    // copy is offered whatever it is: it may be the only APK the user still has
+    val savedApkMatchesTargets = remember(savedApkInfo, compatibleVersions) {
+        savedApkInfo == null ||
+            compatibleVersions.patchableAt(savedApkInfo.version, savedApkInfo.versionCode)
+    }
+
+    // The build code is worth printing only where it is the whole difference: the targets name
+    // this version, and refuse this build of it. A version they do not name at all is already
+    // visible in the version beside the button
+    val savedApkBuildRefused = remember(savedApkInfo, savedApkMatchesTargets, compatibleVersions) {
+        savedApkInfo != null && !savedApkMatchesTargets &&
+            compatibleVersions.any { it.target.version == savedApkInfo.version }
+    }
+
     // Versions whose minSdk exceeds the current device - shown greyed-out and non-selectable
     val incompatibleSdkVersions: Set<String> = remember(compatibleVersions, deviceSdk) {
         compatibleVersions
@@ -703,18 +718,35 @@ internal fun ApkAvailabilityDialog(
                 if (savedApkInfo != null) {
                     AppDialogOutlinedButton(
                         text = stringResource(R.string.home_apk_use_saved),
-                        textSuffix = buildVersionSuffix(savedApkInfo.version, savedApkInfo.versionCode),
+                        textSuffix = if (savedApkBuildRefused) {
+                            buildVersionSuffix(savedApkInfo.version, savedApkInfo.versionCode)
+                        } else {
+                            "v${savedApkInfo.version}"
+                        },
                         onClick = onUseSaved,
                         icon = Icons.Outlined.History,
                         modifier = Modifier.fillMaxWidth()
                     )
+
+                    // Taking it leads to the unsupported-version dialog, which is a wasted tap
+                    // unless the user is told here what is wrong with the copy they kept
+                    if (!savedApkMatchesTargets) {
+                        Notice(
+                            text = stringResource(R.string.home_apk_use_saved_unsupported),
+                            tone = SemanticTone.Warning,
+                            icon = Icons.Outlined.Warning,
+                            density = NoticeDensity.Compact
+                        )
+                    }
                 }
 
                 // Installed APK button - hidden when saved mono-APK covers the same split version
                 if (installedApkInfo != null && !preferSavedOverInstalled) {
                     AppDialogOutlinedButton(
                         text = stringResource(R.string.home_apk_use_installed),
-                        textSuffix = buildVersionSuffix(installedApkInfo.version, installedApkInfo.versionCode),
+                        // Never the wrong build: an installed APK the patches do not target is
+                        // dropped before it reaches this dialog
+                        textSuffix = "v${installedApkInfo.version}",
                         onClick = onUseInstalled,
                         icon = Icons.Outlined.PhoneAndroid,
                         modifier = Modifier.fillMaxWidth()

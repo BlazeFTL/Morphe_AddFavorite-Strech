@@ -201,6 +201,7 @@
     <string name="home_apk_helper_installed_incompatible">The installed version cannot be patched</string>
     <string name="home_apk_use_saved">Use saved APK</string>
     <string name="home_apk_use_installed">Use installed APK</string>
+    <string name="home_apk_use_saved_unsupported">The patches do not support this saved copy. Patching it will ask you to confirm, or pick another APK</string>
     <string name="home_apk_use_installed_unverified">Could not verify the signature of the installed app, so it may already be patched</string>
     <string name="home_unverified">Unverified</string>
     <string name="home_install_verification_pending">Checking install…</string>

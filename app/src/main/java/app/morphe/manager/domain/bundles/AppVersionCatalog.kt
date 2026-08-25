@@ -28,6 +28,21 @@ data class BundledAppTarget(
 )
 
 /**
+ * Whether an APK of [version] is something these targets can be patched at, down to the build
+ * code wherever a target names one.
+ *
+ * An empty list, or a target carrying no version, is what a universal patch produces: nothing
+ * is being asked of the APK, so anything passes.
+ */
+fun List<BundledAppTarget>.patchableAt(version: String, versionCode: Long?): Boolean {
+    if (isEmpty() || any { it.target.version == null }) return true
+    return any { entry ->
+        entry.target.version == version &&
+            (entry.buildCodes == null || versionCode == null || versionCode.toInt() in entry.buildCodes)
+    }
+}
+
+/**
  * Versions any source marks experimental. The single definition every experimental badge and
  * warning is drawn from, so a version cannot read as stable in one place and not in another.
  */

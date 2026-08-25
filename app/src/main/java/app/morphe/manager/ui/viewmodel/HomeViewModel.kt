@@ -2067,20 +2067,7 @@ class HomeViewModel(
      */
     private fun applyInstalledApkInfo(installed: Boolean, info: InstalledApkInfo?) {
         pendingTargetAppInstalled = installed
-        pendingInstalledApkInfo = info?.takeIf { isInstalledVersionCompatible(it.version, it.versionCode) }
-    }
-
-    /**
-     * Returns true if [installedVersion] is listed in [pendingCompatibleVersions],
-     * or if the compatible list is empty / contains an "any version" target.
-     */
-    private fun isInstalledVersionCompatible(installedVersion: String, installedVersionCode: Long?): Boolean {
-        val compatible = pendingCompatibleVersions
-        if (compatible.isEmpty() || compatible.any { it.target.version == null }) return true
-        return compatible.any { entry ->
-            entry.target.version == installedVersion &&
-                (entry.buildCodes == null || installedVersionCode == null || installedVersionCode.toInt() in entry.buildCodes)
-        }
+        pendingInstalledApkInfo = info?.takeIf { pendingCompatibleVersions.patchableAt(it.version, it.versionCode) }
     }
 
     /**

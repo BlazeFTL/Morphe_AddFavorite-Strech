@@ -1169,7 +1169,7 @@ private fun InfoSection(
                 InfoRowWithAction(
                     icon = Icons.Outlined.DoneAll,
                     label = stringResource(R.string.home_app_info_applied_patches),
-                    value = pluralStringResource(R.plurals.patch_count, totalPatches, totalPatches),
+                    value = pluralStringResource(R.plurals.patch_count, totalPatches, totalPatches.toString()),
                     accentColor = accentColor,
                     onAction = onShowPatches
                 )
@@ -1814,7 +1814,7 @@ private fun AppliedPatchesDialog(
                         )
                     } else {
                         Text(
-                            text = pluralStringResource(R.plurals.source_count, bundles.size, bundles.size),
+                            text = pluralStringResource(R.plurals.source_count, bundles.size, bundles.size.toString()),
                             style = MaterialTheme.typography.bodySmall,
                             color = LocalDialogSecondaryTextColor.current
                         )

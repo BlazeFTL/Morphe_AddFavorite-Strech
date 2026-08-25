@@ -360,7 +360,7 @@ private fun CircularProgressWithStats(
             val totalPatchesText = pluralStringResource(
                 R.plurals.patch_count,
                 total,
-                total
+                total.toString()
             )
 
             Text(

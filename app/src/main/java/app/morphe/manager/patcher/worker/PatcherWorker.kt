@@ -135,7 +135,6 @@ class PatcherWorker(
             .setSmallIcon(Icon.createWithResource(applicationContext, R.drawable.ic_notification))
             .setContentIntent(pendingIntent)
             .setCategory(Notification.CATEGORY_SERVICE)
-            .setGroup(UpdateNotificationManager.GROUP_PATCHING)
             .setOngoing(true)
             .build()
     }

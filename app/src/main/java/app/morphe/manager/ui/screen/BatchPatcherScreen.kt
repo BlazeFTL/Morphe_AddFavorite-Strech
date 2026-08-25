@@ -571,15 +571,15 @@ private fun BatchStatusCard(state: BatchRunState) {
     val summary = when (state.phase) {
         BatchPhase.FINISHED -> stringResource(
             R.string.batch_patch_summary,
-            state.succeeded,
-            state.failed,
-            state.skipped
+            state.succeeded.toString(),
+            state.failed.toString(),
+            state.skipped.toString()
         )
 
         else -> pluralStringResource(
             R.plurals.batch_patch_ready_count,
             state.runnable.size,
-            state.runnable.size
+            state.runnable.size.toString()
         )
     }
 
@@ -943,7 +943,7 @@ private fun itemDetails(item: BatchPatchItem): String = when (item.state) {
         val patches = pluralStringResource(
             R.plurals.patch_count,
             item.patchCount,
-            item.patchCount
+            item.patchCount.toString()
         )
         // Only the sources actually contributing patches, so narrowing an app to one source
         // is reflected here instead of still listing everything the plan looked at

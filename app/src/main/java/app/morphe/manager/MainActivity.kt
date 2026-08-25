@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // Automatic re-patch notification: reopens the queue it reports about
+        // Batch result notification: reopens the queue it reports about
         if (intent?.action == ACTION_SHOW_BATCH_RESULT) {
             vm.pendingBatchResult = true
             return
@@ -189,8 +189,9 @@ class MainActivity : AppCompatActivity() {
                     ?.filter(String::isNotBlank)
 
             if (packageNames.isNullOrEmpty()) {
-                // No list means the launcher shortcut, which asks the app to work out what is
-                // outdated. It only opens the preflight list, so it needs no caller gate
+                // No list means the launcher shortcut or the re-patch notification, which
+                // ask the app to work out what is outdated. Either only opens the preflight
+                // list, so neither needs a caller gate
                 vm.pendingOutdatedBatch = true
             } else {
                 vm.pendingBatchPatch = MainViewModel.BatchPatchRequest(

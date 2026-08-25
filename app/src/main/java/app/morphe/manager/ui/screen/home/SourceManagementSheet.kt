@@ -224,7 +224,7 @@ fun BundleManagementSheet(
                                 text = pluralStringResource(
                                     R.plurals.sources_management_subtitle,
                                     sources.size,
-                                    sources.size
+                                    sources.size.toString()
                                 ),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant

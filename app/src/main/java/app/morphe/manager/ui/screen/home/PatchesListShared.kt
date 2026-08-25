@@ -62,7 +62,7 @@ internal fun PatchesListHeaderCard(
         val patchCountLabel = pluralStringResource(
             R.plurals.patch_count,
             totalCount,
-            totalCount
+            totalCount.toString()
         )
         val countText = if (isFiltering) "$filteredCount/$patchCountLabel"
         else patchCountLabel
@@ -126,7 +126,7 @@ internal fun UniversalPatchesHeader(
 
     HomeGlassCategoryRow(
         title = stringResource(R.string.expert_mode_universal_patches),
-        count = pluralStringResource(R.plurals.patch_count, count, count),
+        count = pluralStringResource(R.plurals.patch_count, count, count.toString()),
         onClick = onToggle,
         leading = {
             Icon(

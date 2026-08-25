@@ -172,6 +172,9 @@ fun HomeScreen(
         startInstallQueue(requests)
     }
 
+    // Same predicate the cards use for their update badge, so the count and the badges agree
+    val repatchableApps = remember(homeAppItems) { homeAppItems.filter { it.showsUpdateBadge } }
+
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
     val startBatchPatch: (List<HomeAppItem>) -> Unit = { items ->
         // A card that stands for an install queues that install, so cloned copies are each
@@ -276,6 +279,9 @@ fun HomeScreen(
                     blockedSources = AlertState(hasBlockedSources) { homeViewModel.showBundleManagementSheet = true },
                     metadataErrors = AlertState(hasMetadataErrors) { homeViewModel.showBundleManagementSheet = true },
                     meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) { onSettingsClick() },
+                    repatchAvailable = RepatchAlertState(repatchableApps.size) {
+                        startBatchPatch(repatchableApps)
+                    },
                     bundleUpdate = BundleUpdateState(
                         visible = homeViewModel.showBundleUpdateSnackbar,
                         status = homeViewModel.snackbarStatus,

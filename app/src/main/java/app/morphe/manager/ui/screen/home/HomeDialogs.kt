@@ -2007,7 +2007,7 @@ fun SimpleBundleSelectDialog(
                 val patchCountText = pluralStringResource(
                     R.plurals.patch_count,
                     candidate.patchCount,
-                    candidate.patchCount
+                    candidate.patchCount.toString()
                 )
                 val patchVersionText = candidate.patchVersion
                     ?.takeIf { it.isNotBlank() }

@@ -2740,7 +2740,7 @@ class HomeViewModel(
                     app.toast(app.resources.getQuantityString(
                         R.plurals.home_app_info_repatch_cleaned_invalid_data,
                         removedCount,
-                        removedCount
+                        removedCount.toString()
                     ))
                 }
 
@@ -3237,7 +3237,7 @@ class HomeViewModel(
                 app.resources.getQuantityString(
                     R.plurals.expert_mode_copy_from_bundle_done,
                     patches.size,
-                    patches.size
+                    patches.size.toString()
                 )
             )
             closeExpertModeCopyDialog()

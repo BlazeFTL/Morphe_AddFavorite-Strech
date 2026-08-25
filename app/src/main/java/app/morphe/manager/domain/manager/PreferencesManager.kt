@@ -72,21 +72,6 @@ class PreferencesManager(
     /**  How often the background update check should run. */
     val updateCheckInterval = enumPreference("update_check_interval", UpdateCheckInterval.DAILY)
 
-    /** Whether patched apps are re-patched automatically when their patch bundle changes. */
-    val autoPatchEnabled = booleanPreference("auto_patch_enabled", false)
-
-    /** How often the automatic re-patch check runs. */
-    val autoPatchInterval = enumPreference("auto_patch_interval", UpdateCheckInterval.WEEKLY)
-
-    /** Restricts automatic re-patching to a charging device, patching is CPU and RAM heavy. */
-    val autoPatchRequiresCharging = booleanPreference("auto_patch_requires_charging", true)
-
-    /**
-     * Installs automatically re-patched apps without asking. Only possible with an installer
-     * that works unattended, otherwise the run stops after saving the APKs.
-     */
-    val autoPatchInstall = booleanPreference("auto_patch_install", false)
-
     /** Whether other apps may start a batch patch run through an intent. */
     val externalBatchPatchEnabled = booleanPreference("external_batch_patch_enabled", false)
 
@@ -261,10 +246,6 @@ class PreferencesManager(
         val matrixBackgroundUnlocked: Boolean? = null,
         val useExpertMode: Boolean? = null,
         val updateCheckInterval: UpdateCheckInterval? = null,
-        val autoPatchEnabled: Boolean? = null,
-        val autoPatchInterval: UpdateCheckInterval? = null,
-        val autoPatchRequiresCharging: Boolean? = null,
-        val autoPatchInstall: Boolean? = null,
         val externalBatchPatchEnabled: Boolean? = null,
         val externalBatchPatchAllowlist: Set<String>? = null,
         val customBundles: List<BundleSnapshot>? = null,
@@ -320,10 +301,6 @@ class PreferencesManager(
         matrixBackgroundUnlocked = matrixBackgroundUnlocked.get(),
         useExpertMode = useExpertMode.get(),
         updateCheckInterval = updateCheckInterval.get(),
-        autoPatchEnabled = autoPatchEnabled.get(),
-        autoPatchInterval = autoPatchInterval.get(),
-        autoPatchRequiresCharging = autoPatchRequiresCharging.get(),
-        autoPatchInstall = autoPatchInstall.get(),
         externalBatchPatchEnabled = externalBatchPatchEnabled.get(),
         externalBatchPatchAllowlist = externalBatchPatchAllowlist.get(),
         bytecodeModePreference = bytecodeModePreference.get(),
@@ -393,10 +370,6 @@ class PreferencesManager(
         snapshot.matrixBackgroundUnlocked?.let { matrixBackgroundUnlocked.value = it }
         snapshot.useExpertMode?.let { useExpertMode.value = it }
         snapshot.updateCheckInterval?.let { updateCheckInterval.value = it }
-        snapshot.autoPatchEnabled?.let { autoPatchEnabled.value = it }
-        snapshot.autoPatchInterval?.let { autoPatchInterval.value = it }
-        snapshot.autoPatchRequiresCharging?.let { autoPatchRequiresCharging.value = it }
-        snapshot.autoPatchInstall?.let { autoPatchInstall.value = it }
         snapshot.externalBatchPatchEnabled?.let { externalBatchPatchEnabled.value = it }
         snapshot.externalBatchPatchAllowlist?.let { externalBatchPatchAllowlist.value = it }
         snapshot.bytecodeModePreference?.let { bytecodeModePreference.value = it }

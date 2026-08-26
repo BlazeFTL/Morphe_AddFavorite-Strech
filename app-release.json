@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-25T15:04:18",
-  "description": "## [1.28.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0...v1.28.1-dev.1) (2026-08-25)\n\n\n### Bug Fixes\n\n* Replace the automatic re-patching schedule with a re-patch alert on the home screen ([e977ccd](https://github.com/MorpheApp/morphe-manager/commit/e977ccddea85f2f363f44ce786f7dcccede6e3a4))\n* Show the build code of a saved APK only when the patches do not support it ([2c03321](https://github.com/MorpheApp/morphe-manager/commit/2c0332167fc0b8e153aa14c13a06b0a2aad61de9))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.28.1-dev.1/morphe-manager-1.28.1-dev.1.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.28.1-dev.1/morphe-manager-1.28.1-dev.1.apk.asc",
-  "version": "1.28.1-dev.1"
+  "created_at": "2026-08-26T08:27:17",
+  "description": "# [1.29.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.28.1-dev.1...v1.29.0-dev.1) (2026-08-26)\n\n\n### Bug Fixes\n\n* Morphe update crash when the staged APK is gone ([addfc70](https://github.com/MorpheApp/morphe-manager/commit/addfc706eb7f1c884d64b149bb79b644eedcf3a6))\n\n\n### Features\n\n* Add per-bundle issue reporting, pre-release warnings, and home screen improvements ([#902](https://github.com/MorpheApp/morphe-manager/issues/902)) ([208e7ef](https://github.com/MorpheApp/morphe-manager/commit/208e7eff059f0336c99e5e4fe76066fbcd90db34))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.1/morphe-manager-1.29.0-dev.1.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.1/morphe-manager-1.29.0-dev.1.apk.asc",
+  "version": "1.29.0-dev.1"
 }

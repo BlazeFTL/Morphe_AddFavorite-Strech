@@ -67,7 +67,7 @@ class SessionInstaller(private val app: Application) {
      */
     @SuppressLint("RequestInstallPackagesPolicy")
     suspend fun installInternal(apkFile: File): InstallResult {
-        require(apkFile.exists()) { "APK does not exist: ${apkFile.path}" }
+        requireApkPresent(apkFile)
         Log.d(TAG, "installInternal: ${apkFile.name} (${apkFile.length()} bytes)")
         return suspendCancellableCoroutine { cont ->
             val installer = app.packageManager.packageInstaller
@@ -204,7 +204,7 @@ class SessionInstaller(private val app: Application) {
     @SuppressLint("RequestInstallPackagesPolicy")
     @Suppress("DEPRECATION")
     private fun launchPackageInstall(apkFile: File, installerPackageName: String) {
-        require(apkFile.exists()) { "APK does not exist: ${apkFile.path}" }
+        requireApkPresent(apkFile)
         Log.d(TAG, "launchPackageInstall: ${apkFile.name}, installer=$installerPackageName")
         val uri = InstallerFileProvider.getUriForFile(app, apkFile)
         val intent = Intent(Intent.ACTION_INSTALL_PACKAGE).apply {
@@ -226,13 +226,13 @@ class SessionInstaller(private val app: Application) {
      * @throws InstallCancelledException if the installation was aborted or the coroutine was canceled.
      */
     suspend fun installShizuku(apkFile: File, expectedPackage: String): InstallResult {
-        require(apkFile.exists()) { "APK does not exist: ${apkFile.path}" }
+        requireApkPresent(apkFile)
         Log.d(TAG, "installShizuku: ${apkFile.name} (${apkFile.length()} bytes)")
         return installShizukuWithInstallerPackage(apkFile, expectedPackage, null)
     }
 
     suspend fun installShizukuAsPlayStore(apkFile: File, expectedPackage: String): InstallResult {
-        require(apkFile.exists()) { "APK does not exist: ${apkFile.path}" }
+        requireApkPresent(apkFile)
         Log.d(TAG, "installShizukuAsPlayStore: ${apkFile.name} (${apkFile.length()} bytes)")
         return installShizukuWithInstallerPackage(apkFile, expectedPackage, PLAY_STORE_INSTALLER_PACKAGE)
     }
@@ -261,9 +261,9 @@ class SessionInstaller(private val app: Application) {
     }
 
     /**
-     * Silent uninstall via Shizuku/Sui. Suspends until the uninstall completes.
+     * Silent uninstall via Shizuku/Sui. Suspends until uninstall completes.
      *
-     * @throws UninstallCancelledException if the uninstall was aborted or the coroutine was canceled.
+     * @throws UninstallCancelledException if uninstall was aborted or the coroutine was canceled.
      */
     suspend fun uninstallShizuku(packageName: String): UninstallResult {
         Log.d(TAG, "uninstallShizuku: $packageName")
@@ -454,6 +454,15 @@ class SessionInstaller(private val app: Application) {
         return true
     }
 
+    /**
+     * Rejects an APK that is gone by the time the install starts. Downloads staged in a
+     * temporary directory can be cleaned up while an install dialog is still on screen, and
+     * every entry point here is reached from UI that must report that instead of dying on it.
+     */
+    private fun requireApkPresent(apkFile: File) {
+        if (!apkFile.exists()) throw MissingApkException(apkFile.path)
+    }
+
     /** Registers [receiver] with [filter], applying [Context.RECEIVER_NOT_EXPORTED] on API 33+. */
     private fun registerReceiverCompat(receiver: BroadcastReceiver, filter: IntentFilter) {
         if (Build.VERSION.SDK_INT >= 33) {
@@ -498,6 +507,9 @@ sealed class UninstallResult {
 
 /** Thrown when the user dismissed the installation dialog or the installation was aborted. */
 class InstallCancelledException : Exception("Installation cancelled")
+
+/** Thrown when the APK handed to an installer no longer exists. */
+class MissingApkException(path: String) : Exception("APK does not exist: $path")
 
 /** Thrown when the PackageInstaller session was killed before completion. */
 class SessionDeadException(message: String?) : Exception(message)

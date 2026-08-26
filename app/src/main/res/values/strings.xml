@@ -1255,6 +1255,7 @@ Details: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB downloaded</string>
     <string name="manager_update_not_ready">This release is still being published. Try again in a few minutes</string>
+    <string name="update_download_missing">The downloaded update is no longer available. Download it again</string>
     <string name="download_manager_failed">Failed to download update: %s</string>
     <string name="failed_to_check_updates">Failed to check for updates: %s</string>
     <string name="failed_to_download_update">Failed to download update: %s</string>

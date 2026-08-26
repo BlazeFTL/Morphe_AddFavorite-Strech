@@ -1642,6 +1642,11 @@ class HomeViewModel(
                 compareByDescending<HomeAppItem> { it.showsUpdateBadge }
                     .then(morpheComparator)
             )
+            HomeAppSortMode.RECENTLY_PATCHED -> items.sortedWith(
+                // Newest patch first; apps never patched sort last, in recommended order
+                compareByDescending<HomeAppItem> { it.installedApp?.patchedAt ?: Long.MIN_VALUE }
+                    .then(morpheComparator)
+            )
         }
     }
 
@@ -2978,10 +2983,6 @@ class HomeViewModel(
     /** Total number of currently selected patches across all bundles. */
     val expertModeTotalSelectedCount: Int
         get() = expertModePatches.values.sumOf { it.size }
-
-    /** Total number of available patches across all bundles. */
-    val expertModeTotalPatchesCount: Int
-        get() = expertModeAllPatchesInfo.sumOf { it.second.size }
 
     /** True when patches from more than one bundle are selected (triggers warning on proceed). */
     val expertModeHasMultipleBundles: Boolean

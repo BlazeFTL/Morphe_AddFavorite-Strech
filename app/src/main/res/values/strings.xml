@@ -58,6 +58,8 @@
     <string name="home_app_sort_name_desc_description">Reverse alphabetical, Z to A</string>
     <string name="home_app_sort_updates_first">Patch updates first</string>
     <string name="home_app_sort_updates_first_description">Apps with update badges first, then recommended order</string>
+    <string name="home_app_sort_recently_patched">Recently patched</string>
+    <string name="home_app_sort_recently_patched_description">Most recently patched apps first</string>
     <string name="home_no_apps_title">No apps available</string>
     <string name="home_no_apps_subtitle">Add a patch source or enable an existing one in %s</string>
     <string name="home_no_apps_search_subtitle">No apps match \"%s\"</string>
@@ -131,9 +133,13 @@
     <string name="sources_sort_enabled_first">Enabled first</string>
     <string name="sources_sort_enabled_first_description">Show active sources before disabled sources</string>
     <string name="sources_management_open_in_browser">Open in browser</string>
+    <string name="sources_management_report_issue">Report an issue</string>
     <string name="sources_management_failed_to_open_url">Failed to open URL</string>
     <string name="sources_management_prerelease_toggle">Pre-release patches</string>
     <string name="sources_management_prerelease_toggle_description">Receives early access to new experimental patch versions</string>
+    <string name="sources_prerelease_warning_title">Enable pre-release patches?</string>
+    <string name="sources_prerelease_warning_message">Pre-release builds are still in development. Patches may fail or break the app, and features can change without warning</string>
+    <string name="expert_mode_prerelease_notice">This source is on pre-release patches. Patching may fail or behave unexpectedly</string>
     <string name="sources_management_experimental_versions_toggle">Experimental app versions</string>
     <string name="sources_management_experimental_versions_toggle_description">Patches experimental app targets if available</string>
     <string name="sources_management_already_exists">This source has already been added</string>
@@ -264,6 +270,8 @@
     <string name="expert_mode_enable_all">Enable all</string>
     <string name="expert_mode_enable_all_done">All patches enabled</string>
     <string name="expert_mode_enable_all_universal_pending">Tap again for universal patches</string>
+    <string name="expert_mode_universal_all_warning_title">Enable all universal patches?</string>
+    <string name="expert_mode_universal_all_warning_message">Universal patches are not tested together. Enabling all of them at once can cause conflicts, failed patching, or crashes</string>
     <string name="expert_mode_reset_to_default">Enable recommended patches</string>
     <string name="expert_mode_reset_to_default_done">Recommended patches applied</string>
     <string name="expert_mode_restore_saved">Restore saved selection</string>

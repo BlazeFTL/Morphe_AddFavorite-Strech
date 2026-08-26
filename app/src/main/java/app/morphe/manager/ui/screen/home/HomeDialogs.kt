@@ -41,6 +41,7 @@ import app.morphe.manager.domain.apk.InstalledApkInfo
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
@@ -399,12 +400,14 @@ fun HomeDialogs(
 
     // Expert Mode Dialog
     if (homeViewModel.showExpertModeDialog) {
+        // Reading the property re-walks and re-sorts every bundle's patches, so it is taken once
+        val allPatchesInfo = homeViewModel.expertModeAllPatchesInfo
         ExpertModeDialog(
             newPatches = homeViewModel.expertModeNewPatches,
             options = homeViewModel.expertModeOptions,
-            allPatchesInfo = homeViewModel.expertModeAllPatchesInfo,
+            allPatchesInfo = allPatchesInfo,
             totalSelectedCount = homeViewModel.expertModeTotalSelectedCount,
-            totalPatchesCount = homeViewModel.expertModeTotalPatchesCount,
+            totalPatchesCount = allPatchesInfo.sumOf { (_, patches) -> patches.size },
             hasMultipleBundles = homeViewModel.expertModeHasMultipleBundles,
             patchActions = ExpertPatchActions(
                 onPatchToggle = { bundleUid, patchName ->
@@ -435,6 +438,9 @@ fun HomeDialogs(
             savedPatches = homeViewModel.expertModeInitialPatches,
             lockStateOf = homeViewModel::expertModeLockState,
             holdsUniversalPatches = homeViewModel::expertModeSelectAllHoldsUniversal,
+            prereleaseBundleUids = allPatchesInfo.mapNotNull { (bundle, _) ->
+                bundle.uid.takeIf { homeViewModel.getPatchSource(it)?.usesPrerelease == true }
+            }.toSet(),
             onDismiss = {
                 homeViewModel.cleanupExpertModeData()
             },

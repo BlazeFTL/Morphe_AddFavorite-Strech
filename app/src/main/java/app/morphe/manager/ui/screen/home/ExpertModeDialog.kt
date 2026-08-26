@@ -15,6 +15,7 @@ import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Source
+import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
@@ -38,6 +39,7 @@ import app.morphe.manager.ui.model.renamesByDefault
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
+import app.morphe.manager.util.PatchSelectionUtils.hasEnablableUniversal
 import app.morphe.manager.util.toast
 import kotlinx.coroutines.launch
 
@@ -74,6 +76,8 @@ fun ExpertModeDialog(
     proceedText: String = stringResource(R.string.expert_mode_proceed),
     /** Off where mixing sources is the norm rather than something the user just did. */
     warnOnMultipleBundles: Boolean = true,
+    /** Bundle uids currently receiving pre-release patch versions, shown as a warning header. */
+    prereleaseBundleUids: Set<Int> = emptySet(),
     onDismiss: () -> Unit,
     onProceed: () -> Unit
 ) {
@@ -223,10 +227,14 @@ fun ExpertModeDialog(
                 }
 
                 val holdsUniversal = holdsUniversalPatches(bundle.uid, displayPatches)
+                // The second "Enable all" tap applies every universal patch at once; warn first
+                val warnsOnUniversalAll = !holdsUniversal &&
+                        displayPatches.hasEnablableUniversal(lockStateOf)
                 BundlePatchControls(
                     enabledCount = enabledCount,
                     totalCount = totalCount,
                     holdsUniversalPatches = holdsUniversal,
+                    warnOnUniversalAll = warnsOnUniversalAll,
                     onSelectAll = {
                         // This tap enables the universal patches, so it has to show what it turned on
                         if (!holdsUniversal) setUniversalExpanded(bundle.uid, true)
@@ -262,6 +270,9 @@ fun ExpertModeDialog(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                         ) {
+                            if (bundle.uid in prereleaseBundleUids) {
+                                prereleaseNotice()
+                            }
                             patchSections(
                                 bundleUid = bundle.uid,
                                 sections = sections,
@@ -370,10 +381,13 @@ fun ExpertModeDialog(
 
                     if (currentFiltered != null) {
                         val holdsUniversal = holdsUniversalPatches(currentBundle.uid, currentFiltered)
+                        val warnsOnUniversalAll = !holdsUniversal &&
+                                currentFiltered.hasEnablableUniversal(lockStateOf)
                         BundlePatchControls(
                             enabledCount = currentFiltered.count { it.second },
                             totalCount = currentFiltered.size,
                             holdsUniversalPatches = holdsUniversal,
+                            warnOnUniversalAll = warnsOnUniversalAll,
                             onSelectAll = {
                                 // This tap enables the universal patches, so it has to show what it turned on
                                 if (!holdsUniversal) setUniversalExpanded(currentBundle.uid, true)
@@ -421,6 +435,9 @@ fun ExpertModeDialog(
                                     modifier = Modifier.fillMaxSize(),
                                     verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                                 ) {
+                                    if (bundle.uid in prereleaseBundleUids) {
+                                        prereleaseNotice()
+                                    }
                                     patchSections(
                                         bundleUid = bundle.uid,
                                         sections = sections,
@@ -550,6 +567,19 @@ private fun rememberPatchSections(
  * Availability is resolved per patch, so a universal patch the installer requires or rules out
  * carries the same lock as an app-specific one.
  */
+/**
+ * Warning header for a source on the dev branch. It scrolls with the patches it belongs to
+ * rather than holding a fixed strip, which also keeps the tabs from shifting as pages change.
+ */
+private fun LazyListScope.prereleaseNotice() = item(key = "prerelease-notice") {
+    Notice(
+        text = stringResource(R.string.expert_mode_prerelease_notice),
+        icon = Icons.Outlined.WarningAmber,
+        tone = SemanticTone.Warning,
+        density = NoticeDensity.Compact
+    )
+}
+
 private fun LazyListScope.patchSections(
     bundleUid: Int,
     sections: PatchSections,

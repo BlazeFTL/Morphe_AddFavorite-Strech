@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.batch.*
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.home.*
@@ -161,12 +162,16 @@ fun BatchPatcherScreen(
     // The same dialog the single-app flow uses, pointed at one queued app instead of the
     // patcher, so the queue never has to grow a second patch list
     viewModel.edit?.let { edit ->
+        // Reading the property re-walks and re-sorts every bundle's patches, so it is taken once
+        val allPatchesInfo = edit.allPatchesInfo
+        val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+        val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
         ExpertModeDialog(
             newPatches = edit.newPatches,
             options = edit.options,
-            allPatchesInfo = edit.allPatchesInfo,
+            allPatchesInfo = allPatchesInfo,
             totalSelectedCount = edit.totalSelectedCount,
-            totalPatchesCount = edit.totalPatchesCount,
+            totalPatchesCount = allPatchesInfo.sumOf { (_, patches) -> patches.size },
             hasMultipleBundles = edit.hasMultipleBundles,
             patchActions = ExpertPatchActions(
                 onPatchToggle = edit::togglePatch,
@@ -183,6 +188,9 @@ fun BatchPatcherScreen(
             savedPatches = edit.savedSelection,
             lockStateOf = edit::lockStateOf,
             holdsUniversalPatches = edit::selectAllHoldsUniversal,
+            prereleaseBundleUids = allPatchesInfo.mapNotNull { (bundle, _) ->
+                bundle.uid.takeIf { sourcesByUid[it]?.usesPrerelease == true }
+            }.toSet(),
             proceedText = stringResource(R.string.save),
             // The queue combines sources by design, and the tabs make it plain enough
             warnOnMultipleBundles = false,
@@ -726,7 +734,7 @@ private fun BatchItemCard(
                         }
                     }
 
-                    // The install's own package, which is what tells clones of one app apart
+                    // This entry's own package, which is what tells clones of one app apart
                     Text(
                         text = item.id,
                         style = MaterialTheme.typography.bodySmall,

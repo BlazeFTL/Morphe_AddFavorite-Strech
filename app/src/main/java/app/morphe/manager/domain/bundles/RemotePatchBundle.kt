@@ -155,6 +155,18 @@ sealed class RemotePatchBundle(
         get() = inferPageUrlFromEndpoint(endpoint) ?: manifestPageUrl ?: endpoint
 
     /**
+     * Where the "report an issue" action takes the user: the repository's issues page.
+     *
+     * Follows the same order as [browsePageUrl] and appends the host's issues path
+     * (GitHub: /issues, GitLab: /-/issues). Hosts other than GitHub and GitLab have no known
+     * issues layout, so those land on the browse page instead of a guessed path.
+     */
+    open val issuesPageUrl: String
+        get() = inferIssuesUrlFromEndpoint(endpoint)
+            ?: manifestPageUrl?.let { issuesUrlForRepoUrl(it) }
+            ?: browsePageUrl
+
+    /**
      * Shared cache logic for [fetchChangelogEntries] and its overrides.
      */
     protected suspend fun fetchAndCacheEntries(
@@ -253,6 +265,20 @@ sealed class RemotePatchBundle(
             } catch (_: Exception) {
                 null
             }
+        }
+
+        /**
+         * Infer the issues page URL from various endpoint formats.
+         * Returns null for hosts other than GitHub and GitLab, whose issues layout is unknown.
+         */
+        fun inferIssuesUrlFromEndpoint(endpoint: String): String? =
+            inferPageUrlFromEndpoint(endpoint)?.let { issuesUrlForRepoUrl(it) }
+
+        /** Appends the host's issues path to an already resolved repository URL. */
+        fun issuesUrlForRepoUrl(repoUrl: String): String? = when {
+            repoUrl.startsWith("https://github.com/") -> "$repoUrl/issues"
+            repoUrl.startsWith("https://gitlab.com/") -> "$repoUrl/-/issues"
+            else -> null
         }
     }
 
@@ -501,6 +527,8 @@ class APIPatchBundle(
 
     // The endpoint is the API identifier rather than a browsable URL
     override val browsePageUrl: String get() = SOURCE_REPO_URL
+
+    override val issuesPageUrl: String get() = "$SOURCE_REPO_URL/issues"
 
     override suspend fun fetchChangelogEntries(sinceVersion: String?): List<ChangelogEntry> {
         val branch = if (usePrerelease) BRANCH_DEV else BRANCH_STABLE

@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Bazı yama kaynaklarının daha yeni bir sürümü gerekiyor</string>
     <string name="home_metered_skipped_title">Mobil veride güncellemeler duraklatıldı</string>
     <string name="home_metered_skipped_subtitle">Mobil veride güncellemeleri etkinleştirmek için dokunun</string>
+    <string name="home_repatch_available_subtitle">Hepsini kuyruğa eklemek için dokunun</string>
     <string name="home_update_error">Güncelleme başarısız</string>
     <string name="home_update_error_subtitle">Kaynaklar güncellenirken bir sorun oluştu</string>
     <string name="home_update_skipped_metered">Güncellemeler atlandı</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Yüklü sürüm yamalanamıyor</string>
     <string name="home_apk_use_saved">Kayıtlı APK\'yi kullan</string>
     <string name="home_apk_use_installed">Yüklü APK\'yi kullan</string>
+    <string name="home_apk_use_saved_unsupported">Bu kaydedilmiş kopya yamalar tarafından desteklenmiyor. Yamalama sırasında onay istenecek veya başka bir APK seçin</string>
     <string name="home_apk_use_installed_unverified">Yüklenen uygulamanın imzası doğrulanamadı, bu nedenle zaten yama uygulanmış olabilir</string>
     <string name="home_unverified">Doğrulanmamış</string>
     <string name="home_install_verification_pending">Kurulum kontrol ediliyor…</string>
@@ -669,14 +671,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_advanced_update_interval_monthly">Ayda bir</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Arka plan kontrol sıklığı</string>
     <string name="settings_advanced_update_interval_battery_warning">Bazı cihazlarda arka plan kontrolleri güvenilir şekilde çalışmayabilir. Xiaomi, Huawei, Samsung ve OnePlus gibi üreticiler, pil ömrünü uzatmak için arka plan işlemlerini genellikle agresif şekilde kısıtlarlar</string>
-    <string name="settings_advanced_auto_patch">Otomatik yeniden yama</string>
-    <string name="settings_advanced_auto_patch_description">Yamalar değiştiğinde, arka planda kurulu uygulamaları yeniden yamar. Yalnızca kaydedilmiş orijinal APK\'sı olan uygulamalar kapsam dahilindedir</string>
-    <string name="settings_advanced_auto_patch_interval">Yeniden yama sıklığı</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Yamalı uygulamaların ne sıklıkta yeniden oluşturulduğu</string>
-    <string name="settings_advanced_auto_patch_charging">Yalnızca şarj olurken</string>
-    <string name="settings_advanced_auto_patch_charging_description">Yamalama CPU ve belleğe çok yüklendiği için bir şarj cihazı bekler</string>
-    <string name="settings_advanced_auto_patch_install">Otomatik olarak kur</string>
-    <string name="settings_advanced_auto_patch_install_description">Kurulum aracı olarak Shizuku gerektirir. Başka herhangi bir kurulum aracıyla yamalı uygulamalar yalnızca kaydedilir</string>
     <string name="settings_advanced_external_batch_patch">Harici tetikleyicilere izin ver</string>
     <string name="settings_advanced_external_batch_patch_description">Otomasyon uygulamalarının bir intent ile toplu yamalamayı başlatmasına izin verir. Her istek herhangi bir şey çalıştırılmadan önce onaylanır</string>
     <string name="external_batch_patch_title">Toplu yamalamayı başlat?</string>
@@ -684,13 +678,6 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="external_batch_patch_trust_caller">Bu uygulamaya her zaman izin ver</string>
     <string name="external_batch_patch_unknown_caller">Bilinmeyen bir uygulama</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Otomatik yeniden yama tamamlandı</string>
-    <string name="notification_auto_patch_running_title">Uygulamalar yeniden yamalanıyor</string>
-    <string name="notification_auto_patch_blocked_title">Otomatik yeniden yama çalışmadı</string>
-    <string name="notification_auto_patch_blocked_battery">Sistem bu kurulumu engelledi. Xiaomi ve benzeri cihazlarda geliştirici seçeneklerinden \"USB üzerinden kur\" seçeneğini açın. Bir iş profili üzerinde, kurulumlar ilke tarafından kısıtlanabilir</string>
-    <string name="notification_auto_patch_blocked_foreground">Başarısız</string>
-    <string name="notification_channel_auto_patch">İptal edildi</string>
-    <string name="notification_channel_auto_patch_description">Hazır</string>
     <string name="notification_manager_update_title">Morphe güncellemesi mevcut</string>
     <string name="notification_bundle_update_title">Yeni yamalar mevcut</string>
     <string name="notification_update_text">%s sürümü indirilmeye hazır</string>

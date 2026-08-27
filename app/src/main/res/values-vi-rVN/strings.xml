@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Một số nguồn vá lỗi cần phiên bản mới hơn</string>
     <string name="home_metered_skipped_title">Tạm dừng cập nhật trên dữ liệu di động</string>
     <string name="home_metered_skipped_subtitle">Nhấn để cho phép cập nhật qua dữ liệu di động</string>
+    <string name="home_repatch_available_subtitle">Nhấn để xếp tất cả vào hàng đợi</string>
     <string name="home_update_error">Không thể cập nhật</string>
     <string name="home_update_error_subtitle">Đã xảy ra lỗi trong khi cập nhật nguồn</string>
     <string name="home_update_skipped_metered">Đã bỏ qua bản cập nhật</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Phiên bản đã cài đặt không thể vá được</string>
     <string name="home_apk_use_saved">Sử dụng APK đã lưu</string>
     <string name="home_apk_use_installed">Sử dụng APK đã cài đặt</string>
+    <string name="home_apk_use_saved_unsupported">Các bản vá không hỗ trợ bản sao đã lưu này. Việc vá sẽ yêu cầu bạn xác nhận, hoặc chọn một APK khác.</string>
     <string name="home_apk_use_installed_unverified">Không thể xác minh chữ ký của ứng dụng đã cài đặt, vì vậy ứng dụng có thể đã bị sửa đổi</string>
     <string name="home_unverified">Chưa xác minh</string>
     <string name="home_install_verification_pending">Đang kiểm tra cài đặt…</string>
@@ -670,14 +672,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_advanced_update_interval_monthly">1 tháng/lần</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Tần suất kiểm tra trong nền</string>
     <string name="settings_advanced_update_interval_battery_warning">Tính năng này có thể không hoạt động trên một số thiết bị như Xiaomi, Huawei, Samsung và OnePlus, vì chúng thường giới hạn ứng dụng chạy nền để tiết kiệm pin</string>
-    <string name="settings_advanced_auto_patch">Tự động vá lại</string>
-    <string name="settings_advanced_auto_patch_description">Tự động vá lại các ứng dụng đã cài đặt trong nền khi bản vá của chúng thay đổi. Chỉ các ứng dụng có APK gốc đã lưu được hỗ trợ</string>
-    <string name="settings_advanced_auto_patch_interval">Tần suất vá lại tự động</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Tần suất các ứng dụng đã vá được xây dựng lại</string>
-    <string name="settings_advanced_auto_patch_charging">Chỉ khi đang sạc</string>
-    <string name="settings_advanced_auto_patch_charging_description">Việc vá tốn nhiều CPU và bộ nhớ, vì vậy nó sẽ đợi bộ sạc</string>
-    <string name="settings_advanced_auto_patch_install">Cài đặt tự động</string>
-    <string name="settings_advanced_auto_patch_install_description">Yêu cầu Shizuku làm trình cài đặt. Với bất kỳ trình cài đặt nào khác, các ứng dụng đã vá chỉ được lưu</string>
     <string name="settings_advanced_external_batch_patch">Cho phép các trình kích hoạt bên ngoài</string>
     <string name="settings_advanced_external_batch_patch_description">Cho phép các ứng dụng tự động hóa bắt đầu vá hàng loạt bằng một ý định. Mọi yêu cầu đều được xác nhận trước khi mọi thứ chạy</string>
     <string name="external_batch_patch_title">Bắt đầu vá hàng loạt?</string>
@@ -685,13 +679,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="external_batch_patch_trust_caller">Luôn cho phép ứng dụng này</string>
     <string name="external_batch_patch_unknown_caller">Một ứng dụng không xác định</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Vá lại tự động đã hoàn thành</string>
-    <string name="notification_auto_patch_running_title">Đang vá lại ứng dụng</string>
-    <string name="notification_auto_patch_blocked_title">Vá lại tự động không chạy</string>
-    <string name="notification_auto_patch_blocked_battery">Hệ thống chặn cài đặt này. Trên Xiaomi và các thiết bị tương tự, hãy bật \"Cài đặt qua USB\" trong tùy chọn nhà phát triển. Trên một cấu hình làm việc, cài đặt có thể bị hạn chế theo chính sách</string>
-    <string name="notification_auto_patch_blocked_foreground">Android không cho phép vá bắt đầu trong nền. Mở Morphe và vá từ ứng dụng</string>
-    <string name="notification_channel_auto_patch">Vá lại tự động</string>
-    <string name="notification_channel_auto_patch_description">Thông báo tiến trình và kết quả im lặng để vá lại theo lịch trình</string>
     <string name="notification_manager_update_title">Đã có bản cập nhật Morphe mới</string>
     <string name="notification_bundle_update_title">Đã có bản vá mới</string>
     <string name="notification_update_text">Phiên bản %s đã sẵn sàng để tải xuống</string>

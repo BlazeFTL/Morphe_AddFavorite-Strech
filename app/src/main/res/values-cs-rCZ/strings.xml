@@ -668,14 +668,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_advanced_update_interval_monthly">Jednou měsíčně</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Častota kontroly v pozadí</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontroly v pozadí nemusí fungovat spolehlivě na některých zařízeních. Výrobci jako Xiaomi, Huawei, Samsung a OnePlus často agresivně omezují procesy v pozadí pro úsporu baterie.</string>
-    <string name="settings_advanced_auto_patch">Automatické pře-záplatování</string>
-    <string name="settings_advanced_auto_patch_description">Automaticky pře-záplatuje nainstalované aplikace na pozadí, když se jejich záplaty změní. Zahrnuje pouze aplikace s uloženým původním APK</string>
-    <string name="settings_advanced_auto_patch_interval">Frekvence pře-záplatování</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Jak často se znovu sestavují záplatované aplikace</string>
-    <string name="settings_advanced_auto_patch_charging">Pouze při nabíjení</string>
-    <string name="settings_advanced_auto_patch_charging_description">Záplatování je náročné na CPU a paměť, takže čeká na nabíječku</string>
-    <string name="settings_advanced_auto_patch_install">Automaticky instalovat</string>
-    <string name="settings_advanced_auto_patch_install_description">Vyžaduje Shizuku jako instalační program. S jakýmkoli jiným instalačním programem se záplatovaná APK pouze uloží</string>
     <string name="settings_advanced_external_batch_patch">Povolit externí spouštěče</string>
     <string name="settings_advanced_external_batch_patch_description">Umožňuje automatizačním aplikacím spouštět dávkové záplatování pomocí intentu. Každá žádost je potvrzena před spuštěním</string>
     <string name="external_batch_patch_title">Spustit dávkové záplatování?</string>
@@ -683,13 +675,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="external_batch_patch_trust_caller">Vždy povolit tuto aplikaci</string>
     <string name="external_batch_patch_unknown_caller">Neznámá aplikace</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Automatické pře-záplatování dokončeno</string>
-    <string name="notification_auto_patch_running_title">Pře-záplatování aplikací</string>
-    <string name="notification_auto_patch_blocked_title">Automatické pře-záplatování neproběhlo</string>
-    <string name="notification_auto_patch_blocked_battery">Systém blokuje Morphe pro optimalizaci baterie, jinak Android zastaví spuštění ještě před jeho zahájením</string>
-    <string name="notification_auto_patch_blocked_foreground">Android neumožnil spuštění záplatování na pozadí. Otevřete Morphe a záplatujte z aplikace</string>
-    <string name="notification_channel_auto_patch">Automatické pře-záplatování</string>
-    <string name="notification_channel_auto_patch_description">Tiché notifikace o průběhu a výsledku pro plánované pře-záplatování</string>
     <string name="notification_manager_update_title">Dostupná aktualizace Morphe</string>
     <string name="notification_bundle_update_title">Nové záplaty k dispozici</string>
     <string name="notification_update_text">Verze %s je připravena ke stažení</string>

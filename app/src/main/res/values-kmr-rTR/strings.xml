@@ -668,14 +668,6 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_advanced_update_interval_monthly">Her meh</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Rêjeya kontrolê paşîn</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontrolên paşîn dibin sedem ku hin alavkêm nekar in. Hilberîneran weke Xiaomi, Huawei, Samsung, û OnePlus gelek caran pêvajeyên paşîn ji bo parastina bataryayê asteng dikin.</string>
-    <string name="settings_advanced_auto_patch">Patchkirina dîsa otomatîk</string>
-    <string name="settings_advanced_auto_patch_description">Sepayên saz kirî piştî ku patchan diguhere di paşnavê de dîsa patch dike. Tenê sepanên ku rêgezî APKek hatî tomar kirin, têne girtin</string>
-    <string name="settings_advanced_auto_patch_interval">Frekansiya dîsa patchkirinê</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Çewtî sepayên patchkirî têne nûkirin</string>
-    <string name="settings_advanced_auto_patch_charging">Tenê dema ku tê barkirin</string>
-    <string name="settings_advanced_auto_patch_charging_description">Patchkirin li ser CPU û bîranê giran e, ji ber vê yekê ew li bendî barkirinê dimîne</string>
-    <string name="settings_advanced_auto_patch_install">Otomatîk saz bike</string>
-    <string name="settings_advanced_auto_patch_install_description">Divê Shizuku wek sazker be. Bi her sazkerê din tenê sepanên patchkirî hatine tomar kirin</string>
     <string name="settings_advanced_external_batch_patch">Têkirina ji derve bidê dest</string>
     <string name="settings_advanced_external_batch_patch_description">Dê sepanên otomatîk bidê dest bi patchkirina batchê bi niyetek. Her daxwazê berî her tiştê tê pejirandin</string>
     <string name="external_batch_patch_title">Dest bi patchkirina batchê bike?</string>
@@ -683,13 +675,6 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="external_batch_patch_trust_caller">Her gav bidê vê sepayê</string>
     <string name="external_batch_patch_unknown_caller">Sepeyek nenas</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Patchkirina dîsa otomatîk qedî bû</string>
-    <string name="notification_auto_patch_running_title">Sepayên patchkirinê</string>
-    <string name="notification_auto_patch_blocked_title">Patchkirina dîsa otomatîk neçû</string>
-    <string name="notification_auto_patch_blocked_battery">Sîstem nedikare patchkirinê dest pê bike. Li ser Xiaomi û cîhazên mîna wê, \"Sazkirin bi USB\" di vebijarkên pêşkeftî de vekin. Li ser profîlek kar, saz kirin dikare bi polîtîkayê were sînordar kirin</string>
-    <string name="notification_auto_patch_blocked_foreground">Android nedikare dest pê kirina patchkirinê di paşnavê de bidê dest. Morphe veke û ji sepanê de patch bike</string>
-    <string name="notification_channel_auto_patch">Patchkirina dîsa otomatîk</string>
-    <string name="notification_channel_auto_patch_description">Agahiyên pêşkeftinê bê deng ên ji bo patchkirina dîsa otomatîk</string>
     <string name="notification_manager_update_title">Nûvekirina Morphe heye</string>
     <string name="notification_bundle_update_title">Patchên nû hene</string>
     <string name="notification_update_text">Versiyona %s amade ye ku dakêşin.</string>

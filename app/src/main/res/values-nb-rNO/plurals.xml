@@ -44,9 +44,9 @@
         <item quantity="one">%s app klar for patching</item>
         <item quantity="other">%s apper klare for patching</item>
     </plurals>
-    <plurals name="batch_patch_notification_ready">
-        <item quantity="one">%s app er klar for installasjon</item>
-        <item quantity="other">%s apper er klare for installasjon</item>
+    <plurals name="repatch_available_count">
+        <item quantity="one">%s app kan lappes på nytt</item>
+        <item quantity="other">%s apper kan lappes på nytt</item>
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">Hoppet over %s app</item>

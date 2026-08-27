@@ -667,14 +667,6 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_advanced_update_interval_monthly">En gång i månaden</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Sökningsfrekvens i bakgrunden</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontroller i bakgrunden kanske inte fungerar tillförlitligt på vissa enheter. Tillverkare som Xiaomi, Huawei, Samsung och OnePlus begränsar ofta bakgrundsprocesser aggressivt för att spara batteri</string>
-    <string name="settings_advanced_auto_patch">Modifiera igen automatiskt</string>
-    <string name="settings_advanced_auto_patch_description">Modifierar installerade appar igen i bakgrunden när deras tillägg ändras. Endast appar med en sparad ursprunglig APK-fil omfattas</string>
-    <string name="settings_advanced_auto_patch_interval">Modifieringsfrekvens</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Hur ofta modifierade appar byggs om</string>
-    <string name="settings_advanced_auto_patch_charging">Endast när enheten laddas</string>
-    <string name="settings_advanced_auto_patch_charging_description">Modifieringen belastar CPU:n och minnet kraftigt, så den väntar på en laddare</string>
-    <string name="settings_advanced_auto_patch_install">Installera automatiskt</string>
-    <string name="settings_advanced_auto_patch_install_description">Kräver Shizuku som installerare. Med andra installerare sparas de modifierade apparna endast</string>
     <string name="settings_advanced_external_batch_patch">Tillåt externa utlösare</string>
     <string name="settings_advanced_external_batch_patch_description">Låter automatiseringsappar starta batchmodifiering med en avsikt. Varje begäran bekräftas innan något körs.</string>
     <string name="external_batch_patch_title">Starta batchmodifiering?</string>
@@ -682,13 +674,6 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="external_batch_patch_trust_caller">Tillåt alltid den här appen</string>
     <string name="external_batch_patch_unknown_caller">En okänd app</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Automatisk ommodifiering avslutad</string>
-    <string name="notification_auto_patch_running_title">Modifierar appar igen</string>
-    <string name="notification_auto_patch_blocked_title">Automatisk ommodifiering kördes inte</string>
-    <string name="notification_auto_patch_blocked_battery">Undanta Morphe från batterioptimering, annars stoppar Android körningen innan den startar</string>
-    <string name="notification_auto_patch_blocked_foreground">Android tillät inte att modifiering startade i bakgrunden. Öppna Morphe och modifiera från appen</string>
-    <string name="notification_channel_auto_patch">Modifiera igen automatiskt</string>
-    <string name="notification_channel_auto_patch_description">Tysta förlopps- och resultatmeddelanden för schemalagd ommodifiering</string>
     <string name="notification_manager_update_title">Uppdatering för Morphe är tillgänglig</string>
     <string name="notification_bundle_update_title">Nya tillägg är tillgängliga </string>
     <string name="notification_update_text">Version %s är redo att laddas ned</string>

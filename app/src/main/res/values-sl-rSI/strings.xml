@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Nekateri viri posodobitev potrebujejo novejšo različico</string>
     <string name="home_metered_skipped_title">Posodobitve so prekinjene pri uporabi mobilnih podatkov</string>
     <string name="home_metered_skipped_subtitle">Tapnite za dovoljenje posodobitev prek mobilnih podatkov</string>
+    <string name="home_repatch_available_subtitle">Tapnite, da jih vse dodate v čakalno vrsto</string>
     <string name="home_update_error">Posodobitev ni uspela</string>
     <string name="home_update_error_subtitle">Pri posodabljanju virov je prišlo do napake</string>
     <string name="home_update_skipped_metered">Posodobitve so bile preskočene</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Nameščene različice ni mogoče popraviti.</string>
     <string name="home_apk_use_saved">Uporabite shranjen APK</string>
     <string name="home_apk_use_installed">Uporabite nameščen APK</string>
+    <string name="home_apk_use_saved_unsupported">Popravki ne podpirajo te shranjene kopije. Nameščanje popravkov bo zahtevalo potrditev ali izbiro drugega APK.</string>
     <string name="home_apk_use_installed_unverified">Ni je bilo mogoče preveriti podpis nameščenega programa, zato je morda že spremenjen.</string>
     <string name="home_unverified">Nepotrjeno</string>
     <string name="home_install_verification_pending">Preverjanje namestitve…</string>
@@ -670,14 +672,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_advanced_update_interval_monthly">Enkrat na mesec</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Pogostost preverjanja v ozadju</string>
     <string name="settings_advanced_update_interval_battery_warning">Preverjanje v ozadju morda ne deluje zanesljivo na nekaterih napravah. Proizvajalci kot so Xiaomi, Huawei, Samsung in OnePlus pogosto agresivno omejujejo procese v ozadju, da varčujejo z baterijo</string>
-    <string name="settings_advanced_auto_patch">Samodejno ponovno popravljanje</string>
-    <string name="settings_advanced_auto_patch_description">Ponovno popravlja nameščene aplikacije v ozadju, ko se njihovi popravki spremenijo. Obravnava samo aplikacije s shranjenim originalnim APK-jem</string>
-    <string name="settings_advanced_auto_patch_interval">Pogostost ponovnega popravljanja</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Kako pogosto se ponovno popravljajo popravljene aplikacije</string>
-    <string name="settings_advanced_auto_patch_charging">Samo med polnjenjem</string>
-    <string name="settings_advanced_auto_patch_charging_description">Popravljanje je obremenjujoče za procesor in pomnilnik, zato počaka, da se naprava začne polniti</string>
-    <string name="settings_advanced_auto_patch_install">Samodejno namestite</string>
-    <string name="settings_advanced_auto_patch_install_description">Za namestitveni program zahteva Shizuku. Pri drugih namestitvenih programih se popravljeni APK-ji samo shranijo</string>
     <string name="settings_advanced_external_batch_patch">Dovolite zunanje sprožilce</string>
     <string name="settings_advanced_external_batch_patch_description">Omogoča avtomatizacijskim aplikacijam začetek množičnega popravljanja s pomočjo namena. Vsaka zahteva je potrjena, preden se karkoli izvede</string>
     <string name="external_batch_patch_title">Začnite množično popravljanje?</string>
@@ -685,13 +679,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="external_batch_patch_trust_caller">Vedno dovolite to aplikacijo</string>
     <string name="external_batch_patch_unknown_caller">Neznana aplikacija</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Samodejno ponovno popravljanje je končano</string>
-    <string name="notification_auto_patch_running_title">Ponovno popravljanje aplikacij</string>
-    <string name="notification_auto_patch_blocked_title">Samodejno ponovno popravljanje se ni izvedlo</string>
-    <string name="notification_auto_patch_blocked_battery">Sistem je blokiral to namestitev. Na napravah Xiaomi in podobnih omogočite »Namestitev prek USB« v možnostih za razvijalce. Na delovnem profilu lahko politike omejujejo namestitve</string>
-    <string name="notification_auto_patch_blocked_foreground">Android ni dovolil začetka popravljanja v ozadju. Odprite Morphe in popravite iz aplikacije</string>
-    <string name="notification_channel_auto_patch">Samodejno ponovno popravljanje</string>
-    <string name="notification_channel_auto_patch_description">Tiho posodabljanje in rezultati obveščanj za načrtovano ponovno popravljanje</string>
     <string name="notification_manager_update_title">Na voljo je posodobitev Morphe</string>
     <string name="notification_bundle_update_title">Na voljo so nove posodobitve</string>
     <string name="notification_update_text">Različica %s je pripravljena za prenos</string>

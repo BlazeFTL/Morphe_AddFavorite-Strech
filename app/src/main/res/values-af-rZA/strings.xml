@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Sommige bronlêers benodig \'n nuwer weergawe</string>
     <string name="home_metered_skipped_title">Opdaterings gestop op mobiele data</string>
     <string name="home_metered_skipped_subtitle">Tik om opdaterings op mobiele data toe te laat</string>
+    <string name="home_repatch_available_subtitle">Tik om hulle almal in die tou te plaas</string>
     <string name="home_update_error">Opdatering het misluk</string>
     <string name="home_update_error_subtitle">Iets het fout geloop tydens die opdatering van bronne</string>
     <string name="home_update_skipped_metered">Opdaterings oorgeslaan</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Omgekeerde alfabetiese volgorde, van Z tot A</string>
     <string name="home_app_sort_updates_first">Eerstens foutopdaterings</string>
     <string name="home_app_sort_updates_first_description">Eerstens toepassings met opdateringsikone, dan aanbevole volgorde</string>
+    <string name="home_app_sort_recently_patched">Onlangs gepatch</string>
+    <string name="home_app_sort_recently_patched_description">Mees onlangs gepatchde apps eerste</string>
     <string name="home_no_apps_title">Geen programme beskikbaar nie</string>
     <string name="home_no_apps_subtitle">Voeg \'n verandering oorsprong by of aktiveer \'n bestaande een in %s</string>
     <string name="home_no_apps_search_subtitle">Geen programme gelyk aan \"%s\" nie</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">Eerstens geaktiveer</string>
     <string name="sources_sort_enabled_first_description">Wys aktiewe bronne voor gedeaktiveerde bronne</string>
     <string name="sources_management_open_in_browser">Maak oop in blaaier</string>
+    <string name="sources_management_report_issue">Rapporteer \'n probleem</string>
     <string name="sources_management_failed_to_open_url">Mislukking om URL oop te maak</string>
     <string name="sources_management_prerelease_toggle">Voorvrystellings-veranderinge</string>
     <string name="sources_management_prerelease_toggle_description">Ontvang vroegtydige toegang tot nuwe eksperimentele weergawe-opdaterings</string>
+    <string name="sources_prerelease_warning_title">Aktiveer pre-release patches?</string>
+    <string name="sources_prerelease_warning_message">Pre-release weergawes is nog in ontwikkeling. Patches kan misluk of die app breek, en kenmerke kan sonder waarskuwing verander.</string>
+    <string name="expert_mode_prerelease_notice">Hierdie bron is op pre-release patches. Patching kan misluk of onverwags optree.</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimentele program-weergawes</string>
     <string name="sources_management_experimental_versions_toggle_description">Pleister eksperimentele app-teikens indien beskikbaar</string>
     <string name="sources_management_already_exists">Hierdie oorsprong is reeds bygevoeg</string>
@@ -192,6 +199,7 @@
     <string name="home_apk_helper_installed_incompatible">Die geïnstalleerde weergawe kan nie gepatch word nie</string>
     <string name="home_apk_use_saved">Gebruik gestoorde APK</string>
     <string name="home_apk_use_installed">Gebruik geïnstalleerde APK</string>
+    <string name="home_apk_use_saved_unsupported">Die kolle ondersteun nie hierdie gestoorde kopie nie. Om dit te kol, sal jou vra om te bevestig, of kies \'n ander APK</string>
     <string name="home_apk_use_installed_unverified">Kon nie die handtekening van die geïnstalleerde app verifieer nie, dus is dit moontlik reeds gemodifiseer</string>
     <string name="home_unverified">Ongeverifieer</string>
     <string name="home_install_verification_pending">Kontroleer installasie…</string>
@@ -251,6 +259,8 @@
     <string name="expert_mode_enable_all">Aktiveer alles</string>
     <string name="expert_mode_enable_all_done">Alle pleisters geaktiveer</string>
     <string name="expert_mode_enable_all_universal_pending">Tik weer vir universele patches</string>
+    <string name="expert_mode_universal_all_warning_title">Aktiveer alle universele patches?</string>
+    <string name="expert_mode_universal_all_warning_message">Universele patches word nie saam getoets nie. Om almal gelyktydig te aktiveer kan konflikte, mislukte patching of crashes veroorsaak.</string>
     <string name="expert_mode_reset_to_default">Aktiveer aanbevole pleisters</string>
     <string name="expert_mode_reset_to_default_done">Aanbevole pleisters toegepas</string>
     <string name="expert_mode_restore_saved">Ingevoeg suksesvol</string>
@@ -670,14 +680,6 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_advanced_update_interval_monthly">Een keer per maand</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Agtergrondkontroleer frekwensie</string>
     <string name="settings_advanced_update_interval_battery_warning">Agtergrondkontroles werk moontlik nie betroubaar op sommige toestelle nie. Vervaardigers soos Xiaomi, Huawei, Samsung en OnePlus beperk dikwels agtergrondprosesse aggressief om battery te spaar</string>
-    <string name="settings_advanced_auto_patch">Outomatiese her-pleister</string>
-    <string name="settings_advanced_auto_patch_description">Her-pleister geïnstalleerde programme op die agtergrond wanneer hul pleisters verander. Slegs programme met \'n gestoorde oorspronklike APK word gedek</string>
-    <string name="settings_advanced_auto_patch_interval">Her-pleister frekwensie</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Hoe gereeld gepatchte programme herbou word</string>
-    <string name="settings_advanced_auto_patch_charging">Slegs tydens laai</string>
-    <string name="settings_advanced_auto_patch_charging_description">Pleistering is swaar op die SVE en geheue, so dit wag vir \'n laaier</string>
-    <string name="settings_advanced_auto_patch_install">Installeer outomaties</string>
-    <string name="settings_advanced_auto_patch_install_description">Vereis Shizuku as die installeerder. Met enige ander installeerder word die gepatchte programme slegs gestoor</string>
     <string name="settings_advanced_external_batch_patch">Laat eksterne snellers toe</string>
     <string name="settings_advanced_external_batch_patch_description">Laat outomatiseringsprogramme batch pleister begin met \'n intent. Elke versoek word bevestig voordat enigiets uitgevoer word</string>
     <string name="external_batch_patch_title">Begin batch pleister?</string>
@@ -685,13 +687,6 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="external_batch_patch_trust_caller">Altyd hierdie program toelaat</string>
     <string name="external_batch_patch_unknown_caller">\'n Onbekende program</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Outomatiese her-pleister voltooi</string>
-    <string name="notification_auto_patch_running_title">Programme her-pleister</string>
-    <string name="notification_auto_patch_blocked_title">Outomatiese her-pleister het nie geloop nie</string>
-    <string name="notification_auto_patch_blocked_battery">Stelsel het hierdie installasie geblokkeer. Op Xiaomi en soortgelyke toestelle, skakel \"Installeer via USB\" in ontwikkelaar opsies. Op \'n werksprofiel kan installasies deur beleid beperk word</string>
-    <string name="notification_auto_patch_blocked_foreground">Morphe van battery optimalisering vrygestel, anders stop Android die uitvoering voordat dit begin</string>
-    <string name="notification_channel_auto_patch">Outomatiese her-pleister</string>
-    <string name="notification_channel_auto_patch_description">Stille vordering en resultaat kennisgewings vir geskeduleerde her-pleister</string>
     <string name="notification_manager_update_title">Morphe-opdatering beskikbaar</string>
     <string name="notification_bundle_update_title">Nuwe kolle beskikbaar</string>
     <string name="notification_update_text">Weergawe %s is gereed om af te laai</string>
@@ -1176,6 +1171,7 @@ Besonderhede: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB afgelaai</string>
     <string name="manager_update_not_ready">Hierdie weergawe word nog steeds gepubliseer. Probeer weer oor \'n paar minute</string>
+    <string name="update_download_missing">Die afgelaaide opdatering is nie meer beskikbaar nie. Laai dit weer af.</string>
     <string name="download_manager_failed">Kon nie opdatering aflaai nie: %s</string>
     <string name="failed_to_check_updates">Kon nie opdaterings nagaan nie: %s</string>
     <string name="failed_to_download_update">Kon nie opdatering aflaai nie: %s</string>

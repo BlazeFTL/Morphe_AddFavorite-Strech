@@ -66,12 +66,6 @@
         <item quantity="many">%s aplikácie pripravené na záplatu</item>
         <item quantity="other">%s aplikácie pripravené na záplatu</item>
     </plurals>
-    <plurals name="batch_patch_notification_ready">
-        <item quantity="one">%s aplikácia je pripravená na inštaláciu</item>
-        <item quantity="few">%s aplikácie sú pripravené na inštaláciu</item>
-        <item quantity="many">%s aplikácie sú pripravené na inštaláciu</item>
-        <item quantity="other">%s aplikácie sú pripravené na inštaláciu</item>
-    </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">Preskočená %s aplikácia</item>
         <item quantity="few">Preskočené %s aplikácie</item>

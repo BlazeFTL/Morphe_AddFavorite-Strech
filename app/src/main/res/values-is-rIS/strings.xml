@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Sumar uppsprettur þarf að uppfæra</string>
     <string name="home_metered_skipped_title">Uppfærslur á vinnslasvæði eru á stöðu</string>
     <string name="home_metered_skipped_subtitle">Tap til að leyfa uppfærslur á farsímagögnunum</string>
+    <string name="home_repatch_available_subtitle">Snertu til að setja þau öll í biðröð</string>
     <string name="home_update_error">Uppskera mistókst</string>
     <string name="home_update_error_subtitle">Eitthvað fór úrskeidandi þegar uppfæra átti heimildirnar</string>
     <string name="home_update_skipped_metered">Uppfærslur höfðu</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Ekki er hægt að plástra uppsettu útgáfuna</string>
     <string name="home_apk_use_saved">Nota vistað APK</string>
     <string name="home_apk_use_installed">Nota upphætt APK</string>
+    <string name="home_apk_use_saved_unsupported">Plástrarnir styðja ekki þetta vistaða afrit. Að setja plástra á það mun biðja þig um staðfestingu, eða veldu aðra APK</string>
     <string name="home_apk_use_installed_unverified">Gat ekki staðfest undirskrift uppsetts forrits, þannig að það gæti þegar verið lagað</string>
     <string name="home_unverified">Óstaðfest</string>
     <string name="home_install_verification_pending">Athuga uppsetningu…</string>
@@ -668,14 +670,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_advanced_update_interval_monthly">Einu sinni á mánuði</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Bakgrunns þjónastútur tímatali</string>
     <string name="settings_advanced_update_interval_battery_warning">Bakgrunnur prótanir mega ekki virka á ákveðnum tækjum. Framleiðendur eins og Xiaomi, Huawei, Samsung og OnePlus takast oft á við bakgrunns prótanir til að spara rafmagn</string>
-    <string name="settings_advanced_auto_patch">Sjálfvirk endurbreyting</string>
-    <string name="settings_advanced_auto_patch_description">Endurbreyta uppsettum appum í bakgrunni þegar breytingar á þeim gerast. Aðeins appum með vistaðan upprunalegan APK er hyljað</string>
-    <string name="settings_advanced_auto_patch_interval">Endurbreytingartíðni</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Hversu oft breytt app er endurbreytt</string>
-    <string name="settings_advanced_auto_patch_charging">Aðeins þegar hlaðið er</string>
-    <string name="settings_advanced_auto_patch_charging_description">Breytingar eru þungar á örgjörvann og minni, þannig að það bíður eftir hleðslu</string>
-    <string name="settings_advanced_auto_patch_install">Settur upp sjálfkrafa</string>
-    <string name="settings_advanced_auto_patch_install_description">Krefst Shizuku sem uppsetningaraðila. Með öðrum uppsetningaraðila eru breytt app bara vistað</string>
     <string name="settings_advanced_external_batch_patch">Leyfa ytri kveikja</string>
     <string name="settings_advanced_external_batch_patch_description">Leyfir sjálfvirkni forritum að heja breytingum með því að nota fyrirspurn. Allar beiðnir eru staðfestar áður en eitthvað er keyrt</string>
     <string name="external_batch_patch_title">Heja breytingum?</string>
@@ -683,13 +677,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="external_batch_patch_trust_caller">Alltaf leyfa þessu appi</string>
     <string name="external_batch_patch_unknown_caller">Óþekkt app</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Sjálfvirk endurbreyting lokið</string>
-    <string name="notification_auto_patch_running_title">Endurbreyting appa</string>
-    <string name="notification_auto_patch_blocked_title">Sjálfvirk endurbreyting hófst ekki</string>
-    <string name="notification_auto_patch_blocked_battery">Kerfið lokaði þessari uppsetningu. Á Xiaomi og sambærilegum tækjum, kveiktu á \"Uppsetningu í gegnum USB\" í valkostum fyrir forritara. Á vinnusniðum geta uppsetningar verið takmörkuð af stefnu</string>
-    <string name="notification_auto_patch_blocked_foreground">Android leyfði ekki breytingum að hefjast í bakgrunni. Opnaðu Morphe og breyttu frá appinu</string>
-    <string name="notification_channel_auto_patch">Sjálfvirk endurbreyting</string>
-    <string name="notification_channel_auto_patch_description">Hlífðarlaus framvindandi og niðurstöðugar tilkynningar um skipulagða endurbreytingu</string>
     <string name="notification_manager_update_title">Morphe uppfærsla í boði</string>
     <string name="notification_bundle_update_title">Nýjar pakkningar í boði</string>
     <string name="notification_update_text">Útgáfa %s er tilbúin til að hlaða niður</string>

@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Teastaíonn leagan níos nuaí ó roinnt foinsí paiste</string>
     <string name="home_metered_skipped_title">Nuashonruithe curtha ar sos ar shonraí soghluaiste</string>
     <string name="home_metered_skipped_subtitle">Tapáil chun nuashonruithe ar shonraí soghluaiste a cheadú</string>
+    <string name="home_repatch_available_subtitle">Tapáil chun iad uile a chur i scuaine</string>
     <string name="home_update_error">Theip ar nuashonrú</string>
     <string name="home_update_error_subtitle">Tharla fadhb agus foinsí á nuashonrú</string>
     <string name="home_update_skipped_metered">Nuashonruithe scipeáilte</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Droim ar ais aibítreach, Z go A</string>
     <string name="home_app_sort_updates_first">Nuashonruithe paiste ar dtús</string>
     <string name="home_app_sort_updates_first_description">Aipeanna le suaitheantais nuashonraithe ar dtús, ansin ord molta</string>
+    <string name="home_app_sort_recently_patched">Paisteáilte le déanaí</string>
+    <string name="home_app_sort_recently_patched_description">Aipeanna is déanaí a paisteáladh ar dtús</string>
     <string name="home_no_apps_title">Níl aon aipeanna ar fáil</string>
     <string name="home_no_apps_subtitle">Cuir foinse paiste leis nó cumasaigh ceann atá ann cheana féin i %s</string>
     <string name="home_no_apps_search_subtitle">Níl aon aip ag teacht le \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">Cumasaithe ar dtús</string>
     <string name="sources_sort_enabled_first_description">Taispeáin foinsí gníomhacha roimh fhoinsí díchumasaithe</string>
     <string name="sources_management_open_in_browser">Oscail sa bhrabhsálaí</string>
+    <string name="sources_management_report_issue">Tuairiscigh fadhb</string>
     <string name="sources_management_failed_to_open_url">Teip ar URL a oscailt</string>
     <string name="sources_management_prerelease_toggle">Paistí réamh-eisiúna</string>
     <string name="sources_management_prerelease_toggle_description">Faigheann sé rochtain luath ar leaganacha nua paiste turgnamhacha</string>
+    <string name="sources_prerelease_warning_title">Paistí réamh-eisiúna a chumasú?</string>
+    <string name="sources_prerelease_warning_message">Tá leaganacha réamh-eisiúna fós á bhforbairt. D’fhéadfadh paistí teip nó an aip a bhriseadh, agus d’fhéadfadh gnéithe athrú gan rabhadh.</string>
+    <string name="expert_mode_prerelease_notice">Tá an fhoinse seo ar phaistí réamh-eisiúna. D’fhéadfadh teip nó iompar gan choinne a bheith mar thoradh ar phaistí.</string>
     <string name="sources_management_experimental_versions_toggle">Leaganacha turgnamhacha aipeanna</string>
     <string name="sources_management_experimental_versions_toggle_description">Paistí spriocanna aipeanna turgnamhacha más féidir</string>
     <string name="sources_management_already_exists">Tá an fhoinse seo curtha leis cheana féin</string>
@@ -192,6 +199,7 @@
     <string name="home_apk_helper_installed_incompatible">Ní féidir an leagan suiteáilte a phaisteáil</string>
     <string name="home_apk_use_saved">Úsáid APK sábháilte</string>
     <string name="home_apk_use_installed">Úsáid APK suiteáilte</string>
+    <string name="home_apk_use_saved_unsupported">Ní thacaíonn na paistí leis an gcóip shábháilte seo. Iarrfar ort é a dhearbhú, nó APK eile a roghnú agus tú á phaisteáil.</string>
     <string name="home_apk_use_installed_unverified">Níorbh fhéidir síniú an aip suiteáilte a fhíorú, mar sin d\'fhéadfadh sé go bhfuil paiste air cheana féin</string>
     <string name="home_unverified">Gan fhíorú</string>
     <string name="home_install_verification_pending">Ag seiceáil an tsuiteáil…</string>
@@ -251,6 +259,8 @@
     <string name="expert_mode_enable_all">Cumasaigh gach rud</string>
     <string name="expert_mode_enable_all_done">Gach paiste cumasaithe</string>
     <string name="expert_mode_enable_all_universal_pending">Tapáil arís le haghaidh paistí uilíocha</string>
+    <string name="expert_mode_universal_all_warning_title">Cumasaigh na paistí uilíocha go léir?</string>
+    <string name="expert_mode_universal_all_warning_message">Ní dhéantar paistí uilíocha a thástáil le chéile. Má chuirtear ar chumas iad go léir ag an am céanna, d’fhéadfadh coimhlintí, paistí teipthe, nó tuairteanna a bheith mar thoradh orthu.</string>
     <string name="expert_mode_reset_to_default">Cumasaigh paistí molta</string>
     <string name="expert_mode_reset_to_default_done">Paistí molta curtha i bhfeidhm</string>
     <string name="expert_mode_restore_saved">Athchóirigh an rogha sábháilte</string>
@@ -467,7 +477,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patcher_ready_to_install_subtitle">Brúigh an cnaipe thíos chun é a shuiteáil</string>
     <string name="patcher_ready_to_mount_subtitle">Brúigh an cnaipe thíos chun é a ghléasadh</string>
     <string name="patcher_patches_excluded_for_installer">Ní féidir é a shuiteáil agus níl sé ar fáil: %s</string>
-    <string name="patcher_back_to_game_hint">Tapáil %1$s chun dul ar ais chuig do chluiche</string>
+    <string name="patcher_back_to_game_hint">Tapáil %1$s chun filleadh ar do chluiche</string>
     <string name="patcher_storage_permission_dialog_title">Ní féidir rochtain a fháil ar an gcosán stórála</string>
     <string name="patcher_incompatible_patcher_title">Nuashonrú ag teastáil</string>
     <string name="patcher_incompatible_patcher_description">Éilíonn an pacáiste &lt;b&gt;%1$s&lt;/b&gt; leagan paisteora &lt;b&gt;%2$s&lt;/b&gt; nó níos nuaí. Nuashonraigh Morphe le do thoil chun an aip seo a phaisteáil.</string>
@@ -670,14 +680,6 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_advanced_update_interval_monthly">Uair sa mhí</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Minicíocht seiceálacha cúlra</string>
     <string name="settings_advanced_update_interval_battery_warning">B’fhéidir nach n-oibreoidh seiceálacha cúlra go hiontaofa ar roinnt gléasanna. Is minic a chuireann monaróirí cosúil le Xiaomi, Huawei, Samsung, agus OnePlus srian dian ar phróisis chúlra chun ceallraí a shábháil.</string>
-    <string name="settings_advanced_auto_patch">Athphaisteáil uathoibríoch</string>
-    <string name="settings_advanced_auto_patch_description">Athphaisteálann sé aipeanna suiteáilte sa chúlra nuair a athraíonn a bpaistí. Ní chumhdaítear ach aipeanna a bhfuil APK bunaidh sábháilte acu.</string>
-    <string name="settings_advanced_auto_patch_interval">Minicíocht athphaisteála</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Cé chomh minic a atógtar aipeanna paisteáilte</string>
-    <string name="settings_advanced_auto_patch_charging">Agus é á mhuirearú amháin</string>
-    <string name="settings_advanced_auto_patch_charging_description">Tá paistí trom ar an LAP agus ar an gcuimhne, mar sin fanann sé le luchtaire</string>
-    <string name="settings_advanced_auto_patch_install">Suiteáil go huathoibríoch</string>
-    <string name="settings_advanced_auto_patch_install_description">Éilíonn Shizuku mar an suiteálaí. Le haon suiteálaí eile, ní shábhálfar ach na haipeanna paisteáilte.</string>
     <string name="settings_advanced_external_batch_patch">Ceadaigh spreagthóirí seachtracha</string>
     <string name="settings_advanced_external_batch_patch_description">Ligeann sé d’aipeanna uathoibrithe tosú ag paisteáil bhaisc le hintinn áirithe. Deimhnítear gach iarratas sula ritheann aon rud</string>
     <string name="external_batch_patch_title">Tosaigh ag paisteáil bhaisc?</string>
@@ -685,13 +687,6 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="external_batch_patch_trust_caller">Ceadaigh an aip seo i gcónaí</string>
     <string name="external_batch_patch_unknown_caller">Aip anaithnid</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Athphaisteáil uathoibríoch críochnaithe</string>
-    <string name="notification_auto_patch_running_title">Athphaisteáil aipeanna</string>
-    <string name="notification_auto_patch_blocked_title">Níor rith an athphaisteáil uathoibríoch</string>
-    <string name="notification_auto_patch_blocked_battery">Díolmhaigh Morphe ó uasmhéadú ceallraí, nó stopann Android an rith sula dtosaíonn sé</string>
-    <string name="notification_auto_patch_blocked_foreground">Níor cheadaigh Android don phaisteáil tosú sa chúlra. Oscail Morphe agus déan paisteáil ón aip.</string>
-    <string name="notification_channel_auto_patch">Athphaisteáil uathoibríoch</string>
-    <string name="notification_channel_auto_patch_description">Fógraí ciúine maidir le dul chun cinn agus torthaí le haghaidh athphaisteáil sceidealaithe</string>
     <string name="notification_manager_update_title">Nuashonrú Morphe ar fáil</string>
     <string name="notification_bundle_update_title">Paistí nua ar fáil</string>
     <string name="notification_update_text">Tá leagan %s réidh le híoslódáil</string>
@@ -1041,14 +1036,14 @@ Sonraí: %2$s"</string>
     <string name="opensource_licenses">Ceadúnais foinse oscailte</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
     <string name="easter_egg_pill_title">Rogha</string>
-    <string name="easter_egg_pill_message">Tóg an piolla gorm agus fanfaidh na fógraí díreach mar atá siad. Tóg an ceann dearg agus feicfidh tú cé chomh domhain agus a théann an beartchód.</string>
+    <string name="easter_egg_pill_message">Glac an piolla gorm agus fanann na fógraí díreach mar a bhfuil siad. Glac an ceann dearg agus féach cé chomh domhain is a théann an cód beart.</string>
     <string name="easter_egg_pill_red">Piolla dearg</string>
     <string name="easter_egg_pill_blue">Piolla gorm</string>
-    <string name="easter_egg_pill_red_toast">Cúlra Matrix díghlasáilte</string>
+    <string name="easter_egg_pill_red_toast">Cúlra maitrís díghlasáilte</string>
     <string name="easter_egg_pill_blue_toast">Beidh na fógraí ag fanacht leat</string>
-    <string name="easter_egg_pill_message_again">Tá tú cheana sa Matrix. Cuireann an piolla dearg thú ar ais sa bháisteach, agus dúisíonn an ceann gorm thú</string>
+    <string name="easter_egg_pill_message_again">Tá tú sa Maitrís cheana féin. Scaoileann an piolla dearg ar ais sa bháisteach thú, dúisíonn an ceann gorm thú.</string>
     <string name="easter_egg_pill_red_toast_again">Ar ais sa bháisteach</string>
-    <string name="easter_egg_pill_blue_toast_again">Dícheangailte. Tá an bealach ar ais san áit a raibh sé i gcónaí</string>
+    <string name="easter_egg_pill_blue_toast_again">Díphlugáilte. Is é an bealach ar ais an áit a raibh sé i gcónaí.</string>
     <!-- Shared strings -->
     <string name="select_file">Roghnaigh comhad</string>
     <string name="select_folder">Roghnaigh fillteán</string>
@@ -1174,6 +1169,7 @@ Sonraí: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB íoslódáilte</string>
     <string name="manager_update_not_ready">Tá an eisiúint seo fós á foilsiú. Déan iarracht arís i gceann cúpla nóiméad.</string>
+    <string name="update_download_missing">Níl an nuashonrú íoslódáilte ar fáil a thuilleadh. Íoslódáil arís é.</string>
     <string name="download_manager_failed">Theip ar an nuashonrú a íoslódáil: %s</string>
     <string name="failed_to_check_updates">Theip ar sheiceáil le haghaidh nuashonruithe: %s</string>
     <string name="failed_to_download_update">Theip ar an nuashonrú a íoslódáil: %s</string>

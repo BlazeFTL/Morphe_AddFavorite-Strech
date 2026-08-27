@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Bəzi yamaq mənbələrinin daha yeni versiyaya ehtiyacı var</string>
     <string name="home_metered_skipped_title">Mobil datada yeniləmələr dayandırıldı</string>
     <string name="home_metered_skipped_subtitle">Mobil datada yeniləmələri qəbul etmək üçün toxun</string>
+    <string name="home_repatch_available_subtitle">Hamısını növbəyə qoymaq üçün toxun</string>
     <string name="home_update_error">Yenilənmə uğursuz oldu</string>
     <string name="home_update_error_subtitle">Mənbələri yeniləyərkən nəsə səhv oldu</string>
     <string name="home_update_skipped_metered">Yenilənmələr ötürüldü</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Quraşdırılmış versiya yamaqlana bilməz</string>
     <string name="home_apk_use_saved">Saxlanılan APK-nı istifadə et</string>
     <string name="home_apk_use_installed">Quraşdırılan APK-nı istifadə et</string>
+    <string name="home_apk_use_saved_unsupported">Yamaqlar bu saxlanılan nüsxəni dəstəkləmir. Yamaqlama sizdən təsdiq istəyəcək və ya başqa APK seçməyi təklif edəcək</string>
     <string name="home_apk_use_installed_unverified">Quraşdırılmış tətbiqin imzasını təsdiqləmək olmadı, mümkündür ki, artıq yamaqlanmış ola bilər</string>
     <string name="home_unverified">Təsdiqlənməmiş</string>
     <string name="home_install_verification_pending">Quraşdırmanı yoxlayır...</string>
@@ -669,14 +671,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_advanced_update_interval_monthly">Ayda bir dəfə</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Fon yoxlanma tezliyi</string>
     <string name="settings_advanced_update_interval_battery_warning">Fon yoxlamaları bəzi cihazlarda davamlı işləməyə bilər. Xiaomi, Huawei, Samsung və OnePlus kimi istehsalçılar batareyanı qorumaq üçün dəfələrlə fon proseslərini ciddi şəkildə məhdudlaşdırırlar</string>
-    <string name="settings_advanced_auto_patch">Avtomatik yenidən yamaqlama</string>
-    <string name="settings_advanced_auto_patch_description">Yamaqları dəyişdikdə quraşdırılmış tətbiqləri fonda yenidən yamaqlayır. Yalnız orijinal APK-sı saxlanılan tətbiqlər əhatə olunur</string>
-    <string name="settings_advanced_auto_patch_interval">Yenidən yamaqlama tezliyi</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Yamaqlanmış tətbiqlər nə qədər tez-tez yenidən qurulsun</string>
-    <string name="settings_advanced_auto_patch_charging">Yalnız enerji dolduranda</string>
-    <string name="settings_advanced_auto_patch_charging_description">Yamaqlama CPU və yaddaşa çox yüklənir, buna görə də enerji doldurucunu gözləyir</string>
-    <string name="settings_advanced_auto_patch_install">Avtomatik olaraq quraşdır</string>
-    <string name="settings_advanced_auto_patch_install_description">Quraşdırıcı kimi Shizuku tələb olunur. Başqa quraşdırıcılarla yamaqlanmış tətbiqlər yalnız saxlanılır</string>
     <string name="settings_advanced_external_batch_patch">Xarici tətikləyicilərə icazə ver</string>
     <string name="settings_advanced_external_batch_patch_description">Avtomatlaşdırma tətbiqlərinin \'intent\' vasitəsilə toplu yamaqlamaya başlamasına icazə verir. Hər bir sorğu icra olunmazdan əvvəl təsdiqlənir</string>
     <string name="external_batch_patch_title">Toplu yamaqlamaya başlanılsın?</string>
@@ -684,13 +678,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="external_batch_patch_trust_caller">Bu tətbiqə həmişə icazə ver</string>
     <string name="external_batch_patch_unknown_caller">Bilinməyən tətbiq</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Avtomatik yenidən yamaqlama bitdi</string>
-    <string name="notification_auto_patch_running_title">Tətbiqləri yenidən yamaqlanır</string>
-    <string name="notification_auto_patch_blocked_title">Avtomatik yenidən yamaqlama işləmədi</string>
-    <string name="notification_auto_patch_blocked_battery">Morphe-ni batareya optimallaşmasından azad et, əks halda Android prosesi başlamazdan əvvəl dayandırır</string>
-    <string name="notification_auto_patch_blocked_foreground">Android yamaqlamanı fonda başlatmağa icazə vermədi. Morphe-ni aç və tətbiqdən yamaqla</string>
-    <string name="notification_channel_auto_patch">Avtomatik yenidən yamaqlama</string>
-    <string name="notification_channel_auto_patch_description">Planlaşdırılmış yenidən yamaqlama üçün səssiz gedişat və nəticə bildirişləri</string>
     <string name="notification_manager_update_title">Əlçatan Morphe yenilənməsi</string>
     <string name="notification_bundle_update_title">Yeni yamaqlar var</string>
     <string name="notification_update_text">%s versiyası yüklənilməyə hazırdır</string>

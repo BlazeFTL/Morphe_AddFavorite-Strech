@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Niektoré zdroje záplat vyžadujú novšiu verziu</string>
     <string name="home_metered_skipped_title">Aktualizácie sú pozastavené pri používaní mobilných dát</string>
     <string name="home_metered_skipped_subtitle">Ťuknite na položku pre povolenie aktualizácií cez mobilné dáta</string>
+    <string name="home_repatch_available_subtitle">Klepnutím zaradíte všetky do frontu</string>
     <string name="home_update_error">Aktualizácia zlyhala</string>
     <string name="home_update_error_subtitle">Pri aktualizácii zdrojov došlo k chybe</string>
     <string name="home_update_skipped_metered">Aktualizácia preskočená</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Nainštalovanú verziu nie je možné patchovať.</string>
     <string name="home_apk_use_saved">Použiť uložený APK súbor</string>
     <string name="home_apk_use_installed">Použiť nainštalovaný APK súbor</string>
+    <string name="home_apk_use_saved_unsupported">Tieto záplaty nepodporujú túto uloženú kópiu. Záplatovanie vás požiada o potvrdenie, alebo vyberte iný APK.</string>
     <string name="home_apk_use_installed_unverified">Nepodarilo sa overiť podpis nainštalovanej aplikácie, takže môže byť už zaplátaná</string>
     <string name="home_unverified">Neoverené</string>
     <string name="home_install_verification_pending">Overenie inštalácie…</string>
@@ -670,14 +672,6 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_advanced_update_interval_monthly">Raz za mesiac</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Frekvencia kontroly na pozadí</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontroly na pozadí nemusia na niektorých zariadeniach fungovať spoľahlivo. Výrobcovia, ako napr. Xiaomi, Huawei, Samsung a OnePlus, často agresívne obmedzujú procesy na pozadí, aby šetrili batériu</string>
-    <string name="settings_advanced_auto_patch">Automatické zopakované záplatovanie</string>
-    <string name="settings_advanced_auto_patch_description">Znova záplata inštalovaných aplikácií na pozadí, keď sa ich záplaty zmenia. Pokryté sú len aplikácie so uloženým pôvodným APK súborom</string>
-    <string name="settings_advanced_auto_patch_interval">Frekvencia zopakovaného záplatovania</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Ako často sa znovu vytvárajú záplatané aplikácie</string>
-    <string name="settings_advanced_auto_patch_charging">Len počas nabíjania</string>
-    <string name="settings_advanced_auto_patch_charging_description">Záplatovanie je náročné na CPU a pamäť, preto sa čaká na nabíjačku</string>
-    <string name="settings_advanced_auto_patch_install">Inštalovať automaticky</string>
-    <string name="settings_advanced_auto_patch_install_description">Vyžaduje Shizuku ako inštalátor. Pri inom inštalátore sa záplatané aplikácie len uložia</string>
     <string name="settings_advanced_external_batch_patch">Povoliť externé spúšťače</string>
     <string name="settings_advanced_external_batch_patch_description">Umožňuje automatizačným aplikáciám spustiť dávkové záplatovanie pomocou intentu. Každá žiadosť je potvrdená pred spustením</string>
     <string name="external_batch_patch_title">Začať dávkové záplatovanie?</string>
@@ -685,13 +679,6 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="external_batch_patch_trust_caller">Vždy povoliť túto aplikáciu</string>
     <string name="external_batch_patch_unknown_caller">Neznáma aplikácia</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Automatické zopakované záplatovanie dokončené</string>
-    <string name="notification_auto_patch_running_title">Znova záplatovanie aplikácií</string>
-    <string name="notification_auto_patch_blocked_title">Automatické zopakované záplatovanie sa nespustilo</string>
-    <string name="notification_auto_patch_blocked_battery">Systém zablokoval túto inštaláciu. Na Xiaomi a podobných zariadeniach zapnite „Inštalovať cez USB“ v možnostiach pre vývojárov. Na pracovnom profile môžu byť inštalácie obmedzené zásadami</string>
-    <string name="notification_auto_patch_blocked_foreground">Android nedovolil spustenie záplatovania na pozadí. Otvorte Morphe a záplatujte z aplikácie</string>
-    <string name="notification_channel_auto_patch">Automatické zopakované záplatovanie</string>
-    <string name="notification_channel_auto_patch_description">Tiché oznámenia o priebehu a výsledku pre plánované zopakované záplatovanie</string>
     <string name="notification_manager_update_title">Je dostupná aktualizácia Morphe</string>
     <string name="notification_bundle_update_title">Sú dostupné nové záplaty</string>
     <string name="notification_update_text">Verzia %s je pripravená na stiahnutie</string>

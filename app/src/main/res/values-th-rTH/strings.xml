@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">แหล่งแพตช์บางแหล่งจำเป็นต้องใช้เวอร์ชันที่ใหม่กว่า</string>
     <string name="home_metered_skipped_title">การอัปเดตถูกหยุดเมื่อใช้ข้อมูลมือถือ</string>
     <string name="home_metered_skipped_subtitle">แตะเพื่ออนุญาตการอัปเดตผ่านข้อมูลมือถือ</string>
+    <string name="home_repatch_available_subtitle">แตะเพื่อจัดคิวทั้งหมด</string>
     <string name="home_update_error">การอัปเดตล้มเหลว</string>
     <string name="home_update_error_subtitle">เกิดข้อผิดพลาดขณะอัปเดตแหล่งที่มา</string>
     <string name="home_update_skipped_metered">การอัปเดตถูกข้าม</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">ไม่สามารถแพตช์เวอร์ชันที่ติดตั้งอยู่ได้</string>
     <string name="home_apk_use_saved">ใช้ APK ที่บันทึกไว้</string>
     <string name="home_apk_use_installed">ใช้ APK ที่ติดตั้งไว้</string>
+    <string name="home_apk_use_saved_unsupported">แพตช์ไม่รองรับไฟล์ที่บันทึกไว้นี้ การติดตั้งแพตช์จะขอให้คุณยืนยัน หรือเลือกไฟล์ APK อื่น</string>
     <string name="home_apk_use_installed_unverified">ไม่สามารถตรวจสอบลายเซ็นของแอปที่ติดตั้งได้ ดังนั้นจึงอาจได้รับการแพตช์แล้ว</string>
     <string name="home_unverified">ไม่ได้รับการยืนยัน</string>
     <string name="home_install_verification_pending">กำลังตรวจสอบการติดตั้ง…</string>
@@ -670,14 +672,6 @@
     <string name="settings_advanced_update_interval_monthly">ทุกเดือน</string>
     <string name="settings_advanced_update_interval_chip_subtitle">ความถี่การตรวจสอบพื้นหลัง</string>
     <string name="settings_advanced_update_interval_battery_warning">การตรวจสอบพื้นหลังอาจไม่ทำงานได้อย่างมั่นคงบนบางอุปกรณ์. ผู้ผลิตเช่น Xiaomi, Huawei, Samsung, และ OnePlus บ่อยครั้งจำกัดขั้นตอนการทำงานพื้นหลังอย่างเข้มงวดเพื่อประหยัดแบตเตอรี่</string>
-    <string name="settings_advanced_auto_patch">การแพตช์ซ้ำอัตโนมัติ</string>
-    <string name="settings_advanced_auto_patch_description">แพตช์แอปที่ติดตั้งใหม่ในเบื้องหลังเมื่อแพตช์มีการเปลี่ยนแปลง เฉพาะแอปที่มี APK ต้นฉบับที่บันทึกไว้เท่านั้นที่ครอบคลุม</string>
-    <string name="settings_advanced_auto_patch_interval">ความถี่ในการแพตช์ซ้ำ</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">แอปที่แพตช์จะถูกสร้างใหม่บ่อยแค่ไหน</string>
-    <string name="settings_advanced_auto_patch_charging">เฉพาะขณะชาร์จ</string>
-    <string name="settings_advanced_auto_patch_charging_description">การแพตช์ใช้ CPU และหน่วยความจำอย่างมาก จึงรอที่ชาร์จ</string>
-    <string name="settings_advanced_auto_patch_install">ติดตั้งโดยอัตโนมัติ</string>
-    <string name="settings_advanced_auto_patch_install_description">ต้องใช้ Shizuku เป็นตัวติดตั้ง หากใช้ตัวติดตั้งอื่น แอปที่แพตช์จะถูกบันทึกไว้เท่านั้น</string>
     <string name="settings_advanced_external_batch_patch">อนุญาตให้ทริกเกอร์ภายนอก</string>
     <string name="settings_advanced_external_batch_patch_description">ให้แอปอัตโนมัติเริ่มแพตช์กลุ่มด้วยความตั้งใจ การร้องขอทุกครั้งจะได้รับการยืนยันก่อนดำเนินการ</string>
     <string name="external_batch_patch_title">เริ่มแพตช์กลุ่ม?</string>
@@ -685,13 +679,6 @@
     <string name="external_batch_patch_trust_caller">อนุญาตแอปนี้เสมอ</string>
     <string name="external_batch_patch_unknown_caller">แอปที่ไม่รู้จัก</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">การแพตช์ซ้ำอัตโนมัติเสร็จสิ้น</string>
-    <string name="notification_auto_patch_running_title">กำลังแพตช์แอปซ้ำ</string>
-    <string name="notification_auto_patch_blocked_title">การแพตช์ซ้ำอัตโนมัติไม่ทำงาน</string>
-    <string name="notification_auto_patch_blocked_battery">ระบบบล็อกการติดตั้งนี้ ใน Xiaomi และอุปกรณ์ที่คล้ายกัน เปิด \"ติดตั้งผ่าน USB\" ในตัวเลือกสำหรับนักพัฒนา ในโปรไฟล์งาน การติดตั้งอาจถูกจำกัดโดยนโยบาย</string>
-    <string name="notification_auto_patch_blocked_foreground">Android ไม่อนุญาตให้เริ่มการแพตช์ในพื้นหลัง เปิด Morphe และแพตช์จากแอป</string>
-    <string name="notification_channel_auto_patch">การแพตช์ซ้ำอัตโนมัติ</string>
-    <string name="notification_channel_auto_patch_description">การแจ้งเตือนความคืบหน้าและผลลัพธ์ที่เงียบสำหรับ การแพตช์ซ้ำตามกำหนดเวลา</string>
     <string name="notification_manager_update_title">มีการอัปเดต Morphe แล้ว</string>
     <string name="notification_bundle_update_title">มีแพ็คเกจใหม่ให้ใช้งาน</string>
     <string name="notification_update_text">พร้อมดาวน์โหลดเวอร์ชัน %s แล้ว</string>

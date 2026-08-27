@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">काही पॅच स्त्रोतांना नवीन आवृत्ती आवश्यक आहे</string>
     <string name="home_metered_skipped_title">मोबाइल डेटावर अद्यतने थांबवली आहेत</string>
     <string name="home_metered_skipped_subtitle">मोबाईल डेटावर अपडेट्सला अनुमती देण्यासाठी टॅप करा</string>
+    <string name="home_repatch_available_subtitle">सर्वांना रांगेत जोडण्यासाठी टॅप करा</string>
     <string name="home_update_error">सुधारणा अयशस्वी झाली</string>
     <string name="home_update_error_subtitle">स्त्रोत अद्यतन करताना काहीतरी चूक झाली</string>
     <string name="home_update_skipped_metered">सुधारणा वगळल्या</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">स्थापित आवृत्ती पॅच केली जाऊ शकत नाही</string>
     <string name="home_apk_use_saved">आधीच साठवलेली APK वापरा</string>
     <string name="home_apk_use_installed">इंस्टॉल केलेली APK वापरा</string>
+    <string name="home_apk_use_saved_unsupported">हे पॅचेस या साठवलेल्या प्रतीला समर्थन देत नाहीत. ते पॅच केल्यास पुष्टी विचारली जाईल, किंवा दुसरी APK निवडा.</string>
     <string name="home_apk_use_installed_unverified">इंस्टॉल केलेल्या ॲपची सही तपासता आली नाही, त्यामुळे ते आधीच बदललेले असू शकते</string>
     <string name="home_unverified">असत्यापित</string>
     <string name="home_install_verification_pending">इंस्टॉल तपासत आहे…</string>
@@ -664,14 +666,6 @@
     <string name="settings_advanced_update_interval_monthly">महिन्यातून एकदा</string>
     <string name="settings_advanced_update_interval_chip_subtitle">पार्श्वभूमी तपासणी वारंवारता</string>
     <string name="settings_advanced_update_interval_battery_warning">काही उपकरणांवर पार्श्वभूमी तपासणी विश्वसनीयपणे कार्य करू शकत नाही. Xiaomi, Huawei, Samsung आणि OnePlus सारख्या उत्पादकांकडून बॅटरी वाचवण्यासाठी पार्श्वभूमी प्रक्रियांवर जोरदार निर्बंध लादले जातात</string>
-    <string name="settings_advanced_auto_patch">स्वयंचलित पुन्हा पॅचिंग</string>
-    <string name="settings_advanced_auto_patch_description">पॅच बदलल्यास पार्श्वभूमीवर स्थापित ॲप्स पुन्हा पॅच करते. मूळ APK जतन केलेले ॲप्सच यात समाविष्ट आहेत.</string>
-    <string name="settings_advanced_auto_patch_interval">पुन्हा पॅच करण्याची वारंवारता</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">पॅच केलेले ॲप्स पुन्हा तयार करण्याची वारंवारता</string>
-    <string name="settings_advanced_auto_patch_charging">केवळ चार्जिंग करताना</string>
-    <string name="settings_advanced_auto_patch_charging_description">पॅचिंग CPU आणि मेमरीवर जास्त भार टाकते, म्हणून ते चार्जरची वाट पाहते.</string>
-    <string name="settings_advanced_auto_patch_install">स्वयंचलितपणे इंस्टॉल करा</string>
-    <string name="settings_advanced_auto_patch_install_description">इंस्टॉलर म्हणून Shizuku आवश्यक आहे. इतर कोणत्याही इंस्टॉलरसह, पॅच केलेले ॲप्स फक्त सेव्ह केले जातात.</string>
     <string name="settings_advanced_external_batch_patch">बाह्य ट्रिगरला अनुमती द्या</string>
     <string name="settings_advanced_external_batch_patch_description">ॲटोमेशन ॲप्सला हेतूने बॅच पॅचिंग सुरू करण्यास अनुमती देते. काहीही चालण्यापूर्वी प्रत्येक विनंतीची पुष्टी केली जाते.</string>
     <string name="external_batch_patch_title">बॅच पॅचिंग सुरू करायची?</string>
@@ -679,13 +673,6 @@
     <string name="external_batch_patch_trust_caller">या ॲपला नेहमी अनुमती द्या</string>
     <string name="external_batch_patch_unknown_caller">अज्ञात ॲप</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">स्वयंचलित पुन्हा पॅचिंग पूर्ण झाले</string>
-    <string name="notification_auto_patch_running_title">ॲप्स पुन्हा पॅच करणे</string>
-    <string name="notification_auto_patch_blocked_title">स्वयंचलित पुन्हा पॅचिंग चालவில்லை</string>
-    <string name="notification_auto_patch_blocked_battery">सिस्टमने हे इंस्टॉलेशन ब्लॉक केले आहे. Xiaomi आणि तत्सम डिव्हाइसेसवर, डेव्हलपर पर्यायांमध्ये \"USB द्वारे इंस्टॉल करा\" चालू करा. वर्क प्रोफाइलवर, धोरणाद्वारे इंस्टॉलेशन प्रतिबंधित केले जाऊ शकते.</string>
-    <string name="notification_auto_patch_blocked_foreground">Morphe ला बॅटरी ऑप्टिमायझेशनमधून वगळा, अन्यथा Android सुरू होण्यापूर्वीच रन थांबवते.</string>
-    <string name="notification_channel_auto_patch">Android ने पार्श्वभूमीमध्ये पॅचिंग सुरू करण्यास परवानगी दिली नाही. ॲपमधून Morphe उघडा आणि पॅच करा.</string>
-    <string name="notification_channel_auto_patch_description">स्वयंचलित पुन्हा पॅचिंग</string>
     <string name="notification_manager_update_title">Morphe अपडेट उपलब्ध आहे</string>
     <string name="notification_bundle_update_title">नवीन पॅच उपलब्ध आहेत</string>
     <string name="notification_update_text">Version %s डाउनलोडसाठी तयार आहे</string>

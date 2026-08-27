@@ -671,14 +671,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_advanced_update_interval_monthly">Kerran kuukaudessa</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Taustatarkistuksen tiheys</string>
     <string name="settings_advanced_update_interval_battery_warning">Taustatarkistukset eivät välttämättä toimi luotettavasti kaikilla laitteilla. Valmistajat, kuten Xiaomi, Huawei, Samsung ja OnePlus, rajoittavat usein aggressiivisesti taustaprosesseja säästääkseen akkua</string>
-    <string name="settings_advanced_auto_patch">Automaattinen uudelleenkorjaus</string>
-    <string name="settings_advanced_auto_patch_description">Korjaa asennetut sovellukset taustalla, kun niiden korjaukset muuttuvat. Vain sovellukset, joista on tallennettu alkuperäinen APK-tiedosto, kuuluvat korjaukseen</string>
-    <string name="settings_advanced_auto_patch_interval">Uudelleenkorjaustiheys</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Kuinka usein korjatut sovellukset rakennetaan uudelleen</string>
-    <string name="settings_advanced_auto_patch_charging">Vain latauksen aikana</string>
-    <string name="settings_advanced_auto_patch_charging_description">Korjaaminen kuormittaa suoritinta ja muistia, joten se odottaa laturia</string>
-    <string name="settings_advanced_auto_patch_install">Asenna automaattisesti</string>
-    <string name="settings_advanced_auto_patch_install_description">Vaatii Shizukun asentajaksi. Muilla asentajilla korjatut sovellukset tallennetaan vain</string>
     <string name="settings_advanced_external_batch_patch">Salli ulkoiset käynnistimet</string>
     <string name="settings_advanced_external_batch_patch_description">Salli automatisointisovellusten aloittaa eräkorjaus intentin avulla. Jokainen pyyntö vahvistetaan ennen suoritusta</string>
     <string name="external_batch_patch_title">Aloita eräkorjaus?</string>
@@ -686,13 +678,6 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="external_batch_patch_trust_caller">Salli tämä sovellus aina</string>
     <string name="external_batch_patch_unknown_caller">Tuntematon sovellus</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Automaattinen uudelleenkorjaus valmis</string>
-    <string name="notification_auto_patch_running_title">Korjataan sovelluksia</string>
-    <string name="notification_auto_patch_blocked_title">Automaattinen uudelleenkorjaus ei suoritunut</string>
-    <string name="notification_auto_patch_blocked_battery">Järjestelmä esti tämän asennuksen. Xiaomi- ja vastaavissa laitteissa ota käyttöön \"Asenna USB:n kautta\" kehittäjäasetuksissa. Työprofiilissa asennuksia voidaan rajoittaa käytännöllä</string>
-    <string name="notification_auto_patch_blocked_foreground">Poista Morphe akun optimoinnista, muuten Android lopettaa suorittamisen ennen kuin se on alkanut</string>
-    <string name="notification_channel_auto_patch">Automaattinen uudelleenkorjaus</string>
-    <string name="notification_channel_auto_patch_description">Hiljaiset edistys- ja tulosilmoitukset ajoitetulle uudelleenkorjaukselle</string>
     <string name="notification_manager_update_title">Morphe-päivitys saatavilla</string>
     <string name="notification_bundle_update_title">Uusia lisäosia saatavilla</string>
     <string name="notification_update_text">Versio %s on valmis ladattavaksi</string>

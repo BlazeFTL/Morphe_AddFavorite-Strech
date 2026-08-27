@@ -669,14 +669,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_advanced_update_interval_monthly">O dată pe lună</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Frecvența de verificare în fundal</string>
     <string name="settings_advanced_update_interval_battery_warning">Verificările în fundal pot nu funcționa reliable pe unele dispozitive. Fabricanții precum Xiaomi, Huawei, Samsung și OnePlus adesea restrictă procesul în fundal pentru a economisi baterie</string>
-    <string name="settings_advanced_auto_patch">Reparare automată</string>
-    <string name="settings_advanced_auto_patch_description">Repară automat aplicațiile instalate în fundal când patch-urile lor se modifică. Doar aplicațiile cu un APK original salvat sunt acoperite</string>
-    <string name="settings_advanced_auto_patch_interval">Frecvența re-patch-ului</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Cât de des sunt reconstruite aplicațiile cu patch-uri</string>
-    <string name="settings_advanced_auto_patch_charging">Doar în timpul încărcării</string>
-    <string name="settings_advanced_auto_patch_charging_description">Aplicarea patch-urilor solicită mult procesorul și memoria, așa că așteaptă un încărcător</string>
-    <string name="settings_advanced_auto_patch_install">Instalează automat</string>
-    <string name="settings_advanced_auto_patch_install_description">Necesită Shizuku ca instalator. Cu orice alt instalator, aplicațiile cu patch-uri sunt doar salvate</string>
     <string name="settings_advanced_external_batch_patch">Permite declanșatori externi</string>
     <string name="settings_advanced_external_batch_patch_description">Permite aplicațiilor de automatizare să înceapă aplicarea patch-urilor în masă cu o intenție. Fiecare solicitare este confirmată înainte de a rula</string>
     <string name="external_batch_patch_title">Începe aplicarea patch-urilor în masă?</string>
@@ -684,13 +676,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="external_batch_patch_trust_caller">Permite întotdeauna această aplicație</string>
     <string name="external_batch_patch_unknown_caller">O aplicație necunoscută</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Reparare automată finalizată</string>
-    <string name="notification_auto_patch_running_title">Reparare automată a aplicațiilor</string>
-    <string name="notification_auto_patch_blocked_title">Reparare automată nu a rulat</string>
-    <string name="notification_auto_patch_blocked_battery">Excepteazã Morphe de la optimizarea bateriei, altfel Android opreşte execuţia înainte de a porni</string>
-    <string name="notification_auto_patch_blocked_foreground">Android nu a permis începerii patching-ului în fundal. Deschide Morphe și aplică patch-uri din aplicație</string>
-    <string name="notification_channel_auto_patch">Reparare automată</string>
-    <string name="notification_channel_auto_patch_description">Progres silențios și notificări de rezultat pentru repararea programată</string>
     <string name="notification_manager_update_title">Actualizare Morphe disponibilă</string>
     <string name="notification_bundle_update_title">Există actualizări disponibile</string>
     <string name="notification_update_text">Versiunea %s este gata de descărcare</string>

@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Ang ilang mga mapagkukunan ng patch ay nangangailangan ng mas bagong bersyon</string>
     <string name="home_metered_skipped_title">Naantala ang mga update sa mobile data</string>
     <string name="home_metered_skipped_subtitle">I-tap para payagan ang mga update sa mobile data</string>
+    <string name="home_repatch_available_subtitle">I-tap para i-queue lahat</string>
     <string name="home_update_error">Nabigo ang pag-update</string>
     <string name="home_update_error_subtitle">Mayroong kamalian habang ina-update ang mga source</string>
     <string name="home_update_skipped_metered">Nabigo ang pag-update</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Pabaliktad na alpabetiko, Z hanggang A</string>
     <string name="home_app_sort_updates_first">Mga pag-update ng patch muna</string>
     <string name="home_app_sort_updates_first_description">Mga app na may badge ng pag-update muna, pagkatapos ay inirerekomendang pagkakasunud-sunod</string>
+    <string name="home_app_sort_recently_patched">Kamakailang na-patch</string>
+    <string name="home_app_sort_recently_patched_description">Una ang mga app na pinakabagong na-patch</string>
     <string name="home_no_apps_title">Walang available na mga app</string>
     <string name="home_no_apps_subtitle">Magdagdag ng pinagmulan ng patch o paganahin ang isang umiiral na isa sa %s</string>
     <string name="home_no_apps_search_subtitle">Walang app na tumutugma sa \"%s\"</string>
@@ -125,9 +128,13 @@ Please note: The translation is complete. The arrow is for clarity and not part 
     <string name="sources_sort_enabled_first">Naka-enable muna</string>
     <string name="sources_sort_enabled_first_description">Ipakita ang mga aktibong mapagkukunan bago ang mga hindi naka-enable</string>
     <string name="sources_management_open_in_browser">Buksan sa browser</string>
+    <string name="sources_management_report_issue">Mag-ulat ng isyu</string>
     <string name="sources_management_failed_to_open_url">Nabigong buksan ang URL</string>
     <string name="sources_management_prerelease_toggle">Mga patch na pre-release</string>
     <string name="sources_management_prerelease_toggle_description">Tumatanggap ng maagang pag-access sa mga bagong bersyon ng patch na pang-eksperimento</string>
+    <string name="sources_prerelease_warning_title">Paganahin ang mga pre-release na patch?</string>
+    <string name="sources_prerelease_warning_message">Ang mga pre-release na build ay nasa development pa. Maaaring mabigo o makasira ng app ang mga patch, at maaaring magbago ang mga feature nang walang babala.</string>
+    <string name="expert_mode_prerelease_notice">Ang source na ito ay nasa pre-release na mga patch. Maaaring mabigo o kumilos nang hindi inaasahan ang pag-patch.</string>
     <string name="sources_management_experimental_versions_toggle">Mga bersyon ng app na pang-eksperimento</string>
     <string name="sources_management_experimental_versions_toggle_description">Naglalagay ng mga target na app na pang-eksperimento kung mayroon</string>
     <string name="sources_management_already_exists">Ang pinagmulang ito ay naidagdag na.</string>
@@ -193,6 +200,7 @@ Please note: The translation is complete. The arrow is for clarity and not part 
     <string name="home_apk_helper_installed_incompatible">Ang naka-install na bersyon ay hindi maaaring i-patch</string>
     <string name="home_apk_use_saved">Gamitin ang nakaimbak na APK</string>
     <string name="home_apk_use_installed">Gamitin ang naka-install na APK</string>
+    <string name="home_apk_use_saved_unsupported">Ang mga patch ay hindi sumusuporta sa naka-save na kopyang ito. Ang pag-patch dito ay hihingi sa iyo ng kumpirmasyon, o pumili ng ibang APK.</string>
     <string name="home_apk_use_installed_unverified">Hindi mapatunayan ang lagda ng naka-install na app, kaya maaaring na-patch na ito</string>
     <string name="home_unverified">Hindi na-verify</string>
     <string name="home_install_verification_pending">Sinusuri ang pag-install…</string>
@@ -252,6 +260,8 @@ Please note: The translation is complete. The arrow is for clarity and not part 
     <string name="expert_mode_enable_all">Paganahin lahat</string>
     <string name="expert_mode_enable_all_done">Lahat ng mga patch ay pinagana</string>
     <string name="expert_mode_enable_all_universal_pending">I-tap muli para sa mga unibersal na patch</string>
+    <string name="expert_mode_universal_all_warning_title">Paganahin ang lahat ng universal patches?</string>
+    <string name="expert_mode_universal_all_warning_message">Ang mga universal patch ay hindi nasusubok nang sabay. Ang pag-enable ng lahat ng ito nang sabay ay maaaring magdulot ng mga salungatan, pagkabigo ng pag-patch, o pag-crash.</string>
     <string name="expert_mode_reset_to_default">Paganahin ang inirekumendang mga patch</string>
     <string name="expert_mode_reset_to_default_done">Na-apply ang mga inirerekomendang patch</string>
     <string name="expert_mode_restore_saved">Ibalik ang nakaimbak na pagpili</string>
@@ -671,14 +681,6 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_advanced_update_interval_monthly">Minsan sa isang buwan</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Kadalasan ng pagsusuri sa background</string>
     <string name="settings_advanced_update_interval_battery_warning">Maaaring hindi gumana nang mapagkakatiwalaan ang mga pagsusuri sa background sa ilang device. Ang mga tagagawa tulad ng Xiaomi, Huawei, Samsung, at OnePlus ay madalas na agresibong naghihigpit sa mga proseso sa background upang makatipid ng baterya</string>
-    <string name="settings_advanced_auto_patch">Awtomatikong pag-re-patch</string>
-    <string name="settings_advanced_auto_patch_description">I-re-patch ang mga naka-install na app sa background kapag nagbago ang kanilang mga patch. Tanging ang mga app na may naka-save na orihinal na APK ang sakop</string>
-    <string name="settings_advanced_auto_patch_interval">Dalasan ng pag-re-patch</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Gaano kadalas muling buuin ang mga na-patch na app</string>
-    <string name="settings_advanced_auto_patch_charging">Tanging habang nagcha-charge</string>
-    <string name="settings_advanced_auto_patch_charging_description">Ang pag-patch ay mabigat sa CPU at memory, kaya maghihintay ito ng charger</string>
-    <string name="settings_advanced_auto_patch_install">I-install nang awtomatiko</string>
-    <string name="settings_advanced_auto_patch_install_description">Nangangailangan ng Shizuku bilang installer. Sa anumang ibang installer, ang mga na-patch na app ay ise-save lamang</string>
     <string name="settings_advanced_external_batch_patch">Payagan ang mga panlabas na trigger</string>
     <string name="settings_advanced_external_batch_patch_description">Hinahayaan ang mga app ng automation na simulan ang batch patching na may intent. Ang bawat kahilingan ay kinukumpirma bago ang anumang tumakbo</string>
     <string name="external_batch_patch_title">Magsimulang mag-batch patch?</string>
@@ -686,13 +688,6 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="external_batch_patch_trust_caller">Payagan ang app na ito palagi</string>
     <string name="external_batch_patch_unknown_caller">Isang hindi kilalang app</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Tapos na ang awtomatikong pag-re-patch</string>
-    <string name="notification_auto_patch_running_title">Nagre-re-patch ng mga app</string>
-    <string name="notification_auto_patch_blocked_title">Hindi tumakbo ang awtomatikong pag-re-patch</string>
-    <string name="notification_auto_patch_blocked_battery">Ibinlock ng system ang pag-install na ito. Sa Xiaomi at mga katulad na device, i-on ang \"Install via USB\" sa mga developer option. Sa isang work profile, maaaring paghigpitan ng patakaran ang mga pag-install</string>
-    <string name="notification_auto_patch_blocked_foreground">Nabigo</string>
-    <string name="notification_channel_auto_patch">Kinansela</string>
-    <string name="notification_channel_auto_patch_description">Handa</string>
     <string name="notification_manager_update_title">Magagamit ang update ng Morphe</string>
     <string name="notification_bundle_update_title">Magagamit ang mga bagong patch</string>
     <string name="notification_update_text">Handa mag-download ang bersyong %s</string>
@@ -1177,6 +1172,7 @@ Mga Detalye: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB ang na-download</string>
     <string name="manager_update_not_ready">Ang paglalabas na ito ay kasalukuyang pinoproseso. Subukan muli sa loob ng ilang minuto</string>
+    <string name="update_download_missing">Ang na-download na update ay hindi na magagamit. I-download muli ito.</string>
     <string name="download_manager_failed">Nabigong mai-download ang update: %s</string>
     <string name="failed_to_check_updates">Nabigong suriin ang mga update: %s</string>
     <string name="failed_to_download_update">Nabigong mai-download ang update: %s</string>

@@ -669,14 +669,6 @@
     <string name="settings_advanced_update_interval_monthly">1 か月に 1 回</string>
     <string name="settings_advanced_update_interval_chip_subtitle">バックグラウンドでの確認頻度</string>
     <string name="settings_advanced_update_interval_battery_warning">一部のデバイスでは、バックグラウンドでの確認が正常に動作しない場合があります。Xiaomi、Huawei、Samsung、OnePlus などのメーカーは、バッテリーを節約するためにバックグラウンド プロセスを厳しく制限することがよくあります。</string>
-    <string name="settings_advanced_auto_patch">自動再パッチ</string>
-    <string name="settings_advanced_auto_patch_description">パッチが変更された際、インストール済みのアプリに対してバックグラウンドで再パッチを適用します。対象となるのは、元の APK が保存されているアプリのみです</string>
-    <string name="settings_advanced_auto_patch_interval">再パッチ頻度</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">パッチ適用済みアプリが再構築される頻度</string>
-    <string name="settings_advanced_auto_patch_charging">充電中のみ</string>
-    <string name="settings_advanced_auto_patch_charging_description">自動再パッチは CPU とメモリに負荷がかかるため、充電中以外は実行されません</string>
-    <string name="settings_advanced_auto_patch_install">自動的にインストール</string>
-    <string name="settings_advanced_auto_patch_install_description">インストーラーとして Shizuku が必要です。他のインストーラーを使用した場合、パッチが適用されたアプリは保存されるだけでインストールは実行されません</string>
     <string name="settings_advanced_external_batch_patch">外部トリガーを許可</string>
     <string name="settings_advanced_external_batch_patch_description">自動化アプリがインテントでバッチパッチを開始できるようにします。すべてのリクエストは実行前に確認されます</string>
     <string name="external_batch_patch_title">一括パッチを開始しますか？</string>
@@ -684,13 +676,6 @@
     <string name="external_batch_patch_trust_caller">このアプリを常に許可</string>
     <string name="external_batch_patch_unknown_caller">不明なアプリ</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">自動再パッチが完了しました</string>
-    <string name="notification_auto_patch_running_title">アプリを再パッチしています</string>
-    <string name="notification_auto_patch_blocked_title">自動再パッチは実行されませんでした</string>
-    <string name="notification_auto_patch_blocked_battery">Morphe をバッテリーの最適化の対象から除外してください。そうしないと、Android はパッチ適用の実行開始前に Morphe を停止します</string>
-    <string name="notification_auto_patch_blocked_foreground">Android はバックグラウンドでのパッチ適用を許可しませんでした。Morphe を起動してアプリからパッチを適用してください</string>
-    <string name="notification_channel_auto_patch">自動再パッチ</string>
-    <string name="notification_channel_auto_patch_description">スケジュールされた再パッチ処理に関するサイレントな進行状況と結果の通知</string>
     <string name="notification_manager_update_title">Morphe の更新が利用可能です</string>
     <string name="notification_bundle_update_title">新しいパッチが利用可能です</string>
     <string name="notification_update_text">バージョン %s がダウンロード可能です</string>

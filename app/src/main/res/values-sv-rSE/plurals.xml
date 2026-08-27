@@ -44,10 +44,6 @@
         <item quantity="one">%s app redo att modifieras</item>
         <item quantity="other">%s appar redo att modifieras</item>
     </plurals>
-    <plurals name="batch_patch_notification_ready">
-        <item quantity="one">%s app är redo att installeras</item>
-        <item quantity="other">%s appar är redo att installeras</item>
-    </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">Hoppade över %s app</item>
         <item quantity="other">Hoppade över %s appar</item>

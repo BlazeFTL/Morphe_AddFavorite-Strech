@@ -55,10 +55,10 @@
         <item quantity="few">%s aplicaţii gata de patch</item>
         <item quantity="other">%s de aplicaţii gata de patch</item>
     </plurals>
-    <plurals name="batch_patch_notification_ready">
-        <item quantity="one">%s aplicaţie este gata de instalare</item>
-        <item quantity="few">%s aplicaţii sunt gata de instalare</item>
-        <item quantity="other">%s de aplicaţii sunt gata de instalare</item>
+    <plurals name="repatch_available_count">
+        <item quantity="one">%s aplicație poate fi re-patchuită</item>
+        <item quantity="few">%s aplicații pot fi re-patchuite</item>
+        <item quantity="other">%s de aplicații pot fi re-patchuite</item>
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">A omis %s aplicaţie</item>

@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Nogle kilde-feeds kræver en nyere version</string>
     <string name="home_metered_skipped_title">Opdateringer pauset på mobildata</string>
     <string name="home_metered_skipped_subtitle">Tryk for at tillade opdateringer over mobildata</string>
+    <string name="home_repatch_available_subtitle">Tryk for at kø dem alle</string>
     <string name="home_update_error">Opdatering mislykkedes</string>
     <string name="home_update_error_subtitle">Der opstod en fejl under opdatering af kilder</string>
     <string name="home_update_skipped_metered">Opdateringer oversprunget</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Den installerede version kan ikke blive patchet</string>
     <string name="home_apk_use_saved">Brug gemt APK</string>
     <string name="home_apk_use_installed">Brug installeret APK</string>
+    <string name="home_apk_use_saved_unsupported">Patch\'ene understøtter ikke denne gemte kopi. At patche den vil bede dig om at bekræfte, eller vælg en anden APK.</string>
     <string name="home_apk_use_installed_unverified">Kunne ikke verificere signaturen af den installerede app, så den kan allerede være blevet patchet</string>
     <string name="home_unverified">Uverificeret</string>
     <string name="home_install_verification_pending">Kontrollerer installation…</string>
@@ -669,14 +671,6 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_advanced_update_interval_monthly">En gang om måneden</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Baggrundsopdateringsfrekvens</string>
     <string name="settings_advanced_update_interval_battery_warning">Baggrundsopdateringer fungerer muligvis ikke på visse enheder. Mærker som Xiaomi, Huawei, Samsung og OnePlus begrænser ofte baggrundsprocesser aggressivt for at spare batteri</string>
-    <string name="settings_advanced_auto_patch">Automatisk genpatchning</string>
-    <string name="settings_advanced_auto_patch_description">Genpatcher installerede apps i baggrunden, når deres patches ændres. Kun apps med en gemt original APK er inkluderet</string>
-    <string name="settings_advanced_auto_patch_interval">Genpatch-frekvens</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Hvor ofte rettede apps genopbygges</string>
-    <string name="settings_advanced_auto_patch_charging">Kun mens der oplades</string>
-    <string name="settings_advanced_auto_patch_charging_description">Patching belaster CPU og hukommelse, så det venter på en oplader</string>
-    <string name="settings_advanced_auto_patch_install">Installer automatisk</string>
-    <string name="settings_advanced_auto_patch_install_description">Kræver Shizuku som installatør. Med andre installatører gemmes de rettede apps kun</string>
     <string name="settings_advanced_external_batch_patch">Tillad eksterne triggere</string>
     <string name="settings_advanced_external_batch_patch_description">Lader automatiseringsapps starte batch patching med et intent. Enhver anmodning bekræftes, før noget køres</string>
     <string name="external_batch_patch_title">Start batch patching?</string>
@@ -684,13 +678,6 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="external_batch_patch_trust_caller">Tillad altid denne app</string>
     <string name="external_batch_patch_unknown_caller">En ukendt app</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Automatisk genpatchning fuldført</string>
-    <string name="notification_auto_patch_running_title">Genpatchning af apps</string>
-    <string name="notification_auto_patch_blocked_title">Automatisk genpatchning blev ikke kørt</string>
-    <string name="notification_auto_patch_blocked_battery">Systemet blokerede denne installation. På Xiaomi og lignende enheder skal du aktivere \"Installer via USB\" i udviklerindstillingerne. På en arbejdsprofil kan installationer være begrænset af politikken</string>
-    <string name="notification_auto_patch_blocked_foreground">Android tillod ikke patching at starte i baggrunden. Åbn Morphe og patch fra appen</string>
-    <string name="notification_channel_auto_patch">Automatisk genpatchning</string>
-    <string name="notification_channel_auto_patch_description">Stille fremskridt og resultatnotifikationer for planlagt genpatchning</string>
     <string name="notification_manager_update_title">Morphe-opdatering tilgængelig</string>
     <string name="notification_bundle_update_title">Nye patches tilgængelige</string>
     <string name="notification_update_text">Version %s er klar til download</string>

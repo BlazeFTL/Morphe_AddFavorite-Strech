@@ -25,9 +25,10 @@
     <string name="home_metadata_errors_title">部分修補程式來源無法使用</string>
     <string name="home_metadata_errors_subtitle">點擊以檢視來源</string>
     <string name="home_outdated_manager_title">Morphe 要更新</string>
-    <string name="home_outdated_manager_subtitle">有五个踪户源需待新版机</string>
+    <string name="home_outdated_manager_subtitle">有些修補來源需要較新的版本</string>
     <string name="home_metered_skipped_title">已暫停行動數據上的更新</string>
     <string name="home_metered_skipped_subtitle">點擊以允許在行動數據上更新</string>
+    <string name="home_repatch_available_subtitle">點擊以將其全部加入佇列</string>
     <string name="home_update_error">更新失敗</string>
     <string name="home_update_error_subtitle">更新來源時發生錯誤</string>
     <string name="home_update_skipped_metered">已略過更新</string>
@@ -112,7 +113,7 @@
     <string name="home_greeting_super_late_2">睡不著？修補一些東西</string>
     <string name="home_greeting_super_late_3">到這時候，還是繼續修補吧</string>
     <string name="home_greeting_super_late_4">你和伺服器，都還醒著</string>
-    <string name="home_greeting_super_late_5">夜間且有效率</string>
+    <string name="home_greeting_super_late_5">晝伏夜出且高效</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">修補來源</string>
     <string name="sources_search">搜尋來源</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">安裝的版本無法修補</string>
     <string name="home_apk_use_saved">使用已儲存的 APK</string>
     <string name="home_apk_use_installed">使用已安裝的 APK</string>
+    <string name="home_apk_use_saved_unsupported">修補程式不支援此已儲存的副本。對其進行修補會要求您確認，或選擇另一個 APK。</string>
     <string name="home_apk_use_installed_unverified">無法驗證已安裝應用程式的簽名，因此可能已經被篡改</string>
     <string name="home_unverified">未驗證</string>
     <string name="home_install_verification_pending">正在檢查安裝…</string>
@@ -361,7 +363,7 @@
     <string name="batch_patch_planning">正在準備佇列…</string>
     <string name="batch_patch_preparing_next">正在準備下一個應用程式…</string>
     <string name="batch_patch_progress_counter">修補 %1$s 的 %2$s</string>
-    <string name="batch_patch_summary">%1$s 已修補，%2$s 失敗，%3$s 已略過</string>
+    <string name="batch_patch_summary">%1$s 個已修補，%2$s 個失敗，%3$s 個已略過</string>
     <string name="batch_patch_saved_hint">已儲存已修補的應用程式。立即安裝或稍後從設定中的已修補 APK 清單安裝</string>
     <string name="batch_patch_multiple_sources">某些應用程式合併來自多個來源的修補程式，這可能會導致衝突</string>
     <string name="batch_patch_needs_apk">沒有可用的 APK，請附加檔案</string>
@@ -669,14 +671,6 @@
     <string name="settings_advanced_update_interval_monthly">每月一次</string>
     <string name="settings_advanced_update_interval_chip_subtitle">背景檢查頻率</string>
     <string name="settings_advanced_update_interval_battery_warning">在某些裝置上，背景檢查可能無法可靠運作。小米、華為、三星和 OnePlus 等製造商通常會積極限制背景程序以節省電池電量</string>
-    <string name="settings_advanced_auto_patch">自動重新修補</string>
-    <string name="settings_advanced_auto_patch_description">在修補程式變更時，後台重新修補已安裝的應用程式。僅涵蓋已儲存原始 APK 的應用程式</string>
-    <string name="settings_advanced_auto_patch_interval">重新修補頻率</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">修補應用程式會重建</string>
-    <string name="settings_advanced_auto_patch_charging">僅在充電時</string>
-    <string name="settings_advanced_auto_patch_charging_description">修補對 CPU 和記憶體要求很高，因此會等待充電器</string>
-    <string name="settings_advanced_auto_patch_install">自動安裝</string>
-    <string name="settings_advanced_auto_patch_install_description">需要 Shizuku 作為安裝程式。使用任何其他安裝程式時，僅儲存已修補的應用程式</string>
     <string name="settings_advanced_external_batch_patch">允許外部觸發器</string>
     <string name="settings_advanced_external_batch_patch_description">讓自動化應用程式使用意圖啟動批次修補。每個請求在執行任何操作前都會得到確認</string>
     <string name="external_batch_patch_title">開始批次修補？</string>
@@ -684,13 +678,6 @@
     <string name="external_batch_patch_trust_caller">總是允許此應用程式</string>
     <string name="external_batch_patch_unknown_caller">未知應用程式</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">自動重新修補完成</string>
-    <string name="notification_auto_patch_running_title">正在重新修補應用程式</string>
-    <string name="notification_auto_patch_blocked_title">自動重新修補未執行</string>
-    <string name="notification_auto_patch_blocked_battery">將 Morphe 從電池優化中排除，否則 Android 會在啟動前停止執行</string>
-    <string name="notification_auto_patch_blocked_foreground">Android 不允許在後台啟動修補。開啟 Morphe 並從應用程式修補</string>
-    <string name="notification_channel_auto_patch">自動重新修補</string>
-    <string name="notification_channel_auto_patch_description">排程重新修補的靜默進度和結果通知</string>
     <string name="notification_manager_update_title">有可用的 Morphe 更新</string>
     <string name="notification_bundle_update_title">有新的修補程式可用</string>
     <string name="notification_update_text">版本 %s 已準備好下載</string>
@@ -1039,6 +1026,14 @@ morphe_header_custom_dark.png
     <string name="credits_prior_development">先前開發</string>
     <string name="opensource_licenses">開源授權</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">選擇</string>
+    <string name="easter_egg_pill_message">吃下藍色藥丸，廣告留在原來的地方。吃下紅色藥丸，看看位元組碼能深入到什麼程度。</string>
+    <string name="easter_egg_pill_red">紅色藥丸</string>
+    <string name="easter_egg_pill_blue">藍色藥丸</string>
+    <string name="easter_egg_pill_red_toast">已解鎖 Matrix 背景</string>
+    <string name="easter_egg_pill_blue_toast">廣告正在等候你</string>
+    <string name="easter_egg_pill_message_again">你早已身處 Matrix 之中。紅色藥丸會讓你重回雨中​​，藍色藥丸則會將你喚醒。</string>
+    <string name="easter_egg_pill_red_toast_again">回到雨中</string>
     <!-- Shared strings -->
     <string name="select_file">選擇檔案</string>
     <string name="select_folder">選取資料夾</string>

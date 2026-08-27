@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Neki izvori patcha trebaju noviju verziju</string>
     <string name="home_metered_skipped_title">Ažuriranja su pauzirana putem mobilnih podataka</string>
     <string name="home_metered_skipped_subtitle">Dodirnite za dopuštanje ažuriranja putem mobilnih podataka</string>
+    <string name="home_repatch_available_subtitle">Dodirnite da biste ih sve postavili u red čekanja</string>
     <string name="home_update_error">Ažuriranje nije uspjelo</string>
     <string name="home_update_error_subtitle">Došlo je do pogreške prilikom ažuriranja izvora</string>
     <string name="home_update_skipped_metered">Ažuriranja preskočena</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Obrnuto abecedno, od Ž do A</string>
     <string name="home_app_sort_updates_first">Najprije ažuriranja patcheva</string>
     <string name="home_app_sort_updates_first_description">Aplikacije s oznakama ažuriranja prvo, zatim preporučeni redoslijed</string>
+    <string name="home_app_sort_recently_patched">Nedavno patchano</string>
+    <string name="home_app_sort_recently_patched_description">Prvo najnovije patchane aplikacije</string>
     <string name="home_no_apps_title">Nema dostupnih aplikacija</string>
     <string name="home_no_apps_subtitle">Dodaj izvor patcha ili uključi postojeći u %s</string>
     <string name="home_no_apps_search_subtitle">Nijedna aplikacija ne odgovara \"%s\"</string>
@@ -124,9 +127,14 @@
     <string name="sources_sort_enabled_first">Prvo omogućeno</string>
     <string name="sources_sort_enabled_first_description">Prikaži aktivne izvore prije onemogućenih izvora</string>
     <string name="sources_management_open_in_browser">Otvori u pregledniku</string>
+    <string name="sources_management_report_issue">Prijavite problem</string>
     <string name="sources_management_failed_to_open_url">Nije moguće otvoriti poveznicu</string>
     <string name="sources_management_prerelease_toggle">Pre-release patchevi</string>
     <string name="sources_management_prerelease_toggle_description">Primite rani pristup novoj verziji eksperimentalnih patcheva</string>
+    <string name="sources_prerelease_warning_title">Omogućiti predizdanja patcheva?</string>
+    <string name="sources_prerelease_warning_message">Predizdanja su još uvijek u razvoju. Patchevi mogu propasti ili prekinuti rad aplikacije, a značajke se mogu promijeniti bez upozorenja.</string>
+    <string name="expert_mode_prerelease_notice">
+Ovaj izvor se nalazi na predizdanjima patcheva. Patchanje može propasti ili se ponašati neočekivano.</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimentalne verzije aplikacije</string>
     <string name="sources_management_experimental_versions_toggle_description">Patchevi za eksperimentalne ciljeve aplikacija ako su dostupni</string>
     <string name="sources_management_already_exists">Ovaj izvor je već dodan</string>
@@ -192,6 +200,7 @@
     <string name="home_apk_helper_installed_incompatible">Instalirana verzija se ne može patchati</string>
     <string name="home_apk_use_saved">Koristi spremljenu aplikaciju</string>
     <string name="home_apk_use_installed">Koristi instaliranu aplikaciju</string>
+    <string name="home_apk_use_saved_unsupported">Patchevi ne podržavaju ovu spremljenu kopiju. Prilikom patchanja tražit će se potvrda ili odabir drugog APK-a.</string>
     <string name="home_apk_use_installed_unverified">Nije moguće provjeriti potpis instalirane aplikacije, pa je moguće da je već ažurirana.</string>
     <string name="home_unverified">Neprovjereno</string>
     <string name="home_install_verification_pending">Provjera instalacije…</string>
@@ -253,6 +262,8 @@
     <string name="expert_mode_enable_all">Omogući sve</string>
     <string name="expert_mode_enable_all_done">Svi patchevi su omogućeni</string>
     <string name="expert_mode_enable_all_universal_pending">Dodirnite ponovno za univerzalne patcheve</string>
+    <string name="expert_mode_universal_all_warning_title">Omogućiti sve univerzalne patcheve?</string>
+    <string name="expert_mode_universal_all_warning_message">Univerzalni patchevi se ne testiraju zajedno. Omogućavanje svih odjednom može uzrokovati sukobe, neuspješno instaliranje patchanje ili rušenje</string>
     <string name="expert_mode_reset_to_default">Omogući preporučene patcheve</string>
     <string name="expert_mode_reset_to_default_done">Preporučeni patchevi su primjenjeni</string>
     <string name="expert_mode_restore_saved">Vrati spremljeni odabir</string>
@@ -470,6 +481,7 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="patcher_ready_to_install_subtitle">Pritisnite tipku ispod za instalaciju</string>
     <string name="patcher_ready_to_mount_subtitle">Pritisnite tipku ispod da učitate</string>
     <string name="patcher_patches_excluded_for_installer">Nije dostupno za ovu metodu instalacije i isključeno je: %s</string>
+    <string name="patcher_back_to_game_hint">Dodirnite %1$s za povratak u igru</string>
     <string name="patcher_storage_permission_dialog_title">Nije moguće pristupiti putanji pohrane</string>
     <string name="patcher_incompatible_patcher_title">Potrebno je ažuriranje</string>
     <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahtijeva verziju patchera &lt;b&gt;%2$s&lt;/b&gt; ili noviju. Molimo ažurirajte Morphe kako biste patchali ovu aplikaciju</string>
@@ -671,14 +683,6 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="settings_advanced_update_interval_monthly">Svaki mjesec</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Učestalost provjere u pozadini</string>
     <string name="settings_advanced_update_interval_battery_warning">Provjere u pozadini možda neće pouzdano funkcionirati na nekim uređajima. Proizvođači poput Xiaomija, Huaweija, Samsunga i OnePlusa često agresivno ograničavaju pozadinske procese kako bi uštedjeli bateriju.</string>
-    <string name="settings_advanced_auto_patch">Automatski ponovno patchaj</string>
-    <string name="settings_advanced_auto_patch_description">Ponovno patchanje instalirane aplikacije u pozadini kada se njihovi patchevi promijene. Obuhvaćene su samo aplikacije s spremljenom originalnom APK datotekom.</string>
-    <string name="settings_advanced_auto_patch_interval">Frekvencija ponovnog patchanja</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Koliko često se patchane aplikacije obnavljaju</string>
-    <string name="settings_advanced_auto_patch_charging">Samo tijekom punjenja</string>
-    <string name="settings_advanced_auto_patch_charging_description">Patchanje opterećuje CPU i memoriju, pa čeka punjač.</string>
-    <string name="settings_advanced_auto_patch_install">Automatski instaliraj</string>
-    <string name="settings_advanced_auto_patch_install_description">Zahtijeva Shizuku kao način instalacije. S bilo kojim drugim instalacijskim programom spremaju se samo patchane aplikacije</string>
     <string name="settings_advanced_external_batch_patch">Dopusti vanjske okidače</string>
     <string name="settings_advanced_external_batch_patch_description">Omogućuje aplikacijama za automatizaciju da započnu s grupnim patchanjem s određenom namjerom. Svaki zahtjev se potvrđuje prije nego što se išta pokrene.</string>
     <string name="external_batch_patch_title">Pokrenuti grupno patchanje?</string>
@@ -686,13 +690,6 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="external_batch_patch_trust_caller">Uvijek dopusti ovu aplikaciju</string>
     <string name="external_batch_patch_unknown_caller">Nepoznata aplikacija</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Automatsko ponovno patchnje završeno</string>
-    <string name="notification_auto_patch_running_title">Ponovno patchanje aplikacija</string>
-    <string name="notification_auto_patch_blocked_title">Automatsko ponovno patchanje nije se pokrenulo</string>
-    <string name="notification_auto_patch_blocked_battery">Izuzmi Morphe iz optimizacije baterije, inače Android zaustavlja rad prije nego što se pokrene</string>
-    <string name="notification_auto_patch_blocked_foreground">Android nije dopustio pokretanje patchanja u pozadini. Otvorite Morphe i patchajte iz aplikacije.</string>
-    <string name="notification_channel_auto_patch">Automatsko ponovno patchnje</string>
-    <string name="notification_channel_auto_patch_description">Tihe obavijesti o napretku i rezultatima za planirano ponovno patchanje</string>
     <string name="notification_manager_update_title">Dostupno ažuriranje aplikacije Morphe</string>
     <string name="notification_bundle_update_title">Dostupni su novi patchevi</string>
     <string name="notification_update_text">Verzija %s je spremna za preuzimanje</string>
@@ -1043,6 +1040,15 @@ Detalji: %2$s"</string>
     <string name="credits_prior_development">Prijašnji razvoj</string>
     <string name="opensource_licenses">Licence otvorenog koda</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Odabir A</string>
+    <string name="easter_egg_pill_message">Uzmi plavu pilulu i oglasi će ostati točno tamo gdje jesu. Uzmi crvenu i vidi koliko duboko bajtkod ide.</string>
+    <string name="easter_egg_pill_red">Crvena pilula</string>
+    <string name="easter_egg_pill_blue">Plava pilula</string>
+    <string name="easter_egg_pill_red_toast">Pozadina Matrixa otključana</string>
+    <string name="easter_egg_pill_blue_toast">Oglasi će vas čekati</string>
+    <string name="easter_egg_pill_message_again">Već si u Matrixu. Crvena pilula te vraća na kišu, plava te budi.</string>
+    <string name="easter_egg_pill_red_toast_again">Natrag na kišu</string>
+    <string name="easter_egg_pill_blue_toast_again">Isključeno. Put natrag je tamo gdje je oduvijek bio.</string>
     <!-- Shared strings -->
     <string name="select_file">Odaberite datoteku</string>
     <string name="select_folder">Odaberite mapu</string>
@@ -1168,6 +1174,7 @@ Detalji: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB preuzeto</string>
     <string name="manager_update_not_ready">Ova verzija se još uvijek objavljuje. Pokušajte ponovno za nekoliko minuta.</string>
+    <string name="update_download_missing">Preuzeto ažuriranje više nije dostupno. Preuzmite ga ponovno.</string>
     <string name="download_manager_failed">Preuzimanje ažuriranja nije uspjelo: %s</string>
     <string name="failed_to_check_updates">Provjera ažuriranja nije uspjela: %s</string>
     <string name="failed_to_download_update">Preuzimanje ažuriranja nije uspjelo: %s</string>

@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Ορισμένες πηγές ενημερώσεων απαιτούν νεότερη έκδοση</string>
     <string name="home_metered_skipped_title">Οι ενημερώσεις έχουν παύσει στα δεδομένα κινητής τηλεφωνίας</string>
     <string name="home_metered_skipped_subtitle">Πατήστε για να επιτρέψετε ενημερώσεις μέσω κινητών δεδομένων</string>
+    <string name="home_repatch_available_subtitle">Πατήστε για να τα προσθέσετε όλα στην ουρά</string>
     <string name="home_update_error">Η ενημέρωση απέτυχε</string>
     <string name="home_update_error_subtitle">Παρουσιάστηκε ένα πρόβλημα κατά την ενημέρωση των πηγών</string>
     <string name="home_update_skipped_metered">Οι ενημερώσεις παραλείφθηκαν</string>
@@ -192,6 +193,7 @@
     <string name="home_apk_helper_installed_incompatible">Η εγκατεστημένη έκδοση δεν μπορεί να τροποποιηθεί</string>
     <string name="home_apk_use_saved">Χρήση αποθηκευμένου APK</string>
     <string name="home_apk_use_installed">Χρήση εγκατεστημένου APK</string>
+    <string name="home_apk_use_saved_unsupported">Τα patches δεν υποστηρίζουν αυτό το αποθηκευμένο αντίγραφο. Η εφαρμογή του patch θα ζητήσει επιβεβαίωση ή επιλέξτε άλλο APK.</string>
     <string name="home_apk_use_installed_unverified">Δεν μπόρεσα να επαληθεύσω την υπογραφή της εγκατεστημένης εφαρμογής, επομένως ενδέχεται να έχει ήδη τροποποιηθεί</string>
     <string name="home_unverified">Μη επαληθευμένο</string>
     <string name="home_install_verification_pending">Έλεγχος εγκατάστασης…</string>
@@ -670,14 +672,6 @@
     <string name="settings_advanced_update_interval_monthly">Κάθε μήνα</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Συχνότητα ελέγχου στο παρασκήνιο</string>
     <string name="settings_advanced_update_interval_battery_warning">Οι έλεγχοι στο παρασκήνιο μπορεί να μη λειτουργούν σωστά σε ορισμένες συσκευές. Κατασκευαστές όπως Xiaomi, Huawei, Samsung και OnePlus συχνά περιορίζουν σφοδρά τις διαδικασίες παρασκηνίου για να εξοικονομήσουν μπαταρία</string>
-    <string name="settings_advanced_auto_patch">Αυτόματη επανάληψη διόρθωσης</string>
-    <string name="settings_advanced_auto_patch_description">Επαναφέρει τις εγκατεστημένες εφαρμογές στο παρασκήνιο όταν οι διορθώσεις τους αλλάζουν. Μόνο οι εφαρμογές με αποθηκευμένο αρχικό APK καλύπτονται</string>
-    <string name="settings_advanced_auto_patch_interval">Συχνότητα επανάληψης διόρθωσης</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Πόσο συχνά επαναδημιουργούνται οι διορθωμένες εφαρμογές</string>
-    <string name="settings_advanced_auto_patch_charging">Μόνο κατά τη φόρτιση</string>
-    <string name="settings_advanced_auto_patch_charging_description">Η διόρθωση καταπονεί τον επεξεργαστή και τη μνήμη, οπότε αναμένει έναν φορτιστή</string>
-    <string name="settings_advanced_auto_patch_install">Εγκατάσταση αυτόματα</string>
-    <string name="settings_advanced_auto_patch_install_description">Απαιτεί το Shizuku ως εγκαταστάτη. Με οποιονδήποτε άλλο εγκαταστάτη, οι διορθωμένες εφαρμογές αποθηκεύονται μόνο</string>
     <string name="settings_advanced_external_batch_patch">Επιτρέψτε εξωτερικούς ενεργοποιητές</string>
     <string name="settings_advanced_external_batch_patch_description">Επιτρέπει σε εφαρμογές αυτοματισμού να ξεκινήσουν την ομαδική διόρθωση με μια πρόθεση. Κάθε αίτημα επιβεβαιώνεται πριν από την εκτέλεση οποιασδήποτε ενέργειας</string>
     <string name="external_batch_patch_title">Έναρξη ομαδικής διόρθωσης;</string>
@@ -685,13 +679,6 @@
     <string name="external_batch_patch_trust_caller">Να επιτρέπεται πάντα αυτήν την εφαρμογή</string>
     <string name="external_batch_patch_unknown_caller">Μια άγνωστη εφαρμογή</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Ολοκληρώθηκε η αυτόματη επανάληψη διόρθωσης</string>
-    <string name="notification_auto_patch_running_title">Επανάληψη διόρθωσης εφαρμογών</string>
-    <string name="notification_auto_patch_blocked_title">Η αυτόματη επανάληψη διόρθωσης δεν εκτελέστηκε</string>
-    <string name="notification_auto_patch_blocked_battery">Το σύστημα μπλόκαρε αυτή την εγκατάσταση. Στα Xiaomi και παρόμοιες συσκευές, ενεργοποιήστε το \"Εγκατάσταση μέσω USB\" στις επιλογές προγραμματιστή. Σε ένα προφίλ εργασίας, οι εγκαταστάσεις μπορούν να περιοριστούν από την πολιτική</string>
-    <string name="notification_auto_patch_blocked_foreground">Απέτυχε</string>
-    <string name="notification_channel_auto_patch">Ακυρώθηκε</string>
-    <string name="notification_channel_auto_patch_description">Έτοιμο</string>
     <string name="notification_manager_update_title">Διαθέσιμη ενημέρωση του Morphe</string>
     <string name="notification_bundle_update_title">Νέες τροποποιήσεις διαθέσιμες</string>
     <string name="notification_update_text">Η έκδοση %s είναι έτοιμη για λήψη</string>

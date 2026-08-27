@@ -170,6 +170,12 @@
     <string name="sources_dialog_url_invalid">URL має вказувати на репозиторій GitHub/GitLab або .json файл</string>
     <string name="sources_dialog_local_change_file">Змінити файл</string>
     <string name="sources_dialog_preinstalled">Вбудоване</string>
+    <string name="sources_dialog_community">Патчі спільноти</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Сторонні джерела патчів</string>
+    <string name="sources_dialog_community_notice_message">"Джерела патчів спільноти створюються та підтримуються їхніми власними авторами. Morphe не перевіряє та не гарантує сторонні патчі, а також не несе відповідальності за їхній вміст або за те, що вони роблять на вашому пристрої.
+
+Усе, що ви додаєте з цього сайту, використовується на ваш власний ризик"</string>
     <string name="sources_update_success">Оновлення успішне</string>
     <string name="sources_update_unavailable">Оновлення недоступне</string>
     <string name="sources_download_fail">Не вдалося завантажити джерела: %s</string>
@@ -666,8 +672,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Оновлення</string>
     <string name="settings_advanced_patcher">Патчер</string>
-    <string name="settings_advanced_updates_use_prereleases">Передрелізні оновлення</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Ранній доступ до нових версій застосунку Morphe. Увімкніть попередні релізи окремо для кожного джерела в джерелах патчів</string>
+    <string name="settings_advanced_updates_manager_prereleases">Передрелізні оновлення</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Ранній доступ до нових версій Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Увімкнути передрелізні оновлення?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Передрелізні версії Morphe все ще розробляються та можуть бути нестабільними.
+
+Це не стосується патчів: увімкніть передрелізні версії патчів для кожного джерела у списку джерел патчів"</string>
     <string name="settings_advanced_updates_allow_metered">Оновлення через мобільну мережу</string>
     <string name="settings_advanced_updates_allow_metered_description">Дозволяє завантаження оновлень Morphe та патчів через мобільну мережу</string>
     <string name="settings_advanced_updates_background_notifications">Фонові сповіщення про оновлення</string>

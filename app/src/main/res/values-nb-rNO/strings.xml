@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Andre apper</string>
     <string name="home_not_patched_yet">Ikke patchet ennå</string>
-    <string name="home_unpatched_version_installed">Uoppdatert versjon installert</string>
+    <string name="home_unpatched_version_installed">Upatchet versjon installert</string>
     <string name="home_unpatched_badge">Ikke patchet</string>
     <string name="home_no_patches_available">Ingen patcher tilgjengelig</string>
     <string name="home_app_hide_title">Skjul denne appen?</string>
@@ -13,7 +13,7 @@
     <string name="home_app_hidden_apps_title">Skjulte apper</string>
     <string name="home_app_hidden_apps_hint">Trykk for å vise</string>
     <string name="android_11_bug_dialog_title">Android 11-feil</string>
-    <string name="android_11_bug_dialog_description">Appinstallasjonstillatelse må gis på forhånd for å unngå en feil i Android 11-systemet som vil påvirke brukeropplevelsen negativt</string>
+    <string name="android_11_bug_dialog_description">Tillatelse for appinstallasjon må gis på forhånd for å unngå en feil i Android 11-systemet som vil påvirke brukeropplevelsen negativt</string>
     <string name="deep_link_add_source_title">Legg til kilde</string>
     <string name="deep_link_add_source_message">Vil du legge til denne patch-kilden til Morphe?</string>
     <string name="deep_link_add_source_warning">Bruk kun betrodde kilder</string>
@@ -21,14 +21,14 @@
     <string name="home_update_available">Morphe-oppdatering er tilgjengelig</string>
     <string name="home_update_available_subtitle">Ny versjon klar for installasjon</string>
     <string name="home_blocked_source_title">Blokkert patch-kilde oppdaget</string>
-    <string name="home_blocked_source_subtitle">Trykk for å se og fjerne</string>
+    <string name="home_blocked_source_subtitle">Trykk for å gjennomgå og fjerne</string>
     <string name="home_metadata_errors_title">Noen patch-kilder er ikke tilgjengelige</string>
     <string name="home_metadata_errors_subtitle">Trykk for å se kildene</string>
     <string name="home_outdated_manager_title">Morphe er utdatert</string>
     <string name="home_outdated_manager_subtitle">Noen patch-kilder trenger en nyere versjon</string>
-    <string name="home_metered_skipped_title">Oppdateringer satt på pause på mobildata</string>
+    <string name="home_metered_skipped_title">Oppdateringer satt på pause over mobildata</string>
     <string name="home_metered_skipped_subtitle">Trykk for å tillate oppdateringer over mobildata</string>
-    <string name="home_repatch_available_subtitle">Trykk for å legge dem alle i kø</string>
+    <string name="home_repatch_available_subtitle">Trykk for å legge alle i kø</string>
     <string name="home_update_error">Oppdatering mislyktes</string>
     <string name="home_update_error_subtitle">Noe gikk galt under oppdatering av kilder</string>
     <string name="home_update_skipped_metered">Oppdateringer hoppet over</string>
@@ -51,9 +51,11 @@
     <string name="home_app_sort_recommended">Anbefalt rekkefølge</string>
     <string name="home_app_sort_recommended_description">Installerte og fastsatte apper først</string>
     <string name="home_app_sort_name_asc_description">Alfabetisk, A til Å</string>
-    <string name="home_app_sort_name_desc_description">Omvendt alfabetisk, Z til A</string>
+    <string name="home_app_sort_name_desc_description">Omvendt alfabetisk, Å til A</string>
     <string name="home_app_sort_updates_first">Patch-oppdateringer først</string>
     <string name="home_app_sort_updates_first_description">Apper med oppdateringsmerker først, deretter anbefalt rekkefølge</string>
+    <string name="home_app_sort_recently_patched">Nylig patchet</string>
+    <string name="home_app_sort_recently_patched_description">Siste patchede apper først</string>
     <string name="home_no_apps_title">Ingen apper tilgjengelig</string>
     <string name="home_no_apps_subtitle">Legg til en patch-kilde eller aktiver en eksisterende i %s</string>
     <string name="home_no_apps_search_subtitle">Ingen apper samsvarer med \"%s\"</string>
@@ -82,40 +84,40 @@
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
     <string name="home_greeting_4">En annen dag, et annet annonseblokkert mesterverk</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
-    <string name="home_greeting_5">Vil du se på annonser? Ikke jeg heller</string>
+    <string name="home_greeting_5">Vil du se annonser? Ikke jeg heller</string>
     <!-- Friendly, slightly mischievous joke about controlling app behavior -->
     <string name="home_greeting_6">La oss få appene dine til å oppføre seg</string>
     <!-- Whimsical forecast-style joke, not meant literally -->
-    <string name="home_greeting_7" formatted="false">Dagens værmelding: 100% sjanse for patching</string>
+    <string name="home_greeting_7" formatted="false">Dagens værmelding: 100% sjanse for patch</string>
     <!-- From mediocrity to amazing -->
-    <string name="home_greeting_8">Klar til å forvandle noe tamt til fantastisk?</string>
+    <string name="home_greeting_8">Klar til å forvandle noe traust til noe fantastisk?</string>
     <!-- Playful exaggeration, making patching feel heroic -->
     <string name="home_greeting_9">Redder apper fra seg selv siden i dag</string>
     <!-- Light sarcasm, casual and tech-savvy humor -->
     <string name="home_greeting_10">Drevet av koffein og gode patcher</string>
     <!-- Morning greetings (5:00–11:59) -->
-    <string name="home_greeting_morning_1">Stå opp og patch</string>
+    <string name="home_greeting_morning_1">Våkn opp og patch</string>
     <string name="home_greeting_morning_2">God morgen! Apper patcher ikke seg selv</string>
     <!-- Afternoon greetings (12:00–16:59) -->
     <string name="home_greeting_afternoon_1">Ettermiddagstrøtt? Patch noe</string>
-    <string name="home_greeting_afternoon_2">Etterlunsj-patching er annerledes</string>
-    <string name="home_greeting_afternoon_3">Ettermiddagsskiftet: patch-utgave</string>
+    <string name="home_greeting_afternoon_2">Etterlunsj-patching er noe særegent</string>
+    <string name="home_greeting_afternoon_3">Ettermiddagsskiftet: patch-utgaven</string>
     <!-- Evening greetings (17:00–21:59) -->
-    <string name="home_greeting_evening_1">God kveld! Kveldspatching er annerledes</string>
-    <string name="home_greeting_evening_2">Slapper av? Patch en app først</string>
-    <string name="home_greeting_evening_3">Slutter du for dagen? Patch noe først</string>
+    <string name="home_greeting_evening_1">God kveld! Kveldspatcher har en unik følelse</string>
+    <string name="home_greeting_evening_2">Avslapping neste? Patch en app først</string>
+    <string name="home_greeting_evening_3">Trekker du deg tilbake for kvelden? Patch noe først</string>
     <!-- Late night greetings (22:00–23:59) -->
     <string name="home_greeting_late_night_1">Fortsatt våken? Det er appene som trenger patching også</string>
-    <string name="home_greeting_late_night_2">Senkveldspatch-økt? Respekt</string>
+    <string name="home_greeting_late_night_2">En aldri så liten patch-økt sent på kvelden? Respekt</string>
     <string name="home_greeting_late_night_3">Nattuglemodus: aktivert</string>
     <!-- Super late night greetings (0:00–4:59) -->
     <string name="home_greeting_super_late_1">Høysesong for patching… visstnok</string>
-    <string name="home_greeting_super_late_2">Får du ikke sove? Patch noe</string>
+    <string name="home_greeting_super_late_2">Søvnløs? Patch noe</string>
     <string name="home_greeting_super_late_3">På dette tidspunktet, bare forbli våken og patch</string>
     <string name="home_greeting_super_late_4">Du og serverne, begge våkne</string>
     <string name="home_greeting_super_late_5">Nattaktiv og produktiv</string>
     <!-- Home Screen - Sources Management -->
-    <string name="sources_management_title">Patchkilder</string>
+    <string name="sources_management_title">Patch-kilder</string>
     <string name="sources_search">Søk kilder</string>
     <string name="sources_sort_title">Sorter patch-kilder</string>
     <string name="sources_sort_manual">Manuell rekkefølge</string>
@@ -125,11 +127,15 @@
     <string name="sources_sort_enabled_first">Aktiverte først</string>
     <string name="sources_sort_enabled_first_description">Vis aktive kilder før deaktiverte kilder</string>
     <string name="sources_management_open_in_browser">Åpne i nettleser</string>
-    <string name="sources_management_failed_to_open_url">Kunne ikke åpne URL</string>
+    <string name="sources_management_report_issue">Rapporter et problem</string>
+    <string name="sources_management_failed_to_open_url">Kunne ikke åpne linken</string>
     <string name="sources_management_prerelease_toggle">Forhåndsutgitte patcher</string>
     <string name="sources_management_prerelease_toggle_description">Mottar tidlig tilgang til nye eksperimentelle patchversjoner</string>
+    <string name="sources_prerelease_warning_title">Aktiver forhåndsutgitte patcher?</string>
+    <string name="sources_prerelease_warning_message">Forhåndsutgitte build\'er er fortsatt under utvikling. Patcher kan mislykkes eller ødelegge appen, og funksjoner kan endres uten forvarsel.</string>
+    <string name="expert_mode_prerelease_notice">Denne kilden bruker forhåndsutgitte patcher. Patchingen kan mislykkes eller oppføre seg uventet.</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimentelle appversjoner</string>
-    <string name="sources_management_experimental_versions_toggle_description">Patchene eksperimentelle appmål hvis tilgjengelig</string>
+    <string name="sources_management_experimental_versions_toggle_description">Patcher eksperimentelle appmål hvis tilgjengelig</string>
     <string name="sources_management_already_exists">Denne kilden er allerede lagt til</string>
     <string name="sources_management_invalid_url">Ugyldig kilde-URL. Vennligst sjekk adressen og prøv igjen</string>
     <string name="sources_management_blocked">Denne patch-kilden er blokkert og kan ikke legges til</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL-en må peke til et GitHub/GitLab-repo eller en .json-fil</string>
     <string name="sources_dialog_local_change_file">Endre fil</string>
     <string name="sources_dialog_preinstalled">Forhåndsinstallert</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Oppdatering vellykket</string>
     <string name="sources_update_unavailable">Ingen oppdatering tilgjengelig</string>
     <string name="sources_download_fail">Kunne ikke laste ned kilder: %s</string>
@@ -188,7 +195,7 @@
     <string name="home_apk_helper_no_result">Hjelpeappen returnerte ikke en APK-fil</string>
     <string name="home_apk_helper_no_access">Hjelpeappen ga ikke tilgang til APK-filen den returnerte</string>
     <string name="home_apk_helper_no_package">Hjelperappen sa ikke hvilken installert app som skulle brukes</string>
-    <string name="home_apk_helper_wrong_package">Hjelperappen returnerte en annen app enn den som ble patchet</string>
+    <string name="home_apk_helper_wrong_package">Hjelperappen returnerte en annen app enn den som blir patchet</string>
     <string name="home_apk_helper_installed_unavailable">Morphe kunne ikke bruke den installerte appen</string>
     <string name="home_apk_helper_installed_incompatible">Den installerte versjonen kan ikke bli patchet</string>
     <string name="home_apk_use_saved">Bruk lagret APK</string>
@@ -213,7 +220,7 @@
     <string name="home_download_instructions_step2_search">Åpne et søkeresultat fra et nettsted du stoler på</string>
     <string name="home_download_instructions_step2_search_note">Morphe kan ikke gå god for disse nettstedene. Hopp over de som tilbyr sin egen appbutikk i stedet for en APK-fil</string>
     <string name="home_download_instructions_step3_search">På det nettstedet laster du ned APK-en til versjon &lt;b&gt;%s&lt;/b&gt;, ikke den nyeste</string>
-    <string name="home_download_instructions_step3_search_any">På det nettstedet laster du ned APK-en til appen. &lt;b&gt;Enhver versjon&lt;/b&gt; kan patcheS</string>
+    <string name="home_download_instructions_step3_search_any">På det nettstedet laster du ned APK-en til appen. &lt;b&gt;Enhver versjon&lt;/b&gt; kan bli patchet</string>
     <string name="home_download_instructions_download_button_toast">Trykk på nedlastingsknappen på nettsiden, og ikke her 😊</string>
     <string name="home_download_instructions_download_button_toast_2">Flott! Klikk nå fortsett og gå til nettsiden 👆</string>
     <string name="home_download_instructions_download_button_toast_3">Øvelse gjør mester, og du er på vei 💪</string>
@@ -253,8 +260,10 @@
     <string name="expert_mode_enable_all">Aktiver alle</string>
     <string name="expert_mode_enable_all_done">Alle patcher aktivert</string>
     <string name="expert_mode_enable_all_universal_pending">Trykk igjen for universelle oppdateringer</string>
+    <string name="expert_mode_universal_all_warning_title">Aktiver alle universelle patcher?</string>
+    <string name="expert_mode_universal_all_warning_message">Universelle patcher er ikke testet sammen. Å aktivere alle på en gang kan forårsake konflikter, mislykket patching eller krasj.</string>
     <string name="expert_mode_reset_to_default">Aktiver anbefalte patches</string>
-    <string name="expert_mode_reset_to_default_done">Anbefalte patcher påført</string>
+    <string name="expert_mode_reset_to_default_done">Anbefalte patcher er brukt</string>
     <string name="expert_mode_restore_saved">Gjenopprett lagret valg</string>
     <string name="expert_mode_restore_saved_done">Lagret utvalg gjenopprettet</string>
     <string name="expert_mode_copy_from_bundle">Kopier utvalg fra en annen pakke</string>
@@ -434,7 +443,7 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="root_mount_module_unmount_warning">Hvis KernelSU har Unmount-moduler aktivert som standard, åpne KernelSU > Superuser > appen du monterte > Profil > Egendefinert og deaktiver Unmount-moduler. Ellers kan den monterte patchede APK-en kanskje ikke tre i kraft, selv om Morphe viser at den er montert.</string>
     <string name="root_pre_patch_installer_standard_title">Standard installasjonsmodus</string>
     <string name="root_pre_patch_installer_standard_description">Installerer som en vanlig APK med GmsCore-støtte. Dine installasjonsinnstillinger brukes etter installasjonen.</string>
-    <string name="root_pre_patch_installer_hint">Denne installasjonsmodusen er separat fra Innstillinger > System > Installasjon og kan ikke endres etter installasjonen.</string>
+    <string name="root_pre_patch_installer_hint">Denne installasjonsmodusen er separat fra Innstillinger &gt; System &gt; Installasjon og kan ikke endres etter installasjonen.</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Feil kopiert til utklippstavlen</string>
     <string name="patcher_error_log">Feillogg</string>
@@ -457,7 +466,7 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="patcher_split_step_merging">Slår sammen %s</string>
     <string name="patcher_split_step_writing">Skriver sammenslått APK</string>
     <string name="patcher_split_step_finalizing">Fullfører sammenslått APK</string>
-    <string name="patcher_conflict_title">Pakke konflikt</string>
+    <string name="patcher_conflict_title">Pakkekonflikt</string>
     <string name="patcher_conflict_subtitle">Du må avinstallere den eksisterende versjonen</string>
     <string name="patcher_conflict_hint">Den patchede appen bruker et annet sertifikat enn den installerte versjonen. Avinstallering vil slette alle appdata</string>
     <string name="patcher_installed_conflict_title">Avinstallasjon kreves</string>
@@ -532,7 +541,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="patcher_message_19">Appen din har feber, og den eneste kuren er flere patcher… 🩺🔔</string>
     <string name="patcher_message_20">Fjerner tull. Vennligst vent… 🗑️</string>
     <!-- Expert patcher Screen -->
-    <string name="patching_app">Patche app</string>
+    <string name="patching_app">Patcher app</string>
     <string name="memory_usage">Minnebruk</string>
     <string name="cpu_usage">CPU-bruk</string>
     <string name="storage_io_usage">Lagrings-I/O</string>
@@ -657,8 +666,14 @@ Avinstallering vil permanent slette alle appdata"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Deaktiver</string>
     <string name="settings_advanced_patcher">Patcner</string>
-    <string name="settings_advanced_updates_use_prereleases">Forhåndsutgitte oppdateringer</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Tidlig tilgang til nye Morphe-appversjoner. Aktiver forhåndsutgitt per kilde i patch-kildene</string>
+    <string name="settings_advanced_updates_manager_prereleases">Pre-release-oppdateringer</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Tidlig tilgang til nye Morphe-versjoner</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Aktiver pre-release-oppdateringer?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Pre-release-versjoner av Morphe er fortsatt under utvikling og kan være ustabile.
+
+Patcher påvirkes ikke: aktiver pre-release-patcher for hver kilde i patch-kildelisten"</string>
     <string name="settings_advanced_updates_allow_metered">Mobildataoppdateringer</string>
     <string name="settings_advanced_updates_allow_metered_description">Lar Morphe og patch-oppdateringer laste ned over mobildata</string>
     <string name="settings_advanced_updates_background_notifications">Bakgrunnsoppdateringsvarsler</string>
@@ -1163,6 +1178,7 @@ Detaljer: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB lastet ned</string>
     <string name="manager_update_not_ready">Denne utgivelsen er fortsatt under publisering. Prøv igjen om noen minutter</string>
+    <string name="update_download_missing">Den nedlastede oppdateringen er ikke lenger tilgjengelig. Last den ned igjen.</string>
     <string name="download_manager_failed">Kunne ikke laste ned oppdatering: %s</string>
     <string name="failed_to_check_updates">Kunne ikke sjekke etter oppdateringer: %s</string>
     <string name="failed_to_download_update">Kunne ikke laste ned oppdatering: %s</string>

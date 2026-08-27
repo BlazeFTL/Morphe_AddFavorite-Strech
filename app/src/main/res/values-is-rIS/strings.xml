@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Omreverse alfabetískt, Z til A</string>
     <string name="home_app_sort_updates_first">Pætingar fyrst</string>
     <string name="home_app_sort_updates_first_description">Forrit með uppfærslumerki fyrst, svo í mæltu lagi</string>
+    <string name="home_app_sort_recently_patched">Nýlega plástuð</string>
+    <string name="home_app_sort_recently_patched_description">Nýlegast plástruð forrit fyrst</string>
     <string name="home_no_apps_title">Engin forrit í boði</string>
     <string name="home_no_apps_subtitle">Bættu við heimild eða virkjaðu núverandi í %s</string>
     <string name="home_no_apps_search_subtitle">Engin forrit passa við \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Gerilt fyrst</string>
     <string name="sources_sort_enabled_first_description">Sýna virka uppruna á undan óvirkuppruna</string>
     <string name="sources_management_open_in_browser">Opna í vafra</string>
+    <string name="sources_management_report_issue">Nýlega uppfærð forrit fyrst</string>
     <string name="sources_management_failed_to_open_url">Ekki tókst að opna vefslóð</string>
     <string name="sources_management_prerelease_toggle">For úgáfur</string>
     <string name="sources_management_prerelease_toggle_description">Fáðu snemma aðgang að nýjum tilraunabreytingar útgáfum</string>
+    <string name="sources_prerelease_warning_title">Tilkynna vandamál</string>
+    <string name="sources_prerelease_warning_message">Virkja forútgáfuplástra?</string>
+    <string name="expert_mode_prerelease_notice">Þessi uppspretta er með forútgáfuplástra. Plástrun getur mistekist eða hegðað sér óvænt.</string>
     <string name="sources_management_experimental_versions_toggle">Tilrauna app úgáfur</string>
     <string name="sources_management_experimental_versions_toggle_description">Breytir tilrauna app markmiðum ef fáanlegt</string>
     <string name="sources_management_already_exists">Þessi heimild hefur þegar verið bætt við</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL verður að benda á GitHub/GitLab repository eða .json skrá</string>
     <string name="sources_dialog_local_change_file">Breyta skrá</string>
     <string name="sources_dialog_preinstalled">Foruppsett</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Uppfærsla vel heppnað</string>
     <string name="sources_update_unavailable">Ekki tókst að uppfæra</string>
     <string name="sources_download_fail">Ekki tókst að sækja heimildir: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Gerðu allt virkt</string>
     <string name="expert_mode_enable_all_done">Allar breytingar virkar</string>
     <string name="expert_mode_enable_all_universal_pending">Ýttu aftur til að fá algilda plástra</string>
+    <string name="expert_mode_universal_all_warning_title">Virkja alla alhliða plástra?</string>
+    <string name="expert_mode_universal_all_warning_message">Alhliða plástrar eru ekki prófaðir saman. Að virkja alla í einu getur valdið árekstrum, mistekinni plástrun eða hruni.</string>
     <string name="expert_mode_reset_to_default">Virkja mæltu breytingar</string>
     <string name="expert_mode_reset_to_default_done">Mæltu breytingarnar notaðar</string>
     <string name="expert_mode_restore_saved">Endurheimta valda</string>
@@ -655,8 +664,14 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Uppfæra</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Uppfærsla fyrir útgáfur</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Snemma aðgangur að nýjum Morphe app útgáfum. Virkja for útgáfur per heimild í breytandas heimildum</string>
+    <string name="settings_advanced_updates_manager_prereleases">Forútgáfuuppfærslur</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Snemma aðgangur að nýjum Morphe útgáfum</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Virkja forútgáfuuppfærslur?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Forútgáfuútgáfur af Morphe eru enn í þróun og geta verið óstöðugar.
+
+Plástrar verða ekki fyrir áhrifum: virkjaðu forútgáfuplástra fyrir hverja uppsprettu í lista yfir uppsprettur."</string>
     <string name="settings_advanced_updates_allow_metered">Gagnagáfa á gögnum</string>
     <string name="settings_advanced_updates_allow_metered_description">Leyfir Morphe og breytingar uppfærslu hlaði niður á farsímaneton</string>
     <string name="settings_advanced_updates_background_notifications">Bakgrunns uppfærslukynning</string>
@@ -1158,6 +1173,7 @@ Nánari upplýsingar: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB niðurhalin</string>
     <string name="manager_update_not_ready">Þessi útgáfa er enn í útgáfuferlinu. Reyndu aftur á nokkrum mínútum</string>
+    <string name="update_download_missing">Sótta uppfærslan er ekki lengur tiltæk. Sæktu hana aftur.</string>
     <string name="download_manager_failed">Ekki tókst að sækja uppfærslu: %s</string>
     <string name="failed_to_check_updates">Ekki tókst að skoða uppfærslur: %s</string>
     <string name="failed_to_download_update">Ekki tókst að sækja uppfærslu: %s</string>

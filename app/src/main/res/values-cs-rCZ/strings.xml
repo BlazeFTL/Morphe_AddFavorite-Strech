@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Některé zdroje záplat vyžadují novější verzi</string>
     <string name="home_metered_skipped_title">Aktualizace pozastaveny na mobilních datech</string>
     <string name="home_metered_skipped_subtitle">Klepnutím povolíte aktualizace přes mobilní data</string>
+    <string name="home_repatch_available_subtitle">Klepněte pro zařazení všech do fronty</string>
     <string name="home_update_error">Aktualizace selhala</string>
     <string name="home_update_error_subtitle">Při aktualizaci zdrojů došlo k chybě</string>
     <string name="home_update_skipped_metered">Aktualizace přeskočeny</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Abecední pořadí, od Z do A</string>
     <string name="home_app_sort_updates_first">Nejprve aktualizace v záplatách</string>
     <string name="home_app_sort_updates_first_description">Aplikace se značkami aktualizací nejdříve, poté doporučené pořadí</string>
+    <string name="home_app_sort_recently_patched">Nedávno záplatované</string>
+    <string name="home_app_sort_recently_patched_description">Nejnověji záplatované aplikace jako první</string>
     <string name="home_no_apps_title">Nenalezly se žádné aplikace</string>
     <string name="home_no_apps_subtitle">Přidejte zdroj záplaty nebo povolte stávající v %s</string>
     <string name="home_no_apps_search_subtitle">Žádná aplikace neodpovídá \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">Povoleno nejdříve</string>
     <string name="sources_sort_enabled_first_description">Zobrazit aktivní zdroje před zakázanými</string>
     <string name="sources_management_open_in_browser">Otevřít v prohlížeči</string>
+    <string name="sources_management_report_issue">Nahlásit problém</string>
     <string name="sources_management_failed_to_open_url">Nepodařilo se otevřít URL</string>
     <string name="sources_management_prerelease_toggle">Předběžné záplaty</string>
     <string name="sources_management_prerelease_toggle_description">Získáte předběžný přístup k novým experimentálním verzím záplat</string>
+    <string name="sources_prerelease_warning_title">Povolit předběžné záplaty?</string>
+    <string name="sources_prerelease_warning_message">Předběžná sestavení jsou stále ve vývoji. Záplaty mohou selhat nebo poškodit aplikaci a funkce se mohou změnit bez upozornění.</string>
+    <string name="expert_mode_prerelease_notice">Tento zdroj používá předběžné záplaty. Patchování může selhat nebo se chovat neočekávaně.</string>
     <string name="sources_management_experimental_versions_toggle">Experimentální verze aplikací</string>
     <string name="sources_management_experimental_versions_toggle_description">Záplatovat experimentální verze aplikací, jsou-li k dispozici</string>
     <string name="sources_management_already_exists">Tento zdroj byl již přidán</string>
@@ -162,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL musí odkazovat na repozitář GitHub/GitLab nebo na soubor .json</string>
     <string name="sources_dialog_local_change_file">Změnit soubor</string>
     <string name="sources_dialog_preinstalled">Předinstalované</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Aktualizace úspěšná</string>
     <string name="sources_update_unavailable">Nejsou dostupné žádné aktualizace</string>
     <string name="sources_download_fail">Selhalo stahování zdrojů: %s</string>
@@ -192,6 +200,7 @@
     <string name="home_apk_helper_installed_incompatible">Nainstalovanou verzi nelze patchovat</string>
     <string name="home_apk_use_saved">Použít uložený APK</string>
     <string name="home_apk_use_installed">Użyj zainstalowane APK</string>
+    <string name="home_apk_use_saved_unsupported">Tyto záplaty nepodporují tuto uloženou kopii. Při patchování budete požádáni o potvrzení, nebo si vyberte jiný APK</string>
     <string name="home_apk_use_installed_unverified">Nepodařilo se ověřit podpis nainstalované aplikace, takže může být již opravená</string>
     <string name="home_unverified">Neověřené</string>
     <string name="home_install_verification_pending">Kontroluji instalaci…</string>
@@ -251,6 +260,8 @@
     <string name="expert_mode_enable_all">Zapnout vše</string>
     <string name="expert_mode_enable_all_done">Všechny záplaty zapnuté</string>
     <string name="expert_mode_enable_all_universal_pending">Klepněte znovu pro univerzální opravy</string>
+    <string name="expert_mode_universal_all_warning_title">Povolit všechny univerzální záplaty?</string>
+    <string name="expert_mode_universal_all_warning_message">Univerzální záplaty nejsou testovány společně. Povolení všech najednou může způsobit konflikty, selhání patchování nebo pády.</string>
     <string name="expert_mode_reset_to_default">Povolit doporučené záplaty</string>
     <string name="expert_mode_reset_to_default_done">Doporučené záplaty aplikovány</string>
     <string name="expert_mode_restore_saved">Obnovit uloženou hodnotu</string>
@@ -467,6 +478,7 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="patcher_ready_to_install_subtitle">Stiskněte tlačítko níže pro instalaci</string>
     <string name="patcher_ready_to_mount_subtitle">Stiskněte tlačítko níže pro zavedení</string>
     <string name="patcher_patches_excluded_for_installer">Není k dispozici pro tuto metodu instalace a je vyloučeno: %s</string>
+    <string name="patcher_back_to_game_hint">Klepněte na %1$s pro návrat do hry</string>
     <string name="patcher_storage_permission_dialog_title">Nelze přistupovat k cestě úložiště</string>
     <string name="patcher_incompatible_patcher_title">Aktualizace požadována</string>
     <string name="patcher_incompatible_patcher_description">Balíček &lt;b&gt;%1$s&lt;/b&gt; vyžaduje verzi opravovače &lt;b&gt;%2$s&lt;/b&gt; nebo novější. Aktualizujte Morphe pro opravu této aplikace</string>
@@ -653,8 +665,14 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Aktualizace</string>
     <string name="settings_advanced_patcher">Záplatovač</string>
-    <string name="settings_advanced_updates_use_prereleases">Předběžné verze</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Časný přístup k novým verzím aplikace Morphe. Povolte předběžné verze pro každý zdroj v nastavení zdrojů záplat</string>
+    <string name="settings_advanced_updates_manager_prereleases">Předběžné aktualizace</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Předběžný přístup k novým verzím Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Povolit předběžné aktualizace?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Předběžné verze aplikace Morphe jsou stále ve vývoji a mohou být nestabilní.
+
+Záplaty tím nejsou ovlivněny: povolte předběžné záplaty pro každý zdroj v seznamu zdrojů záplat."</string>
     <string name="settings_advanced_updates_allow_metered">Aktualizace přes mobilní data</string>
     <string name="settings_advanced_updates_allow_metered_description">Umožňuje aplikaci Morphe a aktualizacím záplat stahovat data přes mobilní síť</string>
     <string name="settings_advanced_updates_background_notifications">Aktualizace na pozadí</string>
@@ -1159,6 +1177,7 @@ Podrobnosti: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">Staženo %1$.1f MB</string>
     <string name="manager_update_not_ready">Toto vydání se stále publikuje. Zkuste to znovu za pár minut</string>
+    <string name="update_download_missing">Stažená aktualizace již není k dispozici. Stáhněte ji znovu.</string>
     <string name="download_manager_failed">Selhání stahování aktualizace: %s</string>
     <string name="failed_to_check_updates">Selhání kontroly aktualizací: %s</string>
     <string name="failed_to_download_update">Selhání stahování aktualizace: %s</string>

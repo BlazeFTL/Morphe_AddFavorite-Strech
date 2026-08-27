@@ -87,6 +87,7 @@
     <string name="sources_dialog_url_invalid">بەستەرەکە دەبێت ئاماژە بە ڕیپۆیەکی GitHub/GitLab یان پەڕگەیەکی .json بکات</string>
     <string name="sources_dialog_local_change_file">گۆڕینی پەڕگە</string>
     <string name="sources_dialog_preinstalled">پێشوەختە دامەزراو</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">نوێکردنەوە سەرکەوتوو بوو</string>
     <string name="sources_update_unavailable">نوێکردنەوە بەردەست نیە</string>
     <string name="sources_download_fail">شکستس هێنا لە داگرتنی سەرچاوە: %s</string>
@@ -385,6 +386,8 @@
     <string name="settings_appearance_app_icon_change_dialog_confirm">گۆڕینی وێنۆچکە</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">نوێکردنەوەکان</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_background_notifications">ئاگانامەکانی نوێکردنەوەی پاشخان</string>
     <string name="settings_advanced_updates_background_notifications_description">بە خوولی پشکنین بۆ نوێکردنەوەکان لە باکگراوند و ئاگادارکردنەوە بکە کاتێک بەردەست بوو</string>
     <string name="settings_advanced_update_interval">پشکنینی فریکوێنس</string>

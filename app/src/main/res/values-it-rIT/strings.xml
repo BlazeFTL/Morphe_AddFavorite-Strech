@@ -170,6 +170,7 @@ Nessuna patch disponibile</string>
     <string name="sources_dialog_url_invalid">L\'URL deve puntare a un repository GitHub/GitLab o a un file .json</string>
     <string name="sources_dialog_local_change_file">Cambia file</string>
     <string name="sources_dialog_preinstalled">Preinstallato</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Aggiornamento riuscito</string>
     <string name="sources_update_unavailable">Nessun aggiornamento disponibile</string>
     <string name="sources_download_fail">Impossibile scaricare le fonti: %s</string>
@@ -478,6 +479,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_ready_to_install_subtitle">Premi il pulsante qui sotto per installare</string>
     <string name="patcher_ready_to_mount_subtitle">Premi il pulsante qui sotto per montare</string>
     <string name="patcher_patches_excluded_for_installer">Non disponibile per questo metodo di installazione ed escluso: %s</string>
+    <string name="patcher_back_to_game_hint">Tocca %1$s per tornare al tuo gioco</string>
     <string name="patcher_storage_permission_dialog_title">Non è possibile accedere alla cartella di archiviazione</string>
     <string name="patcher_incompatible_patcher_title">Aggiornamento richiesto</string>
     <string name="patcher_incompatible_patcher_description">Il bundle &lt;b&gt;%1$s&lt;/b&gt; richiede la versione del patcher &lt;b&gt;%2$s&lt;/b&gt; o successiva. Aggiorna Morphe per poter patchare questa app</string>
@@ -665,8 +667,14 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Aggiornamenti</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Usa le patch di anteprima</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Accesso anticipato alle nuove versioni dell\'app Morphe. Abilita pre-release per sorgente nelle fonti di patching</string>
+    <string name="settings_advanced_updates_manager_prereleases">Aggiornamenti pre-release</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Accesso anticipato alle nuove versioni di Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Abilitare gli aggiornamenti pre-release?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Le versioni pre-release di Morphe sono ancora in sviluppo e possono essere instabili.
+
+Le patch non sono interessate: abilita le patch pre-release per ciascuna fonte nell'elenco delle fonti delle patch"</string>
     <string name="settings_advanced_updates_allow_metered">I dati mobili sono attivi</string>
     <string name="settings_advanced_updates_allow_metered_description">Consenti alle fonti delle patch e agli aggiornamenti del manager di essere scaricati con la connessione dei dati mobili</string>
     <string name="settings_advanced_updates_background_notifications">Notifiche degli aggiornamenti in background</string>
@@ -1041,6 +1049,11 @@ Dettagli: %2$s"</string>
     <string name="easter_egg_pill_message">Prendi la pillola blu e gli annunci restano esattamente dove sono. Prendi quella rossa e vedi quanto è profondo il bytecode</string>
     <string name="easter_egg_pill_red">Pillola rossa</string>
     <string name="easter_egg_pill_blue">Pillola blu</string>
+    <string name="easter_egg_pill_red_toast">Sfondo Matrix sbloccato</string>
+    <string name="easter_egg_pill_blue_toast">Gli annunci ti aspetteranno</string>
+    <string name="easter_egg_pill_message_again">Sei già nella Matrix. La pillola rossa ti riporta nella pioggia, quella blu ti sveglia</string>
+    <string name="easter_egg_pill_red_toast_again">Di nuovo nella pioggia</string>
+    <string name="easter_egg_pill_blue_toast_again">Scollegato. La via del ritorno è dove è sempre stata</string>
     <!-- Shared strings -->
     <string name="select_file">Seleziona file</string>
     <string name="select_folder">Seleziona cartella</string>

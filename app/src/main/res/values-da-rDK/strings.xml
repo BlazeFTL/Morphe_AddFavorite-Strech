@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Omvendt alfabetisk, fra Z til A</string>
     <string name="home_app_sort_updates_first">Patch-opdateringer først</string>
     <string name="home_app_sort_updates_first_description">Apps med opdateringsmærker først, derefter i anbefalet rækkefølge</string>
+    <string name="home_app_sort_recently_patched">Senest patchet</string>
+    <string name="home_app_sort_recently_patched_description">Senest patchede apps først</string>
     <string name="home_no_apps_title">Ingen apps tilgængelige</string>
     <string name="home_no_apps_subtitle">Tilføj en patchkilde eller aktiver en eksisterende i %s</string>
     <string name="home_no_apps_search_subtitle">Ingen apps matcher \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Aktiveret først</string>
     <string name="sources_sort_enabled_first_description">Vis aktive kilder før deaktiverede kilder</string>
     <string name="sources_management_open_in_browser">Åbn links i browser</string>
+    <string name="sources_management_report_issue">Rapportér et problem</string>
     <string name="sources_management_failed_to_open_url">Kunne ikke åbne URL</string>
     <string name="sources_management_prerelease_toggle">Pre-release patches</string>
     <string name="sources_management_prerelease_toggle_description">Få tidlig adgang til nye eksperimentelle patch versioner</string>
+    <string name="sources_prerelease_warning_title">Aktivér præ-release-patcher?</string>
+    <string name="sources_prerelease_warning_message">Præ-release-versioner er stadig under udvikling. Patcher kan mislykkes eller ødelægge appen, og funktioner kan ændres uden advarsel</string>
+    <string name="expert_mode_prerelease_notice">Denne kilde er på præ-release-patcher. Patchning kan mislykkes eller opføre sig uventet</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimentelle app-versioner</string>
     <string name="sources_management_experimental_versions_toggle_description">Patch eksperimentelle app-targets, hvis de er tilgængelige</string>
     <string name="sources_management_already_exists">Denne kilde er allerede tilføjet</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL\'en skal pege på et GitHub/GitLab-lager eller en .json-fil</string>
     <string name="sources_dialog_local_change_file">Ændre fil</string>
     <string name="sources_dialog_preinstalled">Forhåndsinstalleret</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Opdatering vellykket</string>
     <string name="sources_update_unavailable">Ingen opdatering tilgængelig</string>
     <string name="sources_download_fail">Kunne ikke hente patchkilder: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Aktiver alle</string>
     <string name="expert_mode_enable_all_done">Alle patches aktiveret</string>
     <string name="expert_mode_enable_all_universal_pending">Tryk igen for universelle patches</string>
+    <string name="expert_mode_universal_all_warning_title">Aktivér alle universelle patcher?</string>
+    <string name="expert_mode_universal_all_warning_message">Universelle patcher er ikke testet sammen. Aktivering af alle på én gang kan forårsage konflikter, mislykket patchning eller nedbrud</string>
     <string name="expert_mode_reset_to_default">Aktivér anbefalede patches</string>
     <string name="expert_mode_reset_to_default_done">Anbefalede patches anvendt</string>
     <string name="expert_mode_restore_saved">Gendan gemt valg</string>
@@ -656,8 +665,14 @@ Afinstallation sletter permanent alle appdata."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Opdateringer</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Pre-release opdateringer</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Tidlig adgang til nye Morphe-appversioner. Aktivér pre-release pr. kilde i patch-kilder</string>
+    <string name="settings_advanced_updates_manager_prereleases">Præ-release-opdateringer</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Tidlig adgang til nye Morphe-versioner</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Aktivér præ-release-opdateringer?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Præ-release-versioner af Morphe er stadig under udvikling og kan være ustabile.
+
+Patcher er ikke påvirket: aktivér præ-release-patcher for hver kilde i patch-kildelisten"</string>
     <string name="settings_advanced_updates_allow_metered">Mobildataopdateringer</string>
     <string name="settings_advanced_updates_allow_metered_description">Tillad Morphe og patchopdateringer at downloade over mobildata</string>
     <string name="settings_advanced_updates_background_notifications">Baggrundsopdateringsmeddelelser</string>
@@ -1161,6 +1176,7 @@ Detaljer: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB downloadet</string>
     <string name="manager_update_not_ready">Denne udgivelse er stadig ved at blive publiceret. Prøv igen om et par minutter</string>
+    <string name="update_download_missing">Den downloadede opdatering er ikke længere tilgængelig. Download den igen</string>
     <string name="download_manager_failed">Kunne ikke downloade opdatering: %s</string>
     <string name="failed_to_check_updates">Kunne ikke søge efter opdateringer: %s</string>
     <string name="failed_to_download_update">Kunne ikke downloade opdatering: %s</string>

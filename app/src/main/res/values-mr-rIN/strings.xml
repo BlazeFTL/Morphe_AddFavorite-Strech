@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">अक्षरांनुसार उतरत्या क्रमाने, Z ते A</string>
     <string name="home_app_sort_updates_first">पॅच अपडेट्स प्रथम</string>
     <string name="home_app_sort_updates_first_description">अपडेट बॅज असलेले ॲप्स प्रथम, नंतर शिफारस केलेले क्रमाने</string>
+    <string name="home_app_sort_recently_patched">नुकतेच पॅच केलेले</string>
+    <string name="home_app_sort_recently_patched_description">समस्या नोंदवा</string>
     <string name="home_no_apps_title">ॲप्स उपलब्ध नाहीत</string>
     <string name="home_no_apps_subtitle">पॅच स्रोत जोडा किंवा %s मध्ये বিদ্যমান सक्षम करा</string>
     <string name="home_no_apps_search_subtitle">\"%s\" शी जुळणारे कोणतेही ॲप्स नाहीत</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">सक्षम केलेले प्रथम</string>
     <string name="sources_sort_enabled_first_description">अक्षम स्त्रोतांपूर्वी सक्रिय स्रोत दर्शवा</string>
     <string name="sources_management_open_in_browser">लिंक बाहेर नेटवर उघडा</string>
+    <string name="sources_management_report_issue">प्री-रिलीझ बिल्ड अजून विकासाधीन आहेत. पॅच अयशस्वी होऊ शकतात किंवा अॅप खराब करू शकतात, आणि वैशिष्ट्ये सूचना न देता बदलू शकतात.</string>
     <string name="sources_management_failed_to_open_url">लिंक उघडता आली नाही</string>
     <string name="sources_management_prerelease_toggle">प्री-रिलीझ पॅचेस</string>
     <string name="sources_management_prerelease_toggle_description">नवीन प्रायोगिक सुधारणा सर्वांच्या आधी वापरा</string>
+    <string name="sources_prerelease_warning_title">सर्व युनिव्हर्सल पॅच सक्षम करायचे का?</string>
+    <string name="sources_prerelease_warning_message">डाउनलोड केलेले अपडेट यापुढे उपलब्ध नाही. ते पुन्हा डाउनलोड करा.</string>
+    <string name="expert_mode_prerelease_notice">हे स्रोत पूर्व-प्रकाशन पॅचवर आहे. पॅचिंग अयशस्वी होऊ शकते किंवा अनपेक्षित वर्तन होऊ शकते.</string>
     <string name="sources_management_experimental_versions_toggle">प्रायोगिक ॲप आवृत्त्या</string>
     <string name="sources_management_experimental_versions_toggle_description">शक्य असल्यास प्रायोगिक ॲप्सवर पॅच लागू करा</string>
     <string name="sources_management_already_exists">हे मूळ आधीच जोडले गेले आहे</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab रेपॉ किंवा .json फाइलकडे निर्देशित करणे आवश्यक आहे</string>
     <string name="sources_dialog_local_change_file">फाईल बदला</string>
     <string name="sources_dialog_preinstalled">पूर्व-स्थापित</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">अपडेट यशस्वी</string>
     <string name="sources_update_unavailable">कोणतेही अपडेट उपलब्ध नाही</string>
     <string name="sources_download_fail"> मुळ डाउनलोड होऊ शकली नाहीत: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">सर्व सक्षम करा</string>
     <string name="expert_mode_enable_all_done">सर्व पॅच सक्षम केले</string>
     <string name="expert_mode_enable_all_universal_pending">सार्वत्रिक पॅचेससाठी पुन्हा टॅप करा</string>
+    <string name="expert_mode_universal_all_warning_title">सर्व सार्वत्रिक पॅच सक्षम करायचे?</string>
+    <string name="expert_mode_universal_all_warning_message">सार्वत्रिक पॅच एकत्र तपासले गेले नाहीत. त्या सर्वांना एकाच वेळी सक्षम केल्याने संघर्ष, अयशस्वी पॅचिंग किंवा क्रॅश होऊ शकतात.</string>
     <string name="expert_mode_reset_to_default">शिफारस केलेले पॅचेस सक्षम करा</string>
     <string name="expert_mode_reset_to_default_done">शिफारस केलेले पॅच लागू केले</string>
     <string name="expert_mode_restore_saved">निवडलेला डेटा पुनर्संचयित करा</string>
@@ -651,8 +660,8 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">अपडेट</string>
     <string name="settings_advanced_patcher">पॅचर</string>
-    <string name="settings_advanced_updates_use_prereleases">प्रायोगिक सुधारणा अद्यतने</string>
-    <string name="settings_advanced_updates_use_prereleases_description">नवीन Morphe ॲप आवृत्तीमध्ये लवकर प्रवेश. पॅच स्त्रोतांमध्ये प्रति स्रोत पूर्व-रिलीझ सक्षम करा</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_allow_metered">मोबाईल डेटा अद्यतने</string>
     <string name="settings_advanced_updates_allow_metered_description">Morphe आणि पॅच अद्यतने मोबाईल डेटावर डाउनलोड करण्याची परवानगी देते</string>
     <string name="settings_advanced_updates_background_notifications">पार्श्वभूमी अद्यतन सूचना</string>
@@ -1157,6 +1166,7 @@ morphe_header_custom_dark.png
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB डाउनलोड केले</string>
     <string name="manager_update_not_ready">हे प्रकाशन अजूनही जारी केले जात आहे. कृपया काही मिनिटांनी पुन्हा प्रयत्न करा.</string>
+    <string name="update_download_missing">डाउनलोड केलेले अद्यतन आता उपलब्ध नाही. ते पुन्हा डाउनलोड करा.</string>
     <string name="download_manager_failed">अपडेट डाउनलोड करण्यात अयशस्वी: %s</string>
     <string name="failed_to_check_updates">अपडेट तपासण्यात अयशस्वी: %s</string>
     <string name="failed_to_download_update">अपडेट डाउनलोड करण्यात अयशस्वी: %s</string>

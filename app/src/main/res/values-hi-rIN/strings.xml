@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab रिपो या .json फ़ाइल की ओर इंगित करना चाहिए</string>
     <string name="sources_dialog_local_change_file">फ़ाइल बदलें</string>
     <string name="sources_dialog_preinstalled">प्रिंस्टॉल किया गया</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">अपडेट सफल रहा</string>
     <string name="sources_update_unavailable">अपडेट उपलब्ध नहीं है</string>
     <string name="sources_download_fail">स्रोत डाउनलोड करने में विफल हो गया: %s</string>
@@ -665,8 +666,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">अपडेट</string>
     <string name="settings_advanced_patcher">पैचर</string>
-    <string name="settings_advanced_updates_use_prereleases">प्री-रिलीज़ अपडेट</string>
-    <string name="settings_advanced_updates_use_prereleases_description">नए Morphe ऐप संस्करणों तक प्रारंभिक पहुंच। पैच स्रोतों में प्रति स्रोत प्री-रिलीज़ सक्षम करें।</string>
+    <string name="settings_advanced_updates_manager_prereleases">प्री-रिलीज़ अपडेट</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">नए Morphe संस्करणों तक प्रारंभिक पहुँच</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">प्री-रिलीज़ अपडेट सक्षम करें?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Morphe के प्री-रिलीज़ संस्करण अभी विकास में हैं और अस्थिर हो सकते हैं।
+
+पैच स्रोत सूची में प्रत्येक स्रोत के लिए प्री-रिलीज़ पैच सक्षम करें, पैच प्रभावित नहीं होते हैं।"</string>
     <string name="settings_advanced_updates_allow_metered">मोबाइल डेटा अपडेट</string>
     <string name="settings_advanced_updates_allow_metered_description">Morphe और पैच अपडेट को मोबाइल डेटा पर डाउनलोड करने की अनुमति देता है।</string>
     <string name="settings_advanced_updates_background_notifications">रीलेटेड अपडेट नोटिफिकेशन्स</string>

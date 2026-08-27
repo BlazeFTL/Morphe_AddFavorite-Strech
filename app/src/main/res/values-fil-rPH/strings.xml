@@ -170,6 +170,7 @@ Please note: The translation is complete. The arrow is for clarity and not part 
     <string name="sources_dialog_url_invalid">Dapat tumuro ang URL sa isang GitHub/GitLab repo o .json file</string>
     <string name="sources_dialog_local_change_file">Baguhin ang file</string>
     <string name="sources_dialog_preinstalled">Naka-install</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Matagumpay ang pag-update</string>
     <string name="sources_update_unavailable">Walang update na magagamit</string>
     <string name="sources_download_fail">Nabigong mag-download ang mga mapagkukunan: %s</string>
@@ -666,8 +667,14 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Mga update</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Mga pag-update bago ang paglabas</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Maagang pag-access sa mga bagong bersyon ng Morphe app. I-enable ang pre-release bawat source sa mga pinagmulan ng patch</string>
+    <string name="settings_advanced_updates_manager_prereleases">Mga update na pre-release</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Maagang pag-access sa mga bagong bersyon ng Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Paganahin ang mga pre-release na update?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Ang mga bersyon ng Morphe na pre-release ay nasa development pa at maaaring maging hindi matatag.
+
+Hindi maaapektuhan ang mga patch: paganahin ang mga patch na pre-release para sa bawat pinagmulan ng patch sa listahan ng mga pinagmulan ng patch"</string>
     <string name="settings_advanced_updates_allow_metered">Mga pag-update ng mobile data</string>
     <string name="settings_advanced_updates_allow_metered_description">Pinapayagan ang Morphe at mga pag-update ng patch na mag-download sa pamamagitan ng mobile data</string>
     <string name="settings_advanced_updates_background_notifications">Mga notipikasyon sa pag-update sa background</string>

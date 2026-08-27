@@ -170,6 +170,7 @@
     <string name="sources_dialog_url_invalid">URL адресът трябва да сочи към GitHub/GitLab хранилище или .json файл</string>
     <string name="sources_dialog_local_change_file">Промяна на файл</string>
     <string name="sources_dialog_preinstalled">Предварително инсталиран</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Успешно обновяване</string>
     <string name="sources_update_unavailable">Няма достъпно обновление</string>
     <string name="sources_download_fail">Неуспешно сваляне на източника: %s</string>
@@ -666,8 +667,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Актуализации</string>
     <string name="settings_advanced_patcher">Патчер</string>
-    <string name="settings_advanced_updates_use_prereleases">Предварителни версии</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Ранен достъп до нови версии на приложението Morphe. Активирайте предварителни версии за всеки източник в източниците на пачове.</string>
+    <string name="settings_advanced_updates_manager_prereleases">Актуализации преди официалното пускане</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Ранен достъп до нови версии на Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Активиране на актуализациите преди официалното пускане?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Версиите преди официалното пускане на Morphe все още са в процес на разработка и могат да бъдат нестабилни.
+
+Пачовете не са засегнати: активирайте предварителни пачове за всеки източник в списъка на източниците на пачове"</string>
     <string name="settings_advanced_updates_allow_metered">Актуализации през мобилни данни</string>
     <string name="settings_advanced_updates_allow_metered_description">Позволява на Morphe и актуализациите на пачове да се изтеглят през мобилни данни.</string>
     <string name="settings_advanced_updates_background_notifications">Обновления в фона</string>

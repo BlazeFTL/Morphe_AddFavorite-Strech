@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL টি অবশ্যই একটি GitHub/GitLab রেপো অথবা .json ফাইল নির্দেশ করতে হবে।</string>
     <string name="sources_dialog_local_change_file">ফাইল পরিবর্তন করুন</string>
     <string name="sources_dialog_preinstalled">প্র-ইনস্টল করা হয়েছে</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">আপডেট সফল হয়েছে</string>
     <string name="sources_update_unavailable">আপডেট উপলব্ধ নেই</string>
     <string name="sources_download_fail">সোর্স ডাউনলোড ব্যর্থ হয়েছে: %s</string>
@@ -665,8 +666,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">আপডেটগুলি</string>
     <string name="settings_advanced_patcher">প্যাচার</string>
-    <string name="settings_advanced_updates_use_prereleases">প্রি-রিলিজ আপডেট।</string>
-    <string name="settings_advanced_updates_use_prereleases_description">নতুন Morphe অ্যাপ সংস্করণে আর্লি অ্যাক্সেস। প্যাচ সোর্সগুলিতে প্রি-রিলিজ সক্ষম করুন।</string>
+    <string name="settings_advanced_updates_manager_prereleases">প্রাক-রিলিজ আপডেট</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">নতুন Morphe সংস্করণগুলোতে প্রাথমিক অ্যাক্সেস</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">প্রাক-রিলিজ আপডেট সক্রিয় করবেন?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Morphe-এর প্রাক-রিলিজ সংস্করণগুলো এখনও উন্নয়নাধীন এবং অস্থির হতে পারে।
+
+প্যাচগুলো প্রভাবিত হয় না: প্যাচ উৎস তালিকায় প্রতিটি উৎসের জন্য প্রাক-রিলিজ প্যাচ সক্রিয় করুন।"</string>
     <string name="settings_advanced_updates_allow_metered">মোবাইল ডেটা আপডেট।</string>
     <string name="settings_advanced_updates_allow_metered_description">Morphe এবং প্যাচ আপডেট মোবাইল ডেটার মাধ্যমে ডাউনলোড করার অনুমতি দেয়।</string>
     <string name="settings_advanced_updates_background_notifications">ব্যাকগ্রাউন্ড আপডেট নোটিফিকেশন</string>

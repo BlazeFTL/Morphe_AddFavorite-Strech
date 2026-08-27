@@ -44,6 +44,10 @@
         <item quantity="one">%s uygulama yamalanmaya hazır</item>
         <item quantity="other">%s uygulama yamalanmaya hazır</item>
     </plurals>
+    <plurals name="repatch_available_count">
+        <item quantity="one">%s uygulaması yeniden yamalanabilir</item>
+        <item quantity="other">%s uygulamaları yeniden yamalanabilir</item>
+    </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">%s uygulama atlandı</item>
         <item quantity="other">%s uygulama atlandı</item>

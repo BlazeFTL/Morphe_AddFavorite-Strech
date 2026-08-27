@@ -170,6 +170,7 @@
     <string name="sources_dialog_url_invalid">Adres musi wskazywać na repozytorium GitHub/GitLab lub plik .json</string>
     <string name="sources_dialog_local_change_file">Zmień plik</string>
     <string name="sources_dialog_preinstalled">Wbudowane</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Aktualizacja zakończona pomyślnie</string>
     <string name="sources_update_unavailable">Brak dostępnych aktualizacji</string>
     <string name="sources_download_fail">Nie udało się pobrać źródeł: %s</string>
@@ -666,8 +667,14 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Aktualizacje</string>
     <string name="settings_advanced_patcher">Modyfikator</string>
-    <string name="settings_advanced_updates_use_prereleases">Przedpremierowe aktualizacje</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Wczesny dostęp do nowych wersji aplikacji Morphe. Włącz wersje przedpremierowe dla konkretnych źródeł w menu źródeł modyfikacji</string>
+    <string name="settings_advanced_updates_manager_prereleases">Przedpremierowe aktualizacje</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Wczesny dostęp do nowych wersji Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Włączyć przedpremierowe aktualizacje?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Przedpremierowe wersje Morphe są nadal w fazie rozwoju i mogą być niestabilne.
+
+Modyfikacje nie są tym objęte: włącz przedpremierowe modyfikacje dla każdego źródła na liście źródeł modyfikacji"</string>
     <string name="settings_advanced_updates_allow_metered">Aktualizacje przez dane mobilne</string>
     <string name="settings_advanced_updates_allow_metered_description">Umożliwia pobieranie aktualizacji Morphe i modyfikacji przez sieć komórkową</string>
     <string name="settings_advanced_updates_background_notifications">Powiadomienia o aktualizacjach w tle</string>

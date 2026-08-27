@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Obrnuti abecedni redosled, od Z do A</string>
     <string name="home_app_sort_updates_first">Prvo ažuriranja zakrpa</string>
     <string name="home_app_sort_updates_first_description">Aplikacije sa oznakama ažuriranja prvo, pa preporučeni redosled</string>
+    <string name="home_app_sort_recently_patched">Nedavno zakrpljeno</string>
+    <string name="home_app_sort_recently_patched_description">Najskorije zakrpljene aplikacije prvo</string>
     <string name="home_no_apps_title">Nema dostupnih aplikacija</string>
     <string name="home_no_apps_subtitle">Dodajte izvor aplikacije ili omogućite postojeći u %s</string>
     <string name="home_no_apps_search_subtitle">Nijedna aplikacija ne odgovara na \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Omogućeni prvo</string>
     <string name="sources_sort_enabled_first_description">Prikaži aktivne izvore pre onemogućenih izvora</string>
     <string name="sources_management_open_in_browser">Otvori u pregledaču</string>
+    <string name="sources_management_report_issue">Prijavi problem</string>
     <string name="sources_management_failed_to_open_url">Otvaranje URL-a nije uspelo</string>
     <string name="sources_management_prerelease_toggle">Zakrpe u predprodukciji</string>
     <string name="sources_management_prerelease_toggle_description">Dobija rani pristup novim eksperimentalnim verzijama zakrpa</string>
+    <string name="sources_prerelease_warning_title">Omogući zakrpe za predizdanje?</string>
+    <string name="sources_prerelease_warning_message">Predizdanja su još u razvoju. Zakrpe mogu da ne uspeju ili da pokvare aplikaciju, a funkcije se mogu promeniti bez upozorenja.</string>
+    <string name="expert_mode_prerelease_notice">Ovaj izvor je na zakrpama za predizdanje. Zakrpljivanje može da ne uspe ili da se ponaša neočekivano.</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimentalne verzije aplikacije</string>
     <string name="sources_management_experimental_versions_toggle_description">Zakrpljuje ciljeve eksperimentalnih aplikacija ako su dostupni</string>
     <string name="sources_management_already_exists">Ovaj izvor je već dodat</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL mora da pokazuje na GitHub/GitLab repozitorijum ili .json fajl</string>
     <string name="sources_dialog_local_change_file">Promeni fajl</string>
     <string name="sources_dialog_preinstalled">Preinstalirano</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Uspešno ažurirano</string>
     <string name="sources_update_unavailable">Nema dostupnih ažuriranja</string>
     <string name="sources_download_fail">Neuspešno preuzimanje izvora: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Omogući sve</string>
     <string name="expert_mode_enable_all_done">Sve zakrpe su uključene</string>
     <string name="expert_mode_enable_all_universal_pending">Dodirnite ponovo za univerzalne zakrpe</string>
+    <string name="expert_mode_universal_all_warning_title">Omogući sve univerzalne zakrpe?</string>
+    <string name="expert_mode_universal_all_warning_message">Univerzalne zakrpe nisu testirane zajedno. Omogućavanje svih odjednom može izazvati sukobe, neuspešno zakrpljivanje ili padove.</string>
     <string name="expert_mode_reset_to_default">Омогући препоручене пакете</string>
     <string name="expert_mode_reset_to_default_done">Preporučene zakrpe su primenjene</string>
     <string name="expert_mode_restore_saved">Ponovi poslednji izbor</string>
@@ -657,8 +666,14 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Ažuriranja</string>
     <string name="settings_advanced_patcher">Patchovanje</string>
-    <string name="settings_advanced_updates_use_prereleases">Pre-release ažuriranja</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Rani pristup novim verzijama aplikacije Morphe. Omogućite pre-release po izvoru u izvorima patchovanja</string>
+    <string name="settings_advanced_updates_manager_prereleases">Prerelease ažuriranja</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Rani pristup novim Morphe verzijama</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Omogući prerelease ažuriranja?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Prerelease verzije Morphe-a su još u razvoju i mogu biti nestabilne.
+
+Zakrpe nisu pogođene: omogućite prerelease zakrpe za svaki izvor na listi izvora zakrpa"</string>
     <string name="settings_advanced_updates_allow_metered">Ažuriranja putem mobilnih podataka</string>
     <string name="settings_advanced_updates_allow_metered_description">Omogućava preuzimanje ažuriranja aplikacije Morphe i patchovanja putem mobilnih podataka</string>
     <string name="settings_advanced_updates_background_notifications">Ažuriranja u pozadini</string>
@@ -1147,6 +1162,7 @@ Detalji: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB preuzeto</string>
     <string name="manager_update_not_ready">Ovo izdanje je i dalje u objavljivanju. Pokušajte ponovo za nekoliko minuta</string>
+    <string name="update_download_missing">Preuzeto ažuriranje više nije dostupno. Preuzmite ga ponovo.</string>
     <string name="download_manager_failed">Nije uspelo preuzimanje ažuriranja: %s</string>
     <string name="failed_to_check_updates">Nije uspelo proveravanje ažuriranja: %s</string>
     <string name="failed_to_download_update">Neuspešno preuzimanje ažuriranja: %s</string>

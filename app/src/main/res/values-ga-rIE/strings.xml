@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">Ní mór don URL pointeáil chuig stór GitHub/GitLab nó comhad .json</string>
     <string name="sources_dialog_local_change_file">Athraigh comhad</string>
     <string name="sources_dialog_preinstalled">Réamhshuiteáilte</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Nuashonrú rathúil</string>
     <string name="sources_update_unavailable">Níl aon nuashonrú ar fáil</string>
     <string name="sources_download_fail">Theip ar an pacáiste a íoslódáil: %s</string>
@@ -665,8 +666,14 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Nuashonruithe</string>
     <string name="settings_advanced_patcher">Paisteoir</string>
-    <string name="settings_advanced_updates_use_prereleases">Nuashonruithe réamh-eisiúna</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Rochtain luath ar leaganacha nua d\'aipeanna Morphe. Cumasaigh réamhscaoileadh in aghaidh na foinse i bhfoinsí paiste</string>
+    <string name="settings_advanced_updates_manager_prereleases">Nuashonruithe réamh-eisiúna</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Rochtain luath ar leaganacha nua de Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Cumasaigh nuashonruithe réamhscaoilte?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Tá leaganacha réamhscaoilte de Morphe fós i bhforbairt agus is féidir leo a bheith éagobhsaí.
+
+Ní dhéantar difear do phaistí: cumasaigh paistí réamhscaoilte do gach foinse i liosta na bhfoinsí paiste"</string>
     <string name="settings_advanced_updates_allow_metered">Nuashonruithe sonraí soghluaiste</string>
     <string name="settings_advanced_updates_allow_metered_description">Ceadaíonn sé nuashonruithe Morphe agus paistí a íoslódáil thar shonraí soghluaiste</string>
     <string name="settings_advanced_updates_background_notifications">Fógraí nuashonraithe cúlra</string>

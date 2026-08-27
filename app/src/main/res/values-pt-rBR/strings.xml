@@ -169,6 +169,12 @@
     <string name="sources_dialog_url_invalid">A URL deve apontar para um repositório GitHub/GitLab ou arquivo .json</string>
     <string name="sources_dialog_local_change_file">Alterar arquivo</string>
     <string name="sources_dialog_preinstalled">Pre-instalado</string>
+    <string name="sources_dialog_community">Patches da comunidade</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Fontes de patches de terceiros</string>
+    <string name="sources_dialog_community_notice_message">"As fontes de patches da comunidade são criadas e mantidas por seus próprios autores. O Morphe não analisa nem verifica patches de terceiros e não se responsabiliza pelo conteúdo deles ou pelo que fazem em seu dispositivo.
+
+Tudo o que você adicionar a partir deste site é por sua conta e risco"</string>
     <string name="sources_update_success">Sucesso na atualização</string>
     <string name="sources_update_unavailable">Não há atualizações disponíveis</string>
     <string name="sources_download_fail">Falha ao baixar as origens: %s</string>
@@ -666,8 +672,14 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Atualizações</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Atualizações de pré-lançamento</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Acesso antecipado a novas versões do aplicativo Morphe. Ative o pré-lançamento por fonte nas fontes de patches</string>
+    <string name="settings_advanced_updates_manager_prereleases">Atualizações de pré-lançamento</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Acesso antecipado a novas versões do Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Ativar atualizações de pré-lançamento?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"As versões de pré-lançamento do Morphe ainda estão em desenvolvimento e podem ser instáveis.
+
+Os patches não são afetados: ative os patches de pré-lançamento para cada fonte na lista de fontes de patches"</string>
     <string name="settings_advanced_updates_allow_metered">Atualizações de dados móveis</string>
     <string name="settings_advanced_updates_allow_metered_description">Permite que o Morphe e as atualizações de patch baixem pelos dados móveis</string>
     <string name="settings_advanced_updates_background_notifications">Notificações de atualização em segundo plano</string>

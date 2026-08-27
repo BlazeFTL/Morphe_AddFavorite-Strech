@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">De URL moet verwijzen naar een GitHub/GitLab-repo of een .json-bestand</string>
     <string name="sources_dialog_local_change_file">Bestand wijzigen</string>
     <string name="sources_dialog_preinstalled">Voorgeïnstalleerd</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Bijwerken geslaagd</string>
     <string name="sources_update_unavailable">Geen bijwerken beschikbaar</string>
     <string name="sources_download_fail">Kan bronnen niet downloaden: %s</string>
@@ -665,8 +666,14 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Updates</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Voorlopige updates</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Vroege toegang tot nieuwe versies van de Morphe-app. Schakel pre-release per bron in bij patch-bronnen</string>
+    <string name="settings_advanced_updates_manager_prereleases">Pre-release-updates</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Vroege toegang tot nieuwe Morphe-versies</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Pre-release-updates inschakelen?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Pre-release-versies van Morphe zijn nog in ontwikkeling en kunnen instabiel zijn.
+
+Patches worden niet beïnvloed: schakel pre-release-patches in voor elke bron in de patchbronnenlijst"</string>
     <string name="settings_advanced_updates_allow_metered">Mobiele data-updates</string>
     <string name="settings_advanced_updates_allow_metered_description">Hiermee kan Morphe en patch-updates downloaden via mobiele data</string>
     <string name="settings_advanced_updates_background_notifications">Achtergrondupdate-notificaties</string>
@@ -1037,6 +1044,10 @@ Details: %2$s"</string>
     <string name="credits_prior_development">Eerdere ontwikkeling</string>
     <string name="opensource_licenses">Open-source licenties</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Een keuze</string>
+    <string name="easter_egg_pill_message">Neem de blauwe pil en de advertenties blijven precies waar ze zijn. Neem de rode en zie hoe diep de bytecode gaat.</string>
+    <string name="easter_egg_pill_red">Rode pil</string>
+    <string name="easter_egg_pill_blue">Blauwe pil</string>
     <string name="easter_egg_pill_red_toast">Matrix-achtergrond ontgrendeld</string>
     <string name="easter_egg_pill_blue_toast">De advertenties wachten op je</string>
     <string name="easter_egg_pill_message_again">Je bent al in de Matrix. De rode pil brengt je terug naar de regen, de blauwe maakt je wakker.</string>

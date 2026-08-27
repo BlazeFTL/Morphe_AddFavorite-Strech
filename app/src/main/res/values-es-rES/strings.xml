@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">La URL debe apuntar a un repositorio de GitHub/GitLab o a un archivo .json</string>
     <string name="sources_dialog_local_change_file">Cambiar archivo</string>
     <string name="sources_dialog_preinstalled">Preinstalado</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Actualización exitosa</string>
     <string name="sources_update_unavailable">No hay actualización disponible</string>
     <string name="sources_download_fail">No se pudieron descargar las fuentes: %s</string>
@@ -665,8 +666,14 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Actualizaciones</string>
     <string name="settings_advanced_patcher">Parcheador</string>
-    <string name="settings_advanced_updates_use_prereleases">Actualizaciones pre-lanzamiento</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Acceso anticipado a las nuevas versiones de la aplicación Morphe. Activa las versiones pre-lanzamiento en cada fuente de parches</string>
+    <string name="settings_advanced_updates_manager_prereleases">Actualizaciones pre-lanzamiento</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Acceso anticipado a nuevas versiones de Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">¿Activar actualizaciones pre-lanzamiento?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Las versiones preliminares de Morphe todavía están en desarrollo y pueden ser inestables.
+
+Los parches no se ven afectados: habilite los parches preliminares para cada fuente en la lista de fuentes de parches"</string>
     <string name="settings_advanced_updates_allow_metered">Actualizaciones con datos móviles</string>
     <string name="settings_advanced_updates_allow_metered_description">Permite que Morphe y las actualizaciones de los parches se descarguen a través de datos móviles</string>
     <string name="settings_advanced_updates_background_notifications">Notificaciones de actualización en segundo plano</string>

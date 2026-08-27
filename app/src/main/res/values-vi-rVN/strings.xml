@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Đảo ngược theo thứ tự bảng chữ cái, Z đến A</string>
     <string name="home_app_sort_updates_first">Ưu tiên vá cập nhật</string>
     <string name="home_app_sort_updates_first_description">Ưu tiên các ứng dụng cần cập nhật trước, sau đó theo thứ tự đề xuất</string>
+    <string name="home_app_sort_recently_patched">Mới vá gần đây</string>
+    <string name="home_app_sort_recently_patched_description">Các ứng dụng được vá gần đây nhất trước</string>
     <string name="home_no_apps_title">Không có ứng dụng nào có sẵn</string>
     <string name="home_no_apps_subtitle">Thêm nguồn vá mới hoặc bật nguồn có sẵn trong %s</string>
     <string name="home_no_apps_search_subtitle">Không có ứng dụng nào khớp với \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Ưu tiên đã kích hoạt trước</string>
     <string name="sources_sort_enabled_first_description">Hiển thị các nguồn đang hoạt động trước các nguồn đã bị vô hiệu hóa</string>
     <string name="sources_management_open_in_browser">Mở trong trình duyệt</string>
+    <string name="sources_management_report_issue">Báo cáo sự cố</string>
     <string name="sources_management_failed_to_open_url">Không thể mở URL</string>
     <string name="sources_management_prerelease_toggle">Bản vá phát hành trước</string>
     <string name="sources_management_prerelease_toggle_description">Trải nghiệm sớm các bản vá thử nghiệm mới</string>
+    <string name="sources_prerelease_warning_title">Bật các bản vá trước khi phát hành?</string>
+    <string name="sources_prerelease_warning_message">Các bản dựng trước khi phát hành vẫn đang trong quá trình phát triển. Các bản vá có thể thất bại hoặc làm hỏng ứng dụng, và các tính năng có thể thay đổi mà không có cảnh báo</string>
+    <string name="expert_mode_prerelease_notice">Nguồn này đang sử dụng các bản vá trước khi phát hành. Việc vá có thể thất bại hoặc hoạt động không như mong đợi</string>
     <string name="sources_management_experimental_versions_toggle">Phiên bản ứng dụng thử nghiệm</string>
     <string name="sources_management_experimental_versions_toggle_description">Vá phiên bản thử nghiệm (nếu có)</string>
     <string name="sources_management_already_exists">Nguồn này đã được thêm vào rồi</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL phải trỏ đến kho lưu trữ GitHub/GitLab hoặc tệp .json</string>
     <string name="sources_dialog_local_change_file">Đổi tệp</string>
     <string name="sources_dialog_preinstalled">Được cài đặt sẵn</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Cập nhật thành công</string>
     <string name="sources_update_unavailable">Hiện không có bản cập nhật nào</string>
     <string name="sources_download_fail">Không thể tải nguồn vá: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Bật tất cả</string>
     <string name="expert_mode_enable_all_done">Đã bật tất cả bản vá</string>
     <string name="expert_mode_enable_all_universal_pending">Chạm lại để dùng các bản vá phổ quát</string>
+    <string name="expert_mode_universal_all_warning_title">Bật tất cả các bản vá phổ quát?</string>
+    <string name="expert_mode_universal_all_warning_message">Các bản vá phổ quát không được kiểm tra cùng nhau. Bật tất cả chúng cùng lúc có thể gây ra xung đột, vá thất bại hoặc treo máy</string>
     <string name="expert_mode_reset_to_default">Bật các bản vá đề xuất</string>
     <string name="expert_mode_reset_to_default_done">Đã áp dụng các bản vá đề xuất</string>
     <string name="expert_mode_restore_saved">Khôi phục lựa chọn đã lưu</string>
@@ -657,8 +666,14 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Cập nhật</string>
     <string name="settings_advanced_patcher">Trình vá</string>
-    <string name="settings_advanced_updates_use_prereleases">Bản cập nhật trước</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Trải nghiệm sớm các phiên bản mới của Morphe. Bạn có thể bật bản phát hành trước cho từng nguồn trong phần nguồn vá</string>
+    <string name="settings_advanced_updates_manager_prereleases">Bản cập nhật trước</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Truy cập sớm các phiên bản Morphe mới</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Bật các bản cập nhật trước khi phát hành?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Các phiên bản trước khi phát hành của Morphe vẫn đang trong quá trình phát triển và có thể không ổn định.
+
+Các bản vá không bị ảnh hưởng: bật các bản vá trước khi phát hành cho từng nguồn trong danh sách nguồn vá"</string>
     <string name="settings_advanced_updates_allow_metered">Cập nhật bằng dữ liệu di động</string>
     <string name="settings_advanced_updates_allow_metered_description">Cho phép tải Morphe và cập nhật bản vá qua dữ liệu di động</string>
     <string name="settings_advanced_updates_background_notifications">Thông báo cập nhật nền</string>
@@ -1163,6 +1178,7 @@ Chi tiết: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB đã tải xuống</string>
     <string name="manager_update_not_ready">Bản phát hành này vẫn đang được đăng tải. Vui lòng thử lại sau vài phút</string>
+    <string name="update_download_missing">Bản cập nhật đã tải không còn khả dụng. Hãy tải lại</string>
     <string name="download_manager_failed">Không thể tải bản cập nhật: %s</string>
     <string name="failed_to_check_updates">Không thể kiểm tra cập nhật: %s</string>
     <string name="failed_to_download_update">Không tải được bản cập nhật: %s</string>

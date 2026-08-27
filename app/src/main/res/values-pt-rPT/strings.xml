@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Ordem alfabética inversa, de Z a A</string>
     <string name="home_app_sort_updates_first">Atualizações de patch primeiro</string>
     <string name="home_app_sort_updates_first_description">Aplicativos com emblemas de atualização primeiro, depois na ordem recomendada</string>
+    <string name="home_app_sort_recently_patched">Corrigido recentemente</string>
+    <string name="home_app_sort_recently_patched_description">Aplicativos corrigidos mais recentemente primeiro</string>
     <string name="home_no_apps_title">Nenhuma aplicação disponível</string>
     <string name="home_no_apps_subtitle">Adiciona uma fonte de modificações ou ativa uma já existente em %s</string>
     <string name="home_no_apps_search_subtitle">Nenhuma aplicação corresponde a \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Habilitados primeiro</string>
     <string name="sources_sort_enabled_first_description">Mostrar fontes ativas antes das desabilitadas</string>
     <string name="sources_management_open_in_browser">Abrir links no navegador</string>
+    <string name="sources_management_report_issue">Relatar um problema</string>
     <string name="sources_management_failed_to_open_url">Erro ao abrir URL</string>
     <string name="sources_management_prerelease_toggle">Modificações pré-lançamento</string>
     <string name="sources_management_prerelease_toggle_description">Recebe acesso antecipado às novas versões experimentais de modificações</string>
+    <string name="sources_prerelease_warning_title">Ativar correções de pré-lançamento?</string>
+    <string name="sources_prerelease_warning_message">As versões de pré-lançamento ainda estão em desenvolvimento. As correções podem falhar ou quebrar o aplicativo, e os recursos podem mudar sem aviso prévio.</string>
+    <string name="expert_mode_prerelease_notice">Esta fonte está em correções de pré-lançamento. A correção pode falhar ou se comportar inesperadamente.</string>
     <string name="sources_management_experimental_versions_toggle">Versões experimentais da aplicação</string>
     <string name="sources_management_experimental_versions_toggle_description">Aplicar modificações em versões experimentais das aplicações, se disponíveis</string>
     <string name="sources_management_already_exists">Esta fonte já foi adicionada</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">O URL deve apontar para um repositório do GitHub/GitLab ou ficheiro .json</string>
     <string name="sources_dialog_local_change_file">Alterar ficheiro</string>
     <string name="sources_dialog_preinstalled">Pré-instalado</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Atualização bem-sucedida</string>
     <string name="sources_update_unavailable">Não há atualizações disponíveis</string>
     <string name="sources_download_fail">Erro ao descarregar fontes: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Ativar todas</string>
     <string name="expert_mode_enable_all_done">Todas as modificações atividades</string>
     <string name="expert_mode_enable_all_universal_pending">Toque novamente para patches universais</string>
+    <string name="expert_mode_universal_all_warning_title">Ativar todas as correções universais?</string>
+    <string name="expert_mode_universal_all_warning_message">As correções universais não são testadas em conjunto. Ativar todas de uma vez pode causar conflitos, falhas de correção ou travamentos.</string>
     <string name="expert_mode_reset_to_default">Ativar modificações recomendadas</string>
     <string name="expert_mode_reset_to_default_done">Modificações recomendadas aplicadas</string>
     <string name="expert_mode_restore_saved">Restaurar seleção guardada</string>
@@ -657,8 +666,14 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Atualizações</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Modificações pré-lançamento</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Acesso antecipado a novas versões do Morphe. Ativa pré-lançamento por origem nas fontes de modificação</string>
+    <string name="settings_advanced_updates_manager_prereleases">Atualizações de pré-lançamento</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Acesso antecipado a novas versões do Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Ativar atualizações de pré-lançamento?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"As versões de pré-lançamento do Morphe ainda estão em desenvolvimento e podem ser instáveis.
+
+Os patches não são afetados: ative os patches de pré-lançamento para cada fonte na lista de fontes de patch"</string>
     <string name="settings_advanced_updates_allow_metered">Dados móveis estão ativados</string>
     <string name="settings_advanced_updates_allow_metered_description">Permitir que o Morphe e as atualizações das modificações sejam transferidos com dados móveis</string>
     <string name="settings_advanced_updates_background_notifications">Atualizações em segundo plano</string>
@@ -1163,6 +1178,7 @@ Detalhes: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB baixado</string>
     <string name="manager_update_not_ready">Este lançamento ainda está sendo publicado. Tente novamente em alguns minutos</string>
+    <string name="update_download_missing">A atualização baixada não está mais disponível. Baixe-a novamente.</string>
     <string name="download_manager_failed">Erro ao transferir atualização: %s</string>
     <string name="failed_to_check_updates">Erro ao verificar por atualizações: %s</string>
     <string name="failed_to_download_update">Erro ao transferir atualização: %s</string>

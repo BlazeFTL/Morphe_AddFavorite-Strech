@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Abjad, A sampai Z</string>
     <string name="home_app_sort_updates_first">Abjad terbalik, Z sampai A</string>
     <string name="home_app_sort_updates_first_description">Prioritaskan pembaruan tambalan</string>
+    <string name="home_app_sort_recently_patched">Yaqinda yangilangan</string>
+    <string name="home_app_sort_recently_patched_description">Yaqinda yangilangan ilovalar birinchi</string>
     <string name="home_no_apps_title">Qo‘llab-quvvatlanadigan ilovalar yo‘q</string>
     <string name="home_no_apps_subtitle">%s da patch manbai qo‘shing yoki mavjud bo‘lganini yoqing</string>
     <string name="home_no_apps_search_subtitle">\"%s\" ga mos ilovalar yo‘q</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Pembaruan sumber terbaru terlebih dahulu</string>
     <string name="sources_sort_enabled_first_description">Diaktifkan terlebih dahulu</string>
     <string name="sources_management_open_in_browser">Brauzerda ochish</string>
+    <string name="sources_management_report_issue">Muammo haqida xabar berish</string>
     <string name="sources_management_failed_to_open_url">URL ochishda xatolik</string>
     <string name="sources_management_prerelease_toggle">Erta chiqarish patchlari</string>
     <string name="sources_management_prerelease_toggle_description">Yangi eksperimental patch versiyalariga erta kira olish</string>
+    <string name="sources_prerelease_warning_title">Oldindan chiqarilgan yangilanishlarni yoqish?</string>
+    <string name="sources_prerelease_warning_message">Oldindan chiqarilgan versiyalar hali ham ishlab chiqilmoqda. Yangilanishlar muvaffaqiyatsiz bo\'lishi yoki ilovani buzishi mumkin, va xususiyatlar ogohlantirishsiz o\'zgarishi mumkin.</string>
+    <string name="expert_mode_prerelease_notice">Bu manba oldindan chiqarilgan yangilanishlarda. Yangilash muvaffaqiyatsiz bo\'lishi yoki kutilmagan xatti-harakatlarga olib kelishi mumkin.</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimental ilova versiyalari</string>
     <string name="sources_management_experimental_versions_toggle_description">Agar mavjud bo‘lsa, eksperimental ilova versiyalarini patchlaydi</string>
     <string name="sources_management_already_exists">Ushbu manba allaqachon qo\'shilgan</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab repositori yoki .json fayliga ishara qilishi kerak</string>
     <string name="sources_dialog_local_change_file">Faylni o\'zgartirish</string>
     <string name="sources_dialog_preinstalled">O\'rnatilgan</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Yangilash muvaffaqiyatli</string>
     <string name="sources_update_unavailable">Yangilash mavjud emas</string>
     <string name="sources_download_fail">Manbalarni yuklab olishda xatolik: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Hammasini yoqish</string>
     <string name="expert_mode_enable_all_done">Barcha patchlar yoqildi</string>
     <string name="expert_mode_enable_all_universal_pending">Universal yamalar uchun yana bir marta bosing</string>
+    <string name="expert_mode_universal_all_warning_title">Barcha universal yangilanishlarni yoqish?</string>
+    <string name="expert_mode_universal_all_warning_message">Universal yangilanishlar birgalikda sinovdan o\'tkazilmagan. Ularning hammasini bir vaqtda yoqish konfliktlarga, yangilanishning muvaffaqiyatsiz bo\'lishiga yoki ishdan chiqishiga olib kelishi mumkin.</string>
     <string name="expert_mode_reset_to_default">Tavsiya etilgan patchlarni yoqing</string>
     <string name="expert_mode_reset_to_default_done">Tavsiya etilgan patchlar qo‘llandi</string>
     <string name="expert_mode_restore_saved">Saqlangan tanlovni tiklash</string>
@@ -656,8 +665,14 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">O\'chirish</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Yangilashdan oldin versiyalar</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Morphe ilovasining yangilanishlariga imkoniyat beradi. Yangilashdan oldin manbalar bo‘yicha sahifalarga tashrif buyuring</string>
+    <string name="settings_advanced_updates_manager_prereleases">Oldindan chiqish yangilanishlari</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Morphe yangi versiyalariga erta kirish</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Oldindan chiqish yangilanishlarini yoqish?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Morphe'ning pre-release versiyalari hali ishlab chiqish bosqichida va beqaror bo'lishi mumkin.
+
+Patchlar ta'sirlanmaydi: patch manbalari ro'yxatidagi har bir manba uchun pre-release patchlarni yoqing"</string>
     <string name="settings_advanced_updates_allow_metered">Mobil ma\'lumotlardan yangilash</string>
     <string name="settings_advanced_updates_allow_metered_description">Morphe va patchlardan yangilashni mobil ma\'lumotlar orqali yuklab olishga ruxsat bering</string>
     <string name="settings_advanced_updates_background_notifications">Orqa fonda yangilanish bildirishnomalari</string>
@@ -1162,6 +1177,7 @@ Ma’lumotlar: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB yuklab olindi</string>
     <string name="manager_update_not_ready">Ushbu nashr hali e\'lon qilinmoqda. Bir necha daqiqadan keyin qayta urinib ko\'ring</string>
+    <string name="update_download_missing">Yuklab olingan yangilanish endi mavjud emas. Uni qayta yuklab oling.</string>
     <string name="download_manager_failed">Yangilanishni yuklab olishda xatolik: %s</string>
     <string name="failed_to_check_updates">Yangilanishlarni tekshirishda xatolik: %s</string>
     <string name="failed_to_download_update">Yangilanishni yuklab olishda xatolik: %s</string>

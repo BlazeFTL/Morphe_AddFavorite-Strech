@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Ters alfabetik, Z\'den A\'ya</string>
     <string name="home_app_sort_updates_first">Önce yama güncellemeleri</string>
     <string name="home_app_sort_updates_first_description">Önce güncelleme rozeti olan uygulamalar, ardından önerilen sıra</string>
+    <string name="home_app_sort_recently_patched">Son yamalanan</string>
+    <string name="home_app_sort_recently_patched_description">En son yamalanan uygulamalar önce</string>
     <string name="home_no_apps_title">Uygulama bulunamadı</string>
     <string name="home_no_apps_subtitle">Bir yama kaynağı ekleyin veya %s içinde mevcut olanı etkinleştirin</string>
     <string name="home_no_apps_search_subtitle">\"%s\" ile eşleşen uygulama yok</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Önce ekin olanlar</string>
     <string name="sources_sort_enabled_first_description">Etkin kaynakları devre dışı kaynaklardan önce göster</string>
     <string name="sources_management_open_in_browser">Tarayıcıda aç</string>
+    <string name="sources_management_report_issue">Sorun bildir</string>
     <string name="sources_management_failed_to_open_url">URL açılamadı</string>
     <string name="sources_management_prerelease_toggle">Ön sürüm yamalar</string>
     <string name="sources_management_prerelease_toggle_description">Yeni deneysel sürüm yamalarına erken erişim sağlar</string>
+    <string name="sources_prerelease_warning_title">Ön sürüm yamalarını etkinleştir?</string>
+    <string name="sources_prerelease_warning_message">Ön sürüm yapıları hâlâ geliştirme aşamasındadır. Yamalar başarısız olabilir veya uygulamayı bozabilir ve özellikler uyarı vermeden değişebilir.</string>
+    <string name="expert_mode_prerelease_notice">Bu kaynak ön sürüm yamalarındadır. Yama yapma başarısız olabilir veya beklenmedik davranabilir.</string>
     <string name="sources_management_experimental_versions_toggle">Deneysel uygulama sürümleri</string>
     <string name="sources_management_experimental_versions_toggle_description">Mevcutsa deneysel uygulama hedeflerini yamala</string>
     <string name="sources_management_already_exists">Bu kaynak zaten eklenmiş</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL, bir GitHub/GitLab deposuna veya .json dosyasına işaret etmelidir</string>
     <string name="sources_dialog_local_change_file">Dosyayı değiştir</string>
     <string name="sources_dialog_preinstalled">Ön yüklü</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Güncelleme başarılı</string>
     <string name="sources_update_unavailable">Güncelleme mevcut değil</string>
     <string name="sources_download_fail">Kaynaklar indirilemedi: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Hepsini etkinleştir</string>
     <string name="expert_mode_enable_all_done">Tüm yamalar etkinleştirildi</string>
     <string name="expert_mode_enable_all_universal_pending">Evrensel yamalar için tekrar dokunun</string>
+    <string name="expert_mode_universal_all_warning_title">Tüm evrensel yamaları etkinleştir?</string>
+    <string name="expert_mode_universal_all_warning_message">Evrensel yamalar birlikte test edilmemiştir. Hepsini aynı anda etkinleştirmek çakışmalara, başarısız yamalara veya çökmelere neden olabilir.</string>
     <string name="expert_mode_reset_to_default">Önerilen yamaları etkinleştir</string>
     <string name="expert_mode_reset_to_default_done">Önerilen yamalar uygulandı</string>
     <string name="expert_mode_restore_saved">Kaydedilen seçimi geri yükle</string>
@@ -656,8 +665,14 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Güncellemeler</string>
     <string name="settings_advanced_patcher">Yamalayıcı</string>
-    <string name="settings_advanced_updates_use_prereleases">Ön sürüm güncellemeleri</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Yeni Morphe uygulama sürümlerine erken erişim. Yama kaynaklarında her kaynak için ön sürümü etkinleştirin</string>
+    <string name="settings_advanced_updates_manager_prereleases">Ön sürüm güncellemeleri</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Yeni Morphe sürümlerine erken erişim</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Ön sürüm güncellemeleri etkinleştirilsin mi?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Morphe'nin ön sürümleri hâlâ geliştirme aşamasındadır ve kararsız olabilir.
+
+Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sürüm yamalarını etkinleştirin"</string>
     <string name="settings_advanced_updates_allow_metered">Mobil veri güncellemeleri</string>
     <string name="settings_advanced_updates_allow_metered_description">Morphe ve yama güncellemelerinin mobil veri üzerinden indirilmesine izin verir</string>
     <string name="settings_advanced_updates_background_notifications">Arka plan güncelleme bildirimleri</string>
@@ -1161,6 +1176,7 @@ Ayrıntılar: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB indirildi</string>
     <string name="manager_update_not_ready">Bu sürüm hala yayınlanıyor. Birkaç dakika sonra tekrar deneyin.</string>
+    <string name="update_download_missing">İndirilen güncelleme artık kullanılamıyor. Tekrar indirin.</string>
     <string name="download_manager_failed">Güncelleme indirilemedi: %s</string>
     <string name="failed_to_check_updates">Güncellemeler kontrol edilemedi: %s</string>
     <string name="failed_to_download_update">Güncelleme indirilemedi: %s</string>

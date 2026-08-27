@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Αλφαβητικά αντίστροφα, από Ζ έως Α</string>
     <string name="home_app_sort_updates_first">Ενημερώσεις διαχειριστή πρώτα</string>
     <string name="home_app_sort_updates_first_description">Εφαρμογές με σήματα ενημέρωσης πρώτα, μετά με προτεινόμενη σειρά</string>
+    <string name="home_app_sort_recently_patched">Πρόσφατα επιδιορθωμένα</string>
+    <string name="home_app_sort_recently_patched_description">Πρώτα οι πιο πρόσφατα επιδιορθωμένες εφαρμογές</string>
     <string name="home_no_apps_title">Καμία διαθέσιμη εφαρμογή</string>
     <string name="home_no_apps_subtitle">Προσθέστε μια πηγή τροποποιήσεων ή ενεργοποιήστε μια υπάρχουσα στο %s</string>
     <string name="home_no_apps_search_subtitle">Καμία εφαρμογή δεν ταιριάζει με το \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Ενεργοποιημένες πρώτα</string>
     <string name="sources_sort_enabled_first_description">Εμφάνιση ενεργών πηγών πριν από τις απενεργοποιημένες</string>
     <string name="sources_management_open_in_browser">Άνοιγμα σε πρόγραμμα περιήγησης</string>
+    <string name="sources_management_report_issue">Αναφορά προβλήματος</string>
     <string name="sources_management_failed_to_open_url">Απέτυχε το άνοιγμα της διεύθυνσης URL</string>
     <string name="sources_management_prerelease_toggle">Ενημερώσεις πριν την κυκλοφορία</string>
     <string name="sources_management_prerelease_toggle_description">Λάβετε πρόωρη πρόσβαση σε νέες πειραματικές εκδόσεις τροποποιήσεων</string>
+    <string name="sources_prerelease_warning_title">Ενεργοποίηση επιδιορθώσεων προ-έκδοσης;</string>
+    <string name="sources_prerelease_warning_message">Οι εκδόσεις προ-έκδοσης είναι ακόμη υπό ανάπτυξη. Οι επιδιορθώσεις ενδέχεται να αποτύχουν ή να χαλάσουν την εφαρμογή, και οι λειτουργίες μπορεί να αλλάξουν χωρίς προειδοποίηση</string>
+    <string name="expert_mode_prerelease_notice">Αυτή η πηγή είναι σε επιδιορθώσεις προ-έκδοσης. Η επιδιόρθωση μπορεί να αποτύχει ή να συμπεριφερθεί απροσδόκητα</string>
     <string name="sources_management_experimental_versions_toggle">Πειραματικές εκδόσεις εφαρμογών</string>
     <string name="sources_management_experimental_versions_toggle_description">Τροποποιήστε πειραματικές εκδόσεις εφαρμογών εάν υπάρχουν</string>
     <string name="sources_management_already_exists">Αυτή η πηγή έχει ήδη προστεθεί</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">Η διεύθυνση URL πρέπει να δείχνει σε ένα αποθετήριο GitHub/GitLab ή σε ένα αρχείο .json</string>
     <string name="sources_dialog_local_change_file">Αλλαγή αρχείου</string>
     <string name="sources_dialog_preinstalled">Προεγκατεστημένες</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Ενημέρωση επιτυχής</string>
     <string name="sources_update_unavailable">Καμία διαθέσιμη ενημέρωση</string>
     <string name="sources_download_fail">Αποτυχία λήψης πηγών: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Ενεργοποίηση όλων</string>
     <string name="expert_mode_enable_all_done">Όλες οι διορθώσεις ενεργοποιήθηκαν</string>
     <string name="expert_mode_enable_all_universal_pending">Πατήστε ξανά για καθολικά patches</string>
+    <string name="expert_mode_universal_all_warning_title">Ενεργοποίηση όλων των καθολικών επιδιορθώσεων;</string>
+    <string name="expert_mode_universal_all_warning_message">Οι καθολικές επιδιορθώσεις δεν δοκιμάζονται μαζί. Η ενεργοποίηση όλων ταυτόχρονα μπορεί να προκαλέσει συγκρούσεις, αποτυχία επιδιόρθωσης ή σφάλματα</string>
     <string name="expert_mode_reset_to_default">Ενεργοποίηση συνιστώμενων διορθώσεων</string>
     <string name="expert_mode_reset_to_default_done">Εφαρμόστηκαν οι προτεινόμενες διορθώσεις</string>
     <string name="expert_mode_restore_saved">Επαναφορά αποθηκευμένης επιλογής</string>
@@ -657,8 +666,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Ενημερώσεις</string>
     <string name="settings_advanced_patcher">Εφαρμογέας</string>
-    <string name="settings_advanced_updates_use_prereleases">Προ-κυκλοφοριακές ενημερώσεις</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Πρόωρη πρόσβαση στις νέες εκδόσεις της εφαρμογής Morphe. Ενεργοποιήστε τις προ-κυκλοφοριακές ενημερώσεις ανά πηγή στις πηγές των αλλαγών</string>
+    <string name="settings_advanced_updates_manager_prereleases">Ενημερώσεις προ-έκδοσης</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Πρόωρη πρόσβαση σε νέες εκδόσεις του Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Ενεργοποίηση ενημερώσεων προ-έκδοσης;</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Οι εκδόσεις προ-έκδοσης του Morphe είναι ακόμη υπό ανάπτυξη και μπορεί να είναι ασταθείς.
+
+Οι επιδιορθώσεις δεν επηρεάζονται: ενεργοποιήστε τις επιδιορθώσεις προ-έκδοσης για κάθε πηγή στη λίστα πηγών επιδιορθώσεων"</string>
     <string name="settings_advanced_updates_allow_metered">Ενημερώσεις μέσω κινητής σύνδεσης</string>
     <string name="settings_advanced_updates_allow_metered_description">Να επιτρέπεται η λήψη των ενημερώσεων του Morphe και των τροποποιήσεων μέσω δεδομένων κινητής τηλεφωνίας</string>
     <string name="settings_advanced_updates_background_notifications">Ειδοποιήσεις ενημερώσεων παρασκηνίου</string>
@@ -1163,6 +1178,7 @@ morphe_header_custom_dark.png
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB κατεβάζονται</string>
     <string name="manager_update_not_ready">Αυτή η έκδοση δημοσιεύεται ακόμα. Επαναλάβετε σε λίγα λεπτά</string>
+    <string name="update_download_missing">Η ληφθείσα ενημέρωση δεν είναι πλέον διαθέσιμη. Κατεβάστε την ξανά</string>
     <string name="download_manager_failed">Αποτυχία λήψης ενημέρωσης: %s</string>
     <string name="failed_to_check_updates">Ο έλεγχος για ενημερώσεις απέτυχε: %s</string>
     <string name="failed_to_download_update">Η λήψη ενημέρωσης απέτυχε: %s</string>

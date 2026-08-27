@@ -170,6 +170,7 @@ Ovaj izvor se nalazi na predizdanjima patcheva. Patchanje može propasti ili se 
     <string name="sources_dialog_url_invalid">Poveznica mora voditi na GitHub/GitLab repo ili .json datoteku</string>
     <string name="sources_dialog_local_change_file">Promijeni datoteku</string>
     <string name="sources_dialog_preinstalled">Unaprijed instalirano</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Uspješno ažurirano</string>
     <string name="sources_update_unavailable">Nema dostupnih ažuriranja</string>
     <string name="sources_download_fail">Preuzimanje izvora nije uspjelo: %s</string>
@@ -668,8 +669,14 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Ažuriranja</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Pre-release ažuriranja</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Rani pristup novim verzijama aplikacije Morphe. Omogućite predizdanje po izvoru u izvorima patcha</string>
+    <string name="settings_advanced_updates_manager_prereleases">Pre-release ažuriranja</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Rani pristup novim verzijama aplikacije Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Omogući ažuriranja prije izdavanja?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Verzije prije izdavanja aplikacije Morphe još su u razvoju i mogu biti nestabilne.
+
+Zakrpe nisu zahvaćene: omogućite zakrpe prije izdavanja za svaki izvor na popisu izvora zakrpa"</string>
     <string name="settings_advanced_updates_allow_metered">Ažuriranja putem mob. podataka</string>
     <string name="settings_advanced_updates_allow_metered_description">Dopustite preuzimanje izvora patcha i ažuriranja aplikacije putem mobilnih podataka</string>
     <string name="settings_advanced_updates_background_notifications">Obavijesti o ažuriranjima u pozadini</string>

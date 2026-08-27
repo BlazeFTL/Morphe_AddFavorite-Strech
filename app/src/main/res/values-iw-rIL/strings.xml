@@ -170,6 +170,7 @@
     <string name="sources_dialog_url_invalid">הכתובת חייבת להפנות למאגר GitHub/GitLab או לקובץ ‎.json</string>
     <string name="sources_dialog_local_change_file">שנה קובץ</string>
     <string name="sources_dialog_preinstalled">מובן מראשון</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">עדכון הצליח</string>
     <string name="sources_update_unavailable">אין עדכון זמין</string>
     <string name="sources_download_fail">שגגה להוריד תצוגים: %s</string>
@@ -666,8 +667,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">עדכונים</string>
     <string name="settings_advanced_patcher">מטלאה</string>
-    <string name="settings_advanced_updates_use_prereleases">עדכונים לפני הפצה</string>
-    <string name="settings_advanced_updates_use_prereleases_description">גישה מוקדמת לגרסאות חדשות של אפליקציית Morphe. הפעלת גרסאות מוקדמות לכל מקור במקורות התיקון</string>
+    <string name="settings_advanced_updates_manager_prereleases">עדכוני טרום-שחרור</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">גישה מוקדמת לגרסאות חדשות של Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">להפעיל עדכוני טרום-שחרור?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"גרסאות טרום-שחרור של Morphe עדיין בפיתוח ועשויות להיות לא יציבות
+
+תיקונים אינם מושפעים: הפעל תיקוני טרום-שחרור עבור כל מקור ברשימת מקורות התיקונים"</string>
     <string name="settings_advanced_updates_allow_metered">עדכוני נתונים ניידים</string>
     <string name="settings_advanced_updates_allow_metered_description">מאפשר לאפליקציית Morphe ולעדכוני תיקונים להוריד דרך נתונים ניידים</string>
     <string name="settings_advanced_updates_background_notifications">התראות עדכונים רקע</string>

@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">يجب أن يشير عنوان URL إلى مستودع GitHub/GitLab أو ملف ‎.json</string>
     <string name="sources_dialog_local_change_file">تغيير الملف</string>
     <string name="sources_dialog_preinstalled">مثبتة مسبقًا</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">تم التحديث بنجاح</string>
     <string name="sources_update_unavailable">لا يوجد تحديث متاح</string>
     <string name="sources_download_fail">فشل تنزيل مصادر التعديل: %s.</string>
@@ -669,8 +670,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">التحديثات</string>
     <string name="settings_advanced_patcher">أداة التعديل</string>
-    <string name="settings_advanced_updates_use_prereleases">إصدارات ما قبل الإطلاق</string>
-    <string name="settings_advanced_updates_use_prereleases_description">الوصول المبكر إلى إصدارات Morphe الجديدة. فعّل إصدارات ما قبل الإطلاق لكل مصدر في مصادر التعديل</string>
+    <string name="settings_advanced_updates_manager_prereleases">تحديثات ما قبل الإطلاق</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">الوصول المبكر لإصدارات Morphe الجديدة</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">تمكين تحديثات ما قبل الإطلاق؟</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"الإصدارات السابقة للإطلاق من Morphe لا تزال قيد التطوير وقد تكون غير مستقرة.
+
+لا تتأثر التعديلات بذلك: قم بتمكين تعديلات ما قبل الإطلاق لكل مصدر في قائمة مصادر التعديل"</string>
     <string name="settings_advanced_updates_allow_metered">تحديثات بيانات الجوّال</string>
     <string name="settings_advanced_updates_allow_metered_description">السماح بتنزيل تحديثات Morphe والتعديلات عبر بيانات الجوّال</string>
     <string name="settings_advanced_updates_background_notifications">إشعارات تحديث الخلفية</string>

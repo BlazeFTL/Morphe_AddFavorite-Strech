@@ -94,6 +94,7 @@
     <string name="sources_dialog_url_invalid">A URL debe apuntar a un repositorio GitHub/GitLab ou a un ficheiro .json</string>
     <string name="sources_dialog_local_change_file">Cambiar arquivo</string>
     <string name="sources_dialog_preinstalled">Preinstalado</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Actualización correcta</string>
     <string name="sources_update_unavailable">Non hai actualizacións dispoñíbles</string>
     <string name="sources_download_fail">Non se puido descargar as fontes: %s</string>
@@ -267,6 +268,8 @@ Elixe outro APK</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_default">Predefinido</string>
     <!-- Settings - Advanced Tab - Updates Section -->
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <!-- Notification content -->
     <string name="notification_manager_update_title">Actualización de Morphe dispoñible</string>
     <string name="notification_channel_patcher">Parcheando</string>

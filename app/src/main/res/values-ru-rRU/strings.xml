@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">В обратном алфавитном порядке, от Я до А</string>
     <string name="home_app_sort_updates_first">Сначала обновления патчей</string>
     <string name="home_app_sort_updates_first_description">Приложения с значками обновлений сначала, затем в рекомендуемом порядке</string>
+    <string name="home_app_sort_recently_patched">Недавно пропатченные</string>
+    <string name="home_app_sort_recently_patched_description">Сначала приложения, пропатченные недавно</string>
     <string name="home_no_apps_title">Нет доступных приложений</string>
     <string name="home_no_apps_subtitle">Добавить источник патчей или включить существующий в %s</string>
     <string name="home_no_apps_search_subtitle">Нет соответствующих приложений \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Сначала включенные</string>
     <string name="sources_sort_enabled_first_description">Показывать активные источники перед отключенными источниками</string>
     <string name="sources_management_open_in_browser">Открыть в браузере</string>
+    <string name="sources_management_report_issue">Сообщить о проблеме</string>
     <string name="sources_management_failed_to_open_url">Не удалось открыть URL</string>
     <string name="sources_management_prerelease_toggle">Предрелизные патчи</string>
     <string name="sources_management_prerelease_toggle_description">Получает ранний доступ к новым экспериментальным версиям патча</string>
+    <string name="sources_prerelease_warning_title">Включить предварительные патчи?</string>
+    <string name="sources_prerelease_warning_message">Предварительные сборки всё ещё в разработке. Патчи могут не сработать или сломать приложение, а функции могут меняться без предупреждения</string>
+    <string name="expert_mode_prerelease_notice">Этот источник использует предварительные патчи. Патчи могут не сработать или работать некорректно</string>
     <string name="sources_management_experimental_versions_toggle">Экспериментальные версии приложений</string>
     <string name="sources_management_experimental_versions_toggle_description">Патч экспериментальных целевых параметров программы, если доступны</string>
     <string name="sources_management_already_exists">Этот источник уже добавлен</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL должен указывать на репозиторий GitHub/GitLab или на файл .json</string>
     <string name="sources_dialog_local_change_file">Изменить файл</string>
     <string name="sources_dialog_preinstalled">Предварительно установлено</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Успешно обновлено</string>
     <string name="sources_update_unavailable">Нет доступных обновлений</string>
     <string name="sources_download_fail">Не удалось загрузить источники: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Включить все</string>
     <string name="expert_mode_enable_all_done">Все патчи включены</string>
     <string name="expert_mode_enable_all_universal_pending">Нажмите еще раз для универсальных патчей</string>
+    <string name="expert_mode_universal_all_warning_title">Включить все универсальные патчи?</string>
+    <string name="expert_mode_universal_all_warning_message">Универсальные патчи не тестировались вместе. Включение всех одновременно может вызвать конфликты, ошибки патчинга или краши</string>
     <string name="expert_mode_reset_to_default">Включить рекомендованные патчи</string>
     <string name="expert_mode_reset_to_default_done">Рекомендуемые патчи применены</string>
     <string name="expert_mode_restore_saved">Восстановить сохраненный выбор</string>
@@ -656,8 +665,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Обновления</string>
     <string name="settings_advanced_patcher">Патчер</string>
-    <string name="settings_advanced_updates_use_prereleases">Предварительные релизы</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Ранний доступ к новым версиям приложения Morphe. Включите предрелизы для каждого источника в источниках патчей</string>
+    <string name="settings_advanced_updates_manager_prereleases">Предварительные обновления</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Ранний доступ к новым версиям Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Включить предварительные обновления?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Предварительные версии Morphe все еще находятся в разработке и могут быть нестабильными.
+
+Патчи не затрагиваются: включите предварительные патчи для каждого источника в списке источников патчей"</string>
     <string name="settings_advanced_updates_allow_metered">Обновление через мобильные данные</string>
     <string name="settings_advanced_updates_allow_metered_description">Разрешает загрузку обновлений Morphe и патчей через мобильные данные</string>
     <string name="settings_advanced_updates_background_notifications">Уведомления о фоновых обновлениях</string>
@@ -1161,6 +1176,7 @@ morphe_header_custom_dark.png
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">Загружено %1$.1f МБ</string>
     <string name="manager_update_not_ready">Этот релиз еще публикуется. Попробуйте снова через несколько минут</string>
+    <string name="update_download_missing">Загруженное обновление больше недоступно. Загрузите его снова</string>
     <string name="download_manager_failed">Не удалось загрузить обновление: %s</string>
     <string name="failed_to_check_updates">Не удалось проверить наличие обновлений: %s</string>
     <string name="failed_to_download_update">Не удалось загрузить обновление: %s</string>

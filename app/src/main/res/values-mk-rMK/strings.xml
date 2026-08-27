@@ -101,6 +101,7 @@
     <string name="sources_dialog_url_invalid">URL мора да укажува на репозиториум GitHub/GitLab или датотека .json</string>
     <string name="sources_dialog_local_change_file">Промени датотека</string>
     <string name="sources_dialog_preinstalled">Претходно инсталирано</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Ажурирањето е успешно</string>
     <string name="sources_update_unavailable">Нема достапно ажурирање</string>
     <string name="sources_download_fail">Не успеа да се преземат извори: %s</string>
@@ -438,8 +439,8 @@
     <string name="settings_appearance_app_icon_change_dialog_confirm">Потврди го промените</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Напредните подесувања</string>
-    <string name="settings_advanced_updates_use_prereleases">Прикажува дијалог за избор на инсталер секој пат кога се инсталира закрпена апликација</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Го одржува закрпувачот да работи кога апликацијата е минимизирана</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_allow_metered">Завршува закрпувањето во посебен процес за поголема стабилност</string>
     <string name="settings_advanced_updates_allow_metered_description">Повисоките граници го забрзуваат закрпувањето на способни уреди</string>
     <string name="settings_advanced_updates_background_notifications">Известувања за ажурирање во позадина</string>

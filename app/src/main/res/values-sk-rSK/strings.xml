@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Abecedne zotriedené, od Z po A</string>
     <string name="home_app_sort_updates_first">Najprv opravy</string>
     <string name="home_app_sort_updates_first_description">Aplikácie so zobrazenými aktualizáciami najprv, potom v odporúčanej poradí</string>
+    <string name="home_app_sort_recently_patched">Nedávno opravené</string>
+    <string name="home_app_sort_recently_patched_description">Najnovšie opravené aplikácie ako prvé</string>
     <string name="home_no_apps_title">Nedostupné žiadne aplikácie</string>
     <string name="home_no_apps_subtitle">Pridajte zdroj záplaty alebo povoľte existujúci v %s</string>
     <string name="home_no_apps_search_subtitle">Žiadne aplikácie sa nezhodujú s \"%s\"</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">Najprv povolené</string>
     <string name="sources_sort_enabled_first_description">Zobraziť aktívne zdroje pred zakázanými zdrojmi</string>
     <string name="sources_management_open_in_browser">Otvoriť v prehliadači</string>
+    <string name="sources_management_report_issue">Nahlásiť problém</string>
     <string name="sources_management_failed_to_open_url">Nepodarilo sa otvoriť URL</string>
     <string name="sources_management_prerelease_toggle">Použiť predbežne vydané záplaty</string>
     <string name="sources_management_prerelease_toggle_description">Získajte skorší prístup k novým experimentálnym verziám záplat</string>
+    <string name="sources_prerelease_warning_title">Povoliť predbežné opravy?</string>
+    <string name="sources_prerelease_warning_message">Predbežné verzie sú stále vo vývoji. Opravy môžu zlyhať alebo poškodiť aplikáciu a funkcie sa môžu bez upozornenia zmeniť.</string>
+    <string name="expert_mode_prerelease_notice">Tento zdroj je na predbežných opravách. Opravovanie môže zlyhať alebo sa správať neočakávane.</string>
     <string name="sources_management_experimental_versions_toggle">Experimentálne verzie aplikácie</string>
     <string name="sources_management_experimental_versions_toggle_description">Nainštaluje experimentálne verzie aplikácie, ak sú dostupné</string>
     <string name="sources_management_already_exists">Tento zdroj už bol pridaný</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL musí odkazovať na repozitár GitHub/GitLab alebo na súbor .json</string>
     <string name="sources_dialog_local_change_file">Zmeniť súbor</string>
     <string name="sources_dialog_preinstalled">Predinštalované</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Aktualizácia bola úspešná</string>
     <string name="sources_update_unavailable">Neboli nájdené žiadne aktualizácie</string>
     <string name="sources_download_fail">Nepodarilo sa stiahnuť zdroje: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">Povoliť všetko</string>
     <string name="expert_mode_enable_all_done">Všetky záplaty sú zapnuté</string>
     <string name="expert_mode_enable_all_universal_pending">Klepnite znova pre univerzálne záplaty</string>
+    <string name="expert_mode_universal_all_warning_title">Povoliť všetky univerzálne opravy?</string>
+    <string name="expert_mode_universal_all_warning_message">Univerzálne opravy nie sú testované spoločne. Povolenie všetkých naraz môže spôsobiť konflikty, zlyhanie opravy alebo pády.</string>
     <string name="expert_mode_reset_to_default">Povoľte odporúčané záplaty</string>
     <string name="expert_mode_reset_to_default_done">Odporúčané záplaty boli použité</string>
     <string name="expert_mode_restore_saved">Obnoviť uloženú voľbu</string>
@@ -657,8 +666,14 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Aktualizácie</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Predbežné vydania</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Skorý prístup k novým verziám aplikácie Morphe. Povoliť predbežné vydania pre zdroj v zdrojoch záplat</string>
+    <string name="settings_advanced_updates_manager_prereleases">Predbežné aktualizácie</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Včasný prístup k novým verziám Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Povoliť predbežné aktualizácie?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Predbežné verzie aplikácie Morphe sú stále vo vývoji a môžu byť nestabilné.
+
+Záplaty tým nie sú ovplyvnené: povoľte predbežné záplaty pre každý zdroj v zozname zdrojov záplat."</string>
     <string name="settings_advanced_updates_allow_metered">Aktualizácie cez mobilné dáta</string>
     <string name="settings_advanced_updates_allow_metered_description">Povoliť sťahovanie aktualizácií Morphe a záplat cez mobilné dáta</string>
     <string name="settings_advanced_updates_background_notifications">Upozornenia aktualizácie na pozadí</string>
@@ -1029,6 +1044,10 @@ Podrobnosti: %2$s"</string>
     <string name="credits_prior_development">Predchádzajúci vývoj</string>
     <string name="opensource_licenses">Licencie otvoreného zdroja</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Voľba</string>
+    <string name="easter_egg_pill_message">Vezmi si modrú tabletku a reklamy zostanú presne tam, kde sú. Vezmi si červenú a uvidíš, ako hlboko siaha bytecode.</string>
+    <string name="easter_egg_pill_red">Červená tabletka</string>
+    <string name="easter_egg_pill_blue">Modrá tabletka</string>
     <string name="easter_egg_pill_red_toast">Pozadie Matrixu odomknuté</string>
     <string name="easter_egg_pill_blue_toast">Reklamy na teba budú čakať.</string>
     <string name="easter_egg_pill_message_again">Už si v Matrixe. Červená pilulka ťa vráti späť do dažďa, modrá ťa prebudí.</string>
@@ -1159,6 +1178,7 @@ Podrobnosti: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">Stiahnuté %1$.1f MB</string>
     <string name="manager_update_not_ready">Toto vydanie sa stále publikuje. Skúste to znova o niekoľko minút</string>
+    <string name="update_download_missing">Stiahnutá aktualizácia už nie je k dispozícii. Stiahnite si ju znova.</string>
     <string name="download_manager_failed">Nepodarilo sa stiahnuť aktualizáciu: %s</string>
     <string name="failed_to_check_updates">Nepodarilo sa skontrolovať aktualizácie: %s</string>
     <string name="failed_to_download_update">Nepodarilo sa stiahnuť aktualizáciu: %s</string>

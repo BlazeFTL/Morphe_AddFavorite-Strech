@@ -54,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">反向字母順序，Z 到 A</string>
     <string name="home_app_sort_updates_first">先更新修補程式</string>
     <string name="home_app_sort_updates_first_description">優先顯示有更新標記的應用程式，然後依照建議順序</string>
+    <string name="home_app_sort_recently_patched">最近修補</string>
+    <string name="home_app_sort_recently_patched_description">最近修補的應用程式優先</string>
     <string name="home_no_apps_title">沒有可用的應用程式</string>
     <string name="home_no_apps_subtitle">在 %s 新增修補程式來源，或啟用現有來源</string>
     <string name="home_no_apps_search_subtitle">沒有符合「%s」的應用程式</string>
@@ -125,9 +127,13 @@
     <string name="sources_sort_enabled_first">優先顯示已啟用</string>
     <string name="sources_sort_enabled_first_description">在已停用的來源之前顯示已啟用來源</string>
     <string name="sources_management_open_in_browser">在瀏覽器中開啟</string>
+    <string name="sources_management_report_issue">回報問題</string>
     <string name="sources_management_failed_to_open_url">無法開啟網址</string>
     <string name="sources_management_prerelease_toggle">預先發布版修補程式</string>
     <string name="sources_management_prerelease_toggle_description">搶先取得新實驗性修補程式版本</string>
+    <string name="sources_prerelease_warning_title">啟用預發佈修補程式？</string>
+    <string name="sources_prerelease_warning_message">預發佈版本仍在開發中。修補程式可能失敗或導致應用程式損壞，功能也可能在未經警告的情況下變更</string>
+    <string name="expert_mode_prerelease_notice">此來源使用預發佈修補程式。修補可能失敗或產生非預期行為</string>
     <string name="sources_management_experimental_versions_toggle">實驗性應用程式版本</string>
     <string name="sources_management_experimental_versions_toggle_description">若有可用的實驗性應用程式，則對其進行修補</string>
     <string name="sources_management_already_exists">已新增此來源</string>
@@ -163,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL 必須指向 GitHub/GitLab 存放庫或 .json 檔案</string>
     <string name="sources_dialog_local_change_file">變更檔案</string>
     <string name="sources_dialog_preinstalled">預先安裝</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">更新成功</string>
     <string name="sources_update_unavailable">沒有可用的更新</string>
     <string name="sources_download_fail">無法下載來源: %s</string>
@@ -253,6 +260,8 @@
     <string name="expert_mode_enable_all">全部啟用</string>
     <string name="expert_mode_enable_all_done">已啟用所有修補程式</string>
     <string name="expert_mode_enable_all_universal_pending">再點按一次以套用通用修補程式</string>
+    <string name="expert_mode_universal_all_warning_title">啟用所有通用修補程式？</string>
+    <string name="expert_mode_universal_all_warning_message">通用修補程式未經過共同測試。同時啟用所有修補程式可能導致衝突、修補失敗或當機</string>
     <string name="expert_mode_reset_to_default">啟用推薦的修補程式</string>
     <string name="expert_mode_reset_to_default_done">已套用推薦的修補程式</string>
     <string name="expert_mode_restore_saved">還原儲存的選取範圍</string>
@@ -656,8 +665,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">更新</string>
     <string name="settings_advanced_patcher">修補程式</string>
-    <string name="settings_advanced_updates_use_prereleases">預先發布版更新</string>
-    <string name="settings_advanced_updates_use_prereleases_description">搶先體驗最新 Morphe 應用程式版本。在修補來源中啟用預先發布版</string>
+    <string name="settings_advanced_updates_manager_prereleases">預先發布版更新</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">搶先取得新版 Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">啟用預發佈更新？</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Morphe 的預發佈版本仍在開發中，可能不穩定。
+
+修補程式不受影響：請在修補程式來源清單中為每個來源啟用預發佈修補程式"</string>
     <string name="settings_advanced_updates_allow_metered">行動數據更新</string>
     <string name="settings_advanced_updates_allow_metered_description">允許 Morphe 和修補更新在使用行動數據時進行下載</string>
     <string name="settings_advanced_updates_background_notifications">背景更新通知</string>
@@ -1034,6 +1049,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast">廣告正在等候你</string>
     <string name="easter_egg_pill_message_again">你早已身處 Matrix 之中。紅色藥丸會讓你重回雨中​​，藍色藥丸則會將你喚醒。</string>
     <string name="easter_egg_pill_red_toast_again">回到雨中</string>
+    <string name="easter_egg_pill_blue_toast_again">已拔除。回去的路一直在原處。</string>
     <!-- Shared strings -->
     <string name="select_file">選擇檔案</string>
     <string name="select_folder">選取資料夾</string>
@@ -1159,6 +1175,7 @@ morphe_header_custom_dark.png
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">已下載 %1$.1f MB</string>
     <string name="manager_update_not_ready">此版本仍在發布中。請幾分鐘後再試</string>
+    <string name="update_download_missing">下載的更新已不再可用。請重新下載</string>
     <string name="download_manager_failed">無法下載更新：%s</string>
     <string name="failed_to_check_updates">無法檢查更新：%s</string>
     <string name="failed_to_download_update">無法下載更新：%s</string>

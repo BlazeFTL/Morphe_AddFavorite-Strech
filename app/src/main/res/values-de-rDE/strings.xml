@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">Die URL muss auf ein GitHub-/GitLab-Repository oder eine .json Datei verweisen</string>
     <string name="sources_dialog_local_change_file">Datei ändern</string>
     <string name="sources_dialog_preinstalled">Vorinstalliert</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Update erfolgreich</string>
     <string name="sources_update_unavailable">Kein Update verfügbar</string>
     <string name="sources_download_fail">Fehler beim Herunterladen der Quellen: %s</string>
@@ -666,8 +667,14 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Updates</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Updates für Vorabversionen</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Frühzeitiger Zugriff auf neue Morphe-App-Versionen. Aktivieren Sie Vorabversionen pro Quelle in den Patchquellen</string>
+    <string name="settings_advanced_updates_manager_prereleases">Updates für Vorabversionen</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Früher Zugang zu neuen Morphe-Versionen</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Vorabversionen aktivieren?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Vorabversionen von Morphe befinden sich noch in der Entwicklung und können instabil sein.
+
+Patches sind nicht betroffen: Aktivieren Sie Vorab-Patches für jede Quelle in der Liste der Patch-Quellen"</string>
     <string name="settings_advanced_updates_allow_metered">Mobile Daten-Updates</string>
     <string name="settings_advanced_updates_allow_metered_description">Ermöglicht das Herunterladen von Morphe- und Patch-Updates über mobile Daten</string>
     <string name="settings_advanced_updates_background_notifications">Benachrichtigungen über Updates im Hintergrund</string>

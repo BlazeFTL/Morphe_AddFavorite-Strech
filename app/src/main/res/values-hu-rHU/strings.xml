@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">Az URL-nek GitHub/GitLab repóra vagy .json fájlra kell mutatnia</string>
     <string name="sources_dialog_local_change_file">Fájl megváltoztatása</string>
     <string name="sources_dialog_preinstalled">Előretelepített</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">A frissítés sikeres</string>
     <string name="sources_update_unavailable">Nincs elérhető frissítés</string>
     <string name="sources_download_fail">Nem sikerült letölteni a forrásokat: %s</string>
@@ -477,6 +478,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patcher_ready_to_install_subtitle">Nyomd meg az alábbi gombot a telepítéshez</string>
     <string name="patcher_ready_to_mount_subtitle">Nyomd meg az alábbi gombot a csatoláshoz</string>
     <string name="patcher_patches_excluded_for_installer">Nem érhető el a telepítési módszerhez és kizárt: %s</string>
+    <string name="patcher_back_to_game_hint">Koppints a(z) %1$s elemre a játékhoz való visszatéréshez</string>
     <string name="patcher_storage_permission_dialog_title">Az elérési útvonal nem hozzáférhető</string>
     <string name="patcher_incompatible_patcher_title">Frissítés szükséges</string>
     <string name="patcher_incompatible_patcher_description">A &lt;b&gt;%1$s&lt;/b&gt; csomag a &lt;b&gt;%2$s&lt;/b&gt; vagy újabb módosításverziót igényli. Kérjük, frissítsd a Morphe-t az alkalmazás módosításához.</string>
@@ -663,8 +665,14 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Frissítések</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Kiadás előtti módosítások használata</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Korai hozzáférés az új Morphe alkalmazásverziókhoz. Engedélyezés forrásonként a módosítás forrásoknál.</string>
+    <string name="settings_advanced_updates_manager_prereleases">Előzetes frissítések</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Korai hozzáférés az új Morphe verziókhoz</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Engedélyezd az előzetes frissítéseket?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Pre-release versions of Morphe are still in development and can be unstable.
+
+Patches are not affected: enable pre-release patches for each source in the patch sources list"</string>
     <string name="settings_advanced_updates_allow_metered">Mobiladat-forgalom aktív</string>
     <string name="settings_advanced_updates_allow_metered_description">A Morphe és a módosítások frissítéseinek letöltése mobiladattal.</string>
     <string name="settings_advanced_updates_background_notifications">Háttérfrissítési értesítések</string>
@@ -1035,6 +1043,10 @@ Részletek: %2$s"</string>
     <string name="credits_prior_development">Korábbi fejlesztők</string>
     <string name="opensource_licenses">Nyílt forráskódú licencek</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Egy választás</string>
+    <string name="easter_egg_pill_message">Take the blue pill and the ads stay exactly where they are. Take the red one and see how deep the bytecode goes</string>
+    <string name="easter_egg_pill_red">Piros pirula</string>
+    <string name="easter_egg_pill_blue">Kék pirula</string>
     <string name="easter_egg_pill_red_toast">Mátrix háttér feloldva</string>
     <string name="easter_egg_pill_blue_toast">A reklámok várni fognak rád</string>
     <string name="easter_egg_pill_message_again">Már a Mátrixban vagy. A piros pirula visszadob az esőbe, a kék pedig felébreszt.</string>

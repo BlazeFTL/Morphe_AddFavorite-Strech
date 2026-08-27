@@ -169,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL moet na \'n GitHub/GitLab repo of \'n .json-lêer wys</string>
     <string name="sources_dialog_local_change_file">Verander vyl</string>
     <string name="sources_dialog_preinstalled">Voor geïnstalleer</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Opdatering suksesvol</string>
     <string name="sources_update_unavailable">Geen opdatering beskikbaar</string>
     <string name="sources_download_fail">Kon nie oorspronge aflaai nie: %s</string>
@@ -665,8 +666,14 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Opdaterings</string>
     <string name="settings_advanced_patcher">Patcher</string>
-    <string name="settings_advanced_updates_use_prereleases">Voorvrystellingsopdaterings</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Vroeë toegang tot nuwe Morphe-appweergawes. Skakel voorvrystelling per bron in patchbronne in</string>
+    <string name="settings_advanced_updates_manager_prereleases">Voorafvrystellingsopdaterings</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Vroeë toegang tot nuwe Morphe-weergawes</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Aktiveer voorafvrystellingsopdaterings?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Voorafvrystellingsweergawes van Morphe is nog in ontwikkeling en kan onstabiel wees.
+
+Patches word nie beïnvloed nie: aktiveer voorafvrystelling-patches vir elke bron in die patch-bronnelys"</string>
     <string name="settings_advanced_updates_allow_metered">Mobiele data-opdaterings</string>
     <string name="settings_advanced_updates_allow_metered_description">Laat Morphe en patch-opdaterings toe om oor mobiele data af te laai</string>
     <string name="settings_advanced_updates_background_notifications">Agtergrondopdateringskennisgewings</string>

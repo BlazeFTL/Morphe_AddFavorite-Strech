@@ -1,3 +1,21 @@
+# [1.29.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.1...v1.29.0-dev.2) (2026-08-27)
+
+
+### Bug Fixes
+
+* Add "Pre-release updates" confirmation dialog ([#904](https://github.com/MorpheApp/morphe-manager/issues/904)) ([31bab05](https://github.com/MorpheApp/morphe-manager/commit/31bab05b040da538ebaaaaccc4fd533393c3cce4))
+* Allow building with any JDK 17 or newer ([efb7d75](https://github.com/MorpheApp/morphe-manager/commit/efb7d75ff7aa8b8da8cdc78a5a1d4490cab6dd25))
+
+
+### Features
+
+* Add a community patches button to the add source dialog ([#835](https://github.com/MorpheApp/morphe-manager/issues/835)) ([c2a6dff](https://github.com/MorpheApp/morphe-manager/commit/c2a6dff98897fec01fefe8ae5bcc72744de1f156))
+
+
+### Performance Improvements
+
+* Repackage the archive only when signing rejects it ([#906](https://github.com/MorpheApp/morphe-manager/issues/906)) ([98315b6](https://github.com/MorpheApp/morphe-manager/commit/98315b691ab9aaa315104029904761e331666ab9))
+
 # [1.29.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.28.1-dev.1...v1.29.0-dev.1) (2026-08-26)
 
 

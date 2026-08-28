@@ -43,7 +43,9 @@ import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasEnablableUniversal
 import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
 import app.morphe.manager.util.toast
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 /** Callbacks the expert-mode dialog invokes on the underlying patch selection. */
 @Stable
@@ -111,6 +113,14 @@ fun ExpertModeDialog(
         } else {
             expandedUniversal.value - bundleUid
         }
+    }
+
+    // The pre-release warning is worth a glance, not a permanent strip on top of the list. It
+    // retires per source, so a source the user has not opened yet still gets its turn, and the
+    // state lives for this dialog only: the next open warns again
+    val retiredNotices = remember { mutableStateOf(emptySet<Int>()) }
+    fun retireNotice(bundleUid: Int) {
+        retiredNotices.value += bundleUid
     }
 
     // Filter patches based on search query
@@ -238,6 +248,11 @@ fun ExpertModeDialog(
                     hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true
                 )
 
+                RetirePrereleaseNotice(
+                    bundleUid = bundle.uid.takeIf { it in prereleaseBundleUids },
+                    onRetire = { retireNotice(it) }
+                )
+
                 if (filteredPatches == null) {
                     // No search results for this bundle
                     EmptyState(
@@ -261,7 +276,7 @@ fun ExpertModeDialog(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                         ) {
-                            if (bundle.uid in prereleaseBundleUids) {
+                            if (bundle.uid in prereleaseBundleUids && bundle.uid !in retiredNotices.value) {
                                 prereleaseNotice()
                             }
                             patchSections(
@@ -371,6 +386,11 @@ fun ExpertModeDialog(
                     val (currentBundle, _) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
                     val currentFiltered = filteredPatchesInfo.firstOrNull { it.first.uid == currentBundle.uid }?.second
 
+                    RetirePrereleaseNotice(
+                        bundleUid = currentBundle.uid.takeIf { it in prereleaseBundleUids },
+                        onRetire = { retireNotice(it) }
+                    )
+
                     if (currentFiltered != null) {
                         val holdsUniversal = holdsUniversalPatches(currentBundle.uid, currentFiltered)
                         val warnsOnUniversalAll = !holdsUniversal &&
@@ -427,7 +447,7 @@ fun ExpertModeDialog(
                                     modifier = Modifier.fillMaxSize(),
                                     verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                                 ) {
-                                    if (bundle.uid in prereleaseBundleUids) {
+                                    if (bundle.uid in prereleaseBundleUids && bundle.uid !in retiredNotices.value) {
                                         prereleaseNotice()
                                     }
                                     patchSections(
@@ -552,21 +572,34 @@ private fun rememberPatchSections(
     )
 }
 
+/** How long a pre-release warning holds its place, long enough to read it once. */
+private val PrereleaseNoticeDuration = 8.seconds
+
 /**
- * Rows for one bundle: the patches written for this app first, then the universal ones behind a
- * collapsible header. Every row animates its own placement, so search results and the fold
- * settle instead of jumping.
- *
- * Availability is resolved per patch, so a universal patch the installer requires or rules out
- * carries the same lock as an app-specific one.
+ * Retires the pre-release warning of [bundleUid] once it has had its seconds on screen. Null while
+ * the source in view carries no warning, and keyed on the bundle, so switching tabs hands the
+ * countdown to whichever source the user just opened rather than expiring one never seen.
  */
+@Composable
+private fun RetirePrereleaseNotice(bundleUid: Int?, onRetire: (Int) -> Unit) {
+    LaunchedEffect(bundleUid) {
+        if (bundleUid == null) return@LaunchedEffect
+        delay(PrereleaseNoticeDuration)
+        onRetire(bundleUid)
+    }
+}
+
 /**
  * Warning header for a source on the dev branch. It scrolls with the patches it belongs to
  * rather than holding a fixed strip, which also keeps the tabs from shifting as pages change.
+ *
+ * It animates its own placement like the rows below it, so the list closes the gap when the
+ * warning retires instead of snapping shut.
  */
 private fun LazyListScope.prereleaseNotice() = item(key = "prerelease-notice") {
     Notice(
         text = stringResource(R.string.expert_mode_prerelease_notice),
+        modifier = Modifier.animatedListItem(this),
         icon = Icons.Outlined.WarningAmber,
         tone = SemanticTone.Warning,
         density = NoticeDensity.Compact
@@ -586,6 +619,14 @@ private inline fun List<Pair<PatchBundleInfo.Scoped, List<Pair<PatchInfo, Boolea
     if (names.isEmpty()) null else bundle.uid to names
 }.toMap()
 
+/**
+ * Rows for one bundle: the patches written for this app first, then the universal ones behind a
+ * collapsible header. Every row animates its own placement, so search results and the fold
+ * settle instead of jumping.
+ *
+ * Availability is resolved per patch, so a universal patch the installer requires or rules out
+ * carries the same lock as an app-specific one.
+ */
 private fun LazyListScope.patchSections(
     bundleUid: Int,
     sections: PatchSections,

@@ -195,6 +195,37 @@ object PatchSelectionUtils {
         }.toMap()
 
     /**
+     * True when [values] holds at least one option the user moved off the value the patch itself
+     * would use. Options are only ever stored on an explicit edit, but a stored value can still
+     * match the default, and blanks are the cleared fields [sanitizeForPatcher] drops before the
+     * run, so neither counts as a customization.
+     */
+    fun PatchInfo.hasCustomizedOptions(values: Map<String, Any?>?): Boolean {
+        if (values.isNullOrEmpty()) return false
+
+        return options?.any { option ->
+            val value = values[option.key] ?: return@any false
+            if (value is String && value.isBlank()) return@any false
+            value != option.default
+        } == true
+    }
+
+    /**
+     * True when a required option is left without a usable value: neither a stored one nor a
+     * default of the patch's own. A blank counts as missing only where the default is not itself
+     * blank, since a patch may ship an empty default on purpose.
+     */
+    fun PatchInfo.hasMissingRequiredOptions(values: Map<String, Any?>?): Boolean =
+        options?.any { option ->
+            if (!option.required) return@any false
+            val effectiveValue = values?.get(option.key) ?: option.default
+            effectiveValue == null || (
+                effectiveValue is String && effectiveValue.isBlank() &&
+                !(option.default is String && option.default.isBlank())
+            )
+        } == true
+
+    /**
      * Reset all options for a specific patch in an options map.
      */
     fun Options.resetOptionsForPatch(bundleUid: Int, patchName: String): Options {

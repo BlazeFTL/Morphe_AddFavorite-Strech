@@ -39,7 +39,9 @@ import app.morphe.manager.ui.model.renamesByDefault
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
+import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
 import app.morphe.manager.util.PatchSelectionUtils.hasEnablableUniversal
+import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
 import app.morphe.manager.util.toast
 import kotlinx.coroutines.launch
 
@@ -86,28 +88,17 @@ fun ExpertModeDialog(
     val showMultipleSourcesWarning = remember { mutableStateOf(false) }
     val context = LocalContext.current
 
-    // Compute set of enabled patch names that have at least one required option
-    // with no default (default == null) and no user-provided non-blank value.
-    // Recomputed whenever the selected patches or options change.
-    val patchesWithMissingRequired: Set<String> = remember(allPatchesInfo, options) {
-        buildSet {
-            allPatchesInfo.forEach { (bundle, patches) ->
-                patches.forEach { (patch, isEnabled) ->
-                    if (!isEnabled) return@forEach
-                    val patchValues = options[bundle.uid]?.get(patch.name)
-                    val hasMissing = patch.options?.any { option ->
-                        if (!option.required) return@any false
-                        val savedValue = patchValues?.get(option.key)
-                        val effectiveValue = savedValue ?: option.default
-                        // Treat blank as missing only when the developer's own default is non-blank
-                        effectiveValue == null || (
-                            effectiveValue is String && effectiveValue.isBlank() &&
-                            !(option.default is String && option.default.isBlank())
-                        )
-                    } == true
-                    if (hasMissing) add(patch.name)
-                }
-            }
+    // Both markers are keyed by bundle, since the same patch name can come from several sources
+    // with values of its own. Recomputed whenever the selected patches or options change
+    val patchesWithMissingRequired: Map<Int, Set<String>> = remember(allPatchesInfo, options) {
+        allPatchesInfo.patchNamesWhere { bundle, patch, isEnabled ->
+            isEnabled && patch.hasMissingRequiredOptions(options[bundle.uid]?.get(patch.name))
+        }
+    }
+
+    val patchesWithCustomOptions: Map<Int, Set<String>> = remember(allPatchesInfo, options) {
+        allPatchesInfo.patchNamesWhere { bundle, patch, _ ->
+            patch.hasCustomizedOptions(options[bundle.uid]?.get(patch.name))
         }
     }
 
@@ -280,7 +271,8 @@ fun ExpertModeDialog(
                                 isUniversalExpanded = bundle.uid in expandedUniversal.value,
                                 onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
                                 newPatchNames = newPatches[bundle.uid] ?: emptySet(),
-                                missingRequiredOptions = patchesWithMissingRequired,
+                                missingRequiredOptions = patchesWithMissingRequired[bundle.uid] ?: emptySet(),
+                                customOptions = patchesWithCustomOptions[bundle.uid] ?: emptySet(),
                                 lockStateOf = lockStateOf,
                                 onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
                                 onConfigureOptions = {
@@ -445,7 +437,8 @@ fun ExpertModeDialog(
                                         isUniversalExpanded = bundle.uid in expandedUniversal.value,
                                         onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
                                         newPatchNames = newPatches[bundle.uid] ?: emptySet(),
-                                        missingRequiredOptions = patchesWithMissingRequired,
+                                        missingRequiredOptions = patchesWithMissingRequired[bundle.uid] ?: emptySet(),
+                                        customOptions = patchesWithCustomOptions[bundle.uid] ?: emptySet(),
                                         lockStateOf = lockStateOf,
                                         onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
                                         onConfigureOptions = {
@@ -523,7 +516,7 @@ fun ExpertModeDialog(
             },
             onDismiss = {
                 // Show a toast if the patch still has unfilled required options
-                if (patch.name in patchesWithMissingRequired) {
+                if (patch.name in patchesWithMissingRequired[bundleUid].orEmpty()) {
                     context.toast(missingOptionsMessage)
                 }
                 selectedPatchForOptions.value = null
@@ -580,6 +573,19 @@ private fun LazyListScope.prereleaseNotice() = item(key = "prerelease-notice") {
     )
 }
 
+/**
+ * Per-bundle patch names matching [predicate]. Bundles that match nothing are left out, so an
+ * absent uid and an empty set mean the same thing to the caller.
+ */
+private inline fun List<Pair<PatchBundleInfo.Scoped, List<Pair<PatchInfo, Boolean>>>>.patchNamesWhere(
+    predicate: (bundle: PatchBundleInfo.Scoped, patch: PatchInfo, isEnabled: Boolean) -> Boolean
+): Map<Int, Set<String>> = mapNotNull { (bundle, patches) ->
+    val names = patches.mapNotNullTo(mutableSetOf()) { (patch, isEnabled) ->
+        patch.name.takeIf { predicate(bundle, patch, isEnabled) }
+    }
+    if (names.isEmpty()) null else bundle.uid to names
+}.toMap()
+
 private fun LazyListScope.patchSections(
     bundleUid: Int,
     sections: PatchSections,
@@ -588,6 +594,7 @@ private fun LazyListScope.patchSections(
     onUniversalExpandedChange: (Boolean) -> Unit,
     newPatchNames: Set<String>,
     missingRequiredOptions: Set<String>,
+    customOptions: Set<String>,
     lockStateOf: (PatchInfo) -> PatchLockState,
     onToggle: (String) -> Unit,
     onConfigureOptions: (PatchInfo) -> Unit
@@ -606,6 +613,7 @@ private fun LazyListScope.patchSections(
         isNew = patch.name in newPatchNames,
         buildsClone = patch.renamesByDefault,
         hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
+        hasCustomOptions = patch.name in customOptions,
         lockState = lockStateOf(patch),
         onToggle = { onToggle(patch.name) },
         onConfigureOptions = { onConfigureOptions(patch) },

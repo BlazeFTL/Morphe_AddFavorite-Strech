@@ -11,6 +11,8 @@ import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.patcher.patch.Option
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
+import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
+import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
@@ -26,7 +28,9 @@ import java.io.File
 import kotlin.reflect.typeOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertSame
+import kotlin.test.assertTrue
 
 /**
  * These functions decide what actually ends up in a patched APK, so a regression here produces a
@@ -36,13 +40,17 @@ class PatchSelectionExtensionsTest {
     private val installer = InstallerType.STANDARD
     private val architecture = ApkArchitecture.ARM64_V8A
 
-    private fun option(key: String) = Option(
+    private fun option(
+        key: String,
+        default: String? = null,
+        required: Boolean = false
+    ) = Option(
         title = key,
         key = key,
         description = "",
-        required = false,
+        required = required,
         type = typeOf<String>(),
-        default = null,
+        default = default,
         presets = null,
         validator = { true }
     )
@@ -353,5 +361,68 @@ class PatchSelectionExtensionsTest {
             emptyMap(),
             selection.applyAvailability(InstallerType.MOUNT, architecture, bundles)
         )
+    }
+
+    @Test
+    fun `a patch is not customized until a value is stored for it`() {
+        val patch = patch("Patch A", listOf(option("key", default = "default")))
+
+        assertFalse(patch.hasCustomizedOptions(null))
+        assertFalse(patch.hasCustomizedOptions(emptyMap()))
+        assertFalse(patch("Patch B").hasCustomizedOptions(mapOf("key" to "value")))
+    }
+
+    @Test
+    fun `only a value moved off the default counts as a customization`() {
+        val patch = patch("Patch A", listOf(option("key", default = "default")))
+
+        assertFalse(patch.hasCustomizedOptions(mapOf("key" to "default")))
+        assertTrue(patch.hasCustomizedOptions(mapOf("key" to "mine")))
+    }
+
+    @Test
+    fun `a cleared field is not a customization`() {
+        // Same rule as sanitizeForPatcher: a blank never reaches the run, so nothing changed
+        val patch = patch("Patch A", listOf(option("key", default = "default")))
+
+        assertFalse(patch.hasCustomizedOptions(mapOf("key" to "")))
+    }
+
+    @Test
+    fun `values left over from options the patch no longer declares are ignored`() {
+        val patch = patch("Patch A", listOf(option("key")))
+
+        assertFalse(patch.hasCustomizedOptions(mapOf("removed" to "value")))
+    }
+
+    @Test
+    fun `a required option with neither a value nor a default is missing`() {
+        val patch = patch("Patch A", listOf(option("key", required = true)))
+
+        assertTrue(patch.hasMissingRequiredOptions(null))
+        assertFalse(patch.hasMissingRequiredOptions(mapOf("key" to "value")))
+    }
+
+    @Test
+    fun `a required option is satisfied by the patch's own default`() {
+        val patch = patch("Patch A", listOf(option("key", default = "default", required = true)))
+
+        assertFalse(patch.hasMissingRequiredOptions(null))
+    }
+
+    @Test
+    fun `a blank is missing only where the default is not blank itself`() {
+        val nonBlank = patch("Patch A", listOf(option("key", default = "default", required = true)))
+        val blank = patch("Patch B", listOf(option("key", default = "", required = true)))
+
+        assertTrue(nonBlank.hasMissingRequiredOptions(mapOf("key" to "")))
+        assertFalse(blank.hasMissingRequiredOptions(mapOf("key" to "")))
+    }
+
+    @Test
+    fun `an option the patch does not require is never missing`() {
+        val patch = patch("Patch A", listOf(option("key")))
+
+        assertFalse(patch.hasMissingRequiredOptions(null))
     }
 }

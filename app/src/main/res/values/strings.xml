@@ -287,6 +287,7 @@ Anything you add from this website is used at your own risk"</string>
     <string name="expert_mode_no_results">No patches found</string>
     <string name="expert_mode_universal_patches">Universal patches</string>
     <string name="expert_mode_new_patches">New</string>
+    <string name="expert_mode_options_customized">Customized</string>
     <string name="expert_mode_patch_required_by_installer">Required for the selected install target</string>
     <string name="expert_mode_patch_unavailable_for_installer">Not available for the selected install target</string>
     <string name="expert_mode_multiple_sources_warning_title">Multiple patch sources selected</string>

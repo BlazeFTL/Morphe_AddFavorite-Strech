@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -90,11 +91,9 @@ internal fun BundlePatchControls(
             contentDescription = selectAllLabel,
             tooltip = selectAllLabel,
             enabled = enabledCount < totalCount,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            colors = tonalIconColors(
+                container = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
+                content = MaterialTheme.colorScheme.onPrimaryContainer
             )
         )
         ActionPillButton(
@@ -102,11 +101,9 @@ internal fun BundlePatchControls(
             icon = Icons.Outlined.Recommend,
             contentDescription = defaultLabel,
             tooltip = defaultLabel,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f),
-                contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            colors = tonalIconColors(
+                container = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f),
+                content = MaterialTheme.colorScheme.onTertiaryContainer
             )
         )
         ActionPillButton(
@@ -115,11 +112,9 @@ internal fun BundlePatchControls(
             contentDescription = restoreLabel,
             tooltip = restoreLabel,
             enabled = hasSavedSelection,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            colors = tonalIconColors(
+                container = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
+                content = MaterialTheme.colorScheme.onSecondaryContainer
             )
         )
         ActionPillButton(
@@ -127,11 +122,9 @@ internal fun BundlePatchControls(
             icon = Icons.Outlined.ContentCopy,
             contentDescription = copyLabel,
             tooltip = copyLabel,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.4f),
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            colors = tonalIconColors(
+                container = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.4f),
+                content = MaterialTheme.colorScheme.onSecondaryContainer
             )
         )
         ActionPillButton(
@@ -140,11 +133,9 @@ internal fun BundlePatchControls(
             contentDescription = deselectAllLabel,
             tooltip = deselectAllLabel,
             enabled = enabledCount > 0,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
-                contentColor = MaterialTheme.colorScheme.error,
-                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            colors = tonalIconColors(
+                container = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
+                content = MaterialTheme.colorScheme.error
             )
         )
     }
@@ -165,6 +156,22 @@ internal fun BundlePatchControls(
 }
 
 /**
+ * Tonal button colors for this screen: only the tint carries meaning, the disabled pair is the
+ * same washed-out surface everywhere.
+ */
+@Composable
+private fun tonalIconColors(
+    container: Color,
+    content: Color,
+    disabledContent: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+) = IconButtonDefaults.filledTonalIconButtonColors(
+    containerColor = container,
+    contentColor = content,
+    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+    disabledContentColor = disabledContent
+)
+
+/**
  * Individual patch card with toggle and options button.
  */
 @Composable
@@ -175,6 +182,7 @@ internal fun PatchCard(
     isNew: Boolean = false,
     buildsClone: Boolean = false,
     hasRequiredOptionsMissing: Boolean = false,
+    hasCustomOptions: Boolean = false,
     lockState: PatchLockState = PatchLockState.NONE,
     onToggle: () -> Unit,
     onConfigureOptions: () -> Unit,
@@ -187,6 +195,7 @@ internal fun PatchCard(
     val patchState = if (isEnabled) enabledState else disabledState
     val newLabel = stringResource(R.string.expert_mode_new_patches)
     val cloneLabel = stringResource(R.string.clone)
+    val customizedLabel = stringResource(R.string.expert_mode_options_customized)
     // The card speaks for its whole contents, so the badges have to be read out here or not at all
     val badges = listOfNotNull(newLabel.takeIf { isNew }, cloneLabel.takeIf { buildsClone })
     val contentDesc = remember(patch.displayName, patchState, badges) {
@@ -204,7 +213,14 @@ internal fun PatchCard(
     } else onToggle
 
     val colors = MaterialTheme.colorScheme
-    val showErrorBorder = hasRequiredOptionsMissing && isEnabled
+    val showMissingRequired = hasRequiredOptionsMissing && isEnabled
+    // A missing required option blocks the run, so it outranks the tint that only reports
+    // that the defaults were changed
+    val showCustomOptions = hasCustomOptions && isEnabled && !showMissingRequired
+    val optionsDesc = remember(patch.displayName, settings, customizedLabel, showCustomOptions) {
+        listOfNotNull(patch.displayName, settings, customizedLabel.takeIf { showCustomOptions })
+            .joinToString(", ")
+    }
     val containerColor = when {
         isNew && isEnabled -> colors.tertiaryContainer.copy(alpha = 0.55f)
         isNew -> colors.tertiaryContainer.copy(alpha = 0.25f)
@@ -217,7 +233,7 @@ internal fun PatchCard(
         color = containerColor,
         borderWidth = 1.dp,
         borderColor = when {
-            showErrorBorder -> colors.error.copy(alpha = 0.6f)
+            showMissingRequired -> colors.error.copy(alpha = 0.6f)
             !isEnabled -> colors.outlineVariant.copy(alpha = 0.5f)
             else -> colors.outlineVariant
         },
@@ -295,20 +311,21 @@ internal fun PatchCard(
                         modifier = Modifier
                             .size(36.dp)
                             .semantics {
-                                contentDescription = "${patch.displayName}, $settings"
+                                contentDescription = optionsDesc
                             },
                         enabled = isEnabled,
-                        colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = if (hasRequiredOptionsMissing && isEnabled)
-                                MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.8f)
-                            else
-                                MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
-                            contentColor = if (hasRequiredOptionsMissing && isEnabled)
-                                MaterialTheme.colorScheme.error
-                            else
-                                MaterialTheme.colorScheme.onSecondaryContainer,
-                            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                            disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
+                        colors = tonalIconColors(
+                            container = when {
+                                showMissingRequired -> colors.errorContainer.copy(alpha = 0.8f)
+                                showCustomOptions -> colors.primaryContainer.copy(alpha = 0.7f)
+                                else -> colors.secondaryContainer.copy(alpha = 0.6f)
+                            },
+                            content = when {
+                                showMissingRequired -> colors.error
+                                showCustomOptions -> colors.onPrimaryContainer
+                                else -> colors.onSecondaryContainer
+                            },
+                            disabledContent = colors.onSurfaceVariant.copy(alpha = 0.3f)
                         )
                     ) {
                         Icon(

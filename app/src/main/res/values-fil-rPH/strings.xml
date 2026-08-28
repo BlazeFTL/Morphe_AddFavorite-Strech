@@ -170,7 +170,12 @@ Please note: The translation is complete. The arrow is for clarity and not part 
     <string name="sources_dialog_url_invalid">Dapat tumuro ang URL sa isang GitHub/GitLab repo o .json file</string>
     <string name="sources_dialog_local_change_file">Baguhin ang file</string>
     <string name="sources_dialog_preinstalled">Naka-install</string>
+    <string name="sources_dialog_community">Mga patch ng komunidad</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Mga pinagmulan ng third-party patch</string>
+    <string name="sources_dialog_community_notice_message">"Ang mga pinagmulan ng community patch ay ginawa at pinapanatili ng kanilang mga sariling may-akda. Hindi nire-review o bine-verify ng Morphe ang mga third-party patches, at hindi ito responsable sa kanilang nilalaman o sa mga ginagawa nito sa iyong device.
+
+Anumang idagdag mo mula sa website na ito ay gagamitin sa iyong sariling panganib."</string>
     <string name="sources_update_success">Matagumpay ang pag-update</string>
     <string name="sources_update_unavailable">Walang update na magagamit</string>
     <string name="sources_download_fail">Nabigong mag-download ang mga mapagkukunan: %s</string>

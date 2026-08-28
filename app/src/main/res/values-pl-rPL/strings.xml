@@ -170,7 +170,12 @@
     <string name="sources_dialog_url_invalid">Adres musi wskazywać na repozytorium GitHub/GitLab lub plik .json</string>
     <string name="sources_dialog_local_change_file">Zmień plik</string>
     <string name="sources_dialog_preinstalled">Wbudowane</string>
+    <string name="sources_dialog_community">Modyfikacje społeczności</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Zewnętrzne źródła modyfikacji</string>
+    <string name="sources_dialog_community_notice_message">"Źródła modyfikacji społeczności są tworzone i utrzymywane przez ich własnych autorów. Morphe nie sprawdza ani nie weryfikuje zewnętrznych modyfikacji i nie ponosi odpowiedzialności za ich zawartość ani za to, co robią na Twoim urządzeniu.
+
+Wszystko, co dodasz z tej strony, używasz na własne ryzyko"</string>
     <string name="sources_update_success">Aktualizacja zakończona pomyślnie</string>
     <string name="sources_update_unavailable">Brak dostępnych aktualizacji</string>
     <string name="sources_download_fail">Nie udało się pobrać źródeł: %s</string>

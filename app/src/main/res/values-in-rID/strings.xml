@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL harus mengarah ke repositori GitHub/GitLab atau berkas .json</string>
     <string name="sources_dialog_local_change_file">Ganti berkas</string>
     <string name="sources_dialog_preinstalled">Sudah dipasang sebelumnya</string>
+    <string name="sources_dialog_community">Tambalan komunitas</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Sumber tambalan pihak ketiga</string>
+    <string name="sources_dialog_community_notice_message">"Sumber tambalan komunitas dibuat dan dikelola oleh pembuatnya masing-masing. Morphe tidak meninjau atau memverifikasi tambalan pihak ketiga, serta tidak bertanggung jawab atas konten maupun dampaknya terhadap perangkat Anda.
+
+Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda sendiri"</string>
     <string name="sources_update_success">Pembaruan berhasil</string>
     <string name="sources_update_unavailable">Tidak ada pembaruan tersedia</string>
     <string name="sources_download_fail">Gagal mengunduh sumber: %s</string>
@@ -672,9 +677,9 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_advanced_updates_manager_prereleases_description">Akses awal ke versi Morphe baru</string>
     <string name="settings_advanced_updates_prerelease_warning_title">Aktifkan pembaruan pra-rilis?</string>
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
-    <string name="settings_advanced_updates_prerelease_warning_message">"Pre-release versions of Morphe are still in development and can be unstable.
+    <string name="settings_advanced_updates_prerelease_warning_message">"Versi pra-rilis Morphe masih tahap pengembangan dan mungkin tidak stabil. 
 
-Patches are not affected: enable pre-release patches for each source in the patch sources list"</string>
+Tambalan tidak terpengaruh: aktifkan tambalan pra-rilis untuk setiap sumber dalam daftar sumber tambalan"</string>
     <string name="settings_advanced_updates_allow_metered">Pembaruan data seluler</string>
     <string name="settings_advanced_updates_allow_metered_description">Mengizinkan Morphe dan pembaruan tambalan untuk diunduh melalui data seluler</string>
     <string name="settings_advanced_updates_background_notifications">Pemberitahuan pembaruan latar belakang</string>

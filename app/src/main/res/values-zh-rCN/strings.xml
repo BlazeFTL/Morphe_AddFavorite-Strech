@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL 必须指向 GitHub/GitLab 仓库或 .json 文件</string>
     <string name="sources_dialog_local_change_file">更改文件</string>
     <string name="sources_dialog_preinstalled">预安装</string>
+    <string name="sources_dialog_community">社区补丁</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">第三方补丁来源</string>
+    <string name="sources_dialog_community_notice_message">"社区补丁源由其作者自行制作和维护。Morphe 不审查或验证第三方补丁，也不对其内容或对您设备造成的影响负责。
+
+您从此网站添加的任何内容均由您自行承担风险。"</string>
     <string name="sources_update_success">更新成功</string>
     <string name="sources_update_unavailable">无可用更新</string>
     <string name="sources_download_fail">下载补丁失败：%s</string>

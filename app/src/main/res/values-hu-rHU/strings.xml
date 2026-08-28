@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">Az URL-nek GitHub/GitLab repóra vagy .json fájlra kell mutatnia</string>
     <string name="sources_dialog_local_change_file">Fájl megváltoztatása</string>
     <string name="sources_dialog_preinstalled">Előretelepített</string>
+    <string name="sources_dialog_community">Közösségi javítások</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Harmadik féltől származó javításforrások</string>
+    <string name="sources_dialog_community_notice_message">"A közösségi javításforrásokat saját szerzőik készítik és tartják karban. A Morphe nem vizsgálja felül és nem ellenőrzi a harmadik féltől származó javításokat, és nem felelős azok tartalmáért vagy azért, amit az eszközén tesznek.
+
+Bármit is ad hozzá erről a weboldalról, azt saját felelősségére teszi."</string>
     <string name="sources_update_success">A frissítés sikeres</string>
     <string name="sources_update_unavailable">Nincs elérhető frissítés</string>
     <string name="sources_download_fail">Nem sikerült letölteni a forrásokat: %s</string>

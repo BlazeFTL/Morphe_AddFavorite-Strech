@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL musí odkazovat na repozitář GitHub/GitLab nebo na soubor .json</string>
     <string name="sources_dialog_local_change_file">Změnit soubor</string>
     <string name="sources_dialog_preinstalled">Předinstalované</string>
+    <string name="sources_dialog_community">Komunitní opravy</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Zdroje oprav třetích stran</string>
+    <string name="sources_dialog_community_notice_message">"Zdroje komunitních oprav jsou vytvářeny a spravovány jejich vlastními autory. Morphe nekontroluje ani neověřuje opravy třetích stran a nenese odpovědnost za jejich obsah ani za to, co s vaším zařízením dělají.
+
+Cokoli, co z této webové stránky přidáte, používáte na vlastní riziko."</string>
     <string name="sources_update_success">Aktualizace úspěšná</string>
     <string name="sources_update_unavailable">Nejsou dostupné žádné aktualizace</string>
     <string name="sources_download_fail">Selhalo stahování zdrojů: %s</string>

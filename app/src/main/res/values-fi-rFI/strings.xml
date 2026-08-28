@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL-osoitteen on osoitettava GitHub-/GitLab-datasäilöön tai .json-tiedostoon</string>
     <string name="sources_dialog_local_change_file">Vaihda tiedosto</string>
     <string name="sources_dialog_preinstalled">Esivalmis</string>
+    <string name="sources_dialog_community">Yhteisön korjaukset</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Kolmannen osapuolen korjauslähteet</string>
+    <string name="sources_dialog_community_notice_message">"Yhteisön korjauslähteet ovat omien tekijöidensä luomia ja ylläpitämiä. Morphe ei tarkasta tai vahvista kolmannen osapuolen korjauksia, eikä ole vastuussa niiden sisällöstä tai siitä, mitä ne tekevät laitteellasi.
+
+Kaikki mitä lisäät tältä verkkosivustolta, on oma riskisi."</string>
     <string name="sources_update_success">Päivitys onnistui</string>
     <string name="sources_update_unavailable">Päivityksiä ei ole saatavilla</string>
     <string name="sources_download_fail">Lähteiden lataaminen epäonnistui: %s</string>

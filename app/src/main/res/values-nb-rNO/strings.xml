@@ -104,11 +104,11 @@
     <string name="home_greeting_afternoon_3">Ettermiddagsskiftet: patch-utgaven</string>
     <!-- Evening greetings (17:00–21:59) -->
     <string name="home_greeting_evening_1">God kveld! Kveldspatcher har en unik følelse</string>
-    <string name="home_greeting_evening_2">Avslapping neste? Patch en app først</string>
+    <string name="home_greeting_evening_2">Roer det seg? Patch en app først</string>
     <string name="home_greeting_evening_3">Trekker du deg tilbake for kvelden? Patch noe først</string>
     <!-- Late night greetings (22:00–23:59) -->
     <string name="home_greeting_late_night_1">Fortsatt våken? Det er appene som trenger patching også</string>
-    <string name="home_greeting_late_night_2">En aldri så liten patch-økt sent på kvelden? Respekt</string>
+    <string name="home_greeting_late_night_2">En patch-økt sent på kvelden? Respekt</string>
     <string name="home_greeting_late_night_3">Nattuglemodus: aktivert</string>
     <!-- Super late night greetings (0:00–4:59) -->
     <string name="home_greeting_super_late_1">Høysesong for patching… visstnok</string>
@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL-en må peke til et GitHub/GitLab-repo eller en .json-fil</string>
     <string name="sources_dialog_local_change_file">Endre fil</string>
     <string name="sources_dialog_preinstalled">Forhåndsinstallert</string>
+    <string name="sources_dialog_community">Patcher fra fellesskapet</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Patch-kilder fra tredjepart</string>
+    <string name="sources_dialog_community_notice_message">"Patch-kilder fra fellesskapet er laget og opprettholdes av deres egne skapere. Morphe verken gjennomgår eller verifiserer patcher fra tredjepart, og er ikke ansvarlig for innholdet eller virkningen de har på enheten din.
+
+Alt som legges til fra denne nettsiden brukes på egen risiko"</string>
     <string name="sources_update_success">Oppdatering vellykket</string>
     <string name="sources_update_unavailable">Ingen oppdatering tilgjengelig</string>
     <string name="sources_download_fail">Kunne ikke laste ned kilder: %s</string>
@@ -291,7 +296,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="home_dialog_unsupported_version_experimental_description">Denne versjonen har eksperimentell støtte og kan være ustabil eller ufullstendig</string>
     <string name="morphe_experimental_app_version_dialog_title">Vil du eksperimentere? 🧪</string>
     <string name="morphe_experimental_app_version_dialog_message">Denne versjonen av &lt;b&gt;%s&lt;/b&gt; har tidlig eksperimentell støtte&lt;br/&gt;&lt;br/&gt;🔧 Forvent underlige app-oppførsel eller uidentifiserte feil ettersom patchene raffineres for denne appversjonen</string>
-    <string name="home_dialog_unsupported_version_dialog_title">Ugyldig versjon</string>
+    <string name="home_dialog_unsupported_version_dialog_title">Versjonen er ikke støttet</string>
     <string name="home_dialog_unsupported_version_dialog_description">Denne APK-en er ikke en anbefalt applikasjonsversjon. Fortsettelse kan føre til en ikke-funksjonell app</string>
     <string name="home_dialog_unsupported_version_dialog_proceed">Fortsett uansett</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatible versjoner:</string>
@@ -306,7 +311,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="home_outdated_patches_dialog_title">Patches kan være utdaterte</string>
     <string name="home_outdated_patches_dialog_message">Mobildata er aktiv og patch-oppdateringer er deaktivert</string>
     <string name="home_outdated_patches_dialog_warning">Patching med utdaterte patches kan føre til en ødelagt app</string>
-    <string name="home_outdated_patches_dialog_update_and_patch">Oppdater og patch</string>
+    <string name="home_outdated_patches_dialog_update_and_patch">Oppdater &amp; patch</string>
     <string name="home_low_disk_space_dialog_title">Lite lagringsplass</string>
     <string name="home_low_disk_space_dialog_message">Kun %1$.2f GB med ledig lagringsplass tilgjengelig. Patching krever minst %2$.2f GB med ledig plass for å fungere korrekt</string>
     <string name="home_low_disk_space_dialog_warning">Fortsetter du, kan det føre til en «fil ikke funnet»-feil eller en korrupt APK-fil</string>
@@ -440,16 +445,16 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="root_pre_patch_installer_description">Enheten din har root-tilgang. Velg om denne appen skal patches for root-montering eller standardinstallasjon</string>
     <string name="root_pre_patch_installer_mount_title">Root-monteringsmodus</string>
     <string name="root_pre_patch_installer_mount_description">Patches for root-montering og monterer deretter APK-en over den tilsvarende standardappen. Ingen GmsCore nødvendig</string>
-    <string name="root_mount_module_unmount_warning">Hvis KernelSU har Unmount-moduler aktivert som standard, åpne KernelSU > Superuser > appen du monterte > Profil > Egendefinert og deaktiver Unmount-moduler. Ellers kan den monterte patchede APK-en kanskje ikke tre i kraft, selv om Morphe viser at den er montert.</string>
+    <string name="root_mount_module_unmount_warning">Hvis KernelSU har Unmount-moduler aktivert som standard, åpne KernelSU &gt; Superuser &gt; appen du monterte &gt; Profil &gt; Egendefinert og deaktiver Unmount-moduler. Ellers kan den monterte patchede APK-en kanskje ikke tre i kraft, selv om Morphe viser at den er montert.</string>
     <string name="root_pre_patch_installer_standard_title">Standard installasjonsmodus</string>
     <string name="root_pre_patch_installer_standard_description">Installerer som en vanlig APK med GmsCore-støtte. Dine installasjonsinnstillinger brukes etter installasjonen.</string>
-    <string name="root_pre_patch_installer_hint">Denne installasjonsmodusen er separat fra Innstillinger &gt; System &gt; Installasjon og kan ikke endres etter installasjonen.</string>
+    <string name="root_pre_patch_installer_hint">Denne patchmodusen er separat fra Innstillinger &gt; System &gt; Installasjon, og kan ikke endres etter patchingen.</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Feil kopiert til utklippstavlen</string>
     <string name="patcher_error_log">Feillogg</string>
     <string name="patcher_error_technical">Tekniske detaljer</string>
     <string name="patcher_error_dialog_app_info">App info</string>
-    <string name="patcher_tab_logs">Patcher-logger</string>
+    <string name="patcher_tab_logs">Patcher-logg</string>
     <string name="patcher_tab_game">Spill</string>
     <string name="patcher_logs_waiting">Venter på loggutskrift…</string>
     <string name="patcher_logs_lost">Loggutskrift lagres ikke mellom appomstarter</string>
@@ -557,8 +562,8 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="install_ignore_signature">Installer likevel</string>
     <string name="install_ignore_signature_description">Beholder appdata, men fungerer bare hvis en rotmodul deaktiverer Androids signaturverifisering.</string>
     <string name="uninstall_app_fail">Kunne ikke avinstallere app: %s</string>
-    <string name="uninstall_app_unverified">Latt på plass: Morphe kunne ikke bekrefte at den installerte appen er bygget den patchet.</string>
-    <string name="launch_app_unverified">Morphe kunne ikke bekrefte at den installerte appen er bygget den patchet.</string>
+    <string name="uninstall_app_unverified">Ikke flyttet: Morphe kunne ikke bekrefte at den installerte appen er det bygget som ble patchet.</string>
+    <string name="launch_app_unverified">Morphe kunne ikke bekrefte at den installerte appen er det bygget som ble patchet.</string>
     <string name="uninstall_timeout">Avinstallasjonen tok for lang tid</string>
     <string name="save_apk_success">APK lagret</string>
     <string name="saved_app_export_failed">Kunne ikke eksportere patchet app</string>
@@ -600,7 +605,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_background_random">Tilfeldig</string>
     <string name="settings_appearance_background_random_interval_launch">Daglig</string>
     <string name="settings_appearance_background_random_interval_daily">Hver dag</string>
-    <string name="settings_appearance_background_random_interval_3days">Hver tredje dag</string>
+    <string name="settings_appearance_background_random_interval_3days">Hver 3. dag</string>
     <string name="settings_appearance_parallax_effect">Parallakse-effekt</string>
     <string name="settings_appearance_parallax_effect_description">Jevn bakgrunnsforskyvning når du heller enheten</string>
     <!-- Settings - Appearance Tab - Theme -->
@@ -650,7 +655,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_app_card_colors_middle">Mellomfarge</string>
     <string name="settings_appearance_app_card_colors_end">Sluttfarge</string>
     <string name="settings_appearance_app_card_colors_solid_color">Ensfarget farge</string>
-    <string name="settings_appearance_app_card_colors_bundle">App-pakke farge</string>
+    <string name="settings_appearance_app_card_colors_bundle">App-pakkefarge</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Bruk hver apps egen farge her, med automatisk skyggelegging for å passe inn</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
@@ -665,7 +670,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_app_icon_change_dialog_confirm">Endre ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Deaktiver</string>
-    <string name="settings_advanced_patcher">Patcner</string>
+    <string name="settings_advanced_patcher">Patcher</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release-oppdateringer</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
     <string name="settings_advanced_updates_manager_prereleases_description">Tidlig tilgang til nye Morphe-versjoner</string>
@@ -1016,7 +1021,7 @@ Detaljer: %2$s"</string>
     <string name="copy_selection_same_source">Samme kilde</string>
     <!-- Settings - System Tab - Custom file picker -->
     <string name="settings_system_custom_file_picker">Egendefinert filvelger</string>
-    <string name="settings_system_custom_file_picker_description">Bruk Morphés innebygde filvelger i stedet for systemets standardfilvelger.</string>
+    <string name="settings_system_custom_file_picker_description">Bla igjennom lagring med Morphes innebygde filvelger i stedet for systemstandard.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-nedlastingshjelper</string>
     <string name="settings_system_apk_download_helper_description">La en installert hjelpeapp hente originale APK-filer for deg. Filen kommer fra den appen, så aktiver bare dette hvis du stoler på den</string>
@@ -1107,7 +1112,7 @@ Detaljer: %2$s"</string>
     <string name="select_all">Velg alle</string>
     <string name="select_all_done">Alle valgt</string>
     <string name="deselect_all">Fjern markeringen fra alle</string>
-    <string name="deselect_all_done">Alle fjernet valgt</string>
+    <string name="deselect_all_done">Alle bortvalgte</string>
     <string name="reorder_list">Omorganisér liste</string>
     <string name="reorder_list_hint">Dra for å omorganisere</string>
     <string name="reorder_done">Rekkefølge lagret</string>

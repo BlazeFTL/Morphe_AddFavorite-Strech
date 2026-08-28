@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL\'en skal pege på et GitHub/GitLab-lager eller en .json-fil</string>
     <string name="sources_dialog_local_change_file">Ændre fil</string>
     <string name="sources_dialog_preinstalled">Forhåndsinstalleret</string>
+    <string name="sources_dialog_community">Fællesskabets patches</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Tredjeparts patch-kilder</string>
+    <string name="sources_dialog_community_notice_message">"Fællesskabets patch-kilder er lavet og vedligeholdt af deres egne forfattere. Morphe gennemgår eller verificerer ikke tredjeparts patches og er ikke ansvarlig for deres indhold eller for hvad de gør på din enhed.
+
+Alt, hvad du tilføjer fra denne hjemmeside, bruges på egen risiko."</string>
     <string name="sources_update_success">Opdatering vellykket</string>
     <string name="sources_update_unavailable">Ingen opdatering tilgængelig</string>
     <string name="sources_download_fail">Kunne ikke hente patchkilder: %s</string>

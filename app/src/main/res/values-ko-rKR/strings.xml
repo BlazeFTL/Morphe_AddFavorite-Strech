@@ -131,7 +131,7 @@
     <string name="sources_management_failed_to_open_url">URL을 열 수 없습니다</string>
     <string name="sources_management_prerelease_toggle">Pre-release 패치</string>
     <string name="sources_management_prerelease_toggle_description">새 실험 패치 버전을 미리 받아보세요</string>
-    <string name="sources_prerelease_warning_title">Pre-release 패치를 활성화하시겠습니까?</string>
+    <string name="sources_prerelease_warning_title">Pre-release 패치 활성화</string>
     <string name="sources_prerelease_warning_message">Pre-release 빌드는 아직 개발 중입니다. 패치가 실패하거나 앱이 손상될 수 있으며, 기능은 예고 없이 변경될 수 있습니다</string>
     <string name="expert_mode_prerelease_notice">이 소스는 Pre-release 패치를 사용하고 있습니다. 패치가 실패하거나 예상치 못한 방식으로 작동할 수 있습니다</string>
     <string name="sources_management_experimental_versions_toggle">실험 앱 버전</string>
@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL은 GitHub/GitLab 리포지토리 또는 .json 파일을 가리켜야 합니다</string>
     <string name="sources_dialog_local_change_file">파일 변경</string>
     <string name="sources_dialog_preinstalled">미리 설치됨</string>
+    <string name="sources_dialog_community">커뮤니티 패치</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">서드파티 패치 소스</string>
+    <string name="sources_dialog_community_notice_message">"커뮤니티 패치는 각 패치의 개발자가 직접 만들고 유지 관리합니다. Morphe는 서드파티 패치를 검토하거나 검증하지 않으며, 해당 패치의 내용이나 패치가 사용자의 기기에서 수행하는 작업에 대해 책임을 지지 않습니다
+
+이 웹사이트에서 추가하는 모든 항목은 사용자 본인의 책임하에 사용해야 합니다"</string>
     <string name="sources_update_success">업데이트를 성공하였습니다</string>
     <string name="sources_update_unavailable">새 업데이트가 없습니다</string>
     <string name="sources_download_fail">소스를 다운로드할 수 없습니다: %s</string>
@@ -260,7 +265,7 @@
     <string name="expert_mode_enable_all">모두 활성화</string>
     <string name="expert_mode_enable_all_done">모든 패치를 활성화하였습니다</string>
     <string name="expert_mode_enable_all_universal_pending">유니버설 패치를 위해 다시 탭하세요</string>
-    <string name="expert_mode_universal_all_warning_title">모든 유니버설 패치를 활성화하시겠습니까?</string>
+    <string name="expert_mode_universal_all_warning_title">모든 유니버설 패치 활성화</string>
     <string name="expert_mode_universal_all_warning_message">유니버설 패치는 함께 테스트되지 않았습니다. 모든 패치를 한 번에 활성화하면 패치 충돌, 패치 실패 또는 앱 충돌이 발생할 수 있습니다</string>
     <string name="expert_mode_reset_to_default">패치 기본값으로 초기화</string>
     <string name="expert_mode_reset_to_default_done">권장 패치를 적용하였습니다</string>
@@ -667,8 +672,8 @@
     <string name="settings_advanced_patcher">패처</string>
     <string name="settings_advanced_updates_manager_prereleases">Pre-release 업데이트</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
-    <string name="settings_advanced_updates_manager_prereleases_description">새 Morphe 앱 버전에 미리 받아봅니다</string>
-    <string name="settings_advanced_updates_prerelease_warning_title">Pre-release 업데이트를 활성화하시겠습니까?</string>
+    <string name="settings_advanced_updates_manager_prereleases_description">새 Morphe 앱 버전을 미리 받아봅니다</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Pre-release 업데이트 활성화</string>
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_prerelease_warning_message">"Morphe의 Pre-release 버전은 아직 개발 중이며 불안정할 수 있습니다
 

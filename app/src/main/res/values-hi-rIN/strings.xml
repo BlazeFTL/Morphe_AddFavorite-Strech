@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab रिपो या .json फ़ाइल की ओर इंगित करना चाहिए</string>
     <string name="sources_dialog_local_change_file">फ़ाइल बदलें</string>
     <string name="sources_dialog_preinstalled">प्रिंस्टॉल किया गया</string>
+    <string name="sources_dialog_community">समुदाय पैच</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">तृतीय-पक्ष पैच स्रोत</string>
+    <string name="sources_dialog_community_notice_message">"समुदाय पैच स्रोत उनके स्वयं के लेखकों द्वारा बनाए और बनाए रखे जाते हैं। मॉर्फे तृतीय-पक्ष पैच की समीक्षा या सत्यापन नहीं करता है, और उनकी सामग्री या आपके डिवाइस पर उनके द्वारा किए जाने वाले कार्यों के लिए जिम्मेदार नहीं है।
+
+इस वेबसाइट से आप जो कुछ भी जोड़ते हैं, वह आपके अपने जोखिम पर उपयोग होता है।"</string>
     <string name="sources_update_success">अपडेट सफल रहा</string>
     <string name="sources_update_unavailable">अपडेट उपलब्ध नहीं है</string>
     <string name="sources_download_fail">स्रोत डाउनलोड करने में विफल हो गया: %s</string>

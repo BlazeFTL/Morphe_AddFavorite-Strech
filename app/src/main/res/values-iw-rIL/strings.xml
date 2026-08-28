@@ -170,7 +170,12 @@
     <string name="sources_dialog_url_invalid">הכתובת חייבת להפנות למאגר GitHub/GitLab או לקובץ ‎.json</string>
     <string name="sources_dialog_local_change_file">שנה קובץ</string>
     <string name="sources_dialog_preinstalled">מובן מראשון</string>
+    <string name="sources_dialog_community">תיקוני קהילה</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">מקורות תיקונים של צד שלישי</string>
+    <string name="sources_dialog_community_notice_message">"מקורות תיקוני קהילה נעשים ומתוחזקים על ידי מחבריהם. Morphe אינו בודק או מאמת תיקוני צד שלישי, ואינו אחראי לתוכנם או למה שהם עושים במכשירך.
+
+כל דבר שתוסיף מאתר זה בשימוש על אחריותך בלבד."</string>
     <string name="sources_update_success">עדכון הצליח</string>
     <string name="sources_update_unavailable">אין עדכון זמין</string>
     <string name="sources_download_fail">שגגה להוריד תצוגים: %s</string>

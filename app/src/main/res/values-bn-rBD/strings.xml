@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL টি অবশ্যই একটি GitHub/GitLab রেপো অথবা .json ফাইল নির্দেশ করতে হবে।</string>
     <string name="sources_dialog_local_change_file">ফাইল পরিবর্তন করুন</string>
     <string name="sources_dialog_preinstalled">প্র-ইনস্টল করা হয়েছে</string>
+    <string name="sources_dialog_community">কমিউনিটি প্যাচ</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">তৃতীয় পক্ষের প্যাচ উৎস</string>
+    <string name="sources_dialog_community_notice_message">"কমিউনিটি প্যাচ সোর্স তাদের নিজ নিজ লেখকগণ দ্বারা তৈরি ও রক্ষণাবেক্ষণ করা হয়। Morphe তৃতীয় পক্ষের প্যাচগুলো পর্যালোচনা বা যাচাই করে না, এবং তাদের বিষয়বস্তু বা আপনার ডিভাইসে যা করে তার জন্য দায়ী নয়।
+
+আপনি এই ওয়েবসাইট থেকে যা কিছু যোগ করেন তা আপনার নিজের ঝুঁকিতে ব্যবহৃত হয়।"</string>
     <string name="sources_update_success">আপডেট সফল হয়েছে</string>
     <string name="sources_update_unavailable">আপডেট উপলব্ধ নেই</string>
     <string name="sources_download_fail">সোর্স ডাউনলোড ব্যর্থ হয়েছে: %s</string>

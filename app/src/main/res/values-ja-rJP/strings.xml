@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL は GitHub または GitLab のリポジトリ、もしくは .json ファイルを指している必要があります</string>
     <string name="sources_dialog_local_change_file">ファイルを変更</string>
     <string name="sources_dialog_preinstalled">プリインストール</string>
+    <string name="sources_dialog_community">コミュニティパッチ</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">サードパーティのパッチソース</string>
+    <string name="sources_dialog_community_notice_message">"コミュニティパッチソースはそれぞれの作者によって作成・維持されています。Morpheはサードパーティのパッチを審査または検証せず、その内容やデバイス上での動作について責任を負いません。
+
+このウェブサイトから追加するものはすべて自己責任でご使用ください。"</string>
     <string name="sources_update_success">更新成功</string>
     <string name="sources_update_unavailable">利用可能な更新はありません</string>
     <string name="sources_download_fail">ソースのダウンロードに失敗しました: %s</string>

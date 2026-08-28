@@ -170,7 +170,12 @@ Nessuna patch disponibile</string>
     <string name="sources_dialog_url_invalid">L\'URL deve puntare a un repository GitHub/GitLab o a un file .json</string>
     <string name="sources_dialog_local_change_file">Cambia file</string>
     <string name="sources_dialog_preinstalled">Preinstallato</string>
+    <string name="sources_dialog_community">Patch della community</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Sorgenti di patch di terze parti</string>
+    <string name="sources_dialog_community_notice_message">"Le sorgenti di patch della community sono mantenute dai rispettivi autori. Morphe non esamina né verifica le patch di terze parti e non è responsabile del loro contenuto o di ciò che fanno sul tuo dispositivo.
+
+Tutto ciò che aggiungi da questo sito viene utilizzato a tuo rischio."</string>
     <string name="sources_update_success">Aggiornamento riuscito</string>
     <string name="sources_update_unavailable">Nessun aggiornamento disponibile</string>
     <string name="sources_download_fail">Impossibile scaricare le fonti: %s</string>

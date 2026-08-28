@@ -170,7 +170,11 @@
     <string name="sources_dialog_url_invalid">URL адресът трябва да сочи към GitHub/GitLab хранилище или .json файл</string>
     <string name="sources_dialog_local_change_file">Промяна на файл</string>
     <string name="sources_dialog_preinstalled">Предварително инсталиран</string>
+    <string name="sources_dialog_community">Общностни пачове</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Източници на пачове от трети страни</string>
+    <string name="sources_dialog_community_notice_message">"Общностните източници на пачове се създават и поддържат от техните автори. Morphe не преглежда и не проверява пачове от трети страни и не носи отговорност за тяхното съдържание или за това какво правят на вашето устройство.
+Всичко, което добавите от този уебсайт, използвате на свой собствен риск."</string>
     <string name="sources_update_success">Успешно обновяване</string>
     <string name="sources_update_unavailable">Няма достъпно обновление</string>
     <string name="sources_download_fail">Неуспешно сваляне на източника: %s</string>

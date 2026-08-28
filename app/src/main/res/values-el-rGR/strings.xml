@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">Η διεύθυνση URL πρέπει να δείχνει σε ένα αποθετήριο GitHub/GitLab ή σε ένα αρχείο .json</string>
     <string name="sources_dialog_local_change_file">Αλλαγή αρχείου</string>
     <string name="sources_dialog_preinstalled">Προεγκατεστημένες</string>
+    <string name="sources_dialog_community">Κοινοτικά patches</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Πηγές patches τρίτων</string>
+    <string name="sources_dialog_community_notice_message">"Οι πηγές patches κοινότητας δημιουργούνται και συντηρούνται από τους ίδιους τους συγγραφείς. Η Morphe δεν εξετάζει ούτε επαληθεύει patches τρίτων και δεν είναι υπεύθυνη για το περιεχόμενό τους ή για ό,τι κάνουν στη συσκευή σας.
+
+Οτιδήποτε προσθέτετε από αυτόν τον ιστότοπο χρησιμοποιείται με δική σας ευθύνη."</string>
     <string name="sources_update_success">Ενημέρωση επιτυχής</string>
     <string name="sources_update_unavailable">Καμία διαθέσιμη ενημέρωση</string>
     <string name="sources_download_fail">Αποτυχία λήψης πηγών: %s</string>

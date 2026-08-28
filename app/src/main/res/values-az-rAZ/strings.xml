@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab depo və ya .json faylın göstərməlidir</string>
     <string name="sources_dialog_local_change_file">Faylı dəyişdir</string>
     <string name="sources_dialog_preinstalled">İlkin quraşdırılan</string>
+    <string name="sources_dialog_community">İcma yamaqları</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Üçüncü tərəf yamaq mənbələri</string>
+    <string name="sources_dialog_community_notice_message">"İcma yamaq mənbələri öz müəllifləri tərəfindən yaradılır və saxlanılır. Morphe üçüncü tərəf yamaqlarını nəzərdən keçirmir, yoxlamır və onların məzmununa və ya cihazınızda etdiklərinə görə məsuliyyət daşımır.
+
+Bu veb saytdan əlavə etdiyiniz hər şey öz riskinizlə istifadə olunur"</string>
     <string name="sources_update_success">Uğurlu yeniləmə</string>
     <string name="sources_update_unavailable">Yenilənmə əlçatan deyil</string>
     <string name="sources_download_fail">Mənbələri yükləmək olmadı: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Yamaqlar tapılmadı</string>
     <string name="expert_mode_universal_patches">Ümumi yamaqlar</string>
     <string name="expert_mode_new_patches">Yeni</string>
+    <string name="expert_mode_options_customized">Fərdiləşdirilib</string>
     <string name="expert_mode_patch_required_by_installer">Seçilmiş quraşdırma hədəfi üçün tələb olunur</string>
     <string name="expert_mode_patch_unavailable_for_installer">Seçilmiş quraşdırma hədəfi üçün əlçatan deyil</string>
     <string name="expert_mode_multiple_sources_warning_title">Çoxlu yamaq mənbəyi seçilib</string>

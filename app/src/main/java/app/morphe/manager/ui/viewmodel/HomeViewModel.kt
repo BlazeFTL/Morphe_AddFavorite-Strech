@@ -52,6 +52,7 @@ import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
+import app.morphe.manager.util.PatchSelectionUtils.withBundle
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
 import app.morphe.patcher.patch.ApkArchitecture
@@ -3022,8 +3023,7 @@ class HomeViewModel(
             ::expertModeLockState
         )
 
-        expertModePatches = expertModePatches.toMutableMap()
-            .apply { put(bundleUid, updated) }
+        expertModePatches = expertModePatches.withBundle(bundleUid, updated)
             .applyExpertModeAvailability()
         // Armed against what the availability rules left behind, so the next tap sees the
         // selection it is compared to
@@ -3057,14 +3057,13 @@ class HomeViewModel(
      * Removes the bundle entry entirely if nothing remains selected. LOCKED_ON patches are kept.
      */
     fun expertModeDeselectAll(bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) {
-        val current = expertModePatches.toMutableMap()
-        val set = current[bundleUid]?.toMutableSet() ?: mutableSetOf()
+        val kept = expertModePatches[bundleUid]?.toMutableSet() ?: mutableSetOf()
         patches.forEach { (patch, enabled) ->
             if (expertModeLockState(patch) == PatchLockState.LOCKED_ON) return@forEach
-            if (enabled) set.remove(patch.name)
+            if (enabled) kept.remove(patch.name)
         }
-        if (set.isEmpty()) current.remove(bundleUid) else current[bundleUid] = set
-        expertModePatches = current.applyExpertModeAvailability()
+        expertModePatches = expertModePatches.withBundle(bundleUid, kept)
+            .applyExpertModeAvailability()
     }
 
     /**
@@ -3080,9 +3079,8 @@ class HomeViewModel(
         val defaults = bundle.patchSequence(expertModeAllowIncompatible)
             .filter { it.defaultSelected(currentInstallerType, currentApkArchitecture) }
             .mapTo(mutableSetOf()) { it.name }
-        val current = expertModePatches.toMutableMap()
-        if (defaults.isEmpty()) current.remove(bundleUid) else current[bundleUid] = defaults
-        expertModePatches = current.applyExpertModeAvailability()
+        expertModePatches = expertModePatches.withBundle(bundleUid, defaults)
+            .applyExpertModeAvailability()
     }
 
     /**
@@ -3091,9 +3089,8 @@ class HomeViewModel(
      */
     fun expertModeRestoreSaved(bundleUid: Int) {
         val savedForBundle = expertModeInitialPatches[bundleUid] ?: return
-        val current = expertModePatches.toMutableMap()
-        if (savedForBundle.isEmpty()) current.remove(bundleUid) else current[bundleUid] = savedForBundle
-        expertModePatches = current.applyExpertModeAvailability()
+        expertModePatches = expertModePatches.withBundle(bundleUid, savedForBundle)
+            .applyExpertModeAvailability()
     }
 
     /**
@@ -3201,12 +3198,10 @@ class HomeViewModel(
                 return@launch
             }
 
-            val updatedSelection = expertModePatches.toMutableMap()
-            if (patches.isEmpty()) updatedSelection.remove(targetBundleUid)
-            else updatedSelection[targetBundleUid] = patches
             // The copy comes from a run that may have targeted another installer, so the patches
             // it carries are put through the availability rules of this one
-            expertModePatches = updatedSelection.applyExpertModeAvailability()
+            expertModePatches = expertModePatches.withBundle(targetBundleUid, patches)
+                .applyExpertModeAvailability()
 
             val currentOptions = expertModeOptions.toMutableMap()
             val bundleOptions = currentOptions[targetBundleUid]?.toMutableMap() ?: mutableMapOf()

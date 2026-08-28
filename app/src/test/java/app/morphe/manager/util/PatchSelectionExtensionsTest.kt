@@ -19,6 +19,7 @@ import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
+import app.morphe.manager.util.PatchSelectionUtils.withBundle
 import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.AvailabilityResolver
 import app.morphe.patcher.patch.InstallerType
@@ -121,6 +122,18 @@ class PatchSelectionExtensionsTest {
 
         assertEquals(emptyList(), remapped.bundles)
         assertEquals(emptyMap(), selection)
+    }
+
+    @Test
+    fun `replacing a bundle with an empty set drops the entry`() {
+        assertEquals(
+            mapOf(1 to setOf("Patch B")),
+            mapOf(0 to setOf("Patch A"), 1 to setOf("Patch B")).withBundle(0, emptySet())
+        )
+        assertEquals(
+            mapOf(0 to setOf("Patch C")),
+            mapOf(0 to setOf("Patch A")).withBundle(0, setOf("Patch C"))
+        )
     }
 
     @Test

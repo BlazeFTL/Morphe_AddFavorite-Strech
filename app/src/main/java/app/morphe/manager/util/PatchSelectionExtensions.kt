@@ -56,13 +56,21 @@ fun SelectionPayload.remapAndExtractSelection(
 object PatchSelectionUtils {
 
     /**
+     * Puts [patches] under [bundleUid], dropping the entry when nothing is left selected.
+     *
+     * A bundle absent from the map and a bundle mapped to an empty set would otherwise both mean
+     * "nothing selected here", and the rest of the selection code reads only the first as such.
+     */
+    fun PatchSelection.withBundle(bundleUid: Int, patches: Set<String>): PatchSelection =
+        if (patches.isEmpty()) this - bundleUid else this + (bundleUid to patches)
+
+    /**
      * Toggle a patch in a selection map.
      * If the patch is selected, it will be deselected and vice versa.
      * Allows adding patches from bundles not yet in the selection (creates new entry).
      */
     fun PatchSelection.togglePatch(bundleUid: Int, patchName: String): PatchSelection {
-        val current = this.toMutableMap()
-        val bundlePatches = current[bundleUid]?.toMutableSet() ?: mutableSetOf()
+        val bundlePatches = this[bundleUid]?.toMutableSet() ?: mutableSetOf()
 
         if (patchName in bundlePatches) {
             bundlePatches.remove(patchName)
@@ -70,13 +78,7 @@ object PatchSelectionUtils {
             bundlePatches.add(patchName)
         }
 
-        if (bundlePatches.isEmpty()) {
-            current.remove(bundleUid)
-        } else {
-            current[bundleUid] = bundlePatches
-        }
-
-        return current
+        return withBundle(bundleUid, bundlePatches)
     }
 
     /**

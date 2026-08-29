@@ -117,11 +117,6 @@ _EXPERT_PATCH_CARD_MAIN = [
         '03-ExpertPatchCard hunk 5',
     ),
     (
-        '                horizontalArrangement = Arrangement.SpaceBetween,\n                verticalAlignment = Alignment.CenterVertically\n            ) {\n                // Patch info',
-        '                horizontalArrangement = Arrangement.SpaceBetween,\n                verticalAlignment = Alignment.Top\n            ) {\n                // Patch info',
-        'outer Row top-aligned (icons no longer drift to card center)',
-    ),
-    (
         '                        if (buildsClone) {\n                            StatusBadge(\n                                text = cloneLabel,\n                                icon = Icons.Outlined.ContentCopy,\n                                tone = SemanticTone.Warning\n                            )\n                        }\n                    }',
         '                        if (buildsClone) {\n                            StatusBadge(\n                                text = cloneLabel,\n                                icon = Icons.Outlined.ContentCopy,\n                                tone = SemanticTone.Warning\n                            )\n                        }\n                        if (patch.isUniversal && onToggleFavorite != null) {\n                            IconButton(\n                                onClick = onToggleFavorite,\n                                modifier = Modifier\n                                    .size(28.dp)\n                                    .semantics {\n                                        contentDescription = "${patch.displayName}, ${if (isFavorite) removeFromFavoritesLabel else addToFavoritesLabel}"\n                                    }\n                            ) {\n                                Icon(\n                                    imageVector = if (isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,\n                                    contentDescription = null,\n                                    modifier = Modifier.size(18.dp),\n                                    tint = if (isFavorite) Color(0xFFFFB300) else colors.onSurfaceVariant.copy(alpha = 0.6f)\n                                )\n                            }\n                        }\n                    }',
         'favorite star moved inline next to patch name',
@@ -163,11 +158,6 @@ _EXPERT_PATCH_CARD_DEV = [
         '    SettingsItemCard(\n        onClick = onCardClick,\n        color = containerColor,',
         '    SettingsItemCard(\n        onClick = onCardClick,\n        onLongClick = onCardLongClick,\n        color = containerColor,',
         'SettingsItemCard onLongClick',
-    ),
-    (
-        '                horizontalArrangement = Arrangement.SpaceBetween,\n                verticalAlignment = Alignment.CenterVertically\n            ) {\n                // Patch info',
-        '                horizontalArrangement = Arrangement.SpaceBetween,\n                verticalAlignment = Alignment.Top\n            ) {\n                // Patch info',
-        'outer Row top-aligned (icons no longer drift to card center)',
     ),
     (
         '                        if (buildsClone) {\n                            StatusBadge(\n                                text = cloneLabel,\n                                icon = Icons.Outlined.ContentCopy,\n                                tone = SemanticTone.Warning\n                            )\n                        }\n                    }',

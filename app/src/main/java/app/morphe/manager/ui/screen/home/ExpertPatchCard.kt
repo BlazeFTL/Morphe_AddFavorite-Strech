@@ -244,133 +244,112 @@ internal fun PatchCard(
     ) {
         Column {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(Defaults.ContentPadding),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Patch info
-                Column(
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(Defaults.ContentPadding),
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.Top
+) {
+    // Patch info
+    Column(
+        modifier = Modifier
+            .weight(1f)
+            .padding(end = if (hasOptions) 8.dp else 0.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        // Name row: patch name + "New" badge + favorite star, all inline
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Text(
+                text = patch.displayName,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = if (isEnabled)
+                    LocalDialogTextColor.current
+                else
+                    LocalDialogSecondaryTextColor.current.copy(alpha = 0.5f),
+                modifier = Modifier.weight(1f, fill = false)
+            )
+            if (isNew) {
+                StatusBadge(
+                    text = newLabel,
+                    tone = SemanticTone.Primary
+                )
+            }
+            // Read from how the patch declares its option, so it warns early without
+            // being relied on: the run itself is checked against the APK it produced
+            if (buildsClone) {
+                StatusBadge(
+                    text = cloneLabel,
+                    icon = Icons.Outlined.ContentCopy,
+                    tone = SemanticTone.Warning
+                )
+            }
+            if (patch.isUniversal && onToggleFavorite != null) {
+                IconButton(
+                    onClick = onToggleFavorite,
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(end = if (hasOptions) 8.dp else 0.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                        .size(28.dp)
+                        .semantics {
+                            contentDescription = "${patch.displayName}, ${if (isFavorite) removeFromFavoritesLabel else addToFavoritesLabel}"
+                        }
                 ) {
-                    // Name row: patch name + "New" badge inline
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        Text(
-                            text = patch.displayName,
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (isEnabled)
-                                LocalDialogTextColor.current
-                            else
-                                LocalDialogSecondaryTextColor.current.copy(alpha = 0.5f),
-                            modifier = Modifier.weight(1f, fill = false)
-                        )
-                        if (isNew) {
-                            StatusBadge(
-                                text = newLabel,
-                                tone = SemanticTone.Primary
-                            )
-                        }
-                        // Read from how the patch declares its option, so it warns early without
-                        // being relied on: the run itself is checked against the APK it produced
-                        if (buildsClone) {
-                            StatusBadge(
-                                text = cloneLabel,
-                                icon = Icons.Outlined.ContentCopy,
-                                tone = SemanticTone.Warning
-                            )
-                        }
-                    }
-
-                    if (!patch.description.isNullOrBlank()) {
-                        Text(
-                            text = patch.description,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = if (isEnabled)
-                                LocalDialogSecondaryTextColor.current
-                            else
-                                LocalDialogSecondaryTextColor.current.copy(alpha = 0.4f)
-                        )
-                    }
-                }
-
-                // Options button (only enabled if patch is enabled)
-                if (hasOptions) {
-                    FilledTonalIconButton(
-                        onClick = {
-                            // Prevent click propagation to card
-                            onConfigureOptions()
-                        },
-                        modifier = Modifier
-                            .size(36.dp)
-                            .semantics {
-                                contentDescription = optionsDesc
-                            },
-                        enabled = isEnabled,
-                        colors = tonalIconColors(
-                            container = when {
-                                showMissingRequired -> colors.errorContainer.copy(alpha = 0.8f)
-                                showCustomOptions -> colors.primaryContainer.copy(alpha = 0.7f)
-                                else -> colors.secondaryContainer.copy(alpha = 0.6f)
-                            },
-                            content = when {
-                                showMissingRequired -> colors.error
-                                showCustomOptions -> colors.onPrimaryContainer
-                                else -> colors.onSecondaryContainer
-                            },
-                            disabledContent = colors.onSurfaceVariant.copy(alpha = 0.3f)
-                        )
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Settings,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                        tint = if (isFavorite) Color(0xFFFFB300) else colors.onSurfaceVariant.copy(alpha = 0.6f)
+                    )
                 }
             }
+        }
 
-            if (lockedMessage != null) {
-                HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.5f))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colors.onSurface.copy(alpha = 0.06f))
-                        .padding(
-                            horizontal = Defaults.ContentPadding,
-                            vertical = Defaults.ContentPaddingSmall,
-                        ),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    ) {
-                        Icon(
-                            imageVector = when (lockState) {
-                                PatchLockState.LOCKED_ON  -> Icons.Outlined.Lock
-                                PatchLockState.LOCKED_OFF -> Icons.Outlined.Block
-                                PatchLockState.NONE       -> Icons.Outlined.Lock
-                            },
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp),
-                            tint = colors.onSurfaceVariant,
-                        )
-                        Text(
-                            text = lockedMessage,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = colors.onSurfaceVariant,
-                        )
-                    }
-                }
-            }
+        if (!patch.description.isNullOrBlank()) {
+            Text(
+                text = patch.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = if (isEnabled)
+                    LocalDialogSecondaryTextColor.current
+                else
+                    LocalDialogSecondaryTextColor.current.copy(alpha = 0.4f)
+            )
+        }
+    }
+
+    // Options button (only enabled if patch is enabled)
+    if (hasOptions) {
+        FilledTonalIconButton(
+            onClick = {
+                // Prevent click propagation to card
+                onConfigureOptions()
+            },
+            modifier = Modifier
+                .size(36.dp)
+                .semantics {
+                    contentDescription = optionsDesc
+                },
+            enabled = isEnabled,
+            colors = tonalIconColors(
+                container = when {
+                    showMissingRequired -> colors.errorContainer.copy(alpha = 0.8f)
+                    showCustomOptions -> colors.primaryContainer.copy(alpha = 0.7f)
+                    else -> colors.secondaryContainer.copy(alpha = 0.6f)
+                },
+                content = when {
+                    showMissingRequired -> colors.error
+                    showCustomOptions -> colors.onPrimaryContainer
+                    else -> colors.onSecondaryContainer
+                },
+                disabledContent = colors.onSurfaceVariant.copy(alpha = 0.3f)
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Settings,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
         }
     }
 }

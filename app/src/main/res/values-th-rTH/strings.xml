@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL ต้องชี้ไปยัง GitHub/GitLab repo หรือไฟล์ .json</string>
     <string name="sources_dialog_local_change_file">เปลี่ยนไฟล์</string>
     <string name="sources_dialog_preinstalled">ติดตั้งล่วงหน้าแล้ว</string>
+    <string name="sources_dialog_community">แพตช์ชุมชน</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">แหล่งแพตช์ของบุคคลที่สาม</string>
+    <string name="sources_dialog_community_notice_message">"แพตช์ชุมชนถูกสร้างและดูแลโดยผู้เขียนของตนเอง Morphe ไม่ได้ตรวจสอบหรือยืนยันแพตช์ของบุคคลที่สาม และไม่รับผิดชอบต่อเนื้อหาหรือสิ่งที่เกิดขึ้นกับอุปกรณ์ของคุณ
+
+สิ่งที่คุณเพิ่มจากเว็บไซต์นี้ใช้ด้วยความเสี่ยงของคุณเอง"</string>
     <string name="sources_update_success">อัปเดตเสร็จสมบูรณ์</string>
     <string name="sources_update_unavailable">ยังไม่มีการอัปเดต</string>
     <string name="sources_download_fail">ไม่สามารถดาวน์โหลดแหล่งที่มาได้: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">ไม่พบแพตช์</string>
     <string name="expert_mode_universal_patches">แพตช์สากล</string>
     <string name="expert_mode_new_patches">ใหม่</string>
+    <string name="expert_mode_options_customized">กำหนดเอง</string>
     <string name="expert_mode_patch_required_by_installer">จำเป็นสำหรับเป้าหมายการติดตั้งที่เลือก</string>
     <string name="expert_mode_patch_unavailable_for_installer">ใช้ไม่ได้กับเป้าหมายการติดตั้งที่เลือก</string>
     <string name="expert_mode_multiple_sources_warning_title">หลายแหล่งที่มาแพตช์ถูกเลือก</string>

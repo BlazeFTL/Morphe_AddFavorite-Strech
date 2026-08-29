@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL, bir GitHub/GitLab deposuna veya .json dosyasına işaret etmelidir</string>
     <string name="sources_dialog_local_change_file">Dosyayı değiştir</string>
     <string name="sources_dialog_preinstalled">Ön yüklü</string>
+    <string name="sources_dialog_community">Topluluk yamaları</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Üçüncü taraf yama kaynakları</string>
+    <string name="sources_dialog_community_notice_message">"Topluluk yama kaynakları kendi yazarları tarafından oluşturulur ve sürdürülür. Morphe üçüncü taraf yamaları incelemez veya doğrulamaz ve içeriklerinden veya cihazınızda yaptıklarından sorumlu değildir.
+
+Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="sources_update_success">Güncelleme başarılı</string>
     <string name="sources_update_unavailable">Güncelleme mevcut değil</string>
     <string name="sources_download_fail">Kaynaklar indirilemedi: %s</string>

@@ -277,6 +277,7 @@ Anumang idagdag mo mula sa website na ito ay gagamitin sa iyong sariling pangani
     <string name="expert_mode_no_results">Walang nakita na patch</string>
     <string name="expert_mode_universal_patches">Mga unibersal na patch</string>
     <string name="expert_mode_new_patches">Bago</string>
+    <string name="expert_mode_options_customized">Naka-customize</string>
     <string name="expert_mode_patch_required_by_installer">Kinakailangan para sa napiling target ng pag-install</string>
     <string name="expert_mode_patch_unavailable_for_installer">Hindi magagamit para sa napiling target ng pag-install</string>
     <string name="expert_mode_multiple_sources_warning_title">Maramihang mga mapagkukunang patch ang napili</string>

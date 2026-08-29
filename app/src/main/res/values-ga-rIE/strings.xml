@@ -276,6 +276,7 @@
     <string name="expert_mode_no_results">Níor aimsíodh aon phaistí</string>
     <string name="expert_mode_universal_patches">Paistí uilíocha</string>
     <string name="expert_mode_new_patches">Nua</string>
+    <string name="expert_mode_options_customized">Saincheaptha</string>
     <string name="expert_mode_patch_required_by_installer">Riachtanach don sprioc suiteála roghnaithe</string>
     <string name="expert_mode_patch_unavailable_for_installer">Níl ar fáil don sprioc suiteála a roghnaíodh</string>
     <string name="expert_mode_multiple_sources_warning_title">Ilfhoinsí paiste roghnaithe</string>

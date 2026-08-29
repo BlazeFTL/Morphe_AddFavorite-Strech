@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL musí odkazovať na repozitár GitHub/GitLab alebo na súbor .json</string>
     <string name="sources_dialog_local_change_file">Zmeniť súbor</string>
     <string name="sources_dialog_preinstalled">Predinštalované</string>
+    <string name="sources_dialog_community">Komunitné záplaty</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Zdroje záplat tretích strán</string>
+    <string name="sources_dialog_community_notice_message">"Zdroje komunitných záplat sú vytvárané a udržiavané ich vlastnými autormi. Morphe nekontroluje ani neoveruje záplaty tretích strán a nie je zodpovedný za ich obsah ani za to, čo robia na vašom zariadení.
+
+Čokoľvek, čo pridáte z tejto webovej stránky, používate na vlastné riziko."</string>
     <string name="sources_update_success">Aktualizácia bola úspešná</string>
     <string name="sources_update_unavailable">Neboli nájdené žiadne aktualizácie</string>
     <string name="sources_download_fail">Nepodarilo sa stiahnuť zdroje: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Neboli nájdené žiadne záplaty</string>
     <string name="expert_mode_universal_patches">Univerzálne záplaty</string>
     <string name="expert_mode_new_patches">Nový</string>
+    <string name="expert_mode_options_customized">Prispôsobené</string>
     <string name="expert_mode_patch_required_by_installer">Vyžadované pre vybraný cieľ inštalácie</string>
     <string name="expert_mode_patch_unavailable_for_installer">Nie je dostupné pre vybraný cieľ inštalácie</string>
     <string name="expert_mode_multiple_sources_warning_title">Sú vybraté viaceré zdroje záplat</string>

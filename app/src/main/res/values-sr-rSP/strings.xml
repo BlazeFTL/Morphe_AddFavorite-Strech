@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">УРЛ мора да указује на GitHub/GitLab репозиторијум или .json датотеку</string>
     <string name="sources_dialog_local_change_file">Промени фајл</string>
     <string name="sources_dialog_preinstalled">Предпостављени</string>
+    <string name="sources_dialog_community">Патчеви заједнице</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Извори патчева трећих страна</string>
+    <string name="sources_dialog_community_notice_message">"Патчеве заједнице праве и одржавају њихови аутори. Morphe не прегледа нити проверава патчеве трећих страна и није одговоран за њихов садржај или за оно што они раде на вашем уређају.
+
+Све што додате са ове веб странице користите на сопствену одговорност."</string>
     <string name="sources_update_success">Успешно ажурирано</string>
     <string name="sources_update_unavailable">Нema ажурирање</string>
     <string name="sources_download_fail">Неуспешно преузимање извора: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Нema пронађених печева</string>
     <string name="expert_mode_universal_patches">Универзалне површине</string>
     <string name="expert_mode_new_patches">Ново</string>
+    <string name="expert_mode_options_customized">Прилагођено</string>
     <string name="expert_mode_patch_required_by_installer">Захтевно за изабрану циљну инсталацију</string>
     <string name="expert_mode_patch_unavailable_for_installer">Није доступно за изабрану циљну инсталацију</string>
     <string name="expert_mode_multiple_sources_warning_title">Одабрана су више извора за патч</string>

@@ -276,6 +276,7 @@ Tudo o que você adicionar a partir deste site é por sua conta e risco"</string
     <string name="expert_mode_no_results">Nenhum patch encontrado</string>
     <string name="expert_mode_universal_patches">Patches universais</string>
     <string name="expert_mode_new_patches">Novo</string>
+    <string name="expert_mode_options_customized">Personalizado</string>
     <string name="expert_mode_patch_required_by_installer">Obrigatório para o destino de instalação selecionado</string>
     <string name="expert_mode_patch_unavailable_for_installer">Não disponível para o destino de instalação selecionado</string>
     <string name="expert_mode_multiple_sources_warning_title">Várias fontes de patch selecionadas</string>

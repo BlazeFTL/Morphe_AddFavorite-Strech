@@ -271,6 +271,7 @@
     <string name="expert_mode_no_results">找不到修補程式</string>
     <string name="expert_mode_universal_patches">通用型修補程式</string>
     <string name="expert_mode_new_patches">新增</string>
+    <string name="expert_mode_options_customized">自訂</string>
     <string name="expert_mode_patch_required_by_installer">選定安裝目標需要</string>
     <string name="expert_mode_patch_unavailable_for_installer">未針對選定的安裝目標提供</string>
     <string name="expert_mode_multiple_sources_warning_title">選取了多個修補來源</string>

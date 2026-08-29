@@ -276,6 +276,7 @@
     <string name="expert_mode_no_results">কোনো প্যাচ পাওয়া যায়নি</string>
     <string name="expert_mode_universal_patches">সার্বজনীন প্যাচ</string>
     <string name="expert_mode_new_patches">নতুন</string>
+    <string name="expert_mode_options_customized">কাস্টমাইজড</string>
     <string name="expert_mode_patch_required_by_installer">নির্বাচিত ইনস্টল টার্গেটের জন্য এটি প্রয়োজনীয়</string>
     <string name="expert_mode_patch_unavailable_for_installer">নির্বাচিত ইনস্টল টার্গেটের জন্য এটি পাওয়া যাচ্ছে না</string>
     <string name="expert_mode_multiple_sources_warning_title">বহু প্যাচ সোর্স নির্বাচিত</string>

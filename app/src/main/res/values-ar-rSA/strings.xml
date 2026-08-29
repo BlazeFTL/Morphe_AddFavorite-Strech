@@ -276,6 +276,7 @@
     <string name="expert_mode_no_results">لم يتم العثور على تعديلات</string>
     <string name="expert_mode_universal_patches">التعديلات الشاملة</string>
     <string name="expert_mode_new_patches">جديد</string>
+    <string name="expert_mode_options_customized">مخصص</string>
     <string name="expert_mode_patch_required_by_installer">مطلوب لوجهة التثبيت المحددة</string>
     <string name="expert_mode_patch_unavailable_for_installer">غير متاح لوجهة التثبيت المحددة</string>
     <string name="expert_mode_multiple_sources_warning_title">تم تحديد مصادر تعديل متعددة</string>

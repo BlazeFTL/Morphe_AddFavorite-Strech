@@ -277,6 +277,7 @@
     <string name="expert_mode_no_results">Патчі не знайдено</string>
     <string name="expert_mode_universal_patches">Універсальні патчі</string>
     <string name="expert_mode_new_patches">Новий</string>
+    <string name="expert_mode_options_customized">Налаштовано</string>
     <string name="expert_mode_patch_required_by_installer">Обов\'язково для вибраного типу встановлення</string>
     <string name="expert_mode_patch_unavailable_for_installer">Недоступно для вибраного типу встановлення</string>
     <string name="expert_mode_multiple_sources_warning_title">Вибрано декілька джерел патчів</string>

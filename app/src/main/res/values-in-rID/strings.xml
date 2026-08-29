@@ -276,6 +276,7 @@ Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda
     <string name="expert_mode_no_results">Tambalan tidak ditemukan</string>
     <string name="expert_mode_universal_patches">Tambalan universal</string>
     <string name="expert_mode_new_patches">Baru</string>
+    <string name="expert_mode_options_customized">Kustom</string>
     <string name="expert_mode_patch_required_by_installer">Diperlukan untuk target pemasangan yang dipilih</string>
     <string name="expert_mode_patch_unavailable_for_installer">Tidak tersedia untuk target pemasangan yang dipilih</string>
     <string name="expert_mode_multiple_sources_warning_title">Beberapa sumber tambalan telah dipilih</string>

@@ -169,7 +169,16 @@
     <string name="sources_dialog_url_invalid">URL mora kazati na repozitorij GitHub/GitLab ali na .json datoteko</string>
     <string name="sources_dialog_local_change_file">Spremeni datoteko</string>
     <string name="sources_dialog_preinstalled">Prednameščen</string>
+    <string name="sources_dialog_community">Popravki skupnosti</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Viri popravkov tretjih oseb</string>
+    <string name="sources_dialog_community_notice_message">"Viri popravkov skupnosti ustvarjajo in vzdržujejo njihovi avtorji. Morphe ne pregleduje niti ne preverja popravkov tretjih oseb in ni odgovoren za njihovo vsebino ali za to, kaj naredijo na vaši napravi.
+
+Vse, kar dodate s tega spletišča, uporabljate na lastno odgovornost.  
+
+(prevod) 
+
+"</string>
     <string name="sources_update_success">Posodobitev uspešna</string>
     <string name="sources_update_unavailable">Posodobitev ni na voljo</string>
     <string name="sources_download_fail">Napaka pri prenosu virov: %s</string>

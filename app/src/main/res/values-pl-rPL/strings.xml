@@ -277,6 +277,7 @@ Wszystko, co dodasz z tej strony, używasz na własne ryzyko"</string>
     <string name="expert_mode_no_results">Nie znaleziono modyfikacji</string>
     <string name="expert_mode_universal_patches">Uniwersalne modyfikacje</string>
     <string name="expert_mode_new_patches">Nowe</string>
+    <string name="expert_mode_options_customized">Niestandardowe</string>
     <string name="expert_mode_patch_required_by_installer">Wymagane dla wybranego celu instalacji</string>
     <string name="expert_mode_patch_unavailable_for_installer">Niedostępne dla wybranego celu instalacji</string>
     <string name="expert_mode_multiple_sources_warning_title">Wybrano wiele źródeł modyfikacji</string>

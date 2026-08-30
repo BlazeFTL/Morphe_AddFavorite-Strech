@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL-ul trebuie să indice un depozit GitHub/GitLab sau un fișier .json</string>
     <string name="sources_dialog_local_change_file">Schimbă fișierul</string>
     <string name="sources_dialog_preinstalled">Preinstalate</string>
+    <string name="sources_dialog_community">Patch-uri comunitare</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Surse de patch-uri terțe</string>
+    <string name="sources_dialog_community_notice_message">"Sursele de patch-uri comunitare sunt create și întreținute de propriii autori. Morphe nu verifică sau validează patch-urile terțe și nu este responsabil pentru conținutul lor sau pentru ceea ce fac pe dispozitivul tău.
+
+Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <string name="sources_update_success">Actualizare reușită</string>
     <string name="sources_update_unavailable">Nu există actualizări disponibile</string>
     <string name="sources_download_fail">Eroare la descărcarea surselor: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Nu au fost găsite patch-uri</string>
     <string name="expert_mode_universal_patches">Patch-uri universale</string>
     <string name="expert_mode_new_patches">Nou</string>
+    <string name="expert_mode_options_customized">Personalizat</string>
     <string name="expert_mode_patch_required_by_installer">Necesar pentru ținta de instalare selectată</string>
     <string name="expert_mode_patch_unavailable_for_installer">Nu este disponibil pentru ținta de instalare selectată</string>
     <string name="expert_mode_multiple_sources_warning_title">Mai multe surse de patch-uri selectate</string>

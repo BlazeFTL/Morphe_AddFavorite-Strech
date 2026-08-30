@@ -276,6 +276,7 @@ Alt, hvad du tilføjer fra denne hjemmeside, bruges på egen risiko."</string>
     <string name="expert_mode_no_results">Ingen patches fundet</string>
     <string name="expert_mode_universal_patches">Universelle patches</string>
     <string name="expert_mode_new_patches">Ny</string>
+    <string name="expert_mode_options_customized">Tilpasset</string>
     <string name="expert_mode_patch_required_by_installer">Nødvendig for det valgte installationsmål</string>
     <string name="expert_mode_patch_unavailable_for_installer">Ikke tilgængelig for det valgte installationsmål</string>
     <string name="expert_mode_multiple_sources_warning_title">Flere patchkilder valgt</string>

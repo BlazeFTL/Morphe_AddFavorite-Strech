@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL должен указывать на репозиторий GitHub/GitLab или на файл .json</string>
     <string name="sources_dialog_local_change_file">Изменить файл</string>
     <string name="sources_dialog_preinstalled">Предварительно установлено</string>
+    <string name="sources_dialog_community">Патчи сообщества</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Источники сторонних патчей</string>
+    <string name="sources_dialog_community_notice_message">"Источники патчей сообщества создаются и поддерживаются их авторами. Morphe не проверяет и не верифицирует сторонние патчи и не несет ответственности за их содержимое или за то, что они делают на вашем устройстве.
+
+Все, что вы добавляете с этого сайта, используется на ваш собственный риск."</string>
     <string name="sources_update_success">Успешно обновлено</string>
     <string name="sources_update_unavailable">Нет доступных обновлений</string>
     <string name="sources_download_fail">Не удалось загрузить источники: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Патчи не найдены</string>
     <string name="expert_mode_universal_patches">Универсальные патчи</string>
     <string name="expert_mode_new_patches">Новые</string>
+    <string name="expert_mode_options_customized">Настроенный</string>
     <string name="expert_mode_patch_required_by_installer">Требуется для выбранной цели установки</string>
     <string name="expert_mode_patch_unavailable_for_installer">Недоступно для выбранной цели установки</string>
     <string name="expert_mode_multiple_sources_warning_title">Выбрано несколько источников патчей</string>

@@ -276,6 +276,7 @@ Enigiets wat jy van hierdie webwerf byvoeg, word op jou eie risiko gebruik."</st
     <string name="expert_mode_no_results">Geen patchings gevind</string>
     <string name="expert_mode_universal_patches">Universele pleisters</string>
     <string name="expert_mode_new_patches">Nuwe</string>
+    <string name="expert_mode_options_customized">Aangepas</string>
     <string name="expert_mode_patch_required_by_installer">Vereis vir die gekose installasie-teiken</string>
     <string name="expert_mode_patch_unavailable_for_installer">Nie beskikbaar vir die gekose installasie-teiken nie</string>
     <string name="expert_mode_multiple_sources_warning_title">Meerdere patch brons gekies</string>

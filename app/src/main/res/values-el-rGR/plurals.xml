@@ -49,8 +49,8 @@
         <item quantity="other">%s εφαρμογές μπορούν να επιδιορθωθούν ξανά</item>
     </plurals>
     <plurals name="batch_skipped_summary">
-        <item quantity="one">Παραλείφθηκε η εφαρμογή %s</item>
-        <item quantity="other">Παραλείφθηκαν οι εφαρμογές %s</item>
+        <item quantity="one">Παραλείφθηκε %s εφαρμογή</item>
+        <item quantity="other">Παραλείφθηκαν %s εφαρμογές</item>
     </plurals>
     <plurals name="home_app_info_repatch_cleaned_invalid_data">
         <item quantity="one">Αφαιρέθηκε %s παλιά τροποποίηση από την αποθηκευμένη επιλογή</item>
@@ -69,7 +69,7 @@
         <item quantity="other">%s εφαρμογές</item>
     </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
-        <item quantity="one">Αντιγράφηκε η επιλογή %s από την επιλεγμένη δέσμη</item>
-        <item quantity="other">Αντιγράφηκαν οι επιλογές %s από την επιλεγμένη δέσμη</item>
+        <item quantity="one">Αντιγράφηκε %s επιλογή από την επιλεγμένη δέσμη</item>
+        <item quantity="other">Αντιγράφηκαν %s επιλογές από την επιλεγμένη δέσμη</item>
     </plurals>
 </resources>

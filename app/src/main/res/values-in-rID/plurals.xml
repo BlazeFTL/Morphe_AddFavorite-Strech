@@ -34,7 +34,7 @@
         <item quantity="other">%s aplikasi siap ditambal</item>
     </plurals>
     <plurals name="repatch_available_count">
-        <item quantity="other">%s aplikasi dapat di-patch ulang</item>
+        <item quantity="other">%s aplikasi dapat di-tambal ulang</item>
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="other">%s aplikasi dilewati</item>

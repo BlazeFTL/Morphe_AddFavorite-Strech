@@ -168,7 +168,12 @@
     <string name="sources_dialog_url_invalid">URL gihub/gitlab depoyê an pelê .json\'yê nîşan bide</string>
     <string name="sources_dialog_local_change_file">Guherîne dosya</string>
     <string name="sources_dialog_preinstalled">Destekî çêkirî</string>
+    <string name="sources_dialog_community">Patchên civakê</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Çavkaniyên patch ên partiya sêyem</string>
+    <string name="sources_dialog_community_notice_message">"Çavkaniyên patch ên civakê ji aliyê nivîskarên xwe ve têne çêkirin û têne parastin. Morphe patchên partiya sêyem nirx nake û verast nake, û ji naveroka wan an ji tiştê ku ew li ser cîhaza we dikin berpirsiyar nabe.
+
+Her tiştê ku hûn ji vê malperê zêde dikin bi xetereya we tê bikaranîn."</string>
     <string name="sources_update_success">Nûvekirin serketî</string>
     <string name="sources_update_unavailable">Nûvekirin peyda nebûye</string>
     <string name="sources_download_fail">Nêzîk davêtin: %s</string>
@@ -269,6 +274,7 @@
     <string name="expert_mode_no_results">Paqejiyê ne hebin</string>
     <string name="expert_mode_universal_patches">Pêtên hevpar.</string>
     <string name="expert_mode_new_patches">Nû</string>
+    <string name="expert_mode_options_customized">xweserkirî</string>
     <string name="expert_mode_patch_required_by_installer">Ji bo hedefê ku hatî hilbijartîn hewce ye</string>
     <string name="expert_mode_patch_unavailable_for_installer">Ji bo hedefê ku hatî hilbijartîn peyda nabe</string>
     <string name="expert_mode_multiple_sources_warning_title">Berî çend seyarên bejna tê</string>
@@ -662,8 +668,14 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Nûvekirin</string>
     <string name="settings_advanced_patcher">Patchker</string>
+    <string name="settings_advanced_updates_manager_prereleases">Nûvekirinên pêş-weşanê</string>
     <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Gihîştina zû ya guhertoyên nû yên Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Nûvekirinên pêş-weşanê çalak bike?</string>
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Guhertoyên pêş-weşanê yên Morphe hê jî di pêşxistinê de ne û dibe ku ne aram bin.
+
+Patch ne bandor in: ji bo her çavkaniyê di lîsteya çavkaniyên patch de patchên pêş-weşanê çalak bike."</string>
     <string name="settings_advanced_updates_allow_metered">Nûvekirinên daneya mobîl</string>
     <string name="settings_advanced_updates_allow_metered_description">Destûrê dide Morphe\'yê u nûvekirinên qeyikan da ku li ser danebîna mobîlê biçin</string>
     <string name="settings_advanced_updates_background_notifications">Ragahdaniyên nûvekirina paşînê</string>

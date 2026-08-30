@@ -384,7 +384,6 @@ internal fun HideAppDialog(
             // Original app card preview
             AppCardLayout(
                 gradientColors = item.gradientColors,
-                enabled = true,
                 onClick = {},
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -570,7 +569,6 @@ internal fun HiddenAppsDialog(
                             ) {
                                 AppCardLayout(
                                     gradientColors = item.gradientColors,
-                                    enabled = true,
                                     onClick = {
                                         if (isMultiSelectMode.value) {
                                             selectedPackages.toggle(item.id)

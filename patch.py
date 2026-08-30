@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-patch.py -- apply the favorite-universal-patches feature to a
+patch.py -- apply the favorite-universal-patches feature (+ fork identity:
+distinct applicationId/app name so it installs alongside the original) to a
 MorpheApp/morphe-manager checkout (main or dev branch).
 
 Anchor-based, not a unified diff: every change is matched against a
@@ -82,6 +83,11 @@ _STRINGS = [
         '<string name="expert_mode_universal_patches">Universal patches</string>',
         '<string name="expert_mode_universal_patches">Universal patches</string>\n    <string name="expert_mode_favorite_added">%s added to favorites</string>\n    <string name="expert_mode_favorite_removed">%s removed from favorites</string>\n    <string name="add_to_favorites">Add to favorites</string>\n    <string name="remove_from_favorites">Remove from favorites</string>',
         'favorite strings',
+    ),
+    (
+        '<string name="app_name" translatable="false">Morphe</string>',
+        '<string name="app_name" translatable="false">MorpheFork</string>',
+        'app display name',
     ),
 ]
 
@@ -272,6 +278,27 @@ _EXPERT_MODE_DIALOG_DEV = [
     ),
 ]
 
+_BUILD_GRADLE = [
+    (
+        '    applicationId = "app.morphe.manager"',
+        '    applicationId = "app.morphe.manages"',
+        'applicationId changed so it installs alongside the original',
+    ),
+]
+
+_GOOGLE_SERVICES = [
+    (
+        '"package_name": "app.morphe.manager"',
+        '"package_name": "app.morphe.manages"',
+        'google-services.json package_name (release) - must match applicationId or the build fails',
+    ),
+    (
+        '"package_name": "app.morphe.manager.debug"',
+        '"package_name": "app.morphe.manages.debug"',
+        'google-services.json package_name (debug) - must match applicationId or the build fails',
+    ),
+]
+
 # path (relative to repo root) -> one or more strategies.
 # A strategy is a list of (old, new, description) edits, all independent
 # (non-overlapping) within that strategy. Multiple strategies exist for
@@ -290,6 +317,8 @@ FILES = {
         _EXPERT_MODE_DIALOG_MAIN,
         _EXPERT_MODE_DIALOG_DEV,
     ],
+    "app/build.gradle.kts": [_BUILD_GRADLE],
+    "app/google-services.json": [_GOOGLE_SERVICES],
 }
 
 BOM = "\ufeff"

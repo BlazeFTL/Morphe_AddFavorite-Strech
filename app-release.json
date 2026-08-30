@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-30T02:40:57",
-  "description": "# [1.29.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.3...v1.29.0-dev.4) (2026-08-30)\n\n\n### Bug Fixes\n\n* Read a bundle's architecture from its base module when no split names it ([f89129a](https://github.com/MorpheApp/morphe-manager/commit/f89129a00cc0f76f8cd3195e10e942147e410342))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.4/morphe-manager-1.29.0-dev.4.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.4/morphe-manager-1.29.0-dev.4.apk.asc",
-  "version": "1.29.0-dev.4"
+  "created_at": "2026-08-30T14:12:04",
+  "description": "# [1.29.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.4...v1.29.0-dev.5) (2026-08-30)\n\n\n### Bug Fixes\n\n* Hide the app card check badge while reordering ([8edb718](https://github.com/MorpheApp/morphe-manager/commit/8edb718d56514183e5be8a413a222181d72cc859))\n* Hide the app card status badges while reordering ([6012d7f](https://github.com/MorpheApp/morphe-manager/commit/6012d7f3d83d9803897bcbcd3c5ed1c5b0f056d6))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.5/morphe-manager-1.29.0-dev.5.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.5/morphe-manager-1.29.0-dev.5.apk.asc",
+  "version": "1.29.0-dev.5"
 }

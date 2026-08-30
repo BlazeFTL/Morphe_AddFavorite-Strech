@@ -23,10 +23,7 @@ A simple, user-friendly script to customize your Morphe Manager build. It adds a
 
 ## ✨ What This Adds for You
 
-- 📱 **Side-by-Side Installation**: The app is renamed to **MorpheFork** and gets a unique ID, meaning you can install it without having to uninstall the official Morphe Manager app.
-- ⭐ **Favorite Universal Patches**: Simply **long-press** any universal patch card to add or remove it from your favorites (complete with a subtle vibration for feedback).
-- 📌 **Smart Sorting**: Your favorited patches automatically float to the very top of the Universal Patches list, so your most-used tweaks are always easy to find.
-- ✨ **Clear Visual Feedback**: A gold star icon appears next to your favorited patches, and a quick pop-up message confirms when a patch is added or removed.
-- 📱 **Cleaner Layout**: Patch and settings dialogs now expand to fill the screen, giving you a more spacious and modern viewing experience.
-- 💾 **Persistent Settings**: Your favorite patches are automatically saved to your preferences, meaning they will safely carry over if you ever export or restore your app settings.
-
+* Now You Can Add Universal Patches To Favourite So That Those Patches Go To Top (Long Press On Patch Or Click The Star Near The Patch Title)
+* Streched Patch Screen To Fill Both Side
+* App Name Morphe Fork
+* Package Name Also Changed To Be Able To Install Alongside Original Morphe

@@ -355,7 +355,9 @@ internal fun DynamicAppCard(
         ) {
             SelectableCard(
                 isSelected = isSelected,
-                isSelectionMode = isMultiSelectMode
+                isSelectionMode = isMultiSelectMode,
+                // The drag handle already sits in the corner the check badge would land in
+                showCheckmark = dragHandleModifier == null
             ) {
                 Crossfade(
                     targetState = isLoading,

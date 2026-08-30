@@ -1,3 +1,11 @@
+# [1.29.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.4...v1.29.0-dev.5) (2026-08-30)
+
+
+### Bug Fixes
+
+* Hide the app card check badge while reordering ([8edb718](https://github.com/MorpheApp/morphe-manager/commit/8edb718d56514183e5be8a413a222181d72cc859))
+* Hide the app card status badges while reordering ([6012d7f](https://github.com/MorpheApp/morphe-manager/commit/6012d7f3d83d9803897bcbcd3c5ed1c5b0f056d6))
+
 # [1.29.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.3...v1.29.0-dev.4) (2026-08-30)
 
 

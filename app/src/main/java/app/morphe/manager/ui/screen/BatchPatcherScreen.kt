@@ -179,9 +179,7 @@ fun BatchPatcherScreen(
                 onDeselectAll = edit::deselectAll,
                 onResetToDefault = edit::resetToDefault,
                 onRestoreSaved = edit::restoreSaved,
-                // Copying a selection between sources belongs to the app's own patch dialog,
-                // where it can be saved, rather than to a single queued run
-                onCopyFromBundle = null,
+                onCopyFromBundle = viewModel::openEditCopyDialog,
                 onOptionChange = edit::updateOption,
                 onResetOptions = edit::resetOptions
             ),
@@ -197,6 +195,21 @@ fun BatchPatcherScreen(
             onDismiss = viewModel::cancelEdit,
             onProceed = viewModel::applyEdit
         )
+
+        viewModel.editCopy.targetBundleUid?.let { targetUid ->
+            val targetBundle = edit.bundles.firstOrNull { it.uid == targetUid } ?: return@let
+            CopySelectionFromBundleDialog(
+                target = CopySelectionTarget(
+                    packageName = edit.configurationKey,
+                    bundleUid = targetUid,
+                    bundleName = targetBundle.name,
+                    appDisplayName = edit.appName
+                ),
+                candidates = viewModel.editCopy.candidates,
+                onConfirm = viewModel::applyEditCopy,
+                onDismiss = viewModel.editCopy::close
+            )
+        }
     }
 
     // The single-app flow's own APK question, pointed at a queued app. It carries the version

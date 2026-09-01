@@ -47,6 +47,7 @@ import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
+import app.morphe.manager.util.PatchSelectionUtils.mergeBundleOptions
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
@@ -300,12 +301,8 @@ class HomeViewModel(
     // so bulk actions offer the same set the selection was built from
     private var expertModeAllowIncompatible = false
 
-    /** Target bundle uid for the in-flight copy-from-another-bundle picker; null while the picker is closed. */
-    var expertModeCopyTargetBundleUid by mutableStateOf<Int?>(null)
-        private set
-    /** Loaded candidates for the picker; null while the initial load is in progress. */
-    var expertModeCopyCandidates by mutableStateOf<List<CopySelectionCandidate>?>(null)
-        private set
+    /** Picker behind the copy-from-another-bundle action of the expert-mode dialog. */
+    val expertModeCopy = CopySelectionController()
 
     // Bundle file selection
     var selectedBundleUri by mutableStateOf<Uri?>(null)
@@ -3125,101 +3122,40 @@ class HomeViewModel(
         expertModeNewPatches = emptyMap()
         expertModeUniversalArmedFor = null
         expertModeAllowIncompatible = false
-        closeExpertModeCopyDialog()
+        expertModeCopy.close()
     }
 
-    /**
-     * Open the copy-from-another-bundle picker for [targetBundleUid] inside the current
-     * expert-mode session. Candidates are loaded off the main thread and published to
-     * [expertModeCopyCandidates] once ready.
-     */
+    /** Opens the copy-from-another-bundle picker for [targetBundleUid]. */
     fun openExpertModeCopyDialog(targetBundleUid: Int) {
         val selectedApp = expertModeSelectedApp ?: return
-        expertModeCopyTargetBundleUid = targetBundleUid
-        expertModeCopyCandidates = null
-        viewModelScope.launch(Dispatchers.IO) {
-            val candidates = loadCopySelectionCandidates(
-                patchSelectionRepository = patchSelectionRepository,
-                patchBundleRepository = patchBundleRepository,
-                appDataResolver = appDataResolver,
-                targetPackageName = selectedApp.packageName,
-                targetBundleUid = targetBundleUid,
-                targetPatchNames = targetBundlePatchNames(targetBundleUid)
-            )
-            withContext(Dispatchers.Main) {
-                // Discard the result if the user closed or retargeted the dialog while loading.
-                if (expertModeCopyTargetBundleUid == targetBundleUid) {
-                    expertModeCopyCandidates = candidates
-                }
-            }
-        }
-    }
-
-    fun closeExpertModeCopyDialog() {
-        expertModeCopyTargetBundleUid = null
-        expertModeCopyCandidates = null
+        expertModeCopy.open(
+            scope = viewModelScope,
+            targetPackageName = selectedApp.packageName,
+            targetBundleUid = targetBundleUid,
+            targetPatchNames = targetBundlePatchNames(targetBundleUid)
+        )
     }
 
     /**
-     * Apply a picked [candidate] to the in-memory expert-mode selection.
-     * Patches and options are filtered against the target bundle's schema so the
-     * copy silently drops entries that no longer exist under the new bundle uid.
-     * Changes are persisted to the database only when the user proceeds to patching.
+     * Applies a picked [candidate] to the in-memory expert-mode selection. Changes reach the
+     * database only when the user proceeds to patching.
      */
     fun applyExpertModeCopy(candidate: CopySelectionCandidate) {
         expertModeSelectedApp ?: return
-        val targetBundleUid = expertModeCopyTargetBundleUid ?: return
+        val targetBundleUid = expertModeCopy.targetBundleUid ?: return
 
         viewModelScope.launch {
-            val (patches, options) = withContext(Dispatchers.IO) {
-                val targetPatches = targetBundlePatchInfos(targetBundleUid)
-                val sourcePatchNames = patchSelectionRepository.exportForPackageAndBundle(
-                    candidate.packageName,
-                    candidate.bundleUid
-                )
-                val filteredPatches = sourcePatchNames
-                    .filter { it in targetPatches }
-                    .toSet()
+            val copied = expertModeCopy.resolve(
+                candidate = candidate,
+                targetPatches = targetBundlePatchInfos(targetBundleUid)
+            ) ?: return@launch
 
-                // Read as live values rather than through the raw export, which hands back
-                // JSON encoded strings
-                val filteredOptions = optionsRepository.getOptionsForBundle(
-                    packageName = candidate.packageName,
-                    bundleUid = candidate.bundleUid,
-                    bundlePatchInfo = targetPatches
-                ).filterValues { it.isNotEmpty() }
-
-                filteredPatches to filteredOptions
-            }
-
-            if (patches.isEmpty() && options.isEmpty()) {
-                app.toast(app.getString(R.string.expert_mode_copy_from_bundle_no_patches))
-                closeExpertModeCopyDialog()
-                return@launch
-            }
-
-            // The copy comes from a run that may have targeted another installer, so the patches
-            // it carries are put through the availability rules of this one
-            expertModePatches = expertModePatches.withBundle(targetBundleUid, patches)
+            // The copy comes from a run that may have targeted another installer
+            expertModePatches = expertModePatches.withBundle(targetBundleUid, copied.patches)
                 .applyExpertModeAvailability()
+            expertModeOptions = expertModeOptions.mergeBundleOptions(targetBundleUid, copied.options)
 
-            val currentOptions = expertModeOptions.toMutableMap()
-            val bundleOptions = currentOptions[targetBundleUid]?.toMutableMap() ?: mutableMapOf()
-            options.forEach { (patchName, patchOptions) ->
-                bundleOptions[patchName] = patchOptions
-            }
-            if (bundleOptions.isEmpty()) currentOptions.remove(targetBundleUid)
-            else currentOptions[targetBundleUid] = bundleOptions
-            expertModeOptions = currentOptions
-
-            app.toast(
-                app.resources.getQuantityString(
-                    R.plurals.expert_mode_copy_from_bundle_done,
-                    patches.size,
-                    patches.size.toString()
-                )
-            )
-            closeExpertModeCopyDialog()
+            expertModeCopy.finish(copied.patches.size)
         }
     }
 

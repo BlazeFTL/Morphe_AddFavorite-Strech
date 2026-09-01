@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Aplikasi lainnya</string>
+    <string name="home_other_apps_action">Pilih aplikasi lain</string>
     <string name="home_not_patched_yet">Belum ditambal</string>
     <string name="home_unpatched_version_installed">Versi tanpa tambalan terpasang</string>
     <string name="home_unpatched_badge">Tidak ditambal</string>
@@ -274,6 +275,8 @@ Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda
     <string name="expert_mode_copy_from_bundle">Salin pilihan dari bundel lain</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Tidak ada tambalan yang cocok dalam bundel ini</string>
     <string name="expert_mode_no_results">Tambalan tidak ditemukan</string>
+    <string name="expert_mode_selected_only_on">Hanya menampilkan tambalan yang dipilih</string>
+    <string name="expert_mode_selected_only_off">Menampilkan semua tambalan</string>
     <string name="expert_mode_universal_patches">Tambalan universal</string>
     <string name="expert_mode_new_patches">Baru</string>
     <string name="expert_mode_options_customized">Kustom</string>
@@ -642,6 +645,8 @@ Menghapus pemasangannya akan menghapus semua data aplikasi secara permanen"</str
     <string name="settings_appearance_greeting_phrases_subtitle">Tampilkan pesan sapaan di layar beranda</string>
     <string name="settings_appearance_app_grouping">Pengelompokan aplikasi</string>
     <string name="settings_appearance_app_grouping_description">Tampilkan pengalih layar beranda untuk mengelompokkan aplikasi berdasarkan sumber atau kategori Anda sendiri, mempertahankan pilihan saat dinonaktifkan</string>
+    <string name="settings_appearance_repatch_notice">Pemberitahuan penambalan ulang</string>
+    <string name="settings_appearance_repatch_notice_description">Tampilkan banner di layar beranda saat aplikasi yang telah ditambal dapat ditambal ulang.</string>
     <string name="settings_appearance_sort_button">Tombol urutkan dan saring</string>
     <string name="settings_appearance_sort_button_description">Tampilkan tombol urutkan dan fsaring di layar utama</string>
     <string name="settings_appearance_app_card_colors">Warna kartu aplikasi</string>

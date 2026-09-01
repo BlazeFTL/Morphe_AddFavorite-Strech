@@ -644,6 +644,8 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_greeting_phrases_subtitle">Muestra un mensaje de saludo en la pantalla de inicio</string>
     <string name="settings_appearance_app_grouping">Agrupación de aplicaciones</string>
     <string name="settings_appearance_app_grouping_description">Muestra un selector de pantalla de inicio para agrupar aplicaciones por origen o por tus propias categorías, manteniendo la selección cuando esté desactivado</string>
+    <string name="settings_appearance_repatch_notice">Aviso de nuevos parches</string>
+    <string name="settings_appearance_repatch_notice_description">Muestra un banner en la pantalla de inicio cuando haya aplicaciones parcheadas que puedan volver a parchearse</string>
     <string name="settings_appearance_sort_button">Botón de ordenar y filtrar</string>
     <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar y filtrar en la pantalla de inicio</string>
     <string name="settings_appearance_app_card_colors">Colores de las tarjetas de aplicaciones</string>

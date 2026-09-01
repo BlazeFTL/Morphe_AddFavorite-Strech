@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Andere Apps</string>
+    <string name="home_other_apps_action">Andere Apps auswählen</string>
     <string name="home_not_patched_yet">Noch nicht gepatcht</string>
     <string name="home_unpatched_version_installed">Ungepatchte Version installiert</string>
     <string name="home_unpatched_badge">Nicht gepatcht</string>
@@ -273,6 +274,8 @@ Alles, was Sie von dieser Website hinzufügen, geschieht auf eigenes Risiko"</st
     <string name="expert_mode_copy_from_bundle">Auswahl von einem anderen Paket kopieren</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Keine übereinstimmenden Patches in diesem Bundle</string>
     <string name="expert_mode_no_results">Keine Patches gefunden</string>
+    <string name="expert_mode_selected_only_on">Nur ausgewählte Patches anzeigen</string>
+    <string name="expert_mode_selected_only_off">Alle Patches anzeigen</string>
     <string name="expert_mode_universal_patches">Universelle Patches</string>
     <string name="expert_mode_new_patches">Neu</string>
     <string name="expert_mode_options_customized">Angepasst</string>
@@ -641,6 +644,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zeige auf dem Startbildschirm eine Begrüßung an</string>
     <string name="settings_appearance_app_grouping">App-Gruppierung</string>
     <string name="settings_appearance_app_grouping_description">Zeigt einen Home-Bildschirm-Wechsler an, um Apps nach Quelle oder Ihren eigenen Kategorien zu gruppieren und die Auswahl bei Deaktivierung beizubehalten</string>
+    <string name="settings_appearance_repatch_notice">Hinweis zum erneuten Patchen</string>
+    <string name="settings_appearance_repatch_notice_description">Auf dem Startbildschirm ein Banner anzeigen, wenn gepatchte Apps erneut gepatcht werden können</string>
     <string name="settings_appearance_sort_button">Schaltfläche zum Sortieren und Filtern</string>
     <string name="settings_appearance_sort_button_description">Zeigt eine Schaltfläche zum Sortieren und Filtern auf dem Startbildschirm an</string>
     <string name="settings_appearance_app_card_colors">Farben der App-Karten</string>

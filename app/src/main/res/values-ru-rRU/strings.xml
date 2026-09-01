@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Другие приложения</string>
+    <string name="home_other_apps_action">Выбрать другие приложения</string>
     <string name="home_not_patched_yet">Еще не пропатчено</string>
     <string name="home_unpatched_version_installed">Установлена непатченная версия</string>
     <string name="home_unpatched_badge">Не пропатчено</string>
@@ -274,6 +275,8 @@
     <string name="expert_mode_copy_from_bundle">Копировать выделенное из другого пакета</string>
     <string name="expert_mode_copy_from_bundle_no_patches">В этом пакете нет подходящих патчей</string>
     <string name="expert_mode_no_results">Патчи не найдены</string>
+    <string name="expert_mode_selected_only_on">Показываются только выбранные патчи</string>
+    <string name="expert_mode_selected_only_off">Показываются все патчи</string>
     <string name="expert_mode_universal_patches">Универсальные патчи</string>
     <string name="expert_mode_new_patches">Новые</string>
     <string name="expert_mode_options_customized">Настроенный</string>
@@ -640,6 +643,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Показывать приветственное сообщение на главном экране</string>
     <string name="settings_appearance_app_grouping">Группировка приложений</string>
     <string name="settings_appearance_app_grouping_description">Отображать переключатель на главном экране для группировки приложений по источнику или вашим категориям, сохраняя выбор при отключении</string>
+    <string name="settings_appearance_repatch_notice">Уведомление о перепатчивании</string>
+    <string name="settings_appearance_repatch_notice_description">Показывать баннер на главном экране, когда пропатченные приложения можно повторно пропатчить</string>
     <string name="settings_appearance_sort_button">Кнопка сортировки и фильтрации</string>
     <string name="settings_appearance_sort_button_description">Показывать кнопку сортировки и фильтрации на главном экране</string>
     <string name="settings_appearance_app_card_colors">Цвета карточек приложений</string>

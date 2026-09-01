@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Muut sovellukset</string>
+    <string name="home_other_apps_action">Valitse muita sovelluksia</string>
     <string name="home_not_patched_yet">Ei vielä muokattu</string>
     <string name="home_unpatched_version_installed">Korjaamaton versio asennettu</string>
     <string name="home_unpatched_badge">Ei muokattu</string>
@@ -274,6 +275,8 @@ Kaikki mitä lisäät tältä verkkosivustolta, on oma riskisi."</string>
     <string name="expert_mode_copy_from_bundle">Kopioi valinta toisesta paketista</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Tästä paketista ei löytynyt vastaavia korjauksia</string>
     <string name="expert_mode_no_results">Lisäosia ei löytynyt</string>
+    <string name="expert_mode_selected_only_on">Näytetään vain valitut korjaukset</string>
+    <string name="expert_mode_selected_only_off">Näytetään kaikki korjaukset</string>
     <string name="expert_mode_universal_patches">Yleispätevät lisäosat</string>
     <string name="expert_mode_new_patches">Uusi</string>
     <string name="expert_mode_options_customized">Mukautettu</string>
@@ -642,6 +645,8 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Näytä tervehdysviesti aloitusnäytöllä</string>
     <string name="settings_appearance_app_grouping">Sovellusten ryhmittely</string>
     <string name="settings_appearance_app_grouping_description">Näytä kotinäkymän vaihto, jolla voit ryhmitellä sovellukset lähteen tai omien luokkien mukaan ja säilytä valinta, kun se on poissa päältä</string>
+    <string name="settings_appearance_repatch_notice">Uudelleenkorjausilmoitus</string>
+    <string name="settings_appearance_repatch_notice_description">Näytä banneri aloitusnäytössä, kun korjattuja sovelluksia voidaan korjata uudelleen</string>
     <string name="settings_appearance_sort_button">Lajittelu- ja suodatuspainike</string>
     <string name="settings_appearance_sort_button_description">Näytä lajittelu- ja suodatuspainike aloitusnäytöllä</string>
     <string name="settings_appearance_app_card_colors">Sovelluksen korttien värit</string>

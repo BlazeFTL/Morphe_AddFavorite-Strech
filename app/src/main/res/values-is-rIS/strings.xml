@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Önnur app</string>
+    <string name="home_other_apps_action">Veldu önnur forrit</string>
     <string name="home_not_patched_yet">Ekki breytt ennþá</string>
     <string name="home_unpatched_version_installed">Óplötuð útgáfa uppsett</string>
     <string name="home_unpatched_badge">Ekki púttað</string>
@@ -274,6 +275,8 @@ Allt sem þú bætir við frá þessari vefsíðu er notað á eigin ábyrgð."<
     <string name="expert_mode_copy_from_bundle">Afrita val frá öðrum pakka</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Engar samsvarandi breytingar í þessum pakka</string>
     <string name="expert_mode_no_results">Engar breytistillingar fundust</string>
+    <string name="expert_mode_selected_only_on">Sýni aðeins valda plástra</string>
+    <string name="expert_mode_selected_only_off">Sýni alla plástra</string>
     <string name="expert_mode_universal_patches">Alhliða breytingar</string>
     <string name="expert_mode_new_patches">Nýtt</string>
     <string name="expert_mode_options_customized">Sérsniðið</string>
@@ -639,6 +642,8 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Sýna kveðju skilaboð á heimaskjá</string>
     <string name="settings_appearance_app_grouping">Forritaflokkun</string>
     <string name="settings_appearance_app_grouping_description">Sýna rofasa á heimaskjá til að flokka forrit eftir uppruna eða eigin flokkum, halda vali þegar slökkt er á rofanum</string>
+    <string name="settings_appearance_repatch_notice">Tilkynning um endurplástrun</string>
+    <string name="settings_appearance_repatch_notice_description">Sýna borða á heimaskjánum þegar hægt er að plástra forritin aftur</string>
     <string name="settings_appearance_sort_button">Röðunar- og síunarhnappur</string>
     <string name="settings_appearance_sort_button_description">Sýna röðunar- og síunarhnappinn á heimaskjánum</string>
     <string name="settings_appearance_app_card_colors">Litir á app kortum</string>

@@ -68,6 +68,10 @@
         <item quantity="one">%s uygulama</item>
         <item quantity="other">%s uygulama</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="one">%s seçili</item>
+        <item quantity="other">%s seçili</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="one">Seçili bundle\'dan %s yama kopyalandı</item>
         <item quantity="other">Seçili bundle\'dan %s yama kopyalandı</item>

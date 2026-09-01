@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">其他應用程式</string>
+    <string name="home_other_apps_action">選擇其他應用程式</string>
     <string name="home_not_patched_yet">尚未修補</string>
     <string name="home_unpatched_version_installed">已安裝未修補版本</string>
     <string name="home_unpatched_badge">尚未修補</string>
@@ -274,6 +275,8 @@
     <string name="expert_mode_copy_from_bundle">從另一個套件複製選取項目</string>
     <string name="expert_mode_copy_from_bundle_no_patches">此套件中沒有相符的修補程式</string>
     <string name="expert_mode_no_results">找不到修補程式</string>
+    <string name="expert_mode_selected_only_on">僅顯示已選取的修補程式</string>
+    <string name="expert_mode_selected_only_off">顯示所有修補程式</string>
     <string name="expert_mode_universal_patches">通用型修補程式</string>
     <string name="expert_mode_new_patches">新增</string>
     <string name="expert_mode_options_customized">自訂</string>
@@ -640,6 +643,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">在主螢幕上顯示問候訊息</string>
     <string name="settings_appearance_app_grouping">應用程式分組</string>
     <string name="settings_appearance_app_grouping_description">顯示主畫面切換器，以依來源或您自己的類別分組應用程式，並在關閉時保留選取內容</string>
+    <string name="settings_appearance_repatch_notice">重新修補通知</string>
+    <string name="settings_appearance_repatch_notice_description">當已修補的應用程式可重新修補時，在主畫面上顯示橫幅</string>
     <string name="settings_appearance_sort_button">排序與篩選按鈕</string>
     <string name="settings_appearance_sort_button_description">在主畫面上顯示排序與篩選按鈕</string>
     <string name="settings_appearance_app_card_colors">應用程式卡片顏色</string>

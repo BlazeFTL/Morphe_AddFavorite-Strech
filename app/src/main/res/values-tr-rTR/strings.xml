@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Diğer uygulamalar</string>
+    <string name="home_other_apps_action">Diğer uygulamaları seç</string>
     <string name="home_not_patched_yet">Henüz yamalanmadı</string>
     <string name="home_unpatched_version_installed">Yamalanmamış sürüm yüklendi</string>
     <string name="home_unpatched_badge">Yamalanmadı</string>
@@ -274,6 +275,8 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="expert_mode_copy_from_bundle">Başka bir bundle\'dan seçimi kopyala</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Bu bundle\'da eşleşen yama yok</string>
     <string name="expert_mode_no_results">Yama bulunamadı</string>
+    <string name="expert_mode_selected_only_on">Yalnızca seçili yamalar gösteriliyor</string>
+    <string name="expert_mode_selected_only_off">Tüm yamalar gösteriliyor</string>
     <string name="expert_mode_universal_patches">Evrensel yamalar</string>
     <string name="expert_mode_new_patches">Yeni</string>
     <string name="expert_mode_options_customized">Özelleştirilmiş</string>
@@ -640,6 +643,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ana ekranda bir selamlama mesajı göster</string>
     <string name="settings_appearance_app_grouping">Uygulama gruplandırma</string>
     <string name="settings_appearance_app_grouping_description">Uygulamaları kaynaklarına veya kendi kategorilerinize göre gruplamak için bir ana ekran değiştirici göster. Kapalıyken seçimi korur</string>
+    <string name="settings_appearance_repatch_notice">Yeniden yama bildirimi</string>
+    <string name="settings_appearance_repatch_notice_description">Yamalı uygulamalar yeniden yamalanabildiğinde ana ekranda bir afiş göster</string>
     <string name="settings_appearance_sort_button">Sıralama ve filtreleme düğmesi</string>
     <string name="settings_appearance_sort_button_description">Ana ekranda sıralama ve filtreleme düğmesini göster</string>
     <string name="settings_appearance_app_card_colors">Uygulama kartı renkleri</string>

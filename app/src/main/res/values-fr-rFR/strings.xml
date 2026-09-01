@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Autres applications</string>
+    <string name="home_other_apps_action">Sélectionner d\'autres applications</string>
     <string name="home_not_patched_yet">Pas encore patchée</string>
     <string name="home_unpatched_version_installed">Version non patchée installée</string>
     <string name="home_unpatched_badge">Non patchée</string>
@@ -277,6 +278,8 @@ Tout ce que vous ajoutez depuis ce site web est utilisé à vos propres risques"
     <string name="expert_mode_copy_from_bundle">Copier la sélection depuis un autre bundle</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Aucun patch correspondant dans ce bundle</string>
     <string name="expert_mode_no_results">Aucun patch trouvé</string>
+    <string name="expert_mode_selected_only_on">Affichage des patchs sélectionnés uniquement</string>
+    <string name="expert_mode_selected_only_off">Affichage de tous les patchs</string>
     <string name="expert_mode_universal_patches">Patchs universels</string>
     <string name="expert_mode_new_patches">Nouveau</string>
     <string name="expert_mode_options_customized">Personnalisées</string>
@@ -644,6 +647,8 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_greeting_phrases_subtitle">Afficher un message de salutation sur l\'écran d\'accueil</string>
     <string name="settings_appearance_app_grouping">Regroupement d\'applications</string>
     <string name="settings_appearance_app_grouping_description">Afficher un sélecteur sur l\'écran d\'accueil pour regrouper les applications par source ou selon vos propres catégories, en conservant la sélection lorsqu\'il est désactivé</string>
+    <string name="settings_appearance_repatch_notice">Avis de re-patch</string>
+    <string name="settings_appearance_repatch_notice_description">Afficher une bannière sur l\'écran d\'accueil lorsque les applications patchées peuvent être re-patchées</string>
     <string name="settings_appearance_sort_button">Bouton trier et filtrer</string>
     <string name="settings_appearance_sort_button_description">Afficher le bouton trier et filtrer sur l\'écran d\'accueil</string>
     <string name="settings_appearance_app_card_colors">Couleurs des cartes des applications</string>

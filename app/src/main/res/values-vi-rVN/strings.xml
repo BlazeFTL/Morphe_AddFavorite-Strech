@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Các ứng dụng khác</string>
+    <string name="home_other_apps_action">Chọn ứng dụng khác</string>
     <string name="home_not_patched_yet">Chưa vá</string>
     <string name="home_unpatched_version_installed">Đã cài đặt phiên bản chưa được vá</string>
     <string name="home_unpatched_badge">Chưa vá</string>
@@ -274,6 +275,8 @@ Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng
     <string name="expert_mode_copy_from_bundle">Sao chép lựa chọn từ gói khác</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Không tìm thấy bản vá phù hợp trong gói này</string>
     <string name="expert_mode_no_results">Không tìm thấy bản vá nào</string>
+    <string name="expert_mode_selected_only_on">Chỉ hiển thị các bản vá đã chọn</string>
+    <string name="expert_mode_selected_only_off">Hiển thị tất cả các bản vá</string>
     <string name="expert_mode_universal_patches">Bản vá phổ quát</string>
     <string name="expert_mode_new_patches">Mới</string>
     <string name="expert_mode_options_customized">Tùy chỉnh</string>
@@ -643,6 +646,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_greeting_phrases_subtitle">Hiện thông điệp trên trang chủ</string>
     <string name="settings_appearance_app_grouping">Nhóm ứng dụng</string>
     <string name="settings_appearance_app_grouping_description">Hiển thị tùy chọn trên màn hình chính để nhóm ứng dụng theo nguồn hoặc danh mục của bạn, đồng thời giữ nguyên lựa chọn khi tắt</string>
+    <string name="settings_appearance_repatch_notice">Thông báo vá lại</string>
+    <string name="settings_appearance_repatch_notice_description">Hiển thị biểu ngữ trên màn hình chính khi các ứng dụng đã vá có thể được vá lại</string>
     <string name="settings_appearance_sort_button">Nút sắp xếp và lọc</string>
     <string name="settings_appearance_sort_button_description">Hiển thị nút sắp xếp và lọc trên màn hình chính</string>
     <string name="settings_appearance_app_card_colors">Màu thẻ ứng dụng</string>

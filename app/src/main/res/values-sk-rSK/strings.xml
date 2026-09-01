@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Ďalšie aplikácie</string>
+    <string name="home_other_apps_action">Vybrať iné aplikácie</string>
     <string name="home_not_patched_yet">Zatiaľ nezaplátané</string>
     <string name="home_unpatched_version_installed">Nainštalovaná nezapatchovaná verzia</string>
     <string name="home_unpatched_badge">Nezaplátané</string>
@@ -274,6 +275,8 @@
     <string name="expert_mode_copy_from_bundle">Kopírovať výber z iného balíka</string>
     <string name="expert_mode_copy_from_bundle_no_patches">V tomto balíku sa nenašli žiadne zhodné záplaty</string>
     <string name="expert_mode_no_results">Neboli nájdené žiadne záplaty</string>
+    <string name="expert_mode_selected_only_on">Zobrazujú sa iba vybrané záplaty</string>
+    <string name="expert_mode_selected_only_off">Zobrazujú sa všetky záplaty</string>
     <string name="expert_mode_universal_patches">Univerzálne záplaty</string>
     <string name="expert_mode_new_patches">Nový</string>
     <string name="expert_mode_options_customized">Prispôsobené</string>
@@ -641,6 +644,8 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazovať pozdravnú správu na domovskej obrazovke</string>
     <string name="settings_appearance_app_grouping">Zoskupovanie aplikácií</string>
     <string name="settings_appearance_app_grouping_description">Zobraziť prepínač na domácej obrazovke na zoskupovanie aplikácií podľa zdroja alebo vlastných kategórií, pričom výber sa zachová aj keď je vypnutý</string>
+    <string name="settings_appearance_repatch_notice">Upozornenie na opätovné záplatovanie</string>
+    <string name="settings_appearance_repatch_notice_description">Zobraziť banner na domovskej obrazovke, ak je možné opätovne záplatovať už záplatované aplikácie</string>
     <string name="settings_appearance_sort_button">Tlačidlo triedenia a filtrovania</string>
     <string name="settings_appearance_sort_button_description">Zobraziť tlačidlo triedenia a filtrovania na domovskej obrazovke</string>
     <string name="settings_appearance_app_card_colors">Farby karty aplikácie</string>

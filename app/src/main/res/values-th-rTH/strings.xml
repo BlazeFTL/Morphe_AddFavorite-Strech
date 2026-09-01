@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">แอปอื่น ๆ</string>
+    <string name="home_other_apps_action">เลือกแอปอื่น</string>
     <string name="home_not_patched_yet">ยังไม่ได้รับการแพตช์</string>
     <string name="home_unpatched_version_installed">ติดตั้งเวอร์ชันที่ไม่ได้รับการแพตช์แล้ว</string>
     <string name="home_unpatched_badge">ไม่ได้รับการแพตช์</string>
@@ -274,6 +275,8 @@
     <string name="expert_mode_copy_from_bundle">คัดลอกส่วนที่เลือกจากบันเดิลอื่น</string>
     <string name="expert_mode_copy_from_bundle_no_patches">ไม่พบแพตช์ที่ตรงกันในบันเดิลนี้</string>
     <string name="expert_mode_no_results">ไม่พบแพตช์</string>
+    <string name="expert_mode_selected_only_on">แสดงเฉพาะแพตช์ที่เลือกเท่านั้น</string>
+    <string name="expert_mode_selected_only_off">แสดงแพตช์ทั้งหมด</string>
     <string name="expert_mode_universal_patches">แพตช์สากล</string>
     <string name="expert_mode_new_patches">ใหม่</string>
     <string name="expert_mode_options_customized">กำหนดเอง</string>
@@ -641,6 +644,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">แสดงข้อความทักทายบนหน้าจอหลัก</string>
     <string name="settings_appearance_app_grouping">การจัดกลุ่มแอป</string>
     <string name="settings_appearance_app_grouping_description">แสดงตัวสลับหน้าจอหลักเพื่อจัดกลุ่มแอปตามแหล่งที่มาหรือตามหมวดหมู่ของคุณเอง โดยจะเก็บการเลือกไว้เมื่อปิด</string>
+    <string name="settings_appearance_repatch_notice">ประกาศการแพตช์ซ้ำ</string>
+    <string name="settings_appearance_repatch_notice_description">แสดงแบนเนอร์บนหน้าจอหลักเมื่อแอปที่แพตช์แล้วสามารถแพตช์ซ้ำได้</string>
     <string name="settings_appearance_sort_button">ปุ่มเรียงลำดับและกรอง</string>
     <string name="settings_appearance_sort_button_description">แสดงปุ่มเรียงลำดับและกรองบนหน้าจอหลัก</string>
     <string name="settings_appearance_app_card_colors">สีการ์ดแอป</string>

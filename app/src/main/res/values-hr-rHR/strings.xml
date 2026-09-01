@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Ostale aplikacije</string>
+    <string name="home_other_apps_action">Odaberi druge aplikacije</string>
     <string name="home_not_patched_yet">Još nije patchano</string>
     <string name="home_unpatched_version_installed">Instalirana nepatchana verzija</string>
     <string name="home_unpatched_badge">Nije patchano</string>
@@ -277,6 +278,8 @@ Sve što dodate s ove web stranice koristite na vlastitu odgovornost."</string>
     <string name="expert_mode_copy_from_bundle">Kopiraj odabir iz druge zbirke</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Nema podudarnih patcheva u ovom paketu</string>
     <string name="expert_mode_no_results">Nema pronađenih patcheva</string>
+    <string name="expert_mode_selected_only_on">Prikaz samo odabranih zakrpi</string>
+    <string name="expert_mode_selected_only_off">Prikaz svih zakrpi</string>
     <string name="expert_mode_universal_patches">Univerzalni patchevi</string>
     <string name="expert_mode_new_patches">Novi</string>
     <string name="expert_mode_options_customized">Prilagođeno</string>
@@ -644,6 +647,8 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Pokaži poruku dobrodošlice na početnom zaslonu</string>
     <string name="settings_appearance_app_grouping">Grupiranje aplikacija</string>
     <string name="settings_appearance_app_grouping_description">Prikaži prekidač početnog zaslona za grupiranje aplikacija prema izvoru ili vlastitim kategorijama, zadržavajući odabir kada je isključen</string>
+    <string name="settings_appearance_repatch_notice">Obavijest o ponovnoj zakrpi</string>
+    <string name="settings_appearance_repatch_notice_description">Prikaži banner na početnom zaslonu kada se zakrpljene aplikacije mogu ponovno zakrpati</string>
     <string name="settings_appearance_sort_button">Tipka za sortiranje i filtriranje</string>
     <string name="settings_appearance_sort_button_description">Prikaži tipku za sortiranje i filtriranje na početnom zaslonu</string>
     <string name="settings_appearance_app_card_colors">Boje kartica aplikacije</string>

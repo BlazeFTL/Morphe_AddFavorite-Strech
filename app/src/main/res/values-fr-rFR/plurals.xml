@@ -69,7 +69,7 @@
         <item quantity="other">%s applications</item>
     </plurals>
     <plurals name="expert_mode_selected_count">
-        <item quantity="one">%s sélectionnés</item>
+        <item quantity="one">%s sélectionné</item>
         <item quantity="other">%s sélectionnés</item>
     </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">

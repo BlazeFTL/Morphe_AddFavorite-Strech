@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Други приложения</string>
+    <string name="home_other_apps_action">Избор на други приложения</string>
     <string name="home_not_patched_yet">Все още не е патчнато</string>
     <string name="home_unpatched_version_installed">Инсталирана е версия без пачове</string>
     <string name="home_unpatched_badge">Не е патчнато</string>
@@ -274,6 +275,8 @@
     <string name="expert_mode_copy_from_bundle">Копиране на селекция от друг пакет</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Няма съвпадащи поправки в този пакет</string>
     <string name="expert_mode_no_results">Няма намерени пачове</string>
+    <string name="expert_mode_selected_only_on">Показване само на избраните кръпки</string>
+    <string name="expert_mode_selected_only_off">Показване на всички кръпки</string>
     <string name="expert_mode_universal_patches">Универсални пачове</string>
     <string name="expert_mode_new_patches">Нов</string>
     <string name="expert_mode_options_customized">Персонализиран</string>
@@ -641,6 +644,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Показване на поздравително съобщение на началния екран</string>
     <string name="settings_appearance_app_grouping">Групиране на приложения</string>
     <string name="settings_appearance_app_grouping_description">Покажи превключвател на началния екран за групиране на приложения по източник или по твои категории, запазвайки селекцията, когато е изключено</string>
+    <string name="settings_appearance_repatch_notice">Известие за повторно кръпване</string>
+    <string name="settings_appearance_repatch_notice_description">Показване на банер на началния екран, когато приложенията с кръпки могат да бъдат кръпнати отново</string>
     <string name="settings_appearance_sort_button">Бутон за сортиране и филтриране</string>
     <string name="settings_appearance_sort_button_description">Показване на бутона за сортиране и филтриране на началния екран</string>
     <string name="settings_appearance_app_card_colors">Цветове на картите на приложенията</string>

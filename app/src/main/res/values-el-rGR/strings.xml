@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Άλλες εφαρμογές</string>
+    <string name="home_other_apps_action">Επιλογή άλλων εφαρμογών</string>
     <string name="home_not_patched_yet">Δεν τροποποιήθηκε ακόμη</string>
     <string name="home_unpatched_version_installed">Εγκαταστάθηκε μη ενημερωμένη έκδοση</string>
     <string name="home_unpatched_badge">Δεν τροποποιήθηκε</string>
@@ -274,6 +275,8 @@
     <string name="expert_mode_copy_from_bundle">Αντιγραφή επιλογής από άλλο πακέτο</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Δεν βρέθηκαν αντίστοιχα διορθωτικά σε αυτό το πακέτο</string>
     <string name="expert_mode_no_results">Δε βρέθηκαν τροποποιήσεις </string>
+    <string name="expert_mode_selected_only_on">Εμφάνιση μόνο επιλεγμένων επιδιορθώσεων</string>
+    <string name="expert_mode_selected_only_off">Εμφάνιση όλων των επιδιορθώσεων</string>
     <string name="expert_mode_universal_patches">Γενικές τροποποιήσεις </string>
     <string name="expert_mode_new_patches">Νέο</string>
     <string name="expert_mode_options_customized">Προσαρμοσμένο</string>
@@ -641,6 +644,9 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Εμφάνιση μηνύματος υποδοχής στην αρχική οθόνη</string>
     <string name="settings_appearance_app_grouping">Ομαδοποίηση εφαρμογών</string>
     <string name="settings_appearance_app_grouping_description">Εμφάνιση διακόπτη στην αρχική οθόνη για ομαδοποίηση εφαρμογών κατά πηγή ή δικές σας κατηγορίες, διατηρώντας την επιλογή όταν είναι απενεργοποιημένη</string>
+    <string name="settings_appearance_repatch_notice">Σημείωση εκ νέου επιδιόρθωσης</string>
+    <string name="settings_appearance_repatch_notice_description">Εμφάνιση banner στην αρχική οθόνη όταν οι εφαρμογές μπορούν να επαναδιορθωθούν
+</string>
     <string name="settings_appearance_sort_button">Κουμπί ταξινόμησης και φιλτραρίσματος</string>
     <string name="settings_appearance_sort_button_description">Εμφάνιση του κουμπιού ταξινόμησης και φιλτραρίσματος στην αρχική οθόνη</string>
     <string name="settings_appearance_app_card_colors">Χρώματα καρτών εφαρμογών</string>

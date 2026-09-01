@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Andere apps</string>
+    <string name="home_other_apps_action">Andere apps selecteren</string>
     <string name="home_not_patched_yet">Nog niet gepatcht</string>
     <string name="home_unpatched_version_installed">Niet-gepatchte versie geïnstalleerd</string>
     <string name="home_unpatched_badge">Niet gepatcht</string>
@@ -274,6 +275,8 @@ Alles wat u van deze website toevoegt, gebruikt u op eigen risico"</string>
     <string name="expert_mode_copy_from_bundle">Selectie kopiëren vanuit een andere bundel</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Geen bijpassende patches in deze bundel</string>
     <string name="expert_mode_no_results">Geen patches gevonden</string>
+    <string name="expert_mode_selected_only_on">Alleen geselecteerde patches weergeven</string>
+    <string name="expert_mode_selected_only_off">Alle patches weergeven</string>
     <string name="expert_mode_universal_patches">Universele patches</string>
     <string name="expert_mode_new_patches">Nieuw</string>
     <string name="expert_mode_options_customized">Aangepast</string>
@@ -641,6 +644,8 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Toon een begroetingsbericht op de startscherm</string>
     <string name="settings_appearance_app_grouping">App-groepering</string>
     <string name="settings_appearance_app_grouping_description">Toon een schakelaar op het startscherm om apps te groeperen op bron of eigen categorieën, en selecteer deze instelling wanneer deze uit staat</string>
+    <string name="settings_appearance_repatch_notice">Melding over opnieuw patchen</string>
+    <string name="settings_appearance_repatch_notice_description">Toon een banner op het startscherm wanneer gepatchte apps opnieuw kunnen worden gepatcht</string>
     <string name="settings_appearance_sort_button">Sorteer- en filterknop</string>
     <string name="settings_appearance_sort_button_description">Toon de sorteer- en filterknop op het startscherm</string>
     <string name="settings_appearance_app_card_colors">App-kaart kleuren</string>

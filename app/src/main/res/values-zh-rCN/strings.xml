@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">其他应用</string>
+    <string name="home_other_apps_action">选择其他应用</string>
     <string name="home_not_patched_yet">尚未修补</string>
     <string name="home_unpatched_version_installed">已安装未修补版本</string>
     <string name="home_unpatched_badge">未修补</string>
@@ -274,6 +275,8 @@
     <string name="expert_mode_copy_from_bundle">从其他包复制选定的内容</string>
     <string name="expert_mode_copy_from_bundle_no_patches">此包中没有匹配的补丁</string>
     <string name="expert_mode_no_results">未找到修补的应用</string>
+    <string name="expert_mode_selected_only_on">正在显示选中的补丁仅显示选中的补丁</string>
+    <string name="expert_mode_selected_only_off">正在显示所有补丁</string>
     <string name="expert_mode_universal_patches">通用补丁</string>
     <string name="expert_mode_new_patches">新</string>
     <string name="expert_mode_options_customized">自定义</string>
@@ -641,6 +644,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">在主屏幕上显示问候消息</string>
     <string name="settings_appearance_app_grouping">应用分组</string>
     <string name="settings_appearance_app_grouping_description">显示主屏幕切换器，按来源或您自己的分类对应用进行分组，并在关闭时保持选择</string>
+    <string name="settings_appearance_repatch_notice">重新打补丁通知</string>
+    <string name="settings_appearance_repatch_notice_description">在主页面上显示可重新打补丁的应用的横幅</string>
     <string name="settings_appearance_sort_button">排序和筛选按钮</string>
     <string name="settings_appearance_sort_button_description">在主屏幕上显示排序和筛选按钮</string>
     <string name="settings_appearance_app_card_colors">应用卡片颜色</string>

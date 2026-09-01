@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Alte aplicații</string>
+    <string name="home_other_apps_action">Selectează alte aplicații</string>
     <string name="home_not_patched_yet">Nepatch-uit încă</string>
     <string name="home_unpatched_version_installed">Versiune necorectată instalată</string>
     <string name="home_unpatched_badge">Nepatch-uit</string>
@@ -274,6 +275,8 @@ Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <string name="expert_mode_copy_from_bundle">Copiază selecția dintr-un alt pachet</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Nu există patch-uri corespunzătoare în acest pachet</string>
     <string name="expert_mode_no_results">Nu au fost găsite patch-uri</string>
+    <string name="expert_mode_selected_only_on">Se afișează doar patch-urile selectate</string>
+    <string name="expert_mode_selected_only_off">Se afișează toate patch-urile</string>
     <string name="expert_mode_universal_patches">Patch-uri universale</string>
     <string name="expert_mode_new_patches">Nou</string>
     <string name="expert_mode_options_customized">Personalizat</string>
@@ -640,6 +643,8 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Afișează un mesaj de salut pe ecranul principal</string>
     <string name="settings_appearance_app_grouping">Gruparea aplicațiilor</string>
     <string name="settings_appearance_app_grouping_description">Afișează un comutator al ecranului principal pentru a grupa aplicațiile după sursă sau după propriile categorii, menținând selecția când este dezactivat</string>
+    <string name="settings_appearance_repatch_notice">Notificare de re-patch</string>
+    <string name="settings_appearance_repatch_notice_description">Afișează un banner pe ecranul de pornire când aplicațiile cu patch-uri pot fi re-patch-uite</string>
     <string name="settings_appearance_sort_button">Buton de sortare și filtrare</string>
     <string name="settings_appearance_sort_button_description">Afișează butonul de sortare și filtrare pe ecranul de pornire</string>
     <string name="settings_appearance_app_card_colors">Culori card aplicație</string>

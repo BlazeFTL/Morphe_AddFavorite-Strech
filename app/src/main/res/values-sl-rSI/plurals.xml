@@ -102,6 +102,12 @@
         <item quantity="few">%s aplikacije</item>
         <item quantity="other">%s aplikacije</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="one">%s izbrano</item>
+        <item quantity="two">%s izbrani</item>
+        <item quantity="few">%s izbrana</item>
+        <item quantity="other">%s izbranih</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="one">Kopiran %s popravek iz izbranega paketa</item>
         <item quantity="two">Kopirana %s popravka iz izbranega paketa</item>

@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Iba pang mga aplikasyon</string>
+    <string name="home_other_apps_action">Pumili ng iba pang mga app</string>
     <string name="home_not_patched_yet">Hindi pa na-patch</string>
     <string name="home_unpatched_version_installed">Naka-install ang hindi na-patch na bersyon</string>
     <string name="home_unpatched_badge">Hindi pa na-patch</string>
@@ -275,6 +276,8 @@ Anumang idagdag mo mula sa website na ito ay gagamitin sa iyong sariling pangani
     <string name="expert_mode_copy_from_bundle">Kopyahin ang pagpili mula sa ibang bundle</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Walang katugmang mga patch sa bundle na ito</string>
     <string name="expert_mode_no_results">Walang nakita na patch</string>
+    <string name="expert_mode_selected_only_on">Ipinapakita lamang ang mga napiling patch</string>
+    <string name="expert_mode_selected_only_off">Ipinapakita ang lahat ng mga patch</string>
     <string name="expert_mode_universal_patches">Mga unibersal na patch</string>
     <string name="expert_mode_new_patches">Bago</string>
     <string name="expert_mode_options_customized">Naka-customize</string>
@@ -642,6 +645,8 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ipakita ang mensahe ng pagbati sa pangunahing iskrin</string>
     <string name="settings_appearance_app_grouping">Pagpapangkat ng app</string>
     <string name="settings_appearance_app_grouping_description">Magpakita ng home screen switcher upang pangkatin ang mga app ayon sa pinagmulan o iyong sariling mga kategorya, pinapanatili ang pagpili kapag naka-off</string>
+    <string name="settings_appearance_repatch_notice">Paunawa sa muling pag-patch</string>
+    <string name="settings_appearance_repatch_notice_description">Magpakita ng banner sa home screen kapag ang mga na-patch na app ay maaaring i-patch muli</string>
     <string name="settings_appearance_sort_button">Button ng pag-uuri at pagsala</string>
     <string name="settings_appearance_sort_button_description">Ipakita ang button ng pag-uuri at pagsala sa home screen</string>
     <string name="settings_appearance_app_card_colors">Mga kulay ng card ng app</string>

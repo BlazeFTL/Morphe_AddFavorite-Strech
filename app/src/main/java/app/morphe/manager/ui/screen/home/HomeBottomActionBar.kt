@@ -20,6 +20,8 @@ import app.morphe.manager.domain.manager.HomeAppSortMode
 import app.morphe.manager.ui.screen.shared.BottomActionBar
 import app.morphe.manager.ui.screen.shared.BottomActionButton
 import app.morphe.manager.ui.screen.shared.BottomActionTone
+import app.morphe.manager.ui.screen.shared.contentPadding
+import app.morphe.manager.ui.screen.shared.rememberWindowSize
 
 /**
  * Section 5: Bottom action bar.
@@ -41,6 +43,9 @@ fun HomeBottomActionBar(
     onSourcesPositioned: ((Rect) -> Unit)? = null,
     onSettingsPositioned: ((Rect) -> Unit)? = null
 ) {
+    // Matches the inset of the app cards and the footer above, so the bar shares their edges
+    val horizontalPadding = rememberWindowSize().contentPadding
+
     val sourcesLabel = stringResource(R.string.sources)
     val searchLabel = stringResource(R.string.home_search_apps)
     val sortLabel = stringResource(R.string.sort)
@@ -58,7 +63,7 @@ fun HomeBottomActionBar(
         )
     }
 
-    BottomActionBar(modifier = modifier, labels = labels) {
+    BottomActionBar(modifier = modifier, labels = labels, horizontalPadding = horizontalPadding) {
         // Left: Sources button
         BottomActionButton(
             onClick = onBundlesClick,

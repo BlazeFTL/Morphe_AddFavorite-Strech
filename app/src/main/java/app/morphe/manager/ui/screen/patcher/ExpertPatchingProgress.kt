@@ -349,6 +349,7 @@ fun ExpertPatchingInProgress(
 
                     // Action bar inside left column
                     PatcherBottomActionBar(
+                        horizontalPadding = 0.dp,
                         showCancelButton = patcherSucceeded == null,
                         showHomeButton = patcherSucceeded == true,
                         showInstallButton = patcherSucceeded == true,

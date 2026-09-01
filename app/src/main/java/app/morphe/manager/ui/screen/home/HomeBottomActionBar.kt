@@ -47,7 +47,10 @@ fun HomeBottomActionBar(
     val horizontalPadding = rememberWindowSize().contentPadding
 
     val sourcesLabel = stringResource(R.string.sources)
-    val searchLabel = stringResource(R.string.home_search_apps)
+    // One word like its neighbors, since a slot this narrow drops every label the moment one of
+    // them overflows. The fuller wording stays on the tooltip and for screen readers
+    val searchLabel = stringResource(R.string.search)
+    val searchAppsLabel = stringResource(R.string.home_search_apps)
     val sortLabel = stringResource(R.string.sort)
     val settingsLabel = stringResource(R.string.settings)
     val expertModeLabel = stringResource(R.string.settings_advanced_expert_mode)
@@ -84,6 +87,7 @@ fun HomeBottomActionBar(
                 icon = if (searchActive) Icons.Outlined.SearchOff else Icons.Outlined.Search,
                 text = searchLabel,
                 showLabel = showLabels,
+                contentDescription = searchAppsLabel,
                 stateDescription = if (searchActive) searchExpandedLabel else searchCollapsedLabel
             )
         }

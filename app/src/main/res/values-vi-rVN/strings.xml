@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL phải trỏ đến kho lưu trữ GitHub/GitLab hoặc tệp .json</string>
     <string name="sources_dialog_local_change_file">Đổi tệp</string>
     <string name="sources_dialog_preinstalled">Được cài đặt sẵn</string>
+    <string name="sources_dialog_community">Các bản vá cộng đồng</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Nguồn vá bên thứ ba</string>
+    <string name="sources_dialog_community_notice_message">"Các nguồn vá cộng đồng được tạo và duy trì bởi chính các tác giả của họ. Morphe không xem xét hoặc xác minh các bản vá của bên thứ ba, và không chịu trách nhiệm về nội dung của chúng hoặc về những gì chúng thực hiện trên thiết bị của bạn.
+
+Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng với rủi ro của riêng bạn"</string>
     <string name="sources_update_success">Cập nhật thành công</string>
     <string name="sources_update_unavailable">Hiện không có bản cập nhật nào</string>
     <string name="sources_download_fail">Không thể tải nguồn vá: %s</string>

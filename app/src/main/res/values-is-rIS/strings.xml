@@ -276,6 +276,7 @@ Allt sem þú bætir við frá þessari vefsíðu er notað á eigin ábyrgð."<
     <string name="expert_mode_no_results">Engar breytistillingar fundust</string>
     <string name="expert_mode_universal_patches">Alhliða breytingar</string>
     <string name="expert_mode_new_patches">Nýtt</string>
+    <string name="expert_mode_options_customized">Sérsniðið</string>
     <string name="expert_mode_patch_required_by_installer">Þetta er nauðsynlegt fyrir valið uppsetningarmark</string>
     <string name="expert_mode_patch_unavailable_for_installer">Ekki í boði fyrir valið uppsetningarmark</string>
     <string name="expert_mode_multiple_sources_warning_title">Fleiri pakkningagjafar valdar</string>

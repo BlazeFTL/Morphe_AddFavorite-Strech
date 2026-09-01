@@ -1056,7 +1056,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="credits_prior_development">التطوير المسبق</string>
     <string name="opensource_licenses">تراخيص مفتوحة المصدر</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
-    <string name="easter_egg_pill_title">خيار</string>
+    <string name="easter_egg_pill_title">خيار واحد</string>
     <string name="easter_egg_pill_message">تناول الحبة الزرقاء وستبقى الإعلانات في مكانها تمامًا. تناول الحبة الحمراء وشاهد مدى عمق الكود</string>
     <string name="easter_egg_pill_red">الحبة الحمراء</string>
     <string name="easter_egg_pill_blue">الحبة الزرقاء</string>

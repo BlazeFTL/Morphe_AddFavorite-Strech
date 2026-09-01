@@ -276,6 +276,7 @@
     <string name="expert_mode_no_results">パッチが見つかりません</string>
     <string name="expert_mode_universal_patches">ユニバーサルパッチ</string>
     <string name="expert_mode_new_patches">新規</string>
+    <string name="expert_mode_options_customized">カスタマイズ済み</string>
     <string name="expert_mode_patch_required_by_installer">選択したインストールターゲットには必須です</string>
     <string name="expert_mode_patch_unavailable_for_installer">選択したインストールターゲットでは利用できません</string>
     <string name="expert_mode_multiple_sources_warning_title">複数のパッチソースが選択されました</string>

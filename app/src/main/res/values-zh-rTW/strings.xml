@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL 必須指向 GitHub/GitLab 存放庫或 .json 檔案</string>
     <string name="sources_dialog_local_change_file">變更檔案</string>
     <string name="sources_dialog_preinstalled">預先安裝</string>
+    <string name="sources_dialog_community">社群修補程式</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">第三方修補程式來源</string>
+    <string name="sources_dialog_community_notice_message">"社群修補程式來源由其各自的作者製作和維護。Morphe 不會審查或驗證第三方修補程式，亦不對其內容或它們在您裝置上的行為負責。
+
+您從本網站新增的任何內容均由您自行承擔風險"</string>
     <string name="sources_update_success">更新成功</string>
     <string name="sources_update_unavailable">沒有可用的更新</string>
     <string name="sources_download_fail">無法下載來源: %s</string>

@@ -51,6 +51,9 @@
     <plurals name="home_category_app_count">
         <item quantity="other">%s aplikasi</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="other">%s dipilih</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="other">%s tambalan disalin dari bundel yang dipilih</item>
     </plurals>

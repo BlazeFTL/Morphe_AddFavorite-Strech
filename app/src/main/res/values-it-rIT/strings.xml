@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Altre app</string>
+    <string name="home_other_apps_action">Seleziona altre app</string>
     <string name="home_not_patched_yet">Non ancora modificato</string>
     <string name="home_unpatched_version_installed">Versione non patchata installata</string>
     <string name="home_unpatched_badge">Non modificato</string>

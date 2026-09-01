@@ -276,6 +276,7 @@ Bármit is ad hozzá erről a weboldalról, azt saját felelősségére teszi."<
     <string name="expert_mode_no_results">Nem találhatók módosítások</string>
     <string name="expert_mode_universal_patches">Univerzális módosítások</string>
     <string name="expert_mode_new_patches">Új</string>
+    <string name="expert_mode_options_customized">Testreszabott</string>
     <string name="expert_mode_patch_required_by_installer">Szükséges a kiválasztott telepítési célhoz.</string>
     <string name="expert_mode_patch_unavailable_for_installer">Nem érhető el a kiválasztott telepítési célhoz.</string>
     <string name="expert_mode_multiple_sources_warning_title">Több patchforrás van kiválasztva</string>

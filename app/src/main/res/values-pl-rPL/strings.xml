@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Inne aplikacje</string>
+    <string name="home_other_apps_action">Wybierz inne aplikacje</string>
     <string name="home_not_patched_yet">Jeszcze niezmodyfikowana</string>
     <string name="home_unpatched_version_installed">Zainstalowano niezmodyfikowaną wersję</string>
     <string name="home_unpatched_badge">Nie zmodyfikowano</string>
@@ -275,6 +276,8 @@ Wszystko, co dodasz z tej strony, używasz na własne ryzyko"</string>
     <string name="expert_mode_copy_from_bundle">Kopiuj wybór z innego pakietu</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Brak pasujących modyfikacji w tym pakiecie</string>
     <string name="expert_mode_no_results">Nie znaleziono modyfikacji</string>
+    <string name="expert_mode_selected_only_on">Wyświetlanie tylko wybranych modyfikacji</string>
+    <string name="expert_mode_selected_only_off">Wyświetlanie wszystkich modyfikacji</string>
     <string name="expert_mode_universal_patches">Uniwersalne modyfikacje</string>
     <string name="expert_mode_new_patches">Nowe</string>
     <string name="expert_mode_options_customized">Niestandardowe</string>
@@ -642,6 +645,8 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wyświetlaj powitanie na ekranie głównym</string>
     <string name="settings_appearance_app_grouping">Grupowanie aplikacji</string>
     <string name="settings_appearance_app_grouping_description">Wyświetl na ekranie głównym przełącznik do grupowania aplikacji według źródła lub własnych kategorii, zachowując wybór po wyłączeniu</string>
+    <string name="settings_appearance_repatch_notice">Powiadomienie o ponownym modyfikowaniu</string>
+    <string name="settings_appearance_repatch_notice_description">Pokazuj baner na ekranie głównym, gdy można ponownie zmodyfikować aplikacje</string>
     <string name="settings_appearance_sort_button">Przycisk sortowania i filtrowania</string>
     <string name="settings_appearance_sort_button_description">Pokaż przycisk sortowania i filtrowania na ekranie głównym</string>
     <string name="settings_appearance_app_card_colors">Kolory kart aplikacji</string>

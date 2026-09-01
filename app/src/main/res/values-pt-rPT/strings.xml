@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">O URL deve apontar para um repositório do GitHub/GitLab ou ficheiro .json</string>
     <string name="sources_dialog_local_change_file">Alterar ficheiro</string>
     <string name="sources_dialog_preinstalled">Pré-instalado</string>
+    <string name="sources_dialog_community">Patches da comunidade</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Fontes de patches de terceiros</string>
+    <string name="sources_dialog_community_notice_message">"Community patch sources are made and maintained by their own authors. Morphe does not review or verify third-party patches, and is not responsible for their content or for what they do on your device.
+
+Anything you add from this website is used at your own risk"</string>
     <string name="sources_update_success">Atualização bem-sucedida</string>
     <string name="sources_update_unavailable">Não há atualizações disponíveis</string>
     <string name="sources_download_fail">Erro ao descarregar fontes: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Nenhuma modificação encontrada</string>
     <string name="expert_mode_universal_patches">Modificações universais</string>
     <string name="expert_mode_new_patches">Novo</string>
+    <string name="expert_mode_options_customized">Personalizado</string>
     <string name="expert_mode_patch_required_by_installer">Necessário para o alvo de instalação selecionado</string>
     <string name="expert_mode_patch_unavailable_for_installer">Não disponível para o alvo de instalação selecionado</string>
     <string name="expert_mode_multiple_sources_warning_title">Várias fontes de modificações selecionadas</string>

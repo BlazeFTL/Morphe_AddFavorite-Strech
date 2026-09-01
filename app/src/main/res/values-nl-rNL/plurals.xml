@@ -68,6 +68,10 @@
         <item quantity="one">%s app</item>
         <item quantity="other">%s apps</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="one">%s geselecteerd</item>
+        <item quantity="other">%s geselecteerd</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="one">%s patch gekopieerd van het geselecteerde pakket</item>
         <item quantity="other">%s patches gekopieerd van het geselecteerde pakket</item>

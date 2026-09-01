@@ -274,6 +274,8 @@ Tudo o que você adicionar a partir deste site é por sua conta e risco"</string
     <string name="expert_mode_copy_from_bundle">Copiar seleção de outro pacote</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Nenhum patch correspondente neste pacote</string>
     <string name="expert_mode_no_results">Nenhum patch encontrado</string>
+    <string name="expert_mode_selected_only_on">Exibindo apenas patches selecionados</string>
+    <string name="expert_mode_selected_only_off">Exibindo todos os patches</string>
     <string name="expert_mode_universal_patches">Patches universais</string>
     <string name="expert_mode_new_patches">Novo</string>
     <string name="expert_mode_options_customized">Personalizado</string>

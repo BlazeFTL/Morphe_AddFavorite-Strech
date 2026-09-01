@@ -11,15 +11,15 @@
     <string name="home_app_will_be_hidden">Bu uygulama gizlenecektir</string>
     <string name="home_app_no_hidden">Gizli uygulama yok</string>
     <string name="home_app_hidden_apps_title">Gizli uygulamalar</string>
-    <string name="home_app_hidden_apps_hint">Gizliliği kaldırmak için dokunun</string>
+    <string name="home_app_hidden_apps_hint">Göstermek için dokunun</string>
     <string name="android_11_bug_dialog_title">Android 11 hatası</string>
-    <string name="android_11_bug_dialog_description">Android 11 sistemde kullanıcı deneyimini olumsuz etkileyecek bir hatayı önlemek için uygulama yükleme izninin önceden verilmesi gerekmektedir</string>
-    <string name="deep_link_add_source_title">Kaynak ekle</string>
+    <string name="android_11_bug_dialog_description">Android 11\'de kullanıcı deneyimini olumsuz etkileyen bir sistem hatasını önlemek için uygulama yükleme izni önceden verilmelidir</string>
+    <string name="deep_link_add_source_title">Kaynak ekleyin</string>
     <string name="deep_link_add_source_message">Bu yama kaynağını Morphe\'ye eklemek ister misiniz?</string>
     <string name="deep_link_add_source_warning">Yalnızca güvendiğiniz kaynakları ekleyin</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe güncellemesi mevcut</string>
-    <string name="home_update_available_subtitle">Yeni sürüm yükleme için hazır</string>
+    <string name="home_update_available_subtitle">Yeni sürüm yüklenmeye hazır</string>
     <string name="home_blocked_source_title">Engellenen yama kaynağı algılandı</string>
     <string name="home_blocked_source_subtitle">İncelemek ve kaldırmak için dokunun</string>
     <string name="home_metadata_errors_title">Bazı yama kaynakları kullanılamıyor</string>
@@ -84,7 +84,7 @@
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
     <string name="home_greeting_4">Başka bir gün, başka bir reklam engellenmiş başyapıt</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
-    <string name="home_greeting_5">Reklam izlemek ister misin? Ben de istemem</string>
+    <string name="home_greeting_5">Reklam izlemek ister misiniz? Biz de istemeyiz</string>
     <!-- Friendly, slightly mischievous joke about controlling app behavior -->
     <string name="home_greeting_6">Uygulamalarınızın davranışlarını düzeltelim</string>
     <!-- Whimsical forecast-style joke, not meant literally -->
@@ -94,7 +94,7 @@
     <!-- Playful exaggeration, making patching feel heroic -->
     <string name="home_greeting_9">Bugünden itibaren uygulamaları kendilerinden kurtarıyoruz</string>
     <!-- Light sarcasm, casual and tech-savvy humor -->
-    <string name="home_greeting_10">Kafein ve iyi yamalarla güçlendirilmiştir</string>
+    <string name="home_greeting_10">Gücünü kafein ve iyi yamalardan alır</string>
     <!-- Morning greetings (5:00–11:59) -->
     <string name="home_greeting_morning_1">Kalk ve yamala</string>
     <string name="home_greeting_morning_2">Günaydın! Uygulamalar kendiliğinden yamalanmaz</string>
@@ -108,13 +108,13 @@
     <string name="home_greeting_evening_3">İşten çıkıyor musunuz? Önce bir şeyleri yamalayın</string>
     <!-- Late night greetings (22:00–23:59) -->
     <string name="home_greeting_late_night_1">Hala ayakta mısınız? Yamalanması gereken uygulamalar da</string>
-    <string name="home_greeting_late_night_2">Gece geç saatte yama seansı mı? Saygı</string>
+    <string name="home_greeting_late_night_2">Gece geç saatte yama mesaisi mi? Saygılar</string>
     <string name="home_greeting_late_night_3">Gece baykuşu modu: etkinleştirildi</string>
     <!-- Super late night greetings (0:00–4:59) -->
     <string name="home_greeting_super_late_1">Peak yamalama saatleri… iddiaya göre</string>
     <string name="home_greeting_super_late_2">Uyuyamıyor musunuz? Bir şeyleri yamalayın</string>
     <string name="home_greeting_super_late_3">Bu noktada, sadece uyanık kalın ve yamalayın</string>
-    <string name="home_greeting_super_late_4">Sen ve sunucular, ikisi de uyanık</string>
+    <string name="home_greeting_super_late_4">Siz ve sunucular, ikiniz de uyanıksınız</string>
     <string name="home_greeting_super_late_5">Gececi ve üretken</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yama kaynakları</string>

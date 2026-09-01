@@ -169,7 +169,11 @@
     <string name="sources_dialog_url_invalid">Die URL muss auf ein GitHub-/GitLab-Repository oder eine .json Datei verweisen</string>
     <string name="sources_dialog_local_change_file">Datei ändern</string>
     <string name="sources_dialog_preinstalled">Vorinstalliert</string>
+    <string name="sources_dialog_community">Community-Patches</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Drittanbieter-Patchquellen</string>
+    <string name="sources_dialog_community_notice_message">"Community-Patchquellen werden von ihren eigenen Autoren erstellt und gepflegt. Morphe überprüft oder verifiziert Drittanbieter-Patches nicht und ist nicht verantwortlich für deren Inhalt oder dafür, was sie auf Ihrem Gerät bewirken.
+Alles, was Sie von dieser Website hinzufügen, geschieht auf eigenes Risiko"</string>
     <string name="sources_update_success">Update erfolgreich</string>
     <string name="sources_update_unavailable">Kein Update verfügbar</string>
     <string name="sources_download_fail">Fehler beim Herunterladen der Quellen: %s</string>

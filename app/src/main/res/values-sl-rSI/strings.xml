@@ -280,6 +280,7 @@ Vse, kar dodate s tega spletišča, uporabljate na lastno odgovornost.
     <string name="expert_mode_no_results">Ni najdenih popravkov</string>
     <string name="expert_mode_universal_patches">Univerzalni popravki</string>
     <string name="expert_mode_new_patches">Novo</string>
+    <string name="expert_mode_options_customized">Prilagojeno</string>
     <string name="expert_mode_patch_required_by_installer">Obvezno za izbrano ciljno namestitev</string>
     <string name="expert_mode_patch_unavailable_for_installer">Ni na voljo za izbrano ciljno namestitev</string>
     <string name="expert_mode_multiple_sources_warning_title">Izbranih je več virov popravkov</string>

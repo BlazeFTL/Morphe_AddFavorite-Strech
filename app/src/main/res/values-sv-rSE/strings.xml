@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">Webbadressen måste peka på en GitHub-/GitLab-lagringsplats eller .json-fil</string>
     <string name="sources_dialog_local_change_file">Byt fil</string>
     <string name="sources_dialog_preinstalled">Förinstallerad</string>
+    <string name="sources_dialog_community">Community-patchar</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Tredjepartspatchkällor</string>
+    <string name="sources_dialog_community_notice_message">"Källorna för communitypatchar skapas och underhålls av sina egna författare. Morphe granskar eller verifierar inte tredjepartspatchar och är inte ansvarig för deras innehåll eller för vad de gör på din enhet.
+
+Allt du lägger till från denna webbplats används på egen risk"</string>
     <string name="sources_update_success">Uppdateringen lyckades</string>
     <string name="sources_update_unavailable">Ingen uppdatering är tillgänglig</string>
     <string name="sources_download_fail">Det gick inte att ladda ned källor: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Inga tillägg hittades</string>
     <string name="expert_mode_universal_patches">Universella tillägg</string>
     <string name="expert_mode_new_patches">Nytt</string>
+    <string name="expert_mode_options_customized">Anpassad</string>
     <string name="expert_mode_patch_required_by_installer">Krävs för det valda installationsmålet</string>
     <string name="expert_mode_patch_unavailable_for_installer">Inte tillgängligt för det valda installationsmålet</string>
     <string name="expert_mode_multiple_sources_warning_title">Flera tilläggskällor har valts</string>

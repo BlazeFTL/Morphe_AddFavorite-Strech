@@ -277,6 +277,7 @@
     <string name="expert_mode_no_results">לא נמצאו תיקונים</string>
     <string name="expert_mode_universal_patches">עדכונים אוניברסליים</string>
     <string name="expert_mode_new_patches">חדש</string>
+    <string name="expert_mode_options_customized">מותאם אישית</string>
     <string name="expert_mode_patch_required_by_installer">נדרש עבור יעד ההתקנה הנבחר</string>
     <string name="expert_mode_patch_unavailable_for_installer">לא זמין עבור יעד ההתקנה הנבחר</string>
     <string name="expert_mode_multiple_sources_warning_title">נבחרו מקורות ציורים מרובים</string>

@@ -754,7 +754,7 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <string name="settings_advanced_patch_options_custom_branding">Branding personnalisé</string>
     <string name="settings_advanced_patch_options_custom_branding_description">Change le nom d\'affichage de l\'application</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Nom de l\'application</string>
-    <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Entrez le nom personnalisé</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Entrez un nom personnalisé</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Icône personnalisée</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Dossier contenant les images à utiliser comme icône personnalisée.
 

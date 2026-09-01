@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Ostatní aplikace</string>
     <string name="home_not_patched_yet">Ještě nezáplatováno</string>
-    <string name="home_unpatched_version_installed">Nainstalovaná neopatchovaná verze</string>
+    <string name="home_unpatched_version_installed">Nainstalovaná nezáplatovaná verze</string>
     <string name="home_unpatched_badge">Nezáplatováno</string>
     <string name="home_no_patches_available">Žádné záplaty k dispozici</string>
     <string name="home_app_hide_title">Skrýt tuto aplikaci?</string>
@@ -11,7 +11,7 @@
     <string name="home_app_will_be_hidden">Tato aplikace bude skryta</string>
     <string name="home_app_no_hidden">Žádné skryté aplikace</string>
     <string name="home_app_hidden_apps_title">Skryté aplikace</string>
-    <string name="home_app_hidden_apps_hint">Klepněte pro zobrazení</string>
+    <string name="home_app_hidden_apps_hint">Klepněte pro odkrytí</string>
     <string name="android_11_bug_dialog_title">Chyba Androidu 11</string>
     <string name="android_11_bug_dialog_description">Oprávnění k instalaci aplikací musí být uděleno předem, abyste se vyhnuli chybě v systému Android 11, která negativně ovlivňuje uživatelský zážitek</string>
     <string name="deep_link_add_source_title">Přidat zdroj</string>

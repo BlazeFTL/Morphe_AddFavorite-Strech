@@ -276,6 +276,7 @@ Kaikki mitä lisäät tältä verkkosivustolta, on oma riskisi."</string>
     <string name="expert_mode_no_results">Lisäosia ei löytynyt</string>
     <string name="expert_mode_universal_patches">Yleispätevät lisäosat</string>
     <string name="expert_mode_new_patches">Uusi</string>
+    <string name="expert_mode_options_customized">Mukautettu</string>
     <string name="expert_mode_patch_required_by_installer">Vaaditaan valitulle asennuskohteelle</string>
     <string name="expert_mode_patch_unavailable_for_installer">Ei saatavilla valitulle asennuskohteelle</string>
     <string name="expert_mode_multiple_sources_warning_title">Useita lisäosalähteitä on valittu</string>

@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Otras aplicaciones</string>
+    <string name="home_other_apps_action">Seleccionar otras aplicaciones</string>
     <string name="home_not_patched_yet">Aún sin parchear</string>
     <string name="home_unpatched_version_installed">Versión sin parchear instalada</string>
     <string name="home_unpatched_badge">Sin parchear</string>
@@ -274,6 +275,8 @@ Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad
     <string name="expert_mode_copy_from_bundle">Copiar selección de otro paquete</string>
     <string name="expert_mode_copy_from_bundle_no_patches">No hay parches que coincidan en este paquete</string>
     <string name="expert_mode_no_results">No se encontraron parches</string>
+    <string name="expert_mode_selected_only_on">Mostrando solo los parches seleccionados</string>
+    <string name="expert_mode_selected_only_off">Mostrando todos los parches</string>
     <string name="expert_mode_universal_patches">Parches universales</string>
     <string name="expert_mode_new_patches">Nuevo</string>
     <string name="expert_mode_options_customized">Personalizado</string>
@@ -360,8 +363,8 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="notification_icon_preview">Notificación</string>
     <!-- Header Creator -->
     <string name="header_creator_create">Crear encabezado personalizado</string>
-    <string name="header_creator_light_theme">Encabezado de tema claro</string>
-    <string name="header_creator_dark_theme">Encabezado de tema oscuro</string>
+    <string name="header_creator_light_theme">Encabezado del tema claro</string>
+    <string name="header_creator_dark_theme">Encabezado del tema oscuro</string>
     <string name="header_creator_no_image">No se ha seleccionado ninguna imagen</string>
     <string name="header_creator_success">Encabezado creado con éxito</string>
     <string name="header_creator_failed">No se pudo crear el encabezado</string>

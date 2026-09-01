@@ -191,16 +191,16 @@
     <string name="home_apk_availability_incompatible_label">호환되지 않음</string>
     <string name="home_apk_availability_yes">네, APK를 찾는데 도움을 주세요</string>
     <string name="home_apk_availability_no">아니요, 이미 APK를 가지고 있습니다</string>
-    <string name="home_apk_helper_download">도우미 앱 사용</string>
-    <string name="home_apk_helper_title">도우미 앱으로 다운로드</string>
-    <string name="home_apk_helper_description">Morphe는 아래의 도우미 앱에 원본 APK를 다운로드하고 파일을 다시 전달하도록 요청합니다</string>
-    <string name="home_apk_helper_continue">도우미 앱 열기</string>
-    <string name="home_apk_helper_warning">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 패치하기 전에 수신하는 모든 파일의 패키지, 버전 및 서명을 확인합니다</string>
-    <string name="home_apk_helper_warning_unverified">이 도우미 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 검증할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
-    <string name="home_apk_helper_no_result">도우미 앱에서 APK 파일을 반환하지 않았습니다</string>
-    <string name="home_apk_helper_no_access">도우미 앱이 반환한 APK에 대한 접근 권한을 부여하지 않았습니다</string>
-    <string name="home_apk_helper_no_package">도우미 앱에서 어떤 설치된 앱을 사용해야 하는지 지정하지 않았습니다</string>
-    <string name="home_apk_helper_wrong_package">도우미 앱이 패치하려는 앱과 다른 앱을 반환하였습니다</string>
+    <string name="home_apk_helper_download">Helper 앱 사용</string>
+    <string name="home_apk_helper_title">Helper 앱으로 다운로드</string>
+    <string name="home_apk_helper_description">Morphe는 아래의 Helper 앱에 원본 APK를 다운로드하고 파일을 다시 전달하도록 요청합니다</string>
+    <string name="home_apk_helper_continue">Helper 앱 열기</string>
+    <string name="home_apk_helper_warning">이 Helper 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 패치하기 전에 수신하는 모든 파일의 패키지, 버전 및 서명을 확인합니다</string>
+    <string name="home_apk_helper_warning_unverified">이 Helper 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 검증할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
+    <string name="home_apk_helper_no_result">Helper 앱에서 APK 파일을 반환하지 않았습니다</string>
+    <string name="home_apk_helper_no_access">Helper 앱이 반환한 APK에 대한 접근 권한을 부여하지 않았습니다</string>
+    <string name="home_apk_helper_no_package">Helper 앱에서 어떤 설치된 앱을 사용해야 하는지 지정하지 않았습니다</string>
+    <string name="home_apk_helper_wrong_package">Helper 앱이 패치하려는 앱과 다른 앱을 반환하였습니다</string>
     <string name="home_apk_helper_installed_unavailable">Morphe가 설치된 앱을 사용할 수 없습니다</string>
     <string name="home_apk_helper_installed_incompatible">설치된 버전은 패치할 수 없습니다</string>
     <string name="home_apk_use_saved">저장된 APK 사용</string>
@@ -1022,8 +1022,8 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker">사용자 정의 파일 선택기</string>
     <string name="settings_system_custom_file_picker_description">시스템 기본 파일 선택기 대신 Morphe에 내장된 파일 선택기를 사용하여 저장소를 탐색합니다</string>
     <!-- Settings - System Tab - APK download helper -->
-    <string name="settings_system_apk_download_helper">APK 다운로드 도우미</string>
-    <string name="settings_system_apk_download_helper_description">설치된 도우미 앱을 사용하여 원본 APK를 다운로드합니다. 파일은 해당 앱에서 가져오므로 신뢰할 수 있는 앱인 경우에만 이 기능을 활성화하세요</string>
+    <string name="settings_system_apk_download_helper">APK Download Helper</string>
+    <string name="settings_system_apk_download_helper_description">설치된 Helper 앱을 사용하여 원본 APK를 다운로드합니다. 파일은 해당 앱에서 가져오므로 신뢰할 수 있는 앱인 경우에만 이 기능을 활성화하세요</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">이전 디렉터리</string>
     <string name="file_picker_no_files">파일이 없습니다</string>

@@ -1,3 +1,12 @@
+# [1.29.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.6...v1.29.0-dev.7) (2026-09-01)
+
+
+### Bug Fixes
+
+* Animate the expert mode selected-only filter toggle ([a2d5382](https://github.com/MorpheApp/morphe-manager/commit/a2d53825a8a8a69134a14972643fe104553b5a41))
+* Show the expert mode filter icon whenever the filter is available ([98cbff5](https://github.com/MorpheApp/morphe-manager/commit/98cbff5da21027d54d45c78ec598cd59971a6a79))
+* Stop a saved APK's icon from standing in for the installed app ([175dbb9](https://github.com/MorpheApp/morphe-manager/commit/175dbb9b20c24ebcd75ca1cd72737d84fac26b41))
+
 # [1.29.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.5...v1.29.0-dev.6) (2026-09-01)
 
 

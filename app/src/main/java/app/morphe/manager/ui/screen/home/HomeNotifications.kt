@@ -36,11 +36,11 @@ import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 data class AlertState(val visible: Boolean, val onShow: () -> Unit)
 
 /**
- * The apps whose patches have moved on, and the tap that queues them. Visible from one app
- * up, which is also when the cards themselves start showing their update badge.
+ * The apps whose patches have moved on, and the tap that queues them. Shown from one app up,
+ * which is also when the cards themselves start showing their update badge.
  */
 @Immutable
-data class RepatchAlertState(val count: Int, val onShow: () -> Unit)
+data class RepatchAlertState(val count: Int, val visible: Boolean, val onShow: () -> Unit)
 
 /** Transient state driving the bundle-update progress snackbar. */
 @Immutable
@@ -135,7 +135,8 @@ fun NotificationsOverlay(
             // The badges on the cards say the same thing one app at a time. This says it once
             // and queues every one of them, which is the part that is otherwise several taps
             AlertSnackbar(
-                visible = notifications.repatchAvailable.count > 0,
+                visible = notifications.repatchAvailable.visible &&
+                        notifications.repatchAvailable.count > 0,
                 level = AlertLevel.Info,
                 icon = Icons.Outlined.AutoFixHigh,
                 title = pluralStringResource(

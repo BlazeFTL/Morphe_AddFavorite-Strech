@@ -523,7 +523,9 @@ private fun MorpheManager(vm: MainViewModel) {
             enterTransition = { Animations.screenEnter },
             exitTransition = { Animations.screenExit },
             popEnterTransition = { Animations.screenEnter },
-            popExitTransition = { Animations.screenExit }
+            popExitTransition = { Animations.screenExit },
+            predictivePopEnterTransition = { Animations.screenEnter },
+            predictivePopExitTransition = { Animations.pushExit }
         ) {
             composable<HomeScreen> { entry ->
                 val bundleUpdateProgress by homeViewModel.bundleUpdateProgress.collectAsStateWithLifecycle(null)

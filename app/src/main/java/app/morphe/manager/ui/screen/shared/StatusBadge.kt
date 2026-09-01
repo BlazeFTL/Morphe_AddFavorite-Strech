@@ -5,6 +5,9 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -121,8 +126,24 @@ fun StatusBadge(
 
     // Only where the card says what it holds; guessing picks a color by theme, not by the ground
     val card = LocalCardBackground.current
-    val fill = containerColor.distinctFromCard()
-    val content = if (card != null) contentColor.readableOn(fill, card) else contentColor
+    val targetFill = containerColor.distinctFromCard()
+    val targetContent = if (card != null) contentColor.readableOn(targetFill, card) else contentColor
+
+    // A badge that doubles as a toggle repaints itself on every tap, so the tones settle
+    val fill by animateColorAsState(
+        targetValue = targetFill,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "status_badge_fill"
+    )
+    val content by animateColorAsState(
+        targetValue = targetContent,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "status_badge_content"
+    )
+
+    // Held past the point the caller drops it, so the exit collapses the icon and not a gap
+    val fadingIcon = remember { mutableStateOf(icon) }
+    if (icon != null) fadingIcon.value = icon
 
     Row(
         modifier = modifier
@@ -148,11 +169,26 @@ fun StatusBadge(
                 horizontal = BadgeDefaults.HorizontalPadding,
                 vertical = BadgeDefaults.VerticalPadding
             ),
-        horizontalArrangement = Arrangement.spacedBy(BadgeDefaults.ItemSpacing),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        icon?.let {
-            ThemedIcon(icon = it, tint = content, size = BadgeDefaults.IconSize)
+        // The spacing rides with the icon, so a badge that never carries one keeps its width
+        AnimatedVisibility(
+            visible = icon != null,
+            enter = Animations.expandHorizFadeIn,
+            exit = Animations.shrinkHorizFadeOut
+        ) {
+            fadingIcon.value?.let {
+                ThemedIcon(
+                    icon = it,
+                    tint = content,
+                    size = BadgeDefaults.IconSize,
+                    modifier = if (breakableText != null) {
+                        Modifier.padding(end = BadgeDefaults.ItemSpacing)
+                    } else {
+                        Modifier
+                    }
+                )
+            }
         }
         breakableText?.let {
             Text(

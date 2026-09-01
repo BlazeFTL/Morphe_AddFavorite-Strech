@@ -291,33 +291,35 @@ fun ExpertModeDialog(
                     onRetire = { retireNotice(it) }
                 )
 
-                if (filteredPatches == null) {
-                    PatchesListEmptyState(modifier = Modifier.weight(1f))
-                } else {
-                    val singleBundleList = rememberLazyListState()
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                    ) {
-                        BundlePatchList(
-                            bundle = bundle,
-                            patches = filteredPatches,
-                            listState = singleBundleList,
-                            markers = markers,
-                            isFiltering = isFiltering,
-                            isUniversalExpanded = bundle.uid in expandedUniversal,
-                            onUniversalExpandedChange = { expandedUniversal.setExpanded(bundle.uid, it) },
-                            lockStateOf = lockStateOf,
-                            patchActions = patchActions,
-                            onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
-                        )
+                val singleBundleList = rememberLazyListState()
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    // The list keeps its place while empty, so its rows fade out under the
+                    // empty state rather than the two swapping in a single frame
+                    BundlePatchList(
+                        bundle = bundle,
+                        patches = displayPatches,
+                        listState = singleBundleList,
+                        markers = markers,
+                        isFiltering = isFiltering,
+                        isUniversalExpanded = bundle.uid in expandedUniversal,
+                        onUniversalExpandedChange = { expandedUniversal.setExpanded(bundle.uid, it) },
+                        lockStateOf = lockStateOf,
+                        patchActions = patchActions,
+                        onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
+                    )
 
+                    if (filteredPatches != null) {
                         ListScrollbar(
                             listState = singleBundleList,
                             modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                         )
                     }
+
+                    PatchesListEmptyOverlay(visible = filteredPatches == null)
                 }
             } else {
                 // Multiple bundles tab layout
@@ -408,21 +410,18 @@ fun ExpertModeDialog(
                         onRetire = { retireNotice(it) }
                     )
 
-                    if (currentFiltered != null) {
-                        BundleControls(
-                            bundle = currentBundle,
-                            patches = currentFiltered,
-                            patchActions = patchActions,
-                            savedPatches = savedPatches,
-                            lockStateOf = lockStateOf,
-                            holdsUniversalPatches = holdsUniversalPatches,
-                            onExpandUniversal = { expandedUniversal.setExpanded(it, true) },
-                            modifier = Modifier.padding(vertical = Defaults.ContentPaddingSmall)
-                        )
-                    } else {
-                        // Reserve space so pager height stays stable when a tab has no results
-                        Spacer(modifier = Modifier.height(52.dp))
-                    }
+                    // Kept in place on a tab the filters emptied, so the pager height holds and
+                    // the bulk actions grey out instead of the whole row snapping away
+                    BundleControls(
+                        bundle = currentBundle,
+                        patches = currentFiltered.orEmpty(),
+                        patchActions = patchActions,
+                        savedPatches = savedPatches,
+                        lockStateOf = lockStateOf,
+                        holdsUniversalPatches = holdsUniversalPatches,
+                        onExpandUniversal = { expandedUniversal.setExpanded(it, true) },
+                        modifier = Modifier.padding(vertical = Defaults.ContentPaddingSmall)
+                    )
 
                     // Pager
                     Box(
@@ -437,12 +436,10 @@ fun ExpertModeDialog(
                             val (bundle, _) = allPatchesInfo.getOrNull(pageIndex) ?: return@HorizontalPager
                             val patches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
 
-                            if (patches == null) {
-                                PatchesListEmptyState(modifier = Modifier.fillMaxHeight())
-                            } else {
+                            Box(modifier = Modifier.fillMaxSize()) {
                                 BundlePatchList(
                                     bundle = bundle,
-                                    patches = patches,
+                                    patches = patches.orEmpty(),
                                     listState = pageListStates[pageIndex],
                                     markers = markers,
                                     isFiltering = isFiltering,
@@ -452,6 +449,8 @@ fun ExpertModeDialog(
                                     patchActions = patchActions,
                                     onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
                                 )
+
+                                PatchesListEmptyOverlay(visible = patches == null)
                             }
                         }
 
@@ -528,6 +527,21 @@ fun ExpertModeDialog(
                 selectedPatchForOptions.value = null
             }
         )
+    }
+}
+
+/**
+ * Empty state fading in over the list it stands in for, so a filter that clears a page settles
+ * instead of swapping the two in one frame.
+ */
+@Composable
+private fun PatchesListEmptyOverlay(visible: Boolean) {
+    AnimatedVisibility(
+        visible = visible,
+        enter = Animations.fadeIn,
+        exit = Animations.fadeOut
+    ) {
+        PatchesListEmptyState()
     }
 }
 

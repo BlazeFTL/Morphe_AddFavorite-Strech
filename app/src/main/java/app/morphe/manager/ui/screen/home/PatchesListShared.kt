@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -18,6 +19,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -135,6 +137,11 @@ internal fun UniversalPatchesHeader(
         label = "universal_patches_chevron"
     )
 
+    // Held while the badge fades out, so the count does not blink to zero on its way off
+    val lastSelectedCount = remember { mutableIntStateOf(selectedCount) }
+    if (selectedCount > 0) lastSelectedCount.intValue = selectedCount
+    val shownSelectedCount = lastSelectedCount.intValue
+
     HomeGlassCategoryRow(
         title = stringResource(R.string.expert_mode_universal_patches),
         count = pluralStringResource(R.plurals.patch_count, count, count.toString()),
@@ -148,31 +155,44 @@ internal fun UniversalPatchesHeader(
             )
         },
         trailing = {
-            if (selectedCount > 0) {
-                val selectedLabel = pluralStringResource(
-                    R.plurals.expert_mode_selected_count,
-                    selectedCount,
-                    selectedCount.toString()
-                )
-                StatusBadge(
-                    text = selectedCount.toString(),
-                    icon = Icons.Outlined.Check,
-                    tone = SemanticTone.Primary,
-                    // The bare number is meaningless read out, and the row merges its children
-                    modifier = Modifier.clearAndSetSemantics { contentDescription = selectedLabel }
-                )
-            }
-            if (onToggle != null) {
-                Icon(
-                    imageVector = Icons.Outlined.ExpandMore,
-                    contentDescription = stringResource(
-                        if (isExpanded) R.string.collapse else R.string.expand
-                    ),
-                    modifier = Modifier
-                        .size(24.dp)
-                        .graphicsLayer { rotationZ = chevronRotation },
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+            // One slot for both, so the chevron holds its place as the badge comes and goes
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                AnimatedVisibility(
+                    visible = selectedCount > 0,
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
+                ) {
+                    val selectedLabel = pluralStringResource(
+                        R.plurals.expert_mode_selected_count,
+                        shownSelectedCount,
+                        shownSelectedCount.toString()
+                    )
+                    StatusBadge(
+                        text = shownSelectedCount.toString(),
+                        icon = Icons.Outlined.Check,
+                        tone = SemanticTone.Primary,
+                        // The bare number is meaningless read out, and the row merges its children
+                        modifier = Modifier
+                            .padding(end = Defaults.ContentPaddingSmall)
+                            .clearAndSetSemantics { contentDescription = selectedLabel }
+                    )
+                }
+                AnimatedVisibility(
+                    visible = onToggle != null,
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.ExpandMore,
+                        contentDescription = stringResource(
+                            if (isExpanded) R.string.collapse else R.string.expand
+                        ),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .graphicsLayer { rotationZ = chevronRotation },
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
         },
         cornerRadius = Defaults.SettingsCornerRadius,

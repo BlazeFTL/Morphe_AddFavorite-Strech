@@ -492,7 +492,7 @@ private fun HomeFooterControls(
             Column {
                 Spacer(modifier = Modifier.height(itemSpacing))
                 GlassButton(
-                    label = stringResource(R.string.home_other_apps),
+                    label = stringResource(R.string.home_other_apps_action),
                     selected = false,
                     onClick = onOtherAppsClick,
                     modifier = Modifier

@@ -252,11 +252,12 @@ fun BottomActionBarScope.BottomActionButton(
             .then(if (entering) Modifier.graphicsLayer { alpha = entry.value } else Modifier)
             .then(modifier)
     ) {
-        // Only surface a tooltip when the label itself is hidden; otherwise the two would repeat
-        if (!showLabel && text != null) {
+        // Only surface a tooltip when the label itself is hidden; otherwise the two would repeat.
+        // It carries the accessible label, so a qualified icon explains itself without a reader
+        if (!showLabel && label != null) {
             TooltipBox(
                 positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
-                tooltip = { PlainTooltip { Text(text) } },
+                tooltip = { PlainTooltip { Text(label) } },
                 state = rememberTooltipState(),
                 modifier = Modifier.fillMaxWidth()
             ) {

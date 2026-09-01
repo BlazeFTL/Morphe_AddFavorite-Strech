@@ -1,3 +1,20 @@
+# [1.29.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.5...v1.29.0-dev.6) (2026-09-01)
+
+
+### Bug Fixes
+
+* Align the bottom action bar with the content above it ([d365e1f](https://github.com/MorpheApp/morphe-manager/commit/d365e1f68eeb5e3f949e1c664a92a5917985bd89))
+* Keep the back gesture on the screen transitions the app defines ([95c28dc](https://github.com/MorpheApp/morphe-manager/commit/95c28dcae3bfa14bde5925fd09fc16f224077085))
+
+
+### Features
+
+* Add a setting to hide the re-patch notice on the home screen ([48b5eb3](https://github.com/MorpheApp/morphe-manager/commit/48b5eb35cca095ee045785285f616aed26360cf0))
+* Copy a patch selection between sources from the batch queue ([836bef3](https://github.com/MorpheApp/morphe-manager/commit/836bef36c4d8da27e60920a8c35c6c3bf9376888))
+* Filter the expert mode patch list down to the selected patches ([#918](https://github.com/MorpheApp/morphe-manager/issues/918)) ([d74f786](https://github.com/MorpheApp/morphe-manager/commit/d74f7864ce9ae3022ad4b06da483a430732a64f7))
+* Name the other apps button by its action and qualify bar tooltips ([#919](https://github.com/MorpheApp/morphe-manager/issues/919)) ([fbe059f](https://github.com/MorpheApp/morphe-manager/commit/fbe059f87154eae5b22029de46a47ec457370300))
+* Shorten the home search button label so the bar labels can fit ([2b08fa8](https://github.com/MorpheApp/morphe-manager/commit/2b08fa83fdec86fa20d4d5b2d502812de2ebcde8))
+
 # [1.29.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.4...v1.29.0-dev.5) (2026-08-30)
 
 

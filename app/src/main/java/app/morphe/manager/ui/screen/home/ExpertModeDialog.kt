@@ -173,6 +173,8 @@ fun ExpertModeDialog(
             // The counter already stands for the selection, so it doubles as the way to filter
             // the list down to it
             val badgeTone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
+            // Still switchable off after the last patch is unticked under the filter
+            val canFilter = totalSelectedCount > 0 || isSelectedOnly
             val filterState = stringResource(
                 if (isSelectedOnly) {
                     R.string.expert_mode_selected_only_on
@@ -182,13 +184,14 @@ fun ExpertModeDialog(
             )
             StatusBadge(
                 text = "$totalSelectedCount/$totalPatchesCount",
-                icon = if (isSelectedOnly) Icons.Outlined.FilterAlt else null,
+                // Carried while the filter is merely available, so the counter reads as the
+                // control it is instead of only announcing itself once tapped
+                icon = Icons.Outlined.FilterAlt.takeIf { canFilter },
                 tone = badgeTone,
                 // Filled rather than tonal while filtering, so the narrowed list has a visible cause
                 containerColor = if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container,
                 contentColor = if (isSelectedOnly) MaterialTheme.colorScheme.onPrimary else badgeTone.content,
-                // Still switchable off after the last patch is unticked under the filter
-                onClick = if (totalSelectedCount > 0 || isSelectedOnly) {
+                onClick = if (canFilter) {
                     { toggleSelectedOnly() }
                 } else {
                     null

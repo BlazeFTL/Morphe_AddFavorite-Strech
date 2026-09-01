@@ -5,8 +5,10 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -96,7 +98,8 @@ val statusBadgeHeight: Dp
  * @param tone Semantic color role
  * @param containerColor Background override, for badges drawn over custom artwork
  * @param contentColor Content override, paired with [containerColor]
- * @param onClick Makes the badge act as a control, as the version list expander does
+ * @param onClick Makes the badge act as a control, as the version list expander does. A badge
+ *   that carries one sinks while held, the way the surrounding buttons do
  * @param modifier Modifier to be applied to the badge
  */
 @Composable
@@ -114,6 +117,8 @@ fun StatusBadge(
         text?.replace("/", "/​")?.replace(".", ".​")
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
+
     // Only where the card says what it holds; guessing picks a color by theme, not by the ground
     val card = LocalCardBackground.current
     val fill = containerColor.distinctFromCard()
@@ -121,9 +126,24 @@ fun StatusBadge(
 
     Row(
         modifier = modifier
+            .pressScale(
+                interactionSource = interactionSource,
+                enabled = onClick != null,
+                label = "status_badge_press_scale"
+            )
             .clip(RoundedCornerShape(percent = 50))
             .background(fill)
-            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .then(
+                if (onClick != null) {
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = LocalIndication.current,
+                        onClick = onClick
+                    )
+                } else {
+                    Modifier
+                }
+            )
             .padding(
                 horizontal = BadgeDefaults.HorizontalPadding,
                 vertical = BadgeDefaults.VerticalPadding

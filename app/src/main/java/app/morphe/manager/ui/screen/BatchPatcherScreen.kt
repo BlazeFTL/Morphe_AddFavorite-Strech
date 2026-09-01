@@ -181,7 +181,7 @@ fun BatchPatcherScreen(
                 onRestoreSaved = edit::restoreSaved,
                 // Copying a selection between sources belongs to the app's own patch dialog,
                 // where it can be saved, rather than to a single queued run
-                onCopyFromBundle = {},
+                onCopyFromBundle = null,
                 onOptionChange = edit::updateOption,
                 onResetOptions = edit::resetOptions
             ),

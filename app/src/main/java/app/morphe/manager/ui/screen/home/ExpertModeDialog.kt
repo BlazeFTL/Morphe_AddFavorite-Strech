@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -12,6 +13,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoFixHigh
+import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Source
@@ -28,6 +30,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -55,7 +59,7 @@ class ExpertPatchActions(
     val onDeselectAll: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Unit,
     val onResetToDefault: (bundleUid: Int) -> Unit,
     val onRestoreSaved: (bundleUid: Int) -> Unit,
-    val onCopyFromBundle: (bundleUid: Int) -> Unit,
+    val onCopyFromBundle: ((bundleUid: Int) -> Unit)? = null,
     val onOptionChange: (bundleUid: Int, patchName: String, optionKey: String, value: Any?) -> Unit,
     val onResetOptions: (bundleUid: Int, patchName: String) -> Unit
 )
@@ -104,16 +108,7 @@ fun ExpertModeDialog(
         }
     }
 
-    // Universal sections fold per bundle. The state lives here because "enable all" opens the
-    // section on the tap that finally reaches the universal patches
-    val expandedUniversal = remember { mutableStateOf(emptySet<Int>()) }
-    fun setUniversalExpanded(bundleUid: Int, expanded: Boolean) {
-        expandedUniversal.value = if (expanded) {
-            expandedUniversal.value + bundleUid
-        } else {
-            expandedUniversal.value - bundleUid
-        }
-    }
+    val expandedUniversal = rememberUniversalSectionState()
 
     // The pre-release warning is worth a glance, not a permanent strip on top of the list. It
     // retires per source, so a source the user has not opened yet still gets its turn, and the
@@ -123,28 +118,82 @@ fun ExpertModeDialog(
         retiredNotices.value += bundleUid
     }
 
-    // Filter patches based on search query
-    val filteredPatchesInfo = remember(allPatchesInfo, search.query) {
-        if (search.query.isBlank()) {
-            allPatchesInfo
+    // Names the filter holds on to, or null while it is off. A snapshot rather than a live read,
+    // so a patch unticked under the filter keeps its place instead of vanishing mid-edit
+    val selectedOnly = remember { mutableStateOf<Map<Int, Set<String>>?>(null) }
+    val isSelectedOnly = selectedOnly.value != null
+    fun toggleSelectedOnly() {
+        selectedOnly.value = if (isSelectedOnly) {
+            null
         } else {
-            allPatchesInfo.mapNotNull { (bundle, patches) ->
-                val filtered = patches.filter { (patch, _) ->
-                    patch.displayName.contains(search.query, ignoreCase = true) ||
-                            patch.description?.contains(search.query, ignoreCase = true) == true
-                }
-                if (filtered.isEmpty()) null else bundle to filtered
-            }
+            allPatchesInfo.patchNamesWhere { _, _, isEnabled -> isEnabled }
         }
+    }
+
+    // The two filters stack: either can narrow what the other left
+    val filteredPatchesInfo = remember(allPatchesInfo, search.query, selectedOnly.value) {
+        val query = search.query.takeIf { it.isNotBlank() }
+        val onlySelected = selectedOnly.value
+        if (query == null && onlySelected == null) return@remember allPatchesInfo
+
+        allPatchesInfo.mapNotNull { (bundle, patches) ->
+            val kept = onlySelected?.get(bundle.uid).orEmpty()
+            val filtered = patches.filter { (patch, _) ->
+                val matchesQuery = query == null ||
+                        patch.displayName.contains(query, ignoreCase = true) ||
+                        patch.description?.contains(query, ignoreCase = true) == true
+                matchesQuery && (onlySelected == null || patch.name in kept)
+            }
+            if (filtered.isEmpty()) null else bundle to filtered
+        }
+    }
+
+    // Both narrow the list far enough that a folded universal section would only hide results
+    val isFiltering = search.isFiltering || isSelectedOnly
+
+    val markers = remember(
+        newPatches,
+        patchesWithMissingRequired,
+        patchesWithCustomOptions,
+        prereleaseBundleUids,
+        retiredNotices.value
+    ) {
+        PatchMarkers(
+            newPatches = newPatches,
+            missingRequiredOptions = patchesWithMissingRequired,
+            customOptions = patchesWithCustomOptions,
+            prereleaseNotices = prereleaseBundleUids - retiredNotices.value
+        )
     }
 
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.expert_mode_title),
         titleTrailingContent = {
+            // The counter already stands for the selection, so it doubles as the way to filter
+            // the list down to it
+            val badgeTone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
+            val filterState = stringResource(
+                if (isSelectedOnly) {
+                    R.string.expert_mode_selected_only_on
+                } else {
+                    R.string.expert_mode_selected_only_off
+                }
+            )
             StatusBadge(
                 text = "$totalSelectedCount/$totalPatchesCount",
-                tone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
+                icon = if (isSelectedOnly) Icons.Outlined.FilterAlt else null,
+                tone = badgeTone,
+                // Filled rather than tonal while filtering, so the narrowed list has a visible cause
+                containerColor = if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container,
+                contentColor = if (isSelectedOnly) MaterialTheme.colorScheme.onPrimary else badgeTone.content,
+                // Still switchable off after the last patch is unticked under the filter
+                onClick = if (totalSelectedCount > 0 || isSelectedOnly) {
+                    { toggleSelectedOnly() }
+                } else {
+                    null
+                },
+                modifier = Modifier.semantics { stateDescription = filterState }
             )
 
             TitleAction(
@@ -161,6 +210,8 @@ fun ExpertModeDialog(
         scrollable = false
     ) {
         SearchFieldBackHandler(search)
+        // Back unwinds the filter before the dialog itself, the way the search field does
+        BackHandler(enabled = isSelectedOnly) { selectedOnly.value = null }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -203,8 +254,6 @@ fun ExpertModeDialog(
                 val (bundle, _) = allPatchesInfo.firstOrNull() ?: return@Column
                 val filteredPatches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
                 val displayPatches = filteredPatches ?: emptyList()
-                val enabledCount = displayPatches.count { it.second }
-                val totalCount = displayPatches.size
 
                 // Bundle name header
                 Row(
@@ -227,25 +276,14 @@ fun ExpertModeDialog(
                     )
                 }
 
-                val holdsUniversal = holdsUniversalPatches(bundle.uid, displayPatches)
-                // The second "Enable all" tap applies every universal patch at once; warn first
-                val warnsOnUniversalAll = !holdsUniversal &&
-                        displayPatches.hasEnablableUniversal(lockStateOf)
-                BundlePatchControls(
-                    enabledCount = enabledCount,
-                    totalCount = totalCount,
-                    holdsUniversalPatches = holdsUniversal,
-                    warnOnUniversalAll = warnsOnUniversalAll,
-                    onSelectAll = {
-                        // This tap enables the universal patches, so it has to show what it turned on
-                        if (!holdsUniversal) setUniversalExpanded(bundle.uid, true)
-                        patchActions.onSelectAll(bundle.uid, displayPatches)
-                    },
-                    onDeselectAll = { patchActions.onDeselectAll(bundle.uid, displayPatches) },
-                    onResetToDefault = { patchActions.onResetToDefault(bundle.uid) },
-                    onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
-                    onCopyFromBundle = { patchActions.onCopyFromBundle(bundle.uid) },
-                    hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true
+                BundleControls(
+                    bundle = bundle,
+                    patches = displayPatches,
+                    patchActions = patchActions,
+                    savedPatches = savedPatches,
+                    lockStateOf = lockStateOf,
+                    holdsUniversalPatches = holdsUniversalPatches,
+                    onExpandUniversal = { expandedUniversal.setExpanded(it, true) }
                 )
 
                 RetirePrereleaseNotice(
@@ -254,47 +292,26 @@ fun ExpertModeDialog(
                 )
 
                 if (filteredPatches == null) {
-                    // No search results for this bundle
-                    EmptyState(
-                        message = stringResource(R.string.expert_mode_no_results),
-                        icon = Icons.Outlined.SearchOff,
-                        modifier = Modifier.weight(1f)
-                    )
+                    PatchesListEmptyState(modifier = Modifier.weight(1f))
                 } else {
                     val singleBundleList = rememberLazyListState()
-                    val sections = rememberPatchSections(
-                        patches = filteredPatches,
-                        newPatchNames = newPatches[bundle.uid] ?: emptySet()
-                    )
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
                     ) {
-                        LazyColumn(
-                            state = singleBundleList,
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-                        ) {
-                            if (bundle.uid in prereleaseBundleUids && bundle.uid !in retiredNotices.value) {
-                                prereleaseNotice()
-                            }
-                            patchSections(
-                                bundleUid = bundle.uid,
-                                sections = sections,
-                                isSearching = search.query.isNotBlank(),
-                                isUniversalExpanded = bundle.uid in expandedUniversal.value,
-                                onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
-                                newPatchNames = newPatches[bundle.uid] ?: emptySet(),
-                                missingRequiredOptions = patchesWithMissingRequired[bundle.uid] ?: emptySet(),
-                                customOptions = patchesWithCustomOptions[bundle.uid] ?: emptySet(),
-                                lockStateOf = lockStateOf,
-                                onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
-                                onConfigureOptions = {
-                                    if (!it.options.isNullOrEmpty()) selectedPatchForOptions.value = bundle.uid to it
-                                }
-                            )
-                        }
+                        BundlePatchList(
+                            bundle = bundle,
+                            patches = filteredPatches,
+                            listState = singleBundleList,
+                            markers = markers,
+                            isFiltering = isFiltering,
+                            isUniversalExpanded = bundle.uid in expandedUniversal,
+                            onUniversalExpandedChange = { expandedUniversal.setExpanded(bundle.uid, it) },
+                            lockStateOf = lockStateOf,
+                            patchActions = patchActions,
+                            onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
+                        )
 
                         ListScrollbar(
                             listState = singleBundleList,
@@ -392,24 +409,14 @@ fun ExpertModeDialog(
                     )
 
                     if (currentFiltered != null) {
-                        val holdsUniversal = holdsUniversalPatches(currentBundle.uid, currentFiltered)
-                        val warnsOnUniversalAll = !holdsUniversal &&
-                                currentFiltered.hasEnablableUniversal(lockStateOf)
-                        BundlePatchControls(
-                            enabledCount = currentFiltered.count { it.second },
-                            totalCount = currentFiltered.size,
-                            holdsUniversalPatches = holdsUniversal,
-                            warnOnUniversalAll = warnsOnUniversalAll,
-                            onSelectAll = {
-                                // This tap enables the universal patches, so it has to show what it turned on
-                                if (!holdsUniversal) setUniversalExpanded(currentBundle.uid, true)
-                                patchActions.onSelectAll(currentBundle.uid, currentFiltered)
-                            },
-                            onDeselectAll = { patchActions.onDeselectAll(currentBundle.uid, currentFiltered) },
-                            onResetToDefault = { patchActions.onResetToDefault(currentBundle.uid) },
-                            onRestoreSaved = { patchActions.onRestoreSaved(currentBundle.uid) },
-                            onCopyFromBundle = { patchActions.onCopyFromBundle(currentBundle.uid) },
-                            hasSavedSelection = savedPatches[currentBundle.uid]?.isNotEmpty() == true,
+                        BundleControls(
+                            bundle = currentBundle,
+                            patches = currentFiltered,
+                            patchActions = patchActions,
+                            savedPatches = savedPatches,
+                            lockStateOf = lockStateOf,
+                            holdsUniversalPatches = holdsUniversalPatches,
+                            onExpandUniversal = { expandedUniversal.setExpanded(it, true) },
                             modifier = Modifier.padding(vertical = Defaults.ContentPaddingSmall)
                         )
                     } else {
@@ -431,41 +438,20 @@ fun ExpertModeDialog(
                             val patches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
 
                             if (patches == null) {
-                                // No search results for this bundle
-                                EmptyState(
-                                    message = stringResource(R.string.expert_mode_no_results),
-                                    icon = Icons.Outlined.SearchOff,
-                                    modifier = Modifier.fillMaxHeight()
-                                )
+                                PatchesListEmptyState(modifier = Modifier.fillMaxHeight())
                             } else {
-                                val sections = rememberPatchSections(
+                                BundlePatchList(
+                                    bundle = bundle,
                                     patches = patches,
-                                    newPatchNames = newPatches[bundle.uid] ?: emptySet()
+                                    listState = pageListStates[pageIndex],
+                                    markers = markers,
+                                    isFiltering = isFiltering,
+                                    isUniversalExpanded = bundle.uid in expandedUniversal,
+                                    onUniversalExpandedChange = { expandedUniversal.setExpanded(bundle.uid, it) },
+                                    lockStateOf = lockStateOf,
+                                    patchActions = patchActions,
+                                    onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
                                 )
-                                LazyColumn(
-                                    state = pageListStates[pageIndex],
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-                                ) {
-                                    if (bundle.uid in prereleaseBundleUids && bundle.uid !in retiredNotices.value) {
-                                        prereleaseNotice()
-                                    }
-                                    patchSections(
-                                        bundleUid = bundle.uid,
-                                        sections = sections,
-                                        isSearching = search.query.isNotBlank(),
-                                        isUniversalExpanded = bundle.uid in expandedUniversal.value,
-                                        onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
-                                        newPatchNames = newPatches[bundle.uid] ?: emptySet(),
-                                        missingRequiredOptions = patchesWithMissingRequired[bundle.uid] ?: emptySet(),
-                                        customOptions = patchesWithCustomOptions[bundle.uid] ?: emptySet(),
-                                        lockStateOf = lockStateOf,
-                                        onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
-                                        onConfigureOptions = {
-                                            if (!it.options.isNullOrEmpty()) selectedPatchForOptions.value = bundle.uid to it
-                                        }
-                                    )
-                                }
                             }
                         }
 
@@ -550,6 +536,18 @@ fun ExpertModeDialog(
 private data class PatchSections(
     val specific: List<Pair<PatchInfo, Boolean>>,
     val universal: List<Pair<PatchInfo, Boolean>>
+) {
+    /** Enabled universal patches, the ones a folded section would otherwise hide. */
+    val selectedUniversalCount = universal.count { (_, isEnabled) -> isEnabled }
+}
+
+/** Everything the rows of a bundle badge or warn about, all keyed by bundle uid. */
+@Immutable
+private data class PatchMarkers(
+    val newPatches: Map<Int, Set<String>>,
+    val missingRequiredOptions: Map<Int, Set<String>>,
+    val customOptions: Map<Int, Set<String>>,
+    val prereleaseNotices: Set<Int>
 )
 
 /**
@@ -620,45 +618,104 @@ private inline fun List<Pair<PatchBundleInfo.Scoped, List<Pair<PatchInfo, Boolea
 }.toMap()
 
 /**
- * Rows for one bundle: the patches written for this app first, then the universal ones behind a
- * collapsible header. Every row animates its own placement, so search results and the fold
- * settle instead of jumping.
- *
- * Availability is resolved per patch, so a universal patch the installer requires or rules out
- * carries the same lock as an app-specific one.
+ * Bulk-action row for one bundle, wired to the patches currently in view: what "enable all" and
+ * "disable all" reach is what the search and the filters left on screen.
  */
-private fun LazyListScope.patchSections(
-    bundleUid: Int,
-    sections: PatchSections,
-    isSearching: Boolean,
+@Composable
+private fun BundleControls(
+    bundle: PatchBundleInfo.Scoped,
+    patches: List<Pair<PatchInfo, Boolean>>,
+    patchActions: ExpertPatchActions,
+    savedPatches: PatchSelection,
+    lockStateOf: (PatchInfo) -> PatchLockState,
+    holdsUniversalPatches: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Boolean,
+    onExpandUniversal: (bundleUid: Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val holdsUniversal = holdsUniversalPatches(bundle.uid, patches)
+    val copySelection: (() -> Unit)? = patchActions.onCopyFromBundle?.let { copy ->
+        { copy(bundle.uid) }
+    }
+
+    BundlePatchControls(
+        enabledCount = patches.count { (_, isEnabled) -> isEnabled },
+        totalCount = patches.size,
+        holdsUniversalPatches = holdsUniversal,
+        // The second "Enable all" tap applies every universal patch at once; warn first
+        warnOnUniversalAll = !holdsUniversal && patches.hasEnablableUniversal(lockStateOf),
+        onSelectAll = {
+            // This tap enables the universal patches, so it has to show what it turned on
+            if (!holdsUniversal) onExpandUniversal(bundle.uid)
+            patchActions.onSelectAll(bundle.uid, patches)
+        },
+        onDeselectAll = { patchActions.onDeselectAll(bundle.uid, patches) },
+        onResetToDefault = { patchActions.onResetToDefault(bundle.uid) },
+        onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
+        onCopyFromBundle = copySelection,
+        hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true,
+        modifier = modifier
+    )
+}
+
+/**
+ * One bundle's scrolling list: its pre-release warning, the patches written for this app, then
+ * the universal ones behind a collapsible header. Every row animates its own placement, so
+ * search results and the fold settle instead of jumping.
+ *
+ * The scrollbar stays with the caller, since the tabbed layout draws a single overlay for the
+ * whole pager rather than one per page.
+ */
+@Composable
+private fun BundlePatchList(
+    bundle: PatchBundleInfo.Scoped,
+    patches: List<Pair<PatchInfo, Boolean>>,
+    listState: LazyListState,
+    markers: PatchMarkers,
+    isFiltering: Boolean,
     isUniversalExpanded: Boolean,
     onUniversalExpandedChange: (Boolean) -> Unit,
-    newPatchNames: Set<String>,
-    missingRequiredOptions: Set<String>,
-    customOptions: Set<String>,
     lockStateOf: (PatchInfo) -> PatchLockState,
-    onToggle: (String) -> Unit,
-    onConfigureOptions: (PatchInfo) -> Unit
-) = patchSectionRows(
-    sectionKey = bundleUid,
-    specific = sections.specific,
-    universal = sections.universal,
-    key = { (patch, _): Pair<PatchInfo, Boolean> -> "$bundleUid:${patch.name}" },
-    isSearching = isSearching,
-    isUniversalExpanded = isUniversalExpanded,
-    onUniversalExpandedChange = onUniversalExpandedChange
-) { (patch, isEnabled) ->
-    PatchCard(
-        patch = patch,
-        isEnabled = isEnabled,
-        isNew = patch.name in newPatchNames,
-        buildsClone = patch.renamesByDefault,
-        hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
-        hasCustomOptions = patch.name in customOptions,
-        lockState = lockStateOf(patch),
-        onToggle = { onToggle(patch.name) },
-        onConfigureOptions = { onConfigureOptions(patch) },
-        hasOptions = !patch.options.isNullOrEmpty(),
-        modifier = Modifier.animatedListItem(this)
-    )
+    patchActions: ExpertPatchActions,
+    onConfigureOptions: (PatchInfo) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val newPatchNames = markers.newPatches[bundle.uid].orEmpty()
+    val missingRequiredOptions = markers.missingRequiredOptions[bundle.uid].orEmpty()
+    val customOptions = markers.customOptions[bundle.uid].orEmpty()
+    val sections = rememberPatchSections(patches = patches, newPatchNames = newPatchNames)
+
+    LazyColumn(
+        state = listState,
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+    ) {
+        if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()
+
+        // Availability is resolved per patch, so a universal patch the installer requires or
+        // rules out carries the same lock as an app-specific one
+        patchSectionRows(
+            sectionKey = bundle.uid,
+            specific = sections.specific,
+            universal = sections.universal,
+            key = { (patch, _): Pair<PatchInfo, Boolean> -> "${bundle.uid}:${patch.name}" },
+            isFiltering = isFiltering,
+            isUniversalExpanded = isUniversalExpanded,
+            onUniversalExpandedChange = onUniversalExpandedChange,
+            universalSelectedCount = sections.selectedUniversalCount
+        ) { (patch, isEnabled) ->
+            PatchCard(
+                patch = patch,
+                isEnabled = isEnabled,
+                isNew = patch.name in newPatchNames,
+                buildsClone = patch.renamesByDefault,
+                hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
+                hasCustomOptions = patch.name in customOptions,
+                lockState = lockStateOf(patch),
+                onToggle = { patchActions.onPatchToggle(bundle.uid, patch.name) },
+                onConfigureOptions = { onConfigureOptions(patch) },
+                hasOptions = !patch.options.isNullOrEmpty(),
+                modifier = Modifier.animatedListItem(this)
+            )
+        }
+    }
 }

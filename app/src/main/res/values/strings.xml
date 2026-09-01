@@ -285,6 +285,8 @@ Anything you add from this website is used at your own risk"</string>
     <string name="expert_mode_copy_from_bundle">Copy selection from another bundle</string>
     <string name="expert_mode_copy_from_bundle_no_patches">No matching patches in this bundle</string>
     <string name="expert_mode_no_results">No patches found</string>
+    <string name="expert_mode_selected_only_on">Showing selected patches only</string>
+    <string name="expert_mode_selected_only_off">Showing all patches</string>
     <string name="expert_mode_universal_patches">Universal patches</string>
     <string name="expert_mode_new_patches">New</string>
     <string name="expert_mode_options_customized">Customized</string>

@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">แหล่งแพตช์บางแหล่งจำเป็นต้องใช้เวอร์ชันที่ใหม่กว่า</string>
     <string name="home_metered_skipped_title">การอัปเดตถูกหยุดเมื่อใช้ข้อมูลมือถือ</string>
     <string name="home_metered_skipped_subtitle">แตะเพื่ออนุญาตการอัปเดตผ่านข้อมูลมือถือ</string>
+    <string name="home_repatch_available_subtitle">แตะเพื่อจัดคิวทั้งหมด</string>
     <string name="home_update_error">การอัปเดตล้มเหลว</string>
     <string name="home_update_error_subtitle">เกิดข้อผิดพลาดขณะอัปเดตแหล่งที่มา</string>
     <string name="home_update_skipped_metered">การอัปเดตถูกข้าม</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">เรียงตามลำดับตัวอักษรย้อนกลับ Z ถึง A</string>
     <string name="home_app_sort_updates_first">อัปเดตแพตช์ก่อน</string>
     <string name="home_app_sort_updates_first_description">แอปที่มีแบตจ์อัปเดตก่อน จากนั้นตามลำดับที่แนะนำ</string>
+    <string name="home_app_sort_recently_patched">เพิ่งแพตช์ล่าสุด</string>
+    <string name="home_app_sort_recently_patched_description">แอปที่เพิ่งแพตช์ล่าสุดแสดงก่อน</string>
     <string name="home_no_apps_title">ไม่มีแอปที่ใช้ได้</string>
     <string name="home_no_apps_subtitle">เพิ่มแหล่งที่มาของแพตช์หรือเปิดใช้งานแหล่งที่มาที่มีอยู่แล้วใน %s</string>
     <string name="home_no_apps_search_subtitle">ไม่พบแอปที่ตรงกับ \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">เปิดใช้งานก่อน</string>
     <string name="sources_sort_enabled_first_description">แสดงแหล่งที่มาที่ใช้งานอยู่ก่อนแหล่งที่มาที่ปิดใช้งาน</string>
     <string name="sources_management_open_in_browser">เปิดในเบราว์เซอร์</string>
+    <string name="sources_management_report_issue">รายงานปัญหา</string>
     <string name="sources_management_failed_to_open_url">ไม่สามารถเปิด URL ได้</string>
     <string name="sources_management_prerelease_toggle">แพตช์ก่อนเปิดตัว</string>
     <string name="sources_management_prerelease_toggle_description">รับสิทธิ์เข้าถึงแพทช์ใหม่เวอร์ชันทดลองแต่เนิ่นๆ</string>
+    <string name="sources_prerelease_warning_title">เปิดใช้แพตช์ก่อนเผยแพร่หรือไม่?</string>
+    <string name="sources_prerelease_warning_message">บิลด์ก่อนเผยแพร่ยังอยู่ระหว่างการพัฒนา แพตช์อาจล้มเหลวหรือทำให้แอปเสียหาย และฟีเจอร์อาจเปลี่ยนแปลงได้โดยไม่มีการแจ้งเตือน</string>
+    <string name="expert_mode_prerelease_notice">แหล่งที่มานี้อยู่ในแพตช์ก่อนเผยแพร่ การแพตช์อาจล้มเหลวหรือทำงานผิดปกติ</string>
     <string name="sources_management_experimental_versions_toggle">ใช้แอปเวอร์ชันทดลอง</string>
     <string name="sources_management_experimental_versions_toggle_description">แพตช์แอปเวอร์ชันทดลองของเป้าหมาย ถ้ามี</string>
     <string name="sources_management_already_exists">แหล่งที่มานี้ได้ถูกเพิ่มไปแล้ว</string>
@@ -162,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL ต้องชี้ไปยัง GitHub/GitLab repo หรือไฟล์ .json</string>
     <string name="sources_dialog_local_change_file">เปลี่ยนไฟล์</string>
     <string name="sources_dialog_preinstalled">ติดตั้งล่วงหน้าแล้ว</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">อัปเดตเสร็จสมบูรณ์</string>
     <string name="sources_update_unavailable">ยังไม่มีการอัปเดต</string>
     <string name="sources_download_fail">ไม่สามารถดาวน์โหลดแหล่งที่มาได้: %s</string>
@@ -192,6 +200,7 @@
     <string name="home_apk_helper_installed_incompatible">ไม่สามารถแพตช์เวอร์ชันที่ติดตั้งอยู่ได้</string>
     <string name="home_apk_use_saved">ใช้ APK ที่บันทึกไว้</string>
     <string name="home_apk_use_installed">ใช้ APK ที่ติดตั้งไว้</string>
+    <string name="home_apk_use_saved_unsupported">แพตช์ไม่รองรับไฟล์ที่บันทึกไว้นี้ การติดตั้งแพตช์จะขอให้คุณยืนยัน หรือเลือกไฟล์ APK อื่น</string>
     <string name="home_apk_use_installed_unverified">ไม่สามารถตรวจสอบลายเซ็นของแอปที่ติดตั้งได้ ดังนั้นจึงอาจได้รับการแพตช์แล้ว</string>
     <string name="home_unverified">ไม่ได้รับการยืนยัน</string>
     <string name="home_install_verification_pending">กำลังตรวจสอบการติดตั้ง…</string>
@@ -251,6 +260,8 @@
     <string name="expert_mode_enable_all">เปิดการใช้งานทั้งหมด</string>
     <string name="expert_mode_enable_all_done">เปิดใช้งานแพตช์ทั้งหมดแล้ว</string>
     <string name="expert_mode_enable_all_universal_pending">แตะอีกครั้งสำหรับแพตช์สากล</string>
+    <string name="expert_mode_universal_all_warning_title">เปิดใช้แพตช์สากลทั้งหมดหรือไม่?</string>
+    <string name="expert_mode_universal_all_warning_message">แพตช์สากลไม่ได้ทดสอบร่วมกัน การเปิดใช้ทั้งหมดพร้อมกันอาจทำให้เกิดความขัดแย้ง การแพตช์ล้มเหลว หรือการขัดข้อง</string>
     <string name="expert_mode_reset_to_default">เปิดใช้งานแพตช์ที่แนะนำ</string>
     <string name="expert_mode_reset_to_default_done">ใช้แพตช์ที่แนะนำแล้ว</string>
     <string name="expert_mode_restore_saved">คืนการเลือกที่บันทึกไว้</string>
@@ -655,8 +666,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">อัปเดต</string>
     <string name="settings_advanced_patcher">ตัวแพตช์</string>
-    <string name="settings_advanced_updates_use_prereleases">อัปเดตแบบพรีรีลีส</string>
-    <string name="settings_advanced_updates_use_prereleases_description">เข้าถึงแอป Morphe เวอร์ชันใหม่ก่อนใคร เปิดใช้งานพรีรีลีสตามแหล่งที่มาในแหล่งแพตช์</string>
+    <string name="settings_advanced_updates_manager_prereleases">การอัปเดตก่อนเผยแพร่</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">การเข้าถึง Morphe เวอร์ชันใหม่ก่อนเผยแพร่</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">เปิดใช้การอัปเดตก่อนเผยแพร่หรือไม่?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"เวอร์ชันก่อนเผยแพร่ของ Morphe ยังอยู่ในระหว่างการพัฒนาและอาจไม่เสถียร
+
+แพตช์ไม่ได้รับผลกระทบ: เปิดใช้งานแพตช์ก่อนเผยแพร่สำหรับแต่ละแหล่งที่มาในรายการแหล่งที่มาของแพตช์"</string>
     <string name="settings_advanced_updates_allow_metered">อัปเดตข้อมูลมือถือ</string>
     <string name="settings_advanced_updates_allow_metered_description">อนุญาตให้ Morphe และการอัปเดตแพตช์ดาวน์โหลดผ่านข้อมูลมือถือได้</string>
     <string name="settings_advanced_updates_background_notifications">การแจ้งเตือนอัปเดตพื้นหลัง</string>
@@ -670,14 +687,6 @@
     <string name="settings_advanced_update_interval_monthly">ทุกเดือน</string>
     <string name="settings_advanced_update_interval_chip_subtitle">ความถี่การตรวจสอบพื้นหลัง</string>
     <string name="settings_advanced_update_interval_battery_warning">การตรวจสอบพื้นหลังอาจไม่ทำงานได้อย่างมั่นคงบนบางอุปกรณ์. ผู้ผลิตเช่น Xiaomi, Huawei, Samsung, และ OnePlus บ่อยครั้งจำกัดขั้นตอนการทำงานพื้นหลังอย่างเข้มงวดเพื่อประหยัดแบตเตอรี่</string>
-    <string name="settings_advanced_auto_patch">การแพตช์ซ้ำอัตโนมัติ</string>
-    <string name="settings_advanced_auto_patch_description">แพตช์แอปที่ติดตั้งใหม่ในเบื้องหลังเมื่อแพตช์มีการเปลี่ยนแปลง เฉพาะแอปที่มี APK ต้นฉบับที่บันทึกไว้เท่านั้นที่ครอบคลุม</string>
-    <string name="settings_advanced_auto_patch_interval">ความถี่ในการแพตช์ซ้ำ</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">แอปที่แพตช์จะถูกสร้างใหม่บ่อยแค่ไหน</string>
-    <string name="settings_advanced_auto_patch_charging">เฉพาะขณะชาร์จ</string>
-    <string name="settings_advanced_auto_patch_charging_description">การแพตช์ใช้ CPU และหน่วยความจำอย่างมาก จึงรอที่ชาร์จ</string>
-    <string name="settings_advanced_auto_patch_install">ติดตั้งโดยอัตโนมัติ</string>
-    <string name="settings_advanced_auto_patch_install_description">ต้องใช้ Shizuku เป็นตัวติดตั้ง หากใช้ตัวติดตั้งอื่น แอปที่แพตช์จะถูกบันทึกไว้เท่านั้น</string>
     <string name="settings_advanced_external_batch_patch">อนุญาตให้ทริกเกอร์ภายนอก</string>
     <string name="settings_advanced_external_batch_patch_description">ให้แอปอัตโนมัติเริ่มแพตช์กลุ่มด้วยความตั้งใจ การร้องขอทุกครั้งจะได้รับการยืนยันก่อนดำเนินการ</string>
     <string name="external_batch_patch_title">เริ่มแพตช์กลุ่ม?</string>
@@ -685,13 +694,6 @@
     <string name="external_batch_patch_trust_caller">อนุญาตแอปนี้เสมอ</string>
     <string name="external_batch_patch_unknown_caller">แอปที่ไม่รู้จัก</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">การแพตช์ซ้ำอัตโนมัติเสร็จสิ้น</string>
-    <string name="notification_auto_patch_running_title">กำลังแพตช์แอปซ้ำ</string>
-    <string name="notification_auto_patch_blocked_title">การแพตช์ซ้ำอัตโนมัติไม่ทำงาน</string>
-    <string name="notification_auto_patch_blocked_battery">ระบบบล็อกการติดตั้งนี้ ใน Xiaomi และอุปกรณ์ที่คล้ายกัน เปิด \"ติดตั้งผ่าน USB\" ในตัวเลือกสำหรับนักพัฒนา ในโปรไฟล์งาน การติดตั้งอาจถูกจำกัดโดยนโยบาย</string>
-    <string name="notification_auto_patch_blocked_foreground">Android ไม่อนุญาตให้เริ่มการแพตช์ในพื้นหลัง เปิด Morphe และแพตช์จากแอป</string>
-    <string name="notification_channel_auto_patch">การแพตช์ซ้ำอัตโนมัติ</string>
-    <string name="notification_channel_auto_patch_description">การแจ้งเตือนความคืบหน้าและผลลัพธ์ที่เงียบสำหรับ การแพตช์ซ้ำตามกำหนดเวลา</string>
     <string name="notification_manager_update_title">มีการอัปเดต Morphe แล้ว</string>
     <string name="notification_bundle_update_title">มีแพ็คเกจใหม่ให้ใช้งาน</string>
     <string name="notification_update_text">พร้อมดาวน์โหลดเวอร์ชัน %s แล้ว</string>
@@ -1176,6 +1178,7 @@ morphe_header_custom_dark.png
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">ดาวน์โหลดแล้ว %1$.1f MB</string>
     <string name="manager_update_not_ready">รุ่นนี้ยังอยู่ในระหว่างการเผยแพร่ ลองอีกครั้งในไม่กี่นาที</string>
+    <string name="update_download_missing">อัปเดตที่ดาวน์โหลดมาไม่พร้อมใช้งานอีกต่อไป ดาวน์โหลดอีกครั้ง</string>
     <string name="download_manager_failed">ไม่สามารถดาวน์โหลดอัปเดตได้: %s</string>
     <string name="failed_to_check_updates">ไม่สามารถตรวจสอบการอัปเดตได้: %s</string>
     <string name="failed_to_download_update">ไม่สามารถดาวน์โหลดอัปเดตได้: %s</string>

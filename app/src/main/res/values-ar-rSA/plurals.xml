@@ -88,13 +88,13 @@
         <item quantity="many">%s تطبيق جاهز للتعديل</item>
         <item quantity="other">%s تطبيق جاهز للتعديل</item>
     </plurals>
-    <plurals name="batch_patch_notification_ready">
-        <item quantity="zero">%s تطبيق جاهز للتثبيت</item>
-        <item quantity="one">%s تطبيق جاهز للتثبيت</item>
-        <item quantity="two">%s تطبيق جاهز للتثبيت</item>
-        <item quantity="few">%s تطبيق جاهز للتثبيت</item>
-        <item quantity="many">%s تطبيق جاهز للتثبيت</item>
-        <item quantity="other">%s تطبيق جاهز للتثبيت</item>
+    <plurals name="repatch_available_count">
+        <item quantity="zero">%s تطبيق يمكن إعادة تعديله</item>
+        <item quantity="one">%s تطبيق يمكن إعادة تعديله</item>
+        <item quantity="two">%s تطبيق يمكن إعادة تعديله</item>
+        <item quantity="few">%s تطبيق يمكن إعادة تعديله</item>
+        <item quantity="many">%s تطبيقات يمكن إعادة تعديلها</item>
+        <item quantity="other">%s تطبيق يمكن إعادة تعديله</item>
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="zero">تم تخطي %s تطبيق</item>

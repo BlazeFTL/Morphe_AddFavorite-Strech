@@ -111,6 +111,7 @@
     <string name="sources_dialog_url_invalid">URL mestilah menghala ke repositori GitHub/GitLab atau fail .json</string>
     <string name="sources_dialog_local_change_file">Tukar fail</string>
     <string name="sources_dialog_preinstalled">Prapasang</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Kemas kini berjaya</string>
     <string name="sources_update_unavailable">Tiada kemas kini tersedia</string>
     <string name="sources_download_fail">Gagal untuk memuat turun sumber: %s</string>
@@ -433,6 +434,8 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Kemas kini</string>
     <string name="settings_advanced_patcher">Penampal</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_background_notifications">Pemberitahuan kemas kini latar belakang</string>
     <string name="settings_advanced_updates_background_notifications_description">Semak kemas kini secara berkala di latar belakang dan beritahu apabila tersedia</string>
     <string name="settings_advanced_update_interval">Semak kekerapan</string>

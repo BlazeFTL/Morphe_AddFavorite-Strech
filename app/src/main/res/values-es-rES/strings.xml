@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Algunas fuentes de parches necesitan una versión más reciente</string>
     <string name="home_metered_skipped_title">Actualizaciones pausadas con datos móviles</string>
     <string name="home_metered_skipped_subtitle">Pulsa para permitir actualizaciones con datos móviles</string>
+    <string name="home_repatch_available_subtitle">Pulsa para ponerlas todas en cola</string>
     <string name="home_update_error">La actualización falló</string>
     <string name="home_update_error_subtitle">Algo salió mal al actualizar las fuentes</string>
     <string name="home_update_skipped_metered">Actualizaciones omitidas</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Alfabético inverso, de la Z a la A</string>
     <string name="home_app_sort_updates_first">Actualizaciones de parches primero</string>
     <string name="home_app_sort_updates_first_description">Aplicaciones pendientes de actualizar primero, luego en orden recomendado</string>
+    <string name="home_app_sort_recently_patched">Recientemente parcheadas</string>
+    <string name="home_app_sort_recently_patched_description">Primero las aplicaciones parcheadas más recientemente</string>
     <string name="home_no_apps_title">No hay aplicaciones disponibles</string>
     <string name="home_no_apps_subtitle">Añadir una fuente de parches o habilitar una existente en %s</string>
     <string name="home_no_apps_search_subtitle">No hay aplicaciones que coincidan con \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">Activadas primero</string>
     <string name="sources_sort_enabled_first_description">Muestra las fuentes activas antes que las desactivadas</string>
     <string name="sources_management_open_in_browser">Abrir en el navegador</string>
+    <string name="sources_management_report_issue">Informar de un problema</string>
     <string name="sources_management_failed_to_open_url">No se pudo abrir la URL</string>
     <string name="sources_management_prerelease_toggle">Parches pre-lanzamiento</string>
     <string name="sources_management_prerelease_toggle_description">Recibe acceso anticipado a nuevas versiones experimentales de parches</string>
+    <string name="sources_prerelease_warning_title">¿Activar parches pre-lanzamiento?</string>
+    <string name="sources_prerelease_warning_message">Las compilaciones pre-lanzamiento aún están en desarrollo. Los parches pueden fallar o romper la aplicación, y las funciones pueden cambiar sin previo aviso</string>
+    <string name="expert_mode_prerelease_notice">Esta fuente utiliza parches pre-lanzamiento. El parcheo puede fallar o comportarse de forma inesperada</string>
     <string name="sources_management_experimental_versions_toggle">Versiones experimentales de la aplicación</string>
     <string name="sources_management_experimental_versions_toggle_description">Parchea las versiones experimentales de la aplicación, si están disponibles</string>
     <string name="sources_management_already_exists">Esta fuente ya ha sido añadida</string>
@@ -162,6 +169,12 @@
     <string name="sources_dialog_url_invalid">La URL debe apuntar a un repositorio de GitHub/GitLab o a un archivo .json</string>
     <string name="sources_dialog_local_change_file">Cambiar archivo</string>
     <string name="sources_dialog_preinstalled">Preinstalado</string>
+    <string name="sources_dialog_community">Parches de la comunidad</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Fuentes de parches de terceros</string>
+    <string name="sources_dialog_community_notice_message">"Las fuentes de parches de la comunidad son creadas y mantenidas por sus propios autores. Morphe no revisa ni verifica los parches de terceros, y no se responsabiliza de su contenido ni de lo que hagan en tu dispositivo.
+
+Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad"</string>
     <string name="sources_update_success">Actualización exitosa</string>
     <string name="sources_update_unavailable">No hay actualización disponible</string>
     <string name="sources_download_fail">No se pudieron descargar las fuentes: %s</string>
@@ -192,6 +205,7 @@
     <string name="home_apk_helper_installed_incompatible">La versión instalada no se puede parchear</string>
     <string name="home_apk_use_saved">Usar APK guardado</string>
     <string name="home_apk_use_installed">Usar APK instalado</string>
+    <string name="home_apk_use_saved_unsupported">Los parches no son compatibles con esta copia guardada. Al parchearla, se te pedirá confirmación o que elijas otro APK</string>
     <string name="home_apk_use_installed_unverified">No se pudo verificar la firma de la aplicación instalada, por lo que es posible que ya esté parcheada</string>
     <string name="home_unverified">No verificado</string>
     <string name="home_install_verification_pending">Comprobando instalación…</string>
@@ -251,6 +265,8 @@
     <string name="expert_mode_enable_all">Activar todo</string>
     <string name="expert_mode_enable_all_done">Todos los parches activados</string>
     <string name="expert_mode_enable_all_universal_pending">Pulsa de nuevo para ver parches universales</string>
+    <string name="expert_mode_universal_all_warning_title">¿Activar todos los parches universales?</string>
+    <string name="expert_mode_universal_all_warning_message">Los parches universales no se prueban en conjunto. Activarlos todos a la vez puede provocar conflictos, fallos en el parcheo o cierres inesperados</string>
     <string name="expert_mode_reset_to_default">Activar parches recomendados</string>
     <string name="expert_mode_reset_to_default_done">Parches recomendados aplicados</string>
     <string name="expert_mode_restore_saved">Restaurar selección guardada</string>
@@ -655,8 +671,14 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Actualizaciones</string>
     <string name="settings_advanced_patcher">Parcheador</string>
-    <string name="settings_advanced_updates_use_prereleases">Actualizaciones pre-lanzamiento</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Acceso anticipado a las nuevas versiones de la aplicación Morphe. Activa las versiones pre-lanzamiento en cada fuente de parches</string>
+    <string name="settings_advanced_updates_manager_prereleases">Actualizaciones pre-lanzamiento</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Acceso anticipado a nuevas versiones de Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">¿Activar actualizaciones pre-lanzamiento?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Las versiones preliminares de Morphe todavía están en desarrollo y pueden ser inestables.
+
+Los parches no se ven afectados: habilite los parches preliminares para cada fuente en la lista de fuentes de parches"</string>
     <string name="settings_advanced_updates_allow_metered">Actualizaciones con datos móviles</string>
     <string name="settings_advanced_updates_allow_metered_description">Permite que Morphe y las actualizaciones de los parches se descarguen a través de datos móviles</string>
     <string name="settings_advanced_updates_background_notifications">Notificaciones de actualización en segundo plano</string>
@@ -670,14 +692,6 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_advanced_update_interval_monthly">Una vez al mes</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Frecuencia de comprobación en segundo plano</string>
     <string name="settings_advanced_update_interval_battery_warning">Las comprobaciones en segundo plano pueden no funcionar de forma fiable en algunos dispositivos. Fabricantes como Xiaomi, Huawei, Samsung u OnePlus, a menudo restringen agresivamente los procesos en segundo plano para ahorrar batería</string>
-    <string name="settings_advanced_auto_patch">Reparcheo automático</string>
-    <string name="settings_advanced_auto_patch_description">Reparchea las aplicaciones instaladas en segundo plano cuando cambian sus parches. Solo se incluyen las aplicaciones con un APK original guardado</string>
-    <string name="settings_advanced_auto_patch_interval">Frecuencia de reparcheo</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Con qué frecuencia se reconstruyen las aplicaciones parcheadas</string>
-    <string name="settings_advanced_auto_patch_charging">Solo mientras se está cargando</string>
-    <string name="settings_advanced_auto_patch_charging_description">Parchear consume mucha CPU y memoria, por lo que espera a que haya un cargador</string>
-    <string name="settings_advanced_auto_patch_install">Instalar automáticamente</string>
-    <string name="settings_advanced_auto_patch_install_description">Requiere Shizuku como instalador. Con cualquier otro instalador, las aplicaciones parcheadas solo se guardarán</string>
     <string name="settings_advanced_external_batch_patch">Permitir activadores externos</string>
     <string name="settings_advanced_external_batch_patch_description">Permite que las aplicaciones de automatización inicien el parcheo por lotes mediante un intent. Todas las solicitudes se confirman antes de ejecutar cualquier acción</string>
     <string name="external_batch_patch_title">¿Iniciar el parcheo por lotes?</string>
@@ -685,13 +699,6 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="external_batch_patch_trust_caller">Permitir siempre esta aplicación</string>
     <string name="external_batch_patch_unknown_caller">Una aplicación desconocida</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Se ha completado el parcheo automático</string>
-    <string name="notification_auto_patch_running_title">Reparcheando aplicaciones</string>
-    <string name="notification_auto_patch_blocked_title">El reparcheo automático no se ha ejecutado</string>
-    <string name="notification_auto_patch_blocked_battery">Excluye a Morphe de la optimización de batería; de lo contrario, Android detendrá el proceso antes de iniciarlo</string>
-    <string name="notification_auto_patch_blocked_foreground">Android no permitió iniciar el parcheo en segundo plano. Abre Morphe y realiza el parcheo desde la aplicación</string>
-    <string name="notification_channel_auto_patch">Reparcheo automático</string>
-    <string name="notification_channel_auto_patch_description">Notificaciones silenciosas de progreso y resultado para el reparcheo programado</string>
     <string name="notification_manager_update_title">Actualización de Morphe disponible</string>
     <string name="notification_bundle_update_title">Nuevos parches disponibles</string>
     <string name="notification_update_text">La versión %s está lista para descargarse</string>
@@ -1050,7 +1057,7 @@ Detalles: %2$s"</string>
     <string name="easter_egg_pill_blue_toast">Los anuncios te estarán esperando</string>
     <string name="easter_egg_pill_message_again">Ya estás en la Matrix. La pastilla roja te deja caer de nuevo bajo la lluvia, la azul te despierta</string>
     <string name="easter_egg_pill_red_toast_again">De nuevo bajo la lluvia</string>
-    <string name="easter_egg_pill_blue_toast_again">Desconectado. El camino de regreso está donde siempre estuvo</string>
+    <string name="easter_egg_pill_blue_toast_again">Desconectado. El camino de regreso sigue donde estaba</string>
     <!-- Shared strings -->
     <string name="select_file">Seleccionar archivo</string>
     <string name="select_folder">Seleccionar carpeta</string>
@@ -1176,6 +1183,7 @@ Detalles: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB descargados</string>
     <string name="manager_update_not_ready">Esta versión aún se está publicando. Vuelve a intentarlo en unos minutos</string>
+    <string name="update_download_missing">La actualización descargada ya no está disponible. Descárgala de nuevo</string>
     <string name="download_manager_failed">Error al descargar la actualización: %s</string>
     <string name="failed_to_check_updates">Error al buscar actualizaciones: %s</string>
     <string name="failed_to_download_update">Error al descargar la actualización: %s</string>

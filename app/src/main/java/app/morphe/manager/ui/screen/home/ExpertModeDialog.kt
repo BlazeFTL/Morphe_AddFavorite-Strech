@@ -15,6 +15,7 @@ import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Source
+import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
@@ -38,8 +39,13 @@ import app.morphe.manager.ui.model.renamesByDefault
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
+import app.morphe.manager.util.PatchSelectionUtils.hasCustomizedOptions
+import app.morphe.manager.util.PatchSelectionUtils.hasEnablableUniversal
+import app.morphe.manager.util.PatchSelectionUtils.hasMissingRequiredOptions
 import app.morphe.manager.util.toast
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 /** Callbacks the expert-mode dialog invokes on the underlying patch selection. */
 @Stable
@@ -74,6 +80,8 @@ fun ExpertModeDialog(
     proceedText: String = stringResource(R.string.expert_mode_proceed),
     /** Off where mixing sources is the norm rather than something the user just did. */
     warnOnMultipleBundles: Boolean = true,
+    /** Bundle uids currently receiving pre-release patch versions, shown as a warning header. */
+    prereleaseBundleUids: Set<Int> = emptySet(),
     onDismiss: () -> Unit,
     onProceed: () -> Unit
 ) {
@@ -82,28 +90,17 @@ fun ExpertModeDialog(
     val showMultipleSourcesWarning = remember { mutableStateOf(false) }
     val context = LocalContext.current
 
-    // Compute set of enabled patch names that have at least one required option
-    // with no default (default == null) and no user-provided non-blank value.
-    // Recomputed whenever the selected patches or options change.
-    val patchesWithMissingRequired: Set<String> = remember(allPatchesInfo, options) {
-        buildSet {
-            allPatchesInfo.forEach { (bundle, patches) ->
-                patches.forEach { (patch, isEnabled) ->
-                    if (!isEnabled) return@forEach
-                    val patchValues = options[bundle.uid]?.get(patch.name)
-                    val hasMissing = patch.options?.any { option ->
-                        if (!option.required) return@any false
-                        val savedValue = patchValues?.get(option.key)
-                        val effectiveValue = savedValue ?: option.default
-                        // Treat blank as missing only when the developer's own default is non-blank
-                        effectiveValue == null || (
-                            effectiveValue is String && effectiveValue.isBlank() &&
-                            !(option.default is String && option.default.isBlank())
-                        )
-                    } == true
-                    if (hasMissing) add(patch.name)
-                }
-            }
+    // Both markers are keyed by bundle, since the same patch name can come from several sources
+    // with values of its own. Recomputed whenever the selected patches or options change
+    val patchesWithMissingRequired: Map<Int, Set<String>> = remember(allPatchesInfo, options) {
+        allPatchesInfo.patchNamesWhere { bundle, patch, isEnabled ->
+            isEnabled && patch.hasMissingRequiredOptions(options[bundle.uid]?.get(patch.name))
+        }
+    }
+
+    val patchesWithCustomOptions: Map<Int, Set<String>> = remember(allPatchesInfo, options) {
+        allPatchesInfo.patchNamesWhere { bundle, patch, _ ->
+            patch.hasCustomizedOptions(options[bundle.uid]?.get(patch.name))
         }
     }
 
@@ -116,6 +113,14 @@ fun ExpertModeDialog(
         } else {
             expandedUniversal.value - bundleUid
         }
+    }
+
+    // The pre-release warning is worth a glance, not a permanent strip on top of the list. It
+    // retires per source, so a source the user has not opened yet still gets its turn, and the
+    // state lives for this dialog only: the next open warns again
+    val retiredNotices = remember { mutableStateOf(emptySet<Int>()) }
+    fun retireNotice(bundleUid: Int) {
+        retiredNotices.value += bundleUid
     }
 
     // Filter patches based on search query
@@ -223,10 +228,14 @@ fun ExpertModeDialog(
                 }
 
                 val holdsUniversal = holdsUniversalPatches(bundle.uid, displayPatches)
+                // The second "Enable all" tap applies every universal patch at once; warn first
+                val warnsOnUniversalAll = !holdsUniversal &&
+                        displayPatches.hasEnablableUniversal(lockStateOf)
                 BundlePatchControls(
                     enabledCount = enabledCount,
                     totalCount = totalCount,
                     holdsUniversalPatches = holdsUniversal,
+                    warnOnUniversalAll = warnsOnUniversalAll,
                     onSelectAll = {
                         // This tap enables the universal patches, so it has to show what it turned on
                         if (!holdsUniversal) setUniversalExpanded(bundle.uid, true)
@@ -237,6 +246,11 @@ fun ExpertModeDialog(
                     onRestoreSaved = { patchActions.onRestoreSaved(bundle.uid) },
                     onCopyFromBundle = { patchActions.onCopyFromBundle(bundle.uid) },
                     hasSavedSelection = savedPatches[bundle.uid]?.isNotEmpty() == true
+                )
+
+                RetirePrereleaseNotice(
+                    bundleUid = bundle.uid.takeIf { it in prereleaseBundleUids },
+                    onRetire = { retireNotice(it) }
                 )
 
                 if (filteredPatches == null) {
@@ -262,6 +276,9 @@ fun ExpertModeDialog(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                         ) {
+                            if (bundle.uid in prereleaseBundleUids && bundle.uid !in retiredNotices.value) {
+                                prereleaseNotice()
+                            }
                             patchSections(
                                 bundleUid = bundle.uid,
                                 sections = sections,
@@ -269,7 +286,8 @@ fun ExpertModeDialog(
                                 isUniversalExpanded = bundle.uid in expandedUniversal.value,
                                 onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
                                 newPatchNames = newPatches[bundle.uid] ?: emptySet(),
-                                missingRequiredOptions = patchesWithMissingRequired,
+                                missingRequiredOptions = patchesWithMissingRequired[bundle.uid] ?: emptySet(),
+                                customOptions = patchesWithCustomOptions[bundle.uid] ?: emptySet(),
                                 lockStateOf = lockStateOf,
                                 onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
                                 onConfigureOptions = {
@@ -368,12 +386,20 @@ fun ExpertModeDialog(
                     val (currentBundle, _) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
                     val currentFiltered = filteredPatchesInfo.firstOrNull { it.first.uid == currentBundle.uid }?.second
 
+                    RetirePrereleaseNotice(
+                        bundleUid = currentBundle.uid.takeIf { it in prereleaseBundleUids },
+                        onRetire = { retireNotice(it) }
+                    )
+
                     if (currentFiltered != null) {
                         val holdsUniversal = holdsUniversalPatches(currentBundle.uid, currentFiltered)
+                        val warnsOnUniversalAll = !holdsUniversal &&
+                                currentFiltered.hasEnablableUniversal(lockStateOf)
                         BundlePatchControls(
                             enabledCount = currentFiltered.count { it.second },
                             totalCount = currentFiltered.size,
                             holdsUniversalPatches = holdsUniversal,
+                            warnOnUniversalAll = warnsOnUniversalAll,
                             onSelectAll = {
                                 // This tap enables the universal patches, so it has to show what it turned on
                                 if (!holdsUniversal) setUniversalExpanded(currentBundle.uid, true)
@@ -421,6 +447,9 @@ fun ExpertModeDialog(
                                     modifier = Modifier.fillMaxSize(),
                                     verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                                 ) {
+                                    if (bundle.uid in prereleaseBundleUids && bundle.uid !in retiredNotices.value) {
+                                        prereleaseNotice()
+                                    }
                                     patchSections(
                                         bundleUid = bundle.uid,
                                         sections = sections,
@@ -428,7 +457,8 @@ fun ExpertModeDialog(
                                         isUniversalExpanded = bundle.uid in expandedUniversal.value,
                                         onUniversalExpandedChange = { setUniversalExpanded(bundle.uid, it) },
                                         newPatchNames = newPatches[bundle.uid] ?: emptySet(),
-                                        missingRequiredOptions = patchesWithMissingRequired,
+                                        missingRequiredOptions = patchesWithMissingRequired[bundle.uid] ?: emptySet(),
+                                        customOptions = patchesWithCustomOptions[bundle.uid] ?: emptySet(),
                                         lockStateOf = lockStateOf,
                                         onToggle = { patchActions.onPatchToggle(bundle.uid, it) },
                                         onConfigureOptions = {
@@ -506,7 +536,7 @@ fun ExpertModeDialog(
             },
             onDismiss = {
                 // Show a toast if the patch still has unfilled required options
-                if (patch.name in patchesWithMissingRequired) {
+                if (patch.name in patchesWithMissingRequired[bundleUid].orEmpty()) {
                     context.toast(missingOptionsMessage)
                 }
                 selectedPatchForOptions.value = null
@@ -542,6 +572,53 @@ private fun rememberPatchSections(
     )
 }
 
+/** How long a pre-release warning holds its place, long enough to read it once. */
+private val PrereleaseNoticeDuration = 8.seconds
+
+/**
+ * Retires the pre-release warning of [bundleUid] once it has had its seconds on screen. Null while
+ * the source in view carries no warning, and keyed on the bundle, so switching tabs hands the
+ * countdown to whichever source the user just opened rather than expiring one never seen.
+ */
+@Composable
+private fun RetirePrereleaseNotice(bundleUid: Int?, onRetire: (Int) -> Unit) {
+    LaunchedEffect(bundleUid) {
+        if (bundleUid == null) return@LaunchedEffect
+        delay(PrereleaseNoticeDuration)
+        onRetire(bundleUid)
+    }
+}
+
+/**
+ * Warning header for a source on the dev branch. It scrolls with the patches it belongs to
+ * rather than holding a fixed strip, which also keeps the tabs from shifting as pages change.
+ *
+ * It animates its own placement like the rows below it, so the list closes the gap when the
+ * warning retires instead of snapping shut.
+ */
+private fun LazyListScope.prereleaseNotice() = item(key = "prerelease-notice") {
+    Notice(
+        text = stringResource(R.string.expert_mode_prerelease_notice),
+        modifier = Modifier.animatedListItem(this),
+        icon = Icons.Outlined.WarningAmber,
+        tone = SemanticTone.Warning,
+        density = NoticeDensity.Compact
+    )
+}
+
+/**
+ * Per-bundle patch names matching [predicate]. Bundles that match nothing are left out, so an
+ * absent uid and an empty set mean the same thing to the caller.
+ */
+private inline fun List<Pair<PatchBundleInfo.Scoped, List<Pair<PatchInfo, Boolean>>>>.patchNamesWhere(
+    predicate: (bundle: PatchBundleInfo.Scoped, patch: PatchInfo, isEnabled: Boolean) -> Boolean
+): Map<Int, Set<String>> = mapNotNull { (bundle, patches) ->
+    val names = patches.mapNotNullTo(mutableSetOf()) { (patch, isEnabled) ->
+        patch.name.takeIf { predicate(bundle, patch, isEnabled) }
+    }
+    if (names.isEmpty()) null else bundle.uid to names
+}.toMap()
+
 /**
  * Rows for one bundle: the patches written for this app first, then the universal ones behind a
  * collapsible header. Every row animates its own placement, so search results and the fold
@@ -558,6 +635,7 @@ private fun LazyListScope.patchSections(
     onUniversalExpandedChange: (Boolean) -> Unit,
     newPatchNames: Set<String>,
     missingRequiredOptions: Set<String>,
+    customOptions: Set<String>,
     lockStateOf: (PatchInfo) -> PatchLockState,
     onToggle: (String) -> Unit,
     onConfigureOptions: (PatchInfo) -> Unit
@@ -576,6 +654,7 @@ private fun LazyListScope.patchSections(
         isNew = patch.name in newPatchNames,
         buildsClone = patch.renamesByDefault,
         hasRequiredOptionsMissing = patch.name in missingRequiredOptions,
+        hasCustomOptions = patch.name in customOptions,
         lockState = lockStateOf(patch),
         onToggle = { onToggle(patch.name) },
         onConfigureOptions = { onConfigureOptions(patch) },

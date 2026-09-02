@@ -1,3 +1,54 @@
+# [1.29.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.2...v1.29.0-dev.3) (2026-08-28)
+
+
+### Bug Fixes
+
+* Replace a bundle's selection through one shared helper ([1cec4d7](https://github.com/MorpheApp/morphe-manager/commit/1cec4d7b108455ca964b562f93225db5c2b34a34))
+
+
+### Features
+
+* Highlight the patch options button when options are customized ([#908](https://github.com/MorpheApp/morphe-manager/issues/908)) ([df66e7d](https://github.com/MorpheApp/morphe-manager/commit/df66e7d79a1a2eec6143e7974a59e3ba9ae95661))
+* Retire the pre-release notice a few seconds after it is seen ([4b3ce8e](https://github.com/MorpheApp/morphe-manager/commit/4b3ce8e77072a8e232d29809bfe0ece86797c2ef))
+
+# [1.29.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.1...v1.29.0-dev.2) (2026-08-27)
+
+
+### Bug Fixes
+
+* Add "Pre-release updates" confirmation dialog ([#904](https://github.com/MorpheApp/morphe-manager/issues/904)) ([31bab05](https://github.com/MorpheApp/morphe-manager/commit/31bab05b040da538ebaaaaccc4fd533393c3cce4))
+* Allow building with any JDK 17 or newer ([efb7d75](https://github.com/MorpheApp/morphe-manager/commit/efb7d75ff7aa8b8da8cdc78a5a1d4490cab6dd25))
+
+
+### Features
+
+* Add a community patches button to the add source dialog ([#835](https://github.com/MorpheApp/morphe-manager/issues/835)) ([c2a6dff](https://github.com/MorpheApp/morphe-manager/commit/c2a6dff98897fec01fefe8ae5bcc72744de1f156))
+
+
+### Performance Improvements
+
+* Repackage the archive only when signing rejects it ([#906](https://github.com/MorpheApp/morphe-manager/issues/906)) ([98315b6](https://github.com/MorpheApp/morphe-manager/commit/98315b691ab9aaa315104029904761e331666ab9))
+
+# [1.29.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.28.1-dev.1...v1.29.0-dev.1) (2026-08-26)
+
+
+### Bug Fixes
+
+* Morphe update crash when the staged APK is gone ([addfc70](https://github.com/MorpheApp/morphe-manager/commit/addfc706eb7f1c884d64b149bb79b644eedcf3a6))
+
+
+### Features
+
+* Add per-bundle issue reporting, pre-release warnings, and home screen improvements ([#902](https://github.com/MorpheApp/morphe-manager/issues/902)) ([208e7ef](https://github.com/MorpheApp/morphe-manager/commit/208e7eff059f0336c99e5e4fe76066fbcd90db34))
+
+## [1.28.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.28.0...v1.28.1-dev.1) (2026-08-25)
+
+
+### Bug Fixes
+
+* Replace the automatic re-patching schedule with a re-patch alert on the home screen ([e977ccd](https://github.com/MorpheApp/morphe-manager/commit/e977ccddea85f2f363f44ce786f7dcccede6e3a4))
+* Show the build code of a saved APK only when the patches do not support it ([2c03321](https://github.com/MorpheApp/morphe-manager/commit/2c0332167fc0b8e153aa14c13a06b0a2aad61de9))
+
 # [1.28.0](https://github.com/MorpheApp/morphe-manager/compare/v1.27.0...v1.28.0) (2026-08-25)
 
 

@@ -43,6 +43,7 @@ import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
+import app.morphe.manager.util.PatchSelectionUtils.withBundle
 import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.AppTarget
 import app.morphe.patcher.patch.InstallerType
@@ -95,8 +96,6 @@ class BatchPatchEdit(
             .sortedByDescending { (bundle, _) -> bundle.compatible.size }
 
     val totalSelectedCount get() = selection.values.sumOf { it.size }
-
-    val totalPatchesCount get() = allPatchesInfo.sumOf { it.second.size }
 
     val hasMultipleBundles get() = selection.spansMultipleBundles()
 
@@ -182,9 +181,7 @@ class BatchPatchEdit(
     }
 
     private fun replaceBundle(bundleUid: Int, patches: Set<String>) {
-        selection = selection.toMutableMap()
-            .apply { if (patches.isEmpty()) remove(bundleUid) else put(bundleUid, patches) }
-            .applyItemAvailability()
+        selection = selection.withBundle(bundleUid, patches).applyItemAvailability()
     }
 
     /** Availability rules of the install target, so an edit lands on the plan already settled. */

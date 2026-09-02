@@ -52,6 +52,7 @@
     <string name="sources_dialog_display_name">Nom mostrat</string>
     <string name="sources_dialog_rename">Canviar la font del pegat</string>
     <string name="sources_dialog_duplicate_name_error">Una font de pegats amb aquest nom ja existeix</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <!-- Home Screen - Dialog 1: APK Availability -->
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descarrega l\'APK original</string>
@@ -95,6 +96,8 @@
     <!-- Settings - Appearance Tab - Home Screen Section -->
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <!-- Settings - Advanced Tab - Updates Section -->
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <!-- Notification content -->
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <!-- Bytecode mode -->

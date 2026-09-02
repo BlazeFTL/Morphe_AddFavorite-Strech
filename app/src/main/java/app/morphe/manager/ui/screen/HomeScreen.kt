@@ -6,6 +6,8 @@
 package app.morphe.manager.ui.screen
 
 import android.view.HapticFeedbackConstants
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,7 +37,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
-import org.koin.core.parameter.parametersOf
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
@@ -172,6 +173,9 @@ fun HomeScreen(
         startInstallQueue(requests)
     }
 
+    // Same predicate the cards use for their update badge, so the count and the badges agree
+    val repatchableApps = remember(homeAppItems) { homeAppItems.filter { it.showsUpdateBadge } }
+
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
     val startBatchPatch: (List<HomeAppItem>) -> Unit = { items ->
         // A card that stands for an install queues that install, so cloned copies are each
@@ -221,7 +225,10 @@ fun HomeScreen(
 
     // Manager update details dialog
     if (showUpdateDetailsDialog.value) {
-        val updateViewModel: UpdateViewModel = koinViewModel(parameters = { parametersOf(false) })
+        // Activity-scoped so the download this starts is the same one Settings sees
+        val updateViewModel: UpdateViewModel = koinViewModel(
+            viewModelStoreOwner = LocalActivity.current as ComponentActivity
+        )
         ManagerUpdateDetailsDialog(
             onDismiss = { showUpdateDetailsDialog.value = false },
             updateViewModel = updateViewModel
@@ -276,6 +283,9 @@ fun HomeScreen(
                     blockedSources = AlertState(hasBlockedSources) { homeViewModel.showBundleManagementSheet = true },
                     metadataErrors = AlertState(hasMetadataErrors) { homeViewModel.showBundleManagementSheet = true },
                     meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) { onSettingsClick() },
+                    repatchAvailable = RepatchAlertState(repatchableApps.size) {
+                        startBatchPatch(repatchableApps)
+                    },
                     bundleUpdate = BundleUpdateState(
                         visible = homeViewModel.showBundleUpdateSnackbar,
                         status = homeViewModel.snackbarStatus,

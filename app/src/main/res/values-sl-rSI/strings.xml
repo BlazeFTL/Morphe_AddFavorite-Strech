@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Nekateri viri posodobitev potrebujejo novejšo različico</string>
     <string name="home_metered_skipped_title">Posodobitve so prekinjene pri uporabi mobilnih podatkov</string>
     <string name="home_metered_skipped_subtitle">Tapnite za dovoljenje posodobitev prek mobilnih podatkov</string>
+    <string name="home_repatch_available_subtitle">Tapnite, da jih vse dodate v čakalno vrsto</string>
     <string name="home_update_error">Posodobitev ni uspela</string>
     <string name="home_update_error_subtitle">Pri posodabljanju virov je prišlo do napake</string>
     <string name="home_update_skipped_metered">Posodobitve so bile preskočene</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Obrnjen abecedni red, od Ž do A</string>
     <string name="home_app_sort_updates_first">Najprej posodobitve popravkov</string>
     <string name="home_app_sort_updates_first_description">Aplikacije z oznakami posodobi najprej, nato v priporočenem vrstnem redu</string>
+    <string name="home_app_sort_recently_patched">Nedavno popravljeno</string>
+    <string name="home_app_sort_recently_patched_description">Najprej nedavno popravljene aplikacije</string>
     <string name="home_no_apps_title">Nobena aplikacija ni na voljo</string>
     <string name="home_no_apps_subtitle">Dodaj vir popravkov ali omogoči že obstoječega v %s</string>
     <string name="home_no_apps_search_subtitle">Nobena aplikacija se ne ujema z \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">Omogočeni najprej</string>
     <string name="sources_sort_enabled_first_description">Prikaži aktivne vire pred onemogočenimi viri</string>
     <string name="sources_management_open_in_browser">Odpri v brskalniku</string>
+    <string name="sources_management_report_issue">Prijavi težavo</string>
     <string name="sources_management_failed_to_open_url">Ni mogoče odpreti URL</string>
     <string name="sources_management_prerelease_toggle">Pred-popravki</string>
     <string name="sources_management_prerelease_toggle_description">Prejme zgodnji dostop do novih eksperimentalnih različic popravkov</string>
+    <string name="sources_prerelease_warning_title">Omogoči predizdajne popravke?</string>
+    <string name="sources_prerelease_warning_message">Predizdajne različice so še v razvoju. Popravki lahko ne uspejo ali zlomijo aplikacijo, funkcije pa se lahko spremenijo brez opozorila.</string>
+    <string name="expert_mode_prerelease_notice">Ta vir uporablja predizdajne popravke. Popravljanje lahko ne uspe ali se obnaša nepričakovano.</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimentalne različice aplikacije</string>
     <string name="sources_management_experimental_versions_toggle_description">Popravi cilje eksperimentalnih aplikacij, če so na voljo</string>
     <string name="sources_management_already_exists">Ta vir je bil že dodan</string>
@@ -162,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL mora kazati na repozitorij GitHub/GitLab ali na .json datoteko</string>
     <string name="sources_dialog_local_change_file">Spremeni datoteko</string>
     <string name="sources_dialog_preinstalled">Prednameščen</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Posodobitev uspešna</string>
     <string name="sources_update_unavailable">Posodobitev ni na voljo</string>
     <string name="sources_download_fail">Napaka pri prenosu virov: %s</string>
@@ -192,6 +200,7 @@
     <string name="home_apk_helper_installed_incompatible">Nameščene različice ni mogoče popraviti.</string>
     <string name="home_apk_use_saved">Uporabite shranjen APK</string>
     <string name="home_apk_use_installed">Uporabite nameščen APK</string>
+    <string name="home_apk_use_saved_unsupported">Popravki ne podpirajo te shranjene kopije. Nameščanje popravkov bo zahtevalo potrditev ali izbiro drugega APK.</string>
     <string name="home_apk_use_installed_unverified">Ni je bilo mogoče preveriti podpis nameščenega programa, zato je morda že spremenjen.</string>
     <string name="home_unverified">Nepotrjeno</string>
     <string name="home_install_verification_pending">Preverjanje namestitve…</string>
@@ -251,6 +260,8 @@
     <string name="expert_mode_enable_all">Omogoči vse</string>
     <string name="expert_mode_enable_all_done">Vsi popravki so omogočeni</string>
     <string name="expert_mode_enable_all_universal_pending">Ponovno se dotaknite za univerzalne popravke.</string>
+    <string name="expert_mode_universal_all_warning_title">Omogoči vse univerzalne popravke?</string>
+    <string name="expert_mode_universal_all_warning_message">Univerzalni popravki niso testirani skupaj. Omogočanje vseh hkrati lahko povzroči konflikte, neuspešno popravljanje ali sesutje.</string>
     <string name="expert_mode_reset_to_default">Omogoči priporočene popravke</string>
     <string name="expert_mode_reset_to_default_done">Uporabljeni priporočeni popravki</string>
     <string name="expert_mode_restore_saved">Obnovi izbrano izbiro</string>
@@ -655,8 +666,14 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Posodobitve</string>
     <string name="settings_advanced_patcher">Popravek</string>
-    <string name="settings_advanced_updates_use_prereleases">Predčasne posodobitve</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Zgodnji dostop do novih različic aplikacije Morphe. Omogočite predčasne posodobitve za vsak vir posebej v virih popravkov</string>
+    <string name="settings_advanced_updates_manager_prereleases">Posodobitve pred izdajo</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Zgodnji dostop do novih različic Morphe</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Omogoči posodobitve pred izdajo?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Predizdajne različice programa Morphe so še vedno v razvoju in so lahko nestabilne.
+
+Ta nastavitev ne vpliva na popravke: omogočite predizdajne popravke za vsak vir v seznamu virov popravkov."</string>
     <string name="settings_advanced_updates_allow_metered">Posodobitve preko mobilnih podatkov</string>
     <string name="settings_advanced_updates_allow_metered_description">Omogoči prenos posodobitev Morphe in posodobitev popravkov prek mobilnih podatkov</string>
     <string name="settings_advanced_updates_background_notifications">Obvestila o posodobitvah v ozadju</string>
@@ -670,14 +687,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_advanced_update_interval_monthly">Enkrat na mesec</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Pogostost preverjanja v ozadju</string>
     <string name="settings_advanced_update_interval_battery_warning">Preverjanje v ozadju morda ne deluje zanesljivo na nekaterih napravah. Proizvajalci kot so Xiaomi, Huawei, Samsung in OnePlus pogosto agresivno omejujejo procese v ozadju, da varčujejo z baterijo</string>
-    <string name="settings_advanced_auto_patch">Samodejno ponovno popravljanje</string>
-    <string name="settings_advanced_auto_patch_description">Ponovno popravlja nameščene aplikacije v ozadju, ko se njihovi popravki spremenijo. Obravnava samo aplikacije s shranjenim originalnim APK-jem</string>
-    <string name="settings_advanced_auto_patch_interval">Pogostost ponovnega popravljanja</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Kako pogosto se ponovno popravljajo popravljene aplikacije</string>
-    <string name="settings_advanced_auto_patch_charging">Samo med polnjenjem</string>
-    <string name="settings_advanced_auto_patch_charging_description">Popravljanje je obremenjujoče za procesor in pomnilnik, zato počaka, da se naprava začne polniti</string>
-    <string name="settings_advanced_auto_patch_install">Samodejno namestite</string>
-    <string name="settings_advanced_auto_patch_install_description">Za namestitveni program zahteva Shizuku. Pri drugih namestitvenih programih se popravljeni APK-ji samo shranijo</string>
     <string name="settings_advanced_external_batch_patch">Dovolite zunanje sprožilce</string>
     <string name="settings_advanced_external_batch_patch_description">Omogoča avtomatizacijskim aplikacijam začetek množičnega popravljanja s pomočjo namena. Vsaka zahteva je potrjena, preden se karkoli izvede</string>
     <string name="external_batch_patch_title">Začnite množično popravljanje?</string>
@@ -685,13 +694,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="external_batch_patch_trust_caller">Vedno dovolite to aplikacijo</string>
     <string name="external_batch_patch_unknown_caller">Neznana aplikacija</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Samodejno ponovno popravljanje je končano</string>
-    <string name="notification_auto_patch_running_title">Ponovno popravljanje aplikacij</string>
-    <string name="notification_auto_patch_blocked_title">Samodejno ponovno popravljanje se ni izvedlo</string>
-    <string name="notification_auto_patch_blocked_battery">Sistem je blokiral to namestitev. Na napravah Xiaomi in podobnih omogočite »Namestitev prek USB« v možnostih za razvijalce. Na delovnem profilu lahko politike omejujejo namestitve</string>
-    <string name="notification_auto_patch_blocked_foreground">Android ni dovolil začetka popravljanja v ozadju. Odprite Morphe in popravite iz aplikacije</string>
-    <string name="notification_channel_auto_patch">Samodejno ponovno popravljanje</string>
-    <string name="notification_channel_auto_patch_description">Tiho posodabljanje in rezultati obveščanj za načrtovano ponovno popravljanje</string>
     <string name="notification_manager_update_title">Na voljo je posodobitev Morphe</string>
     <string name="notification_bundle_update_title">Na voljo so nove posodobitve</string>
     <string name="notification_update_text">Različica %s je pripravljena za prenos</string>
@@ -1176,6 +1178,7 @@ Podrobnosti: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB prenesenih</string>
     <string name="manager_update_not_ready">Ta različica je še v objavljanju. Poskusite znova čez nekaj minut.</string>
+    <string name="update_download_missing">Prenesena posodobitev ni več na voljo. Prenesi jo znova.</string>
     <string name="download_manager_failed">Prenos posodobitve ni uspel: %s</string>
     <string name="failed_to_check_updates">Ni uspelo preveriti posodobitev: %s</string>
     <string name="failed_to_download_update">Prenos posodobitve ni uspel: %s</string>

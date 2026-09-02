@@ -41,6 +41,7 @@ import app.morphe.manager.domain.apk.InstalledApkInfo
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
@@ -399,12 +400,14 @@ fun HomeDialogs(
 
     // Expert Mode Dialog
     if (homeViewModel.showExpertModeDialog) {
+        // Reading the property re-walks and re-sorts every bundle's patches, so it is taken once
+        val allPatchesInfo = homeViewModel.expertModeAllPatchesInfo
         ExpertModeDialog(
             newPatches = homeViewModel.expertModeNewPatches,
             options = homeViewModel.expertModeOptions,
-            allPatchesInfo = homeViewModel.expertModeAllPatchesInfo,
+            allPatchesInfo = allPatchesInfo,
             totalSelectedCount = homeViewModel.expertModeTotalSelectedCount,
-            totalPatchesCount = homeViewModel.expertModeTotalPatchesCount,
+            totalPatchesCount = allPatchesInfo.sumOf { (_, patches) -> patches.size },
             hasMultipleBundles = homeViewModel.expertModeHasMultipleBundles,
             patchActions = ExpertPatchActions(
                 onPatchToggle = { bundleUid, patchName ->
@@ -435,6 +438,9 @@ fun HomeDialogs(
             savedPatches = homeViewModel.expertModeInitialPatches,
             lockStateOf = homeViewModel::expertModeLockState,
             holdsUniversalPatches = homeViewModel::expertModeSelectAllHoldsUniversal,
+            prereleaseBundleUids = allPatchesInfo.mapNotNull { (bundle, _) ->
+                bundle.uid.takeIf { homeViewModel.getPatchSource(it)?.usesPrerelease == true }
+            }.toSet(),
             onDismiss = {
                 homeViewModel.cleanupExpertModeData()
             },
@@ -664,6 +670,21 @@ internal fun ApkAvailabilityDialog(
 ) {
     val deviceSdk = Build.VERSION.SDK_INT
 
+    // The installed APK is dropped upstream when the patches do not target it, but a saved
+    // copy is offered whatever it is: it may be the only APK the user still has
+    val savedApkMatchesTargets = remember(savedApkInfo, compatibleVersions) {
+        savedApkInfo == null ||
+            compatibleVersions.patchableAt(savedApkInfo.version, savedApkInfo.versionCode)
+    }
+
+    // The build code is worth printing only where it is the whole difference: the targets name
+    // this version, and refuse this build of it. A version they do not name at all is already
+    // visible in the version beside the button
+    val savedApkBuildRefused = remember(savedApkInfo, savedApkMatchesTargets, compatibleVersions) {
+        savedApkInfo != null && !savedApkMatchesTargets &&
+            compatibleVersions.any { it.target.version == savedApkInfo.version }
+    }
+
     // Versions whose minSdk exceeds the current device - shown greyed-out and non-selectable
     val incompatibleSdkVersions: Set<String> = remember(compatibleVersions, deviceSdk) {
         compatibleVersions
@@ -703,18 +724,35 @@ internal fun ApkAvailabilityDialog(
                 if (savedApkInfo != null) {
                     AppDialogOutlinedButton(
                         text = stringResource(R.string.home_apk_use_saved),
-                        textSuffix = buildVersionSuffix(savedApkInfo.version, savedApkInfo.versionCode),
+                        textSuffix = if (savedApkBuildRefused) {
+                            buildVersionSuffix(savedApkInfo.version, savedApkInfo.versionCode)
+                        } else {
+                            "v${savedApkInfo.version}"
+                        },
                         onClick = onUseSaved,
                         icon = Icons.Outlined.History,
                         modifier = Modifier.fillMaxWidth()
                     )
+
+                    // Taking it leads to the unsupported-version dialog, which is a wasted tap
+                    // unless the user is told here what is wrong with the copy they kept
+                    if (!savedApkMatchesTargets) {
+                        Notice(
+                            text = stringResource(R.string.home_apk_use_saved_unsupported),
+                            tone = SemanticTone.Warning,
+                            icon = Icons.Outlined.Warning,
+                            density = NoticeDensity.Compact
+                        )
+                    }
                 }
 
                 // Installed APK button - hidden when saved mono-APK covers the same split version
                 if (installedApkInfo != null && !preferSavedOverInstalled) {
                     AppDialogOutlinedButton(
                         text = stringResource(R.string.home_apk_use_installed),
-                        textSuffix = buildVersionSuffix(installedApkInfo.version, installedApkInfo.versionCode),
+                        // Never the wrong build: an installed APK the patches do not target is
+                        // dropped before it reaches this dialog
+                        textSuffix = "v${installedApkInfo.version}",
                         onClick = onUseInstalled,
                         icon = Icons.Outlined.PhoneAndroid,
                         modifier = Modifier.fillMaxWidth()
@@ -2007,7 +2045,7 @@ fun SimpleBundleSelectDialog(
                 val patchCountText = pluralStringResource(
                     R.plurals.patch_count,
                     candidate.patchCount,
-                    candidate.patchCount
+                    candidate.patchCount.toString()
                 )
                 val patchVersionText = candidate.patchVersion
                     ?.takeIf { it.isNotBlank() }

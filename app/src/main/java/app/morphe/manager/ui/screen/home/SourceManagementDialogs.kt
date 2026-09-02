@@ -25,6 +25,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -36,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -46,8 +48,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.APIPatchBundle
-import app.morphe.manager.domain.bundles.JsonPatchBundle
 import app.morphe.manager.domain.bundles.PatchBundleSource
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.PatchInfo
@@ -87,22 +89,58 @@ fun AddSourceDialog(
     val localFileValidation = rememberLocalFileValidation(selectedLocalPath)
     val isLocalValid = localFileValidation == FieldValidation.Valid
 
+    val uriHandler = LocalUriHandler.current
+    var showCommunityNotice by rememberSaveable { mutableStateOf(false) }
+
+    if (showCommunityNotice) {
+        ConfirmDialog(
+            title = stringResource(R.string.sources_dialog_community_notice_title),
+            message = stringResource(R.string.sources_dialog_community_notice_message),
+            primaryText = stringResource(R.string.open),
+            isPrimaryDestructive = false,
+            onDismiss = { showCommunityNotice = false },
+            onConfirm = {
+                showCommunityNotice = false
+                uriHandler.openUri(COMMUNITY_PATCHES_URL)
+            }
+        )
+    }
+
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.sources_dialog_add_source),
         footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.add),
-                onPrimaryClick = {
-                    when (selectedTab) {
-                        0 -> if (isRemoteValid) onRemoteSubmit(normalizeUrl(remoteUrl))
-                        1 -> if (isLocalValid) onLocalSubmit()
+            Column(modifier = Modifier.fillMaxWidth()) {
+                // The website hands out remote URLs, so it has nothing to offer the local tab
+                AnimatedVisibility(
+                    visible = selectedTab == 0,
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
+                ) {
+                    Column {
+                        // Nothing that website lists is reviewed by Morphe, so the disclaimer comes first
+                        AppDialogOutlinedButton(
+                            text = stringResource(R.string.sources_dialog_community),
+                            onClick = { showCommunityNotice = true },
+                            icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(Defaults.ContentPadding / 2))
                     }
-                },
-                primaryEnabled = if (selectedTab == 0) isRemoteValid else isLocalValid,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
+                }
+                AppDialogButtonRow(
+                    primaryText = stringResource(R.string.add),
+                    onPrimaryClick = {
+                        when (selectedTab) {
+                            0 -> if (isRemoteValid) onRemoteSubmit(normalizeUrl(remoteUrl))
+                            1 -> if (isLocalValid) onLocalSubmit()
+                        }
+                    },
+                    primaryEnabled = if (selectedTab == 0) isRemoteValid else isLocalValid,
+                    secondaryText = stringResource(android.R.string.cancel),
+                    onSecondaryClick = onDismiss
+                )
+            }
         }
     ) {
         Column(
@@ -943,8 +981,7 @@ fun BundleChangelogDialog(
         state = BundleChangelogState.Loading
         state = withContext(Dispatchers.Default) {
             try {
-                val usePrerelease = (src as? APIPatchBundle)?.usePrerelease == true
-                        || (src as? JsonPatchBundle)?.usePrerelease == true
+                val usePrerelease = src.usesPrerelease
 
                 val allEntries = src.fetchChangelogEntries(sinceVersion = null)
 

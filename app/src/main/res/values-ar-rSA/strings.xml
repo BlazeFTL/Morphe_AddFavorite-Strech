@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">بعض مصادر التعديل تتطلب إصدارًا أحدث</string>
     <string name="home_metered_skipped_title">التحديثات متوقفة على بيانات الجوّال</string>
     <string name="home_metered_skipped_subtitle">انقر للسماح بالتحديثات على بيانات الجوّال</string>
+    <string name="home_repatch_available_subtitle">انقر لإدراجهم جميعًا في القائمة</string>
     <string name="home_update_error">فشل التحديث</string>
     <string name="home_update_error_subtitle">حدث خطأ أثناء تحديث المصادر</string>
     <string name="home_update_skipped_metered">التحديثات تم تخطيها</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">عكس أبجدي، من Z إلى A</string>
     <string name="home_app_sort_updates_first">تحديثات التعديل أولًا</string>
     <string name="home_app_sort_updates_first_description">التطبيقات التي تحتوي على شارات التحديث أولًا، ثم الترتيب الموصى به</string>
+    <string name="home_app_sort_recently_patched">تم تعديلها مؤخرًا</string>
+    <string name="home_app_sort_recently_patched_description">التطبيقات التي تم تعديلها مؤخرًا أولًا</string>
     <string name="home_no_apps_title">لا توجد تطبيقات متاحة</string>
     <string name="home_no_apps_subtitle">أضِف مصدرًا للتعديل أو قم بتمكين مصدر موجود في %s</string>
     <string name="home_no_apps_search_subtitle">لا يوجد تطبيقات تطابق \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">المفعّلة أولًا</string>
     <string name="sources_sort_enabled_first_description">عرض المصادر النشطة قبل المصادر المعطلة</string>
     <string name="sources_management_open_in_browser">فتح في المتصفح</string>
+    <string name="sources_management_report_issue">الإبلاغ عن مشكلة</string>
     <string name="sources_management_failed_to_open_url">فشل في فتح الرابط</string>
     <string name="sources_management_prerelease_toggle">إصدارات ما قبل الإطلاق</string>
     <string name="sources_management_prerelease_toggle_description">احصل على وصول مبكر إلى إصدارات التعديل التجريبية الجديدة</string>
+    <string name="sources_prerelease_warning_title">تمكين إصدارات تعديلات ما قبل الإطلاق؟</string>
+    <string name="sources_prerelease_warning_message">إصدارات ما قبل الإطلاق لا تزال قيد التطوير. قد تفشل التعديلات أو تتسبب في تعطل التطبيق، ويمكن أن تتغير الميزات دون إشعار مسبق</string>
+    <string name="expert_mode_prerelease_notice">هذا المصدر مخصص لتعديلات ما قبل الإطلاق. قد تفشل عملية التعديل أو تتصرف بشكل غير متوقع</string>
     <string name="sources_management_experimental_versions_toggle">إصدارات تجريبية للتطبيقات</string>
     <string name="sources_management_experimental_versions_toggle_description">تعديل الإصدارات التجريبية للتطبيقات المستهدفة إن توفرت</string>
     <string name="sources_management_already_exists">تمت إضافة هذا المصدر بالفعل</string>
@@ -162,6 +169,12 @@
     <string name="sources_dialog_url_invalid">يجب أن يشير عنوان URL إلى مستودع GitHub/GitLab أو ملف ‎.json</string>
     <string name="sources_dialog_local_change_file">تغيير الملف</string>
     <string name="sources_dialog_preinstalled">مثبتة مسبقًا</string>
+    <string name="sources_dialog_community">تعديلات المجتمع</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">مصادر التعديل من طرف ثالث</string>
+    <string name="sources_dialog_community_notice_message">"يتم إنشاء وصيانة مصادر تعديلات المجتمع بواسطة مؤلفيها أنفسهم. لا يقوم Morphe بمراجعة أو التحقق من التعديلات التي يقدمها طرف ثالث، ولا يتحمل أي مسؤولية عن محتواها أو عن تأثيرها على جهازك.
+
+أي شيء تُضيفه من هذا الموقع يتم استخدامه على مسؤوليتك الخاصة"</string>
     <string name="sources_update_success">تم التحديث بنجاح</string>
     <string name="sources_update_unavailable">لا يوجد تحديث متاح</string>
     <string name="sources_download_fail">فشل تنزيل مصادر التعديل: %s.</string>
@@ -192,6 +205,7 @@
     <string name="home_apk_helper_installed_incompatible">لا يمكن تعديل الإصدار المثبت</string>
     <string name="home_apk_use_saved">استخدام ملف APK المحفوظ</string>
     <string name="home_apk_use_installed">استخدام ملف APK المثبت</string>
+    <string name="home_apk_use_saved_unsupported">التعديلات لا تدعم هذه النسخة المحفوظة. عند التعديل سيطلب منك التأكيد، أو اختر ملف APK آخر</string>
     <string name="home_apk_use_installed_unverified">تعذر التحقق من توقيع التطبيق المثبت، لذا قد يكون قد تم تعديله بالفعل</string>
     <string name="home_unverified">غير معتمد</string>
     <string name="home_install_verification_pending">جارٍ التحقق من التثبيت…</string>
@@ -251,6 +265,8 @@
     <string name="expert_mode_enable_all">تمكين الكل</string>
     <string name="expert_mode_enable_all_done">تم تمكين كل التعديلات</string>
     <string name="expert_mode_enable_all_universal_pending">انقر مرة أخرى لتطبيق التعديلات الشاملة</string>
+    <string name="expert_mode_universal_all_warning_title">تمكين كل التعديلات الشاملة؟</string>
+    <string name="expert_mode_universal_all_warning_message">التعديلات الشاملة لم تُختبر معًا. قد يؤدي تمكين جميعها مرةً واحدة إلى حدوث تعارضات، فشل في تطبيق التعديل، أو أعطال</string>
     <string name="expert_mode_reset_to_default">تمكين التعديلات الموصى بها</string>
     <string name="expert_mode_reset_to_default_done">تم تطبيق التعديلات الموصى بها</string>
     <string name="expert_mode_restore_saved">استعادة التحديد المحفوظ</string>
@@ -659,8 +675,14 @@
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">التحديثات</string>
     <string name="settings_advanced_patcher">أداة التعديل</string>
-    <string name="settings_advanced_updates_use_prereleases">إصدارات ما قبل الإطلاق</string>
-    <string name="settings_advanced_updates_use_prereleases_description">الوصول المبكر إلى إصدارات Morphe الجديدة. فعّل إصدارات ما قبل الإطلاق لكل مصدر في مصادر التعديل</string>
+    <string name="settings_advanced_updates_manager_prereleases">تحديثات ما قبل الإطلاق</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">الوصول المبكر لإصدارات Morphe الجديدة</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">تمكين تحديثات ما قبل الإطلاق؟</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"الإصدارات السابقة للإطلاق من Morphe لا تزال قيد التطوير وقد تكون غير مستقرة.
+
+لا تتأثر التعديلات بذلك: قم بتمكين تعديلات ما قبل الإطلاق لكل مصدر في قائمة مصادر التعديل"</string>
     <string name="settings_advanced_updates_allow_metered">تحديثات بيانات الجوّال</string>
     <string name="settings_advanced_updates_allow_metered_description">السماح بتنزيل تحديثات Morphe والتعديلات عبر بيانات الجوّال</string>
     <string name="settings_advanced_updates_background_notifications">إشعارات تحديث الخلفية</string>
@@ -674,14 +696,6 @@
     <string name="settings_advanced_update_interval_monthly">مرة في الشهر</string>
     <string name="settings_advanced_update_interval_chip_subtitle">تكرار التحقق في الخلفية</string>
     <string name="settings_advanced_update_interval_battery_warning">قد لا يعمل التحقق في الخلفية بشكل موثوق على بعض الأجهزة. غالبًا ماتقيّد الشركات المصنعة مثل Xiaomi، Huawei، Samsung، و OnePlus عمليات الخلفية بشدة لتوفير البطارية</string>
-    <string name="settings_advanced_auto_patch">إعادة التعديل التلقائي</string>
-    <string name="settings_advanced_auto_patch_description">يقوم بإعادة تعديل التطبيقات المثبتة في الخلفية عندما تتغير تعديلاتُها. وينطبق ذلك فقط على التطبيقات التي لديها ملف APK الأصلي محفوظًا</string>
-    <string name="settings_advanced_auto_patch_interval">معدل إعادة التعديل</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">عدد مرات إعادة بناء التطبيقات المعدلة</string>
-    <string name="settings_advanced_auto_patch_charging">فقط أثناء الشحن</string>
-    <string name="settings_advanced_auto_patch_charging_description">عملية التعديل تستهلك المعالج والذاكرة بكثرة، لذلك تنتظر توصيل الشاحن</string>
-    <string name="settings_advanced_auto_patch_install">التثبيت التلقائي</string>
-    <string name="settings_advanced_auto_patch_install_description">يتطلب Shizuku كأداة تثبيت. ومع أي أداة تثبيت أخرى، لا يتم إلا حفظ التطبيقات المعدلة</string>
     <string name="settings_advanced_external_batch_patch">السماح بالمشغلات الخارجية</string>
     <string name="settings_advanced_external_batch_patch_description">يسمح لتطبيقات الأتمتة ببدء التعديل على دفعات عبر intent، مع تأكيد كل طلب قبل التنفيذ</string>
     <string name="external_batch_patch_title">بدء تعديل التطبيقات على دفعات؟</string>
@@ -689,13 +703,6 @@
     <string name="external_batch_patch_trust_caller">السماح لهذا التطبيق دائمًا</string>
     <string name="external_batch_patch_unknown_caller">تطبيق غير معروف</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">اكتمل إعادة التعديل التلقائي</string>
-    <string name="notification_auto_patch_running_title">إعادة تعديل التطبيقات</string>
-    <string name="notification_auto_patch_blocked_title">لم يتم تشغيل إعادة التعديل التلقائي</string>
-    <string name="notification_auto_patch_blocked_battery">استثنِ Morphe من تحسين البطارية، وإلا فسيُوقف Android التشغيل قبل أن يبدأ</string>
-    <string name="notification_auto_patch_blocked_foreground">لم يسمح نظام Android ببدء التعديل في الخلفية. افتح Morphe وقم بالتعديل من التطبيق</string>
-    <string name="notification_channel_auto_patch">إعادة التعديل التلقائي</string>
-    <string name="notification_channel_auto_patch_description">إشعارات صامتة للتقدم والنتائج عند إعادة التعديل المجدولة</string>
     <string name="notification_manager_update_title">تحديث Morphe متاح</string>
     <string name="notification_bundle_update_title">تعديلات جديدة متاحة</string>
     <string name="notification_update_text">إصدار %s جاهز للتنزيل</string>
@@ -1052,9 +1059,9 @@ morphe_adaptive_monochrome_custom.xml
     <string name="easter_egg_pill_message">تناول الحبة الزرقاء وستبقى الإعلانات في مكانها تمامًا. تناول الحبة الحمراء وشاهد مدى عمق الكود</string>
     <string name="easter_egg_pill_red">الحبة الحمراء</string>
     <string name="easter_egg_pill_blue">الحبة الزرقاء</string>
-    <string name="easter_egg_pill_red_toast">تم فتح الماتريكس</string>
+    <string name="easter_egg_pill_red_toast">تم فتح خلفية Matrix</string>
     <string name="easter_egg_pill_blue_toast">الإعلانات ستكون في انتظارك</string>
-    <string name="easter_egg_pill_message_again">أنت بالفعل في الماتريكس. الحبة الحمراء تسقطك مرة أخرى إلى المطر، والزرقاء توقظك</string>
+    <string name="easter_egg_pill_message_again">أنت بالفعل في Matrix. الحبة الحمراء تُعيدك إلى المطر، والحبة الزرقاء توقظك</string>
     <string name="easter_egg_pill_red_toast_again">العودة إلى المطر</string>
     <string name="easter_egg_pill_blue_toast_again">غير متصل. الطريق للعودة هو حيث كان دائمًا</string>
     <!-- Shared strings -->
@@ -1182,6 +1189,7 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f م.ب تم تنزيلها</string>
     <string name="manager_update_not_ready">هذا الإصدار لا يزال قيد النشر. حاول مرة أخرى بعد بضع دقائق</string>
+    <string name="update_download_missing">التحديث الذي تم تنزيله لم يعد متاحًا. يرجى تنزيله مرة أخرى</string>
     <string name="download_manager_failed">فشل تنزيل التحديث: %s</string>
     <string name="failed_to_check_updates">فشل التحقق من التحديثات: %s</string>
     <string name="failed_to_download_update">فشل تنزيل التحديث: %s</string>

@@ -55,10 +55,10 @@
         <item quantity="few">%s aplikacije su spremne za zakrpu</item>
         <item quantity="other">%s aplikacija je spremno za zakrpu</item>
     </plurals>
-    <plurals name="batch_patch_notification_ready">
-        <item quantity="one">%s aplikacija je spremna za instalaciju</item>
-        <item quantity="few">%s aplikacija je spremno za instalaciju</item>
-        <item quantity="other">%s aplikacija je spremno za instalaciju</item>
+    <plurals name="repatch_available_count">
+        <item quantity="one">%s aplikacija se može ponovo zakrpiti</item>
+        <item quantity="few">%s aplikacije mogu biti ponovo zakrpljene</item>
+        <item quantity="other">%s aplikacija može biti ponovo zakrpljeno</item>
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">Preskočena %s aplikacija</item>

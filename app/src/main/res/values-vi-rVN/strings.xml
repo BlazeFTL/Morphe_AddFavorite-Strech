@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Một số nguồn vá lỗi cần phiên bản mới hơn</string>
     <string name="home_metered_skipped_title">Tạm dừng cập nhật trên dữ liệu di động</string>
     <string name="home_metered_skipped_subtitle">Nhấn để cho phép cập nhật qua dữ liệu di động</string>
+    <string name="home_repatch_available_subtitle">Nhấn để xếp tất cả vào hàng đợi</string>
     <string name="home_update_error">Không thể cập nhật</string>
     <string name="home_update_error_subtitle">Đã xảy ra lỗi trong khi cập nhật nguồn</string>
     <string name="home_update_skipped_metered">Đã bỏ qua bản cập nhật</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Đảo ngược theo thứ tự bảng chữ cái, Z đến A</string>
     <string name="home_app_sort_updates_first">Ưu tiên vá cập nhật</string>
     <string name="home_app_sort_updates_first_description">Ưu tiên các ứng dụng cần cập nhật trước, sau đó theo thứ tự đề xuất</string>
+    <string name="home_app_sort_recently_patched">Mới vá gần đây</string>
+    <string name="home_app_sort_recently_patched_description">Các ứng dụng được vá gần đây nhất trước</string>
     <string name="home_no_apps_title">Không có ứng dụng nào có sẵn</string>
     <string name="home_no_apps_subtitle">Thêm nguồn vá mới hoặc bật nguồn có sẵn trong %s</string>
     <string name="home_no_apps_search_subtitle">Không có ứng dụng nào khớp với \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">Ưu tiên đã kích hoạt trước</string>
     <string name="sources_sort_enabled_first_description">Hiển thị các nguồn đang hoạt động trước các nguồn đã bị vô hiệu hóa</string>
     <string name="sources_management_open_in_browser">Mở trong trình duyệt</string>
+    <string name="sources_management_report_issue">Báo cáo sự cố</string>
     <string name="sources_management_failed_to_open_url">Không thể mở URL</string>
     <string name="sources_management_prerelease_toggle">Bản vá phát hành trước</string>
     <string name="sources_management_prerelease_toggle_description">Trải nghiệm sớm các bản vá thử nghiệm mới</string>
+    <string name="sources_prerelease_warning_title">Bật các bản vá trước khi phát hành?</string>
+    <string name="sources_prerelease_warning_message">Các bản dựng trước khi phát hành vẫn đang trong quá trình phát triển. Các bản vá có thể thất bại hoặc làm hỏng ứng dụng, và các tính năng có thể thay đổi mà không có cảnh báo</string>
+    <string name="expert_mode_prerelease_notice">Nguồn này đang sử dụng các bản vá trước khi phát hành. Việc vá có thể thất bại hoặc hoạt động không như mong đợi</string>
     <string name="sources_management_experimental_versions_toggle">Phiên bản ứng dụng thử nghiệm</string>
     <string name="sources_management_experimental_versions_toggle_description">Vá phiên bản thử nghiệm (nếu có)</string>
     <string name="sources_management_already_exists">Nguồn này đã được thêm vào rồi</string>
@@ -162,6 +169,7 @@
     <string name="sources_dialog_url_invalid">URL phải trỏ đến kho lưu trữ GitHub/GitLab hoặc tệp .json</string>
     <string name="sources_dialog_local_change_file">Đổi tệp</string>
     <string name="sources_dialog_preinstalled">Được cài đặt sẵn</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Cập nhật thành công</string>
     <string name="sources_update_unavailable">Hiện không có bản cập nhật nào</string>
     <string name="sources_download_fail">Không thể tải nguồn vá: %s</string>
@@ -192,6 +200,7 @@
     <string name="home_apk_helper_installed_incompatible">Phiên bản đã cài đặt không thể vá được</string>
     <string name="home_apk_use_saved">Sử dụng APK đã lưu</string>
     <string name="home_apk_use_installed">Sử dụng APK đã cài đặt</string>
+    <string name="home_apk_use_saved_unsupported">Các bản vá không hỗ trợ bản sao đã lưu này. Việc vá sẽ yêu cầu bạn xác nhận, hoặc chọn một APK khác.</string>
     <string name="home_apk_use_installed_unverified">Không thể xác minh chữ ký của ứng dụng đã cài đặt, vì vậy ứng dụng có thể đã bị sửa đổi</string>
     <string name="home_unverified">Chưa xác minh</string>
     <string name="home_install_verification_pending">Đang kiểm tra cài đặt…</string>
@@ -251,6 +260,8 @@
     <string name="expert_mode_enable_all">Bật tất cả</string>
     <string name="expert_mode_enable_all_done">Đã bật tất cả bản vá</string>
     <string name="expert_mode_enable_all_universal_pending">Chạm lại để dùng các bản vá phổ quát</string>
+    <string name="expert_mode_universal_all_warning_title">Bật tất cả các bản vá phổ quát?</string>
+    <string name="expert_mode_universal_all_warning_message">Các bản vá phổ quát không được kiểm tra cùng nhau. Bật tất cả chúng cùng lúc có thể gây ra xung đột, vá thất bại hoặc treo máy</string>
     <string name="expert_mode_reset_to_default">Bật các bản vá đề xuất</string>
     <string name="expert_mode_reset_to_default_done">Đã áp dụng các bản vá đề xuất</string>
     <string name="expert_mode_restore_saved">Khôi phục lựa chọn đã lưu</string>
@@ -655,8 +666,14 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Cập nhật</string>
     <string name="settings_advanced_patcher">Trình vá</string>
-    <string name="settings_advanced_updates_use_prereleases">Bản cập nhật trước</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Trải nghiệm sớm các phiên bản mới của Morphe. Bạn có thể bật bản phát hành trước cho từng nguồn trong phần nguồn vá</string>
+    <string name="settings_advanced_updates_manager_prereleases">Bản cập nhật trước</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Truy cập sớm các phiên bản Morphe mới</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Bật các bản cập nhật trước khi phát hành?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Các phiên bản trước khi phát hành của Morphe vẫn đang trong quá trình phát triển và có thể không ổn định.
+
+Các bản vá không bị ảnh hưởng: bật các bản vá trước khi phát hành cho từng nguồn trong danh sách nguồn vá"</string>
     <string name="settings_advanced_updates_allow_metered">Cập nhật bằng dữ liệu di động</string>
     <string name="settings_advanced_updates_allow_metered_description">Cho phép tải Morphe và cập nhật bản vá qua dữ liệu di động</string>
     <string name="settings_advanced_updates_background_notifications">Thông báo cập nhật nền</string>
@@ -670,14 +687,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_advanced_update_interval_monthly">1 tháng/lần</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Tần suất kiểm tra trong nền</string>
     <string name="settings_advanced_update_interval_battery_warning">Tính năng này có thể không hoạt động trên một số thiết bị như Xiaomi, Huawei, Samsung và OnePlus, vì chúng thường giới hạn ứng dụng chạy nền để tiết kiệm pin</string>
-    <string name="settings_advanced_auto_patch">Tự động vá lại</string>
-    <string name="settings_advanced_auto_patch_description">Tự động vá lại các ứng dụng đã cài đặt trong nền khi bản vá của chúng thay đổi. Chỉ các ứng dụng có APK gốc đã lưu được hỗ trợ</string>
-    <string name="settings_advanced_auto_patch_interval">Tần suất vá lại tự động</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Tần suất các ứng dụng đã vá được xây dựng lại</string>
-    <string name="settings_advanced_auto_patch_charging">Chỉ khi đang sạc</string>
-    <string name="settings_advanced_auto_patch_charging_description">Việc vá tốn nhiều CPU và bộ nhớ, vì vậy nó sẽ đợi bộ sạc</string>
-    <string name="settings_advanced_auto_patch_install">Cài đặt tự động</string>
-    <string name="settings_advanced_auto_patch_install_description">Yêu cầu Shizuku làm trình cài đặt. Với bất kỳ trình cài đặt nào khác, các ứng dụng đã vá chỉ được lưu</string>
     <string name="settings_advanced_external_batch_patch">Cho phép các trình kích hoạt bên ngoài</string>
     <string name="settings_advanced_external_batch_patch_description">Cho phép các ứng dụng tự động hóa bắt đầu vá hàng loạt bằng một ý định. Mọi yêu cầu đều được xác nhận trước khi mọi thứ chạy</string>
     <string name="external_batch_patch_title">Bắt đầu vá hàng loạt?</string>
@@ -685,13 +694,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="external_batch_patch_trust_caller">Luôn cho phép ứng dụng này</string>
     <string name="external_batch_patch_unknown_caller">Một ứng dụng không xác định</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Vá lại tự động đã hoàn thành</string>
-    <string name="notification_auto_patch_running_title">Đang vá lại ứng dụng</string>
-    <string name="notification_auto_patch_blocked_title">Vá lại tự động không chạy</string>
-    <string name="notification_auto_patch_blocked_battery">Hệ thống chặn cài đặt này. Trên Xiaomi và các thiết bị tương tự, hãy bật \"Cài đặt qua USB\" trong tùy chọn nhà phát triển. Trên một cấu hình làm việc, cài đặt có thể bị hạn chế theo chính sách</string>
-    <string name="notification_auto_patch_blocked_foreground">Android không cho phép vá bắt đầu trong nền. Mở Morphe và vá từ ứng dụng</string>
-    <string name="notification_channel_auto_patch">Vá lại tự động</string>
-    <string name="notification_channel_auto_patch_description">Thông báo tiến trình và kết quả im lặng để vá lại theo lịch trình</string>
     <string name="notification_manager_update_title">Đã có bản cập nhật Morphe mới</string>
     <string name="notification_bundle_update_title">Đã có bản vá mới</string>
     <string name="notification_update_text">Phiên bản %s đã sẵn sàng để tải xuống</string>
@@ -1176,6 +1178,7 @@ Chi tiết: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB đã tải xuống</string>
     <string name="manager_update_not_ready">Bản phát hành này vẫn đang được đăng tải. Vui lòng thử lại sau vài phút</string>
+    <string name="update_download_missing">Bản cập nhật đã tải không còn khả dụng. Hãy tải lại</string>
     <string name="download_manager_failed">Không thể tải bản cập nhật: %s</string>
     <string name="failed_to_check_updates">Không thể kiểm tra cập nhật: %s</string>
     <string name="failed_to_download_update">Không tải được bản cập nhật: %s</string>

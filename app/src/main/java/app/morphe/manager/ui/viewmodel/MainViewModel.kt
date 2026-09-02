@@ -108,9 +108,9 @@ class MainViewModel(
     }
 
     /**
-     * Resolves the apps a launcher shortcut asked to re-patch. No confirmation dialog here:
-     * the request comes from Morphe's own shortcut and only opens the preflight list, which
-     * the user still has to start by hand.
+     * Resolves the apps the launcher shortcut or the re-patch notification asked about. No
+     * confirmation dialog here: the request comes from Morphe itself and only opens the
+     * preflight list, which the user still has to start by hand.
      */
     fun onShortcutBatchRequest() {
         pendingOutdatedBatch = false
@@ -129,7 +129,7 @@ class MainViewModel(
     }
 
     /**
-     * Reopens the queue an automatic run left behind. Navigating with its own target list
+     * Reopens the queue a run finished in the background. Navigating with its own target list
      * keeps the finished state, which the batch screen would otherwise re-plan away.
      */
     fun onShowBatchResult() {

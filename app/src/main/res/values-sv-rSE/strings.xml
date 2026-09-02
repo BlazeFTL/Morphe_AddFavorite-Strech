@@ -28,6 +28,7 @@
     <string name="home_outdated_manager_subtitle">Vissa tilläggskällor behöver en nyare version</string>
     <string name="home_metered_skipped_title">Uppdateringar via mobildata har pausats</string>
     <string name="home_metered_skipped_subtitle">Tryck för att tillåta uppdateringar via mobildata</string>
+    <string name="home_repatch_available_subtitle">Tryck för att köa alla</string>
     <string name="home_update_error">Uppdatering misslyckades</string>
     <string name="home_update_error_subtitle">Något gick fel vid uppdatering av källor</string>
     <string name="home_update_skipped_metered">Uppdateringar hoppas över</string>
@@ -53,6 +54,8 @@
     <string name="home_app_sort_name_desc_description">Omvänd alfabetisk ordning, Ö till A</string>
     <string name="home_app_sort_updates_first">Tilläggsuppdateringar först</string>
     <string name="home_app_sort_updates_first_description">Appar med uppdateringsmärke först, sedan rekommenderad ordning</string>
+    <string name="home_app_sort_recently_patched">Nyligen patchade</string>
+    <string name="home_app_sort_recently_patched_description">Senast patchade appar först</string>
     <string name="home_no_apps_title">Inga appar är tillgängliga</string>
     <string name="home_no_apps_subtitle">Lägg till en källa eller aktivera en befintlig i %s</string>
     <string name="home_no_apps_search_subtitle">Inga appar matchar \"%s\"</string>
@@ -124,9 +127,13 @@
     <string name="sources_sort_enabled_first">Aktiverade först</string>
     <string name="sources_sort_enabled_first_description">Visa aktiva källor före inaktiverade källor</string>
     <string name="sources_management_open_in_browser">Öppna i webbläsaren</string>
+    <string name="sources_management_report_issue">Rapportera ett problem</string>
     <string name="sources_management_failed_to_open_url">Det gick inte att öppna webbadressen</string>
     <string name="sources_management_prerelease_toggle">Förhandsversioner av tillägg</string>
     <string name="sources_management_prerelease_toggle_description">Får tidig åtkomst till nya experimentella tilläggsversioner</string>
+    <string name="sources_prerelease_warning_title">Aktivera förhandsversioner av patchar?</string>
+    <string name="sources_prerelease_warning_message">Förhandsversioner är fortfarande under utveckling. Patchar kan misslyckas eller krascha appen, och funktioner kan ändras utan förvarning</string>
+    <string name="expert_mode_prerelease_notice">Den här källan har förhandsversioner av patchar. Patchning kan misslyckas eller bete sig oväntat</string>
     <string name="sources_management_experimental_versions_toggle">Experimentella appversioner</string>
     <string name="sources_management_experimental_versions_toggle_description">Modifierar experimentella appmål om sådana finns</string>
     <string name="sources_management_already_exists">Den här källan har redan lagts till</string>
@@ -162,6 +169,7 @@
     <string name="sources_dialog_url_invalid">Webbadressen måste peka på en GitHub-/GitLab-lagringsplats eller .json-fil</string>
     <string name="sources_dialog_local_change_file">Byt fil</string>
     <string name="sources_dialog_preinstalled">Förinstallerad</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Uppdateringen lyckades</string>
     <string name="sources_update_unavailable">Ingen uppdatering är tillgänglig</string>
     <string name="sources_download_fail">Det gick inte att ladda ned källor: %s</string>
@@ -192,6 +200,7 @@
     <string name="home_apk_helper_installed_incompatible">Den installerade versionen kan inte modifieras</string>
     <string name="home_apk_use_saved">Använd den sparade APK-filen</string>
     <string name="home_apk_use_installed">Använd den installerade APK-filen</string>
+    <string name="home_apk_use_saved_unsupported">Patcharna stöder inte denna sparade kopia. Om du patchar den kommer du att bli ombedd att bekräfta, eller välj en annan APK</string>
     <string name="home_apk_use_installed_unverified">Det gick inte att verifiera signaturen för den installerade appen, så den kan redan ha modifierats</string>
     <string name="home_unverified">Overifierad</string>
     <string name="home_install_verification_pending">Kontrollerar installation…</string>
@@ -251,6 +260,8 @@
     <string name="expert_mode_enable_all">Aktivera alla</string>
     <string name="expert_mode_enable_all_done">Alla tillägg har aktiverats</string>
     <string name="expert_mode_enable_all_universal_pending">Tryck igen för universella tillägg</string>
+    <string name="expert_mode_universal_all_warning_title">Aktivera alla universella patchar?</string>
+    <string name="expert_mode_universal_all_warning_message">Universella patchar är inte testade tillsammans. Att aktivera alla på en gång kan orsaka konflikter, misslyckad patchning eller krascher</string>
     <string name="expert_mode_reset_to_default">Aktivera rekommenderade tillägg</string>
     <string name="expert_mode_reset_to_default_done">Rekommenderade tillägg har tillämpats</string>
     <string name="expert_mode_restore_saved">Återställ sparat urval</string>
@@ -465,6 +476,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_ready_to_install_subtitle">Tryck på knappen nedan för att installera</string>
     <string name="patcher_ready_to_mount_subtitle">Tryck på knappen nedan för att montera</string>
     <string name="patcher_patches_excluded_for_installer">Inte tillgänglig för denna installationsmetod och utesluten: %s</string>
+    <string name="patcher_back_to_game_hint">Tryck på %1$s för att gå tillbaka till ditt spel</string>
     <string name="patcher_storage_permission_dialog_title">Det går inte att komma åt lagringssökväg</string>
     <string name="patcher_incompatible_patcher_title">Uppdatering krävs</string>
     <string name="patcher_incompatible_patcher_description">Arkivet &lt;b&gt;%1$s&lt;/b&gt; kräver version &lt;b&gt;%2$s&lt;/b&gt; eller senare av modifieringsverktyget. Uppdatera Morphe för att modifiera den här appen</string>
@@ -652,8 +664,14 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Uppdateringar</string>
     <string name="settings_advanced_patcher">Modifieringsverktyg</string>
-    <string name="settings_advanced_updates_use_prereleases">Uppdatera med förhandsversioner</string>
-    <string name="settings_advanced_updates_use_prereleases_description">Tidig åtkomst till nya versioner av Morphe-appen. Aktivera förhandsversioner för enskilda källor i Tillägskällor</string>
+    <string name="settings_advanced_updates_manager_prereleases">Uppdatera med förhandsversioner</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <string name="settings_advanced_updates_manager_prereleases_description">Tidig åtkomst till nya Morphe-versioner</string>
+    <string name="settings_advanced_updates_prerelease_warning_title">Aktivera förhandsversioner av uppdateringar?</string>
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
+    <string name="settings_advanced_updates_prerelease_warning_message">"Förhandsversioner av Morphe är fortfarande under utveckling och kan vara instabila.
+
+Patchar påverkas inte: aktivera förhandsversioner av patchar för varje källa i listan över patchkällor"</string>
     <string name="settings_advanced_updates_allow_metered">Uppdateringar via mobildata</string>
     <string name="settings_advanced_updates_allow_metered_description">Tillåter att uppdateringar för Morphe och tillägg laddas ned via mobildata</string>
     <string name="settings_advanced_updates_background_notifications">Aviseringar om uppdateringar i bakgrunden</string>
@@ -667,14 +685,6 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_advanced_update_interval_monthly">En gång i månaden</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Sökningsfrekvens i bakgrunden</string>
     <string name="settings_advanced_update_interval_battery_warning">Kontroller i bakgrunden kanske inte fungerar tillförlitligt på vissa enheter. Tillverkare som Xiaomi, Huawei, Samsung och OnePlus begränsar ofta bakgrundsprocesser aggressivt för att spara batteri</string>
-    <string name="settings_advanced_auto_patch">Modifiera igen automatiskt</string>
-    <string name="settings_advanced_auto_patch_description">Modifierar installerade appar igen i bakgrunden när deras tillägg ändras. Endast appar med en sparad ursprunglig APK-fil omfattas</string>
-    <string name="settings_advanced_auto_patch_interval">Modifieringsfrekvens</string>
-    <string name="settings_advanced_auto_patch_interval_chip_subtitle">Hur ofta modifierade appar byggs om</string>
-    <string name="settings_advanced_auto_patch_charging">Endast när enheten laddas</string>
-    <string name="settings_advanced_auto_patch_charging_description">Modifieringen belastar CPU:n och minnet kraftigt, så den väntar på en laddare</string>
-    <string name="settings_advanced_auto_patch_install">Installera automatiskt</string>
-    <string name="settings_advanced_auto_patch_install_description">Kräver Shizuku som installerare. Med andra installerare sparas de modifierade apparna endast</string>
     <string name="settings_advanced_external_batch_patch">Tillåt externa utlösare</string>
     <string name="settings_advanced_external_batch_patch_description">Låter automatiseringsappar starta batchmodifiering med en avsikt. Varje begäran bekräftas innan något körs.</string>
     <string name="external_batch_patch_title">Starta batchmodifiering?</string>
@@ -682,13 +692,6 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="external_batch_patch_trust_caller">Tillåt alltid den här appen</string>
     <string name="external_batch_patch_unknown_caller">En okänd app</string>
     <!-- Notification content -->
-    <string name="notification_auto_patch_title">Automatisk ommodifiering avslutad</string>
-    <string name="notification_auto_patch_running_title">Modifierar appar igen</string>
-    <string name="notification_auto_patch_blocked_title">Automatisk ommodifiering kördes inte</string>
-    <string name="notification_auto_patch_blocked_battery">Undanta Morphe från batterioptimering, annars stoppar Android körningen innan den startar</string>
-    <string name="notification_auto_patch_blocked_foreground">Android tillät inte att modifiering startade i bakgrunden. Öppna Morphe och modifiera från appen</string>
-    <string name="notification_channel_auto_patch">Modifiera igen automatiskt</string>
-    <string name="notification_channel_auto_patch_description">Tysta förlopps- och resultatmeddelanden för schemalagd ommodifiering</string>
     <string name="notification_manager_update_title">Uppdatering för Morphe är tillgänglig</string>
     <string name="notification_bundle_update_title">Nya tillägg är tillgängliga </string>
     <string name="notification_update_text">Version %s är redo att laddas ned</string>
@@ -1039,7 +1042,15 @@ Information: %2$s"</string>
     <string name="credits_prior_development">Tidigare utveckling</string>
     <string name="opensource_licenses">Licenser för öppen källkod</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <string name="easter_egg_pill_title">Ett val</string>
+    <string name="easter_egg_pill_message">Ta det blå pillret så förblir annonserna precis där de är. Ta det röda och se hur djupt bytekoden går</string>
+    <string name="easter_egg_pill_red">Rött piller</string>
+    <string name="easter_egg_pill_blue">Blått piller</string>
+    <string name="easter_egg_pill_red_toast">Matrixbakgrund upplåst</string>
+    <string name="easter_egg_pill_blue_toast">Annonserna väntar på dig</string>
+    <string name="easter_egg_pill_message_again">Du är redan i Matrix. Det röda pillret släpper tillbaka dig i regnet, det blå väcker dig</string>
     <string name="easter_egg_pill_red_toast_again">Tillbaka i regnet</string>
+    <string name="easter_egg_pill_blue_toast_again">Urkopplad. Vägen tillbaka är där den alltid var</string>
     <!-- Shared strings -->
     <string name="select_file">Välj fil</string>
     <string name="select_folder">Välj mapp</string>
@@ -1165,6 +1176,7 @@ Information: %2$s"</string>
     <!-- Shown while resuming a download, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB nedladdat</string>
     <string name="manager_update_not_ready">Den här utgåvan publiceras fortfarande. Försök igen om några minuter.</string>
+    <string name="update_download_missing">Den nedladdade uppdateringen är inte längre tillgänglig. Ladda ner den igen</string>
     <string name="download_manager_failed">Det gick inte att ladda ned uppdateringen: %s</string>
     <string name="failed_to_check_updates">Det gick inte att söka efter uppdateringar: %s</string>
     <string name="failed_to_download_update">Det gick inte att ladda ned uppdateringen: %s</string>

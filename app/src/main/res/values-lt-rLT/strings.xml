@@ -113,6 +113,7 @@
     <string name="sources_dialog_url_invalid">URL turi rodyti į GitHub/GitLab repo arba .json failą</string>
     <string name="sources_dialog_local_change_file">Pakeisti failą</string>
     <string name="sources_dialog_preinstalled">iš anksto įdiegta</string>
+    <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Sėkmingas atnaujinimas</string>
     <string name="sources_update_unavailable">Atnaujinimo nėra</string>
     <string name="sources_download_fail">Nepavyko atsisiųsti šaltinio: %s</string>
@@ -448,7 +449,9 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="settings_appearance_app_icon_change_dialog_confirm">Pakeisti piktogramą</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Atnaujinimai</string>
-    <string name="settings_advanced_updates_use_prereleases">Eksperimentiniai atnaujinimai</string>
+    <string name="settings_advanced_updates_manager_prereleases">Eksperimentiniai atnaujinimai</string>
+    <!-- "Morphe" here is the app itself, not the patches. Do not translate this as pre-release patches -->
+    <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_allow_metered">Atnaujinimai per mobiliuosius duomenis</string>
     <string name="settings_advanced_updates_allow_metered_description">Laidžia Morphe ir pataisymų atnaujinimus siųsti per mobiliuosius duomenis</string>
     <string name="settings_advanced_updates_background_notifications">Foniniai atnaujinimo pranešimai</string>

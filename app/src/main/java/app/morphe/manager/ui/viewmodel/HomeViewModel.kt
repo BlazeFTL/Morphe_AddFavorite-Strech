@@ -47,12 +47,12 @@ import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
-import app.morphe.manager.util.PatchSelectionUtils.filterGmsCore
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
 import app.morphe.manager.util.PatchSelectionUtils.updateOption
+import app.morphe.manager.util.PatchSelectionUtils.withBundle
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
 import app.morphe.patcher.patch.ApkArchitecture
@@ -1643,6 +1643,11 @@ class HomeViewModel(
                 compareByDescending<HomeAppItem> { it.showsUpdateBadge }
                     .then(morpheComparator)
             )
+            HomeAppSortMode.RECENTLY_PATCHED -> items.sortedWith(
+                // Newest patch first; apps never patched sort last, in recommended order
+                compareByDescending<HomeAppItem> { it.installedApp?.patchedAt ?: Long.MIN_VALUE }
+                    .then(morpheComparator)
+            )
         }
     }
 
@@ -2067,20 +2072,7 @@ class HomeViewModel(
      */
     private fun applyInstalledApkInfo(installed: Boolean, info: InstalledApkInfo?) {
         pendingTargetAppInstalled = installed
-        pendingInstalledApkInfo = info?.takeIf { isInstalledVersionCompatible(it.version, it.versionCode) }
-    }
-
-    /**
-     * Returns true if [installedVersion] is listed in [pendingCompatibleVersions],
-     * or if the compatible list is empty / contains an "any version" target.
-     */
-    private fun isInstalledVersionCompatible(installedVersion: String, installedVersionCode: Long?): Boolean {
-        val compatible = pendingCompatibleVersions
-        if (compatible.isEmpty() || compatible.any { it.target.version == null }) return true
-        return compatible.any { entry ->
-            entry.target.version == installedVersion &&
-                (entry.buildCodes == null || installedVersionCode == null || installedVersionCode.toInt() in entry.buildCodes)
-        }
+        pendingInstalledApkInfo = info?.takeIf { pendingCompatibleVersions.patchableAt(it.version, it.versionCode) }
     }
 
     /**
@@ -2699,13 +2691,10 @@ class HomeViewModel(
 
         val configurationKey = configurationKeyFor(selectedApp.packageName)
 
-        // Apply patch-declared rules first, then keep the legacy GmsCore filter as a safety
-        // net for bundles that have not adopted the availability API
-        // TODO: Drop this fallback together with PatchSelectionUtils.filterGmsCore
-        @Suppress("DEPRECATION")
+        // Whatever selection is reached below, the patches' own availability for the install
+        // target has the final say on what the run starts with
         fun PatchSelection.applyInstallerRules(): PatchSelection =
             applyAvailability(currentInstallerType, currentApkArchitecture, bundlesMap)
-                .let { if (usingMountInstall) it.filterGmsCore() else it }
 
         if (isExpertMode()) {
             // Expert Mode: Load saved selections and options only for current bundles
@@ -2740,7 +2729,7 @@ class HomeViewModel(
                     app.toast(app.resources.getQuantityString(
                         R.plurals.home_app_info_repatch_cleaned_invalid_data,
                         removedCount,
-                        removedCount
+                        removedCount.toString()
                     ))
                 }
 
@@ -2996,10 +2985,6 @@ class HomeViewModel(
     val expertModeTotalSelectedCount: Int
         get() = expertModePatches.values.sumOf { it.size }
 
-    /** Total number of available patches across all bundles. */
-    val expertModeTotalPatchesCount: Int
-        get() = expertModeAllPatchesInfo.sumOf { it.second.size }
-
     /** True when patches from more than one bundle are selected (triggers warning on proceed). */
     val expertModeHasMultipleBundles: Boolean
         get() = expertModePatches.spansMultipleBundles()
@@ -3038,8 +3023,7 @@ class HomeViewModel(
             ::expertModeLockState
         )
 
-        expertModePatches = expertModePatches.toMutableMap()
-            .apply { put(bundleUid, updated) }
+        expertModePatches = expertModePatches.withBundle(bundleUid, updated)
             .applyExpertModeAvailability()
         // Armed against what the availability rules left behind, so the next tap sees the
         // selection it is compared to
@@ -3073,14 +3057,13 @@ class HomeViewModel(
      * Removes the bundle entry entirely if nothing remains selected. LOCKED_ON patches are kept.
      */
     fun expertModeDeselectAll(bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) {
-        val current = expertModePatches.toMutableMap()
-        val set = current[bundleUid]?.toMutableSet() ?: mutableSetOf()
+        val kept = expertModePatches[bundleUid]?.toMutableSet() ?: mutableSetOf()
         patches.forEach { (patch, enabled) ->
             if (expertModeLockState(patch) == PatchLockState.LOCKED_ON) return@forEach
-            if (enabled) set.remove(patch.name)
+            if (enabled) kept.remove(patch.name)
         }
-        if (set.isEmpty()) current.remove(bundleUid) else current[bundleUid] = set
-        expertModePatches = current.applyExpertModeAvailability()
+        expertModePatches = expertModePatches.withBundle(bundleUid, kept)
+            .applyExpertModeAvailability()
     }
 
     /**
@@ -3096,9 +3079,8 @@ class HomeViewModel(
         val defaults = bundle.patchSequence(expertModeAllowIncompatible)
             .filter { it.defaultSelected(currentInstallerType, currentApkArchitecture) }
             .mapTo(mutableSetOf()) { it.name }
-        val current = expertModePatches.toMutableMap()
-        if (defaults.isEmpty()) current.remove(bundleUid) else current[bundleUid] = defaults
-        expertModePatches = current.applyExpertModeAvailability()
+        expertModePatches = expertModePatches.withBundle(bundleUid, defaults)
+            .applyExpertModeAvailability()
     }
 
     /**
@@ -3107,9 +3089,8 @@ class HomeViewModel(
      */
     fun expertModeRestoreSaved(bundleUid: Int) {
         val savedForBundle = expertModeInitialPatches[bundleUid] ?: return
-        val current = expertModePatches.toMutableMap()
-        if (savedForBundle.isEmpty()) current.remove(bundleUid) else current[bundleUid] = savedForBundle
-        expertModePatches = current.applyExpertModeAvailability()
+        expertModePatches = expertModePatches.withBundle(bundleUid, savedForBundle)
+            .applyExpertModeAvailability()
     }
 
     /**
@@ -3217,12 +3198,10 @@ class HomeViewModel(
                 return@launch
             }
 
-            val updatedSelection = expertModePatches.toMutableMap()
-            if (patches.isEmpty()) updatedSelection.remove(targetBundleUid)
-            else updatedSelection[targetBundleUid] = patches
             // The copy comes from a run that may have targeted another installer, so the patches
             // it carries are put through the availability rules of this one
-            expertModePatches = updatedSelection.applyExpertModeAvailability()
+            expertModePatches = expertModePatches.withBundle(targetBundleUid, patches)
+                .applyExpertModeAvailability()
 
             val currentOptions = expertModeOptions.toMutableMap()
             val bundleOptions = currentOptions[targetBundleUid]?.toMutableMap() ?: mutableMapOf()
@@ -3237,7 +3216,7 @@ class HomeViewModel(
                 app.resources.getQuantityString(
                     R.plurals.expert_mode_copy_from_bundle_done,
                     patches.size,
-                    patches.size
+                    patches.size.toString()
                 )
             )
             closeExpertModeCopyDialog()

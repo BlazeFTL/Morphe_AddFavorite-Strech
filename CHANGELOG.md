@@ -1,3 +1,11 @@
+# [1.29.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.9...v1.29.0-dev.10) (2026-09-02)
+
+
+### Features
+
+* Add Shizuku+ support ([#926](https://github.com/MorpheApp/morphe-manager/issues/926)) ([d6e6838](https://github.com/MorpheApp/morphe-manager/commit/d6e68386c96eba72fb130854be5dbd8b529c5766))
+* Open the manager changelog from its update notification ([b8a2fc5](https://github.com/MorpheApp/morphe-manager/commit/b8a2fc5ceed07eea976eb72778e3fe9907937481))
+
 # [1.29.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.8...v1.29.0-dev.9) (2026-09-02)
 
 

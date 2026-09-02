@@ -1,3 +1,10 @@
+# [1.29.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.8...v1.29.0-dev.9) (2026-09-02)
+
+
+### Bug Fixes
+
+* Correct manager update progress and stop the dialog closing itself ([ef58c0b](https://github.com/MorpheApp/morphe-manager/commit/ef58c0b16d9d57bb48de18258c7ce2674007e8b2))
+
 # [1.29.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.7...v1.29.0-dev.8) (2026-09-02)
 
 

@@ -50,6 +50,7 @@ import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.MainViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
 import app.morphe.manager.ui.viewmodel.ThemeSettingsViewModel
+import app.morphe.manager.ui.viewmodel.UpdateViewModel
 import app.morphe.manager.util.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -176,6 +177,13 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        // Same action on a manager update notification. This one does resolve the release on
+        // the way in, because the notes it shows belong to a version that is not installed yet
+        if (intent?.action == ACTION_SHOW_MANAGER_CHANGELOG) {
+            vm.pendingManagerChangelog = true
+            return
+        }
+
         // Batch result notification: reopens the queue it reports about
         if (intent?.action == ACTION_SHOW_BATCH_RESULT) {
             vm.pendingBatchResult = true
@@ -286,6 +294,9 @@ class MainActivity : AppCompatActivity() {
         /** Source whose changelog the update notification opens. */
         const val EXTRA_CHANGELOG_BUNDLE_UID = "changelog_bundle_uid"
 
+        /** Action behind the changelog button of a manager update notification. */
+        const val ACTION_SHOW_MANAGER_CHANGELOG = "app.morphe.manager.action.SHOW_MANAGER_CHANGELOG"
+
         /** Package the per-app shortcut opens the patch dialog for. */
         const val EXTRA_PATCH_PACKAGE = "patch_package"
     }
@@ -357,6 +368,19 @@ private fun MorpheManager(vm: MainViewModel) {
         sources = patchSources,
         onDismissRequest = { vm.pendingBundleChangelogUid = null }
     )
+
+    // The manager has no changelog view of its own for a release it has not installed, so the
+    // update dialog is the answer to "what's new": it lists exactly the entries being offered
+    if (vm.pendingManagerChangelog) {
+        // Activity-scoped, so this shares the check and the download with the home screen
+        val updateViewModel: UpdateViewModel = koinViewModel(
+            viewModelStoreOwner = LocalActivity.current as ComponentActivity
+        )
+        ManagerUpdateDetailsDialog(
+            onDismiss = { vm.pendingManagerChangelog = false },
+            updateViewModel = updateViewModel
+        )
+    }
 
     // Per-app shortcut reuses the trigger the installed-app dialog already goes through
     LaunchedEffect(vm.pendingPatchPackage) {

@@ -101,24 +101,17 @@ class UpdateNotificationManager(private val context: Context) {
     }
 
     /** Opens the batch queue on the run these notifications report about. */
-    private fun buildBatchResultIntent(): PendingIntent {
-        val intent = Intent(context, MainActivity::class.java).apply {
+    private fun buildBatchResultIntent() =
+        buildActivityIntent(REQUEST_CODE_BATCH_RESULT) {
             action = MainActivity.ACTION_SHOW_BATCH_RESULT
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
-        @SuppressLint("WrongConstant")
-        return PendingIntent.getActivity(
-            context,
-            REQUEST_CODE_BATCH_RESULT,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-    }
 
     /**
      * Post a notification that a new Morphe Manager version is available.
      * Called from [app.morphe.manager.worker.UpdateCheckWorker] on non-GMS devices
      * and from [app.morphe.manager.service.MorpheFcmService] on GMS devices.
+     *
+     * The changelog action opens what the pending release changes, not the installed one.
      */
     fun showManagerUpdateNotification(version: String? = null) {
         postNotification(
@@ -127,7 +120,12 @@ class UpdateNotificationManager(private val context: Context) {
                 context.getString(R.string.notification_update_text, version)
             else
                 context.getString(R.string.notification_manager_update_title),
-            notificationId = NOTIFICATION_ID_MANAGER_UPDATE
+            notificationId = NOTIFICATION_ID_MANAGER_UPDATE,
+            action = NotificationCompat.Action.Builder(
+                R.drawable.ic_notification,
+                context.getString(R.string.whats_new),
+                buildManagerChangelogIntent()
+            ).build()
         )
     }
 
@@ -186,35 +184,44 @@ class UpdateNotificationManager(private val context: Context) {
      * Creates a [PendingIntent] that opens [MainActivity] on the changelog of one source.
      * Picked up by [MainActivity] through [MainActivity.ACTION_SHOW_BUNDLE_CHANGELOG].
      */
-    private fun buildBundleChangelogIntent(bundleUid: Int): PendingIntent {
-        val intent = Intent(context, MainActivity::class.java).apply {
+    private fun buildBundleChangelogIntent(bundleUid: Int) =
+        buildActivityIntent(REQUEST_CODE_BUNDLE_CHANGELOG) {
             action = MainActivity.ACTION_SHOW_BUNDLE_CHANGELOG
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra(MainActivity.EXTRA_CHANGELOG_BUNDLE_UID, bundleUid)
         }
-        @SuppressLint("WrongConstant")
-        return PendingIntent.getActivity(
-            context,
-            REQUEST_CODE_BUNDLE_CHANGELOG,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-    }
+
+    /**
+     * Creates a [PendingIntent] that opens [MainActivity] on the manager update details.
+     * Picked up by [MainActivity] through [MainActivity.ACTION_SHOW_MANAGER_CHANGELOG].
+     */
+    private fun buildManagerChangelogIntent() =
+        buildActivityIntent(REQUEST_CODE_MANAGER_CHANGELOG) {
+            action = MainActivity.ACTION_SHOW_MANAGER_CHANGELOG
+        }
 
     /**
      * Creates a [PendingIntent] that opens [MainActivity] and triggers an update check.
      * The [EXTRA_TRIGGER_UPDATE_CHECK] extra is picked up by [MainActivity] via
      * [app.morphe.manager.ui.viewmodel.MainViewModel.pendingUpdateCheck].
      */
-    private fun buildOpenAppIntent(): PendingIntent {
+    private fun buildOpenAppIntent() =
+        buildActivityIntent(REQUEST_CODE_UPDATE_CHECK) {
+            putExtra(EXTRA_TRIGGER_UPDATE_CHECK, true)
+        }
+
+    /**
+     * Wraps an intent onto [MainActivity] as a [PendingIntent] under [requestCode], which has to
+     * be unique per target: a shared one would rewrite the intent of every notification using it.
+     */
+    private fun buildActivityIntent(requestCode: Int, configure: Intent.() -> Unit): PendingIntent {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            putExtra(EXTRA_TRIGGER_UPDATE_CHECK, true)
+            configure()
         }
         @SuppressLint("WrongConstant")
         return PendingIntent.getActivity(
             context,
-            REQUEST_CODE_UPDATE_CHECK,
+            requestCode,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -234,6 +241,7 @@ class UpdateNotificationManager(private val context: Context) {
         private const val REQUEST_CODE_UPDATE_CHECK = 1
         private const val REQUEST_CODE_BATCH_RESULT = 2
         private const val REQUEST_CODE_BUNDLE_CHANGELOG = 3
+        private const val REQUEST_CODE_MANAGER_CHANGELOG = 4
 
         /**
          * Intent extra key. When set to `true`, [MainActivity] triggers a bundle/manager

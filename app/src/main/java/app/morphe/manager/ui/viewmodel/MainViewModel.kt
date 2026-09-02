@@ -32,6 +32,12 @@ class MainViewModel(
     var pendingBundleChangelogUid: Int? by mutableStateOf(null)
 
     /**
+     * Set by [app.morphe.manager.MainActivity.handleDeepLinkIntent] when the changelog action of
+     * a manager update notification is tapped. MorpheManager shows it, then clears the flag.
+     */
+    var pendingManagerChangelog by mutableStateOf(false)
+
+    /**
      * Set by [app.morphe.manager.MainActivity.handleDeepLinkIntent] when the app is opened
      * via a deep link to add a patch source. HomeScreen observes this via LaunchedEffect,
      * shows a confirmation dialog, then resets the flag to null.

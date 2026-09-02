@@ -2,7 +2,7 @@
 about-libraries = "15.2.0"
 accompanist = "0.37.3"
 activity = "1.13.0"
-android-gradle-plugin = "9.3.2"
+android-gradle-plugin = "9.4.0"
 app-icon-loader-coil = "1.5.0"
 appcompat = "1.8.0"
 arsclib = "a28c6fb2a7"
@@ -29,7 +29,7 @@ markdown-renderer = "0.45.0"
 # Remove when released stable 1.5.0 in Compose BOM. Fix for https://github.com/MorpheApp/morphe-manager/issues/74
 material3 = "1.5.0-alpha27" # 1.5.0-alpha09 API Changes: Remove deprecated experimental ModalBottomSheet
 morphe-library = "1.4.0"
-morphe-patcher = "1.11.1-dev.3"  # Change to stable
+morphe-patcher = "1.11.1-dev.4"  # Change to stable
 navigation = "2.10.0"
 placeholder = "2.0.0"
 play-services-base = "18.10.1"

@@ -178,11 +178,6 @@ fun BundleManagementSheet(
     val bundleToShowPatches = remember { mutableStateOf<PatchBundleSource?>(null) }
     var bundleRequiringManagerUpdate by remember { mutableStateOf<PatchBundleSource?>(null) }
     var bundleToShowChangelogUid by remember { mutableStateOf<Int?>(null) }
-    val bundleToShowChangelog = bundleToShowChangelogUid
-        ?.let { uid -> sources.filterIsInstance<RemotePatchBundle>().find { it.uid == uid } }
-    val bundleToShowChangelogKey = bundleToShowChangelog?.let {
-        "${it.installedVersionSignature}|${it.usesPrerelease}"
-    }
 
     // Switching branches invalidates whatever the changelog dialog is holding, so the cache goes
     // and an open dialog closes rather than keeping entries from the branch that was just left
@@ -533,14 +528,11 @@ fun BundleManagementSheet(
     }
 
     // Changelog dialog
-    if (bundleToShowChangelog != null) {
-        key(bundleToShowChangelogKey) {
-            BundleChangelogDialog(
-                src = bundleToShowChangelog,
-                onDismissRequest = { bundleToShowChangelogUid = null }
-            )
-        }
-    }
+    BundleChangelogHost(
+        request = bundleToShowChangelogUid?.let { BundleChangelogRequest(it) },
+        sources = sources,
+        onDismissRequest = { bundleToShowChangelogUid = null }
+    )
 }
 
 private fun List<PatchBundleSource>.sortedForSourceSort(

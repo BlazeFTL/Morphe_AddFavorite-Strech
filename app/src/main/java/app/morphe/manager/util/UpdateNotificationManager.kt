@@ -14,6 +14,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import app.morphe.manager.MainActivity
 import app.morphe.manager.R
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.util.UpdateNotificationManager.Companion.CHANNEL_FCM_UPDATES
 import app.morphe.manager.util.UpdateNotificationManager.Companion.EXTRA_TRIGGER_UPDATE_CHECK
 
@@ -134,15 +135,25 @@ class UpdateNotificationManager(private val context: Context) {
      * Post a notification that new patch bundle updates are available.
      * Called from [app.morphe.manager.worker.UpdateCheckWorker] on non-GMS devices
      * and from [app.morphe.manager.service.MorpheFcmService] on GMS devices.
+     *
+     * The changelog action opens [bundleUid], the default source when FCM does not name one.
      */
-    fun showBundleUpdateNotification(version: String? = null) {
+    fun showBundleUpdateNotification(
+        version: String? = null,
+        bundleUid: Int = PatchBundleRepository.DEFAULT_SOURCE_UID
+    ) {
         postNotification(
             titleRes = R.string.notification_bundle_update_title,
             contentText = if (!version.isNullOrBlank())
                 context.getString(R.string.notification_update_text, version)
             else
                 context.getString(R.string.notification_bundle_update_text_unversioned),
-            notificationId = NOTIFICATION_ID_BUNDLE_UPDATE
+            notificationId = NOTIFICATION_ID_BUNDLE_UPDATE,
+            action = NotificationCompat.Action.Builder(
+                R.drawable.ic_notification,
+                context.getString(R.string.whats_new),
+                buildBundleChangelogIntent(bundleUid)
+            ).build()
         )
     }
 
@@ -151,7 +162,12 @@ class UpdateNotificationManager(private val context: Context) {
      * Uses IMPORTANCE_HIGH so the device wakes from Doze. Tapping the notification
      * opens [MainActivity] and triggers an update check via [EXTRA_TRIGGER_UPDATE_CHECK].
      */
-    private fun postNotification(titleRes: Int, contentText: String, notificationId: Int) {
+    private fun postNotification(
+        titleRes: Int,
+        contentText: String,
+        notificationId: Int,
+        action: NotificationCompat.Action? = null
+    ) {
         val notification = NotificationCompat.Builder(context, CHANNEL_FCM_UPDATES)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(context.getString(titleRes))
@@ -159,10 +175,30 @@ class UpdateNotificationManager(private val context: Context) {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(buildOpenAppIntent())
             .setAutoCancel(true)
+            .apply { action?.let { addAction(it) } }
             .build()
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(notificationId, notification)
+    }
+
+    /**
+     * Creates a [PendingIntent] that opens [MainActivity] on the changelog of one source.
+     * Picked up by [MainActivity] through [MainActivity.ACTION_SHOW_BUNDLE_CHANGELOG].
+     */
+    private fun buildBundleChangelogIntent(bundleUid: Int): PendingIntent {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            action = MainActivity.ACTION_SHOW_BUNDLE_CHANGELOG
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(MainActivity.EXTRA_CHANGELOG_BUNDLE_UID, bundleUid)
+        }
+        @SuppressLint("WrongConstant")
+        return PendingIntent.getActivity(
+            context,
+            REQUEST_CODE_BUNDLE_CHANGELOG,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 
     /**
@@ -197,6 +233,7 @@ class UpdateNotificationManager(private val context: Context) {
 
         private const val REQUEST_CODE_UPDATE_CHECK = 1
         private const val REQUEST_CODE_BATCH_RESULT = 2
+        private const val REQUEST_CODE_BUNDLE_CHANGELOG = 3
 
         /**
          * Intent extra key. When set to `true`, [MainActivity] triggers a bundle/manager

@@ -35,6 +35,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.navigation.*
 import app.morphe.manager.ui.screen.BatchPatcherScreen
 import app.morphe.manager.ui.screen.HomeScreen
@@ -165,6 +166,16 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        // Changelog action of an update notification: checks for nothing on the way in, so the
+        // notes are read against the installed version
+        if (intent?.action == ACTION_SHOW_BUNDLE_CHANGELOG) {
+            vm.pendingBundleChangelogUid = intent.getIntExtra(
+                EXTRA_CHANGELOG_BUNDLE_UID,
+                PatchBundleRepository.DEFAULT_SOURCE_UID
+            )
+            return
+        }
+
         // Batch result notification: reopens the queue it reports about
         if (intent?.action == ACTION_SHOW_BATCH_RESULT) {
             vm.pendingBatchResult = true
@@ -269,6 +280,12 @@ class MainActivity : AppCompatActivity() {
         /** Action that reopens the batch queue from an automatic re-patch notification. */
         const val ACTION_SHOW_BATCH_RESULT = "app.morphe.manager.action.SHOW_BATCH_RESULT"
 
+        /** Action behind the changelog button of an update notification. */
+        const val ACTION_SHOW_BUNDLE_CHANGELOG = "app.morphe.manager.action.SHOW_BUNDLE_CHANGELOG"
+
+        /** Source whose changelog the update notification opens. */
+        const val EXTRA_CHANGELOG_BUNDLE_UID = "changelog_bundle_uid"
+
         /** Package the per-app shortcut opens the patch dialog for. */
         const val EXTRA_PATCH_PACKAGE = "patch_package"
     }
@@ -332,6 +349,14 @@ private fun MorpheManager(vm: MainViewModel) {
     LaunchedEffect(vm.pendingBatchResult) {
         if (vm.pendingBatchResult) vm.onShowBatchResult()
     }
+
+    // Changelog asked for from an update notification, shown over whichever screen is open
+    val patchSources by homeViewModel.patchBundleRepository.sources.collectAsStateWithLifecycle()
+    BundleChangelogHost(
+        request = vm.pendingBundleChangelogUid?.let { BundleChangelogRequest(it) },
+        sources = patchSources,
+        onDismissRequest = { vm.pendingBundleChangelogUid = null }
+    )
 
     // Per-app shortcut reuses the trigger the installed-app dialog already goes through
     LaunchedEffect(vm.pendingPatchPackage) {

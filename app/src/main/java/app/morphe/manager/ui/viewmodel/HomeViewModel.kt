@@ -140,6 +140,16 @@ data class InstalledAppPickerItem(
 )
 
 /**
+ * The patch update waiting for an installed app: the source carrying it and the version the
+ * app was patched with. [appNames] is empty when no changelog narrowed the update down.
+ */
+data class AppPatchUpdate(
+    val bundleUid: Int,
+    val patchedWithVersion: String?,
+    val appNames: Set<String> = emptySet()
+)
+
+/**
  * Combined home screen app state - emitted atomically so visible and hidden lists
  * are always in sync and never cause a transient empty-state flash.
  */
@@ -447,8 +457,8 @@ class HomeViewModel(
         get() = recommendedBundleVersionsFlow.value
 
     // Track available updates for installed apps
-    private val _appUpdatesAvailable = MutableStateFlow<Map<String, Boolean>>(emptyMap())
-    val appUpdatesAvailable: StateFlow<Map<String, Boolean>> = _appUpdatesAvailable.asStateFlow()
+    private val _appUpdatesAvailable = MutableStateFlow<Map<String, AppPatchUpdate>>(emptyMap())
+    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>> = _appUpdatesAvailable.asStateFlow()
 
     // Ticker to force homeAppState recomputation after install/uninstall without changing DB state
     private val _appStateTicker = MutableStateFlow(0L)
@@ -1113,32 +1123,36 @@ class HomeViewModel(
 
         val currentVersionByUid: Map<Int, String?> = sources.associate { it.uid to it.version }
 
-        val updates = mutableMapOf<String, Boolean>()
+        val updates = mutableMapOf<String, AppPatchUpdate>()
 
         installedApps.forEach { app ->
             // Get stored bundle versions for this app
             val storedVersions = installedAppRepository.getBundleVersionsForApp(app.currentPackageName)
             val appNames = resolveChangelogNames(app.originalPackageName)
 
-            // Check if any bundle used for this app has been updated
-            val hasUpdate = storedVersions.any { (bundleUid, storedVersion) ->
-                val currentVersion = currentVersionByUid[bundleUid] ?: return@any false
-                if (!isNewerVersion(storedVersion, currentVersion)) return@any false
+            // Take the first bundle used for this app that has been updated
+            val update = storedVersions.firstNotNullOfOrNull { (bundleUid, storedVersion) ->
+                val currentVersion = currentVersionByUid[bundleUid] ?: return@firstNotNullOfOrNull null
+                if (!isNewerVersion(storedVersion, currentVersion)) return@firstNotNullOfOrNull null
 
                 // Bundle is newer - refine with changelog if available.
                 // No changelog (null) → show badge (network error or local bundle).
                 // No resolvable app name → show badge (can't match scopes).
                 // Known name, no matching scope → no badge.
-                val entries = changelogByUid[bundleUid] ?: return@any true
-                if (appNames.isEmpty()) return@any true
-                ChangelogParser.hasChangesFor(
-                    entries = entries,
-                    installedVersion = storedVersion,
-                    appNames = appNames,
-                )
+                val unscoped = AppPatchUpdate(bundleUid, storedVersion)
+                val entries = changelogByUid[bundleUid] ?: return@firstNotNullOfOrNull unscoped
+                if (appNames.isEmpty()) return@firstNotNullOfOrNull unscoped
+
+                AppPatchUpdate(bundleUid, storedVersion, appNames).takeIf {
+                    ChangelogParser.hasChangesFor(
+                        entries = entries,
+                        installedVersion = storedVersion,
+                        appNames = appNames,
+                    )
+                }
             }
 
-            updates[app.currentPackageName] = hasUpdate
+            update?.let { updates[app.currentPackageName] = it }
         }
 
         _appUpdatesAvailable.value = updates
@@ -1449,9 +1463,7 @@ class HomeViewModel(
                     pm.getPackageInfo(installedApp.currentPackageName) != null
             val isInstallStatePending = installedApp != null && trackedSnapshot == null
             val isInstalledOnDevice = trackedPresentation?.isPatched == true
-            val hasUpdate = installedApp?.let {
-                updatesMap[it.currentPackageName] == true
-            } == true
+            val hasUpdate = installedApp != null && installedApp.currentPackageName in updatesMap
 
             if (installedApp != null && trackedSnapshot != null && isInstalledOnDevice) {
                 reconcileInstalledVersion(installedApp, trackedSnapshot.installedPackageInfo)

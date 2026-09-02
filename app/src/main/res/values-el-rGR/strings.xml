@@ -2,8 +2,9 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Άλλες εφαρμογές</string>
+    <string name="home_other_apps_action">Επιλογή άλλων εφαρμογών</string>
     <string name="home_not_patched_yet">Δεν τροποποιήθηκε ακόμη</string>
-    <string name="home_unpatched_version_installed">Εγκαταστάθηκε μη ενημερωμένη έκδοση</string>
+    <string name="home_unpatched_version_installed">Εγκαταστάθηκε μη τροποποιημένη έκδοση</string>
     <string name="home_unpatched_badge">Δεν τροποποιήθηκε</string>
     <string name="home_no_patches_available">Δεν υπάρχουν διαθέσιμες τροποποιήσεις</string>
     <string name="home_app_hide_title"> Απόκρυψη αυτής της εφαρμογής;</string>
@@ -49,7 +50,7 @@
     <string name="home_app_filter_clones_description">Εφαρμογές που δημιουργήθηκαν με δικό τους όνομα πακέτου, εγκατεστημένες δίπλα στην πρωτότυπη</string>
     <string name="home_app_sort_manual_description">Πατήστε παρατεταμένα μια εφαρμογή, στη συνέχεια πατήστε το κουμπί αναδιάταξης</string>
     <string name="home_app_sort_recommended">Προτεινόμενη έκδοση</string>
-    <string name="home_app_sort_recommended_description">Εγκατεστημένες και закрепленные εφαρμογές πρώτα</string>
+    <string name="home_app_sort_recommended_description">Εγκατεστημένες και καρφιτσωμένες εφαρμογές πρώτα</string>
     <string name="home_app_sort_name_asc_description">Αλφαβητικά, από το Α έως το Ω</string>
     <string name="home_app_sort_name_desc_description">Αλφαβητικά αντίστροφα, από Ζ έως Α</string>
     <string name="home_app_sort_updates_first">Ενημερώσεις διαχειριστή πρώτα</string>
@@ -274,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">Αντιγραφή επιλογής από άλλο πακέτο</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Δεν βρέθηκαν αντίστοιχα διορθωτικά σε αυτό το πακέτο</string>
     <string name="expert_mode_no_results">Δε βρέθηκαν τροποποιήσεις </string>
+    <string name="expert_mode_selected_only_on">Εμφάνιση μόνο επιλεγμένων επιδιορθώσεων</string>
+    <string name="expert_mode_selected_only_off">Εμφάνιση όλων των επιδιορθώσεων</string>
     <string name="expert_mode_universal_patches">Γενικές τροποποιήσεις </string>
     <string name="expert_mode_new_patches">Νέο</string>
+    <string name="expert_mode_options_customized">Προσαρμοσμένο</string>
     <string name="expert_mode_patch_required_by_installer">Απαραίτητο για τον επιλεγμένο στόχο εγκατάστασης</string>
     <string name="expert_mode_patch_unavailable_for_installer">Δεν είναι διαθέσιμο για τον επιλεγμένο στόχο εγκατάστασης</string>
     <string name="expert_mode_multiple_sources_warning_title">Επιλέχτηκαν πολλαπλές πηγές τροποποιήσεων</string>
@@ -434,7 +438,7 @@
     <string name="home_app_info_app_deleted_description">Η εφαρμογή αυτή απεγκαταστάθηκε εκτός του Morphe. Τροποποιήστε την ξανά για την επαναφορά λειτουργικότητά της</string>
     <string name="home_app_info_not_patched_description">Μια μη ενημερωμένη έκδοση αυτής της εφαρμογής είναι εγκατεστημένη. Το Morphe εξακολουθεί να έχει το προηγούμενο αρχείο επιδιορθώσεων.</string>
     <string name="patcher_rename_title">Αυτό θα εγκαταστήσει ένα κλώνο</string>
-    <string name="patcher_rename_description">Τα μπαλώματα δημιούργησαν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, οπότε η εγκατάστασή της προσθέτει ένα κλώνο δίπλα στο <b>%s</b> αντί να την ενημερώσει</string>
+    <string name="patcher_rename_description">Οι τροποποιήσεις δημιούργησαν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, οπότε η εγκατάστασή της προσθέτει ένα κλώνο δίπλα στο <b>%s</b> αντί να την ενημερώσει</string>
     <string name="patcher_rename_result_package">Θα εγκατασταθεί ως</string>
     <string name="patcher_rename_replaces">Μια εφαρμογή είναι ήδη εγκατεστημένη με αυτό το όνομα και θα αντικατασταθεί</string>
     <string name="home_app_info_apk_size">Μέγεθος APK</string>
@@ -640,6 +644,9 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Εμφάνιση μηνύματος υποδοχής στην αρχική οθόνη</string>
     <string name="settings_appearance_app_grouping">Ομαδοποίηση εφαρμογών</string>
     <string name="settings_appearance_app_grouping_description">Εμφάνιση διακόπτη στην αρχική οθόνη για ομαδοποίηση εφαρμογών κατά πηγή ή δικές σας κατηγορίες, διατηρώντας την επιλογή όταν είναι απενεργοποιημένη</string>
+    <string name="settings_appearance_repatch_notice">Ειδοποίηση επανάληψης τροποποιήσεων</string>
+    <string name="settings_appearance_repatch_notice_description">Εμφάνιση banner στην αρχική οθόνη όταν οι εφαρμογές μπορούν να επαναδιορθωθούν
+</string>
     <string name="settings_appearance_sort_button">Κουμπί ταξινόμησης και φιλτραρίσματος</string>
     <string name="settings_appearance_sort_button_description">Εμφάνιση του κουμπιού ταξινόμησης και φιλτραρίσματος στην αρχική οθόνη</string>
     <string name="settings_appearance_app_card_colors">Χρώματα καρτών εφαρμογών</string>

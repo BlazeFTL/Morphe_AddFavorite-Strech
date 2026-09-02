@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">অন্যান্য অ্যাপ</string>
+    <string name="home_other_apps_action">অন্যান্য অ্যাপ নির্বাচন করুন</string>
     <string name="home_not_patched_yet">এখনো প্যাচ করা হয়নি</string>
     <string name="home_unpatched_version_installed">অপ্যাচড সংস্করণ ইনস্টল করা হয়েছে</string>
     <string name="home_unpatched_badge">প্যাচ করা হয়নি</string>
@@ -274,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">অন্য বান্ডেল থেকে নির্বাচন কপি করুন</string>
     <string name="expert_mode_copy_from_bundle_no_patches">এই বান্ডেলে কোনো মেলানো প্যাচ নেই</string>
     <string name="expert_mode_no_results">কোনো প্যাচ পাওয়া যায়নি</string>
+    <string name="expert_mode_selected_only_on">শুধুমাত্র নির্বাচিত প্যাচ দেখানো হচ্ছে</string>
+    <string name="expert_mode_selected_only_off">সব প্যাচ দেখানো হচ্ছে</string>
     <string name="expert_mode_universal_patches">সার্বজনীন প্যাচ</string>
     <string name="expert_mode_new_patches">নতুন</string>
+    <string name="expert_mode_options_customized">কাস্টমাইজড</string>
     <string name="expert_mode_patch_required_by_installer">নির্বাচিত ইনস্টল টার্গেটের জন্য এটি প্রয়োজনীয়</string>
     <string name="expert_mode_patch_unavailable_for_installer">নির্বাচিত ইনস্টল টার্গেটের জন্য এটি পাওয়া যাচ্ছে না</string>
     <string name="expert_mode_multiple_sources_warning_title">বহু প্যাচ সোর্স নির্বাচিত</string>
@@ -640,6 +644,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">হোম স্ক্রিনে একটি শুভেচ্ছা বার্তা দেখান</string>
     <string name="settings_appearance_app_grouping">অ্যাপ grouping</string>
     <string name="settings_appearance_app_grouping_description">উৎস অথবা আপনার নিজের বিভাগ অনুসারে অ্যাপ grouping করার জন্য একটি হোম স্ক্রিন সুইচ দেখান, বন্ধ থাকা অবস্থায় নির্বাচন ধরে রাখুন।</string>
+    <string name="settings_appearance_repatch_notice">পুনরায় প্যাচ বিজ্ঞপ্তি</string>
+    <string name="settings_appearance_repatch_notice_description">হোম স্ক্রিনে একটি ব্যানার দেখান যখন প্যাচ করা অ্যাপগুলি পুনরায় প্যাচ করা যেতে পারে</string>
     <string name="settings_appearance_sort_button">সাজানো ও ফিল্টার বাটন</string>
     <string name="settings_appearance_sort_button_description">হোম স্ক্রিনে সাজানো ও ফিল্টার বাটন দেখান</string>
     <string name="settings_appearance_app_card_colors">অ্যাপ কার্ডের রং</string>

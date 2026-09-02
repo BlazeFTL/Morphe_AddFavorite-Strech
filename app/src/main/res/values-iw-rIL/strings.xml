@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">אפליקציות אחרות</string>
+    <string name="home_other_apps_action">בחר אפליקציות אחרות</string>
     <string name="home_not_patched_yet">עדיין לא תוקן</string>
     <string name="home_unpatched_version_installed">מותקנת גרסה לא מתוקנת</string>
     <string name="home_unpatched_badge">לא תוקן</string>
@@ -275,8 +276,11 @@
     <string name="expert_mode_copy_from_bundle">העתק את הבחירה מחבילה אחרת</string>
     <string name="expert_mode_copy_from_bundle_no_patches">לא נמצאו התאמות מדבקות בחבילה זו</string>
     <string name="expert_mode_no_results">לא נמצאו תיקונים</string>
+    <string name="expert_mode_selected_only_on">מציג רק טלאים נבחרים</string>
+    <string name="expert_mode_selected_only_off">מציג את כל הטלאים</string>
     <string name="expert_mode_universal_patches">עדכונים אוניברסליים</string>
     <string name="expert_mode_new_patches">חדש</string>
+    <string name="expert_mode_options_customized">מותאם אישית</string>
     <string name="expert_mode_patch_required_by_installer">נדרש עבור יעד ההתקנה הנבחר</string>
     <string name="expert_mode_patch_unavailable_for_installer">לא זמין עבור יעד ההתקנה הנבחר</string>
     <string name="expert_mode_multiple_sources_warning_title">נבחרו מקורות ציורים מרובים</string>
@@ -641,6 +645,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">הצגת הודעת פתיחה על מסך הבית</string>
     <string name="settings_appearance_app_grouping">קיבוץ אפליקציות</string>
     <string name="settings_appearance_app_grouping_description">הצג מחליף מסך בית לקיבוץ אפליקציות לפי מקור או קטגוריות משלך, ושמור את הבחירה כאשר הוא כבוי</string>
+    <string name="settings_appearance_repatch_notice">הודעת תיקון מחדש</string>
+    <string name="settings_appearance_repatch_notice_description">הצג באנר על מסך הבית כאשר אפליקציות מתוקנות ניתנות לתיקון מחדש</string>
     <string name="settings_appearance_sort_button">כפתור מיון וסינון</string>
     <string name="settings_appearance_sort_button_description">הצג את כפתור המיון והסינון במסך הבית</string>
     <string name="settings_appearance_app_card_colors">צבעי כרטיסי האפליקציה</string>

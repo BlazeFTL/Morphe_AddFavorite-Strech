@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">अन्य ऐप्स</string>
+    <string name="home_other_apps_action">अन्य ऐप्स चुनें</string>
     <string name="home_not_patched_yet">अभी तक पट्च नहीं किया गया है</string>
     <string name="home_unpatched_version_installed">अनपैच्ड संस्करण स्थापित है</string>
     <string name="home_unpatched_badge">पैच नहीं किया गया</string>
@@ -274,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">किसी अन्य बंडल से चयन कॉपी करें</string>
     <string name="expert_mode_copy_from_bundle_no_patches">इस बंडल में कोई मिलान करने वाला पैच नहीं है</string>
     <string name="expert_mode_no_results">कोई पैच नहीं मिला</string>
+    <string name="expert_mode_selected_only_on">केवल चयनित पैच दिखाए जा रहे हैं</string>
+    <string name="expert_mode_selected_only_off">सभी पैच दिखाए जा रहे हैं</string>
     <string name="expert_mode_universal_patches">सार्वभौमिक पैच</string>
     <string name="expert_mode_new_patches">नया</string>
+    <string name="expert_mode_options_customized">अनुकूलित</string>
     <string name="expert_mode_patch_required_by_installer">चयनित इंस्टॉलेशन लक्ष्य के लिए आवश्यक</string>
     <string name="expert_mode_patch_unavailable_for_installer">चयनित इंस्टॉलेशन लक्ष्य के लिए उपलब्ध नहीं है</string>
     <string name="expert_mode_multiple_sources_warning_title">अनुमतियों के कई स्रोत चुने गए हैं</string>
@@ -640,6 +644,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">मुखपृष्ठ पर अभिवादन संदेश दिखाएँ</string>
     <string name="settings_appearance_app_grouping">ऐप समूहीकरण</string>
     <string name="settings_appearance_app_grouping_description">स्रोत या अपनी श्रेणियों द्वारा ऐप्स को समूहित करने के लिए होम स्क्रीन स्विचर दिखाएं, बंद होने पर चयन को बनाए रखें</string>
+    <string name="settings_appearance_repatch_notice">पुनः पैच सूचना</string>
+    <string name="settings_appearance_repatch_notice_description">जब पैच किए गए ऐप्स को फिर से पैच किया जा सके, तो होम स्क्रीन पर एक बैनर दिखाएँ</string>
     <string name="settings_appearance_sort_button">सॉर्ट और फ़िल्टर बटन</string>
     <string name="settings_appearance_sort_button_description">होम स्क्रीन पर सॉर्ट और फ़िल्टर बटन दिखाएँ</string>
     <string name="settings_appearance_app_card_colors">ऐप कार्ड रंग</string>

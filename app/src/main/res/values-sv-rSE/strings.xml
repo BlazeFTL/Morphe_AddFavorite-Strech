@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Övriga appar</string>
+    <string name="home_other_apps_action">Välj andra appar</string>
     <string name="home_not_patched_yet">Inte modifierad än</string>
     <string name="home_unpatched_version_installed">Omodifierad version installerad</string>
     <string name="home_unpatched_badge">Ej modifierad</string>
@@ -169,7 +170,12 @@
     <string name="sources_dialog_url_invalid">Webbadressen måste peka på en GitHub-/GitLab-lagringsplats eller .json-fil</string>
     <string name="sources_dialog_local_change_file">Byt fil</string>
     <string name="sources_dialog_preinstalled">Förinstallerad</string>
+    <string name="sources_dialog_community">Community-patchar</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Tredjepartspatchkällor</string>
+    <string name="sources_dialog_community_notice_message">"Källorna för communitypatchar skapas och underhålls av sina egna författare. Morphe granskar eller verifierar inte tredjepartspatchar och är inte ansvarig för deras innehåll eller för vad de gör på din enhet.
+
+Allt du lägger till från denna webbplats används på egen risk"</string>
     <string name="sources_update_success">Uppdateringen lyckades</string>
     <string name="sources_update_unavailable">Ingen uppdatering är tillgänglig</string>
     <string name="sources_download_fail">Det gick inte att ladda ned källor: %s</string>
@@ -269,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">Kopiera urval från ett annat paket</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Inga matchande tillägg i det här paketet</string>
     <string name="expert_mode_no_results">Inga tillägg hittades</string>
+    <string name="expert_mode_selected_only_on">Visar endast valda patchar</string>
+    <string name="expert_mode_selected_only_off">Visar alla patchar</string>
     <string name="expert_mode_universal_patches">Universella tillägg</string>
     <string name="expert_mode_new_patches">Nytt</string>
+    <string name="expert_mode_options_customized">Anpassad</string>
     <string name="expert_mode_patch_required_by_installer">Krävs för det valda installationsmålet</string>
     <string name="expert_mode_patch_unavailable_for_installer">Inte tillgängligt för det valda installationsmålet</string>
     <string name="expert_mode_multiple_sources_warning_title">Flera tilläggskällor har valts</string>
@@ -633,6 +642,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_greeting_phrases_subtitle">Visa ett hälsningsmeddelande på startskärmen</string>
     <string name="settings_appearance_app_grouping">Appgruppering</string>
     <string name="settings_appearance_app_grouping_description">Visa en uppsättning knappar på startskärmen för att gruppera appar efter källa eller egna kategorier. Valet behålls när du stänger appen</string>
+    <string name="settings_appearance_repatch_notice">Meddelande om om-patchning</string>
+    <string name="settings_appearance_repatch_notice_description">Visa en banner på hemskärmen när patchade appar kan om-patchas</string>
     <string name="settings_appearance_sort_button">Sortera och filtrera-knapp</string>
     <string name="settings_appearance_sort_button_description">Visa sorterings- och filtreringsknappen på startskärmen</string>
     <string name="settings_appearance_app_card_colors">Färger för appkort</string>

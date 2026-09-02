@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">تطبيقات أخرى</string>
+    <string name="home_other_apps_action">اختيار تطبيقات أخرى</string>
     <string name="home_not_patched_yet">لم يتم تعديله بعد</string>
     <string name="home_unpatched_version_installed">تم تثبيت إصدار غير معدل</string>
     <string name="home_unpatched_badge">لم يتم تعديله</string>
@@ -174,7 +175,7 @@
     <string name="sources_dialog_community_notice_title">مصادر التعديل من طرف ثالث</string>
     <string name="sources_dialog_community_notice_message">"يتم إنشاء وصيانة مصادر تعديلات المجتمع بواسطة مؤلفيها أنفسهم. لا يقوم Morphe بمراجعة أو التحقق من التعديلات التي يقدمها طرف ثالث، ولا يتحمل أي مسؤولية عن محتواها أو عن تأثيرها على جهازك.
 
-أي شيء تُضيفه من هذا الموقع يتم استخدامه على مسؤوليتك الخاصة"</string>
+أي شيء تُضيفه من هذا الموقع يتم استخدامه على مسؤوليتك الشخصية"</string>
     <string name="sources_update_success">تم التحديث بنجاح</string>
     <string name="sources_update_unavailable">لا يوجد تحديث متاح</string>
     <string name="sources_download_fail">فشل تنزيل مصادر التعديل: %s.</string>
@@ -274,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">نسخ التحديد من مجموعة أخرى</string>
     <string name="expert_mode_copy_from_bundle_no_patches">لا توجد تعديلات مطابقة في هذه المجموعة</string>
     <string name="expert_mode_no_results">لم يتم العثور على تعديلات</string>
+    <string name="expert_mode_selected_only_on">عرض التعديلات المحددة فقط</string>
+    <string name="expert_mode_selected_only_off">عرض كل التعديلات</string>
     <string name="expert_mode_universal_patches">التعديلات الشاملة</string>
     <string name="expert_mode_new_patches">جديد</string>
+    <string name="expert_mode_options_customized">مخصص</string>
     <string name="expert_mode_patch_required_by_installer">مطلوب لوجهة التثبيت المحددة</string>
     <string name="expert_mode_patch_unavailable_for_installer">غير متاح لوجهة التثبيت المحددة</string>
     <string name="expert_mode_multiple_sources_warning_title">تم تحديد مصادر تعديل متعددة</string>
@@ -644,6 +648,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">عرض رسالة ترحيب على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_grouping">تجميع التطبيقات</string>
     <string name="settings_appearance_app_grouping_description">عرض مُبدِّل الشاشة الرئيسية لتجميع التطبيقات حسب المصدر أو فئاتك الخاصة، مع الاحتفاظ بالتحديد عند إيقاف تشغيلها</string>
+    <string name="settings_appearance_repatch_notice">إشعار إعادة التعديل</string>
+    <string name="settings_appearance_repatch_notice_description">عرض لافتة على الشاشة الرئيسية عندما يمكن إعادة تعديل التطبيقات المعدلة</string>
     <string name="settings_appearance_sort_button">زر الفرز والتصفية</string>
     <string name="settings_appearance_sort_button_description">عرض زر الفرز والتصفية على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_card_colors">ألوان بطاقة التطبيق</string>
@@ -1055,7 +1061,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="credits_prior_development">التطوير المسبق</string>
     <string name="opensource_licenses">تراخيص مفتوحة المصدر</string>
     <!-- Easter egg offered after seven taps on the version in the about dialog -->
-    <string name="easter_egg_pill_title">خيار</string>
+    <string name="easter_egg_pill_title">خيار واحد</string>
     <string name="easter_egg_pill_message">تناول الحبة الزرقاء وستبقى الإعلانات في مكانها تمامًا. تناول الحبة الحمراء وشاهد مدى عمق الكود</string>
     <string name="easter_egg_pill_red">الحبة الحمراء</string>
     <string name="easter_egg_pill_blue">الحبة الزرقاء</string>

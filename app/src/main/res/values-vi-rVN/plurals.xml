@@ -51,6 +51,9 @@
     <plurals name="home_category_app_count">
         <item quantity="other">%s ứng dụng</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="other">%s đã chọn</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="other">Đã sao chép %s bản vá từ gói được chọn</item>
     </plurals>

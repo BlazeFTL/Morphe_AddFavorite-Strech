@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Outros aplicativos</string>
+    <string name="home_other_apps_action">Selecionar outros aplicativos</string>
     <string name="home_not_patched_yet">Ainda não patcheado </string>
     <string name="home_unpatched_version_installed">Versão não patcheada instalada</string>
     <string name="home_unpatched_badge">Não patcheado</string>
@@ -274,8 +275,11 @@ Tudo o que você adicionar a partir deste site é por sua conta e risco"</string
     <string name="expert_mode_copy_from_bundle">Copiar seleção de outro pacote</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Nenhum patch correspondente neste pacote</string>
     <string name="expert_mode_no_results">Nenhum patch encontrado</string>
+    <string name="expert_mode_selected_only_on">Exibindo apenas patches selecionados</string>
+    <string name="expert_mode_selected_only_off">Exibindo todos os patches</string>
     <string name="expert_mode_universal_patches">Patches universais</string>
     <string name="expert_mode_new_patches">Novo</string>
+    <string name="expert_mode_options_customized">Personalizado</string>
     <string name="expert_mode_patch_required_by_installer">Obrigatório para o destino de instalação selecionado</string>
     <string name="expert_mode_patch_unavailable_for_installer">Não disponível para o destino de instalação selecionado</string>
     <string name="expert_mode_multiple_sources_warning_title">Várias fontes de patch selecionadas</string>
@@ -641,6 +645,8 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="settings_appearance_greeting_phrases_subtitle">Mostrar uma mensagem de saudação na tela inicial</string>
     <string name="settings_appearance_app_grouping">Agrupamento de aplicativos</string>
     <string name="settings_appearance_app_grouping_description">Mostrar um alternador de tela inicial para agrupar aplicativos por origem ou suas próprias categorias, mantendo a seleção quando desativado</string>
+    <string name="settings_appearance_repatch_notice">Aviso de reaplicação de patch</string>
+    <string name="settings_appearance_repatch_notice_description">Exibir um banner na tela inicial quando aplicativos corrigidos puderem ser reaplicados</string>
     <string name="settings_appearance_sort_button">Botão ordenar e filtrar</string>
     <string name="settings_appearance_sort_button_description">Mostrar o botão ordenar e filtrar na tela inicial</string>
     <string name="settings_appearance_app_card_colors">Cores do cartão do aplicativo</string>

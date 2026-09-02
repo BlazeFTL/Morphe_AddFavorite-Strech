@@ -268,6 +268,7 @@ private fun AdaptiveSuccessContent(
                 BackToGameCallout(visible = showBackToGameHint && !installState.failed)
 
                 PatcherBottomActionBar(
+                    horizontalPadding = 0.dp,
                     showCancelButton = false,
                     showLogsButton = isExpertMode,
                     showHomeButton = true,

@@ -957,10 +957,47 @@ private fun PatchVersionBadge(
 }
 
 /**
+ * What a changelog dialog shows: the source it reads, the version "new" is measured from,
+ * and the scopes the entries are narrowed to.
+ */
+data class BundleChangelogRequest(
+    val bundleUid: Int,
+    val sinceVersion: String? = null,
+    val appNames: Set<String> = emptySet()
+)
+
+/**
+ * Hosts [BundleChangelogDialog] for the source a [request] names, so every entry point opens
+ * it the same way. A missing source, deleted under an open dialog included, shows nothing.
+ */
+@Composable
+fun BundleChangelogHost(
+    request: BundleChangelogRequest?,
+    sources: List<PatchBundleSource>,
+    onDismissRequest: () -> Unit
+) {
+    if (request == null) return
+    val bundle = sources.filterIsInstance<RemotePatchBundle>()
+        .find { it.uid == request.bundleUid } ?: return
+
+    // A different request, source version or channel has to start the fetch over
+    key(request, bundle.installedVersionSignature, bundle.usesPrerelease) {
+        BundleChangelogDialog(
+            src = bundle,
+            onDismissRequest = onDismissRequest,
+            sinceVersion = request.sinceVersion,
+            appNames = request.appNames
+        )
+    }
+}
+
+/**
  * Changelog dialog for a bundle.
  *
  * Prerelease channel: entries from the last stable release onwards.
  * Stable: entries newer than the installed version, plus the installed version itself.
+ * A [sinceVersion] replaces both baselines with the caller's own, and [appNames] narrows
+ * every entry to the bullets scoped to one app.
  *
  * Fetched once and cached; cache invalidated on channel switch.
  * Falls back to GitHub Release info if CHANGELOG.md is unavailable.
@@ -968,8 +1005,11 @@ private fun PatchVersionBadge(
 @Composable
 fun BundleChangelogDialog(
     src: RemotePatchBundle,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    sinceVersion: String? = null,
+    appNames: Set<String> = emptySet()
 ) {
+    val generalChangesHeading = stringResource(R.string.changelog_general_changes)
     var state: BundleChangelogState by remember { mutableStateOf(BundleChangelogState.Loading) }
     var olderState: OlderBundleState by remember { mutableStateOf(OlderBundleState.Collapsed) }
     val scope = rememberCoroutineScope()
@@ -985,23 +1025,32 @@ fun BundleChangelogDialog(
 
                 val allEntries = src.fetchChangelogEntries(sinceVersion = null)
 
-                val entries = if (usePrerelease) {
-                    // Prerelease: from the last stable release onwards
-                    val lastStable = allEntries.firstOrNull { !it.version.contains("-") }
-                    if (lastStable != null)
-                        ChangelogParser.entriesNewerThan(allEntries, lastStable.version) + lastStable
-                    else allEntries.take(30)
-                } else {
-                    // Stable: from the installed version onwards
-                    val installed = src.installedVersionSignature
-                    val installedEntry = installed?.let {
-                        ChangelogParser.findVersion(allEntries, it)
+                val shownEntries = when {
+                    // A caller's baseline asks what changed since it, not including it
+                    sinceVersion != null ->
+                        ChangelogParser.entriesNewerThan(allEntries, sinceVersion)
+
+                    usePrerelease -> {
+                        // Prerelease: from the last stable release onwards
+                        val lastStable = allEntries.firstOrNull { !it.version.contains("-") }
+                        if (lastStable != null)
+                            ChangelogParser.entriesNewerThan(allEntries, lastStable.version) + lastStable
+                        else allEntries.take(30)
                     }
-                    val newer = if (installed != null)
-                        ChangelogParser.entriesNewerThan(allEntries, installed)
-                    else allEntries
-                    if (installedEntry != null) newer + installedEntry else newer
+
+                    else -> {
+                        // Stable: from the installed version onwards
+                        val installed = src.installedVersionSignature
+                        val installedEntry = installed?.let {
+                            ChangelogParser.findVersion(allEntries, it)
+                        }
+                        val newer = if (installed != null)
+                            ChangelogParser.entriesNewerThan(allEntries, installed)
+                        else allEntries
+                        if (installedEntry != null) newer + installedEntry else newer
+                    }
                 }
+                val entries = ChangelogParser.entriesFor(shownEntries, appNames, generalChangesHeading)
 
                 // APIPatchBundle has endpoint="api" - use SOURCE_REPO_URL directly
                 val repoUrl = when (src) {
@@ -1012,7 +1061,7 @@ fun BundleChangelogDialog(
                     repoUrl?.let { releasePageUrl(it, version) }
                 }
 
-                if (entries.isNotEmpty()) {
+                if (entries.isNotEmpty() || appNames.isNotEmpty()) {
                     BundleChangelogState.Entries(
                         entries = entries,
                         parsedMarkdown = preParseChangelogEntries(entries),
@@ -1058,7 +1107,9 @@ fun BundleChangelogDialog(
                         it.version.removePrefix("v").trim() !in shownVersions
                                 && !it.version.contains("-")
                     }
-                    OlderBundleState.Loaded(filtered)
+                    OlderBundleState.Loaded(
+                        ChangelogParser.entriesFor(filtered, appNames, generalChangesHeading)
+                    )
                 }.getOrElse {
                     // Surface failure as collapsed so a retry click re-triggers the fetch
                     OlderBundleState.Collapsed
@@ -1074,7 +1125,10 @@ fun BundleChangelogDialog(
         onEntered = { if (fetchTrigger == 0) fetchTrigger = 1 },
         scrollable = false,
         title = when (state) {
-            is BundleChangelogState.Entries -> null
+            // Entries carry their own headers, so only a list narrowed to one app needs a title
+            is BundleChangelogState.Entries ->
+                appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
+
             is BundleChangelogState.Error -> stringResource(R.string.changelog)
             BundleChangelogState.Loading -> stringResource(R.string.changelog)
         },

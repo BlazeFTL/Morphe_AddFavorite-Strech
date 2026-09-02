@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Andere Apps</string>
+    <string name="home_other_apps_action">Andere Apps auswählen</string>
     <string name="home_not_patched_yet">Noch nicht gepatcht</string>
     <string name="home_unpatched_version_installed">Ungepatchte Version installiert</string>
     <string name="home_unpatched_badge">Nicht gepatcht</string>
@@ -169,7 +170,11 @@
     <string name="sources_dialog_url_invalid">Die URL muss auf ein GitHub-/GitLab-Repository oder eine .json Datei verweisen</string>
     <string name="sources_dialog_local_change_file">Datei ändern</string>
     <string name="sources_dialog_preinstalled">Vorinstalliert</string>
+    <string name="sources_dialog_community">Community-Patches</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Drittanbieter-Patchquellen</string>
+    <string name="sources_dialog_community_notice_message">"Community-Patchquellen werden von ihren eigenen Autoren erstellt und gepflegt. Morphe überprüft oder verifiziert Drittanbieter-Patches nicht und ist nicht verantwortlich für deren Inhalt oder dafür, was sie auf Ihrem Gerät bewirken.
+Alles, was Sie von dieser Website hinzufügen, geschieht auf eigenes Risiko"</string>
     <string name="sources_update_success">Update erfolgreich</string>
     <string name="sources_update_unavailable">Kein Update verfügbar</string>
     <string name="sources_download_fail">Fehler beim Herunterladen der Quellen: %s</string>
@@ -269,8 +274,11 @@
     <string name="expert_mode_copy_from_bundle">Auswahl von einem anderen Paket kopieren</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Keine übereinstimmenden Patches in diesem Bundle</string>
     <string name="expert_mode_no_results">Keine Patches gefunden</string>
+    <string name="expert_mode_selected_only_on">Nur ausgewählte Patches anzeigen</string>
+    <string name="expert_mode_selected_only_off">Alle Patches anzeigen</string>
     <string name="expert_mode_universal_patches">Universelle Patches</string>
     <string name="expert_mode_new_patches">Neu</string>
+    <string name="expert_mode_options_customized">Angepasst</string>
     <string name="expert_mode_patch_required_by_installer">Für das ausgewählte Installationsziel erforderlich</string>
     <string name="expert_mode_patch_unavailable_for_installer">Nicht verfügbar für das ausgewählte Installationsziel</string>
     <string name="expert_mode_multiple_sources_warning_title">Mehrere Patch-Quellen ausgewählt</string>
@@ -636,6 +644,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zeige auf dem Startbildschirm eine Begrüßung an</string>
     <string name="settings_appearance_app_grouping">App-Gruppierung</string>
     <string name="settings_appearance_app_grouping_description">Zeigt einen Home-Bildschirm-Wechsler an, um Apps nach Quelle oder Ihren eigenen Kategorien zu gruppieren und die Auswahl bei Deaktivierung beizubehalten</string>
+    <string name="settings_appearance_repatch_notice">Hinweis zum erneuten Patchen</string>
+    <string name="settings_appearance_repatch_notice_description">Auf dem Startbildschirm ein Banner anzeigen, wenn gepatchte Apps erneut gepatcht werden können</string>
     <string name="settings_appearance_sort_button">Schaltfläche zum Sortieren und Filtern</string>
     <string name="settings_appearance_sort_button_description">Zeigt eine Schaltfläche zum Sortieren und Filtern auf dem Startbildschirm an</string>
     <string name="settings_appearance_app_card_colors">Farben der App-Karten</string>

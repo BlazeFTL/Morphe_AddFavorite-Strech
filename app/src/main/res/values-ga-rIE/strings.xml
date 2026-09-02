@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Aipeanna eile</string>
+    <string name="home_other_apps_action">Roghnaigh aipeanna eile</string>
     <string name="home_not_patched_yet">Gan paisteáil fós</string>
     <string name="home_unpatched_version_installed">Leagan neamhpháitithe suiteáilte</string>
     <string name="home_unpatched_badge">Gan paisteáil</string>
@@ -274,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">Cóipeáil rogha ó phacáiste eile</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Níl aon phaistí comhoiriúnacha sa phacáiste seo</string>
     <string name="expert_mode_no_results">Níor aimsíodh aon phaistí</string>
+    <string name="expert_mode_selected_only_on">Paistí roghnaithe amháin á thaispeáint</string>
+    <string name="expert_mode_selected_only_off">Ag taispeáint na paistí go léir</string>
     <string name="expert_mode_universal_patches">Paistí uilíocha</string>
     <string name="expert_mode_new_patches">Nua</string>
+    <string name="expert_mode_options_customized">Saincheaptha</string>
     <string name="expert_mode_patch_required_by_installer">Riachtanach don sprioc suiteála roghnaithe</string>
     <string name="expert_mode_patch_unavailable_for_installer">Níl ar fáil don sprioc suiteála a roghnaíodh</string>
     <string name="expert_mode_multiple_sources_warning_title">Ilfhoinsí paiste roghnaithe</string>
@@ -640,6 +644,8 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Taispeáin teachtaireacht beannachta ar an scáileán baile</string>
     <string name="settings_appearance_app_grouping">Grúpáil aipeanna</string>
     <string name="settings_appearance_app_grouping_description">Taispeáin an roghchlár scáileáin bhaile chun aipeanna a ghrúpáil de réir foinse nó do chatagóirí féin, agus an rogha a choinneáil nuair a bhíonn sé múchta</string>
+    <string name="settings_appearance_repatch_notice">Fógra athphaisteála</string>
+    <string name="settings_appearance_repatch_notice_description">Taispeáin meirge ar an scáileán baile nuair is féidir aipeanna paisteáilte a athphaisteáil</string>
     <string name="settings_appearance_sort_button">Cnaipe sórtála agus scagaire</string>
     <string name="settings_appearance_sort_button_description">Taispeáin an cnaipe sórtála agus scagaire ar an scáileán baile</string>
     <string name="settings_appearance_app_card_colors">Dathanna cártaí aipeanna</string>

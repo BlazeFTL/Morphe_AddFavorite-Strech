@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">其他應用程式</string>
+    <string name="home_other_apps_action">選擇其他應用程式</string>
     <string name="home_not_patched_yet">尚未修補</string>
     <string name="home_unpatched_version_installed">已安裝未修補版本</string>
     <string name="home_unpatched_badge">尚未修補</string>
@@ -169,7 +170,12 @@
     <string name="sources_dialog_url_invalid">URL 必須指向 GitHub/GitLab 存放庫或 .json 檔案</string>
     <string name="sources_dialog_local_change_file">變更檔案</string>
     <string name="sources_dialog_preinstalled">預先安裝</string>
+    <string name="sources_dialog_community">社群修補程式</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">第三方修補程式來源</string>
+    <string name="sources_dialog_community_notice_message">"社群修補程式來源由其各自的作者製作和維護。Morphe 不會審查或驗證第三方修補程式，亦不對其內容或它們在您裝置上的行為負責。
+
+您從本網站新增的任何內容均由您自行承擔風險"</string>
     <string name="sources_update_success">更新成功</string>
     <string name="sources_update_unavailable">沒有可用的更新</string>
     <string name="sources_download_fail">無法下載來源: %s</string>
@@ -269,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">從另一個套件複製選取項目</string>
     <string name="expert_mode_copy_from_bundle_no_patches">此套件中沒有相符的修補程式</string>
     <string name="expert_mode_no_results">找不到修補程式</string>
+    <string name="expert_mode_selected_only_on">僅顯示已選取的修補程式</string>
+    <string name="expert_mode_selected_only_off">顯示所有修補程式</string>
     <string name="expert_mode_universal_patches">通用型修補程式</string>
     <string name="expert_mode_new_patches">新增</string>
+    <string name="expert_mode_options_customized">自訂</string>
     <string name="expert_mode_patch_required_by_installer">選定安裝目標需要</string>
     <string name="expert_mode_patch_unavailable_for_installer">未針對選定的安裝目標提供</string>
     <string name="expert_mode_multiple_sources_warning_title">選取了多個修補來源</string>
@@ -634,6 +643,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">在主螢幕上顯示問候訊息</string>
     <string name="settings_appearance_app_grouping">應用程式分組</string>
     <string name="settings_appearance_app_grouping_description">顯示主畫面切換器，以依來源或您自己的類別分組應用程式，並在關閉時保留選取內容</string>
+    <string name="settings_appearance_repatch_notice">重新修補通知</string>
+    <string name="settings_appearance_repatch_notice_description">當已修補的應用程式可重新修補時，在主畫面上顯示橫幅</string>
     <string name="settings_appearance_sort_button">排序與篩選按鈕</string>
     <string name="settings_appearance_sort_button_description">在主畫面上顯示排序與篩選按鈕</string>
     <string name="settings_appearance_app_card_colors">應用程式卡片顏色</string>

@@ -46,16 +46,15 @@ class UpdateViewModel : ViewModel(), KoinComponent {
 
     private var pendingExternalInstall: InstallerManager.InstallPlan.External? = null
     private var externalInstallTimeoutJob: Job? = null
-    private var currentDownloadVersion: String? = null
 
     var downloadedSize by mutableLongStateOf(0L)
         private set
     var totalSize by mutableLongStateOf(0L)
         private set
     val downloadProgress by derivedStateOf {
-        if (downloadedSize == 0L || totalSize == 0L) return@derivedStateOf 0f
+        if (totalSize <= 0L) return@derivedStateOf 0f
 
-        downloadedSize.toFloat() / totalSize.toFloat()
+        (downloadedSize.toFloat() / totalSize).coerceIn(0f, 1f)
     }
     var showInternetCheckDialog by mutableStateOf(false)
     var state by mutableStateOf(State.CAN_DOWNLOAD)
@@ -93,9 +92,6 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     // Parsed CHANGELOG.md per branch (false = main, true = dev). Shared across all loaders
     // and the older-entries expander to avoid duplicate fetches inside one VM lifetime
     private val managerEntriesCache = mutableMapOf<Boolean, List<ChangelogEntry>>()
-
-    var canResumeDownload by mutableStateOf(false)
-        private set
 
     private val location = fs.tempDir.resolve("updater.apk")
     private var job = resolveUpdate()
@@ -143,22 +139,10 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                 return@uiSafe
             }
 
-            if (currentDownloadVersion != release.version) {
-                currentDownloadVersion = release.version
-                withContext(Dispatchers.IO) { location.delete() }
-                downloadedSize = 0L
-                totalSize = 0L
-                canResumeDownload = false
-            }
-
-            val resumeOffset = withContext(Dispatchers.IO) {
-                if (location.exists()) location.length() else 0L
-            }
-            downloadedSize = resumeOffset
-            // totalSize stays 0 until first progress callback - avoids false 100% on resume
+            downloadedSize = 0L
+            // Left at 0 until the first progress callback reports the release size, so the dialog
+            // shows an indeterminate bar rather than one pinned at zero while bytes are arriving
             totalSize = 0L
-            canResumeDownload = resumeOffset > 0L
-
             state = State.DOWNLOADING
 
             try {
@@ -168,7 +152,6 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                     assetDownloader.downloadToFile(
                         downloadUrl = release.downloadUrl,
                         saveLocation = location,
-                        resumeFrom = resumeOffset,
                         onProgress = { bytesRead, contentLength ->
                             downloadedSize = bytesRead
                             totalSize = contentLength ?: totalSize
@@ -176,16 +159,9 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                     )
                 }
                 requireApkArchive(location)
-                canResumeDownload = false
                 installUpdate().join()
             } catch (error: Exception) {
-                val downloaded = withContext(Dispatchers.IO) {
-                    location.takeIf { it.exists() }?.length() ?: 0L
-                }
-                downloadedSize = downloaded
-                if (totalSize < downloadedSize) totalSize = downloadedSize
-                canResumeDownload = downloadedSize > 0L
-                state = State.CAN_DOWNLOAD
+                resetToDownload()
                 throw error
             }
         }
@@ -193,8 +169,8 @@ class UpdateViewModel : ViewModel(), KoinComponent {
 
     /**
      * Rejects a download that transferred cleanly but is not an APK, so the installer is never
-     * handed an error page or an API response that arrived in the file's place. The partial file
-     * is dropped as well, otherwise the next attempt would resume on top of it.
+     * handed an error page or an API response that arrived in the file's place. The file is
+     * dropped as well, so nothing is left staged that a later install could pick up.
      */
     private suspend fun requireApkArchive(location: File) = withContext(Dispatchers.IO) {
         if (location.hasZipHeader()) return@withContext
@@ -276,15 +252,12 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         toastMessage: String = app.getString(R.string.install_app_fail, message)
     ) {
         installError = message
-        canResumeDownload = false
         app.toast(toastMessage)
         state = State.FAILED
     }
 
-    /** Drops what is left of the download and offers to fetch it again from scratch. */
+    /** Clears the progress of a download that produced nothing and offers to start it over. */
     private fun resetToDownload() {
-        canResumeDownload = false
-        currentDownloadVersion = null
         downloadedSize = 0L
         totalSize = 0L
         state = State.CAN_DOWNLOAD

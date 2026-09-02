@@ -136,6 +136,14 @@
         <item quantity="many">%s تطبيقات</item>
         <item quantity="other">%s تطبيقات</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="zero">%s تم تحديده</item>
+        <item quantity="one">%s تم تحديده</item>
+        <item quantity="two">%s تم تحديدهما</item>
+        <item quantity="few">%s تم تحديدهم</item>
+        <item quantity="many">%s تم تحديده</item>
+        <item quantity="other">%s تم تحديده</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="zero">تم نسخ %s من التعديلات من الحزمة المحددة</item>
         <item quantity="one">تم نسخ %s من التعديلات من الحزمة المحددة</item>

@@ -228,6 +228,18 @@ object PatchSelectionUtils {
         } == true
 
     /**
+     * Merge [bundleOptions] into the entry of [bundleUid], replacing whole patches rather than
+     * individual keys, so a patch it does not mention keeps the values it already had.
+     */
+    fun Options.mergeBundleOptions(
+        bundleUid: Int,
+        bundleOptions: Map<String, Map<String, Any?>>
+    ): Options {
+        val merged = this[bundleUid].orEmpty() + bundleOptions
+        return if (merged.isEmpty()) this - bundleUid else this + (bundleUid to merged)
+    }
+
+    /**
      * Reset all options for a specific patch in an options map.
      */
     fun Options.resetOptionsForPatch(bundleUid: Int, patchName: String): Options {

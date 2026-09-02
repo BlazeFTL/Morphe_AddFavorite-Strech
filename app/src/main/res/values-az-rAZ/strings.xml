@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Digər tətbiqlər</string>
+    <string name="home_other_apps_action">Digər tətbiqləri seç</string>
     <string name="home_not_patched_yet">Hələ yamaqlanmayıb</string>
     <string name="home_unpatched_version_installed">Yamaqlanmayan versiya quraşdırılıb</string>
     <string name="home_unpatched_badge">Yamaqlanmayıb</string>
@@ -274,6 +275,8 @@ Bu veb saytdan əlavə etdiyiniz hər şey öz riskinizlə istifadə olunur"</st
     <string name="expert_mode_copy_from_bundle">Seçimi digər paketdən köçür</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Bu paketdəki yamaqlar uyğun deyil</string>
     <string name="expert_mode_no_results">Yamaqlar tapılmadı</string>
+    <string name="expert_mode_selected_only_on">Yalnız seçilmiş yamaqları göstərir</string>
+    <string name="expert_mode_selected_only_off">Bütün yamaqları göstərir</string>
     <string name="expert_mode_universal_patches">Ümumi yamaqlar</string>
     <string name="expert_mode_new_patches">Yeni</string>
     <string name="expert_mode_options_customized">Fərdiləşdirilib</string>
@@ -640,6 +643,8 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Əsas ekranda salamlaşma mesajı göstər</string>
     <string name="settings_appearance_app_grouping">Tətbiq qruplaşdırılması</string>
     <string name="settings_appearance_app_grouping_description">Tətbiqləri mənbəyə və ya öz kateqoriyalarınıza görə qruplaşdırmaq üçün əsas ekran keçiricisini göstər, qapalı olduqda seçimi qoruyur</string>
+    <string name="settings_appearance_repatch_notice">Yenidən yamaqlama bildirişi</string>
+    <string name="settings_appearance_repatch_notice_description">Yamaqlanmış tətbiqlər yenidən yamaqlana bildikdə əsas ekranda etiket göstər</string>
     <string name="settings_appearance_sort_button">Sıralama və filtrləmə düyməsi</string>
     <string name="settings_appearance_sort_button_description">Əsas ekranda sıralama və filtrləmə düyməsini göstər</string>
     <string name="settings_appearance_app_card_colors">Tətbiq kartı rəngləri</string>

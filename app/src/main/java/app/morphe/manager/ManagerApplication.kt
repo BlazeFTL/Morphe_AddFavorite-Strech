@@ -119,6 +119,10 @@ class ManagerApplication : Application() {
         scope.launch {
             prefs.preload()
 
+            // A restored backup carries the token of the device it came from, and nothing here
+            // can tell whose it is, so this data starts without one and the user enters theirs
+            if (fs.isFirstRunForThisData) prefs.gitHubPat.update("")
+
             // Keep SharedPreferences in sync with DataStore so that attachBaseContext
             // (Application + Activity) can read the language without touching DataStore
             saveLanguageToPrefs(this@ManagerApplication, prefs.appLanguage.get().ifBlank { "system" })

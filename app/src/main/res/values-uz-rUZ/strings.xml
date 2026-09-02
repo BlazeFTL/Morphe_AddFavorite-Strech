@@ -169,7 +169,12 @@
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab repositori yoki .json fayliga ishara qilishi kerak</string>
     <string name="sources_dialog_local_change_file">Faylni o\'zgartirish</string>
     <string name="sources_dialog_preinstalled">O\'rnatilgan</string>
+    <string name="sources_dialog_community">Jamiyat yamoqlari</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Uchinchi tomon yamoq manbalari</string>
+    <string name="sources_dialog_community_notice_message">"Jamiyat yamoq manbalari o'z mualliflari tomonidan yaratiladi va qo'llab-quvvatlanadi. Morphe uchinchi tomon yamoqlarini ko'rib chiqmaydi yoki tasdiqlamaydi va ularning tarkibi yoki sizning qurilmangizda nima qilishlari uchun javobgar emas.
+
+Ushbu veb-saytdan qo'shadigan har qanday narsa o'z xavfingiz ostida qo'llaniladi."</string>
     <string name="sources_update_success">Yangilash muvaffaqiyatli</string>
     <string name="sources_update_unavailable">Yangilash mavjud emas</string>
     <string name="sources_download_fail">Manbalarni yuklab olishda xatolik: %s</string>
@@ -271,6 +276,7 @@
     <string name="expert_mode_no_results">Tuzatishlar topilmadi</string>
     <string name="expert_mode_universal_patches">Universal patchlar</string>
     <string name="expert_mode_new_patches">Yangi</string>
+    <string name="expert_mode_options_customized">Moslashtirilgan</string>
     <string name="expert_mode_patch_required_by_installer">Tanlangan oʻrnatish maqsadi uchun talab etiladi</string>
     <string name="expert_mode_patch_unavailable_for_installer">Tanlangan oʻrnatish maqsadi uchun mavjud emas</string>
     <string name="expert_mode_multiple_sources_warning_title">Bir nechta patch manbalari tanlandi</string>

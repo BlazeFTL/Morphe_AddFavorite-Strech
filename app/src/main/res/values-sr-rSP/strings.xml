@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Друге апликације</string>
+    <string name="home_other_apps_action">Изаберите друге апликације</string>
     <string name="home_not_patched_yet">Još није исправљено</string>
     <string name="home_unpatched_version_installed">Инсталирана незакрпљена верзија</string>
     <string name="home_unpatched_badge">Није исправљено</string>
@@ -169,7 +170,12 @@
     <string name="sources_dialog_url_invalid">УРЛ мора да указује на GitHub/GitLab репозиторијум или .json датотеку</string>
     <string name="sources_dialog_local_change_file">Промени фајл</string>
     <string name="sources_dialog_preinstalled">Предпостављени</string>
+    <string name="sources_dialog_community">Патчеви заједнице</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
+    <string name="sources_dialog_community_notice_title">Извори патчева трећих страна</string>
+    <string name="sources_dialog_community_notice_message">"Патчеве заједнице праве и одржавају њихови аутори. Morphe не прегледа нити проверава патчеве трећих страна и није одговоран за њихов садржај или за оно што они раде на вашем уређају.
+
+Све што додате са ове веб странице користите на сопствену одговорност."</string>
     <string name="sources_update_success">Успешно ажурирано</string>
     <string name="sources_update_unavailable">Нema ажурирање</string>
     <string name="sources_download_fail">Неуспешно преузимање извора: %s</string>
@@ -269,8 +275,11 @@
     <string name="expert_mode_copy_from_bundle">Копирај селекцију из другог пакета</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Нема поклапајућих закрпа у овом пакету</string>
     <string name="expert_mode_no_results">Нema пронађених печева</string>
+    <string name="expert_mode_selected_only_on">Приказ само изабраних закрпа</string>
+    <string name="expert_mode_selected_only_off">Приказ свих закрпа</string>
     <string name="expert_mode_universal_patches">Универзалне површине</string>
     <string name="expert_mode_new_patches">Ново</string>
+    <string name="expert_mode_options_customized">Прилагођено</string>
     <string name="expert_mode_patch_required_by_installer">Захтевно за изабрану циљну инсталацију</string>
     <string name="expert_mode_patch_unavailable_for_installer">Није доступно за изабрану циљну инсталацију</string>
     <string name="expert_mode_multiple_sources_warning_title">Одабрана су више извора за патч</string>
@@ -635,6 +644,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Прикажи поруку на почетном екрану</string>
     <string name="settings_appearance_app_grouping">Груписање апликација</string>
     <string name="settings_appearance_app_grouping_description">Прикажи прекидач почетног екрана за груписање апликација по извору или властитим категоријама, задржавајући селекцију када је искључено</string>
+    <string name="settings_appearance_repatch_notice">Обавештење о поновном закрпавању</string>
+    <string name="settings_appearance_repatch_notice_description">Прикажи банер на почетном екрану када закрпане апликације могу бити поново закрпане</string>
     <string name="settings_appearance_sort_button">Дугме за сортирање и филтрирање</string>
     <string name="settings_appearance_sort_button_description">Прикажи дугме за сортирање и филтрирање на почетном екрану</string>
     <string name="settings_appearance_app_card_colors">Боје картица апликација</string>

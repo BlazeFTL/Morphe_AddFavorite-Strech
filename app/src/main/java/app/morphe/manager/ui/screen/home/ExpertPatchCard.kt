@@ -34,6 +34,9 @@ import app.morphe.manager.util.toast
 
 /**
  * Bundle controls: pill row with per-bundle bulk actions.
+ *
+ * A null [onCopyFromBundle] drops that pill, for the callers where a selection has nowhere
+ * to be copied from.
  */
 @Composable
 internal fun BundlePatchControls(
@@ -44,7 +47,7 @@ internal fun BundlePatchControls(
     onDeselectAll: () -> Unit,
     onResetToDefault: () -> Unit,
     onRestoreSaved: () -> Unit,
-    onCopyFromBundle: () -> Unit,
+    onCopyFromBundle: (() -> Unit)?,
     hasSavedSelection: Boolean,
     modifier: Modifier = Modifier,
     /** True when this "Enable all" tap would also enable the universal patches. */
@@ -61,7 +64,6 @@ internal fun BundlePatchControls(
     val selectAllLabel = stringResource(R.string.expert_mode_enable_all)
     val defaultLabel = stringResource(R.string.expert_mode_reset_to_default)
     val restoreLabel = stringResource(R.string.expert_mode_restore_saved)
-    val copyLabel = stringResource(R.string.expert_mode_copy_from_bundle)
     val deselectAllLabel = stringResource(R.string.expert_mode_disable_all)
 
     // The second "Enable all" tap applies every universal patch at once, which is a common
@@ -117,16 +119,19 @@ internal fun BundlePatchControls(
                 content = MaterialTheme.colorScheme.onSecondaryContainer
             )
         )
-        ActionPillButton(
-            onClick = onCopyFromBundle,
-            icon = Icons.Outlined.ContentCopy,
-            contentDescription = copyLabel,
-            tooltip = copyLabel,
-            colors = tonalIconColors(
-                container = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.4f),
-                content = MaterialTheme.colorScheme.onSecondaryContainer
+        if (onCopyFromBundle != null) {
+            val copyLabel = stringResource(R.string.expert_mode_copy_from_bundle)
+            ActionPillButton(
+                onClick = onCopyFromBundle,
+                icon = Icons.Outlined.ContentCopy,
+                contentDescription = copyLabel,
+                tooltip = copyLabel,
+                colors = tonalIconColors(
+                    container = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.4f),
+                    content = MaterialTheme.colorScheme.onSecondaryContainer
+                )
             )
-        )
+        }
         ActionPillButton(
             onClick = withToast(disabledDone, onDeselectAll),
             icon = Icons.Outlined.ClearAll,

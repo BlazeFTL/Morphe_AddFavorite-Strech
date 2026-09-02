@@ -288,9 +288,6 @@ class PreferencesManager(
         installerPrimary = installerPrimary.get(),
         installerCustomComponents = installerCustomComponents.get(),
         installerHiddenComponents = installerHiddenComponents.get(),
-        keystoreAlias = keystoreAlias.get(),
-        keystorePass = keystorePass.get(),
-        keystorePassword = keystorePassword.get().takeIf { it.isNotEmpty() },
         firstLaunch = firstLaunch.get(),
         useManagerPrereleases = useManagerPrereleases.get(),
         // Custom sources carry prerelease/experimental toggles in customBundles, and the official

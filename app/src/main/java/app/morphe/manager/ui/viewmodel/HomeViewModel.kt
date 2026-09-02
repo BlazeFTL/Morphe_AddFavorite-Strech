@@ -47,6 +47,7 @@ import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
+import app.morphe.manager.util.PatchSelectionUtils.mergeBundleOptions
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
@@ -136,6 +137,16 @@ data class InstalledAppPickerItem(
     val packageInfo: PackageInfo,
     val isSystemApp: Boolean,
     val info: InstalledApkInfo
+)
+
+/**
+ * The patch update waiting for an installed app: the source carrying it and the version the
+ * app was patched with. [appNames] is empty when no changelog narrowed the update down.
+ */
+data class AppPatchUpdate(
+    val bundleUid: Int,
+    val patchedWithVersion: String?,
+    val appNames: Set<String> = emptySet()
 )
 
 /**
@@ -300,12 +311,8 @@ class HomeViewModel(
     // so bulk actions offer the same set the selection was built from
     private var expertModeAllowIncompatible = false
 
-    /** Target bundle uid for the in-flight copy-from-another-bundle picker; null while the picker is closed. */
-    var expertModeCopyTargetBundleUid by mutableStateOf<Int?>(null)
-        private set
-    /** Loaded candidates for the picker; null while the initial load is in progress. */
-    var expertModeCopyCandidates by mutableStateOf<List<CopySelectionCandidate>?>(null)
-        private set
+    /** Picker behind the copy-from-another-bundle action of the expert-mode dialog. */
+    val expertModeCopy = CopySelectionController()
 
     // Bundle file selection
     var selectedBundleUri by mutableStateOf<Uri?>(null)
@@ -450,8 +457,8 @@ class HomeViewModel(
         get() = recommendedBundleVersionsFlow.value
 
     // Track available updates for installed apps
-    private val _appUpdatesAvailable = MutableStateFlow<Map<String, Boolean>>(emptyMap())
-    val appUpdatesAvailable: StateFlow<Map<String, Boolean>> = _appUpdatesAvailable.asStateFlow()
+    private val _appUpdatesAvailable = MutableStateFlow<Map<String, AppPatchUpdate>>(emptyMap())
+    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>> = _appUpdatesAvailable.asStateFlow()
 
     // Ticker to force homeAppState recomputation after install/uninstall without changing DB state
     private val _appStateTicker = MutableStateFlow(0L)
@@ -1116,32 +1123,36 @@ class HomeViewModel(
 
         val currentVersionByUid: Map<Int, String?> = sources.associate { it.uid to it.version }
 
-        val updates = mutableMapOf<String, Boolean>()
+        val updates = mutableMapOf<String, AppPatchUpdate>()
 
         installedApps.forEach { app ->
             // Get stored bundle versions for this app
             val storedVersions = installedAppRepository.getBundleVersionsForApp(app.currentPackageName)
             val appNames = resolveChangelogNames(app.originalPackageName)
 
-            // Check if any bundle used for this app has been updated
-            val hasUpdate = storedVersions.any { (bundleUid, storedVersion) ->
-                val currentVersion = currentVersionByUid[bundleUid] ?: return@any false
-                if (!isNewerVersion(storedVersion, currentVersion)) return@any false
+            // Take the first bundle used for this app that has been updated
+            val update = storedVersions.firstNotNullOfOrNull { (bundleUid, storedVersion) ->
+                val currentVersion = currentVersionByUid[bundleUid] ?: return@firstNotNullOfOrNull null
+                if (!isNewerVersion(storedVersion, currentVersion)) return@firstNotNullOfOrNull null
 
                 // Bundle is newer - refine with changelog if available.
                 // No changelog (null) → show badge (network error or local bundle).
                 // No resolvable app name → show badge (can't match scopes).
                 // Known name, no matching scope → no badge.
-                val entries = changelogByUid[bundleUid] ?: return@any true
-                if (appNames.isEmpty()) return@any true
-                ChangelogParser.hasChangesFor(
-                    entries = entries,
-                    installedVersion = storedVersion,
-                    appNames = appNames,
-                )
+                val unscoped = AppPatchUpdate(bundleUid, storedVersion)
+                val entries = changelogByUid[bundleUid] ?: return@firstNotNullOfOrNull unscoped
+                if (appNames.isEmpty()) return@firstNotNullOfOrNull unscoped
+
+                AppPatchUpdate(bundleUid, storedVersion, appNames).takeIf {
+                    ChangelogParser.hasChangesFor(
+                        entries = entries,
+                        installedVersion = storedVersion,
+                        appNames = appNames,
+                    )
+                }
             }
 
-            updates[app.currentPackageName] = hasUpdate
+            update?.let { updates[app.currentPackageName] = it }
         }
 
         _appUpdatesAvailable.value = updates
@@ -1452,9 +1463,7 @@ class HomeViewModel(
                     pm.getPackageInfo(installedApp.currentPackageName) != null
             val isInstallStatePending = installedApp != null && trackedSnapshot == null
             val isInstalledOnDevice = trackedPresentation?.isPatched == true
-            val hasUpdate = installedApp?.let {
-                updatesMap[it.currentPackageName] == true
-            } == true
+            val hasUpdate = installedApp != null && installedApp.currentPackageName in updatesMap
 
             if (installedApp != null && trackedSnapshot != null && isInstalledOnDevice) {
                 reconcileInstalledVersion(installedApp, trackedSnapshot.installedPackageInfo)
@@ -3125,101 +3134,40 @@ class HomeViewModel(
         expertModeNewPatches = emptyMap()
         expertModeUniversalArmedFor = null
         expertModeAllowIncompatible = false
-        closeExpertModeCopyDialog()
+        expertModeCopy.close()
     }
 
-    /**
-     * Open the copy-from-another-bundle picker for [targetBundleUid] inside the current
-     * expert-mode session. Candidates are loaded off the main thread and published to
-     * [expertModeCopyCandidates] once ready.
-     */
+    /** Opens the copy-from-another-bundle picker for [targetBundleUid]. */
     fun openExpertModeCopyDialog(targetBundleUid: Int) {
         val selectedApp = expertModeSelectedApp ?: return
-        expertModeCopyTargetBundleUid = targetBundleUid
-        expertModeCopyCandidates = null
-        viewModelScope.launch(Dispatchers.IO) {
-            val candidates = loadCopySelectionCandidates(
-                patchSelectionRepository = patchSelectionRepository,
-                patchBundleRepository = patchBundleRepository,
-                appDataResolver = appDataResolver,
-                targetPackageName = selectedApp.packageName,
-                targetBundleUid = targetBundleUid,
-                targetPatchNames = targetBundlePatchNames(targetBundleUid)
-            )
-            withContext(Dispatchers.Main) {
-                // Discard the result if the user closed or retargeted the dialog while loading.
-                if (expertModeCopyTargetBundleUid == targetBundleUid) {
-                    expertModeCopyCandidates = candidates
-                }
-            }
-        }
-    }
-
-    fun closeExpertModeCopyDialog() {
-        expertModeCopyTargetBundleUid = null
-        expertModeCopyCandidates = null
+        expertModeCopy.open(
+            scope = viewModelScope,
+            targetPackageName = selectedApp.packageName,
+            targetBundleUid = targetBundleUid,
+            targetPatchNames = targetBundlePatchNames(targetBundleUid)
+        )
     }
 
     /**
-     * Apply a picked [candidate] to the in-memory expert-mode selection.
-     * Patches and options are filtered against the target bundle's schema so the
-     * copy silently drops entries that no longer exist under the new bundle uid.
-     * Changes are persisted to the database only when the user proceeds to patching.
+     * Applies a picked [candidate] to the in-memory expert-mode selection. Changes reach the
+     * database only when the user proceeds to patching.
      */
     fun applyExpertModeCopy(candidate: CopySelectionCandidate) {
         expertModeSelectedApp ?: return
-        val targetBundleUid = expertModeCopyTargetBundleUid ?: return
+        val targetBundleUid = expertModeCopy.targetBundleUid ?: return
 
         viewModelScope.launch {
-            val (patches, options) = withContext(Dispatchers.IO) {
-                val targetPatches = targetBundlePatchInfos(targetBundleUid)
-                val sourcePatchNames = patchSelectionRepository.exportForPackageAndBundle(
-                    candidate.packageName,
-                    candidate.bundleUid
-                )
-                val filteredPatches = sourcePatchNames
-                    .filter { it in targetPatches }
-                    .toSet()
+            val copied = expertModeCopy.resolve(
+                candidate = candidate,
+                targetPatches = targetBundlePatchInfos(targetBundleUid)
+            ) ?: return@launch
 
-                // Read as live values rather than through the raw export, which hands back
-                // JSON encoded strings
-                val filteredOptions = optionsRepository.getOptionsForBundle(
-                    packageName = candidate.packageName,
-                    bundleUid = candidate.bundleUid,
-                    bundlePatchInfo = targetPatches
-                ).filterValues { it.isNotEmpty() }
-
-                filteredPatches to filteredOptions
-            }
-
-            if (patches.isEmpty() && options.isEmpty()) {
-                app.toast(app.getString(R.string.expert_mode_copy_from_bundle_no_patches))
-                closeExpertModeCopyDialog()
-                return@launch
-            }
-
-            // The copy comes from a run that may have targeted another installer, so the patches
-            // it carries are put through the availability rules of this one
-            expertModePatches = expertModePatches.withBundle(targetBundleUid, patches)
+            // The copy comes from a run that may have targeted another installer
+            expertModePatches = expertModePatches.withBundle(targetBundleUid, copied.patches)
                 .applyExpertModeAvailability()
+            expertModeOptions = expertModeOptions.mergeBundleOptions(targetBundleUid, copied.options)
 
-            val currentOptions = expertModeOptions.toMutableMap()
-            val bundleOptions = currentOptions[targetBundleUid]?.toMutableMap() ?: mutableMapOf()
-            options.forEach { (patchName, patchOptions) ->
-                bundleOptions[patchName] = patchOptions
-            }
-            if (bundleOptions.isEmpty()) currentOptions.remove(targetBundleUid)
-            else currentOptions[targetBundleUid] = bundleOptions
-            expertModeOptions = currentOptions
-
-            app.toast(
-                app.resources.getQuantityString(
-                    R.plurals.expert_mode_copy_from_bundle_done,
-                    patches.size,
-                    patches.size.toString()
-                )
-            )
-            closeExpertModeCopyDialog()
+            expertModeCopy.finish(copied.patches.size)
         }
     }
 

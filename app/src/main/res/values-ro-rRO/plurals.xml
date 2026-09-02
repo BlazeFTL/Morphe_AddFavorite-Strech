@@ -85,6 +85,11 @@
         <item quantity="few">%s aplicații</item>
         <item quantity="other">%s aplicații</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="one">%s selectat</item>
+        <item quantity="few">%s selectate</item>
+        <item quantity="other">%s selectate</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="one">Patch %s copiat din pachetul selectat</item>
         <item quantity="few">Patch-uri %s copiate din pachetul selectat</item>

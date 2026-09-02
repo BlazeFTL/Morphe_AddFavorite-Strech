@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Інші застосунки</string>
+    <string name="home_other_apps_action">Обрати інші застосунки</string>
     <string name="home_not_patched_yet">Ще не патчено</string>
     <string name="home_unpatched_version_installed">Встановлено непропатчену версію</string>
     <string name="home_unpatched_badge">Не патчено</string>
@@ -275,8 +276,11 @@
     <string name="expert_mode_copy_from_bundle">Копіювати вибір з іншого пакета</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Немає відповідних патчів у цьому пакеті</string>
     <string name="expert_mode_no_results">Патчі не знайдено</string>
+    <string name="expert_mode_selected_only_on">Показано лише вибрані патчі</string>
+    <string name="expert_mode_selected_only_off">Показано всі патчі</string>
     <string name="expert_mode_universal_patches">Універсальні патчі</string>
     <string name="expert_mode_new_patches">Новий</string>
+    <string name="expert_mode_options_customized">Налаштовано</string>
     <string name="expert_mode_patch_required_by_installer">Обов\'язково для вибраного типу встановлення</string>
     <string name="expert_mode_patch_unavailable_for_installer">Недоступно для вибраного типу встановлення</string>
     <string name="expert_mode_multiple_sources_warning_title">Вибрано декілька джерел патчів</string>
@@ -641,6 +645,8 @@
     <string name="settings_appearance_greeting_phrases_subtitle">Показувати вітальне повідомлення на головному екрані</string>
     <string name="settings_appearance_app_grouping">Групування застосунків</string>
     <string name="settings_appearance_app_grouping_description">Показує перемикач на головному екрані для групування застосунків за джерелом або власними категоріями, зберігаючи вибір при вимкненні</string>
+    <string name="settings_appearance_repatch_notice">Сповіщення про перепатчинг</string>
+    <string name="settings_appearance_repatch_notice_description">Показувати банер на головному екрані, коли пропатчені застосунки можна перепатчити</string>
     <string name="settings_appearance_sort_button">Кнопка сортування та фільтрування</string>
     <string name="settings_appearance_sort_button_description">Показувати кнопку сортування та фільтрування на головному екрані</string>
     <string name="settings_appearance_app_card_colors">Кольори картки застосунку</string>
@@ -1169,7 +1175,10 @@ morphe_header_custom_dark.png
     <string name="importing_ellipsis">Імпортування…</string>
     <string name="imported_successfully">Імпортовано успішно</string>
     <string name="changelog">Переглянути списки змін</string>
-    <string name="changelog_description">Перегляньте останні зміни цього оновлення</string>
+    <string name="changelog_for_app">Зміни для %s</string>
+    <string name="changelog_general_changes">Загальні зміни</string>
+    <string name="whats_new">Що нового</string>
+    <string name="changelog_description">Ознайомтеся з останніми змінами в цьому оновленні</string>
     <string name="changelog_download_fail">Не вдалося завантажити список змін: %s</string>
     <string name="changelog_empty">Список змін відсутній</string>
     <string name="changelog_show_older">Показати старіші релізи</string>
@@ -1201,7 +1210,7 @@ morphe_header_custom_dark.png
     <string name="onboarding_swipe_desc">Проведіть праворуч по картці застосунку, щоб переглянути доступні патчі. Проведіть ліворуч, щоб приховати картку з головного екрана</string>
     <string name="onboarding_settings_desc">Налаштуйте Morphe: зовнішній вигляд, розширені параметри та системні інструменти</string>
     <string name="onboarding_sources_patches_desc">Натисніть, щоб переглянути всі патчі з цього джерела</string>
-    <string name="onboarding_sources_version_desc">Натисніть на версію, щоб переглянути повний журнал змін для цього джерела</string>
+    <string name="onboarding_sources_version_desc">Натисніть на версію, щоб переглянути повний список змін для цього джерела</string>
     <string name="onboarding_sources_prerelease_desc">Увімкніть це, щоб отримувати попередні версії патчів із цього джерела</string>
     <string name="onboarding_appearance_tab_desc">Налаштуйте вигляд застосунку: тему, акцентний колір та фон</string>
     <string name="onboarding_appearance_theme_desc">Виберіть світлу, темну або системну тему. Ви також можете вибрати власний акцентний колір або увімкнути динамічний колір</string>

@@ -1,6 +1,7 @@
 ﻿<resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Other apps</string>
+    <string name="home_other_apps_action">Select other apps</string>
     <string name="home_not_patched_yet">Not patched yet</string>
     <string name="home_unpatched_version_installed">Unpatched version installed</string>
     <string name="home_unpatched_badge">Not patched</string>
@@ -285,6 +286,8 @@ Anything you add from this website is used at your own risk"</string>
     <string name="expert_mode_copy_from_bundle">Copy selection from another bundle</string>
     <string name="expert_mode_copy_from_bundle_no_patches">No matching patches in this bundle</string>
     <string name="expert_mode_no_results">No patches found</string>
+    <string name="expert_mode_selected_only_on">Showing selected patches only</string>
+    <string name="expert_mode_selected_only_off">Showing all patches</string>
     <string name="expert_mode_universal_patches">Universal patches</string>
     <string name="expert_mode_new_patches">New</string>
     <string name="expert_mode_options_customized">Customized</string>
@@ -692,6 +695,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Show a greeting message on the home screen</string>
     <string name="settings_appearance_app_grouping">App grouping</string>
     <string name="settings_appearance_app_grouping_description">Show a home screen switcher to group apps by source or your own categories, keeping the selection when off</string>
+    <string name="settings_appearance_repatch_notice">Re-patch notice</string>
+    <string name="settings_appearance_repatch_notice_description">Show a banner on the home screen when patched apps can be re-patched</string>
     <string name="settings_appearance_sort_button">Sort and filter button</string>
     <string name="settings_appearance_sort_button_description">Show the sort and filter button on the home screen</string>
     <string name="settings_appearance_app_card_colors">App card colors</string>
@@ -1251,6 +1256,9 @@ Details: %2$s"</string>
     <string name="imported_successfully">Imported successfully</string>
 
     <string name="changelog">View changelogs</string>
+    <string name="changelog_for_app">Changes for %s</string>
+    <string name="changelog_general_changes">General changes</string>
+    <string name="whats_new">What\'s new</string>
     <string name="changelog_description">Check out the latest changes in this update</string>
     <string name="changelog_download_fail">Failed to download changelog: %s</string>
     <string name="changelog_empty">No changelog available</string>
@@ -1264,15 +1272,14 @@ Details: %2$s"</string>
     <string name="install_update_manager_failed">Failed to install update</string>
     <string name="installing_manager_update">Installing update…</string>
     <string name="downloading_manager_update">Downloading update…</string>
-    <string name="manager_update_progress_detail" translatable="false">%1$.1f MB / %2$.1f MB (%3$s%%)</string>
-    <!-- Shown while resuming a download, before the total size is known -->
+    <string name="manager_update_progress_detail" translatable="false">%1$.1f MB / %2$.1f MB (%3$d%%)</string>
+    <!-- Shown while downloading, before the total size is known -->
     <string name="manager_update_progress_downloaded">%1$.1f MB downloaded</string>
     <string name="manager_update_not_ready">This release is still being published. Try again in a few minutes</string>
     <string name="update_download_missing">The downloaded update is no longer available. Download it again</string>
     <string name="download_manager_failed">Failed to download update: %s</string>
     <string name="failed_to_check_updates">Failed to check for updates: %s</string>
     <string name="failed_to_download_update">Failed to download update: %s</string>
-    <string name="resume_download">Resume download</string>
     <string name="download_confirmation_metered">"You are currently on a metered connection, and data charges from your service provider may apply.
 
 Do you still want to continue?"</string>

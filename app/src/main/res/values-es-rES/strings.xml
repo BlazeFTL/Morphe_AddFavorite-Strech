@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Otras aplicaciones</string>
+    <string name="home_other_apps_action">Seleccionar otras aplicaciones</string>
     <string name="home_not_patched_yet">Aún sin parchear</string>
     <string name="home_unpatched_version_installed">Versión sin parchear instalada</string>
     <string name="home_unpatched_badge">Sin parchear</string>
@@ -274,8 +275,11 @@ Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad
     <string name="expert_mode_copy_from_bundle">Copiar selección de otro paquete</string>
     <string name="expert_mode_copy_from_bundle_no_patches">No hay parches que coincidan en este paquete</string>
     <string name="expert_mode_no_results">No se encontraron parches</string>
+    <string name="expert_mode_selected_only_on">Mostrando solo los parches seleccionados</string>
+    <string name="expert_mode_selected_only_off">Mostrando todos los parches</string>
     <string name="expert_mode_universal_patches">Parches universales</string>
     <string name="expert_mode_new_patches">Nuevo</string>
+    <string name="expert_mode_options_customized">Personalizado</string>
     <string name="expert_mode_patch_required_by_installer">Necesario para el destino de instalación seleccionado</string>
     <string name="expert_mode_patch_unavailable_for_installer">No disponible para el destino de instalación seleccionado</string>
     <string name="expert_mode_multiple_sources_warning_title">Se han seleccionado varias fuentes de parches</string>
@@ -359,8 +363,8 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="notification_icon_preview">Notificación</string>
     <!-- Header Creator -->
     <string name="header_creator_create">Crear encabezado personalizado</string>
-    <string name="header_creator_light_theme">Encabezado de tema claro</string>
-    <string name="header_creator_dark_theme">Encabezado de tema oscuro</string>
+    <string name="header_creator_light_theme">Encabezado del tema claro</string>
+    <string name="header_creator_dark_theme">Encabezado del tema oscuro</string>
     <string name="header_creator_no_image">No se ha seleccionado ninguna imagen</string>
     <string name="header_creator_success">Encabezado creado con éxito</string>
     <string name="header_creator_failed">No se pudo crear el encabezado</string>
@@ -408,7 +412,7 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="shortcut_check_updates_long">Buscar actualizaciones de los parches</string>
     <string name="shortcut_patch_app">Parchear %s</string>
     <!-- Home Screen - App Info Screen -->
-    <string name="home_app_info_uninstall_app_confirmation">¿Estás seguro de que quieres desinstalar esta aplicación?</string>
+    <string name="home_app_info_uninstall_app_confirmation">¿Realmente quieres desinstalar esta aplicación?</string>
     <string name="batch_uninstall_confirm_body">Las aplicaciones seleccionadas se eliminarán permanentemente de tu dispositivo</string>
     <string name="home_app_info_remove_app_warning">Esto eliminará permanentemente:</string>
     <string name="home_app_info_delete_item_database">Entrada de base de datos</string>
@@ -500,7 +504,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="patcher_step_group_preparing">Preparando</string>
     <string name="patcher_step_load_patches">Cargando parches</string>
     <string name="patcher_step_prepare_split_apk">Fusionando APK dividido</string>
-    <string name="patcher_step_unpack">Leer archivo APK</string>
+    <string name="patcher_step_unpack">Leyendo archivo APK</string>
     <string name="patcher_step_group_patching">Aplicando parches</string>
     <string name="patcher_step_group_saving">Guardando</string>
     <string name="patcher_step_write_patched">Guardando archivo APK parcheado</string>
@@ -518,7 +522,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="patcher_notification_title">Aplicando parches...</string>
     <string name="patcher_notification_text">Pulsa para volver al parcheador</string>
     <string name="patcher_stop_confirm_title">Detener parcheador</string>
-    <string name="patcher_stop_confirm_description">¿Estás seguro de que quieres detener el proceso de parcheo?</string>
+    <string name="patcher_stop_confirm_description">¿Realmente quieres detener el proceso de parcheo?</string>
     <!-- Patcher Screen - Patcher Messages -->
     <string name="patcher_message_1">Transformando tu aplicación en algo increíble… 🏆</string>
     <string name="patcher_message_2">Enseñando trucos nuevos a aplicaciones viejas… 🎩</string>
@@ -573,11 +577,11 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="failed_to_mount">Error al montar: %s</string>
     <string name="failed_to_unmount">Error al desmontar: %s</string>
     <!-- Patcher Screen - Mini-games -->
-    <string name="mini_game_score">Puntuación %s</string>
-    <string name="mini_game_best">Mejor %s</string>
+    <string name="mini_game_score">Puntuación: %s</string>
+    <string name="mini_game_best">Mejor: %s</string>
     <string name="mini_game_new_record">¡Nuevo récord!</string>
     <string name="mini_game_game_over">Fin del juego</string>
-    <string name="mini_game_try_again">Inténtalo de nuevo</string>
+    <string name="mini_game_try_again">Volver a intentar</string>
     <string name="mini_game_paused">En pausa</string>
     <string name="mini_game_resume">Continuar</string>
     <string name="mini_game_2048_picker_subtitle">Desliza las fichas para combinarlas</string>
@@ -640,6 +644,8 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_greeting_phrases_subtitle">Muestra un mensaje de saludo en la pantalla de inicio</string>
     <string name="settings_appearance_app_grouping">Agrupación de aplicaciones</string>
     <string name="settings_appearance_app_grouping_description">Muestra un selector de pantalla de inicio para agrupar aplicaciones por origen o por tus propias categorías, manteniendo la selección cuando esté desactivado</string>
+    <string name="settings_appearance_repatch_notice">Aviso de nuevos parches</string>
+    <string name="settings_appearance_repatch_notice_description">Muestra un banner en la pantalla de inicio cuando haya aplicaciones parcheadas que puedan volver a parchearse</string>
     <string name="settings_appearance_sort_button">Botón de ordenar y filtrar</string>
     <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar y filtrar en la pantalla de inicio</string>
     <string name="settings_appearance_app_card_colors">Colores de las tarjetas de aplicaciones</string>

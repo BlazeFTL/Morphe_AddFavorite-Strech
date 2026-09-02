@@ -119,6 +119,13 @@
         <item quantity="many">%s aip</item>
         <item quantity="other">%s aip</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="one">%s roghnaithe</item>
+        <item quantity="two">%s roghnaithe</item>
+        <item quantity="few">%s roghnaithe</item>
+        <item quantity="many">%s roghnaithe</item>
+        <item quantity="other">%s roghnaithe</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="one">Cóipeáladh %s paiste ón bpacáiste roghnaithe</item>
         <item quantity="two">Cóipeáladh %s paistí ón bpacáiste roghnaithe</item>

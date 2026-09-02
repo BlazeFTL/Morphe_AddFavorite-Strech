@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Ander programme</string>
+    <string name="home_other_apps_action">Kies ander programme</string>
     <string name="home_not_patched_yet">Nog nie verander nie</string>
     <string name="home_unpatched_version_installed">Ongepatchte weergawe geïnstalleer</string>
     <string name="home_unpatched_badge">Nie gepatch nie</string>
@@ -274,8 +275,11 @@ Enigiets wat jy van hierdie webwerf byvoeg, word op jou eie risiko gebruik."</st
     <string name="expert_mode_copy_from_bundle">Kopieer seleksie van \'n ander bundel</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Geen ooreenstemmende patrone in hierdie bundel nie</string>
     <string name="expert_mode_no_results">Geen patchings gevind</string>
+    <string name="expert_mode_selected_only_on">Wys slegs geselekteerde patches</string>
+    <string name="expert_mode_selected_only_off">Wys alle patches</string>
     <string name="expert_mode_universal_patches">Universele pleisters</string>
     <string name="expert_mode_new_patches">Nuwe</string>
+    <string name="expert_mode_options_customized">Aangepas</string>
     <string name="expert_mode_patch_required_by_installer">Vereis vir die gekose installasie-teiken</string>
     <string name="expert_mode_patch_unavailable_for_installer">Nie beskikbaar vir die gekose installasie-teiken nie</string>
     <string name="expert_mode_multiple_sources_warning_title">Meerdere patch brons gekies</string>
@@ -640,6 +644,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wys \'n groet-boodskap op die tuisskerm</string>
     <string name="settings_appearance_app_grouping">Toepassingsgroepering</string>
     <string name="settings_appearance_app_grouping_description">Wys \'n tuisskermskakelaar om toepassings volgens bron of jou eie kategorieë te groepeer, en die keuse te behou wanneer dit af is</string>
+    <string name="settings_appearance_repatch_notice">Re-patch-kennisgewing</string>
+    <string name="settings_appearance_repatch_notice_description">Wys \'n banier op die tuisskerm wanneer gepatchede programme weer gepatched kan word</string>
     <string name="settings_appearance_sort_button">Sorteer- en filterknoppie</string>
     <string name="settings_appearance_sort_button_description">Wys die sorteer- en filterknoppie op die tuisskerm</string>
     <string name="settings_appearance_app_card_colors">App-kaartkleure</string>

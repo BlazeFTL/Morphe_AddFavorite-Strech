@@ -2,8 +2,9 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Ostatní aplikace</string>
+    <string name="home_other_apps_action">Vyberte jiné aplikace</string>
     <string name="home_not_patched_yet">Ještě nezáplatováno</string>
-    <string name="home_unpatched_version_installed">Nainstalovaná neopatchovaná verze</string>
+    <string name="home_unpatched_version_installed">Nainstalovaná nezáplatovaná verze</string>
     <string name="home_unpatched_badge">Nezáplatováno</string>
     <string name="home_no_patches_available">Žádné záplaty k dispozici</string>
     <string name="home_app_hide_title">Skrýt tuto aplikaci?</string>
@@ -11,7 +12,7 @@
     <string name="home_app_will_be_hidden">Tato aplikace bude skryta</string>
     <string name="home_app_no_hidden">Žádné skryté aplikace</string>
     <string name="home_app_hidden_apps_title">Skryté aplikace</string>
-    <string name="home_app_hidden_apps_hint">Klepněte pro zobrazení</string>
+    <string name="home_app_hidden_apps_hint">Klepněte pro odkrytí</string>
     <string name="android_11_bug_dialog_title">Chyba Androidu 11</string>
     <string name="android_11_bug_dialog_description">Oprávnění k instalaci aplikací musí být uděleno předem, abyste se vyhnuli chybě v systému Android 11, která negativně ovlivňuje uživatelský zážitek</string>
     <string name="deep_link_add_source_title">Přidat zdroj</string>
@@ -274,8 +275,11 @@ Cokoli, co z této webové stránky přidáte, používáte na vlastní riziko."
     <string name="expert_mode_copy_from_bundle">Kopírovat výběr z jiného balíčku</string>
     <string name="expert_mode_copy_from_bundle_no_patches">V tomto balíčku nebyly nalezeny žádné odpovídající záplaty</string>
     <string name="expert_mode_no_results">Nebyly nalezeny žádné záplaty</string>
+    <string name="expert_mode_selected_only_on">Zobrazují se pouze vybrané záplaty</string>
+    <string name="expert_mode_selected_only_off">Zobrazují se všechny záplaty</string>
     <string name="expert_mode_universal_patches">Univerzální záplaty</string>
     <string name="expert_mode_new_patches">Nový</string>
+    <string name="expert_mode_options_customized">Přizpůsobené</string>
     <string name="expert_mode_patch_required_by_installer">Vyžadováno pro vybraný cíl instalace</string>
     <string name="expert_mode_patch_unavailable_for_installer">Není k dispozici pro vybraný cíl instalace</string>
     <string name="expert_mode_multiple_sources_warning_title">Vybráno více zdrojů záplat</string>
@@ -639,6 +643,8 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazit pozdravný vzkaz na domovské obrazovce</string>
     <string name="settings_appearance_app_grouping">Kreslení aplikací</string>
     <string name="settings_appearance_app_grouping_description">Zobrazit přepínač domovské obrazovky pro seskupení aplikací podle zdroje nebo vlastních kategorií, s ponecháním výběru při vypnutí</string>
+    <string name="settings_appearance_repatch_notice">Oznámení o opětovné záplatě</string>
+    <string name="settings_appearance_repatch_notice_description">Zobrazit banner na domovské obrazovce, když lze znovu záplatovat aplikace</string>
     <string name="settings_appearance_sort_button">Tlačítko pro řazení a filtrování</string>
     <string name="settings_appearance_sort_button_description">Zobrazit tlačítko pro řazení a filtrování na domovské obrazovce</string>
     <string name="settings_appearance_app_card_colors">Barvy karet aplikací</string>

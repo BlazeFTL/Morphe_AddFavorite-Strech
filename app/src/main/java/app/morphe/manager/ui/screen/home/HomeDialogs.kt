@@ -449,7 +449,7 @@ fun HomeDialogs(
             }
         )
 
-        homeViewModel.expertModeCopyTargetBundleUid?.let { targetUid ->
+        homeViewModel.expertModeCopy.targetBundleUid?.let { targetUid ->
             val selectedApp = homeViewModel.expertModeSelectedApp ?: return@let
             val targetBundle = homeViewModel.expertModeBundles.firstOrNull { it.uid == targetUid }
                 ?: return@let
@@ -461,9 +461,9 @@ fun HomeDialogs(
                     bundleName = targetBundle.name,
                     appDisplayName = appDisplayName
                 ),
-                candidates = homeViewModel.expertModeCopyCandidates,
+                candidates = homeViewModel.expertModeCopy.candidates,
                 onConfirm = { homeViewModel.applyExpertModeCopy(it) },
-                onDismiss = { homeViewModel.closeExpertModeCopyDialog() }
+                onDismiss = { homeViewModel.expertModeCopy.close() }
             )
         }
     }

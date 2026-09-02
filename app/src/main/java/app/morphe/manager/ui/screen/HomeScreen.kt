@@ -75,6 +75,7 @@ fun HomeScreen(
 
     // Reactively observe the preference so the greeting updates immediately
     val showGreetingPhrases by prefs.showGreetingPhrases.getAsState()
+    val showRepatchNotice by prefs.showRepatchNotice.getAsState()
 
     // Re-evaluated whenever showPatchingPhrases changes
     var greetingResId by remember(showGreetingPhrases) {
@@ -283,9 +284,11 @@ fun HomeScreen(
                     blockedSources = AlertState(hasBlockedSources) { homeViewModel.showBundleManagementSheet = true },
                     metadataErrors = AlertState(hasMetadataErrors) { homeViewModel.showBundleManagementSheet = true },
                     meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) { onSettingsClick() },
-                    repatchAvailable = RepatchAlertState(repatchableApps.size) {
-                        startBatchPatch(repatchableApps)
-                    },
+                    repatchAvailable = RepatchAlertState(
+                        count = repatchableApps.size,
+                        visible = showRepatchNotice,
+                        onShow = { startBatchPatch(repatchableApps) }
+                    ),
                     bundleUpdate = BundleUpdateState(
                         visible = homeViewModel.showBundleUpdateSnackbar,
                         status = homeViewModel.snackbarStatus,

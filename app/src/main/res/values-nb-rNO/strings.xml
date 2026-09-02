@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Andre apper</string>
+    <string name="home_other_apps_action">Velg andre apper</string>
     <string name="home_not_patched_yet">Ikke patchet ennå</string>
     <string name="home_unpatched_version_installed">Upatchet versjon installert</string>
     <string name="home_unpatched_badge">Ikke patchet</string>
@@ -274,8 +275,11 @@ Alt som legges til fra denne nettsiden brukes på egen risiko"</string>
     <string name="expert_mode_copy_from_bundle">Kopier utvalg fra en annen pakke</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Ingen matchede patcher i denne pakken</string>
     <string name="expert_mode_no_results">Ingen patcher funnet</string>
+    <string name="expert_mode_selected_only_on">Viser kun valgte lapper</string>
+    <string name="expert_mode_selected_only_off">Viser alle lapper</string>
     <string name="expert_mode_universal_patches">Universelle patches</string>
     <string name="expert_mode_new_patches">Ny</string>
+    <string name="expert_mode_options_customized">Tilpasset</string>
     <string name="expert_mode_patch_required_by_installer">Kreves for det valgte installasjonsmålet</string>
     <string name="expert_mode_patch_unavailable_for_installer">Ikke tilgjengelig for det valgte installasjonsmålet</string>
     <string name="expert_mode_multiple_sources_warning_title">Flere patch-kilder valgt</string>
@@ -640,6 +644,8 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Vis en hilsenmelding på startskjermen</string>
     <string name="settings_appearance_app_grouping">Appgruppering</string>
     <string name="settings_appearance_app_grouping_description">Vis en startskjermbryter for å gruppere apper etter kilde eller egne kategorier, og behold valget når den er slått av</string>
+    <string name="settings_appearance_repatch_notice">Varsel om å lappe på nytt</string>
+    <string name="settings_appearance_repatch_notice_description">Vis et banner på startskjermen når lappede apper kan lappes på nytt</string>
     <string name="settings_appearance_sort_button">Sorterings- og filterknapp</string>
     <string name="settings_appearance_sort_button_description">Vis sorterings- og filterknappen på startskjermen</string>
     <string name="settings_appearance_app_card_colors">App-kortfarger</string>

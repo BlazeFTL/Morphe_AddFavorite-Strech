@@ -51,6 +51,9 @@
     <plurals name="home_category_app_count">
         <item quantity="other">%s 개의 앱</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="other">%s 개 선택됨</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="other">선택된 번들에서 %s 개의 패치를 복사하였습니다</item>
     </plurals>

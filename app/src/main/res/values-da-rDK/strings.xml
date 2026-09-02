@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Andre apps</string>
+    <string name="home_other_apps_action">Vælg andre apps</string>
     <string name="home_not_patched_yet">Ikke patchet endnu</string>
     <string name="home_unpatched_version_installed">Upatchet version installeret</string>
     <string name="home_unpatched_badge">Ikke patchet</string>
@@ -274,8 +275,11 @@ Alt, hvad du tilføjer fra denne hjemmeside, bruges på egen risiko."</string>
     <string name="expert_mode_copy_from_bundle">Kopier udvalg fra en anden pakke</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Ingen matchende patches i denne pakke</string>
     <string name="expert_mode_no_results">Ingen patches fundet</string>
+    <string name="expert_mode_selected_only_on">Viser kun udvalgte patches</string>
+    <string name="expert_mode_selected_only_off">Viser alle patches</string>
     <string name="expert_mode_universal_patches">Universelle patches</string>
     <string name="expert_mode_new_patches">Ny</string>
+    <string name="expert_mode_options_customized">Tilpasset</string>
     <string name="expert_mode_patch_required_by_installer">Nødvendig for det valgte installationsmål</string>
     <string name="expert_mode_patch_unavailable_for_installer">Ikke tilgængelig for det valgte installationsmål</string>
     <string name="expert_mode_multiple_sources_warning_title">Flere patchkilder valgt</string>
@@ -639,6 +643,8 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Vis en hilsenbesked på startskærmen</string>
     <string name="settings_appearance_app_grouping">App-gruppering</string>
     <string name="settings_appearance_app_grouping_description">Vis en hjemmeskærms-skifter til at gruppere apps efter kilde eller dine egne kategorier, og bevar udvælgelsen, når den er slået fra</string>
+    <string name="settings_appearance_repatch_notice">Meddelelse om gen-patch</string>
+    <string name="settings_appearance_repatch_notice_description">Vis et banner på startskærmen, når patchede apps kan gen-patches</string>
     <string name="settings_appearance_sort_button">Sorterings- og filterknap</string>
     <string name="settings_appearance_sort_button_description">Vis sorterings- og filterknappen på hjemmeskærmen</string>
     <string name="settings_appearance_app_card_colors">App-kort farver</string>

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-28T14:11:09",
-  "description": "# [1.29.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.2...v1.29.0-dev.3) (2026-08-28)\n\n\n### Bug Fixes\n\n* Replace a bundle's selection through one shared helper ([1cec4d7](https://github.com/MorpheApp/morphe-manager/commit/1cec4d7b108455ca964b562f93225db5c2b34a34))\n\n\n### Features\n\n* Highlight the patch options button when options are customized ([#908](https://github.com/MorpheApp/morphe-manager/issues/908)) ([df66e7d](https://github.com/MorpheApp/morphe-manager/commit/df66e7d79a1a2eec6143e7974a59e3ba9ae95661))\n* Retire the pre-release notice a few seconds after it is seen ([4b3ce8e](https://github.com/MorpheApp/morphe-manager/commit/4b3ce8e77072a8e232d29809bfe0ece86797c2ef))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.3/morphe-manager-1.29.0-dev.3.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.3/morphe-manager-1.29.0-dev.3.apk.asc",
-  "version": "1.29.0-dev.3"
+  "created_at": "2026-09-02T14:11:46",
+  "description": "# [1.29.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.9...v1.29.0-dev.10) (2026-09-02)\n\n\n### Features\n\n* Add Shizuku+ support ([#926](https://github.com/MorpheApp/morphe-manager/issues/926)) ([d6e6838](https://github.com/MorpheApp/morphe-manager/commit/d6e68386c96eba72fb130854be5dbd8b529c5766))\n* Open the manager changelog from its update notification ([b8a2fc5](https://github.com/MorpheApp/morphe-manager/commit/b8a2fc5ceed07eea976eb72778e3fe9907937481))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.10/morphe-manager-1.29.0-dev.10.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.10/morphe-manager-1.29.0-dev.10.apk.asc",
+  "version": "1.29.0-dev.10"
 }

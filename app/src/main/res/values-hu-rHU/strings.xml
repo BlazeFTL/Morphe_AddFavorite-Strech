@@ -2,6 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">Egyéb alkalmazások</string>
+    <string name="home_other_apps_action">Más alkalmazások kiválasztása</string>
     <string name="home_not_patched_yet">Még nincs módosítva</string>
     <string name="home_unpatched_version_installed">Nem módosított verzió van telepítve</string>
     <string name="home_unpatched_badge">Nincs módosítva</string>
@@ -274,8 +275,11 @@ Bármit is ad hozzá erről a weboldalról, azt saját felelősségére teszi."<
     <string name="expert_mode_copy_from_bundle">Más csomagból másolja a kiválasztást</string>
     <string name="expert_mode_copy_from_bundle_no_patches">Nincs megfelelő patch ehhez a csomaghoz</string>
     <string name="expert_mode_no_results">Nem találhatók módosítások</string>
+    <string name="expert_mode_selected_only_on">Csak a kiválasztott javítások megjelenítése</string>
+    <string name="expert_mode_selected_only_off">Az összes javítás megjelenítése</string>
     <string name="expert_mode_universal_patches">Univerzális módosítások</string>
     <string name="expert_mode_new_patches">Új</string>
+    <string name="expert_mode_options_customized">Testreszabott</string>
     <string name="expert_mode_patch_required_by_installer">Szükséges a kiválasztott telepítési célhoz.</string>
     <string name="expert_mode_patch_unavailable_for_installer">Nem érhető el a kiválasztott telepítési célhoz.</string>
     <string name="expert_mode_multiple_sources_warning_title">Több patchforrás van kiválasztva</string>
@@ -639,6 +643,8 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Üdvözlő üzenet megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_grouping">Alkalmazáscsoportosítás</string>
     <string name="settings_appearance_app_grouping_description">Mutasson egy főképernyő váltót az alkalmazások forrás vagy saját kategóriák szerinti csoportosításához, a kiválasztást megőrizve, ha ki van kapcsolva</string>
+    <string name="settings_appearance_repatch_notice">Újrajavítási értesítés</string>
+    <string name="settings_appearance_repatch_notice_description">Jelenítsen meg egy szalagot a kezdőképernyőn, amikor a javított alkalmazások újra javíthatók</string>
     <string name="settings_appearance_sort_button">Rendezés és szűrés gomb</string>
     <string name="settings_appearance_sort_button_description">A rendezés és szűrés gomb megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_card_colors">Alkalmazáskártyák színei</string>

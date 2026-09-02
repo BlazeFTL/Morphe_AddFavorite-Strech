@@ -85,7 +85,7 @@
     <!-- Sarcastic joke about blocking ads, intentionally over-the-top -->
     <string name="home_greeting_4">ก็อีกแค่วันนึงกับผลงานการบล็อกโฆษณาชิ้นโบว์แดง</string>
     <!-- "Watch ads" refers to watching video ads in unpatched apps -->
-    <string name="home_greeting_5">อยากดูโฆษณาไหม? ผมไม่เอาล่ะหนึ่ง</string>
+    <string name="home_greeting_5">อยากดูโฆษณาไหม? ผมก็ไม่อยาก</string>
     <!-- Friendly, slightly mischievous joke about controlling app behavior -->
     <string name="home_greeting_6">มาปรับตัวแอปของคุณให้มีพฤติกรรมดีขึ้นเถอะ</string>
     <!-- Whimsical forecast-style joke, not meant literally -->
@@ -93,7 +93,7 @@
     <!-- From mediocrity to amazing -->
     <string name="home_greeting_8">พร้อมไหมที่จะเปลี่ยนแอปพลิเคชันดังเดิมที่แสนน่าเบื่อให้สุดยอดมากขึ้น</string>
     <!-- Playful exaggeration, making patching feel heroic -->
-    <string name="home_greeting_9">ช่วยแอปพลิเคชันปรับปรุงให้ดีขึ้นตั้งแต่วันนี้</string>
+    <string name="home_greeting_9">ช่วยแอปให้รอดตัวตั้งแต่วันนี้</string>
     <!-- Light sarcasm, casual and tech-savvy humor -->
     <string name="home_greeting_10">สนับสนุนโดยกาแฟหนึ่งแก้วกับแพตช์ที่มีคุณภาพ</string>
     <!-- Morning greetings (5:00–11:59) -->
@@ -145,7 +145,7 @@
     <string name="sources_management_metadata_unavailable_hint">ไฟล์ Metadata ระยะไกลไม่พร้อมใช้งาน การแพตช์ด้วยชุดที่ติดตั้งยังคงทำงานได้ แต่การอัปเดตอัตโนมัติถูกปิดใช้งานสำหรับแหล่งที่มานี้</string>
     <string name="sources_management_metadata_unavailable_hint_missing">ไม่สามารถดาวน์โหลดชุดแพตช์ได้ URL แหล่งที่มาอาจไม่ถูกต้อง หรือไฟล์ไม่มีอยู่</string>
     <string name="sources_management_outdated_manager_badge">อัปเดต Morphe</string>
-    <string name="sources_management_outdated_manager_hint">แหล่งที่มานี้สร้างขึ้นสำหรับแพตเชอร์ %1$s แต่ Morphe %2$s มีแพตเชอร์ %3$s อัปเดต Morphe เพื่อใช้งาน</string>
+    <string name="sources_management_outdated_manager_hint">แหล่งที่มานี้สร้างขึ้นสำหรับตัวแพตช์ %1$s แต่ Morphe %2$s มีตัวแพตช์ %3$s อัปเดต Morphe เพื่อใช้งาน</string>
     <string name="sources_management_source_enabled">แหล่งที่มาเปิดใช้งานแล้ว</string>
     <string name="sources_management_source_disabled">แหล่งที่มาปิดใช้งานแล้ว</string>
     <string name="sources_management_source_updating">กำลังอัปเดตแหล่งที่มา</string>
@@ -173,7 +173,7 @@
     <string name="sources_dialog_community">แพตช์ชุมชน</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">แหล่งแพตช์ของบุคคลที่สาม</string>
-    <string name="sources_dialog_community_notice_message">"แพตช์ชุมชนถูกสร้างและดูแลโดยผู้เขียนของตนเอง Morphe ไม่ได้ตรวจสอบหรือยืนยันแพตช์ของบุคคลที่สาม และไม่รับผิดชอบต่อเนื้อหาหรือสิ่งที่เกิดขึ้นกับอุปกรณ์ของคุณ
+    <string name="sources_dialog_community_notice_message">"แหล่งที่มาแพตช์ชุมชนถูกสร้างและดูแลโดยผู้เขียนของตนเอง Morphe ไม่ได้ตรวจสอบหรือยืนยันแพตช์ของบุคคลที่สาม และไม่รับผิดชอบต่อเนื้อหาหรือสิ่งที่เกิดขึ้นกับอุปกรณ์ของคุณ
 
 สิ่งที่คุณเพิ่มจากเว็บไซต์นี้ใช้ด้วยความเสี่ยงของคุณเอง"</string>
     <string name="sources_update_success">อัปเดตเสร็จสมบูรณ์</string>
@@ -515,7 +515,7 @@
     <string name="battery_optimization_not_now">ไม่ใช่ตอนนี้</string>
     <!-- Memory limit dialog, shown after the patcher process was killed -->
     <string name="patcher_memory_adjustment_title">หน่วยความจำไม่เพียงพอ</string>
-    <string name="patcher_memory_adjustment_description">ตัวแพตช์ถูกหยุดโดยระบบขณะทำงานด้วยขีดจำกัดหน่วยความจำ %1$d MB การลดขีดจำกัดลงเป็น %2$d MB จะทำให้แพตเชอร์เป็นเป้าหมายที่เล็กลงและอาจทำให้การทำงานเสร็จสมบูรณ์</string>
+    <string name="patcher_memory_adjustment_description">ตัวแพตช์ถูกหยุดโดยระบบขณะทำงานด้วยขีดจำกัดหน่วยความจำ %1$d MB การลดขีดจำกัดลงเป็น %2$d MB จะทำให้ตัวแพตช์เป็นเป้าหมายที่เล็กลงและอาจทำให้การทำงานเสร็จสมบูรณ์</string>
     <string name="patcher_memory_adjustment_description_at_minimum">ตัวแพตช์ถูกหยุดโดยระบบขณะทำงานด้วยขีดจำกัดหน่วยความจำ %1$d MB ซึ่งเป็นค่าต่ำสุดที่มีอยู่แล้ว ลองแพตช์โดยใช้แหล่งแพตช์น้อยลง หรือเลือกแพตช์น้อยลง</string>
     <string name="patcher_memory_adjustment_apply">ลดเป็น %1$d MB</string>
     <!-- Patcher Screen - Patcher Worker -->
@@ -536,7 +536,7 @@
     <string name="patcher_message_9">กำลังแก้ไขปัญหาในแอปที่ไม่ถูกแพตช์… 🪲</string>
     <string name="patcher_message_10">แพตช์ดีๆ กับคุ้มค่ากับที่รอคอย… ⏳</string>
     <string name="patcher_message_11">กำลังขัดเกลาเม็ดพิกเซลให้เปล่งประกาย… 💎</string>
-    <string name="patcher_message_12">โปรดนั่งรอจนกว่าลูกเรือจะปิดป้ายบอกว่า \'กำลังแพตช์\' 💺✈️</string>
+    <string name="patcher_message_12">โปรดนั่งรอจนกว่ากัปตันจะปิดป้ายบอกว่า \'กำลังแพตช์\'… 💺✈️</string>
     <string name="patcher_message_13">กำลังปรุงแอปที่แพตช์แล้วของคุณ สดๆ ร้อนๆ … 🍳</string>
     <!-- "bytecode" can be translated from "the app code" -->
     <string name="patcher_message_14">กำลังเจรจาอย่างสุภาพกับไบต์โค้ด… 🤝</string>

@@ -29,12 +29,12 @@
         <item quantity="other">Εγκαταστάθηκαν οι εφαρμογές %s</item>
     </plurals>
     <plurals name="batch_reinstall_summary">
-        <item quantity="one">Επανεγκαταστάθηκε η εφαρμογή %s</item>
-        <item quantity="other">Επανεγκαταστάθηκαν οι εφαρμογές %s</item>
+        <item quantity="one">Επανεγκαταστάθηκε %s εφαρμογή</item>
+        <item quantity="other">Επανεγκαταστάθηκαν %s εφαρμογές</item>
     </plurals>
     <plurals name="batch_uninstall_summary">
-        <item quantity="one">Καταργήθηκε η εφαρμογή %s</item>
-        <item quantity="other">Καταργήθηκαν οι εφαρμογές %s</item>
+        <item quantity="one">Καταργήθηκε %s εφαρμογή</item>
+        <item quantity="other">Καταργήθηκαν %s εφαρμογές</item>
     </plurals>
     <plurals name="batch_uninstall_confirm_title">
         <item quantity="one">Κατάργηση της εφαρμογής %s;</item>
@@ -45,8 +45,8 @@
         <item quantity="other">Οι εφαρμογές %s είναι έτοιμες για ενημέρωση</item>
     </plurals>
     <plurals name="repatch_available_count">
-        <item quantity="one">%s εφαρμογή μπορεί να επιδιορθωθεί ξανά</item>
-        <item quantity="other">%s εφαρμογές μπορούν να επιδιορθωθούν ξανά</item>
+        <item quantity="one">%s εφαρμογή μπορεί να τροποποιηθεί ξανά</item>
+        <item quantity="other">%s εφαρμογές μπορούν να τροποποιηθούν ξανά</item>
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">Παραλείφθηκε %s εφαρμογή</item>

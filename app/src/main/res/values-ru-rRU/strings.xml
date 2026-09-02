@@ -54,9 +54,9 @@
     <string name="home_app_sort_name_asc_description">По алфавиту, от А до Я</string>
     <string name="home_app_sort_name_desc_description">В обратном алфавитном порядке, от Я до А</string>
     <string name="home_app_sort_updates_first">Сначала обновления патчей</string>
-    <string name="home_app_sort_updates_first_description">Приложения с значками обновлений сначала, затем в рекомендуемом порядке</string>
+    <string name="home_app_sort_updates_first_description">Сначала приложения с индикаторами обновлений, затем в рекомендуемом порядке</string>
     <string name="home_app_sort_recently_patched">Недавно пропатченные</string>
-    <string name="home_app_sort_recently_patched_description">Сначала приложения, пропатченные недавно</string>
+    <string name="home_app_sort_recently_patched_description">Сначала недавно пропатченные приложения</string>
     <string name="home_no_apps_title">Нет доступных приложений</string>
     <string name="home_no_apps_subtitle">Добавить источник патчей или включить существующий в %s</string>
     <string name="home_no_apps_search_subtitle">Нет соответствующих приложений \"%s\"</string>

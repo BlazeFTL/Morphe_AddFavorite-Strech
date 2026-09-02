@@ -1175,7 +1175,10 @@ morphe_header_custom_dark.png
     <string name="importing_ellipsis">Імпортування…</string>
     <string name="imported_successfully">Імпортовано успішно</string>
     <string name="changelog">Переглянути списки змін</string>
-    <string name="changelog_description">Перегляньте останні зміни цього оновлення</string>
+    <string name="changelog_for_app">Зміни для %s</string>
+    <string name="changelog_general_changes">Загальні зміни</string>
+    <string name="whats_new">Що нового</string>
+    <string name="changelog_description">Ознайомтеся з останніми змінами в цьому оновленні</string>
     <string name="changelog_download_fail">Не вдалося завантажити список змін: %s</string>
     <string name="changelog_empty">Список змін відсутній</string>
     <string name="changelog_show_older">Показати старіші релізи</string>
@@ -1207,7 +1210,7 @@ morphe_header_custom_dark.png
     <string name="onboarding_swipe_desc">Проведіть праворуч по картці застосунку, щоб переглянути доступні патчі. Проведіть ліворуч, щоб приховати картку з головного екрана</string>
     <string name="onboarding_settings_desc">Налаштуйте Morphe: зовнішній вигляд, розширені параметри та системні інструменти</string>
     <string name="onboarding_sources_patches_desc">Натисніть, щоб переглянути всі патчі з цього джерела</string>
-    <string name="onboarding_sources_version_desc">Натисніть на версію, щоб переглянути повний журнал змін для цього джерела</string>
+    <string name="onboarding_sources_version_desc">Натисніть на версію, щоб переглянути повний список змін для цього джерела</string>
     <string name="onboarding_sources_prerelease_desc">Увімкніть це, щоб отримувати попередні версії патчів із цього джерела</string>
     <string name="onboarding_appearance_tab_desc">Налаштуйте вигляд застосунку: тему, акцентний колір та фон</string>
     <string name="onboarding_appearance_theme_desc">Виберіть світлу, темну або системну тему. Ви також можете вибрати власний акцентний колір або увімкнути динамічний колір</string>

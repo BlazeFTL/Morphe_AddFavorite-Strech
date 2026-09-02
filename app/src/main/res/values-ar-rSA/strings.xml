@@ -175,7 +175,7 @@
     <string name="sources_dialog_community_notice_title">مصادر التعديل من طرف ثالث</string>
     <string name="sources_dialog_community_notice_message">"يتم إنشاء وصيانة مصادر تعديلات المجتمع بواسطة مؤلفيها أنفسهم. لا يقوم Morphe بمراجعة أو التحقق من التعديلات التي يقدمها طرف ثالث، ولا يتحمل أي مسؤولية عن محتواها أو عن تأثيرها على جهازك.
 
-أي شيء تُضيفه من هذا الموقع يتم استخدامه على مسؤوليتك الخاصة"</string>
+أي شيء تُضيفه من هذا الموقع يتم استخدامه على مسؤوليتك الشخصية"</string>
     <string name="sources_update_success">تم التحديث بنجاح</string>
     <string name="sources_update_unavailable">لا يوجد تحديث متاح</string>
     <string name="sources_download_fail">فشل تنزيل مصادر التعديل: %s.</string>

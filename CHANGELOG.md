@@ -1,3 +1,17 @@
+# [1.29.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.7...v1.29.0-dev.8) (2026-09-02)
+
+
+### Bug Fixes
+
+* Keep signing material and tokens out of cloud backups ([3a07ae5](https://github.com/MorpheApp/morphe-manager/commit/3a07ae5ca114667e8f085802ff76c4addb7825db))
+* Make the changelog caches safe to clear while a fetch is running ([fd66032](https://github.com/MorpheApp/morphe-manager/commit/fd66032bdb5769b5be868c1b7a71feef34ed01c9))
+* Stop exporting keystore credentials with the manager settings ([757fa04](https://github.com/MorpheApp/morphe-manager/commit/757fa04d0e066c08af609ad74f10f4894195999e))
+
+
+### Features
+
+* Show the changelog of an available patch update ([#924](https://github.com/MorpheApp/morphe-manager/issues/924)) ([3c1e4ac](https://github.com/MorpheApp/morphe-manager/commit/3c1e4acb8aa3d43207a8d5f8a254e95f54b60073))
+
 # [1.29.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.6...v1.29.0-dev.7) (2026-09-01)
 
 

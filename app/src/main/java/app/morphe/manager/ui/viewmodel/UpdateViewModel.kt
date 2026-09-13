@@ -14,7 +14,6 @@ import app.morphe.manager.data.platform.NetworkInfo
 import app.morphe.manager.domain.installer.InstallCancelledException
 import app.morphe.manager.domain.installer.InstallResult
 import app.morphe.manager.domain.installer.InstallerManager
-import app.morphe.manager.domain.installer.SessionDeadException
 import app.morphe.manager.domain.installer.SessionInstaller
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.ManagerUpdateRepository
@@ -209,12 +208,12 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         )
 
         when (plan) {
-            // The only path Android can complete without its confirmation dialog
-            is InstallerManager.InstallPlan.Internal ->
-                awaitInstall { sessionInstaller.installInternal(location) }
-
+            // Replacing the manager kills the process, so a session install never reports back.
             // Completion is handled by installBroadcastReceiver;
             // cancellation by resetIfInstallCancelled() in the dialog
+            is InstallerManager.InstallPlan.Internal ->
+                launchSystemInstall { sessionInstaller.launchIntentInstall(location) }
+
             is InstallerManager.InstallPlan.PlayStore ->
                 launchSystemInstall { sessionInstaller.launchPlayStoreInstall(location) }
 
@@ -237,9 +236,6 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             handleInstallResult(install())
         } catch (_: InstallCancelledException) {
             state = State.CAN_INSTALL
-        } catch (_: SessionDeadException) {
-            // A killed session leaves the intent installer as the only way through
-            launchSystemInstall { sessionInstaller.launchIntentInstall(location) }
         } catch (error: Exception) {
             failInstall(error.simpleMessage().orEmpty())
         }

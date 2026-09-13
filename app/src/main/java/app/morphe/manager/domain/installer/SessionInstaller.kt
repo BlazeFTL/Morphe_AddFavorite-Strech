@@ -241,7 +241,8 @@ class SessionInstaller(private val app: Application) {
 
     /**
      * Launches [Intent.ACTION_INSTALL_PACKAGE] for the given [apkFile].
-     * Fallback for when [installInternal] throws [SessionDeadException].
+     * Carries the manager's own update, and the fallback for when [installInternal] throws
+     * [SessionDeadException].
      * The caller is responsible for monitoring completion via package broadcasts.
      */
     fun launchIntentInstall(apkFile: File) {

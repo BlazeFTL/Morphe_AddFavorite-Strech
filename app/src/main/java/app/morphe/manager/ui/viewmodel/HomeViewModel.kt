@@ -1370,6 +1370,34 @@ class HomeViewModel(
     }
 
     /**
+     * The bundle state, the versions derived from it and the ones the user turned down, so a card
+     * is built against one reading of them rather than against several arriving a frame apart.
+     */
+    private data class HomeVersionState(
+        val bundleState: PatchBundleRepository.BundleState,
+        val supportedVersions: Map<String, AppTarget>,
+        val ignoredVersions: Map<String, String>
+    )
+
+    private val _bundleVersionsFlow = combine(
+        patchBundleRepository.bundleState,
+        versionCatalog.recommendedVersions,
+        homeAppButtonPrefs.ignoredVersions,
+        ::HomeVersionState
+    )
+
+    /** The supported version each app was told to stop offering, keyed by its original package. */
+    val ignoredAppVersions: StateFlow<Map<String, String>> = homeAppButtonPrefs.ignoredVersions
+
+    /** Answers the offer to move [packageName] up to [version], leaving later ones to be offered. */
+    fun ignoreSupportedVersion(packageName: String, version: String) =
+        homeAppButtonPrefs.ignoreVersion(packageName, version)
+
+    /** Undoes [ignoreSupportedVersion], so whatever the sources support is offered again. */
+    fun stopIgnoringSupportedVersion(packageName: String) =
+        homeAppButtonPrefs.stopIgnoringVersion(packageName)
+
+    /**
     * Sorted list of visible and hidden home app items.
     *
     * Sort mode is persisted with the home app button preferences. Custom mode applies
@@ -1377,7 +1405,7 @@ class HomeViewModel(
     * Hidden apps are excluded from [HomeAppState.visible].
     */
     val homeAppState: StateFlow<HomeAppState?> = combine(
-        patchBundleRepository.bundleState,
+        _bundleVersionsFlow,
         _homePrefsFlow,
         installedAppRepository.getAll().onEach { apps ->
             trackedPackageNames = apps.flatMapTo(mutableSetOf()) {
@@ -1392,7 +1420,7 @@ class HomeViewModel(
         },
         _appUpdatesAvailable,
         appStateSignal,
-    ) { bundleState, homePrefs, installedApps, updatesMap, (_, trackedSnapshots) ->
+    ) { (bundleState, supportedVersions, ignoredVersions), homePrefs, installedApps, updatesMap, (_, trackedSnapshots) ->
         val ready = bundleState as? PatchBundleRepository.BundleState.Ready
             ?: return@combine null
 
@@ -1457,21 +1485,23 @@ class HomeViewModel(
                 reconcileInstalledVersion(installedApp, trackedSnapshot.installedPackageInfo)
             }
 
+            // Confirmed installs and replacements use the package actually on the device.
+            // Unknown packages keep showing what Morphe retained rather than attributing the
+            // record to whichever package currently owns the name.
+            val packageInfo = displayedHomePackageInfo(
+                trackedPresentation = trackedPresentation,
+                installedPackageInfo = trackedSnapshot?.installedPackageInfo,
+                savedPackageInfo = savedPackageInfo,
+                untrackedPackageInfo = resolvedData.packageInfo
+            )
+
             return HomeAppItem(
                 id = slot.id,
                 packageName = packageName,
                 displayName = displayName,
                 gradientColors = gradientColors,
                 installedApp = installedApp,
-                // Confirmed installs and replacements use the package actually on the device.
-                // Unknown packages keep showing what Morphe retained rather than attributing the
-                // record to whichever package currently owns the name.
-                packageInfo = displayedHomePackageInfo(
-                    trackedPresentation = trackedPresentation,
-                    installedPackageInfo = trackedSnapshot?.installedPackageInfo,
-                    savedPackageInfo = savedPackageInfo,
-                    untrackedPackageInfo = resolvedData.packageInfo
-                ),
+                packageInfo = packageInfo,
                 isPinnedByDefault = knownApp?.isPinnedByDefault == true,
                 isInstalledOnDevice = (trackedPresentation?.showsInstalledPackage == true) ||
                         isUninspectedInstall ||
@@ -1482,6 +1512,13 @@ class HomeViewModel(
                 isInstallStatePending = isInstallStatePending,
                 savedApkFile = savedPatchedApk,
                 hasUpdate = hasUpdate,
+                // Keyed by the package the sources know: a clone shares that package with the
+                // app it was copied from rather than carrying one of its own
+                versionStatus = versionStatus(
+                    installedVersion = packageInfo?.versionName ?: installedApp?.version,
+                    supported = supportedVersions[packageName],
+                    ignoredVersion = ignoredVersions[packageName]
+                ),
                 patchCount = 0,
                 isClone = slot.isClone
             )
@@ -3355,7 +3392,7 @@ class HomeViewModel(
 
     /**
      * Load local APK and extract package info.
-     * Supports both single APK and split APK archives (apkm, apks, xapk).
+     * Supports both single APK and split APK archives (`apkm`, `apks`, `xapk`).
      *
      * The file is stored in [Filesystem.uiTempDir] (app_ui_ephemeral).
      * CacheDir can be cleared by Android at any time - even while the app is running and

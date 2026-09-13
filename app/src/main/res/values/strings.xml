@@ -459,6 +459,10 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Store install</string>
     <string name="home_app_info_patch_update_available">Patch update available</string>
     <string name="home_app_info_patch_update_available_description">A newer version of patches is available. Repatch your app to get the latest improvements and fixes</string>
+    <string name="home_app_info_app_update_available">App update available</string>
+    <string name="home_app_info_app_update_available_description">The patch sources support a newer version of this app. Patch it again to move to that version</string>
+    <string name="home_app_info_newest_supported_version">Newest supported</string>
+    <string name="home_app_info_version_move">Installed %1$s, newest supported %2$s</string>
     <string name="home_app_info_app_deleted_warning">App was uninstalled</string>
     <string name="home_app_info_app_deleted_description">This app was uninstalled outside the Morphe. Repatch it to restore functionality</string>
     <string name="home_app_info_not_patched_description">An unpatched version of this app is installed. Morphe still has its previous patch record</string>
@@ -1313,6 +1317,8 @@ Details: %2$s"</string>
     <string name="hidden">Hidden</string>
     <string name="unhide">Unhide</string>
     <string name="unhide_done">Shown</string>
+    <string name="ignore">Ignore</string>
+    <string name="stop_ignoring">Stop ignoring</string>
     <string name="logs">Logs</string>
     <string name="sources">Sources</string>
     <string name="installing_ellipsis">Installing…</string>

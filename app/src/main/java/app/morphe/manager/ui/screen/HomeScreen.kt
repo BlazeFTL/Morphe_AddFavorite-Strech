@@ -175,7 +175,8 @@ fun HomeScreen(
         startInstallQueue(requests)
     }
 
-    // Same predicate the cards use for their update badge, so the count and the badges agree
+    // Only the apps a rebuild actually moves on: one the sources still cover at its installed
+    // version comes back from patching exactly as it went in, however its card is badged
     val repatchableApps = remember(homeAppItems) { homeAppItems.filter { it.showsUpdateBadge } }
 
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)

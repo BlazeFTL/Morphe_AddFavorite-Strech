@@ -11,6 +11,7 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
 import app.morphe.manager.patcher.patch.PatchBundleInfo
+import app.morphe.manager.util.compareVersions
 import app.morphe.patcher.patch.AppTarget
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -89,6 +90,45 @@ fun List<BundledAppTarget>.installable(): List<BundledAppTarget> =
  */
 fun List<BundledAppTarget>.recommended(): AppTarget? =
     offered().installable().firstOrNull()?.target
+
+/**
+ * Where an install stands against the newest version the sources support: either behind it, with
+ * a rebuild available, or past everything they cover, which is where an app that updated itself
+ * outside the manager ends up. An install at that version has no status, so the absence of one
+ * is what "nothing to report" looks like at every call site.
+ */
+data class AppVersionStatus(
+    val installedVersion: String,
+    val supportedVersion: String,
+    val isBehind: Boolean
+)
+
+/**
+ * Where [installedVersion] stands against [supported], or null when the two are the same version,
+ * when either side is unknown, or when the patches name no version at all, which is what applying
+ * universal patches leaves behind.
+ *
+ * [ignoredVersion] is the version the user turned down. It answers the offer to move up to that
+ * one and nothing else, so an install that has run past the sources is still described.
+ */
+fun versionStatus(
+    installedVersion: String?,
+    supported: AppTarget?,
+    ignoredVersion: String? = null
+): AppVersionStatus? {
+    val installed = installedVersion?.takeIf { it.isNotBlank() } ?: return null
+    val newest = supported?.version?.takeIf { it.isNotBlank() } ?: return null
+
+    val comparison = compareVersions(installed, newest)
+    if (comparison == 0) return null
+    if (comparison < 0 && newest == ignoredVersion) return null
+
+    return AppVersionStatus(
+        installedVersion = installed,
+        supportedVersion = newest,
+        isBehind = comparison < 0
+    )
+}
 
 /**
  * Which app versions the enabled patch sources can work with, and which one to suggest.

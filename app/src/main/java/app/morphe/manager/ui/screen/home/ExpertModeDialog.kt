@@ -130,23 +130,27 @@ fun ExpertModeDialog(
         }
     }
 
-    // The two filters stack: either can narrow what the other left
-    val filteredPatchesInfo = remember(allPatchesInfo, search.query, selectedOnly.value) {
-        val query = search.query.takeIf { it.isNotBlank() }
-        val onlySelected = selectedOnly.value
-        if (query == null && onlySelected == null) return@remember allPatchesInfo
-
-        allPatchesInfo.mapNotNull { (bundle, patches) ->
-            val kept = onlySelected?.get(bundle.uid).orEmpty()
-            val filtered = patches.filter { (patch, _) ->
-                val matchesQuery = query == null ||
-                        patch.displayName.contains(query, ignoreCase = true) ||
-                        patch.description?.contains(query, ignoreCase = true) == true
-                matchesQuery && (onlySelected == null || patch.name in kept)
+    // The two filters stack: either can narrow what the other left. Keyed by bundle and in bundle
+    // order, since every reader below already holds a bundle and asks only what it kept
+    val filteredPatchesByUid: Map<Int, List<Pair<PatchInfo, Boolean>>> =
+        remember(allPatchesInfo, search.query, selectedOnly.value) {
+            val query = search.query.takeIf { it.isNotBlank() }
+            val onlySelected = selectedOnly.value
+            if (query == null && onlySelected == null) {
+                return@remember allPatchesInfo.associate { (bundle, patches) -> bundle.uid to patches }
             }
-            if (filtered.isEmpty()) null else bundle to filtered
+
+            allPatchesInfo.mapNotNull { (bundle, patches) ->
+                val kept = onlySelected?.get(bundle.uid).orEmpty()
+                val filtered = patches.filter { (patch, _) ->
+                    val matchesQuery = query == null ||
+                            patch.displayName.contains(query, ignoreCase = true) ||
+                            patch.description?.contains(query, ignoreCase = true) == true
+                    matchesQuery && (onlySelected == null || patch.name in kept)
+                }
+                if (filtered.isEmpty()) null else bundle.uid to filtered
+            }.toMap()
         }
-    }
 
     // Both narrow the list far enough that a folded universal section would only hide results
     val isFiltering = search.isFiltering || isSelectedOnly
@@ -255,7 +259,7 @@ fun ExpertModeDialog(
 
             if (!hasMultipleBundleLayout) {
                 val (bundle, _) = allPatchesInfo.firstOrNull() ?: return@Column
-                val filteredPatches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
+                val filteredPatches = filteredPatchesByUid[bundle.uid]
                 val displayPatches = filteredPatches ?: emptyList()
 
                 // Bundle name header
@@ -327,6 +331,27 @@ fun ExpertModeDialog(
                 // Multiple bundles tab layout
                 val pagerState = rememberPagerState { allPatchesInfo.size }
                 val coroutineScope = rememberCoroutineScope()
+
+                // A filter that empties the open bundle has narrowed every list but the one on
+                // screen, so the pager follows it to a bundle that kept rows. Only the filter is
+                // watched, leaving a bundle opened by hand alone, and one collector outlives every
+                // change, where an effect keyed on the filter would be torn down by the next
+                // keystroke and leave the pager halfway between two bundles
+                val currentBundles = rememberUpdatedState(allPatchesInfo)
+                val currentFilter = rememberUpdatedState(filteredPatchesByUid)
+                LaunchedEffect(pagerState) {
+                    snapshotFlow { currentFilter.value }.collect { filter ->
+                        val bundles = currentBundles.value
+                        val openBundle = bundles.getOrNull(pagerState.currentPage)?.first ?: return@collect
+                        if (openBundle.uid in filter) return@collect
+
+                        val firstWithResults = filter.keys.firstOrNull() ?: return@collect
+                        bundles.indexOfFirst { it.first.uid == firstWithResults }
+                            .takeIf { it >= 0 }
+                            ?.let { pagerState.animateScrollToPage(it) }
+                    }
+                }
+
                 // Created up front, outside the pager, so the scrollbar overlay below can track
                 // whichever page is current. HorizontalPager clips each page to its own bounds, so
                 // a scrollbar drawn inside a page can never bleed out to the true dialog edge.
@@ -359,7 +384,7 @@ fun ExpertModeDialog(
                         contentColor = MaterialTheme.colorScheme.primary
                     ) {
                         allPatchesInfo.forEachIndexed { index, (bundle, patches) ->
-                            val hasResults = filteredPatchesInfo.any { it.first.uid == bundle.uid }
+                            val hasResults = bundle.uid in filteredPatchesByUid
                             val enabledCount = patches.count { it.second }
                             val totalCount = patches.size
                             val isSelected = pagerState.currentPage == index
@@ -405,7 +430,7 @@ fun ExpertModeDialog(
                     // Controls fixed below the tab row
                     val currentIndex = pagerState.currentPage
                     val (currentBundle, _) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
-                    val currentFiltered = filteredPatchesInfo.firstOrNull { it.first.uid == currentBundle.uid }?.second
+                    val currentFiltered = filteredPatchesByUid[currentBundle.uid]
 
                     RetirePrereleaseNotice(
                         bundleUid = currentBundle.uid.takeIf { it in prereleaseBundleUids },
@@ -436,7 +461,7 @@ fun ExpertModeDialog(
                             modifier = Modifier.fillMaxSize()
                         ) { pageIndex ->
                             val (bundle, _) = allPatchesInfo.getOrNull(pageIndex) ?: return@HorizontalPager
-                            val patches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
+                            val patches = filteredPatchesByUid[bundle.uid]
 
                             Box(modifier = Modifier.fillMaxSize()) {
                                 BundlePatchList(
@@ -460,7 +485,7 @@ fun ExpertModeDialog(
                         // pager before it could reach the true dialog edge. Pages filtered down to
                         // an empty state have nothing to scroll, so they get no overlay
                         val currentPageList = allPatchesInfo.getOrNull(pagerState.currentPage)
-                            ?.takeIf { (bundle, _) -> filteredPatchesInfo.any { it.first.uid == bundle.uid } }
+                            ?.takeIf { (bundle, _) -> bundle.uid in filteredPatchesByUid }
                             ?.let { pageListStates.getOrNull(pagerState.currentPage) }
                         if (currentPageList != null) {
                             ListScrollbar(

@@ -21,6 +21,17 @@ that ships with Morphe.
 - **Patches** - how many patches the source provides. **Details** lists them all.
 - **Version** - the version currently installed. **Details** opens its changelog.
 - **Open in browser** - opens the source's repository or metadata URL.
+- **Report an issue** - opens the issue tracker of that source, so a broken patch is reported
+  to the people who wrote it rather than to Morphe.
+
+A card can also carry a badge explaining why the source is not pulling its weight:
+
+| Badge | What it means |
+| --- | --- |
+| **Metadata N/A** | The remote metadata could not be read. Patching with the bundle you already have still works, auto-update does not |
+| **Update Morphe** | The source needs a newer patcher than this build of Morphe carries |
+| **Crashed** | The source crashed Morphe while loading and is being skipped. Update or re-import it to try again |
+| **Blocked** | The source is on the block list and its patches are not used |
 
 ### The toggles
 

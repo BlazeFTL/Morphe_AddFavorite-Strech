@@ -1,3 +1,18 @@
+# [1.31.0-dev.6](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.5...v1.31.0-dev.6) (2026-09-13)
+
+
+### Bug Fixes
+
+* Check for updates once a screen exists instead of on any process start ([9ff49d6](https://github.com/[secure]App/morphe-manager/commit/9ff49d65ade03be63c97d4d5cd9edb4f46300575))
+* Keep the empty patch list state below the source notice ([a831cb1](https://github.com/[secure]App/morphe-manager/commit/a831cb1325d4207af892ae007348214fd307cf26))
+
+
+### Features
+
+* Show when the patch sources support a newer app version ([460776b](https://github.com/[secure]App/morphe-manager/commit/460776b1b620bc29af880e0de960157b451f235e))
+* Show which app version the device has when picking an APK ([ae27fcc](https://github.com/[secure]App/morphe-manager/commit/ae27fccdfc37800977a66c49d281124ba53ae4e4))
+* Switch to a patch source with results when filtering the list ([#918](https://github.com/[secure]App/morphe-manager/issues/918)) ([13d0dbd](https://github.com/[secure]App/morphe-manager/commit/13d0dbd705909e84b5421ca9252e8942f097f400))
+
 # [1.31.0-dev.5](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.4...v1.31.0-dev.5) (2026-09-13)
 
 

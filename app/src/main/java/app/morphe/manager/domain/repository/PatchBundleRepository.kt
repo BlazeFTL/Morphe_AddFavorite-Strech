@@ -682,8 +682,9 @@ class PatchBundleRepository(
         doReload()
     }
 
+    /** An update pass also runs without a screen, where a toast belongs to nobody. */
     private suspend fun toast(@StringRes id: Int, vararg args: Any?) =
-        withContext(Dispatchers.Main) { app.toast(app.getString(id, *args)) }
+        withContext(Dispatchers.Main) { app.toastIfInForeground(app.getString(id, *args)) }
 
     /**
      * The bundles an update pass covers. Described declaratively rather than as a bare predicate
@@ -1125,9 +1126,7 @@ class PatchBundleRepository(
                     } catch (e: Exception) {
                         if (e is CancellationException) throw e
                         Log.e(tag, "Got exception while importing bundle", e)
-                        withContext(Dispatchers.Main) {
-                            app.toast(app.getString(R.string.home_app_info_patches_replace_fail, e.simpleMessage()))
-                        }
+                        toast(R.string.home_app_info_patches_replace_fail, e.simpleMessage())
 
                         withContext(Dispatchers.IO) {
                             runCatching {
@@ -1205,9 +1204,7 @@ class PatchBundleRepository(
                 normalizeRemoteBundleUrl(url)
             } catch (e: IllegalArgumentException) {
                 Log.e(tag, "Invalid bundle URL: $url", e)
-                withContext(Dispatchers.Main) {
-                    app.toast(app.getString(R.string.sources_management_invalid_url))
-                }
+                toast(R.string.sources_management_invalid_url)
                 return@dispatchAction state
             }
 
@@ -1215,9 +1212,7 @@ class PatchBundleRepository(
             val blocklistKey = toBlocklistKey(normalizedUrl)
             if (blocklistKey != null && blocklistRepository.isBlocked(blocklistKey)) {
                 Log.i(tag, "Refused blocked source: $blocklistKey")
-                withContext(Dispatchers.Main) {
-                    app.toast(app.getString(R.string.sources_management_blocked))
-                }
+                toast(R.string.sources_management_blocked)
                 return@dispatchAction state
             }
 
@@ -1229,9 +1224,7 @@ class PatchBundleRepository(
             }
 
             if (isDuplicate) {
-                withContext(Dispatchers.Main) {
-                    app.toast(app.getString(R.string.sources_management_already_exists))
-                }
+                toast(R.string.sources_management_already_exists)
                 return@dispatchAction state
             }
 

@@ -162,10 +162,7 @@ class ManagerApplication : Application() {
         // First touch of the repository builds the Ktor client, which costs seconds on a cold
         // start, so it happens here on a background dispatcher rather than in the Koin graph
         scope.launch(Dispatchers.Default) {
-            with(patchBundleRepository) {
-                reload()
-                updateCheck()
-            }
+            patchBundleRepository.reload()
         }
 
         // Cache first for offline launches, then refresh from the network. Any matches are
@@ -177,25 +174,15 @@ class ManagerApplication : Application() {
             patchBundleRepository.logBlockedSources()
         }
 
-        // Preload bundle avatar images into AvatarCache while the user hasn't opened the sheet yet.
-        // Suspends until sources are ready, then fetches all URLs in parallel on IO threads
-        scope.launch(Dispatchers.IO) {
-            patchBundleRepository.sources.first { it.isNotEmpty() }.forEach { bundle ->
-                launch {
-                    val avatarUrls = bundle.avatarUrls
-                    avatarUrls.primary?.let { loadRemoteAvatar(it) }
-                    avatarUrls.fallback?.let { loadRemoteAvatar(it) }
-                }
-            }
-        }
-
-        // Clean temp dir on fresh start
+        // Fresh-start cleanup and the work that waits for a screen
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             private var firstActivityCreated = false
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 if (firstActivityCreated) return
                 firstActivityCreated = true
+
+                onFirstScreenCreated()
 
                 // We do not want to call onFreshProcessStart() if there is state to restore.
                 // This can happen on system-initiated process death
@@ -334,6 +321,28 @@ class ManagerApplication : Application() {
         icon?.let { IconCompat.createWithBitmap(it.toBitmap(SHORTCUT_ICON_PX, SHORTCUT_ICON_PX)) }
     }.getOrNull()
         ?: IconCompat.createWithResource(this, R.drawable.ic_shortcut_repatch)
+
+    /**
+     * Work that only pays off once a screen exists. A process started by an FCM push or a boot
+     * broadcast has nobody to show an update check to, and its failures toast over another app.
+     */
+    private fun onFirstScreenCreated() {
+        scope.launch(Dispatchers.Default) {
+            patchBundleRepository.updateCheck()
+        }
+
+        // Preload bundle avatar images into AvatarCache while the user hasn't opened the sheet yet.
+        // Suspends until sources are ready, then fetches all URLs in parallel on IO threads
+        scope.launch(Dispatchers.IO) {
+            patchBundleRepository.sources.first { it.isNotEmpty() }.forEach { bundle ->
+                launch {
+                    val avatarUrls = bundle.avatarUrls
+                    avatarUrls.primary?.let { loadRemoteAvatar(it) }
+                    avatarUrls.fallback?.let { loadRemoteAvatar(it) }
+                }
+            }
+        }
+    }
 
     private fun onFreshProcessStart() {
         fs.uiTempDir.apply {

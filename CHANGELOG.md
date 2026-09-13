@@ -1,3 +1,11 @@
+# [1.31.0-dev.5](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.4...v1.31.0-dev.5) (2026-09-13)
+
+
+### Bug Fixes
+
+* Strip the source indentation bundles leave in patch descriptions ([ea6de33](https://github.com/[secure]App/morphe-manager/commit/ea6de33326e5ee7a9453e9a65451b0eb786ad8c8))
+* Update the manager through an installer that outlives the process it replaces ([d1c0b60](https://github.com/[secure]App/morphe-manager/commit/d1c0b608e89c8f92e558311ced664be3d41e8774))
+
 # [1.31.0-dev.4](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.3...v1.31.0-dev.4) (2026-09-12)
 
 

@@ -634,7 +634,10 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="mini_game_snake_swipe_to_start">Deslize para começar</string>
     <string name="mini_game_dino_picker_subtitle">Toque para pular sobre os cactos</string>
     <string name="mini_game_dino_tap_to_start">Toque para correr</string>
+    <string name="mini_game_blocks_picker_subtitle">Encaixe as formas, elimine linhas</string>
     <string name="mini_game_blocks_tap_to_start">Toque para girar, deslize para mover, deslize para baixo para soltar</string>
+    <string name="mini_game_bricks_picker_subtitle">Rebata a bola, destrua a parede</string>
+    <string name="mini_game_bricks_tap_to_start">Arraste para mirar, toque para lançar</string>
     <string name="mini_game_miner_picker_subtitle">Toque para abrir, segure para marcar</string>
     <string name="mini_game_pairs_picker_subtitle">Vire as cartas, encontre o par</string>
     <!-- Settings -->

@@ -633,12 +633,12 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="mini_game_snake_swipe_to_start">Svaidhpeáil le tosú</string>
     <string name="mini_game_dino_picker_subtitle">Tapáil chun léim thar cacti</string>
     <string name="mini_game_dino_tap_to_start">Tapáil le rith</string>
-    <string name="mini_game_blocks_picker_subtitle">Feistigh na cruthanna, glan na línte</string>
-    <string name="mini_game_blocks_tap_to_start">Tapáil chun rothlú, svaidhp chun bogadh, svaidhp síos chun titim</string>
+    <string name="mini_game_blocks_picker_subtitle">Fit na cruthanna, línte soiléire</string>
+    <string name="mini_game_blocks_tap_to_start">Tapáil chun rothlú, sleamhnú chun bogadh, sleamhnú síos le titim</string>
     <string name="mini_game_bricks_picker_subtitle">Preab an liathróid, glan an balla</string>
-    <string name="mini_game_bricks_tap_to_start">Tarraing chun díriú, cnag le seoladh</string>
-    <string name="mini_game_miner_picker_subtitle">Tapáil chun oscailt, coinnigh chun bratach</string>
-    <string name="mini_game_pairs_picker_subtitle">Cas na cártaí, aimsigh an meaitse</string>
+    <string name="mini_game_bricks_tap_to_start">Tarraing chun aidhm, tapáil chun seoladh</string>
+    <string name="mini_game_miner_picker_subtitle">Tapáil chun oscailt, coinnigh go bratach</string>
+    <string name="mini_game_pairs_picker_subtitle">Smeach cártaí, aimsigh an cluiche</string>
     <!-- Settings -->
     <string name="appearance">Dealramh</string>
     <string name="advanced">Ardleibhéil</string>
@@ -891,7 +891,7 @@ Ní mór toisí na híomhá a bheith mar seo a leanas:
     <string name="installer_hint_generic">Theip ar an suiteáil. Bain triail eile as nó aistrigh go suiteálaí eile</string>
     <string name="installer_hint_conflict">Tá aip eile leis an ainm pacáiste seo suiteáilte cheana féin. Díchumasaigh é sula leanann tú ar aghaidh</string>
     <string name="installer_confirm_notification_title">Deimhnigh an tsuiteáil</string>
-    <string name="installer_confirm_notification_text">Tapáil chun suiteáil an aip phaisteáilte a chríochnú</string>
+    <string name="installer_confirm_notification_text">Tapáil chun suiteáil an app paiste a chríochnú</string>
     <string name="installer_external_launched">Ag oscailt %s…</string>
     <string name="installer_external_timeout">Níor dheimhnigh %s an suiteáil. Seiceáil an aip eile agus déan iarracht arís.</string>
     <string name="installer_external_success">Thuairisc %s suiteáil rathúil</string>
@@ -908,7 +908,7 @@ Ní mór toisí na híomhá a bheith mar seo a leanas:
     <string name="settings_prompt_installer_on_install">Leid roghnúcháin suiteálaí</string>
     <string name="settings_prompt_installer_on_install_description">Taispeánann sé dialóg roghnúcháin suiteálaí gach uair a shuiteáiltear aip phaisteáilte</string>
     <string name="settings_auto_install_with_shizuku">Suiteáil uathoibríoch tar éis paisteála</string>
-    <string name="settings_auto_install_with_shizuku_description">Suiteáiltear an t-APK paisteáilte chomh luath agus a bhíonn an phaisteáil críochnaithe</string>
+    <string name="settings_auto_install_with_shizuku_description">Suiteáil an APK paiste a luaithe a chríochnaíonn an paiste</string>
     <string name="settings_auto_uninstall_with_shizuku">Díshuiteáil uathoibríoch i gcás coimhlinte</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Agus suiteáil uathoibríoch á déanamh le Shizuku, díshuiteáil an aip atá ann cheana féin ar dtús má thuairiscíonn Android coimhlint sínithe. Is féidir leis seo sonraí an aip a bhaint.</string>
     <string name="settings_auto_uninstall_warning_title">Cumasaigh díshuiteáil uathoibríoch?</string>

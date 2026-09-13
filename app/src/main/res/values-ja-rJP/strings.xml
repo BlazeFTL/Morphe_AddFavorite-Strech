@@ -482,6 +482,7 @@
     <string name="patcher_field_android">Android</string>
     <string name="patcher_field_device">デバイス</string>
     <!-- Free and total RAM of the device, never its storage -->
+    <string name="patcher_field_memory">メモリ</string>
     <string name="patcher_field_storage">ストレージ</string>
     <!-- Size of the patched APK, once patching finished -->
     <string name="patcher_field_output_size">出力サイズ</string>
@@ -632,6 +633,7 @@
     <string name="mini_game_snake_swipe_to_start">スワイプして開始</string>
     <string name="mini_game_dino_picker_subtitle">タップしてサボテンを飛び越えよう</string>
     <string name="mini_game_dino_tap_to_start">タップして開始</string>
+    <string name="mini_game_blocks_tap_to_start">タップして回転、スワイプして移動、下にスワイプしてドロップ</string>
     <!-- Settings -->
     <string name="appearance">外観</string>
     <string name="advanced">詳細設定</string>

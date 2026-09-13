@@ -19,6 +19,9 @@ jobs:
           fetch-depth: 0
           clean: true
 
+      - name: Reset Crowdin branch
+        run: git push origin dev:crowdin --force
+
       - name: Pull strings from Crowdin
         uses: crowdin/github-action@v3
         with:
@@ -41,8 +44,8 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout crowdin branch to run checks on it
-      - name: Checkout crowdin branch
+      # Step 1: Checkout Crowdin branch to run checks on it
+      - name: Checkout Crowdin branch
         uses: actions/checkout@v7
         with:
           ref: crowdin

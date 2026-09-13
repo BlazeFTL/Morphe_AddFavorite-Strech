@@ -226,6 +226,7 @@ fun BatchPatcherScreen(
             isExpertMode = useExpertMode,
             savedApkInfo = choice.saved,
             installedApkInfo = choice.installed,
+            installedAppVersion = choice.installedVersion,
             onDismiss = viewModel::cancelApkChoice,
             onHaveApk = {
                 viewModel.cancelApkChoice()

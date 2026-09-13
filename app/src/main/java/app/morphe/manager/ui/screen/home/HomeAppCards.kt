@@ -202,7 +202,10 @@ internal fun RowScope.AppCardContent(
                     .wrapContentHeight(Alignment.CenterVertically),
                 text = subtitle,
                 style = cardStyle.subtitleStyle,
-                color = cardStyle.subtitleColor
+                color = cardStyle.subtitleColor,
+                // The row is one badge tall, so a subtitle that wraps would be cut in half
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }
@@ -476,8 +479,15 @@ private fun NotPatchedAppCard(
 ) {
     val notPatchedText = stringResource(R.string.home_not_patched_yet)
 
-    val contentDesc = remember(item.displayName, notPatchedText) {
-        "${item.displayName}, $notPatchedText"
+    // Only for an app the device actually has: other cards are described by an APK Morphe kept
+    // rather than by an install, and that version answers a different question
+    val subtitle = remember(item, notPatchedText) {
+        val version = item.version.takeIf { item.isInstalledOnDevice && it.isNotEmpty() }
+        version?.let { "${it.withVersionPrefix()} • $notPatchedText" } ?: notPatchedText
+    }
+
+    val contentDesc = remember(item.displayName, subtitle) {
+        "${item.displayName}, $subtitle"
     }
 
     AppCardLayout(
@@ -493,7 +503,7 @@ private fun NotPatchedAppCard(
             packageName = item.packageName,
             packageInfo = item.packageInfo,
             displayName = item.displayName,
-            subtitle = notPatchedText,
+            subtitle = subtitle,
             gradientColors = item.gradientColors,
         )
     }

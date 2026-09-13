@@ -100,6 +100,7 @@ fun HomeDialogs(
         val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
         val savedApkInfo = homeViewModel.pendingSavedApkInfo
         val installedApkInfo = homeViewModel.pendingInstalledApkInfo
+        val installedAppVersion = homeViewModel.pendingInstalledAppVersion
         val targetAppInstalled = homeViewModel.pendingTargetAppInstalled == true
 
         ApkAvailabilityDialog(
@@ -113,6 +114,7 @@ fun HomeDialogs(
             isExpertMode = isExpertMode,
             savedApkInfo = savedApkInfo,
             installedApkInfo = installedApkInfo,
+            installedAppVersion = installedAppVersion,
             onDismiss = {
                 homeViewModel.showApkAvailabilityDialog = false
                 homeViewModel.cleanupPendingData()
@@ -660,6 +662,7 @@ internal fun ApkAvailabilityDialog(
     isExpertMode: Boolean,
     savedApkInfo: SavedApkInfo?,
     installedApkInfo: InstalledApkInfo?,
+    installedAppVersion: String?,
     onDismiss: () -> Unit,
     onHaveApk: () -> Unit,
     onNeedApk: () -> Unit,
@@ -684,6 +687,17 @@ internal fun ApkAvailabilityDialog(
         savedApkInfo != null && !savedApkMatchesTargets &&
             compatibleVersions.any { it.target.version == savedApkInfo.version }
     }
+
+    // What the list below prints: the version on the device is called out under it only when
+    // the list is not already showing that version
+    val listedVersions = remember(isExpertMode, offeredVersions, recommendedVersion) {
+        if (isExpertMode && offeredVersions.isNotEmpty()) {
+            offeredVersions.mapNotNullTo(mutableSetOf()) { it.target.version }
+        } else {
+            setOfNotNull(recommendedVersion?.version)
+        }
+    }
+    val unlistedInstalledVersion = installedAppVersion?.takeIf { it !in listedVersions }
 
     // Versions whose minSdk exceeds the current device - shown greyed-out and non-selectable
     val incompatibleSdkVersions: Set<String> = remember(offeredVersions) {
@@ -796,6 +810,7 @@ internal fun ApkAvailabilityDialog(
                         hasMultipleBundles = offeredVersions.map { it.bundleUid }.distinct().size > 1,
                         incompatibleSdkVersions = incompatibleSdkVersions,
                         savedVersion = savedApkInfo?.version,
+                        installedVersion = installedAppVersion,
                     )
                 } else {
                     VersionListCard(
@@ -813,6 +828,7 @@ internal fun ApkAvailabilityDialog(
                             }
                             .toMap(),
                         savedVersion = savedApkInfo?.version,
+                        installedVersion = installedAppVersion,
                     )
                 }
             } else {
@@ -834,7 +850,22 @@ internal fun ApkAvailabilityDialog(
                         .firstOrNull { it.target.version == recommendedVersion?.version }
                         ?.let { b -> b.target.version?.let { v -> b.buildCodes?.let { mapOf(v to it) } } }
                         ?: emptyMap(),
-                    savedVersion = savedApkInfo?.version
+                    savedVersion = savedApkInfo?.version,
+                    installedVersion = installedAppVersion
+                )
+            }
+
+            // The version on the device is missing from the list above, so patching will need
+            // another APK than the one already installed
+            unlistedInstalledVersion?.let {
+                Notice(
+                    text = stringResource(
+                        R.string.home_apk_availability_installed_version,
+                        it.withVersionPrefix()
+                    ),
+                    tone = SemanticTone.Warning,
+                    icon = Icons.Outlined.InstallMobile,
+                    density = NoticeDensity.Compact
                 )
             }
 
@@ -1341,7 +1372,8 @@ private fun SelectableVersionListCard(
     anyString: String,
     hasMultipleBundles: Boolean,
     incompatibleSdkVersions: Set<String> = emptySet(),
-    savedVersion: String? = null
+    savedVersion: String? = null,
+    installedVersion: String? = null
 ) {
     if (versions.isEmpty()) return
 
@@ -1376,7 +1408,8 @@ private fun SelectableVersionListCard(
                     isIncompatible = isIncompatibleSdk && target.minSdk == null,
                     isExperimental = target.isExperimental,
                     isRecommended = isRecommended,
-                    isSaved = target.version != null && target.version == savedVersion
+                    isSaved = target.version != null && target.version == savedVersion,
+                    isInstalled = target.version != null && target.version == installedVersion
                 )
 
                 // Bundle section header - only when multiple bundles are present and uid changes
@@ -1517,7 +1550,8 @@ private fun VersionListCard(
     descriptions: Map<String, String> = emptyMap(),
     incompatibleSdkVersions: Set<String> = emptySet(),
     versionCodes: Map<String, Set<Int>> = emptyMap(),
-    savedVersion: String? = null
+    savedVersion: String? = null,
+    installedVersion: String? = null
 ) {
     if (versions.isEmpty()) return
 
@@ -1557,7 +1591,8 @@ private fun VersionListCard(
                     isExperimental = isExperimentalVersion,
                     isUnpatched = showUnpatchedBadge && versions.size == 1,
                     isRecommended = index == recommendedIndex && !showUnpatchedBadge,
-                    isSaved = version == savedVersion
+                    isSaved = version == savedVersion,
+                    isInstalled = version == installedVersion
                 )
 
                 Column(

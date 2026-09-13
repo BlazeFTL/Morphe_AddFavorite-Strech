@@ -357,6 +357,9 @@ class HomeViewModel(
     var resolvedDownloadUrl by mutableStateOf<String?>(null)
     var pendingSavedApkInfo by mutableStateOf<SavedApkInfo?>(null)
     var pendingInstalledApkInfo by mutableStateOf<InstalledApkInfo?>(null)
+    // What the device has right now: [pendingInstalledApkInfo] is dropped for a version the
+    // patches do not target, which is exactly when the version itself is worth showing
+    var pendingInstalledAppVersion by mutableStateOf<String?>(null)
     // null = not yet loaded, true/false = loaded result
     var pendingTargetAppInstalled by mutableStateOf<Boolean?>(null)
 
@@ -2012,6 +2015,7 @@ class HomeViewModel(
         // Reset per-package cached state so a new flow always loads fresh data
         pendingSavedApkInfo = null
         pendingInstalledApkInfo = null
+        pendingInstalledAppVersion = null
         pendingTargetAppInstalled = null
     }
 
@@ -2074,8 +2078,12 @@ class HomeViewModel(
             val installedJob = if (expertMode && pendingTargetAppInstalled == null) {
                 async(Dispatchers.IO) { localApkSources.installed(packageName) }
             } else null
+            // Read on its own, because the version is worth showing in both modes and
+            // whatever the patches make of the APK behind it
+            val versionJob = async(Dispatchers.IO) { localApkSources.installedVersion(packageName) }
             savedJob?.await()?.let { pendingSavedApkInfo = it }
             installedJob?.await()?.let { (installed, info) -> applyInstalledApkInfo(installed, info) }
+            pendingInstalledAppVersion = versionJob.await()
         }
 
         val recommendedVersion = pendingRecommendedVersion
@@ -3359,6 +3367,7 @@ class HomeViewModel(
         resolvedDownloadUrl = null
         pendingSavedApkInfo = null
         pendingInstalledApkInfo = null
+        pendingInstalledAppVersion = null
         pendingTargetAppInstalled = null
         if (!keepSelectedApp) {
             pendingSelectedApp?.let { app ->

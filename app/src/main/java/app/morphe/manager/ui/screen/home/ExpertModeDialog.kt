@@ -324,8 +324,6 @@ fun ExpertModeDialog(
                             modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                         )
                     }
-
-                    PatchesListEmptyOverlay(visible = filteredPatches == null)
                 }
             } else {
                 // Multiple bundles tab layout
@@ -334,9 +332,9 @@ fun ExpertModeDialog(
 
                 // A filter that empties the open bundle has narrowed every list but the one on
                 // screen, so the pager follows it to a bundle that kept rows. Only the filter is
-                // watched, leaving a bundle opened by hand alone, and one collector outlives every
-                // change, where an effect keyed on the filter would be torn down by the next
-                // keystroke and leave the pager halfway between two bundles
+                // watched, which leaves a bundle opened by hand alone. One collector outlives
+                // every change too: an effect keyed on the filter would be torn down by the next
+                // keystroke, leaving the pager halfway between two bundles
                 val currentBundles = rememberUpdatedState(allPatchesInfo)
                 val currentFilter = rememberUpdatedState(filteredPatchesByUid)
                 LaunchedEffect(pagerState) {
@@ -463,21 +461,17 @@ fun ExpertModeDialog(
                             val (bundle, _) = allPatchesInfo.getOrNull(pageIndex) ?: return@HorizontalPager
                             val patches = filteredPatchesByUid[bundle.uid]
 
-                            Box(modifier = Modifier.fillMaxSize()) {
-                                BundlePatchList(
-                                    bundle = bundle,
-                                    patches = patches.orEmpty(),
-                                    listState = pageListStates[pageIndex],
-                                    markers = markers,
-                                    isFiltering = isFiltering,
-                                    sectionState = patchSections,
-                                    lockStateOf = lockStateOf,
-                                    patchActions = patchActions,
-                                    onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
-                                )
-
-                                PatchesListEmptyOverlay(visible = patches == null)
-                            }
+                            BundlePatchList(
+                                bundle = bundle,
+                                patches = patches.orEmpty(),
+                                listState = pageListStates[pageIndex],
+                                markers = markers,
+                                isFiltering = isFiltering,
+                                sectionState = patchSections,
+                                lockStateOf = lockStateOf,
+                                patchActions = patchActions,
+                                onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
+                            )
                         }
 
                         // Single overlay for the whole pager, tracking whichever page is current,
@@ -553,21 +547,6 @@ fun ExpertModeDialog(
                 selectedPatchForOptions.value = null
             }
         )
-    }
-}
-
-/**
- * Empty state fading in over the list it stands in for, so a filter that clears a page settles
- * instead of swapping the two in one frame.
- */
-@Composable
-private fun PatchesListEmptyOverlay(visible: Boolean) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = Animations.fadeIn,
-        exit = Animations.fadeOut
-    ) {
-        PatchesListEmptyState()
     }
 }
 
@@ -711,6 +690,14 @@ private fun BundlePatchList(
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
         if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()
+
+        // Kept in the list rather than laid over it, so the message holds its place under a notice
+        // and an opening keyboard shortens the surrounding page instead of moving it
+        if (ordered.isEmpty()) {
+            item(key = "empty_state") {
+                PatchesListEmptyState(modifier = Modifier.animateItem())
+            }
+        }
 
         // Availability is resolved per patch, so a universal patch the installer requires or
         // rules out carries the same lock as an app-specific one

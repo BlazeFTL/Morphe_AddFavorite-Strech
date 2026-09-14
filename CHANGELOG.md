@@ -1,3 +1,10 @@
+# [1.31.0-dev.9](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.8...v1.31.0-dev.9) (2026-09-14)
+
+
+### Features
+
+* Choose the app icon in simple mode and handle missing option paths ([efb4896](https://github.com/[secure]App/morphe-manager/commit/efb48967a36352994bdafa17fee1c70f4ab127d8))
+
 # [1.31.0-dev.8](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.7...v1.31.0-dev.8) (2026-09-14)
 
 

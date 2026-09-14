@@ -1,3 +1,10 @@
+# [1.31.0-dev.8](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.7...v1.31.0-dev.8) (2026-09-14)
+
+
+### Features
+
+* Choose which sources each app is patched from ([#947](https://github.com/[secure]App/morphe-manager/issues/947)) ([5b8815c](https://github.com/[secure]App/morphe-manager/commit/5b8815cf031c9da6f977c23ca9949b21f91df2aa))
+
 # [1.31.0-dev.7](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.6...v1.31.0-dev.7) (2026-09-14)
 
 

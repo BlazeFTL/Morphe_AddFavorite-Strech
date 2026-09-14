@@ -28,7 +28,7 @@ import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.domain.apk.*
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
-import app.morphe.manager.domain.batch.newlyAddedDefaults
+import app.morphe.manager.domain.batch.mergeNewlyAdded
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.asRemoteOrNull
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
@@ -2803,36 +2803,24 @@ class HomeViewModel(
                     ))
                 }
 
-                // Merge newly added patches (present in bundle but absent from saved selection)
-                // into the validated selection, respecting each patch's include=true default.
-                // This runs after validation so removed patches never sneak back in.
-                val mergedPatches = buildMap {
-                    // Start from the validated (post-removal) selection
-                    putAll(validatedPatches)
-                    allBundles.forEach { bundle ->
-                        // Use seen-patch snapshot to determine what's genuinely new.
-                        // Comparing against savedForBundle (only selected patches) would
-                        // incorrectly re-enable patches the user explicitly deselected.
-                        val seenForBundle = withContext(Dispatchers.IO) {
-                            patchSelectionRepository.getSeenPatches(configurationKey, bundle.uid)
-                        }
-                        val knownNames = seenForBundle
-                            ?: savedSelections[bundle.uid] // fallback for first run (no snapshot yet)
-                        val newDefaultEnabled = newlyAddedDefaults(
-                            patches = bundle.patches,
-                            known = knownNames,
-                            installerType = currentInstallerType,
-                            apkArchitecture = currentApkArchitecture
-                        )
-
-                        if (newDefaultEnabled.isNotEmpty()) {
-                            val existing = getOrDefault(bundle.uid, emptySet())
-                            put(bundle.uid, existing + newDefaultEnabled)
-                        }
+                // The seen-patch snapshot is what tells a genuinely new patch from one the
+                // user deselected, and the saved selection stands in for it on the first run,
+                // before any snapshot exists. Read in one go rather than per bundle inside the
+                // merge, which would cross to the IO dispatcher once per source
+                val seenByBundle = withContext(Dispatchers.IO) {
+                    allBundles.associate {
+                        it.uid to patchSelectionRepository.getSeenPatches(configurationKey, it.uid)
                     }
                 }
 
-                mergedPatches
+                // Runs after validation, so patches the sources dropped never sneak back in
+                mergeNewlyAdded(
+                    bundles = allBundles,
+                    validated = validatedPatches,
+                    known = { uid -> seenByBundle[uid] ?: savedSelections[uid] },
+                    installerType = currentInstallerType,
+                    apkArchitecture = currentApkArchitecture
+                )
             } else {
                 // No saved selections - use default for all current bundles
                 allBundles.toPatchSelection(allowIncompatible) { _, patch ->
@@ -3269,7 +3257,7 @@ class HomeViewModel(
     /**
      * Availability rules of the current install target, scoped to the bundles the dialog shows.
      *
-     * A source being held back takes no part in the rules and is put back untouched afterwards.
+     * A source being held back takes no part in the rules and is put back untouched afterward.
      * Whether a REQUIRED patch locks turns on the run drawing from one source or several, and a
      * source the run cannot reach is not one of them.
      */

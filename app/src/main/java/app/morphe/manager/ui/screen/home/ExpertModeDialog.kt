@@ -270,9 +270,7 @@ fun ExpertModeDialog(
                     icon = Icons.Outlined.VisibilityOff,
                     tone = SemanticTone.Neutral,
                     density = NoticeDensity.Compact,
-                    modifier = Modifier
-                        .padding(bottom = Defaults.ContentPaddingSmall)
-                        .clickable(onClick = onShowHiddenSources)
+                    modifier = Modifier.clickable(onClick = onShowHiddenSources)
                 )
             }
 

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-14T08:28:00",
-  "description": "# [1.31.0-dev.7](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.6...v1.31.0-dev.7) (2026-09-14)\n\n\n### Features\n\n* Search patches across every source from the source list ([65bb9d0](https://github.com/[secure]App/morphe-manager/commit/65bb9d04160f42bce8486f49bee15e7bf04d5dbe))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.31.0-dev.7/morphe-manager-1.31.0-dev.7.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.31.0-dev.7/morphe-manager-1.31.0-dev.7.apk.asc",
-  "version": "1.31.0-dev.7"
+  "created_at": "2026-09-14T15:21:24",
+  "description": "# [1.31.0-dev.8](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.7...v1.31.0-dev.8) (2026-09-14)\n\n\n### Features\n\n* Choose which sources each app is patched from ([#947](https://github.com/[secure]App/morphe-manager/issues/947)) ([5b8815c](https://github.com/[secure]App/morphe-manager/commit/5b8815cf031c9da6f977c23ca9949b21f91df2aa))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.31.0-dev.8/morphe-manager-1.31.0-dev.8.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.31.0-dev.8/morphe-manager-1.31.0-dev.8.apk.asc",
+  "version": "1.31.0-dev.8"
 }

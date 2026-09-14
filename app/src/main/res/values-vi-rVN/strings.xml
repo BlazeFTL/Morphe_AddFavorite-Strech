@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Theo thứ tự bảng chữ cái, A đến Z</string>
     <string name="home_app_sort_name_desc_description">Đảo ngược theo thứ tự bảng chữ cái, Z đến A</string>
     <string name="home_app_sort_updates_first">Ưu tiên vá cập nhật</string>
-    <string name="home_app_sort_updates_first_description">Ưu tiên các ứng dụng cần cập nhật trước, sau đó theo thứ tự đề xuất</string>
+    <string name="home_app_sort_updates_first_description">Các ứng dụng có bản vá mới hơn trước, rồi theo thứ tự đề xuất</string>
     <string name="home_app_sort_recently_patched">Mới vá gần đây</string>
     <string name="home_app_sort_recently_patched_description">Các ứng dụng được vá gần đây nhất trước</string>
     <string name="home_no_apps_title">Không có ứng dụng nào có sẵn</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Cú đêm năng suất thật đấy</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Nguồn vá</string>
-    <string name="sources_search">Tìm kiếm nguồn</string>
     <string name="sources_sort_title">Sắp xếp các nguồn vá</string>
     <string name="sources_sort_manual">Sắp xếp thủ công</string>
     <string name="sources_sort_manual_hint">Bấm giữ một nguồn để sắp xếp lại</string>
@@ -197,6 +196,7 @@ Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng
     <string name="home_apk_availability_recommended_label">Khuyên dùng</string>
     <string name="home_apk_availability_unpatched_label">Chưa vá</string>
     <string name="home_apk_availability_incompatible_label">Không tương thích</string>
+    <string name="home_apk_availability_installed_version">Đã cài đặt trên thiết bị này: %s</string>
     <string name="home_apk_availability_yes">Có, giúp tôi với</string>
     <string name="home_apk_availability_no">Không, tôi có APK rồi</string>
     <string name="home_apk_helper_download">Sử dụng một ứng dụng hỗ trợ</string>
@@ -442,6 +442,10 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="home_app_info_install_type_shizuku_play_store">Cài đặt từ Cửa hàng Play (Shizuku)</string>
     <string name="home_app_info_patch_update_available"> Đã có bản vá mới</string>
     <string name="home_app_info_patch_update_available_description">Đã có bản vá mới. Hãy vá lại ứng dụng để áp dụng các cải tiến và bản sửa lỗi mới nhất</string>
+    <string name="home_app_info_app_update_available">Có bản cập nhật ứng dụng</string>
+    <string name="home_app_info_app_update_available_description">Các nguồn patch hỗ trợ phiên bản mới hơn của ứng dụng này. Hãy patch lại để chuyển sang phiên bản đó.</string>
+    <string name="home_app_info_newest_supported_version">Mới nhất được hỗ trợ</string>
+    <string name="home_app_info_version_move">Đã cài %1$s, mới nhất được hỗ trợ %2$s</string>
     <string name="home_app_info_app_deleted_warning">Ứng dụng đã bị gỡ cài đặt</string>
     <string name="home_app_info_app_deleted_description">Ứng dụng này đã bị gỡ bên ngoài Morphe. Hãy vá lại để khôi phục chức năng</string>
     <string name="home_app_info_not_patched_description">Một phiên bản chưa được vá của ứng dụng này đã được cài đặt. Morphe vẫn còn lưu bản ghi vá trước đó.</string>
@@ -1229,6 +1233,8 @@ Chi tiết: %2$s"</string>
     <string name="hidden">Ẩn</string>
     <string name="unhide">Hiện</string>
     <string name="unhide_done">Đã hiển thị</string>
+    <string name="ignore">Bỏ qua</string>
+    <string name="stop_ignoring">Dừng bỏ qua</string>
     <string name="logs">Nhật ký</string>
     <string name="sources">Nguồn</string>
     <string name="installing_ellipsis">Đang cài đặt…</string>

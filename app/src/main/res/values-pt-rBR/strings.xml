@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Ordem alfabética, de A a Z</string>
     <string name="home_app_sort_name_desc_description">Ordem alfabética inversa, de Z a A</string>
     <string name="home_app_sort_updates_first">Atualizações de patches primeiro</string>
-    <string name="home_app_sort_updates_first_description">Aplicativos com selos de atualização primeiro, depois por ordem recomendada</string>
+    <string name="home_app_sort_updates_first_description">Aplicativos com patches mais recentes primeiro, depois ordem recomendada</string>
     <string name="home_app_sort_recently_patched">Recentemente patcheados</string>
     <string name="home_app_sort_recently_patched_description">Aplicativos patcheados mais recentemente primeiro</string>
     <string name="home_no_apps_title">Nenhum aplicativo disponível</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Noturno e produtivo</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fontes de patches</string>
-    <string name="sources_search">Buscar fontes</string>
     <string name="sources_sort_title">Ordenar fontes de patch</string>
     <string name="sources_sort_manual">Ordem manual</string>
     <string name="sources_sort_manual_hint">Pressione e segure uma fonte para reordenar</string>
@@ -197,6 +196,7 @@ Tudo o que você adicionar a partir deste site é por sua conta e risco"</string
     <string name="home_apk_availability_recommended_label">Recomendado</string>
     <string name="home_apk_availability_unpatched_label">Original</string>
     <string name="home_apk_availability_incompatible_label">Incompatível</string>
+    <string name="home_apk_availability_installed_version">Instalado neste dispositivo: %s</string>
     <string name="home_apk_availability_yes">Sim, me ajude a encontrar um APK</string>
     <string name="home_apk_availability_no">Não, eu já tenho um APK</string>
     <string name="home_apk_helper_download">Usar um aplicativo auxiliar</string>
@@ -442,6 +442,10 @@ Zona externa (tracejada): pode ser recortada pela máscara do launcher - mantenh
     <string name="home_app_info_install_type_shizuku_play_store">Instalação via Shizuku como Play Store</string>
     <string name="home_app_info_patch_update_available">Nova versão de patches disponível</string>
     <string name="home_app_info_patch_update_available_description">Uma versão mais nova dos patches está disponível. Refaça os patches no seu aplicativo para obter as últimas melhorias e correções</string>
+    <string name="home_app_info_app_update_available">Atualização do app disponível</string>
+    <string name="home_app_info_app_update_available_description">As fontes do patch suportam uma versão mais recente deste app. Aplique o patch novamente para mudar para essa versão.</string>
+    <string name="home_app_info_newest_supported_version">Mais recente suportado</string>
+    <string name="home_app_info_version_move">Instalado %1$s, mais recente suportado %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplicaitvo desinstalado</string>
     <string name="home_app_info_app_deleted_description">Esse aplicativo foi desinstalado fora do Morphe. Refaça os patches para restaurar a funcionalidade</string>
     <string name="home_app_info_not_patched_description">Uma versão não patcheada deste aplicativo está instalada. O Morphe ainda tem seu registro de patch anterior</string>
@@ -1225,6 +1229,8 @@ Detalhes: %2$s"</string>
     <string name="hidden">Oculto</string>
     <string name="unhide">Reexibir</string>
     <string name="unhide_done">Visível</string>
+    <string name="ignore">Ignorar</string>
+    <string name="stop_ignoring">Parar de ignorar</string>
     <string name="logs">Registros</string>
     <string name="sources">Fontes</string>
     <string name="installing_ellipsis">Instalando…</string>

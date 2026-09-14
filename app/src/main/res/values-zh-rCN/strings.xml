@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">字母顺序，A 到 Z</string>
     <string name="home_app_sort_name_desc_description">反向字母顺序，Z 到 A</string>
     <string name="home_app_sort_updates_first">补丁更新优先</string>
-    <string name="home_app_sort_updates_first_description">有更新标记的应用优先，然后按推荐顺序排列</string>
+    <string name="home_app_sort_updates_first_description">先列出补丁较新的应用，然后按推荐顺序排列</string>
     <string name="home_app_sort_recently_patched">最近修补的</string>
     <string name="home_app_sort_recently_patched_description">最近修补的应用优先</string>
     <string name="home_no_apps_title">没有可用的应用</string>
@@ -124,7 +124,7 @@
     <string name="home_greeting_super_late_5">夜间且高效</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">补丁源</string>
-    <string name="sources_search">搜索来源</string>
+    <string name="sources_search">搜索源和补丁</string>
     <string name="sources_sort_title">对补丁源进行排序</string>
     <string name="sources_sort_manual">手动排序</string>
     <string name="sources_sort_manual_hint">长按源以重新排序</string>
@@ -132,6 +132,7 @@
     <string name="sources_sort_last_updated_description">最新更新的源优先</string>
     <string name="sources_sort_enabled_first">已启用优先</string>
     <string name="sources_sort_enabled_first_description">在禁用源之前显示活动源</string>
+    <string name="sources_patches_source_disabled_hint">此源已禁用。其补丁仅列出供参考，不会被应用。</string>
     <string name="sources_management_open_in_browser">在浏览器中打开链接</string>
     <string name="sources_management_report_issue">报告问题</string>
     <string name="sources_management_failed_to_open_url">无法打开URL</string>
@@ -197,6 +198,7 @@
     <string name="home_apk_availability_recommended_label">推荐</string>
     <string name="home_apk_availability_unpatched_label">未修补</string>
     <string name="home_apk_availability_incompatible_label">不兼容</string>
+    <string name="home_apk_availability_installed_version">此设备上已安装：%s</string>
     <string name="home_apk_availability_yes">是的，帮我找个 APK</string>
     <string name="home_apk_availability_no">不，我已经有APK了</string>
     <string name="home_apk_helper_download">使用辅助应用程序</string>
@@ -442,6 +444,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play商店安装</string>
     <string name="home_app_info_patch_update_available">有可用的补丁更新</string>
     <string name="home_app_info_patch_update_available_description">有新的修补版本可用。重新修补您的应用以获取最新改进和修复</string>
+    <string name="home_app_info_app_update_available">应用更新可用</string>
+    <string name="home_app_info_app_update_available_description">补丁源支持此应用的更新版本。重新打补丁即可更新到该版本。</string>
+    <string name="home_app_info_newest_supported_version">最新支持的版本</string>
+    <string name="home_app_info_version_move">已安装 %1$s，最新支持的版本为 %2$s</string>
     <string name="home_app_info_app_deleted_warning">应用已卸载</string>
     <string name="home_app_info_app_deleted_description">此应用已在 Morphe 外卸载。重新安装以恢复功能</string>
     <string name="home_app_info_not_patched_description">此应用安装的是未修补版本。Morphe仍保留其先前的补丁记录。</string>
@@ -1221,6 +1227,8 @@ morphe_header_custom_dark.png
     <string name="hidden">隐藏</string>
     <string name="unhide">显示</string>
     <string name="unhide_done">已显示</string>
+    <string name="ignore">忽略</string>
+    <string name="stop_ignoring">停止忽略</string>
     <string name="logs">日志</string>
     <string name="sources">来源</string>
     <string name="installing_ellipsis">正在安装…</string>

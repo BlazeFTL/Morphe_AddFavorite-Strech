@@ -59,7 +59,6 @@
     <string name="home_app_sort_name_asc_description">حروف الفبا، از A تا Z</string>
     <string name="home_app_sort_name_desc_description">حروف الفبا به‌صورت معکوس، از Z تا A</string>
     <string name="home_app_sort_updates_first">ابتدا به‌روزرسانی‌های پچ</string>
-    <string name="home_app_sort_updates_first_description">ابتدا برنامه‌های دارای نشان به‌روزرسانی، سپس ترتیب پیشنهادی</string>
     <string name="home_app_sort_recently_patched">به‌تازگی پچ‌شده</string>
     <string name="home_app_sort_recently_patched_description">ابتدا برنامه‌هایی که اخیراً پچ شده‌اند</string>
     <string name="home_no_apps_title">برنامه‌ای در دسترس نیست</string>
@@ -124,7 +123,6 @@
     <string name="home_greeting_super_late_5">شب‌زنده‌دار و کارآمد</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">منابع پچ </string>
-    <string name="sources_search">جست‌وجوی منابع</string>
     <string name="sources_sort_title">مرتب‌سازی منابع پچ</string>
     <string name="sources_sort_manual">ترتیب دستی</string>
     <string name="sources_sort_manual_hint">روی یک منبع لمس طولانی کنید تا ترتیبش را تغییر دهید</string>
@@ -1224,6 +1222,7 @@ morphe_header_custom_dark.png
     <string name="hidden">پنهان‌شده</string>
     <string name="unhide">نمایش‌دادن</string>
     <string name="unhide_done">نمایش داده شد</string>
+    <string name="ignore">نادیده‌گرفتن</string>
     <string name="logs">گزارش‌ها</string>
     <string name="sources">منابع</string>
     <string name="installing_ellipsis">در حال نصب…</string>

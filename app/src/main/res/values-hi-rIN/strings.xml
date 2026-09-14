@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">वर्णमाला क्रम में, A से Z तक</string>
     <string name="home_app_sort_name_desc_description">वर्णानुक्रम उल्टे, Z से A</string>
     <string name="home_app_sort_updates_first">पैच अपडेट पहले</string>
-    <string name="home_app_sort_updates_first_description">अपडेट बैज वाले ऐप्स पहले, फिर अनुशंसित क्रम में</string>
+    <string name="home_app_sort_updates_first_description">नए पैच वाले ऐप्स पहले, फिर अनुशंसित क्रम में</string>
     <string name="home_app_sort_recently_patched">हाल ही में पैच किया गया</string>
     <string name="home_app_sort_recently_patched_description">सबसे हाल ही में पैच किए गए ऐप्स पहले</string>
     <string name="home_no_apps_title">कोई ऐप्स उपलब्ध नहीं हैं</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">रात के समय और उत्पादक</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">पैच स्रोत</string>
-    <string name="sources_search">स्रोत खोजें</string>
     <string name="sources_sort_title">पैच स्रोत क्रमबद्ध करें</string>
     <string name="sources_sort_manual">मैन्युअल ऑर्डर</string>
     <string name="sources_sort_manual_hint">पुन:क्रमित करने के लिए किसी स्रोत को देर तक दबाएं</string>
@@ -197,6 +196,7 @@
     <string name="home_apk_availability_recommended_label">सुझाया गया</string>
     <string name="home_apk_availability_unpatched_label">अपडेट किए बिना</string>
     <string name="home_apk_availability_incompatible_label">असंगत</string>
+    <string name="home_apk_availability_installed_version">इस डिवाइस पर स्थापित: %s</string>
     <string name="home_apk_availability_yes">हाँ, मुझे APK ढूंढने में मदद करें</string>
     <string name="home_apk_availability_no">नहीं, मेरे पास पहले से ही एक एपीके है</string>
     <string name="home_apk_helper_download">एक सहायक ऐप का उपयोग करें</string>
@@ -442,6 +442,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">शिज़ुकू प्ले स्टोर से इंस्टॉल करें</string>
     <string name="home_app_info_patch_update_available">पैच अपडेट उपलब्ध है</string>
     <string name="home_app_info_patch_update_available_description">पथचों की नई संस्करण उपलब्ध है। अपने एप्लिकेशन को पुनः पथच करें नई सुधार और त्रुटि प्राप्त करने के लिए।</string>
+    <string name="home_app_info_app_update_available">ऐप अपडेट उपलब्ध</string>
+    <string name="home_app_info_app_update_available_description">पैच स्रोत इस ऐप के नए संस्करण का समर्थन करते हैं। उस संस्करण पर जाने के लिए इसे फिर से पैच करें।</string>
+    <string name="home_app_info_newest_supported_version">नवीनतम समर्थित</string>
+    <string name="home_app_info_version_move">इंस्टॉल किया गया %1$s, नवीनतम समर्थित %2$s</string>
     <string name="home_app_info_app_deleted_warning">एप्लिकेशन उन्मोदन किया गया</string>
     <string name="home_app_info_app_deleted_description">इस ऐप को बाहर से उन्मोदन किया गया था। मॉर्फी में पुनः स्थापित करें कार्यक्षमता पुनः प्राप्त करने के लिए</string>
     <string name="home_app_info_not_patched_description">इस ऐप का एक अनपैच्ड संस्करण स्थापित है। Morphe के पास अभी भी उसका पिछला पैच रिकॉर्ड है</string>
@@ -1224,6 +1228,8 @@ morphe_header_custom_dark.png
     <string name="hidden">छिपा हुआ</string>
     <string name="unhide">अनहाइड करें</string>
     <string name="unhide_done">दिखाया गया</string>
+    <string name="ignore">अनदेखा करें</string>
+    <string name="stop_ignoring">अनदेखा करना बंद करें</string>
     <string name="logs">लॉग्स</string>
     <string name="sources">स्रोत</string>
     <string name="installing_ellipsis">इंस्टॉल हो रहा है…</string>

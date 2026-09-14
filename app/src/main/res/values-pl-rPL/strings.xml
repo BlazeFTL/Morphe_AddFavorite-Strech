@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetycznie, od A do Z</string>
     <string name="home_app_sort_name_desc_description">Odwrotnie alfabetycznie, od Z do A</string>
     <string name="home_app_sort_updates_first">Najpierw aktualizacje modyfikacji</string>
-    <string name="home_app_sort_updates_first_description">Najpierw aplikacje z plakietkami aktualizacji, następnie zalecana kolejność</string>
+    <string name="home_app_sort_updates_first_description">Najpierw aplikacje z nowszymi modyfikacjami, następnie w zalecanej kolejności</string>
     <string name="home_app_sort_recently_patched">Ostatnio zmodyfikowane</string>
     <string name="home_app_sort_recently_patched_description">Najpierw ostatnio zmodyfikowane aplikacje</string>
     <string name="home_no_apps_title">Brak dostępnych aplikacji</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nocny i produktywny</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Źródła modyfikacji</string>
-    <string name="sources_search">Szukaj źródeł</string>
     <string name="sources_sort_title">Sortuj źródła modyfikacji</string>
     <string name="sources_sort_manual">Ręczna kolejność</string>
     <string name="sources_sort_manual_hint">Przytrzymaj źródło, aby zmienić kolejność</string>
@@ -198,6 +197,7 @@ Wszystko, co dodasz z tej strony, używasz na własne ryzyko"</string>
     <string name="home_apk_availability_recommended_label">Zalecana</string>
     <string name="home_apk_availability_unpatched_label">Niezmodyfikowana</string>
     <string name="home_apk_availability_incompatible_label">Niezgodna</string>
+    <string name="home_apk_availability_installed_version">Zainstalowano na tym urządzeniu: %s</string>
     <string name="home_apk_availability_yes">Tak, pomóż mi znaleźć plik APK</string>
     <string name="home_apk_availability_no">Nie, mam już plik APK</string>
     <string name="home_apk_helper_download">Użyj aplikacji pomocniczej</string>
@@ -443,6 +443,10 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_install_type_shizuku_play_store">Instalacja Shizuku ze Sklepu Play</string>
     <string name="home_app_info_patch_update_available">Dostępna aktualizacja modyfikacji</string>
     <string name="home_app_info_patch_update_available_description">Dostępna jest nowsza wersja modyfikacji. Zmodyfikuj aplikację ponownie, aby otrzymać najnowsze ulepszenia i poprawki</string>
+    <string name="home_app_info_app_update_available">Dostępna aktualizacja aplikacji</string>
+    <string name="home_app_info_app_update_available_description">Źródła modyfikacji obsługują nowszą wersję tej aplikacji. Zmodyfikuj ją ponownie, aby zaktualizować</string>
+    <string name="home_app_info_newest_supported_version">Najnowsza obsługiwana</string>
+    <string name="home_app_info_version_move">Zainstalowana %1$s, najnowsza obsługiwana %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplikacja została odinstalowana</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacja została odinstalowana poza Morphe. Zmodyfikuj ją ponownie, aby przywrócić jej funkcjonalność</string>
     <string name="home_app_info_not_patched_description">Zainstalowano niezmodyfikowaną wersję tej aplikacji. Morphe wciąż posiada zapis jej poprzedniej modyfikacji</string>
@@ -1225,6 +1229,8 @@ Wymagane są następujące wymiary obrazów:
     <string name="hidden">Ukryte</string>
     <string name="unhide">Pokaż</string>
     <string name="unhide_done">Odkryto</string>
+    <string name="ignore">Ignoruj</string>
+    <string name="stop_ignoring">Przestań ignorować</string>
     <string name="logs">Logi</string>
     <string name="sources">Źródła</string>
     <string name="installing_ellipsis">Instalowanie…</string>

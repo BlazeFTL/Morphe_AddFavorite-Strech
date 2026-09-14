@@ -41,8 +41,8 @@
         <item quantity="other">Avinstallera %s appar?</item>
     </plurals>
     <plurals name="batch_patch_ready_count">
-        <item quantity="one">%s app redo att modifieras</item>
-        <item quantity="other">%s appar redo att modifieras</item>
+        <item quantity="one">%s app är redo att modifieras</item>
+        <item quantity="other">%s appar är redo att modifieras</item>
     </plurals>
     <plurals name="repatch_available_count">
         <item quantity="one">%s app kan modifieras igen</item>

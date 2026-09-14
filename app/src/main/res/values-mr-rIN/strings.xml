@@ -55,7 +55,6 @@
     <string name="home_app_sort_name_asc_description">वर्णक्रमानुसार, A ते Z</string>
     <string name="home_app_sort_name_desc_description">अक्षरांनुसार उतरत्या क्रमाने, Z ते A</string>
     <string name="home_app_sort_updates_first">पॅच अपडेट्स प्रथम</string>
-    <string name="home_app_sort_updates_first_description">अपडेट बॅज असलेले ॲप्स प्रथम, नंतर शिफारस केलेले क्रमाने</string>
     <string name="home_app_sort_recently_patched">नुकतेच पॅच केलेले</string>
     <string name="home_app_sort_recently_patched_description">समस्या नोंदवा</string>
     <string name="home_no_apps_title">ॲप्स उपलब्ध नाहीत</string>
@@ -120,7 +119,6 @@
     <string name="home_greeting_super_late_5">रात्रीचे आणि productive</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">सुधारणांची मुळे</string>
-    <string name="sources_search">स्रोत शोधा</string>
     <string name="sources_sort_title">सुधारणा स्रोत क्रमवारी लावा</string>
     <string name="sources_sort_manual">मॅन्युअल ऑर्डर</string>
     <string name="sources_sort_manual_hint">पुन्हा क्रमवारी लावण्यासाठी स्रोतावर दाबून ठेवा</string>

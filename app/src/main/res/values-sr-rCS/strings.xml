@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Abecedni redosled, A do Š</string>
     <string name="home_app_sort_name_desc_description">Obrnuti abecedni redosled, od Z do A</string>
     <string name="home_app_sort_updates_first">Prvo ažuriranja zakrpa</string>
-    <string name="home_app_sort_updates_first_description">Aplikacije sa oznakama ažuriranja prvo, pa preporučeni redosled</string>
+    <string name="home_app_sort_updates_first_description">Aplikacije sa novijim zakrpama prvo, zatim preporučeni redosled.</string>
     <string name="home_app_sort_recently_patched">Nedavno zakrpljeno</string>
     <string name="home_app_sort_recently_patched_description">Najskorije zakrpljene aplikacije prvo</string>
     <string name="home_no_apps_title">Nema dostupnih aplikacija</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Noćni i produktivan</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Izvori zakrpe</string>
-    <string name="sources_search">Pretraži izvore</string>
     <string name="sources_sort_title">Sortiraj izvore zakrpa</string>
     <string name="sources_sort_manual">Ručna postavka</string>
     <string name="sources_sort_manual_hint">Pritisnite i zadržite izvor da biste ga preuredili</string>
@@ -197,6 +196,7 @@ Sve što dodate sa ove veb stranice koristite na sopstvenu odgovornost."</string
     <string name="home_apk_availability_recommended_label">Preporučeno</string>
     <string name="home_apk_availability_unpatched_label">Neopterećeno</string>
     <string name="home_apk_availability_incompatible_label">Nekompatibilan</string>
+    <string name="home_apk_availability_installed_version">Instalirano na ovom uređaju: %s</string>
     <string name="home_apk_availability_yes">Da, pomozi mi da pronađem APK</string>
     <string name="home_apk_availability_no">Ne, već imam APK</string>
     <string name="home_apk_helper_download">Koristite pomoćnu aplikaciju</string>
@@ -442,6 +442,10 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="home_app_info_install_type_shizuku_play_store">Instalacija preko Shizuku i Play Store-a</string>
     <string name="home_app_info_patch_update_available">Dostupno je nova verzija patchova</string>
     <string name="home_app_info_patch_update_available_description">Nova verzija patchova je dostupna. Ponovno patchirajte svoju aplikaciju da bi dobili najnovije poboljšanja i ispravke</string>
+    <string name="home_app_info_app_update_available">Dostupno ažuriranje aplikacije</string>
+    <string name="home_app_info_app_update_available_description">Izvori zakrpe podržavaju noviju verziju ove aplikacije. Ponovo je zakrpite da biste prešli na tu verziju</string>
+    <string name="home_app_info_newest_supported_version">Najnovija podržana</string>
+    <string name="home_app_info_version_move">Instalirana %1$s, najnovija podržana %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nezakrpana verzija ove aplikacije. Morphe i dalje ima svoj prethodni zapis o zakrpi</string>
@@ -1204,6 +1208,8 @@ Detalji: %2$s"</string>
     <string name="hidden">Skriven</string>
     <string name="unhide">Pokaži</string>
     <string name="unhide_done">Prikazano</string>
+    <string name="ignore">Ignoriši</string>
+    <string name="stop_ignoring">Prestani da ignorišeš</string>
     <string name="logs">Dnevnici</string>
     <string name="sources">Izvori</string>
     <string name="installing_ellipsis">Instaliranje…</string>

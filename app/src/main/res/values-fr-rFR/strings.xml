@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Ordre alphabétique, A à Z</string>
     <string name="home_app_sort_name_desc_description">Ordre alphabétique inversé, Z à A</string>
     <string name="home_app_sort_updates_first">Mises à jour de patchs en premier</string>
-    <string name="home_app_sort_updates_first_description">Applications avec badge de mise à jour en premier, puis ordre recommandé</string>
+    <string name="home_app_sort_updates_first_description">Les applications avec les patchs les plus récents en premier, puis dans l\'ordre recommandé</string>
     <string name="home_app_sort_recently_patched">Récemment patchée</string>
     <string name="home_app_sort_recently_patched_description">Applications récemment patchées en premier</string>
     <string name="home_no_apps_title">Aucune application disponible</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nocturne et productif</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sources de patchs</string>
-    <string name="sources_search">Rechercher des sources</string>
     <string name="sources_sort_title">Trier les sources de patchs</string>
     <string name="sources_sort_manual">Ordre manuel</string>
     <string name="sources_sort_manual_hint">Appuyez longuement sur une source pour la réorganiser</string>
@@ -200,6 +199,7 @@ Tout ce que vous ajoutez depuis ce site web est utilisé à vos propres risques"
     <string name="home_apk_availability_recommended_label">Recommandé</string>
     <string name="home_apk_availability_unpatched_label">Non patchée</string>
     <string name="home_apk_availability_incompatible_label">Incompatible</string>
+    <string name="home_apk_availability_installed_version">Installé sur cet appareil : %s</string>
     <string name="home_apk_availability_yes">Oui, aidez-moi à trouver un APK</string>
     <string name="home_apk_availability_no">Non, j\'ai déjà un APK</string>
     <string name="home_apk_helper_download">Utiliser une application d\'assistance</string>
@@ -444,6 +444,10 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_install_type_shizuku_play_store">Installation via Shizuku depuis le Play Store</string>
     <string name="home_app_info_patch_update_available">Mise à jour de patchs disponible</string>
     <string name="home_app_info_patch_update_available_description">Une version plus récente des patchs est disponible. Re-patchez votre application pour bénéficier des dernières améliorations et corrections</string>
+    <string name="home_app_info_app_update_available">Mise à jour de l\'application disponible</string>
+    <string name="home_app_info_app_update_available_description">Les sources de patchs prennent en charge une version plus récente de cette application. Patchez à nouveau pour passer à cette version</string>
+    <string name="home_app_info_newest_supported_version">Dernière version prise en charge</string>
+    <string name="home_app_info_version_move">Version installée %1$s, dernière version prise en charge %2$s</string>
     <string name="home_app_info_app_deleted_warning">L\'application a été désinstallée</string>
     <string name="home_app_info_app_deleted_description">Cette application a été désinstallée en dehors de Morphe. Re-patchez-la pour restaurer les fonctionnalités
 </string>
@@ -1231,6 +1235,8 @@ Détails : %2$s"</string>
     <string name="hidden">Masqué</string>
     <string name="unhide">Afficher</string>
     <string name="unhide_done">Affiché</string>
+    <string name="ignore">Ignorer</string>
+    <string name="stop_ignoring">Ne plus ignorer</string>
     <string name="logs">Journaux</string>
     <string name="sources">Sources</string>
     <string name="installing_ellipsis">Installation…</string>

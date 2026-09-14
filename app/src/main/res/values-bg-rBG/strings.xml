@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Азбучен ред, от А до Я</string>
     <string name="home_app_sort_name_desc_description">Обратно по азбучен ред, от Я до А</string>
     <string name="home_app_sort_updates_first">Първо актуализации за поправки</string>
-    <string name="home_app_sort_updates_first_description">Приложения с икони за актуализация първо, след това в препоръчителен ред</string>
+    <string name="home_app_sort_updates_first_description">Приложения с по-нови пачове първо, след това препоръчан ред</string>
     <string name="home_app_sort_recently_patched">Наскоро пачвани</string>
     <string name="home_app_sort_recently_patched_description">Най-скоро пачваните приложения първо</string>
     <string name="home_no_apps_title">Няма налични приложения</string>
@@ -125,7 +125,7 @@
     <string name="home_greeting_super_late_5">Нощни птици и продуктивни</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Източници за поправки</string>
-    <string name="sources_search">Търсене на източници</string>
+    <string name="sources_search">Търсене на източници и кръпки</string>
     <string name="sources_sort_title">Сортиране на източници на поправки</string>
     <string name="sources_sort_manual">Ръчна подредба</string>
     <string name="sources_sort_manual_hint">Натиснете и задръжте източник, за да го пренаредите</string>
@@ -133,6 +133,7 @@
     <string name="sources_sort_last_updated_description">Най-новите актуализации на източници първо</string>
     <string name="sources_sort_enabled_first">Първо включените</string>
     <string name="sources_sort_enabled_first_description">Показване на активни източници преди деактивирани източници</string>
+    <string name="sources_patches_source_disabled_hint">Този източник е деактивиран. Кръпките му са изброени за справка и не се прилагат.</string>
     <string name="sources_management_open_in_browser">Отваряне в браузър</string>
     <string name="sources_management_report_issue">Докладвай за проблем</string>
     <string name="sources_management_failed_to_open_url">Неуспешно отваряне на URL</string>
@@ -197,6 +198,7 @@
     <string name="home_apk_availability_recommended_label">Рекомендовано</string>
     <string name="home_apk_availability_unpatched_label">Необновен</string>
     <string name="home_apk_availability_incompatible_label">Несъвместим</string>
+    <string name="home_apk_availability_installed_version">Инсталирано на това устройство: %s</string>
     <string name="home_apk_availability_yes">Да, помогнете ми да намира APK</string>
     <string name="home_apk_availability_no">Не, вече имам APK</string>
     <string name="home_apk_helper_download">Използвайте помощно приложение</string>
@@ -442,6 +444,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">Инсталиране от Play Store чрез Shizuku</string>
     <string name="home_app_info_patch_update_available">Достъпно е ново издание на замести</string>
     <string name="home_app_info_patch_update_available_description">Достъпна е по-нова версия на поправките. Поправете отново приложението си, за да получите последното подобрение и поправки</string>
+    <string name="home_app_info_app_update_available">Налична е актуализация на приложението</string>
+    <string name="home_app_info_app_update_available_description">Източниците на кръпката поддържат по-нова версия на това приложение. Приложете отново кръпката, за да преминете към тази версия</string>
+    <string name="home_app_info_newest_supported_version">Най-нова поддържана</string>
+    <string name="home_app_info_version_move">Инсталирана %1$s, най-нова поддържана %2$s</string>
     <string name="home_app_info_app_deleted_warning">Приложението беше деинсталирано</string>
     <string name="home_app_info_app_deleted_description">Това приложение беше деинсталирано извън Morphe. Поправете го отново, за да възстановите функционалността</string>
     <string name="home_app_info_not_patched_description">Инсталирана е версия без пачове на това приложение. Morphe все още има своя предишен запис за пач</string>
@@ -1224,6 +1230,8 @@ morphe_header_custom_dark.png
     <string name="hidden">Скрито</string>
     <string name="unhide">Покажи</string>
     <string name="unhide_done">Показано</string>
+    <string name="ignore">Игнорирай</string>
+    <string name="stop_ignoring">Спри да игнорираш</string>
     <string name="logs">Дневници</string>
     <string name="sources">Източници</string>
     <string name="installing_ellipsis">Инсталиране…</string>

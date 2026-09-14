@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetisch, A tot Z</string>
     <string name="home_app_sort_name_desc_description">Omgekeerd alfabetisch, Z tot A</string>
     <string name="home_app_sort_updates_first">Eerst patches bijwerken</string>
-    <string name="home_app_sort_updates_first_description">Apps met update-badges eerst, daarna in aanbevolen volgorde</string>
+    <string name="home_app_sort_updates_first_description">Apps met nieuwere patches eerst, daarna de aanbevolen volgorde</string>
     <string name="home_app_sort_recently_patched">Recent gepatcht</string>
     <string name="home_app_sort_recently_patched_description">Meest recent gepatchte apps eerst</string>
     <string name="home_no_apps_title">Geen apps beschikbaar</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nachtelijk en productief</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patchbronnen</string>
-    <string name="sources_search">Bronnen zoeken</string>
     <string name="sources_sort_title">Patchbronnen sorteren</string>
     <string name="sources_sort_manual">Handmatige volgorde</string>
     <string name="sources_sort_manual_hint">Houd een bron ingedrukt om de volgorde te wijzigen</string>
@@ -197,6 +196,7 @@ Alles wat u van deze website toevoegt, gebruikt u op eigen risico"</string>
     <string name="home_apk_availability_recommended_label">Aanbevolen</string>
     <string name="home_apk_availability_unpatched_label">Ongepatcht</string>
     <string name="home_apk_availability_incompatible_label">Incompatibel</string>
+    <string name="home_apk_availability_installed_version">Geïnstalleerd op dit apparaat: %s</string>
     <string name="home_apk_availability_yes">Ja, help me een APK te vinden</string>
     <string name="home_apk_availability_no">Nee, ik heb al een .APK</string>
     <string name="home_apk_helper_download">Gebruik een hulpprogramma</string>
@@ -442,6 +442,10 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Store installeren</string>
     <string name="home_app_info_patch_update_available">Patchupdate beschikbaar</string>
     <string name="home_app_info_patch_update_available_description">Er is een nieuwere versie van patches beschikbaar. Repatch uw app om de laatste verbeteringen en correcties te krijgen</string>
+    <string name="home_app_info_app_update_available">App-update beschikbaar</string>
+    <string name="home_app_info_app_update_available_description">De patchbronnen ondersteunen een nieuwere versie van deze app. Pas de patch opnieuw toe om naar die versie over te stappen.</string>
+    <string name="home_app_info_newest_supported_version">Nieuwste ondersteunde versie</string>
+    <string name="home_app_info_version_move">Geïnstalleerd %1$s, nieuwste ondersteunde versie %2$s</string>
     <string name="home_app_info_app_deleted_warning">App was verwijderd</string>
     <string name="home_app_info_app_deleted_description">Deze app is buiten Morphe verwijderd. Installeer de patch om de functionaliteit te herstellen</string>
     <string name="home_app_info_not_patched_description">Er is een niet-gepatchte versie van deze app geïnstalleerd. Morphe heeft nog steeds zijn eerdere patchrecord.</string>
@@ -1224,6 +1228,8 @@ Details: %2$s"</string>
     <string name="hidden">Verborgen</string>
     <string name="unhide">Toon</string>
     <string name="unhide_done">Weergeven</string>
+    <string name="ignore">Negeren</string>
+    <string name="stop_ignoring">Stop met negeren</string>
     <string name="logs">Logboeken</string>
     <string name="sources">Bron-URL</string>
     <string name="installing_ellipsis">Installeren…</string>

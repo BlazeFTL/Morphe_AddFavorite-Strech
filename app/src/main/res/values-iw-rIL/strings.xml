@@ -60,7 +60,7 @@
     <string name="home_app_sort_name_asc_description">לפי סדר אלפביתי, מ-א\' עד ת\'</string>
     <string name="home_app_sort_name_desc_description">הפוך אלפביתי, מ-Z ל-A</string>
     <string name="home_app_sort_updates_first">עדכוני טלאים קודם</string>
-    <string name="home_app_sort_updates_first_description">אפליקציות עם סמני עדכון קודם, ואז לפי סדר מומלץ</string>
+    <string name="home_app_sort_updates_first_description">אפליקציות עם תיקונים חדשים יותר קודם, ולאחר מכן הסדר המומלץ</string>
     <string name="home_app_sort_recently_patched">עדכון לאחרונה</string>
     <string name="home_app_sort_recently_patched_description">אפליקציות שעודכנו לאחרונה ראשונות</string>
     <string name="home_no_apps_title">אין אפליקציות זמינות</string>
@@ -125,7 +125,6 @@
     <string name="home_greeting_super_late_5">ליליים ופרודוקטיביים</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">מקורות תיקונים</string>
-    <string name="sources_search">חיפוש מקורות</string>
     <string name="sources_sort_title">מקורות תיקונים</string>
     <string name="sources_sort_manual">הזמנה ידנית</string>
     <string name="sources_sort_manual_hint">לחץ לחיצה ארוכה על מקור כדי לשנות את הסדר</string>
@@ -198,6 +197,7 @@
     <string name="home_apk_availability_recommended_label">מומלץ</string>
     <string name="home_apk_availability_unpatched_label">לא מתקן</string>
     <string name="home_apk_availability_incompatible_label">לא תואם</string>
+    <string name="home_apk_availability_installed_version">מותקן במכשיר זה: %s</string>
     <string name="home_apk_availability_yes">כן, עזור לי למצוא APK</string>
     <string name="home_apk_availability_no">לא, אני כבר מחזיק APK</string>
     <string name="home_apk_helper_download">השתמש באפליקציה מסייעת</string>
@@ -443,6 +443,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">התקנה דרך Shizuku של חנות Play</string>
     <string name="home_app_info_patch_update_available">עדכון התאמה זמין</string>
     <string name="home_app_info_patch_update_available_description">גרסה חדשה של תיקונים זמינה. תיקן את האפליקציה שלך כדי לקבל את התיקונים וההערות החדשים</string>
+    <string name="home_app_info_app_update_available">עדכון אפליקציה זמין</string>
+    <string name="home_app_info_app_update_available_description">מקורות התיקון תומכים בגרסה חדשה יותר של אפליקציה זו. החל תיקון שוב כדי לעבור לגרסה זו.</string>
+    <string name="home_app_info_newest_supported_version">החדשה ביותר שנתמכת</string>
+    <string name="home_app_info_version_move">מותקנת %1$s, החדשה ביותר שנתמכת %2$s</string>
     <string name="home_app_info_app_deleted_warning">האפליקציה הוסרה</string>
     <string name="home_app_info_app_deleted_description">האפליקציה הוסרה מחוץ ל-Morphe. התאם כדי לשחזר את הפונקציונליות</string>
     <string name="home_app_info_not_patched_description">מותקנת גרסה לא מתוקנת של אפליקציה זו. ל-Morphe עדיין יש רשומת תיקון קודמת.</string>
@@ -1235,6 +1239,8 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="hidden">מוסתר</string>
     <string name="unhide">הסתר</string>
     <string name="unhide_done">הוצג</string>
+    <string name="ignore">התעלם</string>
+    <string name="stop_ignoring">הפסק להתעלם</string>
     <string name="logs">יומן</string>
     <string name="sources">מקורות</string>
     <string name="installing_ellipsis">מתקין…</string>

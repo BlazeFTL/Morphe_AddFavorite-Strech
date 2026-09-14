@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabeties, A tot Z</string>
     <string name="home_app_sort_name_desc_description">Omgekeerde alfabetiese volgorde, van Z tot A</string>
     <string name="home_app_sort_updates_first">Eerstens foutopdaterings</string>
-    <string name="home_app_sort_updates_first_description">Eerstens toepassings met opdateringsikone, dan aanbevole volgorde</string>
+    <string name="home_app_sort_updates_first_description">Apps met nuwer patches eerste, dan aanbevole volgorde</string>
     <string name="home_app_sort_recently_patched">Onlangs gepatch</string>
     <string name="home_app_sort_recently_patched_description">Mees onlangs gepatchde apps eerste</string>
     <string name="home_no_apps_title">Geen programme beskikbaar nie</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nagtelike en produktief</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Verandering oorspronge</string>
-    <string name="sources_search">Soek bronne</string>
     <string name="sources_sort_title">Sorteer foutbronne</string>
     <string name="sources_sort_manual">Handmatige volgorde</string>
     <string name="sources_sort_manual_hint">Druk lank op \'n bron om te herschik</string>
@@ -197,6 +196,7 @@ Enigiets wat jy van hierdie webwerf byvoeg, word op jou eie risiko gebruik."</st
     <string name="home_apk_availability_recommended_label">Aanbeveel</string>
     <string name="home_apk_availability_unpatched_label">Onveranderd</string>
     <string name="home_apk_availability_incompatible_label">Onversoenbaar</string>
+    <string name="home_apk_availability_installed_version">Geïnstalleer op hierdie toestel: %s</string>
     <string name="home_apk_availability_yes">Ja, help my om \'n APK te vind</string>
     <string name="home_apk_availability_no">Nee, ek het reeds \'n APK</string>
     <string name="home_apk_helper_download">Gebruik \'n hulp-app</string>
@@ -442,6 +442,10 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Winkel installering</string>
     <string name="home_app_info_patch_update_available">Patch opdatering beskikbaar</string>
     <string name="home_app_info_patch_update_available_description">\'n Nuwer weergawe van patches is beskikbaar. Herpatch jou app om die nuutste verbeterings en regstellings te kry</string>
+    <string name="home_app_info_app_update_available">Toep-opdatering beskikbaar</string>
+    <string name="home_app_info_app_update_available_description">Die patchbronne ondersteun \'n nuwer weergawe van hierdie toepassing. Pas dit weer toe om na daardie weergawe oor te skakel.</string>
+    <string name="home_app_info_newest_supported_version">Nuutste ondersteunde</string>
+    <string name="home_app_info_version_move">Geïnstalleer %1$s, nuutste ondersteunde %2$s</string>
     <string name="home_app_info_app_deleted_warning">App is verwyder</string>
     <string name="home_app_info_app_deleted_description">Hierdie app is buite Morphe verwyder. Pleister dit weer om funksionaliteit te herstel</string>
     <string name="home_app_info_not_patched_description">\'n Ongepatchte weergawe van hierdie app is geïnstalleer. Morphe het steeds sy vorige pleisterrekord.</string>
@@ -1224,6 +1228,8 @@ Besonderhede: %2$s"</string>
     <string name="hidden">Versteek</string>
     <string name="unhide">Herstel</string>
     <string name="unhide_done">Wys</string>
+    <string name="ignore">Ignoreer</string>
+    <string name="stop_ignoring">Hou op om te ignoreer</string>
     <string name="logs">Logboeke</string>
     <string name="sources">Bronne</string>
     <string name="installing_ellipsis">Installeer…</string>

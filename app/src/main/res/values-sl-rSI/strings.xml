@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Normalen vrstni red, od A do Ž</string>
     <string name="home_app_sort_name_desc_description">Obraten vrstni red, od Ž do A</string>
     <string name="home_app_sort_updates_first">Najprej posodobitve popravkov</string>
-    <string name="home_app_sort_updates_first_description">Aplikacije z oznakami posodobi najprej, nato v priporočenem vrstnem redu</string>
+    <string name="home_app_sort_updates_first_description">Aplikacije z novejšimi popravki najprej, nato priporočeni vrstni red</string>
     <string name="home_app_sort_recently_patched">Nedavno popravljeno</string>
     <string name="home_app_sort_recently_patched_description">Nazadnje popravljene aplikacije najprej</string>
     <string name="home_no_apps_title">Nobena aplikacija ni na voljo</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nočni in produktivni</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Viri popravkov</string>
-    <string name="sources_search">Preišči vire</string>
     <string name="sources_sort_title">Sortiraj vire popravkov</string>
     <string name="sources_sort_manual">Ročni vrstni red</string>
     <string name="sources_sort_manual_hint">Dolgo pritisnite vir, da ga ponovno uredite</string>
@@ -197,6 +196,7 @@ Vse, kar dodate s tega spletišča, uporabljate na lastno odgovornost.  "</strin
     <string name="home_apk_availability_recommended_label">Priporočeno</string>
     <string name="home_apk_availability_unpatched_label">Nepopravljeno</string>
     <string name="home_apk_availability_incompatible_label">Nezdružljivo</string>
+    <string name="home_apk_availability_installed_version">Nameščeno na tej napravi: %s</string>
     <string name="home_apk_availability_yes">Da, pomagajte mi najti APK</string>
     <string name="home_apk_availability_no">Ne, že imam APK</string>
     <string name="home_apk_helper_download">Uporabi pomožni program</string>
@@ -442,6 +442,10 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_install_type_shizuku_play_store">Namestitev prek Shizuku in Play Store</string>
     <string name="home_app_info_patch_update_available">Na voljo je posodobitev popravkov</string>
     <string name="home_app_info_patch_update_available_description">Na voljo je novejša različica popravkov. Popravite svojo aplikacijo, da pridobite najnovejše izboljšave in popravke.</string>
+    <string name="home_app_info_app_update_available">Na voljo je posodobitev aplikacije</string>
+    <string name="home_app_info_app_update_available_description">Viri popravkov podpirajo novejšo različico te aplikacije. Znova zaženi popravek, da se premaknete na to različico.</string>
+    <string name="home_app_info_newest_supported_version">Najnovejša podprta različica</string>
+    <string name="home_app_info_version_move">Nameščena različica %1$s, najnovejša podprta različica %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplikacija je bila odstranjena</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacija je bila odstranjena izven aplikacije Morphe. Ponovno jo popravite, da obnovite funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Nameščena je nepopravljena različica te aplikacije. Morphe še vedno ima svoj prejšnji zapis o popravku.</string>
@@ -1221,6 +1225,8 @@ Podrobnosti: %2$s"</string>
     <string name="hidden">Skrito</string>
     <string name="unhide">Pokaži</string>
     <string name="unhide_done">Prikazano</string>
+    <string name="ignore">Prezri</string>
+    <string name="stop_ignoring">Prenehaj ignorirati</string>
     <string name="logs">Dnevnik</string>
     <string name="sources">Viri</string>
     <string name="installing_ellipsis">Nameščanje…</string>

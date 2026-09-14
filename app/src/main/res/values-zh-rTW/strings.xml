@@ -27,7 +27,7 @@
     <string name="home_metadata_errors_subtitle">點擊以檢視來源</string>
     <string name="home_outdated_manager_title">Morphe 要更新</string>
     <string name="home_outdated_manager_subtitle">有些修補來源需要較新的版本</string>
-    <string name="home_held_back_title">\??</string>
+    <string name="home_held_back_title">修補檔來源導致 Morphe 當機</string>
     <string name="home_held_back_subtitle">該項目已略過，以便應用程式能啟動。點按以檢視</string>
     <string name="home_metered_skipped_title">已暫停行動數據上的更新</string>
     <string name="home_metered_skipped_subtitle">點擊以允許在行動數據上更新</string>
@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">依字母順序，A 到 Z</string>
     <string name="home_app_sort_name_desc_description">反向字母順序，Z 到 A</string>
     <string name="home_app_sort_updates_first">先更新修補程式</string>
-    <string name="home_app_sort_updates_first_description">優先顯示有更新標記的應用程式，然後依照建議順序</string>
+    <string name="home_app_sort_updates_first_description">具有較新修補程式的應用程式優先，然後是建議順序。</string>
     <string name="home_app_sort_recently_patched">最近修補</string>
     <string name="home_app_sort_recently_patched_description">最近修補的應用程式優先</string>
     <string name="home_no_apps_title">沒有可用的應用程式</string>
@@ -124,7 +124,7 @@
     <string name="home_greeting_super_late_5">晝伏夜出且高效</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">修補來源</string>
-    <string name="sources_search">搜尋來源</string>
+    <string name="sources_search">搜尋來源與修補程式</string>
     <string name="sources_sort_title">排序修補來源</string>
     <string name="sources_sort_manual">手動排序</string>
     <string name="sources_sort_manual_hint">長按來源以重新排序</string>
@@ -132,6 +132,7 @@
     <string name="sources_sort_last_updated_description">先顯示最新的來源更新</string>
     <string name="sources_sort_enabled_first">優先顯示已啟用</string>
     <string name="sources_sort_enabled_first_description">在已停用的來源之前顯示已啟用來源</string>
+    <string name="sources_patches_source_disabled_hint">此來源已停用。其修補程式僅供參考，不會套用。</string>
     <string name="sources_management_open_in_browser">在瀏覽器中開啟</string>
     <string name="sources_management_report_issue">回報問題</string>
     <string name="sources_management_failed_to_open_url">無法開啟網址</string>
@@ -197,6 +198,7 @@
     <string name="home_apk_availability_recommended_label">推薦</string>
     <string name="home_apk_availability_unpatched_label">未修補</string>
     <string name="home_apk_availability_incompatible_label">不相容</string>
+    <string name="home_apk_availability_installed_version">已安裝於此裝置：%s</string>
     <string name="home_apk_availability_yes">是，協助我尋找 APK</string>
     <string name="home_apk_availability_no">否，我已經有 APK 了</string>
     <string name="home_apk_helper_download">使用輔助應用程式</string>
@@ -442,6 +444,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play商店安裝</string>
     <string name="home_app_info_patch_update_available">有可用的修補程式更新</string>
     <string name="home_app_info_patch_update_available_description">有較新版本的修補程式可用。重新修補您的應用程式以獲得最新的改進和修復</string>
+    <string name="home_app_info_app_update_available">有可用的應用程式更新</string>
+    <string name="home_app_info_app_update_available_description">修補程式來源支援此應用程式的較新版本。再次修補以移至該版本。</string>
+    <string name="home_app_info_newest_supported_version">最新支援的版本</string>
+    <string name="home_app_info_version_move">已安裝 %1$s，最新支援版本 %2$s</string>
     <string name="home_app_info_app_deleted_warning">應用程式已解除安裝</string>
     <string name="home_app_info_app_deleted_description">此應用程式已在 Morphe 外部被解除安裝。重新修補以還原功能</string>
     <string name="home_app_info_not_patched_description">已安裝此應用程式的未修補版本。Morphe 仍保留其先前的修補記錄。</string>
@@ -1221,6 +1227,8 @@ morphe_header_custom_dark.png
     <string name="hidden">已隱藏</string>
     <string name="unhide">取消隱藏</string>
     <string name="unhide_done">已顯示</string>
+    <string name="ignore">忽略</string>
+    <string name="stop_ignoring">停止忽略</string>
     <string name="logs">記錄</string>
     <string name="sources">來源</string>
     <string name="installing_ellipsis">安裝中……</string>

@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">أبجديًا، من A إلى Z</string>
     <string name="home_app_sort_name_desc_description">عكس أبجدي، من Z إلى A</string>
     <string name="home_app_sort_updates_first">تحديثات التعديل أولًا</string>
-    <string name="home_app_sort_updates_first_description">التطبيقات التي تحتوي على شارات التحديث أولًا، ثم الترتيب الموصى به</string>
+    <string name="home_app_sort_updates_first_description">التطبيقات ذات التعديلات الأحدث أولًا، ثم الترتيب الموصى به</string>
     <string name="home_app_sort_recently_patched">تم تعديلها مؤخرًا</string>
     <string name="home_app_sort_recently_patched_description">التطبيقات التي تم تعديلها مؤخرًا أولًا</string>
     <string name="home_no_apps_title">لا توجد تطبيقات متاحة</string>
@@ -124,7 +124,7 @@
     <string name="home_greeting_super_late_5">ليلي ومنتج</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">مصادر التعديل</string>
-    <string name="sources_search">بحث عن المصادر</string>
+    <string name="sources_search">ابحث في المصادر والترقيعات</string>
     <string name="sources_sort_title">فرز مصادر التعديل</string>
     <string name="sources_sort_manual">ترتيب يدوي</string>
     <string name="sources_sort_manual_hint">اضغط مطولًا على مصدر لإعادة الترتيب</string>
@@ -132,6 +132,7 @@
     <string name="sources_sort_last_updated_description">آخر تحديثات المصادر أولًا</string>
     <string name="sources_sort_enabled_first">المفعّلة أولًا</string>
     <string name="sources_sort_enabled_first_description">عرض المصادر النشطة قبل المصادر المعطلة</string>
+    <string name="sources_patches_source_disabled_hint">هذا المصدر معطل. تُدرج ترقيعاته كمرجع فقط ولا يتم تطبيقها.</string>
     <string name="sources_management_open_in_browser">فتح في المتصفح</string>
     <string name="sources_management_report_issue">الإبلاغ عن مشكلة</string>
     <string name="sources_management_failed_to_open_url">فشل في فتح الرابط</string>
@@ -197,6 +198,7 @@
     <string name="home_apk_availability_recommended_label">موصى به</string>
     <string name="home_apk_availability_unpatched_label">غير معدل</string>
     <string name="home_apk_availability_incompatible_label">غير متوافق</string>
+    <string name="home_apk_availability_installed_version">المثبَّت على هذا الجهاز: %s</string>
     <string name="home_apk_availability_yes">نعم، ساعدني في العثور على ملف APK</string>
     <string name="home_apk_availability_no">لا، لدي ملف APK بالفعل</string>
     <string name="home_apk_helper_download">استخدام تطبيق مساعد</string>
@@ -442,6 +444,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">تثبيت من متجر Play عبر Shizuku</string>
     <string name="home_app_info_patch_update_available">تحديث تعديل متاح</string>
     <string name="home_app_info_patch_update_available_description">إصدار أحدث من التعديلات متاح. اعد تعديل التطبيق للحصول على آخر التحسينات و الإصلاحات</string>
+    <string name="home_app_info_app_update_available">يتوفر تحديث للتطبيق</string>
+    <string name="home_app_info_app_update_available_description">مصادر التعديل تدعم إصدارًا أحدث من هذا التطبيق. قم بتعديله مرة أخرى للانتقال إلى هذا الإصدار</string>
+    <string name="home_app_info_newest_supported_version">أحدث إصدار مدعوم</string>
+    <string name="home_app_info_version_move">المثبَّت %1$s، أحدث إصدار مدعوم %2$s</string>
     <string name="home_app_info_app_deleted_warning">التطبيق غير مثبت</string>
     <string name="home_app_info_app_deleted_description">تم إلغاء تثبيت هذا التطبيق من خارج Morphe. اعد تعديله لاستعادة الوظائف</string>
     <string name="home_app_info_not_patched_description">تم تثبيت إصدار غير معدل من هذا التطبيق. لا يزال Morphe يحتفظ بسجل التعديل السابق</string>
@@ -1230,6 +1236,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="hidden">مخفي</string>
     <string name="unhide">إظهار</string>
     <string name="unhide_done">تمّ العرض</string>
+    <string name="ignore">تجاهل</string>
+    <string name="stop_ignoring">توقف عن التجاهل</string>
     <string name="logs">السجلات</string>
     <string name="sources">المصادر</string>
     <string name="installing_ellipsis">جارٍ التثبيت…</string>

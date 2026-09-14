@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Stafrófsröð, A til Ö</string>
     <string name="home_app_sort_name_desc_description">Omreverse alfabetískt, Z til A</string>
     <string name="home_app_sort_updates_first">Pætingar fyrst</string>
-    <string name="home_app_sort_updates_first_description">Forrit með uppfærslumerki fyrst, svo í mæltu lagi</string>
+    <string name="home_app_sort_updates_first_description">Forrit með nýrri plástrum fyrst, síðan ráðlögð röð</string>
     <string name="home_app_sort_recently_patched">Nýlega plástuð</string>
     <string name="home_app_sort_recently_patched_description">Nýlegast plástruð forrit fyrst</string>
     <string name="home_no_apps_title">Engin forrit í boði</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Næturhægur og afkastamikill</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Heimildir breytistillinga</string>
-    <string name="sources_search">Leita að uppruna</string>
     <string name="sources_sort_title">Flokka uppfærslujöfn</string>
     <string name="sources_sort_manual">Handvirkuð pöntun</string>
     <string name="sources_sort_manual_hint">Halðu lengi á uppspretta til að raða á ný</string>
@@ -197,6 +196,7 @@ Allt sem þú bætir við frá þessari vefsíðu er notað á eigin ábyrgð."<
     <string name="home_apk_availability_recommended_label">Mælt með</string>
     <string name="home_apk_availability_unpatched_label">Ekki pattað</string>
     <string name="home_apk_availability_incompatible_label">Ósamhæft</string>
+    <string name="home_apk_availability_installed_version">Uppsett á þessu tæki: %s</string>
     <string name="home_apk_availability_yes">Já, hjálpaðu mér að finna APK</string>
     <string name="home_apk_availability_no">Nei, ég á nú þegar APK</string>
     <string name="home_apk_helper_download">Notaðu hjálparforrit</string>
@@ -440,6 +440,10 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Store uppsetning</string>
     <string name="home_app_info_patch_update_available">Breytistilling er til staðar</string>
     <string name="home_app_info_patch_update_available_description">Nýrri útgáfa af patta er í boði. Endurpakkalaðu þitt app til að fá nýjustu endurbætur og lagfæringar</string>
+    <string name="home_app_info_app_update_available">Uppfærsla forrits tiltæk</string>
+    <string name="home_app_info_app_update_available_description">Plásturuppspretturnar styðja nýrri útgáfu af þessu forriti. Plásturaðu forritið aftur til að fara yfir í þá útgáfu.</string>
+    <string name="home_app_info_newest_supported_version">Nýjasta studda útgáfan</string>
+    <string name="home_app_info_version_move">Uppsett útgáfa: %1$s, nýjasta studda útgáfan: %2$s</string>
     <string name="home_app_info_app_deleted_warning">App var afhent</string>
     <string name="home_app_info_app_deleted_description">Þetta app var afhent utan Morphe. Endurpakkalaðu það til að endurheimta virkni</string>
     <string name="home_app_info_not_patched_description">Óplötuð útgáfa af þessu forriti er uppsett. Morphe hefur enn fyrri plástursskrá sína</string>
@@ -1216,6 +1220,8 @@ Nánari upplýsingar: %2$s"</string>
     <string name="hidden">Falinn</string>
     <string name="unhide">Afhylja</string>
     <string name="unhide_done">Sýnt</string>
+    <string name="ignore">Hunsa</string>
+    <string name="stop_ignoring">Hættu að hunsa</string>
     <string name="logs">Logs</string>
     <string name="sources">Heimildir</string>
     <string name="installing_ellipsis">Sæti…</string>

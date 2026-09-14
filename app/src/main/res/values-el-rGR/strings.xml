@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Αλφαβητικά, από το Α έως το Ω</string>
     <string name="home_app_sort_name_desc_description">Αλφαβητικά αντίστροφα, από Ζ έως Α</string>
     <string name="home_app_sort_updates_first">Ενημερώσεις διαχειριστή πρώτα</string>
-    <string name="home_app_sort_updates_first_description">Εφαρμογές με σήματα ενημέρωσης πρώτα, μετά με προτεινόμενη σειρά</string>
+    <string name="home_app_sort_updates_first_description">Εφαρμογές με νεότερες ενημερώσεις πρώτα, μετά προτεινόμενη σειρά</string>
     <string name="home_app_sort_recently_patched">Πρόσφατα επιδιορθωμένα</string>
     <string name="home_app_sort_recently_patched_description">Πρώτα οι πιο πρόσφατα επιδιορθωμένες εφαρμογές</string>
     <string name="home_no_apps_title">Καμία διαθέσιμη εφαρμογή</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Νυχτερινός και παραγωγικός</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Πηγές τροποποιήσεων</string>
-    <string name="sources_search">Αναζήτηση πηγών</string>
     <string name="sources_sort_title">Ταξινόμηση πηγών ενημερώσεων</string>
     <string name="sources_sort_manual">Χειροκίνητη ταξινόμηση</string>
     <string name="sources_sort_manual_hint">Πατήστε παρατεταμένα μια πηγή για να την αναδιατάξετε</string>
@@ -197,6 +196,7 @@
     <string name="home_apk_availability_recommended_label">Συνιστάται</string>
     <string name="home_apk_availability_unpatched_label">Μη τροποποιημένο</string>
     <string name="home_apk_availability_incompatible_label">Ασύμβατο</string>
+    <string name="home_apk_availability_installed_version">Εγκατεστημένο σε αυτή τη συσκευή: %s</string>
     <string name="home_apk_availability_yes">Ναι, βοήθησέ με να βρω ένα APK</string>
     <string name="home_apk_availability_no">Όχι, ήδη έχω ένα APK</string>
     <string name="home_apk_helper_download">Χρησιμοποιήστε μια βοηθητική εφαρμογή</string>
@@ -442,6 +442,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">Εγκατάσταση από το Play Store μέσω Shizuku</string>
     <string name="home_app_info_patch_update_available">Διαθέσιμη ενημέρωση τροποποιήσεων</string>
     <string name="home_app_info_patch_update_available_description">Μια καινούρια έκδοση τροποποιήσεων είναι διαθέσιμη. Τροποποιήσετε ξανά την εφαρμογή για να λάβετε τις τελευταίες βελτιώσεις και διορθώσεις</string>
+    <string name="home_app_info_app_update_available">Διαθέσιμη ενημέρωση εφαρμογής</string>
+    <string name="home_app_info_app_update_available_description">Οι πηγές patch υποστηρίζουν νεότερη έκδοση αυτής της εφαρμογής. Εφάρμόστε ξανά τo patch γιάνά νά μετβείτε σ\' αυτήν τήν έκδοση.</string>
+    <string name="home_app_info_newest_supported_version">Νεότερη υποστηριζόμενη</string>
+    <string name="home_app_info_version_move">Εγκάτεστημέν η %1$s, νεότερη υποστηριζόμενη %2$s</string>
     <string name="home_app_info_app_deleted_warning">Η εφαρμογή έχει απεγκατασταθεί</string>
     <string name="home_app_info_app_deleted_description">Η εφαρμογή αυτή απεγκαταστάθηκε εκτός του Morphe. Τροποποιήστε την ξανά για την επαναφορά λειτουργικότητά της</string>
     <string name="home_app_info_not_patched_description">Μια μη ενημερωμένη έκδοση αυτής της εφαρμογής είναι εγκατεστημένη. Το Morphe εξακολουθεί να έχει το προηγούμενο αρχείο επιδιορθώσεων.</string>
@@ -1225,6 +1229,8 @@ morphe_header_custom_dark.png
     <string name="hidden">Κρυφό</string>
     <string name="unhide">Εμφάνιση</string>
     <string name="unhide_done">Εμφανίστηκε</string>
+    <string name="ignore">Αγνόηση</string>
+    <string name="stop_ignoring">Σταματήστε να αγνοείτε</string>
     <string name="logs">Εγγραφές</string>
     <string name="sources">Πηγές</string>
     <string name="installing_ellipsis">Εγκατάσταση…</string>

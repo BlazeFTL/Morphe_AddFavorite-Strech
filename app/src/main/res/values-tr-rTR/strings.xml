@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetik, A\'dan Z\'ye</string>
     <string name="home_app_sort_name_desc_description">Ters alfabetik, Z\'den A\'ya</string>
     <string name="home_app_sort_updates_first">Önce yama güncellemeleri</string>
-    <string name="home_app_sort_updates_first_description">Önce güncelleme rozeti olan uygulamalar, ardından önerilen sıra</string>
+    <string name="home_app_sort_updates_first_description">Yamaları daha yeni olan uygulamalar önce, sonra önerilen sıra</string>
     <string name="home_app_sort_recently_patched">Son yamalanan</string>
     <string name="home_app_sort_recently_patched_description">En son yamalanan uygulamalar önce</string>
     <string name="home_no_apps_title">Uygulama bulunamadı</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Gececi ve üretken</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yama kaynakları</string>
-    <string name="sources_search">Kaynakları Ara</string>
     <string name="sources_sort_title">Yama kaynaklarını sırala</string>
     <string name="sources_sort_manual">Manuel sıra</string>
     <string name="sources_sort_manual_hint">Yeniden sıralamak için bir kaynağa uzun basın</string>
@@ -197,6 +196,7 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="home_apk_availability_recommended_label">Önerilen</string>
     <string name="home_apk_availability_unpatched_label">Yamalanmamış</string>
     <string name="home_apk_availability_incompatible_label">Uyumsuz</string>
+    <string name="home_apk_availability_installed_version">Bu cihazda yüklü: %s</string>
     <string name="home_apk_availability_yes">Evet, APK bulmama yardım et</string>
     <string name="home_apk_availability_no">Hayır, bende APK var</string>
     <string name="home_apk_helper_download">Bir yardımcı uygulama kullanın</string>
@@ -442,6 +442,10 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Store yükle</string>
     <string name="home_app_info_patch_update_available">Yama paketi güncellemesi mevcut</string>
     <string name="home_app_info_patch_update_available_description">Daha yeni sürüm yamalar mevcut. En son iyileştirmeleri ve düzeltmeleri almak için uygulamayı yeniden yamalayın</string>
+    <string name="home_app_info_app_update_available">Uygulama güncellemesi mevcut</string>
+    <string name="home_app_info_app_update_available_description">Yama kaynakları bu uygulamanın daha yeni bir sürümünü destekliyor. Bu sürüme geçmek için tekrar yama uygulayın</string>
+    <string name="home_app_info_newest_supported_version">Desteklenen en yeni sürüm</string>
+    <string name="home_app_info_version_move">Yüklü sürüm %1$s, desteklenen en yeni sürüm %2$s</string>
     <string name="home_app_info_app_deleted_warning">Uygulama kaldırıldı</string>
     <string name="home_app_info_app_deleted_description">Bu uygulama Morphe dışından kaldırıldı. İşlevselliği geri getirmek için yeniden yamalayın</string>
     <string name="home_app_info_not_patched_description">Bu uygulamanın yamalanmamış bir sürümü yüklü. Morphe hâlâ önceki yama kaydına sahiptir</string>
@@ -1222,6 +1226,8 @@ Ayrıntılar: %2$s"</string>
     <string name="hidden">Gizlendi</string>
     <string name="unhide">Gizliliği kaldır</string>
     <string name="unhide_done">Gösterildi</string>
+    <string name="ignore">Yoksay</string>
+    <string name="stop_ignoring">Yok saymayı bırak</string>
     <string name="logs">Günlükler</string>
     <string name="sources">Kaynaklar</string>
     <string name="installing_ellipsis">Yükleniyor…</string>

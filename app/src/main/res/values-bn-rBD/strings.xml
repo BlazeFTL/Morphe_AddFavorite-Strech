@@ -58,7 +58,7 @@
     <string name="home_app_sort_name_asc_description">বর্ণানুক্রমিকভাবে, A থেকে Z</string>
     <string name="home_app_sort_name_desc_description">বিপরীত বর্ণানুক্রমিক, Z থেকে A</string>
     <string name="home_app_sort_updates_first">প্রথমে প্যাচ আপডেট</string>
-    <string name="home_app_sort_updates_first_description">আপডেট ব্যাজ সহ অ্যাপ্লিকেশনগুলি প্রথমে, তারপর প্রস্তাবিত ক্রম</string>
+    <string name="home_app_sort_updates_first_description">যে অ্যাপগুলিতে নতুন প্যাচ আছে সেগুলি আগে, তারপর প্রস্তাবিত ক্রম</string>
     <string name="home_app_sort_recently_patched">সম্প্রতি প্যাচ করা</string>
     <string name="home_app_sort_recently_patched_description">সবচেয়ে সম্প্রতি প্যাচ করা অ্যাপগুলো প্রথমে</string>
     <string name="home_no_apps_title">কোনো অ্যাপস পাওয়া যায়নি</string>
@@ -123,7 +123,6 @@
     <string name="home_greeting_super_late_5">রাতও জাগছেন, আবার কাজের কাজও করে ফেলছেন</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">প্যাচ সোর্সগুলো</string>
-    <string name="sources_search">সোর্স খুঁজুন</string>
     <string name="sources_sort_title">প্যাচ সোর্স সাজান</string>
     <string name="sources_sort_manual">ম্যানুয়াল অর্ডার</string>
     <string name="sources_sort_manual_hint">পুনরায় সাজানোর জন্য একটি উৎসের উপর দীর্ঘক্ষণ চাপুন</string>
@@ -196,6 +195,7 @@
     <string name="home_apk_availability_recommended_label">প্রশংসিত</string>
     <string name="home_apk_availability_unpatched_label">অনুশিষ্টিত</string>
     <string name="home_apk_availability_incompatible_label">অসঙ্গতিপূর্ণ</string>
+    <string name="home_apk_availability_installed_version">এই ডিভাইসে ইনস্টল করা হয়েছে: %s</string>
     <string name="home_apk_availability_yes">হ্যাঁ, আমাকে একটি APK খুঁজতে সাহায্য করুন</string>
     <string name="home_apk_availability_no">না, আমি ইতিমধ্যে একটি APK পেয়েছি</string>
     <string name="home_apk_helper_download">একটি সহায়ক অ্যাপ ব্যবহার করুন</string>
@@ -441,6 +441,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">শিজুউকু প্লে স্টোর ইনস্টল করুন</string>
     <string name="home_app_info_patch_update_available">প্যাচ আপডেট উপলব্ধ আছে</string>
     <string name="home_app_info_patch_update_available_description">প্যাচের নতুন ভার্সন উপলব্ধ। আপনার অ্যাপকে পুনরায় প্যাচ করুন সর্বশেষ উন্নতির জন্য</string>
+    <string name="home_app_info_app_update_available">অ্যাপ আপডেট উপলব্ধ</string>
+    <string name="home_app_info_app_update_available_description">প্যাচ সোর্সসগুলো এই অ্যাপের একটি নতুন ভার্শন সমর্থন করে। সেই ভার্শনে যেতে আবার প্যাচ করুন।</string>
+    <string name="home_app_info_newest_supported_version">নতুনতম সমর্থিত</string>
+    <string name="home_app_info_version_move">ইনস্টল করা %1$s, নতুনতম সমর্থিত %2$s</string>
     <string name="home_app_info_app_deleted_warning">অ্যাপটি বের করা হয়েছে</string>
     <string name="home_app_info_app_deleted_description">এই অ্যাপটি মরফে বাইরে বের করা হয়েছে। ফাংশনালিটি পুনরুদ্ধার করতে পুনরায় প্যাচ করুন</string>
     <string name="home_app_info_not_patched_description">এই অ্যাপের একটি অপ্যাচড সংস্করণ ইনস্টল করা আছে। Morphe এখনও তার পূর্ববর্তী প্যাচ রেকর্ড ধারণ করে।</string>
@@ -1214,6 +1218,8 @@ morphe_adaptive_monochrome_custom.xml
     <string name="hidden">লুকানো</string>
     <string name="unhide">আনলুকানো</string>
     <string name="unhide_done">দেখানো হচ্ছে</string>
+    <string name="ignore">উপেক্ষা করুন</string>
+    <string name="stop_ignoring">উপেক্ষা বন্ধ করুন</string>
     <string name="logs">লগসমূহ</string>
     <string name="sources">\"সোর্স\"</string>
     <string name="installing_ellipsis">ইনস্টল হচ্ছে…</string>

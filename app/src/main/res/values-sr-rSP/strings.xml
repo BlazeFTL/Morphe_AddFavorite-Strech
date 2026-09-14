@@ -58,7 +58,7 @@
     <string name="home_app_sort_name_asc_description">Абецедно, од А до Ш</string>
     <string name="home_app_sort_name_desc_description">Упадна абецеда, од З до А</string>
     <string name="home_app_sort_updates_first">Прво ажурирања закрпа</string>
-    <string name="home_app_sort_updates_first_description">Апликације са ознакама за ажурирање прво, затим препоручени редослед</string>
+    <string name="home_app_sort_updates_first_description">Апликације са новијим закрпама прво, затим препоручени редослед</string>
     <string name="home_app_sort_recently_patched">Недавно закрпљене</string>
     <string name="home_app_sort_recently_patched_description">Најновије закрпљене апликације прво</string>
     <string name="home_no_apps_title">Нисe доступни апликације</string>
@@ -123,7 +123,6 @@
     <string name="home_greeting_super_late_5">Ноћни и продуктивни</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Извор печовања</string>
-    <string name="sources_search">Претражите изворе</string>
     <string name="sources_sort_title">Сортирај изворе закрпа</string>
     <string name="sources_sort_manual">Ручно поређање</string>
     <string name="sources_sort_manual_hint">Притисните и задржите извор да бисте променили редослед</string>
@@ -196,6 +195,7 @@
     <string name="home_apk_availability_recommended_label">Preporučeno</string>
     <string name="home_apk_availability_unpatched_label">Необрађен</string>
     <string name="home_apk_availability_incompatible_label">Некомпатибилан</string>
+    <string name="home_apk_availability_installed_version">Инсталирано на овом уређају: %s</string>
     <string name="home_apk_availability_yes">Да, помози ми да нађем АПК</string>
     <string name="home_apk_availability_no">Ne, već imam APK</string>
     <string name="home_apk_helper_download">Користи помоћну апликацију</string>
@@ -441,6 +441,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">Инсталирај из Play Store-а преко Shizuku-а</string>
     <string name="home_app_info_patch_update_available">Доступно ажурирање патчева</string>
     <string name="home_app_info_patch_update_available_description">Доступна је нова верзија патчева. Репатујте своју апликацију да добијете најновије побољшања и исправке</string>
+    <string name="home_app_info_app_update_available">Доступно ажурирање апликације</string>
+    <string name="home_app_info_app_update_available_description">Извори закрпа подржавају новију верзију ове апликације. Поново закрпите апликацију да бисте прешли на ту верзију</string>
+    <string name="home_app_info_newest_supported_version">Најновија подржана</string>
+    <string name="home_app_info_version_move">Инсталирана %1$s, најновија подржана %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Инсталирана је незакрпљена верзија ове апликације. Morphe и даље има свој претходни запис о закрпама</string>
@@ -1223,6 +1227,8 @@ morphe_header_custom_dark.png
     <string name="hidden">Сакривено</string>
     <string name="unhide">Покажи</string>
     <string name="unhide_done">Приказано</string>
+    <string name="ignore">Игноришите</string>
+    <string name="stop_ignoring">Престани да игноришеш</string>
     <string name="logs">Дневници</string>
     <string name="sources">Извори</string>
     <string name="installing_ellipsis">Инсталирање…</string>

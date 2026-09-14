@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Əlifbaya uyğun, A-dan Z-yə</string>
     <string name="home_app_sort_name_desc_description">Əlifbanın əksinə uyğun, Z-dən A-ya</string>
     <string name="home_app_sort_updates_first">Əvvəlcə yamaq yeniləmələri olan</string>
-    <string name="home_app_sort_updates_first_description">Əvvəlcə yeniləmə nişanları, sonra tövsiyə olunan düzülüşü olan tətbiqlər</string>
+    <string name="home_app_sort_updates_first_description">Əvvəlcə daha yeni yamaqlar, sonra tövsiyə olunan düzülüşü olan tətbiqlər</string>
     <string name="home_app_sort_recently_patched">Təzəlikcə yamaqlandı</string>
     <string name="home_app_sort_recently_patched_description">Əvvəlcə təzəlikcə yamaqlanmış tətbiqlər</string>
     <string name="home_no_apps_title">Mövcud tətbiq yoxdur</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Gecəcil və səmərəli</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yamaq mənbələri</string>
-    <string name="sources_search">Mənbələri axtar</string>
     <string name="sources_sort_title">Yamaq mənbələrini sırala</string>
     <string name="sources_sort_manual">Əl ilə sıralama</string>
     <string name="sources_sort_manual_hint">Təkrar sıralamaq üçün mənbəyə uzun bas</string>
@@ -197,6 +196,7 @@ Bu veb saytdan əlavə etdiyiniz hər şey öz riskinizlə istifadə olunur"</st
     <string name="home_apk_availability_recommended_label">Tövsiyə olunan</string>
     <string name="home_apk_availability_unpatched_label">Yamaqlanmayan</string>
     <string name="home_apk_availability_incompatible_label">Uyuşmaz</string>
+    <string name="home_apk_availability_installed_version">Bu cihazda quraşdırılıb: %s</string>
     <string name="home_apk_availability_yes">Bəli, APK tapmağa mənə kömək et</string>
     <string name="home_apk_availability_no">Xeyr, Mənim artıq APK-m var</string>
     <string name="home_apk_helper_download">Köməkçi tətbiq istifadə et</string>
@@ -442,6 +442,10 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku, Play Store quraşdırması</string>
     <string name="home_app_info_patch_update_available">Yamaq yenilənməsi var</string>
     <string name="home_app_info_patch_update_available_description">Yamaqların daha yeni versiyası var. Ən son təkmilləşdirmələr və düzəlişlər üçün tətbiqinizi təkrar yamaqlayın</string>
+    <string name="home_app_info_app_update_available">Tətbiq yeniləməsi var</string>
+    <string name="home_app_info_app_update_available_description">Yamaq mənbələri bu tətbiqin daha yeni versiyasını dəstəkləyir. Həmin versiyaya keçmək üçün onu təkrar yamaqla</string>
+    <string name="home_app_info_newest_supported_version">Ən yeni dəstəklənən</string>
+    <string name="home_app_info_version_move">%1$s quraşdırılıb, ən yeni dəstəklənən %2$s</string>
     <string name="home_app_info_app_deleted_warning">Tətbiq quraşdırması silindi</string>
     <string name="home_app_info_app_deleted_description">Bu tətbiq Morphe xarici silindi. Funksionallığı qaytarmaq üçün onu təkrar quraşdır</string>
     <string name="home_app_info_not_patched_description">Bu tətbiqin yamaqlanmamış versiyası quraşdırılıb. Morphe-də hələ də əvvəlki yamaq qeydi qalır</string>
@@ -1221,6 +1225,8 @@ Təfərrüatlar: %2$s"</string>
     <string name="hidden">Gizlədildi</string>
     <string name="unhide">Göstər</string>
     <string name="unhide_done">Göründü</string>
+    <string name="ignore">Məhəl qoyma</string>
+    <string name="stop_ignoring">Məhəl qoymamağı dayandır</string>
     <string name="logs">Jurnallar</string>
     <string name="sources">Mənbələr</string>
     <string name="installing_ellipsis">Quraşdırılır…</string>

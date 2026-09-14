@@ -54,7 +54,6 @@
     <string name="home_app_sort_name_asc_description">Alfabetî, A heta Z</string>
     <string name="home_app_sort_name_desc_description">Alfabetîkî bi paşve, Z heta A</string>
     <string name="home_app_sort_updates_first">Pêşîn nûvekirinên patchê</string>
-    <string name="home_app_sort_updates_first_description">Serlêdanên bi nîşanên nûvekirinê pêşîn, paşê rêza pêşnîgar kirî</string>
     <string name="home_app_sort_recently_patched">Nû patchkirî</string>
     <string name="home_app_sort_recently_patched_description">Sepanên herî nû patchkirî pêşî</string>
     <string name="home_no_apps_title">Bername nîn in.</string>
@@ -119,7 +118,6 @@
     <string name="home_greeting_super_late_5">Şevparêz û berdêl</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Kanalan saz bike</string>
-    <string name="sources_search">Li çavkaniyan bigere</string>
     <string name="sources_sort_title">Sort kirina çavkaniyên patchê</string>
     <string name="sources_sort_manual">Fermanê destî</string>
     <string name="sources_sort_manual_hint">Çavdêriyeke dirêj li ser çavkaniyê bike da ku rêzê guhezîne</string>

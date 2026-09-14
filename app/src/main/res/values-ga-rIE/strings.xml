@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">In ord aibítre, A go Z</string>
     <string name="home_app_sort_name_desc_description">Droim ar ais aibítreach, Z go A</string>
     <string name="home_app_sort_updates_first">Nuashonruithe paiste ar dtús</string>
-    <string name="home_app_sort_updates_first_description">Aipeanna le suaitheantais nuashonraithe ar dtús, ansin ord molta</string>
+    <string name="home_app_sort_updates_first_description">Aipeanna a bhfuil paistí níos nuaí acu ar dtús, ansin an t-ord molta</string>
     <string name="home_app_sort_recently_patched">Paisteáilte le déanaí</string>
     <string name="home_app_sort_recently_patched_description">Aipeanna is déanaí a paisteáladh ar dtús</string>
     <string name="home_no_apps_title">Níl aon aipeanna ar fáil</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Oícheanta agus táirgiúil</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Foinsí paiste</string>
-    <string name="sources_search">Foinsí cuardaigh</string>
     <string name="sources_sort_title">Sórtáil foinsí paiste</string>
     <string name="sources_sort_manual">Ordú láimhe</string>
     <string name="sources_sort_manual_hint">Brúigh suas le foinse le hathordú</string>
@@ -197,6 +196,7 @@
     <string name="home_apk_availability_recommended_label">Molta</string>
     <string name="home_apk_availability_unpatched_label">Díphaisteáilte</string>
     <string name="home_apk_availability_incompatible_label">Neamh-chomhoiriúnach</string>
+    <string name="home_apk_availability_installed_version">Suiteáilte ar an ngléas seo: %s</string>
     <string name="home_apk_availability_yes">Sea, cabhraigh liom APK a aimsiú</string>
     <string name="home_apk_availability_no">Níl, tá APK agam cheana féin</string>
     <string name="home_apk_helper_download">Bain úsáid as aip chúnta</string>
@@ -442,6 +442,10 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_install_type_shizuku_play_store">Suiteáil ón Play Store le Shizuku</string>
     <string name="home_app_info_patch_update_available">Nuashonrú paiste ar fáil</string>
     <string name="home_app_info_patch_update_available_description">Tá leagan níos nuaí de na paistí ar fáil. Déan paiste nua ar d\'aip chun na feabhsuithe agus na socruithe is déanaí a fháil.</string>
+    <string name="home_app_info_app_update_available">Tá nuashonrú ar fáil don aip.</string>
+    <string name="home_app_info_app_update_available_description">Tacaíonn na foinsí paiste le leagan níos nua den aip seo. Cuir paiste air arís chun bogadh go dtí an leagan sin.</string>
+    <string name="home_app_info_newest_supported_version">An leagan is nuaí a dtacaítear leis</string>
+    <string name="home_app_info_version_move">Suiteáilte %1$s, an leagan is nuaí a dtacaítear leis %2$s</string>
     <string name="home_app_info_app_deleted_warning">Díshuiteáladh an aip</string>
     <string name="home_app_info_app_deleted_description">Díshuiteáladh an aip seo lasmuigh de Morphe. Athphaisteáil í chun feidhmiúlacht a athbhunú.</string>
     <string name="home_app_info_not_patched_description">Tá leagan neamhphaiste den aip seo suiteáilte. Tá taifead paiste roimhe seo Morphe fós.</string>
@@ -1222,6 +1226,8 @@ Sonraí: %2$s"</string>
     <string name="hidden">I bhfolach</string>
     <string name="unhide">Nochtadh</string>
     <string name="unhide_done">Taispeánta</string>
+    <string name="ignore">Déan neamhaird</string>
+    <string name="stop_ignoring">Éirigh as neamhaird a dhéanamh</string>
     <string name="logs">Logaí</string>
     <string name="sources">Foinsí</string>
     <string name="installing_ellipsis">Ag suiteáil…</string>

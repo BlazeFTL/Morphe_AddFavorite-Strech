@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetic, de la A la Z</string>
     <string name="home_app_sort_name_desc_description">În ordine alfabetică inversă, de la Z la A</string>
     <string name="home_app_sort_updates_first">Actualizări de patch-uri mai întâi</string>
-    <string name="home_app_sort_updates_first_description">Aplicațiile cu badge-uri de actualizare mai întâi, apoi în ordinea recomandată</string>
+    <string name="home_app_sort_updates_first_description">Aplicații cu patch-uri mai noi primele, apoi ordinea recomandată</string>
     <string name="home_app_sort_recently_patched">Patch-uite recent</string>
     <string name="home_app_sort_recently_patched_description">Aplicațiile patch-uite cel mai recent, primele</string>
     <string name="home_no_apps_title">Nicio aplicație disponibilă</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nocturn și productiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Surse de patch-uri</string>
-    <string name="sources_search">Căutare surse</string>
     <string name="sources_sort_title">Sortare surse de patch-uri</string>
     <string name="sources_sort_manual">Comandă manuală</string>
     <string name="sources_sort_manual_hint">Țineți apăsat pe o sursă pentru a reordona</string>
@@ -197,6 +196,7 @@ Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <string name="home_apk_availability_recommended_label">Recomandat</string>
     <string name="home_apk_availability_unpatched_label">Nepatch-uit</string>
     <string name="home_apk_availability_incompatible_label">Incompatibil</string>
+    <string name="home_apk_availability_installed_version">Instalat pe acest dispozitiv: %s</string>
     <string name="home_apk_availability_yes">Da, ajută-mă să găsesc un APK</string>
     <string name="home_apk_availability_no">Nu, am deja un APK</string>
     <string name="home_apk_helper_download">Utilizați o aplicație de asistență</string>
@@ -442,6 +442,10 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_install_type_shizuku_play_store">Instalare Play Store prin Shizuku</string>
     <string name="home_app_info_patch_update_available">Actualizare patach disponibilă</string>
     <string name="home_app_info_patch_update_available_description">O versiune mai nouă a modificărilor este disponibilă. Repătați aplicația pentru a obține ultimele îmbunătățiri și corectări</string>
+    <string name="home_app_info_app_update_available">Actualizare aplicație disponibilă</string>
+    <string name="home_app_info_app_update_available_description">Sursele de patch-uri suportă o versiune mai nouă a acestei aplicații. Aplică patch-ul din nou pentru a trece la acea versiune.</string>
+    <string name="home_app_info_newest_supported_version">Cea mai nouă versiune suportată</string>
+    <string name="home_app_info_version_move">Instalat: %1$s, cea mai nouă versiune suportată: %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplicația a fost dezinstalată</string>
     <string name="home_app_info_app_deleted_description">Această aplicație a fost dezinstalată în afara Morphe. Aplica-o din nou pentru a restabili funcționalitatea</string>
     <string name="home_app_info_not_patched_description">O versiune necorectată a acestei aplicații este instalată. Morphe încă are înregistrarea anterioară a corecțiilor sale.</string>
@@ -1221,6 +1225,8 @@ Detalii: %2$s"</string>
     <string name="hidden">Ascuns</string>
     <string name="unhide">Dezascunde</string>
     <string name="unhide_done">Afișat</string>
+    <string name="ignore">Ignoră</string>
+    <string name="stop_ignoring">Nu mai ignora</string>
     <string name="logs">Jurnale</string>
     <string name="sources">Surse</string>
     <string name="installing_ellipsis">Se instalează…</string>

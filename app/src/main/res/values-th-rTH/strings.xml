@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">ตามลำดับตัวอักษร A ถึง Z</string>
     <string name="home_app_sort_name_desc_description">เรียงตามลำดับตัวอักษรย้อนกลับ Z ถึง A</string>
     <string name="home_app_sort_updates_first">อัปเดตแพตช์ก่อน</string>
-    <string name="home_app_sort_updates_first_description">แอปที่มีแบตจ์อัปเดตก่อน จากนั้นตามลำดับที่แนะนำ</string>
+    <string name="home_app_sort_updates_first_description">แอปที่มีแพตช์ใหม่กว่าก่อน จากนั้นเรียงตามลำดับที่แนะนำ</string>
     <string name="home_app_sort_recently_patched">เพิ่งแพตช์ล่าสุด</string>
     <string name="home_app_sort_recently_patched_description">แอปที่เพิ่งแพตช์ล่าสุดแสดงก่อน</string>
     <string name="home_no_apps_title">ไม่มีแอปที่ใช้ได้</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">ตื่นตอนกลางคืนและยังทำงานได้</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">จัดการแหล่งที่มา</string>
-    <string name="sources_search">ค้นหาแหล่งที่มา</string>
     <string name="sources_sort_title">เรียงลำดับแหล่งที่มาของแพตช์</string>
     <string name="sources_sort_manual">จัดเรียงด้วยตนเอง</string>
     <string name="sources_sort_manual_hint">แตะค้างที่แหล่งข้อมูลเพื่อจัดเรียงใหม่</string>
@@ -197,6 +196,7 @@
     <string name="home_apk_availability_recommended_label">แนะนำ</string>
     <string name="home_apk_availability_unpatched_label">ไม่ได้แพตช์</string>
     <string name="home_apk_availability_incompatible_label">ไม่รองรับ</string>
+    <string name="home_apk_availability_installed_version">ติดตั้งบนอุปกรณ์นี้แล้ว: %s</string>
     <string name="home_apk_availability_yes">ใช่, ช่วยฉันค้นหา APK</string>
     <string name="home_apk_availability_no">ไม่, ฉันมี APK แล้ว</string>
     <string name="home_apk_helper_download">ใช้แอปตัวช่วย</string>
@@ -442,6 +442,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">ติดตั้งจาก Play Store ด้วย Shizuku</string>
     <string name="home_app_info_patch_update_available">มีอัพเดทแพตช์ใหม่ให้ใช้งานแล้ว</string>
     <string name="home_app_info_patch_update_available_description">มีแพตช์เวอร์ชันใหม่พร้อมใช้งานแล้ว ให้แพตช์อีกครั้งเพื่อรับการปรับปรุงและการแก้ไขสำหรับเวอร์ชันล่าสุด</string>
+    <string name="home_app_info_app_update_available">มีอัปเดตแอป</string>
+    <string name="home_app_info_app_update_available_description">แหล่งแพตช์รองรับแอปเวอร์ชันที่ใหม่กว่า แพตช์อีกครั้งเพื่อย้ายไปยังเวอร์ชันนั้น</string>
+    <string name="home_app_info_newest_supported_version">เวอร์ชันใหม่ล่าสุดที่รองรับ</string>
+    <string name="home_app_info_version_move">ติดตั้ง %1$s แล้ว เวอร์ชันใหม่ล่าสุดที่รองรับคือ %2$s</string>
     <string name="home_app_info_app_deleted_warning">แอปถูกถอนการติดตั้ง</string>
     <string name="home_app_info_app_deleted_description">แอปนี้ถูกลบออกนอก Morphe. แพตช์อีกครั้งเพื่อฟื้นฟูฟังก์ชัน</string>
     <string name="home_app_info_not_patched_description">แอปเวอร์ชันที่ไม่ได้รับการแพตช์ถูกติดตั้งไว้ Morphe ยังคงมีบันทึกแพตช์ก่อนหน้า</string>
@@ -1220,6 +1224,8 @@ morphe_header_custom_dark.png
     <string name="hidden">ซ่อนแล้ว</string>
     <string name="unhide">แสดง</string>
     <string name="unhide_done">แสดงแล้ว</string>
+    <string name="ignore">ไม่สนใจ</string>
+    <string name="stop_ignoring">หยุดเพิกเฉย</string>
     <string name="logs">บันทึก</string>
     <string name="sources">แหล่งที่มา</string>
     <string name="installing_ellipsis">กำลังติดตั้ง…</string>

@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Aakkosjärjestyksessä, A–Z</string>
     <string name="home_app_sort_name_desc_description">Aakkosjärjestys käänteinen, Z:sta A:han</string>
     <string name="home_app_sort_updates_first">Asennuspaikat ensin</string>
-    <string name="home_app_sort_updates_first_description">Sovellukset, joilla on päivitysmerkintä, ensin, sitten suositellussa järjestyksessä</string>
+    <string name="home_app_sort_updates_first_description">Ensin sovellukset, joissa on uudempia korjauksia, sitten suositeltu järjestys</string>
     <string name="home_app_sort_recently_patched">Viimeksi patchatut</string>
     <string name="home_app_sort_recently_patched_description">Viimeksi patchatut sovellukset ensin</string>
     <string name="home_no_apps_title">Ei sovelluksia saatavilla</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Yökyykkymäinen ja tuottelias</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Lisäosien lähteet</string>
-    <string name="sources_search">Etsi lähteitä</string>
     <string name="sources_sort_title">Lajittele lisäosien lähteet</string>
     <string name="sources_sort_manual">Manuaalinen järjestys</string>
     <string name="sources_sort_manual_hint">Paina ja pidä lähdettä uudelleenjärjestämistä varten</string>
@@ -197,6 +196,7 @@ Kaikki mitä lisäät tältä verkkosivustolta, on oma riskisi."</string>
     <string name="home_apk_availability_recommended_label">Suositeltu</string>
     <string name="home_apk_availability_unpatched_label">Muokkaamaton</string>
     <string name="home_apk_availability_incompatible_label">Yhteensopimaton</string>
+    <string name="home_apk_availability_installed_version">Asennettu tähän laitteeseen: %s</string>
     <string name="home_apk_availability_yes">Kyllä, auta minua löytämään APK</string>
     <string name="home_apk_availability_no">Ei, minulla on jo APK</string>
     <string name="home_apk_helper_download">Käytä apuohjelmaa</string>
@@ -443,6 +443,10 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Kaupan asennus</string>
     <string name="home_app_info_patch_update_available">Lisäosien päivitys saatavilla</string>
     <string name="home_app_info_patch_update_available_description">Uudempi lisäosien versio on saatavilla. Muokkaa sovellusta uudestaan saadaksesi uusimmat parannukset ja korjaukset</string>
+    <string name="home_app_info_app_update_available">Sovelluspäivitys saatavilla</string>
+    <string name="home_app_info_app_update_available_description">Patch-lähteet tukevat tämän sovelluksen uudempaa versiota. Paikkaa se uudelleen siirtyäksesi siihen versioon.</string>
+    <string name="home_app_info_newest_supported_version">Uusin tuettu</string>
+    <string name="home_app_info_version_move">Asennettu %1$s, uusin tuettu %2$s</string>
     <string name="home_app_info_app_deleted_warning">Sovellus poistettiin</string>
     <string name="home_app_info_app_deleted_description">Tämä sovellus poistettiin Morphen ulkopuolelta. Muokkaa sitä uudelleen palauttaaksesi toiminnot</string>
     <string name="home_app_info_not_patched_description">Tästä sovelluksesta on asennettu korjaamaton versio. Morphella on edelleen aiempi korjaustietue.</string>
@@ -1223,6 +1227,8 @@ Yksityiskohdat: %2$s"</string>
     <string name="hidden">Piilotettu</string>
     <string name="unhide">Näytä</string>
     <string name="unhide_done">Näytetään</string>
+    <string name="ignore">Ohita</string>
+    <string name="stop_ignoring">Lopeta huomiotta jättäminen</string>
     <string name="logs">Lokit</string>
     <string name="sources">Lähteet</string>
     <string name="installing_ellipsis">Asennetaan…</string>

@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">アルファベット順（A→Z）</string>
     <string name="home_app_sort_name_desc_description">アルファベット順（Z→A）</string>
     <string name="home_app_sort_updates_first">パッチ更新を優先</string>
-    <string name="home_app_sort_updates_first_description">更新バッジのあるアプリを優先し、次に推奨順序で表示</string>
+    <string name="home_app_sort_updates_first_description">新しいパッチのアプリを最初に、その後は推奨順</string>
     <string name="home_app_sort_recently_patched">最近パッチされた</string>
     <string name="home_app_sort_recently_patched_description">最近パッチされたアプリを先に表示</string>
     <string name="home_no_apps_title">利用可能なアプリはありません</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">夜行性で生産的</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">パッチソース</string>
-    <string name="sources_search">ソースを検索</string>
     <string name="sources_sort_title">パッチソースを並べ替え</string>
     <string name="sources_sort_manual">手動の並び替え</string>
     <string name="sources_sort_manual_hint">ソースを長押しして並び替えます</string>
@@ -197,6 +196,7 @@
     <string name="home_apk_availability_recommended_label">おすすめ</string>
     <string name="home_apk_availability_unpatched_label">未パッチ</string>
     <string name="home_apk_availability_incompatible_label">非対応</string>
+    <string name="home_apk_availability_installed_version">この端末にインストール済み: %s</string>
     <string name="home_apk_availability_yes">はい、 APK を探すのを手伝ってください</string>
     <string name="home_apk_availability_no">いいえ、既に APK を持っています</string>
     <string name="home_apk_helper_download">ヘルパーアプリを使用する</string>
@@ -442,6 +442,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku を使用して Play ストア経由としてインストール</string>
     <string name="home_app_info_patch_update_available">パッチの更新が利用可能です</string>
     <string name="home_app_info_patch_update_available_description">新しいバージョンのパッチが利用可能です。最新の変更を反映するには、アプリを再パッチしてください</string>
+    <string name="home_app_info_app_update_available">アプリのアップデートが利用可能です</string>
+    <string name="home_app_info_app_update_available_description">パッチのソースは、このアプリの新しいバージョンをサポートしています。そのバージョンへ移行するには、もう一度パッチを適用してください。</string>
+    <string name="home_app_info_newest_supported_version">サポートされている最新版</string>
+    <string name="home_app_info_version_move">インストール済みバージョン %1$s、サポートされている最新版 %2$s</string>
     <string name="home_app_info_app_deleted_warning">アプリがアンインストールされました</string>
     <string name="home_app_info_app_deleted_description">Morphe 外でアプリがアンインストールされました。機能を復元するには、再パッチしてください</string>
     <string name="home_app_info_not_patched_description">このアプリにはパッチが適用されていないバージョンがインストールされています。Morphe は以前のパッチ履歴を保持しています</string>
@@ -1217,6 +1221,8 @@ morphe_header_custom_dark.png
     <string name="hidden">非表示</string>
     <string name="unhide">再表示</string>
     <string name="unhide_done">表示</string>
+    <string name="ignore">無視</string>
+    <string name="stop_ignoring">無視をやめる</string>
     <string name="logs">ログ</string>
     <string name="sources">ソース</string>
     <string name="installing_ellipsis">インストール中…</string>

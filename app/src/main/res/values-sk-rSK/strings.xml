@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Abecedne, od A po Z</string>
     <string name="home_app_sort_name_desc_description">Abecedne zotriedené, od Z po A</string>
     <string name="home_app_sort_updates_first">Najprv opravy</string>
-    <string name="home_app_sort_updates_first_description">Aplikácie so zobrazenými aktualizáciami najprv, potom v odporúčanej poradí</string>
+    <string name="home_app_sort_updates_first_description">Aplikácie s novšími opravami najskôr, potom odporúčané poradie</string>
     <string name="home_app_sort_recently_patched">Nedávno opravené</string>
     <string name="home_app_sort_recently_patched_description">Najnovšie opravené aplikácie ako prvé</string>
     <string name="home_no_apps_title">Nedostupné žiadne aplikácie</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nočný a produktívny</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Zdroje záplat</string>
-    <string name="sources_search">Vyhľadávať zdroje</string>
     <string name="sources_sort_title">Zoradiť zdroje záplat</string>
     <string name="sources_sort_manual">Manuálne zoradenie</string>
     <string name="sources_sort_manual_hint">Dlhým stlačením položky zdroja ju môžete presunúť</string>
@@ -197,6 +196,7 @@
     <string name="home_apk_availability_recommended_label">Odporúčané</string>
     <string name="home_apk_availability_unpatched_label">Nezaplátané</string>
     <string name="home_apk_availability_incompatible_label">Nekompatibilné</string>
+    <string name="home_apk_availability_installed_version">Nainštalované v tomto zariadení: %s</string>
     <string name="home_apk_availability_yes">Áno, pomôžte mi nájsť APK súbor</string>
     <string name="home_apk_availability_no">Nie, už mám APK súbor</string>
     <string name="home_apk_helper_download">Použiť pomocnú aplikáciu</string>
@@ -442,6 +442,10 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="home_app_info_install_type_shizuku_play_store">Inštalácia cez Shizuku Play Store</string>
     <string name="home_app_info_patch_update_available">Je dostupná aktualizácia záplaty</string>
     <string name="home_app_info_patch_update_available_description">Je dostupná novšia verzia záplat. Znovu zaplátajte aplikácie aby ste získali najnovšie vylepšenia a opravy.</string>
+    <string name="home_app_info_app_update_available">Aktualizácia aplikácie je dostupná</string>
+    <string name="home_app_info_app_update_available_description">Zdroje záplat podporujú novejšiu verziu tejto aplikácie. Znovu ju záplatujte, aby ste prešli na túto verziu.</string>
+    <string name="home_app_info_newest_supported_version">Najnovšia podporovaná</string>
+    <string name="home_app_info_version_move">Nainštalovaná %1$s, najnovšia podporovaná %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplikácia bola odinštalovaná</string>
     <string name="home_app_info_app_deleted_description">Táto aplikácia bola odinštalovaná mimo Morphe. Znovu ju zaplátajte aby ste obnovili jej funkčnosť</string>
     <string name="home_app_info_not_patched_description">Nainštalovaná je nezapatchovaná verzia tejto aplikácie. Morphe má stále svoj predchádzajúci záznam o oprave</string>
@@ -1220,6 +1224,8 @@ Podrobnosti: %2$s"</string>
     <string name="hidden">Skrytý</string>
     <string name="unhide">Zobraziť</string>
     <string name="unhide_done">Zobrazené</string>
+    <string name="ignore">Ignorovať</string>
+    <string name="stop_ignoring">Prestať ignorovať</string>
     <string name="logs">Záznamy</string>
     <string name="sources">Zdroje</string>
     <string name="installing_ellipsis">Inštaluje sa…</string>

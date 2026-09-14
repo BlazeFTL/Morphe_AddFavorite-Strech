@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Алфавітний порядок, від А до Я</string>
     <string name="home_app_sort_name_desc_description">Зворотний алфавітний порядок, від Я до А</string>
     <string name="home_app_sort_updates_first">Спочатку оновлення патчів</string>
-    <string name="home_app_sort_updates_first_description">Спочатку застосунки з позначками оновлень, потім рекомендований порядок</string>
+    <string name="home_app_sort_updates_first_description">Спочатку застосунки з новішими патчами, потім рекомендований порядок</string>
     <string name="home_app_sort_recently_patched">Нещодавно пропатчено</string>
     <string name="home_app_sort_recently_patched_description">Спочатку останні пропатчені додатки</string>
     <string name="home_no_apps_title">Немає доступних застосунків</string>
@@ -124,7 +124,7 @@
     <string name="home_greeting_super_late_5">Нічний та продуктивний</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Джерела патчів</string>
-    <string name="sources_search">Пошук джерел</string>
+    <string name="sources_search">Пошук джерел та патчів</string>
     <string name="sources_sort_title">Сортувати джерела патчів</string>
     <string name="sources_sort_manual">Ручне сортування</string>
     <string name="sources_sort_manual_hint">Утримуйте джерело, щоб змінити порядок</string>
@@ -132,6 +132,7 @@
     <string name="sources_sort_last_updated_description">Спочатку найновіші оновлення джерел</string>
     <string name="sources_sort_enabled_first">Спочатку увімкнені</string>
     <string name="sources_sort_enabled_first_description">Показувати активні джерела перед вимкненими</string>
+    <string name="sources_patches_source_disabled_hint">Це джерело вимкнено. Його патчі показані для довідки та не застосовуються</string>
     <string name="sources_management_open_in_browser">Відкрити в браузері</string>
     <string name="sources_management_report_issue">Повідомити про проблему</string>
     <string name="sources_management_failed_to_open_url">Не вдалося відкрити URL</string>
@@ -197,6 +198,7 @@
     <string name="home_apk_availability_recommended_label">Рекомендована</string>
     <string name="home_apk_availability_unpatched_label">Непатчена</string>
     <string name="home_apk_availability_incompatible_label">Несумісна</string>
+    <string name="home_apk_availability_installed_version">Встановлено на цьому пристрої: %s</string>
     <string name="home_apk_availability_yes">Так, допоможіть мені знайти APK</string>
     <string name="home_apk_availability_no">Ні, я вже маю APK</string>
     <string name="home_apk_helper_download">Допоміжний застосунок</string>
@@ -442,6 +444,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Store</string>
     <string name="home_app_info_patch_update_available">Доступне оновлення патчів</string>
     <string name="home_app_info_patch_update_available_description">Доступна новіша версія патчів. Перепатчіть застосунок, щоб отримати останні покращення та виправлення</string>
+    <string name="home_app_info_app_update_available">Доступне оновлення застосунку</string>
+    <string name="home_app_info_app_update_available_description">Джерела патчів підтримують новішу версію цього застосунку. Пропатчіть знову, щоб перейти на цю версію</string>
+    <string name="home_app_info_newest_supported_version">Найновіша підтримувана</string>
+    <string name="home_app_info_version_move">Встановлено %1$s, найновіша підтримувана %2$s</string>
     <string name="home_app_info_app_deleted_warning">Застосунок було видалено</string>
     <string name="home_app_info_app_deleted_description">Це застосунок було видалено поза менеджером Morphe. Перепатчіть його, щоб відновити функціональність</string>
     <string name="home_app_info_not_patched_description">Встановлено непропатчену версію цього застосунку. Morphe все ще має попередній запис про патчинг</string>
@@ -1224,6 +1230,8 @@ morphe_header_custom_dark.png
     <string name="hidden">Приховані</string>
     <string name="unhide">Показати</string>
     <string name="unhide_done">Показано</string>
+    <string name="ignore">Ігнорувати</string>
+    <string name="stop_ignoring">Перестати ігнорувати</string>
     <string name="logs">Журнали</string>
     <string name="sources">Джерела</string>
     <string name="installing_ellipsis">Інсталяція…</string>

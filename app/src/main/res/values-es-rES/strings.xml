@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabético, de la A a la Z</string>
     <string name="home_app_sort_name_desc_description">Alfabético inverso, de la Z a la A</string>
     <string name="home_app_sort_updates_first">Actualizaciones de parches primero</string>
-    <string name="home_app_sort_updates_first_description">Aplicaciones pendientes de actualizar primero, luego en orden recomendado</string>
+    <string name="home_app_sort_updates_first_description">Aplicaciones con parches más recientes primero, luego en orden recomendado</string>
     <string name="home_app_sort_recently_patched">Recientemente parcheadas</string>
     <string name="home_app_sort_recently_patched_description">Primero las aplicaciones parcheadas más recientemente</string>
     <string name="home_no_apps_title">No hay aplicaciones disponibles</string>
@@ -124,7 +124,7 @@
     <string name="home_greeting_super_late_5">Nocturno y productivo</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fuentes de parches</string>
-    <string name="sources_search">Buscar fuentes</string>
+    <string name="sources_search">Buscar fuentes y parches</string>
     <string name="sources_sort_title">Ordenar fuentes de parches</string>
     <string name="sources_sort_manual">Orden manual</string>
     <string name="sources_sort_manual_hint">Mantén pulsada una fuente para reordenarla</string>
@@ -132,6 +132,7 @@
     <string name="sources_sort_last_updated_description">Actualizaciones de fuentes más recientes primero</string>
     <string name="sources_sort_enabled_first">Activadas primero</string>
     <string name="sources_sort_enabled_first_description">Muestra las fuentes activas antes que las desactivadas</string>
+    <string name="sources_patches_source_disabled_hint">Esta fuente está desactivada. Sus parches se muestran a modo de referencia y no se aplican</string>
     <string name="sources_management_open_in_browser">Abrir en el navegador</string>
     <string name="sources_management_report_issue">Informar de un problema</string>
     <string name="sources_management_failed_to_open_url">No se pudo abrir la URL</string>
@@ -197,6 +198,7 @@ Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad
     <string name="home_apk_availability_recommended_label">Recomendado</string>
     <string name="home_apk_availability_unpatched_label">Sin parchear</string>
     <string name="home_apk_availability_incompatible_label">Incompatible</string>
+    <string name="home_apk_availability_installed_version">Instalado en este dispositivo: %s</string>
     <string name="home_apk_availability_yes">Sí, ayúdame a encontrar un APK</string>
     <string name="home_apk_availability_no">No, ya tengo un APK</string>
     <string name="home_apk_helper_download">Utilizar una aplicación auxiliar</string>
@@ -442,6 +444,10 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del launcher
     <string name="home_app_info_install_type_shizuku_play_store">Instalación desde la Play Store con Shizuku</string>
     <string name="home_app_info_patch_update_available">Actualización de parches disponible</string>
     <string name="home_app_info_patch_update_available_description">Hay disponible una versión más reciente de los parches. Vuelve a parchear tu aplicación para obtener las últimas mejoras y correcciones</string>
+    <string name="home_app_info_app_update_available">Actualización de la aplicación disponible</string>
+    <string name="home_app_info_app_update_available_description">Las fuentes de parches son compatibles con una versión más reciente de esta aplicación. Vuelve a parchearla para pasar a esa versión</string>
+    <string name="home_app_info_newest_supported_version">Más reciente compatible</string>
+    <string name="home_app_info_version_move">Instalada %1$s, más reciente compatible %2$s</string>
     <string name="home_app_info_app_deleted_warning">La aplicación fue desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicación fue desinstalada fuera de Morphe. Vuelve a parchearla para restaurar su funcionalidad</string>
     <string name="home_app_info_not_patched_description">Una versión sin parchear de esta aplicación está instalada. Morphe aún conserva su registro de parches anterior</string>
@@ -1224,6 +1230,8 @@ Detalles: %2$s"</string>
     <string name="hidden">Oculto</string>
     <string name="unhide">Mostrar</string>
     <string name="unhide_done">Mostrado</string>
+    <string name="ignore">Ignorar</string>
+    <string name="stop_ignoring">Dejar de ignorar</string>
     <string name="logs">Registros</string>
     <string name="sources">Fuentes</string>
     <string name="installing_ellipsis">Instalando…</string>

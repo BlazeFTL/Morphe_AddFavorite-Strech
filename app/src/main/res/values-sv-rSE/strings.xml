@@ -3,7 +3,7 @@
     <!-- Home Screen -->
     <string name="home_other_apps">Andra appar</string>
     <string name="home_other_apps_action">Välj andra appar</string>
-    <string name="home_not_patched_yet">Inte modifierat än</string>
+    <string name="home_not_patched_yet">Inte modifierad än</string>
     <string name="home_unpatched_version_installed">Omodifierad version installerad</string>
     <string name="home_unpatched_badge">Inte modifierad</string>
     <string name="home_no_patches_available">Inga tillägg är tillgängliga</string>
@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetisk ordning, A till Ö</string>
     <string name="home_app_sort_name_desc_description">Omvänd alfabetisk ordning, Ö till A</string>
     <string name="home_app_sort_updates_first">Tilläggsuppdateringar först</string>
-    <string name="home_app_sort_updates_first_description">Appar med uppdateringsmärke först, sedan rekommenderad ordning</string>
+    <string name="home_app_sort_updates_first_description">Appar med nyare patchar först, sedan rekommenderad ordning</string>
     <string name="home_app_sort_recently_patched">Nyligen modifierade</string>
     <string name="home_app_sort_recently_patched_description">Senast modifierade apparna först</string>
     <string name="home_no_apps_title">Inga appar är tillgängliga</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nattaktiv och produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Tilläggskällor</string>
-    <string name="sources_search">Sök källor</string>
     <string name="sources_sort_title">Sortera tilläggskällor</string>
     <string name="sources_sort_manual">Manuell ordning</string>
     <string name="sources_sort_manual_hint">Tryck länge på en källa för att ändra ordning</string>
@@ -197,6 +196,7 @@ Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <string name="home_apk_availability_recommended_label">Rekommenderad</string>
     <string name="home_apk_availability_unpatched_label">Omodifierad</string>
     <string name="home_apk_availability_incompatible_label">Inkompatibel</string>
+    <string name="home_apk_availability_installed_version">Installerad på den här enheten: %s</string>
     <string name="home_apk_availability_yes">Ja, hjälp mig att hitta en APK-fil</string>
     <string name="home_apk_availability_no">Nej, jag har redan en APK-fil</string>
     <string name="home_apk_helper_download">Använd en hjälpapp</string>
@@ -442,6 +442,10 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="home_app_info_install_type_shizuku_play_store">Play Butik-installation med Shizuku</string>
     <string name="home_app_info_patch_update_available">Tilläggsuppdatering är tillgänglig</string>
     <string name="home_app_info_patch_update_available_description">En nyare version av tilläggen är tillgänglig. Modifiera appen igen för att få de senaste förbättringarna och felkorrigeringarna</string>
+    <string name="home_app_info_app_update_available">Appuppdatering tillgänglig</string>
+    <string name="home_app_info_app_update_available_description">Patchkällorna stödjer en nyare version av den här appen. Patcha den igen för att gå över till den versionen.</string>
+    <string name="home_app_info_newest_supported_version">Senaste stödda</string>
+    <string name="home_app_info_version_move">Installerad %1$s, senaste stödda %2$s</string>
     <string name="home_app_info_app_deleted_warning">Appen har avinstallerats</string>
     <string name="home_app_info_app_deleted_description">Den här appen avinstallerades utanför Morphe. Modifiera den igen för att återställa funktionaliteten</string>
     <string name="home_app_info_not_patched_description">En omodifierad version av den här appen är installerad. Morphe har fortfarande sin tidigare modifieringspost.</string>
@@ -955,8 +959,8 @@ Information: %2$s"</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">Aviseringar</string>
     <string name="settings_system_notifications_description">Konfigurera aviseringar i bakgrunden och ljud för slutförande</string>
-    <string name="settings_system_notifications_success_sound">Ljud om modifieringen lyckas</string>
-    <string name="settings_system_notifications_error_sound">Ljud om modifieringen misslyckas</string>
+    <string name="settings_system_notifications_success_sound">Ljud om modifiering lyckas</string>
+    <string name="settings_system_notifications_error_sound">Ljud om modifiering misslyckas</string>
     <string name="settings_system_notifications_sound_default">Standard</string>
     <string name="settings_system_notifications_sound_picker_title">Välj ljudkälla</string>
     <string name="settings_system_notifications_sound_pick_ringtone">Systemljud</string>
@@ -1201,7 +1205,7 @@ Information: %2$s"</string>
     <string name="clone">Klona</string>
     <string name="patch">Modifiera</string>
     <string name="patching">Modifiering</string>
-    <string name="patched">Modifierat</string>
+    <string name="patched">Modifierad</string>
     <string name="open">Öppna</string>
     <string name="mount">Montera</string>
     <string name="mounted">Monterad</string>
@@ -1210,10 +1214,10 @@ Information: %2$s"</string>
     <string name="remount">Montera igen</string>
     <string name="share">Dela</string>
     <string name="install">Installera</string>
-    <string name="installed">Installerat</string>
+    <string name="installed">Installerad</string>
     <string name="reinstall">Installera om</string>
     <string name="uninstall">Avinstallera</string>
-    <string name="uninstalled">Avinstallerat</string>
+    <string name="uninstalled">Avinstallerad</string>
     <string name="save">Spara</string>
     <string name="saved">Sparad</string>
     <string name="update">Uppdatera</string>
@@ -1222,6 +1226,8 @@ Information: %2$s"</string>
     <string name="hidden">Dolt</string>
     <string name="unhide">Visa</string>
     <string name="unhide_done">Visas</string>
+    <string name="ignore">Ignorera</string>
+    <string name="stop_ignoring">Sluta ignorera</string>
     <string name="logs">Loggar</string>
     <string name="sources">Källor</string>
     <string name="installing_ellipsis">Installerar …</string>
@@ -1243,8 +1249,8 @@ Information: %2$s"</string>
     <string name="ready_to_install_update">Redo att installera uppdateringen</string>
     <string name="update_completed">Uppdatering installerades</string>
     <string name="install_update_manager_failed">Det gick inte att installera uppdateringen</string>
-    <string name="installing_manager_update">Installerar uppdateringen …</string>
-    <string name="downloading_manager_update">Laddar ned uppdateringen …</string>
+    <string name="installing_manager_update">Installerar uppdatering …</string>
+    <string name="downloading_manager_update">Laddar ned uppdatering …</string>
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB har laddats ned</string>
     <string name="manager_update_not_ready">Den här utgåvan publiceras fortfarande. Försök igen om några minuter.</string>

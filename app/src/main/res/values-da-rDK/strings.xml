@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetisk, A til Z</string>
     <string name="home_app_sort_name_desc_description">Omvendt alfabetisk, fra Z til A</string>
     <string name="home_app_sort_updates_first">Patch-opdateringer først</string>
-    <string name="home_app_sort_updates_first_description">Apps med opdateringsmærker først, derefter i anbefalet rækkefølge</string>
+    <string name="home_app_sort_updates_first_description">Apps med nyere patches først, derefter anbefalet rækkefølge</string>
     <string name="home_app_sort_recently_patched">Senest patchet</string>
     <string name="home_app_sort_recently_patched_description">Senest patchede apps først</string>
     <string name="home_no_apps_title">Ingen apps tilgængelige</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Natlig og produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patchkilder</string>
-    <string name="sources_search">Søg kilder</string>
     <string name="sources_sort_title">Sortér patch-kilder</string>
     <string name="sources_sort_manual">Manuel orden</string>
     <string name="sources_sort_manual_hint">Tryk og hold på en kilde for at ændre rækkefølgen</string>
@@ -197,6 +196,7 @@ Alt, hvad du tilføjer fra denne hjemmeside, bruges på egen risiko."</string>
     <string name="home_apk_availability_recommended_label">Anbefalet</string>
     <string name="home_apk_availability_unpatched_label">Upatchet</string>
     <string name="home_apk_availability_incompatible_label">Inkompatibel</string>
+    <string name="home_apk_availability_installed_version">Installeret på denne enhed: %s</string>
     <string name="home_apk_availability_yes">Ja, hjælp med at finde en APK</string>
     <string name="home_apk_availability_no">Nej, jeg har allerede en APK</string>
     <string name="home_apk_helper_download">Brug en hjælpeapp</string>
@@ -442,6 +442,10 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Butik-installation</string>
     <string name="home_app_info_patch_update_available">Patchopdatering tilgængelig</string>
     <string name="home_app_info_patch_update_available_description">En nyere version af patches er tilgængelig. Repatch din app for at få de seneste forbedringer og rettelser</string>
+    <string name="home_app_info_app_update_available">App-opdatering tilgængelig</string>
+    <string name="home_app_info_app_update_available_description">Patchkilderne understøtter en nyere version af denne app. Patch den igen for at skifte til den version.</string>
+    <string name="home_app_info_newest_supported_version">Nyeste understøttede</string>
+    <string name="home_app_info_version_move">Installeret %1$s, nyeste understøttede %2$s</string>
     <string name="home_app_info_app_deleted_warning">Appen blev fjernet</string>
     <string name="home_app_info_app_deleted_description">Denne app blev fjernet udenfor Morphe. Repatch den for at gendanne funktionalitet</string>
     <string name="home_app_info_not_patched_description">En upatchet version af denne app er installeret. Morphe har stadig sin tidligere patch-registrering</string>
@@ -1222,6 +1226,8 @@ Detaljer: %2$s"</string>
     <string name="hidden">Skjult</string>
     <string name="unhide">Vis</string>
     <string name="unhide_done">Vist</string>
+    <string name="ignore">Ignorer</string>
+    <string name="stop_ignoring">Stop med at ignorere</string>
     <string name="logs">Logge</string>
     <string name="sources">Kilder</string>
     <string name="installing_ellipsis">Installerer…</string>

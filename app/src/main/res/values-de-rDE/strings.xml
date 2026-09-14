@@ -59,7 +59,7 @@
     <string name="home_app_sort_name_asc_description">Alphabetisch, A bis Z</string>
     <string name="home_app_sort_name_desc_description">Umgekehrte alphabetische Reihenfolge, Z bis A</string>
     <string name="home_app_sort_updates_first">Patch-Updates zuerst</string>
-    <string name="home_app_sort_updates_first_description">Apps mit Update-Badges zuerst, dann in empfohlener Reihenfolge</string>
+    <string name="home_app_sort_updates_first_description">Apps mit neueren Patches zuerst, dann empfohlene Reihenfolge</string>
     <string name="home_app_sort_recently_patched">Zuletzt gepatcht</string>
     <string name="home_app_sort_recently_patched_description">Zuletzt gepatchte Apps zuerst</string>
     <string name="home_no_apps_title">Keine Apps verfügbar</string>
@@ -124,7 +124,6 @@
     <string name="home_greeting_super_late_5">Nachtaktiv und produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch-Quellen</string>
-    <string name="sources_search">Quellen suchen</string>
     <string name="sources_sort_title">Patch-Quellen sortieren</string>
     <string name="sources_sort_manual">Manuelle Reihenfolge</string>
     <string name="sources_sort_manual_hint">Halte eine Quelle gedrückt, um sie neu anzuordnen</string>
@@ -196,6 +195,7 @@ Alles, was Sie von dieser Website hinzufügen, geschieht auf eigenes Risiko"</st
     <string name="home_apk_availability_recommended_label">Empfohlen</string>
     <string name="home_apk_availability_unpatched_label">Nicht gepatcht</string>
     <string name="home_apk_availability_incompatible_label">Inkompatibel</string>
+    <string name="home_apk_availability_installed_version">Auf diesem Gerät installiert: %s</string>
     <string name="home_apk_availability_yes">Ja, hilf mir eine APK zu finden</string>
     <string name="home_apk_availability_no">Nein, ich habe bereits eine APK</string>
     <string name="home_apk_helper_download">Eine Hilfs-App verwenden</string>
@@ -441,6 +441,10 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Store installieren</string>
     <string name="home_app_info_patch_update_available">Patch-Update verfügbar</string>
     <string name="home_app_info_patch_update_available_description">Eine neuere Version von Patches ist verfügbar. Repatchen Sie Ihre App, um die neuesten Verbesserungen und Fehlerbehebungen zu erhalten</string>
+    <string name="home_app_info_app_update_available">App-Update verfügbar</string>
+    <string name="home_app_info_app_update_available_description">Die Patch-Quellen unterstützen eine neuere Version dieser App. Patchen Sie die App erneut, um zu dieser Version zu wechseln.</string>
+    <string name="home_app_info_newest_supported_version">Neueste unterstützte Version</string>
+    <string name="home_app_info_version_move">Installiert: %1$s, neueste unterstützte Version: %2$s</string>
     <string name="home_app_info_app_deleted_warning">App wurde deinstalliert</string>
     <string name="home_app_info_app_deleted_description">Diese App wurde außerhalb von Morphe deinstalliert. Repatchen Sie sie, um die Funktionalität wiederherzustellen</string>
     <string name="home_app_info_not_patched_description">Eine ungepatchte Version dieser App ist installiert. Morphe hat immer noch seinen vorherigen Patch-Datensatz</string>
@@ -1224,6 +1228,8 @@ Details: %2$s"</string>
     <string name="hidden">Ausgeblendet</string>
     <string name="unhide">Anzeigen</string>
     <string name="unhide_done">Angezeigt</string>
+    <string name="ignore">Ignorieren</string>
+    <string name="stop_ignoring">Nicht mehr ignorieren</string>
     <string name="logs">Protokolle</string>
     <string name="sources">Quellen</string>
     <string name="installing_ellipsis">Wird installiert…</string>

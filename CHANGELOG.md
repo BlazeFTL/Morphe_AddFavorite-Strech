@@ -1,3 +1,10 @@
+# [1.31.0-dev.7](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.6...v1.31.0-dev.7) (2026-09-14)
+
+
+### Features
+
+* Search patches across every source from the source list ([65bb9d0](https://github.com/[secure]App/morphe-manager/commit/65bb9d04160f42bce8486f49bee15e7bf04d5dbe))
+
 # [1.31.0-dev.6](https://github.com/[secure]App/morphe-manager/compare/v1.31.0-dev.5...v1.31.0-dev.6) (2026-09-13)
 
 

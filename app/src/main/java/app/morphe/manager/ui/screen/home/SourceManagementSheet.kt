@@ -105,7 +105,9 @@ fun BundleManagementSheet(
     val activeUpdateUids by patchBundleRepository.activeUpdateUidsFlow.collectAsStateWithLifecycle(emptySet())
     val metadataFetchErrors by patchBundleRepository.metadataFetchErrors.collectAsStateWithLifecycle(emptyMap())
     val experimentalVersionsEnabled by prefs.bundleExperimentalVersionsEnabled.getAsState()
-    val bundleInfo by patchBundleRepository.bundleInfoFlow.collectAsStateWithLifecycle(emptyMap())
+    // Every source, not only the enabled ones: a disabled source still answers a patch search
+    // and still declares whether it carries experimental targets
+    val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
     val blockedSources by patchBundleRepository.blockedSources.collectAsStateWithLifecycle(emptyMap())
 
     val showSheetOnboarding = globalOnboardingState?.sheetOnboardingActive == true
@@ -152,15 +154,37 @@ fun BundleManagementSheet(
     val orderedSources = remember(localOrder, sources, sourceSortMode) {
         sources.sortedForSourceSort(sourceSortMode, localOrder)
     }
-    val visibleSources = remember(orderedSources, search.query) {
-        if (search.query.isBlank()) orderedSources
-        else orderedSources.filter { source ->
-            source.displayTitle.contains(search.query, ignoreCase = true) ||
-                    source.name.contains(search.query, ignoreCase = true)
+    // Patches are searched alongside source names, so one query answers which source carries a
+    // patch instead of the user opening every source to find out. Blocked sources stay out of it,
+    // since nothing they hold is reachable anyway
+    val patchMatchCounts: Map<Int, Int> = remember(bundleInfo, blockedSources, search.query) {
+        val query = search.query.takeIf { it.isNotBlank() } ?: return@remember emptyMap()
+        buildMap {
+            bundleInfo.forEach { (uid, info) ->
+                if (uid in blockedSources) return@forEach
+                val matches = info.patches.count { it.matchesQuery(query) }
+                if (matches > 0) put(uid, matches)
+            }
         }
     }
-    val alphabetScrollMode = sourceSortMode == SourceBundleSortMode.NAME_ASC ||
-            sourceSortMode == SourceBundleSortMode.NAME_DESC
+    val visibleSources = remember(orderedSources, patchMatchCounts, search.query) {
+        val query = search.query
+        if (query.isBlank()) return@remember orderedSources
+        orderedSources
+            .filter { source -> source.matchesQuery(query) || source.uid in patchMatchCounts }
+            // A source the query names is the one that was asked for; the rest rank by how much
+            // of the query they carry. The sort is stable, so ties keep the order the sort mode
+            // gave them, and clearing the query drops back to that order untouched
+            .sortedWith(
+                compareByDescending<PatchBundleSource> { it.matchesQuery(query) }
+                    .thenByDescending { patchMatchCounts[it.uid] ?: 0 }
+            )
+    }
+    // The alphabet rail reads positions off a list that is in name order, which a search ranking
+    // results by relevance no longer is
+    val alphabetScrollMode = !search.isFiltering &&
+            (sourceSortMode == SourceBundleSortMode.NAME_ASC ||
+                    sourceSortMode == SourceBundleSortMode.NAME_DESC)
     val sourceScrollTargets = remember(alphabetScrollMode, visibleSources) {
         if (!alphabetScrollMode) {
             emptyList()
@@ -358,6 +382,7 @@ fun BundleManagementSheet(
                                 BundleManagementCard(
                                     bundle = bundle,
                                     patchCount = patchCounts[bundle.uid] ?: 0,
+                                    patchMatchCount = patchMatchCounts[bundle.uid],
                                     updateInfo = manualUpdateInfo[bundle.uid],
                                     isUpdating = bundle.uid in activeUpdateUids,
                                     metadataFetchError = metadataFetchErrors[bundle.uid],
@@ -515,7 +540,8 @@ fun BundleManagementSheet(
     if (bundleToShowPatches.value != null) {
         BundlePatchesDialog(
             onDismissRequest = { bundleToShowPatches.value = null },
-            src = bundleToShowPatches.value!!
+            src = bundleToShowPatches.value!!,
+            initialQuery = search.query
         )
     }
 
@@ -573,6 +599,10 @@ private fun List<PatchBundleSource>.sortedForSourceSort(
 private fun PatchBundleSource.sourceSortTitle(): String =
     displayTitle.lowercase(Locale.ROOT)
 
+/** Whether the source's own name answers to a search query, before its patches are consulted. */
+private fun PatchBundleSource.matchesQuery(query: String): Boolean =
+    displayTitle.contains(query, ignoreCase = true) || name.contains(query, ignoreCase = true)
+
 /**
  * Card for individual bundle management.
  */
@@ -582,6 +612,8 @@ private fun BundleManagementCard(
     bundle: PatchBundleSource,
     modifier: Modifier = Modifier,
     patchCount: Int,
+    /** Patches in this source matching the sheet's search, or null while nothing is searched. */
+    patchMatchCount: Int? = null,
     updateInfo: PatchBundleRepository.ManualBundleUpdateInfo?,
     isUpdating: Boolean = false,
     isDragging: Boolean = false,
@@ -615,6 +647,7 @@ private fun BundleManagementCard(
     val disabledState = stringResource(R.string.disabled)
     val openInBrowser = stringResource(R.string.sources_management_open_in_browser)
     val reportIssue = stringResource(R.string.sources_management_report_issue)
+    val patchesLabel = stringResource(R.string.patches)
 
     val context = LocalContext.current
 
@@ -694,6 +727,8 @@ private fun BundleManagementCard(
                     enabled = isEnabled,
                     metadataFetchError = metadataFetchError,
                     blockedInfo = blockedInfo,
+                    patchMatchCount = patchMatchCount,
+                    onShowPatchMatches = onPatchesClick,
                     modifier = longPressModifier
                         .clickable(
                             indication = null,
@@ -707,6 +742,12 @@ private fun BundleManagementCard(
                                 stateDescription = if (expanded) expandedState else collapsedState
                             }
                             this.contentDescription = contentDesc
+                            // The match badge is a tap target the merged node swallows otherwise
+                            if (patchMatchCount != null) {
+                                customActions = listOf(
+                                    CustomAccessibilityAction(patchesLabel) { onPatchesClick(); true }
+                                )
+                            }
                         }
                 )
 
@@ -803,9 +844,16 @@ private fun BundleManagementCard(
                             ),
                             icon = Icons.Outlined.Info,
                             title = stringResource(R.string.patches),
-                            value = patchCount.toString(),
+                            value = if (patchMatchCount != null) {
+                                "$patchMatchCount/$patchCount"
+                            } else {
+                                patchCount.toString()
+                            },
                             onClick = onPatchesClick,
-                            enabled = isEnabled && !isUpdating
+                            // A disabled source still lists what it holds, which is what the
+                            // decision to switch it back on is made on. A blocked one does not,
+                            // and neither does one whose patches never loaded
+                            enabled = !isBlocked && !isUpdating && patchCount > 0
                         )
 
                         // Version
@@ -1008,6 +1056,8 @@ private fun BundleCardHeader(
     enabled: Boolean = true,
     metadataFetchError: Throwable? = null,
     blockedInfo: BlocklistRepository.BlockedEntry? = null,
+    patchMatchCount: Int? = null,
+    onShowPatchMatches: (() -> Unit)? = null,
 ) {
     val rotation by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
@@ -1099,6 +1149,22 @@ private fun BundleCardHeader(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
+                // What the search found inside the source leads, being the reason the card is on
+                // screen at all. It swaps in without an animation of its own, since the list
+                // behind it is already re-ordering on every keystroke
+                if (patchMatchCount != null) {
+                    StatusBadge(
+                        text = pluralStringResource(
+                            R.plurals.sources_search_patch_matches,
+                            patchMatchCount,
+                            patchMatchCount.toString()
+                        ),
+                        icon = Icons.Outlined.Search,
+                        tone = SemanticTone.Primary,
+                        onClick = onShowPatchMatches
+                    )
+                }
+
                 // Bundle type badge
                 BundleTypeBadge(bundle.sourceType)
 

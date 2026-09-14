@@ -482,19 +482,24 @@ fun RenameBundleDialog(
 
 /**
  * Dialog displaying patches from a bundle with search field and chips.
+ *
+ * @param initialQuery Query to open filtered by, carried over from the search that found the source.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BundlePatchesDialog(
     onDismissRequest: () -> Unit,
-    src: PatchBundleSource
+    src: PatchBundleSource,
+    initialQuery: String = ""
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
+    // Read across every source rather than the enabled ones alone: a disabled source is one the
+    // user is still deciding about, and what it holds is what that decision is made on
     val patches by remember(src.uid) {
-        patchBundleRepository.bundleInfoFlow.mapNotNull { it[src.uid]?.patches }
+        patchBundleRepository.allBundlesInfoFlow.mapNotNull { it[src.uid]?.patches }
     }.collectAsStateWithLifecycle(emptyList())
 
-    var searchQuery by remember { mutableStateOf("") }
+    var searchQuery by remember { mutableStateOf(initialQuery) }
     var selectedPackages by remember { mutableStateOf(emptySet<String>()) }
     val showFilterSheet = remember { mutableStateOf(false) }
 
@@ -522,10 +527,7 @@ fun BundlePatchesDialog(
                 val packageMatch = selectedPackages.isEmpty() ||
                         patch.compatiblePackages
                             ?.any { it.packageName in selectedPackages } == true
-                val queryMatch = searchQuery.isBlank() ||
-                        patch.displayName.contains(searchQuery, ignoreCase = true) ||
-                        patch.description?.contains(searchQuery, ignoreCase = true) == true
-                packageMatch && queryMatch
+                packageMatch && patch.matchesQuery(searchQuery)
             }
             .sortedBy { (_, patch) -> patch.displayName }
     }
@@ -644,6 +646,19 @@ fun BundlePatchesDialog(
                                 filteredCount = filteredPatches.size,
                                 isFiltering = isFiltering
                             )
+                        }
+
+                        // The list is reachable while the source is off, so it says so up front
+                        // rather than reading as patches that are ready to be applied
+                        if (!src.enabled) {
+                            item(key = "disabled_hint") {
+                                Notice(
+                                    text = stringResource(R.string.sources_patches_source_disabled_hint),
+                                    icon = Icons.Outlined.VisibilityOff,
+                                    tone = SemanticTone.Warning,
+                                    density = NoticeDensity.Compact
+                                )
+                            }
                         }
 
                         if (filteredPatches.isEmpty()) {

@@ -138,6 +138,15 @@ data class PatchInfo(
     /** Universal patches declare no compatible packages and therefore apply to any app. */
     val isUniversal get() = compatiblePackages.isNullOrEmpty()
 
+    /**
+     * Whether the patch answers to a search query, matched against the text the user reads of it.
+     * A blank query matches every patch, so a search field can be passed through unchecked.
+     */
+    fun matchesQuery(query: String): Boolean =
+        query.isBlank() ||
+                displayName.contains(query, ignoreCase = true) ||
+                description?.contains(query, ignoreCase = true) == true
+
     fun compatibleWith(packageName: String) =
         compatiblePackages == null ||
                 compatiblePackages.any { it.packageName == null || it.packageName == packageName }

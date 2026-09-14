@@ -143,9 +143,7 @@ fun ExpertModeDialog(
             allPatchesInfo.mapNotNull { (bundle, patches) ->
                 val kept = onlySelected?.get(bundle.uid).orEmpty()
                 val filtered = patches.filter { (patch, _) ->
-                    val matchesQuery = query == null ||
-                            patch.displayName.contains(query, ignoreCase = true) ||
-                            patch.description?.contains(query, ignoreCase = true) == true
+                    val matchesQuery = query == null || patch.matchesQuery(query)
                     matchesQuery && (onlySelected == null || patch.name in kept)
                 }
                 if (filtered.isEmpty()) null else bundle.uid to filtered

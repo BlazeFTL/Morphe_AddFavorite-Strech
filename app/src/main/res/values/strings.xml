@@ -575,6 +575,13 @@ Uninstalling will permanently erase all app data"</string>
     <string name="patcher_storage_permission_open_settings">Open storage settings</string>
     <string name="patcher_storage_badge_denied">Permission denied</string>
     <string name="patcher_storage_badge_missing">Not found</string>
+    <string name="batch_patch_option_paths_skipped">Patch option files are missing and will be skipped: %1$s</string>
+    <string name="patcher_missing_patches_title">Some patches are gone</string>
+    <string name="patcher_missing_patches_description">The saved selection for this app names patches that no enabled source offers any more. Continuing patches the app without them</string>
+    <string name="patcher_missing_patches_label">No longer offered</string>
+    <string name="patcher_option_paths_gone_title">Patch option files are missing</string>
+    <string name="patcher_option_paths_gone_description">One or more patch options point to files that are no longer there. Remove the paths to patch without them, or put the files back and try again</string>
+    <string name="patcher_option_paths_clear">Remove the paths and continue</string>
     <string name="patcher_storage_permission_hint">Tip: Move files to /Android/data/app.morphe.manager/files/ - no extra permissions needed</string>
 
     <!-- Patcher Screen - Patcher Steps -->
@@ -890,6 +897,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_patch_options_custom_branding_description">Changes the app display name</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">App name</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Enter custom name</string>
+    <string name="settings_advanced_patch_options_path_gone">This folder cannot be read anymore. Pick it again or clear it, otherwise patching will stop and ask about it</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">App icon</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">The icon the app is patched with. It is also used where the app cannot change it later, such as Android Auto and the app list of the system settings</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">The custom app icon needs a folder with icon images</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Custom icon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Folder with images to use as a custom icon.
 

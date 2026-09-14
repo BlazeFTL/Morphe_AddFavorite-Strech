@@ -34,6 +34,8 @@ import app.morphe.manager.util.PatchSelection
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
+import app.morphe.manager.util.validateOptionPaths
+import app.morphe.manager.util.withoutFailingPaths
 import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.Dispatchers
@@ -407,7 +409,12 @@ class BatchPlanResolver(
 
         if (selection.values.sumOf { it.size } == 0) return blocked(contributing)
 
-        val options = resolveOptions(target, configurationKey, contributing)
+        val savedOptions = resolveOptions(target, configurationKey, contributing)
+
+        // A queue must not stop to ask about one app, so a path that leads nowhere is dropped
+        // here and reported on the preflight screen instead of failing inside the patcher
+        val unreadablePaths = validateOptionPaths(savedOptions)
+        val options = savedOptions.withoutFailingPaths(unreadablePaths)
 
         return BatchPatchItem(
             target = target,
@@ -418,6 +425,7 @@ class BatchPlanResolver(
             bundles = contributing.map { it.toRef() },
             experimentalVersion = experimental,
             suggestedVersion = suggested,
+            unreadableOptionPaths = unreadablePaths,
             state = if (versionMismatch) BatchItemState.VERSION_MISMATCH else BatchItemState.READY
         )
     }

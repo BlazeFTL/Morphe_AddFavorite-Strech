@@ -47,6 +47,7 @@ import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerel
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.screen.patcher.UnusableOptionPathsDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
@@ -458,6 +459,18 @@ fun HomeDialogs(
                 homeViewModel.proceedExpertMode()
             }
         )
+
+        // Raised over the selection, so closing it puts the user back in the dialog with the
+        // offending option still there rather than dropping them out of the flow entirely
+        homeViewModel.expertModeUnreadablePaths.takeIf { it.isNotEmpty() }?.let { failures ->
+            UnusableOptionPathsDialog(
+                failures = failures,
+                onRetryAfterPermission = { homeViewModel.proceedExpertMode() },
+                canClearPaths = true,
+                onClearPaths = { homeViewModel.clearExpertModeUnreadablePaths() },
+                onDismiss = { homeViewModel.dismissExpertModeUnreadablePaths() }
+            )
+        }
 
         homeViewModel.expertModeCopy.targetBundleUid?.let { targetUid ->
             val selectedApp = homeViewModel.expertModeSelectedApp ?: return@let

@@ -230,26 +230,66 @@ class PatcherViewModel(
         memoryAdjustmentDialog = null
     }
 
+    /**
+     * Non-null when the saved selection names patches no enabled source offers any more, which
+     * the run is held on until the user says whether to go ahead without them.
+     */
     data class MissingPatchWarningState(
         val patchNames: List<String>
     )
     var missingPatchWarning by mutableStateOf<MissingPatchWarningState?>(null)
         private set
 
+    /** Set once the user has agreed to patch without them, so the same question is asked once. */
+    private var missingPatchesAccepted = false
+
+    /** Goes ahead with the patches that are still there, leaving out the ones that are gone. */
+    fun continueWithoutMissingPatches() {
+        missingPatchesAccepted = true
+        missingPatchWarning = null
+
+        viewModelScope.launch { runPreflightCheck() }
+    }
+
+    fun dismissMissingPatchWarning() {
+        missingPatchWarning = null
+    }
+
     var batteryOptimizationDialog by mutableStateOf(false)
         private set
 
     /**
      * Non-null when one or more patch option paths cannot be read before patching starts.
+     *
+     * @param canClear Whether the values behind the failing paths can be dropped from the dialog.
+     *                 Only simple mode keeps them, expert mode edits them while selecting patches.
      */
     data class InaccessibleOptionPathsState(
-        val failures: List<PathValidationResult>
+        val failures: List<PathValidationResult>,
+        val canClear: Boolean
     )
     var inaccessibleOptionPaths by mutableStateOf<InaccessibleOptionPathsState?>(null)
         private set
 
     fun dismissInaccessibleOptionPathsError() {
         inaccessibleOptionPaths = null
+    }
+
+    /**
+     * Drops the saved option values behind the failing paths and resumes the check, so a run
+     * whose files are gone for good goes on with the defaults the patches declare.
+     */
+    fun clearInaccessibleOptionPaths() {
+        val failures = inaccessibleOptionPaths?.failures.orEmpty()
+        inaccessibleOptionPaths = null
+
+        viewModelScope.launch {
+            failures.forEach { failure ->
+                patchOptionsPrefs.clearOptionValue(packageName, failure.patchName, failure.optionKey)
+            }
+
+            runPreflightCheck()
+        }
     }
 
     /**
@@ -539,7 +579,22 @@ class PatcherViewModel(
         isPatching = false
     }
 
+    /**
+     * Runs the checks that stand between the screen and the worker, and starts the run when they
+     * all pass. Nothing runs while the user answers one, so the screen is held back until it does.
+     */
     private suspend fun runPreflightCheck() {
+        isPatching = true
+        patchRun.resumeBeforeStart()
+
+        if (preflight()) return
+
+        isPatching = false
+        patchRun.holdBeforeStart()
+    }
+
+    /** The preflight checks themselves. False when one of them put a question on screen. */
+    private suspend fun preflight(): Boolean {
         val scopedBundles = gatherScopedBundles()
         val sanitizedSelection = sanitizeSelection(appliedSelection, scopedBundles)
         val missing = mutableListOf<String>()
@@ -547,11 +602,11 @@ class PatcherViewModel(
             val kept = sanitizedSelection[uid] ?: emptySet()
             patches.filterNot { it in kept }.forEach { missing += it }
         }
-        if (missing.isNotEmpty()) {
+        if (missing.isNotEmpty() && !missingPatchesAccepted) {
             missingPatchWarning = MissingPatchWarningState(
                 patchNames = missing.distinct().sorted()
             )
-            return
+            return false
         }
 
         patchSourcesForLog = collectSelectedBundleMetadata()
@@ -568,7 +623,7 @@ class PatcherViewModel(
                     requiredVersion = required,
                     bundleName = bundle.name,
                 )
-                return
+                return false
             }
         }
 
@@ -581,17 +636,21 @@ class PatcherViewModel(
 
         val pathFailures = withContext(Dispatchers.IO) { validateOptionPaths(optionsToValidate) }
         if (pathFailures.isNotEmpty()) {
-            inaccessibleOptionPaths = InaccessibleOptionPathsState(pathFailures)
-            return
+            inaccessibleOptionPaths = InaccessibleOptionPathsState(
+                failures = pathFailures,
+                canClear = !prefs.useExpertMode.get()
+            )
+            return false
         }
 
         val powerManager = app.getSystemService(PowerManager::class.java)
         if (prefs.useExpertMode.get() && !powerManager.isIgnoringBatteryOptimizations(app.packageName) && !prefs.batteryOptimizationRequested.get()) {
             batteryOptimizationDialog = true
-            return
+            return false
         }
 
         startWorker()
+        return true
     }
 
     private fun startWorker() {

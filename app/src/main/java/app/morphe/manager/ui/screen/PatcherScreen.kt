@@ -459,12 +459,27 @@ fun PatcherScreen(
         )
     }
 
-    // Storage permission pre-flight dialog.
-    // Shown when a patch option points to an external path the app cannot read
+    // Missing patches pre-flight dialog
+    // Shown when the saved selection names patches the sources no longer offer
+    patcherViewModel.missingPatchWarning?.let { warning ->
+        MissingPatchesDialog(
+            patchNames = warning.patchNames,
+            onContinue = patcherViewModel::continueWithoutMissingPatches,
+            onDismiss = {
+                patcherViewModel.dismissMissingPatchWarning()
+                onBackClick()
+            }
+        )
+    }
+
+    // Option path pre-flight dialog
+    // Shown when a patch option points at a path that is gone or cannot be read
     patcherViewModel.inaccessibleOptionPaths?.let { errorState ->
-        StoragePermissionDialog(
+        UnusableOptionPathsDialog(
             failures = errorState.failures,
             onRetryAfterPermission = patcherViewModel::retryAfterPermission,
+            canClearPaths = errorState.canClear,
+            onClearPaths = patcherViewModel::clearInaccessibleOptionPaths,
             onDismiss = {
                 patcherViewModel.dismissInaccessibleOptionPathsError()
                 onBackClick()

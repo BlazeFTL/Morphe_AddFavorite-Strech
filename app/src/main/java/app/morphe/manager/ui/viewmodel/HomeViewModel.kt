@@ -50,6 +50,7 @@ import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
 import app.morphe.manager.util.PatchSelectionUtils.mergeBundleOptions
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
+import app.morphe.manager.util.PatchSelectionUtils.restrictTo
 import app.morphe.manager.util.PatchSelectionUtils.sanitizeForPatcher
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
@@ -3217,6 +3218,7 @@ class HomeViewModel(
         expertModeNewPatches = emptyMap()
         expertModeUniversalArmedFor = null
         expertModeAllowIncompatible = false
+        expertModeUnreadablePaths = emptyList()
         expertModeCopy.close()
     }
 
@@ -3311,25 +3313,62 @@ class HomeViewModel(
         // rather than receiving a literal empty string.
         val patcherOptions = finalOptions.sanitizeForPatcher()
 
-        showExpertModeDialog = false
-
-        viewModelScope.launch(Dispatchers.IO) {
-            // Saved before patching runs so a long selection survives a failed run. It lands on
-            // the install being rebuilt, and follows it from there if patching renames it
-            val configurationKey = configurationKeyFor(selectedApp.packageName)
-            patchSelectionRepository.updateSelection(
-                packageName = configurationKey,
-                selection = finalPatches,
-                scope = bundleScope
-            )
-            saveOptions(configurationKey, finalOptions)
-            // Snapshot all bundle patch names so next open can detect genuinely new patches.
-            saveSeenPatchesForBundles(configurationKey)
-            withContext(Dispatchers.Main) {
-                proceedWithPatching(selectedApp, finalPatches, patcherOptions)
-                cleanupExpertModeData()
+        viewModelScope.launch {
+            // A path that leads nowhere fails the run, and by then this dialog is gone and the
+            // option it belongs to is out of reach. So it is asked about while the selection is
+            // still open and the value can be fixed or dropped on the spot
+            val failures = withContext(Dispatchers.IO) {
+                validateOptionPaths(patcherOptions.restrictTo(finalPatches))
             }
+
+            if (failures.isNotEmpty()) {
+                expertModeUnreadablePaths = failures
+                return@launch
+            }
+
+            showExpertModeDialog = false
+
+            withContext(Dispatchers.IO) {
+                // Saved before patching runs so a long selection survives a failed run. It lands
+                // on the install being rebuilt, and follows it from there if patching renames it
+                val configurationKey = configurationKeyFor(selectedApp.packageName)
+                patchSelectionRepository.updateSelection(
+                    packageName = configurationKey,
+                    selection = finalPatches,
+                    scope = bundleScope
+                )
+                saveOptions(configurationKey, finalOptions)
+                // Snapshot all bundle patch names so next open can detect genuinely new patches.
+                saveSeenPatchesForBundles(configurationKey)
+            }
+
+            proceedWithPatching(selectedApp, finalPatches, patcherOptions)
+            cleanupExpertModeData()
         }
+    }
+
+    /**
+     * Option paths of the expert selection that cannot be read, raised over the dialog rather
+     * than left for the run to fail on. Empty while there is nothing to answer.
+     */
+    var expertModeUnreadablePaths by mutableStateOf<List<PathValidationResult>>(emptyList())
+        private set
+
+    /** Leaves the values alone and puts the user back in the selection to deal with them. */
+    fun dismissExpertModeUnreadablePaths() {
+        expertModeUnreadablePaths = emptyList()
+    }
+
+    /**
+     * Drops the options behind the unreadable paths and goes on with the run, which then uses
+     * the defaults the patches declare. The selection is saved without them as well.
+     */
+    fun clearExpertModeUnreadablePaths() {
+        val failures = expertModeUnreadablePaths
+        expertModeUnreadablePaths = emptyList()
+        expertModeOptions = expertModeOptions.withoutFailingPaths(failures)
+
+        proceedExpertMode()
     }
 
     /**

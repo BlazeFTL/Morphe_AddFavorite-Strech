@@ -1280,50 +1280,6 @@ private fun ListStringItemRow(
     }
 }
 
-@Composable
-private fun DropdownOptionItem(
-    title: String,
-    description: String,
-    value: String,
-    presets: Map<String, Any?>,
-    onValueChange: (Any?) -> Unit
-) {
-    // Convert presets to String map for dropdown: display name -> value as string
-    val dropdownItems = presets.mapValues { it.value?.toString() ?: "" }
-
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = LocalDialogTextColor.current
-            )
-            if (description.isNotBlank()) {
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-        }
-
-        AppDialogDropdownTextField(
-            value = value,
-            onValueChange = { newValue ->
-                // Try to find the actual value from presets by matching the string representation
-                val actualValue = presets.entries.find { it.value?.toString() == newValue }?.value
-                    ?: newValue
-                onValueChange(actualValue)
-            },
-            dropdownItems = dropdownItems
-        )
-    }
-}
-
 /**
  * Button-only folder picker for a typed folder option
  * (`app.morphe.patcher.patch.FolderOption`). Options declared as plain

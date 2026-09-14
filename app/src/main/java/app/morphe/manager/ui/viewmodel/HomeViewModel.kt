@@ -28,6 +28,7 @@ import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.domain.apk.*
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
+import app.morphe.manager.domain.batch.newlyAddedDefaults
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.asRemoteOrNull
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
@@ -210,6 +211,7 @@ class HomeViewModel(
     private val installedAppRepository: InstalledAppRepository,
     private val originalApkRepository: OriginalApkRepository,
     private val patchSelectionRepository: PatchSelectionRepository,
+    private val sourceMuteRepository: SourceMuteRepository,
     private val optionsRepository: PatchOptionsRepository,
     private val managerUpdateRepository: ManagerUpdateRepository,
     private val networkInfo: NetworkInfo,
@@ -297,6 +299,18 @@ class HomeViewModel(
     var showExpertModeDialog by mutableStateOf(false)
     var expertModeSelectedApp by mutableStateOf<SelectedApp?>(null)
     var expertModeBundles by mutableStateOf<List<PatchBundleInfo.Scoped>>(emptyList())
+    // Everything the app has patches in, so a source it is kept from can be offered back without
+    // reopening the dialog. Only ever a superset of expertModeBundles
+    private var expertModeAllBundles by mutableStateOf<List<PatchBundleInfo.Scoped>>(emptyList())
+    // What the dialog is holding back. Starts as what is stored for the app and is emptied by a
+    // reveal, which the store never hears about: the sources come back for this run only
+    private var expertModeMutedSources by mutableStateOf<Set<Int>>(emptySet())
+    /**
+     * How many sources the dialog is holding back, which is what the notice offering them counts.
+     * Read off the two lists rather than off the stored set, because muting every source of an app
+     * hides none of them.
+     */
+    val expertModeHiddenSources get() = expertModeAllBundles.size - expertModeBundles.size
     var expertModePatches by mutableStateOf<PatchSelection>(emptyMap())
     /** Snapshot of the selection at the moment the ExpertMode dialog was opened. Used by "Restore saved". */
     var expertModeInitialPatches by mutableStateOf<PatchSelection>(emptyMap())
@@ -392,13 +406,22 @@ class HomeViewModel(
      * Instead of patching immediately, stores the chosen bundle uid and continues
      * to the APK selection flow so the correct recommended version is shown.
      */
-    fun proceedWithSelectedBundle(bundleUid: Int) {
+    fun proceedWithSelectedBundle(bundleUid: Int, rememberChoice: Boolean = false) {
         val packageName = pendingPackageName ?: return
+        val offeredUids = simpleBundleSelectCandidates.mapTo(mutableSetOf()) { (bundle, _) -> bundle.uid }
         showSimpleBundleSelectDialog = false
         simpleBundleSelectApp = null
         simpleBundleSelectCandidates = emptyList()
 
         pendingSelectedBundleUid = bundleUid
+
+        // Settles the question for good rather than for this run: the sources turned down here
+        // stop being offered for this app, so the dialog has nothing left to ask next time
+        if (rememberChoice) {
+            viewModelScope.launch(Dispatchers.IO) {
+                sourceMuteRepository.keepOnly(packageName, bundleUid, offeredUids)
+            }
+        }
 
         // Update recommended version to the one the chosen bundle will be used at
         val bundleRecommended = compatibleVersions[packageName]
@@ -2038,7 +2061,7 @@ class HomeViewModel(
         if (!isExpertMode() && pendingSelectedBundleUid == null) {
             val allBundlesForCheck = withContext(Dispatchers.IO) {
                 patchBundleRepository
-                    .scopedBundleInfoFlow(packageName, version = null)
+                    .offeredBundleInfoFlow(packageName, version = null)
                     .first()
             }
             val candidates = allBundlesForCheck
@@ -2578,7 +2601,7 @@ class HomeViewModel(
         // Scoped.universal = compatiblePackages == null (applies to any package/version).
         val bundles = withContext(Dispatchers.IO) {
             patchBundleRepository
-                .scopedBundleInfoFlow(selectedApp.packageName, selectedApp.version, selectedApp.versionCode)
+                .offeredBundleInfoFlow(selectedApp.packageName, selectedApp.version, selectedApp.versionCode)
                 .first()
         }
 
@@ -2704,29 +2727,48 @@ class HomeViewModel(
         // in the expert dialog is answered for the APK this run actually starts from
         currentApkArchitecture = ApkArchitectureResolver.resolve(selectedApp, pm)
 
-        val allBundles = patchBundleRepository
+        // Everything this app has patches in, the sources it is kept from included: the expert
+        // dialog offers those back, so it has to be told what it is hiding
+        val availableBundles = patchBundleRepository
             .scopedBundleInfoFlow(selectedApp.packageName, selectedApp.version, selectedApp.versionCode)
             .first()
 
-        if (allBundles.isEmpty()) {
+        if (availableBundles.isEmpty()) {
             app.toast(app.getString(R.string.home_no_patches_available))
             cleanupPendingData()
             return
         }
 
-        // Create bundles map for validation
-        val bundlesMap = allBundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
+        val mutedSources = withContext(Dispatchers.IO) {
+            sourceMuteRepository.getMutedFor(selectedApp.packageName)
+        }
+        // Every rule below reads this rather than the full list, so a source the app is kept from
+        // contributes no defaults, no new-patch badges and no tab
+        val allBundles = availableBundles.withoutMutedSources(mutedSources) { it.uid }
+
+        expertModeAllBundles = availableBundles
+        expertModeMutedSources = mutedSources
+
+        // Spans every source, hidden ones included: what the user saved for a hidden one has to
+        // survive validation. Offering the source back would otherwise hand the run an empty
+        // selection, and then write that emptiness over what was saved
+        val bundlesMap = availableBundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
 
         val configurationKey = configurationKeyFor(selectedApp.packageName)
 
         // Whatever selection is reached below, the patches' own availability for the install
-        // target has the final say on what the run starts with
-        fun PatchSelection.applyInstallerRules(): PatchSelection =
-            applyAvailability(currentInstallerType, currentApkArchitecture, bundlesMap)
+        // target has the final say on what the run starts with. A hidden source sits it out and
+        // is put back untouched: it takes no part in a run, so it does not get to decide whether
+        // the run draws from one source or several
+        fun PatchSelection.applyInstallerRules(): PatchSelection {
+            val heldBack = filterKeys { it in mutedSources }
+            return filterKeys { it !in mutedSources }
+                .applyAvailability(currentInstallerType, currentApkArchitecture, bundlesMap) + heldBack
+        }
 
         if (isExpertMode()) {
             // Expert Mode: Load saved selections and options only for current bundles
-            val currentBundleUids = allBundles.map { it.uid }.toSet()
+            val currentBundleUids = availableBundles.map { it.uid }.toSet()
 
             // Load selections
             val savedSelections = withContext(Dispatchers.IO) {
@@ -2776,15 +2818,12 @@ class HomeViewModel(
                         }
                         val knownNames = seenForBundle
                             ?: savedSelections[bundle.uid] // fallback for first run (no snapshot yet)
-                            ?: return@forEach
-                        val currentPatchNames = bundle.patches.map { it.name }.toSet()
-                        val newPatchNames = currentPatchNames - knownNames
-                        if (newPatchNames.isEmpty()) return@forEach
-
-                        // Among the genuinely new patches, auto-select those enabled by default
-                        val newDefaultEnabled = bundle.patches
-                            .filter { it.name in newPatchNames && it.defaultSelected(currentInstallerType, currentApkArchitecture) }
-                            .mapTo(mutableSetOf()) { it.name }
+                        val newDefaultEnabled = newlyAddedDefaults(
+                            patches = bundle.patches,
+                            known = knownNames,
+                            installerType = currentInstallerType,
+                            apkArchitecture = currentApkArchitecture
+                        )
 
                         if (newDefaultEnabled.isNotEmpty()) {
                             val existing = getOrDefault(bundle.uid, emptySet())
@@ -2864,7 +2903,9 @@ class HomeViewModel(
                 // This is the case for third-party bundles where all universal patches
                 // ship with use=false and require explicit user configuration.
                 // Fall through to expert mode so the user can select and configure patches.
-                val currentBundleUids = allBundles.map { it.uid }.toSet()
+                // Hidden sources are read here too, for the same reason the expert branch reads
+                // them: the dialog can offer one back, and it has to have something to offer
+                val currentBundleUids = availableBundles.map { it.uid }.toSet()
 
                 val savedSelections = withContext(Dispatchers.IO) {
                     patchSelectionRepository.getAllSelectionsForPackage(configurationKey)
@@ -3008,13 +3049,28 @@ class HomeViewModel(
         }.filter { it.second.isNotEmpty() }
             .sortedByDescending { (bundle, _) -> bundle.compatible.size }
 
+    /**
+     * The selection as the run would use it: what the dialog shows, minus what it holds back.
+     *
+     * A hidden source keeps its patches in [expertModePatches] so that offering it back returns
+     * the selection made from it rather than an empty tab. Everything that speaks for the run -
+     * the counter, the multiple-sources warning, the patches handed to the patcher - reads this
+     * instead, or it would answer for a source the run never reaches.
+     */
+    private val expertModeRunSelection: PatchSelection
+        get() {
+            if (expertModeMutedSources.isEmpty()) return expertModePatches
+            val shown = expertModeBundles.mapTo(mutableSetOf()) { it.uid }
+            return expertModePatches.filterKeys { it in shown }
+        }
+
     /** Total number of currently selected patches across all bundles. */
     val expertModeTotalSelectedCount: Int
-        get() = expertModePatches.values.sumOf { it.size }
+        get() = expertModeRunSelection.values.sumOf { it.size }
 
     /** True when patches from more than one bundle are selected (triggers warning on proceed). */
     val expertModeHasMultipleBundles: Boolean
-        get() = expertModePatches.spansMultipleBundles()
+        get() = expertModeRunSelection.spansMultipleBundles()
 
     /**
      * Toggle patch in expert mode.
@@ -3140,12 +3196,33 @@ class HomeViewModel(
     }
 
     /**
+     * Brings the sources this app is kept from back into the open dialog, for this run only.
+     *
+     * Nothing is written: the app stays kept from them, and the next run hides them again. Which
+     * sources an app is patched from is a standing decision made where the apps are, and a look at
+     * what was left out is not the place to overturn it by accident. The patches revealed here do
+     * take part in this run, since the dialog counts them and the user can edit them.
+     */
+    fun revealHiddenExpertModeSources() {
+        expertModeSelectedApp ?: return
+
+        expertModeMutedSources = emptySet()
+        applyExpertModeMutes()
+    }
+
+    private fun applyExpertModeMutes() {
+        expertModeBundles = expertModeAllBundles.withoutMutedSources(expertModeMutedSources) { it.uid }
+    }
+
+    /**
      * Clean up expert mode data.
      */
     fun cleanupExpertModeData() {
         showExpertModeDialog = false
         expertModeSelectedApp = null
         expertModeBundles = emptyList()
+        expertModeAllBundles = emptyList()
+        expertModeMutedSources = emptySet()
         expertModePatches = emptyMap()
         expertModeInitialPatches = emptyMap()
         expertModeOptions = emptyMap()
@@ -3189,13 +3266,24 @@ class HomeViewModel(
         }
     }
 
-    /** Availability rules of the current install target, scoped to the bundles the dialog shows. */
-    private fun PatchSelection.applyExpertModeAvailability(): PatchSelection =
-        applyAvailability(
-            currentInstallerType,
-            currentApkArchitecture,
-            expertModeBundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
-        )
+    /**
+     * Availability rules of the current install target, scoped to the bundles the dialog shows.
+     *
+     * A source being held back takes no part in the rules and is put back untouched afterwards.
+     * Whether a REQUIRED patch locks turns on the run drawing from one source or several, and a
+     * source the run cannot reach is not one of them.
+     */
+    private fun PatchSelection.applyExpertModeAvailability(): PatchSelection {
+        val shown = expertModeBundles.mapTo(mutableSetOf()) { it.uid }
+        val heldBack = filterKeys { it !in shown }
+
+        return filterKeys { it in shown }
+            .applyAvailability(
+                currentInstallerType,
+                currentApkArchitecture,
+                expertModeBundles.associate { it.uid to it.patches.associateBy { patch -> patch.name } }
+            ) + heldBack
+    }
 
     private fun targetBundlePatchNames(bundleUid: Int): Set<String> =
         expertModeBundles.firstOrNull { it.uid == bundleUid }
@@ -3225,11 +3313,11 @@ class HomeViewModel(
      */
     fun proceedExpertMode() {
         val selectedApp = expertModeSelectedApp ?: return
-        val finalPatches = expertModePatches
-        val finalOptions = expertModeOptions
         // Only the bundles offered by the dialog are covered by this selection, so bundles that
         // were disabled at patch time keep whatever the user saved for them earlier.
         val bundleScope = expertModeBundles.mapTo(mutableSetOf()) { it.uid }
+        val finalPatches = expertModeRunSelection
+        val finalOptions = expertModeOptions
         // Strip UI-only empty strings (fields cleared via ✕) so the patcher engine
         // receives null / no key for those options and falls back to its own default,
         // rather than receiving a literal empty string.

@@ -16,6 +16,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
@@ -51,6 +52,7 @@ import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
@@ -62,6 +64,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import org.koin.compose.koinInject
 import com.mikepenz.markdown.model.State as MarkdownRenderState
 
@@ -1364,5 +1367,100 @@ private fun normalizeUrl(url: String): String {
 
         // Add https:// by default
         else -> "https://$trimmed"
+    }
+}
+
+/**
+ * The apps kept from one source, and the way back for each of them.
+ *
+ * An app is kept from a source from wherever that app is being patched, which is a place only one
+ * of the two modes reaches. This is the other end of the same decision: it belongs to the source
+ * and reads the same in either mode. It is also where an exclusion made in simple mode can be
+ * lifted, without resetting everything else the app was configured with.
+ */
+@Composable
+fun BundleHiddenAppsDialog(
+    onDismissRequest: () -> Unit,
+    src: PatchBundleSource
+) {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val sourceMuteRepository: SourceMuteRepository = koinInject()
+    val scope = rememberCoroutineScope()
+
+    val mutedApps by sourceMuteRepository.mutedApps.collectAsStateWithLifecycle(emptyMap())
+    val appMetadata by patchBundleRepository.allAppMetadata.collectAsStateWithLifecycle()
+
+    // Sorted by what the user reads rather than by package name, and resolved against every
+    // source's metadata: the app is kept from this one, so its name is known to the others
+    val hiddenApps = remember(mutedApps, appMetadata, src.uid) {
+        mutedApps[src.uid].orEmpty()
+            .map { packageName -> packageName to (appMetadata[packageName]?.displayName ?: packageName) }
+            .sortedBy { (_, label) -> label.lowercase(Locale.ROOT) }
+    }
+
+    // The last one taken back closes this, since a source nothing is kept from has nothing to
+    // list. Armed only once the list has actually arrived: the flow starts empty, and an empty
+    // first frame is what loading looks like rather than what an emptied list looks like
+    var listArrived by remember { mutableStateOf(false) }
+    LaunchedEffect(hiddenApps.isEmpty()) {
+        if (hiddenApps.isNotEmpty()) {
+            listArrived = true
+        } else if (listArrived) {
+            onDismissRequest()
+        }
+    }
+
+    AppDialog(
+        onDismissRequest = onDismissRequest,
+        title = stringResource(R.string.sources_hidden_apps_title, src.displayTitle),
+        footer = {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismissRequest,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        padding = DialogPadding.Compact,
+        scrollable = false
+    ) {
+        Text(
+            text = stringResource(R.string.sources_hidden_apps_description),
+            style = MaterialTheme.typography.bodyMedium,
+            color = LocalDialogSecondaryTextColor.current,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = Defaults.ContentPaddingSmall)
+        )
+
+        val listState = rememberLazyListState()
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+        ) {
+            items(items = hiddenApps, key = { (packageName, _) -> packageName }) { (packageName, label) ->
+                val gradientColors = appMetadata[packageName]?.gradientColors
+                    ?: AppCardColorDefaults.defaultGradientColors
+
+                AppCardLayout(
+                    gradientColors = gradientColors,
+                    onClick = {
+                        scope.launch { sourceMuteRepository.unmute(packageName, src.uid) }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .animatedListItem(this)
+                ) {
+                    AppCardContent(
+                        packageName = packageName,
+                        packageInfo = null,
+                        displayName = label,
+                        subtitle = stringResource(R.string.sources_hidden_apps_hint),
+                        gradientColors = gradientColors
+                    )
+                }
+            }
+        }
     }
 }

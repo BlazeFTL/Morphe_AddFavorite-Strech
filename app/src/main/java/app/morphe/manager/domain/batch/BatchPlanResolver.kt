@@ -326,7 +326,7 @@ class BatchPlanResolver(
     ): BatchPatchItem {
         val packageName = target.packageName
         val bundles = patchBundleRepository
-            .scopedBundleInfoFlow(packageName, source.version, source.versionCode)
+            .offeredBundleInfoFlow(packageName, source.version, source.versionCode)
             .first()
             .filter { it.enabled }
 

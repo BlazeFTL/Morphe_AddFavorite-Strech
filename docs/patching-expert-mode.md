@@ -119,6 +119,10 @@ If patches for this app come from more than one source, each source gets its own
 the row of action buttons applies to the source you are currently viewing, see
 [Managing patch sources](patch-sources.md).
 
+A source this app is kept from has no tab here. A notice above the list says how many are
+missing, and tapping it brings them back for this run only, leaving the decision itself alone,
+see [Choosing sources per app](patch-sources.md#choosing-sources-per-app).
+
 ### The action buttons
 
 The row of pill buttons above the patch list acts on the source you are currently viewing.

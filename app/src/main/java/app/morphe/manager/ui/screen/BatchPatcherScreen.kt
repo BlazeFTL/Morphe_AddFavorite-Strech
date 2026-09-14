@@ -291,7 +291,9 @@ fun BatchPatcherScreen(
                         patchCount = offered[bundle.uid]?.size ?: 0
                     )
                 },
-            onSelect = viewModel::pickSource,
+            // The queue picks a source for the one item it is resolving; what an app is
+            // patched from for good is settled where that question is asked of the app itself
+            onSelect = { uid, _ -> viewModel.pickSource(uid) },
             onDismiss = viewModel::cancelSourcePick
         )
     }

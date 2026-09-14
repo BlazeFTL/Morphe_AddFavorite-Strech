@@ -1839,7 +1839,9 @@ private fun MountWarningDialog(
         Text(
             text = stringResource(R.string.installer_mount_warning_install),
             style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current
+            color = LocalDialogSecondaryTextColor.current,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

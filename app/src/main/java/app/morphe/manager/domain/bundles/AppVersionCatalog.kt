@@ -9,6 +9,7 @@ import android.os.Build
 import app.morphe.manager.domain.apk.InstalledApkInfo
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.util.compareVersions
@@ -138,6 +139,7 @@ fun versionStatus(
  */
 class AppVersionCatalog(
     patchBundleRepository: PatchBundleRepository,
+    sourceMuteRepository: SourceMuteRepository,
     prefs: PreferencesManager
 ) {
     /**
@@ -148,15 +150,23 @@ class AppVersionCatalog(
     val compatibleVersions: Flow<Map<String, List<BundledAppTarget>>> = combine(
         patchBundleRepository.bundleInfoFlow,
         patchBundleRepository.sources,
-        prefs.bundleExperimentalVersionsEnabled.flow
-    ) { bundleInfo, sources, experimentalEnabledUids ->
+        prefs.bundleExperimentalVersionsEnabled.flow,
+        sourceMuteRepository.mutedSources
+    ) { bundleInfo, sources, experimentalEnabledUids, mutedSources ->
         val enabledSources = sources.filter { it.enabled }
         extract(
             bundleInfo = bundleInfo,
             bundleNames = enabledSources.associate { it.uid to it.displayTitle },
             enabledBundleUids = enabledSources.map { it.uid }.toSet(),
             experimentalEnabledUids = experimentalEnabledUids
-        )
+        ).mapValues { (packageName, targets) ->
+            // Or the picker suggests a download none of the sources left standing can patch
+            val muted = mutedSources[packageName].orEmpty()
+            targets.filterNot { it.bundleUid in muted }
+        }
+            // Unlike the source list this drops the last one: extract promises that a listed
+            // package has a version to offer, and one with none left is a state readers handle
+            .filterValues { it.isNotEmpty() }
     }
 
     /** The single version to offer per package. */

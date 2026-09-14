@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Source
+import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -29,6 +31,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -86,6 +89,9 @@ fun ExpertModeDialog(
     warnOnMultipleBundles: Boolean = true,
     /** Bundle UIDs currently receiving pre-release patch versions, shown as a warning header. */
     prereleaseBundleUids: Set<Int> = emptySet(),
+    /** Sources this app is being kept from, which the notice above the list offers back. */
+    hiddenSourceCount: Int = 0,
+    onShowHiddenSources: () -> Unit = {},
     onDismiss: () -> Unit,
     onProceed: () -> Unit
 ) {
@@ -249,6 +255,24 @@ fun ExpertModeDialog(
                     },
                     showClearButton = true,
                     modifier = Modifier.focusRequester(focusRequester)
+                )
+            }
+
+            // Above the list rather than inside one source's page: what it counts is the sources
+            // that have no page here at all
+            if (hiddenSourceCount > 0) {
+                Notice(
+                    text = pluralStringResource(
+                        R.plurals.expert_mode_hidden_sources_notice,
+                        hiddenSourceCount,
+                        hiddenSourceCount.toString()
+                    ),
+                    icon = Icons.Outlined.VisibilityOff,
+                    tone = SemanticTone.Neutral,
+                    density = NoticeDensity.Compact,
+                    modifier = Modifier
+                        .padding(bottom = Defaults.ContentPaddingSmall)
+                        .clickable(onClick = onShowHiddenSources)
                 )
             }
 

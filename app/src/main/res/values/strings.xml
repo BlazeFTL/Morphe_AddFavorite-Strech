@@ -12,6 +12,10 @@
     <string name="home_app_no_hidden">No hidden apps</string>
     <string name="home_app_hidden_apps_title">Hidden apps</string>
     <string name="home_app_hidden_apps_hint">Tap to unhide</string>
+    <string name="home_app_patch_sources_description">Sources left unticked are not offered when these apps are patched, and their patches never join a selection on their own. Each source stays on for every other app</string>
+    <string name="home_app_patch_sources_mixed">Offered to %1$s of %2$s</string>
+    <string name="home_app_patch_sources_covers">Has patches for %1$s of %2$s</string>
+    <string name="home_app_patch_sources_last">Every app needs one source left to patch from</string>
     <string name="android_11_bug_dialog_title">Android 11 bug</string>
     <string name="android_11_bug_dialog_description">The app installation permission must be granted ahead of time to avoid a bug in the Android 11 system that will negatively affect the user experience</string>
 
@@ -140,6 +144,10 @@
     <string name="sources_management_open_in_browser">Open in browser</string>
     <string name="sources_management_report_issue">Report an issue</string>
     <string name="sources_management_failed_to_open_url">Failed to open URL</string>
+    <string name="sources_hidden_apps">Hidden for</string>
+    <string name="sources_hidden_apps_title">Apps hidden from %1$s</string>
+    <string name="sources_hidden_apps_description">These apps are not offered this source when they are patched. The source itself stays on for everything else</string>
+    <string name="sources_hidden_apps_hint">Tap to offer this source again</string>
     <string name="sources_management_prerelease_toggle">Pre-release patches</string>
     <string name="sources_management_prerelease_toggle_description">Receives early access to new experimental patch versions</string>
     <string name="sources_prerelease_warning_title">Enable pre-release patches?</string>
@@ -340,6 +348,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="home_low_disk_space_dialog_message">Only %1$s GB of free storage available. Patching requires at least %2$s GB of free space to work correctly</string>
     <string name="home_low_disk_space_dialog_warning">Proceeding may result in a \"file not found\" error or a corrupt output APK</string>
     <string name="home_simple_bundle_select_title">Select patch source</string>
+    <string name="home_simple_bundle_select_remember">Always use this source for this app</string>
 
     <!-- Color picker -->
     <string name="custom_color">Custom color</string>

@@ -19,24 +19,39 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
+import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
+import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
+import app.morphe.manager.domain.repository.appsToKeepFrom
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.util.toast
+import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
+import java.util.Locale
 
 /**
  * Dialog that shows available patches for a specific app.
@@ -592,6 +607,147 @@ internal fun HiddenAppsDialog(
                 ScrollToTopButton(
                     listState = listState,
                     modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Which sources the selected apps are patched from.
+ *
+ * Asked of the apps rather than of the sources, which is the way round the question comes up: the
+ * user is looking at apps, and several of them usually want the same answer. A source stays on
+ * everywhere else - this only decides whether these apps are offered it.
+ */
+@Composable
+fun AppPatchSourcesDialog(
+    packages: Set<String>,
+    onDismiss: () -> Unit
+) {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val sourceMuteRepository: SourceMuteRepository = koinInject()
+    val scope = rememberCoroutineScope()
+
+    val context = LocalContext.current
+    val lastSourceMessage = stringResource(R.string.home_app_patch_sources_last)
+
+    val bundleInfo by patchBundleRepository.bundleInfoFlow.collectAsStateWithLifecycle(emptyMap())
+    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+    // Keyed by app, the way every rule below asks the question
+    val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
+
+    // Which sources have anything to offer each app. A universal patch names no app, so the source
+    // carrying it reaches every one of them
+    val coveredBy: Map<String, Set<Int>> = remember(bundleInfo, packages) {
+        packages.associateWith { packageName ->
+            bundleInfo.entries.mapNotNullTo(mutableSetOf()) { (uid, info) ->
+                uid.takeIf {
+                    info.patches.any { patch ->
+                        patch.isUniversal ||
+                                patch.compatiblePackages?.any { it.packageName == packageName } == true
+                    }
+                }
+            }
+        }
+    }
+
+    // Read the other way round for the list, and named the way the source list names them
+    val titles = remember(sources) { sources.associate { it.uid to it.displayTitle } }
+    val rows = remember(coveredBy, keptFrom, titles, packages) {
+        coveredBy.values.flatten().distinct()
+            .map { uid ->
+                val reaches = packages.filter { uid in coveredBy[it].orEmpty() }
+                val held = reaches.count { uid in keptFrom[it].orEmpty() }
+                Triple(uid, titles[uid] ?: uid.toString(), held to reaches.size)
+            }
+            .sortedBy { (_, title, _) -> title.lowercase(Locale.ROOT) }
+    }
+
+    AppDialog(
+        onDismissRequest = onDismiss,
+        title = pluralStringResource(
+            R.plurals.home_app_patch_sources_title,
+            packages.size,
+            packages.size.toString()
+        ),
+        footer = {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        padding = DialogPadding.Compact,
+        scrollable = false
+    ) {
+        Text(
+            text = stringResource(R.string.home_app_patch_sources_description),
+            style = MaterialTheme.typography.bodyMedium,
+            color = LocalDialogSecondaryTextColor.current,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = Defaults.ContentPaddingSmall)
+        )
+
+        val listState = rememberLazyListState()
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+        ) {
+            items(items = rows, key = { (uid, _, _) -> uid }) { (uid, title, counts) ->
+                val (held, reaches) = counts
+                val state = when (held) {
+                    0 -> ToggleableState.On
+                    reaches -> ToggleableState.Off
+                    else -> ToggleableState.Indeterminate
+                }
+
+                RadioSelectionCard(
+                    selected = state == ToggleableState.On,
+                    onSelect = {
+                        scope.launch {
+                            // Anything but "offered to all of them" is answered by offering it to
+                            // all of them, so one tap always has a result the row can show
+                            if (state == ToggleableState.On) {
+                                val reached = appsToKeepFrom(uid, packages, coveredBy, keptFrom)
+                                // Refusing to leave an app with nothing to patch from would
+                                // otherwise read as a checkbox that does nothing
+                                if (reached.isEmpty()) {
+                                    context.toast(lastSourceMessage)
+                                }
+                                reached.forEach { sourceMuteRepository.mute(it, uid) }
+                            } else {
+                                packages.forEach { sourceMuteRepository.unmute(it, uid) }
+                            }
+                        }
+                    },
+                    title = title,
+                    // Two things the box alone cannot say: that the selected apps disagree, and
+                    // that a source only has patches for some of them, which is what decides how
+                    // far a tap on it reaches
+                    description = when {
+                        state == ToggleableState.Indeterminate -> stringResource(
+                            R.string.home_app_patch_sources_mixed,
+                            (reaches - held).toString(),
+                            reaches.toString()
+                        )
+
+                        reaches < packages.size -> stringResource(
+                            R.string.home_app_patch_sources_covers,
+                            reaches.toString(),
+                            packages.size.toString()
+                        )
+
+                        else -> null
+                    },
+                    role = Role.Checkbox,
+                    leadingContent = { SelectionCheckIndicator(state) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .animatedListItem(this)
                 )
             }
         }

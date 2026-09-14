@@ -36,8 +36,9 @@ your device in front of it when the app is there at all.
 
 > [!TIP]
 > If more than one of your patch sources provides patches for the same app, Morphe first
-> asks you to pick one in a **Select patch source** dialog. With the default setup this
-> does not happen, see [Managing patch sources](patch-sources.md).
+> asks you to pick one in a **Select patch source** dialog. Tick **Always use this source for
+> this app** and it stops asking for that app. With the default setup this does not happen at
+> all, see [Managing patch sources](patch-sources.md).
 
 ## 2. Check the required APK version
 

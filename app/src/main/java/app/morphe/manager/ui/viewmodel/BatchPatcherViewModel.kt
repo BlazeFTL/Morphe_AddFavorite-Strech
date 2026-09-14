@@ -465,7 +465,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val source = item.source ?: return
         viewModelScope.launch {
             val bundles = patchBundleRepository
-                .scopedBundleInfoFlow(item.packageName, source.version, source.versionCode)
+                .offeredBundleInfoFlow(item.packageName, source.version, source.versionCode)
                 .first()
                 .filter { it.enabled }
 

@@ -62,6 +62,7 @@ import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.manager.SourceBundleSortMode
 import app.morphe.manager.domain.repository.BlocklistRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.ui.screen.patcher.IncompatiblePatcherVersionDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
@@ -95,6 +96,7 @@ fun BundleManagementSheet(
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
     val prefs: PreferencesManager = koinInject()
+    val sourceMuteRepository: SourceMuteRepository = koinInject()
     val scope = rememberCoroutineScope()
 
     val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
@@ -109,6 +111,7 @@ fun BundleManagementSheet(
     // and still declares whether it carries experimental targets
     val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
     val blockedSources by patchBundleRepository.blockedSources.collectAsStateWithLifecycle(emptyMap())
+    val hiddenApps by sourceMuteRepository.mutedApps.collectAsStateWithLifecycle(emptyMap())
 
     val showSheetOnboarding = globalOnboardingState?.sheetOnboardingActive == true
 
@@ -201,6 +204,7 @@ fun BundleManagementSheet(
     }
 
     val bundleToShowPatches = remember { mutableStateOf<PatchBundleSource?>(null) }
+    val bundleToShowHiddenApps = remember { mutableStateOf<PatchBundleSource?>(null) }
     var bundleRequiringManagerUpdate by remember { mutableStateOf<PatchBundleSource?>(null) }
     var bundleToShowChangelogUid by remember { mutableStateOf<Int?>(null) }
 
@@ -383,6 +387,7 @@ fun BundleManagementSheet(
                                     bundle = bundle,
                                     patchCount = patchCounts[bundle.uid] ?: 0,
                                     patchMatchCount = patchMatchCounts[bundle.uid],
+                                    hiddenAppCount = hiddenApps[bundle.uid]?.size ?: 0,
                                     updateInfo = manualUpdateInfo[bundle.uid],
                                     isUpdating = bundle.uid in activeUpdateUids,
                                     metadataFetchError = metadataFetchErrors[bundle.uid],
@@ -426,6 +431,7 @@ fun BundleManagementSheet(
                                     hasExperimentalVersions = hasExperimentalVersions,
                                     useExperimentalVersions = useExperimentalVersions,
                                     onPatchesClick = { bundleToShowPatches.value = bundle },
+                                    onHiddenAppsClick = { bundleToShowHiddenApps.value = bundle },
                                     onOutdatedManagerClick = { bundleRequiringManagerUpdate = bundle },
                                     onVersionClick = {
                                         if (bundle is RemotePatchBundle) {
@@ -545,6 +551,13 @@ fun BundleManagementSheet(
         )
     }
 
+    bundleToShowHiddenApps.value?.let { src ->
+        BundleHiddenAppsDialog(
+            onDismissRequest = { bundleToShowHiddenApps.value = null },
+            src = src
+        )
+    }
+
     // Outdated manager dialog, shared with the pre-flight check done when patching starts
     bundleRequiringManagerUpdate?.let { bundle ->
         IncompatiblePatcherVersionDialog(
@@ -614,6 +627,8 @@ private fun BundleManagementCard(
     patchCount: Int,
     /** Patches in this source matching the sheet's search, or null while nothing is searched. */
     patchMatchCount: Int? = null,
+    /** Apps kept from this source. Zero drops the row, since there is nothing to take back. */
+    hiddenAppCount: Int = 0,
     updateInfo: PatchBundleRepository.ManualBundleUpdateInfo?,
     isUpdating: Boolean = false,
     isDragging: Boolean = false,
@@ -634,6 +649,7 @@ private fun BundleManagementCard(
     hasExperimentalVersions: Boolean,
     useExperimentalVersions: Boolean,
     onPatchesClick: () -> Unit,
+    onHiddenAppsClick: () -> Unit = {},
     onVersionClick: () -> Unit,
     onOpenInBrowser: () -> Unit,
     onReportIssue: () -> Unit,
@@ -871,6 +887,23 @@ private fun BundleManagementCard(
                             onClick = onVersionClick,
                             enabled = !isUpdating
                         )
+
+                        // Only where something is actually being kept from the source. The row is
+                        // the one way back that does not depend on which mode the user patches in
+                        if (hiddenAppCount > 0) {
+                            BundleInfoCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                icon = Icons.Outlined.VisibilityOff,
+                                title = stringResource(R.string.sources_hidden_apps),
+                                value = pluralStringResource(
+                                    R.plurals.home_category_app_count,
+                                    hiddenAppCount,
+                                    hiddenAppCount.toString()
+                                ),
+                                onClick = onHiddenAppsClick,
+                                enabled = !isUpdating
+                            )
+                        }
 
                         // Both actions leave for the same repository, so they share a row.
                         // Only the primary one carries a label, keeping it clear of the

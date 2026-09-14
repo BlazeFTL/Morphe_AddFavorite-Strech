@@ -64,8 +64,11 @@ shows them, and tapping one brings it back.
 ## Multi-select
 
 Long-press any card to select it, then tap others to add them. The bar that appears offers
-**Select all** and **Deselect all**, **Move to category**, reordering, **Reset order**, and
-the batch actions, including uninstalling every selected app at once.
+**Select all** and **Deselect all**, **Patch sources**, **Move to category**, reordering,
+**Reset order**, and the batch actions, including uninstalling every selected app at once.
+
+**Patch sources** decides which of your sources the selected apps are patched from, see
+[Choosing sources per app](patch-sources.md#choosing-sources-per-app).
 
 The wand button patches everything you selected in one queue, see
 [Patching several apps at once](batch-patching.md).

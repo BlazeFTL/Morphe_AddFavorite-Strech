@@ -55,6 +55,7 @@ class PatchBundleRepository(
     private val networkInfo: NetworkInfo,
     private val prefs: PreferencesManager,
     private val blocklistRepository: BlocklistRepository,
+    private val sourceMuteRepository: SourceMuteRepository,
     db: AppDatabase,
 ) {
     private val dao = db.patchBundleDao()
@@ -127,6 +128,22 @@ class PatchBundleRepository(
             bundleInfo.forPackage(packageName, version, versionCode)
         }
     }
+
+    /**
+     * [scopedBundleInfoFlow] narrowed to the sources this app may be patched from, which is what
+     * every point that offers the user a choice reads.
+     *
+     * The unnarrowed flow stays the description of what exists, and a run reads that one. A
+     * selection is answered for by the sources it was made from, whether or not the app has since
+     * been kept from one.
+     */
+    fun offeredBundleInfoFlow(packageName: String, version: String?, versionCode: Long? = null) =
+        combine(
+            scopedBundleInfoFlow(packageName, version, versionCode),
+            sourceMuteRepository.mutedFor(packageName)
+        ) { bundles, muted ->
+            bundles.withoutMutedSources(muted) { it.uid }
+        }
 
     val patchCountsFlow = allBundlesInfoFlow.map { it.mapValues { (_, info) -> info.patches.size } }
 

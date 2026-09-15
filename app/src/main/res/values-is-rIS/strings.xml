@@ -13,6 +13,7 @@
     <string name="home_app_no_hidden">Engin falin app</string>
     <string name="home_app_hidden_apps_title">Falin app</string>
     <string name="home_app_hidden_apps_hint">Banka til að fela</string>
+    <string name="home_app_patch_sources_description">Óvaldar uppsprettur eru ekki boðnar þegar þessi forrit eru plöstuð, og plástrar þeirra bætast aldrei við val af sjálfu sér. Hver uppspretta er áfram valin fyrir öll önnur forrit.</string>
     <string name="android_11_bug_dialog_title">Android 11 galla</string>
     <string name="android_11_bug_dialog_description">Það er þörf á samningi um app uppsetningarheimildir til að forðast villu í Android 11 kerfinu sem mun hafa neikvæð áhrif á notendaupplifunina</string>
     <string name="deep_link_add_source_title">Bæta við gjafa</string>
@@ -124,6 +125,7 @@
     <string name="home_greeting_super_late_5">Næturhægur og afkastamikill</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Heimildir breytistillinga</string>
+    <string name="sources_search">Leita að uppsprettum og plástrum</string>
     <string name="sources_sort_title">Flokka uppfærslujöfn</string>
     <string name="sources_sort_manual">Handvirkuð pöntun</string>
     <string name="sources_sort_manual_hint">Halðu lengi á uppspretta til að raða á ný</string>
@@ -131,6 +133,7 @@
     <string name="sources_sort_last_updated_description">Nýjustu uppfærslur frá uppruna fyrst</string>
     <string name="sources_sort_enabled_first">Gerilt fyrst</string>
     <string name="sources_sort_enabled_first_description">Sýna virka uppruna á undan óvirkuppruna</string>
+    <string name="sources_patches_source_disabled_hint">Þessi uppspretta er óvirk. Plástrar hennar eru skráðir til viðmiðunar og ekki notaðir</string>
     <string name="sources_management_open_in_browser">Opna í vafra</string>
     <string name="sources_management_report_issue">Nýlega uppfærð forrit fyrst</string>
     <string name="sources_management_failed_to_open_url">Ekki tókst að opna vefslóð</string>
@@ -635,7 +638,10 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="mini_game_snake_swipe_to_start">Stryndu til að byrja</string>
     <string name="mini_game_dino_picker_subtitle">Smelltu til að hoppa yfir kaktusa</string>
     <string name="mini_game_dino_tap_to_start">Smelltu til að hlaupa</string>
+    <string name="mini_game_blocks_picker_subtitle">Fella lögun, hreinsa línur</string>
     <string name="mini_game_blocks_tap_to_start">Pikkaðu til að snúa, strjúktu til að færa, strjúktu niður til að sleppa</string>
+    <string name="mini_game_bricks_picker_subtitle">Spretta boltann, hreinsa vegginn</string>
+    <string name="mini_game_bricks_tap_to_start">Dragðu til að miða, bankaðu til að skjóta</string>
     <string name="mini_game_miner_picker_subtitle">Pikkaðu til að opna, haltu til að merkja</string>
     <string name="mini_game_pairs_picker_subtitle">Snúðu við spilunum, finndu samsvörun</string>
     <!-- Settings -->

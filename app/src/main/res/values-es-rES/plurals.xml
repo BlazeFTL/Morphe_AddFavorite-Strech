@@ -8,6 +8,14 @@
         <item quantity="one">%s opción de parche</item>
         <item quantity="other">%s opciones de parche</item>
     </plurals>
+    <plurals name="home_app_patch_sources_title">
+        <item quantity="one">Fuentes de parches para %s aplicación</item>
+        <item quantity="other">Fuentes de parches para %s aplicaciones</item>
+    </plurals>
+    <plurals name="expert_mode_hidden_sources_notice">
+        <item quantity="one">%s fuente oculta. Pulsa para mostrar</item>
+        <item quantity="other">%s fuentes ocultas. Pulsa para mostrar</item>
+    </plurals>
     <plurals name="sources_search_patch_matches">
         <item quantity="one">%s parche coincidente</item>
         <item quantity="other">%s parches coincidentes</item>

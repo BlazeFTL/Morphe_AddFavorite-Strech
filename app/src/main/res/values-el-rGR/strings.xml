@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Καμία κρυφή εφαρμογή</string>
     <string name="home_app_hidden_apps_title">Κρυφές εφαρμογές</string>
     <string name="home_app_hidden_apps_hint">Πατήστε για επανεμφάνιση</string>
+    <string name="home_app_patch_sources_description">Οι πηγές που δεν είναι επιλεγμένες δεν προσφέρονται όταν αυτές οι εφαρμογές διορθώνονται, και οι διορθώσεις αυτών των πηγών δεν συμπεριλαμβάνονται ποτέ από μόνες τους σε μια επιλογή. Κάθε πηγή παραμένει ενεργή για κάθε άλλη εφαρμογή.</string>
+    <string name="home_app_patch_sources_mixed">Προσφέρεται σε %1$s από %2$s</string>
+    <string name="home_app_patch_sources_covers">Έχει τροποποιήσεις για %1$s από %2$s</string>
+    <string name="home_app_patch_sources_last">Κάθε εφαρμογή χρειάζεται να της μείνει τουλάχιστον μία πηγή για να τροποποιηθεί.</string>
     <string name="android_11_bug_dialog_title">Σφάλμα Android 11</string>
     <string name="android_11_bug_dialog_description">Πρέπει να χορηγηθεί εκ των προτέρων η άδεια εγκατάστασης της εφαρμογής, προκειμένου να αποφευχθεί ένα σφάλμα στο σύστημα Android 11 που θα επηρεάσει αρνητικά την εμπειρία του χρήστη</string>
     <string name="deep_link_add_source_title">Προσθήκη πηγής</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Νυχτερινός και παραγωγικός</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Πηγές τροποποιήσεων</string>
+    <string name="sources_search">Αναζήτηση πηγών και επιδιορθώσεων</string>
     <string name="sources_sort_title">Ταξινόμηση πηγών ενημερώσεων</string>
     <string name="sources_sort_manual">Χειροκίνητη ταξινόμηση</string>
     <string name="sources_sort_manual_hint">Πατήστε παρατεταμένα μια πηγή για να την αναδιατάξετε</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Νεότερες ενημερώσεις πηγών πρώτα</string>
     <string name="sources_sort_enabled_first">Ενεργοποιημένες πρώτα</string>
     <string name="sources_sort_enabled_first_description">Εμφάνιση ενεργών πηγών πριν από τις απενεργοποιημένες</string>
+    <string name="sources_patches_source_disabled_hint">Αυτή η πηγή είναι απενεργοποιημένη. Τα patches της παρατίθενται για αναφορά και δεν εφαρμόζονται.</string>
     <string name="sources_management_open_in_browser">Άνοιγμα σε πρόγραμμα περιήγησης</string>
     <string name="sources_management_report_issue">Αναφορά προβλήματος</string>
     <string name="sources_management_failed_to_open_url">Απέτυχε το άνοιγμα της διεύθυνσης URL</string>
+    <string name="sources_hidden_apps">Κρυμμένες για</string>
+    <string name="sources_hidden_apps_title">Εφαρμογές για τις οποίες έχει κρυφτεί η πηγή %1$s</string>
+    <string name="sources_hidden_apps_description">Σε αυτές τις εφαρμογές δεν προσφέρεται αυτή η πηγή όταν τροποποιούνται. Η ίδια η πηγή παραμένει ενεργή για όλα τα υπόλοιπα.</string>
+    <string name="sources_hidden_apps_hint">Πατήστε για να προσφερθεί ξανά αυτή η πηγή.</string>
     <string name="sources_management_prerelease_toggle">Ενημερώσεις πριν την κυκλοφορία</string>
     <string name="sources_management_prerelease_toggle_description">Λάβετε πρόωρη πρόσβαση σε νέες πειραματικές εκδόσεις τροποποιήσεων</string>
     <string name="sources_prerelease_warning_title">Ενεργοποίηση επιδιορθώσεων προ-έκδοσης;</string>
@@ -328,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">Μόνο %1$s GB ελεύθερου χώρου αποθήκευσης είναι διαθέσιμα. Η ενημέρωση απαιτεί τουλάχιστον %2$s GB ελεύθερου χώρου για να λειτουργήσει σωστά.</string>
     <string name="home_low_disk_space_dialog_warning">Η συνέχιση μπορεί να οδηγήσει σε σφάλμα \"αρχείο δε βρέθηκε\" ή σε διεφθαρμένη APK</string>
     <string name="home_simple_bundle_select_title">Επιλογή αρχείου πηγής τροποποιήσεων</string>
+    <string name="home_simple_bundle_select_remember">Να χρησιμοποιείται πάντα αυτή η πηγή για αυτήν την εφαρμογή.</string>
     <!-- Color picker -->
     <string name="custom_color">Προσαρμοσμένο χρώμα</string>
     <string name="hex_color">Δεκαεξαδικό χρώμα</string>
@@ -543,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">Άνοιγμα ρυθμίσεων αποθήκευσης χώρου</string>
     <string name="patcher_storage_badge_denied">Δεν επιτράπηκε η άδεια</string>
     <string name="patcher_storage_badge_missing">Δεν βρέθηκε</string>
+    <string name="batch_patch_option_paths_skipped">Λείπουν τα αρχεία επιλογών τροποποίησης και θα παραλειφθούν: %1$s</string>
+    <string name="patcher_missing_patches_title">Κάποιες τροποποιήσεις λείπουν.</string>
+    <string name="patcher_missing_patches_description">Η αποθηκευμένη επιλογή για αυτήν την εφαρμογή αναφέρει τροποποιήσεις που δεν προσφέρει πλέον καμία ενεργή πηγή. Αν συνεχίσετε, η εφαρμογή θα τροποποιηθεί χωρίς αυτές.</string>
+    <string name="patcher_missing_patches_label">Δεν προσφέρεται πλέον.</string>
+    <string name="patcher_option_paths_gone_title">Λείπουν τα αρχεία επιλογών τροποποίησης.</string>
+    <string name="patcher_option_paths_gone_description">Μία ή περισσότερες επιλογές τροποποίησης δείχνουν σε αρχεία που δεν υπάρχουν πλέον. Αφαιρέστε τις διαδρομές για να τροποποιήσετε χωρίς αυτά ή επαναφέρετε τα αρχεία και δοκιμάστε ξανά.</string>
+    <string name="patcher_option_paths_clear">Αφαιρέστε τις διαδρομές.</string>
     <string name="patcher_storage_permission_hint">Συμβουλή: Μετακινήστε τα αρχεία στο /Android/data/app.morphe.manager/files/ - Δε χρειάζονται επιπλέον άδειες</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Προετοιμασία</string>
@@ -813,6 +831,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">Αλλαγή του εμφανιζόμενου ονόματος εφαρμογής</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Όνομα εφαρμογής</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Εισαγωγή προσαρμοσμένου ονόματος</string>
+    <string name="settings_advanced_patch_options_path_gone">Αυτός ο φάκελος δεν μπορεί να διαβαστεί πλέον. Επιλέξτε τον ξανά ή αφαιρέστε τη διαδρομή, αλλιώς η τροποποίηση θα σταματήσει και θα σας ρωτήσει σχετικά.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Εικονίδιο εφαρμογής</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Το εικονίδιο με το οποίο τροποποιείται η εφαρμογή. Χρησιμοποιείται επίσης σε μέρη όπου η εφαρμογή δεν μπορεί να το αλλάξει αργότερα, όπως στο Android Auto και στη λίστα εφαρμογών των ρυθμίσεων συστήματος.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Το προσαρμοσμένο εικονίδιο της εφαρμογής χρειάζεται έναν φάκελο με εικόνες εικονιδίων.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Προσαρμοσμένο εικονίδιο</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Φάκελος με εικόνες για χρήση ως προσαρμοσμένο εικονίδιο.
 

@@ -100,6 +100,7 @@
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Branding -->
     <string name="settings_advanced_patch_options_custom_branding_app_name">ឈ្មោះកម្មវិធី</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">អាយខនកម្មវិធី</string>
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Header -->
     <!-- Settings - Advanced Tab - Patch Options Section: Hide Shorts -->
     <!-- Settings - System Tab - Installer Section -->

@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Žiadne skryté aplikácie</string>
     <string name="home_app_hidden_apps_title">Skryté aplikácie</string>
     <string name="home_app_hidden_apps_hint">Ťuknite na skrytie</string>
+    <string name="home_app_patch_sources_description">Zdroje, ktoré zostali nezačiarknuté, sa neponúkajú, keď sa tieto aplikácie záplatujú, a ich záplaty sa nikdy samy od seba nepridajú do výberu. Každý zdroj zostáva zapnutý pre každú inú aplikáciu</string>
+    <string name="home_app_patch_sources_mixed">Ponúkané pre %1$s z %2$s</string>
+    <string name="home_app_patch_sources_covers">Má záplaty pre %1$s z %2$s.</string>
+    <string name="home_app_patch_sources_last">Každá aplikácia potrebuje jeden zostávajúci zdroj, z ktorého môže aplikovať záplaty.</string>
     <string name="android_11_bug_dialog_title">Chyba v Android 11</string>
     <string name="android_11_bug_dialog_description">Je potrebné vopred povoliť inštaláciu aplikácie, aby sa predišlo chybe v systéme Android 11, ktorá negatívne ovplyvní používateľskú skúsenosť</string>
     <string name="deep_link_add_source_title">Pridať zdroj</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Nočný a produktívny</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Zdroje záplat</string>
+    <string name="sources_search">Hľadať zdroje a záplaty</string>
     <string name="sources_sort_title">Zoradiť zdroje záplat</string>
     <string name="sources_sort_manual">Manuálne zoradenie</string>
     <string name="sources_sort_manual_hint">Dlhým stlačením položky zdroja ju môžete presunúť</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Najnovšie aktualizácie zdrojov najprv</string>
     <string name="sources_sort_enabled_first">Najprv povolené</string>
     <string name="sources_sort_enabled_first_description">Zobraziť aktívne zdroje pred zakázanými zdrojmi</string>
+    <string name="sources_patches_source_disabled_hint">Tento zdroj je vypnutý. Jeho záplaty sú uvedené len pre informáciu a neaplikujú sa</string>
     <string name="sources_management_open_in_browser">Otvoriť v prehliadači</string>
     <string name="sources_management_report_issue">Nahlásiť problém</string>
     <string name="sources_management_failed_to_open_url">Nepodarilo sa otvoriť URL</string>
+    <string name="sources_hidden_apps">Skryté pre</string>
+    <string name="sources_hidden_apps_title">Aplikácie skryté pred %1$s</string>
+    <string name="sources_hidden_apps_description">Týmto aplikáciám sa pri záplatovaní neponúka tento zdroj. Zdroj samotný zostáva zapnutý pre všetko ostatné.</string>
+    <string name="sources_hidden_apps_hint">Klepnutím opäť ponúknete tento zdroj.</string>
     <string name="sources_management_prerelease_toggle">Použiť predbežne vydané záplaty</string>
     <string name="sources_management_prerelease_toggle_description">Získajte skorší prístup k novým experimentálnym verziám záplat</string>
     <string name="sources_prerelease_warning_title">Povoliť predbežné opravy?</string>
@@ -328,6 +338,7 @@ Pre najlepšie výsledky sa odporúča záplatovať &lt;b&gt;úplný APK&lt;/b&g
     <string name="home_low_disk_space_dialog_message">K dispozícii je iba %1$s GB voľného úložiska. Oprava vyžaduje aspoň %2$s GB voľného miesta, aby správne fungovala.</string>
     <string name="home_low_disk_space_dialog_warning">Pokračovanie môže viesť k chybe \"súbor sa nenašiel\" alebo poškodenému výstupnému APK</string>
     <string name="home_simple_bundle_select_title">Vyber zdrojový súbor záplaty</string>
+    <string name="home_simple_bundle_select_remember">Vždy používať tento zdroj pre túto aplikáciu.</string>
     <!-- Color picker -->
     <string name="custom_color">Vlastná farba</string>
     <string name="hex_color">Hex hodnota farby</string>
@@ -486,6 +497,7 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="patcher_field_android">Android</string>
     <string name="patcher_field_device">Zariadenie</string>
     <!-- Free and total RAM of the device, never its storage -->
+    <string name="patcher_field_memory">Pamäť</string>
     <string name="patcher_field_storage">Úložisko</string>
     <!-- Size of the patched APK, once patching finished -->
     <string name="patcher_field_output_size">Veľkosť výstupu</string>
@@ -542,6 +554,13 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="patcher_storage_permission_open_settings">Otvoriť nastavenia úložiska</string>
     <string name="patcher_storage_badge_denied">Prístup zamietnutý</string>
     <string name="patcher_storage_badge_missing">Nenájdené</string>
+    <string name="batch_patch_option_paths_skipped">Súbory možností záplat chýbajú a budú preskočené: %1$s</string>
+    <string name="patcher_missing_patches_title">Niektoré záplaty chýbajú.</string>
+    <string name="patcher_missing_patches_description">Uložený výber pre túto aplikáciu uvádza záplaty, ktoré už neponúka žiadny zapnutý zdroj. Pokračovaním sa aplikácia záplatuje bez nich.</string>
+    <string name="patcher_missing_patches_label">Už sa neponúka.</string>
+    <string name="patcher_option_paths_gone_title">Súbory možností záplat chýbajú.</string>
+    <string name="patcher_option_paths_gone_description">Jedna alebo viac možností záplat ukazuje na súbory, ktoré už tam nie sú. Odstráňte cesty, aby ste mohli záplatovať bez nich, alebo vráťte súbory späť a skúste to znova.</string>
+    <string name="patcher_option_paths_clear">Odstrániť cesty a pokračovať.</string>
     <string name="patcher_storage_permission_hint">Tip: Presuňte súbory do /Android/data/app.morphe.manager/files/ - žiadne ďalšie povolenia nie sú potrebné</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Pripravujem sa</string>
@@ -637,8 +656,11 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="mini_game_dino_picker_subtitle">Ťuknite a preskočte kaktusy</string>
     <string name="mini_game_dino_tap_to_start">Ťuknite a bežte</string>
     <string name="mini_game_blocks_picker_subtitle">Zlož tvary, vyčisti riadky</string>
+    <string name="mini_game_blocks_tap_to_start">Ťuknutím otočíš, potiahnutím posunieš, potiahnutím nadol spustíš</string>
     <string name="mini_game_bricks_picker_subtitle">Odrážaj loptu, vyčisti stenu</string>
     <string name="mini_game_bricks_tap_to_start">Potiahni na mierenie, klepni na spustenie</string>
+    <string name="mini_game_miner_picker_subtitle">Klepnutím otvoríte, podržaním označíte vlajkou</string>
+    <string name="mini_game_pairs_picker_subtitle">Otoč karty, nájdi dvojicu</string>
     <!-- Settings -->
     <string name="appearance">Vzhľad</string>
     <string name="advanced">Pokročilé</string>
@@ -808,6 +830,10 @@ Záplaty tým nie sú ovplyvnené: povoľte predbežné záplaty pre každý zdr
     <string name="settings_advanced_patch_options_custom_branding_description">Zmeniť zobrazovaný názov aplikácie</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Názov aplikácie</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Zadajte vlastný názov</string>
+    <string name="settings_advanced_patch_options_path_gone">Tento priečinok sa už nedá prečítať. Vyberte ho znova alebo ho vymažte, inak sa záplatovanie zastaví a opýta sa naň.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Ikona aplikácie</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikona, ktorou je aplikácia záplatovaná. Používa sa aj tam, kde ju aplikácia nemôže neskôr zmeniť, napríklad v Android Auto a v zozname aplikácií v systémových nastaveniach.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Vlastná ikona aplikácie potrebuje priečinok s obrázkami ikon.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Vlastná ikona</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Priečinok s obrázkami, ktoré sa majú použiť ako vlastná ikona.
 

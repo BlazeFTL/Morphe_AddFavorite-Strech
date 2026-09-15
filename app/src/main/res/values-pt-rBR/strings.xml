@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Nenhum aplicativo oculto</string>
     <string name="home_app_hidden_apps_title">Aplicativos ocultos</string>
     <string name="home_app_hidden_apps_hint">Toque para reexibir</string>
+    <string name="home_app_patch_sources_description">Fontes não selecionadas não são oferecidas quando esses apps são patcheados, e seus patches nunca são incluídos em uma seleção. Cada fonte permanece ativa para os demais aplicativos.</string>
+    <string name="home_app_patch_sources_mixed">Oferecido a %1$s de %2$s</string>
+    <string name="home_app_patch_sources_covers">Possui patches para %1$s de %2$s</string>
+    <string name="home_app_patch_sources_last">Cada app precisa de pelo menos uma fonte para aplicar os patches</string>
     <string name="android_11_bug_dialog_title">Bug do Android 11</string>
     <string name="android_11_bug_dialog_description">A permissão de instalação do aplicativo deve ser concedida antecipadamente para evitar um bug no sistema Android 11 que afetará negativamente a experiência do usuário.</string>
     <string name="deep_link_add_source_title">Adicionar fonte</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Noturno e produtivo</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fontes de patches</string>
+    <string name="sources_search">Pesquisar fontes e patches</string>
     <string name="sources_sort_title">Ordenar fontes de patch</string>
     <string name="sources_sort_manual">Ordem manual</string>
     <string name="sources_sort_manual_hint">Pressione e segure uma fonte para reordenar</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Atualizações da fonte mais recente primeiro</string>
     <string name="sources_sort_enabled_first">Habilitados primeiro</string>
     <string name="sources_sort_enabled_first_description">Mostrar fontes ativas antes das desabilitadas</string>
+    <string name="sources_patches_source_disabled_hint">Esta fonte está desativada. Seus patches estão listados para referência e não são aplicados</string>
     <string name="sources_management_open_in_browser">Abrir links no navegador</string>
     <string name="sources_management_report_issue">Relatar um problema</string>
     <string name="sources_management_failed_to_open_url">Falha ao abrir URL</string>
+    <string name="sources_hidden_apps">Oculto para</string>
+    <string name="sources_hidden_apps_title">Apps ocultos de %1$s</string>
+    <string name="sources_hidden_apps_description">Esses apps não recebem essa fonte quando são patcheados. A fonte em si permanece ativa para todo o restante</string>
+    <string name="sources_hidden_apps_hint">Toque para oferecer esta fonte novamente</string>
     <string name="sources_management_prerelease_toggle">Patches de pré-lançamento</string>
     <string name="sources_management_prerelease_toggle_description">Recebe acesso antecipado a novas versões experimentais de patches</string>
     <string name="sources_prerelease_warning_title">Ativar patches de pré-lançamento?</string>
@@ -328,6 +338,7 @@ Para obter os melhores resultados, este aplicativo recomenda corrigir um(a) &lt;
     <string name="home_low_disk_space_dialog_message">Apenas %1$s GB de espaço de armazenamento livre disponível. A aplicação de patches requer pelo menos %2$s GB de espaço livre para funcionar corretamente.</string>
     <string name="home_low_disk_space_dialog_warning">Prosseguir pode resultar em um erro de \"arquivo não encontrado\" ou um APK de saída corrompido</string>
     <string name="home_simple_bundle_select_title">Selecionar fonte de patches</string>
+    <string name="home_simple_bundle_select_remember">Sempre use esta fonte para este aplicativo</string>
     <!-- Color picker -->
     <string name="custom_color">Cor Personalizada</string>
     <string name="hex_color">Cor HEX</string>
@@ -544,6 +555,13 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="patcher_storage_permission_open_settings">Abrir configurações de armazenamento</string>
     <string name="patcher_storage_badge_denied">Permissão negada</string>
     <string name="patcher_storage_badge_missing">Não encontrado</string>
+    <string name="batch_patch_option_paths_skipped">Arquivos de opção do patch estão ausentes e serão ignorados: %1$s</string>
+    <string name="patcher_missing_patches_title">Alguns patches desapareceram</string>
+    <string name="patcher_missing_patches_description">A seleção salva para este app faz referência a patches que nenhuma fonte ativa oferece mais. O aplicativo continua utilizando os patches, mesmo sem elas</string>
+    <string name="patcher_missing_patches_label">Não é mais oferecido</string>
+    <string name="patcher_option_paths_gone_title">Arquivos de opção do patch estão faltando</string>
+    <string name="patcher_option_paths_gone_description">Uma ou mais opções de patch apontam para arquivos que não estão mais lá. Remova os caminhos para aplicar o patch sem eles, ou restaure os arquivos e tente novamente</string>
+    <string name="patcher_option_paths_clear">Remova os caminhos e continue</string>
     <string name="patcher_storage_permission_hint">Dica: Mova os arquivos para /Android/data/app.morphe.manager/files/ - sem permissão extra necessária</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Preparando</string>
@@ -813,6 +831,10 @@ Os patches não são afetados: ative os patches de pré-lançamento para cada fo
     <string name="settings_advanced_patch_options_custom_branding_description">Altera o nome de exibição do aplicativo</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Nome do aplicativo</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Escreva o nome personalizado</string>
+    <string name="settings_advanced_patch_options_path_gone">Não é mais possível ler esta pasta. Selecione-a novamente ou remova-a; caso contrário, a aplicação de patches será interrompida e solicitará uma ação a respeito</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Ícone do aplicativo</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">O ícone com o qual o aplicativo é modificado. Ele também é utilizado em situações em que o aplicativo não consegue alterá-lo posteriormente, como no Android Auto e na lista de aplicativos das configurações do sistema</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">O ícone personalizado do aplicativo requer uma pasta com imagens de ícones</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Ícone personalizado</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Pasta com imagens para usar como um ícone personalizado.
 

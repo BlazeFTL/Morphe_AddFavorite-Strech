@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Nema sakrivenih aplikacija</string>
     <string name="home_app_hidden_apps_title">Sakrivene aplikacije</string>
     <string name="home_app_hidden_apps_hint">Dodirnite da otkrijete</string>
+    <string name="home_app_patch_sources_description">Izvori koji ostanu neoznačeni ne nude se kada se ove aplikacije krpe, a njihove zakrpe nikada same ne ulaze u izbor. Svaki izvor ostaje uključen za sve ostale aplikacije. still</string>
+    <string name="home_app_patch_sources_mixed">Ponuđeno za %1$s od %2$s</string>
+    <string name="home_app_patch_sources_covers">Ima zakrpe za %1$s od %2$s</string>
+    <string name="home_app_patch_sources_last">Svakoj aplikaciji mora ostati jedan izvor iz kojeg se primenjuju zakrpe</string>
     <string name="android_11_bug_dialog_title">Android 11 greška</string>
     <string name="android_11_bug_dialog_description">Dozvola za instalaciju aplikacije mora biti odobrena prethodno kako bi se izbjegla greška u Android 11 sistemu koja će negativno utjecati na korisničko iskustvo</string>
     <string name="deep_link_add_source_title">Dodaj izvor</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Noćni i produktivan</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Izvori zakrpe</string>
+    <string name="sources_search">Pretraži izvore i zakrpe</string>
     <string name="sources_sort_title">Sortiraj izvore zakrpa</string>
     <string name="sources_sort_manual">Ručna postavka</string>
     <string name="sources_sort_manual_hint">Pritisnite i zadržite izvor da biste ga preuredili</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Prvo najnovija ažuriranja izvora</string>
     <string name="sources_sort_enabled_first">Omogućeni prvo</string>
     <string name="sources_sort_enabled_first_description">Prikaži aktivne izvore pre onemogućenih izvora</string>
+    <string name="sources_patches_source_disabled_hint">Ovaj izvor je onemogućen. Njegove zakrpe su navedene radi uvida i ne primenjuju se.</string>
     <string name="sources_management_open_in_browser">Otvori u pregledaču</string>
     <string name="sources_management_report_issue">Prijavi problem</string>
     <string name="sources_management_failed_to_open_url">Otvaranje URL-a nije uspelo</string>
+    <string name="sources_hidden_apps">Sakriveno za</string>
+    <string name="sources_hidden_apps_title">Aplikacije skrivene od %1$s</string>
+    <string name="sources_hidden_apps_description">Ovaj izvor ne nudi ove aplikacije prilikom zakrpljivanja. Sam izvor ostaje uključen za sve ostalo.</string>
+    <string name="sources_hidden_apps_hint">Dodirni da ponovo omogućiš ovaj izvor.</string>
     <string name="sources_management_prerelease_toggle">Zakrpe u predprodukciji</string>
     <string name="sources_management_prerelease_toggle_description">Dobija rani pristup novim eksperimentalnim verzijama zakrpa</string>
     <string name="sources_prerelease_warning_title">Omogući zakrpe za predizdanje?</string>
@@ -328,6 +338,7 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="home_low_disk_space_dialog_message">Samo %1$s GB slobodne memorije je dostupno. Za ispravan rad, zakrpanje zahteva najmanje %2$s GB slobodnog prostora.</string>
     <string name="home_low_disk_space_dialog_warning">Nastavak može dovesti do greške „datoteka nije pronađena“ ili oštećenog APK-a za izlaz</string>
     <string name="home_simple_bundle_select_title">Izaberi izvor zakrpe</string>
+    <string name="home_simple_bundle_select_remember">Uvek koristi ovaj izvor za ovu aplikaciju.</string>
     <!-- Color picker -->
     <string name="custom_color">Prilagođena boja</string>
     <string name="hex_color">Boja u heksadecimalnom formatu</string>
@@ -486,6 +497,7 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="patcher_field_android">Android</string>
     <string name="patcher_field_device">Uređaj</string>
     <!-- Free and total RAM of the device, never its storage -->
+    <string name="patcher_field_memory">Memorija</string>
     <string name="patcher_field_storage">Skladište</string>
     <!-- Size of the patched APK, once patching finished -->
     <string name="patcher_field_output_size">Output size</string>
@@ -542,6 +554,13 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="patcher_storage_permission_open_settings">Otvori postavke pohrane</string>
     <string name="patcher_storage_badge_denied">Odbijena dopuštenja</string>
     <string name="patcher_storage_badge_missing">Nema pronađenih</string>
+    <string name="batch_patch_option_paths_skipped">Nedostaju datoteke opcija zakrpe i biće preskočene: %1$s</string>
+    <string name="patcher_missing_patches_title">Neke zakrpe su nestale.</string>
+    <string name="patcher_missing_patches_description">Sačuvani izbor za ovu aplikaciju navodi zakrpe koje nijedan omogućeni izvor više ne nudi. Ako nastaviš, aplikacija će biti zakrpljena bez njih.</string>
+    <string name="patcher_missing_patches_label">Više se ne nudi</string>
+    <string name="patcher_option_paths_gone_title">Nedostaju datoteke opcija zakrpe</string>
+    <string name="patcher_option_paths_gone_description">Barem jedna opcija zakrpe upućuje na datoteke kojih više nema. Ukloni putanje da zakrpiš aplikaciju bez njih, ili vrati datoteke i pokušaj ponovo.</string>
+    <string name="patcher_option_paths_clear">Ukloni putanje i nastavi</string>
     <string name="patcher_storage_permission_hint">Savet: Premestite fajlove u /Android/data/app.morphe.manager/files/ - ne potrebne su dodatne dopuštenja</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Priprema</string>
@@ -637,8 +656,11 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="mini_game_dino_picker_subtitle">Dodirnite da preskočite kaktuse</string>
     <string name="mini_game_dino_tap_to_start">Dodirnite da trčite</string>
     <string name="mini_game_blocks_picker_subtitle">Uklopi oblike, očisti linije</string>
+    <string name="mini_game_blocks_tap_to_start">Dodirni da rotiraš, prevuci da pomeriš, prevuci nadole da spustiš</string>
     <string name="mini_game_bricks_picker_subtitle">Odbij loptu, sruši zid</string>
     <string name="mini_game_bricks_tap_to_start">Povuci za nišanjenje, dodirni za lansiranje</string>
+    <string name="mini_game_miner_picker_subtitle">Dodirni da otvoriš, drži da postaviš zastavicu</string>
+    <string name="mini_game_pairs_picker_subtitle">Okreni kartice, pronađi par</string>
     <!-- Settings -->
     <string name="appearance">Izgled</string>
     <string name="advanced">Napredno</string>
@@ -808,6 +830,10 @@ Zakrpe nisu pogođene: omogućite prerelease zakrpe za svaki izvor na listi izvo
     <string name="settings_advanced_patch_options_custom_branding_description">Menja naziv aplikacije</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Naziv aplikacije</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Unesi ime</string>
+    <string name="settings_advanced_patch_options_path_gone">Ova fascikla više ne može da se čita. Izaberi je ponovo ili je ukloni, inače će se zakrpljivanje zaustaviti i pitati o njoj.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Ikonica aplikacije</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikona kojom se aplikacija zakrpljuje. Takođe se koristi tamo gde aplikacija kasnije ne može da je promeni, kao što su Android Auto i lista aplikacija u sistemskim podešavanjima.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Prilagođena ikona aplikacije zahteva fasciklu sa slikama ikona.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Promeni ikonu</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Mapa sa slikama koje će se koristiti kao prilagođena ikona.
 

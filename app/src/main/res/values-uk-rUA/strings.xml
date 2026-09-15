@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Немає прихованих застосунків</string>
     <string name="home_app_hidden_apps_title">Приховані застосунки</string>
     <string name="home_app_hidden_apps_hint">Натисніть, щоб показати</string>
+    <string name="home_app_patch_sources_description">Невибрані джерела не пропонуються при патчингу цих застосунків, а їхні патчі ніколи не приєднуються до вибору автоматично. Кожне джерело залишається увімкненим для всіх інших застосунків</string>
+    <string name="home_app_patch_sources_mixed">Пропоновано для %1$s з %2$s</string>
+    <string name="home_app_patch_sources_covers">Має патчі для %1$s з %2$s</string>
+    <string name="home_app_patch_sources_last">Для кожного застосунку потрібно залишити хоча б одне джерело для патчингу</string>
     <string name="android_11_bug_dialog_title">Помилка Android 11</string>
     <string name="android_11_bug_dialog_description">Дозвіл на встановлення застосунку необхідно надати заздалегідь, щоб уникнути помилки в Android 11, яка негативно вплине на взаємодію з користувачем</string>
     <string name="deep_link_add_source_title">Додати джерело</string>
@@ -61,7 +65,7 @@
     <string name="home_app_sort_updates_first">Спочатку оновлення патчів</string>
     <string name="home_app_sort_updates_first_description">Спочатку застосунки з новішими патчами, потім рекомендований порядок</string>
     <string name="home_app_sort_recently_patched">Нещодавно пропатчено</string>
-    <string name="home_app_sort_recently_patched_description">Спочатку останні пропатчені додатки</string>
+    <string name="home_app_sort_recently_patched_description">Спочатку останні пропатчені застосунки</string>
     <string name="home_no_apps_title">Немає доступних застосунків</string>
     <string name="home_no_apps_subtitle">Додайте джерело патчів або ввімкніть існуюче в %s</string>
     <string name="home_no_apps_search_subtitle">Не знайдено застосунків за запитом \"%s\"</string>
@@ -136,6 +140,10 @@
     <string name="sources_management_open_in_browser">Відкрити в браузері</string>
     <string name="sources_management_report_issue">Повідомити про проблему</string>
     <string name="sources_management_failed_to_open_url">Не вдалося відкрити URL</string>
+    <string name="sources_hidden_apps">Приховано для</string>
+    <string name="sources_hidden_apps_title">Застосунки, приховані від %1$s</string>
+    <string name="sources_hidden_apps_description">Цим застосункам не пропонується це джерело під час патчингу. Саме джерело залишається увімкненим для всього іншого</string>
+    <string name="sources_hidden_apps_hint">Натисніть, щоб знову пропонувати це джерело</string>
     <string name="sources_management_prerelease_toggle">Передрелізні версії патчів</string>
     <string name="sources_management_prerelease_toggle_description">Отримує ранній доступ до нових експериментальних версій патчів</string>
     <string name="sources_prerelease_warning_title">Увімкнути передрелізні патчі?</string>
@@ -330,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">Доступно лише %1$s ГБ вільного місця. Для коректної роботи патчингу потрібно щонайменше %2$s ГБ вільного місця</string>
     <string name="home_low_disk_space_dialog_warning">Продовження може призвести до помилки \"файл не знайдено\" або пошкодження вихідного APK файлу</string>
     <string name="home_simple_bundle_select_title">Виберіть джерело патчів</string>
+    <string name="home_simple_bundle_select_remember">Завжди використовувати це джерело для цього застосунку</string>
     <!-- Color picker -->
     <string name="custom_color">Власний колір</string>
     <string name="hex_color">Шістнадцятковий колір</string>
@@ -346,7 +355,7 @@
     <string name="patch_option_list_duplicate">Це значення вже існує</string>
     <string name="patch_option_list_empty">Значення не може бути порожнім</string>
     <string name="patch_option_list_empty_state">Значень ще не додано</string>
-    <string name="patch_option_required_missing">%s: заповніть усі обов\'язкові опції</string>
+    <string name="patch_option_required_missing">%s: заповніть усі обов\'язкові параметри</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Створити адаптивну іконку</string>
     <string name="adaptive_icon_select_image">Вибрати зображення</string>
@@ -539,13 +548,20 @@
     <string name="patcher_incompatible_patcher_description">Для джерела &lt;b&gt;%1$s&lt;/b&gt; потрібен патчер версії &lt;b&gt;%2$s&lt;/b&gt; або новіший. Будь ласка, оновіть Morphe, щоб пропатчити цей застосунок</string>
     <string name="patcher_incompatible_patcher_update_button">Завантажити та оновити Morphe</string>
     <string name="patcher_storage_permission_description_api30">Один або декілька параметрів патчів вказують на шляхи, які Morphe не може прочитати. Надайте доступ до сховища та натисніть кнопку, після чого патчинг розпочнеться автоматично</string>
-    <string name="patcher_storage_permission_description_legacy">Одна або декілька опцій патчу вказують на шляхи, до яких немає доступу. Оновіть шляхи в опціях патчу та спробуйте знову</string>
+    <string name="patcher_storage_permission_description_legacy">Один або декілька параметрів патчів вказують на шляхи, які недоступні. Оновіть шляхи в параметрах патчів і спробуйте знову</string>
     <string name="patcher_storage_permission_grant">Надати доступ до сховища</string>
     <string name="patcher_storage_permission_denied_warning">Дозвіл до сховища відхилено. Надайте дозвіл, щоб використовувати цей шлях, або перемістіть файли до приватного каталогу застосунку</string>
     <string name="patcher_storage_permission_open_settings">Відкрити налаштування сховища</string>
     <string name="patcher_storage_badge_denied">Дозвіл відхилено</string>
     <string name="patcher_storage_badge_missing">Не знайдено</string>
-    <string name="patcher_storage_permission_hint">Рекомендація: Перемістіть файли до /Android/data/app.morphe.manager/files/ - додаткові дозволи не потрібні</string>
+    <string name="batch_patch_option_paths_skipped">Файли параметрів патчів відсутні та будуть пропущені: %1$s</string>
+    <string name="patcher_missing_patches_title">Деякі патчі зникли</string>
+    <string name="patcher_missing_patches_description">Збережений вибір для цього застосунку містить патчі, які більше не пропонує жодне увімкнене джерело. Продовження пропатчить застосунок без них</string>
+    <string name="patcher_missing_patches_label">Більше не пропонується</string>
+    <string name="patcher_option_paths_gone_title">Файли параметрів патчів відсутні</string>
+    <string name="patcher_option_paths_gone_description">Один або декілька параметрів патчів вказують на файли, яких більше немає. Видаліть шляхи, щоб пропатчити без них, або поверніть файли та спробуйте знову</string>
+    <string name="patcher_option_paths_clear">Видалити шляхи та продовжити</string>
+    <string name="patcher_storage_permission_hint">Порада: перемістіть файли до /Android/data/app.morphe.manager/files/ - додаткові дозволи не потрібні</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Підготовка</string>
     <string name="patcher_step_load_patches">Завантаження патчів</string>
@@ -814,6 +830,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">Змінює назву застосунку</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Назва застосунку</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Введіть власну назву</string>
+    <string name="settings_advanced_patch_options_path_gone">Ця тека більше не може бути прочитана. Виберіть її знову або очистіть, інакше патчинг зупиниться і запитає про це</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Іконка застосунку</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Іконка, з якою пропатчено застосунок. Вона також використовується там, де застосунок не може змінити її пізніше, наприклад в Android Auto та списку застосунків системних налаштувань</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Власна іконка застосунку потребує теку із зображеннями іконок</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Власна іконка</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Тека із зображеннями для використання як власної іконки.
 
@@ -841,7 +861,7 @@ morphe_adaptive_monochrome_custom.xml
 За бажанням, шлях містить іконку сповіщення в одному з таких форматів:
 - XML векторне зображення в 'drawable':
   morphe_notification_icon_custom.xml
-- PNG растрові зображення в папках 'drawable-dpi':
+- PNG растрові зображення в теках 'drawable-dpi':
   drawable-mdpi/morphe_notification_icon_custom.png (24x24 px)
   drawable-hdpi/morphe_notification_icon_custom.png (36x36 px)
   drawable-xhdpi/morphe_notification_icon_custom.png (48x48 px)

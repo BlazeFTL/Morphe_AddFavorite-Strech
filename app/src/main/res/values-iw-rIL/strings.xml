@@ -14,6 +14,10 @@
     <string name="home_app_hidden_apps_title">אפליקציות מוסתרות</string>
     <string name="home_app_hidden_apps_hint">
 הקישו כדי להציג</string>
+    <string name="home_app_patch_sources_description">מקורות שנותרו לא מסומנים אינם מוצעים כשהאפליקציות האלה מתוקנות, והתיקונים שלהם לעולם אינם מצטרפים לבחירה מעצמם. כל מקור נשאר מסומן עבור כל שאר האפליקציות</string>
+    <string name="home_app_patch_sources_mixed">מוצע ל-%1$s מתוך %2$s</string>
+    <string name="home_app_patch_sources_covers">יש תיקונים עבור %1$s מתוך %2$s</string>
+    <string name="home_app_patch_sources_last">לכל אפליקציה צריך להישאר מקור אחד שממנו ניתן להחיל תיקונים</string>
     <string name="android_11_bug_dialog_title">באג ב-Android 11</string>
     <string name="android_11_bug_dialog_description">ההרשאה להתקין את האפליקציה צריכה להיות מאושרת מראש כדי להימנע מבאג במערכת Android 11 שיפגע בחוויית המשתמש</string>
     <string name="deep_link_add_source_title">הוסף מקור</string>
@@ -125,6 +129,7 @@
     <string name="home_greeting_super_late_5">ליליים ופרודוקטיביים</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">מקורות תיקונים</string>
+    <string name="sources_search">חפש מקורות ותיקונים</string>
     <string name="sources_sort_title">מקורות תיקונים</string>
     <string name="sources_sort_manual">הזמנה ידנית</string>
     <string name="sources_sort_manual_hint">לחץ לחיצה ארוכה על מקור כדי לשנות את הסדר</string>
@@ -132,9 +137,14 @@
     <string name="sources_sort_last_updated_description">עדכוני המקור החדשים ביותר קודם</string>
     <string name="sources_sort_enabled_first">מופעלים קודם</string>
     <string name="sources_sort_enabled_first_description">הצג מקורות פעילים לפני מקורות מושבתים</string>
+    <string name="sources_patches_source_disabled_hint">מקור זה מושבת. התיקונים שלו מופיעים לעיון ואינם מיושמים</string>
     <string name="sources_management_open_in_browser">פתח בדפדפן</string>
     <string name="sources_management_report_issue">דווח על בעיה</string>
     <string name="sources_management_failed_to_open_url">כישלון בפתיחת כתובת אינטרנט</string>
+    <string name="sources_hidden_apps">מוסתר עבור</string>
+    <string name="sources_hidden_apps_title">אפליקציות מוסתרות מ-%1$s</string>
+    <string name="sources_hidden_apps_description">המקור הזה לא מוצע לאפליקציות האלה כשהן מתוקנות. המקור עצמו נשאר דלוק עבור כל השאר</string>
+    <string name="sources_hidden_apps_hint">הקש כדי להציע את המקור הזה שוב</string>
     <string name="sources_management_prerelease_toggle">תיקונים לפני הפצה</string>
     <string name="sources_management_prerelease_toggle_description">מקבל גישה מוקדמת לגרסאות תיקונים ניסיוניות חדשות</string>
     <string name="sources_prerelease_warning_title">להפעיל תיקונים לגרסאות מוקדמות?</string>
@@ -329,6 +339,7 @@
     <string name="home_low_disk_space_dialog_message">נותרו רק %1$s GB של שטח אחסון פנוי. התקנת התיקון דורשת לפחות %2$s GB של שטח פנוי כדי לפעול כראוי.</string>
     <string name="home_low_disk_space_dialog_warning">המשך עלול לגרום לשגיאת \"קובץ לא נמצא\" או APK פלט פגום</string>
     <string name="home_simple_bundle_select_title">בחר מקור תיקון</string>
+    <string name="home_simple_bundle_select_remember">השתמש תמיד במקור הזה עבור האפליקציה הזו</string>
     <!-- Color picker -->
     <string name="custom_color">צבע מותאם אישית</string>
     <string name="hex_color">צבע הקסדצימלי</string>
@@ -544,6 +555,13 @@
     <string name="patcher_storage_permission_open_settings">פתח הגדרות אחסון</string>
     <string name="patcher_storage_badge_denied">ההרשאה נדחתה</string>
     <string name="patcher_storage_badge_missing">לא נמצא</string>
+    <string name="batch_patch_option_paths_skipped">קבצי אפשרויות תיקון חסרים וידולגו: %1$s</string>
+    <string name="patcher_missing_patches_title">חלק מהתיקונים אינם זמינים יותר</string>
+    <string name="patcher_missing_patches_description">הבחירה השמורה עבור אפליקציה זו מציינת תיקונים שאף מקור פעיל אינו מציע יותר. המשך התהליך יתקן את האפליקציה בלעדיהם</string>
+    <string name="patcher_missing_patches_label">לא מוצעים יותר</string>
+    <string name="patcher_option_paths_gone_title">קבצי אפשרויות תיקון חסרים</string>
+    <string name="patcher_option_paths_gone_description">אפשרות תיקון אחת או יותר מצביעות על קבצים שאינם קיימים יותר. הסר את הנתיבים כדי לתקן בלעדיהם, או החזר את הקבצים ונסה שוב</string>
+    <string name="patcher_option_paths_clear">הסר את הנתיבים והמשך</string>
     <string name="patcher_storage_permission_hint">עצה: העבר קבצים ל- /Android/data/app.morphe.manager/files/ - אין צורך ברשאות נוספות</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">מכין</string>
@@ -813,6 +831,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">משנה את שם התצוגה של האפליקציה</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">שם האפליקציה</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">הזן שם מותאם אישית</string>
+    <string name="settings_advanced_patch_options_path_gone">לא ניתן יותר לקרוא את התיקייה הזו. בחר אותה שוב או נקה אותה, אחרת תהליך התיקון ייעצר וישאל לגביה</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">אייקון האפליקציה</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">הסמל שבו האפליקציה מתוקנת. הוא משמש גם במקומות שבהם האפליקציה לא יכולה לשנות אותו מאוחר יותר, כגון אנדרואיד אוטו ורשימת האפליקציות בהגדרות המערכת</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">סמל האפליקציה המותאם אישית צריך תיקייה עם תמונות סמל</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">סמל מותאם אישית</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"תיקייה עם תמונות לשימוש כסמל מותאם אישית.
 

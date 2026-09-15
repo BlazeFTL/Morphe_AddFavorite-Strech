@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Không có ứng dụng nào đang ẩn</string>
     <string name="home_app_hidden_apps_title">Ứng dụng đã ẩn</string>
     <string name="home_app_hidden_apps_hint">Bấm để hiện lại</string>
+    <string name="home_app_patch_sources_description">Các nguồn không được chọn sẽ không được cung cấp khi các ứng dụng này được vá và các bản vá của chúng không bao giờ tự động tham gia vào lựa chọn. Mỗi nguồn vẫn bật cho mọi ứng dụng khác.</string>
+    <string name="home_app_patch_sources_mixed">Được cung cấp cho %1$s trong số %2$s</string>
+    <string name="home_app_patch_sources_covers">Có bản vá cho %1$s trong số %2$s</string>
+    <string name="home_app_patch_sources_last">Mọi ứng dụng cần một nguồn còn lại để vá từ đó</string>
     <string name="android_11_bug_dialog_title">Lỗi trên Android 11</string>
     <string name="android_11_bug_dialog_description">Vui lòng cấp quyền cài đặt ứng dụng không rõ nguồn gốc để tránh lỗi trên Android 11 có thể ảnh hưởng đến trải nghiệm</string>
     <string name="deep_link_add_source_title">Thêm nguồn</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Cú đêm năng suất thật đấy</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Nguồn vá</string>
+    <string name="sources_search">Tìm kiếm nguồn và bản vá</string>
     <string name="sources_sort_title">Sắp xếp các nguồn vá</string>
     <string name="sources_sort_manual">Sắp xếp thủ công</string>
     <string name="sources_sort_manual_hint">Bấm giữ một nguồn để sắp xếp lại</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Ưu tiên cập nhật nguồn mới nhất trước</string>
     <string name="sources_sort_enabled_first">Ưu tiên đã kích hoạt trước</string>
     <string name="sources_sort_enabled_first_description">Hiển thị các nguồn đang hoạt động trước các nguồn đã bị vô hiệu hóa</string>
+    <string name="sources_patches_source_disabled_hint">Nguồn này đã bị tắt. Các bản vá của nó được liệt kê để tham khảo và không được áp dụng</string>
     <string name="sources_management_open_in_browser">Mở trong trình duyệt</string>
     <string name="sources_management_report_issue">Báo cáo sự cố</string>
     <string name="sources_management_failed_to_open_url">Không thể mở URL</string>
+    <string name="sources_hidden_apps">Đã ẩn cho</string>
+    <string name="sources_hidden_apps_title">Các ứng dụng bị ẩn khỏi %1$s</string>
+    <string name="sources_hidden_apps_description">Các ứng dụng này không được cung cấp nguồn này khi chúng được vá. Bản thân nguồn vẫn bật cho mọi thứ khác.</string>
+    <string name="sources_hidden_apps_hint">Chạm để cung cấp lại nguồn này</string>
     <string name="sources_management_prerelease_toggle">Bản vá phát hành trước</string>
     <string name="sources_management_prerelease_toggle_description">Trải nghiệm sớm các bản vá thử nghiệm mới</string>
     <string name="sources_prerelease_warning_title">Bật các bản vá trước khi phát hành?</string>
@@ -328,6 +338,7 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="home_low_disk_space_dialog_message">Chỉ còn %1$s GB dung lượng trống. Quá trình vá cần ít nhất %2$s GB dung lượng trống để hoạt động chính xác.</string>
     <string name="home_low_disk_space_dialog_warning">Tiếp tục có thể dẫn đến lỗi \"không tìm thấy tệp\" hoặc vá ra apk bị hỏng</string>
     <string name="home_simple_bundle_select_title">Chọn nguồn vá</string>
+    <string name="home_simple_bundle_select_remember">Luôn sử dụng nguồn này cho ứng dụng này</string>
     <!-- Color picker -->
     <string name="custom_color">Tùy chỉnh màu</string>
     <string name="hex_color">Mã hex</string>
@@ -545,6 +556,12 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_storage_permission_open_settings">Mở cài đặt truy cập bộ nhớ</string>
     <string name="patcher_storage_badge_denied">Quyền truy cập bị từ chối</string>
     <string name="patcher_storage_badge_missing">Không tìm thấy gì</string>
+    <string name="patcher_missing_patches_title">Không còn được cung cấp</string>
+    <string name="patcher_missing_patches_description">Các tệp tùy chọn vá bị thiếu</string>
+    <string name="patcher_missing_patches_label">Một hoặc nhiều tùy chọn vá trỏ đến các tệp không còn ở đó. Hãy xóa các đường dẫn để vá mà không có chúng, hoặc đặt lại các tệp và thử lại.</string>
+    <string name="patcher_option_paths_gone_title">Xóa các đường dẫn và tiếp tục</string>
+    <string name="patcher_option_paths_gone_description">Thư mục này không thể đọc được nữa. Hãy chọn lại thư mục hoặc xóa nó, nếu không quá trình vá sẽ dừng lại và hỏi về nó.</string>
+    <string name="patcher_option_paths_clear">Biểu tượng dùng để vá ứng dụng. Nó cũng được sử dụng ở những nơi mà ứng dụng không thể thay đổi nó sau này, chẳng hạn như Android Auto và danh sách ứng dụng trong cài đặt hệ thống.</string>
     <string name="patcher_storage_permission_hint">Gợi ý: Di chuyển tệp sang /Android/data/app.morphe.manager/files/ - sẽ không cần cấp thêm quyền truy cập</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Đang chuẩn bị</string>
@@ -814,6 +831,8 @@ Các bản vá không bị ảnh hưởng: bật các bản vá trước khi ph�
     <string name="settings_advanced_patch_options_custom_branding_description">Đổi tên hiển thị của ứng dụng</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Tên ứng dụng</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Nhập tên tùy chỉnh</string>
+    <string name="settings_advanced_patch_options_path_gone">Biểu tượng ứng dụng tùy chỉnh cần một thư mục chứa hình ảnh biểu tượng.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Biểu tượng</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Biểu tượng tùy chỉnh</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Thư mục chứa ảnh dùng làm biểu tượng tuỳ chỉnh.
 

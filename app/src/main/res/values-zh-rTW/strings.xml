@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">沒有隱藏的應用程式</string>
     <string name="home_app_hidden_apps_title">隱藏的應用程式</string>
     <string name="home_app_hidden_apps_hint">輕觸以取消隱藏</string>
+    <string name="home_app_patch_sources_description">當這些應用程式被修補時，未勾選的來源不會被提供，而且它們的修補程式永遠不會自行加入選取項目。每個來源在其他每個應用程式中都會保持啟用。</string>
+    <string name="home_app_patch_sources_mixed">已提供給 %2$s 個中的 %1$s 個</string>
+    <string name="home_app_patch_sources_covers">為 %2$s 個中的 %1$s 個提供修補程式</string>
+    <string name="home_app_patch_sources_last">每個應用程式都需要保留一個來源以供修補</string>
     <string name="android_11_bug_dialog_title">Android 11 相關問題</string>
     <string name="android_11_bug_dialog_description">請先授予應用程式安裝權限，避免 Android 11 系統的錯誤影響使用者體驗</string>
     <string name="deep_link_add_source_title">新增來源</string>
@@ -136,6 +140,10 @@
     <string name="sources_management_open_in_browser">在瀏覽器中開啟</string>
     <string name="sources_management_report_issue">回報問題</string>
     <string name="sources_management_failed_to_open_url">無法開啟網址</string>
+    <string name="sources_hidden_apps">已隱藏</string>
+    <string name="sources_hidden_apps_title">已從 %1$s 隱藏的應用程式</string>
+    <string name="sources_hidden_apps_description">當這些應用程式被修補時，不會向它們提供此來源。此來源本身對其他所有項目仍會保持開啟</string>
+    <string name="sources_hidden_apps_hint">輕觸以再次提供此來源</string>
     <string name="sources_management_prerelease_toggle">預先發布版修補程式</string>
     <string name="sources_management_prerelease_toggle_description">搶先取得新實驗性修補程式版本</string>
     <string name="sources_prerelease_warning_title">啟用預發佈修補程式？</string>
@@ -151,7 +159,7 @@
     <string name="sources_management_metadata_unavailable_hint">遠端中繼資料檔案無法使用。您仍可使用已安裝的套件進行修補，但此來源的自動更新已停用</string>
     <string name="sources_management_metadata_unavailable_hint_missing">無法下載修補套件。來源 URL 可能不正確，或檔案不存在</string>
     <string name="sources_management_outdated_manager_badge">更新 Morphe</string>
-    <string name="sources_management_outdated_manager_hint">这个源来股如踪户 %1$s。例如 Morphe %2$s包含踪户 %3$s。更新 Morphe對可使用</string>
+    <string name="sources_management_outdated_manager_hint">此來源是為修補程式 %1$s 建置的，但 Morphe %2$s 包含修補程式 %3$s。更新 Morphe 以使用它。</string>
     <string name="sources_management_held_back_badge">已當機</string>
     <string name="sources_management_held_back_hint">此來源在載入時導致 Morphe 當機，因此已被略過。請更新或重新匯入再試一次。</string>
     <string name="sources_management_source_enabled">來源已啟用</string>
@@ -330,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">僅有 %1$s GB 的可用儲存空間。修補需要至少 %2$s GB 的可用空間才能正常運作</string>
     <string name="home_low_disk_space_dialog_warning">繼續操作可能會導致「找不到檔案」錯誤或損壞的輸出 APK</string>
     <string name="home_simple_bundle_select_title">選取修補來源</string>
+    <string name="home_simple_bundle_select_remember">一律對這個應用程式使用此來源</string>
     <!-- Color picker -->
     <string name="custom_color">自訂顏色</string>
     <string name="hex_color">十六進位顏色</string>
@@ -545,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">開啟儲存空間設定</string>
     <string name="patcher_storage_badge_denied">存取權限不足</string>
     <string name="patcher_storage_badge_missing">找不到</string>
+    <string name="batch_patch_option_paths_skipped">缺少修補選項檔案，將予以略過：%1$s</string>
+    <string name="patcher_missing_patches_title">部分修補程式已不存在</string>
+    <string name="patcher_missing_patches_description">此應用程式的已儲存選取項目所列出的修補程式，已不再由任何已啟用的來源提供。若繼續，將在沒有這些修補程式的情況下修補此應用程式</string>
+    <string name="patcher_missing_patches_label">不再提供</string>
+    <string name="patcher_option_paths_gone_title">缺少修補選項檔案</string>
+    <string name="patcher_option_paths_gone_description">一個或多個修補選項指向已不存在的檔案。請移除路徑以在沒有這些檔案的情況下修補，或將檔案放回後再試一次</string>
+    <string name="patcher_option_paths_clear">移除路徑並繼續</string>
     <string name="patcher_storage_permission_hint">提示：將檔案移至 /Android/data/app.morphe.manager/files/ - 不需要額外權限</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">正在準備</string>
@@ -813,6 +829,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">變更應用程式顯示名稱</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">應用程式名稱</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">輸入自訂名稱</string>
+    <string name="settings_advanced_patch_options_path_gone">此資料夾已無法再讀取。請重新選取或將其清除，否則修補會停止並就此詢問</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">應用程式圖示</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">應用程式在修補時使用的圖示。此圖示也會用於應用程式日後無法自行變更的地方，例如 Android Auto 和系統設定中的應用程式清單</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">自訂應用程式圖示需要一個包含圖示圖片的資料夾</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">自訂圖示</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"\"包含要作為自訂圖示使用的影像的資料夾。
 

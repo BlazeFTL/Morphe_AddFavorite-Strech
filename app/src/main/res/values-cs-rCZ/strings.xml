@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Žádné skryté aplikace</string>
     <string name="home_app_hidden_apps_title">Skryté aplikace</string>
     <string name="home_app_hidden_apps_hint">Klepněte pro odkrytí</string>
+    <string name="home_app_patch_sources_description">Zdroje, které zůstanou nezaškrtnuté, se při patchování těchto aplikací nenabízejí a jejich patche se nikdy samy do výběru nepřidají. Každý zdroj zůstává zapnutý pro každou jinou aplikaci.</string>
+    <string name="home_app_patch_sources_mixed">Nabízeno pro %1$s z %2$s</string>
+    <string name="home_app_patch_sources_covers">Má záplaty pro %1$s z %2$s</string>
+    <string name="home_app_patch_sources_last">Každá aplikace potřebuje alespoň jeden zbývající zdroj, ze kterého lze aplikovat záplaty.</string>
     <string name="android_11_bug_dialog_title">Chyba Androidu 11</string>
     <string name="android_11_bug_dialog_description">Oprávnění k instalaci aplikací musí být uděleno předem, abyste se vyhnuli chybě v systému Android 11, která negativně ovlivňuje uživatelský zážitek</string>
     <string name="deep_link_add_source_title">Přidat zdroj</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Noční a produktivní</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Zdroje záplat</string>
+    <string name="sources_search">Hledat zdroje a záplaty</string>
     <string name="sources_sort_title">Seřadit zdroje záplat</string>
     <string name="sources_sort_manual">Ruční řazení</string>
     <string name="sources_sort_manual_hint">Dlouhým stisknutím zdroje jej můžete přerazit</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Nejprve nejnovější aktualizace zdrojů</string>
     <string name="sources_sort_enabled_first">Povoleno nejdříve</string>
     <string name="sources_sort_enabled_first_description">Zobrazit aktivní zdroje před zakázanými</string>
+    <string name="sources_patches_source_disabled_hint">Tento zdroj je vypnutý. Jeho záplaty jsou uvedeny pouze pro informaci a nejsou aplikovány</string>
     <string name="sources_management_open_in_browser">Otevřít v prohlížeči</string>
     <string name="sources_management_report_issue">Nahlásit problém</string>
     <string name="sources_management_failed_to_open_url">Nepodařilo se otevřít URL</string>
+    <string name="sources_hidden_apps">Skryto pro</string>
+    <string name="sources_hidden_apps_title">Aplikace skryté před zdrojem %1$s</string>
+    <string name="sources_hidden_apps_description">Tyto aplikace nejsou nabízeny tímto zdrojem, když se patchují. Zdroj samotný zůstává zapnutý pro vše ostatní.</string>
+    <string name="sources_hidden_apps_hint">Klepnutím znovu nabídnete tento zdroj</string>
     <string name="sources_management_prerelease_toggle">Předběžné záplaty</string>
     <string name="sources_management_prerelease_toggle_description">Získáte předběžný přístup k novým experimentálním verzím záplat</string>
     <string name="sources_prerelease_warning_title">Povolit předběžné záplaty?</string>
@@ -328,6 +338,7 @@ Pro nejlepší výsledky doporučujeme záplatovat &lt;b&gt;úplný APK&lt;/b&gt
     <string name="home_low_disk_space_dialog_message">Dostupných je pouze %1$s GB volného místa. Záplatování vyžaduje alespoň %2$s GB volného místa, aby fungovalo správně</string>
     <string name="home_low_disk_space_dialog_warning">Pokračování může vést k chybě \"soubor nenalezen\" nebo poškodit výslednou APK</string>
     <string name="home_simple_bundle_select_title">Vybrat zdroj záplaty</string>
+    <string name="home_simple_bundle_select_remember">Pro tuto aplikaci vždy používat tento zdroj</string>
     <!-- Color picker -->
     <string name="custom_color">Vlastní barva</string>
     <string name="hex_color">Barva ve formátu Hex</string>
@@ -486,6 +497,7 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="patcher_field_android">Android</string>
     <string name="patcher_field_device">Zařízení</string>
     <!-- Free and total RAM of the device, never its storage -->
+    <string name="patcher_field_memory">Paměť</string>
     <string name="patcher_field_storage">Úložiště</string>
     <!-- Size of the patched APK, once patching finished -->
     <string name="patcher_field_output_size">Velikost výstupu</string>
@@ -542,6 +554,13 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="patcher_storage_permission_open_settings">Otevřít nastavení úložiště</string>
     <string name="patcher_storage_badge_denied">Oprávnění zamítnuto</string>
     <string name="patcher_storage_badge_missing">Nenalezeno</string>
+    <string name="batch_patch_option_paths_skipped">Soubory s možnostmi patchů chybí a budou přeskočeny: %1$s</string>
+    <string name="patcher_missing_patches_title">Některé patche chybí</string>
+    <string name="patcher_missing_patches_description">Uložený výběr pro tuto aplikaci uvádí patche, které už žádný povolený zdroj nenabízí. Pokračováním se aplikace patchuje bez nich.</string>
+    <string name="patcher_missing_patches_label">Už se nenabízí</string>
+    <string name="patcher_option_paths_gone_title">Soubory s možnostmi patchů chybí</string>
+    <string name="patcher_option_paths_gone_description">Jedna nebo více možností patchů odkazuje na soubory, které už neexistují. Odstraňte cesty, abyste mohli patchovat bez nich, nebo soubory vraťte zpět a zkuste to znovu.</string>
+    <string name="patcher_option_paths_clear">Odstranit cesty a pokračovat</string>
     <string name="patcher_storage_permission_hint">Tip: Přesuňte soubory do /Android/data/app.morphe.manager/files/ - bez potřeby dalších oprávnění</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Příprava</string>
@@ -637,8 +656,11 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="mini_game_dino_picker_subtitle">Klepnutím přeskočte kaktusy</string>
     <string name="mini_game_dino_tap_to_start">Klepnutím pro běh</string>
     <string name="mini_game_blocks_picker_subtitle">Sestav tvary, vyčisti řady</string>
+    <string name="mini_game_blocks_tap_to_start">Klepnutím otočíte, tažením posunete, přejetím dolů shodíte</string>
     <string name="mini_game_bricks_picker_subtitle">Odrážej míč, zboř zeď</string>
     <string name="mini_game_bricks_tap_to_start">Táhni pro zamíření, klepni pro odpálení</string>
+    <string name="mini_game_miner_picker_subtitle">Klepnutím otevřete, podržením umístíte vlajku</string>
+    <string name="mini_game_pairs_picker_subtitle">Otočte karty, najděte shodu</string>
     <!-- Settings -->
     <string name="appearance">Vzhled</string>
     <string name="advanced">Pokročilé</string>
@@ -807,6 +829,10 @@ Záplaty tím nejsou ovlivněny: povolte předběžné záplaty pro každý zdro
     <string name="settings_advanced_patch_options_custom_branding_description">Změní zobrazované jméno aplikace</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Název aplikace</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Zadejte vlastní název</string>
+    <string name="settings_advanced_patch_options_path_gone">Tuto složku už nelze přečíst. Znovu ji vyberte, nebo ji vymažte, jinak se patchování zastaví a zeptá se na to.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Ikona aplikace</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikona, kterou se aplikace patchuje. Používá se také tam, kde ji aplikace později nemůže změnit, například v Android Auto a v seznamu aplikací v systémovém nastavení.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Vlastní ikona aplikace potřebuje složku s obrázky ikon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Vlastní ikona</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Složka s obrázky, které se mají použít jako vlastní ikona.
 

@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Gizli uygulama yok</string>
     <string name="home_app_hidden_apps_title">Gizli uygulamalar</string>
     <string name="home_app_hidden_apps_hint">Göstermek için dokunun</string>
+    <string name="home_app_patch_sources_description">İşaretlenmemiş bırakılan kaynaklar, bu uygulamalara yama uygulanırken sunulmaz ve yamaları asla kendi başına bir seçime dahil edilmez. Her kaynak, diğer tüm uygulamalar için seçili kalır.</string>
+    <string name="home_app_patch_sources_mixed">%2$s uygulamanın %1$s tanesine sunuluyor</string>
+    <string name="home_app_patch_sources_covers">%2$s uygulamanın %1$s tanesi için yamaları var</string>
+    <string name="home_app_patch_sources_last">Her uygulamanın yama alabileceği bir kaynak seçili bırakılmalıdır.</string>
     <string name="android_11_bug_dialog_title">Android 11 hatası</string>
     <string name="android_11_bug_dialog_description">Android 11\'de kullanıcı deneyimini olumsuz etkileyen bir sistem hatasını önlemek için uygulama yükleme izni önceden verilmelidir</string>
     <string name="deep_link_add_source_title">Kaynak ekleyin</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Gececi ve üretken</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yama kaynakları</string>
+    <string name="sources_search">Kaynakları ve yamaları ara</string>
     <string name="sources_sort_title">Yama kaynaklarını sırala</string>
     <string name="sources_sort_manual">Manuel sıra</string>
     <string name="sources_sort_manual_hint">Yeniden sıralamak için bir kaynağa uzun basın</string>
@@ -131,9 +136,11 @@
     <string name="sources_sort_last_updated_description">Önce en yeni kaynak güncellemeleri</string>
     <string name="sources_sort_enabled_first">Önce ekin olanlar</string>
     <string name="sources_sort_enabled_first_description">Etkin kaynakları devre dışı kaynaklardan önce göster</string>
+    <string name="sources_patches_source_disabled_hint">Bu kaynak devre dışı. Yamaları referans için listelenmiştir ve uygulanmaz</string>
     <string name="sources_management_open_in_browser">Tarayıcıda aç</string>
     <string name="sources_management_report_issue">Sorun bildir</string>
     <string name="sources_management_failed_to_open_url">URL açılamadı</string>
+    <string name="sources_hidden_apps">Gizli olduğu uygulamalar</string>
     <string name="sources_management_prerelease_toggle">Ön sürüm yamalar</string>
     <string name="sources_management_prerelease_toggle_description">Yeni deneysel sürüm yamalarına erken erişim sağlar</string>
     <string name="sources_prerelease_warning_title">Ön sürüm yamalarını etkinleştir?</string>
@@ -810,6 +817,7 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="settings_advanced_patch_options_custom_branding_description">Görüntülenen uygulama adını değiştirir</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Uygulama adı</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Özel ad girin</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Uygulama simgesi</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Özel filtre</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Özel bir simge olarak kullanılacak görüntüleri içeren klasör.
 

@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Nicio aplicație ascunsă</string>
     <string name="home_app_hidden_apps_title">Aplicații ascunse</string>
     <string name="home_app_hidden_apps_hint">Apasă pentru a afișa</string>
+    <string name="home_app_patch_sources_description">Sursele rămase nebifate nu sunt oferite atunci când acestor aplicații li se aplică patch-uri, iar patch-urile lor nu se alătură niciodată singure unei selecții. Fiecare sursă rămâne activă pentru toate celelalte aplicații.</string>
+    <string name="home_app_patch_sources_mixed">Oferit pentru %1$s din %2$s</string>
+    <string name="home_app_patch_sources_covers">Are patch-uri pentru %1$s din %2$s</string>
+    <string name="home_app_patch_sources_last">Fiecare aplicație are nevoie de o sursă rămasă de la care să aplice patch-uri.</string>
     <string name="android_11_bug_dialog_title">Bug al Android 11</string>
     <string name="android_11_bug_dialog_description">Permisiunea de instalare a aplicației trebuie acordată în avans pentru a evita o problemă în sistemul Android 11 care poate afecta negativ experiența utilizatorului</string>
     <string name="deep_link_add_source_title">Adaugă sursă</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Nocturn și productiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Surse de patch-uri</string>
+    <string name="sources_search">Caută surse și patch-uri</string>
     <string name="sources_sort_title">Sortare surse de patch-uri</string>
     <string name="sources_sort_manual">Comandă manuală</string>
     <string name="sources_sort_manual_hint">Țineți apăsat pe o sursă pentru a reordona</string>
@@ -131,9 +136,11 @@
     <string name="sources_sort_last_updated_description">Actualizări ale surselor cele mai recente mai întâi</string>
     <string name="sources_sort_enabled_first">Activat mai întâi</string>
     <string name="sources_sort_enabled_first_description">Afișează sursele active înainte de sursele dezactivate</string>
+    <string name="sources_patches_source_disabled_hint">Această sursă este dezactivată. Patch-urile sale sunt listate pentru referință și nu sunt aplicate</string>
     <string name="sources_management_open_in_browser">Deschide în browser</string>
     <string name="sources_management_report_issue">Raportează o problemă</string>
     <string name="sources_management_failed_to_open_url">Eroarea la deschiderea URL-ului</string>
+    <string name="sources_hidden_apps">Ascuns pentru</string>
     <string name="sources_management_prerelease_toggle">Patch-uri pre-lansare</string>
     <string name="sources_management_prerelease_toggle_description">Primești acces anticipat la versiuni noi experimentale de patch-uri</string>
     <string name="sources_prerelease_warning_title">Activezi patch-urile de pre-lansare?</string>
@@ -639,6 +646,8 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="mini_game_dino_tap_to_start">Atinge pentru a alerga</string>
     <string name="mini_game_blocks_picker_subtitle">Potrivește formele, elimină liniile</string>
     <string name="mini_game_blocks_tap_to_start">Atingeți pentru a roti, glisați pentru a muta, glisați în jos pentru a arunca</string>
+    <string name="mini_game_bricks_picker_subtitle">Fă mingea să sară, dărâmă peretele</string>
+    <string name="mini_game_bricks_tap_to_start">Glisează pentru a ținti, atinge pentru a lansa</string>
     <string name="mini_game_miner_picker_subtitle">Atingeți pentru a deschide, țineți apăsat pentru a marca</string>
     <string name="mini_game_pairs_picker_subtitle">Întoarceți cărțile, găsiți perechea</string>
     <!-- Settings -->
@@ -809,6 +818,7 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_patch_options_custom_branding_description">Schimbă numele afișat al aplicației</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Numele aplicației</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Introduceți numele personalizat</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Pictogramă aplicație</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Pictogramă personalizată</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Folder cu imagini care să fie utilizate ca pictogramă personalizată.
 

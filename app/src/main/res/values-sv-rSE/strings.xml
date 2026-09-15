@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Inga dolda appar</string>
     <string name="home_app_hidden_apps_title">Dolda appar</string>
     <string name="home_app_hidden_apps_hint">Tryck för att visa</string>
+    <string name="home_app_patch_sources_description">Källor som lämnas omarkerade erbjuds inte när dessa appar patchas, och deras patchar ingår aldrig i ett urval på egen hand. Varje källa förblir aktiverad för alla andra appar. \"key\":\"home_app_patch_sources_description\",\"context\":\"home_app_patch_sources_description\",\"maxLength\":null,\"terms\":[]},{\"id\":32254,\"prualForm\":\"\",\"text\":\"Erbjuds till %1$s av %2$s\",\"key\":\"home_app_patch_sources_mixed\",\"context\":\"home_app_patch_sources_mixed\",\"maxLength\":null,\"terms\":[]},{\"id\":32256,\"prualForm\":\"\",\"text\":\"Har patchar för %1$s av %2$s\",\"key\":\"home_app_patch_sources_covers\",\"context\":\"home_app_patch_sources_covers\",\"maxLength\":null,\"terms\":[]},{\"id\":32258,\"prualForm\":\"\",\"text\":\"Varje app behöver en källa kvar att hämta patchar från\",\"key\":\"home_app_patch_sources_last\",\"context\":\"home_app_patch_sources_last\",\"maxLength\":null,\"terms\":[]},{\"id\":32260,\"prualForm\":\"\",\"text\":\"Dold för\",\"key\":\"sources_hidden_apps\",\"context\":\"sources_hidden_apps\",\"maxLength\":null,\"terms\":[]},{\"id\":32262,\"prualForm\":\"\",\"text\":\"Appar dolda för %1$s\",\"key\":\"sources_hidden_apps_title\",\"context\":\"sources_hidden_apps_title\",\"maxLength\":null,\"terms\":[]},{\"id\":32264,\"prualForm\":\"\",\"text\":\"Dessa appar erbjuds inte den här källan när de patchas. Själva källan förblir aktiverad för allt annat.\",\"key\":\"sources_hidden_apps_description\",\"context\":\"sources_hidden_apps_description\",\"maxLength\":null,\"terms\":[]},{\"id\":32266,\"prualForm\":\"\",\"text\":\"Tryck för att erbjuda den här källan igen\",\"key\":\"sources_hidden_apps_hint\",\"context\":\"sources_hidden_apps_hint\",\"maxLength\":null,\"terms\":[]},{\"id\":32268,\"prualForm\":\"\",\"text\":\"Använd alltid den här källan för den här appen\",\"key\":\"home_simple_bundle_select_remember\",\"context\":\"home_simple_bundle_select_remember\",\"maxLength\":null,\"terms\":[]},{\"id\":32274,\"prualForm\":\"\",\"text\":\"Patchalternativfiler saknas och kommer att hoppas över: %1$s\",\"key\":\"batch_patch_option_paths_skipped\",\"context\":\"batch_patch_option_paths_skipped\",\"maxLength\":null,\"terms\":[]},{\"id\":32276,\"prualForm\":\"\",\"text\":\"Vissa patchar är borta\",\"key\":\"patcher_missing_patches_title\",\"context\":\"patcher_missing_patches_title\",\"maxLength\":null,\"terms\":[]},{\"id\":32278,\"prualForm\":\"\",\"text\":\"Det sparade urvalet för den här appen anger patchar som ingen aktiverad källa längre erbjuder. Om du fortsätter kommer appen att patchas utan dem.\",\"key\":\"patcher_missing_patches_description\",\"context\":\"patcher_missing_patches_description\",\"maxLength\":null,\"terms\":[]},{\"id\":32280,\"prualForm\":\"\",\"text\":\"Erbjuds inte längre\",\"key\":\"patcher_missing_patches_label\",\"context\":\"patcher_missing_patches_label\",\"maxLength\":null,\"terms\":[]},{\"id\":32282,\"prualForm\":\"\",\"text\":\"Patchalternativfiler saknas\",\"key\":\"patcher_option_paths_gone_title\",\"context\":\"patcher_option_paths_gone_title\",\"maxLength\":null,\"terms\":[]},{\"id\":32284,\"prualForm\":\"\",\"text\":\"Ett eller flera patchalternativ pekar på filer som inte längre finns. Ta bort sökvägarna för att patcha utan dem, eller lägg tillbaka filerna och försök igen.\",\"key\":\"patcher_option_paths_gone_description\",\"context\":\"patcher_option_paths_gone_description\",\"maxLength\":null,\"terms\":[]},{\"id\":32286,\"prualForm\":\"\",\"text\":\"Ta bort sökvägarna och fortsätt\",\"key\":\"patcher_option_paths_clear\",\"context\":\"patcher_option_paths_clear\",\"maxLength\":null,\"terms\":[]},{\"id\":32288,\"prualForm\":\"\",\"text\":\"Den här mappen kan inte längre läsas. Välj den igen eller rensa den, annars kommer patchningen att stanna och fråga om det\",\"key\":\"settings_advanced_patch_options_path_gone\",\"context\":\"settings_advanced_patch_options_path_gone\",\"maxLength\":null,\"terms\":[]},{\"id\":32292,\"prualForm\":\"\",\"text\":\"Ikonen som appen patchas med. Den används också där appen inte kan ändra den senare, såsom Android Auto och applistan i systeminställningarna.\",\"key\":\"settings_advanced_patch_options_custom_branding_app_icon_description\",\"context\":\"settings_advanced_patch_options_custom_branding_app_icon_description\",\"maxLength\":null,\"terms\":[{\"source\":\"Auto\",\"translatable\":true,\"partOfSpeech\":\"ADJ\"}]},{\"id\":32294,\"prualForm\":\"\",\"text\":\"Den anpassade appikonen behöver en mapp med ikonbilder\",\"key\":\"settings_advanced_patch_options_custom_branding_app_icon_needs_folder\",\"context\":\"settings_advanced_patch_options_custom_branding_app_icon_needs_folder\",\"maxLength\":null,\"terms\":[]}]}</string>
+    <string name="home_app_patch_sources_mixed">Erbjuds till %1$s av %2$s</string>
+    <string name="home_app_patch_sources_covers">Har patcher för %1$s av %2$s</string>
+    <string name="home_app_patch_sources_last">Varje app behöver en källa kvar att patcha från</string>
     <string name="android_11_bug_dialog_title">Fel i Android 11</string>
     <string name="android_11_bug_dialog_description">Behörigheten för appinstallation måste beviljas i förväg för att undvika ett fel i Android 11-systemet som negativt påverkar användarupplevelsen</string>
     <string name="deep_link_add_source_title">Lägg till källa</string>
@@ -27,7 +31,7 @@
     <string name="home_metadata_errors_subtitle">Tryck för att granska källor</string>
     <string name="home_outdated_manager_title">Morphe är inaktuellt</string>
     <string name="home_outdated_manager_subtitle">Vissa tilläggskällor behöver en nyare version</string>
-    <string name="home_held_back_title">En patchkälla fick Morphe att krascha</string>
+    <string name="home_held_back_title">En tilläggskälla fick Morphe att krascha</string>
     <string name="home_held_back_subtitle">Den hoppades över så att appen kunde starta. Tryck för att granska</string>
     <string name="home_metered_skipped_title">Uppdateringar via mobildata har pausats</string>
     <string name="home_metered_skipped_subtitle">Tryck för att tillåta uppdateringar via mobildata</string>
@@ -59,7 +63,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetisk ordning, A till Ö</string>
     <string name="home_app_sort_name_desc_description">Omvänd alfabetisk ordning, Ö till A</string>
     <string name="home_app_sort_updates_first">Tilläggsuppdateringar först</string>
-    <string name="home_app_sort_updates_first_description">Appar med nyare patchar först, sedan rekommenderad ordning</string>
+    <string name="home_app_sort_updates_first_description">Appar med nyare tillägg först, sedan rekommenderad ordning</string>
     <string name="home_app_sort_recently_patched">Nyligen modifierade</string>
     <string name="home_app_sort_recently_patched_description">Senast modifierade apparna först</string>
     <string name="home_no_apps_title">Inga appar är tillgängliga</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Nattaktiv och produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Tilläggskällor</string>
+    <string name="sources_search">Sök efter källor och tillägg</string>
     <string name="sources_sort_title">Sortera tilläggskällor</string>
     <string name="sources_sort_manual">Manuell ordning</string>
     <string name="sources_sort_manual_hint">Tryck länge på en källa för att ändra ordning</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Nyaste källuppdateringarna först</string>
     <string name="sources_sort_enabled_first">Aktiverade först</string>
     <string name="sources_sort_enabled_first_description">Visa aktiva källor före inaktiverade källor</string>
+    <string name="sources_patches_source_disabled_hint">Den här källan är inaktiverad. Dess tillägg listas som referens och tillämpas inte</string>
     <string name="sources_management_open_in_browser">Öppna i webbläsaren</string>
     <string name="sources_management_report_issue">Rapportera ett problem</string>
     <string name="sources_management_failed_to_open_url">Det gick inte att öppna webbadressen</string>
+    <string name="sources_hidden_apps">Dold för</string>
+    <string name="sources_hidden_apps_title">Appar dolda för %1$s</string>
+    <string name="sources_hidden_apps_description">Dessa appar erbjuds inte den här källan när de patchas. Själva källan förblir på för allt annat.</string>
+    <string name="sources_hidden_apps_hint">Tryck för att erbjuda den här källan igen</string>
     <string name="sources_management_prerelease_toggle">Förhandsversioner av tillägg</string>
     <string name="sources_management_prerelease_toggle_description">Får tidig åtkomst till nya experimentella tilläggsversioner</string>
     <string name="sources_prerelease_warning_title">Aktivera förhandsversioner av tillägg?</string>
@@ -193,7 +203,7 @@ Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <string name="home_apk_availability_dialog_title">Behöver du hjälp att hitta en ursprunglig omodifierad APK-fil?</string>
     <string name="home_apk_availability_dialog_simple">Om du vill modifiera &lt;b&gt;%s&lt;/b&gt; behöver du en omodifierad APK-fil med följande version:</string>
     <string name="home_apk_availability_dialog_expert">Om du vill modifiera &lt;b&gt;%s&lt;/b&gt; behöver du en omodifierad APK-fil med en av följande versioner:</string>
-    <string name="home_apk_availability_recommended_label">Rekommenderad</string>
+    <string name="home_apk_availability_recommended_label">Rekommenderas</string>
     <string name="home_apk_availability_unpatched_label">Omodifierad</string>
     <string name="home_apk_availability_incompatible_label">Inkompatibel</string>
     <string name="home_apk_availability_installed_version">Installerad på den här enheten: %s</string>
@@ -328,6 +338,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="home_low_disk_space_dialog_message">Endast %1$s GB ledigt utrymme är tillgängligt. Modifieringen kräver minst %2$s GB ledigt utrymme för att fungera korrekt</string>
     <string name="home_low_disk_space_dialog_warning">Om du fortsätter kan det leda till att du får ett felmeddelande om att filen inte hittades eller en skadad APK-fil</string>
     <string name="home_simple_bundle_select_title">Välj tilläggskälla</string>
+    <string name="home_simple_bundle_select_remember">Använd alltid den här källan för den här appen</string>
     <!-- Color picker -->
     <string name="custom_color">Anpassad färg</string>
     <string name="hex_color">Hexfärg</string>
@@ -442,8 +453,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="home_app_info_install_type_shizuku_play_store">Play Butik-installation med Shizuku</string>
     <string name="home_app_info_patch_update_available">Tilläggsuppdatering är tillgänglig</string>
     <string name="home_app_info_patch_update_available_description">En nyare version av tilläggen är tillgänglig. Modifiera appen igen för att få de senaste förbättringarna och felkorrigeringarna</string>
-    <string name="home_app_info_app_update_available">Appuppdatering tillgänglig</string>
-    <string name="home_app_info_app_update_available_description">Patchkällorna stödjer en nyare version av den här appen. Patcha den igen för att gå över till den versionen.</string>
+    <string name="home_app_info_app_update_available">Appuppdatering är tillgänglig</string>
+    <string name="home_app_info_app_update_available_description">Tilläggskällorna stöder en nyare version av den här appen. Modifiera den igen för att övergå till den versionen.</string>
     <string name="home_app_info_newest_supported_version">Senaste stödda</string>
     <string name="home_app_info_version_move">Installerad %1$s, senaste stödda %2$s</string>
     <string name="home_app_info_app_deleted_warning">Appen har avinstallerats</string>
@@ -471,7 +482,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_error_technical">Teknisk information</string>
     <string name="patcher_error_dialog_diagnostics">Diagnostik</string>
     <!-- Titles of the cards the expert log shows in place of the raw start and success log lines -->
-    <string name="patcher_card_started">Modifieringen startades</string>
+    <string name="patcher_card_started">Modifieringen har startats</string>
     <string name="patcher_card_succeeded">Modifieringen lyckades</string>
     <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
     <string name="patcher_field_app">App</string>
@@ -534,13 +545,20 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_incompatible_patcher_title">Uppdatering krävs</string>
     <string name="patcher_incompatible_patcher_description">Arkivet &lt;b&gt;%1$s&lt;/b&gt; kräver version &lt;b&gt;%2$s&lt;/b&gt; eller senare av modifieringsverktyget. Uppdatera Morphe för att modifiera den här appen</string>
     <string name="patcher_incompatible_patcher_update_button">Ladda ned och uppdatera Morphe</string>
-    <string name="patcher_storage_permission_description_api30">Ett eller fler tilläggsalternativ pekar på sökvägar som Morphe inte kan läsa. Ge åtkomst till lagringen och tryck på knappen så startas modifieringen automatiskt</string>
-    <string name="patcher_storage_permission_description_legacy">Ett eller fler tilläggsalternativ pekar på sökvägar som inte går att komma åt. Uppdatera sökvägarna i tilläggsalternativen och försök igen</string>
+    <string name="patcher_storage_permission_description_api30">Ett eller flera tilläggsalternativ pekar på sökvägar som Morphe inte kan läsa. Ge åtkomst till lagringen och tryck på knappen så startas modifieringen automatiskt</string>
+    <string name="patcher_storage_permission_description_legacy">Ett eller flera tilläggsalternativ pekar på sökvägar som inte går att komma åt. Uppdatera sökvägarna i tilläggsalternativen och försök igen</string>
     <string name="patcher_storage_permission_grant">Ge åtkomst till lagring</string>
     <string name="patcher_storage_permission_denied_warning">Åtkomst till lagringen nekades. Ge behörighet att använda sökvägen eller flytta filerna till appens privata katalog</string>
     <string name="patcher_storage_permission_open_settings">Öppna lagringsinställningar</string>
     <string name="patcher_storage_badge_denied">Behörighet nekades</string>
     <string name="patcher_storage_badge_missing">Hittades inte</string>
+    <string name="batch_patch_option_paths_skipped">Filer för patchalternativ saknas och kommer att hoppas över: %1$s</string>
+    <string name="patcher_missing_patches_title">Vissa patcher är borta</string>
+    <string name="patcher_missing_patches_description">Det sparade valet för den här appen anger patcher som ingen aktiverad källa längre erbjuder. Om du fortsätter kommer appen att patchas utan dem.</string>
+    <string name="patcher_missing_patches_label">Erbjuds inte längre</string>
+    <string name="patcher_option_paths_gone_title">Filer för patchalternativ saknas</string>
+    <string name="patcher_option_paths_gone_description">Ett eller flera patchalternativ pekar på filer som inte längre finns. Ta bort sökvägarna för att patcha utan dem, eller lägg tillbaka filerna och försök igen.</string>
+    <string name="patcher_option_paths_clear">Ta bort sökvägarna och fortsätt</string>
     <string name="patcher_storage_permission_hint">Tips: Flytta filerna till /Android/data/app.morphe.manager/files/ – inga extra behörigheter behövs</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Förbereder</string>
@@ -810,6 +828,10 @@ Tillägg påverkas inte: Aktivera förhandsversioner av tillägg för varje käl
     <string name="settings_advanced_patch_options_custom_branding_description">Ändrar appens visningsnamn</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Appnamn</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Ange anpassat namn</string>
+    <string name="settings_advanced_patch_options_path_gone">Den här mappen kan inte längre läsas. Välj den igen eller rensa den, annars kommer patchningen att stanna och fråga om den.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Appikon</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikonen som appen patchas med. Den används också där appen inte kan ändra den senare, till exempel i Android Auto och i applistan i systeminställningarna.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Den anpassade appikonen behöver en mapp med ikonbilder</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Anpassad ikon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Mapp med bilder som ska användas som anpassad ikon.
 
@@ -959,8 +981,8 @@ Information: %2$s"</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">Aviseringar</string>
     <string name="settings_system_notifications_description">Konfigurera aviseringar i bakgrunden och ljud för slutförande</string>
-    <string name="settings_system_notifications_success_sound">Ljud om modifiering lyckas</string>
-    <string name="settings_system_notifications_error_sound">Ljud om modifiering misslyckas</string>
+    <string name="settings_system_notifications_success_sound">Ljud för lyckat resultat</string>
+    <string name="settings_system_notifications_error_sound">Ljud för misslyckat resultat</string>
     <string name="settings_system_notifications_sound_default">Standard</string>
     <string name="settings_system_notifications_sound_picker_title">Välj ljudkälla</string>
     <string name="settings_system_notifications_sound_pick_ringtone">Systemljud</string>

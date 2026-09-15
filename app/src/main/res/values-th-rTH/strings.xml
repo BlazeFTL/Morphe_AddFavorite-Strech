@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">ไม่มีแอปที่ซ่อนอยู่</string>
     <string name="home_app_hidden_apps_title">แอปที่ซ่อนอยู่</string>
     <string name="home_app_hidden_apps_hint">แตะเพื่อแสดง</string>
+    <string name="home_app_patch_sources_description">แหล่งที่มาที่ไม่ได้เลือกไว้จะไม่ถูกเสนอเมื่อแอปเหล่านี้ถูกแพตช์ และแพตช์ของแหล่งที่มาเหล่านั้นจะไม่เข้าร่วมการเลือกด้วยตัวเอง แต่ละแหล่งที่มาจะยังคงเปิดใช้สำหรับแอปอื่นทุกแอป</string>
+    <string name="home_app_patch_sources_mixed">เสนอให้ %1$s จากทั้งหมด %2$s</string>
+    <string name="home_app_patch_sources_covers">มีแพตช์สำหรับ %1$s จากทั้งหมด %2$s</string>
+    <string name="home_app_patch_sources_last">ทุกแอปต้องมีแหล่งที่มาเหลืออยู่อย่างน้อยหนึ่งแหล่งเพื่อใช้แพตช์</string>
     <string name="android_11_bug_dialog_title">บัก Android 11</string>
     <string name="android_11_bug_dialog_description">ต้องอนุญาตเปิดสิทธิเข้าถึงการติดตั้งแอปพลิเคชันก่อน เพื่อหลีกเลี่ยงปัญหาจากระบบปฏิบัติการ Android 11 ที่มีผลกระทบต่อการใช้งานแอปพลิเคชันนี้</string>
     <string name="deep_link_add_source_title">เพิ่มแหล่งที่มา</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">ตื่นตอนกลางคืนและยังทำงานได้</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">จัดการแหล่งที่มา</string>
+    <string name="sources_search">ค้นหาแหล่งที่มาและแพตช์</string>
     <string name="sources_sort_title">เรียงลำดับแหล่งที่มาของแพตช์</string>
     <string name="sources_sort_manual">จัดเรียงด้วยตนเอง</string>
     <string name="sources_sort_manual_hint">แตะค้างที่แหล่งข้อมูลเพื่อจัดเรียงใหม่</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">อัปเดตแหล่งที่มาล่าสุดก่อน</string>
     <string name="sources_sort_enabled_first">เปิดใช้งานก่อน</string>
     <string name="sources_sort_enabled_first_description">แสดงแหล่งที่มาที่ใช้งานอยู่ก่อนแหล่งที่มาที่ปิดใช้งาน</string>
+    <string name="sources_patches_source_disabled_hint">แหล่งที่มานี้ถูกปิดใช้งาน แพตช์ของมันถูกแสดงเพื่อการอ้างอิงและจะไม่ถูกนำไปใช้</string>
     <string name="sources_management_open_in_browser">เปิดในเบราว์เซอร์</string>
     <string name="sources_management_report_issue">รายงานปัญหา</string>
     <string name="sources_management_failed_to_open_url">ไม่สามารถเปิด URL ได้</string>
+    <string name="sources_hidden_apps">ซ่อนไว้สำหรับ</string>
+    <string name="sources_hidden_apps_title">แอปที่ถูกซ่อนจาก %1$s</string>
+    <string name="sources_hidden_apps_description">แอปเหล่านี้จะไม่ได้รับแหล่งที่มานี้เมื่อถูกแพตช์ แต่ตัวแหล่งที่มาเองยังคงเปิดใช้สำหรับสิ่งอื่นทั้งหมด</string>
+    <string name="sources_hidden_apps_hint">แตะเพื่อเสนอแหล่งที่มานี้อีกครั้ง</string>
     <string name="sources_management_prerelease_toggle">แพตช์ก่อนเปิดตัว</string>
     <string name="sources_management_prerelease_toggle_description">รับสิทธิ์เข้าถึงแพทช์ใหม่เวอร์ชันทดลองแต่เนิ่นๆ</string>
     <string name="sources_prerelease_warning_title">เปิดใช้แพตช์ก่อนเผยแพร่หรือไม่?</string>
@@ -328,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">มีพื้นที่ว่างเพียง %1$s GB เท่านั้น การแพตช์ต้องใช้พื้นที่ว่างอย่างน้อย %2$s GB เพื่อให้ทำงานได้อย่างถูกต้อง</string>
     <string name="home_low_disk_space_dialog_warning">การดำเนินการนี้อาจส่งผลให้เกิดข้อผิดพลาด \"ไม่พบไฟล์\" หรือ APK ที่สร้างขึ้นอาจเสียหาย</string>
     <string name="home_simple_bundle_select_title">เลือกไฟล์แหล่งที่มา</string>
+    <string name="home_simple_bundle_select_remember">ใช้แหล่งที่มานี้สำหรับแอปนี้เสมอ</string>
     <!-- Color picker -->
     <string name="custom_color">สีแบบกำหนดเอง</string>
     <string name="hex_color">สี Hex</string>
@@ -486,6 +497,7 @@
     <string name="patcher_field_android">Android</string>
     <string name="patcher_field_device">อุปกรณ์</string>
     <!-- Free and total RAM of the device, never its storage -->
+    <string name="patcher_field_memory">หน่วยความจำ</string>
     <string name="patcher_field_storage">พื้นที่เก็บข้อมูล</string>
     <!-- Size of the patched APK, once patching finished -->
     <string name="patcher_field_output_size">ขนาดผลลัพธ์</string>
@@ -542,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">เปิดการตั้งค่าเก็บถาวร</string>
     <string name="patcher_storage_badge_denied">การอนุญาตถูกปฏิเสธ</string>
     <string name="patcher_storage_badge_missing">ไม่พบ</string>
+    <string name="batch_patch_option_paths_skipped">ไฟล์ตัวเลือกแพตช์หายไปและจะถูกข้ามไป: %1$s</string>
+    <string name="patcher_missing_patches_title">แพตช์บางส่วนหายไป</string>
+    <string name="patcher_missing_patches_description">การเลือกที่บันทึกไว้สำหรับแอปนี้ระบุชื่อแพตช์ที่ไม่มีแหล่งที่มาที่เปิดใช้อยู่ใดเสนออีกต่อไป การดำเนินการต่อจะแพตช์แอปโดยไม่มีแพตช์เหล่านั้น</string>
+    <string name="patcher_missing_patches_label">ไม่ได้เสนออีกต่อไป</string>
+    <string name="patcher_option_paths_gone_title">ไฟล์ตัวเลือกแพตช์หายไป</string>
+    <string name="patcher_option_paths_gone_description">ตัวเลือกแพตช์หนึ่งรายการขึ้นไปชี้ไปยังไฟล์ที่ไม่มีอยู่แล้ว นำพาธออกเพื่อแพตช์โดยไม่ใช้ไฟล์เหล่านั้น หรือนำไฟล์กลับมาแล้วลองอีกครั้ง</string>
+    <string name="patcher_option_paths_clear">นำพาธออกแล้วดำเนินการต่อ</string>
     <string name="patcher_storage_permission_hint">คำแนะนำ: ย้ายไฟล์ไปยัง /Android/data/app.morphe.manager/files/ - ไม่จำเป็นต้องมีสิทธิ์พิเศษอื่น</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">กำลังเตรียม</string>
@@ -637,8 +656,11 @@
     <string name="mini_game_dino_picker_subtitle">แตะเพื่อกระโดดข้ามกระบองเพชร</string>
     <string name="mini_game_dino_tap_to_start">แตะเพื่อวิ่ง</string>
     <string name="mini_game_blocks_picker_subtitle">วางชิ้นส่วนให้พอดี ลบเส้น</string>
+    <string name="mini_game_blocks_tap_to_start">แตะเพื่อหมุน ปัดเพื่อเลื่อน ปัดลงเพื่อวาง</string>
     <string name="mini_game_bricks_picker_subtitle">ตีลูกบอลให้เด้ง ทำลายกำแพง</string>
     <string name="mini_game_bricks_tap_to_start">ลากเพื่อเล็ง แตะเพื่อยิง</string>
+    <string name="mini_game_miner_picker_subtitle">แตะเพื่อเปิด กดค้างเพื่อวางธง</string>
+    <string name="mini_game_pairs_picker_subtitle">พลิกไพ่ หาคู่ที่ตรงกัน</string>
     <!-- Settings -->
     <string name="appearance">หน้าตา</string>
     <string name="advanced">ขั้นสูง</string>
@@ -808,6 +830,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">เปลี่ยนชื่อแอปพลิเคชันที่แสดงผล</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">ชื่อแอป</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">ป้อนชื่อแบบกำหนดเอง</string>
+    <string name="settings_advanced_patch_options_path_gone">ไม่สามารถอ่านโฟลเดอร์นี้ได้อีกต่อไป เลือกอีกครั้งหรือล้างออก ไม่เช่นนั้นการแพตช์จะหยุดและถามถึงโฟลเดอร์นี้</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">ไอคอนแอป</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">ไอคอนที่ใช้แพตช์แอป ไอคอนนี้ยังใช้ในตำแหน่งที่แอปไม่สามารถเปลี่ยนได้ในภายหลัง เช่น Android Auto และรายการแอปในการตั้งค่าระบบ</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">ไอคอนแอปที่กำหนดเองต้องมีโฟลเดอร์ที่มีรูปภาพไอคอน</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">ไอคอนแบบกำหนดเอง</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"โฟลเดอร์ที่มีรูปภาพสำหรับใช้เป็นไอคอนแบบกำหนดเอง
 

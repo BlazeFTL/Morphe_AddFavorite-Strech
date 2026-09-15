@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Nincs rejtett alkalmazás</string>
     <string name="home_app_hidden_apps_title">Rejtett alkalmazások</string>
     <string name="home_app_hidden_apps_hint">Koppints a megjelenítéshez</string>
+    <string name="home_app_patch_sources_description">A bejelöletlenül hagyott források nincsenek felajánlva, amikor ezeket az alkalmazásokat javítják, és a javításaik soha nem kerülnek be maguktól egy kiválasztásba. Minden másik alkalmazásnál minden forrás bekapcsolva marad.</string>
+    <string name="home_app_patch_sources_mixed">Felajánlva: %1$s a %2$s közül</string>
+    <string name="home_app_patch_sources_covers">A(z) %2$s forrás közül %1$s rendelkezik javításokkal. MAX_LENGTH_32256: MUST BE EMPTY, TERMS: EMPTY</string>
+    <string name="home_app_patch_sources_last">Minden alkalmazáshoz maradnia kell legalább egy forrásnak, amelyből javítani lehet.</string>
     <string name="android_11_bug_dialog_title">Android 11 hiba</string>
     <string name="android_11_bug_dialog_description">Az alkalmazástelepítési engedélyt előre el kell fogadni, hogy elkerülhető legyen az Android 11 rendszerben fellépő hiba, mely negatívan befolyásolja a felhasználói élményt</string>
     <string name="deep_link_add_source_title">Forrás hozzáadása</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Éjszakai műszak, maximális pörgés</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Módosításforrások</string>
+    <string name="sources_search">Források és javítások keresése</string>
     <string name="sources_sort_title">Javításforrások rendezése</string>
     <string name="sources_sort_manual">Kézi sorrend</string>
     <string name="sources_sort_manual_hint">Nyomja meg hosszan egy forrást a sorrend megváltoztatásához.</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">A legújabb forrásfrissítések először</string>
     <string name="sources_sort_enabled_first">Először az engedélyezettek</string>
     <string name="sources_sort_enabled_first_description">Az aktív forrásokat mutassa először a letiltott forrásokkal szemben</string>
+    <string name="sources_patches_source_disabled_hint">Ez a forrás le van tiltva. A javításai referenciaként vannak felsorolva, és nincsenek alkalmazva.</string>
     <string name="sources_management_open_in_browser">Megnyitás böngészőben</string>
     <string name="sources_management_report_issue">Hiba jelentése</string>
     <string name="sources_management_failed_to_open_url">Hiba történt az URL megnyitásakor</string>
+    <string name="sources_hidden_apps">Elrejtve:</string>
+    <string name="sources_hidden_apps_title">A(z) %1$s elől elrejtett alkalmazások</string>
+    <string name="sources_hidden_apps_description">Ezeknek az alkalmazásoknak nem ajánlják fel ezt a forrást, amikor javítják őket. Maga a forrás minden másnál bekapcsolva marad.</string>
+    <string name="sources_hidden_apps_hint">Koppintson ide, hogy újra felajánlja ezt a forrást.</string>
     <string name="sources_management_prerelease_toggle">Kiadás előtti javítások</string>
     <string name="sources_management_prerelease_toggle_description">Korai hozzáférés kísérleti új javításverziókhoz</string>
     <string name="sources_prerelease_warning_title">Előzetes javítások engedélyezése?</string>
@@ -328,6 +338,7 @@ A legjobb eredmény érdekében az alkalmazás javasolja a &lt;b&gt;teljes APK&l
     <string name="home_low_disk_space_dialog_message">Csak %1$s GB szabad tárhely áll rendelkezésre. A javítás legalább %2$s GB szabad helyet igényel a megfelelő működéshez.</string>
     <string name="home_low_disk_space_dialog_warning">A folytatás \"fájl nem található\" hibához vagy sérült APK-hoz vezethet</string>
     <string name="home_simple_bundle_select_title">Módosításforrás kiválasztása</string>
+    <string name="home_simple_bundle_select_remember">Mindig ezt a forrást használja ehhez az alkalmazáshoz.</string>
     <!-- Color picker -->
     <string name="custom_color">Egyedi szín</string>
     <string name="hex_color">Hex szín</string>
@@ -543,6 +554,13 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patcher_storage_permission_open_settings">Tárhelybeállítások megnyitása</string>
     <string name="patcher_storage_badge_denied">Engedély megtagadva</string>
     <string name="patcher_storage_badge_missing">Nem található</string>
+    <string name="batch_patch_option_paths_skipped">A javítási beállítások fájljai hiányoznak, ezért kihagyásra kerülnek: %1$s</string>
+    <string name="patcher_missing_patches_title">Egyes javítások már nem érhetők el.</string>
+    <string name="patcher_missing_patches_description">Az ehhez az alkalmazáshoz mentett kiválasztás olyan javításokat tartalmaz, amelyeket már egyetlen engedélyezett forrás sem kínál. A folytatás ezek nélkül javítja az alkalmazást.</string>
+    <string name="patcher_missing_patches_label">Már nem ajánlott.</string>
+    <string name="patcher_option_paths_gone_title">A javítási beállítások fájljai hiányoznak.</string>
+    <string name="patcher_option_paths_gone_description">Egy vagy több javítási beállítás olyan fájlokra mutat, amelyek már nem léteznek. Távolítsa el az útvonalakat, hogy a javítás ezek nélkül folytatódjon, vagy tegye vissza a fájlokat, és próbálja újra.</string>
+    <string name="patcher_option_paths_clear">Távolítsa el az útvonalakat, és folytassa.</string>
     <string name="patcher_storage_permission_hint">Tipp: Mozgasd át a fájlokat az /Android/data/app.morphe.manager/files/ könyvtárba - nincs szükség extra engedélyekre</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Előkészítés</string>
@@ -811,6 +829,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_patch_options_custom_branding_description">Az alkalmazás megjelenített nevének módosítása</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Alkalmazásnév</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Adj meg egy egyedi nevet</string>
+    <string name="settings_advanced_patch_options_path_gone">Ez a mappa már nem olvasható. Válassza ki újra, vagy törölje, különben a javítás megáll, és rákérdez.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Alkalmazásikon</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Az ikon, amellyel az alkalmazást javítják. Olyan helyeken is használják, ahol az alkalmazás később nem tudja megváltoztatni, például az Android Auto-ban és a rendszerbeállítások alkalmazáslistájában.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Az egyéni alkalmazásikonhoz egy ikonképeket tartalmazó mappára van szükség.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Egyedi ikon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Képek mappája, amelyek egyedi ikonként használhatók.
 

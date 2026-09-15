@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Geen versteekte program nie</string>
     <string name="home_app_hidden_apps_title">Versteekte programme</string>
     <string name="home_app_hidden_apps_hint">Tik om te wys</string>
+    <string name="home_app_patch_sources_description">Bronne wat nie afgemerk is nie, word nie aangebied wanneer hierdie apps gepatch word nie, en hul patches sluit nooit op hul eie by \'n seleksie aan nie. Elke bron bly aan vir elke ander app.</string>
+    <string name="home_app_patch_sources_mixed">Aangebied aan %1$s van %2$s</string>
+    <string name="home_app_patch_sources_covers">Het patches vir %1$s van %2$s</string>
+    <string name="home_app_patch_sources_last">Elke app het een bron nodig wat oorbly om van te patch.</string>
     <string name="android_11_bug_dialog_title">Android 11 fout</string>
     <string name="android_11_bug_dialog_description">Die app installasie toestemming moet vooraf verleen word om \'n fout in die Android 11 stelsel te vermy wat \'n negatiewe impak op die gebruikerservaring sal hê</string>
     <string name="deep_link_add_source_title">Voeg oorsprong by</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Nagtelike en produktief</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Verandering oorspronge</string>
+    <string name="sources_search">Soek bronne en patches</string>
     <string name="sources_sort_title">Sorteer foutbronne</string>
     <string name="sources_sort_manual">Handmatige volgorde</string>
     <string name="sources_sort_manual_hint">Druk lank op \'n bron om te herschik</string>
@@ -131,9 +136,11 @@
     <string name="sources_sort_last_updated_description">Nuutste bronopdaterings eerste</string>
     <string name="sources_sort_enabled_first">Eerstens geaktiveer</string>
     <string name="sources_sort_enabled_first_description">Wys aktiewe bronne voor gedeaktiveerde bronne</string>
+    <string name="sources_patches_source_disabled_hint">Hierdie bron is gedeaktiveer. Sy pleisters word ter verwysing gelys en word nie toegepas nie</string>
     <string name="sources_management_open_in_browser">Maak oop in blaaier</string>
     <string name="sources_management_report_issue">Rapporteer \'n probleem</string>
     <string name="sources_management_failed_to_open_url">Mislukking om URL oop te maak</string>
+    <string name="sources_hidden_apps">Versteek vir</string>
     <string name="sources_management_prerelease_toggle">Voorvrystellings-veranderinge</string>
     <string name="sources_management_prerelease_toggle_description">Ontvang vroegtydige toegang tot nuwe eksperimentele weergawe-opdaterings</string>
     <string name="sources_prerelease_warning_title">Aktiveer pre-release patches?</string>
@@ -812,6 +819,7 @@ Patches word nie beïnvloed nie: aktiveer voorafvrystelling-patches vir elke bro
     <string name="settings_advanced_patch_options_custom_branding_description">Verander die vertoonnaam van die toepassing</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">App naam</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Gee pasgemaakte naam in</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Program ikoon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Pasgemaakte ikoon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"'N vouer met beelde om as 'n persoonlike ikoon te gebruik.
 

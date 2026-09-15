@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">没有隐藏的应用</string>
     <string name="home_app_hidden_apps_title">隐藏的应用</string>
     <string name="home_app_hidden_apps_hint">点一下以取消隐藏</string>
+    <string name="home_app_patch_sources_description">未勾选的补丁源在修补这些应用时不会被提供，其补丁也永远不会自行加入任何选择。对于其他每个应用，每个补丁源都会保持开启。</string>
+    <string name="home_app_patch_sources_mixed">已向 %1$s 个应用提供（共 %2$s 个）</string>
+    <string name="home_app_patch_sources_covers">拥有 %1$s 个应用的补丁（共 %2$s 个）</string>
+    <string name="home_app_patch_sources_last">每个应用都需要至少保留一个补丁源。</string>
     <string name="android_11_bug_dialog_title">Android 11 错误</string>
     <string name="android_11_bug_dialog_description">必须提前授予应用安装权限，以避免 Android 11 系统中的某个错误对用户体验造成负面影响。</string>
     <string name="deep_link_add_source_title">添加来源</string>
@@ -136,6 +140,10 @@
     <string name="sources_management_open_in_browser">在浏览器中打开链接</string>
     <string name="sources_management_report_issue">报告问题</string>
     <string name="sources_management_failed_to_open_url">无法打开URL</string>
+    <string name="sources_hidden_apps">隐藏于</string>
+    <string name="sources_hidden_apps_title">对 %1$s 隐藏的应用</string>
+    <string name="sources_hidden_apps_description">修补这些应用时，不会提供此来源。该来源本身对其它所有内容仍保持开启。</string>
+    <string name="sources_hidden_apps_hint">Tap to offer this source again</string>
     <string name="sources_management_prerelease_toggle">预发布补丁</string>
     <string name="sources_management_prerelease_toggle_description">接收新实验性补丁版本的早期访问权限</string>
     <string name="sources_prerelease_warning_title">启用预发布补丁？</string>
@@ -330,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">可用存储空间仅剩 %1$s GB。打补丁需要至少 %2$s GB 的可用空间才能正常工作。</string>
     <string name="home_low_disk_space_dialog_warning">继续可能会导致“文件未找到”错误或损坏的输出 APK</string>
     <string name="home_simple_bundle_select_title">选择补丁来源</string>
+    <string name="home_simple_bundle_select_remember">Always use this source for this app</string>
     <!-- Color picker -->
     <string name="custom_color">自定义颜色</string>
     <string name="hex_color">十六进制颜色</string>
@@ -545,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">打开存储设置</string>
     <string name="patcher_storage_badge_denied">权限被拒绝</string>
     <string name="patcher_storage_badge_missing">未找到</string>
+    <string name="batch_patch_option_paths_skipped">Patch option files are missing and will be skipped: %1$s</string>
+    <string name="patcher_missing_patches_title">Some patches are gone</string>
+    <string name="patcher_missing_patches_description">The saved selection for this app names patches that no enabled source offers any more. Continuing patches the app without them</string>
+    <string name="patcher_missing_patches_label">No longer offered</string>
+    <string name="patcher_option_paths_gone_title">Patch option files are missing</string>
+    <string name="patcher_option_paths_gone_description">One or more patch options point to files that are no longer there. Remove the paths to patch without them, or put the files back and try again</string>
+    <string name="patcher_option_paths_clear">Remove the paths and continue</string>
     <string name="patcher_storage_permission_hint">提示：将文件移动到/Android/data/app.morphe.manager/files/ - 不需要额外权限</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">准备中</string>
@@ -639,7 +655,10 @@
     <string name="mini_game_snake_swipe_to_start">滑动开始</string>
     <string name="mini_game_dino_picker_subtitle">点击跳过仙人掌</string>
     <string name="mini_game_dino_tap_to_start">点击奔跑</string>
+    <string name="mini_game_blocks_picker_subtitle">匹配形状，清除线条</string>
     <string name="mini_game_blocks_tap_to_start">点击旋转，滑动移动，下滑落下</string>
+    <string name="mini_game_bricks_picker_subtitle">弹跳球，清除墙壁</string>
+    <string name="mini_game_bricks_tap_to_start">拖动瞄准，点击发射</string>
     <string name="mini_game_miner_picker_subtitle">点击打开，长按标记</string>
     <string name="mini_game_pairs_picker_subtitle">翻转卡片，找到配对</string>
     <!-- Settings -->
@@ -811,6 +830,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">更改应用显示名称</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">应用名称</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">输入自定义名称</string>
+    <string name="settings_advanced_patch_options_path_gone">This folder cannot be read anymore. Pick it again or clear it, otherwise patching will stop and ask about it</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">应用图标</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">The icon the app is patched with. It is also used where the app cannot change it later, such as Android Auto and the app list of the system settings</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">The custom app icon needs a folder with icon images</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">自定义图标</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"用于作为自定义图标的图像文件夹。
 

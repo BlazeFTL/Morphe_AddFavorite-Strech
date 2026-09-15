@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">非表示のアプリはありません</string>
     <string name="home_app_hidden_apps_title">非表示のアプリ</string>
     <string name="home_app_hidden_apps_hint">非表示のアプリを再表示するにはタップします</string>
+    <string name="home_app_patch_sources_description">チェックを外したソースは、これらのアプリにパッチを適用しても表示されず、パッチが単独で選択肢に追加されることもありません。各ソースは、他のすべてのアプリに対して有効のままです</string>
+    <string name="home_app_patch_sources_mixed">%2$s 件中 %1$s 件に提供</string>
+    <string name="home_app_patch_sources_covers">%2$s 件中 %1$s 件に対するソースがあります</string>
+    <string name="home_app_patch_sources_last">どのアプリにもパッチを適用するためのソースが 1 つ残っている必要があります</string>
     <string name="android_11_bug_dialog_title">Android 11 のバグ</string>
     <string name="android_11_bug_dialog_description">Android 11 では、ユーザー体験に悪影響を及ぼす不具合が確認されています。あらかじめアプリのインストール権限を許可しておいてください</string>
     <string name="deep_link_add_source_title">ソースを追加</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">夜行性で生産的</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">パッチソース</string>
+    <string name="sources_search">ソースとパッチを検索</string>
     <string name="sources_sort_title">パッチソースを並べ替え</string>
     <string name="sources_sort_manual">手動の並び替え</string>
     <string name="sources_sort_manual_hint">ソースを長押しして並び替えます</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">最新のソース更新を優先</string>
     <string name="sources_sort_enabled_first">有効なものを優先</string>
     <string name="sources_sort_enabled_first_description">無効なソースの前に有効なソースを表示</string>
+    <string name="sources_patches_source_disabled_hint">このソースは無効になっています。パッチは参考のためにリストされていますが、適用されていません。</string>
     <string name="sources_management_open_in_browser">ブラウザで開く</string>
     <string name="sources_management_report_issue">問題を報告</string>
     <string name="sources_management_failed_to_open_url">URL を開けませんでした</string>
+    <string name="sources_hidden_apps">非表示</string>
+    <string name="sources_hidden_apps_title">%1$s から非表示にされたアプリ</string>
+    <string name="sources_hidden_apps_description">これらのアプリはパッチ適用時にこのソースを提供されません。ソース自体は他のすべてに対して有効のままです</string>
+    <string name="sources_hidden_apps_hint">このソースを再度提供するにはタップしてください</string>
     <string name="sources_management_prerelease_toggle">プレリリース版のパッチを使用</string>
     <string name="sources_management_prerelease_toggle_description">実験的なバージョンのパッチを取得します</string>
     <string name="sources_prerelease_warning_title">プレリリース版パッチを有効にしますか？</string>
@@ -328,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">利用可能な空き容量は %1$s GB のみです。パッチを正常に適用するには、少なくとも %2$s GB の空き容量が必要です</string>
     <string name="home_low_disk_space_dialog_warning">このまま続行すると、「ファイルが見つかりません」のエラーが発生したり、出力した APK が破損する可能性があります</string>
     <string name="home_simple_bundle_select_title">パッチソースを選択</string>
+    <string name="home_simple_bundle_select_remember">このアプリには必ずこのソースを使用します</string>
     <!-- Color picker -->
     <string name="custom_color">カスタムカラー</string>
     <string name="hex_color">16 進数カラー</string>
@@ -543,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">ストレージの設定を開く</string>
     <string name="patcher_storage_badge_denied">権限が許可されていません</string>
     <string name="patcher_storage_badge_missing">見つかりません</string>
+    <string name="batch_patch_option_paths_skipped">パッチオプションファイルが見つからないため、スキップされます：%1$s</string>
+    <string name="patcher_missing_patches_title">一部のパッチが提供されなくなりました</string>
+    <string name="patcher_missing_patches_description">このアプリ用に保存された選択には、有効なソースがもはや提供しないパッチが含まれています。続行すると、それらなしでアプリにパッチが適用されます。</string>
+    <string name="patcher_missing_patches_label">提供されなくなりました</string>
+    <string name="patcher_option_paths_gone_title">パッチオプションファイルが見つかりません</string>
+    <string name="patcher_option_paths_gone_description">1つ以上のパッチオプションが、存在しないファイルを参照しています。それらなしでパッチを適用するにはパスを削除するか、ファイルを元に戻して、もう一度試してください。</string>
+    <string name="patcher_option_paths_clear">パスを削除して続行</string>
     <string name="patcher_storage_permission_hint">ヒント: ファイルを /Android/data/app.morphe.manager/files/ に移動すれば、追加の権限は必要ありません</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">準備中</string>
@@ -637,7 +655,12 @@
     <string name="mini_game_snake_swipe_to_start">スワイプして開始</string>
     <string name="mini_game_dino_picker_subtitle">タップしてサボテンを飛び越えよう</string>
     <string name="mini_game_dino_tap_to_start">タップして開始</string>
+    <string name="mini_game_blocks_picker_subtitle">シェイプをはめて、ラインを消そう</string>
     <string name="mini_game_blocks_tap_to_start">タップして回転、スワイプして移動、下にスワイプしてドロップ</string>
+    <string name="mini_game_bricks_picker_subtitle">ボールを跳ねさせて、壁を崩そう</string>
+    <string name="mini_game_bricks_tap_to_start">ドラッグして狙いを定め、タップして発射</string>
+    <string name="mini_game_miner_picker_subtitle">タップで開き、長押しでフラグを立てる</string>
+    <string name="mini_game_pairs_picker_subtitle">カードをめくって、ペアを見つけよう</string>
     <!-- Settings -->
     <string name="appearance">外観</string>
     <string name="advanced">詳細設定</string>
@@ -805,6 +828,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">アプリの名前を変更します</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">アプリ名</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">カスタム名を入力</string>
+    <string name="settings_advanced_patch_options_path_gone">このフォルダーはもう読み取れません。再度選択するか、クリアしてください。そうしないと、パッチ適用が停止して、このフォルダーについて確認を求められます。</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">アプリアイコン</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">アプリのパッチ適用に使用されるアイコンです。また、後でアプリが変更できない場所（Android Autoやシステム設定のアプリ一覧など）でも使用されます。</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">カスタムアプリアイコンには、アイコン画像が入ったフォルダーが必要です</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">カスタム アイコン</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"カスタム アイコンとして使用する画像のフォルダーです。
 

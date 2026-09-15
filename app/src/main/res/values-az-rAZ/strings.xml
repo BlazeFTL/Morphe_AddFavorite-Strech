@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Gizlədilən tətbiqlər yoxdur</string>
     <string name="home_app_hidden_apps_title">Gizlədilən tətbiqlər</string>
     <string name="home_app_hidden_apps_hint">Göstərmək üçün toxun</string>
+    <string name="home_app_patch_sources_description">İşarələnməmiş mənbələr bu tətbiqlər yamaqlanarkən təklif olunmur və onların yamaqları heç vaxt öz-özünə seçilənlərə qoşulmur. Hər bir mənbə digər bütün tətbiqlər üçün aktiv qalır</string>
+    <string name="home_app_patch_sources_mixed">%2$s-dən %1$s-ə təklif olunur</string>
+    <string name="home_app_patch_sources_covers">%2$s-dən %1$s üçün yamaqlar var</string>
+    <string name="home_app_patch_sources_last">Hər tətbiqin yamaqlanması üçün bir mənbəyə ehtiyacı var</string>
     <string name="android_11_bug_dialog_title">Android 11 səhvi</string>
     <string name="android_11_bug_dialog_description">Tətbiq quraşdırılması icazəsi istifadəçi təcrübəsinə mənfi təsir edəcək Android 11 sistemindəki səhvə mane olmaq üçün əvvəlcədən qəbul edilməlidir</string>
     <string name="deep_link_add_source_title">Mənbə əlavə et</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Gecəcil və səmərəli</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yamaq mənbələri</string>
+    <string name="sources_search">Mənbələri və yamaqları axtar</string>
     <string name="sources_sort_title">Yamaq mənbələrini sırala</string>
     <string name="sources_sort_manual">Əl ilə sıralama</string>
     <string name="sources_sort_manual_hint">Təkrar sıralamaq üçün mənbəyə uzun bas</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Əvvəlcə ən yeni mənbə yeniləmələri</string>
     <string name="sources_sort_enabled_first">Əvvəlcə aktivləşdirilmiş</string>
     <string name="sources_sort_enabled_first_description">İşlək mənbələri qapalı mənbələrdən əvvəl göstər</string>
+    <string name="sources_patches_source_disabled_hint">Bu mənbə qapadılıb. Onun yamaqları məlumat üçün siyahıya alınıb və tətbiq olunmur</string>
     <string name="sources_management_open_in_browser">Brauzerdə açın</string>
     <string name="sources_management_report_issue">Problemi bildir</string>
     <string name="sources_management_failed_to_open_url">URL açmaq uğursuzdu</string>
+    <string name="sources_hidden_apps">Gizlədilib</string>
+    <string name="sources_hidden_apps_title">Tətbiqlər %1$s-dən gizlədilib</string>
+    <string name="sources_hidden_apps_description">Bu tətbiqlər yamaqlanarkən onlara bu mənbə təklif olunmur. Mənbənin özü digər bütün hallar üçün aktiv qalır</string>
+    <string name="sources_hidden_apps_hint">Bu mənbəni təkrar təklif etmək üçün toxun</string>
     <string name="sources_management_prerelease_toggle">İlkin buraxılış yamaqları</string>
     <string name="sources_management_prerelease_toggle_description">Yeni təcrübi yamaq versiyalarına erkən keçid əldə edilir</string>
     <string name="sources_prerelease_warning_title">İlkin buraxılış yamaqlarını aktivləşdirsin?</string>
@@ -328,6 +338,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="home_low_disk_space_dialog_message">Yalnız %1$s GB boş yaddaş var. Yamaqlanmanın düzgün işləməsinə ən azı %2$s GB boş yer tələb olunur</string>
     <string name="home_low_disk_space_dialog_warning">Əməl edilməsi \"fayl tapılmadı\" xətasına və ya hasilat APK korlanmasına səbəb ola bilər</string>
     <string name="home_simple_bundle_select_title">Yamaq mənbəsi seç</string>
+    <string name="home_simple_bundle_select_remember">Bu tətbiq üçün həmişə bu mənbəni istifadə et</string>
     <!-- Color picker -->
     <string name="custom_color">Xüsusi rəng</string>
     <string name="hex_color">Altı dəyərli rəng</string>
@@ -543,6 +554,13 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patcher_storage_permission_open_settings">Saxlanc tənzimləmələrin aç</string>
     <string name="patcher_storage_badge_denied">İcazə rədd edildi</string>
     <string name="patcher_storage_badge_missing">Tapılmadı</string>
+    <string name="batch_patch_option_paths_skipped">Yamaq seçimi faylları yoxdur və ötürüləcək: %1$s</string>
+    <string name="patcher_missing_patches_title">Bəzi yamaqlar silinib</string>
+    <string name="patcher_missing_patches_description">Bu tətbiq üçün saxlanılmış seçimdə artıq heç bir aktiv mənbə tərəfindən təklif olunmayan yamaqlar var. Davam etmək tətbiqi onlar olmadan yamaqlayır</string>
+    <string name="patcher_missing_patches_label">Artıq təklif olunmur</string>
+    <string name="patcher_option_paths_gone_title">Yamaq seçim faylları çatışmır</string>
+    <string name="patcher_option_paths_gone_description">Bir və ya bir neçə yamaq seçimi artıq yerində olmayan fayllara istinad edir. Onlar olmadan yamaqlamaq üçün keçidləri sil və ya faylları geri qaytarıb təkrar cəhd et</string>
+    <string name="patcher_option_paths_clear">Fayl yollarını sil və davam et</string>
     <string name="patcher_storage_permission_hint">İpucu: Faylları /Android/data/app.morphe.manager/files/ -a köçür - əlavə icazələrə ehtiyac yoxdur</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Hazırlanır</string>
@@ -810,6 +828,10 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_advanced_patch_options_custom_branding_description">Tətbiq ekran adını dəyişdirir</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Tətbiq adı</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Fərdi ad daxil et</string>
+    <string name="settings_advanced_patch_options_path_gone">Bu qovluq artıq oxuna bilmir. Onu təkrar seçin və ya təmizləyin, əks halda yamaqlama dayanacaq və bu haqda sorğu edəcək</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Tətbiq simvolu</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Tətbiqin yamaqlandığı simvol. Bu həmçinin Android Auto və sistem tənzimləmələrinin tətbiq siyahısı kimi tətbiqin onu sonradan dəyişə bilmədiyi yerlərdə istifadə olunur</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Fərdi tətbiq simvolu üçün simvol şəkilləri olan qovluq tələb olunur</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Fərdi simvol</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Fərdi simvol kimi istifadə etməyə şəkillər olan qovluq.
 

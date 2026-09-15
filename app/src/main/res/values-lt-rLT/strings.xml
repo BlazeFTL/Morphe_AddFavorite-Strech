@@ -491,6 +491,7 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="settings_advanced_patch_options_custom_branding_description">Pakeičia rodomą programėlės pavadinimą</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Programėlės pavadinimas</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Įvesti pavadinimą</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Programėlės piktograma</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Individualizuota piktograma</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Aplankas su nuotraukomis, kurios bus naudojamos kaip piktograma.
 

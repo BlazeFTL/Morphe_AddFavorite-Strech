@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Tidak ada aplikasi tersembunyi</string>
     <string name="home_app_hidden_apps_title">Aplikasi tersembunyi</string>
     <string name="home_app_hidden_apps_hint">Ketuk untuk menampilkan kembali</string>
+    <string name="home_app_patch_sources_description">Sumber yang tidak dicentang tidak akan disediakan saat aplikasi ini ditambal, dan tambalan dari sumber tersebut tidak akan otomatis masuk ke daftar pilihan. Setiap sumber akan tetap aktif untuk aplikasi lainnya</string>
+    <string name="home_app_patch_sources_mixed">Disediakan untuk %1$s dari %2$s</string>
+    <string name="home_app_patch_sources_covers">Memiliki tambalan untuk %1$s dari %2$s</string>
+    <string name="home_app_patch_sources_last">Setiap aplikasi membutuhkan setidaknya satu sumber tersisa untuk ditambal</string>
     <string name="android_11_bug_dialog_title">Bug Android 11</string>
     <string name="android_11_bug_dialog_description">Izin pemasangan aplikasi harus diberikan terlebih dahulu untuk menghindari bug pada sistem Android 11 yang akan berdampak negatif pada pengalaman pengguna</string>
     <string name="deep_link_add_source_title">Tambah sumber</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Aktif di malam hari dan produktif</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sumber tambalan</string>
+    <string name="sources_search">Cari sumber dan tambalan</string>
     <string name="sources_sort_title">Urutkan sumber tambalan</string>
     <string name="sources_sort_manual">Urutan manual</string>
     <string name="sources_sort_manual_hint">Tekan lama sumber untuk mengubah urutan</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Pembaruan sumber terbaru terlebih dahulu</string>
     <string name="sources_sort_enabled_first">Aktifkan terlebih dahulu</string>
     <string name="sources_sort_enabled_first_description">Tampilkan sumber aktif sebelum sumber yang dinonaktifkan</string>
+    <string name="sources_patches_source_disabled_hint">Sumber ini dinonaktifkan. Tambalannya tercantum untuk referensi dan tidak diterapkan.</string>
     <string name="sources_management_open_in_browser">Buka di peramban</string>
     <string name="sources_management_report_issue">Laporkan masalah</string>
     <string name="sources_management_failed_to_open_url">Gagal membuka URL</string>
+    <string name="sources_hidden_apps">Disembunyikan untuk</string>
+    <string name="sources_hidden_apps_title">Aplikasi disembunyikan dari %1$s</string>
+    <string name="sources_hidden_apps_description">Sumber ini tidak akan disediakan saat aplikasi ini ditambal. Sumbernya sendiri akan tetap aktif untuk aplikasi lainnya</string>
+    <string name="sources_hidden_apps_hint">Ketuk untuk menyediakan sumber ini lagi</string>
     <string name="sources_management_prerelease_toggle">Tambalan pra-rilis</string>
     <string name="sources_management_prerelease_toggle_description">Menerima akses dini ke versi eksperimental tambalan baru</string>
     <string name="sources_prerelease_warning_title">Aktifkan tambalan pra-rilis?</string>
@@ -329,6 +339,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="home_low_disk_space_dialog_message">Hanya tersedia %1$s GB ruang penyimpanan gratis. Penambalan memerlukan setidaknya %2$s GB ruang kosong agar dapat berfungsi dengan benar.</string>
     <string name="home_low_disk_space_dialog_warning">Melanjutkan dapat mengakibatkan kesalahan \"berkas tidak ditemukan\" atau menghasilkan APK yang rusak</string>
     <string name="home_simple_bundle_select_title">Pilih sumber tambalan</string>
+    <string name="home_simple_bundle_select_remember">Selalu gunakan sumber ini untuk aplikasi ini</string>
     <!-- Color picker -->
     <string name="custom_color">Warna Khusus</string>
     <string name="hex_color">Warna hex</string>
@@ -544,6 +555,13 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="patcher_storage_permission_open_settings">Buka setelan penyimpanan</string>
     <string name="patcher_storage_badge_denied">Izin ditolak</string>
     <string name="patcher_storage_badge_missing">Tidak ditemukan</string>
+    <string name="batch_patch_option_paths_skipped">Opsi tambalan file hilang dan akan dilewati: %1$s</string>
+    <string name="patcher_missing_patches_title">Beberapa tambalan hilang</string>
+    <string name="patcher_missing_patches_description">Pilihan yang tersimpan untuk aplikasi ini memuat tambalan yang sudah tidak tersedia lagi di sumber aktif mana pun. Jika dilanjutkan, aplikasi akan ditambal tanpa tambalan tersebut</string>
+    <string name="patcher_missing_patches_label">Sudah tidak tersedia</string>
+    <string name="patcher_option_paths_gone_title">Opsi tambalan file tidak ditemukan</string>
+    <string name="patcher_option_paths_gone_description">Satu atau lebih opsi tambalan mengarah ke file yang sudah tidak ada. Hapus jalur untuk melakukan tambalan tanpanya, atau letakkan kembali file tersebut dan coba lagi</string>
+    <string name="patcher_option_paths_clear">Hapus jalur dan lanjutkan</string>
     <string name="patcher_storage_permission_hint">Saran: Pindahkan berkas ke /Android/data/app.morphe.manager/files/ - tidak diperlukan perizinan tambahan</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Mempersiapkan</string>
@@ -813,6 +831,10 @@ Tambalan tidak terpengaruh: aktifkan tambalan pra-rilis untuk setiap sumber dala
     <string name="settings_advanced_patch_options_custom_branding_description">Mengubah nama tampilan aplikasi</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Nama aplikasi</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Masukkan nama kustom</string>
+    <string name="settings_advanced_patch_options_path_gone">Folder ini tidak dapat dibaca lagi. Pilih ulang atau hapus, jika tidak proses menambal akan berhenti dan menanyakannya</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Ikon aplikasi</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikon yang digunakan untuk menambal aplikasi. Ikon ini juga digunakan di tempat di mana aplikasi tidak dapat mengubahnya nanti, seperti Android Auto dan daftar aplikasi pada pengaturan sistem</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Ikon aplikasi kustom membutuhkan folder berisi gambar ikon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Ikon kustom</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Folder yang berisi gambar untuk digunakan sebagai ikon kustom.
 

@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Ingen skjulte apps</string>
     <string name="home_app_hidden_apps_title">Skjulte apps</string>
     <string name="home_app_hidden_apps_hint">Tryk for at vise</string>
+    <string name="home_app_patch_sources_description">Kilder, der ikke er afkrydsede, tilbydes ikke, når disse apps bliver patchet, og deres patches kommer aldrig af sig selv med i en markering. Hver kilde forbliver slået til for alle andre apps.</string>
+    <string name="home_app_patch_sources_mixed">Tilbydes til %1$s af %2$s</string>
+    <string name="home_app_patch_sources_covers">Har patches til %1$s ud af %2$s</string>
+    <string name="home_app_patch_sources_last">Hver app skal have én kilde tilbage at patche fra.</string>
     <string name="android_11_bug_dialog_title">Android 11-fejl</string>
     <string name="android_11_bug_dialog_description">App-installationsrettighed skal gives i forvejen for at undgå en fejl i Android 11-systemet, der vil have en negativ indflydelse på brugeroplevelsen</string>
     <string name="deep_link_add_source_title">Tilføj kilde</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Natlig og produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patchkilder</string>
+    <string name="sources_search">Søg i kilder og patches</string>
     <string name="sources_sort_title">Sortér patch-kilder</string>
     <string name="sources_sort_manual">Manuel orden</string>
     <string name="sources_sort_manual_hint">Tryk og hold på en kilde for at ændre rækkefølgen</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Seneste kildeopdateringer først</string>
     <string name="sources_sort_enabled_first">Aktiveret først</string>
     <string name="sources_sort_enabled_first_description">Vis aktive kilder før deaktiverede kilder</string>
+    <string name="sources_patches_source_disabled_hint">Denne kilde er deaktiveret. Dens patches er opført til reference og anvendes ikke.</string>
     <string name="sources_management_open_in_browser">Åbn links i browser</string>
     <string name="sources_management_report_issue">Rapportér et problem</string>
     <string name="sources_management_failed_to_open_url">Kunne ikke åbne URL</string>
+    <string name="sources_hidden_apps">Skjult for</string>
+    <string name="sources_hidden_apps_title">Apps skjult for %1$s</string>
+    <string name="sources_hidden_apps_description">Disse apps får ikke tilbudt denne kilde, når de bliver patchet. Selve kilden forbliver aktiveret for alt andet</string>
+    <string name="sources_hidden_apps_hint">Tryk for at tilbyde denne kilde igen</string>
     <string name="sources_management_prerelease_toggle">Pre-release patches</string>
     <string name="sources_management_prerelease_toggle_description">Få tidlig adgang til nye eksperimentelle patch versioner</string>
     <string name="sources_prerelease_warning_title">Aktivér præ-release-patcher?</string>
@@ -328,6 +338,7 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="home_low_disk_space_dialog_message">Kun %1$s GB ledig lagerplads. Patchning kræver mindst %2$s GB fri plads for at fungere korrekt.</string>
     <string name="home_low_disk_space_dialog_warning">Fortsættelse kan resultere i en \"fil ikke fundet\"-fejl eller en korrupt output APK</string>
     <string name="home_simple_bundle_select_title">Vælg patch kildefil</string>
+    <string name="home_simple_bundle_select_remember">Brug altid denne kilde til denne app</string>
     <!-- Color picker -->
     <string name="custom_color">Brugerdefineret farve</string>
     <string name="hex_color">Hex farve</string>
@@ -543,6 +554,13 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="patcher_storage_permission_open_settings">Åbn lagerindstillinger </string>
     <string name="patcher_storage_badge_denied">Tilladelse afvist</string>
     <string name="patcher_storage_badge_missing">Ikke fundet</string>
+    <string name="batch_patch_option_paths_skipped">Patch-indstillingsfiler mangler og vil blive sprunget over: %1$s</string>
+    <string name="patcher_missing_patches_title">Nogle patches er væk</string>
+    <string name="patcher_missing_patches_description">Det gemte valg for denne app nævner patches, som ingen aktiveret kilde længere tilbyder. Fortsætter du, bliver appen patchet uden dem</string>
+    <string name="patcher_missing_patches_label">Tilbydes ikke længere</string>
+    <string name="patcher_option_paths_gone_title">Patch-indstillingsfiler mangler</string>
+    <string name="patcher_option_paths_gone_description">En eller flere patch-indstillinger peger på filer, der ikke længere findes. Fjern stierne for at patche uden dem, eller læg filerne tilbage og prøv igen</string>
+    <string name="patcher_option_paths_clear">Fjern stierne og fortsæt</string>
     <string name="patcher_storage_permission_hint">Tip: Flyt filer til /Android/data/app.morphe.manager/files/ - ingen ekstra tilladelser nødvendige</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Forbereder</string>
@@ -810,6 +828,10 @@ Patcher er ikke påvirket: aktivér præ-release-patcher for hver kilde i patch-
     <string name="settings_advanced_patch_options_custom_branding_description">Ændre hvordan appnavn vises</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Appnavn</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Angiv brugerdefineret navn</string>
+    <string name="settings_advanced_patch_options_path_gone">Denne mappe kan ikke længere læses. Vælg den igen, eller fjern den, ellers stopper patching og spørger om den</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Appikon</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikonet, som appen bliver patchet med. Det bruges også, hvor appen ikke kan ændre det senere, f.eks. Android Auto og app-listen i systemindstillingerne</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Det brugerdefinerede app-ikon kræver en mappe med ikonbilleder</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Brugerdefineret ikon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Mappe med billeder, der kan bruges som et brugerdefineret ikon.
 

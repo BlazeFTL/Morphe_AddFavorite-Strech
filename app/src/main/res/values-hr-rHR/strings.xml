@@ -13,6 +13,7 @@
     <string name="home_app_no_hidden">Nema skrivenih aplikacija</string>
     <string name="home_app_hidden_apps_title">Skrivene aplikacije</string>
     <string name="home_app_hidden_apps_hint">Dodirnite za otkrivanje</string>
+    <string name="home_app_patch_sources_description">Izvori koji ostanu neoznačeni ne nude se kada se ove aplikacije zakrpaju, a njihove zakrpe nikada same ne ulaze u odabir. Svaki izvor ostaje uključen za sve ostale aplikacije</string>
     <string name="android_11_bug_dialog_title">Android 11 bug</string>
     <string name="android_11_bug_dialog_description">Dopuštenje za instalaciju aplikacije mora se dati unaprijed kako bi se izbjegla greška u sustavu Android 11 koja će negativno utjecati na korisničko iskustvo</string>
     <string name="deep_link_add_source_title">Dodajte izvor</string>
@@ -817,6 +818,7 @@ Patchevi nisu pogođeni: omogućite predizdanja patcheva za svaki izvor na popis
     <string name="settings_advanced_patch_options_custom_branding_description">Promijeni naziv aplikacije</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Naziv aplikacije</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Unesite prilagođeni naziv</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Ikona aplikacije</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Prilagođena ikona</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Mapa sa slikama koje će se koristiti kao prilagođena ikona.
 

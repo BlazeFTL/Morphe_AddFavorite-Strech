@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">لا تطبيقات مخفية</string>
     <string name="home_app_hidden_apps_title">التطبيقات المخفية</string>
     <string name="home_app_hidden_apps_hint">انقر لإظهارها</string>
+    <string name="home_app_patch_sources_description">المصادر التي تُركت غير محددة لا تُقدَّم عند تعديل هذه التطبيقات، وتعديلاتها لا تنضم أبدًا إلى أي تحديد من تلقاء نفسها. يبقى كل مصدر مفعَّلًا لكل تطبيق آخر</string>
+    <string name="home_app_patch_sources_mixed">مقدَّمة إلى %1$s من %2$s</string>
+    <string name="home_app_patch_sources_covers">لديه تعديلات لـ %1$s من %2$s</string>
+    <string name="home_app_patch_sources_last">يحتاج كل تطبيق إلى مصدر واحد متبقٍّ للتعديل منه</string>
     <string name="android_11_bug_dialog_title">خطأ Android 11</string>
     <string name="android_11_bug_dialog_description">يجب منح إذن تثبيت التطبيق مسبقًا لتجنب خطأ في نظام Android 11 سيؤثر سلبًا على تجربة المستخدم</string>
     <string name="deep_link_add_source_title">إضافة مصدر</string>
@@ -124,7 +128,7 @@
     <string name="home_greeting_super_late_5">ليلي ومنتج</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">مصادر التعديل</string>
-    <string name="sources_search">ابحث في المصادر والترقيعات</string>
+    <string name="sources_search">البحث في المصادر والتعديلات</string>
     <string name="sources_sort_title">فرز مصادر التعديل</string>
     <string name="sources_sort_manual">ترتيب يدوي</string>
     <string name="sources_sort_manual_hint">اضغط مطولًا على مصدر لإعادة الترتيب</string>
@@ -132,10 +136,14 @@
     <string name="sources_sort_last_updated_description">آخر تحديثات المصادر أولًا</string>
     <string name="sources_sort_enabled_first">المفعّلة أولًا</string>
     <string name="sources_sort_enabled_first_description">عرض المصادر النشطة قبل المصادر المعطلة</string>
-    <string name="sources_patches_source_disabled_hint">هذا المصدر معطل. تُدرج ترقيعاته كمرجع فقط ولا يتم تطبيقها.</string>
+    <string name="sources_patches_source_disabled_hint">هذا المصدر معطل. تُدرج تعديلاته كمرجع فقط ولا يتم تطبيقها</string>
     <string name="sources_management_open_in_browser">فتح في المتصفح</string>
     <string name="sources_management_report_issue">الإبلاغ عن مشكلة</string>
     <string name="sources_management_failed_to_open_url">فشل في فتح الرابط</string>
+    <string name="sources_hidden_apps">مخفي لـ</string>
+    <string name="sources_hidden_apps_title">تطبيقات مخفية من %1$s</string>
+    <string name="sources_hidden_apps_description">هذه التطبيقات لا تُقدّم هذا المصدر عند تعديلها. يبقى المصدر نفسه مفعلًا لكل شيء آخر</string>
+    <string name="sources_hidden_apps_hint">انقر لتقديم هذا المصدر مرة أخرى</string>
     <string name="sources_management_prerelease_toggle">إصدارات ما قبل الإطلاق</string>
     <string name="sources_management_prerelease_toggle_description">احصل على وصول مبكر إلى إصدارات التعديل التجريبية الجديدة</string>
     <string name="sources_prerelease_warning_title">تمكين إصدارات تعديلات ما قبل الإطلاق؟</string>
@@ -330,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">يتوفر فقط %1$s ج.ب من مساحة التخزين الخالية. تتطلب عملية التعديل مساحة فارغة لا تقل عن %2$s ج.ب لتعمل بشكل صحيح</string>
     <string name="home_low_disk_space_dialog_warning">قد تؤدي المتابعة إلى حدوث خطأ \"ملف غير موجود\" أو ملف APK تالف</string>
     <string name="home_simple_bundle_select_title">تحديد مصدر التعديل</string>
+    <string name="home_simple_bundle_select_remember">استخدم هذا المصدر دائمًا لهذا التطبيق</string>
     <!-- Color picker -->
     <string name="custom_color">اللون المخصص</string>
     <string name="hex_color">صيغة اللون</string>
@@ -545,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">فتح إعدادات التخزين</string>
     <string name="patcher_storage_badge_denied">تم رفض الإذن</string>
     <string name="patcher_storage_badge_missing">غير موجود</string>
+    <string name="batch_patch_option_paths_skipped">ملفات خيارات التعديل مفقودة وسيتم تخطيها: %1$s</string>
+    <string name="patcher_missing_patches_title">بعض التعديلات لم تعد متوفرة</string>
+    <string name="patcher_missing_patches_description">الاختيار المحفوظ لهذا التطبيق يسمّي تعديلات لم يعد أي مصدر مفعّل يوفّرها. سيؤدي الاستمرار إلى تعديل التطبيق بدونها</string>
+    <string name="patcher_missing_patches_label">لم تعد متوفرة</string>
+    <string name="patcher_option_paths_gone_title">ملفات خيارات التعديل مفقودة</string>
+    <string name="patcher_option_paths_gone_description">يشير واحد أو أكثر من خيارات التعديل إلى ملفات لم تعد موجودة. أزل المسارات للتعديل بدونها، أو أعد الملفات إلى مكانها وحاول مرة أخرى</string>
+    <string name="patcher_option_paths_clear">أزل المسارات وتابع</string>
     <string name="patcher_storage_permission_hint">تلميح: نقل الملفات إلى /Android/data/app.morphe.manager/files/ - لا تحتاج إلى أي إذن إضافي</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">جارٍ الإعداد</string>
@@ -819,6 +835,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">يغيّر الاسم المعروض للتطبيق</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">اسم التطبيق</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">أدخل اسمًا مخصصًا</string>
+    <string name="settings_advanced_patch_options_path_gone">لم يعد بالإمكان قراءة هذا المجلد. اختره مرة أخرى أو امسحه، وإلا فسيتوقف التعديل ويسألك عنه</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">أيقونة التطبيق</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">الأيقونة التي يُعدل بها التطبيق. وتُستخدم أيضًا في الأماكن التي لا يمكن للتطبيق فيها تغييرها لاحقًا، مثل Android Auto وقائمة التطبيقات في إعدادات النظام</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">تحتاج أيقونة التطبيق المخصصة إلى مجلد يحتوي على صور الأيقونة</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">أيقونة مخصصة</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"مجلد يحتوي على صور لاستخدامها كأيقونة مخصصة.
 

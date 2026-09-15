@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Ei piilotettuja sovelluksia</string>
     <string name="home_app_hidden_apps_title">Piilotetut sovellukset</string>
     <string name="home_app_hidden_apps_hint">Napauta näyttääksesi</string>
+    <string name="home_app_patch_sources_description">Valitsematta jätetyt lähteet eivät ole tarjolla, kun näitä sovelluksia paikataan, eivätkä niiden paikkaukset koskaan liity valintaan itsestään. Jokainen lähde pysyy päällä jokaisessa muussa sovelluksessa</string>
+    <string name="home_app_patch_sources_mixed">Tarjottu %1$s:lle %2$s:stä</string>
+    <string name="home_app_patch_sources_covers">Sisältää patcheja %1$s:lle %2$s:stä</string>
+    <string name="home_app_patch_sources_last">Jokaisella sovelluksella on oltava yksi lähde jäljellä, josta paikata</string>
     <string name="android_11_bug_dialog_title">Android 11 -virhe</string>
     <string name="android_11_bug_dialog_description">Sovelluksen asennusoikeus on myönnettävä etukäteen, jotta vältetään Android 11 -järjestelmän virhe, joka heikentää käyttökokemusta.</string>
     <string name="deep_link_add_source_title">Lisää lähde</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Yökyykkymäinen ja tuottelias</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Lisäosien lähteet</string>
+    <string name="sources_search">Hae lähteitä ja korjauksia</string>
     <string name="sources_sort_title">Lajittele lisäosien lähteet</string>
     <string name="sources_sort_manual">Manuaalinen järjestys</string>
     <string name="sources_sort_manual_hint">Paina ja pidä lähdettä uudelleenjärjestämistä varten</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Uusimmat lisäosien päivitykset ensin</string>
     <string name="sources_sort_enabled_first">Käytössä olevat ensin</string>
     <string name="sources_sort_enabled_first_description">Näytä aktiiviset lähteet ennen poistettuja lähteitä</string>
+    <string name="sources_patches_source_disabled_hint">Tämä lähde on poistettu käytöstä. Sen korjaukset on lueteltu viitteeksi, eikä niitä sovelleta</string>
     <string name="sources_management_open_in_browser">Avaa selaimessa</string>
     <string name="sources_management_report_issue">Ilmoita ongelmasta</string>
     <string name="sources_management_failed_to_open_url">URL-osoitteen avaaminen epäonnistui</string>
+    <string name="sources_hidden_apps">Piilotettu sovelluksilta</string>
+    <string name="sources_hidden_apps_title">Lähteestä %1$s piilotetut sovellukset</string>
+    <string name="sources_hidden_apps_description">Näille sovelluksille ei tarjota tätä lähdettä, kun niitä paikataan. Lähde itse pysyy päällä kaiken muun kohdalla</string>
+    <string name="sources_hidden_apps_hint">Napauta tarjotaksesi tämän lähteen uudelleen</string>
     <string name="sources_management_prerelease_toggle">Ennakkojulkaisupäivitykset</string>
     <string name="sources_management_prerelease_toggle_description">Saat uusien kokeellisten lisäosaversioiden ennakkopääsyn</string>
     <string name="sources_prerelease_warning_title">Ota käyttöön esijulkaisupatchit?</string>
@@ -329,6 +339,7 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="home_low_disk_space_dialog_message">Vain %1$s Gt vapaata tallennustilaa. Muokkaaminen edellyttää vähintään %2$s Gt vapaata tilaa, jotta se toimii oikein</string>
     <string name="home_low_disk_space_dialog_warning">Jatkamisesta voi seurata, että saat virheilmoituksen siitä, että tiedostoa ei löydy, tai APK-tiedosto voi vioittua</string>
     <string name="home_simple_bundle_select_title">Valitse lisäosien lähde</string>
+    <string name="home_simple_bundle_select_remember">Käytä tätä lähdettä aina tämän sovelluksen kohdalla</string>
     <!-- Color picker -->
     <string name="custom_color">Oma väri</string>
     <string name="hex_color">HEX-väri</string>
@@ -544,6 +555,13 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="patcher_storage_permission_open_settings">Avaa tallennusasetukset</string>
     <string name="patcher_storage_badge_denied">Lupa evätty</string>
     <string name="patcher_storage_badge_missing">Ei löytynyt</string>
+    <string name="batch_patch_option_paths_skipped">Paikkausasetustiedostot puuttuvat, joten ne ohitetaan: %1$s</string>
+    <string name="patcher_missing_patches_title">Jotkin paikkaukset ovat kadonneet</string>
+    <string name="patcher_missing_patches_description">Tämän sovelluksen tallennettu valinta nimeää paikkauksia, joita mikään käytössä oleva lähde ei enää tarjoa. Jos jatkat, sovellus paikataan ilman niitä.</string>
+    <string name="patcher_missing_patches_label">Ei enää tarjota</string>
+    <string name="patcher_option_paths_gone_title">Paikkausasetustiedostot puuttuvat</string>
+    <string name="patcher_option_paths_gone_description">Yksi tai useampi paikkausasetus viittaa tiedostoihin, joita ei enää ole. Poista polut paikataksesi ilman niitä tai palauta tiedostot ja yritä uudelleen.</string>
+    <string name="patcher_option_paths_clear">Poista polut ja jatka</string>
     <string name="patcher_storage_permission_hint">Vinkki: Siirrä tiedostot /Android/data/app.morphe.manager/files/ – ei tarvita ylimääräisiä lupia</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Valmistellaan</string>
@@ -811,6 +829,10 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_advanced_patch_options_custom_branding_description">Muuta sovelluksen näkyvää nimeä</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Sovelluksen nimi</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Anna mukautettu nimi</string>
+    <string name="settings_advanced_patch_options_path_gone">Tätä kansiota ei voi enää lukea. Valitse se uudelleen tai tyhjennä se, muuten paikkaus pysähtyy ja kysyy siitä.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Sovelluskuvake</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Kuvake, jota käytetään sovelluksen paikkauksessa. Sitä käytetään myös siellä, missä sovellus ei voi vaihtaa sitä myöhemmin, kuten Android Autossa ja järjestelmäasetusten sovellusluettelossa.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Mukautettu sovelluskuvake tarvitsee kansion, jossa on kuvakuvia.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Mukautettu kuvake</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Kansion kuvia, joita käytetään mukautettuna kuvakkeena.
 

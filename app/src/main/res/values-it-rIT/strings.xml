@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Nessuna app nascosta</string>
     <string name="home_app_hidden_apps_title">App nascoste</string>
     <string name="home_app_hidden_apps_hint">Tocca per mostrare</string>
+    <string name="home_app_patch_sources_description">Le fonti non selezionate non vengono proposte quando queste applicazioni vengono modificate, e le relative modifiche non vengono mai aggiunte automaticamente a una selezione. Ogni fonte rimane attiva per tutte le altre applicazioni</string>
+    <string name="home_app_patch_sources_mixed">Offerto %1$s di %2$s</string>
+    <string name="home_app_patch_sources_covers">Ha modifiche per %1$s da %2$s</string>
+    <string name="home_app_patch_sources_last">Ogni applicazione necessita di almeno una fonte</string>
     <string name="android_11_bug_dialog_title">Bug di Android 11</string>
     <string name="android_11_bug_dialog_description">È necessario concedere in anticipo il permesso per l\'installazione dell\'app per evitare un bug con il sistema operativo Android 11 che potrebbe influire negativamente sull\'esperienza dell\'utente.</string>
     <string name="deep_link_add_source_title">Aggiungi fonte</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Notturno e produttivo/a</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fonti delle patch</string>
+    <string name="sources_search">Cerca fonti e patch</string>
     <string name="sources_sort_title">Ordina fonti patch</string>
     <string name="sources_sort_manual">Ordine manuale</string>
     <string name="sources_sort_manual_hint">Tieni premuto un elemento per riordinarlo</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Aggiornamenti della fonte più recenti per primi</string>
     <string name="sources_sort_enabled_first">Abilitate per prime</string>
     <string name="sources_sort_enabled_first_description">Mostra fonti attive prima di quelle disabilitate</string>
+    <string name="sources_patches_source_disabled_hint">Questa fonte è disabilitata. Le sue patch sono elencate come riferimento e non vengono applicate</string>
     <string name="sources_management_open_in_browser">Apri nel browser</string>
     <string name="sources_management_report_issue">Segnala un problema</string>
     <string name="sources_management_failed_to_open_url">Impossibile aprire l’URL</string>
+    <string name="sources_hidden_apps">Nascosto per</string>
+    <string name="sources_hidden_apps_title">Applicazioni nascoste da %1$s</string>
+    <string name="sources_hidden_apps_description">Queste applicazioni non vengono fornite da questa fonte quando vengono modificate. La fonte stessa rimane attiva per tutto il resto</string>
+    <string name="sources_hidden_apps_hint">Premi per fornire questa fonte di nuovo</string>
     <string name="sources_management_prerelease_toggle">Patch di pre-rilascio</string>
     <string name="sources_management_prerelease_toggle_description">Ottieni l\'accesso anticipato alle nuove versioni sperimentali delle patch.</string>
     <string name="sources_prerelease_warning_title">Abilitare le patch pre-release?</string>
@@ -328,6 +338,7 @@ Per ottenere i risultati migliori, questa app raccomanda di applicare una patch 
     <string name="home_low_disk_space_dialog_message">Solo %1$s GB di spazio di archiviazione libero disponibile. L\'applicazione della patch richiede almeno %2$s GB di spazio libero per funzionare correttamente</string>
     <string name="home_low_disk_space_dialog_warning">Procedere potrebbe causare l\'errore \"file non trovato\" o esitare in un APK di output corrotto</string>
     <string name="home_simple_bundle_select_title">Seleziona il file come fonte delle patch</string>
+    <string name="home_simple_bundle_select_remember">Usa sempre questa fonte per questa applicazione</string>
     <!-- Color picker -->
     <string name="custom_color">Colore personalizzato</string>
     <string name="hex_color">Colore esadecimale</string>
@@ -543,6 +554,13 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_storage_permission_open_settings">Apri le impostazioni di archiviazione</string>
     <string name="patcher_storage_badge_denied">Autorizzazione negata</string>
     <string name="patcher_storage_badge_missing">Non trovato</string>
+    <string name="batch_patch_option_paths_skipped">I file delle opzioni di modifica mancano e verranno ignorati: %1$s</string>
+    <string name="patcher_missing_patches_title">Alcune modifiche mancano</string>
+    <string name="patcher_missing_patches_description">La selezione salvata per questa applicazione contiene modifiche che non sono più offerte da nessuna fonte. La modifica continua senza di esse</string>
+    <string name="patcher_missing_patches_label">Non più offerte</string>
+    <string name="patcher_option_paths_gone_title">I file delle opzioni di modifica mancano</string>
+    <string name="patcher_option_paths_gone_description">Una o più opzioni di modifica puntano a file che non esistono più. Rimuovi i percorsi per continuare senza di esse, o aggiungi i file e prova di nuovo</string>
+    <string name="patcher_option_paths_clear">Rimuovi i percorsi e continua</string>
     <string name="patcher_storage_permission_hint">Suggerimento: sposta i file in /Android/data/app.morphe.manager/files/ - non sono necessarie autorizzazioni extra</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Preparazione</string>
@@ -637,7 +655,9 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="mini_game_snake_swipe_to_start">Scorri per iniziare</string>
     <string name="mini_game_dino_picker_subtitle">Tocca per saltare sopra i cactus</string>
     <string name="mini_game_dino_tap_to_start">Tocca per correre</string>
+    <string name="mini_game_blocks_picker_subtitle">Incastra le forme, elimina le linee</string>
     <string name="mini_game_blocks_tap_to_start">Tocca per ruotare, scorri per muovere, scorri in basso per lasciar cadere</string>
+    <string name="mini_game_bricks_picker_subtitle">Fai rimbalzare la palla, distruggi il muro</string>
     <string name="mini_game_bricks_tap_to_start">Trascina per mirare, tocca per lanciare</string>
     <string name="mini_game_miner_picker_subtitle">Tocca per aprire, tieni premuto per segnalare</string>
     <string name="mini_game_pairs_picker_subtitle">Gira le carte, trova la coppia</string>
@@ -810,6 +830,10 @@ Le patch non sono interessate: abilita le patch pre-release per ciascuna fonte n
     <string name="settings_advanced_patch_options_custom_branding_description">Cambia il nome dell\'app visualizzato</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Nome dell\'app</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Inserisci il nome dell\'app personalizzato</string>
+    <string name="settings_advanced_patch_options_path_gone">Non è più possibile leggere questa cartella. Selezionala di nuovo o rimuovila; in caso contrario, la procedura di patching si interromperà richiedendo un intervento</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Icona dell\'app</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">L\'icona con cui l\'applicazione è stata modificata. Viene anche usata dove l\'applicazione non può cambiarla in seguito, come su Android Auto e sulla lista delle applicazioni nelle impostazioni di sistema</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">L\'icona personalizzata dell\'app richiede una cartella contenente le immagini dell\'icona</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Icona personalizzata</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Cartella con immagini da utilizzare come icona personalizzata.
 

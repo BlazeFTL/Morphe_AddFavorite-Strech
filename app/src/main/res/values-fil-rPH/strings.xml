@@ -13,6 +13,9 @@
     <string name="home_app_no_hidden">Walang mga nakatagong aplikasyon</string>
     <string name="home_app_hidden_apps_title">Mga nakatagong aplikasyon</string>
     <string name="home_app_hidden_apps_hint">Pindutin para ipakita</string>
+    <string name="home_app_patch_sources_description">Ang mga source na iniwang hindi naka-check ay hindi inaalok kapag na-patch ang mga app na ito, at ang kanilang mga patch ay hindi kailanman kusang naisasama sa isang seleksyon. Nananatiling naka-on ang bawat source para sa bawat iba pang app. The output is cut off? Need complete json array? I accidentally started with object? Let\'s reassess. I must not send incomplete. I attempted final with </string>
+    <string name="home_app_patch_sources_mixed">Inaalok sa %1$s sa %2$s</string>
+    <string name="home_app_patch_sources_last">Bawat app ay nangangailangan ng isang source na natitira upang ma-patch.</string>
     <string name="android_11_bug_dialog_title">Isang pagkakamali sa Android 11</string>
     <string name="android_11_bug_dialog_description">Dapat pahintulutan nang maaga ang pag-install ng app para maiwasan ang isang pagkakamali sa sistema ng Android 11 na negatibong makakaapekto sa karanasan ng tagagamit</string>
     <string name="deep_link_add_source_title">Magdagdag ng mapagkukunan</string>
@@ -124,6 +127,7 @@
     <string name="home_greeting_super_late_5">Pang-gabi at produktibo</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">I-patch ang mapagkukunan</string>
+    <string name="sources_search">Maghanap ng mga source at mga patch</string>
     <string name="sources_sort_title">Idagdag ang mapagkukunan ng patch</string>
     <string name="sources_sort_manual">Manu-manong pagkakasunud-sunod</string>
     <string name="sources_sort_manual_hint">Pindutin nang matagal ang isang pinagmulan upang muling ayusin</string>
@@ -131,9 +135,13 @@
     <string name="sources_sort_last_updated_description">Pinakabagong mga pag-update ng mapagkukunan muna</string>
     <string name="sources_sort_enabled_first">Naka-enable muna</string>
     <string name="sources_sort_enabled_first_description">Ipakita ang mga aktibong mapagkukunan bago ang mga hindi naka-enable</string>
+    <string name="sources_patches_source_disabled_hint">Ang source na ito ay hindi pinagana. Ang mga patch nito ay nakalista para sa sanggunian at hindi inilalapat.</string>
     <string name="sources_management_open_in_browser">Buksan sa browser</string>
     <string name="sources_management_report_issue">Mag-ulat ng isyu</string>
     <string name="sources_management_failed_to_open_url">Nabigong buksan ang URL</string>
+    <string name="sources_hidden_apps">Nakatago para sa</string>
+    <string name="sources_hidden_apps_description">Ang mga app na ito ay hindi inaalukan ng source na ito kapag pina-patch ang mga ito. Ang source mismo ay nananatiling naka-on para sa lahat ng iba pa.</string>
+    <string name="sources_hidden_apps_hint">I-tap para i-alok muli ang source na ito.</string>
     <string name="sources_management_prerelease_toggle">Mga patch na pre-release</string>
     <string name="sources_management_prerelease_toggle_description">Tumatanggap ng maagang pag-access sa mga bagong bersyon ng patch na pang-eksperimento</string>
     <string name="sources_prerelease_warning_title">Paganahin ang mga pre-release na patch?</string>
@@ -328,6 +336,7 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="home_low_disk_space_dialog_message">Tanging %1$s GB ng libreng storage ang available. Ang pag-patch ay nangangailangan ng hindi bababa sa %2$s GB ng libreng espasyo upang gumana nang tama.</string>
     <string name="home_low_disk_space_dialog_warning">Ang pagpapatuloy ay maaaring magresulta sa isang error na \"file not found\" o isang corrupt na output APK</string>
     <string name="home_simple_bundle_select_title">Piliin ang file ng mapagkukunang patch</string>
+    <string name="home_simple_bundle_select_remember">Palaging gamitin ang source na ito para sa app na ito.</string>
     <!-- Color picker -->
     <string name="custom_color">Pasadyang kulay</string>
     <string name="hex_color">Kulay ng Hex</string>
@@ -543,6 +552,13 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="patcher_storage_permission_open_settings">Buksan ang setting ng imbakan</string>
     <string name="patcher_storage_badge_denied">Hindi pinahihintulutan ang pahintulot</string>
     <string name="patcher_storage_badge_missing">Hindi mahanap</string>
+    <string name="batch_patch_option_paths_skipped">Hindi nakita ang mga patch sa option file kaya lalaktawan ang mga ito: %1$s”</string>
+    <string name="patcher_missing_patches_title">Wala na ang ilang mga patch.</string>
+    <string name="patcher_missing_patches_description">Ang naka-save na pagpili para sa app na ito ay naglalaman ng mga patch na hindi na iniaalok ng alinmang naka-enable na source. Ang pagpapatuloy ay magpapa-patch sa app nang wala ang mga ito.</string>
+    <string name="patcher_missing_patches_label">Hindi na inaalok.</string>
+    <string name="patcher_option_paths_gone_title">Nawawala ang mga patch option file.</string>
+    <string name="patcher_option_paths_gone_description">Ang isa o higit pang mga patch option ay tumuturo sa mga file na wala na. Alisin ang mga path upang mag-patch nang wala ang mga ito, o ibalik ang mga file at subukang muli.</string>
+    <string name="patcher_option_paths_clear">Alisin ang mga path at magpatuloy.</string>
     <string name="patcher_storage_permission_hint">Pahiwatig: Ilipat ang mga file sa /Android/data/app.morphe.manager/files/ - hindi na kailangan ng karagdagang mga pahintulot</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Inihahanda</string>
@@ -812,6 +828,10 @@ Hindi maaapektuhan ang mga patch: paganahin ang mga patch na pre-release para sa
     <string name="settings_advanced_patch_options_custom_branding_description">Binabago ang pangalan ng aplikasyon</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Pangalan ng aplikasyon</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Ilagay ang pasadyang pangalan</string>
+    <string name="settings_advanced_patch_options_path_gone">Hindi na mababasa ang folder na ito. Piliin itong muli o i-clear ito, kung hindi, hihinto ang pag-patch at magtatanong ito tungkol dito.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Icon ng aplikasyon</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ang icon na ginagamit sa pag-patch sa app. Ginagamit din ito sa mga lugar kung saan hindi mababago ng app ang icon sa ibang pagkakataon, gaya ng Android Auto at ng listahan ng mga app sa mga setting ng system.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Ang custom na icon ng app ay nangangailangan ng isang folder na may mga larawan ng icon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Pasadyang icon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Folder na may mga larawan na gagamitin bilang isang custom na icon.
 

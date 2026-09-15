@@ -13,11 +13,15 @@
     <string name="home_app_no_hidden">Нет скрытых приложений</string>
     <string name="home_app_hidden_apps_title">Скрытые приложения</string>
     <string name="home_app_hidden_apps_hint">Нажмите, чтобы показать</string>
+    <string name="home_app_patch_sources_description">Источники, оставленные без галочки, не предлагаются при патчинге этих приложений, и их патчи никогда не попадают в выбор самостоятельно. Каждый источник остаётся включённым для всех остальных приложений</string>
+    <string name="home_app_patch_sources_mixed">Предлагается для %1$s из %2$s</string>
+    <string name="home_app_patch_sources_covers">Имеет патчи для %1$s из %2$s</string>
+    <string name="home_app_patch_sources_last">Каждому приложению нужен хотя бы один оставшийся источник для патчей</string>
     <string name="android_11_bug_dialog_title">Ошибка Android 11</string>
     <string name="android_11_bug_dialog_description">Для нормальной работы приложения необходимо предварительно предоставить разрешение на установку, чтобы избежать ошибки в системе Android 11, которая может негативно сказаться на пользовательском опыте</string>
     <string name="deep_link_add_source_title">Добавить источник</string>
     <string name="deep_link_add_source_message">Вы хотите добавить этот источник патча в Morphe?</string>
-    <string name="deep_link_add_source_warning">Добавляйте источники, которым вы доверяете</string>
+    <string name="deep_link_add_source_warning">Добавляйте только те источники, которым вы доверяете</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Доступно обновление Morphe</string>
     <string name="home_update_available_subtitle">Новая версия готова к установке.</string>
@@ -31,7 +35,7 @@
     <string name="home_held_back_subtitle">Он был пропущен, чтобы приложение могло запуститься. Нажмите, чтобы просмотреть</string>
     <string name="home_metered_skipped_title">Обновления приостановлены при использовании мобильного трафика</string>
     <string name="home_metered_skipped_subtitle">Нажмите, чтобы разрешить обновления через мобильный интернет</string>
-    <string name="home_repatch_available_subtitle">Нажмите, чтобы поставить их в очередь</string>
+    <string name="home_repatch_available_subtitle">Нажмите, чтобы поставить их все в очередь</string>
     <string name="home_update_error">Обновление не удалось</string>
     <string name="home_update_error_subtitle">Произошла ошибка при обновлении источников</string>
     <string name="home_update_skipped_metered">Обновления пропущены</string>
@@ -49,16 +53,16 @@
     <string name="home_app_filter_all_description">Все приложения на главном экране</string>
     <string name="home_app_filter_patched_description">Приложения, которые вы пропатчили или сохранили с помощью Morphe</string>
     <string name="home_app_filter_not_patched_description">Приложения, которые вы ещё не пропатчили в Morphe</string>
-    <string name="home_app_filter_installed_description">Приложения, установленные на этом устройстве</string>
+    <string name="home_app_filter_installed_description">Приложения, установленные в данный момент на этом устройстве</string>
     <string name="home_app_filter_uninstalled_description">Приложения, пропатченные с помощью Morphe, которых больше нет на этом устройстве</string>
     <string name="home_app_filter_clones">Клоны</string>
-    <string name="home_app_filter_clones_description">Приложения, собранные под собственным именем пакета, установленные вместе с оригиналом</string>
+    <string name="home_app_filter_clones_description">Приложения, созданные под собственным именем пакета, устанавливаются вместе с оригинальным</string>
     <string name="home_app_sort_manual_description">Нажмите и удерживайте значок приложения, затем нажмите кнопку изменения порядка</string>
     <string name="home_app_sort_recommended">Рекомендуемый порядок</string>
     <string name="home_app_sort_recommended_description">Сначала установленные и закреплённые приложения</string>
     <string name="home_app_sort_name_asc_description">По алфавиту, от А до Я</string>
     <string name="home_app_sort_name_desc_description">В обратном алфавитном порядке, от Я до А</string>
-    <string name="home_app_sort_updates_first">Сначала обновления патчей</string>
+    <string name="home_app_sort_updates_first">Сначала обновите патчи</string>
     <string name="home_app_sort_updates_first_description">Сначала приложения с более новыми патчами, затем рекомендуемый порядок</string>
     <string name="home_app_sort_recently_patched">Недавно пропатченные</string>
     <string name="home_app_sort_recently_patched_description">Сначала недавно пропатченные приложения</string>
@@ -136,6 +140,10 @@
     <string name="sources_management_open_in_browser">Открыть в браузере</string>
     <string name="sources_management_report_issue">Сообщить о проблеме</string>
     <string name="sources_management_failed_to_open_url">Не удалось открыть URL</string>
+    <string name="sources_hidden_apps">Скрыто для</string>
+    <string name="sources_hidden_apps_title">Приложения, скрытые от %1$s</string>
+    <string name="sources_hidden_apps_description">Этим приложениям этот источник не предлагается при патчинге. Сам источник остаётся включённым для всего остального</string>
+    <string name="sources_hidden_apps_hint">Нажмите, чтобы снова предложить этот источник</string>
     <string name="sources_management_prerelease_toggle">Предрелизные патчи</string>
     <string name="sources_management_prerelease_toggle_description">Получает ранний доступ к новым экспериментальным версиям патча</string>
     <string name="sources_prerelease_warning_title">Включить предварительные патчи?</string>
@@ -330,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">Доступно только %1$s GB свободного хранилища. Для патчинга требуется как минимум %2$s GB свободного места для корректной работы</string>
     <string name="home_low_disk_space_dialog_warning">Дальнейшие действия могут привести к ошибке \"файл не найден\" или к повреждению выходного APK-файла</string>
     <string name="home_simple_bundle_select_title">Выберите источник патчей</string>
+    <string name="home_simple_bundle_select_remember">Всегда использовать этот источник для этого приложения</string>
     <!-- Color picker -->
     <string name="custom_color">Свой цвет</string>
     <string name="hex_color">Hex цвет</string>
@@ -545,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">Открыть настройки хранилища</string>
     <string name="patcher_storage_badge_denied">Доступ запрещен</string>
     <string name="patcher_storage_badge_missing">Не найдено</string>
+    <string name="batch_patch_option_paths_skipped">Файлы параметров патча отсутствуют и будут пропущены: %1$s</string>
+    <string name="patcher_missing_patches_title">Некоторые патчи исчезли</string>
+    <string name="patcher_missing_patches_description">Сохранённый выбор для этого приложения перечисляет патчи, которые больше не предлагаются ни одним включённым источником. Если продолжить, приложение будет пропатчено без них</string>
+    <string name="patcher_missing_patches_label">Больше не предлагаются</string>
+    <string name="patcher_option_paths_gone_title">Файлы параметров патча отсутствуют</string>
+    <string name="patcher_option_paths_gone_description">Один или несколько параметров патча указывают на файлы, которых больше нет. Удалите пути, чтобы патчить без них, или верните файлы на место и попробуйте снова</string>
+    <string name="patcher_option_paths_clear">Удалить пути и продолжить</string>
     <string name="patcher_storage_permission_hint">Совет: переместите файлы в /Android/data/app.morphe.manager/files/ - дополнительные разрешения не требуются</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Подготовка</string>
@@ -812,6 +828,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">Изменяет отображаемое имя приложения</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Имя приложения</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Введите своё имя</string>
+    <string name="settings_advanced_patch_options_path_gone">Эту папку больше нельзя прочитать. Выберите её снова или очистите её, иначе патчинг остановится и спросит о ней</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Иконка приложения</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Значок, с которым патчится приложение. Он также используется там, где приложение не сможет изменить его позже, например, в Android Auto и в списке приложений в системных настройках</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Для пользовательского значка приложения нужна папка с изображениями значков</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Своя иконка</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Папка с изображениями для использования в качестве пользовательского значка.
 

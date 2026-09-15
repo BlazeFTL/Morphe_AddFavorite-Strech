@@ -13,6 +13,7 @@
     <string name="home_app_no_hidden">Ingen skjulte apper</string>
     <string name="home_app_hidden_apps_title">Skjulte apper</string>
     <string name="home_app_hidden_apps_hint">Trykk for å vise</string>
+    <string name="home_app_patch_sources_description">Kilder som ikke er avmerket tilbys ikke når disse appene blir patchet, og patchene deres blir aldri med i et utvalg på egen hånd. Hver kilde forblir påslått for alle andre apper.</string>
     <string name="android_11_bug_dialog_title">Android 11-feil</string>
     <string name="android_11_bug_dialog_description">Tillatelse for appinstallasjon må gis på forhånd for å unngå en feil i Android 11-systemet som vil påvirke brukeropplevelsen negativt</string>
     <string name="deep_link_add_source_title">Legg til kilde</string>
@@ -124,6 +125,7 @@
     <string name="home_greeting_super_late_5">Nattaktiv og produktiv</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch-kilder</string>
+    <string name="sources_search">Søk etter kilder og patcher</string>
     <string name="sources_sort_title">Sorter patch-kilder</string>
     <string name="sources_sort_manual">Manuell rekkefølge</string>
     <string name="sources_sort_manual_hint">Trykk og hold nede en kilde for å endre rekkefølgen</string>
@@ -131,9 +133,13 @@
     <string name="sources_sort_last_updated_description">Nyeste oppdateringer først</string>
     <string name="sources_sort_enabled_first">Aktiverte først</string>
     <string name="sources_sort_enabled_first_description">Vis aktive kilder før deaktiverte kilder</string>
+    <string name="sources_patches_source_disabled_hint">Denne kilden er deaktivert. Patchene er oppført for referanse og blir ikke brukt</string>
     <string name="sources_management_open_in_browser">Åpne i nettleser</string>
     <string name="sources_management_report_issue">Rapporter et problem</string>
     <string name="sources_management_failed_to_open_url">Kunne ikke åpne linken</string>
+    <string name="sources_hidden_apps_title">Apper skjult fra %1$s</string>
+    <string name="sources_hidden_apps_description">Disse appene tilbys ikke av denne kilden når de blir patchet. Selve kilden forblir på for alt annet.</string>
+    <string name="sources_hidden_apps_hint">Trykk for å tilby denne kilden igjen.</string>
     <string name="sources_management_prerelease_toggle">Forhåndsutgitte patcher</string>
     <string name="sources_management_prerelease_toggle_description">Mottar tidlig tilgang til nye eksperimentelle patchversjoner</string>
     <string name="sources_prerelease_warning_title">Aktiver forhåndsutgitte patcher?</string>
@@ -328,6 +334,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="home_low_disk_space_dialog_message">Kun %1$s GB ledig lagringsplass. Patching krever minst %2$s GB ledig plass for å fungere korrekt.</string>
     <string name="home_low_disk_space_dialog_warning">Fortsetter du, kan det føre til en «fil ikke funnet»-feil eller en korrupt APK-fil</string>
     <string name="home_simple_bundle_select_title">%s bekreftet ikke installasjonen. Sjekk den andre appen og prøv igjen</string>
+    <string name="home_simple_bundle_select_remember">Bruk alltid denne kilden for denne appen.</string>
     <!-- Color picker -->
     <string name="custom_color">Egendefinert farge</string>
     <string name="hex_color">Hex-farge</string>
@@ -543,6 +550,13 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="patcher_storage_permission_open_settings">Åpne lagringsinnstillinger</string>
     <string name="patcher_storage_badge_denied">Tillatelse nektet</string>
     <string name="patcher_storage_badge_missing">Ikke funnet</string>
+    <string name="batch_patch_option_paths_skipped">Patch-alternativfiler mangler og vil bli hoppet over: %1$s</string>
+    <string name="patcher_missing_patches_title">Noen patcher er borte.</string>
+    <string name="patcher_missing_patches_description">Det lagrede utvalget for denne appen nevner patcher som ingen aktivert kilde tilbyr lenger. Fortsetter du, blir appen patchet uten dem.</string>
+    <string name="patcher_missing_patches_label">Tilbys ikke lenger.</string>
+    <string name="patcher_option_paths_gone_title">Patch-alternativfiler mangler.</string>
+    <string name="patcher_option_paths_gone_description">Ett eller flere patch-alternativer refererer til filer som ikke lenger finnes. Fjern stiene for å patche uten dem, eller legg filene tilbake og prøv igjen.</string>
+    <string name="patcher_option_paths_clear">Fjern stiene og fortsett.</string>
     <string name="patcher_storage_permission_hint">Tips: Flytt filer til /Android/data/app.morphe.manager/files/ - ingen ekstra tillatelser nødvendig</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Forbereder</string>
@@ -812,6 +826,10 @@ Patcher påvirkes ikke: aktiver pre-release-patcher for hver kilde i patch-kilde
     <string name="settings_advanced_patch_options_custom_branding_description">Endrer appens visningsnavn</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Appnavn</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Skriv inn et egendefinert navn</string>
+    <string name="settings_advanced_patch_options_path_gone">Denne mappen kan ikke lenger leses. Velg den på nytt eller fjern den, ellers vil patcheprosessen stoppe og spørre om det.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">App-ikon</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikonet som appen blir patchet med. Det brukes også der appen ikke kan endre det senere, for eksempel i Android Auto og i applisten i systeminnstillingene.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Det egendefinerte app-ikonet trenger en mappe med ikonbilder.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Egendefinert ikon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Mappe med bilder som skal brukes som et tilpasset ikon.
 

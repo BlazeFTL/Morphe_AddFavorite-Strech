@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Aucune application masquée</string>
     <string name="home_app_hidden_apps_title">Applications masquées</string>
     <string name="home_app_hidden_apps_hint">Appuyez pour afficher</string>
+    <string name="home_app_patch_sources_description">Les sources laissées décochées ne sont pas proposées lorsque ces applications sont patchées, et leurs patchs ne rejoignent jamais une sélection d\'eux-mêmes. Chaque source reste activée pour toutes les autres applications</string>
+    <string name="home_app_patch_sources_mixed">Proposé à %1$s de %2$s</string>
+    <string name="home_app_patch_sources_covers">Possède des patchs pour %1$s de %2$s</string>
+    <string name="home_app_patch_sources_last">Chaque application a besoin d’au moins une source de patchs</string>
     <string name="android_11_bug_dialog_title">Bug Android 11</string>
     <string name="android_11_bug_dialog_description">L\'autorisation d\'installation de l\'application doit être accordée à l\'avance afin d\'éviter un bug dans le système Android 11 qui affectera négativement l\'expérience utilisateur</string>
     <string name="deep_link_add_source_title">Ajouter la source</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Nocturne et productif</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sources de patchs</string>
+    <string name="sources_search">Rechercher des sources et des patchs</string>
     <string name="sources_sort_title">Trier les sources de patchs</string>
     <string name="sources_sort_manual">Ordre manuel</string>
     <string name="sources_sort_manual_hint">Appuyez longuement sur une source pour la réorganiser</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Mises à jour des sources les plus récentes en premier</string>
     <string name="sources_sort_enabled_first">Activées en premier</string>
     <string name="sources_sort_enabled_first_description">Afficher les sources actives avant les sources désactivées</string>
+    <string name="sources_patches_source_disabled_hint">Cette source est désactivée. Ses patchs sont listés à titre de référence et ne sont pas appliqués</string>
     <string name="sources_management_open_in_browser">Ouvrir dans le navigateur</string>
     <string name="sources_management_report_issue">Signaler un problème</string>
     <string name="sources_management_failed_to_open_url">Échec de l\'ouverture de l\'URL</string>
+    <string name="sources_hidden_apps">Masquée pour</string>
+    <string name="sources_hidden_apps_title">Applications masquées de %1$s</string>
+    <string name="sources_hidden_apps_description">Ces applications ne se voient pas proposer cette source lorsqu\'elles sont patchées. La source elle-même reste activée pour tout le reste</string>
+    <string name="sources_hidden_apps_hint">Appuyez pour proposer à nouveau cette source</string>
     <string name="sources_management_prerelease_toggle">Patchs en préversion</string>
     <string name="sources_management_prerelease_toggle_description">Reçoit un accès anticipé aux nouvelles versions expérimentales des patchs</string>
     <string name="sources_prerelease_warning_title">Activer les patchs en préversion ?</string>
@@ -330,6 +340,7 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="home_low_disk_space_dialog_message">Seulement %1$s Go d\'espace de stockage libre sont disponibles. Le patching nécessite au moins %2$s Go d\'espace libre pour fonctionner correctement</string>
     <string name="home_low_disk_space_dialog_warning">Continuer peut entraîner une erreur \"fichier introuvable\" ou un APK corrompu</string>
     <string name="home_simple_bundle_select_title">Sélectionner une source de patchs</string>
+    <string name="home_simple_bundle_select_remember">Toujours utiliser cette source pour cette application</string>
     <!-- Color picker -->
     <string name="custom_color">Couleur personnalisée</string>
     <string name="hex_color">Couleur hexadécimale</string>
@@ -546,6 +557,13 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_storage_permission_open_settings">Ouvrir les paramètres de stockage</string>
     <string name="patcher_storage_badge_denied">Autorisation refusée</string>
     <string name="patcher_storage_badge_missing">Introuvable</string>
+    <string name="batch_patch_option_paths_skipped">Les fichiers d’options de patch sont manquants et seront ignorés : %1$s</string>
+    <string name="patcher_missing_patches_title">Certains patchs ont disparu</string>
+    <string name="patcher_missing_patches_description">La sélection enregistrée pour cette application contient des patchs qu\'aucune source activée ne propose plus. Continuer appliquera les patchs à l\'application sans eux</string>
+    <string name="patcher_missing_patches_label">Plus proposé</string>
+    <string name="patcher_option_paths_gone_title">Les fichiers d\'options de patch sont manquants</string>
+    <string name="patcher_option_paths_gone_description">Une ou plusieurs options de patch pointent vers des fichiers qui ne sont plus présents. Supprimez les chemins pour patcher sans ces fichiers, ou remettez les fichiers en place et réessayez</string>
+    <string name="patcher_option_paths_clear">Supprimer les chemins et continuer</string>
     <string name="patcher_storage_permission_hint">Astuce : Déplacez les fichiers vers /Android/data/app.morphe.manager/files/ — aucune autorisation supplémentaire n\'est nécessaire</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Préparation</string>
@@ -815,6 +833,10 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <string name="settings_advanced_patch_options_custom_branding_description">Change le nom d\'affichage de l\'application</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Nom de l\'application</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Entrez un nom personnalisé</string>
+    <string name="settings_advanced_patch_options_path_gone">Ce dossier ne peut plus être lu. Sélectionnez-le à nouveau ou effacez-le, sinon le patching s\'arrêtera et vous demandera quoi faire</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Icône de l\'application</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">L\'icône avec laquelle l\'application est patchée. Elle est également utilisée là où l\'application ne peut pas la modifier ultérieurement, comme dans Android Auto et la liste des applications des paramètres du système</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">L\'icône personnalisée de l\'application nécessite un dossier contenant les images d\'icônes</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Icône personnalisée</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Dossier contenant les images à utiliser comme icône personnalisée.
 
@@ -971,9 +993,9 @@ Détails : %2$s"</string>
     <string name="settings_system_notifications_sound_default">Par défaut</string>
     <string name="settings_system_notifications_sound_picker_title">Choisissez la source sonore</string>
     <string name="settings_system_notifications_sound_pick_ringtone">Sons système</string>
-    <string name="settings_system_notifications_sound_pick_file">Choisir parmi les fichiers</string>
+    <string name="settings_system_notifications_sound_pick_file">Sélectionner parmi les fichiers</string>
     <string name="settings_system_notifications_sound_reset">Réinitialiser par défaut</string>
-    <string name="settings_system_notifications_ringtone_picker_title">Choisir une tonalité</string>
+    <string name="settings_system_notifications_ringtone_picker_title">Sélectionner une tonalité</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importer &amp; exporter</string>
     <string name="settings_system_keystore">Keystore</string>

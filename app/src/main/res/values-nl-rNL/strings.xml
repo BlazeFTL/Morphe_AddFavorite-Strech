@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Geen verborgen apps</string>
     <string name="home_app_hidden_apps_title">Verborgen apps</string>
     <string name="home_app_hidden_apps_hint">Tik om terug te brengen</string>
+    <string name="home_app_patch_sources_description">Niet aangevinkte bronnen worden niet aangeboden bij het patchen van deze apps, en hun patches worden nooit uit zichzelf aan een selectie toegevoegd. Elke bron blijft voor elke andere app aangevinkt.</string>
+    <string name="home_app_patch_sources_mixed">Aangeboden aan %1$s van %2$s</string>
+    <string name="home_app_patch_sources_covers">Heeft patches voor %1$s van %2$s</string>
+    <string name="home_app_patch_sources_last">Elke app moet één bron overhouden om uit te patchen.</string>
     <string name="android_11_bug_dialog_title">Android 11-bug</string>
     <string name="android_11_bug_dialog_description">De toestemming voor het installeren van de app moet vooraf worden verleend om een bug in Android 11 te voorkomen die de gebruikerservaring negatief zal beïnvloeden</string>
     <string name="deep_link_add_source_title">Bron toevoegen</string>
@@ -124,6 +128,7 @@
     <string name="home_greeting_super_late_5">Nachtelijk en productief</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patchbronnen</string>
+    <string name="sources_search">Zoek bronnen en patches</string>
     <string name="sources_sort_title">Patchbronnen sorteren</string>
     <string name="sources_sort_manual">Handmatige volgorde</string>
     <string name="sources_sort_manual_hint">Houd een bron ingedrukt om de volgorde te wijzigen</string>
@@ -131,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Nieuwste bronupdates eerst</string>
     <string name="sources_sort_enabled_first">Eerst ingeschakeld</string>
     <string name="sources_sort_enabled_first_description">Toon actieve bronnen voor uitgeschakelde bronnen</string>
+    <string name="sources_patches_source_disabled_hint">Deze bron is uitgeschakeld. De patches ervan worden ter referentie weergegeven en worden niet toegepast.</string>
     <string name="sources_management_open_in_browser">Openen in browser</string>
     <string name="sources_management_report_issue">Een probleem melden</string>
     <string name="sources_management_failed_to_open_url">Kan URL niet openen</string>
+    <string name="sources_hidden_apps">Verborgen voor</string>
+    <string name="sources_hidden_apps_title">Apps verborgen voor %1$s</string>
+    <string name="sources_hidden_apps_description">Voor deze apps wordt deze bron niet aangeboden wanneer ze worden gepatcht. De bron zelf blijft voor al het andere ingeschakeld</string>
+    <string name="sources_hidden_apps_hint">Tik om deze bron opnieuw aan te bieden</string>
     <string name="sources_management_prerelease_toggle">Patches van vóór de release</string>
     <string name="sources_management_prerelease_toggle_description">Krijg vroegtijdige toegang tot nieuwe experimentele patchversies</string>
     <string name="sources_prerelease_warning_title">Pre-release patches inschakelen?</string>
@@ -328,6 +338,7 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="home_low_disk_space_dialog_message">Er is slechts %1$s GB vrije opslagruimte beschikbaar. Voor het patchen is minimaal %2$s GB vrije ruimte nodig om correct te werken.</string>
     <string name="home_low_disk_space_dialog_warning">Doorgaan kan resulteren in een foutmelding \'bestand niet gevonden\' of een beschadigd output APK-bestand</string>
     <string name="home_simple_bundle_select_title">Selecteer een .mpp-bronbestand van de opslag</string>
+    <string name="home_simple_bundle_select_remember">Gebruik deze bron altijd voor deze app</string>
     <!-- Color picker -->
     <string name="custom_color">Aangepaste kleur</string>
     <string name="hex_color">Hex-kleur</string>
@@ -543,6 +554,12 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_storage_permission_open_settings">Open opslaginstellingen</string>
     <string name="patcher_storage_badge_denied">Toestemming geweigerd</string>
     <string name="patcher_storage_badge_missing">Niet gevonden</string>
+    <string name="patcher_missing_patches_title">Niet meer aangeboden</string>
+    <string name="patcher_missing_patches_description">Patchoptiebestanden ontbreken</string>
+    <string name="patcher_missing_patches_label">Een of meer patchopties verwijzen naar bestanden die er niet meer zijn. Verwijder de paden om zonder deze bestanden te patchen, of zet de bestanden terug en probeer het opnieuw.</string>
+    <string name="patcher_option_paths_gone_title">Verwijder de paden en ga door</string>
+    <string name="patcher_option_paths_gone_description">Deze map kan niet meer worden gelezen. Kies hem opnieuw of wis hem, anders stopt het patchen en wordt ernaar gevraagd.</string>
+    <string name="patcher_option_paths_clear">Het pictogram waarmee de app wordt gepatcht. Het wordt ook gebruikt waar de app het later niet kan wijzigen, zoals bij Android Auto en in de app-lijst van de systeeminstellingen.</string>
     <string name="patcher_storage_permission_hint">Tip: Verplaats bestanden naar /Android/data/app.morphe.manager/files/ - geen extra toestemmingen nodig</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Voorbereiden</string>
@@ -812,6 +829,10 @@ Patches worden niet beïnvloed: schakel pre-release-patches in voor elke bron in
     <string name="settings_advanced_patch_options_custom_branding_description">Wijzigt de app-weergavenaam</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Appnaam</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Voer aangepaste naam in</string>
+    <string name="settings_advanced_patch_options_path_gone">Het aangepaste app-pictogram heeft een map met pictogramafbeeldingen nodig</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">App-pictogram</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Het pictogram waarmee de app wordt gepatcht. Het wordt ook gebruikt waar de app dit later niet kan wijzigen, zoals in Android Auto en in de app-lijst van de systeeminstellingen.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Het aangepaste app-pictogram heeft een map met pictogramafbeeldingen nodig.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Aangepast pictogram</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Map met afbeeldingen om te gebruiken als een aangepast pictogram.
 

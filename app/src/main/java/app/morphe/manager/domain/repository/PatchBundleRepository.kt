@@ -55,10 +55,14 @@ class PatchBundleRepository(
     private val networkInfo: NetworkInfo,
     private val prefs: PreferencesManager,
     private val blocklistRepository: BlocklistRepository,
+    private val sourceMuteRepository: SourceMuteRepository,
     db: AppDatabase,
 ) {
     private val dao = db.patchBundleDao()
     private val bundlesDir = app.getDir("patch_bundles", Context.MODE_PRIVATE)
+
+    /** Crash attribution for every in-process bundle read, the patcher runtime's included. */
+    val loadGuard = PatchBundleLoadGuard(app, bundlesDir)
 
     private val scope = CoroutineScope(Dispatchers.Default)
     private val store = Store<BundleState>(scope, BundleState.Loading)
@@ -124,6 +128,22 @@ class PatchBundleRepository(
             bundleInfo.forPackage(packageName, version, versionCode)
         }
     }
+
+    /**
+     * [scopedBundleInfoFlow] narrowed to the sources this app may be patched from, which is what
+     * every point that offers the user a choice reads.
+     *
+     * The unnarrowed flow stays the description of what exists, and a run reads that one. A
+     * selection is answered for by the sources it was made from, whether or not the app has since
+     * been kept from one.
+     */
+    fun offeredBundleInfoFlow(packageName: String, version: String?, versionCode: Long? = null) =
+        combine(
+            scopedBundleInfoFlow(packageName, version, versionCode),
+            sourceMuteRepository.mutedFor(packageName)
+        ) { bundles, muted ->
+            bundles.withoutMutedSources(muted) { it.uid }
+        }
 
     val patchCountsFlow = allBundlesInfoFlow.map { it.mapValues { (_, info) -> info.patches.size } }
 
@@ -378,6 +398,8 @@ class PatchBundleRepository(
      * Performs a reload. Do not call this outside of a store action.
      */
     private suspend fun doReload(): BundleState.Ready {
+        loadGuard.prepare()
+
         val entities = loadEntitiesEnforcingOfficialOrder()
 
         val sources = entities.associate { it.uid to it.load() }.toMutableMap()
@@ -456,13 +478,19 @@ class PatchBundleRepository(
                     version = bundle.manifestAttributes?.version,
                     uid = src.uid,
                     enabled = src.enabled,
-                    patches = PatchBundle.Loader.metadata(bundle),
+                    patches = loadGuard.read(src.uid, src.patchesJarFile) {
+                        PatchBundle.Loader.metadata(bundle)
+                    },
                     patcherVersion = bundle.manifestAttributes?.patcherVersion,
                 )
             } catch (error: Throwable) {
                 failures += src.uid to error
                 val requiredPatcher = bundle.manifestAttributes?.patcherVersion
-                if (requiredPatcher != null && isPatcherOutdated(requiredPatcher)) {
+                if (error is PatchBundleHeldBackException) {
+                    // The bundle took the process down with it, so the launch it would break is
+                    // worth more than the patches it carries
+                    Log.e(tag, "Held back bundle ${src.name}", error)
+                } else if (requiredPatcher != null && isPatcherOutdated(requiredPatcher)) {
                     // Loading fails with linkage errors when the bundle uses patcher APIs this
                     // manager does not have. Spell it out so logs are not just a NoSuchMethodError
                     Log.e(
@@ -664,12 +692,16 @@ class PatchBundleRepository(
 
     suspend fun reset() = dispatchAction("Reset") { state ->
         dao.reset()
-        (state as? BundleState.Ready)?.sources?.keys?.forEach { directoryOf(it).deleteRecursively() }
+        (state as? BundleState.Ready)?.sources?.keys?.forEach {
+            directoryOf(it).deleteRecursively()
+            loadGuard.forget(it)
+        }
         doReload()
     }
 
+    /** An update pass also runs without a screen, where a toast belongs to nobody. */
     private suspend fun toast(@StringRes id: Int, vararg args: Any?) =
-        withContext(Dispatchers.Main) { app.toast(app.getString(id, *args)) }
+        withContext(Dispatchers.Main) { app.toastIfInForeground(app.getString(id, *args)) }
 
     /**
      * The bundles an update pass covers. Described declaratively rather than as a bare predicate
@@ -829,6 +861,7 @@ class PatchBundleRepository(
             bundles.forEach {
                 dao.remove(it.uid)
                 directoryOf(it.uid).deleteRecursively()
+                loadGuard.forget(it.uid)
                 sources.remove(it.uid)
                 info.remove(it.uid)
             }
@@ -1110,9 +1143,7 @@ class PatchBundleRepository(
                     } catch (e: Exception) {
                         if (e is CancellationException) throw e
                         Log.e(tag, "Got exception while importing bundle", e)
-                        withContext(Dispatchers.Main) {
-                            app.toast(app.getString(R.string.home_app_info_patches_replace_fail, e.simpleMessage()))
-                        }
+                        toast(R.string.home_app_info_patches_replace_fail, e.simpleMessage())
 
                         withContext(Dispatchers.IO) {
                             runCatching {
@@ -1190,9 +1221,7 @@ class PatchBundleRepository(
                 normalizeRemoteBundleUrl(url)
             } catch (e: IllegalArgumentException) {
                 Log.e(tag, "Invalid bundle URL: $url", e)
-                withContext(Dispatchers.Main) {
-                    app.toast(app.getString(R.string.sources_management_invalid_url))
-                }
+                toast(R.string.sources_management_invalid_url)
                 return@dispatchAction state
             }
 
@@ -1200,9 +1229,7 @@ class PatchBundleRepository(
             val blocklistKey = toBlocklistKey(normalizedUrl)
             if (blocklistKey != null && blocklistRepository.isBlocked(blocklistKey)) {
                 Log.i(tag, "Refused blocked source: $blocklistKey")
-                withContext(Dispatchers.Main) {
-                    app.toast(app.getString(R.string.sources_management_blocked))
-                }
+                toast(R.string.sources_management_blocked)
                 return@dispatchAction state
             }
 
@@ -1214,9 +1241,7 @@ class PatchBundleRepository(
             }
 
             if (isDuplicate) {
-                withContext(Dispatchers.Main) {
-                    app.toast(app.getString(R.string.sources_management_already_exists))
-                }
+                toast(R.string.sources_management_already_exists)
                 return@dispatchAction state
             }
 

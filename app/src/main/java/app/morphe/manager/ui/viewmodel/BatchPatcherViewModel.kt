@@ -259,6 +259,8 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val compatible: List<BundledAppTarget>,
         val saved: SavedApkInfo?,
         val installed: InstalledApkInfo?,
+        /** What the device has right now, even where [installed] is no source to patch from. */
+        val installedVersion: String?,
         val installedOnDevice: Boolean,
         val selectedVersion: AppTarget?
     )
@@ -274,6 +276,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
             val (onDevice, installed) = withContext(Dispatchers.IO) {
                 localApkSources.installed(item.packageName)
             }
+            val installedVersion = withContext(Dispatchers.IO) {
+                localApkSources.installedVersion(item.packageName)
+            }
 
             apkChoice = ApkChoice(
                 item = item,
@@ -283,6 +288,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
                 // The installed source is an expert-mode offer, and only for a version the
                 // patches target: the two conditions the single-app flow puts on the button
                 installed = installed.takeIf { expertMode }.patchableBy(compatible),
+                installedVersion = installedVersion,
                 installedOnDevice = onDevice,
                 selectedVersion = recommended
             )
@@ -459,7 +465,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val source = item.source ?: return
         viewModelScope.launch {
             val bundles = patchBundleRepository
-                .scopedBundleInfoFlow(item.packageName, source.version, source.versionCode)
+                .offeredBundleInfoFlow(item.packageName, source.version, source.versionCode)
                 .first()
                 .filter { it.enabled }
 

@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Ni skritih aplikacij</string>
     <string name="home_app_hidden_apps_title">Skrite aplikacije</string>
     <string name="home_app_hidden_apps_hint">Klikni za prikaz</string>
+    <string name="home_app_patch_sources_description">Viri, ki ostanejo neoznačeni, niso na voljo, ko so te aplikacije popravljene, njihovi popravki pa se nikoli sami od sebe ne vključijo v izbiro. Vsak vir ostane vklopljen za vse druge aplikacije.</string>
+    <string name="home_app_patch_sources_mixed">Na voljo za %1$s od %2$s</string>
+    <string name="home_app_patch_sources_covers">Ima popravke za %1$s od %2$s</string>
+    <string name="home_app_patch_sources_last">Vsaka aplikacija potrebuje en vir, ki ostane na voljo za popravljanje.</string>
     <string name="android_11_bug_dialog_title">Android 11 napaka</string>
     <string name="android_11_bug_dialog_description">Aplikaciji je treba dovoliti dovoljenje za namestitev, da se izognete napaki v sistemu Android 11, ki bo negativno vplivala na uporabniško izkušnjo.</string>
     <string name="deep_link_add_source_title">Dodaj vir</string>
@@ -27,6 +31,8 @@
     <string name="home_metadata_errors_subtitle">Tapnite za pregled virov</string>
     <string name="home_outdated_manager_title">Morphe je zastarel</string>
     <string name="home_outdated_manager_subtitle">Nekateri viri popravkov potrebujejo novejšo različico Morphe</string>
+    <string name="home_held_back_title">Vir popravkov je zrušil aplikacijo Morphe</string>
+    <string name="home_held_back_subtitle">Preskočen je bil, da bi se aplikacija lahko zagnala. Dotaknite se za pregled</string>
     <string name="home_metered_skipped_title">Prenos posodobitev je prekinjen pri uporabi mobilnih podatkov</string>
     <string name="home_metered_skipped_subtitle">Tapnite, da omogočite posodabljanje prek mobilnih podatkov</string>
     <string name="home_repatch_available_subtitle">Tapnite, da dodate vse v čakalno vrsto</string>
@@ -57,7 +63,7 @@
     <string name="home_app_sort_name_asc_description">Normalen vrstni red, od A do Ž</string>
     <string name="home_app_sort_name_desc_description">Obraten vrstni red, od Ž do A</string>
     <string name="home_app_sort_updates_first">Najprej posodobitve popravkov</string>
-    <string name="home_app_sort_updates_first_description">Aplikacije z oznakami posodobi najprej, nato v priporočenem vrstnem redu</string>
+    <string name="home_app_sort_updates_first_description">Aplikacije z novejšimi popravki najprej, nato priporočeni vrstni red</string>
     <string name="home_app_sort_recently_patched">Nedavno popravljeno</string>
     <string name="home_app_sort_recently_patched_description">Nazadnje popravljene aplikacije najprej</string>
     <string name="home_no_apps_title">Nobena aplikacija ni na voljo</string>
@@ -122,7 +128,7 @@
     <string name="home_greeting_super_late_5">Nočni in produktivni</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Viri popravkov</string>
-    <string name="sources_search">Preišči vire</string>
+    <string name="sources_search">Išči vire in popravke</string>
     <string name="sources_sort_title">Sortiraj vire popravkov</string>
     <string name="sources_sort_manual">Ročni vrstni red</string>
     <string name="sources_sort_manual_hint">Dolgo pritisnite vir, da ga ponovno uredite</string>
@@ -130,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Najprej najnovejše posodobitve virov</string>
     <string name="sources_sort_enabled_first">Omogočeni najprej</string>
     <string name="sources_sort_enabled_first_description">Prikaži aktivne vire pred onemogočenimi viri</string>
+    <string name="sources_patches_source_disabled_hint">Ta vir je onemogočen. Njegovi popravki so navedeni samo za referenco in se ne uporabijo</string>
     <string name="sources_management_open_in_browser">Odpri v brskalniku</string>
     <string name="sources_management_report_issue">Prijavi težavo</string>
     <string name="sources_management_failed_to_open_url">Ni mogoče odpreti URL</string>
+    <string name="sources_hidden_apps">Skrito za</string>
+    <string name="sources_hidden_apps_title">Aplikacije, skrite pred %1$s</string>
+    <string name="sources_hidden_apps_description">Tem aplikacijam ta vir ni na voljo, ko so popravljene. Vir sam ostane vklopljen za vse drugo.</string>
+    <string name="sources_hidden_apps_hint">Tapnite, da ta vir znova ponudite.</string>
     <string name="sources_management_prerelease_toggle">Pred-popravki</string>
     <string name="sources_management_prerelease_toggle_description">Prejmite zgodnji dostop do novih eksperimentalnih različic popravkov</string>
     <string name="sources_prerelease_warning_title">Omogoči pred-popravke?</string>
@@ -149,6 +160,8 @@
     <string name="sources_management_metadata_unavailable_hint_missing">Paketa s popravki ni bilo mogoče prenesti. Izvorni URL naslov je lahko napačen ali pa datoteka ne obstaja.</string>
     <string name="sources_management_outdated_manager_badge">Posodobite Morphe</string>
     <string name="sources_management_outdated_manager_hint">Ta vir je izdelan za popravek %1$s, vendar Morphe %2$s vključuje popravek %3$s. Posodobite Morphe za uporabo</string>
+    <string name="sources_management_held_back_badge">Zrušen</string>
+    <string name="sources_management_held_back_hint">Ta vir je med nalaganjem zrušil aplikacijo Morphe, zato je preskočen. Posodobite ga ali ga znova uvozite, da poskusite znova</string>
     <string name="sources_management_source_enabled">Vir omogočen</string>
     <string name="sources_management_source_disabled">Vir onemogočen</string>
     <string name="sources_management_source_updating">Posodabljanje vira</string>
@@ -193,6 +206,7 @@ Vse, kar dodate s tega spletišča, uporabljate na lastno odgovornost.  "</strin
     <string name="home_apk_availability_recommended_label">Priporočeno</string>
     <string name="home_apk_availability_unpatched_label">Nepopravljeno</string>
     <string name="home_apk_availability_incompatible_label">Nezdružljivo</string>
+    <string name="home_apk_availability_installed_version">Nameščeno na tej napravi: %s</string>
     <string name="home_apk_availability_yes">Da, pomagajte mi najti APK</string>
     <string name="home_apk_availability_no">Ne, že imam APK</string>
     <string name="home_apk_helper_download">Uporabi pomožni program</string>
@@ -324,6 +338,7 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="home_low_disk_space_dialog_message">Na voljo je samo %1$s GB prostega prostora. Za pravilno delovanje krpanja je potrebno vsaj %2$s GB prostega prostora.</string>
     <string name="home_low_disk_space_dialog_warning">Nadaljevanje lahko povzroči napako \"datoteka ni najdena\" ali pa okvarjeno izhodno APK</string>
     <string name="home_simple_bundle_select_title">Izberite vir popravkov</string>
+    <string name="home_simple_bundle_select_remember">Za to aplikacijo vedno uporabite ta vir.</string>
     <!-- Color picker -->
     <string name="custom_color">Prilagojena barva</string>
     <string name="hex_color">Šestnajstiška (hex) barva</string>
@@ -438,6 +453,10 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_install_type_shizuku_play_store">Namestitev prek Shizuku in Play Store</string>
     <string name="home_app_info_patch_update_available">Na voljo je posodobitev popravkov</string>
     <string name="home_app_info_patch_update_available_description">Na voljo je novejša različica popravkov. Popravite svojo aplikacijo, da pridobite najnovejše izboljšave in popravke.</string>
+    <string name="home_app_info_app_update_available">Na voljo je posodobitev aplikacije</string>
+    <string name="home_app_info_app_update_available_description">Viri popravkov podpirajo novejšo različico te aplikacije. Znova zaženi popravek, da se premaknete na to različico.</string>
+    <string name="home_app_info_newest_supported_version">Najnovejša podprta različica</string>
+    <string name="home_app_info_version_move">Nameščena različica %1$s, najnovejša podprta različica %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplikacija je bila odstranjena</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacija je bila odstranjena izven aplikacije Morphe. Ponovno jo popravite, da obnovite funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Nameščena je nepopravljena različica te aplikacije. Morphe še vedno ima svoj prejšnji zapis o popravku.</string>
@@ -535,6 +554,13 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_storage_permission_open_settings">Odpri nastavitve shrambe</string>
     <string name="patcher_storage_badge_denied">Dovoljenje zavrnjeno</string>
     <string name="patcher_storage_badge_missing">Ni bilo najdeno</string>
+    <string name="batch_patch_option_paths_skipped">Datoteke z možnostmi popravkov manjkajo in bodo preskočene: %1$s</string>
+    <string name="patcher_missing_patches_title">Nekateri popravki so izginili.</string>
+    <string name="patcher_missing_patches_description">Shranjena izbira za to aplikacijo navaja popravke, ki jih noben omogočen vir ne ponuja več. Če nadaljujete, bo aplikacija popravljena brez njih.</string>
+    <string name="patcher_missing_patches_label">Ni več na voljo.</string>
+    <string name="patcher_option_paths_gone_title">Datoteke z možnostmi popravkov manjkajo.</string>
+    <string name="patcher_option_paths_gone_description">Ena ali več možnosti popravkov kaže na datoteke, ki jih ni več. Odstranite poti, da popravite brez njih, ali vrnite datoteke nazaj in poskusite znova.</string>
+    <string name="patcher_option_paths_clear">Odstranite poti in nadaljujte.</string>
     <string name="patcher_storage_permission_hint">Namig: Premaknite datoteke v /Android/data/app.morphe.manager/files/ - dodatna dovoljenja niso potrebna</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Pripravljanje</string>
@@ -629,6 +655,12 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="mini_game_snake_swipe_to_start">Podrsajte za začetek</string>
     <string name="mini_game_dino_picker_subtitle">Tapnite, da preskočite kaktuse</string>
     <string name="mini_game_dino_tap_to_start">Tapnite za začetek teka</string>
+    <string name="mini_game_blocks_picker_subtitle">Sestavi oblike, počisti vrstice</string>
+    <string name="mini_game_blocks_tap_to_start">Dotakni se za vrtenje, povleci za premikanje, povleci navzdol za spust</string>
+    <string name="mini_game_bricks_picker_subtitle">Odbij žogo, podri steno</string>
+    <string name="mini_game_bricks_tap_to_start">Povleci za namerjanje, tapni za izstrelitev</string>
+    <string name="mini_game_miner_picker_subtitle">Dotakni se za odpiranje, drži za zastavico</string>
+    <string name="mini_game_pairs_picker_subtitle">Obrni kartice, poišči pare</string>
     <!-- Settings -->
     <string name="appearance">Izgled</string>
     <string name="advanced">Napredno</string>
@@ -798,6 +830,10 @@ Ta nastavitev ne vpliva na popravke: omogočite predizdajne popravke za vsak vir
     <string name="settings_advanced_patch_options_custom_branding_description">Spremeni ime aplikacije</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Ime aplikacije</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Vnesite prilagojeno ime</string>
+    <string name="settings_advanced_patch_options_path_gone">Te mape ni več mogoče prebrati. Znova jo izberite ali jo počistite, sicer se bo popravljanje ustavilo in vprašalo o tem.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Ikona aplikacije</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Ikona, s katero je aplikacija popravljena. Uporablja se tudi tam, kjer aplikacija te ikone pozneje ne more spremeniti, na primer v Android Auto in na seznamu aplikacij v sistemskih nastavitvah.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Ikona aplikacije po meri potrebuje mapo s slikami ikon.</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Prilagojena ikona</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Mapa s slikami za uporabo kot prilagojene ikone.
 
@@ -882,6 +918,8 @@ Dimenzije slike morajo biti naslednje:
     <string name="installer_action_open_shizuku">Odprite Shizuku</string>
     <string name="installer_hint_generic">Namestitev je zatajila. Poskusite znova ali preklopite na drug namestitveni program.</string>
     <string name="installer_hint_conflict">Aplikacija z istim imenom paketa je že nameščena. Preden nadaljujete, jo odstranite.</string>
+    <string name="installer_confirm_notification_title">Potrdi namestitev</string>
+    <string name="installer_confirm_notification_text">Tapnite za dokončanje namestitve popravljene aplikacije</string>
     <string name="installer_external_launched">Odpiranje %s…</string>
     <string name="installer_external_timeout">%s ni potrdil namestitve. Preverite drugo aplikacijo in poskusite znova</string>
     <string name="installer_external_success">%s je sporočil o uspešni namestitvi</string>
@@ -898,7 +936,7 @@ Dimenzije slike morajo biti naslednje:
     <string name="settings_prompt_installer_on_install">Poziv izbire namestitvenega programa</string>
     <string name="settings_prompt_installer_on_install_description">Prikaže pogovorno okno za izbiro namestitvenega programa vsakokrat, ko je nameščena popravljena aplikacija</string>
     <string name="settings_auto_install_with_shizuku">Samodejna namestitev po popravku</string>
-    <string name="settings_auto_install_with_shizuku_description">Tiho namesti popravljeni APK takoj po končanem popravljanju</string>
+    <string name="settings_auto_install_with_shizuku_description">Namesti popravljeni APK takoj, ko je krpanje končano</string>
     <string name="settings_auto_uninstall_with_shizuku">Samodejno odstranitev ob konfliktu</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Pri samodejni namestitvi s Shizuku najprej odstranite obstoječo aplikacijo, če Android poroča o konfliktu podpisov. To lahko odstrani podatke aplikacije.</string>
     <string name="settings_auto_uninstall_warning_title">Omogoči samodejno odstranitev?</string>
@@ -1212,6 +1250,8 @@ Podrobnosti: %2$s"</string>
     <string name="hidden">Skrito</string>
     <string name="unhide">Pokaži</string>
     <string name="unhide_done">Prikazano</string>
+    <string name="ignore">Prezri</string>
+    <string name="stop_ignoring">Prenehaj ignorirati</string>
     <string name="logs">Dnevnik</string>
     <string name="sources">Viri</string>
     <string name="installing_ellipsis">Nameščanje…</string>

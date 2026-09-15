@@ -67,11 +67,10 @@ Step-by-step walkthroughs with screenshots, covering patching in both modes, ins
 - Optional "Optimize for device architecture" mode - skips split APK modules for unsupported CPU architectures, locales, and screen densities during merge, and strips native libraries for unsupported architectures from plain APKs after patching
 - Sends a notification the moment patching finishes, so you don't have to keep the app open
 - Optional completion sound, with a distinct tone for success and failure
-- Optional auto-install with Shizuku right after patching completes
+- Optional auto-install right after patching completes, through Shizuku, or through the system installer where Android lets Morphe replace a build it installed itself
 - Batch patching - select several apps and patch them in one queue, with every question asked
   up front so the run never stops to wait for you
-- Optional automatic re-patching in the background when a patch source releases changes for
-  your apps, with silent progress and result notifications
+- A re-patch banner on the home screen when a patch source releases changes for your apps, counting them and queueing them all in one tap
 
 **Patch options** *(Simple mode: available in the Advanced tab; Expert mode: available on the patch selection screen)*
 - Custom app display name, launcher icon, and header logo per app, with built-in creators that generate every density variant for you
@@ -87,6 +86,7 @@ Step-by-step walkthroughs with screenshots, covering patching in both modes, ins
 
 **Installer**
 - Standard Android installer
+- Shizuku, Shizuku+ or Sui for installs with no confirmation dialog
 - Root installer with Magisk module support (mount-based, no data loss on update)
 - Play Store installer variants, so Google Play recognizes itself as the install source (with a warning about the trade-off - Play Store may then offer updates that would overwrite your patched build)
 - Any third-party installer apps detected on the system are also available as an option

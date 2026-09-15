@@ -82,7 +82,8 @@ internal fun MultiSelectBar(
     contextActionContentDescription: String? = null,
     contextActionColors: IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors(),
     onMoveToCategory: (() -> Unit)? = null,
-    onPatchSelected: (() -> Unit)? = null
+    onPatchSelected: (() -> Unit)? = null,
+    onPatchSources: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
 
@@ -100,6 +101,7 @@ internal fun MultiSelectBar(
     val deselectAllDone = stringResource(R.string.deselect_all_done)
     val selectedLabel = stringResource(R.string.selected).lowercase()
     val patchSelectedLabel = stringResource(R.string.batch_patch_action)
+    val patchSourcesLabel = stringResource(R.string.sources_management_title)
 
     val selection = rememberWhileVisible(
         visible,
@@ -197,6 +199,21 @@ internal fun MultiSelectBar(
                                 colors = IconButtonDefaults.filledTonalIconButtonColors(
                                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                )
+                            )
+                        }
+                        if (onPatchSources != null) {
+                            // Next to "Patch selected" rather than next to "Hide": both answer
+                            // what patching these apps does, while "Hide" is about this screen
+                            ActionPillButton(
+                                onClick = onPatchSources,
+                                icon = Icons.Outlined.Source,
+                                contentDescription = patchSourcesLabel,
+                                tooltip = patchSourcesLabel,
+                                enabled = selection.count > 0,
+                                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
                             )
                         }

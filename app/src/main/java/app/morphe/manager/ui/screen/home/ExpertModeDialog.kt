@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Source
+import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -29,6 +31,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -86,6 +89,9 @@ fun ExpertModeDialog(
     warnOnMultipleBundles: Boolean = true,
     /** Bundle UIDs currently receiving pre-release patch versions, shown as a warning header. */
     prereleaseBundleUids: Set<Int> = emptySet(),
+    /** Sources this app is being kept from, which the notice above the list offers back. */
+    hiddenSourceCount: Int = 0,
+    onShowHiddenSources: () -> Unit = {},
     onDismiss: () -> Unit,
     onProceed: () -> Unit
 ) {
@@ -130,23 +136,25 @@ fun ExpertModeDialog(
         }
     }
 
-    // The two filters stack: either can narrow what the other left
-    val filteredPatchesInfo = remember(allPatchesInfo, search.query, selectedOnly.value) {
-        val query = search.query.takeIf { it.isNotBlank() }
-        val onlySelected = selectedOnly.value
-        if (query == null && onlySelected == null) return@remember allPatchesInfo
-
-        allPatchesInfo.mapNotNull { (bundle, patches) ->
-            val kept = onlySelected?.get(bundle.uid).orEmpty()
-            val filtered = patches.filter { (patch, _) ->
-                val matchesQuery = query == null ||
-                        patch.displayName.contains(query, ignoreCase = true) ||
-                        patch.description?.contains(query, ignoreCase = true) == true
-                matchesQuery && (onlySelected == null || patch.name in kept)
+    // The two filters stack: either can narrow what the other left. Keyed by bundle and in bundle
+    // order, since every reader below already holds a bundle and asks only what it kept
+    val filteredPatchesByUid: Map<Int, List<Pair<PatchInfo, Boolean>>> =
+        remember(allPatchesInfo, search.query, selectedOnly.value) {
+            val query = search.query.takeIf { it.isNotBlank() }
+            val onlySelected = selectedOnly.value
+            if (query == null && onlySelected == null) {
+                return@remember allPatchesInfo.associate { (bundle, patches) -> bundle.uid to patches }
             }
-            if (filtered.isEmpty()) null else bundle to filtered
+
+            allPatchesInfo.mapNotNull { (bundle, patches) ->
+                val kept = onlySelected?.get(bundle.uid).orEmpty()
+                val filtered = patches.filter { (patch, _) ->
+                    val matchesQuery = query == null || patch.matchesQuery(query)
+                    matchesQuery && (onlySelected == null || patch.name in kept)
+                }
+                if (filtered.isEmpty()) null else bundle.uid to filtered
+            }.toMap()
         }
-    }
 
     // Both narrow the list far enough that a folded universal section would only hide results
     val isFiltering = search.isFiltering || isSelectedOnly
@@ -250,12 +258,28 @@ fun ExpertModeDialog(
                 )
             }
 
+            // Above the list rather than inside one source's page: what it counts is the sources
+            // that have no page here at all
+            if (hiddenSourceCount > 0) {
+                Notice(
+                    text = pluralStringResource(
+                        R.plurals.expert_mode_hidden_sources_notice,
+                        hiddenSourceCount,
+                        hiddenSourceCount.toString()
+                    ),
+                    icon = Icons.Outlined.VisibilityOff,
+                    tone = SemanticTone.Neutral,
+                    density = NoticeDensity.Compact,
+                    modifier = Modifier.clickable(onClick = onShowHiddenSources)
+                )
+            }
+
             // Layout mode is determined by total bundle count
             val hasMultipleBundleLayout = allPatchesInfo.size > 1
 
             if (!hasMultipleBundleLayout) {
                 val (bundle, _) = allPatchesInfo.firstOrNull() ?: return@Column
-                val filteredPatches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
+                val filteredPatches = filteredPatchesByUid[bundle.uid]
                 val displayPatches = filteredPatches ?: emptyList()
 
                 // Bundle name header
@@ -320,13 +344,32 @@ fun ExpertModeDialog(
                             modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
                         )
                     }
-
-                    PatchesListEmptyOverlay(visible = filteredPatches == null)
                 }
             } else {
                 // Multiple bundles tab layout
                 val pagerState = rememberPagerState { allPatchesInfo.size }
                 val coroutineScope = rememberCoroutineScope()
+
+                // A filter that empties the open bundle has narrowed every list but the one on
+                // screen, so the pager follows it to a bundle that kept rows. Only the filter is
+                // watched, which leaves a bundle opened by hand alone. One collector outlives
+                // every change too: an effect keyed on the filter would be torn down by the next
+                // keystroke, leaving the pager halfway between two bundles
+                val currentBundles = rememberUpdatedState(allPatchesInfo)
+                val currentFilter = rememberUpdatedState(filteredPatchesByUid)
+                LaunchedEffect(pagerState) {
+                    snapshotFlow { currentFilter.value }.collect { filter ->
+                        val bundles = currentBundles.value
+                        val openBundle = bundles.getOrNull(pagerState.currentPage)?.first ?: return@collect
+                        if (openBundle.uid in filter) return@collect
+
+                        val firstWithResults = filter.keys.firstOrNull() ?: return@collect
+                        bundles.indexOfFirst { it.first.uid == firstWithResults }
+                            .takeIf { it >= 0 }
+                            ?.let { pagerState.animateScrollToPage(it) }
+                    }
+                }
+
                 // Created up front, outside the pager, so the scrollbar overlay below can track
                 // whichever page is current. HorizontalPager clips each page to its own bounds, so
                 // a scrollbar drawn inside a page can never bleed out to the true dialog edge.
@@ -359,7 +402,7 @@ fun ExpertModeDialog(
                         contentColor = MaterialTheme.colorScheme.primary
                     ) {
                         allPatchesInfo.forEachIndexed { index, (bundle, patches) ->
-                            val hasResults = filteredPatchesInfo.any { it.first.uid == bundle.uid }
+                            val hasResults = bundle.uid in filteredPatchesByUid
                             val enabledCount = patches.count { it.second }
                             val totalCount = patches.size
                             val isSelected = pagerState.currentPage == index
@@ -405,7 +448,7 @@ fun ExpertModeDialog(
                     // Controls fixed below the tab row
                     val currentIndex = pagerState.currentPage
                     val (currentBundle, _) = allPatchesInfo.getOrNull(currentIndex) ?: return@Column
-                    val currentFiltered = filteredPatchesInfo.firstOrNull { it.first.uid == currentBundle.uid }?.second
+                    val currentFiltered = filteredPatchesByUid[currentBundle.uid]
 
                     RetirePrereleaseNotice(
                         bundleUid = currentBundle.uid.takeIf { it in prereleaseBundleUids },
@@ -436,23 +479,19 @@ fun ExpertModeDialog(
                             modifier = Modifier.fillMaxSize()
                         ) { pageIndex ->
                             val (bundle, _) = allPatchesInfo.getOrNull(pageIndex) ?: return@HorizontalPager
-                            val patches = filteredPatchesInfo.firstOrNull { it.first.uid == bundle.uid }?.second
+                            val patches = filteredPatchesByUid[bundle.uid]
 
-                            Box(modifier = Modifier.fillMaxSize()) {
-                                BundlePatchList(
-                                    bundle = bundle,
-                                    patches = patches.orEmpty(),
-                                    listState = pageListStates[pageIndex],
-                                    markers = markers,
-                                    isFiltering = isFiltering,
-                                    sectionState = patchSections,
-                                    lockStateOf = lockStateOf,
-                                    patchActions = patchActions,
-                                    onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
-                                )
-
-                                PatchesListEmptyOverlay(visible = patches == null)
-                            }
+                            BundlePatchList(
+                                bundle = bundle,
+                                patches = patches.orEmpty(),
+                                listState = pageListStates[pageIndex],
+                                markers = markers,
+                                isFiltering = isFiltering,
+                                sectionState = patchSections,
+                                lockStateOf = lockStateOf,
+                                patchActions = patchActions,
+                                onConfigureOptions = { selectedPatchForOptions.value = bundle.uid to it }
+                            )
                         }
 
                         // Single overlay for the whole pager, tracking whichever page is current,
@@ -460,7 +499,7 @@ fun ExpertModeDialog(
                         // pager before it could reach the true dialog edge. Pages filtered down to
                         // an empty state have nothing to scroll, so they get no overlay
                         val currentPageList = allPatchesInfo.getOrNull(pagerState.currentPage)
-                            ?.takeIf { (bundle, _) -> filteredPatchesInfo.any { it.first.uid == bundle.uid } }
+                            ?.takeIf { (bundle, _) -> bundle.uid in filteredPatchesByUid }
                             ?.let { pageListStates.getOrNull(pagerState.currentPage) }
                         if (currentPageList != null) {
                             ListScrollbar(
@@ -528,21 +567,6 @@ fun ExpertModeDialog(
                 selectedPatchForOptions.value = null
             }
         )
-    }
-}
-
-/**
- * Empty state fading in over the list it stands in for, so a filter that clears a page settles
- * instead of swapping the two in one frame.
- */
-@Composable
-private fun PatchesListEmptyOverlay(visible: Boolean) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = Animations.fadeIn,
-        exit = Animations.fadeOut
-    ) {
-        PatchesListEmptyState()
     }
 }
 
@@ -686,6 +710,14 @@ private fun BundlePatchList(
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
         if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()
+
+        // Kept in the list rather than laid over it, so the message holds its place under a notice
+        // and an opening keyboard shortens the surrounding page instead of moving it
+        if (ordered.isEmpty()) {
+            item(key = "empty_state") {
+                PatchesListEmptyState(modifier = Modifier.animateItem())
+            }
+        }
 
         // Availability is resolved per patch, so a universal patch the installer requires or
         // rules out carries the same lock as an app-specific one

@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Aucune application masquée</string>
     <string name="home_app_hidden_apps_title">Applications masquées</string>
     <string name="home_app_hidden_apps_hint">Appuyez pour afficher</string>
+    <string name="home_app_patch_sources_description">Les sources laissées décochées ne sont pas proposées lorsque ces applications sont patchées, et leurs patchs ne rejoignent jamais une sélection d\'eux-mêmes. Chaque source reste activée pour toutes les autres applications</string>
+    <string name="home_app_patch_sources_mixed">Proposé à %1$s de %2$s</string>
+    <string name="home_app_patch_sources_covers">Possède des patchs pour %1$s de %2$s</string>
+    <string name="home_app_patch_sources_last">Chaque application a besoin d’au moins une source de patchs</string>
     <string name="android_11_bug_dialog_title">Bug Android 11</string>
     <string name="android_11_bug_dialog_description">L\'autorisation d\'installation de l\'application doit être accordée à l\'avance afin d\'éviter un bug dans le système Android 11 qui affectera négativement l\'expérience utilisateur</string>
     <string name="deep_link_add_source_title">Ajouter la source</string>
@@ -27,6 +31,8 @@
     <string name="home_metadata_errors_subtitle">Appuyez pour consulter les sources</string>
     <string name="home_outdated_manager_title">Morphe n\'est plus à jour</string>
     <string name="home_outdated_manager_subtitle">Certaines sources de patchs nécessitent une version plus récente</string>
+    <string name="home_held_back_title">Une source de patchs a fait planter Morphe</string>
+    <string name="home_held_back_subtitle">Elle a été ignorée afin que l\'application puisse démarrer. Appuyez pour examiner</string>
     <string name="home_metered_skipped_title">Mises à jour suspendues sur les données mobiles</string>
     <string name="home_metered_skipped_subtitle">Appuyez pour autoriser les mises à jour via les données mobiles</string>
     <string name="home_repatch_available_subtitle">Appuyez pour toutes les mettre dans la file d\'attente</string>
@@ -57,7 +63,7 @@
     <string name="home_app_sort_name_asc_description">Ordre alphabétique, A à Z</string>
     <string name="home_app_sort_name_desc_description">Ordre alphabétique inversé, Z à A</string>
     <string name="home_app_sort_updates_first">Mises à jour de patchs en premier</string>
-    <string name="home_app_sort_updates_first_description">Applications avec badge de mise à jour en premier, puis ordre recommandé</string>
+    <string name="home_app_sort_updates_first_description">Les applications avec les patchs les plus récents en premier, puis dans l\'ordre recommandé</string>
     <string name="home_app_sort_recently_patched">Récemment patchée</string>
     <string name="home_app_sort_recently_patched_description">Applications récemment patchées en premier</string>
     <string name="home_no_apps_title">Aucune application disponible</string>
@@ -122,7 +128,7 @@
     <string name="home_greeting_super_late_5">Nocturne et productif</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sources de patchs</string>
-    <string name="sources_search">Rechercher des sources</string>
+    <string name="sources_search">Rechercher des sources et des patchs</string>
     <string name="sources_sort_title">Trier les sources de patchs</string>
     <string name="sources_sort_manual">Ordre manuel</string>
     <string name="sources_sort_manual_hint">Appuyez longuement sur une source pour la réorganiser</string>
@@ -130,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Mises à jour des sources les plus récentes en premier</string>
     <string name="sources_sort_enabled_first">Activées en premier</string>
     <string name="sources_sort_enabled_first_description">Afficher les sources actives avant les sources désactivées</string>
+    <string name="sources_patches_source_disabled_hint">Cette source est désactivée. Ses patchs sont listés à titre de référence et ne sont pas appliqués</string>
     <string name="sources_management_open_in_browser">Ouvrir dans le navigateur</string>
     <string name="sources_management_report_issue">Signaler un problème</string>
     <string name="sources_management_failed_to_open_url">Échec de l\'ouverture de l\'URL</string>
+    <string name="sources_hidden_apps">Masquée pour</string>
+    <string name="sources_hidden_apps_title">Applications masquées de %1$s</string>
+    <string name="sources_hidden_apps_description">Ces applications ne se voient pas proposer cette source lorsqu\'elles sont patchées. La source elle-même reste activée pour tout le reste</string>
+    <string name="sources_hidden_apps_hint">Appuyez pour proposer à nouveau cette source</string>
     <string name="sources_management_prerelease_toggle">Patchs en préversion</string>
     <string name="sources_management_prerelease_toggle_description">Reçoit un accès anticipé aux nouvelles versions expérimentales des patchs</string>
     <string name="sources_prerelease_warning_title">Activer les patchs en préversion ?</string>
@@ -150,6 +161,8 @@
     <string name="sources_management_metadata_unavailable_hint_missing">Le bundle de patchs n\'a pas pu être téléchargé. L\'URL de la source est peut-être incorrecte ou le fichier n\'existe pas</string>
     <string name="sources_management_outdated_manager_badge">Mettre à jour Morphe</string>
     <string name="sources_management_outdated_manager_hint">Cette source est conçue pour le patcheur %1$s, mais Morphe %2$s inclut le patcher %3$s. Mettez Morphe à jour pour l\'utiliser</string>
+    <string name="sources_management_held_back_badge">A planté</string>
+    <string name="sources_management_held_back_hint">Cette source a fait planter Morphe lors du chargement, elle est donc ignorée. Mettez-la à jour ou réimportez-la pour réessayer.</string>
     <string name="sources_management_source_enabled">Source activée</string>
     <string name="sources_management_source_disabled">Source désactivée</string>
     <string name="sources_management_source_updating">Mise à jour de la source</string>
@@ -196,6 +209,7 @@ Tout ce que vous ajoutez depuis ce site web est utilisé à vos propres risques"
     <string name="home_apk_availability_recommended_label">Recommandé</string>
     <string name="home_apk_availability_unpatched_label">Non patchée</string>
     <string name="home_apk_availability_incompatible_label">Incompatible</string>
+    <string name="home_apk_availability_installed_version">Installé sur cet appareil : %s</string>
     <string name="home_apk_availability_yes">Oui, aidez-moi à trouver un APK</string>
     <string name="home_apk_availability_no">Non, j\'ai déjà un APK</string>
     <string name="home_apk_helper_download">Utiliser une application d\'assistance</string>
@@ -326,6 +340,7 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="home_low_disk_space_dialog_message">Seulement %1$s Go d\'espace de stockage libre sont disponibles. Le patching nécessite au moins %2$s Go d\'espace libre pour fonctionner correctement</string>
     <string name="home_low_disk_space_dialog_warning">Continuer peut entraîner une erreur \"fichier introuvable\" ou un APK corrompu</string>
     <string name="home_simple_bundle_select_title">Sélectionner une source de patchs</string>
+    <string name="home_simple_bundle_select_remember">Toujours utiliser cette source pour cette application</string>
     <!-- Color picker -->
     <string name="custom_color">Couleur personnalisée</string>
     <string name="hex_color">Couleur hexadécimale</string>
@@ -440,6 +455,10 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_install_type_shizuku_play_store">Installation via Shizuku depuis le Play Store</string>
     <string name="home_app_info_patch_update_available">Mise à jour de patchs disponible</string>
     <string name="home_app_info_patch_update_available_description">Une version plus récente des patchs est disponible. Re-patchez votre application pour bénéficier des dernières améliorations et corrections</string>
+    <string name="home_app_info_app_update_available">Mise à jour de l\'application disponible</string>
+    <string name="home_app_info_app_update_available_description">Les sources de patchs prennent en charge une version plus récente de cette application. Patchez à nouveau pour passer à cette version</string>
+    <string name="home_app_info_newest_supported_version">Dernière version prise en charge</string>
+    <string name="home_app_info_version_move">Version installée %1$s, dernière version prise en charge %2$s</string>
     <string name="home_app_info_app_deleted_warning">L\'application a été désinstallée</string>
     <string name="home_app_info_app_deleted_description">Cette application a été désinstallée en dehors de Morphe. Re-patchez-la pour restaurer les fonctionnalités
 </string>
@@ -538,6 +557,13 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_storage_permission_open_settings">Ouvrir les paramètres de stockage</string>
     <string name="patcher_storage_badge_denied">Autorisation refusée</string>
     <string name="patcher_storage_badge_missing">Introuvable</string>
+    <string name="batch_patch_option_paths_skipped">Les fichiers d’options de patch sont manquants et seront ignorés : %1$s</string>
+    <string name="patcher_missing_patches_title">Certains patchs ont disparu</string>
+    <string name="patcher_missing_patches_description">La sélection enregistrée pour cette application contient des patchs qu\'aucune source activée ne propose plus. Continuer appliquera les patchs à l\'application sans eux</string>
+    <string name="patcher_missing_patches_label">Plus proposé</string>
+    <string name="patcher_option_paths_gone_title">Les fichiers d\'options de patch sont manquants</string>
+    <string name="patcher_option_paths_gone_description">Une ou plusieurs options de patch pointent vers des fichiers qui ne sont plus présents. Supprimez les chemins pour patcher sans ces fichiers, ou remettez les fichiers en place et réessayez</string>
+    <string name="patcher_option_paths_clear">Supprimer les chemins et continuer</string>
     <string name="patcher_storage_permission_hint">Astuce : Déplacez les fichiers vers /Android/data/app.morphe.manager/files/ — aucune autorisation supplémentaire n\'est nécessaire</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Préparation</string>
@@ -632,6 +658,12 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="mini_game_snake_swipe_to_start">Balayez pour commencer</string>
     <string name="mini_game_dino_picker_subtitle">Touchez pour sauter par-dessus les cactus</string>
     <string name="mini_game_dino_tap_to_start">Touchez pour courir</string>
+    <string name="mini_game_blocks_picker_subtitle">Emboîtez les formes, effacez les lignes</string>
+    <string name="mini_game_blocks_tap_to_start">Touchez pour faire pivoter, faites glisser pour déplacer, faites glisser vers le bas pour déposer</string>
+    <string name="mini_game_bricks_picker_subtitle">Faites rebondir la balle, détruisez le mur</string>
+    <string name="mini_game_bricks_tap_to_start">Glissez pour viser, touchez pour lancer</string>
+    <string name="mini_game_miner_picker_subtitle">Touchez pour ouvrir, maintenez appuyé pour marquer</string>
+    <string name="mini_game_pairs_picker_subtitle">Retournez les cartes, trouvez la paire correspondante</string>
     <!-- Settings -->
     <string name="appearance">Apparence</string>
     <string name="advanced">Avancé</string>
@@ -801,6 +833,10 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <string name="settings_advanced_patch_options_custom_branding_description">Change le nom d\'affichage de l\'application</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Nom de l\'application</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Entrez un nom personnalisé</string>
+    <string name="settings_advanced_patch_options_path_gone">Ce dossier ne peut plus être lu. Sélectionnez-le à nouveau ou effacez-le, sinon le patching s\'arrêtera et vous demandera quoi faire</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Icône de l\'application</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">L\'icône avec laquelle l\'application est patchée. Elle est également utilisée là où l\'application ne peut pas la modifier ultérieurement, comme dans Android Auto et la liste des applications des paramètres du système</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">L\'icône personnalisée de l\'application nécessite un dossier contenant les images d\'icônes</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Icône personnalisée</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Dossier contenant les images à utiliser comme icône personnalisée.
 
@@ -887,6 +923,8 @@ Les dimensions des images doivent respecter les valeurs suivantes :
     <string name="installer_action_open_shizuku">Ouvrir Shizuku</string>
     <string name="installer_hint_generic">L\'installation a échoué. Réessayez ou choisissez un installateur différent</string>
     <string name="installer_hint_conflict">Une autre application portant ce nom de paquet est déjà installée. Désinstallez-la avant de continuer</string>
+    <string name="installer_confirm_notification_title">Confirmez l\'installation</string>
+    <string name="installer_confirm_notification_text">Appuyez pour terminer l\'installation de l\'application patchée</string>
     <string name="installer_external_launched">Ouverture de %s…</string>
     <string name="installer_external_timeout">%s n\'a pas confirmé l\'installation. Vérifiez l\'autre application et réessayez</string>
     <string name="installer_external_success">%s a signalé une installation réussie</string>
@@ -903,7 +941,7 @@ Les dimensions des images doivent respecter les valeurs suivantes :
     <string name="settings_prompt_installer_on_install">Invite de sélection de l\'installateur</string>
     <string name="settings_prompt_installer_on_install_description">Affiche la boîte de dialogue de sélection de l\'installateur à chaque installation d\'une application patchée</string>
     <string name="settings_auto_install_with_shizuku">Installer automatiquement après le patching</string>
-    <string name="settings_auto_install_with_shizuku_description">Installe silencieusement l\'APK patché dès que le patching est terminé</string>
+    <string name="settings_auto_install_with_shizuku_description">Installe l\'APK patché dès que le patching est terminé</string>
     <string name="settings_auto_uninstall_with_shizuku">Désinstallation automatique en cas de conflit</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Lors de l\'installation automatique avec Shizuku, désinstaller d\'abord l\'application existante si Android signale un conflit de signature. Cela peut supprimer les données de l\'application</string>
     <string name="settings_auto_uninstall_warning_title">Activer la désinstallation automatique ?</string>
@@ -955,9 +993,9 @@ Détails : %2$s"</string>
     <string name="settings_system_notifications_sound_default">Par défaut</string>
     <string name="settings_system_notifications_sound_picker_title">Choisissez la source sonore</string>
     <string name="settings_system_notifications_sound_pick_ringtone">Sons système</string>
-    <string name="settings_system_notifications_sound_pick_file">Choisir parmi les fichiers</string>
+    <string name="settings_system_notifications_sound_pick_file">Sélectionner parmi les fichiers</string>
     <string name="settings_system_notifications_sound_reset">Réinitialiser par défaut</string>
-    <string name="settings_system_notifications_ringtone_picker_title">Choisir une tonalité</string>
+    <string name="settings_system_notifications_ringtone_picker_title">Sélectionner une tonalité</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importer &amp; exporter</string>
     <string name="settings_system_keystore">Keystore</string>
@@ -1219,6 +1257,8 @@ Détails : %2$s"</string>
     <string name="hidden">Masqué</string>
     <string name="unhide">Afficher</string>
     <string name="unhide_done">Affiché</string>
+    <string name="ignore">Ignorer</string>
+    <string name="stop_ignoring">Ne plus ignorer</string>
     <string name="logs">Journaux</string>
     <string name="sources">Sources</string>
     <string name="installing_ellipsis">Installation…</string>

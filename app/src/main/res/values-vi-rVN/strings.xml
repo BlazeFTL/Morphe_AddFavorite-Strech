@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Không có ứng dụng nào đang ẩn</string>
     <string name="home_app_hidden_apps_title">Ứng dụng đã ẩn</string>
     <string name="home_app_hidden_apps_hint">Bấm để hiện lại</string>
+    <string name="home_app_patch_sources_description">Các nguồn không được chọn sẽ không được cung cấp khi các ứng dụng này được vá và các bản vá của chúng không bao giờ tự động tham gia vào lựa chọn. Mỗi nguồn vẫn bật cho mọi ứng dụng khác.</string>
+    <string name="home_app_patch_sources_mixed">Được cung cấp cho %1$s trong số %2$s</string>
+    <string name="home_app_patch_sources_covers">Có bản vá cho %1$s trong số %2$s</string>
+    <string name="home_app_patch_sources_last">Mọi ứng dụng cần một nguồn còn lại để vá từ đó</string>
     <string name="android_11_bug_dialog_title">Lỗi trên Android 11</string>
     <string name="android_11_bug_dialog_description">Vui lòng cấp quyền cài đặt ứng dụng không rõ nguồn gốc để tránh lỗi trên Android 11 có thể ảnh hưởng đến trải nghiệm</string>
     <string name="deep_link_add_source_title">Thêm nguồn</string>
@@ -27,6 +31,8 @@
     <string name="home_metadata_errors_subtitle">Bấm để xem nguồn</string>
     <string name="home_outdated_manager_title">Morphe đã quá cũ</string>
     <string name="home_outdated_manager_subtitle">Một số nguồn vá yêu cầu phiên bản Morphe mới hơn</string>
+    <string name="home_held_back_title">Một nguồn bản vá đã làm Morphe bị sập</string>
+    <string name="home_held_back_subtitle">Nguồn này đã bị bỏ qua để ứng dụng có thể khởi động. Nhấn để xem lại</string>
     <string name="home_metered_skipped_title">Tạm dừng cập nhật qua dữ liệu di động</string>
     <string name="home_metered_skipped_subtitle">Bấm để tiếp tục cập nhật qua dữ liệu di động</string>
     <string name="home_repatch_available_subtitle">Nhấn để xếp tất cả vào hàng đợi</string>
@@ -57,7 +63,7 @@
     <string name="home_app_sort_name_asc_description">Theo thứ tự bảng chữ cái, A đến Z</string>
     <string name="home_app_sort_name_desc_description">Đảo ngược theo thứ tự bảng chữ cái, Z đến A</string>
     <string name="home_app_sort_updates_first">Ưu tiên vá cập nhật</string>
-    <string name="home_app_sort_updates_first_description">Ưu tiên các ứng dụng cần cập nhật trước, sau đó theo thứ tự đề xuất</string>
+    <string name="home_app_sort_updates_first_description">Các ứng dụng có bản vá mới hơn trước, rồi theo thứ tự đề xuất</string>
     <string name="home_app_sort_recently_patched">Mới vá gần đây</string>
     <string name="home_app_sort_recently_patched_description">Các ứng dụng được vá gần đây nhất trước</string>
     <string name="home_no_apps_title">Không có ứng dụng nào có sẵn</string>
@@ -122,7 +128,7 @@
     <string name="home_greeting_super_late_5">Cú đêm năng suất thật đấy</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Nguồn vá</string>
-    <string name="sources_search">Tìm kiếm nguồn</string>
+    <string name="sources_search">Tìm kiếm nguồn và bản vá</string>
     <string name="sources_sort_title">Sắp xếp các nguồn vá</string>
     <string name="sources_sort_manual">Sắp xếp thủ công</string>
     <string name="sources_sort_manual_hint">Bấm giữ một nguồn để sắp xếp lại</string>
@@ -130,9 +136,14 @@
     <string name="sources_sort_last_updated_description">Ưu tiên cập nhật nguồn mới nhất trước</string>
     <string name="sources_sort_enabled_first">Ưu tiên đã kích hoạt trước</string>
     <string name="sources_sort_enabled_first_description">Hiển thị các nguồn đang hoạt động trước các nguồn đã bị vô hiệu hóa</string>
+    <string name="sources_patches_source_disabled_hint">Nguồn này đã bị tắt. Các bản vá của nó được liệt kê để tham khảo và không được áp dụng</string>
     <string name="sources_management_open_in_browser">Mở trong trình duyệt</string>
     <string name="sources_management_report_issue">Báo cáo sự cố</string>
     <string name="sources_management_failed_to_open_url">Không thể mở URL</string>
+    <string name="sources_hidden_apps">Đã ẩn cho</string>
+    <string name="sources_hidden_apps_title">Các ứng dụng bị ẩn khỏi %1$s</string>
+    <string name="sources_hidden_apps_description">Các ứng dụng này không được cung cấp nguồn này khi chúng được vá. Bản thân nguồn vẫn bật cho mọi thứ khác.</string>
+    <string name="sources_hidden_apps_hint">Chạm để cung cấp lại nguồn này</string>
     <string name="sources_management_prerelease_toggle">Bản vá phát hành trước</string>
     <string name="sources_management_prerelease_toggle_description">Trải nghiệm sớm các bản vá thử nghiệm mới</string>
     <string name="sources_prerelease_warning_title">Bật các bản vá trước khi phát hành?</string>
@@ -149,6 +160,8 @@
     <string name="sources_management_metadata_unavailable_hint_missing">Không thể tải gói vá. URL nguồn có thể không đúng hoặc file không tồn tại</string>
     <string name="sources_management_outdated_manager_badge">Cập nhật Morphe</string>
     <string name="sources_management_outdated_manager_hint">Nguồn vá này được xây dựng cho trình vá %1$s, nhưng Morphe %2$s chỉ có trình vá %3$s. Hãy cập nhật Morphe để sử dụng nguồn vá này</string>
+    <string name="sources_management_held_back_badge">Đã sập</string>
+    <string name="sources_management_held_back_hint">Nguồn này đã làm Morphe sập khi đang tải nên đang bị bỏ qua. Cập nhật hoặc nhập lại nguồn này để thử lại</string>
     <string name="sources_management_source_enabled">Nguồn đã bật</string>
     <string name="sources_management_source_disabled">Nguồn đã tắt</string>
     <string name="sources_management_source_updating">Đang cập nhật nguồn</string>
@@ -193,6 +206,7 @@ Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng
     <string name="home_apk_availability_recommended_label">Khuyên dùng</string>
     <string name="home_apk_availability_unpatched_label">Chưa vá</string>
     <string name="home_apk_availability_incompatible_label">Không tương thích</string>
+    <string name="home_apk_availability_installed_version">Đã cài đặt trên thiết bị này: %s</string>
     <string name="home_apk_availability_yes">Có, giúp tôi với</string>
     <string name="home_apk_availability_no">Không, tôi có APK rồi</string>
     <string name="home_apk_helper_download">Sử dụng một ứng dụng hỗ trợ</string>
@@ -324,6 +338,7 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="home_low_disk_space_dialog_message">Chỉ còn %1$s GB dung lượng trống. Quá trình vá cần ít nhất %2$s GB dung lượng trống để hoạt động chính xác.</string>
     <string name="home_low_disk_space_dialog_warning">Tiếp tục có thể dẫn đến lỗi \"không tìm thấy tệp\" hoặc vá ra apk bị hỏng</string>
     <string name="home_simple_bundle_select_title">Chọn nguồn vá</string>
+    <string name="home_simple_bundle_select_remember">Luôn sử dụng nguồn này cho ứng dụng này</string>
     <!-- Color picker -->
     <string name="custom_color">Tùy chỉnh màu</string>
     <string name="hex_color">Mã hex</string>
@@ -438,6 +453,10 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="home_app_info_install_type_shizuku_play_store">Cài đặt từ Cửa hàng Play (Shizuku)</string>
     <string name="home_app_info_patch_update_available"> Đã có bản vá mới</string>
     <string name="home_app_info_patch_update_available_description">Đã có bản vá mới. Hãy vá lại ứng dụng để áp dụng các cải tiến và bản sửa lỗi mới nhất</string>
+    <string name="home_app_info_app_update_available">Có bản cập nhật ứng dụng</string>
+    <string name="home_app_info_app_update_available_description">Các nguồn patch hỗ trợ phiên bản mới hơn của ứng dụng này. Hãy patch lại để chuyển sang phiên bản đó.</string>
+    <string name="home_app_info_newest_supported_version">Mới nhất được hỗ trợ</string>
+    <string name="home_app_info_version_move">Đã cài %1$s, mới nhất được hỗ trợ %2$s</string>
     <string name="home_app_info_app_deleted_warning">Ứng dụng đã bị gỡ cài đặt</string>
     <string name="home_app_info_app_deleted_description">Ứng dụng này đã bị gỡ bên ngoài Morphe. Hãy vá lại để khôi phục chức năng</string>
     <string name="home_app_info_not_patched_description">Một phiên bản chưa được vá của ứng dụng này đã được cài đặt. Morphe vẫn còn lưu bản ghi vá trước đó.</string>
@@ -537,6 +556,12 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_storage_permission_open_settings">Mở cài đặt truy cập bộ nhớ</string>
     <string name="patcher_storage_badge_denied">Quyền truy cập bị từ chối</string>
     <string name="patcher_storage_badge_missing">Không tìm thấy gì</string>
+    <string name="patcher_missing_patches_title">Không còn được cung cấp</string>
+    <string name="patcher_missing_patches_description">Các tệp tùy chọn vá bị thiếu</string>
+    <string name="patcher_missing_patches_label">Một hoặc nhiều tùy chọn vá trỏ đến các tệp không còn ở đó. Hãy xóa các đường dẫn để vá mà không có chúng, hoặc đặt lại các tệp và thử lại.</string>
+    <string name="patcher_option_paths_gone_title">Xóa các đường dẫn và tiếp tục</string>
+    <string name="patcher_option_paths_gone_description">Thư mục này không thể đọc được nữa. Hãy chọn lại thư mục hoặc xóa nó, nếu không quá trình vá sẽ dừng lại và hỏi về nó.</string>
+    <string name="patcher_option_paths_clear">Biểu tượng dùng để vá ứng dụng. Nó cũng được sử dụng ở những nơi mà ứng dụng không thể thay đổi nó sau này, chẳng hạn như Android Auto và danh sách ứng dụng trong cài đặt hệ thống.</string>
     <string name="patcher_storage_permission_hint">Gợi ý: Di chuyển tệp sang /Android/data/app.morphe.manager/files/ - sẽ không cần cấp thêm quyền truy cập</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Đang chuẩn bị</string>
@@ -631,6 +656,12 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="mini_game_snake_swipe_to_start">Vuốt để bắt đầu</string>
     <string name="mini_game_dino_picker_subtitle">Chạm để nhảy qua xương rồng</string>
     <string name="mini_game_dino_tap_to_start">Chạm để chạy</string>
+    <string name="mini_game_blocks_picker_subtitle">Ghép hình, xóa dòng</string>
+    <string name="mini_game_blocks_tap_to_start">Chạm để xoay, vuốt để di chuyển, vuốt xuống để thả</string>
+    <string name="mini_game_bricks_picker_subtitle">Bật bóng, phá tường</string>
+    <string name="mini_game_bricks_tap_to_start">Kéo để ngắm, chạm để bắn</string>
+    <string name="mini_game_miner_picker_subtitle">Chạm để mở, giữ để gắn cờ</string>
+    <string name="mini_game_pairs_picker_subtitle">Lật bài, tìm cặp giống nhau</string>
     <!-- Settings -->
     <string name="appearance">Giao diện</string>
     <string name="advanced">Nâng cao</string>
@@ -800,6 +831,8 @@ Các bản vá không bị ảnh hưởng: bật các bản vá trước khi ph�
     <string name="settings_advanced_patch_options_custom_branding_description">Đổi tên hiển thị của ứng dụng</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Tên ứng dụng</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Nhập tên tùy chỉnh</string>
+    <string name="settings_advanced_patch_options_path_gone">Biểu tượng ứng dụng tùy chỉnh cần một thư mục chứa hình ảnh biểu tượng.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Biểu tượng</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Biểu tượng tùy chỉnh</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Thư mục chứa ảnh dùng làm biểu tượng tuỳ chỉnh.
 
@@ -885,6 +918,8 @@ Kích thước hình ảnh yêu cầu:
     <string name="installer_action_open_shizuku">Mở Shizuku</string>
     <string name="installer_hint_generic">Không thể cài đặt. Thử lại hoặc đổi sang trình cài đặt khác</string>
     <string name="installer_hint_conflict">Đã cài đặt ứng dụng khác với cùng tên gói. Hãy gỡ cài ứng dụng đó trước khi tiếp tục</string>
+    <string name="installer_confirm_notification_title">Xác nhận cài đặt</string>
+    <string name="installer_confirm_notification_text">Chạm để hoàn tất cài đặt ứng dụng đã vá</string>
     <string name="installer_external_launched">Đang mở %s…</string>
     <string name="installer_external_timeout">%s không xác nhận cài đặt. Kiểm tra ứng dụng khác và thử lại</string>
     <string name="installer_external_success">%s báo đã cài đặt thành công</string>
@@ -903,7 +938,7 @@ Kết quả thực tế có thể khác nhau tùy theo phiên bản Android, ROM
     <string name="settings_prompt_installer_on_install">Hỏi chọn trình cài đặt</string>
     <string name="settings_prompt_installer_on_install_description">Luôn hiện hộp thoại chọn trình cài đặt khi cài ứng dụng đã vá</string>
     <string name="settings_auto_install_with_shizuku">Tự động cài đặt sau khi vá</string>
-    <string name="settings_auto_install_with_shizuku_description">Tự động cài đặt APK đã vá ngay sau khi quá trình vá hoàn tất</string>
+    <string name="settings_auto_install_with_shizuku_description">Cài đặt APK đã vá ngay khi quá trình vá hoàn tất</string>
     <string name="settings_auto_uninstall_with_shizuku">Tự động gỡ cài đặt khi có xung đột</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Khi tự động cài đặt bằng Shizuku, ứng dụng hiện có sẽ được gỡ ra trước nếu Android phát hiện xung đột chữ ký. Thao tác này có thể làm mất dữ liệu ứng dụng</string>
     <string name="settings_auto_uninstall_warning_title">Bật tính năng gỡ cài đặt tự động?</string>
@@ -1217,6 +1252,8 @@ Chi tiết: %2$s"</string>
     <string name="hidden">Ẩn</string>
     <string name="unhide">Hiện</string>
     <string name="unhide_done">Đã hiển thị</string>
+    <string name="ignore">Bỏ qua</string>
+    <string name="stop_ignoring">Dừng bỏ qua</string>
     <string name="logs">Nhật ký</string>
     <string name="sources">Nguồn</string>
     <string name="installing_ellipsis">Đang cài đặt…</string>

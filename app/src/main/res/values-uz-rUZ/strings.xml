@@ -55,7 +55,6 @@
     <string name="home_app_sort_name_asc_description">Aplikasi yang diinstal dan disematkan terlebih dahulu</string>
     <string name="home_app_sort_name_desc_description">Abjad, A sampai Z</string>
     <string name="home_app_sort_updates_first">Abjad terbalik, Z sampai A</string>
-    <string name="home_app_sort_updates_first_description">Prioritaskan pembaruan tambalan</string>
     <string name="home_app_sort_recently_patched">Yaqinda yangilangan</string>
     <string name="home_app_sort_recently_patched_description">Yaqinda yangilangan ilovalar birinchi</string>
     <string name="home_no_apps_title">Qo‘llab-quvvatlanadigan ilovalar yo‘q</string>
@@ -120,7 +119,6 @@
     <string name="home_greeting_super_late_5">Tunki va unumli</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Tuzatish manbalari</string>
-    <string name="sources_search">Manbalarni qidirish</string>
     <string name="sources_sort_title">Aplikasi dengan lencana pembaruan terlebih dahulu, lalu urutan yang direkomendasikan</string>
     <string name="sources_sort_manual">Pesanan manual</string>
     <string name="sources_sort_manual_hint">Tekan lama sumber untuk mengatur ulang</string>
@@ -861,7 +859,6 @@ Rasm o'lchamlari quyidagicha bo'lishi kerak:
     <string name="settings_prompt_installer_on_install">O‘rnatishni tanlash bosqichi</string>
     <string name="settings_prompt_installer_on_install_description">Har bir patchlangan ilova o‘rnatilgandan so‘ng o‘rnatishni tanlash dialogini ko‘rsatish</string>
     <string name="settings_auto_install_with_shizuku">Patchlashdan keyin avtomatik o\'rnatish</string>
-    <string name="settings_auto_install_with_shizuku_description">Patchlash tugagandan so\'ng APK avtomatik ravishda o\'rnatiladi</string>
     <string name="settings_auto_uninstall_with_shizuku">Ziddiyat yuzaga kelganda avtomatik ravishda o‘chirib tashlash</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Shizuku bilan avtomatik o‘rnatishda, agar Android imzo ziddiyati haqida xabar berarsa, mavjud ilovani avval o‘chirib tashlang. Bu ilova ma’lumotlarini o‘chirib tashlashi mumkin</string>
     <string name="settings_auto_uninstall_warning_title">Avtomatik o‘chirib tashlashni yoqish kerakmi?</string>

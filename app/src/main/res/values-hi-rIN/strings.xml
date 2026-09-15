@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">कोई छिपा ऐप नहीं</string>
     <string name="home_app_hidden_apps_title">छिपे हुए ऐप्स</string>
     <string name="home_app_hidden_apps_hint">छुपाने के लिए टैप करें</string>
+    <string name="home_app_patch_sources_description">जिन स्रोतों को बिना टिक किए छोड़ा गया है, जब इन ऐप्स को पैच किया जाता है तो वे पेश नहीं किए जाते, और उनके पैच कभी अपने आप किसी चयन में शामिल नहीं होते। हर दूसरे ऐप के लिए प्रत्येक स्रोत चालू रहता है।</string>
+    <string name="home_app_patch_sources_mixed">%2$s में से %1$s को पेश किया गया</string>
+    <string name="home_app_patch_sources_covers">%2$s में से %1$s के लिए पैच हैं</string>
+    <string name="home_app_patch_sources_last">हर ऐप के पास पैच करने के लिए एक स्रोत शेष होना चाहिए।</string>
     <string name="android_11_bug_dialog_title">एंड्रॉइड 11 बग</string>
     <string name="android_11_bug_dialog_description">एंड्रॉइड 11 सिस्टम में एक बग से बचने के लिए ऐप इंस्टॉलेशन की अनुमति समय से पहले दी जानी चाहिए जो उपयोगकर्ता अनुभव को नकारात्मक रूप से प्रभावित करेगी।</string>
     <string name="deep_link_add_source_title">स्रोत जोड़ें</string>
@@ -27,6 +31,8 @@
     <string name="home_metadata_errors_subtitle">स्रोतों की समीक्षा करने के लिए टैप करें</string>
     <string name="home_outdated_manager_title">Morphe पुरानी हो गई है</string>
     <string name="home_outdated_manager_subtitle">कुछ पैच स्रोतों को एक नए संस्करण की आवश्यकता है</string>
+    <string name="home_held_back_title">एक पैच स्रोत ने Morphe को क्रैश कर दिया</string>
+    <string name="home_held_back_subtitle">इसे छोड़ दिया गया ताकि ऐप शुरू हो सके। समीक्षा करने के लिए टैप करें</string>
     <string name="home_metered_skipped_title">मोबाइल डेटा पर अपडेट रोक दिए गए हैं</string>
     <string name="home_metered_skipped_subtitle">मोबाइल डेटा पर अपडेट की अनुमति देने के लिए टैप करें</string>
     <string name="home_repatch_available_subtitle">उन सभी को कतार में लगाने के लिए टैप करें</string>
@@ -57,7 +63,7 @@
     <string name="home_app_sort_name_asc_description">वर्णमाला क्रम में, A से Z तक</string>
     <string name="home_app_sort_name_desc_description">वर्णानुक्रम उल्टे, Z से A</string>
     <string name="home_app_sort_updates_first">पैच अपडेट पहले</string>
-    <string name="home_app_sort_updates_first_description">अपडेट बैज वाले ऐप्स पहले, फिर अनुशंसित क्रम में</string>
+    <string name="home_app_sort_updates_first_description">नए पैच वाले ऐप्स पहले, फिर अनुशंसित क्रम में</string>
     <string name="home_app_sort_recently_patched">हाल ही में पैच किया गया</string>
     <string name="home_app_sort_recently_patched_description">सबसे हाल ही में पैच किए गए ऐप्स पहले</string>
     <string name="home_no_apps_title">कोई ऐप्स उपलब्ध नहीं हैं</string>
@@ -122,7 +128,7 @@
     <string name="home_greeting_super_late_5">रात के समय और उत्पादक</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">पैच स्रोत</string>
-    <string name="sources_search">स्रोत खोजें</string>
+    <string name="sources_search">स्रोत और पैच खोजें</string>
     <string name="sources_sort_title">पैच स्रोत क्रमबद्ध करें</string>
     <string name="sources_sort_manual">मैन्युअल ऑर्डर</string>
     <string name="sources_sort_manual_hint">पुन:क्रमित करने के लिए किसी स्रोत को देर तक दबाएं</string>
@@ -130,9 +136,14 @@
     <string name="sources_sort_last_updated_description">नवीनतम स्रोत अपडेट पहले</string>
     <string name="sources_sort_enabled_first">सक्षम पहले</string>
     <string name="sources_sort_enabled_first_description">अक्षम स्रोतों से पहले सक्रिय स्रोत दिखाएं</string>
+    <string name="sources_patches_source_disabled_hint">यह स्रोत अक्षम है। इसके पैच केवल संदर्भ के लिए सूचीबद्ध हैं और लागू नहीं किए गए हैं।</string>
     <string name="sources_management_open_in_browser">खोल में खोल करना</string>
     <string name="sources_management_report_issue">समस्या की रिपोर्ट करें</string>
     <string name="sources_management_failed_to_open_url">URL खोलने में विफल रहा</string>
+    <string name="sources_hidden_apps">इनके लिए छिपाया गया</string>
+    <string name="sources_hidden_apps_title">%1$s से छिपाए गए ऐप्स</string>
+    <string name="sources_hidden_apps_description">ये ऐप्स पैच किए जाने पर इस स्रोत से ऑफ़र नहीं किए जाते। बाकी सबके लिए स्रोत खुद चालू रहता है।</string>
+    <string name="sources_hidden_apps_hint">इस स्रोत को फिर से उपलब्ध कराने के लिए टैप करें</string>
     <string name="sources_management_prerelease_toggle">प्री-रिलीज़ पैच</string>
     <string name="sources_management_prerelease_toggle_description">नए प्रायोगिक पैच संस्करणों तक जल्दी पहुँच प्राप्त करता है</string>
     <string name="sources_prerelease_warning_title">क्या प्री-रिलीज़ पैच सक्षम करें?</string>
@@ -149,6 +160,8 @@
     <string name="sources_management_metadata_unavailable_hint_missing">पैच बंडल डाउनलोड नहीं किया जा सका। स्रोत URL गलत हो सकता है या फ़ाइल मौजूद नहीं है</string>
     <string name="sources_management_outdated_manager_badge">Morphe को अपडेट करें</string>
     <string name="sources_management_outdated_manager_hint">यह स्रोत पैचर %1$s के लिए बनाया गया है, लेकिन Morphe %2$s में पैचर %3$s शामिल है। इसका उपयोग करने के लिए Morphe को अपडेट करें</string>
+    <string name="sources_management_held_back_badge">क्रैश हो गया</string>
+    <string name="sources_management_held_back_hint">यह स्रोत लोड करते समय Morphe को क्रैश कर दिया, इसलिए इसे छोड़ा जा रहा है। पुनः प्रयास करने के लिए इसे अपडेट करें या फिर से आयात करें</string>
     <string name="sources_management_source_enabled">स्रोत सक्षम किया गया</string>
     <string name="sources_management_source_disabled">स्रोत अक्षम किया गया</string>
     <string name="sources_management_source_updating">स्रोत अपडेट किया जा रहा है</string>
@@ -193,6 +206,7 @@
     <string name="home_apk_availability_recommended_label">सुझाया गया</string>
     <string name="home_apk_availability_unpatched_label">अपडेट किए बिना</string>
     <string name="home_apk_availability_incompatible_label">असंगत</string>
+    <string name="home_apk_availability_installed_version">इस डिवाइस पर स्थापित: %s</string>
     <string name="home_apk_availability_yes">हाँ, मुझे APK ढूंढने में मदद करें</string>
     <string name="home_apk_availability_no">नहीं, मेरे पास पहले से ही एक एपीके है</string>
     <string name="home_apk_helper_download">एक सहायक ऐप का उपयोग करें</string>
@@ -324,6 +338,7 @@
     <string name="home_low_disk_space_dialog_message">केवल %1$s GB खाली स्टोरेज उपलब्ध है। पैचिंग के लिए कम से कम %2$s GB खाली स्थान आवश्यक है।</string>
     <string name="home_low_disk_space_dialog_warning">आगे बढ़ने पर \"फ़ाइल नहीं मिली\" त्रुटि या करप्ट आउटपुट APK हो सकता है</string>
     <string name="home_simple_bundle_select_title">पैच स्रोत चुनें</string>
+    <string name="home_simple_bundle_select_remember">इस ऐप के लिए हमेशा इस स्रोत का उपयोग करें</string>
     <!-- Color picker -->
     <string name="custom_color">कस्टम रंग</string>
     <string name="hex_color">हेक्स रंग</string>
@@ -438,6 +453,10 @@
     <string name="home_app_info_install_type_shizuku_play_store">शिज़ुकू प्ले स्टोर से इंस्टॉल करें</string>
     <string name="home_app_info_patch_update_available">पैच अपडेट उपलब्ध है</string>
     <string name="home_app_info_patch_update_available_description">पथचों की नई संस्करण उपलब्ध है। अपने एप्लिकेशन को पुनः पथच करें नई सुधार और त्रुटि प्राप्त करने के लिए।</string>
+    <string name="home_app_info_app_update_available">ऐप अपडेट उपलब्ध</string>
+    <string name="home_app_info_app_update_available_description">पैच स्रोत इस ऐप के नए संस्करण का समर्थन करते हैं। उस संस्करण पर जाने के लिए इसे फिर से पैच करें।</string>
+    <string name="home_app_info_newest_supported_version">नवीनतम समर्थित</string>
+    <string name="home_app_info_version_move">इंस्टॉल किया गया %1$s, नवीनतम समर्थित %2$s</string>
     <string name="home_app_info_app_deleted_warning">एप्लिकेशन उन्मोदन किया गया</string>
     <string name="home_app_info_app_deleted_description">इस ऐप को बाहर से उन्मोदन किया गया था। मॉर्फी में पुनः स्थापित करें कार्यक्षमता पुनः प्राप्त करने के लिए</string>
     <string name="home_app_info_not_patched_description">इस ऐप का एक अनपैच्ड संस्करण स्थापित है। Morphe के पास अभी भी उसका पिछला पैच रिकॉर्ड है</string>
@@ -535,6 +554,13 @@
     <string name="patcher_storage_permission_open_settings">स्टोरेज सेटिंग्स खोलें</string>
     <string name="patcher_storage_badge_denied">पर्मिशन नकारा गया</string>
     <string name="patcher_storage_badge_missing">नहीं मिला</string>
+    <string name="batch_patch_option_paths_skipped">पैच विकल्प फ़ाइलें मौजूद नहीं हैं और छोड़ दी जाएँगी: %1$s</string>
+    <string name="patcher_missing_patches_title">कुछ पैच अब उपलब्ध नहीं हैं</string>
+    <string name="patcher_missing_patches_description">इस ऐप के लिए सहेजा गया चयन उन पैच को सूचीबद्ध करता है जिन्हें अब कोई सक्षम स्रोत प्रदान नहीं करता। आगे बढ़ने पर ऐप उनके बिना पैच किया जाएगा।</string>
+    <string name="patcher_missing_patches_label">अब उपलब्ध नहीं</string>
+    <string name="patcher_option_paths_gone_title">पैच विकल्प फ़ाइलें मौजूद नहीं हैं</string>
+    <string name="patcher_option_paths_gone_description">एक या अधिक पैच विकल्प ऐसी फ़ाइलों की ओर इशारा करते हैं जो अब मौजूद नहीं हैं। उनके बिना पैच करने के लिए पथ हटाएँ, या फ़ाइलें वापस रखकर फिर से प्रयास करें।</string>
+    <string name="patcher_option_paths_clear">पथ हटाएँ और जारी रखें</string>
     <string name="patcher_storage_permission_hint">टिप: फ़ाइलें /Android/data/app.morphe.manager/files/ में स्थानांतरित करें - अतिरिक्त पर्मिशन की आवश्यकता नहीं है</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">तैयार कर रहे हैं...</string>
@@ -629,6 +655,12 @@
     <string name="mini_game_snake_swipe_to_start">शुरू करने के लिए स्वाइप करें</string>
     <string name="mini_game_dino_picker_subtitle">कैक्टस के ऊपर कूदने के लिए टैप करें</string>
     <string name="mini_game_dino_tap_to_start">दौड़ने के लिए टैप करें</string>
+    <string name="mini_game_blocks_picker_subtitle">आकृतियों को मिलाएं, रेखाएँ साफ़ करें</string>
+    <string name="mini_game_blocks_tap_to_start">घुमाने के लिए टैप करें, स्थानांतरित करने के लिए स्वाइप करें, छोड़ने के लिए नीचे स्वाइप करें</string>
+    <string name="mini_game_bricks_picker_subtitle">गेंद को उछालें, दीवार साफ़ करें</string>
+    <string name="mini_game_bricks_tap_to_start">लक्ष्य के लिए खींचें, लॉन्च करने के लिए टैप करें</string>
+    <string name="mini_game_miner_picker_subtitle">खोलने के लिए टैप करें, झंडा लगाने के लिए दबाकर रखें</string>
+    <string name="mini_game_pairs_picker_subtitle">कार्ड पलटें, मिलान खोजें</string>
     <!-- Settings -->
     <string name="appearance">स्वरूप</string>
     <string name="advanced">उन्नत</string>
@@ -798,6 +830,10 @@
     <string name="settings_advanced_patch_options_custom_branding_description">ऐप का प्रदर्शन नाम बदलता है।</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">एप्लिकेशन आइकॉन फ़ोल्डर</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">कस्टम नाम दर्ज करें</string>
+    <string name="settings_advanced_patch_options_path_gone">यह फ़ोल्डर अब पढ़ा नहीं जा सकता। इसे फिर से चुनें या साफ़ करें, अन्यथा पैचिंग रुक जाएगी और इसके बारे में पूछा जाएगा।</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">ऐप आइकन</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">वह आइकन जिसके साथ ऐप पैच किया जाता है। इसका उपयोग उन जगहों पर भी किया जाता है जहाँ ऐप इसे बाद में नहीं बदल सकता, जैसे एंड्रॉइड ऑटो और सिस्टम सेटिंग में ऐप्स की सूची।</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">कस्टम ऐप आइकन के लिए आइकन इमेज वाला एक फ़ोल्डर आवश्यक है</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">कस्टम आइकॉन</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"कस्टम आइकन के रूप में उपयोग करने के लिए छवियों के साथ फ़ोल्डर।
 
@@ -882,6 +918,8 @@ morphe_header_custom_dark.png
     <string name="installer_action_open_shizuku">Open Shizuku</string>
     <string name="installer_hint_generic">इंस्टॉलेशन विफल रही. पुन: प्रयास करें या अलग इंस्टॉलर का उपयोग करें।</string>
     <string name="installer_hint_conflict">इस पैकेज नाम के साथ अन्य ऐप पहले से ही इंस्टॉल किया गया है. आगे बढ़ने से पहले इसे अनइंस्टॉल करें।</string>
+    <string name="installer_confirm_notification_title">इंस्टॉलेशन की पुष्टि करें</string>
+    <string name="installer_confirm_notification_text">पैच किए गए ऐप की इंस्टॉलेशन पूरी करने के लिए टैप करें</string>
     <string name="installer_external_launched">%s खोला जा रहा है</string>
     <string name="installer_external_timeout">%s ने स्थापना की पुष्टि नहीं की। दूसरे ऐप की जांच करें और फिर से प्रयास करें।</string>
     <string name="installer_external_success">%s ने सफल स्थापना की सूचना दी।</string>
@@ -898,7 +936,7 @@ morphe_header_custom_dark.png
     <string name="settings_prompt_installer_on_install">इंस्टॉलर चयन संकेत</string>
     <string name="settings_prompt_installer_on_install_description">जब भी पैच किए गए ऐप को इंस्टॉल किया जाता है, तो इंस्टॉलर चयन संवाद दिखाता है।</string>
     <string name="settings_auto_install_with_shizuku">पैचिंग के बाद स्वतः इंस्टॉल करें</string>
-    <string name="settings_auto_install_with_shizuku_description">पैचिंग पूरा होने के तुरंत बाद पैच्ड APK चुपचाप इंस्टॉल करता है</string>
+    <string name="settings_auto_install_with_shizuku_description">पैचिंग पूरी होते ही पैच किए गए APK को इंस्टॉल करता है</string>
     <string name="settings_auto_uninstall_with_shizuku">विवाद होने पर स्वतः अनइंस्टॉल करें</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Shizuku के साथ स्वतः इंस्टॉल करते समय, यदि Android हस्ताक्षर संघर्ष की रिपोर्ट करता है तो पहले मौजूदा ऐप को अनइंस्टॉल करें। यह ऐप डेटा को हटा सकता है</string>
     <string name="settings_auto_uninstall_warning_title">स्वतः अनइंस्टॉल सक्षम करें?</string>
@@ -1212,6 +1250,8 @@ morphe_header_custom_dark.png
     <string name="hidden">छिपा हुआ</string>
     <string name="unhide">अनहाइड करें</string>
     <string name="unhide_done">दिखाया गया</string>
+    <string name="ignore">अनदेखा करें</string>
+    <string name="stop_ignoring">अनदेखा करना बंद करें</string>
     <string name="logs">लॉग्स</string>
     <string name="sources">स्रोत</string>
     <string name="installing_ellipsis">इंस्टॉल हो रहा है…</string>

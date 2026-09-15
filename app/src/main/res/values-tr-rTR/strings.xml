@@ -13,6 +13,10 @@
     <string name="home_app_no_hidden">Gizli uygulama yok</string>
     <string name="home_app_hidden_apps_title">Gizli uygulamalar</string>
     <string name="home_app_hidden_apps_hint">Göstermek için dokunun</string>
+    <string name="home_app_patch_sources_description">İşaretlenmemiş bırakılan kaynaklar, bu uygulamalara yama uygulanırken sunulmaz ve yamaları asla kendi başına bir seçime dahil edilmez. Her kaynak, diğer tüm uygulamalar için seçili kalır.</string>
+    <string name="home_app_patch_sources_mixed">%2$s uygulamanın %1$s tanesine sunuluyor</string>
+    <string name="home_app_patch_sources_covers">%2$s uygulamanın %1$s tanesi için yamaları var</string>
+    <string name="home_app_patch_sources_last">Her uygulamanın yama alabileceği bir kaynak seçili bırakılmalıdır.</string>
     <string name="android_11_bug_dialog_title">Android 11 hatası</string>
     <string name="android_11_bug_dialog_description">Android 11\'de kullanıcı deneyimini olumsuz etkileyen bir sistem hatasını önlemek için uygulama yükleme izni önceden verilmelidir</string>
     <string name="deep_link_add_source_title">Kaynak ekleyin</string>
@@ -27,6 +31,8 @@
     <string name="home_metadata_errors_subtitle">Kaynakları incelemek için dokunun</string>
     <string name="home_outdated_manager_title">Morphe güncel değil</string>
     <string name="home_outdated_manager_subtitle">Bazı yama kaynaklarının daha yeni bir sürümü gerekiyor</string>
+    <string name="home_held_back_title">Bir yama kaynağı Morphe\'nin çökmesine neden oldu</string>
+    <string name="home_held_back_subtitle">Uygulamanın başlatılabilmesi için atlandı. İncelemek için dokunun</string>
     <string name="home_metered_skipped_title">Mobil veride güncellemeler duraklatıldı</string>
     <string name="home_metered_skipped_subtitle">Mobil veride güncellemeleri etkinleştirmek için dokunun</string>
     <string name="home_repatch_available_subtitle">Hepsini kuyruğa eklemek için dokunun</string>
@@ -57,7 +63,7 @@
     <string name="home_app_sort_name_asc_description">Alfabetik, A\'dan Z\'ye</string>
     <string name="home_app_sort_name_desc_description">Ters alfabetik, Z\'den A\'ya</string>
     <string name="home_app_sort_updates_first">Önce yama güncellemeleri</string>
-    <string name="home_app_sort_updates_first_description">Önce güncelleme rozeti olan uygulamalar, ardından önerilen sıra</string>
+    <string name="home_app_sort_updates_first_description">Yamaları daha yeni olan uygulamalar önce, sonra önerilen sıra</string>
     <string name="home_app_sort_recently_patched">Son yamalanan</string>
     <string name="home_app_sort_recently_patched_description">En son yamalanan uygulamalar önce</string>
     <string name="home_no_apps_title">Uygulama bulunamadı</string>
@@ -122,7 +128,7 @@
     <string name="home_greeting_super_late_5">Gececi ve üretken</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Yama kaynakları</string>
-    <string name="sources_search">Kaynakları Ara</string>
+    <string name="sources_search">Kaynakları ve yamaları ara</string>
     <string name="sources_sort_title">Yama kaynaklarını sırala</string>
     <string name="sources_sort_manual">Manuel sıra</string>
     <string name="sources_sort_manual_hint">Yeniden sıralamak için bir kaynağa uzun basın</string>
@@ -130,9 +136,11 @@
     <string name="sources_sort_last_updated_description">Önce en yeni kaynak güncellemeleri</string>
     <string name="sources_sort_enabled_first">Önce ekin olanlar</string>
     <string name="sources_sort_enabled_first_description">Etkin kaynakları devre dışı kaynaklardan önce göster</string>
+    <string name="sources_patches_source_disabled_hint">Bu kaynak devre dışı. Yamaları referans için listelenmiştir ve uygulanmaz</string>
     <string name="sources_management_open_in_browser">Tarayıcıda aç</string>
     <string name="sources_management_report_issue">Sorun bildir</string>
     <string name="sources_management_failed_to_open_url">URL açılamadı</string>
+    <string name="sources_hidden_apps">Gizli olduğu uygulamalar</string>
     <string name="sources_management_prerelease_toggle">Ön sürüm yamalar</string>
     <string name="sources_management_prerelease_toggle_description">Yeni deneysel sürüm yamalarına erken erişim sağlar</string>
     <string name="sources_prerelease_warning_title">Ön sürüm yamalarını etkinleştir?</string>
@@ -149,6 +157,8 @@
     <string name="sources_management_metadata_unavailable_hint_missing">Yama paketi indirilemedi. Kaynak URL\'si yanlış olabilir veya dosya mevcut olmayabilir</string>
     <string name="sources_management_outdated_manager_badge">Morphe\'yi güncelleyin</string>
     <string name="sources_management_outdated_manager_hint">Bu kaynak, %1$s yama programı için oluşturulmuş, ancak Morphe %2$s, %3$s yama programını içeriyor. Bunu kullanmak için Morphe\'yi güncelleyin</string>
+    <string name="sources_management_held_back_badge">Çöktü</string>
+    <string name="sources_management_held_back_hint">Bu kaynak, yüklenirken Morphe\'nin çökmesine neden oldu; bu yüzden atlanıyor. Tekrar denemek için kaynağı güncelleyin veya yeniden içe aktarın.</string>
     <string name="sources_management_source_enabled">Kaynak etkin</string>
     <string name="sources_management_source_disabled">Kaynak devre dışı</string>
     <string name="sources_management_source_updating">Kaynak güncelleniyor</string>
@@ -193,6 +203,7 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="home_apk_availability_recommended_label">Önerilen</string>
     <string name="home_apk_availability_unpatched_label">Yamalanmamış</string>
     <string name="home_apk_availability_incompatible_label">Uyumsuz</string>
+    <string name="home_apk_availability_installed_version">Bu cihazda yüklü: %s</string>
     <string name="home_apk_availability_yes">Evet, APK bulmama yardım et</string>
     <string name="home_apk_availability_no">Hayır, bende APK var</string>
     <string name="home_apk_helper_download">Bir yardımcı uygulama kullanın</string>
@@ -438,6 +449,10 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="home_app_info_install_type_shizuku_play_store">Shizuku Play Store yükle</string>
     <string name="home_app_info_patch_update_available">Yama paketi güncellemesi mevcut</string>
     <string name="home_app_info_patch_update_available_description">Daha yeni sürüm yamalar mevcut. En son iyileştirmeleri ve düzeltmeleri almak için uygulamayı yeniden yamalayın</string>
+    <string name="home_app_info_app_update_available">Uygulama güncellemesi mevcut</string>
+    <string name="home_app_info_app_update_available_description">Yama kaynakları bu uygulamanın daha yeni bir sürümünü destekliyor. Bu sürüme geçmek için tekrar yama uygulayın</string>
+    <string name="home_app_info_newest_supported_version">Desteklenen en yeni sürüm</string>
+    <string name="home_app_info_version_move">Yüklü sürüm %1$s, desteklenen en yeni sürüm %2$s</string>
     <string name="home_app_info_app_deleted_warning">Uygulama kaldırıldı</string>
     <string name="home_app_info_app_deleted_description">Bu uygulama Morphe dışından kaldırıldı. İşlevselliği geri getirmek için yeniden yamalayın</string>
     <string name="home_app_info_not_patched_description">Bu uygulamanın yamalanmamış bir sürümü yüklü. Morphe hâlâ önceki yama kaydına sahiptir</string>
@@ -629,6 +644,12 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="mini_game_snake_swipe_to_start">Başlamak için kaydırın</string>
     <string name="mini_game_dino_picker_subtitle">Kaktüslerin üzerinden atlamak için dokun</string>
     <string name="mini_game_dino_tap_to_start">Koşmak için dokunun</string>
+    <string name="mini_game_blocks_picker_subtitle">Şekilleri yerleştir, çizgileri temizle</string>
+    <string name="mini_game_blocks_tap_to_start">Döndürmek için dokunun, taşımak için kaydırın, düşürmek için aşağı kaydırın</string>
+    <string name="mini_game_bricks_picker_subtitle">Topu sektir, duvarı yok et</string>
+    <string name="mini_game_bricks_tap_to_start">Nişan almak için sürükle, fırlatmak için dokun</string>
+    <string name="mini_game_miner_picker_subtitle">Açmak için dokunun, işaretlemek için basılı tutun</string>
+    <string name="mini_game_pairs_picker_subtitle">Kartları çevirin, eşleşeni bulun</string>
     <!-- Settings -->
     <string name="appearance">Görünüm</string>
     <string name="advanced">Gelişmiş</string>
@@ -796,6 +817,7 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="settings_advanced_patch_options_custom_branding_description">Görüntülenen uygulama adını değiştirir</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Uygulama adı</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Özel ad girin</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Uygulama simgesi</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Özel filtre</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Özel bir simge olarak kullanılacak görüntüleri içeren klasör.
 
@@ -880,6 +902,8 @@ Resim boyutları şu şekilde olmalıdır:
     <string name="installer_action_open_shizuku">Shizuku\'yu Aç</string>
     <string name="installer_hint_generic">Yükleme başarısız oldu. Tekrar deneyin veya farklı bir yükleyiciye geçin</string>
     <string name="installer_hint_conflict">Bu paket adıyla başka bir uygulama zaten yüklü. Devam etmeden önce onu kaldırın</string>
+    <string name="installer_confirm_notification_title">Yüklemeyi onaylayın</string>
+    <string name="installer_confirm_notification_text">Yamalı uygulamanın yüklenmesini tamamlamak için dokunun</string>
     <string name="installer_external_launched">%s açılıyor…</string>
     <string name="installer_external_timeout">%s yüklemeyi onaylamadı. Diğer uygulamayı kontrol edin ve tekrar deneyin</string>
     <string name="installer_external_success">%s yüklemenin başarılı olduğunu bildirdi</string>
@@ -896,7 +920,7 @@ Resim boyutları şu şekilde olmalıdır:
     <string name="settings_prompt_installer_on_install">Yükleyici seçimi istemi</string>
     <string name="settings_prompt_installer_on_install_description">Yamalanmış bir uygulama her yüklendiğinde yükleyici seçim penceresini gösterir</string>
     <string name="settings_auto_install_with_shizuku">Yamalama sonrası otomatik yükle</string>
-    <string name="settings_auto_install_with_shizuku_description">Yamalama tamamlanır tamamlanmaz yamalanmış APK\'yi sessizce yükler</string>
+    <string name="settings_auto_install_with_shizuku_description">Yamalama tamamlanır tamamlanmaz yamalı APK\'yı yükler.</string>
     <string name="settings_auto_uninstall_with_shizuku">Çakışma durumunda otomatik olarak kaldır</string>
     <string name="settings_auto_uninstall_with_shizuku_description">Shizuku ile otomatik yükleme yaparken, Android bir imza çakışması bildirirse mevcut uygulamayı önce kaldırın. Bu, uygulama verilerini kaldırabilir.</string>
     <string name="settings_auto_uninstall_warning_title">Otomatik kaldırmayı etkinleştir?</string>
@@ -1210,6 +1234,8 @@ Ayrıntılar: %2$s"</string>
     <string name="hidden">Gizlendi</string>
     <string name="unhide">Gizliliği kaldır</string>
     <string name="unhide_done">Gösterildi</string>
+    <string name="ignore">Yoksay</string>
+    <string name="stop_ignoring">Yok saymayı bırak</string>
     <string name="logs">Günlükler</string>
     <string name="sources">Kaynaklar</string>
     <string name="installing_ellipsis">Yükleniyor…</string>

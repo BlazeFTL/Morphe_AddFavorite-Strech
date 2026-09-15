@@ -118,7 +118,7 @@ internal fun rememberAccentCardColor(accentColor: Color?): Color? =
  *
  * A null [title] is the ungrouped remainder: it carries no header and is always drawn, which is
  * how a bundle that declares no categories keeps the plain list it has today. [key] is what the
- * fold state is stored under, so a block holds its fold while a search reorders the list around it.
+ * fold state is stored under, so a block holds its fold while a search reorders the surrounding list.
  */
 @Immutable
 internal data class PatchGroup<T>(

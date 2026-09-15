@@ -375,8 +375,9 @@ class HomeViewModel(
     // The unpatched version the device has right now: [pendingInstalledApkInfo] is dropped for a
     // version the patches do not target, which is exactly when the version itself is worth showing
     var pendingInstalledAppVersion by mutableStateOf<String?>(null)
-    // null = not yet loaded, true/false = loaded result
-    var pendingTargetAppInstalled by mutableStateOf<Boolean?>(null)
+    // Whether a mount install would have the app itself to overlay, which a patched build under
+    // the same package name is not. null = not yet loaded, true/false = loaded result
+    var pendingStockAppInstalled by mutableStateOf<Boolean?>(null)
 
     // Bundle update snackbar state
     var showBundleUpdateSnackbar by mutableStateOf(false)
@@ -2040,7 +2041,7 @@ class HomeViewModel(
         pendingSavedApkInfo = null
         pendingInstalledApkInfo = null
         pendingInstalledAppVersion = null
-        pendingTargetAppInstalled = null
+        pendingStockAppInstalled = null
     }
 
     private suspend fun showPatchDialogInternal(packageName: String) {
@@ -2126,7 +2127,7 @@ class HomeViewModel(
      * the flow itself allows: simple mode hides the button rather than the app behind it.
      */
     private fun applyInstalledAppSource(source: InstalledAppSource, offersApk: Boolean = true) {
-        pendingTargetAppInstalled = source.isInstalled
+        pendingStockAppInstalled = source.hasStockInstall
         pendingInstalledAppVersion = source.version
         pendingInstalledApkInfo = source.apk
             .takeIf { offersApk }
@@ -3429,7 +3430,7 @@ class HomeViewModel(
             fileType = apkFileType?.toHelperFileType(),
             // Mirrors processSelectedApp - only a required plain APK rules split archives out
             allowSplitArchive = !(apkFileType?.isApk == true && apkFileType.isRequired),
-            stockInstallRequired = usingMountInstall && pendingTargetAppInstalled != true,
+            stockInstallRequired = usingMountInstall && pendingStockAppInstalled != true,
             fallbackWebUrl = downloadUrlResolver.webSearchUrl(packageName, requestedVersion?.version)
         )
     }
@@ -3481,7 +3482,7 @@ class HomeViewModel(
         pendingSavedApkInfo = null
         pendingInstalledApkInfo = null
         pendingInstalledAppVersion = null
-        pendingTargetAppInstalled = null
+        pendingStockAppInstalled = null
         if (!keepSelectedApp) {
             pendingSelectedApp?.let { app ->
                 if (app is SelectedApp.Local && app.temporary) {

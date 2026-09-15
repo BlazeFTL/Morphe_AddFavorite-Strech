@@ -261,7 +261,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val installed: InstalledApkInfo?,
         /** The unpatched version on the device, even where [installed] is no source to patch from. */
         val installedVersion: String?,
-        val installedOnDevice: Boolean,
+        val hasStockInstall: Boolean,
         val selectedVersion: AppTarget?
     )
 
@@ -286,7 +286,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
                 // patches target: the two conditions the single-app flow puts on the button
                 installed = device.apk.takeIf { expertMode }.patchableBy(compatible),
                 installedVersion = device.version,
-                installedOnDevice = device.isInstalled,
+                hasStockInstall = device.hasStockInstall,
                 selectedVersion = recommended
             )
         }

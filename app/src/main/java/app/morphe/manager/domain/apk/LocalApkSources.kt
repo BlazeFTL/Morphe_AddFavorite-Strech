@@ -41,6 +41,19 @@ data class InstalledApkInfo(
     val isSplit: Boolean get() = splitPaths.isNotEmpty()
 }
 
+/**
+ * What the device itself holds for one app: whether it is installed, the archive behind it as a
+ * patching source, and the version it reports.
+ *
+ * [apk] and [version] are both withheld from a patched install, so neither the patcher nor the UI
+ * can take Morphe's own output for the app it was built from.
+ */
+data class InstalledAppSource(
+    val isInstalled: Boolean,
+    val apk: InstalledApkInfo? = null,
+    val version: String? = null
+)
+
 /** Whether an installed app has already been patched. */
 enum class InstalledPatchState {
     Patched,
@@ -164,30 +177,31 @@ class LocalApkSources(
     }
 
     /**
-     * Whether the app is installed and, if it is a single unpatched APK, its info.
+     * What the device offers for [packageName], resolved in one pass so every flow asks the
+     * patch state once.
      *
-     * The info is withheld when the installed app looks patched, because copying it would
-     * feed a patched build back into the patcher. When the certificate cannot be read the
-     * info is returned with [InstalledApkInfo.patchStateUnknown] so the caller can say the
+     * A patched install answers nothing: copying its APK would feed a patched build back into the
+     * patcher, and a patch that keeps the package name installs over the app it patched, so its
+     * version describes Morphe's own output rather than the app. When the certificate cannot be
+     * read the APK is returned with [InstalledApkInfo.patchStateUnknown] so the caller can say the
      * check did not happen rather than imply it passed.
      */
-    suspend fun installed(packageName: String): Pair<Boolean, InstalledApkInfo?> = try {
+    suspend fun installed(packageName: String): InstalledAppSource = try {
         val pkgInfo = pm.getPackageInfo(packageName)
+        val version = pkgInfo?.versionName?.takeUnless { it.isBlank() }
 
         if (pkgInfo == null) {
-            false to null
-        } else when (val patchState = patchState(packageName, pkgInfo.versionName)) {
-            InstalledPatchState.Patched -> true to null
+            InstalledAppSource(isInstalled = false)
+        } else when (val patchState = patchState(packageName, version)) {
+            InstalledPatchState.Patched -> InstalledAppSource(isInstalled = true)
 
             else -> {
                 val appInfo = pkgInfo.applicationInfo
                 val sourceDir = appInfo?.sourceDir?.takeIf { File(it).exists() }
-                val version = pkgInfo.versionName?.takeUnless { it.isBlank() }
-
-                if (sourceDir == null || version == null) {
-                    true to null
+                val apk = if (sourceDir == null || version == null) {
+                    null
                 } else {
-                    true to InstalledApkInfo(
+                    InstalledApkInfo(
                         version = version,
                         versionCode = pm.getVersionCode(pkgInfo),
                         apkPath = sourceDir,
@@ -195,20 +209,14 @@ class LocalApkSources(
                         patchStateUnknown = patchState == InstalledPatchState.Unknown
                     )
                 }
+
+                InstalledAppSource(isInstalled = true, apk = apk, version = version)
             }
         }
     } catch (e: Exception) {
         Log.e(tag, "Failed to load installed app info", e)
-        false to null
+        InstalledAppSource(isInstalled = false)
     }
-
-    /**
-     * The version the device has for [packageName], whatever the patches make of that APK.
-     * [installed] withholds its info for a version they do not target, which is the one case
-     * where the number is worth showing on its own.
-     */
-    fun installedVersion(packageName: String): String? =
-        pm.getPackageInfo(packageName)?.versionName?.takeUnless { it.isBlank() }
 
     /**
      * Identifies whether the package currently occupying a tracked app's package name is still

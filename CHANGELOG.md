@@ -1,3 +1,11 @@
+## [1.31.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.31.0...v1.31.1-dev.1) (2026-09-15)
+
+
+### Bug Fixes
+
+* Ask whether the stock app is there before requiring it for mount ([90730a1](https://github.com/MorpheApp/morphe-manager/commit/90730a156a43d9cf51a054f61778005278e2b2fa))
+* Stop reporting a patched install as the version on the device ([4c6436c](https://github.com/MorpheApp/morphe-manager/commit/4c6436c6ab3f56cb0bd0c502c1848cb4c9c357e0))
+
 # [1.31.0](https://github.com/MorpheApp/morphe-manager/compare/v1.30.0...v1.31.0) (2026-09-15)
 
 

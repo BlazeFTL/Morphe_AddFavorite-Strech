@@ -1,3 +1,10 @@
+# [1.32.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.31.1...v1.32.0-dev.1) (2026-09-17)
+
+
+### Features
+
+* Hide patch sources the filter left without results ([3fc2178](https://github.com/MorpheApp/morphe-manager/commit/3fc2178ff85dc652539724652c67b6cfffaea1b0))
+
 ## [1.31.1](https://github.com/MorpheApp/morphe-manager/compare/v1.31.0...v1.31.1) (2026-09-16)
 
 

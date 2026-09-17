@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.screen.shared.CardBorder
 import app.morphe.manager.ui.screen.shared.ThemedIcon
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
 import app.morphe.manager.util.formatMegabytes
@@ -245,7 +246,8 @@ fun AlertSnackbar(
                 onClick = onShowDetails,
                 colors = CardDefaults.cardColors(containerColor = colors.container),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(16.dp),
+                border = CardBorder.tinted(colors.content)
             ) {
                 Row(
                     modifier = Modifier
@@ -368,7 +370,8 @@ private fun BundleUpdateSnackbarContent(
             .padding(horizontal = 16.dp),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        border = CardBorder.tinted(contentColor)
     ) {
         Column {
             Row(

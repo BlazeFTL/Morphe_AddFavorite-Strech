@@ -1042,7 +1042,8 @@ private fun UnsupportedVersionWarningDialog(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp),
                         color = tone.container.copy(alpha = 0.3f),
-                        tonalElevation = 1.dp
+                        tonalElevation = 1.dp,
+                        border = CardBorder.tinted(tone.accent)
                     ) {
                         Row(
                             modifier = Modifier
@@ -1412,7 +1413,8 @@ private fun SelectableVersionListCard(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        tonalElevation = 1.dp
+        tonalElevation = 1.dp,
+        border = CardBorder.neutral
     ) {
         Column(modifier = Modifier.fillMaxWidth().selectableGroup()) {
             var lastBundleUid = -1
@@ -1593,7 +1595,8 @@ private fun VersionListCard(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
         color = containerColor,
-        tonalElevation = 1.dp
+        tonalElevation = 1.dp,
+        border = CardBorder.neutral
     ) {
         Column(
             modifier = Modifier

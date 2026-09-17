@@ -1,3 +1,10 @@
+# [1.32.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.1...v1.32.0-dev.2) (2026-09-17)
+
+
+### Features
+
+* Outline cards and unify patching screen spacing ([3e93c3f](https://github.com/MorpheApp/morphe-manager/commit/3e93c3f38b00f3f794dff324031fd09ae7128690))
+
 # [1.32.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.31.1...v1.32.0-dev.1) (2026-09-17)
 
 

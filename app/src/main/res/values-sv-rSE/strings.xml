@@ -16,7 +16,7 @@
     <string name="home_app_patch_sources_description">Källor som du lämnar omarkerade erbjuds inte när de här apparna modifieras, och deras tillägg läggs aldrig till i något urval på egen hand. Alla källor förblir aktiverade för alla andra appar</string>
     <string name="home_app_patch_sources_mixed">Erbjuds till %1$s av %2$s</string>
     <string name="home_app_patch_sources_covers">Har tillägg för %1$s av %2$s</string>
-    <string name="home_app_patch_sources_last">Varje app måste ha en källa kvar att modifieras med</string>
+    <string name="home_app_patch_sources_last">Alla appar måste ha en källa kvar att modifieras med</string>
     <string name="android_11_bug_dialog_title">Fel i Android 11</string>
     <string name="android_11_bug_dialog_description">Behörigheten för appinstallation måste beviljas i förväg för att undvika ett fel i Android 11-systemet som negativt påverkar användarupplevelsen</string>
     <string name="deep_link_add_source_title">Lägg till källa</string>

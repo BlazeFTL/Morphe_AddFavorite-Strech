@@ -2,7 +2,7 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">แอปอื่น ๆ</string>
-    <string name="home_other_apps_action">Select other apps</string>
+    <string name="home_other_apps_action">Select other app</string>
     <string name="home_not_patched_yet">ยังไม่ได้รับการแพตช์</string>
     <string name="home_unpatched_version_installed">ติดตั้งเวอร์ชันที่ไม่ได้รับการแพตช์แล้ว</string>
     <string name="home_unpatched_badge">ไม่ได้รับการแพตช์</string>

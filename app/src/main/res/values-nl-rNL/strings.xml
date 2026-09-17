@@ -554,6 +554,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_storage_permission_open_settings">Open opslaginstellingen</string>
     <string name="patcher_storage_badge_denied">Toestemming geweigerd</string>
     <string name="patcher_storage_badge_missing">Niet gevonden</string>
+    <string name="batch_patch_option_paths_skipped">Patchoptiebestanden ontbreken en worden overgeslagen: %1$s</string>
     <string name="patcher_missing_patches_title">Niet meer aangeboden</string>
     <string name="patcher_missing_patches_description">Patchoptiebestanden ontbreken</string>
     <string name="patcher_missing_patches_label">Een of meer patchopties verwijzen naar bestanden die er niet meer zijn. Verwijder de paden om zonder deze bestanden te patchen, of zet de bestanden terug en probeer het opnieuw.</string>

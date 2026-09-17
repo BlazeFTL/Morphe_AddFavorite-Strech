@@ -556,6 +556,11 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="patcher_storage_badge_missing">Nicht gefunden</string>
     <string name="batch_patch_option_paths_skipped">Patch-Optionsdateien fehlen und werden übersprungen: %1$s</string>
     <string name="patcher_missing_patches_title">Einige Patches sind nicht mehr vorhanden</string>
+    <string name="patcher_missing_patches_description">Die gespeicherte Auswahl für diese App nennt Patches, die keine aktivierte Quelle mehr anbietet. Wenn Sie fortfahren, wird die App ohne diese Patches gepatcht</string>
+    <string name="patcher_missing_patches_label">Nicht mehr angeboten</string>
+    <string name="patcher_option_paths_gone_title">Dateien der Patch-Optionen fehlen</string>
+    <string name="patcher_option_paths_gone_description">Eine oder mehrere Patch-Optionen verweisen auf Dateien, die nicht mehr vorhanden sind. Entfernen Sie die Pfade, um ohne sie zu patchen, oder legen Sie die Dateien zurück und versuchen Sie es erneut.</string>
+    <string name="patcher_option_paths_clear">Pfade entfernen und fortfahren</string>
     <string name="patcher_storage_permission_hint">Tipp: Verschiebe Dateien nach /Android/data/app.morphe.manager/files/ - keine zusätzlichen Berechtigungen erforderlich</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Wird vorbereitet</string>
@@ -825,7 +830,10 @@ Patches sind nicht betroffen: Aktivieren Sie Vorab-Patches für jede Quelle in d
     <string name="settings_advanced_patch_options_custom_branding_description">Ändert den Anzeigenamen der App</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">App-Name</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Benutzerdefinierten Namen eingeben</string>
+    <string name="settings_advanced_patch_options_path_gone">Dieser Ordner kann nicht mehr gelesen werden. Wählen Sie ihn erneut aus oder entfernen Sie den Pfad, andernfalls wird das Patchen angehalten und Sie werden danach gefragt.</string>
     <string name="settings_advanced_patch_options_custom_branding_app_icon">App-Icon</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Das Symbol, mit dem die App gepatcht wird. Es wird auch dort verwendet, wo die App es später nicht ändern kann, z. B. in Android Auto und in der App-Liste der Systemeinstellungen.</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Das benutzerdefinierte App-Symbol benötigt einen Ordner mit Symbolbildern</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Benutzerdefiniertes Icon</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Ordner mit Bildern, die als benutzerdefiniertes Icon verwendet werden sollen.
 

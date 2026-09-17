@@ -5,7 +5,7 @@
     <string name="home_other_apps_action">اختيار تطبيقات أخرى</string>
     <string name="home_not_patched_yet">لم يتم تعديله بعد</string>
     <string name="home_unpatched_version_installed">تم تثبيت إصدار غير معدل</string>
-    <string name="home_unpatched_badge">لم يتم تعديله</string>
+    <string name="home_unpatched_badge">غير معدل</string>
     <string name="home_no_patches_available">لا يوجد تعديلات متاحة</string>
     <string name="home_app_hide_title">إخفاء هذا التطبيق؟</string>
     <string name="home_app_hide_message">سيتم إخفاء هذا التطبيق من الشاشة الرئيسية. يمكنك استعادته لاحقًا من قائمة التطبيقات المخفية باستخدام الزر الموجود أسفل القائمة.</string>
@@ -13,7 +13,7 @@
     <string name="home_app_no_hidden">لا تطبيقات مخفية</string>
     <string name="home_app_hidden_apps_title">التطبيقات المخفية</string>
     <string name="home_app_hidden_apps_hint">انقر لإظهارها</string>
-    <string name="home_app_patch_sources_description">المصادر التي تُركت غير محددة لا تُقدَّم عند تعديل هذه التطبيقات، وتعديلاتها لا تنضم أبدًا إلى أي تحديد من تلقاء نفسها. يبقى كل مصدر مفعَّلًا لكل تطبيق آخر</string>
+    <string name="home_app_patch_sources_description">المصادر الغير محددة لا تُقدَّم عند تعديل هذه التطبيقات، وتعديلاتها لا تنضم أبدًا إلى أي تحديد من تلقاء نفسها. يبقى كل مصدر مفعَّلًا لكل تطبيق آخر</string>
     <string name="home_app_patch_sources_mixed">مقدَّمة إلى %1$s من %2$s</string>
     <string name="home_app_patch_sources_covers">لديه تعديلات لـ %1$s من %2$s</string>
     <string name="home_app_patch_sources_last">يحتاج كل تطبيق إلى مصدر واحد متبقٍّ للتعديل منه</string>

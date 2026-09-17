@@ -141,6 +141,9 @@
     <string name="sources_management_report_issue">Raportează o problemă</string>
     <string name="sources_management_failed_to_open_url">Eroarea la deschiderea URL-ului</string>
     <string name="sources_hidden_apps">Ascuns pentru</string>
+    <string name="sources_hidden_apps_title">Aplicații ascunse de la %1$s</string>
+    <string name="sources_hidden_apps_description">Acestor aplicații nu li se oferă această sursă atunci când sunt modificate. Sursa în sine rămâne activată pentru orice altceva.</string>
+    <string name="sources_hidden_apps_hint">Atingeți pentru a oferi din nou această sursă</string>
     <string name="sources_management_prerelease_toggle">Patch-uri pre-lansare</string>
     <string name="sources_management_prerelease_toggle_description">Primești acces anticipat la versiuni noi experimentale de patch-uri</string>
     <string name="sources_prerelease_warning_title">Activezi patch-urile de pre-lansare?</string>
@@ -335,6 +338,7 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="home_low_disk_space_dialog_message">Doar %1$s GB de stocare liberă disponibilă. Aplicarea patch-urilor necesită cel puțin %2$s GB de spațiu liber pentru a funcționa corect</string>
     <string name="home_low_disk_space_dialog_warning">Continuarea ar putea duce la o eroare \"fișierul nu a fost găsit\" sau la un APK de ieșire corupt</string>
     <string name="home_simple_bundle_select_title">Selectează fișierul cu patch-uri</string>
+    <string name="home_simple_bundle_select_remember">Folosiți întotdeauna această sursă pentru această aplicație</string>
     <!-- Color picker -->
     <string name="custom_color">Culoare personalizată</string>
     <string name="hex_color">Culoare hexazecimală</string>
@@ -550,6 +554,13 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_storage_permission_open_settings">Deschide setările de stocare</string>
     <string name="patcher_storage_badge_denied">Permisiune refuzată</string>
     <string name="patcher_storage_badge_missing">Nu s-a găsit</string>
+    <string name="batch_patch_option_paths_skipped">Fișierele de opțiuni pentru patch lipsesc și vor fi omise: %1$s</string>
+    <string name="patcher_missing_patches_title">Unele patch-uri au dispărut</string>
+    <string name="patcher_missing_patches_description">Selecția salvată pentru această aplicație se referă la patch-uri pe care nicio sursă activată nu le mai oferă. Continuarea va aplica patch-uri aplicației fără ele</string>
+    <string name="patcher_missing_patches_label">Nu mai sunt oferite</string>
+    <string name="patcher_option_paths_gone_title">Fișierele de opțiuni pentru patch lipsesc</string>
+    <string name="patcher_option_paths_gone_description">Una sau mai multe opțiuni de patch indică fișiere care nu mai există. Eliminați căile pentru a aplica patch-uri fără ele sau puneți la loc fișierele și încercați din nou</string>
+    <string name="patcher_option_paths_clear">Eliminați căile și continuați</string>
     <string name="patcher_storage_permission_hint">Sugestie: Mută fișierul în /Android/data/app.morphe.manager/files/ - nu sunt necesare alte permisiuni</string>
     <!-- Patcher Screen - Patcher Steps -->
     <string name="patcher_step_group_preparing">Pregătire</string>
@@ -818,7 +829,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_patch_options_custom_branding_description">Schimbă numele afișat al aplicației</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Numele aplicației</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Introduceți numele personalizat</string>
+    <string name="settings_advanced_patch_options_path_gone">Acest folder nu mai poate fi citit. Alegeți-l din nou sau goliți-l, altfel aplicarea de patch-uri se va opri și va întreba despre el</string>
     <string name="settings_advanced_patch_options_custom_branding_app_icon">Pictogramă aplicație</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Icoana cu care este patch-uită aplicația. Este utilizată și acolo unde aplicația nu o poate schimba ulterior, cum ar fi Android Auto și lista de aplicații din setările de sistem</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Icoana personalizată a aplicației necesită un folder cu imagini de icoane</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Pictogramă personalizată</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Folder cu imagini care să fie utilizate ca pictogramă personalizată.
 

@@ -195,6 +195,7 @@ class ManagerApplication : Application() {
             override fun onActivityStarted(activity: Activity) {}
             override fun onActivityResumed(activity: Activity) {
                 resumedActivityCount++
+                updateNotificationManager.cancelPatchingResultNotifications()
                 onReturnToForeground?.let {
                     onReturnToForeground = null
                     it()

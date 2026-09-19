@@ -9,6 +9,8 @@ import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -1157,18 +1159,25 @@ internal fun MainAppsSection(
                                 Modifier.fillMaxWidth()
                             }
                         ) {
+                            // Clears the action bar, plus itemSpacing for a consistent card gap.
+                            // Eased rather than switched, since a centered list that wraps its
+                            // content moves by half of it and would jump the cards
+                            val footerClearance by animateDpAsState(
+                                targetValue = if (isFooterSlotReserved) {
+                                    MultiSelectBarDefaults.ListClearance + itemSpacing
+                                } else {
+                                    0.dp
+                                },
+                                animationSpec = tween(Defaults.ANIMATION_DURATION, easing = FastOutSlowInEasing),
+                                label = "footerClearance"
+                            )
                             // Cached so the LazyColumn doesn't allocate a new PaddingValues on
                             // every recomposition (which can be per-frame under scroll)
-                            val listContentPadding = remember(horizontalPadding, itemSpacing, isFooterSlotReserved) {
+                            val listContentPadding = remember(horizontalPadding, footerClearance) {
                                 PaddingValues(
                                     start = horizontalPadding,
                                     end = horizontalPadding,
-                                    // Clears the action bar, plus itemSpacing for a consistent card gap
-                                    bottom = if (isFooterSlotReserved) {
-                                        MultiSelectBarDefaults.ListClearance + itemSpacing
-                                    } else {
-                                        0.dp
-                                    }
+                                    bottom = footerClearance
                                 )
                             }
                             val listArrangement = remember(itemSpacing, isGroupedAppView) {

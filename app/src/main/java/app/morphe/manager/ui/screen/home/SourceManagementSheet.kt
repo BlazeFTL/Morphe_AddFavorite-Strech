@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.home
 
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -665,8 +664,6 @@ private fun BundleManagementCard(
     val reportIssue = stringResource(R.string.sources_management_report_issue)
     val patchesLabel = stringResource(R.string.patches)
 
-    val context = LocalContext.current
-
     val isBlocked = blockedInfo != null
     val isEnabled = bundle.enabled && !isBlocked
     val hasMetadataError = metadataFetchError != null
@@ -1005,43 +1002,35 @@ private fun BundleManagementCard(
                                     if (bundle.enabled) R.string.disable else R.string.enable
                                 )
                                 val disableEnableDesc = disableEnableVerb + " " + bundle.displayTitle
-                                val disableToast = stringResource(
+                                val disableDone = stringResource(
                                     if (bundle.enabled) R.string.sources_management_source_disabled
                                     else R.string.sources_management_source_enabled
                                 )
 
-                                val disableIcon = if (bundle.enabled)
-                                    Icons.Outlined.Block
-                                else
-                                    Icons.Outlined.CheckCircle
-
-                                Crossfade(
-                                    targetState = disableIcon,
-                                    label = "disable_icon"
-                                ) { icon ->
-                                    // Disable button
-                                    ActionPillButton(
-                                        onClick = context.withToast(disableToast, onDisable),
-                                        icon = icon,
-                                        contentDescription = disableEnableDesc,
-                                        tooltip = disableEnableVerb,
-                                        enabled = !isBlocked
-                                    )
-                                }
+                                // Disable button
+                                ActionPillButton(
+                                    onClick = onDisable,
+                                    icon = if (bundle.enabled) Icons.Outlined.Block else Icons.Outlined.CheckCircle,
+                                    contentDescription = disableEnableDesc,
+                                    tooltip = disableEnableVerb,
+                                    confirmation = disableDone,
+                                    enabled = !isBlocked
+                                )
                             }
 
                             val isLocal = bundle is LocalPatchBundle
                             if (bundle is RemotePatchBundle || isLocal) {
                                 val updateVerb = stringResource(R.string.update)
                                 val updateDesc = updateVerb + " " + bundle.displayTitle
-                                val updateToast = stringResource(R.string.sources_management_source_updating)
+                                val updateStarted = stringResource(R.string.sources_management_source_updating)
                                 // Update button. A local source has nothing to fetch from, so it asks
                                 // for a replacement file instead and reports progress once one is picked
                                 ActionPillButton(
-                                    onClick = if (isLocal) onUpdate else context.withToast(updateToast, onUpdate),
+                                    onClick = onUpdate,
                                     icon = Icons.Outlined.Refresh,
                                     contentDescription = updateDesc,
                                     tooltip = updateVerb,
+                                    confirmation = updateStarted.takeUnless { isLocal },
                                     enabled = !isBlocked
                                 )
                             }

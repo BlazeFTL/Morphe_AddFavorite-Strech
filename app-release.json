@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-19T19:06:37",
-  "description": "# [1.32.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.2...v1.32.0-dev.3) (2026-09-19)\n\n\n### Bug Fixes\n\n* Cancel the leftover automatic re-patching schedule ([ddcecb3](https://github.com/MorpheApp/morphe-manager/commit/ddcecb3b5d3539cdb90fa354573a3ca251bd98b9))\n\n\n### Features\n\n* Choose which apps a patch source brings ([c1d8299](https://github.com/MorpheApp/morphe-manager/commit/c1d829925f79a667288e10d9dfed3abffb613f6f))\n* Clear patching result notifications when returning to the manager ([69b1023](https://github.com/MorpheApp/morphe-manager/commit/69b1023d3245713d7c15dd7a472658bda522e25e))\n* Confirm pill actions in place instead of with a toast ([b867cd9](https://github.com/MorpheApp/morphe-manager/commit/b867cd98442ab21438f6523f7858a605f6147d05))\n* Mark patching results with a distinct notification icon and color ([42eae15](https://github.com/MorpheApp/morphe-manager/commit/42eae150f864f347361d494df2b6d507642493c2))\n* Show a running or finished batch queue on the home screen ([78ba144](https://github.com/MorpheApp/morphe-manager/commit/78ba144c00874222923d8e2447fe0716d6460e38))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.3/morphe-manager-1.32.0-dev.3.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.3/morphe-manager-1.32.0-dev.3.apk.asc",
-  "version": "1.32.0-dev.3"
+  "created_at": "2026-09-19T21:34:36",
+  "description": "# [1.32.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.3...v1.32.0-dev.4) (2026-09-19)\n\n\n### Bug Fixes\n\n* Ease the home cards back when the selection bar closes ([230fa6e](https://github.com/MorpheApp/morphe-manager/commit/230fa6e7faffe4468b7b436ec1afedc3dc1faef1))\n* Name the apps of a disabled patch source ([97177fe](https://github.com/MorpheApp/morphe-manager/commit/97177fe97e1543097f68be016cf160a41982f795))\n\n\n### Features\n\n* Give the selection bar actions a row of their own ([0051d4b](https://github.com/MorpheApp/morphe-manager/commit/0051d4b7ff87eb8bdf4bcc9aaf8c8fdac9fde10d))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.4/morphe-manager-1.32.0-dev.4.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.4/morphe-manager-1.32.0-dev.4.apk.asc",
+  "version": "1.32.0-dev.4"
 }

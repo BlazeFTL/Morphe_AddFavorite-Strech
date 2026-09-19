@@ -28,6 +28,7 @@ import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.domain.apk.*
 import app.morphe.manager.domain.batch.BatchPatchCoordinator
+import app.morphe.manager.domain.batch.BatchRunState
 import app.morphe.manager.domain.batch.mergeNewlyAdded
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.asRemoteOrNull
@@ -991,6 +992,12 @@ class HomeViewModel(
 
     /** True while a batch queue is patching, so callers can explain why a start was ignored. */
     val batchPatchRunning: Boolean get() = batchPatchCoordinator.isRunning
+
+    /**
+     * The batch queue, which outlives its screen: a deep link or shortcut returns to home while
+     * it keeps patching, and home is then the only way back to it.
+     */
+    val batchRun: StateFlow<BatchRunState?> = batchPatchCoordinator.state
 
     /**
      * Guard entry-point for all patching flows.

@@ -77,7 +77,14 @@ class UpdateNotificationManager(private val context: Context) {
     fun showBatchCompletionNotification(patched: Int, failed: Int, skipped: Int) {
         val succeeded = patched > 0
         val notification = NotificationCompat.Builder(context, CHANNEL_PATCHER)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(
+                if (succeeded) R.drawable.ic_notification_done else R.drawable.ic_notification_failed
+            )
+            .setColor(
+                context.getColor(
+                    if (succeeded) R.color.notification_success else R.color.notification_failure
+                )
+            )
             .setContentTitle(
                 context.getString(
                     if (succeeded) R.string.patcher_complete_title else R.string.patcher_failed_title

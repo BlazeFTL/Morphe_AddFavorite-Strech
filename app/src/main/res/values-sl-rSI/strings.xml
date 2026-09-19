@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Prijavi težavo</string>
     <string name="sources_management_failed_to_open_url">Ni mogoče odpreti URL</string>
     <string name="sources_apps">Aplikacije</string>
+    <string name="sources_apps_title">Aplikacije iz %1$s</string>
+    <string name="sources_apps_description">Dotaknite se aplikacije, da jo izpustite iz tega vira ali jo vrnete, ali pa z dolgim dotikom izberite več. Aplikacija zapusti začetni zaslon, ko je noben vir ne prinaša več.</string>
+    <string name="sources_apps_brought">Prinaša ta vir</string>
+    <string name="sources_apps_left_out">Izpuščeno iz tega vira</string>
+    <string name="sources_apps_leave_out">Izpustite</string>
+    <string name="sources_apps_leave_out_done">Izpuščeno</string>
+    <string name="sources_apps_bring_back">Vrnite</string>
     <string name="sources_management_prerelease_toggle">Pred-popravki</string>
     <string name="sources_management_prerelease_toggle_description">Prejmite zgodnji dostop do novih eksperimentalnih različic popravkov</string>
     <string name="sources_prerelease_warning_title">Omogoči pred-popravke?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Spremeni datoteko</string>
     <string name="sources_dialog_preinstalled">Prednameščen</string>
     <string name="sources_dialog_community">Javni popravki</string>
+    <string name="sources_dialog_choose_apps">Izberite aplikacije</string>
+    <string name="sources_dialog_choose_apps_description">Izberite, katere aplikacije iz tega vira obdržati, ko se vir naloži.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Viri popravkov tretjih oseb</string>
     <string name="sources_dialog_community_notice_message">"Javne vire popravkov ustvarjajo in vzdržujejo njihovi avtorji. Morphe ne pregleduje niti ne preverja popravkov tretjih oseb in ni odgovoren za njihovo vsebino ali za to, kaj naredijo na vaši napravi.

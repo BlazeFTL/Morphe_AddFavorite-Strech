@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Nýlega uppfærð forrit fyrst</string>
     <string name="sources_management_failed_to_open_url">Ekki tókst að opna vefslóð</string>
     <string name="sources_apps">Forrit</string>
+    <string name="sources_apps_title">Forrit frá %1$s</string>
+    <string name="sources_apps_description">Snertu forrit til að undanskilja það frá þessum uppruna eða færa það aftur inn, eða haltu inni til að velja nokkur. Forrit hverfur af heimaskjánum þegar enginn uppruni færir það inn.</string>
+    <string name="sources_apps_brought">Fært inn af þessum uppruna</string>
+    <string name="sources_apps_left_out">Undanskilið frá þessum uppruna</string>
+    <string name="sources_apps_leave_out">Undanskilja</string>
+    <string name="sources_apps_leave_out_done">Undanskilið</string>
+    <string name="sources_apps_bring_back">Færa aftur inn</string>
     <string name="sources_management_prerelease_toggle">For úgáfur</string>
     <string name="sources_management_prerelease_toggle_description">Fáðu snemma aðgang að nýjum tilraunabreytingar útgáfum</string>
     <string name="sources_prerelease_warning_title">Tilkynna vandamál</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Breyta skrá</string>
     <string name="sources_dialog_preinstalled">Foruppsett</string>
     <string name="sources_dialog_community">Samfélagsplástrar</string>
+    <string name="sources_dialog_choose_apps">Veldu forrit</string>
+    <string name="sources_dialog_choose_apps_description">Veldu hver forrita upprunans sem þú vilt halda þegar hann hefur hlaðist.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Þriðja aðila plástrauppsprettur</string>
     <string name="sources_dialog_community_notice_message">"Samfélagsplástrauppsprettur eru gerðar og viðhaldnar af eigin höfundum þeirra. Morphe endurskoðar eða staðfestir ekki þriðja aðila plástra, og ber ekki ábyrgð á innihaldi þeirra eða því sem þeir gera á tækinu þínu.

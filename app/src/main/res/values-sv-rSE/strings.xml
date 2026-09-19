@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Rapportera ett problem</string>
     <string name="sources_management_failed_to_open_url">Det gick inte att öppna webbadressen</string>
     <string name="sources_apps">Appar</string>
+    <string name="sources_apps_title">Appar från %1$s</string>
+    <string name="sources_apps_description">Tryck på en app för att utesluta den från den här källan eller ta tillbaka den, eller tryck länge för att välja flera. En app lämnar startskärmen när ingen källa tar med den.</string>
+    <string name="sources_apps_brought">Tillhandahålls av den här källan</string>
+    <string name="sources_apps_left_out">Uteslutna från den här källan</string>
+    <string name="sources_apps_leave_out">Uteslut</string>
+    <string name="sources_apps_leave_out_done">Utesluten</string>
+    <string name="sources_apps_bring_back">Ta tillbaka</string>
     <string name="sources_management_prerelease_toggle">Förhandsversioner av tillägg</string>
     <string name="sources_management_prerelease_toggle_description">Får tidig åtkomst till nya experimentella tilläggsversioner</string>
     <string name="sources_prerelease_warning_title">Aktivera förhandsversioner av tillägg?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Byt fil</string>
     <string name="sources_dialog_preinstalled">Förinstallerad</string>
     <string name="sources_dialog_community">Tillägg från communityn</string>
+    <string name="sources_dialog_choose_apps">Välj appar</string>
+    <string name="sources_dialog_choose_apps_description">Välj vilka av dess appar du vill behålla när källan har laddats.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Tilläggskällor från tredje part</string>
     <string name="sources_dialog_community_notice_message">"Tilläggskällor från communityn skapas och underhålls av sina egna författare. Morphe varken granskar eller verifierar tillägg från tredje part och är inte ansvarig för deras innehåll eller vad de gör på din enhet.

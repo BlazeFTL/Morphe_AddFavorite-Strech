@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Hiba jelentése</string>
     <string name="sources_management_failed_to_open_url">Hiba történt az URL megnyitásakor</string>
     <string name="sources_apps">Alkalmazások</string>
+    <string name="sources_apps_title">%1$s alkalmazásai</string>
+    <string name="sources_apps_description">Koppintson egy alkalmazásra, hogy kihagyja ebből a forrásból, vagy visszahozza; hosszan lenyomva tartva többet is kiválaszthat. Egy alkalmazás lekerül a kezdőképernyőről, ha már egyetlen forrás sem hozza.</string>
+    <string name="sources_apps_brought">Ebből a forrásból származó</string>
+    <string name="sources_apps_left_out">Ebből a forrásból kihagyott</string>
+    <string name="sources_apps_leave_out">Kihagyás</string>
+    <string name="sources_apps_leave_out_done">Kihagyva</string>
+    <string name="sources_apps_bring_back">Visszahozás</string>
     <string name="sources_management_prerelease_toggle">Kiadás előtti javítások</string>
     <string name="sources_management_prerelease_toggle_description">Korai hozzáférés kísérleti új javításverziókhoz</string>
     <string name="sources_prerelease_warning_title">Előzetes javítások engedélyezése?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Fájl megváltoztatása</string>
     <string name="sources_dialog_preinstalled">Előretelepített</string>
     <string name="sources_dialog_community">Közösségi javítások</string>
+    <string name="sources_dialog_choose_apps">Alkalmazások kiválasztása</string>
+    <string name="sources_dialog_choose_apps_description">Válassza ki, hogy a forrás betöltése után mely alkalmazásait tartsa meg.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Harmadik féltől származó javításforrások</string>
     <string name="sources_dialog_community_notice_message">"A közösségi javításforrásokat saját szerzőik készítik és tartják karban. A Morphe nem vizsgálja felül és nem ellenőrzi a harmadik féltől származó javításokat, és nem felelős azok tartalmáért vagy azért, amit az eszközén tesznek.

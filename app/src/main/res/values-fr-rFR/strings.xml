@@ -142,12 +142,12 @@
     <string name="sources_management_failed_to_open_url">Échec de l\'ouverture de l\'URL</string>
     <string name="sources_apps">Applications</string>
     <string name="sources_apps_title">Applications de %1$s</string>
-    <string name="sources_apps_description">Touchez une application pour l\'exclure de cette source ou la réintégrer, ou appuyez longuement pour en sélectionner plusieurs. Une application quitte l\'écran d\'accueil dès qu\'aucune source ne la fournit.</string>
+    <string name="sources_apps_description">Appuyez sur une application pour l\'exclure de cette source ou la restaurer, ou appuyez longuement pour en sélectionner plusieurs. Une application disparaît de l\'écran d\'accueil lorsqu\'aucune source ne la fournit</string>
     <string name="sources_apps_brought">Fournies par cette source</string>
     <string name="sources_apps_left_out">Exclues de cette source</string>
     <string name="sources_apps_leave_out">Exclure</string>
-    <string name="sources_apps_leave_out_done">Exclue</string>
-    <string name="sources_apps_bring_back">Réintégrer</string>
+    <string name="sources_apps_leave_out_done">Exclues</string>
+    <string name="sources_apps_bring_back">Restaurer</string>
     <string name="sources_management_prerelease_toggle">Patchs en préversion</string>
     <string name="sources_management_prerelease_toggle_description">Reçoit un accès anticipé aux nouvelles versions expérimentales des patchs</string>
     <string name="sources_prerelease_warning_title">Activer les patchs en préversion ?</string>
@@ -193,7 +193,7 @@
     <string name="sources_dialog_preinstalled">Préinstallée</string>
     <string name="sources_dialog_community">Patchs communautaires</string>
     <string name="sources_dialog_choose_apps">Choisir des applications</string>
-    <string name="sources_dialog_choose_apps_description">Choisissez parmi ses applications celles à conserver une fois la source chargée.</string>
+    <string name="sources_dialog_choose_apps_description">Selectionnez les applications à conserver une fois la source chargée</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Sources de patchs tierces</string>
     <string name="sources_dialog_community_notice_message">"Les sources de patchs communautaires sont créées et maintenues par leurs propres auteurs. Morphe ne vérifie ni n'examine les patchs tiers et n'est pas responsable de leur contenu ni de leurs actions sur votre appareil.

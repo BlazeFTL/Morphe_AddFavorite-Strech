@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Rapporter et problem</string>
     <string name="sources_management_failed_to_open_url">Kunne ikke åpne linken</string>
     <string name="sources_apps">Apper</string>
+    <string name="sources_apps_title">Apper fra %1$s</string>
+    <string name="sources_apps_description">Trykk på en app for å utelate den fra denne kilden eller ta den inn igjen, eller trykk og hold for å velge flere. En app forsvinner fra startskjermen når ingen kilde lenger tar den inn.</string>
+    <string name="sources_apps_brought">Levert av denne kilden</string>
+    <string name="sources_apps_left_out">Utelatt fra denne kilden</string>
+    <string name="sources_apps_leave_out">Utelat</string>
+    <string name="sources_apps_leave_out_done">Utelatt</string>
+    <string name="sources_apps_bring_back">Ta inn igjen</string>
     <string name="sources_management_prerelease_toggle">Forhåndsutgitte patcher</string>
     <string name="sources_management_prerelease_toggle_description">Mottar tidlig tilgang til nye eksperimentelle patchversjoner</string>
     <string name="sources_prerelease_warning_title">Aktiver forhåndsutgitte patcher?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Endre fil</string>
     <string name="sources_dialog_preinstalled">Forhåndsinstallert</string>
     <string name="sources_dialog_community">Patcher fra fellesskapet</string>
+    <string name="sources_dialog_choose_apps">Velg apper</string>
+    <string name="sources_dialog_choose_apps_description">Velg hvilke av appene som skal beholdes når kilden er lastet.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Patch-kilder fra tredjepart</string>
     <string name="sources_dialog_community_notice_message">"Patch-kilder fra fellesskapet er laget og opprettholdes av deres egne skapere. Morphe verken gjennomgår eller verifiserer patcher fra tredjepart, og er ikke ansvarlig for innholdet eller virkningen de har på enheten din.

@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">รายงานปัญหา</string>
     <string name="sources_management_failed_to_open_url">ไม่สามารถเปิด URL ได้</string>
     <string name="sources_apps">แอป</string>
+    <string name="sources_apps_title">แอปจาก %1$s</string>
+    <string name="sources_apps_description">แตะที่แอปเพื่อแยกออกจากแหล่งข้อมูลนี้หรือนำกลับมา หรือกดค้างเพื่อเลือกหลายรายการ แอปจะออกจากหน้าจอหลักเมื่อไม่มีแหล่งข้อมูลใดนำแอปนั้นกลับมา</string>
+    <string name="sources_apps_brought">นำมาโดยแหล่งข้อมูลนี้</string>
+    <string name="sources_apps_left_out">ไม่รวมอยู่ในแหล่งข้อมูลนี้</string>
+    <string name="sources_apps_leave_out">แยกออก</string>
+    <string name="sources_apps_leave_out_done">แยกออกแล้ว</string>
+    <string name="sources_apps_bring_back">นำกลับมา</string>
     <string name="sources_management_prerelease_toggle">แพตช์ก่อนเปิดตัว</string>
     <string name="sources_management_prerelease_toggle_description">รับสิทธิ์เข้าถึงแพทช์ใหม่เวอร์ชันทดลองแต่เนิ่นๆ</string>
     <string name="sources_prerelease_warning_title">เปิดใช้แพตช์ก่อนเผยแพร่หรือไม่?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">เปลี่ยนไฟล์</string>
     <string name="sources_dialog_preinstalled">ติดตั้งล่วงหน้าแล้ว</string>
     <string name="sources_dialog_community">แพตช์ชุมชน</string>
+    <string name="sources_dialog_choose_apps">เลือกแอป</string>
+    <string name="sources_dialog_choose_apps_description">เลือกว่าจะเก็บแอปใดของแหล่งข้อมูลนี้ไว้เมื่อแหล่งข้อมูลโหลดเสร็จ</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">แหล่งแพตช์ของบุคคลที่สาม</string>
     <string name="sources_dialog_community_notice_message">"แหล่งที่มาแพตช์ชุมชนถูกสร้างและดูแลโดยผู้เขียนของตนเอง Morphe ไม่ได้ตรวจสอบหรือยืนยันแพตช์ของบุคคลที่สาม และไม่รับผิดชอบต่อเนื้อหาหรือสิ่งที่เกิดขึ้นกับอุปกรณ์ของคุณ

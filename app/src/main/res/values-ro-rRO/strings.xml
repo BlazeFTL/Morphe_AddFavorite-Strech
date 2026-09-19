@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Raportează o problemă</string>
     <string name="sources_management_failed_to_open_url">Eroarea la deschiderea URL-ului</string>
     <string name="sources_apps">Aplicații</string>
+    <string name="sources_apps_title">Aplicații de la %1$s</string>
+    <string name="sources_apps_description">Atingeți o aplicație pentru a o exclude din această sursă sau pentru a o readuce, sau apăsați lung pentru a selecta mai multe. O aplicație părăsește ecranul de pornire odată ce nicio sursă nu o aduce.</string>
+    <string name="sources_apps_brought">Aduse de această sursă</string>
+    <string name="sources_apps_left_out">Excluse din această sursă</string>
+    <string name="sources_apps_leave_out">Excludeți</string>
+    <string name="sources_apps_leave_out_done">Exclusă</string>
+    <string name="sources_apps_bring_back">Readuceți</string>
     <string name="sources_management_prerelease_toggle">Patch-uri pre-lansare</string>
     <string name="sources_management_prerelease_toggle_description">Primești acces anticipat la versiuni noi experimentale de patch-uri</string>
     <string name="sources_prerelease_warning_title">Activezi patch-urile de pre-lansare?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Schimbă fișierul</string>
     <string name="sources_dialog_preinstalled">Preinstalate</string>
     <string name="sources_dialog_community">Patch-uri comunitare</string>
+    <string name="sources_dialog_choose_apps">Alegeți aplicații</string>
+    <string name="sources_dialog_choose_apps_description">Alegeți pe care dintre aplicațiile sale să le păstrați după ce sursa s-a încărcat.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Surse de patch-uri terțe</string>
     <string name="sources_dialog_community_notice_message">"Sursele de patch-uri comunitare sunt create și întreținute de propriii autori. Morphe nu verifică sau validează patch-urile terțe și nu este responsabil pentru conținutul lor sau pentru ceea ce fac pe dispozitivul tău.

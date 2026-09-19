@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">समस्या की रिपोर्ट करें</string>
     <string name="sources_management_failed_to_open_url">URL खोलने में विफल रहा</string>
     <string name="sources_apps">ऐप्स</string>
+    <string name="sources_apps_title">%1$s से ऐप्स</string>
+    <string name="sources_apps_description">किसी ऐप को इस स्रोत से बाहर करने या वापस लाने के लिए टैप करें, या कई चुनने के लिए देर तक दबाएँ। जब कोई स्रोत किसी ऐप को नहीं लाता है, तो वह होम स्क्रीन से हट जाता है।</string>
+    <string name="sources_apps_brought">इस स्रोत द्वारा लाए गए</string>
+    <string name="sources_apps_left_out">इस स्रोत से बाहर किए गए</string>
+    <string name="sources_apps_leave_out">बाहर करें</string>
+    <string name="sources_apps_leave_out_done">बाहर किया गया</string>
+    <string name="sources_apps_bring_back">वापस लाएँ</string>
     <string name="sources_management_prerelease_toggle">प्री-रिलीज़ पैच</string>
     <string name="sources_management_prerelease_toggle_description">नए प्रायोगिक पैच संस्करणों तक जल्दी पहुँच प्राप्त करता है</string>
     <string name="sources_prerelease_warning_title">क्या प्री-रिलीज़ पैच सक्षम करें?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">फ़ाइल बदलें</string>
     <string name="sources_dialog_preinstalled">प्रिंस्टॉल किया गया</string>
     <string name="sources_dialog_community">समुदाय पैच</string>
+    <string name="sources_dialog_choose_apps">ऐप्स चुनें</string>
+    <string name="sources_dialog_choose_apps_description">जब स्रोत लोड हो जाए, तो चुनें कि इसके कौन से ऐप रखने हैं।</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">तृतीय-पक्ष पैच स्रोत</string>
     <string name="sources_dialog_community_notice_message">"समुदाय पैच स्रोत उनके स्वयं के लेखकों द्वारा बनाए और बनाए रखे जाते हैं। मॉर्फे तृतीय-पक्ष पैच की समीक्षा या सत्यापन नहीं करता है, और उनकी सामग्री या आपके डिवाइस पर उनके द्वारा किए जाने वाले कार्यों के लिए जिम्मेदार नहीं है।

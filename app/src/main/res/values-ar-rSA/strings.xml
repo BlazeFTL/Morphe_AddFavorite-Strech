@@ -142,7 +142,7 @@
     <string name="sources_management_failed_to_open_url">فشل في فتح الرابط</string>
     <string name="sources_apps">التطبيقات</string>
     <string name="sources_apps_title">تطبيقات من %1$s</string>
-    <string name="sources_apps_description">اضغط على تطبيق لاستبعاده من هذا المصدر أو لإعادته، أو اضغط مطولاً لتحديد عدة تطبيقات. تتم إزالته من الشاشة الرئيسية عندما لا يجلبه أي مصدر.</string>
+    <string name="sources_apps_description">انقر على تطبيق لاستبعاده من هذا المصدر أو لإعادته، أو اضغط مطولًا لتحديد عدة تطبيقات. تتم إزالته من الشاشة الرئيسية عندما لا يجلبه أي مصدر</string>
     <string name="sources_apps_brought">ما يجلبه هذا المصدر</string>
     <string name="sources_apps_left_out">المستبعدة من هذا المصدر</string>
     <string name="sources_apps_leave_out">استبعاد</string>
@@ -192,7 +192,7 @@
     <string name="sources_dialog_preinstalled">مثبتة مسبقًا</string>
     <string name="sources_dialog_community">تعديلات المجتمع</string>
     <string name="sources_dialog_choose_apps">اختيار التطبيقات</string>
-    <string name="sources_dialog_choose_apps_description">اختر أي تطبيقاته تريد الاحتفاظ بها بعد تحميل المصدر.</string>
+    <string name="sources_dialog_choose_apps_description">اختر أي تطبيقات تريد الاحتفاظ بها بعد تحميل المصدر</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">مصادر التعديل من طرف ثالث</string>
     <string name="sources_dialog_community_notice_message">"يتم إنشاء وصيانة مصادر تعديلات المجتمع بواسطة مؤلفيها أنفسهم. لا يقوم Morphe بمراجعة أو التحقق من التعديلات التي يقدمها طرف ثالث، ولا يتحمل أي مسؤولية عن محتواها أو عن تأثيرها على جهازك.

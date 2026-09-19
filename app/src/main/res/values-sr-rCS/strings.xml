@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Prijavi problem</string>
     <string name="sources_management_failed_to_open_url">Otvaranje URL-a nije uspelo</string>
     <string name="sources_apps">Aplikacije</string>
+    <string name="sources_apps_title">Aplikacije iz %1$s</string>
+    <string name="sources_apps_description">Dodirnite aplikaciju da biste je izostavili iz ovog izvora ili je vratili, ili dugo pritisnite da biste izabrali više njih. Aplikacija napušta početni ekran kada je nijedan izvor više ne donosi.</string>
+    <string name="sources_apps_brought">Donesene iz ovog izvora</string>
+    <string name="sources_apps_left_out">Izostavljene iz ovog izvora</string>
+    <string name="sources_apps_leave_out">Izostavite</string>
+    <string name="sources_apps_leave_out_done">Izostavljeno</string>
+    <string name="sources_apps_bring_back">Vratite</string>
     <string name="sources_management_prerelease_toggle">Zakrpe u predprodukciji</string>
     <string name="sources_management_prerelease_toggle_description">Dobija rani pristup novim eksperimentalnim verzijama zakrpa</string>
     <string name="sources_prerelease_warning_title">Omogući zakrpe za predizdanje?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Promeni fajl</string>
     <string name="sources_dialog_preinstalled">Preinstalirano</string>
     <string name="sources_dialog_community">Zakrpe zajednice</string>
+    <string name="sources_dialog_choose_apps">Izaberite aplikacije</string>
+    <string name="sources_dialog_choose_apps_description">Izaberite koje od njegovih aplikacija da zadržite nakon što se izvor učita.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Izvori zakrpa trećih strana</string>
     <string name="sources_dialog_community_notice_message">"Izvore zakrpa zajednice kreiraju i održavaju njihovi autori. Morphe ne pregleda niti verifikuje zakrpe trećih strana i nije odgovoran za njihov sadržaj ili za ono što rade na vašem uređaju.

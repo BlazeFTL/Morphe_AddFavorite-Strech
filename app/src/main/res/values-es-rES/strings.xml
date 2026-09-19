@@ -141,7 +141,13 @@
     <string name="sources_management_report_issue">Informar de un problema</string>
     <string name="sources_management_failed_to_open_url">No se pudo abrir la URL</string>
     <string name="sources_apps">Aplicaciones</string>
-    <string name="sources_apps_title">Apps de %1$s</string>
+    <string name="sources_apps_title">Aplicaciones de %1$s</string>
+    <string name="sources_apps_description">Pulsa una aplicación para excluirla de esta fuente o volver a incluirla, o mantén pulsado para seleccionar varias. Una aplicación desaparece de la pantalla de inicio cuando ninguna fuente la incluye</string>
+    <string name="sources_apps_brought">Aportada por esta fuente</string>
+    <string name="sources_apps_left_out">Excluida de esta fuente</string>
+    <string name="sources_apps_leave_out">Excluir</string>
+    <string name="sources_apps_leave_out_done">Excluida</string>
+    <string name="sources_apps_bring_back">Volver a incluir</string>
     <string name="sources_management_prerelease_toggle">Parches pre-lanzamiento</string>
     <string name="sources_management_prerelease_toggle_description">Recibe acceso anticipado a nuevas versiones experimentales de parches</string>
     <string name="sources_prerelease_warning_title">¿Activar parches pre-lanzamiento?</string>
@@ -185,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Cambiar archivo</string>
     <string name="sources_dialog_preinstalled">Preinstalado</string>
     <string name="sources_dialog_community">Parches de la comunidad</string>
+    <string name="sources_dialog_choose_apps">Seleccionar aplicaciones</string>
+    <string name="sources_dialog_choose_apps_description">Elige qué aplicaciones conservar una vez cargada la fuente</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Fuentes de parches de terceros</string>
     <string name="sources_dialog_community_notice_message">"Las fuentes de parches de la comunidad son creadas y mantenidas por sus propios autores. Morphe no revisa ni verifica los parches de terceros, y no se responsabiliza de su contenido ni de lo que hagan en tu dispositivo.

@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">問題を報告</string>
     <string name="sources_management_failed_to_open_url">URL を開けませんでした</string>
     <string name="sources_apps">アプリ</string>
+    <string name="sources_apps_title">「%1$s」のアプリ</string>
+    <string name="sources_apps_description">アプリをタップすると、このソースから除外したり元に戻したりできます。長押しすると複数選択できます。そのアプリを提供するソースがなくなると、ホーム画面から表示されなくなります。</string>
+    <string name="sources_apps_brought">このソースが提供するアプリ</string>
+    <string name="sources_apps_left_out">このソースから除外されたアプリ</string>
+    <string name="sources_apps_leave_out">除外</string>
+    <string name="sources_apps_leave_out_done">除外済み</string>
+    <string name="sources_apps_bring_back">元に戻す</string>
     <string name="sources_management_prerelease_toggle">プレリリース版のパッチを使用</string>
     <string name="sources_management_prerelease_toggle_description">実験的なバージョンのパッチを取得します</string>
     <string name="sources_prerelease_warning_title">プレリリース版パッチを有効にしますか？</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">ファイルを変更</string>
     <string name="sources_dialog_preinstalled">プリインストール</string>
     <string name="sources_dialog_community">コミュニティパッチ</string>
+    <string name="sources_dialog_choose_apps">アプリの選択</string>
+    <string name="sources_dialog_choose_apps_description">ソースが読み込まれたら、どのアプリを残すかを選択してください。</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">サードパーティのパッチソース</string>
     <string name="sources_dialog_community_notice_message">"コミュニティ パッチのソースコードは、それぞれの作者によって作成および維持されています。Morphe はサードパーティ製パッチの審査や検証を行っておらず、その内容やデバイス上での動作について一切責任を負いません。

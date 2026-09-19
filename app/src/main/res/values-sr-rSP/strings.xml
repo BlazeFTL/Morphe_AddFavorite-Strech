@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Пријави проблем</string>
     <string name="sources_management_failed_to_open_url">Неуспешно отварање URL адресе</string>
     <string name="sources_apps">Апликације</string>
+    <string name="sources_apps_title">Апликације из %1$s</string>
+    <string name="sources_apps_description">Додирните апликацију да је изоставите из овог извора или да је вратите, или дуго притисните да изаберете неколико. Апликација нестаје са почетног екрана када је ниједан извор не доноси.</string>
+    <string name="sources_apps_brought">Донето из овог извора</string>
+    <string name="sources_apps_left_out">Изостављено из овог извора</string>
+    <string name="sources_apps_leave_out">Изостави</string>
+    <string name="sources_apps_leave_out_done">Изостављено</string>
+    <string name="sources_apps_bring_back">Врати</string>
     <string name="sources_management_prerelease_toggle">Предвершајуће закрпе</string>
     <string name="sources_management_prerelease_toggle_description">Примање ране приступности новим експерименталним верзијама пача</string>
     <string name="sources_prerelease_warning_title">Омогући пре-издање закрпе?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Промени фајл</string>
     <string name="sources_dialog_preinstalled">Предпостављени</string>
     <string name="sources_dialog_community">Патчеви заједнице</string>
+    <string name="sources_dialog_choose_apps">Изаберите апликације</string>
+    <string name="sources_dialog_choose_apps_description">Изаберите које од његових апликација да задржите када се извор учита.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Извори патчева трећих страна</string>
     <string name="sources_dialog_community_notice_message">"Патчеве заједнице праве и одржавају њихови аутори. Morphe не прегледа нити проверава патчеве трећих страна и није одговоран за њихов садржај или за оно што они раде на вашем уређају.

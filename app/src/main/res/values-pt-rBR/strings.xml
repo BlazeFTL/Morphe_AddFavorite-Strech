@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Relatar um problema</string>
     <string name="sources_management_failed_to_open_url">Falha ao abrir URL</string>
     <string name="sources_apps">Aplicativos</string>
+    <string name="sources_apps_title">Apps de %1$s</string>
+    <string name="sources_apps_description">Toque em um app para deixá-lo de fora desta fonte ou trazê-lo de volta, ou toque e segure para selecionar vários. Um app sai da tela inicial quando nenhuma fonte o traz.</string>
+    <string name="sources_apps_brought">Trazidos por esta fonte</string>
+    <string name="sources_apps_left_out">Deixados de fora desta fonte</string>
+    <string name="sources_apps_leave_out">Deixar de fora</string>
+    <string name="sources_apps_leave_out_done">Deixado de fora</string>
+    <string name="sources_apps_bring_back">Trazer de volta</string>
     <string name="sources_management_prerelease_toggle">Patches de pré-lançamento</string>
     <string name="sources_management_prerelease_toggle_description">Recebe acesso antecipado a novas versões experimentais de patches</string>
     <string name="sources_prerelease_warning_title">Ativar patches de pré-lançamento?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Alterar arquivo</string>
     <string name="sources_dialog_preinstalled">Pre-instalado</string>
     <string name="sources_dialog_community">Patches da comunidade</string>
+    <string name="sources_dialog_choose_apps">Escolher apps</string>
+    <string name="sources_dialog_choose_apps_description">Escolha quais apps dessa fonte manter depois que ela carregar.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Fontes de patches de terceiros</string>
     <string name="sources_dialog_community_notice_message">"As fontes de patches da comunidade são criadas e mantidas por seus próprios autores. O Morphe não analisa nem verifica patches de terceiros e não se responsabiliza pelo conteúdo deles ou pelo que fazem em seu dispositivo.

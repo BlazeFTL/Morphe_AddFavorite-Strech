@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Relatar um problema</string>
     <string name="sources_management_failed_to_open_url">Erro ao abrir URL</string>
     <string name="sources_apps">Aplicativos</string>
+    <string name="sources_apps_title">Aplicativos de %1$s</string>
+    <string name="sources_apps_description">Toque em um aplicativo para deixá-lo de fora desta fonte ou trazê-lo de volta, ou pressione e segure para selecionar vários. Um aplicativo sai da tela inicial quando nenhuma fonte o traz.</string>
+    <string name="sources_apps_brought">Trazidos por esta fonte</string>
+    <string name="sources_apps_left_out">Deixados de fora desta fonte</string>
+    <string name="sources_apps_leave_out">Deixar de fora</string>
+    <string name="sources_apps_leave_out_done">Deixado de fora</string>
+    <string name="sources_apps_bring_back">Trazer de volta</string>
     <string name="sources_management_prerelease_toggle">Modificações pré-lançamento</string>
     <string name="sources_management_prerelease_toggle_description">Recebe acesso antecipado às novas versões experimentais de modificações</string>
     <string name="sources_prerelease_warning_title">Ativar correções de pré-lançamento?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Alterar ficheiro</string>
     <string name="sources_dialog_preinstalled">Pré-instalado</string>
     <string name="sources_dialog_community">Patches da comunidade</string>
+    <string name="sources_dialog_choose_apps">Escolher aplicativos</string>
+    <string name="sources_dialog_choose_apps_description">Escolha quais dos aplicativos dela manter depois que a fonte carregar.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Fontes de patches de terceiros</string>
     <string name="sources_dialog_community_notice_message">"Community patch sources are made and maintained by their own authors. Morphe does not review or verify third-party patches, and is not responsible for their content or for what they do on your device.

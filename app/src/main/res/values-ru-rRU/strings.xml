@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Сообщить о проблеме</string>
     <string name="sources_management_failed_to_open_url">Не удалось открыть URL</string>
     <string name="sources_apps">Приложения</string>
+    <string name="sources_apps_title">Приложения из %1$s</string>
+    <string name="sources_apps_description">Нажмите на приложение, чтобы исключить его из этого источника или вернуть его, или нажмите и удерживайте, чтобы выбрать несколько. Приложение исчезает с главного экрана, когда ни один источник его не добавляет.</string>
+    <string name="sources_apps_brought">Добавлено этим источником</string>
+    <string name="sources_apps_left_out">Исключено из этого источника</string>
+    <string name="sources_apps_leave_out">Исключить</string>
+    <string name="sources_apps_leave_out_done">Исключено</string>
+    <string name="sources_apps_bring_back">Вернуть</string>
     <string name="sources_management_prerelease_toggle">Предрелизные патчи</string>
     <string name="sources_management_prerelease_toggle_description">Получает ранний доступ к новым экспериментальным версиям патча</string>
     <string name="sources_prerelease_warning_title">Включить предварительные патчи?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Изменить файл</string>
     <string name="sources_dialog_preinstalled">Предварительно установлено</string>
     <string name="sources_dialog_community">Патчи сообщества</string>
+    <string name="sources_dialog_choose_apps">Выберите приложения</string>
+    <string name="sources_dialog_choose_apps_description">Выберите, какие из его приложений оставить после загрузки источника.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Источники сторонних патчей</string>
     <string name="sources_dialog_community_notice_message">"Источники патчей сообщества создаются и поддерживаются их авторами. Morphe не проверяет и не верифицирует сторонние патчи и не несет ответственности за их содержимое или за то, что они делают на вашем устройстве.

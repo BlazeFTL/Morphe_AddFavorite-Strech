@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Segnala un problema</string>
     <string name="sources_management_failed_to_open_url">Impossibile aprire l’URL</string>
     <string name="sources_apps">App</string>
+    <string name="sources_apps_title">App da %1$s</string>
+    <string name="sources_apps_description">Tocca un\'app per escluderla da questa fonte o ripristinarla, oppure tieni premuto per selezionarne più di una. Un\'app viene rimossa dalla schermata Home quando nessuna fonte la include.</string>
+    <string name="sources_apps_brought">Fornite da questa fonte</string>
+    <string name="sources_apps_left_out">Escluse da questa fonte</string>
+    <string name="sources_apps_leave_out">Escludi</string>
+    <string name="sources_apps_leave_out_done">Esclusa</string>
+    <string name="sources_apps_bring_back">Ripristina</string>
     <string name="sources_management_prerelease_toggle">Patch di pre-rilascio</string>
     <string name="sources_management_prerelease_toggle_description">Ottieni l\'accesso anticipato alle nuove versioni sperimentali delle patch.</string>
     <string name="sources_prerelease_warning_title">Abilitare le patch pre-release?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Cambia file</string>
     <string name="sources_dialog_preinstalled">Preinstallato</string>
     <string name="sources_dialog_community">Patch della community</string>
+    <string name="sources_dialog_choose_apps">Scegli le app</string>
+    <string name="sources_dialog_choose_apps_description">Scegli quali delle sue app tenere una volta che la fonte è stata caricata.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Sorgenti di patch di terze parti</string>
     <string name="sources_dialog_community_notice_message">"Le sorgenti di patch della community sono mantenute dai rispettivi autori. Morphe non esamina né verifica le patch di terze parti e non è responsabile del loro contenuto o di ciò che fanno sul tuo dispositivo.

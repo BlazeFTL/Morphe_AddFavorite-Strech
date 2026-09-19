@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Laporkan masalah</string>
     <string name="sources_management_failed_to_open_url">Gagal membuka URL</string>
     <string name="sources_apps">Aplikasi</string>
+    <string name="sources_apps_title">Aplikasi dari %1$s</string>
+    <string name="sources_apps_description">Ketuk aplikasi untuk mengeluarkannya dari sumber ini atau mengembalikannya, atau tekan lama untuk memilih beberapa. Aplikasi akan keluar dari layar utama setelah tidak ada sumber yang menampilkannya.</string>
+    <string name="sources_apps_brought">Dibawa oleh sumber ini</string>
+    <string name="sources_apps_left_out">Dikecualikan dari sumber ini</string>
+    <string name="sources_apps_leave_out">Kecualikan</string>
+    <string name="sources_apps_leave_out_done">Dikecualikan</string>
+    <string name="sources_apps_bring_back">Kembalikan</string>
     <string name="sources_management_prerelease_toggle">Tambalan pra-rilis</string>
     <string name="sources_management_prerelease_toggle_description">Menerima akses dini ke versi eksperimental tambalan baru</string>
     <string name="sources_prerelease_warning_title">Aktifkan tambalan pra-rilis?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Ganti berkas</string>
     <string name="sources_dialog_preinstalled">Sudah dipasang sebelumnya</string>
     <string name="sources_dialog_community">Tambalan komunitas</string>
+    <string name="sources_dialog_choose_apps">Pilih aplikasi</string>
+    <string name="sources_dialog_choose_apps_description">Pilih aplikasi mana yang ingin dipertahankan setelah sumber dimuat.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Sumber tambalan pihak ketiga</string>
     <string name="sources_dialog_community_notice_message">"Sumber tambalan komunitas dibuat dan dikelola oleh pembuatnya masing-masing. Morphe tidak meninjau atau memverifikasi tambalan pihak ketiga, serta tidak bertanggung jawab atas konten maupun dampaknya terhadap perangkat Anda.

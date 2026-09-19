@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Báo cáo sự cố</string>
     <string name="sources_management_failed_to_open_url">Không thể mở URL</string>
     <string name="sources_apps">Ứng dụng</string>
+    <string name="sources_apps_title">Ứng dụng từ %1$s</string>
+    <string name="sources_apps_description">Chạm vào một ứng dụng để loại ứng dụng đó khỏi nguồn này hoặc đưa nó trở lại, hoặc nhấn và giữ để chọn nhiều ứng dụng. Một ứng dụng sẽ rời khỏi màn hình chính khi không còn nguồn nào đưa nó vào.</string>
+    <string name="sources_apps_brought">Được nguồn này đưa vào</string>
+    <string name="sources_apps_left_out">Đã loại khỏi nguồn này</string>
+    <string name="sources_apps_leave_out">Loại ra</string>
+    <string name="sources_apps_leave_out_done">Đã loại ra</string>
+    <string name="sources_apps_bring_back">Đưa trở lại</string>
     <string name="sources_management_prerelease_toggle">Bản vá phát hành trước</string>
     <string name="sources_management_prerelease_toggle_description">Trải nghiệm sớm các bản vá thử nghiệm mới</string>
     <string name="sources_prerelease_warning_title">Bật các bản vá trước khi phát hành?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Đổi tệp</string>
     <string name="sources_dialog_preinstalled">Được cài đặt sẵn</string>
     <string name="sources_dialog_community">Các bản vá cộng đồng</string>
+    <string name="sources_dialog_choose_apps">Chọn ứng dụng</string>
+    <string name="sources_dialog_choose_apps_description">Chọn ứng dụng nào của nguồn này để giữ lại sau khi nguồn đã được tải.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Nguồn vá bên thứ ba</string>
     <string name="sources_dialog_community_notice_message">"Các nguồn vá cộng đồng được tạo và duy trì bởi chính các tác giả của họ. Morphe không xem xét hoặc xác minh các bản vá của bên thứ ba, và không chịu trách nhiệm về nội dung của chúng hoặc về những gì chúng thực hiện trên thiết bị của bạn.

@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Tuairiscigh fadhb</string>
     <string name="sources_management_failed_to_open_url">Teip ar URL a oscailt</string>
     <string name="sources_apps">Aipeanna</string>
+    <string name="sources_apps_title">Aipeanna ó %1$s</string>
+    <string name="sources_apps_description">Tapáil aip chun í a fhágáil ar lár ón bhfoinse seo nó chun í a thabhairt ar ais, nó brúigh fada chun roinnt a roghnú. Fágann aip an scáileán baile nuair nach mbíonn sí á tabhairt ag aon fhoinse a thuilleadh.</string>
+    <string name="sources_apps_brought">Arna thabhairt ag an bhfoinse seo</string>
+    <string name="sources_apps_left_out">Fágtha ar lár ón bhfoinse seo</string>
+    <string name="sources_apps_leave_out">Fág ar lár</string>
+    <string name="sources_apps_leave_out_done">Fágtha ar lár</string>
+    <string name="sources_apps_bring_back">Tabhair ar ais</string>
     <string name="sources_management_prerelease_toggle">Paistí réamh-eisiúna</string>
     <string name="sources_management_prerelease_toggle_description">Faigheann sé rochtain luath ar leaganacha nua paiste turgnamhacha</string>
     <string name="sources_prerelease_warning_title">Paistí réamh-eisiúna a chumasú?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Athraigh comhad</string>
     <string name="sources_dialog_preinstalled">Réamhshuiteáilte</string>
     <string name="sources_dialog_community">Paistí pobail</string>
+    <string name="sources_dialog_choose_apps">Roghnaigh aipeanna</string>
+    <string name="sources_dialog_choose_apps_description">Roghnaigh cé na haipeanna dá cuid a choinneáil a luaithe a bheidh an fhoinse lódáilte.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Foinsí paiste tríú páirtí</string>
     <string name="sources_dialog_community_notice_message">"Is iad a n-údair féin a dhéanann agus a chothaíonn foinsí paistí pobail. Ní dhéanann Morphe athbhreithniú ná fíorú ar phaistí tríú páirtí, agus níl sé freagrach as a n-ábhar ná as a ndéanann siad ar do ghléas.

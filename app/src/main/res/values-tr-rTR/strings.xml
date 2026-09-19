@@ -141,6 +141,13 @@
     <string name="sources_management_report_issue">Sorun bildir</string>
     <string name="sources_management_failed_to_open_url">URL açılamadı</string>
     <string name="sources_apps">Uygulamalar</string>
+    <string name="sources_apps_title">%1$s uygulamaları</string>
+    <string name="sources_apps_description">Bir uygulamaya dokunarak onu bu kaynaktan hariç tutabilir veya geri getirebilirsiniz; birden fazla seçmek için uzun basın. Bir uygulama, hiçbir kaynak onu getirmediğinde ana ekrandan kaldırılır.</string>
+    <string name="sources_apps_brought">Bu kaynağın getirdiği</string>
+    <string name="sources_apps_left_out">Bu kaynaktan hariç tutulanlar</string>
+    <string name="sources_apps_leave_out">Hariç tut</string>
+    <string name="sources_apps_leave_out_done">Hariç tutuldu</string>
+    <string name="sources_apps_bring_back">Geri getir</string>
     <string name="sources_management_prerelease_toggle">Ön sürüm yamalar</string>
     <string name="sources_management_prerelease_toggle_description">Yeni deneysel sürüm yamalarına erken erişim sağlar</string>
     <string name="sources_prerelease_warning_title">Ön sürüm yamalarını etkinleştir?</string>
@@ -184,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Dosyayı değiştir</string>
     <string name="sources_dialog_preinstalled">Ön yüklü</string>
     <string name="sources_dialog_community">Topluluk yamaları</string>
+    <string name="sources_dialog_choose_apps">Uygulamaları seç</string>
+    <string name="sources_dialog_choose_apps_description">Kaynak yüklendikten sonra, uygulamalarından hangilerinin tutulacağını seçin.</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Üçüncü taraf yama kaynakları</string>
     <string name="sources_dialog_community_notice_message">"Topluluk yama kaynakları kendi yazarları tarafından oluşturulur ve sürdürülür. Morphe üçüncü taraf yamaları incelemez veya doğrulamaz ve içeriklerinden veya cihazınızda yaptıklarından sorumlu değildir.

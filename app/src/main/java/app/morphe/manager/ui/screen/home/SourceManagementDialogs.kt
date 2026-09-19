@@ -1480,7 +1480,6 @@ fun SourceAppsDialog(
                     // Scoped to the search so "select all" never reaches apps out of view
                     totalCount = filtered.size,
                     visible = true,
-                    showReorderButton = false,
                     onSelectAll = { selection.setAll(filtered.map { (packageName, _) -> packageName }) },
                     onDeselectAll = { selection.clear() },
                     onAction = {
@@ -1490,21 +1489,16 @@ fun SourceAppsDialog(
                     actionIcon = Icons.Outlined.VisibilityOff,
                     actionContentDescription = stringResource(R.string.sources_apps_leave_out),
                     actionDoneMessage = stringResource(R.string.sources_apps_leave_out_done),
-                    onContextAction = {
-                        bring(selection.keys.toList(), brought = true)
-                        exitMultiSelect()
-                    },
-                    contextActionIcon = Icons.Outlined.Visibility,
-                    contextActionContentDescription = stringResource(R.string.sources_apps_bring_back),
-                    contextActionColors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    contextAction = SelectionAction(
+                        icon = Icons.Outlined.Visibility,
+                        label = stringResource(R.string.sources_apps_bring_back),
+                        onClick = {
+                            bring(selection.keys.toList(), brought = true)
+                            exitMultiSelect()
+                        },
+                        colors = ActionPillColors.tertiary()
                     ),
-                    onCancel = ::exitMultiSelect,
-                    onEnterReorder = {},
-                    onSaveOrder = {},
-                    onResetOrder = {},
-                    onCancelReorder = {}
+                    onCancel = ::exitMultiSelect
                 )
             } else {
                 AppDialogOutlinedButton(

@@ -34,6 +34,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -61,7 +62,7 @@ import kotlinx.coroutines.delay
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import kotlin.time.Duration.Companion.milliseconds
 
-/** Cards get more room where the layout splits into two columns and each holds only its half. */
+/** Cards get more room where the layout splits into two columns and each holds only it's half. */
 private val LandscapeMaxCardWidth = 700.dp
 
 internal fun HomeCategoryGroup.selectionKey(): String =
@@ -639,6 +640,10 @@ internal fun MainAppsSection(
             isFooterSlotReserved = false
         }
     }
+    // A bar with many actions gives them a second row, so the space kept clear for it follows
+    // the height it was last measured at rather than a fixed one
+    val density = LocalDensity.current
+    var footerBarHeight by remember { mutableStateOf(MultiSelectBarDefaults.Height) }
 
     // Back gesture/button cancels multi-select instead of navigating back
     BackHandler(enabled = state.isMultiSelectMode) { state.exitMultiSelect() }
@@ -1164,7 +1169,7 @@ internal fun MainAppsSection(
                             // content moves by half of it and would jump the cards
                             val footerClearance by animateDpAsState(
                                 targetValue = if (isFooterSlotReserved) {
-                                    MultiSelectBarDefaults.ListClearance + itemSpacing
+                                    MultiSelectBarDefaults.listClearance(footerBarHeight) + itemSpacing
                                 } else {
                                     0.dp
                                 },
@@ -1326,25 +1331,22 @@ internal fun MainAppsSection(
                                 )
                             }
 
+                            val controlClearance = if (isFooterSlotReserved) {
+                                MultiSelectBarDefaults.controlClearance(footerBarHeight)
+                            } else {
+                                0.dp
+                            }
                             ListScrollbar(
                                 listState = listState,
                                 alphabetTargets = scrollTargets,
                                 alphabetMode = alphabetScrollMode,
-                                extraBottomPadding = if (isFooterSlotReserved) {
-                                    MultiSelectBarDefaults.ControlClearance
-                                } else {
-                                    0.dp
-                                }
+                                extraBottomPadding = controlClearance
                             )
 
                             // Lift extra space for the MultiSelectBar when it's visible
                             ScrollToTopButton(
                                 listState = listState,
-                                extraBottomPadding = if (isFooterSlotReserved) {
-                                    MultiSelectBarDefaults.ControlClearance
-                                } else {
-                                    0.dp
-                                }
+                                extraBottomPadding = controlClearance
                             )
                         }
 
@@ -1369,6 +1371,11 @@ internal fun MainAppsSection(
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
                             .padding(horizontal = horizontalPadding)
+                            .onSizeChanged { size ->
+                                // A bar that has slid out reports no height, and the slot keeps
+                                // the last one until it is released
+                                if (size.height > 0) footerBarHeight = with(density) { size.height.toDp() }
+                            }
                     )
                 }
             }

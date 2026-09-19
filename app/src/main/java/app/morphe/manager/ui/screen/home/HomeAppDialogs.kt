@@ -476,7 +476,6 @@ internal fun HiddenAppsDialog(
                     selectedCount = selectedPackages.size,
                     totalCount = hiddenAppItems.size,
                     visible = true,
-                    showReorderButton = false,
                     onSelectAll = {
                         selectedPackages.setAll(hiddenAppItems.map { it.id })
                     },
@@ -489,18 +488,11 @@ internal fun HiddenAppsDialog(
                     actionIcon = Icons.Outlined.Visibility,
                     actionContentDescription = stringResource(R.string.unhide),
                     actionDoneMessage = stringResource(R.string.unhide_done),
-                    actionColors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    ),
+                    actionColors = ActionPillColors.tertiary(),
                     onCancel = {
                         isMultiSelectMode.value = false
                         selectedPackages.clear()
-                    },
-                    onEnterReorder = {},
-                    onSaveOrder = {},
-                    onResetOrder = {},
-                    onCancelReorder = {}
+                    }
                 )
             } else {
                 AppDialogOutlinedButton(

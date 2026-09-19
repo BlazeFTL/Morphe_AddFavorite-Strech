@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -844,10 +843,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.Warning,
                                 contentDescription = forceLabel,
                                 tooltip = forceLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
+                                colors = ActionPillColors.secondary()
                             )
                         }
 
@@ -860,10 +856,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.GppBad,
                                 contentDescription = acceptLabel,
                                 tooltip = acceptLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
+                                colors = ActionPillColors.secondary()
                             )
                         }
 
@@ -875,14 +868,7 @@ private fun BatchItemCard(
                             icon = if (excluded) Icons.Outlined.AddCircleOutline else Icons.Outlined.RemoveCircleOutline,
                             contentDescription = toggleLabel,
                             tooltip = toggleLabel,
-                            colors = if (excluded) {
-                                IconButtonDefaults.filledTonalIconButtonColors()
-                            } else {
-                                IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
-                            }
+                            colors = if (excluded) ActionPillColors.neutral() else ActionPillColors.destructive()
                         )
                     }
                 }
@@ -908,10 +894,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.ErrorOutline,
                                 contentDescription = errorLabel,
                                 tooltip = errorLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
+                                colors = ActionPillColors.destructive()
                             )
                         }
 
@@ -922,10 +905,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.InstallMobile,
                                 contentDescription = installLabel,
                                 tooltip = installLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
+                                colors = ActionPillColors.primary()
                             )
                         }
 

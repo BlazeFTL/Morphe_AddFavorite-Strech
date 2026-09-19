@@ -341,21 +341,17 @@ private fun PatchSelectionManagementDialogContent(
                         totalCount = selections.size,
                         onSelectAll = onSelectAll,
                         onDeselectAll = { multiSelect.selectedPackages.clear() },
-                        onCancel = onExitSelection
-                    ) {
-                        val resetLabel = stringResource(R.string.reset)
-                        ActionPillButton(
-                            onClick = onShowResetSelectedConfirmation,
-                            icon = Icons.Outlined.Delete,
-                            contentDescription = resetLabel,
-                            tooltip = resetLabel,
-                            enabled = multiSelect.selectedPackages.isNotEmpty,
-                            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.errorContainer,
-                                contentColor = MaterialTheme.colorScheme.onErrorContainer
+                        onCancel = onExitSelection,
+                        actions = listOf(
+                            SelectionAction(
+                                icon = Icons.Outlined.Delete,
+                                label = stringResource(R.string.reset),
+                                onClick = onShowResetSelectedConfirmation,
+                                enabled = multiSelect.selectedPackages.isNotEmpty,
+                                colors = ActionPillColors.destructive()
                             )
                         )
-                    }
+                    )
                 }
             } else {
                 // Two groups rather than one: the transfer pair shares a row, close keeps its own
@@ -841,10 +837,7 @@ private fun BundleSelectionItem(
                 icon = Icons.Outlined.Restore,
                 contentDescription = resetLabel,
                 tooltip = resetLabel,
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                )
+                colors = ActionPillColors.destructive()
             )
         }
     }

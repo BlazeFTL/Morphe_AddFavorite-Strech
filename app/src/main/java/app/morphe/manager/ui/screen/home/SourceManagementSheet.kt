@@ -1061,10 +1061,7 @@ private fun BundleManagementCard(
                                     icon = Icons.Outlined.Delete,
                                     contentDescription = deleteDesc,
                                     tooltip = deleteVerb,
-                                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                    )
+                                    colors = ActionPillColors.destructive()
                                 )
                             }
                         }

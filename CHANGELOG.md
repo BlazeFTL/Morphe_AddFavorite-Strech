@@ -1,3 +1,16 @@
+# [1.32.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.3...v1.32.0-dev.4) (2026-09-19)
+
+
+### Bug Fixes
+
+* Ease the home cards back when the selection bar closes ([230fa6e](https://github.com/MorpheApp/morphe-manager/commit/230fa6e7faffe4468b7b436ec1afedc3dc1faef1))
+* Name the apps of a disabled patch source ([97177fe](https://github.com/MorpheApp/morphe-manager/commit/97177fe97e1543097f68be016cf160a41982f795))
+
+
+### Features
+
+* Give the selection bar actions a row of their own ([0051d4b](https://github.com/MorpheApp/morphe-manager/commit/0051d4b7ff87eb8bdf4bcc9aaf8c8fdac9fde10d))
+
 # [1.32.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.2...v1.32.0-dev.3) (2026-09-19)
 
 

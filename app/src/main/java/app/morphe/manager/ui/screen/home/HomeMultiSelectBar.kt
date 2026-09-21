@@ -42,7 +42,8 @@ private data class MultiSelectDisplay(
 
 /**
  * Home screen's selection panel, which slides up while cards are being selected and turns into
- * the reorder panel while [reorder] is on.
+ * the reorder panel while [reorder] is on. Back leaves whichever of the two is showing, the
+ * reorder without saving.
  */
 @Composable
 internal fun MultiSelectBar(
@@ -70,7 +71,11 @@ internal fun MultiSelectBar(
         )
     )
 
-    MultiSelectShell(visible = visible, modifier = modifier) {
+    MultiSelectShell(
+        visible = visible,
+        modifier = modifier,
+        onBack = { if (reorder?.isActive == true) reorder.onCancel() else onCancel() }
+    ) {
         AnimatedContent(
             targetState = selection.reorder?.isActive == true,
             transitionSpec = Animations.fadeCrossfade(200),
@@ -108,6 +113,8 @@ private data class CategoryDisplay(
  * Slide-up panel for the long-pressed category or source header, which turns into the reorder
  * panel while the headers are being dragged into a new order. A source group only offers
  * reordering: its name and its apps come from the source, not from the user.
+ *
+ * @param onBack Closes the panel from either mode, dropping a reorder that was not saved.
  */
 @Composable
 internal fun CategoryActionBar(
@@ -119,6 +126,7 @@ internal fun CategoryActionBar(
     onEnterReorder: () -> Unit,
     onExitReorder: () -> Unit,
     onCancel: () -> Unit,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     showEditActions: Boolean = true
 ) {
@@ -136,7 +144,7 @@ internal fun CategoryActionBar(
         )
     )
 
-    MultiSelectShell(visible = visible, modifier = modifier) {
+    MultiSelectShell(visible = visible, modifier = modifier, onBack = onBack) {
         AnimatedContent(
             targetState = category.inReorderMode,
             transitionSpec = Animations.fadeCrossfade(200),

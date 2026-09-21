@@ -337,6 +337,7 @@ internal fun HomeAppsFooterBars(
             state.activeCategoryId = null
             state.activeSourceUid = null
         },
+        onBack = { state.closeCategoryBar() },
         modifier = modifier,
         showEditActions = state.activeSourceUid == null && !isSourceCategoryView
     )

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,13 +37,22 @@ private val ShellShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
  * screen like a sheet, with its content kept clear of the navigation bar, so it is meant for the
  * home screen's footer dock and the [AppDialog] bottom bar. Keeps the surface, elevation and
  * enter/exit animations the same everywhere a selection is made.
+ *
+ * @param onBack Closes the panel on back, which then follows the predictive gesture down like
+ * an [AppBottomSheet] does. Null where something else owns back, as in a dialog.
  */
 @Composable
 fun MultiSelectShell(
     visible: Boolean,
     modifier: Modifier = Modifier,
+    onBack: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
+    val backProgress = remember { Animatable(0f) }
+    // A gesture that closed the panel leaves it drawn down, which the next opening must not inherit
+    LaunchedEffect(visible) { if (visible) backProgress.snapTo(0f) }
+    if (onBack != null) PredictiveBackSlideHandler(backProgress, enabled = visible, onBack = onBack)
+
     AnimatedVisibility(
         visible = visible,
         enter = Animations.springSlideUpEnter,
@@ -52,7 +62,8 @@ fun MultiSelectShell(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = Defaults.SheetSideInset),
+                .padding(horizontal = Defaults.SheetSideInset)
+                .predictiveBackSlide(backProgress),
             shape = ShellShape,
             color = MonochromeThemeDefaults.surfaceColor(MaterialTheme.colorScheme.surfaceContainerHigh),
             shadowElevation = 8.dp,

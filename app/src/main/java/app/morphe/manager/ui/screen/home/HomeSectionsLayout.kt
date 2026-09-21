@@ -170,7 +170,7 @@ fun SectionsLayout(
         if (!chromeFlags.showSearchButton) searchVisible.value = false
     }
 
-    // Back gesture closes search (registered before multiselect BackHandler so multiselect takes priority)
+    // Back gesture closes search (registered before the footer bars' own back handling, so an open bar takes priority)
     BackHandler(enabled = searchVisible.value) { searchVisible.value = false }
 
     val searchState = HomeSearchState(
@@ -686,16 +686,6 @@ internal fun MainAppsSection(
     // Only the part of the bar that reaches into the list's own area needs clearing, and it
     // follows the height the bar was last measured at, which its actions and font scale move
     val footerBarOverlap = with(LocalDensity.current) { footerBar.listOverlapPx.toDp() }
-
-    // Back gesture/button cancels multi-select instead of navigating back
-    BackHandler(enabled = state.isMultiSelectMode) { state.exitMultiSelect() }
-
-    // Back gesture/button exits reorder mode without saving
-    BackHandler(enabled = state.isReorderMode) {
-        state.exitReorder(homeAppItems.map { it.id })
-    }
-
-    BackHandler(enabled = state.isCategoryBarVisible) { state.closeCategoryBar() }
 
     // Retire stale header action state when switching grouping modes.
     LaunchedEffect(appGrouping) { state.closeCategoryBar() }

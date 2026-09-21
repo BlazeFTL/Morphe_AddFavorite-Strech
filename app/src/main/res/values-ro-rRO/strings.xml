@@ -13,7 +13,7 @@
     <string name="home_app_no_hidden">Nicio aplicație ascunsă</string>
     <string name="home_app_hidden_apps_title">Aplicații ascunse</string>
     <string name="home_app_hidden_apps_hint">Apasă pentru a afișa</string>
-    <string name="home_app_patch_sources_description">Sursele rămase nebifate nu sunt oferite atunci când acestor aplicații li se aplică patch-uri, iar patch-urile lor nu se alătură niciodată singure unei selecții. Fiecare sursă rămâne activă pentru toate celelalte aplicații.</string>
+    <string name="home_app_patch_sources_description">Sursele rămase nebifate nu sunt oferite atunci când aceste aplicații sunt patch-uite, iar patch-urile lor nu se alătură niciodată singure unei selecții. Fiecare sursă rămâne activă pentru toate celelalte aplicații.</string>
     <string name="home_app_patch_sources_mixed">Oferit pentru %1$s din %2$s</string>
     <string name="home_app_patch_sources_covers">Are patch-uri pentru %1$s din %2$s</string>
     <string name="home_app_patch_sources_last">Fiecare aplicație are nevoie de o sursă rămasă de la care să aplice patch-uri.</string>
@@ -156,14 +156,14 @@
     <string name="sources_management_experimental_versions_toggle">Versiuni experimentale ale aplicației</string>
     <string name="sources_management_experimental_versions_toggle_description">Afișează și corectează țintele experimentale ale aplicației</string>
     <string name="sources_management_already_exists">Sursă deja adăugată</string>
-    <string name="sources_management_invalid_url">URL sursă invalidă. Vă rugăm să verificați adresa și încercați din nou</string>
+    <string name="sources_management_invalid_url">URL-ul sursei este nevalid. Te rugăm să verifici adresa și să încerci din nou</string>
     <string name="sources_management_blocked">Această sursă de patch este blocată și nu poate fi adăugată</string>
     <string name="sources_management_source_blocked_badge">Blocată</string>
     <string name="sources_management_metadata_unavailable">Metadate indisponibile</string>
     <string name="sources_management_metadata_unavailable_hint">Fișierul de metadate de la distanță nu este disponibil. Aplicarea pachetului instalat funcționează în continuare, dar actualizarea automată este dezactivată pentru această sursă</string>
     <string name="sources_management_metadata_unavailable_hint_missing">Pachetul de corecție nu a putut fi descărcat. URL-ul sursă poate fi incorect sau fișierul nu există</string>
     <string name="sources_management_outdated_manager_badge">Actualizează Morphe</string>
-    <string name="sources_management_outdated_manager_hint">Această sursă este construită pentru patcher %1$s, dar Morphe %2$s include patcher %3$s. Actualizează Morphe pentru a-l utiliza</string>
+    <string name="sources_management_outdated_manager_hint">Această sursă este construită pentru patcherul %1$s, însă Morphe %2$s include patcherul %3$s. Actualizează Morphe pentru a-l folosi</string>
     <string name="sources_management_held_back_badge">A cauzat prăbușirea</string>
     <string name="sources_management_held_back_hint">Această sursă a cauzat prăbușirea Morphe în timpul încărcării. Actualizați-o sau reimportați-o pentru a încerca din nou.</string>
     <string name="sources_management_source_enabled">Sursă activată</string>
@@ -185,7 +185,7 @@
     <string name="sources_dialog_local_file">Selectează fișierul cu patch-uri</string>
     <string name="sources_dialog_local_file_tap_hint">Atingeți pentru a răsfoi stocarea</string>
     <string name="sources_dialog_local_file_description">Selectează un fișier .mpp cu patch-uri din stocare</string>
-    <string name="sources_dialog_local_invalid_extension">Fișierul trebuie să aibă extensia .mpp</string>
+    <string name="sources_dialog_local_invalid_extension">Fișierul trebuie să aibă o extensie .mpp</string>
     <string name="sources_dialog_url_valid">URL valid al depozitului sau JSON</string>
     <string name="sources_dialog_url_invalid">URL-ul trebuie să indice un depozit GitHub/GitLab sau un fișier .json</string>
     <string name="sources_dialog_local_change_file">Schimbă fișierul</string>
@@ -508,7 +508,7 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <!-- Size of the patched APK, once patching finished -->
     <string name="patcher_field_output_size">Dimensiunea fișierului de ieșire</string>
     <!-- How long patching took -->
-    <string name="patcher_field_time">Durata</string>
+    <string name="patcher_field_time">Durată</string>
     <!-- Average and peak memory the patcher process held while it ran -->
     <string name="patcher_field_memory_average">Memorie medie</string>
     <string name="patcher_field_memory_max">Memorie maximă</string>
@@ -721,9 +721,9 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_app_grouping_description">Afișează un comutator al ecranului principal pentru a grupa aplicațiile după sursă sau după propriile categorii, menținând selecția când este dezactivat</string>
     <string name="settings_appearance_patch_list">Listă de patch-uri</string>
     <string name="settings_appearance_patch_categories">Grupează după categorie</string>
-    <string name="settings_appearance_patch_categories_description">Împarte listele de patch-uri în funcție de categoriile declarate de o sursă, lăsându-le pe cele care nu declară nicio categorie ca o listă simplă.</string>
-    <string name="settings_appearance_repatch_notice">Notificare de re-patch</string>
-    <string name="settings_appearance_repatch_notice_description">Afișează un banner pe ecranul de pornire când aplicațiile cu patch-uri pot fi re-patch-uite</string>
+    <string name="settings_appearance_patch_categories_description">Grupează listele de patch-uri în funcție de categoriile declarate de sursă, lăsând sursele care nu declară nicio categorie sub formă de listă simplă.</string>
+    <string name="settings_appearance_repatch_notice">Notificare privind repatch-uirea</string>
+    <string name="settings_appearance_repatch_notice_description">Afișează un banner pe ecranul de pornire când aplicațiile cu patch-uri pot fi repatch-uite</string>
     <string name="settings_appearance_sort_button">Buton de sortare și filtrare</string>
     <string name="settings_appearance_sort_button_description">Afișează butonul de sortare și filtrare pe ecranul de pornire</string>
     <string name="settings_appearance_app_card_colors">Culori card aplicație</string>
@@ -836,9 +836,9 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_patch_options_custom_branding_app_name">Numele aplicației</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Introduceți numele personalizat</string>
     <string name="settings_advanced_patch_options_path_gone">Acest folder nu mai poate fi citit. Alegeți-l din nou sau goliți-l, altfel aplicarea de patch-uri se va opri și va întreba despre el</string>
-    <string name="settings_advanced_patch_options_custom_branding_app_icon">Pictogramă aplicație</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Pictograma aplicației</string>
     <string name="settings_advanced_patch_options_custom_branding_app_icon_description">Icoana cu care este patch-uită aplicația. Este utilizată și acolo unde aplicația nu o poate schimba ulterior, cum ar fi Android Auto și lista de aplicații din setările de sistem</string>
-    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Icoana personalizată a aplicației necesită un folder cu imagini de icoane</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">Pictograma personalizată a aplicației necesită un folder cu imagini pentru pictograme</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Pictogramă personalizată</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Folder cu imagini care să fie utilizate ca pictogramă personalizată.
 
@@ -923,8 +923,8 @@ Dimensiunile imaginilor trebuie să fie următoarele:
     <string name="installer_action_open_shizuku">Deschide Shizuku</string>
     <string name="installer_hint_generic">Instalarea a eșuat. Reîncercați sau schimbați la un instalator diferit</string>
     <string name="installer_hint_conflict">Altă aplicație cu acest nume de pachet este deja instalată. Dezinstalați-o înainte de continuare</string>
-    <string name="installer_confirm_notification_title">Confirmați instalarea</string>
-    <string name="installer_confirm_notification_text">Atingeți pentru a finaliza instalarea aplicației modificate</string>
+    <string name="installer_confirm_notification_title">Confirmă instalarea</string>
+    <string name="installer_confirm_notification_text">Atinge pentru a finaliza instalarea aplicației patch-uite</string>
     <string name="installer_external_launched">Se deschide %s…</string>
     <string name="installer_external_timeout">%s nu a confirmat instalarea. Verificați cealaltă aplicație și încercați din nou</string>
     <string name="installer_external_success">%s a raportat o instalare reușită</string>

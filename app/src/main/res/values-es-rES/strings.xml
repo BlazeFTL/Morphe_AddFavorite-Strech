@@ -379,8 +379,8 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="adaptive_icon_guide_png_title">Usar un PNG con fondo transparente</string>
     <string name="adaptive_icon_guide_png_body">El primer plano debe ser un archivo PNG con un fondo transparente. Un fondo de color sólido se verá incorrecto: el color de fondo debe provenir del selector de fondo que se encuentra más abajo.</string>
     <string name="adaptive_icon_guide_safe_zones_title">Zonas seguras</string>
-    <string name="adaptive_icon_guide_safe_zones_body">"Zona interior (sólida): el contenido siempre queda a la vista en todas las formas del launcher.
-Zona exterior (discontinua): puede quedar recortada por la máscara del launcher; mantén los detalles importantes dentro de la zona interior."</string>
+    <string name="adaptive_icon_guide_safe_zones_body">"Zona interior (sólida): el contenido siempre queda a la vista en todas las formas del lanzador.
+Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador; mantén los detalles importantes dentro de la zona interior."</string>
     <string name="adaptive_icon_guide_notification_title">Icono de notificación</string>
     <string name="adaptive_icon_guide_notification_body">Generado automáticamente a partir de la imagen en primer plano. Ajusta su tamaño usando el control deslizante de Notificación. Todo el contenido visible aparece en blanco en la barra de estado.</string>
     <string name="adaptive_icon_guide_monochrome_title">Icono monocromático</string>
@@ -896,9 +896,9 @@ Las dimensiones de la imagen deben ser las siguientes:
     <!-- Settings - Advanced Tab - Patch Options Section: Hide Shorts -->
     <string name="settings_advanced_patch_options_hide_shorts_features">Ocultar funciones de Shorts</string>
     <string name="settings_advanced_patch_options_hide_shorts_app_shortcut">Ocultar acceso directo de app de Shorts</string>
-    <string name="settings_advanced_patch_options_hide_shorts_app_shortcut_description">Elimina Shorts del menú de pulsación larga del launcher</string>
+    <string name="settings_advanced_patch_options_hide_shorts_app_shortcut_description">Elimina Shorts del menú de pulsación larga del lanzador</string>
     <string name="settings_advanced_patch_options_hide_shorts_widget">Ocultar widget de Shorts</string>
-    <string name="settings_advanced_patch_options_hide_shorts_widget_description">Elimina el botón Shorts del widget del launcher</string>
+    <string name="settings_advanced_patch_options_hide_shorts_widget_description">Elimina el botón Shorts del widget del lanzador</string>
     <!-- Settings - System Tab - Installer Section -->
     <string name="installer">Instalador</string>
     <string name="installer_settings_title">Instalador predeterminado</string>

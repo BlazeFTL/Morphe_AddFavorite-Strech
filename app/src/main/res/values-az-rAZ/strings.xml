@@ -140,6 +140,14 @@
     <string name="sources_management_open_in_browser">Brauzerdə açın</string>
     <string name="sources_management_report_issue">Problemi bildir</string>
     <string name="sources_management_failed_to_open_url">URL açmaq uğursuzdu</string>
+    <string name="sources_apps">Tətbiqlər</string>
+    <string name="sources_apps_title">%1$s-dan tətbiqlər</string>
+    <string name="sources_apps_description">Tətbiqi bu mənbədən çıxarmaq və ya geri qaytarmaq üçün üzərinə toxunun, birdən çoxunu seçmək üçün isə basıb saxlayın. Heç bir mənbə təmin etmədikdə tətbiq əsas ekrandan çıxarılır</string>
+    <string name="sources_apps_brought">Bu mənbə tərəfindən təmin edilir</string>
+    <string name="sources_apps_left_out">Bu mənbədən çıxarılıb</string>
+    <string name="sources_apps_leave_out">Çıxar</string>
+    <string name="sources_apps_leave_out_done">Çıxarılan</string>
+    <string name="sources_apps_bring_back">Geri qaytar</string>
     <string name="sources_management_prerelease_toggle">İlkin buraxılış yamaqları</string>
     <string name="sources_management_prerelease_toggle_description">Yeni təcrübi yamaq versiyalarına erkən keçid əldə edilir</string>
     <string name="sources_prerelease_warning_title">İlkin buraxılış yamaqlarını aktivləşdirsin?</string>
@@ -183,6 +191,8 @@
     <string name="sources_dialog_local_change_file">Faylı dəyişdir</string>
     <string name="sources_dialog_preinstalled">İlkin quraşdırılan</string>
     <string name="sources_dialog_community">İcma yamaqları</string>
+    <string name="sources_dialog_choose_apps">Tətbiqləri seç</string>
+    <string name="sources_dialog_choose_apps_description">Mənbə yükləndikdən sonra hansı tətbiqləri saxlayacağınızı seçin</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_dialog_community_notice_title">Üçüncü tərəf yamaq mənbələri</string>
     <string name="sources_dialog_community_notice_message">"İcma yamaq mənbələri öz müəllifləri tərəfindən yaradılır və saxlanılır. Morphe üçüncü tərəf yamaqlarını nəzərdən keçirmir, yoxlamır və onların məzmununa və ya cihazınızda etdiklərinə görə məsuliyyət daşımır.

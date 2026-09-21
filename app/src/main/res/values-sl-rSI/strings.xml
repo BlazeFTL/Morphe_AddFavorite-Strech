@@ -8,7 +8,7 @@
     <string name="home_unpatched_badge">Ni popravljeno</string>
     <string name="home_no_patches_available">Na voljo ni nobenih popravkov</string>
     <string name="home_app_hide_title">Skrijem to aplikacijo?</string>
-    <string name="home_app_hide_message">Ta aplikacija bo skrita iz začetnega zaslona. Pozneje jo lahko obnovite  iz skritih aplikacij s klikom na gumb na dnu seznama.</string>
+    <string name="home_app_hide_message">Ta aplikacija bo skrita iz začetnega zaslona. Pozneje jo lahko obnovite iz skritih aplikacij s klikom na gumb na dnu seznama.</string>
     <string name="home_app_will_be_hidden">Ta aplikacija bo skrita</string>
     <string name="home_app_no_hidden">Ni skritih aplikacij</string>
     <string name="home_app_hidden_apps_title">Skrite aplikacije</string>
@@ -654,10 +654,10 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="mini_game_try_again">Poskusite znova</string>
     <string name="mini_game_paused">Pavza</string>
     <string name="mini_game_resume">Nadaljuj</string>
-    <string name="mini_game_2048_picker_subtitle">Drsi ploščice za združitev</string>
-    <string name="mini_game_flappy_picker_subtitle">Tapnite, da poletite skozi cevi</string>
+    <string name="mini_game_2048_picker_subtitle">Združite ploščice, da pridete do čim višje številke</string>
+    <string name="mini_game_flappy_picker_subtitle">Tapkajte in poletite skozi cevi</string>
     <string name="mini_game_flappy_tap_to_start">Tapnite za polet</string>
-    <string name="mini_game_snake_picker_subtitle">Jejte hrano, a se ne udarite</string>
+    <string name="mini_game_snake_picker_subtitle">Zbirajte hrano, a ne zadanite zida</string>
     <string name="mini_game_snake_swipe_to_start">Podrsajte za začetek</string>
     <string name="mini_game_dino_picker_subtitle">Tapnite, da preskočite kaktuse</string>
     <string name="mini_game_dino_tap_to_start">Tapnite za začetek teka</string>
@@ -665,8 +665,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="mini_game_blocks_tap_to_start">Dotakni se za vrtenje, povleci za premikanje, povleci navzdol za spust</string>
     <string name="mini_game_bricks_picker_subtitle">Odbij žogo, podri steno</string>
     <string name="mini_game_bricks_tap_to_start">Povleci za namerjanje, tapni za izstrelitev</string>
-    <string name="mini_game_miner_picker_subtitle">Dotakni se za odpiranje, drži za zastavico</string>
-    <string name="mini_game_pairs_picker_subtitle">Obrni kartice, poišči pare</string>
+    <string name="mini_game_miner_picker_subtitle">Dotaknite se za odpiranje, držite za označitev</string>
+    <string name="mini_game_pairs_picker_subtitle">Obrni kartice in poišči pare</string>
     <!-- Settings -->
     <string name="appearance">Izgled</string>
     <string name="advanced">Napredno</string>

@@ -104,7 +104,8 @@ internal object Merger {
                             if (module === baseModule) return@forEach
                             val normalized = normalizeModuleName(module.moduleName)
                             if (skipLookup.contains(normalized)) {
-                                bundle.removeApkModule(module.moduleName)
+                                // The bundle closes only the modules it still holds
+                                bundle.removeApkModule(module.moduleName)?.close()
                             }
                         }
                     }

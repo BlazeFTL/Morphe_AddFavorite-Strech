@@ -1,3 +1,10 @@
+# [1.32.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.4...v1.32.0-dev.5) (2026-09-21)
+
+
+### Features
+
+* List selection actions by name in a panel docked to the bottom ([1f19365](https://github.com/MorpheApp/morphe-manager/commit/1f19365b7eba6070812d0120e0d91790499ee35a))
+
 # [1.32.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.3...v1.32.0-dev.4) (2026-09-19)
 
 

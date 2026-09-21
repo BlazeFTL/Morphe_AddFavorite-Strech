@@ -1026,7 +1026,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">सिस्टम डिफॉल्ट ऐवजी मोर्फच्या बिल्ट-इन फाइल पिकरने स्टोरेज ब्राउझ करा</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK डाउनलोड हेल्पर</string>
-    <string name="settings_system_apk_download_helper_description">एका स्थापित हेल्पर ॲपला तुमच्यासाठी मूळ APKs मिळवू द्या. फाइल त्या ॲपमधून येते, त्यामुळे तुम्ही त्यावर विश्वास ठेवल्यासच हे सक्षम करा.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">मागील निर्देशिका</string>
     <string name="file_picker_no_files">येथे कोणतीही फाईल नाही</string>

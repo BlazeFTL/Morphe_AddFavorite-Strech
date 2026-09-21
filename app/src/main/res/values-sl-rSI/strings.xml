@@ -1116,7 +1116,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Uporabi vgrajen izbirnik datotek programa Morphe namesto sistemskega privzetega</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Pomočnik za prenos APK-ja</string>
-    <string name="settings_system_apk_download_helper_description">Omogoči nameščenemu pomočniškemu programu, da za te pridobi originalne APK-je. Datoteka prihaja iz te aplikacije, zato jo omogoči samo, če ji zaupaš.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Prejšnji imenik</string>
     <string name="file_picker_no_files">Ni datotek tukaj</string>

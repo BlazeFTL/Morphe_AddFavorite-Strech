@@ -1100,7 +1100,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Koristite ugrađeni odabir datoteka u Morpheu umesto fabričkog sistema</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Preuzimač APK datoteka</string>
-    <string name="settings_system_apk_download_helper_description">Dozvolite instaliranoj pomoćnoj aplikaciji da preuzme originalne APK datoteke za vas. Datoteka dolazi iz te aplikacije, pa ovo omogučite samo ako joj verujete</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Prethodna direktorijum</string>
     <string name="file_picker_no_files">Ovde nema datoteka</string>

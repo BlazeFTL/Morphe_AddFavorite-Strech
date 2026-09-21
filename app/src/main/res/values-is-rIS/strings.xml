@@ -1111,7 +1111,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Skoðu geymslu með innbyggðum skráaraðjara Morphe heldur en staðkerfinu</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK niðurhalshjálparforrit</string>
-    <string name="settings_system_apk_download_helper_description">Láttu uppsett hjálparforrit hlaða niður upprunalegum APK fyrir þig. Skráin kemur frá því forriti, svo kveiktu á þessu aðeins ef þú treystir því</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Fyrri skrá</string>
     <string name="file_picker_no_files">Engar skrár hér</string>

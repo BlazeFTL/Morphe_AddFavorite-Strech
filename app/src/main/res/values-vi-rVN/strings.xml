@@ -1121,7 +1121,6 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Duyệt bộ nhớ bằng trình chọn tệp tích hợp của Morphe thay vì trình chọn mặc định của hệ thống</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Trình hỗ trợ tải xuống APK</string>
-    <string name="settings_system_apk_download_helper_description">Để ứng dụng hỗ trợ đã cài đặt tìm nạp các APK gốc cho bạn. Tệp đến từ ứng dụng đó, vì vậy chỉ bật tính năng này nếu bạn tin tưởng ứng dụng đó</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Thư mục trước</string>
     <string name="file_picker_no_files">Chẳng có gì ở đây cả</string>

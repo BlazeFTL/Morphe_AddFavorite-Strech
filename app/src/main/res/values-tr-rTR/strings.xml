@@ -1114,7 +1114,6 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Sistem varsayılanı yerine Morphe\'nin yerleşik dosya seçicisini kullanarak depolamaya göz atın</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK indirme yardımcısı</string>
-    <string name="settings_system_apk_download_helper_description">Yüklü bir yardımcı uygulamanın sizin için orijinal APK\'ları getirmesine izin verin. Dosya o uygulamadan geldiği için, yalnızca güveniyorsanız bunu etkinleştirin.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Önceki dizin</string>
     <string name="file_picker_no_files">Burada dosya yok</string>

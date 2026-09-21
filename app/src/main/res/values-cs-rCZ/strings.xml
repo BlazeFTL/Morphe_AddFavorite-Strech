@@ -1115,7 +1115,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Procházet úložiště pomocí vestavěného výběru souborů Morphe místo výchozího systému.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Pomocník pro stahování APK</string>
-    <string name="settings_system_apk_download_helper_description">Nechte nainstalovanou pomocnou aplikaci stahovat původní APK za vás. Soubor pochází z této aplikace, takže to povolte pouze v případě, že jí důvěřujete</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Předchozí adresář</string>
     <string name="file_picker_no_files">Zde nejsou žádné soubory</string>

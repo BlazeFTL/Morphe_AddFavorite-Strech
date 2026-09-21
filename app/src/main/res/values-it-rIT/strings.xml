@@ -1116,7 +1116,6 @@ Dettagli: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Utilizza il selettore di file integrato di Morphe invece di quello predefinito del sistema</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">App di supporto per il download di APK</string>
-    <string name="settings_system_apk_download_helper_description">Consenti a un\'app di supporto installata di recuperare gli APK originali per te. Il file proviene da quell\'app, quindi abilita questa opzione solo se ti fidi di essa</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Directory precedente</string>
     <string name="file_picker_no_files">Nessun file qui</string>

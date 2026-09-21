@@ -1114,7 +1114,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">시스템 기본 파일 선택기 대신 Morphe에 내장된 파일 선택기를 사용하여 저장소를 탐색합니다</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK Download Helper</string>
-    <string name="settings_system_apk_download_helper_description">설치된 Helper 앱을 사용하여 원본 APK를 다운로드합니다. 파일은 해당 앱에서 가져오므로 신뢰할 수 있는 앱인 경우에만 이 기능을 활성화하세요</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">이전 디렉터리</string>
     <string name="file_picker_no_files">파일이 없습니다</string>

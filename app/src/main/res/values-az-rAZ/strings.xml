@@ -1113,7 +1113,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Sistem standartı əvəzinə Morphe-nin qurulu fayl seçicisi ilə saxlama yerini araşdır</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK yükləmə köməkçisi</string>
-    <string name="settings_system_apk_download_helper_description">Orijinal APK-ları sizin üçün quraşdırılmış köməkçi tətbiqin əldə etməsinə icazə verin. Fayl həmin tətbiqdən alınır, buna görə də yalnız ona etibar edirsinizsə bunu aktivləşdirin</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Əvvəlki kataloq</string>
     <string name="file_picker_no_files">Burada fayl yoxdur</string>

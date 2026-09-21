@@ -1031,7 +1031,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Mobil batahot</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK yuklab olish yordamchisi</string>
-    <string name="settings_system_apk_download_helper_description">Oʻrnatilgan yordamchi ilovaga asl APK fayllarini yuklab olish imkonini bering. Fayl oʻsha ilovadan keladi, shuning uchun faqat ishonishingiz mumkin boʻlsa, uni yoqing</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Oldingi katalog</string>
     <string name="file_picker_no_files">Ichki xotira</string>

@@ -1117,7 +1117,6 @@ Rincian: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Telusuri penyimpanan dengan pemilih berkas bawaan Morphe daripada pemilih berkas bawaan sistem</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Pembantu unduhan APK</string>
-    <string name="settings_system_apk_download_helper_description">Izinkan aplikasi pembantu yang terpasang untuk mengambil APK asli untuk Anda. Berkas tersebut berasal dari aplikasi tersebut, jadi aktifkan ini hanya jika Anda mempercayainya</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Direktori sebelumnya</string>
     <string name="file_picker_no_files">Tidak ada berkas di sini</string>

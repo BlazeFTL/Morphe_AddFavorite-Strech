@@ -65,7 +65,7 @@
     <string name="home_app_sort_updates_first">Actualizaciones de parches primero</string>
     <string name="home_app_sort_updates_first_description">Aplicaciones con parches más recientes primero, luego en orden recomendado</string>
     <string name="home_app_sort_recently_patched">Recientemente parcheadas</string>
-    <string name="home_app_sort_recently_patched_description">Primero las aplicaciones parcheadas más recientemente</string>
+    <string name="home_app_sort_recently_patched_description">Aplicaciones parcheadas más recientemente primero</string>
     <string name="home_no_apps_title">No hay aplicaciones disponibles</string>
     <string name="home_no_apps_subtitle">Añadir una fuente de parches o habilitar una existente en %s</string>
     <string name="home_no_apps_search_subtitle">No hay aplicaciones que coincidan con \"%s\"</string>
@@ -1116,7 +1116,11 @@ Detalles: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Explorar el almacenamiento con el selector de archivos integrado de Morphe en lugar del predeterminado del sistema</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Aplicación auxiliar para descargar APK</string>
-    <string name="settings_system_apk_download_helper_description">Permite que una aplicación auxiliar instalada descargue los APK originales por ti. El archivo proviene de esa aplicación, así que activa esta opción solo si confías en ella</string>
+    <string name="settings_system_apk_download_helper_trusted_count">De confianza: %1$d de %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Las aplicaciones de ayuda pueden descargar APK originales por ti. En las instrucciones de descarga solo se ofrecen las aplicaciones en las que confías aquí.</string>
+    <string name="settings_system_apk_download_helper_warning">El APK procede de la aplicación de ayuda, así que confía únicamente en las aplicaciones que conozcas. Morphe sigue comprobando el paquete, la versión y la firma de cada archivo antes del parcheo.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Instalada por %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Instalador desconocido</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Directorio anterior</string>
     <string name="file_picker_no_files">No hay archivos aquí</string>

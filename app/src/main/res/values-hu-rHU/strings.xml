@@ -1115,7 +1115,6 @@ Részletek: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">A Morphe beépített fájlválasztóját használja a rendszer alapértelmezett helyett.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK letöltő segédprogram</string>
-    <string name="settings_system_apk_download_helper_description">Engedélyezd egy telepített segédalkalmazásnak, hogy letöltse az eredeti APK-kat. A fájl ebből az alkalmazásból származik, ezért csak akkor engedélyezd, ha megbízol benne.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Előző mappa</string>
     <string name="file_picker_no_files">Nincs itt fájl</string>

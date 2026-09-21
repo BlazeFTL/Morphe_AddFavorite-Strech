@@ -1114,7 +1114,6 @@ Information: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Bläddra i lagringen med Morphes inbyggda filväljare istället för systemets standardfilväljare</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-nedladdningshjälp</string>
-    <string name="settings_system_apk_download_helper_description">Låt en installerad hjälpapp hämta original-APK-filer åt dig. Filen kommer från den appen, så aktivera endast detta om du litar på den.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Föregående katalog</string>
     <string name="file_picker_no_files">Inga filer här</string>

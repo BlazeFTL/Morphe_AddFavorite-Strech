@@ -1117,7 +1117,11 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_custom_file_picker_description">Przeglądaj pamięć za pomocą wbudowanej przeglądarki plików Morphe zamiast domyślnej systemowej</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Aplikacja pomocnicza do pobierania pliku APK</string>
-    <string name="settings_system_apk_download_helper_description">Pozwól zainstalowanej aplikacji pomocniczej pobierać dla Ciebie oryginalne pliki APK. Plik pochodzi z tej aplikacji, więc włącz tę opcję tylko wtedy, gdy jej ufasz</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Zaufane: %1$d z %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Aplikacje pomocnicze mogą pobierać dla Ciebie oryginalne pliki APK. W instrukcjach pobierania proponowane są tylko te aplikacje, które oznaczysz tutaj jako zaufane</string>
+    <string name="settings_system_apk_download_helper_warning">Plik APK pochodzi z aplikacji pomocniczej, dlatego ufaj tylko aplikacjom, które znasz. Morphe nadal sprawdza pakiet, wersję i podpis każdego pliku przed modyfikowaniem</string>
+    <string name="settings_system_apk_download_helper_installed_by">Zainstalowane przez %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Nieznany instalator</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Poprzedni folder</string>
     <string name="file_picker_no_files">Brak plików</string>

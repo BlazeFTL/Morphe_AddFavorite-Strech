@@ -1114,7 +1114,6 @@ Sonraí: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Brabhsáil stóras le roghnóir comhad ionsuite Morphe in ionad an roghnóra réamhshocraithe córais</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Cúntóir íoslódála APK</string>
-    <string name="settings_system_apk_download_helper_description">Lig d\'aip chúnta suiteáilte na APKanna bunaidh a fháil duit. Tagann an comhad ón aip sin, mar sin ná cumasaigh é seo ach amháin má tá muinín agat as.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Eolaire roimhe seo</string>
     <string name="file_picker_no_files">Níl aon chomhaid anseo</string>

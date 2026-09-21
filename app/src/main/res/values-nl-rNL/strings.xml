@@ -1116,7 +1116,6 @@ Details: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Gebruik de ingebouwde bestandsselector van Morphe in plaats van de standaardinstelling van het systeem</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-downloadhelper</string>
-    <string name="settings_system_apk_download_helper_description">Laat een geïnstalleerde hulpprogramma-app originele APK\'s voor u ophalen. Het bestand komt van die app, dus schakel dit alleen in als u deze vertrouwt.</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorige map</string>
     <string name="file_picker_no_files">Geen bestanden hier</string>

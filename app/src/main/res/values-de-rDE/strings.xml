@@ -1116,7 +1116,6 @@ Details: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Durchsuchen Sie den Speicher mit dem integrierten Dateiauswahldialog von Morphe anstelle der systemspezifischen Standardeinstellung</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-Download-Helfer</string>
-    <string name="settings_system_apk_download_helper_description">Lassen Sie eine installierte Hilfs-App die ursprünglichen APKs für Sie abrufen. Die Datei stammt von dieser App, aktivieren Sie diese Option also nur, wenn Sie ihr vertrauen</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorheriges Verzeichnis</string>
     <string name="file_picker_no_files">Keine Dateien hier</string>

@@ -1116,7 +1116,11 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Gebruik Morphe se ingeboude lêerkeurder in plaas van die stelsel se verstek</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-aflaaikhulp</string>
-    <string name="settings_system_apk_download_helper_description">Laat \'n geïnstalleerde helper-toepassing oorspronklike APK\'s vir jou ophaal. Die lêer kom van daardie toepassing af, so skakel dit slegs in as jy dit vertrou</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Vertroude: %1$d van %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Helperprogramme kan oorspronklike APK\'s vir jou aflaai. Slegs diegene wat jy hier vertrou, word in die aflaai-instruksies aangebied.</string>
+    <string name="settings_system_apk_download_helper_warning">Die APK kom van die helperprogram af, so vertrou net programme wat jy ken. Morphe kontroleer steeds die pakket, weergawe en handtekening van elke lêer voordat dit gepatch word.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Geïnstalleer deur %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Installeerder onbekend</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorige gids</string>
     <string name="file_picker_no_files">Geen lêers hier</string>

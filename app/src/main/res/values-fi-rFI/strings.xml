@@ -1115,7 +1115,6 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Käytä Morphen sisäänrakennettua tiedostonvalitsinta järjestelmän oletusarvon sijaan</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-latausapuohjelma</string>
-    <string name="settings_system_apk_download_helper_description">Anna asennetun apuohjelman hakea alkuperäiset APK-tiedostot puolestasi. Tiedosto tulee kyseisestä apuohjelmasta, joten ota tämä käyttöön vain, jos luotat siihen</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Edellinen hakemisto</string>
     <string name="file_picker_no_files">Täällä ei ole tiedostoja</string>

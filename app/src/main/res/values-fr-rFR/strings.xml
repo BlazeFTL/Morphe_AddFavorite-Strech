@@ -403,7 +403,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="header_creator_guide_positioning_title">Positionnement et mise à l\'échelle</string>
     <string name="header_creator_guide_positioning_body">Utilisez les gestes de pincement pour zoomer et de glissement directement dans l\'aperçu pour positionner et redimensionner votre image. Des guides d\'alignement apparaissent lorsque l\'image est proche du centre. Vous pouvez également utiliser le curseur sous l\'aperçu.</string>
     <!-- Batch patching -->
-    <string name="batch_patch_action">Patch sélectionné</string>
+    <string name="batch_patch_action">Patchs sélectionnés</string>
     <string name="batch_patch_title">Patching par lots</string>
     <string name="batch_patch_planning">Préparation de la file d\'attente…</string>
     <string name="batch_patch_preparing_next">Préparation de l\'application suivante…</string>
@@ -1123,7 +1123,6 @@ Détails : %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Parcourez le stockage avec le sélecteur de fichiers intégré de Morphe au lieu de celui par défaut du système</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Assistant de téléchargement d\'APK</string>
-    <string name="settings_system_apk_download_helper_description">Laissez une application d\'assistance installée récupérer les APK d\'origine pour vous. Le fichier provient de cette application, n\'activez cette option que si vous lui faites confiance</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Dossier précédent</string>
     <string name="file_picker_no_files">Aucun fichier ici</string>

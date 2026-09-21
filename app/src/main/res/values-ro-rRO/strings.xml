@@ -1115,7 +1115,6 @@ Detalii: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Răsfoiește stocarea cu selectorul de fișiere integrat Morphe în loc de cel implicit al sistemului</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Asistent descărcare APK</string>
-    <string name="settings_system_apk_download_helper_description">Permite unei aplicații auxiliare instalate să obțină APK-uri originale pentru tine. Fișierul provine de la acea aplicație, așa că activează această opțiune numai dacă ai încredere în ea</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Director anterior</string>
     <string name="file_picker_no_files">Nu există fișiere aici</string>

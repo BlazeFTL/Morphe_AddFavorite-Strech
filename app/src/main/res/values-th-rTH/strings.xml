@@ -1116,7 +1116,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">เรียกดูพื้นที่จัดเก็บด้วยตัวเลือกไฟล์ในตัวของ Morphe แทนค่าเริ่มต้นของระบบ</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">ตัวช่วยดาวน์โหลด APK</string>
-    <string name="settings_system_apk_download_helper_description">ให้แอปตัวช่วยที่ติดตั้งดึง APK ดั้งเดิมมาให้คุณ ไฟล์มาจากแอปนั้น ดังนั้นให้เปิดใช้งานเฉพาะเมื่อคุณเชื่อถือเท่านั้น</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">ไดเรกทอรีก่อนหน้า</string>
     <string name="file_picker_no_files">ไม่มีไฟล์อยู่ที่นี่</string>

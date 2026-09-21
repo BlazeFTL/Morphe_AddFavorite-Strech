@@ -1093,7 +1093,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">به‌جای انتخابگر پیش‌فرض سیستم، ذخیره‌سازی را با انتخابگر فایل داخلی Morphe مرور کنید</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">برنامهٔ کمکی دانلود APK</string>
-    <string name="settings_system_apk_download_helper_description">به یک برنامهٔ کمکی نصب‌شده اجازه دهید APKهای اصلی را برایتان دریافت کند. فایل از آن برنامه می‌آید؛ بنابراین فقط اگر به آن اعتماد دارید این گزینه را فعال کنید</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">پوشهٔ قبلی</string>
     <string name="file_picker_no_files">اینجا فایلی نیست</string>

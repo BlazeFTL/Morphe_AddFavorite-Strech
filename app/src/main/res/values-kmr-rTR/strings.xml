@@ -1028,7 +1028,6 @@ Detay: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Li şûna hilbijêrkê pelan yê serî yê sîstemê, hilbijêrkê pelan yê têne çêkirin yê Morphe bikar bîne</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Arîkareka dakêşina APK-yê</string>
-    <string name="settings_system_apk_download_helper_description">Bi serlêdanek arîkar ku hatiye saz kirin, APK-yên orjînal ji bo we bistîne. Pel ji wê serlêdanê tê, ji ber vê yekê tenê wê pêşkeve heke te wê bawer bikî</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Pêşîya rêgehê</string>
     <string name="file_picker_no_files">Li vir pel nehatine dîtin</string>

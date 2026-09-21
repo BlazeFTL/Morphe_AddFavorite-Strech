@@ -1116,7 +1116,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">Използвайте вградения файлов мениджър на Morphe вместо системния.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Помощник за изтегляне на APK</string>
-    <string name="settings_system_apk_download_helper_description">Позволете на инсталирано помощно приложение да изтегля оригиналните APK файлове вместо вас. Файлът идва от това приложение, така че активирайте това само ако му се доверявате</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Предишна директория</string>
     <string name="file_picker_no_files">Няма файлове тук</string>

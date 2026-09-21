@@ -1117,7 +1117,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">Χρησιμοποιήστε την ενσωματωμένη επιλογή αρχείων του Morphe αντί για την προεπιλεγμένη του συστήματος</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Βοηθητικό εργαλείο λήψης APK</string>
-    <string name="settings_system_apk_download_helper_description">Αφήστε μια εγκατεστημένη βοηθητική εφαρμογή να ανακτήσει αρχικά APK για εσάς. Το αρχείο προέρχεται από αυτή την εφαρμογή, επομένως ενεργοποιήστε το μόνο εάν την εμπιστεύεστε</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Προηγούμενος κατάλογος</string>
     <string name="file_picker_no_files">Δεν υπάρχουν αρχεία εδώ</string>

@@ -1116,7 +1116,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">सिस्टम डिफ़ॉल्ट के बजाय मोरफे के बिल्ट-इन फ़ाइल पिकर के साथ संग्रहण ब्राउज़ करें</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK डाउनलोड हेल्पर</string>
-    <string name="settings_system_apk_download_helper_description">एक स्थापित सहायक ऐप को आपके लिए मूल APK प्राप्त करने दें। फ़ाइल उस ऐप से आती है, इसलिए केवल तभी इसे सक्षम करें जब आप उस पर भरोसा करते हैं</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">पिछली निर्देशिका</string>
     <string name="file_picker_no_files">यहां कोई फ़ाइलें नहीं हैं</string>

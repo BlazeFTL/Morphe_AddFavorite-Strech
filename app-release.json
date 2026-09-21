@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-21T17:08:07",
-  "description": "# [1.32.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.5...v1.32.0-dev.6) (2026-09-21)\n\n\n### Bug Fixes\n\n* Close the split modules skipped while merging ([1a0dbae](https://github.com/MorpheApp/morphe-manager/commit/1a0dbae02127832cc92ed1d33a1ba37c8258103c))\n* Find the base module of a split archive by its manifest ([cf45ce9](https://github.com/MorpheApp/morphe-manager/commit/cf45ce964b10d2e9c55a0eaaf0e9c1d9f122784c))\n* Type into preset option fields directly and open presets from the arrow ([00f8c2e](https://github.com/MorpheApp/morphe-manager/commit/00f8c2e138b6af7327d325eaeda1372c69d569ac))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.6/morphe-manager-1.32.0-dev.6.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.6/morphe-manager-1.32.0-dev.6.apk.asc",
-  "version": "1.32.0-dev.6"
+  "created_at": "2026-09-21T21:05:54",
+  "description": "# [1.32.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.6...v1.32.0-dev.7) (2026-09-21)\n\n\n### Bug Fixes\n\n* Follow the predictive back gesture with the home screen action panel ([4db7fe3](https://github.com/MorpheApp/morphe-manager/commit/4db7fe391f4d406b807fdcf2001f4c444233fd09))\n\n\n### Features\n\n* Trust APK download helpers one by one from a dedicated dialog ([37f72e7](https://github.com/MorpheApp/morphe-manager/commit/37f72e7a04b3f028dd42445e365ee7096decae45))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.7/morphe-manager-1.32.0-dev.7.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.7/morphe-manager-1.32.0-dev.7.apk.asc",
+  "version": "1.32.0-dev.7"
 }

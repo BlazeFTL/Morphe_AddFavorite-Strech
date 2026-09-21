@@ -1,3 +1,15 @@
+# [1.32.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.6...v1.32.0-dev.7) (2026-09-21)
+
+
+### Bug Fixes
+
+* Follow the predictive back gesture with the home screen action panel ([4db7fe3](https://github.com/MorpheApp/morphe-manager/commit/4db7fe391f4d406b807fdcf2001f4c444233fd09))
+
+
+### Features
+
+* Trust APK download helpers one by one from a dedicated dialog ([37f72e7](https://github.com/MorpheApp/morphe-manager/commit/37f72e7a04b3f028dd42445e365ee7096decae45))
+
 # [1.32.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.5...v1.32.0-dev.6) (2026-09-21)
 
 

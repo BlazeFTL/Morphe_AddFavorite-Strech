@@ -798,7 +798,14 @@ private fun ApkManagementDialogContent(
             )
         },
         footer = {
-            if (isMultiSelectMode) {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismissRequest,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        bottomBar = if (isMultiSelectMode) {
+            {
                 MultiSelectShell(visible = true) {
                     val installLabel = stringResource(
                         selectedInstallableItems
@@ -810,7 +817,6 @@ private fun ApkManagementDialogContent(
                     val exportLabel = stringResource(R.string.export)
                     val uninstallLabel = stringResource(R.string.uninstall)
                     val deleteLabel = stringResource(R.string.delete)
-                    val destructiveColors = ActionPillColors.destructive()
                     SelectionActionBar(
                         selectedCount = selectedItems.size,
                         // Scoped to the filtered list so "select all" never reaches hidden entries
@@ -823,6 +829,20 @@ private fun ApkManagementDialogContent(
                         onDeselectAll = { selection.clear() },
                         onCancel = { selection.clear(); isMultiSelectMode = false },
                         actions = buildList {
+                            if (canInstallSelected) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.InstallMobile,
+                                        label = installLabel,
+                                        onClick = {
+                                            actions.onInstallSelected.invoke(selectedInstallableItems)
+                                            selection.clear()
+                                        },
+                                        tone = ActionTone.Primary
+                                    )
+                                )
+                            }
+
                             if (selectedFiles.isNotEmpty()) {
                                 add(
                                     SelectionAction(
@@ -847,26 +867,13 @@ private fun ApkManagementDialogContent(
                                 )
                             }
 
-                            if (canInstallSelected) {
-                                add(
-                                    SelectionAction(
-                                        icon = Icons.Outlined.InstallMobile,
-                                        label = installLabel,
-                                        onClick = {
-                                            actions.onInstallSelected.invoke(selectedInstallableItems)
-                                            selection.clear()
-                                        }
-                                    )
-                                )
-                            }
-
                             if (canUninstallSelected) {
                                 add(
                                     SelectionAction(
                                         icon = Icons.Outlined.DeleteForever,
                                         label = uninstallLabel,
                                         onClick = { showUninstallSelectedConfirmation = true },
-                                        colors = destructiveColors
+                                        tone = ActionTone.Destructive
                                     )
                                 )
                             }
@@ -876,21 +883,14 @@ private fun ApkManagementDialogContent(
                                     icon = Icons.Outlined.Delete,
                                     label = deleteLabel,
                                     onClick = { showDeleteSelectedConfirmation = true },
-                                    enabled = selectedItems.isNotEmpty(),
-                                    colors = destructiveColors
+                                    tone = ActionTone.Destructive
                                 )
                             )
                         }
                     )
                 }
-            } else {
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismissRequest,
-                    modifier = Modifier.fillMaxWidth()
-                )
             }
-        },
+        } else null,
         scrollable = false,
         padding = DialogPadding.Compact,
         contentArrangement = Arrangement.Top,

@@ -248,70 +248,54 @@ fun BundleManagementSheet(
         Box {
             Column(Modifier.fillMaxWidth()) {
                 // Header - outside scrollable area
-                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                PanelHeader(
+                    title = {
                         Column {
-                            Text(
-                                text = stringResource(R.string.sources_management_title),
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
+                            PanelTitle(text = stringResource(R.string.sources_management_title))
+                            PanelSubtitle(
                                 text = pluralStringResource(
                                     R.plurals.sources_management_subtitle,
                                     sources.size,
                                     sources.size.toString()
-                                ),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
                             )
                         }
-
+                    }
+                ) {
+                    AnimatedVisibility(visible = isSearchable) {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            AnimatedVisibility(visible = isSearchable) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    TitleAction(
-                                        icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                                        contentDescription = stringResource(R.string.search),
-                                        onClick = { search.toggle() },
-                                        style = TitleActionStyle.AccentToggle,
-                                        active = search.visible
-                                    )
-
-                                    val activeSortLabel = stringResource(sourceSortMode.labelRes)
-                                    TitleAction(
-                                        icon = Icons.AutoMirrored.Outlined.Sort,
-                                        contentDescription = stringResource(R.string.sort),
-                                        onClick = { showSortDialog = true },
-                                        modifier = Modifier.semantics {
-                                            role = Role.Button
-                                            stateDescription = activeSortLabel
-                                        },
-                                        style = TitleActionStyle.Accent
-                                    )
-                                }
-                            }
                             TitleAction(
-                                icon = Icons.Default.Add,
-                                contentDescription = stringResource(R.string.add),
-                                onClick = onAddSource,
+                                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                                contentDescription = stringResource(R.string.search),
+                                onClick = { search.toggle() },
+                                style = TitleActionStyle.AccentToggle,
+                                active = search.visible
+                            )
+
+                            val activeSortLabel = stringResource(sourceSortMode.labelRes)
+                            TitleAction(
+                                icon = Icons.AutoMirrored.Outlined.Sort,
+                                contentDescription = stringResource(R.string.sort),
+                                onClick = { showSortDialog = true },
+                                modifier = Modifier.semantics {
+                                    role = Role.Button
+                                    stateDescription = activeSortLabel
+                                },
                                 style = TitleActionStyle.Accent
                             )
                         }
                     }
-
+                    TitleAction(
+                        icon = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.add),
+                        onClick = onAddSource,
+                        style = TitleActionStyle.Accent
+                    )
+                }
+                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                     AnimatedVisibility(
                         visible = search.visible,
                         enter = Animations.expandFadeEnter,

@@ -56,6 +56,10 @@ object Defaults {
     val CompactCornerRadius = 12.dp
     val SettingsCornerRadius = 14.dp
     val SectionCornerRadius = 18.dp
+
+    /** Gap a surface rising from the bottom edge (a sheet or a panel) keeps from the sides of the screen. */
+    val SheetSideInset = 8.dp
+
     val IconSize = 24.dp
     val IconSizeSmall = 20.dp
 
@@ -106,6 +110,9 @@ object Defaults {
     // Dialog animation scale
     /** Initial/target scale for dialog enter/exit scale animation. */
     const val DIALOG_SCALE = 0.95f
+
+    /** Material's opacity for content that is present but out of reach. */
+    const val DISABLED_ALPHA = 0.38f
 }
 
 /**

@@ -6,12 +6,11 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.IconButtonColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
@@ -19,12 +18,11 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.withToast
 
 /**
- * Reorder mode of a [MultiSelectBar]: whether it is on, and what its pills do. A bar given
- * none offers no reordering.
+ * Reorder mode of a [MultiSelectBar]: whether it is on, and what its pills do. The mode is
+ * entered through one of the bar's actions.
  */
 internal class MultiSelectReorder(
     val isActive: Boolean,
-    val onEnter: () -> Unit,
     val onSave: () -> Unit,
     val onReset: () -> Unit,
     val onCancel: () -> Unit
@@ -39,19 +37,12 @@ private data class MultiSelectDisplay(
     val count: Int,
     val total: Int,
     val reorder: MultiSelectReorder?,
-    val contextAction: SelectionAction?
-)
-
-/** The same, for [CategoryActionBar]. */
-private data class CategoryDisplay(
-    val title: String?,
-    val inReorderMode: Boolean,
-    val showEditActions: Boolean
+    val actions: List<SelectionAction>
 )
 
 /**
- * Animated confirmation bar that slides up from the bottom of the card list
- * when the user is in multi-select mode.
+ * Home screen's selection panel, which slides up while cards are being selected and turns into
+ * the reorder panel while [reorder] is on.
  */
 @Composable
 internal fun MultiSelectBar(
@@ -60,33 +51,14 @@ internal fun MultiSelectBar(
     visible: Boolean,
     onSelectAll: () -> Unit,
     onDeselectAll: () -> Unit,
-    onAction: () -> Unit,
-    actionIcon: ImageVector,
-    actionContentDescription: String,
-    actionDoneMessage: String,
     onCancel: () -> Unit,
+    actions: List<SelectionAction>,
     modifier: Modifier = Modifier,
-    reorder: MultiSelectReorder? = null,
-    actionColors: IconButtonColors = ActionPillColors.destructive(),
-    contextAction: SelectionAction? = null,
-    onMoveToCategory: (() -> Unit)? = null,
-    onPatchSelected: (() -> Unit)? = null,
-    onPatchSources: (() -> Unit)? = null
+    reorder: MultiSelectReorder? = null
 ) {
     val context = LocalContext.current
-
-    val cancelLabel = stringResource(android.R.string.cancel)
-    val reorderListLabel = stringResource(R.string.reorder_list)
-    val reorderListHint = stringResource(R.string.reorder_list_hint)
     val reorderDone = stringResource(R.string.reorder_done)
-    val resetOrderLabel = stringResource(R.string.reset_order)
     val resetOrderDone = stringResource(R.string.reset_order_done)
-    val doneLabel = stringResource(R.string.done)
-    val moveToCategoryLabel = stringResource(R.string.home_category_move_to)
-    val patchSelectedLabel = stringResource(R.string.batch_patch_action)
-    val patchSourcesLabel = stringResource(R.string.sources_management_title)
-    val primaryColors = ActionPillColors.primary()
-    val secondaryColors = ActionPillColors.secondary()
 
     val selection = rememberWhileVisible(
         visible,
@@ -94,7 +66,7 @@ internal fun MultiSelectBar(
             count = selectedCount,
             total = totalCount,
             reorder = reorder,
-            contextAction = contextAction
+            actions = actions
         )
     )
 
@@ -106,102 +78,36 @@ internal fun MultiSelectBar(
         ) { inReorder ->
             val activeReorder = selection.reorder
             if (inReorder && activeReorder != null) {
-                ActionBarColumn {
-                    ActionBarCaption(text = reorderListHint)
-                    ActionPillRow(fill = true) {
-                        ActionPillButton(
-                            onClick = activeReorder.onReset,
-                            icon = Icons.Outlined.Restore,
-                            contentDescription = resetOrderLabel,
-                            tooltip = resetOrderLabel,
-                            confirmation = resetOrderDone
-                        )
-                        ActionPillButton(
-                            onClick = activeReorder.onCancel,
-                            icon = Icons.Outlined.Close,
-                            contentDescription = cancelLabel,
-                            tooltip = cancelLabel
-                        )
-                        ActionPillButton(
-                            onClick = context.withToast(reorderDone, activeReorder.onSave),
-                            icon = Icons.Outlined.Check,
-                            contentDescription = doneLabel,
-                            tooltip = doneLabel
-                        )
-                    }
-                }
+                ReorderPanel(
+                    onDone = context.withToast(reorderDone, activeReorder.onSave),
+                    onReset = context.withToast(resetOrderDone, activeReorder.onReset),
+                    onCancel = activeReorder.onCancel
+                )
             } else {
-                val hasSelection = selection.count > 0
                 SelectionActionBar(
                     selectedCount = selection.count,
                     totalCount = selection.total,
                     onSelectAll = onSelectAll,
                     onDeselectAll = onDeselectAll,
                     onCancel = onCancel,
-                    actions = buildList {
-                        if (onPatchSelected != null) {
-                            add(
-                                SelectionAction(
-                                    icon = Icons.Outlined.AutoFixHigh,
-                                    label = patchSelectedLabel,
-                                    onClick = onPatchSelected,
-                                    enabled = hasSelection,
-                                    colors = primaryColors
-                                )
-                            )
-                        }
-                        if (onPatchSources != null) {
-                            // Next to "Patch selected" rather than next to "Hide": both answer
-                            // what patching these apps does, while "Hide" is about this screen
-                            add(
-                                SelectionAction(
-                                    icon = Icons.Outlined.Source,
-                                    label = patchSourcesLabel,
-                                    onClick = onPatchSources,
-                                    enabled = hasSelection,
-                                    colors = secondaryColors
-                                )
-                            )
-                        }
-                        if (onMoveToCategory != null) {
-                            add(
-                                SelectionAction(
-                                    icon = Icons.Outlined.FolderOpen,
-                                    label = moveToCategoryLabel,
-                                    onClick = onMoveToCategory,
-                                    enabled = hasSelection
-                                )
-                            )
-                        }
-                        selection.contextAction?.let { add(it.copy(enabled = it.enabled && hasSelection)) }
-                        add(
-                            SelectionAction(
-                                icon = actionIcon,
-                                label = actionContentDescription,
-                                onClick = context.withToast(actionDoneMessage, onAction),
-                                enabled = hasSelection,
-                                colors = actionColors
-                            )
-                        )
-                    },
-                    controls = listOfNotNull(
-                        selection.reorder?.let {
-                            SelectionAction(
-                                icon = Icons.Outlined.Reorder,
-                                label = reorderListLabel,
-                                onClick = it.onEnter,
-                                enabled = hasSelection
-                            )
-                        }
-                    )
+                    actions = selection.actions
                 )
             }
         }
     }
 }
 
+/** What [CategoryActionBar] renders, frozen as one value while the bar slides out. */
+private data class CategoryDisplay(
+    val title: String?,
+    val inReorderMode: Boolean,
+    val showEditActions: Boolean
+)
+
 /**
- * Slide-up bar for the currently long-pressed category header.
+ * Slide-up panel for the long-pressed category or source header, which turns into the reorder
+ * panel while the headers are being dragged into a new order. A source group only offers
+ * reordering: its name and its apps come from the source, not from the user.
  */
 @Composable
 internal fun CategoryActionBar(
@@ -218,11 +124,8 @@ internal fun CategoryActionBar(
 ) {
     val cancelLabel = stringResource(android.R.string.cancel)
     val renameLabel = stringResource(R.string.rename)
-    val deleteLabel = stringResource(R.string.delete)
     val reorderListLabel = stringResource(R.string.reorder_list)
-    val reorderListHint = stringResource(R.string.reorder_list_hint)
-    val doneLabel = stringResource(R.string.done)
-    val destructiveColors = ActionPillColors.destructive()
+    val deleteLabel = stringResource(R.string.delete)
 
     val category = rememberWhileVisible(
         visible,
@@ -239,55 +142,76 @@ internal fun CategoryActionBar(
             transitionSpec = Animations.fadeCrossfade(200),
             label = "category_bar_mode"
         ) { inReorder ->
-            ActionBarColumn {
-                if (inReorder) {
-                    ActionBarCaption(text = reorderListHint)
-                    ActionPillRow(fill = true) {
-                        ActionPillButton(
-                            onClick = onExitReorder,
-                            icon = Icons.Outlined.Check,
-                            contentDescription = doneLabel,
-                            tooltip = doneLabel
-                        )
+            if (inReorder) {
+                ReorderPanel(onDone = onExitReorder)
+            } else {
+                Column {
+                    PanelHeader(title = { category.title?.let { PanelTitle(text = it) } }) {
+                        TitleAction(icon = Icons.Outlined.Close, contentDescription = cancelLabel, onClick = onCancel)
                     }
-                } else {
-                    val title = category.title
-                    if (title != null) {
-                        ActionBarCaption(text = title, maxLines = 1)
-                    }
-                    ActionPillRow(fill = true) {
-                        if (category.showEditActions) {
-                            ActionPillButton(
-                                onClick = onRename,
-                                icon = Icons.Outlined.Edit,
-                                contentDescription = renameLabel,
-                                tooltip = renameLabel
-                            )
+                    PanelActions(
+                        actions = buildList {
+                            if (category.showEditActions) {
+                                add(SelectionAction(Icons.Outlined.Edit, renameLabel, onRename))
+                            }
+                            add(SelectionAction(Icons.Outlined.Reorder, reorderListLabel, onEnterReorder))
+                            if (category.showEditActions) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.Delete,
+                                        label = deleteLabel,
+                                        onClick = onDelete,
+                                        tone = ActionTone.Destructive
+                                    )
+                                )
+                            }
                         }
-                        ActionPillButton(
-                            onClick = onEnterReorder,
-                            icon = Icons.Outlined.Reorder,
-                            contentDescription = reorderListLabel,
-                            tooltip = reorderListLabel
-                        )
-                        if (category.showEditActions) {
-                            ActionPillButton(
-                                onClick = onDelete,
-                                icon = Icons.Outlined.Delete,
-                                contentDescription = deleteLabel,
-                                tooltip = deleteLabel,
-                                colors = destructiveColors
-                            )
-                        }
-                        ActionPillButton(
-                            onClick = onCancel,
-                            icon = Icons.Outlined.Close,
-                            contentDescription = cancelLabel,
-                            tooltip = cancelLabel
-                        )
-                    }
+                    )
                 }
             }
         }
+    }
+}
+
+/**
+ * Drag hint over the ways out of a reorder: [onDone] keeps the new order, [onReset] goes back to
+ * the default one, and [onCancel] drops the changes. A reorder without the last two offers only
+ * the first.
+ */
+@Composable
+private fun ReorderPanel(
+    onDone: () -> Unit,
+    onReset: (() -> Unit)? = null,
+    onCancel: (() -> Unit)? = null
+) {
+    val reorderListHint = stringResource(R.string.reorder_list_hint)
+    val doneLabel = stringResource(R.string.done)
+    val resetOrderLabel = stringResource(R.string.reset_order)
+    val cancelLabel = stringResource(android.R.string.cancel)
+
+    Column {
+        PanelHeader(title = { PanelTitle(text = reorderListHint) }) {
+            if (onCancel != null) {
+                TitleAction(icon = Icons.Outlined.Close, contentDescription = cancelLabel, onClick = onCancel)
+            }
+        }
+        PanelActions(
+            actions = listOfNotNull(
+                SelectionAction(
+                    icon = Icons.Outlined.Check,
+                    label = doneLabel,
+                    onClick = onDone,
+                    tone = ActionTone.Primary
+                ),
+                onReset?.let {
+                    SelectionAction(
+                        icon = Icons.Outlined.Restore,
+                        label = resetOrderLabel,
+                        onClick = it,
+                        tone = ActionTone.Destructive
+                    )
+                }
+            )
+        )
     }
 }

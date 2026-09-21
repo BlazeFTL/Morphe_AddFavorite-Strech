@@ -43,6 +43,7 @@ import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toast
+import app.morphe.manager.util.withToast
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import java.util.Locale
@@ -310,17 +311,10 @@ fun AppPatchesDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
-                    .padding(horizontal = 16.dp)
             ) {
-                Text(
-                    text = stringResource(R.string.filter),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(Modifier.height(8.dp))
+                PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) })
                 FlowRow(
-                    modifier = Modifier.padding(bottom = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     // "All" chip
@@ -420,6 +414,7 @@ internal fun HiddenAppsDialog(
     onShowPatches: (HomeAppItem) -> Unit,
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
     val itemSpacing = rememberWindowSize().itemSpacing
     val isMultiSelectMode = remember { mutableStateOf(false) }
     val selectedPackages = rememberSelectionState<String>()
@@ -471,37 +466,42 @@ internal fun HiddenAppsDialog(
         dismissOnClickOutside = !isMultiSelectMode.value,
         title = stringResource(R.string.home_app_hidden_apps_title),
         footer = {
-            if (isMultiSelectMode.value) {
-                MultiSelectBar(
-                    selectedCount = selectedPackages.size,
-                    totalCount = hiddenAppItems.size,
-                    visible = true,
-                    onSelectAll = {
-                        selectedPackages.setAll(hiddenAppItems.map { it.id })
-                    },
-                    onDeselectAll = { selectedPackages.clear() },
-                    onAction = {
-                        onUnhideMultiple(selectedPackages.keys.toSet())
-                        isMultiSelectMode.value = false
-                        selectedPackages.clear()
-                    },
-                    actionIcon = Icons.Outlined.Visibility,
-                    actionContentDescription = stringResource(R.string.unhide),
-                    actionDoneMessage = stringResource(R.string.unhide_done),
-                    actionColors = ActionPillColors.tertiary(),
-                    onCancel = {
-                        isMultiSelectMode.value = false
-                        selectedPackages.clear()
-                    }
-                )
-            } else {
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
+            )
         },
+        bottomBar = if (isMultiSelectMode.value) {
+            {
+                MultiSelectShell(visible = true) {
+                    SelectionActionBar(
+                        selectedCount = selectedPackages.size,
+                        totalCount = hiddenAppItems.size,
+                        onSelectAll = {
+                            selectedPackages.setAll(hiddenAppItems.map { it.id })
+                        },
+                        onDeselectAll = { selectedPackages.clear() },
+                        actions = listOf(
+                            SelectionAction(
+                                icon = Icons.Outlined.Visibility,
+                                label = stringResource(R.string.unhide),
+                                onClick = context.withToast(stringResource(R.string.unhide_done)) {
+                                    onUnhideMultiple(selectedPackages.keys.toSet())
+                                    isMultiSelectMode.value = false
+                                    selectedPackages.clear()
+                                },
+                                tone = ActionTone.Tertiary
+                            )
+                        ),
+                        onCancel = {
+                            isMultiSelectMode.value = false
+                            selectedPackages.clear()
+                        }
+                    )
+                }
+            }
+        } else null,
         padding = DialogPadding.Compact,
         scrollable = false
     ) {

@@ -5,15 +5,21 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.activity.compose.PredictiveBackHandler
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.dismiss
@@ -21,6 +27,11 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import kotlinx.coroutines.launch
+import kotlin.coroutines.cancellation.CancellationException
+
+/** How far a predictive back gesture draws the sheet down before it lets go. */
+private val PredictiveBackSlide = 96.dp
 
 /**
  * A [ModalBottomSheet] that never overlaps the status bar.
@@ -53,12 +64,19 @@ fun AppBottomSheet(
     content: @Composable ColumnScope.() -> Unit
 ) {
     val effectiveContainerColor = MonochromeThemeDefaults.surfaceColor(containerColor)
+    val backProgress = remember { Animatable(0f) }
+    val scope = rememberCoroutineScope()
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         // statusBarsPadding() on the modifier is what physically stops the sheet
         // surface from entering the status-bar zone at the window-layout level.
-        modifier = modifier.statusBarsPadding(),
+        modifier = modifier
+            .statusBarsPadding()
+            .padding(horizontal = Defaults.SheetSideInset)
+            .graphicsLayer {
+                translationY = FastOutSlowInEasing.transform(backProgress.value) * PredictiveBackSlide.toPx()
+            },
         sheetState = sheetState,
         shape = shape,
         containerColor = effectiveContainerColor,
@@ -94,7 +112,26 @@ fun AppBottomSheet(
             }
         } else null,
         contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
+        // The sheet's own predictive back shrinks the content harder than the surface around it,
+        // leaving bare sheet below whatever list it holds, so back is handled below instead
+        properties = ModalBottomSheetProperties(
+            shouldDismissOnBackPress = false,
+            shouldDismissOnClickOutside = true
+        ),
         content = {
+            // The gesture draws the whole sheet down, and letting go slides it out from there.
+            // Registered ahead of the content, so back handlers the content adds still win
+            PredictiveBackHandler { progress ->
+                try {
+                    progress.collect { backEvent -> backProgress.snapTo(backEvent.progress) }
+                    scope.launch { sheetState.hide() }.invokeOnCompletion {
+                        if (!sheetState.isVisible) onDismissRequest()
+                    }
+                } catch (e: CancellationException) {
+                    scope.launch { backProgress.animateTo(0f) }
+                    throw e
+                }
+            }
             // Shared with dialogs, and their default is white for want of anything better, which
             // a sheet in the light theme would otherwise hand to everything it holds
             CompositionLocalProvider(

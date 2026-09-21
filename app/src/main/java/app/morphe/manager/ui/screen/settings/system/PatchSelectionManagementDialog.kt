@@ -334,7 +334,54 @@ private fun PatchSelectionManagementDialogContent(
             )
         },
         footer = {
-            if (multiSelect.isSelectionMode) {
+            // Two groups rather than one: the transfer pair shares a row, close keeps its own
+            Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)) {
+                if (selections.isNotEmpty()) {
+                    AppDialogActions(
+                        actions = listOf(
+                            DialogAction(
+                                text = stringResource(R.string.import_),
+                                onClick = { openImportAllSelectionsPicker() },
+                                icon = Icons.Outlined.Download
+                            ),
+                            DialogAction(
+                                text = stringResource(R.string.export),
+                                onClick = {
+                                    exportAllSelectionsLauncher.launch(
+                                        importExportViewModel.getAllSelectionsExportFileName()
+                                    )
+                                },
+                                icon = Icons.Outlined.Upload
+                            )
+                        ),
+                        layout = DialogButtonLayout.Horizontal
+                    )
+                } else {
+                    AppDialogActions(
+                        actions = listOf(
+                            DialogAction(
+                                text = stringResource(R.string.import_),
+                                onClick = { openImportAllSelectionsPicker() },
+                                icon = Icons.Outlined.Download
+                            )
+                        ),
+                        layout = DialogButtonLayout.Vertical
+                    )
+                }
+                AppDialogActions(
+                    actions = listOf(
+                        DialogAction(
+                            text = stringResource(R.string.close),
+                            onClick = onDismiss,
+                            emphasis = DialogActionEmphasis.Outlined
+                        )
+                    ),
+                    layout = DialogButtonLayout.Vertical
+                )
+            }
+        },
+        bottomBar = if (multiSelect.isSelectionMode) {
+            {
                 MultiSelectShell(visible = true) {
                     SelectionActionBar(
                         selectedCount = multiSelect.selectedPackages.size,
@@ -347,60 +394,13 @@ private fun PatchSelectionManagementDialogContent(
                                 icon = Icons.Outlined.Delete,
                                 label = stringResource(R.string.reset),
                                 onClick = onShowResetSelectedConfirmation,
-                                enabled = multiSelect.selectedPackages.isNotEmpty,
-                                colors = ActionPillColors.destructive()
+                                tone = ActionTone.Destructive
                             )
                         )
-                    )
-                }
-            } else {
-                // Two groups rather than one: the transfer pair shares a row, close keeps its own
-                Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)) {
-                    if (selections.isNotEmpty()) {
-                        AppDialogActions(
-                            actions = listOf(
-                                DialogAction(
-                                    text = stringResource(R.string.import_),
-                                    onClick = { openImportAllSelectionsPicker() },
-                                    icon = Icons.Outlined.Download
-                                ),
-                                DialogAction(
-                                    text = stringResource(R.string.export),
-                                    onClick = {
-                                        exportAllSelectionsLauncher.launch(
-                                            importExportViewModel.getAllSelectionsExportFileName()
-                                        )
-                                    },
-                                    icon = Icons.Outlined.Upload
-                                )
-                            ),
-                            layout = DialogButtonLayout.Horizontal
-                        )
-                    } else {
-                        AppDialogActions(
-                            actions = listOf(
-                                DialogAction(
-                                    text = stringResource(R.string.import_),
-                                    onClick = { openImportAllSelectionsPicker() },
-                                    icon = Icons.Outlined.Download
-                                )
-                            ),
-                            layout = DialogButtonLayout.Vertical
-                        )
-                    }
-                    AppDialogActions(
-                        actions = listOf(
-                            DialogAction(
-                                text = stringResource(R.string.close),
-                                onClick = onDismiss,
-                                emphasis = DialogActionEmphasis.Outlined
-                            )
-                        ),
-                        layout = DialogButtonLayout.Vertical
                     )
                 }
             }
-        },
+        } else null,
         scrollable = false,
         padding = DialogPadding.Compact,
         contentArrangement = Arrangement.Top,

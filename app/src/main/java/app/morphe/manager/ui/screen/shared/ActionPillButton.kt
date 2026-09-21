@@ -625,15 +625,11 @@ fun CardActionRow(
  * neighbors: the row slides them aside instead, past edges that fade out, keeping the widening
  * pill as close to the middle as it can. Only one confirmation stays open at a time: a new one
  * folds the previous away.
- *
- * With [fill], room the pills leave over widens the narrowest of them until the row spans its
- * full width, so rows stacked in one bar line up edge to edge.
  */
 @Composable
 fun ActionPillRow(
     modifier: Modifier = Modifier,
     spacing: Dp = 8.dp,
-    fill: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val confirmations = remember { RowConfirmations() }
@@ -660,7 +656,7 @@ fun ActionPillRow(
         val emphasis = FloatArray(measurables.size) {
             ((measurables[it].parentData as? PillEmphasisNode)?.emphasis?.invoke() ?: 0f).coerceIn(0f, 1f)
         }
-        val widths = pillWidths(natural, emphasis, available, rowWidth, fill)
+        val widths = pillWidths(natural, emphasis, available, rowWidth)
 
         val placeables = measurables.mapIndexed { index, measurable ->
             val width = widths[index]
@@ -699,21 +695,13 @@ private class RowOverflow {
 }
 
 /**
- * Splits [available] between pills that would like their [natural] widths, stretching them over
- * whatever is left when [fill] is set, then lets each emphasized pill ease from its share towards
- * its natural width, capped at [rowWidth]. The others keep their share, so at zero emphasis this
- * is exactly the plain split.
+ * Splits [available] between pills that would like their [natural] widths, then lets each
+ * emphasized pill ease from its share towards its natural width, capped at [rowWidth]. The
+ * others keep their share, so at zero emphasis this is exactly the plain split.
  */
-private fun pillWidths(
-    natural: IntArray,
-    emphasis: FloatArray,
-    available: Int,
-    rowWidth: Int,
-    fill: Boolean
-): IntArray {
+private fun pillWidths(natural: IntArray, emphasis: FloatArray, available: Int, rowWidth: Int): IntArray {
     val widths = IntArray(natural.size)
     fairShare(natural, natural.indices.toList(), available, widths)
-    if (fill) stretch(widths, available)
     natural.indices.forEach { index ->
         if (emphasis[index] > 0f) {
             val full = maxOf(widths[index], minOf(natural[index], rowWidth))
@@ -747,32 +735,6 @@ private fun rowStart(
     }
     val centered = if (weight > 0f) (rowWidth / 2f - anchor / weight).roundToInt() else 0
     return centered.coerceIn(rowWidth - contentWidth, 0)
-}
-
-/**
- * Raises the narrowest of [widths] to a common level until they add up to [available], leaving
- * any pill already wider than that level as it is. The pixels an even split cannot place go to
- * the first pills, so the row ends flush with both edges.
- */
-private fun stretch(widths: IntArray, available: Int) {
-    if (widths.sum() >= available) return
-    var budget = available
-    var raised = widths.size
-    // The widest pills that stand above an even split of what remains keep their width
-    for (width in widths.sortedDescending()) {
-        if (width * raised <= budget) break
-        budget -= width
-        raised--
-    }
-    if (raised == 0) return
-    val level = budget / raised
-    var leftover = budget - level * raised
-    widths.indices.forEach { index ->
-        if (widths[index] <= level) {
-            widths[index] = level + if (leftover > 0) 1 else 0
-            if (leftover > 0) leftover--
-        }
-    }
 }
 
 /**

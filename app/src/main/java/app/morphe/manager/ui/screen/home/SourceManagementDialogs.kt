@@ -754,18 +754,10 @@ fun BundlePatchesDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
-                    .padding(horizontal = 16.dp)
             ) {
-                Text(
-                    text = stringResource(R.string.filter),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) })
 
-                Spacer(Modifier.height(8.dp))
-
-                LazyColumn(Modifier.padding(bottom = 16.dp)) {
+                LazyColumn(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
                     item {
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             // "All" chip
@@ -1418,6 +1410,7 @@ fun SourceAppsDialog(
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
     val sourceMuteRepository: SourceMuteRepository = koinInject()
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val itemSpacing = rememberWindowSize().itemSpacing
 
@@ -1474,40 +1467,46 @@ fun SourceAppsDialog(
             )
         },
         footer = {
-            if (isMultiSelectMode) {
-                MultiSelectBar(
-                    selectedCount = selection.size,
-                    // Scoped to the search so "select all" never reaches apps out of view
-                    totalCount = filtered.size,
-                    visible = true,
-                    onSelectAll = { selection.setAll(filtered.map { (packageName, _) -> packageName }) },
-                    onDeselectAll = { selection.clear() },
-                    onAction = {
-                        bring(selection.keys.toList(), brought = false)
-                        exitMultiSelect()
-                    },
-                    actionIcon = Icons.Outlined.VisibilityOff,
-                    actionContentDescription = stringResource(R.string.sources_apps_leave_out),
-                    actionDoneMessage = stringResource(R.string.sources_apps_leave_out_done),
-                    contextAction = SelectionAction(
-                        icon = Icons.Outlined.Visibility,
-                        label = stringResource(R.string.sources_apps_bring_back),
-                        onClick = {
-                            bring(selection.keys.toList(), brought = true)
-                            exitMultiSelect()
-                        },
-                        colors = ActionPillColors.tertiary()
-                    ),
-                    onCancel = ::exitMultiSelect
-                )
-            } else {
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismissRequest,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismissRequest,
+                modifier = Modifier.fillMaxWidth()
+            )
         },
+        bottomBar = if (isMultiSelectMode) {
+            {
+                MultiSelectShell(visible = true) {
+                    SelectionActionBar(
+                        selectedCount = selection.size,
+                        // Scoped to the search so "select all" never reaches apps out of view
+                        totalCount = filtered.size,
+                        onSelectAll = { selection.setAll(filtered.map { (packageName, _) -> packageName }) },
+                        onDeselectAll = { selection.clear() },
+                        actions = listOf(
+                            SelectionAction(
+                                icon = Icons.Outlined.VisibilityOff,
+                                label = stringResource(R.string.sources_apps_leave_out),
+                                onClick = context.withToast(stringResource(R.string.sources_apps_leave_out_done)) {
+                                    bring(selection.keys.toList(), brought = false)
+                                    exitMultiSelect()
+                                },
+                                tone = ActionTone.Destructive
+                            ),
+                            SelectionAction(
+                                icon = Icons.Outlined.Visibility,
+                                label = stringResource(R.string.sources_apps_bring_back),
+                                onClick = {
+                                    bring(selection.keys.toList(), brought = true)
+                                    exitMultiSelect()
+                                },
+                                tone = ActionTone.Tertiary
+                            )
+                        ),
+                        onCancel = ::exitMultiSelect
+                    )
+                }
+            }
+        } else null,
         padding = DialogPadding.Compact,
         scrollable = false
     ) {

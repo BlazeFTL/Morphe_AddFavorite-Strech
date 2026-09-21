@@ -1,3 +1,12 @@
+# [1.32.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.5...v1.32.0-dev.6) (2026-09-21)
+
+
+### Bug Fixes
+
+* Close the split modules skipped while merging ([1a0dbae](https://github.com/MorpheApp/morphe-manager/commit/1a0dbae02127832cc92ed1d33a1ba37c8258103c))
+* Find the base module of a split archive by its manifest ([cf45ce9](https://github.com/MorpheApp/morphe-manager/commit/cf45ce964b10d2e9c55a0eaaf0e9c1d9f122784c))
+* Type into preset option fields directly and open presets from the arrow ([00f8c2e](https://github.com/MorpheApp/morphe-manager/commit/00f8c2e138b6af7327d325eaeda1372c69d569ac))
+
 # [1.32.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.4...v1.32.0-dev.5) (2026-09-21)
 
 

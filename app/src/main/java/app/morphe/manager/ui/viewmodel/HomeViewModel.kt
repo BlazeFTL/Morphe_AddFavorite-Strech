@@ -2609,23 +2609,11 @@ class HomeViewModel(
                 val expectedSignatures = bundleAppMetadataFlow.value[selectedApp.packageName]?.signatures
                 if (!expectedSignatures.isNullOrEmpty()) {
                     val signatureMatch = withContext(Dispatchers.IO) {
-                        if (isSplitFile) {
-                            val extracted = SplitApkInspector.extractRepresentativeApk(
-                                source = selectedApp.file,
-                                workspace = filesystem.uiTempDir
-                            )
-                            if (extracted == null) {
-                                // Cannot extract base APK - skip verification rather than false-block
-                                true
-                            } else {
-                                try {
-                                    pm.getApkFileSignatureHashes(extracted.file).any { it in expectedSignatures }
-                                } finally {
-                                    extracted.cleanup()
-                                }
-                            }
-                        } else {
-                            pm.getApkFileSignatureHashes(selectedApp.file).any { it in expectedSignatures }
+                        SplitApkInspector.withRepresentativeApk(
+                            source = selectedApp.file,
+                            workspace = filesystem.uiTempDir
+                        ) { apk ->
+                            pm.getApkFileSignatureHashes(apk).any { it in expectedSignatures }
                         }
                     }
                     if (!signatureMatch) {
@@ -3596,28 +3584,14 @@ class HomeViewModel(
                 return@withContext ApkLoadResult.Unreadable
             }
 
-            // Check if it's a split APK archive
-            val isSplitArchive = SplitApkPreparer.isSplitArchive(tempFile)
-
-            val packageInfo = if (isSplitArchive) {
-                // Extract the representative base APK and read package info from it.
-                // SplitApkInspector uses a smarter entry-selection algorithm than a naive
-                // name search: base.apk → main/master → largest non-config → fallback.
-                val extracted = SplitApkInspector.extractRepresentativeApk(
-                    source = tempFile,
-                    workspace = filesystem.uiTempDir
-                )
-                try {
-                    extracted?.let { pm.getPackageInfo(it.file) }
-                } finally {
-                    extracted?.cleanup()
-                }
-            } else {
-                // Regular APK - parse directly
-                pm.getPackageInfo(tempFile)
-            }
+            // A split archive is read through its base module
+            val packageInfo = SplitApkInspector.withRepresentativeApk(
+                source = tempFile,
+                workspace = filesystem.uiTempDir
+            ) { apk -> pm.getPackageInfo(apk) }
 
             if (packageInfo == null) {
+                Log.w(tag, "Picked file $fileName could not be parsed as an APK")
                 tempFile.delete()
                 return@withContext ApkLoadResult.NotAnApk
             }

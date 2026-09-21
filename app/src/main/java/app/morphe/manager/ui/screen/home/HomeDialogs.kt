@@ -75,12 +75,10 @@ fun HomeDialogs(
     val uriHandler = LocalUriHandler.current
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val apkDownloadHelperEnabled by homeViewModel.prefs.useApkDownloadHelper.getAsState()
-
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val openApkDownloadHelper = rememberApkDownloadHelperAction(
         host = homeViewModel,
-        enabled = apkDownloadHelperEnabled && homeViewModel.showDownloadInstructionsDialog
+        enabled = homeViewModel.showDownloadInstructionsDialog
     )
 
     // APK selection processing overlay - blocks interaction while APK is loaded/validated in background

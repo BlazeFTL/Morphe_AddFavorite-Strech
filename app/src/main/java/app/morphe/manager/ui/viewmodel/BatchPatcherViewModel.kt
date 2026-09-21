@@ -9,7 +9,6 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.provider.OpenableColumns
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -26,7 +25,6 @@ import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.bundles.AppVersionCatalog
 import app.morphe.manager.domain.bundles.BundledAppTarget
-import app.morphe.manager.domain.bundles.offered
 import app.morphe.manager.domain.bundles.patchableBy
 import app.morphe.manager.domain.manager.DownloadUrlResolver
 import app.morphe.manager.domain.manager.PreferencesManager
@@ -35,7 +33,8 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.ui.model.ApkDownloadHelperHost
-import app.morphe.manager.ui.model.toHelperFileType
+import app.morphe.manager.ui.model.createApkDownloadHelperRequest
+import app.morphe.manager.ui.model.helperSignatureCheckAvailable
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
@@ -376,11 +375,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     }
 
     override val helperSignatureCheckAvailable: Boolean
-        get() {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return false
-            val packageName = apkSearch?.item?.packageName ?: return false
-            return !patchBundleRepository.appMetadata.value[packageName]?.signatures.isNullOrEmpty()
-        }
+        get() = apkSearch?.let {
+            helperSignatureCheckAvailable(patchBundleRepository.appMetadata.value[it.item.packageName])
+        } == true
 
     /**
      * Build the request for an APK download helper, describing the original APK of the queued app
@@ -389,31 +386,15 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     override fun createApkDownloadHelperIntent(component: ComponentName): Intent? {
         val search = apkSearch ?: return null
         val packageName = search.item.packageName
-        val apkFileType = patchBundleRepository.appMetadata.value[packageName]?.apkFileType
 
-        val requestedVersionCodes = search.compatible
-            .filter { it.target.version == search.version }
-            .flatMap { it.buildCodes.orEmpty() }
-            .distinct()
-            .map(Int::toLong)
-            .toLongArray()
-
-        return ApkDownloadHelperContract.createRequestIntent(
+        return createApkDownloadHelperRequest(
             component = component,
             callerPackage = app.packageName,
             packageName = packageName,
             appName = search.item.appName,
             versionName = search.version,
-            versionCodes = requestedVersionCodes,
-            // Narrowed the same way the picker is: a helper told an experimental version is
-            // acceptable would hand back the very one the user chose to hide
-            compatibleVersionNames = search.compatible.offered()
-                .mapNotNull { it.target.version }
-                .distinct(),
-            supportedAbis = Build.SUPPORTED_ABIS,
-            fileType = apkFileType?.toHelperFileType(),
-            // Mirrors the single-app request - only a required plain APK rules split archives out
-            allowSplitArchive = !(apkFileType?.isApk == true && apkFileType.isRequired),
+            compatible = search.compatible,
+            metadata = patchBundleRepository.appMetadata.value[packageName],
             stockInstallRequired = state.value?.useMount == true &&
                     search.item.source !is BatchApkSource.Installed,
             fallbackWebUrl = downloadUrlResolver.webSearchUrl(packageName, search.version)

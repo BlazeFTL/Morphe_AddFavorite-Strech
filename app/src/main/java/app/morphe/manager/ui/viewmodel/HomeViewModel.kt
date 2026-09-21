@@ -3428,47 +3428,26 @@ class HomeViewModel(
     }
 
     override val helperSignatureCheckAvailable: Boolean
-        get() {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return false
-            val packageName = pendingPackageName ?: return false
-            return !bundleAppMetadataFlow.value[packageName]?.signatures.isNullOrEmpty()
-        }
+        get() = pendingPackageName?.let { helperSignatureCheckAvailable(bundleAppMetadataFlow.value[it]) } == true
 
     /**
      * Build the request for an APK download helper, describing the original APK of the pending app.
      */
     override fun createApkDownloadHelperIntent(component: ComponentName): Intent? {
         val packageName = pendingPackageName ?: return null
-        val appName = pendingAppName ?: KnownApps.getAppName(packageName)
         // Use the version selected by the user in Dialog 1; fall back to recommended
-        val requestedVersion = pendingSelectedDownloadVersion ?: pendingRecommendedVersion
-        val apkFileType = bundleAppMetadataFlow.value[packageName]?.apkFileType
+        val requestedVersion = (pendingSelectedDownloadVersion ?: pendingRecommendedVersion)?.version
 
-        val requestedVersionCodes = pendingCompatibleVersions
-            .filter { it.target.version == requestedVersion?.version }
-            .flatMap { it.buildCodes.orEmpty() }
-            .distinct()
-            .map(Int::toLong)
-            .toLongArray()
-
-        return ApkDownloadHelperContract.createRequestIntent(
+        return createApkDownloadHelperRequest(
             component = component,
             callerPackage = app.packageName,
             packageName = packageName,
-            appName = appName,
-            versionName = requestedVersion?.version,
-            versionCodes = requestedVersionCodes,
-            // Narrowed the same way the picker is: a helper told an experimental version is
-            // acceptable would hand back the very one the user chose to hide
-            compatibleVersionNames = pendingCompatibleVersions.offered()
-                .mapNotNull { it.target.version }
-                .distinct(),
-            supportedAbis = Build.SUPPORTED_ABIS,
-            fileType = apkFileType?.toHelperFileType(),
-            // Mirrors processSelectedApp - only a required plain APK rules split archives out
-            allowSplitArchive = !(apkFileType?.isApk == true && apkFileType.isRequired),
+            appName = pendingAppName ?: KnownApps.getAppName(packageName),
+            versionName = requestedVersion,
+            compatible = pendingCompatibleVersions,
+            metadata = bundleAppMetadataFlow.value[packageName],
             stockInstallRequired = usingMountInstall && pendingStockAppInstalled != true,
-            fallbackWebUrl = downloadUrlResolver.webSearchUrl(packageName, requestedVersion?.version)
+            fallbackWebUrl = downloadUrlResolver.webSearchUrl(packageName, requestedVersion)
         )
     }
 

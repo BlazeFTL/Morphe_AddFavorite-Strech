@@ -1199,7 +1199,11 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK download helper</string>
-    <string name="settings_system_apk_download_helper_description">Let an installed helper app fetch original APKs for you. The file comes from that app, so only enable this if you trust it</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Trusted: %1$d of %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Helper apps can download original APKs for you. Only the ones you trust here are offered in the download instructions</string>
+    <string name="settings_system_apk_download_helper_warning">The APK comes from the helper app, so only trust apps you know. Morphe still checks the package, version and signature of every file before patching</string>
+    <string name="settings_system_apk_download_helper_installed_by">Installed by %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Installer unknown</string>
 
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Previous directory</string>

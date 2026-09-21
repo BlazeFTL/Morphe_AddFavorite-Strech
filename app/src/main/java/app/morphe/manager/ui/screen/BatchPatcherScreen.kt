@@ -143,12 +143,11 @@ fun BatchPatcherScreen(
     }
 
     val useExpertMode by prefs.useExpertMode.getAsState()
-    val apkDownloadHelperEnabled by prefs.useApkDownloadHelper.getAsState()
 
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val openApkDownloadHelper = rememberApkDownloadHelperAction(
         host = viewModel,
-        enabled = apkDownloadHelperEnabled && viewModel.apkSearch != null
+        enabled = viewModel.apkSearch != null
     )
 
     // Opened straight from the actions that need it rather than by watching state: the target

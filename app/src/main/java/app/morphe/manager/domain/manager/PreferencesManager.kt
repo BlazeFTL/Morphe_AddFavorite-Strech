@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.domain.manager.base.BasePreferencesManager
 import app.morphe.manager.domain.manager.base.IntPreference
@@ -19,6 +20,7 @@ import app.morphe.manager.ui.theme.UI_SCALE_DEFAULT
 import app.morphe.manager.ui.theme.coerceToUiScale
 import app.morphe.manager.ui.viewmodel.BundleSnapshot
 import app.morphe.manager.ui.viewmodel.RandomInterval
+import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.isArmV7
 import app.morphe.manager.util.tag
@@ -137,8 +139,8 @@ class PreferencesManager(
 
     val useCustomFilePicker = booleanPreference("use_custom_file_picker", false)
 
-    /** Whether an installed third-party APK download helper may be offered. */
-    val useApkDownloadHelper = booleanPreference("use_apk_download_helper", false)
+    /** Packages of the third-party APK download helpers the user trusts to be offered. */
+    val trustedApkDownloadHelpers = stringSetPreference("trusted_apk_download_helpers", emptySet())
 
     val lastFilePickerPath = stringPreference("last_file_picker_path", "")
     val filePickerSortMode = stringPreference("file_picker_sort_mode", "NAME_ASC")
@@ -210,6 +212,13 @@ class PreferencesManager(
                 themeStyleMigrated.update(true)
             }
 
+            // Helpers used to share a single switch; whoever had it on keeps every helper it let in
+            val legacyHelperKey = booleanPreferencesKey("use_apk_download_helper")
+            dataStore.data.first()[legacyHelperKey]?.let { legacyEnabled ->
+                if (legacyEnabled) trustedApkDownloadHelpers.update(installedApkDownloadHelpers())
+                dataStore.edit { it.remove(legacyHelperKey) }
+            }
+
             // Auto-enable prereleases for dev versions
             if (isDevVersion() && !prereleaseAutoEnabled.get()) {
                 Log.d(tag, "Dev version detected (${BuildConfig.VERSION_NAME}), auto-enabling prereleases")
@@ -269,7 +278,9 @@ class PreferencesManager(
         val filePickerShowHiddenFiles: Boolean? = null,
         val useCustomFilePicker: Boolean? = null,
         val customFilePickerUserConfigured: Boolean? = null,
+        /** Legacy all-or-nothing helper switch, read only from older exports. */
         val useApkDownloadHelper: Boolean? = null,
+        val trustedApkDownloadHelpers: Set<String>? = null,
         val sourceBundleSortMode: String? = null,
         val saveOriginalApks: Boolean? = null,
         val savePatchedApks: Boolean? = null,
@@ -322,7 +333,7 @@ class PreferencesManager(
         filePickerShowHiddenFiles = filePickerShowHiddenFiles.get(),
         useCustomFilePicker = useCustomFilePicker.get(),
         customFilePickerUserConfigured = customFilePickerUserConfigured.get(),
-        useApkDownloadHelper = useApkDownloadHelper.get(),
+        trustedApkDownloadHelpers = trustedApkDownloadHelpers.get(),
         sourceBundleSortMode = sourceBundleSortMode.get(),
         saveOriginalApks = saveOriginalApks.get(),
         savePatchedApks = savePatchedApks.get(),
@@ -396,7 +407,12 @@ class PreferencesManager(
         snapshot.filePickerShowHiddenFiles?.let { filePickerShowHiddenFiles.value = it }
         snapshot.useCustomFilePicker?.let { useCustomFilePicker.value = it }
         snapshot.customFilePickerUserConfigured?.let { customFilePickerUserConfigured.value = it }
-        snapshot.useApkDownloadHelper?.let { useApkDownloadHelper.value = it }
+        snapshot.trustedApkDownloadHelpers?.let { trustedApkDownloadHelpers.value = it }
+            ?: run {
+                if (snapshot.useApkDownloadHelper == true) {
+                    trustedApkDownloadHelpers.value = installedApkDownloadHelpers()
+                }
+            }
         snapshot.sourceBundleSortMode?.let { sourceBundleSortMode.value = it }
         snapshot.saveOriginalApks?.let { saveOriginalApks.value = it }
         snapshot.savePatchedApks?.let { savePatchedApks.value = it }
@@ -404,6 +420,9 @@ class PreferencesManager(
         snapshot.patcherSuccessSoundUri?.let { patcherSuccessSoundUri.value = it }
         snapshot.patcherErrorSoundUri?.let { patcherErrorSoundUri.value = it }
     }
+
+    private fun installedApkDownloadHelpers() =
+        ApkDownloadHelperContract.findHelpers(context).mapTo(mutableSetOf()) { it.componentName.packageName }
 
     companion object {
         /** Check if current version is a development/prerelease version. */

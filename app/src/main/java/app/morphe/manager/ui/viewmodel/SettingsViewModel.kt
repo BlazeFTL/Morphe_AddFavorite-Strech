@@ -230,8 +230,9 @@ class SettingsViewModel(
         prefs.customFilePickerUserConfigured.update(true)
     }
 
-    fun setUseApkDownloadHelper(enabled: Boolean) = viewModelScope.launch {
-        prefs.useApkDownloadHelper.update(enabled)
+    fun setApkDownloadHelperTrusted(packageName: String, trusted: Boolean) = viewModelScope.launch {
+        val current = prefs.trustedApkDownloadHelpers.get()
+        prefs.trustedApkDownloadHelpers.update(if (trusted) current + packageName else current - packageName)
     }
 
     fun setPatcherCompletionSound(enabled: Boolean) = viewModelScope.launch {
@@ -299,7 +300,7 @@ class SettingsViewModel(
             .stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
 
     // Which sources an app is kept from is part of how it is configured, so a reset that clears
-    // its selection and options clears that too. Otherwise an app reset back to the defaults keeps
+    // its selection and options clears that too. Otherwise, an app reset back to the defaults keeps
     // a narrowing nothing on screen still explains
     fun resetAllSelections() = viewModelScope.launch(Dispatchers.IO) {
         selectionRepository.reset()

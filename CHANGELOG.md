@@ -1,3 +1,18 @@
+# [1.32.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.8...v1.32.0-dev.9) (2026-09-22)
+
+
+### Bug Fixes
+
+* Fall back to the app's own process when the firmware ignores the patcher heap limit ([49496e1](https://github.com/MorpheApp/morphe-manager/commit/49496e1e0c52821f9fc9abc0ad9afc98826da379))
+* Keep GitHub token names in English across translations ([97f0e43](https://github.com/MorpheApp/morphe-manager/commit/97f0e43e2f4e78bff6acf86132f08bd0382a4be9))
+* Stop patching from hanging when the patcher process never connects ([0cf4927](https://github.com/MorpheApp/morphe-manager/commit/0cf4927f26e45fc134dfb2d107b73625c453a69b))
+
+
+### Features
+
+* Move the update check interval into the notifications settings ([7f3d81e](https://github.com/MorpheApp/morphe-manager/commit/7f3d81ef0fb78643b26d1b89e290df6d5a2b101b))
+* Remove the bytecode mode setting and regroup patcher settings ([5ce9a12](https://github.com/MorpheApp/morphe-manager/commit/5ce9a12e5d14e3087f867141d04f94e38f1337f8))
+
 # [1.32.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.7...v1.32.0-dev.8) (2026-09-22)
 
 

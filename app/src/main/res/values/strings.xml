@@ -839,7 +839,7 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_update_interval_battery_warning">Background checks may not work reliably on some devices. Manufacturers like Xiaomi, Huawei, Samsung, and OnePlus often aggressively restrict background processes to save battery</string>
 
     <string name="settings_advanced_external_batch_patch">Allow external triggers</string>
-    <string name="settings_advanced_external_batch_patch_description">Lets automation apps start batch patching with an intent. Every request is confirmed before anything runs</string>
+    <string name="settings_advanced_external_batch_patch_description">Lets automation apps start batch patching via an intent</string>
     <string name="external_batch_patch_title">Start batch patching?</string>
     <string name="external_batch_patch_description">%s wants Morphe to patch and install apps</string>
     <string name="external_batch_patch_trust_caller">Always allow this app</string>
@@ -866,15 +866,6 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_expert_mode_dialog_message">Expert mode gives more control over how patches are applied, but misconfiguring settings in expert mode can result in a non-functional app</string>
     <string name="settings_advanced_strip_unused_libs">Optimize for device architecture</string>
     <string name="settings_advanced_strip_unused_libs_description">Removes unused CPU architecture libs and split APK modules</string>
-
-    <!-- Bytecode mode -->
-    <string name="settings_advanced_bytecode_mode">Bytecode processing mode</string>
-    <string name="settings_advanced_bytecode_mode_dialog_description">Controls how bytecode is processed during patching. Affects patching speed, memory usage, and output APK size</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast_label">Fast (Recommended)</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast">Fast</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast_description">Faster patching and lower memory usage, at the cost of a larger APK. Recommended for low-RAM or older devices</string>
-    <string name="settings_advanced_bytecode_mode_full">Full</string>
-    <string name="settings_advanced_bytecode_mode_full_description">Slower patching, replicates legacy behavior. Recommended only if fast mode causes issues</string>
 
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
     <string name="settings_advanced_github_pat">GitHub PAT</string>

@@ -3,7 +3,7 @@
  * https://github.com/MorpheApp/morphe-manager
  */
 
-package app.morphe.manager.ui.screen.settings.system
+package app.morphe.manager.ui.screen.settings.advanced
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement

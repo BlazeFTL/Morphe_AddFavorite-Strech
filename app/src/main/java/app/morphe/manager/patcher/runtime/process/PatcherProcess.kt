@@ -35,7 +35,7 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
 
     private val scope =
         CoroutineScope(Dispatchers.Default + CoroutineExceptionHandler { _, throwable ->
-            // Try to send the exception information to the main app.
+            // Try to send the exception information to the main app
             eventBinder?.let {
                 try {
                     it.finished(throwable.stackTraceToString())
@@ -113,8 +113,7 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
                     onPatchCompleted = { patchName -> events.patchSucceeded(patchName) },
                     onProgress = { name, state, message ->
                         events.progress(name, state?.name, message)
-                    },
-                    bytecodeMode = parameters.bytecodeMode,
+                    }
                 ).use {
                     it.run(File(parameters.outputFile), patchList)
                 }

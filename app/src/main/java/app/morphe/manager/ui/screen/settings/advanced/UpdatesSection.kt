@@ -44,7 +44,6 @@ fun UpdatesSettingsItem(
     val backgroundUpdateNotifications by prefs.backgroundUpdateNotifications.getAsState()
     val updateCheckInterval by prefs.updateCheckInterval.getAsState()
     val allowMeteredUpdates by prefs.allowMeteredUpdates.getAsState()
-    val externalBatchPatchEnabled by prefs.externalBatchPatchEnabled.getAsState()
     val useManagerPrereleases by prefs.useManagerPrereleases.getAsState()
     val usePatchesPrereleases by prefs.bundlePrereleasesEnabled.getAsState()
     val showIntervalDialog = remember { mutableStateOf(false) }
@@ -129,17 +128,6 @@ fun UpdatesSettingsItem(
             icon = Icons.Outlined.SignalCellularAlt,
             title = stringResource(R.string.settings_advanced_updates_allow_metered),
             subtitle = stringResource(R.string.settings_advanced_updates_allow_metered_description)
-        )
-
-        SettingsDivider()
-
-        // Entry point other apps use to start a re-patch queue
-        SettingsSwitchItem(
-            checked = externalBatchPatchEnabled,
-            onToggle = { settingsViewModel.toggleExternalBatchPatch(externalBatchPatchEnabled) },
-            icon = Icons.Outlined.Api,
-            title = stringResource(R.string.settings_advanced_external_batch_patch),
-            subtitle = stringResource(R.string.settings_advanced_external_batch_patch_description)
         )
     }
 }

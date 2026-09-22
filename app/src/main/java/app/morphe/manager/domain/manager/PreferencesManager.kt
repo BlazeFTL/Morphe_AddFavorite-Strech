@@ -25,7 +25,6 @@ import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.isArmV7
 import app.morphe.manager.util.tag
 import app.morphe.manager.worker.UpdateCheckInterval
-import app.morphe.patcher.dex.BytecodeMode
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
@@ -95,12 +94,6 @@ class PreferencesManager(
     val groupPatchesByCategory = booleanPreference("group_patches_by_category", true)
 
     val stripUnusedNativeLibs = booleanPreference("strip_unused_native_libs", false)
-
-    /** Bytecode processing mode for the patcher. Defaults to [BytecodeMode.STRIP_FAST]. */
-    val bytecodeModePreference = enumPreference(
-        "bytecode_mode",
-        BytecodeMode.STRIP_FAST
-    )
 
     // System tab
     val installerPrimary = stringPreference("installer_primary", InstallerPreferenceTokens.INTERNAL)
@@ -273,7 +266,6 @@ class PreferencesManager(
         val externalBatchPatchEnabled: Boolean? = null,
         val externalBatchPatchAllowlist: Set<String>? = null,
         val customBundles: List<BundleSnapshot>? = null,
-        val bytecodeModePreference: BytecodeMode? = null,
         val filePickerSortMode: String? = null,
         val filePickerShowHiddenFiles: Boolean? = null,
         val useCustomFilePicker: Boolean? = null,
@@ -328,7 +320,6 @@ class PreferencesManager(
         updateCheckInterval = updateCheckInterval.get(),
         externalBatchPatchEnabled = externalBatchPatchEnabled.get(),
         externalBatchPatchAllowlist = externalBatchPatchAllowlist.get(),
-        bytecodeModePreference = bytecodeModePreference.get(),
         filePickerSortMode = filePickerSortMode.get(),
         filePickerShowHiddenFiles = filePickerShowHiddenFiles.get(),
         useCustomFilePicker = useCustomFilePicker.get(),
@@ -402,7 +393,6 @@ class PreferencesManager(
         snapshot.updateCheckInterval?.let { updateCheckInterval.value = it }
         snapshot.externalBatchPatchEnabled?.let { externalBatchPatchEnabled.value = it }
         snapshot.externalBatchPatchAllowlist?.let { externalBatchPatchAllowlist.value = it }
-        snapshot.bytecodeModePreference?.let { bytecodeModePreference.value = it }
         snapshot.filePickerSortMode?.let { filePickerSortMode.value = it }
         snapshot.filePickerShowHiddenFiles?.let { filePickerShowHiddenFiles.value = it }
         snapshot.useCustomFilePicker?.let { useCustomFilePicker.value = it }

@@ -347,8 +347,7 @@ class PatcherWorker(
             val deviceStats = applicationContext.deviceStats()
 
             // What this build of Morphe brings to the run. Every bug report needs the versions,
-            // and native lib stripping silently changes what ends up in the output APK.
-            // The bytecode mode is left out, the patcher logs it itself while writing dex
+            // and native lib stripping silently changes what ends up in the output APK
             args.logger.info(
                 "$LOG_WORKER_PREFIX_BUILD " +
                         "$LOG_WORKER_FIELD_MANAGER=${BuildConfig.VERSION_NAME} " +

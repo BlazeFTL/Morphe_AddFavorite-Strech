@@ -50,7 +50,6 @@ fun AdvancedTabContent(
 ) {
     val prefs = settingsViewModel.prefs
     val useExpertMode by prefs.useExpertMode.getAsState()
-    val stripUnusedNativeLibs by prefs.stripUnusedNativeLibs.getAsState()
 
     // Notify VM on expert mode changes so it can derive showExpertModeNotice
     LaunchedEffect(useExpertMode) {
@@ -142,19 +141,6 @@ fun AdvancedTabContent(
                             onSave = { pat, include ->
                                 settingsViewModel.setGitHubPat(pat, include)
                             }
-                        )
-
-                        SettingsDivider()
-
-                        // Strip unused native libraries + filter split APKs for device
-                        SettingsSwitchItem(
-                            checked = stripUnusedNativeLibs,
-                            onToggle = {
-                                settingsViewModel.setStripUnusedNativeLibs(!stripUnusedNativeLibs)
-                            },
-                            icon = Icons.Outlined.LayersClear,
-                            title = stringResource(R.string.settings_advanced_strip_unused_libs),
-                            subtitle = stringResource(R.string.settings_advanced_strip_unused_libs_description)
                         )
                     }
 

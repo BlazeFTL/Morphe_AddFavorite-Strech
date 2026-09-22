@@ -369,8 +369,7 @@ class ProcessRuntime(
                     )
                 },
                 skipUnneededSplits = skipUnneededSplits,
-                mergedInputFile = mergedInputPath,
-                bytecodeMode = prefs.bytecodeModePreference.get()
+                mergedInputFile = mergedInputPath
             )
 
             binder.start(parameters, eventHandler)

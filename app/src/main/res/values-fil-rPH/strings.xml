@@ -778,7 +778,7 @@ Hindi maaapektuhan ang mga patch: paganahin ang mga patch na pre-release para sa
     <string name="settings_advanced_update_interval_chip_subtitle">Kadalasan ng pagsusuri sa background</string>
     <string name="settings_advanced_update_interval_battery_warning">Maaaring hindi gumana nang mapagkakatiwalaan ang mga pagsusuri sa background sa ilang device. Ang mga tagagawa tulad ng Xiaomi, Huawei, Samsung, at OnePlus ay madalas na agresibong naghihigpit sa mga proseso sa background upang makatipid ng baterya</string>
     <string name="settings_advanced_external_batch_patch">Payagan ang mga panlabas na trigger</string>
-    <string name="settings_advanced_external_batch_patch_description">Hinahayaan ang mga app ng automation na simulan ang batch patching na may intent. Ang bawat kahilingan ay kinukumpirma bago ang anumang tumakbo</string>
+    <string name="settings_advanced_external_batch_patch_description">Pinapayagan ang mga automation app na simulan ang batch patching sa pamamagitan ng isang intent</string>
     <string name="external_batch_patch_title">Magsimulang mag-batch patch?</string>
     <string name="external_batch_patch_description">%s ay gustong i-patch at i-install ang mga app ng Morphe</string>
     <string name="external_batch_patch_trust_caller">Payagan ang app na ito palagi</string>
@@ -803,24 +803,19 @@ Hindi maaapektuhan ang mga patch: paganahin ang mga patch na pre-release para sa
     <string name="settings_advanced_expert_mode_dialog_message">Nagbibigay ng higit na kontrol ang Expert mode sa kung paano inilalapat ang mga patch, ngunit ang maling pagkompigura ng mga pagpipilian sa expert mode ay maaaring magresulta sa isang hindi gumaganang aplikasyon</string>
     <string name="settings_advanced_strip_unused_libs">I-optimize para sa arkitektura ng device</string>
     <string name="settings_advanced_strip_unused_libs_description">Inaalis ang mga hindi ginagamit na CPU architecture libs at split APK modules</string>
-    <!-- Bytecode mode -->
-    <string name="settings_advanced_bytecode_mode">Paraan ng pagproseso ng bytecode</string>
-    <string name="settings_advanced_bytecode_mode_dialog_description">Kinokontrol kung paano ipinoproseso ang bytecode sa panahon ng pag-patch. Nakakaapekto sa bilis ng pag-patch, paggamit ng memorya, at sukat ng output na APK</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast_label">Mabilis (Inirerekomenda)</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast">Mabilis</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast_description">Mas mabilis na pag-patch at mas mababang paggamit ng memorya, sa kapinsalaan ng mas malaking APK. Inirerekomenda para sa mga low-RAM o mas lumang device</string>
-    <string name="settings_advanced_bytecode_mode_full">Buo</string>
-    <string name="settings_advanced_bytecode_mode_full_description">Mas mabagal na pag-patch, ginagaya ang legacy behavior. Inirerekomenda lamang kung ang mabilis na mode ay nagdudulot ng mga isyu</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat">GitHub PAT</string>
     <string name="settings_advanced_github_pat_description">Kailangan para sa mga pull request sources</string>
     <string name="settings_advanced_github_pat_configured">Nakompigura ang token</string>
     <string name="settings_advanced_github_pat_how_to_get">Paano kumuha ng token</string>
-    <string name="settings_advanced_github_pat_dialog_title">Itakda ang GitHub Personal Access Token</string>
-    <string name="settings_advanced_github_pat_dialog_description">"Magtakda ng GitHub Personal Access Token para makapagdagdag ng mga pull request bilang mga external na source. Lumikha ng PAT na may saklaw na public_repo on
-%s"</string>
+    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Itakda ang %s</string>
+    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Magtakda ng %3$s upang maidagdag ang mga pull request bilang mga panlabas na source. Gumawa ng PAT na may scope na %2$s sa
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Isama sa settings export</string>
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Idinaragdag ang PAT na ito sa mga na-export na setting ng Morphe</string>
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_warning">Huwag mong ibahagi ang iyong PAT. Kung isasama mo ito sa isang settings export, panatilihing pribado ang file na iyon dahil naglalaman ito ng token</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Mga pagpipilian ng patch</string>

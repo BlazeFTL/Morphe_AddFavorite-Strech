@@ -779,7 +779,7 @@
     <string name="settings_advanced_update_interval_chip_subtitle">Συχνότητα ελέγχου στο παρασκήνιο</string>
     <string name="settings_advanced_update_interval_battery_warning">Οι έλεγχοι στο παρασκήνιο μπορεί να μη λειτουργούν σωστά σε ορισμένες συσκευές. Κατασκευαστές όπως Xiaomi, Huawei, Samsung και OnePlus συχνά περιορίζουν σφοδρά τις διαδικασίες παρασκηνίου για να εξοικονομήσουν μπαταρία</string>
     <string name="settings_advanced_external_batch_patch">Επιτρέψτε εξωτερικούς ενεργοποιητές</string>
-    <string name="settings_advanced_external_batch_patch_description">Επιτρέπει σε εφαρμογές αυτοματισμού να ξεκινήσουν την ομαδική διόρθωση με μια πρόθεση. Κάθε αίτημα επιβεβαιώνεται πριν από την εκτέλεση οποιασδήποτε ενέργειας</string>
+    <string name="settings_advanced_external_batch_patch_description">Επιτρέπει σε εφαρμογές αυτοματισμού να ξεκινούν μαζική επιδιόρθωση μέσω ενός intent</string>
     <string name="external_batch_patch_title">Έναρξη ομαδικής διόρθωσης;</string>
     <string name="external_batch_patch_description">Το %s θέλει να κάνει το Morphe να διορθώσει και να εγκαταστήσει εφαρμογές</string>
     <string name="external_batch_patch_trust_caller">Να επιτρέπεται πάντα αυτήν την εφαρμογή</string>
@@ -804,24 +804,19 @@
     <string name="settings_advanced_expert_mode_dialog_message">Η λειτουργία εξειδικευμένου χρήστη δίνει περισσότερο έλεγχο για την εφαρμογή των τροποποιήσεων, αλλά η λάθος ρύθμιση στη λειτουργία αυτή μπορεί να προκαλέσει τη δυσλειτουργικότητα της εφαρμογής</string>
     <string name="settings_advanced_strip_unused_libs">Βελτιστοποίηση για αρχιτεκτονική συσκευής</string>
     <string name="settings_advanced_strip_unused_libs_description">Αφαιρεί αχρησιμοποίητες βιβλιοθήκες αρχιτεκτονικής CPU και διαχωρισμένα modules APK</string>
-    <!-- Bytecode mode -->
-    <string name="settings_advanced_bytecode_mode">Λειτουργία επεξεργασίας bytecode</string>
-    <string name="settings_advanced_bytecode_mode_dialog_description">Ελέγχει τον τρόπο επεξεργασίας του bytecode κατά τη διάρκεια της επιδιόρθωσης. Επηρεάζει την ταχύτητα επιδιόρθωσης, τη χρήση μνήμης και το μέγεθος του APK εξόδου</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast_label">Γρήγορος (Συνιστάται)</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast">Γρήγορα</string>
-    <string name="settings_advanced_bytecode_mode_strip_fast_description">Ταχύτερη επιδιόρθωση και χαμηλότερη χρήση μνήμης, με αντάλλαγμα ένα μεγαλύτερο APK. Συνιστάται για συσκευές με χαμηλή μνήμη RAM ή παλαιότερες</string>
-    <string name="settings_advanced_bytecode_mode_full">Πλήρες</string>
-    <string name="settings_advanced_bytecode_mode_full_description">Πιο αργή εφαρμογή αλλαγών, αναπαράγει την παλαιότερη συμπεριφορά. Συνιστάται μόνο αν η γρήγορη λειτουργία προκαλεί προβλήματα</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat">GitHub PAT</string>
     <string name="settings_advanced_github_pat_description">Απαιτείται για πηγές pull request</string>
     <string name="settings_advanced_github_pat_configured">Διαμορφωμένο κλειδί</string>
     <string name="settings_advanced_github_pat_how_to_get">Πως να πάρετε ένα κλειδί</string>
-    <string name="settings_advanced_github_pat_dialog_title">Ορίστε ένα GitHub προσωπικό κλειδί πρόσβασης(PAT)</string>
-    <string name="settings_advanced_github_pat_dialog_description">"Ορίστε ένα PAT στο GitHub για να μπορείτε να προσθέσετε pull requests ως εξωτερικές πηγές. Δημιουργήστε ένα PAT με πρόθεση το public_repo 
-%s"</string>
+    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Ορισμός %s</string>
+    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Ορίστε ένα %3$s για να μπορείτε να προσθέτετε pull requests ως εξωτερικές πηγές. Δημιουργήστε ένα PAT με scope %2$s στο
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Συμπερίληψη στις ρυθμίσεις εξαγωγής</string>
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Προσθέτει αυτό το PAT στις εξαγόμενες ρυθμίσεις του Morphe</string>
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_warning">Δεν πρέπει να μοιράζεστε το PAT. Εάν το συμπεριλάβετε στις εξαγόμενες ρυθμίσεις, διατηρήστε το αρχείο ιδιωτικό διότι περιέχει το κλειδί</string>
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Επιλογές τροποποιήσεων</string>

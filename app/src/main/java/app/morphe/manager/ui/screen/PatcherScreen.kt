@@ -194,9 +194,6 @@ fun PatcherScreen(
         patcherViewModel.autoInstallEvent.collect {
             if (usingMountInstall) return@collect
             if (installViewModel.installState !is InstallViewModel.InstallState.Ready) return@collect
-            // An install starting on its own is the one case the game does not get to hold up:
-            // the flow is already moving and the user has to see where it went
-            patcherViewModel.deferSuccessScreen(false)
             startInstall {
                 installViewModel.install(
                     outputFile = outputFile,

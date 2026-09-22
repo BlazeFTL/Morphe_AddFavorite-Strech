@@ -1,3 +1,10 @@
+# [1.32.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.9...v1.32.0-dev.10) (2026-09-22)
+
+
+### Bug Fixes
+
+* Hold the autoinstall back until the mini-game round ends ([9c5aa16](https://github.com/MorpheApp/morphe-manager/commit/9c5aa163ead8285f54fbfa660e19d9b99ddcb94e))
+
 # [1.32.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.8...v1.32.0-dev.9) (2026-09-22)
 
 

@@ -442,6 +442,7 @@ class PatcherWorker(
                 val fallbackReason = when {
                     !useProcessRuntime -> null
                     isBlockedSyscall(e) -> "Patcher process was killed for a system call the device forbids"
+                    e is ProcessRuntime.ProcessConnectTimeoutException -> e.message
                     e is ProcessRuntime.HeapLimitIgnoredException -> e.message
                     isOomRelated(e) && Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q ->
                         "Process runtime OOM on Android ${Build.VERSION.RELEASE}"

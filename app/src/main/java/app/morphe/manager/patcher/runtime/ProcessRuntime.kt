@@ -28,6 +28,7 @@ import org.koin.core.component.inject
 import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 // Memory value that is safe everywhere. Slightly higher values may work for some devices
@@ -166,10 +167,11 @@ class ProcessRuntime(
             addAction(CONNECT_TO_APP_ACTION)
         }, ContextCompat.RECEIVER_NOT_EXPORTED)
 
+        // Not withTimeout: its CancellationException would end the calling coroutine without failing
+        // the run, which then waits forever on a process that never connected
         return try {
-            withTimeout(10.seconds) {
-                binderFuture.await()
-            }
+            withTimeoutOrNull(BINDER_CONNECTION_TIMEOUT) { binderFuture.await() }
+                ?: throw ProcessConnectTimeoutException(BINDER_CONNECTION_TIMEOUT)
         } finally {
             context.unregisterReceiver(receiver)
         }
@@ -290,6 +292,11 @@ class ProcessRuntime(
             null
         }
 
+        // Listening before app_process starts, so a process that connects quickly is not missed
+        val connection = async(Dispatchers.IO, start = CoroutineStart.UNDISPATCHED) {
+            awaitBinderConnection()
+        }
+
         launch(Dispatchers.IO) {
             val result = process(
                 appProcessBin,
@@ -319,7 +326,7 @@ class ProcessRuntime(
         val binderRef = AtomicReference<IPatcherProcess?>()
 
         launch(Dispatchers.IO) {
-            val binder = awaitBinderConnection()
+            val binder = connection.await()
             binderRef.set(binder)
 
             // Android Studio's fast deployment feature causes an issue where the other process will be running older code compared to the main process.
@@ -436,6 +443,11 @@ class ProcessRuntime(
         // which firmware can drag in on its own, so such a run belongs in the app's own process
         const val SIGSYS_EXIT_CODE = 159
 
+        // How long app_process gets to start and connect back to the app. Generous because a slow
+        // device on a cold start can take many seconds, and giving up moves the run to the app's
+        // own process, where the heap is usually smaller
+        private val BINDER_CONNECTION_TIMEOUT = 30.seconds
+
         const val CONNECT_TO_APP_ACTION = "CONNECT_TO_APP_ACTION"
         const val INTENT_BUNDLE_KEY = "BUNDLE"
         const val BUNDLE_BINDER_KEY = "BINDER"
@@ -461,6 +473,15 @@ class ProcessRuntime(
      */
     class ProcessExitException(val exitCode: Int, val heapLimitMb: Int) :
         Exception("Process exited with nonzero exit code $exitCode")
+
+    /**
+     * The patcher process never connected back to the app, which slow devices have been seen to
+     * do on a cold start, so the run cannot be handed to it.
+     *
+     * @param timeout How long the process was given to connect.
+     */
+    class ProcessConnectTimeoutException(timeout: Duration) :
+        Exception("Patcher process did not connect within $timeout")
 
     /**
      * The patcher ran out of the heap it was given, which no smaller heap can fix. Carries the

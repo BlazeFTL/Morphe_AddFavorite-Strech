@@ -1116,6 +1116,11 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Gumamit ng file picker na binuo ng Morphe sa halip na ang default ng sistema</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK download helper</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Pinagkakatiwalaan: %1$d sa %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Maaaring i-download ng mga helper app ang mga orihinal na APK para sa iyo. Tanging ang mga pinagkakatiwalaan mo dito ang inaalok sa mga tagubilin sa pag-download.</string>
+    <string name="settings_system_apk_download_helper_warning">Ang APK ay nagmumula sa helper app, kaya magtiwala ka lamang sa mga app na kilala mo. Sinusuri pa rin ng Morphe ang package, bersyon, at lagda ng bawat file bago i-patch.</string>
+    <string name="settings_system_apk_download_helper_installed_by">In-install ng %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Hindi kilala ang installer</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Nakaraang direktoryo</string>
     <string name="file_picker_no_files">Walang mga file dito</string>

@@ -1127,6 +1127,11 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_custom_file_picker_description">דפדף אחסון באמצעות בוחר הקבצים המובנה של Morphe במקום ברירת המערכת</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">מוריד APK מסייע</string>
+    <string name="settings_system_apk_download_helper_trusted_count">מהימנות: %1$d מתוך %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">אפליקציות עזר יכולות להוריד עבורך קובצי APK מקוריים. רק אלה שאתה בוטח בהן כאן מוצעות בהוראות ההורדה</string>
+    <string name="settings_system_apk_download_helper_warning">קובץ ה-APK מגיע מאפליקציית העזר, לכן סמוך רק על אפליקציות שאתה מכיר. Morphe עדיין בודק את החבילה, הגרסה והחתימה של כל קובץ לפני תיקון.</string>
+    <string name="settings_system_apk_download_helper_installed_by">הותקן על ידי %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">המתקין לא ידוע</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">ספרייה קודמת</string>
     <string name="file_picker_no_files">אין קבצים כאן</string>

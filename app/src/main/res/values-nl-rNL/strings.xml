@@ -1116,6 +1116,11 @@ Details: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Gebruik de ingebouwde bestandsselector van Morphe in plaats van de standaardinstelling van het systeem</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-downloadhelper</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Vertrouwd: %1$d van %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Helper-apps kunnen originele APK\'s voor je downloaden. Alleen de apps die je hier vertrouwt, worden aangeboden in de downloadinstructies.</string>
+    <string name="settings_system_apk_download_helper_warning">De APK komt van de helper-app, dus vertrouw alleen apps die je kent. Morphe controleert nog steeds het pakket, de versie en de handtekening van elk bestand voordat er gepatcht wordt.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Geïnstalleerd door %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Installatieprogramma onbekend</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorige map</string>
     <string name="file_picker_no_files">Geen bestanden hier</string>

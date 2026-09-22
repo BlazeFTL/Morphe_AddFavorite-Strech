@@ -1121,6 +1121,11 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Duyệt bộ nhớ bằng trình chọn tệp tích hợp của Morphe thay vì trình chọn mặc định của hệ thống</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Trình hỗ trợ tải xuống APK</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Đã tin cậy: %1$d trên %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Các ứng dụng trợ giúp có thể tải APK gốc cho bạn. Chỉ những ứng dụng bạn tin cậy ở đây mới được đề xuất trong hướng dẫn tải xuống.</string>
+    <string name="settings_system_apk_download_helper_warning">APK đến từ ứng dụng trợ giúp, vì vậy chỉ tin cậy những ứng dụng bạn biết. Morphe vẫn kiểm tra gói, phiên bản và chữ ký của mọi tệp trước khi vá.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Được cài đặt bởi %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Không rõ trình cài đặt</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Thư mục trước</string>
     <string name="file_picker_no_files">Chẳng có gì ở đây cả</string>

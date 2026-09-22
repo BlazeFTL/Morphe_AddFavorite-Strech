@@ -1114,6 +1114,11 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">시스템 기본 파일 선택기 대신 Morphe에 내장된 파일 선택기를 사용하여 저장소를 탐색합니다</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK Download Helper</string>
+    <string name="settings_system_apk_download_helper_trusted_count">신뢰함: %2$d 개 중 %1$d 개</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Helper 앱은 원본 APK를 대신 다운로드할 수 있습니다. 다운로드 안내에는 여기에서 신뢰하는 앱만 제공됩니다</string>
+    <string name="settings_system_apk_download_helper_warning">APK는 Helper 앱에서 제공되므로, 신뢰할 수 있는 앱만 사용하세요. Morphe는 패치하기 전에 모든 파일의 패키지, 버전 및 서명을 확인합니다</string>
+    <string name="settings_system_apk_download_helper_installed_by">%s에 의해 설치됨</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">설치자 알 수 없음</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">이전 디렉터리</string>
     <string name="file_picker_no_files">파일이 없습니다</string>

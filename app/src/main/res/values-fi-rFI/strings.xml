@@ -1115,6 +1115,11 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Käytä Morphen sisäänrakennettua tiedostonvalitsinta järjestelmän oletusarvon sijaan</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-latausapuohjelma</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Luotettu: %1$d / %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Apusovellukset voivat ladata alkuperäisiä APK-tiedostoja puolestasi. Vain ne sovellukset, joihin luotat täällä, tarjotaan latausohjeissa.</string>
+    <string name="settings_system_apk_download_helper_warning">APK tulee apusovelluksesta, joten luota vain tuntemiisi sovelluksiin. Morphe tarkistaa silti jokaisen tiedoston paketin, version ja allekirjoituksen ennen korjausta.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Asentanut %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Asentajaa ei tunneta</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Edellinen hakemisto</string>
     <string name="file_picker_no_files">Täällä ei ole tiedostoja</string>

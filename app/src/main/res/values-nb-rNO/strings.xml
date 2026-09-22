@@ -1116,6 +1116,11 @@ Detaljer: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Bla igjennom lagring med Morphes innebygde filvelger i stedet for systemstandard.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-nedlastingshjelper</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Betrodde: %1$d av %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Hjelpeapper kan laste ned originale APK-er for deg. Bare de du stoler på her, tilbys i nedlastingsinstruksjonene.</string>
+    <string name="settings_system_apk_download_helper_warning">APK-en kommer fra hjelpeappen, så stol bare på apper du kjenner. Morphe sjekker fortsatt pakken, versjonen og signaturen til hver fil før patching.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Installert av %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Installasjonskilde ukjent</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Forrige mappe</string>
     <string name="file_picker_no_files">Ingen filer her</string>

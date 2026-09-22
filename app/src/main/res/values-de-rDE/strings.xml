@@ -1116,6 +1116,11 @@ Details: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Durchsuchen Sie den Speicher mit dem integrierten Dateiauswahldialog von Morphe anstelle der systemspezifischen Standardeinstellung</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-Download-Helfer</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Vertraut: %1$d von %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Hilfs-Apps können Original-APKs für dich herunterladen. Nur die, denen du hier vertraust, werden in den Download-Anleitungen angeboten.</string>
+    <string name="settings_system_apk_download_helper_warning">Die APK stammt von der Hilfs-App, also vertraue nur Apps, die du kennst. Morphe prüft weiterhin das Paket, die Version und die Signatur jeder Datei, bevor sie gepatcht wird.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Installiert von %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Unbekannter Installateur</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Vorheriges Verzeichnis</string>
     <string name="file_picker_no_files">Keine Dateien hier</string>

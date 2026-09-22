@@ -1116,6 +1116,11 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Použite vlastný prehliadač súborov Morphe namiesto štandardného systému.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Pomocník sťahovania APK</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Dôveryhodné: %1$d z %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Pomocné aplikácie môžu za vás sťahovať originálne APK. V pokynoch na stiahnutie sa ponúkajú iba tie, ktorým tu dôverujete.</string>
+    <string name="settings_system_apk_download_helper_warning">APK pochádza z pomocnej aplikácie, preto dôverujte iba aplikáciám, ktoré poznáte. Morphe pred patchovaním stále kontroluje balík, verziu a podpis každého súboru.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Nainštalované cez %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Neznámy inštalátor</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Predchádzajúci priečinok</string>
     <string name="file_picker_no_files">Tu nie sú žiadne súbory</string>

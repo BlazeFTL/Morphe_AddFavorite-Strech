@@ -1115,6 +1115,11 @@ Részletek: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">A Morphe beépített fájlválasztóját használja a rendszer alapértelmezett helyett.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK letöltő segédprogram</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Megbízható: %1$d / %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">A segédalkalmazások letölthetik Ön helyett az eredeti APK-kat. A letöltési utasításokban csak az itt megbízhatónak jelöltek jelennek meg.</string>
+    <string name="settings_system_apk_download_helper_warning">Az APK a segédalkalmazásból származik, ezért csak olyan alkalmazásokban bízzon meg, amelyeket ismer. A Morphe a módosítás előtt továbbra is ellenőrzi minden fájl csomagját, verzióját és aláírását.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Telepítő: %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Ismeretlen telepítő</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Előző mappa</string>
     <string name="file_picker_no_files">Nincs itt fájl</string>

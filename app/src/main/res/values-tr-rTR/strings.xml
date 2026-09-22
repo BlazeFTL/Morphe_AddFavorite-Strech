@@ -1114,6 +1114,11 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Sistem varsayılanı yerine Morphe\'nin yerleşik dosya seçicisini kullanarak depolamaya göz atın</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK indirme yardımcısı</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Güvenilen: %1$d / %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Yardımcı uygulamalar sizin için orijinal APK\'lar indirebilir. İndirme talimatlarında yalnızca burada güvendiğiniz uygulamalar sunulur.</string>
+    <string name="settings_system_apk_download_helper_warning">APK, yardımcı uygulamadan gelir, bu yüzden yalnızca tanıdığınız uygulamalara güvenin. Morphe, yamalamadan önce her dosyanın paketini, sürümünü ve imzasını yine de kontrol eder.</string>
+    <string name="settings_system_apk_download_helper_installed_by">%s tarafından yüklendi</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Yükleyen bilinmiyor</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Önceki dizin</string>
     <string name="file_picker_no_files">Burada dosya yok</string>

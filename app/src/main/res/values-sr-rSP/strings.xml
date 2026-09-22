@@ -1116,6 +1116,11 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">Прегледајте складиште користећи уграђени изабирач фајлова у Morphe-у уместо подразумеваног у систему</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Помоћник за преузимање APK-а</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Поуздано: %1$d од %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Помоћне апликације могу да преузму оригиналне APK датотеке уместо вас. У упутствима за преузимање нуде се само оне којима овде верујете.</string>
+    <string name="settings_system_apk_download_helper_warning">APK датотека долази из помоћне апликације, па верујте само апликацијама које знате. Morphe и даље проверава пакет, верзију и потпис сваке датотеке пре него што примени закрпу.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Инсталирао %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Непознати инсталер</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Претходни директоријум</string>
     <string name="file_picker_no_files">Нема фајлова овде</string>

@@ -1119,6 +1119,11 @@ Detalji: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Pregledavajte pohranu pomoću Morpheovog ugrađenog alata za odabir datoteka umjesto zadanog sustava</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Pomoćnik za preuzimanje APK-a</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Pouzdane: %1$d od %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Pomoćne aplikacije mogu umjesto vas preuzeti originalne APK-ove. U uputama za preuzimanje ponuđene su samo one kojima ovdje vjerujete.</string>
+    <string name="settings_system_apk_download_helper_warning">APK dolazi iz pomoćne aplikacije, zato vjerujte samo aplikacijama koje poznajete. Morphe i dalje provjerava paket, verziju i potpis svake datoteke prije nego što je zakrpi.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Instalirao/la %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Instalater nepoznat</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Prethodna mapa</string>
     <string name="file_picker_no_files">Nema datoteka ovdje</string>

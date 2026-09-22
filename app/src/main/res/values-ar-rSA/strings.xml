@@ -1123,10 +1123,10 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">مساعد تنزيل APK</string>
     <string name="settings_system_apk_download_helper_trusted_count">موثوق: %1$d من %2$d</string>
-    <string name="settings_system_apk_download_helper_dialog_description">يمكن لتطبيقات المساعدة تنزيل ملفات APK الأصلية لك. في تعليمات التنزيل، تظهر فقط التطبيقات التي تثق بها هنا.</string>
-    <string name="settings_system_apk_download_helper_warning">يأتي ملف APK من تطبيق المساعدة، لذا ثق فقط بالتطبيقات التي تعرفها. لا يزال Morphe يتحقق من الحزمة والإصدار والتوقيع لكل ملف قبل الترقيع.</string>
+    <string name="settings_system_apk_download_helper_dialog_description">يمكن للتطبيقات المساعدة تنزيل ملفات APK الأصلية لك. في تعليمات التنزيل، تظهر فقط التطبيقات التي تثق بها هنا.</string>
+    <string name="settings_system_apk_download_helper_warning">يأتي ملف APK من تطبيق المساعدة، لذا ثق فقط بالتطبيقات التي تعرفها. لا يزال Morphe يتحقق من الحزمة والإصدار والتوقيع لكل ملف قبل التعديل.</string>
     <string name="settings_system_apk_download_helper_installed_by">مثبّت بواسطة %s</string>
-    <string name="settings_system_apk_download_helper_installed_by_unknown">المثبّت غير معروف</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">أداة التثبيت غير معروفة</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">المجلد السابق</string>
     <string name="file_picker_no_files">لا توجد ملفات هنا</string>

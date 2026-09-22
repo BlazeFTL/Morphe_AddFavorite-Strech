@@ -1116,6 +1116,11 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">सिस्टम डिफ़ॉल्ट के बजाय मोरफे के बिल्ट-इन फ़ाइल पिकर के साथ संग्रहण ब्राउज़ करें</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK डाउनलोड हेल्पर</string>
+    <string name="settings_system_apk_download_helper_trusted_count">विश्वसनीय: %1$d में से %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">सहायक ऐप आपके लिए मूल APK डाउनलोड कर सकते हैं। डाउनलोड निर्देशों में केवल वही ऐप दिए जाते हैं जिन पर आप यहाँ भरोसा करते हैं।</string>
+    <string name="settings_system_apk_download_helper_warning">APK सहायक ऐप से आता है, इसलिए केवल उन्हीं ऐप पर भरोसा करें जिन्हें आप जानते हैं। Morphe फिर भी पैच करने से पहले हर फ़ाइल के पैकेज, संस्करण और हस्ताक्षर की जाँच करता है।</string>
+    <string name="settings_system_apk_download_helper_installed_by">%s द्वारा इंस्टॉल किया गया</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">इंस्टॉलर अज्ञात</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">पिछली निर्देशिका</string>
     <string name="file_picker_no_files">यहां कोई फ़ाइलें नहीं हैं</string>

@@ -1115,6 +1115,11 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Procházet úložiště pomocí vestavěného výběru souborů Morphe místo výchozího systému.</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Pomocník pro stahování APK</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Důvěryhodné: %1$d z %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Pomocné aplikace za vás mohou stahovat originální APK. V pokynech ke stažení se nabízejí pouze ty, kterým zde důvěřujete.</string>
+    <string name="settings_system_apk_download_helper_warning">APK pochází z pomocné aplikace, proto důvěřujte pouze aplikacím, které znáte. Morphe před patchováním stále kontroluje balíček, verzi a podpis každého souboru.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Nainstalováno aplikací %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Neznámý instalátor</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Předchozí adresář</string>
     <string name="file_picker_no_files">Zde nejsou žádné soubory</string>

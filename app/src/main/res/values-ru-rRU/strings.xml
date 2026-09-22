@@ -1114,6 +1114,11 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">Использовать встроенный файловый менеджер Morphe вместо системного по умолчанию</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Вспомогательное приложение для загрузки APK</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Доверено: %1$d из %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Вспомогательные приложения могут загружать оригинальные APK-файлы за вас. В инструкциях по загрузке предлагаются только те, которым вы доверяете.</string>
+    <string name="settings_system_apk_download_helper_warning">APK поступает из вспомогательного приложения, поэтому доверяйте только тем приложениям, которые вы знаете. Morphe по-прежнему проверяет пакет, версию и подпись каждого файла перед наложением патча.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Установлено: %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Установщик неизвестен</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Предыдущий каталог</string>
     <string name="file_picker_no_files">Здесь нет файлов</string>

@@ -1116,6 +1116,11 @@ Dettagli: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Utilizza il selettore di file integrato di Morphe invece di quello predefinito del sistema</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">App di supporto per il download di APK</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Approvate: %1$d di %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Le app helper possono scaricare APK originali per te. Solo quelle di cui ti fidi qui vengono offerte nelle istruzioni di download.</string>
+    <string name="settings_system_apk_download_helper_warning">L\'APK proviene dall\'app helper, quindi fidati solo di app che conosci. Morphe controlla comunque il pacchetto, la versione e la firma di ogni file prima della patch.</string>
+    <string name="settings_system_apk_download_helper_installed_by">Installata da %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Installer sconosciuto</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Directory precedente</string>
     <string name="file_picker_no_files">Nessun file qui</string>

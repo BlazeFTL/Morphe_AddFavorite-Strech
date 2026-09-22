@@ -1107,6 +1107,11 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_custom_file_picker_description">সিস্টেম ডিফল্টের পরিবর্তে Morphe-এর বিল্ট-ইন ফাইল পিকার দিয়ে স্টোরেজ ব্রাউজ করুন</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK ডাউনলোড সহায়ক</string>
+    <string name="settings_system_apk_download_helper_trusted_count">বিশ্বস্ত: %2$d-এর মধ্যে %1$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">সহায়ক অ্যাপগুলো আপনার জন্য মূল APK ডাউনলোড করতে পারে। ডাউনলোডের নির্দেশাবলীতে কেবলমাত্র এখানে যাদের আপনি বিশ্বাস করেন সেগুলোই দেওয়া হয়।</string>
+    <string name="settings_system_apk_download_helper_warning">APK সহায়ক অ্যাপ থেকে আসে, তাই শুধুমাত্র আপনার জানা অ্যাপগুলোকেই বিশ্বাস করুন। Morphe এখনও প্যাচ করার আগে প্রতিটি ফাইলের প্যাকেজ, সংস্করণ এবং স্বাক্ষর যাচাই করে।</string>
+    <string name="settings_system_apk_download_helper_installed_by">%s দ্বারা ইনস্টল করা হয়েছে</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">ইনস্টলকারী অজানা</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">আগের ডিরেক্টরি</string>
     <string name="file_picker_no_files">এখানে কোন ফাইল নেই</string>

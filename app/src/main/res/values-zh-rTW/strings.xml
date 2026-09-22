@@ -1113,6 +1113,11 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">改用 Morphe 內建檔案選擇器，而不是系統預設值</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK 下載輔助工具</string>
+    <string name="settings_system_apk_download_helper_trusted_count">已信任：%1$d / %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">輔助應用程式可以為你下載原始 APK。只有你在這裡信任的應用程式，才會在下載說明中提供。</string>
+    <string name="settings_system_apk_download_helper_warning">APK 來自輔助應用程式，因此請只信任你認識的應用程式。Morphe 仍會在修補前檢查每個檔案的套件、版本與簽章。</string>
+    <string name="settings_system_apk_download_helper_installed_by">由 %s 安裝</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">安裝者未知</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">上一目錄</string>
     <string name="file_picker_no_files">這裡沒有檔案</string>

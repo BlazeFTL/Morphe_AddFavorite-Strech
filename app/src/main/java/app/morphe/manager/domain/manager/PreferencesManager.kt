@@ -116,6 +116,9 @@ class PreferencesManager(
     )
     val patcherProcessMemoryLimit = IntPreference(dataStore, "use_process_runtime_memory_limit", PROCESS_RUNTIME_MEMORY_NOT_SET)
 
+    /** Whether the last patcher process came up without the heap limit it asked for. Tied to the device, so never exported. */
+    val patcherHeapLimitIgnored = booleanPreference("patcher_heap_limit_ignored", false)
+
     val keystoreAlias = stringPreference("keystore_alias", KeystoreManager.DEFAULT)
     val keystorePass = stringPreference("keystore_pass", KeystoreManager.DEFAULT)
     val keystorePassword = stringPreference("keystore_password", "")

@@ -42,6 +42,7 @@ fun PatcherTuningSection(
     val prefs = settingsViewModel.prefs
     val useProcessRuntime by prefs.useProcessRuntime.getAsState()
     val memoryLimit by prefs.patcherProcessMemoryLimit.getAsState()
+    val heapLimitIgnored by prefs.patcherHeapLimitIgnored.getAsState()
     val stripUnusedNativeLibs by prefs.stripUnusedNativeLibs.getAsState()
     val externalBatchPatchEnabled by prefs.externalBatchPatchEnabled.getAsState()
 
@@ -51,6 +52,7 @@ fun PatcherTuningSection(
         ProcessRuntimeDialog(
             currentEnabled = useProcessRuntime,
             currentLimit = memoryLimit,
+            heapLimitIgnored = heapLimitIgnored,
             onDismiss = { showProcessRuntimeDialog.value = false },
             onEnabledChange = { settingsViewModel.setProcessRuntime(it) },
             onLimitChange = { settingsViewModel.setMemoryLimit(it) }

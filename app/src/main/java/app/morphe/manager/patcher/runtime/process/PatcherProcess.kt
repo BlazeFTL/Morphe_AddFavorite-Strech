@@ -16,10 +16,10 @@ import app.morphe.manager.patcher.patch.PatchBundle
 import app.morphe.manager.patcher.patch.applyPatchOptions
 import app.morphe.manager.patcher.runtime.ProcessRuntime
 import app.morphe.manager.patcher.runtime.ResourceMonitor
+import app.morphe.manager.patcher.runtime.heapLimitMebibytes
 import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.patcher.split.SplitPreparationEvent
 import app.morphe.manager.ui.model.State
-import app.morphe.manager.util.bytesToMebibytes
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,7 +62,9 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
 
             ResourceMonitor.startPolling(logger)
 
-            logger.info("$LOG_PROCESS_PREFIX_PROCESS_HEAP ${bytesToMebibytes(Runtime.getRuntime().maxMemory())}MB")
+            val heapLimitMb = heapLimitMebibytes()
+            logger.info("$LOG_PROCESS_PREFIX_PROCESS_HEAP ${heapLimitMb}MB")
+            events.heapLimit(heapLimitMb)
 
             val allPatches = PatchBundle.Loader.patches(parameters.configurations.map { it.bundle }, parameters.packageName)
             val patchList = parameters.configurations.flatMap { config ->

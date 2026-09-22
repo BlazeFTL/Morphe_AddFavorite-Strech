@@ -1044,6 +1044,7 @@ Details: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Higher limits speed up patching on capable devices</string>
     <string name="settings_system_process_runtime_enable">Enable process runtime</string>
     <string name="settings_system_memory_limit_subtitle">Memory available for patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">This device ignored the memory limit on the last run, so patching may fall back to running inside Morphe</string>
     <string name="settings_system_memory_limit_warning">A low memory limit may cause failures when patching larger apps</string>
     <string name="settings_system_memory_limit_high_warning">A high memory limit can make patching much slower on some devices. Raise it only if patching keeps failing at lower limits</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limit</string>

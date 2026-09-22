@@ -1,3 +1,11 @@
+# [1.32.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.7...v1.32.0-dev.8) (2026-09-22)
+
+
+### Bug Fixes
+
+* Follow the predictive back gesture with the selection panel in dialogs ([a06d1ac](https://github.com/MorpheApp/morphe-manager/commit/a06d1ac6a603ca2bb77a75b175edabc3facea283))
+* Read the mount table to tell whether a mount install is patched ([17a8513](https://github.com/MorpheApp/morphe-manager/commit/17a8513d11fe719f2e568b0198c25d330365c1ba))
+
 # [1.32.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.6...v1.32.0-dev.7) (2026-09-21)
 
 

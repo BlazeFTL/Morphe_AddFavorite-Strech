@@ -776,8 +776,7 @@ private fun ApkManagementDialogContent(
 
     AppDialog(
         onDismissRequest = {
-            if (isExporting) return@AppDialog
-            if (isMultiSelectMode) { selection.clear(); isMultiSelectMode = false } else onDismissRequest()
+            if (!isExporting) onDismissRequest()
         },
         title = meta.title,
         titleTrailingContent = {
@@ -806,7 +805,10 @@ private fun ApkManagementDialogContent(
         },
         bottomBar = if (isMultiSelectMode) {
             {
-                MultiSelectShell(visible = true) {
+                MultiSelectShell(
+                    visible = true,
+                    onBack = { selection.clear(); isMultiSelectMode = false }
+                ) {
                     val installLabel = stringResource(
                         selectedInstallableItems
                             .map { it.installLabelRes }

@@ -455,14 +455,7 @@ internal fun HiddenAppsDialog(
     }
 
     AppDialog(
-        onDismissRequest = {
-            if (isMultiSelectMode.value) {
-                isMultiSelectMode.value = false
-                selectedPackages.clear()
-            } else {
-                onDismiss()
-            }
-        },
+        onDismissRequest = onDismiss,
         dismissOnClickOutside = !isMultiSelectMode.value,
         title = stringResource(R.string.home_app_hidden_apps_title),
         footer = {
@@ -474,7 +467,13 @@ internal fun HiddenAppsDialog(
         },
         bottomBar = if (isMultiSelectMode.value) {
             {
-                MultiSelectShell(visible = true) {
+                MultiSelectShell(
+                    visible = true,
+                    onBack = {
+                        isMultiSelectMode.value = false
+                        selectedPackages.clear()
+                    }
+                ) {
                     SelectionActionBar(
                         selectedCount = selectedPackages.size,
                         totalCount = hiddenAppItems.size,

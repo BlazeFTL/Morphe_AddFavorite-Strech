@@ -1453,7 +1453,7 @@ fun SourceAppsDialog(
     }
 
     AppDialog(
-        onDismissRequest = { if (isMultiSelectMode) exitMultiSelect() else onDismissRequest() },
+        onDismissRequest = onDismissRequest,
         dismissOnClickOutside = !isMultiSelectMode,
         title = stringResource(R.string.sources_apps_title, src.displayTitle),
         titleTrailingContent = {
@@ -1475,7 +1475,7 @@ fun SourceAppsDialog(
         },
         bottomBar = if (isMultiSelectMode) {
             {
-                MultiSelectShell(visible = true) {
+                MultiSelectShell(visible = true, onBack = ::exitMultiSelect) {
                     SelectionActionBar(
                         selectedCount = selection.size,
                         // Scoped to the search so "select all" never reaches apps out of view

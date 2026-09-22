@@ -312,9 +312,7 @@ private fun PatchSelectionManagementDialogContent(
     val canResetAll = !multiSelect.isSelectionMode && selections.isNotEmpty()
 
     AppDialog(
-        onDismissRequest = {
-            if (multiSelect.isSelectionMode) onExitSelection() else onDismiss()
-        },
+        onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_patch_selections_title),
         titleTrailingContent = {
             TitleAction(
@@ -382,7 +380,7 @@ private fun PatchSelectionManagementDialogContent(
         },
         bottomBar = if (multiSelect.isSelectionMode) {
             {
-                MultiSelectShell(visible = true) {
+                MultiSelectShell(visible = true, onBack = onExitSelection) {
                     SelectionActionBar(
                         selectedCount = multiSelect.selectedPackages.size,
                         totalCount = selections.size,

@@ -39,19 +39,20 @@ private val ShellShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
  * enter/exit animations the same everywhere a selection is made.
  *
  * @param onBack Closes the panel on back, which then follows the predictive gesture down like
- * an [AppBottomSheet] does. Null where something else owns back, as in a dialog.
+ * an [AppBottomSheet] does. Required so no panel is left to a back handler that cannot animate
+ * it, such as the dismissal of the [AppDialog] it is docked to.
  */
 @Composable
 fun MultiSelectShell(
     visible: Boolean,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
-    onBack: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     val backProgress = remember { Animatable(0f) }
     // A gesture that closed the panel leaves it drawn down, which the next opening must not inherit
     LaunchedEffect(visible) { if (visible) backProgress.snapTo(0f) }
-    if (onBack != null) PredictiveBackSlideHandler(backProgress, enabled = visible, onBack = onBack)
+    PredictiveBackSlideHandler(backProgress, enabled = visible, onBack = onBack)
 
     AnimatedVisibility(
         visible = visible,

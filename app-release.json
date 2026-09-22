@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-21T21:05:54",
-  "description": "# [1.32.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.6...v1.32.0-dev.7) (2026-09-21)\n\n\n### Bug Fixes\n\n* Follow the predictive back gesture with the home screen action panel ([4db7fe3](https://github.com/MorpheApp/morphe-manager/commit/4db7fe391f4d406b807fdcf2001f4c444233fd09))\n\n\n### Features\n\n* Trust APK download helpers one by one from a dedicated dialog ([37f72e7](https://github.com/MorpheApp/morphe-manager/commit/37f72e7a04b3f028dd42445e365ee7096decae45))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.7/morphe-manager-1.32.0-dev.7.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.7/morphe-manager-1.32.0-dev.7.apk.asc",
-  "version": "1.32.0-dev.7"
+  "created_at": "2026-09-22T06:55:04",
+  "description": "# [1.32.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.7...v1.32.0-dev.8) (2026-09-22)\n\n\n### Bug Fixes\n\n* Follow the predictive back gesture with the selection panel in dialogs ([a06d1ac](https://github.com/MorpheApp/morphe-manager/commit/a06d1ac6a603ca2bb77a75b175edabc3facea283))\n* Read the mount table to tell whether a mount install is patched ([17a8513](https://github.com/MorpheApp/morphe-manager/commit/17a8513d11fe719f2e568b0198c25d330365c1ba))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.8/morphe-manager-1.32.0-dev.8.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.0-dev.8/morphe-manager-1.32.0-dev.8.apk.asc",
+  "version": "1.32.0-dev.8"
 }

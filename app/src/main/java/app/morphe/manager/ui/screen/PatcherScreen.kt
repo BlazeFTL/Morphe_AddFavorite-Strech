@@ -45,7 +45,7 @@ import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.model.State
 import app.morphe.manager.ui.screen.patcher.*
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
-import app.morphe.manager.ui.screen.settings.advanced.NotificationPermissionDialog
+import app.morphe.manager.ui.screen.settings.system.NotificationPermissionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
 import app.morphe.manager.ui.screen.shared.*

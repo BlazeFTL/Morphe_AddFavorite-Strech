@@ -1,3 +1,17 @@
+# [1.32.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.14...v1.32.0-dev.15) (2026-09-23)
+
+
+### Bug Fixes
+
+* Align dialog descriptions and option cards with the shared dialog style ([ed1ba56](https://github.com/MorpheApp/morphe-manager/commit/ed1ba56de6b49868aaec74f1fb09d6223cce00cf))
+* Unify installer dialogs and drop decorative icons from dialog headers ([8b6d300](https://github.com/MorpheApp/morphe-manager/commit/8b6d30071812fccb30e569c9e21fc26e2e1b1af6))
+* Use the shared round indicator for every checkbox ([247ec6c](https://github.com/MorpheApp/morphe-manager/commit/247ec6cc2db4f6d73bd1f0ff4ba7ca25922d8dad))
+
+
+### Features
+
+* Copy the signing key fingerprint on long press ([38fd35d](https://github.com/MorpheApp/morphe-manager/commit/38fd35da504531d8472c3b236ec49b8ff06b5176))
+
 # [1.32.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.13...v1.32.0-dev.14) (2026-09-23)
 
 

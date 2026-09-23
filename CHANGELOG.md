@@ -1,3 +1,22 @@
+# [1.32.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.13...v1.32.0-dev.14) (2026-09-23)
+
+
+### Bug Fixes
+
+* Match the gap under settings tabs to the rest of the layout ([4ec0178](https://github.com/MorpheApp/morphe-manager/commit/4ec0178a7584a24f4d5ebf682c51ee43088f99bc))
+* Offer the feature tour after saving an APK or finishing a batch patch ([89a3631](https://github.com/MorpheApp/morphe-manager/commit/89a36319b84a4b840b8159fbe77e5d3757ecd6ba))
+* Trim the About section to one-line rows ([906c047](https://github.com/MorpheApp/morphe-manager/commit/906c0476a5965f2f9283cf95580baa734d52a4a8))
+* Use the monochrome Morphe logo in the About section ([38244f6](https://github.com/MorpheApp/morphe-manager/commit/38244f6bafc79021bb9497515a721fe55d2c62c4))
+
+
+### Features
+
+* Add haptic feedback to mini-game moments ([f2aa171](https://github.com/MorpheApp/morphe-manager/commit/f2aa171b3ba4d3edd33629c8a3381decbb67b4c7))
+* Condense the Appearance tab and preview backgrounds live in their picker ([ba2ccab](https://github.com/MorpheApp/morphe-manager/commit/ba2ccabacf42b41ee252ce422038028fd7582acf))
+* Even out the accent color grid and fold background options into its picker ([2d5dec0](https://github.com/MorpheApp/morphe-manager/commit/2d5dec00c73ee4c57e14b5cfe8496e0fb5088a6e))
+* Rework import and export around a signing key preview and selectable backup sections ([76a4f13](https://github.com/MorpheApp/morphe-manager/commit/76a4f13da230ba5b4e5db583a75fc3599b4af64f))
+* Split manager and patch update notifications into separate channels ([f50c9a5](https://github.com/MorpheApp/morphe-manager/commit/f50c9a5717c07a5de4747b9f1a1a890464c652a6))
+
 # [1.32.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.12...v1.32.0-dev.13) (2026-09-23)
 
 

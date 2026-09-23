@@ -43,7 +43,8 @@ fun BackgroundSettingsItem(
 /**
  * Background animation picker. A pick applies at once and plays behind the dialog, so the dialog
  * stays open to try another.
- * Includes a RANDOM option that reveals an interval selector when active.
+ * RANDOM is one more tile. Below a divider sit the settings of the pick: how often RANDOM changes,
+ * and the parallax every background but NONE can take.
  *
  * @param resolvedRandomBackground The background RANDOM currently stands for, previewed while it
  *        is the pick.
@@ -57,6 +58,7 @@ fun BackgroundPickerDialog(
     onDismiss: () -> Unit,
     resolvedRandomBackground: BackgroundType?,
     enableParallax: Boolean,
+    onParallaxToggle: () -> Unit,
     matrixUnlocked: Boolean = false
 ) {
     val windowSize = rememberWindowSize()
@@ -66,10 +68,8 @@ fun BackgroundPickerDialog(
         WindowWidthSizeClass.Expanded -> 5
     }
 
-    // All types except RANDOM - shown in the main grid, minus the hidden ones still to be found
-    val gridTypes = BackgroundType.entries.filter {
-        it != BackgroundType.RANDOM && (matrixUnlocked || it !in BackgroundType.HIDDEN)
-    }
+    // Every type, minus the hidden ones still to be found
+    val gridTypes = BackgroundType.entries.filter { matrixUnlocked || it !in BackgroundType.HIDDEN }
 
     AppDialog(
         onDismissRequest = onDismiss,
@@ -91,7 +91,9 @@ fun BackgroundPickerDialog(
             }
         }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        // Spacing lives inside the blocks that come and go rather than between them, where a
+        // spacedBy gap would vanish in one frame while the surrounding block is still shrinking
+        Column {
             OptionGrid(items = gridTypes, columns = columns) { bgType, itemModifier ->
                 ModernIconOptionCard(
                     selected = selectedBackground == bgType,
@@ -102,33 +104,49 @@ fun BackgroundPickerDialog(
                 )
             }
 
-            // RANDOM option - full-width compact card at the bottom
-            CompactOptionCard(
-                selected = selectedBackground == BackgroundType.RANDOM,
-                onClick = { onBackgroundSelected(BackgroundType.RANDOM) },
-                icon = Icons.Outlined.Shuffle,
-                label = stringResource(R.string.settings_appearance_background_random),
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // Interval selector - visible only when RANDOM is active
+            // Settings of the pick itself, so NONE, having none, leaves the divider out as well
             AnimatedVisibility(
-                visible = selectedBackground == BackgroundType.RANDOM,
+                visible = selectedBackground != BackgroundType.NONE,
                 enter = Animations.expandFadeEnter,
                 exit = Animations.shrinkFadeExit
             ) {
-                // Vertical tiles so the interval labels never truncate
-                OptionGrid(
-                    items = RandomInterval.entries,
-                    columns = RandomInterval.entries.size
-                ) { interval, itemModifier ->
-                    ModernIconOptionCard(
-                        selected = selectedInterval == interval,
-                        onClick = { onIntervalSelected(interval) },
-                        icon = intervalIcon(interval),
-                        label = stringResource(interval.labelResId),
-                        modifier = itemModifier
+                Column(modifier = Modifier.padding(top = 8.dp)) {
+                    SettingsDivider(
+                        modifier = Modifier.padding(vertical = 4.dp),
+                        fullWidth = true
                     )
+
+                    // How often RANDOM changes, shown only while it is the pick
+                    AnimatedVisibility(
+                        visible = selectedBackground == BackgroundType.RANDOM,
+                        enter = Animations.expandFadeEnter,
+                        exit = Animations.shrinkFadeExit
+                    ) {
+                        // Vertical tiles so the interval labels never truncate
+                        OptionGrid(
+                            items = RandomInterval.entries,
+                            columns = RandomInterval.entries.size,
+                            modifier = Modifier.padding(top = 8.dp)
+                        ) { interval, itemModifier ->
+                            ModernIconOptionCard(
+                                selected = selectedInterval == interval,
+                                onClick = { onIntervalSelected(interval) },
+                                icon = intervalIcon(interval),
+                                label = stringResource(interval.labelResId),
+                                modifier = itemModifier
+                            )
+                        }
+                    }
+
+                    SettingsGroup(modifier = Modifier.padding(top = 8.dp)) {
+                        SettingsSwitchItem(
+                            title = stringResource(R.string.settings_appearance_parallax_effect),
+                            subtitle = stringResource(R.string.settings_appearance_parallax_effect_description),
+                            icon = Icons.Outlined.ScreenRotation,
+                            checked = enableParallax,
+                            onToggle = onParallaxToggle
+                        )
+                    }
                 }
             }
         }

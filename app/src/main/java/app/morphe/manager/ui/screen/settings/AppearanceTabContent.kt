@@ -129,9 +129,7 @@ fun AppearanceTabContent(
             onPureBlackToggle = { themeViewModel.setPureBlackTheme(!pureBlackTheme) },
             backgroundType = backgroundType,
             randomInterval = randomInterval,
-            enableParallax = enableParallax,
             onBackgroundClick = { showBackgroundDialog.value = true },
-            onParallaxToggle = { themeViewModel.toggleBackgroundParallax(enableParallax) },
             onSelectorPositioned = onThemeSelectorPositioned,
             onSelectorScrollTarget = onThemeSelectorScrollTarget
         )
@@ -166,6 +164,7 @@ fun AppearanceTabContent(
             onDismiss = { showBackgroundDialog.value = false },
             resolvedRandomBackground = resolvedRandomBackground,
             enableParallax = enableParallax,
+            onParallaxToggle = { themeViewModel.toggleBackgroundParallax(enableParallax) },
             matrixUnlocked = matrixUnlocked
         )
     }
@@ -308,7 +307,7 @@ private fun LanguageAndDisplaySection(
 
 /**
  * Theme mode and color style, then how the rest of the manager is dressed: pure black, the
- * animated background with its parallax, and the launcher icon.
+ * animated background and the launcher icon.
  */
 @Composable
 private fun ThemeSection(
@@ -322,9 +321,7 @@ private fun ThemeSection(
     onPureBlackToggle: () -> Unit,
     backgroundType: BackgroundType,
     randomInterval: RandomInterval,
-    enableParallax: Boolean,
     onBackgroundClick: () -> Unit,
-    onParallaxToggle: () -> Unit,
     onSelectorPositioned: ((Rect) -> Unit)?,
     onSelectorScrollTarget: ((Int) -> Unit)?
 ) {
@@ -379,23 +376,6 @@ private fun ThemeSection(
             onClick = onBackgroundClick
         )
 
-        AnimatedVisibility(
-            visible = backgroundType != BackgroundType.NONE,
-            enter = Animations.expandFadeEnter,
-            exit = Animations.shrinkFadeExit
-        ) {
-            Column {
-                SettingsDivider()
-                SettingsSwitchItem(
-                    title = stringResource(R.string.settings_appearance_parallax_effect),
-                    subtitle = stringResource(R.string.settings_appearance_parallax_effect_description),
-                    icon = Icons.Outlined.ScreenRotation,
-                    checked = enableParallax,
-                    onToggle = onParallaxToggle
-                )
-            }
-        }
-
         SettingsDivider()
 
         AppIconSettingsItem()
@@ -420,32 +400,37 @@ private fun ColorsSection(
     )
 
     // Dynamic color derives the accent from the wallpaper, leaving nothing to pick here
-    AnimatedVisibility(
-        visible = themeStyle != ThemeStyle.MATERIAL_YOU,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        Box(Modifier.padding(bottom = Defaults.ContentPadding).fillMaxWidth()) {
+    val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
+
+    // Monochrome leaves app cards colorless and Material You has no accent to pick, and no style
+    // is both, so the group always has at least one of the two
+    SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
+        AnimatedVisibility(
+            visible = showAccent,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
             AccentColorSelector(
                 selectedColorHex = accentColorHex,
                 onColorSelected = onAccentSelected,
-                dynamicColorEnabled = themeStyle == ThemeStyle.MATERIAL_YOU
+                dynamicColorEnabled = !showAccent
             )
         }
-    }
 
-    AnimatedVisibility(
-        visible = showAppCardColors,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
-            SettingsItem(
-                onClick = onAppCardColorsClick,
-                title = stringResource(R.string.settings_appearance_app_card_colors),
-                subtitle = stringResource(appCardColorMode.descriptionResId),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
-            )
+        AnimatedVisibility(
+            visible = showAppCardColors,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
+            Column {
+                if (showAccent) SettingsDivider()
+                SettingsItem(
+                    onClick = onAppCardColorsClick,
+                    title = stringResource(R.string.settings_appearance_app_card_colors),
+                    subtitle = stringResource(appCardColorMode.descriptionResId),
+                    leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+                )
+            }
         }
     }
 }

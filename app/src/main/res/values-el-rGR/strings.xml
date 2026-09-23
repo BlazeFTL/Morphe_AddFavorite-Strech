@@ -719,13 +719,7 @@
     <string name="settings_appearance_greeting_phrases">Φράσεις υποδοχής</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Εμφάνιση μηνύματος υποδοχής στην αρχική οθόνη</string>
     <string name="settings_appearance_app_grouping">Ομαδοποίηση εφαρμογών</string>
-    <string name="settings_appearance_app_grouping_description">Εμφάνιση διακόπτη στην αρχική οθόνη για ομαδοποίηση εφαρμογών κατά πηγή ή δικές σας κατηγορίες, διατηρώντας την επιλογή όταν είναι απενεργοποιημένη</string>
-    <string name="settings_appearance_patch_list">Λίστα επιδιορθώσεων</string>
-    <string name="settings_appearance_patch_categories">Ομαδοποίηση ανά κατηγορία</string>
-    <string name="settings_appearance_patch_categories_description">Ομαδοποίηση των λιστών επιδιορθώσεων ανά κατηγορίες που δηλώνει μια πηγή, ενώ οι πηγές χωρίς κατηγορία παραμένουν ως απλή λίστα.</string>
     <string name="settings_appearance_repatch_notice">Ειδοποίηση επανάληψης τροποποιήσεων</string>
-    <string name="settings_appearance_repatch_notice_description">Εμφάνιση banner στην αρχική οθόνη όταν οι εφαρμογές μπορούν να επαναδιορθωθούν
-</string>
     <string name="settings_appearance_sort_button">Κουμπί ταξινόμησης και φιλτραρίσματος</string>
     <string name="settings_appearance_sort_button_description">Εμφάνιση του κουμπιού ταξινόμησης και φιλτραρίσματος στην αρχική οθόνη</string>
     <string name="settings_appearance_app_card_colors">Χρώματα καρτών εφαρμογών</string>
@@ -770,6 +764,8 @@
     <string name="settings_advanced_updates_background_notifications">Ειδοποιήσεις ενημερώσεων παρασκηνίου</string>
     <string name="settings_advanced_updates_background_notifications_description">Περιοδικός έλεγχος για ενημερώσεις στο παρασκήνιο και ειδοποίηση όταν υπάρχουν διαθέσιμες</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Λάβετε άμεσες ειδοποιήσεις push για νέες εκδόσεις, ακόμα και όταν η εφαρμογή είναι κλειστή</string>
+    <string name="settings_system_notifications_categories">Κατηγορίες ειδοποιήσεων</string>
+    <string name="settings_system_notifications_categories_description">Επιλέξτε στις ρυθμίσεις του συστήματος ποιες ενημερώσεις σας ειδοποιούν</string>
     <string name="settings_advanced_update_interval">Συχνότητα ελέγχου</string>
     <string name="settings_advanced_update_interval_dialog_title">Έλεγχος για ενημερώσεις</string>
     <string name="settings_advanced_update_interval_hourly">Κάθε ώρα</string>
@@ -792,8 +788,10 @@
     <string name="notification_permission_dialog_title">Να επιτρέπονται ειδοποιήσεις</string>
     <string name="notification_permission_dialog_description">Το Morphe χρειάζεται άδεια ειδοποιήσεων για να σας ειδοποιεί όταν είναι διαθέσιμες ενημερώσεις στο παρασκήνιο</string>
     <string name="notification_post_patch_dialog_title">Θα θέλατε να ειδοποιηθείτε όταν υπάρξουν διαθέσιμες ενημερώσεις;</string>
-    <string name="notification_channel_fcm_updates">Ειδοποιήσεις ενημερώσεων</string>
-    <string name="notification_channel_fcm_updates_description">Ειδοποιήσεις σχετικά με νέες εκδόσεις του Morphe και τροποποιήσεων</string>
+    <string name="notification_channel_manager_updates">Ενημερώσεις Morphe</string>
+    <string name="notification_channel_manager_updates_description">Ειδοποιήσεις για νέες εκδόσεις του Morphe</string>
+    <string name="notification_channel_patch_updates">Ενημερώσεις επιδιόρθωσης</string>
+    <string name="notification_channel_patch_updates_description">Ειδοποιήσεις για νέες εκδόσεις επιδιόρθωσης</string>
     <string name="notification_channel_patcher">Τροποποίηση</string>
     <string name="notification_channel_patcher_description">Εμφανίζεται όταν το Morphe ενημερώνει μια εφαρμογή στο παρασκήνιο</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -996,8 +994,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">Επιλέξτε τόνο</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Εισαγωγή &amp; εξαγωγή</string>
-    <string name="settings_system_keystore">Χώρος αποθήκευσης κλειδιών</string>
-    <string name="settings_system_import_keystore_description">Εισάγει ή εξάγει το κλειδί υπογραφής σας</string>
     <string name="settings_system_import_keystore_dialog_title">Εισαγωγή διαπιστευτηρίων χώρου αποθήκευσης κλειδιών</string>
     <string name="settings_system_import_keystore_dialog_description">Θα χρειαστεί να καταχωρίσεις τα διαπιστευτήρια της αποθήκης κλειδιών για να τα εισάγεις</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Όνομα χρήστη (Ψευδώνυμο)</string>
@@ -1006,7 +1002,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">Λανθασμένα διαπιστευτήρια αποθήκης κλειδιών</string>
     <string name="settings_system_import_keystore_success">Επιτυχής εισαγωγή αποθήκης κλειδιών </string>
     <string name="settings_system_import_keystore_failed">Απέτυχε η εισαγωγή χώρου αποθήκευσης κλειδιών</string>
-    <string name="settings_system_export_keystore_unavailable">Κανένας διαθέσιμος χώρος αποθήκευσης κλειδιών για εξαγωγή</string>
     <string name="settings_system_export_keystore_success">Επιτυχής εξαγωγή της αποθήκης κλειδιών</string>
     <string name="settings_system_export_keystore_failed">Απέτυχε η εξαγωγή χώρου αποθήκευσης κλειδιών</string>
     <string name="settings_system_show_password_field">Εμφάνιση κωδικού πρόσβασης</string>
@@ -1025,7 +1020,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">Προσθήκη στοιχείων που λείπουν από το αντίγραφο ασφαλείας. Τα υπάρχοντα στοιχεία θα παραμείνουν χωρίς αλλαγές</string>
     <string name="settings_system_export_manager_settings_fail">Αποτυχία εξαγωγής των ρυθμίσεων του Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Επιτυχής εξαγωγή ρυθμίσεων του Morphe</string>
-    <string name="settings_system_debug">Εντοπισμός σφαλμάτων</string>
+    <string name="settings_system_export_debug_logs">Εξαγωγή αρχείων καταγραφής εντοπισμού σφαλμάτων</string>
     <string name="settings_system_export_debug_logs_description">Αποθηκεύει τα αρχεία καταγραφής σφαλμάτων του συστήματος για την αντιμετώπιση προβλημάτων</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Αποτυχία ανάγνωσης αρχείων καταγραφής (κωδικός εξόδου %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Αποτυχία εξαγωγής αρχείων καταγραφής</string>
@@ -1134,8 +1129,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Πληροφορίες</string>
-    <string name="settings_system_share_website">Κοινοποίηση ιστότοπου</string>
-    <string name="settings_system_share_website_description">Κοινοποίηση του επίσημου ιστότοπου του Morphe</string>
     <string name="settings_system_manager_description">Ένα έργο ανοικτού κώδικα για σύγχρονη, βελτιστοποιημένη ενημέρωση δημοφιλών εφαρμογών Android, που υποστηρίζεται από την κοινότητα και τις συνεισφορές της</string>
     <string name="credits">Εύσημα</string>
     <string name="credits_current_development">Τρέχουσα ανάπτυξη</string>
@@ -1270,7 +1263,6 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">Αλλαγές για %s</string>
     <string name="changelog_general_changes">Γενικές αλλαγές</string>
     <string name="whats_new">Τι νέο</string>
-    <string name="changelog_description">Έλεγξε τις τελευταίες αλλαγές σε αυτή την ενημέρωση</string>
     <string name="changelog_download_fail">Αποτυχία λήψης αρχείου καταγραφής αλλαγών: %s</string>
     <string name="changelog_empty">Δεν υπάρχει διαθέσιμο αρχείο καταγραφών αλλαγών </string>
     <string name="changelog_show_older">Εμφάνιση παλαιότερων εκδόσεων</string>
@@ -1317,5 +1309,4 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Θέλετε μια γρήγορη περιήγηση στις βασικές λειτουργίες του Morphe;</string>
     <string name="tour_prompt_confirm">Δείξτε μου γύρω</string>
     <string name="onboarding_restart_title">Περιήγηση λειτουργιών</string>
-    <string name="onboarding_restart_desc">Κάντε μια καθοδηγούμενη περιήγηση στις βασικές λειτουργίες του Morphe</string>
 </resources>

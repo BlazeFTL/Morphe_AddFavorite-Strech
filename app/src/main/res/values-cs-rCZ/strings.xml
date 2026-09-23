@@ -718,12 +718,7 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="settings_appearance_greeting_phrases">Pozdravné fráze</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazit pozdravný vzkaz na domovské obrazovce</string>
     <string name="settings_appearance_app_grouping">Kreslení aplikací</string>
-    <string name="settings_appearance_app_grouping_description">Zobrazit přepínač domovské obrazovky pro seskupení aplikací podle zdroje nebo vlastních kategorií, s ponecháním výběru při vypnutí</string>
-    <string name="settings_appearance_patch_list">Seznam záplat</string>
-    <string name="settings_appearance_patch_categories">Seskupit podle kategorií</string>
-    <string name="settings_appearance_patch_categories_description">Rozdělit seznamy záplat podle kategorií, které zdroj deklaruje; zdroje, které nedeklarují žádnou kategorii, ponechat jako prostý seznam</string>
     <string name="settings_appearance_repatch_notice">Oznámení o opětovné záplatě</string>
-    <string name="settings_appearance_repatch_notice_description">Zobrazit banner na domovské obrazovce, když lze znovu záplatovat aplikace</string>
     <string name="settings_appearance_sort_button">Tlačítko pro řazení a filtrování</string>
     <string name="settings_appearance_sort_button_description">Zobrazit tlačítko pro řazení a filtrování na domovské obrazovce</string>
     <string name="settings_appearance_app_card_colors">Barvy karet aplikací</string>
@@ -768,6 +763,8 @@ Záplaty tím nejsou ovlivněny: povolte předběžné záplaty pro každý zdro
     <string name="settings_advanced_updates_background_notifications">Aktualizace na pozadí</string>
     <string name="settings_advanced_updates_background_notifications_description">Periodicky ověřujte aktualizace v pozadí a upozorněte, když jsou k dispozici.</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Push notifikace pro nové verze, i když je aplikace zavřená</string>
+    <string name="settings_system_notifications_categories">Kategorie oznámení</string>
+    <string name="settings_system_notifications_categories_description">V systémovém nastavení si vyberte, které aktualizace vás mají upozorňovat.</string>
     <string name="settings_advanced_update_interval">Častota kontroly</string>
     <string name="settings_advanced_update_interval_dialog_title">Zkontrolovat aktualizace</string>
     <string name="settings_advanced_update_interval_hourly">Jednou za hodinu</string>
@@ -790,8 +787,10 @@ Záplaty tím nejsou ovlivněny: povolte předběžné záplaty pro každý zdro
     <string name="notification_permission_dialog_title">Povolit upozornění</string>
     <string name="notification_permission_dialog_description">Morphe potřebuje oprávnění pro oznámení, aby vás upozornila na dostupné aktualizace na pozadí</string>
     <string name="notification_post_patch_dialog_title">Chcete být upozorněni, když budou k dispozici aktualizace?</string>
-    <string name="notification_channel_fcm_updates">Aktualizace oznámení</string>
-    <string name="notification_channel_fcm_updates_description">Oznámení o nových verzích Morphe a záplatách</string>
+    <string name="notification_channel_manager_updates">Aktualizace Morphe</string>
+    <string name="notification_channel_manager_updates_description">Oznámení o nových verzích Morphe</string>
+    <string name="notification_channel_patch_updates">Opravné aktualizace</string>
+    <string name="notification_channel_patch_updates_description">Oznámení o nových opravných verzích</string>
     <string name="notification_channel_patcher">Záplatování</string>
     <string name="notification_channel_patcher_description">Zobrazuje se během záplatování aplikace Morphe na pozadí</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -994,8 +993,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Zvolit tón</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import &amp; export</string>
-    <string name="settings_system_keystore">Klíčenka</string>
-    <string name="settings_system_import_keystore_description">Importuje nebo exportuje váš podpisový klíč</string>
     <string name="settings_system_import_keystore_dialog_title">Zadejte přihlašovací údaje klíčového dílu</string>
     <string name="settings_system_import_keystore_dialog_description">Pro import klíčenky budete muset zadat přihlašovací údaje ke klíčence</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Uživatelské jméno (alias)</string>
@@ -1004,7 +1001,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Neplatné přihlašovací údaje klíčového dílu</string>
     <string name="settings_system_import_keystore_success">Úložiště klíčů importováno</string>
     <string name="settings_system_import_keystore_failed">Selhalo importování klíčového dílu</string>
-    <string name="settings_system_export_keystore_unavailable">Není k dispozici žádné úložiště klíčů k exportu</string>
     <string name="settings_system_export_keystore_success">Úložiště klíčů exportováno</string>
     <string name="settings_system_export_keystore_failed">Nepodařilo se exportovat keystore</string>
     <string name="settings_system_show_password_field">Zobrazit heslo</string>
@@ -1023,7 +1019,7 @@ Podrobnosti: %2$s"</string>
     <string name="import_mode_merge_description">Přidat chybějící položky ze zálohy. Existující položky zůstanou nezměněny.</string>
     <string name="settings_system_export_manager_settings_fail">Nepodařilo se exportovat nastavení Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Nastavení Morphe exportována</string>
-    <string name="settings_system_debug">Ladění</string>
+    <string name="settings_system_export_debug_logs">Exportovat ladicí protokoly</string>
     <string name="settings_system_export_debug_logs_description">Uloží systémové protokoly pro řešení potíží</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Selhání čtení protokolu (kód ukončení %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Nepodařilo se exportovat protokoly</string>
@@ -1132,8 +1128,6 @@ Podrobnosti: %2$s"</string>
     <string name="file_picker_show_hidden_files">Zobrazit skryté soubory</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">O aplikaci</string>
-    <string name="settings_system_share_website">Sdílet webovou stránku</string>
-    <string name="settings_system_share_website_description">Sdílí oficiální webové stránky aplikace Morphe</string>
     <string name="settings_system_manager_description">Projekt s otevřeným zdrojovým kódem pro moderní, optimalizované záplaty populárních Android aplikací, řízený zpětnou vazbou a příspěvky komunity</string>
     <string name="credits">Kredity</string>
     <string name="credits_current_development">Současný vývoj</string>
@@ -1268,7 +1262,6 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_for_app">Změny pro %s</string>
     <string name="changelog_general_changes">Obecné změny</string>
     <string name="whats_new">Co je nového</string>
-    <string name="changelog_description">Zjistěte nejaktuálnější změny v této aktualizaci</string>
     <string name="changelog_download_fail">Selhání stažení poznámek k vydání: %s</string>
     <string name="changelog_empty">Nejsou dostupné žádné záznamy změn</string>
     <string name="changelog_show_older">Zobrazit starší verze</string>
@@ -1315,5 +1308,4 @@ Chcete přesto pokračovat?"</string>
     <string name="tour_prompt_desc">Chcete si prohlédnout klíčové funkce Morphe?</string>
     <string name="tour_prompt_confirm">Proveďte prohlídku</string>
     <string name="onboarding_restart_title">Prohlídka funkcí</string>
-    <string name="onboarding_restart_desc">Proveďte interaktivní prohlídku klíčových funkcí Morphe.</string>
 </resources>

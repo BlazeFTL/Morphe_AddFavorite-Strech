@@ -722,12 +722,7 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_greeting_phrases">Pozdravne fraze</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Pokaži poruku dobrodošlice na početnom zaslonu</string>
     <string name="settings_appearance_app_grouping">Grupiranje aplikacija</string>
-    <string name="settings_appearance_app_grouping_description">Prikaži prekidač početnog zaslona za grupiranje aplikacija prema izvoru ili vlastitim kategorijama, zadržavajući odabir kada je isključen</string>
-    <string name="settings_appearance_patch_list">Popis zakrpa</string>
-    <string name="settings_appearance_patch_categories">Grupiraj po kategoriji</string>
-    <string name="settings_appearance_patch_categories_description">Razvrstaj popise zakrpa prema kategorijama koje izvor deklarira, ostavljajući izvore koji ne deklariraju nijednu kao običan popis.</string>
     <string name="settings_appearance_repatch_notice">Obavijest o ponovnom patchanju</string>
-    <string name="settings_appearance_repatch_notice_description">Prikaži banner na početnom zaslonu kada se patchane aplikacije mogu ponovno patchati</string>
     <string name="settings_appearance_sort_button">Tipka za sortiranje i filtriranje</string>
     <string name="settings_appearance_sort_button_description">Prikaži tipku za sortiranje i filtriranje na početnom zaslonu</string>
     <string name="settings_appearance_app_card_colors">Boje kartica aplikacije</string>
@@ -772,6 +767,8 @@ Patchevi nisu pogođeni: omogućite predizdanja patcheva za svaki izvor na popis
     <string name="settings_advanced_updates_background_notifications">Obavijesti o ažuriranjima u pozadini</string>
     <string name="settings_advanced_updates_background_notifications_description">Povremeno provjeravaj ažuriranja u pozadini i obavještavaj kada su dostupna</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Primajte trenutne push obavijesti za nove verzije, čak i kada je aplikacija zatvorena</string>
+    <string name="settings_system_notifications_categories">Kategorije obavijesti</string>
+    <string name="settings_system_notifications_categories_description">Odaberite u postavkama sustava o kojim ažuriranjima želite biti obaviješteni</string>
     <string name="settings_advanced_update_interval">Povremeno provjeravanje</string>
     <string name="settings_advanced_update_interval_dialog_title">Provjeri za ažuriranja</string>
     <string name="settings_advanced_update_interval_hourly">Svaki sat</string>
@@ -794,8 +791,10 @@ Patchevi nisu pogođeni: omogućite predizdanja patcheva za svaki izvor na popis
     <string name="notification_permission_dialog_title">Dopusti obavijesti</string>
     <string name="notification_permission_dialog_description">Morphe treba dopuštenje za obavijesti kako bi vas upozorio kada su ažuriranja dostupna u pozadini</string>
     <string name="notification_post_patch_dialog_title">Želite li biti obavješteni kada su dostupni ažuriranja?</string>
-    <string name="notification_channel_fcm_updates">Obavijesti o ažuriranju</string>
-    <string name="notification_channel_fcm_updates_description">Obavijesti o novim izdanjima Morphea i patcheva</string>
+    <string name="notification_channel_manager_updates">Morphe ažuriranja</string>
+    <string name="notification_channel_manager_updates_description">Obavijesti o novim Morphe izdanjima</string>
+    <string name="notification_channel_patch_updates">Ažuriranja zakrpa</string>
+    <string name="notification_channel_patch_updates_description">Obavijesti o novim zakrpama</string>
     <string name="notification_channel_patcher">Patchanje</string>
     <string name="notification_channel_patcher_description">Prikazuje se dok Morphe patcha aplikaciju u pozadini</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -998,8 +997,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Odaberite ton</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Izvoz &amp; uvoz</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Uvozi ili izvozi vašu pohranu ključeva za potpisivanje</string>
     <string name="settings_system_import_keystore_dialog_title">Unesite vjerodajnice za pohranu ključeva</string>
     <string name="settings_system_import_keystore_dialog_description">Morat ćete unijeti vjerodajnice za pohranu ključeva da biste ga uvezli</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Korisničko ime (Alias)</string>
@@ -1008,7 +1005,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Netočne vjerodajnice za pohranu ključeva</string>
     <string name="settings_system_import_keystore_success">Uvezeno spremište ključeva</string>
     <string name="settings_system_import_keystore_failed">Uvoz spremišta ključeva nije uspio</string>
-    <string name="settings_system_export_keystore_unavailable">Nema dostupnog spremišta ključeva za izvoz</string>
     <string name="settings_system_export_keystore_success">Spremište ključeva je izvezeno</string>
     <string name="settings_system_export_keystore_failed">Uvoz spremišta ključeva nije uspio</string>
     <string name="settings_system_show_password_field">Pokaži lozinku</string>
@@ -1027,7 +1023,7 @@ Detalji: %2$s"</string>
     <string name="import_mode_merge_description">Dodaj nedostajuće stavke iz sigurnosne kopije. Postojeće stavke ostaju netaknute</string>
     <string name="settings_system_export_manager_settings_fail">Izvoz postavki Morphea nije uspio: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe postavke izvezene</string>
-    <string name="settings_system_debug">Otklanjanje grešaka</string>
+    <string name="settings_system_export_debug_logs">Izvoz zapisnika o otklanjanju pogrešaka</string>
     <string name="settings_system_export_debug_logs_description">Spremi zapisnike sustava za rješavanje problema</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Nije uspjelo čitanje zapisnika (izlazni kod %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Izvoz zapisnika nije uspio</string>
@@ -1136,8 +1132,6 @@ Detalji: %2$s"</string>
     <string name="file_picker_show_hidden_files">Prikaži skrivene datoteke</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">O aplikaciji</string>
-    <string name="settings_system_share_website">Dijeli web stranicu</string>
-    <string name="settings_system_share_website_description">Podijeli službenu stranicu Morphe</string>
     <string name="settings_system_manager_description">Projekt otvorenog koda za moderno, pojednostavljeno ažuriranje popularnih Android aplikacija, potaknut povratnim informacijama i doprinosima zajednice</string>
     <string name="credits">Zasluge</string>
     <string name="credits_current_development">Trenutni razvoj</string>
@@ -1272,7 +1266,6 @@ Detalji: %2$s"</string>
     <string name="changelog_for_app">Promjene za %s</string>
     <string name="changelog_general_changes">Opće promjene</string>
     <string name="whats_new">Što je novo</string>
-    <string name="changelog_description">Pogledajte najnovije promjene u ovom ažuriranju</string>
     <string name="changelog_download_fail">Neuspjelo preuzimanje zapisa promjena: %s</string>
     <string name="changelog_empty">Nema dostupnog zapisa o promjenama</string>
     <string name="changelog_show_older">Pokaži starije verzije</string>
@@ -1320,5 +1313,4 @@ Detalji: %2$s"</string>
     <string name="tour_prompt_desc">Želite li brzi obilazak ključnih značajki Morphea?</string>
     <string name="tour_prompt_confirm">Pokaži mi okolo</string>
     <string name="onboarding_restart_title">Obilazak značajki</string>
-    <string name="onboarding_restart_desc">Krenite s vodičem kroz ključne značajke Morphea</string>
 </resources>

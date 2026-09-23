@@ -720,12 +720,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_greeting_phrases">Powitania</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wyświetlaj powitanie na ekranie głównym</string>
     <string name="settings_appearance_app_grouping">Grupowanie aplikacji</string>
-    <string name="settings_appearance_app_grouping_description">Wyświetl na ekranie głównym przełącznik do grupowania aplikacji według źródła lub własnych kategorii, zachowując wybór po wyłączeniu</string>
-    <string name="settings_appearance_patch_list">Lista modyfikacji</string>
-    <string name="settings_appearance_patch_categories">Grupuj według kategorii</string>
-    <string name="settings_appearance_patch_categories_description">Dzieli listy modyfikacji na sekcje według kategorii deklarowanych przez źródło, pozostawiając źródła bez kategorii w formie zwykłej listy</string>
     <string name="settings_appearance_repatch_notice">Powiadomienie o ponownym modyfikowaniu</string>
-    <string name="settings_appearance_repatch_notice_description">Pokazuj baner na ekranie głównym, gdy można ponownie zmodyfikować aplikacje</string>
     <string name="settings_appearance_sort_button">Przycisk sortowania i filtrowania</string>
     <string name="settings_appearance_sort_button_description">Pokaż przycisk sortowania i filtrowania na ekranie głównym</string>
     <string name="settings_appearance_app_card_colors">Kolory kart aplikacji</string>
@@ -770,6 +765,8 @@ Modyfikacje nie są tym objęte: włącz przedpremierowe modyfikacje dla każdeg
     <string name="settings_advanced_updates_background_notifications">Powiadomienia o aktualizacjach w tle</string>
     <string name="settings_advanced_updates_background_notifications_description">Okresowo sprawdzaj aktualizacje w tle i powiadamiaj, gdy będą dostępne</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Powiadomienia push o nowych wersjach, nawet gdy aplikacja jest zamknięta</string>
+    <string name="settings_system_notifications_categories">Kategorie powiadomień</string>
+    <string name="settings_system_notifications_categories_description">Wybierz w ustawieniach systemowych, o których aktualizacjach chcesz otrzymywać powiadomienia</string>
     <string name="settings_advanced_update_interval">Częstotliwość sprawdzania</string>
     <string name="settings_advanced_update_interval_dialog_title">Sprawdzaj aktualizacje</string>
     <string name="settings_advanced_update_interval_hourly">Raz na godzinę</string>
@@ -792,8 +789,10 @@ Modyfikacje nie są tym objęte: włącz przedpremierowe modyfikacje dla każdeg
     <string name="notification_permission_dialog_title">Zezwól na powiadomienia</string>
     <string name="notification_permission_dialog_description">Morphe wymaga uprawnień do powiadomień, aby informować Cię o dostępnych aktualizacjach w tle</string>
     <string name="notification_post_patch_dialog_title">Czy chcesz otrzymywać powiadomienia o dostępnych aktualizacjach?</string>
-    <string name="notification_channel_fcm_updates">Powiadomienia o aktualizacjach</string>
-    <string name="notification_channel_fcm_updates_description">Powiadomienia o nowych wersjach Morphe oraz modyfikacji</string>
+    <string name="notification_channel_manager_updates">Aktualizacje Morphe</string>
+    <string name="notification_channel_manager_updates_description">Powiadomienia o nowych wydaniach Morphe</string>
+    <string name="notification_channel_patch_updates">Aktualizacje modyfikacji</string>
+    <string name="notification_channel_patch_updates_description">Powiadomienia o nowych wydaniach modyfikacji</string>
     <string name="notification_channel_patcher">Modyfikowanie</string>
     <string name="notification_channel_patcher_description">Wyświetlane, gdy Morphe modyfikuje aplikację w tle</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -996,8 +995,19 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_notifications_ringtone_picker_title">Wybierz dźwięk</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import i eksport</string>
-    <string name="settings_system_keystore">Magazyn kluczy</string>
-    <string name="settings_system_import_keystore_description">Importuje lub eksportuje magazyn kluczy do podpisywania</string>
+    <string name="settings_system_signing_key">Klucz podpisywania</string>
+    <string name="settings_system_signing_key_description">Tworzy kopię zapasową i przywraca klucz, którym podpisane są zmodyfikowane aplikacje</string>
+    <string name="settings_system_signing_key_dialog_description">Każda aplikacja modyfikowana przez Morphe jest podpisana tym kluczem. Zachowaj jego kopię: bez niego zaktualizowanie zmodyfikowanych aplikacji będzie możliwe tylko po ich wcześniejszym odinstalowaniu</string>
+    <string name="settings_system_signing_key_missing">Morphe tworzy go podczas pierwszej modyfikacji</string>
+    <string name="settings_system_signing_key_created">Utworzono %s</string>
+    <string name="settings_system_signing_key_fingerprint">Odcisk SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Motyw, kolory i język</string>
+    <string name="settings_system_backup_patching">Modyfikowanie i instalowanie</string>
+    <string name="settings_system_backup_patching_description">Instalator, modyfikator i zapisane pliki APK</string>
+    <string name="settings_system_backup_updates_description">Wersje przedpremierowe i sprawdzanie aktualizacji</string>
+    <string name="settings_system_backup_sources_description">Niestandardowe źródła i token GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Wybrane modyfikacje dla każdej aplikacji</string>
+    <string name="settings_system_backup_signing_key_note">Kopia zapasowa klucza podpisywania jest tworzona oddzielnie</string>
     <string name="settings_system_import_keystore_dialog_title">Wprowadź dane magazynu kluczy</string>
     <string name="settings_system_import_keystore_dialog_description">Musisz wprowadzić dane magazynu kluczy, aby go zaimportować</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Nazwa użytkownika (Alias)</string>
@@ -1006,7 +1016,6 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_import_keystore_wrong_credentials">Nieprawidłowe dane magazynu kluczy</string>
     <string name="settings_system_import_keystore_success">Zaimportowano magazyn kluczy</string>
     <string name="settings_system_import_keystore_failed">Nie udało się zaimportować magazynu kluczy</string>
-    <string name="settings_system_export_keystore_unavailable">Brak magazynu kluczy do eksportu</string>
     <string name="settings_system_export_keystore_success">Wyeksportowano magazyn kluczy</string>
     <string name="settings_system_export_keystore_failed">Nie udało się wyeksportować magazynu kluczy</string>
     <string name="settings_system_show_password_field">Pokaż hasło</string>
@@ -1025,7 +1034,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="import_mode_merge_description">Dodaj brakujące elementy z kopii zapasowej. Istniejące elementy pozostaną bez zmian</string>
     <string name="settings_system_export_manager_settings_fail">Nie udało się wyeksportować ustawień Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Wyeksportowano ustawienia Morphe</string>
-    <string name="settings_system_debug">Debugowanie</string>
+    <string name="settings_system_export_debug_logs">Eksportuj logi debugowania</string>
     <string name="settings_system_export_debug_logs_description">Zapisuje logi systemowe w celu rozwiązywania problemów</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Nie udało się odczytać logów (kod wyjścia %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Nie udało się wyeksportować logów</string>
@@ -1134,8 +1143,6 @@ Wymagane są następujące wymiary obrazów:
     <string name="file_picker_show_hidden_files">Pokaż ukryte pliki</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Informacje</string>
-    <string name="settings_system_share_website">Udostępnij stronę</string>
-    <string name="settings_system_share_website_description">Udostępnia oficjalną stronę internetową Morphe</string>
     <string name="settings_system_manager_description">Projekt otwartoźródłowy służący do nowoczesnego i sprawnego modyfikowania popularnych aplikacji na Androida, rozwijany dzięki opiniom i zaangażowaniu społeczności</string>
     <string name="credits">Podziękowania</string>
     <string name="credits_current_development">Obecni twórcy</string>
@@ -1270,7 +1277,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="changelog_for_app">Zmiany dla %s</string>
     <string name="changelog_general_changes">Ogólne zmiany</string>
     <string name="whats_new">Co nowego</string>
-    <string name="changelog_description">Sprawdź ostatnie zmiany w tej aktualizacji</string>
+    <string name="changelog_description">Co nowego w tej wersji</string>
     <string name="changelog_download_fail">Nie udało się pobrać historii zmian: %s</string>
     <string name="changelog_empty">Brak dostępnej historii zmian</string>
     <string name="changelog_show_older">Pokaż starsze wersje</string>
@@ -1317,5 +1324,5 @@ Czy mimo to chcesz kontynuować?"</string>
     <string name="tour_prompt_desc">Chcesz szybko poznać najważniejsze funkcje Morphe?</string>
     <string name="tour_prompt_confirm">Pokaż mi</string>
     <string name="onboarding_restart_title">Przewodnik po funkcjach</string>
-    <string name="onboarding_restart_desc">Przejdź przez krótki przewodnik, aby poznać najważniejsze funkcje Morphe</string>
+    <string name="onboarding_restart_desc">Przewodnik po kluczowych funkcjach</string>
 </resources>

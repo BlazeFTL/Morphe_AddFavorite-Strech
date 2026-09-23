@@ -720,12 +720,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_greeting_phrases">Tervehdysviestit</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Näytä tervehdysviesti aloitusnäytöllä</string>
     <string name="settings_appearance_app_grouping">Sovellusten ryhmittely</string>
-    <string name="settings_appearance_app_grouping_description">Näytä kotinäkymän vaihto, jolla voit ryhmitellä sovellukset lähteen tai omien luokkien mukaan ja säilytä valinta, kun se on poissa päältä</string>
-    <string name="settings_appearance_patch_list">Luettelo korjauspaketeista</string>
-    <string name="settings_appearance_patch_categories">Ryhmittele luokittain</string>
-    <string name="settings_appearance_patch_categories_description">Jaa korjauspakettiluettelot osioihin lähteen ilmoittamien luokkien mukaan; lähteet, jotka eivät ilmoita luokkaa, jäävät tavalliseksi luetteloksi.</string>
     <string name="settings_appearance_repatch_notice">Uudelleenkorjausilmoitus</string>
-    <string name="settings_appearance_repatch_notice_description">Näytä banneri aloitusnäytössä, kun korjattuja sovelluksia voidaan korjata uudelleen</string>
     <string name="settings_appearance_sort_button">Lajittelu- ja suodatuspainike</string>
     <string name="settings_appearance_sort_button_description">Näytä lajittelu- ja suodatuspainike aloitusnäytöllä</string>
     <string name="settings_appearance_app_card_colors">Sovelluksen korttien värit</string>
@@ -768,6 +763,8 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_advanced_updates_background_notifications">Taustapäivitysten ilmoitukset</string>
     <string name="settings_advanced_updates_background_notifications_description">Tarkista päivitykset säännöllisesti taustalla ja ilmoita, kun niitä on saatavilla</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Saat välittömästi ilmoituksia uusista julkaisuista, vaikka sovellus ei ole päällä</string>
+    <string name="settings_system_notifications_categories">Ilmoitusluokat</string>
+    <string name="settings_system_notifications_categories_description">Valitse järjestelmän asetuksista, mistä päivityksistä saat ilmoituksia</string>
     <string name="settings_advanced_update_interval">Tarkistustiheys</string>
     <string name="settings_advanced_update_interval_dialog_title">Tarkista päivitykset</string>
     <string name="settings_advanced_update_interval_hourly">Kerran tunnissa</string>
@@ -790,8 +787,10 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="notification_permission_dialog_title">Salli ilmoitukset</string>
     <string name="notification_permission_dialog_description">Morphe tarvitsee ilmoitusluvan, jotta voit saada ilmoituksen päivityksistä, kun sovellus on taustalla</string>
     <string name="notification_post_patch_dialog_title">Haluatko saada ilmoitusta, kun päivityksiä on saatavilla?</string>
-    <string name="notification_channel_fcm_updates">Päivitysilmoitukset</string>
-    <string name="notification_channel_fcm_updates_description">Ilmoitukset uusista Morphe- ja lisäosaversioista</string>
+    <string name="notification_channel_manager_updates">Morphe-päivitykset</string>
+    <string name="notification_channel_manager_updates_description">Ilmoitukset uusista Morphe-julkaisuista</string>
+    <string name="notification_channel_patch_updates">Korjauspäivitykset</string>
+    <string name="notification_channel_patch_updates_description">Ilmoitukset uusista korjausjulkaisuista</string>
     <string name="notification_channel_patcher">Muokkaaminen</string>
     <string name="notification_channel_patcher_description">Näytetään, kun Morphe paikkaa sovellusta taustalla</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -994,8 +993,6 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Valitse sävy</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Tuo ja vie</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Tuo tai vie allekirjoitustunnuksesi</string>
     <string name="settings_system_import_keystore_dialog_title">Anna avainsäilön tiedot</string>
     <string name="settings_system_import_keystore_dialog_description">Sinun on annettava avainsäilön tiedot, jotta voit tuoda sen</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Käyttäjänimi (Alias)</string>
@@ -1004,7 +1001,6 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Väärät avainsäilötiedot</string>
     <string name="settings_system_import_keystore_success">Avainsäilö tuotu</string>
     <string name="settings_system_import_keystore_failed">Avainsäilön tuonti epäonnistui</string>
-    <string name="settings_system_export_keystore_unavailable">Ei vietävää avainsäilöä</string>
     <string name="settings_system_export_keystore_success">Avainsäilö viety</string>
     <string name="settings_system_export_keystore_failed">Avainsäilön vienti epäonnistui</string>
     <string name="settings_system_show_password_field">Näytä salasana</string>
@@ -1023,7 +1019,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="import_mode_merge_description">Lisää varmuuskopiosta puuttuvat kohteet. Olemassaolevat kohteet säilytetään muuttumattomina.</string>
     <string name="settings_system_export_manager_settings_fail">Morphen asetusten vienti epäonnistui: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphen asetukset viety</string>
-    <string name="settings_system_debug">Virheenkorjaus</string>
+    <string name="settings_system_export_debug_logs">Vie virheenkorjauslokit</string>
     <string name="settings_system_export_debug_logs_description">Tallenna järjestelmälokit vianetsintää varten</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Lokien lukeminen epäonnistui (poistumiskoodi %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Lokien vienti epäonnistui</string>
@@ -1132,8 +1128,6 @@ Yksityiskohdat: %2$s"</string>
     <string name="file_picker_show_hidden_files">Näytä piilotetut tiedostot</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Tietoja</string>
-    <string name="settings_system_share_website">Jaa verkkosivusto</string>
-    <string name="settings_system_share_website_description">Jaa Morphen virallinen verkkosivusto</string>
     <string name="settings_system_manager_description">Avoimen lähdekoodin projekti suosittujen Android-sovellusten moderniin ja suoraviivaiseen muokkaukseen, jota ohjaavat yhteisön palaute ja panokset</string>
     <string name="credits">Tekijät</string>
     <string name="credits_current_development">Nykyinen kehitys</string>
@@ -1268,7 +1262,6 @@ Yksityiskohdat: %2$s"</string>
     <string name="changelog_for_app">Muutokset sovellukselle %s</string>
     <string name="changelog_general_changes">Yleiset muutokset</string>
     <string name="whats_new">Mitä uutta</string>
-    <string name="changelog_description">Katso tämän päivityksen uusimmat muutokset</string>
     <string name="changelog_download_fail">Muutoslokin lataaminen epäonnistui: %s</string>
     <string name="changelog_empty">Muutoslokia ei ole saatavilla</string>
     <string name="changelog_show_older">Näytä vanhemmat julkaisut</string>
@@ -1315,5 +1308,4 @@ Haluatko silti jatkaa?"</string>
     <string name="tour_prompt_desc">Haluatko pikatutoriaalin Morphen tärkeimmistä ominaisuuksista?</string>
     <string name="tour_prompt_confirm">Näytä minulle</string>
     <string name="onboarding_restart_title">Ominaisuusesittely</string>
-    <string name="onboarding_restart_desc">Käy opastetulla kierroksella Morphen tärkeimmissä ominaisuuksissa</string>
 </resources>

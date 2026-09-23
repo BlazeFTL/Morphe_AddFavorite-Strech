@@ -719,12 +719,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_greeting_phrases">Pozdravna sporočila</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Prikaži pozdravno sporočilo na začetnem zaslonu</string>
     <string name="settings_appearance_app_grouping">Grupiranje aplikacij</string>
-    <string name="settings_appearance_app_grouping_description">Prikaži stikalo na začetnem zaslonu za grupiranje aplikacij po izvoru ali lastnih kategorijah, obdrži izbor, ko je izklopljeno</string>
-    <string name="settings_appearance_patch_list">Seznam popravkov</string>
-    <string name="settings_appearance_patch_categories">Združi po kategorijah</string>
-    <string name="settings_appearance_patch_categories_description">Razvrsti sezname popravkov po kategorijah, ki jih vir navaja, vire, ki ne navajajo nobene, pa pusti kot navaden seznam</string>
     <string name="settings_appearance_repatch_notice">Obvestilo o ponovnem krpanju</string>
-    <string name="settings_appearance_repatch_notice_description">Prikaži pasico na domačem zaslonu, ko je mogoče ponovno krpati aplikacije</string>
     <string name="settings_appearance_sort_button">Gumb za razvrščanje in filtriranje</string>
     <string name="settings_appearance_sort_button_description">Prikaži gumb za razvrščanje in filtriranje na začetnem zaslonu</string>
     <string name="settings_appearance_app_card_colors">Barve kartic aplikacij</string>
@@ -769,6 +764,8 @@ Ta nastavitev ne vpliva na popravke: omogočite predizdajne popravke za vsak vir
     <string name="settings_advanced_updates_background_notifications">Obvestila o posodobitvah v ozadju</string>
     <string name="settings_advanced_updates_background_notifications_description">Občasno preverja prisotnost posodobitev v ozadju in obvesti, ko so na voljo</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Omogoči potisna obvestila za nove izdaje, tudi ko je aplikacija zaprta</string>
+    <string name="settings_system_notifications_categories">Kategorije obvestil</string>
+    <string name="settings_system_notifications_categories_description">V sistemskih nastavitvah izberite, katere posodobitve vas obveščajo.</string>
     <string name="settings_advanced_update_interval">Preverjanje pogostosti</string>
     <string name="settings_advanced_update_interval_dialog_title">Preverjanje posodobitev</string>
     <string name="settings_advanced_update_interval_hourly">Enkrat na uro</string>
@@ -791,8 +788,10 @@ Ta nastavitev ne vpliva na popravke: omogočite predizdajne popravke za vsak vir
     <string name="notification_permission_dialog_title">Omogoči obvestila</string>
     <string name="notification_permission_dialog_description">Morphe potrebuje dovoljenje za obvestila, da vas opozori, ko so posodobitve na voljo v ozadju</string>
     <string name="notification_post_patch_dialog_title">Želite biti obveščeni, ko so na voljo posodobitve?</string>
-    <string name="notification_channel_fcm_updates">Obvestila o posodobitvah</string>
-    <string name="notification_channel_fcm_updates_description">Obvestila o novih izdajah Morphe in popravkov</string>
+    <string name="notification_channel_manager_updates">Posodobitve Morphe</string>
+    <string name="notification_channel_manager_updates_description">Obvestila o novih izdajah Morphe</string>
+    <string name="notification_channel_patch_updates">Posodobitve s popravki</string>
+    <string name="notification_channel_patch_updates_description">Obvestila o novih izdajah s popravki</string>
     <string name="notification_channel_patcher">Popravljanje</string>
     <string name="notification_channel_patcher_description">Prikazano medtem ko Morphe popravlja aplikacijo v ozadju</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Izberi melodijo</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Uvozi &amp; izvozi</string>
-    <string name="settings_system_keystore">Shramba ključev</string>
-    <string name="settings_system_import_keystore_description">Uvozi ali izvozi vaš ključ za podpisovanje</string>
     <string name="settings_system_import_keystore_dialog_title">Vnesite podatke shrambe ključev</string>
     <string name="settings_system_import_keystore_dialog_description">Za uvoz boste morali vnesti podatke ključne datoteke.</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Uporabniško ime (Alias)</string>
@@ -1005,7 +1002,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Nepravilni podatki shrambe ključev</string>
     <string name="settings_system_import_keystore_success">Shramba ključev uvožena</string>
     <string name="settings_system_import_keystore_failed">Uvoz shrambe ključev je spodletel</string>
-    <string name="settings_system_export_keystore_unavailable">Ni na voljo shrambe ključev za izvoz</string>
     <string name="settings_system_export_keystore_success">Shrambe ključev izvožena</string>
     <string name="settings_system_export_keystore_failed">Izvoz shrambe ključev je spodletel</string>
     <string name="settings_system_show_password_field">Pokaži geslo</string>
@@ -1024,7 +1020,6 @@ Podrobnosti: %2$s"</string>
     <string name="import_mode_merge_description">Dodaj manjkajoče postavke iz varnostne kopije. Obstoječe postavke ostanejo nespremenjene.</string>
     <string name="settings_system_export_manager_settings_fail">Ni bilo mogoče izvoziti nastavitev Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Izvožene so bile nastavitve Morphe</string>
-    <string name="settings_system_debug">Razhroščevanje</string>
     <string name="settings_system_export_debug_logs_description">Shrani sistemske dnevnike za odpravljanje težav</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Ni bilo mogoče brati dnevnikov (koda izhoda %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Izvoz datotek je spodletel</string>
@@ -1133,8 +1128,6 @@ Podrobnosti: %2$s"</string>
     <string name="file_picker_show_hidden_files">Pokaži skrite datoteke</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">O aplikaciji</string>
-    <string name="settings_system_share_website">Delite spletno mesto</string>
-    <string name="settings_system_share_website_description">Deli uradno spletno stran Morphe</string>
     <string name="settings_system_manager_description">Odprtokodni projekt za sodobno in prilagodljivo popravljanje priljubljenih aplikacij za Android, ki ga gonijo povratne informacije in prispevki skupnosti</string>
     <string name="credits">Zasluge</string>
     <string name="credits_current_development">Trenuten razvoj</string>
@@ -1269,7 +1262,6 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_for_app">Spremembe za %s</string>
     <string name="changelog_general_changes">Splošne spremembe</string>
     <string name="whats_new">Kaj je novega</string>
-    <string name="changelog_description">Oglejte si najnovejše spremembe v tej posodobitvi</string>
     <string name="changelog_download_fail">Ni mogoče prenesti dnevnika sprememb: %s</string>
     <string name="changelog_empty">Ni na voljo dnevnika sprememb</string>
     <string name="changelog_show_older">Prikaži starejše različice</string>
@@ -1314,5 +1306,4 @@ Podrobnosti: %2$s"</string>
     <string name="tour_prompt_desc">Želite hiter pregled ključnih funkcij Morphe?</string>
     <string name="tour_prompt_confirm">Pokaži mi</string>
     <string name="onboarding_restart_title">Pregled funkcij</string>
-    <string name="onboarding_restart_desc">Izvedite voden pregled ključnih funkcij Morphe</string>
 </resources>

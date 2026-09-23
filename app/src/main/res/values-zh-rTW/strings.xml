@@ -718,12 +718,7 @@
     <string name="settings_appearance_greeting_phrases">問候語</string>
     <string name="settings_appearance_greeting_phrases_subtitle">在主螢幕上顯示問候訊息</string>
     <string name="settings_appearance_app_grouping">應用程式分組</string>
-    <string name="settings_appearance_app_grouping_description">顯示主畫面切換器，以依來源或您自己的類別分組應用程式，並在關閉時保留選取內容</string>
-    <string name="settings_appearance_patch_list">修補程式清單</string>
-    <string name="settings_appearance_patch_categories">依類別分組</string>
-    <string name="settings_appearance_patch_categories_description">將修補程式清單按照來源宣告的類別分區，未宣告任何類別的來源則保留為一般清單。</string>
     <string name="settings_appearance_repatch_notice">重新修補通知</string>
-    <string name="settings_appearance_repatch_notice_description">當已修補的應用程式可重新修補時，在主畫面上顯示橫幅</string>
     <string name="settings_appearance_sort_button">排序與篩選按鈕</string>
     <string name="settings_appearance_sort_button_description">在主畫面上顯示排序與篩選按鈕</string>
     <string name="settings_appearance_app_card_colors">應用程式卡片顏色</string>
@@ -768,6 +763,8 @@
     <string name="settings_advanced_updates_background_notifications">背景更新通知</string>
     <string name="settings_advanced_updates_background_notifications_description">在背景定期檢查更新，並在可用時發出通知</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">即便應用程式已關閉，也能接收新版本的即時推播通知</string>
+    <string name="settings_system_notifications_categories">通知類別</string>
+    <string name="settings_system_notifications_categories_description">在系統設定中選擇哪些更新會通知您</string>
     <string name="settings_advanced_update_interval">檢查頻率</string>
     <string name="settings_advanced_update_interval_dialog_title">檢查更新</string>
     <string name="settings_advanced_update_interval_hourly">每小時一次</string>
@@ -790,8 +787,10 @@
     <string name="notification_permission_dialog_title">允許通知</string>
     <string name="notification_permission_dialog_description">Morphe 需要通知權限才能在背景有可用更新時提醒您</string>
     <string name="notification_post_patch_dialog_title">您希望在有可用更新時收到通知嗎？</string>
-    <string name="notification_channel_fcm_updates">更新通知</string>
-    <string name="notification_channel_fcm_updates_description">有關新 Morphe 和修補程式版本的通知</string>
+    <string name="notification_channel_manager_updates">Morphe 更新</string>
+    <string name="notification_channel_manager_updates_description">關於新 Morphe 版本的通知</string>
+    <string name="notification_channel_patch_updates">修補程式更新</string>
+    <string name="notification_channel_patch_updates_description">關於新修補程式版本的通知</string>
     <string name="notification_channel_patcher">修補</string>
     <string name="notification_channel_patcher_description">在 Morphe 於背景修補應用程式時顯示</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -992,8 +991,19 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">選擇鈴聲</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">匯入與匯出</string>
-    <string name="settings_system_keystore">金鑰儲存庫</string>
-    <string name="settings_system_import_keystore_description">匯入或匯出您的簽名金鑰庫</string>
+    <string name="settings_system_signing_key">簽署金鑰</string>
+    <string name="settings_system_signing_key_description">備份並還原用於簽署您的修補應用程式的金鑰</string>
+    <string name="settings_system_signing_key_dialog_description">Morphe 所修補的每個應用程式都會以這把金鑰簽署。請保留一份副本：少了它，修補過的應用程式只能先解除安裝後才能更新。</string>
+    <string name="settings_system_signing_key_missing">Morphe 會在您首次修補時產生一把金鑰</string>
+    <string name="settings_system_signing_key_created">建立於 %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 指紋</string>
+    <string name="settings_system_backup_appearance_description">主題、色彩與語言</string>
+    <string name="settings_system_backup_patching">修補與安裝</string>
+    <string name="settings_system_backup_patching_description">安裝程式、修補程式與已儲存的 APK</string>
+    <string name="settings_system_backup_updates_description">預先發行版本與更新檢查</string>
+    <string name="settings_system_backup_sources_description">自訂來源與 GitHub 權杖</string>
+    <string name="settings_system_backup_patch_selections_description">每個應用程式所選的修補程式</string>
+    <string name="settings_system_backup_signing_key_note">簽署金鑰會分開備份</string>
     <string name="settings_system_import_keystore_dialog_title">輸入金鑰儲存庫憑證</string>
     <string name="settings_system_import_keystore_dialog_description">您需要輸入金鑰儲存庫的憑證才能將其匯入</string>
     <string name="settings_system_import_keystore_dialog_alias_field">使用者名稱 (別名)</string>
@@ -1002,7 +1012,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">金鑰儲存庫憑證不正確</string>
     <string name="settings_system_import_keystore_success">已匯入金鑰儲存庫</string>
     <string name="settings_system_import_keystore_failed">無法匯入金鑰儲存庫</string>
-    <string name="settings_system_export_keystore_unavailable">沒有可匯出的金鑰儲存庫</string>
     <string name="settings_system_export_keystore_success">已匯出金鑰儲存庫</string>
     <string name="settings_system_export_keystore_failed">無法匯出金鑰儲存庫</string>
     <string name="settings_system_show_password_field">顯示密碼</string>
@@ -1021,7 +1030,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">新增備份中缺少項目。現有項目維持不變</string>
     <string name="settings_system_export_manager_settings_fail">無法匯出 Morphe 設定：%s</string>
     <string name="settings_system_export_manager_settings_success">已匯出 Morphe 設定</string>
-    <string name="settings_system_debug">偵錯</string>
+    <string name="settings_system_export_debug_logs">匯出偵錯日誌</string>
     <string name="settings_system_export_debug_logs_description">儲存系統紀錄以進行疑難排解</string>
     <string name="settings_system_export_debug_logs_export_read_failed">無法讀取紀錄（結束代碼 %s）</string>
     <string name="settings_system_export_debug_logs_export_failed">無法匯出紀錄</string>
@@ -1130,8 +1139,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">顯示隱藏的檔案</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">關於</string>
-    <string name="settings_system_share_website">分享網站</string>
-    <string name="settings_system_share_website_description">分享官方 Morphe 網站</string>
     <string name="settings_system_manager_description">\"這是一個開源專案，用於對熱門的 Android 應用程式進行現代、簡化的修補，並由社群的意見回饋和貢獻所驅動\"</string>
     <string name="credits">鳴謝</string>
     <string name="credits_current_development">目前開發</string>
@@ -1266,7 +1273,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">%s 的變更</string>
     <string name="changelog_general_changes">一般變更</string>
     <string name="whats_new">新增內容</string>
-    <string name="changelog_description">查看此更新中的最新變更</string>
+    <string name="changelog_description">此版本的新功能</string>
     <string name="changelog_download_fail">無法下載變更紀錄：%s</string>
     <string name="changelog_empty">沒有可用的變更紀錄</string>
     <string name="changelog_show_older">顯示舊版本</string>
@@ -1313,5 +1320,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">想要快速導覽 Morphe 的主要功能嗎？</string>
     <string name="tour_prompt_confirm">帶我走一趟</string>
     <string name="onboarding_restart_title">功能導覽</string>
-    <string name="onboarding_restart_desc">進行 Morphe 主要功能的引導式導覽</string>
+    <string name="onboarding_restart_desc">主要功能導覽</string>
 </resources>

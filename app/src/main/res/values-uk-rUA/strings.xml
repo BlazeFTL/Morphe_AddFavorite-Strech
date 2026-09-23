@@ -719,12 +719,9 @@
     <string name="settings_appearance_greeting_phrases">Вітальні фрази</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показувати вітальне повідомлення на головному екрані</string>
     <string name="settings_appearance_app_grouping">Групування застосунків</string>
-    <string name="settings_appearance_app_grouping_description">Показує перемикач на головному екрані для групування застосунків за джерелом або власними категоріями, зберігаючи вибір при вимкненні</string>
-    <string name="settings_appearance_patch_list">Список патчів</string>
-    <string name="settings_appearance_patch_categories">Групувати за категорією</string>
-    <string name="settings_appearance_patch_categories_description">Розділяти списки патчів на секції за категоріями, оголошеними джерелом, залишаючи джерела без категорій у вигляді звичайного списку</string>
+    <string name="settings_appearance_app_grouping_description">Показувати перемикач для групування застосунків за джерелом або категорією</string>
     <string name="settings_appearance_repatch_notice">Сповіщення про перепатчинг</string>
-    <string name="settings_appearance_repatch_notice_description">Показувати банер на головному екрані, коли пропатчені застосунки можна перепатчити</string>
+    <string name="settings_appearance_repatch_notice_description">Показувати банер, коли пропатчені застосунки можна перепатчити</string>
     <string name="settings_appearance_sort_button">Кнопка сортування та фільтрування</string>
     <string name="settings_appearance_sort_button_description">Показувати кнопку сортування та фільтрування на головному екрані</string>
     <string name="settings_appearance_app_card_colors">Кольори картки застосунку</string>
@@ -769,6 +766,8 @@
     <string name="settings_advanced_updates_background_notifications">Фонові сповіщення про оновлення</string>
     <string name="settings_advanced_updates_background_notifications_description">Періодично перевіряти наявність оновлень у фоновому режимі та повідомляти про їх доступність</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Push-сповіщення про нові релізи, навіть коли застосунок закрито</string>
+    <string name="settings_system_notifications_categories">Категорії сповіщень</string>
+    <string name="settings_system_notifications_categories_description">Виберіть у системних налаштуваннях, про які оновлення сповіщати</string>
     <string name="settings_advanced_update_interval">Частота перевірки</string>
     <string name="settings_advanced_update_interval_dialog_title">Перевірка наявності оновлень</string>
     <string name="settings_advanced_update_interval_hourly">Раз на годину</string>
@@ -791,8 +790,10 @@
     <string name="notification_permission_dialog_title">Дозволити сповіщення</string>
     <string name="notification_permission_dialog_description">Morphe потребує дозволу на сповіщення, щоб повідомляти вас про доступні оновлення у фоновому режимі</string>
     <string name="notification_post_patch_dialog_title">Бажаєте отримувати сповіщення про доступність оновлень?</string>
-    <string name="notification_channel_fcm_updates">Сповіщення про оновлення</string>
-    <string name="notification_channel_fcm_updates_description">Сповіщення про нові релізи Morphe та патчів</string>
+    <string name="notification_channel_manager_updates">Оновлення Morphe</string>
+    <string name="notification_channel_manager_updates_description">Сповіщення про нові релізи Morphe</string>
+    <string name="notification_channel_patch_updates">Оновлення патчів</string>
+    <string name="notification_channel_patch_updates_description">Сповіщення про нові релізи патчів</string>
     <string name="notification_channel_patcher">Патчинг</string>
     <string name="notification_channel_patcher_description">Показується, коли Morphe патчить застосунок у фоновому режимі</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +996,20 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">Вибрати мелодію</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Імпорт та eкспорт</string>
-    <string name="settings_system_keystore">Сховище ключів</string>
-    <string name="settings_system_import_keystore_description">Імпортує або експортує ваш ключ підпису</string>
+    <string name="settings_system_signing_key">Ключ підпису</string>
+    <string name="settings_system_signing_key_description">Створює резервну копію та відновлює ключ, яким підписані ваші пропатчені застосунки</string>
+    <string name="settings_system_signing_key_dialog_description">Кожен застосунок, який патчить Morphe, підписується цим ключем. Зберігайте копію: без нього пропатчені застосунки можна оновити лише після їх видалення</string>
+    <string name="settings_system_signing_key_missing">Morphe створює його при першому патчингу</string>
+    <string name="settings_system_signing_key_created">Створено %s</string>
+    <string name="settings_system_signing_key_fingerprint">Відбиток SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Тема, кольори та мова</string>
+    <string name="settings_system_backup_home_description">Групи, приховані застосунки, сортування та перемикачі</string>
+    <string name="settings_system_backup_patching">Патчинг та встановлення</string>
+    <string name="settings_system_backup_patching_description">Інсталятор, патчер та збережені APK</string>
+    <string name="settings_system_backup_updates_description">Попередні релізи та перевірка оновлень</string>
+    <string name="settings_system_backup_sources_description">Власні джерела та токен GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Вибрані патчі для кожного застосунку</string>
+    <string name="settings_system_backup_signing_key_note">Ключ підпису створюється в резервній копії окремо</string>
     <string name="settings_system_import_keystore_dialog_title">Введіть облікові дані сховища ключів</string>
     <string name="settings_system_import_keystore_dialog_description">Вам потрібно буде ввести облікові дані сховища ключів, щоб імпортувати його</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Ім\'я користувача (псевдонім)</string>
@@ -1005,7 +1018,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">Невірні облікові дані сховища ключів</string>
     <string name="settings_system_import_keystore_success">Сховище ключів імпортовано</string>
     <string name="settings_system_import_keystore_failed">Не вдалося імпортувати сховище ключів</string>
-    <string name="settings_system_export_keystore_unavailable">Немає доступного сховища ключів для експорту</string>
     <string name="settings_system_export_keystore_success">Сховище ключів експортовано</string>
     <string name="settings_system_export_keystore_failed">Не вдалося експортувати сховище ключів</string>
     <string name="settings_system_show_password_field">Показати пароль</string>
@@ -1024,7 +1036,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">Додати відсутні елементи з резервної копії. Наявні елементи залишаються без змін</string>
     <string name="settings_system_export_manager_settings_fail">Не вдалося експортувати налаштування Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Налаштування Morphe експортовано</string>
-    <string name="settings_system_debug">Налагодження</string>
+    <string name="settings_system_export_debug_logs">Експортувати журнали налагодження</string>
     <string name="settings_system_export_debug_logs_description">Зберігає системні журнали для усунення несправностей</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Не вдалося прочитати журнали (код виходу %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Не вдалося експортувати журнали</string>
@@ -1133,8 +1145,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">Показати приховані файли</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Про нас</string>
-    <string name="settings_system_share_website">Поділитися вебсайтом</string>
-    <string name="settings_system_share_website_description">Поділитися офіційним вебсайтом Morphe</string>
     <string name="settings_system_manager_description">Проєкт із відкритим кодом для сучасного, спрощеного патчингу популярних Android-застосунків, що розвивається завдяки відгукам та внескам спільноти</string>
     <string name="credits">Подяки</string>
     <string name="credits_current_development">Поточна розробка</string>
@@ -1269,7 +1279,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">Зміни для %s</string>
     <string name="changelog_general_changes">Загальні зміни</string>
     <string name="whats_new">Що нового</string>
-    <string name="changelog_description">Ознайомтеся з останніми змінами в цьому оновленні</string>
+    <string name="changelog_description">Що нового в цій версії</string>
     <string name="changelog_download_fail">Не вдалося завантажити список змін: %s</string>
     <string name="changelog_empty">Список змін відсутній</string>
     <string name="changelog_show_older">Показати старіші релізи</string>
@@ -1316,5 +1326,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Хочете швидкий огляд ключових функцій Morphe?</string>
     <string name="tour_prompt_confirm">Покажіть мені</string>
     <string name="onboarding_restart_title">Огляд функцій</string>
-    <string name="onboarding_restart_desc">Пройдіть покроковий огляд ключових функцій Morphe</string>
+    <string name="onboarding_restart_desc">Покроковий огляд ключових функцій</string>
 </resources>

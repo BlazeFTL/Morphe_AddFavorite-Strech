@@ -699,12 +699,7 @@
     <string name="settings_appearance_greeting_phrases">عبارت‌های خوشامدگویی</string>
     <string name="settings_appearance_greeting_phrases_subtitle">نمایش پیام خوشامدگویی در صفحهٔ اصلی</string>
     <string name="settings_appearance_app_grouping">گروه‌بندی برنامه‌ها</string>
-    <string name="settings_appearance_app_grouping_description">یک تعویض‌گر در صفحهٔ اصلی برای گروه‌بندی برنامه‌ها بر اساس منبع یا دسته‌های خودتان نشان می‌دهد؛ هنگام خاموش‌بودن، انتخاب را حفظ می‌کند</string>
-    <string name="settings_appearance_patch_list">فهرست پچ‌ها</string>
-    <string name="settings_appearance_patch_categories">گروه‌بندی بر اساس دسته</string>
-    <string name="settings_appearance_patch_categories_description">فهرست پچ‌ها را بر اساس دسته‌هایی که منبع اعلام کرده بخش‌بندی می‌کند؛ منابعی را که دسته‌ای اعلام نکرده‌اند به‌صورت فهرستی ساده نشان می‌دهد</string>
     <string name="settings_appearance_repatch_notice">اعلان پچ دوباره</string>
-    <string name="settings_appearance_repatch_notice_description">وقتی برنامه‌های پچ‌شده را می‌توان دوباره پچ کرد، یک بنر در صفحهٔ اصلی نشان می‌دهد</string>
     <string name="settings_appearance_sort_button">دکمهٔ مرتب‌سازی و فیلتر</string>
     <string name="settings_appearance_sort_button_description">دکمهٔ مرتب‌سازی و فیلتر را در صفحهٔ اصلی نشان می‌دهد</string>
     <string name="settings_appearance_app_card_colors">رنگ کارت برنامه‌ها</string>
@@ -770,8 +765,6 @@
     <string name="notification_permission_dialog_title">اجازهٔ اعلان‌ها</string>
     <string name="notification_permission_dialog_description">Morphe برای اطلاع‌دادن هنگام در دسترس بودن به‌روزرسانی‌ها در پس‌زمینه، به مجوز اعلان نیاز دارد</string>
     <string name="notification_post_patch_dialog_title">می‌خواهید هنگام در دسترس بودن به‌روزرسانی‌ها به شما اطلاع داده شود؟</string>
-    <string name="notification_channel_fcm_updates">اعلان‌های به‌روزرسانی</string>
-    <string name="notification_channel_fcm_updates_description">اعلان‌هایی دربارهٔ نسخه‌های جدید Morphe و پچ‌ها</string>
     <string name="notification_channel_patcher">پچ‌کردن</string>
     <string name="notification_channel_patcher_description">وقتی Morphe برنامه‌ای را در پس‌زمینه پچ می‌کند نمایش داده می‌شود</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -967,8 +960,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">انتخاب آهنگ</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">واردکردن و خروجی‌گرفتن</string>
-    <string name="settings_system_keystore">مخزن کلید</string>
-    <string name="settings_system_import_keystore_description">مخزن کلید امضای شما را وارد یا صادر می‌کند</string>
     <string name="settings_system_import_keystore_dialog_title">ورود اطلاعات مخزن کلید</string>
     <string name="settings_system_import_keystore_dialog_description">برای واردکردن مخزن کلید، باید اطلاعات آن را وارد کنید</string>
     <string name="settings_system_import_keystore_dialog_alias_field">نام کاربری (نام مستعار)</string>
@@ -977,7 +968,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">اطلاعات مخزن کلید نادرست است</string>
     <string name="settings_system_import_keystore_success">مخزن کلید وارد شد</string>
     <string name="settings_system_import_keystore_failed">واردکردن مخزن کلید ناموفق بود</string>
-    <string name="settings_system_export_keystore_unavailable">مخزن کلیدی برای خروجی‌گرفتن در دسترس نیست</string>
     <string name="settings_system_export_keystore_success">از مخزن کلید خروجی گرفته شد</string>
     <string name="settings_system_export_keystore_failed">خروجی‌گرفتن از مخزن کلید ناموفق بود</string>
     <string name="settings_system_show_password_field">نمایش گذرواژه</string>
@@ -996,7 +986,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">موارد موجود در پشتیبان را اضافه می‌کند. موارد موجود بدون تغییر می‌مانند</string>
     <string name="settings_system_export_manager_settings_fail">خروجی‌گرفتن از تنظیمات Morphe ناموفق بود: %s</string>
     <string name="settings_system_export_manager_settings_success">از تنظیمات Morphe خروجی گرفته شد</string>
-    <string name="settings_system_debug">اشکال‌زدایی</string>
+    <string name="settings_system_export_debug_logs">صادرکردن گزارش‌های اشکال‌زدایی</string>
     <string name="settings_system_export_debug_logs_description">گزارش‌های سیستم را برای عیب‌یابی ذخیره می‌کند</string>
     <string name="settings_system_export_debug_logs_export_read_failed">خواندن گزارش‌ها ناموفق بود (کد خروج %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">خروجی‌گرفتن از گزارش‌ها ناموفق بود</string>
@@ -1100,8 +1090,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">نمایش فایل‌های مخفی</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">درباره</string>
-    <string name="settings_system_share_website">اشتراک‌گذاری وب‌سایت</string>
-    <string name="settings_system_share_website_description">وب‌سایت رسمی Morphe را به اشتراک می‌گذارد</string>
     <string name="settings_system_manager_description">پروژه‌ای متن‌باز برای پچ‌کردن مدرن و سادهٔ برنامه‌های محبوب Android که با بازخورد و مشارکت جامعه پیش می‌رود</string>
     <string name="credits">دست‌اندرکاران</string>
     <string name="credits_current_development">توسعهٔ کنونی</string>
@@ -1236,7 +1224,6 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">تغییرات %s</string>
     <string name="changelog_general_changes">تغییرات کلی</string>
     <string name="whats_new">چه خبر؟</string>
-    <string name="changelog_description">آخرین تغییرات این به‌روزرسانی را ببینید</string>
     <string name="changelog_download_fail">دانلود تغییرات نسخه ناموفق بود: %s</string>
     <string name="changelog_empty">تغییراتی در دسترس نیست</string>
     <string name="changelog_show_older">نمایش نسخه‌های قدیمی‌تر</string>
@@ -1283,5 +1270,4 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">می‌خواهید یک تور سریع از ویژگی‌های اصلی Morphe داشته باشید؟</string>
     <string name="tour_prompt_confirm">راهنما را نشانم بده</string>
     <string name="onboarding_restart_title">تور ویژگی‌ها</string>
-    <string name="onboarding_restart_desc">یک تور هدایت‌شده از ویژگی‌های اصلی Morphe داشته باشید</string>
 </resources>

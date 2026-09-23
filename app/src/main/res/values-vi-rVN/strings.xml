@@ -721,12 +721,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_greeting_phrases">Thông điệp</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Hiện thông điệp trên trang chủ</string>
     <string name="settings_appearance_app_grouping">Nhóm ứng dụng</string>
-    <string name="settings_appearance_app_grouping_description">Hiển thị tùy chọn trên màn hình chính để nhóm ứng dụng theo nguồn hoặc danh mục của bạn, đồng thời giữ nguyên lựa chọn khi tắt</string>
-    <string name="settings_appearance_patch_list">Danh sách bản vá</string>
-    <string name="settings_appearance_patch_categories">Nhóm theo danh mục</string>
-    <string name="settings_appearance_patch_categories_description">Chia danh sách bản vá theo các danh mục mà nguồn khai báo, để các nguồn không khai báo danh mục nào thành một danh sách thường.</string>
     <string name="settings_appearance_repatch_notice">Thông báo vá lại</string>
-    <string name="settings_appearance_repatch_notice_description">Hiển thị biểu ngữ trên màn hình chính khi các ứng dụng đã vá có thể được vá lại</string>
     <string name="settings_appearance_sort_button">Nút sắp xếp và lọc</string>
     <string name="settings_appearance_sort_button_description">Hiển thị nút sắp xếp và lọc trên màn hình chính</string>
     <string name="settings_appearance_app_card_colors">Màu thẻ ứng dụng</string>
@@ -771,6 +766,8 @@ Các bản vá không bị ảnh hưởng: bật các bản vá trước khi ph�
     <string name="settings_advanced_updates_background_notifications">Thông báo cập nhật nền</string>
     <string name="settings_advanced_updates_background_notifications_description">Kiểm tra cập nhật định kỳ khi ứng dụng chạy nền và báo cho bạn khi có phiên bản mới.</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Nhận ngay thông báo khi có phiên bản mới, kể cả khi ứng dụng đang tắt</string>
+    <string name="settings_system_notifications_categories">Danh mục thông báo</string>
+    <string name="settings_system_notifications_categories_description">Chọn trong cài đặt hệ thống những bản cập nhật nào sẽ thông báo cho bạn</string>
     <string name="settings_advanced_update_interval">Tần suất kiểm tra</string>
     <string name="settings_advanced_update_interval_dialog_title">Kiểm tra cập nhật</string>
     <string name="settings_advanced_update_interval_hourly">1 giờ/lần</string>
@@ -793,8 +790,10 @@ Các bản vá không bị ảnh hưởng: bật các bản vá trước khi ph�
     <string name="notification_permission_dialog_title">Cho phép nhận thông báo</string>
     <string name="notification_permission_dialog_description">Để thông báo cho bạn về các bản cập nhật mới khi ứng dụng chạy nền, Morphe cần được cấp quyền thông báo</string>
     <string name="notification_post_patch_dialog_title">Bạn có muốn nhận thông báo khi có bản cập nhật mới không?</string>
-    <string name="notification_channel_fcm_updates">Cập nhật thông báo</string>
-    <string name="notification_channel_fcm_updates_description">Thông báo về các bản cập nhật Morphe và bản vá mới</string>
+    <string name="notification_channel_manager_updates">Cập nhật Morphe</string>
+    <string name="notification_channel_manager_updates_description">Thông báo về các bản phát hành Morphe mới</string>
+    <string name="notification_channel_patch_updates">Cập nhật bản vá</string>
+    <string name="notification_channel_patch_updates_description">Thông báo về các bản phát hành bản vá mới</string>
     <string name="notification_channel_patcher">Đang vá</string>
     <string name="notification_channel_patcher_description">Hiển thị khi Morphe đang vá ứng dụng trong nền</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -1000,8 +999,7 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Chọn âm báo</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Xuất &amp; Nhập</string>
-    <string name="settings_system_keystore">Kho khoá</string>
-    <string name="settings_system_import_keystore_description">Nhập hoặc xuất kho khóa dùng để ký của bạn</string>
+    <string name="settings_system_signing_key_created">Đã tạo %s</string>
     <string name="settings_system_import_keystore_dialog_title">Nhập thông tin xác thực kho khoá</string>
     <string name="settings_system_import_keystore_dialog_description">Bạn sẽ cần điền thông tin xác thực của kho khóa để nhập chúng</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Tên người dùng (Alias)</string>
@@ -1010,7 +1008,6 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Thông tin xác thực kho khóa không đúng</string>
     <string name="settings_system_import_keystore_success">Đã nhập kho khóa</string>
     <string name="settings_system_import_keystore_failed">Khổng thể nhập kho khóa</string>
-    <string name="settings_system_export_keystore_unavailable">Không có kho khóa nào để xuất</string>
     <string name="settings_system_export_keystore_success">Đã xuất kho khóa</string>
     <string name="settings_system_export_keystore_failed">Không thể xuất kho khóa</string>
     <string name="settings_system_show_password_field">Hiện mật khẩu</string>
@@ -1029,7 +1026,7 @@ Chi tiết: %2$s"</string>
     <string name="import_mode_merge_description">Chỉ thêm các mục còn thiếu từ bản sao lưu. Các mục hiện tại sẽ không bị ảnh hưởng</string>
     <string name="settings_system_export_manager_settings_fail">Không thể xuất cài đặt Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Đã xuất cài đặt Morphe</string>
-    <string name="settings_system_debug">Gỡ lỗi</string>
+    <string name="settings_system_export_debug_logs">Nhật ký gỡ lỗi</string>
     <string name="settings_system_export_debug_logs_description">Lưu nhật ký hệ thống giúp sửa lỗi</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Không thể đọc nhật ký (mã thoát %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Không thể xuất nhật ký</string>
@@ -1138,8 +1135,6 @@ Chi tiết: %2$s"</string>
     <string name="file_picker_show_hidden_files">Hiện tệp ẩn</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Giới thiệu</string>
-    <string name="settings_system_share_website">Chia sẻ</string>
-    <string name="settings_system_share_website_description">Chia sẻ trang web chính chủ của Morphe</string>
     <string name="settings_system_manager_description">Một dự án mã nguồn mở, mang đến trải nghiệm vá ứng dụng Android hiệu quả với giao diện hiện đại, được phát triển dựa trên phản hồi và đóng góp từ cộng đồng</string>
     <string name="credits">Đóng góp</string>
     <string name="credits_current_development">Hiện tại</string>
@@ -1274,7 +1269,6 @@ Chi tiết: %2$s"</string>
     <string name="changelog_for_app">Thay đổi cho %s</string>
     <string name="changelog_general_changes">Các thay đổi chung</string>
     <string name="whats_new">Có gì mới</string>
-    <string name="changelog_description">Xem những thay đổi mới nhất trong bản cập nhật này</string>
     <string name="changelog_download_fail">Không thể tải lịch sử cập nhật: %s</string>
     <string name="changelog_empty">Không có lịch sử cập nhật</string>
     <string name="changelog_show_older">Các bản phát hành cũ</string>
@@ -1319,5 +1313,4 @@ Chi tiết: %2$s"</string>
     <string name="tour_prompt_desc">Bạn muốn xem qua các tính năng nổi bật của Morphe không? Nhanh thôi</string>
     <string name="tour_prompt_confirm">Cho tôi xem</string>
     <string name="onboarding_restart_title">Khám phá tính năng</string>
-    <string name="onboarding_restart_desc">Xem hướng dẫn nhanh về các tính năng nổi bật của Morphe</string>
 </resources>

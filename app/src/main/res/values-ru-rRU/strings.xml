@@ -718,12 +718,7 @@
     <string name="settings_appearance_greeting_phrases">Приветственные фразы</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показывать приветственное сообщение на главном экране</string>
     <string name="settings_appearance_app_grouping">Группировка приложений</string>
-    <string name="settings_appearance_app_grouping_description">Отображать переключатель на главном экране для группировки приложений по источнику или вашим категориям, сохраняя выбор при отключении</string>
-    <string name="settings_appearance_patch_list">Список патчей</string>
-    <string name="settings_appearance_patch_categories">Группировать по категориям</string>
-    <string name="settings_appearance_patch_categories_description">Разбивать списки патчей по категориям, указанным источником, а источники без категорий оставлять в виде простого списка</string>
     <string name="settings_appearance_repatch_notice">Уведомление о перепатчивании</string>
-    <string name="settings_appearance_repatch_notice_description">Показывать баннер на главном экране, когда пропатченные приложения можно повторно пропатчить</string>
     <string name="settings_appearance_sort_button">Кнопка сортировки и фильтрации</string>
     <string name="settings_appearance_sort_button_description">Показывать кнопку сортировки и фильтрации на главном экране</string>
     <string name="settings_appearance_app_card_colors">Цвета карточек приложений</string>
@@ -768,6 +763,8 @@
     <string name="settings_advanced_updates_background_notifications">Уведомления о фоновых обновлениях</string>
     <string name="settings_advanced_updates_background_notifications_description">Периодически проверять наличие обновлений в фоновом режиме и сообщать об их доступности</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Получайте мгновенные push-уведомления о новых релизах, даже когда приложение закрыто</string>
+    <string name="settings_system_notifications_categories">Категории уведомлений</string>
+    <string name="settings_system_notifications_categories_description">Выберите в системных настройках, о каких обновлениях уведомлять вас</string>
     <string name="settings_advanced_update_interval">Частота проверки</string>
     <string name="settings_advanced_update_interval_dialog_title">Проверить наличие обновлений</string>
     <string name="settings_advanced_update_interval_hourly">Раз в час</string>
@@ -790,8 +787,10 @@
     <string name="notification_permission_dialog_title">Разрешить уведомления</string>
     <string name="notification_permission_dialog_description">Morphe требует разрешения на уведомление, чтобы сообщать вам о доступных обновлениях в фоновом режиме</string>
     <string name="notification_post_patch_dialog_title">Хотите ли вы получать уведомления, когда будут доступны обновления?</string>
-    <string name="notification_channel_fcm_updates">Уведомления об обновлении</string>
-    <string name="notification_channel_fcm_updates_description">Уведомления о новых версиях Morphe и патчах</string>
+    <string name="notification_channel_manager_updates">Morphe обновления</string>
+    <string name="notification_channel_manager_updates_description">Уведомления о новых релизах Morphe</string>
+    <string name="notification_channel_patch_updates">Обновления патчей</string>
+    <string name="notification_channel_patch_updates_description">Уведомления о новых релизах патчей</string>
     <string name="notification_channel_patcher">Патчинг</string>
     <string name="notification_channel_patcher_description">Отображается во время установки Morphe патча для приложения в фоновом режиме</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -994,8 +993,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">Выберите мелодию</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Импорт &amp; экспорт</string>
-    <string name="settings_system_keystore">Хранилище ключей</string>
-    <string name="settings_system_import_keystore_description">Импортирует или экспортирует ваше хранилище ключей для подписи</string>
+    <string name="settings_system_signing_key_created">Создано %s</string>
     <string name="settings_system_import_keystore_dialog_title">Введите учетные данные хранилища</string>
     <string name="settings_system_import_keystore_dialog_description">Вам нужно будет ввести учетные данные хранилища ключей, чтобы импортировать его</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Имя пользователя (псевдоним)</string>
@@ -1004,7 +1002,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">Неверные учетные данные хранилища</string>
     <string name="settings_system_import_keystore_success">Хранилище ключей импортировано</string>
     <string name="settings_system_import_keystore_failed">Не удалось импортировать хранилище ключей</string>
-    <string name="settings_system_export_keystore_unavailable">Нет доступного хранилища ключей для экспорта</string>
     <string name="settings_system_export_keystore_success">Хранилище ключей экспортировано</string>
     <string name="settings_system_export_keystore_failed">Не удалось экспортировать хранилище ключей</string>
     <string name="settings_system_show_password_field">Показать пароль</string>
@@ -1023,7 +1020,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">Добавить отсутствующие элементы из резервной копии. Существующие элементы остаются без изменений</string>
     <string name="settings_system_export_manager_settings_fail">Не удалось экспортировать настройки Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe настройки экспортированы</string>
-    <string name="settings_system_debug">Отладка</string>
+    <string name="settings_system_export_debug_logs">Экспорт журналов отладки</string>
     <string name="settings_system_export_debug_logs_description">Сохраняет системные журналы для отладки</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Не удалось прочитать журналы (код выхода %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Не удалось экспортировать журналы</string>
@@ -1132,8 +1129,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">Показать скрытые файлы</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">О приложении</string>
-    <string name="settings_system_share_website">Официальный сайт</string>
-    <string name="settings_system_share_website_description">Поделиться официальным веб-сайтом Morphe</string>
     <string name="settings_system_manager_description">Проект с открытым исходным кодом для современного, упрощенного патчинга популярных Android-приложений, развиваемый на основе отзывов и вкладов сообщества</string>
     <string name="credits">Благодарности</string>
     <string name="credits_current_development">Текущая разработка</string>
@@ -1268,7 +1263,6 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">Изменения для %s</string>
     <string name="changelog_general_changes">Общие изменения</string>
     <string name="whats_new">Что нового</string>
-    <string name="changelog_description">Просмотрите последние изменения в этом обновлении</string>
     <string name="changelog_download_fail">Не удалось загрузить историю изменений: %s</string>
     <string name="changelog_empty">Нет доступных изменений</string>
     <string name="changelog_show_older">Показать более старые версии</string>
@@ -1315,5 +1309,4 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Хотите быстро ознакомиться с основными функциями Morphe?</string>
     <string name="tour_prompt_confirm">Показать мне всё</string>
     <string name="onboarding_restart_title">Ознакомительный тур</string>
-    <string name="onboarding_restart_desc">Пройдите интерактивный тур по основным функциям Morphe</string>
 </resources>

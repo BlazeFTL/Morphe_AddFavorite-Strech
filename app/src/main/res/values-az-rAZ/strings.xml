@@ -718,12 +718,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_greeting_phrases">Salamlaşma ifadələri</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Əsas ekranda salamlaşma mesajı göstər</string>
     <string name="settings_appearance_app_grouping">Tətbiq qruplaşdırılması</string>
-    <string name="settings_appearance_app_grouping_description">Tətbiqləri mənbəyə və ya öz kateqoriyalarınıza görə qruplaşdırmaq üçün əsas ekran keçiricisini göstər, qapalı olduqda seçimi qoruyur</string>
-    <string name="settings_appearance_patch_list">Yamaq siyahısı</string>
-    <string name="settings_appearance_patch_categories">Kateqoriyaya görə qruplaşdır</string>
-    <string name="settings_appearance_patch_categories_description">Yamaq siyahılarını mənbənin elan etdiyi kateqoriyalara görə bölür, heç birini elan etməyən mənbələri sadə siyahı kimi saxlayır</string>
     <string name="settings_appearance_repatch_notice">Yenidən yamaqlama bildirişi</string>
-    <string name="settings_appearance_repatch_notice_description">Yamaqlanmış tətbiqlər yenidən yamaqlana bildikdə əsas ekranda etiket göstər</string>
     <string name="settings_appearance_sort_button">Sıralama və filtrləmə düyməsi</string>
     <string name="settings_appearance_sort_button_description">Əsas ekranda sıralama və filtrləmə düyməsini göstər</string>
     <string name="settings_appearance_app_card_colors">Tətbiq kartı rəngləri</string>
@@ -777,6 +772,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_advanced_update_interval_chip_subtitle">Fon yoxlanma tezliyi</string>
     <string name="settings_advanced_update_interval_battery_warning">Fon yoxlamaları bəzi cihazlarda davamlı işləməyə bilər. Xiaomi, Huawei, Samsung və OnePlus kimi istehsalçılar batareyanı qorumaq üçün dəfələrlə fon proseslərini ciddi şəkildə məhdudlaşdırırlar</string>
     <string name="settings_advanced_external_batch_patch">Xarici tətikləyicilərə icazə ver</string>
+    <string name="settings_advanced_external_batch_patch_description">Avtomatlaşdırma tətbiqlərinə intent vasitəsilə toplu yamaqlamağa başlamağa icazə verir</string>
     <string name="external_batch_patch_title">Toplu yamaqlamaya başlanılsın?</string>
     <string name="external_batch_patch_description">%s Morphe-nin tətbiqləri yamaqlamasını və quraşdırmasını istəyir</string>
     <string name="external_batch_patch_trust_caller">Bu tətbiqə həmişə icazə ver</string>
@@ -789,8 +785,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="notification_permission_dialog_title">Bildirişləri qəbul et</string>
     <string name="notification_permission_dialog_description">Morphe fonda yeniləmələr əlçatan olduqda sizə bildirmək üçün bildiriş icazəsi istəyir</string>
     <string name="notification_post_patch_dialog_title">Yeniləmələr əlçatandırsa bildiriş almaq istərdiniz?</string>
-    <string name="notification_channel_fcm_updates">Yenilənmə bildirişləri</string>
-    <string name="notification_channel_fcm_updates_description">Yeni Morphe və yamaq buraxılışları haqqında bildirişlər </string>
+    <string name="notification_channel_manager_updates">Morphe yenilənmələri</string>
     <string name="notification_channel_patcher">Yamaqlanır</string>
     <string name="notification_channel_patcher_description">Morphe tətbiqi fonda yamaqlayarkən görünür</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -806,7 +801,9 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_advanced_github_pat_configured">Token quruldu</string>
     <string name="settings_advanced_github_pat_how_to_get">Token necə alınır</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">%s təyin et</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Pull request-ləri xarici mənbələr kimi əlavə edə bilmək üçün %3$s təyin et. %1$s üzərində %2$s əhatə dairəsinə malik PAT yarat"</string>
     <string name="settings_advanced_github_pat_export_include_label">Tənzimləmələr ixracında yerləşdir</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Bu PAT-ı ixrac edilən Morphe tənzimləmələrinə əlavə edir</string>
@@ -968,6 +965,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Daha yüksək hədlər keyfiyyətli cihazlarda yamaqlanmanı sürətləndirir</string>
     <string name="settings_system_process_runtime_enable">Emal icra olunma müddətin aktivləşdir</string>
     <string name="settings_system_memory_limit_subtitle">Yamaqlanma üçün əlçatan yaddaş</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Bu cihaz sonuncu icra zamanı yaddaş məhdudiyyətinə məhəl qoymadı, buna görə də yamaqlama Morphe daxilində icraya keçə bilər</string>
     <string name="settings_system_memory_limit_warning">Daha həcmli tətbiqlər yamaqlananda aşağı yaddaş həddi, uğursuzluqlara səbəb ola bilər</string>
     <string name="settings_system_memory_limit_high_warning">Yüksək yaddaş həddi bəzi cihazlarda yamaqlamanı xeyli ləngidə bilər. Limiti yalnız daha aşağı hədlərdə yamaqlama uğursuz olduqda artır</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB hədd</string>
@@ -988,8 +986,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Ton seç</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">İdxal &amp; ixrac</string>
-    <string name="settings_system_keystore">Açar ehtiyatı</string>
-    <string name="settings_system_import_keystore_description">İmzalama açar ehtiyatınızı idxal və ya ixrac edir</string>
     <string name="settings_system_import_keystore_dialog_title">Keystore etimadnaməsini qeyd et</string>
     <string name="settings_system_import_keystore_dialog_description">Bunu idxal etmək üçün keystore etimadnaməsini qeyd etməlisiniz</string>
     <string name="settings_system_import_keystore_dialog_alias_field">İstifadəçi adı (Ləqəb)</string>
@@ -998,7 +994,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Səhv keystore etimadnaməsi</string>
     <string name="settings_system_import_keystore_success">Keystore idxal edildi</string>
     <string name="settings_system_import_keystore_failed">Keystore-u idxal etmək olmadı</string>
-    <string name="settings_system_export_keystore_unavailable">İxrac etmək üçün keystore mövcud deyil</string>
     <string name="settings_system_export_keystore_success">Keystore ixrac edildi</string>
     <string name="settings_system_export_keystore_failed">Keystore-u ixrac etmək olmadı</string>
     <string name="settings_system_show_password_field">Parolu göstər</string>
@@ -1017,7 +1012,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="import_mode_merge_description">Nüsxələmədən çatışmayan elementləri əlavə et. Mövcud elementlər dəyişməz saxlanılır</string>
     <string name="settings_system_export_manager_settings_fail">Morphe tənzimləmələrin ixrac etmək olmadı: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe tənzimləmələri ixrac olundu</string>
-    <string name="settings_system_debug">Yaxşılaşdırma</string>
+    <string name="settings_system_export_debug_logs">Sazlanma jurnalların köçür</string>
     <string name="settings_system_export_debug_logs_description">Problemlərin düzəldilməsi üçün sistem jurnalların saxlayır</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Jurnalları oxumaq olmadı (çıxış şifrəsi %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Jurnalları ixrac etmək olmadı</string>
@@ -1126,8 +1121,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="file_picker_show_hidden_files">Gizli faylları göstər</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Haqqında</string>
-    <string name="settings_system_share_website">Veb saytı paylaş</string>
-    <string name="settings_system_share_website_description">Rəsmi Morphe veb saytı paylaşılır</string>
     <string name="settings_system_manager_description">İcma əlaqələri və töhfələri ilə idarə olunan məşhur Android tətbiqlərinin müasir, rəvan yamaqlanması üçün açıq mənbəli layihə</string>
     <string name="credits">Heyət</string>
     <string name="credits_current_development">Hazırkı inkişaf</string>
@@ -1262,7 +1255,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="changelog_for_app">%s üçün dəyişikliklər</string>
     <string name="changelog_general_changes">Ümumi dəyişikliklər</string>
     <string name="whats_new">Nə yenidir</string>
-    <string name="changelog_description">Bu yeniləmədəki ən son dəyişikliklərə nəzər sal</string>
     <string name="changelog_download_fail">Dəyişiklik jurnalın yükləmək olmadı: %s</string>
     <string name="changelog_empty">Dəyişiklik jurnalı mövcud deyil</string>
     <string name="changelog_show_older">Daha köhnə buraxılışları göstər</string>
@@ -1309,5 +1301,4 @@ Hələ də davam etmək istəyirsiniz?"</string>
     <string name="tour_prompt_desc">Morphe-nin əsas xüsusiyyətlərinə qısa baxış istəyirsiniz?</string>
     <string name="tour_prompt_confirm">Mənə göstər</string>
     <string name="onboarding_restart_title">Xüsusiyyət tanışlığı</string>
-    <string name="onboarding_restart_desc">Morphe-nin əsas xüsusiyyətlərinin bələdçi turuna başla</string>
 </resources>

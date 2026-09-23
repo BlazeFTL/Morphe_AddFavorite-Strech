@@ -723,12 +723,7 @@
     <string name="settings_appearance_greeting_phrases">عبارات الترحيب</string>
     <string name="settings_appearance_greeting_phrases_subtitle">عرض رسالة ترحيب على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_grouping">تجميع التطبيقات</string>
-    <string name="settings_appearance_app_grouping_description">عرض مُبدِّل الشاشة الرئيسية لتجميع التطبيقات حسب المصدر أو فئاتك الخاصة، مع الاحتفاظ بالتحديد عند إيقاف تشغيلها</string>
-    <string name="settings_appearance_patch_list">قائمة التعديل</string>
-    <string name="settings_appearance_patch_categories">تجميع حسب الفئة</string>
-    <string name="settings_appearance_patch_categories_description">تصنيف قوائم التعديلات حسب الفئات التي يعلن عنها المصدر، وترك المصادر التي لا تعلن عن أي فئة على شكل قائمة بسيطة</string>
     <string name="settings_appearance_repatch_notice">إشعار إعادة التعديل</string>
-    <string name="settings_appearance_repatch_notice_description">عرض لافتة على الشاشة الرئيسية عندما يمكن إعادة تعديل التطبيقات المعدلة</string>
     <string name="settings_appearance_sort_button">زر الفرز والتصفية</string>
     <string name="settings_appearance_sort_button_description">عرض زر الفرز والتصفية على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_card_colors">ألوان بطاقة التطبيق</string>
@@ -773,6 +768,8 @@
     <string name="settings_advanced_updates_background_notifications">إشعارات تحديث الخلفية</string>
     <string name="settings_advanced_updates_background_notifications_description">تحقق بشكل دوري من توفر تحديثات في الخلفية و الإشعار عند توفرها</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">تلقي إشعارات فورية بالإصدارات الجديدة، حتى عندما يكون التطبيق مغلقًا</string>
+    <string name="settings_system_notifications_categories">فئات الإشعارات</string>
+    <string name="settings_system_notifications_categories_description">اختر في إعدادات النظام التحديثات التي ترغب في تلقي الإشعارات عنها</string>
     <string name="settings_advanced_update_interval">تكرار التحقق</string>
     <string name="settings_advanced_update_interval_dialog_title">التحقق من توفر تحديثات</string>
     <string name="settings_advanced_update_interval_hourly">مرة في الساعة</string>
@@ -795,8 +792,10 @@
     <string name="notification_permission_dialog_title">السماح بالإشعارات</string>
     <string name="notification_permission_dialog_description">يحتاج Morphe إلى إذن الإشعارات لتنبيهك عند توفر تحديثات في الخلفية</string>
     <string name="notification_post_patch_dialog_title">هل تريد أن يتم تنبيهك عندما تكون التحديثات متاحة؟</string>
-    <string name="notification_channel_fcm_updates">إشعارات التحديث</string>
-    <string name="notification_channel_fcm_updates_description">إشعارات عن إصدارات جديدة من Morphe</string>
+    <string name="notification_channel_manager_updates">تحديثات Morphe</string>
+    <string name="notification_channel_manager_updates_description">إشعارات عن إصدارات Morphe جديدة</string>
+    <string name="notification_channel_patch_updates">تحديثات التعديل</string>
+    <string name="notification_channel_patch_updates_description">إشعارات عن إصدارات تعديل جديدة</string>
     <string name="notification_channel_patcher">التعديل</string>
     <string name="notification_channel_patcher_description">يتم عرضه أثناء قيام Morphe بتعديل تطبيق في الخلفية</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -1000,8 +999,19 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_notifications_ringtone_picker_title">اختر نغمة</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">استيراد &amp; تصدير</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">استيراد أو تصدير Keystore التوقيع الخاص بك</string>
+    <string name="settings_system_signing_key">مفتاح التوقيع</string>
+    <string name="settings_system_signing_key_description">ينشئ نسخة احتياطية من المفتاح الذي تُوقَّع به تطبيقاتك المرقّعة ويستعيده</string>
+    <string name="settings_system_signing_key_dialog_description">كل تطبيق يرقّعه Morphe يتم توقيعه بهذا المفتاح. احتفظ بنسخة: بدونه، لا يمكن تحديث التطبيقات المرقّعة إلا بعد إلغاء تثبيتها.</string>
+    <string name="settings_system_signing_key_missing">ينشئ Morphe مفتاحًا مع أول عملية ترقيع لك.</string>
+    <string name="settings_system_signing_key_created">تم الإنشاء في %s</string>
+    <string name="settings_system_signing_key_fingerprint">بصمة SHA-256</string>
+    <string name="settings_system_backup_appearance_description">السمة والألوان واللغة</string>
+    <string name="settings_system_backup_patching">الترقيع والتثبيت</string>
+    <string name="settings_system_backup_patching_description">المثبّت وأداة الترقيع وملفات APK المحفوظة</string>
+    <string name="settings_system_backup_updates_description">الإصدارات الأولية والتحقق من التحديثات</string>
+    <string name="settings_system_backup_sources_description">المصادر المخصصة ورمز GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">الترقيعات المختارة لكل تطبيق</string>
+    <string name="settings_system_backup_signing_key_note">يتم نسخ مفتاح التوقيع احتياطيًا بشكل منفصل</string>
     <string name="settings_system_import_keystore_dialog_title">أدخل بيانات اعتماد Keystore</string>
     <string name="settings_system_import_keystore_dialog_description">سوف تحتاج إلى إدخال بيانات اعتماد Keystore لاستيراده</string>
     <string name="settings_system_import_keystore_dialog_alias_field">اسم المستخدم (الاسم المستعار)</string>
@@ -1010,7 +1020,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_import_keystore_wrong_credentials">بيانات Keystore غير صحيحة</string>
     <string name="settings_system_import_keystore_success">تم استيراد Keystore</string>
     <string name="settings_system_import_keystore_failed">فشل استيراد Keystore</string>
-    <string name="settings_system_export_keystore_unavailable">لا يوجد Keystore متاح للتصدير</string>
     <string name="settings_system_export_keystore_success">تم تصدير Keystore</string>
     <string name="settings_system_export_keystore_failed">فشل تصدير Keystore</string>
     <string name="settings_system_show_password_field">عرض كلمة المرور</string>
@@ -1029,7 +1038,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="import_mode_merge_description">إضافة العناصر المفقودة من النسخة الاحتياطية. سيتم الحفاظ على العناصر الموجودة دون تغيير</string>
     <string name="settings_system_export_manager_settings_fail">تعذر تصدير إعدادات Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">تم تصدير إعدادات Morphe</string>
-    <string name="settings_system_debug">Debug</string>
+    <string name="settings_system_export_debug_logs">تصدير سجلات تصحيح الأخطاء</string>
     <string name="settings_system_export_debug_logs_description">يحفظ سجلات النظام لاستكشاف الأخطاء وإصلاحها</string>
     <string name="settings_system_export_debug_logs_export_read_failed">فشل في قراءة السجلات (رمز الخروج %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">فشل تصدير السجلات</string>
@@ -1138,8 +1147,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="file_picker_show_hidden_files">إظهار الملفات المخفية</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">لمحة</string>
-    <string name="settings_system_share_website">مشاركة الموقع الإلكتروني</string>
-    <string name="settings_system_share_website_description">يشارك موقع Morphe الرسمي</string>
     <string name="settings_system_manager_description">مشروع مفتوح المصدر يهدف إلى توفير طريقة حديثة ومبسطة لتعديل تطبيقات Android الشهيرة، مستندًا إلى ملاحظات المستخدمين ومساهمات المجتمع</string>
     <string name="credits">حقوق الملكية</string>
     <string name="credits_current_development">التطوير الحالي</string>
@@ -1274,7 +1281,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_for_app">التغييرات لـ %s</string>
     <string name="changelog_general_changes">تغييرات عامة</string>
     <string name="whats_new">ما الجديد</string>
-    <string name="changelog_description">اطّلع على آخر التغييرات في هذا التحديث</string>
+    <string name="changelog_description">ما الجديد في هذا الإصدار</string>
     <string name="changelog_download_fail">فشل تنزيل سجل التغييرات: %s</string>
     <string name="changelog_empty">لا يتوفر سجل تغييرات</string>
     <string name="changelog_show_older">عرض الإصدارات الأقدم</string>
@@ -1322,5 +1329,5 @@ morphe_adaptive_monochrome_custom.xml
     <string name="tour_prompt_desc">هل تريد جولة سريعة في الميزات الرئيسية لـ Morphe؟</string>
     <string name="tour_prompt_confirm">خذني في جولة</string>
     <string name="onboarding_restart_title">جولة في الميزات</string>
-    <string name="onboarding_restart_desc">قم بجولة إرشادية في الميزات الرئيسية لـ Morphe</string>
+    <string name="onboarding_restart_desc">جولة إرشادية حول الميزات الرئيسية</string>
 </resources>

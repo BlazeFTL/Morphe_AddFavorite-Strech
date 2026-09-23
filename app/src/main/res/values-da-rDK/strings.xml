@@ -718,12 +718,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_greeting_phrases">Hilsenfraser</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Vis en hilsenbesked på startskærmen</string>
     <string name="settings_appearance_app_grouping">App-gruppering</string>
-    <string name="settings_appearance_app_grouping_description">Vis en hjemmeskærms-skifter til at gruppere apps efter kilde eller dine egne kategorier, og bevar udvælgelsen, når den er slået fra</string>
-    <string name="settings_appearance_patch_list">Patchliste</string>
-    <string name="settings_appearance_patch_categories">Gruppér efter kategori</string>
-    <string name="settings_appearance_patch_categories_description">Inddel patchlister efter de kategorier, som en kilde angiver, og lad kilder uden angivne kategorier fremstå som en almindelig liste.</string>
     <string name="settings_appearance_repatch_notice">Meddelelse om gen-patch</string>
-    <string name="settings_appearance_repatch_notice_description">Vis et banner på startskærmen, når patchede apps kan gen-patches</string>
     <string name="settings_appearance_sort_button">Sorterings- og filterknap</string>
     <string name="settings_appearance_sort_button_description">Vis sorterings- og filterknappen på hjemmeskærmen</string>
     <string name="settings_appearance_app_card_colors">App-kort farver</string>
@@ -768,6 +763,8 @@ Patcher er ikke påvirket: aktivér præ-release-patcher for hver kilde i patch-
     <string name="settings_advanced_updates_background_notifications">Baggrundsopdateringsmeddelelser</string>
     <string name="settings_advanced_updates_background_notifications_description">Tjek periodisk for opdateringer i baggrunden og informér når de er tilgængelige.</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Modtag push-beskeder om nye udgivelser, selvom appen er lukket</string>
+    <string name="settings_system_notifications_categories">Notifikationskategorier</string>
+    <string name="settings_system_notifications_categories_description">Vælg i systemindstillingerne, hvilke opdateringer der skal underrette dig</string>
     <string name="settings_advanced_update_interval">Opdateringsfrekvens</string>
     <string name="settings_advanced_update_interval_dialog_title">Søg efter opdateringer</string>
     <string name="settings_advanced_update_interval_hourly">En gang i timen</string>
@@ -790,8 +787,10 @@ Patcher er ikke påvirket: aktivér præ-release-patcher for hver kilde i patch-
     <string name="notification_permission_dialog_title">Tillad notifikationer</string>
     <string name="notification_permission_dialog_description">Morphe skal bruge notifikationstilladelse for at advare dig når opdateringer er tilgængelige i baggrunden</string>
     <string name="notification_post_patch_dialog_title">Vil du gerne blive notificeret, når opdateringer er tilgængelige?</string>
-    <string name="notification_channel_fcm_updates">Opdateringer af notifikationer</string>
-    <string name="notification_channel_fcm_updates_description">Notifikationer om nye Morphe- og patchudgivelser</string>
+    <string name="notification_channel_manager_updates">Morphe-opdateringer</string>
+    <string name="notification_channel_manager_updates_description">Notifikationer om nye Morphe-udgivelser</string>
+    <string name="notification_channel_patch_updates">Patch-opdateringer</string>
+    <string name="notification_channel_patch_updates_description">Notifikationer om nye patch-udgivelser</string>
     <string name="notification_channel_patcher">Patching</string>
     <string name="notification_channel_patcher_description">Vises mens Morphe patcher en app i baggrunden</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -994,8 +993,6 @@ Detaljer: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Vælg en tone</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importér &amp; eksportér</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Importerer eller eksporterer din signaturkeystore</string>
     <string name="settings_system_import_keystore_dialog_title">Indtast keystore legitimationsoplysninger</string>
     <string name="settings_system_import_keystore_dialog_description">Du skal indtaste keystore\'ens legitimationsoplysninger for at importere den</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Brugernavn (Alias)</string>
@@ -1004,7 +1001,6 @@ Detaljer: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Forkerte keystore legitimationsoplysninger</string>
     <string name="settings_system_import_keystore_success">Keystone importeret</string>
     <string name="settings_system_import_keystore_failed">Importering af Keystone mislykkedes</string>
-    <string name="settings_system_export_keystore_unavailable">Ingen keystore tilgængelig til eksportering</string>
     <string name="settings_system_export_keystore_success">Keystore blev eksporteret</string>
     <string name="settings_system_export_keystore_failed">Fejl under eksport af nøglelager</string>
     <string name="settings_system_show_password_field">Vis adgangskode</string>
@@ -1023,7 +1019,7 @@ Detaljer: %2$s"</string>
     <string name="import_mode_merge_description">Tilføj manglende elementer fra sikkerhedskopien. Eksisterende elementer bevares uændret</string>
     <string name="settings_system_export_manager_settings_fail">Fejl ved eksport af Morphe-indstillinger: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe-indstillinger eksporteret</string>
-    <string name="settings_system_debug">Fejlfinding</string>
+    <string name="settings_system_export_debug_logs">Eksportér fejlsøgningslogge</string>
     <string name="settings_system_export_debug_logs_description">Gemmer systemlogfiler til fejlfinding</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Kunne ikke læse log (udgangskode %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Kunne ikke eksportere logge</string>
@@ -1132,8 +1128,6 @@ Detaljer: %2$s"</string>
     <string name="file_picker_show_hidden_files">Vis skjulte filer</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Om</string>
-    <string name="settings_system_share_website">Del hjemmeside</string>
-    <string name="settings_system_share_website_description">Del den officielle Morphe hjemmeside</string>
     <string name="settings_system_manager_description">Et open source-projekt til moderne, strømlinet patching af populære Android-apps, drevet af community-feedback og -bidrag</string>
     <string name="credits">Credits</string>
     <string name="credits_current_development">Current development</string>
@@ -1268,7 +1262,6 @@ Detaljer: %2$s"</string>
     <string name="changelog_for_app">Ændringer for %s</string>
     <string name="changelog_general_changes">Generelle ændringer</string>
     <string name="whats_new">Hvad er nyt</string>
-    <string name="changelog_description">Se de seneste ændringer i denne opdatering</string>
     <string name="changelog_download_fail">Kunne ikke downloade ændringslog: %s</string>
     <string name="changelog_empty">Ingen ændringslog tilgængelig</string>
     <string name="changelog_show_older">Vis ældre udgivelser</string>
@@ -1315,5 +1308,4 @@ Vil du stadig fortsætte?"</string>
     <string name="tour_prompt_desc">Vil du have en hurtig rundvisning i Morph’s vigtigste funktioner?</string>
     <string name="tour_prompt_confirm">Vis mig rundt</string>
     <string name="onboarding_restart_title">Funktionstur</string>
-    <string name="onboarding_restart_desc">Tag en guidet rundvisning i Morph’s vigtigste funktioner</string>
 </resources>

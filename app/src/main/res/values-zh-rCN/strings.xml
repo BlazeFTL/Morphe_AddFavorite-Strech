@@ -719,12 +719,7 @@
     <string name="settings_appearance_greeting_phrases">问候语</string>
     <string name="settings_appearance_greeting_phrases_subtitle">在主屏幕上显示问候消息</string>
     <string name="settings_appearance_app_grouping">应用分组</string>
-    <string name="settings_appearance_app_grouping_description">显示主屏幕切换器，按来源或您自己的分类对应用进行分组，并在关闭时保持选择</string>
-    <string name="settings_appearance_patch_list">补丁列表</string>
-    <string name="settings_appearance_patch_categories">按类别分组</string>
-    <string name="settings_appearance_patch_categories_description">按源声明的类别对补丁列表进行分区，未声明任何类别的源则保留为普通列表。</string>
     <string name="settings_appearance_repatch_notice">重新打补丁通知</string>
-    <string name="settings_appearance_repatch_notice_description">在主页面上显示可重新打补丁的应用的横幅</string>
     <string name="settings_appearance_sort_button">排序和筛选按钮</string>
     <string name="settings_appearance_sort_button_description">在主屏幕上显示排序和筛选按钮</string>
     <string name="settings_appearance_app_card_colors">应用卡片颜色</string>
@@ -769,6 +764,8 @@
     <string name="settings_advanced_updates_background_notifications">后台更新通知</string>
     <string name="settings_advanced_updates_background_notifications_description">定期在后台检查更新并通知可用</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">即使应用已关闭，也推送新版本的通知</string>
+    <string name="settings_system_notifications_categories">通知类别</string>
+    <string name="settings_system_notifications_categories_description">在系统设置中选择要通知您的更新</string>
     <string name="settings_advanced_update_interval">检查频率</string>
     <string name="settings_advanced_update_interval_dialog_title">检查更新</string>
     <string name="settings_advanced_update_interval_hourly">每小时一次</string>
@@ -791,8 +788,10 @@
     <string name="notification_permission_dialog_title">允许通知</string>
     <string name="notification_permission_dialog_description">Morphe needs notification permission to alert you when updates are available in the background</string>
     <string name="notification_post_patch_dialog_title">您是否希望在有更新时收到通知？</string>
-    <string name="notification_channel_fcm_updates">更新通知</string>
-    <string name="notification_channel_fcm_updates_description">关于 Morphe 新版本和补丁的通知</string>
+    <string name="notification_channel_manager_updates">Morphe 更新</string>
+    <string name="notification_channel_manager_updates_description">有关新 Morphe 版本的通知</string>
+    <string name="notification_channel_patch_updates">补丁更新</string>
+    <string name="notification_channel_patch_updates_description">有关新补丁版本的通知</string>
     <string name="notification_channel_patcher">修补中</string>
     <string name="notification_channel_patcher_description">当 Morphe 在后台为应用打补丁时显示</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,19 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">选择铃声</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">导入 &amp; 导出</string>
-    <string name="settings_system_keystore">密钥库</string>
-    <string name="settings_system_import_keystore_description">导入或导出您的签名密钥库</string>
+    <string name="settings_system_signing_key">签名密钥</string>
+    <string name="settings_system_signing_key_description">备份并恢复用于签署修补后应用的密钥</string>
+    <string name="settings_system_signing_key_dialog_description">Morphe 修补的每个应用都使用此密钥签名。请保存一份副本：没有它，修补后的应用只能先卸载再更新。</string>
+    <string name="settings_system_signing_key_missing">Morphe 会在首次修补时自动创建一个。</string>
+    <string name="settings_system_signing_key_created">创建于 %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 指纹</string>
+    <string name="settings_system_backup_appearance_description">主题、颜色和语言</string>
+    <string name="settings_system_backup_patching">修补和安装</string>
+    <string name="settings_system_backup_patching_description">安装器、修补器和已保存的 APK</string>
+    <string name="settings_system_backup_updates_description">预发布版本和更新检查</string>
+    <string name="settings_system_backup_sources_description">自定义来源和 GitHub 令牌</string>
+    <string name="settings_system_backup_patch_selections_description">为每个应用选择的修补</string>
+    <string name="settings_system_backup_signing_key_note">签名密钥会单独备份</string>
     <string name="settings_system_import_keystore_dialog_title">输入密钥库凭据</string>
     <string name="settings_system_import_keystore_dialog_description">您需要输入密钥库的凭据才能导入它</string>
     <string name="settings_system_import_keystore_dialog_alias_field">用户名 (别名)</string>
@@ -1005,7 +1015,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">密钥库凭据错误</string>
     <string name="settings_system_import_keystore_success">密钥库已导入</string>
     <string name="settings_system_import_keystore_failed">导入密钥库失败</string>
-    <string name="settings_system_export_keystore_unavailable">无可用密钥库可导出</string>
     <string name="settings_system_export_keystore_success">密钥库已导出</string>
     <string name="settings_system_export_keystore_failed">密钥库导出失败</string>
     <string name="settings_system_show_password_field">显示密码</string>
@@ -1024,7 +1033,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">添加备份中缺失的项目。现有项目保持不变</string>
     <string name="settings_system_export_manager_settings_fail">导出 Morphe 设置失败：%s</string>
     <string name="settings_system_export_manager_settings_success">Morphe 设置已导出</string>
-    <string name="settings_system_debug">调试</string>
+    <string name="settings_system_export_debug_logs">导出调试日志</string>
     <string name="settings_system_export_debug_logs_description">保存系统日志以便进行故障排除</string>
     <string name="settings_system_export_debug_logs_export_read_failed">读取日志失败 (退出代码 %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">导出日志失败</string>
@@ -1133,8 +1142,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">显示隐藏的文件</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">关于</string>
-    <string name="settings_system_share_website">分享网站</string>
-    <string name="settings_system_share_website_description">分享官方 Morphe 网站</string>
     <string name="settings_system_manager_description">一个开源项目，用于现代化的、流线型的流行 Android 应用补丁，由社区反馈和贡献驱动</string>
     <string name="credits">功劳簿</string>
     <string name="credits_current_development">当前开发</string>
@@ -1269,7 +1276,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">%s 的更改</string>
     <string name="changelog_general_changes">一般更改</string>
     <string name="whats_new">新功能</string>
-    <string name="changelog_description">查看此更新中的最新更改</string>
+    <string name="changelog_description">此版本的新内容</string>
     <string name="changelog_download_fail">下载更新日志失败：%s</string>
     <string name="changelog_empty">无可用更新日志</string>
     <string name="changelog_show_older">显示旧版本</string>
@@ -1314,5 +1321,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">您想快速了解 Morphe 的主要功能吗？</string>
     <string name="tour_prompt_confirm">带我参观</string>
     <string name="onboarding_restart_title">功能导览</string>
-    <string name="onboarding_restart_desc">获取 Morphe 主要功能的指导导览</string>
+    <string name="onboarding_restart_desc">主要功能导览</string>
 </resources>

@@ -135,7 +135,7 @@
     <string name="sources_sort_last_updated">最終更新日</string>
     <string name="sources_sort_last_updated_description">新しく更新されたソースを優先</string>
     <string name="sources_sort_enabled_first">有効なものを優先</string>
-    <string name="sources_sort_enabled_first_description">無効なソースより先に有効なソースを表示</string>
+    <string name="sources_sort_enabled_first_description">有効なソースを先に表示</string>
     <string name="sources_patches_source_disabled_hint">このソースは無効になっています。パッチは参照のために表示されるだけで、適用されません</string>
     <string name="sources_management_open_in_browser">ブラウザで開く</string>
     <string name="sources_management_report_issue">問題を報告</string>
@@ -291,7 +291,7 @@
     <string name="expert_mode_enable_all_universal_pending">ユニバーサルパッチを有効にするには、もう一度タップしてください</string>
     <string name="expert_mode_universal_all_warning_title">すべてのユニバーサルパッチを有効にしますか？</string>
     <string name="expert_mode_universal_all_warning_message">ユニバーサルパッチは、すべてを同時に使用した場合の動作をテストしていません。すべてを一度に有効にすると、競合やパッチの失敗、クラッシュが発生する可能性があります</string>
-    <string name="expert_mode_reset_to_default">推奨パッチの有効化</string>
+    <string name="expert_mode_reset_to_default">推奨パッチを有効化</string>
     <string name="expert_mode_reset_to_default_done">推奨パッチを適用しました</string>
     <string name="expert_mode_restore_saved">保存済みのパッチ セレクションの復元</string>
     <string name="expert_mode_restore_saved_done">保存したセレクションを復元しました</string>
@@ -324,10 +324,10 @@
     <string name="morphe_experimental_app_version_dialog_title">試してみますか？ 🧪</string>
     <string name="morphe_experimental_app_version_dialog_message">このバージョンの &lt;b&gt;%s&lt;/b&gt; は、初期段階の実験的なサポートのみとなっています&lt;br/&gt;&lt;br/&gt;🔧 パッチはまだ最適化中のため、アプリの動作が不安定になったり、予期しない不具合が発生する可能性があります</string>
     <string name="home_dialog_unsupported_version_dialog_title">非対応のバージョン</string>
-    <string name="home_dialog_unsupported_version_dialog_description">この APK は推奨されているバージョンではありません。続行すると、アプリが正常に機能しない可能性があります</string>
+    <string name="home_dialog_unsupported_version_dialog_description">この APK は推奨バージョンではありません。続行すると、アプリが正常に動作しなくなる可能性があります</string>
     <string name="home_dialog_unsupported_version_dialog_proceed">このまま続行する</string>
     <string name="home_dialog_unsupported_version_compatible_versions">互換性のあるバージョン:</string>
-    <string name="home_dialog_unsupported_version_unsupported_label">未対応</string>
+    <string name="home_dialog_unsupported_version_unsupported_label">非対応</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
     <string name="home_dialog_unsupported_version_build">ビルド %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">同バージョンですが、ビルドが異なります。パッチを適用するには指定されたビルドが必要です</string>
@@ -423,7 +423,7 @@
     <string name="batch_patch_state_no_apk">APK がありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>
     <string name="batch_patch_policy_install">完了後にインストールする</string>
-    <string name="batch_patch_policy_install_description">キューの処理が完了後、パッチを適用したアプリをすべて自動でインストールします。オフにすると、APK を後で扱えるように保存します</string>
+    <string name="batch_patch_policy_install_description">キューの処理が完了すると、パッチ適用済みアプリをすべて自動でインストールします。オフにすると、APK を保存して後でインストールできます</string>
     <string name="batch_patch_start">パッチ処理を開始する</string>
     <string name="batch_patch_stop_title">一括パッチを停止しますか？</string>
     <string name="batch_patch_stop_description">現在パッチを適用中のアプリと、まだキューに登録されているアプリはキャンセルされます</string>
@@ -565,7 +565,7 @@
     <string name="patcher_missing_patches_description">このアプリに保存されたパッチ セレクションには、現在有効になっているどのソースからも提供されていないパッチが含まれています。このまま続行すると、それらのパッチ無しでアプリにパッチを適用します</string>
     <string name="patcher_missing_patches_label">利用できなくなりました</string>
     <string name="patcher_option_paths_gone_title">パッチ設定ファイルが見つかりません</string>
-    <string name="patcher_option_paths_gone_description">存在しないファイルを参照しているパッチ設定があります。パッチ適用を続けるにはパスを削除するか、ファイルを元に戻して再度お試しください</string>
+    <string name="patcher_option_paths_gone_description">存在しないファイルを参照しているパッチ設定があります。パッチ処理を続けるにはパスを削除するか、ファイルを元に戻して再度お試しください</string>
     <string name="patcher_option_paths_clear">パスを削除して続行</string>
     <string name="patcher_storage_permission_hint">ヒント: ファイルを /Android/data/app.morphe.manager/files/ に移動すれば、追加の権限は必要ありません</string>
     <!-- Patcher Screen - Patcher Steps -->
@@ -719,12 +719,7 @@
     <string name="settings_appearance_greeting_phrases">挨拶メッセージ</string>
     <string name="settings_appearance_greeting_phrases_subtitle">ホーム画面に挨拶メッセージを表示します</string>
     <string name="settings_appearance_app_grouping">アプリのグループ化</string>
-    <string name="settings_appearance_app_grouping_description">ホーム画面にスイッチャーを表示し、アプリをソース別または任意のカテゴリでグループ化します。オフにしても選択内容は保持されます</string>
-    <string name="settings_appearance_patch_list">パッチリスト</string>
-    <string name="settings_appearance_patch_categories">カテゴリごとにグループ化</string>
-    <string name="settings_appearance_patch_categories_description">ソースが定義したカテゴリごとにパッチリストを分け、カテゴリを定義していないソースは通常のリストとして表示します</string>
     <string name="settings_appearance_repatch_notice">再パッチ通知</string>
-    <string name="settings_appearance_repatch_notice_description">再パッチ可能なアプリがある場合、ホーム画面にバナーを表示します</string>
     <string name="settings_appearance_sort_button">並べ替えとフィルター ボタン</string>
     <string name="settings_appearance_sort_button_description">ホーム画面に並べ替えとフィルター ボタンを表示します</string>
     <string name="settings_appearance_app_card_colors">アプリカードの色</string>
@@ -768,7 +763,9 @@
     <string name="settings_advanced_updates_allow_metered_description">モバイルデータ通信での Morphe およびパッチの更新のダウンロードを許可します</string>
     <string name="settings_advanced_updates_background_notifications">バックグラウンドでの更新通知</string>
     <string name="settings_advanced_updates_background_notifications_description">バックグラウンドで定期的に更新を確認し、利用可能な場合に通知します</string>
-    <string name="settings_advanced_updates_background_notifications_description_fcm">アプリを閉じているときでも、新しいリリースのプッシュ通知を即時に受け取ります</string>
+    <string name="settings_advanced_updates_background_notifications_description_fcm">アプリを閉じていても、新しいリリースの通知をすぐに受け取れます</string>
+    <string name="settings_system_notifications_categories">通知カテゴリ</string>
+    <string name="settings_system_notifications_categories_description">システム設定で通知する内容を選択できます</string>
     <string name="settings_advanced_update_interval">確認頻度</string>
     <string name="settings_advanced_update_interval_dialog_title">更新の確認</string>
     <string name="settings_advanced_update_interval_hourly">1 時間に 1 回</string>
@@ -778,7 +775,7 @@
     <string name="settings_advanced_update_interval_chip_subtitle">バックグラウンドでの確認頻度</string>
     <string name="settings_advanced_update_interval_battery_warning">一部のデバイスでは、バックグラウンドでの確認が正常に動作しない場合があります。Xiaomi、Huawei、Samsung、OnePlus などのメーカーは、バッテリーを節約するためにバックグラウンド プロセスを厳しく制限することがよくあります。</string>
     <string name="settings_advanced_external_batch_patch">外部トリガーを許可</string>
-    <string name="settings_advanced_external_batch_patch_description">自動化アプリがインテントを介してバッチパッチを開始できるようにします</string>
+    <string name="settings_advanced_external_batch_patch_description">インテントから自動化アプリで一括パッチを開始できるようにします</string>
     <string name="external_batch_patch_title">一括パッチを開始しますか？</string>
     <string name="external_batch_patch_description">%s が Morphe にアプリのパッチ適用とインストールを要求しています</string>
     <string name="external_batch_patch_trust_caller">このアプリを常に許可</string>
@@ -791,8 +788,10 @@
     <string name="notification_permission_dialog_title">通知の許可</string>
     <string name="notification_permission_dialog_description">バックグラウンドで更新が利用可能になった際に通知するには、Morphe に通知権限を許可する必要があります</string>
     <string name="notification_post_patch_dialog_title">更新が利用可能になった際に通知を受け取りますか？</string>
-    <string name="notification_channel_fcm_updates">アップデート通知</string>
-    <string name="notification_channel_fcm_updates_description">新しい Morphe およびパッチのリリースに関する通知</string>
+    <string name="notification_channel_manager_updates">Morphe の更新</string>
+    <string name="notification_channel_manager_updates_description">Morphe の新しいリリースに関する通知</string>
+    <string name="notification_channel_patch_updates">パッチの更新</string>
+    <string name="notification_channel_patch_updates_description">パッチの新しいリリースに関する通知</string>
     <string name="notification_channel_patcher">パッチ処理</string>
     <string name="notification_channel_patcher_description">バックグラウンドで Morphe がアプリにパッチを適用しているときに表示されます</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -808,10 +807,10 @@
     <string name="settings_advanced_github_pat_configured">PAT が設定されました</string>
     <string name="settings_advanced_github_pat_how_to_get">PAT を取得するには</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
-    <string name="settings_advanced_github_pat_dialog_title">%sを設定</string>
+    <string name="settings_advanced_github_pat_dialog_title">%s を設定</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
-    <string name="settings_advanced_github_pat_dialog_description">"プルリクエストを外部ソースとして追加できるようにするには、%3$sを設定してください。スコープ %2$s の PAT を
-%1$s で作成してください。"</string>
+    <string name="settings_advanced_github_pat_dialog_description">"プルリクエストを外部ソースとして追加できるようにするには、%3$s を設定してください。スコープ %2$s の PAT を
+%1$s で作成してください"</string>
     <string name="settings_advanced_github_pat_export_include_label">設定のエクスポートに含める</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">この PAT をエクスポートした Morphe の設定に追加します</string>
@@ -831,7 +830,7 @@
     <string name="settings_advanced_patch_options_custom_branding_description">アプリの名前を変更します</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">アプリ名</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">カスタム名を入力</string>
-    <string name="settings_advanced_patch_options_path_gone">このフォルダーは利用できなくなりました。再度パスを選択するか、削除してください。そうしないと、パッチ適用が停止して確認を求められます</string>
+    <string name="settings_advanced_patch_options_path_gone">このフォルダを読み取れなくなりました。もう一度選択するか、パスを削除してください。そうしないと、パッチ処理が停止して再選択を求められます</string>
     <string name="settings_advanced_patch_options_custom_branding_app_icon">アプリアイコン</string>
     <string name="settings_advanced_patch_options_custom_branding_app_icon_description">アプリのパッチ適用時に使用するアプリアイコンです。Android Auto やシステム設定のアプリ一覧など、後からアプリ側で変更できない場所でも使用されます</string>
     <string name="settings_advanced_patch_options_custom_branding_app_icon_needs_folder">カスタムアプリアイコンには、アイコン画像を含むフォルダーが必要です</string>
@@ -967,21 +966,21 @@ morphe_header_custom_dark.png
     <string name="installer_shizuku_error_user_profile">システムによってインストールがブロックされました。Xiaomi などのデバイスでは、開発者向けオプションの「USB 経由のインストール」を有効にしてください。仕事用プロファイルでは、管理ポリシーによりインストールできない場合があります</string>
     <!-- Settings - System Tab - Performance Section -->
     <string name="settings_system_battery_optimization">バッテリーの最適化</string>
-    <string name="settings_system_battery_optimization_description">アプリを閉じているときでも、パッチャーを実行し続けます</string>
+    <string name="settings_system_battery_optimization_description">アプリを閉じていても、パッチャーを実行し続けます</string>
     <string name="settings_system_background">バックグラウンド</string>
     <string name="settings_system_process_runtime">別プロセスで実行</string>
     <string name="settings_system_process_runtime_description">安定性を向上させるために、パッチ処理を別プロセスで実行します</string>
     <string name="settings_system_process_runtime_memory_limit_description">高性能なデバイスでは、制限値を高くすることでパッチ処理を高速化できます</string>
     <string name="settings_system_process_runtime_enable">別プロセスでの実行を有効化</string>
     <string name="settings_system_memory_limit_subtitle">パッチに使用できるメモリ</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">このデバイスは前回の実行でメモリ制限を無視したため、パッチ適用はMorphe内での実行にフォールバックする場合があります。</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">前回、このデバイスではメモリ制限が無視されたため、パッチ処理は Morphe 内で実行される場合があります</string>
     <string name="settings_system_memory_limit_warning">メモリ制限が低い場合、大規模なアプリをパッチする際に失敗する可能性があります</string>
     <string name="settings_system_memory_limit_high_warning">メモリ上限を高くすると、一部のデバイスではパッチ処理が大幅に遅くなる場合があります。低い上限でパッチ処理に繰り返し失敗する場合のみ、上限を引き上げてください</string>
     <string name="settings_system_process_runtime_enabled_description">上限 %s MB</string>
     <string name="settings_system_process_runtime_disabled_description">タップして構成</string>
     <string name="settings_system_process_runtime_description_not_available">本機能は Android 11 以上で利用できます</string>
     <string name="settings_system_patcher_completion_sound">完了音</string>
-    <string name="settings_system_patcher_completion_sound_description">パッチ完了時に、成功時と失敗時で異なるサウンドを再生します</string>
+    <string name="settings_system_patcher_completion_sound_description">パッチ完了時に、結果を知らせるサウンドを再生します</string>
     <!-- Settings - System Tab - Notifications Section -->
     <string name="settings_system_notifications">通知</string>
     <string name="settings_system_notifications_description">バックグラウンド通知と通知音の設定をします</string>
@@ -995,8 +994,19 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">トーンを選択</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">インポートとエクスポート</string>
-    <string name="settings_system_keystore">キーストア</string>
-    <string name="settings_system_import_keystore_description">署名用キーストアをインポートまたはエクスポートします</string>
+    <string name="settings_system_signing_key">署名キー</string>
+    <string name="settings_system_signing_key_description">パッチ適用済みアプリの署名に使用するキーをバックアップおよび復元します</string>
+    <string name="settings_system_signing_key_dialog_description">Morphe でパッチを適用したアプリは、すべてこのキーで署名されます。必ずバックアップしてください。このキーがないと、パッチ適用済みアプリを更新するには、一度アンインストールする必要があります</string>
+    <string name="settings_system_signing_key_missing">最初のパッチ適用時に Morphe が作成します</string>
+    <string name="settings_system_signing_key_created">%s を作成しました</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 フィンガープリント</string>
+    <string name="settings_system_backup_appearance_description">テーマ、カラー、言語</string>
+    <string name="settings_system_backup_patching">パッチとインストール</string>
+    <string name="settings_system_backup_patching_description">インストーラー、パッチャー、保存済み APK</string>
+    <string name="settings_system_backup_updates_description">プレリリースと更新チェック</string>
+    <string name="settings_system_backup_sources_description">カスタム ソースと GitHub トークン</string>
+    <string name="settings_system_backup_patch_selections_description">すべてのアプリで選択したパッチ</string>
+    <string name="settings_system_backup_signing_key_note">署名キーは別途バックアップされます</string>
     <string name="settings_system_import_keystore_dialog_title">キーストアの資格情報を入力</string>
     <string name="settings_system_import_keystore_dialog_description">キーストアをインポートするには、認証情報の入力が必要です</string>
     <string name="settings_system_import_keystore_dialog_alias_field">ユーザー名（エイリアス）</string>
@@ -1005,7 +1015,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">キーストアの資格情報が正しくありません</string>
     <string name="settings_system_import_keystore_success">キーストアをインポートしました</string>
     <string name="settings_system_import_keystore_failed">キーストアのインポートに失敗しました</string>
-    <string name="settings_system_export_keystore_unavailable">エクスポート可能なキーストアはありません</string>
     <string name="settings_system_export_keystore_success">キーストアをエクスポートしました</string>
     <string name="settings_system_export_keystore_failed">キーストアのエクスポートに失敗しました</string>
     <string name="settings_system_show_password_field">パスワードを表示</string>
@@ -1024,7 +1033,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">バックアップから不足している項目を追加します。既存の項目は変更されません</string>
     <string name="settings_system_export_manager_settings_fail">Morphe の設定のエクスポートに失敗しました: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe の設定をエクスポートしました</string>
-    <string name="settings_system_debug">デバッグ</string>
+    <string name="settings_system_export_debug_logs">デバッグログをエクスポート</string>
     <string name="settings_system_export_debug_logs_description">トラブルシューティングのためにシステムログを保存します</string>
     <string name="settings_system_export_debug_logs_export_read_failed">ログの読み取りに失敗しました (終了コード %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">ログのエクスポートに失敗しました</string>
@@ -1133,8 +1142,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">非表示のファイルを表示する</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Morphe について</string>
-    <string name="settings_system_share_website">ウェブサイトを共有</string>
-    <string name="settings_system_share_website_description">Morphe の公式ウェブサイトを共有します</string>
     <string name="settings_system_manager_description">人気の Android アプリにモダンで効率的にパッチを適用するためのオープンソースプロジェクトです。コミュニティからのフィードバックや貢献によって発展しています</string>
     <string name="credits">クレジット</string>
     <string name="credits_current_development">現在の開発</string>
@@ -1269,7 +1276,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">%s の変更</string>
     <string name="changelog_general_changes">一般的な変更</string>
     <string name="whats_new">新着情報</string>
-    <string name="changelog_description">最新のアップデートでの変更点を確認します</string>
+    <string name="changelog_description">このバージョンの新機能</string>
     <string name="changelog_download_fail">変更履歴のダウンロードに失敗しました: %s</string>
     <string name="changelog_empty">利用可能な更新はありません</string>
     <string name="changelog_show_older">過去のリリースを表示</string>
@@ -1313,8 +1320,8 @@ morphe_header_custom_dark.png
     <string name="onboarding_system_file_picker_desc">有効にすると、APK やキーストアを選択する際に、システム標準ではなく内蔵ファイルブラウザーを使用します</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">かんたん機能ガイド</string>
-    <string name="tour_prompt_desc">Morphe の主要な機能を簡単なツアーで見てみませんか？</string>
+    <string name="tour_prompt_desc">Morphe の主な機能を簡単に見てみませんか？</string>
     <string name="tour_prompt_confirm">ガイドを開始</string>
     <string name="onboarding_restart_title">機能ガイド</string>
-    <string name="onboarding_restart_desc">Morphe の主要な機能をガイド付きで紹介します</string>
+    <string name="onboarding_restart_desc">主な機能を紹介するガイド</string>
 </resources>

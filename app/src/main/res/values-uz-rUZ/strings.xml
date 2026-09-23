@@ -647,7 +647,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="settings_appearance_greeting_phrases">Salomlashish iborasi</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Bosh ekranda salomlashish xabarini ko‘rsatish</string>
     <string name="settings_appearance_app_grouping">Ilovalarni guruhlash</string>
-    <string name="settings_appearance_app_grouping_description">Ilovalarni manbaiga yoki o\'zingizning kategoriyalaringizga qarab guruhlash uchun uy ekrani almashtirgichni ko\'rsating, o\'chirilganda tanlovni saqlab qolish</string>
     <string name="settings_appearance_sort_button">Saralash va filtrlash tugmasi</string>
     <string name="settings_appearance_sort_button_description">Bosh ekranda saralash va filtrlash tugmasini ko\'rsatish</string>
     <string name="settings_appearance_app_card_colors">Ilovalar kartasining ranglari</string>
@@ -713,8 +712,6 @@ Patchlar ta'sirlanmaydi: patch manbalari ro'yxatidagi har bir manba uchun pre-re
     <string name="notification_permission_dialog_title">Bildirishnomalarga ruxsat bering</string>
     <string name="notification_permission_dialog_description">Morphe sizga yangilanishlar mavjud bo\'lganda bildirishnoma olish uchun bildirishnoma ruxsatini olishi kerak</string>
     <string name="notification_post_patch_dialog_title">Yangilanishlar mavjud bo\'lganda bildirishnoma olmoqchi edingizmi?</string>
-    <string name="notification_channel_fcm_updates">Yangilash bildirishnomalari</string>
-    <string name="notification_channel_fcm_updates_description">Morphe va patch versiyalarining yangi chastotalari haqida bildirishnomalar</string>
     <string name="notification_channel_patcher">Patchlash</string>
     <string name="notification_channel_patcher_description">Morphe orqa fonda ilovani patchlayotganda ko\'rsatildi</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -905,8 +902,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Ohang tanlang</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import va eksport</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Imzolash uchun saqlash kalitini import qilish yoki eksport qilish</string>
     <string name="settings_system_import_keystore_dialog_title">Keystore ma\'lumotlarini kiriting</string>
     <string name="settings_system_import_keystore_dialog_description">Xatolik</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Foydalanuvchi nomi (Alias)</string>
@@ -915,7 +910,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Noto\'g\'ri keystore ma\'lumotlari</string>
     <string name="settings_system_import_keystore_success">Keystore import qilingan</string>
     <string name="settings_system_import_keystore_failed">Keystore import qilishda xatolik yuzaga keldi</string>
-    <string name="settings_system_export_keystore_unavailable">Eksport qilish uchun keystore mavjud emas</string>
     <string name="settings_system_export_keystore_success">Keystore eksport qilingan</string>
     <string name="settings_system_export_keystore_failed">Keystore eksport qila olmadi</string>
     <string name="settings_system_show_password_field">Parolni ko\'rsatish</string>
@@ -934,7 +928,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="import_mode_merge_description">Zaxiradan o\'chirilgan elementlarni qo\'shish. Mavjud elementlar o\'zgarishsiz qoldiriladi</string>
     <string name="settings_system_export_manager_settings_fail">Morphe sozlamalarini eksport qilishda xatolik: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe sozlamalari eksport qilindi</string>
-    <string name="settings_system_debug">Debug</string>
     <string name="settings_system_export_debug_logs_description">Aniqlash uchun tizim jurnalini saqlab qolish</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Jurnallarni o‘qishda xato (xato kodi %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Loglarni eksport qilishda xatolik yuzaga keldi</string>
@@ -1038,8 +1031,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="file_picker_show_hidden_files">Yashirin fayllarni ko\'rsatish</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Haqida</string>
-    <string name="settings_system_share_website">O\'chirish</string>
-    <string name="settings_system_share_website_description">Rasmiy Morphe veb-sayti bilan baham ko‘rish</string>
     <string name="settings_system_manager_description">Zamonaviy, soddalashtirilgan Android ilovalarini patchlash uchun mo‘ljallangan ochiq kodli loyiha, hamjamiyatning fikr-mulohazalari va hissalariga asoslangan</string>
     <string name="credits">Mualliflar</string>
     <string name="credits_current_development">Hozirgi rivojlanish</string>
@@ -1168,7 +1159,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="importing_ellipsis">Hech qanday tuzatish mavjud emas</string>
     <string name="imported_successfully">Muaffaqiyatli import qilindi</string>
     <string name="changelog">O‘zgarishlar jurnalini ko‘rish</string>
-    <string name="changelog_description">Aloqa</string>
     <string name="changelog_download_fail">O‘zgarishlar jurnalini yuklab olishda xatolik: %s</string>
     <string name="changelog_empty">O\'zgarishlar logi mavjud emas</string>
     <string name="changelog_show_older">Eski versiyalarni ko\'rsatish</string>
@@ -1214,5 +1204,4 @@ Davom etmoqchimisiz?"</string>
     <string name="tour_prompt_desc">Morphe ning asosiy funksiyalarini qisqacha ko\'rib chiqmoqchisiz?</string>
     <string name="tour_prompt_confirm">Mengani ko\'rsat</string>
     <string name="onboarding_restart_title">Funksiyalar sayohati</string>
-    <string name="onboarding_restart_desc">Morphe ning asosiy funksiyalarini ko\'rib chiqing</string>
 </resources>

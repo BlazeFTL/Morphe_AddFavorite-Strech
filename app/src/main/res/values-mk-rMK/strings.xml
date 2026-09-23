@@ -472,8 +472,6 @@
     <string name="notification_permission_dialog_title">Дозволи известувања</string>
     <string name="notification_permission_dialog_description">На Morphe му е потребна дозвола за известувања за да ве извести кога има достапни ажурирања во позадина</string>
     <string name="notification_post_patch_dialog_title">Дали сакате да бидете известени кога се достапни ажурирања?</string>
-    <string name="notification_channel_fcm_updates">Известувања за ажурирања</string>
-    <string name="notification_channel_fcm_updates_description">Известувања за нови изданија на Morphe и закрпи</string>
     <string name="notification_channel_patcher">Закрпување</string>
     <string name="notification_channel_patcher_description">Се прикажува додека Morphe го закрпува апликацијата во позадина</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -610,8 +608,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_sound_default">Стандардно</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Увоз и извоз</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Внесени</string>
     <string name="settings_system_import_keystore_dialog_title">Внесете податоци за пристап до keystore</string>
     <string name="settings_system_import_keystore_dialog_description">Ќе треба да ги внесете податоците за пристап до keystore за да го увезете</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Корисничко име (Alias)</string>
@@ -620,7 +616,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">Неправилни податоци за пристап до keystore</string>
     <string name="settings_system_import_keystore_success">Keystore е увезен</string>
     <string name="settings_system_import_keystore_failed">Неуспешен увоз на keystore</string>
-    <string name="settings_system_export_keystore_unavailable">Нема достапен keystore за извоз</string>
     <string name="settings_system_export_keystore_success">Keystore е изнесен</string>
     <string name="settings_system_export_keystore_failed">Неуспешно извезување на keystore</string>
     <string name="settings_system_show_password_field">Прикажи лозинка</string>
@@ -631,7 +626,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_manager_settings_success">Поставките на Morphe се внесени</string>
     <string name="settings_system_export_manager_settings_fail">Неуспешно извезување на поставките на Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Поставките на Morphe се извезени</string>
-    <string name="settings_system_debug">Дебагирање</string>
     <string name="settings_system_export_debug_logs_description">Пред-пукање на ажурирања</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Неуспешно читање на логови (излезен код %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Неуспешно извезување на логови</string>
@@ -688,8 +682,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_sort_date_asc">Дата (најстара прва)</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">За</string>
-    <string name="settings_system_share_website">Увоз и извоз</string>
-    <string name="settings_system_share_website_description">Главна исклепување</string>
     <string name="settings_system_manager_description">Проект со отворен код за модерно, поедноставено закрпување на популарни апликации за Android, поттикнато од повратни информации и придонеси од заедницата</string>
     <string name="credits">Заслуги</string>
     <string name="credits_current_development">Тековен развој</string>
@@ -781,7 +773,6 @@ morphe_header_custom_dark.png
     <string name="importing_ellipsis">Увоз…</string>
     <string name="imported_successfully">Успешно внесено</string>
     <string name="changelog">Преглед на промените</string>
-    <string name="changelog_description">Проверете ги најновите промени во оваа верзија</string>
     <string name="changelog_download_fail">Не успеа да се преземе историја на промени: %s</string>
     <string name="changelog_empty">Нема достапен дневник на промени</string>
     <string name="no_network_toast">Нема достапна интернет врска</string>
@@ -823,5 +814,4 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Сакате брза тура на клучните карактеристики на Morphe\'s?</string>
     <string name="tour_prompt_confirm">Покажи ми наоколу</string>
     <string name="onboarding_restart_title">Тура на функции</string>
-    <string name="onboarding_restart_desc">Земете водич низ клучните карактеристики на Morphe</string>
 </resources>

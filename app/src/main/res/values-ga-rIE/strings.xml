@@ -719,12 +719,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_greeting_phrases">Frásaí beannachta</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Taispeáin teachtaireacht beannachta ar an scáileán baile</string>
     <string name="settings_appearance_app_grouping">Grúpáil aipeanna</string>
-    <string name="settings_appearance_app_grouping_description">Taispeáin an roghchlár scáileáin bhaile chun aipeanna a ghrúpáil de réir foinse nó do chatagóirí féin, agus an rogha a choinneáil nuair a bhíonn sé múchta</string>
-    <string name="settings_appearance_patch_list">Liosta paistí</string>
-    <string name="settings_appearance_patch_categories">Grúpáil de réir catagóire</string>
-    <string name="settings_appearance_patch_categories_description">Liostaíonn paistí rannóga de réir na gcatagóirí a dhearbhaíonn foinse, ag fágáil foinsí nach ndearbhaíonn aon cheann mar liosta simplí</string>
     <string name="settings_appearance_repatch_notice">Fógra athphaisteála</string>
-    <string name="settings_appearance_repatch_notice_description">Taispeáin meirge ar an scáileán baile nuair is féidir aipeanna paisteáilte a athphaisteáil</string>
     <string name="settings_appearance_sort_button">Cnaipe sórtála agus scagaire</string>
     <string name="settings_appearance_sort_button_description">Taispeáin an cnaipe sórtála agus scagaire ar an scáileán baile</string>
     <string name="settings_appearance_app_card_colors">Dathanna cártaí aipeanna</string>
@@ -769,6 +764,8 @@ Níl tionchar ar phaistí: cumasaigh paistí réamh-eisiúna do gach foinse sa l
     <string name="settings_advanced_updates_background_notifications">Fógraí nuashonraithe cúlra</string>
     <string name="settings_advanced_updates_background_notifications_description">Seiceáil go tréimhsiúil le haghaidh nuashonruithe sa chúlra agus cuir in iúl nuair a bhíonn siad ar fáil</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Fógraí brú le haghaidh eisiúintí nua, fiú nuair a bhíonn an aip dúnta</string>
+    <string name="settings_system_notifications_categories">Catagóirí fógraí</string>
+    <string name="settings_system_notifications_categories_description">Roghnaigh i socruithe an chórais cé na nuashonruithe a chuirfidh fógraí chugat</string>
     <string name="settings_advanced_update_interval">Seiceáil minicíocht</string>
     <string name="settings_advanced_update_interval_dialog_title">Seiceáil le haghaidh nuashonruithe</string>
     <string name="settings_advanced_update_interval_hourly">Uair san uair</string>
@@ -791,8 +788,10 @@ Níl tionchar ar phaistí: cumasaigh paistí réamh-eisiúna do gach foinse sa l
     <string name="notification_permission_dialog_title">Ceadaigh fógraí</string>
     <string name="notification_permission_dialog_description">Teastaíonn cead fógra ó Morphe chun foláireamh a thabhairt duit nuair a bhíonn nuashonruithe ar fáil sa chúlra</string>
     <string name="notification_post_patch_dialog_title">Ar mhaith leat fógra a fháil nuair a bheidh nuashonruithe ar fáil?</string>
-    <string name="notification_channel_fcm_updates">Fógraí nuashonraithe</string>
-    <string name="notification_channel_fcm_updates_description">Fógraí faoi eisiúintí nua Morphe agus paistí</string>
+    <string name="notification_channel_manager_updates">Nuashonruithe Morphe</string>
+    <string name="notification_channel_manager_updates_description">Fógraí faoi eisiúintí nua Morphe</string>
+    <string name="notification_channel_patch_updates">Nuashonruithe paiste</string>
+    <string name="notification_channel_patch_updates_description">Fógraí faoi eisiúintí nua paiste</string>
     <string name="notification_channel_patcher">Ag paisteáil</string>
     <string name="notification_channel_patcher_description">Taispeántar é agus Morphe ag paisteáil aip sa chúlra</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -993,8 +992,7 @@ Sonraí: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Roghnaigh ton</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Iompórtáil &amp; easpórtáil</string>
-    <string name="settings_system_keystore">Eochracha</string>
-    <string name="settings_system_import_keystore_description">Iompórtálann nó easpórtálann sé do stór eochrach sínithe</string>
+    <string name="settings_system_signing_key_fingerprint">Méarlorg SHA-256</string>
     <string name="settings_system_import_keystore_dialog_title">Cuir isteach dintiúir stórais eochrach</string>
     <string name="settings_system_import_keystore_dialog_description">Beidh ort dintiúir an stórais eochrach a iontráil chun é a allmhairiú</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Ainm úsáideora (Ainm eile)</string>
@@ -1003,7 +1001,6 @@ Sonraí: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Dintiúir mhíchearta stórais eochrach</string>
     <string name="settings_system_import_keystore_success">Eochairstóras allmhairithe</string>
     <string name="settings_system_import_keystore_failed">Theip ar an stór eochrach a iompórtáil</string>
-    <string name="settings_system_export_keystore_unavailable">Níl aon stór eochrach ar fáil le honnmhairiú</string>
     <string name="settings_system_export_keystore_success">Easpórtáladh an stór eochrach</string>
     <string name="settings_system_export_keystore_failed">Theip ar easpórtáil an stór eochrach</string>
     <string name="settings_system_show_password_field">Taispeáin an focal faire</string>
@@ -1022,7 +1019,7 @@ Sonraí: %2$s"</string>
     <string name="import_mode_merge_description">Cuir míreanna atá ar iarraidh ón gcúltaca leis. Coinnítear míreanna atá ann cheana gan athrú.</string>
     <string name="settings_system_export_manager_settings_fail">Theip ar shocruithe Morphe a easpórtáil: %s</string>
     <string name="settings_system_export_manager_settings_success">Socruithe Morphe onnmhairithe</string>
-    <string name="settings_system_debug">Dífhabhtú</string>
+    <string name="settings_system_export_debug_logs">Easpórtáil logaí dífhabhtaithe</string>
     <string name="settings_system_export_debug_logs_description">Sábháileann sé logaí córais le haghaidh fabhtcheartaithe</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Theip ar na logaí a léamh (cód scoir %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Theip ar logaí a onnmhairiú</string>
@@ -1131,8 +1128,6 @@ Sonraí: %2$s"</string>
     <string name="file_picker_show_hidden_files">Taispeáin comhaid fholaithe</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Maidir</string>
-    <string name="settings_system_share_website">Comhroinn suíomh Gréasáin</string>
-    <string name="settings_system_share_website_description">Roinneann sé suíomh Gréasáin oifigiúil Morphe</string>
     <string name="settings_system_manager_description">Tionscadal foinse oscailte le haghaidh paisteáil nua-aimseartha, sruthlínithe ar aipeanna coitianta Android, á thiomáint ag aiseolas agus ranníocaíochtaí ón bpobal.</string>
     <string name="credits">Creidmheasanna</string>
     <string name="credits_current_development">Forbairt reatha</string>
@@ -1267,7 +1262,6 @@ Sonraí: %2$s"</string>
     <string name="changelog_for_app">Athruithe le haghaidh %s</string>
     <string name="changelog_general_changes">Athruithe ginearálta</string>
     <string name="whats_new">Cad atá nua</string>
-    <string name="changelog_description">Féach ar na hathruithe is déanaí sa nuashonrú seo</string>
     <string name="changelog_download_fail">Theip ar an logála hathruithe a íoslódáil: %s</string>
     <string name="changelog_empty">Níl aon loga athraithe ar fáil</string>
     <string name="changelog_show_older">Taispeáin eisiúintí níos sine</string>
@@ -1314,5 +1308,4 @@ Ar mhaith leat leanúint ar aghaidh fós?"</string>
     <string name="tour_prompt_desc">Ar mhaith leat turas gairid a fháil ar phríomhghnéithe Morphe?</string>
     <string name="tour_prompt_confirm">Taispeáin dom timpeall</string>
     <string name="onboarding_restart_title">Turas gné-ghnéithe</string>
-    <string name="onboarding_restart_desc">Tabhair cuairt threoraithe ar phríomhghnéithe Morphe</string>
 </resources>

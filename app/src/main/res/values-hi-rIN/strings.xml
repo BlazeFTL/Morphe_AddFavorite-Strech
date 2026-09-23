@@ -13,7 +13,7 @@
     <string name="home_app_no_hidden">कोई छिपा ऐप नहीं</string>
     <string name="home_app_hidden_apps_title">छिपे हुए ऐप्स</string>
     <string name="home_app_hidden_apps_hint">छुपाने के लिए टैप करें</string>
-    <string name="home_app_patch_sources_description">जिन स्रोतों को बिना टिक किए छोड़ा गया है, जब इन ऐप्स को पैच किया जाता है तो वे पेश नहीं किए जाते, और उनके पैच कभी अपने आप किसी चयन में शामिल नहीं होते। हर दूसरे ऐप के लिए प्रत्येक स्रोत चालू रहता है।</string>
+    <string name="home_app_patch_sources_description">जिन स्रोतों को चुना नहीं गया है, वे इन ऐप्स को पैच करते समय उपलब्ध नहीं होंगे और उनके पैच अपने आप किसी चयन में शामिल नहीं होंगे। हर स्रोत बाकी सभी ऐप्स के लिए चालू रहेगा।</string>
     <string name="home_app_patch_sources_mixed">%2$s में से %1$s को पेश किया गया</string>
     <string name="home_app_patch_sources_covers">%2$s में से %1$s के लिए पैच हैं</string>
     <string name="home_app_patch_sources_last">हर ऐप के पास पैच करने के लिए एक स्रोत शेष होना चाहिए।</string>
@@ -719,12 +719,7 @@
     <string name="settings_appearance_greeting_phrases">अभिवादन वाक्यांश</string>
     <string name="settings_appearance_greeting_phrases_subtitle">मुखपृष्ठ पर अभिवादन संदेश दिखाएँ</string>
     <string name="settings_appearance_app_grouping">ऐप समूहीकरण</string>
-    <string name="settings_appearance_app_grouping_description">स्रोत या अपनी श्रेणियों द्वारा ऐप्स को समूहित करने के लिए होम स्क्रीन स्विचर दिखाएं, बंद होने पर चयन को बनाए रखें</string>
-    <string name="settings_appearance_patch_list">पैच सूची</string>
-    <string name="settings_appearance_patch_categories">श्रेणी के अनुसार समूहित करें</string>
-    <string name="settings_appearance_patch_categories_description">स्रोत द्वारा घोषित श्रेणियों के अनुसार पैच सूचियों को अनुभागों में विभाजित करें, और जो स्रोत कोई श्रेणी घोषित नहीं करते, उन्हें सादा सूची के रूप में छोड़ दें।</string>
     <string name="settings_appearance_repatch_notice">पुनः पैच सूचना</string>
-    <string name="settings_appearance_repatch_notice_description">जब पैच किए गए ऐप्स को फिर से पैच किया जा सके, तो होम स्क्रीन पर एक बैनर दिखाएँ</string>
     <string name="settings_appearance_sort_button">सॉर्ट और फ़िल्टर बटन</string>
     <string name="settings_appearance_sort_button_description">होम स्क्रीन पर सॉर्ट और फ़िल्टर बटन दिखाएँ</string>
     <string name="settings_appearance_app_card_colors">ऐप कार्ड रंग</string>
@@ -769,6 +764,8 @@
     <string name="settings_advanced_updates_background_notifications">रीलेटेड अपडेट नोटिफिकेशन्स</string>
     <string name="settings_advanced_updates_background_notifications_description">बैकग्राउंड में अद्यतन उपलब्ध होने पर सूचित करें।</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">नया रिलीज़ होने पर, ऐप बंद होने पर भी पुश नोटिफिकेशन।</string>
+    <string name="settings_system_notifications_categories">सूचना श्रेणियाँ</string>
+    <string name="settings_system_notifications_categories_description">सिस्टम सेटिंग्स में चुनें कि आपको किन अपडेट की सूचनाएँ मिलें।</string>
     <string name="settings_advanced_update_interval">अपडेट दर देखें</string>
     <string name="settings_advanced_update_interval_dialog_title">अपडेटों के लिए देखें</string>
     <string name="settings_advanced_update_interval_hourly">एक घंटे में एक बार</string>
@@ -791,8 +788,10 @@
     <string name="notification_permission_dialog_title">नोटिफिकेशन अनुमति दें</string>
     <string name="notification_permission_dialog_description">जब पृष्ठभूमि में अपडेट उपलब्ध हों तो आपको अलर्ट करने के लिए मोर्फ़ को अधिसूचना अनुमति की आवश्यकता है</string>
     <string name="notification_post_patch_dialog_title">अपडेट उपलब्ध होने पर सूचित किया जाना चाहेगा?</string>
-    <string name="notification_channel_fcm_updates">अपडेट सूचनाएं</string>
-    <string name="notification_channel_fcm_updates_description">नए मोर्फ़ और पैच रिलीज़ के बारे में सूचनाएं</string>
+    <string name="notification_channel_manager_updates">Morphe अपडेट</string>
+    <string name="notification_channel_manager_updates_description">नए Morphe रिलीज़ के बारे में सूचनाएँ</string>
+    <string name="notification_channel_patch_updates">पैच अपडेट</string>
+    <string name="notification_channel_patch_updates_description">नए पैच रिलीज़ के बारे में सूचनाएँ</string>
     <string name="notification_channel_patcher">पैचिंग</string>
     <string name="notification_channel_patcher_description">जब मोर्फ़ पृष्ठभूमि में किसी ऐप को पैच कर रहा हो तो दिखाया गया</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,19 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">एक धुन चुनें</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">आइमपोर्ट और एक्सपोर्ट</string>
-    <string name="settings_system_keystore">कीस्टोर</string>
-    <string name="settings_system_import_keystore_description">आपके साइनिंग कीस्टोर को आयात या निर्यात करता है।</string>
+    <string name="settings_system_signing_key">साइनिंग कुंजी</string>
+    <string name="settings_system_signing_key_description">उस कुंजी का बैकअप और पुनर्स्थापना करता है जिससे आपके पैच किए गए ऐप साइन किए जाते हैं</string>
+    <string name="settings_system_signing_key_dialog_description">Morphe द्वारा पैच किया गया हर ऐप इसी कुंजी से साइन किया जाता है। इसकी एक प्रति सुरक्षित रखें: इसके बिना पैच किए गए ऐप को अपडेट करने के लिए पहले उसे अनइंस्टॉल करना होगा</string>
+    <string name="settings_system_signing_key_missing">Morphe आपके पहले पैच के साथ एक बनाता है।</string>
+    <string name="settings_system_signing_key_created">%s को बनाया गया</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 फ़िंगरप्रिंट</string>
+    <string name="settings_system_backup_appearance_description">थीम, रंग और भाषा</string>
+    <string name="settings_system_backup_patching">पैच करना और इंस्टॉल करना</string>
+    <string name="settings_system_backup_patching_description">इंस्टॉलर, पैचर और सहेजे गए APK</string>
+    <string name="settings_system_backup_updates_description">प्रीरिलीज़ और अपडेट की जाँच</string>
+    <string name="settings_system_backup_sources_description">कस्टम स्रोत और GitHub टोकन</string>
+    <string name="settings_system_backup_patch_selections_description">हर ऐप के लिए चुने गए पैच</string>
+    <string name="settings_system_backup_signing_key_note">साइनिंग कुंजी का बैकअप अलग से लिया जाता है</string>
     <string name="settings_system_import_keystore_dialog_title">कीस्टोर के क्रेडेंशियल दर्ज करें</string>
     <string name="settings_system_import_keystore_dialog_description">केस्टोर के क्रेडेंशियल्स के लिए प्रवेश करना होगा इसे आयात करने के लिए।</string>
     <string name="settings_system_import_keystore_dialog_alias_field">यूज़रनेम (एलियास)</string>
@@ -1005,7 +1015,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">गलत कीस्टोर क्रेडेंशियल</string>
     <string name="settings_system_import_keystore_success">कीस्टोर आयम किया गया</string>
     <string name="settings_system_import_keystore_failed">कीस्टोर आयम करने में विफल</string>
-    <string name="settings_system_export_keystore_unavailable">एक्सपोर्ट करने के लिए कीस्टोर उपलब्ध नहीं है</string>
     <string name="settings_system_export_keystore_success">कीस्टोर एक्सपोर्ट किया गया</string>
     <string name="settings_system_export_keystore_failed">कीस्टोर एक्सपोर्ट करने में विफल।</string>
     <string name="settings_system_show_password_field">पासवर्ड दिखाएं</string>
@@ -1024,7 +1033,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">बैकअप से गायब आइटम जोड़ें। मौजूदा आइटम अपरिवर्तित रहेंगे</string>
     <string name="settings_system_export_manager_settings_fail">मोर्फ़ सेटिंग्स निर्यात करने में विफल: %s</string>
     <string name="settings_system_export_manager_settings_success">मोर्फ़ सेटिंग्स निर्यात की गईं</string>
-    <string name="settings_system_debug">डिबग</string>
+    <string name="settings_system_export_debug_logs">डीबग लॉग निर्यात करें</string>
     <string name="settings_system_export_debug_logs_description">समस्या निवारण के लिए सिस्टम लॉग सहेजता है।</string>
     <string name="settings_system_export_debug_logs_export_read_failed">लॉग पढ़ने में विफल रहा (अनुक्रमणिका %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">लॉग्स एक्सपोर्ट करने में विफल</string>
@@ -1133,8 +1142,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">छिपी हुई फ़ाइलें दिखाएं</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">मorphe के बारे में</string>
-    <string name="settings_system_share_website">वेबसाइट शेयर करें</string>
-    <string name="settings_system_share_website_description">आधिकारिक Morphe वेबसाइट साझा करता है।</string>
     <string name="settings_system_manager_description">यह एक ओपन-सोर्स परियोजना है जो लोकप्रिय एंड्रॉइड ऐप्स के आधुनिक, सुव्यवस्थित पैचिंग के लिए है, जो सामुदायिक प्रतिक्रिया और योगदान से प्रेरित है</string>
     <string name="credits">क्रेडिट</string>
     <string name="credits_current_development">वर्तमान विकास</string>
@@ -1269,7 +1276,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">%s के लिए परिवर्तन</string>
     <string name="changelog_general_changes">सामान्य परिवर्तन</string>
     <string name="whats_new">नया क्या है</string>
-    <string name="changelog_description">इस अपडेट में नवीनतम बदलाव देखें</string>
+    <string name="changelog_description">इस संस्करण में नया क्या है</string>
     <string name="changelog_download_fail">परिवर्तन लॉग डाउनलोड करने में विफल: %s</string>
     <string name="changelog_empty">कोई चेंजलॉग उपलब्ध नहीं है</string>
     <string name="changelog_show_older">पुराने रिलीज़ दिखाएं</string>
@@ -1316,5 +1323,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">क्या आप Morphe की मुख्य विशेषताओं का त्वरित दौरा करना चाहेंगे?</string>
     <string name="tour_prompt_confirm">मुझे दिखाओ</string>
     <string name="onboarding_restart_title">सुविधा दौरा</string>
-    <string name="onboarding_restart_desc">Morphe की प्रमुख विशेषताओं का निर्देशित दौरा करें।</string>
+    <string name="onboarding_restart_desc">मुख्य सुविधाओं का निर्देशित परिचय</string>
 </resources>

@@ -240,7 +240,6 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
-    <string name="settings_system_share_website">વેબસાઇટ બાટો </string>
     <!-- Easter egg offered after seven taps on the version in the About dialog -->
     <!-- Shared strings -->
     <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the

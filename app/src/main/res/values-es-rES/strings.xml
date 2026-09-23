@@ -719,12 +719,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_greeting_phrases">Frases de saludo</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Muestra un mensaje de saludo en la pantalla de inicio</string>
     <string name="settings_appearance_app_grouping">Agrupación de aplicaciones</string>
-    <string name="settings_appearance_app_grouping_description">Muestra un selector de pantalla de inicio para agrupar aplicaciones por origen o por tus propias categorías, manteniendo la selección cuando esté desactivado</string>
-    <string name="settings_appearance_patch_list">Lista de parches</string>
-    <string name="settings_appearance_patch_categories">Agrupar por categoría</string>
-    <string name="settings_appearance_patch_categories_description">Divide las listas de parches por las categorías que declara una fuente, dejando las fuentes que no declaran ninguna como una lista simple</string>
     <string name="settings_appearance_repatch_notice">Aviso de nuevos parches</string>
-    <string name="settings_appearance_repatch_notice_description">Muestra un banner en la pantalla de inicio cuando haya aplicaciones parcheadas que puedan volver a parchearse</string>
     <string name="settings_appearance_sort_button">Botón de ordenar y filtrar</string>
     <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar y filtrar en la pantalla de inicio</string>
     <string name="settings_appearance_app_card_colors">Colores de las tarjetas de aplicaciones</string>
@@ -769,6 +764,8 @@ Los parches no se ven afectados: habilita los parches preliminares para cada fue
     <string name="settings_advanced_updates_background_notifications">Notificaciones de actualización en segundo plano</string>
     <string name="settings_advanced_updates_background_notifications_description">Comprueba periódicamente si hay actualizaciones en segundo plano y notifica cuando estén disponibles</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Recibe notificaciones push instantáneas de las nuevas versiones, incluso cuando la aplicación está cerrada</string>
+    <string name="settings_system_notifications_categories">Categorías de notificaciones</string>
+    <string name="settings_system_notifications_categories_description">Elige en la configuración del sistema de qué actualizaciones quieres recibir notificaciones</string>
     <string name="settings_advanced_update_interval">Frecuencia de comprobación</string>
     <string name="settings_advanced_update_interval_dialog_title">Buscar actualizaciones</string>
     <string name="settings_advanced_update_interval_hourly">Una vez cada hora</string>
@@ -791,8 +788,10 @@ Los parches no se ven afectados: habilita los parches preliminares para cada fue
     <string name="notification_permission_dialog_title">Permitir notificaciones</string>
     <string name="notification_permission_dialog_description">Morphe necesita el permiso de notificación para avisarte cuando haya actualizaciones disponibles en segundo plano</string>
     <string name="notification_post_patch_dialog_title">¿Quieres ser notificado cuando haya actualizaciones disponibles?</string>
-    <string name="notification_channel_fcm_updates">Notificaciones de actualización</string>
-    <string name="notification_channel_fcm_updates_description">Notificaciones sobre nuevas versiones de Morphe y parches</string>
+    <string name="notification_channel_manager_updates">Actualizaciones de Morphe</string>
+    <string name="notification_channel_manager_updates_description">Notificaciones sobre nuevas versiones de Morphe</string>
+    <string name="notification_channel_patch_updates">Actualizaciones de parches</string>
+    <string name="notification_channel_patch_updates_description">Notificaciones sobre nuevas versiones de parches</string>
     <string name="notification_channel_patcher">Parcheando</string>
     <string name="notification_channel_patcher_description">Se muestra mientras Morphe está parcheando una aplicación en segundo plano</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,19 @@ Detalles: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Elegir un tono</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importar y exportar</string>
-    <string name="settings_system_keystore">Almacén de claves</string>
-    <string name="settings_system_import_keystore_description">Importa o exporta tu almacén de claves de firma</string>
+    <string name="settings_system_signing_key">Clave de firma</string>
+    <string name="settings_system_signing_key_description">Realiza una copia de seguridad y restaura la clave con la que se firmaron sus aplicaciones parcheadas</string>
+    <string name="settings_system_signing_key_dialog_description">Todas las aplicaciones a las que Morphe parchea están firmadas con esta clave. Guarda una copia: sin ella, las aplicaciones parcheadas solo se podrán actualizar después de desinstalarlas.</string>
+    <string name="settings_system_signing_key_missing">Morphe crea una con tu primer parcheo</string>
+    <string name="settings_system_signing_key_created">%s creada</string>
+    <string name="settings_system_signing_key_fingerprint">Huella SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Tema, colores e idioma</string>
+    <string name="settings_system_backup_patching">Parcheo e instalación</string>
+    <string name="settings_system_backup_patching_description">Instalador, parcheador y APK guardados</string>
+    <string name="settings_system_backup_updates_description">Versiones preliminares y comprobaciones de actualizaciones</string>
+    <string name="settings_system_backup_sources_description">Fuentes personalizadas y token de GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Parches seleccionados para cada aplicación</string>
+    <string name="settings_system_backup_signing_key_note">La clave de firma se respalda por separado</string>
     <string name="settings_system_import_keystore_dialog_title">Introduce las credenciales del almacén de claves</string>
     <string name="settings_system_import_keystore_dialog_description">Necesitarás introducir las credenciales del almacén de claves para importarlo</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Nombre de usuario (Alias)</string>
@@ -1005,7 +1015,6 @@ Detalles: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Credenciales de almacén de claves incorrectas</string>
     <string name="settings_system_import_keystore_success">Almacén de claves importado</string>
     <string name="settings_system_import_keystore_failed">No se pudo importar el almacén de claves</string>
-    <string name="settings_system_export_keystore_unavailable">No hay almacén de claves disponible para exportar</string>
     <string name="settings_system_export_keystore_success">Almacén de claves exportado</string>
     <string name="settings_system_export_keystore_failed">Error al exportar el almacén de claves</string>
     <string name="settings_system_show_password_field">Mostrar contraseña</string>
@@ -1024,7 +1033,7 @@ Detalles: %2$s"</string>
     <string name="import_mode_merge_description">Añadir los elementos faltantes de la copia de seguridad. Los elementos existentes se mantienen sin cambios</string>
     <string name="settings_system_export_manager_settings_fail">Error al exportar ajustes de Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Ajustes de Morphe exportados</string>
-    <string name="settings_system_debug">Depurar</string>
+    <string name="settings_system_export_debug_logs">Exportar registros de depuración</string>
     <string name="settings_system_export_debug_logs_description">Guarda registros del sistema para solucionar problemas</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Error al leer los registros (código de salida %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Error al exportar registros</string>
@@ -1133,8 +1142,6 @@ Detalles: %2$s"</string>
     <string name="file_picker_show_hidden_files">Mostrar archivos ocultos</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Acerca de</string>
-    <string name="settings_system_share_website">Compartir sitio web</string>
-    <string name="settings_system_share_website_description">Comparte el sitio web oficial de Morphe</string>
     <string name="settings_system_manager_description">Un proyecto de código abierto para parchear aplicaciones populares de Android de forma moderna y eficiente, impulsado por la comunidad con sus comentarios y contribuciones</string>
     <string name="credits">Créditos</string>
     <string name="credits_current_development">Desarrollo actual</string>
@@ -1269,7 +1276,7 @@ Detalles: %2$s"</string>
     <string name="changelog_for_app">Cambios para %s</string>
     <string name="changelog_general_changes">Cambios generales</string>
     <string name="whats_new">Novedades</string>
-    <string name="changelog_description">Revisa los últimos cambios en esta actualización</string>
+    <string name="changelog_description">Novedades de esta versión</string>
     <string name="changelog_download_fail">Error al descargar el registro de cambios: %s</string>
     <string name="changelog_empty">No hay registro de cambios disponible</string>
     <string name="changelog_show_older">Mostrar versiones anteriores</string>
@@ -1316,5 +1323,5 @@ Detalles: %2$s"</string>
     <string name="tour_prompt_desc">¿Quieres un tour rápido de las funciones clave de Morphe?</string>
     <string name="tour_prompt_confirm">Muéstrame</string>
     <string name="onboarding_restart_title">Tour de funciones</string>
-    <string name="onboarding_restart_desc">Realiza un tour guiado de las funciones clave de Morphe</string>
+    <string name="onboarding_restart_desc">Una visita guiada por las funciones principales</string>
 </resources>

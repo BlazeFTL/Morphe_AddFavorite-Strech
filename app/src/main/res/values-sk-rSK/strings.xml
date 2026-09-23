@@ -719,12 +719,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_greeting_phrases">Pozdravné frázy</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazovať pozdravnú správu na domovskej obrazovke</string>
     <string name="settings_appearance_app_grouping">Zoskupovanie aplikácií</string>
-    <string name="settings_appearance_app_grouping_description">Zobraziť prepínač na domácej obrazovke na zoskupovanie aplikácií podľa zdroja alebo vlastných kategórií, pričom výber sa zachová aj keď je vypnutý</string>
-    <string name="settings_appearance_patch_list">Zoznam záplat</string>
-    <string name="settings_appearance_patch_categories">Zoskupiť podľa kategórií</string>
-    <string name="settings_appearance_patch_categories_description">Rozdelí zoznamy záplat podľa kategórií, ktoré zdroj deklaruje; zdroje bez deklarovaných kategórií ponechá ako obyčajný zoznam</string>
     <string name="settings_appearance_repatch_notice">Upozornenie na opätovné záplatovanie</string>
-    <string name="settings_appearance_repatch_notice_description">Zobraziť banner na domovskej obrazovke, ak je možné opätovne záplatovať už záplatované aplikácie</string>
     <string name="settings_appearance_sort_button">Tlačidlo triedenia a filtrovania</string>
     <string name="settings_appearance_sort_button_description">Zobraziť tlačidlo triedenia a filtrovania na domovskej obrazovke</string>
     <string name="settings_appearance_app_card_colors">Farby karty aplikácie</string>
@@ -769,6 +764,8 @@ Záplaty tým nie sú ovplyvnené: povoľte predbežné záplaty pre každý zdr
     <string name="settings_advanced_updates_background_notifications">Upozornenia aktualizácie na pozadí</string>
     <string name="settings_advanced_updates_background_notifications_description">Pravidelne skontrolovať aktualizácie na pozadí a upozorniť, keď budú k dispozícii</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Prijať okamžité upozornenie o nových vydaniach, dokonca aj keď je aplikácia zatvorená</string>
+    <string name="settings_system_notifications_categories">Kategórie oznámení</string>
+    <string name="settings_system_notifications_categories_description">V systémových nastaveniach si vyberte, o ktorých aktualizáciách chcete dostávať upozornenia.</string>
     <string name="settings_advanced_update_interval">Frekvencia kontroly</string>
     <string name="settings_advanced_update_interval_dialog_title">Skontrolovať aktualizácie</string>
     <string name="settings_advanced_update_interval_hourly">Raz za hodinu</string>
@@ -791,8 +788,10 @@ Záplaty tým nie sú ovplyvnené: povoľte predbežné záplaty pre každý zdr
     <string name="notification_permission_dialog_title">Povoliť upozornenia</string>
     <string name="notification_permission_dialog_description">Morphe potrebuje povolenie na upozornenia, aby vás upozornil aj na pozadí, keď budú k dispozícii aktualizácie</string>
     <string name="notification_post_patch_dialog_title">Chceli by ste byť informovaný o dostupných aktualizáciách?</string>
-    <string name="notification_channel_fcm_updates">Upozornenia na aktualizácie</string>
-    <string name="notification_channel_fcm_updates_description">Upozornenia na nové vydania Morphe a záplaty</string>
+    <string name="notification_channel_manager_updates">Aktualizácie Morphe</string>
+    <string name="notification_channel_manager_updates_description">Oznámenia o nových verziách Morphe</string>
+    <string name="notification_channel_patch_updates">Opravné aktualizácie</string>
+    <string name="notification_channel_patch_updates_description">Oznámenia o nových opravných verziách</string>
     <string name="notification_channel_patcher">Aplikujem záplaty</string>
     <string name="notification_channel_patcher_description">Zobrazuje sa, keď Morphe pláta aplikácie na pozadí</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Vyberte tón</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import a export</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Importuje alebo exportuje váš úložný kľúč pre podpisovanie</string>
     <string name="settings_system_import_keystore_dialog_title">Zadajte údaje pre prístup ku keystoru</string>
     <string name="settings_system_import_keystore_dialog_description">Na importovanie budete musieť zadať údaje pre prístup ku keystoru</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Používateľské meno (alias)</string>
@@ -1005,7 +1002,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Nesprávne údaje pre prístup ku keystoru</string>
     <string name="settings_system_import_keystore_success">Keystore bol importovaný</string>
     <string name="settings_system_import_keystore_failed">Nepodarilo sa importovať keystore</string>
-    <string name="settings_system_export_keystore_unavailable">Žiadny dostupný keystore na export</string>
     <string name="settings_system_export_keystore_success">Keystore bol exportovaný</string>
     <string name="settings_system_export_keystore_failed">Nepodarilo sa exportovať keystore</string>
     <string name="settings_system_show_password_field">Zobraziť heslo</string>
@@ -1024,7 +1020,7 @@ Podrobnosti: %2$s"</string>
     <string name="import_mode_merge_description">Pridať chýbajúce položky zo zálohy. Existujúce položky zostanú nezmenené</string>
     <string name="settings_system_export_manager_settings_fail">Nepodarilo sa exportovať nastavenia Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Nastavenia Morphe boli exportované</string>
-    <string name="settings_system_debug">Ladenie</string>
+    <string name="settings_system_export_debug_logs">Exportovať záznamy ladenia</string>
     <string name="settings_system_export_debug_logs_description">Uložiť systémové záznamy pre pomoc s riešením problémov</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Nepodarilo sa načítať záznamy (kód %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Nepodarilo sa exportovať záznamy</string>
@@ -1133,8 +1129,6 @@ Podrobnosti: %2$s"</string>
     <string name="file_picker_show_hidden_files">Zobraziť skryté súbory</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">O aplikácii</string>
-    <string name="settings_system_share_website">Zdieľať webstránku</string>
-    <string name="settings_system_share_website_description">Zdieľať oficiálnu webstránku Morphe</string>
     <string name="settings_system_manager_description">Projekt otvoreného zdroja pre moderné a zjednodušené záplatovanie populárnych aplikácií Android, poháňaný spätnou väzbou a príspevkom komunity</string>
     <string name="credits">Poďakovanie</string>
     <string name="credits_current_development">Aktuálny vývoj</string>
@@ -1269,7 +1263,6 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_for_app">Zmeny pre %s</string>
     <string name="changelog_general_changes">Všeobecné zmeny</string>
     <string name="whats_new">Čo je nové</string>
-    <string name="changelog_description">Pozrite si najnovšie zmeny v tejto aktualizácii</string>
     <string name="changelog_download_fail">Nepodarilo sa stiahnuť zoznam zmien: %s</string>
     <string name="changelog_empty">Zoznam zmien nie je k dispozícii</string>
     <string name="changelog_show_older">Zobraziť staršie verzie</string>
@@ -1316,5 +1309,4 @@ Chcete aj tak pokračovať?"</string>
     <string name="tour_prompt_desc">Chcete si rýchlo pozrieť kľúčové funkcie Morphe?</string>
     <string name="tour_prompt_confirm">Prevezmite ma</string>
     <string name="onboarding_restart_title">Prehliadka funkcií</string>
-    <string name="onboarding_restart_desc">Pozrite si prehliadku kľúčových funkcií Morphe</string>
 </resources>

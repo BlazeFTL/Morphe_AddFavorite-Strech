@@ -718,12 +718,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_greeting_phrases">Selamlama cümleleri</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ana ekranda bir selamlama mesajı göster</string>
     <string name="settings_appearance_app_grouping">Uygulama gruplandırma</string>
-    <string name="settings_appearance_app_grouping_description">Uygulamaları kaynaklarına veya kendi kategorilerinize göre gruplamak için bir ana ekran değiştirici göster. Kapalıyken seçimi korur</string>
-    <string name="settings_appearance_patch_list">Yama listesi</string>
-    <string name="settings_appearance_patch_categories">Kategoriye göre grupla</string>
-    <string name="settings_appearance_patch_categories_description">Yama listelerini, kaynakların bildirdiği kategorilere göre bölümlere ayırır; hiçbir kategori bildirmeyen kaynakları düz liste olarak bırakır.</string>
     <string name="settings_appearance_repatch_notice">Yeniden yama bildirimi</string>
-    <string name="settings_appearance_repatch_notice_description">Yamalı uygulamalar yeniden yamalanabildiğinde ana ekranda bir afiş göster</string>
     <string name="settings_appearance_sort_button">Sıralama ve filtreleme düğmesi</string>
     <string name="settings_appearance_sort_button_description">Ana ekranda sıralama ve filtreleme düğmesini göster</string>
     <string name="settings_appearance_app_card_colors">Uygulama kartı renkleri</string>
@@ -768,6 +763,8 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="settings_advanced_updates_background_notifications">Arka plan güncelleme bildirimleri</string>
     <string name="settings_advanced_updates_background_notifications_description">Arka planda düzenli aralıklarla güncellemeleri kontrol edin ve güncellemeler mevcut olduğunda bildirim gönderin</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Uygulama kapalıyken bile yeni sürümler için anlık bildirim alın</string>
+    <string name="settings_system_notifications_categories">Bildirim kategorileri</string>
+    <string name="settings_system_notifications_categories_description">Sistem ayarlarında hangi güncellemelerin sizi bilgilendireceğini seçin</string>
     <string name="settings_advanced_update_interval">Güncelleme sıklığı</string>
     <string name="settings_advanced_update_interval_dialog_title">Güncellemeyi kontrol et</string>
     <string name="settings_advanced_update_interval_hourly">Saatte bir</string>
@@ -790,8 +787,10 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="notification_permission_dialog_title">Bildirimlere izin ver</string>
     <string name="notification_permission_dialog_description">Morphe, arka planda güncellemeler kullanılabilir olduğunda sizi uyarmak için bildirim izni gerektirir</string>
     <string name="notification_post_patch_dialog_title">Güncellemeler mevcut olduğunda bildirim almak ister misiniz?</string>
-    <string name="notification_channel_fcm_updates">Güncelleme bildirimleri</string>
-    <string name="notification_channel_fcm_updates_description">Yeni Morphe ve yama sürümleri hakkında bildirimler</string>
+    <string name="notification_channel_manager_updates">Morphe güncellemeleri</string>
+    <string name="notification_channel_manager_updates_description">Yeni Morphe sürümleri hakkında bildirimler</string>
+    <string name="notification_channel_patch_updates">Yama güncellemeleri</string>
+    <string name="notification_channel_patch_updates_description">Yeni yama sürümleri hakkında bildirimler</string>
     <string name="notification_channel_patcher">Yamalanıyor</string>
     <string name="notification_channel_patcher_description">Morphe bir uygulamayı arka planda yamalarken gösterilir</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -994,8 +993,6 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Bir ton seç</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">İçe &amp; dışa aktar</string>
-    <string name="settings_system_keystore">Anahtar deposu</string>
-    <string name="settings_system_import_keystore_description">İmzalama anahtar deponuzu içe aktarır ya da dışa aktarır</string>
     <string name="settings_system_import_keystore_dialog_title">Anahtar deposu kimlik bilgilerini girin</string>
     <string name="settings_system_import_keystore_dialog_description">İçe aktarmak için anahtar deposu kimlik bilgilerini girmeniz gerekecek</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Kullanıcı Adı (Takma Ad)</string>
@@ -1004,7 +1001,6 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Yanlış anahtar deposu kimlik bilgileri</string>
     <string name="settings_system_import_keystore_success">Anahtar deposu içe aktarıldı</string>
     <string name="settings_system_import_keystore_failed">Anahtar deposu içe aktarılamadı</string>
-    <string name="settings_system_export_keystore_unavailable">Dışa aktarılacak anahtar deposu yok</string>
     <string name="settings_system_export_keystore_success">Anahtar deposu dışa aktarıldı</string>
     <string name="settings_system_export_keystore_failed">Anahtar deposu dışa aktarılamadı</string>
     <string name="settings_system_show_password_field">Parolayı göster</string>
@@ -1023,7 +1019,7 @@ Ayrıntılar: %2$s"</string>
     <string name="import_mode_merge_description">Yedeklemeden eksik öğeleri ekleyin. Mevcut öğeler değişmeden bırakılır</string>
     <string name="settings_system_export_manager_settings_fail">Morphe ayarları dışa aktarılamadı: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe ayarları dışa aktarıldı</string>
-    <string name="settings_system_debug">Hata ayıklama</string>
+    <string name="settings_system_export_debug_logs">Hata ayıklama kayıtlarını dışa aktar</string>
     <string name="settings_system_export_debug_logs_description">Sorun gidermek için sistem günlüklerini kaydeder</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Günlükler okunamadı (çıkış kodu %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Kayıtlar dışa aktarılamadı</string>
@@ -1132,8 +1128,6 @@ Ayrıntılar: %2$s"</string>
     <string name="file_picker_show_hidden_files">Gizli dosyaları göster</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Hakkında</string>
-    <string name="settings_system_share_website">Web sitesini paylaş</string>
-    <string name="settings_system_share_website_description">Resmi Morphe web sitesini paylaşır</string>
     <string name="settings_system_manager_description">Popüler Android uygulamalarının modern ve verimli şekilde yamalanmasını sağlayan, topluluk geri bildirimleri ve katkılarıyla geliştirilen açık kaynaklı bir proje</string>
     <string name="credits">Takdir</string>
     <string name="credits_current_development">Mevcut geliştirme</string>
@@ -1268,7 +1262,6 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_for_app">%s için değişiklikler</string>
     <string name="changelog_general_changes">Genel değişiklikler</string>
     <string name="whats_new">Yenilikler</string>
-    <string name="changelog_description">Bu güncellemede yapılmış son değişiklikleri inceleyin</string>
     <string name="changelog_download_fail">Değişiklik günlüğü indirilemedi: %s</string>
     <string name="changelog_empty">Değişiklik günlüğü yok</string>
     <string name="changelog_show_older">Daha eski sürümleri göster</string>
@@ -1315,5 +1308,4 @@ Devam etmek istiyor musunuz?"</string>
     <string name="tour_prompt_desc">Morphe\'nin temel özelliklerine hızlı bir bakış atmak ister misiniz?</string>
     <string name="tour_prompt_confirm">Bana etrafı göster</string>
     <string name="onboarding_restart_title">Özellik turu</string>
-    <string name="onboarding_restart_desc">Morphe\'nin temel özelliklerinde rehberli bir tura çıkın</string>
 </resources>

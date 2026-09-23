@@ -717,12 +717,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_greeting_phrases">Greeting frases</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Sýna kveðju skilaboð á heimaskjá</string>
     <string name="settings_appearance_app_grouping">Forritaflokkun</string>
-    <string name="settings_appearance_app_grouping_description">Sýna rofasa á heimaskjá til að flokka forrit eftir uppruna eða eigin flokkum, halda vali þegar slökkt er á rofanum</string>
-    <string name="settings_appearance_patch_list">Plástralisti</string>
-    <string name="settings_appearance_patch_categories">Flokka eftir flokkum</string>
-    <string name="settings_appearance_patch_categories_description">Skiptir plástralistum eftir flokkum sem uppruni tilgreinir, en upprunar sem tilgreina enga flokka verða eftir sem venjulegur listi</string>
     <string name="settings_appearance_repatch_notice">Tilkynning um endurplástrun</string>
-    <string name="settings_appearance_repatch_notice_description">Sýna borða á heimaskjánum þegar hægt er að plástra forritin aftur</string>
     <string name="settings_appearance_sort_button">Röðunar- og síunarhnappur</string>
     <string name="settings_appearance_sort_button_description">Sýna röðunar- og síunarhnappinn á heimaskjánum</string>
     <string name="settings_appearance_app_card_colors">Litir á app kortum</string>
@@ -767,6 +762,8 @@ Plástrar verða ekki fyrir áhrifum: virkjaðu forútgáfuplástra fyrir hverja
     <string name="settings_advanced_updates_background_notifications">Bakgrunns uppfærslukynning</string>
     <string name="settings_advanced_updates_background_notifications_description">Á þennan hátt getur þú hægt en örugglega sagt frá þegar uppfærslur eru í boði</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Skilaboð um nýjar útgáfur, jafnvel þegar appið er lokað</string>
+    <string name="settings_system_notifications_categories">Tilkynningaflokkar</string>
+    <string name="settings_system_notifications_categories_description">Veldu í kerfisstillingum hvaða uppfærslur tilkynna þér</string>
     <string name="settings_advanced_update_interval">Lítill tímatali</string>
     <string name="settings_advanced_update_interval_dialog_title">Athugaðu fyrir uppfærslur</string>
     <string name="settings_advanced_update_interval_hourly">Einu sinni í klukkutíma</string>
@@ -789,8 +786,10 @@ Plástrar verða ekki fyrir áhrifum: virkjaðu forútgáfuplástra fyrir hverja
     <string name="notification_permission_dialog_title">Leyfa tilkynningar</string>
     <string name="notification_permission_dialog_description">Morphe þarf tilkynningaleyfi til að láta þig vita þegar uppfærslur eru í boði í bakgrunni</string>
     <string name="notification_post_patch_dialog_title">Viltu taka þátt í uppfærslukynningu?</string>
-    <string name="notification_channel_fcm_updates">Uppfærslukynningar</string>
-    <string name="notification_channel_fcm_updates_description">Kynningar um nýjar Morphe útgáfur og breytingar</string>
+    <string name="notification_channel_manager_updates">Morphe-uppfærslur</string>
+    <string name="notification_channel_manager_updates_description">Tilkynningar um nýjar Morphe-útgáfur</string>
+    <string name="notification_channel_patch_updates">Plástursuppfærslur</string>
+    <string name="notification_channel_patch_updates_description">Tilkynningar um nýjar plástursútgáfur</string>
     <string name="notification_channel_patcher">Breyting</string>
     <string name="notification_channel_patcher_description">Sýnt þegar Morphe breytir app í bakgrunninum</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -990,8 +989,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Veldu tón</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Inn- og útflutningur</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Uppfært</string>
     <string name="settings_system_import_keystore_dialog_title">Sláðu inn lykilgeymiskenni</string>
     <string name="settings_system_import_keystore_dialog_description">Þú þarft að slá inn valdarkenni lykilgeymisins til að flytja það</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Notnaarnafn (Alias)</string>
@@ -1000,7 +997,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Rangt lykilgeymiskenni</string>
     <string name="settings_system_import_keystore_success">Lykilgeymurinn var fluttur inn</string>
     <string name="settings_system_import_keystore_failed">Ekki tókst að flytja inn lykilgeymi</string>
-    <string name="settings_system_export_keystore_unavailable">Enginn lykilgeymur í boði til að flytja út</string>
     <string name="settings_system_export_keystore_success">Lykilgeymur fluttur út</string>
     <string name="settings_system_export_keystore_failed">Ekki tókst að flytja út keystore</string>
     <string name="settings_system_show_password_field">Sýna lykilorð</string>
@@ -1019,7 +1015,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="import_mode_merge_description">Bæta við vöntunum hlutum úr afritinu. Núverandi hlutir eru óbreyttir</string>
     <string name="settings_system_export_manager_settings_fail">Ekki tókst að flytja út Morphe stillingar: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe stillingar fluttar út</string>
-    <string name="settings_system_debug">Debug</string>
     <string name="settings_system_export_debug_logs_description">Geyma kerfislogg fyrir vandamálaleit</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Ekki tókst að lesa logs (exit kóði %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Ekki tókst að flytja út logs</string>
@@ -1128,8 +1123,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="file_picker_show_hidden_files">Sýna falin skrá</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Um</string>
-    <string name="settings_system_share_website">Deila vefsíðu</string>
-    <string name="settings_system_share_website_description">Deila opinberri Morphe vefsíðu</string>
     <string name="settings_system_manager_description">Opinn-hugsaðar verkefni fyrir nútímalega, einfalda breytingu á vinsælum Android forunum, knúin áfram af samfélagsáhrifum og framlögum</string>
     <string name="credits">Viðurkenningar</string>
     <string name="credits_current_development">Núverandi þróun</string>
@@ -1264,7 +1257,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="changelog_for_app">Breytingar fyrir %s</string>
     <string name="changelog_general_changes">Almennar breytingar</string>
     <string name="whats_new">Hvað er nýtt</string>
-    <string name="changelog_description">Skoða nýjustu breytingarnar í þessari uppfærslu</string>
     <string name="changelog_download_fail">Ekki tókst að sækja breytingaskrá: %s</string>
     <string name="changelog_empty">Engin breytingaskrá í boði</string>
     <string name="changelog_show_older">Sýna eldri útgáfur</string>
@@ -1311,5 +1303,4 @@ Haltu samt sem áður?"</string>
     <string name="tour_prompt_desc">Viltu fljót ferð um lykileiginleika Morph?</string>
     <string name="tour_prompt_confirm">Sýndu mér leiðina</string>
     <string name="onboarding_restart_title">Ferðaleið</string>
-    <string name="onboarding_restart_desc">Fá leiðsagnarferð um lykileiginleika Morph</string>
 </resources>

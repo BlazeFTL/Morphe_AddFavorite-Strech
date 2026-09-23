@@ -719,12 +719,7 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_greeting_phrases">Groetfrases</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wys \'n groet-boodskap op die tuisskerm</string>
     <string name="settings_appearance_app_grouping">Toepassingsgroepering</string>
-    <string name="settings_appearance_app_grouping_description">Wys \'n tuisskermskakelaar om toepassings volgens bron of jou eie kategorieë te groepeer, en die keuse te behou wanneer dit af is</string>
-    <string name="settings_appearance_patch_list">Patchlys</string>
-    <string name="settings_appearance_patch_categories">Groepeer volgens kategorie</string>
-    <string name="settings_appearance_patch_categories_description">Verdeel patchlyste in afdelings volgens die kategorieë wat deur \'n bron verklaar word, en laat bronne wat geen kategorieë verklaar nie as \'n gewone lys.</string>
     <string name="settings_appearance_repatch_notice">Re-patch-kennisgewing</string>
-    <string name="settings_appearance_repatch_notice_description">Wys \'n banier op die tuisskerm wanneer gepatchede programme weer gepatched kan word</string>
     <string name="settings_appearance_sort_button">Sorteer- en filterknoppie</string>
     <string name="settings_appearance_sort_button_description">Wys die sorteer- en filterknoppie op die tuisskerm</string>
     <string name="settings_appearance_app_card_colors">App-kaartkleure</string>
@@ -769,6 +764,8 @@ Patches word nie beïnvloed nie: aktiveer voorafvrystelling-patches vir elke bro
     <string name="settings_advanced_updates_background_notifications">Agtergrondopdateringskennisgewings</string>
     <string name="settings_advanced_updates_background_notifications_description">Kontroleer periodiek vir opdaterings in die agtergrond en gee kennis wanneer dit beskikbaar is</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Stuurkennisgewings vir nuwe vrystellings, selfs wanneer die toepassing gesluit is</string>
+    <string name="settings_system_notifications_categories">Kennisgewingkategorieë</string>
+    <string name="settings_system_notifications_categories_description">Kies in stelselinstellings watter opdaterings jou in kennis stel</string>
     <string name="settings_advanced_update_interval">Kontroleer frekwensie</string>
     <string name="settings_advanced_update_interval_dialog_title">Kontroleer vir opdaterings</string>
     <string name="settings_advanced_update_interval_hourly">Een keer per uur</string>
@@ -791,8 +788,10 @@ Patches word nie beïnvloed nie: aktiveer voorafvrystelling-patches vir elke bro
     <string name="notification_permission_dialog_title">Laat kennisgewings toe</string>
     <string name="notification_permission_dialog_description">Morphe benodig toestemming om kennisgewings te gee om jou te waarsku wanneer opdaterings in die agtergrond beskikbaar is</string>
     <string name="notification_post_patch_dialog_title">Wil jy kennisgewings ontvang wanneer opdaterings beskikbaar is?</string>
-    <string name="notification_channel_fcm_updates">Opdateringskennisgewings</string>
-    <string name="notification_channel_fcm_updates_description">Kennisgewings oor nuwe Morphe- en pleistervrystellings</string>
+    <string name="notification_channel_manager_updates">Morphe-opdaterings</string>
+    <string name="notification_channel_manager_updates_description">Kennisgewings oor nuwe Morphe-vrystellings</string>
+    <string name="notification_channel_patch_updates">Pleisteropdaterings</string>
+    <string name="notification_channel_patch_updates_description">Kennisgewings oor nuwe pleistervrystellings</string>
     <string name="notification_channel_patcher">Pleister</string>
     <string name="notification_channel_patcher_description">Word gewys terwyl Morphe \'n app in die agtergrond pleister</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,19 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Kies \'n toon</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importeer &amp; eksporteer</string>
-    <string name="settings_system_keystore">Sleutelkooi</string>
-    <string name="settings_system_import_keystore_description">Importeer of voer jou ondertekening sleutelbundel uit</string>
+    <string name="settings_system_signing_key">Ondertekeningsleutel</string>
+    <string name="settings_system_signing_key_description">Rugsteun en herstel die sleutel waarmee jou gepatchte apps onderteken word</string>
+    <string name="settings_system_signing_key_dialog_description">Elke app wat deur Morphe gepatch word, word met hierdie sleutel onderteken. Hou \'n kopie: sonder dit kan gepatchte apps slegs opgedateer word nadat hulle verwyder is</string>
+    <string name="settings_system_signing_key_missing">Morphe skep een met jou eerste patch</string>
+    <string name="settings_system_signing_key_created">Geskep %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256-vingerafdruk</string>
+    <string name="settings_system_backup_appearance_description">Tema, kleure en taal</string>
+    <string name="settings_system_backup_patching">Patch en installeer</string>
+    <string name="settings_system_backup_patching_description">Installeerder, patcher en bewaarde APK\'s</string>
+    <string name="settings_system_backup_updates_description">Voorafvrystellings en opdateringskontroles</string>
+    <string name="settings_system_backup_sources_description">Aangepaste bronne en GitHub-token</string>
+    <string name="settings_system_backup_patch_selections_description">Gekose patches vir elke app</string>
+    <string name="settings_system_backup_signing_key_note">Die ondertekeningsleutel word afsonderlik gerugsteun</string>
     <string name="settings_system_import_keystore_dialog_title">Gee sleutel geloofsbriewe in</string>
     <string name="settings_system_import_keystore_dialog_description">Jy sal die sleutel se geloofsbriewe moet invoer om dit te importeer</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Gebruikersnaam (Alias)</string>
@@ -1005,7 +1015,6 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Verkeerde sleutel geloofsbriewe</string>
     <string name="settings_system_import_keystore_success">Sleutel geïmporteer</string>
     <string name="settings_system_import_keystore_failed">Kon nie sleutel invoer nie</string>
-    <string name="settings_system_export_keystore_unavailable">Geen sleutel beskikbaar om te eksporteer nie</string>
     <string name="settings_system_export_keystore_success">Sleutel uitgevoer</string>
     <string name="settings_system_export_keystore_failed">Kon sleutelwinkel nie uitvoer nie</string>
     <string name="settings_system_show_password_field">Wys wagwoord</string>
@@ -1024,7 +1033,7 @@ Besonderhede: %2$s"</string>
     <string name="import_mode_merge_description">Voeg ontbrekende items van die rugsteun by. Bestaande items bly onveranderd</string>
     <string name="settings_system_export_manager_settings_fail">Kon Morphe-instellings nie uitvoer nie: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe-instellings uitgevoer</string>
-    <string name="settings_system_debug">Ontfout</string>
+    <string name="settings_system_export_debug_logs">Voer ontfoutingslogboeke uit</string>
     <string name="settings_system_export_debug_logs_description">Spaar stelsellogboeke vir foutoplossing</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Kon nie logboeke lees nie (afsluit kode %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Kon nie logboeke uitvoer nie</string>
@@ -1133,8 +1142,6 @@ Besonderhede: %2$s"</string>
     <string name="file_picker_show_hidden_files">Wys versteekte lêers</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Oor</string>
-    <string name="settings_system_share_website">Deel webtuiste</string>
-    <string name="settings_system_share_website_description">Deel die amptelike Morphe-webwerf</string>
     <string name="settings_system_manager_description">Kon nie \'%1$s\' aflaai nie: %2$s</string>
     <string name="credits">Krediete</string>
     <string name="credits_current_development">Huidige ontwikkeling</string>
@@ -1269,7 +1276,7 @@ Besonderhede: %2$s"</string>
     <string name="changelog_for_app">Veranderinge vir %s</string>
     <string name="changelog_general_changes">Algemene veranderinge</string>
     <string name="whats_new">Wat is nuut</string>
-    <string name="changelog_description">Kyk na die nuutste veranderinge in hierdie opdatering</string>
+    <string name="changelog_description">Wat is nuut in hierdie weergawe</string>
     <string name="changelog_download_fail">Kon nie veranderingslogboek aflaai nie: %s</string>
     <string name="changelog_empty">Geen wysiging beskikbaar nie</string>
     <string name="changelog_show_older">Wys ouer vrystellings</string>
@@ -1316,5 +1323,5 @@ Wil jy voortgaan?"</string>
     <string name="tour_prompt_desc">Wil jy \'n vinnige toer van Morphe se sleutelfunksies hê?</string>
     <string name="tour_prompt_confirm">Wys my rond</string>
     <string name="onboarding_restart_title">Kenmerktoer</string>
-    <string name="onboarding_restart_desc">Neem \'n begeleide toer van Morphe se sleutelfunksies</string>
+    <string name="onboarding_restart_desc">\'n Begeleide toer van die belangrikste kenmerke</string>
 </resources>

@@ -719,12 +719,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_greeting_phrases">Frasi di saluto</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Mostra un messaggio di saluto nella schermata principale</string>
     <string name="settings_appearance_app_grouping">Raggruppamento app</string>
-    <string name="settings_appearance_app_grouping_description">Mostra un selettore schermata Home per raggruppare le app per origine o per le tue categorie, mantenendo la selezione quando disattivato</string>
-    <string name="settings_appearance_patch_list">Lista delle patch</string>
-    <string name="settings_appearance_patch_categories">Gruppi per categoria</string>
-    <string name="settings_appearance_patch_categories_description">Seziona gli elenchi di patch in base alle categorie dichiarate da una fonte, lasciando le fonti che non dichiarano alcuna categoria come un semplice elenco.?</string>
     <string name="settings_appearance_repatch_notice">Avviso di re-patch</string>
-    <string name="settings_appearance_repatch_notice_description">Mostra un banner nella schermata principale quando le app con patch possono essere ri-patchate</string>
     <string name="settings_appearance_sort_button">Pulsante per ordinare e filtrare</string>
     <string name="settings_appearance_sort_button_description">Mostra il pulsante per ordinare e filtrare nella schermata Home</string>
     <string name="settings_appearance_app_card_colors">Colori delle schede app</string>
@@ -769,6 +764,8 @@ Le patch non sono interessate: abilita le patch pre-release per ciascuna fonte n
     <string name="settings_advanced_updates_background_notifications">Notifiche degli aggiornamenti in background</string>
     <string name="settings_advanced_updates_background_notifications_description">Controlla periodicamente la presenza di aggiornamenti in background e notifica quando sono disponibili</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Ricevi notifiche push istantanee per le nuove versioni, anche se l\'app è chiusa</string>
+    <string name="settings_system_notifications_categories">Categorie di notifica</string>
+    <string name="settings_system_notifications_categories_description">Scegli nelle impostazioni di sistema quali aggiornamenti ti notificano</string>
     <string name="settings_advanced_update_interval">Frequenza dei controlli</string>
     <string name="settings_advanced_update_interval_dialog_title">Controlla gli aggiornamenti</string>
     <string name="settings_advanced_update_interval_hourly">Una volta all\'ora</string>
@@ -791,8 +788,10 @@ Le patch non sono interessate: abilita le patch pre-release per ciascuna fonte n
     <string name="notification_permission_dialog_title">Consenti le notifiche</string>
     <string name="notification_permission_dialog_description">Morphe ha bisogno del permesso di notifica per avvisarti quando gli aggiornamenti sono disponibili in background</string>
     <string name="notification_post_patch_dialog_title">Vorresti essere notificato quando ci sono aggiornamenti disponibili?</string>
-    <string name="notification_channel_fcm_updates">Aggiornamenti delle notifiche</string>
-    <string name="notification_channel_fcm_updates_description">Notifiche sulle nuove versioni di Morphe e relativi aggiornamenti</string>
+    <string name="notification_channel_manager_updates">Aggiornamenti di Morphe</string>
+    <string name="notification_channel_manager_updates_description">Notifiche sulle nuove versioni di Morphe</string>
+    <string name="notification_channel_patch_updates">Aggiornamenti patch</string>
+    <string name="notification_channel_patch_updates_description">Notifiche sui nuovi rilasci di patch</string>
     <string name="notification_channel_patcher">Applicazione delle patch</string>
     <string name="notification_channel_patcher_description">Visualizzate mentre Morphe sta patchando una app in background</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,6 @@ Dettagli: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Scegli una melodia</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importa &amp; Esporta</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Importa o esporta il keystore di firma</string>
     <string name="settings_system_import_keystore_dialog_title">Inserisci le credenziali del keystore</string>
     <string name="settings_system_import_keystore_dialog_description">Dovrai inserire le credenziali del keystore per importarlo</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Nome utente (Alias)</string>
@@ -1005,7 +1002,6 @@ Dettagli: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Credenziali del keystore errate</string>
     <string name="settings_system_import_keystore_success">Keystore importato</string>
     <string name="settings_system_import_keystore_failed">Importazione del keystore non riuscita</string>
-    <string name="settings_system_export_keystore_unavailable">Nessun keystore disponibile per l\'esportazione</string>
     <string name="settings_system_export_keystore_success">Keystore esportato</string>
     <string name="settings_system_export_keystore_failed">Esportazione del keystore non riuscita</string>
     <string name="settings_system_show_password_field">Mostra la password</string>
@@ -1024,7 +1020,7 @@ Dettagli: %2$s"</string>
     <string name="import_mode_merge_description">Aggiungi gli elementi mancanti dal backup. Gli elementi esistenti rimangono invariati</string>
     <string name="settings_system_export_manager_settings_fail">Impossibile esportare le impostazioni di Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Impostazioni di Morphe esportate</string>
-    <string name="settings_system_debug">Debug</string>
+    <string name="settings_system_export_debug_logs">Esporta log di debug</string>
     <string name="settings_system_export_debug_logs_description">Gestione dei file delle applicazioni patchate</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Lettura dei log non riuscita (codice di uscita %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Esportazione dei logs non riuscita</string>
@@ -1133,8 +1129,6 @@ Dettagli: %2$s"</string>
     <string name="file_picker_show_hidden_files">Mostra file nascosti</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">A proposito di</string>
-    <string name="settings_system_share_website">Condividi il sito</string>
-    <string name="settings_system_share_website_description">Condividi il sito ufficiale di Morphe</string>
     <string name="settings_system_manager_description">Un progetto open-source per un patching moderno e semplificato delle app Android popolari, guidato dal feedback e dai contributi della community</string>
     <string name="credits">Crediti</string>
     <string name="credits_current_development">Sviluppo attuale</string>
@@ -1269,7 +1263,6 @@ Dettagli: %2$s"</string>
     <string name="changelog_for_app">Modifiche per %s</string>
     <string name="changelog_general_changes">Modifiche generali</string>
     <string name="whats_new">Novità</string>
-    <string name="changelog_description">Scopri le ultime modifiche in questo aggiornamento</string>
     <string name="changelog_download_fail">Download del registro delle modifiche non riuscito: %s</string>
     <string name="changelog_empty">Nessun registro delle modifiche disponibile</string>
     <string name="changelog_show_older">Mostra versioni precedenti</string>
@@ -1316,5 +1309,4 @@ Vuoi comunque continuare?"</string>
     <string name="tour_prompt_desc">Vuoi un tour rapido delle funzionalità chiave di Morphe?</string>
     <string name="tour_prompt_confirm">Mostrami in giro</string>
     <string name="onboarding_restart_title">Tour delle funzionalità</string>
-    <string name="onboarding_restart_desc">Fai un tour guidato delle funzionalità chiave di Morphe</string>
 </resources>

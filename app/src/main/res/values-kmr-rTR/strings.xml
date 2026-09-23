@@ -644,7 +644,6 @@ Neqişandin dê hemî daneyên serîlêdanê bi awayê daîmî tune bike"</strin
     <string name="settings_appearance_greeting_phrases">Frazey şahê</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Nîşanekê bi xêrhatinê li ser mîna malê nîşan bide</string>
     <string name="settings_appearance_app_grouping">Komkirina sepanan</string>
-    <string name="settings_appearance_app_grouping_description">Nîşanekê bike ku sepanan bi çavkanî an kategoriyên te kom bike, hilbijarkirina xwe jî dema ku neçalak e parastin</string>
     <string name="settings_appearance_sort_button">Bişkoka rêzkirin û parzûnkirinê</string>
     <string name="settings_appearance_sort_button_description">Bişkoka rêzkirin û parzûnkirinê li ser ekrana malê nîşan bide</string>
     <string name="settings_appearance_app_card_colors">Rengên karta sepanê</string>
@@ -710,8 +709,6 @@ Patch ne bandor in: ji bo her çavkaniyê di lîsteya çavkaniyên patch de patc
     <string name="notification_permission_dialog_title">Îznayê ragahdaniyê</string>
     <string name="notification_permission_dialog_description">Morphe ji bo domandina ragihînan destûrê divê ku we ji ber ku nûvekirinên li ser were agahdar kirin.</string>
     <string name="notification_post_patch_dialog_title">Ma tu bistîyê ku dema ku nûvekirinan zafîn, ji bo te ragahdaniyê bike?</string>
-    <string name="notification_channel_fcm_updates">Nûvekarî notîfîkasyonan</string>
-    <string name="notification_channel_fcm_updates_description">Notîfîkasyonên derbarê vebûna Morphe ya din û bernameyên çêkirî</string>
     <string name="notification_channel_patcher">Çêkirin</string>
     <string name="notification_channel_patcher_description">Di dema ku Morphe bernameyekê di rewşê de çêdike</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -902,8 +899,6 @@ Detay: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Toneyek hilbijêre</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import &amp; export</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Kilîdên îmzeyê yên we yên kişînê importê an exportê bike</string>
     <string name="settings_system_import_keystore_dialog_title">Sernameyê (Alias) dafîne</string>
     <string name="settings_system_import_keystore_dialog_description">Hûn dê pêwist be serdanan kredensiyelên keystorê bidin da ku ew sazkirin</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Karanbera (Alias)</string>
@@ -912,7 +907,6 @@ Detay: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Nivîsandina parçehuyê xeṭî ye</string>
     <string name="settings_system_import_keystore_success">Parçehuyê zafortir hate kirin</string>
     <string name="settings_system_import_keystore_failed">Ji kirina parçehuyê neçîbe</string>
-    <string name="settings_system_export_keystore_unavailable">Parçehuyek ku were derxistin tune</string>
     <string name="settings_system_export_keystore_success">Parçehuy derxist</string>
     <string name="settings_system_export_keystore_failed">Destûr neda exportkirina keystore\'ê</string>
     <string name="settings_system_show_password_field">Şifreyê nîşana bîne</string>
@@ -931,7 +925,6 @@ Detay: %2$s"</string>
     <string name="import_mode_merge_description">Hêmanên winda ji paşgirtinê zêde bike. Hêmanên heyî nehatin guhertin</string>
     <string name="settings_system_export_manager_settings_fail">Ne serketî sawekirina sazkirina Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Sawekirina sazkirina Morphe serketî</string>
-    <string name="settings_system_debug">Debug</string>
     <string name="settings_system_export_debug_logs_description">Pelên loga sîstemê ji bo çareserkirina pirsgirêkan tomar bike</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Serketina xwendina logan (koda qedandina %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Logan derxistina xeṭî ye</string>
@@ -1035,8 +1028,6 @@ Detay: %2$s"</string>
     <string name="file_picker_show_hidden_files">Pelên dosyayên veşartî</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Derbarê</string>
-    <string name="settings_system_share_website">Malperê parve bike</string>
-    <string name="settings_system_share_website_description">Malpera fermî ya Morphe’yê parve bike</string>
     <string name="settings_system_manager_description">Projektek ferman-çavkanî ji bo nûjenkirin, sazkirina bingeş an sepanên popûler ên Android, bi bandora vegerandinên dîmen û ji bo beşdarîyên civakê ve girêdayî ye.</string>
     <string name="credits">Kredît</string>
     <string name="credits_current_development">Gelişîna heyî</string>
@@ -1165,7 +1156,6 @@ Detay: %2$s"</string>
     <string name="importing_ellipsis">Gihîştin…</string>
     <string name="imported_successfully">Sergûha xweş</string>
     <string name="changelog">Bixweyne guhezgarîyan</string>
-    <string name="changelog_description">Guherînên dawî ti vê nûvekirinê binêrin</string>
     <string name="changelog_download_fail">Degerandina guhezgarîyan ji destûr ve çû: %s</string>
     <string name="changelog_empty">Nê ji ber ku wê bigihîne</string>
     <string name="changelog_show_older">Nîşan bide berhemên keviner</string>
@@ -1211,5 +1201,4 @@ Ma hûn hê jî dixwazin dom bikevin?"</string>
     <string name="tour_prompt_desc">Dixwazî gerîşka taybetmendiyên sereke yên Morphe bikî?</string>
     <string name="tour_prompt_confirm">Min li dora te bîne</string>
     <string name="onboarding_restart_title">Gerîşka taybetmendiyan</string>
-    <string name="onboarding_restart_desc">Gerîşka taybetmendiyên sereke yên Morphe bikî</string>
 </resources>

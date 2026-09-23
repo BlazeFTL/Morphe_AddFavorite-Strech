@@ -720,12 +720,7 @@
     <string name="settings_appearance_greeting_phrases">משפטי פתיחה</string>
     <string name="settings_appearance_greeting_phrases_subtitle">הצגת הודעת פתיחה על מסך הבית</string>
     <string name="settings_appearance_app_grouping">קיבוץ אפליקציות</string>
-    <string name="settings_appearance_app_grouping_description">הצג מחליף מסך בית לקיבוץ אפליקציות לפי מקור או קטגוריות משלך, ושמור את הבחירה כאשר הוא כבוי</string>
-    <string name="settings_appearance_patch_list">רשימת תיקונים</string>
-    <string name="settings_appearance_patch_categories">קבץ לפי קטגוריה</string>
-    <string name="settings_appearance_patch_categories_description">מחלק את רשימות התיקונים לפי הקטגוריות שמקור מצהיר, ומשאיר את אלה שאינם מצהירים אף קטגוריה כרשימה פשוטה.</string>
     <string name="settings_appearance_repatch_notice">הודעת תיקון מחדש</string>
-    <string name="settings_appearance_repatch_notice_description">הצג באנר על מסך הבית כאשר אפליקציות מתוקנות ניתנות לתיקון מחדש</string>
     <string name="settings_appearance_sort_button">כפתור מיון וסינון</string>
     <string name="settings_appearance_sort_button_description">הצג את כפתור המיון והסינון במסך הבית</string>
     <string name="settings_appearance_app_card_colors">צבעי כרטיסי האפליקציה</string>
@@ -770,6 +765,8 @@
     <string name="settings_advanced_updates_background_notifications">התראות עדכונים רקע</string>
     <string name="settings_advanced_updates_background_notifications_description">בדוק מעת לעת אם יש עדכונים ברקע והודיע ​​כאשר הם זמינים</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">התראות דחיפה עבור גרסאות חדשות, גם כאשר האפליקציה סגורה</string>
+    <string name="settings_system_notifications_categories">קטגוריות התראות</string>
+    <string name="settings_system_notifications_categories_description">בחר/י בהגדרות המערכת אילו עדכונים יודיעו לך</string>
     <string name="settings_advanced_update_interval">תדירות בדיקה</string>
     <string name="settings_advanced_update_interval_dialog_title">בדיקת עדכונים</string>
     <string name="settings_advanced_update_interval_hourly">פעם בשעה</string>
@@ -792,8 +789,10 @@
     <string name="notification_permission_dialog_title">אישור התראות</string>
     <string name="notification_permission_dialog_description">Morphe זקוקה לבקשת הרשאה להודעות כדי להודיע לך כאשר ישנם עדכונים זמינים ברקע</string>
     <string name="notification_post_patch_dialog_title">האם תרצה להודע כשעדכונים יהיו זמינים?</string>
-    <string name="notification_channel_fcm_updates">עדכוני התראות</string>
-    <string name="notification_channel_fcm_updates_description">התראות לגבי גרסאות חדשות של Morphe ותיקונים</string>
+    <string name="notification_channel_manager_updates">עדכוני Morphe</string>
+    <string name="notification_channel_manager_updates_description">התראות על מהדורות Morphe חדשות</string>
+    <string name="notification_channel_patch_updates">עדכוני תיקונים</string>
+    <string name="notification_channel_patch_updates_description">התראות על מהדורות תיקון חדשות</string>
     <string name="notification_channel_patcher">תיקונים</string>
     <string name="notification_channel_patcher_description">מוצג בזמן ש-Morphe מתקן אפליקציה ברקע</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -1006,8 +1005,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_notifications_ringtone_picker_title">בחר צליל התראה</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">ייבוא/ייצא הגדרות</string>
-    <string name="settings_system_keystore">מחסן מפתחות</string>
-    <string name="settings_system_import_keystore_description">ייבוא או ייצוא של מפתח החתימה שלך</string>
     <string name="settings_system_import_keystore_dialog_title">הזנ את סיסמאות התיקון</string>
     <string name="settings_system_import_keystore_dialog_description">יהיה עליך להזין את הפרטים של מפתח האחסון כדי לייבא אותו</string>
     <string name="settings_system_import_keystore_dialog_alias_field">שם משתמש (כינוי)</string>
@@ -1016,7 +1013,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_import_keystore_wrong_credentials">אישורי מאגר המפתחות שגויים</string>
     <string name="settings_system_import_keystore_success">מאגר המפתחות יובא</string>
     <string name="settings_system_import_keystore_failed">ייבוא ​​מאגר המפתחות נכשל</string>
-    <string name="settings_system_export_keystore_unavailable">אין מאגר מפתחות זמין לייצוא</string>
     <string name="settings_system_export_keystore_success">מאגר המפתחות יוצא</string>
     <string name="settings_system_export_keystore_failed">ייצוא מאגר המפתחות נכשל</string>
     <string name="settings_system_show_password_field">הצג סיסמה</string>
@@ -1035,7 +1031,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="import_mode_merge_description">הוסף פריטים חסרים מהגיבוי. פריטים קיימים יישארו ללא שינוי</string>
     <string name="settings_system_export_manager_settings_fail">נכשל לייצא הגדרות Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">הגדרות Morphe ייצאו</string>
-    <string name="settings_system_debug">ניפוי באגים</string>
+    <string name="settings_system_export_debug_logs">ייצוא יומני איתור באגים</string>
     <string name="settings_system_export_debug_logs_description">שומר יומני מערכת לצורך פתרון בעיות</string>
     <string name="settings_system_export_debug_logs_export_read_failed">שגיאה בקריאת לוגים (קוד יציאה %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">נכשל לייצא יומנים</string>
@@ -1144,8 +1140,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="file_picker_show_hidden_files">הצג קבצים מוסתרים</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">אודות</string>
-    <string name="settings_system_share_website">שתף אתר</string>
-    <string name="settings_system_share_website_description">משתף את האתר הרשמי של Morphe</string>
     <string name="settings_system_manager_description">פרויקט קוד פתוח לתיקון יעיל ומודרני של אפליקציות אנדרואיד פופולריות, המונע על ידי משוב ותרומות של הקהילה</string>
     <string name="credits">קרדיטים</string>
     <string name="credits_current_development">פיתוח נוכחי</string>
@@ -1280,7 +1274,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="changelog_for_app">שינויים עבור %s</string>
     <string name="changelog_general_changes">שינויים כלליים</string>
     <string name="whats_new">מה חדש</string>
-    <string name="changelog_description">בדוק את השינויים האחרונים בסוג זה של עדכון</string>
     <string name="changelog_download_fail">שגיאה בהורדת היסטוריית שינויים: %s</string>
     <string name="changelog_empty">אין תיקון זמין</string>
     <string name="changelog_show_older">הצגת גרסאות ישנות יותר</string>
@@ -1327,5 +1320,4 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="tour_prompt_desc">רוצה סיור מהיר בתכונות המרכזיות של Morphe?</string>
     <string name="tour_prompt_confirm">הראה לי את הסביבה</string>
     <string name="onboarding_restart_title">סיור תכונות</string>
-    <string name="onboarding_restart_desc">צא לסיור מודרך בתכונות המרכזיות של Morphe</string>
 </resources>

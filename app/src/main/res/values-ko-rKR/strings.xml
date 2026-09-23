@@ -718,12 +718,7 @@
     <string name="settings_appearance_greeting_phrases">인사말</string>
     <string name="settings_appearance_greeting_phrases_subtitle">홈 화면에 인사말을 표시합니다</string>
     <string name="settings_appearance_app_grouping">앱 그룹화</string>
-    <string name="settings_appearance_app_grouping_description">앱 출처 또는 사용자 정의 카테고리별로 앱을 그룹화하는 홈 화면 전환기를 표시하며, 비활성화할 경우에는 선택 사항을 유지합니다</string>
-    <string name="settings_appearance_patch_list">패치 목록</string>
-    <string name="settings_appearance_patch_categories">카테고리별 그룹화</string>
-    <string name="settings_appearance_patch_categories_description">소스에서 지정한 카테고리를 기준으로 섹션의 패치 목록을 그룹화하고, 카테고리를 지정하지 않은 소스는 일반 목록으로 표시합니다</string>
     <string name="settings_appearance_repatch_notice">다시 패치 알림</string>
-    <string name="settings_appearance_repatch_notice_description">패치된 앱을 다시 패치할 수 있을 경우에 홈 화면에 배너를 표시합니다</string>
     <string name="settings_appearance_sort_button">정렬 및 필터 버튼</string>
     <string name="settings_appearance_sort_button_description">홈 화면에 정렬 및 필터 버튼을 표시합니다</string>
     <string name="settings_appearance_app_card_colors">앱 카드 색상</string>
@@ -768,6 +763,8 @@
     <string name="settings_advanced_updates_background_notifications">백그라운드 업데이트 알림</string>
     <string name="settings_advanced_updates_background_notifications_description">백그라운드에서 주기적으로 업데이트를 확인하고 업데이트가 있을 경우에 알림을 보냅니다</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">앱이 닫혀 있어도 새 릴리스에 대한 푸시 알림을 받습니다</string>
+    <string name="settings_system_notifications_categories">알림 카테고리</string>
+    <string name="settings_system_notifications_categories_description">시스템 설정에서 알림을 받을 업데이트를 선택하세요.</string>
     <string name="settings_advanced_update_interval">확인 빈도</string>
     <string name="settings_advanced_update_interval_dialog_title">업데이트 확인</string>
     <string name="settings_advanced_update_interval_hourly">한시간에 한번</string>
@@ -790,8 +787,10 @@
     <string name="notification_permission_dialog_title">알림 허용</string>
     <string name="notification_permission_dialog_description">Morphe는 백그라운드에서 업데이트가 있을 경우에 알림을 보내기 위해 알림 권한이 필요합니다</string>
     <string name="notification_post_patch_dialog_title">업데이트가 있을 때 알림을 받으시겠습니까?</string>
-    <string name="notification_channel_fcm_updates">업데이트 알림</string>
-    <string name="notification_channel_fcm_updates_description">새 Morphe 및 패치 릴리스에 대한 알림</string>
+    <string name="notification_channel_manager_updates">Morphe 업데이트</string>
+    <string name="notification_channel_manager_updates_description">새 Morphe 릴리스에 대한 알림</string>
+    <string name="notification_channel_patch_updates">패치 업데이트</string>
+    <string name="notification_channel_patch_updates_description">새 패치 릴리스에 대한 알림</string>
     <string name="notification_channel_patcher">패치</string>
     <string name="notification_channel_patcher_description">Morphe가 백그라운드에서 앱을 패치하는 동안에 표시되는 알림</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -993,8 +992,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">알림음 선택</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">가져오기 &amp; 내보내기</string>
-    <string name="settings_system_keystore">키스토어</string>
-    <string name="settings_system_import_keystore_description">서명된 키스토어를 가져오거나 내보냅니다</string>
+    <string name="settings_system_signing_key_created">%s에 생성됨</string>
     <string name="settings_system_import_keystore_dialog_title">키스토어 자격 증명 입력</string>
     <string name="settings_system_import_keystore_dialog_description">키스토어를 가져오려면 키스토어의 자격 증명을 입력해야 합니다</string>
     <string name="settings_system_import_keystore_dialog_alias_field">사용자 이름 (별칭)</string>
@@ -1003,7 +1001,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">키스토어 자격 증명이 잘못되었습니다</string>
     <string name="settings_system_import_keystore_success">키스토어를 가져왔습니다</string>
     <string name="settings_system_import_keystore_failed">키스토어를 가져올 수 없습니다</string>
-    <string name="settings_system_export_keystore_unavailable">내보낼 키스토어가 없습니다</string>
     <string name="settings_system_export_keystore_success">키스토어를 내보냈습니다</string>
     <string name="settings_system_export_keystore_failed">키스토어를 내보낼 수 없습니다</string>
     <string name="settings_system_show_password_field">비밀번호 표시</string>
@@ -1022,7 +1019,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">백업에서 누락된 항목을 추가합니다. 기존 항목은 변경되지 않습니다</string>
     <string name="settings_system_export_manager_settings_fail">Morphe 설정을 내보낼 수 없습니다: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe 설정을 내보냈습니다</string>
-    <string name="settings_system_debug">디버그</string>
+    <string name="settings_system_export_debug_logs">디버그 로그 내보내기</string>
     <string name="settings_system_export_debug_logs_description">문제 해결을 위해 시스템 로그를 저장합니다</string>
     <string name="settings_system_export_debug_logs_export_read_failed">로그를 읽을 수 없습니다 (종료 코드 %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">로그를 내보낼 수 없습니다</string>
@@ -1131,8 +1128,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">숨겨진 파일 표시</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">정보</string>
-    <string name="settings_system_share_website">웹사이트 공유</string>
-    <string name="settings_system_share_website_description">공식 Morphe 웹사이트를 공유해 보세요</string>
     <string name="settings_system_manager_description">커뮤니티 피드백과 기여를 기반으로 인기 있는 Android 앱을 현대적이고 간소화된 방식으로 패치하기 위한 오픈소스 프로젝트입니다</string>
     <string name="credits">크레딧</string>
     <string name="credits_current_development">현재 개발</string>
@@ -1267,7 +1262,6 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">\'%s\'에 대한 변경 사항</string>
     <string name="changelog_general_changes">일반 변경 사항</string>
     <string name="whats_new">새로운 기능</string>
-    <string name="changelog_description">이 업데이트의 최신 변경 사항을 확인해 보세요</string>
     <string name="changelog_download_fail">변경 사항을 다운로드할 수 없습니다: %s</string>
     <string name="changelog_empty">변경 사항이 없습니다</string>
     <string name="changelog_show_older">이전 릴리스 보기</string>
@@ -1314,5 +1308,4 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Morphe의 주요 기능을 빠르게 둘러보시겠습니까?</string>
     <string name="tour_prompt_confirm">안내해 드릴게요</string>
     <string name="onboarding_restart_title">기능 투어</string>
-    <string name="onboarding_restart_desc">Morphe의 주요 기능을 둘러보는 가이드 투어를 시작해 보세요</string>
 </resources>

@@ -719,12 +719,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_greeting_phrases">Begroetingszinnen</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Toon een begroetingsbericht op de startscherm</string>
     <string name="settings_appearance_app_grouping">App-groepering</string>
-    <string name="settings_appearance_app_grouping_description">Toon een schakelaar op het startscherm om apps te groeperen op bron of eigen categorieën, en selecteer deze instelling wanneer deze uit staat</string>
-    <string name="settings_appearance_patch_list">Patchlijst</string>
-    <string name="settings_appearance_patch_categories">Groeperen op categorie</string>
-    <string name="settings_appearance_patch_categories_description">Sectie patchlijsten op basis van de categorieën die een bron declareert; bronnen die geen categorieën declareren blijven als een gewone lijst.</string>
     <string name="settings_appearance_repatch_notice">Melding over opnieuw patchen</string>
-    <string name="settings_appearance_repatch_notice_description">Toon een banner op het startscherm wanneer gepatchte apps opnieuw kunnen worden gepatcht</string>
     <string name="settings_appearance_sort_button">Sorteer- en filterknop</string>
     <string name="settings_appearance_sort_button_description">Toon de sorteer- en filterknop op het startscherm</string>
     <string name="settings_appearance_app_card_colors">App-kaart kleuren</string>
@@ -769,6 +764,8 @@ Patches worden niet beïnvloed: schakel pre-release-patches in voor elke bron in
     <string name="settings_advanced_updates_background_notifications">Achtergrondupdate-notificaties</string>
     <string name="settings_advanced_updates_background_notifications_description">Periodiek controleren op updates in de achtergrond en melden als beschikbaar</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Push-notificaties voor nieuwe releases, zelfs wanneer de app gesloten is</string>
+    <string name="settings_system_notifications_categories">Meldingcategorieën</string>
+    <string name="settings_system_notifications_categories_description">Kies in de systeeminstellingen welke updates je op de hoogte stellen.</string>
     <string name="settings_advanced_update_interval">Controle frequentie</string>
     <string name="settings_advanced_update_interval_dialog_title">Controleer op updates</string>
     <string name="settings_advanced_update_interval_hourly">Eenmaal per uur</string>
@@ -791,8 +788,10 @@ Patches worden niet beïnvloed: schakel pre-release-patches in voor elke bron in
     <string name="notification_permission_dialog_title">Meldingen toestaan</string>
     <string name="notification_permission_dialog_description">Morphe heeft toestemming nodig voor meldingen om u te waarschuwen wanneer er updates op de achtergrond beschikbaar zijn</string>
     <string name="notification_post_patch_dialog_title">Wilt u een melding ontvangen wanneer er updates beschikbaar zijn?</string>
-    <string name="notification_channel_fcm_updates">Bijwerkingsmeldingen</string>
-    <string name="notification_channel_fcm_updates_description">Meldingen over nieuwe Morphe- en patch-releases</string>
+    <string name="notification_channel_manager_updates">Morphe-updates</string>
+    <string name="notification_channel_manager_updates_description">Meldingen over nieuwe Morphe-releases.</string>
+    <string name="notification_channel_patch_updates">Patch-updates</string>
+    <string name="notification_channel_patch_updates_description">Meldingen over nieuwe patch-releases.</string>
     <string name="notification_channel_patcher">Patchen</string>
     <string name="notification_channel_patcher_description">Wordt weergegeven terwijl Morphe een app op de achtergrond patched</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,7 @@ Details: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Kies een toon</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importeren en exporteren</string>
-    <string name="settings_system_keystore">KeyStore</string>
-    <string name="settings_system_import_keystore_description">Importeert of exporteert uw ondertekeningssleutel</string>
+    <string name="settings_system_signing_key_created">Gemaakt op %s</string>
     <string name="settings_system_import_keystore_dialog_title">Voer keystore-gegevens in</string>
     <string name="settings_system_import_keystore_dialog_description">U moet de referenties van het keystore invoeren om het te importeren</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Gebruikersnaam (alias)</string>
@@ -1005,7 +1003,6 @@ Details: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Verkeerde keystore-gegevens</string>
     <string name="settings_system_import_keystore_success">Keystore geïmporteerd</string>
     <string name="settings_system_import_keystore_failed">Kan keystore niet importeren</string>
-    <string name="settings_system_export_keystore_unavailable">Geen keystore beschikbaar om te exporteren</string>
     <string name="settings_system_export_keystore_success">Keystore geëxporteerd</string>
     <string name="settings_system_export_keystore_failed">Kon de keystore niet exporteren</string>
     <string name="settings_system_show_password_field">Toon wachtwoord</string>
@@ -1024,7 +1021,7 @@ Details: %2$s"</string>
     <string name="import_mode_merge_description">Ontbrekende items vanuit de back-up toevoegen. Bestaande items blijven ongewijzigd</string>
     <string name="settings_system_export_manager_settings_fail">Exporteren van Morphe-instellingen mislukt: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe-instellingen geëxporteerd</string>
-    <string name="settings_system_debug">Debug</string>
+    <string name="settings_system_export_debug_logs">Foutopsporingslogboeken exporteren</string>
     <string name="settings_system_export_debug_logs_description">Slaat systeemlogboeken op voor probleemoplossing</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Kon logs niet lezen (uitslagcode %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Mislukt om logboeken te exporteren</string>
@@ -1133,8 +1130,6 @@ Details: %2$s"</string>
     <string name="file_picker_show_hidden_files">Verborgen bestanden tonen</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Over</string>
-    <string name="settings_system_share_website">Website delen</string>
-    <string name="settings_system_share_website_description">Deelt de officiële Morphe-website</string>
     <string name="settings_system_manager_description">Een open-source project voor het modern, gestroomlijnd patchen van populaire Android-apps, aangedreven door communityfeedback en -bijdragen</string>
     <string name="credits">Credits</string>
     <string name="credits_current_development">Huidige ontwikkeling</string>
@@ -1269,7 +1264,6 @@ Details: %2$s"</string>
     <string name="changelog_for_app">Wijzigingen voor %s</string>
     <string name="changelog_general_changes">Algemene wijzigingen</string>
     <string name="whats_new">Wat is er nieuw</string>
-    <string name="changelog_description">Bekijk de laatste wijzigingen in deze update</string>
     <string name="changelog_download_fail">Fout bij het downloaden van de wijzigingslogboek: %s</string>
     <string name="changelog_empty">Geen changelog beschikbaar</string>
     <string name="changelog_show_older">Oudere versies weergeven</string>
@@ -1316,5 +1310,4 @@ Wilt u toch doorgaan?"</string>
     <string name="tour_prompt_desc">Wilt u een snelle rondleiding door de belangrijkste functies van Morphe?</string>
     <string name="tour_prompt_confirm">Laat me rondleiden</string>
     <string name="onboarding_restart_title">Functietour</string>
-    <string name="onboarding_restart_desc">Maak een begeleide rondleiding door de belangrijkste functies van Morphe</string>
 </resources>

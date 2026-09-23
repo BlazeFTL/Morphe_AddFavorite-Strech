@@ -719,12 +719,7 @@
     <string name="settings_appearance_greeting_phrases">Поздравителни фрази</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показване на поздравително съобщение на началния екран</string>
     <string name="settings_appearance_app_grouping">Групиране на приложения</string>
-    <string name="settings_appearance_app_grouping_description">Покажи превключвател на началния екран за групиране на приложения по източник или по твои категории, запазвайки селекцията, когато е изключено</string>
-    <string name="settings_appearance_patch_list">Списък с пачове</string>
-    <string name="settings_appearance_patch_categories">Групиране по категория</string>
-    <string name="settings_appearance_patch_categories_description">Разделя списъците с пачове по категориите, които даден източник декларира, като оставя източниците без декларирани категории като обикновен списък.</string>
     <string name="settings_appearance_repatch_notice">Известие за повторно кръпване</string>
-    <string name="settings_appearance_repatch_notice_description">Показване на банер на началния екран, когато приложенията с кръпки могат да бъдат кръпнати отново</string>
     <string name="settings_appearance_sort_button">Бутон за сортиране и филтриране</string>
     <string name="settings_appearance_sort_button_description">Показване на бутона за сортиране и филтриране на началния екран</string>
     <string name="settings_appearance_app_card_colors">Цветове на картите на приложенията</string>
@@ -769,6 +764,8 @@
     <string name="settings_advanced_updates_background_notifications">Обновления в фона</string>
     <string name="settings_advanced_updates_background_notifications_description">Периодично проверете наличието на актуализации в фона и известите при наличност.</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Push известия за нови версии, дори когато приложението е затворено</string>
+    <string name="settings_system_notifications_categories">Категории на известията</string>
+    <string name="settings_system_notifications_categories_description">Изберете в системните настройки кои актуализации да ви уведомяват</string>
     <string name="settings_advanced_update_interval">Честота на проверка</string>
     <string name="settings_advanced_update_interval_dialog_title">Проверка за актуализации</string>
     <string name="settings_advanced_update_interval_hourly">Един път на час</string>
@@ -791,8 +788,10 @@
     <string name="notification_permission_dialog_title">Разрешете известувания</string>
     <string name="notification_permission_dialog_description">Morphe се нуждае от разрешение за известия, за да ви предупреди, когато има актуализации във фонов режим</string>
     <string name="notification_post_patch_dialog_title">Желая ли би да бъдете известителен, когато има достъпни актуализации?</string>
-    <string name="notification_channel_fcm_updates">Актуализации на нотификациите</string>
-    <string name="notification_channel_fcm_updates_description">Нотификации за нови издания на Morphe и пачове</string>
+    <string name="notification_channel_manager_updates">Актуализации на Morphe</string>
+    <string name="notification_channel_manager_updates_description">Известия за нови версии на Morphe</string>
+    <string name="notification_channel_patch_updates">Актуализации с корекции</string>
+    <string name="notification_channel_patch_updates_description">Известия за нови корекции</string>
     <string name="notification_channel_patcher">Пачове</string>
     <string name="notification_channel_patcher_description">Показва се, когато Morphe актуализира приложение във фона</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,19 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">Изберете тон</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Импорт и износ</string>
-    <string name="settings_system_keystore">Ключов магазин</string>
-    <string name="settings_system_import_keystore_description">Импортира или експортира вашия ключ за цифрово подписване</string>
+    <string name="settings_system_signing_key">Ключ за подписване</string>
+    <string name="settings_system_signing_key_description">Създава резервно копие и възстановява ключа, с който са подписани вашите патчвани приложения</string>
+    <string name="settings_system_signing_key_dialog_description">Всяко приложение, което Morphe патчва, е подписано с този ключ. Запазете копие: без него патчваните приложения могат да се актуализират само след деинсталирането им</string>
+    <string name="settings_system_signing_key_missing">Morphe създава такъв с първия ви патч</string>
+    <string name="settings_system_signing_key_created">Създаден %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 пръстов отпечатък</string>
+    <string name="settings_system_backup_appearance_description">Тема, цветове и език</string>
+    <string name="settings_system_backup_patching">Патчване и инсталиране</string>
+    <string name="settings_system_backup_patching_description">Инсталатор, патчер и запазени APK файлове</string>
+    <string name="settings_system_backup_updates_description">Предварителни версии и проверки за актуализации</string>
+    <string name="settings_system_backup_sources_description">Персонализирани източници и GitHub токен</string>
+    <string name="settings_system_backup_patch_selections_description">Избрани патчове за всяко приложение</string>
+    <string name="settings_system_backup_signing_key_note">Ключът за подписване се архивира отделно</string>
     <string name="settings_system_import_keystore_dialog_title">Въвеждане на данни за ключовата запазна книга</string>
     <string name="settings_system_import_keystore_dialog_description">Трябва да въведете данните за keystore, за да го импортирате</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Име на потребител (Алиас)</string>
@@ -1005,7 +1015,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">Невалидни данни за ключовата запазна книга</string>
     <string name="settings_system_import_keystore_success">Ключовата запазна книга е импортирана</string>
     <string name="settings_system_import_keystore_failed">Неуспешно импортиране на ключовата запазна книга</string>
-    <string name="settings_system_export_keystore_unavailable">Няма налична ключова запазна книга за износ</string>
     <string name="settings_system_export_keystore_success">Ключовата запазна книга е изнесена</string>
     <string name="settings_system_export_keystore_failed">Неуспешен експорт на хранилище на ключове</string>
     <string name="settings_system_show_password_field">Показване на парола</string>
@@ -1024,7 +1033,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">Добавяне на липсващи елементи от архива. Съществуващите елементи остават непроменени</string>
     <string name="settings_system_export_manager_settings_fail">Неуспешно експортиране на настройките на Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Настройките на Morphe са експортирани</string>
-    <string name="settings_system_debug">Отлад</string>
+    <string name="settings_system_export_debug_logs">Експортиране на логове за отстраняване на грешки</string>
     <string name="settings_system_export_debug_logs_description">Записва системни логове за отстраняване на грешки</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Неуспешно четене на логове (код за изход %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Неуспешно експортиране на логове</string>
@@ -1133,8 +1142,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">Покажи скрити файлове</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Относно</string>
-    <string name="settings_system_share_website">Споделяне на уебсайт</string>
-    <string name="settings_system_share_website_description">Споделя официалния уебсайт на Morphe</string>
     <string name="settings_system_manager_description">Отворен проект с изходен код за модерен, оптимизиран процес на поправяне на популярни Android приложения, поддържан от обратна връзка и приноси от общността</string>
     <string name="credits">Кредити</string>
     <string name="credits_current_development">Текущо развитие</string>
@@ -1269,7 +1276,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">Промени за %s</string>
     <string name="changelog_general_changes">Общи промени</string>
     <string name="whats_new">Какво ново</string>
-    <string name="changelog_description">Погледете последното обновяване</string>
+    <string name="changelog_description">Какво ново има в тази версия</string>
     <string name="changelog_download_fail">Неуспешно сваляне на дневника на промените: %s</string>
     <string name="changelog_empty">Няма налични промени</string>
     <string name="changelog_show_older">Показване на по-стари версии</string>
@@ -1316,5 +1323,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Искате ли бързо да видите основните функции на Morphe?</string>
     <string name="tour_prompt_confirm">Покажи ми наоколо</string>
     <string name="onboarding_restart_title">Обиколен тур на функциите</string>
-    <string name="onboarding_restart_desc">Направете обиколка с напътствия на основните функции на Morphe</string>
+    <string name="onboarding_restart_desc">Ръководена обиколка из ключовите функции</string>
 </resources>

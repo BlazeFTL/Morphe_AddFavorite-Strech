@@ -718,12 +718,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_greeting_phrases">Üdvözlő szövegek</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Üdvözlő üzenet megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_grouping">Alkalmazáscsoportosítás</string>
-    <string name="settings_appearance_app_grouping_description">Mutasson egy főképernyő váltót az alkalmazások forrás vagy saját kategóriák szerinti csoportosításához, a kiválasztást megőrizve, ha ki van kapcsolva</string>
-    <string name="settings_appearance_patch_list">Javításlista</string>
-    <string name="settings_appearance_patch_categories">Csoportosítás kategóriánként</string>
-    <string name="settings_appearance_patch_categories_description">Szakaszokra bontja a javításlistákat a forrás által meghatározott kategóriák szerint, a kategóriával nem rendelkező forrásokat pedig egyszerű listaként hagyja.</string>
     <string name="settings_appearance_repatch_notice">Újrajavítási értesítés</string>
-    <string name="settings_appearance_repatch_notice_description">Jelenítsen meg egy szalagot a kezdőképernyőn, amikor a javított alkalmazások újra javíthatók</string>
     <string name="settings_appearance_sort_button">Rendezés és szűrés gomb</string>
     <string name="settings_appearance_sort_button_description">A rendezés és szűrés gomb megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_card_colors">Alkalmazáskártyák színei</string>
@@ -768,6 +763,8 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_updates_background_notifications">Háttérfrissítési értesítések</string>
     <string name="settings_advanced_updates_background_notifications_description">A háttérben periodikusan ellenőrzi a frissítéseket és értesít, ha elérhetőek.</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Azonnali push értesítések fogadása az új kiadásokról akkor is, ha az alkalmazás be van zárva.</string>
+    <string name="settings_system_notifications_categories">Értesítési kategóriák</string>
+    <string name="settings_system_notifications_categories_description">A rendszerbeállításokban válaszd ki, mely frissítések értesítsenek.</string>
     <string name="settings_advanced_update_interval">Ellenőrzés gyakorisága</string>
     <string name="settings_advanced_update_interval_dialog_title">Frissítések keresése</string>
     <string name="settings_advanced_update_interval_hourly">Óránként</string>
@@ -790,8 +787,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="notification_permission_dialog_title">Értesítések engedélyezése</string>
     <string name="notification_permission_dialog_description">​A Morphe-nek értesítési engedélyre van szüksége, hogy jelezni tudja, ha a háttérben frissítés válik elérhetővé</string>
     <string name="notification_post_patch_dialog_title">Szeretnél értesítést kapni, ha frissítések állnak rendelkezésre?</string>
-    <string name="notification_channel_fcm_updates">Frissítési értesítések</string>
-    <string name="notification_channel_fcm_updates_description">Értesítések az új Morphe és módosítás kiadásokról</string>
+    <string name="notification_channel_manager_updates">Morphe-frissítések</string>
+    <string name="notification_channel_manager_updates_description">Értesítések az új Morphe-kiadásokról</string>
+    <string name="notification_channel_patch_updates">Patch-frissítések</string>
+    <string name="notification_channel_patch_updates_description">Értesítések az új patch-kiadásokról</string>
     <string name="notification_channel_patcher">Módosítás</string>
     <string name="notification_channel_patcher_description">Akkor jelenik meg, amikor a Morphe a háttérben módosít egy alkalmazást</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -994,8 +993,7 @@ Részletek: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Hang kiválasztása</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importálás és exportálás</string>
-    <string name="settings_system_keystore">Kulcstár</string>
-    <string name="settings_system_import_keystore_description">Importálja vagy exportálja az aláíró tárolóját</string>
+    <string name="settings_system_signing_key_created">%s létrehozva</string>
     <string name="settings_system_import_keystore_dialog_title">Add meg a kulcstároló hitelesítő adatait</string>
     <string name="settings_system_import_keystore_dialog_description">A kulcstároló importálásához meg kell adnod a hozzáférési adatokat</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Felhasználónév (Alias)</string>
@@ -1004,7 +1002,6 @@ Részletek: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Hibás kulcstároló hitelesítési adatok</string>
     <string name="settings_system_import_keystore_success">Kulcstároló importálva</string>
     <string name="settings_system_import_keystore_failed">Nem sikerült importálni a kulcstárolót</string>
-    <string name="settings_system_export_keystore_unavailable">Nincs exportálható kulcstároló</string>
     <string name="settings_system_export_keystore_success">Kulcstároló sikeresen exportálva</string>
     <string name="settings_system_export_keystore_failed">A kulcstároló exportálása sikertelen</string>
     <string name="settings_system_show_password_field">Jelszó megjelenítése</string>
@@ -1023,7 +1020,7 @@ Részletek: %2$s"</string>
     <string name="import_mode_merge_description">A biztonsági mentésből hiányzó elemek hozzáadása. A meglévő elemek változatlanok maradnak.</string>
     <string name="settings_system_export_manager_settings_fail">Hiba történt a Morphe beállításainak exportálásakor: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe beállítások exportálva</string>
-    <string name="settings_system_debug">Hibakeresés</string>
+    <string name="settings_system_export_debug_logs">Hibakeresési naplók exportálása</string>
     <string name="settings_system_export_debug_logs_description">A rendszernaplók mentése hibaelhárításhoz</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Nem sikerült a naplók olvasása (kilépési kód: %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Nem sikerült exportálni a naplókat</string>
@@ -1132,8 +1129,6 @@ Részletek: %2$s"</string>
     <string name="file_picker_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Névjegy</string>
-    <string name="settings_system_share_website">Webhely megosztása</string>
-    <string name="settings_system_share_website_description">A Morphe hivatalos weboldalának megosztása</string>
     <string name="settings_system_manager_description">Egy nyílt forráskódú projekt népszerű Android-alkalmazások modern, hatékony módosításához, amelyet a közösség visszajelzései és hozzájárulásai hajtanak</string>
     <string name="credits">Közreműködők</string>
     <string name="credits_current_development">Jelenlegi fejlesztők</string>
@@ -1268,7 +1263,6 @@ Részletek: %2$s"</string>
     <string name="changelog_for_app">A(z) %s változásai</string>
     <string name="changelog_general_changes">Általános változások</string>
     <string name="whats_new">Újdonságok</string>
-    <string name="changelog_description">Nézd meg a frissítés legújabb változásait</string>
     <string name="changelog_download_fail">Nem sikerült letölteni a változásnaplót: %s</string>
     <string name="changelog_empty">A változásnapló nem elérhető</string>
     <string name="changelog_show_older">Régi kiadások megjelenítése</string>
@@ -1315,5 +1309,4 @@ Szeretnéd folytatni?"</string>
     <string name="tour_prompt_desc">Szeretnél egy rövid bemutatót a Morphe fő funkcióiról?</string>
     <string name="tour_prompt_confirm">Mutasd meg</string>
     <string name="onboarding_restart_title">Funkció bemutató</string>
-    <string name="onboarding_restart_desc">Tekints meg egy irányított bemutatót a Morphe fő funkcióiról</string>
 </resources>

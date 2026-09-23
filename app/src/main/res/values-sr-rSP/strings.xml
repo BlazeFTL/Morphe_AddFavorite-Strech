@@ -719,12 +719,7 @@
     <string name="settings_appearance_greeting_phrases">Почетне фразе</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Прикажи поруку на почетном екрану</string>
     <string name="settings_appearance_app_grouping">Груписање апликација</string>
-    <string name="settings_appearance_app_grouping_description">Прикажи прекидач почетног екрана за груписање апликација по извору или властитим категоријама, задржавајући селекцију када је искључено</string>
-    <string name="settings_appearance_patch_list">Листа закрпа</string>
-    <string name="settings_appearance_patch_categories">Групиши по категорији</string>
-    <string name="settings_appearance_patch_categories_description">Разврстај листе закрпа по категоријама које извор декларише, остављајући изворе који не декларишу ниједну као обичну листу.</string>
     <string name="settings_appearance_repatch_notice">Обавештење о поновном закрпавању</string>
-    <string name="settings_appearance_repatch_notice_description">Прикажи банер на почетном екрану када закрпане апликације могу бити поново закрпане</string>
     <string name="settings_appearance_sort_button">Дугме за сортирање и филтрирање</string>
     <string name="settings_appearance_sort_button_description">Прикажи дугме за сортирање и филтрирање на почетном екрану</string>
     <string name="settings_appearance_app_card_colors">Боје картица апликација</string>
@@ -769,6 +764,8 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_updates_background_notifications">Opozori o pozadinskom ažuriranju</string>
     <string name="settings_advanced_updates_background_notifications_description">Povremeno proveravaj da li postoje ažuriranja u pozadini i obaveštavaj kada su dostupna</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Пуш обавештења за нове верзије, чак и када је апликација затворена</string>
+    <string name="settings_system_notifications_categories">Категорије обавештења</string>
+    <string name="settings_system_notifications_categories_description">Изаберите у системским подешавањима која ажурирања ће вас обавештавати</string>
     <string name="settings_advanced_update_interval">Фреквенција провере</string>
     <string name="settings_advanced_update_interval_dialog_title">Провери за ажурирања</string>
     <string name="settings_advanced_update_interval_hourly">Одавно једном на сат</string>
@@ -791,8 +788,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="notification_permission_dialog_title">Дозволи обавештења</string>
     <string name="notification_permission_dialog_description">Morphe треба дозволу за обавештавања да вас упозори када су доступна ажурирања у позадини</string>
     <string name="notification_post_patch_dialog_title">Желите ли да будете обавештени када су ажурирања доступна?</string>
-    <string name="notification_channel_fcm_updates">Ажурирања обавештења</string>
-    <string name="notification_channel_fcm_updates_description">Обавештења о новим издањима Morphe и патчева</string>
+    <string name="notification_channel_manager_updates">Morphe ажурирања</string>
+    <string name="notification_channel_manager_updates_description">Обавештења о новим Morphe издањима</string>
+    <string name="notification_channel_patch_updates">Ажурирања закрпа</string>
+    <string name="notification_channel_patch_updates_description">Обавештења о новим издањима закрпа</string>
     <string name="notification_channel_patcher">Патчинг</string>
     <string name="notification_channel_patcher_description">Приказано док Morphe патчи апликацију у позадини</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -995,8 +994,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">Изаберите тон</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Увоз и извоз</string>
-    <string name="settings_system_keystore">Кејстор</string>
-    <string name="settings_system_import_keystore_description">Увози или извози кључ за потписивање</string>
     <string name="settings_system_import_keystore_dialog_title">Унесите податке кластерског кључа</string>
     <string name="settings_system_import_keystore_dialog_description">Требаћете да унесете дугме за складиштење</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Корисник (Алиас)</string>
@@ -1005,7 +1002,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_keystore_wrong_credentials">Погрешно унете податке кластерског кључа</string>
     <string name="settings_system_import_keystore_success">Кластерски кључ успешно увезен</string>
     <string name="settings_system_import_keystore_failed">Неуспешно увоз кластерског кључа</string>
-    <string name="settings_system_export_keystore_unavailable">Нема доступног кластерског кључа за извоз</string>
     <string name="settings_system_export_keystore_success">Кластерски кључ успешно извезен</string>
     <string name="settings_system_export_keystore_failed">Неуспешно извезена keystore</string>
     <string name="settings_system_show_password_field">Прикажите лозинку</string>
@@ -1024,7 +1020,7 @@ morphe_header_custom_dark.png
     <string name="import_mode_merge_description">Додајте ставке које недостају из резервне копије. Постојеће ставке остају непромењене</string>
     <string name="settings_system_export_manager_settings_fail">Неуспео извоз подешавања Morphe-а: %s</string>
     <string name="settings_system_export_manager_settings_success">Подешавања Morphe-а су извезена</string>
-    <string name="settings_system_debug">Дебаг</string>
+    <string name="settings_system_export_debug_logs">Извези евиденције отклањања грешака</string>
     <string name="settings_system_export_debug_logs_description">Сачувава системске логове за решавање проблема</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Неуспех у читању дневника (код изласка %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Неуспешан извоз евиденција</string>
@@ -1133,8 +1129,6 @@ morphe_header_custom_dark.png
     <string name="file_picker_show_hidden_files">Прикажи скривене датотеке</string>
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">О програму</string>
-    <string name="settings_system_share_website">Дели веб-сајт</string>
-    <string name="settings_system_share_website_description">Дели званични веб-сајт Morphe</string>
     <string name="settings_system_manager_description">Отворени изворни пројекат за модерно, поједностављено \"пачирање\" популарних Android апликација, вођен повратним давањем и доприносом заједнице</string>
     <string name="credits">Послужности</string>
     <string name="credits_current_development">Тренутни развој</string>
@@ -1269,7 +1263,6 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">Измене за %s</string>
     <string name="changelog_general_changes">Опште измене</string>
     <string name="whats_new">Шта је ново</string>
-    <string name="changelog_description">Pogledajte najnovije promene u ovom ažuriranju</string>
     <string name="changelog_download_fail">Није успело преузимање дневника промена: %s</string>
     <string name="changelog_empty">Нема доступних промена</string>
     <string name="changelog_show_older">Прикажи старије верзије</string>
@@ -1316,5 +1309,4 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Желите брзи водич кроз кључне функције Морфе?</string>
     <string name="tour_prompt_confirm">Покажи ми</string>
     <string name="onboarding_restart_title">Водич кроз функције</string>
-    <string name="onboarding_restart_desc">Прођите кроз водич о кључним функцијама Морфе</string>
 </resources>

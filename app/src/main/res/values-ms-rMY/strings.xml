@@ -468,8 +468,6 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="notification_permission_dialog_title">Benarkan notifikasi</string>
     <string name="notification_permission_dialog_description">Morphe memerlukan kebenaran notifikasi untuk memberitahu anda apabila kemas kini tersedia di latar belakang</string>
     <string name="notification_post_patch_dialog_title">Sudikah anda untuk menerima notifikasi apabila kemas kini tersedia? </string>
-    <string name="notification_channel_fcm_updates">Kemas kini notifikasi</string>
-    <string name="notification_channel_fcm_updates_description">Notifikasi tentang Morphe baharu dan pelepasan tampalan</string>
     <string name="notification_channel_patcher">Menampal</string>
     <string name="notification_channel_patcher_description">Ditunjukkan semasa Morphe menampal aplikasi di latar belakang</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -596,7 +594,6 @@ Dimensi gambar mestilah seperti berikut:
     <string name="settings_system_import_keystore_wrong_credentials">Kelayakan kunci simpanan tidak betul</string>
     <string name="settings_system_import_keystore_success">Kunci simpanan diimport</string>
     <string name="settings_system_import_keystore_failed">Gagal mengimport kunci simpanan</string>
-    <string name="settings_system_export_keystore_unavailable">Tiada kunci simpanan yang tersedia untuk dieksport</string>
     <string name="settings_system_export_keystore_success">Kunci simpanan dieksport</string>
     <string name="settings_system_show_password_field">Tunjukkan kata lalu</string>
     <string name="settings_system_hide_password_field">Sembunyikan kata lalu</string>
@@ -604,7 +601,6 @@ Dimensi gambar mestilah seperti berikut:
     <string name="settings_system_import_manager_settings_success">Tetapan Morphe telah diimport</string>
     <string name="settings_system_export_manager_settings_fail">Gagal mengeksport tetapan Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Tetapan Morphe telah dieksport</string>
-    <string name="settings_system_debug">Debug</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Gagal membaca log (kod keluar %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Gagal mengeksport log</string>
     <string name="settings_system_export_debug_logs_export_success">Log dieksport</string>
@@ -643,7 +639,6 @@ Dimensi gambar mestilah seperti berikut:
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Mengenai</string>
-    <string name="settings_system_share_website">Kongsi laman web</string>
     <string name="credits">Pengakuan</string>
     <string name="credits_current_development">Pembangunan semasa</string>
     <string name="credits_prior_development">Pembangunan sebelumnya</string>
@@ -719,7 +714,6 @@ Dimensi gambar mestilah seperti berikut:
     <string name="unmounting_ellipsis">Mencabut…</string>
     <string name="importing_ellipsis">Mengimport…</string>
     <string name="changelog">Lihat log perubahan</string>
-    <string name="changelog_description">Lihat perubahan terkini dalam kemas kini ini</string>
     <string name="changelog_download_fail">Gagal untuk memuat turun log perubahan: %s</string>
     <string name="changelog_empty">Tiada log perubahan tersedia</string>
     <string name="no_network_toast">Tiada sambungan internet tersedia</string>
@@ -741,5 +735,4 @@ Adakah anda masih ingin meneruskan?"</string>
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <!-- Translate "System" the same way as the System settings tab -->
     <!-- Tour prompt dialog shown after first successful patch install -->
-    <string name="onboarding_restart_desc">Ikuti lawatan terpandu bagi ciri-ciri utama Morphe\'s</string>
 </resources>

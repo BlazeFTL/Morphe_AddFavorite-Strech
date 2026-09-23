@@ -963,6 +963,9 @@ The image dimensions must be as follows:
     <string name="settings_advanced_patch_options_hide_shorts_app_shortcut_description">Removes Shorts from launcher long-press menu</string>
     <string name="settings_advanced_patch_options_hide_shorts_widget">Hide Shorts widget</string>
     <string name="settings_advanced_patch_options_hide_shorts_widget_description">Removes Shorts button from launcher widget</string>
+    
+    <string name="settings_advanced_skip_signing">Skip APK signing</string>
+    <string name="settings_advanced_skip_signing_description">Leave patched APKs unsigned. You can still save or send them to the selected installer, but Android normally rejects unsigned APKs</string>
 
     <!-- Settings - System Tab - Installer Section -->
     <string name="installer">Installer</string>

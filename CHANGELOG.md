@@ -1,3 +1,10 @@
+# [1.32.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.12...v1.32.0-dev.13) (2026-09-23)
+
+
+### Bug Fixes
+
+* Keep the screen on during batch patching ([974e572](https://github.com/MorpheApp/morphe-manager/commit/974e5723cd960526cd618cca79d9f31d3299221d))
+
 # [1.32.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0-dev.11...v1.32.0-dev.12) (2026-09-22)
 
 

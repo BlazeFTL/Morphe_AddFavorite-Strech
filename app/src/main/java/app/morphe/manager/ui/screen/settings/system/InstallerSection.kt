@@ -23,6 +23,7 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.installer.InstallerManager
@@ -542,8 +543,10 @@ private fun AutoUninstallWarningDialog(
         ) {
             Text(
                 text = stringResource(R.string.settings_auto_uninstall_warning_message),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LocalDialogSecondaryTextColor.current
+                style = MaterialTheme.typography.bodyLarge,
+                color = LocalDialogSecondaryTextColor.current,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Notice(
@@ -896,8 +899,10 @@ fun InstallerUnavailableDialog(
             // Main message
             Text(
                 text = stringResource(R.string.installer_unavailable_message, installerName),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LocalDialogSecondaryTextColor.current
+                style = MaterialTheme.typography.bodyLarge,
+                color = LocalDialogSecondaryTextColor.current,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
 
             // Error reason badge
@@ -959,8 +964,10 @@ fun PlayStoreInstallerWarningDialog(
         ) {
             Text(
                 text = stringResource(R.string.installer_play_store_warning_message),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LocalDialogSecondaryTextColor.current
+                style = MaterialTheme.typography.bodyLarge,
+                color = LocalDialogSecondaryTextColor.current,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Notice(
@@ -1008,8 +1015,10 @@ fun PrePatchInstallerDialog(
             // Description
             Text(
                 text = stringResource(R.string.root_pre_patch_installer_description),
-                style = MaterialTheme.typography.bodyMedium,
-                color = LocalDialogSecondaryTextColor.current
+                style = MaterialTheme.typography.bodyLarge,
+                color = LocalDialogSecondaryTextColor.current,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
 
             // Root Mount option

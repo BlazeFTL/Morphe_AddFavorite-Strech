@@ -1077,7 +1077,7 @@ Details: %2$s"</string>
     <string name="settings_system_backup_appearance">Appearance</string>
     <string name="settings_system_backup_appearance_description">Theme, colors and language</string>
     <string name="settings_system_backup_home">Home screen</string>
-    <string name="settings_system_backup_home_description">Groups, hidden apps and sorting</string>
+    <string name="settings_system_backup_home_description">Groups, hidden apps, sorting and toggles</string>
     <string name="settings_system_backup_patching">Patching and installing</string>
     <string name="settings_system_backup_patching_description">Installer, patcher and saved APKs</string>
     <string name="settings_system_backup_updates">Updates</string>

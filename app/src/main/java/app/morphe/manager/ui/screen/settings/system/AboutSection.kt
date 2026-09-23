@@ -6,13 +6,13 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import android.content.Intent
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Public
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,9 +24,9 @@ import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.SettingsDivider
 import app.morphe.manager.ui.screen.shared.SettingsGroup
 import app.morphe.manager.ui.screen.shared.SettingsItem
+import app.morphe.manager.ui.screen.shared.rememberMorpheLogoBitmap
 import app.morphe.manager.util.isolateLtr
 import app.morphe.manager.util.toast
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import org.koin.compose.koinInject
 
 /**
@@ -43,6 +43,7 @@ fun AboutSection(
     val context = LocalContext.current
     val noNetworkToast = stringResource(R.string.no_network_toast)
     val shareWebsiteChooserTitle = stringResource(R.string.settings_system_share_website)
+    val logo = rememberMorpheLogoBitmap()
 
     SettingsGroup {
         SettingsItem(
@@ -50,13 +51,14 @@ fun AboutSection(
             title = stringResource(R.string.app_name),
             subtitle = stringResource(R.string.version) + " " + BuildConfig.VERSION_NAME.isolateLtr(),
             leadingContent = {
-                Image(
-                    painter = rememberDrawablePainter(
-                        drawable = AppCompatResources.getDrawable(context, R.mipmap.ic_launcher)
-                    ),
-                    contentDescription = null,
-                    modifier = Modifier.size(Defaults.IconSize)
-                )
+                logo?.let {
+                    Icon(
+                        bitmap = it,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(Defaults.IconSize)
+                    )
+                }
             }
         )
 

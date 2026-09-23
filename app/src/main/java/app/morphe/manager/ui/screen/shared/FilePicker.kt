@@ -8,10 +8,8 @@ package app.morphe.manager.ui.screen.shared
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.graphics.BitmapFactory
-import android.graphics.Canvas
 import android.os.Environment
 import android.util.LruCache
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -47,7 +45,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.createBitmap
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.util.APK_EXTENSIONS
@@ -227,16 +224,7 @@ fun FilePicker(
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val allowedExtensions = remember(mimeTypes) { resolveAllowedExtensions(mimeTypes) }
-    val mppIcon: ImageBitmap? = remember(context) {
-        runCatching {
-            val drawable = AppCompatResources.getDrawable(context, R.drawable.ic_mpp) ?: return@runCatching null
-            val size = 96
-            val bmp = createBitmap(size, size)
-            drawable.setBounds(0, 0, size, size)
-            drawable.draw(Canvas(bmp))
-            bmp.asImageBitmap()
-        }.getOrNull()
-    }
+    val mppIcon = rememberMorpheLogoBitmap()
     val hasRoot = remember { Shell.isAppGrantedRoot() == true }
     val roots = remember(hasRoot) { storageRoots(context, hasRoot) }
 

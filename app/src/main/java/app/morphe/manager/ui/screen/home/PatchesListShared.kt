@@ -36,7 +36,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.AppDialogTextField
@@ -47,7 +46,6 @@ import app.morphe.manager.ui.screen.shared.SemanticTone
 import app.morphe.manager.ui.screen.shared.StatusBadge
 import app.morphe.manager.ui.screen.shared.animatedListItem
 import app.morphe.manager.util.toHsv
-import org.koin.compose.koinInject
 
 /**
  * Header card shown at the top of patches-list dialogs.
@@ -148,9 +146,8 @@ private const val UNGROUPED_GROUP_KEY = "ungrouped"
  * The tail keeps the universal patches with no category of their own. Those apply to every app and
  * would otherwise bury the handful written for this one, so they stay last and folded. Categories
  * start out open instead, since folding a block that hides an enabled patch is only worth it for
- * the one the user is least likely to have picked from. With grouping off the categories are
- * ignored and only that tail is split off, which is also what a bundle that declares no categories
- * at all comes out as.
+ * the one the user is least likely to have picked from. A bundle that declares no categories at
+ * all comes out as the plain list with only that tail split off.
  *
  * Order within a block is the order [patches] came in, so callers keep the sorting they want.
  */
@@ -160,7 +157,7 @@ internal fun <T> buildPatchGroups(
     infoOf: (T) -> PatchInfo,
     isEnabled: (T) -> Boolean = { false }
 ): List<PatchGroup<T>> {
-    val byCategory = patches.groupBy { if (options.groupByCategory) infoOf(it).category else null }
+    val byCategory = patches.groupBy { infoOf(it).category }
     val (universal, ungrouped) = byCategory[null].orEmpty().partition { infoOf(it).isUniversal }
 
     return buildList {
@@ -201,27 +198,21 @@ internal fun <T> buildPatchGroups(
  */
 @Immutable
 internal data class PatchGroupingOptions(
-    val universalTitle: String,
-    val groupByCategory: Boolean
+    val universalTitle: String
 )
 
 @Composable
-internal fun rememberPatchGroupingOptions(
-    prefs: PreferencesManager = koinInject()
-): PatchGroupingOptions {
+internal fun rememberPatchGroupingOptions(): PatchGroupingOptions {
     val universalTitle = stringResource(R.string.expert_mode_universal_patches)
-    val groupByCategory by prefs.groupPatchesByCategory.getAsState()
 
-    return remember(universalTitle, groupByCategory) {
-        PatchGroupingOptions(universalTitle, groupByCategory)
-    }
+    return remember(universalTitle) { PatchGroupingOptions(universalTitle) }
 }
 
 /**
- * The blocks [patches] is drawn as, following the user's grouping preference.
+ * The blocks [patches] is drawn as.
  *
- * Categories are whatever the bundle declares, so a bundle that declares none, and a user who
- * turned grouping off, both end up with the plain list plus its universal tail.
+ * Categories are whatever the bundle declares, so a bundle that declares none ends up with the
+ * plain list plus its universal tail.
  */
 @Composable
 internal fun <T> rememberPatchGroups(

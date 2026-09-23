@@ -67,7 +67,7 @@ enum class DialogPadding {
     Normal,
     /** Compact 16dp outer padding with system bar insets. */
     Compact,
-    /** No padding and no insets — caller handles layout entirely. */
+    /** No padding and no insets, the caller handles layout entirely. */
     None
 }
 
@@ -87,6 +87,8 @@ enum class DialogPadding {
  * Set to false for LazyColumn, where the caller wires up its own scroll state, scrollbar and button. Default is true.
  * @param padding Outer padding mode. Default is [DialogPadding.Normal].
  * @param contentArrangement Vertical arrangement of the dialog content.
+ * @param backdrop Drawn over the dialog's own background and under its content, for a dialog
+ * that previews something full screen, such as the background picker.
  * @param fillContentHeight Whether the content area claims the free space, which pins the footer
  * to the bottom of the dialog. Set to true for list dialogs, where the buttons belong at the
  * bottom however short the list is. Compact dialogs leave it false so their content and buttons
@@ -105,6 +107,7 @@ fun AppDialog(
     padding: DialogPadding = DialogPadding.Normal,
     contentArrangement: Arrangement.Vertical = Arrangement.Center,
     fillContentHeight: Boolean = false,
+    backdrop: (@Composable BoxScope.() -> Unit)? = null,
     onEntered: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -151,6 +154,7 @@ fun AppDialog(
                     } else Modifier
                 )
         ) {
+            backdrop?.invoke(this)
 
             AnimatedVisibility(
                 visible = visible,

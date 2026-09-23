@@ -105,9 +105,6 @@ class PreferencesManager(
 
     val useExpertMode = booleanPreference("use_expert_mode", false)
 
-    /** Whether patch lists are sectioned by the categories their bundle declares. */
-    val groupPatchesByCategory = booleanPreference("group_patches_by_category", true)
-
     val stripUnusedNativeLibs = booleanPreference("strip_unused_native_libs", false)
 
     // System tab
@@ -279,7 +276,6 @@ class PreferencesManager(
         val randomBackgroundInterval: RandomInterval? = null,
         val matrixBackgroundUnlocked: Boolean? = null,
         val useExpertMode: Boolean? = null,
-        val groupPatchesByCategory: Boolean? = null,
         val updateCheckInterval: UpdateCheckInterval? = null,
         val externalBatchPatchEnabled: Boolean? = null,
         val externalBatchPatchAllowlist: Set<String>? = null,
@@ -346,7 +342,6 @@ class PreferencesManager(
                 randomBackgroundInterval = randomBackgroundInterval.takeIf { appearance },
                 matrixBackgroundUnlocked = matrixBackgroundUnlocked.takeIf { appearance },
                 useExpertMode = useExpertMode.takeIf { patching },
-                groupPatchesByCategory = groupPatchesByCategory.takeIf { patching },
                 updateCheckInterval = updateCheckInterval.takeIf { updates },
                 externalBatchPatchEnabled = externalBatchPatchEnabled.takeIf { patching },
                 externalBatchPatchAllowlist = externalBatchPatchAllowlist.takeIf { patching },
@@ -402,7 +397,6 @@ class PreferencesManager(
         randomBackgroundInterval = randomBackgroundInterval.get(),
         matrixBackgroundUnlocked = matrixBackgroundUnlocked.get(),
         useExpertMode = useExpertMode.get(),
-        groupPatchesByCategory = groupPatchesByCategory.get(),
         updateCheckInterval = updateCheckInterval.get(),
         externalBatchPatchEnabled = externalBatchPatchEnabled.get(),
         externalBatchPatchAllowlist = externalBatchPatchAllowlist.get(),
@@ -475,7 +469,6 @@ class PreferencesManager(
         snapshot.randomBackgroundInterval?.let { randomBackgroundInterval.value = it }
         snapshot.matrixBackgroundUnlocked?.let { matrixBackgroundUnlocked.value = it }
         snapshot.useExpertMode?.let { useExpertMode.value = it }
-        snapshot.groupPatchesByCategory?.let { groupPatchesByCategory.value = it }
         snapshot.updateCheckInterval?.let { updateCheckInterval.value = it }
         snapshot.externalBatchPatchEnabled?.let { externalBatchPatchEnabled.value = it }
         snapshot.externalBatchPatchAllowlist?.let { externalBatchPatchAllowlist.value = it }

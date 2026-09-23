@@ -358,66 +358,6 @@ fun StatusCircleIcon(
 }
 
 /**
- * A settings row with a title, optional description, and import/export action buttons.
- */
-@Composable
-fun ImportExportRow(
-    leadingContent: @Composable () -> Unit,
-    title: String,
-    description: String? = null,
-    onImport: (() -> Unit)?,
-    onExport: (() -> Unit)?
-) {
-    val actions = buildList {
-        if (onImport != null) add(
-            CardAction(
-                icon = Icons.Outlined.Download,
-                label = stringResource(R.string.import_),
-                onClick = onImport
-            )
-        )
-        if (onExport != null) add(
-            CardAction(
-                icon = Icons.Outlined.Upload,
-                label = stringResource(R.string.export),
-                onClick = onExport
-            )
-        )
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(Defaults.ContentPadding),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            leadingContent()
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                if (description != null) {
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-        }
-        if (actions.isNotEmpty()) {
-            CardActionRow(actions = actions)
-        }
-    }
-}
-
-/**
  * Circular icon with gradient background for section titles.
  */
 @Composable

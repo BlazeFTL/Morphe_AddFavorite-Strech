@@ -332,51 +332,17 @@ private fun PatchSelectionManagementDialogContent(
             )
         },
         footer = {
-            // Two groups rather than one: the transfer pair shares a row, close keeps its own
-            Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)) {
-                if (selections.isNotEmpty()) {
-                    AppDialogActions(
-                        actions = listOf(
-                            DialogAction(
-                                text = stringResource(R.string.import_),
-                                onClick = { openImportAllSelectionsPicker() },
-                                icon = Icons.Outlined.Download
-                            ),
-                            DialogAction(
-                                text = stringResource(R.string.export),
-                                onClick = {
-                                    exportAllSelectionsLauncher.launch(
-                                        importExportViewModel.getAllSelectionsExportFileName()
-                                    )
-                                },
-                                icon = Icons.Outlined.Upload
-                            )
-                        ),
-                        layout = DialogButtonLayout.Horizontal
-                    )
-                } else {
-                    AppDialogActions(
-                        actions = listOf(
-                            DialogAction(
-                                text = stringResource(R.string.import_),
-                                onClick = { openImportAllSelectionsPicker() },
-                                icon = Icons.Outlined.Download
-                            )
-                        ),
-                        layout = DialogButtonLayout.Vertical
-                    )
-                }
-                AppDialogActions(
-                    actions = listOf(
-                        DialogAction(
-                            text = stringResource(R.string.close),
-                            onClick = onDismiss,
-                            emphasis = DialogActionEmphasis.Outlined
+            ImportExportFooter(
+                onImport = { openImportAllSelectionsPicker() },
+                onExport = if (selections.isNotEmpty()) {
+                    {
+                        exportAllSelectionsLauncher.launch(
+                            importExportViewModel.getAllSelectionsExportFileName()
                         )
-                    ),
-                    layout = DialogButtonLayout.Vertical
-                )
-            }
+                    }
+                } else null,
+                onClose = onDismiss
+            )
         },
         bottomBar = if (multiSelect.isSelectionMode) {
             {

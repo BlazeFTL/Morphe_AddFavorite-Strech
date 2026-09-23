@@ -28,7 +28,7 @@ body:
   - type: textarea
     attributes:
       label: Morphe logs
-      description: Export logs `Expert mode > Advanced > Export debug logs` (attach file if log is very large)
+      description: Export logs `Settings > System > About > Export debug logs` (attach file if log is very large)
       render: shell
     validations:
       required: true

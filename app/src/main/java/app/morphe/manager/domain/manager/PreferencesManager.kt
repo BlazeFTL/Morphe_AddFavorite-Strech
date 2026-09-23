@@ -29,6 +29,21 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 
+/**
+ * Parts of the manager settings a backup can carry or leave out. Each setting belongs to exactly
+ * one, as [PreferencesManager.SettingsSnapshot.restrictedTo] spells out.
+ */
+enum class SettingsSection {
+    APPEARANCE,
+    HOME,
+    PATCHING,
+    UPDATES,
+    SOURCES,
+
+    /** Chosen patches and their options, carried next to the snapshot rather than in it. */
+    PATCH_SELECTIONS
+}
+
 class PreferencesManager(
     private val context: Context
 ) : BasePreferencesManager(context, "settings") {
@@ -283,7 +298,75 @@ class PreferencesManager(
         val patcherSuccessSoundUri: String? = null,
         val patcherErrorSoundUri: String? = null,
         val homeAppButtons: HomeAppButtonSnapshot? = null
-    )
+    ) {
+        /**
+         * This snapshot with only the settings of [sections] left in it. Import skips whatever is
+         * null, so the same cut serves an export that leaves a section out and an import that
+         * declines one the file carries.
+         */
+        fun restrictedTo(sections: Set<SettingsSection>): SettingsSnapshot {
+            val appearance = SettingsSection.APPEARANCE in sections
+            val home = SettingsSection.HOME in sections
+            val patching = SettingsSection.PATCHING in sections
+            val updates = SettingsSection.UPDATES in sections
+            val sources = SettingsSection.SOURCES in sections
+            return SettingsSnapshot(
+                dynamicColor = dynamicColor.takeIf { appearance },
+                pureBlackTheme = pureBlackTheme.takeIf { appearance },
+                customAccentColor = customAccentColor.takeIf { appearance },
+                customThemeColor = customThemeColor.takeIf { appearance },
+                appCardColorMode = appCardColorMode.takeIf { appearance },
+                customAppCardColors = customAppCardColors.takeIf { appearance },
+                stripUnusedNativeLibs = stripUnusedNativeLibs.takeIf { patching },
+                theme = theme.takeIf { appearance },
+                themeStyle = themeStyle.takeIf { appearance },
+                uiScale = uiScale.takeIf { appearance },
+                appLanguage = appLanguage.takeIf { appearance },
+                gitHubPat = gitHubPat.takeIf { sources },
+                includeGitHubPatInExports = includeGitHubPatInExports.takeIf { sources },
+                useProcessRuntime = useProcessRuntime.takeIf { patching },
+                patcherProcessMemoryLimit = patcherProcessMemoryLimit.takeIf { patching },
+                allowMeteredUpdates = allowMeteredUpdates.takeIf { updates },
+                installerPrimary = installerPrimary.takeIf { patching },
+                installerCustomComponents = installerCustomComponents.takeIf { patching },
+                installerHiddenComponents = installerHiddenComponents.takeIf { patching },
+                keystoreAlias = keystoreAlias.takeIf { patching },
+                keystorePass = keystorePass.takeIf { patching },
+                keystorePassword = keystorePassword.takeIf { patching },
+                firstLaunch = firstLaunch.takeIf { home },
+                useManagerPrereleases = useManagerPrereleases.takeIf { updates },
+                officialBundlePrerelease = officialBundlePrerelease.takeIf { sources },
+                officialBundleExperimentalVersions = officialBundleExperimentalVersions.takeIf { sources },
+                bundlePrereleasesEnabled = bundlePrereleasesEnabled.takeIf { sources },
+                bundleExperimentalVersionsEnabled = bundleExperimentalVersionsEnabled.takeIf { sources },
+                disablePatchVersionCompatCheck = disablePatchVersionCompatCheck.takeIf { patching },
+                showGreetingPhrases = showGreetingPhrases.takeIf { home },
+                showRepatchNotice = showRepatchNotice.takeIf { home },
+                backgroundType = backgroundType.takeIf { appearance },
+                randomBackgroundInterval = randomBackgroundInterval.takeIf { appearance },
+                matrixBackgroundUnlocked = matrixBackgroundUnlocked.takeIf { appearance },
+                useExpertMode = useExpertMode.takeIf { patching },
+                groupPatchesByCategory = groupPatchesByCategory.takeIf { patching },
+                updateCheckInterval = updateCheckInterval.takeIf { updates },
+                externalBatchPatchEnabled = externalBatchPatchEnabled.takeIf { patching },
+                externalBatchPatchAllowlist = externalBatchPatchAllowlist.takeIf { patching },
+                customBundles = customBundles.takeIf { sources },
+                filePickerSortMode = filePickerSortMode.takeIf { patching },
+                filePickerShowHiddenFiles = filePickerShowHiddenFiles.takeIf { patching },
+                useCustomFilePicker = useCustomFilePicker.takeIf { patching },
+                customFilePickerUserConfigured = customFilePickerUserConfigured.takeIf { patching },
+                useApkDownloadHelper = useApkDownloadHelper.takeIf { patching },
+                trustedApkDownloadHelpers = trustedApkDownloadHelpers.takeIf { patching },
+                sourceBundleSortMode = sourceBundleSortMode.takeIf { sources },
+                saveOriginalApks = saveOriginalApks.takeIf { patching },
+                savePatchedApks = savePatchedApks.takeIf { patching },
+                patcherCompletionSound = patcherCompletionSound.takeIf { patching },
+                patcherSuccessSoundUri = patcherSuccessSoundUri.takeIf { patching },
+                patcherErrorSoundUri = patcherErrorSoundUri.takeIf { patching },
+                homeAppButtons = homeAppButtons.takeIf { home }
+            )
+        }
+    }
 
     suspend fun exportSettings() = SettingsSnapshot(
         dynamicColor = themeStyle.get() == ThemeStyle.MATERIAL_YOU,

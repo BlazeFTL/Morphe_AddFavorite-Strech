@@ -9,6 +9,7 @@ import android.content.Intent
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
+import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material3.Icon
@@ -37,6 +38,7 @@ import org.koin.compose.koinInject
 fun AboutSection(
     onAboutClick: () -> Unit,
     onChangelogClick: () -> Unit,
+    onExportDebugLogs: () -> Unit,
     onStartTour: (() -> Unit)? = null,
     networkInfo: NetworkInfo = koinInject()
 ) {
@@ -99,6 +101,16 @@ fun AboutSection(
                     context.toast("Failed to share website: ${it.message}")
                 }
             }
+        )
+
+        SettingsDivider()
+
+        // Next to the changelog rather than with the backups: logs are what a bug report asks for
+        SettingsItem(
+            icon = Icons.Outlined.BugReport,
+            title = stringResource(R.string.settings_system_export_debug_logs),
+            subtitle = stringResource(R.string.settings_system_export_debug_logs_description),
+            onClick = onExportDebugLogs
         )
 
         if (onStartTour != null) {

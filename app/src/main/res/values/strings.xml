@@ -1071,8 +1071,25 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import &amp; export</string>
-    <string name="settings_system_keystore">Keystore</string>
-    <string name="settings_system_import_keystore_description">Imports or exports your signing keystore</string>
+    <string name="settings_system_signing_key">Signing key</string>
+    <string name="settings_system_signing_key_description">Backs up and restores the key your patched apps are signed with</string>
+    <string name="settings_system_signing_key_dialog_description">Every app Morphe patches is signed with this key. Keep a copy: without it, patched apps can only be updated after uninstalling them</string>
+    <string name="settings_system_signing_key_missing">Morphe creates one with your first patch</string>
+    <string name="settings_system_signing_key_created">Created %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 fingerprint</string>
+    <string name="settings_system_backup_appearance">Appearance</string>
+    <string name="settings_system_backup_appearance_description">Theme, colors and language</string>
+    <string name="settings_system_backup_home">Home screen</string>
+    <string name="settings_system_backup_home_description">Groups, hidden apps and sorting</string>
+    <string name="settings_system_backup_patching">Patching and installing</string>
+    <string name="settings_system_backup_patching_description">Installer, patcher and saved APKs</string>
+    <string name="settings_system_backup_updates">Updates</string>
+    <string name="settings_system_backup_updates_description">Prereleases and update checks</string>
+    <string name="settings_system_backup_sources">Sources</string>
+    <string name="settings_system_backup_sources_description">Custom sources and GitHub token</string>
+    <string name="settings_system_backup_patch_selections">Patch selections</string>
+    <string name="settings_system_backup_patch_selections_description">Chosen patches for every app</string>
+    <string name="settings_system_backup_signing_key_note">The signing key is backed up separately</string>
     <string name="settings_system_import_keystore_dialog_title">Enter keystore credentials</string>
     <string name="settings_system_import_keystore_dialog_description">You\'ll need enter the keystore\'s credentials to import it</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Username (Alias)</string>
@@ -1081,7 +1098,6 @@ Details: %2$s"</string>
     <string name="settings_system_import_keystore_wrong_credentials">Incorrect keystore credentials</string>
     <string name="settings_system_import_keystore_success">Keystore imported</string>
     <string name="settings_system_import_keystore_failed">Failed to import keystore</string>
-    <string name="settings_system_export_keystore_unavailable">No keystore available to export</string>
     <string name="settings_system_export_keystore_success">Keystore exported</string>
     <string name="settings_system_export_keystore_failed">Failed to export keystore</string>
     <string name="settings_system_show_password_field">Show password</string>
@@ -1100,7 +1116,7 @@ Details: %2$s"</string>
     <string name="import_mode_merge_description">Add missing items from the backup. Existing items are kept unchanged</string>
     <string name="settings_system_export_manager_settings_fail">Failed to export Morphe settings: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe settings exported</string>
-    <string name="settings_system_debug">Debug</string>
+    <string name="settings_system_export_debug_logs">Export debug logs</string>
     <string name="settings_system_export_debug_logs_description">Saves system logs for troubleshooting</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Failed to read logs (exit code %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Failed to export logs</string>

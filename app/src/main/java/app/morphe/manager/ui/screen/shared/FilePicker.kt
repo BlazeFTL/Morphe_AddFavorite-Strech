@@ -42,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -436,9 +437,8 @@ fun FilePicker(
                                 DropdownMenuItem(
                                     text = { Text(stringResource(R.string.file_picker_show_hidden_files)) },
                                     trailingIcon = {
-                                        Checkbox(
-                                            checked = showHiddenFiles,
-                                            onCheckedChange = null
+                                        SelectionCheckIndicator(
+                                            if (showHiddenFiles) ToggleableState.On else ToggleableState.Off
                                         )
                                     },
                                     modifier = Modifier.semantics { role = Role.Checkbox },

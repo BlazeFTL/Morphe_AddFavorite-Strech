@@ -11,7 +11,6 @@ import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,7 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -2168,30 +2166,14 @@ fun SimpleBundleSelectDialog(
         // Outside the group above, since this answers what to do with the sources that were not
         // picked rather than being one more of them
         if (canRemember) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = Defaults.ContentPaddingSmall)
-                    .toggleable(
-                        value = rememberChoice.value,
-                        role = Role.Checkbox,
-                        onValueChange = { rememberChoice.value = it }
-                    )
-                    .padding(Defaults.ContentPaddingSmall),
-                verticalAlignment = Alignment.CenterVertically,
-                // The cards above carry the same round indicator, so the two kinds of choice in
-                // this dialog are told apart by their shape rather than by two styles of box
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterHorizontally)
-            ) {
-                SelectionCheckIndicator(
-                    if (rememberChoice.value) ToggleableState.On else ToggleableState.Off
-                )
-                Text(
-                    text = stringResource(R.string.home_simple_bundle_select_remember),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
+            // The cards above carry the same round indicator, so the two kinds of choice in
+            // this dialog are told apart by their shape rather than by two styles of box
+            SelectionCheckRow(
+                text = stringResource(R.string.home_simple_bundle_select_remember),
+                checked = rememberChoice.value,
+                onCheckedChange = { rememberChoice.value = it },
+                modifier = Modifier.padding(top = Defaults.ContentPaddingSmall)
+            )
         }
     }
 }

@@ -9,7 +9,6 @@ import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.*
@@ -18,7 +17,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
@@ -539,7 +537,7 @@ private fun AutoUninstallWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             Text(
                 text = stringResource(R.string.settings_auto_uninstall_warning_message),
@@ -894,7 +892,7 @@ fun InstallerUnavailableDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             // Main message
             Text(
@@ -960,7 +958,7 @@ fun PlayStoreInstallerWarningDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             Text(
                 text = stringResource(R.string.installer_play_store_warning_message),
@@ -970,9 +968,10 @@ fun PlayStoreInstallerWarningDialog(
                 modifier = Modifier.fillMaxWidth()
             )
 
+            // A risk the user can avoid by turning off updates, not a failure
             Notice(
                 text = stringResource(R.string.installer_play_store_warning_risk),
-                tone = SemanticTone.Error,
+                tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
         }
@@ -1010,7 +1009,7 @@ fun PrePatchInstallerDialog(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             // Description
             Text(
@@ -1022,11 +1021,12 @@ fun PrePatchInstallerDialog(
             )
 
             // Root Mount option
-            InstallerOptionCard(
+            SettingsItem(
+                onClick = onSelectMount,
                 icon = Icons.Outlined.Link,
                 title = stringResource(R.string.root_pre_patch_installer_mount_title),
-                description = stringResource(R.string.root_pre_patch_installer_mount_description),
-                onClick = onSelectMount
+                subtitle = stringResource(R.string.root_pre_patch_installer_mount_description),
+                showBorder = true
             )
 
             Notice(
@@ -1036,11 +1036,12 @@ fun PrePatchInstallerDialog(
             )
 
             // Standard Install option
-            InstallerOptionCard(
+            SettingsItem(
+                onClick = onSelectStandard,
                 icon = Icons.Outlined.InstallMobile,
                 title = stringResource(R.string.root_pre_patch_installer_standard_title),
-                description = stringResource(R.string.root_pre_patch_installer_standard_description),
-                onClick = onSelectStandard
+                subtitle = stringResource(R.string.root_pre_patch_installer_standard_description),
+                showBorder = true
             )
 
             // Info hint
@@ -1048,53 +1049,6 @@ fun PrePatchInstallerDialog(
                 text = stringResource(R.string.root_pre_patch_installer_hint),
                 tone = SemanticTone.Primary,
                 icon = Icons.Outlined.Info
-            )
-        }
-    }
-}
-
-/**
- * Clickable card representing an installer option in the pre-patch dialog.
- */
-@Composable
-private fun InstallerOptionCard(
-    icon: ImageVector,
-    title: String,
-    description: String,
-    onClick: () -> Unit
-) {
-    Surface(
-        onClick = onClick,
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ThemedIcon(
-                icon = icon,
-                tint = MaterialTheme.colorScheme.primary
-            )
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold,
-                    color = LocalDialogTextColor.current
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-            ForwardChevronIcon(
-                size = Defaults.IconSizeSmall,
-                tint = LocalDialogSecondaryTextColor.current.copy(alpha = 0.5f)
             )
         }
     }

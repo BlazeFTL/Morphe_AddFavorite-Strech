@@ -1170,12 +1170,6 @@ fun InvalidSignatureDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.GppBad,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier.size(48.dp)
-            )
             Text(
                 text = htmlAnnotatedString(
                     stringResource(R.string.home_invalid_signature_message, appName)
@@ -1224,12 +1218,6 @@ fun SplitApkWarningDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.FolderZip,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
             Text(
                 text = htmlAnnotatedString(
                     stringResource(R.string.home_split_apk_warning_message, appName)
@@ -1366,12 +1354,6 @@ private fun NoCompatibleVersionsDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.PhoneAndroid,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier.size(48.dp)
-            )
             Text(
                 text = htmlAnnotatedString(
                     stringResource(
@@ -1715,13 +1697,6 @@ fun LowDiskSpaceDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.FolderOff,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
-
             Text(
                 text = stringResource(
                     R.string.home_low_disk_space_dialog_message,
@@ -1782,13 +1757,6 @@ fun MeteredPatchingDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.SignalCellularAlt,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
-
             Text(
                 text = stringResource(R.string.home_outdated_patches_dialog_message),
                 style = MaterialTheme.typography.bodyLarge,
@@ -1952,22 +1920,6 @@ fun MppImportDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Icon
-            Surface(
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.primaryContainer,
-                modifier = Modifier.size(56.dp)
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = Icons.Outlined.FolderZip,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(28.dp)
-                    )
-                }
-            }
-
             // Message
             Text(
                 text = stringResource(R.string.deep_link_add_source_message),

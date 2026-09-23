@@ -1238,8 +1238,6 @@ Details: %2$s"</string>
 
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">About</string>
-    <string name="settings_system_share_website">Share website</string>
-    <string name="settings_system_share_website_description">Shares the official Morphe website</string>
     <string name="settings_system_manager_description">An open-source project for modern, streamlined patching of popular Android apps, driven by community feedback and contributions</string>
     <string name="credits">Credits</string>
     <string name="credits_current_development">Current development</string>
@@ -1379,7 +1377,7 @@ Details: %2$s"</string>
     <string name="changelog_for_app">Changes for %s</string>
     <string name="changelog_general_changes">General changes</string>
     <string name="whats_new">What\'s new</string>
-    <string name="changelog_description">Check out the latest changes in this update</string>
+    <string name="changelog_description">What\'s new in this version</string>
     <string name="changelog_download_fail">Failed to download changelog: %s</string>
     <string name="changelog_empty">No changelog available</string>
     <string name="changelog_show_older">Show older releases</string>
@@ -1428,5 +1426,5 @@ Do you still want to continue?"</string>
     <string name="tour_prompt_desc">Want a quick tour of Morphe\'s key features?</string>
     <string name="tour_prompt_confirm">Show me around</string>
     <string name="onboarding_restart_title">Feature tour</string>
-    <string name="onboarding_restart_desc">Take a guided tour of Morphe\'s key features</string>
+    <string name="onboarding_restart_desc">A guided tour of key features</string>
 </resources>

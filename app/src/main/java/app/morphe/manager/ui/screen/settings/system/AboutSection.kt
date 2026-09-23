@@ -5,13 +5,11 @@
 
 package app.morphe.manager.ui.screen.settings.system
 
-import android.content.Intent
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Lightbulb
-import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -31,8 +29,7 @@ import app.morphe.manager.util.toast
 import org.koin.compose.koinInject
 
 /**
- * About section.
- * Contains app info and website sharing.
+ * About section: the app itself, its changelog, the logs a bug report asks for and the tour.
  */
 @Composable
 fun AboutSection(
@@ -44,7 +41,6 @@ fun AboutSection(
 ) {
     val context = LocalContext.current
     val noNetworkToast = stringResource(R.string.no_network_toast)
-    val shareWebsiteChooserTitle = stringResource(R.string.settings_system_share_website)
     val logo = rememberMorpheLogoBitmap()
 
     SettingsGroup {
@@ -76,30 +72,6 @@ fun AboutSection(
                     return@SettingsItem
                 }
                 onChangelogClick()
-            }
-        )
-
-        SettingsDivider()
-
-        SettingsItem(
-            icon = Icons.Outlined.Public,
-            title = stringResource(R.string.settings_system_share_website),
-            subtitle = stringResource(R.string.settings_system_share_website_description),
-            onClick = {
-                runCatching {
-                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, "https://morphe.software")
-                    }
-                    context.startActivity(
-                        Intent.createChooser(
-                            shareIntent,
-                            shareWebsiteChooserTitle
-                        )
-                    )
-                }.onFailure {
-                    context.toast("Failed to share website: ${it.message}")
-                }
             }
         )
 

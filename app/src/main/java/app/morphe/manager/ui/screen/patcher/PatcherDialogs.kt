@@ -28,11 +28,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -52,7 +50,6 @@ import app.morphe.manager.util.PathValidationResult
 import app.morphe.manager.util.deviceStats
 import app.morphe.manager.util.htmlAnnotatedString
 import app.morphe.manager.util.requestIgnoreBatteryOptimizations
-import app.morphe.manager.util.toast
 
 /**
  * Ceiling for the label column, past which a translation that runs long would leave its value
@@ -552,10 +549,7 @@ fun PatcherErrorDialog(
     errorInfo: PatcherErrorInfo?,
     onDismiss: () -> Unit
 ) {
-    val context = LocalContext.current
-    val errorCopiedText = stringResource(R.string.patcher_error_copied)
-    @Suppress("DEPRECATION")
-    val clipboardManager = LocalClipboardManager.current
+    val copyToClipboard = rememberCopyToClipboard(stringResource(R.string.patcher_error_copied))
 
     val diagnostics = diagnosticSections(errorInfo)
     // The log alone rarely identifies a failure, so the clipboard carries the diagnostics too
@@ -575,10 +569,7 @@ fun PatcherErrorDialog(
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.copy),
-                onPrimaryClick = {
-                    clipboardManager.setText(AnnotatedString(report))
-                    context.toast(errorCopiedText)
-                },
+                onPrimaryClick = { copyToClipboard(report) },
                 primaryIcon = Icons.Default.ContentCopy,
                 secondaryText = stringResource(R.string.close),
                 onSecondaryClick = onDismiss

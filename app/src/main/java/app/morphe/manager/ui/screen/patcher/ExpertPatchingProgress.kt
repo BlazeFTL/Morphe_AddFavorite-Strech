@@ -26,9 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -302,8 +300,7 @@ fun ExpertPatchingInProgress(
     val initialIndex = (rawLogs.size - 1).coerceAtLeast(0)
     val listState = rememberLazyListState(initialFirstVisibleItemIndex = initialIndex)
     val windowSize = rememberWindowSize()
-    @Suppress("DEPRECATION")
-    val clipboardManager = LocalClipboardManager.current
+    val copyToClipboard = rememberCopyToClipboard()
 
     // Formats all raw log entries as plain text for clipboard
     fun buildLogsText(): String = rawLogs.joinToString(separator = "\n") { (level, message) ->
@@ -338,7 +335,7 @@ fun ExpertPatchingInProgress(
             onSaveClick = {},
             onErrorClick = {},
             onCopyLogsClick = {
-                clipboardManager.setText(AnnotatedString(buildLogsText()))
+                copyToClipboard(buildLogsText())
             }
         )
     }

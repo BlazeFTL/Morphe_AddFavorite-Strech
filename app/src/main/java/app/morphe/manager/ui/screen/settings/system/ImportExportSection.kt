@@ -5,6 +5,8 @@
 
 package app.morphe.manager.ui.screen.settings.system
 
+import android.view.HapticFeedbackConstants
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Key
@@ -16,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
@@ -173,10 +176,24 @@ private fun SigningKeyPreview(key: SigningKeyInfo) {
     val createdAt = remember(key.createdAt) {
         key.createdAt?.let { DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it)) }
     }
+    // Colon-separated uppercase bytes, the form other tools print a certificate fingerprint in
+    val fingerprintBytes = remember(key.sha256) { key.sha256.uppercase().chunked(2) }
+    val copyToClipboard = rememberCopyToClipboard()
+    val view = LocalView.current
 
     SettingsItemCard(onClick = null, borderWidth = 1.dp) {
         Column(
-            modifier = Modifier.padding(Defaults.ContentPadding),
+            modifier = Modifier
+                .combinedClickable(
+                    onClick = {},
+                    onLongClickLabel = stringResource(R.string.copy),
+                    // Copied on one line, as other tools expect to be handed a fingerprint
+                    onLongClick = {
+                        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                        copyToClipboard(fingerprintBytes.joinToString(":"))
+                    }
+                )
+                .padding(Defaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             Row(
@@ -205,10 +222,8 @@ private fun SigningKeyPreview(key: SigningKeyInfo) {
                 }
             }
 
-            // Colon-separated uppercase bytes, the form other tools print a certificate fingerprint in
             MonospaceValuePanel(
-                value = key.sha256.uppercase()
-                    .chunked(2)
+                value = fingerprintBytes
                     .chunked(FINGERPRINT_BYTES_PER_LINE)
                     .joinToString("\n") { it.joinToString(":") },
                 label = stringResource(R.string.settings_system_signing_key_fingerprint),

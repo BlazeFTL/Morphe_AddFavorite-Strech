@@ -51,7 +51,6 @@ fun SystemTabContent(
 ) {
     val showNotificationsDialog = remember { mutableStateOf(false) }
 
-    val contentPadding = rememberWindowSize().contentPadding
 
     if (showNotificationsDialog.value) {
         NotificationsDialog(
@@ -63,7 +62,7 @@ fun SystemTabContent(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = contentPadding, vertical = Defaults.ContentPadding),
+            .padding(settingsTabPadding()),
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
     ) {
         // Installers

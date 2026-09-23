@@ -72,13 +72,12 @@ fun AdvancedTabContent(
         )
     }
 
-    val contentPadding = rememberWindowSize().contentPadding
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
             .animateContentSize()
-            .padding(horizontal = contentPadding, vertical = Defaults.ContentPadding),
+            .padding(settingsTabPadding()),
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
     ) {
         // Updates section

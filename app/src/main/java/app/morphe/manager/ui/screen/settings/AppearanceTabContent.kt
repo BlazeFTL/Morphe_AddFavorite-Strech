@@ -103,12 +103,11 @@ fun AppearanceTabContent(
         if (!showAppCardColorSetting) showAppCardColorDialog.value = false
     }
 
-    val contentPadding = rememberWindowSize().contentPadding
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = contentPadding, vertical = Defaults.ContentPadding)
+            .padding(settingsTabPadding())
     ) {
         LanguageAndDisplaySection(
             appLanguage = appLanguage,

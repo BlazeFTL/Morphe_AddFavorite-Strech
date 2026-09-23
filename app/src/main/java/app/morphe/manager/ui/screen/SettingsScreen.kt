@@ -46,6 +46,7 @@ import app.morphe.manager.domain.manager.SettingsSection
 import app.morphe.manager.ui.screen.home.GlobalOnboardingState
 import app.morphe.manager.ui.screen.settings.AdvancedTabContent
 import app.morphe.manager.ui.screen.settings.AppearanceTabContent
+import app.morphe.manager.ui.screen.settings.LocalSettingsTabBottomPadding
 import app.morphe.manager.ui.screen.settings.SystemTabContent
 import app.morphe.manager.ui.screen.settings.system.*
 import app.morphe.manager.ui.screen.shared.*
@@ -384,10 +385,15 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .weight(1f)
                 ) {
-                    HorizontalPager(
-                        state = pagerState,
-                        modifier = Modifier.fillMaxSize()
-                    ) { page -> TabContent(SettingsTab.entries[page]) }
+                    // The bottom navigation's own padding already sits under each tab
+                    CompositionLocalProvider(
+                        LocalSettingsTabBottomPadding provides Defaults.ContentPadding - Defaults.ItemSpacing
+                    ) {
+                        HorizontalPager(
+                            state = pagerState,
+                            modifier = Modifier.fillMaxSize()
+                        ) { page -> TabContent(SettingsTab.entries[page]) }
+                    }
 
                     ListScrollbar(scrollState = currentScrollState)
                 }

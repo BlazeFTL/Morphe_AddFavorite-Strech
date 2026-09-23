@@ -94,6 +94,9 @@ class PreferencesManager(
     val groupPatchesByCategory = booleanPreference("group_patches_by_category", true)
 
     val stripUnusedNativeLibs = booleanPreference("strip_unused_native_libs", false)
+    
+    /** Leave patched APKs unsigned; the original META-INF signature files stay in the output. */
+    val skipApkSigning = booleanPreference("skip_apk_signing", false)
 
     // System tab
     val installerPrimary = stringPreference("installer_primary", InstallerPreferenceTokens.INTERNAL)

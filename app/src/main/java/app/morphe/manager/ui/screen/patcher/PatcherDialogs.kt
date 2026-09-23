@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.patcher
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -52,6 +51,7 @@ import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import app.morphe.manager.util.PathValidationResult
 import app.morphe.manager.util.deviceStats
 import app.morphe.manager.util.htmlAnnotatedString
+import app.morphe.manager.util.requestIgnoreBatteryOptimizations
 import app.morphe.manager.util.toast
 
 /**
@@ -441,7 +441,6 @@ fun UnusableOptionPathsDialog(
  * Pre-flight dialog shown once when the app is not excluded from battery optimization.
  * Directs the user to the system dialog to grant the exclusion.
  */
-@SuppressLint("BatteryLife")
 @Composable
 fun BatteryOptimizationDialog(
     onResult: () -> Unit,
@@ -459,12 +458,7 @@ fun BatteryOptimizationDialog(
                 AppDialogButton(
                     text = stringResource(R.string.allow),
                     onClick = {
-                        context.startActivity(
-                            Intent(
-                                Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                                "package:${context.packageName}".toUri()
-                            )
-                        )
+                        context.requestIgnoreBatteryOptimizations()
                         onResult()
                     },
                     icon = Icons.Outlined.BatterySaver,

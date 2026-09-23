@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +43,7 @@ import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.displayName
+import app.morphe.manager.util.openAppNotificationSettings
 import app.morphe.manager.util.rememberAdaptiveFilePicker
 import app.morphe.manager.worker.UpdateCheckInterval
 import kotlin.math.roundToInt
@@ -207,26 +209,38 @@ fun NotificationsDialog(
                     )
                 )
 
-                // FCM pushes updates as they land, so the polling interval only matters without GMS
                 AnimatedVisibility(
-                    visible = backgroundUpdateNotifications && !settingsViewModel.hasGms,
+                    visible = backgroundUpdateNotifications,
                     enter = Animations.expandFadeEnter,
                     exit = Animations.shrinkFadeExit
                 ) {
                     Column {
+                        // FCM pushes updates as they land, so the polling interval only matters without GMS
+                        if (!settingsViewModel.hasGms) {
+                            SettingsDivider()
+
+                            SettingsItem(
+                                onClick = { showIntervalDialog = true },
+                                leadingContent = { ThemedIcon(icon = Icons.Outlined.Schedule) },
+                                title = stringResource(R.string.settings_advanced_update_interval),
+                                subtitle = stringResource(updateCheckInterval.labelResId)
+                            )
+                        }
+
                         SettingsDivider()
 
+                        // Manager and patch updates have channels of their own, tuned where Android keeps them
                         SettingsItem(
-                            onClick = { showIntervalDialog = true },
-                            leadingContent = { ThemedIcon(icon = Icons.Outlined.Schedule) },
-                            title = stringResource(R.string.settings_advanced_update_interval),
-                            subtitle = stringResource(updateCheckInterval.labelResId)
+                            onClick = { context.openAppNotificationSettings() },
+                            leadingContent = { ThemedIcon(icon = Icons.AutoMirrored.Outlined.Launch) },
+                            title = stringResource(R.string.settings_system_notifications_categories),
+                            subtitle = stringResource(R.string.settings_system_notifications_categories_description)
                         )
                     }
                 }
+            }
 
-                SettingsDivider()
-
+            SettingsGroup {
                 SettingsSwitchItem(
                     checked = completionSound,
                     onToggle = { settingsViewModel.setPatcherCompletionSound(!completionSound) },
@@ -234,26 +248,32 @@ fun NotificationsDialog(
                     title = stringResource(R.string.settings_system_patcher_completion_sound),
                     subtitle = stringResource(R.string.settings_system_patcher_completion_sound_description)
                 )
-            }
 
-            SettingsGroup {
-                SoundSelectorItem(
-                    title = stringResource(R.string.settings_system_notifications_success_sound),
-                    icon = Icons.Outlined.CheckCircle,
-                    currentUri = successSoundUri,
-                    defaultLabel = defaultLabel,
-                    enabled = completionSound,
-                    onClick = { showSourcePickerFor = SoundKind.Success }
-                )
-                SettingsDivider()
-                SoundSelectorItem(
-                    title = stringResource(R.string.settings_system_notifications_error_sound),
-                    icon = Icons.Outlined.ErrorOutline,
-                    currentUri = errorSoundUri,
-                    defaultLabel = defaultLabel,
-                    enabled = completionSound,
-                    onClick = { showSourcePickerFor = SoundKind.Error }
-                )
+                // Tones only play with the completion sound on, so picking one is offered under it
+                AnimatedVisibility(
+                    visible = completionSound,
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
+                ) {
+                    Column {
+                        SettingsDivider()
+                        SoundSelectorItem(
+                            title = stringResource(R.string.settings_system_notifications_success_sound),
+                            icon = Icons.Outlined.CheckCircle,
+                            currentUri = successSoundUri,
+                            defaultLabel = defaultLabel,
+                            onClick = { showSourcePickerFor = SoundKind.Success }
+                        )
+                        SettingsDivider()
+                        SoundSelectorItem(
+                            title = stringResource(R.string.settings_system_notifications_error_sound),
+                            icon = Icons.Outlined.ErrorOutline,
+                            currentUri = errorSoundUri,
+                            defaultLabel = defaultLabel,
+                            onClick = { showSourcePickerFor = SoundKind.Error }
+                        )
+                    }
+                }
             }
         }
     }
@@ -265,7 +285,6 @@ private fun SoundSelectorItem(
     icon: ImageVector,
     currentUri: String,
     defaultLabel: String,
-    enabled: Boolean,
     onClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -273,7 +292,7 @@ private fun SoundSelectorItem(
         if (currentUri.isBlank()) defaultLabel else ringtoneDisplayName(context, currentUri) ?: currentUri
     }
     SettingsItem(
-        onClick = { if (enabled) onClick() },
+        onClick = onClick,
         title = title,
         subtitle = subtitle,
         leadingContent = { ThemedIcon(icon = icon) }

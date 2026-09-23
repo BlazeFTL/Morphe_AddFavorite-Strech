@@ -974,6 +974,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_process_runtime_memory_limit_description">更高的限制可以加速在兼容设备上的修补</string>
     <string name="settings_system_process_runtime_enable">启用独立进程</string>
     <string name="settings_system_memory_limit_subtitle">修补程序可用的内存大小</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">此设备在上次运行中忽略了内存限制，因此修补可能会回退到在 Morphe 内运行。</string>
     <string name="settings_system_memory_limit_warning">较低的内存限制可能会导致修补较大应用时失败</string>
     <string name="settings_system_memory_limit_high_warning">高内存限制可能会在某些设备上使修补速度慢很多。仅在较低限制下修补持续失败时才提高该限制。</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB限制</string>

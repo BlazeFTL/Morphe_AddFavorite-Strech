@@ -973,6 +973,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Vyšší limity urychlí záplatování na zařízeních, která to podporují</string>
     <string name="settings_system_process_runtime_enable">Povolit běhové prostředí procesů</string>
     <string name="settings_system_memory_limit_subtitle">Paměť k dispozici pro záplatování</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Toto zařízení při posledním spuštění ignorovalo limit paměti, takže se patchování může vrátit k běhu uvnitř Morphe.</string>
     <string name="settings_system_memory_limit_warning">Nízký limit paměti může způsobit selhání při záplatování větších aplikací</string>
     <string name="settings_system_memory_limit_high_warning">Vysoký limit paměti může na některých zařízeních výrazně zpomalit patchování. Zvyšte jej pouze v případě, že patchování při nižších limitech stále selhává.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limit</string>

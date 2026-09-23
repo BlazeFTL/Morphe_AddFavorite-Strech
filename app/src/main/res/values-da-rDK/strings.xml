@@ -973,6 +973,7 @@ Detaljer: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Højere grænser fremskynder patching på kompatible enheder</string>
     <string name="settings_system_process_runtime_enable">Aktiver proces runtime</string>
     <string name="settings_system_memory_limit_subtitle">Hukommelse tilgængelig til patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Denne enhed ignorerede hukommelsesgrænsen ved sidste kørsel, så patching kan falde tilbage til at køre inde i Morphe</string>
     <string name="settings_system_memory_limit_warning">En lav hukommelsesbegrænsning kan medføre at patching af store apps fejler</string>
     <string name="settings_system_memory_limit_high_warning">En høj hukommelsesgrænse kan gøre patching meget langsommere på nogle enheder. Hæv den kun, hvis patching fortsat fejler ved lavere grænser.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB grænse</string>

@@ -974,6 +974,7 @@ Details: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Hogere limieten versnellen het patchen op capabele apparaten</string>
     <string name="settings_system_process_runtime_enable">Schakel processruntime in</string>
     <string name="settings_system_memory_limit_subtitle">Geheugen beschikbaar voor patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Dit apparaat heeft de geheugenlimiet bij de laatste uitvoering genegeerd, dus patchen kan terugvallen op het uitvoeren binnen Morphe.</string>
     <string name="settings_system_memory_limit_warning">Laag geheugenlimiet kan mislukken bij patching van grotere apps</string>
     <string name="settings_system_memory_limit_high_warning">Een hoge geheugenlimiet kan patchen op sommige apparaten veel langzamer maken. Verhoog deze alleen als patchen blijft mislukken bij lagere limieten.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limiet</string>

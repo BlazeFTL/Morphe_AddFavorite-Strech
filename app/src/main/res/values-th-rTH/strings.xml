@@ -808,7 +808,10 @@
     <string name="settings_advanced_github_pat_configured">โทเค็นถูกกำหนดค่าแล้ว</string>
     <string name="settings_advanced_github_pat_how_to_get">วิธีการรับโทเคน</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">ตั้งค่า %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"ตั้งค่า %3$s เพื่อให้สามารถเพิ่ม pull requests เป็นแหล่งข้อมูลภายนอกได้ สร้าง PAT ด้วยขอบเขต %2$s บน
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">รวมในการส่งออกของการตั้งค่า</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">เพิ่ม PAT นี้ในการตั้งค่า Morphe ที่ส่งออก</string>
@@ -971,6 +974,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_process_runtime_memory_limit_description">ขีดจำกัดที่สูงขึ้นช่วยเพิ่มความเร็วในการแพตช์บนอุปกรณ์ที่รองรับ</string>
     <string name="settings_system_process_runtime_enable">เปิดใช้การทำงานของโปรเซส</string>
     <string name="settings_system_memory_limit_subtitle">ขนาดความจำที่ใช้สำหรับการแพตช์</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">อุปกรณ์นี้เพิกเฉยต่อขีดจำกัดหน่วยความจำในการรันครั้งล่าสุด ดังนั้นการแพตช์อาจย้อนกลับไปทำงานภายใน Morphe</string>
     <string name="settings_system_memory_limit_warning">ขนาดความจำต่ำหรืออาจทำให้การนำพัท์ล้ม</string>
     <string name="settings_system_memory_limit_high_warning">ขีดจำกัดหน่วยความจำที่สูงอาจทำให้การแพตช์ช้าลงมากบนอุปกรณ์บางเครื่อง ให้เพิ่มเฉพาะเมื่อการแพตช์ล้มเหลวที่ขีดจำกัดต่ำกว่า</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB จำกัด</string>

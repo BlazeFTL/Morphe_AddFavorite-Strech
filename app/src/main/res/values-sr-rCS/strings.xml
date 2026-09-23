@@ -808,7 +808,10 @@ Zakrpe nisu pogođene: omogućite prerelease zakrpe za svaki izvor na listi izvo
     <string name="settings_advanced_github_pat_configured">Token je konfigurisan</string>
     <string name="settings_advanced_github_pat_how_to_get">Kako dobiti token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Podesite %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Podesite %3$s da biste mogli da dodate pull request-ove kao eksterne izvore. Napravite PAT sa opsegom %2$s na
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Uključeno u postavke izvoza</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Додаје овај PAT у извозене подешавања Morphe-а</string>
@@ -955,6 +958,7 @@ Detalji: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Veće granice ubrzavaju patchovanje na sposobnim uređajima</string>
     <string name="settings_system_process_runtime_enable">Memorija dostupna za patchiranje</string>
     <string name="settings_system_memory_limit_subtitle">Upozorenje: Niska memorija ograničenja može dovesti neuspeh u patchiranju većih aplikacija</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Ovaj uređaj je ignorisao ograničenje memorije pri poslednjem pokretanju, pa zakrpljivanje može da se vrati na izvršavanje unutar Morphe-a.</string>
     <string name="settings_system_memory_limit_warning">%d MB ograničenje</string>
     <string name="settings_system_memory_limit_high_warning">Veliko ograničenje memorije može znatno usporiti primenu zakrpa na nekim uređajima. Povećajte ga samo ako primena zakrpa stalno ne uspeva pri nižim ograničenjima.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB ograničenje</string>

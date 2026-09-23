@@ -781,7 +781,7 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <string name="settings_advanced_update_interval_chip_subtitle">Fréquence de vérification en arrière-plan</string>
     <string name="settings_advanced_update_interval_battery_warning">Les vérifications en arrière-plan peuvent ne pas fonctionner fiablement sur certains appareils. Des fabricants tels que Xiaomi, Huawei, Samsung et OnePlus restreignent souvent de manière agressive les processus en arrière-plan pour économiser la batterie</string>
     <string name="settings_advanced_external_batch_patch">Autoriser les déclencheurs externes</string>
-    <string name="settings_advanced_external_batch_patch_description">Permet aux applications d\'automatisation de déclencher l\'application de correctifs par lots via une intention.</string>
+    <string name="settings_advanced_external_batch_patch_description">Permet aux applications d\'automatisation de lancer le patching par lots via une intention</string>
     <string name="external_batch_patch_title">Démarrer le patching par lots ?</string>
     <string name="external_batch_patch_description">%s souhaite que Morphe patche et installe des applications</string>
     <string name="external_batch_patch_trust_caller">Toujours autoriser cette application</string>
@@ -813,8 +813,7 @@ Les patchs ne sont pas affectés : activez les patchs en préversion pour chaque
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_dialog_title">Définir %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
-    <string name="settings_advanced_github_pat_dialog_description">"Définissez un %3$s afin de pouvoir ajouter des demandes de tirage comme sources externes. Créez un PAT avec le champ d'application %2$s sur
-%1$s"</string>
+    <string name="settings_advanced_github_pat_dialog_description">"Définissez un %3$s afin de pouvoir ajouter des pull requests en tant que sources externes. Créez un jeton d'accès personnel avec le champ %2$s sur %1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Inclure dans l\'export des paramètres</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Ajoute ce jeton d\'accès personnel aux paramètres exportés de Morphe</string>
@@ -979,6 +978,7 @@ Détails : %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Des limites plus élevées accélèrent le patching sur les appareils compatibles</string>
     <string name="settings_system_process_runtime_enable">Activer le temps d\'exécution du processus</string>
     <string name="settings_system_memory_limit_subtitle">Mémoire disponible pour le patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Cet appareil a ignoré la limite de mémoire lors de la dernière exécution, donc le patching pourrait revenir à une exécution à l\'intérieur de Morphe</string>
     <string name="settings_system_memory_limit_warning">Une limite de mémoire faible peut entraîner des échecs lors du patching des applications plus volumineuses</string>
     <string name="settings_system_memory_limit_high_warning">Une limite de mémoire élevée peut rendre le patching beaucoup plus lent sur certains appareils. Augmentez-la uniquement si le patching continue d\'échouer avec des limites plus faibles</string>
     <string name="settings_system_process_runtime_enabled_description">Limite de %s Mo</string>

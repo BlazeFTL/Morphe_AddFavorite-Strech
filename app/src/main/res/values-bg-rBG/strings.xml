@@ -974,6 +974,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_process_runtime_memory_limit_description">По-високите лимити ускоряват прилагането на пачове на съвместими устройства.</string>
     <string name="settings_system_process_runtime_enable">Включване на изпълнение на различни процеси</string>
     <string name="settings_system_memory_limit_subtitle">Памет, достъпен за заместителния процес</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Това устройство пренебрегна ограничението на паметта при последното стартиране, така че прилагането на кръпки може да се върне към изпълнение в Morphe.</string>
     <string name="settings_system_memory_limit_warning">Нисък памет може да доведе до неуспехи при заместителния на по-големи приложения</string>
     <string name="settings_system_memory_limit_high_warning">Високата граница на паметта може да направи кърпенето много по-бавно на някои устройства. Увеличете я само ако кърпенето продължава да се проваля при по-ниски граници.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB лимит</string>

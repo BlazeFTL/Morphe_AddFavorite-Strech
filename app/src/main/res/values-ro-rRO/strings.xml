@@ -807,7 +807,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_github_pat_configured">Jeton configurat</string>
     <string name="settings_advanced_github_pat_how_to_get">Cum obții un jeton</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Setează %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Setează un %3$s pentru a putea adăuga cereri de pull ca surse externe. Creează un PAT cu scopul %2$s pe
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Include în exportul setărilor</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Adaugă acest PAT la setările Morphe exportate</string>
@@ -970,6 +973,7 @@ Detalii: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Limite mai mari accelerează patch-uirea pe dispozitivele capabile</string>
     <string name="settings_system_process_runtime_enable">Activează proces runtime</string>
     <string name="settings_system_memory_limit_subtitle">Memorie disponibilă pentru patachizare</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Acest dispozitiv a ignorat limita de memorie la ultima rulare, așa că patch-urile ar putea recurge la rularea în interiorul Morphe.</string>
     <string name="settings_system_memory_limit_warning">O limită memorie joasă poate cauza eșecuri când patachizați aplicații mai mari</string>
     <string name="settings_system_memory_limit_high_warning">O limită mare de memorie poate face aplicarea de patch-uri mult mai lentă pe unele dispozitive. Măriți-o doar dacă aplicarea de patch-uri continuă să eșueze la limite mici.</string>
     <string name="settings_system_process_runtime_enabled_description">Limită %s MO</string>

@@ -964,6 +964,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_process_runtime_memory_limit_description">উচ্চতর সীমা সক্ষম ডিভাইসে প্যাচিংকে দ্রুত করে।</string>
     <string name="settings_system_process_runtime_enable">প্রক্রিয় রান্টাইম সক্রিয় করুন</string>
     <string name="settings_system_memory_limit_subtitle">মেমরি সীমিত</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">এই ডিভাইসটি শেষবার চালানোর সময় মেমরির সীমা উপেক্ষা করেছে, তাই প্যাচিং Morphe-এর ভিতরে চালানোর বিকল্পে ফিরে যেতে পারে</string>
     <string name="settings_system_memory_limit_warning">পুরাতন মেমরি সীমিত উচ্চ মেমরি সীমিতগুলি পুরাতন ডিভাইসের জন্য অকার্যকার হতে পারে</string>
     <string name="settings_system_memory_limit_high_warning">উচ্চ মেমরি সীমা কিছু ডিভাইসে প্যাচিং অনেক ধীর করে দিতে পারে। কম সীমায় প্যাচিং ব্যর্থ হতে থাকলেই কেবল এটি বাড়ান।</string>
     <string name="settings_system_process_runtime_enabled_description">%s এমবি সীমা</string>

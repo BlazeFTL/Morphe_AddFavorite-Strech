@@ -808,7 +808,10 @@ Ta nastavitev ne vpliva na popravke: omogočite predizdajne popravke za vsak vir
     <string name="settings_advanced_github_pat_configured">Ključ je konfiguriran</string>
     <string name="settings_advanced_github_pat_how_to_get">Kako pridobiti ključ</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Nastavi %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Nastavi %3$s, da bo mogoče dodajati pull requeste kot zunanje vire. Ustvari PAT z obsegom %2$s na
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Vključite v izvoz nastavitev</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Doda ta PAT v izvožene nastavitve Morphe</string>
@@ -971,6 +974,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Višje omejitve pospešijo popravljanje na zmogljivih napravah</string>
     <string name="settings_system_process_runtime_enable">Omogoči izvajanje procesa</string>
     <string name="settings_system_memory_limit_subtitle">Razpoložljiv pomnilnik za popravilo</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Ta naprava je pri zadnjem zagonu prezrla omejitev pomnilnika, zato se lahko krpanje vrne na izvajanje znotraj Morphe</string>
     <string name="settings_system_memory_limit_warning">Nizka omejitev pomnilnika lahko povzroči napake pri popravilu večjih aplikacij</string>
     <string name="settings_system_memory_limit_high_warning">Visoka omejitev pomnilnika lahko na nekaterih napravah močno upočasni krpanje. Zvišajte jo le, če krpanje pri nižjih omejitvah še vedno ne uspe.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB omejitev</string>

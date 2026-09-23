@@ -808,7 +808,10 @@ Patcher påvirkes ikke: aktiver pre-release-patcher for hver kilde i patch-kilde
     <string name="settings_advanced_github_pat_configured">Token konfigurert</string>
     <string name="settings_advanced_github_pat_how_to_get">Hvordan få et token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Angi %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Angi en %3$s for å kunne legge til pull requests som eksterne kilder. Opprett en PAT med omfang %2$s på
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Inkluder i eksport av innstillinger</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Legger denne PAT-en til eksporterte Morphe-innstillinger</string>
@@ -971,6 +974,7 @@ Detaljer: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Høyere grenser øker hastigheten for patching på kompatible enheter</string>
     <string name="settings_system_process_runtime_enable">Aktiver prosesskjøretid</string>
     <string name="settings_system_memory_limit_subtitle">Minne tilgjengelig for patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Denne enheten ignorerte minnegrensen på siste kjøring, så patching kan falle tilbake til å kjøre inne i Morphe</string>
     <string name="settings_system_memory_limit_warning">En lav minnebegrensning kan føre til feil ved patching av større apper</string>
     <string name="settings_system_memory_limit_high_warning">En høy minnegrense kan gjøre patching mye tregere på noen enheter. Øk den bare hvis patching fortsetter å mislykkes ved lavere grenser.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB grense</string>

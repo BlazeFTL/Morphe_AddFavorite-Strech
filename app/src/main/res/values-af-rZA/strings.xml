@@ -974,6 +974,7 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Hoër limiete versnel patching op toestelle wat dit kan hanteer</string>
     <string name="settings_system_process_runtime_enable">Aktiveer proses tydloop</string>
     <string name="settings_system_memory_limit_subtitle">Geheue beskikbaar vir patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Hierdie toestel het die geheueperk tydens die laaste lopie geïgnoreer, dus kan die toepassing van regstellings terugval om binne Morphe te loop.</string>
     <string name="settings_system_memory_limit_warning">\'n Lae geheugelimiet kan mislukking veroorsaak wanneer groter apps gepatched word</string>
     <string name="settings_system_memory_limit_high_warning">\' n Hoë geheue-limiet kan patching op sommige toestelle baie stadiger maak. Verhoog dit net as patching steeds by laer limiete misluk.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limiet</string>

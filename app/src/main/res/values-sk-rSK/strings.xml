@@ -808,7 +808,10 @@ Záplaty tým nie sú ovplyvnené: povoľte predbežné záplaty pre každý zdr
     <string name="settings_advanced_github_pat_configured">Token nastavený</string>
     <string name="settings_advanced_github_pat_how_to_get">Ako získať token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Nastaviť %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Nastavte si %3$s, aby ste mohli pridávať pull requesty ako externé zdroje. Vytvorte si PAT s rozsahom %2$s na
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Zahrnúť do exportu nastavení</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Pridá PAT do exportu nastavení Morphe</string>
@@ -971,6 +974,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Vyššie limity urýchľujú záplatovanie na podporovaných zariadeniach</string>
     <string name="settings_system_process_runtime_enable">Povoliť vlastný runtime procesu</string>
     <string name="settings_system_memory_limit_subtitle">Pamäť dostupná na plátanie</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Toto zariadenie ignorovalo limit pamäte pri poslednom spustení, takže patchovanie sa môže vrátiť k spusteniu v rámci Morphe.</string>
     <string name="settings_system_memory_limit_warning">Nízky limit pamäte môže spôsobiť problémy pri plátaní väčších aplikácií</string>
     <string name="settings_system_memory_limit_high_warning">Vysoký limit pamäte môže na niektorých zariadeniach spôsobiť oveľa pomalšie patchovanie. Zvýšte ho iba vtedy, ak patchovanie pri nižších limitoch stále zlyháva.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limit</string>

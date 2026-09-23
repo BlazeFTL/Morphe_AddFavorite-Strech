@@ -806,7 +806,10 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <string name="settings_advanced_github_pat_configured">Token konfigurerades</string>
     <string name="settings_advanced_github_pat_how_to_get">Så får du en token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Ange %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Ange en %3$s för att kunna lägga till pull requests som externa källor. Skapa en PAT med scope %2$s på
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Inkludera i inställningsexport</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Lägger till denna personliga åtkomsttoken i exporterade Morphe-inställningar</string>
@@ -969,6 +972,7 @@ Information: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Högre gränser gör modifieringen snabbare på kompatibla enheter</string>
     <string name="settings_system_process_runtime_enable">Aktivera processkörning</string>
     <string name="settings_system_memory_limit_subtitle">Tillgängligt minne för modifieringen</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Den här enheten ignorerade minnesgränsen vid den senaste körningen, så patchning kan falla tillbaka till att köras inuti Morphe.</string>
     <string name="settings_system_memory_limit_warning">En låg minnesgräns kan leda till fel när du modifierar större appar</string>
     <string name="settings_system_memory_limit_high_warning">En hög minnesgräns kan göra modifieringen mycket långsammare på vissa enheter. Höj den bara om modifieringen fortsätter att misslyckas vid lägre gränser</string>
     <string name="settings_system_process_runtime_enabled_description">Gräns på %s MB</string>

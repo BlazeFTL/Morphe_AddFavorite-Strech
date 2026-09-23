@@ -977,6 +977,7 @@ Detalji: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Viša ograničenja ubrzavaju instaliranje patcheva na uređajima koji to podržavaju</string>
     <string name="settings_system_process_runtime_enable">Omogući izvođenje procesa</string>
     <string name="settings_system_memory_limit_subtitle">Memorija dostupna za patchanje </string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Ovaj uređaj zanemario je ograničenje memorije pri posljednjem pokretanju, pa se primjena zakrpa može vratiti na pokretanje unutar Morphe.</string>
     <string name="settings_system_memory_limit_warning">Nisko ograničenje memorije može uzrokovati greške prilikom patchanja većih aplikacija</string>
     <string name="settings_system_memory_limit_high_warning">Visoko ograničenje memorije može učiniti zakrpanje mnogo sporijim na nekim uređajima. Podignite ga samo ako zakrpanje i dalje ne uspijeva pri nižim ograničenjima.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB ograničenje</string>

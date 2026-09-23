@@ -75,7 +75,7 @@
     <string name="home_no_apps_filter_subtitle">Tidak ada yang cocok dengan %s</string>
     <string name="home_category_add">Tambahkan kategori</string>
     <string name="home_category_all_apps">Semua aplikasi</string>
-    <string name="home_category_custom">Khusus</string>
+    <string name="home_category_custom">Kustom</string>
     <string name="home_category_uncategorized">Tidak berkategori</string>
     <string name="home_category_new_title">Kategori baru</string>
     <string name="home_category_rename_title">Ganti nama kategori</string>
@@ -347,7 +347,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="home_simple_bundle_select_title">Pilih sumber tambalan</string>
     <string name="home_simple_bundle_select_remember">Selalu gunakan sumber ini untuk aplikasi ini</string>
     <!-- Color picker -->
-    <string name="custom_color">Warna Khusus</string>
+    <string name="custom_color">Warna kustom</string>
     <string name="hex_color">Warna hex</string>
     <string name="color_picker_shade">Saturasi dan kecerahan</string>
     <string name="color_picker_hue">Rona</string>
@@ -388,7 +388,7 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="adaptive_icon_guide_monochrome_body">Dibuat secara otomatis dari gambar latar depan menggunakan transformasi ikon adaptif yang sama. Ikon ini tampak diberi warna aksen sesuai dengan warna wallpaper pada Android 13 dan yang lebih baru.</string>
     <string name="notification_icon_preview">Notifikasi</string>
     <!-- Header Creator -->
-    <string name="header_creator_create">Buat header khusus</string>
+    <string name="header_creator_create">Buat header kustom</string>
     <string name="header_creator_light_theme">Header tema terang</string>
     <string name="header_creator_dark_theme">Header tema gelap</string>
     <string name="header_creator_no_image">Tidak ada gambar yang dipilih</string>
@@ -809,7 +809,10 @@ Tambalan tidak terpengaruh: aktifkan tambalan pra-rilis untuk setiap sumber dala
     <string name="settings_advanced_github_pat_configured">Token dikonfigurasi</string>
     <string name="settings_advanced_github_pat_how_to_get">Cara mendapatkan token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Atur %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Atur %3$s agar dapat menambahkan pull request sebagai sumber eksternal. Buat PAT dengan lingkup %2$s di
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Sertakan dalam ekspor setelan</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Menambahkan PAT ini ke setelan Morphe yang diekspor</string>
@@ -972,6 +975,7 @@ Rincian: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Batas yang lebih tinggi mempercepat penambalan pada perangkat yang mendukung</string>
     <string name="settings_system_process_runtime_enable">Aktifkan proses runtime</string>
     <string name="settings_system_memory_limit_subtitle">Memori tersedia untuk penambalan</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Perangkat ini mengabaikan batas memori pada proses terakhir, sehingga penambalan mungkin akan kembali berjalan di dalam Morphe</string>
     <string name="settings_system_memory_limit_warning">Batas memori yang rendah mungkin menyebabkan kegagalan saat menambal aplikasi yang lebih besar</string>
     <string name="settings_system_memory_limit_high_warning">Batas memori yang tinggi dapat membuat proses patching jauh lebih lambat di beberapa perangkat. Naikkan hanya jika proses patching terus gagal pada batas yang lebih rendah.</string>
     <string name="settings_system_process_runtime_enabled_description">Batas %s MB</string>

@@ -809,7 +809,10 @@ Os patches não são afetados: ative os patches de pré-lançamento para cada fo
     <string name="settings_advanced_github_pat_configured">Token configurado</string>
     <string name="settings_advanced_github_pat_how_to_get">Como obter um token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Definir %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Defina um %3$s para poder adicionar pull requests como fontes externas. Crie um PAT com o escopo %2$s em
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Incluir na exportação de configurações</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Adiciona este PAT às configurações exportadas do Morphe</string>
@@ -972,6 +975,7 @@ Detalhes: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Limites mais altos aceleram o patching em dispositivos compatíveis</string>
     <string name="settings_system_process_runtime_enable">Habilitar processo de runtime</string>
     <string name="settings_system_memory_limit_subtitle">Memória disponível para patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Este dispositivo ignorou o limite de memória na última execução, então a aplicação de patches pode recorrer à execução dentro do Morphe</string>
     <string name="settings_system_memory_limit_warning">Um limite de memória baixo pode causar falhas ao patchear aplicativos maiores</string>
     <string name="settings_system_memory_limit_high_warning">Um limite de memória alto pode tornar a aplicação de patch muito mais lenta em alguns dispositivos. Aumente-o somente se a aplicação de patch continuar falhando em limites mais baixos.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limite</string>

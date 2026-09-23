@@ -973,6 +973,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Korkeammat rajat nopeuttavat muokkaamista tehokkailla laitteilla</string>
     <string name="settings_system_process_runtime_enable">Ota prosessin suoritus käyttöön</string>
     <string name="settings_system_memory_limit_subtitle">Muokkaamiseen käytettävissä oleva muisti</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Tämä laite ei noudattanut muistirajaa viimeisellä suorituskerralla, joten paikkaus saattaa pudota takaisin Morphen sisällä suoritettavaksi.</string>
     <string name="settings_system_memory_limit_warning">Pieni muistirajoitus voi aiheuttaa virheitä suuria sovelluksia muokattaessa</string>
     <string name="settings_system_memory_limit_high_warning">Suuri muistiraja voi tehdä paikkaamisesta paljon hitaampaa joissakin laitteissa. Nosta rajaa vain, jos paikkaaminen epäonnistuu edelleen pienemmillä rajoilla.</string>
     <string name="settings_system_process_runtime_enabled_description">%s Mt:n rajoitus</string>

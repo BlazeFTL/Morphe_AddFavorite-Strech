@@ -810,7 +810,10 @@ Các bản vá không bị ảnh hưởng: bật các bản vá trước khi ph�
     <string name="settings_advanced_github_pat_configured">Đã cấu hình token</string>
     <string name="settings_advanced_github_pat_how_to_get">Cách lấy token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Thiết lập %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Thiết lập %3$s để có thể thêm các pull request làm nguồn bên ngoài. Tạo một PAT với phạm vi %2$s trên
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Thêm vào khi xuất cài đặt</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Thêm PAT vào khi xuất cài đặt Morphe</string>
@@ -976,6 +979,7 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Tăng giới hạn có thể giúp vá nhanh hơn nếu thiết bị đủ mạnh</string>
     <string name="settings_system_process_runtime_enable">Bật tiến trình riêng</string>
     <string name="settings_system_memory_limit_subtitle">Bộ nhớ cho quá trình vá</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Thiết bị này đã bỏ qua giới hạn bộ nhớ trong lần chạy trước, vì vậy việc vá có thể sẽ chuyển sang chạy bên trong Morphe</string>
     <string name="settings_system_memory_limit_warning">Nếu bộ nhớ quá thấp có thể khiến bạn gặp lỗi trong quá trình vá ứng dụng lớn</string>
     <string name="settings_system_memory_limit_high_warning">Giới hạn bộ nhớ cao có thể khiến việc vá chậm hơn nhiều trên một số thiết bị. Chỉ tăng giới hạn này nếu việc vá liên tục thất bại ở các mức giới hạn thấp hơn.</string>
     <string name="settings_system_process_runtime_enabled_description">Giới hạn %s MB</string>

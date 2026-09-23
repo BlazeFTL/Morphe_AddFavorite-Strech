@@ -807,7 +807,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_github_pat_configured">Token beállítva</string>
     <string name="settings_advanced_github_pat_how_to_get">Hogyan szerezz tokent</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">A(z) %s beállítása</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Ahhoz, hogy pull requesteket külső forrásként adhasson hozzá, állítson be egy %3$s-t. Hozzon létre egy PAT-ot %2$s hatókörrel ezen a webhelyen:
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Felvétel az exportált beállítások közé</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Hozzáadja a PAT-ot a Morphe exportált beállításaihoz</string>
@@ -970,6 +973,7 @@ Részletek: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Magasabb korlátok gyorsítják a javítást a képességekkel rendelkező eszközökön.</string>
     <string name="settings_system_process_runtime_enable">Folyamatfutási környezet engedélyezése</string>
     <string name="settings_system_memory_limit_subtitle">Módosításhoz rendelkezésre álló memória</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Ez az eszköz az utolsó futtatáskor figyelmen kívül hagyta a memóriakorlátot, ezért a javítás visszaeshet a Morphe-ban való futásra.</string>
     <string name="settings_system_memory_limit_warning">Alacsony memóriakorlát esetén a nagyobb alkalmazások módosításakor hiba léphet fel</string>
     <string name="settings_system_memory_limit_high_warning">Egy magas memóriakorlát egyes eszközökön sokkal lassabbá teheti a javítást. Csak akkor emeld meg, ha a javítás alacsonyabb korlátoknál is folyamatosan meghiúsul.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB korlát</string>

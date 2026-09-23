@@ -807,7 +807,10 @@
     <string name="settings_advanced_github_pat_configured">Токен настроен</string>
     <string name="settings_advanced_github_pat_how_to_get">Как получить токен</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Укажите %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Укажите %3$s, чтобы можно было добавлять pull requests в качестве внешних источников. Создайте PAT с областью действия %2$s на
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Включить в настройки экспорта</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Добавляет этот Токен к экспортируемым настройкам Morphe</string>
@@ -970,6 +973,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_process_runtime_memory_limit_description">Более высокие лимиты ускоряют патчинг на совместимых устройствах</string>
     <string name="settings_system_process_runtime_enable">Включить время выполнения процесса</string>
     <string name="settings_system_memory_limit_subtitle">Доступная память для патчинга</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Это устройство проигнорировало ограничение памяти при последнем запуске, поэтому патчинг может вернуться к выполнению внутри Morphe.</string>
     <string name="settings_system_memory_limit_warning">Низкий лимит памяти может вызвать сбой при патчинге больших приложений</string>
     <string name="settings_system_memory_limit_high_warning">Высокий лимит памяти может значительно замедлить патчинг на некоторых устройствах. Повышайте его, только если патчинг продолжает завершаться сбоем при более низких лимитах.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB лимит</string>

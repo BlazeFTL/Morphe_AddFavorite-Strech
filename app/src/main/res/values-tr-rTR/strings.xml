@@ -807,7 +807,10 @@ Yamalar etkilenmez: yamalama kaynakları listesindeki her kaynak için ön sür�
     <string name="settings_advanced_github_pat_configured">Anahtar yapılandırıldı</string>
     <string name="settings_advanced_github_pat_how_to_get">Anahtar nasıl alınır</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">%s Belirle</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Pull request'leri harici kaynaklar olarak ekleyebilmek için bir %3$s belirleyin. %2$s kapsamına sahip bir PAT'yi
+%1$s üzerinde oluşturun."</string>
     <string name="settings_advanced_github_pat_export_include_label">Ayarları dışa aktarırken dahil et</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Bu PAT\'i dışa aktarılan Morphe ayarlarına ekler</string>
@@ -970,6 +973,7 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Daha yüksek limitler, uygun cihazlarda yamalamayı hızlandırır</string>
     <string name="settings_system_process_runtime_enable">Çalışma sürecini etkinleştir</string>
     <string name="settings_system_memory_limit_subtitle">Yamalama için kullanılabilir bellek</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Bu cihaz son çalıştırmada bellek sınırını yok saydı, bu nedenle yamalama işlemi Morphe içinde çalışmaya geri dönebilir.</string>
     <string name="settings_system_memory_limit_warning">Düşük bellek limiti, daha büyük uygulamaları yamalarken hatalara neden olabilir</string>
     <string name="settings_system_memory_limit_high_warning">Yüksek bir bellek sınırı, bazı cihazlarda yamalamayı çok daha yavaşlatabilir. Yalnızca düşük sınırlarda yamalama başarısız olmaya devam ediyorsa bu sınırı yükseltin.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limit</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home Screen -->
-    <string name="home_other_apps">Друге апликације</string>
+    <string name="home_other_apps"></string>
     <string name="home_other_apps_action">Изаберите друге апликације</string>
     <string name="home_not_patched_yet">Još није исправљено</string>
     <string name="home_unpatched_version_installed">Инсталирана незакрпљена верзија</string>
@@ -808,7 +808,10 @@ Patches are not affected: enable pre-release patches for each source in the patc
     <string name="settings_advanced_github_pat_configured">Токен конфигурисан</string>
     <string name="settings_advanced_github_pat_how_to_get">Kako da dobijete token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Подесите %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Подесите %3$s да бисте могли да додате захтеве за повлачење као спољне изворе. Направите PAT са опсегом %2$s на
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Uključite u postavke izvoza</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Додаје овај PAT у извозене подешавања Morphe-а</string>
@@ -971,6 +974,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_process_runtime_memory_limit_description">Већи лимити убрзавају закрпљивање на уређајима који то подржавају</string>
     <string name="settings_system_process_runtime_enable">Омогући меморије</string>
     <string name="settings_system_memory_limit_subtitle">Кликните да конфигуришете</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Овај уређај је игнорисао ограничење меморије при последњем покретању, па ће се примена закрпа можда вратити на покретање унутар Morphe-а.</string>
     <string name="settings_system_memory_limit_warning">Mala ograniÄena memorija može uzrokovati greške pri nadogradnji veÄih aplikacija</string>
     <string name="settings_system_memory_limit_high_warning">Високо ограничење меморије може учинити закрпање много споријим на неким уређајима. Подигните га само ако закрпање стално не успева при нижим ограничењима.</string>
     <string name="settings_system_process_runtime_enabled_description">%s МБ лимит</string>

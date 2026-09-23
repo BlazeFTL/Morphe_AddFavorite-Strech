@@ -782,7 +782,7 @@
     <string name="settings_advanced_update_interval_chip_subtitle">تكرار التحقق في الخلفية</string>
     <string name="settings_advanced_update_interval_battery_warning">قد لا يعمل التحقق في الخلفية بشكل موثوق على بعض الأجهزة. غالبًا ماتقيّد الشركات المصنعة مثل Xiaomi، Huawei، Samsung، و OnePlus عمليات الخلفية بشدة لتوفير البطارية</string>
     <string name="settings_advanced_external_batch_patch">السماح بالمشغلات الخارجية</string>
-    <string name="settings_advanced_external_batch_patch_description">يسمح لتطبيقات الأتمتة ببدء التصحيح الدفعي عبر نية</string>
+    <string name="settings_advanced_external_batch_patch_description">يسمح لتطبيقات الأتمتة ببدء التعديل الجماعي عبر أمر محدد</string>
     <string name="external_batch_patch_title">بدء تعديل التطبيقات على دفعات؟</string>
     <string name="external_batch_patch_description">%s يريد من Morphe تعديل التطبيقات وتثبيتها</string>
     <string name="external_batch_patch_trust_caller">السماح لهذا التطبيق دائمًا</string>
@@ -979,6 +979,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_process_runtime_memory_limit_description">رفع الحدود يزيد سرعة التعديل على الأجهزة القادرة</string>
     <string name="settings_system_process_runtime_enable">تمكين وقت تشغيل العملية</string>
     <string name="settings_system_memory_limit_subtitle">الذاكرة المتاحة للتعديل</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">تجاهل هذا الجهاز حد الذاكرة في آخر تشغيل، لذا قد يتراجع التعديل إلى التشغيل داخل Morphe</string>
     <string name="settings_system_memory_limit_warning">الحد الأدنى للذاكرة قد يتسبب في فشل عند تعديل التطبيقات الأكبر حجمًا</string>
     <string name="settings_system_memory_limit_high_warning">قد يؤدي حد الذاكرة المرتفع إلى جعل عملية التعديل أبطأ بكثير على بعض الأجهزة. ارفعه فقط إذا استمرت عملية التعديل في الفشل عند الحدود الأقل.</string>
     <string name="settings_system_process_runtime_enabled_description">حد %s ميجابايت</string>

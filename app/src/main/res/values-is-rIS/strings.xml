@@ -806,7 +806,10 @@ Plástrar verða ekki fyrir áhrifum: virkjaðu forútgáfuplástra fyrir hverja
     <string name="settings_advanced_github_pat_configured">Tákni stillt</string>
     <string name="settings_advanced_github_pat_how_to_get">Hvernig á að fá tákn</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Stilltu %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Stilltu %3$s til að geta bætt við pull requests sem ytri uppsprettum. Búðu til PAT með scope %2$s á
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Taktu með í útflutningi stillingar</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Bæta þennan PAT til fluttra Morphe stillinga</string>
@@ -966,6 +969,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Gilt repository eða JSON URL</string>
     <string name="settings_system_process_runtime_enable">Virkja vinnslutíma</string>
     <string name="settings_system_memory_limit_subtitle">Minni í boði fyrir breytingar</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Þetta tæki hunsaði minnismörkin í síðustu keyrslu, þannig að plástrun gæti endað með því að keyra inni í Morphe.</string>
     <string name="settings_system_memory_limit_warning">Lítil minnistakmörk geta valdið bilum þegar breytingar eru gerðar á stærri forritum</string>
     <string name="settings_system_memory_limit_high_warning">Hátt minnismark getur gert plástrun miklu hægari á sumum tækjum. Hækkaðu það aðeins ef plástrun heldur áfram að mistakast við lægri mörk.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB takmörk</string>

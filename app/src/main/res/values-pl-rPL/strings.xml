@@ -809,7 +809,10 @@ Modyfikacje nie są tym objęte: włącz przedpremierowe modyfikacje dla każdeg
     <string name="settings_advanced_github_pat_configured">Token skonfigurowany</string>
     <string name="settings_advanced_github_pat_how_to_get">Jak uzyskać token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Ustaw %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Ustaw %3$s, aby móc dodawać pull requesty jako źródła zewnętrzne. Utwórz PAT z zakresem %2$s na
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Uwzględnij w eksporcie ustawień</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Dodaje ten token do eksportu ustawień Morphe</string>
@@ -972,6 +975,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_process_runtime_memory_limit_description">Wyższe limity przyspieszają modyfikowanie na wydajnych urządzeniach</string>
     <string name="settings_system_process_runtime_enable">Włącz osobny proces</string>
     <string name="settings_system_memory_limit_subtitle">Pamięć dostępna dla procesu modyfikowania</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">To urządzenie zignorowało limit pamięci podczas ostatniego uruchomienia, więc modyfikowanie może zostać awaryjnie uruchomione wewnątrz Morphe</string>
     <string name="settings_system_memory_limit_warning">Niski limit pamięci może powodować błędy podczas modyfikowania większych aplikacji</string>
     <string name="settings_system_memory_limit_high_warning">Wysoki limit pamięci może znacznie spowolnić modyfikowanie na niektórych urządzeniach. Zwiększ go tylko, jeśli modyfikowanie stale kończy się błędem przy niższych limitach</string>
     <string name="settings_system_process_runtime_enabled_description">Limit: %s MB</string>

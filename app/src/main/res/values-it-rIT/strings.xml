@@ -808,7 +808,10 @@ Le patch non sono interessate: abilita le patch pre-release per ciascuna fonte n
     <string name="settings_advanced_github_pat_configured">Token configurato</string>
     <string name="settings_advanced_github_pat_how_to_get">Come ottenere un token</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <string name="settings_advanced_github_pat_dialog_title">Imposta %s</string>
     <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <string name="settings_advanced_github_pat_dialog_description">"Imposta un %3$s per poter aggiungere le pull request come fonti esterne. Crea un PAT con scope %2$s su
+%1$s"</string>
     <string name="settings_advanced_github_pat_export_include_label">Includi nelle impostazioni di esportazione</string>
     <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <string name="settings_advanced_github_pat_export_include_supporting">Aggiunge questa PAT alle impostazioni di Morphe esportate</string>
@@ -971,6 +974,7 @@ Dettagli: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Limiti più alti velocizzano il patching su dispositivi compatibili</string>
     <string name="settings_system_process_runtime_enable">Abilita il processo di esecuzione</string>
     <string name="settings_system_memory_limit_subtitle">Memoria disponibile per il patching</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Questo dispositivo ha ignorato il limite di memoria nell\'ultima esecuzione, quindi il patching potrebbe ripiegare sull\'esecuzione all\'interno di Morphe.</string>
     <string name="settings_system_memory_limit_warning">Un limite di memoria basso potrebbe causare errori durante il patching delle app più grandi</string>
     <string name="settings_system_memory_limit_high_warning">Un limite di memoria elevato può rendere il patching molto più lento su alcuni dispositivi. Aumentalo solo se il patching continua a fallire con limiti inferiori.</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB limite</string>

@@ -1074,17 +1074,12 @@ Details: %2$s"</string>
     <string name="settings_system_signing_key_missing">Morphe creates one with your first patch</string>
     <string name="settings_system_signing_key_created">Created %s</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256 fingerprint</string>
-    <string name="settings_system_backup_appearance">Appearance</string>
     <string name="settings_system_backup_appearance_description">Theme, colors and language</string>
-    <string name="settings_system_backup_home">Home screen</string>
     <string name="settings_system_backup_home_description">Groups, hidden apps, sorting and toggles</string>
     <string name="settings_system_backup_patching">Patching and installing</string>
     <string name="settings_system_backup_patching_description">Installer, patcher and saved APKs</string>
-    <string name="settings_system_backup_updates">Updates</string>
     <string name="settings_system_backup_updates_description">Prereleases and update checks</string>
-    <string name="settings_system_backup_sources">Sources</string>
     <string name="settings_system_backup_sources_description">Custom sources and GitHub token</string>
-    <string name="settings_system_backup_patch_selections">Patch selections</string>
     <string name="settings_system_backup_patch_selections_description">Chosen patches for every app</string>
     <string name="settings_system_backup_signing_key_note">The signing key is backed up separately</string>
     <string name="settings_system_import_keystore_dialog_title">Enter keystore credentials</string>

@@ -255,14 +255,15 @@ private fun SettingsBackupContents(
     }
 }
 
+// Named after the places these settings live, so a section reads the same here as where it is set
 private val SettingsSection.titleRes: Int
     get() = when (this) {
-        SettingsSection.APPEARANCE -> R.string.settings_system_backup_appearance
-        SettingsSection.HOME -> R.string.settings_system_backup_home
+        SettingsSection.APPEARANCE -> R.string.appearance
+        SettingsSection.HOME -> R.string.settings_appearance_home_screen
         SettingsSection.PATCHING -> R.string.settings_system_backup_patching
-        SettingsSection.UPDATES -> R.string.settings_system_backup_updates
-        SettingsSection.SOURCES -> R.string.settings_system_backup_sources
-        SettingsSection.PATCH_SELECTIONS -> R.string.settings_system_backup_patch_selections
+        SettingsSection.UPDATES -> R.string.settings_advanced_updates
+        SettingsSection.SOURCES -> R.string.sources
+        SettingsSection.PATCH_SELECTIONS -> R.string.settings_system_patch_selections_title
     }
 
 private val SettingsSection.descriptionRes: Int

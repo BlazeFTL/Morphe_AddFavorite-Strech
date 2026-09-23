@@ -5,10 +5,8 @@
 
 package app.morphe.manager.ui.screen
 
-import android.app.Activity
 import android.util.Log
 import android.view.HapticFeedbackConstants
-import android.view.WindowManager
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -286,16 +284,7 @@ fun PatcherScreen(
         }
     }
 
-    // Keep screen on during patching
-    if (patcherViewModel.isPatching) {
-        DisposableEffect(Unit) {
-            val window = (context as Activity).window
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            onDispose {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            }
-        }
-    }
+    KeepScreenOn(patcherViewModel.isPatching)
 
     val exportApkLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument(APK_MIMETYPE)

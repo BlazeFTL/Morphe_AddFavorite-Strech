@@ -76,6 +76,8 @@ fun BatchPatcherScreen(
         viewModel.ensurePlan(targets, useMount)
     }
 
+    KeepScreenOn(state?.isActive == true)
+
     val openApkPicker = rememberAdaptiveFilePicker(
         mimeTypes = APK_FILE_MIME_TYPES,
         onResult = viewModel::onApkPicked

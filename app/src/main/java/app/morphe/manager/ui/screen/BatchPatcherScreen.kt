@@ -40,6 +40,7 @@ import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.patcher.ExpertPatchingInProgress
 import app.morphe.manager.ui.screen.patcher.PatcherErrorDialog
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
+import app.morphe.manager.ui.screen.patcher.PostPatchPromptDialogs
 import app.morphe.manager.ui.screen.patcher.SimplePatchingInProgress
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
@@ -62,6 +63,8 @@ fun BatchPatcherScreen(
     targets: List<BatchTarget>,
     useMount: Boolean,
     onBackClick: () -> Unit,
+    onStartTour: () -> Unit = {},
+    onDeclineTour: () -> Unit = {},
     viewModel: BatchPatcherViewModel = koinViewModel(),
     installViewModel: InstallViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
@@ -85,10 +88,18 @@ fun BatchPatcherScreen(
 
     val startInstallQueue = rememberInstallQueue(
         installViewModel = installViewModel,
-        completedPluralRes = R.plurals.batch_install_summary
+        completedPluralRes = R.plurals.batch_install_summary,
+        onDrained = { installed -> if (installed > 0) viewModel.postPatchPrompts.trigger() }
     )
 
     InstallerFlowDialogs(installViewModel = installViewModel)
+
+    PostPatchPromptDialogs(
+        prompts = viewModel.postPatchPrompts,
+        onStartTour = onStartTour,
+        onDeclineTour = onDeclineTour,
+        onLeave = onBackClick
+    )
 
     val current = state
     // Apps already on the device drop out, so "Install all" means what is left and a card
@@ -310,6 +321,7 @@ fun BatchPatcherScreen(
         if (file != null && uri != null) {
             installViewModel.export(file, uri) { success ->
                 context.toast(if (success) exportSuccessMessage else exportFailedMessage)
+                if (success) viewModel.postPatchPrompts.trigger()
             }
         }
     }

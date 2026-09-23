@@ -28,7 +28,6 @@ import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.manager.PatchOptionsPreferencesManager
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.*
-import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
 import app.morphe.manager.domain.worker.WorkerRepository
 import app.morphe.manager.patcher.patch.ApkArchitectureResolver
 import app.morphe.manager.patcher.patch.PatchBundleInfo
@@ -43,7 +42,6 @@ import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.restrictTo
-import app.morphe.manager.worker.UpdateCheckWorker
 import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.*
@@ -516,20 +514,8 @@ class PatcherViewModel(
     /** True when the current patching step has been running for over a minute. */
     val showLongStepWarning: StateFlow<Boolean> = patchRun.showLongStepWarning
 
-    /**
-     * Emits true once after a successful export or install to prompt the notification permission
-     * dialog. Resets to false after the UI acknowledges it via [consumeNotificationPrompt].
-     */
-    private val _shouldPromptNotification = MutableStateFlow(false)
-    val shouldPromptNotification: StateFlow<Boolean> = _shouldPromptNotification.asStateFlow()
-
-    /**
-     * Emits true after the first successful install to prompt the onboarding tour dialog.
-     * Always follows [shouldPromptNotification]; fires only after the notification dialog closes.
-     * Resets to false after the UI acknowledges it via [consumeTourPrompt].
-     */
-    private val _shouldPromptTour = MutableStateFlow(false)
-    val shouldPromptTour: StateFlow<Boolean> = _shouldPromptTour.asStateFlow()
+    /** Notification and tour prompts raised after a successful install or export. */
+    val postPatchPrompts = PostPatchPrompts(app, prefs, viewModelScope)
 
     init {
         restoreOutcome()
@@ -888,7 +874,7 @@ class PatcherViewModel(
 
     /**
      * Shared post-export logic: persists the patched app record, shows a toast,
-     * and triggers the notification prompt on success.
+     * and raises the post-patch prompts on success.
      */
     private suspend fun finishExport(exportSucceeded: Boolean) {
         if (!exportSucceeded) {
@@ -905,74 +891,7 @@ class PatcherViewModel(
             delay(2.seconds)
         }
 
-        if (saved) triggerNotificationPromptIfNeeded()
-    }
-
-
-    /**
-     * Checks prefs and triggers the notification prompt if conditions are met.
-     * Called after a successful install or export so UI doesn't read prefs directly.
-     */
-    fun triggerNotificationPromptIfNeeded() {
-        viewModelScope.launch {
-            if (!prefs.notificationPermissionRequested.get() &&
-                !prefs.backgroundUpdateNotifications.get()
-            ) {
-                _shouldPromptNotification.value = true
-            }
-        }
-    }
-
-    /**
-     * Triggers post-install prompts in order: notification permission (if needed), then
-     * onboarding tour (if first launch). The tour waits for the notification dialog to close
-     * before appearing, so the two dialogs never overlap.
-     */
-    fun triggerPostInstallPromptsIfNeeded() {
-        viewModelScope.launch {
-            val needsNotification = !prefs.notificationPermissionRequested.get() &&
-                    !prefs.backgroundUpdateNotifications.get()
-            val needsTour = prefs.firstLaunch.get()
-
-            if (needsNotification) _shouldPromptNotification.value = true
-            if (needsTour) {
-                _shouldPromptNotification.first { !it }
-                _shouldPromptTour.value = true
-            }
-        }
-    }
-
-    fun consumeNotificationPrompt() {
-        _shouldPromptNotification.value = false
-    }
-
-    fun consumeTourPrompt() {
-        _shouldPromptTour.value = false
-    }
-
-    /**
-     * Notifies ViewModel that the user responded to the notification permission dialog.
-     * Handles prefs writes and FCM/worker setup so UI doesn't need coroutine scope for prefs.
-     */
-    fun onNotificationPermissionResult(
-        granted: Boolean,
-        hasGms: Boolean
-    ) {
-        viewModelScope.launch {
-            prefs.notificationPermissionRequested.update(true)
-            if (granted) {
-                prefs.backgroundUpdateNotifications.update(true)
-                val useManagerPrereleases = prefs.useManagerPrereleases.get()
-                val usePatchesPrereleases = prefs.bundlePrereleasesEnabled.get()
-                    .contains(DEFAULT_SOURCE_UID.toString())
-                syncFcmTopics(
-                    notificationsEnabled = true,
-                    useManagerPrereleases = useManagerPrereleases,
-                    usePatchesPrereleases = usePatchesPrereleases
-                )
-                if (!hasGms) UpdateCheckWorker.schedule(app, prefs.updateCheckInterval.get())
-            }
-        }
+        if (saved) postPatchPrompts.trigger()
     }
 
     fun rejectInteraction() {

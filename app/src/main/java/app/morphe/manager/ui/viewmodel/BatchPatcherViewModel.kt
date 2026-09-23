@@ -33,6 +33,7 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.ui.model.ApkDownloadHelperHost
+import app.morphe.manager.ui.model.PostPatchPrompts
 import app.morphe.manager.ui.model.createApkDownloadHelperRequest
 import app.morphe.manager.ui.model.helperSignatureCheckAvailable
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
@@ -224,6 +225,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     private val prefs: PreferencesManager by inject()
 
     val state = coordinator.state
+
+    /** Notification and tour prompts raised once the queue installs or saves an app. */
+    val postPatchPrompts = PostPatchPrompts(app, prefs, viewModelScope)
 
     /** Package the attach-APK picker was opened for, null when no picker is pending. */
     var attachTarget: String? by mutableStateOf(null)

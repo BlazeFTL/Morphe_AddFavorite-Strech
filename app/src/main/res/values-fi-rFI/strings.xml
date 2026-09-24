@@ -720,7 +720,9 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_greeting_phrases">Tervehdysviestit</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Näytä tervehdysviesti aloitusnäytöllä</string>
     <string name="settings_appearance_app_grouping">Sovellusten ryhmittely</string>
+    <string name="settings_appearance_app_grouping_description">Näytä kytkin, jolla sovellukset ryhmitellään lähteen tai luokan mukaan</string>
     <string name="settings_appearance_repatch_notice">Uudelleenkorjausilmoitus</string>
+    <string name="settings_appearance_repatch_notice_description">Näytä banneri, kun korjattuja sovelluksia voidaan korjata uudelleen</string>
     <string name="settings_appearance_sort_button">Lajittelu- ja suodatuspainike</string>
     <string name="settings_appearance_sort_button_description">Näytä lajittelu- ja suodatuspainike aloitusnäytöllä</string>
     <string name="settings_appearance_app_card_colors">Sovelluksen korttien värit</string>
@@ -993,6 +995,20 @@ Yksityiskohdat: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Valitse sävy</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Tuo ja vie</string>
+    <string name="settings_system_signing_key">Allekirjoitusavain</string>
+    <string name="settings_system_signing_key_description">Varmuuskopioi ja palauttaa avaimen, jolla korjatut sovellukset on allekirjoitettu</string>
+    <string name="settings_system_signing_key_dialog_description">Jokainen Morphen korjaama sovellus allekirjoitetaan tällä avaimella. Säilytä kopio: ilman sitä korjattuja sovelluksia voi päivittää vain poistamalla ne</string>
+    <string name="settings_system_signing_key_missing">Morphe luo avaimen ensimmäisen korjauksesi yhteydessä</string>
+    <string name="settings_system_signing_key_created">Luotu %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256-sormenjälki</string>
+    <string name="settings_system_backup_appearance_description">Teema, värit ja kieli</string>
+    <string name="settings_system_backup_home_description">Ryhmät, piilotetut sovellukset, lajittelu ja kytkimet</string>
+    <string name="settings_system_backup_patching">Korjaaminen ja asentaminen</string>
+    <string name="settings_system_backup_patching_description">Asennusohjelma, korjausohjelma ja tallennetut APK-tiedostot</string>
+    <string name="settings_system_backup_updates_description">Esijulkaisut ja päivitystarkistukset</string>
+    <string name="settings_system_backup_sources_description">Mukautetut lähteet ja GitHub-token</string>
+    <string name="settings_system_backup_patch_selections_description">Valitut korjaukset jokaiselle sovellukselle</string>
+    <string name="settings_system_backup_signing_key_note">Allekirjoitusavain varmuuskopioidaan erikseen</string>
     <string name="settings_system_import_keystore_dialog_title">Anna avainsäilön tiedot</string>
     <string name="settings_system_import_keystore_dialog_description">Sinun on annettava avainsäilön tiedot, jotta voit tuoda sen</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Käyttäjänimi (Alias)</string>
@@ -1216,6 +1232,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="import_">Tuo</string>
     <string name="export">Vie</string>
     <string name="copy">Kopioi</string>
+    <string name="copied_to_clipboard">Kopioitu leikepöydälle</string>
     <string name="download">Lataa</string>
     <string name="less">Vähemmän</string>
     <string name="expand">Laajenna</string>
@@ -1262,6 +1279,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="changelog_for_app">Muutokset sovellukselle %s</string>
     <string name="changelog_general_changes">Yleiset muutokset</string>
     <string name="whats_new">Mitä uutta</string>
+    <string name="changelog_description">Mitä uutta tässä versiossa</string>
     <string name="changelog_download_fail">Muutoslokin lataaminen epäonnistui: %s</string>
     <string name="changelog_empty">Muutoslokia ei ole saatavilla</string>
     <string name="changelog_show_older">Näytä vanhemmat julkaisut</string>
@@ -1308,4 +1326,5 @@ Haluatko silti jatkaa?"</string>
     <string name="tour_prompt_desc">Haluatko pikatutoriaalin Morphen tärkeimmistä ominaisuuksista?</string>
     <string name="tour_prompt_confirm">Näytä minulle</string>
     <string name="onboarding_restart_title">Ominaisuusesittely</string>
+    <string name="onboarding_restart_desc">Opastettu kierros keskeisistä ominaisuuksista</string>
 </resources>

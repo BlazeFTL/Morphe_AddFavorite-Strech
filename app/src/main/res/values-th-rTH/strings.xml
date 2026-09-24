@@ -719,7 +719,9 @@
     <string name="settings_appearance_greeting_phrases">วลีทักทาย</string>
     <string name="settings_appearance_greeting_phrases_subtitle">แสดงข้อความทักทายบนหน้าจอหลัก</string>
     <string name="settings_appearance_app_grouping">การจัดกลุ่มแอป</string>
+    <string name="settings_appearance_app_grouping_description">แสดงสวิตช์เพื่อจัดกลุ่มแอปตามแหล่งที่มาหรือหมวดหมู่</string>
     <string name="settings_appearance_repatch_notice">ประกาศการแพตช์ซ้ำ</string>
+    <string name="settings_appearance_repatch_notice_description">แสดงแบนเนอร์เมื่อแอปที่แพตช์แล้วสามารถแพตช์ซ้ำได้</string>
     <string name="settings_appearance_sort_button">ปุ่มเรียงลำดับและกรอง</string>
     <string name="settings_appearance_sort_button_description">แสดงปุ่มเรียงลำดับและกรองบนหน้าจอหลัก</string>
     <string name="settings_appearance_app_card_colors">สีการ์ดแอป</string>
@@ -994,6 +996,20 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">เลือกเสียงเรียกเข้า</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">นำเข้า &amp; ส่งออก</string>
+    <string name="settings_system_signing_key">คีย์เซ็นชื่อ</string>
+    <string name="settings_system_signing_key_description">สำรองและกู้คืนคีย์ที่ใช้เซ็นชื่อแอปที่แพตช์แล้ว</string>
+    <string name="settings_system_signing_key_dialog_description">แอปทุกตัวที่ Morphe แพตช์จะเซ็นชื่อด้วยคีย์นี้ เก็บสำเนาไว้ เพราะหากไม่มีคีย์นี้ แอปที่แพตช์แล้วจะอัปเดตได้ก็ต่อเมื่อถอนการติดตั้งออกก่อนเท่านั้น</string>
+    <string name="settings_system_signing_key_missing">Morphe จะสร้างคีย์ขึ้นมาเมื่อคุณแพตช์ครั้งแรก</string>
+    <string name="settings_system_signing_key_created">สร้างเมื่อ %s</string>
+    <string name="settings_system_signing_key_fingerprint">ลายนิ้วมือ SHA-256</string>
+    <string name="settings_system_backup_appearance_description">ธีม สี และภาษา</string>
+    <string name="settings_system_backup_home_description">กลุ่ม แอปที่ซ่อน การเรียงลำดับ และสวิตช์</string>
+    <string name="settings_system_backup_patching">การแพตช์และการติดตั้ง</string>
+    <string name="settings_system_backup_patching_description">ตัวติดตั้ง ตัวแพตช์ และ APK ที่บันทึกไว้</string>
+    <string name="settings_system_backup_updates_description">เวอร์ชันก่อนเผยแพร่และการตรวจสอบอัปเดต</string>
+    <string name="settings_system_backup_sources_description">แหล่งที่มาแบบกำหนดเองและโทเค็น GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">แพตช์ที่เลือกไว้สำหรับทุกแอป</string>
+    <string name="settings_system_backup_signing_key_note">คีย์เซ็นชื่อถูกสำรองไว้แยกต่างหาก</string>
     <string name="settings_system_import_keystore_dialog_title">คุณต้องต้องแน่ใจว่าต้องป้อนชื่อและรหัสของไฟล์ตัวเลือก</string>
     <string name="settings_system_import_keystore_dialog_description">คุณต้องป้อนข้อมูลรับรองของคลังคีย์เพื่อนำเข้า</string>
     <string name="settings_system_import_keystore_dialog_alias_field">ชื่อผู้ใช้ (นามแฝง)</string>
@@ -1108,6 +1124,11 @@ morphe_header_custom_dark.png
     <string name="settings_system_custom_file_picker_description">เรียกดูพื้นที่จัดเก็บด้วยตัวเลือกไฟล์ในตัวของ Morphe แทนค่าเริ่มต้นของระบบ</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">ตัวช่วยดาวน์โหลด APK</string>
+    <string name="settings_system_apk_download_helper_trusted_count">ไว้วางใจแล้ว: %1$d จาก %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">แอปตัวช่วยสามารถดาวน์โหลด APK ต้นฉบับให้คุณได้ เฉพาะแอปที่คุณไว้วางใจที่นี่เท่านั้นที่จะแสดงในคำแนะนำการดาวน์โหลด</string>
+    <string name="settings_system_apk_download_helper_warning">APK มาจากแอปตัวช่วย ดังนั้นให้ไว้วางใจเฉพาะแอปที่คุณรู้จักเท่านั้น Morphe ยังคงตรวจสอบแพ็กเกจ เวอร์ชัน และลายเซ็นของทุกไฟล์ก่อนแพตช์</string>
+    <string name="settings_system_apk_download_helper_installed_by">ติดตั้งโดย %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">ไม่ทราบผู้ติดตั้ง</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">ไดเรกทอรีก่อนหน้า</string>
     <string name="file_picker_no_files">ไม่มีไฟล์อยู่ที่นี่</string>
@@ -1212,6 +1233,7 @@ morphe_header_custom_dark.png
     <string name="import_">นำเข้า</string>
     <string name="export">ส่งออก</string>
     <string name="copy">คัดลอก</string>
+    <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
     <string name="download">ดาวน์โหลด</string>
     <string name="less">น้อยลง</string>
     <string name="expand">ขยาย</string>
@@ -1258,6 +1280,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">การเปลี่ยนแปลงสำหรับ %s</string>
     <string name="changelog_general_changes">การเปลี่ยนแปลงทั่วไป</string>
     <string name="whats_new">มีอะไรใหม่</string>
+    <string name="changelog_description">มีอะไรใหม่ในเวอร์ชันนี้</string>
     <string name="changelog_download_fail">ไม่สามารถดาวน์โหลดบันทึกการเปลี่ยนแปลงได้: %s</string>
     <string name="changelog_empty">ไม่มีรายการอัปเดต</string>
     <string name="changelog_show_older">แสดงเวอร์ชันเก่ากว่า</string>
@@ -1304,4 +1327,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">ต้องการทัวร์อย่างรวดเร็วเกี่ยวกับคุณสมบัติหลักของ Morphe หรือไม่</string>
     <string name="tour_prompt_confirm">พาฉันดูรอบๆ</string>
     <string name="onboarding_restart_title">ทัวร์คุณสมบัติ</string>
+    <string name="onboarding_restart_desc">ทัวร์นำชมฟีเจอร์สำคัญ</string>
 </resources>

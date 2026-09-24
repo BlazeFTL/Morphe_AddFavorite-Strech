@@ -719,7 +719,9 @@
     <string name="settings_appearance_greeting_phrases">挨拶メッセージ</string>
     <string name="settings_appearance_greeting_phrases_subtitle">ホーム画面に挨拶メッセージを表示します</string>
     <string name="settings_appearance_app_grouping">アプリのグループ化</string>
+    <string name="settings_appearance_app_grouping_description">ソースまたはカテゴリでアプリをグループ化するスイッチャーを表示</string>
     <string name="settings_appearance_repatch_notice">再パッチ通知</string>
+    <string name="settings_appearance_repatch_notice_description">パッチ適用済みアプリを再パッチできる場合にバナーを表示</string>
     <string name="settings_appearance_sort_button">並べ替えとフィルター ボタン</string>
     <string name="settings_appearance_sort_button_description">ホーム画面に並べ替えとフィルター ボタンを表示します</string>
     <string name="settings_appearance_app_card_colors">アプリカードの色</string>
@@ -1001,9 +1003,10 @@ morphe_header_custom_dark.png
     <string name="settings_system_signing_key_created">%s を作成しました</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256 フィンガープリント</string>
     <string name="settings_system_backup_appearance_description">テーマ、カラー、言語</string>
+    <string name="settings_system_backup_home_description">グループ、非表示のアプリ、並べ替え、トグル</string>
     <string name="settings_system_backup_patching">パッチとインストール</string>
     <string name="settings_system_backup_patching_description">インストーラー、パッチャー、保存済み APK</string>
-    <string name="settings_system_backup_updates_description">プレリリースと更新チェック</string>
+    <string name="settings_system_backup_updates_description">プレリリース版とアップデートの確認</string>
     <string name="settings_system_backup_sources_description">カスタム ソースと GitHub トークン</string>
     <string name="settings_system_backup_patch_selections_description">すべてのアプリで選択したパッチ</string>
     <string name="settings_system_backup_signing_key_note">署名キーは別途バックアップされます</string>
@@ -1230,6 +1233,7 @@ morphe_header_custom_dark.png
     <string name="import_">インポート</string>
     <string name="export">エクスポート</string>
     <string name="copy">コピー</string>
+    <string name="copied_to_clipboard">クリップボードにコピーしました</string>
     <string name="download">ダウンロード</string>
     <string name="less">少なく</string>
     <string name="expand">展開</string>

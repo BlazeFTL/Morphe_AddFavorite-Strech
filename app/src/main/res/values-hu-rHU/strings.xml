@@ -718,7 +718,9 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_greeting_phrases">Üdvözlő szövegek</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Üdvözlő üzenet megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_grouping">Alkalmazáscsoportosítás</string>
+    <string name="settings_appearance_app_grouping_description">Kapcsoló megjelenítése az alkalmazások forrás vagy kategória szerinti csoportosításához</string>
     <string name="settings_appearance_repatch_notice">Újrajavítási értesítés</string>
+    <string name="settings_appearance_repatch_notice_description">Banner megjelenítése, ha a javított alkalmazások újra javíthatók</string>
     <string name="settings_appearance_sort_button">Rendezés és szűrés gomb</string>
     <string name="settings_appearance_sort_button_description">A rendezés és szűrés gomb megjelenítése a kezdőképernyőn</string>
     <string name="settings_appearance_app_card_colors">Alkalmazáskártyák színei</string>
@@ -993,7 +995,20 @@ Részletek: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Hang kiválasztása</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importálás és exportálás</string>
+    <string name="settings_system_signing_key">Aláírási kulcs</string>
+    <string name="settings_system_signing_key_description">Biztonsági mentést készít és visszaállítja a kulcsot, amellyel a javított alkalmazásaid alá vannak írva.</string>
+    <string name="settings_system_signing_key_dialog_description">A Morphe minden általa javított alkalmazást ezzel a kulccsal ír alá. Tarts meg egy másolatot: enélkül a javított alkalmazások csak eltávolítás után frissíthetők.</string>
+    <string name="settings_system_signing_key_missing">A Morphe az első javításnál létrehoz egyet.</string>
     <string name="settings_system_signing_key_created">%s létrehozva</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 ujjlenyomat</string>
+    <string name="settings_system_backup_appearance_description">Téma, színek és nyelv</string>
+    <string name="settings_system_backup_home_description">Csoportok, rejtett alkalmazások, rendezés és kapcsolók</string>
+    <string name="settings_system_backup_patching">Javítás és telepítés</string>
+    <string name="settings_system_backup_patching_description">Telepítő, patcher és mentett APK-k</string>
+    <string name="settings_system_backup_updates_description">Előzetes kiadások és frissítésellenőrzések</string>
+    <string name="settings_system_backup_sources_description">Egyéni források és GitHub-token</string>
+    <string name="settings_system_backup_patch_selections_description">Kiválasztott javítások minden alkalmazáshoz</string>
+    <string name="settings_system_backup_signing_key_note">Az aláírási kulcs külön kerül biztonsági mentésre.</string>
     <string name="settings_system_import_keystore_dialog_title">Add meg a kulcstároló hitelesítő adatait</string>
     <string name="settings_system_import_keystore_dialog_description">A kulcstároló importálásához meg kell adnod a hozzáférési adatokat</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Felhasználónév (Alias)</string>
@@ -1217,6 +1232,7 @@ Részletek: %2$s"</string>
     <string name="import_">Importálás</string>
     <string name="export">Exportálás</string>
     <string name="copy">Másolás</string>
+    <string name="copied_to_clipboard">A vágólapra másolva</string>
     <string name="download">Letöltés</string>
     <string name="less">Kevesebb</string>
     <string name="expand">Kibontás</string>
@@ -1263,6 +1279,7 @@ Részletek: %2$s"</string>
     <string name="changelog_for_app">A(z) %s változásai</string>
     <string name="changelog_general_changes">Általános változások</string>
     <string name="whats_new">Újdonságok</string>
+    <string name="changelog_description">Mi újdonság van ebben a verzióban?</string>
     <string name="changelog_download_fail">Nem sikerült letölteni a változásnaplót: %s</string>
     <string name="changelog_empty">A változásnapló nem elérhető</string>
     <string name="changelog_show_older">Régi kiadások megjelenítése</string>
@@ -1309,4 +1326,5 @@ Szeretnéd folytatni?"</string>
     <string name="tour_prompt_desc">Szeretnél egy rövid bemutatót a Morphe fő funkcióiról?</string>
     <string name="tour_prompt_confirm">Mutasd meg</string>
     <string name="onboarding_restart_title">Funkció bemutató</string>
+    <string name="onboarding_restart_desc">Vezetett bemutató a főbb funkciókról</string>
 </resources>

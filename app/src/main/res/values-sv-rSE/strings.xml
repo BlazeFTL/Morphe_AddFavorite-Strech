@@ -717,7 +717,9 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_greeting_phrases">Hälsningsfraser</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Visa ett hälsningsmeddelande på startskärmen</string>
     <string name="settings_appearance_app_grouping">Appgruppering</string>
+    <string name="settings_appearance_app_grouping_description">Visa en växlare för att gruppera appar efter källa eller kategori</string>
     <string name="settings_appearance_repatch_notice">Meddelande om att modifiera igen</string>
+    <string name="settings_appearance_repatch_notice_description">Visa en banderoll när patchade appar kan patchas om</string>
     <string name="settings_appearance_sort_button">Knapp för att sortera och filtrera</string>
     <string name="settings_appearance_sort_button_description">Visa knappen för att sortera och filtrera på startskärmen</string>
     <string name="settings_appearance_app_card_colors">Färger för appkort</string>
@@ -992,6 +994,20 @@ Information: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Välj en ton</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importera och exportera</string>
+    <string name="settings_system_signing_key">Signeringsnyckel</string>
+    <string name="settings_system_signing_key_description">Säkerhetskopierar och återställer nyckeln som dina patchade appar är signerade med</string>
+    <string name="settings_system_signing_key_dialog_description">Varje app som Morphe patchar signeras med den här nyckeln. Spara en kopia: utan den kan patchade appar bara uppdateras efter att de har avinstallerats</string>
+    <string name="settings_system_signing_key_missing">Morphe skapar en i samband med din första patch</string>
+    <string name="settings_system_signing_key_created">Skapad %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256-fingeravtryck</string>
+    <string name="settings_system_backup_appearance_description">Tema, färger och språk</string>
+    <string name="settings_system_backup_home_description">Grupper, dolda appar, sortering och växlar</string>
+    <string name="settings_system_backup_patching">Patchning och installation</string>
+    <string name="settings_system_backup_patching_description">Installerare, patchare och sparade APK:er</string>
+    <string name="settings_system_backup_updates_description">Förhandsversioner och uppdateringskontroller</string>
+    <string name="settings_system_backup_sources_description">Anpassade källor och GitHub-token</string>
+    <string name="settings_system_backup_patch_selections_description">Valda patchar för varje app</string>
+    <string name="settings_system_backup_signing_key_note">Signeringsnyckeln säkerhetskopieras separat</string>
     <string name="settings_system_import_keystore_dialog_title">Ange nyckellageruppgifter</string>
     <string name="settings_system_import_keystore_dialog_description">Du måste ange nyckellagrets uppgifter för att importera det</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Användarnamn (alias)</string>
@@ -1106,6 +1122,11 @@ Information: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Bläddra i lagringen med Morphes inbyggda filväljare istället för systemets standardfilväljare</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">APK-nedladdningshjälp</string>
+    <string name="settings_system_apk_download_helper_trusted_count">Betrodda: %1$d av %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Hjälpappar kan ladda ner original-APK-filer åt dig. Endast de du litar på här erbjuds i nedladdningsinstruktionerna</string>
+    <string name="settings_system_apk_download_helper_warning">APK-filen kommer från hjälpappen, så lita bara på appar du känner. Morphe kontrollerar fortfarande paketet, versionen och signaturen för varje fil innan patchning</string>
+    <string name="settings_system_apk_download_helper_installed_by">Installerad av %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Okänd installatör</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Föregående katalog</string>
     <string name="file_picker_no_files">Inga filer här</string>
@@ -1210,6 +1231,7 @@ Information: %2$s"</string>
     <string name="import_">Importera</string>
     <string name="export">Exportera</string>
     <string name="copy">Kopiera</string>
+    <string name="copied_to_clipboard">Kopierat till urklipp</string>
     <string name="download">Ladda ned</string>
     <string name="less">Mindre</string>
     <string name="expand">Expandera</string>
@@ -1256,6 +1278,7 @@ Information: %2$s"</string>
     <string name="changelog_for_app">Ändringar för %s</string>
     <string name="changelog_general_changes">Allmänna ändringar</string>
     <string name="whats_new">Nyheter</string>
+    <string name="changelog_description">Vad är nytt i den här versionen</string>
     <string name="changelog_download_fail">Det gick inte att ladda ned ändringsloggen: %s</string>
     <string name="changelog_empty">Ingen ändringslogg är tillgänglig</string>
     <string name="changelog_show_older">Visa äldre versioner</string>
@@ -1302,4 +1325,5 @@ Vill du fortsätta ändå?"</string>
     <string name="tour_prompt_desc">Vill du få en snabb genomgång av Morphes grundläggande funktioner?</string>
     <string name="tour_prompt_confirm">Visa mig runt</string>
     <string name="onboarding_restart_title">Funktionsgenomgång</string>
+    <string name="onboarding_restart_desc">En guidad tur genom de viktigaste funktionerna</string>
 </resources>

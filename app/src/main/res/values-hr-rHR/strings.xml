@@ -722,7 +722,9 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_greeting_phrases">Pozdravne fraze</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Pokaži poruku dobrodošlice na početnom zaslonu</string>
     <string name="settings_appearance_app_grouping">Grupiranje aplikacija</string>
+    <string name="settings_appearance_app_grouping_description">Prikaži prekidač za grupiranje aplikacija po izvoru ili kategoriji</string>
     <string name="settings_appearance_repatch_notice">Obavijest o ponovnom patchanju</string>
+    <string name="settings_appearance_repatch_notice_description">Prikaži banner kada zakrpane aplikacije mogu biti ponovno zakrpane</string>
     <string name="settings_appearance_sort_button">Tipka za sortiranje i filtriranje</string>
     <string name="settings_appearance_sort_button_description">Prikaži tipku za sortiranje i filtriranje na početnom zaslonu</string>
     <string name="settings_appearance_app_card_colors">Boje kartica aplikacije</string>
@@ -997,6 +999,20 @@ Detalji: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Odaberite ton</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Izvoz &amp; uvoz</string>
+    <string name="settings_system_signing_key">Ključ za potpisivanje</string>
+    <string name="settings_system_signing_key_description">Radi sigurnosnu kopiju i vraća ključ kojim su potpisane vaše zakrpane aplikacije</string>
+    <string name="settings_system_signing_key_dialog_description">Svaka aplikacija na koju Morphe primijeni zakrpu potpisana je ovim ključem. Sačuvajte kopiju: bez njega, zakrpane aplikacije mogu se ažurirati samo nakon što ih deinstalirate.</string>
+    <string name="settings_system_signing_key_missing">Morphe ga stvara prilikom vaše prve zakrpe</string>
+    <string name="settings_system_signing_key_created">Stvoren %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 otisak</string>
+    <string name="settings_system_backup_appearance_description">Tema, boje i jezik</string>
+    <string name="settings_system_backup_home_description">Grupe, skrivene aplikacije, sortiranje i prekidači</string>
+    <string name="settings_system_backup_patching">Primjena zakrpa i instaliranje</string>
+    <string name="settings_system_backup_patching_description">Instalacijski program, program za primjenu zakrpa i spremljene APK datoteke</string>
+    <string name="settings_system_backup_updates_description">Predizdanja i provjere ažuriranja</string>
+    <string name="settings_system_backup_sources_description">Prilagođeni izvori i GitHub token</string>
+    <string name="settings_system_backup_patch_selections_description">Odabrane zakrpe za svaku aplikaciju</string>
+    <string name="settings_system_backup_signing_key_note">Sigurnosna kopija ključa za potpisivanje radi se zasebno</string>
     <string name="settings_system_import_keystore_dialog_title">Unesite vjerodajnice za pohranu ključeva</string>
     <string name="settings_system_import_keystore_dialog_description">Morat ćete unijeti vjerodajnice za pohranu ključeva da biste ga uvezli</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Korisničko ime (Alias)</string>
@@ -1220,6 +1236,7 @@ Detalji: %2$s"</string>
     <string name="import_">Uvezi</string>
     <string name="export">Izvezi</string>
     <string name="copy">Kopiraj</string>
+    <string name="copied_to_clipboard">Kopirano u međuspremnik</string>
     <string name="download">Preuzmi</string>
     <string name="less">Manje</string>
     <string name="expand">Proširi</string>
@@ -1266,6 +1283,7 @@ Detalji: %2$s"</string>
     <string name="changelog_for_app">Promjene za %s</string>
     <string name="changelog_general_changes">Opće promjene</string>
     <string name="whats_new">Što je novo</string>
+    <string name="changelog_description">Što je novo u ovoj verziji</string>
     <string name="changelog_download_fail">Neuspjelo preuzimanje zapisa promjena: %s</string>
     <string name="changelog_empty">Nema dostupnog zapisa o promjenama</string>
     <string name="changelog_show_older">Pokaži starije verzije</string>
@@ -1313,4 +1331,5 @@ Detalji: %2$s"</string>
     <string name="tour_prompt_desc">Želite li brzi obilazak ključnih značajki Morphea?</string>
     <string name="tour_prompt_confirm">Pokaži mi okolo</string>
     <string name="onboarding_restart_title">Obilazak značajki</string>
+    <string name="onboarding_restart_desc">Vođeni obilazak ključnih značajki</string>
 </resources>

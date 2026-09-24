@@ -719,7 +719,9 @@
     <string name="settings_appearance_greeting_phrases">Поздравителни фрази</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показване на поздравително съобщение на началния екран</string>
     <string name="settings_appearance_app_grouping">Групиране на приложения</string>
+    <string name="settings_appearance_app_grouping_description">Показване на превключвател за групиране на приложенията по източник или категория</string>
     <string name="settings_appearance_repatch_notice">Известие за повторно кръпване</string>
+    <string name="settings_appearance_repatch_notice_description">Показване на банер, когато приложенията с кръпки могат да бъдат кръпени отново</string>
     <string name="settings_appearance_sort_button">Бутон за сортиране и филтриране</string>
     <string name="settings_appearance_sort_button_description">Показване на бутона за сортиране и филтриране на началния екран</string>
     <string name="settings_appearance_app_card_colors">Цветове на картите на приложенията</string>
@@ -1001,6 +1003,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_signing_key_created">Създаден %s</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256 пръстов отпечатък</string>
     <string name="settings_system_backup_appearance_description">Тема, цветове и език</string>
+    <string name="settings_system_backup_home_description">Групи, скрити приложения, сортиране и превключватели</string>
     <string name="settings_system_backup_patching">Патчване и инсталиране</string>
     <string name="settings_system_backup_patching_description">Инсталатор, патчер и запазени APK файлове</string>
     <string name="settings_system_backup_updates_description">Предварителни версии и проверки за актуализации</string>
@@ -1230,6 +1233,7 @@ morphe_header_custom_dark.png
     <string name="import_">Импортиране</string>
     <string name="export">Изтриване на запазена копия</string>
     <string name="copy">Дублирането на видеа се показва</string>
+    <string name="copied_to_clipboard">Копирано в клипборда</string>
     <string name="download">Свали</string>
     <string name="less">Morphe</string>
     <string name="expand">Разгъване</string>

@@ -720,7 +720,9 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_greeting_phrases">Powitania</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wyświetlaj powitanie na ekranie głównym</string>
     <string name="settings_appearance_app_grouping">Grupowanie aplikacji</string>
+    <string name="settings_appearance_app_grouping_description">Pokaż przełącznik do grupowania aplikacji według źródła lub kategorii</string>
     <string name="settings_appearance_repatch_notice">Powiadomienie o ponownym modyfikowaniu</string>
+    <string name="settings_appearance_repatch_notice_description">Pokazuj baner, gdy można ponownie zmodyfikować aplikacje</string>
     <string name="settings_appearance_sort_button">Przycisk sortowania i filtrowania</string>
     <string name="settings_appearance_sort_button_description">Pokaż przycisk sortowania i filtrowania na ekranie głównym</string>
     <string name="settings_appearance_app_card_colors">Kolory kart aplikacji</string>
@@ -1002,6 +1004,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="settings_system_signing_key_created">Utworzono %s</string>
     <string name="settings_system_signing_key_fingerprint">Odcisk SHA-256</string>
     <string name="settings_system_backup_appearance_description">Motyw, kolory i język</string>
+    <string name="settings_system_backup_home_description">Grupy, ukryte aplikacje, sortowanie i przełączniki</string>
     <string name="settings_system_backup_patching">Modyfikowanie i instalowanie</string>
     <string name="settings_system_backup_patching_description">Instalator, modyfikator i zapisane pliki APK</string>
     <string name="settings_system_backup_updates_description">Wersje przedpremierowe i sprawdzanie aktualizacji</string>
@@ -1231,6 +1234,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="import_">Importuj</string>
     <string name="export">Eksportuj</string>
     <string name="copy">Kopiuj</string>
+    <string name="copied_to_clipboard">Skopiowano do schowka</string>
     <string name="download">Pobierz</string>
     <string name="less">Mniej</string>
     <string name="expand">Rozwiń</string>

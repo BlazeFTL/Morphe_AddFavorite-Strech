@@ -718,7 +718,9 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_greeting_phrases">Selamlama cümleleri</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ana ekranda bir selamlama mesajı göster</string>
     <string name="settings_appearance_app_grouping">Uygulama gruplandırma</string>
+    <string name="settings_appearance_app_grouping_description">Uygulamaları kaynağa veya kategoriye göre gruplamak için bir anahtar göster</string>
     <string name="settings_appearance_repatch_notice">Yeniden yama bildirimi</string>
+    <string name="settings_appearance_repatch_notice_description">Yamalı uygulamalar yeniden yamanabildiğinde bir afiş göster</string>
     <string name="settings_appearance_sort_button">Sıralama ve filtreleme düğmesi</string>
     <string name="settings_appearance_sort_button_description">Ana ekranda sıralama ve filtreleme düğmesini göster</string>
     <string name="settings_appearance_app_card_colors">Uygulama kartı renkleri</string>
@@ -993,6 +995,20 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Bir ton seç</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">İçe &amp; dışa aktar</string>
+    <string name="settings_system_signing_key">İmzalama anahtarı</string>
+    <string name="settings_system_signing_key_description">Yamalı uygulamalarınızın imzalandığı anahtarı yedekler ve geri yükler</string>
+    <string name="settings_system_signing_key_dialog_description">Morphe tarafından yamalanan her uygulama bu anahtarla imzalanır. Bir kopyasını saklayın: o olmadan, yamalı uygulamalar yalnızca kaldırıldıktan sonra güncellenebilir</string>
+    <string name="settings_system_signing_key_missing">Morphe ilk yamanızda bir tane oluşturur</string>
+    <string name="settings_system_signing_key_created">%s tarihinde oluşturuldu</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 parmak izi</string>
+    <string name="settings_system_backup_appearance_description">Tema, renkler ve dil</string>
+    <string name="settings_system_backup_home_description">Gruplar, gizli uygulamalar, sıralama ve anahtarlar</string>
+    <string name="settings_system_backup_patching">Yamalama ve yükleme</string>
+    <string name="settings_system_backup_patching_description">Yükleyici, yamalayıcı ve kaydedilen APK\'lar</string>
+    <string name="settings_system_backup_updates_description">Ön sürümler ve güncelleme kontrolleri</string>
+    <string name="settings_system_backup_sources_description">Özel kaynaklar ve GitHub token\'ı</string>
+    <string name="settings_system_backup_patch_selections_description">Her uygulama için seçilen yamalar</string>
+    <string name="settings_system_backup_signing_key_note">İmzalama anahtarı ayrı olarak yedeklenir</string>
     <string name="settings_system_import_keystore_dialog_title">Anahtar deposu kimlik bilgilerini girin</string>
     <string name="settings_system_import_keystore_dialog_description">İçe aktarmak için anahtar deposu kimlik bilgilerini girmeniz gerekecek</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Kullanıcı Adı (Takma Ad)</string>
@@ -1216,6 +1232,7 @@ Ayrıntılar: %2$s"</string>
     <string name="import_">İçe aktar</string>
     <string name="export">Dışa aktar</string>
     <string name="copy">Kopyala</string>
+    <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="download">İndir</string>
     <string name="less">Daha az</string>
     <string name="expand">Genişlet</string>
@@ -1262,6 +1279,7 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_for_app">%s için değişiklikler</string>
     <string name="changelog_general_changes">Genel değişiklikler</string>
     <string name="whats_new">Yenilikler</string>
+    <string name="changelog_description">Bu sürümdeki yenilikler</string>
     <string name="changelog_download_fail">Değişiklik günlüğü indirilemedi: %s</string>
     <string name="changelog_empty">Değişiklik günlüğü yok</string>
     <string name="changelog_show_older">Daha eski sürümleri göster</string>
@@ -1308,4 +1326,5 @@ Devam etmek istiyor musunuz?"</string>
     <string name="tour_prompt_desc">Morphe\'nin temel özelliklerine hızlı bir bakış atmak ister misiniz?</string>
     <string name="tour_prompt_confirm">Bana etrafı göster</string>
     <string name="onboarding_restart_title">Özellik turu</string>
+    <string name="onboarding_restart_desc">Temel özelliklerde rehberli bir tur</string>
 </resources>

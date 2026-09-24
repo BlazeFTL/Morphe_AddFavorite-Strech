@@ -720,7 +720,9 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="settings_appearance_greeting_phrases">Frasa sapaan</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Tampilkan pesan sapaan di layar beranda</string>
     <string name="settings_appearance_app_grouping">Pengelompokan aplikasi</string>
+    <string name="settings_appearance_app_grouping_description">Menampilkan pengalih untuk mengelompokkan aplikasi berdasarkan sumber atau kategori</string>
     <string name="settings_appearance_repatch_notice">Pemberitahuan penambalan ulang</string>
+    <string name="settings_appearance_repatch_notice_description">Menampilkan spanduk ketika aplikasi yang telah di-patch dapat di-patch ulang</string>
     <string name="settings_appearance_sort_button">Tombol urutkan dan saring</string>
     <string name="settings_appearance_sort_button_description">Tampilkan tombol urutkan dan saring di layar beranda</string>
     <string name="settings_appearance_app_card_colors">Warna kartu aplikasi</string>
@@ -995,6 +997,20 @@ Rincian: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Pilih nada dering</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Impor &amp; ekspor</string>
+    <string name="settings_system_signing_key">Kunci penandatanganan</string>
+    <string name="settings_system_signing_key_description">Mencadangkan dan memulihkan kunci yang digunakan untuk menandatangani aplikasi yang di-patch</string>
+    <string name="settings_system_signing_key_dialog_description">Setiap aplikasi yang di-patch oleh Morphe ditandatangani dengan kunci ini. Simpan salinannya: tanpa kunci ini, aplikasi yang di-patch hanya dapat diperbarui setelah menghapus instalasinya.</string>
+    <string name="settings_system_signing_key_missing">Morphe membuatnya dengan patch pertama Anda.</string>
+    <string name="settings_system_signing_key_created">Dibuat %s</string>
+    <string name="settings_system_signing_key_fingerprint">Sidik jari SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Tema, warna, dan bahasa</string>
+    <string name="settings_system_backup_home_description">Grup, aplikasi tersembunyi, pengurutan, dan sakelar</string>
+    <string name="settings_system_backup_patching">Penambalan dan pemasangan</string>
+    <string name="settings_system_backup_patching_description">Penginstal, penambal, dan APK tersimpan</string>
+    <string name="settings_system_backup_updates_description">Pra-rilis dan pemeriksaan pembaruan</string>
+    <string name="settings_system_backup_sources_description">Sumber kustom dan token GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Patch yang dipilih untuk setiap aplikasi</string>
+    <string name="settings_system_backup_signing_key_note">Kunci penandatanganan dicadangkan secara terpisah</string>
     <string name="settings_system_import_keystore_dialog_title">Masukkan kredensial keystore</string>
     <string name="settings_system_import_keystore_dialog_description">Anda perlu memasukkan kredensial keystore untuk mengimpornya</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Nama pengguna (Alias)</string>
@@ -1218,6 +1234,7 @@ Rincian: %2$s"</string>
     <string name="import_">Impor</string>
     <string name="export">Ekspor</string>
     <string name="copy">Salin</string>
+    <string name="copied_to_clipboard">Disalin ke papan klip</string>
     <string name="download">Unduh</string>
     <string name="less">Sedikit</string>
     <string name="expand">Perluas</string>
@@ -1264,6 +1281,7 @@ Rincian: %2$s"</string>
     <string name="changelog_for_app">Perubahan untuk %s</string>
     <string name="changelog_general_changes">Perubahan umum</string>
     <string name="whats_new">Apa yang baru</string>
+    <string name="changelog_description">Apa yang baru di versi ini</string>
     <string name="changelog_download_fail">Gagal mengunduh catatan perubahan: %s</string>
     <string name="changelog_empty">Tidak ada catatan perubahan tersedia</string>
     <string name="changelog_show_older">Tampilkan rilis yang lebih lama</string>
@@ -1310,4 +1328,5 @@ Apakah Anda masih ingin melanjutkan?"</string>
     <string name="tour_prompt_desc">Ingin tur cepat fitur utama Morphe?</string>
     <string name="tour_prompt_confirm">Tunjukkan</string>
     <string name="onboarding_restart_title">Tur fitur</string>
+    <string name="onboarding_restart_desc">Tur berpandu fitur-fitur utama</string>
 </resources>

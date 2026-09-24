@@ -723,7 +723,9 @@
     <string name="settings_appearance_greeting_phrases">عبارات الترحيب</string>
     <string name="settings_appearance_greeting_phrases_subtitle">عرض رسالة ترحيب على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_grouping">تجميع التطبيقات</string>
+    <string name="settings_appearance_app_grouping_description">عرض مفتاح تبديل لتجميع التطبيقات حسب المصدر أو الفئة</string>
     <string name="settings_appearance_repatch_notice">إشعار إعادة التعديل</string>
+    <string name="settings_appearance_repatch_notice_description">عرض شريط إعلام عندما يمكن إعادة تعديل التطبيقات المعدلة</string>
     <string name="settings_appearance_sort_button">زر الفرز والتصفية</string>
     <string name="settings_appearance_sort_button_description">عرض زر الفرز والتصفية على الشاشة الرئيسية</string>
     <string name="settings_appearance_app_card_colors">ألوان بطاقة التطبيق</string>
@@ -1000,17 +1002,18 @@ morphe_adaptive_monochrome_custom.xml
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">استيراد &amp; تصدير</string>
     <string name="settings_system_signing_key">مفتاح التوقيع</string>
-    <string name="settings_system_signing_key_description">ينشئ نسخة احتياطية من المفتاح الذي تُوقَّع به تطبيقاتك المرقّعة ويستعيده</string>
-    <string name="settings_system_signing_key_dialog_description">كل تطبيق يرقّعه Morphe يتم توقيعه بهذا المفتاح. احتفظ بنسخة: بدونه، لا يمكن تحديث التطبيقات المرقّعة إلا بعد إلغاء تثبيتها.</string>
-    <string name="settings_system_signing_key_missing">ينشئ Morphe مفتاحًا مع أول عملية ترقيع لك.</string>
+    <string name="settings_system_signing_key_description">ينشئ نسخة احتياطية من المفتاح الذي تُوقَّع به تطبيقاتك المعدلة ويستعيده</string>
+    <string name="settings_system_signing_key_dialog_description">كل تطبيق يتم تعديله عبر Morphe يتم توقيعه بهذا المفتاح. احتفظ بنسخة: بدونه، لا يمكن تحديث التطبيقات المعدلة إلا بعد إلغاء تثبيتها.</string>
+    <string name="settings_system_signing_key_missing">ينشئ Morphe مفتاحًا مع أول عملية تعديل تقوم بها</string>
     <string name="settings_system_signing_key_created">تم الإنشاء في %s</string>
     <string name="settings_system_signing_key_fingerprint">بصمة SHA-256</string>
-    <string name="settings_system_backup_appearance_description">السمة والألوان واللغة</string>
-    <string name="settings_system_backup_patching">الترقيع والتثبيت</string>
-    <string name="settings_system_backup_patching_description">المثبّت وأداة الترقيع وملفات APK المحفوظة</string>
-    <string name="settings_system_backup_updates_description">الإصدارات الأولية والتحقق من التحديثات</string>
+    <string name="settings_system_backup_appearance_description">المظهر، الألوان واللغة</string>
+    <string name="settings_system_backup_home_description">المجموعات، التطبيقات المخفية، الفرز والمفاتيح التبديلية</string>
+    <string name="settings_system_backup_patching">التعديل والتثبيت</string>
+    <string name="settings_system_backup_patching_description">أداة التثبيت، أداة التعديل وملفات APK المحفوظة</string>
+    <string name="settings_system_backup_updates_description">إصدارات ما قبل الإطلاق وفحوصات التحديثات</string>
     <string name="settings_system_backup_sources_description">المصادر المخصصة ورمز GitHub</string>
-    <string name="settings_system_backup_patch_selections_description">الترقيعات المختارة لكل تطبيق</string>
+    <string name="settings_system_backup_patch_selections_description">التعديلات التي تم اختيارها لكل تطبيق</string>
     <string name="settings_system_backup_signing_key_note">يتم نسخ مفتاح التوقيع احتياطيًا بشكل منفصل</string>
     <string name="settings_system_import_keystore_dialog_title">أدخل بيانات اعتماد Keystore</string>
     <string name="settings_system_import_keystore_dialog_description">سوف تحتاج إلى إدخال بيانات اعتماد Keystore لاستيراده</string>
@@ -1235,6 +1238,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="import_">استيراد</string>
     <string name="export">تصدير</string>
     <string name="copy">نسخ</string>
+    <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
     <string name="download">تنزيل</string>
     <string name="less">أقل</string>
     <string name="expand">توسيع</string>

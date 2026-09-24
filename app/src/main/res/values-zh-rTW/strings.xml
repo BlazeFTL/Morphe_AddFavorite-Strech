@@ -718,7 +718,9 @@
     <string name="settings_appearance_greeting_phrases">問候語</string>
     <string name="settings_appearance_greeting_phrases_subtitle">在主螢幕上顯示問候訊息</string>
     <string name="settings_appearance_app_grouping">應用程式分組</string>
+    <string name="settings_appearance_app_grouping_description">顯示可依來源或類別將應用程式分組的切換器</string>
     <string name="settings_appearance_repatch_notice">重新修補通知</string>
+    <string name="settings_appearance_repatch_notice_description">當已修補的應用程式可重新修補時顯示橫幅</string>
     <string name="settings_appearance_sort_button">排序與篩選按鈕</string>
     <string name="settings_appearance_sort_button_description">在主畫面上顯示排序與篩選按鈕</string>
     <string name="settings_appearance_app_card_colors">應用程式卡片顏色</string>
@@ -998,6 +1000,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_signing_key_created">建立於 %s</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256 指紋</string>
     <string name="settings_system_backup_appearance_description">主題、色彩與語言</string>
+    <string name="settings_system_backup_home_description">群組、隱藏應用程式、排序方式與切換開關</string>
     <string name="settings_system_backup_patching">修補與安裝</string>
     <string name="settings_system_backup_patching_description">安裝程式、修補程式與已儲存的 APK</string>
     <string name="settings_system_backup_updates_description">預先發行版本與更新檢查</string>
@@ -1227,6 +1230,7 @@ morphe_header_custom_dark.png
     <string name="import_">匯入</string>
     <string name="export">匯出</string>
     <string name="copy">複製</string>
+    <string name="copied_to_clipboard">已複製到剪貼簿</string>
     <string name="download">下載</string>
     <string name="less">顯示較少</string>
     <string name="expand">展開</string>

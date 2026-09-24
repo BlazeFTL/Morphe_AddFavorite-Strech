@@ -719,7 +719,9 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_greeting_phrases">Frases de saludo</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Muestra un mensaje de saludo en la pantalla de inicio</string>
     <string name="settings_appearance_app_grouping">Agrupación de aplicaciones</string>
+    <string name="settings_appearance_app_grouping_description">Muestra un selector para agrupar las aplicaciones por fuente o categoría</string>
     <string name="settings_appearance_repatch_notice">Aviso de nuevos parches</string>
+    <string name="settings_appearance_repatch_notice_description">Muestra un aviso cuando las aplicaciones parcheadas se puedan volver a parchear</string>
     <string name="settings_appearance_sort_button">Botón de ordenar y filtrar</string>
     <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar y filtrar en la pantalla de inicio</string>
     <string name="settings_appearance_app_card_colors">Colores de las tarjetas de aplicaciones</string>
@@ -758,14 +760,14 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <string name="settings_advanced_updates_prerelease_warning_message">"Las versiones pre-lanzamiento de Morphe todavía están en desarrollo y pueden ser inestables.
 
-Los parches no se ven afectados: habilita los parches preliminares para cada fuente en la lista de fuentes de parches"</string>
+Los parches no se ven afectados: habilita los parches pre-lanzamiento para cada fuente en la lista de fuentes de parches"</string>
     <string name="settings_advanced_updates_allow_metered">Actualizaciones con datos móviles</string>
     <string name="settings_advanced_updates_allow_metered_description">Permite que Morphe y las actualizaciones de los parches se descarguen a través de datos móviles</string>
     <string name="settings_advanced_updates_background_notifications">Notificaciones de actualización en segundo plano</string>
     <string name="settings_advanced_updates_background_notifications_description">Comprueba periódicamente si hay actualizaciones en segundo plano y notifica cuando estén disponibles</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Recibe notificaciones push instantáneas de las nuevas versiones, incluso cuando la aplicación está cerrada</string>
     <string name="settings_system_notifications_categories">Categorías de notificaciones</string>
-    <string name="settings_system_notifications_categories_description">Elige en la configuración del sistema de qué actualizaciones quieres recibir notificaciones</string>
+    <string name="settings_system_notifications_categories_description">Elige en los ajustes del sistema de qué actualizaciones quieres recibir notificaciones</string>
     <string name="settings_advanced_update_interval">Frecuencia de comprobación</string>
     <string name="settings_advanced_update_interval_dialog_title">Buscar actualizaciones</string>
     <string name="settings_advanced_update_interval_hourly">Una vez cada hora</string>
@@ -995,17 +997,18 @@ Detalles: %2$s"</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importar y exportar</string>
     <string name="settings_system_signing_key">Clave de firma</string>
-    <string name="settings_system_signing_key_description">Realiza una copia de seguridad y restaura la clave con la que se firmaron sus aplicaciones parcheadas</string>
-    <string name="settings_system_signing_key_dialog_description">Todas las aplicaciones a las que Morphe parchea están firmadas con esta clave. Guarda una copia: sin ella, las aplicaciones parcheadas solo se podrán actualizar después de desinstalarlas.</string>
+    <string name="settings_system_signing_key_description">Respalda y restaura la clave con la que se firman tus aplicaciones parcheadas</string>
+    <string name="settings_system_signing_key_dialog_description">Todas las aplicaciones que Morphe parchea se firman con esta clave. Guarda una copia: sin ella, las aplicaciones parcheadas solo se podrán actualizar después de desinstalarlas</string>
     <string name="settings_system_signing_key_missing">Morphe crea una con tu primer parcheo</string>
-    <string name="settings_system_signing_key_created">%s creada</string>
+    <string name="settings_system_signing_key_created">Creada %s</string>
     <string name="settings_system_signing_key_fingerprint">Huella SHA-256</string>
     <string name="settings_system_backup_appearance_description">Tema, colores e idioma</string>
+    <string name="settings_system_backup_home_description">Grupos, aplicaciones ocultas, ordenación e interruptores</string>
     <string name="settings_system_backup_patching">Parcheo e instalación</string>
     <string name="settings_system_backup_patching_description">Instalador, parcheador y APK guardados</string>
-    <string name="settings_system_backup_updates_description">Versiones preliminares y comprobaciones de actualizaciones</string>
+    <string name="settings_system_backup_updates_description">Versiones pre-lanzamiento y comprobaciones de actualizaciones</string>
     <string name="settings_system_backup_sources_description">Fuentes personalizadas y token de GitHub</string>
-    <string name="settings_system_backup_patch_selections_description">Parches seleccionados para cada aplicación</string>
+    <string name="settings_system_backup_patch_selections_description">Parches elegidos para cada aplicación</string>
     <string name="settings_system_backup_signing_key_note">La clave de firma se respalda por separado</string>
     <string name="settings_system_import_keystore_dialog_title">Introduce las credenciales del almacén de claves</string>
     <string name="settings_system_import_keystore_dialog_description">Necesitarás introducir las credenciales del almacén de claves para importarlo</string>
@@ -1230,6 +1233,7 @@ Detalles: %2$s"</string>
     <string name="import_">Importar</string>
     <string name="export">Exportar</string>
     <string name="copy">Copiar</string>
+    <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="download">Descargar</string>
     <string name="less">Menos</string>
     <string name="expand">Expandir</string>

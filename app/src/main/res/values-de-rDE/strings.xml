@@ -719,7 +719,9 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_greeting_phrases">Begrüßungsnachricht</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zeige auf dem Startbildschirm eine Begrüßung an</string>
     <string name="settings_appearance_app_grouping">App-Gruppierung</string>
+    <string name="settings_appearance_app_grouping_description">Einen Umschalter anzeigen, um Apps nach Quelle oder Kategorie zu gruppieren</string>
     <string name="settings_appearance_repatch_notice">Hinweis zum erneuten Patchen</string>
+    <string name="settings_appearance_repatch_notice_description">Ein Banner anzeigen, wenn gepatchte Apps erneut gepatcht werden können</string>
     <string name="settings_appearance_sort_button">Schaltfläche zum Sortieren und Filtern</string>
     <string name="settings_appearance_sort_button_description">Zeigt eine Schaltfläche zum Sortieren und Filtern auf dem Startbildschirm an</string>
     <string name="settings_appearance_app_card_colors">Farben der App-Karten</string>
@@ -994,6 +996,20 @@ Details: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Ton auswählen</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import &amp; Export</string>
+    <string name="settings_system_signing_key">Signaturschlüssel</string>
+    <string name="settings_system_signing_key_description">Sichert und stellt den Schlüssel wieder her, mit dem deine gepatchten Apps signiert sind.</string>
+    <string name="settings_system_signing_key_dialog_description">Jede App, die Morphe patcht, ist mit diesem Schlüssel signiert. Bewahre eine Kopie auf: Ohne ihn können gepatchte Apps nur aktualisiert werden, nachdem sie deinstalliert wurden.</string>
+    <string name="settings_system_signing_key_missing">Morphe erstellt einen bei deinem ersten Patch.</string>
+    <string name="settings_system_signing_key_created">Erstellt %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256-Fingerabdruck</string>
+    <string name="settings_system_backup_appearance_description">Design, Farben und Sprache</string>
+    <string name="settings_system_backup_home_description">Gruppen, ausgeblendete Apps, Sortierung und Umschalter</string>
+    <string name="settings_system_backup_patching">Patchen und Installieren</string>
+    <string name="settings_system_backup_patching_description">Installer, Patcher und gespeicherte APKs</string>
+    <string name="settings_system_backup_updates_description">Vorabversionen und Update-Checks</string>
+    <string name="settings_system_backup_sources_description">Benutzerdefinierte Quellen und GitHub-Token</string>
+    <string name="settings_system_backup_patch_selections_description">Ausgewählte Patches für jede App</string>
+    <string name="settings_system_backup_signing_key_note">Der Signaturschlüssel wird separat gesichert.</string>
     <string name="settings_system_import_keystore_dialog_title">Geben Sie die Keystore-Anmeldeinformationen ein</string>
     <string name="settings_system_import_keystore_dialog_description">Sie müssen die Anmeldeinformationen des Keystores zum Importieren eingeben</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Benutzername (Alias)</string>
@@ -1217,6 +1233,7 @@ Details: %2$s"</string>
     <string name="import_">Importieren</string>
     <string name="export">Exportieren</string>
     <string name="copy">Kopieren</string>
+    <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="download">Herunterladen</string>
     <string name="less">Weniger</string>
     <string name="expand">Erweitern</string>
@@ -1263,6 +1280,7 @@ Details: %2$s"</string>
     <string name="changelog_for_app">Änderungen für %s</string>
     <string name="changelog_general_changes">Allgemeine Änderungen</string>
     <string name="whats_new">Was ist neu</string>
+    <string name="changelog_description">Was ist neu in dieser Version?</string>
     <string name="changelog_download_fail">Download des Changelogs fehlgeschlagen: %s</string>
     <string name="changelog_empty">Kein Changelog verfügbar</string>
     <string name="changelog_show_older">Ältere Versionen anzeigen</string>
@@ -1309,4 +1327,5 @@ Wollen Sie trotzdem fortfahren?"</string>
     <string name="tour_prompt_desc">Möchten Sie eine kurze Tour durch die wichtigsten Funktionen von Morphe machen?</string>
     <string name="tour_prompt_confirm">Zeigen Sie mir alles</string>
     <string name="onboarding_restart_title">Feature-Tour</string>
+    <string name="onboarding_restart_desc">Eine geführte Tour durch die wichtigsten Funktionen.</string>
 </resources>

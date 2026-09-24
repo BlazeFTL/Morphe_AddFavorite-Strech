@@ -718,7 +718,9 @@
     <string name="settings_appearance_greeting_phrases">인사말</string>
     <string name="settings_appearance_greeting_phrases_subtitle">홈 화면에 인사말을 표시합니다</string>
     <string name="settings_appearance_app_grouping">앱 그룹화</string>
+    <string name="settings_appearance_app_grouping_description">소스 또는 카테고리별로 앱을 그룹화하는 스위처를 표시합니다</string>
     <string name="settings_appearance_repatch_notice">다시 패치 알림</string>
+    <string name="settings_appearance_repatch_notice_description">패치된 앱을 다시 패치할 수 있을 경우에 배너를 표시합니다</string>
     <string name="settings_appearance_sort_button">정렬 및 필터 버튼</string>
     <string name="settings_appearance_sort_button_description">홈 화면에 정렬 및 필터 버튼을 표시합니다</string>
     <string name="settings_appearance_app_card_colors">앱 카드 색상</string>
@@ -764,7 +766,7 @@
     <string name="settings_advanced_updates_background_notifications_description">백그라운드에서 주기적으로 업데이트를 확인하고 업데이트가 있을 경우에 알림을 보냅니다</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">앱이 닫혀 있어도 새 릴리스에 대한 푸시 알림을 받습니다</string>
     <string name="settings_system_notifications_categories">알림 카테고리</string>
-    <string name="settings_system_notifications_categories_description">시스템 설정에서 알림을 받을 업데이트를 선택하세요.</string>
+    <string name="settings_system_notifications_categories_description">시스템 설정에서 어떤 업데이트에 대해 알림을 받을지 선택하세요</string>
     <string name="settings_advanced_update_interval">확인 빈도</string>
     <string name="settings_advanced_update_interval_dialog_title">업데이트 확인</string>
     <string name="settings_advanced_update_interval_hourly">한시간에 한번</string>
@@ -992,7 +994,20 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">알림음 선택</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">가져오기 &amp; 내보내기</string>
+    <string name="settings_system_signing_key">서명키</string>
+    <string name="settings_system_signing_key_description">패치된 앱이 서명된 키를 백업하고 복원합니다</string>
+    <string name="settings_system_signing_key_dialog_description">Morphe가 패치하는 모든 앱은 이 키로 서명됩니다. 이 키를 반드시 보관하세요: 이 키가 없으면 패치된 앱은 기존 앱을 삭제한 후에만 업데이트할 수 있습니다</string>
+    <string name="settings_system_signing_key_missing">Morphe는 첫 번째 패치와 함께 하나를 생성합니다</string>
     <string name="settings_system_signing_key_created">%s에 생성됨</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 핑거프린트</string>
+    <string name="settings_system_backup_appearance_description">테마, 색상 및 언어</string>
+    <string name="settings_system_backup_home_description">그룹, 숨겨진 앱, 정렬 및 토글</string>
+    <string name="settings_system_backup_patching">패치 및 설치</string>
+    <string name="settings_system_backup_patching_description">설치 프로그램, 패처 및 저장된 APK</string>
+    <string name="settings_system_backup_updates_description">Pre-releases 및 업데이트 확인</string>
+    <string name="settings_system_backup_sources_description">사용자 정의 소스 및 GitHub 토큰</string>
+    <string name="settings_system_backup_patch_selections_description">모든 앱에 대해 선택된 패치</string>
+    <string name="settings_system_backup_signing_key_note">서명 키는 별도로 백업됩니다</string>
     <string name="settings_system_import_keystore_dialog_title">키스토어 자격 증명 입력</string>
     <string name="settings_system_import_keystore_dialog_description">키스토어를 가져오려면 키스토어의 자격 증명을 입력해야 합니다</string>
     <string name="settings_system_import_keystore_dialog_alias_field">사용자 이름 (별칭)</string>
@@ -1216,6 +1231,7 @@ morphe_header_custom_dark.png
     <string name="import_">가져오기</string>
     <string name="export">내보내기</string>
     <string name="copy">복사</string>
+    <string name="copied_to_clipboard">클립보드에 복사하였습니다</string>
     <string name="download">다운로드</string>
     <string name="less">접기</string>
     <string name="expand">펼치기</string>
@@ -1262,6 +1278,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">\'%s\'에 대한 변경 사항</string>
     <string name="changelog_general_changes">일반 변경 사항</string>
     <string name="whats_new">새로운 기능</string>
+    <string name="changelog_description">이 버전의 새로운 기능</string>
     <string name="changelog_download_fail">변경 사항을 다운로드할 수 없습니다: %s</string>
     <string name="changelog_empty">변경 사항이 없습니다</string>
     <string name="changelog_show_older">이전 릴리스 보기</string>
@@ -1308,4 +1325,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Morphe의 주요 기능을 빠르게 둘러보시겠습니까?</string>
     <string name="tour_prompt_confirm">안내해 드릴게요</string>
     <string name="onboarding_restart_title">기능 투어</string>
+    <string name="onboarding_restart_desc">주요 기능 둘러보기</string>
 </resources>

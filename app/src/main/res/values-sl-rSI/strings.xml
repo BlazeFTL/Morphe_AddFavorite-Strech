@@ -719,7 +719,9 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_greeting_phrases">Pozdravna sporočila</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Prikaži pozdravno sporočilo na začetnem zaslonu</string>
     <string name="settings_appearance_app_grouping">Grupiranje aplikacij</string>
+    <string name="settings_appearance_app_grouping_description">Prikaži preklopnik za združevanje aplikacij po viru ali kategoriji</string>
     <string name="settings_appearance_repatch_notice">Obvestilo o ponovnem krpanju</string>
+    <string name="settings_appearance_repatch_notice_description">Prikaži pasico, ko je zakrpane aplikacije mogoče ponovno zakrpati</string>
     <string name="settings_appearance_sort_button">Gumb za razvrščanje in filtriranje</string>
     <string name="settings_appearance_sort_button_description">Prikaži gumb za razvrščanje in filtriranje na začetnem zaslonu</string>
     <string name="settings_appearance_app_card_colors">Barve kartic aplikacij</string>
@@ -994,6 +996,20 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Izberi melodijo</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Uvozi &amp; izvozi</string>
+    <string name="settings_system_signing_key">Podpisni ključ</string>
+    <string name="settings_system_signing_key_description">Varnostno kopira in obnovi ključ, s katerim so podpisane vaše zakrpane aplikacije.</string>
+    <string name="settings_system_signing_key_dialog_description">Vsaka aplikacija, ki jo Morphe zakrpa, je podpisana s tem ključem. Shranite kopijo: brez nje lahko zakrpane aplikacije posodobite šele po njihovi odstranitvi.</string>
+    <string name="settings_system_signing_key_missing">Morphe ga ustvari ob vašem prvem krpanju.</string>
+    <string name="settings_system_signing_key_created">Ustvarjen %s</string>
+    <string name="settings_system_signing_key_fingerprint">Prstni odtis SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Tema, barve in jezik</string>
+    <string name="settings_system_backup_home_description">Skupine, skrite aplikacije, razvrščanje in stikala</string>
+    <string name="settings_system_backup_patching">Krpanje in nameščanje</string>
+    <string name="settings_system_backup_patching_description">Nameščevalnik, program za krpanje in shranjene datoteke APK</string>
+    <string name="settings_system_backup_updates_description">Predizdaje in preverjanje posodobitev</string>
+    <string name="settings_system_backup_sources_description">Viri po meri in žeton GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Izbrani popravki za vsako aplikacijo</string>
+    <string name="settings_system_backup_signing_key_note">Podpisni ključ se varnostno kopira posebej.</string>
     <string name="settings_system_import_keystore_dialog_title">Vnesite podatke shrambe ključev</string>
     <string name="settings_system_import_keystore_dialog_description">Za uvoz boste morali vnesti podatke ključne datoteke.</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Uporabniško ime (Alias)</string>
@@ -1020,6 +1036,7 @@ Podrobnosti: %2$s"</string>
     <string name="import_mode_merge_description">Dodaj manjkajoče postavke iz varnostne kopije. Obstoječe postavke ostanejo nespremenjene.</string>
     <string name="settings_system_export_manager_settings_fail">Ni bilo mogoče izvoziti nastavitev Morphe: %s</string>
     <string name="settings_system_export_manager_settings_success">Izvožene so bile nastavitve Morphe</string>
+    <string name="settings_system_export_debug_logs">Izvozi dnevnike razhroščevanja</string>
     <string name="settings_system_export_debug_logs_description">Shrani sistemske dnevnike za odpravljanje težav</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Ni bilo mogoče brati dnevnikov (koda izhoda %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Izvoz datotek je spodletel</string>
@@ -1216,6 +1233,7 @@ Podrobnosti: %2$s"</string>
     <string name="import_">Uvozi</string>
     <string name="export">Izvozi</string>
     <string name="copy">Kopiraj</string>
+    <string name="copied_to_clipboard">Kopirano v odložišče</string>
     <string name="download">Prenesi</string>
     <string name="less">Manj</string>
     <string name="expand">Razširi</string>
@@ -1262,6 +1280,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_for_app">Spremembe za %s</string>
     <string name="changelog_general_changes">Splošne spremembe</string>
     <string name="whats_new">Kaj je novega</string>
+    <string name="changelog_description">Kaj je novega v tej različici</string>
     <string name="changelog_download_fail">Ni mogoče prenesti dnevnika sprememb: %s</string>
     <string name="changelog_empty">Ni na voljo dnevnika sprememb</string>
     <string name="changelog_show_older">Prikaži starejše različice</string>
@@ -1306,4 +1325,5 @@ Podrobnosti: %2$s"</string>
     <string name="tour_prompt_desc">Želite hiter pregled ključnih funkcij Morphe?</string>
     <string name="tour_prompt_confirm">Pokaži mi</string>
     <string name="onboarding_restart_title">Pregled funkcij</string>
+    <string name="onboarding_restart_desc">Voden ogled ključnih funkcij</string>
 </resources>

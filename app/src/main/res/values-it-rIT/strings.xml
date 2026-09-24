@@ -719,7 +719,9 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_greeting_phrases">Frasi di saluto</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Mostra un messaggio di saluto nella schermata principale</string>
     <string name="settings_appearance_app_grouping">Raggruppamento app</string>
+    <string name="settings_appearance_app_grouping_description">Mostra un interruttore per raggruppare le app per origine o categoria</string>
     <string name="settings_appearance_repatch_notice">Avviso di re-patch</string>
+    <string name="settings_appearance_repatch_notice_description">Mostra un banner quando le app patchate possono essere ri-patchate</string>
     <string name="settings_appearance_sort_button">Pulsante per ordinare e filtrare</string>
     <string name="settings_appearance_sort_button_description">Mostra il pulsante per ordinare e filtrare nella schermata Home</string>
     <string name="settings_appearance_app_card_colors">Colori delle schede app</string>
@@ -994,6 +996,20 @@ Dettagli: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Scegli una melodia</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importa &amp; Esporta</string>
+    <string name="settings_system_signing_key">Chiave di firma</string>
+    <string name="settings_system_signing_key_description">Esegue il backup e il ripristino della chiave con cui vengono firmate le app patchate</string>
+    <string name="settings_system_signing_key_dialog_description">Ogni app patchata da Morphe è firmata con questa chiave. Conservane una copia: senza di essa, le app patchate possono essere aggiornate solo dopo averle disinstallate.</string>
+    <string name="settings_system_signing_key_missing">Morphe ne crea una con la tua prima patch</string>
+    <string name="settings_system_signing_key_created">Creata %s</string>
+    <string name="settings_system_signing_key_fingerprint">Impronta SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Tema, colori e lingua</string>
+    <string name="settings_system_backup_home_description">Gruppi, app nascoste, ordinamento e interruttori</string>
+    <string name="settings_system_backup_patching">Applicazione di patch e installazione</string>
+    <string name="settings_system_backup_patching_description">Installatore, patcher e APK salvati</string>
+    <string name="settings_system_backup_updates_description">Versioni preliminari e controlli degli aggiornamenti</string>
+    <string name="settings_system_backup_sources_description">Sorgenti personalizzate e token GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Patch scelte per ogni app</string>
+    <string name="settings_system_backup_signing_key_note">La chiave di firma viene salvata separatamente</string>
     <string name="settings_system_import_keystore_dialog_title">Inserisci le credenziali del keystore</string>
     <string name="settings_system_import_keystore_dialog_description">Dovrai inserire le credenziali del keystore per importarlo</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Nome utente (Alias)</string>
@@ -1217,6 +1233,7 @@ Dettagli: %2$s"</string>
     <string name="import_">Importa</string>
     <string name="export">Esporta</string>
     <string name="copy">Copia</string>
+    <string name="copied_to_clipboard">Copiato negli appunti</string>
     <string name="download">Scarica</string>
     <string name="less">Meno</string>
     <string name="expand">Espandi</string>
@@ -1263,6 +1280,7 @@ Dettagli: %2$s"</string>
     <string name="changelog_for_app">Modifiche per %s</string>
     <string name="changelog_general_changes">Modifiche generali</string>
     <string name="whats_new">Novità</string>
+    <string name="changelog_description">Novità di questa versione</string>
     <string name="changelog_download_fail">Download del registro delle modifiche non riuscito: %s</string>
     <string name="changelog_empty">Nessun registro delle modifiche disponibile</string>
     <string name="changelog_show_older">Mostra versioni precedenti</string>
@@ -1309,4 +1327,5 @@ Vuoi comunque continuare?"</string>
     <string name="tour_prompt_desc">Vuoi un tour rapido delle funzionalità chiave di Morphe?</string>
     <string name="tour_prompt_confirm">Mostrami in giro</string>
     <string name="onboarding_restart_title">Tour delle funzionalità</string>
+    <string name="onboarding_restart_desc">Un tour guidato delle funzionalità principali</string>
 </resources>

@@ -720,7 +720,9 @@
     <string name="settings_appearance_greeting_phrases">משפטי פתיחה</string>
     <string name="settings_appearance_greeting_phrases_subtitle">הצגת הודעת פתיחה על מסך הבית</string>
     <string name="settings_appearance_app_grouping">קיבוץ אפליקציות</string>
+    <string name="settings_appearance_app_grouping_description">הצג מתג לקיבוץ אפליקציות לפי מקור או קטגוריה</string>
     <string name="settings_appearance_repatch_notice">הודעת תיקון מחדש</string>
+    <string name="settings_appearance_repatch_notice_description">הצג באנר כאשר אפליקציות מטופלות ניתנות לטלאי חוזר</string>
     <string name="settings_appearance_sort_button">כפתור מיון וסינון</string>
     <string name="settings_appearance_sort_button_description">הצג את כפתור המיון והסינון במסך הבית</string>
     <string name="settings_appearance_app_card_colors">צבעי כרטיסי האפליקציה</string>
@@ -1005,6 +1007,20 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_notifications_ringtone_picker_title">בחר צליל התראה</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">ייבוא/ייצא הגדרות</string>
+    <string name="settings_system_signing_key">מפתח חתימה</string>
+    <string name="settings_system_signing_key_description">מגבה ומשחזר את המפתח שאיתו נחתמות האפליקציות שעברו טלאי</string>
+    <string name="settings_system_signing_key_dialog_description">כל אפליקציה שעברה טלאי ב-Morphe נחתמת באמצעות המפתח הזה. שמור עותק: בלעדיו, אפליקציות שעברו טלאי ניתנות לעדכון רק לאחר הסרת ההתקנה שלהן</string>
+    <string name="settings_system_signing_key_missing">Morphe יוצר מפתח עם הטלאי הראשון שלך</string>
+    <string name="settings_system_signing_key_created">נוצר ב-%s</string>
+    <string name="settings_system_signing_key_fingerprint">טביעת אצבע SHA-256</string>
+    <string name="settings_system_backup_appearance_description">ערכת נושא, צבעים ושפה</string>
+    <string name="settings_system_backup_home_description">קבוצות, אפליקציות מוסתרות, מיון ומתגים</string>
+    <string name="settings_system_backup_patching">החלת טלאים והתקנה</string>
+    <string name="settings_system_backup_patching_description">מתקין, מחיל טלאים וקבצי APK שמורים</string>
+    <string name="settings_system_backup_updates_description">גרסאות טרום-הפצה ובדיקות עדכונים</string>
+    <string name="settings_system_backup_sources_description">מקורות מותאמים אישית ואסימון GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">הטלאים שנבחרו לכל אפליקציה</string>
+    <string name="settings_system_backup_signing_key_note">מפתח החתימה מגובה בנפרד</string>
     <string name="settings_system_import_keystore_dialog_title">הזנ את סיסמאות התיקון</string>
     <string name="settings_system_import_keystore_dialog_description">יהיה עליך להזין את הפרטים של מפתח האחסון כדי לייבא אותו</string>
     <string name="settings_system_import_keystore_dialog_alias_field">שם משתמש (כינוי)</string>
@@ -1228,6 +1244,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="import_">ייבוא</string>
     <string name="export">ייצוא</string>
     <string name="copy">העתק</string>
+    <string name="copied_to_clipboard">הועתק ללוח</string>
     <string name="download">הורדה</string>
     <string name="less">פחות</string>
     <string name="expand">הרחב</string>
@@ -1274,6 +1291,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="changelog_for_app">שינויים עבור %s</string>
     <string name="changelog_general_changes">שינויים כלליים</string>
     <string name="whats_new">מה חדש</string>
+    <string name="changelog_description">מה חדש בגרסה זו</string>
     <string name="changelog_download_fail">שגיאה בהורדת היסטוריית שינויים: %s</string>
     <string name="changelog_empty">אין תיקון זמין</string>
     <string name="changelog_show_older">הצגת גרסאות ישנות יותר</string>
@@ -1320,4 +1338,5 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="tour_prompt_desc">רוצה סיור מהיר בתכונות המרכזיות של Morphe?</string>
     <string name="tour_prompt_confirm">הראה לי את הסביבה</string>
     <string name="onboarding_restart_title">סיור תכונות</string>
+    <string name="onboarding_restart_desc">סיור מודרך בתכונות המרכזיות</string>
 </resources>

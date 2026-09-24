@@ -719,7 +719,9 @@
     <string name="settings_appearance_greeting_phrases">问候语</string>
     <string name="settings_appearance_greeting_phrases_subtitle">在主屏幕上显示问候消息</string>
     <string name="settings_appearance_app_grouping">应用分组</string>
+    <string name="settings_appearance_app_grouping_description">显示一个开关，用于按来源或类别对应用进行分组</string>
     <string name="settings_appearance_repatch_notice">重新打补丁通知</string>
+    <string name="settings_appearance_repatch_notice_description">当已修补的应用可以重新修补时显示横幅</string>
     <string name="settings_appearance_sort_button">排序和筛选按钮</string>
     <string name="settings_appearance_sort_button_description">在主屏幕上显示排序和筛选按钮</string>
     <string name="settings_appearance_app_card_colors">应用卡片颜色</string>
@@ -1001,6 +1003,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_signing_key_created">创建于 %s</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256 指纹</string>
     <string name="settings_system_backup_appearance_description">主题、颜色和语言</string>
+    <string name="settings_system_backup_home_description">分组、隐藏的应用、排序和开关</string>
     <string name="settings_system_backup_patching">修补和安装</string>
     <string name="settings_system_backup_patching_description">安装器、修补器和已保存的 APK</string>
     <string name="settings_system_backup_updates_description">预发布版本和更新检查</string>
@@ -1230,6 +1233,7 @@ morphe_header_custom_dark.png
     <string name="import_">导入</string>
     <string name="export">导出</string>
     <string name="copy">复制</string>
+    <string name="copied_to_clipboard">已复制到剪贴板</string>
     <string name="download">下载</string>
     <string name="less">更少</string>
     <string name="expand">展开</string>

@@ -719,7 +719,9 @@
     <string name="settings_appearance_greeting_phrases">अभिवादन वाक्यांश</string>
     <string name="settings_appearance_greeting_phrases_subtitle">मुखपृष्ठ पर अभिवादन संदेश दिखाएँ</string>
     <string name="settings_appearance_app_grouping">ऐप समूहीकरण</string>
+    <string name="settings_appearance_app_grouping_description">स्रोत या श्रेणी के आधार पर ऐप्स को समूहित करने के लिए एक स्विचर दिखाएँ</string>
     <string name="settings_appearance_repatch_notice">पुनः पैच सूचना</string>
+    <string name="settings_appearance_repatch_notice_description">जब पैच किए गए ऐप्स को दोबारा पैच किया जा सकता है तो एक बैनर दिखाएँ</string>
     <string name="settings_appearance_sort_button">सॉर्ट और फ़िल्टर बटन</string>
     <string name="settings_appearance_sort_button_description">होम स्क्रीन पर सॉर्ट और फ़िल्टर बटन दिखाएँ</string>
     <string name="settings_appearance_app_card_colors">ऐप कार्ड रंग</string>
@@ -1001,9 +1003,10 @@ morphe_header_custom_dark.png
     <string name="settings_system_signing_key_created">%s को बनाया गया</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256 फ़िंगरप्रिंट</string>
     <string name="settings_system_backup_appearance_description">थीम, रंग और भाषा</string>
+    <string name="settings_system_backup_home_description">समूह, छिपे हुए ऐप्स, क्रमबद्धता और टॉगल</string>
     <string name="settings_system_backup_patching">पैच करना और इंस्टॉल करना</string>
     <string name="settings_system_backup_patching_description">इंस्टॉलर, पैचर और सहेजे गए APK</string>
-    <string name="settings_system_backup_updates_description">प्रीरिलीज़ और अपडेट की जाँच</string>
+    <string name="settings_system_backup_updates_description">प्री-रिलीज़ और अपडेट जाँच</string>
     <string name="settings_system_backup_sources_description">कस्टम स्रोत और GitHub टोकन</string>
     <string name="settings_system_backup_patch_selections_description">हर ऐप के लिए चुने गए पैच</string>
     <string name="settings_system_backup_signing_key_note">साइनिंग कुंजी का बैकअप अलग से लिया जाता है</string>
@@ -1230,6 +1233,7 @@ morphe_header_custom_dark.png
     <string name="import_">आयात करें</string>
     <string name="export">निर्यात करें</string>
     <string name="copy">कॉपी</string>
+    <string name="copied_to_clipboard">क्लिपबोर्ड पर कॉपी किया गया</string>
     <string name="download">डाउनलोड करें</string>
     <string name="less">Less</string>
     <string name="expand">विस्तार करें</string>

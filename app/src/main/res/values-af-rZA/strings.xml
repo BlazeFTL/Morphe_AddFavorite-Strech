@@ -719,7 +719,9 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_greeting_phrases">Groetfrases</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Wys \'n groet-boodskap op die tuisskerm</string>
     <string name="settings_appearance_app_grouping">Toepassingsgroepering</string>
+    <string name="settings_appearance_app_grouping_description">Wys \'n skakelaar om programme volgens bron of kategorie te groepeer</string>
     <string name="settings_appearance_repatch_notice">Re-patch-kennisgewing</string>
+    <string name="settings_appearance_repatch_notice_description">Wys \'n banier wanneer gepatchte programme weer gepatch kan word</string>
     <string name="settings_appearance_sort_button">Sorteer- en filterknoppie</string>
     <string name="settings_appearance_sort_button_description">Wys die sorteer- en filterknoppie op die tuisskerm</string>
     <string name="settings_appearance_app_card_colors">App-kaartkleure</string>
@@ -1001,6 +1003,7 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_signing_key_created">Geskep %s</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256-vingerafdruk</string>
     <string name="settings_system_backup_appearance_description">Tema, kleure en taal</string>
+    <string name="settings_system_backup_home_description">Groepe, verborge programme, sortering en skakelaars</string>
     <string name="settings_system_backup_patching">Patch en installeer</string>
     <string name="settings_system_backup_patching_description">Installeerder, patcher en bewaarde APK\'s</string>
     <string name="settings_system_backup_updates_description">Voorafvrystellings en opdateringskontroles</string>
@@ -1230,6 +1233,7 @@ Besonderhede: %2$s"</string>
     <string name="import_">Importeer</string>
     <string name="export">Uitvoer</string>
     <string name="copy">Kopieer</string>
+    <string name="copied_to_clipboard">Gekopieer na knipbord</string>
     <string name="download">Aflaai</string>
     <string name="less">Minder</string>
     <string name="expand">Uitbrei</string>

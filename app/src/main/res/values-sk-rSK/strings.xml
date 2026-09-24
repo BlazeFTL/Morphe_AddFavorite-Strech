@@ -719,7 +719,9 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_greeting_phrases">Pozdravné frázy</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Zobrazovať pozdravnú správu na domovskej obrazovke</string>
     <string name="settings_appearance_app_grouping">Zoskupovanie aplikácií</string>
+    <string name="settings_appearance_app_grouping_description">Zobraziť prepínač na zoskupenie aplikácií podľa zdroja alebo kategórie</string>
     <string name="settings_appearance_repatch_notice">Upozornenie na opätovné záplatovanie</string>
+    <string name="settings_appearance_repatch_notice_description">Zobraziť banner, keď je možné upravené aplikácie znova upraviť</string>
     <string name="settings_appearance_sort_button">Tlačidlo triedenia a filtrovania</string>
     <string name="settings_appearance_sort_button_description">Zobraziť tlačidlo triedenia a filtrovania na domovskej obrazovke</string>
     <string name="settings_appearance_app_card_colors">Farby karty aplikácie</string>
@@ -994,6 +996,20 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Vyberte tón</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Import a export</string>
+    <string name="settings_system_signing_key">Podpisový kľúč</string>
+    <string name="settings_system_signing_key_description">Zálohuje a obnovuje kľúč, ktorým sú podpísané vaše patchované aplikácie.</string>
+    <string name="settings_system_signing_key_dialog_description">Každá aplikácia, ktorú Morphe patchuje, je podpísaná týmto kľúčom. Uložte si kópiu: bez nej možno patchované aplikácie aktualizovať len po ich odinštalovaní.</string>
+    <string name="settings_system_signing_key_missing">Morphe ho vytvorí pri vašom prvom patchovaní.</string>
+    <string name="settings_system_signing_key_created">Vytvorené %s</string>
+    <string name="settings_system_signing_key_fingerprint">Odtlačok SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Motív, farby a jazyk</string>
+    <string name="settings_system_backup_home_description">Skupiny, skryté aplikácie, triedenie a prepínače</string>
+    <string name="settings_system_backup_patching">Patchovanie a inštalácia</string>
+    <string name="settings_system_backup_patching_description">Inštalátor, patcher a uložené APK</string>
+    <string name="settings_system_backup_updates_description">Predbežné verzie a kontrola aktualizácií</string>
+    <string name="settings_system_backup_sources_description">Vlastné zdroje a token GitHubu</string>
+    <string name="settings_system_backup_patch_selections_description">Vybrané patche pre každú aplikáciu</string>
+    <string name="settings_system_backup_signing_key_note">Podpisový kľúč sa zálohuje samostatne.</string>
     <string name="settings_system_import_keystore_dialog_title">Zadajte údaje pre prístup ku keystoru</string>
     <string name="settings_system_import_keystore_dialog_description">Na importovanie budete musieť zadať údaje pre prístup ku keystoru</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Používateľské meno (alias)</string>
@@ -1217,6 +1233,7 @@ Podrobnosti: %2$s"</string>
     <string name="import_">Importovať</string>
     <string name="export">Exportovať</string>
     <string name="copy">Kopírovať</string>
+    <string name="copied_to_clipboard">Skopírované do schránky</string>
     <string name="download">Stiahnuť</string>
     <string name="less">Menej</string>
     <string name="expand">Rozbaliť</string>
@@ -1263,6 +1280,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_for_app">Zmeny pre %s</string>
     <string name="changelog_general_changes">Všeobecné zmeny</string>
     <string name="whats_new">Čo je nové</string>
+    <string name="changelog_description">Čo je nové v tejto verzii</string>
     <string name="changelog_download_fail">Nepodarilo sa stiahnuť zoznam zmien: %s</string>
     <string name="changelog_empty">Zoznam zmien nie je k dispozícii</string>
     <string name="changelog_show_older">Zobraziť staršie verzie</string>
@@ -1309,4 +1327,5 @@ Chcete aj tak pokračovať?"</string>
     <string name="tour_prompt_desc">Chcete si rýchlo pozrieť kľúčové funkcie Morphe?</string>
     <string name="tour_prompt_confirm">Prevezmite ma</string>
     <string name="onboarding_restart_title">Prehliadka funkcií</string>
+    <string name="onboarding_restart_desc">Prehliadka kľúčových funkcií</string>
 </resources>

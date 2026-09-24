@@ -721,7 +721,9 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_greeting_phrases">Thông điệp</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Hiện thông điệp trên trang chủ</string>
     <string name="settings_appearance_app_grouping">Nhóm ứng dụng</string>
+    <string name="settings_appearance_app_grouping_description">Hiển thị bộ chuyển đổi để nhóm ứng dụng theo nguồn hoặc danh mục</string>
     <string name="settings_appearance_repatch_notice">Thông báo vá lại</string>
+    <string name="settings_appearance_repatch_notice_description">Hiển thị biểu ngữ khi các ứng dụng đã vá có thể được vá lại</string>
     <string name="settings_appearance_sort_button">Nút sắp xếp và lọc</string>
     <string name="settings_appearance_sort_button_description">Hiển thị nút sắp xếp và lọc trên màn hình chính</string>
     <string name="settings_appearance_app_card_colors">Màu thẻ ứng dụng</string>
@@ -999,7 +1001,20 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Chọn âm báo</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Xuất &amp; Nhập</string>
+    <string name="settings_system_signing_key">Khóa ký</string>
+    <string name="settings_system_signing_key_description">Sao lưu và khôi phục khóa được dùng để ký các ứng dụng đã vá của bạn</string>
+    <string name="settings_system_signing_key_dialog_description">Mọi ứng dụng mà Morphe vá đều được ký bằng khóa này. Hãy giữ một bản sao: nếu không có nó, các ứng dụng đã vá chỉ có thể được cập nhật sau khi gỡ cài đặt chúng</string>
+    <string name="settings_system_signing_key_missing">Morphe tạo một khóa trong lần vá đầu tiên của bạn</string>
     <string name="settings_system_signing_key_created">Đã tạo %s</string>
+    <string name="settings_system_signing_key_fingerprint">Dấu vân tay SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Chủ đề, màu sắc và ngôn ngữ</string>
+    <string name="settings_system_backup_home_description">Nhóm, ứng dụng ẩn, sắp xếp và công tắc</string>
+    <string name="settings_system_backup_patching">Vá và cài đặt</string>
+    <string name="settings_system_backup_patching_description">Trình cài đặt, trình vá và các APK đã lưu</string>
+    <string name="settings_system_backup_updates_description">Bản phát hành trước và kiểm tra cập nhật</string>
+    <string name="settings_system_backup_sources_description">Các nguồn tùy chỉnh và mã thông báo GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Các bản vá đã chọn cho từng ứng dụng</string>
+    <string name="settings_system_backup_signing_key_note">Khóa ký được sao lưu riêng biệt</string>
     <string name="settings_system_import_keystore_dialog_title">Nhập thông tin xác thực kho khoá</string>
     <string name="settings_system_import_keystore_dialog_description">Bạn sẽ cần điền thông tin xác thực của kho khóa để nhập chúng</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Tên người dùng (Alias)</string>
@@ -1223,6 +1238,7 @@ Chi tiết: %2$s"</string>
     <string name="import_">Nhập</string>
     <string name="export">Xuất</string>
     <string name="copy">Sao chép</string>
+    <string name="copied_to_clipboard">Đã sao chép vào bảng tạm</string>
     <string name="download">Tải về</string>
     <string name="less">Thu gọn</string>
     <string name="expand">Mở rộng</string>
@@ -1269,6 +1285,7 @@ Chi tiết: %2$s"</string>
     <string name="changelog_for_app">Thay đổi cho %s</string>
     <string name="changelog_general_changes">Các thay đổi chung</string>
     <string name="whats_new">Có gì mới</string>
+    <string name="changelog_description">Có gì mới trong phiên bản này</string>
     <string name="changelog_download_fail">Không thể tải lịch sử cập nhật: %s</string>
     <string name="changelog_empty">Không có lịch sử cập nhật</string>
     <string name="changelog_show_older">Các bản phát hành cũ</string>
@@ -1313,4 +1330,5 @@ Chi tiết: %2$s"</string>
     <string name="tour_prompt_desc">Bạn muốn xem qua các tính năng nổi bật của Morphe không? Nhanh thôi</string>
     <string name="tour_prompt_confirm">Cho tôi xem</string>
     <string name="onboarding_restart_title">Khám phá tính năng</string>
+    <string name="onboarding_restart_desc">Chuyến tham quan có hướng dẫn về các tính năng chính</string>
 </resources>

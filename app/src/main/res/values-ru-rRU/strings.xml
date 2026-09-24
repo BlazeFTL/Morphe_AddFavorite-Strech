@@ -718,7 +718,9 @@
     <string name="settings_appearance_greeting_phrases">Приветственные фразы</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Показывать приветственное сообщение на главном экране</string>
     <string name="settings_appearance_app_grouping">Группировка приложений</string>
+    <string name="settings_appearance_app_grouping_description">Показывать переключатель для группировки приложений по источнику или категории</string>
     <string name="settings_appearance_repatch_notice">Уведомление о перепатчивании</string>
+    <string name="settings_appearance_repatch_notice_description">Показывать баннер, когда пропатченные приложения можно перепатчить</string>
     <string name="settings_appearance_sort_button">Кнопка сортировки и фильтрации</string>
     <string name="settings_appearance_sort_button_description">Показывать кнопку сортировки и фильтрации на главном экране</string>
     <string name="settings_appearance_app_card_colors">Цвета карточек приложений</string>
@@ -993,7 +995,20 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">Выберите мелодию</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Импорт &amp; экспорт</string>
+    <string name="settings_system_signing_key">Ключ подписи</string>
+    <string name="settings_system_signing_key_description">Резервирует и восстанавливает ключ, которым подписаны ваши пропатченные приложения</string>
+    <string name="settings_system_signing_key_dialog_description">Каждое приложение, которое патчит Morphe, подписано этим ключом. Сохраните копию: без неё пропатченные приложения можно обновить только после их удаления.</string>
+    <string name="settings_system_signing_key_missing">Morphe создаёт его при первом патче</string>
     <string name="settings_system_signing_key_created">Создано %s</string>
+    <string name="settings_system_signing_key_fingerprint">Отпечаток SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Тема, цвета и язык</string>
+    <string name="settings_system_backup_home_description">Группы, скрытые приложения, сортировка и переключатели</string>
+    <string name="settings_system_backup_patching">Патчинг и установка</string>
+    <string name="settings_system_backup_patching_description">Установщик, патчер и сохранённые APK</string>
+    <string name="settings_system_backup_updates_description">Предварительные версии и проверка обновлений</string>
+    <string name="settings_system_backup_sources_description">Пользовательские источники и токен GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Выбранные патчи для каждого приложения</string>
+    <string name="settings_system_backup_signing_key_note">Ключ подписи резервируется отдельно</string>
     <string name="settings_system_import_keystore_dialog_title">Введите учетные данные хранилища</string>
     <string name="settings_system_import_keystore_dialog_description">Вам нужно будет ввести учетные данные хранилища ключей, чтобы импортировать его</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Имя пользователя (псевдоним)</string>
@@ -1217,6 +1232,7 @@ morphe_header_custom_dark.png
     <string name="import_">Импортировать</string>
     <string name="export">Экспорт</string>
     <string name="copy">Копировать</string>
+    <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="download">Скачать</string>
     <string name="less">Меньше</string>
     <string name="expand">Развернуть</string>
@@ -1263,6 +1279,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">Изменения для %s</string>
     <string name="changelog_general_changes">Общие изменения</string>
     <string name="whats_new">Что нового</string>
+    <string name="changelog_description">Что нового в этой версии</string>
     <string name="changelog_download_fail">Не удалось загрузить историю изменений: %s</string>
     <string name="changelog_empty">Нет доступных изменений</string>
     <string name="changelog_show_older">Показать более старые версии</string>
@@ -1309,4 +1326,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Хотите быстро ознакомиться с основными функциями Morphe?</string>
     <string name="tour_prompt_confirm">Показать мне всё</string>
     <string name="onboarding_restart_title">Ознакомительный тур</string>
+    <string name="onboarding_restart_desc">Интерактивный обзор ключевых функций</string>
 </resources>

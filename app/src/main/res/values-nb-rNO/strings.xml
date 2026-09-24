@@ -719,7 +719,9 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_greeting_phrases">Hilsenfraser</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Vis en hilsenmelding på startskjermen</string>
     <string name="settings_appearance_app_grouping">Appgruppering</string>
+    <string name="settings_appearance_app_grouping_description">Vis en bryter for å gruppere apper etter kilde eller kategori</string>
     <string name="settings_appearance_repatch_notice">Varsel om å lappe på nytt</string>
+    <string name="settings_appearance_repatch_notice_description">Vis et banner når lappede apper kan lappes på nytt</string>
     <string name="settings_appearance_sort_button">Sorterings- og filterknapp</string>
     <string name="settings_appearance_sort_button_description">Vis sorterings- og filterknappen på startskjermen</string>
     <string name="settings_appearance_app_card_colors">App-kortfarger</string>
@@ -994,6 +996,20 @@ Detaljer: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Velg en tone</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importer og eksporter</string>
+    <string name="settings_system_signing_key">Signeringsnøkkel</string>
+    <string name="settings_system_signing_key_description">Sikkerhetskopierer og gjenoppretter nøkkelen som de patchede appene dine er signert med</string>
+    <string name="settings_system_signing_key_dialog_description">Hver app Morphe patcher er signert med denne nøkkelen. Ta vare på en kopi: uten den kan patchede apper bare oppdateres etter at de er avinstallert.</string>
+    <string name="settings_system_signing_key_missing">Morphe lager en med din første patch.</string>
+    <string name="settings_system_signing_key_created">Opprettet %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256-fingeravtrykk</string>
+    <string name="settings_system_backup_appearance_description">Tema, farger og språk</string>
+    <string name="settings_system_backup_home_description">Grupper, skjulte apper, sortering og brytere</string>
+    <string name="settings_system_backup_patching">Patche og installere</string>
+    <string name="settings_system_backup_patching_description">Installer, patcher og lagrede APK-er</string>
+    <string name="settings_system_backup_updates_description">Forhåndsutgivelser og oppdateringskontroller</string>
+    <string name="settings_system_backup_sources_description">Egendefinerte kilder og GitHub-token</string>
+    <string name="settings_system_backup_patch_selections_description">Valgte patcher for hver app</string>
+    <string name="settings_system_backup_signing_key_note">Signeringsnøkkelen sikkerhetskopieres separat</string>
     <string name="settings_system_import_keystore_dialog_title">Skriv inn nøkkelbutikkens legitimasjon</string>
     <string name="settings_system_import_keystore_dialog_description">Du må skrive inn nøkkelbutikkens legitimasjon for å importere den</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Brukernavn (Alias)</string>
@@ -1020,6 +1036,7 @@ Detaljer: %2$s"</string>
     <string name="import_mode_merge_description">Legg til manglende elementer fra sikkerhetskopien. Eksisterende elementer forblir uendret</string>
     <string name="settings_system_export_manager_settings_fail">Kunne ikke eksportere Morphe-innstillinger: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe-innstillinger eksportert</string>
+    <string name="settings_system_export_debug_logs">Eksporter feilsøkingslogger</string>
     <string name="settings_system_export_debug_logs_description">Lagrer systemlogger for feilsøking</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Kunne ikke lese logger (exit-kode %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Kunne ikke eksportere logger</string>
@@ -1216,6 +1233,7 @@ Detaljer: %2$s"</string>
     <string name="import_">Importer</string>
     <string name="export">Eksporter</string>
     <string name="copy">Kopier</string>
+    <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
     <string name="download">Last ned</string>
     <string name="less">Mindre</string>
     <string name="expand">Utvid</string>
@@ -1262,6 +1280,7 @@ Detaljer: %2$s"</string>
     <string name="changelog_for_app">Endringer for %s</string>
     <string name="changelog_general_changes">Generelle endringer</string>
     <string name="whats_new">Hva er nytt</string>
+    <string name="changelog_description">Hva er nytt i denne versjonen</string>
     <string name="changelog_download_fail">Kunne ikke laste ned endringslogg: %s</string>
     <string name="changelog_empty">Ingen endringslogg tilgjengelig</string>
     <string name="changelog_show_older">Vis eldre utgivelser</string>
@@ -1308,4 +1327,5 @@ Vil du likevel fortsette?"</string>
     <string name="tour_prompt_desc">Vil du ha en rask omvisning i Morphes nøkkelfunksjoner?</string>
     <string name="tour_prompt_confirm">Vis meg rundt</string>
     <string name="onboarding_restart_title">Omvisning i funksjoner</string>
+    <string name="onboarding_restart_desc">En guidet omvisning av viktige funksjoner</string>
 </resources>

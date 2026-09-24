@@ -1178,6 +1178,7 @@ morphe_header_custom_dark.png
     <string name="import_">واردکردن</string>
     <string name="export">خروجی‌گرفتن</string>
     <string name="copy">کپی</string>
+    <string name="copied_to_clipboard">در کلیپ‌بورد کپی شد</string>
     <string name="download">دانلود</string>
     <string name="less">کمتر</string>
     <string name="expand">بازکردن</string>

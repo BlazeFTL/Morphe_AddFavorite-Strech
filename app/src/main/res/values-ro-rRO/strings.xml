@@ -718,7 +718,9 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_greeting_phrases">Fraze de salut</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Afișează un mesaj de întâmpinare pe ecranul de pornire</string>
     <string name="settings_appearance_app_grouping">Gruparea aplicațiilor</string>
+    <string name="settings_appearance_app_grouping_description">Afișează un comutator pentru a grupa aplicațiile după sursă sau categorie</string>
     <string name="settings_appearance_repatch_notice">Notificare privind repatch-uirea</string>
+    <string name="settings_appearance_repatch_notice_description">Afișează un banner când aplicațiile patch-uite pot fi re-patch-uite</string>
     <string name="settings_appearance_sort_button">Buton de sortare și filtrare</string>
     <string name="settings_appearance_sort_button_description">Afișează butonul de sortare și filtrare pe ecranul de pornire</string>
     <string name="settings_appearance_app_card_colors">Culori card aplicație</string>
@@ -993,6 +995,20 @@ Detalii: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Alegeți un ton</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importare și exportare</string>
+    <string name="settings_system_signing_key">Cheie de semnare</string>
+    <string name="settings_system_signing_key_description">Creează copii de rezervă și restaurează cheia cu care sunt semnate aplicațiile patch-uite.</string>
+    <string name="settings_system_signing_key_dialog_description">Fiecare aplicație pe care Morphe o patch-uiește este semnată cu această cheie. Păstrează o copie: fără ea, aplicațiile patch-uite pot fi actualizate doar după dezinstalarea lor.</string>
+    <string name="settings_system_signing_key_missing">Morphe creează una odată cu primul tău patch.</string>
+    <string name="settings_system_signing_key_created">Creată %s</string>
+    <string name="settings_system_signing_key_fingerprint">Amprenta SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Temă, culori și limbă</string>
+    <string name="settings_system_backup_home_description">Grupuri, aplicații ascunse, sortare și comutatoare</string>
+    <string name="settings_system_backup_patching">Aplicarea patch-urilor și instalarea</string>
+    <string name="settings_system_backup_patching_description">Instalator, patcher și APK-uri salvate</string>
+    <string name="settings_system_backup_updates_description">Pre-lansări și verificări de actualizare</string>
+    <string name="settings_system_backup_sources_description">Surse personalizate și token GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Patch-urile alese pentru fiecare aplicație</string>
+    <string name="settings_system_backup_signing_key_note">Cheia de semnare este salvată separat.</string>
     <string name="settings_system_import_keystore_dialog_title">Introduceți datele cheii</string>
     <string name="settings_system_import_keystore_dialog_description">Vă veți trebi să introduceți credențialele keystore-ului pentru a-l importa</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Nume (Alias)</string>
@@ -1107,6 +1123,11 @@ Detalii: %2$s"</string>
     <string name="settings_system_custom_file_picker_description">Răsfoiește stocarea cu selectorul de fișiere integrat Morphe în loc de cel implicit al sistemului</string>
     <!-- Settings - System Tab - APK download helper -->
     <string name="settings_system_apk_download_helper">Asistent descărcare APK</string>
+    <string name="settings_system_apk_download_helper_trusted_count">De încredere: %1$d din %2$d</string>
+    <string name="settings_system_apk_download_helper_dialog_description">Aplicațiile de ajutor pot descărca APK-uri originale pentru tine. Doar cele în care ai încredere aici sunt oferite în instrucțiunile de descărcare</string>
+    <string name="settings_system_apk_download_helper_warning">APK-ul provine de la aplicația de ajutor, așa că ai încredere doar în aplicațiile pe care le cunoști. Morphe verifică în continuare pachetul, versiunea și semnătura fiecărui fișier înainte de a aplica patch-ul</string>
+    <string name="settings_system_apk_download_helper_installed_by">Instalat de %s</string>
+    <string name="settings_system_apk_download_helper_installed_by_unknown">Instalator necunoscut</string>
     <!-- File Picker -->
     <string name="file_picker_previous_directory">Director anterior</string>
     <string name="file_picker_no_files">Nu există fișiere aici</string>
@@ -1211,6 +1232,7 @@ Detalii: %2$s"</string>
     <string name="import_">Importă</string>
     <string name="export">Exportă</string>
     <string name="copy">Copiere</string>
+    <string name="copied_to_clipboard">Copiat în clipboard</string>
     <string name="download">Descărcare</string>
     <string name="less">Mai puțin</string>
     <string name="expand">Extinde</string>
@@ -1257,6 +1279,7 @@ Detalii: %2$s"</string>
     <string name="changelog_for_app">Modificări pentru %s</string>
     <string name="changelog_general_changes">Modificări generale</string>
     <string name="whats_new">Ce este nou</string>
+    <string name="changelog_description">Ce este nou în această versiune</string>
     <string name="changelog_download_fail">Nu s-a putut descărca jurnalul de modificări: %s</string>
     <string name="changelog_empty">Nu există jurnale disponibile</string>
     <string name="changelog_show_older">Afișează versiunile mai vechi</string>
@@ -1303,4 +1326,5 @@ Doriți totuși să continuați?"</string>
     <string name="tour_prompt_desc">Dorești un tur rapid al funcțiilor cheie Morphe?</string>
     <string name="tour_prompt_confirm">Arată-mi</string>
     <string name="onboarding_restart_title">Tur de prezentare</string>
+    <string name="onboarding_restart_desc">Un tur ghidat al funcțiilor cheie</string>
 </resources>

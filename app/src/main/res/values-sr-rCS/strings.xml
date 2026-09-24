@@ -719,7 +719,9 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_greeting_phrases">Pozdravne poruke</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Prikaži poruku dobrodošlice na početnom ekranu</string>
     <string name="settings_appearance_app_grouping">Grupisanje aplikacija</string>
+    <string name="settings_appearance_app_grouping_description">Prikaži prekidač za grupisanje aplikacija po izvoru ili kategoriji</string>
     <string name="settings_appearance_repatch_notice">Obaveštenje o ponovnom zakrpavanju</string>
+    <string name="settings_appearance_repatch_notice_description">Prikaži baner kada se već zakrpljene aplikacije mogu ponovo zakrpiti</string>
     <string name="settings_appearance_sort_button">Dugme za sortiranje i filtriranje</string>
     <string name="settings_appearance_sort_button_description">Prikaži dugme za sortiranje i filtriranje na početnom ekranu</string>
     <string name="settings_appearance_app_card_colors">Boje kartice aplikacije</string>
@@ -978,6 +980,20 @@ Detalji: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Izaberite ton</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Uvoz i izvoz</string>
+    <string name="settings_system_signing_key">Ključ za potpisivanje</string>
+    <string name="settings_system_signing_key_description">Pravi rezervnu kopiju i vraća ključ kojim su potpisane vaše zakrpljene aplikacije</string>
+    <string name="settings_system_signing_key_dialog_description">Svaka aplikacija koju Morphe zakrpi potpisana je ovim ključem. Sačuvajte kopiju: bez njega, zakrpljene aplikacije se mogu ažurirati samo nakon deinstalacije.</string>
+    <string name="settings_system_signing_key_missing">Morphe ga kreira pri vašoj prvoj zakrpi.</string>
+    <string name="settings_system_signing_key_created">Kreirano %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 otisak</string>
+    <string name="settings_system_backup_appearance_description">Tema, boje i jezik</string>
+    <string name="settings_system_backup_home_description">Grupe, skrivene aplikacije, sortiranje i prekidači</string>
+    <string name="settings_system_backup_patching">Zakrpljivanje i instaliranje</string>
+    <string name="settings_system_backup_patching_description">Instalater, zakrpljivač i sačuvani APK-ovi</string>
+    <string name="settings_system_backup_updates_description">Preliminarne verzije i provere ažuriranja</string>
+    <string name="settings_system_backup_sources_description">Prilagođeni izvori i GitHub token</string>
+    <string name="settings_system_backup_patch_selections_description">Izabrane zakrpe za svaku aplikaciju</string>
+    <string name="settings_system_backup_signing_key_note">Rezervna kopija ključa za potpisivanje pravi se posebno.</string>
     <string name="settings_system_import_keystore_dialog_title">Pogrešni izvor</string>
     <string name="settings_system_import_keystore_dialog_description">Morate unijeti podacima o keystore-u za njegovo uvođenje</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Pogrešni izvor</string>
@@ -1201,6 +1217,7 @@ Detalji: %2$s"</string>
     <string name="import_">Uvoz</string>
     <string name="export">Izvezi</string>
     <string name="copy">Kopiraj</string>
+    <string name="copied_to_clipboard">Kopirano u klipbord</string>
     <string name="download">Preuzmi</string>
     <string name="less">Manje</string>
     <string name="expand">Proširi</string>
@@ -1247,6 +1264,7 @@ Detalji: %2$s"</string>
     <string name="changelog_for_app">Izmene za %s</string>
     <string name="changelog_general_changes">Opšte izmene</string>
     <string name="whats_new">Šta je novo</string>
+    <string name="changelog_description">Šta je novo u ovoj verziji</string>
     <string name="changelog_download_fail">Preuzimanje zapisa o promenama nije uspelo: %s</string>
     <string name="changelog_empty">Nema dostupne verzije promjene</string>
     <string name="changelog_show_older">Prikaži starije verzije</string>
@@ -1293,4 +1311,5 @@ Da li i dalje želite da nastavite?"</string>
     <string name="tour_prompt_desc">Želite brzu turu po ključnim funkcijama Morphe?</string>
     <string name="tour_prompt_confirm">Pokaži mi</string>
     <string name="onboarding_restart_title">Tura po funkcijama</string>
+    <string name="onboarding_restart_desc">Vođeni obilazak ključnih funkcija</string>
 </resources>

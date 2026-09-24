@@ -717,7 +717,9 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_greeting_phrases">Greeting frases</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Sýna kveðju skilaboð á heimaskjá</string>
     <string name="settings_appearance_app_grouping">Forritaflokkun</string>
+    <string name="settings_appearance_app_grouping_description">Sýna skiptirofa til að flokka forrit eftir uppruna eða flokki</string>
     <string name="settings_appearance_repatch_notice">Tilkynning um endurplástrun</string>
+    <string name="settings_appearance_repatch_notice_description">Sýna borða þegar hægt er að endurplástra plástruð forrit</string>
     <string name="settings_appearance_sort_button">Röðunar- og síunarhnappur</string>
     <string name="settings_appearance_sort_button_description">Sýna röðunar- og síunarhnappinn á heimaskjánum</string>
     <string name="settings_appearance_app_card_colors">Litir á app kortum</string>
@@ -989,6 +991,20 @@ Nánari upplýsingar: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Veldu tón</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Inn- og útflutningur</string>
+    <string name="settings_system_signing_key">Undirritunarlykill</string>
+    <string name="settings_system_signing_key_description">Tekur öryggisafrit af og endurheimtir lykilinn sem plástruðu forritin þín eru undirrituð með</string>
+    <string name="settings_system_signing_key_dialog_description">Sérhvert forrit sem Morphe plástrar er undirritað með þessum lykli. Geymdu afrit: án þess geta plástruð forrit aðeins verið uppfærð eftir að þau eru fjarlægð.</string>
+    <string name="settings_system_signing_key_missing">Morphe býr til einn þegar þú plástrar í fyrsta sinn</string>
+    <string name="settings_system_signing_key_created">Búið til %s</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 fingrafar</string>
+    <string name="settings_system_backup_appearance_description">Þema, litir og tungumál</string>
+    <string name="settings_system_backup_home_description">Hópar, falin forrit, röðun og rofar</string>
+    <string name="settings_system_backup_patching">Plástrun og uppsetning</string>
+    <string name="settings_system_backup_patching_description">Uppsetningarforrit, plástrari og vistaðar APK-skrár</string>
+    <string name="settings_system_backup_updates_description">Forútgáfur og uppfærsluathuganir</string>
+    <string name="settings_system_backup_sources_description">Sérsniðnar uppsprettur og GitHub-tóki</string>
+    <string name="settings_system_backup_patch_selections_description">Valdir plástrar fyrir hvert forrit</string>
+    <string name="settings_system_backup_signing_key_note">Undirritunarlykillinn er tekinn í öryggisafrit sérstaklega</string>
     <string name="settings_system_import_keystore_dialog_title">Sláðu inn lykilgeymiskenni</string>
     <string name="settings_system_import_keystore_dialog_description">Þú þarft að slá inn valdarkenni lykilgeymisins til að flytja það</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Notnaarnafn (Alias)</string>
@@ -1015,6 +1031,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="import_mode_merge_description">Bæta við vöntunum hlutum úr afritinu. Núverandi hlutir eru óbreyttir</string>
     <string name="settings_system_export_manager_settings_fail">Ekki tókst að flytja út Morphe stillingar: %s</string>
     <string name="settings_system_export_manager_settings_success">Morphe stillingar fluttar út</string>
+    <string name="settings_system_export_debug_logs">Flytja út kembiskrár</string>
     <string name="settings_system_export_debug_logs_description">Geyma kerfislogg fyrir vandamálaleit</string>
     <string name="settings_system_export_debug_logs_export_read_failed">Ekki tókst að lesa logs (exit kóði %s)</string>
     <string name="settings_system_export_debug_logs_export_failed">Ekki tókst að flytja út logs</string>
@@ -1211,6 +1228,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="import_">Flytja</string>
     <string name="export">Flytja út</string>
     <string name="copy">Afrita</string>
+    <string name="copied_to_clipboard">Afritað á klippiborð</string>
     <string name="download">Sæka</string>
     <string name="less">Menn</string>
     <string name="expand">Stækka</string>
@@ -1257,6 +1275,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="changelog_for_app">Breytingar fyrir %s</string>
     <string name="changelog_general_changes">Almennar breytingar</string>
     <string name="whats_new">Hvað er nýtt</string>
+    <string name="changelog_description">Hvað er nýtt í þessari útgáfu</string>
     <string name="changelog_download_fail">Ekki tókst að sækja breytingaskrá: %s</string>
     <string name="changelog_empty">Engin breytingaskrá í boði</string>
     <string name="changelog_show_older">Sýna eldri útgáfur</string>
@@ -1303,4 +1322,5 @@ Haltu samt sem áður?"</string>
     <string name="tour_prompt_desc">Viltu fljót ferð um lykileiginleika Morph?</string>
     <string name="tour_prompt_confirm">Sýndu mér leiðina</string>
     <string name="onboarding_restart_title">Ferðaleið</string>
+    <string name="onboarding_restart_desc">Kynningarferð um helstu eiginleika</string>
 </resources>

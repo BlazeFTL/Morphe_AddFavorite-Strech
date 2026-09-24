@@ -719,7 +719,9 @@
     <string name="settings_appearance_greeting_phrases">Φράσεις υποδοχής</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Εμφάνιση μηνύματος υποδοχής στην αρχική οθόνη</string>
     <string name="settings_appearance_app_grouping">Ομαδοποίηση εφαρμογών</string>
+    <string name="settings_appearance_app_grouping_description">Εμφάνιση ενός διακόπτη για ομαδοποίηση εφαρμογών ανά πηγή ή κατηγορία</string>
     <string name="settings_appearance_repatch_notice">Ειδοποίηση επανάληψης τροποποιήσεων</string>
+    <string name="settings_appearance_repatch_notice_description">Εμφάνιση banner όταν οι επιδιορθωμένες εφαρμογές μπορούν να επιδιορθωθούν εκ νέου</string>
     <string name="settings_appearance_sort_button">Κουμπί ταξινόμησης και φιλτραρίσματος</string>
     <string name="settings_appearance_sort_button_description">Εμφάνιση του κουμπιού ταξινόμησης και φιλτραρίσματος στην αρχική οθόνη</string>
     <string name="settings_appearance_app_card_colors">Χρώματα καρτών εφαρμογών</string>
@@ -994,6 +996,20 @@ morphe_header_custom_dark.png
     <string name="settings_system_notifications_ringtone_picker_title">Επιλέξτε τόνο</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Εισαγωγή &amp; εξαγωγή</string>
+    <string name="settings_system_signing_key">Κλειδί υπογραφής</string>
+    <string name="settings_system_signing_key_description">Δημιουργεί αντίγραφο ασφαλείας και επαναφέρει το κλειδί με το οποίο υπογράφονται οι επιδιορθωμένες εφαρμογές σας.</string>
+    <string name="settings_system_signing_key_dialog_description">Κάθε εφαρμογή που επιδιορθώνει το Morphe υπογράφεται με αυτό το κλειδί. Φυλάξτε ένα αντίγραφο: χωρίς αυτό, οι επιδιορθωμένες εφαρμογές μπορούν να ενημερωθούν μόνο μετά την απεγκατάστασή τους.</string>
+    <string name="settings_system_signing_key_missing">Το Morphe δημιουργεί ένα με την πρώτη σας επιδιόρθωση.</string>
+    <string name="settings_system_signing_key_created">Δημιουργήθηκε %s</string>
+    <string name="settings_system_signing_key_fingerprint">Αποτύπωμα SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Θέμα, χρώματα και γλώσσα</string>
+    <string name="settings_system_backup_home_description">Ομάδες, κρυφές εφαρμογές, ταξινόμηση και διακόπτες</string>
+    <string name="settings_system_backup_patching">Επιδιόρθωση και εγκατάσταση</string>
+    <string name="settings_system_backup_patching_description">Εγκαταστάτης, επιδιορθωτής και αποθηκευμένα APK</string>
+    <string name="settings_system_backup_updates_description">Προεκδόσεις και έλεγχοι ενημερώσεων</string>
+    <string name="settings_system_backup_sources_description">Προσαρμοσμένες πηγές και διακριτικό GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Επιλεγμένες επιδιορθώσεις για κάθε εφαρμογή</string>
+    <string name="settings_system_backup_signing_key_note">Το κλειδί υπογραφής λαμβάνει ξεχωριστό αντίγραφο ασφαλείας.</string>
     <string name="settings_system_import_keystore_dialog_title">Εισαγωγή διαπιστευτηρίων χώρου αποθήκευσης κλειδιών</string>
     <string name="settings_system_import_keystore_dialog_description">Θα χρειαστεί να καταχωρίσεις τα διαπιστευτήρια της αποθήκης κλειδιών για να τα εισάγεις</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Όνομα χρήστη (Ψευδώνυμο)</string>
@@ -1217,6 +1233,7 @@ morphe_header_custom_dark.png
     <string name="import_">Εισαγωγή</string>
     <string name="export">Εξαγωγή</string>
     <string name="copy">Αντιγραφή</string>
+    <string name="copied_to_clipboard">Αντιγράφτηκε στο πρόχειρο</string>
     <string name="download">Λήψη</string>
     <string name="less">Λιγότερα</string>
     <string name="expand">Επεκτείνετε</string>
@@ -1263,6 +1280,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">Αλλαγές για %s</string>
     <string name="changelog_general_changes">Γενικές αλλαγές</string>
     <string name="whats_new">Τι νέο</string>
+    <string name="changelog_description">Τι νέο υπάρχει σε αυτήν την έκδοση</string>
     <string name="changelog_download_fail">Αποτυχία λήψης αρχείου καταγραφής αλλαγών: %s</string>
     <string name="changelog_empty">Δεν υπάρχει διαθέσιμο αρχείο καταγραφών αλλαγών </string>
     <string name="changelog_show_older">Εμφάνιση παλαιότερων εκδόσεων</string>
@@ -1309,4 +1327,5 @@ morphe_header_custom_dark.png
     <string name="tour_prompt_desc">Θέλετε μια γρήγορη περιήγηση στις βασικές λειτουργίες του Morphe;</string>
     <string name="tour_prompt_confirm">Δείξτε μου γύρω</string>
     <string name="onboarding_restart_title">Περιήγηση λειτουργιών</string>
+    <string name="onboarding_restart_desc">Μια ξενάγηση στα βασικά χαρακτηριστικά</string>
 </resources>

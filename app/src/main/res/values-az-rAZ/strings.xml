@@ -718,7 +718,9 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_greeting_phrases">Salamlaşma ifadələri</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Əsas ekranda salamlaşma mesajı göstər</string>
     <string name="settings_appearance_app_grouping">Tətbiq qruplaşdırılması</string>
+    <string name="settings_appearance_app_grouping_description">Tətbiqləri mənbəyə və ya kateqoriyaya görə qruplaşdırmaq üçün keçirici göstər</string>
     <string name="settings_appearance_repatch_notice">Yenidən yamaqlama bildirişi</string>
+    <string name="settings_appearance_repatch_notice_description">Yamaqlanmış tətbiqlər yenidən yamaqlana bildikdə etiket göstər</string>
     <string name="settings_appearance_sort_button">Sıralama və filtrləmə düyməsi</string>
     <string name="settings_appearance_sort_button_description">Əsas ekranda sıralama və filtrləmə düyməsini göstər</string>
     <string name="settings_appearance_app_card_colors">Tətbiq kartı rəngləri</string>
@@ -763,6 +765,8 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_advanced_updates_background_notifications">Fon yenilənmə bildirişləri</string>
     <string name="settings_advanced_updates_background_notifications_description">Fonda yeniləmələri dövri yoxla və əlçatandırsa elan et</string>
     <string name="settings_advanced_updates_background_notifications_description_fcm">Hətta tətbiq bağlandıqda, yeni buraxılışlar üçün təkan bildirişləri</string>
+    <string name="settings_system_notifications_categories">Bildiriş kateqoriyaları</string>
+    <string name="settings_system_notifications_categories_description">Hansı yenilənmələrin sizə bildiriş göndərəcəyini sistem tənzimləmələrində seçin</string>
     <string name="settings_advanced_update_interval">Yoxlanılma tezliyi</string>
     <string name="settings_advanced_update_interval_dialog_title">Yeniləmələri yoxla</string>
     <string name="settings_advanced_update_interval_hourly">Saatda bir dəfə</string>
@@ -786,6 +790,9 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="notification_permission_dialog_description">Morphe fonda yeniləmələr əlçatan olduqda sizə bildirmək üçün bildiriş icazəsi istəyir</string>
     <string name="notification_post_patch_dialog_title">Yeniləmələr əlçatandırsa bildiriş almaq istərdiniz?</string>
     <string name="notification_channel_manager_updates">Morphe yenilənmələri</string>
+    <string name="notification_channel_manager_updates_description">Yeni Morphe buraxılışları haqqında bildirişlər</string>
+    <string name="notification_channel_patch_updates">Yamaq yeniləmələri</string>
+    <string name="notification_channel_patch_updates_description">Yeni yamaq buraxılışları haqqında bildirişlər</string>
     <string name="notification_channel_patcher">Yamaqlanır</string>
     <string name="notification_channel_patcher_description">Morphe tətbiqi fonda yamaqlayarkən görünür</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -986,6 +993,20 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Ton seç</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">İdxal &amp; ixrac</string>
+    <string name="settings_system_signing_key">İmzalama açarı</string>
+    <string name="settings_system_signing_key_description">Yamaqladığınız tətbiqlərin imzalandığı açarı nüsxələyir və bərpa edir</string>
+    <string name="settings_system_signing_key_dialog_description">Morphe yamaqları üzrə hər bir tətbiq bu açarla imzalanır. Bir nüsxəsini saxla: onsuz, yamaqlanmış tətbiqlər yalnız silindikdən sonra yenilənə bilər</string>
+    <string name="settings_system_signing_key_missing">Morphe ilk yamaqla birini yaradır</string>
+    <string name="settings_system_signing_key_created">%s yaradıldı</string>
+    <string name="settings_system_signing_key_fingerprint">SHA-256 barmaq izi</string>
+    <string name="settings_system_backup_appearance_description">Kolorit, rənglər və dil</string>
+    <string name="settings_system_backup_home_description">Qruplar, gizli tətbiqlər, çeşidləmə və keçiricilər</string>
+    <string name="settings_system_backup_patching">Yamaqlama və quraşdırma</string>
+    <string name="settings_system_backup_patching_description">Quraşdırıcı, yamaqlayıcı və saxlanılan APK-lar</string>
+    <string name="settings_system_backup_updates_description">İlkin buraxılışlar və yeniləmə yoxlamaları</string>
+    <string name="settings_system_backup_sources_description">Fərdi mənbələr və GitHub token</string>
+    <string name="settings_system_backup_patch_selections_description">Hər tətbiq üçün seçilmiş yamaqlar</string>
+    <string name="settings_system_backup_signing_key_note">İmzalama açarı ayrıca nüsxələnir</string>
     <string name="settings_system_import_keystore_dialog_title">Keystore etimadnaməsini qeyd et</string>
     <string name="settings_system_import_keystore_dialog_description">Bunu idxal etmək üçün keystore etimadnaməsini qeyd etməlisiniz</string>
     <string name="settings_system_import_keystore_dialog_alias_field">İstifadəçi adı (Ləqəb)</string>
@@ -1209,6 +1230,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="import_">İdxal et</string>
     <string name="export">Köçür</string>
     <string name="copy">Köçür</string>
+    <string name="copied_to_clipboard">Buferə köçürüldü</string>
     <string name="download">Yüklə</string>
     <string name="less">Daha az</string>
     <string name="expand">Genişləndir</string>
@@ -1255,6 +1277,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="changelog_for_app">%s üçün dəyişikliklər</string>
     <string name="changelog_general_changes">Ümumi dəyişikliklər</string>
     <string name="whats_new">Nə yenidir</string>
+    <string name="changelog_description">Bu versiyada nə yenilik var</string>
     <string name="changelog_download_fail">Dəyişiklik jurnalın yükləmək olmadı: %s</string>
     <string name="changelog_empty">Dəyişiklik jurnalı mövcud deyil</string>
     <string name="changelog_show_older">Daha köhnə buraxılışları göstər</string>
@@ -1301,4 +1324,5 @@ Hələ də davam etmək istəyirsiniz?"</string>
     <string name="tour_prompt_desc">Morphe-nin əsas xüsusiyyətlərinə qısa baxış istəyirsiniz?</string>
     <string name="tour_prompt_confirm">Mənə göstər</string>
     <string name="onboarding_restart_title">Xüsusiyyət tanışlığı</string>
+    <string name="onboarding_restart_desc">Əsas xüsusiyyətlərin bələdçi turu</string>
 </resources>

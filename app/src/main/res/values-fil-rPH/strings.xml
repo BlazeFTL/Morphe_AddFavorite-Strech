@@ -719,7 +719,9 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_greeting_phrases">Mga pagbati</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Ipakita ang mensahe ng pagbati sa pangunahing iskrin</string>
     <string name="settings_appearance_app_grouping">Pagpapangkat ng app</string>
+    <string name="settings_appearance_app_grouping_description">Magpakita ng pampaglipat upang pangkatin ang mga app ayon sa pinagmulan o kategorya.</string>
     <string name="settings_appearance_repatch_notice">Paunawa sa muling pag-patch</string>
+    <string name="settings_appearance_repatch_notice_description">Magpakita ng banner kapag ang mga na-patch na app ay maaari nang i-patch muli.</string>
     <string name="settings_appearance_sort_button">Button ng pag-uuri at pagsala</string>
     <string name="settings_appearance_sort_button_description">Ipakita ang button ng pag-uuri at pagsala sa home screen</string>
     <string name="settings_appearance_app_card_colors">Mga kulay ng card ng app</string>
@@ -994,6 +996,20 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Pumili ng tono</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">I-import &amp; i-export</string>
+    <string name="settings_system_signing_key">Susi sa pagpirma</string>
+    <string name="settings_system_signing_key_description">Nagba-back up at nagre-restore ng susi na ginagamit sa pagpirma sa iyong mga na-patch na app</string>
+    <string name="settings_system_signing_key_dialog_description">Ang bawat app na ina-patch ng Morphe ay nilalagdaan gamit ang susi na ito. Magtago ng kopya: kung wala nito, ang mga na-patch na app ay maaari lamang i-update pagkatapos i-uninstall ang mga ito</string>
+    <string name="settings_system_signing_key_missing">Gumagawa ang Morphe ng susi sa iyong unang pag-patch</string>
+    <string name="settings_system_signing_key_created">Ginawa noong %s</string>
+    <string name="settings_system_signing_key_fingerprint">Fingerprint ng SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Tema, mga kulay at wika</string>
+    <string name="settings_system_backup_home_description">Mga grupo, mga nakatagong app, pag-uuri, at mga toggle.</string>
+    <string name="settings_system_backup_patching">Pag-patch at pag-install</string>
+    <string name="settings_system_backup_patching_description">Installer, patcher at mga naka-save na APK</string>
+    <string name="settings_system_backup_updates_description">Mga pre-release at mga pagsusuri sa update</string>
+    <string name="settings_system_backup_sources_description">Mga custom na source at GitHub token</string>
+    <string name="settings_system_backup_patch_selections_description">Mga napiling patch para sa bawat app</string>
+    <string name="settings_system_backup_signing_key_note">Ang susi sa pagpirma ay naka-back up nang hiwalay</string>
     <string name="settings_system_import_keystore_dialog_title">Ilagay ang keystore credentials</string>
     <string name="settings_system_import_keystore_dialog_description">Kailangan mong ilagay ang keystore credentials upang ma-import ito</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Pangalan ng tagagamit (Bansag)</string>
@@ -1217,6 +1233,7 @@ Mga Detalye: %2$s"</string>
     <string name="import_">I-import</string>
     <string name="export">I-export</string>
     <string name="copy">Kopyahin</string>
+    <string name="copied_to_clipboard">Nakopya sa clipboard.</string>
     <string name="download">I-download</string>
     <string name="less">Kaunti</string>
     <string name="expand">Palawakin</string>
@@ -1263,6 +1280,7 @@ Mga Detalye: %2$s"</string>
     <string name="changelog_for_app">Mga pagbabago para sa %s</string>
     <string name="changelog_general_changes">Mga pangkalahatang pagbabago</string>
     <string name="whats_new">Ano ang bago</string>
+    <string name="changelog_description">Ano ang bago sa bersyong ito</string>
     <string name="changelog_download_fail">Nabigong mag-download ang changelog: %s</string>
     <string name="changelog_empty">Walang magagamit na changelog</string>
     <string name="changelog_show_older">Ipakita ang mga lumang bersyon</string>
@@ -1309,4 +1327,5 @@ Gusto mo pa bang ituloy?"</string>
     <string name="tour_prompt_desc">Gusto mo bang mabilis na paglilibot sa mga pangunahing feature ng Morphe?</string>
     <string name="tour_prompt_confirm">Ipakita sa akin</string>
     <string name="onboarding_restart_title">Paglilibot sa feature</string>
+    <string name="onboarding_restart_desc">Isang gabay na paglilibot sa mga pangunahing tampok</string>
 </resources>

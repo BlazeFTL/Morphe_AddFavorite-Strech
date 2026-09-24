@@ -719,7 +719,9 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_greeting_phrases">Frásaí beannachta</string>
     <string name="settings_appearance_greeting_phrases_subtitle">Taispeáin teachtaireacht beannachta ar an scáileán baile</string>
     <string name="settings_appearance_app_grouping">Grúpáil aipeanna</string>
+    <string name="settings_appearance_app_grouping_description">Taispeáin lasc chun aipeanna a ghrúpáil de réir foinse nó catagóire</string>
     <string name="settings_appearance_repatch_notice">Fógra athphaisteála</string>
+    <string name="settings_appearance_repatch_notice_description">Taispeáin bratach nuair is féidir aipeanna a bhfuil paiste curtha orthu cheana a phaisteáil arís</string>
     <string name="settings_appearance_sort_button">Cnaipe sórtála agus scagaire</string>
     <string name="settings_appearance_sort_button_description">Taispeáin an cnaipe sórtála agus scagaire ar an scáileán baile</string>
     <string name="settings_appearance_app_card_colors">Dathanna cártaí aipeanna</string>
@@ -992,7 +994,20 @@ Sonraí: %2$s"</string>
     <string name="settings_system_notifications_ringtone_picker_title">Roghnaigh ton</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Iompórtáil &amp; easpórtáil</string>
+    <string name="settings_system_signing_key">Eochair shíniúcháin</string>
+    <string name="settings_system_signing_key_description">Déanann sé cúltaca den eochair a bhfuil d’aipeanna paisteáilte sínithe léi agus athchóiríonn sé í</string>
+    <string name="settings_system_signing_key_dialog_description">Déantar gach aip a phatchálann Morphe a shíniú leis an eochair seo. Coinnigh cóip di: gan í, ní féidir aipeanna patcháilte a nuashonrú ach amháin tar éis iad a dhíshuiteáil</string>
+    <string name="settings_system_signing_key_missing">Cruthaíonn Morphe ceann leis an gcéad phaiste agat</string>
+    <string name="settings_system_signing_key_created">Cruthaithe %s</string>
     <string name="settings_system_signing_key_fingerprint">Méarlorg SHA-256</string>
+    <string name="settings_system_backup_appearance_description">Téama, dathanna agus teanga</string>
+    <string name="settings_system_backup_home_description">Grúpaí, aipeanna i bhfolach, sórtáil agus lasca</string>
+    <string name="settings_system_backup_patching">Paisteáil agus suiteáil</string>
+    <string name="settings_system_backup_patching_description">Suiteálaí, paisteálaí agus comhaid APK sábháilte</string>
+    <string name="settings_system_backup_updates_description">Réamheisiúintí agus seiceálacha nuashonraithe</string>
+    <string name="settings_system_backup_sources_description">Foinsí saincheaptha agus comhartha GitHub</string>
+    <string name="settings_system_backup_patch_selections_description">Paistí roghnaithe do gach aip</string>
+    <string name="settings_system_backup_signing_key_note">Déantar cúltaca den eochair shínithe ar leithligh</string>
     <string name="settings_system_import_keystore_dialog_title">Cuir isteach dintiúir stórais eochrach</string>
     <string name="settings_system_import_keystore_dialog_description">Beidh ort dintiúir an stórais eochrach a iontráil chun é a allmhairiú</string>
     <string name="settings_system_import_keystore_dialog_alias_field">Ainm úsáideora (Ainm eile)</string>
@@ -1216,6 +1231,7 @@ Sonraí: %2$s"</string>
     <string name="import_">Iompórtáil</string>
     <string name="export">Easpórtáil</string>
     <string name="copy">Cóipeáil</string>
+    <string name="copied_to_clipboard">Cóipeáilte chuig an ghearrthaisce</string>
     <string name="download">Íoslódáil</string>
     <string name="less">Níos lú</string>
     <string name="expand">Leathnaigh</string>
@@ -1262,6 +1278,7 @@ Sonraí: %2$s"</string>
     <string name="changelog_for_app">Athruithe le haghaidh %s</string>
     <string name="changelog_general_changes">Athruithe ginearálta</string>
     <string name="whats_new">Cad atá nua</string>
+    <string name="changelog_description">Cad atá nua sa leagan seo</string>
     <string name="changelog_download_fail">Theip ar an logála hathruithe a íoslódáil: %s</string>
     <string name="changelog_empty">Níl aon loga athraithe ar fáil</string>
     <string name="changelog_show_older">Taispeáin eisiúintí níos sine</string>
@@ -1308,4 +1325,5 @@ Ar mhaith leat leanúint ar aghaidh fós?"</string>
     <string name="tour_prompt_desc">Ar mhaith leat turas gairid a fháil ar phríomhghnéithe Morphe?</string>
     <string name="tour_prompt_confirm">Taispeáin dom timpeall</string>
     <string name="onboarding_restart_title">Turas gné-ghnéithe</string>
+    <string name="onboarding_restart_desc">Camchuairt threoraithe ar phríomhghnéithe</string>
 </resources>

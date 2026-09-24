@@ -719,7 +719,9 @@
     <string name="settings_appearance_greeting_phrases">শুভেচ্ছা বার্তা</string>
     <string name="settings_appearance_greeting_phrases_subtitle">হোম স্ক্রিনে একটি শুভেচ্ছা বার্তা দেখান</string>
     <string name="settings_appearance_app_grouping">অ্যাপ grouping</string>
+    <string name="settings_appearance_app_grouping_description">উৎস বা বিভাগ অনুসারে অ্যাপগুলো গ্রুপ করতে একটি সুইচার দেখান</string>
     <string name="settings_appearance_repatch_notice">পুনরায় প্যাচ বিজ্ঞপ্তি</string>
+    <string name="settings_appearance_repatch_notice_description">প্যাচ করা অ্যাপগুলো পুনরায় প্যাচ করা গেলে একটি ব্যানার দেখান</string>
     <string name="settings_appearance_sort_button">সাজানো ও ফিল্টার বাটন</string>
     <string name="settings_appearance_sort_button_description">হোম স্ক্রিনে সাজানো ও ফিল্টার বাটন দেখান</string>
     <string name="settings_appearance_app_card_colors">অ্যাপ কার্ডের রং</string>
@@ -991,9 +993,10 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_signing_key_created">তৈরি হয়েছে %s</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256 ফিঙ্গারপ্রিন্ট</string>
     <string name="settings_system_backup_appearance_description">থিম, রঙ এবং ভাষা</string>
+    <string name="settings_system_backup_home_description">গ্রুপ, লুকানো অ্যাপ, সাজানো এবং টগল</string>
     <string name="settings_system_backup_patching">প্যাচিং এবং ইনস্টল করা</string>
     <string name="settings_system_backup_patching_description">ইনস্টলার, প্যাচার এবং সংরক্ষিত APK</string>
-    <string name="settings_system_backup_updates_description">প্রি-রিলিজ এবং আপডেট চেক</string>
+    <string name="settings_system_backup_updates_description">প্রি-রিলিজ এবং আপডেট পরীক্ষা</string>
     <string name="settings_system_backup_sources_description">কাস্টম সোর্স এবং GitHub টোকেন</string>
     <string name="settings_system_backup_patch_selections_description">প্রতিটি অ্যাপের জন্য নির্বাচিত প্যাচ</string>
     <string name="settings_system_backup_signing_key_note">স্বাক্ষর কী আলাদাভাবে ব্যাকআপ করা হয়</string>
@@ -1222,6 +1225,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="import_">আমদানি করুন</string>
     <string name="export">এক্সপোর্ট করুন</string>
     <string name="copy">অনুলিপি করুন</string>
+    <string name="copied_to_clipboard">ক্লিপবোর্ডে কপি করা হয়েছে</string>
     <string name="download">ডাউনলোড</string>
     <string name="less">কম</string>
     <string name="expand">বিস্তারিত দেখুন</string>

@@ -148,7 +148,7 @@
     <string name="sources_apps_leave_out">Виключити</string>
     <string name="sources_apps_leave_out_done">Виключено</string>
     <string name="sources_apps_bring_back">Повернути</string>
-    <string name="sources_management_prerelease_toggle">Передрелізні версії патчів</string>
+    <string name="sources_management_prerelease_toggle">Передрелізні патчі</string>
     <string name="sources_management_prerelease_toggle_description">Отримує ранній доступ до нових експериментальних версій патчів</string>
     <string name="sources_prerelease_warning_title">Увімкнути передрелізні патчі?</string>
     <string name="sources_prerelease_warning_message">Передрелізні збірки ще перебувають у розробці. Патчі можуть не спрацювати або пошкодити застосунок, а функції можуть змінюватися без попередження</string>
@@ -1006,7 +1006,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_backup_home_description">Групи, приховані застосунки, сортування та перемикачі</string>
     <string name="settings_system_backup_patching">Патчинг та встановлення</string>
     <string name="settings_system_backup_patching_description">Інсталятор, патчер та збережені APK</string>
-    <string name="settings_system_backup_updates_description">Попередні релізи та перевірка оновлень</string>
+    <string name="settings_system_backup_updates_description">Передрелізи та перевірка оновлень</string>
     <string name="settings_system_backup_sources_description">Власні джерела та токен GitHub</string>
     <string name="settings_system_backup_patch_selections_description">Вибрані патчі для кожного застосунку</string>
     <string name="settings_system_backup_signing_key_note">Ключ підпису створюється в резервній копії окремо</string>
@@ -1233,6 +1233,7 @@ morphe_header_custom_dark.png
     <string name="import_">Імпорт</string>
     <string name="export">Експорт</string>
     <string name="copy">Копіювати</string>
+    <string name="copied_to_clipboard">Скопійовано в буфер обміну</string>
     <string name="download">Завантажити</string>
     <string name="less">Менше</string>
     <string name="expand">Розгорнути</string>
@@ -1311,7 +1312,7 @@ morphe_header_custom_dark.png
     <string name="onboarding_settings_desc">Налаштуйте Morphe: зовнішній вигляд, розширені параметри та системні інструменти</string>
     <string name="onboarding_sources_patches_desc">Натисніть, щоб переглянути всі патчі з цього джерела</string>
     <string name="onboarding_sources_version_desc">Натисніть на версію, щоб переглянути повний список змін для цього джерела</string>
-    <string name="onboarding_sources_prerelease_desc">Увімкніть це, щоб отримувати попередні версії патчів із цього джерела</string>
+    <string name="onboarding_sources_prerelease_desc">Увімкніть це, щоб отримувати передрелізні патчі із цього джерела</string>
     <string name="onboarding_appearance_tab_desc">Налаштуйте вигляд застосунку: тему, акцентний колір та фон</string>
     <string name="onboarding_appearance_theme_desc">Виберіть світлу, темну або системну тему. Ви також можете вибрати власний акцентний колір або увімкнути динамічний колір</string>
     <string name="onboarding_expert_mode_desc">Увімкніть експертний режим, щоб розблокувати вибір патчів, власні параметри та інші розширені функції</string>

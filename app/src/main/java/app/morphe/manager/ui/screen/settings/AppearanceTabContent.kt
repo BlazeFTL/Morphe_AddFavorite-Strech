@@ -42,6 +42,7 @@ import app.morphe.manager.ui.viewmodel.RandomInterval
 import app.morphe.manager.ui.viewmodel.ThemeSettingsViewModel
 import app.morphe.manager.util.AppCardColorDefaults
 import app.morphe.manager.util.AppCardColorMode
+import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import app.morphe.manager.util.saveLanguageToPrefs
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -74,11 +75,11 @@ fun AppearanceTabContent(
     val customAppCardColors by themeViewModel.prefs.customAppCardColors.getAsState()
     val showAppGroupingSwitcher by homeAppButtonPrefs.showCategoryViewSwitcher.collectAsStateWithLifecycle()
     val showSortButton by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
-    val groupPatchesByCategory by themeViewModel.prefs.groupPatchesByCategory.getAsState()
     val backgroundType by themeViewModel.prefs.backgroundType.getAsState()
     val enableParallax by themeViewModel.prefs.enableBackgroundParallax.getAsState()
     val randomInterval by themeViewModel.prefs.randomBackgroundInterval.getAsState()
     val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
+    val resolvedRandomBackground by themeViewModel.resolvedRandomBackground.collectAsStateWithLifecycle()
     val effectiveThemeStyle = resolveThemeStyle(themeStyle, supportsDynamicColor)
     val showAppCardColorSetting = effectiveThemeStyle != ThemeStyle.MONOCHROME
 
@@ -88,6 +89,7 @@ fun AppearanceTabContent(
     val showUiScaleDialog = remember { mutableStateOf(false) }
     val showTranslationInfoDialog = remember { mutableStateOf(false) }
     val showAppCardColorDialog = remember { mutableStateOf(false) }
+    val showBackgroundDialog = remember { mutableStateOf(false) }
     val appCardColorValues = remember(customAppCardColors) {
         AppCardColorDefaults.decodeColorValues(customAppCardColors)
     }
@@ -103,12 +105,11 @@ fun AppearanceTabContent(
         if (!showAppCardColorSetting) showAppCardColorDialog.value = false
     }
 
-    val contentPadding = rememberWindowSize().contentPadding
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = contentPadding, vertical = Defaults.ContentPadding)
+            .padding(settingsTabPadding())
     ) {
         LanguageAndDisplaySection(
             appLanguage = appLanguage,
@@ -126,6 +127,9 @@ fun AppearanceTabContent(
             onThemeSelected = themeViewModel::setThemeMode,
             onStyleSelected = themeViewModel::setThemeStyle,
             onPureBlackToggle = { themeViewModel.setPureBlackTheme(!pureBlackTheme) },
+            backgroundType = backgroundType,
+            randomInterval = randomInterval,
+            onBackgroundClick = { showBackgroundDialog.value = true },
             onSelectorPositioned = onThemeSelectorPositioned,
             onSelectorScrollTarget = onThemeSelectorScrollTarget
         )
@@ -149,25 +153,20 @@ fun AppearanceTabContent(
             onSortButtonToggle = { homeAppButtonPrefs.setShowSortButton(!showSortButton) },
             onAppGroupingToggle = { homeAppButtonPrefs.setShowCategoryViewSwitcher(!showAppGroupingSwitcher) }
         )
+    }
 
-        PatchListSection(
-            groupByCategory = groupPatchesByCategory,
-            onGroupByCategoryToggle = {
-                themeViewModel.toggleGroupPatchesByCategory(groupPatchesByCategory)
-            }
-        )
-
-        BackgroundSection(
-            backgroundType = backgroundType,
-            randomInterval = randomInterval,
-            enableParallax = enableParallax,
-            matrixUnlocked = matrixUnlocked,
+    if (showBackgroundDialog.value) {
+        BackgroundPickerDialog(
+            selectedBackground = backgroundType,
             onBackgroundSelected = themeViewModel::setBackgroundType,
+            selectedInterval = randomInterval,
             onIntervalSelected = themeViewModel::setRandomInterval,
-            onParallaxToggle = { themeViewModel.toggleBackgroundParallax(enableParallax) }
+            onDismiss = { showBackgroundDialog.value = false },
+            resolvedRandomBackground = resolvedRandomBackground,
+            enableParallax = enableParallax,
+            onParallaxToggle = { themeViewModel.toggleBackgroundParallax(enableParallax) },
+            matrixUnlocked = matrixUnlocked
         )
-
-        AppIconSection()
     }
 
     // App card color dialog
@@ -220,7 +219,7 @@ fun AppearanceTabContent(
                 R.string.settings_appearance_translations_info_text,
                 stringResource(R.string.settings_appearance_translations_info_url)
             ),
-            urlLink = "https://morphe.software/translate",
+            urlLink = "$MORPHE_WEBSITE_URL/translate",
             onDismiss = {
                 showTranslationInfoDialog.value = false
                 scope.launch {
@@ -307,7 +306,8 @@ private fun LanguageAndDisplaySection(
 }
 
 /**
- * Theme mode, color style and the pure black toggle.
+ * Theme mode and color style, then how the rest of the manager is dressed: pure black, the
+ * animated background and the launcher icon.
  */
 @Composable
 private fun ThemeSection(
@@ -319,6 +319,9 @@ private fun ThemeSection(
     onThemeSelected: (Theme) -> Unit,
     onStyleSelected: (ThemeStyle) -> Unit,
     onPureBlackToggle: () -> Unit,
+    backgroundType: BackgroundType,
+    randomInterval: RandomInterval,
+    onBackgroundClick: () -> Unit,
     onSelectorPositioned: ((Rect) -> Unit)?,
     onSelectorScrollTarget: ((Int) -> Unit)?
 ) {
@@ -342,32 +345,40 @@ private fun ThemeSection(
     ) {
         ThemeSelector(
             theme = theme,
-            onThemeSelected = onThemeSelected
-        )
-    }
-
-    Box(Modifier.padding(bottom = Defaults.ContentPadding).fillMaxWidth()) {
-        ThemeStyleSelector(
+            onThemeSelected = onThemeSelected,
             style = themeStyle,
             supportsDynamicColor = supportsDynamicColor,
             onStyleSelected = onStyleSelected
         )
     }
 
-    AnimatedVisibility(
-        visible = supportsPureBlack,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
-            SettingsSwitchItem(
-                title = stringResource(R.string.settings_appearance_pure_black),
-                subtitle = stringResource(R.string.settings_appearance_pure_black_description),
-                icon = Icons.Outlined.Contrast,
-                checked = pureBlackTheme,
-                onToggle = onPureBlackToggle
-            )
+    SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
+        AnimatedVisibility(
+            visible = supportsPureBlack,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
+            Column {
+                SettingsSwitchItem(
+                    title = stringResource(R.string.settings_appearance_pure_black),
+                    subtitle = stringResource(R.string.settings_appearance_pure_black_description),
+                    icon = Icons.Outlined.Contrast,
+                    checked = pureBlackTheme,
+                    onToggle = onPureBlackToggle
+                )
+                SettingsDivider()
+            }
         }
+
+        BackgroundSettingsItem(
+            selectedBackground = backgroundType,
+            selectedInterval = randomInterval,
+            onClick = onBackgroundClick
+        )
+
+        SettingsDivider()
+
+        AppIconSettingsItem()
     }
 }
 
@@ -389,32 +400,37 @@ private fun ColorsSection(
     )
 
     // Dynamic color derives the accent from the wallpaper, leaving nothing to pick here
-    AnimatedVisibility(
-        visible = themeStyle != ThemeStyle.MATERIAL_YOU,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        Box(Modifier.padding(bottom = Defaults.ContentPadding).fillMaxWidth()) {
+    val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
+
+    // Monochrome leaves app cards colorless and Material You has no accent to pick, and no style
+    // is both, so the group always has at least one of the two
+    SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
+        AnimatedVisibility(
+            visible = showAccent,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
             AccentColorSelector(
                 selectedColorHex = accentColorHex,
                 onColorSelected = onAccentSelected,
-                dynamicColorEnabled = themeStyle == ThemeStyle.MATERIAL_YOU
+                dynamicColorEnabled = !showAccent
             )
         }
-    }
 
-    AnimatedVisibility(
-        visible = showAppCardColors,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
-            SettingsItem(
-                onClick = onAppCardColorsClick,
-                title = stringResource(R.string.settings_appearance_app_card_colors),
-                subtitle = stringResource(appCardColorMode.descriptionResId),
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
-            )
+        AnimatedVisibility(
+            visible = showAppCardColors,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
+            Column {
+                if (showAccent) SettingsDivider()
+                SettingsItem(
+                    onClick = onAppCardColorsClick,
+                    title = stringResource(R.string.settings_appearance_app_card_colors),
+                    subtitle = stringResource(appCardColorMode.descriptionResId),
+                    leadingContent = { ThemedIcon(icon = Icons.Outlined.Style) }
+                )
+            }
         }
     }
 }
@@ -471,88 +487,6 @@ private fun HomeScreenSection(
             onToggle = onAppGroupingToggle
         )
     }
-}
-
-/**
- * Toggles for how patch lists are laid out.
- */
-@Composable
-private fun PatchListSection(
-    groupByCategory: Boolean,
-    onGroupByCategoryToggle: () -> Unit
-) {
-    SectionHeader(
-        text = stringResource(R.string.settings_appearance_patch_list),
-        icon = Icons.Outlined.Extension
-    )
-
-    SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
-        SettingsSwitchItem(
-            title = stringResource(R.string.settings_appearance_patch_categories),
-            subtitle = stringResource(R.string.settings_appearance_patch_categories_description),
-            icon = Icons.Outlined.Category,
-            checked = groupByCategory,
-            onToggle = onGroupByCategoryToggle
-        )
-    }
-}
-
-/**
- * Background picker and the parallax toggle it enables.
- */
-@Composable
-private fun BackgroundSection(
-    backgroundType: BackgroundType,
-    randomInterval: RandomInterval,
-    enableParallax: Boolean,
-    matrixUnlocked: Boolean,
-    onBackgroundSelected: (BackgroundType) -> Unit,
-    onIntervalSelected: (RandomInterval) -> Unit,
-    onParallaxToggle: () -> Unit
-) {
-    SectionHeader(
-        text = stringResource(R.string.settings_appearance_background),
-        icon = Icons.Outlined.Wallpaper
-    )
-
-    Box(Modifier.padding(bottom = Defaults.ContentPadding).fillMaxWidth()) {
-        BackgroundSelector(
-            selectedBackground = backgroundType,
-            onBackgroundSelected = onBackgroundSelected,
-            selectedInterval = randomInterval,
-            onIntervalSelected = onIntervalSelected,
-            matrixUnlocked = matrixUnlocked
-        )
-    }
-
-    AnimatedVisibility(
-        visible = backgroundType != BackgroundType.NONE,
-        enter = Animations.expandFadeEnter,
-        exit = Animations.shrinkFadeExit
-    ) {
-        SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
-            SettingsSwitchItem(
-                title = stringResource(R.string.settings_appearance_parallax_effect),
-                subtitle = stringResource(R.string.settings_appearance_parallax_effect_description),
-                icon = Icons.Outlined.ScreenRotation,
-                checked = enableParallax,
-                onToggle = onParallaxToggle
-            )
-        }
-    }
-}
-
-/**
- * Launcher icon picker.
- */
-@Composable
-private fun AppIconSection() {
-    SectionHeader(
-        text = stringResource(R.string.settings_appearance_app_icon_selector_title),
-        icon = Icons.Outlined.Apps
-    )
-
-    AppIconSelector()
 }
 
 /**

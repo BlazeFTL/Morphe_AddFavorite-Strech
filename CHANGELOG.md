@@ -1,3 +1,10 @@
+## [1.32.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0...v1.32.1-dev.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* Redownload failed source from its endpoint on manual update ([b46634d](https://github.com/MorpheApp/morphe-manager/commit/b46634d7b185ae54d83ecfb6b22dbf89a36fe369))
+
 # [1.32.0](https://github.com/MorpheApp/morphe-manager/compare/v1.31.1...v1.32.0) (2026-09-24)
 
 

@@ -22,7 +22,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -777,8 +776,7 @@ private fun ApkManagementDialogContent(
 
     AppDialog(
         onDismissRequest = {
-            if (isExporting) return@AppDialog
-            if (isMultiSelectMode) { selection.clear(); isMultiSelectMode = false } else onDismissRequest()
+            if (!isExporting) onDismissRequest()
         },
         title = meta.title,
         titleTrailingContent = {
@@ -799,99 +797,102 @@ private fun ApkManagementDialogContent(
             )
         },
         footer = {
-            if (isMultiSelectMode) {
-                MultiSelectShell(visible = true) {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismissRequest,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        bottomBar = if (isMultiSelectMode) {
+            {
+                MultiSelectShell(
+                    visible = true,
+                    onBack = { selection.clear(); isMultiSelectMode = false }
+                ) {
+                    val installLabel = stringResource(
+                        selectedInstallableItems
+                            .map { it.installLabelRes }
+                            .distinct()
+                            .singleOrNull() ?: R.string.install
+                    )
+                    val shareLabel = stringResource(R.string.share)
+                    val exportLabel = stringResource(R.string.export)
+                    val uninstallLabel = stringResource(R.string.uninstall)
+                    val deleteLabel = stringResource(R.string.delete)
                     SelectionActionBar(
-                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
                         selectedCount = selectedItems.size,
                         // Scoped to the filtered list so "select all" never reaches hidden entries
                         totalCount = filteredItems.size,
                         subtitle = stringResource(
                             R.string.settings_system_apks_size,
-                            formatBytes(selectedTotalSize)
+                            context.formatBytes(selectedTotalSize)
                         ),
                         onSelectAll = { selection.setAll(filteredItems.map { it.selectionKey }) },
                         onDeselectAll = { selection.clear() },
-                        onCancel = { selection.clear(); isMultiSelectMode = false }
-                    ) {
-                        if (selectedFiles.isNotEmpty()) {
-                            val shareLabel = stringResource(R.string.share)
-                            ActionPillButton(
-                                onClick = {
-                                    scope.launch {
-                                        shareApkFiles(context, selectedFiles)
-                                    }
-                                },
-                                icon = Icons.Outlined.Share,
-                                contentDescription = shareLabel,
-                                tooltip = shareLabel
-                            )
+                        onCancel = { selection.clear(); isMultiSelectMode = false },
+                        actions = buildList {
+                            if (canInstallSelected) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.InstallMobile,
+                                        label = installLabel,
+                                        onClick = {
+                                            actions.onInstallSelected.invoke(selectedInstallableItems)
+                                            selection.clear()
+                                        },
+                                        tone = ActionTone.Primary
+                                    )
+                                )
+                            }
 
-                            val exportLabel = stringResource(R.string.export)
-                            ActionPillButton(
-                                onClick = {
-                                    zipExportItems = selectedItems
-                                    zipExportLauncher.launch(FilenameUtils.timestamped(meta.zipExportFileName))
-                                },
-                                icon = Icons.Outlined.Upload,
-                                contentDescription = exportLabel,
-                                tooltip = exportLabel
-                            )
-                        }
+                            if (selectedFiles.isNotEmpty()) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.Share,
+                                        label = shareLabel,
+                                        onClick = {
+                                            scope.launch {
+                                                shareApkFiles(context, selectedFiles)
+                                            }
+                                        }
+                                    )
+                                )
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.Upload,
+                                        label = exportLabel,
+                                        onClick = {
+                                            zipExportItems = selectedItems
+                                            zipExportLauncher.launch(FilenameUtils.timestamped(meta.zipExportFileName))
+                                        }
+                                    )
+                                )
+                            }
 
-                        if (canInstallSelected) {
-                            val installLabelRes = selectedInstallableItems
-                                .map { it.installLabelRes }
-                                .distinct()
-                                .singleOrNull() ?: R.string.install
-                            val installLabel = stringResource(installLabelRes)
-                            ActionPillButton(
-                                onClick = {
-                                    actions.onInstallSelected.invoke(selectedInstallableItems)
-                                    selection.clear()
-                                },
-                                icon = Icons.Outlined.InstallMobile,
-                                contentDescription = installLabel,
-                                tooltip = installLabel
-                            )
-                        }
+                            if (canUninstallSelected) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.DeleteForever,
+                                        label = uninstallLabel,
+                                        onClick = { showUninstallSelectedConfirmation = true },
+                                        tone = ActionTone.Destructive
+                                    )
+                                )
+                            }
 
-                        if (canUninstallSelected) {
-                            val uninstallLabel = stringResource(R.string.uninstall)
-                            ActionPillButton(
-                                onClick = { showUninstallSelectedConfirmation = true },
-                                icon = Icons.Outlined.DeleteForever,
-                                contentDescription = uninstallLabel,
-                                tooltip = uninstallLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
+                            add(
+                                SelectionAction(
+                                    icon = Icons.Outlined.Delete,
+                                    label = deleteLabel,
+                                    onClick = { showDeleteSelectedConfirmation = true },
+                                    tone = ActionTone.Destructive
                                 )
                             )
                         }
-
-                        val deleteLabel = stringResource(R.string.delete)
-                        ActionPillButton(
-                            onClick = { showDeleteSelectedConfirmation = true },
-                            icon = Icons.Outlined.Delete,
-                            contentDescription = deleteLabel,
-                            tooltip = deleteLabel,
-                            enabled = selectedItems.isNotEmpty(),
-                            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.errorContainer,
-                                contentColor = MaterialTheme.colorScheme.onErrorContainer
-                            )
-                        )
-                    }
+                    )
                 }
-            } else {
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismissRequest,
-                    modifier = Modifier.fillMaxWidth()
-                )
             }
-        },
+        } else null,
         scrollable = false,
         padding = DialogPadding.Compact,
         contentArrangement = Arrangement.Top,
@@ -956,7 +957,7 @@ private fun ApkManagementDialogContent(
                                 titleColor = meta.accentColor,
                                 subtitle = {
                                     AnimatedContent(
-                                        targetState = stringResource(R.string.settings_system_apks_size, formatBytes(meta.totalSize)),
+                                        targetState = stringResource(R.string.settings_system_apks_size, context.formatBytes(meta.totalSize)),
                                         transitionSpec = Animations.counterTransitionSpec,
                                         label = "heroSize"
                                     ) { sizeText ->
@@ -1148,7 +1149,7 @@ private fun ApkItemCard(
                                 text = stringResource(
                                     R.string.settings_system_apk_item_info,
                                     data.version,
-                                    formatBytes(data.fileSize)
+                                    LocalContext.current.formatBytes(data.fileSize)
                                 ),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = LocalDialogSecondaryTextColor.current
@@ -1206,10 +1207,7 @@ private fun ApkItemCard(
                                     icon = Icons.Outlined.DeleteForever,
                                     contentDescription = uninstallLabel,
                                     tooltip = uninstallLabel,
-                                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                    )
+                                    colors = ActionPillColors.destructive()
                                 )
                             } else if (onInstall != null) {
                                 val isMountType = data.installType == InstallType.MOUNT
@@ -1228,10 +1226,7 @@ private fun ApkItemCard(
                                 icon = Icons.Outlined.Delete,
                                 contentDescription = deleteLabel,
                                 tooltip = deleteLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
+                                colors = ActionPillColors.destructive()
                             )
                         }
                     }
@@ -1292,7 +1287,7 @@ private fun DeleteAllConfirmationDialog(
                 )
                 DeleteListItem(
                     icon = Icons.Outlined.Storage,
-                    text = stringResource(R.string.settings_system_apks_size, formatBytes(totalSize))
+                    text = stringResource(R.string.settings_system_apks_size, LocalContext.current.formatBytes(totalSize))
                 )
             }
         }

@@ -20,7 +20,20 @@ that ships with Morphe.
 
 - **Patches** - how many patches the source provides. **Details** lists them all.
 - **Version** - the version currently installed. **Details** opens its changelog.
+- **Apps** - how many apps the source brings, shown as `3/232` once some are unticked. Tapping
+  it opens the list described in [Choosing which apps a source brings](#choosing-which-apps-a-source-brings).
 - **Open in browser** - opens the source's repository or metadata URL.
+- **Report an issue** - opens the issue tracker of that source, so a broken patch is reported
+  to the people who wrote it rather than to Morphe.
+
+A card can also carry a badge explaining why the source is not pulling its weight:
+
+| Badge | What it means |
+| --- | --- |
+| **Metadata N/A** | The remote metadata could not be read. Patching with the bundle you already have still works, auto-update does not |
+| **Update Morphe** | The source needs a newer patcher than this build of Morphe carries |
+| **Crashed** | The source crashed Morphe while loading and is being skipped. Update or re-import it to try again |
+| **Blocked** | The source is on the block list and its patches are not used |
 
 ### The toggles
 
@@ -101,6 +114,26 @@ GitHub and GitLab repositories are accepted this way.
 Pick a `.mpp` patch bundle from storage. Local sources never update on their own, you replace
 the file yourself when a new one comes out.
 
+### Choosing which apps a source brings
+
+Some sources carry patches for hundreds of apps when you only want one or two. Turn on
+**Choose apps** before tapping **Add**, and once the source has loaded Morphe opens a list of
+every app it has patches for. The same switch is in the confirmation shown for a deep link or a
+`.mpp` file opened from a file manager, and the list is always one tap away from the **Apps**
+row on the source card.
+
+The list works like **Hidden apps**. Tap an app to leave it out of this source, and tap it again
+to bring it back. Long-press to pick several: the bar below selects all or none of what the
+search left, then **Leave out** or **Bring back** answers for all of them at once. To keep one
+app out of hundreds, long-press it, select all, tap it to drop it from the selection and tap
+**Leave out**.
+
+An app left out no longer comes from this source: the source is not offered when the app is
+patched, the same as unticking it in [Choosing sources per app](#choosing-sources-per-app). An
+app stays on the home screen while any source still brings it, and leaves once none does. It is
+not in the **Hidden apps** list then, since nothing hid it: bring it back here instead. An app
+you already patched keeps its card either way.
+
 ## Using more than one source
 
 Extra sources change how patching behaves:
@@ -109,6 +142,28 @@ Extra sources change how patching behaves:
   than one has patches for the app you tapped.
 - **Expert mode** gives each source its own tab on the patch selection screen. The action
   buttons there apply to the tab you are viewing.
+
+### Choosing sources per app
+
+A source that is on is offered to every app it has patches for. If you patch YouTube from one
+source and Reddit from another, you can say so per app instead of switching sources off
+globally.
+
+Long-press an app on the home screen, select as many as you like, and tap **Patch sources** in
+the bar. The dialog lists the sources that have patches for them, and unticking one stops it
+being offered to those apps. A source you untick keeps its patches and stays on everywhere
+else, and the patches it adds later never join a selection for these apps on their own.
+
+In Simple mode the **Select patch source** dialog offers the same thing in passing: tick
+**Always use this source for this app** and the sources you turned down stop being offered, so
+the dialog has nothing left to ask next time.
+
+Every app needs one source left to patch from, so the last one cannot be unticked here. To drop
+an app entirely, untick it in its source's app list instead.
+
+Expert mode does not hide the fact: a source kept from the app is missing from the tabs, and a
+notice above the list says how many. Tapping it shows them again for that run only, without
+changing the decision.
 
 > [!WARNING]
 > Enabling patches from several sources for the same app is possible but risky. They are

@@ -5,11 +5,17 @@
 
 package app.morphe.manager.ui.screen.patcher.game
 
+import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.view.HapticFeedbackConstants
+import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DirectionsRun
@@ -22,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -29,19 +36,40 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PreferencesManager
+import app.morphe.manager.ui.screen.patcher.PatcherCardPadding
 import app.morphe.manager.ui.screen.shared.GradientCircleIcon
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.screen.shared.SurfaceCard
 import app.morphe.manager.ui.screen.shared.Defaults
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-/** Available mini-games that can be played during patching. */
-enum class MiniGame {
-    GAME_2048,
-    FLAPPY,
-    SNAKE,
-    DINO
+/**
+ * Available mini-games that can be played during patching.
+ * Each entry carries what the picker needs to present it, so a new game is one entry
+ * here plus its state in [MiniGameState] and its canvas in [GameCanvasSlot].
+ */
+enum class MiniGame(
+    @StringRes val titleRes: Int,
+    @StringRes val subtitleRes: Int,
+    val icon: ImageVector
+) {
+    GAME_2048(R.string.mini_game_2048, R.string.mini_game_2048_picker_subtitle, Icons.Outlined.Grid4x4),
+    FLAPPY(R.string.mini_game_flappy, R.string.mini_game_flappy_picker_subtitle, Icons.Outlined.Air),
+    SNAKE(R.string.mini_game_snake, R.string.mini_game_snake_picker_subtitle, Icons.Outlined.Gesture),
+    DINO(
+        R.string.mini_game_dino,
+        R.string.mini_game_dino_picker_subtitle,
+        Icons.AutoMirrored.Outlined.DirectionsRun
+    ),
+    BLOCKS(R.string.mini_game_blocks, R.string.mini_game_blocks_picker_subtitle, Icons.Outlined.Dashboard),
+    BRICKS(R.string.mini_game_bricks, R.string.mini_game_bricks_picker_subtitle, Icons.Outlined.SportsTennis),
+    MINER(R.string.mini_game_miner, R.string.mini_game_miner_picker_subtitle, Icons.Outlined.Flag),
+    PAIRS(R.string.mini_game_pairs, R.string.mini_game_pairs_picker_subtitle, Icons.Outlined.Style)
 }
 
 /** Common state contract for all mini-games, exposes only what the shared UI layer needs. */
@@ -54,6 +82,9 @@ interface MiniGameStateBase {
 
     val isGameOver: Boolean
     val isPaused: Boolean
+
+    /** Moments of a round the player feels, played by [GameHapticsEffect]. */
+    val haptics: GameHaptics
 
     fun restart()
 
@@ -90,6 +121,38 @@ internal class GameScore(initialHighScore: Int, private val onHighScoreUpdated: 
     }
 }
 
+/** How strongly a moment of a round is felt. */
+enum class GameHaptic {
+    /** Something small went right: a pipe passed, a brick broken, a pair matched. */
+    Tick,
+
+    /** A milestone: lines cleared, a wave or a board finished. */
+    Reward
+}
+
+/**
+ * Moments a game marks for the player to feel.
+ *
+ * Kept apart from the score, which also moves on things too frequent to feel, such as every row
+ * of a soft drop in Blocks or every frame of the run in Dino.
+ */
+@Stable
+class GameHaptics {
+    private val _events = MutableSharedFlow<GameHaptic>(
+        extraBufferCapacity = 4,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+    val events: SharedFlow<GameHaptic> = _events.asSharedFlow()
+
+    fun tick() {
+        _events.tryEmit(GameHaptic.Tick)
+    }
+
+    fun reward() {
+        _events.tryEmit(GameHaptic.Reward)
+    }
+}
+
 /**
  * Holds the state for every available mini-game.
  * Add new game states here as new games are introduced.
@@ -112,28 +175,45 @@ class MiniGameState(prefs: PreferencesManager, scope: CoroutineScope) {
         initialHighScore = prefs.miniGameDinoHighScore.getBlocking(),
         onHighScoreUpdated = { scope.launch { prefs.miniGameDinoHighScore.update(it) } }
     )
+    val blocks = BlocksGameState(
+        initialHighScore = prefs.miniGameBlocksHighScore.getBlocking(),
+        onHighScoreUpdated = { scope.launch { prefs.miniGameBlocksHighScore.update(it) } }
+    )
+    val bricks = BricksGameState(
+        initialHighScore = prefs.miniGameBricksHighScore.getBlocking(),
+        onHighScoreUpdated = { scope.launch { prefs.miniGameBricksHighScore.update(it) } }
+    )
+    val miner = MinerGameState(
+        initialHighScore = prefs.miniGameMinerHighScore.getBlocking(),
+        onHighScoreUpdated = { scope.launch { prefs.miniGameMinerHighScore.update(it) } }
+    )
+    val pairs = PairsGameState(
+        initialHighScore = prefs.miniGamePairsHighScore.getBlocking(),
+        onHighScoreUpdated = { scope.launch { prefs.miniGamePairsHighScore.update(it) } }
+    )
     var selectedGame by mutableStateOf<MiniGame?>(null)
+
+    /** State backing [game], which is the one place a new game has to be wired in. */
+    fun stateOf(game: MiniGame): MiniGameStateBase = when (game) {
+        MiniGame.GAME_2048 -> game2048
+        MiniGame.FLAPPY -> flappy
+        MiniGame.SNAKE -> snake
+        MiniGame.DINO -> dino
+        MiniGame.BLOCKS -> blocks
+        MiniGame.BRICKS -> bricks
+        MiniGame.MINER -> miner
+        MiniGame.PAIRS -> pairs
+    }
 
     /** Restarts and selects [game], replacing any currently active game. */
     fun selectGame(game: MiniGame) {
-        when (game) {
-            MiniGame.GAME_2048 -> game2048.restart()
-            MiniGame.FLAPPY -> flappy.restart()
-            MiniGame.SNAKE -> snake.restart()
-            MiniGame.DINO -> dino.restart()
-        }
+        stateOf(game).restart()
         selectedGame = game
     }
 
     /** State of the game on screen, or null while the picker is showing. */
     private val activeState: MiniGameStateBase?
-        get() = when (selectedGame) {
-            MiniGame.GAME_2048 -> game2048
-            MiniGame.FLAPPY -> flappy
-            MiniGame.SNAKE -> snake
-            MiniGame.DINO -> dino
-            null -> null
-        }
+        get() = selectedGame?.let(::stateOf)
 
     /**
      * True while a round is being played, which a finished patch run waits for instead of
@@ -181,6 +261,11 @@ internal fun GameChip(
     }
 }
 
+// Cards keep a readable width and the column count follows the space available, so the
+// picker stays two-up on a phone and fills the row on a tablet or in landscape
+private val GamePickerMinCardWidth = 150.dp
+private val GamePickerCardHeight = 140.dp
+
 /**
  * Game selection screen shown when no game is active yet.
  */
@@ -189,46 +274,20 @@ internal fun GamePickerContent(
     onSelect: (MiniGame) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(GamePickerMinCardWidth),
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        contentPadding = PaddingValues(PatcherCardPadding),
+        horizontalArrangement = Arrangement.spacedBy(PatcherCardPadding),
+        verticalArrangement = Arrangement.spacedBy(PatcherCardPadding)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().weight(1f),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+        items(MiniGame.entries, key = { it.name }) { game ->
             GamePickerGridCard(
-                icon = Icons.Outlined.Grid4x4,
-                title = stringResource(R.string.mini_game_2048),
-                subtitle = stringResource(R.string.mini_game_2048_picker_subtitle),
-                onClick = { onSelect(MiniGame.GAME_2048) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            )
-            GamePickerGridCard(
-                icon = Icons.Outlined.Air,
-                title = stringResource(R.string.mini_game_flappy),
-                subtitle = stringResource(R.string.mini_game_flappy_picker_subtitle),
-                onClick = { onSelect(MiniGame.FLAPPY) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth().weight(1f),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            GamePickerGridCard(
-                icon = Icons.Outlined.Gesture,
-                title = stringResource(R.string.mini_game_snake),
-                subtitle = stringResource(R.string.mini_game_snake_picker_subtitle),
-                onClick = { onSelect(MiniGame.SNAKE) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            )
-            GamePickerGridCard(
-                icon = Icons.AutoMirrored.Outlined.DirectionsRun,
-                title = stringResource(R.string.mini_game_dino),
-                subtitle = stringResource(R.string.mini_game_dino_picker_subtitle),
-                onClick = { onSelect(MiniGame.DINO) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
+                icon = game.icon,
+                title = stringResource(game.titleRes),
+                subtitle = stringResource(game.subtitleRes),
+                onClick = { onSelect(game) },
+                modifier = Modifier.height(GamePickerCardHeight)
             )
         }
     }
@@ -244,15 +303,18 @@ private fun GamePickerGridCard(
 ) {
     SurfaceCard(
         onClick = onClick,
-        cornerRadius = Defaults.SectionCornerRadius,
+        cornerRadius = Defaults.CompactCornerRadius,
+        borderWidth = 1.dp,
         modifier = modifier
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(8.dp),
+                .padding(PatcherCardPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            // Anchored to the top rather than centered, so the icons line up across a row
+            // whether a card's subtitle takes one line or two
+            verticalArrangement = Arrangement.Top
         ) {
             GradientCircleIcon(icon = icon, size = 44.dp, iconSize = 24.dp)
             Spacer(Modifier.height(10.dp))
@@ -292,19 +354,14 @@ internal fun MiniGameContent(
         when (selected) {
             null -> GamePickerContent(
                 onSelect = { state.selectGame(it) },
-                modifier = Modifier.fillMaxSize().padding(16.dp)
+                modifier = Modifier.fillMaxSize()
             )
             else -> {
-                val activeState: MiniGameStateBase = when (selected) {
-                    MiniGame.GAME_2048 -> state.game2048
-                    MiniGame.FLAPPY -> state.flappy
-                    MiniGame.SNAKE -> state.snake
-                    MiniGame.DINO -> state.dino
-                }
+                val activeState = state.stateOf(selected)
                 Column(
-                    modifier = Modifier.fillMaxSize().padding(8.dp),
+                    modifier = Modifier.fillMaxSize().padding(PatcherCardPadding),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(PatcherCardPadding)
                 ) {
                     GameScoreRow(
                         score = activeState.score,
@@ -325,7 +382,7 @@ internal fun MiniGameContent(
                             ) {
                                 GameCanvasSlot(selected = selected, state = state)
 
-                                GameOverHaptic { activeState.isGameOver }
+                                GameHapticsEffect(activeState)
 
                                 if (activeState.isGameOver) {
                                     GameOverOverlay(
@@ -357,6 +414,10 @@ private fun GameCanvasSlot(selected: MiniGame, state: MiniGameState) {
         MiniGame.FLAPPY -> FlappyBirdGame(state = state.flappy)
         MiniGame.SNAKE -> SnakeGame(state = state.snake)
         MiniGame.DINO -> DinoGame(state = state.dino)
+        MiniGame.BLOCKS -> BlocksGame(state = state.blocks)
+        MiniGame.BRICKS -> BricksGame(state = state.bricks)
+        MiniGame.MINER -> MinerGame(state = state.miner)
+        MiniGame.PAIRS -> PairsGame(state = state.pairs)
     }
 }
 
@@ -484,9 +545,32 @@ internal fun GamePauseOverlay(onResume: () -> Unit, modifier: Modifier = Modifie
     }
 }
 
+/**
+ * Plays the haptics of the game on screen. Its own moments go through the view, so they follow
+ * the system touch feedback setting like any other tap, and a lost round ends on a double buzz.
+ */
+@Composable
+internal fun GameHapticsEffect(state: MiniGameStateBase) {
+    val view = LocalView.current
+    LaunchedEffect(state) {
+        state.haptics.events.collect { haptic ->
+            view.performHapticFeedback(
+                when (haptic) {
+                    GameHaptic.Tick -> HapticFeedbackConstants.CLOCK_TICK
+                    GameHaptic.Reward ->
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) HapticFeedbackConstants.CONFIRM
+                        else HapticFeedbackConstants.CONTEXT_CLICK
+                }
+            )
+        }
+    }
+
+    GameOverHaptic(isGameOver = { state.isGameOver })
+}
+
 /** Fires a double-buzz haptic pattern once when [isGameOver] transitions to `true`. */
 @Composable
-internal fun GameOverHaptic(isGameOver: () -> Boolean) {
+private fun GameOverHaptic(isGameOver: () -> Boolean) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         var seenFalse = false

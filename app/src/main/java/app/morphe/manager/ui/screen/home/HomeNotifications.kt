@@ -26,10 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import app.morphe.manager.domain.batch.BatchRunState
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.screen.shared.CardBorder
 import app.morphe.manager.ui.screen.shared.ThemedIcon
 import app.morphe.manager.ui.viewmodel.BundleUpdateStatus
+import app.morphe.manager.util.formatMegabytes
 
 /** Visibility flag paired with the tap callback for a single [AlertSnackbar] slot. */
 @Immutable
@@ -41,6 +44,10 @@ data class AlertState(val visible: Boolean, val onShow: () -> Unit)
  */
 @Immutable
 data class RepatchAlertState(val count: Int, val visible: Boolean, val onShow: () -> Unit)
+
+/** The batch queue while it patches or holds results nobody closed yet, and the tap back to it. */
+@Immutable
+data class BatchQueueAlertState(val run: BatchRunState?, val onShow: () -> Unit)
 
 /** Transient state driving the bundle-update progress snackbar. */
 @Immutable
@@ -55,10 +62,12 @@ data class BundleUpdateState(
 data class HomeNotificationsUi(
     val managerUpdate: AlertState,
     val outdatedManager: AlertState,
+    val heldBackSources: AlertState,
     val blockedSources: AlertState,
     val metadataErrors: AlertState,
     val meteredSkipped: AlertState,
     val repatchAvailable: RepatchAlertState,
+    val batchQueue: BatchQueueAlertState,
     val bundleUpdate: BundleUpdateState
 )
 
@@ -88,6 +97,18 @@ fun NotificationsOverlay(
                 subtitle = stringResource(R.string.home_blocked_source_subtitle),
                 onShowDetails = notifications.blockedSources.onShow,
                 swipeEnabled = false,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // The one alert raised by something that already went wrong rather than something
+            // that might, so it sits above the rest
+            AlertSnackbar(
+                visible = notifications.heldBackSources.visible,
+                level = AlertLevel.Error,
+                icon = Icons.Outlined.ErrorOutline,
+                title = stringResource(R.string.home_held_back_title),
+                subtitle = stringResource(R.string.home_held_back_subtitle),
+                onShowDetails = notifications.heldBackSources.onShow,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -132,11 +153,54 @@ fun NotificationsOverlay(
                 modifier = Modifier.fillMaxWidth()
             )
 
+            val batchRun = notifications.batchQueue.run
+            val batchRunning = batchRun?.isActive == true
+            val batchFinished = batchRun?.hasOutcome == true
+
+            // Once its screen is gone this is the only way back to a running queue, which holds
+            // single-app patching back meanwhile, so it cannot be swiped away
+            AlertSnackbar(
+                visible = batchRunning,
+                level = AlertLevel.Info,
+                icon = Icons.Outlined.AutoFixHigh,
+                loading = true,
+                title = stringResource(R.string.batch_patch_title),
+                subtitle = stringResource(
+                    R.string.batch_patch_progress_counter,
+                    (batchRun?.processed ?: 0).toString(),
+                    (batchRun?.total ?: 0).toString()
+                ),
+                onShowDetails = notifications.batchQueue.onShow,
+                swipeEnabled = false,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // The patched APKs of a finished run are only installable from its summary
+            val batchSucceeded = (batchRun?.succeeded ?: 0) > 0
+            AlertSnackbar(
+                visible = batchFinished,
+                level = if (batchSucceeded) AlertLevel.Success else AlertLevel.Error,
+                icon = if (batchSucceeded) Icons.Outlined.CheckCircle else Icons.Outlined.ErrorOutline,
+                title = stringResource(
+                    if (batchSucceeded) R.string.patcher_complete_title else R.string.patcher_failed_title
+                ),
+                subtitle = stringResource(
+                    R.string.batch_patch_summary,
+                    (batchRun?.succeeded ?: 0).toString(),
+                    (batchRun?.failed ?: 0).toString(),
+                    (batchRun?.skipped ?: 0).toString()
+                ),
+                onShowDetails = notifications.batchQueue.onShow,
+                modifier = Modifier.fillMaxWidth()
+            )
+
             // The badges on the cards say the same thing one app at a time. This says it once
-            // and queues every one of them, which is the part that is otherwise several taps
+            // and queues every one of them, which is the part that is otherwise several taps.
+            // While a queue is patching or awaiting review, its own alert stands in for this one
             AlertSnackbar(
                 visible = notifications.repatchAvailable.visible &&
-                        notifications.repatchAvailable.count > 0,
+                        notifications.repatchAvailable.count > 0 &&
+                        !batchRunning && !batchFinished,
                 level = AlertLevel.Info,
                 icon = Icons.Outlined.AutoFixHigh,
                 title = pluralStringResource(
@@ -187,6 +251,8 @@ private fun alertColorsFor(level: AlertLevel): AlertColorPair = when (level) {
 /**
  * Dismissible card-style alert used for the home-screen notification strip. Swipe-dismiss clears
  * the alert for the current session; it reappears next launch while [visible] stays true.
+ *
+ * @param loading Shows a spinner in place of [icon], for work that is still in progress.
  */
 @Composable
 fun AlertSnackbar(
@@ -197,7 +263,8 @@ fun AlertSnackbar(
     subtitle: String,
     onShowDetails: () -> Unit,
     modifier: Modifier = Modifier,
-    swipeEnabled: Boolean = true
+    swipeEnabled: Boolean = true,
+    loading: Boolean = false
 ) {
     val colors = alertColorsFor(level)
     val dismissed = remember { mutableStateOf(false) }
@@ -231,7 +298,8 @@ fun AlertSnackbar(
                 onClick = onShowDetails,
                 colors = CardDefaults.cardColors(containerColor = colors.container),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(16.dp),
+                border = CardBorder.tinted(colors.content)
             ) {
                 Row(
                     modifier = Modifier
@@ -240,7 +308,11 @@ fun AlertSnackbar(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    ThemedIcon(icon = icon, tint = colors.content)
+                    if (loading) {
+                        AlertSpinner(color = colors.content)
+                    } else {
+                        ThemedIcon(icon = icon, tint = colors.content)
+                    }
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
@@ -259,6 +331,16 @@ fun AlertSnackbar(
             }
         }
     }
+}
+
+/** Stands in for an alert's icon while the work it reports on is still running. */
+@Composable
+private fun AlertSpinner(color: Color) {
+    CircularProgressIndicator(
+        modifier = Modifier.size(24.dp),
+        strokeWidth = 2.5.dp,
+        color = color
+    )
 }
 
 /**
@@ -354,7 +436,8 @@ private fun BundleUpdateSnackbarContent(
             .padding(horizontal = 16.dp),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        border = CardBorder.tinted(contentColor)
     ) {
         Column {
             Row(
@@ -379,11 +462,7 @@ private fun BundleUpdateSnackbarContent(
                             icon = Icons.Outlined.Warning,
                             tint = contentColor
                         )
-                        BundleUpdateStatus.Updating -> CircularProgressIndicator(
-                            modifier = Modifier.size(24.dp),
-                            strokeWidth = 2.5.dp,
-                            color = contentColor
-                        )
+                        BundleUpdateStatus.Updating -> AlertSpinner(color = contentColor)
                     }
                 }
 
@@ -414,8 +493,8 @@ private fun BundleUpdateSnackbarContent(
                     }
 
                     if (status == BundleUpdateStatus.Updating && progress != null) {
-                        val totalMb = (progress.bytesTotal ?: 0L).toFloat() / (1024 * 1024)
-                        val readMb = progress.bytesRead.toFloat() / (1024 * 1024)
+                        val totalMb = formatMegabytes(progress.bytesTotal ?: 0L)
+                        val readMb = formatMegabytes(progress.bytesRead)
                         val percent = (downloadFraction * 100).toInt()
                         val (subtitleKey, subtitle) = when {
                             progress.total > 1 && isDownloading -> 1 to stringResource(
@@ -427,7 +506,7 @@ private fun BundleUpdateSnackbarContent(
                                 progress.completed, progress.total
                             )
                             isDownloading -> 3 to stringResource(
-                                R.string.home_update_download_progress,
+                                R.string.download_progress,
                                 readMb, totalMb, percent.toString()
                             )
                             progress.currentBundleName != null -> 4 to progress.currentBundleName

@@ -250,6 +250,13 @@ internal fun PatchOptionsDialog(
                     }
                 }
 
+                // The patcher rejects a Long where an Int is declared, so the text is read as the
+                // option's own type. A cleared field drops the value back to the patch default
+                fun onNumberInput(text: String) {
+                    if (text.isBlank()) return onValueChange(key, null)
+                    coerceOptionValue(option.type, text)?.let { onValueChange(key, it) }
+                }
+
                 when (val kind = resolveOptionKind(option, value)) {
                     OptionKind.StringList -> ListStringInputOption(
                         title = option.title,
@@ -381,7 +388,7 @@ internal fun PatchOptionsDialog(
                         value = (value as? Number)?.toLong()?.toString() ?: "",
                         required = option.required,
                         keyboardType = KeyboardType.Number,
-                        onValueChange = { it.toLongOrNull()?.let { num -> onValueChange(key, num) } }
+                        onValueChange = ::onNumberInput
                     )
 
                     OptionKind.FloatDouble -> TextInputOption(
@@ -390,7 +397,7 @@ internal fun PatchOptionsDialog(
                         value = (value as? Number)?.toFloat()?.toString() ?: "",
                         required = option.required,
                         keyboardType = KeyboardType.Decimal,
-                        onValueChange = { it.toFloatOrNull()?.let { num -> onValueChange(key, num) } }
+                        onValueChange = ::onNumberInput
                     )
 
                     OptionKind.ArrayDropdown -> DropdownOptionItem(
@@ -714,7 +721,7 @@ private fun PathInputOption(
                 Text(if (required) "$title *" else title)
             },
             placeholder = {
-                Text("/storage/emulated/0/folder")
+                Text("/storage/emulated/0/folder", maxLines = 1, overflow = TextOverflow.Ellipsis)
             },
             isError = isInvalid,
             showClearButton = true,
@@ -807,7 +814,7 @@ private fun FilePathInputOption(
             value = value,
             onValueChange = onValueChange,
             label = { Text(if (required) "$title *" else title) },
-            placeholder = { Text("/storage/emulated/0/file") },
+            placeholder = { Text("/storage/emulated/0/file", maxLines = 1, overflow = TextOverflow.Ellipsis) },
             isError = isInvalid,
             showClearButton = true,
             onFilePickerClick = { filePicker() }
@@ -870,7 +877,7 @@ private fun PathWithPresetsOption(
             dropdownItems = dropdownItems,
             label = if (required) ({ Text("$title *") }) else null,
             placeholder = {
-                Text("/storage/emulated/0/folder")
+                Text("/storage/emulated/0/folder", maxLines = 1, overflow = TextOverflow.Ellipsis)
             },
             showClearButton = true,
             onFolderPickerClick = { folderPicker() }
@@ -1270,50 +1277,6 @@ private fun ListStringItemRow(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun DropdownOptionItem(
-    title: String,
-    description: String,
-    value: String,
-    presets: Map<String, Any?>,
-    onValueChange: (Any?) -> Unit
-) {
-    // Convert presets to String map for dropdown: display name -> value as string
-    val dropdownItems = presets.mapValues { it.value?.toString() ?: "" }
-
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = LocalDialogTextColor.current
-            )
-            if (description.isNotBlank()) {
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-        }
-
-        AppDialogDropdownTextField(
-            value = value,
-            onValueChange = { newValue ->
-                // Try to find the actual value from presets by matching the string representation
-                val actualValue = presets.entries.find { it.value?.toString() == newValue }?.value
-                    ?: newValue
-                onValueChange(actualValue)
-            },
-            dropdownItems = dropdownItems
-        )
     }
 }
 

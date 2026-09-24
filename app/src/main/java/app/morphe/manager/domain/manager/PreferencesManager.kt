@@ -4,14 +4,15 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import app.morphe.manager.BuildConfig
 import app.morphe.manager.domain.manager.base.BasePreferencesManager
 import app.morphe.manager.domain.manager.base.IntPreference
 import app.morphe.manager.domain.manager.base.LongPreference
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
-import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_MAX_LIMIT_INITIALIZATION
 import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_NOT_SET
-import app.morphe.manager.patcher.runtime.calculateAdaptiveMemoryLimit
+import app.morphe.manager.patcher.runtime.coerceMemoryLimit
+import app.morphe.manager.patcher.runtime.initialMemoryLimit
 import app.morphe.manager.ui.screen.shared.BackgroundType
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
@@ -19,17 +20,32 @@ import app.morphe.manager.ui.theme.UI_SCALE_DEFAULT
 import app.morphe.manager.ui.theme.coerceToUiScale
 import app.morphe.manager.ui.viewmodel.BundleSnapshot
 import app.morphe.manager.ui.viewmodel.RandomInterval
+import app.morphe.manager.util.ApkDownloadHelperContract
 import app.morphe.manager.util.AppCardColorMode
 import app.morphe.manager.util.isArmV7
 import app.morphe.manager.util.tag
 import app.morphe.manager.worker.UpdateCheckInterval
-import app.morphe.patcher.dex.BytecodeMode
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 
+/**
+ * Parts of the manager settings a backup can carry or leave out. Each setting belongs to exactly
+ * one, as [PreferencesManager.SettingsSnapshot.restrictedTo] spells out.
+ */
+enum class SettingsSection {
+    APPEARANCE,
+    HOME,
+    PATCHING,
+    UPDATES,
+    SOURCES,
+
+    /** Chosen patches and their options, carried next to the snapshot rather than in it. */
+    PATCH_SELECTIONS
+}
+
 class PreferencesManager(
-    context: Context
+    private val context: Context
 ) : BasePreferencesManager(context, "settings") {
 
     // Appearance tab
@@ -91,27 +107,29 @@ class PreferencesManager(
 
     val stripUnusedNativeLibs = booleanPreference("strip_unused_native_libs", false)
 
-    /** Bytecode processing mode for the patcher. Defaults to [BytecodeMode.STRIP_FAST]. */
-    val bytecodeModePreference = enumPreference(
-        "bytecode_mode",
-        BytecodeMode.STRIP_FAST
-    )
-
     // System tab
     val installerPrimary = stringPreference("installer_primary", InstallerPreferenceTokens.INTERNAL)
     val promptInstallerOnInstall = booleanPreference("prompt_installer_on_install", false)
     val installerCustomComponents = stringSetPreference("installer_custom_components", emptySet())
     val installerHiddenComponents = stringSetPreference("installer_hidden_components", emptySet())
-    val autoInstallWithShizuku = booleanPreference("auto_install_with_shizuku", false)
+
+    /** Installs the patched APK as soon as patching completes. */
+    val autoInstallAfterPatching = booleanPreference(
+        "auto_install_with_shizuku", // Old key from when Shizuku was the only installer that could
+        false
+    )
     val autoUninstallWithShizuku = booleanPreference("auto_uninstall_with_shizuku", false)
 
     val useProcessRuntime = booleanPreference(
         "process_runtime", // Old key was 'use_process_runtime' and may have the wrong default for some devices.
         // Process runtime fails for Android 10 and lower.
-        // Armv7 silently fails and nobody has researched why.
+        // ARMv7 silently fails and nobody has researched why.
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !isArmV7()
     )
     val patcherProcessMemoryLimit = IntPreference(dataStore, "use_process_runtime_memory_limit", PROCESS_RUNTIME_MEMORY_NOT_SET)
+
+    /** Whether the last patcher process came up without the heap limit it asked for. Tied to the device, so never exported. */
+    val patcherHeapLimitIgnored = booleanPreference("patcher_heap_limit_ignored", false)
 
     val keystoreAlias = stringPreference("keystore_alias", KeystoreManager.DEFAULT)
     val keystorePass = stringPreference("keystore_pass", KeystoreManager.DEFAULT)
@@ -129,8 +147,8 @@ class PreferencesManager(
 
     val useCustomFilePicker = booleanPreference("use_custom_file_picker", false)
 
-    /** Whether an installed third-party APK download helper may be offered. */
-    val useApkDownloadHelper = booleanPreference("use_apk_download_helper", false)
+    /** Packages of the third-party APK download helpers the user trusts to be offered. */
+    val trustedApkDownloadHelpers = stringSetPreference("trusted_apk_download_helpers", emptySet())
 
     val lastFilePickerPath = stringPreference("last_file_picker_path", "")
     val filePickerSortMode = stringPreference("file_picker_sort_mode", "NAME_ASC")
@@ -161,10 +179,14 @@ class PreferencesManager(
     val customFilePickerUserConfigured = booleanPreference("custom_file_picker_user_configured", false)
 
     // Mini-game high scores
-    val miniGame2048HighScore  = intPreference("mini_game_2048_high_score", 0)
+    val miniGame2048HighScore   = intPreference("mini_game_2048_high_score", 0)
     val miniGameFlappyHighScore = intPreference("mini_game_flappy_high_score", 0)
     val miniGameSnakeHighScore  = intPreference("mini_game_snake_high_score", 0)
     val miniGameDinoHighScore   = intPreference("mini_game_dino_high_score", 0)
+    val miniGameBlocksHighScore = intPreference("mini_game_blocks_high_score", 0)
+    val miniGameBricksHighScore = intPreference("mini_game_bricks_high_score", 0)
+    val miniGameMinerHighScore  = intPreference("mini_game_miner_high_score", 0)
+    val miniGamePairsHighScore  = intPreference("mini_game_pairs_high_score", 0)
 
     /** Set once the user has found the way back to a mini-game, which retires the hint for it. */
     val backToGameHintSeen = booleanPreference("back_to_game_hint_seen", false)
@@ -182,9 +204,7 @@ class PreferencesManager(
 
             // Initialize process memory limit adaptively on first launch
             if (patcherProcessMemoryLimit.get() == PROCESS_RUNTIME_MEMORY_NOT_SET) {
-                val adaptive = calculateAdaptiveMemoryLimit(context).coerceAtMost(
-                    PROCESS_RUNTIME_MEMORY_MAX_LIMIT_INITIALIZATION
-                )
+                val adaptive = initialMemoryLimit(context)
                 Log.d(tag, "Initializing process memory limit to $adaptive MB (device RAM-based)")
                 patcherProcessMemoryLimit.update(adaptive)
             }
@@ -198,6 +218,13 @@ class PreferencesManager(
                     themeStyle.update(ThemeStyle.MATERIAL_YOU)
                 }
                 themeStyleMigrated.update(true)
+            }
+
+            // Helpers used to share a single switch; whoever had it on keeps every helper it let in
+            val legacyHelperKey = booleanPreferencesKey("use_apk_download_helper")
+            dataStore.data.first()[legacyHelperKey]?.let { legacyEnabled ->
+                if (legacyEnabled) trustedApkDownloadHelpers.update(installedApkDownloadHelpers())
+                dataStore.edit { it.remove(legacyHelperKey) }
             }
 
             // Auto-enable prereleases for dev versions
@@ -253,12 +280,13 @@ class PreferencesManager(
         val externalBatchPatchEnabled: Boolean? = null,
         val externalBatchPatchAllowlist: Set<String>? = null,
         val customBundles: List<BundleSnapshot>? = null,
-        val bytecodeModePreference: BytecodeMode? = null,
         val filePickerSortMode: String? = null,
         val filePickerShowHiddenFiles: Boolean? = null,
         val useCustomFilePicker: Boolean? = null,
         val customFilePickerUserConfigured: Boolean? = null,
+        /** Legacy all-or-nothing helper switch, read only from older exports. */
         val useApkDownloadHelper: Boolean? = null,
+        val trustedApkDownloadHelpers: Set<String>? = null,
         val sourceBundleSortMode: String? = null,
         val saveOriginalApks: Boolean? = null,
         val savePatchedApks: Boolean? = null,
@@ -266,7 +294,74 @@ class PreferencesManager(
         val patcherSuccessSoundUri: String? = null,
         val patcherErrorSoundUri: String? = null,
         val homeAppButtons: HomeAppButtonSnapshot? = null
-    )
+    ) {
+        /**
+         * This snapshot with only the settings of [sections] left in it. Import skips whatever is
+         * null, so the same cut serves an export that leaves a section out and an import that
+         * declines one the file carries.
+         */
+        fun restrictedTo(sections: Set<SettingsSection>): SettingsSnapshot {
+            val appearance = SettingsSection.APPEARANCE in sections
+            val home = SettingsSection.HOME in sections
+            val patching = SettingsSection.PATCHING in sections
+            val updates = SettingsSection.UPDATES in sections
+            val sources = SettingsSection.SOURCES in sections
+            return SettingsSnapshot(
+                dynamicColor = dynamicColor.takeIf { appearance },
+                pureBlackTheme = pureBlackTheme.takeIf { appearance },
+                customAccentColor = customAccentColor.takeIf { appearance },
+                customThemeColor = customThemeColor.takeIf { appearance },
+                appCardColorMode = appCardColorMode.takeIf { appearance },
+                customAppCardColors = customAppCardColors.takeIf { appearance },
+                stripUnusedNativeLibs = stripUnusedNativeLibs.takeIf { patching },
+                theme = theme.takeIf { appearance },
+                themeStyle = themeStyle.takeIf { appearance },
+                uiScale = uiScale.takeIf { appearance },
+                appLanguage = appLanguage.takeIf { appearance },
+                gitHubPat = gitHubPat.takeIf { sources },
+                includeGitHubPatInExports = includeGitHubPatInExports.takeIf { sources },
+                useProcessRuntime = useProcessRuntime.takeIf { patching },
+                patcherProcessMemoryLimit = patcherProcessMemoryLimit.takeIf { patching },
+                allowMeteredUpdates = allowMeteredUpdates.takeIf { updates },
+                installerPrimary = installerPrimary.takeIf { patching },
+                installerCustomComponents = installerCustomComponents.takeIf { patching },
+                installerHiddenComponents = installerHiddenComponents.takeIf { patching },
+                keystoreAlias = keystoreAlias.takeIf { patching },
+                keystorePass = keystorePass.takeIf { patching },
+                keystorePassword = keystorePassword.takeIf { patching },
+                firstLaunch = firstLaunch.takeIf { home },
+                useManagerPrereleases = useManagerPrereleases.takeIf { updates },
+                officialBundlePrerelease = officialBundlePrerelease.takeIf { sources },
+                officialBundleExperimentalVersions = officialBundleExperimentalVersions.takeIf { sources },
+                bundlePrereleasesEnabled = bundlePrereleasesEnabled.takeIf { sources },
+                bundleExperimentalVersionsEnabled = bundleExperimentalVersionsEnabled.takeIf { sources },
+                disablePatchVersionCompatCheck = disablePatchVersionCompatCheck.takeIf { patching },
+                showGreetingPhrases = showGreetingPhrases.takeIf { home },
+                showRepatchNotice = showRepatchNotice.takeIf { home },
+                backgroundType = backgroundType.takeIf { appearance },
+                randomBackgroundInterval = randomBackgroundInterval.takeIf { appearance },
+                matrixBackgroundUnlocked = matrixBackgroundUnlocked.takeIf { appearance },
+                useExpertMode = useExpertMode.takeIf { patching },
+                updateCheckInterval = updateCheckInterval.takeIf { updates },
+                externalBatchPatchEnabled = externalBatchPatchEnabled.takeIf { patching },
+                externalBatchPatchAllowlist = externalBatchPatchAllowlist.takeIf { patching },
+                customBundles = customBundles.takeIf { sources },
+                filePickerSortMode = filePickerSortMode.takeIf { patching },
+                filePickerShowHiddenFiles = filePickerShowHiddenFiles.takeIf { patching },
+                useCustomFilePicker = useCustomFilePicker.takeIf { patching },
+                customFilePickerUserConfigured = customFilePickerUserConfigured.takeIf { patching },
+                useApkDownloadHelper = useApkDownloadHelper.takeIf { patching },
+                trustedApkDownloadHelpers = trustedApkDownloadHelpers.takeIf { patching },
+                sourceBundleSortMode = sourceBundleSortMode.takeIf { sources },
+                saveOriginalApks = saveOriginalApks.takeIf { patching },
+                savePatchedApks = savePatchedApks.takeIf { patching },
+                patcherCompletionSound = patcherCompletionSound.takeIf { patching },
+                patcherSuccessSoundUri = patcherSuccessSoundUri.takeIf { patching },
+                patcherErrorSoundUri = patcherErrorSoundUri.takeIf { patching },
+                homeAppButtons = homeAppButtons.takeIf { home }
+            )
+        }
+    }
 
     suspend fun exportSettings() = SettingsSnapshot(
         dynamicColor = themeStyle.get() == ThemeStyle.MATERIAL_YOU,
@@ -305,12 +400,11 @@ class PreferencesManager(
         updateCheckInterval = updateCheckInterval.get(),
         externalBatchPatchEnabled = externalBatchPatchEnabled.get(),
         externalBatchPatchAllowlist = externalBatchPatchAllowlist.get(),
-        bytecodeModePreference = bytecodeModePreference.get(),
         filePickerSortMode = filePickerSortMode.get(),
         filePickerShowHiddenFiles = filePickerShowHiddenFiles.get(),
         useCustomFilePicker = useCustomFilePicker.get(),
         customFilePickerUserConfigured = customFilePickerUserConfigured.get(),
-        useApkDownloadHelper = useApkDownloadHelper.get(),
+        trustedApkDownloadHelpers = trustedApkDownloadHelpers.get(),
         sourceBundleSortMode = sourceBundleSortMode.get(),
         saveOriginalApks = saveOriginalApks.get(),
         savePatchedApks = savePatchedApks.get(),
@@ -338,7 +432,10 @@ class PreferencesManager(
         snapshot.gitHubPat?.let { gitHubPat.value = it }
         snapshot.includeGitHubPatInExports?.let { includeGitHubPatInExports.value = it }
         snapshot.useProcessRuntime?.let { useProcessRuntime.value = it }
-        snapshot.patcherProcessMemoryLimit?.let { patcherProcessMemoryLimit.value = it }
+        // Clamped rather than taken as-is, so a limit exported from a roomier device still fits
+        snapshot.patcherProcessMemoryLimit?.let {
+            patcherProcessMemoryLimit.value = coerceMemoryLimit(context, it)
+        }
         snapshot.allowMeteredUpdates?.let { allowMeteredUpdates.value = it }
         snapshot.installerPrimary?.let { installerPrimary.value = it }
         snapshot.installerCustomComponents?.let { installerCustomComponents.value = it }
@@ -375,12 +472,16 @@ class PreferencesManager(
         snapshot.updateCheckInterval?.let { updateCheckInterval.value = it }
         snapshot.externalBatchPatchEnabled?.let { externalBatchPatchEnabled.value = it }
         snapshot.externalBatchPatchAllowlist?.let { externalBatchPatchAllowlist.value = it }
-        snapshot.bytecodeModePreference?.let { bytecodeModePreference.value = it }
         snapshot.filePickerSortMode?.let { filePickerSortMode.value = it }
         snapshot.filePickerShowHiddenFiles?.let { filePickerShowHiddenFiles.value = it }
         snapshot.useCustomFilePicker?.let { useCustomFilePicker.value = it }
         snapshot.customFilePickerUserConfigured?.let { customFilePickerUserConfigured.value = it }
-        snapshot.useApkDownloadHelper?.let { useApkDownloadHelper.value = it }
+        snapshot.trustedApkDownloadHelpers?.let { trustedApkDownloadHelpers.value = it }
+            ?: run {
+                if (snapshot.useApkDownloadHelper == true) {
+                    trustedApkDownloadHelpers.value = installedApkDownloadHelpers()
+                }
+            }
         snapshot.sourceBundleSortMode?.let { sourceBundleSortMode.value = it }
         snapshot.saveOriginalApks?.let { saveOriginalApks.value = it }
         snapshot.savePatchedApks?.let { savePatchedApks.value = it }
@@ -388,6 +489,9 @@ class PreferencesManager(
         snapshot.patcherSuccessSoundUri?.let { patcherSuccessSoundUri.value = it }
         snapshot.patcherErrorSoundUri?.let { patcherErrorSoundUri.value = it }
     }
+
+    private fun installedApkDownloadHelpers() =
+        ApkDownloadHelperContract.findHelpers(context).mapTo(mutableSetOf()) { it.componentName.packageName }
 
     companion object {
         /** Check if current version is a development/prerelease version. */

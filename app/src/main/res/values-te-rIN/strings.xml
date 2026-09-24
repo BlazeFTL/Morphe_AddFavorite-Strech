@@ -2,13 +2,22 @@
 <resources>
     <!-- Home Screen -->
     <string name="home_other_apps">మిగతా ఆప్స్</string>
+    <string name="home_other_apps_action">మరో యాప్ ఎంచుకోండి</string>
     <string name="home_not_patched_yet">ఇంకా పాచ్‌ చేయలేదు</string>
+    <string name="home_unpatched_version_installed">ప్యాచ్ చేయని వర్షన్ ఇన్స్టాల్ చేయబడింది</string>
+    <string name="home_unpatched_badge">ప్యాచ్ చెయ్యలేదు </string>
     <string name="home_no_patches_available">ఏ పాచ్లు లేవు</string>
     <string name="home_app_hide_title">ఈ ఆప్ దాయాలి?</string>
+    <string name="home_app_hide_message">ఈ యాప్ హోమ్ స్క్రీన్ లో దాచి పడుతుంది. 
+మీరు దీన్ని ఇదేనా ఆప్స్ మిర్చి రీస్టోర్ చేయొచ్చు క్రింది లిస్ట్ లో ఉంది బటన్ ఉపయోగించి</string>
     <string name="home_app_will_be_hidden">ఈ‌ ఆప్ దాచబడుతుంది</string>
     <string name="home_app_no_hidden">ఏ ఆప్ దాచబడలేదు</string>
     <string name="home_app_hidden_apps_title">దాచబడిన ఆప్ లు</string>
+    <string name="home_app_hidden_apps_hint">మళ్లీ కనిపించడానికి నొక్కండి</string>
+    <string name="android_11_bug_dialog_title">ఆండ్రాయిడ్ 11 బగ్</string>
     <!-- Home Screen - Update Notifications -->
+    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
+         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
     <!-- Home Screen - Home Greetings -->
     <!-- Humorous hype message with light nostalgia -->
     <!-- "Buckle up" referring to fastening your vehicle seat belt. A light-hearted joke to build excitement -->
@@ -33,6 +42,7 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <!-- Home Screen - Home Sub-Dialogs -->
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
+    <!-- "%1$s" is the free storage and "%2$s" the amount patching needs, both in gigabytes. -->
     <!-- Color picker -->
     <!-- Patch Options -->
     <!-- Adaptive Icon Creator -->
@@ -41,6 +51,16 @@
     <!-- Home Screen - App Info Screen -->
     <!-- Home Screen - Root Mode -->
     <!-- Patcher Screen -->
+    <!-- Titles of the cards the expert log shows in place of the raw start and success log lines -->
+    <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
+    <!-- Native code libraries (.so files) packed inside the APK -->
+    <!-- Free and total RAM of the device, never its storage -->
+    <!-- Size of the patched APK, once patching finished -->
+    <!-- How long patching took -->
+    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Fastest read or write rate reached while patching, in data per second -->
+    <!-- Value of "Libraries": the libraries this device cannot use were dropped from the patched APK -->
+    <!-- Value of "Libraries": every library was left in the patched APK -->
     <!-- Patcher Screen - Patcher Steps -->
     <!-- Battery optimization pre-flight dialog -->
     <!-- Memory limit dialog, shown after the patcher process was killed -->
@@ -49,9 +69,10 @@
     <!-- Morphe patches fix YouTube bugs that Google still has not fixed. -->
     <!-- "bytecode" can be translated from "the app code" -->
     <!-- Space flight communications callout. -->
-    <!-- Quantum physics (box emoji is a reference to Schrodinger's cat). -->
+    <!-- Quantum physics (box emoji is a reference to Schrödinger's cat). -->
     <!-- Throw away reference to a Saturday Night Live sketch. "fever" means sickness or the flu. "prescription" means medical treatment or can be translated from "cure" -->
     <!-- Expert patcher Screen -->
+    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
     <!-- Patcher Screen - Other hidden strings -->
     <!-- Patcher Screen - Mini-games -->
     <!-- Settings -->
@@ -66,8 +87,11 @@
     <!-- Shown before pre-release updates are turned on for the app itself. Patches have their own toggle in each patch source -->
     <!-- Notification content -->
     <!-- Settings - Advanced Tab - Expert settings Section -->
-    <!-- Bytecode mode -->
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Branding -->
     <!-- Settings - Advanced Tab - Patch Options Section: Custom Header -->
@@ -86,9 +110,12 @@
     <!-- Settings - System Tab - APK download helper -->
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
-    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <!-- Easter egg offered after seven taps on the version in the About dialog -->
     <!-- Shared strings -->
-    <!-- Shown while resuming a download, before the total size is known -->
+    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
+         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
+         how a literal percent sign is written here. -->
+    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <!-- Translate "System" the same way as the System settings tab -->

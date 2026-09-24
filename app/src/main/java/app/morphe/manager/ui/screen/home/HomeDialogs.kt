@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -45,6 +46,7 @@ import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerel
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.screen.patcher.UnusableOptionPathsDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
@@ -71,12 +73,10 @@ fun HomeDialogs(
     val uriHandler = LocalUriHandler.current
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val apkDownloadHelperEnabled by homeViewModel.prefs.useApkDownloadHelper.getAsState()
-
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val openApkDownloadHelper = rememberApkDownloadHelperAction(
         host = homeViewModel,
-        enabled = apkDownloadHelperEnabled && homeViewModel.showDownloadInstructionsDialog
+        enabled = homeViewModel.showDownloadInstructionsDialog
     )
 
     // APK selection processing overlay - blocks interaction while APK is loaded/validated in background
@@ -95,26 +95,26 @@ fun HomeDialogs(
         val appName = homeViewModel.pendingAppName ?: return@AnimatedVisibility
         val recommendedVersion = homeViewModel.pendingRecommendedVersion
         val compatibleVersions = homeViewModel.pendingCompatibleVersions
-        val recommendedBundleVersions = homeViewModel.pendingRecommendedBundleVersions
         val selectedDownloadVersion = homeViewModel.pendingSelectedDownloadVersion
         val usingMountInstall = homeViewModel.usingMountInstall
         val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
         val savedApkInfo = homeViewModel.pendingSavedApkInfo
         val installedApkInfo = homeViewModel.pendingInstalledApkInfo
-        val targetAppInstalled = homeViewModel.pendingTargetAppInstalled == true
+        val installedAppVersion = homeViewModel.pendingInstalledAppVersion
+        val stockAppInstalled = homeViewModel.pendingStockAppInstalled == true
 
         ApkAvailabilityDialog(
             appName = appName,
             recommendedVersion = recommendedVersion,
             compatibleVersions = compatibleVersions,
-            recommendedBundleVersions = recommendedBundleVersions,
             selectedDownloadVersion = selectedDownloadVersion,
             onVersionSelect = { homeViewModel.pendingSelectedDownloadVersion = it },
             usingMountInstall = usingMountInstall,
-            targetAppInstalled = targetAppInstalled,
+            stockAppInstalled = stockAppInstalled,
             isExpertMode = isExpertMode,
             savedApkInfo = savedApkInfo,
             installedApkInfo = installedApkInfo,
+            installedAppVersion = installedAppVersion,
             onDismiss = {
                 homeViewModel.showApkAvailabilityDialog = false
                 homeViewModel.cleanupPendingData()
@@ -172,7 +172,7 @@ fun HomeDialogs(
             downloadUrl = homeViewModel.resolvedDownloadUrl,
             requestedVersion = requestedVersion,
             usingMountInstall = usingMountInstall,
-            targetAppInstalled = homeViewModel.pendingTargetAppInstalled == true,
+            stockAppInstalled = homeViewModel.pendingStockAppInstalled == true,
             downloadColor = downloadColor,
             isApkBundle = isApkBundle,
             onDismiss = {
@@ -344,8 +344,8 @@ fun HomeDialogs(
     // Low Disk Space warning dialog
     if (homeViewModel.showLowDiskSpaceDialog) {
         LowDiskSpaceDialog(
-            freeGb = homeViewModel.lowDiskSpaceFreeGb,
-            thresholdGb = homeViewModel.lowDiskSpaceThresholdGb,
+            freeBytes = homeViewModel.lowDiskSpaceFreeBytes,
+            thresholdBytes = homeViewModel.lowDiskSpaceThresholdBytes,
             onDismiss = { homeViewModel.dismissLowDiskSpaceDialog() },
             onPatchAnyway = { homeViewModel.dismissLowDiskSpaceDialogAndProceed() }
         )
@@ -376,9 +376,10 @@ fun HomeDialogs(
     // Simple mode bundle selection dialog - shown when 2+ bundles have patches for the same app
     if (homeViewModel.showSimpleBundleSelectDialog) {
         val candidates = homeViewModel.simpleBundleSelectCandidates
-        val bundleRecommendedVersions = homeViewModel.pendingPackageName?.let {
-            homeViewModel.recommendedBundleVersions[it]
-        } ?: emptyMap()
+        val versionsBySource = homeViewModel.pendingPackageName
+            ?.let { homeViewModel.compatibleVersions[it] }
+            .orEmpty()
+            .groupBy { it.bundleUid }
         SimpleBundleSelectDialog(
             candidates = candidates.map { (bundle, patches) ->
                 val source = homeViewModel.getPatchSource(bundle.uid)
@@ -388,13 +389,16 @@ fun HomeDialogs(
                         ?: homeViewModel.getBundleDisplayName(bundle.uid)
                         ?: bundle.name,
                     patchCount = patches.size,
-                    recommendedVersion = bundleRecommendedVersions[bundle.uid]?.effective?.version,
+                    recommendedVersion = versionsBySource[bundle.uid].orEmpty().recommended()?.version,
                     patchVersion = source?.version ?: bundle.version,
                     sourceType = source?.sourceType
                 )
             },
-            onSelect = { uid -> homeViewModel.proceedWithSelectedBundle(uid) },
-            onDismiss = { homeViewModel.dismissSimpleBundleSelectDialog() }
+            onSelect = { uid, rememberChoice ->
+                homeViewModel.proceedWithSelectedBundle(uid, rememberChoice)
+            },
+            onDismiss = { homeViewModel.dismissSimpleBundleSelectDialog() },
+            canRemember = true
         )
     }
 
@@ -441,6 +445,10 @@ fun HomeDialogs(
             prereleaseBundleUids = allPatchesInfo.mapNotNull { (bundle, _) ->
                 bundle.uid.takeIf { homeViewModel.getPatchSource(it)?.usesPrerelease == true }
             }.toSet(),
+            hiddenSourceCount = homeViewModel.expertModeHiddenSources,
+            onShowHiddenSources = {
+                homeViewModel.revealHiddenExpertModeSources()
+            },
             onDismiss = {
                 homeViewModel.cleanupExpertModeData()
             },
@@ -448,6 +456,18 @@ fun HomeDialogs(
                 homeViewModel.proceedExpertMode()
             }
         )
+
+        // Raised over the selection, so closing it puts the user back in the dialog with the
+        // offending option still there rather than dropping them out of the flow entirely
+        homeViewModel.expertModeUnreadablePaths.takeIf { it.isNotEmpty() }?.let { failures ->
+            UnusableOptionPathsDialog(
+                failures = failures,
+                onRetryAfterPermission = { homeViewModel.proceedExpertMode() },
+                canClearPaths = true,
+                onClearPaths = { homeViewModel.clearExpertModeUnreadablePaths() },
+                onDismiss = { homeViewModel.dismissExpertModeUnreadablePaths() }
+            )
+        }
 
         homeViewModel.expertModeCopy.targetBundleUid?.let { targetUid ->
             val selectedApp = homeViewModel.expertModeSelectedApp ?: return@let
@@ -500,7 +520,13 @@ fun HomeDialogs(
             onUpdate = { bundle ->
                 if (bundle is RemotePatchBundle) {
                     scope.launch {
-                        homeViewModel.patchBundleRepository.update(bundle, showToast = true)
+                        // A source that failed to load may hold a broken jar of the current version,
+                        // which a plain version check would keep
+                        homeViewModel.patchBundleRepository.update(
+                            bundle,
+                            force = bundle.state is PatchBundleSource.State.Failed,
+                            showToast = true
+                        )
                     }
                 } else {
                     homeViewModel.localBundleUpdateUid = bundle.uid
@@ -528,17 +554,17 @@ fun HomeDialogs(
                 homeViewModel.selectedBundleUri = null
                 homeViewModel.selectedBundlePath = null
             },
-            onLocalSubmit = {
+            onLocalSubmit = { chooseApps ->
                 homeViewModel.showAddSourceDialog = false
                 homeViewModel.selectedBundleUri?.let { uri ->
-                    homeViewModel.createLocalSource(uri)
+                    homeViewModel.createLocalSource(uri, chooseApps)
                 }
                 homeViewModel.selectedBundleUri = null
                 homeViewModel.selectedBundlePath = null
             },
-            onRemoteSubmit = { url ->
+            onRemoteSubmit = { url, chooseApps ->
                 homeViewModel.showAddSourceDialog = false
-                homeViewModel.createRemoteSource(url, true)
+                homeViewModel.createRemoteSource(url, autoUpdate = true, chooseApps = chooseApps)
             },
             onLocalPick = {
                 openBundlePicker()
@@ -556,7 +582,7 @@ fun HomeDialogs(
         DeepLinkAddSourceDialog(
             url = bundle.url,
             name = bundle.name,
-            onConfirm = { homeViewModel.confirmDeepLinkBundle() },
+            onConfirm = { chooseApps -> homeViewModel.confirmDeepLinkBundle(chooseApps) },
             onDismiss = { homeViewModel.dismissDeepLinkBundle() }
         )
     }
@@ -566,9 +592,21 @@ fun HomeDialogs(
         MppImportDialog(
             manifest = homeViewModel.pendingMppManifest,
             fileName = homeViewModel.pendingMppFileName,
-            onConfirm = { homeViewModel.confirmMppImport() },
+            onConfirm = { chooseApps -> homeViewModel.confirmMppImport(chooseApps) },
             onDismiss = { homeViewModel.dismissMppImport() }
         )
+    }
+
+    // App list of a source just added with "Choose apps" on
+    homeViewModel.sourceAppsDialogUid?.let { uid ->
+        val sources by homeViewModel.patchBundleRepository.sources.collectAsStateWithLifecycle()
+        val source = sources.firstOrNull { it.uid == uid }
+        if (source != null) {
+            SourceAppsDialog(
+                onDismissRequest = { homeViewModel.sourceAppsDialogUid = null },
+                src = source
+            )
+        }
     }
 
     // Rename bundle dialog
@@ -654,21 +692,23 @@ internal fun ApkAvailabilityDialog(
     appName: String,
     recommendedVersion: AppTarget?,
     compatibleVersions: List<BundledAppTarget>,
-    recommendedBundleVersions: Map<Int, BundleRecommendation>,
     selectedDownloadVersion: AppTarget?,
     onVersionSelect: (AppTarget) -> Unit,
     usingMountInstall: Boolean,
-    targetAppInstalled: Boolean,
+    stockAppInstalled: Boolean,
     isExpertMode: Boolean,
     savedApkInfo: SavedApkInfo?,
     installedApkInfo: InstalledApkInfo?,
+    installedAppVersion: String?,
     onDismiss: () -> Unit,
     onHaveApk: () -> Unit,
     onNeedApk: () -> Unit,
     onUseSaved: () -> Unit,
     onUseInstalled: () -> Unit
 ) {
-    val deviceSdk = Build.VERSION.SDK_INT
+    // Every check below still runs against the full set: an APK already on the device stays
+    // usable whatever the experimental toggle says, it is only the picker that narrows
+    val offeredVersions = remember(compatibleVersions) { compatibleVersions.offered() }
 
     // The installed APK is dropped upstream when the patches do not target it, but a saved
     // copy is offered whatever it is: it may be the only APK the user still has
@@ -685,15 +725,22 @@ internal fun ApkAvailabilityDialog(
             compatibleVersions.any { it.target.version == savedApkInfo.version }
     }
 
+    // What the list below prints: the version on the device is called out under it only when
+    // the list is not already showing that version
+    val listedVersions = remember(isExpertMode, offeredVersions, recommendedVersion) {
+        if (isExpertMode && offeredVersions.isNotEmpty()) {
+            offeredVersions.mapNotNullTo(mutableSetOf()) { it.target.version }
+        } else {
+            setOfNotNull(recommendedVersion?.version)
+        }
+    }
+    val unlistedInstalledVersion = installedAppVersion?.takeIf { it !in listedVersions }
+
     // Versions whose minSdk exceeds the current device - shown greyed-out and non-selectable
-    val incompatibleSdkVersions: Set<String> = remember(compatibleVersions, deviceSdk) {
-        compatibleVersions
-            .mapNotNull { b ->
-                val v = b.target.version ?: return@mapNotNull null
-                val minSdk = b.target.minSdk ?: return@mapNotNull null
-                if (deviceSdk < minSdk) v else null
-            }
-            .toSet()
+    val incompatibleSdkVersions: Set<String> = remember(offeredVersions) {
+        offeredVersions
+            .filterNot { it.installableOnDevice() }
+            .mapNotNullTo(mutableSetOf()) { it.target.version }
     }
     AppDialog(
         onDismissRequest = onDismiss,
@@ -779,7 +826,7 @@ internal fun ApkAvailabilityDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (isExpertMode && compatibleVersions.isNotEmpty()) {
+            if (isExpertMode && offeredVersions.isNotEmpty()) {
                 // Expert mode: selectable version list
                 Text(
                     text = htmlAnnotatedString(stringResource(
@@ -791,26 +838,26 @@ internal fun ApkAvailabilityDialog(
                     textAlign = TextAlign.Center
                 )
 
-                if (compatibleVersions.size > 1) {
+                if (offeredVersions.size > 1) {
                     SelectableVersionListCard(
-                        versions = compatibleVersions,
+                        versions = offeredVersions,
                         selectedVersion = selectedDownloadVersion,
-                        recommendedBundleVersions = recommendedBundleVersions,
                         onVersionSelect = onVersionSelect,
                         anyString = anyString,
-                        hasMultipleBundles = compatibleVersions.map { it.bundleUid }.distinct().size > 1,
+                        hasMultipleBundles = offeredVersions.map { it.bundleUid }.distinct().size > 1,
                         incompatibleSdkVersions = incompatibleSdkVersions,
                         savedVersion = savedApkInfo?.version,
+                        installedVersion = installedAppVersion,
                     )
                 } else {
                     VersionListCard(
-                        versions = compatibleVersions.map { it.target.version ?: anyString },
-                        experimentalVersions = compatibleVersions.experimentalVersions(),
-                        descriptions = compatibleVersions
+                        versions = offeredVersions.map { it.target.version ?: anyString },
+                        experimentalVersions = offeredVersions.experimentalVersions(),
+                        descriptions = offeredVersions
                             .mapNotNull { b -> b.target.version?.let { v -> b.target.description?.let { d -> v to d } } }
                             .toMap(),
                         incompatibleSdkVersions = incompatibleSdkVersions,
-                        versionCodes = compatibleVersions
+                        versionCodes = offeredVersions
                             .mapNotNull { b ->
                                 val v = b.target.version ?: return@mapNotNull null
                                 val codes = b.buildCodes ?: return@mapNotNull null
@@ -818,6 +865,7 @@ internal fun ApkAvailabilityDialog(
                             }
                             .toMap(),
                         savedVersion = savedApkInfo?.version,
+                        installedVersion = installedAppVersion,
                     )
                 }
             } else {
@@ -839,12 +887,27 @@ internal fun ApkAvailabilityDialog(
                         .firstOrNull { it.target.version == recommendedVersion?.version }
                         ?.let { b -> b.target.version?.let { v -> b.buildCodes?.let { mapOf(v to it) } } }
                         ?: emptyMap(),
-                    savedVersion = savedApkInfo?.version
+                    savedVersion = savedApkInfo?.version,
+                    installedVersion = installedAppVersion
                 )
             }
 
-            // Root mode warning - only when app is not yet installed
-            if (usingMountInstall && !targetAppInstalled) {
+            // The version on the device is missing from the list above, so patching will need
+            // another APK than the one already installed
+            unlistedInstalledVersion?.let {
+                Notice(
+                    text = stringResource(
+                        R.string.home_apk_availability_installed_version,
+                        it.withVersionPrefix()
+                    ),
+                    tone = SemanticTone.Warning,
+                    icon = Icons.Outlined.InstallMobile,
+                    density = NoticeDensity.Compact
+                )
+            }
+
+            // Root mode warning - only when there is no app on the device to mount over
+            if (usingMountInstall && !stockAppInstalled) {
                 Notice(
                     text = stringResource(R.string.root_install_apk_required),
                     tone = SemanticTone.Warning,
@@ -994,7 +1057,8 @@ private fun UnsupportedVersionWarningDialog(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp),
                         color = tone.container.copy(alpha = 0.3f),
-                        tonalElevation = 1.dp
+                        tonalElevation = 1.dp,
+                        border = CardBorder.tinted(tone.accent)
                     ) {
                         Row(
                             modifier = Modifier
@@ -1110,12 +1174,6 @@ fun InvalidSignatureDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.GppBad,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier.size(48.dp)
-            )
             Text(
                 text = htmlAnnotatedString(
                     stringResource(R.string.home_invalid_signature_message, appName)
@@ -1164,12 +1222,6 @@ fun SplitApkWarningDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.FolderZip,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
             Text(
                 text = htmlAnnotatedString(
                     stringResource(R.string.home_split_apk_warning_message, appName)
@@ -1306,12 +1358,6 @@ private fun NoCompatibleVersionsDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.PhoneAndroid,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier.size(48.dp)
-            )
             Text(
                 text = htmlAnnotatedString(
                     stringResource(
@@ -1342,20 +1388,30 @@ private fun SelectableVersionListCard(
     modifier: Modifier = Modifier,
     versions: List<BundledAppTarget>,
     selectedVersion: AppTarget?,
-    recommendedBundleVersions: Map<Int, BundleRecommendation>,
     onVersionSelect: (AppTarget) -> Unit,
     anyString: String,
     hasMultipleBundles: Boolean,
     incompatibleSdkVersions: Set<String> = emptySet(),
-    savedVersion: String? = null
+    savedVersion: String? = null,
+    installedVersion: String? = null
 ) {
     if (versions.isEmpty()) return
+
+    // The version each source stands behind, experimental ones aside: a source does not
+    // recommend a version it marks experimental, whatever the toggle promotes above it
+    val recommendedByBundle = remember(versions) {
+        versions.groupBy { it.bundleUid }
+            .mapValues { (_, section) ->
+                section.installable().firstOrNull { !it.target.isExperimental }?.target?.version
+            }
+    }
 
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        tonalElevation = 1.dp
+        tonalElevation = 1.dp,
+        border = CardBorder.neutral
     ) {
         Column(modifier = Modifier.fillMaxWidth().selectableGroup()) {
             var lastBundleUid = -1
@@ -1365,17 +1421,16 @@ private fun SelectableVersionListCard(
                 val versionString = target.version ?: anyString
                 val isIncompatibleSdk = target.version != null && target.version in incompatibleSdkVersions
                 val isSelected = !isIncompatibleSdk && target.version != null && target.version == selectedVersion?.version
-                // The version the source declares, not the one the experimental toggle promotes:
-                // a source does not recommend a version it marks experimental
                 val isRecommended = !isIncompatibleSdk && target.version != null &&
-                        target.version == recommendedBundleVersions[bundled.bundleUid]?.declared?.version
+                        target.version == recommendedByBundle[bundled.bundleUid]
                 val selectedLabel = stringResource(R.string.home_selected_version)
                 val tags = versionTagsOf(
                     requiresAndroidSdk = target.minSdk.takeIf { isIncompatibleSdk },
                     isIncompatible = isIncompatibleSdk && target.minSdk == null,
                     isExperimental = target.isExperimental,
                     isRecommended = isRecommended,
-                    isSaved = target.version != null && target.version == savedVersion
+                    isSaved = target.version != null && target.version == savedVersion,
+                    isInstalled = target.version != null && target.version == installedVersion
                 )
 
                 // Bundle section header - only when multiple bundles are present and uid changes
@@ -1516,7 +1571,8 @@ private fun VersionListCard(
     descriptions: Map<String, String> = emptyMap(),
     incompatibleSdkVersions: Set<String> = emptySet(),
     versionCodes: Map<String, Set<Int>> = emptyMap(),
-    savedVersion: String? = null
+    savedVersion: String? = null,
+    installedVersion: String? = null
 ) {
     if (versions.isEmpty()) return
 
@@ -1536,7 +1592,8 @@ private fun VersionListCard(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
         color = containerColor,
-        tonalElevation = 1.dp
+        tonalElevation = 1.dp,
+        border = CardBorder.neutral
     ) {
         Column(
             modifier = Modifier
@@ -1556,7 +1613,8 @@ private fun VersionListCard(
                     isExperimental = isExperimentalVersion,
                     isUnpatched = showUnpatchedBadge && versions.size == 1,
                     isRecommended = index == recommendedIndex && !showUnpatchedBadge,
-                    isSaved = version == savedVersion
+                    isSaved = version == savedVersion,
+                    isInstalled = version == installedVersion
                 )
 
                 Column(
@@ -1615,12 +1673,13 @@ private fun VersionListCard(
 }
 
 /**
- * Warning dialog shown before patching starts when the device has less than [thresholdGb] GB of free storage.
+ * Warning dialog shown before patching starts when the device has less free storage than
+ * [thresholdBytes].
  */
 @Composable
 fun LowDiskSpaceDialog(
-    freeGb: Float,
-    thresholdGb: Float,
+    freeBytes: Long,
+    thresholdBytes: Long,
     onDismiss: () -> Unit,
     onPatchAnyway: () -> Unit
 ) {
@@ -1642,15 +1701,12 @@ fun LowDiskSpaceDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.FolderOff,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
-
             Text(
-                text = stringResource(R.string.home_low_disk_space_dialog_message, freeGb, thresholdGb),
+                text = stringResource(
+                    R.string.home_low_disk_space_dialog_message,
+                    formatGigabytes(freeBytes),
+                    formatGigabytes(thresholdBytes)
+                ),
                 style = MaterialTheme.typography.bodyLarge,
                 color = LocalDialogSecondaryTextColor.current,
                 textAlign = TextAlign.Center,
@@ -1705,13 +1761,6 @@ fun MeteredPatchingDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = Icons.Outlined.SignalCellularAlt,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
-
             Text(
                 text = stringResource(R.string.home_outdated_patches_dialog_message),
                 style = MaterialTheme.typography.bodyLarge,
@@ -1737,9 +1786,11 @@ fun MeteredPatchingDialog(
 fun DeepLinkAddSourceDialog(
     url: String,
     name: String?,
-    onConfirm: () -> Unit,
+    onConfirm: (chooseApps: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
+    var chooseApps by rememberSaveable { mutableStateOf(false) }
+
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.deep_link_add_source_title),
@@ -1747,7 +1798,7 @@ fun DeepLinkAddSourceDialog(
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.add),
-                onPrimaryClick = onConfirm,
+                onPrimaryClick = { onConfirm(chooseApps) },
                 primaryIcon = Icons.Outlined.Extension,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
@@ -1832,6 +1883,12 @@ fun DeepLinkAddSourceDialog(
                 tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
+
+            ChooseAppsToggle(
+                checked = chooseApps,
+                onCheckedChange = { chooseApps = it },
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
@@ -1843,9 +1900,11 @@ fun DeepLinkAddSourceDialog(
 fun MppImportDialog(
     manifest: MppManifest?,
     fileName: String?,
-    onConfirm: () -> Unit,
+    onConfirm: (chooseApps: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
+    var chooseApps by rememberSaveable { mutableStateOf(false) }
+
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.deep_link_add_source_title),
@@ -1853,7 +1912,7 @@ fun MppImportDialog(
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.add),
-                onPrimaryClick = onConfirm,
+                onPrimaryClick = { onConfirm(chooseApps) },
                 primaryIcon = Icons.Outlined.Extension,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
@@ -1865,22 +1924,6 @@ fun MppImportDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Icon
-            Surface(
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.primaryContainer,
-                modifier = Modifier.size(56.dp)
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = Icons.Outlined.FolderZip,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(28.dp)
-                    )
-                }
-            }
-
             // Message
             Text(
                 text = stringResource(R.string.deep_link_add_source_message),
@@ -1989,6 +2032,12 @@ fun MppImportDialog(
                 tone = SemanticTone.Warning,
                 icon = Icons.Outlined.Warning
             )
+
+            ChooseAppsToggle(
+                checked = chooseApps,
+                onCheckedChange = { chooseApps = it },
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
@@ -2006,14 +2055,20 @@ data class SimpleBundleCandidate(
 /**
  * Dialog shown in Simple mode when 2+ patch sources have patches for the selected app.
  * Lets the user pick exactly one source to apply.
+ *
+ * [canRemember] offers to settle the question for this app rather than only for this run, which
+ * the caller answers by keeping the app from the sources that were turned down. Callers picking a
+ * source for one run of their own leave it off.
  */
 @Composable
 fun SimpleBundleSelectDialog(
     candidates: List<SimpleBundleCandidate>,
-    onSelect: (uid: Int) -> Unit,
-    onDismiss: () -> Unit
+    onSelect: (uid: Int, rememberChoice: Boolean) -> Unit,
+    onDismiss: () -> Unit,
+    canRemember: Boolean = false
 ) {
     val selected = remember { mutableStateOf(candidates.firstOrNull()?.uid) }
+    val rememberChoice = remember { mutableStateOf(false) }
 
     AppDialog(
         onDismissRequest = onDismiss,
@@ -2022,7 +2077,7 @@ fun SimpleBundleSelectDialog(
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),
-                onPrimaryClick = { selected.value?.let { onSelect(it) } },
+                onPrimaryClick = { selected.value?.let { onSelect(it, rememberChoice.value) } },
                 primaryEnabled = selected.value != null,
                 secondaryText = stringResource(android.R.string.cancel),
                 onSecondaryClick = onDismiss
@@ -2112,6 +2167,19 @@ fun SimpleBundleSelectDialog(
                     }
                 }
             }
+        }
+
+        // Outside the group above, since this answers what to do with the sources that were not
+        // picked rather than being one more of them
+        if (canRemember) {
+            // The cards above carry the same round indicator, so the two kinds of choice in
+            // this dialog are told apart by their shape rather than by two styles of box
+            SelectionCheckRow(
+                text = stringResource(R.string.home_simple_bundle_select_remember),
+                checked = rememberChoice.value,
+                onCheckedChange = { rememberChoice.value = it },
+                modifier = Modifier.padding(top = Defaults.ContentPaddingSmall)
+            )
         }
     }
 }

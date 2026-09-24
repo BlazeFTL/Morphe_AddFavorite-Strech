@@ -176,6 +176,8 @@ class PatchRunProgress(
             steps.clear()
             steps.addAll(generatePatchSteps(appContext, requiresSplitPreparation))
             patchesPercentage = max(0.0, 1.0 - steps.sumOf { it.progressPercentage })
+            // A memory retry reports its own limit, and a fallback to the app's process has the app's heap
+            heapLimitMb = 0
             heapSamples.clear()
             ioSamples.clear()
             cpuCoreLoads = emptyList()
@@ -244,6 +246,29 @@ class PatchRunProgress(
                 delay(250.milliseconds)
             }
         }
+    }
+
+    /**
+     * Holds back the display of a run that is waiting on an answer before it starts, so the
+     * screen behind the dialog shows neither progress nor a warning about a slow step.
+     */
+    fun holdBeforeStart() {
+        stopStallWatch()
+        setOpeningStepState(State.WAITING)
+    }
+
+    /** Puts back what [holdBeforeStart] held, once the run is free to start. */
+    fun resumeBeforeStart() {
+        setOpeningStepState(State.RUNNING)
+        startStallWatch()
+    }
+
+    /** Moves the opening step between waiting and running, leaving one past that point alone. */
+    private fun setOpeningStepState(state: State) {
+        val opening = steps.firstOrNull() ?: return
+        if (opening.state != State.WAITING && opening.state != State.RUNNING) return
+
+        steps[0] = opening.copy(state = state)
     }
 
     fun stopStallWatch() {

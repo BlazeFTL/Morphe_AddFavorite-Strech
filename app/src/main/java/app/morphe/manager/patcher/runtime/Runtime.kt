@@ -8,10 +8,14 @@ import app.morphe.manager.patcher.logger.Logger
 import app.morphe.manager.patcher.worker.ProgressEventHandler
 import app.morphe.manager.util.Options
 import app.morphe.manager.util.PatchSelection
+import app.morphe.manager.util.bytesToMebibytes
 import kotlinx.coroutines.flow.first
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.File
+
+/** The heap limit ART granted the calling process, in mebibytes. */
+fun heapLimitMebibytes() = bytesToMebibytes(java.lang.Runtime.getRuntime().maxMemory()).toInt()
 
 sealed class Runtime(context: Context) : KoinComponent {
     private val fs: Filesystem by inject()
@@ -23,6 +27,9 @@ sealed class Runtime(context: Context) : KoinComponent {
         context.cacheDir.resolve("framework").also { it.mkdirs() }.absolutePath
 
     protected suspend fun bundles() = patchBundlesRepo.bundles.first()
+
+    /** Only of use to a runtime that reads bundles in this process, see [CoroutineRuntime]. */
+    protected val bundleLoadGuard get() = patchBundlesRepo.loadGuard
 
     /**
      * Patches [inputFile] into [outputFile].

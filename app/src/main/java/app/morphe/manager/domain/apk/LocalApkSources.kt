@@ -10,6 +10,7 @@ import android.util.Log
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
 import app.morphe.manager.data.room.apps.installed.InstalledApp
+import app.morphe.manager.domain.installer.RootInstaller
 import app.morphe.manager.domain.manager.KeystoreManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
@@ -41,6 +42,25 @@ data class InstalledApkInfo(
     val isSplit: Boolean get() = splitPaths.isNotEmpty()
 }
 
+/**
+ * What the device itself holds for one app: whether the app is still the one under that name, the
+ * archive behind it as a patching source, and the version it reports.
+ *
+ * [apk] and [version] are both withheld from a patched install, so neither the patcher nor the UI
+ * can take Morphe's own output for the app it was built from. [hasStockInstall] outlives them,
+ * because a mount install overlays the app rather than replacing it.
+ */
+data class InstalledAppSource(
+    val hasStockInstall: Boolean = false,
+    val apk: InstalledApkInfo? = null,
+    val version: String? = null
+) {
+    companion object {
+        /** Nothing under that package name, or nothing that could be read. */
+        val None = InstalledAppSource()
+    }
+}
+
 /** Whether an installed app has already been patched. */
 enum class InstalledPatchState {
     Patched,
@@ -53,13 +73,15 @@ enum class InstalledPatchState {
  *
  * [patchState] is null exactly when nothing is installed under the tracked package name, and
  * [savedPatchedApkInfo] is the archive parse behind [savedPatchedApk] so callers can read the
- * label or version without opening the file again.
+ * label or version without opening the file again. [mounted] is only known for a mount install
+ * whose mount table could be read.
  */
 data class TrackedAppSnapshot(
     val installedPackageInfo: PackageInfo?,
     val savedPatchedApk: File?,
     val savedPatchedApkInfo: PackageInfo?,
-    val patchState: InstalledPatchState?
+    val patchState: InstalledPatchState?,
+    val mounted: Boolean? = null
 )
 
 /**
@@ -108,8 +130,8 @@ internal fun resolveTrackedPatchState(
  * Whether the tracked record can still be removed from the app detail view.
  *
  * The record outlives the build it describes, so cleanup has to stay reachable whenever the
- * patched build is no longer accounted for. Only a confirmed patched install with nothing
- * retained has nothing to clean up, since the record then describes the app on the device.
+ * patched build is no longer accounted for. The one case with nothing to clean up is a confirmed
+ * patched install that retained no APK, since the record then describes the app on the device.
  */
 internal fun canRemoveTrackedRecord(
     installType: InstallType,
@@ -131,6 +153,7 @@ class LocalApkSources(
     private val appDataResolver: AppDataResolver,
     private val filesystem: Filesystem,
     private val keystoreManager: KeystoreManager,
+    private val rootInstaller: RootInstaller,
     private val pm: PM
 ) {
     // Keyed by the tracked package, kept only while the evidence behind it is unchanged
@@ -164,30 +187,34 @@ class LocalApkSources(
     }
 
     /**
-     * Whether the app is installed and, if it is a single unpatched APK, its info.
+     * What the device offers for [packageName], resolved in one pass so every flow asks the
+     * patch state once.
      *
-     * The info is withheld when the installed app looks patched, because copying it would
-     * feed a patched build back into the patcher. When the certificate cannot be read the
-     * info is returned with [InstalledApkInfo.patchStateUnknown] so the caller can say the
+     * A patched install yields no APK and no version: copying the archive would feed a patched
+     * build back into the patcher, and a patch that keeps the package name installs over the app
+     * it patched, so the version describes Morphe's own output. When the certificate cannot be
+     * read the APK is returned with [InstalledApkInfo.patchStateUnknown] so the caller can say the
      * check did not happen rather than imply it passed.
      */
-    suspend fun installed(packageName: String): Pair<Boolean, InstalledApkInfo?> = try {
+    suspend fun installed(packageName: String): InstalledAppSource = try {
         val pkgInfo = pm.getPackageInfo(packageName)
+        val version = pkgInfo?.versionName?.takeUnless { it.isBlank() }
+        // Read here rather than inside the patch state, because it is the one patched install
+        // that leaves the app itself in place: the module overlays the archive, nothing else
+        val mounted = pkgInfo != null && pm.hasSourceApkSignatureMismatch(packageName)
 
         if (pkgInfo == null) {
-            false to null
-        } else when (val patchState = patchState(packageName, pkgInfo.versionName)) {
-            InstalledPatchState.Patched -> true to null
+            InstalledAppSource.None
+        } else when (val patchState = patchState(packageName, version, mounted)) {
+            InstalledPatchState.Patched -> InstalledAppSource(hasStockInstall = mounted)
 
             else -> {
                 val appInfo = pkgInfo.applicationInfo
                 val sourceDir = appInfo?.sourceDir?.takeIf { File(it).exists() }
-                val version = pkgInfo.versionName?.takeUnless { it.isBlank() }
-
-                if (sourceDir == null || version == null) {
-                    true to null
+                val apk = if (sourceDir == null || version == null) {
+                    null
                 } else {
-                    true to InstalledApkInfo(
+                    InstalledApkInfo(
                         version = version,
                         versionCode = pm.getVersionCode(pkgInfo),
                         apkPath = sourceDir,
@@ -195,11 +222,13 @@ class LocalApkSources(
                         patchStateUnknown = patchState == InstalledPatchState.Unknown
                     )
                 }
+
+                InstalledAppSource(hasStockInstall = true, apk = apk, version = version)
             }
         }
     } catch (e: Exception) {
         Log.e(tag, "Failed to load installed app info", e)
-        false to null
+        InstalledAppSource.None
     }
 
     /**
@@ -227,12 +256,26 @@ class LocalApkSources(
             pm.getInstallerPackageName(app.currentPackageName)
         }
         val signingHashes = keystoreManager.signingCertificateHashes()
-        val fingerprint = trackedAppFingerprint(app, installedPackageInfo, installer, signingHashes)
+        val mounted = mountState(app, installedPackageInfo)
+        val fingerprint = trackedAppFingerprint(app, installedPackageInfo, installer, signingHashes, mounted)
         cachedSnapshot(app.currentPackageName, fingerprint)?.let { return@withContext it }
 
-        val snapshot = resolveTrackedAppSnapshot(app, installedPackageInfo, installer, signingHashes)
+        val snapshot = resolveTrackedAppSnapshot(app, installedPackageInfo, installer, signingHashes, mounted)
         cacheSnapshot(app.currentPackageName, fingerprint, snapshot)
         snapshot
+    }
+
+    /**
+     * Whether the bind mount behind a mount install is active, read from the global mount table
+     * through root. Morphe's own namespace is not asked, because root managers can hide module
+     * mounts from it while the patched app still runs. Null when root is unavailable.
+     */
+    private suspend fun mountState(app: InstalledApp, installedPackageInfo: PackageInfo?): Boolean? {
+        if (app.installType != InstallType.MOUNT || installedPackageInfo == null) return null
+        if (!rootInstaller.hasRootAccess()) return null
+        return runCatching { rootInstaller.isAppMounted(app.currentPackageName) }
+            .onFailure { Log.e(tag, "Failed to read the mount table", it) }
+            .getOrNull()
     }
 
     /** Drops the remembered snapshot of [packageName] so the next read inspects the disk again. */
@@ -244,7 +287,8 @@ class LocalApkSources(
         app: InstalledApp,
         installedPackageInfo: PackageInfo?,
         installer: String?,
-        signingHashes: Set<String>
+        signingHashes: Set<String>,
+        mounted: Boolean?
     ): TrackedAppSnapshot {
         val savedPatched = validatedPatchedApk(app)
         val savedPatchedApk: File? = savedPatched?.first
@@ -254,26 +298,46 @@ class LocalApkSources(
             return TrackedAppSnapshot(null, savedPatchedApk, savedPatchedInfo, null)
         }
 
-        val patchState = resolveTrackedPatchState(
-            installedHashes = pm.getInstalledSignatureHashes(app.currentPackageName),
-            savedPatchedHashes = savedPatchedApk?.let(pm::getApkFileSignatureHashes).orEmpty(),
-            originalHashes = referenceSignatureHashes(app.originalPackageName),
-            managerSigningHashes = signingHashes,
-            installedByPatchManager = pm.isPatchManagerInstaller(installer),
-            installerAttributionMatches = installerMatchesRecord(app.installType, installer),
-            installedAfterPatching = installedAfterPatching(app, installedPackageInfo)
-        )
+        val patchState = if (app.installType == InstallType.MOUNT) {
+            // The package manager reports the stock certificate whether the overlay is
+            // active, so certificates say nothing here and only the mount itself decides
+            when (mounted) {
+                true -> InstalledPatchState.Patched
+                false -> InstalledPatchState.NotPatched
+                null -> if (pm.hasSourceApkSignatureMismatch(app.currentPackageName)) {
+                    InstalledPatchState.Patched
+                } else {
+                    InstalledPatchState.Unknown
+                }
+            }
+        } else {
+            val verdict = resolveTrackedPatchState(
+                installedHashes = pm.getInstalledSignatureHashes(app.currentPackageName),
+                savedPatchedHashes = savedPatchedApk?.let(pm::getApkFileSignatureHashes).orEmpty(),
+                originalHashes = referenceSignatureHashes(app.originalPackageName),
+                managerSigningHashes = signingHashes,
+                installedByPatchManager = pm.isPatchManagerInstaller(installer),
+                installerAttributionMatches = installerMatchesRecord(app.installType, installer),
+                installedAfterPatching = installedAfterPatching(app, installedPackageInfo)
+            )
 
-        // A mounted install reports the stock certificate while sourceDir points at the patched
-        // APK, so it overrides the verdict, and is only read while that verdict is still open
-        val mounted = patchState != InstalledPatchState.Patched &&
+            // A mounted install reports the stock certificate while sourceDir points at the
+            // patched APK, so it overrides the verdict, and is only read while that is still open
+            if (verdict != InstalledPatchState.Patched &&
                 pm.hasSourceApkSignatureMismatch(app.currentPackageName)
+            ) {
+                InstalledPatchState.Patched
+            } else {
+                verdict
+            }
+        }
 
         return TrackedAppSnapshot(
             installedPackageInfo = installedPackageInfo,
             savedPatchedApk = savedPatchedApk,
             savedPatchedApkInfo = savedPatchedInfo,
-            patchState = if (mounted) InstalledPatchState.Patched else patchState
+            patchState = patchState,
+            mounted = mounted
         )
     }
 
@@ -298,7 +362,8 @@ class LocalApkSources(
         app: InstalledApp,
         installedPackageInfo: PackageInfo?,
         installer: String?,
-        signingHashes: Set<String>
+        signingHashes: Set<String>,
+        mounted: Boolean?
     ): String {
         val installedApk = installedPackageInfo?.applicationInfo?.sourceDir?.let(::File)
         val originalApk = originalApkRepository.get(app.originalPackageName)
@@ -317,6 +382,7 @@ class LocalApkSources(
             append(installedPackageInfo?.lastUpdateTime).append('|')
             append(installer).append('|')
             append(fileStamp(installedApk)).append('|')
+            append(mounted).append('|')
             savedPatchedApkCandidates(app).joinTo(this, ";") { fileStamp(it) }
             append('|').append(originalApk?.version).append('|')
             append(originalFile?.absolutePath).append(':').append(fileStamp(originalFile)).append('|')
@@ -358,8 +424,8 @@ class LocalApkSources(
 
     /**
      * Whether the installation on the device is newer than the patch record tracking it.
-     * Morphe's own reinstalls keep the original record, so this is only trusted next to an
-     * installer that Morphe would not have set.
+     * An install Morphe made itself keeps the original record, so this is only trusted next
+     * to an installer that Morphe would not have set.
      */
     private fun installedAfterPatching(app: InstalledApp, installedPackageInfo: PackageInfo): Boolean {
         val patchedAt = app.patchedAt ?: return false
@@ -401,10 +467,14 @@ class LocalApkSources(
      * certificate, the saved original's own certificate, the certificates the bundle declares,
      * Morphe's own records, and finally who installed the package.
      */
-    private suspend fun patchState(packageName: String, installedVersion: String?): InstalledPatchState {
+    private suspend fun patchState(
+        packageName: String,
+        installedVersion: String?,
+        mounted: Boolean
+    ): InstalledPatchState {
         // Checked first because the certificates below describe the stock app while the file
         // that "Use installed APK" would copy is the patched one
-        if (pm.hasSourceApkSignatureMismatch(packageName)) return InstalledPatchState.Patched
+        if (mounted) return InstalledPatchState.Patched
 
         val installedHashes = pm.getInstalledSignatureHashes(packageName)
 

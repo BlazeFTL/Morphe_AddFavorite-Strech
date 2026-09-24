@@ -12,6 +12,7 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.work.WorkManager
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.di.*
@@ -54,6 +55,12 @@ class ManagerApplication : Application() {
         /** True while a Morphe screen is in focus, so a result needs no notification. */
         val isInForeground: Boolean get() = resumedActivityCount > 0
 
+        /**
+         * Run once the next time a Morphe screen comes into focus, for work that Android only
+         * allows from the foreground. Cleared before it runs, so it never fires twice.
+         */
+        @Volatile var onReturnToForeground: (() -> Unit)? = null
+
         /** Launcher shortcut that opens the batch queue with everything worth re-patching. */
         private const val SHORTCUT_ID_REPATCH = "repatch_outdated"
         private const val SHORTCUT_ID_UPDATES = "check_updates"
@@ -63,6 +70,12 @@ class ManagerApplication : Application() {
         private const val MIN_SHORTCUT_SLOTS = 2
         private const val MAX_SHORTCUT_SLOTS = 4
         private const val SHORTCUT_ICON_PX = 192
+
+        /**
+         * Schedule of the automatic re-patching the re-patch alert replaced. Installs that had
+         * it on still carry it in the WorkManager database, where it fails on every run.
+         */
+        private const val LEGACY_AUTO_PATCH_WORK = "morphe_auto_patch"
     }
     private val scope = MainScope()
     private val prefs: PreferencesManager by inject()
@@ -146,6 +159,7 @@ class ManagerApplication : Application() {
             } else {
                 UpdateCheckWorker.cancel(this@ManagerApplication)
             }
+            WorkManager.getInstance(this@ManagerApplication).cancelUniqueWork(LEGACY_AUTO_PATCH_WORK)
             syncFcmTopics(
                 notificationsEnabled = notificationsEnabled,
                 useManagerPrereleases = useManagerPrereleases,
@@ -156,10 +170,7 @@ class ManagerApplication : Application() {
         // First touch of the repository builds the Ktor client, which costs seconds on a cold
         // start, so it happens here on a background dispatcher rather than in the Koin graph
         scope.launch(Dispatchers.Default) {
-            with(patchBundleRepository) {
-                reload()
-                updateCheck()
-            }
+            patchBundleRepository.reload()
         }
 
         // Cache first for offline launches, then refresh from the network. Any matches are
@@ -171,25 +182,15 @@ class ManagerApplication : Application() {
             patchBundleRepository.logBlockedSources()
         }
 
-        // Preload bundle avatar images into AvatarCache while the user hasn't opened the sheet yet.
-        // Suspends until sources are ready, then fetches all URLs in parallel on IO threads
-        scope.launch(Dispatchers.IO) {
-            patchBundleRepository.sources.first { it.isNotEmpty() }.forEach { bundle ->
-                launch {
-                    val avatarUrls = bundle.avatarUrls
-                    avatarUrls.primary?.let { loadRemoteAvatar(it) }
-                    avatarUrls.fallback?.let { loadRemoteAvatar(it) }
-                }
-            }
-        }
-
-        // Clean temp dir on fresh start
+        // Fresh-start cleanup and the work that waits for a screen
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             private var firstActivityCreated = false
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 if (firstActivityCreated) return
                 firstActivityCreated = true
+
+                onFirstScreenCreated()
 
                 // We do not want to call onFreshProcessStart() if there is state to restore.
                 // This can happen on system-initiated process death
@@ -200,7 +201,14 @@ class ManagerApplication : Application() {
             }
 
             override fun onActivityStarted(activity: Activity) {}
-            override fun onActivityResumed(activity: Activity) { resumedActivityCount++ }
+            override fun onActivityResumed(activity: Activity) {
+                resumedActivityCount++
+                updateNotificationManager.cancelPatchingResultNotifications()
+                onReturnToForeground?.let {
+                    onReturnToForeground = null
+                    it()
+                }
+            }
             override fun onActivityPaused(activity: Activity) { resumedActivityCount-- }
             override fun onActivityStopped(activity: Activity) {}
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
@@ -310,7 +318,8 @@ class ManagerApplication : Application() {
         .setLongLabel(longLabel)
         .setIcon(icon)
         .setRank(rank)
-        .setIntent(intent)
+        // Stamped here rather than at each call site so no shortcut can arrive unnamed
+        .setIntent(intent.putExtra(MainActivity.EXTRA_SHORTCUT_ID, id))
         .build()
 
     /**
@@ -321,6 +330,28 @@ class ManagerApplication : Application() {
         icon?.let { IconCompat.createWithBitmap(it.toBitmap(SHORTCUT_ICON_PX, SHORTCUT_ICON_PX)) }
     }.getOrNull()
         ?: IconCompat.createWithResource(this, R.drawable.ic_shortcut_repatch)
+
+    /**
+     * Work that only pays off once a screen exists. A process started by an FCM push or a boot
+     * broadcast has nobody to show an update check to, and its failures toast over another app.
+     */
+    private fun onFirstScreenCreated() {
+        scope.launch(Dispatchers.Default) {
+            patchBundleRepository.updateCheck()
+        }
+
+        // Preload bundle avatar images into AvatarCache while the user hasn't opened the sheet yet.
+        // Suspends until sources are ready, then fetches all URLs in parallel on IO threads
+        scope.launch(Dispatchers.IO) {
+            patchBundleRepository.sources.first { it.isNotEmpty() }.forEach { bundle ->
+                launch {
+                    val avatarUrls = bundle.avatarUrls
+                    avatarUrls.primary?.let { loadRemoteAvatar(it) }
+                    avatarUrls.fallback?.let { loadRemoteAvatar(it) }
+                }
+            }
+        }
+    }
 
     private fun onFreshProcessStart() {
         fs.uiTempDir.apply {

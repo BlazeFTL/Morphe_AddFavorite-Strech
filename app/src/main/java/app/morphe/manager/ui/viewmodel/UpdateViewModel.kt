@@ -47,6 +47,10 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     private var pendingExternalInstall: InstallerManager.InstallPlan.External? = null
     private var externalInstallTimeoutJob: Job? = null
 
+    // Only an install handed to the system installer has to be inferred from the app returning
+    // to the foreground. Shizuku reports its own outcome, an external one has a pending plan
+    private var installHandedOff = false
+
     var downloadedSize by mutableLongStateOf(0L)
         private set
     var totalSize by mutableLongStateOf(0L)
@@ -185,6 +189,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         pendingExternalInstall = null
         externalInstallTimeoutJob?.cancel()
         externalInstallTimeoutJob = null
+        installHandedOff = false
         installError = ""
 
         // The download is staged in a directory that is wiped on every process start, so an
@@ -203,6 +208,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         )
 
         when (plan) {
+            // Replacing the manager kills the process, so a session install never reports back.
             // Completion is handled by installBroadcastReceiver;
             // cancellation by resetIfInstallCancelled() in the dialog
             is InstallerManager.InstallPlan.Internal ->
@@ -216,18 +222,22 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             is InstallerManager.InstallPlan.Mount ->
                 failInstall(app.getString(R.string.installer_status_not_supported))
 
-            is InstallerManager.InstallPlan.Shizuku -> {
-                state = State.INSTALLING
-                try {
-                    handleInstallResult(sessionInstaller.installShizuku(location, app.packageName))
-                } catch (_: InstallCancelledException) {
-                    state = State.CAN_INSTALL
-                } catch (error: Exception) {
-                    failInstall(error.simpleMessage().orEmpty())
-                }
-            }
+            is InstallerManager.InstallPlan.Shizuku ->
+                awaitInstall { sessionInstaller.installShizuku(location, app.packageName) }
 
             is InstallerManager.InstallPlan.External -> launchExternalInstaller(plan)
+        }
+    }
+
+    /** Runs an installer that reports its own outcome, leaving the dialog on a state the user can act on. */
+    private suspend fun awaitInstall(install: suspend () -> InstallResult) {
+        state = State.INSTALLING
+        try {
+            handleInstallResult(install())
+        } catch (_: InstallCancelledException) {
+            state = State.CAN_INSTALL
+        } catch (error: Exception) {
+            failInstall(error.simpleMessage().orEmpty())
         }
     }
 
@@ -239,6 +249,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         state = State.INSTALLING
         try {
             startInstaller()
+            installHandedOff = true
         } catch (error: Exception) {
             failInstall(error.simpleMessage().orEmpty())
         }
@@ -369,7 +380,8 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     fun resetIfInstallCancelled() {
         // If we're in INSTALLING state but the pending installation was canceled,
         // reset to CAN_INSTALL so user can try again
-        if (state == State.INSTALLING && pendingExternalInstall == null) {
+        if (state == State.INSTALLING && installHandedOff && pendingExternalInstall == null) {
+            installHandedOff = false
             if (hasDownloadedApk()) state = State.CAN_INSTALL else resetToDownload()
         }
     }

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-02T14:11:46",
-  "description": "# [1.29.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.29.0-dev.9...v1.29.0-dev.10) (2026-09-02)\n\n\n### Features\n\n* Add Shizuku+ support ([#926](https://github.com/MorpheApp/morphe-manager/issues/926)) ([d6e6838](https://github.com/MorpheApp/morphe-manager/commit/d6e68386c96eba72fb130854be5dbd8b529c5766))\n* Open the manager changelog from its update notification ([b8a2fc5](https://github.com/MorpheApp/morphe-manager/commit/b8a2fc5ceed07eea976eb72778e3fe9907937481))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.10/morphe-manager-1.29.0-dev.10.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.29.0-dev.10/morphe-manager-1.29.0-dev.10.apk.asc",
-  "version": "1.29.0-dev.10"
+  "created_at": "2026-09-24T17:31:14",
+  "description": "## [1.32.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0...v1.32.1-dev.1) (2026-09-24)\n\n\n### Bug Fixes\n\n* Redownload failed source from its endpoint on manual update ([b46634d](https://github.com/MorpheApp/morphe-manager/commit/b46634d7b185ae54d83ecfb6b22dbf89a36fe369))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.1-dev.1/morphe-manager-1.32.1-dev.1.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.32.1-dev.1/morphe-manager-1.32.1-dev.1.apk.asc",
+  "version": "1.32.1-dev.1"
 }

@@ -53,14 +53,6 @@ internal fun BundlePatchControls(
     /** True when this "Enable all" tap would also enable the universal patches. */
     warnOnUniversalAll: Boolean = false
 ) {
-    val context = LocalContext.current
-
-    // Shows a confirmation toast with [doneMessage] and then executes [action]
-    fun withToast(doneMessage: String, action: () -> Unit): () -> Unit = {
-        context.toast(doneMessage)
-        action()
-    }
-
     val selectAllLabel = stringResource(R.string.expert_mode_enable_all)
     val defaultLabel = stringResource(R.string.expert_mode_reset_to_default)
     val restoreLabel = stringResource(R.string.expert_mode_restore_saved)
@@ -80,18 +72,22 @@ internal fun BundlePatchControls(
     val resetDone = stringResource(R.string.expert_mode_reset_to_default_done)
     val restoredDone = stringResource(R.string.expert_mode_restore_saved_done)
 
+    // Played by hand rather than on tap, since the tap may only open the warning below
+    val selectAllConfirmation = rememberPillConfirmationState()
+    val selectAll = {
+        onSelectAll()
+        selectAllConfirmation.show(enabledDone)
+    }
+
     ActionPillRow(modifier = modifier) {
         ActionPillButton(
             onClick = {
-                if (warnOnUniversalAll) {
-                    showUniversalAllWarning = true
-                } else {
-                    withToast(enabledDone, onSelectAll)()
-                }
+                if (warnOnUniversalAll) showUniversalAllWarning = true else selectAll()
             },
             icon = Icons.Outlined.DoneAll,
             contentDescription = selectAllLabel,
             tooltip = selectAllLabel,
+            confirmationState = selectAllConfirmation,
             enabled = enabledCount < totalCount,
             colors = tonalIconColors(
                 container = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
@@ -99,20 +95,22 @@ internal fun BundlePatchControls(
             )
         )
         ActionPillButton(
-            onClick = withToast(resetDone, onResetToDefault),
+            onClick = onResetToDefault,
             icon = Icons.Outlined.Recommend,
             contentDescription = defaultLabel,
             tooltip = defaultLabel,
+            confirmation = resetDone,
             colors = tonalIconColors(
                 container = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f),
                 content = MaterialTheme.colorScheme.onTertiaryContainer
             )
         )
         ActionPillButton(
-            onClick = withToast(restoredDone, onRestoreSaved),
+            onClick = onRestoreSaved,
             icon = Icons.Outlined.History,
             contentDescription = restoreLabel,
             tooltip = restoreLabel,
+            confirmation = restoredDone,
             enabled = hasSavedSelection,
             colors = tonalIconColors(
                 container = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
@@ -133,10 +131,11 @@ internal fun BundlePatchControls(
             )
         }
         ActionPillButton(
-            onClick = withToast(disabledDone, onDeselectAll),
+            onClick = onDeselectAll,
             icon = Icons.Outlined.ClearAll,
             contentDescription = deselectAllLabel,
             tooltip = deselectAllLabel,
+            confirmation = disabledDone,
             enabled = enabledCount > 0,
             colors = tonalIconColors(
                 container = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
@@ -154,7 +153,7 @@ internal fun BundlePatchControls(
             onDismiss = { showUniversalAllWarning = false },
             onConfirm = {
                 showUniversalAllWarning = false
-                withToast(enabledDone, onSelectAll)()
+                selectAll()
             }
         )
     }

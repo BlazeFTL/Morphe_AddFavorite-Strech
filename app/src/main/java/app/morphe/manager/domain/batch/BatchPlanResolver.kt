@@ -11,7 +11,6 @@ import android.util.Log
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.domain.bundles.AppVersionCatalog
-import app.morphe.manager.domain.bundles.AppVersionHints
 import app.morphe.manager.domain.manager.PatchOptionsPreferencesManager
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
@@ -25,7 +24,6 @@ import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelect
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.patcher.split.SplitApkInspector
-import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.ui.model.declaresPackageName
 import app.morphe.manager.util.AppDataResolver
 import app.morphe.manager.util.AppDataSource
@@ -35,6 +33,8 @@ import app.morphe.manager.util.PatchSelection
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchOptions
 import app.morphe.manager.util.PatchSelectionUtils.validatePatchSelection
+import app.morphe.manager.util.validateOptionPaths
+import app.morphe.manager.util.withoutFailingPaths
 import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.Dispatchers
@@ -89,6 +89,36 @@ internal fun newlyAddedDefaults(
         .mapTo(mutableSetOf()) { it.name }
 }
 
+/**
+ * A saved selection brought up to date with the patches added since it was made.
+ *
+ * [validated] is that selection with patches the sources no longer carry already removed. Every
+ * bundle in [bundles] then contributes what [newlyAddedDefaults] asks for, measured against the
+ * names [known] recalls for it.
+ *
+ * A bundle outside [bundles] keeps whatever [validated] holds for it. That is how a source the app
+ * is kept from keeps the selection made from it while taking no part in the run.
+ */
+internal fun mergeNewlyAdded(
+    bundles: List<PatchBundleInfo.Scoped>,
+    validated: PatchSelection,
+    known: (bundleUid: Int) -> Set<String>?,
+    installerType: InstallerType,
+    apkArchitecture: ApkArchitecture
+): PatchSelection = buildMap {
+    putAll(validated)
+
+    bundles.forEach { bundle ->
+        val added = newlyAddedDefaults(
+            patches = bundle.patches,
+            known = known(bundle.uid),
+            installerType = installerType,
+            apkArchitecture = apkArchitecture
+        )
+        if (added.isNotEmpty()) put(bundle.uid, getOrDefault(bundle.uid, emptySet()) + added)
+    }
+}.filterValues { it.isNotEmpty() }
+
 /** Architecture of the APK an item is patched from, see [ApkArchitectureResolver]. */
 internal suspend fun BatchApkSource.apkArchitecture() = when (this) {
     is BatchApkSource.SavedOriginal -> ApkArchitectureResolver.resolve(file)
@@ -131,10 +161,14 @@ class BatchPlanResolver(
     ): List<BatchPatchItem> = coroutineScope {
         // Built once for the whole plan: it is derived from every patch of every source, and
         // resolving it per app would repeat that work for each one of them
-        val hints = versionCatalog.hints()
+        val recommended = versionCatalog.recommendedVersions.first()
         targets
             .distinctBy { it.id }
-            .map { target -> async { resolve(target, useMount, hints = hints[target.packageName]) } }
+            .map { target ->
+                async {
+                    resolve(target, useMount, suggestedVersion = recommended[target.packageName]?.version)
+                }
+            }
             .awaitAll()
     }
 
@@ -142,6 +176,8 @@ class BatchPlanResolver(
      * Resolves a single target. [attachedFile] overrides source discovery and is used when
      * the user attaches an APK from the preflight screen.
      *
+     * @param suggestedVersion Passed in when the whole plan already resolved it, so the version
+     *   catalog is not rebuilt once per app; looked up here otherwise.
      * @param allowUnverifiedSignature Set once the user has accepted an APK whose signing
      *   certificate no bundle vouches for, so the same file is not questioned twice.
      */
@@ -149,15 +185,14 @@ class BatchPlanResolver(
         target: BatchTarget,
         useMount: Boolean,
         attachedFile: File? = null,
-        hints: AppVersionHints? = null,
+        suggestedVersion: String? = null,
         allowIncompatible: Boolean = false,
         allowUnverifiedSignature: Boolean = false,
         preferInstalled: Boolean = false
     ): BatchPatchItem = withContext(Dispatchers.IO) {
         val packageName = target.packageName
         val appName = resolveAppName(target)
-        val versions = hints ?: versionCatalog.hints(packageName)
-        val suggested = versions?.recommendedVersion
+        val suggested = suggestedVersion ?: versionCatalog.recommendedVersion(packageName)
 
         val attached = try {
             attachedFile?.let { readAttachedApk(it) }
@@ -215,7 +250,6 @@ class BatchPlanResolver(
             source = source,
             useMount = useMount,
             suggested = suggested,
-            experimental = source.version in versions?.experimentalVersions.orEmpty(),
             forceIncompatible = allowIncompatible
         )
     }
@@ -319,14 +353,17 @@ class BatchPlanResolver(
         source: BatchApkSource,
         useMount: Boolean,
         suggested: String?,
-        experimental: Boolean,
         forceIncompatible: Boolean
     ): BatchPatchItem {
         val packageName = target.packageName
         val bundles = patchBundleRepository
-            .scopedBundleInfoFlow(packageName, source.version, source.versionCode)
+            .offeredBundleInfoFlow(packageName, source.version, source.versionCode)
             .first()
             .filter { it.enabled }
+
+        // Asked of the bundles the APK is being resolved against rather than of the version
+        // catalog, so the badge cannot disagree with the warning the single-app flow shows
+        val experimental = bundles.any { it.isVersionExperimental }
 
         // Forced per app from the preflight screen, or globally by the compatibility setting
         val allowIncompatible = forceIncompatible || prefs.disablePatchVersionCompatCheck.get()
@@ -371,7 +408,12 @@ class BatchPlanResolver(
 
         if (selection.values.sumOf { it.size } == 0) return blocked(contributing)
 
-        val options = resolveOptions(target, configurationKey, contributing)
+        val savedOptions = resolveOptions(target, configurationKey, contributing)
+
+        // A queue must not stop to ask about one app, so a path that leads nowhere is dropped
+        // here and reported on the preflight screen instead of failing inside the patcher
+        val unreadablePaths = validateOptionPaths(savedOptions)
+        val options = savedOptions.withoutFailingPaths(unreadablePaths)
 
         return BatchPatchItem(
             target = target,
@@ -382,6 +424,7 @@ class BatchPlanResolver(
             bundles = contributing.map { it.toRef() },
             experimentalVersion = experimental,
             suggestedVersion = suggested,
+            unreadableOptionPaths = unreadablePaths,
             state = if (versionMismatch) BatchItemState.VERSION_MISMATCH else BatchItemState.READY
         )
     }
@@ -416,21 +459,19 @@ class BatchPlanResolver(
 
         if (saved.isNotEmpty()) {
             val validated = validatePatchSelection(saved, patchesByName)
+            val seenByBundle = bundles.associate {
+                it.uid to patchSelectionRepository.getSeenPatches(configurationKey, it.uid)
+            }
 
-            val merged = bundles.associate { bundle ->
-                val seen = patchSelectionRepository.getSeenPatches(configurationKey, bundle.uid)
-
-                // Patches added to the bundle since the last run follow their own default,
-                // the same rule the expert dialog applies when it merges new patches in
-                val newDefaults = newlyAddedDefaults(
-                    patches = bundle.patches,
-                    known = seen ?: saved[bundle.uid],
-                    installerType = installerType,
-                    apkArchitecture = apkArchitecture
-                )
-
-                bundle.uid to (validated[bundle.uid].orEmpty() + newDefaults)
-            }.filterValues { it.isNotEmpty() }
+            // Patches added to a bundle since the last run follow their own default, the same
+            // rule the expert dialog applies when it merges new patches in
+            val merged = mergeNewlyAdded(
+                bundles = bundles,
+                validated = validated,
+                known = { uid -> seenByBundle[uid] ?: saved[uid] },
+                installerType = installerType,
+                apkArchitecture = apkArchitecture
+            )
 
             if (merged.isNotEmpty()) {
                 return merged.applyAvailability(installerType, apkArchitecture, patchesByName)
@@ -518,26 +559,13 @@ class BatchPlanResolver(
 
     private suspend fun readAttachedApk(file: File): AttachedApk? {
         if (!file.exists()) return null
-        if (!SplitApkPreparer.isSplitArchive(file)) return readApk(file, file)
 
-        // A split archive is not a valid APK, so the representative base entry is extracted
-        // first, exactly like the single-app picker does
-        val extracted = SplitApkInspector.extractRepresentativeApk(
+        // A split archive is not a valid APK, so it is read through its base module, exactly
+        // like the single-app picker does
+        return SplitApkInspector.withRepresentativeApk(
             source = file,
             workspace = fs.uiTempDir
-        ) ?: return AttachedApk(
-            file = file,
-            packageName = null,
-            version = UNSPECIFIED_VERSION,
-            versionCode = null,
-            signatureHashes = null
-        )
-
-        return try {
-            readApk(extracted.file, file)
-        } finally {
-            extracted.cleanup()
-        }
+        ) { apk -> readApk(apk, file) }
     }
 
     /**

@@ -32,6 +32,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -52,6 +53,7 @@ import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
@@ -60,9 +62,11 @@ import compose.icons.fontawesomeicons.Brands
 import compose.icons.fontawesomeicons.brands.Github
 import compose.icons.fontawesomeicons.brands.Gitlab
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import org.koin.compose.koinInject
 import com.mikepenz.markdown.model.State as MarkdownRenderState
 
@@ -74,8 +78,8 @@ private val ColorValid = Color(0xFF4CAF50)
 @Composable
 fun AddSourceDialog(
     onDismiss: () -> Unit,
-    onLocalSubmit: () -> Unit,
-    onRemoteSubmit: (url: String) -> Unit,
+    onLocalSubmit: (chooseApps: Boolean) -> Unit,
+    onRemoteSubmit: (url: String, chooseApps: Boolean) -> Unit,
     onLocalPick: () -> Unit,
     selectedLocalPath: String?,
     selectedLocalUri: Uri?,
@@ -83,6 +87,7 @@ fun AddSourceDialog(
 ) {
     var remoteUrl by rememberSaveable { mutableStateOf("") }
     var selectedTab by rememberSaveable { mutableIntStateOf(0) } // 0 = Remote, 1 = Local
+    var chooseApps by rememberSaveable { mutableStateOf(false) }
 
     val urlValidation = rememberUrlValidation(remoteUrl, onValidateUrl)
     val isRemoteValid = remoteUrl.isNotBlank() && urlValidation != FieldValidation.Invalid
@@ -132,8 +137,8 @@ fun AddSourceDialog(
                     primaryText = stringResource(R.string.add),
                     onPrimaryClick = {
                         when (selectedTab) {
-                            0 -> if (isRemoteValid) onRemoteSubmit(normalizeUrl(remoteUrl))
-                            1 -> if (isLocalValid) onLocalSubmit()
+                            0 -> if (isRemoteValid) onRemoteSubmit(normalizeUrl(remoteUrl), chooseApps)
+                            1 -> if (isLocalValid) onLocalSubmit(chooseApps)
                         }
                     },
                     primaryEnabled = if (selectedTab == 0) isRemoteValid else isLocalValid,
@@ -182,8 +187,35 @@ fun AddSourceDialog(
                     )
                 }
             }
+
+            // What a source holds is only known once it has loaded, so this asks now and the
+            // list opens then
+            ChooseAppsToggle(
+                checked = chooseApps,
+                onCheckedChange = { chooseApps = it }
+            )
         }
     }
+}
+
+/**
+ * Asks, while a source is being added, whether to open [SourceAppsDialog] once it has loaded.
+ */
+@Composable
+internal fun ChooseAppsToggle(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    SettingsSwitchItem(
+        checked = checked,
+        onToggle = { onCheckedChange(!checked) },
+        icon = Icons.Outlined.Apps,
+        title = stringResource(R.string.sources_dialog_choose_apps),
+        subtitle = stringResource(R.string.sources_dialog_choose_apps_description),
+        showBorder = true,
+        modifier = modifier
+    )
 }
 
 private enum class FieldValidation { Empty, Valid, Invalid }
@@ -483,19 +515,24 @@ fun RenameBundleDialog(
 
 /**
  * Dialog displaying patches from a bundle with search field and chips.
+ *
+ * @param initialQuery Query to open filtered by, carried over from the search that found the source.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BundlePatchesDialog(
     onDismissRequest: () -> Unit,
-    src: PatchBundleSource
+    src: PatchBundleSource,
+    initialQuery: String = ""
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
+    // Read across every source rather than the enabled ones alone: a disabled source is one the
+    // user is still deciding about, and what it holds is what that decision is made on
     val patches by remember(src.uid) {
-        patchBundleRepository.bundleInfoFlow.mapNotNull { it[src.uid]?.patches }
+        patchBundleRepository.allBundlesInfoFlow.mapNotNull { it[src.uid]?.patches }
     }.collectAsStateWithLifecycle(emptyList())
 
-    var searchQuery by remember { mutableStateOf("") }
+    var searchQuery by remember { mutableStateOf(initialQuery) }
     var selectedPackages by remember { mutableStateOf(emptySet<String>()) }
     val showFilterSheet = remember { mutableStateOf(false) }
 
@@ -523,10 +560,7 @@ fun BundlePatchesDialog(
                 val packageMatch = selectedPackages.isEmpty() ||
                         patch.compatiblePackages
                             ?.any { it.packageName in selectedPackages } == true
-                val queryMatch = searchQuery.isBlank() ||
-                        patch.displayName.contains(searchQuery, ignoreCase = true) ||
-                        patch.description?.contains(searchQuery, ignoreCase = true) == true
-                packageMatch && queryMatch
+                packageMatch && patch.matchesQuery(searchQuery)
             }
             .sortedBy { (_, patch) -> patch.displayName }
     }
@@ -542,6 +576,13 @@ fun BundlePatchesDialog(
     }
 
     val isFiltering = searchQuery.isNotBlank() || selectedPackages.isNotEmpty()
+
+    val patchSections = rememberPatchSectionState()
+    val patchFolds = patchSections.folds
+    val patchGroups = rememberPatchGroups(
+        patches = filteredPatches,
+        infoOf = { (_, patch) -> patch }
+    )
 
     AppDialog(
         onDismissRequest = {
@@ -640,6 +681,19 @@ fun BundlePatchesDialog(
                             )
                         }
 
+                        // The list is reachable while the source is off, so it says so up front
+                        // rather than reading as patches that are ready to be applied
+                        if (!src.enabled) {
+                            item(key = "disabled_hint") {
+                                Notice(
+                                    text = stringResource(R.string.sources_patches_source_disabled_hint),
+                                    icon = Icons.Outlined.VisibilityOff,
+                                    tone = SemanticTone.Warning,
+                                    density = NoticeDensity.Compact
+                                )
+                            }
+                        }
+
                         if (filteredPatches.isEmpty()) {
                             item(key = "empty_state") {
                                 PatchesListEmptyState(
@@ -649,9 +703,13 @@ fun BundlePatchesDialog(
                         }
 
                         // Filtered patches list
-                        items(
-                            filteredPatches,
-                            key = { (index, _) -> index }
+                        patchGroupRows(
+                            sectionKey = src.uid,
+                            groups = patchGroups,
+                            key = { (index, _): IndexedValue<PatchInfo> -> index },
+                            isFiltering = isFiltering,
+                            folds = patchFolds,
+                            onToggle = { group -> patchSections.toggle(src.uid, group) }
                         ) { (_, patch) ->
                             val context = LocalContext.current
                             val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
@@ -696,18 +754,10 @@ fun BundlePatchesDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
-                    .padding(horizontal = 16.dp)
             ) {
-                Text(
-                    text = stringResource(R.string.filter),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) })
 
-                Spacer(Modifier.height(8.dp))
-
-                LazyColumn(Modifier.padding(bottom = 16.dp)) {
+                LazyColumn(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
                     item {
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             // "All" chip
@@ -980,8 +1030,9 @@ fun BundleChangelogHost(
     val bundle = sources.filterIsInstance<RemotePatchBundle>()
         .find { it.uid == request.bundleUid } ?: return
 
-    // A different request, source version or channel has to start the fetch over
-    key(request, bundle.installedVersionSignature, bundle.usesPrerelease) {
+    // The notes are read against the version installed when the dialog opened, so only another
+    // request starts the fetch over: an update landing underneath must not reset it
+    key(request) {
         BundleChangelogDialog(
             src = bundle,
             onDismissRequest = onDismissRequest,
@@ -1338,5 +1389,215 @@ private fun normalizeUrl(url: String): String {
 
         // Add https:// by default
         else -> "https://$trimmed"
+    }
+}
+
+/**
+ * Which of the apps a source brings the user wants from it.
+ *
+ * A source with hundreds of apps is usually added for one or two of them. An app left out here is
+ * kept from this source, the same exclusion the per-app source choice records: the source is no
+ * longer offered when the app is patched, and no longer brings it to the home screen. An app
+ * another source still brings stays there.
+ *
+ * Laid out like the hidden apps list: a tap answers for one app, and a long press picks several
+ * for the bar to answer at once, so the few wanted out of hundreds take a select all and a few taps.
+ */
+@Composable
+fun SourceAppsDialog(
+    onDismissRequest: () -> Unit,
+    src: PatchBundleSource
+) {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val sourceMuteRepository: SourceMuteRepository = koinInject()
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val itemSpacing = rememberWindowSize().itemSpacing
+
+    // Every source, so a disabled one still lists what it would bring once switched back on
+    val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
+    val appMetadata by patchBundleRepository.allAppMetadata.collectAsStateWithLifecycle()
+    val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
+
+    val apps = remember(bundleInfo, appMetadata, src.uid) {
+        bundleInfo[src.uid]?.listedApps().orEmpty()
+            .map { packageName -> packageName to (appMetadata[packageName]?.displayName ?: packageName) }
+            .sortedBy { (_, label) -> label.lowercase(Locale.ROOT) }
+    }
+
+    val search = rememberSearchFieldState(searchable = apps.size > 1)
+    val filtered = remember(apps, search.query) {
+        if (search.query.isBlank()) apps
+        else apps.filter { (packageName, label) ->
+            label.contains(search.query, ignoreCase = true) ||
+                    packageName.contains(search.query, ignoreCase = true)
+        }
+    }
+
+    var isMultiSelectMode by remember { mutableStateOf(false) }
+    val selection = rememberSelectionState<String>()
+    fun exitMultiSelect() {
+        isMultiSelectMode = false
+        selection.clear()
+    }
+
+    // Written in full even if the dialog is gone before it finishes, so a list never lands half
+    // applied
+    fun bring(packageNames: Collection<String>, brought: Boolean) {
+        scope.launch {
+            withContext(NonCancellable) {
+                if (brought) sourceMuteRepository.unmuteApps(src.uid, packageNames)
+                else sourceMuteRepository.muteApps(src.uid, packageNames)
+            }
+        }
+    }
+
+    AppDialog(
+        onDismissRequest = onDismissRequest,
+        dismissOnClickOutside = !isMultiSelectMode,
+        title = stringResource(R.string.sources_apps_title, src.displayTitle),
+        titleTrailingContent = {
+            TitleAction(
+                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                contentDescription = stringResource(R.string.search),
+                onClick = { search.toggle() },
+                style = TitleActionStyle.Toggle,
+                active = search.visible,
+                enabled = apps.size > 1
+            )
+        },
+        footer = {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismissRequest,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        bottomBar = if (isMultiSelectMode) {
+            {
+                MultiSelectShell(visible = true, onBack = ::exitMultiSelect) {
+                    SelectionActionBar(
+                        selectedCount = selection.size,
+                        // Scoped to the search so "select all" never reaches apps out of view
+                        totalCount = filtered.size,
+                        onSelectAll = { selection.setAll(filtered.map { (packageName, _) -> packageName }) },
+                        onDeselectAll = { selection.clear() },
+                        actions = listOf(
+                            SelectionAction(
+                                icon = Icons.Outlined.VisibilityOff,
+                                label = stringResource(R.string.sources_apps_leave_out),
+                                onClick = context.withToast(stringResource(R.string.sources_apps_leave_out_done)) {
+                                    bring(selection.keys.toList(), brought = false)
+                                    exitMultiSelect()
+                                },
+                                tone = ActionTone.Destructive
+                            ),
+                            SelectionAction(
+                                icon = Icons.Outlined.Visibility,
+                                label = stringResource(R.string.sources_apps_bring_back),
+                                onClick = {
+                                    bring(selection.keys.toList(), brought = true)
+                                    exitMultiSelect()
+                                },
+                                tone = ActionTone.Tertiary
+                            )
+                        ),
+                        onCancel = ::exitMultiSelect
+                    )
+                }
+            }
+        } else null,
+        padding = DialogPadding.Compact,
+        scrollable = false
+    ) {
+        SearchFieldBackHandler(search)
+
+        Text(
+            text = stringResource(R.string.sources_apps_description),
+            style = MaterialTheme.typography.bodyMedium,
+            color = LocalDialogSecondaryTextColor.current,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = Defaults.ContentPaddingSmall)
+        )
+
+        val listState = rememberLazyListState()
+        Box(modifier = Modifier.fillMaxWidth()) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(itemSpacing)
+            ) {
+                stickyHeader(key = "search") {
+                    AppDialogSearchHeader(
+                        visible = search.visible,
+                        value = search.query,
+                        onValueChange = { search.query = it },
+                        label = stringResource(R.string.home_search_apps)
+                    )
+                }
+
+                if (filtered.isEmpty() && search.query.isNotBlank()) {
+                    item(key = "empty_state") {
+                        EmptyState(
+                            message = stringResource(R.string.search_no_results),
+                            icon = Icons.Outlined.SearchOff,
+                            modifier = Modifier.animateItem()
+                        )
+                    }
+                }
+
+                items(items = filtered, key = { (packageName, _) -> packageName }) { (packageName, label) ->
+                    val brought = src.uid !in keptFrom[packageName].orEmpty()
+                    val gradientColors = appMetadata[packageName]?.gradientColors
+                        ?: AppCardColorDefaults.defaultGradientColors
+
+                    SelectableCard(
+                        modifier = Modifier
+                            .animatedListItem(this)
+                            // An app left out reads as one this source no longer brings, the
+                            // same way the selection dims what it leaves unpicked
+                            .alpha(if (brought || isMultiSelectMode) 1f else 0.55f),
+                        isSelected = selection.contains(packageName),
+                        isSelectionMode = isMultiSelectMode
+                    ) {
+                        AppCardLayout(
+                            gradientColors = gradientColors,
+                            onClick = {
+                                if (isMultiSelectMode) selection.toggle(packageName)
+                                else bring(listOf(packageName), brought = !brought)
+                            },
+                            onLongClick = {
+                                isMultiSelectMode = true
+                                selection.toggle(packageName)
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            AppCardContent(
+                                packageName = packageName,
+                                packageInfo = null,
+                                displayName = label,
+                                subtitle = stringResource(
+                                    if (brought) R.string.sources_apps_brought
+                                    else R.string.sources_apps_left_out
+                                ),
+                                gradientColors = gradientColors
+                            )
+                        }
+                    }
+                }
+            }
+
+            ListScrollbar(
+                listState = listState,
+                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+            )
+
+            ScrollToTopButton(
+                listState = listState,
+                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+            )
+        }
     }
 }

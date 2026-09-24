@@ -469,6 +469,7 @@ private fun UpdateCheckIntervalDialog(
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Slider(
                     state = sliderState,
+                    onValueChange = { sliderState.value = it },
                     modifier = Modifier.fillMaxWidth()
                 )
 

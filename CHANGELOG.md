@@ -1,3 +1,10 @@
+## [1.32.1-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.32.1-dev.1...v1.32.1-dev.2) (2026-09-25)
+
+
+### Bug Fixes
+
+* Apply app language to the whole app on Android 12 and lower ([b7a7421](https://github.com/MorpheApp/morphe-manager/commit/b7a7421e6f5c82ad9e95e326586bf9f5d521ed7f))
+
 ## [1.32.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0...v1.32.1-dev.1) (2026-09-24)
 
 

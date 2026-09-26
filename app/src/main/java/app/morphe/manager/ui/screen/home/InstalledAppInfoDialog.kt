@@ -1001,33 +1001,8 @@ private fun AppHeroHeader(
 ) {
     val onHero = MaterialTheme.colorScheme.onBackground
 
-    // Entrance animations (progress-based: 0f -> 1f).
-    // One Float per visual group; alpha, offset and scale are derived via lerp
-    // to avoid redundant Recomposition subscribers.
-    val entered = remember { mutableStateOf(false) }
+    val entrance = rememberDialogHeaderEntrance()
     val relativeTime = remember(installedApp.patchedAt) { installedApp.patchedAt?.let { getRelativeTimeString(it) } }
-    LaunchedEffect(Unit) { entered.value = true }
-
-    // Icon: spring with overshoot (first thing the eye sees, no delay needed).
-    val iconProgress by animateFloatAsState(
-        targetValue = if (entered.value) 1f else 0f,
-        animationSpec = spring(dampingRatio = 0.55f, stiffness = 320f),
-        label = "heroIconProgress"
-    )
-
-    // Name + version share one clock; stagger handled inside graphicsLayer via lerp
-    val textProgress by animateFloatAsState(
-        targetValue = if (entered.value) 1f else 0f,
-        animationSpec = tween(durationMillis = 260, delayMillis = 60, easing = EaseOutCubic),
-        label = "heroTextProgress"
-    )
-
-    // Both chips share one clock; chip 2 uses a clamped sub-range for its offset
-    val chipsProgress by animateFloatAsState(
-        targetValue = if (entered.value) 1f else 0f,
-        animationSpec = tween(durationMillis = 240, delayMillis = 160, easing = EaseOutBack),
-        label = "heroChipsProgress"
-    )
 
     Box(modifier = modifier.fillMaxWidth()) {
         // Flat tinted background
@@ -1085,49 +1060,30 @@ private fun AppHeroHeader(
                     modifier = Modifier
                         .size(DialogHeaderDefaults.IconSize)
                         .clip(RoundedCornerShape(DialogHeaderDefaults.IconCornerRadius))
-                        .graphicsLayer {
-                            val s = lerp(0.6f, 1f, iconProgress)
-                            scaleX = s
-                            scaleY = s
-                            alpha = iconProgress.coerceIn(0f, 1f)
-                        }
+                        .headerIconEntrance(entrance)
                 )
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
                 ) {
-                    // Animated app name (leads textProgress)
-                    Box(
-                        modifier = Modifier.graphicsLayer {
-                            translationX = lerp(40f, 0f, textProgress)
-                            alpha = textProgress.coerceIn(0f, 1f)
-                        }
-                    ) {
+                    Box(modifier = Modifier.headerTitleEntrance(entrance)) {
                         AppLabel(
                             packageInfo = appInfo,
                             style = DialogHeaderDefaults.titleStyle.copy(color = onHero),
                             defaultText = appLabel
                         )
                     }
-                    // Animated version (slightly behind name via sub-range)
                     Text(
                         text = (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
                         style = DialogHeaderDefaults.subtitleStyle,
                         color = LocalDialogSecondaryTextColor.current,
-                        modifier = Modifier.graphicsLayer {
-                            val p = ((textProgress - 0.15f) / 0.85f).coerceIn(0f, 1f)
-                            translationX = lerp(40f, 0f, p)
-                            alpha = p
-                        }
+                        modifier = Modifier.headerSubtitleEntrance(entrance)
                     )
                 }
                 // Compact mode: chips column on the right
                 if (compact) {
                     Column(
-                        modifier = Modifier.graphicsLayer {
-                            translationY = lerp(20f, 0f, chipsProgress)
-                            alpha = chipsProgress.coerceIn(0f, 1f)
-                        },
+                        modifier = Modifier.headerBadgeEntrance(entrance),
                         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                         horizontalAlignment = Alignment.End
                     ) {
@@ -1145,16 +1101,7 @@ private fun AppHeroHeader(
                 // Wraps rather than clips: a clone carries a chip more than other installs do
                 StatusBadgeRow {
                     heroChips.forEachIndexed { index, (icon, label) ->
-                        // Each chip starts a third of the way into the one before it, so they
-                        // arrive in sequence off a single clock
-                        Box(
-                            modifier = Modifier.graphicsLayer {
-                                val start = index * 0.3f
-                                val p = ((chipsProgress - start) / (1f - start)).coerceIn(0f, 1f)
-                                translationY = lerp(20f, 0f, p)
-                                alpha = p
-                            }
-                        ) {
+                        Box(modifier = Modifier.headerBadgeEntrance(entrance, index)) {
                             AppAccentBadge(text = label, accentColor = accentColor, icon = icon)
                         }
                     }

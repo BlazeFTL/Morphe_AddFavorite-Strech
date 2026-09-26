@@ -136,7 +136,8 @@ internal fun PatchListDialog(
         padding = DialogPadding.Compact,
         scrollable = false,
         contentArrangement = Arrangement.Top,
-        fillContentHeight = true
+        fillContentHeight = true,
+        hideFooterWhileTyping = true
     ) {
         // Back closes the search, then the filter, before the dialog itself. The last handler
         // registered is the first one asked, so they go in reverse

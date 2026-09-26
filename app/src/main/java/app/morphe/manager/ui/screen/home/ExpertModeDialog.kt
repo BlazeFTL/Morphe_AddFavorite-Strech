@@ -216,7 +216,8 @@ fun ExpertModeDialog(
             )
         },
         padding = DialogPadding.Compact,
-        scrollable = false
+        scrollable = false,
+        hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)
         // Back unwinds the filter before the dialog itself, the way the search field does

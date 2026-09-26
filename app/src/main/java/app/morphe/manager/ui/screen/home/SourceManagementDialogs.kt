@@ -1095,7 +1095,8 @@ fun SourceAppsDialog(
             }
         } else null,
         padding = DialogPadding.Compact,
-        scrollable = false
+        scrollable = false,
+        hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)
 

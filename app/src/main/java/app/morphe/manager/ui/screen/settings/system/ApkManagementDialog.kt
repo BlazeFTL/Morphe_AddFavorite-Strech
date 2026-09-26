@@ -896,7 +896,8 @@ private fun ApkManagementDialogContent(
         scrollable = false,
         padding = DialogPadding.Compact,
         contentArrangement = Arrangement.Top,
-        fillContentHeight = true
+        fillContentHeight = true,
+        hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)
 

@@ -585,6 +585,7 @@ fun PatcherScreen(
                             progress = displayProgressAnimate,
                             patchesProgress = patchesProgress,
                             patchProgress = patcherViewModel.patchRun,
+                            packageName = patcherViewModel.packageName,
                             showLongStepWarning = showLongStepWarning,
                             onCancelClick = { state.showCancelDialog = true },
                             onHomeClick = onBackClick

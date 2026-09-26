@@ -136,6 +136,13 @@ fun BatchPatcherScreen(
     }
     val heldRun = lastRun?.takeIf { useExpertMode && miniGameState.isPlaying }
 
+    // The app last patched keeps its name and color on the progress once the queue moves past it
+    var lastPackageName by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(current?.activeItem?.packageName) {
+        current?.activeItem?.packageName?.let { lastPackageName = it }
+    }
+    val shownPackageName = current?.activeItem?.packageName ?: lastPackageName
+
     // A queue that drains mid-round waits for the player, as a single run does. Keyed on the
     // phase so a retried queue waits again
     var summaryReleased by remember(current?.phase) { mutableStateOf(false) }
@@ -414,6 +421,7 @@ fun BatchPatcherScreen(
                         progress = shownRun.progress,
                         patchesProgress = shownRun.patchesProgress,
                         patchProgress = shownRun,
+                        packageName = shownPackageName,
                         patcherSucceeded = if (holdSummary) true else null,
                         miniGameState = miniGameState,
                         queueHeader = { BatchRunHeader(state = current) },
@@ -427,6 +435,7 @@ fun BatchPatcherScreen(
                         progress = shownRun.progress,
                         patchesProgress = shownRun.patchesProgress,
                         patchProgress = shownRun,
+                        packageName = shownPackageName,
                         showLongStepWarning = longStepWarning,
                         queueHeader = { BatchRunHeader(state = current) },
                         onCancelClick = { showCancelDialog = true },

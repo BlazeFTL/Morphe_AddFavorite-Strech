@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.patcher
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -78,6 +79,7 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.util.formatBytesForReport
 import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.lighten
 import app.morphe.manager.util.startToEndGradient
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
@@ -88,11 +90,14 @@ internal val PatcherCardPadding = 10.dp
 /** What a card's own margin and the surrounding list each contribute to that same inset. */
 internal val PatcherCardMargin = PatcherCardPadding / 2
 
-/** Brand blue - start of the progress gradient. */
+/** Brand blue - start of the progress gradient for an app without a color of its own. */
 private val PatcherProgressBlueColor = Color(0xFF1E5AA8)
 
-/** Brand teal - used for the live indicator dot, step pipeline, progress bar end, and success state. */
+/** Brand teal - used for the live indicator dot, step pipeline, success state, and the brand progress bar end. */
 private val PatcherProgressTealColor = Color(0xFF00AFAE)
+
+/** How far toward white an app's color runs by the end of the progress bar. */
+private const val PROGRESS_ACCENT_LIGHTEN = 0.35f
 
 sealed interface LogItem {
     /**
@@ -504,7 +509,7 @@ private fun ExpertProgressHeader(
                     }
 
                     if (total > 0) {
-                        // A finished run wears the same teal the success card and the progress bar end on
+                        // A finished run wears the same teal as the success card
                         StatusBadge(
                             text = stringResource(R.string.patcher_patches_progress_format, completed, total),
                             containerColor = if (patcherSucceeded == true) {
@@ -527,7 +532,10 @@ private fun ExpertProgressHeader(
                 }
             }
 
-            ExpertLinearProgressBar(progress = progress)
+            ExpertLinearProgressBar(
+                progress = progress,
+                accentColor = packageName?.let { rememberAppColor(it) }
+            )
         }
 
         // Heap, CPU and storage graphs
@@ -540,20 +548,34 @@ private fun ExpertProgressHeader(
 }
 
 /**
- * Horizontal progress bar with a gradient fill.
+ * Horizontal progress bar with a gradient fill, from the color of the app being patched to a lighter
+ * shade of it. An app without a usable color gets the brand blue to teal instead.
  */
 @Composable
-private fun ExpertLinearProgressBar(progress: Float) {
+private fun ExpertLinearProgressBar(progress: Float, accentColor: Color?) {
     val animated by animateFloatAsState(
         targetValue = progress,
         animationSpec = tween(700, easing = FastOutSlowInEasing),
         label = "expert_linear_progress"
     )
 
+    // Eased, since the app's color can land a moment after the bar or change between queued apps
+    val accent = usableAppAccent(accentColor)
+    val startColor by animateColorAsState(
+        targetValue = accent ?: PatcherProgressBlueColor,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "expert_progress_start"
+    )
+    val endColor by animateColorAsState(
+        targetValue = accent?.lighten(PROGRESS_ACCENT_LIGHTEN) ?: PatcherProgressTealColor,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "expert_progress_end"
+    )
+
     // The fill grows from the start edge, so the sweep has to follow it and run end to start in RTL
     val rtl = isRtl()
-    val fillBrush = remember(rtl) {
-        startToEndGradient(listOf(PatcherProgressBlueColor, PatcherProgressTealColor), rtl)
+    val fillBrush = remember(rtl, startColor, endColor) {
+        startToEndGradient(listOf(startColor, endColor), rtl)
     }
 
     Box(

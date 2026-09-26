@@ -20,10 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +43,6 @@ import java.text.NumberFormat
 import kotlin.time.Duration.Companion.milliseconds
 
 private val ProgressRingSize = 220.dp
-private val ProgressRingStrokeWidth = 10.dp
 private val ProgressRingWavelength = 30.dp
 private val SuccessIconContainerSize = 80.dp
 private val SuccessIconSize = 40.dp
@@ -104,6 +100,7 @@ fun ManagerChangelogDialog(
     // A banner can outlive the release it points at, and a check can fail outright, so name the
     // situation rather than wait on data that is not coming
     val isUpdateUnavailable = expectsUpdate && !hasUpdate && !updateViewModel.isCheckingForUpdate
+    val morpheAccent = rememberSourceAccent(isDefault = true, avatarUrl = null, fallbackAvatarUrl = null)
     val older = OlderReleases(
         entries = updateViewModel.olderManagerEntries,
         isLoading = updateViewModel.isLoadingOlderEntries,
@@ -173,7 +170,7 @@ fun ManagerChangelogDialog(
                 stringResource(R.string.app_name),
                 (updateViewModel.releaseInfo?.version ?: BuildConfig.VERSION_NAME).withVersionPrefix().isolateLtr()
             ).joinToString(" · "),
-            accentColor = rememberSourceAccent(isDefault = true, avatarUrl = null, fallbackAvatarUrl = null)
+            accentColor = morpheAccent
         )
 
         AnimatedContent(
@@ -231,7 +228,8 @@ fun ManagerChangelogDialog(
                     DownloadProgress(
                         downloadedSize = updateViewModel.downloadedSize,
                         totalSize = updateViewModel.totalSize,
-                        progress = updateViewModel.downloadProgress
+                        progress = updateViewModel.downloadProgress,
+                        accentColor = morpheAccent
                     )
                 }
 
@@ -390,12 +388,12 @@ private fun CenteredStatus(content: @Composable () -> Unit) {
  * zero so it does not flash an indeterminate state before the first percent. Only a server that
  * streams the release without a content length leaves it indeterminate, around the amount fetched.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun DownloadProgress(
     downloadedSize: Long,
     totalSize: Long,
-    progress: Float
+    progress: Float,
+    accentColor: Color?
 ) {
     val hasKnownSize = totalSize > 0L
     val isStreaming = !hasKnownSize && downloadedSize > 0L
@@ -406,23 +404,11 @@ private fun DownloadProgress(
     )
 
     // The ring grows in from a little smaller, so the switch from the changelog reads as a start
-    var appeared by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) { appeared = true }
-    val scale by animateFloatAsState(
-        targetValue = if (appeared) 1f else 0.85f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioLowBouncy,
-            stiffness = Spring.StiffnessLow
-        ),
+    val scale by rememberEntranceScale(
+        from = 0.85f,
+        dampingRatio = Spring.DampingRatioLowBouncy,
         label = "downloadRingScale"
     )
-
-    val stroke = with(LocalDensity.current) {
-        Stroke(width = ProgressRingStrokeWidth.toPx(), cap = StrokeCap.Round)
-    }
-    val color = MaterialTheme.colorScheme.primary
-    val trackColor = MaterialTheme.colorScheme.surfaceContainerHighest
-    val ringModifier = Modifier.fillMaxSize()
 
     Box(
         modifier = Modifier
@@ -430,26 +416,12 @@ private fun DownloadProgress(
             .scale(scale),
         contentAlignment = Alignment.Center
     ) {
-        if (isStreaming) {
-            CircularWavyProgressIndicator(
-                modifier = ringModifier,
-                color = color,
-                trackColor = trackColor,
-                stroke = stroke,
-                trackStroke = stroke,
-                wavelength = ProgressRingWavelength
-            )
-        } else {
-            CircularWavyProgressIndicator(
-                progress = { animatedProgress },
-                modifier = ringModifier,
-                color = color,
-                trackColor = trackColor,
-                stroke = stroke,
-                trackStroke = stroke,
-                wavelength = ProgressRingWavelength
-            )
-        }
+        WavyProgressRing(
+            progress = if (isStreaming) null else ({ animatedProgress }),
+            wavelength = ProgressRingWavelength,
+            accentColor = accentColor,
+            modifier = Modifier.fillMaxSize()
+        )
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             if (!isStreaming) {
@@ -504,15 +476,9 @@ private fun InstallFailureContent(message: String) {
  */
 @Composable
 private fun UpdateCompletedContent(version: String?) {
-    var appeared by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) { appeared = true }
-
-    val scale by animateFloatAsState(
-        targetValue = if (appeared) 1f else 0.6f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        ),
+    val scale by rememberEntranceScale(
+        from = 0.6f,
+        dampingRatio = Spring.DampingRatioMediumBouncy,
         label = "successScale"
     )
 
@@ -549,4 +515,17 @@ private fun UpdateCompletedContent(version: String?) {
             )
         }
     }
+}
+
+/** Scale that springs up to full size [from] a smaller one once the content enters composition. */
+@Composable
+private fun rememberEntranceScale(from: Float, dampingRatio: Float, label: String): State<Float> {
+    var appeared by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { appeared = true }
+
+    return animateFloatAsState(
+        targetValue = if (appeared) 1f else from,
+        animationSpec = spring(dampingRatio = dampingRatio, stiffness = Spring.StiffnessLow),
+        label = label
+    )
 }

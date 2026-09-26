@@ -70,12 +70,15 @@ fun rememberAppColor(packageName: String): Color? {
 }
 
 /**
- * [accentColor] at [alpha], or [neutral] where there is none. A near-black or near-white color
- * reads as a stain rather than a tint, so it goes neutral too, and the monochrome theme swaps the
- * color for its own accent.
+ * [accentColor] as it can be shown, or null where there is none to show. A near-black or near-white
+ * color reads as a stain rather than a color, so it counts as none, and the monochrome theme swaps
+ * the color for its own accent.
  */
 @Composable
-private fun appAccentTint(accentColor: Color?, alpha: Float, neutral: Color): Color {
-    val accent = accentColor?.let { MonochromeThemeDefaults.accentColor(it) }
-    return if (accent == null || accent.isExtremeAccent()) neutral else accent.copy(alpha = alpha)
-}
+fun usableAppAccent(accentColor: Color?): Color? =
+    accentColor?.let { MonochromeThemeDefaults.accentColor(it) }?.takeUnless { it.isExtremeAccent() }
+
+/** [accentColor] at [alpha], or [neutral] where [usableAppAccent] finds none. */
+@Composable
+private fun appAccentTint(accentColor: Color?, alpha: Float, neutral: Color): Color =
+    usableAppAccent(accentColor)?.copy(alpha = alpha) ?: neutral

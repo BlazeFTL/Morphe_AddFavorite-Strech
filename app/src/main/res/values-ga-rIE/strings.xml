@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Tuairiscigh fadhb</string>
     <string name="sources_management_failed_to_open_url">Teip ar URL a oscailt</string>
     <string name="sources_apps">Aipeanna</string>
-    <string name="sources_apps_title">Aipeanna ó %1$s</string>
     <string name="sources_apps_description">Tapáil aip chun í a fhágáil ar lár ón bhfoinse seo nó chun í a thabhairt ar ais, nó brúigh fada chun roinnt a roghnú. Fágann aip an scáileán baile nuair nach mbíonn sí á tabhairt ag aon fhoinse a thuilleadh.</string>
     <string name="sources_apps_brought">Arna thabhairt ag an bhfoinse seo</string>
     <string name="sources_apps_left_out">Fágtha ar lár ón bhfoinse seo</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Athainmnigh foinse an phaiste</string>
     <string name="sources_dialog_duplicate_name_error">Tá pacáiste beartáin leis an ainm seo ann cheana féin</string>
     <string name="sources_dialog_missing_error">Níorbh fhéidir an pacáiste beartáin seo a nuashonrú</string>
-    <string name="sources_dialog_view_any_version">Aon leagan</string>
-    <string name="sources_dialog_view_any_package">Aon phacáiste</string>
     <string name="sources_dialog_add_source">Cuir foinse paiste leis</string>
     <string name="sources_dialog_delete_confirm_message">Scrios foinse \"%s\"? Ní féidir é seo a chealú.</string>
     <string name="sources_dialog_remote">Cianda</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Mód saineolaithe</string>
     <string name="expert_mode_search">Paistí cuardaigh</string>
-    <string name="expert_mode_proceed">Lean ar aghaidh leis an bpaisteáil</string>
     <string name="expert_mode_disable_all">Díchumasaigh gach rud</string>
     <string name="expert_mode_disable_all_done">Gach paiste díchumasaithe</string>
     <string name="expert_mode_enable_all">Cumasaigh gach rud</string>
@@ -1199,7 +1195,6 @@ Sonraí: %2$s"</string>
     <string name="disable">Díchumasaigh</string>
     <string name="enable">Os comhad</string>
     <string name="loading">Ag lódáil…</string>
-    <string name="loading_older_releases">Ag lódáil eisiúintí níos sine…</string>
     <string name="creating">Ag cruthú…</string>
     <string name="processing_apk">APK á phróiseáil…</string>
     <string name="exporting_apks">Ag easpórtáil APKanna…</string>
@@ -1242,6 +1237,7 @@ Sonraí: %2$s"</string>
     <string name="continue_">Lean ar aghaidh</string>
     <string name="version">Leagan</string>
     <string name="clone">Clónáil</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Paiste</string>
     <string name="patching">Paisteáil</string>
     <string name="patched">Paisteáilte</string>
@@ -1281,8 +1277,25 @@ Sonraí: %2$s"</string>
     <string name="changelog_description">Cad atá nua sa leagan seo</string>
     <string name="changelog_download_fail">Theip ar an logála hathruithe a íoslódáil: %s</string>
     <string name="changelog_empty">Níl aon loga athraithe ar fáil</string>
-    <string name="changelog_show_older">Taispeáin eisiúintí níos sine</string>
+    <string name="changelog_earlier_releases">Eisiúintí níos luaithe</string>
     <string name="changelog_older_empty">Gan aon eisiúintí níos sine le taispeáint</string>
+    <string name="changelog_older_failed">Níorbh fhéidir na heisiúintí níos sine a lódáil</string>
+    <string name="changelog_release_page">Leathanach eisiúna</string>
+    <string name="content_translate">Aistrigh</string>
+    <string name="content_show_original">Taispeáin an bunleagan</string>
+    <string name="changelog_section_new">Nua</string>
+    <string name="changelog_section_fixes">Ceartúcháin</string>
+    <string name="changelog_section_performance">Feidhmíocht</string>
+    <string name="changelog_section_improvements">Feabhsúcháin</string>
+    <string name="changelog_section_app_support">Tacaíocht aipeanna</string>
+    <string name="changelog_section_other">Athruithe</string>
+    <string name="changelog_badge_latest">Is déanaí</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">In úsáid</string>
+    <string name="changelog_badge_prerelease">Réamh-eisiúint</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Taispeáin go léir (%s)</string>
+    <string name="changelog_show_less">Taispeáin níos lú</string>
     <string name="no_network_toast">Níl aon nasc idirlín ar fáil</string>
     <string name="update_available">Tá nuashonrú ar fáil</string>
     <string name="ready_to_install_update">Réidh le nuashonrú a shuiteáil</string>

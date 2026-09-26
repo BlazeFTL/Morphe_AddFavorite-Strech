@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Ilmoita ongelmasta</string>
     <string name="sources_management_failed_to_open_url">URL-osoitteen avaaminen epäonnistui</string>
     <string name="sources_apps">Sovellukset</string>
-    <string name="sources_apps_title">Sovellukset lähteestä %1$s</string>
     <string name="sources_apps_description">Napauta sovellusta jättääksesi sen pois tästä lähteestä tai palauttaaksesi sen takaisin, tai paina pitkään valitaksesi useita. Sovellus poistuu aloitusnäytöltä, kun mikään lähde ei tuo sitä.</string>
     <string name="sources_apps_brought">Tämän lähteen tuomat</string>
     <string name="sources_apps_left_out">Tästä lähteestä pois jätetyt</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Nimeä lisäosien lähde uudelleen</string>
     <string name="sources_dialog_duplicate_name_error">Tämän niminen lisäosien lähde on jo olemassa</string>
     <string name="sources_dialog_missing_error">Tämän lisäosien lähteen päivitys epäonnistui</string>
-    <string name="sources_dialog_view_any_version">Mikä tahansa versio</string>
-    <string name="sources_dialog_view_any_package">Mikä tahansa paketti</string>
     <string name="sources_dialog_add_source">Lisää lisäosien lähde</string>
     <string name="sources_dialog_delete_confirm_message">Poistetaanko lähde \"%s\"? Tätä toimintoa ei voi kumota</string>
     <string name="sources_dialog_remote">Etälähde</string>
@@ -283,7 +280,6 @@ Kaikki mitä lisäät tältä verkkosivustolta, on oma riskisi."</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Asiantuntijatila</string>
     <string name="expert_mode_search">Hae lisäosia</string>
-    <string name="expert_mode_proceed">Jatka muokkaamiseen</string>
     <string name="expert_mode_disable_all">Poista kaikki käytöstä</string>
     <string name="expert_mode_disable_all_done">Kaikki korjaukset poistettu käytöstä</string>
     <string name="expert_mode_enable_all">Ota kaikki käyttöön</string>
@@ -1200,7 +1196,6 @@ Yksityiskohdat: %2$s"</string>
     <string name="disable">Poista käytöstä</string>
     <string name="enable">Ota käyttöön</string>
     <string name="loading">Ladataan…</string>
-    <string name="loading_older_releases">Ladataan vanhempia julkaisuja…</string>
     <string name="creating">Luodaan…</string>
     <string name="processing_apk">Käsitellään APK-tiedostoa…</string>
     <string name="exporting_apks">Viedään APK-tiedostoja…</string>
@@ -1243,6 +1238,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="continue_">Jatka</string>
     <string name="version">Versio</string>
     <string name="clone">Kloonaa</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Muokkaa</string>
     <string name="patching">Korjataan</string>
     <string name="patched">Muokatut</string>
@@ -1282,8 +1278,26 @@ Yksityiskohdat: %2$s"</string>
     <string name="changelog_description">Mitä uutta tässä versiossa</string>
     <string name="changelog_download_fail">Muutoslokin lataaminen epäonnistui: %s</string>
     <string name="changelog_empty">Muutoslokia ei ole saatavilla</string>
-    <string name="changelog_show_older">Näytä vanhemmat julkaisut</string>
+    <string name="changelog_earlier_releases">Aiemmat julkaisut</string>
     <string name="changelog_older_empty">Ei vanhempia julkaisuja näytettäväksi</string>
+    <string name="changelog_older_failed">Vanhempia julkaisuja ei voitu ladata</string>
+    <string name="changelog_release_page">Julkaisusivu</string>
+    <string name="content_translate">Käännä</string>
+    <string name="content_show_original">Näytä alkuperäinen</string>
+    <string name="content_translation_failed">Kääntäminen epäonnistui: %s</string>
+    <string name="changelog_section_new">Uutta</string>
+    <string name="changelog_section_fixes">Korjaukset</string>
+    <string name="changelog_section_performance">Suorituskyky</string>
+    <string name="changelog_section_improvements">Parannukset</string>
+    <string name="changelog_section_app_support">Sovellustuki</string>
+    <string name="changelog_section_other">Muutokset</string>
+    <string name="changelog_badge_latest">Uusin</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Käytössä</string>
+    <string name="changelog_badge_prerelease">Ennakkojulkaisu</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Näytä kaikki (%s)</string>
+    <string name="changelog_show_less">Näytä vähemmän</string>
     <string name="no_network_toast">Ei internetyhteyttä</string>
     <string name="update_available">Päivitys on saatavilla</string>
     <string name="ready_to_install_update">Valmis asentamaan päivityksen</string>

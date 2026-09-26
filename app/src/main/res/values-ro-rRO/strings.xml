@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Raportează o problemă</string>
     <string name="sources_management_failed_to_open_url">Eroarea la deschiderea URL-ului</string>
     <string name="sources_apps">Aplicații</string>
-    <string name="sources_apps_title">Aplicații de la %1$s</string>
     <string name="sources_apps_description">Atingeți o aplicație pentru a o exclude din această sursă sau pentru a o readuce, sau apăsați lung pentru a selecta mai multe. O aplicație părăsește ecranul de pornire odată ce nicio sursă nu o aduce.</string>
     <string name="sources_apps_brought">Aduse de această sursă</string>
     <string name="sources_apps_left_out">Excluse din această sursă</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Redenumire surse de patch-uri</string>
     <string name="sources_dialog_duplicate_name_error">Există deja o sursă de patch-uri cu acest nume</string>
     <string name="sources_dialog_missing_error">Nu s-a putut actualiza sursa aceasta de patch-uri</string>
-    <string name="sources_dialog_view_any_version">Orice versiune</string>
-    <string name="sources_dialog_view_any_package">Orice pachet</string>
     <string name="sources_dialog_add_source">Adaugă sursă de patch-uri</string>
     <string name="sources_dialog_delete_confirm_message">Ștergi sursa \"%s\"? Acest lucru nu poate fi anulat.</string>
     <string name="sources_dialog_remote">Distanță</string>
@@ -283,7 +280,6 @@ Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Mod expert</string>
     <string name="expert_mode_search">Caută patch-uri</string>
-    <string name="expert_mode_proceed">Treci la patch-uire</string>
     <string name="expert_mode_disable_all">Dezactivează toate</string>
     <string name="expert_mode_disable_all_done">Toate patch-urile dezactivate</string>
     <string name="expert_mode_enable_all">Activează toate</string>
@@ -1200,7 +1196,6 @@ Detalii: %2$s"</string>
     <string name="disable">Dezactivează</string>
     <string name="enable">Activează</string>
     <string name="loading">Se încarcă…</string>
-    <string name="loading_older_releases">Se încarcă versiuni mai vechi…</string>
     <string name="creating">Se creează…</string>
     <string name="processing_apk">Se procesează APK…</string>
     <string name="exporting_apks">Se exportă APK-uri…</string>
@@ -1243,6 +1238,7 @@ Detalii: %2$s"</string>
     <string name="continue_">Continuă</string>
     <string name="version">Versiune</string>
     <string name="clone">Clonă</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch-uiește</string>
     <string name="patching">Se aplică patch-uri</string>
     <string name="patched">Patch-uite</string>
@@ -1282,8 +1278,26 @@ Detalii: %2$s"</string>
     <string name="changelog_description">Ce este nou în această versiune</string>
     <string name="changelog_download_fail">Nu s-a putut descărca jurnalul de modificări: %s</string>
     <string name="changelog_empty">Nu există jurnale disponibile</string>
-    <string name="changelog_show_older">Afișează versiunile mai vechi</string>
+    <string name="changelog_earlier_releases">Versiuni anterioare</string>
     <string name="changelog_older_empty">Nu există versiuni mai vechi de afișat</string>
+    <string name="changelog_older_failed">Nu s-au putut încărca versiunile mai vechi</string>
+    <string name="changelog_release_page">Pagina de lansare</string>
+    <string name="content_translate">Traduceți</string>
+    <string name="content_show_original">Afișați originalul</string>
+    <string name="content_translation_failed">Traducerea a eșuat: %s</string>
+    <string name="changelog_section_new">Nou</string>
+    <string name="changelog_section_fixes">Remedieri</string>
+    <string name="changelog_section_performance">Performanță</string>
+    <string name="changelog_section_improvements">Îmbunătățiri</string>
+    <string name="changelog_section_app_support">Suport aplicații</string>
+    <string name="changelog_section_other">Modificări</string>
+    <string name="changelog_badge_latest">Ultima</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">În uz</string>
+    <string name="changelog_badge_prerelease">Pre-lansare</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Afișează toate (%s)</string>
+    <string name="changelog_show_less">Afișează mai puține</string>
     <string name="no_network_toast">Nu există conexiune la internet</string>
     <string name="update_available">Este disponibilă o actualizare</string>
     <string name="ready_to_install_update">Actualizare pregătită pentru instalare</string>

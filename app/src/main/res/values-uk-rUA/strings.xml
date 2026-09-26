@@ -8,7 +8,7 @@
     <string name="home_unpatched_badge">Не патчено</string>
     <string name="home_no_patches_available">Немає доступних патчів</string>
     <string name="home_app_hide_title">Приховати цей застосунок?</string>
-    <string name="home_app_hide_message">Цей застосунок буде приховано з головного екрану. Ви можете відновити його пізніше, використовуючи кнопку \"\" внизу списку</string>
+    <string name="home_app_hide_message">Цей застосунок буде приховано з головного екрану. Ви можете відновити його пізніше, використовуючи кнопку внизу списку</string>
     <string name="home_app_will_be_hidden">Цей застосунок буде приховано</string>
     <string name="home_app_no_hidden">Немає прихованих застосунків</string>
     <string name="home_app_hidden_apps_title">Приховані застосунки</string>
@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Повідомити про проблему</string>
     <string name="sources_management_failed_to_open_url">Не вдалося відкрити URL</string>
     <string name="sources_apps">Застосунки</string>
-    <string name="sources_apps_title">Застосунки з %1$s</string>
     <string name="sources_apps_description">Натисніть на застосунок, щоб виключити його з цього джерела або повернути, або затисніть, щоб вибрати кілька. Застосунок зникає з головного екрана, якщо жодне джерело його не містить</string>
     <string name="sources_apps_brought">Додано цим джерелом</string>
     <string name="sources_apps_left_out">Виключено з цього джерела</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Перейменувати джерело патчів</string>
     <string name="sources_dialog_duplicate_name_error">Джерело з такою назвою вже існує</string>
     <string name="sources_dialog_missing_error">Не вдалося оновити це джерело патчів</string>
-    <string name="sources_dialog_view_any_version">Будь-яка версія</string>
-    <string name="sources_dialog_view_any_package">Будь-який пакет</string>
     <string name="sources_dialog_add_source">Додати джерело патчів</string>
     <string name="sources_dialog_delete_confirm_message">Видалити джерело \"%s\"? Цю дію неможливо скасувати</string>
     <string name="sources_dialog_remote">Віддалене</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Експертний режим</string>
     <string name="expert_mode_search">Пошук патчів</string>
-    <string name="expert_mode_proceed">Перейти до патчингу</string>
     <string name="expert_mode_disable_all">Вимкнути всі</string>
     <string name="expert_mode_disable_all_done">Усі патчі вимкнено</string>
     <string name="expert_mode_enable_all">Увімкнути всі</string>
@@ -1201,7 +1197,6 @@ morphe_header_custom_dark.png
     <string name="disable">Вимкнути</string>
     <string name="enable">Увімкнути</string>
     <string name="loading">Завантаження…</string>
-    <string name="loading_older_releases">Завантаження старіших релізів…</string>
     <string name="creating">Створення…</string>
     <string name="processing_apk">Обробка APK…</string>
     <string name="exporting_apks">Експортування APK…</string>
@@ -1244,6 +1239,7 @@ morphe_header_custom_dark.png
     <string name="continue_">Продовжити</string>
     <string name="version">Версія</string>
     <string name="clone">Клон</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Патчити</string>
     <string name="patching">Патчинг</string>
     <string name="patched">Пропатчено</string>
@@ -1283,8 +1279,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">Що нового в цій версії</string>
     <string name="changelog_download_fail">Не вдалося завантажити список змін: %s</string>
     <string name="changelog_empty">Список змін відсутній</string>
-    <string name="changelog_show_older">Показати старіші релізи</string>
+    <string name="changelog_earlier_releases">Попередні релізи</string>
     <string name="changelog_older_empty">Немає старіших релізів для показу</string>
+    <string name="changelog_older_failed">Не вдалося завантажити попередні релізи</string>
+    <string name="changelog_release_page">Сторінка релізу</string>
+    <string name="content_translate">Перекласти</string>
+    <string name="content_show_original">Показати оригінал</string>
+    <string name="content_translation_failed">Не вдалося перекласти: %s</string>
+    <string name="changelog_section_new">Нове</string>
+    <string name="changelog_section_fixes">Виправлення</string>
+    <string name="changelog_section_performance">Продуктивність</string>
+    <string name="changelog_section_improvements">Покращення</string>
+    <string name="changelog_section_app_support">Підтримка застосунку</string>
+    <string name="changelog_section_other">Зміни</string>
+    <string name="changelog_badge_latest">Найновіша</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Використовується</string>
+    <string name="changelog_badge_prerelease">Передреліз</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Показати всі (%s)</string>
+    <string name="changelog_show_less">Менше</string>
     <string name="no_network_toast">Немає підключення до Інтернету</string>
     <string name="update_available">У наявності є оновлення</string>
     <string name="ready_to_install_update">Готово до установки оновлення</string>

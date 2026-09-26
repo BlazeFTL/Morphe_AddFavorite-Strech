@@ -38,7 +38,7 @@
     </plurals>
     <plurals name="batch_install_summary">
         <item quantity="one">%s aplicativo instalado</item>
-        <item quantity="other">%s apps instalados</item>
+        <item quantity="other">%s aplicativos instalados</item>
     </plurals>
     <plurals name="batch_reinstall_summary">
         <item quantity="one">%s aplicativo reinstalado</item>
@@ -91,5 +91,21 @@
     <plurals name="core_count">
         <item quantity="one">%s núcleo</item>
         <item quantity="other">%s núcleos</item>
+    </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s novo</item>
+        <item quantity="other">%s novo</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s correção</item>
+        <item quantity="other">%s correções</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s alteração</item>
+        <item quantity="other">%s alterações</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s nova versão</item>
+        <item quantity="other">%s novas versões</item>
     </plurals>
 </resources>

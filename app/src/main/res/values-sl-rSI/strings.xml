@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Prijavi težavo</string>
     <string name="sources_management_failed_to_open_url">Ni mogoče odpreti URL</string>
     <string name="sources_apps">Aplikacije</string>
-    <string name="sources_apps_title">Aplikacije iz %1$s</string>
     <string name="sources_apps_description">Dotaknite se aplikacije, da jo izpustite iz tega vira ali jo vrnete, ali pa z dolgim dotikom izberite več. Aplikacija zapusti začetni zaslon, ko je noben vir ne prinaša več.</string>
     <string name="sources_apps_brought">Prinaša ta vir</string>
     <string name="sources_apps_left_out">Izpuščeno iz tega vira</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Preimenuj vir popravka</string>
     <string name="sources_dialog_duplicate_name_error">Vir s tem imenom že obstaja</string>
     <string name="sources_dialog_missing_error">Ni mogoče posodobiti tega vira popravkov.</string>
-    <string name="sources_dialog_view_any_version">Katera koli verzija</string>
-    <string name="sources_dialog_view_any_package">Kateri koli paket</string>
     <string name="sources_dialog_add_source">Dodaj vir popravka</string>
     <string name="sources_dialog_delete_confirm_message">Izbrišem vir \"%s\"? Tega ni mogoče razveljaviti.</string>
     <string name="sources_dialog_remote">Oddaljen</string>
@@ -283,7 +280,6 @@ Vse, kar dodate s tega spletišča, uporabljate na lastno odgovornost.  "</strin
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Strokovni način</string>
     <string name="expert_mode_search">Išči popravke</string>
-    <string name="expert_mode_proceed">Pojdi na popravilo</string>
     <string name="expert_mode_disable_all">Onemogoči vse</string>
     <string name="expert_mode_disable_all_done">Vsi popravke so onemogočeni</string>
     <string name="expert_mode_enable_all">Omogoči vse</string>
@@ -1201,7 +1197,6 @@ Podrobnosti: %2$s"</string>
     <string name="disable">Onemogoči</string>
     <string name="enable">Omogoči</string>
     <string name="loading">Nalaganje…</string>
-    <string name="loading_older_releases">Nalagam starejše različice…</string>
     <string name="creating">Ustvarjam…</string>
     <string name="processing_apk">Obdelujem datoteko APK…</string>
     <string name="exporting_apks">Izvažam datoteke APK…</string>
@@ -1244,6 +1239,7 @@ Podrobnosti: %2$s"</string>
     <string name="continue_">Naprej</string>
     <string name="version">Različica</string>
     <string name="clone">Kloniraj</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Popravi</string>
     <string name="patching">Popravljanje</string>
     <string name="patched">Popravljeno</string>
@@ -1283,8 +1279,26 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_description">Kaj je novega v tej različici</string>
     <string name="changelog_download_fail">Ni mogoče prenesti dnevnika sprememb: %s</string>
     <string name="changelog_empty">Ni na voljo dnevnika sprememb</string>
-    <string name="changelog_show_older">Prikaži starejše različice</string>
+    <string name="changelog_earlier_releases">Starejše izdaje</string>
     <string name="changelog_older_empty">Ni starejših različic za prikaz</string>
+    <string name="changelog_older_failed">Ni bilo mogoče naložiti starejših izdaj</string>
+    <string name="changelog_release_page">Stran izdaje</string>
+    <string name="content_translate">Prevedi</string>
+    <string name="content_show_original">Pokaži izvirnik</string>
+    <string name="content_translation_failed">Prevajanje ni uspelo: %s</string>
+    <string name="changelog_section_new">Novo</string>
+    <string name="changelog_section_fixes">Popravki</string>
+    <string name="changelog_section_performance">Učinkovitost</string>
+    <string name="changelog_section_improvements">Izboljšave</string>
+    <string name="changelog_section_app_support">Podpora za aplikacije</string>
+    <string name="changelog_section_other">Spremembe</string>
+    <string name="changelog_badge_latest">Najnovejše</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">V uporabi</string>
+    <string name="changelog_badge_prerelease">Predizdaja</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Prikaži vse (%s)</string>
+    <string name="changelog_show_less">Prikaži manj</string>
     <string name="no_network_toast">Internetna povezava ni na voljo</string>
     <string name="update_available">Na voljo je posodobitev</string>
     <string name="ready_to_install_update">Pripravljen na namestitev posodobitve</string>

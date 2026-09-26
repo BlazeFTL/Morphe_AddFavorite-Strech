@@ -115,4 +115,24 @@
         <item quantity="few">%s jezgra</item>
         <item quantity="other">%s jezgara</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s novo</item>
+        <item quantity="few">%s nova</item>
+        <item quantity="other">%s novih</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s ispravka</item>
+        <item quantity="few">%s ispravke</item>
+        <item quantity="other">%s ispravki</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s promena</item>
+        <item quantity="few">%s promene</item>
+        <item quantity="other">%s promena</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s novo izdanje</item>
+        <item quantity="few">%s nova izdanja</item>
+        <item quantity="other">%s novih izdanja</item>
+    </plurals>
 </resources>

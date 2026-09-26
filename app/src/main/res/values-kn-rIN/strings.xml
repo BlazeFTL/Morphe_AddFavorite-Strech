@@ -78,8 +78,6 @@
     <string name="sources_dialog_rename">ರೆಮನೆಚ್ ಪ್ಯಾಚ್ ಸೋರ್ಸ್</string>
     <string name="sources_dialog_duplicate_name_error">ಈ ಹೆಸರಿನ ಪ್ಯಾಚ್ ಮೂಲ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ</string>
     <string name="sources_dialog_missing_error">ಈ ಪ್ಯಾಚ್ ಮೂಲವನ್ನು ನವೀಕರಿಸುವ ಸಾಧ್ಯವಿಲ್ಲ</string>
-    <string name="sources_dialog_view_any_version">ಯಾವುದೇ ಆವೃತ್ತಿ</string>
-    <string name="sources_dialog_view_any_package">ಯಾವುದೇ ಪ್ಯಾಕೇಜ್</string>
     <string name="sources_dialog_add_source">ಪ್ಯಾಚ್ ಮೂಲವನ್ನು ಸೇರಿಸಿ</string>
     <string name="sources_dialog_delete_confirm_message">ಮೂಲ \"%s\" ಅನ್ನು ಅಳಿಸಲು ಬಯಸುತ್ತೀರಾ? ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ</string>
     <string name="sources_dialog_remote">ರಿಮೋಟ್</string>
@@ -102,7 +100,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">ಜ್ಞಾನಿ ಮೋಡ್</string>
     <string name="expert_mode_search">ಪ್ಯಾಚ್‌ಗಳನ್ನು ಹುಡುಕಿ</string>
-    <string name="expert_mode_proceed">ಪ್ಯಾಚ್ ಮಾಡುವತ್ತ ಮುಂದುelಗ</string>
     <string name="expert_mode_disable_all">ಎಲ್ಲವನ್ನೂ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
     <string name="expert_mode_disable_all_done">ಎಲ್ಲಾ ಪ್ಯಾಚ್‌ಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
     <string name="expert_mode_enable_all">ಎಲ್ಲ ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
@@ -183,6 +180,9 @@
     <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
          megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
          how a literal percent sign is written here. -->
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

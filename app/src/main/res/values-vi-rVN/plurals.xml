@@ -69,4 +69,16 @@
     <plurals name="core_count">
         <item quantity="other">%s lõi</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="other">%s mới</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="other">%s bản sửa lỗi</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="other">%s thay đổi</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="other">%s bản phát hành mới</item>
+    </plurals>
 </resources>

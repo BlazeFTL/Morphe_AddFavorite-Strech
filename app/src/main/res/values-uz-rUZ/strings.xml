@@ -152,8 +152,6 @@
     <string name="sources_dialog_rename">Tuzatish manbai nomini o\'zgartirish</string>
     <string name="sources_dialog_duplicate_name_error">Bunday nomdagi tuzatish manbai allaqachon mavjud</string>
     <string name="sources_dialog_missing_error">Ushbu patch manbasini yangilash mumkin emas</string>
-    <string name="sources_dialog_view_any_version">Har qanday versiya</string>
-    <string name="sources_dialog_view_any_package">Har qanday paket</string>
     <string name="sources_dialog_add_source">Tuzatish manbai qo\'shish</string>
     <string name="sources_dialog_delete_confirm_message">Manbani o\'chirib tashlash \"%s\"? Ushbu harakatni bekor qilish mumkin emas</string>
     <string name="sources_dialog_remote">Uzoq</string>
@@ -258,7 +256,6 @@ Ushbu veb-saytdan qo'shadigan har qanday narsa o'z xavfingiz ostida qo'llaniladi
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Ekspert rejimi</string>
     <string name="expert_mode_search">Tuzatishlarni qidirish</string>
-    <string name="expert_mode_proceed">Patchlashga o\'ting</string>
     <string name="expert_mode_disable_all">Hammasini o\'chirish</string>
     <string name="expert_mode_disable_all_done">Barcha patchlar o‘chirilgan</string>
     <string name="expert_mode_enable_all">Hammasini yoqish</string>
@@ -1086,7 +1083,6 @@ Ma’lumotlar: %2$s"</string>
     <string name="disable">O\'chirish</string>
     <string name="enable">Yoqish</string>
     <string name="loading">Yuklanmoqda…</string>
-    <string name="loading_older_releases">Memuat rilis yang lebih lama…</string>
     <string name="creating">Membuat…</string>
     <string name="processing_apk">Memproses APK…</string>
     <string name="exporting_apks">Mengekspor APK…</string>
@@ -1128,6 +1124,7 @@ Ma’lumotlar: %2$s"</string>
     <string name="continue_">Davom etish</string>
     <string name="version">Versiya</string>
     <string name="clone">Klon</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>
     <string name="patching">Ta’mirlash</string>
     <string name="patched">Yamalgan</string>
@@ -1161,8 +1158,9 @@ Ma’lumotlar: %2$s"</string>
     <string name="changelog">O‘zgarishlar jurnalini ko‘rish</string>
     <string name="changelog_download_fail">O‘zgarishlar jurnalini yuklab olishda xatolik: %s</string>
     <string name="changelog_empty">O\'zgarishlar logi mavjud emas</string>
-    <string name="changelog_show_older">Eski versiyalarni ko\'rsatish</string>
     <string name="changelog_older_empty">Ko\'rsatish uchun eski versiyalar yo\'q</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <string name="no_network_toast">Internetga ulanish mavjud emas</string>
     <string name="update_available">Yangilanish mavjud</string>
     <string name="ready_to_install_update">Yangilanishni o‘rnatishga tayyor</string>

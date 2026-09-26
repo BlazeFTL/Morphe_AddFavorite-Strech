@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Relatar um problema</string>
     <string name="sources_management_failed_to_open_url">Falha ao abrir URL</string>
     <string name="sources_apps">Aplicativos</string>
-    <string name="sources_apps_title">Apps de %1$s</string>
     <string name="sources_apps_description">Toque em um app para deixá-lo de fora desta fonte ou trazê-lo de volta, ou toque e segure para selecionar vários. Um app sai da tela inicial quando nenhuma fonte o traz.</string>
     <string name="sources_apps_brought">Trazidos por esta fonte</string>
     <string name="sources_apps_left_out">Deixados de fora desta fonte</string>
@@ -153,7 +152,7 @@
     <string name="sources_prerelease_warning_title">Ativar patches de pré-lançamento?</string>
     <string name="sources_prerelease_warning_message">Compilações de pré-lançamento ainda estão em desenvolvimento. Os patches podem falhar ou corromper o aplicativo, e os recursos podem mudar sem aviso prévio</string>
     <string name="expert_mode_prerelease_notice">Esta fonte está em patches de pré-lançamento. Patchear pode falhar ou ter comportamento inesperado</string>
-    <string name="sources_management_experimental_versions_toggle">Versões experimentais do aplcaigtivo</string>
+    <string name="sources_management_experimental_versions_toggle">Versões experimentais do aplicativo</string>
     <string name="sources_management_experimental_versions_toggle_description">Mostra e corrige alvos de aplicativos experimentais</string>
     <string name="sources_management_already_exists">Esta fonte já foi adicionada</string>
     <string name="sources_management_invalid_url">URL de origem inválida. Verifique o endereço e tente novamente.</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Renomear fonte de patches</string>
     <string name="sources_dialog_duplicate_name_error">Já existe uma fonte de patches com esse nome</string>
     <string name="sources_dialog_missing_error">Não foi possível atualizar esta fonte de patches.</string>
-    <string name="sources_dialog_view_any_version">Qualquer versão</string>
-    <string name="sources_dialog_view_any_package">Qualquer pacote</string>
     <string name="sources_dialog_add_source">Adicionar fonte de patches</string>
     <string name="sources_dialog_delete_confirm_message">Excluir a fonte \"%s\"? Esta ação não pode ser desfeita</string>
     <string name="sources_dialog_remote">Remoto</string>
@@ -283,7 +280,6 @@ Tudo o que você adicionar a partir deste site é por sua conta e risco"</string
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Modo Expert</string>
     <string name="expert_mode_search">Procurar patches</string>
-    <string name="expert_mode_proceed">Iniciar a aplicação de patches</string>
     <string name="expert_mode_disable_all">Desativar todos</string>
     <string name="expert_mode_disable_all_done">Todos os patches desativados</string>
     <string name="expert_mode_enable_all">Ativar todos</string>
@@ -1202,7 +1198,6 @@ Detalhes: %2$s"</string>
     <string name="disable">Desativar</string>
     <string name="enable">Ativar</string>
     <string name="loading">Carregando…</string>
-    <string name="loading_older_releases">Carregando versões mais antigas…</string>
     <string name="creating">Criando…</string>
     <string name="processing_apk">Processando APK…</string>
     <string name="exporting_apks">Exportando APKs…</string>
@@ -1245,6 +1240,7 @@ Detalhes: %2$s"</string>
     <string name="continue_">Continuar</string>
     <string name="version">Versão</string>
     <string name="clone">Clonar</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>
     <string name="patching">Corrigindo</string>
     <string name="patched">Patcheado</string>
@@ -1284,8 +1280,26 @@ Detalhes: %2$s"</string>
     <string name="changelog_description">O que há de novo nesta versão</string>
     <string name="changelog_download_fail">Falha ao baixar changelog: %s</string>
     <string name="changelog_empty">Não há registro de alterações disponíveis</string>
-    <string name="changelog_show_older">Exibir versões anteriores</string>
+    <string name="changelog_earlier_releases">Versões anteriores</string>
     <string name="changelog_older_empty">Sem versões anteriores para exibir</string>
+    <string name="changelog_older_failed">Não foi possível carregar versões mais antigas</string>
+    <string name="changelog_release_page">Página da versão</string>
+    <string name="content_translate">Traduzir</string>
+    <string name="content_show_original">Mostrar original</string>
+    <string name="content_translation_failed">Falha ao traduzir: %s</string>
+    <string name="changelog_section_new">Novidades</string>
+    <string name="changelog_section_fixes">Correções</string>
+    <string name="changelog_section_performance">Desempenho</string>
+    <string name="changelog_section_improvements">Melhorias</string>
+    <string name="changelog_section_app_support">Suporte do app</string>
+    <string name="changelog_section_other">Alterações</string>
+    <string name="changelog_badge_latest">Mais recente</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Em uso</string>
+    <string name="changelog_badge_prerelease">Pré-lançamento</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Mostrar tudo (%s)</string>
+    <string name="changelog_show_less">Mostrar Menos</string>
     <string name="no_network_toast">Não há conexão com a internet disponível</string>
     <string name="update_available">Uma atualização está disponível</string>
     <string name="ready_to_install_update">Pronto para instalar a atualização</string>

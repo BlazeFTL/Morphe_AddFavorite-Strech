@@ -86,8 +86,6 @@
     <string name="sources_dialog_rename">Преименувај извор на поправки</string>
     <string name="sources_dialog_duplicate_name_error">Веќе постои извор на поправки со ова име</string>
     <string name="sources_dialog_missing_error">Не може да се ажурира изворот на закрпување</string>
-    <string name="sources_dialog_view_any_version">Секоја верзија</string>
-    <string name="sources_dialog_view_any_package">Секој пакет</string>
     <string name="sources_dialog_add_source">Додај извор на поправки</string>
     <string name="sources_dialog_delete_confirm_message">Дали сакате да го избришете изворот \"%s\"? Ова не може да се врати.</string>
     <string name="sources_dialog_remote">На далечина</string>
@@ -155,7 +153,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Експертски режим</string>
     <string name="expert_mode_search">Пребарувај поправки</string>
-    <string name="expert_mode_proceed">Продолжи со закрпување</string>
     <string name="expert_mode_disable_all">Исклучи ги сите</string>
     <string name="expert_mode_disable_all_done">Сите закрпи се деактивирани</string>
     <string name="expert_mode_enable_all">Вклучи ги сите</string>
@@ -745,6 +742,7 @@ morphe_header_custom_dark.png
     <string name="available">Достапно</string>
     <string name="continue_">Продолжи</string>
     <string name="version">Верзија</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Закрпи</string>
     <string name="open">Отвори</string>
     <string name="mount">Монтирај</string>
@@ -775,6 +773,8 @@ morphe_header_custom_dark.png
     <string name="changelog">Преглед на промените</string>
     <string name="changelog_download_fail">Не успеа да се преземе историја на промени: %s</string>
     <string name="changelog_empty">Нема достапен дневник на промени</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <string name="no_network_toast">Нема достапна интернет врска</string>
     <string name="update_available">Достапна е ажурирање</string>
     <string name="ready_to_install_update">Готово за инсталирање ажурирање</string>

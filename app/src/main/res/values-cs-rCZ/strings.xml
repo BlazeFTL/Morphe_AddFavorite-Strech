@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Nahlásit problém</string>
     <string name="sources_management_failed_to_open_url">Nepodařilo se otevřít URL</string>
     <string name="sources_apps">Aplikace</string>
-    <string name="sources_apps_title">Aplikace z %1$s</string>
     <string name="sources_apps_description">Klepnutím na aplikaci ji vyřadíte z tohoto zdroje nebo ji vrátíte zpět, nebo dlouhým stisknutím vyberete několik aplikací. Aplikace zmizí z domovské obrazovky, jakmile ji nepřináší žádný zdroj.</string>
     <string name="sources_apps_brought">Přinášené tímto zdrojem</string>
     <string name="sources_apps_left_out">Vyřazené z tohoto zdroje</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Přejmenovat zdroj záplat</string>
     <string name="sources_dialog_duplicate_name_error">Zdroj záplat s tímto názvem již existuje</string>
     <string name="sources_dialog_missing_error">Nepodařilo se aktualizovat tento zdroj záplat</string>
-    <string name="sources_dialog_view_any_version">Jakákoliv verze</string>
-    <string name="sources_dialog_view_any_package">Jakýkoliv balíček</string>
     <string name="sources_dialog_add_source">Přidat zdroj záplat</string>
     <string name="sources_dialog_delete_confirm_message">Smazat zdroj \"%s\"? Tato akce je nevratná</string>
     <string name="sources_dialog_remote">Vzdálený</string>
@@ -283,7 +280,6 @@ Cokoli, co z této webové stránky přidáte, používáte na vlastní riziko."
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Expertní režim</string>
     <string name="expert_mode_search">Vyhledat záplaty</string>
-    <string name="expert_mode_proceed">Pokračovat v záplatování</string>
     <string name="expert_mode_disable_all">Vypnout vše</string>
     <string name="expert_mode_disable_all_done">Všechny záplaty vypnuté</string>
     <string name="expert_mode_enable_all">Zapnout vše</string>
@@ -1200,7 +1196,6 @@ Podrobnosti: %2$s"</string>
     <string name="disable">Zakázat</string>
     <string name="enable">Povolit</string>
     <string name="loading">Načítání…</string>
-    <string name="loading_older_releases">Načítají se starší verze…</string>
     <string name="creating">Vytvářím…</string>
     <string name="processing_apk">Zpracovávám APK…</string>
     <string name="exporting_apks">Exportuji APK…</string>
@@ -1243,6 +1238,7 @@ Podrobnosti: %2$s"</string>
     <string name="continue_">Pokračovat</string>
     <string name="version">Verze</string>
     <string name="clone">Klonovat</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Záplata</string>
     <string name="patching">Záplatování</string>
     <string name="patched">Záplatováno</string>
@@ -1282,8 +1278,26 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_description">Co je nového v této verzi</string>
     <string name="changelog_download_fail">Selhání stažení poznámek k vydání: %s</string>
     <string name="changelog_empty">Nejsou dostupné žádné záznamy změn</string>
-    <string name="changelog_show_older">Zobrazit starší verze</string>
+    <string name="changelog_earlier_releases">Starší vydání</string>
     <string name="changelog_older_empty">Nejsou k dispozici žádné starší verze</string>
+    <string name="changelog_older_failed">Nepodařilo se načíst starší vydání</string>
+    <string name="changelog_release_page">Stránka vydání</string>
+    <string name="content_translate">Přeložit</string>
+    <string name="content_show_original">Zobrazit originál</string>
+    <string name="content_translation_failed">Překlad se nezdařil: %s</string>
+    <string name="changelog_section_new">Novinky</string>
+    <string name="changelog_section_fixes">Opravy</string>
+    <string name="changelog_section_performance">Výkon</string>
+    <string name="changelog_section_improvements">Vylepšení</string>
+    <string name="changelog_section_app_support">Podpora aplikací</string>
+    <string name="changelog_section_other">Změny</string>
+    <string name="changelog_badge_latest">Nejnovější</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Používá se</string>
+    <string name="changelog_badge_prerelease">Předběžné vydání</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Zobrazit vše (%s)</string>
+    <string name="changelog_show_less">Zobrazit méně</string>
     <string name="no_network_toast">Žádné připojení k internetu</string>
     <string name="update_available">Je k dispozici aktualizace</string>
     <string name="ready_to_install_update">Připraveno k instalaci aktualizace</string>

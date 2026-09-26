@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">回報問題</string>
     <string name="sources_management_failed_to_open_url">無法開啟網址</string>
     <string name="sources_apps">應用程式</string>
-    <string name="sources_apps_title">來自 %1$s 的應用程式</string>
     <string name="sources_apps_description">輕觸應用程式可將其從此來源排除或重新加入，長按則可選取多個。當沒有來源提供它時，該應用程式就會從主畫面移除。</string>
     <string name="sources_apps_brought">由此來源提供</string>
     <string name="sources_apps_left_out">已從此來源排除</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">重新命名修補來源</string>
     <string name="sources_dialog_duplicate_name_error">已存在同名的修補程式來源</string>
     <string name="sources_dialog_missing_error">無法更新此修補來源</string>
-    <string name="sources_dialog_view_any_version">任何版本</string>
-    <string name="sources_dialog_view_any_package">任何套件</string>
     <string name="sources_dialog_add_source">新增修補程式來源</string>
     <string name="sources_dialog_delete_confirm_message">確定要刪除來源「%s」？此操作無法復原</string>
     <string name="sources_dialog_remote">遠端</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">專家模式</string>
     <string name="expert_mode_search">搜尋修補程式</string>
-    <string name="expert_mode_proceed">繼續修補</string>
     <string name="expert_mode_disable_all">全部停用</string>
     <string name="expert_mode_disable_all_done">已停用所有修補程式</string>
     <string name="expert_mode_enable_all">全部啟用</string>
@@ -1198,7 +1194,6 @@ morphe_header_custom_dark.png
     <string name="disable">停用</string>
     <string name="enable">啟用</string>
     <string name="loading">載入中……</string>
-    <string name="loading_older_releases">正在載入較舊的版本…</string>
     <string name="creating">正在建立…</string>
     <string name="processing_apk">正在處理 APK…</string>
     <string name="exporting_apks">正在匯出 APK…</string>
@@ -1241,6 +1236,7 @@ morphe_header_custom_dark.png
     <string name="continue_">繼續</string>
     <string name="version">版本</string>
     <string name="clone">複製</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">修補</string>
     <string name="patching">修補中</string>
     <string name="patched">修補時間</string>
@@ -1280,8 +1276,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">此版本的新功能</string>
     <string name="changelog_download_fail">無法下載變更紀錄：%s</string>
     <string name="changelog_empty">沒有可用的變更紀錄</string>
-    <string name="changelog_show_older">顯示舊版本</string>
+    <string name="changelog_earlier_releases">先前版本</string>
     <string name="changelog_older_empty">尚無較舊版本可顯示</string>
+    <string name="changelog_older_failed">無法載入較舊版本</string>
+    <string name="changelog_release_page">版本頁面</string>
+    <string name="content_translate">翻譯</string>
+    <string name="content_show_original">顯示原文</string>
+    <string name="content_translation_failed">翻譯失敗：%s</string>
+    <string name="changelog_section_new">新增</string>
+    <string name="changelog_section_fixes">修正</string>
+    <string name="changelog_section_performance">效能</string>
+    <string name="changelog_section_improvements">改進</string>
+    <string name="changelog_section_app_support">應用程式支援</string>
+    <string name="changelog_section_other">變更</string>
+    <string name="changelog_badge_latest">最新</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">使用中</string>
+    <string name="changelog_badge_prerelease">預先發布</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">顯示全部（%s）</string>
+    <string name="changelog_show_less">顯示較少</string>
     <string name="no_network_toast">沒有可用的網際網路連線</string>
     <string name="update_available">有可用的更新</string>
     <string name="ready_to_install_update">準備安裝更新</string>

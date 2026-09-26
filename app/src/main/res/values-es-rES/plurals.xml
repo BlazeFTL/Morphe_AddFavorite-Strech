@@ -92,4 +92,20 @@
         <item quantity="one">%s núcleo</item>
         <item quantity="other">%s núcleos</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s nueva</item>
+        <item quantity="other">%s nuevas</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s corrección</item>
+        <item quantity="other">%s correcciones</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s cambio</item>
+        <item quantity="other">%s cambios</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s nueva versión</item>
+        <item quantity="other">%s nuevas versiones</item>
+    </plurals>
 </resources>

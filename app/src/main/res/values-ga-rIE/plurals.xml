@@ -161,4 +161,32 @@
         <item quantity="many">%s chroílár</item>
         <item quantity="other">%s chroílár</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s nua</item>
+        <item quantity="two">%s nua</item>
+        <item quantity="few">%s nua</item>
+        <item quantity="many">%s nua</item>
+        <item quantity="other">%s nua</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s cheartú</item>
+        <item quantity="two">%s cheartú</item>
+        <item quantity="few">%s cheartú</item>
+        <item quantity="many">%s gceartú</item>
+        <item quantity="other">%s ceartú</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s athrú</item>
+        <item quantity="two">%s athrú</item>
+        <item quantity="few">%s athrú</item>
+        <item quantity="many">%s n-athrú</item>
+        <item quantity="other">%s athrú</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s leagan nua</item>
+        <item quantity="two">%s leagan nua</item>
+        <item quantity="few">%s leagan nua</item>
+        <item quantity="many">%s leagan nua</item>
+        <item quantity="other">%s leagan nua</item>
+    </plurals>
 </resources>

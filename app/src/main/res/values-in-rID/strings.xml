@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Laporkan masalah</string>
     <string name="sources_management_failed_to_open_url">Gagal membuka URL</string>
     <string name="sources_apps">Aplikasi</string>
-    <string name="sources_apps_title">Aplikasi dari %1$s</string>
     <string name="sources_apps_description">Ketuk aplikasi untuk mengeluarkannya dari sumber ini atau mengembalikannya, atau tekan lama untuk memilih beberapa. Aplikasi akan keluar dari layar utama setelah tidak ada sumber yang menampilkannya.</string>
     <string name="sources_apps_brought">Dibawa oleh sumber ini</string>
     <string name="sources_apps_left_out">Dikecualikan dari sumber ini</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Ubah nama sumber tambalan</string>
     <string name="sources_dialog_duplicate_name_error">Sumber tambalan dengan nama ini sudah ada</string>
     <string name="sources_dialog_missing_error">Tidak dapat memperbarui sumber tambalan ini</string>
-    <string name="sources_dialog_view_any_version">Versi apapun</string>
-    <string name="sources_dialog_view_any_package">Paket apapun</string>
     <string name="sources_dialog_add_source">Tambah sumber tambalan</string>
     <string name="sources_dialog_delete_confirm_message">Hapus sumber \"%s\"? Ini tidak dapat dikembalikan</string>
     <string name="sources_dialog_remote">Daring</string>
@@ -283,7 +280,6 @@ Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Mode ahli</string>
     <string name="expert_mode_search">Cari tambalan</string>
-    <string name="expert_mode_proceed">Lanjutkan ke penambalan</string>
     <string name="expert_mode_disable_all">Nonaktifkan semua</string>
     <string name="expert_mode_disable_all_done">Semua tambalan dinonaktifkan</string>
     <string name="expert_mode_enable_all">Aktifkan semua</string>
@@ -1202,7 +1198,6 @@ Rincian: %2$s"</string>
     <string name="disable">Nonaktifkan</string>
     <string name="enable">Aktifkan</string>
     <string name="loading">Memuat…</string>
-    <string name="loading_older_releases">Memuat rilis yang lebih lama…</string>
     <string name="creating">Membuat…</string>
     <string name="processing_apk">Memproses APK…</string>
     <string name="exporting_apks">Mengekspor APK…</string>
@@ -1245,6 +1240,7 @@ Rincian: %2$s"</string>
     <string name="continue_">Lanjutkan</string>
     <string name="version">Versi</string>
     <string name="clone">Duplikat</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Tambalan</string>
     <string name="patching">Menambal</string>
     <string name="patched">Ditambal</string>
@@ -1284,8 +1280,26 @@ Rincian: %2$s"</string>
     <string name="changelog_description">Apa yang baru di versi ini</string>
     <string name="changelog_download_fail">Gagal mengunduh catatan perubahan: %s</string>
     <string name="changelog_empty">Tidak ada catatan perubahan tersedia</string>
-    <string name="changelog_show_older">Tampilkan rilis yang lebih lama</string>
+    <string name="changelog_earlier_releases">Rilis sebelumnya</string>
     <string name="changelog_older_empty">Tidak ada rilis yang lebih lama untuk ditampilkan</string>
+    <string name="changelog_older_failed">Tidak dapat memuat rilis yang lebih lama</string>
+    <string name="changelog_release_page">Halaman rilis</string>
+    <string name="content_translate">Terjemahkan</string>
+    <string name="content_show_original">Tampilkan aslinya</string>
+    <string name="content_translation_failed">Gagal menerjemahkan: %s</string>
+    <string name="changelog_section_new">Baru</string>
+    <string name="changelog_section_fixes">Perbaikan</string>
+    <string name="changelog_section_performance">Performa</string>
+    <string name="changelog_section_improvements">Peningkatan</string>
+    <string name="changelog_section_app_support">Dukungan aplikasi</string>
+    <string name="changelog_section_other">Perubahan</string>
+    <string name="changelog_badge_latest">Terbaru</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Digunakan</string>
+    <string name="changelog_badge_prerelease">Pra-rilis</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Tampilkan semua (%s)</string>
+    <string name="changelog_show_less">Tampilkan lebih sedikit</string>
     <string name="no_network_toast">Tidak ada sambungan internet yang tersedia</string>
     <string name="update_available">Pembaruan tersedia</string>
     <string name="ready_to_install_update">Siap memasang pembaruan</string>

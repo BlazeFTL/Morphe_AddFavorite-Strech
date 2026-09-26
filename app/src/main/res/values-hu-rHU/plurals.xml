@@ -92,4 +92,20 @@
         <item quantity="one">%s mag</item>
         <item quantity="other">%s mag</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s újdonság</item>
+        <item quantity="other">%s újdonság</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s javítás</item>
+        <item quantity="other">%s javítás</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s változás</item>
+        <item quantity="other">%s változás</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s új kiadás</item>
+        <item quantity="other">%s új kiadás</item>
+    </plurals>
 </resources>

@@ -92,4 +92,20 @@
         <item quantity="one">%s kärna</item>
         <item quantity="other">%s kärnor</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s ny</item>
+        <item quantity="other">%s nya</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s fix</item>
+        <item quantity="other">%s fixar</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s ändring</item>
+        <item quantity="other">%s ändringar</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s ny utgåva</item>
+        <item quantity="other">%s nya utgåvor</item>
+    </plurals>
 </resources>

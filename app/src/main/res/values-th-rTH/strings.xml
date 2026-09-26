@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">รายงานปัญหา</string>
     <string name="sources_management_failed_to_open_url">ไม่สามารถเปิด URL ได้</string>
     <string name="sources_apps">แอป</string>
-    <string name="sources_apps_title">แอปจาก %1$s</string>
     <string name="sources_apps_description">แตะที่แอปเพื่อแยกออกจากแหล่งข้อมูลนี้หรือนำกลับมา หรือกดค้างเพื่อเลือกหลายรายการ แอปจะออกจากหน้าจอหลักเมื่อไม่มีแหล่งข้อมูลใดนำแอปนั้นกลับมา</string>
     <string name="sources_apps_brought">นำมาโดยแหล่งข้อมูลนี้</string>
     <string name="sources_apps_left_out">ไม่รวมอยู่ในแหล่งข้อมูลนี้</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">เปลี่ยนชื่อแหล่งที่มา</string>
     <string name="sources_dialog_duplicate_name_error">มีแหล่งที่มาที่ชื่อนี้อยู่แล้ว</string>
     <string name="sources_dialog_missing_error">ไม่สามารถอัปเดตแหล่งที่มานี้</string>
-    <string name="sources_dialog_view_any_version">เวอร์ชันใด ๆ</string>
-    <string name="sources_dialog_view_any_package">แพ็คเกจใด ๆ</string>
     <string name="sources_dialog_add_source">เพิ่มแหล่งที่มา</string>
     <string name="sources_dialog_delete_confirm_message">ลบแหล่งที่มา “%s”? ขั้นตอนนี้ไม่สามารถย้อนกลับได้</string>
     <string name="sources_dialog_remote">รีโมต</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">โหมดผู้เชี่ยวชาญ</string>
     <string name="expert_mode_search">ค้นหาแพตช์</string>
-    <string name="expert_mode_proceed">ดำเนินการต่อไปยังการแพตช์</string>
     <string name="expert_mode_disable_all">ปิดการใช้งานทั้งหมด</string>
     <string name="expert_mode_disable_all_done">ปิดการใช้งานแพตช์ทั้งหมดแล้ว</string>
     <string name="expert_mode_enable_all">เปิดการใช้งานทั้งหมด</string>
@@ -1201,7 +1197,6 @@ morphe_header_custom_dark.png
     <string name="disable">ปิดการใช้งาน</string>
     <string name="enable">อนุญาต</string>
     <string name="loading">กำลังโหลด…</string>
-    <string name="loading_older_releases">กำลังโหลดเวอร์ชันก่อนหน้า…</string>
     <string name="creating">กำลังสร้าง…</string>
     <string name="processing_apk">กำลังประมวลผล APK…</string>
     <string name="exporting_apks">กำลังส่งออก APK…</string>
@@ -1244,6 +1239,7 @@ morphe_header_custom_dark.png
     <string name="continue_">ดำเนินการต่อ</string>
     <string name="version">เวอร์ชัน</string>
     <string name="clone">โคลน</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">แพตช์</string>
     <string name="patching">กำลังแพตช์</string>
     <string name="patched">แพตช์แล้ว</string>
@@ -1283,8 +1279,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">มีอะไรใหม่ในเวอร์ชันนี้</string>
     <string name="changelog_download_fail">ไม่สามารถดาวน์โหลดบันทึกการเปลี่ยนแปลงได้: %s</string>
     <string name="changelog_empty">ไม่มีรายการอัปเดต</string>
-    <string name="changelog_show_older">แสดงเวอร์ชันเก่ากว่า</string>
+    <string name="changelog_earlier_releases">รุ่นก่อนหน้า</string>
     <string name="changelog_older_empty">ไม่มีเวอร์ชันเก่ากว่าให้แสดง</string>
+    <string name="changelog_older_failed">ไม่สามารถโหลดรุ่นที่เก่ากว่าได้</string>
+    <string name="changelog_release_page">หน้ารุ่น</string>
+    <string name="content_translate">แปลภาษา</string>
+    <string name="content_show_original">แสดงต้นฉบับ</string>
+    <string name="content_translation_failed">การแปลล้มเหลว: %s</string>
+    <string name="changelog_section_new">ใหม่</string>
+    <string name="changelog_section_fixes">การแก้ไข</string>
+    <string name="changelog_section_performance">ประสิทธิภาพ</string>
+    <string name="changelog_section_improvements">การปรับปรุง</string>
+    <string name="changelog_section_app_support">การรองรับแอป</string>
+    <string name="changelog_section_other">การเปลี่ยนแปลง</string>
+    <string name="changelog_badge_latest">ล่าสุด</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">กำลังใช้งาน</string>
+    <string name="changelog_badge_prerelease">เวอร์ชันก่อนเผยแพร่</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">แสดงทั้งหมด (%s)</string>
+    <string name="changelog_show_less">แสดงน้อยลง</string>
     <string name="no_network_toast">ไม่มีการเชื่อมต่ออินเทอร์เน็ต</string>
     <string name="update_available">มีอัปเดตพร้อมใช้งาน</string>
     <string name="ready_to_install_update">พร้อมติดตั้งอัปเดต</string>

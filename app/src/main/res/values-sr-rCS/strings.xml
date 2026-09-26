@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Prijavi problem</string>
     <string name="sources_management_failed_to_open_url">Otvaranje URL-a nije uspelo</string>
     <string name="sources_apps">Aplikacije</string>
-    <string name="sources_apps_title">Aplikacije iz %1$s</string>
     <string name="sources_apps_description">Dodirnite aplikaciju da biste je izostavili iz ovog izvora ili je vratili, ili dugo pritisnite da biste izabrali više njih. Aplikacija napušta početni ekran kada je nijedan izvor više ne donosi.</string>
     <string name="sources_apps_brought">Donesene iz ovog izvora</string>
     <string name="sources_apps_left_out">Izostavljene iz ovog izvora</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Preimenuj izvor zakrpe</string>
     <string name="sources_dialog_duplicate_name_error">Izvor zakrpe sa ovim imenom već postoji</string>
     <string name="sources_dialog_missing_error">Nije moguće ažurirati ovaj izvor zakrpe </string>
-    <string name="sources_dialog_view_any_version">Bilo koja verzija</string>
-    <string name="sources_dialog_view_any_package">Bilo koji paketi</string>
     <string name="sources_dialog_add_source">Dodaj izvor zakrpe</string>
     <string name="sources_dialog_delete_confirm_message">Izbriši izvornu \"%s\"? Ova radnja ne može biti poništena</string>
     <string name="sources_dialog_remote">Udaljeno</string>
@@ -283,7 +280,6 @@ Sve što dodate sa ove veb stranice koristite na sopstvenu odgovornost."</string
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Režim eksperta</string>
     <string name="expert_mode_search">Pretraži patchove</string>
-    <string name="expert_mode_proceed">Pokreni krpljenje</string>
     <string name="expert_mode_disable_all">Onemogući sve</string>
     <string name="expert_mode_disable_all_done">Sve zakrpe su isključene</string>
     <string name="expert_mode_enable_all">Omogući sve</string>
@@ -1185,7 +1181,6 @@ Detalji: %2$s"</string>
     <string name="disable">Onemogući</string>
     <string name="enable">Omogući</string>
     <string name="loading">Učitavanje…</string>
-    <string name="loading_older_releases">Učitavanje starijih verzija…</string>
     <string name="creating">Kreiranje…</string>
     <string name="processing_apk">Obrada APK-a…</string>
     <string name="exporting_apks">Izvoz APK-ova…</string>
@@ -1228,6 +1223,7 @@ Detalji: %2$s"</string>
     <string name="continue_">Nastavi</string>
     <string name="version">Verzija</string>
     <string name="clone">Klon</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Zakrpi</string>
     <string name="patching">Zakrpljivanje</string>
     <string name="patched">Zakrpljene</string>
@@ -1267,8 +1263,26 @@ Detalji: %2$s"</string>
     <string name="changelog_description">Šta je novo u ovoj verziji</string>
     <string name="changelog_download_fail">Preuzimanje zapisa o promenama nije uspelo: %s</string>
     <string name="changelog_empty">Nema dostupne verzije promjene</string>
-    <string name="changelog_show_older">Prikaži starije verzije</string>
+    <string name="changelog_earlier_releases">Ranija izdanja</string>
     <string name="changelog_older_empty">Nema starijih verzija za prikaz</string>
+    <string name="changelog_older_failed">Ne mogu da se učitaju starija izdanja</string>
+    <string name="changelog_release_page">Stranica izdanja</string>
+    <string name="content_translate">Prevedi</string>
+    <string name="content_show_original">Prikaži original</string>
+    <string name="content_translation_failed">Prevođenje nije uspelo: %s</string>
+    <string name="changelog_section_new">Novo</string>
+    <string name="changelog_section_fixes">Ispravke</string>
+    <string name="changelog_section_performance">Performanse</string>
+    <string name="changelog_section_improvements">Poboljšanja</string>
+    <string name="changelog_section_app_support">Podrška za aplikacije</string>
+    <string name="changelog_section_other">Izmene</string>
+    <string name="changelog_badge_latest">Najnovije</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">U upotrebi</string>
+    <string name="changelog_badge_prerelease">Predizdanje</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Prikaži sve (%s)</string>
+    <string name="changelog_show_less">Prikaži manje</string>
     <string name="no_network_toast">Nema dostupne mrežne veze</string>
     <string name="update_available">Dostupno je ažuriranje</string>
     <string name="ready_to_install_update">Spremno za instaliranje ažuriranja</string>

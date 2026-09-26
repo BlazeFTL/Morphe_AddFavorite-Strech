@@ -138,4 +138,28 @@
         <item quantity="many">%s ядер</item>
         <item quantity="other">%s ядра</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s новое</item>
+        <item quantity="few">%s новых</item>
+        <item quantity="many">%s новых</item>
+        <item quantity="other">%s новых</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s исправление</item>
+        <item quantity="few">%s исправления</item>
+        <item quantity="many">%s исправлений</item>
+        <item quantity="other">%s исправления</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s изменение</item>
+        <item quantity="few">%s изменения</item>
+        <item quantity="many">%s изменений</item>
+        <item quantity="other">%s изменения</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s новый релиз</item>
+        <item quantity="few">%s новых релиза</item>
+        <item quantity="many">%s новых релизов</item>
+        <item quantity="other">%s новых релиза</item>
+    </plurals>
 </resources>

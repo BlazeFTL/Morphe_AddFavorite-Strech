@@ -115,4 +115,24 @@
         <item quantity="few">%s nuclee</item>
         <item quantity="other">%s de nuclee</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s noutate</item>
+        <item quantity="few">%s noutăți</item>
+        <item quantity="other">%s de noutăți</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s remediere</item>
+        <item quantity="few">%s remedieri</item>
+        <item quantity="other">%s de remedieri</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s modificare</item>
+        <item quantity="few">%s modificări</item>
+        <item quantity="other">%s de modificări</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s versiune nouă</item>
+        <item quantity="few">%s versiuni noi</item>
+        <item quantity="other">%s de versiuni noi</item>
+    </plurals>
 </resources>

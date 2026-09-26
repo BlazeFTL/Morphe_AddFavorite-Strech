@@ -69,4 +69,16 @@
     <plurals name="core_count">
         <item quantity="other">%s คอร์</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="other">ใหม่ %s</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="other">การแก้ไข %s</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="other">การเปลี่ยนแปลง %s</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="other">รุ่นใหม่ %s</item>
+    </plurals>
 </resources>

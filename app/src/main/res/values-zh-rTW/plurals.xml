@@ -69,4 +69,16 @@
     <plurals name="core_count">
         <item quantity="other">%s 個核心</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="other">%s 個新項目</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="other">%s 項修正</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="other">%s 項變更</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="other">%s 個新版本</item>
+    </plurals>
 </resources>

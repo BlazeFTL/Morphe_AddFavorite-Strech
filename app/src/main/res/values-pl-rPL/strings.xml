@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Zgłoś problem</string>
     <string name="sources_management_failed_to_open_url">Nie udało się otworzyć strony</string>
     <string name="sources_apps">Aplikacje</string>
-    <string name="sources_apps_title">Aplikacje z %1$s</string>
     <string name="sources_apps_description">Dotknij aplikacji, aby wykluczyć ją z tego źródła lub przywrócić, albo przytrzymaj, aby wybrać kilka. Aplikacja znika z ekranu głównego, gdy nie uwzględnia jej żadne źródło</string>
     <string name="sources_apps_brought">Uwzględnione w tym źródle</string>
     <string name="sources_apps_left_out">Wykluczone z tego źródła</string>
@@ -175,8 +174,6 @@
     <string name="sources_dialog_rename">Zmień nazwę źródła modyfikacji</string>
     <string name="sources_dialog_duplicate_name_error">Źródło modyfikacji o tej nazwie już istnieje</string>
     <string name="sources_dialog_missing_error">Nie można zaktualizować tego źródła modyfikacji</string>
-    <string name="sources_dialog_view_any_version">Dowolna wersja</string>
-    <string name="sources_dialog_view_any_package">Dowolny pakiet</string>
     <string name="sources_dialog_add_source">Dodaj źródło modyfikacji</string>
     <string name="sources_dialog_delete_confirm_message">Usunąć źródło \"%s\"? Tej operacji nie da się cofnąć</string>
     <string name="sources_dialog_remote">Zdalne</string>
@@ -284,7 +281,6 @@ Wszystko, co dodasz z tej strony, używasz na własne ryzyko"</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Tryb ekspercki</string>
     <string name="expert_mode_search">Szukaj modyfikacji</string>
-    <string name="expert_mode_proceed">Przejdź do modyfikowania</string>
     <string name="expert_mode_disable_all">Wyłącz wszystkie</string>
     <string name="expert_mode_disable_all_done">Wyłączono wszystkie modyfikacje</string>
     <string name="expert_mode_enable_all">Włącz wszystkie</string>
@@ -1202,7 +1198,6 @@ Wymagane są następujące wymiary obrazów:
     <string name="disable">Wyłącz</string>
     <string name="enable">Włącz</string>
     <string name="loading">Wczytywanie…</string>
-    <string name="loading_older_releases">Wczytywanie starszych wersji…</string>
     <string name="creating">Tworzenie…</string>
     <string name="processing_apk">Przetwarzanie pliku APK…</string>
     <string name="exporting_apks">Eksportowanie plików APK…</string>
@@ -1245,6 +1240,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="continue_">Kontynuuj</string>
     <string name="version">Wersja</string>
     <string name="clone">Klonuj</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Modyfikuj</string>
     <string name="patching">Modyfikowanie</string>
     <string name="patched">Zmodyfikowano</string>
@@ -1284,8 +1280,26 @@ Wymagane są następujące wymiary obrazów:
     <string name="changelog_description">Co nowego w tej wersji</string>
     <string name="changelog_download_fail">Nie udało się pobrać historii zmian: %s</string>
     <string name="changelog_empty">Brak dostępnej historii zmian</string>
-    <string name="changelog_show_older">Pokaż starsze wersje</string>
+    <string name="changelog_earlier_releases">Wcześniejsze wydania</string>
     <string name="changelog_older_empty">Brak starszych wersji do wyświetlenia</string>
+    <string name="changelog_older_failed">Nie udało się wczytać starszych wydań</string>
+    <string name="changelog_release_page">Strona wydania</string>
+    <string name="content_translate">Przetłumacz</string>
+    <string name="content_show_original">Pokaż oryginał</string>
+    <string name="content_translation_failed">Nie udało się przetłumaczyć: %s</string>
+    <string name="changelog_section_new">Nowości</string>
+    <string name="changelog_section_fixes">Poprawki</string>
+    <string name="changelog_section_performance">Wydajność</string>
+    <string name="changelog_section_improvements">Ulepszenia</string>
+    <string name="changelog_section_app_support">Obsługa aplikacji</string>
+    <string name="changelog_section_other">Zmiany</string>
+    <string name="changelog_badge_latest">Najnowsza</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">W użyciu</string>
+    <string name="changelog_badge_prerelease">Przedpremierowa</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Pokaż wszystkie (%s)</string>
+    <string name="changelog_show_less">Pokaż mniej</string>
     <string name="no_network_toast">Brak połączenia z internetem</string>
     <string name="update_available">Dostępna jest aktualizacja</string>
     <string name="ready_to_install_update">Gotowy do zainstalowania aktualizacji</string>

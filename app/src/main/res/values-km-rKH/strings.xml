@@ -134,7 +134,10 @@
     <string name="rename">ប្ដូរឈ្មោះ</string>
     <string name="import_">នាំចូល</string>
     <string name="copy">ចម្លង</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="allow">អនុញ្ញាត</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

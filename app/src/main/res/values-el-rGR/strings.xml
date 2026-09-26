@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Αναφορά προβλήματος</string>
     <string name="sources_management_failed_to_open_url">Απέτυχε το άνοιγμα της διεύθυνσης URL</string>
     <string name="sources_apps">Εφαρμογές</string>
-    <string name="sources_apps_title">Εφαρμογές από %1$s</string>
     <string name="sources_apps_description">Πατήστε μια εφαρμογή για να την εξαιρέσετε από αυτήν την πηγή ή να την επαναφέρετε, ή πατήστε παρατεταμένα για να επιλέξετε πολλές. Μια εφαρμογή φεύγει από την αρχική οθόνη όταν καμία πηγή δεν την παρέχει.</string>
     <string name="sources_apps_brought">Παρέχονται από αυτήν την πηγή</string>
     <string name="sources_apps_left_out">Εξαιρούνται από αυτήν την πηγή</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Αλλαγή ονόματος πηγής τροποποίησης</string>
     <string name="sources_dialog_duplicate_name_error">Μια πηγή τροποποίησης με το ίδιο όνομα υπάρχει ήδη</string>
     <string name="sources_dialog_missing_error">Ανεπιτυχής ενημέρωση της πηγής τροποποίησης</string>
-    <string name="sources_dialog_view_any_version">Οποιαδήποτε έκδοση</string>
-    <string name="sources_dialog_view_any_package">Οποιοδήποτε πακέτο</string>
     <string name="sources_dialog_add_source">Προσθήκη πηγής τροποποίησης</string>
     <string name="sources_dialog_delete_confirm_message">Διαγραφή πηγής \"%s\"; Αυτό δεν μπορεί να αναστραφεί.</string>
     <string name="sources_dialog_remote">Απομακρυσμένη</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Εξειδικευμένη λειτουργία</string>
     <string name="expert_mode_search">Αναζήτηση τροποποιήσεων</string>
-    <string name="expert_mode_proceed">Προχωρήστε στην τροποποίηση</string>
     <string name="expert_mode_disable_all">Απενεργοποίηση όλων</string>
     <string name="expert_mode_disable_all_done">Όλες οι διορθώσεις απενεργοποιήθηκαν</string>
     <string name="expert_mode_enable_all">Ενεργοποίηση όλων</string>
@@ -1201,7 +1197,6 @@ morphe_header_custom_dark.png
     <string name="disable">Απενεργοποίηση</string>
     <string name="enable">Ενεργοποίηση</string>
     <string name="loading">Φόρτωση…</string>
-    <string name="loading_older_releases">Φόρτωση παλαιότερων εκδόσεων…</string>
     <string name="creating">Δημιουργία…</string>
     <string name="processing_apk">Επεξεργασία APK…</string>
     <string name="exporting_apks">Εξαγωγή APK…</string>
@@ -1244,6 +1239,7 @@ morphe_header_custom_dark.png
     <string name="continue_">Συνέχεια</string>
     <string name="version">Έκδοση</string>
     <string name="clone">Κλώνος</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Τροποποίηση</string>
     <string name="patching">Τροποποίηση</string>
     <string name="patched">Τροποποιήθηκε</string>
@@ -1283,8 +1279,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">Τι νέο υπάρχει σε αυτήν την έκδοση</string>
     <string name="changelog_download_fail">Αποτυχία λήψης αρχείου καταγραφής αλλαγών: %s</string>
     <string name="changelog_empty">Δεν υπάρχει διαθέσιμο αρχείο καταγραφών αλλαγών </string>
-    <string name="changelog_show_older">Εμφάνιση παλαιότερων εκδόσεων</string>
+    <string name="changelog_earlier_releases">Παλαιότερες εκδόσεις</string>
     <string name="changelog_older_empty">Δεν υπάρχουν παλαιότερες εκδόσεις για εμφάνιση</string>
+    <string name="changelog_older_failed">Δεν ήταν δυνατή η φόρτωση παλαιότερων εκδόσεων</string>
+    <string name="changelog_release_page">Σελίδα έκδοσης</string>
+    <string name="content_translate">Μετάφραση</string>
+    <string name="content_show_original">Εμφάνιση πρωτοτύπου</string>
+    <string name="content_translation_failed">Αποτυχία μετάφρασης: %s</string>
+    <string name="changelog_section_new">Νέο</string>
+    <string name="changelog_section_fixes">Διορθώσεις</string>
+    <string name="changelog_section_performance">Απόδοση</string>
+    <string name="changelog_section_improvements">Βελτιώσεις</string>
+    <string name="changelog_section_app_support">Υποστήριξη εφαρμογών</string>
+    <string name="changelog_section_other">Αλλαγές</string>
+    <string name="changelog_badge_latest">Τελευταία</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Σε χρήση</string>
+    <string name="changelog_badge_prerelease">Προέκδοση</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Εμφάνιση όλων (%s)</string>
+    <string name="changelog_show_less">Εμφάνιση λιγότερων</string>
     <string name="no_network_toast">Δεν υπάρχει διαθέσιμη σύνδεση στο διαδίκτυο</string>
     <string name="update_available">Μία ενημέρωση είναι διαθέσιμη</string>
     <string name="ready_to_install_update">Έτοιμο για εγκατάσταση ενημέρωσης</string>

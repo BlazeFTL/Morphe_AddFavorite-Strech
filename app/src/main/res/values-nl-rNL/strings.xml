@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Een probleem melden</string>
     <string name="sources_management_failed_to_open_url">Kan URL niet openen</string>
     <string name="sources_apps">Apps</string>
-    <string name="sources_apps_title">Apps van %1$s</string>
     <string name="sources_apps_description">Tik op een app om deze uit deze bron te sluiten of terug te brengen, of houd lang ingedrukt om er meerdere te selecteren. Een app verlaat het startscherm zodra geen bron deze meer aanlevert.</string>
     <string name="sources_apps_brought">Aangeleverd door deze bron</string>
     <string name="sources_apps_left_out">Uitgesloten van deze bron</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Patchbron hernoemen</string>
     <string name="sources_dialog_duplicate_name_error">Er bestaat al een patchbron met deze naam</string>
     <string name="sources_dialog_missing_error">Kon deze patchbron niet bijwerken.</string>
-    <string name="sources_dialog_view_any_version">Elke versie</string>
-    <string name="sources_dialog_view_any_package">Elk pakket</string>
     <string name="sources_dialog_add_source">Patchbron toevoegen</string>
     <string name="sources_dialog_delete_confirm_message">Verwijder bron \"%s\"? Dit kan niet ongedaan gemaakt worden</string>
     <string name="sources_dialog_remote">Remote</string>
@@ -283,7 +280,6 @@ Alles wat u van deze website toevoegt, gebruikt u op eigen risico"</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Expert-modus</string>
     <string name="expert_mode_search">Zoek patches</string>
-    <string name="expert_mode_proceed">Doorgaan met patchen</string>
     <string name="expert_mode_disable_all">Alles uitschakelen</string>
     <string name="expert_mode_disable_all_done">Alle patches uitgeschakeld</string>
     <string name="expert_mode_enable_all">Alles inschakelen</string>
@@ -1201,7 +1197,6 @@ Details: %2$s"</string>
     <string name="disable">Uitschakelen</string>
     <string name="enable">Inschakelen</string>
     <string name="loading">Bezig met laden…</string>
-    <string name="loading_older_releases">Oudere versies worden geladen…</string>
     <string name="creating">Bezig met maken…</string>
     <string name="processing_apk">APK verwerken…</string>
     <string name="exporting_apks">APK\'s exporteren…</string>
@@ -1244,6 +1239,7 @@ Details: %2$s"</string>
     <string name="continue_">Doorgaan</string>
     <string name="version">Versie</string>
     <string name="clone">Kloon</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patchen</string>
     <string name="patching">Patchen</string>
     <string name="patched">Gepatcht</string>
@@ -1283,8 +1279,26 @@ Details: %2$s"</string>
     <string name="changelog_description">Wat is er nieuw in deze versie</string>
     <string name="changelog_download_fail">Fout bij het downloaden van de wijzigingslogboek: %s</string>
     <string name="changelog_empty">Geen changelog beschikbaar</string>
-    <string name="changelog_show_older">Oudere versies weergeven</string>
+    <string name="changelog_earlier_releases">Eerdere versies</string>
     <string name="changelog_older_empty">Er zijn geen oudere releases om te tonen</string>
+    <string name="changelog_older_failed">Kon oudere versies niet laden</string>
+    <string name="changelog_release_page">Releasepagina</string>
+    <string name="content_translate">Vertalen</string>
+    <string name="content_show_original">Origineel weergeven</string>
+    <string name="content_translation_failed">Vertaling mislukt: %s</string>
+    <string name="changelog_section_new">Nieuw</string>
+    <string name="changelog_section_fixes">Oplossingen</string>
+    <string name="changelog_section_performance">Prestaties</string>
+    <string name="changelog_section_improvements">Verbeteringen</string>
+    <string name="changelog_section_app_support">App-ondersteuning</string>
+    <string name="changelog_section_other">Wijzigingen</string>
+    <string name="changelog_badge_latest">Nieuwste</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">In gebruik</string>
+    <string name="changelog_badge_prerelease">Pre-release</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Alles tonen (%s)</string>
+    <string name="changelog_show_less">Minder tonen</string>
     <string name="no_network_toast">Geen internetverbinding beschikbaar</string>
     <string name="update_available">Een update is beschikbaar</string>
     <string name="ready_to_install_update">Klaar om update te installeren</string>

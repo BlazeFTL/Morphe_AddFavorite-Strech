@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">समस्या की रिपोर्ट करें</string>
     <string name="sources_management_failed_to_open_url">URL खोलने में विफल रहा</string>
     <string name="sources_apps">ऐप्स</string>
-    <string name="sources_apps_title">%1$s से ऐप्स</string>
     <string name="sources_apps_description">किसी ऐप को इस स्रोत से बाहर करने या वापस लाने के लिए टैप करें, या कई चुनने के लिए देर तक दबाएँ। जब कोई स्रोत किसी ऐप को नहीं लाता है, तो वह होम स्क्रीन से हट जाता है।</string>
     <string name="sources_apps_brought">इस स्रोत द्वारा लाए गए</string>
     <string name="sources_apps_left_out">इस स्रोत से बाहर किए गए</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">पैच स्रोत का नाम बदलें</string>
     <string name="sources_dialog_duplicate_name_error">इस नाम के साथ पहले से एक पैच स्रोत मौजूद है</string>
     <string name="sources_dialog_missing_error">यह पैच स्रोत अपडेट नहीं हो सका</string>
-    <string name="sources_dialog_view_any_version">कोई भी संस्करण</string>
-    <string name="sources_dialog_view_any_package">कोई भी पैकेज</string>
     <string name="sources_dialog_add_source">पैच स्रोत जोड़ें</string>
     <string name="sources_dialog_delete_confirm_message">डिलीट करें \"%s\"? यह वापस लाना संभव नहीं होगा।</string>
     <string name="sources_dialog_remote">रिमोट</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">एक्सपर्ट मोड</string>
     <string name="expert_mode_search">पैच खोजें</string>
-    <string name="expert_mode_proceed">पैचिंग के लिए आगे बढ़ें</string>
     <string name="expert_mode_disable_all">सभी को असक्षम करें</string>
     <string name="expert_mode_disable_all_done">सभी पैच अक्षम किए गए</string>
     <string name="expert_mode_enable_all">सभी को सक्षम करें</string>
@@ -1201,7 +1197,6 @@ morphe_header_custom_dark.png
     <string name="disable">Disable</string>
     <string name="enable">Enable</string>
     <string name="loading">Loading…</string>
-    <string name="loading_older_releases">पुराने रिलीज़ लोड हो रहे हैं…</string>
     <string name="creating">बनाया जा रहा है…</string>
     <string name="processing_apk">APK संसाधित किया जा रहा है…</string>
     <string name="exporting_apks">APK निर्यात किए जा रहे हैं…</string>
@@ -1244,6 +1239,7 @@ morphe_header_custom_dark.png
     <string name="continue_">Continue</string>
     <string name="version">Version</string>
     <string name="clone">क्लोन</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">पैच</string>
     <string name="patching">पैचिंग</string>
     <string name="patched">पैच किया गया</string>
@@ -1283,8 +1279,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">इस संस्करण में नया क्या है</string>
     <string name="changelog_download_fail">परिवर्तन लॉग डाउनलोड करने में विफल: %s</string>
     <string name="changelog_empty">कोई चेंजलॉग उपलब्ध नहीं है</string>
-    <string name="changelog_show_older">पुराने रिलीज़ दिखाएं</string>
+    <string name="changelog_earlier_releases">पिछले रिलीज़</string>
     <string name="changelog_older_empty">दिखाने के लिए कोई पुराना रिलीज़ नहीं है</string>
+    <string name="changelog_older_failed">पुराने रिलीज़ लोड नहीं हो सके</string>
+    <string name="changelog_release_page">रिलीज़ पेज</string>
+    <string name="content_translate">अनुवाद करें</string>
+    <string name="content_show_original">मूल दिखाएं</string>
+    <string name="content_translation_failed">अनुवाद करने में विफल: %s</string>
+    <string name="changelog_section_new">नया</string>
+    <string name="changelog_section_fixes">सुधार</string>
+    <string name="changelog_section_performance">प्रदर्शन</string>
+    <string name="changelog_section_improvements">बेहतरी</string>
+    <string name="changelog_section_app_support">ऐप समर्थन</string>
+    <string name="changelog_section_other">परिवर्तन</string>
+    <string name="changelog_badge_latest">नवीनतम</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">उपयोग में</string>
+    <string name="changelog_badge_prerelease">प्री-रिलीज़</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">सभी दिखाएँ (%s)</string>
+    <string name="changelog_show_less">कम दिखाएँ</string>
     <string name="no_network_toast">इंटरनेट कनेक्शन उपलब्ध नहीं है</string>
     <string name="update_available">An update is available</string>
     <string name="ready_to_install_update">Ready to install update</string>

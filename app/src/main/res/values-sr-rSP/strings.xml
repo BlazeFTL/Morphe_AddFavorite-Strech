@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Пријави проблем</string>
     <string name="sources_management_failed_to_open_url">Неуспешно отварање URL адресе</string>
     <string name="sources_apps">Апликације</string>
-    <string name="sources_apps_title">Апликације из %1$s</string>
     <string name="sources_apps_description">Додирните апликацију да је изоставите из овог извора или да је вратите, или дуго притисните да изаберете неколико. Апликација нестаје са почетног екрана када је ниједан извор не доноси.</string>
     <string name="sources_apps_brought">Донето из овог извора</string>
     <string name="sources_apps_left_out">Изостављено из овог извора</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Преименујте изворни извор</string>
     <string name="sources_dialog_duplicate_name_error">Извор са именом %s већ постоји</string>
     <string name="sources_dialog_missing_error">Nije moguće ažurirati ovaj patch izvor</string>
-    <string name="sources_dialog_view_any_version">Сва верзија</string>
-    <string name="sources_dialog_view_any_package">Сва пакета</string>
     <string name="sources_dialog_add_source">Додај извор</string>
     <string name="sources_dialog_delete_confirm_message">Уклонити изворну \"%s\"? Ово не може да се врати.</string>
     <string name="sources_dialog_remote">Удаљни извор</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Експерт мод</string>
     <string name="expert_mode_search">Претражи печеве</string>
-    <string name="expert_mode_proceed">Продужи ка поправљању</string>
     <string name="expert_mode_disable_all">Онемогући све</string>
     <string name="expert_mode_disable_all_done">Сви закрпе су деактивиране</string>
     <string name="expert_mode_enable_all">Омогући све</string>
@@ -1201,7 +1197,6 @@ morphe_header_custom_dark.png
     <string name="disable">Онемогући</string>
     <string name="enable">Укључи</string>
     <string name="loading">Учитавање…</string>
-    <string name="loading_older_releases">Учитавање старијих верзија…</string>
     <string name="creating">Креирање…</string>
     <string name="processing_apk">Обрада APK-а…</string>
     <string name="exporting_apks">Извоз APK-ова…</string>
@@ -1244,6 +1239,7 @@ morphe_header_custom_dark.png
     <string name="continue_">Настави</string>
     <string name="version">Верзија</string>
     <string name="clone">Клон</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Печ</string>
     <string name="patching">Пецање</string>
     <string name="patched">Закрпљене</string>
@@ -1283,8 +1279,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">Шта је ново у овој верзији</string>
     <string name="changelog_download_fail">Није успело преузимање дневника промена: %s</string>
     <string name="changelog_empty">Нема доступних промена</string>
-    <string name="changelog_show_older">Прикажи старије верзије</string>
+    <string name="changelog_earlier_releases">Ранија издања</string>
     <string name="changelog_older_empty">Нема старијих верзија за приказ</string>
+    <string name="changelog_older_failed">Није успело учитавање старијих издања</string>
+    <string name="changelog_release_page">Страница издања</string>
+    <string name="content_translate">Преведи</string>
+    <string name="content_show_original">Прикажи оригинал</string>
+    <string name="content_translation_failed">Превођење није успело: %s</string>
+    <string name="changelog_section_new">Ново</string>
+    <string name="changelog_section_fixes">Исправке</string>
+    <string name="changelog_section_performance">Перформансе</string>
+    <string name="changelog_section_improvements">Побољшања</string>
+    <string name="changelog_section_app_support">Подршка за апликације</string>
+    <string name="changelog_section_other">Промене</string>
+    <string name="changelog_badge_latest">Најновије</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">У употреби</string>
+    <string name="changelog_badge_prerelease">Пре издања</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Прикажи све (%s)</string>
+    <string name="changelog_show_less">Прикажи мање</string>
     <string name="no_network_toast">Nema dostupne internet veze</string>
     <string name="update_available">Ажурирање је доступно</string>
     <string name="ready_to_install_update">Спреман за инсталирање ажурирања</string>

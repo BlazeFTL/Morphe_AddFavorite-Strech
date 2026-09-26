@@ -1290,7 +1290,6 @@ Details: %2$s"</string>
     <string name="disable">Disable</string>
     <string name="enable">Enable</string>
     <string name="loading">Loading…</string>
-    <string name="loading_older_releases">Loading older releases…</string>
     <string name="creating">Creating…</string>
     <string name="processing_apk">Processing APK…</string>
     <string name="exporting_apks">Exporting APKs…</string>
@@ -1373,8 +1372,30 @@ Details: %2$s"</string>
     <string name="changelog_description">What\'s new in this version</string>
     <string name="changelog_download_fail">Failed to download changelog: %s</string>
     <string name="changelog_empty">No changelog available</string>
-    <string name="changelog_show_older">Show older releases</string>
+    <string name="changelog_earlier_releases">Earlier releases</string>
     <string name="changelog_older_empty">No older releases to show</string>
+    <string name="changelog_older_failed">Couldn\'t load older releases</string>
+    <string name="changelog_release_page">Release page</string>
+    <string name="changelog_host_github" translatable="false">GitHub</string>
+    <string name="changelog_host_gitlab" translatable="false">GitLab</string>
+    <string name="changelog_translate">Translate</string>
+    <string name="changelog_show_original">Show original</string>
+    <string name="changelog_translation_download_confirmation">Download translation model?</string>
+    <string name="changelog_translation_downloading">Downloading translation model…</string>
+    <string name="changelog_translation_failed">Failed to translate changelog: %s</string>
+    <string name="changelog_section_new">New</string>
+    <string name="changelog_section_fixes">Fixes</string>
+    <string name="changelog_section_performance">Performance</string>
+    <string name="changelog_section_improvements">Improvements</string>
+    <string name="changelog_section_app_support">App support</string>
+    <string name="changelog_section_other">Changes</string>
+    <string name="changelog_badge_latest">Latest</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">In use</string>
+    <string name="changelog_badge_prerelease">Pre-release</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Show all (%s)</string>
+    <string name="changelog_show_less">Show less</string>
     <string name="no_network_toast">No internet connection available</string>
 
     <string name="update_available">An update is available</string>

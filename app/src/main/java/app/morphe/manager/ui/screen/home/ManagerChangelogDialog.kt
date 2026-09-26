@@ -11,8 +11,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -28,11 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.UpdateViewModel
+import app.morphe.manager.util.MANAGER_REPO_URL
 import app.morphe.manager.util.formatMegabytes
 import app.morphe.manager.util.isolateLtr
+import app.morphe.manager.util.releasePageUrl
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -52,7 +53,6 @@ private val AbandonedInstallGrace = 1500.milliseconds
  */
 private enum class UpdateDialogContent {
     DetailsLoading,
-    DetailsUnavailable,
     Details,
     Downloading,
     Installing,
@@ -60,18 +60,12 @@ private enum class UpdateDialogContent {
     Success
 }
 
-/** Resolves the body to show, including which variant of the details view applies. */
+/** Resolves the body to show, the changelog or a stage of the update. */
 private fun updateDialogContentOf(updateViewModel: UpdateViewModel): UpdateDialogContent =
     when (updateViewModel.state) {
-        UpdateViewModel.State.CAN_DOWNLOAD, UpdateViewModel.State.CAN_INSTALL -> when {
-            // A banner can outlive the release it points at, and a check can fail outright,
-            // so name the situation rather than wait on data that is not coming
-            updateViewModel.releaseInfo == null && !updateViewModel.isCheckingForUpdate ->
-                UpdateDialogContent.DetailsUnavailable
-
-            updateViewModel.missedChangelogEntries == null -> UpdateDialogContent.DetailsLoading
-            else -> UpdateDialogContent.Details
-        }
+        UpdateViewModel.State.CAN_DOWNLOAD, UpdateViewModel.State.CAN_INSTALL ->
+            if (updateViewModel.changelogEntries == null) UpdateDialogContent.DetailsLoading
+            else UpdateDialogContent.Details
 
         UpdateViewModel.State.DOWNLOADING -> UpdateDialogContent.Downloading
         UpdateViewModel.State.INSTALLING -> UpdateDialogContent.Installing
@@ -80,14 +74,33 @@ private fun updateDialogContentOf(updateViewModel: UpdateViewModel): UpdateDialo
     }
 
 /**
- * Update details dialog with download and install functionality.
+ * Changelog of the manager, which doubles as its update dialog. The timeline runs from the
+ * releases an available update brings, summed up above them, through the installed version to
+ * the history below, and the footer downloads and installs the update while there is one.
+ *
+ * @param expectsUpdate Whether the dialog was opened for an update, from the banner or its
+ *   notification. It then keeps to the update even when the check comes back empty, saying the
+ *   release is not ready yet and offering to check again.
  */
 @Composable
-fun ManagerUpdateDetailsDialog(
+fun ManagerChangelogDialog(
     onDismiss: () -> Unit,
-    updateViewModel: UpdateViewModel
+    updateViewModel: UpdateViewModel,
+    expectsUpdate: Boolean = false
 ) {
     val state = updateViewModel.state
+    val content = updateDialogContentOf(updateViewModel)
+    val hasUpdate = updateViewModel.releaseInfo != null
+    // A banner can outlive the release it points at, and a check can fail outright, so name the
+    // situation rather than wait on data that is not coming
+    val isUpdateUnavailable = expectsUpdate && !hasUpdate && !updateViewModel.isCheckingForUpdate
+    val translation = rememberChangelogTranslation()
+    val older = OlderReleases(
+        entries = updateViewModel.olderManagerEntries,
+        isLoading = updateViewModel.isLoadingOlderEntries,
+        isFailed = updateViewModel.olderEntriesFailed,
+        onLoad = updateViewModel::loadOlderManagerEntries
+    )
 
     // An installer activity reports nothing when it is dismissed, so an abandoned install shows
     // up only as the app holding the foreground while the state is still INSTALLING
@@ -99,15 +112,26 @@ fun ManagerUpdateDetailsDialog(
         }
     }
 
-    // Collapse "Show older releases" when the dialog closes so it reopens fresh next time
+    LaunchedEffect(Unit) {
+        updateViewModel.loadChangelog()
+    }
+    // Drop the older releases when the dialog closes so it reopens on the releases it starts with
     DisposableEffect(Unit) {
         onDispose { updateViewModel.resetOlderManagerEntries() }
     }
 
     AppDialog(
         onDismissRequest = onDismiss,
-        title = stringResource(state.title),
+        // With no update on the way, this is just the changelog
+        title = if (state == UpdateViewModel.State.CAN_DOWNLOAD && !hasUpdate && !expectsUpdate) {
+            stringResource(R.string.changelog)
+        } else {
+            stringResource(state.title)
+        },
         scrollable = false,
+        // The timeline gives up its leading edge to the rail, so the list takes the wider layout.
+        // The height stays with the content, since progress and results sit centered
+        padding = DialogPadding.Compact,
         footer = {
             AnimatedContent(
                 targetState = state,
@@ -118,27 +142,60 @@ fun ManagerUpdateDetailsDialog(
                 UpdateDialogFooter(
                     state = footerState,
                     updateViewModel = updateViewModel,
-                    onDismiss = onDismiss
+                    expectsUpdate = expectsUpdate,
+                    onDismiss = onDismiss,
+                    // Only the changelog body has anything to translate
+                    translation = translation.takeIf { content == UpdateDialogContent.Details }
                 )
             }
         }
     ) {
         AnimatedContent(
-            targetState = updateDialogContentOf(updateViewModel),
+            targetState = content,
             transitionSpec = Animations.fadeCrossfade(),
             modifier = Modifier.fillMaxWidth(),
             label = "updateContent"
         ) { content ->
             when (content) {
-                UpdateDialogContent.DetailsLoading -> ChangelogSectionLoading()
-
-                UpdateDialogContent.DetailsUnavailable -> Notice(
-                    icon = Icons.Outlined.HourglassEmpty,
-                    text = stringResource(R.string.manager_update_not_ready),
-                    tone = SemanticTone.Warning
+                UpdateDialogContent.DetailsLoading -> ChangelogListLoading(
+                    withSummary = hasUpdate || expectsUpdate
                 )
 
-                UpdateDialogContent.Details -> UpdateDetailsContent(updateViewModel)
+                UpdateDialogContent.Details -> {
+                    val entries = updateViewModel.changelogEntries.orEmpty()
+                    val newReleases = entries.take(updateViewModel.newReleaseCount)
+                    ChangelogList(
+                        entries = entries,
+                        translation = translation,
+                        older = older,
+                        currentVersion = BuildConfig.VERSION_NAME,
+                        header = when {
+                            // Everything the user is about to install, summed up above the releases themselves
+                            newReleases.isNotEmpty() -> {
+                                {
+                                    ChangelogUpdateSummary(
+                                        fromVersion = BuildConfig.VERSION_NAME,
+                                        toVersion = updateViewModel.releaseInfo?.version
+                                            ?: newReleases.first().version,
+                                        entries = newReleases
+                                    )
+                                }
+                            }
+
+                            isUpdateUnavailable -> {
+                                {
+                                    Notice(
+                                        icon = Icons.Outlined.HourglassEmpty,
+                                        text = stringResource(R.string.manager_update_not_ready),
+                                        tone = SemanticTone.Warning
+                                    )
+                                }
+                            }
+
+                            else -> null
+                        }
+                    )
+                }
 
                 UpdateDialogContent.Downloading -> DownloadProgressCard(
                     version = updateViewModel.releaseInfo?.version,
@@ -162,33 +219,18 @@ fun ManagerUpdateDetailsDialog(
         }
     }
 
-    Overlay(visible = updateViewModel.isLoadingOlderEntries) {
-        PulsingLogoWithCaption(caption = stringResource(R.string.loading_older_releases))
-    }
+    ChangelogOverlays(translation = translation)
 
     // Internet check dialog
     if (updateViewModel.showInternetCheckDialog) {
-        AppDialog(
-            onDismissRequest = { updateViewModel.showInternetCheckDialog = false },
+        MeteredDownloadDialog(
             title = stringResource(R.string.download_update_confirmation),
-            footer = {
-                AppDialogButtonRow(
-                    primaryText = stringResource(R.string.download),
-                    onPrimaryClick = {
-                        updateViewModel.showInternetCheckDialog = false
-                        updateViewModel.downloadUpdate(ignoreInternetCheck = true)
-                    },
-                    secondaryText = stringResource(android.R.string.cancel),
-                    onSecondaryClick = { updateViewModel.showInternetCheckDialog = false }
-                )
-            }
-        ) {
-            Notice(
-                icon = Icons.Outlined.Warning,
-                text = stringResource(R.string.download_confirmation_metered),
-                tone = SemanticTone.Warning
-            )
-        }
+            onConfirm = {
+                updateViewModel.showInternetCheckDialog = false
+                updateViewModel.downloadUpdate(ignoreInternetCheck = true)
+            },
+            onDismiss = { updateViewModel.showInternetCheckDialog = false }
+        )
     }
 }
 
@@ -197,13 +239,26 @@ fun ManagerUpdateDetailsDialog(
 private fun UpdateDialogFooter(
     state: UpdateViewModel.State,
     updateViewModel: UpdateViewModel,
-    onDismiss: () -> Unit
+    expectsUpdate: Boolean,
+    onDismiss: () -> Unit,
+    translation: ChangelogTranslation?
 ) {
     val releaseInfo = updateViewModel.releaseInfo
-    val changelog = changelogAction(releaseInfo?.pageUrl)
 
     val actions: List<DialogAction> = when (state) {
         UpdateViewModel.State.CAN_DOWNLOAD -> buildList {
+            // Opened for the changelog alone, the dialog offers the download only once an update turns up
+            if (releaseInfo == null && !expectsUpdate) {
+                add(
+                    DialogAction(
+                        text = stringResource(R.string.close),
+                        onClick = onDismiss,
+                        emphasis = DialogActionEmphasis.Outlined
+                    )
+                )
+                return@buildList
+            }
+
             add(
                 DialogAction(
                     text = stringResource(R.string.download),
@@ -225,8 +280,6 @@ private fun UpdateDialogFooter(
                     )
                 )
             }
-
-            changelog?.let(::add)
         }
 
         UpdateViewModel.State.DOWNLOADING -> listOf(
@@ -237,13 +290,12 @@ private fun UpdateDialogFooter(
             )
         )
 
-        UpdateViewModel.State.CAN_INSTALL -> listOfNotNull(
+        UpdateViewModel.State.CAN_INSTALL -> listOf(
             DialogAction(
                 text = stringResource(R.string.install),
                 onClick = { updateViewModel.installUpdate() },
                 icon = Icons.Outlined.InstallMobile
-            ),
-            changelog
+            )
         )
 
         UpdateViewModel.State.INSTALLING -> {
@@ -252,7 +304,7 @@ private fun UpdateDialogFooter(
             emptyList()
         }
 
-        UpdateViewModel.State.FAILED -> listOfNotNull(
+        UpdateViewModel.State.FAILED -> listOf(
             // Only an install can end here, so the retry is always an install; a download that
             // fails drops what it wrote and returns to CAN_DOWNLOAD
             DialogAction(
@@ -260,7 +312,6 @@ private fun UpdateDialogFooter(
                 onClick = { updateViewModel.installUpdate() },
                 icon = Icons.Outlined.InstallMobile
             ),
-            changelog,
             DialogAction(
                 text = stringResource(android.R.string.cancel),
                 onClick = onDismiss
@@ -276,42 +327,20 @@ private fun UpdateDialogFooter(
         )
     }
 
-    AppDialogActions(actions = actions, layout = DialogButtonLayout.Vertical)
-}
+    // The release page stays at hand while the changelog is on screen or an install has failed
+    val offersReleasePage = state == UpdateViewModel.State.CAN_DOWNLOAD ||
+            state == UpdateViewModel.State.CAN_INSTALL ||
+            state == UpdateViewModel.State.FAILED
 
-/**
- * Changelog for everything the user is about to install, with its own scrollbar so the list
- * stays lazy while the surrounding dialog does not scroll.
- */
-@Composable
-private fun UpdateDetailsContent(updateViewModel: UpdateViewModel) {
-    val listState = rememberLazyListState()
-    val entries = updateViewModel.missedChangelogEntries.orEmpty()
+    // The page of the update while there is one, else that of the newest release listed
+    val pageUrl = releaseInfo?.pageUrl
+        ?: updateViewModel.changelogEntries?.firstOrNull()?.version?.let { releasePageUrl(MANAGER_REPO_URL, it) }
 
-    Box(modifier = Modifier.fillMaxWidth()) {
-        LazyColumn(state = listState, modifier = Modifier.fillMaxWidth()) {
-            changelogEntryItems(
-                entries = entries,
-                keyPrefix = "missed",
-                headerIcon = Icons.Outlined.NewReleases
-            )
-            changelogOlderItems(
-                entries = updateViewModel.olderManagerEntries,
-                isLoading = updateViewModel.isLoadingOlderEntries,
-                onExpand = { updateViewModel.loadOlderManagerEntries() }
-            )
-        }
-
-        ListScrollbar(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
-
-        ScrollToTopButton(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
-    }
+    ChangelogFooter(
+        actions = actions,
+        translation = translation,
+        pageUrl = pageUrl.takeIf { offersReleasePage }
+    )
 }
 
 /**

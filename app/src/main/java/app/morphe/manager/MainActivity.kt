@@ -403,9 +403,10 @@ private fun MorpheManager(vm: MainViewModel) {
         val updateViewModel: UpdateViewModel = koinViewModel(
             viewModelStoreOwner = LocalActivity.current as ComponentActivity
         )
-        ManagerUpdateDetailsDialog(
+        ManagerChangelogDialog(
             onDismiss = { vm.pendingManagerChangelog = false },
-            updateViewModel = updateViewModel
+            updateViewModel = updateViewModel,
+            expectsUpdate = true
         )
     }
 

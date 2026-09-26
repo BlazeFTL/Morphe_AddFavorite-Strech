@@ -17,7 +17,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -68,7 +67,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
 import org.koin.compose.koinInject
-import com.mikepenz.markdown.model.State as MarkdownRenderState
 
 private val ColorValid = Color(0xFF4CAF50)
 
@@ -1062,8 +1060,9 @@ fun BundleChangelogDialog(
 ) {
     val generalChangesHeading = stringResource(R.string.changelog_general_changes)
     var state: BundleChangelogState by remember { mutableStateOf(BundleChangelogState.Loading) }
-    var olderState: OlderBundleState by remember { mutableStateOf(OlderBundleState.Collapsed) }
+    var olderState: OlderBundleState by remember { mutableStateOf(OlderBundleState.Idle) }
     val scope = rememberCoroutineScope()
+    val translation = rememberChangelogTranslation()
     // 0 = waiting for dialog enter; incremented to trigger fetch, again on retry
     var fetchTrigger by remember { mutableIntStateOf(0) }
 
@@ -1115,7 +1114,6 @@ fun BundleChangelogDialog(
                 if (entries.isNotEmpty() || appNames.isNotEmpty()) {
                     BundleChangelogState.Entries(
                         entries = entries,
-                        parsedMarkdown = preParseChangelogEntries(entries),
                         latestPageUrl = latestPageUrl
                     )
                 } else {
@@ -1130,7 +1128,6 @@ fun BundleChangelogDialog(
                     )
                     BundleChangelogState.Entries(
                         entries = fallbackEntries,
-                        parsedMarkdown = preParseChangelogEntries(fallbackEntries),
                         latestPageUrl = asset.pageUrl
                     )
                 }
@@ -1141,7 +1138,7 @@ fun BundleChangelogDialog(
     }
 
     val loadOlder: () -> Unit = load@{
-        if (olderState !is OlderBundleState.Collapsed) return@load
+        if (olderState is OlderBundleState.Loading || olderState is OlderBundleState.Loaded) return@load
         val shownVersions = (state as? BundleChangelogState.Entries)
             ?.entries
             ?.map { it.version.removePrefix("v").trim() }
@@ -1162,12 +1159,19 @@ fun BundleChangelogDialog(
                         ChangelogParser.entriesFor(filtered, appNames, generalChangesHeading)
                     )
                 }.getOrElse {
-                    // Surface failure as collapsed so a retry click re-triggers the fetch
-                    OlderBundleState.Collapsed
+                    // Kept apart from Idle, so the list waits for a retry instead of loading again
+                    OlderBundleState.Failed
                 }
             }
         }
     }
+
+    val older = OlderReleases(
+        entries = (olderState as? OlderBundleState.Loaded)?.entries,
+        isLoading = olderState is OlderBundleState.Loading,
+        isFailed = olderState is OlderBundleState.Failed,
+        onLoad = loadOlder
+    )
 
     AppDialog(
         onDismissRequest = onDismissRequest,
@@ -1175,27 +1179,29 @@ fun BundleChangelogDialog(
         // is always visible first, even when data is cached and would resolve instantly
         onEntered = { if (fetchTrigger == 0) fetchTrigger = 1 },
         scrollable = false,
-        title = when (state) {
-            // Entries carry their own headers, so only a list narrowed to one app needs a title
-            is BundleChangelogState.Entries ->
-                appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
-
-            is BundleChangelogState.Error -> stringResource(R.string.changelog)
-            BundleChangelogState.Loading -> stringResource(R.string.changelog)
-        },
+        // The timeline gives up its leading edge to the rail, so the list takes the wider layout.
+        // An error has no list to hold the footer down, so it stays centered instead
+        padding = DialogPadding.Compact,
+        fillContentHeight = state !is BundleChangelogState.Error,
+        // Releases show only their versions, so the title names whose they are. It stays the same
+        // through loading, so the layout does not shift once the entries arrive
+        title = appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
+            ?: src.displayTitle,
         footer = {
             when (val current = state) {
                 is BundleChangelogState.Entries -> {
-                    AppDialogActions(
-                        actions = listOfNotNull(
-                            changelogAction(current.latestPageUrl),
+                    // An empty changelog has nothing to translate
+                    val hasList = current.entries.isNotEmpty()
+                    ChangelogFooter(
+                        actions = listOf(
                             DialogAction(
                                 text = stringResource(R.string.close),
                                 onClick = onDismissRequest,
                                 emphasis = DialogActionEmphasis.Outlined
                             )
                         ),
-                        layout = DialogButtonLayout.Vertical
+                        translation = translation.takeIf { hasList },
+                        pageUrl = current.latestPageUrl
                     )
                 }
                 is BundleChangelogState.Error -> {
@@ -1226,21 +1232,21 @@ fun BundleChangelogDialog(
     ) {
         BundleChangelogContent(
             state = state,
-            olderState = olderState,
-            onExpandOlder = loadOlder
+            installedVersion = src.installedVersionSignature,
+            translation = translation,
+            older = older
         )
     }
 
-    Overlay(visible = olderState is OlderBundleState.Loading) {
-        PulsingLogoWithCaption(caption = stringResource(R.string.loading_older_releases))
-    }
+    ChangelogOverlays(translation = translation)
 }
 
 @Composable
 private fun BundleChangelogContent(
     state: BundleChangelogState,
-    olderState: OlderBundleState,
-    onExpandOlder: () -> Unit,
+    installedVersion: String?,
+    translation: ChangelogTranslation,
+    older: OlderReleases
 ) {
     Crossfade(
         targetState = state,
@@ -1249,7 +1255,7 @@ private fun BundleChangelogContent(
         label = "changelog_state"
     ) { current ->
         when (current) {
-            BundleChangelogState.Loading -> ChangelogSectionLoading()
+            BundleChangelogState.Loading -> ChangelogListLoading()
             is BundleChangelogState.Error -> BundleChangelogError(error = current.throwable)
             is BundleChangelogState.Entries -> {
                 if (current.entries.isEmpty()) {
@@ -1260,45 +1266,14 @@ private fun BundleChangelogContent(
                         modifier = Modifier.fillMaxWidth()
                     )
                 } else {
-                    val listState = rememberLazyListState()
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        LazyColumn(
-                            state = listState,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            itemsIndexed(current.entries) { index, entry ->
-                                if (index > 0) {
-                                    HorizontalDivider(
-                                        modifier = Modifier.padding(
-                                            top = Defaults.ContentPaddingSmall,
-                                            bottom = Defaults.ContentPadding
-                                        ),
-                                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
-                                    )
-                                }
-                                ChangelogEntrySection(
-                                    entry = entry,
-                                    headerIcon = Icons.Outlined.History,
-                                    precomputedMarkdown = current.parsedMarkdown.getOrNull(index)
-                                )
-                            }
-                            changelogOlderItems(
-                                entries = (olderState as? OlderBundleState.Loaded)?.entries,
-                                isLoading = olderState is OlderBundleState.Loading,
-                                onExpand = onExpandOlder
-                            )
-                        }
-
-                        ListScrollbar(
-                            listState = listState,
-                            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                        )
-
-                        ScrollToTopButton(
-                            listState = listState,
-                            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                        )
-                    }
+                    ChangelogList(
+                        entries = current.entries,
+                        translation = translation,
+                        older = older,
+                        currentVersion = installedVersion,
+                        // The version a source holds is the one it patches with, nothing on the device
+                        currentBadge = ChangelogBadge.IN_USE
+                    )
                 }
             }
         }
@@ -1354,15 +1329,15 @@ private sealed interface BundleChangelogState {
     /** [entries] are already filtered to "missed" versions, newest-first. */
     data class Entries(
         val entries: List<ChangelogEntry>,
-        val parsedMarkdown: List<MarkdownRenderState?>,
         val latestPageUrl: String?
     ) : BundleChangelogState
     data class Error(val throwable: Throwable) : BundleChangelogState
 }
 
 private sealed interface OlderBundleState {
-    data object Collapsed : OlderBundleState
+    data object Idle : OlderBundleState
     data object Loading : OlderBundleState
+    data object Failed : OlderBundleState
     /** [entries] are full-history stable entries, already filtered to exclude what's shown above. */
     data class Loaded(val entries: List<ChangelogEntry>) : OlderBundleState
 }

@@ -533,7 +533,6 @@ fun BundlePatchesDialog(
     val sections = remember(patches, universalTitle) { patchesByApp(patches, universalTitle) }
     val appCount = sections.count { it.packageName != null }
     val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
-    val bundleAccent = rememberBundleAccent(src)
 
     PatchListDialog(
         icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
@@ -548,9 +547,7 @@ fun BundlePatchesDialog(
         saveStateKey = "bundle_${src.uid}",
         onDismiss = onDismissRequest,
         initialQuery = initialQuery,
-        // The source wears the color of its icon, or the theme's accent where the icon has none.
-        // One that is off goes neutral, as its icon grays out
-        accentColor = if (src.enabled) bundleAccent ?: MaterialTheme.colorScheme.primary else null,
+        accentColor = rememberSourceHeaderColor(src),
         // The list is reachable while the source is off, so it says so up front rather than
         // reading as patches that are ready to be applied
         notice = if (src.enabled) null else {
@@ -795,13 +792,10 @@ fun BundleChangelogDialog(
         onEntered = { if (fetchTrigger == 0) fetchTrigger = 1 },
         scrollable = false,
         // The timeline gives up its leading edge to the rail, so the list takes the wider layout.
-        // An error has no list to hold the footer down, so it stays centered instead
+        // The header holds the top, and an error sits centered in the room below it
         padding = DialogPadding.Compact,
-        fillContentHeight = state !is BundleChangelogState.Error,
-        // Releases show only their versions, so the title names whose they are. It stays the same
-        // through loading, so the layout does not shift once the entries arrive
-        title = appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
-            ?: src.displayTitle,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
         footer = {
             when (val current = state) {
                 is BundleChangelogState.Entries -> {
@@ -845,10 +839,22 @@ fun BundleChangelogDialog(
             }
         }
     ) {
+        // Releases show only their versions, so the header names whose they are, and which app
+        // they were narrowed to. It stays the same through loading, so nothing shifts once the
+        // entries arrive
+        ListDialogHeader(
+            icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+            title = src.displayTitle,
+            subtitle = appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
+                ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty(),
+            accentColor = rememberSourceHeaderColor(src)
+        )
+
         BundleChangelogContent(
             state = state,
             installedVersion = src.installedVersionSignature,
-            older = older
+            older = older,
+            modifier = Modifier.weight(1f)
         )
     }
 
@@ -859,16 +865,19 @@ fun BundleChangelogDialog(
 private fun BundleChangelogContent(
     state: BundleChangelogState,
     installedVersion: String?,
-    older: OlderReleases
+    older: OlderReleases,
+    modifier: Modifier = Modifier
 ) {
     Crossfade(
         targetState = state,
         animationSpec = tween(Defaults.ANIMATION_DURATION),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         label = "changelog_state"
     ) { current ->
         when (current) {
-            BundleChangelogState.Loading -> ChangelogListLoading()
+            BundleChangelogState.Loading -> ChangelogListLoading(
+                modifier = Modifier.padding(top = Defaults.ItemSpacing)
+            )
             is BundleChangelogState.Error -> BundleChangelogError(error = current.throwable)
             is BundleChangelogState.Entries -> {
                 if (current.entries.isEmpty()) {
@@ -876,13 +885,17 @@ private fun BundleChangelogContent(
                         text = stringResource(R.string.changelog_empty),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = Defaults.ItemSpacing)
                     )
                 } else {
                     ChangelogList(
                         entries = current.entries,
                         older = older,
                         currentVersion = installedVersion,
+                        // The gap under the header is the list's own, so releases scroll up to its edge
+                        contentPadding = PaddingValues(top = Defaults.ItemSpacing),
                         // The version a source holds is the one it patches with, nothing on the device
                         currentBadge = ChangelogBadge.IN_USE
                     )
@@ -898,7 +911,7 @@ private fun BundleChangelogError(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(vertical = 48.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -1042,17 +1055,6 @@ fun SourceAppsDialog(
     AppDialog(
         onDismissRequest = onDismissRequest,
         dismissOnClickOutside = !isMultiSelectMode,
-        title = stringResource(R.string.sources_apps_title, src.displayTitle),
-        titleTrailingContent = {
-            TitleAction(
-                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                contentDescription = stringResource(R.string.search),
-                onClick = { search.toggle() },
-                style = TitleActionStyle.Toggle,
-                active = search.visible,
-                enabled = apps.size > 1
-            )
-        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -1096,9 +1098,24 @@ fun SourceAppsDialog(
         } else null,
         padding = DialogPadding.Compact,
         scrollable = false,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
         hideFooterWhileTyping = true
     ) {
         SearchFieldBackHandler(search)
+
+        // Headed by the source, as its patches are
+        ListDialogHeader(
+            icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+            title = src.displayTitle,
+            subtitle = pluralStringResource(R.plurals.home_category_app_count, apps.size, apps.size.toString()),
+            search = search,
+            searchLabel = stringResource(R.string.home_search_apps),
+            // A lone app leaves nothing to search through
+            searchEnabled = apps.size > 1,
+            accentColor = rememberSourceHeaderColor(src),
+            modifier = Modifier.padding(bottom = Defaults.ItemSpacing)
+        )
 
         Text(
             text = stringResource(R.string.sources_apps_description),

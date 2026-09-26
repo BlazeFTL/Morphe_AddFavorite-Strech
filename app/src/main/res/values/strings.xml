@@ -145,7 +145,6 @@
     <string name="sources_management_report_issue">Report an issue</string>
     <string name="sources_management_failed_to_open_url">Failed to open URL</string>
     <string name="sources_apps">Apps</string>
-    <string name="sources_apps_title">Apps from %1$s</string>
     <string name="sources_apps_description">Tap an app to leave it out of this source or bring it back, or long-press to pick several. An app leaves the home screen once no source brings it</string>
     <string name="sources_apps_brought">Brought by this source</string>
     <string name="sources_apps_left_out">Left out of this source</string>

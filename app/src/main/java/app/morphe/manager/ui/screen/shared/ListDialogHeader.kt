@@ -5,8 +5,9 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -24,11 +25,16 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.R
+import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 
 /** How a dialog heads itself, shared by the list dialogs and the app details so they read alike. */
 object DialogHeaderDefaults {
@@ -48,9 +54,14 @@ object DialogHeaderDefaults {
 
 /**
  * Head of a list dialog that names what the list belongs to: its [icon], [title] and a
- * [subtitle] summing the list up, with the toggle for the list's search field.
+ * [subtitle] summing the list up, with the toggle for the list's search field where it has one.
  *
+ * @param subtitleLoading Shows a shimmer in place of the [subtitle] while the list it sums up
+ *   loads, easing into the text once it is there.
+ * @param search The list's search field, or null for a list short enough to go without one.
  * @param searchLabel What the field searches, as the toggle's description.
+ * @param searchEnabled Whether there is anything to search yet. The toggle stays in place while
+ *   there is not, so the title does not reflow when a loading list fills in.
  * The header sits on a band like the app details' one, which gives the list scrolling under it an
  * edge to stop at.
  *
@@ -64,9 +75,11 @@ fun ListDialogHeader(
     icon: @Composable (Modifier) -> Unit,
     title: String,
     subtitle: String,
-    search: SearchFieldState,
-    searchLabel: String,
     modifier: Modifier = Modifier,
+    subtitleLoading: Boolean = false,
+    search: SearchFieldState? = null,
+    searchLabel: String? = null,
+    searchEnabled: Boolean = true,
     accentColor: Color? = null,
     badges: (@Composable FlowRowScope.() -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {}
@@ -96,27 +109,47 @@ fun ListDialogHeader(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
             ) {
+                // Two lines, so a list named in a phrase rather than a name keeps it whole beside
+                // the header's actions
                 Text(
                     text = title,
                     style = DialogHeaderDefaults.titleStyle,
                     color = LocalDialogTextColor.current,
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(
-                    text = subtitle,
-                    style = DialogHeaderDefaults.subtitleStyle,
-                    color = LocalDialogSecondaryTextColor.current
-                )
+                val subtitleStyle = DialogHeaderDefaults.subtitleStyle
+                Crossfade(
+                    targetState = subtitleLoading,
+                    animationSpec = tween(Defaults.ANIMATION_DURATION),
+                    label = "list_header_subtitle"
+                ) { loading ->
+                    if (loading) {
+                        // A line's height, so the header keeps its size as the text replaces it
+                        ShimmerText(
+                            widthFraction = 0.5f,
+                            height = with(LocalDensity.current) { subtitleStyle.lineHeight.toDp() }
+                        )
+                    } else {
+                        Text(
+                            text = subtitle,
+                            style = subtitleStyle,
+                            color = LocalDialogSecondaryTextColor.current
+                        )
+                    }
+                }
             }
             actions()
-            TitleAction(
-                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                contentDescription = searchLabel,
-                onClick = { search.toggle() },
-                style = TitleActionStyle.Toggle,
-                active = search.visible
-            )
+            if (search != null) {
+                TitleAction(
+                    icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                    contentDescription = searchLabel ?: stringResource(R.string.search),
+                    onClick = { search.toggle() },
+                    style = TitleActionStyle.Toggle,
+                    active = search.visible,
+                    enabled = searchEnabled
+                )
+            }
         }
         if (badges != null) {
             // A row that folds its chips out resizes on the list's own spring, as the list's rows do,
@@ -129,6 +162,22 @@ fun ListDialogHeader(
             )
         }
     }
+}
+
+/**
+ * [ListDialogHeader] icon for a list that stands for no app or source of its own: [icon] on a disc
+ * of [color], the color the header takes on too.
+ */
+@Composable
+fun ListDialogHeaderIcon(icon: ImageVector, color: Color, modifier: Modifier = Modifier) {
+    val accent = MonochromeThemeDefaults.accentColor(color)
+    StatusCircleIcon(
+        icon = icon,
+        containerColor = accent.copy(alpha = 0.2f),
+        contentColor = accent,
+        modifier = modifier,
+        size = DialogHeaderDefaults.IconSize
+    )
 }
 
 /**

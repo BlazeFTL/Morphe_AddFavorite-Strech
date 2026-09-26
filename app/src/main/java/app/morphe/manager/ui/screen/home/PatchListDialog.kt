@@ -148,8 +148,8 @@ internal fun PatchListDialog(
             ListDialogHeader(
                 icon = icon,
                 title = title,
-                // Nothing to sum up until the list is there, while the line keeps its height
-                subtitle = if (isLoading) "" else subtitle,
+                subtitle = subtitle,
+                subtitleLoading = isLoading,
                 search = search,
                 searchLabel = searchLabel,
                 accentColor = accentColor,

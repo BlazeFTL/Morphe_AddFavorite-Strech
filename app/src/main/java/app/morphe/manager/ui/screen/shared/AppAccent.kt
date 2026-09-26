@@ -7,11 +7,15 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.util.isExtremeAccent
+import org.koin.compose.koinInject
 
 /**
  * Fill of a surface that carries an app's own color, the way the app details and the patch lists
@@ -55,6 +59,14 @@ fun AppAccentBadge(
         contentColor = if (accentColor != null) MaterialTheme.colorScheme.onBackground else tone.content,
         onClick = onClick
     )
+}
+
+/** Color the sources declare [packageName] with, or null where none of them does. */
+@Composable
+fun rememberAppColor(packageName: String): Color? {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val metadata by patchBundleRepository.allAppMetadata.collectAsStateWithLifecycle()
+    return metadata[packageName]?.downloadColor
 }
 
 /**

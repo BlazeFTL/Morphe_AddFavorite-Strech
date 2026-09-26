@@ -5,14 +5,12 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -35,7 +33,6 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
@@ -66,7 +63,6 @@ import app.morphe.manager.domain.repository.appsBrought
 import app.morphe.manager.ui.screen.patcher.IncompatiblePatcherVersionDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import sh.calvin.reorderable.ReorderableItem
@@ -1272,6 +1268,16 @@ internal fun rememberSourcesByUid(): Map<Int, PatchBundleSource> {
     return remember(sources) { sources.associateBy { it.uid } }
 }
 
+/**
+ * Color a source's own dialogs head themselves with: its icon's, or the theme's accent where the
+ * icon has none. None for a source that is off, as its icon grays out.
+ */
+@Composable
+internal fun rememberSourceHeaderColor(bundle: PatchBundleSource): Color? {
+    val accent = rememberBundleAccent(bundle)
+    return if (bundle.enabled) accent ?: MaterialTheme.colorScheme.primary else null
+}
+
 /** The color [bundle]'s icon reads as, see [rememberSourceAccent]. */
 @Composable
 internal fun rememberBundleAccent(bundle: PatchBundleSource): Color? {
@@ -1313,21 +1319,7 @@ fun BundleIcon(
         color = animatedColor
     ) {
         when {
-            bundle.isDefault -> {
-                val context = LocalContext.current
-                Image(
-                    painter = rememberDrawablePainter(
-                        drawable = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)
-                    ),
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                    modifier = modifier
-                        .graphicsLayer {
-                            scaleX = 1.5f
-                            scaleY = 1.5f
-                        }
-                )
-            }
+            bundle.isDefault -> MorpheLauncherLogo(modifier = Modifier.fillMaxSize())
 
             hasBundleError -> {
                 Icon(

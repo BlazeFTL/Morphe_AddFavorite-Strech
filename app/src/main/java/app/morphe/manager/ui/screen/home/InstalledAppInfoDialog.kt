@@ -343,6 +343,8 @@ fun InstalledAppInfoDialog(
     if (showAppliedPatchesDialog.value && appliedPatches != null) {
         AppliedPatchesDialog(
             appLabel = appLabel,
+            appInfo = appInfo,
+            accentColor = appAccentColor,
             packageName = installedApp?.originalPackageName ?: packageName,
             bundles = appliedBundles,
             settingsViewModel = settingsViewModel,
@@ -1910,9 +1912,15 @@ private fun DeleteConfirmDialog(
     }
 }
 
+/**
+ * What went into an installed app: its patches and their options, source by source, under the
+ * same header the app's other dialogs carry.
+ */
 @Composable
 private fun AppliedPatchesDialog(
     appLabel: String,
+    appInfo: PackageInfo?,
+    accentColor: Color,
     packageName: String,
     bundles: List<AppliedPatchBundleUi>,
     settingsViewModel: SettingsViewModel,
@@ -1925,74 +1933,54 @@ private fun AppliedPatchesDialog(
         }
     }
 
-    AppDialog(
+    val patchCount = bundles.sumOf { it.patchInfos.size + it.fallbackNames.size }
+
+    DetailsDialog(
         onDismissRequest = onDismiss,
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        icon = { modifier ->
+            AppIcon(packageInfo = appInfo, packageName = packageName, contentDescription = null, modifier = modifier)
+        },
+        title = appLabel,
+        subtitle = listOf(
+            pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString()),
+            bundles.singleOrNull()?.title
+                ?: pluralStringResource(R.plurals.source_count, bundles.size, bundles.size.toString())
+        ).joinToString(" · "),
+        accentColor = accentColor
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-        ) {
-            HeroInfoCard(
-                icon = Icons.Outlined.Extension,
-                title = appLabel,
-                subtitle = {
-                    if (bundles.size == 1) {
-                        Text(
-                            text = bundles[0].title,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = LocalDialogSecondaryTextColor.current
-                        )
-                    } else {
-                        Text(
-                            text = pluralStringResource(R.plurals.source_count, bundles.size, bundles.size.toString()),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = LocalDialogSecondaryTextColor.current
-                        )
+        bundles.forEach { bundle ->
+            val bundleOptions = bundleOptionsMap[bundle.uid] ?: emptyMap()
+            // Options are stored under the selection key, which is suffixed on duplicate names
+            val patchDisplayNames = bundle.patchInfos.associate { it.name to it.displayName }
+            val bundlePatchCount = bundle.patchInfos.size + bundle.fallbackNames.size
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            ) {
+                LabeledSection(
+                    title = stringResource(R.string.home_app_info_applied_patches),
+                    version = if (bundles.size > 1) bundle.title else null,
+                    count = bundlePatchCount
+                ) {
+                    bundle.patchInfos.forEach { patch ->
+                        PatchNameRow(name = patch.displayName)
+                    }
+                    bundle.fallbackNames.forEach { patchName ->
+                        PatchNameRow(name = patchName, dimmed = true)
                     }
                 }
-            )
 
-            bundles.forEach { bundle ->
-                val bundleOptions = bundleOptionsMap[bundle.uid] ?: emptyMap()
-                // Options are stored under the selection key, which is suffixed on duplicate names
-                val patchDisplayNames = bundle.patchInfos.associate { it.name to it.displayName }
-                val patchCount = bundle.patchInfos.size + bundle.fallbackNames.size
-
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-                ) {
+                if (bundleOptions.isNotEmpty()) {
                     LabeledSection(
-                        title = stringResource(R.string.home_app_info_applied_patches),
-                        version = if (bundles.size > 1) bundle.title else null,
-                        count = patchCount
+                        title = stringResource(R.string.settings_system_patch_options_section),
+                        count = bundleOptions.size
                     ) {
-                        bundle.patchInfos.forEach { patch ->
-                            PatchNameRow(name = patch.displayName)
-                        }
-                        bundle.fallbackNames.forEach { patchName ->
-                            PatchNameRow(name = patchName, dimmed = true)
-                        }
-                    }
-
-                    if (bundleOptions.isNotEmpty()) {
-                        LabeledSection(
-                            title = stringResource(R.string.settings_system_patch_options_section),
-                            count = bundleOptions.size
-                        ) {
-                            bundleOptions.entries.forEach { (patchName, options) ->
-                                PatchOptionsGroup(
-                                    patchName = patchDisplayNames[patchName] ?: patchName,
-                                    options = options
-                                )
-                            }
+                        bundleOptions.entries.forEach { (patchName, options) ->
+                            PatchOptionsGroup(
+                                patchName = patchDisplayNames[patchName] ?: patchName,
+                                options = options
+                            )
                         }
                     }
                 }

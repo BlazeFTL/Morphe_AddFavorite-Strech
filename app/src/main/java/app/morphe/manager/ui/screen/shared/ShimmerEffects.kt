@@ -120,42 +120,6 @@ fun ShimmerText(
 }
 
 /**
- * Shimmer loading placeholder matching [HeroInfoCard]'s layout.
- */
-@Composable
-fun ShimmerHeroInfoCard(
-    modifier: Modifier = Modifier,
-    accentColor: Color = MaterialTheme.colorScheme.primary
-) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.SectionCornerRadius),
-        color = accentColor.copy(alpha = 0.15f)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Defaults.ContentPadding),
-            horizontalArrangement = Arrangement.spacedBy(14.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ShimmerBox(
-                modifier = Modifier.size(56.dp),
-                shape = CircleShape,
-                baseColor = accentColor.copy(alpha = 0.25f)
-            )
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                ShimmerText(widthFraction = 0.55f, height = 24.dp, cornerRadius = 6.dp)
-                ShimmerText(widthFraction = 0.38f, height = 14.dp, cornerRadius = 4.dp)
-            }
-        }
-    }
-}
-
-/**
  * Shimmer loading placeholder for APK item.
  */
 @Composable

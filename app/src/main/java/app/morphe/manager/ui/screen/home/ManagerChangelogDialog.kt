@@ -19,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +35,8 @@ import app.morphe.manager.util.MANAGER_REPO_URL
 import app.morphe.manager.util.formatMegabytes
 import app.morphe.manager.util.isolateLtr
 import app.morphe.manager.util.releasePageUrl
+import app.morphe.manager.util.rememberSourceAccent
+import app.morphe.manager.util.withVersionPrefix
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -121,16 +124,12 @@ fun ManagerChangelogDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
-        // With no update on the way, this is just the changelog
-        title = if (state == UpdateViewModel.State.CAN_DOWNLOAD && !hasUpdate && !expectsUpdate) {
-            stringResource(R.string.changelog)
-        } else {
-            stringResource(state.title)
-        },
         scrollable = false,
         // The timeline gives up its leading edge to the rail, so the list takes the wider layout.
-        // The height stays with the content, since progress and results sit centered
+        // The header holds the top, and progress and results sit centered in the room below it
         padding = DialogPadding.Compact,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
         footer = {
             AnimatedContent(
                 targetState = state,
@@ -149,15 +148,39 @@ fun ManagerChangelogDialog(
             }
         }
     ) {
+        // Headed by Morphe itself, as a source's changelog is by the source. The version is the
+        // one on its way where there is one, so a download names what it fetches
+        ListDialogHeader(
+            icon = { modifier ->
+                Surface(modifier = modifier, shape = CircleShape, color = Color.White) {
+                    MorpheLauncherLogo(modifier = Modifier.fillMaxSize())
+                }
+            },
+            // With no update on the way, this is just the changelog
+            title = if (state == UpdateViewModel.State.CAN_DOWNLOAD && !hasUpdate && !expectsUpdate) {
+                stringResource(R.string.changelog)
+            } else {
+                stringResource(state.title)
+            },
+            subtitle = listOf(
+                stringResource(R.string.app_name),
+                (updateViewModel.releaseInfo?.version ?: BuildConfig.VERSION_NAME).withVersionPrefix().isolateLtr()
+            ).joinToString(" · "),
+            accentColor = rememberSourceAccent(isDefault = true, avatarUrl = null, fallbackAvatarUrl = null)
+        )
+
         AnimatedContent(
             targetState = content,
             transitionSpec = Animations.fadeCrossfade(),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             label = "updateContent"
         ) { content ->
             when (content) {
                 UpdateDialogContent.DetailsLoading -> ChangelogListLoading(
-                    withSummary = hasUpdate || expectsUpdate
+                    withSummary = hasUpdate || expectsUpdate,
+                    modifier = Modifier.padding(top = Defaults.ItemSpacing)
                 )
 
                 UpdateDialogContent.Details -> {
@@ -167,6 +190,8 @@ fun ManagerChangelogDialog(
                         entries = entries,
                         older = older,
                         currentVersion = BuildConfig.VERSION_NAME,
+                        // The gap under the header is the list's own, so releases scroll up to its edge
+                        contentPadding = PaddingValues(top = Defaults.ItemSpacing),
                         header = when {
                             // Everything the user is about to install, summed up above the releases themselves
                             newReleases.isNotEmpty() -> {
@@ -195,24 +220,27 @@ fun ManagerChangelogDialog(
                     )
                 }
 
-                UpdateDialogContent.Downloading -> DownloadProgressCard(
-                    version = updateViewModel.releaseInfo?.version,
-                    downloadedSize = updateViewModel.downloadedSize,
-                    totalSize = updateViewModel.totalSize,
-                    progress = updateViewModel.downloadProgress
-                )
+                UpdateDialogContent.Downloading -> CenteredStatus {
+                    DownloadProgress(
+                        downloadedSize = updateViewModel.downloadedSize,
+                        totalSize = updateViewModel.totalSize,
+                        progress = updateViewModel.downloadProgress
+                    )
+                }
 
                 // The dialog title already reads "Installing update", so the logo carries it
                 // as a description instead of repeating it on screen
-                UpdateDialogContent.Installing -> PulsingLogoIndicator(
-                    contentDescription = stringResource(R.string.installing_manager_update)
-                )
+                UpdateDialogContent.Installing -> CenteredStatus {
+                    PulsingLogoIndicator(contentDescription = stringResource(R.string.installing_manager_update))
+                }
 
-                UpdateDialogContent.Failed -> InstallFailureContent(updateViewModel.installError)
+                UpdateDialogContent.Failed -> CenteredStatus {
+                    InstallFailureContent(updateViewModel.installError)
+                }
 
-                UpdateDialogContent.Success -> UpdateCompletedContent(
-                    version = updateViewModel.releaseInfo?.version
-                )
+                UpdateDialogContent.Success -> CenteredStatus {
+                    UpdateCompletedContent(version = updateViewModel.releaseInfo?.version)
+                }
             }
         }
     }
@@ -341,15 +369,22 @@ private fun UpdateDialogFooter(
     )
 }
 
+/** Stands a progress or result in the middle of the room the header leaves, where the list would be. */
+@Composable
+private fun CenteredStatus(content: @Composable () -> Unit) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        content()
+    }
+}
+
 /**
- * Download progress with an animated bar.
+ * Download progress with an animated bar. The header names the release being fetched.
  *
  * The total size is unknown until the first progress callback, and stays unknown when the server
  * streams the release without a content length, so both cases fall back to an indeterminate bar.
  */
 @Composable
-private fun DownloadProgressCard(
-    version: String?,
+private fun DownloadProgress(
     downloadedSize: Long,
     totalSize: Long,
     progress: Float
@@ -361,52 +396,50 @@ private fun DownloadProgressCard(
         label = "downloadProgress"
     )
 
-    HeroInfoCard(
-        icon = Icons.Outlined.Download,
-        // Names the release being fetched, since the dialog title already says it is downloading
-        title = version?.isolateLtr() ?: stringResource(R.string.app_name),
-        footer = {
-            val progressModifier = Modifier
-                .fillMaxWidth()
-                .height(ProgressBarHeight)
-            val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-
-            if (hasKnownSize) {
-                LinearProgressIndicator(
-                    progress = { animatedProgress },
-                    modifier = progressModifier,
-                    color = MaterialTheme.colorScheme.primary,
-                    trackColor = trackColor
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+    ) {
+        Text(
+            text = if (hasKnownSize) {
+                stringResource(
+                    R.string.download_progress,
+                    formatMegabytes(downloadedSize),
+                    formatMegabytes(totalSize),
+                    (progress * 100).toInt().toString()
                 )
             } else {
-                LinearProgressIndicator(
-                    modifier = progressModifier,
-                    color = MaterialTheme.colorScheme.primary,
-                    trackColor = trackColor
+                stringResource(
+                    R.string.manager_update_progress_downloaded,
+                    formatMegabytes(downloadedSize)
                 )
-            }
-        },
-        subtitle = {
-            Text(
-                text = if (hasKnownSize) {
-                    stringResource(
-                        R.string.download_progress,
-                        formatMegabytes(downloadedSize),
-                        formatMegabytes(totalSize),
-                        (progress * 100).toInt().toString()
-                    )
-                } else {
-                    stringResource(
-                        R.string.manager_update_progress_downloaded,
-                        formatMegabytes(downloadedSize)
-                    )
-                },
-                style = MaterialTheme.typography.bodySmall,
-                color = LocalContentColor.current,
-                fontWeight = FontWeight.Medium
+            },
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            color = LocalDialogSecondaryTextColor.current,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        val progressModifier = Modifier
+            .fillMaxWidth()
+            .height(ProgressBarHeight)
+        val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        if (hasKnownSize) {
+            LinearProgressIndicator(
+                progress = { animatedProgress },
+                modifier = progressModifier,
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = trackColor
+            )
+        } else {
+            LinearProgressIndicator(
+                modifier = progressModifier,
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = trackColor
             )
         }
-    )
+    }
 }
 
 /** Installer failure details. The dialog title already states that the install failed. */

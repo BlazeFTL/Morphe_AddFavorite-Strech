@@ -5,15 +5,15 @@
 
 package app.morphe.manager.ui.screen.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,7 +21,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstalledAppPickerItem
-import app.morphe.manager.util.toast
 
 private enum class AppFilter { All, UserOnly, SystemOnly }
 
@@ -45,7 +44,6 @@ fun InstalledAppPickerDialog(
     onDismiss: () -> Unit,
     onSelect: (InstalledAppPickerItem) -> Unit
 ) {
-    val context = LocalContext.current
     val search = rememberSearchFieldState()
     var appFilter by remember { mutableStateOf(AppFilter.UserOnly) }
     val filtered = remember(items, search.query, appFilter) {
@@ -68,48 +66,11 @@ fun InstalledAppPickerDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         dismissOnClickOutside = true,
-        title = stringResource(R.string.home_installed_app_picker_title),
         padding = DialogPadding.Compact,
         scrollable = false,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
         hideFooterWhileTyping = true,
-        titleTrailingContent = {
-            TitleAction(
-                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                contentDescription = stringResource(R.string.search),
-                onClick = { search.toggle() },
-                style = TitleActionStyle.Toggle,
-                active = search.visible
-            )
-
-            val labelAll = stringResource(R.string.home_installed_app_picker_filter_all)
-            val labelUser = stringResource(R.string.home_installed_app_picker_filter_user)
-            val labelSystem = stringResource(R.string.home_installed_app_picker_filter_system)
-            val (icon, description) = when (appFilter) {
-                AppFilter.All -> Icons.Outlined.FilterList to labelAll
-                AppFilter.UserOnly -> Icons.Outlined.Person to labelUser
-                AppFilter.SystemOnly -> Icons.Outlined.Android to labelSystem
-            }
-            TitleAction(
-                icon = icon,
-                contentDescription = description,
-                onClick = {
-                    appFilter = when (appFilter) {
-                        AppFilter.All -> AppFilter.UserOnly
-                        AppFilter.UserOnly -> AppFilter.SystemOnly
-                        AppFilter.SystemOnly -> AppFilter.All
-                    }
-                    context.toast(
-                        when (appFilter) {
-                            AppFilter.All -> labelAll
-                            AppFilter.UserOnly -> labelUser
-                            AppFilter.SystemOnly -> labelSystem
-                        }
-                    )
-                },
-                style = TitleActionStyle.Toggle,
-                active = appFilter != AppFilter.All
-            )
-        },
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(android.R.string.cancel),
@@ -119,6 +80,44 @@ fun InstalledAppPickerDialog(
         }
     ) {
         SearchFieldBackHandler(search)
+
+        val (filterIcon, filterLabel) = when (appFilter) {
+            AppFilter.All -> Icons.Outlined.FilterList to stringResource(R.string.home_installed_app_picker_filter_all)
+            AppFilter.UserOnly -> Icons.Outlined.Person to stringResource(R.string.home_installed_app_picker_filter_user)
+            AppFilter.SystemOnly -> Icons.Outlined.Android to stringResource(R.string.home_installed_app_picker_filter_system)
+        }
+        val accent = MaterialTheme.colorScheme.primary
+        ListDialogHeader(
+            icon = { modifier ->
+                ListDialogHeaderIcon(icon = Icons.Outlined.Apps, color = accent, modifier = modifier)
+            },
+            title = stringResource(R.string.home_installed_app_picker_title),
+            // The filter names itself here, so switching it says what the list now holds. A line
+            // each, as the filter's name is a phrase that would otherwise break partway
+            subtitle = listOf(
+                pluralStringResource(R.plurals.home_category_app_count, filtered.size, filtered.size.toString()),
+                filterLabel
+            ).joinToString("\n"),
+            subtitleLoading = isLoading,
+            search = search,
+            searchLabel = stringResource(R.string.home_search_apps),
+            searchEnabled = !isLoading,
+            accentColor = accent
+        ) {
+            TitleAction(
+                icon = filterIcon,
+                contentDescription = filterLabel,
+                onClick = {
+                    appFilter = when (appFilter) {
+                        AppFilter.All -> AppFilter.UserOnly
+                        AppFilter.UserOnly -> AppFilter.SystemOnly
+                        AppFilter.SystemOnly -> AppFilter.All
+                    }
+                },
+                style = TitleActionStyle.Toggle,
+                active = appFilter != AppFilter.All
+            )
+        }
 
         val textColor = LocalDialogTextColor.current
         val secondaryColor = LocalDialogSecondaryTextColor.current
@@ -130,26 +129,26 @@ fun InstalledAppPickerDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScrollFade(listState, fadeTop = false),
+                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
                 userScrollEnabled = !isLoading
             ) {
+                // Kept while the field is closed, so its share of the spacing makes the gap under
+                // the header
                 stickyHeader(key = "search") {
                     AppDialogSearchHeader(
                         visible = search.visible,
                         value = search.query,
                         onValueChange = { search.query = it },
-                        label = stringResource(R.string.home_search_apps)
+                        label = stringResource(R.string.home_search_apps),
+                        // Opaque, so rows scrolled under the gap stay hidden
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(top = Defaults.ItemSpacing)
                     )
                 }
 
                 if (isLoading) {
-                    items(10) { index ->
-                        ShimmerInstalledAppRow()
-                        if (index < 9) {
-                            HorizontalDivider(
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                            )
-                        }
-                    }
+                    items(10) { ShimmerInstalledAppRow() }
                 } else {
                     if (filtered.isEmpty()) {
                         item(key = "empty_state") {
@@ -181,57 +180,51 @@ fun InstalledAppPickerDialog(
                         }
                     }
 
-                    itemsIndexed(filtered, key = { _, item -> item.packageName }) { index, item ->
-                        Column(modifier = Modifier.animateItem()) {
-                            Row(
+                    items(filtered, key = { it.packageName }) { item ->
+                        Row(
+                            modifier = Modifier
+                                .animateItem()
+                                .fillMaxWidth()
+                                .clickable { onSelect(item) }
+                                .padding(4.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            // Sized to the three text lines beside it so the row reads as one block
+                            AppIcon(
+                                packageInfo = item.packageInfo,
+                                contentDescription = null,
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickable { onSelect(item) }
-                                    .padding(horizontal = 4.dp, vertical = 10.dp),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                                    .size(56.dp)
+                                    .clip(RoundedCornerShape(14.dp))
+                            )
+                            Column(
+                                modifier = Modifier.weight(1f),
+                                verticalArrangement = Arrangement.spacedBy(2.dp)
                             ) {
-                                // Sized to the three text lines beside it so the row reads as one block
-                                AppIcon(
-                                    packageInfo = item.packageInfo,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .size(56.dp)
-                                        .clip(RoundedCornerShape(14.dp))
+                                Text(
+                                    text = item.label,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Medium,
+                                    color = textColor,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
                                 )
-                                Column(
-                                    modifier = Modifier.weight(1f),
-                                    verticalArrangement = Arrangement.spacedBy(2.dp)
-                                ) {
-                                    Text(
-                                        text = item.label,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        fontWeight = FontWeight.Medium,
-                                        color = textColor,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                    Text(
-                                        text = item.packageName,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = secondaryColor,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                    Text(
-                                        // Universal patches name no version, so nothing here
-                                        // checks the build code and nothing would act on it
-                                        text = "v${item.info.version}",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = secondaryColor.copy(alpha = 0.6f),
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                            }
-                            if (index < filtered.size - 1) {
-                                HorizontalDivider(
-                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
+                                Text(
+                                    text = item.packageName,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = secondaryColor,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                                Text(
+                                    // Universal patches name no version, so nothing here
+                                    // checks the build code and nothing would act on it
+                                    text = "v${item.info.version}",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = secondaryColor.copy(alpha = 0.6f),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                             }
                         }

@@ -47,6 +47,7 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -472,25 +473,28 @@ private fun SummaryTile(
     style: SectionStyle,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    Row(
         modifier = modifier
             .clip(RoundedCornerShape(Defaults.CardCornerRadius))
             .background(style.tone.container)
             .padding(14.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
+        // Takes what the count leaves, so a long title shortens instead of pushing the count out
+        Row(
+            modifier = Modifier.weight(1f),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            SectionLabel(style = style, text = style.title)
+        }
         Text(
             text = count.toString(),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             color = style.tone.content
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            SectionLabel(style = style, text = style.title)
-        }
     }
 }
 
@@ -506,7 +510,10 @@ private fun SectionLabel(style: SectionStyle, text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.labelLarge,
-        color = style.tone.content
+        color = style.tone.content,
+        // A long translation shortens rather than dropping under the icon
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
     )
 }
 

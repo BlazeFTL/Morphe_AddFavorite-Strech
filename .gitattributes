@@ -9,4 +9,4 @@ app/src/main/assets/root/*.sh text eol=lf
 # Keep Windows batch wrappers with CRLF endings
 *.bat text eol=crlf
 
-README.md merge=ours
+// Upstream 'upstream/dev' incoming version

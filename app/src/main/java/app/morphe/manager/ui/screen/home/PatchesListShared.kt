@@ -37,15 +37,49 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
-import app.morphe.manager.ui.screen.shared.Animations
-import app.morphe.manager.ui.screen.shared.AppDialogTextField
-import app.morphe.manager.ui.screen.shared.Defaults
-import app.morphe.manager.ui.screen.shared.EmptyState
-import app.morphe.manager.ui.screen.shared.HeroInfoCard
-import app.morphe.manager.ui.screen.shared.SemanticTone
-import app.morphe.manager.ui.screen.shared.StatusBadge
-import app.morphe.manager.ui.screen.shared.animatedListItem
+import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toHsv
+import org.koin.compose.koinInject
+
+/**
+ * Footer of a patch list dialog: translating the descriptions beside the close button, where the
+ * app language has a translation to offer.
+ */
+@Composable
+internal fun PatchListFooter(onClose: () -> Unit) {
+    AppDialogActions(
+        // A row lays its actions out from the right, so the close button ends up there
+        actions = listOfNotNull(
+            DialogAction(
+                text = stringResource(R.string.close),
+                onClick = onClose,
+                emphasis = DialogActionEmphasis.Outlined
+            ),
+            translateAction()
+        )
+    )
+}
+
+/**
+ * Matches patches against [query] by name, description and, while translation is on, translated
+ * description. The descriptions of [patches] translate in the background, so the search finds them
+ * without waiting for a scroll.
+ */
+@Composable
+internal fun rememberPatchMatcher(query: String, patches: List<PatchInfo>): (PatchInfo) -> Boolean {
+    val translation: ContentTranslation = koinInject()
+    val descriptions = remember(patches) { patches.mapNotNull { it.description }.distinct() }
+    PrefetchTranslations(descriptions)
+
+    // Read only while searching, so translations landing in the background leave the list alone
+    val revision = if (query.isBlank()) 0 else translation.revision
+    return remember(query, translation.isEnabled, revision) {
+        { patch ->
+            patch.matchesQuery(query) ||
+                    patch.description?.let(translation::cached)?.contains(query, ignoreCase = true) == true
+        }
+    }
+}
 
 /**
  * Header card shown at the top of patches-list dialogs.

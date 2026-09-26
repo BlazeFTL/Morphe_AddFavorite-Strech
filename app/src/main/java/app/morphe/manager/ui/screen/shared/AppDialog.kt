@@ -376,12 +376,13 @@ private fun DialogContent(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = contentArrangement
                 ) {
-                    // Title section
+                    // Title section. The headline's tall line box already adds space below the
+                    // text, so a small gap reads as much as the one above the footer
                     if (title != null) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.ContentPadding),
+                                .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.ContentPaddingSmall),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {

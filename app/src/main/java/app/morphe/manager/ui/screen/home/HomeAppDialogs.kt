@@ -31,7 +31,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -100,10 +99,11 @@ fun AppPatchesDialog(
     val patchSections = rememberPatchSectionState()
     val patchFolds = patchSections.folds
 
-    val filteredPatches = remember(allPatches, searchQuery.value, selectedBundle.value) {
+    val matchesPatch = rememberPatchMatcher(searchQuery.value, remember(allPatches) { allPatches.map { it.second } })
+    val filteredPatches = remember(allPatches, matchesPatch, selectedBundle.value) {
         allPatches.filter { (uid, patch) ->
             val bundleMatch = selectedBundle.value == null || uid == selectedBundle.value
-            bundleMatch && patch.matchesQuery(searchQuery.value)
+            bundleMatch && matchesPatch(patch)
         }
     }
 
@@ -147,13 +147,7 @@ fun AppPatchesDialog(
         scrollable = false,
         contentArrangement = Arrangement.Top,
         fillContentHeight = true,
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        footer = { PatchListFooter(onClose = onDismiss) }
     ) {
         // Back unwinds the active filters before the dialog itself. Registered last so the
         // query clears first, and kept off onDismissRequest so an outside tap still dismisses.
@@ -301,6 +295,8 @@ fun AppPatchesDialog(
             }
         }
     }
+
+    TranslationOverlays()
 
     // Bundle filter bottom sheet (multi-bundle only)
     if (showFilterSheet.value && isMultiBundle) {

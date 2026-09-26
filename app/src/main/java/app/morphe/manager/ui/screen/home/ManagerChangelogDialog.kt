@@ -94,7 +94,6 @@ fun ManagerChangelogDialog(
     // A banner can outlive the release it points at, and a check can fail outright, so name the
     // situation rather than wait on data that is not coming
     val isUpdateUnavailable = expectsUpdate && !hasUpdate && !updateViewModel.isCheckingForUpdate
-    val translation = rememberChangelogTranslation()
     val older = OlderReleases(
         entries = updateViewModel.olderManagerEntries,
         isLoading = updateViewModel.isLoadingOlderEntries,
@@ -145,7 +144,7 @@ fun ManagerChangelogDialog(
                     expectsUpdate = expectsUpdate,
                     onDismiss = onDismiss,
                     // Only the changelog body has anything to translate
-                    translation = translation.takeIf { content == UpdateDialogContent.Details }
+                    translatable = content == UpdateDialogContent.Details
                 )
             }
         }
@@ -166,7 +165,6 @@ fun ManagerChangelogDialog(
                     val newReleases = entries.take(updateViewModel.newReleaseCount)
                     ChangelogList(
                         entries = entries,
-                        translation = translation,
                         older = older,
                         currentVersion = BuildConfig.VERSION_NAME,
                         header = when {
@@ -219,7 +217,7 @@ fun ManagerChangelogDialog(
         }
     }
 
-    ChangelogOverlays(translation = translation)
+    TranslationOverlays()
 
     // Internet check dialog
     if (updateViewModel.showInternetCheckDialog) {
@@ -241,7 +239,7 @@ private fun UpdateDialogFooter(
     updateViewModel: UpdateViewModel,
     expectsUpdate: Boolean,
     onDismiss: () -> Unit,
-    translation: ChangelogTranslation?
+    translatable: Boolean
 ) {
     val releaseInfo = updateViewModel.releaseInfo
 
@@ -338,7 +336,7 @@ private fun UpdateDialogFooter(
 
     ChangelogFooter(
         actions = actions,
-        translation = translation,
+        translatable = translatable,
         pageUrl = pageUrl.takeIf { offersReleasePage }
     )
 }

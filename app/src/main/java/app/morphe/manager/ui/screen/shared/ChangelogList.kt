@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -72,7 +71,6 @@ data class OlderReleases(
 @Composable
 fun ChangelogList(
     entries: List<ChangelogEntry>,
-    translation: ChangelogTranslation,
     older: OlderReleases? = null,
     currentVersion: String? = null,
     currentBadge: ChangelogBadge = ChangelogBadge.INSTALLED,
@@ -110,7 +108,6 @@ fun ChangelogList(
                 entries = entries,
                 keyPrefix = "changelog",
                 expansion = expansion,
-                translation = translation,
                 current = currentVersion?.let { it to currentBadge },
                 startsTimeline = true,
                 // The rail runs on into whatever the older releases show, unless that is nothing at all
@@ -149,7 +146,6 @@ fun ChangelogList(
                         entries = olderEntries,
                         keyPrefix = "changelog_older",
                         expansion = expansion,
-                        translation = translation,
                         current = currentVersion?.let { it to currentBadge },
                         startsTimeline = false,
                         continuesBelow = false
@@ -174,28 +170,20 @@ fun ChangelogList(
  * Footer of a changelog dialog: a row of actions on the changelog itself, translating it and
  * opening its release page, above the dialog's own [actions].
  *
- * @param translation Null where there is no changelog on screen to translate.
+ * @param translatable Whether a changelog is on screen for translation to act on.
  * @param pageUrl Release page to open, or null when there is none.
  */
 @Composable
 fun ChangelogFooter(
     actions: List<DialogAction>,
-    translation: ChangelogTranslation? = null,
+    translatable: Boolean = false,
     pageUrl: String? = null
 ) {
-    val translate = translation?.takeIf { it.isAvailable }?.let {
-        DialogAction(
-            text = stringResource(
-                if (it.isEnabled) R.string.changelog_show_original else R.string.changelog_translate
-            ),
-            onClick = it::toggle,
-            icon = Icons.Outlined.Translate,
-            enabled = !it.isDownloadingModel,
-            emphasis = DialogActionEmphasis.Outlined
-        )
-    }
     // A row lays its actions out from the right, so translation ends up on the left
-    val changelogActions = listOfNotNull(releasePageAction(pageUrl), translate)
+    val changelogActions = listOfNotNull(
+        releasePageAction(pageUrl),
+        translateAction().takeIf { translatable }
+    )
 
     Column(modifier = Modifier.fillMaxWidth()) {
         AnimatedContent(
@@ -213,25 +201,6 @@ fun ChangelogFooter(
         }
 
         AppDialogActions(actions = actions, layout = DialogButtonLayout.Vertical)
-    }
-}
-
-/**
- * Progress a changelog dialog shows over itself while it downloads a translation model, and the
- * consent that download needs on a metered network.
- */
-@Composable
-fun ChangelogOverlays(translation: ChangelogTranslation) {
-    Overlay(visible = translation.isDownloadingModel) {
-        PulsingLogoWithCaption(caption = stringResource(R.string.changelog_translation_downloading))
-    }
-
-    if (translation.isAwaitingMeteredConsent) {
-        MeteredDownloadDialog(
-            title = stringResource(R.string.changelog_translation_download_confirmation),
-            onConfirm = { translation.onMeteredConsent(granted = true) },
-            onDismiss = { translation.onMeteredConsent(granted = false) }
-        )
     }
 }
 
@@ -304,7 +273,6 @@ private fun LazyListScope.releaseItems(
     entries: List<ChangelogEntry>,
     keyPrefix: String,
     expansion: ChangelogExpansion,
-    translation: ChangelogTranslation,
     current: Pair<String, ChangelogBadge>?,
     startsTimeline: Boolean,
     continuesBelow: Boolean
@@ -322,8 +290,7 @@ private fun LazyListScope.releaseItems(
             expanded = expansion.isExpanded(entry.version, default = isNewest),
             onToggle = { expansion.toggle(entry.version, default = isNewest) },
             isSectionExpanded = { expansion.isSectionExpanded(entry.version, it) },
-            onToggleSection = { expansion.toggleSection(entry.version, it) },
-            translation = translation
+            onToggleSection = { expansion.toggleSection(entry.version, it) }
         )
     }
 }

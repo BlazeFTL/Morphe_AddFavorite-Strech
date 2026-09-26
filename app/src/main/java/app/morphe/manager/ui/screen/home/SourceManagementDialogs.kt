@@ -552,13 +552,14 @@ fun BundlePatchesDialog(
 
     // Carries each patch's position in the unfiltered list: a bundle may declare several patches
     // under one name and compatibility, so nothing derived from the patch itself is a unique key
-    val filteredPatches: List<IndexedValue<PatchInfo>> = remember(patches, searchQuery, selectedPackages) {
+    val matchesPatch = rememberPatchMatcher(searchQuery, patches)
+    val filteredPatches: List<IndexedValue<PatchInfo>> = remember(patches, matchesPatch, selectedPackages) {
         patches.withIndex()
             .filter { (_, patch) ->
                 val packageMatch = selectedPackages.isEmpty() ||
                         patch.compatiblePackages
                             ?.any { it.packageName in selectedPackages } == true
-                packageMatch && patch.matchesQuery(searchQuery)
+                packageMatch && matchesPatch(patch)
             }
             .sortedBy { (_, patch) -> patch.displayName }
     }
@@ -591,13 +592,7 @@ fun BundlePatchesDialog(
             }
         },
         title = null,
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismissRequest,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
+        footer = { PatchListFooter(onClose = onDismissRequest) },
         padding = DialogPadding.Compact,
         scrollable = false,
         contentArrangement = Arrangement.Top
@@ -743,6 +738,8 @@ fun BundlePatchesDialog(
         }
     }
 
+    TranslationOverlays()
+
     // App filter bottom sheet
     if (showFilterSheet.value) {
         AppBottomSheet(
@@ -865,7 +862,7 @@ fun PatchItemCard(
                 // Description
                 patch.description?.let {
                     Text(
-                        text = it,
+                        text = rememberTranslated(it),
                         style = MaterialTheme.typography.bodyMedium,
                         color = secondaryColor
                     )
@@ -972,7 +969,7 @@ fun PatchItemCard(
                                             color = textColor
                                         )
                                         Text(
-                                            text = option.description,
+                                            text = rememberTranslated(option.description),
                                             style = MaterialTheme.typography.bodySmall,
                                             color = secondaryColor
                                         )
@@ -1062,7 +1059,6 @@ fun BundleChangelogDialog(
     var state: BundleChangelogState by remember { mutableStateOf(BundleChangelogState.Loading) }
     var olderState: OlderBundleState by remember { mutableStateOf(OlderBundleState.Idle) }
     val scope = rememberCoroutineScope()
-    val translation = rememberChangelogTranslation()
     // 0 = waiting for dialog enter; incremented to trigger fetch, again on retry
     var fetchTrigger by remember { mutableIntStateOf(0) }
 
@@ -1200,7 +1196,7 @@ fun BundleChangelogDialog(
                                 emphasis = DialogActionEmphasis.Outlined
                             )
                         ),
-                        translation = translation.takeIf { hasList },
+                        translatable = hasList,
                         pageUrl = current.latestPageUrl
                     )
                 }
@@ -1233,19 +1229,17 @@ fun BundleChangelogDialog(
         BundleChangelogContent(
             state = state,
             installedVersion = src.installedVersionSignature,
-            translation = translation,
             older = older
         )
     }
 
-    ChangelogOverlays(translation = translation)
+    TranslationOverlays()
 }
 
 @Composable
 private fun BundleChangelogContent(
     state: BundleChangelogState,
     installedVersion: String?,
-    translation: ChangelogTranslation,
     older: OlderReleases
 ) {
     Crossfade(
@@ -1268,7 +1262,6 @@ private fun BundleChangelogContent(
                 } else {
                     ChangelogList(
                         entries = current.entries,
-                        translation = translation,
                         older = older,
                         currentVersion = installedVersion,
                         // The version a source holds is the one it patches with, nothing on the device

@@ -84,7 +84,7 @@ fun ExpertModeDialog(
     lockStateOf: (PatchInfo) -> PatchLockState = { PatchLockState.NONE },
     /** True while "Enable all" still holds the universal patches of the given list back. */
     holdsUniversalPatches: (bundleUid: Int, patches: List<Pair<PatchInfo, Boolean>>) -> Boolean = { _, _ -> false },
-    proceedText: String = stringResource(R.string.expert_mode_proceed),
+    proceedText: String = stringResource(R.string.patch),
     /** Off where mixing sources is the norm rather than something the user just did. */
     warnOnMultipleBundles: Boolean = true,
     /** Bundle UIDs currently receiving pre-release patch versions, shown as a warning header. */
@@ -136,10 +136,13 @@ fun ExpertModeDialog(
         }
     }
 
+    val allPatches = remember(allPatchesInfo) { allPatchesInfo.flatMap { (_, patches) -> patches.map { it.first } } }
+    val matchesPatch = rememberPatchMatcher(search.query, allPatches)
+
     // The two filters stack: either can narrow what the other left. Keyed by bundle and in bundle
     // order, since every reader below already holds a bundle and asks only what it kept
     val filteredPatchesByUid: Map<Int, List<Pair<PatchInfo, Boolean>>> =
-        remember(allPatchesInfo, search.query, selectedOnly.value) {
+        remember(allPatchesInfo, search.query, matchesPatch, selectedOnly.value) {
             val query = search.query.takeIf { it.isNotBlank() }
             val onlySelected = selectedOnly.value
             if (query == null && onlySelected == null) {
@@ -149,7 +152,7 @@ fun ExpertModeDialog(
             allPatchesInfo.mapNotNull { (bundle, patches) ->
                 val kept = onlySelected?.get(bundle.uid).orEmpty()
                 val filtered = patches.filter { (patch, _) ->
-                    val matchesQuery = query == null || patch.matchesQuery(query)
+                    val matchesQuery = query == null || matchesPatch(patch)
                     matchesQuery && (onlySelected == null || patch.name in kept)
                 }
                 if (filtered.isEmpty()) null else bundle.uid to filtered
@@ -222,7 +225,27 @@ fun ExpertModeDialog(
             )
         },
         dismissOnClickOutside = false,
-        footer = null,
+        footer = {
+            AppDialogActions(
+                // A row lays its actions out from the right, so patching ends up there
+                actions = listOfNotNull(
+                    DialogAction(
+                        text = proceedText,
+                        onClick = {
+                            // Check if multiple bundles are selected
+                            if (hasMultipleBundles && warnOnMultipleBundles) {
+                                showMultipleSourcesWarning.value = true
+                            } else {
+                                onProceed()
+                            }
+                        },
+                        icon = Icons.Outlined.AutoFixHigh,
+                        enabled = totalSelectedCount > 0
+                    ),
+                    translateAction()
+                )
+            )
+        },
         padding = DialogPadding.Compact,
         scrollable = false
     ) {
@@ -534,22 +557,6 @@ fun ExpertModeDialog(
                     }
                 }
             }
-
-            // Proceed to Patching button
-            AppDialogButton(
-                text = proceedText,
-                onClick = {
-                    // Check if multiple bundles are selected
-                    if (hasMultipleBundles && warnOnMultipleBundles) {
-                        showMultipleSourcesWarning.value = true
-                    } else {
-                        onProceed()
-                    }
-                },
-                enabled = totalSelectedCount > 0,
-                icon = Icons.Outlined.AutoFixHigh,
-                modifier = Modifier.fillMaxWidth(),
-            )
         }
     }
 
@@ -592,6 +599,8 @@ fun ExpertModeDialog(
             }
         )
     }
+
+    TranslationOverlays()
 }
 
 /** Everything the rows of a bundle badge or warn about, all keyed by bundle uid. */

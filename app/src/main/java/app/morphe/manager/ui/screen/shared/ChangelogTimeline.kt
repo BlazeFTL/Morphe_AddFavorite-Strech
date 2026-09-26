@@ -237,8 +237,7 @@ fun ChangelogRelease(
     expanded: Boolean,
     onToggle: () -> Unit,
     isSectionExpanded: (Int) -> Boolean,
-    onToggleSection: (Int) -> Unit,
-    translation: ChangelogTranslation
+    onToggleSection: (Int) -> Unit
 ) {
     val sections = remember(entry.content) { ChangelogParser.sections(entry.content) }
     val hasBody = sections.isNotEmpty()
@@ -260,7 +259,6 @@ fun ChangelogRelease(
                 sections = sections,
                 isSectionExpanded = isSectionExpanded,
                 onToggleSection = onToggleSection,
-                translation = translation,
                 modifier = Modifier.padding(top = Defaults.ItemSpacing)
             )
         }
@@ -572,12 +570,11 @@ private fun ReleaseBody(
     sections: List<ChangelogSection>,
     isSectionExpanded: (Int) -> Boolean,
     onToggleSection: (Int) -> Unit,
-    translation: ChangelogTranslation,
     modifier: Modifier = Modifier
 ) {
     // The original stays up while the translation is worked out, then gives way to it
     AnimatedContent(
-        targetState = translation.displayed(sections),
+        targetState = rememberTranslated(sections),
         transitionSpec = Animations.fadeCrossfade(),
         modifier = modifier.fillMaxWidth(),
         label = "releaseSections"

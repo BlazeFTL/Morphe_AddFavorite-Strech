@@ -292,7 +292,6 @@ Anything you add from this website is used at your own risk"</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Expert mode</string>
     <string name="expert_mode_search">Search patches</string>
-    <string name="expert_mode_proceed">Proceed to patching</string>
     <string name="expert_mode_disable_all">Disable all</string>
     <string name="expert_mode_disable_all_done">All patches disabled</string>
     <string name="expert_mode_enable_all">Enable all</string>
@@ -1332,6 +1331,7 @@ Details: %2$s"</string>
     <string name="continue_">Continue</string>
     <string name="version">Version</string>
     <string name="clone">Clone</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>
     <string name="patching">Patching</string>
     <string name="patched">Patched</string>
@@ -1378,11 +1378,11 @@ Details: %2$s"</string>
     <string name="changelog_release_page">Release page</string>
     <string name="changelog_host_github" translatable="false">GitHub</string>
     <string name="changelog_host_gitlab" translatable="false">GitLab</string>
-    <string name="changelog_translate">Translate</string>
-    <string name="changelog_show_original">Show original</string>
-    <string name="changelog_translation_download_confirmation">Download translation model?</string>
-    <string name="changelog_translation_downloading">Downloading translation model…</string>
-    <string name="changelog_translation_failed">Failed to translate changelog: %s</string>
+    <string name="content_translate">Translate</string>
+    <string name="content_show_original">Show original</string>
+    <string name="content_translation_download_confirmation">Download translation model?</string>
+    <string name="content_translation_downloading">Downloading translation model…</string>
+    <string name="content_translation_failed">Failed to translate: %s</string>
     <string name="changelog_section_new">New</string>
     <string name="changelog_section_fixes">Fixes</string>
     <string name="changelog_section_performance">Performance</string>

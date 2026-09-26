@@ -295,7 +295,7 @@ internal fun PatchCard(
 
                     if (!patch.description.isNullOrBlank()) {
                         Text(
-                            text = patch.description,
+                            text = rememberTranslated(patch.description),
                             style = MaterialTheme.typography.bodySmall,
                             color = if (isEnabled)
                                 LocalDialogSecondaryTextColor.current

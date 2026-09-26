@@ -74,8 +74,6 @@ class PreferencesManager(
     /** Guards the one-shot migration that folds the retired `dynamic_color` toggle into [themeStyle]. */
     private val themeStyleMigrated = booleanPreference("theme_style_migrated_v1", false)
 
-    val appLanguage = stringPreference("app_language", "system")
-
     // Advanced tab
     val useManagerPrereleases = booleanPreference("manager_prereleases", false)
 
@@ -374,7 +372,6 @@ class PreferencesManager(
         theme = theme.get(),
         themeStyle = themeStyle.get(),
         uiScale = uiScale.get(),
-        appLanguage = appLanguage.get(),
         gitHubPat = gitHubPat.get().takeIf { includeGitHubPatInExports.get() },
         includeGitHubPatInExports = includeGitHubPatInExports.get(),
         useProcessRuntime = useProcessRuntime.get(),
@@ -428,7 +425,6 @@ class PreferencesManager(
             }
         // Snapped rather than taken as-is, so a scale from a build with a different range still fits
         snapshot.uiScale?.let { uiScale.value = it.coerceToUiScale() }
-        snapshot.appLanguage?.let { appLanguage.value = it }
         snapshot.gitHubPat?.let { gitHubPat.value = it }
         snapshot.includeGitHubPatInExports?.let { includeGitHubPatInExports.value = it }
         snapshot.useProcessRuntime?.let { useProcessRuntime.value = it }

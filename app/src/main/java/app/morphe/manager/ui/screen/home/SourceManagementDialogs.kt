@@ -11,6 +11,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -1111,18 +1112,7 @@ fun SourceAppsDialog(
             searchLabel = stringResource(R.string.home_search_apps),
             // A lone app leaves nothing to search through
             searchEnabled = apps.size > 1,
-            accentColor = rememberSourceHeaderColor(src),
-            modifier = Modifier.padding(bottom = Defaults.ItemSpacing)
-        )
-
-        Text(
-            text = stringResource(R.string.sources_apps_description),
-            style = MaterialTheme.typography.bodyMedium,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = Defaults.ContentPaddingSmall)
+            accentColor = rememberSourceHeaderColor(src)
         )
 
         val listState = rememberLazyListState()
@@ -1132,12 +1122,29 @@ fun SourceAppsDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(itemSpacing)
             ) {
+                // Kept while the field is closed, so its share of the spacing makes the gap under
+                // the header
                 stickyHeader(key = "search") {
                     AppDialogSearchHeader(
                         visible = search.visible,
                         value = search.query,
                         onValueChange = { search.query = it },
-                        label = stringResource(R.string.home_search_apps)
+                        label = stringResource(R.string.home_search_apps),
+                        // Opaque, so rows scrolled under the gap stay hidden
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(top = Defaults.ItemSpacing)
+                    )
+                }
+
+                // Scrolls with the apps, so it gives the list its room back once read
+                item(key = "description") {
+                    Text(
+                        text = stringResource(R.string.sources_apps_description),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = LocalDialogSecondaryTextColor.current,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
 

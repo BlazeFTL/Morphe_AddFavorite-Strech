@@ -1,3 +1,13 @@
+# [1.33.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.2...v1.33.0-dev.3) (2026-09-26)
+
+
+### Features
+
+* Give batch patching the eased progress, background ramp and finish of a single run ([7c7262a](https://github.com/MorpheApp/morphe-manager/commit/7c7262ace62c875394b6291cfcd34339d2d62d3a))
+* Set inline changelog code on rounded chips ([89faf63](https://github.com/MorpheApp/morphe-manager/commit/89faf633c81a6e16f7606374f3a3107313baaf1a))
+* Show the manager update download as a wavy progress ring ([094be09](https://github.com/MorpheApp/morphe-manager/commit/094be0983f8d850f664651a6182f2fdb85566da9))
+* Wave the patching progress in the color of the app being patched ([92c1c64](https://github.com/MorpheApp/morphe-manager/commit/92c1c64f80612e8e1106cd81d3fe683107c1efb4))
+
 # [1.33.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.1...v1.33.0-dev.2) (2026-09-26)
 
 

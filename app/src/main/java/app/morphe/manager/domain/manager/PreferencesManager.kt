@@ -129,6 +129,12 @@ class PreferencesManager(
     /** Whether the last patcher process came up without the heap limit it asked for. Tied to the device, so never exported. */
     val patcherHeapLimitIgnored = booleanPreference("patcher_heap_limit_ignored", false)
 
+    /**
+     * Whether changelogs and patch descriptions show in the app language. Needs the translation
+     * model on this device, so never exported.
+     */
+    val translateContent = booleanPreference("translate_content", false)
+
     val keystoreAlias = stringPreference("keystore_alias", KeystoreManager.DEFAULT)
     val keystorePass = stringPreference("keystore_pass", KeystoreManager.DEFAULT)
     val keystorePassword = stringPreference("keystore_password", "")

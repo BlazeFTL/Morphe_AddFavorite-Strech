@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.settings.system
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.net.Uri
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -78,7 +79,9 @@ data class ApkItemData(
     val file: File? = null,
     val installType: InstallType? = null,
     val isInstalledOnDevice: Boolean = false,
-    val abis: List<String> = emptyList()
+    val abis: List<String> = emptyList(),
+    /** Info of the APK the row stands for, so its icon comes from that APK without another lookup. */
+    val packageInfo: PackageInfo? = null
 )
 
 private val ApkItemData.selectionKey: String
@@ -107,7 +110,8 @@ private data class ApkItemDataWithApp(
     val file: File? = null,
     val installType: InstallType = InstallType.SAVED,
     val isInstalledOnDevice: Boolean = false,
-    val abis: List<String> = emptyList()
+    val abis: List<String> = emptyList(),
+    val packageInfo: PackageInfo? = null
 ) {
     fun toApkItemData() = ApkItemData(
         packageName = packageName,
@@ -117,7 +121,8 @@ private data class ApkItemDataWithApp(
         file = file,
         installType = installType,
         isInstalledOnDevice = isInstalledOnDevice,
-        abis = abis
+        abis = abis,
+        packageInfo = packageInfo
     )
 }
 
@@ -242,7 +247,8 @@ private fun PatchedApksContent(
                             file = savedFile,
                             installType = app.installType,
                             isInstalledOnDevice = snapshot.patchState == InstalledPatchState.Patched,
-                            abis = savedFile?.let(NativeLibStripper::extractAbisFromApk).orEmpty()
+                            abis = savedFile?.let(NativeLibStripper::extractAbisFromApk).orEmpty(),
+                            packageInfo = snapshot.savedPatchedApkInfo ?: resolvedData.packageInfo
                         )
                     }
                 }
@@ -511,7 +517,8 @@ private fun OriginalApksContent(
                                 fileSize = apk.fileSize,
                                 file = apkFile,
                                 isInstalledOnDevice = pm.getPackageInfo(apk.packageName) != null,
-                                abis = apkFile?.let { NativeLibStripper.extractAbisFromApk(it) } ?: emptyList()
+                                abis = apkFile?.let { NativeLibStripper.extractAbisFromApk(it) } ?: emptyList(),
+                                packageInfo = resolvedData.packageInfo
                             ),
                             apk = apk
                         )
@@ -1095,6 +1102,7 @@ private fun ApkItemCard(
                 ) {
                     // App icon
                     AppIcon(
+                        packageInfo = data.packageInfo,
                         packageName = data.packageName,
                         contentDescription = null,
                         modifier = Modifier.size(48.dp)

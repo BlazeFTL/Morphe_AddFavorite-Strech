@@ -1311,10 +1311,18 @@ internal fun MainAppsSection(
                             }
 
                             // Vertical fade overlay drawn on top of LazyColumn.
-                            // The overlay is pointer-transparent so swipe gestures pass through
-                            val canScrollUp = listState.firstVisibleItemIndex > 0 ||
-                                    listState.firstVisibleItemScrollOffset > 0
-                            val canScrollDown = listState.canScrollForward
+                            // The overlay is pointer-transparent so swipe gestures pass through.
+                            // Derived, so a scroll recomposes only when an edge starts or stops
+                            // hiding rows rather than on every frame the offset moves
+                            val canScrollUp by remember(listState) {
+                                derivedStateOf {
+                                    listState.firstVisibleItemIndex > 0 ||
+                                            listState.firstVisibleItemScrollOffset > 0
+                                }
+                            }
+                            val canScrollDown by remember(listState) {
+                                derivedStateOf { listState.canScrollForward }
+                            }
                             val topAlpha by animateFloatAsState(
                                 targetValue = if (canScrollUp) 1f else 0f,
                                 animationSpec = tween(150),

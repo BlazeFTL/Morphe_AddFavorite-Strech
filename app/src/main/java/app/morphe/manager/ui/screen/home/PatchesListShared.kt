@@ -288,6 +288,7 @@ internal fun PatchGroupHeader(
         },
         cornerRadius = Defaults.SettingsCornerRadius,
         color = rememberAccentCardColor(accentColor),
+        borderColor = accentColor?.let { appAccentBorder(it) },
         modifier = modifier
     )
 }

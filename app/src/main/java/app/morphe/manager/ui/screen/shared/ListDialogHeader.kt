@@ -6,7 +6,9 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
@@ -14,6 +16,7 @@ import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -21,12 +24,27 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-private val HeaderIconSize = 44.dp
+/** How a dialog heads itself, shared by the list dialogs and the app details so they read alike. */
+object DialogHeaderDefaults {
+    val IconSize = 44.dp
+
+    /** Rounding that keeps an app icon's own shape at [IconSize]. */
+    val IconCornerRadius = 13.dp
+    val IconSpacing = Defaults.ItemSpacing
+    val TextSpacing = 2.dp
+    val VerticalPadding = Defaults.ContentPadding
+
+    val titleStyle: TextStyle
+        @Composable get() = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+    val subtitleStyle: TextStyle
+        @Composable get() = MaterialTheme.typography.bodySmall
+}
 
 /**
  * Head of a list dialog that names what the list belongs to: its [icon], [title] and a
@@ -53,7 +71,12 @@ fun ListDialogHeader(
     badges: (@Composable FlowRowScope.() -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {}
 ) {
-    val band = appAccentFill(accentColor)
+    // An accent read from a picture can land after the header is up, so the band eases into it
+    val band by animateColorAsState(
+        targetValue = appAccentFill(accentColor),
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "list_header_band"
+    )
     val bleed = LocalDialogHorizontalInset.current
     val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
 
@@ -61,29 +84,28 @@ fun ListDialogHeader(
         modifier = modifier
             .fillMaxWidth()
             .headerBand(band, bleed, statusBarHeight)
-            .padding(vertical = Defaults.ContentPadding)
+            .padding(vertical = DialogHeaderDefaults.VerticalPadding)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+            horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
         ) {
-            icon(Modifier.size(HeaderIconSize))
+            icon(Modifier.size(DialogHeaderDefaults.IconSize))
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
+                verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
             ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
+                    style = DialogHeaderDefaults.titleStyle,
                     color = LocalDialogTextColor.current,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = subtitle,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = DialogHeaderDefaults.subtitleStyle,
                     color = LocalDialogSecondaryTextColor.current
                 )
             }

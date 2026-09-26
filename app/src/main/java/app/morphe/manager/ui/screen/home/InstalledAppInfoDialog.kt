@@ -44,7 +44,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
@@ -1000,9 +999,6 @@ private fun AppHeroHeader(
 ) {
     val onHero = MaterialTheme.colorScheme.onBackground
 
-    val iconSize = if (compact) 56.dp else 72.dp
-    val iconCorner = if (compact) 14.dp else 22.dp
-
     // Entrance animations (progress-based: 0f -> 1f).
     // One Float per visual group; alpha, offset and scale are derived via lerp
     // to avoid redundant Recomposition subscribers.
@@ -1045,7 +1041,7 @@ private fun AppHeroHeader(
                 .statusBarsPadding()
                 .padding(
                     horizontal = Defaults.ContentPadding,
-                    vertical = Defaults.ContentPaddingSmall
+                    vertical = DialogHeaderDefaults.VerticalPadding
                 )
         ) {
             val (chipIcon, chipLabel) = when (installedApp.installType) {
@@ -1070,7 +1066,7 @@ private fun AppHeroHeader(
             }
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
+                horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -1083,10 +1079,10 @@ private fun AppHeroHeader(
                     // placeholder tinted to the app's accent is what the home card shows for it.
                     // The inset keeps its own rounding clear of the clip the real icons need.
                     placeholderGradientColors = listOf(accentColor),
-                    placeholderInnerPadding = 6.dp,
+                    placeholderInnerPadding = 4.dp,
                     modifier = Modifier
-                        .size(iconSize)
-                        .clip(RoundedCornerShape(iconCorner))
+                        .size(DialogHeaderDefaults.IconSize)
+                        .clip(RoundedCornerShape(DialogHeaderDefaults.IconCornerRadius))
                         .graphicsLayer {
                             val s = lerp(0.6f, 1f, iconProgress)
                             scaleX = s
@@ -1096,7 +1092,7 @@ private fun AppHeroHeader(
                 )
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                    verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
                 ) {
                     // Animated app name (leads textProgress)
                     Box(
@@ -1107,19 +1103,15 @@ private fun AppHeroHeader(
                     ) {
                         AppLabel(
                             packageInfo = appInfo,
-                            style = MaterialTheme.typography.headlineSmall.copy(
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 22.sp,
-                                color = onHero
-                            ),
+                            style = DialogHeaderDefaults.titleStyle.copy(color = onHero),
                             defaultText = appLabel
                         )
                     }
                     // Animated version (slightly behind name via sub-range)
                     Text(
                         text = (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = onHero.copy(alpha = 0.50f),
+                        style = DialogHeaderDefaults.subtitleStyle,
+                        color = LocalDialogSecondaryTextColor.current,
                         modifier = Modifier.graphicsLayer {
                             val p = ((textProgress - 0.15f) / 0.85f).coerceIn(0f, 1f)
                             translationX = lerp(40f, 0f, p)

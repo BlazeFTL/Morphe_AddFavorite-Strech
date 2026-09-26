@@ -56,9 +56,16 @@ fun AppPatchesDialog(
     onDismiss: () -> Unit,
     isLoading: Boolean = false
 ) {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+    val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
+    val sourceAccents = patchesByBundle.keys.associateWith { uid ->
+        key(uid) { sourcesByUid[uid]?.let { rememberBundleAccent(it) } }
+    }
+
     // Sources with at least one patch written for this app come first, then those with universal
     // patches alone, each by name. Within a source its specific patches lead its universal ones
-    val sections = remember(patchesByBundle, bundleNames, item.packageName) {
+    val sections = remember(patchesByBundle, bundleNames, item.packageName, sourcesByUid, sourceAccents) {
         val isMultiBundle = patchesByBundle.size > 1
         patchesByBundle.entries
             .sortedWith(
@@ -74,19 +81,26 @@ fun AppPatchesDialog(
                     title = bundleNames[uid] ?: uid.toString(),
                     patches = specific.sortedBy { it.name } + universal.sortedBy { it.name },
                     packageName = item.packageName,
-                    // Several sources side by side each get a color of their own, derived from the
-                    // uid so a source keeps it from one opening to the next
+                    // Several sources side by side each wear the color of their icon. One whose icon
+                    // has none gets a color derived from the uid, so it keeps it between openings
                     accentColor = if (isMultiBundle) {
-                        val hue = ((uid.hashCode() * 2654435761L) and 0xFFFFFFFFL).toFloat() % 360f
-                        Color.hsl(hue = hue, saturation = 0.55f, lightness = 0.60f)
+                        sourceAccents[uid] ?: run {
+                            val hue = ((uid.hashCode() * 2654435761L) and 0xFFFFFFFFL).toFloat() % 360f
+                            Color.hsl(hue = hue, saturation = 0.55f, lightness = 0.60f)
+                        }
                     } else null,
                     icon = { modifier ->
-                        Icon(
-                            imageVector = Icons.Outlined.Layers,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = modifier
-                        )
+                        val source = sourcesByUid[uid]
+                        if (source != null) {
+                            BundleIcon(bundle = source, modifier = modifier, enabled = source.enabled)
+                        } else {
+                            Icon(
+                                imageVector = Icons.Outlined.Layers,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = modifier
+                            )
+                        }
                     }
                 )
             }

@@ -34,8 +34,10 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppCategoryState
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
+import app.morphe.manager.ui.screen.shared.appAccentBorder
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.RemoteAvatar
+import app.morphe.manager.util.rememberSourceAccent
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 internal const val SOURCE_CATEGORY_ID_PREFIX = "source_"
@@ -194,11 +196,12 @@ internal fun HomeGlassCategoryRow(
     count: String? = null,
     cornerRadius: Dp = 20.dp,
     color: Color? = null,
+    borderColor: Color? = null,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
     val shape = RoundedCornerShape(cornerRadius)
     val containerColor = color ?: GlassButtonDefaults.containerColor()
-    val borderColor = GlassButtonDefaults.borderColor()
+    val borderColor = borderColor ?: GlassButtonDefaults.borderColor()
     val contentColor = MaterialTheme.colorScheme.onSurface
     val mutedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
 
@@ -279,6 +282,8 @@ internal fun HomeCategoryHeader(
     // Surface pending updates on the header so collapsed groups still hint at work to do
     val hasPendingUpdate = group.items.any { it.showsRebuildBadge }
     val folderTint = if (hasPendingUpdate) MaterialTheme.colorScheme.primary else mutedContentColor
+    // A source's group takes on the color of its icon, as the source's own dialogs do
+    val sourceAccent = rememberSourceAccent(group.sourceIsDefault, group.sourceAvatarUrl, group.sourceFallbackAvatarUrl)
 
     HomeGlassCategoryRow(
         title = group.title,
@@ -311,6 +316,8 @@ internal fun HomeCategoryHeader(
                 )
             }
         },
+        color = rememberAccentCardColor(sourceAccent),
+        borderColor = sourceAccent?.let { appAccentBorder(it) },
         modifier = modifier
     )
 }

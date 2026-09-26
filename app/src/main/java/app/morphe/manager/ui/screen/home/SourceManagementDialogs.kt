@@ -533,6 +533,7 @@ fun BundlePatchesDialog(
     val sections = remember(patches, universalTitle) { patchesByApp(patches, universalTitle) }
     val appCount = sections.count { it.packageName != null }
     val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
+    val bundleAccent = rememberBundleAccent(src)
 
     PatchListDialog(
         icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
@@ -547,9 +548,9 @@ fun BundlePatchesDialog(
         saveStateKey = "bundle_${src.uid}",
         onDismiss = onDismissRequest,
         initialQuery = initialQuery,
-        // A source has no color of its own, so it wears the accent its icon does. One that is off
-        // goes neutral, as its icon greys out
-        accentColor = if (src.enabled) MaterialTheme.colorScheme.primary else null,
+        // The source wears the color of its icon, or the theme's accent where the icon has none.
+        // One that is off goes neutral, as its icon grays out
+        accentColor = if (src.enabled) bundleAccent ?: MaterialTheme.colorScheme.primary else null,
         // The list is reachable while the source is off, so it says so up front rather than
         // reading as patches that are ready to be applied
         notice = if (src.enabled) null else {

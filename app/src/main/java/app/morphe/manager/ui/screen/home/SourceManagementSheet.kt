@@ -1264,6 +1264,13 @@ fun BundleTypeBadge(type: BundleSourceType) {
     StatusBadge(text = text)
 }
 
+/** The color [bundle]'s icon reads as, see [rememberSourceAccent]. */
+@Composable
+internal fun rememberBundleAccent(bundle: PatchBundleSource): Color? {
+    val avatarUrls = bundle.avatarUrls
+    return rememberSourceAccent(bundle.isDefault, avatarUrls.primary, avatarUrls.fallback)
+}
+
 @Composable
 fun BundleIcon(
     bundle: PatchBundleSource,

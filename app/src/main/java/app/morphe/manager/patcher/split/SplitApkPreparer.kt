@@ -1,3 +1,13 @@
+/*
+ * Copyright 2026 Morphe.
+ * https://github.com/MorpheApp/morphe-manager
+ *
+ * Original hard forked code:
+ * https://github.com/Jman-Github/Universal-ReVanced-Manager/blob/597b3173a004f5a9aae54326046dd7fd4c5b7777/app/src/main/java/app/revanced/manager/patcher/split/SplitApkPreparer.kt
+ *
+ * See the included NOTICE file for GPLv3 Section 7 terms that apply to Morphe contributions.
+ */
+
 package app.morphe.manager.patcher.split
 
 import android.content.res.Resources
@@ -6,12 +16,15 @@ import android.util.DisplayMetrics
 import android.util.Log
 import app.morphe.manager.patcher.logger.LogLevel
 import app.morphe.manager.patcher.logger.Logger
+import app.morphe.manager.patcher.util.Abi
+import app.morphe.manager.patcher.util.NativeLibStripper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runInterruptible
 import java.io.File
 import java.io.IOException
 import java.nio.file.Files
 import java.util.Locale
+import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 sealed class SplitPreparationEvent {
@@ -29,14 +42,6 @@ object SplitApkPreparer {
     // Recognized split archive container extensions
     private val SUPPORTED_EXTENSIONS = setOf("apks", "apkm", "xapk")
 
-    // All known ABI identifiers as they appear in split module names, pre-computed once
-    private val KNOWN_ABIS = setOf("armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64", "riscv64")
-    private val KNOWN_ABI_TOKENS = KNOWN_ABIS.flatMap { abi ->
-        val normalized = abi.lowercase(Locale.ROOT)
-        setOf(normalized, normalized.replace('-', '_'), normalized.replace('_', '-'))
-    }.toSet()
-    // Longest name first, so armeabi-v7a and x86_64 are never read as the shorter names they contain
-    private val ABIS_LONGEST_FIRST = KNOWN_ABIS.sortedByDescending { it.length }
     // Ordered highest → lowest, matching Android's density fallback direction
     private val DENSITY_ORDER = listOf("xxxhdpi", "xxhdpi", "xhdpi", "hdpi", "tvdpi", "mdpi", "ldpi")
 
@@ -125,61 +130,46 @@ object SplitApkPreparer {
     }
 
     /**
-     * ABIs [file] ships an APK split for, named as they would appear under lib/ once merged.
+     * ABIs [file] ships native libraries for, named as they would appear under lib/ once merged.
      *
-     * Read from the module names instead of the modules themselves, which keeps the answer a
-     * question of reading the archive's index rather than unpacking every split in it.
+     * Answered from the module names where the archive has ABI splits, which keeps it a question
+     * of reading the archive's index rather than unpacking every split in it. A bundle built for
+     * a single ABI ships no such split, so there the modules themselves have to be opened.
      */
     fun splitArchiveAbis(file: File): List<String> =
         runCatching {
             ZipFile(file).use { zip ->
-                zip.entries().asSequence()
-                    .filterNot { it.isDirectory }
-                    .filter { isSplitModuleEntry(it.name) }
-                    .mapNotNull { entry ->
-                        val lower = entry.name.lowercase(Locale.ROOT)
-                        ABIS_LONGEST_FIRST.firstOrNull { abi ->
-                            buildAbiTokens(abi).any { it in lower }
+                val modules = splitModuleEntries(zip).toList()
+
+                modules.mapNotNull { Abi.namedIn(it.name) }.distinct().ifEmpty {
+                    modules
+                        .flatMap { module ->
+                            zip.getInputStream(module).use(NativeLibStripper::extractAbisFromStream)
                         }
-                    }
-                    .distinct()
-                    .toList()
+                        .distinct()
+                }
             }
         }.getOrDefault(emptyList())
 
     // Split module entries are always at the root of the archive (no path separator).
     // Nested .apk files (e.g. res/raw/) are embedded resources, not split modules.
-    private fun isSplitModuleEntry(entryName: String): Boolean =
-        !entryName.contains('/') && entryName.endsWith(".apk", ignoreCase = true)
+    internal fun splitModuleEntries(zip: ZipFile): Sequence<ZipEntry> =
+        zip.entries().asSequence().filter { entry ->
+            !entry.isDirectory &&
+                    !entry.name.contains('/') &&
+                    entry.name.endsWith(".apk", ignoreCase = true)
+        }
 
     private fun hasEmbeddedApkEntries(file: File): Boolean =
         runCatching {
-            ZipFile(file).use { zip ->
-                zip.entries().asSequence().any { entry ->
-                    !entry.isDirectory && isSplitModuleEntry(entry.name)
-                }
-            }
+            ZipFile(file).use { zip -> splitModuleEntries(zip).any() }
         }.getOrDefault(false)
 
     private data class ExtractedModule(val name: String, val file: File)
 
     // Returns the set of name tokens for the device's primary ABI (the first entry in
-    // Build.SUPPORTED_ABIS, which is always the most preferred one).
-    // Tokens cover both dash and underscore forms so they match any split module naming variant
-    private fun supportedAbiTokens(): Set<String> =
-        buildAbiTokens(Build.SUPPORTED_ABIS.first())
-            .map { it.lowercase(Locale.ROOT) }
-            .toSet()
-
-    // Produces all name variants for a single ABI string: normalized, dash form, underscore form.
-    private fun buildAbiTokens(abi: String): Set<String> {
-        val normalized = abi.lowercase(Locale.ROOT)
-        return setOf(
-            normalized,
-            normalized.replace('-', '_'),
-            normalized.replace('_', '-')
-        )
-    }
+    // Build.SUPPORTED_ABIS, which is always the most preferred one)
+    private fun supportedAbiTokens(): Set<String> = Abi.tokensOf(Build.SUPPORTED_ABIS.first())
 
     // Returns true if [moduleName] is a native-library split for an ABI that is NOT in [supportedTokens].
     // Modules that don't look like ABI splits at all are kept (return false)
@@ -187,8 +177,8 @@ object SplitApkPreparer {
         moduleName: String,
         supportedTokens: Set<String>
     ): Boolean {
+        if (!isAbiSplit(moduleName)) return false
         val lower = moduleName.lowercase(Locale.ROOT)
-        if (KNOWN_ABI_TOKENS.none { lower.contains(it) }) return false
         return supportedTokens.none { lower.contains(it) }
     }
 
@@ -217,10 +207,7 @@ object SplitApkPreparer {
         return false
     }
 
-    private fun isAbiSplit(moduleName: String): Boolean {
-        val lower = moduleName.lowercase(Locale.ROOT)
-        return KNOWN_ABI_TOKENS.any { lower.contains(it) }
-    }
+    private fun isAbiSplit(moduleName: String): Boolean = Abi.namedIn(moduleName) != null
 
     // Extracts the qualifier tokens from a config split module name
     private fun splitConfigQualifiers(moduleName: String): List<String> {
@@ -344,10 +331,7 @@ object SplitApkPreparer {
         runInterruptible(Dispatchers.IO) {
             val extracted = mutableListOf<ExtractedModule>()
             ZipFile(source).use { zip ->
-                val apkEntries = zip.entries().asSequence()
-                    .filterNot { it.isDirectory }
-                    .filter { isSplitModuleEntry(it.name) }
-                    .toList()
+                val apkEntries = splitModuleEntries(zip).toList()
 
                 if (apkEntries.isEmpty()) {
                     throw IOException("Split archive does not contain any APK entries.")

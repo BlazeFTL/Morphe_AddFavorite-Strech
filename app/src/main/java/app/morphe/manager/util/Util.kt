@@ -24,6 +24,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import app.morphe.manager.ManagerApplication
+import app.morphe.manager.patcher.util.Abi
+import app.morphe.patcher.patch.ApkArchitecture
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlin.properties.PropertyDelegateProvider
@@ -38,7 +41,8 @@ typealias Options = Map<Int, Map<String, Map<String, Any?>>>
 /** Returns true if the device's primary ABI is armeabi-v7a (32-bit ARM). */
 fun isArmV7(): Boolean {
     // Only check the primary ABI - ArmV8 devices also list armeabi-v7a as a secondary ABI
-    return Build.SUPPORTED_ABIS.firstOrNull()?.lowercase()?.contains("armeabi-v7a") == true
+    return Build.SUPPORTED_ABIS.firstOrNull()
+        ?.let(Abi::architectureOf) == ApkArchitecture.ARMEABI_V7A
 }
 
 /** Shows a toast and returns its handle, useful when the caller needs to cancel it later. */
@@ -48,6 +52,21 @@ fun Context.toastHandle(string: String, duration: Int = Toast.LENGTH_SHORT): Toa
 /** Shows a toast message. */
 fun Context.toast(string: String, duration: Int = Toast.LENGTH_SHORT) {
     toastHandle(string, duration)
+}
+
+/**
+ * Shows a toast only while a Morphe screen is in focus, for work that also runs without one -
+ * an update check woken by an FCM push would otherwise toast over another app entirely.
+ */
+fun Context.toastIfInForeground(string: String, duration: Int = Toast.LENGTH_SHORT) {
+    if (!ManagerApplication.isInForeground) return
+    toast(string, duration)
+}
+
+/** Wraps [action] so it confirms itself with a toast, the feedback every selection gives. */
+fun Context.withToast(doneMessage: String, action: () -> Unit): () -> Unit = {
+    toast(doneMessage)
+    action()
 }
 
 /**

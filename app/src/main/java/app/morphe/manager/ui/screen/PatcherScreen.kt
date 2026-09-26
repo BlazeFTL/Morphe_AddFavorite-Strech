@@ -5,10 +5,8 @@
 
 package app.morphe.manager.ui.screen
 
-import android.app.Activity
 import android.util.Log
 import android.view.HapticFeedbackConstants
-import android.view.WindowManager
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,31 +20,25 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.domain.installer.InstallerManager
-import app.morphe.manager.domain.manager.InstallerPreferenceTokens
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.patcher.patch.installerTypeFor
 import app.morphe.manager.ui.model.RenameWarning
 import app.morphe.manager.ui.model.State
 import app.morphe.manager.ui.screen.patcher.*
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
-import app.morphe.manager.ui.screen.settings.advanced.NotificationPermissionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
 import app.morphe.manager.ui.screen.shared.*
@@ -55,8 +47,6 @@ import app.morphe.manager.ui.viewmodel.PatcherViewModel
 import app.morphe.manager.util.APK_MIMETYPE
 import app.morphe.manager.util.EventEffect
 import app.morphe.manager.util.tag
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -89,7 +79,6 @@ fun PatcherScreen(
     onStartTour: () -> Unit = {},
     onDeclineTour: () -> Unit = {}
 ) {
-    val context = LocalContext.current
     val view = LocalView.current
 
     val patcherSucceeded by patcherViewModel.patcherSucceeded.observeAsState(null)
@@ -99,14 +88,7 @@ fun PatcherScreen(
     val scope = rememberCoroutineScope()
     val miniGameState = remember { MiniGameState(prefs, scope) }
 
-    // Notification prompt: driven by ViewModel after successful export or install
-    val shouldPromptNotification by patcherViewModel.shouldPromptNotification.collectAsStateWithLifecycle()
     val isSaving by patcherViewModel.isSaving.collectAsStateWithLifecycle()
-
-    val hasGms = remember {
-        GoogleApiAvailability.getInstance()
-            .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
-    }
 
     // Animated progress with dual-mode animation
     var displayProgress by rememberSaveable { mutableFloatStateOf(patcherViewModel.progress) }
@@ -168,9 +150,8 @@ fun PatcherScreen(
     // Get output file from viewModel
     val outputFile = patcherViewModel.outputFile
 
-    val autoInstallWithShizuku by prefs.autoInstallWithShizuku.getAsState()
+    val autoInstallAfterPatching by prefs.autoInstallAfterPatching.getAsState()
     val autoUninstallWithShizuku by prefs.autoUninstallWithShizuku.getAsState()
-    val primaryInstallerPref by prefs.installerPrimary.getAsState()
     val promptInstallerOnInstall by prefs.promptInstallerOnInstall.getAsState()
 
     // A build that answers to a package name of its own installs beside the app instead of
@@ -196,9 +177,6 @@ fun PatcherScreen(
         patcherViewModel.autoInstallEvent.collect {
             if (usingMountInstall) return@collect
             if (installViewModel.installState !is InstallViewModel.InstallState.Ready) return@collect
-            // An install starting on its own is the one case the game does not get to hold up:
-            // the flow is already moving and the user has to see where it went
-            patcherViewModel.deferSuccessScreen(false)
             startInstall {
                 installViewModel.install(
                     outputFile = outputFile,
@@ -207,6 +185,9 @@ fun PatcherScreen(
                     autoUninstallOnConflict = true
                 )
             }
+            // The installer owns the state from here, and an attempt that ends in nothing must
+            // not leave the screen claiming an install forever
+            patcherViewModel.autoInstallHandedOff()
         }
     }
 
@@ -288,16 +269,7 @@ fun PatcherScreen(
         }
     }
 
-    // Keep screen on during patching
-    if (patcherViewModel.isPatching) {
-        DisposableEffect(Unit) {
-            val window = (context as Activity).window
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            onDispose {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            }
-        }
-    }
+    KeepScreenOn(patcherViewModel.isPatching)
 
     val exportApkLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument(APK_MIMETYPE)
@@ -305,7 +277,7 @@ fun PatcherScreen(
         uri?.let { patcherViewModel.export(it) }
     }
 
-    // Trigger notification prompt after first successful install
+    // Post-patch prompts follow a successful install
     val installState = installViewModel.installState
     val isInstalling by remember { derivedStateOf { installViewModel.installState is InstallViewModel.InstallState.Installing } }
     // Conflict is expected when patching from installed (non-root): handled via dialog instead of UI state
@@ -314,7 +286,6 @@ fun PatcherScreen(
     val installedPackageName by remember { derivedStateOf { installViewModel.installedPackageName } }
 
     val showInstalledSourceConflictDialog = remember { mutableStateOf(false) }
-    val shouldPromptTour by patcherViewModel.shouldPromptTour.collectAsStateWithLifecycle()
 
     // Named on the success screen so the finished app says what the install method left out
     var excludedPatches by remember { mutableStateOf(emptyList<String>()) }
@@ -324,7 +295,7 @@ fun PatcherScreen(
 
     LaunchedEffect(installState) {
         if (installState is InstallViewModel.InstallState.Installed) {
-            patcherViewModel.triggerPostInstallPromptsIfNeeded()
+            patcherViewModel.postPatchPrompts.trigger()
         }
         if (installState is InstallViewModel.InstallState.Conflict && autoHandleConflict) {
             showInstalledSourceConflictDialog.value = true
@@ -358,61 +329,12 @@ fun PatcherScreen(
         )
     }
 
-    // Notification prompt dialog
-    if (shouldPromptNotification) {
-        NotificationPermissionDialog(
-            title = stringResource(R.string.notification_post_patch_dialog_title),
-            onDismissRequest = {
-                patcherViewModel.onNotificationPermissionResult(
-                    granted = false,
-                    hasGms = hasGms
-                )
-                patcherViewModel.consumeNotificationPrompt()
-            },
-            onPermissionResult = { granted ->
-                patcherViewModel.onNotificationPermissionResult(
-                    granted = granted,
-                    hasGms = hasGms
-                )
-                patcherViewModel.consumeNotificationPrompt()
-            }
-        )
-    }
-
-    // Tour prompt dialog shown after first successful install
-    if (shouldPromptTour) {
-        AppDialog(
-            onDismissRequest = {
-                patcherViewModel.consumeTourPrompt()
-                onDeclineTour()
-            },
-            title = stringResource(R.string.tour_prompt_title),
-            footer = {
-                AppDialogButtonRow(
-                    primaryText = stringResource(R.string.tour_prompt_confirm),
-                    onPrimaryClick = {
-                        patcherViewModel.consumeTourPrompt()
-                        onStartTour()
-                        onBackClick()
-                    },
-                    secondaryText = stringResource(R.string.skip),
-                    onSecondaryClick = {
-                        patcherViewModel.consumeTourPrompt()
-                        onDeclineTour()
-                        onBackClick()
-                    }
-                )
-            }
-        ) {
-            Text(
-                text = stringResource(R.string.tour_prompt_desc),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    }
+    PostPatchPromptDialogs(
+        prompts = patcherViewModel.postPatchPrompts,
+        onStartTour = onStartTour,
+        onDeclineTour = onDeclineTour,
+        onLeave = onBackClick
+    )
 
     // Activity launcher for handling plugin activities or external installs
     val activityLauncher = rememberLauncherForActivityResult(
@@ -458,12 +380,27 @@ fun PatcherScreen(
         )
     }
 
-    // Storage permission pre-flight dialog.
-    // Shown when a patch option points to an external path the app cannot read
+    // Missing patches pre-flight dialog
+    // Shown when the saved selection names patches the sources no longer offer
+    patcherViewModel.missingPatchWarning?.let { warning ->
+        MissingPatchesDialog(
+            patchNames = warning.patchNames,
+            onContinue = patcherViewModel::continueWithoutMissingPatches,
+            onDismiss = {
+                patcherViewModel.dismissMissingPatchWarning()
+                onBackClick()
+            }
+        )
+    }
+
+    // Option path pre-flight dialog
+    // Shown when a patch option points at a path that is gone or cannot be read
     patcherViewModel.inaccessibleOptionPaths?.let { errorState ->
-        StoragePermissionDialog(
+        UnusableOptionPathsDialog(
             failures = errorState.failures,
             onRetryAfterPermission = patcherViewModel::retryAfterPermission,
+            canClearPaths = errorState.canClear,
+            onClearPaths = patcherViewModel::clearInaccessibleOptionPaths,
             onDismiss = {
                 patcherViewModel.dismissInaccessibleOptionPathsError()
                 onBackClick()
@@ -596,9 +533,9 @@ fun PatcherScreen(
                 installerManager.shizukuStatus(InstallerManager.InstallTarget.PATCHER)
             },
             onRequestShizukuPermission = installerManager::requestShizukuPermission,
-            autoInstallEnabled = autoInstallWithShizuku,
+            autoInstallEnabled = autoInstallAfterPatching,
             onAutoInstallToggle = { enabled ->
-                scope.launch { prefs.autoInstallWithShizuku.update(enabled) }
+                scope.launch { prefs.autoInstallAfterPatching.update(enabled) }
             },
             autoUninstallEnabled = autoUninstallWithShizuku,
             onAutoUninstallToggle = { enabled ->
@@ -636,6 +573,7 @@ fun PatcherScreen(
                             progress = displayProgressAnimate,
                             patchesProgress = patchesProgress,
                             patchProgress = patcherViewModel.patchRun,
+                            packageName = patcherViewModel.packageName,
                             patcherSucceeded = patcherSucceeded,
                             miniGameState = miniGameState,
                             onCancelClick = { state.showCancelDialog = true },
@@ -656,15 +594,12 @@ fun PatcherScreen(
 
                 PatcherState.SUCCESS -> {
                     val effectiveIsInstalling = isInstalling || (
-                            autoInstallWithShizuku &&
-                                    (primaryInstallerPref == InstallerPreferenceTokens.SHIZUKU ||
-                                            primaryInstallerPref == InstallerPreferenceTokens.SHIZUKU_PLAY_STORE) &&
+                            patcherViewModel.autoInstallPending &&
                                     patcherSucceeded == true &&
                                     !usingMountInstall &&
-                                    !promptInstallerOnInstall &&
                                     installState is InstallViewModel.InstallState.Ready &&
                                     // Auto-install stops at the rename warning, so the screen must
-                                    // not go on claiming an install the user has yet to allow
+                                    // not go on claiming install the user has yet to allow
                                     heldInstall == null && !renameDeclined
                             )
                     // The state the screen is drawn from answers two things the installer's own

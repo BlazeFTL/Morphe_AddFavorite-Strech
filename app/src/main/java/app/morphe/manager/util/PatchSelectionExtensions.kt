@@ -197,6 +197,20 @@ object PatchSelectionUtils {
         }.toMap()
 
     /**
+     * Drops the option values of every patch [selection] leaves out.
+     *
+     * A deselected patch still executes when a selected one depends on it, and it reads whatever
+     * its options hold. Keeping the values the user configured it with would apply the patch as if
+     * it were selected, so it is left with the defaults its dependents expect.
+     */
+    fun Options.restrictTo(selection: PatchSelection): Options =
+        mapNotNull { (bundleUid, bundlePatchOptions) ->
+            val selected = selection[bundleUid].orEmpty()
+            val kept = bundlePatchOptions.filterKeys { it in selected }
+            if (kept.isEmpty()) null else bundleUid to kept
+        }.toMap()
+
+    /**
      * True when [values] holds at least one option the user moved off the value the patch itself
      * would use. Options are only ever stored on an explicit edit, but a stored value can still
      * match the default, and blanks are the cleared fields [sanitizeForPatcher] drops before the
@@ -226,6 +240,18 @@ object PatchSelectionUtils {
                 !(option.default is String && option.default.isBlank())
             )
         } == true
+
+    /**
+     * Merge [bundleOptions] into the entry of [bundleUid], replacing whole patches rather than
+     * individual keys, so a patch it does not mention keeps the values it already had.
+     */
+    fun Options.mergeBundleOptions(
+        bundleUid: Int,
+        bundleOptions: Map<String, Map<String, Any?>>
+    ): Options {
+        val merged = this[bundleUid].orEmpty() + bundleOptions
+        return if (merged.isEmpty()) this - bundleUid else this + (bundleUid to merged)
+    }
 
     /**
      * Reset all options for a specific patch in an options map.

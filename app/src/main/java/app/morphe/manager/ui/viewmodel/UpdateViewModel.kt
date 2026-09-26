@@ -2,6 +2,7 @@ package app.morphe.manager.ui.viewmodel
 
 import android.app.Application
 import android.content.*
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.runtime.*
 import androidx.core.content.ContextCompat
@@ -46,16 +47,19 @@ class UpdateViewModel : ViewModel(), KoinComponent {
 
     private var pendingExternalInstall: InstallerManager.InstallPlan.External? = null
     private var externalInstallTimeoutJob: Job? = null
-    private var currentDownloadVersion: String? = null
+
+    // Only an install handed to the system installer has to be inferred from the app returning
+    // to the foreground. Shizuku reports its own outcome, an external one has a pending plan
+    private var installHandedOff = false
 
     var downloadedSize by mutableLongStateOf(0L)
         private set
     var totalSize by mutableLongStateOf(0L)
         private set
     val downloadProgress by derivedStateOf {
-        if (downloadedSize == 0L || totalSize == 0L) return@derivedStateOf 0f
+        if (totalSize <= 0L) return@derivedStateOf 0f
 
-        downloadedSize.toFloat() / totalSize.toFloat()
+        (downloadedSize.toFloat() / totalSize).coerceIn(0f, 1f)
     }
     var showInternetCheckDialog by mutableStateOf(false)
     var state by mutableStateOf(State.CAN_DOWNLOAD)
@@ -71,31 +75,29 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     var isCheckingForUpdate by mutableStateOf(true)
         private set
 
-    // Changelog entries for the current channel (shown in Settings → Changelog).
-    // Stable channel: single entry for the installed version.
-    // Prerelease channel: the installed dev version and every preceding dev entry down to
-    // (but not including) the last stable release; the "Show older" expander then continues
-    // from the stable baseline.
-    var currentChannelChangelogEntries: List<ChangelogEntry>? by mutableStateOf(null)
+    // Releases the changelog dialog opens with, newest first: those an available update brings,
+    // then the installed version with the rest of its pre-release cycle. Null until loaded
+    var changelogEntries: List<ChangelogEntry>? by mutableStateOf(null)
         private set
 
-    // All changelog entries newer than the currently installed version (shown in update dialog)
-    var missedChangelogEntries: List<ChangelogEntry>? by mutableStateOf(null)
+    // How many of the changelog entries lead the list as newer than the installed version
+    var newReleaseCount by mutableIntStateOf(0)
         private set
+    private var changelogJob: Job? = null
 
-    // Older changelog entries loaded on-demand by the "Show older releases" expander.
-    // Reset on dialog dismiss so the expander reopens in a collapsed state next time
+    // Older changelog entries, loaded once a changelog is scrolled to its end. Reset on
+    // dialog dismiss so the next opening starts from the releases it was opened for
     var olderManagerEntries: List<ChangelogEntry>? by mutableStateOf(null)
         private set
     var isLoadingOlderEntries by mutableStateOf(false)
+        private set
+    // Set when the last load failed, so the list offers a retry rather than loading again by itself
+    var olderEntriesFailed by mutableStateOf(false)
         private set
 
     // Parsed CHANGELOG.md per branch (false = main, true = dev). Shared across all loaders
     // and the older-entries expander to avoid duplicate fetches inside one VM lifetime
     private val managerEntriesCache = mutableMapOf<Boolean, List<ChangelogEntry>>()
-
-    var canResumeDownload by mutableStateOf(false)
-        private set
 
     private val location = fs.tempDir.resolve("updater.apk")
     private var job = resolveUpdate()
@@ -119,7 +121,8 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             return@launch
         }
 
-        loadMissedChangelog()
+        // A changelog opened before the check resolved gains the releases the update brings
+        loadChangelog()
 
         state = State.CAN_DOWNLOAD
     }
@@ -143,22 +146,10 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                 return@uiSafe
             }
 
-            if (currentDownloadVersion != release.version) {
-                currentDownloadVersion = release.version
-                withContext(Dispatchers.IO) { location.delete() }
-                downloadedSize = 0L
-                totalSize = 0L
-                canResumeDownload = false
-            }
-
-            val resumeOffset = withContext(Dispatchers.IO) {
-                if (location.exists()) location.length() else 0L
-            }
-            downloadedSize = resumeOffset
-            // totalSize stays 0 until first progress callback - avoids false 100% on resume
+            downloadedSize = 0L
+            // Left at 0 until the first progress callback reports the release size, so the dialog
+            // shows an indeterminate bar rather than one pinned at zero while bytes are arriving
             totalSize = 0L
-            canResumeDownload = resumeOffset > 0L
-
             state = State.DOWNLOADING
 
             try {
@@ -168,7 +159,6 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                     assetDownloader.downloadToFile(
                         downloadUrl = release.downloadUrl,
                         saveLocation = location,
-                        resumeFrom = resumeOffset,
                         onProgress = { bytesRead, contentLength ->
                             downloadedSize = bytesRead
                             totalSize = contentLength ?: totalSize
@@ -176,16 +166,9 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                     )
                 }
                 requireApkArchive(location)
-                canResumeDownload = false
                 installUpdate().join()
             } catch (error: Exception) {
-                val downloaded = withContext(Dispatchers.IO) {
-                    location.takeIf { it.exists() }?.length() ?: 0L
-                }
-                downloadedSize = downloaded
-                if (totalSize < downloadedSize) totalSize = downloadedSize
-                canResumeDownload = downloadedSize > 0L
-                state = State.CAN_DOWNLOAD
+                resetToDownload()
                 throw error
             }
         }
@@ -193,8 +176,8 @@ class UpdateViewModel : ViewModel(), KoinComponent {
 
     /**
      * Rejects a download that transferred cleanly but is not an APK, so the installer is never
-     * handed an error page or an API response that arrived in the file's place. The partial file
-     * is dropped as well, otherwise the next attempt would resume on top of it.
+     * handed an error page or an API response that arrived in the file's place. The file is
+     * dropped as well, so nothing is left staged that a later install could pick up.
      */
     private suspend fun requireApkArchive(location: File) = withContext(Dispatchers.IO) {
         if (location.hasZipHeader()) return@withContext
@@ -209,6 +192,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         pendingExternalInstall = null
         externalInstallTimeoutJob?.cancel()
         externalInstallTimeoutJob = null
+        installHandedOff = false
         installError = ""
 
         // The download is staged in a directory that is wiped on every process start, so an
@@ -227,6 +211,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         )
 
         when (plan) {
+            // Replacing the manager kills the process, so a session install never reports back.
             // Completion is handled by installBroadcastReceiver;
             // cancellation by resetIfInstallCancelled() in the dialog
             is InstallerManager.InstallPlan.Internal ->
@@ -240,18 +225,22 @@ class UpdateViewModel : ViewModel(), KoinComponent {
             is InstallerManager.InstallPlan.Mount ->
                 failInstall(app.getString(R.string.installer_status_not_supported))
 
-            is InstallerManager.InstallPlan.Shizuku -> {
-                state = State.INSTALLING
-                try {
-                    handleInstallResult(sessionInstaller.installShizuku(location, app.packageName))
-                } catch (_: InstallCancelledException) {
-                    state = State.CAN_INSTALL
-                } catch (error: Exception) {
-                    failInstall(error.simpleMessage().orEmpty())
-                }
-            }
+            is InstallerManager.InstallPlan.Shizuku ->
+                awaitInstall { sessionInstaller.installShizuku(location, app.packageName) }
 
             is InstallerManager.InstallPlan.External -> launchExternalInstaller(plan)
+        }
+    }
+
+    /** Runs an installer that reports its own outcome, leaving the dialog on a state the user can act on. */
+    private suspend fun awaitInstall(install: suspend () -> InstallResult) {
+        state = State.INSTALLING
+        try {
+            handleInstallResult(install())
+        } catch (_: InstallCancelledException) {
+            state = State.CAN_INSTALL
+        } catch (error: Exception) {
+            failInstall(error.simpleMessage().orEmpty())
         }
     }
 
@@ -263,6 +252,7 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         state = State.INSTALLING
         try {
             startInstaller()
+            installHandedOff = true
         } catch (error: Exception) {
             failInstall(error.simpleMessage().orEmpty())
         }
@@ -276,15 +266,12 @@ class UpdateViewModel : ViewModel(), KoinComponent {
         toastMessage: String = app.getString(R.string.install_app_fail, message)
     ) {
         installError = message
-        canResumeDownload = false
         app.toast(toastMessage)
         state = State.FAILED
     }
 
-    /** Drops what is left of the download and offers to fetch it again from scratch. */
+    /** Clears the progress of a download that produced nothing and offers to start it over. */
     private fun resetToDownload() {
-        canResumeDownload = false
-        currentDownloadVersion = null
         downloadedSize = 0L
         totalSize = 0L
         state = State.CAN_DOWNLOAD
@@ -396,36 +383,61 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     fun resetIfInstallCancelled() {
         // If we're in INSTALLING state but the pending installation was canceled,
         // reset to CAN_INSTALL so user can try again
-        if (state == State.INSTALLING && pendingExternalInstall == null) {
+        if (state == State.INSTALLING && installHandedOff && pendingExternalInstall == null) {
+            installHandedOff = false
             if (hasDownloadedApk()) state = State.CAN_INSTALL else resetToDownload()
         }
     }
 
     /**
-     * Load all changelog entries newer than the currently installed version.
-     * Called automatically after a successful update check.
+     * Loads the releases the changelog dialog opens with: those newer than the installed version
+     * when an update is available, then the installed version itself. On a pre-release build the
+     * installed version brings along every dev entry down to, but not including, the last stable
+     * release, since no stable entry sums those up yet.
+     *
+     * Runs again once the update check resolves, so a dialog opened before then catches up.
      */
-    private fun loadMissedChangelog() = viewModelScope.launch {
-        uiSafe(app, R.string.download_manager_failed, "Failed to load changelog") {
-            val installedVersion = BuildConfig.VERSION_NAME.normalizeVersion()
+    fun loadChangelog() {
+        changelogJob?.cancel()
+        changelogJob = viewModelScope.launch {
+            uiSafe(app, R.string.download_manager_failed, "Failed to load changelog") {
+                val installedVersion = BuildConfig.VERSION_NAME.normalizeVersion()
+                val release = releaseInfo
 
-            // Use the dev branch if EITHER the installed version is a dev build OR the available
-            // update is a pre-release. Without this, a stable user who has "Use pre-releases"
-            // enabled would fetch CHANGELOG.md from main, which doesn't contain dev entries,
-            // causing entriesNewerThan() to return an empty list even though a newer dev version
-            // is available and its changelog lives on the dev branch
-            val targetIsPrerelease = releaseInfo?.version?.contains('-') == true
-            val forDevBranch = morpheAPI.isDevBuild || targetIsPrerelease
-            val entries = managerEntriesCache.getOrPut(forDevBranch) {
-                morpheAPI.fetchManagerChangelog(forDevBranch = forDevBranch)
+                // Use the dev branch if EITHER the installed version is a dev build OR the available
+                // update is a pre-release. Without this, a stable user who has "Use pre-releases"
+                // enabled would fetch CHANGELOG.md from main, which doesn't contain dev entries,
+                // causing entriesNewerThan() to return an empty list even though a newer dev version
+                // is available and its changelog lives on the dev branch
+                val targetIsPrerelease = release?.version?.contains('-') == true
+                val forDevBranch = morpheAPI.isDevBuild || targetIsPrerelease
+                val entries = managerEntriesCache.getOrPut(forDevBranch) {
+                    morpheAPI.fetchManagerChangelog(forDevBranch = forDevBranch)
+                }
+
+                val newer = if (release == null) emptyList() else {
+                    val newerThanInstalled = ChangelogParser.entriesNewerThan(entries, installedVersion)
+                    // Strip pre-release entries when on stable channel - main CHANGELOG.md
+                    // contains merged pre-release entries that stable users should not see
+                    val filtered = if (forDevBranch) newerThanInstalled else newerThanInstalled.filter { !it.isPrerelease }
+                    // Right after a release the raw CDN can still serve a CHANGELOG.md that predates
+                    // it, so fall back to the notes the release itself carries rather than show nothing
+                    filtered.ifEmpty { listOfNotNull(releaseNotesEntry()) }
+                }
+
+                val installedIndex = entries.indexOfFirst { it.version.normalizeVersion() == installedVersion }
+                val installed = when {
+                    installedIndex < 0 -> emptyList()
+                    entries[installedIndex].isPrerelease -> entries.drop(installedIndex).takeWhile { it.isPrerelease }
+                    else -> listOf(entries[installedIndex])
+                }
+
+                val shownVersions = newer.map { it.version.normalizeVersion() }.toSet()
+                changelogEntries = newer + installed.filter { it.version.normalizeVersion() !in shownVersions }
+                newReleaseCount = newer.size
             }
-            val newer = ChangelogParser.entriesNewerThan(entries, installedVersion)
-            // Strip pre-release entries when on stable channel - main CHANGELOG.md
-            // contains merged pre-release entries that stable users should not see
-            val filtered = if (forDevBranch) newer else newer.filter { !it.isPrerelease }
-            // Right after a release the raw CDN can still serve a CHANGELOG.md that predates
-            // it, so fall back to the notes the release itself carries rather than show nothing
-            missedChangelogEntries = filtered.ifEmpty { listOfNotNull(releaseNotesEntry()) }
+            // A failed first load still leaves the history below to fetch, rather than a list stuck loading
+            if (changelogEntries == null) changelogEntries = emptyList()
         }
     }
 
@@ -447,59 +459,43 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     }
 
     /**
-     * Load changelog entries for the current channel from CHANGELOG.md.
-     *
-     * Stable channel: the installed version's entry only.
-     * Prerelease channel: the installed dev version and every preceding dev entry down to
-     * (but not including) the last stable release.
-     */
-    fun loadCurrentVersionChangelog() = viewModelScope.launch {
-        uiSafe(app, R.string.download_manager_failed, "Failed to load changelog") {
-            val currentVersion = BuildConfig.VERSION_NAME.normalizeVersion()
-            val forDevBranch = morpheAPI.isDevBuild
-            val entries = managerEntriesCache.getOrPut(forDevBranch) {
-                morpheAPI.fetchManagerChangelog(forDevBranch = forDevBranch)
-            }
-            currentChannelChangelogEntries = if (forDevBranch) {
-                val installedIdx = entries.indexOfFirst { it.version.normalizeVersion() == currentVersion }
-                // Fall back to the newest dev entry when the installed version is absent
-                val start = if (installedIdx >= 0) installedIdx else 0
-                entries.drop(start).takeWhile { it.isPrerelease }
-            } else {
-                listOfNotNull(ChangelogParser.findVersion(entries, currentVersion))
-            }
-        }
-    }
-
-    /**
      * Loads older stable changelog entries on demand. Always reads from main; older history
      * is the stable release timeline by definition, regardless of which channel the user is
-     * currently on. Versions already shown above (via [currentChannelChangelogEntries] or
-     * [missedChangelogEntries]) are filtered out so the expander lists new content only.
+     * currently on. Versions already shown above (via [changelogEntries]) are filtered out so
+     * the list gains new content only.
      * Idempotent: repeat calls while loading or after a successful load are a no-op.
      */
     fun loadOlderManagerEntries() {
         if (isLoadingOlderEntries || olderManagerEntries != null) return
         isLoadingOlderEntries = true
-        val exclude = (currentChannelChangelogEntries.orEmpty() + missedChangelogEntries.orEmpty())
+        olderEntriesFailed = false
+        val exclude = changelogEntries.orEmpty()
             .map { it.version.normalizeVersion() }
             .toSet()
         viewModelScope.launch(Dispatchers.Default) {
-            uiSafe(app, R.string.download_manager_failed, "Failed to load older releases") {
+            try {
                 val entries = managerEntriesCache.getOrPut(false) {
                     morpheAPI.fetchManagerChangelog(forDevBranch = false)
                 }
                 olderManagerEntries = entries.filter {
                     it.version.normalizeVersion() !in exclude && !it.isPrerelease
                 }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // The list itself shows the failure next to its retry, so no toast on top
+                Log.e(tag, "Failed to load older releases", e)
+                olderEntriesFailed = true
+            } finally {
+                isLoadingOlderEntries = false
             }
-            isLoadingOlderEntries = false
         }
     }
 
     fun resetOlderManagerEntries() {
         olderManagerEntries = null
         isLoadingOlderEntries = false
+        olderEntriesFailed = false
     }
 
     companion object {

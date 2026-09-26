@@ -164,6 +164,7 @@ private fun AdaptiveProgressContent(
 
                 // Action bar
                 PatcherBottomActionBar(
+                    horizontalPadding = 0.dp,
                     showCancelButton = true,
                     showHomeButton = false,
                     showSaveButton = false,

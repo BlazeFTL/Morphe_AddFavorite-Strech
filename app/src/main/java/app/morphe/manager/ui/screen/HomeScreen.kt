@@ -23,6 +23,7 @@ import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.supportsMount
 import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.domain.batch.BatchTarget
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isHeldBack
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
@@ -75,6 +76,7 @@ fun HomeScreen(
 
     // Reactively observe the preference so the greeting updates immediately
     val showGreetingPhrases by prefs.showGreetingPhrases.getAsState()
+    val showRepatchNotice by prefs.showRepatchNotice.getAsState()
 
     // Re-evaluated whenever showPatchingPhrases changes
     var greetingResId by remember(showGreetingPhrases) {
@@ -106,6 +108,7 @@ fun HomeScreen(
     val bundlePipelineLoading = homeAppState == null
     val showOtherAppsButton by homeViewModel.showOtherAppsButton.collectAsStateWithLifecycle()
     val showSearchButton by homeViewModel.showSearchButton.collectAsStateWithLifecycle()
+    val batchRun by homeViewModel.batchRun.collectAsStateWithLifecycle()
     val showSortButtonPref by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
     val useExpertMode by prefs.useExpertMode.getAsState()
 
@@ -173,7 +176,8 @@ fun HomeScreen(
         startInstallQueue(requests)
     }
 
-    // Same predicate the cards use for their update badge, so the count and the badges agree
+    // Only the apps a rebuild actually moves on: one the sources still cover at its installed
+    // version comes back from patching exactly as it went in, however its card is badged
     val repatchableApps = remember(homeAppItems) { homeAppItems.filter { it.showsUpdateBadge } }
 
     val batchInProgressText = stringResource(R.string.batch_patch_in_progress)
@@ -223,15 +227,20 @@ fun HomeScreen(
     val bundleSources by homeViewModel.patchBundleRepository.sources.collectAsStateWithLifecycle(emptyList())
     val hasOutdatedManagerSources = bundleSources.any { it.requiresManagerUpdate }
 
+    // Reading these took the process down, so they are skipped until the file changes. Nothing
+    // else on this screen would explain why their patches are suddenly gone
+    val hasHeldBackSources = bundleSources.any { it.isHeldBack }
+
     // Manager update details dialog
     if (showUpdateDetailsDialog.value) {
         // Activity-scoped so the download this starts is the same one Settings sees
         val updateViewModel: UpdateViewModel = koinViewModel(
             viewModelStoreOwner = LocalActivity.current as ComponentActivity
         )
-        ManagerUpdateDetailsDialog(
+        ManagerChangelogDialog(
             onDismiss = { showUpdateDetailsDialog.value = false },
-            updateViewModel = updateViewModel
+            updateViewModel = updateViewModel,
+            expectsUpdate = true
         )
     }
 
@@ -280,11 +289,19 @@ fun HomeScreen(
                 notifications = HomeNotificationsUi(
                     managerUpdate = AlertState(hasManagerUpdate) { showUpdateDetailsDialog.value = true },
                     outdatedManager = AlertState(hasOutdatedManagerSources) { homeViewModel.showBundleManagementSheet = true },
+                    heldBackSources = AlertState(hasHeldBackSources) { homeViewModel.showBundleManagementSheet = true },
                     blockedSources = AlertState(hasBlockedSources) { homeViewModel.showBundleManagementSheet = true },
                     metadataErrors = AlertState(hasMetadataErrors) { homeViewModel.showBundleManagementSheet = true },
                     meteredSkipped = AlertState(homeViewModel.updatesSkippedDueToMetered) { onSettingsClick() },
-                    repatchAvailable = RepatchAlertState(repatchableApps.size) {
-                        startBatchPatch(repatchableApps)
+                    repatchAvailable = RepatchAlertState(
+                        count = repatchableApps.size,
+                        visible = showRepatchNotice,
+                        onShow = { startBatchPatch(repatchableApps) }
+                    ),
+                    // Reopened on its own apps, so the batch screen keeps the run instead of
+                    // planning a new one
+                    batchQueue = BatchQueueAlertState(batchRun) {
+                        batchRun?.let { onStartBatchPatch(it.targets, it.useMount) }
                     },
                     bundleUpdate = BundleUpdateState(
                         visible = homeViewModel.showBundleUpdateSnackbar,

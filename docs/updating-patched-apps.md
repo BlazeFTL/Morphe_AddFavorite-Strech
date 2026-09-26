@@ -12,22 +12,32 @@ without uninstalling and without losing its data.
   <img src="images/updating/01-update-badge.jpg" width="320" alt="Home screen with an Update badge on the patched app" />
 </p>
 
-The badge means **the patch source has a newer version than the one this app was patched
-with**, and that this newer version actually contains changes for this app. Morphe reads the
-source's changelog to check, so a patch release that only touches other apps does not put a
-badge on yours.
+The badge stands for either of two things:
 
-> [!NOTE]
-> The badge is about patches, not about the app itself. Morphe does not track new YouTube or
-> Reddit releases, see [Moving to a newer app version](#moving-to-a-newer-app-version) below.
+- **Newer patches.** The patch source has a version newer than the one this app was patched
+  with, and that version actually contains changes for this app. Morphe reads the source's
+  changelog to check, so a patch release that only touches other apps does not put a badge on
+  yours.
+- **A newer supported app version.** The sources now cover a release of the app itself newer
+  than the one you are running, see
+  [Moving to a newer app version](#moving-to-a-newer-app-version) below.
 
-Morphe checks your sources in the background on a schedule you set in
-**Settings → Advanced → Updates**:
+When that newer version is short enough to fit on the card, the badge prints it, otherwise it
+just says **Update**. The app's info dialog spells both versions out either way.
 
-- **Check frequency** - hourly, daily, weekly, or monthly.
-- **Background update notifications** - notifies you about new releases even when Morphe is
-  closed.
-- **Mobile data updates** - allows those downloads over mobile data. With this off and no
+Morphe can tell you about new releases while it is closed. **Settings → System →
+Notifications** controls that:
+
+- **Background update notifications** - notifies you about new Morphe and patch releases.
+  They arrive as two separate notification categories, **Morphe updates** and **Patch
+  updates**, so either can be silenced in Android's settings without the other.
+  **Notification categories** opens them.
+- **Check frequency** - hourly, daily, weekly, or monthly. Only shown on devices without
+  Google Play services, where Morphe checks on a schedule instead of receiving a push.
+
+**Settings → Advanced → Updates** holds the rest:
+
+- **Mobile data updates** - allows update downloads over mobile data. With this off and no
   Wi-Fi, checks are skipped, and Morphe warns you if you patch with sources it could not
   refresh.
 - **Pre-release updates** - early access to new Morphe versions. Pre-release for individual
@@ -35,8 +45,9 @@ Morphe checks your sources in the background on a schedule you set in
 
 ## Updating
 
-Tap the app's card to open its info dialog. The **Patch update available** card at the top
-explains what changed and offers the shortcut.
+Tap the app's card to open its info dialog. The card at the top explains what changed and
+offers the shortcut: **Patch update available** for newer patches, **App update available**
+when it is the app itself that moved on.
 
 <p align="center">
   <img src="images/updating/02-app-info-update.jpg" width="320" alt="App info dialog with the patch update card" />
@@ -66,7 +77,8 @@ settings inside the patched app survive.
 > That only holds while the keystore stays the same. Reinstalling Morphe or clearing its data
 > generates a new one, and then patched builds no longer match what is installed, Android
 > reports a signature conflict and the only way forward is uninstalling the patched app.
-> Export your keystore from **Settings → System → Keystore** and keep it somewhere safe, see
+> Export your keystore from **Settings → System → Import & export → Signing key** and keep it
+> somewhere safe, see
 > [Backing up Morphe and your keystore](backup-and-keystore.md).
 
 ### Root mount installs
@@ -84,6 +96,7 @@ Below the update card, the dialog shows what the current build is made of:
 | --- | --- |
 | **Package name** | The package the patched app is installed under |
 | **Original package name** | The package it was patched from |
+| **Newest supported** | The newest version of the app the enabled sources can patch |
 | **APK size** | Size of the installed patched APK |
 | **CPU architecture** | Architectures kept in the build |
 | **Applied patches** | How many patches were applied, with a button that lists them |
@@ -96,9 +109,17 @@ The buttons at the bottom are **Open**, **Export** (write the patched APK to sto
 ## Moving to a newer app version
 
 Patches target specific app versions, so a newer YouTube release is only usable once the
-patches declare support for it. When that happens, patch the new version the same way you
-did the first time: pick the app, let Morphe tell you which version it now wants, download
-that APK, and patch.
+patches declare support for it. When that happens the card is badged, and the info dialog
+opens with **App update available** and both numbers: the version you are on, and the newest
+one the sources support.
+
+Tap **Patch** to move to it. This time the run works like a first patch rather than a repatch:
+the original APK Morphe kept is of the old version, so it asks for the new one.
+
+**Ignore** turns that particular version down. The badge and the banner go, the **Newest
+supported** row keeps the number so you can still look it up, and the button beside it brings
+the offer back. A version after it is offered again on its own, so ignoring is about one
+release and not about the app.
 
 In Expert mode you can see every supported version at once in the APK selection dialog,
 including **Experimental** ones, see
@@ -116,6 +137,7 @@ and does not affect your patched apps.
 | Problem | What to do |
 | --- | --- |
 | No **Update** badge although the source released a new version | The release contains no changes for this app, so there is nothing to repatch for |
+| A badge for an app version you do not want | Open the app and tap **Ignore** in the update banner. The offer comes back for the version after it |
 | "Patches may be outdated" before patching | Mobile data updates are off and Morphe could not refresh its sources. Connect to Wi-Fi, or choose **Update & patch** |
 | Signature conflict when installing the update | The keystore changed since the app was patched. Uninstall the patched app, which erases its data, then install the new build |
 | The app was uninstalled outside Morphe | The card shows **App was uninstalled**. Patch it again to restore it |

@@ -11,10 +11,8 @@ import android.net.Uri
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +20,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -777,19 +774,130 @@ private fun ApkManagementDialogContent(
 
     AppDialog(
         onDismissRequest = {
-            if (isExporting) return@AppDialog
-            if (isMultiSelectMode) { selection.clear(); isMultiSelectMode = false } else onDismissRequest()
+            if (!isExporting) onDismissRequest()
         },
-        title = meta.title,
-        titleTrailingContent = {
-            TitleAction(
-                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                contentDescription = stringResource(R.string.search),
-                onClick = { search.toggle() },
-                style = TitleActionStyle.Toggle,
-                active = search.visible,
-                enabled = isSearchable
+        footer = {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismissRequest,
+                modifier = Modifier.fillMaxWidth()
             )
+        },
+        bottomBar = if (isMultiSelectMode) {
+            {
+                MultiSelectShell(
+                    visible = true,
+                    onBack = { selection.clear(); isMultiSelectMode = false }
+                ) {
+                    val installLabel = stringResource(
+                        selectedInstallableItems
+                            .map { it.installLabelRes }
+                            .distinct()
+                            .singleOrNull() ?: R.string.install
+                    )
+                    val shareLabel = stringResource(R.string.share)
+                    val exportLabel = stringResource(R.string.export)
+                    val uninstallLabel = stringResource(R.string.uninstall)
+                    val deleteLabel = stringResource(R.string.delete)
+                    SelectionActionBar(
+                        selectedCount = selectedItems.size,
+                        // Scoped to the filtered list so "select all" never reaches hidden entries
+                        totalCount = filteredItems.size,
+                        subtitle = stringResource(
+                            R.string.settings_system_apks_size,
+                            context.formatBytes(selectedTotalSize)
+                        ),
+                        onSelectAll = { selection.setAll(filteredItems.map { it.selectionKey }) },
+                        onDeselectAll = { selection.clear() },
+                        onCancel = { selection.clear(); isMultiSelectMode = false },
+                        actions = buildList {
+                            if (canInstallSelected) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.InstallMobile,
+                                        label = installLabel,
+                                        onClick = {
+                                            actions.onInstallSelected.invoke(selectedInstallableItems)
+                                            selection.clear()
+                                        },
+                                        tone = ActionTone.Primary
+                                    )
+                                )
+                            }
+
+                            if (selectedFiles.isNotEmpty()) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.Share,
+                                        label = shareLabel,
+                                        onClick = {
+                                            scope.launch {
+                                                shareApkFiles(context, selectedFiles)
+                                            }
+                                        }
+                                    )
+                                )
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.Upload,
+                                        label = exportLabel,
+                                        onClick = {
+                                            zipExportItems = selectedItems
+                                            zipExportLauncher.launch(FilenameUtils.timestamped(meta.zipExportFileName))
+                                        }
+                                    )
+                                )
+                            }
+
+                            if (canUninstallSelected) {
+                                add(
+                                    SelectionAction(
+                                        icon = Icons.Outlined.DeleteForever,
+                                        label = uninstallLabel,
+                                        onClick = { showUninstallSelectedConfirmation = true },
+                                        tone = ActionTone.Destructive
+                                    )
+                                )
+                            }
+
+                            add(
+                                SelectionAction(
+                                    icon = Icons.Outlined.Delete,
+                                    label = deleteLabel,
+                                    onClick = { showDeleteSelectedConfirmation = true },
+                                    tone = ActionTone.Destructive
+                                )
+                            )
+                        }
+                    )
+                }
+            }
+        } else null,
+        scrollable = false,
+        padding = DialogPadding.Compact,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
+        hideFooterWhileTyping = true
+    ) {
+        SearchFieldBackHandler(search)
+
+        ListDialogHeader(
+            icon = { modifier ->
+                ListDialogHeaderIcon(icon = meta.icon, color = meta.accentColor, modifier = modifier)
+            },
+            title = meta.title,
+            subtitle = listOf(
+                pluralStringResource(R.plurals.settings_system_apks_count, meta.count, meta.count.toString()),
+                // The bare size: the count before it already says what it is the size of
+                context.formatBytes(meta.totalSize)
+            ).joinToString(" · "),
+            // Sums the list up once the files are counted
+            subtitleLoading = meta.isLoading,
+            search = search,
+            searchLabel = stringResource(R.string.search),
+            searchEnabled = isSearchable,
+            accentColor = meta.accentColor
+        ) {
             TitleAction(
                 icon = Icons.Outlined.DeleteForever,
                 contentDescription = stringResource(R.string.delete_all),
@@ -797,107 +905,7 @@ private fun ApkManagementDialogContent(
                 style = TitleActionStyle.Destructive,
                 enabled = canDeleteAll
             )
-        },
-        footer = {
-            if (isMultiSelectMode) {
-                MultiSelectShell(visible = true) {
-                    SelectionActionBar(
-                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
-                        selectedCount = selectedItems.size,
-                        // Scoped to the filtered list so "select all" never reaches hidden entries
-                        totalCount = filteredItems.size,
-                        subtitle = stringResource(
-                            R.string.settings_system_apks_size,
-                            formatBytes(selectedTotalSize)
-                        ),
-                        onSelectAll = { selection.setAll(filteredItems.map { it.selectionKey }) },
-                        onDeselectAll = { selection.clear() },
-                        onCancel = { selection.clear(); isMultiSelectMode = false }
-                    ) {
-                        if (selectedFiles.isNotEmpty()) {
-                            val shareLabel = stringResource(R.string.share)
-                            ActionPillButton(
-                                onClick = {
-                                    scope.launch {
-                                        shareApkFiles(context, selectedFiles)
-                                    }
-                                },
-                                icon = Icons.Outlined.Share,
-                                contentDescription = shareLabel,
-                                tooltip = shareLabel
-                            )
-
-                            val exportLabel = stringResource(R.string.export)
-                            ActionPillButton(
-                                onClick = {
-                                    zipExportItems = selectedItems
-                                    zipExportLauncher.launch(FilenameUtils.timestamped(meta.zipExportFileName))
-                                },
-                                icon = Icons.Outlined.Upload,
-                                contentDescription = exportLabel,
-                                tooltip = exportLabel
-                            )
-                        }
-
-                        if (canInstallSelected) {
-                            val installLabelRes = selectedInstallableItems
-                                .map { it.installLabelRes }
-                                .distinct()
-                                .singleOrNull() ?: R.string.install
-                            val installLabel = stringResource(installLabelRes)
-                            ActionPillButton(
-                                onClick = {
-                                    actions.onInstallSelected.invoke(selectedInstallableItems)
-                                    selection.clear()
-                                },
-                                icon = Icons.Outlined.InstallMobile,
-                                contentDescription = installLabel,
-                                tooltip = installLabel
-                            )
-                        }
-
-                        if (canUninstallSelected) {
-                            val uninstallLabel = stringResource(R.string.uninstall)
-                            ActionPillButton(
-                                onClick = { showUninstallSelectedConfirmation = true },
-                                icon = Icons.Outlined.DeleteForever,
-                                contentDescription = uninstallLabel,
-                                tooltip = uninstallLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
-                            )
-                        }
-
-                        val deleteLabel = stringResource(R.string.delete)
-                        ActionPillButton(
-                            onClick = { showDeleteSelectedConfirmation = true },
-                            icon = Icons.Outlined.Delete,
-                            contentDescription = deleteLabel,
-                            tooltip = deleteLabel,
-                            enabled = selectedItems.isNotEmpty(),
-                            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.errorContainer,
-                                contentColor = MaterialTheme.colorScheme.onErrorContainer
-                            )
-                        )
-                    }
-                }
-            } else {
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismissRequest,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        },
-        scrollable = false,
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true
-    ) {
-        SearchFieldBackHandler(search)
+        }
 
         val listState = rememberLazyListState()
         Box(modifier = Modifier.fillMaxWidth()) {
@@ -906,15 +914,19 @@ private fun ApkManagementDialogContent(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
-                if (isSearchable) {
-                    stickyHeader(key = "search") {
-                        AppDialogSearchHeader(
-                            visible = search.visible,
-                            value = search.query,
-                            onValueChange = { search.query = it },
-                            label = stringResource(R.string.home_search_apps)
-                        )
-                    }
+                // Kept while the field is closed, so its share of the spacing makes the gap under
+                // the header
+                stickyHeader(key = "search") {
+                    AppDialogSearchHeader(
+                        visible = search.visible,
+                        value = search.query,
+                        onValueChange = { search.query = it },
+                        label = stringResource(R.string.home_search_apps),
+                        // Opaque, so rows scrolled under the gap stay hidden
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(top = Defaults.ItemSpacing)
+                    )
                 }
 
                 if (retentionToggle != null) {
@@ -929,45 +941,6 @@ private fun ApkManagementDialogContent(
                                 showBorder = true
                             )
                             SettingsDivider(fullWidth = true)
-                        }
-                    }
-                }
-
-                // Summary box
-                item(key = "summary") {
-                    Crossfade(
-                        targetState = meta.isLoading,
-                        animationSpec = tween(Defaults.ANIMATION_DURATION),
-                        label = "heroCard"
-                    ) { loading ->
-                        if (loading) {
-                            ShimmerHeroInfoCard(accentColor = meta.accentColor)
-                        } else {
-                            HeroInfoCard(
-                                icon = meta.icon,
-                                title = pluralStringResource(
-                                    R.plurals.settings_system_apks_count,
-                                    meta.count,
-                                    meta.count.toString()
-                                ),
-                                containerColor = meta.accentColor.copy(alpha = 0.15f),
-                                iconContainerColor = meta.accentColor.copy(alpha = 0.25f),
-                                iconTint = meta.accentColor,
-                                titleColor = meta.accentColor,
-                                subtitle = {
-                                    AnimatedContent(
-                                        targetState = stringResource(R.string.settings_system_apks_size, formatBytes(meta.totalSize)),
-                                        transitionSpec = Animations.counterTransitionSpec,
-                                        label = "heroSize"
-                                    ) { sizeText ->
-                                        Text(
-                                            text = sizeText,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            color = LocalDialogSecondaryTextColor.current
-                                        )
-                                    }
-                                }
-                            )
                         }
                     }
                 }
@@ -1148,7 +1121,7 @@ private fun ApkItemCard(
                                 text = stringResource(
                                     R.string.settings_system_apk_item_info,
                                     data.version,
-                                    formatBytes(data.fileSize)
+                                    LocalContext.current.formatBytes(data.fileSize)
                                 ),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = LocalDialogSecondaryTextColor.current
@@ -1206,10 +1179,7 @@ private fun ApkItemCard(
                                     icon = Icons.Outlined.DeleteForever,
                                     contentDescription = uninstallLabel,
                                     tooltip = uninstallLabel,
-                                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                    )
+                                    colors = ActionPillColors.destructive()
                                 )
                             } else if (onInstall != null) {
                                 val isMountType = data.installType == InstallType.MOUNT
@@ -1228,10 +1198,7 @@ private fun ApkItemCard(
                                 icon = Icons.Outlined.Delete,
                                 contentDescription = deleteLabel,
                                 tooltip = deleteLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
+                                colors = ActionPillColors.destructive()
                             )
                         }
                     }
@@ -1292,7 +1259,7 @@ private fun DeleteAllConfirmationDialog(
                 )
                 DeleteListItem(
                     icon = Icons.Outlined.Storage,
-                    text = stringResource(R.string.settings_system_apks_size, formatBytes(totalSize))
+                    text = stringResource(R.string.settings_system_apks_size, LocalContext.current.formatBytes(totalSize))
                 )
             }
         }

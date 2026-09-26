@@ -4,14 +4,17 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import android.util.Log
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.work.WorkManager
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.di.*
@@ -30,6 +33,10 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import me.zhanghai.android.appiconloader.coil.AppIconFetcher
@@ -54,6 +61,12 @@ class ManagerApplication : Application() {
         /** True while a Morphe screen is in focus, so a result needs no notification. */
         val isInForeground: Boolean get() = resumedActivityCount > 0
 
+        /**
+         * Run once the next time a Morphe screen comes into focus, for work that Android only
+         * allows from the foreground. Cleared before it runs, so it never fires twice.
+         */
+        @Volatile var onReturnToForeground: (() -> Unit)? = null
+
         /** Launcher shortcut that opens the batch queue with everything worth re-patching. */
         private const val SHORTCUT_ID_REPATCH = "repatch_outdated"
         private const val SHORTCUT_ID_UPDATES = "check_updates"
@@ -63,6 +76,12 @@ class ManagerApplication : Application() {
         private const val MIN_SHORTCUT_SLOTS = 2
         private const val MAX_SHORTCUT_SLOTS = 4
         private const val SHORTCUT_ICON_PX = 192
+
+        /**
+         * Schedule of the automatic re-patching the re-patch alert replaced. Installs that had
+         * it on still carry it in the WorkManager database, where it fails on every run.
+         */
+        private const val LEGACY_AUTO_PATCH_WORK = "morphe_auto_patch"
     }
     private val scope = MainScope()
     private val prefs: PreferencesManager by inject()
@@ -72,6 +91,9 @@ class ManagerApplication : Application() {
     private val updateNotificationManager: UpdateNotificationManager by inject()
     private val installedAppRepository: InstalledAppRepository by inject()
     private val appDataResolver: AppDataResolver by inject()
+
+    /** Locales the app's own strings resolve in, null until [observeLanguage] first reads them. */
+    private val stringLocales = MutableStateFlow<LocaleList?>(null)
 
     override fun onCreate() {
         super.onCreate()
@@ -113,15 +135,16 @@ class ManagerApplication : Application() {
         // Create notification channels before any notification can be posted (required on API 26+)
         updateNotificationManager.createNotificationChannels()
 
+        observeLanguage()
         observeLauncherShortcuts()
 
         // Preload preferences and kick off background worker/FCM sync
         scope.launch {
             prefs.preload()
 
-            // Keep SharedPreferences in sync with DataStore so that attachBaseContext
-            // (Application + Activity) can read the language without touching DataStore
-            saveLanguageToPrefs(this@ManagerApplication, prefs.appLanguage.get().ifBlank { "system" })
+            // A restored backup carries the token of the device it came from, and nothing here
+            // can tell whose it is, so this data starts without one and the user enters theirs
+            if (fs.isFirstRunForThisData) prefs.gitHubPat.update("")
 
             // Schedule/cancel WorkManager fallback AND sync FCM topic subscriptions.
             // FCM is the primary delivery path (bypasses Doze); WorkManager is the fallback
@@ -142,6 +165,7 @@ class ManagerApplication : Application() {
             } else {
                 UpdateCheckWorker.cancel(this@ManagerApplication)
             }
+            WorkManager.getInstance(this@ManagerApplication).cancelUniqueWork(LEGACY_AUTO_PATCH_WORK)
             syncFcmTopics(
                 notificationsEnabled = notificationsEnabled,
                 useManagerPrereleases = useManagerPrereleases,
@@ -152,10 +176,7 @@ class ManagerApplication : Application() {
         // First touch of the repository builds the Ktor client, which costs seconds on a cold
         // start, so it happens here on a background dispatcher rather than in the Koin graph
         scope.launch(Dispatchers.Default) {
-            with(patchBundleRepository) {
-                reload()
-                updateCheck()
-            }
+            patchBundleRepository.reload()
         }
 
         // Cache first for offline launches, then refresh from the network. Any matches are
@@ -167,25 +188,15 @@ class ManagerApplication : Application() {
             patchBundleRepository.logBlockedSources()
         }
 
-        // Preload bundle avatar images into AvatarCache while the user hasn't opened the sheet yet.
-        // Suspends until sources are ready, then fetches all URLs in parallel on IO threads
-        scope.launch(Dispatchers.IO) {
-            patchBundleRepository.sources.first { it.isNotEmpty() }.forEach { bundle ->
-                launch {
-                    val avatarUrls = bundle.avatarUrls
-                    avatarUrls.primary?.let { loadRemoteAvatar(it) }
-                    avatarUrls.fallback?.let { loadRemoteAvatar(it) }
-                }
-            }
-        }
-
-        // Clean temp dir on fresh start
+        // Fresh-start cleanup and the work that waits for a screen
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             private var firstActivityCreated = false
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 if (firstActivityCreated) return
                 firstActivityCreated = true
+
+                onFirstScreenCreated()
 
                 // We do not want to call onFreshProcessStart() if there is state to restore.
                 // This can happen on system-initiated process death
@@ -196,7 +207,14 @@ class ManagerApplication : Application() {
             }
 
             override fun onActivityStarted(activity: Activity) {}
-            override fun onActivityResumed(activity: Activity) { resumedActivityCount++ }
+            override fun onActivityResumed(activity: Activity) {
+                resumedActivityCount++
+                updateNotificationManager.cancelPatchingResultNotifications()
+                onReturnToForeground?.let {
+                    onReturnToForeground = null
+                    it()
+                }
+            }
             override fun onActivityPaused(activity: Activity) { resumedActivityCount-- }
             override fun onActivityStopped(activity: Activity) {}
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
@@ -205,19 +223,39 @@ class ManagerApplication : Application() {
     }
 
     /**
-     * Apply the stored app language as early as possible - before any Activity or
-     * Resources object is created. This is the **single place** where locale is applied
-     * on cold start.
+     * Attaches a base context in the app language before any Activity or Resources object is
+     * created, so strings resolved through the application follow it from the first one on.
      */
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(AppLocale.attach(base))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             HiddenApiBypass.addHiddenApiExemptions("L")
         }
+    }
 
-        val storedLang = base?.let { readLanguageFromPrefs(it) } ?: return
-        applyAppLanguage(storedLang)
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        AppLocale.onConfigurationChanged(this)
+        stringLocales.value = resources.configuration.locales
+    }
+
+    /**
+     * Channel names and shortcut labels reach the system as plain text, so they stay in the
+     * language they were resolved in until they are handed over again.
+     */
+    private fun observeLanguage() {
+        // A language the app switches by itself on Android 12 and lower brings no configuration
+        // change. On Android 13+ the strings only change with the configuration, which is where
+        // onConfigurationChanged picks them up
+        scope.launch {
+            AppLocale.selected.collect { stringLocales.value = resources.configuration.locales }
+        }
+        scope.launch {
+            stringLocales.filterNotNull().drop(1).collect {
+                updateNotificationManager.createNotificationChannels()
+            }
+        }
     }
 
     /**
@@ -229,7 +267,8 @@ class ManagerApplication : Application() {
      */
     private fun observeLauncherShortcuts() {
         scope.launch(Dispatchers.IO) {
-            installedAppRepository.getAll().collect { apps -> publishLauncherShortcuts(apps) }
+            combine(installedAppRepository.getAll(), stringLocales.filterNotNull()) { apps, _ -> apps }
+                .collect { apps -> publishLauncherShortcuts(apps) }
         }
     }
 
@@ -306,7 +345,8 @@ class ManagerApplication : Application() {
         .setLongLabel(longLabel)
         .setIcon(icon)
         .setRank(rank)
-        .setIntent(intent)
+        // Stamped here rather than at each call site so no shortcut can arrive unnamed
+        .setIntent(intent.putExtra(MainActivity.EXTRA_SHORTCUT_ID, id))
         .build()
 
     /**
@@ -317,6 +357,28 @@ class ManagerApplication : Application() {
         icon?.let { IconCompat.createWithBitmap(it.toBitmap(SHORTCUT_ICON_PX, SHORTCUT_ICON_PX)) }
     }.getOrNull()
         ?: IconCompat.createWithResource(this, R.drawable.ic_shortcut_repatch)
+
+    /**
+     * Work that only pays off once a screen exists. A process started by an FCM push or a boot
+     * broadcast has nobody to show an update check to, and its failures toast over another app.
+     */
+    private fun onFirstScreenCreated() {
+        scope.launch(Dispatchers.Default) {
+            patchBundleRepository.updateCheck()
+        }
+
+        // Preload bundle avatar images into AvatarCache while the user hasn't opened the sheet yet.
+        // Suspends until sources are ready, then fetches all URLs in parallel on IO threads
+        scope.launch(Dispatchers.IO) {
+            patchBundleRepository.sources.first { it.isNotEmpty() }.forEach { bundle ->
+                launch {
+                    val avatarUrls = bundle.avatarUrls
+                    avatarUrls.primary?.let { loadRemoteAvatar(it) }
+                    avatarUrls.fallback?.let { loadRemoteAvatar(it) }
+                }
+            }
+        }
+    }
 
     private fun onFreshProcessStart() {
         fs.uiTempDir.apply {

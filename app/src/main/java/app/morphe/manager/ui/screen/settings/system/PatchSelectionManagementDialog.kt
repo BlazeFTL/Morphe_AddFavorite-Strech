@@ -11,6 +11,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -312,19 +313,64 @@ private fun PatchSelectionManagementDialogContent(
     val canResetAll = !multiSelect.isSelectionMode && selections.isNotEmpty()
 
     AppDialog(
-        onDismissRequest = {
-            if (multiSelect.isSelectionMode) onExitSelection() else onDismiss()
-        },
-        title = stringResource(R.string.settings_system_patch_selections_title),
-        titleTrailingContent = {
-            TitleAction(
-                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                contentDescription = stringResource(R.string.search),
-                onClick = { search.toggle() },
-                style = TitleActionStyle.Toggle,
-                active = search.visible,
-                enabled = isSearchable
+        onDismissRequest = onDismiss,
+        footer = {
+            ImportExportFooter(
+                onImport = { openImportAllSelectionsPicker() },
+                onExport = if (selections.isNotEmpty()) {
+                    {
+                        exportAllSelectionsLauncher.launch(
+                            importExportViewModel.getAllSelectionsExportFileName()
+                        )
+                    }
+                } else null,
+                onClose = onDismiss
             )
+        },
+        bottomBar = if (multiSelect.isSelectionMode) {
+            {
+                MultiSelectShell(visible = true, onBack = onExitSelection) {
+                    SelectionActionBar(
+                        selectedCount = multiSelect.selectedPackages.size,
+                        totalCount = selections.size,
+                        onSelectAll = onSelectAll,
+                        onDeselectAll = { multiSelect.selectedPackages.clear() },
+                        onCancel = onExitSelection,
+                        actions = listOf(
+                            SelectionAction(
+                                icon = Icons.Outlined.Delete,
+                                label = stringResource(R.string.reset),
+                                onClick = onShowResetSelectedConfirmation,
+                                tone = ActionTone.Destructive
+                            )
+                        )
+                    )
+                }
+            }
+        } else null,
+        scrollable = false,
+        padding = DialogPadding.Compact,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
+        hideFooterWhileTyping = true
+    ) {
+        SearchFieldBackHandler(search)
+
+        val accent = MaterialTheme.colorScheme.primary
+        ListDialogHeader(
+            icon = { modifier ->
+                ListDialogHeaderIcon(icon = Icons.Outlined.Tune, color = accent, modifier = modifier)
+            },
+            title = stringResource(R.string.settings_system_patch_selections_title),
+            subtitle = listOf(
+                pluralStringResource(R.plurals.package_count, selections.size, selections.size.toString()),
+                pluralStringResource(R.plurals.patch_count, data.totalSelections, data.totalSelections.toString())
+            ).joinToString(" · "),
+            search = search,
+            searchLabel = stringResource(R.string.search),
+            searchEnabled = isSearchable,
+            accentColor = accent
+        ) {
             TitleAction(
                 icon = Icons.Outlined.Restore,
                 contentDescription = stringResource(R.string.reset),
@@ -332,86 +378,7 @@ private fun PatchSelectionManagementDialogContent(
                 style = TitleActionStyle.Destructive,
                 enabled = canResetAll
             )
-        },
-        footer = {
-            if (multiSelect.isSelectionMode) {
-                MultiSelectShell(visible = true) {
-                    SelectionActionBar(
-                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
-                        selectedCount = multiSelect.selectedPackages.size,
-                        totalCount = selections.size,
-                        onSelectAll = onSelectAll,
-                        onDeselectAll = { multiSelect.selectedPackages.clear() },
-                        onCancel = onExitSelection
-                    ) {
-                        val resetLabel = stringResource(R.string.reset)
-                        ActionPillButton(
-                            onClick = onShowResetSelectedConfirmation,
-                            icon = Icons.Outlined.Delete,
-                            contentDescription = resetLabel,
-                            tooltip = resetLabel,
-                            enabled = multiSelect.selectedPackages.isNotEmpty,
-                            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.errorContainer,
-                                contentColor = MaterialTheme.colorScheme.onErrorContainer
-                            )
-                        )
-                    }
-                }
-            } else {
-                // Two groups rather than one: the transfer pair shares a row, close keeps its own
-                Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding / 2)) {
-                    if (selections.isNotEmpty()) {
-                        AppDialogActions(
-                            actions = listOf(
-                                DialogAction(
-                                    text = stringResource(R.string.import_),
-                                    onClick = { openImportAllSelectionsPicker() },
-                                    icon = Icons.Outlined.Download
-                                ),
-                                DialogAction(
-                                    text = stringResource(R.string.export),
-                                    onClick = {
-                                        exportAllSelectionsLauncher.launch(
-                                            importExportViewModel.getAllSelectionsExportFileName()
-                                        )
-                                    },
-                                    icon = Icons.Outlined.Upload
-                                )
-                            ),
-                            layout = DialogButtonLayout.Horizontal
-                        )
-                    } else {
-                        AppDialogActions(
-                            actions = listOf(
-                                DialogAction(
-                                    text = stringResource(R.string.import_),
-                                    onClick = { openImportAllSelectionsPicker() },
-                                    icon = Icons.Outlined.Download
-                                )
-                            ),
-                            layout = DialogButtonLayout.Vertical
-                        )
-                    }
-                    AppDialogActions(
-                        actions = listOf(
-                            DialogAction(
-                                text = stringResource(R.string.close),
-                                onClick = onDismiss,
-                                emphasis = DialogActionEmphasis.Outlined
-                            )
-                        ),
-                        layout = DialogButtonLayout.Vertical
-                    )
-                }
-            }
-        },
-        scrollable = false,
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true
-    ) {
-        SearchFieldBackHandler(search)
+        }
 
         if (selections.isEmpty()) {
             EmptyState(message = stringResource(R.string.settings_system_no_patches_or_options))
@@ -485,35 +452,18 @@ private fun SelectionList(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
+            // Kept while the field is closed, so its share of the spacing makes the gap under the
+            // header
             stickyHeader(key = "search") {
                 AppDialogSearchHeader(
                     visible = search.visible,
                     value = search.query,
                     onValueChange = { search.query = it },
-                    label = stringResource(R.string.home_search_apps)
-                )
-            }
-
-            // Summary box
-            item(key = "summary") {
-                HeroInfoCard(
-                    icon = Icons.Outlined.Tune,
-                    title = pluralStringResource(
-                        R.plurals.package_count,
-                        selections.size,
-                        selections.size.toString()
-                    ),
-                    subtitle = {
-                        Text(
-                            text = pluralStringResource(
-                                R.plurals.patch_count,
-                                data.totalSelections,
-                                data.totalSelections.toString()
-                            ),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = LocalDialogSecondaryTextColor.current
-                        )
-                    }
+                    label = stringResource(R.string.home_search_apps),
+                    // Opaque, so rows scrolled under the gap stay hidden
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(top = Defaults.ItemSpacing)
                 )
             }
 
@@ -842,10 +792,7 @@ private fun BundleSelectionItem(
                 icon = Icons.Outlined.Restore,
                 contentDescription = resetLabel,
                 tooltip = resetLabel,
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                )
+                colors = ActionPillColors.destructive()
             )
         }
     }
@@ -1061,82 +1008,62 @@ private fun PatchDetailsDialog(
         isLoading = false
     }
 
-    AppDialog(
+    DetailsDialog(
         onDismissRequest = onDismiss,
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        icon = { modifier -> AppIcon(packageName = packageName, contentDescription = null, modifier = modifier) },
+        title = appDisplayName,
+        subtitle = bundleName ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid),
+        accentColor = rememberAppColor(packageName)
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-        ) {
-            HeroInfoCard(
-                icon = Icons.Outlined.Extension,
-                title = appDisplayName,
-                subtitle = {
-                    Text(
-                        text = bundleName ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = LocalDialogSecondaryTextColor.current
-                    )
-                }
-            )
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Defaults.ContentPaddingExpanded),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            val patchList = details?.patchList ?: emptyList()
+            val optionsMap = details?.optionsMap ?: emptyMap()
+            // Stored keys carry a suffix when the bundle ships duplicate patch names
+            val displayNames = details?.displayNames ?: emptyMap()
 
-            if (isLoading) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(Defaults.ContentPaddingExpanded),
-                    contentAlignment = Alignment.Center
+            // Patches section
+            if (patchList.isNotEmpty()) {
+                LabeledSection(
+                    title = stringResource(R.string.settings_system_selected_patches_section),
+                    count = patchList.size
                 ) {
-                    CircularProgressIndicator()
-                }
-            } else {
-                val patchList = details?.patchList ?: emptyList()
-                val optionsMap = details?.optionsMap ?: emptyMap()
-                // Stored keys carry a suffix when the bundle ships duplicate patch names
-                val displayNames = details?.displayNames ?: emptyMap()
-
-                // Patches section
-                if (patchList.isNotEmpty()) {
-                    LabeledSection(
-                        title = stringResource(R.string.settings_system_selected_patches_section),
-                        count = patchList.size
-                    ) {
-                        patchList.forEach { patchName ->
-                            PatchNameRow(name = displayNames[patchName] ?: patchName)
-                        }
+                    patchList.forEach { patchName ->
+                        PatchNameRow(name = displayNames[patchName] ?: patchName)
                     }
                 }
+            }
 
-                // Options section
-                if (optionsMap.isNotEmpty()) {
-                    LabeledSection(
-                        title = stringResource(R.string.settings_system_patch_options_section),
-                        count = optionsMap.size
-                    ) {
-                        optionsMap.entries.forEach { (patchName, options) ->
-                            PatchOptionsGroup(
-                                patchName = displayNames[patchName] ?: patchName,
-                                options = options
-                            )
-                        }
+            // Options section
+            if (optionsMap.isNotEmpty()) {
+                LabeledSection(
+                    title = stringResource(R.string.settings_system_patch_options_section),
+                    count = optionsMap.size
+                ) {
+                    optionsMap.entries.forEach { (patchName, options) ->
+                        PatchOptionsGroup(
+                            patchName = displayNames[patchName] ?: patchName,
+                            options = options
+                        )
                     }
                 }
+            }
 
-                // Empty state
-                if (patchList.isEmpty() && optionsMap.isEmpty()) {
-                    Notice(
-                        text = stringResource(R.string.settings_system_no_patches_or_options),
-                        tone = SemanticTone.Neutral,
-                        isCentered = true
-                    )
-                }
+            // Empty state
+            if (patchList.isEmpty() && optionsMap.isEmpty()) {
+                Notice(
+                    text = stringResource(R.string.settings_system_no_patches_or_options),
+                    tone = SemanticTone.Neutral,
+                    isCentered = true
+                )
             }
         }
     }

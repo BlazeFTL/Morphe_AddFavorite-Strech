@@ -24,26 +24,24 @@ import app.morphe.manager.BuildConfig
 import app.morphe.manager.R
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstallType
-import app.morphe.manager.domain.manager.InstallerPreferenceTokens
+import app.morphe.manager.domain.installer.InstallerManager
 import app.morphe.manager.domain.manager.PatchOptionsPreferencesManager
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.*
-import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
 import app.morphe.manager.domain.worker.WorkerRepository
 import app.morphe.manager.patcher.patch.ApkArchitectureResolver
 import app.morphe.manager.patcher.patch.PatchBundleInfo
 import app.morphe.manager.patcher.patch.PatchLockState
 import app.morphe.manager.patcher.patch.PatchSourceRef
-import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_MINIMUM
-import app.morphe.manager.patcher.runtime.PROCESS_RUNTIME_MEMORY_STEP
 import app.morphe.manager.patcher.runtime.ProcessRuntime
+import app.morphe.manager.patcher.runtime.lowerMemoryLimit
 import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.patcher.worker.PatcherWorker
 import app.morphe.manager.ui.model.*
 import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
 import app.morphe.manager.util.*
-import app.morphe.manager.worker.UpdateCheckWorker
+import app.morphe.manager.util.PatchSelectionUtils.restrictTo
 import app.morphe.patcher.patch.ApkArchitecture
 import app.morphe.patcher.patch.InstallerType
 import kotlinx.coroutines.*
@@ -57,6 +55,7 @@ import org.koin.core.component.inject
 import java.io.File
 import java.io.IOException
 import java.util.UUID
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -75,6 +74,7 @@ class PatcherViewModel(
     private val prefs: PreferencesManager by inject()
     private val patchOptionsPrefs: PatchOptionsPreferencesManager by inject()
     private val originalApkRepository: OriginalApkRepository by inject()
+    private val installerManager: InstallerManager by inject()
     private val savedStateHandle: SavedStateHandle = get()
 
     private var savedPatchedApp by savedStateHandle.saveableVar { false }
@@ -110,6 +110,10 @@ class PatcherViewModel(
     private val _autoInstallChannel = Channel<Unit>(Channel.CONFLATED)
     val autoInstallEvent: Flow<Unit> = _autoInstallChannel.receiveAsFlow()
 
+    /** Whether this run installs on its own, set before the event so the screen shows it coming. */
+    var autoInstallPending by mutableStateOf(false)
+        private set
+
     var patchingCompletedAt: Long? = null
         private set
 
@@ -123,9 +127,13 @@ class PatcherViewModel(
     private var successScreenHeldBack = false
     private var successScreenDeferred = false
 
+    // An auto-install waits for the success screen, so it never starts over a game still in play
+    private var autoInstallQueued = false
+
     fun showSuccess() {
         successScreenHeldBack = false
         showSuccessScreen = true
+        startQueuedAutoInstall()
     }
 
     fun hideSuccessScreen() { showSuccessScreen = false }
@@ -135,7 +143,8 @@ class PatcherViewModel(
      * the run has no right to interrupt, currently a mini-game, and releases it again afterward.
      *
      * A run that finishes meanwhile is not lost: the progress screen turns its own action bar into
-     * an install button, and the screen appears on its own once [defer] goes back to false.
+     * an install button, and the screen appears on its own once [defer] goes back to false,
+     * bringing an auto-install that was waiting for it along.
      */
     fun deferSuccessScreen(defer: Boolean) {
         successScreenDeferred = defer
@@ -224,26 +233,66 @@ class PatcherViewModel(
         memoryAdjustmentDialog = null
     }
 
+    /**
+     * Non-null when the saved selection names patches no enabled source offers anymore, which
+     * the run is held on until the user says whether to go ahead without them.
+     */
     data class MissingPatchWarningState(
         val patchNames: List<String>
     )
     var missingPatchWarning by mutableStateOf<MissingPatchWarningState?>(null)
         private set
 
+    /** Set once the user has agreed to patch without them, so the same question is asked once. */
+    private var missingPatchesAccepted = false
+
+    /** Goes ahead with the patches that are still there, leaving out the ones that are gone. */
+    fun continueWithoutMissingPatches() {
+        missingPatchesAccepted = true
+        missingPatchWarning = null
+
+        viewModelScope.launch { runPreflightCheck() }
+    }
+
+    fun dismissMissingPatchWarning() {
+        missingPatchWarning = null
+    }
+
     var batteryOptimizationDialog by mutableStateOf(false)
         private set
 
     /**
      * Non-null when one or more patch option paths cannot be read before patching starts.
+     *
+     * @param canClear Whether the values behind the failing paths can be dropped from the dialog.
+     *                 Only simple mode keeps them, expert mode edits them while selecting patches.
      */
     data class InaccessibleOptionPathsState(
-        val failures: List<PathValidationResult>
+        val failures: List<PathValidationResult>,
+        val canClear: Boolean
     )
     var inaccessibleOptionPaths by mutableStateOf<InaccessibleOptionPathsState?>(null)
         private set
 
     fun dismissInaccessibleOptionPathsError() {
         inaccessibleOptionPaths = null
+    }
+
+    /**
+     * Drops the saved option values behind the failing paths and resumes the check, so a run
+     * whose files are gone for good goes on with the defaults the patches declare.
+     */
+    fun clearInaccessibleOptionPaths() {
+        val failures = inaccessibleOptionPaths?.failures.orEmpty()
+        inaccessibleOptionPaths = null
+
+        viewModelScope.launch {
+            failures.forEach { failure ->
+                patchOptionsPrefs.clearOptionValue(packageName, failure.patchName, failure.optionKey)
+            }
+
+            runPreflightCheck()
+        }
     }
 
     /**
@@ -355,8 +404,12 @@ class PatcherViewModel(
      * Called after patching fails so the dialog opens instantly without an extra async wait.
      */
     suspend fun buildErrorInfo(): PatcherErrorInfo {
+        // Read from what the run started with, since a failed run leaves no output APK to name
         val label = runCatching {
-            pm.getPackageInfo(outputFile)?.let { with(pm) { it.label() } }
+            when (val selected = selectedApp) {
+                is SelectedApp.Local -> pm.getPackageInfo(selected.file)
+                else -> pm.getPackageInfo(packageName)
+            }?.let { with(pm) { it.label() } }
         }.getOrNull()
         val bundles = collectSelectedBundleMetadata().map {
             PatcherErrorInfo.BundleInfo(name = it.name, version = it.version)
@@ -365,7 +418,9 @@ class PatcherViewModel(
             appName = label ?: packageName,
             packageName = packageName,
             appVersion = version ?: "unspecified",
-            bundles = bundles
+            patchCount = patchCount,
+            bundles = bundles,
+            stripsNativeLibs = prefs.stripUnusedNativeLibs.get()
         )
     }
 
@@ -459,20 +514,8 @@ class PatcherViewModel(
     /** True when the current patching step has been running for over a minute. */
     val showLongStepWarning: StateFlow<Boolean> = patchRun.showLongStepWarning
 
-    /**
-     * Emits true once after a successful export or install to prompt the notification permission
-     * dialog. Resets to false after the UI acknowledges it via [consumeNotificationPrompt].
-     */
-    private val _shouldPromptNotification = MutableStateFlow(false)
-    val shouldPromptNotification: StateFlow<Boolean> = _shouldPromptNotification.asStateFlow()
-
-    /**
-     * Emits true after the first successful install to prompt the onboarding tour dialog.
-     * Always follows [shouldPromptNotification]; fires only after the notification dialog closes.
-     * Resets to false after the UI acknowledges it via [consumeTourPrompt].
-     */
-    private val _shouldPromptTour = MutableStateFlow(false)
-    val shouldPromptTour: StateFlow<Boolean> = _shouldPromptTour.asStateFlow()
+    /** Notification and tour prompts raised after a successful install or export. */
+    val postPatchPrompts = PostPatchPrompts(app, prefs, viewModelScope)
 
     init {
         restoreOutcome()
@@ -527,7 +570,22 @@ class PatcherViewModel(
         isPatching = false
     }
 
+    /**
+     * Runs the checks that stand between the screen and the worker, and starts the run when they
+     * all pass. Nothing runs while the user answers one, so the screen is held back until it does.
+     */
     private suspend fun runPreflightCheck() {
+        isPatching = true
+        patchRun.resumeBeforeStart()
+
+        if (preflight()) return
+
+        isPatching = false
+        patchRun.holdBeforeStart()
+    }
+
+    /** The preflight checks themselves. False when one of them put a question on screen. */
+    private suspend fun preflight(): Boolean {
         val scopedBundles = gatherScopedBundles()
         val sanitizedSelection = sanitizeSelection(appliedSelection, scopedBundles)
         val missing = mutableListOf<String>()
@@ -535,11 +593,11 @@ class PatcherViewModel(
             val kept = sanitizedSelection[uid] ?: emptySet()
             patches.filterNot { it in kept }.forEach { missing += it }
         }
-        if (missing.isNotEmpty()) {
+        if (missing.isNotEmpty() && !missingPatchesAccepted) {
             missingPatchWarning = MissingPatchWarningState(
                 patchNames = missing.distinct().sorted()
             )
-            return
+            return false
         }
 
         patchSourcesForLog = collectSelectedBundleMetadata()
@@ -556,7 +614,7 @@ class PatcherViewModel(
                     requiredVersion = required,
                     bundleName = bundle.name,
                 )
-                return
+                return false
             }
         }
 
@@ -565,21 +623,25 @@ class PatcherViewModel(
             input.options
         } else {
             patchOptionsPrefs.exportPatchOptions(packageName)
-        }
+        }.restrictTo(input.selectedPatches)
 
         val pathFailures = withContext(Dispatchers.IO) { validateOptionPaths(optionsToValidate) }
         if (pathFailures.isNotEmpty()) {
-            inaccessibleOptionPaths = InaccessibleOptionPathsState(pathFailures)
-            return
+            inaccessibleOptionPaths = InaccessibleOptionPathsState(
+                failures = pathFailures,
+                canClear = !prefs.useExpertMode.get()
+            )
+            return false
         }
 
         val powerManager = app.getSystemService(PowerManager::class.java)
         if (prefs.useExpertMode.get() && !powerManager.isIgnoringBatteryOptimizations(app.packageName) && !prefs.batteryOptimizationRequested.get()) {
             batteryOptimizationDialog = true
-            return
+            return false
         }
 
         startWorker()
+        return true
     }
 
     private fun startWorker() {
@@ -812,7 +874,7 @@ class PatcherViewModel(
 
     /**
      * Shared post-export logic: persists the patched app record, shows a toast,
-     * and triggers the notification prompt on success.
+     * and raises the post-patch prompts on success.
      */
     private suspend fun finishExport(exportSucceeded: Boolean) {
         if (!exportSucceeded) {
@@ -829,74 +891,7 @@ class PatcherViewModel(
             delay(2.seconds)
         }
 
-        if (saved) triggerNotificationPromptIfNeeded()
-    }
-
-
-    /**
-     * Checks prefs and triggers the notification prompt if conditions are met.
-     * Called after a successful install or export so UI doesn't read prefs directly.
-     */
-    fun triggerNotificationPromptIfNeeded() {
-        viewModelScope.launch {
-            if (!prefs.notificationPermissionRequested.get() &&
-                !prefs.backgroundUpdateNotifications.get()
-            ) {
-                _shouldPromptNotification.value = true
-            }
-        }
-    }
-
-    /**
-     * Triggers post-install prompts in order: notification permission (if needed), then
-     * onboarding tour (if first launch). The tour waits for the notification dialog to close
-     * before appearing, so the two dialogs never overlap.
-     */
-    fun triggerPostInstallPromptsIfNeeded() {
-        viewModelScope.launch {
-            val needsNotification = !prefs.notificationPermissionRequested.get() &&
-                    !prefs.backgroundUpdateNotifications.get()
-            val needsTour = prefs.firstLaunch.get()
-
-            if (needsNotification) _shouldPromptNotification.value = true
-            if (needsTour) {
-                _shouldPromptNotification.first { !it }
-                _shouldPromptTour.value = true
-            }
-        }
-    }
-
-    fun consumeNotificationPrompt() {
-        _shouldPromptNotification.value = false
-    }
-
-    fun consumeTourPrompt() {
-        _shouldPromptTour.value = false
-    }
-
-    /**
-     * Notifies ViewModel that the user responded to the notification permission dialog.
-     * Handles prefs writes and FCM/worker setup so UI doesn't need coroutine scope for prefs.
-     */
-    fun onNotificationPermissionResult(
-        granted: Boolean,
-        hasGms: Boolean
-    ) {
-        viewModelScope.launch {
-            prefs.notificationPermissionRequested.update(true)
-            if (granted) {
-                prefs.backgroundUpdateNotifications.update(true)
-                val useManagerPrereleases = prefs.useManagerPrereleases.get()
-                val usePatchesPrereleases = prefs.bundlePrereleasesEnabled.get()
-                    .contains(DEFAULT_SOURCE_UID.toString())
-                syncFcmTopics(
-                    notificationsEnabled = true,
-                    useManagerPrereleases = useManagerPrereleases,
-                    usePatchesPrereleases = usePatchesPrereleases
-                )
-                if (!hasGms) UpdateCheckWorker.schedule(app, prefs.updateCheckInterval.get())
-            }
-        }
+        if (saved) postPatchPrompts.trigger()
     }
 
     fun rejectInteraction() {
@@ -1009,8 +1004,8 @@ class PatcherViewModel(
                                     patchingCompletedInForeground = _patcherSucceeded.hasActiveObservers()
                                     isPatching = false
                                     _patcherSucceeded.value = true
-                                    scheduleAutoInstallIfNeeded()
                                     scheduleSuccessScreen()
+                                    scheduleAutoInstallIfNeeded()
                                 }
                             }
                         }
@@ -1036,19 +1031,38 @@ class PatcherViewModel(
         }
     }
 
+    /** What is left of the beat the progress screen holds a finished run for. */
+    private val successScreenDelay: Duration
+        get() {
+            val elapsed = patchingCompletedAt?.let { System.currentTimeMillis() - it } ?: 0L
+            return (2000L - elapsed).coerceAtLeast(0L).milliseconds
+        }
+
     private fun scheduleSuccessScreen() = viewModelScope.launch {
-        val elapsed = patchingCompletedAt?.let { System.currentTimeMillis() - it } ?: 0L
-        delay((2000L - elapsed).coerceAtLeast(0L).milliseconds)
-        if (successScreenDeferred) successScreenHeldBack = true else showSuccessScreen = true
+        delay(successScreenDelay)
+        if (successScreenDeferred) successScreenHeldBack = true else showSuccess()
+    }
+
+    /** Called once the installer has taken the auto-install over. */
+    fun autoInstallHandedOff() {
+        autoInstallPending = false
     }
 
     private fun scheduleAutoInstallIfNeeded() = viewModelScope.launch {
-        if (!prefs.autoInstallWithShizuku.get()) return@launch
-        val installerPrimary = prefs.installerPrimary.get()
-        if (installerPrimary != InstallerPreferenceTokens.SHIZUKU &&
-            installerPrimary != InstallerPreferenceTokens.SHIZUKU_PLAY_STORE
-        ) return@launch
-        if (prefs.promptInstallerOnInstall.get()) return@launch
+        // A patch is free to rename the app, and the name it built under is the one being replaced
+        val target = withContext(Dispatchers.IO) { pm.getPackageInfo(outputFile)?.packageName }
+            ?: packageName
+        if (!installerManager.autoInstallAllowed(target)) return@launch
+        autoInstallPending = true
+        // Started by the success screen rather than on a timer of its own: an install starting
+        // sooner puts the system dialog over a run still drawn as unfinished, or over a game
+        autoInstallQueued = true
+        if (showSuccessScreen) startQueuedAutoInstall()
+    }
+
+    private fun startQueuedAutoInstall() {
+        if (!autoInstallQueued) return
+        autoInstallQueued = false
         _autoInstallChannel.trySend(Unit)
     }
 
@@ -1066,10 +1080,9 @@ class PatcherViewModel(
                     -1
                 )
                 val currentLimit = if (previousFromWorker > 0) previousFromWorker else prefs.patcherProcessMemoryLimit.get()
-                // One step down, on the same scale the setting and the memory retries use, so
-                // accepting this lands on a value the slider can represent and the runtime honors
-                val suggestedLimit = (currentLimit - PROCESS_RUNTIME_MEMORY_STEP)
-                    .coerceAtLeast(PROCESS_RUNTIME_MEMORY_MINIMUM)
+                // The same step down the memory retries take, so accepting this lands on a
+                // value the slider can represent and the runtime honors
+                val suggestedLimit = lowerMemoryLimit(currentLimit)
                 // The setting is left alone until the user accepts the suggestion: silently
                 // lowering it made the configured limit drift down across failed runs
                 memoryAdjustmentDialog = MemoryAdjustmentDialogState(

@@ -25,5 +25,6 @@ A simple, user-friendly script to customize your Morphe Manager build. It adds a
 
 * Now You Can Add Universal Patches To Favourite So That Those Patches Go To Top (Long Press On Patch Or Click The Star Near The Patch Title)
 * Streched Patch Screen To Fill Both Side
+* Skip Signing Added Under Expert Mode That Matches Original Signature For Signature Kill Tools
 * App Name Morphe Fork
 * Package Name Also Changed To Be Able To Install Alongside Original Morphe

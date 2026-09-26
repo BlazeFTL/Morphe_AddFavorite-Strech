@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -37,10 +36,12 @@ import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.ui.model.PatchRunProgress
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.patcher.ExpertPatchingInProgress
 import app.morphe.manager.ui.screen.patcher.PatcherErrorDialog
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
+import app.morphe.manager.ui.screen.patcher.PostPatchPromptDialogs
 import app.morphe.manager.ui.screen.patcher.SimplePatchingInProgress
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
@@ -63,6 +64,8 @@ fun BatchPatcherScreen(
     targets: List<BatchTarget>,
     useMount: Boolean,
     onBackClick: () -> Unit,
+    onStartTour: () -> Unit = {},
+    onDeclineTour: () -> Unit = {},
     viewModel: BatchPatcherViewModel = koinViewModel(),
     installViewModel: InstallViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
@@ -77,6 +80,8 @@ fun BatchPatcherScreen(
         viewModel.ensurePlan(targets, useMount)
     }
 
+    KeepScreenOn(state?.isActive == true)
+
     val openApkPicker = rememberAdaptiveFilePicker(
         mimeTypes = APK_FILE_MIME_TYPES,
         onResult = viewModel::onApkPicked
@@ -84,10 +89,18 @@ fun BatchPatcherScreen(
 
     val startInstallQueue = rememberInstallQueue(
         installViewModel = installViewModel,
-        completedPluralRes = R.plurals.batch_install_summary
+        completedPluralRes = R.plurals.batch_install_summary,
+        onDrained = { installed -> if (installed > 0) viewModel.postPatchPrompts.trigger() }
     )
 
     InstallerFlowDialogs(installViewModel = installViewModel)
+
+    PostPatchPromptDialogs(
+        prompts = viewModel.postPatchPrompts,
+        onStartTour = onStartTour,
+        onDeclineTour = onDeclineTour,
+        onLeave = onBackClick
+    )
 
     val current = state
     // Apps already on the device drop out, so "Install all" means what is left and a card
@@ -114,8 +127,28 @@ fun BatchPatcherScreen(
     }
     val installRequests: List<InstallQueueRequest> = installRequestsByItem.values.toList()
 
-    LaunchedEffect(current?.phase, current?.policy) {
+    val useExpertMode by prefs.useExpertMode.getAsState()
+
+    // Outlives its item so a round in play survives the gap between apps and the end of the queue
+    var lastRun by remember { mutableStateOf<PatchRunProgress?>(null) }
+    LaunchedEffect(current?.activeRun) {
+        current?.activeRun?.let { lastRun = it }
+    }
+    val heldRun = lastRun?.takeIf { useExpertMode && miniGameState.isPlaying }
+
+    // A queue that drains mid-round waits for the player, as a single run does. Keyed on the
+    // phase so a retried queue waits again
+    var summaryReleased by remember(current?.phase) { mutableStateOf(false) }
+    val holdSummary = current?.phase == BatchPhase.FINISHED &&
+            !summaryReleased &&
+            heldRun != null
+    LaunchedEffect(holdSummary) {
+        if (!holdSummary) summaryReleased = true
+    }
+
+    LaunchedEffect(current?.phase, current?.policy, holdSummary) {
         if (current?.phase == BatchPhase.FINISHED &&
+            !holdSummary &&
             current.policy == BatchInstallPolicy.INSTALL_AFTER &&
             installRequests.isNotEmpty()
         ) {
@@ -137,19 +170,18 @@ fun BatchPatcherScreen(
             secondaryText = stringResource(R.string.no),
             onConfirm = {
                 showCancelDialog = false
+                // A stopped queue must not wait for the round
+                miniGameState.pauseActiveGame()
                 viewModel.cancel()
             },
             onDismiss = { showCancelDialog = false }
         )
     }
 
-    val useExpertMode by prefs.useExpertMode.getAsState()
-    val apkDownloadHelperEnabled by prefs.useApkDownloadHelper.getAsState()
-
     // Kept outside the dialog so the picker state survives the download dialog's exit animation
     val openApkDownloadHelper = rememberApkDownloadHelperAction(
         host = viewModel,
-        enabled = apkDownloadHelperEnabled && viewModel.apkSearch != null
+        enabled = viewModel.apkSearch != null
     )
 
     // Opened straight from the actions that need it rather than by watching state: the target
@@ -167,6 +199,8 @@ fun BatchPatcherScreen(
         val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
         val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
         ExpertModeDialog(
+            packageName = edit.packageName,
+            appName = edit.appName,
             newPatches = edit.newPatches,
             options = edit.options,
             allPatchesInfo = allPatchesInfo,
@@ -179,9 +213,7 @@ fun BatchPatcherScreen(
                 onDeselectAll = edit::deselectAll,
                 onResetToDefault = edit::resetToDefault,
                 onRestoreSaved = edit::restoreSaved,
-                // Copying a selection between sources belongs to the app's own patch dialog,
-                // where it can be saved, rather than to a single queued run
-                onCopyFromBundle = {},
+                onCopyFromBundle = viewModel::openEditCopyDialog,
                 onOptionChange = edit::updateOption,
                 onResetOptions = edit::resetOptions
             ),
@@ -197,6 +229,21 @@ fun BatchPatcherScreen(
             onDismiss = viewModel::cancelEdit,
             onProceed = viewModel::applyEdit
         )
+
+        viewModel.editCopy.targetBundleUid?.let { targetUid ->
+            val targetBundle = edit.bundles.firstOrNull { it.uid == targetUid } ?: return@let
+            CopySelectionFromBundleDialog(
+                target = CopySelectionTarget(
+                    packageName = edit.configurationKey,
+                    bundleUid = targetUid,
+                    bundleName = targetBundle.name,
+                    appDisplayName = edit.appName
+                ),
+                candidates = viewModel.editCopy.candidates,
+                onConfirm = viewModel::applyEditCopy,
+                onDismiss = viewModel.editCopy::close
+            )
+        }
     }
 
     // The single-app flow's own APK question, pointed at a queued app. It carries the version
@@ -206,14 +253,14 @@ fun BatchPatcherScreen(
             appName = choice.item.appName,
             recommendedVersion = choice.recommended,
             compatibleVersions = choice.compatible,
-            recommendedBundleVersions = choice.recommendedByBundle,
             selectedDownloadVersion = choice.selectedVersion,
             onVersionSelect = viewModel::selectApkVersion,
             usingMountInstall = false,
-            targetAppInstalled = choice.installedOnDevice,
+            stockAppInstalled = choice.hasStockInstall,
             isExpertMode = useExpertMode,
             savedApkInfo = choice.saved,
             installedApkInfo = choice.installed,
+            installedAppVersion = choice.installedVersion,
             onDismiss = viewModel::cancelApkChoice,
             onHaveApk = {
                 viewModel.cancelApkChoice()
@@ -236,7 +283,7 @@ fun BatchPatcherScreen(
             downloadUrl = search.url,
             requestedVersion = search.version,
             usingMountInstall = false,
-            targetAppInstalled = search.item.source is BatchApkSource.Installed,
+            stockAppInstalled = search.item.source is BatchApkSource.Installed,
             downloadColor = metadata?.downloadColor ?: KnownApps.DEFAULT_DOWNLOAD_COLOR,
             isApkBundle = metadata?.apkFileType?.isApk == false,
             onDismiss = viewModel::cancelApkSearch,
@@ -278,7 +325,9 @@ fun BatchPatcherScreen(
                         patchCount = offered[bundle.uid]?.size ?: 0
                     )
                 },
-            onSelect = viewModel::pickSource,
+            // The queue picks a source for the one item it is resolving; what an app is
+            // patched from for good is settled where that question is asked of the app itself
+            onSelect = { uid, _ -> viewModel.pickSource(uid) },
             onDismiss = viewModel::cancelSourcePick
         )
     }
@@ -295,6 +344,7 @@ fun BatchPatcherScreen(
         if (file != null && uri != null) {
             installViewModel.export(file, uri) { success ->
                 context.toast(if (success) exportSuccessMessage else exportFailedMessage)
+                if (success) viewModel.postPatchPrompts.trigger()
             }
         }
     }
@@ -324,19 +374,21 @@ fun BatchPatcherScreen(
                 appName = item.appName,
                 packageName = item.packageName,
                 appVersion = item.version.orEmpty(),
+                patchCount = item.selection.values.sumOf { it.size },
                 bundles = item.bundles.map {
                     PatcherErrorInfo.BundleInfo(name = it.name, version = null)
-                }
+                },
+                stripsNativeLibs = null
             ),
             onDismiss = { errorItem = null }
         )
     }
 
     val listState = rememberLazyListState()
-    val activeRun = current?.activeRun
+    val shownRun = current?.activeRun ?: heldRun
 
     // Patching an app looks exactly like a single run, with a queue counter on top
-    if (current != null && current.phase == BatchPhase.RUNNING) {
+    if (current != null && (current.phase == BatchPhase.RUNNING || holdSummary)) {
         // The preflight dialog is a separate window and cannot animate into this one, so the
         // patcher fades in on its own to soften the switch
         val appear = remember { MutableTransitionState(false).apply { targetState = true } }
@@ -347,7 +399,7 @@ fun BatchPatcherScreen(
                     .fillMaxSize()
                     .statusBarsPadding()
             ) {
-                if (activeRun == null) {
+                if (shownRun == null) {
                     BatchRunHeader(state = current)
 
                     // Between apps: the previous run is over and the next has not started, so
@@ -359,20 +411,22 @@ fun BatchPatcherScreen(
                     }
                 } else if (useExpertMode) {
                     ExpertPatchingInProgress(
-                        progress = activeRun.progress,
-                        patchesProgress = activeRun.patchesProgress,
-                        patchProgress = activeRun,
+                        progress = shownRun.progress,
+                        patchesProgress = shownRun.patchesProgress,
+                        patchProgress = shownRun,
+                        patcherSucceeded = if (holdSummary) true else null,
                         miniGameState = miniGameState,
                         queueHeader = { BatchRunHeader(state = current) },
                         onCancelClick = { showCancelDialog = true },
+                        onInstallClick = { summaryReleased = true },
                         onHomeClick = onBackClick
                     )
                 } else {
-                    val longStepWarning by activeRun.showLongStepWarning.collectAsStateWithLifecycle()
+                    val longStepWarning by shownRun.showLongStepWarning.collectAsStateWithLifecycle()
                     SimplePatchingInProgress(
-                        progress = activeRun.progress,
-                        patchesProgress = activeRun.patchesProgress,
-                        patchProgress = activeRun,
+                        progress = shownRun.progress,
+                        patchesProgress = shownRun.patchesProgress,
+                        patchProgress = shownRun,
                         showLongStepWarning = longStepWarning,
                         queueHeader = { BatchRunHeader(state = current) },
                         onCancelClick = { showCancelDialog = true },
@@ -560,16 +614,19 @@ private fun BatchRunHeader(state: BatchRunState) {
             )
         }
 
-        state.activeItem?.let { item ->
-            Text(
-                text = item.appName,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
+        // Between apps there is no active item, and dropping the line would shift everything below
+        var lastAppName by remember { mutableStateOf("") }
+        val appName = state.activeItem?.appName ?: lastAppName
+        SideEffect { lastAppName = appName }
+
+        Text(
+            text = appName,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
     }
 }
 
@@ -761,6 +818,21 @@ private fun BatchItemCard(
                         maxLines = if (installFailure != null) Int.MAX_VALUE else 3,
                         overflow = TextOverflow.Ellipsis
                     )
+
+                    // Paths planning left out. The app is patched either way, so this is said
+                    // here rather than held against the item as a state that blocks the run
+                    if (editable && item.unreadableOptionPaths.isNotEmpty()) {
+                        Text(
+                            text = stringResource(
+                                R.string.batch_patch_option_paths_skipped,
+                                item.unreadableOptionPaths.joinToString { it.path }
+                            ),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                 }
             }
 
@@ -812,10 +884,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.Warning,
                                 contentDescription = forceLabel,
                                 tooltip = forceLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
+                                colors = ActionPillColors.secondary()
                             )
                         }
 
@@ -828,10 +897,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.GppBad,
                                 contentDescription = acceptLabel,
                                 tooltip = acceptLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
+                                colors = ActionPillColors.secondary()
                             )
                         }
 
@@ -843,14 +909,7 @@ private fun BatchItemCard(
                             icon = if (excluded) Icons.Outlined.AddCircleOutline else Icons.Outlined.RemoveCircleOutline,
                             contentDescription = toggleLabel,
                             tooltip = toggleLabel,
-                            colors = if (excluded) {
-                                IconButtonDefaults.filledTonalIconButtonColors()
-                            } else {
-                                IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
-                            }
+                            colors = if (excluded) ActionPillColors.neutral() else ActionPillColors.destructive()
                         )
                     }
                 }
@@ -876,10 +935,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.ErrorOutline,
                                 contentDescription = errorLabel,
                                 tooltip = errorLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
+                                colors = ActionPillColors.destructive()
                             )
                         }
 
@@ -890,10 +946,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.InstallMobile,
                                 contentDescription = installLabel,
                                 tooltip = installLabel,
-                                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
+                                colors = ActionPillColors.primary()
                             )
                         }
 

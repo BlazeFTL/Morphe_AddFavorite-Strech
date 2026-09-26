@@ -6,12 +6,21 @@
 package app.morphe.manager.patcher.patch
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import app.morphe.manager.util.KnownApps
 import app.morphe.patcher.patch.ApkFileType
 
 /**
- * Aggregated metadata about an app as declared in one or more enabled patch bundles.
+ * Color of a bundle's `appIconColor`. The value is 0xRRGGBB with a zero alpha per the
+ * Compatibility spec, so full opacity is forced.
+ */
+fun appIconColorOf(rgb: Int): Color = Color(rgb or (0xFF shl 24))
+
+/** Color of [packageName] as the first of these patches to declare one gives it, if any does. */
+fun Sequence<PatchInfo>.appColorFor(packageName: String): Color? =
+    firstNotNullOfOrNull { it.appIconColorFor(packageName) }?.let(::appIconColorOf)
+
+/**
+ * Aggregated metadata about an app as declared in one or more patch bundles.
  * Priority for conflicting values across bundles: first non-null value wins.
  *
  * @param packageName  The app package name.
@@ -20,7 +29,6 @@ import app.morphe.patcher.patch.ApkFileType
  * @param apkFileType  Preferred/required APK input format. Null if not declared.
  * @param signatures   Union of all valid SHA-256 signing fingerprints across all bundles.
  *                     Null means no bundle declared signatures → skip verification.
- * @param experimentalVersions Union of all versions marked as experimental across all bundles.
  */
 data class BundleAppMetadata(
     val packageName: String,
@@ -28,24 +36,19 @@ data class BundleAppMetadata(
     val appIconColor: Int?,
     val apkFileType: ApkFileType?,
     val signatures: Set<String>?,
-    val experimentalVersions: Set<String>,
 ) {
     /** Derived gradient color list for home screen buttons. Null means use fallback. */
     val gradientColors: List<Color>? = appIconColor?.let { rgb ->
-        // appIconColor is 0xRRGGBB (alpha=0x00 per Compatibility spec) - force full opacity
-        listOf(Color(rgb or (0xFF shl 24)), KnownApps.GRADIENT_MID, KnownApps.GRADIENT_END)
+        listOf(appIconColorOf(rgb), KnownApps.GRADIENT_MID, KnownApps.GRADIENT_END)
     }
 
     /** Derived download button color. Null means use fallback. */
-    val downloadColor: Color? = appIconColor?.let { rgb ->
-        // appIconColor is 0xRRGGBB (alpha=0x00 per Compatibility spec) - force full opacity
-        Color(rgb or (0xFF shl 24))
-    }
+    val downloadColor: Color? = appIconColor?.let(::appIconColorOf)
 
     companion object {
         /**
-         * Build a [Map] of packageName → [BundleAppMetadata] from all enabled [PatchBundleInfo.Global].
-         * Called whenever bundleInfoFlow emits a new value.
+         * Build a [Map] of packageName → [BundleAppMetadata] from every [PatchBundleInfo.Global] given.
+         * Which bundles count is the caller's choice, so a disabled one still names its apps.
          */
         fun buildFrom(bundleInfoMap: Map<Int, PatchBundleInfo.Global>): Map<String, BundleAppMetadata> {
             // packageName → mutable accumulators
@@ -54,10 +57,8 @@ data class BundleAppMetadata(
             val iconColors = mutableMapOf<String, Int>()
             val apkFileTypes = mutableMapOf<String, ApkFileType>()
             val signaturesMap = mutableMapOf<String, MutableSet<String>>()
-            val experimentalMap = mutableMapOf<String, MutableSet<String>>()
 
             bundleInfoMap.values
-                .filter { it.enabled }
                 .flatMap { it.patches }
                 .forEach { patch ->
                     patch.compatiblePackages?.forEach { pkg ->
@@ -80,9 +81,6 @@ data class BundleAppMetadata(
                         pkg.signatures?.let {
                             signaturesMap.getOrPut(pkgName) { mutableSetOf() }.addAll(it)
                         }
-                        pkg.experimentalVersions?.let {
-                            experimentalMap.getOrPut(pkgName) { mutableSetOf() }.addAll(it)
-                        }
                     }
                 }
 
@@ -90,21 +88,11 @@ data class BundleAppMetadata(
                 BundleAppMetadata(
                     packageName = pkgName,
                     displayName = displayNames[pkgName] ?: KnownApps.fallbackName(pkgName),
-                    appIconColor = iconColors[pkgName] ?: legacyAppIconColor(pkgName),
+                    appIconColor = iconColors[pkgName],
                     apkFileType = apkFileTypes[pkgName],
                     signatures = signaturesMap[pkgName]?.toSet(),
-                    experimentalVersions = experimentalMap[pkgName] ?: emptySet(),
                 )
             }
         }
-
-        // TODO: Remove once all active bundles ship Compatibility with appIconColor field.
-        //  Transitional fallback for the period between Manager 1.3.0 release and
-        //  patch bundles being updated to use the new Compatibility API.
-        private fun legacyAppIconColor(packageName: String): Int? =
-            KnownApps.fromPackage(packageName)?.brandColor?.let { color ->
-                // appIconColor spec uses 0xRRGGBB - strip alpha from ARGB
-                color.toArgb() and 0x00FFFFFF
-            }
     }
 }

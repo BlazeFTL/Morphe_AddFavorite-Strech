@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -41,11 +43,15 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.morphe.manager.R
+import app.morphe.manager.patcher.runtime.heapLimitMebibytes
 import app.morphe.manager.ui.model.IoSample
 import app.morphe.manager.ui.model.PatchProgressSource
 import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.screen.shared.CardBorder
+import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.WindowHeightSizeClass
 import app.morphe.manager.ui.screen.shared.WindowWidthSizeClass
+import app.morphe.manager.ui.screen.shared.itemSpacing
 import app.morphe.manager.ui.screen.shared.rememberWindowSize
 
 /** Slots a history graph spans, which fixes the time axis so readings scroll in from the right. */
@@ -83,9 +89,7 @@ private const val CORE_TRACK_ALPHA = 0.3f
 private data class UsageMetrics(
     val graphHeight: Dp,
     val headlineSize: TextUnit,
-    val contentPadding: Dp,
-    val itemSpacing: Dp,
-    val panelSpacing: Dp
+    val itemSpacing: Dp
 )
 
 /**
@@ -99,17 +103,17 @@ private fun usageMetrics(compact: Boolean): UsageMetrics {
     // Side by side, where the panels are as wide as a third of the window lets them be
     if (compact) {
         return if (windowSize.widthSizeClass == WindowWidthSizeClass.Compact) {
-            UsageMetrics(28.dp, 12.sp, 10.dp, 3.dp, 8.dp)
+            UsageMetrics(28.dp, 12.sp, 3.dp)
         } else {
-            UsageMetrics(40.dp, 15.sp, 14.dp, 4.dp, 10.dp)
+            UsageMetrics(40.dp, 15.sp, 4.dp)
         }
     }
 
     // Stacked, where the height of the column is what has to be shared
     return when (windowSize.heightSizeClass) {
-        WindowHeightSizeClass.Compact -> UsageMetrics(22.dp, 13.sp, 10.dp, 2.dp, 6.dp)
-        WindowHeightSizeClass.Medium -> UsageMetrics(36.dp, 15.sp, 12.dp, 4.dp, 8.dp)
-        WindowHeightSizeClass.Expanded -> UsageMetrics(48.dp, 16.sp, 14.dp, 5.dp, 10.dp)
+        WindowHeightSizeClass.Compact -> UsageMetrics(22.dp, 13.sp, 2.dp)
+        WindowHeightSizeClass.Medium -> UsageMetrics(36.dp, 15.sp, 4.dp)
+        WindowHeightSizeClass.Expanded -> UsageMetrics(48.dp, 16.sp, 5.dp)
     }
 }
 
@@ -125,13 +129,19 @@ fun PatchingUsageGraphs(
     compact: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val heapSamples = patchProgress.heapSamples
-    val coreLoads = patchProgress.cpuCoreLoads
-    val ioSamples = patchProgress.ioSamples
+    // Every queued app starts with an empty history, so the previous one stays drawn until the
+    // new one has its own and the panels never collapse in between
+    var drawnSource by remember { mutableStateOf(patchProgress) }
+    val source = if (patchProgress.heapSamples.size > 1) patchProgress else drawnSource
+    SideEffect { drawnSource = source }
+
+    val heapSamples = source.heapSamples
+    val coreLoads = source.cpuCoreLoads
+    val ioSamples = source.ioSamples
 
     // The runtime reports its limit over the log, which the app's own heap stands in for until then
-    val heapLimitMb = patchProgress.heapLimitMb.takeIf { it > 0 }
-        ?: (Runtime.getRuntime().maxMemory() / (1024 * 1024)).toInt()
+    val heapLimitMb = source.heapLimitMb.takeIf { it > 0 }
+        ?: heapLimitMebibytes()
 
     val metrics = usageMetrics(compact)
 
@@ -148,7 +158,7 @@ fun PatchingUsageGraphs(
         modifier = modifier
     ) {
         // Both histories sit together, and the per-core bars close the group rather than split it
-        UsagePanelLayout(compact = compact, metrics = metrics) { panelModifier ->
+        UsagePanelLayout(compact = compact) { panelModifier ->
             HeapUsagePanel(
                 heapSamples, heapLimitMb, compact, metrics, reserveTwoLines, onLabelWraps, panelModifier
             )
@@ -174,20 +184,22 @@ fun PatchingUsageGraphs(
 @Composable
 private fun UsagePanelLayout(
     compact: Boolean,
-    metrics: UsageMetrics,
     content: @Composable (panelModifier: Modifier) -> Unit
 ) {
+    // The panels stand as far apart as the surrounding blocks, so the group reads as one of them
+    val spacing = rememberWindowSize().itemSpacing
+
     if (compact) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(metrics.panelSpacing)
+            horizontalArrangement = Arrangement.spacedBy(spacing)
         ) {
             content(Modifier.weight(1f))
         }
     } else {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(metrics.panelSpacing)
+            verticalArrangement = Arrangement.spacedBy(spacing)
         ) {
             content(Modifier.fillMaxWidth())
         }
@@ -225,16 +237,21 @@ private fun HeapUsagePanel(
 
     UsagePanel(
         label = stringResource(R.string.memory_usage),
-        // The limit rides along in the detail, which the compact layout has no room for anyway
         headline = "${samples.lastOrNull() ?: 0} MB",
-        detail = "${current.asPercent()} of $limitMb MB",
+        detail = stringResource(
+            R.string.memory_usage_detail,
+            current.asPercent(),
+            limitMb.toString()
+        ),
         // The dot reads the same average as the bars, so the two cannot disagree on the tint
         accentColor = lerp(accentColor, warnColor, warnRamp(colorFractions.lastOrNull() ?: 0f)),
         compact = compact,
         metrics = metrics,
         reserveTwoLines = reserveTwoLines,
         onLabelWraps = onLabelWraps,
-        modifier = modifier
+        modifier = modifier,
+        // The compact layout has no detail line, so the limit rides next to the reading there
+        headlineSuffix = "/ $limitMb".takeIf { compact }
     ) {
         UsageHistoryBars(
             fractions = fractions,
@@ -263,7 +280,7 @@ private fun CpuUsagePanel(
     UsagePanel(
         label = stringResource(R.string.cpu_usage),
         headline = "$average%",
-        detail = "${coreLoads.size} cores",
+        detail = pluralStringResource(R.plurals.core_count, coreLoads.size, coreLoads.size.toString()),
         accentColor = lerp(accentColor, warnColor, warnRamp(average / 100f)),
         compact = compact,
         metrics = metrics,
@@ -317,7 +334,8 @@ private fun IoUsagePanel(
 
 /**
  * Shell every usage panel shares: an accent dot and title, the current reading, and the graph.
- * The secondary detail is dropped in the compact layout, where a panel only gets a third of a row.
+ * The secondary detail is dropped in the compact layout, where a panel only gets a third of a row,
+ * so anything it still has to carry there goes in [headlineSuffix].
  */
 @Composable
 private fun UsagePanel(
@@ -330,6 +348,7 @@ private fun UsagePanel(
     reserveTwoLines: Boolean,
     onLabelWraps: () -> Unit,
     modifier: Modifier = Modifier,
+    headlineSuffix: String? = null,
     graph: @Composable () -> Unit
 ) {
     val labelLineHeight = 12.sp
@@ -339,17 +358,15 @@ private fun UsagePanel(
 
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(14.dp),
+        shape = RoundedCornerShape(Defaults.CardCornerRadius),
         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-        tonalElevation = 0.dp
+        tonalElevation = 0.dp,
+        border = CardBorder.neutral
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(
-                    horizontal = metrics.contentPadding,
-                    vertical = metrics.contentPadding - 2.dp
-                ),
+                .padding(PatcherCardPadding),
             verticalArrangement = Arrangement.spacedBy(metrics.itemSpacing)
         ) {
             Row(
@@ -381,12 +398,11 @@ private fun UsagePanel(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     onTextLayout = { if (it.lineCount > 1) onLabelWraps() },
-                    modifier = Modifier.weight(1f, fill = false)
+                    // Takes the row on its own, so the detail keeps to the trailing edge
+                    modifier = Modifier.weight(1f)
                 )
 
                 if (!compact) {
-                    Spacer(Modifier.weight(1f))
-
                     Text(
                         text = detail,
                         style = MaterialTheme.typography.labelSmall,
@@ -399,16 +415,34 @@ private fun UsagePanel(
                 }
             }
 
-            Text(
-                text = headline,
-                style = MaterialTheme.typography.titleSmall,
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = metrics.headlineSize,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Text(
+                    text = headline,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = metrics.headlineSize,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    // The reading gives way first, so a narrow panel keeps the limit beside it
+                    modifier = Modifier.weight(1f, fill = false)
+                )
+
+                if (headlineSuffix != null) {
+                    Text(
+                        text = headlineSuffix,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontFamily = FontFamily.Monospace,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                        fontSize = metrics.headlineSize * 0.75f,
+                        maxLines = 1
+                    )
+                }
+            }
 
             graph()
         }
@@ -455,14 +489,11 @@ private fun CoreLoadBars(
     compact: Boolean,
     height: Dp
 ) {
-    // Sorted ascending so a pinned core always lands in the same slot: raw core order jumps a
-    // bar from one side of the row to the other as the scheduler moves load between cores, even
-    // when the overall picture has not changed at all
-    val sortedLoads = loads.sorted()
-
-    // Polling is slow enough that stepping straight to each reading reads as noise
-    val fractions = sortedLoads.mapIndexed { rank, load ->
-        key(rank) {
+    // Cores keep their own slot rather than being ranked by load: the clusters of a big.LITTLE
+    // machine are laid out by index, and which of them the run is riding is what the row shows
+    val fractions = loads.mapIndexed { core, load ->
+        // Polling is slow enough that stepping straight to each sample reads as noise
+        key(core) {
             animateFloatAsState(
                 targetValue = (load / 100f).coerceIn(0f, 1f),
                 animationSpec = tween(600, easing = FastOutSlowInEasing),

@@ -22,6 +22,8 @@
     <string name="home_update_skipped_metered">Atnaujinimai praleisti</string>
     <string name="home_update_skipped_metered_subtitle">Mobilieji duomenys yra įjungti</string>
     <string name="home_updating_sources">Atnaujinami šaltiniai…</string>
+    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
+         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
     <string name="home_update_success">Šaltinių atnaujinimas baigtas</string>
     <string name="home_update_success_subtitle">Jūsų šaltiniai yra atnaujinti</string>
     <string name="home_sources_are_loading">Šaltiniai kraunami, palaukite…</string>
@@ -83,7 +85,6 @@
     <string name="sources_management_prerelease_toggle">Bandomosios versijos pataisos</string>
     <string name="sources_management_prerelease_toggle_description">Gaukite ankstyvą prieigą prie naujų eksperimentinių pataisos versijų</string>
     <string name="sources_management_experimental_versions_toggle">Eksperimentinės programos versijos</string>
-    <string name="sources_management_experimental_versions_toggle_description">Pataisas </string>
     <string name="sources_management_already_exists">Šis šaltinis jau pridėtas</string>
     <string name="sources_management_invalid_url">Neteisynga šaltinio URL. Patikrinkite adresą ir bandykite dar kartą</string>
     <string name="sources_management_metadata_unavailable">Metaduomenys N/A</string>
@@ -217,7 +218,8 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="home_outdated_patches_dialog_warning">Pataisius pasenusiomis pataisomis, programa gali sugesti</string>
     <string name="home_outdated_patches_dialog_update_and_patch">Atnaujinti &amp; pataisa</string>
     <string name="home_low_disk_space_dialog_title">Mažai vietos diske</string>
-    <string name="home_low_disk_space_dialog_message">Laisvos vietos liko tik %1$.2f GB. Atnaujinimui reikia bent %2$.2f GB laisvos vietos, kad veiktų tinkamai</string>
+    <!-- "%1$s" is the free storage and "%2$s" the amount patching needs, both in gigabytes. -->
+    <string name="home_low_disk_space_dialog_message">Laisvos vietos liko tik %1$s GB. Atnaujinimui reikia bent %2$s GB laisvos vietos, kad veiktų tinkamai</string>
     <string name="home_low_disk_space_dialog_warning">Tęsiant gali atsirasti klaida „failas nerastas“ arba sugadintas išvesties APK</string>
     <string name="home_simple_bundle_select_title">Pasirinkite pataisos šaltinio failą</string>
     <!-- Color picker -->
@@ -296,7 +298,17 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="patcher_error_copied">Klaida nukopijuota į iškarpinę</string>
     <string name="patcher_error_log">Klaidų žurnalas</string>
     <string name="patcher_error_technical">Techninė informacija</string>
-    <string name="patcher_error_dialog_app_info">Programos inform</string>
+    <!-- Titles of the cards the expert log shows in place of the raw start and success log lines -->
+    <!-- Field labels, shown in a column beside their values. Keep them short, a long one is cut off rather than wrapped -->
+    <!-- Native code libraries (.so files) packed inside the APK -->
+    <!-- Free and total RAM of the device, never its storage -->
+    <!-- Size of the patched APK, once patching finished -->
+    <!-- How long patching took -->
+    <!-- Average and peak memory the patcher process held while it ran -->
+    <!-- Fastest read or write rate reached while patching, in data per second -->
+    <string name="patcher_field_value_unknown">nežinoma</string>
+    <!-- Value of "Libraries": the libraries this device cannot use were dropped from the patched APK -->
+    <!-- Value of "Libraries": every library was left in the patched APK -->
     <string name="patcher_tab_game">Žaidimai</string>
     <string name="patcher_long_step_warning">Šis žingsnis gali užtrukti. Palaukite…</string>
     <string name="patcher_installing_subtitle">Beveik laikas rokenrolui! 🎸</string>
@@ -304,7 +316,6 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="patcher_success_subtitle">Jūsų programėlė pataisyta ir įdiegta!</string>
     <string name="patcher_complete_title">Taisymas baigtas! ✨</string>
     <string name="patcher_failed_title">Oops! Kažkas nepavyko</string>
-    <string name="patcher_failed_subtitle">Patikrinkite klaidų išsamią informaciją žemiau</string>
     <string name="patcher_failed_dialog_title">Pataisyti nepavyko</string>
     <string name="patcher_unknown_error">Įvyko nežinoma klaida</string>
     <string name="patcher_split_step_extracting">Išskleidžiami išskaldyti APK failai</string>
@@ -372,7 +383,7 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="patcher_message_15">Visos sistemos veikia… taisymo trajektorija stabili… 🚀</string>
     <string name="patcher_message_16">Išspaudžiama papildoma galia, kaip sultys iš skaitmeninės citrinos… 🍋</string>
     <string name="patcher_message_17">Programėlė skatinama priimti naują, geresnę save… 🌱</string>
-    <!-- Quantum physics (box emoji is a reference to Schrodinger's cat). -->
+    <!-- Quantum physics (box emoji is a reference to Schrödinger's cat). -->
     <string name="patcher_message_18">Keičiama programėlės superpozicija iš nepataisytos į pataisytą… 📦⚛️</string>
     <!-- Throw away reference to a Saturday Night Live sketch. "fever" means sickness or the flu. "prescription" means medical treatment or can be translated from "cure" -->
     <string name="patcher_message_19">Jūsų programėlė karščiuoja ir vienintelis vaistas yra daugiau pataisymų… 🩺🔔</string>
@@ -380,6 +391,7 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <!-- Expert patcher Screen -->
     <string name="patching_app">Programėlė taisoma</string>
     <string name="memory_usage">Atminties naudojimas</string>
+    <!-- "%1$s" is the share of the memory limit the patcher is using, already formatted as a percentage. "%2$s" is that limit in megabytes. -->
     <!-- Patcher Screen - Other hidden strings -->
     <string name="applying_patches">Pritaikomi pataisymai</string>
     <string name="failed_to_execute_patch">Nepavyko pritaikyti %s</string>
@@ -465,10 +477,11 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="notification_channel_patcher">Taisoma</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
     <string name="settings_advanced_expert_mode">Eksperto rėžimas</string>
-    <!-- Bytecode mode -->
-    <string name="settings_advanced_bytecode_mode_strip_fast">Greitai</string>
-    <string name="settings_advanced_bytecode_mode_full">Pilnas</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
+    <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
+    <!-- "%3$s" is "GitHub Personal Access Token", "%2$s" is the GitHub scope name and "%1$s" is the GitHub website. "PAT" is its abbreviation, keep it in English -->
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
+    <!-- "PAT" is a GitHub Personal Access Token, keep it in English because GitHub has no localized UI -->
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Pataisų nustatymai</string>
     <string name="settings_advanced_patch_options_loading">Kraunami pataisų nustatymai…</string>
@@ -479,6 +492,7 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="settings_advanced_patch_options_custom_branding_description">Pakeičia rodomą programėlės pavadinimą</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name">Programėlės pavadinimas</string>
     <string name="settings_advanced_patch_options_custom_branding_app_name_hint">Įvesti pavadinimą</string>
+    <string name="settings_advanced_patch_options_custom_branding_app_icon">Programėlės piktograma</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon">Individualizuota piktograma</string>
     <string name="settings_advanced_patch_options_custom_branding_custom_icon_instruction">"Aplankas su nuotraukomis, kurios bus naudojamos kaip piktograma.
 
@@ -531,11 +545,14 @@ Pasirinktinai, nuoroda gali turėti pranešimo piktogramą viename iš išvardin
     <!-- File Picker -->
     <!-- Settings - System Tab - About Section -->
     <string name="settings_system_about">Apie</string>
-    <!-- Easter egg offered after seven taps on the version in the about dialog -->
+    <!-- Easter egg offered after seven taps on the version in the About dialog -->
     <!-- Shared strings -->
+    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
+         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
+         how a literal percent sign is written here. -->
     <string name="search">Ieškoti</string>
     <string name="patching">Taisoma</string>
-    <!-- Shown while resuming a download, before the total size is known -->
+    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <!-- Translate "System" the same way as the System settings tab -->

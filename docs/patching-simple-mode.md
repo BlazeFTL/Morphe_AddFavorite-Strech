@@ -31,17 +31,23 @@ this case **YouTube**.
   <img src="images/common/choose-app.jpg" width="320" alt="Home screen with the list of patchable apps" />
 </p>
 
-Apps you have not patched yet are marked **Not patched yet**.
+Apps you have not patched yet are marked **Not patched yet**, with the version installed on
+your device in front of it when the app is there at all.
 
 > [!TIP]
 > If more than one of your patch sources provides patches for the same app, Morphe first
-> asks you to pick one in a **Select patch source** dialog. With the default setup this
-> does not happen, see [Managing patch sources](patch-sources.md).
+> asks you to pick one in a **Select patch source** dialog. Tick **Always use this source for
+> this app** and it stops asking for that app. With the default setup this does not happen at
+> all, see [Managing patch sources](patch-sources.md).
 
 ## 2. Check the required APK version
 
 Morphe now shows which version of the original app the patches are built for, along with an
 **Unpatched** badge. Patches are version specific, so this exact version is what you need.
+
+If the app is already on your device, Morphe says which version that is: an **Installed** badge
+next to the version when it happens to be the one the patches want, and a line under the list
+when it is not.
 
 <p align="center">
   <img src="images/patching-simple-mode/02-apk-availability.jpg" width="320" alt="Dialog showing the required unpatched APK version" />
@@ -196,7 +202,7 @@ Neither prompt appears again. If you skipped the tour and want it later, start i
 | "Unsupported version" warning | You downloaded a different version than the one Morphe asked for. Download the exact version shown in step 2 |
 | "Split APK detected" warning | You downloaded a bundle (APKM / APKS / XAPK). A full APK gives the best results, pick another download on the website |
 | "Unverified APK" warning | The file does not match the expected signing certificate. Download it again from a trusted source |
-| Patching fails or the app crashes | Update your patch sources and try again. Export debug logs from **Settings → Advanced** when reporting the issue |
+| Patching fails or the app crashes | Update your patch sources and try again. Export debug logs from **Settings → System → About** when reporting the issue |
 
 ## Next steps
 

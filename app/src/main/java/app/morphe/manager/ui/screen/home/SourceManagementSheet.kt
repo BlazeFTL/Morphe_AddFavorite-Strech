@@ -5,15 +5,12 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -36,7 +33,6 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
@@ -55,24 +51,23 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isDefault
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isHeldBack
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.manager.SourceBundleSortMode
 import app.morphe.manager.domain.repository.BlocklistRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
+import app.morphe.manager.domain.repository.appsBrought
 import app.morphe.manager.ui.screen.patcher.IncompatiblePatcherVersionDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import java.util.Locale
-
-/** Keeps the scrollbar clear of the sheet's bottom action row. */
-private val SourceListScrollbarBottomInset = 64.dp
 
 /** Enough placeholder rows to fill the sheet on open without implying a count. */
 private val SourceShimmerRows = (0 until 4).toList()
@@ -94,6 +89,7 @@ fun BundleManagementSheet(
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
     val prefs: PreferencesManager = koinInject()
+    val sourceMuteRepository: SourceMuteRepository = koinInject()
     val scope = rememberCoroutineScope()
 
     val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
@@ -104,8 +100,15 @@ fun BundleManagementSheet(
     val activeUpdateUids by patchBundleRepository.activeUpdateUidsFlow.collectAsStateWithLifecycle(emptySet())
     val metadataFetchErrors by patchBundleRepository.metadataFetchErrors.collectAsStateWithLifecycle(emptyMap())
     val experimentalVersionsEnabled by prefs.bundleExperimentalVersionsEnabled.getAsState()
-    val bundleInfo by patchBundleRepository.bundleInfoFlow.collectAsStateWithLifecycle(emptyMap())
+    // Every source, not only the enabled ones: a disabled source still answers a patch search
+    // and still declares whether it carries experimental targets
+    val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
     val blockedSources by patchBundleRepository.blockedSources.collectAsStateWithLifecycle(emptyMap())
+    val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
+    // How many of its apps each source still brings, out of all it names
+    val appCounts = remember(bundleInfo, keptFrom) {
+        bundleInfo.mapValues { (_, info) -> info.appsBrought(keptFrom).size to info.listedApps().size }
+    }
 
     val showSheetOnboarding = globalOnboardingState?.sheetOnboardingActive == true
 
@@ -151,15 +154,37 @@ fun BundleManagementSheet(
     val orderedSources = remember(localOrder, sources, sourceSortMode) {
         sources.sortedForSourceSort(sourceSortMode, localOrder)
     }
-    val visibleSources = remember(orderedSources, search.query) {
-        if (search.query.isBlank()) orderedSources
-        else orderedSources.filter { source ->
-            source.displayTitle.contains(search.query, ignoreCase = true) ||
-                    source.name.contains(search.query, ignoreCase = true)
+    // Patches are searched alongside source names, so one query answers which source carries a
+    // patch instead of the user opening every source to find out. Blocked sources stay out of it,
+    // since nothing they hold is reachable anyway
+    val patchMatchCounts: Map<Int, Int> = remember(bundleInfo, blockedSources, search.query) {
+        val query = search.query.takeIf { it.isNotBlank() } ?: return@remember emptyMap()
+        buildMap {
+            bundleInfo.forEach { (uid, info) ->
+                if (uid in blockedSources) return@forEach
+                val matches = info.patches.count { it.matchesQuery(query) }
+                if (matches > 0) put(uid, matches)
+            }
         }
     }
-    val alphabetScrollMode = sourceSortMode == SourceBundleSortMode.NAME_ASC ||
-            sourceSortMode == SourceBundleSortMode.NAME_DESC
+    val visibleSources = remember(orderedSources, patchMatchCounts, search.query) {
+        val query = search.query
+        if (query.isBlank()) return@remember orderedSources
+        orderedSources
+            .filter { source -> source.matchesQuery(query) || source.uid in patchMatchCounts }
+            // A source the query names is the one that was asked for; the rest rank by how much
+            // of the query they carry. The sort is stable, so ties keep the order the sort mode
+            // gave them, and clearing the query drops back to that order untouched
+            .sortedWith(
+                compareByDescending<PatchBundleSource> { it.matchesQuery(query) }
+                    .thenByDescending { patchMatchCounts[it.uid] ?: 0 }
+            )
+    }
+    // The alphabet rail reads positions off a list that is in name order, which a search ranking
+    // results by relevance no longer is
+    val alphabetScrollMode = !search.isFiltering &&
+            (sourceSortMode == SourceBundleSortMode.NAME_ASC ||
+                    sourceSortMode == SourceBundleSortMode.NAME_DESC)
     val sourceScrollTargets = remember(alphabetScrollMode, visibleSources) {
         if (!alphabetScrollMode) {
             emptyList()
@@ -176,13 +201,9 @@ fun BundleManagementSheet(
     }
 
     val bundleToShowPatches = remember { mutableStateOf<PatchBundleSource?>(null) }
+    val bundleToShowApps = remember { mutableStateOf<PatchBundleSource?>(null) }
     var bundleRequiringManagerUpdate by remember { mutableStateOf<PatchBundleSource?>(null) }
     var bundleToShowChangelogUid by remember { mutableStateOf<Int?>(null) }
-    val bundleToShowChangelog = bundleToShowChangelogUid
-        ?.let { uid -> sources.filterIsInstance<RemotePatchBundle>().find { it.uid == uid } }
-    val bundleToShowChangelogKey = bundleToShowChangelog?.let {
-        "${it.installedVersionSignature}|${it.usesPrerelease}"
-    }
 
     // Switching branches invalidates whatever the changelog dialog is holding, so the cache goes
     // and an open dialog closes rather than keeping entries from the branch that was just left
@@ -220,70 +241,54 @@ fun BundleManagementSheet(
         Box {
             Column(Modifier.fillMaxWidth()) {
                 // Header - outside scrollable area
-                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                PanelHeader(
+                    title = {
                         Column {
-                            Text(
-                                text = stringResource(R.string.sources_management_title),
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
+                            PanelTitle(text = stringResource(R.string.sources_management_title))
+                            PanelSubtitle(
                                 text = pluralStringResource(
                                     R.plurals.sources_management_subtitle,
                                     sources.size,
                                     sources.size.toString()
-                                ),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
                             )
                         }
-
+                    }
+                ) {
+                    AnimatedVisibility(visible = isSearchable) {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            AnimatedVisibility(visible = isSearchable) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    TitleAction(
-                                        icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                                        contentDescription = stringResource(R.string.search),
-                                        onClick = { search.toggle() },
-                                        style = TitleActionStyle.AccentToggle,
-                                        active = search.visible
-                                    )
-
-                                    val activeSortLabel = stringResource(sourceSortMode.labelRes)
-                                    TitleAction(
-                                        icon = Icons.AutoMirrored.Outlined.Sort,
-                                        contentDescription = stringResource(R.string.sort),
-                                        onClick = { showSortDialog = true },
-                                        modifier = Modifier.semantics {
-                                            role = Role.Button
-                                            stateDescription = activeSortLabel
-                                        },
-                                        style = TitleActionStyle.Accent
-                                    )
-                                }
-                            }
                             TitleAction(
-                                icon = Icons.Default.Add,
-                                contentDescription = stringResource(R.string.add),
-                                onClick = onAddSource,
+                                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                                contentDescription = stringResource(R.string.search),
+                                onClick = { search.toggle() },
+                                style = TitleActionStyle.AccentToggle,
+                                active = search.visible
+                            )
+
+                            val activeSortLabel = stringResource(sourceSortMode.labelRes)
+                            TitleAction(
+                                icon = Icons.AutoMirrored.Outlined.Sort,
+                                contentDescription = stringResource(R.string.sort),
+                                onClick = { showSortDialog = true },
+                                modifier = Modifier.semantics {
+                                    role = Role.Button
+                                    stateDescription = activeSortLabel
+                                },
                                 style = TitleActionStyle.Accent
                             )
                         }
                     }
-
+                    TitleAction(
+                        icon = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.add),
+                        onClick = onAddSource,
+                        style = TitleActionStyle.Accent
+                    )
+                }
+                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                     AnimatedVisibility(
                         visible = search.visible,
                         enter = Animations.expandFadeEnter,
@@ -303,17 +308,18 @@ fun BundleManagementSheet(
                     Spacer(Modifier.height(8.dp))
                 }
 
-                // Bundle cards
+                // Bundle cards. The navigation bar inset goes on the box, so the scrollbar and the
+                // scroll-to-top button above the list stop short of it along with the list
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f, fill = false)
+                        .navigationBarsPadding()
                 ) {
                     LazyColumn(
                         state = listState,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .navigationBarsPadding()
                             .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top },
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         contentPadding = PaddingValues(
@@ -362,6 +368,8 @@ fun BundleManagementSheet(
                                 BundleManagementCard(
                                     bundle = bundle,
                                     patchCount = patchCounts[bundle.uid] ?: 0,
+                                    patchMatchCount = patchMatchCounts[bundle.uid],
+                                    appCount = appCounts[bundle.uid] ?: (0 to 0),
                                     updateInfo = manualUpdateInfo[bundle.uid],
                                     isUpdating = bundle.uid in activeUpdateUids,
                                     metadataFetchError = metadataFetchErrors[bundle.uid],
@@ -405,6 +413,7 @@ fun BundleManagementSheet(
                                     hasExperimentalVersions = hasExperimentalVersions,
                                     useExperimentalVersions = useExperimentalVersions,
                                     onPatchesClick = { bundleToShowPatches.value = bundle },
+                                    onAppsClick = { bundleToShowApps.value = bundle },
                                     onOutdatedManagerClick = { bundleRequiringManagerUpdate = bundle },
                                     onVersionClick = {
                                         if (bundle is RemotePatchBundle) {
@@ -460,14 +469,10 @@ fun BundleManagementSheet(
                     ListScrollbar(
                         listState = listState,
                         alphabetTargets = sourceScrollTargets,
-                        alphabetMode = alphabetScrollMode,
-                        extraBottomPadding = SourceListScrollbarBottomInset
+                        alphabetMode = alphabetScrollMode
                     )
 
-                    ScrollToTopButton(
-                        listState = listState,
-                        extraBottomPadding = SourceListScrollbarBottomInset
-                    )
+                    ScrollToTopButton(listState = listState)
                 }
             }
         }
@@ -519,7 +524,15 @@ fun BundleManagementSheet(
     if (bundleToShowPatches.value != null) {
         BundlePatchesDialog(
             onDismissRequest = { bundleToShowPatches.value = null },
-            src = bundleToShowPatches.value!!
+            src = bundleToShowPatches.value!!,
+            initialQuery = search.query
+        )
+    }
+
+    bundleToShowApps.value?.let { src ->
+        SourceAppsDialog(
+            onDismissRequest = { bundleToShowApps.value = null },
+            src = src
         )
     }
 
@@ -533,14 +546,11 @@ fun BundleManagementSheet(
     }
 
     // Changelog dialog
-    if (bundleToShowChangelog != null) {
-        key(bundleToShowChangelogKey) {
-            BundleChangelogDialog(
-                src = bundleToShowChangelog,
-                onDismissRequest = { bundleToShowChangelogUid = null }
-            )
-        }
-    }
+    BundleChangelogHost(
+        request = bundleToShowChangelogUid?.let { BundleChangelogRequest(it) },
+        sources = sources,
+        onDismissRequest = { bundleToShowChangelogUid = null }
+    )
 }
 
 private fun List<PatchBundleSource>.sortedForSourceSort(
@@ -580,6 +590,10 @@ private fun List<PatchBundleSource>.sortedForSourceSort(
 private fun PatchBundleSource.sourceSortTitle(): String =
     displayTitle.lowercase(Locale.ROOT)
 
+/** Whether the source's own name answers to a search query, before its patches are consulted. */
+private fun PatchBundleSource.matchesQuery(query: String): Boolean =
+    displayTitle.contains(query, ignoreCase = true) || name.contains(query, ignoreCase = true)
+
 /**
  * Card for individual bundle management.
  */
@@ -589,6 +603,10 @@ private fun BundleManagementCard(
     bundle: PatchBundleSource,
     modifier: Modifier = Modifier,
     patchCount: Int,
+    /** Patches in this source matching the sheet's search, or null while nothing is searched. */
+    patchMatchCount: Int? = null,
+    /** Apps this source still brings, out of all it names. None named drops the row. */
+    appCount: Pair<Int, Int> = 0 to 0,
     updateInfo: PatchBundleRepository.ManualBundleUpdateInfo?,
     isUpdating: Boolean = false,
     isDragging: Boolean = false,
@@ -609,6 +627,7 @@ private fun BundleManagementCard(
     hasExperimentalVersions: Boolean,
     useExperimentalVersions: Boolean,
     onPatchesClick: () -> Unit,
+    onAppsClick: () -> Unit = {},
     onVersionClick: () -> Unit,
     onOpenInBrowser: () -> Unit,
     onReportIssue: () -> Unit,
@@ -622,12 +641,7 @@ private fun BundleManagementCard(
     val disabledState = stringResource(R.string.disabled)
     val openInBrowser = stringResource(R.string.sources_management_open_in_browser)
     val reportIssue = stringResource(R.string.sources_management_report_issue)
-
-    val context = LocalContext.current
-    fun withToast(doneMessage: String, action: () -> Unit): () -> Unit = {
-        context.toast(doneMessage)
-        action()
-    }
+    val patchesLabel = stringResource(R.string.patches)
 
     val isBlocked = blockedInfo != null
     val isEnabled = bundle.enabled && !isBlocked
@@ -705,6 +719,8 @@ private fun BundleManagementCard(
                     enabled = isEnabled,
                     metadataFetchError = metadataFetchError,
                     blockedInfo = blockedInfo,
+                    patchMatchCount = patchMatchCount,
+                    onShowPatchMatches = onPatchesClick,
                     modifier = longPressModifier
                         .clickable(
                             indication = null,
@@ -718,6 +734,12 @@ private fun BundleManagementCard(
                                 stateDescription = if (expanded) expandedState else collapsedState
                             }
                             this.contentDescription = contentDesc
+                            // The match badge is a tap target the merged node swallows otherwise
+                            if (patchMatchCount != null) {
+                                customActions = listOf(
+                                    CustomAccessibilityAction(patchesLabel) { onPatchesClick(); true }
+                                )
+                            }
                         }
                 )
 
@@ -768,6 +790,20 @@ private fun BundleManagementCard(
                                 )
                             }
 
+                            // Held back hint (shown when reading the source killed the process)
+                            AnimatedVisibility(
+                                visible = bundle.isHeldBack,
+                                enter = Animations.expandFadeEnter,
+                                exit = Animations.shrinkFadeExit
+                            ) {
+                                Notice(
+                                    text = stringResource(R.string.sources_management_held_back_hint),
+                                    icon = Icons.Outlined.ErrorOutline,
+                                    tone = SemanticTone.Error,
+                                    density = NoticeDensity.Compact
+                                )
+                            }
+
                             // Outdated manager hint
                             AnimatedVisibility(
                                 visible = bundle.requiresManagerUpdate,
@@ -800,9 +836,16 @@ private fun BundleManagementCard(
                             ),
                             icon = Icons.Outlined.Info,
                             title = stringResource(R.string.patches),
-                            value = patchCount.toString(),
+                            value = if (patchMatchCount != null) {
+                                "$patchMatchCount/$patchCount"
+                            } else {
+                                patchCount.toString()
+                            },
                             onClick = onPatchesClick,
-                            enabled = isEnabled && !isUpdating
+                            // A disabled source still lists what it holds, which is what the
+                            // decision to switch it back on is made on. A blocked one does not,
+                            // and neither does one whose patches never loaded
+                            enabled = !isBlocked && !isUpdating && patchCount > 0
                         )
 
                         // Version
@@ -820,6 +863,25 @@ private fun BundleManagementCard(
                             onClick = onVersionClick,
                             enabled = !isUpdating
                         )
+
+                        // Apps, for any source naming some. It is also the one way back from an
+                        // app kept from the source that does not depend on which mode the user
+                        // patches in
+                        val (offeredApps, listedApps) = appCount
+                        if (listedApps > 0) {
+                            BundleInfoCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                icon = Icons.Outlined.Apps,
+                                title = stringResource(R.string.sources_apps),
+                                value = if (offeredApps < listedApps) {
+                                    "$offeredApps/$listedApps"
+                                } else {
+                                    listedApps.toString()
+                                },
+                                onClick = onAppsClick,
+                                enabled = !isUpdating
+                            )
+                        }
 
                         // Both actions leave for the same repository, so they share a row.
                         // Only the primary one carries a label, keeping it clear of the
@@ -921,43 +983,35 @@ private fun BundleManagementCard(
                                     if (bundle.enabled) R.string.disable else R.string.enable
                                 )
                                 val disableEnableDesc = disableEnableVerb + " " + bundle.displayTitle
-                                val disableToast = stringResource(
+                                val disableDone = stringResource(
                                     if (bundle.enabled) R.string.sources_management_source_disabled
                                     else R.string.sources_management_source_enabled
                                 )
 
-                                val disableIcon = if (bundle.enabled)
-                                    Icons.Outlined.Block
-                                else
-                                    Icons.Outlined.CheckCircle
-
-                                Crossfade(
-                                    targetState = disableIcon,
-                                    label = "disable_icon"
-                                ) { icon ->
-                                    // Disable button
-                                    ActionPillButton(
-                                        onClick = withToast(disableToast, onDisable),
-                                        icon = icon,
-                                        contentDescription = disableEnableDesc,
-                                        tooltip = disableEnableVerb,
-                                        enabled = !isBlocked
-                                    )
-                                }
+                                // Disable button
+                                ActionPillButton(
+                                    onClick = onDisable,
+                                    icon = if (bundle.enabled) Icons.Outlined.Block else Icons.Outlined.CheckCircle,
+                                    contentDescription = disableEnableDesc,
+                                    tooltip = disableEnableVerb,
+                                    confirmation = disableDone,
+                                    enabled = !isBlocked
+                                )
                             }
 
                             val isLocal = bundle is LocalPatchBundle
                             if (bundle is RemotePatchBundle || isLocal) {
                                 val updateVerb = stringResource(R.string.update)
                                 val updateDesc = updateVerb + " " + bundle.displayTitle
-                                val updateToast = stringResource(R.string.sources_management_source_updating)
+                                val updateStarted = stringResource(R.string.sources_management_source_updating)
                                 // Update button. A local source has nothing to fetch from, so it asks
                                 // for a replacement file instead and reports progress once one is picked
                                 ActionPillButton(
-                                    onClick = if (isLocal) onUpdate else withToast(updateToast, onUpdate),
+                                    onClick = onUpdate,
                                     icon = Icons.Outlined.Refresh,
                                     contentDescription = updateDesc,
                                     tooltip = updateVerb,
+                                    confirmation = updateStarted.takeUnless { isLocal },
                                     enabled = !isBlocked
                                 )
                             }
@@ -981,10 +1035,7 @@ private fun BundleManagementCard(
                                     icon = Icons.Outlined.Delete,
                                     contentDescription = deleteDesc,
                                     tooltip = deleteVerb,
-                                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                                        contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                    )
+                                    colors = ActionPillColors.destructive()
                                 )
                             }
                         }
@@ -1005,6 +1056,8 @@ private fun BundleCardHeader(
     enabled: Boolean = true,
     metadataFetchError: Throwable? = null,
     blockedInfo: BlocklistRepository.BlockedEntry? = null,
+    patchMatchCount: Int? = null,
+    onShowPatchMatches: (() -> Unit)? = null,
 ) {
     val rotation by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
@@ -1096,6 +1149,22 @@ private fun BundleCardHeader(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
+                // What the search found inside the source leads, being the reason the card is on
+                // screen at all. It swaps in without an animation of its own, since the list
+                // behind it is already re-ordering on every keystroke
+                if (patchMatchCount != null) {
+                    StatusBadge(
+                        text = pluralStringResource(
+                            R.plurals.sources_search_patch_matches,
+                            patchMatchCount,
+                            patchMatchCount.toString()
+                        ),
+                        icon = Icons.Outlined.Search,
+                        tone = SemanticTone.Primary,
+                        onClick = onShowPatchMatches
+                    )
+                }
+
                 // Bundle type badge
                 BundleTypeBadge(bundle.sourceType)
 
@@ -1119,6 +1188,18 @@ private fun BundleCardHeader(
                 ) {
                     StatusBadge(
                         text = stringResource(R.string.sources_management_outdated_manager_badge),
+                        tone = SemanticTone.Error
+                    )
+                }
+
+                // Held back badge
+                AnimatedVisibility(
+                    visible = bundle.isHeldBack,
+                    enter = Animations.expandHorizFadeIn,
+                    exit = Animations.shrinkHorizFadeOut
+                ) {
+                    StatusBadge(
+                        text = stringResource(R.string.sources_management_held_back_badge),
                         tone = SemanticTone.Error
                     )
                 }
@@ -1179,6 +1260,31 @@ fun BundleTypeBadge(type: BundleSourceType) {
     StatusBadge(text = text)
 }
 
+/** Every source by uid, for what draws a source's icon or name from its uid alone. */
+@Composable
+internal fun rememberSourcesByUid(): Map<Int, PatchBundleSource> {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+    return remember(sources) { sources.associateBy { it.uid } }
+}
+
+/**
+ * Color a source's own dialogs head themselves with: its icon's, or the theme's accent where the
+ * icon has none. None for a source that is off, as its icon grays out.
+ */
+@Composable
+internal fun rememberSourceHeaderColor(bundle: PatchBundleSource): Color? {
+    val accent = rememberBundleAccent(bundle)
+    return if (bundle.enabled) accent ?: MaterialTheme.colorScheme.primary else null
+}
+
+/** The color [bundle]'s icon reads as, see [rememberSourceAccent]. */
+@Composable
+internal fun rememberBundleAccent(bundle: PatchBundleSource): Color? {
+    val avatarUrls = bundle.avatarUrls
+    return rememberSourceAccent(bundle.isDefault, avatarUrls.primary, avatarUrls.fallback)
+}
+
 @Composable
 fun BundleIcon(
     bundle: PatchBundleSource,
@@ -1213,21 +1319,7 @@ fun BundleIcon(
         color = animatedColor
     ) {
         when {
-            bundle.isDefault -> {
-                val context = LocalContext.current
-                Image(
-                    painter = rememberDrawablePainter(
-                        drawable = AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)
-                    ),
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                    modifier = modifier
-                        .graphicsLayer {
-                            scaleX = 1.5f
-                            scaleY = 1.5f
-                        }
-                )
-            }
+            bundle.isDefault -> MorpheLauncherLogo(modifier = Modifier.fillMaxSize())
 
             hasBundleError -> {
                 Icon(

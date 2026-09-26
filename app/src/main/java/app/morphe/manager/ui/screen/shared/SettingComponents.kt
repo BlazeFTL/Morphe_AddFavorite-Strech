@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -22,7 +21,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,7 +35,6 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -45,7 +42,6 @@ import app.morphe.manager.ui.screen.shared.Defaults.MinTouchTarget
 import app.morphe.manager.ui.screen.shared.Defaults.TallTouchTarget
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
-import app.morphe.manager.util.compositeOver
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.readableOn
 
@@ -56,6 +52,10 @@ object Defaults {
     val CompactCornerRadius = 12.dp
     val SettingsCornerRadius = 14.dp
     val SectionCornerRadius = 18.dp
+
+    /** Gap a surface rising from the bottom edge (a sheet or a panel) keeps from the sides of the screen. */
+    val SheetSideInset = 8.dp
+
     val IconSize = 24.dp
     val IconSizeSmall = 20.dp
 
@@ -83,6 +83,9 @@ object Defaults {
     /** Height of a dialog action button. Matches [TallTouchTarget]. */
     val DialogButtonHeight = TallTouchTarget
 
+    /** Width a centered content column stops at, so a bar under one lines up with its cards. */
+    val ContentMaxWidth = 560.dp
+
     val ContentPaddingSmall = 8.dp
     val ContentPadding = 16.dp
     val ContentPaddingMedium = 24.dp
@@ -103,6 +106,9 @@ object Defaults {
     // Dialog animation scale
     /** Initial/target scale for dialog enter/exit scale animation. */
     const val DIALOG_SCALE = 0.95f
+
+    /** Material's opacity for content that is present but out of reach. */
+    const val DISABLED_ALPHA = 0.38f
 }
 
 /**
@@ -344,66 +350,6 @@ fun StatusCircleIcon(
             modifier = Modifier.size(size * 0.6f),
             tint = tint
         )
-    }
-}
-
-/**
- * A settings row with a title, optional description, and import/export action buttons.
- */
-@Composable
-fun ImportExportRow(
-    leadingContent: @Composable () -> Unit,
-    title: String,
-    description: String? = null,
-    onImport: (() -> Unit)?,
-    onExport: (() -> Unit)?
-) {
-    val actions = buildList {
-        if (onImport != null) add(
-            CardAction(
-                icon = Icons.Outlined.Download,
-                label = stringResource(R.string.import_),
-                onClick = onImport
-            )
-        )
-        if (onExport != null) add(
-            CardAction(
-                icon = Icons.Outlined.Upload,
-                label = stringResource(R.string.export),
-                onClick = onExport
-            )
-        )
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(Defaults.ContentPadding),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            leadingContent()
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                if (description != null) {
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-        }
-        if (actions.isNotEmpty()) {
-            CardActionRow(actions = actions)
-        }
     }
 }
 
@@ -772,96 +718,6 @@ fun InfoStatBox(
                     textAlign = TextAlign.Center
                 )
             }
-        }
-    }
-}
-
-/**
- * Prominent hero-style header used at the top of dialogs and sections.
- *
- * [footer] is laid out below the header row inside the same surface, for cards that carry a
- * progress bar or similar trailing element. It deliberately sits before [subtitle] so that a
- * trailing lambda still binds to the subtitle, the way every caller already writes it.
- */
-@Composable
-fun HeroInfoCard(
-    icon: ImageVector,
-    title: String,
-    modifier: Modifier = Modifier,
-    containerColor: Color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-    iconContainerColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
-    iconTint: Color = MaterialTheme.colorScheme.primary,
-    titleColor: Color = LocalDialogTextColor.current,
-    footer: (@Composable ColumnScope.() -> Unit)? = null,
-    subtitle: (@Composable RowScope.() -> Unit)? = null
-) {
-    val surface = MaterialTheme.colorScheme.surface
-    val cardBackground = containerColor.compositeOver(surface)
-    val accentColor = iconTint.readableOn(containerColor, surface)
-    val iconColor = iconTint.readableOn(iconContainerColor, cardBackground)
-
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.SectionCornerRadius),
-        color = containerColor
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Defaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(14.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Surface(
-                    shape = CircleShape,
-                    color = iconContainerColor,
-                    modifier = Modifier.size(56.dp)
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = null,
-                            tint = iconColor,
-                            modifier = Modifier.size(28.dp)
-                        )
-                    }
-                }
-
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    AnimatedContent(
-                        targetState = title,
-                        transitionSpec = Animations.counterTransitionSpec,
-                        label = "heroTitle"
-                    ) { t ->
-                        Text(
-                            text = t,
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = titleColor,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                    if (subtitle != null) {
-                        CompositionLocalProvider(LocalContentColor provides accentColor) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                content = subtitle
-                            )
-                        }
-                    }
-                }
-            }
-
-            footer?.invoke(this)
         }
     }
 }

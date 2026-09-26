@@ -8,6 +8,18 @@
         <item quantity="one">%s yama seçeneği</item>
         <item quantity="other">%s yama seçeneği</item>
     </plurals>
+    <plurals name="home_app_patch_sources_title">
+        <item quantity="one">%s uygulama için yama kaynakları</item>
+        <item quantity="other">%s uygulama için yama kaynakları</item>
+    </plurals>
+    <plurals name="expert_mode_hidden_sources_notice">
+        <item quantity="one">%s kaynak gizlendi. Göstermek için dokunun</item>
+        <item quantity="other">%s kaynak gizlendi. Göstermek için dokunun</item>
+    </plurals>
+    <plurals name="sources_search_patch_matches">
+        <item quantity="one">%s eşleşen yama</item>
+        <item quantity="other">%s eşleşen yamalar</item>
+    </plurals>
     <plurals name="source_count">
         <item quantity="one">%s kaynak</item>
         <item quantity="other">%s kaynak</item>
@@ -45,8 +57,8 @@
         <item quantity="other">%s uygulama yamalanmaya hazır</item>
     </plurals>
     <plurals name="repatch_available_count">
-        <item quantity="one">%s uygulaması yeniden yamalanabilir</item>
-        <item quantity="other">%s uygulamaları yeniden yamalanabilir</item>
+        <item quantity="one">%s uygulama yeniden yamalanabilir</item>
+        <item quantity="other">%s uygulama yeniden yamalanabilir</item>
     </plurals>
     <plurals name="batch_skipped_summary">
         <item quantity="one">%s uygulama atlandı</item>
@@ -68,8 +80,16 @@
         <item quantity="one">%s uygulama</item>
         <item quantity="other">%s uygulama</item>
     </plurals>
+    <plurals name="expert_mode_selected_count">
+        <item quantity="one">%s seçili</item>
+        <item quantity="other">%s seçili</item>
+    </plurals>
     <plurals name="expert_mode_copy_from_bundle_done">
         <item quantity="one">Seçili bundle\'dan %s yama kopyalandı</item>
         <item quantity="other">Seçili bundle\'dan %s yama kopyalandı</item>
+    </plurals>
+    <plurals name="core_count">
+        <item quantity="one">%s çekirdek</item>
+        <item quantity="other">%s çekirdek</item>
     </plurals>
 </resources>

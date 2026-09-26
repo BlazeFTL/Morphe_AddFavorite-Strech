@@ -9,7 +9,6 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.provider.OpenableColumns
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -25,8 +24,8 @@ import app.morphe.manager.domain.apk.LocalApkSources
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.bundles.AppVersionCatalog
-import app.morphe.manager.domain.bundles.BundleRecommendation
 import app.morphe.manager.domain.bundles.BundledAppTarget
+import app.morphe.manager.domain.bundles.patchableBy
 import app.morphe.manager.domain.manager.DownloadUrlResolver
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
@@ -34,11 +33,15 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchSelectionRepository
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.ui.model.ApkDownloadHelperHost
-import app.morphe.manager.ui.model.toHelperFileType
+import app.morphe.manager.ui.model.PostPatchPrompts
+import app.morphe.manager.ui.model.createApkDownloadHelperRequest
+import app.morphe.manager.ui.model.helperSignatureCheckAvailable
+import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnableHoldsUniversal
 import app.morphe.manager.util.PatchSelectionUtils.bulkEnablePatches
+import app.morphe.manager.util.PatchSelectionUtils.mergeBundleOptions
 import app.morphe.manager.util.PatchSelectionUtils.resetOptionsForPatch
 import app.morphe.manager.util.PatchSelectionUtils.spansMultipleBundles
 import app.morphe.manager.util.PatchSelectionUtils.togglePatch
@@ -64,6 +67,11 @@ import java.io.File
  */
 class BatchPatchEdit(
     val itemId: String,
+    /** Key this item saves its patches and options under, and the one a copy excludes itself by. */
+    val configurationKey: String,
+    /** The app's own package, which a clone's [configurationKey] is not. */
+    val packageName: String,
+    val appName: String,
     val bundles: List<PatchBundleInfo.Scoped>,
     val savedSelection: PatchSelection,
     val newPatches: Map<Int, Set<String>>,
@@ -180,6 +188,15 @@ class BatchPatchEdit(
         options = options.resetOptionsForPatch(bundleUid, patchName)
     }
 
+    /** Patch schema of [bundleUid], which a copied selection is filtered against. */
+    fun patchesOf(bundleUid: Int) = patchesByName[bundleUid].orEmpty()
+
+    /** Replaces the selection of [bundleUid] with one copied from another bundle. */
+    fun applyCopy(bundleUid: Int, copied: CopiedSelection) {
+        replaceBundle(bundleUid, copied.patches)
+        options = options.mergeBundleOptions(bundleUid, copied.options)
+    }
+
     private fun replaceBundle(bundleUid: Int, patches: Set<String>) {
         selection = selection.withBundle(bundleUid, patches).applyItemAvailability()
     }
@@ -211,6 +228,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
 
     val state = coordinator.state
 
+    /** Notification and tour prompts raised once the queue installs or saves an app. */
+    val postPatchPrompts = PostPatchPrompts(app, prefs, viewModelScope)
+
     /** Package the attach-APK picker was opened for, null when no picker is pending. */
     var attachTarget: String? by mutableStateOf(null)
         private set
@@ -224,7 +244,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val current = state.value
         if (current != null) {
             if (current.phase == BatchPhase.PLANNING || current.phase == BatchPhase.RUNNING) return
-            if (current.items.map { it.target } == targets) return
+            if (current.targets == targets) return
             coordinator.clear()
         }
         coordinator.plan(targets, useMount, BatchInstallPolicy.SAVE_ONLY)
@@ -242,10 +262,11 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val item: BatchPatchItem,
         val recommended: AppTarget?,
         val compatible: List<BundledAppTarget>,
-        val recommendedByBundle: Map<Int, BundleRecommendation>,
         val saved: SavedApkInfo?,
         val installed: InstalledApkInfo?,
-        val installedOnDevice: Boolean,
+        /** The unpatched version on the device, even where [installed] is no source to patch from. */
+        val installedVersion: String?,
+        val hasStockInstall: Boolean,
         val selectedVersion: AppTarget?
     )
 
@@ -255,18 +276,22 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     fun beginApkChoice(item: BatchPatchItem) {
         viewModelScope.launch {
             val recommended = versionCatalog.recommendedVersions.first()[item.packageName]
-            val (onDevice, installed) = withContext(Dispatchers.IO) {
+            val compatible = versionCatalog.compatibleVersions.first()[item.packageName].orEmpty()
+            val expertMode = prefs.useExpertMode.get()
+            val device = withContext(Dispatchers.IO) {
                 localApkSources.installed(item.packageName)
             }
 
             apkChoice = ApkChoice(
                 item = item,
                 recommended = recommended,
-                compatible = versionCatalog.compatibleVersions.first()[item.packageName].orEmpty(),
-                recommendedByBundle = versionCatalog.recommendedVersionsByBundle.first()[item.packageName].orEmpty(),
+                compatible = compatible,
                 saved = withContext(Dispatchers.IO) { localApkSources.saved(item.packageName) },
-                installed = installed,
-                installedOnDevice = onDevice,
+                // The installed source is an expert-mode offer, and only for a version the
+                // patches target: the two conditions the single-app flow puts on the button
+                installed = device.apk.takeIf { expertMode }.patchableBy(compatible),
+                installedVersion = device.version,
+                hasStockInstall = device.hasStockInstall,
                 selectedVersion = recommended
             )
         }
@@ -356,11 +381,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     }
 
     override val helperSignatureCheckAvailable: Boolean
-        get() {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return false
-            val packageName = apkSearch?.item?.packageName ?: return false
-            return !patchBundleRepository.appMetadata.value[packageName]?.signatures.isNullOrEmpty()
-        }
+        get() = apkSearch?.let {
+            helperSignatureCheckAvailable(patchBundleRepository.appMetadata.value[it.item.packageName])
+        } == true
 
     /**
      * Build the request for an APK download helper, describing the original APK of the queued app
@@ -369,27 +392,15 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     override fun createApkDownloadHelperIntent(component: ComponentName): Intent? {
         val search = apkSearch ?: return null
         val packageName = search.item.packageName
-        val apkFileType = patchBundleRepository.appMetadata.value[packageName]?.apkFileType
 
-        val requestedVersionCodes = search.compatible
-            .filter { it.target.version == search.version }
-            .flatMap { it.buildCodes.orEmpty() }
-            .distinct()
-            .map(Int::toLong)
-            .toLongArray()
-
-        return ApkDownloadHelperContract.createRequestIntent(
+        return createApkDownloadHelperRequest(
             component = component,
             callerPackage = app.packageName,
             packageName = packageName,
             appName = search.item.appName,
             versionName = search.version,
-            versionCodes = requestedVersionCodes,
-            compatibleVersionNames = search.compatible.mapNotNull { it.target.version }.distinct(),
-            supportedAbis = Build.SUPPORTED_ABIS,
-            fileType = apkFileType?.toHelperFileType(),
-            // Mirrors the single-app request - only a required plain APK rules split archives out
-            allowSplitArchive = !(apkFileType?.isApk == true && apkFileType.isRequired),
+            compatible = search.compatible,
+            metadata = patchBundleRepository.appMetadata.value[packageName],
             stockInstallRequired = state.value?.useMount == true &&
                     search.item.source !is BatchApkSource.Installed,
             fallbackWebUrl = downloadUrlResolver.webSearchUrl(packageName, search.version)
@@ -427,6 +438,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
     var edit: BatchPatchEdit? by mutableStateOf(null)
         private set
 
+    /** Picker behind the copy-from-another-bundle action of the editor. */
+    val editCopy = CopySelectionController()
+
     /**
      * Opens the editor for [item], scoping the patch list to the exact APK version the queue
      * resolved so the user never sees patches that could not run against it anyway.
@@ -435,7 +449,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val source = item.source ?: return
         viewModelScope.launch {
             val bundles = patchBundleRepository
-                .scopedBundleInfoFlow(item.packageName, source.version, source.versionCode)
+                .offeredBundleInfoFlow(item.packageName, source.version, source.versionCode)
                 .first()
                 .filter { it.enabled }
 
@@ -451,6 +465,9 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
 
             edit = BatchPatchEdit(
                 itemId = item.id,
+                configurationKey = item.configurationKey,
+                packageName = item.packageName,
+                appName = item.appName,
                 bundles = bundles,
                 savedSelection = item.selection,
                 newPatches = newPatches,
@@ -467,8 +484,39 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         }
     }
 
+    /** Opens the copy-from-another-bundle picker for [targetBundleUid] of the open editor. */
+    fun openEditCopyDialog(targetBundleUid: Int) {
+        val current = edit ?: return
+        editCopy.open(
+            scope = viewModelScope,
+            targetPackageName = current.configurationKey,
+            targetBundleUid = targetBundleUid,
+            targetPatchNames = current.patchesOf(targetBundleUid).keys
+        )
+    }
+
+    /**
+     * Applies a picked [candidate] to the open editor. Changes reach the plan only when the
+     * user confirms the editor, and the database only after the run itself.
+     */
+    fun applyEditCopy(candidate: CopySelectionCandidate) {
+        val current = edit ?: return
+        val targetBundleUid = editCopy.targetBundleUid ?: return
+
+        viewModelScope.launch {
+            val copied = editCopy.resolve(
+                candidate = candidate,
+                targetPatches = current.patchesOf(targetBundleUid)
+            ) ?: return@launch
+
+            current.applyCopy(targetBundleUid, copied)
+            editCopy.finish(copied.patches.size)
+        }
+    }
+
     fun cancelEdit() {
         edit = null
+        editCopy.close()
     }
 
     /**
@@ -498,6 +546,7 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
         val current = edit ?: return
         coordinator.updateSelection(current.itemId, current.selection, current.options)
         edit = null
+        editCopy.close()
     }
 
     /**

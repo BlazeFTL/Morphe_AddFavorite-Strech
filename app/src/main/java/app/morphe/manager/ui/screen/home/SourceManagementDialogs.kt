@@ -9,15 +9,12 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,12 +29,13 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -52,7 +50,9 @@ import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
+import app.morphe.manager.patcher.patch.appIconColorOf
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
 import compose.icons.FontAwesomeIcons
@@ -60,11 +60,12 @@ import compose.icons.fontawesomeicons.Brands
 import compose.icons.fontawesomeicons.brands.Github
 import compose.icons.fontawesomeicons.brands.Gitlab
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import org.koin.compose.koinInject
-import com.mikepenz.markdown.model.State as MarkdownRenderState
 
 private val ColorValid = Color(0xFF4CAF50)
 
@@ -74,8 +75,8 @@ private val ColorValid = Color(0xFF4CAF50)
 @Composable
 fun AddSourceDialog(
     onDismiss: () -> Unit,
-    onLocalSubmit: () -> Unit,
-    onRemoteSubmit: (url: String) -> Unit,
+    onLocalSubmit: (chooseApps: Boolean) -> Unit,
+    onRemoteSubmit: (url: String, chooseApps: Boolean) -> Unit,
     onLocalPick: () -> Unit,
     selectedLocalPath: String?,
     selectedLocalUri: Uri?,
@@ -83,6 +84,7 @@ fun AddSourceDialog(
 ) {
     var remoteUrl by rememberSaveable { mutableStateOf("") }
     var selectedTab by rememberSaveable { mutableIntStateOf(0) } // 0 = Remote, 1 = Local
+    var chooseApps by rememberSaveable { mutableStateOf(false) }
 
     val urlValidation = rememberUrlValidation(remoteUrl, onValidateUrl)
     val isRemoteValid = remoteUrl.isNotBlank() && urlValidation != FieldValidation.Invalid
@@ -132,8 +134,8 @@ fun AddSourceDialog(
                     primaryText = stringResource(R.string.add),
                     onPrimaryClick = {
                         when (selectedTab) {
-                            0 -> if (isRemoteValid) onRemoteSubmit(normalizeUrl(remoteUrl))
-                            1 -> if (isLocalValid) onLocalSubmit()
+                            0 -> if (isRemoteValid) onRemoteSubmit(normalizeUrl(remoteUrl), chooseApps)
+                            1 -> if (isLocalValid) onLocalSubmit(chooseApps)
                         }
                     },
                     primaryEnabled = if (selectedTab == 0) isRemoteValid else isLocalValid,
@@ -182,8 +184,35 @@ fun AddSourceDialog(
                     )
                 }
             }
+
+            // What a source holds is only known once it has loaded, so this asks now and the
+            // list opens then
+            ChooseAppsToggle(
+                checked = chooseApps,
+                onCheckedChange = { chooseApps = it }
+            )
         }
     }
+}
+
+/**
+ * Asks, while a source is being added, whether to open [SourceAppsDialog] once it has loaded.
+ */
+@Composable
+internal fun ChooseAppsToggle(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    SettingsSwitchItem(
+        checked = checked,
+        onToggle = { onCheckedChange(!checked) },
+        icon = Icons.Outlined.Apps,
+        title = stringResource(R.string.sources_dialog_choose_apps),
+        subtitle = stringResource(R.string.sources_dialog_choose_apps_description),
+        showBorder = true,
+        modifier = modifier
+    )
 }
 
 private enum class FieldValidation { Empty, Valid, Invalid }
@@ -482,478 +511,146 @@ fun RenameBundleDialog(
 }
 
 /**
- * Dialog displaying patches from a bundle with search field and chips.
+ * Dialog listing the patches of a source, one block per app they patch and the universal ones last.
+ *
+ * @param initialQuery Query to open filtered by, carried over from the search that found the source.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BundlePatchesDialog(
     onDismissRequest: () -> Unit,
-    src: PatchBundleSource
+    src: PatchBundleSource,
+    initialQuery: String = ""
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
+    val context = LocalContext.current
+    // Read across every source rather than the enabled ones alone: a disabled source is one the
+    // user is still deciding about, and what it holds is what that decision is made on
     val patches by remember(src.uid) {
-        patchBundleRepository.bundleInfoFlow.mapNotNull { it[src.uid]?.patches }
+        patchBundleRepository.allBundlesInfoFlow.mapNotNull { it[src.uid]?.patches }
     }.collectAsStateWithLifecycle(emptyList())
 
-    var searchQuery by remember { mutableStateOf("") }
-    var selectedPackages by remember { mutableStateOf(emptySet<String>()) }
-    val showFilterSheet = remember { mutableStateOf(false) }
+    val universalTitle = stringResource(R.string.expert_mode_universal_patches)
+    val sections = remember(patches, universalTitle) { patchesByApp(patches, universalTitle) }
+    val appCount = sections.count { it.packageName != null }
+    val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
 
-    val isLoading = patches.isEmpty()
-
-    // packageName -> display label (displayName ?: packageName)
-    val appLabels: Map<String, String> = remember(patches) {
-        patches
-            .flatMap { it.compatiblePackages.orEmpty() }
-            .distinctBy { it.packageName }
-            .mapNotNull { pkg ->
-                val name = pkg.packageName ?: return@mapNotNull null
-                name to (pkg.displayName ?: name)
-            }
-            .toMap()
-    }
-
-    val hasMultiplePackages = appLabels.size > 1
-
-    // Carries each patch's position in the unfiltered list: a bundle may declare several patches
-    // under one name and compatibility, so nothing derived from the patch itself is a unique key
-    val filteredPatches: List<IndexedValue<PatchInfo>> = remember(patches, searchQuery, selectedPackages) {
-        patches.withIndex()
-            .filter { (_, patch) ->
-                val packageMatch = selectedPackages.isEmpty() ||
-                        patch.compatiblePackages
-                            ?.any { it.packageName in selectedPackages } == true
-                val queryMatch = searchQuery.isBlank() ||
-                        patch.displayName.contains(searchQuery, ignoreCase = true) ||
-                        patch.description?.contains(searchQuery, ignoreCase = true) == true
-                packageMatch && queryMatch
-            }
-            .sortedBy { (_, patch) -> patch.displayName }
-    }
-
-    // Per-patch accent color: first non-null appIconColor across all compatible packages,
-    // converted from 0xRRGGBB to a full-opacity Compose Color. Null falls back to surfaceVariant.
-    val patchAccentColors: Map<String, Color> = remember(patches) {
-        patches.associate { patch ->
-            val rgb = patch.compatiblePackages
-                ?.firstNotNullOfOrNull { it.appIconColor }
-            patch.name to if (rgb != null) Color(rgb or (0xFF shl 24)) else Color.Unspecified
-        }
-    }
-
-    val isFiltering = searchQuery.isNotBlank() || selectedPackages.isNotEmpty()
-
-    AppDialog(
-        onDismissRequest = {
-            when {
-                searchQuery.isNotBlank() -> searchQuery = ""
-                selectedPackages.isNotEmpty() -> selectedPackages = emptySet()
-                else -> onDismissRequest()
+    PatchListDialog(
+        icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+        title = src.displayTitle,
+        subtitle = listOfNotNull(
+            pluralStringResource(R.plurals.patch_count, patches.size, patches.size.toString()),
+            pluralStringResource(R.plurals.home_category_app_count, appCount, appCount.toString())
+                .takeIf { appCount > 1 }
+        ).joinToString(" · "),
+        sections = sections,
+        isLoading = patches.isEmpty(),
+        saveStateKey = "bundle_${src.uid}",
+        onDismiss = onDismissRequest,
+        initialQuery = initialQuery,
+        accentColor = rememberSourceHeaderColor(src),
+        // The list is reachable while the source is off, so it says so up front rather than
+        // reading as patches that are ready to be applied
+        notice = if (src.enabled) null else {
+            {
+                Notice(
+                    text = stringResource(R.string.sources_patches_source_disabled_hint),
+                    icon = Icons.Outlined.VisibilityOff,
+                    tone = SemanticTone.Warning,
+                    density = NoticeDensity.Compact
+                )
             }
         },
-        title = null,
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismissRequest,
-                modifier = Modifier.fillMaxWidth()
+        onExpertBadgeClick = { context.toast(expertBadgeTooltip) }
+    )
+}
+
+/**
+ * [patches] as one block per app, by name, then the universal ones. A patch for several apps joins
+ * the block of each, so every block holds all that its app can be patched with.
+ */
+private fun patchesByApp(patches: List<PatchInfo>, universalTitle: String): List<PatchListSection> {
+    val sorted = patches.sortedBy { it.displayName }
+    val (universal, specific) = sorted.partition { it.isUniversal }
+    val apps = specific
+        .flatMap { it.compatiblePackages.orEmpty() }
+        .filter { it.packageName != null }
+        .distinctBy { it.packageName }
+        .sortedBy { (it.displayName ?: it.packageName)?.lowercase() }
+
+    return buildList {
+        apps.forEach { app ->
+            val packageName = app.packageName ?: return@forEach
+            add(
+                PatchListSection(
+                    key = packageName,
+                    title = app.displayName ?: packageName,
+                    patches = specific.filter { patch ->
+                        patch.compatiblePackages?.any { it.packageName == packageName } == true
+                    },
+                    packageName = packageName,
+                    // Tinted after the app's own icon, so each block reads as that app at a glance
+                    accentColor = app.appIconColor?.let(::appIconColorOf),
+                    icon = { modifier ->
+                        AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
+                    }
+                )
             )
-        },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top
-    ) {
-        AnimatedContent(
-            targetState = isLoading,
-            transitionSpec = Animations.fadeCrossfade(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            label = "bundlePatches"
-        ) { loading ->
-            if (loading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    PulsingLogoIndicator()
-                }
-
-                return@AnimatedContent
-            }
-
-            val listState = rememberLazyListState()
-            var displayedPackages by remember { mutableStateOf(emptySet<String>()) }
-            LaunchedEffect(selectedPackages) {
-                if (selectedPackages.isNotEmpty()) displayedPackages = selectedPackages
-            }
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                PatchesListSearchRow(
-                    searchQuery = searchQuery,
-                    onSearchQueryChange = { searchQuery = it },
-                    showFilterButton = hasMultiplePackages,
-                    isFilterActive = selectedPackages.isNotEmpty(),
-                    onFilterClick = { showFilterSheet.value = true }
-                )
-
-                AnimatedVisibility(
-                    visible = selectedPackages.isNotEmpty(),
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        displayedPackages.forEach { pkg ->
-                            val label = appLabels[pkg] ?: pkg
-                            InputChip(
-                                selected = true,
-                                onClick = { selectedPackages = selectedPackages - pkg },
-                                label = { Text(label) },
-                                trailingIcon = {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Close,
-                                        contentDescription = stringResource(R.string.remove),
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                }
-                            )
-                        }
-                    }
-                }
-
-                Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                    LazyColumn(
-                        state = listState,
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-                    ) {
-                        // Bundle header
-                        item {
-                            PatchesListHeaderCard(
-                                title = src.displayTitle,
-                                totalCount = patches.size,
-                                filteredCount = filteredPatches.size,
-                                isFiltering = isFiltering
-                            )
-                        }
-
-                        if (filteredPatches.isEmpty()) {
-                            item(key = "empty_state") {
-                                PatchesListEmptyState(
-                                    modifier = Modifier.animateItem()
-                                )
-                            }
-                        }
-
-                        // Filtered patches list
-                        items(
-                            filteredPatches,
-                            key = { (index, _) -> index }
-                        ) { (_, patch) ->
-                            val context = LocalContext.current
-                            val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
-                            val accentColor = patchAccentColors[patch.name]
-                                ?.takeIf { it != Color.Unspecified }
-                            PatchItemCard(
-                                patch = patch,
-                                saveStateKey = "bundle_${src.uid}",
-                                onExpertBadgeClick = if (!patch.include) {
-                                    { context.toast(expertBadgeTooltip) }
-                                } else null,
-                                accentColor = accentColor,
-                                modifier = Modifier.animateItem(
-                                    fadeInSpec = tween(Defaults.ANIMATION_DURATION),
-                                    fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-                                    placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
-                                )
-                            )
-                        }
-                    }
-
-                    ListScrollbar(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
-
-                    ScrollToTopButton(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
-                }
-            }
         }
-    }
-
-    // App filter bottom sheet
-    if (showFilterSheet.value) {
-        AppBottomSheet(
-            onDismissRequest = { showFilterSheet.value = false }
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .navigationBarsPadding()
-                    .padding(horizontal = 16.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.filter),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                Spacer(Modifier.height(8.dp))
-
-                LazyColumn(Modifier.padding(bottom = 16.dp)) {
-                    item {
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            // "All" chip
-                            AppFilterChip(
-                                selected = selectedPackages.isEmpty(),
-                                onClick = { selectedPackages = emptySet() },
-                                label = stringResource(R.string.all),
-                                selectedIcon = Icons.Outlined.DoneAll
-                            )
-                            // Per-app chips
-                            appLabels.entries
-                                .sortedBy { it.value }
-                                .forEach { (pkg, label) ->
-                                    val isSelected = pkg in selectedPackages
-                                    AppFilterChip(
-                                        selected = isSelected,
-                                        onClick = {
-                                            selectedPackages = if (isSelected)
-                                                selectedPackages - pkg
-                                            else
-                                                selectedPackages + pkg
-                                        },
-                                        label = label
-                                    )
-                                }
-                        }
+        if (universal.isNotEmpty()) {
+            add(
+                PatchListSection(
+                    key = UNIVERSAL_GROUP_KEY,
+                    title = universalTitle,
+                    patches = universal,
+                    packageName = null,
+                    icon = { modifier ->
+                        Icon(
+                            imageVector = Icons.Outlined.Public,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = modifier
+                        )
                     }
-                }
-            }
+                )
+            )
         }
     }
 }
 
 /**
- * Patch item card.
+ * What a changelog dialog shows: the source it reads, the version "new" is measured from,
+ * and the scopes the entries are narrowed to.
  */
-@Composable
-fun PatchItemCard(
-    modifier: Modifier = Modifier,
-    patch: PatchInfo,
-    saveStateKey: String,
-    onExpertBadgeClick: (() -> Unit)? = null,
-    accentColor: Color? = null
-) {
-    val textColor = LocalDialogTextColor.current
-    val secondaryColor = LocalDialogSecondaryTextColor.current
-
-    var expandVersions by rememberSaveable(saveStateKey, patch.name, "versions") {
-        mutableStateOf(false)
-    }
-    var expandOptions by rememberSaveable(saveStateKey, patch.name, "options") {
-        mutableStateOf(false)
-    }
-
-    val rotationAngle by animateFloatAsState(
-        targetValue = if (expandOptions) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "expand_rotation"
-    )
-
-    val cardColor = rememberAccentCardColor(accentColor)
-
-    val effectiveCardColor = cardColor ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
-    // Card colors come from the app's own icon, so no fixed badge fill can be counted on to show
-    val cardBackground = effectiveCardColor.compositeOver(MaterialTheme.colorScheme.background)
-
-    SettingsItemCard(
-        onClick = if (!patch.options.isNullOrEmpty()) {
-            { expandOptions = !expandOptions }
-        } else null,
-        modifier = modifier,
-        borderWidth = 1.dp,
-        color = effectiveCardColor
-    ) {
-        CompositionLocalProvider(LocalCardBackground provides cardBackground) {
-            Column(
-                modifier = Modifier.padding(Defaults.ContentPadding),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            ) {
-                // Header
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = patch.displayName,
-                        color = textColor,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier.weight(1f)
-                    )
-
-                    if (!patch.options.isNullOrEmpty()) {
-                        ThemedIcon(
-                            icon = Icons.Outlined.ExpandMore,
-                            contentDescription = if (expandOptions)
-                                stringResource(R.string.collapse)
-                            else
-                                stringResource(R.string.expand),
-                            tint = secondaryColor,
-                            modifier = Modifier.rotate(rotationAngle)
-                        )
-                    }
-                }
-
-                // Description
-                patch.description?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = secondaryColor
-                    )
-                }
-
-                // Compatibility info
-                if (patch.isUniversal) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        StatusBadge(
-                            text = stringResource(R.string.sources_dialog_view_any_package),
-                            icon = Icons.Outlined.Apps
-                        )
-                        StatusBadge(
-                            text = stringResource(R.string.sources_dialog_view_any_version),
-                            icon = Icons.Outlined.Code
-                        )
-                    }
-                } else {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        patch.compatiblePackages.orEmpty().forEach { compatiblePackage ->
-                            val anyString = stringResource(R.string.any_version)
-                            val appName = compatiblePackage.displayName ?: compatiblePackage.packageName ?: anyString
-                            val versions = compatiblePackage.versions.orEmpty()
-
-                            FlowRow(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                StatusBadge(
-                                    text = appName,
-                                    icon = Icons.Outlined.Apps,
-                                    tone = SemanticTone.Primary,
-                                    modifier = Modifier.align(Alignment.CenterVertically)
-                                )
-
-                                if (versions.isNotEmpty()) {
-                                    val shownVersions =
-                                        if (expandVersions) versions else versions.take(1)
-                                    shownVersions.forEach { version ->
-                                        PatchVersionBadge(
-                                            version = version,
-                                            isExperimental = compatiblePackage.experimentalVersions
-                                                ?.contains(version) == true,
-                                            modifier = Modifier.align(Alignment.CenterVertically)
-                                        )
-                                    }
-
-                                    if (versions.size > 1) {
-                                        StatusBadge(
-                                            text = if (expandVersions)
-                                                stringResource(R.string.less)
-                                            else
-                                                "+${versions.size - 1}",
-                                            modifier = Modifier.align(Alignment.CenterVertically),
-                                            onClick = { expandVersions = !expandVersions }
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Expert badge - shown only for patches that are disabled by default
-                if (!patch.include && onExpertBadgeClick != null) {
-                    StatusBadge(
-                        text = stringResource(R.string.sources_patch_expert_badge),
-                        icon = Icons.Outlined.Lock,
-                        tone = SemanticTone.Warning,
-                        onClick = onExpertBadgeClick
-                    )
-                }
-
-                // Options
-                if (!patch.options.isNullOrEmpty()) {
-                    AnimatedVisibility(
-                        visible = expandOptions,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(top = 4.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            patch.options.forEach { option ->
-                                Surface(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                ) {
-                                    Column(
-                                        modifier = Modifier.padding(12.dp),
-                                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                                    ) {
-                                        Text(
-                                            text = option.title,
-                                            style = MaterialTheme.typography.titleSmall,
-                                            fontWeight = FontWeight.SemiBold,
-                                            color = textColor
-                                        )
-                                        Text(
-                                            text = option.description,
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = secondaryColor
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+data class BundleChangelogRequest(
+    val bundleUid: Int,
+    val sinceVersion: String? = null,
+    val appNames: Set<String> = emptySet()
+)
 
 /**
- * One version a patch declares support for, tagged the way every version list tags it.
+ * Hosts [BundleChangelogDialog] for the source a [request] names, so every entry point opens
+ * it the same way. A missing source, deleted under an open dialog included, shows nothing.
  */
 @Composable
-private fun PatchVersionBadge(
-    version: String,
-    isExperimental: Boolean,
-    modifier: Modifier = Modifier
+fun BundleChangelogHost(
+    request: BundleChangelogRequest?,
+    sources: List<PatchBundleSource>,
+    onDismissRequest: () -> Unit
 ) {
-    StatusBadge(
-        modifier = modifier,
-        text = version,
-        icon = if (isExperimental) VersionTag.Experimental.icon else Icons.Outlined.Code,
-        tone = if (isExperimental) VersionTag.Experimental.tone else SemanticTone.Neutral
-    )
+    if (request == null) return
+    val bundle = sources.filterIsInstance<RemotePatchBundle>()
+        .find { it.uid == request.bundleUid } ?: return
+
+    // The notes are read against the version installed when the dialog opened, so only another
+    // request starts the fetch over: an update landing underneath must not reset it
+    key(request) {
+        BundleChangelogDialog(
+            src = bundle,
+            onDismissRequest = onDismissRequest,
+            sinceVersion = request.sinceVersion,
+            appNames = request.appNames
+        )
+    }
 }
 
 /**
@@ -961,6 +658,8 @@ private fun PatchVersionBadge(
  *
  * Prerelease channel: entries from the last stable release onwards.
  * Stable: entries newer than the installed version, plus the installed version itself.
+ * A [sinceVersion] replaces both baselines with the caller's own, and [appNames] narrows
+ * every entry to the bullets scoped to one app.
  *
  * Fetched once and cached; cache invalidated on channel switch.
  * Falls back to GitHub Release info if CHANGELOG.md is unavailable.
@@ -968,10 +667,13 @@ private fun PatchVersionBadge(
 @Composable
 fun BundleChangelogDialog(
     src: RemotePatchBundle,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    sinceVersion: String? = null,
+    appNames: Set<String> = emptySet()
 ) {
+    val generalChangesHeading = stringResource(R.string.changelog_general_changes)
     var state: BundleChangelogState by remember { mutableStateOf(BundleChangelogState.Loading) }
-    var olderState: OlderBundleState by remember { mutableStateOf(OlderBundleState.Collapsed) }
+    var olderState: OlderBundleState by remember { mutableStateOf(OlderBundleState.Idle) }
     val scope = rememberCoroutineScope()
     // 0 = waiting for dialog enter; incremented to trigger fetch, again on retry
     var fetchTrigger by remember { mutableIntStateOf(0) }
@@ -985,23 +687,32 @@ fun BundleChangelogDialog(
 
                 val allEntries = src.fetchChangelogEntries(sinceVersion = null)
 
-                val entries = if (usePrerelease) {
-                    // Prerelease: from the last stable release onwards
-                    val lastStable = allEntries.firstOrNull { !it.version.contains("-") }
-                    if (lastStable != null)
-                        ChangelogParser.entriesNewerThan(allEntries, lastStable.version) + lastStable
-                    else allEntries.take(30)
-                } else {
-                    // Stable: from the installed version onwards
-                    val installed = src.installedVersionSignature
-                    val installedEntry = installed?.let {
-                        ChangelogParser.findVersion(allEntries, it)
+                val shownEntries = when {
+                    // A caller's baseline asks what changed since it, not including it
+                    sinceVersion != null ->
+                        ChangelogParser.entriesNewerThan(allEntries, sinceVersion)
+
+                    usePrerelease -> {
+                        // Prerelease: from the last stable release onwards
+                        val lastStable = allEntries.firstOrNull { !it.version.contains("-") }
+                        if (lastStable != null)
+                            ChangelogParser.entriesNewerThan(allEntries, lastStable.version) + lastStable
+                        else allEntries.take(30)
                     }
-                    val newer = if (installed != null)
-                        ChangelogParser.entriesNewerThan(allEntries, installed)
-                    else allEntries
-                    if (installedEntry != null) newer + installedEntry else newer
+
+                    else -> {
+                        // Stable: from the installed version onwards
+                        val installed = src.installedVersionSignature
+                        val installedEntry = installed?.let {
+                            ChangelogParser.findVersion(allEntries, it)
+                        }
+                        val newer = if (installed != null)
+                            ChangelogParser.entriesNewerThan(allEntries, installed)
+                        else allEntries
+                        if (installedEntry != null) newer + installedEntry else newer
+                    }
                 }
+                val entries = ChangelogParser.entriesFor(shownEntries, appNames, generalChangesHeading)
 
                 // APIPatchBundle has endpoint="api" - use SOURCE_REPO_URL directly
                 val repoUrl = when (src) {
@@ -1012,10 +723,9 @@ fun BundleChangelogDialog(
                     repoUrl?.let { releasePageUrl(it, version) }
                 }
 
-                if (entries.isNotEmpty()) {
+                if (entries.isNotEmpty() || appNames.isNotEmpty()) {
                     BundleChangelogState.Entries(
                         entries = entries,
-                        parsedMarkdown = preParseChangelogEntries(entries),
                         latestPageUrl = latestPageUrl
                     )
                 } else {
@@ -1030,7 +740,6 @@ fun BundleChangelogDialog(
                     )
                     BundleChangelogState.Entries(
                         entries = fallbackEntries,
-                        parsedMarkdown = preParseChangelogEntries(fallbackEntries),
                         latestPageUrl = asset.pageUrl
                     )
                 }
@@ -1041,7 +750,7 @@ fun BundleChangelogDialog(
     }
 
     val loadOlder: () -> Unit = load@{
-        if (olderState !is OlderBundleState.Collapsed) return@load
+        if (olderState is OlderBundleState.Loading || olderState is OlderBundleState.Loaded) return@load
         val shownVersions = (state as? BundleChangelogState.Entries)
             ?.entries
             ?.map { it.version.removePrefix("v").trim() }
@@ -1058,14 +767,23 @@ fun BundleChangelogDialog(
                         it.version.removePrefix("v").trim() !in shownVersions
                                 && !it.version.contains("-")
                     }
-                    OlderBundleState.Loaded(filtered)
+                    OlderBundleState.Loaded(
+                        ChangelogParser.entriesFor(filtered, appNames, generalChangesHeading)
+                    )
                 }.getOrElse {
-                    // Surface failure as collapsed so a retry click re-triggers the fetch
-                    OlderBundleState.Collapsed
+                    // Kept apart from Idle, so the list waits for a retry instead of loading again
+                    OlderBundleState.Failed
                 }
             }
         }
     }
+
+    val older = OlderReleases(
+        entries = (olderState as? OlderBundleState.Loaded)?.entries,
+        isLoading = olderState is OlderBundleState.Loading,
+        isFailed = olderState is OlderBundleState.Failed,
+        onLoad = loadOlder
+    )
 
     AppDialog(
         onDismissRequest = onDismissRequest,
@@ -1073,24 +791,26 @@ fun BundleChangelogDialog(
         // is always visible first, even when data is cached and would resolve instantly
         onEntered = { if (fetchTrigger == 0) fetchTrigger = 1 },
         scrollable = false,
-        title = when (state) {
-            is BundleChangelogState.Entries -> null
-            is BundleChangelogState.Error -> stringResource(R.string.changelog)
-            BundleChangelogState.Loading -> stringResource(R.string.changelog)
-        },
+        // The timeline gives up its leading edge to the rail, so the list takes the wider layout.
+        // The header holds the top, and an error sits centered in the room below it
+        padding = DialogPadding.Compact,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
         footer = {
             when (val current = state) {
                 is BundleChangelogState.Entries -> {
-                    AppDialogActions(
-                        actions = listOfNotNull(
-                            changelogAction(current.latestPageUrl),
+                    // An empty changelog has nothing to translate
+                    val hasList = current.entries.isNotEmpty()
+                    ChangelogFooter(
+                        actions = listOf(
                             DialogAction(
                                 text = stringResource(R.string.close),
                                 onClick = onDismissRequest,
                                 emphasis = DialogActionEmphasis.Outlined
                             )
                         ),
-                        layout = DialogButtonLayout.Vertical
+                        translatable = hasList,
+                        pageUrl = current.latestPageUrl
                     )
                 }
                 is BundleChangelogState.Error -> {
@@ -1119,32 +839,45 @@ fun BundleChangelogDialog(
             }
         }
     ) {
+        // Releases show only their versions, so the header names whose they are, and which app
+        // they were narrowed to. It stays the same through loading, so nothing shifts once the
+        // entries arrive
+        ListDialogHeader(
+            icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+            title = src.displayTitle,
+            subtitle = appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
+                ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty(),
+            accentColor = rememberSourceHeaderColor(src)
+        )
+
         BundleChangelogContent(
             state = state,
-            olderState = olderState,
-            onExpandOlder = loadOlder
+            installedVersion = src.installedVersionSignature,
+            older = older,
+            modifier = Modifier.weight(1f)
         )
     }
 
-    Overlay(visible = olderState is OlderBundleState.Loading) {
-        PulsingLogoWithCaption(caption = stringResource(R.string.loading_older_releases))
-    }
+    TranslationOverlays()
 }
 
 @Composable
 private fun BundleChangelogContent(
     state: BundleChangelogState,
-    olderState: OlderBundleState,
-    onExpandOlder: () -> Unit,
+    installedVersion: String?,
+    older: OlderReleases,
+    modifier: Modifier = Modifier
 ) {
     Crossfade(
         targetState = state,
         animationSpec = tween(Defaults.ANIMATION_DURATION),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         label = "changelog_state"
     ) { current ->
         when (current) {
-            BundleChangelogState.Loading -> ChangelogSectionLoading()
+            BundleChangelogState.Loading -> ChangelogListLoading(
+                modifier = Modifier.padding(top = Defaults.ItemSpacing)
+            )
             is BundleChangelogState.Error -> BundleChangelogError(error = current.throwable)
             is BundleChangelogState.Entries -> {
                 if (current.entries.isEmpty()) {
@@ -1152,48 +885,20 @@ private fun BundleChangelogContent(
                         text = stringResource(R.string.changelog_empty),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = Defaults.ItemSpacing)
                     )
                 } else {
-                    val listState = rememberLazyListState()
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        LazyColumn(
-                            state = listState,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            itemsIndexed(current.entries) { index, entry ->
-                                if (index > 0) {
-                                    HorizontalDivider(
-                                        modifier = Modifier.padding(
-                                            top = Defaults.ContentPaddingSmall,
-                                            bottom = Defaults.ContentPadding
-                                        ),
-                                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
-                                    )
-                                }
-                                ChangelogEntrySection(
-                                    entry = entry,
-                                    headerIcon = Icons.Outlined.History,
-                                    precomputedMarkdown = current.parsedMarkdown.getOrNull(index)
-                                )
-                            }
-                            changelogOlderItems(
-                                entries = (olderState as? OlderBundleState.Loaded)?.entries,
-                                isLoading = olderState is OlderBundleState.Loading,
-                                onExpand = onExpandOlder
-                            )
-                        }
-
-                        ListScrollbar(
-                            listState = listState,
-                            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                        )
-
-                        ScrollToTopButton(
-                            listState = listState,
-                            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                        )
-                    }
+                    ChangelogList(
+                        entries = current.entries,
+                        older = older,
+                        currentVersion = installedVersion,
+                        // The gap under the header is the list's own, so releases scroll up to its edge
+                        contentPadding = PaddingValues(top = Defaults.ItemSpacing),
+                        // The version a source holds is the one it patches with, nothing on the device
+                        currentBadge = ChangelogBadge.IN_USE
+                    )
                 }
             }
         }
@@ -1206,7 +911,7 @@ private fun BundleChangelogError(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(vertical = 48.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -1249,15 +954,15 @@ private sealed interface BundleChangelogState {
     /** [entries] are already filtered to "missed" versions, newest-first. */
     data class Entries(
         val entries: List<ChangelogEntry>,
-        val parsedMarkdown: List<MarkdownRenderState?>,
         val latestPageUrl: String?
     ) : BundleChangelogState
     data class Error(val throwable: Throwable) : BundleChangelogState
 }
 
 private sealed interface OlderBundleState {
-    data object Collapsed : OlderBundleState
+    data object Idle : OlderBundleState
     data object Loading : OlderBundleState
+    data object Failed : OlderBundleState
     /** [entries] are full-history stable entries, already filtered to exclude what's shown above. */
     data class Loaded(val entries: List<ChangelogEntry>) : OlderBundleState
 }
@@ -1284,5 +989,220 @@ private fun normalizeUrl(url: String): String {
 
         // Add https:// by default
         else -> "https://$trimmed"
+    }
+}
+
+/**
+ * Which of the apps a source brings the user wants from it.
+ *
+ * A source with hundreds of apps is usually added for one or two of them. An app left out here is
+ * kept from this source, the same exclusion the per-app source choice records: the source is no
+ * longer offered when the app is patched, and no longer brings it to the home screen. An app
+ * another source still brings stays there.
+ *
+ * Laid out like the hidden apps list: a tap answers for one app, and a long press picks several
+ * for the bar to answer at once, so the few wanted out of hundreds take a select all and a few taps.
+ */
+@Composable
+fun SourceAppsDialog(
+    onDismissRequest: () -> Unit,
+    src: PatchBundleSource
+) {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val sourceMuteRepository: SourceMuteRepository = koinInject()
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val itemSpacing = rememberWindowSize().itemSpacing
+
+    // Every source, so a disabled one still lists what it would bring once switched back on
+    val bundleInfo by patchBundleRepository.allBundlesInfoFlow.collectAsStateWithLifecycle(emptyMap())
+    val appMetadata by patchBundleRepository.allAppMetadata.collectAsStateWithLifecycle()
+    val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
+
+    val apps = remember(bundleInfo, appMetadata, src.uid) {
+        bundleInfo[src.uid]?.listedApps().orEmpty()
+            .map { packageName -> packageName to (appMetadata[packageName]?.displayName ?: packageName) }
+            .sortedBy { (_, label) -> label.lowercase(Locale.ROOT) }
+    }
+
+    val search = rememberSearchFieldState(searchable = apps.size > 1)
+    val filtered = remember(apps, search.query) {
+        if (search.query.isBlank()) apps
+        else apps.filter { (packageName, label) ->
+            label.contains(search.query, ignoreCase = true) ||
+                    packageName.contains(search.query, ignoreCase = true)
+        }
+    }
+
+    var isMultiSelectMode by remember { mutableStateOf(false) }
+    val selection = rememberSelectionState<String>()
+    fun exitMultiSelect() {
+        isMultiSelectMode = false
+        selection.clear()
+    }
+
+    // Written in full even if the dialog is gone before it finishes, so a list never lands half
+    // applied
+    fun bring(packageNames: Collection<String>, brought: Boolean) {
+        scope.launch {
+            withContext(NonCancellable) {
+                if (brought) sourceMuteRepository.unmuteApps(src.uid, packageNames)
+                else sourceMuteRepository.muteApps(src.uid, packageNames)
+            }
+        }
+    }
+
+    AppDialog(
+        onDismissRequest = onDismissRequest,
+        dismissOnClickOutside = !isMultiSelectMode,
+        footer = {
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.close),
+                onClick = onDismissRequest,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        bottomBar = if (isMultiSelectMode) {
+            {
+                MultiSelectShell(visible = true, onBack = ::exitMultiSelect) {
+                    SelectionActionBar(
+                        selectedCount = selection.size,
+                        // Scoped to the search so "select all" never reaches apps out of view
+                        totalCount = filtered.size,
+                        onSelectAll = { selection.setAll(filtered.map { (packageName, _) -> packageName }) },
+                        onDeselectAll = { selection.clear() },
+                        actions = listOf(
+                            SelectionAction(
+                                icon = Icons.Outlined.VisibilityOff,
+                                label = stringResource(R.string.sources_apps_leave_out),
+                                onClick = context.withToast(stringResource(R.string.sources_apps_leave_out_done)) {
+                                    bring(selection.keys.toList(), brought = false)
+                                    exitMultiSelect()
+                                },
+                                tone = ActionTone.Destructive
+                            ),
+                            SelectionAction(
+                                icon = Icons.Outlined.Visibility,
+                                label = stringResource(R.string.sources_apps_bring_back),
+                                onClick = {
+                                    bring(selection.keys.toList(), brought = true)
+                                    exitMultiSelect()
+                                },
+                                tone = ActionTone.Tertiary
+                            )
+                        ),
+                        onCancel = ::exitMultiSelect
+                    )
+                }
+            }
+        } else null,
+        padding = DialogPadding.Compact,
+        scrollable = false,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
+        hideFooterWhileTyping = true
+    ) {
+        SearchFieldBackHandler(search)
+
+        // Headed by the source, as its patches are
+        ListDialogHeader(
+            icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+            title = src.displayTitle,
+            subtitle = pluralStringResource(R.plurals.home_category_app_count, apps.size, apps.size.toString()),
+            search = search,
+            searchLabel = stringResource(R.string.home_search_apps),
+            // A lone app leaves nothing to search through
+            searchEnabled = apps.size > 1,
+            accentColor = rememberSourceHeaderColor(src),
+            modifier = Modifier.padding(bottom = Defaults.ItemSpacing)
+        )
+
+        Text(
+            text = stringResource(R.string.sources_apps_description),
+            style = MaterialTheme.typography.bodyMedium,
+            color = LocalDialogSecondaryTextColor.current,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = Defaults.ContentPaddingSmall)
+        )
+
+        val listState = rememberLazyListState()
+        Box(modifier = Modifier.fillMaxWidth()) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(itemSpacing)
+            ) {
+                stickyHeader(key = "search") {
+                    AppDialogSearchHeader(
+                        visible = search.visible,
+                        value = search.query,
+                        onValueChange = { search.query = it },
+                        label = stringResource(R.string.home_search_apps)
+                    )
+                }
+
+                if (filtered.isEmpty() && search.query.isNotBlank()) {
+                    item(key = "empty_state") {
+                        EmptyState(
+                            message = stringResource(R.string.search_no_results),
+                            icon = Icons.Outlined.SearchOff,
+                            modifier = Modifier.animateItem()
+                        )
+                    }
+                }
+
+                items(items = filtered, key = { (packageName, _) -> packageName }) { (packageName, label) ->
+                    val brought = src.uid !in keptFrom[packageName].orEmpty()
+                    val gradientColors = appMetadata[packageName]?.gradientColors
+                        ?: AppCardColorDefaults.defaultGradientColors
+
+                    SelectableCard(
+                        modifier = Modifier
+                            .animatedListItem(this)
+                            // An app left out reads as one this source no longer brings, the
+                            // same way the selection dims what it leaves unpicked
+                            .alpha(if (brought || isMultiSelectMode) 1f else 0.55f),
+                        isSelected = selection.contains(packageName),
+                        isSelectionMode = isMultiSelectMode
+                    ) {
+                        AppCardLayout(
+                            gradientColors = gradientColors,
+                            onClick = {
+                                if (isMultiSelectMode) selection.toggle(packageName)
+                                else bring(listOf(packageName), brought = !brought)
+                            },
+                            onLongClick = {
+                                isMultiSelectMode = true
+                                selection.toggle(packageName)
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            AppCardContent(
+                                packageName = packageName,
+                                packageInfo = null,
+                                displayName = label,
+                                subtitle = stringResource(
+                                    if (brought) R.string.sources_apps_brought
+                                    else R.string.sources_apps_left_out
+                                ),
+                                gradientColors = gradientColors
+                            )
+                        }
+                    }
+                }
+            }
+
+            ListScrollbar(
+                listState = listState,
+                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+            )
+
+            ScrollToTopButton(
+                listState = listState,
+                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+            )
+        }
     }
 }

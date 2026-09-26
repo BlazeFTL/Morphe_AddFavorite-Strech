@@ -8,15 +8,19 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -28,6 +32,9 @@ import androidx.compose.ui.unit.dp
  * @param leadingContent  Overrides the default [StatusCircleIcon]/[StatusCirclePlaceholder] leading
  *                        indicator when non-null.
  * @param footerContent   Optional composable rendered below a divider at the bottom of the card.
+ * @param role            What the card is announced as. A list where several rows can be on at
+ *                        once passes [Role.Checkbox] along with a leading indicator to match,
+ *                        since a screen reader offers to turn a checkbox off and a radio never.
  */
 @Composable
 fun RadioSelectionCard(
@@ -38,6 +45,7 @@ fun RadioSelectionCard(
     hasWarning: Boolean = false,
     contentDescription: String? = null,
     stateDescription: String? = null,
+    role: Role = Role.RadioButton,
     leadingContent: (@Composable () -> Unit)? = null,
     footerContent: (@Composable () -> Unit)? = null,
     content: @Composable RowScope.() -> Unit
@@ -53,7 +61,7 @@ fun RadioSelectionCard(
             else -> colors.outlineVariant
         },
         modifier = modifier.semantics {
-            role = Role.RadioButton
+            this.role = role
             this.selected = selected
             if (contentDescription != null) this.contentDescription = contentDescription
             if (stateDescription != null) this.stateDescription = stateDescription
@@ -111,6 +119,7 @@ fun RadioSelectionCard(
     hasWarning: Boolean = false,
     contentDescription: String? = null,
     stateDescription: String? = null,
+    role: Role = Role.RadioButton,
     leadingContent: (@Composable () -> Unit)? = null,
     footerContent: (@Composable () -> Unit)? = null
 ) {
@@ -122,6 +131,7 @@ fun RadioSelectionCard(
         hasWarning = hasWarning,
         contentDescription = contentDescription,
         stateDescription = stateDescription,
+        role = role,
         leadingContent = leadingContent,
         footerContent = footerContent
     ) {
@@ -169,18 +179,72 @@ fun SelectionLeadingBox(
     )
 }
 
+/**
+ * The round indicator [RadioSelectionCard] carries, in the three states a list where several rows
+ * can be on at once needs. A dash stands for "some of them", which neither circle can say.
+ */
 @Composable
-private fun DefaultRadioIndicator(selected: Boolean, enabled: Boolean) {
+fun SelectionCheckIndicator(
+    state: ToggleableState,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
     val colors = MaterialTheme.colorScheme
-    if (selected) {
-        StatusCircleIcon(
-            icon = Icons.Outlined.Check,
-            containerColor = if (enabled) colors.primaryContainer
-            else colors.primaryContainer.copy(alpha = 0.38f),
-            contentColor = if (enabled) colors.onPrimaryContainer
-            else colors.onPrimaryContainer.copy(alpha = 0.38f)
+    val icon = when (state) {
+        ToggleableState.On -> Icons.Outlined.Check
+        ToggleableState.Indeterminate -> Icons.Outlined.Remove
+        ToggleableState.Off -> return StatusCirclePlaceholder(modifier = modifier)
+    }
+
+    StatusCircleIcon(
+        icon = icon,
+        modifier = modifier,
+        containerColor = if (enabled) colors.primaryContainer
+        else colors.primaryContainer.copy(alpha = 0.38f),
+        contentColor = if (enabled) colors.onPrimaryContainer
+        else colors.onPrimaryContainer.copy(alpha = 0.38f)
+    )
+}
+
+/**
+ * Standalone checkbox row for a secondary choice under a dialog's main content. Draws the same
+ * [SelectionCheckIndicator] the cards carry, so every checkbox in the app looks alike.
+ */
+@Composable
+fun SelectionCheckRow(
+    text: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .toggleable(
+                value = checked,
+                enabled = enabled,
+                role = Role.Checkbox,
+                onValueChange = onCheckedChange
+            )
+            .padding(Defaults.ContentPaddingSmall),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterHorizontally)
+    ) {
+        SelectionCheckIndicator(
+            state = if (checked) ToggleableState.On else ToggleableState.Off,
+            enabled = enabled
         )
-    } else {
-        StatusCirclePlaceholder()
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            color = LocalDialogSecondaryTextColor.current
+        )
     }
 }
+
+@Composable
+private fun DefaultRadioIndicator(selected: Boolean, enabled: Boolean) = SelectionCheckIndicator(
+    state = if (selected) ToggleableState.On else ToggleableState.Off,
+    enabled = enabled
+)

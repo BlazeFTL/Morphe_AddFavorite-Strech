@@ -32,6 +32,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
@@ -332,13 +333,58 @@ internal fun <T> LazyListScope.patchGroupRows(
                 isExpanded = isExpanded,
                 onToggle = if (alwaysOpen) null else ({ onToggle(group) }),
                 icon = group.icon,
-                accentColor = accentColor,
+                // Universal patches are for no app in particular, so they do not wear its color
+                accentColor = accentColor.takeUnless { group.key == UNIVERSAL_GROUP_KEY },
                 selectedCount = group.selectedCount,
                 modifier = Modifier.animatedListItem(this)
             )
         }
 
         if (isExpanded) items(group.items, key = key, itemContent = row)
+    }
+}
+
+/**
+ * Name and description of a patch, the part every patch card shares, so a patch reads the same in
+ * each list it shows up in. [badges] follow the name on its line.
+ *
+ * @param dimmed For a patch that is off, which fades back behind the ones that are on.
+ */
+@Composable
+internal fun PatchCardText(
+    name: String,
+    description: String?,
+    modifier: Modifier = Modifier,
+    dimmed: Boolean = false,
+    badges: @Composable RowScope.() -> Unit = {}
+) {
+    val secondaryColor = LocalDialogSecondaryTextColor.current
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Text(
+                text = name,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = if (dimmed) secondaryColor.copy(alpha = 0.5f) else LocalDialogTextColor.current,
+                modifier = Modifier.weight(1f, fill = false)
+            )
+            badges()
+        }
+
+        if (!description.isNullOrBlank()) {
+            Text(
+                text = rememberTranslated(description),
+                style = MaterialTheme.typography.bodySmall,
+                color = if (dimmed) secondaryColor.copy(alpha = 0.4f) else secondaryColor
+            )
+        }
     }
 }
 

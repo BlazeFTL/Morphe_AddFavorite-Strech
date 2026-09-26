@@ -35,7 +35,7 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.domain.repository.appsToKeepFrom
 import app.morphe.manager.patcher.patch.PatchInfo
-import app.morphe.manager.patcher.patch.appIconColorOf
+import app.morphe.manager.patcher.patch.appColorFor
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toast
@@ -56,9 +56,7 @@ fun AppPatchesDialog(
     onDismiss: () -> Unit,
     isLoading: Boolean = false
 ) {
-    val patchBundleRepository: PatchBundleRepository = koinInject()
-    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
-    val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
+    val sourcesByUid = rememberSourcesByUid()
     val sourceAccents = patchesByBundle.keys.associateWith { uid ->
         key(uid) { sourcesByUid[uid]?.let { rememberBundleAccent(it) } }
     }
@@ -108,10 +106,7 @@ fun AppPatchesDialog(
     val patchCount = sections.sumOf { it.patches.size }
     // The app's own color, as whichever source names one declares it
     val brandColor = remember(patchesByBundle, item.packageName) {
-        patchesByBundle.values.asSequence()
-            .flatten()
-            .firstNotNullOfOrNull { it.appIconColorFor(item.packageName) }
-            ?.let(::appIconColorOf)
+        patchesByBundle.values.asSequence().flatten().appColorFor(item.packageName)
     }
 
     PatchListDialog(
@@ -408,7 +403,7 @@ fun AppPatchSourcesDialog(
     val lastSourceMessage = stringResource(R.string.home_app_patch_sources_last)
 
     val bundleInfo by patchBundleRepository.bundleInfoFlow.collectAsStateWithLifecycle(emptyMap())
-    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+    val sourcesByUid = rememberSourcesByUid()
     // Keyed by app, the way every rule below asks the question
     val keptFrom by sourceMuteRepository.mutedSources.collectAsStateWithLifecycle(emptyMap())
 
@@ -428,7 +423,6 @@ fun AppPatchSourcesDialog(
     }
 
     // Read the other way round for the list, and named the way the source list names them
-    val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
     val rows = remember(coveredBy, keptFrom, sourcesByUid, packages) {
         coveredBy.values.flatten().distinct()
             .map { uid ->

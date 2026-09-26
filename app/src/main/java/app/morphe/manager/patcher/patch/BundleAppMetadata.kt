@@ -15,6 +15,10 @@ import app.morphe.patcher.patch.ApkFileType
  */
 fun appIconColorOf(rgb: Int): Color = Color(rgb or (0xFF shl 24))
 
+/** Color of [packageName] as the first of these patches to declare one gives it, if any does. */
+fun Sequence<PatchInfo>.appColorFor(packageName: String): Color? =
+    firstNotNullOfOrNull { it.appIconColorFor(packageName) }?.let(::appIconColorOf)
+
 /**
  * Aggregated metadata about an app as declared in one or more patch bundles.
  * Priority for conflicting values across bundles: first non-null value wins.

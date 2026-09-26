@@ -199,6 +199,8 @@ fun BatchPatcherScreen(
         val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
         val sourcesByUid = remember(sources) { sources.associateBy { it.uid } }
         ExpertModeDialog(
+            packageName = edit.packageName,
+            appName = edit.appName,
             newPatches = edit.newPatches,
             options = edit.options,
             allPatchesInfo = allPatchesInfo,

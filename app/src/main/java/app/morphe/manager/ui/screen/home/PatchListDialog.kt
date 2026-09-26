@@ -448,20 +448,7 @@ internal fun PatchItemCard(
                 modifier = Modifier.padding(Defaults.ContentPadding),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
-                Text(
-                    text = patch.displayName,
-                    color = textColor,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium
-                )
-
-                patch.description?.let {
-                    Text(
-                        text = rememberTranslated(it),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = secondaryColor
-                    )
-                }
+                PatchCardText(name = patch.displayName, description = patch.description)
 
                 if (versions.isNotEmpty() || options.isNotEmpty() || isExpertOnly) {
                     FlowRow(

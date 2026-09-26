@@ -407,6 +407,7 @@ fun HomeDialogs(
         // Reading the property re-walks and re-sorts every bundle's patches, so it is taken once
         val allPatchesInfo = homeViewModel.expertModeAllPatchesInfo
         ExpertModeDialog(
+            packageName = homeViewModel.expertModeSelectedApp?.packageName.orEmpty(),
             newPatches = homeViewModel.expertModeNewPatches,
             options = homeViewModel.expertModeOptions,
             allPatchesInfo = allPatchesInfo,

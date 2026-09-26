@@ -1264,6 +1264,14 @@ fun BundleTypeBadge(type: BundleSourceType) {
     StatusBadge(text = text)
 }
 
+/** Every source by uid, for what draws a source's icon or name from its uid alone. */
+@Composable
+internal fun rememberSourcesByUid(): Map<Int, PatchBundleSource> {
+    val patchBundleRepository: PatchBundleRepository = koinInject()
+    val sources by patchBundleRepository.sources.collectAsStateWithLifecycle()
+    return remember(sources) { sources.associateBy { it.uid } }
+}
+
 /** The color [bundle]'s icon reads as, see [rememberSourceAccent]. */
 @Composable
 internal fun rememberBundleAccent(bundle: PatchBundleSource): Color? {

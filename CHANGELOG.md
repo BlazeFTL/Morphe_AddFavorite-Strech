@@ -1,3 +1,24 @@
+# [1.33.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.1...v1.33.0-dev.2) (2026-09-26)
+
+
+### Bug Fixes
+
+* Fit changelog summary tiles on one line ([2de2831](https://github.com/MorpheApp/morphe-manager/commit/2de28312dcf3173399b3cf57750e8a542ef0ec60))
+* Give the expert mode source a line of its own ([b51dce0](https://github.com/MorpheApp/morphe-manager/commit/b51dce06f724740f047986c74c2aba31cf6b9f8d))
+* Open the saved APK lists without rereading every archive ([e193dd1](https://github.com/MorpheApp/morphe-manager/commit/e193dd1d4ef75c0328a8c4eb70b8a952a34c8b95))
+* Put the source apps search right under the header ([2435a0c](https://github.com/MorpheApp/morphe-manager/commit/2435a0c0185490e12f08b7904c19f883025fc86f))
+* Stop the home list fade from recomposing on every scroll frame ([4d94ac0](https://github.com/MorpheApp/morphe-manager/commit/4d94ac0bd8cae129497f397c991521505af5427c))
+* Translate content online to keep the APK small and release builds working ([405f6e1](https://github.com/MorpheApp/morphe-manager/commit/405f6e132624674a3e730eafea86277bca007842))
+
+
+### Features
+
+* Animate every dialog header in like the app details one ([716c2aa](https://github.com/MorpheApp/morphe-manager/commit/716c2aa9ea7e803af74fdf98d1a82a835ffdea98))
+* Ease dialog header subtitles from one state to the next ([6c4cabf](https://github.com/MorpheApp/morphe-manager/commit/6c4cabffefb621c69438fe6b1d2768aec648ef45))
+* Fade dialog lists at the edges they scroll past ([52fd4d9](https://github.com/MorpheApp/morphe-manager/commit/52fd4d9070e2083335e0fade894d1ff43a5312ba))
+* Head the installed apps picker like the other list dialogs ([814f8ca](https://github.com/MorpheApp/morphe-manager/commit/814f8ca0cdefa948d6870edb4aadd09901780731))
+* Head the language picker like the other list dialogs ([815a304](https://github.com/MorpheApp/morphe-manager/commit/815a304e5ce0fdb4e7821fe4d314089e933a0dbb))
+
 # [1.33.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.32.1-dev.3...v1.33.0-dev.1) (2026-09-26)
 
 

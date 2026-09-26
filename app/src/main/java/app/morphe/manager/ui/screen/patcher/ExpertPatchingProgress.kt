@@ -550,15 +550,12 @@ private fun ExpertProgressHeader(
 /**
  * Horizontal progress bar with a gradient fill, from the color of the app being patched to a lighter
  * shade of it. An app without a usable color gets the brand blue to teal instead.
+ *
+ * [progress] arrives already eased by [rememberDisplayedPatchProgress], so the bar draws it as is and
+ * keeps level with the percentage beside it.
  */
 @Composable
 private fun ExpertLinearProgressBar(progress: Float, accentColor: Color?) {
-    val animated by animateFloatAsState(
-        targetValue = progress,
-        animationSpec = tween(700, easing = FastOutSlowInEasing),
-        label = "expert_linear_progress"
-    )
-
     // Eased, since the app's color can land a moment after the bar or change between queued apps
     val accent = usableAppAccent(accentColor)
     val startColor by animateColorAsState(
@@ -588,7 +585,7 @@ private fun ExpertLinearProgressBar(progress: Float, accentColor: Color?) {
         Box(
             modifier = Modifier
                 .fillMaxHeight()
-                .fillMaxWidth(fraction = animated.coerceIn(0f, 1f))
+                .fillMaxWidth(fraction = progress.coerceIn(0f, 1f))
                 .clip(RoundedCornerShape(5.dp))
                 .background(fillBrush)
         )

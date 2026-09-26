@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen
 
-import android.util.Log
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -13,10 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,15 +41,11 @@ import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
 import app.morphe.manager.util.APK_MIMETYPE
 import app.morphe.manager.util.EventEffect
-import app.morphe.manager.util.tag
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
-import kotlin.math.exp
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
 
 /** An install held back until the user accepts that it lands beside the app rather than on it. */
@@ -90,8 +81,6 @@ fun PatcherScreen(
 
     val isSaving by patcherViewModel.isSaving.collectAsStateWithLifecycle()
 
-    // Animated progress with dual-mode animation
-    var displayProgress by rememberSaveable { mutableFloatStateOf(patcherViewModel.progress) }
     val showLongStepWarning by patcherViewModel.showLongStepWarning.collectAsStateWithLifecycle()
     val showSuccessScreen = patcherViewModel.showSuccessScreen
 
@@ -106,45 +95,26 @@ fun PatcherScreen(
             .collect { patcherViewModel.deferSuccessScreen(it) }
     }
 
-    // Skip the 1.5s tween on every progress tick when TalkBack is active so the main thread
-    // isn't constantly busy interpolating and can serve accessibility events instead
     val reduceMotion = rememberAccessibilityEnabled()
-    val displayProgressAnimate by animateFloatAsState(
-        targetValue = displayProgress,
-        animationSpec = if (reduceMotion) snap() else tween(durationMillis = 1500, easing = FastOutSlowInEasing),
-        label = "progress_animation"
+    val displayProgress = rememberDisplayedPatchProgress(
+        progress = { patcherViewModel.progress },
+        succeeded = patcherSucceeded
     )
 
-    // Drive background speed: ramps 1x→3x during patching, resets on completion/failure.
-    // Uses a coroutine loop so speed tracks displayProgress in real time without recomposition churn
-    LaunchedEffect(patcherSucceeded) {
-        if (patcherSucceeded == null) {
-            // Exponential moving average to smooths sudden progress jumps
-            var movingAverage = 0.0f
-            // Lower factor has more abrupt animation changes
-            val smoothingFactor = 0.25f
-            // Patching in progress - poll displayProgress every 250ms (same cadence as progress loop)
-            while (true) {
-                movingAverage = (1 - smoothingFactor) * movingAverage +
-                        smoothingFactor * displayProgress
-                onBackgroundSpeedChange(1 + movingAverage)
-                delay(250.milliseconds)
-            }
-        } else {
-            // Patching finished - reset speed then fire completion effect
-            onBackgroundSpeedChange(1f)
-            if (patcherSucceeded == true && patcherViewModel.patchingCompletedInForeground) {
-                delay(300.milliseconds) // small pause so speed resets before effect fires
-                onPatchingCompleted()
-                // Haptic feedback
-                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-        }
-    }
+    PatchingBackgroundSpeedEffect(
+        active = patcherSucceeded == null,
+        progress = { displayProgress.target },
+        onSpeedChange = onBackgroundSpeedChange
+    )
 
-    // Restore speed when leaving the screen
-    DisposableEffect(Unit) {
-        onDispose { onBackgroundSpeedChange(1f) }
+    // Patching finished - the speed resets first, then the completion effect fires
+    LaunchedEffect(patcherSucceeded) {
+        if (patcherSucceeded == true && patcherViewModel.patchingCompletedInForeground) {
+            delay(300.milliseconds) // small pause so speed resets before effect fires
+            onPatchingCompleted()
+            // Haptic feedback
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
     }
 
     // Get output file from viewModel
@@ -188,59 +158,6 @@ fun PatcherScreen(
             // The installer owns the state from here, and an attempt that ends in nothing must
             // not leave the screen claiming an install forever
             patcherViewModel.autoInstallHandedOff()
-        }
-    }
-
-    // Progress animation logic: drives displayProgress and showSuccessScreen
-    LaunchedEffect(patcherSucceeded) {
-        var lastProgressUpdate = 0.0f
-        var currentStepStartTime = System.currentTimeMillis()
-
-        while (patcherSucceeded == null) {
-            val now = System.currentTimeMillis()
-
-            val actualProgress = patcherViewModel.progress
-            if (lastProgressUpdate != actualProgress) {
-                lastProgressUpdate = actualProgress // Progress updated
-                currentStepStartTime = now
-                if (Log.isLoggable(tag, Log.DEBUG)) {
-                    Log.d(tag, "Real progress update: ${(actualProgress * 1000).toInt() / 10.0f}%")
-                }
-            }
-
-            // When to stop using overcorrection of progress and always use the actual progress
-            val maxOverCorrectPercentage = 0.97
-
-            if (actualProgress >= maxOverCorrectPercentage) {
-                displayProgress = actualProgress
-            } else {
-                // Overestimate the progress by about 1% per second, but decays to
-                // adding smaller adjustments each second until the current step completes
-                fun overEstimateProgressAdjustment(secondsElapsed: Double): Double {
-                    // Sigmoid curve. Give larger correct soon after the step starts but then flattens off
-                    val maximumValue = 25.0 // Up to 25% over correct
-                    val timeConstant = 50.0 // Larger value = longer time until plateau
-                    return maximumValue * (1 - exp(-secondsElapsed / timeConstant))
-                }
-
-                val secondsSinceStepStarted = (now - currentStepStartTime) / 1000.0
-                val overEstimatedProgress = min(
-                    maxOverCorrectPercentage,
-                    actualProgress + 0.01 * overEstimateProgressAdjustment(secondsSinceStepStarted)
-                ).toFloat()
-
-                // Don't allow rolling back the progress if it went over,
-                // and don't go over 98% unless the actual progress is that far
-                displayProgress = max(displayProgress, overEstimatedProgress)
-            }
-
-            // Update four times a second
-            delay(250.milliseconds)
-        }
-
-        // Patching completed - ensure progress reaches 100%
-        if (patcherSucceeded == true) {
-            displayProgress = 1.0f
         }
     }
 
@@ -570,7 +487,7 @@ fun PatcherScreen(
                 PatcherState.IN_PROGRESS -> {
                     if (useExpertMode) {
                         ExpertPatchingInProgress(
-                            progress = displayProgressAnimate,
+                            progress = displayProgress.value,
                             patchesProgress = patchesProgress,
                             patchProgress = patcherViewModel.patchRun,
                             packageName = patcherViewModel.packageName,
@@ -582,7 +499,7 @@ fun PatcherScreen(
                         )
                     } else {
                         SimplePatchingInProgress(
-                            progress = displayProgressAnimate,
+                            progress = displayProgress.value,
                             patchesProgress = patchesProgress,
                             patchProgress = patcherViewModel.patchRun,
                             packageName = patcherViewModel.packageName,

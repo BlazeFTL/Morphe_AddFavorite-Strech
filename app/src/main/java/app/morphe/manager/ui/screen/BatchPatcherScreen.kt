@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen
 
+import android.view.HapticFeedbackConstants
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
@@ -21,10 +22,12 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,16 +44,20 @@ import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.patcher.ExpertPatchingInProgress
 import app.morphe.manager.ui.screen.patcher.PatcherErrorDialog
 import app.morphe.manager.ui.screen.patcher.PatcherErrorInfo
+import app.morphe.manager.ui.screen.patcher.PatchingBackgroundSpeedEffect
 import app.morphe.manager.ui.screen.patcher.PostPatchPromptDialogs
 import app.morphe.manager.ui.screen.patcher.SimplePatchingInProgress
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
+import app.morphe.manager.ui.screen.patcher.rememberDisplayedPatchProgress
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.BatchPatcherViewModel
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.util.*
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Queue screen for patching several apps in a row.
@@ -70,7 +77,9 @@ fun BatchPatcherScreen(
     installViewModel: InstallViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),
     patchBundleRepository: PatchBundleRepository = koinInject(),
-    onAppStateChanged: (String) -> Unit = {}
+    onAppStateChanged: (String) -> Unit = {},
+    onBackgroundSpeedChange: (Float) -> Unit = {},
+    onPatchingCompleted: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
@@ -151,6 +160,23 @@ fun BatchPatcherScreen(
             heldRun != null
     LaunchedEffect(holdSummary) {
         if (!holdSummary) summaryReleased = true
+    }
+
+    // The queue's end gets the same finish as a single run, once per queue and only for one the
+    // user watched run out. Opening the summary of a queue that ended earlier stays quiet
+    val view = LocalView.current
+    var watchedRunning by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(current?.phase, holdSummary) {
+        if (current?.phase == BatchPhase.RUNNING) watchedRunning = true
+        if (current?.phase == BatchPhase.FINISHED && !holdSummary && watchedRunning) {
+            watchedRunning = false
+            // A queue stopped before its end is nothing to celebrate, whatever it got through
+            if (current.finishedInForeground && current.succeeded > 0 && !current.wasStopped) {
+                delay(300.milliseconds) // small pause so speed resets before effect fires
+                onPatchingCompleted()
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+        }
     }
 
     LaunchedEffect(current?.phase, current?.policy, holdSummary) {
@@ -416,31 +442,48 @@ fun BatchPatcherScreen(
                             caption = stringResource(R.string.batch_patch_preparing_next)
                         )
                     }
-                } else if (useExpertMode) {
-                    ExpertPatchingInProgress(
-                        progress = shownRun.progress,
-                        patchesProgress = shownRun.patchesProgress,
-                        patchProgress = shownRun,
-                        packageName = shownPackageName,
-                        patcherSucceeded = if (holdSummary) true else null,
-                        miniGameState = miniGameState,
-                        queueHeader = { BatchRunHeader(state = current) },
-                        onCancelClick = { showCancelDialog = true },
-                        onInstallClick = { summaryReleased = true },
-                        onHomeClick = onBackClick
-                    )
                 } else {
-                    val longStepWarning by shownRun.showLongStepWarning.collectAsStateWithLifecycle()
-                    SimplePatchingInProgress(
-                        progress = shownRun.progress,
-                        patchesProgress = shownRun.patchesProgress,
-                        patchProgress = shownRun,
-                        packageName = shownPackageName,
-                        showLongStepWarning = longStepWarning,
-                        queueHeader = { BatchRunHeader(state = current) },
-                        onCancelClick = { showCancelDialog = true },
-                        onHomeClick = onBackClick
+                    // Nudged ahead between the patcher's coarse steps and eased, as a single run is
+                    val displayProgress = rememberDisplayedPatchProgress(
+                        progress = { shownRun.progress },
+                        succeeded = if (holdSummary) true else null,
+                        run = shownRun
                     )
+                    // Each app ramps the background up from rest. A run held on screen past its
+                    // end, for a round in play, is over and leaves the background at rest
+                    PatchingBackgroundSpeedEffect(
+                        active = current.activeRun != null,
+                        progress = { displayProgress.target },
+                        onSpeedChange = onBackgroundSpeedChange,
+                        run = shownRun
+                    )
+
+                    if (useExpertMode) {
+                        ExpertPatchingInProgress(
+                            progress = displayProgress.value,
+                            patchesProgress = shownRun.patchesProgress,
+                            patchProgress = shownRun,
+                            packageName = shownPackageName,
+                            patcherSucceeded = if (holdSummary) true else null,
+                            miniGameState = miniGameState,
+                            queueHeader = { BatchRunHeader(state = current) },
+                            onCancelClick = { showCancelDialog = true },
+                            onInstallClick = { summaryReleased = true },
+                            onHomeClick = onBackClick
+                        )
+                    } else {
+                        val longStepWarning by shownRun.showLongStepWarning.collectAsStateWithLifecycle()
+                        SimplePatchingInProgress(
+                            progress = displayProgress.value,
+                            patchesProgress = shownRun.patchesProgress,
+                            patchProgress = shownRun,
+                            packageName = shownPackageName,
+                            showLongStepWarning = longStepWarning,
+                            queueHeader = { BatchRunHeader(state = current) },
+                            onCancelClick = { showCancelDialog = true },
+                            onHomeClick = onBackClick
+                        )
+                    }
                 }
             }
         }

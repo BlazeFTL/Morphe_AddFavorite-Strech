@@ -20,6 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,9 +42,12 @@ import app.morphe.manager.util.releasePageUrl
 import app.morphe.manager.util.rememberSourceAccent
 import app.morphe.manager.util.withVersionPrefix
 import kotlinx.coroutines.delay
+import java.text.NumberFormat
 import kotlin.time.Duration.Companion.milliseconds
 
-private val ProgressBarHeight = 8.dp
+private val ProgressRingSize = 220.dp
+private val ProgressRingStrokeWidth = 10.dp
+private val ProgressRingWavelength = 30.dp
 private val SuccessIconContainerSize = 80.dp
 private val SuccessIconSize = 40.dp
 
@@ -376,11 +383,14 @@ private fun CenteredStatus(content: @Composable () -> Unit) {
 }
 
 /**
- * Download progress with an animated bar. The header names the release being fetched.
+ * Download progress as a wavy ring with the percentage at its center. The header names the
+ * release being fetched.
  *
- * The total size is unknown until the first progress callback, and stays unknown when the server
- * streams the release without a content length, so both cases fall back to an indeterminate bar.
+ * The total size is unknown until the first progress callback, which the ring waits out empty at
+ * zero so it does not flash an indeterminate state before the first percent. Only a server that
+ * streams the release without a content length leaves it indeterminate, around the amount fetched.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun DownloadProgress(
     downloadedSize: Long,
@@ -388,54 +398,90 @@ private fun DownloadProgress(
     progress: Float
 ) {
     val hasKnownSize = totalSize > 0L
+    val isStreaming = !hasKnownSize && downloadedSize > 0L
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "downloadProgress"
     )
 
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-    ) {
-        Text(
-            text = if (hasKnownSize) {
-                stringResource(
-                    R.string.download_progress,
-                    formatMegabytes(downloadedSize),
-                    formatMegabytes(totalSize),
-                    (progress * 100).toInt().toString()
-                )
-            } else {
-                stringResource(
-                    R.string.manager_update_progress_downloaded,
-                    formatMegabytes(downloadedSize)
-                )
-            },
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+    // The ring grows in from a little smaller, so the switch from the changelog reads as a start
+    var appeared by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { appeared = true }
+    val scale by animateFloatAsState(
+        targetValue = if (appeared) 1f else 0.85f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioLowBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "downloadRingScale"
+    )
 
-        val progressModifier = Modifier
-            .fillMaxWidth()
-            .height(ProgressBarHeight)
-        val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-        if (hasKnownSize) {
-            LinearProgressIndicator(
-                progress = { animatedProgress },
-                modifier = progressModifier,
-                color = MaterialTheme.colorScheme.primary,
-                trackColor = trackColor
+    val stroke = with(LocalDensity.current) {
+        Stroke(width = ProgressRingStrokeWidth.toPx(), cap = StrokeCap.Round)
+    }
+    val color = MaterialTheme.colorScheme.primary
+    val trackColor = MaterialTheme.colorScheme.surfaceContainerHighest
+    val ringModifier = Modifier.fillMaxSize()
+
+    Box(
+        modifier = Modifier
+            .size(ProgressRingSize)
+            .scale(scale),
+        contentAlignment = Alignment.Center
+    ) {
+        if (isStreaming) {
+            CircularWavyProgressIndicator(
+                modifier = ringModifier,
+                color = color,
+                trackColor = trackColor,
+                stroke = stroke,
+                trackStroke = stroke,
+                wavelength = ProgressRingWavelength
             )
         } else {
-            LinearProgressIndicator(
-                modifier = progressModifier,
-                color = MaterialTheme.colorScheme.primary,
-                trackColor = trackColor
+            CircularWavyProgressIndicator(
+                progress = { animatedProgress },
+                modifier = ringModifier,
+                color = color,
+                trackColor = trackColor,
+                stroke = stroke,
+                trackStroke = stroke,
+                wavelength = ProgressRingWavelength
             )
+        }
+
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            if (!isStreaming) {
+                val locale = LocalConfiguration.current.locales[0]
+                Text(
+                    text = remember(locale) { NumberFormat.getPercentInstance(locale) }.format(progress),
+                    style = MaterialTheme.typography.displaySmall,
+                    fontWeight = FontWeight.Bold,
+                    color = LocalDialogTextColor.current
+                )
+            }
+            // Nothing to size up before the first callback, so the percentage stands alone
+            if (hasKnownSize || isStreaming) {
+                Text(
+                    text = if (hasKnownSize) {
+                        stringResource(
+                            R.string.manager_update_progress_size,
+                            formatMegabytes(downloadedSize),
+                            formatMegabytes(totalSize)
+                        )
+                    } else {
+                        stringResource(
+                            R.string.manager_update_progress_downloaded,
+                            formatMegabytes(downloadedSize)
+                        )
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = LocalDialogSecondaryTextColor.current,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }

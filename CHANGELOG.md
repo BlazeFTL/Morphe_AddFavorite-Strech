@@ -1,3 +1,21 @@
+# [1.33.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.32.1-dev.3...v1.33.0-dev.1) (2026-09-26)
+
+
+### Bug Fixes
+
+* Hide list dialog buttons while searching with the keyboard up ([5f5c21a](https://github.com/MorpheApp/morphe-manager/commit/5f5c21aa966e4b502759b8c879d288a0a40acbac))
+* Keep the patch list in place while searching ([e521bf3](https://github.com/MorpheApp/morphe-manager/commit/e521bf31f512f8286cc275b26879a8ffc54f3a48))
+
+
+### Features
+
+* Head the remaining dialogs with the app or source they are about ([56cdc8a](https://github.com/MorpheApp/morphe-manager/commit/56cdc8aa2fdde5be1b2a03b51fccd07b1a81d7e6))
+* Modernize the expert mode dialog ([57d32e7](https://github.com/MorpheApp/morphe-manager/commit/57d32e78cf5ce060f5b6ff375bb4a25e0038df75))
+* Redesign patch list dialogs with app-colored headers ([02a9a91](https://github.com/MorpheApp/morphe-manager/commit/02a9a91daff7e48c9a3a7e9c2531dae9b82827ee))
+* Show changelogs as a translatable timeline ([8829076](https://github.com/MorpheApp/morphe-manager/commit/8829076ca1a732fc3a621ba9c8dfe2448c5b16a7))
+* Tint sources after their icons and unify dialog headers ([f778517](https://github.com/MorpheApp/morphe-manager/commit/f778517a5b511ef27e4f0a3ef202d0e0f9f138f2))
+* Translate patch descriptions into the app language ([e000a2e](https://github.com/MorpheApp/morphe-manager/commit/e000a2eb6f599a3004da0e39b56b449b128dea58))
+
 ## [1.32.1-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.32.1-dev.2...v1.32.1-dev.3) (2026-09-25)
 
 

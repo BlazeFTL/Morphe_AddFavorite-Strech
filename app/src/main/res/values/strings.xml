@@ -1377,8 +1377,6 @@ Details: %2$s"</string>
     <string name="changelog_host_gitlab" translatable="false">GitLab</string>
     <string name="content_translate">Translate</string>
     <string name="content_show_original">Show original</string>
-    <string name="content_translation_download_confirmation">Download translation model?</string>
-    <string name="content_translation_downloading">Downloading translation model…</string>
     <string name="content_translation_failed">Failed to translate: %s</string>
     <string name="changelog_section_new">New</string>
     <string name="changelog_section_fixes">Fixes</string>

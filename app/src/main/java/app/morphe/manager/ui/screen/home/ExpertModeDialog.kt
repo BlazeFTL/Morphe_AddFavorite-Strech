@@ -555,8 +555,6 @@ fun ExpertModeDialog(
             }
         )
     }
-
-    TranslationOverlays()
 }
 
 /**

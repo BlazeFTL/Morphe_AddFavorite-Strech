@@ -857,8 +857,6 @@ fun BundleChangelogDialog(
             modifier = Modifier.weight(1f)
         )
     }
-
-    TranslationOverlays()
 }
 
 @Composable

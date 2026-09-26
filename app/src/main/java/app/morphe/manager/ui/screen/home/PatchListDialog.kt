@@ -316,8 +316,6 @@ internal fun PatchListDialog(
         }
     }
 
-    TranslationOverlays()
-
     if (showFilterSheet) {
         SectionFilterSheet(
             sections = sections,

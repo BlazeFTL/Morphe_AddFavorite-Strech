@@ -245,8 +245,6 @@ fun ManagerChangelogDialog(
         }
     }
 
-    TranslationOverlays()
-
     // Internet check dialog
     if (updateViewModel.showInternetCheckDialog) {
         MeteredDownloadDialog(

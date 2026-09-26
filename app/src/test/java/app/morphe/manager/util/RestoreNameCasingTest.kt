@@ -8,7 +8,7 @@ package app.morphe.manager.util
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-/** The cases come from ML Kit translating patch descriptions of Morphe Patches into Ukrainian. */
+/** The cases come from machine translation of the patch descriptions of Morphe Patches into Ukrainian. */
 class RestoreNameCasingTest {
     @Test
     fun `names the translator recased take their source spelling again`() {

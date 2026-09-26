@@ -73,9 +73,6 @@ import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import java.util.Locale
 
-/** Keeps the scrollbar clear of the sheet's bottom action row. */
-private val SourceListScrollbarBottomInset = 64.dp
-
 /** Enough placeholder rows to fill the sheet on open without implying a count. */
 private val SourceShimmerRows = (0 until 4).toList()
 
@@ -315,17 +312,18 @@ fun BundleManagementSheet(
                     Spacer(Modifier.height(8.dp))
                 }
 
-                // Bundle cards
+                // Bundle cards. The navigation bar inset goes on the box, so the scrollbar and the
+                // scroll-to-top button above the list stop short of it along with the list
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f, fill = false)
+                        .navigationBarsPadding()
                 ) {
                     LazyColumn(
                         state = listState,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .navigationBarsPadding()
                             .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top },
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         contentPadding = PaddingValues(
@@ -475,14 +473,10 @@ fun BundleManagementSheet(
                     ListScrollbar(
                         listState = listState,
                         alphabetTargets = sourceScrollTargets,
-                        alphabetMode = alphabetScrollMode,
-                        extraBottomPadding = SourceListScrollbarBottomInset
+                        alphabetMode = alphabetScrollMode
                     )
 
-                    ScrollToTopButton(
-                        listState = listState,
-                        extraBottomPadding = SourceListScrollbarBottomInset
-                    )
+                    ScrollToTopButton(listState = listState)
                 }
             }
         }

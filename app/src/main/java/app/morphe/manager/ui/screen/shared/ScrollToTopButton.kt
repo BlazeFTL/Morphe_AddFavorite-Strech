@@ -41,9 +41,6 @@ private val ButtonSize: Dp = 44.dp
 private val ButtonPadding: Dp = 16.dp
 private val DefaultScrollThresholdDp: Dp = 600.dp
 
-/** Room the button takes at the bottom of a list, for lists whose last item must scroll clear of it. */
-val ScrollToTopButtonClearance: Dp = ButtonSize + ButtonPadding
-
 /**
  * Floating "scroll to top" button for a LazyColumn.
  * Auto-hides when the list is near the top; place inside a Box that overlays the list.

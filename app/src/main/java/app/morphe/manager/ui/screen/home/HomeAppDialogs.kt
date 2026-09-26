@@ -6,9 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import android.view.HapticFeedbackConstants
-import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -20,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -39,6 +35,7 @@ import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.domain.repository.appsToKeepFrom
 import app.morphe.manager.patcher.patch.PatchInfo
+import app.morphe.manager.patcher.patch.appIconColorOf
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toast
@@ -48,10 +45,9 @@ import org.koin.compose.koinInject
 import java.util.Locale
 
 /**
- * Dialog that shows available patches for a specific app.
+ * Dialog that shows available patches for a specific app, one block per source they come from.
  * Shown when the user swipes right on a home app card.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppPatchesDialog(
     item: HomeAppItem,
@@ -60,11 +56,10 @@ fun AppPatchesDialog(
     onDismiss: () -> Unit,
     isLoading: Boolean = false
 ) {
-    // Flatten to a list of (bundleUid, patch).
-    // Bundle ordering: bundles with at least one specific patch come first (by name),
-    // then bundles with only universal patches (by name).
-    // Within each bundle: specific patches first (alphabetically), universal patches last (alphabetically).
-    val allPatches = remember(patchesByBundle, bundleNames) {
+    // Sources with at least one patch written for this app come first, then those with universal
+    // patches alone, each by name. Within a source its specific patches lead its universal ones
+    val sections = remember(patchesByBundle, bundleNames, item.packageName) {
+        val isMultiBundle = patchesByBundle.size > 1
         patchesByBundle.entries
             .sortedWith(
                 compareBy(
@@ -72,272 +67,57 @@ fun AppPatchesDialog(
                     { (uid, _) -> bundleNames[uid] ?: uid.toString() }
                 )
             )
-            .flatMap { (uid, patches) ->
+            .map { (uid, patches) ->
                 val (universal, specific) = patches.partition { it.isUniversal }
-                (specific.sortedBy { it.name } + universal.sortedBy { it.name })
-                    .map { patch -> uid to patch }
-            }
-    }
-
-    val isMultiBundle = patchesByBundle.size > 1
-
-    // Per-bundle accent color for multi-bundle mode only.
-    // Generated deterministically from uid via multiplicative hash → HSL,
-    // so the same uid always produces the same color.
-    // Returns null for single-bundle (no coloring needed).
-    val bundleAccentColors: Map<Int, Color> = remember(patchesByBundle, isMultiBundle) {
-        if (!isMultiBundle) return@remember emptyMap()
-        patchesByBundle.keys.associateWith { uid ->
-            val hue = ((uid.hashCode() * 2654435761L) and 0xFFFFFFFFL).toFloat() % 360f
-            Color.hsl(hue = hue, saturation = 0.55f, lightness = 0.60f)
-        }
-    }
-    val searchQuery = remember { mutableStateOf("") }
-    val selectedBundle = remember { mutableStateOf<Int?>(null) }
-    val showFilterSheet = remember { mutableStateOf(false) }
-    val collapsedBundles = remember { mutableStateOf(emptySet<Int>()) }
-    val patchSections = rememberPatchSectionState()
-    val patchFolds = patchSections.folds
-
-    val matchesPatch = rememberPatchMatcher(searchQuery.value, remember(allPatches) { allPatches.map { it.second } })
-    val filteredPatches = remember(allPatches, matchesPatch, selectedBundle.value) {
-        allPatches.filter { (uid, patch) ->
-            val bundleMatch = selectedBundle.value == null || uid == selectedBundle.value
-            bundleMatch && matchesPatch(patch)
-        }
-    }
-
-    val isFiltering = searchQuery.value.isNotBlank() || selectedBundle.value != null
-    val totalCount = allPatches.size
-
-    // Group filtered patches by bundle, preserving order. Consumed by the collapsible list below
-    val groupedFilteredPatches: List<Pair<Int, List<PatchInfo>>> = remember(filteredPatches) {
-        if (filteredPatches.isEmpty()) return@remember emptyList()
-        val result = mutableListOf<Pair<Int, MutableList<PatchInfo>>>()
-        filteredPatches.forEach { (uid, patch) ->
-            val last = result.lastOrNull()
-            if (last?.first == uid) {
-                last.second.add(patch)
-            } else {
-                result.add(uid to mutableListOf(patch))
-            }
-        }
-        result.map { it.first to it.second.toList() }
-    }
-
-    // Every bundle's rows are grouped up front, so the list builder below stays free of the
-    // preference read and the resource lookup that grouping needs
-    val groupingOptions = rememberPatchGroupingOptions()
-    val bundleGroups: List<Pair<Int, List<PatchGroup<PatchInfo>>>> =
-        remember(groupedFilteredPatches, groupingOptions) {
-            groupedFilteredPatches.map { (uid, bundlePatches) ->
-                uid to buildPatchGroups(
-                    patches = bundlePatches,
-                    options = groupingOptions,
-                    infoOf = { patch -> patch }
-                )
-            }
-        }
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        dismissOnClickOutside = true,
-        title = null,
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top,
-        fillContentHeight = true,
-        footer = { PatchListFooter(onClose = onDismiss) }
-    ) {
-        // Back unwinds the active filters before the dialog itself. Registered last so the
-        // query clears first, and kept off onDismissRequest so an outside tap still dismisses.
-        BackHandler(enabled = selectedBundle.value != null) { selectedBundle.value = null }
-        BackHandler(enabled = searchQuery.value.isNotBlank()) { searchQuery.value = "" }
-
-        val listState = rememberLazyListState()
-        val activeBundleLabel = remember { mutableStateOf("") }
-        LaunchedEffect(selectedBundle.value) {
-            val uid = selectedBundle.value ?: return@LaunchedEffect
-            activeBundleLabel.value = bundleNames[uid] ?: uid.toString()
-        }
-
-        // A list read from the database arrives a frame or two late, and the search row over an
-        // empty list reads as "this app has no patches" until it does
-        AnimatedContent(
-            targetState = isLoading,
-            transitionSpec = Animations.fadeCrossfade(),
-            label = "app_patches_loading"
-        ) { loading ->
-            if (loading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    PulsingLogoIndicator()
-                }
-                return@AnimatedContent
-            }
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                PatchesListSearchRow(
-                    searchQuery = searchQuery.value,
-                    onSearchQueryChange = { searchQuery.value = it },
-                    showFilterButton = isMultiBundle,
-                    isFilterActive = selectedBundle.value != null,
-                    onFilterClick = { showFilterSheet.value = true }
-                )
-
-                AnimatedVisibility(
-                    visible = selectedBundle.value != null,
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        InputChip(
-                            selected = true,
-                            onClick = { selectedBundle.value = null },
-                            label = { Text(activeBundleLabel.value) },
-                            trailingIcon = {
-                                Icon(
-                                    imageVector = Icons.Outlined.Close,
-                                    contentDescription = stringResource(R.string.remove),
-                                    modifier = Modifier.size(16.dp)
-                                )
-                            }
+                PatchListSection(
+                    key = uid.toString(),
+                    title = bundleNames[uid] ?: uid.toString(),
+                    patches = specific.sortedBy { it.name } + universal.sortedBy { it.name },
+                    packageName = item.packageName,
+                    // Several sources side by side each get a color of their own, derived from the
+                    // uid so a source keeps it from one opening to the next
+                    accentColor = if (isMultiBundle) {
+                        val hue = ((uid.hashCode() * 2654435761L) and 0xFFFFFFFFL).toFloat() % 360f
+                        Color.hsl(hue = hue, saturation = 0.55f, lightness = 0.60f)
+                    } else null,
+                    icon = { modifier ->
+                        Icon(
+                            imageVector = Icons.Outlined.Layers,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = modifier
                         )
                     }
-                }
-
-                Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                    LazyColumn(
-                        state = listState,
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-                    ) {
-                        // App header
-                        item {
-                            PatchesListHeaderCard(
-                                title = item.displayName,
-                                totalCount = totalCount,
-                                filteredCount = filteredPatches.size,
-                                isFiltering = isFiltering
-                            )
-                        }
-
-                        if (filteredPatches.isEmpty()) {
-                            item(key = "empty_state") {
-                                PatchesListEmptyState(
-                                    modifier = Modifier.animateItem()
-                                )
-                            }
-                        }
-
-                        // Patch cards grouped by bundle
-                        bundleGroups.forEach { (uid, groups) ->
-                            // Bundle section header (collapsible) - only for multi-bundle
-                            if (isMultiBundle) {
-                                item(key = "header_$uid") {
-                                    val isCollapsed = uid in collapsedBundles.value
-                                    PatchGroupHeader(
-                                        title = bundleNames[uid] ?: uid.toString(),
-                                        count = groups.sumOf { it.items.size },
-                                        isExpanded = !isCollapsed,
-                                        onToggle = {
-                                            collapsedBundles.value = if (isCollapsed) {
-                                                collapsedBundles.value - uid
-                                            } else {
-                                                collapsedBundles.value + uid
-                                            }
-                                        },
-                                        icon = Icons.Outlined.Layers,
-                                        accentColor = bundleAccentColors[uid],
-                                        modifier = Modifier.animatedListItem(this)
-                                    )
-                                }
-                            }
-
-                            if (uid !in collapsedBundles.value) {
-                                patchGroupRows(
-                                    sectionKey = uid,
-                                    groups = groups,
-                                    key = { patch: PatchInfo ->
-                                        "$uid:${patch.name}:${patch.compatiblePackages?.joinToString { it.packageName.orEmpty() }.orEmpty()}"
-                                    },
-                                    isFiltering = isFiltering,
-                                    folds = patchFolds,
-                                    onToggle = { group -> patchSections.toggle(uid, group) },
-                                    accentColor = bundleAccentColors[uid]
-                                ) { patch ->
-                                    PatchItemCard(
-                                        patch = patch,
-                                        saveStateKey = "app_patches_${item.id}_$uid",
-                                        accentColor = bundleAccentColors[uid],
-                                        modifier = Modifier.animatedListItem(this)
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    ListScrollbar(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
-
-                    ScrollToTopButton(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
-                }
+                )
             }
-        }
+    }
+    val patchCount = sections.sumOf { it.patches.size }
+    // The app's own color, as whichever source names one declares it
+    val brandColor = remember(patchesByBundle, item.packageName) {
+        patchesByBundle.values.asSequence()
+            .flatten()
+            .firstNotNullOfOrNull { it.appIconColorFor(item.packageName) }
+            ?.let(::appIconColorOf)
     }
 
-    TranslationOverlays()
-
-    // Bundle filter bottom sheet (multi-bundle only)
-    if (showFilterSheet.value && isMultiBundle) {
-        AppBottomSheet(
-            onDismissRequest = { showFilterSheet.value = false }
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .navigationBarsPadding()
-            ) {
-                PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) })
-                FlowRow(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    // "All" chip
-                    AppFilterChip(
-                        selected = selectedBundle.value == null,
-                        onClick = { selectedBundle.value = null },
-                        label = stringResource(R.string.all),
-                        selectedIcon = Icons.Outlined.DoneAll
-                    )
-                    // Per-bundle chips
-                    bundleNames.entries
-                        .sortedBy { it.value }
-                        .forEach { (uid, name) ->
-                            val isSelected = uid == selectedBundle.value
-                            AppFilterChip(
-                                selected = isSelected,
-                                onClick = {
-                                    selectedBundle.value = if (isSelected) null else uid
-                                    showFilterSheet.value = false
-                                },
-                                label = name
-                            )
-                        }
-                }
-            }
-        }
-    }
+    PatchListDialog(
+        icon = { modifier ->
+            AppIcon(
+                packageInfo = item.packageInfo,
+                packageName = if (item.packageInfo == null) item.packageName else null,
+                contentDescription = null,
+                placeholderGradientColors = item.gradientColors,
+                modifier = modifier
+            )
+        },
+        title = item.displayName,
+        subtitle = pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString()),
+        sections = sections,
+        isLoading = isLoading,
+        saveStateKey = "app_patches_${item.id}",
+        onDismiss = onDismiss,
+        accentColor = brandColor
+    )
 }
 
 /**

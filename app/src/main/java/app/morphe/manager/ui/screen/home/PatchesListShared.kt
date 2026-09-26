@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -33,32 +32,12 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.toHsv
 import org.koin.compose.koinInject
-
-/**
- * Footer of a patch list dialog: translating the descriptions beside the close button, where the
- * app language has a translation to offer.
- */
-@Composable
-internal fun PatchListFooter(onClose: () -> Unit) {
-    AppDialogActions(
-        // A row lays its actions out from the right, so the close button ends up there
-        actions = listOfNotNull(
-            DialogAction(
-                text = stringResource(R.string.close),
-                onClick = onClose,
-                emphasis = DialogActionEmphasis.Outlined
-            ),
-            translateAction()
-        )
-    )
-}
 
 /**
  * Matches patches against [query] by name, description and, while translation is on, translated
@@ -77,51 +56,6 @@ internal fun rememberPatchMatcher(query: String, patches: List<PatchInfo>): (Pat
         { patch ->
             patch.matchesQuery(query) ||
                     patch.description?.let(translation::cached)?.contains(query, ignoreCase = true) == true
-        }
-    }
-}
-
-/**
- * Header card shown at the top of patches-list dialogs.
- */
-@Composable
-internal fun PatchesListHeaderCard(
-    title: String,
-    totalCount: Int,
-    filteredCount: Int,
-    isFiltering: Boolean,
-    modifier: Modifier = Modifier,
-    icon: ImageVector = Icons.Outlined.Extension
-) {
-    HeroInfoCard(
-        icon = icon,
-        title = title,
-        modifier = modifier
-    ) {
-        Icon(
-            imageVector = Icons.Outlined.Widgets,
-            contentDescription = null,
-            tint = LocalContentColor.current,
-            modifier = Modifier.size(16.dp)
-        )
-        val patchCountLabel = pluralStringResource(
-            R.plurals.patch_count,
-            totalCount,
-            totalCount.toString()
-        )
-        val countText = if (isFiltering) "$filteredCount/$patchCountLabel"
-        else patchCountLabel
-        AnimatedContent(
-            targetState = countText,
-            transitionSpec = Animations.counterTransitionSpec,
-            label = "patches_count"
-        ) { count ->
-            Text(
-                text = count,
-                style = MaterialTheme.typography.bodySmall,
-                color = LocalContentColor.current,
-                fontWeight = FontWeight.Medium
-            )
         }
     }
 }
@@ -272,6 +206,8 @@ internal fun <T> rememberPatchGroups(
  *
  * [selectedCount] is badged on the header itself, since a folded block is the one place a patch
  * can be enabled without being visible.
+ *
+ * @param leading Drawn in place of [icon], for a block that stands for an app or a source.
  */
 @Composable
 internal fun PatchGroupHeader(
@@ -281,6 +217,7 @@ internal fun PatchGroupHeader(
     onToggle: (() -> Unit)?,
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.Outlined.Category,
+    leading: (@Composable () -> Unit)? = null,
     accentColor: Color? = null,
     selectedCount: Int = 0
 ) {
@@ -300,7 +237,7 @@ internal fun PatchGroupHeader(
         title = title,
         count = pluralStringResource(R.plurals.patch_count, count, count.toString()),
         onClick = onToggle,
-        leading = {
+        leading = leading ?: {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
@@ -401,67 +338,6 @@ internal fun <T> LazyListScope.patchGroupRows(
         }
 
         if (isExpanded) items(group.items, key = key, itemContent = row)
-    }
-}
-
-/**
- * Search field + optional filter button row.
- */
-@Composable
-internal fun PatchesListSearchRow(
-    searchQuery: String,
-    onSearchQueryChange: (String) -> Unit,
-    showFilterButton: Boolean,
-    isFilterActive: Boolean,
-    onFilterClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.Bottom
-        ) {
-            AppDialogTextField(
-                value = searchQuery,
-                onValueChange = onSearchQueryChange,
-                label = { Text(stringResource(R.string.expert_mode_search)) },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Search,
-                        contentDescription = null
-                    )
-                },
-                showClearButton = true,
-                modifier = Modifier.weight(1f)
-            )
-
-            if (showFilterButton) {
-                FilledTonalIconButton(
-                    onClick = onFilterClick,
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = if (isFilterActive)
-                            MaterialTheme.colorScheme.primaryContainer
-                        else
-                            MaterialTheme.colorScheme.surfaceVariant,
-                        contentColor = if (isFilterActive)
-                            MaterialTheme.colorScheme.onPrimaryContainer
-                        else
-                            MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.FilterList,
-                        contentDescription = stringResource(R.string.filter),
-                        modifier = Modifier.size(Defaults.IconSizeSmall)
-                    )
-                }
-            }
-        }
     }
 }
 

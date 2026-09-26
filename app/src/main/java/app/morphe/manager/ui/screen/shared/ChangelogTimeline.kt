@@ -68,8 +68,17 @@ private val NodeHaloRadius = 10.dp
 private val NodeCenterY = 16.dp
 private val ReleaseSpacing = 20.dp
 
+// Shared by the content and the placeholders that stand in for it, so loading does not shift it
+private val SummaryPadding = 20.dp
+private val SummaryArrowSize = 18.dp
 private val SectionIconSize = 28.dp
+private val SectionIconShape = RoundedCornerShape(9.dp)
+private val SectionIconGap = 10.dp
 private val ItemDotSize = 6.dp
+
+/** Sets the dot level with the middle of the first line: the change's, or its smaller scope label's. */
+private val ItemDotOffset = 7.dp
+private val ItemDotOffsetScoped = 5.dp
 private val ItemPadding = PaddingValues(horizontal = 14.dp, vertical = 11.dp)
 
 /** Sections longer than this show their first [SECTION_PREVIEW_SIZE] changes until opened. */
@@ -134,7 +143,7 @@ private fun UpdateSummaryPlaceholder() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp),
+                .padding(SummaryPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
@@ -146,7 +155,7 @@ private fun UpdateSummaryPlaceholder() {
                     modifier = Modifier.size(width = 96.dp, height = statusBadgeHeight),
                     shape = Defaults.PillShape
                 )
-                ShimmerBox(modifier = Modifier.size(18.dp), shape = CircleShape)
+                ShimmerBox(modifier = Modifier.size(SummaryArrowSize), shape = CircleShape)
                 ShimmerBox(
                     modifier = Modifier.size(width = 96.dp, height = statusBadgeHeight),
                     shape = Defaults.PillShape
@@ -182,11 +191,11 @@ private fun SectionGroupPlaceholder(modifier: Modifier = Modifier) {
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(SectionIconGap)
         ) {
             ShimmerBox(
                 modifier = Modifier.size(SectionIconSize),
-                shape = RoundedCornerShape(9.dp)
+                shape = SectionIconShape
             )
             ShimmerText(widthFraction = 0.3f, height = 16.dp)
         }
@@ -203,7 +212,7 @@ private fun SectionGroupPlaceholder(modifier: Modifier = Modifier) {
                     ) {
                         ShimmerBox(
                             modifier = Modifier
-                                .padding(top = 7.dp)
+                                .padding(top = ItemDotOffset)
                                 .size(ItemDotSize),
                             shape = CircleShape
                         )
@@ -379,7 +388,7 @@ fun ChangelogUpdateSummary(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp),
+                .padding(SummaryPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
@@ -392,7 +401,7 @@ fun ChangelogUpdateSummary(
                     imageVector = Icons.AutoMirrored.Outlined.ArrowForward,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(SummaryArrowSize)
                 )
                 StatusBadge(text = toVersion.withVersionPrefix(), tone = SemanticTone.Primary)
             }
@@ -606,12 +615,12 @@ private fun ChangelogSectionGroup(
     Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(SectionIconGap)
         ) {
             Box(
                 modifier = Modifier
                     .size(SectionIconSize)
-                    .clip(RoundedCornerShape(9.dp))
+                    .clip(SectionIconShape)
                     .background(style.tone.container),
                 contentAlignment = Alignment.Center
             ) {
@@ -675,7 +684,7 @@ private fun ChangelogItemRow(
         if (item.isBullet) {
             Box(
                 modifier = Modifier
-                    .padding(top = if (item.scope != null) 5.dp else 7.dp)
+                    .padding(top = if (item.scope != null) ItemDotOffsetScoped else ItemDotOffset)
                     .size(ItemDotSize)
                     .background(dotColor, CircleShape)
             )

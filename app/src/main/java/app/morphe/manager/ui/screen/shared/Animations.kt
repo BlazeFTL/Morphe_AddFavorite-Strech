@@ -17,13 +17,16 @@ import app.morphe.manager.ui.screen.shared.Animations.springSlideDownExit
  * Placement and fade animation for a lazy list row, so a list that filters, folds or reorders
  * settles instead of jumping. Kept next to the transitions below so list and dialog motion
  * stay in step.
+ *
+ * @param animatePlacement Off for a sticky header, whose place moves with every scroll and would
+ *   otherwise trail behind it.
  */
 @Composable
-fun Modifier.animatedListItem(itemScope: LazyItemScope): Modifier = with(itemScope) {
+fun Modifier.animatedListItem(itemScope: LazyItemScope, animatePlacement: Boolean = true): Modifier = with(itemScope) {
     this@animatedListItem.animateItem(
         fadeInSpec = tween(Defaults.ANIMATION_DURATION),
         fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-        placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
+        placementSpec = if (animatePlacement) Animations.listSpring() else null
     )
 }
 
@@ -66,6 +69,15 @@ object Animations {
             )
     val screenExit = dialogExit
 
+    /**
+     * The spring lazy list rows move on, for anything that resizes alongside them.
+     *
+     * @param dampingRatio Lowered below 1 for a slight settle. A size that clips its content wants
+     *   none, or the overshoot dips below the content and cuts it off.
+     */
+    fun <T> listSpring(dampingRatio: Float = 0.8f): SpringSpec<T> =
+        spring(stiffness = 400f, dampingRatio = dampingRatio)
+
     // Vertical expand/Shrink
     val expandFadeEnter = expandVertically(defaultTween()) + fadeIn
     val shrinkFadeExit = shrinkVertically(defaultTween()) + fadeOut
@@ -76,6 +88,20 @@ object Animations {
     // Horizontal expand/Shrink
     val expandHorizFadeIn = expandHorizontally(defaultTween()) + fadeIn
     val shrinkHorizFadeOut = shrinkHorizontally(defaultTween()) + fadeOut
+
+    private const val STAGGER_STEP = 40
+    private const val STAGGER_MAX_STEPS = 8
+
+    /**
+     * A chip fading and scaling in, held back by [index] steps so a run of them arrives one after
+     * another. Capped, so a long run does not keep its last chips waiting. Nothing is clipped, as
+     * a chip growing sideways inside a wrapping row would be.
+     */
+    fun chipEnterStaggered(index: Int): EnterTransition {
+        val delay = index.coerceIn(0, STAGGER_MAX_STEPS) * STAGGER_STEP
+        return fadeIn(tween(Defaults.ANIMATION_DURATION, delay, LinearOutSlowInEasing)) +
+            scaleIn(tween(Defaults.ANIMATION_DURATION, delay, LinearOutSlowInEasing), initialScale = 0.8f)
+    }
 
     // Slide + fade + size collapse
     val slideUpFadeEnter = slideInVertically(defaultTween()) { -it } +

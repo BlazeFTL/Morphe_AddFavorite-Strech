@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -26,11 +25,8 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -258,34 +254,12 @@ fun ExpertModeDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             // Search bar
-            AnimatedVisibility(
+            AppDialogSearchHeader(
                 visible = search.visible,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
-                val focusRequester = remember { FocusRequester() }
-                val keyboardController = LocalSoftwareKeyboardController.current
-                LaunchedEffect(Unit) {
-                    focusRequester.requestFocus()
-                    keyboardController?.show()
-                }
-                AppDialogTextField(
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = {
-                        Text(stringResource(R.string.expert_mode_search))
-                    },
-                    leadingIcon = {
-                        // The label already announces the field, so the icon stays decorative
-                        Icon(
-                            imageVector = Icons.Outlined.Search,
-                            contentDescription = null
-                        )
-                    },
-                    showClearButton = true,
-                    modifier = Modifier.focusRequester(focusRequester)
-                )
-            }
+                value = search.query,
+                onValueChange = { search.query = it },
+                label = stringResource(R.string.expert_mode_search)
+            )
 
             // Above the list rather than inside one source's page: what it counts is the sources
             // that have no page here at all

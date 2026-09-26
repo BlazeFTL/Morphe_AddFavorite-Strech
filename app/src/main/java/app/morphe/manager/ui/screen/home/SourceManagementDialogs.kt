@@ -9,8 +9,6 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -32,12 +30,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -54,6 +52,7 @@ import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.SourceMuteRepository
 import app.morphe.manager.patcher.patch.PatchInfo
+import app.morphe.manager.patcher.patch.appIconColorOf
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.*
 import compose.icons.FontAwesomeIcons
@@ -512,11 +511,10 @@ fun RenameBundleDialog(
 }
 
 /**
- * Dialog displaying patches from a bundle with search field and chips.
+ * Dialog listing the patches of a source, one block per app they patch and the universal ones last.
  *
  * @param initialQuery Query to open filtered by, carried over from the search that found the source.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BundlePatchesDialog(
     onDismissRequest: () -> Unit,
@@ -524,481 +522,101 @@ fun BundlePatchesDialog(
     initialQuery: String = ""
 ) {
     val patchBundleRepository: PatchBundleRepository = koinInject()
+    val context = LocalContext.current
     // Read across every source rather than the enabled ones alone: a disabled source is one the
     // user is still deciding about, and what it holds is what that decision is made on
     val patches by remember(src.uid) {
         patchBundleRepository.allBundlesInfoFlow.mapNotNull { it[src.uid]?.patches }
     }.collectAsStateWithLifecycle(emptyList())
 
-    var searchQuery by remember { mutableStateOf(initialQuery) }
-    var selectedPackages by remember { mutableStateOf(emptySet<String>()) }
-    val showFilterSheet = remember { mutableStateOf(false) }
+    val universalTitle = stringResource(R.string.expert_mode_universal_patches)
+    val sections = remember(patches, universalTitle) { patchesByApp(patches, universalTitle) }
+    val appCount = sections.count { it.packageName != null }
+    val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
 
-    val isLoading = patches.isEmpty()
-
-    // packageName -> display label (displayName ?: packageName)
-    val appLabels: Map<String, String> = remember(patches) {
-        patches
-            .flatMap { it.compatiblePackages.orEmpty() }
-            .distinctBy { it.packageName }
-            .mapNotNull { pkg ->
-                val name = pkg.packageName ?: return@mapNotNull null
-                name to (pkg.displayName ?: name)
-            }
-            .toMap()
-    }
-
-    val hasMultiplePackages = appLabels.size > 1
-
-    // Carries each patch's position in the unfiltered list: a bundle may declare several patches
-    // under one name and compatibility, so nothing derived from the patch itself is a unique key
-    val matchesPatch = rememberPatchMatcher(searchQuery, patches)
-    val filteredPatches: List<IndexedValue<PatchInfo>> = remember(patches, matchesPatch, selectedPackages) {
-        patches.withIndex()
-            .filter { (_, patch) ->
-                val packageMatch = selectedPackages.isEmpty() ||
-                        patch.compatiblePackages
-                            ?.any { it.packageName in selectedPackages } == true
-                packageMatch && matchesPatch(patch)
-            }
-            .sortedBy { (_, patch) -> patch.displayName }
-    }
-
-    // Per-patch accent color: first non-null appIconColor across all compatible packages,
-    // converted from 0xRRGGBB to a full-opacity Compose Color. Null falls back to surfaceVariant.
-    val patchAccentColors: Map<String, Color> = remember(patches) {
-        patches.associate { patch ->
-            val rgb = patch.compatiblePackages
-                ?.firstNotNullOfOrNull { it.appIconColor }
-            patch.name to if (rgb != null) Color(rgb or (0xFF shl 24)) else Color.Unspecified
-        }
-    }
-
-    val isFiltering = searchQuery.isNotBlank() || selectedPackages.isNotEmpty()
-
-    val patchSections = rememberPatchSectionState()
-    val patchFolds = patchSections.folds
-    val patchGroups = rememberPatchGroups(
-        patches = filteredPatches,
-        infoOf = { (_, patch) -> patch }
-    )
-
-    AppDialog(
-        onDismissRequest = {
-            when {
-                searchQuery.isNotBlank() -> searchQuery = ""
-                selectedPackages.isNotEmpty() -> selectedPackages = emptySet()
-                else -> onDismissRequest()
+    PatchListDialog(
+        icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
+        title = src.displayTitle,
+        subtitle = listOfNotNull(
+            pluralStringResource(R.plurals.patch_count, patches.size, patches.size.toString()),
+            pluralStringResource(R.plurals.home_category_app_count, appCount, appCount.toString())
+                .takeIf { appCount > 1 }
+        ).joinToString(" · "),
+        sections = sections,
+        isLoading = patches.isEmpty(),
+        saveStateKey = "bundle_${src.uid}",
+        onDismiss = onDismissRequest,
+        initialQuery = initialQuery,
+        // A source has no color of its own, so it wears the accent its icon does. One that is off
+        // goes neutral, as its icon greys out
+        accentColor = if (src.enabled) MaterialTheme.colorScheme.primary else null,
+        // The list is reachable while the source is off, so it says so up front rather than
+        // reading as patches that are ready to be applied
+        notice = if (src.enabled) null else {
+            {
+                Notice(
+                    text = stringResource(R.string.sources_patches_source_disabled_hint),
+                    icon = Icons.Outlined.VisibilityOff,
+                    tone = SemanticTone.Warning,
+                    density = NoticeDensity.Compact
+                )
             }
         },
-        title = null,
-        footer = { PatchListFooter(onClose = onDismissRequest) },
-        padding = DialogPadding.Compact,
-        scrollable = false,
-        contentArrangement = Arrangement.Top
-    ) {
-        AnimatedContent(
-            targetState = isLoading,
-            transitionSpec = Animations.fadeCrossfade(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            label = "bundlePatches"
-        ) { loading ->
-            if (loading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    PulsingLogoIndicator()
-                }
+        onExpertBadgeClick = { context.toast(expertBadgeTooltip) }
+    )
+}
 
-                return@AnimatedContent
-            }
+/**
+ * [patches] as one block per app, by name, then the universal ones. A patch for several apps joins
+ * the block of each, so every block holds all that its app can be patched with.
+ */
+private fun patchesByApp(patches: List<PatchInfo>, universalTitle: String): List<PatchListSection> {
+    val sorted = patches.sortedBy { it.displayName }
+    val (universal, specific) = sorted.partition { it.isUniversal }
+    val apps = specific
+        .flatMap { it.compatiblePackages.orEmpty() }
+        .filter { it.packageName != null }
+        .distinctBy { it.packageName }
+        .sortedBy { (it.displayName ?: it.packageName)?.lowercase() }
 
-            val listState = rememberLazyListState()
-            var displayedPackages by remember { mutableStateOf(emptySet<String>()) }
-            LaunchedEffect(selectedPackages) {
-                if (selectedPackages.isNotEmpty()) displayedPackages = selectedPackages
-            }
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                PatchesListSearchRow(
-                    searchQuery = searchQuery,
-                    onSearchQueryChange = { searchQuery = it },
-                    showFilterButton = hasMultiplePackages,
-                    isFilterActive = selectedPackages.isNotEmpty(),
-                    onFilterClick = { showFilterSheet.value = true }
+    return buildList {
+        apps.forEach { app ->
+            val packageName = app.packageName ?: return@forEach
+            add(
+                PatchListSection(
+                    key = packageName,
+                    title = app.displayName ?: packageName,
+                    patches = specific.filter { patch ->
+                        patch.compatiblePackages?.any { it.packageName == packageName } == true
+                    },
+                    packageName = packageName,
+                    // Tinted after the app's own icon, so each block reads as that app at a glance
+                    accentColor = app.appIconColor?.let(::appIconColorOf),
+                    icon = { modifier ->
+                        AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
+                    }
                 )
-
-                AnimatedVisibility(
-                    visible = selectedPackages.isNotEmpty(),
-                    enter = Animations.expandFadeEnter,
-                    exit = Animations.shrinkFadeExit
-                ) {
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        displayedPackages.forEach { pkg ->
-                            val label = appLabels[pkg] ?: pkg
-                            InputChip(
-                                selected = true,
-                                onClick = { selectedPackages = selectedPackages - pkg },
-                                label = { Text(label) },
-                                trailingIcon = {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Close,
-                                        contentDescription = stringResource(R.string.remove),
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                }
-                            )
-                        }
-                    }
-                }
-
-                Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                    LazyColumn(
-                        state = listState,
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-                    ) {
-                        // Bundle header
-                        item {
-                            PatchesListHeaderCard(
-                                title = src.displayTitle,
-                                totalCount = patches.size,
-                                filteredCount = filteredPatches.size,
-                                isFiltering = isFiltering
-                            )
-                        }
-
-                        // The list is reachable while the source is off, so it says so up front
-                        // rather than reading as patches that are ready to be applied
-                        if (!src.enabled) {
-                            item(key = "disabled_hint") {
-                                Notice(
-                                    text = stringResource(R.string.sources_patches_source_disabled_hint),
-                                    icon = Icons.Outlined.VisibilityOff,
-                                    tone = SemanticTone.Warning,
-                                    density = NoticeDensity.Compact
-                                )
-                            }
-                        }
-
-                        if (filteredPatches.isEmpty()) {
-                            item(key = "empty_state") {
-                                PatchesListEmptyState(
-                                    modifier = Modifier.animateItem()
-                                )
-                            }
-                        }
-
-                        // Filtered patches list
-                        patchGroupRows(
-                            sectionKey = src.uid,
-                            groups = patchGroups,
-                            key = { (index, _): IndexedValue<PatchInfo> -> index },
-                            isFiltering = isFiltering,
-                            folds = patchFolds,
-                            onToggle = { group -> patchSections.toggle(src.uid, group) }
-                        ) { (_, patch) ->
-                            val context = LocalContext.current
-                            val expertBadgeTooltip = stringResource(R.string.sources_patch_expert_badge_tooltip)
-                            val accentColor = patchAccentColors[patch.name]
-                                ?.takeIf { it != Color.Unspecified }
-                            PatchItemCard(
-                                patch = patch,
-                                saveStateKey = "bundle_${src.uid}",
-                                onExpertBadgeClick = if (!patch.include) {
-                                    { context.toast(expertBadgeTooltip) }
-                                } else null,
-                                accentColor = accentColor,
-                                modifier = Modifier.animateItem(
-                                    fadeInSpec = tween(Defaults.ANIMATION_DURATION),
-                                    fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-                                    placementSpec = spring(stiffness = 400f, dampingRatio = 0.8f)
-                                )
-                            )
-                        }
-                    }
-
-                    ListScrollbar(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
-
-                    ScrollToTopButton(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
-                }
-            }
+            )
         }
-    }
-
-    TranslationOverlays()
-
-    // App filter bottom sheet
-    if (showFilterSheet.value) {
-        AppBottomSheet(
-            onDismissRequest = { showFilterSheet.value = false }
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .navigationBarsPadding()
-            ) {
-                PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) })
-
-                LazyColumn(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
-                    item {
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            // "All" chip
-                            AppFilterChip(
-                                selected = selectedPackages.isEmpty(),
-                                onClick = { selectedPackages = emptySet() },
-                                label = stringResource(R.string.all),
-                                selectedIcon = Icons.Outlined.DoneAll
-                            )
-                            // Per-app chips
-                            appLabels.entries
-                                .sortedBy { it.value }
-                                .forEach { (pkg, label) ->
-                                    val isSelected = pkg in selectedPackages
-                                    AppFilterChip(
-                                        selected = isSelected,
-                                        onClick = {
-                                            selectedPackages = if (isSelected)
-                                                selectedPackages - pkg
-                                            else
-                                                selectedPackages + pkg
-                                        },
-                                        label = label
-                                    )
-                                }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-/**
- * Patch item card.
- */
-@Composable
-fun PatchItemCard(
-    modifier: Modifier = Modifier,
-    patch: PatchInfo,
-    saveStateKey: String,
-    onExpertBadgeClick: (() -> Unit)? = null,
-    accentColor: Color? = null
-) {
-    val textColor = LocalDialogTextColor.current
-    val secondaryColor = LocalDialogSecondaryTextColor.current
-
-    var expandVersions by rememberSaveable(saveStateKey, patch.name, "versions") {
-        mutableStateOf(false)
-    }
-    var expandOptions by rememberSaveable(saveStateKey, patch.name, "options") {
-        mutableStateOf(false)
-    }
-
-    val rotationAngle by animateFloatAsState(
-        targetValue = if (expandOptions) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "expand_rotation"
-    )
-
-    val cardColor = rememberAccentCardColor(accentColor)
-
-    val effectiveCardColor = cardColor ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
-    // Card colors come from the app's own icon, so no fixed badge fill can be counted on to show
-    val cardBackground = effectiveCardColor.compositeOver(MaterialTheme.colorScheme.background)
-
-    SettingsItemCard(
-        onClick = if (!patch.options.isNullOrEmpty()) {
-            { expandOptions = !expandOptions }
-        } else null,
-        modifier = modifier,
-        borderWidth = 1.dp,
-        color = effectiveCardColor
-    ) {
-        CompositionLocalProvider(LocalCardBackground provides cardBackground) {
-            Column(
-                modifier = Modifier.padding(Defaults.ContentPadding),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            ) {
-                // Header
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = patch.displayName,
-                        color = textColor,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier.weight(1f)
-                    )
-
-                    if (!patch.options.isNullOrEmpty()) {
-                        ThemedIcon(
-                            icon = Icons.Outlined.ExpandMore,
-                            contentDescription = if (expandOptions)
-                                stringResource(R.string.collapse)
-                            else
-                                stringResource(R.string.expand),
-                            tint = secondaryColor,
-                            modifier = Modifier.rotate(rotationAngle)
+        if (universal.isNotEmpty()) {
+            add(
+                PatchListSection(
+                    key = UNIVERSAL_GROUP_KEY,
+                    title = universalTitle,
+                    patches = universal,
+                    packageName = null,
+                    icon = { modifier ->
+                        Icon(
+                            imageVector = Icons.Outlined.Public,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = modifier
                         )
                     }
-                }
-
-                // Description
-                patch.description?.let {
-                    Text(
-                        text = rememberTranslated(it),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = secondaryColor
-                    )
-                }
-
-                // Compatibility info
-                if (patch.isUniversal) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        StatusBadge(
-                            text = stringResource(R.string.sources_dialog_view_any_package),
-                            icon = Icons.Outlined.Apps
-                        )
-                        StatusBadge(
-                            text = stringResource(R.string.sources_dialog_view_any_version),
-                            icon = Icons.Outlined.Code
-                        )
-                    }
-                } else {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        patch.compatiblePackages.orEmpty().forEach { compatiblePackage ->
-                            val anyString = stringResource(R.string.any_version)
-                            val appName = compatiblePackage.displayName ?: compatiblePackage.packageName ?: anyString
-                            val versions = compatiblePackage.versions.orEmpty()
-
-                            FlowRow(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                StatusBadge(
-                                    text = appName,
-                                    icon = Icons.Outlined.Apps,
-                                    tone = SemanticTone.Primary,
-                                    modifier = Modifier.align(Alignment.CenterVertically)
-                                )
-
-                                if (versions.isNotEmpty()) {
-                                    val shownVersions =
-                                        if (expandVersions) versions else versions.take(1)
-                                    shownVersions.forEach { version ->
-                                        PatchVersionBadge(
-                                            version = version,
-                                            isExperimental = compatiblePackage.experimentalVersions
-                                                ?.contains(version) == true,
-                                            modifier = Modifier.align(Alignment.CenterVertically)
-                                        )
-                                    }
-
-                                    if (versions.size > 1) {
-                                        StatusBadge(
-                                            text = if (expandVersions)
-                                                stringResource(R.string.less)
-                                            else
-                                                "+${versions.size - 1}",
-                                            modifier = Modifier.align(Alignment.CenterVertically),
-                                            onClick = { expandVersions = !expandVersions }
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Expert badge - shown only for patches that are disabled by default
-                if (!patch.include && onExpertBadgeClick != null) {
-                    StatusBadge(
-                        text = stringResource(R.string.sources_patch_expert_badge),
-                        icon = Icons.Outlined.Lock,
-                        tone = SemanticTone.Warning,
-                        onClick = onExpertBadgeClick
-                    )
-                }
-
-                // Options
-                if (!patch.options.isNullOrEmpty()) {
-                    AnimatedVisibility(
-                        visible = expandOptions,
-                        enter = Animations.expandFadeEnter,
-                        exit = Animations.shrinkFadeExit
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(top = 4.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            patch.options.forEach { option ->
-                                Surface(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                ) {
-                                    Column(
-                                        modifier = Modifier.padding(12.dp),
-                                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                                    ) {
-                                        Text(
-                                            text = option.title,
-                                            style = MaterialTheme.typography.titleSmall,
-                                            fontWeight = FontWeight.SemiBold,
-                                            color = textColor
-                                        )
-                                        Text(
-                                            text = rememberTranslated(option.description),
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = secondaryColor
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+                )
+            )
         }
     }
-}
-
-/**
- * One version a patch declares support for, tagged the way every version list tags it.
- */
-@Composable
-private fun PatchVersionBadge(
-    version: String,
-    isExperimental: Boolean,
-    modifier: Modifier = Modifier
-) {
-    StatusBadge(
-        modifier = modifier,
-        text = version,
-        icon = if (isExperimental) VersionTag.Experimental.icon else Icons.Outlined.Code,
-        tone = if (isExperimental) VersionTag.Experimental.tone else SemanticTone.Neutral
-    )
 }
 
 /**

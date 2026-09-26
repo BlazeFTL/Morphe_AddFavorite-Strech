@@ -9,7 +9,6 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -92,9 +91,7 @@ fun ChangelogList(
     Box(modifier = Modifier.fillMaxWidth()) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxWidth(),
-            // The end of the history is where the scroll-to-top button shows, so it scrolls clear
-            contentPadding = PaddingValues(bottom = ScrollToTopButtonClearance)
+            modifier = Modifier.fillMaxWidth()
         ) {
             if (header != null) {
                 item("changelog_header") {

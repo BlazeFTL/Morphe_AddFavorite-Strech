@@ -179,8 +179,6 @@
     <string name="sources_dialog_rename">Rename patch source</string>
     <string name="sources_dialog_duplicate_name_error">A patch source with this name already exists</string>
     <string name="sources_dialog_missing_error">Could not update this patch source</string>
-    <string name="sources_dialog_view_any_version">Any version</string>
-    <string name="sources_dialog_view_any_package">Any package</string>
     <string name="sources_dialog_add_source">Add patch source</string>
     <string name="sources_dialog_delete_confirm_message">Delete source \"%s\"? This cannot be undone</string>
     <string name="sources_dialog_remote">Remote</string>

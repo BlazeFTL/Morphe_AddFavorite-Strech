@@ -999,7 +999,6 @@ private fun AppHeroHeader(
     compact: Boolean = false
 ) {
     val onHero = MaterialTheme.colorScheme.onBackground
-    val chipBg = if (accentColor.isExtremeAccent()) onHero.copy(alpha = 0.12f) else accentColor.copy(alpha = 0.18f)
 
     val iconSize = if (compact) 56.dp else 72.dp
     val iconCorner = if (compact) 14.dp else 22.dp
@@ -1034,14 +1033,10 @@ private fun AppHeroHeader(
 
     Box(modifier = modifier.fillMaxWidth()) {
         // Flat tinted background
-        val heroBg = if (accentColor.isExtremeAccent())
-            MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f)
-        else
-            accentColor.copy(alpha = 0.15f)
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .background(heroBg)
+                .background(appAccentFill(accentColor))
         )
 
         Column(
@@ -1143,12 +1138,7 @@ private fun AppHeroHeader(
                         horizontalAlignment = Alignment.End
                     ) {
                         heroChips.forEach { (icon, label) ->
-                            StatusBadge(
-                                text = label,
-                                icon = icon,
-                                containerColor = chipBg,
-                                contentColor = onHero
-                            )
+                            AppAccentBadge(text = label, accentColor = accentColor, icon = icon)
                         }
                     }
                 }
@@ -1171,12 +1161,7 @@ private fun AppHeroHeader(
                                 alpha = p
                             }
                         ) {
-                            StatusBadge(
-                                text = label,
-                                icon = icon,
-                                containerColor = chipBg,
-                                contentColor = onHero
-                            )
+                            AppAccentBadge(text = label, accentColor = accentColor, icon = icon)
                         }
                     }
                 }

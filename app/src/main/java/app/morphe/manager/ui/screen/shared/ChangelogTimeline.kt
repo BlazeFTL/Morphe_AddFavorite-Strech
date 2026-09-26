@@ -27,13 +27,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -50,6 +54,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import app.morphe.manager.R
 import app.morphe.manager.util.*
 import java.time.LocalDate
@@ -58,6 +63,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.time.temporal.ChronoUnit
 import java.util.Locale
+import kotlin.math.abs
 
 // Timeline geometry: the rail runs through the middle of a slot at the leading edge, and each
 // node sits level with the first line of its release header
@@ -95,6 +101,15 @@ private const val RELATIVE_DATE_DAYS = 6
 
 /** Inline code, bold text and links, the only formatting a single change carries. */
 private val INLINE_FORMATTING = Regex("""`([^`]+)`|\*\*(.+?)\*\*|\[([^]]+)]\(([^)\s]+)\)""")
+
+/** Marks inline code in formatted text, so its chip can be drawn behind it. */
+private const val CODE_TAG = "code"
+private const val CODE_CHIP_PADDING = "\u202F"
+private val CodeChipRadius = 6.dp
+private val CodeChipInset = 1.dp
+
+/** Monospace glyphs run wider and heavier than the body font, so code steps down to sit level with it. */
+private val CodeFontScale = 0.9.em
 
 /** Marker a release carries on the timeline, listed from the strongest when several apply. */
 enum class ChangelogBadge(@param:StringRes val label: Int, val tone: SemanticTone) {
@@ -705,9 +720,8 @@ private fun ChangelogItemRow(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            Text(
-                text = rememberInlineFormatting(item.text),
-                style = MaterialTheme.typography.bodyMedium,
+            FormattedText(
+                text = item.text,
                 color = if (item.isBullet) MaterialTheme.colorScheme.onSurface
                 else MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -829,21 +843,70 @@ private fun formatReleaseDate(date: String, locale: Locale): String {
     return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale).format(day)
 }
 
+/**
+ * A change's text with its inline formatting. Code sits on rounded chips drawn behind the text,
+ * since a span background only fills a hard-edged box.
+ */
+@Composable
+private fun FormattedText(text: String, color: Color) {
+    val formatted = rememberInlineFormatting(text)
+    val codeRanges = remember(formatted) { formatted.getStringAnnotations(CODE_TAG, 0, formatted.length) }
+    val chipColor = MaterialTheme.colorScheme.surfaceContainerHighest
+    var layout by remember { mutableStateOf<TextLayoutResult?>(null) }
+
+    Text(
+        text = formatted,
+        style = MaterialTheme.typography.bodyMedium,
+        color = color,
+        onTextLayout = { layout = it },
+        modifier = Modifier.drawBehind {
+            val result = layout ?: return@drawBehind
+            val radius = CornerRadius(CodeChipRadius.toPx())
+            val inset = CodeChipInset.toPx()
+            for (range in codeRanges) {
+                val firstLine = result.getLineForOffset(range.start)
+                val lastLine = result.getLineForOffset(range.end - 1)
+                // Code broken across lines gets a chip on each line it covers
+                for (line in firstLine..lastLine) {
+                    val start = maxOf(range.start, result.getLineStart(line))
+                    val end = minOf(range.end, result.getLineEnd(line, visibleEnd = true))
+                    if (start >= end) continue
+                    val from = result.getHorizontalPosition(start, usePrimaryDirection = true)
+                    val to = result.getHorizontalPosition(end, usePrimaryDirection = true)
+                    drawRoundRect(
+                        color = chipColor,
+                        topLeft = Offset(minOf(from, to), result.getLineTop(line) + inset),
+                        size = Size(
+                            width = abs(to - from),
+                            height = result.getLineBottom(line) - result.getLineTop(line) - inset * 2
+                        ),
+                        cornerRadius = radius
+                    )
+                }
+            }
+        }
+    )
+}
+
 @Composable
 private fun rememberInlineFormatting(text: String): AnnotatedString {
-    val codeBackground = MaterialTheme.colorScheme.surfaceContainerHighest
     val linkColor = MaterialTheme.colorScheme.primary
 
-    return remember(text, codeBackground, linkColor) {
+    return remember(text, linkColor) {
         buildAnnotatedString {
             var position = 0
             for (match in INLINE_FORMATTING.findAll(text)) {
                 append(text, position, match.range.first)
                 val (code, bold, label, url) = match.destructured
                 when {
-                    code.isNotEmpty() -> withStyle(
-                        SpanStyle(fontFamily = FontFamily.Monospace, background = codeBackground)
-                    ) { append(code) }
+                    // Narrow spaces pad the chip and keep it on the same line as the code
+                    code.isNotEmpty() -> withAnnotation(CODE_TAG, code) {
+                        append(CODE_CHIP_PADDING)
+                        withStyle(
+                            SpanStyle(fontFamily = FontFamily.Monospace, fontSize = CodeFontScale)
+                        ) { append(code) }
+                        append(CODE_CHIP_PADDING)
+                    }
 
                     bold.isNotEmpty() -> withStyle(SpanStyle(fontWeight = FontWeight.SemiBold)) { append(bold) }
 

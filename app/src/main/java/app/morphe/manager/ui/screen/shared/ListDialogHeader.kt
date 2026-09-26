@@ -5,7 +5,7 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.Crossfade
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.EaseOutBack
@@ -199,21 +199,24 @@ fun ListDialogHeader(
                     modifier = Modifier.headerTitleEntrance(entrance)
                 )
                 val subtitleStyle = DialogHeaderDefaults.subtitleStyle
-                Crossfade(
-                    targetState = subtitleLoading,
-                    animationSpec = tween(Defaults.ANIMATION_DURATION),
+                // Eases from the shimmer into the text and from one text to the next as the list it
+                // sums up changes, the header resizing along when the new one takes more lines
+                AnimatedContent(
+                    targetState = subtitle.takeUnless { subtitleLoading },
+                    transitionSpec = Animations.fadeCrossfade(),
+                    contentAlignment = Alignment.TopStart,
                     label = "list_header_subtitle",
                     modifier = Modifier.headerSubtitleEntrance(entrance)
-                ) { loading ->
-                    if (loading) {
-                        // A line's height, so the header keeps its size as the text replaces it
+                ) { text ->
+                    if (text == null) {
+                        // A line's height, the size of the shortest subtitle it stands in for
                         ShimmerText(
                             widthFraction = 0.5f,
                             height = with(LocalDensity.current) { subtitleStyle.lineHeight.toDp() }
                         )
                     } else {
                         Text(
-                            text = subtitle,
+                            text = text,
                             style = subtitleStyle,
                             color = LocalDialogSecondaryTextColor.current
                         )

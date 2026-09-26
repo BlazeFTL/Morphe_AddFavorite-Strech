@@ -197,37 +197,31 @@ internal fun PatchListDialog(
                 }
 
                 val listState = rememberLazyListState()
-                // The list otherwise holds on to whichever row led it, which a new query or filter
-                // leaves somewhere in the middle, so each of them starts the list over from its top
-                LaunchedEffect(search.query, selected) {
+                // The list otherwise holds on to whichever row led it, which another block leaves
+                // somewhere in the middle, so picking one starts the list over from its top
+                LaunchedEffect(selected) {
                     listState.scrollToItem(0)
                 }
                 Box(modifier = Modifier.fillMaxSize()) {
                     LazyColumn(
                         state = listState,
                         modifier = Modifier.fillMaxWidth(),
-                        // The gap under the header is the list's own, so rows scroll up to the header's
-                        // edge. The open search field carries it itself, as it sticks to that edge
-                        contentPadding = PaddingValues(top = if (search.visible) 0.dp else Defaults.ItemSpacing),
                         verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
                     ) {
                         // A row of the list rather than a field above it, so the rows below ease into
-                        // place as it comes and goes. Left out while closed, since an empty row would
-                        // still take its share of the spacing
-                        if (search.visible) {
-                            stickyHeader(key = "search") {
-                                AppDialogSearchTextField(
-                                    value = search.query,
-                                    onValueChange = { search.query = it },
-                                    label = searchLabel,
-                                    requestFocus = true,
-                                    modifier = Modifier
-                                        .animatedListItem(this, animatePlacement = false)
-                                        // Opaque, so rows scrolled under the gap stay hidden
-                                        .background(MaterialTheme.colorScheme.background)
-                                        .padding(top = Defaults.ItemSpacing)
-                                )
-                            }
+                        // place as it comes and goes. The row stays while the field is closed, and its
+                        // share of the spacing makes the gap under the header
+                        stickyHeader(key = "search") {
+                            AppDialogSearchHeader(
+                                visible = search.visible,
+                                value = search.query,
+                                onValueChange = { search.query = it },
+                                label = searchLabel,
+                                // Opaque, so rows scrolled under the gap stay hidden
+                                modifier = Modifier
+                                    .background(MaterialTheme.colorScheme.background)
+                                    .padding(top = Defaults.ItemSpacing)
+                            )
                         }
 
                         if (notice != null) item(key = "notice") { notice() }

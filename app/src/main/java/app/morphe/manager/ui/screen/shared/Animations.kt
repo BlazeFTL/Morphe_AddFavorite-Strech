@@ -17,16 +17,13 @@ import app.morphe.manager.ui.screen.shared.Animations.springSlideDownExit
  * Placement and fade animation for a lazy list row, so a list that filters, folds or reorders
  * settles instead of jumping. Kept next to the transitions below so list and dialog motion
  * stay in step.
- *
- * @param animatePlacement Off for a sticky header, whose place moves with every scroll and would
- *   otherwise trail behind it.
  */
 @Composable
-fun Modifier.animatedListItem(itemScope: LazyItemScope, animatePlacement: Boolean = true): Modifier = with(itemScope) {
+fun Modifier.animatedListItem(itemScope: LazyItemScope): Modifier = with(itemScope) {
     this@animatedListItem.animateItem(
         fadeInSpec = tween(Defaults.ANIMATION_DURATION),
         fadeOutSpec = tween(Defaults.ANIMATION_DURATION_SHORT),
-        placementSpec = if (animatePlacement) Animations.listSpring() else null
+        placementSpec = Animations.listSpring()
     )
 }
 

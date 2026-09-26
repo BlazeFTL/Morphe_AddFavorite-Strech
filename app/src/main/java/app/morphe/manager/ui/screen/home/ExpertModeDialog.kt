@@ -230,58 +230,64 @@ fun ExpertModeDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
-            // Headed by the app, as its other dialogs are. A lone source joins the subtitle rather
-            // than taking a row of its own, while several get their tabs below
-            ListDialogHeader(
-                icon = { modifier -> AppIcon(packageName = packageName, contentDescription = null, modifier = modifier) },
-                title = appName
-                    ?: allPatchesInfo.firstNotNullOfOrNull { (bundle, _) -> bundle.displayName }
-                    ?: packageName,
-                subtitle = listOfNotNull(
-                    stringResource(R.string.expert_mode_title),
-                    allPatchesInfo.singleOrNull()?.first?.name
-                ).joinToString(" · "),
-                search = search,
-                searchLabel = searchLabel,
-                accentColor = appColor
-            ) {
-                // The counter already stands for the selection, so it doubles as the way to filter
-                // the list down to it
-                val badgeTone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
-                // Still switchable off after the last patch is unticked under the filter
-                val canFilter = totalSelectedCount > 0 || isSelectedOnly
-                val filterState = stringResource(
-                    if (isSelectedOnly) {
-                        R.string.expert_mode_selected_only_on
-                    } else {
-                        R.string.expert_mode_selected_only_off
-                    }
-                )
-                StatusBadge(
-                    text = "$totalSelectedCount/$totalPatchesCount",
-                    // Carried while the filter is merely available, so the counter reads as the
-                    // control it is instead of only announcing itself once tapped
-                    icon = Icons.Outlined.FilterAlt.takeIf { canFilter },
-                    tone = badgeTone,
-                    // Filled rather than tonal while filtering, so the narrowed list has a visible cause
-                    containerColor = if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container,
-                    contentColor = if (isSelectedOnly) MaterialTheme.colorScheme.onPrimary else badgeTone.content,
-                    onClick = if (canFilter) {
-                        { toggleSelectedOnly() }
-                    } else {
-                        null
+            Column {
+                // Headed by the app, as its other dialogs are. A lone source joins the subtitle rather
+                // than taking a row of its own, while several get their tabs below
+                ListDialogHeader(
+                    icon = { modifier ->
+                        AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
                     },
-                    modifier = Modifier.semantics { stateDescription = filterState }
+                    title = appName
+                        ?: allPatchesInfo.firstNotNullOfOrNull { (bundle, _) -> bundle.displayName }
+                        ?: packageName,
+                    subtitle = listOfNotNull(
+                        stringResource(R.string.expert_mode_title),
+                        allPatchesInfo.singleOrNull()?.first?.name
+                    ).joinToString(" · "),
+                    search = search,
+                    searchLabel = searchLabel,
+                    accentColor = appColor
+                ) {
+                    // The counter already stands for the selection, so it doubles as the way to filter
+                    // the list down to it
+                    val badgeTone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
+                    // Still switchable off after the last patch is unticked under the filter
+                    val canFilter = totalSelectedCount > 0 || isSelectedOnly
+                    val filterState = stringResource(
+                        if (isSelectedOnly) {
+                            R.string.expert_mode_selected_only_on
+                        } else {
+                            R.string.expert_mode_selected_only_off
+                        }
+                    )
+                    StatusBadge(
+                        text = "$totalSelectedCount/$totalPatchesCount",
+                        // Carried while the filter is merely available, so the counter reads as the
+                        // control it is instead of only announcing itself once tapped
+                        icon = Icons.Outlined.FilterAlt.takeIf { canFilter },
+                        tone = badgeTone,
+                        // Filled rather than tonal while filtering, so the narrowed list has a visible cause
+                        containerColor = if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container,
+                        contentColor = if (isSelectedOnly) MaterialTheme.colorScheme.onPrimary else badgeTone.content,
+                        onClick = if (canFilter) {
+                            { toggleSelectedOnly() }
+                        } else {
+                            null
+                        },
+                        modifier = Modifier.semantics { stateDescription = filterState }
+                    )
+                }
+
+                // Its gap to the header is part of the field, so the list below settles as it
+                // comes and goes instead of snapping by the spacing the column adds after it
+                AppDialogSearchHeader(
+                    visible = search.visible,
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = searchLabel,
+                    modifier = Modifier.padding(top = Defaults.ContentPaddingSmall)
                 )
             }
-
-            // Search bar
-            AppDialogSearchHeader(
-                visible = search.visible,
-                value = search.query,
-                onValueChange = { search.query = it },
-                label = searchLabel
-            )
 
             // Above the list rather than inside one source's page: what it counts is the sources
             // that have no page here at all
@@ -583,7 +589,11 @@ private fun SourceTab(
         // The row lays tabs edge to edge, so the gap between the pills comes from each one's end,
         // which leaves the first flush with the list below
         modifier = Modifier
-            .padding(top = Defaults.ContentPaddingSmall, bottom = Defaults.ContentPaddingSmall, end = Defaults.ContentPaddingSmall)
+            .padding(
+                top = Defaults.ContentPaddingSmall,
+                bottom = Defaults.ContentPaddingSmall,
+                end = Defaults.ContentPaddingSmall
+            )
             .clip(Defaults.PillShape)
             .background(fill),
         selectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,

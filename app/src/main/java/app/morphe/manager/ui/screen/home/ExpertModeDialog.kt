@@ -232,8 +232,8 @@ fun ExpertModeDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             Column {
-                // Headed by the app, as its other dialogs are. A lone source joins the subtitle rather
-                // than taking a row of its own, while several get their tabs below
+                // Headed by the app, as its other dialogs are. A lone source takes the subtitle's
+                // second line rather than a row of its own, while several get their tabs below
                 ListDialogHeader(
                     icon = { modifier ->
                         AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
@@ -244,7 +244,7 @@ fun ExpertModeDialog(
                     subtitle = listOfNotNull(
                         stringResource(R.string.expert_mode_title),
                         allPatchesInfo.singleOrNull()?.first?.name
-                    ).joinToString(" · "),
+                    ).joinToString("\n"),
                     search = search,
                     searchLabel = searchLabel,
                     accentColor = appColor

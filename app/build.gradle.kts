@@ -102,8 +102,8 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation(libs.play.services.base)
 
-    // Markdown
-    implementation(libs.markdown.renderer)
+    // On-device translation
+    implementation(libs.mlkit.translate)
 
     // Fading Edges
     implementation(libs.fading.edges)

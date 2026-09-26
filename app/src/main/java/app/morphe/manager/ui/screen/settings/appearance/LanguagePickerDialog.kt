@@ -92,7 +92,9 @@ fun LanguagePickerDialog(
             Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
                 LazyColumn(
                     state = listState,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScrollFade(listState),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(filteredLanguages) { language ->

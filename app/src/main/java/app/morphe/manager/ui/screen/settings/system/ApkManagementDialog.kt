@@ -918,7 +918,9 @@ private fun ApkManagementDialogContent(
         Box(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
                 state = listState,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScrollFade(listState, fadeTop = false),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
             ) {
                 // Kept while the field is closed, so its share of the spacing makes the gap under

@@ -320,7 +320,8 @@ fun BundleManagementSheet(
                         state = listState,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top },
+                            .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top }
+                            .verticalScrollFade(listState),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         contentPadding = PaddingValues(
                             start = 16.dp,

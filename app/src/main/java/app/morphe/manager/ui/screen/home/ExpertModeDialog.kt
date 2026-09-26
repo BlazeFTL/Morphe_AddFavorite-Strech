@@ -763,7 +763,9 @@ private fun BundlePatchList(
 
     LazyColumn(
         state = listState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScrollFade(listState),
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
         if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()

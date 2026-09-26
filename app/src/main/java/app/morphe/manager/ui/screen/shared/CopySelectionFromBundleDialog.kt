@@ -150,7 +150,9 @@ private fun ColumnScope.CandidateList(
     ) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScrollFade(listState),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             items(

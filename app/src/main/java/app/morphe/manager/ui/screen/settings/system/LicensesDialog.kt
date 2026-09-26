@@ -30,6 +30,7 @@ import app.morphe.manager.ui.screen.shared.LocalDialogTextColor
 import app.morphe.manager.ui.screen.shared.AppDialog
 import app.morphe.manager.ui.screen.shared.AppDialogOutlinedButton
 import app.morphe.manager.ui.screen.shared.ScrollToTopButton
+import app.morphe.manager.ui.screen.shared.verticalScrollFade
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.LibraryColors
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
@@ -113,7 +114,9 @@ fun LicensesDialog(onDismiss: () -> Unit) {
 
         Box(modifier = Modifier.weight(1f)) {
             LibrariesContainer(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScrollFade(lazyListState),
                 libraries = libraries,
                 dialogLibrary = openDialog,
                 sheetLibrary = openSheet,

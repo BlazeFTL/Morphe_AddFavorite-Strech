@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
@@ -67,6 +68,36 @@ fun Modifier.horizontalScrollFade(scrollState: ScrollState, length: Dp = EdgeFad
 /** [edgeFade] for a column that scrolls, fading whichever end [scrollState] has more past. */
 fun Modifier.verticalScrollFade(scrollState: ScrollState, length: Dp = EdgeFadeWidth): Modifier =
     scrollFade(scrollState, length, Orientation.Vertical)
+
+/**
+ * [edgeFade] for a lazy column, fading whichever end [state] has more past.
+ *
+ * @param fadeTop False for a list whose first row sticks to its top, a search field say, which
+ *   the fade would otherwise wash out instead of the rows scrolling under it.
+ */
+fun Modifier.verticalScrollFade(
+    state: LazyListState,
+    length: Dp = EdgeFadeWidth,
+    fadeTop: Boolean = true
+): Modifier = edgeFade(
+    length = length,
+    hiddenAtStart = { if (fadeTop) state.hiddenAtStart() else 0f },
+    hiddenAtEnd = { state.hiddenAtEnd() },
+    orientation = Orientation.Vertical
+)
+
+// A lazy list measures only the rows in view, so a row out of sight counts as more than any fade
+private fun LazyListState.hiddenAtStart(): Float =
+    if (firstVisibleItemIndex > 0) Float.MAX_VALUE else firstVisibleItemScrollOffset.toFloat()
+
+private fun LazyListState.hiddenAtEnd(): Float {
+    val info = layoutInfo
+    val last = info.visibleItemsInfo.lastOrNull() ?: return 0f
+    if (last.index < info.totalItemsCount - 1) return Float.MAX_VALUE
+    return (last.offset + last.size + info.afterContentPadding - info.viewportEndOffset)
+        .coerceAtLeast(0)
+        .toFloat()
+}
 
 private fun Modifier.scrollFade(scrollState: ScrollState, length: Dp, orientation: Orientation) = edgeFade(
     length = length,

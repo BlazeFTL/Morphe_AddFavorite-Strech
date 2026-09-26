@@ -51,6 +51,7 @@ fun DetailsDialog(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .verticalScrollFade(scrollState)
                     .verticalScroll(scrollState)
                     .padding(vertical = Defaults.ItemSpacing),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),

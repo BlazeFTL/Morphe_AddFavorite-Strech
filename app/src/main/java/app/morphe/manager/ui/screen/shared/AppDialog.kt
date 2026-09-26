@@ -440,11 +440,17 @@ private fun DialogContent(
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = horizontalPadding)
                                 .then(
                                     if (scrollState != null) {
-                                        Modifier.verticalScroll(scrollState)
-                                    } else Modifier
+                                        // Ahead of the padding, so the fade spans the dialog's full
+                                        // width and clips nothing that reaches into the padding
+                                        Modifier
+                                            .verticalScrollFade(scrollState)
+                                            .padding(horizontal = horizontalPadding)
+                                            .verticalScroll(scrollState)
+                                    } else {
+                                        Modifier.padding(horizontal = horizontalPadding)
+                                    }
                                 )
                         ) {
                             content()

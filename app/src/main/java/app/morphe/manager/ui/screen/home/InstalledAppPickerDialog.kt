@@ -127,7 +127,9 @@ fun InstalledAppPickerDialog(
         Box(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
                 state = listState,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScrollFade(listState, fadeTop = false),
                 userScrollEnabled = !isLoading
             ) {
                 stickyHeader(key = "search") {

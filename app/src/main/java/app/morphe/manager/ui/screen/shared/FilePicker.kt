@@ -540,7 +540,9 @@ fun FilePicker(
                 .fillMaxWidth()) {
                 LazyColumn(
                     state = listState,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScrollFade(listState)
                 ) {
                     if (currentDir == null) {
                         items(roots, key = { it.second.absolutePath }) { (label, root) ->

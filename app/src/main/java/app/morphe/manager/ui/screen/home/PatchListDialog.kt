@@ -206,7 +206,9 @@ internal fun PatchListDialog(
                 Box(modifier = Modifier.fillMaxSize()) {
                     LazyColumn(
                         state = listState,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .verticalScrollFade(listState, fadeTop = false),
                         verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
                     ) {
                         // A row of the list rather than a field above it, so the rows below ease into

@@ -95,7 +95,9 @@ fun ChangelogList(
     Box(modifier = Modifier.fillMaxWidth()) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScrollFade(listState),
             contentPadding = contentPadding
         ) {
             if (header != null) {

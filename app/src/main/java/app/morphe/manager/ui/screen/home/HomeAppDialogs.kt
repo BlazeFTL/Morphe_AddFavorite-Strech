@@ -463,7 +463,9 @@ fun AppPatchSourcesDialog(
         val listState = rememberLazyListState()
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScrollFade(listState),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             items(items = rows, key = { (uid, _, _) -> uid }) { (uid, title, counts) ->

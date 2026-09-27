@@ -42,6 +42,8 @@ import app.morphe.manager.ui.screen.shared.Defaults.MinTouchTarget
 import app.morphe.manager.ui.screen.shared.Defaults.TallTouchTarget
 import app.morphe.manager.ui.theme.LocalMonochromeTheme
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.ui.theme.MorpheBrandBlue
+import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.readableOn
 
@@ -93,7 +95,7 @@ object Defaults {
     val ItemSpacing = 12.dp
 
     // Gradient colors for GradientCircleIcon
-    val DefaultGradientColors = listOf(Color(0xFF1E5AA8), Color(0xFF00AFAE))
+    val DefaultGradientColors = listOf(MorpheBrandBlue, MorpheBrandTeal)
 
     // Animation durations
     /** Duration used for dialog enter/exit and overlay transitions. */

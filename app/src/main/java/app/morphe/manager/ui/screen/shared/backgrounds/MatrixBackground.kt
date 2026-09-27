@@ -29,6 +29,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.createBitmap
+import app.morphe.manager.ui.theme.MorpheBrandBlue
+import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.util.isDarkBackground
 import kotlinx.coroutines.launch
 import kotlin.math.ceil
@@ -64,10 +66,6 @@ private val RANDOM_GLYPH_INDICES: IntArray =
 
 // A gap in a phrase, drawn as nothing at all
 private const val BLANK = -1
-
-// The brand gradient, read left to right across the screen the way the wordmark reads
-private val BRAND_START = Color(0xFF1E5AA8)
-private val BRAND_END = Color(0xFF00AFAE)
 
 private val GLYPH_SIZE = 14.dp
 
@@ -388,7 +386,8 @@ private class ColumnTints(columnCount: Int, isDarkTheme: Boolean) {
     init {
         for (index in 0 until columnCount) {
             val position = if (columnCount == 1) 0f else index.toFloat() / (columnCount - 1)
-            val brand = BRAND_START.blendTowards(BRAND_END, position)
+            // The brand gradient, read left to right across the screen the way the wordmark reads
+            val brand = MorpheBrandBlue.blendTowards(MorpheBrandTeal, position)
             // The brand blue is too light to read as code on a light background
             val trailColor = if (isDarkTheme) brand else brand.blendTowards(Color.Black, 0.3f)
 

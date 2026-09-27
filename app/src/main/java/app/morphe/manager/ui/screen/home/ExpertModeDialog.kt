@@ -591,13 +591,10 @@ private fun SourceTab(
         selected = selected,
         onClick = onClick,
         // The row lays tabs edge to edge, so the gap between the pills comes from each one's end,
-        // which leaves the first flush with the list below
+        // which leaves the first flush with the list below. Nothing above or below, so the row
+        // keeps the same spacing to the header and the controls as a lone source's layout does
         modifier = Modifier
-            .padding(
-                top = Defaults.ContentPaddingSmall,
-                bottom = Defaults.ContentPaddingSmall,
-                end = Defaults.ContentPaddingSmall
-            )
+            .padding(end = Defaults.ContentPaddingSmall)
             .clip(Defaults.PillShape)
             .background(fill),
         selectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,

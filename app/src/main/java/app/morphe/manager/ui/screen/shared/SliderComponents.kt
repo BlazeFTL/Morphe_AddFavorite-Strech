@@ -111,25 +111,6 @@ internal fun tickCount(min: Float, max: Float, step: Float?): Int {
 /** The tick the platform uses for a slider crossing a step */
 internal fun View.performSliderTick() = performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
 
-/** Title row with the value readout pinned to the end. */
-@Composable
-fun SliderHeader(
-    title: String,
-    required: Boolean,
-    readout: @Composable () -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(modifier = Modifier.weight(1f)) {
-            PickerFieldHeader(title = title, required = required, isInvalid = false)
-        }
-        readout()
-    }
-}
-
 /**
  * The current value as a pill. It grows and takes on the primary container color while the
  * value is being changed, and opens the exact value input when tapped.
@@ -292,26 +273,17 @@ fun SliderScaleLabels(start: String, end: String) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            text = start,
-            style = MaterialTheme.typography.labelSmall,
-            color = LocalDialogSecondaryTextColor.current
-        )
-        Text(
-            text = end,
-            style = MaterialTheme.typography.labelSmall,
-            color = LocalDialogSecondaryTextColor.current
-        )
+        SliderScaleLabel(start)
+        SliderScaleLabel(end)
     }
 }
 
-/** Option description, shown under the editor. */
+/** One end of a slider's scale. */
 @Composable
-fun SliderDescription(description: String) {
-    if (description.isBlank()) return
+fun SliderScaleLabel(text: String) {
     Text(
-        text = description,
-        style = MaterialTheme.typography.bodySmall,
+        text = text,
+        style = MaterialTheme.typography.labelSmall,
         color = LocalDialogSecondaryTextColor.current
     )
 }

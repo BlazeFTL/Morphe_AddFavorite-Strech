@@ -28,11 +28,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
@@ -358,32 +361,81 @@ internal fun PatchCardText(
     dimmed: Boolean = false,
     badges: @Composable RowScope.() -> Unit = {}
 ) {
+    CardHeadingText(
+        name = name,
+        description = description?.takeIf { it.isNotBlank() }?.let { rememberTranslated(it) },
+        modifier = modifier,
+        dimmed = dimmed,
+        badges = badges
+    )
+}
+
+/**
+ * Name and description as patch cards set them, for any card that sits among them, such as the
+ * options of a patch. The [description] is shown as given, already translated where it needs to be.
+ */
+@Composable
+internal fun CardHeadingText(
+    name: String,
+    description: String?,
+    modifier: Modifier = Modifier,
+    dimmed: Boolean = false,
+    badges: @Composable RowScope.() -> Unit = {}
+) {
     val secondaryColor = LocalDialogSecondaryTextColor.current
+    val nameStyle = MaterialTheme.typography.titleSmall
 
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        // The name keeps the whole width, and the badges follow it, dropping to a line of their
+        // own only where they do not fit beside it
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            itemVerticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = name,
-                style = MaterialTheme.typography.titleSmall,
+                style = nameStyle,
                 fontWeight = FontWeight.SemiBold,
-                color = if (dimmed) secondaryColor.copy(alpha = 0.5f) else LocalDialogTextColor.current,
-                modifier = Modifier.weight(1f, fill = false)
+                color = if (dimmed) secondaryColor.copy(alpha = 0.5f) else LocalDialogTextColor.current
             )
-            badges()
+            NameLineBadges(lineHeight = nameStyle.lineHeight, badges = badges)
         }
 
         if (!description.isNullOrBlank()) {
             Text(
-                text = rememberTranslated(description),
+                text = description,
                 style = MaterialTheme.typography.bodySmall,
                 color = if (dimmed) secondaryColor.copy(alpha = 0.4f) else secondaryColor
             )
+        }
+    }
+}
+
+/**
+ * [badges] held to the height of a line of the name. A badge stands taller than the name, so it
+ * spills into the padding around the line rather than growing the card as it comes and goes, and
+ * no badges take no room at all, so the flow never breaks a line for them.
+ */
+@Composable
+private fun NameLineBadges(lineHeight: TextUnit, badges: @Composable RowScope.() -> Unit) {
+    val lineHeightPx = with(LocalDensity.current) { lineHeight.roundToPx() }
+
+    Layout(
+        content = {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                content = badges
+            )
+        }
+    ) { measurables, constraints ->
+        val row = measurables.single().measure(constraints.copy(minWidth = 0, minHeight = 0))
+        if (row.width == 0) return@Layout layout(0, 0) {}
+        layout(row.width, lineHeightPx) {
+            row.place(0, (lineHeightPx - row.height) / 2)
         }
     }
 }

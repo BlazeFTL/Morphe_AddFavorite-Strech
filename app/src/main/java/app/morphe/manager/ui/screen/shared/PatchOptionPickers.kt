@@ -82,14 +82,8 @@ fun PickerButtonRow(
 }
 
 /**
- * Dropdown for an option that declares a set of values, shown with the option title and
- * description above it. Used both while patching and by the simple mode option dialogs, so an
- * option is offered the same way wherever it is edited.
- *
- * A value the option declares as null stands for "let the patch decide", so picking it clears
- * the stored value instead of writing a blank the patch would reject as invalid.
- *
- * @param allowCustomValue Whether a value besides [presets] can be typed in.
+ * [DropdownOptionField] with the option title and description above it, for a dialog that heads
+ * each option itself.
  */
 @Composable
 fun DropdownOptionItem(
@@ -100,9 +94,6 @@ fun DropdownOptionItem(
     allowCustomValue: Boolean = true,
     onValueChange: (Any?) -> Unit
 ) {
-    // Convert presets to String map for dropdown: display name -> value as string
-    val dropdownItems = presets.mapValues { it.value?.toString().orEmpty() }
-
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
@@ -123,19 +114,46 @@ fun DropdownOptionItem(
             }
         }
 
-        AppDialogDropdownTextField(
+        DropdownOptionField(
             value = value,
-            onValueChange = { newValue ->
-                // The dropdown hands back what is rendered, so the declared value is matched
-                // the same way. Anything else is text the user typed in the field
-                val declared = presets.entries.find { it.value?.toString().orEmpty() == newValue }
-
-                onValueChange(
-                    if (declared != null) declared.value else newValue.takeIf { it.isNotBlank() }
-                )
-            },
-            dropdownItems = dropdownItems,
-            allowCustomValue = allowCustomValue
+            presets = presets,
+            allowCustomValue = allowCustomValue,
+            onValueChange = onValueChange
         )
     }
+}
+
+/**
+ * Dropdown for an option that declares a set of values. Used both while patching and by the
+ * simple mode option dialogs, so an option is offered the same way wherever it is edited.
+ *
+ * A value the option declares as null stands for "let the patch decide", so picking it clears
+ * the stored value instead of writing a blank the patch would reject as invalid.
+ *
+ * @param allowCustomValue Whether a value besides [presets] can be typed in.
+ */
+@Composable
+fun DropdownOptionField(
+    value: String,
+    presets: Map<String, Any?>,
+    allowCustomValue: Boolean = true,
+    onValueChange: (Any?) -> Unit
+) {
+    // Convert presets to String map for dropdown: display name -> value as string
+    val dropdownItems = presets.mapValues { it.value?.toString().orEmpty() }
+
+    AppDialogDropdownTextField(
+        value = value,
+        onValueChange = { newValue ->
+            // The dropdown hands back what is rendered, so the declared value is matched
+            // the same way. Anything else is text the user typed in the field
+            val declared = presets.entries.find { it.value?.toString().orEmpty() == newValue }
+
+            onValueChange(
+                if (declared != null) declared.value else newValue.takeIf { it.isNotBlank() }
+            )
+        },
+        dropdownItems = dropdownItems,
+        allowCustomValue = allowCustomValue
+    )
 }

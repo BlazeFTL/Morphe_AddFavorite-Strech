@@ -368,8 +368,13 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="patch_option_slider_range_end">To</string>
     <string name="patch_option_list_duplicate">This value already exists</string>
     <string name="patch_option_list_empty">Value cannot be empty</string>
-    <string name="patch_option_list_empty_state">No values added yet</string>
     <string name="patch_option_required_missing">%s: fill in all required options</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Changed</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Required</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Recommended: %1$s×%2$s</string>
 
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Create adaptive icon</string>

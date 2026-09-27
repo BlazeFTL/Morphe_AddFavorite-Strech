@@ -144,6 +144,10 @@ fun ExpertModeDialog(
     val allPatches = remember(allPatchesInfo) { allPatchesInfo.flatMap { (_, patches) -> patches.map { it.first } } }
     val matchesPatch = rememberPatchMatcher(search.query, allPatches)
     val appColor = remember(allPatches, packageName) { allPatches.asSequence().appColorFor(packageName) }
+    // The app by the best name at hand, which heads this dialog and the options dialogs opened from it
+    val headerTitle = appName
+        ?: allPatchesInfo.firstNotNullOfOrNull { (bundle, _) -> bundle.displayName }
+        ?: packageName
     val sourcesByUid = rememberSourcesByUid()
 
     // The two filters stack: either can narrow what the other left. Keyed by bundle and in bundle
@@ -238,9 +242,7 @@ fun ExpertModeDialog(
                     icon = { modifier ->
                         AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
                     },
-                    title = appName
-                        ?: allPatchesInfo.firstNotNullOfOrNull { (bundle, _) -> bundle.displayName }
-                        ?: packageName,
+                    title = headerTitle,
                     subtitle = listOfNotNull(
                         stringResource(R.string.expert_mode_title),
                         allPatchesInfo.singleOrNull()?.first?.name
@@ -538,6 +540,9 @@ fun ExpertModeDialog(
         val missingOptionsMessage = stringResource(R.string.patch_option_required_missing, patch.displayName)
         PatchOptionsDialog(
             patch = patch,
+            packageName = packageName,
+            appName = headerTitle,
+            accentColor = appColor,
             isDefaultBundle = bundleUid == 0,
             values = options[bundleUid]?.get(patch.name),
             onValueChange = { key, value ->

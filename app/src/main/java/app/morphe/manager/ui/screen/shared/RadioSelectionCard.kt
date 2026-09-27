@@ -5,6 +5,11 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -17,6 +22,10 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.*
@@ -51,15 +60,29 @@ fun RadioSelectionCard(
     content: @Composable RowScope.() -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
+    val borderColor by animateColorAsState(
+        targetValue = selectionBorderColor(selected, enabled),
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "radio_card_border"
+    )
+    // The footer eases out with what it last showed rather than going blank as it leaves
+    var shownFooter by remember { mutableStateOf(footerContent) }
+    if (footerContent != null) shownFooter = footerContent
+    val footerColor by animateColorAsState(
+        targetValue = if (hasWarning) {
+            SemanticTone.Warning.container.copy(alpha = 0.7f)
+        } else {
+            colors.onSurface.copy(alpha = 0.06f)
+        },
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "radio_card_footer"
+    )
+
     SettingsItemCard(
         onClick = onSelect,
         enabled = enabled,
         borderWidth = 1.dp,
-        borderColor = when {
-            !enabled -> colors.outlineVariant.copy(alpha = 0.5f)
-            selected -> colors.primary
-            else -> colors.outlineVariant
-        },
+        borderColor = borderColor,
         modifier = modifier.semantics {
             this.role = role
             this.selected = selected
@@ -82,22 +105,26 @@ fun RadioSelectionCard(
                 }
                 content()
             }
-            if (footerContent != null) {
-                HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.5f))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            if (hasWarning) SemanticTone.Warning.container.copy(alpha = 0.7f)
-                            else colors.onSurface.copy(alpha = 0.06f)
-                        )
-                        .padding(
-                            horizontal = Defaults.ContentPadding,
-                            vertical = Defaults.ContentPaddingSmall
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    footerContent()
+            AnimatedVisibility(
+                visible = footerContent != null,
+                enter = Animations.expandFadeEnter,
+                exit = Animations.shrinkFadeExit
+            ) {
+                Column {
+                    HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.5f))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(footerColor)
+                            .animateContentSize()
+                            .padding(
+                                horizontal = Defaults.ContentPadding,
+                                vertical = Defaults.ContentPaddingSmall
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        shownFooter?.invoke()
+                    }
                 }
             }
         }
@@ -161,17 +188,17 @@ fun SelectionLeadingBox(
     cornerRadius: Dp = 8.dp,
     content: @Composable BoxScope.() -> Unit
 ) {
-    val colors = MaterialTheme.colorScheme
+    val borderColor by animateColorAsState(
+        targetValue = selectionBorderColor(selected, enabled),
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "selection_leading_border"
+    )
     Box(
         modifier = modifier
             .size(size)
             .border(
                 width = 1.dp,
-                color = when {
-                    !enabled -> colors.outlineVariant.copy(alpha = 0.5f)
-                    selected -> colors.primary
-                    else -> colors.outlineVariant
-                },
+                color = borderColor,
                 shape = RoundedCornerShape(cornerRadius)
             ),
         contentAlignment = Alignment.Center,
@@ -190,20 +217,27 @@ fun SelectionCheckIndicator(
     enabled: Boolean = true
 ) {
     val colors = MaterialTheme.colorScheme
-    val icon = when (state) {
-        ToggleableState.On -> Icons.Outlined.Check
-        ToggleableState.Indeterminate -> Icons.Outlined.Remove
-        ToggleableState.Off -> return StatusCirclePlaceholder(modifier = modifier)
-    }
-
-    StatusCircleIcon(
-        icon = icon,
+    // Eased between the states, so picking a card fades its mark in as its border comes up
+    Crossfade(
+        targetState = state,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
         modifier = modifier,
-        containerColor = if (enabled) colors.primaryContainer
-        else colors.primaryContainer.copy(alpha = 0.38f),
-        contentColor = if (enabled) colors.onPrimaryContainer
-        else colors.onPrimaryContainer.copy(alpha = 0.38f)
-    )
+        label = "selection_check"
+    ) { shown ->
+        val icon = when (shown) {
+            ToggleableState.On -> Icons.Outlined.Check
+            ToggleableState.Indeterminate -> Icons.Outlined.Remove
+            ToggleableState.Off -> return@Crossfade StatusCirclePlaceholder()
+        }
+
+        StatusCircleIcon(
+            icon = icon,
+            containerColor = if (enabled) colors.primaryContainer
+            else colors.primaryContainer.copy(alpha = 0.38f),
+            contentColor = if (enabled) colors.onPrimaryContainer
+            else colors.onPrimaryContainer.copy(alpha = 0.38f)
+        )
+    }
 }
 
 /**
@@ -241,6 +275,14 @@ fun SelectionCheckRow(
             color = LocalDialogSecondaryTextColor.current
         )
     }
+}
+
+/** Border of a selectable card or its leading box: the primary color while it is the one picked. */
+@Composable
+private fun selectionBorderColor(selected: Boolean, enabled: Boolean) = when {
+    !enabled -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+    selected -> MaterialTheme.colorScheme.primary
+    else -> MaterialTheme.colorScheme.outlineVariant
 }
 
 @Composable

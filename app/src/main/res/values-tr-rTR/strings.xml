@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Güncellemeler atlandı</string>
     <string name="home_update_skipped_metered_subtitle">Mobil veri etkin</string>
     <string name="home_updating_sources">Kaynaklar güncelleniyor…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Kaynak güncellemesi tamamlandı</string>
     <string name="home_update_success_subtitle">Kaynaklarınız güncel</string>
     <string name="home_sources_are_loading">Kaynaklar yükleniyor, lütfen bekleyin…</string>
@@ -215,7 +212,8 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="home_apk_helper_download">Bir yardımcı uygulama kullanın</string>
     <string name="home_apk_helper_title">Bir yardımcı uygulama ile indirin</string>
     <string name="home_apk_helper_description">Morphe, orijinal APK\'yı indirmesi ve dosyayı geri vermesi için aşağıdaki yardımcı uygulamadan talepte bulunacaktır</string>
-    <string name="home_apk_helper_continue">Yardımcı uygulamayı açın</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Yardımcıyı aç</string>
     <string name="home_apk_helper_warning">Bu yardımcı uygulamayı yalnızca güveniyorsanız devam edin. Morphe, yamalama işleminden önce aldığı paketi, sürümü ve imzayı kontrol eder.</string>
     <string name="home_apk_helper_warning_unverified">Bu yardımcı uygulamayı yalnızca güveniyorsanız devam edin. Morphe bu APK\'nın imzasını doğrulayamıyor, bu nedenle değiştirilmiş bir dosya tespit edilemez.</string>
     <string name="home_apk_helper_no_result">Yardımcı uygulama bir APK döndürmedi.</string>
@@ -321,6 +319,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="morphe_experimental_app_version_dialog_message">&lt;b&gt;%s&lt;/b&gt;\'nin bu sürümünün erken deneysel desteği bulunmaktadır&lt;br/&gt;&lt;br/&gt;🔧 Bu uygulama sürümü için yamalar iyileştirilirken tuhaf uygulama davranışı veya tanımlanmamış hatalar bekleyin</string>
     <string name="home_dialog_unsupported_version_dialog_title">Desteklenmeyen Sürüm</string>
     <string name="home_dialog_unsupported_version_dialog_description">Bu APK, önerilen uygulama sürümü değil. Devam edilmesi çalışmayan bir uygulamaya neden olabilir</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Yine de devam et</string>
     <string name="home_dialog_unsupported_version_compatible_versions"> Uyumlu sürümler:</string>
     <string name="home_dialog_unsupported_version_unsupported_label"> Uyumlu değil</string>
@@ -356,12 +355,21 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="patch_option_slider_range_end">Bitiş</string>
     <string name="patch_option_list_duplicate">Bu değer zaten mevcut</string>
     <string name="patch_option_list_empty">Değer boş olamaz</string>
-    <string name="patch_option_list_empty_state">Henüz hiçbir değer eklenmedi</string>
     <string name="patch_option_required_missing">%s: tüm gerekli seçenekleri doldurun</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Değişti</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Zorunlu</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Önerilen: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Adaptif simge oluştur</string>
     <string name="adaptive_icon_select_image">Resim seç</string>
     <string name="adaptive_icon_change_image">Resmi değiştir</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Ön plan görüntüsü</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Başlatıcı simgesi</string>
     <string name="adaptive_icon_background_color">Arka plan rengi</string>
     <string name="adaptive_icon_reset_transform">Pozisyon ve ölçeği sıfırla</string>
     <string name="adaptive_icon_safe_zone_inner">Güvenli alan (her zaman görünür)</string>
@@ -413,16 +421,18 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="batch_patch_source_file">Ekli dosya</string>
     <string name="batch_patch_source_unavailable">APK hazırlanmadı</string>
     <string name="batch_patch_force_version">Yine de yamala</string>
-    <string name="batch_patch_force_version_done">Yine de kuyruğa eklendi, diğer sürümler için yapılan yamalar uygulamayı bozabilir</string>
-    <string name="batch_patch_accept_signature_done">Yine de kuyruğa alındı, bu APK orijinal olmayabilir</string>
+    <string name="batch_patch_force_version_done">Yine de kuyruğa alındı, uygulama bozulabilir</string>
+    <string name="batch_patch_accept_signature_done">Yine de kuyruğa alındı, APK doğrulanmadı</string>
     <string name="batch_patch_edit_patches">Yamaları seç</string>
     <string name="batch_patch_state_no_apk">APK yok</string>
     <string name="batch_patch_state_no_patches">Yama yok</string>
     <string name="batch_patch_policy_install">Tamamlandığında kur</string>
     <string name="batch_patch_policy_install_description">Sıra bittikten hemen sonra her yamalı uygulamayı kurar. Kapalı bırakmak, APK\'ları daha sonra kullanmak üzere saklar</string>
-    <string name="batch_patch_start">Yamalama işlemini başlat</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Başlangıç</string>
     <string name="batch_patch_stop_title">Toplu yamalamayı durdur?</string>
     <string name="batch_patch_stop_description">Şu anda yamalanan uygulama ve hala sırada bekleyen her şey iptal edilecektir</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Tümünü kur</string>
     <string name="batch_patch_install_failed">Kurulum başarısız oldu</string>
     <string name="batch_patch_in_progress">Toplu yamalama zaten çalışıyor</string>
@@ -744,6 +754,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_app_icon_dark_3">Çivit</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Uygulama simgesi değiştirilsin mi?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt; simgesine değiştirilip yeniden başlatılsın mı?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Simgeyi değiştir</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Güncellemeler</string>
@@ -1125,7 +1136,6 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">%s tarafından yüklendi</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Yükleyen bilinmiyor</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Önceki dizin</string>
     <string name="file_picker_no_files">Burada dosya yok</string>
     <string name="file_picker_read_error">Bu dizin okunamıyor</string>
     <string name="file_picker_internal_storage">Dahili depolama</string>
@@ -1156,11 +1166,8 @@ Ayrıntılar: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Tekrar yağmurda</string>
     <string name="easter_egg_pill_blue_toast_again">Bağlantısı kesildi. Geri dönüş yolu her zaman olduğu yerde.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Dosya seç</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Klasör seç</string>
     <string name="patches">Yamalar</string>
     <string name="home">Ana Sayfa</string>
@@ -1281,9 +1288,11 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_earlier_releases">Önceki sürümler</string>
     <string name="changelog_older_empty">Gösterilebilecek daha eski sürüm yok</string>
     <string name="changelog_older_failed">Daha eski sürümler yüklenemedi</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Sürüm sayfası</string>
     <string name="content_translate">Çevir</string>
-    <string name="content_show_original">Orijinalini göster</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Orijinal</string>
     <string name="content_translation_failed">Çevrilemedi: %s</string>
     <string name="changelog_section_new">Yeni</string>
     <string name="changelog_section_fixes">Düzeltmeler</string>
@@ -1305,8 +1314,10 @@ Ayrıntılar: %2$s"</string>
     <string name="install_update_manager_failed">Güncelleme yüklenemedi</string>
     <string name="installing_manager_update">Güncelleme yükleniyor…</string>
     <string name="downloading_manager_update">Güncelleme indiriliyor…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB indirildi</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Bu sürüm hala yayınlanıyor. Birkaç dakika sonra tekrar deneyin.</string>
     <string name="update_download_missing">İndirilen güncelleme artık kullanılamıyor. Tekrar indirin.</string>
     <string name="download_manager_failed">Güncelleme indirilemedi: %s</string>
@@ -1338,6 +1349,7 @@ Devam etmek istiyor musunuz?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Hızlı özellik turu</string>
     <string name="tour_prompt_desc">Morphe\'nin temel özelliklerine hızlı bir bakış atmak ister misiniz?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Bana etrafı göster</string>
     <string name="onboarding_restart_title">Özellik turu</string>
     <string name="onboarding_restart_desc">Temel özelliklerde rehberli bir tur</string>

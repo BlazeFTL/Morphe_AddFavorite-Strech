@@ -12,6 +12,13 @@
         <item quantity="many">%s параметрів патчів</item>
         <item quantity="other">%s параметрів патчів</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s елемент</item>
+        <item quantity="few">%s елементи</item>
+        <item quantity="many">%s елементів</item>
+        <item quantity="other">%s елементів</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Джерела патчів для %s застосунку</item>
         <item quantity="few">Джерела патчів для %s застосунків</item>

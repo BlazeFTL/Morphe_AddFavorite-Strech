@@ -8,6 +8,7 @@
         <item quantity="one">%s પેચ વિકલ્પ</item>
         <item quantity="other">%s પેચ વિકલ્પો</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
     <plurals name="source_count">
         <item quantity="one">%s સ્ત્રોત</item>
         <item quantity="other">%s સ્ત્રોતો</item>

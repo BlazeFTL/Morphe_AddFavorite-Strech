@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Nabigo ang pag-update</string>
     <string name="home_update_skipped_metered_subtitle">Mobile data ay aktibo</string>
     <string name="home_updating_sources">Ina-update ang mga mapagkukunan…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Nakumpleto ang mga mapagkukunan ng update</string>
     <string name="home_update_success_subtitle">Napapanahon ang iyong mga mapagkukunan</string>
     <string name="home_sources_are_loading">Naglo-load ang iyong mga mapagkukunan, mangyaring maghintay…</string>
@@ -215,7 +212,8 @@ Anumang idagdag mo mula sa website na ito ay gagamitin sa iyong sariling pangani
     <string name="home_apk_helper_download">Gumamit ng helper app</string>
     <string name="home_apk_helper_title">I-download gamit ang isang helper app</string>
     <string name="home_apk_helper_description">Hihingi ang Morphe sa helper app sa ibaba na i-download ang orihinal na APK at ibalik ang file</string>
-    <string name="home_apk_helper_continue">Buksan ang helper app</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Buksan ang helper</string>
     <string name="home_apk_helper_warning">Magpatuloy lamang kung pinagkakatiwalaan mo ang helper app na ito. Sinusuri ng Morphe ang package, bersyon at lagda ng anumang matatanggap nito bago i-patch</string>
     <string name="home_apk_helper_warning_unverified">Magpatuloy lamang kung pinagkakatiwalaan mo ang helper app na ito. Hindi maaaring i-verify ng Morphe ang lagda ng APK na ito, kaya ang binagong file ay hindi matutukoy</string>
     <string name="home_apk_helper_no_result">Hindi nagbalik ng APK ang helper app</string>
@@ -321,6 +319,7 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="morphe_experimental_app_version_dialog_message">Ang bersyong ito ng &lt;b&gt;%s&lt;/b&gt; ay may maagang pang-eksperimentong suporta&lt;br/&gt;&lt;br/&gt;🔧 Asahan ang mga kakaibang pag-uugali ng app o hindi natukoy na mga bug habang ang mga patch ay pinino para sa bersyong ito ng app</string>
     <string name="home_dialog_unsupported_version_dialog_title">Hindi suportadong bersyon</string>
     <string name="home_dialog_unsupported_version_dialog_description">Hindi inirerekomenda ang bersyon ng APK na ito. Maaaring maging resulta sa hindi gumaganang aplikasyon kung magpatuloy.</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Magpatuloy pa rin</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Mga bersyong tutugma:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Hindi suportado</string>
@@ -356,12 +355,21 @@ Para sa pinakamahusay na resulta, nirerekomenda ng app na ito na i-patch ang isa
     <string name="patch_option_slider_range_end">Hanggang</string>
     <string name="patch_option_list_duplicate">May umiiral na ang halagang ito</string>
     <string name="patch_option_list_empty">Hindi maaaring walang laman ang halaga</string>
-    <string name="patch_option_list_empty_state">Walang idinagdag na halaga pa</string>
     <string name="patch_option_required_missing">%s: punan ang lahat ng kinakailangang pagpipilian</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Binago</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Kinakailangan</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Inirerekomenda: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Gumawa ng iniangkop na icon</string>
     <string name="adaptive_icon_select_image">Piliin ang larawan</string>
     <string name="adaptive_icon_change_image">Baguhin ang larawan</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Larawang nasa harapan</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Icon ng launcher</string>
     <string name="adaptive_icon_background_color">Likurang kulay</string>
     <string name="adaptive_icon_reset_transform">Ipawalang-bisa ang posisyon at sukat</string>
     <string name="adaptive_icon_safe_zone_inner">Ligtas na lugar (palaging nakikita)</string>
@@ -413,16 +421,18 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
     <string name="batch_patch_source_file">Naka-attach na file</string>
     <string name="batch_patch_source_unavailable">Hindi maiprepare ang APK</string>
     <string name="batch_patch_force_version">Mag-patch pa rin</string>
-    <string name="batch_patch_force_version_done">Nakapila pa rin, ang mga patch na ginawa para sa ibang mga bersyon ay maaaring makasira sa app</string>
-    <string name="batch_patch_accept_signature_done">Queued anyway, this APK may not be the original</string>
+    <string name="batch_patch_force_version_done">Nakapila pa rin, maaaring masira ang app</string>
+    <string name="batch_patch_accept_signature_done">Nakapila pa rin, hindi na-verify ang APK</string>
     <string name="batch_patch_edit_patches">Pumili ng mga patch</string>
     <string name="batch_patch_state_no_apk">Walang APK</string>
     <string name="batch_patch_state_no_patches">Walang mga patch</string>
     <string name="batch_patch_policy_install">I-install kapag tapos na</string>
     <string name="batch_patch_policy_install_description">I-i-install ang bawat na-patch na app pagkatapos ng queue. Off ay nagpapanatili sa mga APK para sa ibang pagkakataon</string>
-    <string name="batch_patch_start">Magsimulang mag-patch</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Simula</string>
     <string name="batch_patch_stop_title">Itigil ang batch patching?</string>
     <string name="batch_patch_stop_description">Ang app na kasalukuyang pine-patch at lahat ng naka-queue ay kakanselahin</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">I-install lahat</string>
     <string name="batch_patch_install_failed">Nabigong i-install</string>
     <string name="batch_patch_in_progress">Kasulukuyang tumatakbo ang batch patching</string>
@@ -669,6 +679,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="system">Sistema</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Likurang animation</string>
+    <string name="settings_appearance_background_description">Ang animation na nagpe-play sa likod ng mga screen ng app</string>
     <string name="settings_appearance_background_circles">Mga bilog</string>
     <string name="settings_appearance_background_rings">Mga singsing</string>
     <string name="settings_appearance_background_mesh">Mata</string>
@@ -737,6 +748,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Gamitin ang sariling kulay ng bawat app dito, na may lilim na awtomatikong akma</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icon ng aplikasyon</string>
+    <string name="settings_appearance_app_icon_selector_description">Paano ang hitsura ng Morphe sa iyong home screen at sa app drawer</string>
     <string name="settings_appearance_app_icon_default">Panimula</string>
     <string name="settings_appearance_app_icon_light_2">Langit</string>
     <string name="settings_appearance_app_icon_light_3">Paglubog ng araw</string>
@@ -745,6 +757,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Baguhin ang icon ng aplikasyon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Baguhin sa &lt;b&gt;%s&lt;/b&gt; at i-restart?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Baguhin ang icon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Mga update</string>
@@ -1126,7 +1139,6 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">In-install ng %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Hindi kilala ang installer</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Nakaraang direktoryo</string>
     <string name="file_picker_no_files">Walang mga file dito</string>
     <string name="file_picker_read_error">Hindi mabasa ang direktoryong ito</string>
     <string name="file_picker_internal_storage">Imbakan ng telepono</string>
@@ -1157,11 +1169,8 @@ Mga Detalye: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Bumalik sa ulan</string>
     <string name="easter_egg_pill_blue_toast_again">Hindi na nakakonekta. Ang daan ay kung saan ito palaging naroroon</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Pumili ng file</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Piliin ang folder</string>
     <string name="patches">Mga patch</string>
     <string name="home">Bahay</string>
@@ -1282,9 +1291,11 @@ Mga Detalye: %2$s"</string>
     <string name="changelog_earlier_releases">Mas naunang mga release</string>
     <string name="changelog_older_empty">Walang mas lumang bersyon na ipapakita</string>
     <string name="changelog_older_failed">Hindi ma-load ang mas lumang mga release</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Pahina ng release</string>
     <string name="content_translate">Isalin</string>
-    <string name="content_show_original">Ipakita ang orihinal</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Orihinal</string>
     <string name="content_translation_failed">Nabigong isalin: %s</string>
     <string name="changelog_section_new">Bago</string>
     <string name="changelog_section_fixes">Mga Pag-aayos</string>
@@ -1306,8 +1317,10 @@ Mga Detalye: %2$s"</string>
     <string name="install_update_manager_failed">Nabigong ma-install ang update</string>
     <string name="installing_manager_update">Ini-install ang update…</string>
     <string name="downloading_manager_update">Dina-download ang update…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB na-download</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Ang paglalabas na ito ay kasalukuyang pinoproseso. Subukan muli sa loob ng ilang minuto</string>
     <string name="update_download_missing">Ang na-download na update ay hindi na magagamit. I-download muli ito.</string>
     <string name="download_manager_failed">Nabigong mai-download ang update: %s</string>
@@ -1339,6 +1352,7 @@ Gusto mo pa bang ituloy?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Mabilis na paglilibot sa feature</string>
     <string name="tour_prompt_desc">Gusto mo bang mabilis na paglilibot sa mga pangunahing feature ng Morphe?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Ipakita sa akin</string>
     <string name="onboarding_restart_title">Paglilibot sa feature</string>
     <string name="onboarding_restart_desc">Isang gabay na paglilibot sa mga pangunahing tampok</string>

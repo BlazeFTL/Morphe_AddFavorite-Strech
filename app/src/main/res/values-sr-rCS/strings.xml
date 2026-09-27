@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Ažuriranja su preskočena</string>
     <string name="home_update_skipped_metered_subtitle">Mobilni podaci su aktivni</string>
     <string name="home_updating_sources">Ažuriranje izvora…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Ažuriranje izvora završeno</string>
     <string name="home_update_success_subtitle">Vaši izvori su ažurirani</string>
     <string name="home_sources_are_loading">Izvori se učitavaju, molimo sačekajte…</string>
@@ -215,7 +212,8 @@ Sve što dodate sa ove veb stranice koristite na sopstvenu odgovornost."</string
     <string name="home_apk_helper_download">Koristite pomoćnu aplikaciju</string>
     <string name="home_apk_helper_title">Preuzmite pomoću pomoćne aplikacije</string>
     <string name="home_apk_helper_description">Morphe će zamoliti pomoćnu aplikaciju u nastavku da preuzme originalni APK i vrati datoteku</string>
-    <string name="home_apk_helper_continue">Otvorite pomoćnu aplikaciju</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Otvori pomoć</string>
     <string name="home_apk_helper_warning">Nastavite samo ako verujete ovoj pomoćnoj aplikaciji. Morphe provere paket, verziju i potpis onošto primi pre krpljenja</string>
     <string name="home_apk_helper_warning_unverified">Nastavite samo ako verujete ovoj pomoćnoj aplikaciji. Morphe ne može da potvrdi potpis ovog APK-a, pa izmenjena datoteka ne bi bila otkrivena</string>
     <string name="home_apk_helper_no_result">Pomoćna aplikacija nije vratila APK</string>
@@ -321,6 +319,7 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="morphe_experimental_app_version_dialog_message">Ova verzija &lt;b&gt;%s&lt;/b&gt; ima ranu eksperimentalnu podršku&lt;br/&gt;&lt;br/&gt;🔧 Očekujte čudno ponašanje aplikacije ili neidentifikovane greške dok se zakrpe usavršavaju za ovu verziju aplikacije</string>
     <string name="home_dialog_unsupported_version_dialog_title">Ova APK nije preporučena verzija aplikacije. Nastavljanje može dovesti nefunkcionalnu aplikaciju.</string>
     <string name="home_dialog_unsupported_version_dialog_description">Ova verzija APK-a nije preporučena. Nastavljanje može dovesti do nefunkcionalne aplikacije</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Pogrešni izvor</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatibilni verzije:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Nepodržano</string>
@@ -356,12 +355,21 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="patch_option_slider_range_end">Do</string>
     <string name="patch_option_list_duplicate">Ova vrednost već postoji</string>
     <string name="patch_option_list_empty">Vrednost ne može biti prazna</string>
-    <string name="patch_option_list_empty_state">Još nisu dodate vrednosti</string>
     <string name="patch_option_required_missing">%s: popunite sve obavezne opcije</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Izmenjeno</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Obavezno</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Preporučeno: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Napravi adaptivni ikon</string>
     <string name="adaptive_icon_select_image">Izaberi sliku</string>
     <string name="adaptive_icon_change_image">Promeni sliku</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Slika u prvom planu</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Ikona pokretača</string>
     <string name="adaptive_icon_background_color">Boja pozadine</string>
     <string name="adaptive_icon_reset_transform">Resetuj položaj i razmeru </string>
     <string name="adaptive_icon_safe_zone_inner">Sigurna zona (uvek vidljiva)</string>
@@ -413,16 +421,18 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="batch_patch_source_file">Priložena datoteka</string>
     <string name="batch_patch_source_unavailable">APK nije mogao da bude pripremljen</string>
     <string name="batch_patch_force_version">Zakrpi bez obzira</string>
-    <string name="batch_patch_force_version_done">Zakazano je, bez obzira na to, zakrpe napravljene za druge verzije mogu da oštete aplikaciju</string>
-    <string name="batch_patch_accept_signature_done">Svejedno je stavljen u red čekanja, ovaj APK možda nije originalan</string>
+    <string name="batch_patch_force_version_done">Svejedno dodato u red čekanja, aplikacija može da se pokvari</string>
+    <string name="batch_patch_accept_signature_done">Svejedno dodato u red čekanja, APK nije verifikovan</string>
     <string name="batch_patch_edit_patches">Izaberite zakrpe</string>
     <string name="batch_patch_state_no_apk">Nema APK-a</string>
     <string name="batch_patch_state_no_patches">Nema zakrpa</string>
     <string name="batch_patch_policy_install">Instaliraj kada je završeno</string>
     <string name="batch_patch_policy_install_description">Instalira svaku zakrpljenu aplikaciju odmah nakon završetka reda. Isključeno čuva APK-ove za kasnije</string>
-    <string name="batch_patch_start">Pokreni zakrpljivanje</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Početak</string>
     <string name="batch_patch_stop_title">Zaustavi masovno zakrpljivanje?</string>
     <string name="batch_patch_stop_description">Aplikacija koja se zakrpljuje i sve ono što je još u redu će biti otkazano</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Instaliraj sve</string>
     <string name="batch_patch_install_failed">Instalacija je neuspela</string>
     <string name="batch_patch_in_progress">Masovno zakrpljivanje je već u toku</string>
@@ -745,6 +755,7 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Promeni ikonu aplikacije? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">Prebaci na &lt;b&gt;%s&lt;/b&gt; i ponovo pokreni?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Promeni ikonu</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Ažuriranja</string>
@@ -1110,7 +1121,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">Instalirao: %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Instalater nepoznat</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Prethodna direktorijum</string>
     <string name="file_picker_no_files">Ovde nema datoteka</string>
     <string name="file_picker_read_error">Ne mogu da pročitam ovu direktoriju</string>
     <string name="file_picker_internal_storage">Interna memorija</string>
@@ -1141,11 +1151,8 @@ Detalji: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Nazad na kiši</string>
     <string name="easter_egg_pill_blue_toast_again">Isključen. Put nazad je tamo gde je oduvek bio.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Izaberi datoteku</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Izaberi folder</string>
     <string name="patches">Zakrpe</string>
     <string name="home">Početna</string>
@@ -1266,9 +1273,11 @@ Detalji: %2$s"</string>
     <string name="changelog_earlier_releases">Ranija izdanja</string>
     <string name="changelog_older_empty">Nema starijih verzija za prikaz</string>
     <string name="changelog_older_failed">Ne mogu da se učitaju starija izdanja</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Stranica izdanja</string>
     <string name="content_translate">Prevedi</string>
-    <string name="content_show_original">Prikaži original</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Originalna</string>
     <string name="content_translation_failed">Prevođenje nije uspelo: %s</string>
     <string name="changelog_section_new">Novo</string>
     <string name="changelog_section_fixes">Ispravke</string>
@@ -1290,8 +1299,10 @@ Detalji: %2$s"</string>
     <string name="install_update_manager_failed">Neuspešno instaliranje ažuriranja</string>
     <string name="installing_manager_update">Instaliranje ažuriranja…</string>
     <string name="downloading_manager_update">Preuzimanje ažuriranja…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB preuzeto</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Ovo izdanje je i dalje u objavljivanju. Pokušajte ponovo za nekoliko minuta</string>
     <string name="update_download_missing">Preuzeto ažuriranje više nije dostupno. Preuzmite ga ponovo.</string>
     <string name="download_manager_failed">Nije uspelo preuzimanje ažuriranja: %s</string>
@@ -1323,6 +1334,7 @@ Da li i dalje želite da nastavite?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Brza tura po funkcijama</string>
     <string name="tour_prompt_desc">Želite brzu turu po ključnim funkcijama Morphe?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Pokaži mi</string>
     <string name="onboarding_restart_title">Tura po funkcijama</string>
     <string name="onboarding_restart_desc">Vođeni obilazak ključnih funkcija</string>

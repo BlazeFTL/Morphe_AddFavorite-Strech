@@ -3,6 +3,7 @@
     <plurals name="patch_count">
         <item quantity="other">បំណះ %s</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
     <plurals name="sources_management_subtitle">
         <item quantity="other">%s ប្រភពដែលបានដំឡើង</item>
     </plurals>

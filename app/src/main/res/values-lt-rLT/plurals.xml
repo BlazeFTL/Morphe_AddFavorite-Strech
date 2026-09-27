@@ -12,6 +12,7 @@
         <item quantity="many">%s pataisų nustatymai</item>
         <item quantity="other">%s pataisų nustatymai</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
     <plurals name="source_count">
         <item quantity="one">%s šaltinis</item>
         <item quantity="few">%s šaltiniai</item>

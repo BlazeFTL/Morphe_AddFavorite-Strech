@@ -10,6 +10,12 @@
         <item quantity="two">שתי אופציות תיקון</item>
         <item quantity="other">%s אופציות תיקון</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s פריט</item>
+        <item quantity="two">%s פריטים</item>
+        <item quantity="other">%s פריטים</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">מקורות תיקון עבור %s אפליקציה</item>
         <item quantity="two">מקורות תיקון עבור %s אפליקציות</item>

@@ -8,6 +8,11 @@
         <item quantity="one">%s fláka valmöguleiki</item>
         <item quantity="other">%s fláka valmöguleikar</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s hlutur</item>
+        <item quantity="other">%s hlutir</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Plástrauppsprettur fyrir %s app</item>
         <item quantity="other">Plástrauppsprettur fyrir %s öpp</item>

@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Pembaruan dilewati</string>
     <string name="home_update_skipped_metered_subtitle">Data seluler aktif</string>
     <string name="home_updating_sources">Memperbarui sumber…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Pembaruan sumber selesai</string>
     <string name="home_update_success_subtitle">Sumber Anda sudah yang terbaru</string>
     <string name="home_sources_are_loading">Sumber sedang dimuat, harap tunggu…</string>
@@ -215,7 +212,8 @@ Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda
     <string name="home_apk_helper_download">Gunakan aplikasi pembantu</string>
     <string name="home_apk_helper_title">Unduh dengan aplikasi pembantu</string>
     <string name="home_apk_helper_description">Morphe akan meminta aplikasi pembantu di bawah ini untuk mengunduh APK asli dan mengembalikan berkas tersebut</string>
-    <string name="home_apk_helper_continue">Buka aplikasi pembantu</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Buka helper</string>
     <string name="home_apk_helper_warning">Lanjutkan hanya jika Anda mempercayai aplikasi pembantu ini. Morphe memeriksa paket, versi dan tanda tangan dari apa pun yang diterimanya sebelum melakukan penambalan</string>
     <string name="home_apk_helper_warning_unverified">Lanjutkan hanya jika Anda mempercayai aplikasi pembantu ini. Morphe tidak dapat memverifikasi tanda tangan APK ini, sehingga berkas yang dimodifikasi tidak akan terdeteksi</string>
     <string name="home_apk_helper_no_result">Aplikasi pembantu tidak mengembalikan file APK</string>
@@ -322,6 +320,7 @@ Untuk hasil terbaik, aplikasi ini merekomendasikan untuk menambal &lt;b&gt;APK l
 Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifikasi karena tambalan untuk versi aplikasi ini masih dalam tahap penyempurnaan</string>
     <string name="home_dialog_unsupported_version_dialog_title">Versi tidak didukung</string>
     <string name="home_dialog_unsupported_version_dialog_description">APK ini bukan versi aplikasi yang direkomendasikan. Jika dilanjutkan mungkin akan membuat aplikasi menjadi tidak berfungsi</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Tetap lanjutkan</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Versi yang cocok:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Tidak didukung</string>
@@ -357,12 +356,21 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="patch_option_slider_range_end">Sampai</string>
     <string name="patch_option_list_duplicate">Nilai ini sudah ada</string>
     <string name="patch_option_list_empty">Nilai tidak boleh kosong</string>
-    <string name="patch_option_list_empty_state">Belum ada nilai yang ditambahkan</string>
     <string name="patch_option_required_missing">%s: isi semua pilihan yang diperlukan</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Diubah</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Wajib diisi</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Disarankan: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Buat ikon adaptif</string>
     <string name="adaptive_icon_select_image">Pilih gambar</string>
     <string name="adaptive_icon_change_image">Ubah gambar</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Gambar latar depan</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Ikon peluncur</string>
     <string name="adaptive_icon_background_color">Warna latar belakang</string>
     <string name="adaptive_icon_reset_transform">Atur ulang posisi dan skala</string>
     <string name="adaptive_icon_safe_zone_inner">Zona aman (selalu terlihat)</string>
@@ -414,16 +422,18 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="batch_patch_source_file">Berkas terlampir</string>
     <string name="batch_patch_source_unavailable">APK tidak dapat disiapkan</string>
     <string name="batch_patch_force_version">Tetap tambal</string>
-    <string name="batch_patch_force_version_done">Tetap diantrekan, tambalan yang dibuat untuk versi lain mungkin dapat merusak aplikasi</string>
-    <string name="batch_patch_accept_signature_done">Masuk antrean, APK ini mungkin bukan yang asli</string>
+    <string name="batch_patch_force_version_done">Tetap diantrekan, aplikasi mungkin rusak</string>
+    <string name="batch_patch_accept_signature_done">Tetap diantrekan, APK tidak diverifikasi</string>
     <string name="batch_patch_edit_patches">Pilih tambalan</string>
     <string name="batch_patch_state_no_apk">Tidak ada APK</string>
     <string name="batch_patch_state_no_patches">Tidak ada tambalan</string>
     <string name="batch_patch_policy_install">Pasang setelah selesai</string>
     <string name="batch_patch_policy_install_description">Pasang setiap aplikasi yang ditambal segera setelah antrean selesai. Jika nonaktif, APK akan disimpan untuk nanti</string>
-    <string name="batch_patch_start">Mulai menambal</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Mulai</string>
     <string name="batch_patch_stop_title">Hentikan penambalan massal?</string>
     <string name="batch_patch_stop_description">Aplikasi yang sedang ditambal saat ini dan semua yang masih dalam antrean akan dibatalkan</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Pasang semua</string>
     <string name="batch_patch_install_failed">Pemasangan gagal</string>
     <string name="batch_patch_in_progress">Penambalan massal sedang berjalan</string>
@@ -670,6 +680,7 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="system">Sistem</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Animasi latar belakang</string>
+    <string name="settings_appearance_background_description">Animasi yang diputar di belakang layar aplikasi</string>
     <string name="settings_appearance_background_circles">Lingkaran</string>
     <string name="settings_appearance_background_rings">Cincin</string>
     <string name="settings_appearance_background_mesh">Jaring</string>
@@ -738,6 +749,7 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Gunakan warna asli tiap aplikasi, yang disesuaikan secara otomatis agar serasi</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikon aplikasi</string>
+    <string name="settings_appearance_app_icon_selector_description">Seperti apa tampilan Morphe di layar utama dan di laci aplikasi</string>
     <string name="settings_appearance_app_icon_default">Bawaan</string>
     <string name="settings_appearance_app_icon_light_2">Langit</string>
     <string name="settings_appearance_app_icon_light_3">Senja</string>
@@ -746,6 +758,7 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Ubah ikon aplikasi?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Ubah ke &lt;b&gt;%s&lt;/b&gt; dan mulai ulang?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ubah ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Pembaruan</string>
@@ -1127,7 +1140,6 @@ Rincian: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">Diinstal oleh %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Penginstal tidak diketahui</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Direktori sebelumnya</string>
     <string name="file_picker_no_files">Tidak ada berkas di sini</string>
     <string name="file_picker_read_error">Tidak dapat membaca direktori ini</string>
     <string name="file_picker_internal_storage">Memori internal</string>
@@ -1158,11 +1170,8 @@ Rincian: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Kembali ke dalam hujan</string>
     <string name="easter_egg_pill_blue_toast_again">Terputus. Jalan kembali selalu ada di sana</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Pilih berkas</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Pilih folder</string>
     <string name="patches">Tambalan</string>
     <string name="home">Beranda</string>
@@ -1283,9 +1292,11 @@ Rincian: %2$s"</string>
     <string name="changelog_earlier_releases">Rilis sebelumnya</string>
     <string name="changelog_older_empty">Tidak ada rilis yang lebih lama untuk ditampilkan</string>
     <string name="changelog_older_failed">Tidak dapat memuat rilis yang lebih lama</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Halaman rilis</string>
     <string name="content_translate">Terjemahkan</string>
-    <string name="content_show_original">Tampilkan aslinya</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Asli</string>
     <string name="content_translation_failed">Gagal menerjemahkan: %s</string>
     <string name="changelog_section_new">Baru</string>
     <string name="changelog_section_fixes">Perbaikan</string>
@@ -1307,8 +1318,10 @@ Rincian: %2$s"</string>
     <string name="install_update_manager_failed">Gagal memasang pembaruan</string>
     <string name="installing_manager_update">Memasang pembaruan…</string>
     <string name="downloading_manager_update">Mengunduh pembaruan…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB diunduh</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Rilis ini masih dalam proses penerbitan. Coba lagi dalam beberapa menit</string>
     <string name="update_download_missing">Pembaruan yang diunduh sudah tidak tersedia lagi. Unduh ulang</string>
     <string name="download_manager_failed">Gagal mengunduh pembaruan: %s</string>
@@ -1340,6 +1353,7 @@ Apakah Anda masih ingin melanjutkan?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Tur fitur cepat</string>
     <string name="tour_prompt_desc">Ingin tur cepat fitur utama Morphe?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Tunjukkan</string>
     <string name="onboarding_restart_title">Tur fitur</string>
     <string name="onboarding_restart_desc">Tur berpandu fitur-fitur utama</string>

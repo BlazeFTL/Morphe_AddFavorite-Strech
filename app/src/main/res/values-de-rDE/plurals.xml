@@ -8,6 +8,11 @@
         <item quantity="one">%s Patch-Option</item>
         <item quantity="other">%s Patch-Optionen</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s Element</item>
+        <item quantity="other">%s Elemente</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Patch-Quellen für %s App</item>
         <item quantity="other">Patch-Quellen für %s Apps</item>

@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">업데이트를 건너뜁니다</string>
     <string name="home_update_skipped_metered_subtitle">모바일 데이터가 활성화되어 있습니다</string>
     <string name="home_updating_sources">소스를 업데이트하는 중…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">소스 업데이트 완료</string>
     <string name="home_update_success_subtitle">소스가 최신 상태입니다</string>
     <string name="home_sources_are_loading">소스를 불러오는 중, 잠시만 기다려 주세요…</string>
@@ -215,7 +212,8 @@
     <string name="home_apk_helper_download">Helper 앱 사용</string>
     <string name="home_apk_helper_title">Helper 앱으로 다운로드</string>
     <string name="home_apk_helper_description">Morphe는 아래의 Helper 앱에 원본 APK를 다운로드하고 파일을 다시 전달하도록 요청합니다</string>
-    <string name="home_apk_helper_continue">Helper 앱 열기</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">도우미 열기</string>
     <string name="home_apk_helper_warning">이 Helper 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 패치하기 전에 수신하는 모든 파일의 패키지, 버전 및 서명을 확인합니다</string>
     <string name="home_apk_helper_warning_unverified">이 Helper 앱을 신뢰하는 경우에만 계속 진행하세요. Morphe는 이 APK의 서명을 검증할 수 없으므로, 파일이 변조되었더라도 이를 감지하지 못할 수 있습니다</string>
     <string name="home_apk_helper_no_result">Helper 앱에서 APK 파일을 반환하지 않았습니다</string>
@@ -321,6 +319,7 @@
     <string name="morphe_experimental_app_version_dialog_message">이 &lt;b&gt;%s&lt;/b&gt; 버전은 초기 실험적 지원이 제공됩니다&lt;br/&gt;&lt;br/&gt;🔧 이 앱 버전에 맞게 패치가 개선되는 과정이므로, 예상되지 않은 동작이나 확인되지 않은 버그가 발생할 수 있습니다</string>
     <string name="home_dialog_unsupported_version_dialog_title">지원되지 않는 버전</string>
     <string name="home_dialog_unsupported_version_dialog_description">이 APK는 권장 앱 버전이 아닙니다. 계속 진행하면 앱이 제대로 작동하지 않을 수 있습니다</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">계속 진행</string>
     <string name="home_dialog_unsupported_version_compatible_versions">호환 가능한 버전:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">지원되지 않음</string>
@@ -356,12 +355,21 @@
     <string name="patch_option_slider_range_end">끝</string>
     <string name="patch_option_list_duplicate">이 값은 이미 존재합니다</string>
     <string name="patch_option_list_empty">값을 비워 둘 수 없습니다</string>
-    <string name="patch_option_list_empty_state">아직 값이 추가되지 않았습니다</string>
     <string name="patch_option_required_missing">%s: 모든 필수 옵션을 입력하세요</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">변경됨</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">필수</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">권장 크기: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">적응형 아이콘 만들기</string>
     <string name="adaptive_icon_select_image">이미지 선택</string>
     <string name="adaptive_icon_change_image">이미지 변경</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">전경 이미지</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">런처 아이콘</string>
     <string name="adaptive_icon_background_color">배경 색상</string>
     <string name="adaptive_icon_reset_transform">위치 및 크기 초기화</string>
     <string name="adaptive_icon_safe_zone_inner">안전한 영역 (항상 표시됨)</string>
@@ -413,16 +421,18 @@
     <string name="batch_patch_source_file">첨부된 파일</string>
     <string name="batch_patch_source_unavailable">APK를 준비할 수 없습니다</string>
     <string name="batch_patch_force_version">버전 강제 적용</string>
-    <string name="batch_patch_force_version_done">패치 목록에 추가하였습니다. 다른 버전용으로 제작된 패치는 앱에 문제를 일으킬 수 있습니다</string>
-    <string name="batch_patch_accept_signature_done">그래도 패치 목록에 추가되었습니다. 이 APK는 원본이 아닐 수 있습니다</string>
+    <string name="batch_patch_force_version_done">그래도 대기열에 추가됨, 앱이 손상될 수 있음</string>
+    <string name="batch_patch_accept_signature_done">그래도 대기열에 추가됨, APK가 검증되지 않음</string>
     <string name="batch_patch_edit_patches">패치 선택</string>
     <string name="batch_patch_state_no_apk">APK 없음</string>
     <string name="batch_patch_state_no_patches">패치 없음</string>
     <string name="batch_patch_policy_install">완료 후 설치</string>
     <string name="batch_patch_policy_install_description">패치 목록이 완료되면 패치된 각 앱을 즉시 설치합니다. 비활성화하면 나중에 사용할 수 있도록 APK를 유지합니다</string>
-    <string name="batch_patch_start">패치 시작</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">시작</string>
     <string name="batch_patch_stop_title">일괄 패치 중지</string>
     <string name="batch_patch_stop_description">현재 패치 중인 앱과 대기 중인 모든 앱을 취소합니다</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">모두 설치</string>
     <string name="batch_patch_install_failed">설치 실패</string>
     <string name="batch_patch_in_progress">일괄 패치가 이미 실행 중입니다</string>
@@ -669,6 +679,7 @@
     <string name="system">시스템</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">배경 애니메이션</string>
+    <string name="settings_appearance_background_description">앱 화면 뒤에서 재생되는 애니메이션</string>
     <string name="settings_appearance_background_circles">원</string>
     <string name="settings_appearance_background_rings">링</string>
     <string name="settings_appearance_background_mesh">그물망</string>
@@ -736,6 +747,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">각 앱의 고유 색상을 사용하고, 화면에 맞게 자동으로 명암을 조정합니다</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">앱 아이콘</string>
+    <string name="settings_appearance_app_icon_selector_description">홈 화면과 앱 서랍에서 Morphe의 모양</string>
     <string name="settings_appearance_app_icon_default">기본값</string>
     <string name="settings_appearance_app_icon_light_2">하늘</string>
     <string name="settings_appearance_app_icon_light_3">일몰</string>
@@ -744,6 +756,7 @@
     <string name="settings_appearance_app_icon_dark_3">남색</string>
     <string name="settings_appearance_app_icon_change_dialog_title">앱 아이콘을 변경할까요?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt;으로 변경하고 다시 시작하시겠습니까?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">앱 아이콘 변경</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">업데이트</string>
@@ -1124,7 +1137,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_apk_download_helper_installed_by">%s에 의해 설치됨</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">설치 프로그램 알 수 없음</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">이전 디렉터리</string>
     <string name="file_picker_no_files">파일이 없습니다</string>
     <string name="file_picker_read_error">이 디렉터리를 읽을 수 없습니다</string>
     <string name="file_picker_internal_storage">내부 저장소</string>
@@ -1155,11 +1167,8 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_red_toast_again">다시 비 속으로</string>
     <string name="easter_egg_pill_blue_toast_again">플러그를 뽑았습니다. 돌아가는 길은 언제나 그곳에 있었습니다</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">파일 선택</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">폴더 선택</string>
     <string name="patches">패치</string>
     <string name="home">홈</string>
@@ -1280,9 +1289,11 @@ morphe_header_custom_dark.png
     <string name="changelog_earlier_releases">이전 릴리스</string>
     <string name="changelog_older_empty">표시할 이전 릴리스가 없습니다</string>
     <string name="changelog_older_failed">이전 릴리스를 불러올 수 없습니다</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">릴리스 페이지</string>
     <string name="content_translate">번역</string>
-    <string name="content_show_original">원본 보기</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">원본</string>
     <string name="content_translation_failed">번역할 수 없습니다: %s</string>
     <string name="changelog_section_new">신규</string>
     <string name="changelog_section_fixes">수정 사항</string>
@@ -1304,8 +1315,10 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">업데이트를 할 수 없습니다</string>
     <string name="installing_manager_update">업데이트를 설치하는 중…</string>
     <string name="downloading_manager_update">업데이트를 다운로드하는 중…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB 다운로드됨</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">이 릴리스를 게시하는 중입니다. 몇 분 후 다시 시도해 주세요</string>
     <string name="update_download_missing">다운로드한 업데이트를 더 이상 사용할 수 없습니다. 다시 다운로드하세요</string>
     <string name="download_manager_failed">업데이트를 다운로드할 수 없습니다: %s</string>
@@ -1337,6 +1350,7 @@ morphe_header_custom_dark.png
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">빠른 기능 투어</string>
     <string name="tour_prompt_desc">Morphe의 주요 기능을 빠르게 둘러보시겠습니까?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">안내해 드릴게요</string>
     <string name="onboarding_restart_title">기능 투어</string>
     <string name="onboarding_restart_desc">주요 기능 둘러보기</string>

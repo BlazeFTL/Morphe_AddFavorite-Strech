@@ -12,6 +12,13 @@
         <item quantity="many">%s možností záplaty</item>
         <item quantity="other">%s možností záplaty</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s položka</item>
+        <item quantity="few">%s položky</item>
+        <item quantity="many">%s položky</item>
+        <item quantity="other">%s položek</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Zdroje záplat pro %s aplikaci</item>
         <item quantity="few">Zdroje záplat pro %s aplikace</item>

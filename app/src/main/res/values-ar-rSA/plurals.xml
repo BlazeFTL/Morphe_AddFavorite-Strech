@@ -16,6 +16,15 @@
         <item quantity="many">%s خيارات التعديل</item>
         <item quantity="other">%s خيارات التعديل</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="zero">%s عنصر</item>
+        <item quantity="one">%s عنصر</item>
+        <item quantity="two">%s عنصر</item>
+        <item quantity="few">%s عناصر</item>
+        <item quantity="many">%s عنصرًا</item>
+        <item quantity="other">%s عنصر</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="zero">مصدر تعديل لـ %s تطبيق</item>
         <item quantity="one">مصدر تعديل لـ %s تطبيق</item>
@@ -189,7 +198,7 @@
         <item quantity="one">%s جديد</item>
         <item quantity="two">%s جديد</item>
         <item quantity="few">%s جديد</item>
-        <item quantity="many">%s جديد</item>
+        <item quantity="many">%s جديدًا</item>
         <item quantity="other">%s جديد</item>
     </plurals>
     <plurals name="changelog_fix_count">
@@ -201,9 +210,9 @@
         <item quantity="other">%s إصلاح</item>
     </plurals>
     <plurals name="changelog_change_count">
-        <item quantity="zero">%s تغير</item>
-        <item quantity="one">%s تغير</item>
-        <item quantity="two">%s تغير</item>
+        <item quantity="zero">%s تغيير</item>
+        <item quantity="one">%s تغيير</item>
+        <item quantity="two">%s تغيير</item>
         <item quantity="few">%s تغييرات</item>
         <item quantity="many">%s تغييرًا</item>
         <item quantity="other">%s تغيير</item>

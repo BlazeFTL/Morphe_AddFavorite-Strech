@@ -12,6 +12,13 @@
         <item quantity="few">%s možnosti popravka</item>
         <item quantity="other">%s možnosti popravka</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s element</item>
+        <item quantity="two">%s elementa</item>
+        <item quantity="few">%s elementi</item>
+        <item quantity="other">%s elementov</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Viri popravkov za %s aplikacijo</item>
         <item quantity="two">Viri popravkov za %s aplikaciji</item>

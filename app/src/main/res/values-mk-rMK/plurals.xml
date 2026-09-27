@@ -8,6 +8,7 @@
         <item quantity="one">%s опција за закрпа</item>
         <item quantity="other">%s опции за закрпа</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
     <plurals name="source_count">
         <item quantity="one">%s извор</item>
         <item quantity="other">%s извори</item>

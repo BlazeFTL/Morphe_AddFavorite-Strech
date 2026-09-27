@@ -12,6 +12,13 @@
         <item quantity="many">%s opcji modyfikacji</item>
         <item quantity="other">%s opcji modyfikacji</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s element</item>
+        <item quantity="few">%s elementy</item>
+        <item quantity="many">%s elementów</item>
+        <item quantity="other">%s elementów</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Źródła modyfikacji dla %s aplikacji</item>
         <item quantity="few">Źródła modyfikacji dla %s aplikacji</item>

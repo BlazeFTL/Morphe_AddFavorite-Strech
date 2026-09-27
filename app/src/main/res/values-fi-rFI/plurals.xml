@@ -8,6 +8,11 @@
         <item quantity="one">%s lisäosa-asetus</item>
         <item quantity="other">%s lisäosa-asetusta</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s kohde</item>
+        <item quantity="other">%s kohdetta</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Paikkauslähteet %s sovellukselle</item>
         <item quantity="other">Paikkauslähteet %s sovellukselle</item>

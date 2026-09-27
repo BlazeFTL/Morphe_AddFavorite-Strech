@@ -6,6 +6,7 @@
     <plurals name="option_count">
         <item quantity="other">%s pilihan tampalan</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
     <plurals name="source_count">
         <item quantity="other">%s sumber</item>
     </plurals>

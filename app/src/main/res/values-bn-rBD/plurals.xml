@@ -8,6 +8,11 @@
         <item quantity="one">%s টি প্যাচ অপশন</item>
         <item quantity="other">%s টি প্যাচ অপশন</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%sটি আইটেম</item>
+        <item quantity="other">%sটি আইটেম</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">%sটি অ্যাপের জন্য প্যাচ সোর্স</item>
         <item quantity="other">%sটি অ্যাপের জন্য প্যাচ সোর্স</item>

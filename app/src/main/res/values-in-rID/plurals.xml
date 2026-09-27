@@ -6,6 +6,10 @@
     <plurals name="option_count">
         <item quantity="other">%s opsi tambalan</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="other">%s item</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="other">Sumber tambalan untuk %s aplikasi</item>
     </plurals>

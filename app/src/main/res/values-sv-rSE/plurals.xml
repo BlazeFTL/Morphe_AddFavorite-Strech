@@ -8,6 +8,11 @@
         <item quantity="one">%s tilläggsalternativ</item>
         <item quantity="other">%s tilläggsalternativ</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s objekt</item>
+        <item quantity="other">%s objekt</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Tilläggskällor för %s app</item>
         <item quantity="other">Tilläggskällor för %s appar</item>

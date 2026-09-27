@@ -10,6 +10,12 @@
         <item quantity="few">%s опција поправке</item>
         <item quantity="other">%s опција патича</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s ставка</item>
+        <item quantity="few">%s ставке</item>
+        <item quantity="other">%s ставки</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Извори закрпа за %s апликацијy</item>
         <item quantity="few">Извори закрпа за %s апликацијe</item>

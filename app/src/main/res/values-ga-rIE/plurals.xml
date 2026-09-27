@@ -14,6 +14,14 @@
         <item quantity="many">%s roghanna paiste</item>
         <item quantity="other">%s roghanna paiste</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s mhír</item>
+        <item quantity="two">%s mhír</item>
+        <item quantity="few">%s mhír</item>
+        <item quantity="many">%s mír</item>
+        <item quantity="other">%s mír</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Foinsí paiste le haghaidh %s aip</item>
         <item quantity="two">Foinsí paiste le haghaidh %s aip</item>

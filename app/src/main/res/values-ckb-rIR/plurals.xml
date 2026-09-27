@@ -8,6 +8,7 @@
         <item quantity="one">%s هەڵبژاردەی پینە</item>
         <item quantity="other">%s هەڵبژاردەکانی پینە</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
     <plurals name="source_count">
         <item quantity="one">%s سەرچاوە</item>
         <item quantity="other">%s سەرچاوەکان</item>

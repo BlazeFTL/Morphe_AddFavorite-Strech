@@ -8,6 +8,7 @@
         <item quantity="one">%s گزینه وصله</item>
         <item quantity="other">%s گزینه وصله</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
     <plurals name="sources_search_patch_matches">
         <item quantity="one">%s اصلاحیه مطابق</item>
         <item quantity="other">%s اصلاحیه‌های مطابق</item>

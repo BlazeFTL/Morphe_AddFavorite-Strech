@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Nuashonruithe scipeáilte</string>
     <string name="home_update_skipped_metered_subtitle">Tá sonraí soghluaiste gníomhach</string>
     <string name="home_updating_sources">Ag nuashonrú na foinsí…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Foinsí nuashonraithe críochnaithe</string>
     <string name="home_update_success_subtitle">Tá do foinsí suas chun dáta</string>
     <string name="home_sources_are_loading">Tá na foinsí ag lódáil, fan le do thoil…</string>
@@ -215,7 +212,8 @@
     <string name="home_apk_helper_download">Bain úsáid as aip chúnta</string>
     <string name="home_apk_helper_title">Íoslódáil le aip chúnta</string>
     <string name="home_apk_helper_description">Iarrfaidh Morphe ar an aip chúnta thíos an APK bunaidh a íoslódáil agus an comhad a thabhairt ar ais.</string>
-    <string name="home_apk_helper_continue">Oscail an aip chúnta</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Oscail cúntóir</string>
     <string name="home_apk_helper_warning">Ná lean ar aghaidh ach amháin má tá muinín agat as an aip chúnta seo. Seiceálann Morphe an pacáiste, an leagan agus an síniú ar cibé rud a fhaigheann sé sula ndéantar paisteáil air.</string>
     <string name="home_apk_helper_warning_unverified">Ná lean ar aghaidh ach amháin má tá muinín agat as an aip chúnta seo. Ní féidir le Morphe síniú an APK seo a fhíorú, mar sin ní bhraithfí comhad modhnaithe.</string>
     <string name="home_apk_helper_no_result">Níor thug an aip chúnta APK ar ais</string>
@@ -321,6 +319,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="morphe_experimental_app_version_dialog_message">Tá tacaíocht luath turgnamhach ag an leagan seo de &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;🔧 Bí ag súil le hiompar aisteach an aip nó fabhtanna anaithnid de réir mar a dhéantar na paistí a fheabhsú don leagan seo den aip</string>
     <string name="home_dialog_unsupported_version_dialog_title">Leagan Gan Tacaíocht</string>
     <string name="home_dialog_unsupported_version_dialog_description">Ní leagan molta den aip é an APK seo. D’fhéadfadh sé nach n-oibreodh an aip má leanann tú ar aghaidh</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Lean ar aghaidh ar aon nós</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Leaganacha comhoiriúnacha:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Gan tacaíocht</string>
@@ -356,12 +355,21 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="patch_option_slider_range_end">Chuig</string>
     <string name="patch_option_list_duplicate">Tá an luach seo ann cheana féin</string>
     <string name="patch_option_list_empty">Ní féidir luach a fhágáil folamh</string>
-    <string name="patch_option_list_empty_state">Níl aon luachanna curtha leis fós</string>
     <string name="patch_option_required_missing">%s: líon isteach na roghanna riachtanacha go léir</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Athraithe</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Riachtanach</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Molta: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Cruthaigh deilbhín oiriúnaitheach</string>
     <string name="adaptive_icon_select_image">Roghnaigh íomhá</string>
     <string name="adaptive_icon_change_image">Athraigh íomhá</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Íomhá tosaigh</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Deilbhín lainseálaí</string>
     <string name="adaptive_icon_background_color">Dath an chúlra</string>
     <string name="adaptive_icon_reset_transform">Athshocraigh suíomh agus scála</string>
     <string name="adaptive_icon_safe_zone_inner">Crios sábháilte (le feiceáil i gcónaí)</string>
@@ -413,16 +421,18 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="batch_patch_source_file">Comhad ceangailte</string>
     <string name="batch_patch_source_unavailable">Níorbh fhéidir an APK a ullmhú</string>
     <string name="batch_patch_force_version">Paiste ar aon nós</string>
-    <string name="batch_patch_force_version_done">Sa scuaine ar aon nós, d\'fhéadfadh paistí a rinneadh do leaganacha eile an aip a bhriseadh</string>
-    <string name="batch_patch_accept_signature_done">Ciúáilte ar aon nós, b\'fhéidir nach é an APK seo an bunleagan</string>
+    <string name="batch_patch_force_version_done">Curtha sa scuaine ar aon nós, d\'fhéadfadh an aip briseadh</string>
+    <string name="batch_patch_accept_signature_done">Curtha sa scuaine ar aon nós, APK neamhfhíoraithe</string>
     <string name="batch_patch_edit_patches">Roghnaigh paistí</string>
     <string name="batch_patch_state_no_apk">Gan APK</string>
     <string name="batch_patch_state_no_patches">Gan paistí</string>
     <string name="batch_patch_policy_install">Suiteáil nuair a bheidh sé críochnaithe</string>
     <string name="batch_patch_policy_install_description">Suiteálann sé gach aip phaisteáilte díreach tar éis don scuaine a bheith críochnaithe. Coinníonn sé na APKanna le haghaidh níos déanaí má bhíonn sé múchta.</string>
-    <string name="batch_patch_start">Tosaigh ag paisteáil</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Tosaigh</string>
     <string name="batch_patch_stop_title">Stop a chur le paistí baisce?</string>
     <string name="batch_patch_stop_description">Cuirfear ar ceal an aip atá á paisteáil faoi láthair agus gach rud atá fós i scuaine</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Suiteáil gach rud</string>
     <string name="batch_patch_install_failed">Theip ar an suiteáil</string>
     <string name="batch_patch_in_progress">Tá paisteáil bhaisc ag rith cheana féin</string>
@@ -669,6 +679,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="system">Córas</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Beochan cúlra</string>
+    <string name="settings_appearance_background_description">An bheochan a sheinntear taobh thiar de scáileáin an aip.</string>
     <string name="settings_appearance_background_circles">Ciorcail</string>
     <string name="settings_appearance_background_rings">Fáinní</string>
     <string name="settings_appearance_background_mesh">Mogalra</string>
@@ -737,6 +748,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Úsáid dath gach aip féin anseo, scáthaithe go huathoibríoch chun go n-oirfidh sé</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Deilbhín aip</string>
+    <string name="settings_appearance_app_icon_selector_description">Mar a fhéachann Morphe ar do scáileán baile agus i dtarraiceán na n-aip.</string>
     <string name="settings_appearance_app_icon_default">Réamhshocrú</string>
     <string name="settings_appearance_app_icon_light_2">Spéir</string>
     <string name="settings_appearance_app_icon_light_3">Luí na gréine</string>
@@ -745,6 +757,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_app_icon_dark_3">Indeagó</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Deilbhín an aip a athrú?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Athraigh go &lt;b&gt;%s&lt;/b&gt; agus atosú?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Athraigh deilbhín</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Nuashonruithe</string>
@@ -1124,7 +1137,6 @@ Sonraí: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">Suiteáilte ag %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Suiteálaí anaithnid</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Eolaire roimhe seo</string>
     <string name="file_picker_no_files">Níl aon chomhaid anseo</string>
     <string name="file_picker_read_error">Ní féidir an t-eolaire seo a léamh</string>
     <string name="file_picker_internal_storage">Stóráil inmheánach</string>
@@ -1155,11 +1167,8 @@ Sonraí: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Ar ais sa bháisteach</string>
     <string name="easter_egg_pill_blue_toast_again">Díphlugáilte. Is é an bealach ar ais an áit a raibh sé i gcónaí.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Roghnaigh comhad</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Roghnaigh fillteán</string>
     <string name="patches">Paistí</string>
     <string name="home">Baile</string>
@@ -1280,9 +1289,11 @@ Sonraí: %2$s"</string>
     <string name="changelog_earlier_releases">Eisiúintí níos luaithe</string>
     <string name="changelog_older_empty">Gan aon eisiúintí níos sine le taispeáint</string>
     <string name="changelog_older_failed">Níorbh fhéidir na heisiúintí níos sine a lódáil</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Leathanach eisiúna</string>
     <string name="content_translate">Aistrigh</string>
-    <string name="content_show_original">Taispeáin an bunleagan</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Bunaidh</string>
     <string name="changelog_section_new">Nua</string>
     <string name="changelog_section_fixes">Ceartúcháin</string>
     <string name="changelog_section_performance">Feidhmíocht</string>
@@ -1303,8 +1314,10 @@ Sonraí: %2$s"</string>
     <string name="install_update_manager_failed">Theip ar an nuashonrú a shuiteáil</string>
     <string name="installing_manager_update">Ag suiteáil an nuashonraithe…</string>
     <string name="downloading_manager_update">Ag íoslódáil an nuashonraithe…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB íoslódáilte</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Tá an eisiúint seo fós á foilsiú. Déan iarracht arís i gceann cúpla nóiméad.</string>
     <string name="update_download_missing">Níl an nuashonrú íoslódáilte ar fáil a thuilleadh. Íoslódáil arís é.</string>
     <string name="download_manager_failed">Theip ar an nuashonrú a íoslódáil: %s</string>
@@ -1336,6 +1349,7 @@ Ar mhaith leat leanúint ar aghaidh fós?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Turas gairid ar ghnéithe</string>
     <string name="tour_prompt_desc">Ar mhaith leat turas gairid a fháil ar phríomhghnéithe Morphe?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Taispeáin dom timpeall</string>
     <string name="onboarding_restart_title">Turas gné-ghnéithe</string>
     <string name="onboarding_restart_desc">Camchuairt threoraithe ar phríomhghnéithe</string>

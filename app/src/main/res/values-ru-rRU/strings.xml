@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Обновления пропущены</string>
     <string name="home_update_skipped_metered_subtitle">Мобильные данные активны</string>
     <string name="home_updating_sources">Обновление источников…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s МБ (%5$d%%)</string>
     <string name="home_update_success">Обновление источников завершено</string>
     <string name="home_update_success_subtitle">Ваши источники обновлены</string>
     <string name="home_sources_are_loading">Загрузка источников, пожалуйста, подождите…</string>
@@ -215,7 +212,8 @@
     <string name="home_apk_helper_download">Использовать вспомогательное приложение</string>
     <string name="home_apk_helper_title">Загрузить с помощью вспомогательного приложения</string>
     <string name="home_apk_helper_description">Morphe запросит у вспомогательного приложения, указанного ниже, загрузить исходный APK и передать файл обратно</string>
-    <string name="home_apk_helper_continue">Открыть вспомогательное приложение</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Открыть помощника</string>
     <string name="home_apk_helper_warning">Продолжайте только в том случае, если вы доверяете этому вспомогательному приложению. Morphe проверяет пакет, версию и подпись любого полученного файла перед применением патча</string>
     <string name="home_apk_helper_warning_unverified">Продолжайте только в том случае, если вы доверяете этому вспомогательному приложению. Morphe не может проверить подпись этого APK, поэтому измененный файл не будет обнаружен</string>
     <string name="home_apk_helper_no_result">Вспомогательное приложение не вернуло APK</string>
@@ -321,7 +319,8 @@
     <string name="morphe_experimental_app_version_dialog_message">Эта версия &lt;b&gt;%s&lt;/b&gt; имеет раннюю экспериментальную поддержку&lt;br/&gt;&lt;br/&gt;🔧 В процессе доработки исправлений для этой версии приложения возможны странные сбои в работе приложения или неустановленные ошибки.</string>
     <string name="home_dialog_unsupported_version_dialog_title">Неподдерживаемая версия</string>
     <string name="home_dialog_unsupported_version_dialog_description">Этот APK не является рекомендуемой версией приложения. Продолжение может привести к некорректной работе приложения</string>
-    <string name="home_dialog_unsupported_version_dialog_proceed"> Продолжить в любом случае.</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_dialog_unsupported_version_dialog_proceed">Все равно продолжить</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Совместимые версии:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Неподдерживаемые</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
@@ -356,12 +355,21 @@
     <string name="patch_option_slider_range_end">До</string>
     <string name="patch_option_list_duplicate">Это значение уже существует</string>
     <string name="patch_option_list_empty">Значение не может быть пустым</string>
-    <string name="patch_option_list_empty_state">Значения еще не добавлены</string>
     <string name="patch_option_required_missing">%s: заполните все обязательные поля</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Изменено</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Обязательно</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Рекомендуется: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Создать адаптивную иконку</string>
     <string name="adaptive_icon_select_image">Выбрать изображение</string>
     <string name="adaptive_icon_change_image">Изменить изображение</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Изображение переднего плана</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Значок приложения</string>
     <string name="adaptive_icon_background_color">Цвет фона</string>
     <string name="adaptive_icon_reset_transform">Сбросить положение и масштаб</string>
     <string name="adaptive_icon_safe_zone_inner">Безопасная зона (всегда видна)</string>
@@ -413,16 +421,18 @@
     <string name="batch_patch_source_file">Прикрепленный файл</string>
     <string name="batch_patch_source_unavailable">Не удалось подготовить APK</string>
     <string name="batch_patch_force_version">Патчить в любом случае</string>
-    <string name="batch_patch_force_version_done">Все равно в очереди; патчи, созданные для других версий, могут нарушить работу приложения</string>
-    <string name="batch_patch_accept_signature_done">Поставлено в очередь в любом случае, этот APK может не быть оригинальным</string>
+    <string name="batch_patch_force_version_done">Всё равно поставлено в очередь, приложение может сломаться.</string>
+    <string name="batch_patch_accept_signature_done">Всё равно поставлено в очередь, APK не проверен.</string>
     <string name="batch_patch_edit_patches">Выбрать патчи</string>
     <string name="batch_patch_state_no_apk">Нет APK</string>
     <string name="batch_patch_state_no_patches">Нет патчей</string>
     <string name="batch_patch_policy_install">Устанавливать по завершении</string>
     <string name="batch_patch_policy_install_description">Устанавливает каждое пропатченное приложение сразу после завершения очереди. Выкл. сохраняет APK для последующей установки</string>
-    <string name="batch_patch_start">Начать патчинг</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Начало</string>
     <string name="batch_patch_stop_title">Остановить массовый патчинг?</string>
     <string name="batch_patch_stop_description">Приложение, которое пропатчивается сейчас, и все, что еще ожидает в очереди, будет отменено</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Установить все</string>
     <string name="batch_patch_install_failed">Ошибка установки</string>
     <string name="batch_patch_in_progress">Массовый патчинг уже выполняется</string>
@@ -669,6 +679,7 @@
     <string name="system">Системная</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Анимация фона</string>
+    <string name="settings_appearance_background_description">Анимация, которая воспроизводится за экранами приложения</string>
     <string name="settings_appearance_background_circles">Круги</string>
     <string name="settings_appearance_background_rings">Кольца</string>
     <string name="settings_appearance_background_mesh">Сетка</string>
@@ -736,6 +747,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">Использовать собственный цвет каждого приложения с автоматическим затенением для соответствия</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Иконка приложения</string>
+    <string name="settings_appearance_app_icon_selector_description">Как Morphe выглядит на главном экране и в панели приложений</string>
     <string name="settings_appearance_app_icon_default">По умолчанию</string>
     <string name="settings_appearance_app_icon_light_2">Небо</string>
     <string name="settings_appearance_app_icon_light_3">Закат</string>
@@ -744,6 +756,7 @@
     <string name="settings_appearance_app_icon_dark_3">Индиго</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Изменить значок приложения?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Изменить на &lt;b&gt;%s&lt;/b&gt; и перезапустить?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Изменить значок</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Обновления</string>
@@ -1125,7 +1138,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_apk_download_helper_installed_by">Установлено: %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Установщик неизвестен</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Предыдущий каталог</string>
     <string name="file_picker_no_files">Здесь нет файлов</string>
     <string name="file_picker_read_error">Не удается прочитать эту директорию</string>
     <string name="file_picker_internal_storage">Внутренняя память</string>
@@ -1156,11 +1168,8 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_red_toast_again">Обратно в дождь</string>
     <string name="easter_egg_pill_blue_toast_again">Отключено. Путь назад там, где он всегда был.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s МБ / %2$s МБ (%3$s%%)</string>
     <string name="select_file">Выберите файл</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Выбрать папку</string>
     <string name="patches">Патчи</string>
     <string name="home">Домашняя страница</string>
@@ -1281,9 +1290,11 @@ morphe_header_custom_dark.png
     <string name="changelog_earlier_releases">Более ранние релизы</string>
     <string name="changelog_older_empty">Нет более старых версий для отображения</string>
     <string name="changelog_older_failed">Не удалось загрузить более старые релизы</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Страница релиза</string>
     <string name="content_translate">Перевести</string>
-    <string name="content_show_original">Показать оригинал</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Оригинальная</string>
     <string name="content_translation_failed">Не удалось перевести: %s</string>
     <string name="changelog_section_new">Новые</string>
     <string name="changelog_section_fixes">Исправления</string>
@@ -1305,8 +1316,10 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">Не удалось установить обновление</string>
     <string name="installing_manager_update">Установка обновления…</string>
     <string name="downloading_manager_update">Загрузка обновления…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Загружено %1$s МБ</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s МБ</string>
     <string name="manager_update_not_ready">Этот релиз еще публикуется. Попробуйте снова через несколько минут</string>
     <string name="update_download_missing">Загруженное обновление больше недоступно. Загрузите его снова</string>
     <string name="download_manager_failed">Не удалось загрузить обновление: %s</string>
@@ -1338,6 +1351,7 @@ morphe_header_custom_dark.png
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Быстрый ознакомительный тур</string>
     <string name="tour_prompt_desc">Хотите быстро ознакомиться с основными функциями Morphe?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Показать мне всё</string>
     <string name="onboarding_restart_title">Ознакомительный тур</string>
     <string name="onboarding_restart_desc">Интерактивный обзор ключевых функций</string>

@@ -8,6 +8,11 @@
         <item quantity="one">%s pagpipilian ng patch</item>
         <item quantity="other">%s mga pagpipilian ng patch</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s item</item>
+        <item quantity="other">%s item</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Mga pinagmumulan ng patch para sa %s app</item>
         <item quantity="other">Mga pinagmumulan ng patch para sa %s na app</item>

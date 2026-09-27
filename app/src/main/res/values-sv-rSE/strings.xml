@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Uppdateringar hoppas över</string>
     <string name="home_update_skipped_metered_subtitle">Mobildata är aktivt</string>
     <string name="home_updating_sources">Uppdaterar källor …</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Uppdatering av källor är klar</string>
     <string name="home_update_success_subtitle">Dina källor är uppdaterade</string>
     <string name="home_sources_are_loading">Källor läses in, vänta …</string>
@@ -215,7 +212,8 @@ Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <string name="home_apk_helper_download">Använd en hjälpapp</string>
     <string name="home_apk_helper_title">Ladda ned med en hjälpapp</string>
     <string name="home_apk_helper_description">Morphe ber hjälpappen nedan att ladda ned den ursprungliga APK-filen och lämna tillbaka filen</string>
-    <string name="home_apk_helper_continue">Öppna hjälpappen</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Öppna hjälpen</string>
     <string name="home_apk_helper_warning">Fortsätt endast om du litar på den här hjälpappen. Morphe kontrollerar paketet, versionen och signaturen för det den tar emot innan modifiering.</string>
     <string name="home_apk_helper_warning_unverified">Fortsätt endast om du litar på den här hjälpappen. Morphe kan inte verifiera signaturen för denna APK, så en modifierad fil skulle inte upptäckas.</string>
     <string name="home_apk_helper_no_result">Hjälpappen returnerade ingen APK</string>
@@ -321,6 +319,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="morphe_experimental_app_version_dialog_message">Den här versionen av &lt;b&gt;%s&lt;/b&gt; har tidigt experimentellt stöd&lt;br/&gt;&lt;br/&gt;🔧 Räkna med underligt appbeteende eller okända fel medan tilläggen finjusteras för den här appversionen</string>
     <string name="home_dialog_unsupported_version_dialog_title">Version som inte stöds</string>
     <string name="home_dialog_unsupported_version_dialog_description">Den här APK-filen är inte en rekommenderad appversion. Om du fortsätter kan det leda till att appen inte fungerar</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Fortsätt ändå</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatibla versioner:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Stöds inte</string>
@@ -356,12 +355,21 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="patch_option_slider_range_end">Till</string>
     <string name="patch_option_list_duplicate">Det här värdet finns redan</string>
     <string name="patch_option_list_empty">Värdet kan inte vara tomt</string>
-    <string name="patch_option_list_empty_state">Inga värden har lagts till ännu</string>
     <string name="patch_option_required_missing">%s: fyll i alla obligatoriska alternativ</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Ändrad</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Obligatorisk</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Rekommenderad: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Skapa adaptiv ikon</string>
     <string name="adaptive_icon_select_image">Välj bild</string>
     <string name="adaptive_icon_change_image">Ändra bild</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Förgrundsbild</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Startikon</string>
     <string name="adaptive_icon_background_color">Bakgrundsfärg</string>
     <string name="adaptive_icon_reset_transform">Återställ position och skala</string>
     <string name="adaptive_icon_safe_zone_inner">Säker zon (alltid synlig)</string>
@@ -413,16 +421,18 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="batch_patch_source_file">Angiven fil</string>
     <string name="batch_patch_source_unavailable">Det gick inte att förbereda APK-filen</string>
     <string name="batch_patch_force_version">Modifiera ändå</string>
-    <string name="batch_patch_force_version_done">Köades ändå. Tillägg skapade för andra versioner kan få appen att sluta fungera</string>
-    <string name="batch_patch_accept_signature_done">Köad ändå, den här APK-filen kanske inte är originalet</string>
+    <string name="batch_patch_force_version_done">Köade ändå, appen kan gå sönder</string>
+    <string name="batch_patch_accept_signature_done">Köade ändå, APK verifierades inte</string>
     <string name="batch_patch_edit_patches">Välj tillägg</string>
     <string name="batch_patch_state_no_apk">Ingen APK-fil</string>
     <string name="batch_patch_state_no_patches">Inga tillägg</string>
     <string name="batch_patch_policy_install">Installera när modifieringen är klar</string>
     <string name="batch_patch_policy_install_description">Installerar alla modifierade appar direkt efter att kön är klar. Om det här alternativet är inaktiverat sparas APK-filerna till senare.</string>
-    <string name="batch_patch_start">Starta modifiering</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Starta</string>
     <string name="batch_patch_stop_title">Stoppa gruppmodifiering?</string>
     <string name="batch_patch_stop_description">Den app som modifieras just nu och allt som fortfarande står i kön avbryts</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Installera alla</string>
     <string name="batch_patch_install_failed">Installationen misslyckades</string>
     <string name="batch_patch_in_progress">Gruppmodifiering körs redan</string>
@@ -743,6 +753,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Ändra appikon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Ändra till &lt;b&gt;%s&lt;/b&gt; och starta om?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ändra ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Uppdateringar</string>
@@ -1124,7 +1135,6 @@ Information: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">Installerad av %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Okänd installatör</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Föregående katalog</string>
     <string name="file_picker_no_files">Inga filer här</string>
     <string name="file_picker_read_error">Det går inte att läsa den här katalogen</string>
     <string name="file_picker_internal_storage">Intern lagring</string>
@@ -1155,11 +1165,8 @@ Information: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Tillbaka i regnet</string>
     <string name="easter_egg_pill_blue_toast_again">Urkopplad. Vägen tillbaka är där den alltid var</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Välj fil</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Välj mapp</string>
     <string name="patches">Tillägg</string>
     <string name="home">Start</string>
@@ -1280,9 +1287,11 @@ Information: %2$s"</string>
     <string name="changelog_earlier_releases">Tidigare utgåvor</string>
     <string name="changelog_older_empty">Inga äldre versioner att visa</string>
     <string name="changelog_older_failed">Kunde inte ladda äldre utgåvor</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Utgåvesida</string>
     <string name="content_translate">Översätt</string>
-    <string name="content_show_original">Visa original</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Ursprunglig</string>
     <string name="content_translation_failed">Det gick inte att översätta: %s</string>
     <string name="changelog_section_new">Nytt</string>
     <string name="changelog_section_fixes">Korrigeringar</string>
@@ -1304,8 +1313,10 @@ Information: %2$s"</string>
     <string name="install_update_manager_failed">Det gick inte att installera uppdateringen</string>
     <string name="installing_manager_update">Installerar uppdatering …</string>
     <string name="downloading_manager_update">Laddar ned uppdatering …</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB har laddats ned</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Den här utgåvan publiceras fortfarande. Försök igen om några minuter.</string>
     <string name="update_download_missing">Den nedladdade uppdateringen är inte längre tillgänglig. Ladda ned den igen</string>
     <string name="download_manager_failed">Det gick inte att ladda ned uppdateringen: %s</string>
@@ -1337,6 +1348,7 @@ Vill du fortsätta ändå?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Snabb funktionsgenomgång</string>
     <string name="tour_prompt_desc">Vill du få en snabb genomgång av Morphes grundläggande funktioner?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Visa mig runt</string>
     <string name="onboarding_restart_title">Funktionsgenomgång</string>
     <string name="onboarding_restart_desc">En guidad tur genom de viktigaste funktionerna</string>

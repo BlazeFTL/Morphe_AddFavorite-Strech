@@ -10,6 +10,14 @@
     <plurals name="file_picker_item_count">
         <item quantity="other">%s mục</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="other">Chọn %s tệp</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="other">Thêm %s nguồn</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="other">Nguồn vá cho %s ứng dụng</item>
     </plurals>

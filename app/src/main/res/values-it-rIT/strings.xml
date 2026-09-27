@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Elimina la fonte \"%s\"? Questa operazione non può essere annullata</string>
     <string name="sources_dialog_remote">A distanza</string>
     <string name="sources_dialog_remote_url">URL della fonte</string>
-    <string name="sources_dialog_remote_url_formats_title">Esempi:</string>
+    <string name="sources_dialog_remote_url_hint">Un repository o un link a un bundle di patch .json. Incolla più link in una volta per aggiungerli tutti</string>
+    <string name="sources_dialog_paste_no_links">Nessun link trovato negli appunti</string>
     <string name="sources_dialog_local">Locale</string>
-    <string name="sources_dialog_local_file">Seleziona il file come fonte delle patch</string>
+    <string name="sources_dialog_local_files">Seleziona i file sorgente delle patch</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Aggiungi altri file</string>
     <string name="sources_dialog_local_file_tap_hint">Tocca per sfogliare l\'archiviazione</string>
-    <string name="sources_dialog_local_file_description">Seleziona un file .mpp come fonte delle patch dalla memoria di archiviazione</string>
     <string name="sources_dialog_local_invalid_extension">Il file deve avere un\'estensione .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Aggiornamenti %s</string>
     <string name="sources_dialog_url_valid">URL o repository JSON valido</string>
     <string name="sources_dialog_url_invalid">L\'URL deve puntare a un repository GitHub/GitLab o a un file .json</string>
-    <string name="sources_dialog_local_change_file">Cambia file</string>
     <string name="sources_dialog_preinstalled">Preinstallato</string>
     <string name="sources_dialog_community">Patch della community</string>
     <string name="sources_dialog_choose_apps">Scegli le app</string>
@@ -1170,6 +1173,7 @@ Dettagli: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Scollegato. La via del ritorno è dove è sempre stata</string>
     <!-- Shared strings -->
     <string name="select_file">Seleziona file</string>
+    <string name="select_files">Seleziona file</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Seleziona cartella</string>
     <string name="patches">Patch</string>
@@ -1197,6 +1201,7 @@ Dettagli: %2$s"</string>
     <string name="done">Fatto</string>
     <string name="skip">Salta</string>
     <string name="clear">Cancella</string>
+    <string name="paste">Incolla</string>
     <string name="delete">Elimina</string>
     <string name="delete_all">Elimina tutto</string>
     <string name="remove">Rimuovi</string>

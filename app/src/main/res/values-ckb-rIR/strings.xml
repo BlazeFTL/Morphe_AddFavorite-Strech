@@ -75,15 +75,13 @@
     <string name="sources_dialog_delete_confirm_message">سڕینەوای سەرچاوەی \"%s\"؟ ئەمە ناتوانرێت هەڵبوەشێتەوە</string>
     <string name="sources_dialog_remote">دوورەدەست</string>
     <string name="sources_dialog_remote_url">URLی سەرچاوە</string>
-    <string name="sources_dialog_remote_url_formats_title">نموونەکان:</string>
     <string name="sources_dialog_local">ناوخۆ</string>
-    <string name="sources_dialog_local_file">پەڕگەی سەرچاوەی پینە هەڵبژێرە</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">بۆ گەڕان بەناو کۆگادا پەنجە بنێ</string>
-    <string name="sources_dialog_local_file_description">پەڕگەیەکی سەرچاوەی .mpp پینە لە کۆگا هەڵبژێرە</string>
     <string name="sources_dialog_local_invalid_extension">پەڕگەکە دەبێت درێژکراوەی .mpp ی هەبێت</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">عەمباری دروست یان URL JSON</string>
     <string name="sources_dialog_url_invalid">بەستەرەکە دەبێت ئاماژە بە ڕیپۆیەکی GitHub/GitLab یان پەڕگەیەکی .json بکات</string>
-    <string name="sources_dialog_local_change_file">گۆڕینی پەڕگە</string>
     <string name="sources_dialog_preinstalled">پێشوەختە دامەزراو</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">نوێکردنەوە سەرکەوتوو بوو</string>

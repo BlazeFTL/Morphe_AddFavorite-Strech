@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Radera källan %s? Det går inte att ångra den här åtgärden</string>
     <string name="sources_dialog_remote">Fjärrkälla</string>
     <string name="sources_dialog_remote_url">Källadress</string>
-    <string name="sources_dialog_remote_url_formats_title">Exempel:</string>
+    <string name="sources_dialog_remote_url_hint">En lagringsplats eller en länk till ett tilläggspakets .json-fil. Klistra in flera på en gång för att lägga till alla</string>
+    <string name="sources_dialog_paste_no_links">Inga länkar hittades i urklipp</string>
     <string name="sources_dialog_local">Lokal</string>
-    <string name="sources_dialog_local_file">Välj källfil för tillägg</string>
+    <string name="sources_dialog_local_files">Välj källfiler för tillägg</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Lägg till fler filer</string>
     <string name="sources_dialog_local_file_tap_hint">Tryck för att bläddra i lagringen</string>
-    <string name="sources_dialog_local_file_description">Välj en källfil för tillägg i formatet .mpp från lagringen</string>
     <string name="sources_dialog_local_invalid_extension">Filen måste ha filändelsen .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Uppdaterar %s</string>
     <string name="sources_dialog_url_valid">Giltig lagringsplats eller JSON-adress</string>
     <string name="sources_dialog_url_invalid">Webbadressen måste peka på en GitHub-/GitLab-lagringsplats eller .json-fil</string>
-    <string name="sources_dialog_local_change_file">Byt fil</string>
     <string name="sources_dialog_preinstalled">Förinstallerad</string>
     <string name="sources_dialog_community">Tillägg från communityn</string>
     <string name="sources_dialog_choose_apps">Välj appar</string>
@@ -216,8 +219,8 @@ Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <string name="home_apk_helper_continue">Öppna hjälpen</string>
     <string name="home_apk_helper_warning">Fortsätt endast om du litar på den här hjälpappen. Morphe kontrollerar paketet, versionen och signaturen för det den tar emot innan modifiering.</string>
     <string name="home_apk_helper_warning_unverified">Fortsätt endast om du litar på den här hjälpappen. Morphe kan inte verifiera signaturen för denna APK, så en modifierad fil skulle inte upptäckas.</string>
-    <string name="home_apk_helper_no_result">Hjälpappen returnerade ingen APK</string>
-    <string name="home_apk_helper_no_access">Hjälpappen gav inte åtkomst till den APK den returnerade</string>
+    <string name="home_apk_helper_no_result">Hjälpappen returnerade ingen APK-fil</string>
+    <string name="home_apk_helper_no_access">Hjälpappen gav inte åtkomst till den APK-fil som den returnerade</string>
     <string name="home_apk_helper_no_package">Hjälpappen talade inte om vilken installerad app som skulle användas</string>
     <string name="home_apk_helper_wrong_package">Hjälpappen returnerade en annan app än den som modifieras</string>
     <string name="home_apk_helper_installed_unavailable">Morphe kunde inte använda den installerade appen</string>
@@ -369,7 +372,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Förgrundsbild</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
-    <string name="adaptive_icon_launcher">Startikon</string>
+    <string name="adaptive_icon_launcher">Ikon i startprogrammet</string>
     <string name="adaptive_icon_background_color">Bakgrundsfärg</string>
     <string name="adaptive_icon_reset_transform">Återställ position och skala</string>
     <string name="adaptive_icon_safe_zone_inner">Säker zon (alltid synlig)</string>
@@ -421,8 +424,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="batch_patch_source_file">Angiven fil</string>
     <string name="batch_patch_source_unavailable">Det gick inte att förbereda APK-filen</string>
     <string name="batch_patch_force_version">Modifiera ändå</string>
-    <string name="batch_patch_force_version_done">Köade ändå, appen kan gå sönder</string>
-    <string name="batch_patch_accept_signature_done">Köade ändå, APK verifierades inte</string>
+    <string name="batch_patch_force_version_done">Köades ändå, appen kan sluta fungera</string>
+    <string name="batch_patch_accept_signature_done">Köades ändå, APK-filen har inte verifierats</string>
     <string name="batch_patch_edit_patches">Välj tillägg</string>
     <string name="batch_patch_state_no_apk">Ingen APK-fil</string>
     <string name="batch_patch_state_no_patches">Inga tillägg</string>
@@ -726,7 +729,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_app_grouping">Appgruppering</string>
     <string name="settings_appearance_app_grouping_description">Visa en växlare för att gruppera appar efter källa eller kategori</string>
     <string name="settings_appearance_repatch_notice">Meddelande om att modifiera igen</string>
-    <string name="settings_appearance_repatch_notice_description">Visa en banderoll när patchade appar kan patchas om</string>
+    <string name="settings_appearance_repatch_notice_description">Visa en banner när modifierade appar kan modifieras igen</string>
     <string name="settings_appearance_sort_button">Knapp för att sortera och filtrera</string>
     <string name="settings_appearance_sort_button_description">Visa knappen för att sortera och filtrera på startskärmen</string>
     <string name="settings_appearance_app_card_colors">Färger för appkort</string>
@@ -746,7 +749,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_app_card_colors_bundle_description">Använd varje apps egen färg här. Toningen anpassas automatiskt</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
-    <string name="settings_appearance_app_icon_selector_description">Hur Morphe ser ut på din hemskärm och i applådan</string>
+    <string name="settings_appearance_app_icon_selector_description">Hur Morphe ser ut på din startskärm och i panelen med appar</string>
     <string name="settings_appearance_app_icon_default">Standard</string>
     <string name="settings_appearance_app_icon_light_2">Himmel</string>
     <string name="settings_appearance_app_icon_light_3">Solnedgång</string>
@@ -799,8 +802,8 @@ Tillägg påverkas inte: aktivera förhandsversioner av tillägg för varje käl
     <string name="notification_post_patch_dialog_title">Vill du få aviseringar när uppdateringar är tillgängliga?</string>
     <string name="notification_channel_manager_updates">Uppdateringar för Morphe</string>
     <string name="notification_channel_manager_updates_description">Aviseringar om nya Morphe-versioner</string>
-    <string name="notification_channel_patch_updates">Patchuppdateringar</string>
-    <string name="notification_channel_patch_updates_description">Aviseringar om nya patchversioner</string>
+    <string name="notification_channel_patch_updates">Tilläggsuppdateringar</string>
+    <string name="notification_channel_patch_updates_description">Aviseringar om nya tilläggsversioner</string>
     <string name="notification_channel_patcher">Modifiering</string>
     <string name="notification_channel_patcher_description">Visas när Morphe modifierar en app i bakgrunden</string>
     <!-- Settings - Advanced Tab - Expert settings Section -->
@@ -928,7 +931,7 @@ Bildernas mått ska vara följande:
     <string name="installer_hint_generic">Installationen misslyckades. Försök igen eller byt till en annan installerare</string>
     <string name="installer_hint_conflict">En annan app med det här paketnamnet är redan installerad. Avinstallera den innan du fortsätter</string>
     <string name="installer_confirm_notification_title">Bekräfta installationen</string>
-    <string name="installer_confirm_notification_text">Tryck för att slutföra installationen av den patchade appen</string>
+    <string name="installer_confirm_notification_text">Tryck för att slutföra installationen av den modifierade appen</string>
     <string name="installer_external_launched">Öppnar %s …</string>
     <string name="installer_external_timeout">%s bekräftade inte installationen. Kontrollera den andra appen och försök igen</string>
     <string name="installer_external_success">%s meddelade om en lyckad installation</string>
@@ -945,7 +948,7 @@ Bildernas mått ska vara följande:
     <string name="settings_prompt_installer_on_install">Uppmaning om val av installerare</string>
     <string name="settings_prompt_installer_on_install_description">Visar en dialogruta för att välja en installerare varje gång en modifierad app installeras</string>
     <string name="settings_auto_install_with_shizuku">Installera automatiskt efter modifiering</string>
-    <string name="settings_auto_install_with_shizuku_description">Installerar den patchade APK-filen så snart patchningen är klar</string>
+    <string name="settings_auto_install_with_shizuku_description">Installerar den modifierade APK-filen så snart modifieringen är klar</string>
     <string name="settings_auto_uninstall_with_shizuku">Avinstallera automatiskt vid konflikt</string>
     <string name="settings_auto_uninstall_with_shizuku_description">När du installerar automatiskt med Shizuku avinstallerar du den befintliga appen först om Android rapporterar en signaturkonflikt. Det här kan ta bort appdata</string>
     <string name="settings_auto_uninstall_warning_title">Aktivera automatisk avinstallation?</string>
@@ -982,7 +985,7 @@ Information: %2$s"</string>
     <string name="settings_system_process_runtime_memory_limit_description">Högre gränser gör modifieringen snabbare på kompatibla enheter</string>
     <string name="settings_system_process_runtime_enable">Aktivera processkörning</string>
     <string name="settings_system_memory_limit_subtitle">Tillgängligt minne för modifieringen</string>
-    <string name="settings_system_process_runtime_heap_limit_ignored">Den här enheten ignorerade minnesgränsen vid den senaste körningen, så patchning kan falla tillbaka till att köras inuti Morphe.</string>
+    <string name="settings_system_process_runtime_heap_limit_ignored">Den här enheten ignorerade minnesgränsen under den senaste körningen, så modifiering kan återgå till att köras inuti Morphe</string>
     <string name="settings_system_memory_limit_warning">En låg minnesgräns kan leda till fel när du modifierar större appar</string>
     <string name="settings_system_memory_limit_high_warning">En hög minnesgräns kan göra modifieringen mycket långsammare på vissa enheter. Höj den bara om modifieringen fortsätter att misslyckas vid lägre gränser</string>
     <string name="settings_system_process_runtime_enabled_description">Gräns på %s MB</string>
@@ -1004,18 +1007,18 @@ Information: %2$s"</string>
     <!-- Settings - System Tab - Import and Export Section -->
     <string name="settings_system_import_export">Importera och exportera</string>
     <string name="settings_system_signing_key">Signeringsnyckel</string>
-    <string name="settings_system_signing_key_description">Säkerhetskopierar och återställer nyckeln som dina patchade appar är signerade med</string>
-    <string name="settings_system_signing_key_dialog_description">Varje app som Morphe patchar signeras med den här nyckeln. Spara en kopia: utan den kan patchade appar bara uppdateras efter att de har avinstallerats</string>
-    <string name="settings_system_signing_key_missing">Morphe skapar en i samband med din första patch</string>
+    <string name="settings_system_signing_key_description">Säkerhetskopierar och återställer nyckeln som dina modifierade appar signeras med</string>
+    <string name="settings_system_signing_key_dialog_description">Varje app som Morphe modifierar signeras med den här nyckeln. Spara en kopia: utan den kan modifierade appar bara uppdateras efter att de har avinstallerats</string>
+    <string name="settings_system_signing_key_missing">Morphe skapar en i samband med din första modifiering</string>
     <string name="settings_system_signing_key_created">Skapad %s</string>
     <string name="settings_system_signing_key_fingerprint">SHA-256-fingeravtryck</string>
     <string name="settings_system_backup_appearance_description">Tema, färger och språk</string>
     <string name="settings_system_backup_home_description">Grupper, dolda appar, sortering och växlar</string>
-    <string name="settings_system_backup_patching">Patchning och installation</string>
-    <string name="settings_system_backup_patching_description">Installerare, patchare och sparade APK:er</string>
+    <string name="settings_system_backup_patching">Modifiering och installation</string>
+    <string name="settings_system_backup_patching_description">Installerare, modifieringsverktyg och sparade APK-filer</string>
     <string name="settings_system_backup_updates_description">Förhandsversioner och uppdateringskontroller</string>
     <string name="settings_system_backup_sources_description">Anpassade källor och GitHub-token</string>
-    <string name="settings_system_backup_patch_selections_description">Valda patchar för varje app</string>
+    <string name="settings_system_backup_patch_selections_description">Valda tillägg för varje app</string>
     <string name="settings_system_backup_signing_key_note">Signeringsnyckeln säkerhetskopieras separat</string>
     <string name="settings_system_import_keystore_dialog_title">Ange nyckellageruppgifter</string>
     <string name="settings_system_import_keystore_dialog_description">Du måste ange nyckellagrets uppgifter för att importera det</string>
@@ -1133,7 +1136,7 @@ Information: %2$s"</string>
     <string name="settings_system_apk_download_helper">APK-nedladdningshjälp</string>
     <string name="settings_system_apk_download_helper_trusted_count">Betrodda: %1$d av %2$d</string>
     <string name="settings_system_apk_download_helper_dialog_description">Hjälpappar kan ladda ner original-APK-filer åt dig. Endast de du litar på här erbjuds i nedladdningsinstruktionerna</string>
-    <string name="settings_system_apk_download_helper_warning">APK-filen kommer från hjälpappen, så lita bara på appar du känner. Morphe kontrollerar fortfarande paketet, versionen och signaturen för varje fil innan patchning</string>
+    <string name="settings_system_apk_download_helper_warning">APK-filen kommer från hjälpappen, så lita bara på appar du känner. Morphe kontrollerar fortfarande paketet, versionen och signaturen för varje fil innan modifiering</string>
     <string name="settings_system_apk_download_helper_installed_by">Installerad av %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Okänd installatör</string>
     <!-- File Picker -->
@@ -1168,6 +1171,7 @@ Information: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Urkopplad. Vägen tillbaka är där den alltid var</string>
     <!-- Shared strings -->
     <string name="select_file">Välj fil</string>
+    <string name="select_files">Välj filer</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Välj mapp</string>
     <string name="patches">Tillägg</string>
@@ -1195,6 +1199,7 @@ Information: %2$s"</string>
     <string name="done">Klart</string>
     <string name="skip">Hoppa över</string>
     <string name="clear">Rensa</string>
+    <string name="paste">Klistra in</string>
     <string name="delete">Radera</string>
     <string name="delete_all">Radera alla</string>
     <string name="remove">Ta bort</string>
@@ -1283,14 +1288,14 @@ Information: %2$s"</string>
     <string name="changelog_for_app">Ändringar för %s</string>
     <string name="changelog_general_changes">Allmänna ändringar</string>
     <string name="whats_new">Nyheter</string>
-    <string name="changelog_description">Vad är nytt i den här versionen</string>
+    <string name="changelog_description">Nyheter i den här versionen</string>
     <string name="changelog_download_fail">Det gick inte att ladda ned ändringsloggen: %s</string>
     <string name="changelog_empty">Ingen ändringslogg är tillgänglig</string>
-    <string name="changelog_earlier_releases">Tidigare utgåvor</string>
+    <string name="changelog_earlier_releases">Tidigare versioner</string>
     <string name="changelog_older_empty">Inga äldre versioner att visa</string>
-    <string name="changelog_older_failed">Kunde inte ladda äldre utgåvor</string>
+    <string name="changelog_older_failed">Det gick inte att läsa in äldre versioner</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
-    <string name="changelog_release_page">Utgåvesida</string>
+    <string name="changelog_release_page">Versionssida</string>
     <string name="content_translate">Översätt</string>
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="content_show_original">Ursprunglig</string>
@@ -1299,7 +1304,7 @@ Information: %2$s"</string>
     <string name="changelog_section_fixes">Korrigeringar</string>
     <string name="changelog_section_performance">Prestanda</string>
     <string name="changelog_section_improvements">Förbättringar</string>
-    <string name="changelog_section_app_support">Appsupport</string>
+    <string name="changelog_section_app_support">Appstöd</string>
     <string name="changelog_section_other">Ändringar</string>
     <string name="changelog_badge_latest">Senaste</string>
     <!-- Marks the version of a patch source the manager patches with -->
@@ -1319,7 +1324,7 @@ Information: %2$s"</string>
     <string name="manager_update_progress_downloaded">%1$s MB har laddats ned</string>
     <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
     <string name="manager_update_progress_size">%1$s / %2$s MB</string>
-    <string name="manager_update_not_ready">Den här utgåvan publiceras fortfarande. Försök igen om några minuter.</string>
+    <string name="manager_update_not_ready">Den här versionen publiceras fortfarande. Försök igen om några minuter</string>
     <string name="update_download_missing">Den nedladdade uppdateringen är inte längre tillgänglig. Ladda ned den igen</string>
     <string name="download_manager_failed">Det gick inte att ladda ned uppdateringen: %s</string>
     <string name="failed_to_check_updates">Det gick inte att söka efter uppdateringar: %s</string>
@@ -1353,5 +1358,5 @@ Vill du fortsätta ändå?"</string>
     <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Visa mig runt</string>
     <string name="onboarding_restart_title">Funktionsgenomgång</string>
-    <string name="onboarding_restart_desc">En guidad tur genom de viktigaste funktionerna</string>
+    <string name="onboarding_restart_desc">En guidad genomgång av de grundläggande funktionerna</string>
 </resources>

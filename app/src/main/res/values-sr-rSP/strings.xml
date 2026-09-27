@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Уклонити изворну \"%s\"? Ово не може да се врати.</string>
     <string name="sources_dialog_remote">Удаљни извор</string>
     <string name="sources_dialog_remote_url">УДЛАЈНИ УРЛ</string>
-    <string name="sources_dialog_remote_url_formats_title">Примери:</string>
+    <string name="sources_dialog_remote_url_hint">Репозиторијум или линк ка .json пакету закрпа. Налепите неколико одједном да бисте их све додали</string>
+    <string name="sources_dialog_paste_no_links">Нема веза у клипборду</string>
     <string name="sources_dialog_local">Локални</string>
-    <string name="sources_dialog_local_file">Одаберите фајл извора</string>
+    <string name="sources_dialog_local_files">Изаберите изворне датотеке закрпа</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Додајте још датотека</string>
     <string name="sources_dialog_local_file_tap_hint">Додирните за прегледање складишта</string>
-    <string name="sources_dialog_local_file_description">Одаберите .mpp фајл извора са складишта</string>
     <string name="sources_dialog_local_invalid_extension">Датотека мора имати .mpp екстензију</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Ажурира %s</string>
     <string name="sources_dialog_url_valid">Важећи репозиторијум или JSON URL</string>
     <string name="sources_dialog_url_invalid">УРЛ мора да указује на GitHub/GitLab репозиторијум или .json датотеку</string>
-    <string name="sources_dialog_local_change_file">Промени фајл</string>
     <string name="sources_dialog_preinstalled">Предпостављени</string>
     <string name="sources_dialog_community">Патчеви заједнице</string>
     <string name="sources_dialog_choose_apps">Изаберите апликације</string>
@@ -1170,6 +1173,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">Искључен. Пут назад је тамо где је одувек био.</string>
     <!-- Shared strings -->
     <string name="select_file">Изаберите датотеку</string>
+    <string name="select_files">Изаберите датотеке</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Изаберите фолдер</string>
     <string name="patches">Флатери</string>
@@ -1197,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">Готово</string>
     <string name="skip">Прескочи</string>
     <string name="clear">Очисти</string>
+    <string name="paste">Налепи</string>
     <string name="delete">Избриши</string>
     <string name="delete_all">Обрисати све</string>
     <string name="remove">Ukloni</string>

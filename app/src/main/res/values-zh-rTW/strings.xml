@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">確定要刪除來源「%s」？此操作無法復原</string>
     <string name="sources_dialog_remote">遠端</string>
     <string name="sources_dialog_remote_url">來源 URL</string>
-    <string name="sources_dialog_remote_url_formats_title">範例：</string>
+    <string name="sources_dialog_remote_url_hint">一個存放庫或修補程式套件 .json 的連結。一次貼上多個即可全部新增。</string>
+    <string name="sources_dialog_paste_no_links">在剪貼簿上找不到任何連結</string>
     <string name="sources_dialog_local">本機</string>
-    <string name="sources_dialog_local_file">選取修補來源檔案</string>
+    <string name="sources_dialog_local_files">選取修補程式來源檔案</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">新增更多檔案</string>
     <string name="sources_dialog_local_file_tap_hint">輕觸以瀏覽儲存空間</string>
-    <string name="sources_dialog_local_file_description">從儲存空間中選取 .mpp 修補來源檔案</string>
     <string name="sources_dialog_local_invalid_extension">檔案必須具有 .mpp 副檔名</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">更新 %s</string>
     <string name="sources_dialog_url_valid">有效的存放庫或 JSON URL</string>
     <string name="sources_dialog_url_invalid">URL 必須指向 GitHub/GitLab 存放庫或 .json 檔案</string>
-    <string name="sources_dialog_local_change_file">變更檔案</string>
     <string name="sources_dialog_preinstalled">預先安裝</string>
     <string name="sources_dialog_community">社群修補程式</string>
     <string name="sources_dialog_choose_apps">選擇應用程式</string>
@@ -1167,6 +1170,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">已拔除。回去的路一直在原處。</string>
     <!-- Shared strings -->
     <string name="select_file">選擇檔案</string>
+    <string name="select_files">選取檔案</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">選取資料夾</string>
     <string name="patches">修補</string>
@@ -1194,6 +1198,7 @@ morphe_header_custom_dark.png
     <string name="done">完成</string>
     <string name="skip">跳過</string>
     <string name="clear">清除</string>
+    <string name="paste">貼上</string>
     <string name="delete">刪除</string>
     <string name="delete_all">全部刪除</string>
     <string name="remove">刪除</string>

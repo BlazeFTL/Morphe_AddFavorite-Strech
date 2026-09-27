@@ -55,8 +55,9 @@
     <string name="sources_dialog_add_source">પેચ સ્રોત ઉમેરો</string>
     <string name="sources_dialog_remote">દૂરસ્થ</string>
     <string name="sources_dialog_remote_url">સ્રોત URL</string>
-    <string name="sources_dialog_remote_url_formats_title">ઉદાહરણો:</string>
     <string name="sources_dialog_local">સ્થાનિક</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <!-- Home Screen - Dialog 1: APK Availability -->
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Hapus sumber \"%s\"? Ini tidak dapat dikembalikan</string>
     <string name="sources_dialog_remote">Daring</string>
     <string name="sources_dialog_remote_url">Sumber URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Contoh:</string>
+    <string name="sources_dialog_remote_url_hint">Repositori atau tautan ke bundel patch .json. Tempel beberapa sekaligus untuk menambahkan semuanya.</string>
+    <string name="sources_dialog_paste_no_links">Tidak ada tautan yang ditemukan di papan klip.</string>
     <string name="sources_dialog_local">Lokal</string>
-    <string name="sources_dialog_local_file">Pilih berkas sumber tambalan</string>
+    <string name="sources_dialog_local_files">Pilih file sumber patch.</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Tambahkan file lainnya.</string>
     <string name="sources_dialog_local_file_tap_hint">Ketuk untuk menelusuri penyimpanan</string>
-    <string name="sources_dialog_local_file_description">Pilih berkas .mpp dari penyimpanan</string>
     <string name="sources_dialog_local_invalid_extension">Berkas harus memiliki ekstensi .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Memperbarui %s</string>
     <string name="sources_dialog_url_valid">Repositori atau URL JSON valid</string>
     <string name="sources_dialog_url_invalid">URL harus mengarah ke repositori GitHub/GitLab atau berkas .json</string>
-    <string name="sources_dialog_local_change_file">Ganti berkas</string>
     <string name="sources_dialog_preinstalled">Sudah dipasang sebelumnya</string>
     <string name="sources_dialog_community">Tambalan komunitas</string>
     <string name="sources_dialog_choose_apps">Pilih aplikasi</string>
@@ -1171,6 +1174,7 @@ Rincian: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Terputus. Jalan kembali selalu ada di sana</string>
     <!-- Shared strings -->
     <string name="select_file">Pilih berkas</string>
+    <string name="select_files">Pilih file</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Pilih folder</string>
     <string name="patches">Tambalan</string>
@@ -1198,6 +1202,7 @@ Rincian: %2$s"</string>
     <string name="done">Selesai</string>
     <string name="skip">Lewati</string>
     <string name="clear">Bersihkan</string>
+    <string name="paste">Tempel</string>
     <string name="delete">Hapus</string>
     <string name="delete_all">Hapus semua</string>
     <string name="remove">Hapus</string>

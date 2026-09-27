@@ -80,9 +80,9 @@
     <string name="sources_dialog_delete_confirm_message">ಮೂಲ \"%s\" ಅನ್ನು ಅಳಿಸಲು ಬಯಸುತ್ತೀರಾ? ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ</string>
     <string name="sources_dialog_remote">ರಿಮೋಟ್</string>
     <string name="sources_dialog_remote_url">ಮೂಲ URL</string>
-    <string name="sources_dialog_remote_url_formats_title">ಉದಾಹರಣೆಗಳು:</string>
     <string name="sources_dialog_local">ಸ್ಥಳೀಯ</string>
-    <string name="sources_dialog_local_file">ಫಾಚ್್ ಸೋರ್ಸ್ ಫೈಲ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <!-- Home Screen - Dialog 1: APK Availability -->
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

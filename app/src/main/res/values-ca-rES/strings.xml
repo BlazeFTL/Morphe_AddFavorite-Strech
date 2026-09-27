@@ -52,6 +52,8 @@
     <string name="sources_dialog_display_name">Nom mostrat</string>
     <string name="sources_dialog_rename">Canviar la font del pegat</string>
     <string name="sources_dialog_duplicate_name_error">Una font de pegats amb aquest nom ja existeix</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <!-- Home Screen - Dialog 1: APK Availability -->
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

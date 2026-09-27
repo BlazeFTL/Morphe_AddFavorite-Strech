@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">\"%s\" kaynağını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz</string>
     <string name="sources_dialog_remote">Uzak</string>
     <string name="sources_dialog_remote_url">Kaynak URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Örnekler:</string>
+    <string name="sources_dialog_remote_url_hint">Bir depo veya bir yama paketi .json bağlantısı. Hepsini eklemek için birkaçını aynı anda yapıştırın</string>
+    <string name="sources_dialog_paste_no_links">Panoda bağlantı bulunamadı</string>
     <string name="sources_dialog_local"> Yerel</string>
-    <string name="sources_dialog_local_file">Yama kaynağı dosyası seç</string>
+    <string name="sources_dialog_local_files">Yama kaynak dosyalarını seçin</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Daha fazla dosya ekleyin</string>
     <string name="sources_dialog_local_file_tap_hint">Depolamaya göz atmak için dokunun</string>
-    <string name="sources_dialog_local_file_description">Depolama alanından bir .mpp yama kaynağı dosyası seçin</string>
     <string name="sources_dialog_local_invalid_extension">Dosyanın .mpp uzantısına sahip olması gerekiyor</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Güncelleme: %s</string>
     <string name="sources_dialog_url_valid">Geçerli depo veya JSON URL\'si</string>
     <string name="sources_dialog_url_invalid">URL, bir GitHub/GitLab deposuna veya .json dosyasına işaret etmelidir</string>
-    <string name="sources_dialog_local_change_file">Dosyayı değiştir</string>
     <string name="sources_dialog_preinstalled">Ön yüklü</string>
     <string name="sources_dialog_community">Topluluk yamaları</string>
     <string name="sources_dialog_choose_apps">Uygulamaları seç</string>
@@ -1169,6 +1172,7 @@ Ayrıntılar: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Bağlantısı kesildi. Geri dönüş yolu her zaman olduğu yerde.</string>
     <!-- Shared strings -->
     <string name="select_file">Dosya seç</string>
+    <string name="select_files">Dosyaları seçin</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Klasör seç</string>
     <string name="patches">Yamalar</string>
@@ -1196,6 +1200,7 @@ Ayrıntılar: %2$s"</string>
     <string name="done">Tamam</string>
     <string name="skip">Atla</string>
     <string name="clear">Temizle</string>
+    <string name="paste">Yapıştır</string>
     <string name="delete">Sil</string>
     <string name="delete_all">Tümünü sil</string>
     <string name="remove">Kaldır</string>

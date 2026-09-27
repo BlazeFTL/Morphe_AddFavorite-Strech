@@ -13,6 +13,16 @@
         <item quantity="one">%s élément</item>
         <item quantity="other">%s éléments</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Sélectionner %s fichier</item>
+        <item quantity="other">Sélectionner %s fichiers</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Ajouter %s source</item>
+        <item quantity="other">Ajouter %s sources</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Sources de patchs pour %s application</item>
         <item quantity="other">Sources de patchs pour %s applications</item>

@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Eyða pakkagjafa \"%s\"? Þetta er ekki hægt að afgreiða</string>
     <string name="sources_dialog_remote">Fjarlægur</string>
     <string name="sources_dialog_remote_url">Netföng</string>
-    <string name="sources_dialog_remote_url_formats_title">Dæmi:</string>
+    <string name="sources_dialog_remote_url_hint">Safn eða tengill á plástrasafn .json. Límdu inn nokkra í einu til að bæta þeim öllum við.</string>
+    <string name="sources_dialog_paste_no_links">Engir tenglar fundust á klippiborðinu</string>
     <string name="sources_dialog_local">Staðbundinn</string>
-    <string name="sources_dialog_local_file">Veldu heimild breytistillinga skrá</string>
+    <string name="sources_dialog_local_files">Veldu plástrauppsprettuskrár</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Bæta við fleiri skrám</string>
     <string name="sources_dialog_local_file_tap_hint">Tappaðu til að skoða geymslu</string>
-    <string name="sources_dialog_local_file_description">Veldu .mpp heimild breytistillinga skrá úr geymslu</string>
     <string name="sources_dialog_local_invalid_extension">Skrá verður að hafa .mpp endingu</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Uppfærir %s</string>
     <string name="sources_dialog_url_valid">Gild geymsla eða JSON URL</string>
     <string name="sources_dialog_url_invalid">URL verður að benda á GitHub/GitLab repository eða .json skrá</string>
-    <string name="sources_dialog_local_change_file">Breyta skrá</string>
     <string name="sources_dialog_preinstalled">Foruppsett</string>
     <string name="sources_dialog_community">Samfélagsplástrar</string>
     <string name="sources_dialog_choose_apps">Veldu forrit</string>
@@ -1165,6 +1168,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Aftengdur. Leiðin til baka er þar sem hún var alltaf</string>
     <!-- Shared strings -->
     <string name="select_file">Velja skrá</string>
+    <string name="select_files">Veldu skrár</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Velja möppu</string>
     <string name="patches">Breytistillingar</string>
@@ -1192,6 +1196,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="done">Búið</string>
     <string name="skip">Sleppa</string>
     <string name="clear">Hreinsa</string>
+    <string name="paste">Líma</string>
     <string name="delete">Eyða</string>
     <string name="delete_all">Eyða öllu</string>
     <string name="remove">Fjarlægja</string>

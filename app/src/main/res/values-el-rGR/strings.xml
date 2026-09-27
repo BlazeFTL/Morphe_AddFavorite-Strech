@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Διαγραφή πηγής \"%s\"; Αυτό δεν μπορεί να αναστραφεί.</string>
     <string name="sources_dialog_remote">Απομακρυσμένη</string>
     <string name="sources_dialog_remote_url">URL Πηγής</string>
-    <string name="sources_dialog_remote_url_formats_title">Παραδείγματα:</string>
+    <string name="sources_dialog_remote_url_hint">Ένα αποθετήριο ή ένας σύνδεσμος προς ένα .json πακέτο ενημερώσεων. Επικολλήστε πολλά ταυτόχρονα για να τα προσθέσετε όλα.</string>
+    <string name="sources_dialog_paste_no_links">Δεν βρέθηκαν σύνδεσμοι στο πρόχειρο.</string>
     <string name="sources_dialog_local">Τοπική</string>
-    <string name="sources_dialog_local_file">Επιλογή αρχείου πηγής τροποποιήσεων</string>
+    <string name="sources_dialog_local_files">Επιλέξτε αρχεία πηγής ενημερώσεων.</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Προσθήκη περισσότερων αρχείων</string>
     <string name="sources_dialog_local_file_tap_hint">Πατήστε για να περιηγηθείτε στην αποθήκευση</string>
-    <string name="sources_dialog_local_file_description">Επιλογή αρχείου πηγής τροποποιήσεων .mpp από τον χώρο αποθήκευσης</string>
     <string name="sources_dialog_local_invalid_extension">Το αρχείο πρέπει να έχει επέκταση .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Ενημερώσεις %s</string>
     <string name="sources_dialog_url_valid">Έγκυρο αποθετήριο ή διεύθυνση URL JSON</string>
     <string name="sources_dialog_url_invalid">Η διεύθυνση URL πρέπει να δείχνει σε ένα αποθετήριο GitHub/GitLab ή σε ένα αρχείο .json</string>
-    <string name="sources_dialog_local_change_file">Αλλαγή αρχείου</string>
     <string name="sources_dialog_preinstalled">Προεγκατεστημένες</string>
     <string name="sources_dialog_community">Κοινοτικά patches</string>
     <string name="sources_dialog_choose_apps">Επιλογή εφαρμογών</string>
@@ -1170,6 +1173,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">Αποσυνδεδεμένος. Ο δρόμος επιστροφής είναι εκεί που ήταν πάντα.</string>
     <!-- Shared strings -->
     <string name="select_file">Επιλογή αρχείου</string>
+    <string name="select_files">Επιλογή αρχείων</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Επιλογή φακέλου</string>
     <string name="patches">Τροποποιήσεις</string>
@@ -1197,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">Τέλος</string>
     <string name="skip">Παράλειψη</string>
     <string name="clear">Εκκαθάριση</string>
+    <string name="paste">Επικόλληση</string>
     <string name="delete">Διαγραφή</string>
     <string name="delete_all">Διαγραφή όλων</string>
     <string name="remove">Αφαίρεση</string>

@@ -19,6 +19,20 @@
         <item quantity="many">%s елементів</item>
         <item quantity="other">%s елементів</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Вибрати %s файл</item>
+        <item quantity="few">Вибрати %s файли</item>
+        <item quantity="many">Вибрати %s файлів</item>
+        <item quantity="other">Вибрати %s файлів</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Додати %s джерело</item>
+        <item quantity="few">Додати %s джерела</item>
+        <item quantity="many">Додати %s джерел</item>
+        <item quantity="other">Додати %s джерел</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Джерела патчів для %s застосунку</item>
         <item quantity="few">Джерела патчів для %s застосунків</item>

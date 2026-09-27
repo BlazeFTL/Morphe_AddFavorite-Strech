@@ -175,15 +175,18 @@
     <string name="sources_dialog_delete_confirm_message">Изтриване на източника \"%s\"? Това не може да се върне.</string>
     <string name="sources_dialog_remote">Удален</string>
     <string name="sources_dialog_remote_url">URL на източника</string>
-    <string name="sources_dialog_remote_url_formats_title">Примери:</string>
+    <string name="sources_dialog_remote_url_hint">Хранилище или връзка към .json пакет с корекции. Поставете няколко наведнъж, за да ги добавите всички</string>
+    <string name="sources_dialog_paste_no_links">Не са намерени връзки в клипборда</string>
     <string name="sources_dialog_local">Локален</string>
-    <string name="sources_dialog_local_file">Изберете файл на източник</string>
+    <string name="sources_dialog_local_files">Изберете файлове за източници на корекции</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Добавете още файлове</string>
     <string name="sources_dialog_local_file_tap_hint">Докоснете, за да разгледате хранилището</string>
-    <string name="sources_dialog_local_file_description">Изберете .mpp файл на източник от съхранението</string>
     <string name="sources_dialog_local_invalid_extension">Файлът трябва да има разширение .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Актуализира %s</string>
     <string name="sources_dialog_url_valid">Валиден URL на хранилище или JSON</string>
     <string name="sources_dialog_url_invalid">URL адресът трябва да сочи към GitHub/GitLab хранилище или .json файл</string>
-    <string name="sources_dialog_local_change_file">Промяна на файл</string>
     <string name="sources_dialog_preinstalled">Предварително инсталиран</string>
     <string name="sources_dialog_community">Общностни пачове</string>
     <string name="sources_dialog_choose_apps">Избор на приложения</string>
@@ -1170,6 +1173,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">Изключен. Пътят назад е там, където винаги е бил.</string>
     <!-- Shared strings -->
     <string name="select_file">Избери файл</string>
+    <string name="select_files">Изберете файлове</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Избери папка</string>
     <string name="patches">Пачове</string>
@@ -1197,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">Готово</string>
     <string name="skip">Пропусни</string>
     <string name="clear">Изчисти</string>
+    <string name="paste">Поставяне</string>
     <string name="delete">Изтриване</string>
     <string name="delete_all">Изтриване на всички</string>
     <string name="remove">Премахни</string>

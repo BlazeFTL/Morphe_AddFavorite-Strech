@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Izbriši izvornu \"%s\"? Ova radnja ne može biti poništena</string>
     <string name="sources_dialog_remote">Udaljeno</string>
     <string name="sources_dialog_remote_url">URL izvor </string>
-    <string name="sources_dialog_remote_url_formats_title">Primeri:</string>
+    <string name="sources_dialog_remote_url_hint">Repozitorijum ili link ka .json paketu zakrpa. Nalepite više odjednom da biste ih sve dodali</string>
+    <string name="sources_dialog_paste_no_links">Na klipbordu nisu pronađeni linkovi</string>
     <string name="sources_dialog_local">Lokalno</string>
-    <string name="sources_dialog_local_file">Izaberi datoteku izvora zakrpe </string>
+    <string name="sources_dialog_local_files">Izaberite izvorne datoteke zakrpa</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Dodajte još datoteka</string>
     <string name="sources_dialog_local_file_tap_hint">Dodirnite da biste pregledali skladište</string>
-    <string name="sources_dialog_local_file_description">Izaberi .mpp datoteku izvora zakrpe iz skladišta</string>
     <string name="sources_dialog_local_invalid_extension">Datoteka mora imati .mpp ekstenziju</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Ažuriranja za %s</string>
     <string name="sources_dialog_url_valid">Važeći repozitorijum ili URL adresa</string>
     <string name="sources_dialog_url_invalid">URL mora da pokazuje na GitHub/GitLab repozitorijum ili .json fajl</string>
-    <string name="sources_dialog_local_change_file">Promeni fajl</string>
     <string name="sources_dialog_preinstalled">Preinstalirano</string>
     <string name="sources_dialog_community">Zakrpe zajednice</string>
     <string name="sources_dialog_choose_apps">Izaberite aplikacije</string>
@@ -1154,6 +1157,7 @@ Detalji: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Isključen. Put nazad je tamo gde je oduvek bio.</string>
     <!-- Shared strings -->
     <string name="select_file">Izaberi datoteku</string>
+    <string name="select_files">Izaberite datoteke</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Izaberi folder</string>
     <string name="patches">Zakrpe</string>
@@ -1181,6 +1185,7 @@ Detalji: %2$s"</string>
     <string name="done">Gotovo</string>
     <string name="skip">Preskoči</string>
     <string name="clear">Obriši</string>
+    <string name="paste">Nalepi</string>
     <string name="delete">Izbriši</string>
     <string name="delete_all">Obriši sve</string>
     <string name="remove">Ukloni</string>

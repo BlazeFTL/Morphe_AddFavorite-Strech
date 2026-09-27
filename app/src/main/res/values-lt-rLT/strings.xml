@@ -100,15 +100,13 @@
     <string name="sources_dialog_delete_confirm_message">Ištrinti šaltinį \"%s\"? Šio veiksmo negalima atkurti</string>
     <string name="sources_dialog_remote">Nuotolinis</string>
     <string name="sources_dialog_remote_url">Šaltinio URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Pavyzdžiai:</string>
     <string name="sources_dialog_local">Vietinis</string>
-    <string name="sources_dialog_local_file">Pasirinkite pataisos šaltinio failą</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Palieskite, kad peržiūrėtumėte saugojimo vietą</string>
-    <string name="sources_dialog_local_file_description">Pasirinkite .mpp pataisos šaltinio failą iš atminties</string>
     <string name="sources_dialog_local_invalid_extension">Failas turi turėti .mpp pabaiga</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Validus repozitorium arba JSON URL</string>
     <string name="sources_dialog_url_invalid">URL turi rodyti į GitHub/GitLab repo arba .json failą</string>
-    <string name="sources_dialog_local_change_file">Pakeisti failą</string>
     <string name="sources_dialog_preinstalled">iš anksto įdiegta</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Sėkmingas atnaujinimas</string>

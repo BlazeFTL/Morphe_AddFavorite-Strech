@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">هل تريد حذف المصدر «%s»؟ لا يمكن التراجع عن هذا الإجراء</string>
     <string name="sources_dialog_remote">عن بُعد</string>
     <string name="sources_dialog_remote_url">رابط المصدر</string>
-    <string name="sources_dialog_remote_url_formats_title">أمثلة:</string>
+    <string name="sources_dialog_remote_url_hint">مستودع أو رابط إلى حزمة تعديل بصيغة .json. الصق عدة روابط دفعة واحدة لإضافتها جميعًا</string>
+    <string name="sources_dialog_paste_no_links">لم يتم العثور على أي روابط في الحافظة</string>
     <string name="sources_dialog_local">محلي</string>
-    <string name="sources_dialog_local_file">تحديد ملف مصدر التعديل</string>
+    <string name="sources_dialog_local_files">اختر ملفات مصدر التعديل</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">أضف المزيد من الملفات</string>
     <string name="sources_dialog_local_file_tap_hint">انقر لتصفح مساحة التخزين</string>
-    <string name="sources_dialog_local_file_description">حدد ملف مصدر تعديل .mpp من وحدة التخزين</string>
     <string name="sources_dialog_local_invalid_extension">يجب أن يكون للملف امتداد .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">تحديثات %s</string>
     <string name="sources_dialog_url_valid">مستودع صالح أو عنوان URL بتنسيق JSON</string>
     <string name="sources_dialog_url_invalid">يجب أن يشير عنوان URL إلى مستودع GitHub/GitLab أو ملف ‎.json</string>
-    <string name="sources_dialog_local_change_file">تغيير الملف</string>
     <string name="sources_dialog_preinstalled">مثبتة مسبقًا</string>
     <string name="sources_dialog_community">تعديلات المجتمع</string>
     <string name="sources_dialog_choose_apps">اختيار التطبيقات</string>
@@ -1175,6 +1178,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="easter_egg_pill_blue_toast_again">غير متصل. الطريق للعودة هو حيث كان دائمًا</string>
     <!-- Shared strings -->
     <string name="select_file">اختر ملف</string>
+    <string name="select_files">اختر الملفات</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">اختر مجلد</string>
     <string name="patches">التعديلات</string>
@@ -1202,6 +1206,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="done">تم</string>
     <string name="skip">تخطي</string>
     <string name="clear">مسح</string>
+    <string name="paste">لصق</string>
     <string name="delete">حذف</string>
     <string name="delete_all">حذف الكل</string>
     <string name="remove">إزالة</string>

@@ -98,15 +98,13 @@
     <string name="sources_dialog_delete_confirm_message">Padam sumber \"%s\"? Tindakan ini tidak boleh diundurkan</string>
     <string name="sources_dialog_remote">Jauh</string>
     <string name="sources_dialog_remote_url">URL sumber</string>
-    <string name="sources_dialog_remote_url_formats_title">Contoh:</string>
     <string name="sources_dialog_local">Tempatan</string>
-    <string name="sources_dialog_local_file">Pilih fail sumber tampalan</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Ketik untuk menyemak imbas storan</string>
-    <string name="sources_dialog_local_file_description">Pilih fail sumber tampalan .mpp daripada storan</string>
     <string name="sources_dialog_local_invalid_extension">Fail mestilah mempunyai lanjutan .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Repositori atau URL JSON yang sah</string>
     <string name="sources_dialog_url_invalid">URL mestilah menghala ke repositori GitHub/GitLab atau fail .json</string>
-    <string name="sources_dialog_local_change_file">Tukar fail</string>
     <string name="sources_dialog_preinstalled">Prapasang</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Kemas kini berjaya</string>

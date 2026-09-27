@@ -175,15 +175,18 @@
     <string name="sources_dialog_delete_confirm_message">Usunąć źródło \"%s\"? Tej operacji nie da się cofnąć</string>
     <string name="sources_dialog_remote">Zdalne</string>
     <string name="sources_dialog_remote_url">Adres źródła</string>
-    <string name="sources_dialog_remote_url_formats_title">Przykłady:</string>
+    <string name="sources_dialog_remote_url_hint">Repozytorium lub link do pakietu łatek .json. Wklej kilka naraz, aby dodać je wszystkie</string>
+    <string name="sources_dialog_paste_no_links">Nie znaleziono linków w schowku</string>
     <string name="sources_dialog_local">Lokalne</string>
-    <string name="sources_dialog_local_file">Wybierz plik źródłowy modyfikacji</string>
+    <string name="sources_dialog_local_files">Wybierz pliki źródłowe łatek</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Dodaj więcej plików</string>
     <string name="sources_dialog_local_file_tap_hint">Dotknij, aby przeglądać pliki</string>
-    <string name="sources_dialog_local_file_description">Wybierz plik źródłowy .mpp z pamięci urządzenia</string>
     <string name="sources_dialog_local_invalid_extension">Plik musi mieć rozszerzenie .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Aktualizuje %s</string>
     <string name="sources_dialog_url_valid">Prawidłowy adres repozytorium lub pliku JSON</string>
     <string name="sources_dialog_url_invalid">Adres musi wskazywać na repozytorium GitHub/GitLab lub plik .json</string>
-    <string name="sources_dialog_local_change_file">Zmień plik</string>
     <string name="sources_dialog_preinstalled">Wbudowane</string>
     <string name="sources_dialog_community">Modyfikacje społeczności</string>
     <string name="sources_dialog_choose_apps">Wybierz aplikacje</string>
@@ -1171,6 +1174,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="easter_egg_pill_blue_toast_again">Odłączono. Droga powrotna jest tam, gdzie zawsze była</string>
     <!-- Shared strings -->
     <string name="select_file">Wybierz plik</string>
+    <string name="select_files">Wybierz pliki</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Wybierz folder</string>
     <string name="patches">Modyfikacje</string>
@@ -1198,6 +1202,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="done">Gotowe</string>
     <string name="skip">Pomiń</string>
     <string name="clear">Wyczyść</string>
+    <string name="paste">Wklej</string>
     <string name="delete">Usuń</string>
     <string name="delete_all">Usuń wszystko</string>
     <string name="remove">Usuń</string>

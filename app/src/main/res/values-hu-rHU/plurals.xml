@@ -13,6 +13,16 @@
         <item quantity="one">%s elem</item>
         <item quantity="other">%s elem</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">%s fájl kiválasztása</item>
+        <item quantity="other">%s fájl kiválasztása</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">%s forrás hozzáadása</item>
+        <item quantity="other">%s forrás hozzáadása</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Patch-források %s alkalmazáshoz</item>
         <item quantity="other">Patch-források %s alkalmazáshoz</item>

@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">ลบแหล่งที่มา “%s”? ขั้นตอนนี้ไม่สามารถย้อนกลับได้</string>
     <string name="sources_dialog_remote">รีโมต</string>
     <string name="sources_dialog_remote_url">URL แหล่งที่มา</string>
-    <string name="sources_dialog_remote_url_formats_title">ตัวอย่าง:</string>
+    <string name="sources_dialog_remote_url_hint">ที่เก็บหรือลิงก์ไปยัง .json ของชุดแพตช์ วางหลายรายการพร้อมกันเพื่อเพิ่มทั้งหมด</string>
+    <string name="sources_dialog_paste_no_links">ไม่พบลิงก์ในคลิปบอร์ด</string>
     <string name="sources_dialog_local">อุปกรณ์</string>
-    <string name="sources_dialog_local_file">เลือกไฟล์แหล่งที่มา</string>
+    <string name="sources_dialog_local_files">เลือกไฟล์ต้นทางแพตช์</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">เพิ่มไฟล์เพิ่มเติม</string>
     <string name="sources_dialog_local_file_tap_hint">แตะเพื่อเรียกดูที่เก็บข้อมูล</string>
-    <string name="sources_dialog_local_file_description">เลือกไฟล์ .mpp จากแหล่งข้อมูลอยู่บนที่เก็บข้อมูลภายใน</string>
     <string name="sources_dialog_local_invalid_extension">ไฟล์ต้องมีนามสกุล .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">อัปเดต %s</string>
     <string name="sources_dialog_url_valid">ที่อยู่ URL หรือ JSON ที่ถูกต้อง</string>
     <string name="sources_dialog_url_invalid">URL ต้องชี้ไปยัง GitHub/GitLab repo หรือไฟล์ .json</string>
-    <string name="sources_dialog_local_change_file">เปลี่ยนไฟล์</string>
     <string name="sources_dialog_preinstalled">ติดตั้งล่วงหน้าแล้ว</string>
     <string name="sources_dialog_community">แพตช์ชุมชน</string>
     <string name="sources_dialog_choose_apps">เลือกแอป</string>
@@ -1170,6 +1173,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">ถอดปลั๊กแล้ว. ทางกลับคือที่เดิม</string>
     <!-- Shared strings -->
     <string name="select_file">เลือกไฟล์</string>
+    <string name="select_files">เลือกไฟล์</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">เลือกโฟลเดอร์</string>
     <string name="patches">แพตช์</string>
@@ -1197,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">เสร็จสิ้น</string>
     <string name="skip">ข้าม</string>
     <string name="clear">ล้าง</string>
+    <string name="paste">วาง</string>
     <string name="delete">ลบ</string>
     <string name="delete_all">ลบทั้งหมด</string>
     <string name="remove">นำออก</string>

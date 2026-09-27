@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">删除源“%s”吗？此操作无法撤销</string>
     <string name="sources_dialog_remote">远程</string>
     <string name="sources_dialog_remote_url">源 URL</string>
-    <string name="sources_dialog_remote_url_formats_title">示例：</string>
+    <string name="sources_dialog_remote_url_hint">仓库或补丁包 .json 的链接。一次粘贴多个即可全部添加</string>
+    <string name="sources_dialog_paste_no_links">剪贴板中未找到链接</string>
     <string name="sources_dialog_local">本地</string>
-    <string name="sources_dialog_local_file">选择补丁源文件</string>
+    <string name="sources_dialog_local_files">选择补丁源文件</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">添加更多文件</string>
     <string name="sources_dialog_local_file_tap_hint">点击浏览存储空间</string>
-    <string name="sources_dialog_local_file_description">从存储中选择 .mpp 补丁源文件</string>
     <string name="sources_dialog_local_invalid_extension">文件必须为.mpp扩展名</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">更新 %s</string>
     <string name="sources_dialog_url_valid">有效的仓库或JSON网址</string>
     <string name="sources_dialog_url_invalid">URL 必须指向 GitHub/GitLab 仓库或 .json 文件</string>
-    <string name="sources_dialog_local_change_file">更改文件</string>
     <string name="sources_dialog_preinstalled">预安装</string>
     <string name="sources_dialog_community">社区补丁</string>
     <string name="sources_dialog_choose_apps">选择应用</string>
@@ -1170,6 +1173,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">已断开。回去的路始终在那里。</string>
     <!-- Shared strings -->
     <string name="select_file">选择文件</string>
+    <string name="select_files">选择文件</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">选择文件夹</string>
     <string name="patches">补丁</string>
@@ -1197,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">完成</string>
     <string name="skip">跳过</string>
     <string name="clear">清除</string>
+    <string name="paste">粘贴</string>
     <string name="delete">删除</string>
     <string name="delete_all">全部删除</string>
     <string name="remove">移除</string>

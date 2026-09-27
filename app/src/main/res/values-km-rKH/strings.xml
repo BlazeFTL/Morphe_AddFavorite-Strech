@@ -34,7 +34,8 @@
     <!-- Home Screen - Sources Dialogs -->
     <string name="sources_dialog_add_source">បន្ថែមប្រភពបំណះ</string>
     <string name="sources_dialog_remote_url">URL ប្រភព</string>
-    <string name="sources_dialog_local_file">រើសឯកសារប្រភពបំណះ</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_unavailable">មិនទាន់មានការអាប់ដេតឡើយ</string>
     <!-- Home Screen - Dialog 1: APK Availability -->

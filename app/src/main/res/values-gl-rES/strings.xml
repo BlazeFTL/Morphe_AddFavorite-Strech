@@ -81,15 +81,13 @@
     <string name="sources_dialog_delete_confirm_message">Eliminar fonte \"%s\"? Esta acción non se pode desfacer</string>
     <string name="sources_dialog_remote">Remoto</string>
     <string name="sources_dialog_remote_url">URL da fonte</string>
-    <string name="sources_dialog_remote_url_formats_title">Exemplos:</string>
     <string name="sources_dialog_local">Local</string>
-    <string name="sources_dialog_local_file">Seleccionar o arquivo fonte do parche</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Toca para acceder ao almacenamento</string>
-    <string name="sources_dialog_local_file_description">Seleccione un arquivo de parche .mpp dende o almacenamento</string>
     <string name="sources_dialog_local_invalid_extension">O arquivo debe ter a extensión .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">URL de repositorio ou JSON válido</string>
     <string name="sources_dialog_url_invalid">A URL debe apuntar a un repositorio GitHub/GitLab ou a un ficheiro .json</string>
-    <string name="sources_dialog_local_change_file">Cambiar arquivo</string>
     <string name="sources_dialog_preinstalled">Preinstalado</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Actualización correcta</string>

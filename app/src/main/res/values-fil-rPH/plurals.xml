@@ -13,6 +13,16 @@
         <item quantity="one">%s item</item>
         <item quantity="other">%s item</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Pumili ng %s file</item>
+        <item quantity="other">Pumili ng %s file</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Magdagdag ng %s source</item>
+        <item quantity="other">Magdagdag ng %s source</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Mga pinagmumulan ng patch para sa %s app</item>
         <item quantity="other">Mga pinagmumulan ng patch para sa %s na app</item>

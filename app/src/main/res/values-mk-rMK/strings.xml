@@ -88,15 +88,13 @@
     <string name="sources_dialog_delete_confirm_message">Дали сакате да го избришете изворот \"%s\"? Ова не може да се врати.</string>
     <string name="sources_dialog_remote">На далечина</string>
     <string name="sources_dialog_remote_url">URL адреса на извор</string>
-    <string name="sources_dialog_remote_url_formats_title">Примери:</string>
     <string name="sources_dialog_local">Локално</string>
-    <string name="sources_dialog_local_file">Избери датотека со поправки</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Допрете за да пребарувате складиште</string>
-    <string name="sources_dialog_local_file_description">Изберете .mpp датотека со поправки од складиштето</string>
     <string name="sources_dialog_local_invalid_extension">Датотеката мора да има екстензија .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Валидна репозиторија или URL адреса во JSON формат</string>
     <string name="sources_dialog_url_invalid">URL мора да укажува на репозиториум GitHub/GitLab или датотека .json</string>
-    <string name="sources_dialog_local_change_file">Промени датотека</string>
     <string name="sources_dialog_preinstalled">Претходно инсталирано</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Ажурирањето е успешно</string>

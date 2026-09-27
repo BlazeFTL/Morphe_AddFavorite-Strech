@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">\'%s\' 소스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다</string>
     <string name="sources_dialog_remote">원격</string>
     <string name="sources_dialog_remote_url">소스 URL</string>
-    <string name="sources_dialog_remote_url_formats_title">예시:</string>
+    <string name="sources_dialog_remote_url_hint">저장소 또는 패치 번들 .json 링크를 입력하세요. 여러 개를 한 번에 붙여넣어 모두 추가할 수 있습니다.</string>
+    <string name="sources_dialog_paste_no_links">클립보드에서 링크를 찾을 수 없습니다.</string>
     <string name="sources_dialog_local">로컬</string>
-    <string name="sources_dialog_local_file">패치 소스 파일 선택</string>
+    <string name="sources_dialog_local_files">패치 소스 파일 선택</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">파일 더 추가</string>
     <string name="sources_dialog_local_file_tap_hint">저장소를 탐색하려면 탭하세요</string>
-    <string name="sources_dialog_local_file_description">저장소에서 .mpp 패치 소스 파일을 선택하세요</string>
     <string name="sources_dialog_local_invalid_extension">파일은 .mpp 확장자를 가져야 합니다</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">%s 업데이트</string>
     <string name="sources_dialog_url_valid">유효한 리포지토리 또는 JSON URL</string>
     <string name="sources_dialog_url_invalid">URL은 GitHub/GitLab 리포지토리 또는 .json 파일을 가리켜야 합니다</string>
-    <string name="sources_dialog_local_change_file">파일 변경</string>
     <string name="sources_dialog_preinstalled">미리 설치됨</string>
     <string name="sources_dialog_community">커뮤니티 패치</string>
     <string name="sources_dialog_choose_apps">앱 선택</string>
@@ -1168,6 +1171,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">플러그를 뽑았습니다. 돌아가는 길은 언제나 그곳에 있었습니다</string>
     <!-- Shared strings -->
     <string name="select_file">파일 선택</string>
+    <string name="select_files">파일 선택</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">폴더 선택</string>
     <string name="patches">패치</string>
@@ -1195,6 +1199,7 @@ morphe_header_custom_dark.png
     <string name="done">완료</string>
     <string name="skip">건너뛰기</string>
     <string name="clear">지우기</string>
+    <string name="paste">붙여넣기</string>
     <string name="delete">파일 삭제</string>
     <string name="delete_all">모두 삭제</string>
     <string name="remove">제거</string>

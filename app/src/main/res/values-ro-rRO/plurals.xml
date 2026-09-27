@@ -16,6 +16,18 @@
         <item quantity="few">%s elemente</item>
         <item quantity="other">%s de elemente</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Selectează %s fișier</item>
+        <item quantity="few">Selectează %s fișiere</item>
+        <item quantity="other">Selectează %s de fișiere</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Adaugă %s sursă</item>
+        <item quantity="few">Adaugă %s surse</item>
+        <item quantity="other">Adaugă %s de surse</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Surse de patch pentru %s aplicație</item>
         <item quantity="few">Surse de patch pentru %s aplicații</item>

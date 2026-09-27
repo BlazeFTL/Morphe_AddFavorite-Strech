@@ -154,15 +154,13 @@
     <string name="sources_dialog_delete_confirm_message">Manbani o\'chirib tashlash \"%s\"? Ushbu harakatni bekor qilish mumkin emas</string>
     <string name="sources_dialog_remote">Uzoq</string>
     <string name="sources_dialog_remote_url">Manba URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Misollar:</string>
     <string name="sources_dialog_local">Mahalliy</string>
-    <string name="sources_dialog_local_file">Tuzatish manbai faylini tanlang</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Saqlashni ko‘rib chiqish uchun bosing</string>
-    <string name="sources_dialog_local_file_description">Saqlashdan .mpp tuzatish manbai faylini tanlang</string>
     <string name="sources_dialog_local_invalid_extension">Fayl .mpp kengaytmasiga ega bo‘lishi kerak</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Amal qiluvchi repository yoki .json URL</string>
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab repositori yoki .json fayliga ishara qilishi kerak</string>
-    <string name="sources_dialog_local_change_file">Faylni o\'zgartirish</string>
     <string name="sources_dialog_preinstalled">O\'rnatilgan</string>
     <string name="sources_dialog_community">Jamiyat yamoqlari</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->

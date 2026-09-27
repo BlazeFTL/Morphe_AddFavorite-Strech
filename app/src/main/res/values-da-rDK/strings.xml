@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Slet kilde \"%s\"? Dette kan ikke fortrydes</string>
     <string name="sources_dialog_remote">Fjernt</string>
     <string name="sources_dialog_remote_url">Kilde-URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Eksempler:</string>
+    <string name="sources_dialog_remote_url_hint">Et repository eller et link til en patch-bundle .json. Indsæt flere på én gang for at tilføje dem alle</string>
+    <string name="sources_dialog_paste_no_links">Ingen links fundet på udklipsholderen</string>
     <string name="sources_dialog_local">Lokalt</string>
-    <string name="sources_dialog_local_file">Vælg patch kildefil</string>
+    <string name="sources_dialog_local_files">Vælg kildefiler til patches</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Tilføj flere filer</string>
     <string name="sources_dialog_local_file_tap_hint">Tryk for at gennemse lager</string>
-    <string name="sources_dialog_local_file_description">Vælg en .mpp patch kildefil fra lagring</string>
     <string name="sources_dialog_local_invalid_extension">Filen skal have en .mpp-udvidelse</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Opdaterer %s</string>
     <string name="sources_dialog_url_valid">Gyldigt repository eller JSON-URL</string>
     <string name="sources_dialog_url_invalid">URL\'en skal pege på et GitHub/GitLab-lager eller en .json-fil</string>
-    <string name="sources_dialog_local_change_file">Ændre fil</string>
     <string name="sources_dialog_preinstalled">Forhåndsinstalleret</string>
     <string name="sources_dialog_community">Fællesskabets patches</string>
     <string name="sources_dialog_choose_apps">Vælg apps</string>
@@ -1169,6 +1172,7 @@ Detaljer: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Frakoblet. Vejen tilbage er, hvor den altid var</string>
     <!-- Shared strings -->
     <string name="select_file">Vælg fil</string>
+    <string name="select_files">Vælg filer</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Vælg mappe</string>
     <string name="patches">Patches</string>
@@ -1196,6 +1200,7 @@ Detaljer: %2$s"</string>
     <string name="done">Færdig</string>
     <string name="skip">Spring over</string>
     <string name="clear">Ryd</string>
+    <string name="paste">Indsæt</string>
     <string name="delete">Slet</string>
     <string name="delete_all">Slet alle</string>
     <string name="remove">Fjern</string>

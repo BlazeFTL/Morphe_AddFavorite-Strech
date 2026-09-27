@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Verwyder bron \"%s\"? Dit kan nie ongedaan gemaak word nie</string>
     <string name="sources_dialog_remote">Afstand</string>
     <string name="sources_dialog_remote_url">Oorsprong URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Voorbeelde:</string>
+    <string name="sources_dialog_remote_url_hint">’n Bewaarplek of ’n skakel na ’n patchbondel .json. Plak verskeie op een slag om hulle almal by te voeg.</string>
+    <string name="sources_dialog_paste_no_links">Geen skakels op die knipbord gevind nie</string>
     <string name="sources_dialog_local">Plaaslike</string>
-    <string name="sources_dialog_local_file">Kies verandering oorsprong vyl</string>
+    <string name="sources_dialog_local_files">Kies patch-bronlêers</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Voeg meer lêers by</string>
     <string name="sources_dialog_local_file_tap_hint">Tik om berging te blaai</string>
-    <string name="sources_dialog_local_file_description">Kies \'n .mpp verandering oorsprong vyl van berging</string>
     <string name="sources_dialog_local_invalid_extension">Die lêer moet \".mpp\" hê</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Dateer %s op</string>
     <string name="sources_dialog_url_valid">Geldige bewaarplek of JSON URL</string>
     <string name="sources_dialog_url_invalid">URL moet na \'n GitHub/GitLab repo of \'n .json-lêer wys</string>
-    <string name="sources_dialog_local_change_file">Verander vyl</string>
     <string name="sources_dialog_preinstalled">Voor geïnstalleer</string>
     <string name="sources_dialog_community">Gemeenskapspleisters</string>
     <string name="sources_dialog_choose_apps">Kies toepassings</string>
@@ -1170,6 +1173,7 @@ Besonderhede: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Ontkoppel. Die pad terug is waar dit altyd was</string>
     <!-- Shared strings -->
     <string name="select_file">Kies lêer</string>
+    <string name="select_files">Kies lêers</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Kies vouer</string>
     <string name="patches">Veranderinge</string>
@@ -1197,6 +1201,7 @@ Besonderhede: %2$s"</string>
     <string name="done">Klaar</string>
     <string name="skip">Sla oordee</string>
     <string name="clear">Maak skoon</string>
+    <string name="paste">Plak</string>
     <string name="delete">Verwyder</string>
     <string name="delete_all">Alles verwyder</string>
     <string name="remove">Verwyder</string>

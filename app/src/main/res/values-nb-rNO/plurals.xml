@@ -13,6 +13,16 @@
         <item quantity="one">%s element</item>
         <item quantity="other">%s elementer</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Velg %s fil</item>
+        <item quantity="other">Velg %s filer</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Legg til %s kilde</item>
+        <item quantity="other">Legg til %s kilder</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Patchkilder for %s app</item>
         <item quantity="other">Patchkilder for %s apper</item>

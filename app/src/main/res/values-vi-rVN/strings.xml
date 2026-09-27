@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Bạn có muốn xóa nguồn \"%s\" không? Thao tác này không thể hoàn tác đâu</string>
     <string name="sources_dialog_remote">Từ URL</string>
     <string name="sources_dialog_remote_url">URL nguồn</string>
-    <string name="sources_dialog_remote_url_formats_title">Ví dụ:</string>
+    <string name="sources_dialog_remote_url_hint">Một kho lưu trữ hoặc một liên kết đến tệp .json của gói bản vá. Dán nhiều liên kết cùng lúc để thêm tất cả</string>
+    <string name="sources_dialog_paste_no_links">Không tìm thấy liên kết nào trong bảng tạm</string>
     <string name="sources_dialog_local">Từ bộ nhớ trong</string>
-    <string name="sources_dialog_local_file">Chọn tệp nguồn vá</string>
+    <string name="sources_dialog_local_files">Chọn tệp nguồn bản vá</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Thêm tệp khác</string>
     <string name="sources_dialog_local_file_tap_hint">Bấm để duyệt bộ nhớ</string>
-    <string name="sources_dialog_local_file_description">Chọn tệp nguồn vá .mpp từ bộ nhớ trong</string>
     <string name="sources_dialog_local_invalid_extension">Tệp phải có đuôi .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Cập nhật %s</string>
     <string name="sources_dialog_url_valid">URL repo hoặc JSON hợp lệ</string>
     <string name="sources_dialog_url_invalid">URL phải trỏ đến kho lưu trữ GitHub/GitLab hoặc tệp .json</string>
-    <string name="sources_dialog_local_change_file">Đổi tệp</string>
     <string name="sources_dialog_preinstalled">Được cài đặt sẵn</string>
     <string name="sources_dialog_community">Các bản vá cộng đồng</string>
     <string name="sources_dialog_choose_apps">Chọn ứng dụng</string>
@@ -1175,6 +1178,7 @@ Chi tiết: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Ngắt kết nối. Con đường trở lại vẫn nằm ở nơi nó vốn có.</string>
     <!-- Shared strings -->
     <string name="select_file">Chọn tệp</string>
+    <string name="select_files">Chọn tệp</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Chọn thư mục</string>
     <string name="patches">Số bản vá</string>
@@ -1202,6 +1206,7 @@ Chi tiết: %2$s"</string>
     <string name="done">Xong</string>
     <string name="skip">Thôi</string>
     <string name="clear">Dọn dẹp</string>
+    <string name="paste">Dán</string>
     <string name="delete">Xoá</string>
     <string name="delete_all">Xóa tất cả</string>
     <string name="remove">Xóa</string>

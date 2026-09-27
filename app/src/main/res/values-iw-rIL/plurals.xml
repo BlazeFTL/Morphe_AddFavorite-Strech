@@ -16,6 +16,18 @@
         <item quantity="two">%s פריטים</item>
         <item quantity="other">%s פריטים</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">בחר %s קובץ</item>
+        <item quantity="two">בחר %s קבצים</item>
+        <item quantity="other">בחר %s קבצים</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">הוסף %s מקור</item>
+        <item quantity="two">הוסף %s מקורות</item>
+        <item quantity="other">הוסף %s מקורות</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">מקורות תיקון עבור %s אפליקציה</item>
         <item quantity="two">מקורות תיקון עבור %s אפליקציות</item>

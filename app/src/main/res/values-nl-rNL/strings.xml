@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Verwijder bron \"%s\"? Dit kan niet ongedaan gemaakt worden</string>
     <string name="sources_dialog_remote">Remote</string>
     <string name="sources_dialog_remote_url">Bron-URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Voorbeelden:</string>
+    <string name="sources_dialog_remote_url_hint">Een repository of een link naar een patchbundel .json. Plak er meerdere tegelijk om ze allemaal toe te voegen</string>
+    <string name="sources_dialog_paste_no_links">Geen links gevonden op het klembord</string>
     <string name="sources_dialog_local">Lokaal</string>
-    <string name="sources_dialog_local_file">Selecteer een .mpp-bronbestand van de opslag</string>
+    <string name="sources_dialog_local_files">Selecteer patchbronbestanden</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Voeg meer bestanden toe</string>
     <string name="sources_dialog_local_file_tap_hint">Tik om opslag te bekijken</string>
-    <string name="sources_dialog_local_file_description">Selecteer een .mpp-bronbestand van de opslag</string>
     <string name="sources_dialog_local_invalid_extension">Bestand moet een .mpp-extensie hebben</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Vervangt %s</string>
     <string name="sources_dialog_url_valid">Geldige repository of JSON-URL</string>
     <string name="sources_dialog_url_invalid">De URL moet verwijzen naar een GitHub/GitLab-repo of een .json-bestand</string>
-    <string name="sources_dialog_local_change_file">Bestand wijzigen</string>
     <string name="sources_dialog_preinstalled">Voorgeïnstalleerd</string>
     <string name="sources_dialog_community">Community-patches</string>
     <string name="sources_dialog_choose_apps">Apps kiezen</string>
@@ -1170,6 +1173,7 @@ Details: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Losgekoppeld. De weg terug is waar hij altijd was.</string>
     <!-- Shared strings -->
     <string name="select_file">Selecteer bestand</string>
+    <string name="select_files">Selecteer bestanden</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Map selecteren</string>
     <string name="patches">Patches</string>
@@ -1197,6 +1201,7 @@ Details: %2$s"</string>
     <string name="done">Klaar</string>
     <string name="skip">Overslaan</string>
     <string name="clear">Leegmaken</string>
+    <string name="paste">Plakken</string>
     <string name="delete">Verwijderen</string>
     <string name="delete_all">Alles verwijderen</string>
     <string name="remove">Verwijderen</string>

@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Удалить источник \"%s\"? Это действие невозможно отменить</string>
     <string name="sources_dialog_remote">Удаленный</string>
     <string name="sources_dialog_remote_url">URL источника</string>
-    <string name="sources_dialog_remote_url_formats_title">Примеры:</string>
+    <string name="sources_dialog_remote_url_hint">Репозиторий или ссылка на JSON-файл пакета патчей. Вставьте несколько сразу, чтобы добавить их все.</string>
+    <string name="sources_dialog_paste_no_links">В буфере обмена не найдено ссылок.</string>
     <string name="sources_dialog_local">Локальный</string>
-    <string name="sources_dialog_local_file">Выберите исходный файл патча</string>
+    <string name="sources_dialog_local_files">Выберите файлы источников патчей.</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Добавить ещё файлы</string>
     <string name="sources_dialog_local_file_tap_hint">Нажмите, чтобы просмотреть хранилище</string>
-    <string name="sources_dialog_local_file_description">Выберите исходный файл патча .mpp из хранилища</string>
     <string name="sources_dialog_local_invalid_extension">Файл должен иметь расширение .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Обновляет %s</string>
     <string name="sources_dialog_url_valid">Корректный URL репозитория или JSON</string>
     <string name="sources_dialog_url_invalid">URL должен указывать на репозиторий GitHub/GitLab или на файл .json</string>
-    <string name="sources_dialog_local_change_file">Изменить файл</string>
     <string name="sources_dialog_preinstalled">Предварительно установлено</string>
     <string name="sources_dialog_community">Патчи сообщества</string>
     <string name="sources_dialog_choose_apps">Выберите приложения</string>
@@ -1169,6 +1172,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">Отключено. Путь назад там, где он всегда был.</string>
     <!-- Shared strings -->
     <string name="select_file">Выберите файл</string>
+    <string name="select_files">Выберите файлы</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Выбрать папку</string>
     <string name="patches">Патчи</string>
@@ -1196,6 +1200,7 @@ morphe_header_custom_dark.png
     <string name="done">Готово</string>
     <string name="skip">Пропустить</string>
     <string name="clear">Очистить</string>
+    <string name="paste">Вставить</string>
     <string name="delete">Удалить</string>
     <string name="delete_all">Удалить все</string>
     <string name="remove">Удалить</string>

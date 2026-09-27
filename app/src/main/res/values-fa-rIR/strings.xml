@@ -163,15 +163,13 @@
     <string name="sources_dialog_delete_confirm_message">حذف منبع  «%s» ؟ این قابل بازگشت نیست</string>
     <string name="sources_dialog_remote">از راه دور</string>
     <string name="sources_dialog_remote_url">آدرس منبع</string>
-    <string name="sources_dialog_remote_url_formats_title">نمونه ها:</string>
     <string name="sources_dialog_local">محلی</string>
-    <string name="sources_dialog_local_file">انتخاب فایل منبع پچ</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">برای مرور حافظه، ضربه بزنید</string>
-    <string name="sources_dialog_local_file_description">یک فایل منبع پچ .mpp را از حافظه داخلی انتخاب کنید</string>
     <string name="sources_dialog_local_invalid_extension">فایل باید پسوند .mpp داشته باشد</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">نشانی اینترنتی معتبر مخزن یا JSON</string>
     <string name="sources_dialog_url_invalid">نشانی اینترنتی باید به یک مخزن GitHub/GitLab یا فایل .json اشاره کند</string>
-    <string name="sources_dialog_local_change_file">تغییر فایل</string>
     <string name="sources_dialog_preinstalled">پیش نصب شده</string>
     <string name="sources_dialog_community">پچ‌های جامعه</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->

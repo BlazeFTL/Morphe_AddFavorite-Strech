@@ -174,15 +174,13 @@
     <string name="sources_dialog_delete_confirm_message">\"%s\" mənbəsini silməlimi? Bu geri alına bilməz</string>
     <string name="sources_dialog_remote">Uzaqdan</string>
     <string name="sources_dialog_remote_url">Mənbə URL-si</string>
-    <string name="sources_dialog_remote_url_formats_title">Nümunələr:</string>
     <string name="sources_dialog_local">Yerli</string>
-    <string name="sources_dialog_local_file">Yamaq mənbəsi faylını seçin</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Saxlancı araşdırmaq üçün toxun</string>
-    <string name="sources_dialog_local_file_description">Saxlancdan .mpp yamaq mənbə faylı seçin</string>
     <string name="sources_dialog_local_invalid_extension">Faylın .mpp əlavəsi olmalıdır</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Etibarlı depo və ya JSON URL</string>
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab depo və ya .json faylın göstərməlidir</string>
-    <string name="sources_dialog_local_change_file">Faylı dəyişdir</string>
     <string name="sources_dialog_preinstalled">İlkin quraşdırılan</string>
     <string name="sources_dialog_community">İcma yamaqları</string>
     <string name="sources_dialog_choose_apps">Tətbiqləri seç</string>

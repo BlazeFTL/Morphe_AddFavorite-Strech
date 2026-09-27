@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Poistetaanko lähde \"%s\"? Tätä toimintoa ei voi kumota</string>
     <string name="sources_dialog_remote">Etälähde</string>
     <string name="sources_dialog_remote_url">Lähteen URL-osoite</string>
-    <string name="sources_dialog_remote_url_formats_title">Esimerkkejä:</string>
+    <string name="sources_dialog_remote_url_hint">Säilö tai linkki korjauspaketin .json-tiedostoon. Liitä useita kerralla lisätäksesi ne kaikki</string>
+    <string name="sources_dialog_paste_no_links">Leikepöydältä ei löytynyt linkkejä</string>
     <string name="sources_dialog_local">Paikallinen</string>
-    <string name="sources_dialog_local_file">Valitse lisäosien lähdetiedosto</string>
+    <string name="sources_dialog_local_files">Valitse korjauslähdetiedostot</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Lisää tiedostoja</string>
     <string name="sources_dialog_local_file_tap_hint">Selaa tallennustilaa napauttamalla</string>
-    <string name="sources_dialog_local_file_description">Valitse .mpp-muotoinen lisäosien lähdetiedosto tallennustilasta</string>
     <string name="sources_dialog_local_invalid_extension">Tiedoston tunnisteen on oltava .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Päivittää %s</string>
     <string name="sources_dialog_url_valid">Kelvollinen datasäilö tai JSON-osoite</string>
     <string name="sources_dialog_url_invalid">URL-osoitteen on osoitettava GitHub-/GitLab-datasäilöön tai .json-tiedostoon</string>
-    <string name="sources_dialog_local_change_file">Vaihda tiedosto</string>
     <string name="sources_dialog_preinstalled">Esivalmis</string>
     <string name="sources_dialog_community">Yhteisön korjaukset</string>
     <string name="sources_dialog_choose_apps">Valitse sovellukset</string>
@@ -1169,6 +1172,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Irrotettu. Paluutie on siellä missä se aina oli.</string>
     <!-- Shared strings -->
     <string name="select_file">Valitse tiedosto</string>
+    <string name="select_files">Valitse tiedostot</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Valitse kansio</string>
     <string name="patches">Lisäosat</string>
@@ -1196,6 +1200,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="done">Valmis</string>
     <string name="skip">Ohita</string>
     <string name="clear">Tyhjennä</string>
+    <string name="paste">Liitä</string>
     <string name="delete">Poista</string>
     <string name="delete_all">Poista kaikki</string>
     <string name="remove">Poista</string>

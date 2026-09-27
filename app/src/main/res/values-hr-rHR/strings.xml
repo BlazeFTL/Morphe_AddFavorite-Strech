@@ -175,15 +175,18 @@ Ovaj izvor se nalazi na predizdanjima patcheva. Patchanje može propasti ili se 
     <string name="sources_dialog_delete_confirm_message">Izbrisati izvor \"%s\"? To se ne može poništiti</string>
     <string name="sources_dialog_remote">Daljnji</string>
     <string name="sources_dialog_remote_url">Izvor poveznice</string>
-    <string name="sources_dialog_remote_url_formats_title">Primjeri:</string>
+    <string name="sources_dialog_remote_url_hint">Repozitorij ili poveznica na .json datoteku sa skupom zakrpa. Zalijepi nekoliko odjednom i sve će se dodati.</string>
+    <string name="sources_dialog_paste_no_links">Na međuspremniku nema poveznica</string>
     <string name="sources_dialog_local">Lokalno</string>
-    <string name="sources_dialog_local_file">Odaberite izvornu datoteku patcha</string>
+    <string name="sources_dialog_local_files">Odaberi datoteke izvora zakrpa</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Dodaj još datoteka</string>
     <string name="sources_dialog_local_file_tap_hint">Dodirnite za pregled pohrane</string>
-    <string name="sources_dialog_local_file_description">Odaberite izvornu .mpp datoteku patcha iz pohrane</string>
     <string name="sources_dialog_local_invalid_extension">Datoteka mora imati ekstenziju .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Ažurira %s</string>
     <string name="sources_dialog_url_valid">Valjani repozitorij ili URL JSON</string>
     <string name="sources_dialog_url_invalid">Poveznica mora voditi na GitHub/GitLab repo ili .json datoteku</string>
-    <string name="sources_dialog_local_change_file">Promijeni datoteku</string>
     <string name="sources_dialog_preinstalled">Unaprijed instalirano</string>
     <string name="sources_dialog_community">Patchevi zajednice</string>
     <string name="sources_dialog_choose_apps">Odabir aplikacija</string>
@@ -1173,6 +1176,7 @@ Detalji: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Isključeno. Put natrag je tamo gdje je oduvijek bio.</string>
     <!-- Shared strings -->
     <string name="select_file">Odaberite datoteku</string>
+    <string name="select_files">Odaberi datoteke</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Odaberite mapu</string>
     <string name="patches">Patchevi</string>
@@ -1200,6 +1204,7 @@ Detalji: %2$s"</string>
     <string name="done">Gotovo</string>
     <string name="skip">Preskoči</string>
     <string name="clear">Izbriši</string>
+    <string name="paste">Zalijepi</string>
     <string name="delete">Izbriši</string>
     <string name="delete_all">Izbriši sve</string>
     <string name="remove">Ukloni</string>

@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Tanggalin ang mapagkukunang ito \"%s\"? Hindi na ito maaaring bawiin</string>
     <string name="sources_dialog_remote">Remote</string>
     <string name="sources_dialog_remote_url">Pinagmulan ng URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Mga Halimbawa:</string>
+    <string name="sources_dialog_remote_url_hint">Isang repository o link sa isang patch bundle .json. I-paste nang sabay-sabay ang ilan upang idagdag ang lahat</string>
+    <string name="sources_dialog_paste_no_links">Walang nakitang link sa clipboard</string>
     <string name="sources_dialog_local">Lokal</string>
-    <string name="sources_dialog_local_file">Piliin ang file ng mapagkukunang patch</string>
+    <string name="sources_dialog_local_files">Pumili ng mga patch source file</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Magdagdag pa ng mga file</string>
     <string name="sources_dialog_local_file_tap_hint">I-tap para mag-browse ng storage</string>
-    <string name="sources_dialog_local_file_description">Piliin ang isang .mpp file ng mapagkukunang patch mula sa imbakan</string>
     <string name="sources_dialog_local_invalid_extension">Dapat may extension na .mpp ang file</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Ina-update ang %s</string>
     <string name="sources_dialog_url_valid">Valid na repository o JSON URL</string>
     <string name="sources_dialog_url_invalid">Dapat tumuro ang URL sa isang GitHub/GitLab repo o .json file</string>
-    <string name="sources_dialog_local_change_file">Baguhin ang file</string>
     <string name="sources_dialog_preinstalled">Naka-install</string>
     <string name="sources_dialog_community">Mga patch ng komunidad</string>
     <string name="sources_dialog_choose_apps">Pumili ng mga app</string>
@@ -1170,6 +1173,7 @@ Mga Detalye: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Hindi na nakakonekta. Ang daan ay kung saan ito palaging naroroon</string>
     <!-- Shared strings -->
     <string name="select_file">Pumili ng file</string>
+    <string name="select_files">Pumili ng mga file</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Piliin ang folder</string>
     <string name="patches">Mga patch</string>
@@ -1197,6 +1201,7 @@ Mga Detalye: %2$s"</string>
     <string name="done">Tapos na</string>
     <string name="skip">Laktawan</string>
     <string name="clear">Alisin</string>
+    <string name="paste">Idikit</string>
     <string name="delete">Burahin</string>
     <string name="delete_all">Burahin lahat</string>
     <string name="remove">Alisin</string>

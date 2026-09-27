@@ -13,6 +13,16 @@
         <item quantity="one">%s kohde</item>
         <item quantity="other">%s kohdetta</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Valitse %s tiedosto</item>
+        <item quantity="other">Valitse %s tiedostoa</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Lisää %s lähde</item>
+        <item quantity="other">Lisää %s lähdettä</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Paikkauslähteet %s sovellukselle</item>
         <item quantity="other">Paikkauslähteet %s sovellukselle</item>

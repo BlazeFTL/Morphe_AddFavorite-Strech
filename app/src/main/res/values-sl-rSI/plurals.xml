@@ -19,6 +19,20 @@
         <item quantity="few">%s elementi</item>
         <item quantity="other">%s elementov</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Izberi %s datoteko</item>
+        <item quantity="two">Izberi %s datoteki</item>
+        <item quantity="few">Izberi %s datoteke</item>
+        <item quantity="other">Izberi %s datotek</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Dodaj %s vir</item>
+        <item quantity="two">Dodaj %s vira</item>
+        <item quantity="few">Dodaj %s vire</item>
+        <item quantity="other">Dodaj %s virov</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Viri popravkov za %s aplikacijo</item>
         <item quantity="two">Viri popravkov za %s aplikaciji</item>

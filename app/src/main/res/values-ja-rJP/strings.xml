@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">ソース 「%s」 を削除しますか？ この操作は元に戻せません</string>
     <string name="sources_dialog_remote">リモート</string>
     <string name="sources_dialog_remote_url">ソース URL</string>
-    <string name="sources_dialog_remote_url_formats_title">例:</string>
+    <string name="sources_dialog_remote_url_hint">リポジトリ、またはパッチバンドル（.json）へのリンク。一度に複数貼り付けると、すべて追加されます。</string>
+    <string name="sources_dialog_paste_no_links">クリップボードにリンクが見つかりません</string>
     <string name="sources_dialog_local">ローカル</string>
-    <string name="sources_dialog_local_file">パッチソースファイルを選択</string>
+    <string name="sources_dialog_local_files">パッチソースファイルを選択</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">ファイルをさらに追加</string>
     <string name="sources_dialog_local_file_tap_hint">タップしてストレージを参照</string>
-    <string name="sources_dialog_local_file_description">ストレージから .mpp パッチソースファイルを選択してください</string>
     <string name="sources_dialog_local_invalid_extension">ファイルは .mpp 拡張子でなければなりません</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">%s を更新</string>
     <string name="sources_dialog_url_valid">有効なリポジトリまたは JSON URL</string>
     <string name="sources_dialog_url_invalid">URL は GitHub または GitLab のリポジトリ、もしくは .json ファイルを指している必要があります</string>
-    <string name="sources_dialog_local_change_file">ファイルを変更</string>
     <string name="sources_dialog_preinstalled">プリインストール</string>
     <string name="sources_dialog_community">コミュニティ パッチ</string>
     <string name="sources_dialog_choose_apps">アプリの選択</string>
@@ -422,7 +425,7 @@
     <string name="batch_patch_source_unavailable">APK を準備できませんでした</string>
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
     <string name="batch_patch_force_version_done">とにかくキューに追加されます。アプリが壊れる可能性があります。</string>
-    <string name="batch_patch_accept_signature_done">とにかくキューに追加されます。APKは検証されていません。</string>
+    <string name="batch_patch_accept_signature_done">とにかくキューに追加します。APK は検証されていません</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
     <string name="batch_patch_state_no_apk">APK がありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>
@@ -748,7 +751,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">アプリのテーマカラーを使用し、自動でなじむように色調を調整します</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">アプリアイコン</string>
-    <string name="settings_appearance_app_icon_selector_description">ホーム画面とアプリドロワーでのMorpheの見た目</string>
+    <string name="settings_appearance_app_icon_selector_description">ホーム画面とアプリドロワーでの Morphe の見た目</string>
     <string name="settings_appearance_app_icon_default">デフォルト</string>
     <string name="settings_appearance_app_icon_light_2">スカイ</string>
     <string name="settings_appearance_app_icon_light_3">サンセット</string>
@@ -1143,7 +1146,7 @@ morphe_header_custom_dark.png
     <string name="file_picker_no_files">ファイルが見つかりません</string>
     <string name="file_picker_read_error">このディレクトリを読み取ることができません</string>
     <string name="file_picker_internal_storage">内部ストレージ</string>
-    <string name="file_picker_sd_card">SDカード</string>
+    <string name="file_picker_sd_card">SD カード</string>
     <string name="file_picker_root">ルート (/)</string>
     <string name="file_picker_sort_name_asc">名前（A–Z）</string>
     <string name="file_picker_sort_name_desc">名前（Z–A）</string>
@@ -1171,6 +1174,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">接続を解除しました。戻る道は、いつでもそこにあります</string>
     <!-- Shared strings -->
     <string name="select_file">ファイルを選択</string>
+    <string name="select_files">ファイルを選択</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">フォルダーを選択</string>
     <string name="patches">パッチ</string>
@@ -1198,6 +1202,7 @@ morphe_header_custom_dark.png
     <string name="done">完了</string>
     <string name="skip">スキップ</string>
     <string name="clear">クリア</string>
+    <string name="paste">貼り付け</string>
     <string name="delete">削除</string>
     <string name="delete_all">すべて削除</string>
     <string name="remove">削除</string>

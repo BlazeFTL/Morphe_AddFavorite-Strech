@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Scrios foinse \"%s\"? Ní féidir é seo a chealú.</string>
     <string name="sources_dialog_remote">Cianda</string>
     <string name="sources_dialog_remote_url">URL Foinse</string>
-    <string name="sources_dialog_remote_url_formats_title">Samplaí:</string>
+    <string name="sources_dialog_remote_url_hint">Stór nó nasc le beart paiste .json. Greamaigh roinnt ag an am céanna chun iad go léir a chur leis</string>
+    <string name="sources_dialog_paste_no_links">Níor aimsíodh aon nasc ar an ngearrthaisce</string>
     <string name="sources_dialog_local">Áitiúil</string>
-    <string name="sources_dialog_local_file">Roghnaigh comhad foinse paiste</string>
+    <string name="sources_dialog_local_files">Roghnaigh comhaid foinse paiste</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Cuir tuilleadh comhad leis</string>
     <string name="sources_dialog_local_file_tap_hint">Tapáil chun brabhsáil a dhéanamh ar an stóras</string>
-    <string name="sources_dialog_local_file_description">Roghnaigh comhad foinse paiste .mpp ón stóras</string>
     <string name="sources_dialog_local_invalid_extension">Ní mór síneadh .mpp a bheith ar an gcomhad</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Nuashonruithe do %s</string>
     <string name="sources_dialog_url_valid">URL bailí stórais nó JSON</string>
     <string name="sources_dialog_url_invalid">Ní mór don URL pointeáil chuig stór GitHub/GitLab nó comhad .json</string>
-    <string name="sources_dialog_local_change_file">Athraigh comhad</string>
     <string name="sources_dialog_preinstalled">Réamhshuiteáilte</string>
     <string name="sources_dialog_community">Paistí pobail</string>
     <string name="sources_dialog_choose_apps">Roghnaigh aipeanna</string>
@@ -1168,6 +1171,7 @@ Sonraí: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Díphlugáilte. Is é an bealach ar ais an áit a raibh sé i gcónaí.</string>
     <!-- Shared strings -->
     <string name="select_file">Roghnaigh comhad</string>
+    <string name="select_files">Roghnaigh comhaid</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Roghnaigh fillteán</string>
     <string name="patches">Paistí</string>
@@ -1195,6 +1199,7 @@ Sonraí: %2$s"</string>
     <string name="done">Déanta</string>
     <string name="skip">Scipeáil</string>
     <string name="clear">Glan</string>
+    <string name="paste">Greamaigh</string>
     <string name="delete">Scrios</string>
     <string name="delete_all">Scrios gach rud</string>
     <string name="remove">Bain</string>

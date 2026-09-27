@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Ștergi sursa \"%s\"? Acest lucru nu poate fi anulat.</string>
     <string name="sources_dialog_remote">Distanță</string>
     <string name="sources_dialog_remote_url">URL-ul sursei</string>
-    <string name="sources_dialog_remote_url_formats_title">Exemple:</string>
+    <string name="sources_dialog_remote_url_hint">Un repository sau un link către un pachet de corecții .json. Lipește mai multe deodată pentru a le adăuga pe toate</string>
+    <string name="sources_dialog_paste_no_links">Nu s-au găsit linkuri în clipboard</string>
     <string name="sources_dialog_local">Local</string>
-    <string name="sources_dialog_local_file">Selectează fișierul cu patch-uri</string>
+    <string name="sources_dialog_local_files">Selectează fișierele sursă de corecții</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Adaugă mai multe fișiere</string>
     <string name="sources_dialog_local_file_tap_hint">Atingeți pentru a răsfoi stocarea</string>
-    <string name="sources_dialog_local_file_description">Selectează un fișier .mpp cu patch-uri din stocare</string>
     <string name="sources_dialog_local_invalid_extension">Fișierul trebuie să aibă o extensie .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Actualizează %s</string>
     <string name="sources_dialog_url_valid">URL valid al depozitului sau JSON</string>
     <string name="sources_dialog_url_invalid">URL-ul trebuie să indice un depozit GitHub/GitLab sau un fișier .json</string>
-    <string name="sources_dialog_local_change_file">Schimbă fișierul</string>
     <string name="sources_dialog_preinstalled">Preinstalate</string>
     <string name="sources_dialog_community">Patch-uri comunitare</string>
     <string name="sources_dialog_choose_apps">Alegeți aplicații</string>
@@ -1169,6 +1172,7 @@ Detalii: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Deconectat. Calea de întoarcere este acolo unde a fost întotdeauna.</string>
     <!-- Shared strings -->
     <string name="select_file">Selectează fișierul</string>
+    <string name="select_files">Selectează fișierele</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Selecteazã folderul</string>
     <string name="patches">Patch-uri</string>
@@ -1196,6 +1200,7 @@ Detalii: %2$s"</string>
     <string name="done">Gata</string>
     <string name="skip">Omitere</string>
     <string name="clear">Golește</string>
+    <string name="paste">Lipește</string>
     <string name="delete">Șterge</string>
     <string name="delete_all">Șterge tot</string>
     <string name="remove">Elimină</string>

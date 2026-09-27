@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Vymazať zdroj \'%s\'? Toto nie je možné vrátiť späť</string>
     <string name="sources_dialog_remote">Vzdialené</string>
     <string name="sources_dialog_remote_url">URL zdroja</string>
-    <string name="sources_dialog_remote_url_formats_title">Príklady:</string>
+    <string name="sources_dialog_remote_url_hint">Repozitár alebo odkaz na súbor .json s balíkom záplat. Prilepte ich niekoľko naraz a pridajú sa všetky</string>
+    <string name="sources_dialog_paste_no_links">V schránke sa nenašli žiadne odkazy</string>
     <string name="sources_dialog_local">Lokálne</string>
-    <string name="sources_dialog_local_file">Vyber zdrojový súbor záplaty</string>
+    <string name="sources_dialog_local_files">Vybrať zdrojové súbory záplat</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Pridať ďalšie súbory</string>
     <string name="sources_dialog_local_file_tap_hint">Ťuknite na položku prehľadať úložisko</string>
-    <string name="sources_dialog_local_file_description">Vyberte súbor záplaty .mpp z úložiska</string>
     <string name="sources_dialog_local_invalid_extension">Súbor musí mať príponu .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Aktualizuje %s</string>
     <string name="sources_dialog_url_valid">Platný repozitár alebo URL adresa JSON</string>
     <string name="sources_dialog_url_invalid">URL musí odkazovať na repozitár GitHub/GitLab alebo na súbor .json</string>
-    <string name="sources_dialog_local_change_file">Zmeniť súbor</string>
     <string name="sources_dialog_preinstalled">Predinštalované</string>
     <string name="sources_dialog_community">Komunitné záplaty</string>
     <string name="sources_dialog_choose_apps">Vybrať aplikácie</string>
@@ -1170,6 +1173,7 @@ Podrobnosti: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Odpojený. Cesta späť je tam, kde vždy bola.</string>
     <!-- Shared strings -->
     <string name="select_file">Vybrať súbor</string>
+    <string name="select_files">Vybrať súbory</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Vybrať priečinok</string>
     <string name="patches">Záplaty</string>
@@ -1197,6 +1201,7 @@ Podrobnosti: %2$s"</string>
     <string name="done">Hotovo</string>
     <string name="skip">Preskočiť</string>
     <string name="clear">Vyčistiť</string>
+    <string name="paste">Prilepiť</string>
     <string name="delete">Odstrániť</string>
     <string name="delete_all">Vymazať všetko</string>
     <string name="remove">Vymazať</string>

@@ -20,6 +20,8 @@
     <!-- Super late night greetings (0:00–4:59) -->
     <!-- Home Screen - Sources Management -->
     <!-- Home Screen - Sources Dialogs -->
+    <!-- Button under the files already picked, which opens the picker again -->
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <!-- Home Screen - Dialog 1: APK Availability -->
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

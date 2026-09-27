@@ -10,6 +10,14 @@
     <plurals name="file_picker_item_count">
         <item quantity="other">%s 个项目</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="other">选择 %s 个文件</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="other">添加 %s 个来源</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="other">适用于 %s 个应用的补丁源</item>
     </plurals>

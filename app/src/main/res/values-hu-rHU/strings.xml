@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Törlöd a forrást: \"%s\"? Ez nem visszavonható</string>
     <string name="sources_dialog_remote">Távoli</string>
     <string name="sources_dialog_remote_url">Forrás URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Példák:</string>
+    <string name="sources_dialog_remote_url_hint">Egy forráskódtár vagy egy javítócsomag .json link. Illessz be többet egyszerre, hogy mindet hozzáadd.</string>
+    <string name="sources_dialog_paste_no_links">Nincs link a vágólapon.</string>
     <string name="sources_dialog_local">Helyi</string>
-    <string name="sources_dialog_local_file">Forrásfájl kiválasztása</string>
+    <string name="sources_dialog_local_files">Javítócsomag-forrásfájlok kiválasztása</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">További fájlok hozzáadása</string>
     <string name="sources_dialog_local_file_tap_hint">Érintse meg a tároló megtekintéséhez</string>
-    <string name="sources_dialog_local_file_description">Válassz ki egy .mpp módosításforrást a tárhelyről</string>
     <string name="sources_dialog_local_invalid_extension">A fájlnak .mpp kiterjesztéssel kell rendelkeznie</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Frissítések: %s</string>
     <string name="sources_dialog_url_valid">Érvényes tároló vagy JSON URL</string>
     <string name="sources_dialog_url_invalid">Az URL-nek GitHub/GitLab repóra vagy .json fájlra kell mutatnia</string>
-    <string name="sources_dialog_local_change_file">Fájl megváltoztatása</string>
     <string name="sources_dialog_preinstalled">Előretelepített</string>
     <string name="sources_dialog_community">Közösségi javítások</string>
     <string name="sources_dialog_choose_apps">Alkalmazások kiválasztása</string>
@@ -1169,6 +1172,7 @@ Részletek: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Kihúzva. A visszaút ott van, ahol mindig is volt.</string>
     <!-- Shared strings -->
     <string name="select_file">Fájl kiválasztása</string>
+    <string name="select_files">Fájlok kiválasztása</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Mappa kiválasztása</string>
     <string name="patches">Módosítások</string>
@@ -1196,6 +1200,7 @@ Részletek: %2$s"</string>
     <string name="done">Kész</string>
     <string name="skip">Kihagyás</string>
     <string name="clear">Törlés</string>
+    <string name="paste">Beillesztés</string>
     <string name="delete">Törlés</string>
     <string name="delete_all">Mindent töröl?</string>
     <string name="remove">Eltávolítás</string>

@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Видалити джерело \"%s\"? Цю дію неможливо скасувати</string>
     <string name="sources_dialog_remote">Віддалене</string>
     <string name="sources_dialog_remote_url">URL джерела</string>
-    <string name="sources_dialog_remote_url_formats_title">Приклади:</string>
+    <string name="sources_dialog_remote_url_hint">Репозиторій або посилання на файл .json пакета патчів. Вставте кілька одразу, щоб додати їх усі</string>
+    <string name="sources_dialog_paste_no_links">У буфері обміну не знайдено посилань</string>
     <string name="sources_dialog_local">Локальне</string>
-    <string name="sources_dialog_local_file">Виберіть файл джерела патчів</string>
+    <string name="sources_dialog_local_files">Виберіть файли джерел патчів</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Додати більше файлів</string>
     <string name="sources_dialog_local_file_tap_hint">Натисніть, щоб переглянути сховище</string>
-    <string name="sources_dialog_local_file_description">Виберіть файл джерела патчів .mpp зі сховища</string>
     <string name="sources_dialog_local_invalid_extension">Файл повинен мати розширення .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Оновлює %s</string>
     <string name="sources_dialog_url_valid">Дійсне посилання на репозиторій або JSON-файл</string>
     <string name="sources_dialog_url_invalid">URL має вказувати на репозиторій GitHub/GitLab або .json файл</string>
-    <string name="sources_dialog_local_change_file">Змінити файл</string>
     <string name="sources_dialog_preinstalled">Вбудоване</string>
     <string name="sources_dialog_community">Патчі спільноти</string>
     <string name="sources_dialog_choose_apps">Виберіть застосунки</string>
@@ -1170,6 +1173,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">Відключено. Шлях назад там, де він завжди був</string>
     <!-- Shared strings -->
     <string name="select_file">Вибрати файл</string>
+    <string name="select_files">Виберіть файли</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Вибрати теку</string>
     <string name="patches">Патчі</string>
@@ -1197,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">Готово</string>
     <string name="skip">Пропустити</string>
     <string name="clear">Очистити</string>
+    <string name="paste">Вставити</string>
     <string name="delete">Видалити</string>
     <string name="delete_all">Видалити все</string>
     <string name="remove">Видалити</string>

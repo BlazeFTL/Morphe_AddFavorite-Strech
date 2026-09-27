@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">¿Eliminar la fuente \"%s\"? Esto no se puede deshacer</string>
     <string name="sources_dialog_remote">Remota</string>
     <string name="sources_dialog_remote_url">URL de la fuente</string>
-    <string name="sources_dialog_remote_url_formats_title">Ejemplos:</string>
+    <string name="sources_dialog_remote_url_hint">Un repositorio o un enlace a un paquete de parches .json. Pega varios a la vez para añadirlos todos</string>
+    <string name="sources_dialog_paste_no_links">No se encontraron enlaces en el portapapeles</string>
     <string name="sources_dialog_local">Local</string>
-    <string name="sources_dialog_local_file">Selecciona el archivo fuente de parches</string>
+    <string name="sources_dialog_local_files">Seleccionar archivos de fuente de parches</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Añadir más archivos</string>
     <string name="sources_dialog_local_file_tap_hint">Pulsa para explorar el almacenamiento</string>
-    <string name="sources_dialog_local_file_description">Selecciona un archivo fuente de parches .mpp desde el almacenamiento</string>
     <string name="sources_dialog_local_invalid_extension">El archivo debe tener una extensión .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Actualiza %s</string>
     <string name="sources_dialog_url_valid">Repositorio o URL JSON válido</string>
     <string name="sources_dialog_url_invalid">La URL debe apuntar a un repositorio de GitHub/GitLab o a un archivo .json</string>
-    <string name="sources_dialog_local_change_file">Cambiar archivo</string>
     <string name="sources_dialog_preinstalled">Preinstalada</string>
     <string name="sources_dialog_community">Parches de la comunidad</string>
     <string name="sources_dialog_choose_apps">Seleccionar aplicaciones</string>
@@ -314,7 +317,7 @@ Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad
 Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK completo&lt;/b&gt;"</string>
     <string name="home_split_apk_warning_pick_another">Selecciona otro APK</string>
     <string name="home_dialog_unsupported_version_experimental_label">Experimental</string>
-    <string name="home_dialog_unsupported_version_experimental_description">Esta versión tiene soporte experimental y podría ser inestable o incompleta</string>
+    <string name="home_dialog_unsupported_version_experimental_description">Esta versión tiene soporte experimental y puede ser inestable o incompleta</string>
     <string name="morphe_experimental_app_version_dialog_title">¿Quieres experimentar? 🧪</string>
     <string name="morphe_experimental_app_version_dialog_message">Esta versión de &lt;b&gt;%s&lt;/b&gt; cuenta con soporte experimental preliminar&lt;br/&gt;&lt;br/&gt;🔧 Pueden aparecer comportamientos inesperados de la aplicación o errores desconocidos mientras se ajustan los parches para esta versión</string>
     <string name="home_dialog_unsupported_version_dialog_title">Versión no compatible</string>
@@ -322,7 +325,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Continuar de todos modos</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Versiones compatibles:</string>
-    <string name="home_dialog_unsupported_version_unsupported_label">No soportado</string>
+    <string name="home_dialog_unsupported_version_unsupported_label">Incompatible</string>
     <!-- "Build" here refers to a specific compiled version of the app (versionCode) -->
     <string name="home_dialog_unsupported_version_build">Compilación %s</string>
     <string name="home_dialog_unsupported_version_build_mismatch_description">Esta es una compilación diferente de la misma versión. Los parches requieren una compilación específica</string>
@@ -733,19 +736,19 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_sort_button_description">Muestra el botón de ordenar y filtrar en la pantalla de inicio</string>
     <string name="settings_appearance_app_card_colors">Colores de las tarjetas de aplicaciones</string>
     <string name="settings_appearance_app_card_colors_default">Predeterminado</string>
-    <string name="settings_appearance_app_card_colors_default_description">Dar a cada aplicación el color de su propio paquete</string>
+    <string name="settings_appearance_app_card_colors_default_description">Da a cada aplicación el color de su propio paquete</string>
     <string name="settings_appearance_app_card_colors_accent">Color de acento</string>
-    <string name="settings_appearance_app_card_colors_accent_description">Usar el color de acento de la aplicación para las tarjetas de aplicaciones de inicio</string>
+    <string name="settings_appearance_app_card_colors_accent_description">Usa el color de acento de la aplicación para las tarjetas de aplicaciones de inicio</string>
     <string name="settings_appearance_app_card_colors_gradient">Degradado</string>
-    <string name="settings_appearance_app_card_colors_gradient_description">Usar un degradado personalizado para las tarjetas de aplicaciones de Inicio</string>
+    <string name="settings_appearance_app_card_colors_gradient_description">Usa un degradado personalizado para las tarjetas de aplicaciones de Inicio</string>
     <string name="settings_appearance_app_card_colors_solid">Sólido</string>
-    <string name="settings_appearance_app_card_colors_solid_description">Usar un color personalizado para las tarjetas de aplicaciones de inicio</string>
+    <string name="settings_appearance_app_card_colors_solid_description">Usa un color personalizado para las tarjetas de aplicaciones de inicio</string>
     <string name="settings_appearance_app_card_colors_start">Color inicial</string>
     <string name="settings_appearance_app_card_colors_middle">Color intermedio</string>
     <string name="settings_appearance_app_card_colors_end">Color final</string>
     <string name="settings_appearance_app_card_colors_solid_color">Color sólido</string>
     <string name="settings_appearance_app_card_colors_bundle">Color del paquete de la aplicación</string>
-    <string name="settings_appearance_app_card_colors_bundle_description">Utiliza el color propio de cada aplicación aquí, sombreado automáticamente para que encaje</string>
+    <string name="settings_appearance_app_card_colors_bundle_description">Usa el color propio de cada aplicación aquí, sombreado automáticamente para que encaje</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icono de la aplicación</string>
     <string name="settings_appearance_app_icon_selector_description">Cómo se ve Morphe en la pantalla de inicio y en el cajón de aplicaciones</string>
@@ -957,7 +960,7 @@ Las dimensiones de la imagen deben ser las siguientes:
     <string name="installer_shizuku_status_title">Estado de Shizuku</string>
     <string name="installer_shizuku_status_ready">Listo</string>
     <string name="installer_shizuku_status_issue">Requiere atención</string>
-    <string name="installer_shizuku_status_supported">Soportado</string>
+    <string name="installer_shizuku_status_supported">Compatible</string>
     <string name="installer_shizuku_status_running">Ejecutándose</string>
     <string name="installer_shizuku_status_permission">Permiso</string>
     <string name="installer_shizuku_status_mode">Modo</string>
@@ -1170,6 +1173,7 @@ Detalles: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Desconectado. El camino de regreso sigue donde estaba</string>
     <!-- Shared strings -->
     <string name="select_file">Seleccionar archivo</string>
+    <string name="select_files">Seleccionar archivos</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Seleccionar carpeta</string>
     <string name="patches">Parches</string>
@@ -1197,6 +1201,7 @@ Detalles: %2$s"</string>
     <string name="done">Listo</string>
     <string name="skip">Omitir</string>
     <string name="clear">Limpiar</string>
+    <string name="paste">Pegar</string>
     <string name="delete">Eliminar</string>
     <string name="delete_all">Eliminar todo</string>
     <string name="remove">Eliminar</string>

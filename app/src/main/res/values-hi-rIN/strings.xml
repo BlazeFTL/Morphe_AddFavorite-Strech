@@ -174,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">डिलीट करें \"%s\"? यह वापस लाना संभव नहीं होगा।</string>
     <string name="sources_dialog_remote">रिमोट</string>
     <string name="sources_dialog_remote_url">स्रोत URL</string>
-    <string name="sources_dialog_remote_url_formats_title">उदाहरण:</string>
+    <string name="sources_dialog_remote_url_hint">कोई रिपॉजिटरी या पैच बंडल .json का लिंक। एक साथ कई लिंक जोड़ने के लिए उन्हें यहाँ पेस्ट करें</string>
+    <string name="sources_dialog_paste_no_links">क्लिपबोर्ड पर कोई लिंक नहीं मिला</string>
     <string name="sources_dialog_local">स्थानीय</string>
-    <string name="sources_dialog_local_file">पैच स्रोत फ़ाइल का चयन करें</string>
+    <string name="sources_dialog_local_files">पैच सोर्स फ़ाइलें चुनें</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">और फ़ाइलें जोड़ें</string>
     <string name="sources_dialog_local_file_tap_hint">भंडारण ब्राउज़ करने के लिए टैप करें</string>
-    <string name="sources_dialog_local_file_description">स्टोरेज से .mpp पैच स्रोत फ़ाइल का चयन करें</string>
     <string name="sources_dialog_local_invalid_extension">फ़ाइल में .mpp एक्सटेंशन होना चाहिए</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">%s को अपडेट करता है</string>
     <string name="sources_dialog_url_valid">मान्य रिपॉजिटरी या JSON URL</string>
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab रिपो या .json फ़ाइल की ओर इंगित करना चाहिए</string>
-    <string name="sources_dialog_local_change_file">फ़ाइल बदलें</string>
     <string name="sources_dialog_preinstalled">प्रिंस्टॉल किया गया</string>
     <string name="sources_dialog_community">समुदाय पैच</string>
     <string name="sources_dialog_choose_apps">ऐप्स चुनें</string>
@@ -1170,6 +1173,7 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_blue_toast_again">अनप्लग किया गया। वापसी का रास्ता वही है जहाँ वह हमेशा था</string>
     <!-- Shared strings -->
     <string name="select_file">फ़ाइल चुनें</string>
+    <string name="select_files">फ़ाइलें चुनें</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">फ़ोल्डर चुनें</string>
     <string name="patches">पैच</string>
@@ -1197,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">हो गया</string>
     <string name="skip">छोड़ें</string>
     <string name="clear">खाली करें</string>
+    <string name="paste">पेस्ट करें</string>
     <string name="delete">हटाएं</string>
     <string name="delete_all">सभी हटाएं</string>
     <string name="remove">निकालें</string>

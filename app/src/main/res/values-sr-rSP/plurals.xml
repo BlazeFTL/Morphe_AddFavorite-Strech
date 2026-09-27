@@ -16,6 +16,18 @@
         <item quantity="few">%s ставке</item>
         <item quantity="other">%s ставки</item>
     </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Изабери %s датотеку</item>
+        <item quantity="few">Изабери %s датотеке</item>
+        <item quantity="other">Изабери %s датотека</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Додај %s извор</item>
+        <item quantity="few">Додај %s извора</item>
+        <item quantity="other">Додај %s извора</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Извори закрпа за %s апликацијy</item>
         <item quantity="few">Извори закрпа за %s апликацијe</item>

@@ -153,15 +153,13 @@
     <string name="sources_dialog_delete_confirm_message">Dermanî çavkaniyê \"%s\" bifirîne?  Ev neyê vegerandin.</string>
     <string name="sources_dialog_remote">Dûr</string>
     <string name="sources_dialog_remote_url">URL-ya çavkaniyê</string>
-    <string name="sources_dialog_remote_url_formats_title">Wek,</string>
     <string name="sources_dialog_local">Nêzîk</string>
-    <string name="sources_dialog_local_file">Dosya çavkaniyê hilbijêre</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Bikîne da ku hilanînê bikola</string>
-    <string name="sources_dialog_local_file_description">Dosyaya .mpp-ya çavkaniyê ji bo hilbijartinê ji storage</string>
     <string name="sources_dialog_local_invalid_extension">Pel divê pêveka .mpp hebe</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Depo an URL-a JSON-ê yê derbasdar</string>
     <string name="sources_dialog_url_invalid">URL gihub/gitlab depoyê an pelê .json\'yê nîşan bide</string>
-    <string name="sources_dialog_local_change_file">Guherîne dosya</string>
     <string name="sources_dialog_preinstalled">Destekî çêkirî</string>
     <string name="sources_dialog_community">Patchên civakê</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->

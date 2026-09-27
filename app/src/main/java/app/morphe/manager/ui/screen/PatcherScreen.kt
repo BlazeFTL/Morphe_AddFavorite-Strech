@@ -438,7 +438,6 @@ fun PatcherScreen(
         }
 
         InstallerSelectionDialog(
-            title = stringResource(R.string.installer_title),
             options = options,
             selected = selectedInstallerToken,
             onDismiss = installViewModel::dismissInstallerSelectionDialog,

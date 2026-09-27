@@ -108,7 +108,6 @@ fun InstallerSelectionDialogContainer(
     val promptEnabled by settingsViewModel.prefs.promptInstallerOnInstall.getAsState()
 
     InstallerSelectionDialog(
-        title = stringResource(R.string.installer_title),
         options = options,
         selected = primaryToken,
         onDismiss = onDismiss,
@@ -177,7 +176,6 @@ private fun InstallerSettingsItem(
  */
 @Composable
 fun InstallerSelectionDialog(
-    title: String,
     options: List<InstallerManager.Entry>,
     selected: InstallerManager.Token,
     onDismiss: () -> Unit,
@@ -250,7 +248,7 @@ fun InstallerSelectionDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
-        title = title,
+        title = stringResource(R.string.installer_title),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.confirm),
@@ -294,35 +292,43 @@ fun InstallerSelectionDialog(
                         ?: stringResource(R.string.installer_shizuku_status_issue)
                 } else null
 
+                val showStatusAction =
+                    isSelected && isShizukuOption && shizukuStatusProvider != null
+                val openLabel = stringResource(R.string.installer_action_open_shizuku)
+                val statusLabel = stringResource(R.string.installer_shizuku_status_action)
+
                 InstallerOptionItem(
                     option = option,
                     selected = isSelected,
                     enabled = enabled,
                     onSelect = { if (enabled) currentSelection.value = option.token },
                     stateDescription = stateDesc,
-                    footerText = shizukuFooterText
+                    footerText = shizukuFooterText,
+                    // Shizuku's fixes sit in its own card, under what is wrong with it
+                    footerActions = if (showShizukuAction || showStatusAction) {
+                        {
+                            if (showShizukuAction) {
+                                ActionPillButton(
+                                    onClick = { runCatching { onOpenShizuku.invoke() } },
+                                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                                    contentDescription = openLabel,
+                                    label = openLabel,
+                                    colors = ActionPillColors.primary(),
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                            if (showStatusAction) {
+                                ActionPillButton(
+                                    onClick = { showShizukuStatus = true },
+                                    icon = Icons.Outlined.Info,
+                                    contentDescription = statusLabel,
+                                    label = statusLabel,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                    } else null
                 )
-
-                if (showShizukuAction) {
-                    TextButton(
-                        onClick = { runCatching { onOpenShizuku.invoke() } },
-                        modifier = Modifier.padding(start = 56.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.installer_action_open_shizuku),
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
-
-                if (isSelected && isShizukuOption && shizukuStatusProvider != null) {
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.installer_shizuku_status_action),
-                        onClick = { showShizukuStatus = true },
-                        modifier = Modifier.fillMaxWidth(),
-                        icon = Icons.Outlined.Info
-                    )
-                }
             }
 
             val showPlayStoreToggle = selectedToken.supportsPlayStoreMode() &&
@@ -737,7 +743,8 @@ fun InstallerOptionItem(
     enabled: Boolean,
     onSelect: () -> Unit,
     stateDescription: String,
-    footerText: String? = null
+    footerText: String? = null,
+    footerActions: (@Composable RowScope.() -> Unit)? = null
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -774,31 +781,46 @@ fun InstallerOptionItem(
                 }
             }
         } else null,
-        footerContent = (reasonText ?: footerText)?.let { text ->
+        footerContent = if (reasonText != null || footerText != null || footerActions != null) {
             {
-                val tint = if (footerText != null) {
-                    SemanticTone.Warning.content
-                } else {
-                    MaterialTheme.colorScheme.onSurfaceVariant
-                }
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Warning,
-                        contentDescription = null,
-                        tint = tint,
-                        modifier = Modifier.size(12.dp)
-                    )
-                    Text(
-                        text = text,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = tint
-                    )
+                    (reasonText ?: footerText)?.let { text ->
+                        val tint = if (footerText != null) {
+                            SemanticTone.Warning.content
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        }
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Warning,
+                                contentDescription = null,
+                                tint = tint,
+                                modifier = Modifier.size(12.dp)
+                            )
+                            Text(
+                                text = text,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = tint
+                            )
+                        }
+                    }
+                    footerActions?.let { actions ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                            content = actions
+                        )
+                    }
                 }
             }
-        }
+        } else null
     ) {
         IconTextRow(
             modifier = Modifier.weight(1f),

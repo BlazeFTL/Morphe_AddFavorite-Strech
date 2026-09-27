@@ -327,7 +327,6 @@ fun InstalledAppInfoDialog(
         val options = remember { installViewModel.getInstallerOptions() }
         val primaryToken = remember { installViewModel.getPrimaryInstallerToken() }
         InstallerSelectionDialog(
-            title = stringResource(R.string.installer_title),
             options = options,
             selected = primaryToken,
             onDismiss = installViewModel::dismissInstallerSelectionDialog,

@@ -12,9 +12,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.util.KnownApps
 
@@ -106,42 +109,42 @@ fun CreatorCard(title: String, content: @Composable ColumnScope.() -> Unit) {
     OptionCard(OptionHeading(title = title, description = "", required = false, missing = false), content = content)
 }
 
-/** A creator's guide, one card to each thing it explains. */
+/** A creator's guide, each section a title over what it explains. */
 @Composable
 private fun CreatorGuideDialog(
     title: String,
     sections: List<Pair<String, String>>,
     onDismiss: () -> Unit
 ) {
-    val accent = MaterialTheme.colorScheme.primary
-
     AppDialog(
         onDismissRequest = onDismiss,
+        title = title,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
                 onClick = onDismiss,
                 modifier = Modifier.fillMaxWidth()
             )
-        },
-        padding = DialogPadding.Compact,
-        contentArrangement = Arrangement.Top
+        }
     ) {
-        ListDialogHeader(
-            icon = { modifier ->
-                ListDialogHeaderIcon(icon = Icons.Outlined.Info, color = accent, modifier = modifier)
-            },
-            title = title,
-            subtitle = stringResource(R.string.patch_option_instructions),
-            accentColor = accent
-        )
-
         Column(
-            modifier = Modifier.padding(vertical = Defaults.ItemSpacing),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             sections.forEach { (sectionTitle, body) ->
-                OptionCard(OptionHeading(title = sectionTitle, description = body, required = false, missing = false))
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(
+                        text = sectionTitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = LocalDialogTextColor.current
+                    )
+                    Text(
+                        text = body,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = LocalDialogSecondaryTextColor.current
+                    )
+                }
             }
         }
     }

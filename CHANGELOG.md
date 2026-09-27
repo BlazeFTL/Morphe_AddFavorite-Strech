@@ -1,3 +1,15 @@
+# [1.33.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.3...v1.33.0-dev.4) (2026-09-27)
+
+
+### Features
+
+* Build the simple mode option dialogs from the patch options' cards ([b1043cd](https://github.com/MorpheApp/morphe-manager/commit/b1043cd168cedec1eb42469a085bac9656db0d67))
+* Caption the pulsing logo while the manager update installs ([b6bb306](https://github.com/MorpheApp/morphe-manager/commit/b6bb3063a2342435e69a77a589909979de4cdc33))
+* Give popup menus the look of the app's own cards ([65180eb](https://github.com/MorpheApp/morphe-manager/commit/65180ebb7668b7bb84f427b78b2de8954e9fea1b))
+* Head the icon and header creators by their app, with each step on a card ([ad32df8](https://github.com/MorpheApp/morphe-manager/commit/ad32df83c2f123466eb8ba91fd9be918283c6368))
+* Rebuild the file picker as a list dialog of cards ([a5e6000](https://github.com/MorpheApp/morphe-manager/commit/a5e6000149684d17ea1e31fba5ff7d796db119e8))
+* Rebuild the patch options dialog on the patch list's cards ([8b8f113](https://github.com/MorpheApp/morphe-manager/commit/8b8f1132f984ef9839d84a4f768d81a15a826989))
+
 # [1.33.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.2...v1.33.0-dev.3) (2026-09-26)
 
 

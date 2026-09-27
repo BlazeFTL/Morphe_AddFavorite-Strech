@@ -1521,10 +1521,11 @@ private fun SelectableVersionListCard(
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontFamily = FontFamily.Monospace,
                                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                color = when {
-                                    isIncompatibleSdk -> LocalDialogTextColor.current
-                                    isSelected -> MaterialTheme.colorScheme.primary
-                                    else -> tags.versionTextColor(LocalDialogTextColor.current)
+                                // Color marks the selection alone, and the badges carry every tag
+                                color = if (isSelected) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    LocalDialogTextColor.current
                                 },
                                 modifier = Modifier
                                     .weight(1f)
@@ -1634,7 +1635,7 @@ private fun VersionListCard(
                             style = MaterialTheme.typography.bodyLarge,
                             fontFamily = FontFamily.Monospace,
                             fontWeight = if (index == recommendedIndex) FontWeight.Bold else FontWeight.Normal,
-                            color = tags.versionTextColor(textColor),
+                            color = textColor,
                             modifier = Modifier.weight(1f),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis

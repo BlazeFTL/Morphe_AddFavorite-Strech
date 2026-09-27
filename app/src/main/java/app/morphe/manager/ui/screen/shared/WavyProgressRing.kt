@@ -32,6 +32,8 @@ private val RingStrokeWidth = 10.dp
  * @param accentColor Color of the app the progress belongs to. Without one, or with one too dark or
  *   too light to read as a color, the ring takes the theme's primary.
  * @param amplitude Height of the wave as a share of the most the ring allows, from flat at 0 to full at 1.
+ * @param strokeWidth Thickness of the ring and its track, thinner for a ring small enough to sit
+ *   around an icon.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -41,9 +43,10 @@ fun WavyProgressRing(
     accentColor: Color?,
     modifier: Modifier = Modifier,
     amplitude: Float = 1f,
-    trackColor: Color = MaterialTheme.colorScheme.surfaceContainerHighest
+    trackColor: Color = MaterialTheme.colorScheme.surfaceContainerHighest,
+    strokeWidth: Dp = RingStrokeWidth
 ) {
-    val stroke = with(LocalDensity.current) { Stroke(width = RingStrokeWidth.toPx(), cap = StrokeCap.Round) }
+    val stroke = with(LocalDensity.current) { Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round) }
     val waveHeight = if (rememberAccessibilityEnabled()) 0f else amplitude
     // Eased, since the app's color can land a moment after the ring or change between queued apps
     val color by animateColorAsState(

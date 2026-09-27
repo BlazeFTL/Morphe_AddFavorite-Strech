@@ -1787,7 +1787,10 @@ class PatchBundleRepository(
                             Log.d(tag, "Updating patch bundle: ${bundle.name}")
 
                             activeNamesMap[bundle.uid] = progressLabelFor(bundle)
-                            bundleUpdateProgressFlow.update { it?.copy(activeNames = activeNamesMap.values.toMutableList()) }
+                            val active = activeNamesMap.entries.toMutableList()
+                            bundleUpdateProgressFlow.update {
+                                it?.copy(activeNames = active.map { e -> e.value }, activeUids = active.map { e -> e.key })
+                            }
 
                             val result = try {
                                 val onProgress: PatchBundleDownloadProgress = { bytesRead, bytesTotal ->
@@ -1827,10 +1830,12 @@ class PatchBundleRepository(
                             val nextTotal = currentUpdateTotal(targets.size)
                             val newCompleted = completedCount.incrementAndGet().coerceAtMost(nextTotal)
                             activeNamesMap.remove(bundle.uid)
+                            val stillActive = activeNamesMap.entries.toMutableList()
                             bundleUpdateProgressFlow.update { progress ->
                                 progress?.copy(
                                     completed = newCompleted,
-                                    activeNames = activeNamesMap.values.toMutableList(),
+                                    activeNames = stillActive.map { it.value },
+                                    activeUids = stillActive.map { it.key },
                                 )
                             }
 
@@ -2021,6 +2026,8 @@ class PatchBundleRepository(
         val completed: Int,
         val currentBundleName: String? = null,
         val activeNames: List<String> = emptyList(),
+        /** Sources being downloaded right now, read in the same pass as [activeNames]. */
+        val activeUids: List<Int> = emptyList(),
         val phase: BundleUpdatePhase = BundleUpdatePhase.Checking,
         val bytesRead: Long = 0L,
         val bytesTotal: Long? = null,

@@ -30,7 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -940,6 +939,11 @@ internal fun FilePickerPromptDialog(
                 R.string.home_file_picker_prompt_title
             }
         ),
+        description = if (isOtherApps) {
+            stringResource(R.string.home_select_any_apk_description)
+        } else {
+            htmlAnnotatedString(stringResource(R.string.home_file_picker_prompt_description, appName))
+        },
         footer = {
             AppDialogActions(
                 actions = buildList {
@@ -970,21 +974,7 @@ internal fun FilePickerPromptDialog(
                 layout = DialogButtonLayout.Vertical
             )
         }
-    ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
-        Text(
-            text = if (isOtherApps) {
-                AnnotatedString(stringResource(R.string.home_select_any_apk_description))
-            } else {
-                htmlAnnotatedString(stringResource(R.string.home_file_picker_prompt_description, appName))
-            },
-            style = MaterialTheme.typography.bodyLarge,
-            color = secondaryColor,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 /**
@@ -1011,6 +1001,13 @@ private fun UnsupportedVersionWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_dialog_unsupported_version_dialog_title),
+        description = stringResource(
+            when {
+                isExperimental -> R.string.home_dialog_unsupported_version_experimental_description
+                versionCodeMismatch -> R.string.home_dialog_unsupported_version_build_mismatch_description
+                else -> R.string.home_dialog_unsupported_version_dialog_description
+            }
+        ),
         padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
@@ -1029,19 +1026,6 @@ private fun UnsupportedVersionWarningDialog(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(
-                    when {
-                        isExperimental -> R.string.home_dialog_unsupported_version_experimental_description
-                        versionCodeMismatch -> R.string.home_dialog_unsupported_version_build_mismatch_description
-                        else -> R.string.home_dialog_unsupported_version_dialog_description
-                    }
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center
-            )
-
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
@@ -1149,6 +1133,9 @@ fun InvalidSignatureDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_invalid_signature_title),
+        description = htmlAnnotatedString(
+            stringResource(R.string.home_invalid_signature_message, appName)
+        ),
         footer = {
             AppDialogActions(
                 actions = listOf(
@@ -1175,15 +1162,6 @@ fun InvalidSignatureDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = htmlAnnotatedString(
-                    stringResource(R.string.home_invalid_signature_message, appName)
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
             Notice(
                 text = stringResource(R.string.home_invalid_signature_badge),
                 tone = SemanticTone.Error,
@@ -1207,6 +1185,9 @@ fun SplitApkWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_split_apk_warning_title),
+        description = htmlAnnotatedString(
+            stringResource(R.string.home_split_apk_warning_message, appName)
+        ),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
@@ -1223,15 +1204,6 @@ fun SplitApkWarningDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = htmlAnnotatedString(
-                    stringResource(R.string.home_split_apk_warning_message, appName)
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }
@@ -1249,6 +1221,9 @@ fun ExperimentalVersionWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.morphe_experimental_app_version_dialog_title),
+        description = htmlAnnotatedString(
+            stringResource(R.string.morphe_experimental_app_version_dialog_message, appName)
+        ),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
@@ -1263,15 +1238,6 @@ fun ExperimentalVersionWarningDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = htmlAnnotatedString(
-                    stringResource(R.string.morphe_experimental_app_version_dialog_message, appName)
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }
@@ -1288,6 +1254,7 @@ fun WrongPackageDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_dialog_wrong_package_title),
+        description = stringResource(R.string.home_dialog_wrong_package_description),
         padding = DialogPadding.Compact,
         footer = {
             AppDialogOutlinedButton(
@@ -1297,20 +1264,11 @@ fun WrongPackageDialog(
             )
         }
     ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(R.string.home_dialog_wrong_package_description),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center
-            )
-
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
@@ -1346,6 +1304,14 @@ private fun NoCompatibleVersionsDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_apk_no_compatible_versions_title),
+        description = htmlAnnotatedString(
+            stringResource(
+                R.string.home_apk_no_compatible_versions_message,
+                appName,
+                deviceSdk.androidVersionName(),
+                deviceSdk
+            )
+        ),
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -1359,20 +1325,6 @@ private fun NoCompatibleVersionsDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = htmlAnnotatedString(
-                    stringResource(
-                        R.string.home_apk_no_compatible_versions_message,
-                        appName,
-                        deviceSdk.androidVersionName(),
-                        deviceSdk
-                    )
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }
@@ -1521,10 +1473,11 @@ private fun SelectableVersionListCard(
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontFamily = FontFamily.Monospace,
                                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                color = when {
-                                    isIncompatibleSdk -> LocalDialogTextColor.current
-                                    isSelected -> MaterialTheme.colorScheme.primary
-                                    else -> tags.versionTextColor(LocalDialogTextColor.current)
+                                // Color marks the selection alone, and the badges carry every tag
+                                color = if (isSelected) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    LocalDialogTextColor.current
                                 },
                                 modifier = Modifier
                                     .weight(1f)
@@ -1634,7 +1587,7 @@ private fun VersionListCard(
                             style = MaterialTheme.typography.bodyLarge,
                             fontFamily = FontFamily.Monospace,
                             fontWeight = if (index == recommendedIndex) FontWeight.Bold else FontWeight.Normal,
-                            color = tags.versionTextColor(textColor),
+                            color = textColor,
                             modifier = Modifier.weight(1f),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
@@ -1687,6 +1640,11 @@ fun LowDiskSpaceDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_low_disk_space_dialog_title),
+        description = stringResource(
+            R.string.home_low_disk_space_dialog_message,
+            formatGigabytes(freeBytes),
+            formatGigabytes(thresholdBytes)
+        ),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
@@ -1702,18 +1660,6 @@ fun LowDiskSpaceDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(
-                    R.string.home_low_disk_space_dialog_message,
-                    formatGigabytes(freeBytes),
-                    formatGigabytes(thresholdBytes)
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             Notice(
                 text = stringResource(R.string.home_low_disk_space_dialog_warning),
                 tone = SemanticTone.Warning,
@@ -1736,6 +1682,7 @@ fun MeteredPatchingDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.home_outdated_patches_dialog_title),
+        description = stringResource(R.string.home_outdated_patches_dialog_message),
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -1762,14 +1709,6 @@ fun MeteredPatchingDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(R.string.home_outdated_patches_dialog_message),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             Notice(
                 text = stringResource(R.string.home_outdated_patches_dialog_warning),
                 tone = SemanticTone.Warning,
@@ -1909,6 +1848,7 @@ fun MppImportDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.deep_link_add_source_title),
+        description = stringResource(R.string.deep_link_add_source_message),
         padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
@@ -1925,15 +1865,6 @@ fun MppImportDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Message
-            Text(
-                text = stringResource(R.string.deep_link_add_source_message),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             // Bundle details card
             Surface(
                 shape = RoundedCornerShape(Defaults.CompactCornerRadius),
@@ -2196,6 +2127,7 @@ fun Android11Dialog(
     AppDialog(
         onDismissRequest = onDismissRequest,
         title = stringResource(R.string.android_11_bug_dialog_title),
+        description = stringResource(R.string.android_11_bug_dialog_description),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.continue_),
@@ -2204,15 +2136,7 @@ fun Android11Dialog(
                 onSecondaryClick = onDismissRequest
             )
         }
-    ) {
-        Text(
-            text = stringResource(R.string.android_11_bug_dialog_description),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 private fun buildVersionSuffix(version: String, versionCode: Long?): String =

@@ -144,6 +144,10 @@ fun ExpertModeDialog(
     val allPatches = remember(allPatchesInfo) { allPatchesInfo.flatMap { (_, patches) -> patches.map { it.first } } }
     val matchesPatch = rememberPatchMatcher(search.query, allPatches)
     val appColor = remember(allPatches, packageName) { allPatches.asSequence().appColorFor(packageName) }
+    // The app by the best name at hand, which heads this dialog and the options dialogs opened from it
+    val headerTitle = appName
+        ?: allPatchesInfo.firstNotNullOfOrNull { (bundle, _) -> bundle.displayName }
+        ?: packageName
     val sourcesByUid = rememberSourcesByUid()
 
     // The two filters stack: either can narrow what the other left. Keyed by bundle and in bundle
@@ -232,19 +236,17 @@ fun ExpertModeDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             Column {
-                // Headed by the app, as its other dialogs are. A lone source joins the subtitle rather
-                // than taking a row of its own, while several get their tabs below
+                // Headed by the app, as its other dialogs are. A lone source takes the subtitle's
+                // second line rather than a row of its own, while several get their tabs below
                 ListDialogHeader(
                     icon = { modifier ->
                         AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
                     },
-                    title = appName
-                        ?: allPatchesInfo.firstNotNullOfOrNull { (bundle, _) -> bundle.displayName }
-                        ?: packageName,
+                    title = headerTitle,
                     subtitle = listOfNotNull(
                         stringResource(R.string.expert_mode_title),
                         allPatchesInfo.singleOrNull()?.first?.name
-                    ).joinToString(" · "),
+                    ).joinToString("\n"),
                     search = search,
                     searchLabel = searchLabel,
                     accentColor = appColor
@@ -252,6 +254,20 @@ fun ExpertModeDialog(
                     // The counter already stands for the selection, so it doubles as the way to filter
                     // the list down to it
                     val badgeTone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
+                    // In the header's color like the search beside it: tinted while it counts,
+                    // filled while it filters
+                    val accent = LocalTitleActionAccent.current
+                    val badgeContainer = when {
+                        accent == null -> if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container
+                        isSelectedOnly -> accent
+                        totalSelectedCount > 0 -> accent.copy(alpha = APP_ACCENT_LEAD_ALPHA)
+                        else -> accent.copy(alpha = APP_ACCENT_STEP_ALPHA)
+                    }
+                    val badgeContent = when {
+                        accent != null -> appAccentContent(badgeContainer)
+                        isSelectedOnly -> MaterialTheme.colorScheme.onPrimary
+                        else -> badgeTone.content
+                    }
                     // Still switchable off after the last patch is unticked under the filter
                     val canFilter = totalSelectedCount > 0 || isSelectedOnly
                     val filterState = stringResource(
@@ -268,8 +284,8 @@ fun ExpertModeDialog(
                         icon = Icons.Outlined.FilterAlt.takeIf { canFilter },
                         tone = badgeTone,
                         // Filled rather than tonal while filtering, so the narrowed list has a visible cause
-                        containerColor = if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container,
-                        contentColor = if (isSelectedOnly) MaterialTheme.colorScheme.onPrimary else badgeTone.content,
+                        containerColor = badgeContainer,
+                        contentColor = badgeContent,
                         onClick = if (canFilter) {
                             { toggleSelectedOnly() }
                         } else {
@@ -538,6 +554,9 @@ fun ExpertModeDialog(
         val missingOptionsMessage = stringResource(R.string.patch_option_required_missing, patch.displayName)
         PatchOptionsDialog(
             patch = patch,
+            packageName = packageName,
+            appName = headerTitle,
+            accentColor = appColor,
             isDefaultBundle = bundleUid == 0,
             values = options[bundleUid]?.get(patch.name),
             onValueChange = { key, value ->
@@ -555,8 +574,6 @@ fun ExpertModeDialog(
             }
         )
     }
-
-    TranslationOverlays()
 }
 
 /**
@@ -588,13 +605,10 @@ private fun SourceTab(
         selected = selected,
         onClick = onClick,
         // The row lays tabs edge to edge, so the gap between the pills comes from each one's end,
-        // which leaves the first flush with the list below
+        // which leaves the first flush with the list below. Nothing above or below, so the row
+        // keeps the same spacing to the header and the controls as a lone source's layout does
         modifier = Modifier
-            .padding(
-                top = Defaults.ContentPaddingSmall,
-                bottom = Defaults.ContentPaddingSmall,
-                end = Defaults.ContentPaddingSmall
-            )
+            .padding(end = Defaults.ContentPaddingSmall)
             .clip(Defaults.PillShape)
             .background(fill),
         selectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -765,7 +779,9 @@ private fun BundlePatchList(
 
     LazyColumn(
         state = listState,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScrollFade(listState),
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
         if (bundle.uid in markers.prereleaseNotices) prereleaseNotice()

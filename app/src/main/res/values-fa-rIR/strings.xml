@@ -162,8 +162,6 @@
     <string name="sources_dialog_rename">تغییر نام منبع پچ</string>
     <string name="sources_dialog_duplicate_name_error">یک منبع پچ با این نام قبلا وجود دارد</string>
     <string name="sources_dialog_missing_error">نتوانستم منبع این پچ را به روزرسانی کنم</string>
-    <string name="sources_dialog_view_any_version">هر نسخه ای</string>
-    <string name="sources_dialog_view_any_package">هر بسته ای</string>
     <string name="sources_dialog_add_source">افزودن منبع پچ</string>
     <string name="sources_dialog_delete_confirm_message">حذف منبع  «%s» ؟ این قابل بازگشت نیست</string>
     <string name="sources_dialog_remote">از راه دور</string>
@@ -269,7 +267,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">حالت متخصص</string>
     <string name="expert_mode_search">جستجوی پچ ها</string>
-    <string name="expert_mode_proceed">ادامه برای اعمال پچ</string>
     <string name="expert_mode_disable_all">غیرفعال کردن همه</string>
     <string name="expert_mode_disable_all_done">همهٔ پچ‌ها غیرفعال شدند</string>
     <string name="expert_mode_enable_all">فعال کردن همه</string>
@@ -1146,7 +1143,6 @@ morphe_header_custom_dark.png
     <string name="disable">غیرفعال‌کردن</string>
     <string name="enable">فعال‌کردن</string>
     <string name="loading">در حال بارگذاری…</string>
-    <string name="loading_older_releases">در حال بارگذاری نسخه‌های قدیمی‌تر…</string>
     <string name="creating">در حال ساخت…</string>
     <string name="processing_apk">در حال پردازش APK…</string>
     <string name="exporting_apks">در حال خروجی‌گرفتن از APKها…</string>
@@ -1189,6 +1185,7 @@ morphe_header_custom_dark.png
     <string name="continue_">ادامه</string>
     <string name="version">نسخه</string>
     <string name="clone">کلون</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">پچ</string>
     <string name="patching">در حال پچ‌کردن</string>
     <string name="patched">پچ‌شده</string>
@@ -1227,8 +1224,12 @@ morphe_header_custom_dark.png
     <string name="whats_new">چه خبر؟</string>
     <string name="changelog_download_fail">دانلود تغییرات نسخه ناموفق بود: %s</string>
     <string name="changelog_empty">تغییراتی در دسترس نیست</string>
-    <string name="changelog_show_older">نمایش نسخه‌های قدیمی‌تر</string>
     <string name="changelog_older_empty">نسخهٔ قدیمی‌تری برای نمایش نیست</string>
+    <string name="content_translate">ترجمه</string>
+    <string name="content_show_original">نمایش متن اصلی</string>
+    <string name="changelog_section_new">جدید</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <string name="no_network_toast">اتصال اینترنتی در دسترس نیست</string>
     <string name="update_available">به‌روزرسانی در دسترس است</string>
     <string name="ready_to_install_update">به‌روزرسانی آمادهٔ نصب است</string>

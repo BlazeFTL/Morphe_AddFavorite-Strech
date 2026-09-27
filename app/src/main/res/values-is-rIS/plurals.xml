@@ -92,4 +92,20 @@
         <item quantity="one">%s kjarni</item>
         <item quantity="other">%s kjarnar</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s nýtt</item>
+        <item quantity="other">%s ný</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s lagfæring</item>
+        <item quantity="other">%s lagfæringar</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s breyting</item>
+        <item quantity="other">%s breytingar</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s ný útgáfa</item>
+        <item quantity="other">%s nýjar útgáfur</item>
+    </plurals>
 </resources>

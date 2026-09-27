@@ -80,8 +80,11 @@ fun ImportExportSection(
     if (showSettingsDialog) {
         ImportExportDialog(
             title = stringResource(R.string.settings_system_morphe_settings),
-            // The sections below say what the backup holds, which is all the row's subtitle said
-            description = null,
+            // The sections below say what the backup holds, so this says the one thing no settings
+            // backup carries: moving to a new phone with only this file would otherwise look like
+            // a complete backup. Held above the list, a list taller than the screen cannot push
+            // it out of sight
+            description = stringResource(R.string.settings_system_backup_signing_key_note),
             onImport = onImportSettings,
             onExport = onExportSettings,
             onDismiss = { showSettingsDialog = false },
@@ -141,6 +144,7 @@ private fun ImportExportDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = title,
+        description = description,
         footer = {
             ImportExportFooter(
                 onImport = onImport,
@@ -152,16 +156,6 @@ private fun ImportExportDialog(
         }
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            description?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = LocalDialogSecondaryTextColor.current,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
             content()
         }
     }
@@ -234,25 +228,12 @@ private fun SigningKeyPreview(key: SigningKeyInfo) {
     }
 }
 
-/**
- * Sections of the settings a backup moves, picked the same way for both directions, under a note
- * on the one thing no settings backup carries: moving to a new phone with only this file would
- * otherwise look like a complete backup. The note leads so a list taller than the screen cannot
- * push it out of sight.
- */
+/** Sections of the settings a backup moves, picked the same way for both directions. */
 @Composable
 private fun SettingsBackupContents(
     selected: Set<SettingsSection>,
     onToggle: (SettingsSection) -> Unit
 ) {
-    Text(
-        text = stringResource(R.string.settings_system_backup_signing_key_note),
-        style = MaterialTheme.typography.bodyMedium,
-        color = LocalDialogSecondaryTextColor.current,
-        textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth()
-    )
-
     Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
         SettingsSection.entries.forEach { section ->
             val isSelected = section in selected

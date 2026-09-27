@@ -142,7 +142,6 @@
     <string name="sources_management_report_issue">Докладвай за проблем</string>
     <string name="sources_management_failed_to_open_url">Неуспешно отваряне на URL</string>
     <string name="sources_apps">Приложения</string>
-    <string name="sources_apps_title">Приложения от %1$s</string>
     <string name="sources_apps_description">Докоснете приложение, за да го изключите от този източник или да го върнете, или докоснете продължително, за да изберете няколко. Приложението напуска началния екран, след като нито един източник не го включва.</string>
     <string name="sources_apps_brought">Включени от този източник</string>
     <string name="sources_apps_left_out">Изключени от този източник</string>
@@ -175,8 +174,6 @@
     <string name="sources_dialog_rename">Преименуване на източник</string>
     <string name="sources_dialog_duplicate_name_error">Източник с това име вече съществува</string>
     <string name="sources_dialog_missing_error">Не може да се обнови този източник на патча</string>
-    <string name="sources_dialog_view_any_version">Всяка версия</string>
-    <string name="sources_dialog_view_any_package">Всяко пакети</string>
     <string name="sources_dialog_add_source">Добавяне на източник</string>
     <string name="sources_dialog_delete_confirm_message">Изтриване на източника \"%s\"? Това не може да се върне.</string>
     <string name="sources_dialog_remote">Удален</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Режим на експерт</string>
     <string name="expert_mode_search">Търсене на пачове</string>
-    <string name="expert_mode_proceed">Продължете към поправянето</string>
     <string name="expert_mode_disable_all">Изключи всички</string>
     <string name="expert_mode_disable_all_done">Всички корекции са деактивирани</string>
     <string name="expert_mode_enable_all">Включи всички</string>
@@ -1201,7 +1197,6 @@ morphe_header_custom_dark.png
     <string name="disable">Деактивирай</string>
     <string name="enable">Активирай</string>
     <string name="loading">Зареждане…</string>
-    <string name="loading_older_releases">Зареждане на по-стари версии…</string>
     <string name="creating">Създаване…</string>
     <string name="processing_apk">Обработване на APK…</string>
     <string name="exporting_apks">Експортиране на APK файлове…</string>
@@ -1244,6 +1239,7 @@ morphe_header_custom_dark.png
     <string name="continue_">Toast</string>
     <string name="version">New downloader plugins available. Click here to configure them.</string>
     <string name="clone">Клониране</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Пач</string>
     <string name="patching">Закърпване</string>
     <string name="patched">Пачвани</string>
@@ -1283,8 +1279,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">Какво ново има в тази версия</string>
     <string name="changelog_download_fail">Неуспешно сваляне на дневника на промените: %s</string>
     <string name="changelog_empty">Няма налични промени</string>
-    <string name="changelog_show_older">Показване на по-стари версии</string>
+    <string name="changelog_earlier_releases">По-ранни версии</string>
     <string name="changelog_older_empty">Няма по-стари издания за показване</string>
+    <string name="changelog_older_failed">Неуспешно зареждане на по-стари версии</string>
+    <string name="changelog_release_page">Страница на версията</string>
+    <string name="content_translate">Преведи</string>
+    <string name="content_show_original">Покажи оригинала</string>
+    <string name="content_translation_failed">Неуспешен превод: %s</string>
+    <string name="changelog_section_new">Ново</string>
+    <string name="changelog_section_fixes">Корекции</string>
+    <string name="changelog_section_performance">Производителност</string>
+    <string name="changelog_section_improvements">Подобрения</string>
+    <string name="changelog_section_app_support">Поддръжка на приложението</string>
+    <string name="changelog_section_other">Промени</string>
+    <string name="changelog_badge_latest">Най-нова</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">В употреба</string>
+    <string name="changelog_badge_prerelease">Предварителна версия</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Покажи всички (%s)</string>
+    <string name="changelog_show_less">Покажи по-малко</string>
     <string name="no_network_toast">Няма достъп до интернет</string>
     <string name="update_available">Налично е актуализиране</string>
     <string name="ready_to_install_update">Готово за инсталиране на актуализиране</string>

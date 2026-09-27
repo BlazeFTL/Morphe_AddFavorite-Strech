@@ -151,8 +151,6 @@
     <string name="sources_dialog_rename">Ji bo guherîna çavkaniyê navê nû</string>
     <string name="sources_dialog_duplicate_name_error">Çavkaniyek bi vana navê berê heye</string>
     <string name="sources_dialog_missing_error">Niwia nûvekirin bilîxe</string>
-    <string name="sources_dialog_view_any_version">Her versiyon</string>
-    <string name="sources_dialog_view_any_package">Her pakêt</string>
     <string name="sources_dialog_add_source">Çavkaniyê zêde bike</string>
     <string name="sources_dialog_delete_confirm_message">Dermanî çavkaniyê \"%s\" bifirîne?  Ev neyê vegerandin.</string>
     <string name="sources_dialog_remote">Dûr</string>
@@ -256,7 +254,6 @@ Her tiştê ku hûn ji vê malperê zêde dikin bi xetereya we tê bikaranîn."<
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Ferman ekspertê</string>
     <string name="expert_mode_search">Paqejî bîne lêgeran</string>
-    <string name="expert_mode_proceed">Bela serîyê berêşî bibe</string>
     <string name="expert_mode_disable_all">Hemû çêbake</string>
     <string name="expert_mode_disable_all_done">Hemû pelikên guherînê neçalak hatin kirin</string>
     <string name="expert_mode_enable_all">Hemû çêbakîne</string>
@@ -1083,7 +1080,6 @@ Detay: %2$s"</string>
     <string name="disable">Neçêbigîne</string>
     <string name="enable">Çêbigîne</string>
     <string name="loading">Bar kirin…</string>
-    <string name="loading_older_releases">Verasyonên kevnertir tê barkirin…</string>
     <string name="creating">Çêkirin…</string>
     <string name="processing_apk">APK-ê pêş de çêdike…</string>
     <string name="exporting_apks">APK-yê derxîne…</string>
@@ -1125,6 +1121,7 @@ Detay: %2$s"</string>
     <string name="continue_">Domîne</string>
     <string name="version">Versiyon</string>
     <string name="clone">Klon</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Dîrok</string>
     <string name="patching">Patchkirin</string>
     <string name="patched">Patchkirî</string>
@@ -1158,8 +1155,9 @@ Detay: %2$s"</string>
     <string name="changelog">Bixweyne guhezgarîyan</string>
     <string name="changelog_download_fail">Degerandina guhezgarîyan ji destûr ve çû: %s</string>
     <string name="changelog_empty">Nê ji ber ku wê bigihîne</string>
-    <string name="changelog_show_older">Nîşan bide berhemên keviner</string>
     <string name="changelog_older_empty">Tu berhemên keviner tune ne ku bên nîşandan</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <string name="no_network_toast">Girêdayî pêşbaziyê nîne</string>
     <string name="update_available">Nûvekirin heye</string>
     <string name="ready_to_install_update">Amade ye ku nûvekirin saz bike</string>

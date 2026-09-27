@@ -92,4 +92,20 @@
         <item quantity="one">%s ядро</item>
         <item quantity="other">%s ядра</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s ново</item>
+        <item quantity="other">%s нови</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s поправка</item>
+        <item quantity="other">%s поправки</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s промяна</item>
+        <item quantity="other">%s промени</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s нова версия</item>
+        <item quantity="other">%s нови версии</item>
+    </plurals>
 </resources>

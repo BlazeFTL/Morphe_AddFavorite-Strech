@@ -54,8 +54,6 @@
     <!-- Home Screen - Sources Dialogs -->
     <string name="sources_dialog_display_name">પ્રદર્શિત નામ</string>
     <string name="sources_dialog_rename">પેચ સ્રોતનું નામ બદલો</string>
-    <string name="sources_dialog_view_any_version">કોઈપણ સંસ્કરણ</string>
-    <string name="sources_dialog_view_any_package">કોઈપણ પેકેજ</string>
     <string name="sources_dialog_add_source">પેચ સ્રોત ઉમેરો</string>
     <string name="sources_dialog_remote">દૂરસ્થ</string>
     <string name="sources_dialog_remote_url">સ્રોત URL</string>
@@ -249,6 +247,9 @@ morphe_header_custom_dark.png
     <string name="settings">સેટિંગ્સ</string>
     <string name="search">શોધો</string>
     <string name="search_no_results">કોઈ પરિણામ મળ્યું નથી.</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

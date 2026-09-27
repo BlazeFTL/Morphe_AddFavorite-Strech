@@ -92,4 +92,20 @@
         <item quantity="one">%s कोर</item>
         <item quantity="other">%s कोर</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s नया</item>
+        <item quantity="other">%s नए</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s सुधार</item>
+        <item quantity="other">%s सुधार</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s बदलाव</item>
+        <item quantity="other">%s बदलाव</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s नई रिलीज़</item>
+        <item quantity="other">%s नई रिलीज़ें</item>
+    </plurals>
 </resources>

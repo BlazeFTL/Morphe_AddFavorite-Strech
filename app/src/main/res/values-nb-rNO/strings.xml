@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Rapporter et problem</string>
     <string name="sources_management_failed_to_open_url">Kunne ikke åpne linken</string>
     <string name="sources_apps">Apper</string>
-    <string name="sources_apps_title">Apper fra %1$s</string>
     <string name="sources_apps_description">Trykk på en app for å utelate den fra denne kilden eller ta den inn igjen, eller trykk og hold for å velge flere. En app forsvinner fra startskjermen når ingen kilde lenger tar den inn.</string>
     <string name="sources_apps_brought">Levert av denne kilden</string>
     <string name="sources_apps_left_out">Utelatt fra denne kilden</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Gi nytt navn til patchkilde</string>
     <string name="sources_dialog_duplicate_name_error">En patchkilde med dette navnet finnes allerede</string>
     <string name="sources_dialog_missing_error">Kunne ikke oppdatere denne patch-kilden</string>
-    <string name="sources_dialog_view_any_version">Hvilken som helst versjon</string>
-    <string name="sources_dialog_view_any_package">Hvilken som helst pakke</string>
     <string name="sources_dialog_add_source">Legg til patchkilde</string>
     <string name="sources_dialog_delete_confirm_message">Slett kilde \"%s\"? Dette kan ikke angres</string>
     <string name="sources_dialog_remote">Ekstern</string>
@@ -283,7 +280,6 @@ Alt som legges til fra denne nettsiden brukes på egen risiko"</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Ekspertmodus</string>
     <string name="expert_mode_search">Søk etter patcher</string>
-    <string name="expert_mode_proceed">Fortsett til patching</string>
     <string name="expert_mode_disable_all">Deaktiver alle</string>
     <string name="expert_mode_disable_all_done">Alle patcher deaktivert</string>
     <string name="expert_mode_enable_all">Aktiver alle</string>
@@ -1201,7 +1197,6 @@ Detaljer: %2$s"</string>
     <string name="disable">Deaktiver</string>
     <string name="enable">Aktiver</string>
     <string name="loading">Laster…</string>
-    <string name="loading_older_releases">Laster inn eldre versjoner…</string>
     <string name="creating">Opprettes…</string>
     <string name="processing_apk">Behandler APK…</string>
     <string name="exporting_apks">Eksporterer APK-er…</string>
@@ -1244,6 +1239,7 @@ Detaljer: %2$s"</string>
     <string name="continue_">Fortsett</string>
     <string name="version">Versjon</string>
     <string name="clone">Klon</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>
     <string name="patching">Patching</string>
     <string name="patched">Patchet</string>
@@ -1283,8 +1279,26 @@ Detaljer: %2$s"</string>
     <string name="changelog_description">Hva er nytt i denne versjonen</string>
     <string name="changelog_download_fail">Kunne ikke laste ned endringslogg: %s</string>
     <string name="changelog_empty">Ingen endringslogg tilgjengelig</string>
-    <string name="changelog_show_older">Vis eldre utgivelser</string>
+    <string name="changelog_earlier_releases">Tidligere utgivelser</string>
     <string name="changelog_older_empty">Ingen eldre utgivelser å vise</string>
+    <string name="changelog_older_failed">Kunne ikke laste inn eldre utgivelser</string>
+    <string name="changelog_release_page">Utgivelsesside</string>
+    <string name="content_translate">Oversett</string>
+    <string name="content_show_original">Vis original</string>
+    <string name="content_translation_failed">Kunne ikke oversette: %s</string>
+    <string name="changelog_section_new">Nye</string>
+    <string name="changelog_section_fixes">Feilrettinger</string>
+    <string name="changelog_section_performance">Ytelse</string>
+    <string name="changelog_section_improvements">Forbedringer</string>
+    <string name="changelog_section_app_support">App-støtte</string>
+    <string name="changelog_section_other">Endringer</string>
+    <string name="changelog_badge_latest">Siste</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">I bruk</string>
+    <string name="changelog_badge_prerelease">Forhåndsutgivelse</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Vis alle (%s)</string>
+    <string name="changelog_show_less">Vis mindre</string>
     <string name="no_network_toast">Ingen internettforbindelse tilgjengelig</string>
     <string name="update_available">En oppdatering er tilgjengelig</string>
     <string name="ready_to_install_update">Klar til å installere oppdatering</string>

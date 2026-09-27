@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.patcher
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -76,8 +77,11 @@ import app.morphe.manager.ui.screen.patcher.game.MiniGameContent
 import app.morphe.manager.ui.screen.patcher.game.MiniGameState
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.theme.MorpheBrandBlue
+import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.util.formatBytesForReport
 import app.morphe.manager.util.isRtl
+import app.morphe.manager.util.lighten
 import app.morphe.manager.util.startToEndGradient
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
@@ -88,11 +92,9 @@ internal val PatcherCardPadding = 10.dp
 /** What a card's own margin and the surrounding list each contribute to that same inset. */
 internal val PatcherCardMargin = PatcherCardPadding / 2
 
-/** Brand blue - start of the progress gradient. */
-private val PatcherProgressBlueColor = Color(0xFF1E5AA8)
 
-/** Brand teal - used for the live indicator dot, step pipeline, progress bar end, and success state. */
-private val PatcherProgressTealColor = Color(0xFF00AFAE)
+/** How far toward white an app's color runs by the end of the progress bar. */
+private const val PROGRESS_ACCENT_LIGHTEN = 0.35f
 
 sealed interface LogItem {
     /**
@@ -504,16 +506,16 @@ private fun ExpertProgressHeader(
                     }
 
                     if (total > 0) {
-                        // A finished run wears the same teal the success card and the progress bar end on
+                        // A finished run wears the same teal as the success card
                         StatusBadge(
                             text = stringResource(R.string.patcher_patches_progress_format, completed, total),
                             containerColor = if (patcherSucceeded == true) {
-                                PatcherProgressTealColor.copy(alpha = 0.18f)
+                                MorpheBrandTeal.copy(alpha = 0.18f)
                             } else {
                                 SemanticTone.Primary.container
                             },
                             contentColor = if (patcherSucceeded == true) {
-                                PatcherProgressTealColor
+                                MorpheBrandTeal
                             } else {
                                 SemanticTone.Primary.content
                             }
@@ -527,7 +529,10 @@ private fun ExpertProgressHeader(
                 }
             }
 
-            ExpertLinearProgressBar(progress = progress)
+            ExpertLinearProgressBar(
+                progress = progress,
+                accentColor = packageName?.let { rememberAppColor(it) }
+            )
         }
 
         // Heap, CPU and storage graphs
@@ -540,20 +545,31 @@ private fun ExpertProgressHeader(
 }
 
 /**
- * Horizontal progress bar with a gradient fill.
+ * Horizontal progress bar with a gradient fill, from the color of the app being patched to a lighter
+ * shade of it. An app without a usable color gets the brand blue to teal instead.
+ *
+ * [progress] arrives already eased by [rememberDisplayedPatchProgress], so the bar draws it as is and
+ * keeps level with the percentage beside it.
  */
 @Composable
-private fun ExpertLinearProgressBar(progress: Float) {
-    val animated by animateFloatAsState(
-        targetValue = progress,
-        animationSpec = tween(700, easing = FastOutSlowInEasing),
-        label = "expert_linear_progress"
+private fun ExpertLinearProgressBar(progress: Float, accentColor: Color?) {
+    // Eased, since the app's color can land a moment after the bar or change between queued apps
+    val accent = usableAppAccent(accentColor)
+    val startColor by animateColorAsState(
+        targetValue = accent ?: MorpheBrandBlue,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "expert_progress_start"
+    )
+    val endColor by animateColorAsState(
+        targetValue = accent?.lighten(PROGRESS_ACCENT_LIGHTEN) ?: MorpheBrandTeal,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "expert_progress_end"
     )
 
     // The fill grows from the start edge, so the sweep has to follow it and run end to start in RTL
     val rtl = isRtl()
-    val fillBrush = remember(rtl) {
-        startToEndGradient(listOf(PatcherProgressBlueColor, PatcherProgressTealColor), rtl)
+    val fillBrush = remember(rtl, startColor, endColor) {
+        startToEndGradient(listOf(startColor, endColor), rtl)
     }
 
     Box(
@@ -566,7 +582,7 @@ private fun ExpertLinearProgressBar(progress: Float) {
         Box(
             modifier = Modifier
                 .fillMaxHeight()
-                .fillMaxWidth(fraction = animated.coerceIn(0f, 1f))
+                .fillMaxWidth(fraction = progress.coerceIn(0f, 1f))
                 .clip(RoundedCornerShape(5.dp))
                 .background(fillBrush)
         )
@@ -760,11 +776,11 @@ private fun PatcherInfoCard(
 ) {
     val accentColor = when (variant) {
         CardVariant.Start   -> MaterialTheme.colorScheme.primary
-        CardVariant.Success -> PatcherProgressTealColor
+        CardVariant.Success -> MorpheBrandTeal
     }
     val bgColor = when (variant) {
         CardVariant.Start   -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
-        CardVariant.Success -> PatcherProgressTealColor.copy(alpha = 0.10f)
+        CardVariant.Success -> MorpheBrandTeal.copy(alpha = 0.10f)
     }
 
     Surface(
@@ -1102,9 +1118,9 @@ private fun logLevelColors(level: LogLevel): LogEntryColors = when (level) {
         text    = MaterialTheme.colorScheme.error
     )
     LogLevel.WARN -> LogEntryColors(
-        rowBg   = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.12f),
-        badgeBg = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-        text    = MaterialTheme.colorScheme.tertiary
+        rowBg   = SemanticTone.Warning.container.copy(alpha = 0.12f),
+        badgeBg = SemanticTone.Warning.container.copy(alpha = 0.5f),
+        text    = SemanticTone.Warning.accent
     )
     LogLevel.INFO -> LogEntryColors(
         rowBg   = Color.Unspecified,
@@ -1153,7 +1169,7 @@ private fun LiveIndicatorDot(size: Dp = 8.dp, isLive: Boolean = true) {
         modifier = Modifier
             .size(size)
             .drawBehind {
-                drawCircle(color = PatcherProgressTealColor.copy(alpha = alpha.value))
+                drawCircle(color = MorpheBrandTeal.copy(alpha = alpha.value))
             }
     )
 }

@@ -2,11 +2,14 @@ package app.morphe.manager.patcher.util
 
 import android.os.Build
 import android.util.Log
+import app.morphe.manager.domain.apk.ApkFileStamp
+import app.morphe.manager.domain.apk.apkFileStampOrNull
 import app.morphe.manager.patcher.logger.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.InputStream
+import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
@@ -14,6 +17,11 @@ import java.util.zip.ZipOutputStream
 
 object NativeLibStripper {
     private const val TAG = "Morphe NativeLibStripper"
+
+    // Screens listing saved APKs ask for the same files every time they open, and walking the
+    // central directory of an APK hundreds of megabytes large is what makes them slow to fill.
+    // Keyed by path, so a file rewritten in place replaces its entry rather than adding one
+    private val abiCache = ConcurrentHashMap<String, Pair<ApkFileStamp, List<String>>>()
 
     suspend fun strip(apkFile: File, logger: Logger? = null): Boolean =
         strip(apkFile, Build.SUPPORTED_ABIS.filter { it.isNotBlank() }, logger)
@@ -117,8 +125,12 @@ object NativeLibStripper {
         return name.substring(4, secondSlash)
     }
 
-    fun extractAbisFromApk(apkFile: File): List<String> =
-        runCatching {
+    /** The ABIs [apkFile] ships native libraries for, read once until the file changes. */
+    fun extractAbisFromApk(apkFile: File): List<String> {
+        val stamp = apkFile.apkFileStampOrNull() ?: return emptyList()
+        abiCache[stamp.path]?.takeIf { it.first == stamp }?.let { return it.second }
+
+        return runCatching {
             ZipFile(apkFile).use { zip ->
                 zip.entries().asSequence()
                     .map { it.name }
@@ -126,7 +138,11 @@ object NativeLibStripper {
                     .distinct()
                     .toList()
             }
+        }.onSuccess { abis ->
+            // Only the revision that was read, so a file rewritten meanwhile is read again
+            if (apkFile.apkFileStampOrNull() == stamp) abiCache[stamp.path] = stamp to abis
         }.getOrDefault(emptyList())
+    }
 
     /**
      * The same answer as [extractAbisFromApk] for an APK that arrives on [stream], which is how

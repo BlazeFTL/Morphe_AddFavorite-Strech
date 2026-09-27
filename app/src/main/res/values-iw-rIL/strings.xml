@@ -142,7 +142,6 @@
     <string name="sources_management_report_issue">דווח על בעיה</string>
     <string name="sources_management_failed_to_open_url">כישלון בפתיחת כתובת אינטרנט</string>
     <string name="sources_apps">אפליקציות</string>
-    <string name="sources_apps_title">אפליקציות מ-%1$s</string>
     <string name="sources_apps_description">הקישו על אפליקציה כדי להחריג אותה מהמקור הזה או להחזיר אותה, או לחצו לחיצה ארוכה כדי לבחור כמה. אפליקציה נעלמת ממסך הבית ברגע שאף מקור לא מספק אותה.</string>
     <string name="sources_apps_brought">מסופקות על ידי המקור הזה</string>
     <string name="sources_apps_left_out">הוחרגו מהמקור הזה</string>
@@ -175,8 +174,6 @@
     <string name="sources_dialog_rename">שנה את שם מקור התיקונים</string>
     <string name="sources_dialog_duplicate_name_error">יש כבר מקור תיקונים עם שם זה</string>
     <string name="sources_dialog_missing_error">עדכון מקור התיקונים הזה נכשל</string>
-    <string name="sources_dialog_view_any_version">כל גרסה</string>
-    <string name="sources_dialog_view_any_package">כל חבילה</string>
     <string name="sources_dialog_add_source">הוסף תצוג</string>
     <string name="sources_dialog_delete_confirm_message">מחק את מקור \"%s\"? זה לא ניתן לשחזר</string>
     <string name="sources_dialog_remote">רחוק</string>
@@ -284,7 +281,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">מצב מומחה</string>
     <string name="expert_mode_search">חפש תיקונים</string>
-    <string name="expert_mode_proceed">התקדמו לתיקון</string>
     <string name="expert_mode_disable_all">השבת את כולם</string>
     <string name="expert_mode_disable_all_done">כל התיקונים מושבתים</string>
     <string name="expert_mode_enable_all">הפעל את כולם</string>
@@ -1212,7 +1208,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="disable">השבת</string>
     <string name="enable">הפעל</string>
     <string name="loading">טוען…</string>
-    <string name="loading_older_releases">טוען גרסאות ישנות…</string>
     <string name="creating">יוצר…</string>
     <string name="processing_apk">מעבד APK…</string>
     <string name="exporting_apks">מייצא APK…</string>
@@ -1255,6 +1250,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="continue_">המשך</string>
     <string name="version">גרסה</string>
     <string name="clone">שכפול</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">תיקון</string>
     <string name="patching">מתקן</string>
     <string name="patched">מתוקנות</string>
@@ -1294,8 +1290,26 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="changelog_description">מה חדש בגרסה זו</string>
     <string name="changelog_download_fail">שגיאה בהורדת היסטוריית שינויים: %s</string>
     <string name="changelog_empty">אין תיקון זמין</string>
-    <string name="changelog_show_older">הצגת גרסאות ישנות יותר</string>
+    <string name="changelog_earlier_releases">מהדורות קודמות</string>
     <string name="changelog_older_empty">אין גרסאות ישנות יותר להצגה</string>
+    <string name="changelog_older_failed">לא ניתן היה לטעון מהדורות ישנות יותר</string>
+    <string name="changelog_release_page">דף המהדורה</string>
+    <string name="content_translate">תרגם</string>
+    <string name="content_show_original">הצג מקור</string>
+    <string name="content_translation_failed">התרגום נכשל: %s</string>
+    <string name="changelog_section_new">חדש</string>
+    <string name="changelog_section_fixes">תיקונים</string>
+    <string name="changelog_section_performance">ביצועים</string>
+    <string name="changelog_section_improvements">שיפורים</string>
+    <string name="changelog_section_app_support">תמיכה באפליקציות</string>
+    <string name="changelog_section_other">שינויים</string>
+    <string name="changelog_badge_latest">העדכנית ביותר</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">בשימוש</string>
+    <string name="changelog_badge_prerelease">טרום-שחרור</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">הצג הכול (%s)</string>
+    <string name="changelog_show_less">הצג פחות</string>
     <string name="no_network_toast">אין חיבור אינטרנט זמין</string>
     <string name="update_available">עדכון זמין</string>
     <string name="ready_to_install_update">מוכן להתקנת עדכון</string>

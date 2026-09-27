@@ -92,4 +92,20 @@
         <item quantity="one">%s kern</item>
         <item quantity="other">%s kernen</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s nieuwe</item>
+        <item quantity="other">%s nieuwe</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s oplossing</item>
+        <item quantity="other">%s oplossingen</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s wijziging</item>
+        <item quantity="other">%s wijzigingen</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s nieuwe release</item>
+        <item quantity="other">%s nieuwe releases</item>
+    </plurals>
 </resources>

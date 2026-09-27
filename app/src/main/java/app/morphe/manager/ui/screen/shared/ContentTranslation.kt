@@ -23,18 +23,16 @@ import app.morphe.manager.util.toast
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
-/** How many translations a prefetch finishes before it lets searches see them. */
-private const val PREFETCH_BATCH = 20
+/** How many texts a prefetch translates before it lets searches see them. */
+private const val PREFETCH_BATCH = 50
 
 /**
- * Translation of changelogs and patch descriptions into the app language: the model download, the
- * consent it needs on a metered network, and the translation itself. One for the whole app, so the
- * choice holds in every dialog and across launches.
+ * Translation of changelogs and patch descriptions into the app language. One for the whole app,
+ * so the choice holds in every dialog and across launches.
  */
 @Stable
 class ContentTranslation(
@@ -44,8 +42,6 @@ class ContentTranslation(
     private val prefs: PreferencesManager
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private var session: ContentTranslator.Session? = null
-    private var pending: Job? = null
 
     private var isChosen by mutableStateOf(false)
 
@@ -53,7 +49,7 @@ class ContentTranslation(
         scope.launch { prefs.translateContent.flow.collect { isChosen = it } }
     }
 
-    /** The language to translate into, or null when the app is in English or ML Kit lacks it. */
+    /** The language to translate into, or null when the app is in English. */
     private val language: String?
         get() = translator.languageFor(
             AppLocale.toLocale(AppLocale.selected.value) ?: Resources.getSystem().configuration.locales[0]
@@ -65,48 +61,26 @@ class ContentTranslation(
     /** Whether content shows its translation rather than the original. */
     val isEnabled: Boolean get() = isChosen && isAvailable
 
-    var isDownloadingModel by mutableStateOf(false)
-        private set
-
-    /** Set while the model download waits for the user to accept a metered connection. */
-    var isAwaitingMeteredConsent by mutableStateOf(false)
-        private set
-
     /** Grows as prefetched translations land, so whatever searches them can look again. */
     var revision by mutableIntStateOf(0)
         private set
 
-    fun toggle() {
-        if (isEnabled) return choose(false)
-        val language = language ?: return
-        if (pending?.isActive == true) return
-
-        pending = scope.launch {
-            reportingFailure {
-                when {
-                    translator.isModelDownloaded(language) -> choose(true)
-                    !networkInfo.isConnected() -> app.toast(app.getString(R.string.no_network_toast))
-                    networkInfo.isMetered() -> isAwaitingMeteredConsent = true
-                    else -> downloadModel(language)
-                }
-            }
-        }
-    }
-
-    fun onMeteredConsent(granted: Boolean) {
-        isAwaitingMeteredConsent = false
-        val language = language ?: return
-        if (granted) pending = scope.launch { reportingFailure { downloadModel(language) } }
-    }
+    fun toggle() = choose(!isEnabled)
 
     /** The translation of [text] when it is already at hand, or null. */
-    fun cached(text: String): String? = if (isEnabled) sessionFor(language)?.cached(text) else null
+    fun cached(text: String): String? {
+        val language = language?.takeIf { isEnabled } ?: return null
+        return translator.cached(text, language)
+    }
 
     /** Translates [text], or turns translation off and returns null when that fails. */
-    suspend fun translate(text: String): String? {
-        val session = sessionFor(language) ?: return null
+    suspend fun translate(text: String): String? = translateAll(listOf(text))?.single()
+
+    /** Translates [texts] together, or turns translation off and returns null when that fails. */
+    suspend fun translateAll(texts: List<String>): List<String>? {
+        val language = language ?: return null
         return try {
-            session.translate(text)
+            translator.translate(texts, language)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -121,64 +95,33 @@ class ContentTranslation(
 
     /** Translates [texts] ahead of their showing, so a search over them finds the translations too. */
     suspend fun prefetch(texts: Collection<String>) {
-        texts.filter { cached(it) == null }.forEachIndexed { index, text ->
-            translate(text) ?: return
-            if ((index + 1) % PREFETCH_BATCH == 0) revision++
+        texts.filter { cached(it) == null }.chunked(PREFETCH_BATCH).forEach { batch ->
+            translateAll(batch) ?: return
+            revision++
         }
-        revision++
     }
 
     /** [sections] translated from what is already at hand, or null when any change still needs work. */
     fun cached(sections: List<ChangelogSection>): List<ChangelogSection>? =
         sections.mapItemTexts { cached(it) ?: return null }
 
-    /** Translates every change of [sections], or returns null once one fails. */
-    suspend fun translate(sections: List<ChangelogSection>): List<ChangelogSection>? =
-        sections.mapItemTexts { translate(it) ?: return null }
+    /** Translates every change of [sections], or returns null when that fails. */
+    suspend fun translate(sections: List<ChangelogSection>): List<ChangelogSection>? {
+        val texts = sections.flatMap { section -> section.items.map { it.text } }
+        val translations = texts.zip(translateAll(texts) ?: return null).toMap()
+        return sections.mapItemTexts(translations::getValue)
+    }
 
     private fun choose(enabled: Boolean) {
         isChosen = enabled
-        // The model stays loaded only while something is shown translated
-        if (!enabled) closeSession()
         scope.launch { prefs.translateContent.update(enabled) }
     }
 
-    /** The open session into [language], reopened when the app language has changed since. */
-    private fun sessionFor(language: String?): ContentTranslator.Session? {
-        if (language == null) return null
-        session?.takeIf { it.language == language }?.let { return it }
-        closeSession()
-        return translator.open(language).also { session = it }
-    }
-
-    private fun closeSession() {
-        session?.close()
-        session = null
-    }
-
-    private suspend fun downloadModel(language: String) {
-        isDownloadingModel = true
-        try {
-            translator.downloadModel(language)
-            choose(true)
-        } finally {
-            isDownloadingModel = false
-        }
-    }
-
-    /** Runs [block], where a failure has to end in a message rather than a crash. */
-    private suspend fun reportingFailure(block: suspend () -> Unit) {
-        try {
-            block()
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            reportFailure(e)
-        }
-    }
-
     private fun reportFailure(error: Exception) {
-        app.toast(app.getString(R.string.content_translation_failed, error.simpleMessage()))
+        app.toast(
+            if (networkInfo.isConnected()) app.getString(R.string.content_translation_failed, error.simpleMessage())
+            else app.getString(R.string.no_network_toast)
+        )
     }
 }
 
@@ -231,28 +174,6 @@ fun translateAction(): DialogAction? {
         ),
         onClick = translation::toggle,
         icon = Icons.Outlined.Translate,
-        enabled = !translation.isDownloadingModel,
         emphasis = DialogActionEmphasis.Outlined
     )
-}
-
-/**
- * Progress a dialog offering translation shows over itself while the model downloads, and the
- * consent that download needs on a metered network.
- */
-@Composable
-fun TranslationOverlays() {
-    val translation: ContentTranslation = koinInject()
-
-    Overlay(visible = translation.isDownloadingModel) {
-        PulsingLogoWithCaption(caption = stringResource(R.string.content_translation_downloading))
-    }
-
-    if (translation.isAwaitingMeteredConsent) {
-        MeteredDownloadDialog(
-            title = stringResource(R.string.content_translation_download_confirmation),
-            onConfirm = { translation.onMeteredConsent(granted = true) },
-            onDismiss = { translation.onMeteredConsent(granted = false) }
-        )
-    }
 }

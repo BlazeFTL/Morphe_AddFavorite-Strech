@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Signaler un problème</string>
     <string name="sources_management_failed_to_open_url">Échec de l\'ouverture de l\'URL</string>
     <string name="sources_apps">Applications</string>
-    <string name="sources_apps_title">Applications de %1$s</string>
     <string name="sources_apps_description">Appuyez sur une application pour l\'exclure de cette source ou la restaurer, ou appuyez longuement pour en sélectionner plusieurs. Une application disparaît de l\'écran d\'accueil lorsqu\'aucune source ne la fournit</string>
     <string name="sources_apps_brought">Fournies par cette source</string>
     <string name="sources_apps_left_out">Exclues de cette source</string>
@@ -175,8 +174,6 @@
     <string name="sources_dialog_rename">Renommer la source de patchs</string>
     <string name="sources_dialog_duplicate_name_error">Une source de patchs portant ce nom existe déjà</string>
     <string name="sources_dialog_missing_error">Impossible de mettre à jour cette source de patchs</string>
-    <string name="sources_dialog_view_any_version">N\'importe quelle version</string>
-    <string name="sources_dialog_view_any_package">N\'importe quel paquet</string>
     <string name="sources_dialog_add_source">Ajouter une source de patchs</string>
     <string name="sources_dialog_delete_confirm_message">Supprimer la source \"%s\" ? Cela ne peut pas être réversible</string>
     <string name="sources_dialog_remote">Distante</string>
@@ -286,7 +283,6 @@ Tout ce que vous ajoutez depuis ce site web est utilisé à vos propres risques"
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Mode Expert</string>
     <string name="expert_mode_search">Rechercher des patchs</string>
-    <string name="expert_mode_proceed">Procéder au patching</string>
     <string name="expert_mode_disable_all">Tout désactiver</string>
     <string name="expert_mode_disable_all_done">Tous les patchs sont désactivés</string>
     <string name="expert_mode_enable_all">Tout activer</string>
@@ -1207,7 +1203,6 @@ Détails : %2$s"</string>
     <string name="disable">Désactiver</string>
     <string name="enable">Activer</string>
     <string name="loading">Chargement…</string>
-    <string name="loading_older_releases">Chargement des versions antérieures…</string>
     <string name="creating">Création…</string>
     <string name="processing_apk">Traitement de l\'APK…</string>
     <string name="exporting_apks">Exportation des APK…</string>
@@ -1250,6 +1245,7 @@ Détails : %2$s"</string>
     <string name="continue_">Continuer</string>
     <string name="version">Version</string>
     <string name="clone">Clone</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patcher</string>
     <string name="patching">Patching</string>
     <string name="patched">Patchée</string>
@@ -1289,8 +1285,26 @@ Détails : %2$s"</string>
     <string name="changelog_description">Quoi de neuf dans cette version</string>
     <string name="changelog_download_fail">Échec du téléchargement du journal des modifications : %s</string>
     <string name="changelog_empty">Aucun journal des modifications disponible</string>
-    <string name="changelog_show_older">Chargement des versions antérieures</string>
+    <string name="changelog_earlier_releases">Versions précédentes</string>
     <string name="changelog_older_empty">Aucune version antérieure à afficher</string>
+    <string name="changelog_older_failed">Impossible de charger les anciennes versions</string>
+    <string name="changelog_release_page">Page de version</string>
+    <string name="content_translate">Traduire</string>
+    <string name="content_show_original">Afficher l\'original</string>
+    <string name="content_translation_failed">Échec de la traduction : %s</string>
+    <string name="changelog_section_new">Nouveau</string>
+    <string name="changelog_section_fixes">Corrections</string>
+    <string name="changelog_section_performance">Performance</string>
+    <string name="changelog_section_improvements">Améliorations</string>
+    <string name="changelog_section_app_support">Assistance de l’application</string>
+    <string name="changelog_section_other">Changements</string>
+    <string name="changelog_badge_latest">Dernier</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">En cours d\'utilisation</string>
+    <string name="changelog_badge_prerelease">Préversion</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Tout afficher (%s)</string>
+    <string name="changelog_show_less">Afficher moins</string>
     <string name="no_network_toast">Aucune connexion internet disponible</string>
     <string name="update_available">Une mise à jour est disponible</string>
     <string name="ready_to_install_update">Prêt à installer la mise à jour</string>

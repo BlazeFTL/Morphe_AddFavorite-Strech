@@ -11,11 +11,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -66,8 +65,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
 import org.koin.compose.koinInject
-
-private val ColorValid = Color(0xFF4CAF50)
 
 /**
  * Dialog for adding patch bundles.
@@ -282,7 +279,7 @@ private fun RemoteTabContent(
                 val (icon, color, text) = when (urlValidation) {
                     FieldValidation.Valid -> Triple(
                         Icons.Outlined.CheckCircle,
-                        ColorValid,
+                        SemanticTone.Success.accent,
                         stringResource(R.string.sources_dialog_url_valid)
                     )
                     FieldValidation.Invalid -> Triple(
@@ -392,7 +389,7 @@ private fun LocalTabContent(
                         imageVector = if (isValid) Icons.Outlined.CheckCircle else Icons.Outlined.ErrorOutline,
                         contentDescription = null,
                         modifier = Modifier.size(Defaults.IconSizeSmall),
-                        tint = if (isValid) ColorValid else MaterialTheme.colorScheme.error
+                        tint = if (isValid) SemanticTone.Success.accent else MaterialTheme.colorScheme.error
                     )
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
@@ -452,6 +449,7 @@ fun RenameBundleDialog(
     AppDialog(
         onDismissRequest = onDismissRequest,
         title = stringResource(R.string.sources_dialog_display_name),
+        description = stringResource(R.string.sources_dialog_rename),
         dismissOnClickOutside = false,
         footer = {
             AppDialogButtonRow(
@@ -468,34 +466,17 @@ fun RenameBundleDialog(
             )
         }
     ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
-            Text(
-                text = stringResource(R.string.sources_dialog_rename),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center
-            )
-
             AppDialogTextField(
                 value = textValue,
                 onValueChange = { textValue = it },
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.patch_option_enter_value),
-                        color = secondaryColor.copy(alpha = 0.5f)
-                    )
-                },
+                placeholder = { Text(stringResource(R.string.patch_option_enter_value)) },
                 leadingIcon = {
-                    ThemedIcon(
-                        icon = Icons.Outlined.Edit,
-                        tint = secondaryColor
-                    )
+                    Icon(imageVector = Icons.Outlined.Edit, contentDescription = null)
                 },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -857,8 +838,6 @@ fun BundleChangelogDialog(
             modifier = Modifier.weight(1f)
         )
     }
-
-    TranslationOverlays()
 }
 
 @Composable
@@ -1113,96 +1092,89 @@ fun SourceAppsDialog(
             searchLabel = stringResource(R.string.home_search_apps),
             // A lone app leaves nothing to search through
             searchEnabled = apps.size > 1,
-            accentColor = rememberSourceHeaderColor(src),
-            modifier = Modifier.padding(bottom = Defaults.ItemSpacing)
+            accentColor = rememberSourceHeaderColor(src)
         )
 
-        Text(
-            text = stringResource(R.string.sources_apps_description),
-            style = MaterialTheme.typography.bodyMedium,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = Defaults.ContentPaddingSmall)
-        )
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(itemSpacing),
+            pinnedFirstRow = true
+        ) {
+            // Kept while the field is closed, so its share of the spacing makes the gap under
+            // the header
+            stickyHeader(key = "search") {
+                AppDialogSearchHeader(
+                    visible = search.visible,
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = stringResource(R.string.home_search_apps),
+                    // Opaque, so rows scrolled under the gap stay hidden
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(top = Defaults.ItemSpacing)
+                )
+            }
 
-        val listState = rememberLazyListState()
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(itemSpacing)
-            ) {
-                stickyHeader(key = "search") {
-                    AppDialogSearchHeader(
-                        visible = search.visible,
-                        value = search.query,
-                        onValueChange = { search.query = it },
-                        label = stringResource(R.string.home_search_apps)
+            // Scrolls with the apps, so it gives the list its room back once read
+            item(key = "description") {
+                Text(
+                    text = stringResource(R.string.sources_apps_description),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = LocalDialogSecondaryTextColor.current,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            if (filtered.isEmpty() && search.query.isNotBlank()) {
+                item(key = "empty_state") {
+                    EmptyState(
+                        message = stringResource(R.string.search_no_results),
+                        icon = Icons.Outlined.SearchOff,
+                        modifier = Modifier.animateItem()
                     )
-                }
-
-                if (filtered.isEmpty() && search.query.isNotBlank()) {
-                    item(key = "empty_state") {
-                        EmptyState(
-                            message = stringResource(R.string.search_no_results),
-                            icon = Icons.Outlined.SearchOff,
-                            modifier = Modifier.animateItem()
-                        )
-                    }
-                }
-
-                items(items = filtered, key = { (packageName, _) -> packageName }) { (packageName, label) ->
-                    val brought = src.uid !in keptFrom[packageName].orEmpty()
-                    val gradientColors = appMetadata[packageName]?.gradientColors
-                        ?: AppCardColorDefaults.defaultGradientColors
-
-                    SelectableCard(
-                        modifier = Modifier
-                            .animatedListItem(this)
-                            // An app left out reads as one this source no longer brings, the
-                            // same way the selection dims what it leaves unpicked
-                            .alpha(if (brought || isMultiSelectMode) 1f else 0.55f),
-                        isSelected = selection.contains(packageName),
-                        isSelectionMode = isMultiSelectMode
-                    ) {
-                        AppCardLayout(
-                            gradientColors = gradientColors,
-                            onClick = {
-                                if (isMultiSelectMode) selection.toggle(packageName)
-                                else bring(listOf(packageName), brought = !brought)
-                            },
-                            onLongClick = {
-                                isMultiSelectMode = true
-                                selection.toggle(packageName)
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            AppCardContent(
-                                packageName = packageName,
-                                packageInfo = null,
-                                displayName = label,
-                                subtitle = stringResource(
-                                    if (brought) R.string.sources_apps_brought
-                                    else R.string.sources_apps_left_out
-                                ),
-                                gradientColors = gradientColors
-                            )
-                        }
-                    }
                 }
             }
 
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+            items(items = filtered, key = { (packageName, _) -> packageName }) { (packageName, label) ->
+                val brought = src.uid !in keptFrom[packageName].orEmpty()
+                val gradientColors = appMetadata[packageName]?.gradientColors
+                    ?: AppCardColorDefaults.defaultGradientColors
 
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+                SelectableCard(
+                    modifier = Modifier
+                        .animatedListItem(this)
+                        // An app left out reads as one this source no longer brings, the
+                        // same way the selection dims what it leaves unpicked
+                        .alpha(if (brought || isMultiSelectMode) 1f else 0.55f),
+                    isSelected = selection.contains(packageName),
+                    isSelectionMode = isMultiSelectMode
+                ) {
+                    AppCardLayout(
+                        gradientColors = gradientColors,
+                        onClick = {
+                            if (isMultiSelectMode) selection.toggle(packageName)
+                            else bring(listOf(packageName), brought = !brought)
+                        },
+                        onLongClick = {
+                            isMultiSelectMode = true
+                            selection.toggle(packageName)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AppCardContent(
+                            packageName = packageName,
+                            packageInfo = null,
+                            displayName = label,
+                            subtitle = stringResource(
+                                if (brought) R.string.sources_apps_brought
+                                else R.string.sources_apps_left_out
+                            ),
+                            gradientColors = gradientColors
+                        )
+                    }
+                }
+            }
         }
     }
 }

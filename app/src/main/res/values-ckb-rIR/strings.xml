@@ -73,8 +73,6 @@
     <string name="sources_dialog_rename">ناونانەوەی سەرچاوەی پینەکردن</string>
     <string name="sources_dialog_duplicate_name_error">سەرچاوەیەکی پینە بەم ناوە پێشتر بوونی هەیە</string>
     <string name="sources_dialog_missing_error">نەیتوانی سەرچاوەی ئەم پیینە نوێ بکاتەوە</string>
-    <string name="sources_dialog_view_any_version">هەر وەشانێک</string>
-    <string name="sources_dialog_view_any_package">هەر پاکەتێک</string>
     <string name="sources_dialog_add_source">سەرچاوەی پینە زیاد بکە</string>
     <string name="sources_dialog_delete_confirm_message">سڕینەوای سەرچاوەی \"%s\"؟ ئەمە ناتوانرێت هەڵبوەشێتەوە</string>
     <string name="sources_dialog_remote">دوورەدەست</string>
@@ -135,7 +133,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">مۆدی شارەزا</string>
     <string name="expert_mode_search">گەڕانی پینەکان</string>
-    <string name="expert_mode_proceed">بەردەوام بە بۆ پینەکردن</string>
     <string name="expert_mode_disable_all">هەموو لە کاربخە</string>
     <string name="expert_mode_disable_all_done">هەموو پینەکان لە کارخراون</string>
     <string name="expert_mode_enable_all">هەموو چالاک بکە</string>
@@ -496,9 +493,13 @@ morphe_adaptive_monochrome_custom.xml
     <string name="copy">وێنەلەمەر</string>
     <string name="download">دابەزاندن</string>
     <string name="continue_">بەردەوامبوون</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patching">پینەکردن</string>
     <string name="patched">پینەکراو</string>
     <string name="allow">ڕێگەپێدان</string>
+    <string name="changelog_section_new">نوێ</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

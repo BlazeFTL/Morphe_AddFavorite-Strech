@@ -69,4 +69,16 @@
     <plurals name="core_count">
         <item quantity="other">%s 个核心</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="other">%s 项新功能</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="other">%s 项修复</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="other">%s 项更改</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="other">%s 个新版本</item>
+    </plurals>
 </resources>

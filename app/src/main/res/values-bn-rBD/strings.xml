@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">একটি সমস্যা রিপোর্ট করুন</string>
     <string name="sources_management_failed_to_open_url">URL খুলতে ব্যর্থ হয়েছে</string>
     <string name="sources_apps">অ্যাপস</string>
-    <string name="sources_apps_title">%1$s থেকে অ্যাপসমূহ</string>
     <string name="sources_apps_description">কোনো অ্যাপকে এই সোর্স থেকে বাদ দিতে বা ফিরিয়ে আনতে এটিতে আলতো চাপুন, বা একাধিক বাছতে দীর্ঘ চাপ দিন। কোনো সোর্স আর অ্যাপটি না আনলে অ্যাপটি হোম স্ক্রিন থেকে চলে যায়।</string>
     <string name="sources_apps_brought">এই সোর্স থেকে আনা</string>
     <string name="sources_apps_left_out">এই সোর্স থেকে বাদ দেওয়া</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">প্যাচের নাম পরিবর্তন করুন</string>
     <string name="sources_dialog_duplicate_name_error">এই নামের একটি প্যাচ সোর্স ইতিমধ্যে রয়েছে</string>
     <string name="sources_dialog_missing_error">এই প্যাচ সোর্স আপডেট করা যায়নি</string>
-    <string name="sources_dialog_view_any_version">যেকোনো সংস্করণ</string>
-    <string name="sources_dialog_view_any_package">যেকোনো প্যাকেজ</string>
     <string name="sources_dialog_add_source">প্যাচ সোর্স যোগ করুন</string>
     <string name="sources_dialog_delete_confirm_message">\"%s\" সোর্সটি ডিলিট করুন? এটি ফেরত আনা যাবে না</string>
     <string name="sources_dialog_remote">রিমোট</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">এক্সপার্ট মোড</string>
     <string name="expert_mode_search">প্যাচ খুঁজুন</string>
-    <string name="expert_mode_proceed">প্যাচিং শুরু করুন</string>
     <string name="expert_mode_disable_all">সবকিছু নিষ্ক্রিয় করুন</string>
     <string name="expert_mode_disable_all_done">সমস্ত প্যাচ নিষ্ক্রিয় করা হয়েছে</string>
     <string name="expert_mode_enable_all">সবকিছুক্ষমতাকার্তা করুন</string>
@@ -1193,7 +1189,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="disable">নিষ্ক্রিয় করুন</string>
     <string name="enable">有効にする</string>
     <string name="loading">লোড হচ্ছে…</string>
-    <string name="loading_older_releases">পুরানো রিলিজ লোড করা হচ্ছে…</string>
     <string name="creating">তৈরি করা হচ্ছে…</string>
     <string name="processing_apk">APK প্রক্রিয়া করা হচ্ছে…</string>
     <string name="exporting_apks">APK রপ্তানি করা হচ্ছে…</string>
@@ -1236,6 +1231,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="continue_">এগিয়ে যান</string>
     <string name="version">সংস্করণ</string>
     <string name="clone">ক্লোন করুন</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">প্যাচ</string>
     <string name="patching">প্যাচিং</string>
     <string name="patched">প্যাচ করা</string>
@@ -1275,8 +1271,26 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_description">এই সংস্করণে নতুন কী আছে</string>
     <string name="changelog_download_fail">চেঞ্জলগ ডাউনলোড করা যায়নি: %s</string>
     <string name="changelog_empty">কোনো চ্যাঞলগ উপলব্ধ নেই</string>
-    <string name="changelog_show_older">পুরোনো রিলিজগুলো দেখান</string>
+    <string name="changelog_earlier_releases">আগের রিলিজগুলো</string>
     <string name="changelog_older_empty">দেখানোর জন্য পুরোনো রিলিজ নেই</string>
+    <string name="changelog_older_failed">পুরনো রিলিজগুলো লোড করা যায়নি</string>
+    <string name="changelog_release_page">রিলিজ পৃষ্ঠা</string>
+    <string name="content_translate">অনুবাদ</string>
+    <string name="content_show_original">মূল দেখুন</string>
+    <string name="content_translation_failed">অনুবাদ ব্যর্থ হয়েছে: %s</string>
+    <string name="changelog_section_new">নতুন</string>
+    <string name="changelog_section_fixes">সংশোধন</string>
+    <string name="changelog_section_performance">পারফরম্যান্স</string>
+    <string name="changelog_section_improvements">উন্নতি</string>
+    <string name="changelog_section_app_support">অ্যাপ সমর্থন</string>
+    <string name="changelog_section_other">পরিবর্তন</string>
+    <string name="changelog_badge_latest">সর্বশেষ</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">ব্যবহৃত</string>
+    <string name="changelog_badge_prerelease">প্রি-রিলিজ</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">সব দেখান (%s)</string>
+    <string name="changelog_show_less">কম দেখান</string>
     <string name="no_network_toast">ইন্টারনেট সংযোগ উপলব্ধ নয়</string>
     <string name="update_available">একটি আপডেট উপলব্ধ</string>
     <string name="ready_to_install_update">আপডেট ইনস্টল করার জন্য প্রস্তুত</string>

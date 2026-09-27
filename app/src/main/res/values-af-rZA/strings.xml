@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Rapporteer \'n probleem</string>
     <string name="sources_management_failed_to_open_url">Mislukking om URL oop te maak</string>
     <string name="sources_apps">Toepassings</string>
-    <string name="sources_apps_title">Toepassings van %1$s</string>
     <string name="sources_apps_description">Raak \'n toepassing aan om dit uit hierdie bron te los of terug te bring, of druk lank om verskeie te kies. \'n Toepassing verlaat die tuisskerm sodra geen bron dit bring nie.</string>
     <string name="sources_apps_brought">Deur hierdie bron gebring</string>
     <string name="sources_apps_left_out">Uitgelaat uit hierdie bron</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Hernoem verandering oorsprong</string>
     <string name="sources_dialog_duplicate_name_error">\'n Verandering oorsprong met hierdie naam bestaan reeds</string>
     <string name="sources_dialog_missing_error">Kon nie hierdie verandering oorsprong opdateer nie</string>
-    <string name="sources_dialog_view_any_version">Enige weergawe</string>
-    <string name="sources_dialog_view_any_package">Enige pakket</string>
     <string name="sources_dialog_add_source">Voeg verandering oorsprong by</string>
     <string name="sources_dialog_delete_confirm_message">Verwyder bron \"%s\"? Dit kan nie ongedaan gemaak word nie</string>
     <string name="sources_dialog_remote">Afstand</string>
@@ -283,7 +280,6 @@ Enigiets wat jy van hierdie webwerf byvoeg, word op jou eie risiko gebruik."</st
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Spesialismodus</string>
     <string name="expert_mode_search">Soek patchings</string>
-    <string name="expert_mode_proceed">Gaan voort met pleister</string>
     <string name="expert_mode_disable_all">Deaktiveer alles</string>
     <string name="expert_mode_disable_all_done">Alle pleisters gedeaktiveer</string>
     <string name="expert_mode_enable_all">Aktiveer alles</string>
@@ -1201,7 +1197,6 @@ Besonderhede: %2$s"</string>
     <string name="disable">Deaktiveer</string>
     <string name="enable">Aktiveer</string>
     <string name="loading">Laai…</string>
-    <string name="loading_older_releases">Ouder releases word gelaai…</string>
     <string name="creating">Word geskep…</string>
     <string name="processing_apk">APK word verwerk…</string>
     <string name="exporting_apks">APK\'s word uitgevoer…</string>
@@ -1244,6 +1239,7 @@ Besonderhede: %2$s"</string>
     <string name="continue_">Gaan voort</string>
     <string name="version">Weergawe</string>
     <string name="clone">Kloon</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Verandering</string>
     <string name="patching">Pleister</string>
     <string name="patched">Gepatch</string>
@@ -1283,8 +1279,26 @@ Besonderhede: %2$s"</string>
     <string name="changelog_description">Wat is nuut in hierdie weergawe</string>
     <string name="changelog_download_fail">Kon nie veranderingslogboek aflaai nie: %s</string>
     <string name="changelog_empty">Geen wysiging beskikbaar nie</string>
-    <string name="changelog_show_older">Wys ouer vrystellings</string>
+    <string name="changelog_earlier_releases">Vroeëre weergawes</string>
     <string name="changelog_older_empty">Geen ouer vrystellings om te wys nie</string>
+    <string name="changelog_older_failed">Kon nie ouer weergawes laai nie</string>
+    <string name="changelog_release_page">Vrystellingsbladsy</string>
+    <string name="content_translate">Vertaal</string>
+    <string name="content_show_original">Wys oorspronklike</string>
+    <string name="content_translation_failed">Kon nie vertaal nie: %s</string>
+    <string name="changelog_section_new">Nuut</string>
+    <string name="changelog_section_fixes">Regstellings</string>
+    <string name="changelog_section_performance">Prestasie</string>
+    <string name="changelog_section_improvements">Verbeterings</string>
+    <string name="changelog_section_app_support">Toep-ondersteuning</string>
+    <string name="changelog_section_other">Veranderinge</string>
+    <string name="changelog_badge_latest">Nuutste</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">In gebruik</string>
+    <string name="changelog_badge_prerelease">Voorvrystelling</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Wys alles (%s)</string>
+    <string name="changelog_show_less">Wys minder</string>
     <string name="no_network_toast">Geen internet verbinding beskikbaar nie</string>
     <string name="update_available">\'n Opdatering is beskikbaar</string>
     <string name="ready_to_install_update">Klaar om opdatering te installeer</string>

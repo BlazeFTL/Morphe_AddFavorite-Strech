@@ -92,4 +92,20 @@
         <item quantity="one">%s kerne</item>
         <item quantity="other">%s kerner</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s ny</item>
+        <item quantity="other">%s nye</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s rettelse</item>
+        <item quantity="other">%s rettelser</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s ændring</item>
+        <item quantity="other">%s ændringer</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s ny udgivelse</item>
+        <item quantity="other">%s nye udgivelser</item>
+    </plurals>
 </resources>

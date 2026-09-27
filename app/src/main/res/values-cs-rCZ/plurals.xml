@@ -138,4 +138,28 @@
         <item quantity="many">%s jader</item>
         <item quantity="other">%s jádra</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s novinka</item>
+        <item quantity="few">%s novinky</item>
+        <item quantity="many">%s novinek</item>
+        <item quantity="other">%s novinek</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s oprava</item>
+        <item quantity="few">%s opravy</item>
+        <item quantity="many">%s oprav</item>
+        <item quantity="other">%s oprav</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s změna</item>
+        <item quantity="few">%s změny</item>
+        <item quantity="many">%s změn</item>
+        <item quantity="other">%s změn</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s nová verze</item>
+        <item quantity="few">%s nové verze</item>
+        <item quantity="many">%s nových verzí</item>
+        <item quantity="other">%s nových verzí</item>
+    </plurals>
 </resources>

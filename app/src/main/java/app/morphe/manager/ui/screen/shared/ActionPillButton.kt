@@ -113,12 +113,9 @@ object ActionPillColors {
         MaterialTheme.colorScheme.onPrimaryContainer
     )
 
-    /** An action that sets up or adjusts the primary one. */
+    /** Goes ahead despite a risk the row warns about, such as an unsupported version. */
     @Composable
-    fun secondary(): IconButtonColors = tonal(
-        MaterialTheme.colorScheme.secondaryContainer,
-        MaterialTheme.colorScheme.onSecondaryContainer
-    )
+    fun warning(): IconButtonColors = tonal(SemanticTone.Warning.container, SemanticTone.Warning.content)
 
     /** Undoes an earlier choice, such as bringing back something that was hidden. */
     @Composable

@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Сообщить о проблеме</string>
     <string name="sources_management_failed_to_open_url">Не удалось открыть URL</string>
     <string name="sources_apps">Приложения</string>
-    <string name="sources_apps_title">Приложения из %1$s</string>
     <string name="sources_apps_description">Нажмите на приложение, чтобы исключить его из этого источника или вернуть его, или нажмите и удерживайте, чтобы выбрать несколько. Приложение исчезает с главного экрана, когда ни один источник его не добавляет.</string>
     <string name="sources_apps_brought">Добавлено этим источником</string>
     <string name="sources_apps_left_out">Исключено из этого источника</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Переименовать источник патча</string>
     <string name="sources_dialog_duplicate_name_error">Источник патча с таким названием уже существует</string>
     <string name="sources_dialog_missing_error">Не удалось обновить этот источник патча</string>
-    <string name="sources_dialog_view_any_version">Любая версия</string>
-    <string name="sources_dialog_view_any_package">Любой пакет</string>
     <string name="sources_dialog_add_source">Добавить источник патча</string>
     <string name="sources_dialog_delete_confirm_message">Удалить источник \"%s\"? Это действие невозможно отменить</string>
     <string name="sources_dialog_remote">Удаленный</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Режим эксперта</string>
     <string name="expert_mode_search">Поиск патчей</string>
-    <string name="expert_mode_proceed">Перейти к патчингу</string>
     <string name="expert_mode_disable_all">Отключить все</string>
     <string name="expert_mode_disable_all_done">Все патчи отключены</string>
     <string name="expert_mode_enable_all">Включить все</string>
@@ -1200,7 +1196,6 @@ morphe_header_custom_dark.png
     <string name="disable">Отключить</string>
     <string name="enable">Включить</string>
     <string name="loading">Загрузка…</string>
-    <string name="loading_older_releases">Загрузка более старых версий…</string>
     <string name="creating">Создается…</string>
     <string name="processing_apk">Обработка APK…</string>
     <string name="exporting_apks">Экспорт APK…</string>
@@ -1243,6 +1238,7 @@ morphe_header_custom_dark.png
     <string name="continue_">Продолжить</string>
     <string name="version">Версия</string>
     <string name="clone">Клон</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Патч</string>
     <string name="patching">Патчинг</string>
     <string name="patched">Пропатчен</string>
@@ -1282,8 +1278,26 @@ morphe_header_custom_dark.png
     <string name="changelog_description">Что нового в этой версии</string>
     <string name="changelog_download_fail">Не удалось загрузить историю изменений: %s</string>
     <string name="changelog_empty">Нет доступных изменений</string>
-    <string name="changelog_show_older">Показать более старые версии</string>
+    <string name="changelog_earlier_releases">Более ранние релизы</string>
     <string name="changelog_older_empty">Нет более старых версий для отображения</string>
+    <string name="changelog_older_failed">Не удалось загрузить более старые релизы</string>
+    <string name="changelog_release_page">Страница релиза</string>
+    <string name="content_translate">Перевести</string>
+    <string name="content_show_original">Показать оригинал</string>
+    <string name="content_translation_failed">Не удалось перевести: %s</string>
+    <string name="changelog_section_new">Новые</string>
+    <string name="changelog_section_fixes">Исправления</string>
+    <string name="changelog_section_performance">Производительность</string>
+    <string name="changelog_section_improvements">Улучшения</string>
+    <string name="changelog_section_app_support">Поддержка приложений</string>
+    <string name="changelog_section_other">Изменения</string>
+    <string name="changelog_badge_latest">Последняя</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Используется</string>
+    <string name="changelog_badge_prerelease">Пре-релиз</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Показать все (%s)</string>
+    <string name="changelog_show_less">Показать меньше</string>
     <string name="no_network_toast">Нет подключения к Интернету</string>
     <string name="update_available">Доступно обновление</string>
     <string name="ready_to_install_update">Готово к установке обновления</string>

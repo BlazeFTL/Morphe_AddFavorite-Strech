@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">الإبلاغ عن مشكلة</string>
     <string name="sources_management_failed_to_open_url">فشل في فتح الرابط</string>
     <string name="sources_apps">التطبيقات</string>
-    <string name="sources_apps_title">تطبيقات من %1$s</string>
     <string name="sources_apps_description">انقر على تطبيق لاستبعاده من هذا المصدر أو لإعادته، أو اضغط مطولًا لتحديد عدة تطبيقات. تتم إزالته من الشاشة الرئيسية عندما لا يجلبه أي مصدر</string>
     <string name="sources_apps_brought">ما يجلبه هذا المصدر</string>
     <string name="sources_apps_left_out">المستبعدة من هذا المصدر</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">إعادة تسمية مصدر التعديل</string>
     <string name="sources_dialog_duplicate_name_error">توجد حزمة تعديل بهذا الاسم بالفعل</string>
     <string name="sources_dialog_missing_error">تعذر تحديث مصدر التعديل هذا</string>
-    <string name="sources_dialog_view_any_version">أي إصدار</string>
-    <string name="sources_dialog_view_any_package">أي حزمة</string>
     <string name="sources_dialog_add_source">إضافة مصدر تعديل</string>
     <string name="sources_dialog_delete_confirm_message">هل تريد حذف المصدر «%s»؟ لا يمكن التراجع عن هذا الإجراء</string>
     <string name="sources_dialog_remote">عن بُعد</string>
@@ -283,7 +280,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">وضع الخبير</string>
     <string name="expert_mode_search">البحث عن التعديلات</string>
-    <string name="expert_mode_proceed">المضي قدمًا إلى التعديل</string>
     <string name="expert_mode_disable_all">تعطيل الكل</string>
     <string name="expert_mode_disable_all_done">تم تعطيل كل التعديلات</string>
     <string name="expert_mode_enable_all">تمكين الكل</string>
@@ -1206,7 +1202,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="disable">تعطيل</string>
     <string name="enable">تمكين</string>
     <string name="loading">جارٍ التحميل…</string>
-    <string name="loading_older_releases">جارٍ تحميل الإصدارات الأقدم…</string>
     <string name="creating">جارٍ الإنشاء…</string>
     <string name="processing_apk">جارٍ معالجة ملف APK…</string>
     <string name="exporting_apks">جارٍ تصدير ملفات APK…</string>
@@ -1249,6 +1244,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="continue_">متابعة</string>
     <string name="version">الإصدار</string>
     <string name="clone">استنساخ</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">تعديل</string>
     <string name="patching">جارٍ التعديل</string>
     <string name="patched">تم التعديل</string>
@@ -1288,8 +1284,26 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_description">ما الجديد في هذا الإصدار</string>
     <string name="changelog_download_fail">فشل تنزيل سجل التغييرات: %s</string>
     <string name="changelog_empty">لا يتوفر سجل تغييرات</string>
-    <string name="changelog_show_older">عرض الإصدارات الأقدم</string>
+    <string name="changelog_earlier_releases">الإصدارات السابقة</string>
     <string name="changelog_older_empty">لا توجد إصدارات أقدم لعرضها</string>
+    <string name="changelog_older_failed">تعذّر تحميل الإصدارات الأقدم</string>
+    <string name="changelog_release_page">صفحة الإصدار</string>
+    <string name="content_translate">ترجمة</string>
+    <string name="content_show_original">عرض الأصل</string>
+    <string name="content_translation_failed">فشل في الترجمة: %s</string>
+    <string name="changelog_section_new">الجديد</string>
+    <string name="changelog_section_fixes">الإصلاحات</string>
+    <string name="changelog_section_performance">الأداء</string>
+    <string name="changelog_section_improvements">التحسينات</string>
+    <string name="changelog_section_app_support">دعم التطبيق</string>
+    <string name="changelog_section_other">التغييرات</string>
+    <string name="changelog_badge_latest">الأحدث</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">قيد الاستخدام</string>
+    <string name="changelog_badge_prerelease">إصدار ما قبل الإطلاق</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">عرض الكل (%s)</string>
+    <string name="changelog_show_less">عرض أقل</string>
     <string name="no_network_toast">لا يوجد اتصال بالإنترنت متاح</string>
     <string name="update_available">يتوفر تحديث</string>
     <string name="ready_to_install_update">جاهز لتثبيت التحديث</string>

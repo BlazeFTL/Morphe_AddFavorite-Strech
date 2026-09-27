@@ -320,7 +320,8 @@ fun BundleManagementSheet(
                         state = listState,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top },
+                            .onGloballyPositioned { coords -> listWindowY = coords.boundsInWindow().top }
+                            .verticalScrollFade(listState),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         contentPadding = PaddingValues(
                             start = 16.dp,
@@ -650,7 +651,7 @@ private fun BundleManagementCard(
 
     val cardColor = when {
         !isEnabled -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.15f)
-        hasMetadataError || isMissing -> Color(0xFFFFF8E1).copy(alpha = 0.15f)
+        hasMetadataError || isMissing -> SemanticTone.Warning.container.copy(alpha = 0.15f)
         else -> MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
     }
     val animatedColor by animateColorAsState(cardColor, label = "bundle_card_color")
@@ -658,7 +659,7 @@ private fun BundleManagementCard(
     val animatedBorderColor by animateColorAsState(
         targetValue = when {
             !isEnabled -> MaterialTheme.colorScheme.error.copy(alpha = 0.5f)
-            hasMetadataError || isMissing -> Color(0xFFFFC107).copy(alpha = 0.5f)
+            hasMetadataError || isMissing -> SemanticTone.Warning.accent.copy(alpha = 0.5f)
             else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
         },
         label = "bundle_card_border_color"
@@ -1301,7 +1302,8 @@ fun BundleIcon(
         targetValue = when {
             bundle.isDefault -> Color.White
             hasBundleError -> MaterialTheme.colorScheme.errorContainer
-            hasMetadataError -> Color(0xFFFFF8E1)
+            // Matches the icon below, which a missing source wears as well
+            hasMetadataError || isMissing -> SemanticTone.Warning.container
             enabled -> MaterialTheme.colorScheme.primaryContainer
             else -> MaterialTheme.colorScheme.surfaceVariant.distinctFromCard()
         },
@@ -1334,7 +1336,7 @@ fun BundleIcon(
                 Icon(
                     imageVector = Icons.Outlined.CloudOff,
                     contentDescription = null,
-                    tint = Color(0xFF4A3800),
+                    tint = SemanticTone.Warning.content,
                     modifier = Modifier.padding(10.dp)
                 )
             }

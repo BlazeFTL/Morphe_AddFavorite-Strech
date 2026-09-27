@@ -5,10 +5,14 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.animation.Crossfade
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.EaseOutBack
+import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -16,15 +20,16 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -33,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.lerp
 import app.morphe.manager.R
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 
@@ -53,11 +59,83 @@ object DialogHeaderDefaults {
 }
 
 /**
+ * Entrance a dialog header plays as it first shows: the icon springs in, the title and subtitle
+ * slide in after it and the badges rise last. The header modifiers below read these clocks while
+ * drawing, so the entrance never recomposes the header.
+ */
+@Stable
+class DialogHeaderEntrance internal constructor(
+    internal val icon: State<Float>,
+    internal val text: State<Float>,
+    internal val badges: State<Float>
+)
+
+@Composable
+fun rememberDialogHeaderEntrance(): DialogHeaderEntrance {
+    var entered by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { entered = true }
+    val target = if (entered) 1f else 0f
+
+    val icon = animateFloatAsState(
+        targetValue = target,
+        // Overshoots, as the first thing the eye lands on
+        animationSpec = spring(dampingRatio = 0.55f, stiffness = 320f),
+        label = "header_icon_entrance"
+    )
+    val text = animateFloatAsState(
+        targetValue = target,
+        animationSpec = tween(durationMillis = 260, delayMillis = 60, easing = EaseOutCubic),
+        label = "header_text_entrance"
+    )
+    val badges = animateFloatAsState(
+        targetValue = target,
+        animationSpec = tween(durationMillis = 240, delayMillis = 160, easing = EaseOutBack),
+        label = "header_badges_entrance"
+    )
+    return remember(icon, text, badges) { DialogHeaderEntrance(icon, text, badges) }
+}
+
+fun Modifier.headerIconEntrance(entrance: DialogHeaderEntrance): Modifier = graphicsLayer {
+    val progress = entrance.icon.value
+    val scale = lerp(0.6f, 1f, progress)
+    scaleX = scale
+    scaleY = scale
+    alpha = progress.coerceIn(0f, 1f)
+}
+
+fun Modifier.headerTitleEntrance(entrance: DialogHeaderEntrance): Modifier = graphicsLayer {
+    slideIn(entrance.text.value)
+}
+
+/** Trails the title a little on the same clock. */
+fun Modifier.headerSubtitleEntrance(entrance: DialogHeaderEntrance): Modifier = graphicsLayer {
+    slideIn(entrance.text.value.startingAt(0.15f))
+}
+
+/**
+ * For the badges and whatever else sits beside the title. Each of a row of badges starts a third
+ * of the way into the one before it, by its [index], so they arrive in sequence.
+ */
+fun Modifier.headerBadgeEntrance(entrance: DialogHeaderEntrance, index: Int = 0): Modifier = graphicsLayer {
+    val progress = entrance.badges.value.startingAt(index * 0.3f)
+    translationY = lerp(20f, 0f, progress)
+    alpha = progress
+}
+
+private fun GraphicsLayerScope.slideIn(progress: Float) {
+    translationX = lerp(40f, 0f, progress)
+    alpha = progress.coerceIn(0f, 1f)
+}
+
+/** This progress rescaled to run from [start] on, so a later element enters off the same clock. */
+private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - start)).coerceIn(0f, 1f)
+
+/**
  * Head of a list dialog that names what the list belongs to: its [icon], [title] and a
  * [subtitle] summing the list up, with the toggle for the list's search field where it has one.
  *
- * @param subtitleLoading Shows a shimmer in place of the [subtitle] while the list it sums up
- *   loads, easing into the text once it is there.
+ * @param subtitleLoading Shows a shimmer in place of the [subtitle] while the list it sums uploads,
+ *   easing into the text once it is there.
  * @param search The list's search field, or null for a list short enough to go without one.
  * @param searchLabel What the field searches, as the toggle's description.
  * @param searchEnabled Whether there is anything to search yet. The toggle stays in place while
@@ -65,8 +143,8 @@ object DialogHeaderDefaults {
  * The header sits on a band like the app details' one, which gives the list scrolling under it an
  * edge to stop at.
  *
- * @param accentColor Color of the app the list belongs to, which tints the band, or null for a
- *   neutral one.
+ * @param accentColor Color of the app the list belongs to, which tints the band and the title
+ *   actions on it, or null for a neutral band and actions in the theme's palette.
  * @param badges What the whole list shares, in a row under the title as the app details keep theirs.
  * @param actions Title actions drawn ahead of the search toggle.
  */
@@ -82,8 +160,9 @@ fun ListDialogHeader(
     searchEnabled: Boolean = true,
     accentColor: Color? = null,
     badges: (@Composable FlowRowScope.() -> Unit)? = null,
-    actions: @Composable RowScope.() -> Unit = {}
+    actions: (@Composable RowScope.() -> Unit)? = null
 ) {
+    val entrance = rememberDialogHeaderEntrance()
     // An accent read from a picture can land after the header is up, so the band eases into it
     val band by animateColorAsState(
         targetValue = appAccentFill(accentColor),
@@ -104,7 +183,7 @@ fun ListDialogHeader(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
         ) {
-            icon(Modifier.size(DialogHeaderDefaults.IconSize))
+            icon(Modifier.size(DialogHeaderDefaults.IconSize).headerIconEntrance(entrance))
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
@@ -116,39 +195,55 @@ fun ListDialogHeader(
                     style = DialogHeaderDefaults.titleStyle,
                     color = LocalDialogTextColor.current,
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.headerTitleEntrance(entrance)
                 )
                 val subtitleStyle = DialogHeaderDefaults.subtitleStyle
-                Crossfade(
-                    targetState = subtitleLoading,
-                    animationSpec = tween(Defaults.ANIMATION_DURATION),
-                    label = "list_header_subtitle"
-                ) { loading ->
-                    if (loading) {
-                        // A line's height, so the header keeps its size as the text replaces it
+                // Eases from the shimmer into the text and from one text to the next as the list it
+                // sums up changes, the header resizing along when the new one takes more lines
+                AnimatedContent(
+                    targetState = subtitle.takeUnless { subtitleLoading },
+                    transitionSpec = Animations.fadeCrossfade(),
+                    contentAlignment = Alignment.TopStart,
+                    label = "list_header_subtitle",
+                    modifier = Modifier.headerSubtitleEntrance(entrance)
+                ) { text ->
+                    if (text == null) {
+                        // A line's height, the size of the shortest subtitle it stands in for
                         ShimmerText(
                             widthFraction = 0.5f,
                             height = with(LocalDensity.current) { subtitleStyle.lineHeight.toDp() }
                         )
                     } else {
                         Text(
-                            text = subtitle,
+                            text = text,
                             style = subtitleStyle,
                             color = LocalDialogSecondaryTextColor.current
                         )
                     }
                 }
             }
-            actions()
-            if (search != null) {
-                TitleAction(
-                    icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                    contentDescription = searchLabel ?: stringResource(R.string.search),
-                    onClick = { search.toggle() },
-                    style = TitleActionStyle.Toggle,
-                    active = search.visible,
-                    enabled = searchEnabled
-                )
+            // Only a header with controls lays them out, so one without leaves the title no gap
+            if (actions != null || search != null) {
+                CompositionLocalProvider(LocalTitleActionAccent provides usableAppAccent(accentColor)) {
+                    Row(
+                        modifier = Modifier.headerBadgeEntrance(entrance),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
+                    ) {
+                        actions?.invoke(this)
+                        if (search != null) {
+                            TitleAction(
+                                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                                contentDescription = searchLabel ?: stringResource(R.string.search),
+                                onClick = { search.toggle() },
+                                style = TitleActionStyle.Toggle,
+                                active = search.visible,
+                                enabled = searchEnabled
+                            )
+                        }
+                    }
+                }
             }
         }
         if (badges != null) {
@@ -157,7 +252,8 @@ fun ListDialogHeader(
             StatusBadgeRow(
                 modifier = Modifier
                     .padding(top = Defaults.ContentPaddingSmall)
-                    .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy)),
+                    .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
+                    .headerBadgeEntrance(entrance),
                 content = badges
             )
         }

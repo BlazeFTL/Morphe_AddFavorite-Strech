@@ -11,11 +11,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.contentColorFor
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+
+/**
+ * Color of the header a [TitleAction] sits in, as [usableAppAccent] gives it, so its circle reads
+ * as part of that header rather than the surrounding theme. Null keeps the theme's palette.
+ */
+val LocalTitleActionAccent = compositionLocalOf<Color?> { null }
 
 /** Visual style of a [TitleAction]. */
 enum class TitleActionStyle {
@@ -53,21 +62,26 @@ fun TitleAction(
     // target around it and doubles the gap the title row asks for
     val sizedModifier = modifier.size(IconButtonDefaults.smallContainerSize())
 
+    // An accented header tints its circles a step over its band, as it does its badges, and fills
+    // an engaged toggle with the accent outright so the state reads as plainly as on the theme
+    val accent = LocalTitleActionAccent.current
+
     // Null marks the flat variant, which draws no circle at all
     val containerColor = when (style) {
         TitleActionStyle.Plain -> null
-        TitleActionStyle.Accent -> MaterialTheme.colorScheme.primaryContainer
+        TitleActionStyle.Accent -> accent?.copy(alpha = APP_ACCENT_LEAD_ALPHA) ?: MaterialTheme.colorScheme.primaryContainer
+        // Kept in the error palette on any header, where the red warns rather than decorates
         TitleActionStyle.Destructive -> MaterialTheme.colorScheme.errorContainer
         TitleActionStyle.Toggle -> if (active) {
-            MaterialTheme.colorScheme.primaryContainer
+            accent ?: MaterialTheme.colorScheme.primaryContainer
         } else {
-            MaterialTheme.colorScheme.surfaceVariant
+            accent?.copy(alpha = APP_ACCENT_STEP_ALPHA) ?: MaterialTheme.colorScheme.surfaceVariant
         }
 
         TitleActionStyle.AccentToggle -> if (active) {
-            MaterialTheme.colorScheme.primary
+            accent ?: MaterialTheme.colorScheme.primary
         } else {
-            MaterialTheme.colorScheme.primaryContainer
+            accent?.copy(alpha = APP_ACCENT_LEAD_ALPHA) ?: MaterialTheme.colorScheme.primaryContainer
         }
     }
 
@@ -93,6 +107,12 @@ fun TitleAction(
             )
         }
     } else {
+        val contentColor = if (accent == null || style == TitleActionStyle.Destructive) {
+            contentColorFor(containerColor)
+        } else {
+            appAccentContent(containerColor)
+        }
+
         FilledTonalIconButton(
             onClick = onClick,
             modifier = pressedModifier,
@@ -100,7 +120,9 @@ fun TitleAction(
             interactionSource = interactionSource,
             colors = IconButtonDefaults.filledTonalIconButtonColors(
                 containerColor = containerColor,
-                disabledContainerColor = containerColor.copy(alpha = Defaults.DISABLED_ALPHA),
+                contentColor = contentColor,
+                // Scaled rather than set, so a tint that is already see-through fades further
+                disabledContainerColor = containerColor.copy(alpha = containerColor.alpha * Defaults.DISABLED_ALPHA),
                 disabledContentColor = LocalDialogTextColor.current.copy(alpha = Defaults.DISABLED_ALPHA)
             )
         ) {

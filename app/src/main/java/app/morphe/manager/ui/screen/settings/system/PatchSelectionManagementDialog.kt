@@ -14,7 +14,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -27,9 +26,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -446,85 +443,74 @@ private fun SelectionList(
         }
     }
 
-    Box(modifier = Modifier.fillMaxWidth()) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-        ) {
-            // Kept while the field is closed, so its share of the spacing makes the gap under the
-            // header
-            stickyHeader(key = "search") {
-                AppDialogSearchHeader(
-                    visible = search.visible,
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = stringResource(R.string.home_search_apps),
-                    // Opaque, so rows scrolled under the gap stay hidden
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.ItemSpacing)
-                )
-            }
-
-            if (displayEntries.isEmpty()) {
-                // No matches for the current search query
-                item(key = "search_empty") {
-                    EmptyState(
-                        message = stringResource(R.string.search_no_results),
-                        icon = Icons.Outlined.SearchOff
-                    )
-                }
-            } else {
-                // List of packages with selections
-                items(
-                    items = displayEntries,
-                    key = { it.key }
-                ) { (packageName, bundleMap) ->
-                    val (displayName, appDataSource) = resolvedApps[packageName]
-                        ?: (packageName to AppDataSource.INSTALLED)
-                    PackageSelectionItem(
-                        packageName = packageName,
-                        displayName = displayName,
-                        appDataSource = appDataSource,
-                        bundleMap = bundleMap,
-                        bundleNames = data.bundleNames,
-                        importExportViewModel = importExportViewModel,
-                        onResetPackage = {
-                            onSetResetTarget(ResetTarget.Package(packageName))
-                        },
-                        onResetPackageBundle = { bundleUid ->
-                            onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid))
-                        },
-                        onShowPatchDetails = onShowPatchDetails,
-                        onOpenCopyFromBundle = onOpenCopyFromBundle,
-                        onImport = onImport,
-                        isSelected = multiSelect.selectedPackages.contains(packageName),
-                        isSelectionMode = multiSelect.isSelectionMode,
-                        onEnterSelection = { multiSelect.onEnterSelection(packageName) },
-                        onToggleSelection = { multiSelect.onToggleSelection(packageName) },
-                        expanded = packageName in expandedPackages.value,
-                        onToggleExpanded = {
-                            expandedPackages.value = if (packageName in expandedPackages.value) {
-                                expandedPackages.value - packageName
-                            } else {
-                                expandedPackages.value + packageName
-                            }
-                        }
-                    )
-                }
-            }
+    DialogLazyList(
+        modifier = Modifier.fillMaxWidth(),
+        state = listState,
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+        pinnedFirstRow = true
+    ) {
+        // Kept while the field is closed, so its share of the spacing makes the gap under the
+        // header
+        stickyHeader(key = "search") {
+            AppDialogSearchHeader(
+                visible = search.visible,
+                value = search.query,
+                onValueChange = { search.query = it },
+                label = stringResource(R.string.home_search_apps),
+                // Opaque, so rows scrolled under the gap stay hidden
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(top = Defaults.ItemSpacing)
+            )
         }
 
-        ListScrollbar(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
-
-        ScrollToTopButton(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
+        if (displayEntries.isEmpty()) {
+            // No matches for the current search query
+            item(key = "search_empty") {
+                EmptyState(
+                    message = stringResource(R.string.search_no_results),
+                    icon = Icons.Outlined.SearchOff
+                )
+            }
+        } else {
+            // List of packages with selections
+            items(
+                items = displayEntries,
+                key = { it.key }
+            ) { (packageName, bundleMap) ->
+                val (displayName, appDataSource) = resolvedApps[packageName]
+                    ?: (packageName to AppDataSource.INSTALLED)
+                PackageSelectionItem(
+                    packageName = packageName,
+                    displayName = displayName,
+                    appDataSource = appDataSource,
+                    bundleMap = bundleMap,
+                    bundleNames = data.bundleNames,
+                    importExportViewModel = importExportViewModel,
+                    onResetPackage = {
+                        onSetResetTarget(ResetTarget.Package(packageName))
+                    },
+                    onResetPackageBundle = { bundleUid ->
+                        onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid))
+                    },
+                    onShowPatchDetails = onShowPatchDetails,
+                    onOpenCopyFromBundle = onOpenCopyFromBundle,
+                    onImport = onImport,
+                    isSelected = multiSelect.selectedPackages.contains(packageName),
+                    isSelectionMode = multiSelect.isSelectionMode,
+                    onEnterSelection = { multiSelect.onEnterSelection(packageName) },
+                    onToggleSelection = { multiSelect.onToggleSelection(packageName) },
+                    expanded = packageName in expandedPackages.value,
+                    onToggleExpanded = {
+                        expandedPackages.value = if (packageName in expandedPackages.value) {
+                            expandedPackages.value - packageName
+                        } else {
+                            expandedPackages.value + packageName
+                        }
+                    }
+                )
+            }
+        }
     }
 }
 
@@ -801,7 +787,7 @@ private fun BundleSelectionItem(
 @Composable
 private fun ConfirmResetDialog(
     title: String,
-    message: AnnotatedString,
+    message: CharSequence,
     primaryText: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
@@ -810,6 +796,7 @@ private fun ConfirmResetDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = title,
+        description = message,
         footer = {
             AppDialogButtonRow(
                 primaryText = primaryText,
@@ -821,13 +808,6 @@ private fun ConfirmResetDialog(
         }
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            Text(
-                text = message,
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
             LabeledSection { summaryItems() }
         }
     }
@@ -847,7 +827,7 @@ private fun ConfirmResetSelectedDialog(
     val packagesText = pluralStringResource(R.plurals.package_count, packageCount, packageCount.toString())
     ConfirmResetDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_selected_confirm_title),
-        message = AnnotatedString(stringResource(R.string.settings_system_patch_selection_reset_selected_warning)),
+        message = stringResource(R.string.settings_system_patch_selection_reset_selected_warning),
         primaryText = stringResource(R.string.reset),
         onConfirm = onConfirm,
         onDismiss = onDismiss
@@ -881,7 +861,7 @@ private fun ConfirmResetAllDialog(
     val packagesText = pluralStringResource(R.plurals.package_count, packageCount, packageCount.toString())
     ConfirmResetDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_all_confirm_title),
-        message = AnnotatedString(stringResource(R.string.settings_system_patch_selection_reset_all_warning)),
+        message = stringResource(R.string.settings_system_patch_selection_reset_all_warning),
         primaryText = stringResource(R.string.reset_all),
         onConfirm = onConfirm,
         onDismiss = onDismiss

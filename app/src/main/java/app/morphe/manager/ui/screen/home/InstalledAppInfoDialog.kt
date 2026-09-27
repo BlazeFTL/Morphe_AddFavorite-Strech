@@ -15,7 +15,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
@@ -42,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
@@ -326,7 +327,6 @@ fun InstalledAppInfoDialog(
         val options = remember { installViewModel.getInstallerOptions() }
         val primaryToken = remember { installViewModel.getPrimaryInstallerToken() }
         InstallerSelectionDialog(
-            title = stringResource(R.string.installer_title),
             options = options,
             selected = primaryToken,
             onDismiss = installViewModel::dismissInstallerSelectionDialog,
@@ -467,7 +467,152 @@ fun InstalledAppInfoDialog(
             }
 
             val windowSize = rememberWindowSize()
-            if (isLandscape()) {
+            val landscape = isLandscape()
+
+            // Both layouts show the same pieces and only place them differently
+            val relativeTime = remember(installedApp.patchedAt) { installedApp.patchedAt?.let { getRelativeTimeString(it) } }
+
+            // What the install is, then when it was made. The clone chip sits between them: it
+            // qualifies the install the same way its type does, rather than dating it
+            val installBadges = buildList {
+                add(installedApp.installType.badge.let { (icon, label) -> icon to stringResource(label) })
+                if (installedApp.isClone) {
+                    add(Icons.Outlined.ContentCopy to stringResource(R.string.clone))
+                }
+                relativeTime?.let { add(Icons.Outlined.Schedule to it) }
+            }
+            val badges = @Composable {
+                installBadges.forEach { (icon, label) ->
+                    AppAccentBadge(text = label, accentColor = infoAccentColor, icon = icon)
+                }
+            }
+            val compactHeader = landscape && windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
+
+            // The app's header pinned over its information. The header inset sets its band in from
+            // the panel's edges, which it otherwise reaches out to and up under the status bar
+            val infoPanel = @Composable { modifier: Modifier, headerInset: Dp, content: LazyListScope.() -> Unit ->
+                Column(modifier = modifier) {
+                    CompositionLocalProvider(LocalDialogHorizontalInset provides Defaults.ContentPadding) {
+                        ListDialogHeader(
+                            icon = { iconModifier ->
+                                // Resolved by name when the record has no metadata to show. A record
+                                // whose artifacts are gone carries no icon either, and the glass
+                                // placeholder tinted to the app's accent is what the home card shows
+                                // for it. The inset keeps its own rounding clear of the clip the real
+                                // icons need.
+                                AppIcon(
+                                    packageInfo = appInfo,
+                                    packageName = packageName,
+                                    contentDescription = null,
+                                    placeholderGradientColors = listOf(infoAccentColor),
+                                    placeholderInnerPadding = 4.dp,
+                                    modifier = iconModifier.clip(RoundedCornerShape(DialogHeaderDefaults.IconCornerRadius))
+                                )
+                            },
+                            title = appLabel,
+                            subtitle = (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
+                            accentColor = infoAccentColor,
+                            // Wraps rather than clips: a clone carries a chip more than other installs do
+                            badges = if (compactHeader) null else { { badges() } },
+                            // Compact mode: chips column on the right
+                            actions = if (compactHeader) {
+                                {
+                                    Column(
+                                        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                                        horizontalAlignment = Alignment.End
+                                    ) {
+                                        badges()
+                                    }
+                                }
+                            } else null,
+                            modifier = Modifier
+                                .statusBarsPadding()
+                                .padding(horizontal = Defaults.ContentPadding + headerInset)
+                        )
+                    }
+
+                    DialogLazyList(
+                        modifier = Modifier.weight(1f).fillMaxWidth(),
+                        contentPadding = PaddingValues(bottom = Defaults.ContentPaddingMedium),
+                        content = content
+                    )
+                }
+            }
+            val actions = @Composable { modifier: Modifier ->
+                ActionsSection(
+                    viewModel = viewModel,
+                    installViewModel = installViewModel,
+                    installedApp = installedApp,
+                    availablePatches = availablePatches,
+                    isInstalling = isInstalling,
+                    mountOperation = mountOperation,
+                    patchOfferedAbove = showsRebuildBanner,
+                    accentColor = infoAccentColor,
+                    onPatchClick = { handlePatchClick() },
+                    onUninstall = { showUninstallConfirm.value = true },
+                    onDelete = { showDeleteDialog.value = true },
+                    onExport = { exportSavedLauncher.launch(exportFileName) },
+                    onShowMountWarning = { action ->
+                        pendingMountWarningAction.value = action
+                        showMountWarningDialog.value = true
+                    },
+                    singleColumn = landscape,
+                    modifier = modifier
+                )
+            }
+            val noSavedApkNotice = @Composable { modifier: Modifier ->
+                Notice(
+                    text = stringResource(R.string.home_app_info_no_saved_apk),
+                    tone = SemanticTone.Warning,
+                    icon = Icons.Outlined.Info,
+                    modifier = modifier
+                )
+            }
+            val closeButton = @Composable { modifier: Modifier ->
+                AppDialogOutlinedButton(
+                    text = stringResource(R.string.close),
+                    onClick = onDismiss,
+                    modifier = modifier.fillMaxWidth()
+                )
+            }
+            // Stagger index counter: hero header is index 0 (animated independently). The banners
+            // always occupy index 1 (a permanent item, AnimatedVisibility controls visibility) so
+            // later indices are stable regardless of banner state
+            val infoItems: LazyListScope.() -> Unit = {
+                item(key = "banners") {
+                    InstalledAppBanners(
+                        viewModel = viewModel,
+                        showsRebuildBanner = showsRebuildBanner,
+                        versionBehind = versionBehind,
+                        versionAhead = versionAhead,
+                        entered = entered.value,
+                        staggerIndex = 1,
+                        accentColor = infoAccentColor,
+                        onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
+                        onShowUpdateChangelog = onShowUpdateChangelog,
+                        onIgnoreVersion = onIgnoreVersion,
+                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                    )
+                }
+                item(key = "info") {
+                    StaggeredItem(entered = entered.value, index = 2) {
+                        InfoSection(
+                            installedApp = installedApp,
+                            supportedVersion = supportedVersion?.version,
+                            onStopIgnoringVersion = onStopIgnoringVersion,
+                            appliedPatches = appliedPatches,
+                            bundlesUsedSummary = bundlesUsedSummary,
+                            onShowPatches = { showAppliedPatchesDialog.value = true },
+                            accentColor = infoAccentColor,
+                            modifier = Modifier
+                                .padding(horizontal = Defaults.ContentPadding)
+                                .padding(top = Defaults.ItemSpacing)
+                        )
+                    }
+                }
+            }
+
+            if (landscape) {
                 // Landscape layout: left sidebar has actions, right panel has header + info
                 Row(modifier = Modifier.fillMaxSize()) {
                     // Left sidebar: centered buttons (scrollable when height is small)
@@ -481,50 +626,25 @@ fun InstalledAppInfoDialog(
                     ) {
                         BoxWithConstraints(modifier = Modifier.fillMaxWidth().weight(1f)) {
                             val availableHeight = maxHeight
+                            val sidebarScrollState = rememberScrollState()
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .heightIn(min = availableHeight)
-                                    .verticalScroll(rememberScrollState()),
+                                    .verticalScrollFade(sidebarScrollState)
+                                    .verticalScroll(sidebarScrollState),
                                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterVertically)
                             ) {
                                 StaggeredItem(entered = entered.value, index = 1) {
-                                    ActionsSection(
-                                        viewModel = viewModel,
-                                        installViewModel = installViewModel,
-                                        installedApp = installedApp,
-                                        availablePatches = availablePatches,
-                                        isInstalling = isInstalling,
-                                        mountOperation = mountOperation,
-                                        patchOfferedAbove = showsRebuildBanner,
-                                        accentColor = infoAccentColor,
-                                        onPatchClick = { handlePatchClick() },
-                                        onUninstall = { showUninstallConfirm.value = true },
-                                        onDelete = { showDeleteDialog.value = true },
-                                        onExport = { exportSavedLauncher.launch(exportFileName) },
-                                        onShowMountWarning = { action ->
-                                            pendingMountWarningAction.value = action
-                                            showMountWarningDialog.value = true
-                                        },
-                                        singleColumn = true,
-                                        modifier = Modifier.fillMaxWidth()
-                                    )
+                                    actions(Modifier.fillMaxWidth())
                                 }
                                 if (!viewModel.hasOriginalApk) {
                                     StaggeredItem(entered = entered.value, index = 2) {
-                                        Notice(
-                                            text = stringResource(R.string.home_app_info_no_saved_apk),
-                                            tone = SemanticTone.Warning,
-                                            icon = Icons.Outlined.Info
-                                        )
+                                        noSavedApkNotice(Modifier)
                                     }
                                 }
                                 StaggeredItem(entered = entered.value, index = 1) {
-                                    AppDialogOutlinedButton(
-                                        text = stringResource(R.string.close),
-                                        onClick = onDismiss,
-                                        modifier = Modifier.fillMaxWidth()
-                                    )
+                                    closeButton(Modifier)
                                 }
                             }
                         }
@@ -532,159 +652,36 @@ fun InstalledAppInfoDialog(
 
                     VerticalDivider(modifier = Modifier.statusBarsPadding().navigationBarsPadding().padding(vertical = Defaults.ContentPadding))
 
-                    // Right panel: header + banners + info
-                    LazyColumn(
-                        modifier = Modifier
+                    infoPanel(
+                        Modifier
                             .weight(1f)
                             .fillMaxHeight()
                             .navigationBarsPadding(),
-                        contentPadding = PaddingValues(bottom = Defaults.ContentPaddingMedium),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-                    ) {
-                        item(contentType = "hero") {
-                            AppHeroHeader(
-                                appInfo = appInfo,
-                                packageName = packageName,
-                                appLabel = appLabel,
-                                installedApp = installedApp,
-                                accentColor = infoAccentColor,
-                                compact = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded,
-                                modifier = Modifier
-                                    .padding(horizontal = Defaults.ContentPadding)
-                                    .clip(RoundedCornerShape(bottomStart = Defaults.CardCornerRadius, bottomEnd = Defaults.CardCornerRadius))
-                            )
-                        }
-                        item(key = "banners") {
-                            InstalledAppBanners(
-                                viewModel = viewModel,
-                                showsRebuildBanner = showsRebuildBanner,
-                                versionBehind = versionBehind,
-                                versionAhead = versionAhead,
-                                entered = entered.value,
-                                staggerIndex = 2,
-                                accentColor = infoAccentColor,
-                                onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
-                                onShowUpdateChangelog = onShowUpdateChangelog,
-                                onIgnoreVersion = onIgnoreVersion,
-                                modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
-                            )
-                        }
-                        item {
-                            StaggeredItem(entered = entered.value, index = 4) {
-                                InfoSection(
-                                    installedApp = installedApp,
-                                    supportedVersion = supportedVersion?.version,
-                                    onStopIgnoringVersion = onStopIgnoringVersion,
-                                    appliedPatches = appliedPatches,
-                                    bundlesUsedSummary = bundlesUsedSummary,
-                                    onShowPatches = { showAppliedPatchesDialog.value = true },
-                                    accentColor = infoAccentColor,
-                                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
-                                )
-                            }
-                        }
-                    }
+                        Defaults.ContentPadding,
+                        infoItems
+                    )
                 }
             } else {
                 // Single-column layout for phones
                 Column(modifier = Modifier.fillMaxSize()) {
-                    LazyColumn(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
-                        contentPadding = PaddingValues(bottom = Defaults.ContentPaddingMedium)
-                    ) {
-                        // Hero header
-                        item(contentType = "hero") {
-                            AppHeroHeader(
-                                appInfo = appInfo,
-                                packageName = packageName,
-                                appLabel = appLabel,
-                                installedApp = installedApp,
-                                accentColor = infoAccentColor,
-                                modifier = Modifier.clip(RoundedCornerShape(bottomStart = Defaults.CardCornerRadius, bottomEnd = Defaults.CardCornerRadius))
-                            )
-                        }
+                    infoPanel(Modifier.weight(1f).fillMaxWidth(), 0.dp) {
+                        infoItems()
 
-                        // Stagger index counter: hero header is index 0 (animated independently).
-                        // Banner item always occupies index 1 (permanent item, AnimatedVisibility
-                        // controls visibility) so subsequent indices are stable regardless of
-                        // banner state - avoiding LazyColumn position-key conflicts
-                        var staggerIndex = 2
-
-                        // Warning banners (deleted / update)
-                        item(key = "banner") {
-                            InstalledAppBanners(
-                                viewModel = viewModel,
-                                showsRebuildBanner = showsRebuildBanner,
-                                versionBehind = versionBehind,
-                                versionAhead = versionAhead,
-                                entered = entered.value,
-                                staggerIndex = 1,
-                                accentColor = infoAccentColor,
-                                onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
-                                onShowUpdateChangelog = onShowUpdateChangelog,
-                                onIgnoreVersion = onIgnoreVersion,
-                                bannerModifier = Modifier.padding(horizontal = Defaults.ContentPadding),
-                                spaceAboveEachBanner = true
-                            )
-                        }
-
-                        // Info Section
-                        val infoIdx = staggerIndex++
-                        item {
-                            Box(modifier = Modifier.padding(top = Defaults.ItemSpacing)) {
-                                StaggeredItem(entered = entered.value, index = infoIdx) {
-                                    InfoSection(
-                                        installedApp = installedApp,
-                                        supportedVersion = supportedVersion?.version,
-                                        onStopIgnoringVersion = onStopIgnoringVersion,
-                                        appliedPatches = appliedPatches,
-                                        bundlesUsedSummary = bundlesUsedSummary,
-                                        onShowPatches = { showAppliedPatchesDialog.value = true },
-                                        accentColor = infoAccentColor,
-                                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
-                                    )
-                                }
-                            }
-                        }
-
-                        // Actions Section
-                        val actionsIdx = staggerIndex++
-                        item {
-                            StaggeredItem(entered = entered.value, index = actionsIdx) {
-                                ActionsSection(
-                                    viewModel = viewModel,
-                                    installViewModel = installViewModel,
-                                    installedApp = installedApp,
-                                    availablePatches = availablePatches,
-                                    isInstalling = isInstalling,
-                                    mountOperation = mountOperation,
-                                    patchOfferedAbove = showsRebuildBanner,
-                                    accentColor = infoAccentColor,
-                                    onPatchClick = { handlePatchClick() },
-                                    onUninstall = { showUninstallConfirm.value = true },
-                                    onDelete = { showDeleteDialog.value = true },
-                                    onExport = { exportSavedLauncher.launch(exportFileName) },
-                                    onShowMountWarning = { action ->
-                                        pendingMountWarningAction.value = action
-                                        showMountWarningDialog.value = true
-                                    },
-                                    modifier = Modifier
+                        item(key = "actions") {
+                            StaggeredItem(entered = entered.value, index = 3) {
+                                actions(
+                                    Modifier
                                         .padding(horizontal = Defaults.ContentPadding)
                                         .padding(top = Defaults.ItemSpacing)
                                 )
                             }
                         }
 
-                        // Info about saved APK availability
                         if (!viewModel.hasOriginalApk) {
-                            val idx = staggerIndex
-                            item {
-                                StaggeredItem(entered = entered.value, index = idx) {
-                                    Notice(
-                                        text = stringResource(R.string.home_app_info_no_saved_apk),
-                                        tone = SemanticTone.Warning,
-                                        icon = Icons.Outlined.Info,
-                                        modifier = Modifier
+                            item(key = "no_saved_apk") {
+                                StaggeredItem(entered = entered.value, index = 4) {
+                                    noSavedApkNotice(
+                                        Modifier
                                             .fillMaxWidth()
                                             .padding(horizontal = Defaults.ContentPadding)
                                             .padding(top = Defaults.ItemSpacing)
@@ -694,11 +691,8 @@ fun InstalledAppInfoDialog(
                         }
                     }
                     StaggeredItem(entered = entered.value, index = 3) {
-                        AppDialogOutlinedButton(
-                            text = stringResource(R.string.close),
-                            onClick = onDismiss,
-                            modifier = Modifier
-                                .fillMaxWidth()
+                        closeButton(
+                            Modifier
                                 .navigationBarsPadding()
                                 .padding(horizontal = Defaults.ContentPadding)
                                 .padding(vertical = Defaults.ItemSpacing)
@@ -717,8 +711,8 @@ private fun Color.accentContentColor(alpha: Float): Color =
             .requiresLightContent()) Color.White else Color.Black
 
 /**
- * The banners above an installed app's information. [spaceAboveEachBanner] moves the gap above
- * a banner into the banner, for a parent that spaces nothing of its own.
+ * The banners above an installed app's information. Each carries the gap above it, so a hidden
+ * one leaves no space behind in a list that spaces nothing of its own.
  */
 @Composable
 private fun InstalledAppBanners(
@@ -732,20 +726,13 @@ private fun InstalledAppBanners(
     onPatch: () -> Unit,
     onShowUpdateChangelog: (() -> Unit)?,
     onIgnoreVersion: (() -> Unit)?,
-    modifier: Modifier = Modifier,
-    bannerModifier: Modifier = Modifier,
-    spaceAboveEachBanner: Boolean = false
+    modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = if (spaceAboveEachBanner) Arrangement.Top
-        else Arrangement.spacedBy(Defaults.ItemSpacing)
-    ) {
+    Column(modifier = modifier) {
         BannerSlot(
             visible = viewModel.isAppDeleted && !viewModel.isInstallStateNotPatched,
             entered = entered,
-            staggerIndex = staggerIndex,
-            spaceAbove = spaceAboveEachBanner
+            staggerIndex = staggerIndex
         ) {
             WarningBanner(
                 icon = Icons.Outlined.Warning,
@@ -755,15 +742,13 @@ private fun InstalledAppBanners(
                 buttonIcon = Icons.Outlined.AutoFixHigh,
                 onClick = onPatch,
                 accentColor = accentColor,
-                isError = true,
-                modifier = bannerModifier
+                isError = true
             )
         }
         BannerSlot(
             visible = viewModel.isInstallStateNotPatched,
             entered = entered,
-            staggerIndex = staggerIndex,
-            spaceAbove = spaceAboveEachBanner
+            staggerIndex = staggerIndex
         ) {
             WarningBanner(
                 icon = Icons.Outlined.AutoFixHigh,
@@ -775,21 +760,18 @@ private fun InstalledAppBanners(
                 accentColor = accentColor,
                 // The version the app moved to and the one it can be rebuilt at, which is what
                 // patching this record again turns on
-                versions = versionAhead?.versions,
-                modifier = bannerModifier
+                versions = versionAhead?.versions
             )
         }
         BannerSlot(
             visible = viewModel.isInstallStateUnknown,
             entered = entered,
-            staggerIndex = staggerIndex,
-            spaceAbove = spaceAboveEachBanner
+            staggerIndex = staggerIndex
         ) {
             Notice(
                 text = stringResource(R.string.home_app_info_install_unverified),
                 tone = SemanticTone.Warning,
-                icon = Icons.AutoMirrored.Outlined.HelpOutline,
-                modifier = bannerModifier
+                icon = Icons.AutoMirrored.Outlined.HelpOutline
             )
         }
         // Newer patches and a newer supported app version are both answered by rebuilding the
@@ -797,8 +779,7 @@ private fun InstalledAppBanners(
         BannerSlot(
             visible = showsRebuildBanner,
             entered = entered,
-            staggerIndex = staggerIndex,
-            spaceAbove = spaceAboveEachBanner
+            staggerIndex = staggerIndex
         ) {
             WarningBanner(
                 icon = Icons.Outlined.Update,
@@ -831,8 +812,7 @@ private fun InstalledAppBanners(
                             onClick = it
                         )
                     }
-                ),
-                modifier = bannerModifier
+                )
             )
         }
     }
@@ -844,7 +824,6 @@ private fun BannerSlot(
     visible: Boolean,
     entered: Boolean,
     staggerIndex: Int,
-    spaceAbove: Boolean,
     content: @Composable () -> Unit
 ) {
     AnimatedVisibility(
@@ -853,7 +832,7 @@ private fun BannerSlot(
         exit = Animations.shrinkFadeExit
     ) {
         Column {
-            if (spaceAbove) Spacer(Modifier.height(Defaults.ItemSpacing))
+            Spacer(Modifier.height(Defaults.ItemSpacing))
             StaggeredItem(entered = entered, index = staggerIndex, content = content)
         }
     }
@@ -986,183 +965,18 @@ private fun WarningBanner(
     }
 }
 
-/**
- * Hero header for the app info dialog.
- */
-@Composable
-private fun AppHeroHeader(
-    appInfo: PackageInfo?,
-    packageName: String,
-    appLabel: String,
-    installedApp: InstalledApp,
-    accentColor: Color,
-    modifier: Modifier = Modifier,
-    compact: Boolean = false
-) {
-    val onHero = MaterialTheme.colorScheme.onBackground
-
-    // Entrance animations (progress-based: 0f -> 1f).
-    // One Float per visual group; alpha, offset and scale are derived via lerp
-    // to avoid redundant Recomposition subscribers.
-    val entered = remember { mutableStateOf(false) }
-    val relativeTime = remember(installedApp.patchedAt) { installedApp.patchedAt?.let { getRelativeTimeString(it) } }
-    LaunchedEffect(Unit) { entered.value = true }
-
-    // Icon: spring with overshoot (first thing the eye sees, no delay needed).
-    val iconProgress by animateFloatAsState(
-        targetValue = if (entered.value) 1f else 0f,
-        animationSpec = spring(dampingRatio = 0.55f, stiffness = 320f),
-        label = "heroIconProgress"
-    )
-
-    // Name + version share one clock; stagger handled inside graphicsLayer via lerp
-    val textProgress by animateFloatAsState(
-        targetValue = if (entered.value) 1f else 0f,
-        animationSpec = tween(durationMillis = 260, delayMillis = 60, easing = EaseOutCubic),
-        label = "heroTextProgress"
-    )
-
-    // Both chips share one clock; chip 2 uses a clamped sub-range for its offset
-    val chipsProgress by animateFloatAsState(
-        targetValue = if (entered.value) 1f else 0f,
-        animationSpec = tween(durationMillis = 240, delayMillis = 160, easing = EaseOutBack),
-        label = "heroChipsProgress"
-    )
-
-    Box(modifier = modifier.fillMaxWidth()) {
-        // Flat tinted background
-        Box(
-            modifier = Modifier
-                .matchParentSize()
-                .background(appAccentFill(accentColor))
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding()
-                .padding(
-                    horizontal = Defaults.ContentPadding,
-                    vertical = DialogHeaderDefaults.VerticalPadding
-                )
-        ) {
-            val (chipIcon, chipLabel) = when (installedApp.installType) {
-                InstallType.MOUNT   -> Icons.Outlined.Link to R.string.mount
-                InstallType.SHIZUKU -> Icons.Outlined.Terminal to R.string.home_app_info_install_type_shizuku
-                InstallType.SHIZUKU_PLAY_STORE -> Icons.Outlined.Terminal to R.string.home_app_info_install_type_shizuku_play_store
-                InstallType.PLAY_STORE -> Icons.Outlined.Shop to R.string.home_app_info_install_type_play_store
-                InstallType.ROOT_PLAY_STORE -> Icons.Outlined.Security to R.string.home_app_info_install_type_root_play_store
-                InstallType.CUSTOM  -> Icons.Outlined.Build to R.string.home_app_info_install_type_custom_installer
-                InstallType.SAVED   -> Icons.Outlined.Save to R.string.saved
-                InstallType.DEFAULT -> Icons.Outlined.InstallMobile to R.string.home_app_info_install_type_system_installer
-            }
-
-            // What the install is, then when it was made. The clone chip sits between them: it
-            // qualifies the install the same way its type does, rather than dating it
-            val heroChips = buildList {
-                add(chipIcon to stringResource(chipLabel))
-                if (installedApp.isClone) {
-                    add(Icons.Outlined.ContentCopy to stringResource(R.string.clone))
-                }
-                relativeTime?.let { add(Icons.Outlined.Schedule to it) }
-            }
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                // Animated app icon, resolved by name when the record has no metadata to show
-                AppIcon(
-                    packageInfo = appInfo,
-                    packageName = packageName,
-                    contentDescription = null,
-                    // A record whose artifacts are gone carries no icon either, and the glass
-                    // placeholder tinted to the app's accent is what the home card shows for it.
-                    // The inset keeps its own rounding clear of the clip the real icons need.
-                    placeholderGradientColors = listOf(accentColor),
-                    placeholderInnerPadding = 4.dp,
-                    modifier = Modifier
-                        .size(DialogHeaderDefaults.IconSize)
-                        .clip(RoundedCornerShape(DialogHeaderDefaults.IconCornerRadius))
-                        .graphicsLayer {
-                            val s = lerp(0.6f, 1f, iconProgress)
-                            scaleX = s
-                            scaleY = s
-                            alpha = iconProgress.coerceIn(0f, 1f)
-                        }
-                )
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.TextSpacing)
-                ) {
-                    // Animated app name (leads textProgress)
-                    Box(
-                        modifier = Modifier.graphicsLayer {
-                            translationX = lerp(40f, 0f, textProgress)
-                            alpha = textProgress.coerceIn(0f, 1f)
-                        }
-                    ) {
-                        AppLabel(
-                            packageInfo = appInfo,
-                            style = DialogHeaderDefaults.titleStyle.copy(color = onHero),
-                            defaultText = appLabel
-                        )
-                    }
-                    // Animated version (slightly behind name via sub-range)
-                    Text(
-                        text = (appInfo?.versionName ?: installedApp.version).withVersionPrefix(),
-                        style = DialogHeaderDefaults.subtitleStyle,
-                        color = LocalDialogSecondaryTextColor.current,
-                        modifier = Modifier.graphicsLayer {
-                            val p = ((textProgress - 0.15f) / 0.85f).coerceIn(0f, 1f)
-                            translationX = lerp(40f, 0f, p)
-                            alpha = p
-                        }
-                    )
-                }
-                // Compact mode: chips column on the right
-                if (compact) {
-                    Column(
-                        modifier = Modifier.graphicsLayer {
-                            translationY = lerp(20f, 0f, chipsProgress)
-                            alpha = chipsProgress.coerceIn(0f, 1f)
-                        },
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        heroChips.forEach { (icon, label) ->
-                            AppAccentBadge(text = label, accentColor = accentColor, icon = icon)
-                        }
-                    }
-                }
-            }
-
-            // Normal mode: chips on separate row below
-            if (!compact) {
-                Spacer(Modifier.height(Defaults.ContentPaddingSmall))
-
-                // Wraps rather than clips: a clone carries a chip more than other installs do
-                StatusBadgeRow {
-                    heroChips.forEachIndexed { index, (icon, label) ->
-                        // Each chip starts a third of the way into the one before it, so they
-                        // arrive in sequence off a single clock
-                        Box(
-                            modifier = Modifier.graphicsLayer {
-                                val start = index * 0.3f
-                                val p = ((chipsProgress - start) / (1f - start)).coerceIn(0f, 1f)
-                                translationY = lerp(20f, 0f, p)
-                                alpha = p
-                            }
-                        ) {
-                            AppAccentBadge(text = label, accentColor = accentColor, icon = icon)
-                        }
-                    }
-                }
-            }
-        }
+/** The icon and label an install type is badged with in the app's header. */
+private val InstallType.badge: Pair<ImageVector, Int>
+    get() = when (this) {
+        InstallType.MOUNT   -> Icons.Outlined.Link to R.string.mount
+        InstallType.SHIZUKU -> Icons.Outlined.Terminal to R.string.home_app_info_install_type_shizuku
+        InstallType.SHIZUKU_PLAY_STORE -> Icons.Outlined.Terminal to R.string.home_app_info_install_type_shizuku_play_store
+        InstallType.PLAY_STORE -> Icons.Outlined.Shop to R.string.home_app_info_install_type_play_store
+        InstallType.ROOT_PLAY_STORE -> Icons.Outlined.Security to R.string.home_app_info_install_type_root_play_store
+        InstallType.CUSTOM  -> Icons.Outlined.Build to R.string.home_app_info_install_type_custom_installer
+        InstallType.SAVED   -> Icons.Outlined.Save to R.string.saved
+        InstallType.DEFAULT -> Icons.Outlined.InstallMobile to R.string.home_app_info_install_type_system_installer
     }
-}
 
 /**
  * Wraps content with a staggered entrance animation.
@@ -1805,6 +1619,7 @@ private fun MountWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.warning),
+        description = stringResource(R.string.installer_mount_warning_install),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.ok),
@@ -1813,15 +1628,7 @@ private fun MountWarningDialog(
                 onSecondaryClick = onDismiss
             )
         }
-    ) {
-        Text(
-            text = stringResource(R.string.installer_mount_warning_install),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 @Composable

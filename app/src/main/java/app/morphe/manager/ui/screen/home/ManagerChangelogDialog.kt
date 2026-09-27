@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,9 +39,11 @@ import app.morphe.manager.util.releasePageUrl
 import app.morphe.manager.util.rememberSourceAccent
 import app.morphe.manager.util.withVersionPrefix
 import kotlinx.coroutines.delay
+import java.text.NumberFormat
 import kotlin.time.Duration.Companion.milliseconds
 
-private val ProgressBarHeight = 8.dp
+private val ProgressRingSize = 220.dp
+private val ProgressRingWavelength = 30.dp
 private val SuccessIconContainerSize = 80.dp
 private val SuccessIconSize = 40.dp
 
@@ -97,6 +100,7 @@ fun ManagerChangelogDialog(
     // A banner can outlive the release it points at, and a check can fail outright, so name the
     // situation rather than wait on data that is not coming
     val isUpdateUnavailable = expectsUpdate && !hasUpdate && !updateViewModel.isCheckingForUpdate
+    val morpheAccent = rememberSourceAccent(isDefault = true, avatarUrl = null, fallbackAvatarUrl = null)
     val older = OlderReleases(
         entries = updateViewModel.olderManagerEntries,
         isLoading = updateViewModel.isLoadingOlderEntries,
@@ -166,7 +170,7 @@ fun ManagerChangelogDialog(
                 stringResource(R.string.app_name),
                 (updateViewModel.releaseInfo?.version ?: BuildConfig.VERSION_NAME).withVersionPrefix().isolateLtr()
             ).joinToString(" · "),
-            accentColor = rememberSourceAccent(isDefault = true, avatarUrl = null, fallbackAvatarUrl = null)
+            accentColor = morpheAccent
         )
 
         AnimatedContent(
@@ -224,14 +228,15 @@ fun ManagerChangelogDialog(
                     DownloadProgress(
                         downloadedSize = updateViewModel.downloadedSize,
                         totalSize = updateViewModel.totalSize,
-                        progress = updateViewModel.downloadProgress
+                        progress = updateViewModel.downloadProgress,
+                        accentColor = morpheAccent
                     )
                 }
 
-                // The dialog title already reads "Installing update", so the logo carries it
-                // as a description instead of repeating it on screen
+                // The caption repeats the dialog title, since eyes on the pulsing logo easily miss
+                // the header above it
                 UpdateDialogContent.Installing -> CenteredStatus {
-                    PulsingLogoIndicator(contentDescription = stringResource(R.string.installing_manager_update))
+                    PulsingLogoWithCaption(caption = stringResource(R.string.installing_manager_update))
                 }
 
                 UpdateDialogContent.Failed -> CenteredStatus {
@@ -244,8 +249,6 @@ fun ManagerChangelogDialog(
             }
         }
     }
-
-    TranslationOverlays()
 
     // Internet check dialog
     if (updateViewModel.showInternetCheckDialog) {
@@ -378,66 +381,79 @@ private fun CenteredStatus(content: @Composable () -> Unit) {
 }
 
 /**
- * Download progress with an animated bar. The header names the release being fetched.
+ * Download progress as a wavy ring with the percentage at its center. The header names the
+ * release being fetched.
  *
- * The total size is unknown until the first progress callback, and stays unknown when the server
- * streams the release without a content length, so both cases fall back to an indeterminate bar.
+ * The total size is unknown until the first progress callback, which the ring waits out empty at
+ * zero so it does not flash an indeterminate state before the first percent. Only a server that
+ * streams the release without a content length leaves it indeterminate, around the amount fetched.
  */
 @Composable
 private fun DownloadProgress(
     downloadedSize: Long,
     totalSize: Long,
-    progress: Float
+    progress: Float,
+    accentColor: Color?
 ) {
     val hasKnownSize = totalSize > 0L
+    val isStreaming = !hasKnownSize && downloadedSize > 0L
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "downloadProgress"
     )
 
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+    // The ring grows in from a little smaller, so the switch from the changelog reads as a start
+    val scale by rememberEntranceScale(
+        from = 0.85f,
+        dampingRatio = Spring.DampingRatioLowBouncy,
+        label = "downloadRingScale"
+    )
+
+    Box(
+        modifier = Modifier
+            .size(ProgressRingSize)
+            .scale(scale),
+        contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = if (hasKnownSize) {
-                stringResource(
-                    R.string.download_progress,
-                    formatMegabytes(downloadedSize),
-                    formatMegabytes(totalSize),
-                    (progress * 100).toInt().toString()
-                )
-            } else {
-                stringResource(
-                    R.string.manager_update_progress_downloaded,
-                    formatMegabytes(downloadedSize)
-                )
-            },
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+        WavyProgressRing(
+            progress = if (isStreaming) null else ({ animatedProgress }),
+            wavelength = ProgressRingWavelength,
+            accentColor = accentColor,
+            modifier = Modifier.fillMaxSize()
         )
 
-        val progressModifier = Modifier
-            .fillMaxWidth()
-            .height(ProgressBarHeight)
-        val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-        if (hasKnownSize) {
-            LinearProgressIndicator(
-                progress = { animatedProgress },
-                modifier = progressModifier,
-                color = MaterialTheme.colorScheme.primary,
-                trackColor = trackColor
-            )
-        } else {
-            LinearProgressIndicator(
-                modifier = progressModifier,
-                color = MaterialTheme.colorScheme.primary,
-                trackColor = trackColor
-            )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            if (!isStreaming) {
+                val locale = LocalConfiguration.current.locales[0]
+                Text(
+                    text = remember(locale) { NumberFormat.getPercentInstance(locale) }.format(progress),
+                    style = MaterialTheme.typography.displaySmall,
+                    fontWeight = FontWeight.Bold,
+                    color = LocalDialogTextColor.current
+                )
+            }
+            // Nothing to size up before the first callback, so the percentage stands alone
+            if (hasKnownSize || isStreaming) {
+                Text(
+                    text = if (hasKnownSize) {
+                        stringResource(
+                            R.string.manager_update_progress_size,
+                            formatMegabytes(downloadedSize),
+                            formatMegabytes(totalSize)
+                        )
+                    } else {
+                        stringResource(
+                            R.string.manager_update_progress_downloaded,
+                            formatMegabytes(downloadedSize)
+                        )
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = LocalDialogSecondaryTextColor.current,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }
@@ -460,15 +476,9 @@ private fun InstallFailureContent(message: String) {
  */
 @Composable
 private fun UpdateCompletedContent(version: String?) {
-    var appeared by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) { appeared = true }
-
-    val scale by animateFloatAsState(
-        targetValue = if (appeared) 1f else 0.6f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        ),
+    val scale by rememberEntranceScale(
+        from = 0.6f,
+        dampingRatio = Spring.DampingRatioMediumBouncy,
         label = "successScale"
     )
 
@@ -481,7 +491,7 @@ private fun UpdateCompletedContent(version: String?) {
     ) {
         Surface(
             shape = CircleShape,
-            color = MaterialTheme.colorScheme.tertiaryContainer,
+            color = SemanticTone.Success.container,
             modifier = Modifier
                 .size(SuccessIconContainerSize)
                 .scale(scale)
@@ -489,7 +499,7 @@ private fun UpdateCompletedContent(version: String?) {
             Box(contentAlignment = Alignment.Center) {
                 ThemedIcon(
                     icon = Icons.Outlined.CheckCircle,
-                    tint = MaterialTheme.colorScheme.tertiary,
+                    tint = SemanticTone.Success.content,
                     size = SuccessIconSize
                 )
             }
@@ -505,4 +515,17 @@ private fun UpdateCompletedContent(version: String?) {
             )
         }
     }
+}
+
+/** Scale that springs up to full size [from] a smaller one once the content enters composition. */
+@Composable
+private fun rememberEntranceScale(from: Float, dampingRatio: Float, label: String): State<Float> {
+    var appeared by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { appeared = true }
+
+    return animateFloatAsState(
+        targetValue = if (appeared) 1f else from,
+        animationSpec = spring(dampingRatio = dampingRatio, stiffness = Spring.StiffnessLow),
+        label = label
+    )
 }

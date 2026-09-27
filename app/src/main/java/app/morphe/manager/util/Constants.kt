@@ -6,6 +6,8 @@
 package app.morphe.manager.util
 
 import androidx.compose.ui.graphics.Color
+import app.morphe.manager.ui.theme.MorpheBrandBlue
+import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.util.KnownApps.DEFAULT_COLORS
 import app.morphe.manager.util.KnownApps.getAppName
 import kotlin.time.Duration
@@ -43,8 +45,8 @@ object KnownApps {
     // const val X_TWITTER     = "com.twitter.android"
 
     // Shared Morphe brand gradient tail
-    val GRADIENT_MID = Color(0xFF1E5AA8)
-    val GRADIENT_END = Color(0xFF00AFAE)
+    val GRADIENT_MID = MorpheBrandBlue
+    val GRADIENT_END = MorpheBrandTeal
 
     val DEFAULT_DOWNLOAD_COLOR = Color(0xFF0E3F6E)
 

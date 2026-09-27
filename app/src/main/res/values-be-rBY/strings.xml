@@ -132,8 +132,6 @@
     <string name="sources_dialog_rename">Перайменаваць крыніцу патча</string>
     <string name="sources_dialog_duplicate_name_error">Крыніца патча з такой назвай ужо існуе</string>
     <string name="sources_dialog_missing_error">Не ўдалося абнавіць гэтую крыніцу патча</string>
-    <string name="sources_dialog_view_any_version">Любая версія</string>
-    <string name="sources_dialog_view_any_package">Любы пакет</string>
     <string name="sources_dialog_add_source">Дадаць крыніцу патча</string>
     <string name="sources_dialog_delete_confirm_message">Выдаліць крыніцу \"%s\"? Гэтага нельга будзе адмяніць</string>
     <string name="sources_dialog_remote">Знешні</string>
@@ -281,6 +279,9 @@
     <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
          megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
          how a literal percent sign is written here. -->
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

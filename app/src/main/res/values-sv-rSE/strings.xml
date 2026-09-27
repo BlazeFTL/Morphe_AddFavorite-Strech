@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Rapportera ett problem</string>
     <string name="sources_management_failed_to_open_url">Det gick inte att öppna webbadressen</string>
     <string name="sources_apps">Appar</string>
-    <string name="sources_apps_title">Appar från %1$s</string>
     <string name="sources_apps_description">Tryck på en app för att utesluta den från den här källan eller ta tillbaka den, eller tryck länge för att välja flera. En app lämnar startskärmen när ingen källa tar med den.</string>
     <string name="sources_apps_brought">Tillhandahålls av den här källan</string>
     <string name="sources_apps_left_out">Uteslutna från den här källan</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Byt namn på tilläggskällan</string>
     <string name="sources_dialog_duplicate_name_error">Det finns redan en tilläggskälla med det här namnet</string>
     <string name="sources_dialog_missing_error">Det gick inte att uppdatera den här tilläggskällan</string>
-    <string name="sources_dialog_view_any_version">Valfri version</string>
-    <string name="sources_dialog_view_any_package">Valfritt paket</string>
     <string name="sources_dialog_add_source">Lägg till tilläggskälla</string>
     <string name="sources_dialog_delete_confirm_message">Radera källan %s? Det går inte att ångra den här åtgärden</string>
     <string name="sources_dialog_remote">Fjärrkälla</string>
@@ -283,7 +280,6 @@ Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Expertläge</string>
     <string name="expert_mode_search">Sök efter tillägg</string>
-    <string name="expert_mode_proceed">Fortsätt till modifiering</string>
     <string name="expert_mode_disable_all">Inaktivera alla</string>
     <string name="expert_mode_disable_all_done">Alla tillägg har inaktiverats</string>
     <string name="expert_mode_enable_all">Aktivera alla</string>
@@ -1199,7 +1195,6 @@ Information: %2$s"</string>
     <string name="disable">Inaktivera</string>
     <string name="enable">Aktivera</string>
     <string name="loading">Läser in …</string>
-    <string name="loading_older_releases">Läser in äldre versioner …</string>
     <string name="creating">Skapar …</string>
     <string name="processing_apk">Bearbetar APK-fil …</string>
     <string name="exporting_apks">Exporterar APK-filer …</string>
@@ -1242,6 +1237,7 @@ Information: %2$s"</string>
     <string name="continue_">Fortsätt</string>
     <string name="version">Version</string>
     <string name="clone">Klona</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Modifiera</string>
     <string name="patching">Modifiering</string>
     <string name="patched">Modifierad</string>
@@ -1281,8 +1277,26 @@ Information: %2$s"</string>
     <string name="changelog_description">Vad är nytt i den här versionen</string>
     <string name="changelog_download_fail">Det gick inte att ladda ned ändringsloggen: %s</string>
     <string name="changelog_empty">Ingen ändringslogg är tillgänglig</string>
-    <string name="changelog_show_older">Visa äldre versioner</string>
+    <string name="changelog_earlier_releases">Tidigare utgåvor</string>
     <string name="changelog_older_empty">Inga äldre versioner att visa</string>
+    <string name="changelog_older_failed">Kunde inte ladda äldre utgåvor</string>
+    <string name="changelog_release_page">Utgåvesida</string>
+    <string name="content_translate">Översätt</string>
+    <string name="content_show_original">Visa original</string>
+    <string name="content_translation_failed">Det gick inte att översätta: %s</string>
+    <string name="changelog_section_new">Nytt</string>
+    <string name="changelog_section_fixes">Korrigeringar</string>
+    <string name="changelog_section_performance">Prestanda</string>
+    <string name="changelog_section_improvements">Förbättringar</string>
+    <string name="changelog_section_app_support">Appsupport</string>
+    <string name="changelog_section_other">Ändringar</string>
+    <string name="changelog_badge_latest">Senaste</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Används</string>
+    <string name="changelog_badge_prerelease">Förhandsversion</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Visa alla (%s)</string>
+    <string name="changelog_show_less">Visa mindre</string>
     <string name="no_network_toast">Ingen internetanslutning är tillgänglig</string>
     <string name="update_available">En uppdatering är tillgänglig</string>
     <string name="ready_to_install_update">Redo att installera uppdateringen</string>

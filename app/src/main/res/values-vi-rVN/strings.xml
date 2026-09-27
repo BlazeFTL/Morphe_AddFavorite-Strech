@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Báo cáo sự cố</string>
     <string name="sources_management_failed_to_open_url">Không thể mở URL</string>
     <string name="sources_apps">Ứng dụng</string>
-    <string name="sources_apps_title">Ứng dụng từ %1$s</string>
     <string name="sources_apps_description">Chạm vào một ứng dụng để loại ứng dụng đó khỏi nguồn này hoặc đưa nó trở lại, hoặc nhấn và giữ để chọn nhiều ứng dụng. Một ứng dụng sẽ rời khỏi màn hình chính khi không còn nguồn nào đưa nó vào.</string>
     <string name="sources_apps_brought">Được nguồn này đưa vào</string>
     <string name="sources_apps_left_out">Đã loại khỏi nguồn này</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Đổi tên nguồn vá</string>
     <string name="sources_dialog_duplicate_name_error">Đã tồn tại nguồn vá có tên này rồi</string>
     <string name="sources_dialog_missing_error">Không thể cập nhật nguồn vá này</string>
-    <string name="sources_dialog_view_any_version">Phiên bản bất kỳ</string>
-    <string name="sources_dialog_view_any_package">Gói bất kỳ</string>
     <string name="sources_dialog_add_source">Thêm nguồn vá</string>
     <string name="sources_dialog_delete_confirm_message">Bạn có muốn xóa nguồn \"%s\" không? Thao tác này không thể hoàn tác đâu</string>
     <string name="sources_dialog_remote">Từ URL</string>
@@ -215,14 +212,14 @@ Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng
     <string name="home_apk_availability_installed_version">Đã cài đặt trên thiết bị này: %s</string>
     <string name="home_apk_availability_yes">Có, giúp tôi với</string>
     <string name="home_apk_availability_no">Không, tôi có APK rồi</string>
-    <string name="home_apk_helper_download">Sử dụng một ứng dụng hỗ trợ</string>
-    <string name="home_apk_helper_title">Tải xuống bằng một ứng dụng hỗ trợ</string>
-    <string name="home_apk_helper_description">Morphe sẽ yêu cầu ứng dụng hỗ trợ bên dưới tải xuống APK gốc và trả lại tệp</string>
+    <string name="home_apk_helper_download">Dùng ứng dụng hỗ trợ</string>
+    <string name="home_apk_helper_title">Tải bằng ứng dụng hỗ trợ</string>
+    <string name="home_apk_helper_description">Morphe sẽ yêu cầu ứng dụng hỗ trợ bên dưới tải APK gốc rồi gửi lại tệp cho Morphe</string>
     <string name="home_apk_helper_continue">Mở ứng dụng hỗ trợ</string>
-    <string name="home_apk_helper_warning">Chỉ tiếp tục nếu bạn tin tưởng ứng dụng hỗ trợ này. Morphe sẽ kiểm tra gói, phiên bản và chữ ký của mọi thứ nhận được trước khi vá</string>
-    <string name="home_apk_helper_warning_unverified">Chỉ tiếp tục nếu bạn tin tưởng ứng dụng hỗ trợ này. Morphe không thể xác minh chữ ký của APK này, vì vậy một tệp đã sửa đổi sẽ không được phát hiện</string>
-    <string name="home_apk_helper_no_result">Ứng dụng hỗ trợ không trả về APK</string>
-    <string name="home_apk_helper_no_access">Ứng dụng hỗ trợ không cấp quyền truy cập vào APK mà nó trả về</string>
+    <string name="home_apk_helper_warning">Chỉ tiếp tục khi bạn tin tưởng ứng dụng hỗ trợ này. Trước khi vá, Morphe sẽ kiểm tra tên gói, phiên bản và chữ ký của mọi tệp nhận được</string>
+    <string name="home_apk_helper_warning_unverified">Chỉ tiếp tục khi bạn tin tưởng ứng dụng hỗ trợ này. Vì Morphe không thể xác minh chữ ký của APK này, nên sẽ không thể phát hiện nếu tệp đã bị sửa đổi</string>
+    <string name="home_apk_helper_no_result">Không nhận được APK từ ứng dụng hỗ trợ</string>
+    <string name="home_apk_helper_no_access">Ứng dụng hỗ trợ không cấp quyền truy cập vào APK đã trả về</string>
     <string name="home_apk_helper_no_package">Ứng dụng trợ giúp không cho biết ứng dụng đã cài đặt nào để sử dụng</string>
     <string name="home_apk_helper_wrong_package">Ứng dụng trợ giúp trả về một ứng dụng khác với ứng dụng đang được vá</string>
     <string name="home_apk_helper_installed_unavailable">Morphe không thể sử dụng ứng dụng đã cài đặt</string>
@@ -256,8 +253,8 @@ Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng
     <string name="home_download_instructions_download_button_toast_4">Vẫn chưa... vẫn chưa đâu... 🙈</string>
     <string name="home_download_instructions_download_button_toast_5">Được rồi, phải công nhận là bạn kiên trì thật đấy 🫡</string>
     <string name="home_download_instructions_download_button_toast_6">Giờ bạn đã là chuyên gia thử nút của Morphe rồi đấy 🏅</string>
-    <string name="home_download_instructions_step3">Đợi tải xong, &lt;b&gt;không cài&lt;/b&gt; APK</string>
-    <string name="home_download_instructions_step3_mount">Đợi tải xong, sau đó &lt;b&gt;cài APK&lt;/b&gt;</string>
+    <string name="home_download_instructions_step3">Đợi tải xong, mà nhớ là &lt;b&gt;không cài&lt;/b&gt; APK đấy!</string>
+    <string name="home_download_instructions_step3_mount">Đợi tải xong, sau đó &lt;b&gt;cài APK&lt;/b&gt; luôn</string>
     <string name="home_download_instructions_step4">Quay lại Morphe</string>
     <string name="home_download_instructions_step4_mount">Sau khi cài xong, hãy quay lại Morphe</string>
     <string name="home_download_instructions_continue_to">Tiếp tục đến %s</string>
@@ -283,7 +280,6 @@ Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Chế độ chuyên gia</string>
     <string name="expert_mode_search">Tìm kiếm</string>
-    <string name="expert_mode_proceed">Tiến hành vá</string>
     <string name="expert_mode_disable_all">Tắt tất cả</string>
     <string name="expert_mode_disable_all_done">Đã tắt tất cả bản vá</string>
     <string name="expert_mode_enable_all">Bật tất cả</string>
@@ -303,8 +299,8 @@ Bất cứ thứ gì bạn thêm từ trang web này đều được sử dụng
     <string name="expert_mode_universal_patches">Bản vá phổ quát</string>
     <string name="expert_mode_new_patches">Mới</string>
     <string name="expert_mode_options_customized">Tùy chỉnh</string>
-    <string name="expert_mode_patch_required_by_installer">Yêu cầu cho mục cài đặt đã chọn</string>
-    <string name="expert_mode_patch_unavailable_for_installer">Không khả dụng cho mục cài đặt đã chọn</string>
+    <string name="expert_mode_patch_required_by_installer">Bắt buộc đối với đích cài đặt đã chọn</string>
+    <string name="expert_mode_patch_unavailable_for_installer">Không khả dụng với đích cài đặt đã chọn</string>
     <string name="expert_mode_multiple_sources_warning_title">Đã chọn nhiều nguồn vá</string>
     <string name="expert_mode_multiple_sources_warning_message">"Bạn đã chọn các bản vá từ nhiều nguồn khác nhau. Điều đó khiến ứng dụng có thể gặp phải các vấn đề về tương thích hoặc không hoạt động như mong muốn.
 
@@ -549,7 +545,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_install_error_subtitle">Hãy thử gỡ và cài đặt lại</string>
     <string name="patcher_ready_to_install_subtitle">Bấm nút bên dưới để cài đặt</string>
     <string name="patcher_ready_to_mount_subtitle">Bấm nút bên dưới để gắn kết</string>
-    <string name="patcher_patches_excluded_for_installer">Không khả dụng cho phương thức cài đặt này và bị loại trừ: %s</string>
+    <string name="patcher_patches_excluded_for_installer">Không khả dụng với phương thức cài đặt này và đã bị loại trừ: %s</string>
     <string name="patcher_back_to_game_hint">Chạm vào %1$s để quay lại trò chơi của bạn</string>
     <string name="patcher_storage_permission_dialog_title">Không thể truy cập đường dẫn bộ nhớ</string>
     <string name="patcher_incompatible_patcher_title">Cần phải cập nhật</string>
@@ -1128,7 +1124,7 @@ Chi tiết: %2$s"</string>
     <string name="settings_system_custom_file_picker">Tùy chỉnh trình chọn tệp</string>
     <string name="settings_system_custom_file_picker_description">Duyệt bộ nhớ bằng trình chọn tệp tích hợp của Morphe thay vì trình chọn mặc định của hệ thống</string>
     <!-- Settings - System Tab - APK download helper -->
-    <string name="settings_system_apk_download_helper">Trình hỗ trợ tải xuống APK</string>
+    <string name="settings_system_apk_download_helper">Trình hỗ trợ tải APK</string>
     <string name="settings_system_apk_download_helper_trusted_count">Đã tin cậy: %1$d trên %2$d</string>
     <string name="settings_system_apk_download_helper_dialog_description">Các ứng dụng trợ giúp có thể tải APK gốc cho bạn. Chỉ những ứng dụng bạn tin cậy ở đây mới được đề xuất trong hướng dẫn tải xuống.</string>
     <string name="settings_system_apk_download_helper_warning">APK đến từ ứng dụng trợ giúp, vì vậy chỉ tin cậy những ứng dụng bạn biết. Morphe vẫn kiểm tra gói, phiên bản và chữ ký của mọi tệp trước khi vá.</string>
@@ -1206,7 +1202,6 @@ Chi tiết: %2$s"</string>
     <string name="disable">Tắt</string>
     <string name="enable">Không sợ</string>
     <string name="loading">Đang tải…</string>
-    <string name="loading_older_releases">Đang tải các bản phát hành cũ…</string>
     <string name="creating">Đang tạo…</string>
     <string name="processing_apk">Đang xử lý APK…</string>
     <string name="exporting_apks">Đang xuất APK…</string>
@@ -1249,6 +1244,7 @@ Chi tiết: %2$s"</string>
     <string name="continue_">Tiếp</string>
     <string name="version">Phiên bản</string>
     <string name="clone">Bản sao</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Vá</string>
     <string name="patching">Đang vá</string>
     <string name="patched">Đã vá</string>
@@ -1288,8 +1284,26 @@ Chi tiết: %2$s"</string>
     <string name="changelog_description">Có gì mới trong phiên bản này</string>
     <string name="changelog_download_fail">Không thể tải lịch sử cập nhật: %s</string>
     <string name="changelog_empty">Không có lịch sử cập nhật</string>
-    <string name="changelog_show_older">Các bản phát hành cũ</string>
+    <string name="changelog_earlier_releases">Các bản phát hành trước</string>
     <string name="changelog_older_empty">Không có bản phát hành nào trước đây</string>
+    <string name="changelog_older_failed">Không thể tải các bản phát hành cũ hơn</string>
+    <string name="changelog_release_page">Trang phát hành</string>
+    <string name="content_translate">Dịch</string>
+    <string name="content_show_original">Hiện bản gốc</string>
+    <string name="content_translation_failed">Không thể dịch: %s</string>
+    <string name="changelog_section_new">Mới</string>
+    <string name="changelog_section_fixes">Sửa lỗi</string>
+    <string name="changelog_section_performance">Hiệu suất</string>
+    <string name="changelog_section_improvements">Cải tiến</string>
+    <string name="changelog_section_app_support">Hỗ trợ ứng dụng</string>
+    <string name="changelog_section_other">Thay đổi</string>
+    <string name="changelog_badge_latest">Mới nhất</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Đang sử dụng</string>
+    <string name="changelog_badge_prerelease">Bản phát hành trước</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Hiện tất cả (%s)</string>
+    <string name="changelog_show_less">Thu</string>
     <string name="no_network_toast">Không có kết nối mạng</string>
     <string name="update_available">Đã có bản cập nhật mới</string>
     <string name="ready_to_install_update">Sẵn sàng cài đặt bản cập nhật</string>

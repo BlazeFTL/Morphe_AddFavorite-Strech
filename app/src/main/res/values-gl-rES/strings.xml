@@ -79,8 +79,6 @@
     <string name="sources_dialog_rename">Renomear fonte do parche</string>
     <string name="sources_dialog_duplicate_name_error">Unha fonte de parches con este nome xa existe</string>
     <string name="sources_dialog_missing_error">Non se puido actualizar esta fonte de parches</string>
-    <string name="sources_dialog_view_any_version">Calquera versión</string>
-    <string name="sources_dialog_view_any_package">Calquera paquete</string>
     <string name="sources_dialog_add_source">Engadir fonte de parche</string>
     <string name="sources_dialog_delete_confirm_message">Eliminar fonte \"%s\"? Esta acción non se pode desfacer</string>
     <string name="sources_dialog_remote">Remoto</string>
@@ -140,7 +138,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Modo Experto</string>
     <string name="expert_mode_search">Buscar parches</string>
-    <string name="expert_mode_proceed">Proceder co parcheado</string>
     <string name="expert_mode_disable_all">Desactivar todo</string>
     <string name="expert_mode_disable_all_done">Todos os parches foron desactivados</string>
     <string name="expert_mode_enable_all">Activar todo</string>
@@ -332,9 +329,13 @@ Elixe outro APK</string>
     <string name="disabled">Desactivado</string>
     <string name="import_">Importar</string>
     <string name="copy">Copiar</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patching">Parcheando</string>
     <string name="patched">Parcheado</string>
     <string name="allow">Permitir</string>
+    <string name="changelog_section_new">Novo</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

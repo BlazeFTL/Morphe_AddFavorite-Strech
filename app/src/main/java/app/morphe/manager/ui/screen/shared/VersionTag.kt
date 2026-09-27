@@ -15,7 +15,6 @@ import androidx.compose.material.icons.outlined.Recommend
 import androidx.compose.material.icons.outlined.Science
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import app.morphe.manager.R
@@ -125,15 +124,6 @@ fun versionTagsOf(
     if (isSaved) add(VersionTag.Saved)
     if (isInstalled) add(VersionTag.Installed)
 }
-
-/**
- * The color the version string itself takes, so text and badge never disagree about it. Only
- * an experimental version recolors: the rest either dim their whole row or are carried by the
- * badge alone.
- */
-@Composable
-fun List<VersionTag>.versionTextColor(default: Color): Color =
-    if (contains(VersionTag.Experimental)) SemanticTone.Warning.accent else default
 
 /** Tag labels for a row's content description, read out in the order they are shown. */
 @Composable

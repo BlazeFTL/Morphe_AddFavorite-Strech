@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Mag-ulat ng isyu</string>
     <string name="sources_management_failed_to_open_url">Nabigong buksan ang URL</string>
     <string name="sources_apps">Mga app</string>
-    <string name="sources_apps_title">Mga app mula sa %1$s</string>
     <string name="sources_apps_description">I-tap ang isang app para alisin ito sa source na ito o ibalik, o pindutin nang matagal para pumili ng ilan. Aalis ang isang app sa home screen kapag wala nang source na nagdadala nito.</string>
     <string name="sources_apps_brought">Dala ng source na ito</string>
     <string name="sources_apps_left_out">Hindi kasama sa source na ito</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Baguhin ang mapagkukunan ng patch</string>
     <string name="sources_dialog_duplicate_name_error">Mayroon na isang mapagkukunan ng patch na may ganitong pangalan</string>
     <string name="sources_dialog_missing_error">Hindi ma-update ang mapagkukunang patch na ito</string>
-    <string name="sources_dialog_view_any_version">Anumang bersyon</string>
-    <string name="sources_dialog_view_any_package">Anumang pakete</string>
     <string name="sources_dialog_add_source">Idagdag ang mapagkukunan ng patch</string>
     <string name="sources_dialog_delete_confirm_message">Tanggalin ang mapagkukunang ito \"%s\"? Hindi na ito maaaring bawiin</string>
     <string name="sources_dialog_remote">Remote</string>
@@ -283,7 +280,6 @@ Anumang idagdag mo mula sa website na ito ay gagamitin sa iyong sariling pangani
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Expert mode</string>
     <string name="expert_mode_search">Maghanap ng mga patch</string>
-    <string name="expert_mode_proceed">Magpatuloy sa pagpa-patch</string>
     <string name="expert_mode_disable_all">Patayin lahat</string>
     <string name="expert_mode_disable_all_done">Lahat ng mga patch ay hindi pinagana</string>
     <string name="expert_mode_enable_all">Paganahin lahat</string>
@@ -1201,7 +1197,6 @@ Mga Detalye: %2$s"</string>
     <string name="disable">Patayin</string>
     <string name="enable">Paganahin</string>
     <string name="loading">Naglo-load…</string>
-    <string name="loading_older_releases">Naglo-load ng mga mas lumang release…</string>
     <string name="creating">Ginagawa…</string>
     <string name="processing_apk">Pinoproseso ang APK…</string>
     <string name="exporting_apks">Iniluluwas ang mga APK…</string>
@@ -1244,6 +1239,7 @@ Mga Detalye: %2$s"</string>
     <string name="continue_">Magpatuloy</string>
     <string name="version">Bersyon</string>
     <string name="clone">I-clone</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Patch</string>
     <string name="patching">Nagpa-patch</string>
     <string name="patched">Naka-patch</string>
@@ -1283,8 +1279,26 @@ Mga Detalye: %2$s"</string>
     <string name="changelog_description">Ano ang bago sa bersyong ito</string>
     <string name="changelog_download_fail">Nabigong mag-download ang changelog: %s</string>
     <string name="changelog_empty">Walang magagamit na changelog</string>
-    <string name="changelog_show_older">Ipakita ang mga lumang bersyon</string>
+    <string name="changelog_earlier_releases">Mas naunang mga release</string>
     <string name="changelog_older_empty">Walang mas lumang bersyon na ipapakita</string>
+    <string name="changelog_older_failed">Hindi ma-load ang mas lumang mga release</string>
+    <string name="changelog_release_page">Pahina ng release</string>
+    <string name="content_translate">Isalin</string>
+    <string name="content_show_original">Ipakita ang orihinal</string>
+    <string name="content_translation_failed">Nabigong isalin: %s</string>
+    <string name="changelog_section_new">Bago</string>
+    <string name="changelog_section_fixes">Mga Pag-aayos</string>
+    <string name="changelog_section_performance">Pagganap</string>
+    <string name="changelog_section_improvements">Mga Pagpapabuti</string>
+    <string name="changelog_section_app_support">Suporta sa app</string>
+    <string name="changelog_section_other">Mga Pagbabago</string>
+    <string name="changelog_badge_latest">Pinakabago</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Ginagamit</string>
+    <string name="changelog_badge_prerelease">Pre-release</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Ipakita ang lahat (%s)</string>
+    <string name="changelog_show_less">Ipakita ang mas kaunti</string>
     <string name="no_network_toast">Walang magagamit na koneksyon sa internet</string>
     <string name="update_available">Magagamit ang isang update</string>
     <string name="ready_to_install_update">Handa nang mag-install ang update</string>

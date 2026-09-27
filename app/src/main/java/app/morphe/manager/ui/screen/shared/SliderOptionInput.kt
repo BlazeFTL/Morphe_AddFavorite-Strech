@@ -45,14 +45,11 @@ import app.morphe.manager.R
  */
 @Composable
 fun SliderOptionInput(
-    title: String,
-    description: String,
     value: Float,
     min: Float,
     max: Float,
     step: Float?,
     isInteger: Boolean,
-    required: Boolean = false,
     onValueChange: (Float) -> Unit
 ) {
     val view = LocalView.current
@@ -76,9 +73,6 @@ fun SliderOptionInput(
     )
 
     SliderOptionFrame(
-        title = title,
-        description = description,
-        required = required,
         min = min,
         max = max,
         step = step,
@@ -144,14 +138,11 @@ fun SliderOptionInput(
  */
 @Composable
 fun RangeSliderOptionInput(
-    title: String,
-    description: String,
     value: ClosedFloatingPointRange<Float>,
     min: Float,
     max: Float,
     step: Float?,
     isInteger: Boolean,
-    required: Boolean = false,
     onValueChange: (ClosedFloatingPointRange<Float>) -> Unit
 ) {
     val view = LocalView.current
@@ -164,9 +155,6 @@ fun RangeSliderOptionInput(
     }
 
     SliderOptionFrame(
-        title = title,
-        description = description,
-        required = required,
         min = min,
         max = max,
         step = step,
@@ -256,14 +244,12 @@ fun RangeSliderOptionInput(
 }
 
 /**
- * Everything around the track, which is the same whether the option holds one value or two:
- * the title with its readout, the scale labels, the exact value input and the description.
+ * Everything around the track, which is the same whether the option holds one value or two: the
+ * scale with the readout between its ends, and the exact value input. The option's title and
+ * description are the card's around it.
  */
 @Composable
 private fun SliderOptionFrame(
-    title: String,
-    description: String,
-    required: Boolean,
     min: Float,
     max: Float,
     step: Float?,
@@ -277,14 +263,18 @@ private fun SliderOptionFrame(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
-        SliderHeader(title = title, required = required, readout = readout)
-
         slider()
 
-        SliderScaleLabels(
-            start = formatSliderValue(min, isInteger, step),
-            end = formatSliderValue(max, isInteger, step)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SliderScaleLabel(formatSliderValue(min, isInteger, step))
+            Spacer(Modifier.weight(1f))
+            readout()
+            Spacer(Modifier.weight(1f))
+            SliderScaleLabel(formatSliderValue(max, isInteger, step))
+        }
 
         AnimatedVisibility(
             visible = editing,
@@ -293,8 +283,6 @@ private fun SliderOptionFrame(
         ) {
             input()
         }
-
-        SliderDescription(description)
     }
 }
 

@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Hiba jelentése</string>
     <string name="sources_management_failed_to_open_url">Hiba történt az URL megnyitásakor</string>
     <string name="sources_apps">Alkalmazások</string>
-    <string name="sources_apps_title">%1$s alkalmazásai</string>
     <string name="sources_apps_description">Koppintson egy alkalmazásra, hogy kihagyja ebből a forrásból, vagy visszahozza; hosszan lenyomva tartva többet is kiválaszthat. Egy alkalmazás lekerül a kezdőképernyőről, ha már egyetlen forrás sem hozza.</string>
     <string name="sources_apps_brought">Ebből a forrásból származó</string>
     <string name="sources_apps_left_out">Ebből a forrásból kihagyott</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Módosításforrás átnevezése</string>
     <string name="sources_dialog_duplicate_name_error">Ezzel a névvel már létezik módosításforrás</string>
     <string name="sources_dialog_missing_error">A módosításforrás frissítése sikertelen</string>
-    <string name="sources_dialog_view_any_version">Bármelyik verzió</string>
-    <string name="sources_dialog_view_any_package">Bármelyik csomag</string>
     <string name="sources_dialog_add_source">Módosításforrás hozzáadása</string>
     <string name="sources_dialog_delete_confirm_message">Törlöd a forrást: \"%s\"? Ez nem visszavonható</string>
     <string name="sources_dialog_remote">Távoli</string>
@@ -283,7 +280,6 @@ Bármit is ad hozzá erről a weboldalról, azt saját felelősségére teszi."<
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Szakértői mód</string>
     <string name="expert_mode_search">Módosítások keresése</string>
-    <string name="expert_mode_proceed">Módosítás indítása</string>
     <string name="expert_mode_disable_all">Minden módosítás letiltása</string>
     <string name="expert_mode_disable_all_done">Az összes patch le van tiltva</string>
     <string name="expert_mode_enable_all">Minden módosítás engedélyezése</string>
@@ -1200,7 +1196,6 @@ Részletek: %2$s"</string>
     <string name="disable">Letiltás</string>
     <string name="enable">Engedélyezés</string>
     <string name="loading">Betöltés…</string>
-    <string name="loading_older_releases">Régebbi verziók betöltése…</string>
     <string name="creating">Létrehozás…</string>
     <string name="processing_apk">APK feldolgozása…</string>
     <string name="exporting_apks">APK-k exportálása…</string>
@@ -1243,6 +1238,7 @@ Részletek: %2$s"</string>
     <string name="continue_">Folytatás</string>
     <string name="version">Verzió</string>
     <string name="clone">Klón</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Módosítás</string>
     <string name="patching">Javítás</string>
     <string name="patched">Módosított</string>
@@ -1282,8 +1278,26 @@ Részletek: %2$s"</string>
     <string name="changelog_description">Mi újdonság van ebben a verzióban?</string>
     <string name="changelog_download_fail">Nem sikerült letölteni a változásnaplót: %s</string>
     <string name="changelog_empty">A változásnapló nem elérhető</string>
-    <string name="changelog_show_older">Régi kiadások megjelenítése</string>
+    <string name="changelog_earlier_releases">Korábbi kiadások</string>
     <string name="changelog_older_empty">Nincsenek megjeleníthető régi kiadások</string>
+    <string name="changelog_older_failed">Nem sikerült betölteni a régebbi kiadásokat</string>
+    <string name="changelog_release_page">Kiadási oldal</string>
+    <string name="content_translate">Fordítás</string>
+    <string name="content_show_original">Eredeti megjelenítése</string>
+    <string name="content_translation_failed">Fordítás sikertelen: %s</string>
+    <string name="changelog_section_new">Új</string>
+    <string name="changelog_section_fixes">Javítások</string>
+    <string name="changelog_section_performance">Teljesítmény</string>
+    <string name="changelog_section_improvements">Fejlesztések</string>
+    <string name="changelog_section_app_support">Alkalmazás-támogatás</string>
+    <string name="changelog_section_other">Változások</string>
+    <string name="changelog_badge_latest">Legújabb</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Használatban</string>
+    <string name="changelog_badge_prerelease">Előzetes kiadás</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Összes megjelenítése (%s)</string>
+    <string name="changelog_show_less">Mutass kevesebbet</string>
     <string name="no_network_toast">Nincs elérhető internetkapcsolat</string>
     <string name="update_available">Egy frissítés érhető el</string>
     <string name="ready_to_install_update">A frissítés telepítésre kész</string>

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.settings.system
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.net.Uri
 import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -15,9 +16,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
@@ -32,7 +31,6 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.InstallType
@@ -78,7 +76,9 @@ data class ApkItemData(
     val file: File? = null,
     val installType: InstallType? = null,
     val isInstalledOnDevice: Boolean = false,
-    val abis: List<String> = emptyList()
+    val abis: List<String> = emptyList(),
+    /** Info of the APK the row stands for, so its icon comes from that APK without another lookup. */
+    val packageInfo: PackageInfo? = null
 )
 
 private val ApkItemData.selectionKey: String
@@ -107,7 +107,8 @@ private data class ApkItemDataWithApp(
     val file: File? = null,
     val installType: InstallType = InstallType.SAVED,
     val isInstalledOnDevice: Boolean = false,
-    val abis: List<String> = emptyList()
+    val abis: List<String> = emptyList(),
+    val packageInfo: PackageInfo? = null
 ) {
     fun toApkItemData() = ApkItemData(
         packageName = packageName,
@@ -117,7 +118,8 @@ private data class ApkItemDataWithApp(
         file = file,
         installType = installType,
         isInstalledOnDevice = isInstalledOnDevice,
-        abis = abis
+        abis = abis,
+        packageInfo = packageInfo
     )
 }
 
@@ -242,7 +244,8 @@ private fun PatchedApksContent(
                             file = savedFile,
                             installType = app.installType,
                             isInstalledOnDevice = snapshot.patchState == InstalledPatchState.Patched,
-                            abis = savedFile?.let(NativeLibStripper::extractAbisFromApk).orEmpty()
+                            abis = savedFile?.let(NativeLibStripper::extractAbisFromApk).orEmpty(),
+                            packageInfo = snapshot.savedPatchedApkInfo ?: resolvedData.packageInfo
                         )
                     }
                 }
@@ -511,7 +514,8 @@ private fun OriginalApksContent(
                                 fileSize = apk.fileSize,
                                 file = apkFile,
                                 isInstalledOnDevice = pm.getPackageInfo(apk.packageName) != null,
-                                abis = apkFile?.let { NativeLibStripper.extractAbisFromApk(it) } ?: emptyList()
+                                abis = apkFile?.let { NativeLibStripper.extractAbisFromApk(it) } ?: emptyList(),
+                                packageInfo = resolvedData.packageInfo
                             ),
                             apk = apk
                         )
@@ -907,85 +911,72 @@ private fun ApkManagementDialogContent(
             )
         }
 
-        val listState = rememberLazyListState()
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                // Kept while the field is closed, so its share of the spacing makes the gap under
-                // the header
-                stickyHeader(key = "search") {
-                    AppDialogSearchHeader(
-                        visible = search.visible,
-                        value = search.query,
-                        onValueChange = { search.query = it },
-                        label = stringResource(R.string.home_search_apps),
-                        // Opaque, so rows scrolled under the gap stay hidden
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(top = Defaults.ItemSpacing)
-                    )
-                }
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            pinnedFirstRow = true
+        ) {
+            // Kept while the field is closed, so its share of the spacing makes the gap under
+            // the header
+            stickyHeader(key = "search") {
+                AppDialogSearchHeader(
+                    visible = search.visible,
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = stringResource(R.string.home_search_apps),
+                    // Opaque, so rows scrolled under the gap stay hidden
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(top = Defaults.ItemSpacing)
+                )
+            }
 
-                if (retentionToggle != null) {
-                    item(key = "retention") {
-                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
-                            SettingsSwitchItem(
-                                checked = retentionToggle.checked,
-                                onToggle = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
-                                leadingContent = { ThemedIcon(icon = meta.icon, tint = meta.accentColor) },
-                                title = retentionToggle.title,
-                                subtitle = retentionToggle.description,
-                                showBorder = true
-                            )
-                            SettingsDivider(fullWidth = true)
-                        }
-                    }
-                }
-
-                // List of APKs or loading state
-                when {
-                    // Show shimmer while loading
-                    meta.isLoading -> items(3) { ShimmerApkItem() }
-                    meta.isEmpty -> item { EmptyState(message = meta.emptyMessage) }
-                    filteredItems.isEmpty() -> item(key = "search_empty") {
-                        EmptyState(
-                            message = stringResource(R.string.search_no_results),
-                            icon = Icons.Outlined.SearchOff
+            if (retentionToggle != null) {
+                item(key = "retention") {
+                    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
+                        SettingsSwitchItem(
+                            checked = retentionToggle.checked,
+                            onToggle = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
+                            leadingContent = { ThemedIcon(icon = meta.icon, tint = meta.accentColor) },
+                            title = retentionToggle.title,
+                            subtitle = retentionToggle.description,
+                            showBorder = true
                         )
-                    }
-                    else -> items(items = filteredItems, key = { it.selectionKey }) { item ->
-                        val selected = selection.contains(item.selectionKey)
-                        ApkItemCard(
-                            data = item,
-                            selected = selected,
-                            selectionMode = isMultiSelectMode,
-                            onToggleSelection = { isMultiSelectMode = true; selection.toggle(item.selectionKey) },
-                            onShare = if (item.file != null) { { actions.onShare?.invoke(item) } } else null,
-                            onExport = if (item.file != null) { { actions.onExport?.invoke(item) } } else null,
-                            onInstall = if (!item.isInstalledOnDevice && item.file != null && actions.onInstall != null) {
-                                { actions.onInstall.invoke(item) }
-                            } else null,
-                            onUninstall = if (item.isInstalledOnDevice && actions.onUninstall != null) {
-                                { itemToUninstallConfirm = item }
-                            } else null,
-                            onDelete = { actions.onDelete(item) }
-                        )
+                        SettingsDivider(fullWidth = true)
                     }
                 }
             }
 
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+            // List of APKs or loading state
+            when {
+                // Show shimmer while loading
+                meta.isLoading -> items(3) { ShimmerApkItem() }
+                meta.isEmpty -> item { EmptyState(message = meta.emptyMessage) }
+                filteredItems.isEmpty() -> item(key = "search_empty") {
+                    EmptyState(
+                        message = stringResource(R.string.search_no_results),
+                        icon = Icons.Outlined.SearchOff
+                    )
+                }
+                else -> items(items = filteredItems, key = { it.selectionKey }) { item ->
+                    val selected = selection.contains(item.selectionKey)
+                    ApkItemCard(
+                        data = item,
+                        selected = selected,
+                        selectionMode = isMultiSelectMode,
+                        onToggleSelection = { isMultiSelectMode = true; selection.toggle(item.selectionKey) },
+                        onShare = if (item.file != null) { { actions.onShare?.invoke(item) } } else null,
+                        onExport = if (item.file != null) { { actions.onExport?.invoke(item) } } else null,
+                        onInstall = if (!item.isInstalledOnDevice && item.file != null && actions.onInstall != null) {
+                            { actions.onInstall.invoke(item) }
+                        } else null,
+                        onUninstall = if (item.isInstalledOnDevice && actions.onUninstall != null) {
+                            { itemToUninstallConfirm = item }
+                        } else null,
+                        onDelete = { actions.onDelete(item) }
+                    )
+                }
+            }
         }
     }
 
@@ -1095,6 +1086,7 @@ private fun ApkItemCard(
                 ) {
                     // App icon
                     AppIcon(
+                        packageInfo = data.packageInfo,
                         packageName = data.packageName,
                         contentDescription = null,
                         modifier = Modifier.size(48.dp)
@@ -1233,6 +1225,7 @@ private fun DeleteAllConfirmationDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = title,
+        description = message,
         footer = {
             AppDialogButtonRow(
                 primaryText = primaryText,
@@ -1244,14 +1237,6 @@ private fun DeleteAllConfirmationDialog(
         }
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            Text(
-                text = message,
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             LabeledSection {
                 DeleteListItem(
                     icon = Icons.Outlined.Delete,

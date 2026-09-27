@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Sorun bildir</string>
     <string name="sources_management_failed_to_open_url">URL açılamadı</string>
     <string name="sources_apps">Uygulamalar</string>
-    <string name="sources_apps_title">%1$s uygulamaları</string>
     <string name="sources_apps_description">Bir uygulamaya dokunarak onu bu kaynaktan hariç tutabilir veya geri getirebilirsiniz; birden fazla seçmek için uzun basın. Bir uygulama, hiçbir kaynak onu getirmediğinde ana ekrandan kaldırılır.</string>
     <string name="sources_apps_brought">Bu kaynağın getirdiği</string>
     <string name="sources_apps_left_out">Bu kaynaktan hariç tutulanlar</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Yama kaynağını yeniden adlandır</string>
     <string name="sources_dialog_duplicate_name_error">Bu isme sahip bir yama kaynağı zaten mevcut</string>
     <string name="sources_dialog_missing_error">Bu yama kaynağı güncellenemedi</string>
-    <string name="sources_dialog_view_any_version">Herhangi bir sürüm</string>
-    <string name="sources_dialog_view_any_package">Herhangi bir paket</string>
     <string name="sources_dialog_add_source">Yama kaynağı ekle</string>
     <string name="sources_dialog_delete_confirm_message">\"%s\" kaynağını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz</string>
     <string name="sources_dialog_remote">Uzak</string>
@@ -283,7 +280,6 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Uzman modu</string>
     <string name="expert_mode_search">Yamaları ara</string>
-    <string name="expert_mode_proceed">Yamalamaya başla</string>
     <string name="expert_mode_disable_all">Hepsini devre dışı bırak</string>
     <string name="expert_mode_disable_all_done">Tüm yamalar devre dışı bırakıldı</string>
     <string name="expert_mode_enable_all">Hepsini etkinleştir</string>
@@ -1200,7 +1196,6 @@ Ayrıntılar: %2$s"</string>
     <string name="disable">Devre dışı bırak</string>
     <string name="enable">Etkinleştir</string>
     <string name="loading">Yükleniyor…</string>
-    <string name="loading_older_releases">Daha eski sürümler yükleniyor…</string>
     <string name="creating">Oluşturuluyor…</string>
     <string name="processing_apk">APK işleniyor…</string>
     <string name="exporting_apks">APK\'ler dışa aktarılıyor…</string>
@@ -1243,6 +1238,7 @@ Ayrıntılar: %2$s"</string>
     <string name="continue_">Devam et</string>
     <string name="version">Sürüm</string>
     <string name="clone">Klonla</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Yamala</string>
     <string name="patching">Yamalanıyor</string>
     <string name="patched">Yamalı</string>
@@ -1282,8 +1278,26 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_description">Bu sürümdeki yenilikler</string>
     <string name="changelog_download_fail">Değişiklik günlüğü indirilemedi: %s</string>
     <string name="changelog_empty">Değişiklik günlüğü yok</string>
-    <string name="changelog_show_older">Daha eski sürümleri göster</string>
+    <string name="changelog_earlier_releases">Önceki sürümler</string>
     <string name="changelog_older_empty">Gösterilebilecek daha eski sürüm yok</string>
+    <string name="changelog_older_failed">Daha eski sürümler yüklenemedi</string>
+    <string name="changelog_release_page">Sürüm sayfası</string>
+    <string name="content_translate">Çevir</string>
+    <string name="content_show_original">Orijinalini göster</string>
+    <string name="content_translation_failed">Çevrilemedi: %s</string>
+    <string name="changelog_section_new">Yeni</string>
+    <string name="changelog_section_fixes">Düzeltmeler</string>
+    <string name="changelog_section_performance">Performans</string>
+    <string name="changelog_section_improvements">İyileştirmeler</string>
+    <string name="changelog_section_app_support">Uygulama desteği</string>
+    <string name="changelog_section_other">Değişiklikler</string>
+    <string name="changelog_badge_latest">En son</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Kullanımda</string>
+    <string name="changelog_badge_prerelease">Ön sürüm</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Tümünü göster (%s)</string>
+    <string name="changelog_show_less">Daha az göster</string>
     <string name="no_network_toast">İnternet bağlantısı mevcut değil</string>
     <string name="update_available">Bir güncelleme mevcut</string>
     <string name="ready_to_install_update">Güncelleme yüklenmeye hazır</string>

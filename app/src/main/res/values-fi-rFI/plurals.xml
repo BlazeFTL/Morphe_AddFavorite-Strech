@@ -92,4 +92,20 @@
         <item quantity="one">%s ydin</item>
         <item quantity="other">%s ydintä</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s uusi</item>
+        <item quantity="other">%s uutta</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s korjaus</item>
+        <item quantity="other">%s korjausta</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s muutos</item>
+        <item quantity="other">%s muutosta</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s uusi julkaisu</item>
+        <item quantity="other">%s uutta julkaisua</item>
+    </plurals>
 </resources>

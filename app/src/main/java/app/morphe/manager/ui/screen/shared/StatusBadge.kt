@@ -29,6 +29,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import app.morphe.manager.ui.theme.*
+import app.morphe.manager.util.isDarkBackground
 import app.morphe.manager.util.readableOn
 
 /**
@@ -48,8 +50,8 @@ enum class SemanticTone {
         @Composable get() = when (this) {
             Neutral -> MaterialTheme.colorScheme.surfaceVariant
             Primary -> MaterialTheme.colorScheme.primaryContainer
-            Success -> MaterialTheme.colorScheme.tertiaryContainer
-            Warning -> MaterialTheme.colorScheme.secondaryContainer
+            Success -> if (isDarkTheme()) theme_dark_successContainer else theme_light_successContainer
+            Warning -> if (isDarkTheme()) theme_dark_warningContainer else theme_light_warningContainer
             Error -> MaterialTheme.colorScheme.errorContainer
         }
 
@@ -58,8 +60,8 @@ enum class SemanticTone {
         @Composable get() = when (this) {
             Neutral -> MaterialTheme.colorScheme.onSurfaceVariant
             Primary -> MaterialTheme.colorScheme.onPrimaryContainer
-            Success -> MaterialTheme.colorScheme.onTertiaryContainer
-            Warning -> MaterialTheme.colorScheme.onSecondaryContainer
+            Success -> if (isDarkTheme()) theme_dark_onSuccessContainer else theme_light_onSuccessContainer
+            Warning -> if (isDarkTheme()) theme_dark_onWarningContainer else theme_light_onWarningContainer
             Error -> MaterialTheme.colorScheme.onErrorContainer
         }
 
@@ -68,11 +70,16 @@ enum class SemanticTone {
         @Composable get() = when (this) {
             Neutral -> MaterialTheme.colorScheme.onSurfaceVariant
             Primary -> MaterialTheme.colorScheme.primary
-            Success -> MaterialTheme.colorScheme.tertiary
-            Warning -> MaterialTheme.colorScheme.secondary
+            Success -> if (isDarkTheme()) theme_dark_success else theme_light_success
+            Warning -> if (isDarkTheme()) theme_dark_warning else theme_light_warning
             Error -> MaterialTheme.colorScheme.error
         }
 }
+
+// Read from the background rather than a theme flag, so a pure black or custom colored theme
+// still picks the green and amber meant for it
+@Composable
+private fun isDarkTheme(): Boolean = MaterialTheme.colorScheme.background.isDarkBackground()
 
 /** Sizing shared by every badge, so badges line up wherever they end up side by side. */
 private object BadgeDefaults {

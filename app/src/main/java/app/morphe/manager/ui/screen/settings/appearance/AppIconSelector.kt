@@ -58,6 +58,7 @@ fun AppIconSettingsItem() {
         AppDialog(
             onDismissRequest = { showPicker.value = false },
             title = stringResource(R.string.settings_appearance_app_icon_selector_title),
+            description = stringResource(R.string.settings_appearance_app_icon_selector_description),
             footer = {
                 AppDialogOutlinedButton(
                     text = stringResource(R.string.close),
@@ -182,6 +183,10 @@ private fun AppIconChangeDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_appearance_app_icon_change_dialog_title),
+        description = htmlAnnotatedString(stringResource(
+            R.string.settings_appearance_app_icon_change_dialog_message,
+            stringResource(icon.displayNameResId)
+        )),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.settings_appearance_app_icon_change_dialog_confirm),
@@ -190,16 +195,5 @@ private fun AppIconChangeDialog(
                 onSecondaryClick = onDismiss
             )
         }
-    ) {
-        Text(
-            text = htmlAnnotatedString(stringResource(
-                R.string.settings_appearance_app_icon_change_dialog_message,
-                stringResource(icon.displayNameResId)
-            )),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }

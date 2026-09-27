@@ -107,6 +107,7 @@ fun AppearanceTabContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScrollFade(scrollState)
             .verticalScroll(scrollState)
             .padding(settingsTabPadding())
     ) {

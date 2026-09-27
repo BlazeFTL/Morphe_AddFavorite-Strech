@@ -43,9 +43,6 @@
     <string name="home_update_skipped_metered_subtitle">Mobile data is active</string>
     <string name="home_updating_sources">Updating sources…</string>
     <string name="home_update_bundle_count" translatable="false">%1$d / %2$d</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Update sources complete</string>
     <string name="home_update_success_subtitle">Your sources are up to date</string>
     <string name="home_sources_are_loading">Sources are loading, please wait…</string>
@@ -221,7 +218,8 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_apk_helper_download">Use a helper app</string>
     <string name="home_apk_helper_title">Download with a helper app</string>
     <string name="home_apk_helper_description">Morphe will ask the helper app below to download the original APK and hand the file back</string>
-    <string name="home_apk_helper_continue">Open helper app</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Open helper</string>
     <string name="home_apk_helper_warning">Only continue if you trust this helper app. Morphe checks the package, version and signature of whatever it receives before patching</string>
     <string name="home_apk_helper_warning_unverified">Only continue if you trust this helper app. Morphe cannot verify the signature of this APK, so a modified file would not be detected</string>
     <string name="home_apk_helper_no_result">The helper app did not return an APK</string>
@@ -331,6 +329,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="morphe_experimental_app_version_dialog_message">This version of &lt;b>%s&lt;/b> has early experimental support&lt;br/>&lt;br/>🔧 Expect quirky app behavior or unidentified bugs as the patches are refined for this app version</string>
     <string name="home_dialog_unsupported_version_dialog_title">Unsupported Version</string>
     <string name="home_dialog_unsupported_version_dialog_description">This APK is not a recommended app version. Proceeding may result in a non-functional app</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Proceed anyway</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Compatible versions:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Unsupported</string>
@@ -368,13 +367,22 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="patch_option_slider_range_end">To</string>
     <string name="patch_option_list_duplicate">This value already exists</string>
     <string name="patch_option_list_empty">Value cannot be empty</string>
-    <string name="patch_option_list_empty_state">No values added yet</string>
     <string name="patch_option_required_missing">%s: fill in all required options</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Changed</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Required</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Recommended: %1$s×%2$s</string>
 
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Create adaptive icon</string>
     <string name="adaptive_icon_select_image">Select image</string>
     <string name="adaptive_icon_change_image">Change image</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Foreground image</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Launcher icon</string>
     <string name="adaptive_icon_background_color">Background color</string>
     <string name="adaptive_icon_reset_transform">Reset position and scale</string>
     <string name="adaptive_icon_safe_zone_inner">Safe zone (always visible)</string>
@@ -428,16 +436,18 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="batch_patch_source_file">Attached file</string>
     <string name="batch_patch_source_unavailable">The APK could not be prepared</string>
     <string name="batch_patch_force_version">Patch anyway</string>
-    <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
-    <string name="batch_patch_accept_signature_done">Queued anyway, this APK may not be the original</string>
+    <string name="batch_patch_force_version_done">Queued anyway, the app may break</string>
+    <string name="batch_patch_accept_signature_done">Queued anyway, APK not verified</string>
     <string name="batch_patch_edit_patches">Choose patches</string>
     <string name="batch_patch_state_no_apk">No APK</string>
     <string name="batch_patch_state_no_patches">No patches</string>
     <string name="batch_patch_policy_install">Install when finished</string>
     <string name="batch_patch_policy_install_description">Installs every patched app right after the queue finishes. Off keeps the APKs for later</string>
-    <string name="batch_patch_start">Start patching</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>
     <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be cancelled</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Install all</string>
     <string name="batch_patch_install_failed">Install failed</string>
     <string name="batch_patch_in_progress">Batch patching is already running</string>
@@ -720,6 +730,7 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Background animation</string>
+    <string name="settings_appearance_background_description">The animation that plays behind the app\'s screens</string>
     <string name="settings_appearance_background_circles">Circles</string>
     <string name="settings_appearance_background_rings">Rings</string>
     <string name="settings_appearance_background_mesh">Mesh</string>
@@ -796,6 +807,7 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App icon</string>
+    <string name="settings_appearance_app_icon_selector_description">How Morphe looks on your home screen and in the app drawer</string>
     <string name="settings_appearance_app_icon_default">Default</string>
     <string name="settings_appearance_app_icon_light_2">Sky</string>
     <string name="settings_appearance_app_icon_light_3">Sunset</string>
@@ -804,6 +816,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Change app icon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Change to &lt;b&gt;%s&lt;/b&gt; and restart?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Change icon</string>
 
     <!-- Settings - Advanced Tab - Updates Section -->
@@ -1210,7 +1223,6 @@ Details: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Installer unknown</string>
 
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Previous directory</string>
     <string name="file_picker_no_files">No files here</string>
     <string name="file_picker_read_error">Cannot read this directory</string>
     <string name="file_picker_internal_storage">Internal storage</string>
@@ -1244,13 +1256,9 @@ Details: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Unplugged. The way back is where it always was</string>
 
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
-
     <string name="app_name" translatable="false">Morphe</string>
     <string name="select_file">Select file</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Select folder</string>
     <string name="patches">Patches</string>
     <string name="home">Home</string>
@@ -1372,13 +1380,13 @@ Details: %2$s"</string>
     <string name="changelog_earlier_releases">Earlier releases</string>
     <string name="changelog_older_empty">No older releases to show</string>
     <string name="changelog_older_failed">Couldn\'t load older releases</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Release page</string>
     <string name="changelog_host_github" translatable="false">GitHub</string>
     <string name="changelog_host_gitlab" translatable="false">GitLab</string>
     <string name="content_translate">Translate</string>
-    <string name="content_show_original">Show original</string>
-    <string name="content_translation_download_confirmation">Download translation model?</string>
-    <string name="content_translation_downloading">Downloading translation model…</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Original</string>
     <string name="content_translation_failed">Failed to translate: %s</string>
     <string name="changelog_section_new">New</string>
     <string name="changelog_section_fixes">Fixes</string>
@@ -1401,8 +1409,10 @@ Details: %2$s"</string>
     <string name="install_update_manager_failed">Failed to install update</string>
     <string name="installing_manager_update">Installing update…</string>
     <string name="downloading_manager_update">Downloading update…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB downloaded</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">This release is still being published. Try again in a few minutes</string>
     <string name="update_download_missing">The downloaded update is no longer available. Download it again</string>
     <string name="download_manager_failed">Failed to download update: %s</string>
@@ -1435,6 +1445,7 @@ Do you still want to continue?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Quick feature tour</string>
     <string name="tour_prompt_desc">Want a quick tour of Morphe\'s key features?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Show me around</string>
     <string name="onboarding_restart_title">Feature tour</string>
     <string name="onboarding_restart_desc">A guided tour of key features</string>

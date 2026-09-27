@@ -10,13 +10,12 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -33,6 +32,11 @@ import app.morphe.manager.ui.viewmodel.HomeAndPatcherMessages
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
+private val ProgressRingWavelength = 40.dp
+
+/** The ring runs for minutes here, so its wave stays low enough not to tire the eye. */
+private const val PROGRESS_RING_AMPLITUDE = 0.6f
+
 /**
  * Simple mode patching screen.
  *
@@ -44,6 +48,7 @@ fun SimplePatchingInProgress(
     progress: Float,
     patchesProgress: Pair<Int, Int>,
     patchProgress: PatchProgressSource,
+    packageName: String? = null,
     showLongStepWarning: Boolean = false,
     queueHeader: (@Composable () -> Unit)? = null,
     onCancelClick: () -> Unit,
@@ -51,6 +56,7 @@ fun SimplePatchingInProgress(
 ) {
     val windowSize = rememberWindowSize()
     val (completed, total) = patchesProgress
+    val accentColor = packageName?.let { rememberAppColor(it) }
     val context = LocalContext.current
 
     val currentMessage = remember {
@@ -86,6 +92,7 @@ fun SimplePatchingInProgress(
                 progress = progress,
                 completed = completed,
                 total = total,
+                accentColor = accentColor,
                 showLongStepWarning = showLongStepWarning,
                 patchProgress = patchProgress,
                 queueHeader = queueHeader,
@@ -120,6 +127,7 @@ private fun AdaptiveProgressContent(
     progress: Float,
     completed: Int,
     total: Int,
+    accentColor: Color?,
     showLongStepWarning: Boolean,
     patchProgress: PatchProgressSource,
     queueHeader: (@Composable () -> Unit)? = null,
@@ -187,6 +195,7 @@ private fun AdaptiveProgressContent(
                     progress = progress,
                     completed = completed,
                     total = total,
+                    accentColor = accentColor,
                     modifier = Modifier.size(280.dp)
                 )
             }
@@ -208,6 +217,7 @@ private fun AdaptiveProgressContent(
                 progress = progress,
                 completed = completed,
                 total = total,
+                accentColor = accentColor,
                 modifier = Modifier.size(280.dp)
             )
 
@@ -311,33 +321,27 @@ private fun AnimatedMessage(messageResId: Int) {
 }
 
 /**
- * Circular progress indicator with percentage and patch count.
+ * Wavy circular progress indicator with percentage and patch count.
  */
 @Composable
 private fun CircularProgressWithStats(
     progress: Float,
     completed: Int,
     total: Int,
+    accentColor: Color?,
     modifier: Modifier = Modifier
 ) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
     ) {
-        // Background track
-        CircularProgressIndicator(
-            progress = { 1f },
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            strokeWidth = 12.dp,
-        )
-
-        // Active progress
-        CircularProgressIndicator(
+        WavyProgressRing(
             progress = { progress },
+            wavelength = ProgressRingWavelength,
+            accentColor = accentColor,
             modifier = Modifier.fillMaxSize(),
-            strokeWidth = 12.dp,
-            strokeCap = StrokeCap.Round,
+            amplitude = PROGRESS_RING_AMPLITUDE,
+            trackColor = MaterialTheme.colorScheme.surfaceVariant
         )
 
         // Stats in center

@@ -673,10 +673,15 @@ private fun MorpheManager(vm: MainViewModel) {
                 BatchPatcherScreen(
                     targets = params.targets,
                     useMount = params.useMount,
-                    onBackClick = { navController.popBackStack() },
+                    onBackClick = {
+                        patchingCompleted.value = false
+                        navController.popBackStack()
+                    },
                     onStartTour = startOnboardingTour,
                     onDeclineTour = declineOnboardingTour,
-                    onAppStateChanged = homeViewModel::notifyAppStateChanged
+                    onAppStateChanged = homeViewModel::notifyAppStateChanged,
+                    onBackgroundSpeedChange = { patcherBackgroundSpeed.floatValue = it },
+                    onPatchingCompleted = { patchingCompleted.value = true }
                 )
             }
 

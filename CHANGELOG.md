@@ -1,3 +1,46 @@
+# [1.33.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.3...v1.33.0-dev.4) (2026-09-27)
+
+
+### Features
+
+* Build the simple mode option dialogs from the patch options' cards ([b1043cd](https://github.com/MorpheApp/morphe-manager/commit/b1043cd168cedec1eb42469a085bac9656db0d67))
+* Caption the pulsing logo while the manager update installs ([b6bb306](https://github.com/MorpheApp/morphe-manager/commit/b6bb3063a2342435e69a77a589909979de4cdc33))
+* Give popup menus the look of the app's own cards ([65180eb](https://github.com/MorpheApp/morphe-manager/commit/65180ebb7668b7bb84f427b78b2de8954e9fea1b))
+* Head the icon and header creators by their app, with each step on a card ([ad32df8](https://github.com/MorpheApp/morphe-manager/commit/ad32df83c2f123466eb8ba91fd9be918283c6368))
+* Rebuild the file picker as a list dialog of cards ([a5e6000](https://github.com/MorpheApp/morphe-manager/commit/a5e6000149684d17ea1e31fba5ff7d796db119e8))
+* Rebuild the patch options dialog on the patch list's cards ([8b8f113](https://github.com/MorpheApp/morphe-manager/commit/8b8f1132f984ef9839d84a4f768d81a15a826989))
+
+# [1.33.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.2...v1.33.0-dev.3) (2026-09-26)
+
+
+### Features
+
+* Give batch patching the eased progress, background ramp and finish of a single run ([7c7262a](https://github.com/MorpheApp/morphe-manager/commit/7c7262ace62c875394b6291cfcd34339d2d62d3a))
+* Set inline changelog code on rounded chips ([89faf63](https://github.com/MorpheApp/morphe-manager/commit/89faf633c81a6e16f7606374f3a3107313baaf1a))
+* Show the manager update download as a wavy progress ring ([094be09](https://github.com/MorpheApp/morphe-manager/commit/094be0983f8d850f664651a6182f2fdb85566da9))
+* Wave the patching progress in the color of the app being patched ([92c1c64](https://github.com/MorpheApp/morphe-manager/commit/92c1c64f80612e8e1106cd81d3fe683107c1efb4))
+
+# [1.33.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.1...v1.33.0-dev.2) (2026-09-26)
+
+
+### Bug Fixes
+
+* Fit changelog summary tiles on one line ([2de2831](https://github.com/MorpheApp/morphe-manager/commit/2de28312dcf3173399b3cf57750e8a542ef0ec60))
+* Give the expert mode source a line of its own ([b51dce0](https://github.com/MorpheApp/morphe-manager/commit/b51dce06f724740f047986c74c2aba31cf6b9f8d))
+* Open the saved APK lists without rereading every archive ([e193dd1](https://github.com/MorpheApp/morphe-manager/commit/e193dd1d4ef75c0328a8c4eb70b8a952a34c8b95))
+* Put the source apps search right under the header ([2435a0c](https://github.com/MorpheApp/morphe-manager/commit/2435a0c0185490e12f08b7904c19f883025fc86f))
+* Stop the home list fade from recomposing on every scroll frame ([4d94ac0](https://github.com/MorpheApp/morphe-manager/commit/4d94ac0bd8cae129497f397c991521505af5427c))
+* Translate content online to keep the APK small and release builds working ([405f6e1](https://github.com/MorpheApp/morphe-manager/commit/405f6e132624674a3e730eafea86277bca007842))
+
+
+### Features
+
+* Animate every dialog header in like the app details one ([716c2aa](https://github.com/MorpheApp/morphe-manager/commit/716c2aa9ea7e803af74fdf98d1a82a835ffdea98))
+* Ease dialog header subtitles from one state to the next ([6c4cabf](https://github.com/MorpheApp/morphe-manager/commit/6c4cabffefb621c69438fe6b1d2768aec648ef45))
+* Fade dialog lists at the edges they scroll past ([52fd4d9](https://github.com/MorpheApp/morphe-manager/commit/52fd4d9070e2083335e0fade894d1ff43a5312ba))
+* Head the installed apps picker like the other list dialogs ([814f8ca](https://github.com/MorpheApp/morphe-manager/commit/814f8ca0cdefa948d6870edb4aadd09901780731))
+* Head the language picker like the other list dialogs ([815a304](https://github.com/MorpheApp/morphe-manager/commit/815a304e5ce0fdb4e7821fe4d314089e933a0dbb))
+
 # [1.33.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.32.1-dev.3...v1.33.0-dev.1) (2026-09-26)
 
 

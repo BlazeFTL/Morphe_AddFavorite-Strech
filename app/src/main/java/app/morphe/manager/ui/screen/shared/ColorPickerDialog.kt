@@ -162,12 +162,8 @@ fun ColorPickerDialog(
                         isHexError = input.isNotEmpty() && !input.startsWith("@")
                     }
                 },
-                label = {
-                    Text(stringResource(R.string.hex_color), color = LocalDialogSecondaryTextColor.current)
-                },
-                placeholder = {
-                    Text("#RRGGBB", color = LocalDialogSecondaryTextColor.current.copy(alpha = 0.6f))
-                },
+                label = { Text(stringResource(R.string.hex_color)) },
+                placeholder = { Text("#RRGGBB") },
                 isError = isHexError
             )
         }

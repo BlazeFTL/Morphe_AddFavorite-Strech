@@ -12,7 +12,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,6 +25,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.relocation.BringIntoViewModifierNode
@@ -110,8 +110,7 @@ fun AppDialogTextField(
                                     stringResource(R.string.settings_system_hide_password_field)
                                 } else {
                                     stringResource(R.string.settings_system_show_password_field)
-                                },
-                                tint = textColor.copy(alpha = 0.7f)
+                                }
                             )
                         }
                     }
@@ -124,8 +123,7 @@ fun AppDialogTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Clear,
-                                contentDescription = stringResource(R.string.clear),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.clear)
                             )
                         }
                     }
@@ -138,8 +136,7 @@ fun AppDialogTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.FolderOpen,
-                                contentDescription = stringResource(R.string.select_folder),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.select_folder)
                             )
                         }
                     }
@@ -152,8 +149,7 @@ fun AppDialogTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Outlined.InsertDriveFile,
-                                contentDescription = stringResource(R.string.select_file),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.select_file)
                             )
                         }
                     }
@@ -268,6 +264,11 @@ fun AppDialogSearchHeader(
 private data object StayInPlaceElement : ModifierNodeElement<StayInPlaceNode>() {
     override fun create() = StayInPlaceNode()
     override fun update(node: StayInPlaceNode) = Unit
+
+    // Holds nothing to show, so the inspector only needs its name
+    override fun InspectorInfo.inspectableProperties() {
+        name = "stayInPlace"
+    }
 }
 
 private class StayInPlaceNode : Modifier.Node(), BringIntoViewModifierNode {
@@ -357,8 +358,7 @@ fun AppDialogDropdownTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.FolderOpen,
-                                contentDescription = stringResource(R.string.select_folder),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.select_folder)
                             )
                         }
                     }
@@ -371,8 +371,7 @@ fun AppDialogDropdownTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Clear,
-                                contentDescription = stringResource(R.string.clear),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.clear)
                             )
                         }
                     }
@@ -397,8 +396,7 @@ fun AppDialogDropdownTextField(
                                 Icons.Outlined.ExpandLess
                             else
                                 Icons.Outlined.ExpandMore,
-                            contentDescription = null,
-                            tint = textColor.copy(alpha = 0.7f)
+                            contentDescription = null
                         )
                     }
                 }
@@ -426,28 +424,20 @@ fun AppDialogDropdownTextField(
             colors = morpheDialogTextFieldColors(textColor)
         )
 
-        ExposedDropdownMenu(
+        AppExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
             dropdownItems.forEach { (displayName, itemValue) ->
-                DropdownMenuItem(
-                    text = { Text(displayName) },
+                AppDropdownMenuItem(
+                    text = displayName,
+                    selected = itemValue == value,
                     onClick = {
                         onValueChange(itemValue)
                         expanded = false
                         // A picked preset ends any typing, so the field shows its name again
                         focusManager.clearFocus()
-                    },
-                    leadingIcon = if (itemValue == value) {
-                        {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    } else null
+                    }
                 )
             }
         }

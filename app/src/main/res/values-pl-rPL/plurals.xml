@@ -138,4 +138,28 @@
         <item quantity="many">%s rdzeni</item>
         <item quantity="other">%s rdzeni</item>
     </plurals>
+    <plurals name="changelog_new_count">
+        <item quantity="one">%s nowość</item>
+        <item quantity="few">%s nowości</item>
+        <item quantity="many">%s nowości</item>
+        <item quantity="other">%s nowości</item>
+    </plurals>
+    <plurals name="changelog_fix_count">
+        <item quantity="one">%s poprawka</item>
+        <item quantity="few">%s poprawki</item>
+        <item quantity="many">%s poprawek</item>
+        <item quantity="other">%s poprawek</item>
+    </plurals>
+    <plurals name="changelog_change_count">
+        <item quantity="one">%s zmiana</item>
+        <item quantity="few">%s zmiany</item>
+        <item quantity="many">%s zmian</item>
+        <item quantity="other">%s zmian</item>
+    </plurals>
+    <plurals name="changelog_new_releases">
+        <item quantity="one">%s nowe wydanie</item>
+        <item quantity="few">%s nowe wydania</item>
+        <item quantity="many">%s nowych wydań</item>
+        <item quantity="other">%s nowych wydań</item>
+    </plurals>
 </resources>

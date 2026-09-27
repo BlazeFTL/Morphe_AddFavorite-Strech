@@ -106,6 +106,9 @@
          how a literal percent sign is written here. -->
     <string name="enabled">செயலில்பாட்டில் உள்ளது</string>
     <string name="disabled">முடக்கப்பட்டது</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->

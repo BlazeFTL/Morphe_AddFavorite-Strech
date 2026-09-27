@@ -141,7 +141,6 @@
     <string name="sources_management_report_issue">Nýlega uppfærð forrit fyrst</string>
     <string name="sources_management_failed_to_open_url">Ekki tókst að opna vefslóð</string>
     <string name="sources_apps">Forrit</string>
-    <string name="sources_apps_title">Forrit frá %1$s</string>
     <string name="sources_apps_description">Snertu forrit til að undanskilja það frá þessum uppruna eða færa það aftur inn, eða haltu inni til að velja nokkur. Forrit hverfur af heimaskjánum þegar enginn uppruni færir það inn.</string>
     <string name="sources_apps_brought">Fært inn af þessum uppruna</string>
     <string name="sources_apps_left_out">Undanskilið frá þessum uppruna</string>
@@ -174,8 +173,6 @@
     <string name="sources_dialog_rename">Endurnefna heimild breytistillinga</string>
     <string name="sources_dialog_duplicate_name_error">Heimild breytistillinga með þessu nafn er þegar til</string>
     <string name="sources_dialog_missing_error">Ekki tókst að uppfæra þessa pakkagjafa</string>
-    <string name="sources_dialog_view_any_version">Hver útgáfa</string>
-    <string name="sources_dialog_view_any_package">Hver pakki</string>
     <string name="sources_dialog_add_source">Bæta við heimild breytistillingum</string>
     <string name="sources_dialog_delete_confirm_message">Eyða pakkagjafa \"%s\"? Þetta er ekki hægt að afgreiða</string>
     <string name="sources_dialog_remote">Fjarlægur</string>
@@ -283,7 +280,6 @@ Allt sem þú bætir við frá þessari vefsíðu er notað á eigin ábyrgð."<
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">Sérstakur háttur</string>
     <string name="expert_mode_search">Leita breytistillinga</string>
-    <string name="expert_mode_proceed">Halda áfram með pakkningu</string>
     <string name="expert_mode_disable_all">Gerðu allt óvirkt</string>
     <string name="expert_mode_disable_all_done">Allar breytingar gerða óvirkar</string>
     <string name="expert_mode_enable_all">Gerðu allt virkt</string>
@@ -1196,7 +1192,6 @@ Nánari upplýsingar: %2$s"</string>
     <string name="disable">Gerðu óvirkt</string>
     <string name="enable">Gerðu virkt</string>
     <string name="loading">Hlaða…</string>
-    <string name="loading_older_releases">Hlaða eldri útgáfur…</string>
     <string name="creating">Búa til…</string>
     <string name="processing_apk">Vinnsla við APK…</string>
     <string name="exporting_apks">Flytja út APK-skrár…</string>
@@ -1239,6 +1234,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="continue_">Halda áfram</string>
     <string name="version">Útgáfa</string>
     <string name="clone">Klóna</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">Breytistilling</string>
     <string name="patching">Breytingar</string>
     <string name="patched">Plástrað</string>
@@ -1278,8 +1274,26 @@ Nánari upplýsingar: %2$s"</string>
     <string name="changelog_description">Hvað er nýtt í þessari útgáfu</string>
     <string name="changelog_download_fail">Ekki tókst að sækja breytingaskrá: %s</string>
     <string name="changelog_empty">Engin breytingaskrá í boði</string>
-    <string name="changelog_show_older">Sýna eldri útgáfur</string>
+    <string name="changelog_earlier_releases">Fyrri útgáfur</string>
     <string name="changelog_older_empty">Engar eldri útgáfur til sýnis</string>
+    <string name="changelog_older_failed">Ekki tókst að hlaða eldri útgáfur</string>
+    <string name="changelog_release_page">Útgáfusíða</string>
+    <string name="content_translate">Þýða</string>
+    <string name="content_show_original">Sýna frumtexta</string>
+    <string name="content_translation_failed">Mistókst að þýða: %s</string>
+    <string name="changelog_section_new">Nýtt</string>
+    <string name="changelog_section_fixes">Lagfæringar</string>
+    <string name="changelog_section_performance">Afköst</string>
+    <string name="changelog_section_improvements">Endurbætur</string>
+    <string name="changelog_section_app_support">Stuðningur við forrit</string>
+    <string name="changelog_section_other">Breytingar</string>
+    <string name="changelog_badge_latest">Nýjasta</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <string name="changelog_badge_in_use">Í notkun</string>
+    <string name="changelog_badge_prerelease">Forútgáfa</string>
+    <!-- "%s" is the number of changes in the section -->
+    <string name="changelog_show_all">Sýna allt (%s)</string>
+    <string name="changelog_show_less">Sýna minna</string>
     <string name="no_network_toast">Engin nettenging í boði</string>
     <string name="update_available">Uppfærsla er til staðar</string>
     <string name="ready_to_install_update">Tilbúið til að setja upp uppfærslu</string>

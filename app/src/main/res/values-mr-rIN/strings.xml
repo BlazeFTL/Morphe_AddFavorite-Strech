@@ -152,8 +152,6 @@
     <string name="sources_dialog_rename">सुधारणांच्या मुळाचे नाव बदला</string>
     <string name="sources_dialog_duplicate_name_error">या नावाचे सुधारणा मूळ आधीपासून उपलब्ध आहे</string>
     <string name="sources_dialog_missing_error">हे सुधारणा मूळ अपडेट करता आले नाही</string>
-    <string name="sources_dialog_view_any_version">कोणतीही आवृत्ती</string>
-    <string name="sources_dialog_view_any_package">कोणताही संच</string>
     <string name="sources_dialog_add_source">सुधारणा मूळ जोडा</string>
     <string name="sources_dialog_delete_confirm_message">\"%s\" हे मूळ हटवायचे का? ही कृती पुन्हा बदलता येणार नाही</string>
     <string name="sources_dialog_remote">बाहेरून</string>
@@ -258,7 +256,6 @@
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
     <string name="expert_mode_title">एक्सपर्ट मोड</string>
     <string name="expert_mode_search">पॅच शोधा</string>
-    <string name="expert_mode_proceed">पॅचिंग सुरू करा</string>
     <string name="expert_mode_disable_all">सर्व अक्षम करा</string>
     <string name="expert_mode_disable_all_done">सर्व पॅच अक्षम केले</string>
     <string name="expert_mode_enable_all">सर्व सक्षम करा</string>
@@ -1081,7 +1078,6 @@ morphe_header_custom_dark.png
     <string name="disable">डिसेबल करा</string>
     <string name="enable">इनेबल करा</string>
     <string name="loading">लोड होत आहे…</string>
-    <string name="loading_older_releases">जुने रीलिझ लोड करत आहे…</string>
     <string name="creating">तयार करत आहे…</string>
     <string name="processing_apk">APK प्रक्रिया करत आहे…</string>
     <string name="exporting_apks">APKs निर्यात करत आहे…</string>
@@ -1123,6 +1119,7 @@ morphe_header_custom_dark.png
     <string name="continue_">सुरू ठेवा</string>
     <string name="version">व्हर्जन</string>
     <string name="clone">क्लोन</string>
+    <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <string name="patch">सुधारणा</string>
     <string name="patching">पॅचिंग</string>
     <string name="patched">पॅच केलेले</string>
@@ -1156,8 +1153,9 @@ morphe_header_custom_dark.png
     <string name="changelog">बदल लॉग पहा</string>
     <string name="changelog_download_fail">बदल लॉग डाउनलोड करण्यात अयशस्वी: %s</string>
     <string name="changelog_empty">बदल लॉग उपलब्ध नाही</string>
-    <string name="changelog_show_older">जुने रिलीझ दर्शवा</string>
     <string name="changelog_older_empty">दर्शविण्यासाठी जुने रिलीझ नाहीत</string>
+    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- "%s" is the number of changes in the section -->
     <string name="no_network_toast">इंटरनेट कनेक्शन उपलब्ध नाही</string>
     <string name="update_available">अपडेट उपलब्ध आहे</string>
     <string name="ready_to_install_update">अपडेट इंस्टॉल करण्यासाठी तयार</string>

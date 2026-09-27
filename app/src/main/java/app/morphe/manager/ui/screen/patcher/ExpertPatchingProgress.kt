@@ -319,6 +319,8 @@ fun ExpertPatchingInProgress(
     }
 
     val landscape = isLandscape()
+    // The app's own color marks what is being patched, on the bar and the log panel alike
+    val appColor = packageName?.let { rememberAppColor(it) }
 
     // The same bar in both orientations: only where it hangs and its padding differ, so it is
     // written once rather than kept in step across two branches
@@ -350,6 +352,7 @@ fun ExpertPatchingInProgress(
             total = total,
             patchProgress = patchProgress,
             packageName = packageName,
+            accentColor = appColor,
             patcherSucceeded = patcherSucceeded,
             showScreenLabel = queueHeader == null
         )
@@ -360,6 +363,7 @@ fun ExpertPatchingInProgress(
             listState = listState,
             patcherSucceeded = patcherSucceeded,
             miniGameState = miniGameState,
+            accentColor = appColor,
             modifier = panelModifier
         )
     }
@@ -454,6 +458,7 @@ private fun ExpertProgressHeader(
     total: Int,
     patchProgress: PatchProgressSource,
     packageName: String? = null,
+    accentColor: Color? = null,
     patcherSucceeded: Boolean? = null,
     showScreenLabel: Boolean = true
 ) {
@@ -522,7 +527,7 @@ private fun ExpertProgressHeader(
 
             ExpertLinearProgressBar(
                 progress = progress,
-                accentColor = packageName?.let { rememberAppColor(it) }
+                accentColor = accentColor
             )
         }
 
@@ -590,9 +595,13 @@ private fun ExpertLogPanel(
     patchProgress: PatchProgressSource,
     listState: LazyListState,
     patcherSucceeded: Boolean? = null,
-    miniGameState: MiniGameState
+    miniGameState: MiniGameState,
+    accentColor: Color? = null
 ) {
     val rawLogs = patchProgress.logs
+    // Decoration only: the log's own colors keep telling warnings and errors apart
+    val appAccent = usableAppAccent(accentColor)
+    val dotColor = appAccent ?: MorpheBrandTeal
     // Convert the full list in one stateful pass so banner cards can aggregate metadata from auxiliary lines
     val logItems = remember(rawLogs, rawLogs.size) { rawLogs.toLogItems() }
     // 0 = logs, 1 = game
@@ -606,11 +615,12 @@ private fun ExpertLogPanel(
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 2.dp,
-        border = CardBorder.neutral
+        border = appAccent?.let { CardBorder.tinted(it) } ?: CardBorder.neutral
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             LogPanelTabHeader(
                 isLive = patcherSucceeded == null,
+                dotColor = dotColor,
                 activeTab = activeTab,
                 onTabSelect = { activeTab = it }
             )
@@ -646,7 +656,7 @@ private fun ExpertLogPanel(
                                         ) {
                                             // Nothing is going to arrive for a run whose log died
                                             // with its process, so the live dot would be a lie
-                                            if (!patchProgress.logsLost) LiveIndicatorDot(size = 10.dp)
+                                            if (!patchProgress.logsLost) LiveIndicatorDot(color = dotColor, size = 10.dp)
                                             Text(
                                                 text = stringResource(
                                                     if (patchProgress.logsLost) R.string.patcher_logs_lost
@@ -682,6 +692,7 @@ private fun ExpertLogPanel(
 @Composable
 private fun LogPanelTabHeader(
     isLive: Boolean,
+    dotColor: Color,
     activeTab: Int,
     onTabSelect: (Int) -> Unit
 ) {
@@ -697,7 +708,7 @@ private fun LogPanelTabHeader(
             selected = activeTab == 0,
             onClick = { onTabSelect(0) },
             modifier = Modifier.weight(1f, fill = false),
-            leadingContent = { LiveIndicatorDot(size = 8.dp, isLive = isLive && activeTab == 0) }
+            leadingContent = { LiveIndicatorDot(color = dotColor, size = 8.dp, isLive = isLive && activeTab == 0) }
         )
         LogTabChip(
             label = stringResource(R.string.patcher_tab_game),
@@ -1134,11 +1145,11 @@ private val LogLevel.logBadge: String
     }
 
 /**
- * Green dot used as a "live" indicator in the log panel header and empty state.
- * When [isLive] is true the dot pulses; when false it stays solid.
+ * Dot used as a "live" indicator in the log panel header and empty state, in the color of the app
+ * being patched. When [isLive] is true the dot pulses; when false it stays solid.
  */
 @Composable
-private fun LiveIndicatorDot(size: Dp = 8.dp, isLive: Boolean = true) {
+private fun LiveIndicatorDot(color: Color, size: Dp = 8.dp, isLive: Boolean = true) {
     val alpha = if (isLive) {
         val infiniteTransition = rememberInfiniteTransition(label = "live_dot")
         infiniteTransition.animateFloat(
@@ -1160,7 +1171,7 @@ private fun LiveIndicatorDot(size: Dp = 8.dp, isLive: Boolean = true) {
         modifier = Modifier
             .size(size)
             .drawBehind {
-                drawCircle(color = MorpheBrandTeal.copy(alpha = alpha.value))
+                drawCircle(color = color.copy(alpha = alpha.value))
             }
     )
 }

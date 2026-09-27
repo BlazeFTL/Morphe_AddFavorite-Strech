@@ -221,7 +221,8 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_apk_helper_download">Use a helper app</string>
     <string name="home_apk_helper_title">Download with a helper app</string>
     <string name="home_apk_helper_description">Morphe will ask the helper app below to download the original APK and hand the file back</string>
-    <string name="home_apk_helper_continue">Open helper app</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Open helper</string>
     <string name="home_apk_helper_warning">Only continue if you trust this helper app. Morphe checks the package, version and signature of whatever it receives before patching</string>
     <string name="home_apk_helper_warning_unverified">Only continue if you trust this helper app. Morphe cannot verify the signature of this APK, so a modified file would not be detected</string>
     <string name="home_apk_helper_no_result">The helper app did not return an APK</string>
@@ -331,6 +332,7 @@ For the best results, this app recommends patching a &lt;b&gt;full APK&lt;/b&gt;
     <string name="morphe_experimental_app_version_dialog_message">This version of &lt;b>%s&lt;/b> has early experimental support&lt;br/>&lt;br/>🔧 Expect quirky app behavior or unidentified bugs as the patches are refined for this app version</string>
     <string name="home_dialog_unsupported_version_dialog_title">Unsupported Version</string>
     <string name="home_dialog_unsupported_version_dialog_description">This APK is not a recommended app version. Proceeding may result in a non-functional app</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Proceed anyway</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Compatible versions:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Unsupported</string>
@@ -444,9 +446,11 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="batch_patch_state_no_patches">No patches</string>
     <string name="batch_patch_policy_install">Install when finished</string>
     <string name="batch_patch_policy_install_description">Installs every patched app right after the queue finishes. Off keeps the APKs for later</string>
-    <string name="batch_patch_start">Start patching</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>
     <string name="batch_patch_stop_description">The app being patched right now and everything still queued will be cancelled</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Install all</string>
     <string name="batch_patch_install_failed">Install failed</string>
     <string name="batch_patch_in_progress">Batch patching is already running</string>
@@ -813,6 +817,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Change app icon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Change to &lt;b&gt;%s&lt;/b&gt; and restart?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Change icon</string>
 
     <!-- Settings - Advanced Tab - Updates Section -->
@@ -1259,6 +1264,7 @@ Details: %2$s"</string>
 
     <string name="app_name" translatable="false">Morphe</string>
     <string name="select_file">Select file</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Select folder</string>
     <string name="patches">Patches</string>
     <string name="home">Home</string>
@@ -1380,11 +1386,13 @@ Details: %2$s"</string>
     <string name="changelog_earlier_releases">Earlier releases</string>
     <string name="changelog_older_empty">No older releases to show</string>
     <string name="changelog_older_failed">Couldn\'t load older releases</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Release page</string>
     <string name="changelog_host_github" translatable="false">GitHub</string>
     <string name="changelog_host_gitlab" translatable="false">GitLab</string>
     <string name="content_translate">Translate</string>
-    <string name="content_show_original">Show original</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Original</string>
     <string name="content_translation_failed">Failed to translate: %s</string>
     <string name="changelog_section_new">New</string>
     <string name="changelog_section_fixes">Fixes</string>
@@ -1443,6 +1451,7 @@ Do you still want to continue?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Quick feature tour</string>
     <string name="tour_prompt_desc">Want a quick tour of Morphe\'s key features?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Show me around</string>
     <string name="onboarding_restart_title">Feature tour</string>
     <string name="onboarding_restart_desc">A guided tour of key features</string>

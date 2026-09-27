@@ -1215,7 +1215,6 @@ Details: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Installer unknown</string>
 
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Previous directory</string>
     <string name="file_picker_no_files">No files here</string>
     <string name="file_picker_read_error">Cannot read this directory</string>
     <string name="file_picker_internal_storage">Internal storage</string>

@@ -25,6 +25,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.relocation.BringIntoViewModifierNode
@@ -267,6 +268,11 @@ fun AppDialogSearchHeader(
 private data object StayInPlaceElement : ModifierNodeElement<StayInPlaceNode>() {
     override fun create() = StayInPlaceNode()
     override fun update(node: StayInPlaceNode) = Unit
+
+    // Holds nothing to show, so the inspector only needs its name
+    override fun InspectorInfo.inspectableProperties() {
+        name = "stayInPlace"
+    }
 }
 
 private class StayInPlaceNode : Modifier.Node(), BringIntoViewModifierNode {

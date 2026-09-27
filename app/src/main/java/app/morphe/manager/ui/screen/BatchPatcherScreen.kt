@@ -503,18 +503,6 @@ fun BatchPatcherScreen(
 
     AppDialog(
         onDismissRequest = close,
-        title = stringResource(R.string.batch_patch_title),
-        titleTrailingContent = if (current?.phase == BatchPhase.FINISHED && hasUnfinished) {
-            {
-                TitleAction(
-                    icon = Icons.Outlined.Refresh,
-                    contentDescription = stringResource(R.string.retry),
-                    onClick = viewModel::retryUnfinished
-                )
-            }
-        } else {
-            null
-        },
         footer = {
             BatchDialogButtons(
                 state = current,
@@ -529,14 +517,64 @@ fun BatchPatcherScreen(
         contentArrangement = Arrangement.Top,
         fillContentHeight = true
     ) {
+        // Headed like the other lists, with how the run stands where the subtitle goes
+        val accent = MaterialTheme.colorScheme.primary
+        ListDialogHeader(
+            icon = { modifier ->
+                ListDialogHeaderIcon(icon = Icons.Outlined.AutoFixHigh, color = accent, modifier = modifier)
+            },
+            title = stringResource(R.string.batch_patch_title),
+            subtitle = current?.let { batchSummary(it) }.orEmpty(),
+            subtitleLoading = current == null,
+            accentColor = accent,
+            actions = if (current?.phase == BatchPhase.FINISHED && hasUnfinished) {
+                {
+                    TitleAction(
+                        icon = Icons.Outlined.Refresh,
+                        contentDescription = stringResource(R.string.retry),
+                        onClick = viewModel::retryUnfinished
+                    )
+                }
+            } else {
+                null
+            }
+        )
+
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
+            contentPadding = PaddingValues(top = Defaults.ItemSpacing),
             verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
             if (current == null) return@DialogLazyList
 
-            item { BatchStatusCard(state = current) }
+            // Mixing sources is decided by the plan, not by the user, so this is the one place
+            // it can be pointed out. Said once for the run rather than blocking the queue
+            if (current.phase == BatchPhase.PREFLIGHT &&
+                current.runnable.any { it.selection.keys.size > 1 }
+            ) {
+                item(key = "multiple_sources") {
+                    Notice(
+                        text = stringResource(R.string.batch_patch_multiple_sources),
+                        icon = Icons.Outlined.Info,
+                        tone = SemanticTone.Warning,
+                        density = NoticeDensity.Compact,
+                        modifier = Modifier.animateItem()
+                    )
+                }
+            }
+
+            // Nothing was installed yet, so say where the APKs went
+            if (current.phase == BatchPhase.FINISHED && current.patchedItems.isNotEmpty()) {
+                item(key = "saved_hint") {
+                    Notice(
+                        text = stringResource(R.string.batch_patch_saved_hint),
+                        icon = Icons.Outlined.Save,
+                        density = NoticeDensity.Compact,
+                        modifier = Modifier.animateItem()
+                    )
+                }
+            }
 
             if (current.phase == BatchPhase.PREFLIGHT) {
                 item {
@@ -670,66 +708,21 @@ private fun BatchRunHeader(state: BatchRunState) {
     }
 }
 
-/** Run summary card shown in the preflight list and once the queue has drained. */
+/** How the run stands: how many apps are ready while it is planned, how it went once it drained. */
 @Composable
-private fun BatchStatusCard(state: BatchRunState) {
-    val summary = when (state.phase) {
-        BatchPhase.FINISHED -> stringResource(
-            R.string.batch_patch_summary,
-            state.succeeded.toString(),
-            state.failed.toString(),
-            state.skipped.toString()
-        )
+private fun batchSummary(state: BatchRunState): String = when (state.phase) {
+    BatchPhase.FINISHED -> stringResource(
+        R.string.batch_patch_summary,
+        state.succeeded.toString(),
+        state.failed.toString(),
+        state.skipped.toString()
+    )
 
-        else -> pluralStringResource(
-            R.plurals.batch_patch_ready_count,
-            state.runnable.size,
-            state.runnable.size.toString()
-        )
-    }
-
-    SectionCard(modifier = Modifier.fillMaxWidth()) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Defaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-        ) {
-            AnimatedContent(
-                targetState = summary,
-                transitionSpec = Animations.counterTransitionSpec,
-                label = "batch_summary"
-            ) { text ->
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    color = LocalDialogTextColor.current
-                )
-            }
-
-            // Mixing sources is decided by the plan, not by the user, so this is the one place
-            // it can be pointed out. Said once for the run rather than blocking the queue
-            if (state.phase == BatchPhase.PREFLIGHT &&
-                state.runnable.any { it.selection.keys.size > 1 }
-            ) {
-                Text(
-                    text = stringResource(R.string.batch_patch_multiple_sources),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-
-            // Nothing was installed yet, so say where the APKs went
-            if (state.phase == BatchPhase.FINISHED && state.patchedItems.isNotEmpty()) {
-                Text(
-                    text = stringResource(R.string.batch_patch_saved_hint),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-        }
-    }
+    else -> pluralStringResource(
+        R.plurals.batch_patch_ready_count,
+        state.runnable.size,
+        state.runnable.size.toString()
+    )
 }
 
 /** Single switch deciding what happens once every app in the queue is patched. */

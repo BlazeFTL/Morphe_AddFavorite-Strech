@@ -174,6 +174,7 @@ fun NotificationsDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_system_notifications),
+        description = stringResource(R.string.settings_system_notifications_description),
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),

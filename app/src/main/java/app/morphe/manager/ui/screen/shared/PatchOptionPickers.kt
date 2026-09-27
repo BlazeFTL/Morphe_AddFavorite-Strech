@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -14,31 +13,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-
-/**
- * Header row shown above a picker button (folder/file/image options).
- * Renders the option title, an optional "*" marker for required options,
- * and switches to the theme's error color when the option is required but empty.
- */
-@Composable
-fun PickerFieldHeader(title: String, required: Boolean, isInvalid: Boolean) {
-    Text(
-        text = if (required) "$title *" else title,
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.Bold,
-        color = if (isInvalid) MaterialTheme.colorScheme.error else LocalDialogTextColor.current,
-    )
-}
 
 /**
  * Picker row: the main "select…" outlined button plus an inline trailing
@@ -78,48 +59,6 @@ fun PickerButtonRow(
                 )
             }
         }
-    }
-}
-
-/**
- * [DropdownOptionField] with the option title and description above it, for a dialog that heads
- * each option itself.
- */
-@Composable
-fun DropdownOptionItem(
-    title: String,
-    description: String,
-    value: String,
-    presets: Map<String, Any?>,
-    allowCustomValue: Boolean = true,
-    onValueChange: (Any?) -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = LocalDialogTextColor.current
-            )
-            if (description.isNotBlank()) {
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-        }
-
-        DropdownOptionField(
-            value = value,
-            presets = presets,
-            allowCustomValue = allowCustomValue,
-            onValueChange = onValueChange
-        )
     }
 }
 

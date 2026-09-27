@@ -20,7 +20,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,9 +27,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.offset
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.ui.screen.shared.*
@@ -386,11 +383,12 @@ private fun PatchOptionEditor(
             onValueChange = onValueChange
         )
 
-        OptionKind.Path -> PathInputOption(
+        OptionKind.Path -> FolderOptionCard(
             heading = heading,
             value = value?.toString() ?: "",
+            typed = false,
+            asset = optionAssetOf(heading, isDefaultBundle),
             packageName = packageName,
-            isDefaultBundle = isDefaultBundle,
             onValueChange = onValueChange
         )
 
@@ -400,11 +398,12 @@ private fun PatchOptionEditor(
             onValueChange = onValueChange
         )
 
-        OptionKind.FolderPicker -> FolderPickerOption(
+        OptionKind.FolderPicker -> FolderOptionCard(
             heading = heading,
             value = value?.toString() ?: "",
+            typed = true,
+            asset = optionAssetOf(heading, isDefaultBundle),
             packageName = packageName,
-            isDefaultBundle = isDefaultBundle,
             onValueChange = onValueChange
         )
 
@@ -513,204 +512,21 @@ private fun PatchOptionEditor(
     }
 }
 
-/** Room past the heading's bounds that badges taller than its first line can spill into. */
-private val HeadingBleed = 8.dp
-
 /**
- * Lays the content out [bleed] larger on each side than it takes up, so what it draws there is
- * inside its bounds, and so inside any clip applied within, while its neighbors see its own size.
+ * What the creator of [heading] makes, told from how the option names itself, or null where it
+ * asks for neither picture. Only the default Morphe bundle reads what the creators make.
  */
-private fun Modifier.bleedVertically(bleed: Dp): Modifier = layout { measurable, constraints ->
-    val bleedPx = bleed.roundToPx()
-    val placeable = measurable.measure(constraints.offset(vertical = bleedPx * 2))
-    layout(placeable.width, (placeable.height - bleedPx * 2).coerceAtLeast(0)) {
-        placeable.place(0, -bleedPx)
-    }
-}
-
-/**
- * What the card of an option says about it besides the control that edits it.
- *
- * @param missing Whether the option is required and still holds nothing.
- * @param changed Whether the option holds something other than the patch's own value.
- * @param onReset Puts the option back on the patch's own value.
- */
-private class OptionHeading(
-    val title: String,
-    val description: String,
-    val required: Boolean,
-    val missing: Boolean,
-    val changed: Boolean,
-    val onReset: () -> Unit
-)
-
-/**
- * Card of one option, set like the patch cards the dialog opens from: the same card and border,
- * the option's title and description as a patch's name and description with [OptionStatus] after
- * the title, and the control that edits it below.
- *
- * @param showDescription Whether the description goes under the title. An option whose
- *   description is instructions long enough to fold away hands it to [OptionInstructions] instead.
- * @param showStatus Whether [OptionStatus] follows the title. A switch shows its state itself, and
- *   switching it back is all a reset would do.
- * @param onClick Makes the whole card the control, for an option edited from the card itself.
- * @param trailing Sits at the end of the title row, for a control as small as a switch.
- */
-@Composable
-private fun OptionCard(
-    heading: OptionHeading,
-    showDescription: Boolean = true,
-    showStatus: Boolean = true,
-    onClick: (() -> Unit)? = null,
-    trailing: (@Composable () -> Unit)? = null,
-    content: (@Composable ColumnScope.() -> Unit)? = null
-) {
-    SettingsItemCard(
-        onClick = onClick,
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        borderWidth = 1.dp,
-        borderColor = if (heading.missing) {
-            MaterialTheme.colorScheme.error.copy(alpha = 0.6f)
-        } else {
-            MaterialTheme.colorScheme.outlineVariant
-        }
-    ) {
-        // No size animation of its own: what grows inside, such as the instructions or the exact
-        // value input of a slider, already animates, and a second one trails behind it
-        Column(
-            modifier = Modifier.padding(Defaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Eases the badges onto a line of their own and back, as an edit shows or hides one.
-                // The animation clips to its bounds, which the badges spill past, so it is given
-                // room around them that the layout takes straight back
-                CardHeadingText(
-                    name = heading.title,
-                    description = heading.description.takeIf { showDescription },
-                    modifier = Modifier
-                        .weight(1f)
-                        .bleedVertically(HeadingBleed)
-                        .animateContentSize()
-                        .padding(vertical = HeadingBleed),
-                    badges = { if (showStatus) OptionStatus(heading) }
-                )
-                trailing?.invoke()
-            }
-            content?.invoke(this)
-        }
-    }
-}
-
-/**
- * Badges for what sets an option apart, after its title: required, in the error tone while it is
- * still empty, and changed, which puts the option back on the patch's own value when tapped.
- */
-@Composable
-private fun RowScope.OptionStatus(heading: OptionHeading) {
-    if (heading.required) {
-        StatusBadge(
-            text = stringResource(R.string.patch_option_required),
-            tone = if (heading.missing) SemanticTone.Error else SemanticTone.Neutral
-        )
-    }
-    // Comes and goes with every edit, so it widens into place instead of shoving the title's
-    // line about in a single frame
-    AnimatedVisibility(
-        visible = heading.changed,
-        enter = Animations.expandHorizFadeIn,
-        exit = Animations.shrinkHorizFadeOut
-    ) {
-        StatusBadge(
-            text = stringResource(R.string.patch_option_changed),
-            icon = Icons.Outlined.Restore,
-            tone = SemanticTone.Primary,
-            onClick = heading.onReset
-        )
-    }
-}
-
-/** An option's description folded away under a header, for instructions too long to read inline. */
-@Composable
-private fun OptionInstructions(description: String) {
-    if (description.isBlank()) return
-    ExpandableSurface(
-        title = stringResource(R.string.patch_option_instructions),
-        content = {
-            ScrollableInstruction(description = description, maxHeight = 280.dp)
-        }
-    )
-}
-
-/**
- * Buttons that make an icon or a header for an option asking for one, with the dialogs they open.
- * Only the default Morphe bundle reads what they make, so other bundles go without them.
- */
-@Composable
-private fun AssetCreatorActions(
-    heading: OptionHeading,
-    packageName: String,
-    isDefaultBundle: Boolean,
-    onCreated: (String) -> Unit
-) {
-    if (!isDefaultBundle) return
-
-    // Detect if this is icon-related or header-related field
+private fun optionAssetOf(heading: OptionHeading, isDefaultBundle: Boolean): OptionAsset? {
+    if (!isDefaultBundle) return null
     // Check header first, then icon (header takes priority)
-    val isHeaderField = heading.title.contains("header", ignoreCase = true) ||
-            heading.description.contains("header", ignoreCase = true)
+    return when {
+        heading.title.contains("header", ignoreCase = true) ||
+                heading.description.contains("header", ignoreCase = true) -> OptionAsset.Header
 
-    val isIconField = !isHeaderField && (
-            heading.title.contains("icon", ignoreCase = true) ||
-                    heading.description.contains("mipmap", ignoreCase = true)
-            )
+        heading.title.contains("icon", ignoreCase = true) ||
+                heading.description.contains("mipmap", ignoreCase = true) -> OptionAsset.Icon
 
-    var showIconCreator by remember { mutableStateOf(false) }
-    var showHeaderCreator by remember { mutableStateOf(false) }
-
-    if (isIconField) {
-        AppDialogOutlinedButton(
-            text = stringResource(R.string.adaptive_icon_create),
-            onClick = { showIconCreator = true },
-            icon = Icons.Outlined.AutoAwesome,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-
-    if (isHeaderField) {
-        AppDialogOutlinedButton(
-            text = stringResource(R.string.header_creator_create),
-            onClick = { showHeaderCreator = true },
-            icon = Icons.Outlined.Image,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-
-    // Icon creator dialog
-    if (showIconCreator) {
-        AdaptiveIconCreatorDialog(
-            packageName = packageName,
-            onDismiss = { showIconCreator = false },
-            onIconCreated = { path ->
-                onCreated(path)
-                showIconCreator = false
-            }
-        )
-    }
-
-    // Header creator dialog
-    if (showHeaderCreator) {
-        HeaderCreatorDialog(
-            packageName = packageName,
-            onDismiss = { showHeaderCreator = false },
-            onHeaderCreated = { path ->
-                onCreated(path)
-                showHeaderCreator = false
-            }
-        )
+        else -> null
     }
 }
 
@@ -806,37 +622,6 @@ private fun optionSwatchColor(value: String): Color? = when (value) {
     else -> value.toColorOrNull()
 }
 
-@Composable
-private fun PathInputOption(
-    heading: OptionHeading,
-    value: String,
-    packageName: String,
-    isDefaultBundle: Boolean,
-    onValueChange: (String) -> Unit
-) {
-    // Folder picker button (needs permissions for icon/header creation)
-    val folderPicker = rememberFolderPickerWithPermission { uri ->
-        // Convert URI to path for patch options compatibility
-        onValueChange(uri.toFilePath())
-    }
-
-    OptionCard(heading, showDescription = false) {
-        AppDialogTextField(
-            value = value,
-            onValueChange = onValueChange,
-            placeholder = {
-                Text("/storage/emulated/0/folder", maxLines = 1, overflow = TextOverflow.Ellipsis)
-            },
-            isError = heading.missing,
-            showClearButton = true,
-            onFolderPickerClick = { folderPicker() }
-        )
-
-        AssetCreatorActions(heading, packageName, isDefaultBundle, onCreated = onValueChange)
-        OptionInstructions(heading.description)
-    }
-}
-
 /**
  * Individual file path input with a file picker button.
  * Used for options whose description mentions "file path".
@@ -896,7 +681,9 @@ private fun PathWithPresetsOption(
             onFolderPickerClick = { folderPicker() }
         )
 
-        AssetCreatorActions(heading, packageName, isDefaultBundle, onCreated = onValueChange)
+        optionAssetOf(heading, isDefaultBundle)?.let { asset ->
+            AssetCreatorAction(asset, packageName, onCreated = onValueChange)
+        }
         OptionInstructions(heading.description)
     }
 }
@@ -1035,38 +822,6 @@ private fun ListStringInputOption(
                 color = MaterialTheme.colorScheme.error
             )
         }
-    }
-}
-
-/**
- * Button-only folder picker for a typed folder option
- * (`app.morphe.patcher.patch.FolderOption`). Options declared as plain
- * `stringOption` render via [PathInputOption] instead.
- */
-@Composable
-private fun FolderPickerOption(
-    heading: OptionHeading,
-    value: String,
-    packageName: String,
-    isDefaultBundle: Boolean,
-    onValueChange: (String) -> Unit
-) {
-    // Folder picker (needs permissions for icon/header creation)
-    val folderPicker = rememberFolderPickerWithPermission { uri ->
-        onValueChange(uri.toFilePath())
-    }
-
-    OptionCard(heading, showDescription = false) {
-        PickerButtonRow(
-            label = stringResource(R.string.select_folder),
-            selectedPath = value,
-            icon = Icons.Outlined.Folder,
-            onPick = { folderPicker() },
-            onClear = { onValueChange("") },
-        )
-
-        AssetCreatorActions(heading, packageName, isDefaultBundle, onCreated = onValueChange)
-        OptionInstructions(heading.description)
     }
 }
 

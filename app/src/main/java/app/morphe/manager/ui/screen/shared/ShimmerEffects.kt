@@ -174,37 +174,6 @@ fun ShimmerApkItem() {
 }
 
 /**
- * Shimmer loading placeholder for an installed app picker row.
- */
-@Composable
-fun ShimmerInstalledAppRow() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(4.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Holds the slot of the icon the row settles into, inset like the adaptive icons that
-        // land there so the placeholder does not read as the larger of the two
-        ShimmerBox(
-            modifier = Modifier
-                .size(56.dp)
-                .padding(6.dp),
-            shape = RoundedCornerShape(11.dp)
-        )
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            ShimmerText(widthFraction = 0.5f, height = 16.dp)
-            ShimmerText(widthFraction = 0.7f, height = 12.dp)
-            ShimmerText(widthFraction = 0.35f, height = 12.dp)
-        }
-    }
-}
-
-/**
  * Placeholder for one collapsed source card, for the moment between the sheet opening and the
  * bundle store having read the database.
  */

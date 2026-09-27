@@ -534,7 +534,7 @@ private fun FolderListing(
     DialogLazyList(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
-        verticalArrangement = Arrangement.spacedBy(FileCardSpacing)
+        verticalArrangement = Arrangement.spacedBy(CompactCardSpacing)
     ) {
         val contents = dirContents
         when {
@@ -548,7 +548,7 @@ private fun FolderListing(
                 )
             }
 
-            contents == null -> items(FOLDER_PLACEHOLDER_ROWS) { ShimmerFileRow() }
+            contents == null -> items(FOLDER_PLACEHOLDER_ROWS) { ShimmerCompactListCard() }
 
             contents.isFailure -> item(key = "__error__") {
                 EmptyState(
@@ -669,12 +669,7 @@ private fun FileEntryRow(
     )
 }
 
-// A folder can hold hundreds of entries, so its cards run tighter than the app's other cards to
-// keep as many in view as the plain rows they replaced did
-private val FileIconSize = 36.dp
 private val FileGlyphSize = 20.dp
-private val FileCardPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp)
-private val FileCardSpacing = 6.dp
 
 /**
  * One card of the picker, set like the patch cards: the entry's picture on a tinted tile where it
@@ -691,12 +686,12 @@ private fun FilePickerRow(
     iconBitmap: ImageBitmap? = null,
     thumbnail: ImageBitmap? = null
 ) {
-    FileCard(onClick = onClick, modifier = modifier) {
+    CompactListCard(onClick = onClick, modifier = modifier) {
         when {
             packageInfo != null -> AppIcon(
                 packageInfo = packageInfo,
                 contentDescription = null,
-                modifier = Modifier.size(FileIconSize)
+                modifier = Modifier.size(CompactCardIconSize)
             )
 
             thumbnail != null -> Image(
@@ -704,13 +699,13 @@ private fun FilePickerRow(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(FileIconSize)
+                    .size(CompactCardIconSize)
                     .clip(RoundedCornerShape(Defaults.CompactCornerRadius))
             )
 
             else -> Box(
                 modifier = Modifier
-                    .size(FileIconSize)
+                    .size(CompactCardIconSize)
                     .background(
                         MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
                         RoundedCornerShape(Defaults.CompactCornerRadius)
@@ -727,48 +722,5 @@ private fun FilePickerRow(
         }
 
         CardHeadingText(name = name, description = detail, modifier = Modifier.weight(1f))
-    }
-}
-
-/** Placeholder of a [FilePickerRow] while its folder is read. */
-@Composable
-private fun ShimmerFileRow() {
-    FileCard(onClick = null) {
-        ShimmerBox(
-            modifier = Modifier.size(FileIconSize),
-            shape = RoundedCornerShape(Defaults.CompactCornerRadius)
-        )
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            ShimmerText(widthFraction = 0.55f, height = 14.dp)
-            ShimmerText(widthFraction = 0.35f, height = 12.dp)
-        }
-    }
-}
-
-/** The card a [FilePickerRow] and its placeholder share, the one patch cards sit on. */
-@Composable
-private fun FileCard(
-    onClick: (() -> Unit)?,
-    modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit
-) {
-    SettingsItemCard(
-        onClick = onClick,
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        borderWidth = 1.dp,
-        borderColor = MaterialTheme.colorScheme.outlineVariant,
-        modifier = modifier
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(FileCardPadding),
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            verticalAlignment = Alignment.CenterVertically,
-            content = content
-        )
     }
 }

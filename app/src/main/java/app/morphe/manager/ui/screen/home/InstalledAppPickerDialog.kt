@@ -6,25 +6,15 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstalledAppPickerItem
@@ -117,9 +107,6 @@ fun InstalledAppPickerDialog(
             )
         }
 
-        val textColor = LocalDialogTextColor.current
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
@@ -142,85 +129,36 @@ fun InstalledAppPickerDialog(
             }
 
             if (isLoading) {
-                items(10) { ShimmerInstalledAppRow() }
+                items(10) { ShimmerCompactListCard() }
             } else {
                 if (filtered.isEmpty()) {
                     item(key = "empty_state") {
-                        Box(
-                            modifier = Modifier
-                                .animateItem()
-                                .fillMaxWidth()
-                                .padding(vertical = 48.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.SearchOff,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(48.dp),
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                Text(
-                                    text = stringResource(R.string.home_installed_app_picker_empty),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    textAlign = TextAlign.Center
-                                )
-                            }
-                        }
+                        EmptyState(
+                            message = stringResource(R.string.home_installed_app_picker_empty),
+                            icon = Icons.Outlined.SearchOff,
+                            modifier = Modifier.animateItem()
+                        )
                     }
                 }
 
+                // Carded like the file picker's entries, the other long list this is picked from
                 items(filtered, key = { it.packageName }) { item ->
-                    Row(
-                        modifier = Modifier
-                            .animateItem()
-                            .fillMaxWidth()
-                            .clickable { onSelect(item) }
-                            .padding(4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                    CompactListCard(
+                        onClick = { onSelect(item) },
+                        modifier = Modifier.animateItem()
                     ) {
-                        // Sized to the three text lines beside it so the row reads as one block
                         AppIcon(
                             packageInfo = item.packageInfo,
                             contentDescription = null,
-                            modifier = Modifier
-                                .size(56.dp)
-                                .clip(RoundedCornerShape(14.dp))
+                            modifier = Modifier.size(CompactCardIconSize)
                         )
-                        Column(
-                            modifier = Modifier.weight(1f),
-                            verticalArrangement = Arrangement.spacedBy(2.dp)
-                        ) {
-                            Text(
-                                text = item.label,
-                                style = MaterialTheme.typography.bodyLarge,
-                                fontWeight = FontWeight.Medium,
-                                color = textColor,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                            Text(
-                                text = item.packageName,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = secondaryColor,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                            Text(
-                                // Universal patches name no version, so nothing here
-                                // checks the build code and nothing would act on it
-                                text = "v${item.info.version}",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = secondaryColor.copy(alpha = 0.6f),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
+                        CardHeadingText(
+                            name = item.label,
+                            // Universal patches name no version, so nothing here checks the build
+                            // code and nothing would act on it
+                            description = "${item.packageName}\nv${item.info.version}",
+                            modifier = Modifier.weight(1f)
+                        )
                     }
                 }
             }

@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -92,81 +90,67 @@ fun ChangelogList(
         }.filter { it }.collect { currentOlder?.onLoad?.invoke() }
     }
 
-    Box(modifier = Modifier.fillMaxWidth()) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScrollFade(listState),
-            contentPadding = contentPadding
-        ) {
-            if (header != null) {
-                item("changelog_header") {
-                    Box(modifier = Modifier.padding(bottom = Defaults.ContentPaddingMedium)) {
-                        header()
-                    }
-                }
-            }
-
-            releaseItems(
-                entries = entries,
-                keyPrefix = "changelog",
-                expansion = expansion,
-                current = currentVersion?.let { it to currentBadge },
-                startsTimeline = true,
-                // The rail runs on into whatever the older releases show, unless that is nothing at all
-                continuesBelow = older != null && olderEntries?.isEmpty() != true
-            )
-
-            when {
-                older == null -> Unit
-
-                olderEntries == null -> item("changelog_older_state") {
-                    // Also stands in while the load waits to start, so the list does not jump
-                    if (older.isFailed) {
-                        ChangelogOlderFailed(onRetry = older.onLoad)
-                    } else {
-                        ChangelogOlderLoading()
-                    }
-                }
-
-                olderEntries.isEmpty() -> item("changelog_older_empty") {
-                    Text(
-                        text = stringResource(R.string.changelog_older_empty),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = Defaults.ContentPaddingMedium)
-                    )
-                }
-
-                else -> {
-                    // Sets the history apart from the releases the dialog was opened for
-                    item("changelog_older_label") {
-                        ChangelogTimelineLabel(text = stringResource(R.string.changelog_earlier_releases))
-                    }
-                    releaseItems(
-                        entries = olderEntries,
-                        keyPrefix = "changelog_older",
-                        expansion = expansion,
-                        current = currentVersion?.let { it to currentBadge },
-                        startsTimeline = false,
-                        continuesBelow = false
-                    )
+    DialogLazyList(
+        modifier = Modifier.fillMaxWidth(),
+        state = listState,
+        contentPadding = contentPadding
+    ) {
+        if (header != null) {
+            item("changelog_header") {
+                Box(modifier = Modifier.padding(bottom = Defaults.ContentPaddingMedium)) {
+                    header()
                 }
             }
         }
 
-        ListScrollbar(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
+        releaseItems(
+            entries = entries,
+            keyPrefix = "changelog",
+            expansion = expansion,
+            current = currentVersion?.let { it to currentBadge },
+            startsTimeline = true,
+            // The rail runs on into whatever the older releases show, unless that is nothing at all
+            continuesBelow = older != null && olderEntries?.isEmpty() != true
         )
 
-        ScrollToTopButton(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
+        when {
+            older == null -> Unit
+
+            olderEntries == null -> item("changelog_older_state") {
+                // Also stands in while the load waits to start, so the list does not jump
+                if (older.isFailed) {
+                    ChangelogOlderFailed(onRetry = older.onLoad)
+                } else {
+                    ChangelogOlderLoading()
+                }
+            }
+
+            olderEntries.isEmpty() -> item("changelog_older_empty") {
+                Text(
+                    text = stringResource(R.string.changelog_older_empty),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Defaults.ContentPaddingMedium)
+                )
+            }
+
+            else -> {
+                // Sets the history apart from the releases the dialog was opened for
+                item("changelog_older_label") {
+                    ChangelogTimelineLabel(text = stringResource(R.string.changelog_earlier_releases))
+                }
+                releaseItems(
+                    entries = olderEntries,
+                    keyPrefix = "changelog_older",
+                    expansion = expansion,
+                    current = currentVersion?.let { it to currentBadge },
+                    startsTimeline = false,
+                    continuesBelow = false
+                )
+            }
+        }
     }
 }
 

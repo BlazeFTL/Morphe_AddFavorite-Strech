@@ -16,9 +16,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -516,74 +514,58 @@ private fun FolderListing(
         else sortedContents.filter { it.name.contains(query, ignoreCase = true) }
     }
 
-    val listState = rememberLazyListState()
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScrollFade(listState),
-            contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
-            verticalArrangement = Arrangement.spacedBy(FileCardSpacing)
-        ) {
-            val contents = dirContents
-            when {
-                dir == null -> items(roots, key = { it.second.absolutePath }) { (label, root) ->
-                    FilePickerRow(
-                        icon = storageRootIcon(root),
-                        name = label,
-                        detail = null,
-                        onClick = { onOpen(root) },
-                        modifier = Modifier.animatedListItem(this)
-                    )
-                }
+    DialogLazyList(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
+        verticalArrangement = Arrangement.spacedBy(FileCardSpacing)
+    ) {
+        val contents = dirContents
+        when {
+            dir == null -> items(roots, key = { it.second.absolutePath }) { (label, root) ->
+                FilePickerRow(
+                    icon = storageRootIcon(root),
+                    name = label,
+                    detail = null,
+                    onClick = { onOpen(root) },
+                    modifier = Modifier.animatedListItem(this)
+                )
+            }
 
-                contents == null -> items(FOLDER_PLACEHOLDER_ROWS) { ShimmerFileRow() }
+            contents == null -> items(FOLDER_PLACEHOLDER_ROWS) { ShimmerFileRow() }
 
-                contents.isFailure -> item(key = "__error__") {
-                    EmptyState(
-                        message = stringResource(R.string.file_picker_read_error),
-                        icon = Icons.Outlined.Lock,
-                        actionLabel = stringResource(R.string.retry),
-                        onAction = onRetry
-                    )
-                }
+            contents.isFailure -> item(key = "__error__") {
+                EmptyState(
+                    message = stringResource(R.string.file_picker_read_error),
+                    icon = Icons.Outlined.Lock,
+                    actionLabel = stringResource(R.string.retry),
+                    onAction = onRetry
+                )
+            }
 
-                sortedContents.isEmpty() -> item(key = "__empty__") {
-                    EmptyState(
-                        message = stringResource(R.string.file_picker_no_files),
-                        icon = Icons.Outlined.FolderOff
-                    )
-                }
+            sortedContents.isEmpty() -> item(key = "__empty__") {
+                EmptyState(
+                    message = stringResource(R.string.file_picker_no_files),
+                    icon = Icons.Outlined.FolderOff
+                )
+            }
 
-                displayedContents.isEmpty() -> item(key = "__no_results__") {
-                    EmptyState(
-                        message = stringResource(R.string.search_no_results),
-                        icon = Icons.Outlined.SearchOff
-                    )
-                }
+            displayedContents.isEmpty() -> item(key = "__no_results__") {
+                EmptyState(
+                    message = stringResource(R.string.search_no_results),
+                    icon = Icons.Outlined.SearchOff
+                )
+            }
 
-                else -> items(displayedContents, key = { it.absolutePath }) { file ->
-                    FileEntryRow(
-                        file = file,
-                        pm = pm,
-                        mppIcon = mppIcon,
-                        onClick = { if (file.isDirectory) onOpen(file) else onFilePicked(file) },
-                        modifier = Modifier.animatedListItem(this)
-                    )
-                }
+            else -> items(displayedContents, key = { it.absolutePath }) { file ->
+                FileEntryRow(
+                    file = file,
+                    pm = pm,
+                    mppIcon = mppIcon,
+                    onClick = { if (file.isDirectory) onOpen(file) else onFilePicked(file) },
+                    modifier = Modifier.animatedListItem(this)
+                )
             }
         }
-
-        ListScrollbar(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
-
-        ScrollToTopButton(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
     }
 }
 

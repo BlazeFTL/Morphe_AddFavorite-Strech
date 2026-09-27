@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.settings.appearance
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -84,58 +83,45 @@ fun LanguagePickerDialog(
             accentColor = accent
         )
 
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScrollFade(listState, fadeTop = false),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                // Kept while the field is closed, so its share of the spacing makes the gap under
-                // the header
-                stickyHeader(key = "search") {
-                    AppDialogSearchHeader(
-                        visible = search.visible,
-                        value = search.query,
-                        onValueChange = { search.query = it },
-                        label = stringResource(R.string.search),
-                        // Opaque, so rows scrolled under the gap stay hidden
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(top = Defaults.ItemSpacing)
-                    )
-                }
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
+            state = listState,
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            fadeTop = false
+        ) {
+            // Kept while the field is closed, so its share of the spacing makes the gap under
+            // the header
+            stickyHeader(key = "search") {
+                AppDialogSearchHeader(
+                    visible = search.visible,
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = stringResource(R.string.search),
+                    // Opaque, so rows scrolled under the gap stay hidden
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(top = Defaults.ItemSpacing)
+                )
+            }
 
-                if (filteredLanguages.isEmpty()) {
-                    item(key = "empty_state") {
-                        EmptyState(
-                            message = stringResource(R.string.search_no_results),
-                            icon = Icons.Outlined.SearchOff,
-                            modifier = Modifier.animatedListItem(this)
-                        )
-                    }
-                }
-
-                items(items = filteredLanguages, key = { it.code }) { language ->
-                    LanguageItem(
-                        language = language,
-                        isSelected = currentLanguage == language.code,
-                        onClick = { onLanguageSelected(language.code) },
+            if (filteredLanguages.isEmpty()) {
+                item(key = "empty_state") {
+                    EmptyState(
+                        message = stringResource(R.string.search_no_results),
+                        icon = Icons.Outlined.SearchOff,
                         modifier = Modifier.animatedListItem(this)
                     )
                 }
             }
 
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+            items(items = filteredLanguages, key = { it.code }) { language ->
+                LanguageItem(
+                    language = language,
+                    isSelected = currentLanguage == language.code,
+                    onClick = { onLanguageSelected(language.code) },
+                    modifier = Modifier.animatedListItem(this)
+                )
+            }
         }
     }
 }

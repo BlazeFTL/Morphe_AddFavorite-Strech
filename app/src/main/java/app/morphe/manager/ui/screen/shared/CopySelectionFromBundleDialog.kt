@@ -6,9 +6,7 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -142,38 +140,22 @@ private fun ColumnScope.CandidateList(
     selectedIndex: Int,
     onSelect: (Int) -> Unit
 ) {
-    val listState = rememberLazyListState()
-    Box(
+    DialogLazyList(
         modifier = Modifier
             .fillMaxWidth()
-            .weight(1f, fill = false)
+            .weight(1f, fill = false),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScrollFade(listState),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-        ) {
-            items(
-                items = candidates.withIndex().toList(),
-                key = { (_, c) -> "${c.bundleUid}:${c.packageName}" }
-            ) { (index, candidate) ->
-                CandidateRow(
-                    candidate = candidate,
-                    selected = index == selectedIndex,
-                    onSelect = { onSelect(index) }
-                )
-            }
+        items(
+            items = candidates.withIndex().toList(),
+            key = { (_, c) -> "${c.bundleUid}:${c.packageName}" }
+        ) { (index, candidate) ->
+            CandidateRow(
+                candidate = candidate,
+                selected = index == selectedIndex,
+                onSelect = { onSelect(index) }
+            )
         }
-        ListScrollbar(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
-        ScrollToTopButton(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
     }
 }
 

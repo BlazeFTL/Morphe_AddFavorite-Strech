@@ -8,9 +8,7 @@ package app.morphe.manager.ui.screen.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -122,125 +120,110 @@ fun InstalledAppPickerDialog(
         val textColor = LocalDialogTextColor.current
         val secondaryColor = LocalDialogSecondaryTextColor.current
 
-        val listState = rememberLazyListState()
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScrollFade(listState, fadeTop = false),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-                userScrollEnabled = !isLoading
-            ) {
-                // Kept while the field is closed, so its share of the spacing makes the gap under
-                // the header
-                stickyHeader(key = "search") {
-                    AppDialogSearchHeader(
-                        visible = search.visible,
-                        value = search.query,
-                        onValueChange = { search.query = it },
-                        label = stringResource(R.string.home_search_apps),
-                        // Opaque, so rows scrolled under the gap stay hidden
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(top = Defaults.ItemSpacing)
-                    )
-                }
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            fadeTop = false,
+            userScrollEnabled = !isLoading
+        ) {
+            // Kept while the field is closed, so its share of the spacing makes the gap under
+            // the header
+            stickyHeader(key = "search") {
+                AppDialogSearchHeader(
+                    visible = search.visible,
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = stringResource(R.string.home_search_apps),
+                    // Opaque, so rows scrolled under the gap stay hidden
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(top = Defaults.ItemSpacing)
+                )
+            }
 
-                if (isLoading) {
-                    items(10) { ShimmerInstalledAppRow() }
-                } else {
-                    if (filtered.isEmpty()) {
-                        item(key = "empty_state") {
-                            Box(
-                                modifier = Modifier
-                                    .animateItem()
-                                    .fillMaxWidth()
-                                    .padding(vertical = 48.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.SearchOff,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(48.dp),
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = stringResource(R.string.home_installed_app_picker_empty),
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        textAlign = TextAlign.Center
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    items(filtered, key = { it.packageName }) { item ->
-                        Row(
+            if (isLoading) {
+                items(10) { ShimmerInstalledAppRow() }
+            } else {
+                if (filtered.isEmpty()) {
+                    item(key = "empty_state") {
+                        Box(
                             modifier = Modifier
                                 .animateItem()
                                 .fillMaxWidth()
-                                .clickable { onSelect(item) }
-                                .padding(4.dp),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                                .padding(vertical = 48.dp),
+                            contentAlignment = Alignment.Center
                         ) {
-                            // Sized to the three text lines beside it so the row reads as one block
-                            AppIcon(
-                                packageInfo = item.packageInfo,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(56.dp)
-                                    .clip(RoundedCornerShape(14.dp))
-                            )
                             Column(
-                                modifier = Modifier.weight(1f),
-                                verticalArrangement = Arrangement.spacedBy(2.dp)
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.SearchOff,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(48.dp),
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
                                 Text(
-                                    text = item.label,
+                                    text = stringResource(R.string.home_installed_app_picker_empty),
                                     style = MaterialTheme.typography.bodyLarge,
-                                    fontWeight = FontWeight.Medium,
-                                    color = textColor,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-                                Text(
-                                    text = item.packageName,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = secondaryColor,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-                                Text(
-                                    // Universal patches name no version, so nothing here
-                                    // checks the build code and nothing would act on it
-                                    text = "v${item.info.version}",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = secondaryColor.copy(alpha = 0.6f),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    textAlign = TextAlign.Center
                                 )
                             }
+                        }
+                    }
+                }
+
+                items(filtered, key = { it.packageName }) { item ->
+                    Row(
+                        modifier = Modifier
+                            .animateItem()
+                            .fillMaxWidth()
+                            .clickable { onSelect(item) }
+                            .padding(4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Sized to the three text lines beside it so the row reads as one block
+                        AppIcon(
+                            packageInfo = item.packageInfo,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(56.dp)
+                                .clip(RoundedCornerShape(14.dp))
+                        )
+                        Column(
+                            modifier = Modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            Text(
+                                text = item.label,
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium,
+                                color = textColor,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            Text(
+                                text = item.packageName,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = secondaryColor,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            Text(
+                                // Universal patches name no version, so nothing here
+                                // checks the build code and nothing would act on it
+                                text = "v${item.info.version}",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = secondaryColor.copy(alpha = 0.6f),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
                         }
                     }
                 }
             }
-
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
         }
     }
 }

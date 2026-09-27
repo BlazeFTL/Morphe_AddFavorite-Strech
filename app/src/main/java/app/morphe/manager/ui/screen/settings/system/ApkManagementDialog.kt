@@ -16,9 +16,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
@@ -914,87 +912,72 @@ private fun ApkManagementDialogContent(
             )
         }
 
-        val listState = rememberLazyListState()
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScrollFade(listState, fadeTop = false),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                // Kept while the field is closed, so its share of the spacing makes the gap under
-                // the header
-                stickyHeader(key = "search") {
-                    AppDialogSearchHeader(
-                        visible = search.visible,
-                        value = search.query,
-                        onValueChange = { search.query = it },
-                        label = stringResource(R.string.home_search_apps),
-                        // Opaque, so rows scrolled under the gap stay hidden
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(top = Defaults.ItemSpacing)
-                    )
-                }
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+            fadeTop = false
+        ) {
+            // Kept while the field is closed, so its share of the spacing makes the gap under
+            // the header
+            stickyHeader(key = "search") {
+                AppDialogSearchHeader(
+                    visible = search.visible,
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = stringResource(R.string.home_search_apps),
+                    // Opaque, so rows scrolled under the gap stay hidden
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(top = Defaults.ItemSpacing)
+                )
+            }
 
-                if (retentionToggle != null) {
-                    item(key = "retention") {
-                        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
-                            SettingsSwitchItem(
-                                checked = retentionToggle.checked,
-                                onToggle = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
-                                leadingContent = { ThemedIcon(icon = meta.icon, tint = meta.accentColor) },
-                                title = retentionToggle.title,
-                                subtitle = retentionToggle.description,
-                                showBorder = true
-                            )
-                            SettingsDivider(fullWidth = true)
-                        }
-                    }
-                }
-
-                // List of APKs or loading state
-                when {
-                    // Show shimmer while loading
-                    meta.isLoading -> items(3) { ShimmerApkItem() }
-                    meta.isEmpty -> item { EmptyState(message = meta.emptyMessage) }
-                    filteredItems.isEmpty() -> item(key = "search_empty") {
-                        EmptyState(
-                            message = stringResource(R.string.search_no_results),
-                            icon = Icons.Outlined.SearchOff
+            if (retentionToggle != null) {
+                item(key = "retention") {
+                    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)) {
+                        SettingsSwitchItem(
+                            checked = retentionToggle.checked,
+                            onToggle = { retentionToggle.onCheckedChange(!retentionToggle.checked) },
+                            leadingContent = { ThemedIcon(icon = meta.icon, tint = meta.accentColor) },
+                            title = retentionToggle.title,
+                            subtitle = retentionToggle.description,
+                            showBorder = true
                         )
-                    }
-                    else -> items(items = filteredItems, key = { it.selectionKey }) { item ->
-                        val selected = selection.contains(item.selectionKey)
-                        ApkItemCard(
-                            data = item,
-                            selected = selected,
-                            selectionMode = isMultiSelectMode,
-                            onToggleSelection = { isMultiSelectMode = true; selection.toggle(item.selectionKey) },
-                            onShare = if (item.file != null) { { actions.onShare?.invoke(item) } } else null,
-                            onExport = if (item.file != null) { { actions.onExport?.invoke(item) } } else null,
-                            onInstall = if (!item.isInstalledOnDevice && item.file != null && actions.onInstall != null) {
-                                { actions.onInstall.invoke(item) }
-                            } else null,
-                            onUninstall = if (item.isInstalledOnDevice && actions.onUninstall != null) {
-                                { itemToUninstallConfirm = item }
-                            } else null,
-                            onDelete = { actions.onDelete(item) }
-                        )
+                        SettingsDivider(fullWidth = true)
                     }
                 }
             }
 
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+            // List of APKs or loading state
+            when {
+                // Show shimmer while loading
+                meta.isLoading -> items(3) { ShimmerApkItem() }
+                meta.isEmpty -> item { EmptyState(message = meta.emptyMessage) }
+                filteredItems.isEmpty() -> item(key = "search_empty") {
+                    EmptyState(
+                        message = stringResource(R.string.search_no_results),
+                        icon = Icons.Outlined.SearchOff
+                    )
+                }
+                else -> items(items = filteredItems, key = { it.selectionKey }) { item ->
+                    val selected = selection.contains(item.selectionKey)
+                    ApkItemCard(
+                        data = item,
+                        selected = selected,
+                        selectionMode = isMultiSelectMode,
+                        onToggleSelection = { isMultiSelectMode = true; selection.toggle(item.selectionKey) },
+                        onShare = if (item.file != null) { { actions.onShare?.invoke(item) } } else null,
+                        onExport = if (item.file != null) { { actions.onExport?.invoke(item) } } else null,
+                        onInstall = if (!item.isInstalledOnDevice && item.file != null && actions.onInstall != null) {
+                            { actions.onInstall.invoke(item) }
+                        } else null,
+                        onUninstall = if (item.isInstalledOnDevice && actions.onUninstall != null) {
+                            { itemToUninstallConfirm = item }
+                        } else null,
+                        onDelete = { actions.onDelete(item) }
+                    )
+                }
+            }
         }
     }
 

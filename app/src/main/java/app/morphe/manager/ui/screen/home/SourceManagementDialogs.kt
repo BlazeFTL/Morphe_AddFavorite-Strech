@@ -14,9 +14,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -1115,101 +1113,86 @@ fun SourceAppsDialog(
             accentColor = rememberSourceHeaderColor(src)
         )
 
-        val listState = rememberLazyListState()
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScrollFade(listState, fadeTop = false),
-                verticalArrangement = Arrangement.spacedBy(itemSpacing)
-            ) {
-                // Kept while the field is closed, so its share of the spacing makes the gap under
-                // the header
-                stickyHeader(key = "search") {
-                    AppDialogSearchHeader(
-                        visible = search.visible,
-                        value = search.query,
-                        onValueChange = { search.query = it },
-                        label = stringResource(R.string.home_search_apps),
-                        // Opaque, so rows scrolled under the gap stay hidden
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(top = Defaults.ItemSpacing)
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(itemSpacing),
+            fadeTop = false
+        ) {
+            // Kept while the field is closed, so its share of the spacing makes the gap under
+            // the header
+            stickyHeader(key = "search") {
+                AppDialogSearchHeader(
+                    visible = search.visible,
+                    value = search.query,
+                    onValueChange = { search.query = it },
+                    label = stringResource(R.string.home_search_apps),
+                    // Opaque, so rows scrolled under the gap stay hidden
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(top = Defaults.ItemSpacing)
+                )
+            }
+
+            // Scrolls with the apps, so it gives the list its room back once read
+            item(key = "description") {
+                Text(
+                    text = stringResource(R.string.sources_apps_description),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = LocalDialogSecondaryTextColor.current,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            if (filtered.isEmpty() && search.query.isNotBlank()) {
+                item(key = "empty_state") {
+                    EmptyState(
+                        message = stringResource(R.string.search_no_results),
+                        icon = Icons.Outlined.SearchOff,
+                        modifier = Modifier.animateItem()
                     )
-                }
-
-                // Scrolls with the apps, so it gives the list its room back once read
-                item(key = "description") {
-                    Text(
-                        text = stringResource(R.string.sources_apps_description),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = LocalDialogSecondaryTextColor.current,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-
-                if (filtered.isEmpty() && search.query.isNotBlank()) {
-                    item(key = "empty_state") {
-                        EmptyState(
-                            message = stringResource(R.string.search_no_results),
-                            icon = Icons.Outlined.SearchOff,
-                            modifier = Modifier.animateItem()
-                        )
-                    }
-                }
-
-                items(items = filtered, key = { (packageName, _) -> packageName }) { (packageName, label) ->
-                    val brought = src.uid !in keptFrom[packageName].orEmpty()
-                    val gradientColors = appMetadata[packageName]?.gradientColors
-                        ?: AppCardColorDefaults.defaultGradientColors
-
-                    SelectableCard(
-                        modifier = Modifier
-                            .animatedListItem(this)
-                            // An app left out reads as one this source no longer brings, the
-                            // same way the selection dims what it leaves unpicked
-                            .alpha(if (brought || isMultiSelectMode) 1f else 0.55f),
-                        isSelected = selection.contains(packageName),
-                        isSelectionMode = isMultiSelectMode
-                    ) {
-                        AppCardLayout(
-                            gradientColors = gradientColors,
-                            onClick = {
-                                if (isMultiSelectMode) selection.toggle(packageName)
-                                else bring(listOf(packageName), brought = !brought)
-                            },
-                            onLongClick = {
-                                isMultiSelectMode = true
-                                selection.toggle(packageName)
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            AppCardContent(
-                                packageName = packageName,
-                                packageInfo = null,
-                                displayName = label,
-                                subtitle = stringResource(
-                                    if (brought) R.string.sources_apps_brought
-                                    else R.string.sources_apps_left_out
-                                ),
-                                gradientColors = gradientColors
-                            )
-                        }
-                    }
                 }
             }
 
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+            items(items = filtered, key = { (packageName, _) -> packageName }) { (packageName, label) ->
+                val brought = src.uid !in keptFrom[packageName].orEmpty()
+                val gradientColors = appMetadata[packageName]?.gradientColors
+                    ?: AppCardColorDefaults.defaultGradientColors
 
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+                SelectableCard(
+                    modifier = Modifier
+                        .animatedListItem(this)
+                        // An app left out reads as one this source no longer brings, the
+                        // same way the selection dims what it leaves unpicked
+                        .alpha(if (brought || isMultiSelectMode) 1f else 0.55f),
+                    isSelected = selection.contains(packageName),
+                    isSelectionMode = isMultiSelectMode
+                ) {
+                    AppCardLayout(
+                        gradientColors = gradientColors,
+                        onClick = {
+                            if (isMultiSelectMode) selection.toggle(packageName)
+                            else bring(listOf(packageName), brought = !brought)
+                        },
+                        onLongClick = {
+                            isMultiSelectMode = true
+                            selection.toggle(packageName)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AppCardContent(
+                            packageName = packageName,
+                            packageInfo = null,
+                            displayName = label,
+                            subtitle = stringResource(
+                                if (brought) R.string.sources_apps_brought
+                                else R.string.sources_apps_left_out
+                            ),
+                            gradientColors = gradientColors
+                        )
+                    }
+                }
+            }
         }
     }
 }

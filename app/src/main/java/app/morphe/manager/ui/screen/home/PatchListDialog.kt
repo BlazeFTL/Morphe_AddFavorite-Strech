@@ -12,7 +12,6 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -203,116 +202,103 @@ internal fun PatchListDialog(
                 LaunchedEffect(selected) {
                     listState.scrollToItem(0)
                 }
-                Box(modifier = Modifier.fillMaxSize()) {
-                    LazyColumn(
-                        state = listState,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .verticalScrollFade(listState, fadeTop = false),
-                        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-                    ) {
-                        // A row of the list rather than a field above it, so the rows below ease into
-                        // place as it comes and goes. The row stays while the field is closed, and its
-                        // share of the spacing makes the gap under the header
-                        stickyHeader(key = "search") {
-                            AppDialogSearchHeader(
-                                visible = search.visible,
-                                value = search.query,
-                                onValueChange = { search.query = it },
-                                label = searchLabel,
-                                // Opaque, so rows scrolled under the gap stay hidden
-                                modifier = Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .padding(top = Defaults.ItemSpacing)
-                            )
-                        }
+                DialogLazyList(
+                    modifier = Modifier.fillMaxSize(),
+                    state = listState,
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+                    fadeTop = false
+                ) {
+                    // A row of the list rather than a field above it, so the rows below ease into
+                    // place as it comes and goes. The row stays while the field is closed, and its
+                    // share of the spacing makes the gap under the header
+                    stickyHeader(key = "search") {
+                        AppDialogSearchHeader(
+                            visible = search.visible,
+                            value = search.query,
+                            onValueChange = { search.query = it },
+                            label = searchLabel,
+                            // Opaque, so rows scrolled under the gap stay hidden
+                            modifier = Modifier
+                                .background(MaterialTheme.colorScheme.background)
+                                .padding(top = Defaults.ItemSpacing)
+                        )
+                    }
 
-                        if (notice != null) item(key = "notice") { notice() }
+                    if (notice != null) item(key = "notice") { notice() }
 
-                        if (shownSections.isEmpty()) {
-                            item(key = "empty_state") {
-                                PatchesListEmptyState(modifier = Modifier.animatedListItem(this))
-                            }
-                        }
-
-                        shownSections.forEach { (section, groups) ->
-                            // A filter narrows the list far enough that a fold would only hide results
-                            val isFolded = !isFiltering && section.key in foldedKeys
-
-                            if (hasSections) {
-                                item(key = "section_${section.key}") {
-                                    PatchGroupHeader(
-                                        title = section.title,
-                                        count = groups.sumOf { it.items.size },
-                                        isExpanded = !isFolded,
-                                        onToggle = if (isFiltering) null else ({
-                                            foldedKeys = if (isFolded) foldedKeys - section.key
-                                            else foldedKeys + section.key
-                                        }),
-                                        leading = { section.icon(Modifier.size(24.dp)) },
-                                        accentColor = section.accentColor,
-                                        modifier = Modifier.animatedListItem(this)
-                                    )
-                                }
-                            }
-
-                            val target = commonTargets[section.key]
-                            val targetVersions = target?.versions.orEmpty().toList()
-                            // Named once for the block under its header, unless the list's header names them
-                            if (!isFolded && headerTarget == null && targetVersions.isNotEmpty()) {
-                                item(key = "versions_${section.key}") {
-                                    var expanded by rememberSaveable(saveStateKey, section.key) {
-                                        mutableStateOf(false)
-                                    }
-                                    FlowRow(
-                                        modifier = Modifier.animatedListItem(this),
-                                        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                                        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-                                    ) {
-                                        VersionBadges(
-                                            versions = targetVersions,
-                                            experimental = target?.experimentalVersions.orEmpty(),
-                                            expanded = expanded,
-                                            onToggle = { expanded = !expanded },
-                                            accentColor = section.accentColor
-                                        )
-                                    }
-                                }
-                            }
-
-                            if (!isFolded) {
-                                patchGroupRows(
-                                    sectionKey = section.key,
-                                    groups = groups,
-                                    key = { (index, _): IndexedValue<PatchInfo> -> "${section.key}:$index" },
-                                    isFiltering = isFiltering,
-                                    folds = patchFolds,
-                                    onToggle = { group -> patchSections.toggle(section.key, group) },
-                                    accentColor = section.accentColor
-                                ) { (_, patch) ->
-                                    PatchItemCard(
-                                        patch = patch,
-                                        saveStateKey = "$saveStateKey:${section.key}",
-                                        packageName = section.packageName,
-                                        commonVersions = commonTargets[section.key]?.versions,
-                                        onExpertBadgeClick = onExpertBadgeClick,
-                                        accentColor = section.accentColor,
-                                        modifier = Modifier.animatedListItem(this)
-                                    )
-                                }
-                            }
+                    if (shownSections.isEmpty()) {
+                        item(key = "empty_state") {
+                            PatchesListEmptyState(modifier = Modifier.animatedListItem(this))
                         }
                     }
 
-                    ListScrollbar(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
+                    shownSections.forEach { (section, groups) ->
+                        // A filter narrows the list far enough that a fold would only hide results
+                        val isFolded = !isFiltering && section.key in foldedKeys
 
-                    ScrollToTopButton(
-                        listState = listState,
-                        modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                    )
+                        if (hasSections) {
+                            item(key = "section_${section.key}") {
+                                PatchGroupHeader(
+                                    title = section.title,
+                                    count = groups.sumOf { it.items.size },
+                                    isExpanded = !isFolded,
+                                    onToggle = if (isFiltering) null else ({
+                                        foldedKeys = if (isFolded) foldedKeys - section.key
+                                        else foldedKeys + section.key
+                                    }),
+                                    leading = { section.icon(Modifier.size(24.dp)) },
+                                    accentColor = section.accentColor,
+                                    modifier = Modifier.animatedListItem(this)
+                                )
+                            }
+                        }
+
+                        val target = commonTargets[section.key]
+                        val targetVersions = target?.versions.orEmpty().toList()
+                        // Named once for the block under its header, unless the list's header names them
+                        if (!isFolded && headerTarget == null && targetVersions.isNotEmpty()) {
+                            item(key = "versions_${section.key}") {
+                                var expanded by rememberSaveable(saveStateKey, section.key) {
+                                    mutableStateOf(false)
+                                }
+                                FlowRow(
+                                    modifier = Modifier.animatedListItem(this),
+                                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                                ) {
+                                    VersionBadges(
+                                        versions = targetVersions,
+                                        experimental = target?.experimentalVersions.orEmpty(),
+                                        expanded = expanded,
+                                        onToggle = { expanded = !expanded },
+                                        accentColor = section.accentColor
+                                    )
+                                }
+                            }
+                        }
+
+                        if (!isFolded) {
+                            patchGroupRows(
+                                sectionKey = section.key,
+                                groups = groups,
+                                key = { (index, _): IndexedValue<PatchInfo> -> "${section.key}:$index" },
+                                isFiltering = isFiltering,
+                                folds = patchFolds,
+                                onToggle = { group -> patchSections.toggle(section.key, group) },
+                                accentColor = section.accentColor
+                            ) { (_, patch) ->
+                                PatchItemCard(
+                                    patch = patch,
+                                    saveStateKey = "$saveStateKey:${section.key}",
+                                    packageName = section.packageName,
+                                    commonVersions = commonTargets[section.key]?.versions,
+                                    onExpertBadgeClick = onExpertBadgeClick,
+                                    accentColor = section.accentColor,
+                                    modifier = Modifier.animatedListItem(this)
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }

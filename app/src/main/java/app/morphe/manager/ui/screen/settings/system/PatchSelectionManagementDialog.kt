@@ -14,7 +14,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -446,87 +445,74 @@ private fun SelectionList(
         }
     }
 
-    Box(modifier = Modifier.fillMaxWidth()) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScrollFade(listState, fadeTop = false),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-        ) {
-            // Kept while the field is closed, so its share of the spacing makes the gap under the
-            // header
-            stickyHeader(key = "search") {
-                AppDialogSearchHeader(
-                    visible = search.visible,
-                    value = search.query,
-                    onValueChange = { search.query = it },
-                    label = stringResource(R.string.home_search_apps),
-                    // Opaque, so rows scrolled under the gap stay hidden
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.background)
-                        .padding(top = Defaults.ItemSpacing)
-                )
-            }
-
-            if (displayEntries.isEmpty()) {
-                // No matches for the current search query
-                item(key = "search_empty") {
-                    EmptyState(
-                        message = stringResource(R.string.search_no_results),
-                        icon = Icons.Outlined.SearchOff
-                    )
-                }
-            } else {
-                // List of packages with selections
-                items(
-                    items = displayEntries,
-                    key = { it.key }
-                ) { (packageName, bundleMap) ->
-                    val (displayName, appDataSource) = resolvedApps[packageName]
-                        ?: (packageName to AppDataSource.INSTALLED)
-                    PackageSelectionItem(
-                        packageName = packageName,
-                        displayName = displayName,
-                        appDataSource = appDataSource,
-                        bundleMap = bundleMap,
-                        bundleNames = data.bundleNames,
-                        importExportViewModel = importExportViewModel,
-                        onResetPackage = {
-                            onSetResetTarget(ResetTarget.Package(packageName))
-                        },
-                        onResetPackageBundle = { bundleUid ->
-                            onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid))
-                        },
-                        onShowPatchDetails = onShowPatchDetails,
-                        onOpenCopyFromBundle = onOpenCopyFromBundle,
-                        onImport = onImport,
-                        isSelected = multiSelect.selectedPackages.contains(packageName),
-                        isSelectionMode = multiSelect.isSelectionMode,
-                        onEnterSelection = { multiSelect.onEnterSelection(packageName) },
-                        onToggleSelection = { multiSelect.onToggleSelection(packageName) },
-                        expanded = packageName in expandedPackages.value,
-                        onToggleExpanded = {
-                            expandedPackages.value = if (packageName in expandedPackages.value) {
-                                expandedPackages.value - packageName
-                            } else {
-                                expandedPackages.value + packageName
-                            }
-                        }
-                    )
-                }
-            }
+    DialogLazyList(
+        modifier = Modifier.fillMaxWidth(),
+        state = listState,
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+        fadeTop = false
+    ) {
+        // Kept while the field is closed, so its share of the spacing makes the gap under the
+        // header
+        stickyHeader(key = "search") {
+            AppDialogSearchHeader(
+                visible = search.visible,
+                value = search.query,
+                onValueChange = { search.query = it },
+                label = stringResource(R.string.home_search_apps),
+                // Opaque, so rows scrolled under the gap stay hidden
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(top = Defaults.ItemSpacing)
+            )
         }
 
-        ListScrollbar(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
-
-        ScrollToTopButton(
-            listState = listState,
-            modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-        )
+        if (displayEntries.isEmpty()) {
+            // No matches for the current search query
+            item(key = "search_empty") {
+                EmptyState(
+                    message = stringResource(R.string.search_no_results),
+                    icon = Icons.Outlined.SearchOff
+                )
+            }
+        } else {
+            // List of packages with selections
+            items(
+                items = displayEntries,
+                key = { it.key }
+            ) { (packageName, bundleMap) ->
+                val (displayName, appDataSource) = resolvedApps[packageName]
+                    ?: (packageName to AppDataSource.INSTALLED)
+                PackageSelectionItem(
+                    packageName = packageName,
+                    displayName = displayName,
+                    appDataSource = appDataSource,
+                    bundleMap = bundleMap,
+                    bundleNames = data.bundleNames,
+                    importExportViewModel = importExportViewModel,
+                    onResetPackage = {
+                        onSetResetTarget(ResetTarget.Package(packageName))
+                    },
+                    onResetPackageBundle = { bundleUid ->
+                        onSetResetTarget(ResetTarget.PackageBundle(packageName, bundleUid))
+                    },
+                    onShowPatchDetails = onShowPatchDetails,
+                    onOpenCopyFromBundle = onOpenCopyFromBundle,
+                    onImport = onImport,
+                    isSelected = multiSelect.selectedPackages.contains(packageName),
+                    isSelectionMode = multiSelect.isSelectionMode,
+                    onEnterSelection = { multiSelect.onEnterSelection(packageName) },
+                    onToggleSelection = { multiSelect.onToggleSelection(packageName) },
+                    expanded = packageName in expandedPackages.value,
+                    onToggleExpanded = {
+                        expandedPackages.value = if (packageName in expandedPackages.value) {
+                            expandedPackages.value - packageName
+                        } else {
+                            expandedPackages.value + packageName
+                        }
+                    }
+                )
+            }
+        }
     }
 }
 

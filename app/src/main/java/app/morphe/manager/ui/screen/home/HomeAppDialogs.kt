@@ -9,9 +9,7 @@ import android.view.HapticFeedbackConstants
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -295,89 +293,75 @@ internal fun HiddenAppsDialog(
                 title = stringResource(R.string.home_app_no_hidden)
             )
         } else {
-            val listState = rememberLazyListState()
-            Box(modifier = Modifier.fillMaxWidth()) {
-                LazyColumn(
-                    state = listState,
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(itemSpacing)
-                ) {
-                    items(
-                        items = hiddenAppItems,
-                        key = { it.id }
-                    ) { item ->
-                        val isSelected = selectedPackages.contains(item.id)
-                        val offsetX = remember(item.id) { Animatable(0f) }
+            DialogLazyList(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(itemSpacing)
+            ) {
+                items(
+                    items = hiddenAppItems,
+                    key = { it.id }
+                ) { item ->
+                    val isSelected = selectedPackages.contains(item.id)
+                    val offsetX = remember(item.id) { Animatable(0f) }
 
-                        // Snap card back when entering multi-select
-                        LaunchedEffect(isMultiSelectMode.value) {
-                            if (isMultiSelectMode.value) offsetX.animateTo(0f, tween(200))
-                        }
+                    // Snap card back when entering multi-select
+                    LaunchedEffect(isMultiSelectMode.value) {
+                        if (isMultiSelectMode.value) offsetX.animateTo(0f, tween(200))
+                    }
 
-                        SelectableCard(
-                            modifier = Modifier.animatedListItem(this),
-                            isSelected = isSelected,
-                            isSelectionMode = isMultiSelectMode.value
+                    SelectableCard(
+                        modifier = Modifier.animatedListItem(this),
+                        isSelected = isSelected,
+                        isSelectionMode = isMultiSelectMode.value
+                    ) {
+                        SwipeableCardContainer(
+                            offsetX = offsetX,
+                            actionThresholdPx = actionThresholdPx,
+                            onSwipeToStart = { onUnhide(item.id) },
+                            onSwipeToEnd = { onShowPatches(item) },
+                            startHaptic = HapticFeedbackConstants.LONG_PRESS,
+                            endHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
+                            enabled = !isMultiSelectMode.value,
+                            background = { startProgress, endProgress ->
+                                SwipeBackground(
+                                    startProgress = startProgress,
+                                    endProgress = endProgress,
+                                    startConfig = startConfig,
+                                    endConfig = endConfig,
+                                    modifier = Modifier
+                                        .matchParentSize()
+                                        .clip(RoundedCornerShape(24.dp))
+                                )
+                            }
                         ) {
-                            SwipeableCardContainer(
-                                offsetX = offsetX,
-                                actionThresholdPx = actionThresholdPx,
-                                onSwipeToStart = { onUnhide(item.id) },
-                                onSwipeToEnd = { onShowPatches(item) },
-                                startHaptic = HapticFeedbackConstants.LONG_PRESS,
-                                endHaptic = HapticFeedbackConstants.VIRTUAL_KEY,
-                                enabled = !isMultiSelectMode.value,
-                                background = { startProgress, endProgress ->
-                                    SwipeBackground(
-                                        startProgress = startProgress,
-                                        endProgress = endProgress,
-                                        startConfig = startConfig,
-                                        endConfig = endConfig,
-                                        modifier = Modifier
-                                            .matchParentSize()
-                                            .clip(RoundedCornerShape(24.dp))
-                                    )
-                                }
-                            ) {
-                                AppCardLayout(
-                                    gradientColors = item.gradientColors,
-                                    onClick = {
-                                        if (isMultiSelectMode.value) {
-                                            selectedPackages.toggle(item.id)
-                                        } else {
-                                            onUnhide(item.id)
-                                        }
-                                    },
-                                    onLongClick = {
-                                        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                                        isMultiSelectMode.value = true
+                            AppCardLayout(
+                                gradientColors = item.gradientColors,
+                                onClick = {
+                                    if (isMultiSelectMode.value) {
                                         selectedPackages.toggle(item.id)
-                                    },
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
-                                    AppCardContent(
-                                        packageName = item.id,
-                                        packageInfo = item.packageInfo,
-                                        displayName = item.displayName,
-                                        subtitle = if (isMultiSelectMode.value) null
-                                        else stringResource(R.string.home_app_hidden_apps_hint),
-                                        gradientColors = item.gradientColors,
-                                    )
-                                }
+                                    } else {
+                                        onUnhide(item.id)
+                                    }
+                                },
+                                onLongClick = {
+                                    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                                    isMultiSelectMode.value = true
+                                    selectedPackages.toggle(item.id)
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                AppCardContent(
+                                    packageName = item.id,
+                                    packageInfo = item.packageInfo,
+                                    displayName = item.displayName,
+                                    subtitle = if (isMultiSelectMode.value) null
+                                    else stringResource(R.string.home_app_hidden_apps_hint),
+                                    gradientColors = item.gradientColors,
+                                )
                             }
                         }
                     }
                 }
-
-                ListScrollbar(
-                    listState = listState,
-                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                )
-
-                ScrollToTopButton(
-                    listState = listState,
-                    modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-                )
             }
         }
     }
@@ -460,12 +444,8 @@ fun AppPatchSourcesDialog(
                 .padding(bottom = Defaults.ContentPaddingSmall)
         )
 
-        val listState = rememberLazyListState()
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScrollFade(listState),
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
             items(items = rows, key = { (uid, _, _) -> uid }) { (uid, title, counts) ->

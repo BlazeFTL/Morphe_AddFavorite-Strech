@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,8 +27,6 @@ fun DetailsDialog(
     accentColor: Color?,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val scrollState = rememberScrollState()
-
     AppDialog(
         onDismissRequest = onDismissRequest,
         footer = {
@@ -47,25 +43,11 @@ fun DetailsDialog(
     ) {
         ListDialogHeader(icon = icon, title = title, subtitle = subtitle, accentColor = accentColor)
 
-        Box(modifier = Modifier.weight(1f)) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScrollFade(scrollState)
-                    .verticalScroll(scrollState)
-                    .padding(vertical = Defaults.ItemSpacing),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                content = content
-            )
-
-            ListScrollbar(
-                scrollState = scrollState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-            ScrollToTopButton(
-                scrollState = scrollState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-        }
+        DialogScrollColumn(
+            modifier = Modifier.weight(1f),
+            contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+            content = content
+        )
     }
 }

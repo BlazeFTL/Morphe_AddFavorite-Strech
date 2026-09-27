@@ -13,7 +13,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -530,66 +529,55 @@ fun BatchPatcherScreen(
         contentArrangement = Arrangement.Top,
         fillContentHeight = true
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                if (current == null) return@LazyColumn
+        DialogLazyList(
+            modifier = Modifier.fillMaxWidth(),
+            state = listState,
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+        ) {
+            if (current == null) return@DialogLazyList
 
-                item { BatchStatusCard(state = current) }
+            item { BatchStatusCard(state = current) }
 
-                if (current.phase == BatchPhase.PREFLIGHT) {
-                    item {
-                        BatchPolicyCard(
-                            policy = current.policy,
-                            onPolicyChange = viewModel::setPolicy
-                        )
-                    }
-                }
-
-                items(current.items, key = { it.id }) { item ->
-                    val request = installRequestsByItem[item.id]
-                    BatchItemCard(
-                        item = item,
-                        editable = current.phase == BatchPhase.PREFLIGHT,
-                        onSelectApk = { viewModel.beginApkChoice(item) },
-                        onToggleExcluded = { viewModel.toggleExcluded(item.id) },
-                        onForceVersion = { viewModel.forceVersion(item.id) },
-                        onAcceptSignature = { viewModel.acceptUnverifiedSignature(item.id) },
-                        // Simple mode never exposes individual patches, and the options edited
-                        // here would not be persisted for it. Nothing to choose from until an
-                        // APK resolves either, the patch list is scoped to its exact version
-                        onEditPatches = item.source
-                            ?.takeIf { useExpertMode }
-                            ?.let { { viewModel.beginEdit(item) } },
-                        // Simple mode gets the source question it knows from single-app
-                        // patching instead of the patch list it never sees
-                        onPickSource = item
-                            .takeIf {
-                                !useExpertMode &&
-                                    (it.resolvedSelection ?: it.selection).keys.size > 1
-                            }
-                            ?.let { { viewModel.beginSourcePick(item) } },
-                        onInstall = request?.let { { startInstallQueue(listOf(it)) } },
-                        onExport = item.patchedFile?.let { { exportItem = item } },
-                        onOpen = item.installedPackageName
-                            ?.takeIf { item.installOutcome == BatchInstallOutcome.INSTALLED }
-                            ?.let { { viewModel.openApp(it) } },
-                        onShowError = { errorItem = item }
+            if (current.phase == BatchPhase.PREFLIGHT) {
+                item {
+                    BatchPolicyCard(
+                        policy = current.policy,
+                        onPolicyChange = viewModel::setPolicy
                     )
                 }
             }
 
-            ListScrollbar(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
-            ScrollToTopButton(
-                listState = listState,
-                modifier = Modifier.offset(x = LocalDialogHorizontalInset.current)
-            )
+            items(current.items, key = { it.id }) { item ->
+                val request = installRequestsByItem[item.id]
+                BatchItemCard(
+                    item = item,
+                    editable = current.phase == BatchPhase.PREFLIGHT,
+                    onSelectApk = { viewModel.beginApkChoice(item) },
+                    onToggleExcluded = { viewModel.toggleExcluded(item.id) },
+                    onForceVersion = { viewModel.forceVersion(item.id) },
+                    onAcceptSignature = { viewModel.acceptUnverifiedSignature(item.id) },
+                    // Simple mode never exposes individual patches, and the options edited
+                    // here would not be persisted for it. Nothing to choose from until an
+                    // APK resolves either, the patch list is scoped to its exact version
+                    onEditPatches = item.source
+                        ?.takeIf { useExpertMode }
+                        ?.let { { viewModel.beginEdit(item) } },
+                    // Simple mode gets the source question it knows from single-app
+                    // patching instead of the patch list it never sees
+                    onPickSource = item
+                        .takeIf {
+                            !useExpertMode &&
+                                (it.resolvedSelection ?: it.selection).keys.size > 1
+                        }
+                        ?.let { { viewModel.beginSourcePick(item) } },
+                    onInstall = request?.let { { startInstallQueue(listOf(it)) } },
+                    onExport = item.patchedFile?.let { { exportItem = item } },
+                    onOpen = item.installedPackageName
+                        ?.takeIf { item.installOutcome == BatchInstallOutcome.INSTALLED }
+                        ?.let { { viewModel.openApp(it) } },
+                    onShowError = { errorItem = item }
+                )
+            }
         }
     }
 

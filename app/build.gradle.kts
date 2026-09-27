@@ -31,13 +31,9 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.preview)
     debugImplementation(libs.compose.ui.tooling)
-    implementation(libs.compose.livedata)
     implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.material3)
     implementation(libs.navigation.compose)
-
-    // Placeholder
-    implementation(libs.placeholder.material3)
 
     // Coil (async image loading, network image)
     implementation(libs.coil.compose)
@@ -51,7 +47,6 @@ dependencies {
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
 
     // Morphe
@@ -80,7 +75,6 @@ dependencies {
     // Koin
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
-    implementation(libs.koin.compose.navigation)
     implementation(libs.koin.workmanager)
 
     // Licenses
@@ -89,7 +83,6 @@ dependencies {
 
     // Ktor
     implementation(libs.ktor.core)
-    implementation(libs.ktor.logging)
     implementation(libs.ktor.okhttp)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.serialization)
@@ -101,10 +94,6 @@ dependencies {
 
     // Fading Edges
     implementation(libs.fading.edges)
-
-    // EnumUtil
-    implementation(libs.enumutil)
-    ksp(libs.enumutil.ksp)
 
     // Reorderable lists
     implementation(libs.reorderable)

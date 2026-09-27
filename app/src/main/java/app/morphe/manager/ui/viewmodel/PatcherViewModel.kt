@@ -492,8 +492,8 @@ class PatcherViewModel(
     val patchesProgress get() = patchRun.patchesProgress
 
     private val workManager = WorkManager.getInstance(app)
-    private val _patcherSucceeded = MutableLiveData<Boolean?>()
-    val patcherSucceeded: LiveData<Boolean?> = _patcherSucceeded
+    private val _patcherSucceeded = MutableStateFlow<Boolean?>(null)
+    val patcherSucceeded: StateFlow<Boolean?> = _patcherSucceeded.asStateFlow()
     private var observeWorkerJob: Job? = null
     private val handledFailureIds = mutableSetOf<UUID>()
     private var forceKeepLocalInput = false
@@ -1001,7 +1001,7 @@ class PatcherViewModel(
                                     cleanupTemporaryInput()
                                     refreshExportMetadata()
                                     patchingCompletedAt = System.currentTimeMillis()
-                                    patchingCompletedInForeground = _patcherSucceeded.hasActiveObservers()
+                                    patchingCompletedInForeground = _patcherSucceeded.subscriptionCount.value > 0
                                     isPatching = false
                                     _patcherSucceeded.value = true
                                     scheduleSuccessScreen()

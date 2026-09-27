@@ -12,7 +12,6 @@ compose-icons = "1.2.4"
 datetime = "0.8.0"
 dev-tools-gradle-plugin = "2.3.12"
 documentfile = "1.1.0"
-enumutil = "1.1.1"
 fading-edges = "1.0.4"
 firebase-bom = "34.19.0"
 google-services = "4.5.0"
@@ -30,7 +29,6 @@ material3 = "1.5.0-alpha29"
 morphe-library = "1.4.0"
 morphe-patcher = "1.15.0-dev.4"
 navigation = "2.10.2"
-placeholder = "2.0.0"
 play-services-base = "18.11.0"
 preferences-datastore = "1.2.1"
 reorderable = "3.1.0"
@@ -60,7 +58,6 @@ compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = 
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
@@ -68,9 +65,6 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 # Coil
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-appiconloader = { group = "me.zhanghai.android.appiconloader", name = "appiconloader-coil", version.ref = "app-icon-loader-coil" }
-
-# Placeholder
-placeholder-material3 = { group = "io.github.fornewid", name = "placeholder-material3", version.ref = "placeholder"}
 
 # Kotlinx
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
@@ -90,7 +84,6 @@ morphe-library = { group = "app.morphe", name = "morphe-library", version.ref = 
 # Koin
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
-koin-compose-navigation = { group = "io.insert-koin", name = "koin-androidx-compose-navigation", version.ref = "koin" }
 koin-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
 
 # About Libraries
@@ -99,7 +92,6 @@ about-libraries-m3 = { group = "com.mikepenz", name = "aboutlibraries-compose-m3
 
 # Ktor
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
-ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -120,10 +112,6 @@ hidden-api-bypass = { group = "org.lsposed.hiddenapibypass", name = "hiddenapiby
 libsu-core = { group = "com.github.topjohnwu.libsu", name = "core", version.ref = "libsu" }
 libsu-service = { group = "com.github.topjohnwu.libsu", name = "service", version.ref = "libsu" }
 libsu-nio = { group = "com.github.topjohnwu.libsu", name = "nio", version.ref = "libsu" }
-
-# EnumUtil
-enumutil = { group = "io.github.materiiapps", name = "enumutil", version.ref = "enumutil" }
-enumutil-ksp = { group = "io.github.materiiapps", name = "enumutil-ksp", version.ref = "enumutil" }
 
 # Reorderable lists
 reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }

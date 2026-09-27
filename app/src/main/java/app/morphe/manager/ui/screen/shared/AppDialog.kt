@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -65,9 +66,9 @@ object FullscreenDialogs {
 
 /** Controls outer padding and inset behavior of [AppDialog]. */
 enum class DialogPadding {
-    /** Standard 32dp outer padding with system bar insets. */
+    /** 32dp at the sides and 16dp above and below, with system bar insets. */
     Normal,
-    /** Compact 16dp outer padding with system bar insets. */
+    /** 16dp all round, with system bar insets. */
     Compact,
     /** No padding and no insets, the caller handles layout entirely. */
     None
@@ -78,6 +79,9 @@ enum class DialogPadding {
  *
  * @param onDismissRequest Called when user dismisses the dialog.
  * @param title Optional title displayed at the top.
+ * @param description What the dialog asks or explains, set under the [title] in one style for
+ *   every dialog and held in place with it while the content below scrolls. Plain text or an
+ *   [AnnotatedString] for one with emphasis.
  * @param titleTrailingContent Optional actions displayed after the title, laid out in a row.
  * @param footer Optional footer content.
  * @param bottomBar Optional bar docked to the bottom edge of the screen, edge to edge, such as a
@@ -98,12 +102,13 @@ enum class DialogPadding {
  * @param hideFooterWhileTyping Folds the [footer] away while the keyboard is up, for a list dialog
  * whose search wants every row of room it can get. A dialog whose buttons act on what is typed
  * leaves it off, so they stay above the keyboard. Default is false.
- * @param content Dialog content.
+ * @param content Dialog content, left out by a dialog its [description] says everything for.
  */
 @Composable
 fun AppDialog(
     onDismissRequest: () -> Unit,
     title: String? = null,
+    description: CharSequence? = null,
     titleTrailingContent: (@Composable RowScope.() -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
     bottomBar: (@Composable () -> Unit)? = null,
@@ -115,7 +120,7 @@ fun AppDialog(
     hideFooterWhileTyping: Boolean = false,
     backdrop: (@Composable BoxScope.() -> Unit)? = null,
     onEntered: (() -> Unit)? = null,
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit = {}
 ) {
     val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
     var visible by remember { mutableStateOf(false) }
@@ -170,6 +175,7 @@ fun AppDialog(
             ) {
                 DialogContent(
                     title = title,
+                    description = description,
                     titleTrailingContent = titleTrailingContent,
                     footer = footer,
                     bottomBar = bottomBar,
@@ -292,6 +298,7 @@ fun BoxScope.ContentOverlay(
 @Composable
 private fun DialogContent(
     title: String?,
+    description: CharSequence?,
     titleTrailingContent: (@Composable RowScope.() -> Unit)?,
     footer: (@Composable () -> Unit)?,
     bottomBar: (@Composable () -> Unit)?,
@@ -336,10 +343,13 @@ private fun DialogContent(
     } else {
         Defaults.ContentPaddingExpanded
     }
-    // Compact mode zeroes its top padding when there is no title to fill it
-    val topPadding = when (padding) {
-        DialogPadding.Compact -> if (title != null) Defaults.ContentPadding else 0.dp
-        else -> Defaults.ContentPaddingExpanded
+    // The system bars already set the dialog off the screen's edges, so above and below it keeps
+    // only the gap its rows keep from each other, whatever it gives its sides. Compact mode zeroes
+    // its top padding when there is no title to fill it, leaving the room to a header of its own
+    val topPadding = if (padding == DialogPadding.Compact && title == null) {
+        0.dp
+    } else {
+        Defaults.ContentPadding
     }
     val footerFolded = hideFooterWhileTyping && WindowInsets.isImeVisible
     // A docked bar takes the bottom edge, so the content stops right above it. A folded footer
@@ -347,8 +357,7 @@ private fun DialogContent(
     val bottomPadding by animateDpAsState(
         targetValue = when {
             bottomBar != null || footerFolded -> 0.dp
-            padding == DialogPadding.Compact -> Defaults.ContentPadding
-            else -> Defaults.ContentPaddingExpanded
+            else -> Defaults.ContentPadding
         },
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "dialog_bottom_padding"
@@ -393,11 +402,18 @@ private fun DialogContent(
                 ) {
                     // Title section. The headline's tall line box already adds space below the
                     // text, so a small gap reads as much as the one above the footer
+                    val titleAlign =
+                        if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center
+                    val titleBottom = if (description != null) 4.dp else Defaults.ContentPaddingSmall
                     if (title != null) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = horizontalPadding, end = horizontalPadding, bottom = Defaults.ContentPaddingSmall),
+                                .padding(
+                                    start = horizontalPadding,
+                                    end = horizontalPadding,
+                                    bottom = titleBottom
+                                ),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -411,9 +427,9 @@ private fun DialogContent(
                             ) { currentTitle ->
                                 Text(
                                     text = currentTitle,
-                                    style = MaterialTheme.typography.headlineMedium,
+                                    style = MaterialTheme.typography.headlineSmall,
                                     fontWeight = FontWeight.Bold,
-                                    textAlign = if (titleTrailingContent != null) TextAlign.Start else TextAlign.Center,
+                                    textAlign = titleAlign,
                                     color = textColor,
                                     modifier = Modifier.fillMaxWidth()
                                 )
@@ -425,6 +441,34 @@ private fun DialogContent(
                                     content = titleTrailingContent
                                 )
                             }
+                        }
+                    }
+
+                    if (description != null) {
+                        val descriptionStyle = MaterialTheme.typography.bodyLarge
+                        val descriptionModifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                start = horizontalPadding,
+                                end = horizontalPadding,
+                                bottom = Defaults.ContentPadding
+                            )
+                        if (description is AnnotatedString) {
+                            Text(
+                                text = description,
+                                style = descriptionStyle,
+                                color = secondaryTextColor,
+                                textAlign = titleAlign,
+                                modifier = descriptionModifier
+                            )
+                        } else {
+                            Text(
+                                text = description.toString(),
+                                style = descriptionStyle,
+                                color = secondaryTextColor,
+                                textAlign = titleAlign,
+                                modifier = descriptionModifier
+                            )
                         }
                     }
 

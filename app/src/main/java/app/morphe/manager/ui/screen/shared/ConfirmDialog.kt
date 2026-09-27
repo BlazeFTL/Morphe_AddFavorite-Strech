@@ -5,16 +5,11 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.style.TextAlign
 import app.morphe.manager.R
 
 @Composable
@@ -30,6 +25,7 @@ fun ConfirmDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = title,
+        description = message,
         footer = {
             AppDialogButtonRow(
                 primaryText = primaryText,
@@ -39,15 +35,7 @@ fun ConfirmDialog(
                 onSecondaryClick = onDismiss
             )
         }
-    ) {
-        Text(
-            text = message,
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 @Composable

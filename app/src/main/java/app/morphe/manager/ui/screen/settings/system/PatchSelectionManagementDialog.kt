@@ -28,7 +28,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -798,6 +797,7 @@ private fun ConfirmResetDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = title,
+        description = message,
         footer = {
             AppDialogButtonRow(
                 primaryText = primaryText,
@@ -809,13 +809,6 @@ private fun ConfirmResetDialog(
         }
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            Text(
-                text = message,
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
             LabeledSection { summaryItems() }
         }
     }

@@ -730,6 +730,7 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Background animation</string>
+    <string name="settings_appearance_background_description">The animation that plays behind the app\'s screens</string>
     <string name="settings_appearance_background_circles">Circles</string>
     <string name="settings_appearance_background_rings">Rings</string>
     <string name="settings_appearance_background_mesh">Mesh</string>
@@ -806,6 +807,7 @@ Uninstalling will permanently erase all app data"</string>
 
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">App icon</string>
+    <string name="settings_appearance_app_icon_selector_description">How Morphe looks on your home screen and in the app drawer</string>
     <string name="settings_appearance_app_icon_default">Default</string>
     <string name="settings_appearance_app_icon_light_2">Sky</string>
     <string name="settings_appearance_app_icon_light_3">Sunset</string>

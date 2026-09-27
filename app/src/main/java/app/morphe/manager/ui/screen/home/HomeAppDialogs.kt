@@ -424,6 +424,7 @@ fun AppPatchSourcesDialog(
             packages.size,
             packages.size.toString()
         ),
+        description = stringResource(R.string.home_app_patch_sources_description),
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -434,16 +435,6 @@ fun AppPatchSourcesDialog(
         padding = DialogPadding.Compact,
         scrollable = false
     ) {
-        Text(
-            text = stringResource(R.string.home_app_patch_sources_description),
-            style = MaterialTheme.typography.bodyMedium,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = Defaults.ContentPaddingSmall)
-        )
-
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)

@@ -377,6 +377,7 @@ fun NotificationPermissionDialog(
     AppDialog(
         onDismissRequest = onDismissRequest,
         title = title,
+        description = stringResource(R.string.notification_permission_dialog_description),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.allow),
@@ -391,15 +392,7 @@ fun NotificationPermissionDialog(
                 onSecondaryClick = onDismissRequest
             )
         }
-    ) {
-        Text(
-            text = stringResource(R.string.notification_permission_dialog_description),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 /** Discrete-slider dialog to pick how often the background update check runs. */

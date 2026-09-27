@@ -449,6 +449,7 @@ fun RenameBundleDialog(
     AppDialog(
         onDismissRequest = onDismissRequest,
         title = stringResource(R.string.sources_dialog_display_name),
+        description = stringResource(R.string.sources_dialog_rename),
         dismissOnClickOutside = false,
         footer = {
             AppDialogButtonRow(
@@ -465,34 +466,17 @@ fun RenameBundleDialog(
             )
         }
     ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
-            Text(
-                text = stringResource(R.string.sources_dialog_rename),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center
-            )
-
             AppDialogTextField(
                 value = textValue,
                 onValueChange = { textValue = it },
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.patch_option_enter_value),
-                        color = secondaryColor.copy(alpha = 0.5f)
-                    )
-                },
+                placeholder = { Text(stringResource(R.string.patch_option_enter_value)) },
                 leadingIcon = {
-                    ThemedIcon(
-                        icon = Icons.Outlined.Edit,
-                        tint = secondaryColor
-                    )
+                    Icon(imageVector = Icons.Outlined.Edit, contentDescription = null)
                 },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),

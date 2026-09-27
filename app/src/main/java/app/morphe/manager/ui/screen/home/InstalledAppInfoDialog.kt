@@ -1620,6 +1620,7 @@ private fun MountWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.warning),
+        description = stringResource(R.string.installer_mount_warning_install),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.ok),
@@ -1628,15 +1629,7 @@ private fun MountWarningDialog(
                 onSecondaryClick = onDismiss
             )
         }
-    ) {
-        Text(
-            text = stringResource(R.string.installer_mount_warning_install),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 @Composable

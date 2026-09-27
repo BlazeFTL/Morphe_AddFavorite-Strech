@@ -141,6 +141,7 @@ private fun ImportExportDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = title,
+        description = description,
         footer = {
             ImportExportFooter(
                 onImport = onImport,
@@ -152,16 +153,6 @@ private fun ImportExportDialog(
         }
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            description?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = LocalDialogSecondaryTextColor.current,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
             content()
         }
     }

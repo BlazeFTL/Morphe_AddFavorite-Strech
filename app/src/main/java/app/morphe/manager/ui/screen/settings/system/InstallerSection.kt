@@ -21,7 +21,6 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.installer.InstallerManager
@@ -519,6 +518,7 @@ private fun AutoUninstallWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.settings_auto_uninstall_warning_title),
+        description = stringResource(R.string.settings_auto_uninstall_warning_message),
         footer = {
             AppDialogActions(
                 actions = listOf(
@@ -539,14 +539,6 @@ private fun AutoUninstallWarningDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
-            Text(
-                text = stringResource(R.string.settings_auto_uninstall_warning_message),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             Notice(
                 text = stringResource(R.string.settings_auto_uninstall_warning_risk),
                 tone = SemanticTone.Error,
@@ -844,6 +836,7 @@ fun InstallerUnavailableDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.installer_unavailable_title, installerName),
+        description = stringResource(R.string.installer_unavailable_message, installerName),
         footer = {
             AppDialogActions(
                 actions = buildList {
@@ -894,15 +887,6 @@ fun InstallerUnavailableDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
-            // Main message
-            Text(
-                text = stringResource(R.string.installer_unavailable_message, installerName),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             // Error reason badge
             if (reasonText != null) {
                 Notice(
@@ -940,6 +924,7 @@ fun PlayStoreInstallerWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.installer_play_store_warning_title),
+        description = stringResource(R.string.installer_play_store_warning_message),
         footer = {
             AppDialogActions(
                 actions = listOf(
@@ -960,14 +945,6 @@ fun PlayStoreInstallerWarningDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
-            Text(
-                text = stringResource(R.string.installer_play_store_warning_message),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             // A risk the user can avoid by turning off updates, not a failure
             Notice(
                 text = stringResource(R.string.installer_play_store_warning_risk),
@@ -1000,6 +977,7 @@ fun PrePatchInstallerDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.root_pre_patch_installer_title),
+        description = stringResource(R.string.root_pre_patch_installer_description),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(android.R.string.cancel),
@@ -1011,15 +989,6 @@ fun PrePatchInstallerDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
-            // Description
-            Text(
-                text = stringResource(R.string.root_pre_patch_installer_description),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             // Root Mount option
             SettingsItem(
                 onClick = onSelectMount,

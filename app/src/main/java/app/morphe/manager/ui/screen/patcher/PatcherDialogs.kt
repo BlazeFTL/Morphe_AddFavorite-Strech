@@ -35,7 +35,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -72,6 +71,11 @@ fun IncompatiblePatcherVersionDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_incompatible_patcher_title),
+        description = htmlAnnotatedString(stringResource(
+            R.string.patcher_incompatible_patcher_description,
+            bundleName,
+            requiredVersion
+        )),
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -93,19 +97,7 @@ fun IncompatiblePatcherVersionDialog(
                 )
             }
         }
-    ) {
-        Text(
-            text = htmlAnnotatedString(stringResource(
-                R.string.patcher_incompatible_patcher_description,
-                bundleName,
-                requiredVersion
-            )),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 /**
@@ -122,6 +114,12 @@ fun RenameWarningDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_rename_title),
+        description = htmlAnnotatedString(
+            stringResource(
+                R.string.patcher_rename_description,
+                warning.targetPackageName
+            )
+        ),
         padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
@@ -137,18 +135,6 @@ fun RenameWarningDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = htmlAnnotatedString(
-                    stringResource(
-                        R.string.patcher_rename_description,
-                        warning.targetPackageName
-                    )
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center
-            )
-
             MonospaceValuePanel(
                 value = warning.resultPackageName,
                 label = stringResource(R.string.patcher_rename_result_package)
@@ -181,6 +167,7 @@ fun MissingPatchesDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_missing_patches_title),
+        description = stringResource(R.string.patcher_missing_patches_description),
         padding = DialogPadding.Compact,
         footer = {
             AppDialogButtonRow(
@@ -196,13 +183,6 @@ fun MissingPatchesDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(R.string.patcher_missing_patches_description),
-                style = MaterialTheme.typography.bodyLarge,
-                color = LocalDialogSecondaryTextColor.current,
-                textAlign = TextAlign.Center
-            )
-
             MonospaceValuePanel(
                 value = patchNames.joinToString("\n"),
                 label = stringResource(R.string.patcher_missing_patches_label),
@@ -268,6 +248,13 @@ fun UnusableOptionPathsDialog(
                 R.string.patcher_storage_permission_dialog_title
             } else {
                 R.string.patcher_option_paths_gone_title
+            }
+        ),
+        description = stringResource(
+            when {
+                !storageAccessCanHelp -> R.string.patcher_option_paths_gone_description
+                isApi30Plus -> R.string.patcher_storage_permission_description_api30
+                else -> R.string.patcher_storage_permission_description_legacy
             }
         ),
         footer = {
@@ -342,20 +329,6 @@ fun UnusableOptionPathsDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
-            Text(
-                text = stringResource(
-                    when {
-                        !storageAccessCanHelp -> R.string.patcher_option_paths_gone_description
-                        isApi30Plus -> R.string.patcher_storage_permission_description_api30
-                        else -> R.string.patcher_storage_permission_description_legacy
-                    }
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                color = secondaryColor,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
             // Shown on Android 10 and below after the user taps "Deny" on the
             // READ_EXTERNAL_STORAGE prompt. Explains they must either grant the
             // permission or move the files to the private app directory
@@ -447,6 +420,7 @@ fun BatteryOptimizationDialog(
     AppDialog(
         onDismissRequest = onResult,
         title = stringResource(R.string.battery_optimization_dialog_title),
+        description = stringResource(R.string.battery_optimization_dialog_description),
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -468,15 +442,7 @@ fun BatteryOptimizationDialog(
                 )
             }
         }
-    ) {
-        Text(
-            text = stringResource(R.string.battery_optimization_dialog_description),
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 /**
@@ -495,6 +461,18 @@ fun MemoryAdjustmentDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = stringResource(R.string.patcher_memory_adjustment_title),
+        description = if (canAdjust) {
+            stringResource(
+                R.string.patcher_memory_adjustment_description,
+                currentLimit,
+                suggestedLimit
+            )
+        } else {
+            stringResource(
+                R.string.patcher_memory_adjustment_description_at_minimum,
+                currentLimit
+            )
+        },
         footer = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -518,26 +496,7 @@ fun MemoryAdjustmentDialog(
                 )
             }
         }
-    ) {
-        Text(
-            text = if (canAdjust) {
-                stringResource(
-                    R.string.patcher_memory_adjustment_description,
-                    currentLimit,
-                    suggestedLimit
-                )
-            } else {
-                stringResource(
-                    R.string.patcher_memory_adjustment_description_at_minimum,
-                    currentLimit
-                )
-            },
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+    )
 }
 
 /**

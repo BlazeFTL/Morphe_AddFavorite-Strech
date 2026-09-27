@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -39,6 +40,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PreferencesManager
@@ -437,9 +439,11 @@ private fun FolderTrail(
 ) {
     val scrollState = rememberScrollState()
     LaunchedEffect(breadcrumbs) { scrollState.animateScrollTo(scrollState.maxValue) }
+    val chipTouchMargin = (LocalMinimumInteractiveComponentSize.current - FilterChipDefaults.Height) / 2
 
     Row(
         modifier = modifier
+            .trimVertically(chipTouchMargin)
             .fillMaxWidth()
             .horizontalScrollFade(scrollState)
             .horizontalScroll(scrollState),
@@ -458,6 +462,19 @@ private fun FolderTrail(
                 selectedIcon = if (index == 0) storageRootIcon(dir) else Icons.Outlined.FolderOpen
             )
         }
+    }
+}
+
+/**
+ * Lays this out [margin] shorter at the top and at the bottom, drawn over both. For a row of chips,
+ * which keep a touch target taller than the pill they draw: the row then spaces like the pills
+ * alone, and the touch target still reaches out into the surrounding gaps.
+ */
+private fun Modifier.trimVertically(margin: Dp): Modifier = layout { measurable, constraints ->
+    val placeable = measurable.measure(constraints)
+    val trim = margin.roundToPx().coerceIn(0, placeable.height / 2)
+    layout(placeable.width, placeable.height - trim * 2) {
+        placeable.place(0, -trim)
     }
 }
 

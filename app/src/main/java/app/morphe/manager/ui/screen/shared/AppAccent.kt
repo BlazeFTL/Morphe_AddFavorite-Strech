@@ -15,7 +15,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.util.isExtremeAccent
+import app.morphe.manager.util.requiresLightContent
 import org.koin.compose.koinInject
+
+/** Alpha of a control tinted with an app's color a step over [appAccentFill], so it stands out of it. */
+const val APP_ACCENT_STEP_ALPHA = 0.18f
+
+/** Alpha of a control tinted with an app's color a step over [APP_ACCENT_STEP_ALPHA], for one that leads. */
+const val APP_ACCENT_LEAD_ALPHA = 0.3f
 
 /**
  * Fill of a surface that carries an app's own color, the way the app details and the patch lists
@@ -52,13 +59,24 @@ fun AppAccentBadge(
         icon = icon,
         tone = tone,
         containerColor = if (accentColor != null) {
-            appAccentTint(accentColor, alpha = 0.18f, neutral = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f))
+            appAccentTint(accentColor, alpha = APP_ACCENT_STEP_ALPHA, neutral = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f))
         } else {
             tone.container
         },
         contentColor = if (accentColor != null) MaterialTheme.colorScheme.onBackground else tone.content,
         onClick = onClick
     )
+}
+
+/**
+ * Content color over [fill], a tint of an app's color: the header's text over a see-through tint,
+ * as its badges have, and whichever of black and white stands out of the solid color.
+ */
+@Composable
+fun appAccentContent(fill: Color): Color = when {
+    fill.alpha < 1f -> MaterialTheme.colorScheme.onBackground
+    fill.requiresLightContent() -> Color.White
+    else -> Color.Black
 }
 
 /** Color the sources declare [packageName] with, or null where none of them does. */

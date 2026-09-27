@@ -254,6 +254,20 @@ fun ExpertModeDialog(
                     // The counter already stands for the selection, so it doubles as the way to filter
                     // the list down to it
                     val badgeTone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
+                    // In the header's color like the search beside it: tinted while it counts,
+                    // filled while it filters
+                    val accent = LocalTitleActionAccent.current
+                    val badgeContainer = when {
+                        accent == null -> if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container
+                        isSelectedOnly -> accent
+                        totalSelectedCount > 0 -> accent.copy(alpha = APP_ACCENT_LEAD_ALPHA)
+                        else -> accent.copy(alpha = APP_ACCENT_STEP_ALPHA)
+                    }
+                    val badgeContent = when {
+                        accent != null -> appAccentContent(badgeContainer)
+                        isSelectedOnly -> MaterialTheme.colorScheme.onPrimary
+                        else -> badgeTone.content
+                    }
                     // Still switchable off after the last patch is unticked under the filter
                     val canFilter = totalSelectedCount > 0 || isSelectedOnly
                     val filterState = stringResource(
@@ -270,8 +284,8 @@ fun ExpertModeDialog(
                         icon = Icons.Outlined.FilterAlt.takeIf { canFilter },
                         tone = badgeTone,
                         // Filled rather than tonal while filtering, so the narrowed list has a visible cause
-                        containerColor = if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container,
-                        contentColor = if (isSelectedOnly) MaterialTheme.colorScheme.onPrimary else badgeTone.content,
+                        containerColor = badgeContainer,
+                        contentColor = badgeContent,
                         onClick = if (canFilter) {
                             { toggleSelectedOnly() }
                         } else {

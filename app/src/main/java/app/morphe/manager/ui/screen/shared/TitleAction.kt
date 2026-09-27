@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import app.morphe.manager.util.requiresLightContent
 
 /**
  * Color of the header a [TitleAction] sits in, as [usableAppAccent] gives it, so its circle reads
@@ -70,19 +69,19 @@ fun TitleAction(
     // Null marks the flat variant, which draws no circle at all
     val containerColor = when (style) {
         TitleActionStyle.Plain -> null
-        TitleActionStyle.Accent -> accent?.copy(alpha = 0.3f) ?: MaterialTheme.colorScheme.primaryContainer
+        TitleActionStyle.Accent -> accent?.copy(alpha = APP_ACCENT_LEAD_ALPHA) ?: MaterialTheme.colorScheme.primaryContainer
         // Kept in the error palette on any header, where the red warns rather than decorates
         TitleActionStyle.Destructive -> MaterialTheme.colorScheme.errorContainer
         TitleActionStyle.Toggle -> if (active) {
             accent ?: MaterialTheme.colorScheme.primaryContainer
         } else {
-            accent?.copy(alpha = 0.18f) ?: MaterialTheme.colorScheme.surfaceVariant
+            accent?.copy(alpha = APP_ACCENT_STEP_ALPHA) ?: MaterialTheme.colorScheme.surfaceVariant
         }
 
         TitleActionStyle.AccentToggle -> if (active) {
             accent ?: MaterialTheme.colorScheme.primary
         } else {
-            accent?.copy(alpha = 0.3f) ?: MaterialTheme.colorScheme.primaryContainer
+            accent?.copy(alpha = APP_ACCENT_LEAD_ALPHA) ?: MaterialTheme.colorScheme.primaryContainer
         }
     }
 
@@ -108,13 +107,10 @@ fun TitleAction(
             )
         }
     } else {
-        // A see-through tint takes the header's text color, as the badges beside it do, and a
-        // solid accent whichever of black and white stands out of it
-        val contentColor = when {
-            accent == null || style == TitleActionStyle.Destructive -> contentColorFor(containerColor)
-            containerColor.alpha < 1f -> MaterialTheme.colorScheme.onBackground
-            containerColor.requiresLightContent() -> Color.White
-            else -> Color.Black
+        val contentColor = if (accent == null || style == TitleActionStyle.Destructive) {
+            contentColorFor(containerColor)
+        } else {
+            appAccentContent(containerColor)
         }
 
         FilledTonalIconButton(

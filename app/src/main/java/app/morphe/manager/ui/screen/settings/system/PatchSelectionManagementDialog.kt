@@ -26,7 +26,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -788,7 +787,7 @@ private fun BundleSelectionItem(
 @Composable
 private fun ConfirmResetDialog(
     title: String,
-    message: AnnotatedString,
+    message: CharSequence,
     primaryText: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
@@ -828,7 +827,7 @@ private fun ConfirmResetSelectedDialog(
     val packagesText = pluralStringResource(R.plurals.package_count, packageCount, packageCount.toString())
     ConfirmResetDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_selected_confirm_title),
-        message = AnnotatedString(stringResource(R.string.settings_system_patch_selection_reset_selected_warning)),
+        message = stringResource(R.string.settings_system_patch_selection_reset_selected_warning),
         primaryText = stringResource(R.string.reset),
         onConfirm = onConfirm,
         onDismiss = onDismiss
@@ -862,7 +861,7 @@ private fun ConfirmResetAllDialog(
     val packagesText = pluralStringResource(R.plurals.package_count, packageCount, packageCount.toString())
     ConfirmResetDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_all_confirm_title),
-        message = AnnotatedString(stringResource(R.string.settings_system_patch_selection_reset_all_warning)),
+        message = stringResource(R.string.settings_system_patch_selection_reset_all_warning),
         primaryText = stringResource(R.string.reset_all),
         onConfirm = onConfirm,
         onDismiss = onDismiss

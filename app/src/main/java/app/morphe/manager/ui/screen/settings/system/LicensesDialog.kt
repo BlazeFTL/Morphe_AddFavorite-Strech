@@ -10,18 +10,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.withLink
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.DialogPadding
 import app.morphe.manager.ui.screen.shared.ListScrollbar
@@ -193,10 +194,11 @@ private fun AutoLinkText(
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified
 ) {
-    val uriHandler = LocalUriHandler.current
+    val linkColor = MaterialTheme.colorScheme.primary
 
-    val annotated = remember(text, color) { buildAnnotatedString {
+    val annotated = remember(text, linkColor) { buildAnnotatedString {
         var lastIndex = 0
+        val linkStyles = TextLinkStyles(style = SpanStyle(color = linkColor))
 
         urlRegex.findAll(text).forEach { match ->
             val url = match.value
@@ -204,12 +206,10 @@ private fun AutoLinkText(
             // Add text before the URL
             append(text.substring(lastIndex, match.range.first))
 
-            // Add the URL as clickable text
-            pushStringAnnotation(tag = "URL", annotation = url)
-            withStyle(SpanStyle(color = Color(0xFF1E88E5))) {
+            // Add the URL as a link the text opens itself when tapped
+            withLink(LinkAnnotation.Url(url, linkStyles)) {
                 append(url)
             }
-            pop()
 
             lastIndex = match.range.last + 1
         }
@@ -219,14 +219,9 @@ private fun AutoLinkText(
             append(text.substring(lastIndex))
         }
     } }
-    @Suppress("DEPRECATION")
-    ClickableText(
+    Text(
         text = annotated,
         modifier = modifier,
         style = LocalTextStyle.current.copy(color = color)
-    ) { offset ->
-        annotated.getStringAnnotations("URL", offset, offset)
-            .firstOrNull()
-            ?.let { uriHandler.openUri(it.item) }
-    }
+    )
 }

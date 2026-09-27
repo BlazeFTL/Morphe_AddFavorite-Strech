@@ -30,7 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -941,7 +940,7 @@ internal fun FilePickerPromptDialog(
             }
         ),
         description = if (isOtherApps) {
-            AnnotatedString(stringResource(R.string.home_select_any_apk_description))
+            stringResource(R.string.home_select_any_apk_description)
         } else {
             htmlAnnotatedString(stringResource(R.string.home_file_picker_prompt_description, appName))
         },

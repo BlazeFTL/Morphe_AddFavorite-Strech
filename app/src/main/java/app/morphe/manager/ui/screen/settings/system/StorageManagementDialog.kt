@@ -86,6 +86,9 @@ fun StorageManagementDialog(
             )
         }
     ) {
+        // Nothing has been read until the first reading lands, and a real one always has room free
+        val loading = stats == StorageStats.Empty
+
         // Headed like the other lists, with how much Morphe holds against what is left free
         // where the subtitle goes, above the breakdown that scrolls under it
         val accent = MaterialTheme.colorScheme.primary
@@ -95,6 +98,7 @@ fun StorageManagementDialog(
             },
             title = stringResource(R.string.settings_system_storage_management_title),
             subtitle = context.formatUsedFree(used = stats.appUsedBytes, free = stats.deviceFreeBytes),
+            subtitleLoading = loading,
             accentColor = accent
         ) {
             TitleAction(
@@ -114,7 +118,7 @@ fun StorageManagementDialog(
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
         ) {
             key(histogramNonce) {
-                StorageHistogram(segments = stats.toSegments())
+                StorageHistogram(segments = stats.toSegments(), loading = loading)
             }
 
             SettingsGroup {

@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.ui.screen.shared.LocalDialogSecondaryTextColor
 import app.morphe.manager.ui.screen.shared.LocalDialogTextColor
+import app.morphe.manager.ui.screen.shared.ShimmerText
 import app.morphe.manager.util.formatBytes
 
 /** A single stacked-bar segment. Order in the caller-provided list determines stacking order. */
@@ -50,14 +52,19 @@ private val BAR_LEGEND_SPACING = 20.dp
  * Stacked vertical bar of [segments] (proportional to their byte sum) with a legend on the
  * right. Segments animate up from zero on first composition and animate smoothly when their
  * byte size changes. The total they add up to is left to whatever heads the bar.
+ *
+ * Every segment keeps its row in the legend, an empty one dimmed, so the histogram holds one
+ * height whatever the sizes turn out to be.
+ *
+ * @param loading Whether the sizes are still being read, which shows placeholders in their place.
  */
 @Composable
 fun StorageHistogram(
     segments: List<StorageSegment>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    loading: Boolean = false
 ) {
     val segmentsSum = remember(segments) { segments.sumOf { it.bytes }.coerceAtLeast(1L) }
-    val visibleLegend = remember(segments) { segments.filter { it.bytes > 0 } }
 
     Column(
         modifier = modifier
@@ -73,7 +80,7 @@ fun StorageHistogram(
                     modifier = Modifier.fillMaxSize()
                 )
             },
-            legend = { HistogramLegend(visibleSegments = visibleLegend) }
+            legend = { HistogramLegend(segments = segments, loading = loading) }
         )
     }
 }
@@ -191,23 +198,26 @@ private fun AnimatedSegment(targetFraction: Float, barHeight: Dp, color: Color) 
 
 @Composable
 private fun HistogramLegend(
-    visibleSegments: List<StorageSegment>,
+    segments: List<StorageSegment>,
+    loading: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        visibleSegments.forEach { segment ->
-            LegendItem(segment)
+        segments.forEach { segment ->
+            LegendItem(segment, loading)
         }
     }
 }
 
 @Composable
-private fun LegendItem(segment: StorageSegment) {
+private fun LegendItem(segment: StorageSegment, loading: Boolean) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .alpha(if (loading || segment.bytes > 0) 1f else 0.5f),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -224,11 +234,20 @@ private fun LegendItem(segment: StorageSegment) {
                 color = LocalDialogTextColor.current,
                 fontWeight = FontWeight.Medium
             )
-            Text(
-                text = LocalContext.current.formatBytes(segment.bytes),
-                style = MaterialTheme.typography.bodySmall,
-                color = LocalDialogSecondaryTextColor.current
-            )
+            val sizeStyle = MaterialTheme.typography.bodySmall
+            if (loading) {
+                // A line's height, so the row keeps the size the reading lands in
+                ShimmerText(
+                    widthFraction = 0.35f,
+                    height = with(LocalDensity.current) { sizeStyle.lineHeight.toDp() }
+                )
+            } else {
+                Text(
+                    text = LocalContext.current.formatBytes(segment.bytes),
+                    style = sizeStyle,
+                    color = LocalDialogSecondaryTextColor.current
+                )
+            }
         }
     }
 }

@@ -118,6 +118,9 @@ class Session(
 
         withContext(Dispatchers.Default) {
             // Run on default pool instead of I/O since we're processing large files in our own code
+            // TODO: applyTo() aligns stored native libraries to 4 KB (ApkUtils.LIBRARY_ALIGNMENT in
+            //  the patcher) and the signer keeps that alignment, so a library can land off a 16 KB
+            //  boundary and fail to load from the APK on devices with 16 KB pages. Raise it to 16 KB
             result.applyTo(patched)
         }
 

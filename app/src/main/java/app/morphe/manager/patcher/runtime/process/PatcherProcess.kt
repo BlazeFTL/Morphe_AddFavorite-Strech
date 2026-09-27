@@ -95,7 +95,7 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
                 }
             )
 
-            try {
+            val failure = try {
                 if (preparation.merged) {
                     events.progress(null, State.COMPLETED.name, null)
 
@@ -120,14 +120,16 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
                 ).use {
                     it.run(File(parameters.outputFile), patchList)
                 }
-                ResourceMonitor.stopPolling(logger)
-                events.finished(null)
+                null
             } catch (e: Exception) {
-                ResourceMonitor.stopPolling(logger)
-                events.finished(e.stackTraceToString())
+                e
             } finally {
+                // Before reporting back: the manager answers finished() with exit(), which ends
+                // this process without running anything still pending here
                 preparation.cleanup()
             }
+            ResourceMonitor.stopPolling(logger)
+            events.finished(failure?.stackTraceToString())
         }
     }
 

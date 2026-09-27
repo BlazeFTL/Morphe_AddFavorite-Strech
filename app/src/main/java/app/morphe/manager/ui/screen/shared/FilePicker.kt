@@ -416,16 +416,14 @@ fun FilePicker(
                                     tint = LocalDialogTextColor.current
                                 )
                             }
-                            DropdownMenu(
+                            AppDropdownMenu(
                                 expanded = showSortMenu,
                                 onDismissRequest = { showSortMenu = false }
                             ) {
                                 SortMode.entries.forEach { mode ->
-                                    DropdownMenuItem(
-                                        text = { Text(stringResource(mode.labelRes())) },
-                                        trailingIcon = if (sortMode == mode) {
-                                            { Icon(Icons.Outlined.Check, contentDescription = null) }
-                                        } else null,
+                                    AppDropdownMenuItem(
+                                        text = stringResource(mode.labelRes()),
+                                        selected = sortMode == mode,
                                         onClick = {
                                             sortMode = mode
                                             showSortMenu = false
@@ -434,9 +432,9 @@ fun FilePicker(
                                     )
                                 }
                                 HorizontalDivider()
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.file_picker_show_hidden_files)) },
-                                    trailingIcon = {
+                                AppDropdownMenuItem(
+                                    text = stringResource(R.string.file_picker_show_hidden_files),
+                                    trailing = {
                                         SelectionCheckIndicator(
                                             if (showHiddenFiles) ToggleableState.On else ToggleableState.Off
                                         )
@@ -488,24 +486,16 @@ fun FilePicker(
                                 .clickable { showBreadcrumbs = true }
                                 .padding(horizontal = 16.dp, vertical = 6.dp)
                         )
-                        DropdownMenu(
+                        AppDropdownMenu(
                             expanded = showBreadcrumbs,
                             onDismissRequest = { showBreadcrumbs = false }
                         ) {
                             breadcrumbs.forEachIndexed { index, (label, dir) ->
                                 val isRoot = index == 0
-                                val isCurrent = index == breadcrumbs.lastIndex
-                                DropdownMenuItem(
-                                    text = { Text(label) },
-                                    leadingIcon = {
-                                        Icon(
-                                            imageVector = if (isRoot) storageRootIcon(dir) else Icons.Outlined.Folder,
-                                            contentDescription = null
-                                        )
-                                    },
-                                    trailingIcon = if (isCurrent) {
-                                        { Icon(Icons.Outlined.Check, contentDescription = null) }
-                                    } else null,
+                                AppDropdownMenuItem(
+                                    text = label,
+                                    leadingIcon = if (isRoot) storageRootIcon(dir) else Icons.Outlined.Folder,
+                                    selected = index == breadcrumbs.lastIndex,
                                     onClick = {
                                         currentDir = dir
                                         showBreadcrumbs = false
@@ -516,11 +506,9 @@ fun FilePicker(
                             if (otherRoots.isNotEmpty()) {
                                 HorizontalDivider()
                                 otherRoots.forEach { (label, root) ->
-                                    DropdownMenuItem(
-                                        text = { Text(label) },
-                                        leadingIcon = {
-                                            Icon(storageRootIcon(root), contentDescription = null)
-                                        },
+                                    AppDropdownMenuItem(
+                                        text = label,
+                                        leadingIcon = storageRootIcon(root),
                                         onClick = {
                                             currentDir = root
                                             showBreadcrumbs = false

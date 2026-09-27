@@ -12,7 +12,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -426,28 +425,20 @@ fun AppDialogDropdownTextField(
             colors = morpheDialogTextFieldColors(textColor)
         )
 
-        ExposedDropdownMenu(
+        AppExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
             dropdownItems.forEach { (displayName, itemValue) ->
-                DropdownMenuItem(
-                    text = { Text(displayName) },
+                AppDropdownMenuItem(
+                    text = displayName,
+                    selected = itemValue == value,
                     onClick = {
                         onValueChange(itemValue)
                         expanded = false
                         // A picked preset ends any typing, so the field shows its name again
                         focusManager.clearFocus()
-                    },
-                    leadingIcon = if (itemValue == value) {
-                        {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    } else null
+                    }
                 )
             }
         }

@@ -275,8 +275,7 @@ internal fun DownloadInstructionsDialog(
                     // Nothing to open once the action is withdrawn, which is only the case
                     // while the dialog is on its way out
                     onSecondaryClick = { onOpenApkDownloadHelper?.invoke() },
-                    secondaryIcon = Icons.Outlined.Download,
-                    layout = DialogButtonLayout.Vertical
+                    secondaryIcon = Icons.Outlined.Download
                 )
             } else {
                 AppDialogButton(

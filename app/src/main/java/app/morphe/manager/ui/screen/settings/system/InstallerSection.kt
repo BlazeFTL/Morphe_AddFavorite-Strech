@@ -536,8 +536,7 @@ private fun AutoUninstallWarningDialog(
                         text = stringResource(android.R.string.cancel),
                         onClick = onDismiss
                     )
-                ),
-                layout = DialogButtonLayout.Vertical
+                )
             )
         }
     ) {
@@ -958,8 +957,7 @@ fun PlayStoreInstallerWarningDialog(
                         text = stringResource(android.R.string.cancel),
                         onClick = onDismiss
                     )
-                ),
-                layout = DialogButtonLayout.Vertical
+                )
             )
         }
     ) {

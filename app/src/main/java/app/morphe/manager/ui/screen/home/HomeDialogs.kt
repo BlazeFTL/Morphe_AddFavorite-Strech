@@ -1194,8 +1194,7 @@ fun SplitApkWarningDialog(
                 onPrimaryClick = onProceed,
                 secondaryText = stringResource(R.string.home_split_apk_warning_pick_another),
                 onSecondaryClick = onPickAnother,
-                secondaryIcon = Icons.Outlined.FolderOpen,
-                layout = DialogButtonLayout.Vertical
+                secondaryIcon = Icons.Outlined.FolderOpen
             )
         }
     ) {

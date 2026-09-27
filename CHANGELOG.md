@@ -1,3 +1,18 @@
+# [1.33.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.7...v1.33.0-dev.8) (2026-09-27)
+
+
+### Bug Fixes
+
+* Clean up the split workspace before the patcher process reports back and exits ([f41d328](https://github.com/MorpheApp/morphe-manager/commit/f41d3284256b4962a8c2d2bf81656805a7511e5f))
+* Keep the settings button neutral in expert mode, the icon already marks it ([df48ead](https://github.com/MorpheApp/morphe-manager/commit/df48ead15afcf5ccde12f3070a94cc08d3edfdff))
+* Let the patcher strip unused native libraries instead of rewriting the APK afterwards ([cbf6930](https://github.com/MorpheApp/morphe-manager/commit/cbf693045bc91795aedfab99269c87bc8e250534))
+* Show the update summary counts as pills so long labels no longer get cut off ([af84434](https://github.com/MorpheApp/morphe-manager/commit/af844348c5d4c1a4e9b1b11e35be10d117036706))
+
+
+### Features
+
+* Show patching progress as an Android 16 Live Update ([253cdd1](https://github.com/MorpheApp/morphe-manager/commit/253cdd13d0c096ccbefff10281d38d72e9671fe3))
+
 # [1.33.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.6...v1.33.0-dev.7) (2026-09-27)
 
 

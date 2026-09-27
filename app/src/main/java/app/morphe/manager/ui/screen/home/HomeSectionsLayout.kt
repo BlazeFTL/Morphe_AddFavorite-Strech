@@ -619,7 +619,8 @@ fun GreetingSection(
         ) { targetMessage ->
             Text(
                 text = targetMessage,
-                style = MaterialTheme.typography.headlineMedium,
+                // Sized as a dialog title, so the home screen heads itself the way its dialogs do
+                style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground,

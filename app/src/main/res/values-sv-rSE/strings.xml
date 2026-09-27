@@ -677,6 +677,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="system">System</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Bakgrundsanimation</string>
+    <string name="settings_appearance_background_description">Animationen som spelas bakom appens skärmar</string>
     <string name="settings_appearance_background_circles">Cirklar</string>
     <string name="settings_appearance_background_rings">Ringar</string>
     <string name="settings_appearance_background_mesh">Nät</string>
@@ -745,6 +746,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_app_card_colors_bundle_description">Använd varje apps egen färg här. Toningen anpassas automatiskt</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
+    <string name="settings_appearance_app_icon_selector_description">Hur Morphe ser ut på din hemskärm och i applådan</string>
     <string name="settings_appearance_app_icon_default">Standard</string>
     <string name="settings_appearance_app_icon_light_2">Himmel</string>
     <string name="settings_appearance_app_icon_light_3">Solnedgång</string>

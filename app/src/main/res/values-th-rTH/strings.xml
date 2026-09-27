@@ -679,6 +679,7 @@
     <string name="system">ระบบ</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">ภาพเคลื่อนไหวพื้นหลัง</string>
+    <string name="settings_appearance_background_description">แอนิเมชันที่เล่นอยู่เบื้องหลังหน้าจอต่างๆ ของแอป</string>
     <string name="settings_appearance_background_circles">วงกลม</string>
     <string name="settings_appearance_background_rings">วงแหวน</string>
     <string name="settings_appearance_background_mesh">เส้นผ่านศูนย์กลาง</string>
@@ -747,6 +748,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">ใช้สีของแอปแต่ละแอปที่นี่ ซึ่งจะปรับเฉดสีโดยอัตโนมัติเพื่อให้เข้ากัน</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">ไอคอนแอป</string>
+    <string name="settings_appearance_app_icon_selector_description">หน้าตาของ Morphe บนหน้าจอหลักและในลิ้นชักแอป</string>
     <string name="settings_appearance_app_icon_default">ค่าเริ่มต้น</string>
     <string name="settings_appearance_app_icon_light_2">สีฟ้า</string>
     <string name="settings_appearance_app_icon_light_3">สีพระอาทิตย์ตก</string>

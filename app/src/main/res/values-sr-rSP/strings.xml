@@ -679,6 +679,7 @@
     <string name="system">Систем</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Анимација позадине</string>
+    <string name="settings_appearance_background_description">Анимација која се приказује иза екрана апликације</string>
     <string name="settings_appearance_background_circles">Кружеви</string>
     <string name="settings_appearance_background_rings">Пружеви</string>
     <string name="settings_appearance_background_mesh">Mreža</string>
@@ -747,6 +748,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">Користи боју сваке апликације овде, аутоматски затамњену да би се уклопила</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Иконица апликације</string>
+    <string name="settings_appearance_app_icon_selector_description">Како Morphe изгледа на вашем почетном екрану и у фиоци апликација</string>
     <string name="settings_appearance_app_icon_default">Подразумеван</string>
     <string name="settings_appearance_app_icon_light_2">Небо</string>
     <string name="settings_appearance_app_icon_light_3">Залаз сунца</string>

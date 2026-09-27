@@ -213,7 +213,7 @@
     <string name="home_apk_helper_title">التنزيل باستخدام تطبيق مساعد</string>
     <string name="home_apk_helper_description">سيطلب Morphe من التطبيق المساعد أدناه تنزيل ملف APK الأصلي ثم إعادته إليه</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
-    <string name="home_apk_helper_continue">افتح المساعد</string>
+    <string name="home_apk_helper_continue">فتح المساعد</string>
     <string name="home_apk_helper_warning">تابع فقط إذا كنت تثق بهذا التطبيق المساعد. يقوم Morphe بالتحقق من الحزمة، الإصدار والتوقيع لأي ملف يستلمه قبل التعديل</string>
     <string name="home_apk_helper_warning_unverified">تابع فقط إذا كنت تثق بهذا التطبيق المساعد. لا يستطيع Morphe التحقق من توقيع ملف APK هذا، لذلك قد لا يتم اكتشاف أي ملف معدل</string>
     <string name="home_apk_helper_no_result">لم يقم التطبيق المساعد بتوفير ملف APK</string>
@@ -683,7 +683,7 @@
     <string name="system">النظام</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">خلفيّات مُتحرِّكة</string>
-    <string name="settings_appearance_background_description">الرسوم المتحركة التي تُعرض خلف شاشات التطبيق</string>
+    <string name="settings_appearance_background_description">تأثيرات الحركة التي تُعرض خلف شاشات التطبيق</string>
     <string name="settings_appearance_background_circles">دوائر</string>
     <string name="settings_appearance_background_rings">حلقات</string>
     <string name="settings_appearance_background_mesh">مجسم</string>

@@ -213,7 +213,7 @@
     <string name="home_apk_helper_title">Íoslódáil le aip chúnta</string>
     <string name="home_apk_helper_description">Iarrfaidh Morphe ar an aip chúnta thíos an APK bunaidh a íoslódáil agus an comhad a thabhairt ar ais.</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
-    <string name="home_apk_helper_continue">Oscail cúntóir</string>
+    <string name="home_apk_helper_continue">Oscail an cúntóir</string>
     <string name="home_apk_helper_warning">Ná lean ar aghaidh ach amháin má tá muinín agat as an aip chúnta seo. Seiceálann Morphe an pacáiste, an leagan agus an síniú ar cibé rud a fhaigheann sé sula ndéantar paisteáil air.</string>
     <string name="home_apk_helper_warning_unverified">Ná lean ar aghaidh ach amháin má tá muinín agat as an aip chúnta seo. Ní féidir le Morphe síniú an APK seo a fhíorú, mar sin ní bhraithfí comhad modhnaithe.</string>
     <string name="home_apk_helper_no_result">Níor thug an aip chúnta APK ar ais</string>
@@ -367,7 +367,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="adaptive_icon_select_image">Roghnaigh íomhá</string>
     <string name="adaptive_icon_change_image">Athraigh íomhá</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
-    <string name="adaptive_icon_foreground">Íomhá tosaigh</string>
+    <string name="adaptive_icon_foreground">Íomhá sa tulra</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
     <string name="adaptive_icon_launcher">Deilbhín lainseálaí</string>
     <string name="adaptive_icon_background_color">Dath an chúlra</string>
@@ -422,7 +422,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="batch_patch_source_unavailable">Níorbh fhéidir an APK a ullmhú</string>
     <string name="batch_patch_force_version">Paiste ar aon nós</string>
     <string name="batch_patch_force_version_done">Curtha sa scuaine ar aon nós, d\'fhéadfadh an aip briseadh</string>
-    <string name="batch_patch_accept_signature_done">Curtha sa scuaine ar aon nós, APK neamhfhíoraithe</string>
+    <string name="batch_patch_accept_signature_done">Curtha sa scuaine mar sin féin, APK gan fíorú</string>
     <string name="batch_patch_edit_patches">Roghnaigh paistí</string>
     <string name="batch_patch_state_no_apk">Gan APK</string>
     <string name="batch_patch_state_no_patches">Gan paistí</string>
@@ -748,7 +748,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Úsáid dath gach aip féin anseo, scáthaithe go huathoibríoch chun go n-oirfidh sé</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Deilbhín aip</string>
-    <string name="settings_appearance_app_icon_selector_description">Mar a fhéachann Morphe ar do scáileán baile agus i dtarraiceán na n-aip.</string>
+    <string name="settings_appearance_app_icon_selector_description">An chaoi a bhfuil cuma ar Morphe ar do scáileán baile agus i dtarraiceán na n-aip</string>
     <string name="settings_appearance_app_icon_default">Réamhshocrú</string>
     <string name="settings_appearance_app_icon_light_2">Spéir</string>
     <string name="settings_appearance_app_icon_light_3">Luí na gréine</string>
@@ -1294,6 +1294,7 @@ Sonraí: %2$s"</string>
     <string name="content_translate">Aistrigh</string>
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="content_show_original">Bunaidh</string>
+    <string name="content_translation_failed">Theip ar an aistriúchán: %s</string>
     <string name="changelog_section_new">Nua</string>
     <string name="changelog_section_fixes">Ceartúcháin</string>
     <string name="changelog_section_performance">Feidhmíocht</string>

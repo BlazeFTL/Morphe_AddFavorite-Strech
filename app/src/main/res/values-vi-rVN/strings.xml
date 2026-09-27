@@ -681,6 +681,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="system">Hệ thống</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Hiệu ứng nền</string>
+    <string name="settings_appearance_background_description">Hoạt ảnh phát phía sau màn hình của ứng dụng</string>
     <string name="settings_appearance_background_circles">Hình tròn</string>
     <string name="settings_appearance_background_rings">Vòng tròn</string>
     <string name="settings_appearance_background_mesh">Lưới</string>
@@ -749,6 +750,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_app_card_colors_bundle_description">Sử dụng màu riêng của từng ứng dụng và tự động điều chỉnh sắc độ cho phù hợp</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Biểu tượng</string>
+    <string name="settings_appearance_app_icon_selector_description">Cách Morphe hiển thị trên màn hình chính và trong ngăn kéo ứng dụng</string>
     <string name="settings_appearance_app_icon_default">Mặc định</string>
     <string name="settings_appearance_app_icon_light_2">Bầu trời</string>
     <string name="settings_appearance_app_icon_light_3">Hoàng hôn</string>

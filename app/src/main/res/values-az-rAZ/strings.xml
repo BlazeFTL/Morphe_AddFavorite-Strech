@@ -213,6 +213,7 @@ Bu veb saytdan əlavə etdiyiniz hər şey öz riskinizlə istifadə olunur"</st
     <string name="home_apk_helper_title">Köməkçi tətbiq ilə yüklə</string>
     <string name="home_apk_helper_description">Morphe orijinal APK-nı yükləmək və faylı geri vermək üçün aşağıdakı köməkçi tətbiqə sorğu göndərəcək</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Köməkçini aç</string>
     <string name="home_apk_helper_warning">Yalnız bu köməkçi tətbiqə etibar edirsinizsə davam edin. Morphe yamaqlamazdan əvvəl qəbul etdiyi hər şeyin paketini, versiyasını və imzasını yoxlayır</string>
     <string name="home_apk_helper_warning_unverified">Yalnız bu köməkçi tətbiqə etibar edirsinizsə davam edin. Morphe bu APK-nın imzasını təsdiqləyə bilmir, buna görə də dəyişdirilmiş fayl aşkarlanmayacaq</string>
     <string name="home_apk_helper_no_result">Köməkçi tətbiq APK-nı qaytarmadı</string>
@@ -420,6 +421,8 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="batch_patch_source_file">Əlavə olunmuş fayl</string>
     <string name="batch_patch_source_unavailable">APK hazır vəziyyətə gətirilə bilmədi</string>
     <string name="batch_patch_force_version">Yenə də yamaqla</string>
+    <string name="batch_patch_force_version_done">Yenə də növbəyə qoyuldu, tətbiq pozula bilər</string>
+    <string name="batch_patch_accept_signature_done">Yenə də növbəyə qoyuldu, APK təsdiqlənməyib</string>
     <string name="batch_patch_edit_patches">Yamaqları seç</string>
     <string name="batch_patch_state_no_apk">APK Yoxdur</string>
     <string name="batch_patch_state_no_patches">Yamaq yoxdur</string>
@@ -676,6 +679,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="system">Sistem</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Fon animasiyası</string>
+    <string name="settings_appearance_background_description">Tətbiq pəncərələri arxasında oynadılan animasiya</string>
     <string name="settings_appearance_background_circles">Dairələr</string>
     <string name="settings_appearance_background_rings">Halqalar</string>
     <string name="settings_appearance_background_mesh">Tor</string>
@@ -743,6 +747,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Bura hər tətbiqin öz rəngini istifadə et, uyğunlaşdırmaq üçün avtomatik kölgələndir</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Tətbiq simvolu</string>
+    <string name="settings_appearance_app_icon_selector_description">Morphe-nin əsas ekranınızda və tətbiq bölməsində necə göründüyü</string>
     <string name="settings_appearance_app_icon_default">İlkin</string>
     <string name="settings_appearance_app_icon_light_2">Səma</string>
     <string name="settings_appearance_app_icon_light_3">Qürub</string>
@@ -1287,7 +1292,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="changelog_release_page">Buraxılış səhifəsi</string>
     <string name="content_translate">Tərcümə et</string>
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <string name="content_show_original">Əsil</string>
+    <string name="content_show_original">Orijinal</string>
     <string name="content_translation_failed">Tərcümə etmək olmadı: %s</string>
     <string name="changelog_section_new">Yeni</string>
     <string name="changelog_section_fixes">Düzəlişlər</string>

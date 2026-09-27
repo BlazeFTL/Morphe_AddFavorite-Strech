@@ -679,6 +679,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="system">Sistem</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Animacija ozadja</string>
+    <string name="settings_appearance_background_description">Animacija, ki se predvaja v ozadju zaslonov aplikacije</string>
     <string name="settings_appearance_background_circles">Krogi</string>
     <string name="settings_appearance_background_rings">Obroči</string>
     <string name="settings_appearance_background_mesh">Mreža</string>
@@ -747,6 +748,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Uporabite lastno barvo za vsako aplikacijo tukaj, ki bo samodejno osenčena, da se prilega</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikona aplikacije</string>
+    <string name="settings_appearance_app_icon_selector_description">Kako je Morphe videti na domačem zaslonu in v predalu aplikacij</string>
     <string name="settings_appearance_app_icon_default">Privzeta</string>
     <string name="settings_appearance_app_icon_light_2">Nebo</string>
     <string name="settings_appearance_app_icon_light_3">Sončni zahod</string>

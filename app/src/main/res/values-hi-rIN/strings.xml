@@ -21,17 +21,17 @@
     <string name="android_11_bug_dialog_description">यूज़र एक्सपीरियंस को खराब करने वाले एंड्रॉइड 11 सिस्टम के एक बग से बचने के लिए, ऐप इंस्टॉलेशन की अनुमति पहले से दी जानी चाहिए</string>
     <string name="deep_link_add_source_title">स्रोत जोड़ें</string>
     <string name="deep_link_add_source_message">क्या आप इस पैच सोर्स को Morphe में जोड़ना चाहते हैं?</string>
-    <string name="deep_link_add_source_warning">सिर्फ़ उन स्रोतों को जोड़ें जिन पर आप भरोसा करते हैं</string>
+    <string name="deep_link_add_source_warning">सिर्फ़ उन सोर्स को जोड़ें जिन पर आप भरोसा करते हैं</string>
     <!-- Home Screen - Update Notifications -->
     <string name="home_update_available">Morphe अपडेट उपलब्ध है</string>
     <string name="home_update_available_subtitle">नया वर्जन इंस्टॉल करने के लिए तैयार है</string>
     <string name="home_blocked_source_title">ब्लॉक किया गया पैच सोर्स मिला है</string>
     <string name="home_blocked_source_subtitle">देखने और हटाने के लिए टैप करें</string>
-    <string name="home_metadata_errors_title">कुछ पैच स्रोत अनुपलब्ध हैं</string>
-    <string name="home_metadata_errors_subtitle">स्रोतों की समीक्षा करने के लिए टैप करें</string>
+    <string name="home_metadata_errors_title">कुछ पैच सोर्स अनुपलब्ध हैं</string>
+    <string name="home_metadata_errors_subtitle">सोर्स की समीक्षा करने के लिए टैप करें</string>
     <string name="home_outdated_manager_title">Morphe पुरानी हो गई है</string>
-    <string name="home_outdated_manager_subtitle">कुछ पैच स्रोतों को एक नए संस्करण की आवश्यकता है</string>
-    <string name="home_held_back_title">एक पैच स्रोत ने Morphe को क्रैश कर दिया</string>
+    <string name="home_outdated_manager_subtitle">कुछ पैच सोर्स को एक नए संस्करण की आवश्यकता है</string>
+    <string name="home_held_back_title">एक पैच सोर्स ने Morphe को क्रैश कर दिया</string>
     <string name="home_held_back_subtitle">इसे छोड़ दिया गया ताकि ऐप शुरू हो सके। समीक्षा करने के लिए टैप करें</string>
     <string name="home_metered_skipped_title">मोबाइल डेटा पर अपडेट रोक दिए गए हैं</string>
     <string name="home_metered_skipped_subtitle">मोबाइल डेटा पर अपडेट की अनुमति देने के लिए टैप करें</string>

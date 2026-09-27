@@ -422,15 +422,15 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="batch_patch_source_file">Dołączony plik</string>
     <string name="batch_patch_source_unavailable">Nie udało się przygotować pliku APK</string>
     <string name="batch_patch_force_version">Zmodyfikuj mimo to</string>
-    <string name="batch_patch_force_version_done">Zakolejkowano mimo to, aplikacja może się zepsuć</string>
-    <string name="batch_patch_accept_signature_done">Zakolejkowano mimo to, APK niezweryfikowany</string>
+    <string name="batch_patch_force_version_done">Dodano do kolejki mimo to, aplikacja może nie działać</string>
+    <string name="batch_patch_accept_signature_done">Dodano do kolejki mimo to, plik APK niezweryfikowany</string>
     <string name="batch_patch_edit_patches">Wybierz modyfikacje</string>
     <string name="batch_patch_state_no_apk">Brak pliku APK</string>
     <string name="batch_patch_state_no_patches">Brak modyfikacji</string>
     <string name="batch_patch_policy_install">Zainstaluj po zakończeniu</string>
     <string name="batch_patch_policy_install_description">Instaluje każdą zmodyfikowaną aplikację zaraz po zakończeniu kolejki. Wyłączenie zachowa pliki APK na później</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
-    <string name="batch_patch_start">Początek</string>
+    <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Zatrzymać modyfikowanie grupowe?</string>
     <string name="batch_patch_stop_description">Aktualnie modyfikowana aplikacja i wszystkie pozostałe w kolejce zostaną anulowane</string>
     <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
@@ -749,7 +749,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Używaj własnego koloru każdej aplikacji z automatycznie dopasowanym odcieniem</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Ikona aplikacji</string>
-    <string name="settings_appearance_app_icon_selector_description">Jak wygląda Morphe na ekranie głównym i w szufladzie aplikacji</string>
+    <string name="settings_appearance_app_icon_selector_description">Wygląd aplikacji Morphe na ekranie głównym i w szufladzie aplikacji</string>
     <string name="settings_appearance_app_icon_default">Domyślna</string>
     <string name="settings_appearance_app_icon_light_2">Niebo</string>
     <string name="settings_appearance_app_icon_light_3">Zachód słońca</string>
@@ -1296,7 +1296,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="changelog_release_page">Strona wydania</string>
     <string name="content_translate">Przetłumacz</string>
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <string name="content_show_original">Oryginalna</string>
+    <string name="content_show_original">Oryginał</string>
     <string name="content_translation_failed">Nie udało się przetłumaczyć: %s</string>
     <string name="changelog_section_new">Nowości</string>
     <string name="changelog_section_fixes">Poprawki</string>

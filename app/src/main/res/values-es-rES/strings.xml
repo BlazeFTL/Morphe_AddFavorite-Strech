@@ -338,7 +338,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <!-- "%1$s" is the free storage and "%2$s" the amount patching needs, both in gigabytes. -->
     <string name="home_low_disk_space_dialog_message">Solo hay %1$s GB de almacenamiento libre. El parcheo requiere al menos %2$s GB de espacio libre para funcionar correctamente</string>
     <string name="home_low_disk_space_dialog_warning">Continuar puede provocar un error de \"archivo no encontrado\" o un APK final corrupto</string>
-    <string name="home_simple_bundle_select_title">Selecciona la fuente de parcheo</string>
+    <string name="home_simple_bundle_select_title">Seleccionar fuente de parches</string>
     <string name="home_simple_bundle_select_remember">Usar siempre esta fuente para esta aplicación</string>
     <!-- Color picker -->
     <string name="custom_color">Color personalizado</string>
@@ -375,7 +375,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="adaptive_icon_safe_zone_inner">Zona segura (siempre visible)</string>
     <string name="adaptive_icon_safe_zone_outer">Zona de máscara (puede ser recortada)</string>
     <string name="adaptive_icon_no_transparency_warning">La imagen no tiene píxeles transparentes. El resultado puede tener un aspecto incorrecto</string>
-    <string name="adaptive_icon_created_success">Ícono adaptativo creado con éxito</string>
+    <string name="adaptive_icon_created_success">Icono adaptativo creado con éxito</string>
     <string name="adaptive_icon_creation_failed">Error al crear el icono adaptativo</string>
     <string name="adaptive_icon_label">Adaptable</string>
     <string name="adaptive_icon_monochrome_label">Monocromático</string>
@@ -484,10 +484,10 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador
     <string name="root_pre_patch_installer_description">Tu dispositivo tiene acceso root. Elige si esta aplicación debe ser parcheada para montaje root o instalación estándar</string>
     <string name="root_pre_patch_installer_mount_title">Modo de montaje root</string>
     <string name="root_pre_patch_installer_mount_description">Parchea para montaje root, luego monta el APK sobre la aplicación original coincidente. No se necesita GmsCore</string>
-    <string name="root_mount_module_unmount_warning">Si KernelSU tiene los módulos Desmontar habilitados de forma predeterminada, abre KernelSU &gt; Superusuario &gt; la aplicación que montaste &gt; Perfil &gt; Personalizado y deshabilita los módulos Desmontar. De lo contrario, la APK parcheada montada podría no tener efecto, incluso si Morphe muestra que está montada</string>
+    <string name="root_mount_module_unmount_warning">Si KernelSU tiene los módulos Desmontar habilitados de forma predeterminada, abre KernelSU &gt; Superusuario &gt; la aplicación que montaste &gt; Perfil &gt; Personalizado y deshabilita los módulos Desmontar. De lo contrario, el APK parcheado montado podría no tener efecto, incluso si Morphe muestra que está montado</string>
     <string name="root_pre_patch_installer_standard_title">Modo de instalación estándar</string>
     <string name="root_pre_patch_installer_standard_description">Parchea como un APK normal con soporte para GmsCore. Se utilizará tu configuración del instalador tras aplicar los parches.</string>
-    <string name="root_pre_patch_installer_hint">Este modo de parcheo es independiente de Configuración &gt; Sistema &gt; Instalador y no se puede cambiar después de aplicar los parches</string>
+    <string name="root_pre_patch_installer_hint">Este modo de parcheo es independiente de Ajustes &gt; Sistema &gt; Instalador y no se puede cambiar después de aplicar los parches</string>
     <!-- Patcher Screen -->
     <string name="patcher_error_copied">Error copiado al portapapeles</string>
     <string name="patcher_error_log">Registro de errores</string>
@@ -539,9 +539,9 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador
     <string name="patcher_failed_dialog_title">Error al aplicar el parche</string>
     <string name="patcher_unknown_error">Ocurrió un error desconocido</string>
     <string name="patcher_split_step_extracting">Extrayendo APKs divididos</string>
-    <string name="patcher_split_step_merging">Combinando %s</string>
-    <string name="patcher_split_step_writing">Guardando APK combinado</string>
-    <string name="patcher_split_step_finalizing">Completando el APK combinado</string>
+    <string name="patcher_split_step_merging">Fusionando %s</string>
+    <string name="patcher_split_step_writing">Guardando APK fusionado</string>
+    <string name="patcher_split_step_finalizing">Completando el APK fusionado</string>
     <string name="patcher_conflict_title">Conflicto del paquete</string>
     <string name="patcher_conflict_subtitle">Debes desinstalar la versión existente</string>
     <string name="patcher_conflict_hint">La aplicación parcheada utiliza un certificado diferente al de la versión instalada. Al desinstalarla, se borrarán todos los datos de la aplicación</string>
@@ -610,7 +610,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="patcher_message_9">Arreglando fallos de la aplicación sin parchear… 🪲</string>
     <string name="patcher_message_10">Los buenos parches merecen la espera… ⏳</string>
     <string name="patcher_message_11">Puliendo píxeles hasta que brillen… 💎</string>
-    <string name="patcher_message_12">Por favor, permanezca sentado hasta que el capitán apague el letrero de \"Parche en progreso\"... 💺✈️</string>
+    <string name="patcher_message_12">Por favor, permanezca sentado hasta que el capitán apague el letrero de \"Parche en progreso\"… 💺✈️</string>
     <string name="patcher_message_13">Preparando tu aplicación parcheada, recién salida del horno… 🍳</string>
     <!-- "bytecode" can be translated from "the app code" -->
     <string name="patcher_message_14">Negociando educadamente con el bytecode… 🤝</string>
@@ -679,6 +679,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="system">Sistema</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Animación de fondo</string>
+    <string name="settings_appearance_background_description">La animación que se reproduce detrás de las pantallas de la aplicación</string>
     <string name="settings_appearance_background_circles">Círculos</string>
     <string name="settings_appearance_background_rings">Anillos</string>
     <string name="settings_appearance_background_mesh">Malla</string>
@@ -747,6 +748,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_app_card_colors_bundle_description">Utiliza el color propio de cada aplicación aquí, sombreado automáticamente para que encaje</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Icono de la aplicación</string>
+    <string name="settings_appearance_app_icon_selector_description">Cómo se ve Morphe en la pantalla de inicio y en el cajón de aplicaciones</string>
     <string name="settings_appearance_app_icon_default">Predeterminado</string>
     <string name="settings_appearance_app_icon_light_2">Cielo</string>
     <string name="settings_appearance_app_icon_light_3">Atardecer</string>
@@ -857,7 +859,7 @@ Cada una de las carpetas debe contener todos los siguientes archivos:
 morphe_adaptive_background_custom.png
 morphe_adaptive_foreground_custom.png
 
-Las dimensiones de las imagenes deben ser las siguientes:
+Las dimensiones de las imágenes deben ser las siguientes:
 - mipmap-mdpi: 108x108 px
 - mipmap-hdpi: 162x162 px
 - mipmap-xhdpi: 216x216 px
@@ -898,7 +900,7 @@ Las dimensiones de la imagen deben ser las siguientes:
 - drawable-xxxhdpi: 512x192 px"</string>
     <!-- Settings - Advanced Tab - Patch Options Section: Hide Shorts -->
     <string name="settings_advanced_patch_options_hide_shorts_features">Ocultar funciones de Shorts</string>
-    <string name="settings_advanced_patch_options_hide_shorts_app_shortcut">Ocultar acceso directo de app de Shorts</string>
+    <string name="settings_advanced_patch_options_hide_shorts_app_shortcut">Ocultar acceso directo a Shorts</string>
     <string name="settings_advanced_patch_options_hide_shorts_app_shortcut_description">Elimina Shorts del menú de pulsación larga del lanzador</string>
     <string name="settings_advanced_patch_options_hide_shorts_widget">Ocultar widget de Shorts</string>
     <string name="settings_advanced_patch_options_hide_shorts_widget_description">Elimina el botón Shorts del widget del lanzador</string>
@@ -909,7 +911,7 @@ Las dimensiones de la imagen deben ser las siguientes:
     <string name="installer_internal_description">Utiliza el instalador de paquetes de Android</string>
     <string name="installer_play_store_description">Utiliza el instalador del sistema y establece Google Play Store como fuente de instalación</string>
     <string name="installer_root_play_store_description">Instala silenciosamente con root y establece Google Play Store como fuente de instalación</string>
-    <string name="installer_auto_saved_name">Montaje \"Root\"</string>
+    <string name="installer_auto_saved_name">Montaje root</string>
     <string name="installer_auto_saved_description">Monta las aplicaciones que se parchearon en modo de montaje root. Los APK parcheados estándar utilizan otro instalador</string>
     <string name="installer_shizuku_description">Se instala silenciosamente utilizando Shizuku o Sui</string>
     <string name="installer_shizuku_play_store_description">Instala silenciosamente a través de Shizuku o Sui y establece Google Play Store como fuente de instalación</string>

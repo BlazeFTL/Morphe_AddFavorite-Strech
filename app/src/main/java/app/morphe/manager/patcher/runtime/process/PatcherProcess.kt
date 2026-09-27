@@ -81,7 +81,7 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
                 source = File(parameters.inputFile),
                 workspace = File(parameters.cacheDir),
                 logger = logger,
-                skipUnneededSplits = parameters.skipUnneededSplits,
+                skipUnneededSplits = parameters.stripUnusedNativeLibs,
                 onEvent = { event ->
                     // Forward raw event over IPC; main process resolves the localized
                     // label and logs it so the app locale is used, not the system locale
@@ -112,6 +112,7 @@ class PatcherProcess(private val context: Context) : IPatcherProcess.Stub() {
                     androidContext = context,
                     logger = logger,
                     input = preparation.file,
+                    stripUnusedNativeLibs = parameters.stripUnusedNativeLibs,
                     onPatchCompleted = { patchName -> events.patchSucceeded(patchName) },
                     onProgress = { name, state, message ->
                         events.progress(name, state?.name, message)

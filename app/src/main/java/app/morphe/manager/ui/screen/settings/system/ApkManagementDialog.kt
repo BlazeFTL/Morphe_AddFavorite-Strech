@@ -45,7 +45,7 @@ import app.morphe.manager.domain.installer.UninstallCancelledException
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
-import app.morphe.manager.patcher.util.NativeLibStripper
+import app.morphe.manager.patcher.util.NativeLibs
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.util.*
@@ -244,7 +244,7 @@ private fun PatchedApksContent(
                             file = savedFile,
                             installType = app.installType,
                             isInstalledOnDevice = snapshot.patchState == InstalledPatchState.Patched,
-                            abis = savedFile?.let(NativeLibStripper::extractAbisFromApk).orEmpty(),
+                            abis = savedFile?.let(NativeLibs::extractAbisFromApk).orEmpty(),
                             packageInfo = snapshot.savedPatchedApkInfo ?: resolvedData.packageInfo
                         )
                     }
@@ -514,7 +514,7 @@ private fun OriginalApksContent(
                                 fileSize = apk.fileSize,
                                 file = apkFile,
                                 isInstalledOnDevice = pm.getPackageInfo(apk.packageName) != null,
-                                abis = apkFile?.let { NativeLibStripper.extractAbisFromApk(it) } ?: emptyList(),
+                                abis = apkFile?.let(NativeLibs::extractAbisFromApk).orEmpty(),
                                 packageInfo = resolvedData.packageInfo
                             ),
                             apk = apk

@@ -53,7 +53,7 @@ import app.morphe.manager.domain.bundles.AppVersionStatus
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.bundles.versionStatus
 import app.morphe.manager.patcher.patch.PatchInfo
-import app.morphe.manager.patcher.util.NativeLibStripper
+import app.morphe.manager.patcher.util.NativeLibs
 import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
 import app.morphe.manager.ui.screen.shared.*
@@ -1045,7 +1045,7 @@ private fun InfoSection(
             val pm = context.packageManager
             val info = pm.getPackageInfo(installedApp.currentPackageName, 0)
             val sourceDir = info.applicationInfo?.sourceDir ?: return@remember emptyList<String>()
-            NativeLibStripper.extractAbisFromApk(File(sourceDir))
+            NativeLibs.extractAbisFromApk(File(sourceDir))
         } catch (_: Exception) { emptyList() }
     }
 

@@ -39,7 +39,6 @@ import app.morphe.manager.patcher.runtime.ProcessRuntime
 import app.morphe.manager.patcher.runtime.coerceMemoryLimit
 import app.morphe.manager.patcher.runtime.heapLimitMebibytes
 import app.morphe.manager.patcher.split.SplitApkPreparer
-import app.morphe.manager.patcher.util.NativeLibStripper
 import app.morphe.manager.ui.model.SelectedApp
 import app.morphe.manager.ui.model.State
 import app.morphe.manager.util.*
@@ -492,10 +491,6 @@ class PatcherWorker(
                     onMergedApkReady,
                     onRestart
                 )
-            }
-
-            if (stripNativeLibs && !inputIsSplitArchive) {
-                NativeLibStripper.strip(patchedApk, args.logger)
             }
 
             updatePatcherNotification(stepName = signingApkLabel, patchProgress = null)

@@ -116,11 +116,14 @@ class ManagerApplication : Application() {
 
         // App icon loader (Coil)
         val pixels = 512
+        // Non-adaptive icons are drawn as they are rather than shrunk onto a white plate: icon
+        // packs on One UI hand out finished bitmap icons, and the plate showed around each of them
+        val shrinkNonAdaptiveIcons = false
         Coil.setImageLoader(
             ImageLoader.Builder(this)
                 .components {
                     add(AppIconKeyer())
-                    add(AppIconFetcher.Factory(pixels, true, this@ManagerApplication))
+                    add(AppIconFetcher.Factory(pixels, shrinkNonAdaptiveIcons, this@ManagerApplication))
                 }
                 .build()
         )

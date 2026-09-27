@@ -39,6 +39,7 @@ import app.morphe.manager.domain.installer.UninstallCancelledException
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.*
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
+import app.morphe.manager.domain.repository.PatchBundleRepository.LocalFileCheck
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelection
 import app.morphe.manager.patcher.split.SplitApkInspector
@@ -70,6 +71,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.InputStream
+import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.CRC32
 import java.util.zip.ZipEntry
@@ -251,8 +253,16 @@ class HomeViewModel(
     var bundleToRename by mutableStateOf<PatchBundleSource?>(null)
     var showRenameBundleDialog by mutableStateOf(false)
 
-    /** Source whose app list is open, after it was added with its apps to be chosen. */
-    var sourceAppsDialogUid by mutableStateOf<Int?>(null)
+    /** Sources added with their apps to be chosen, whose app lists open one after another. */
+    private var sourceAppsQueue by mutableStateOf<List<Int>>(emptyList())
+
+    /** Source whose app list is open, the first of [sourceAppsQueue]. */
+    val sourceAppsDialogUid: Int? get() = sourceAppsQueue.firstOrNull()
+
+    /** Closes the open app list, which brings up the next queued one. */
+    fun dismissSourceApps() {
+        sourceAppsQueue = sourceAppsQueue.drop(1)
+    }
 
     // Installed App Info dialog state
     var showInstalledAppInfoDialog: String? by mutableStateOf(null)
@@ -295,7 +305,7 @@ class HomeViewModel(
         pendingMppUri = null
         pendingMppFileName = null
         pendingMppManifest = null
-        createLocalSource(uri, chooseApps)
+        importLocalSources(listOf(uri to null), chooseApps)
     }
 
     fun dismissMppImport() {
@@ -337,9 +347,79 @@ class HomeViewModel(
     /** Picker behind the copy-from-another-bundle action of the expert-mode dialog. */
     val expertModeCopy = CopySelectionController()
 
-    // Bundle file selection
-    var selectedBundleUri by mutableStateOf<Uri?>(null)
-    var selectedBundlePath by mutableStateOf<String?>(null)
+    /**
+     * A file picked in the add source dialog, with the bundle name its manifest declares and what
+     * importing it would do, both null while they are read.
+     */
+    data class PickedBundle(val uri: Uri, val name: String, val bundleName: String?, val check: LocalFileCheck?)
+
+    /** Files picked in the add source dialog, kept here so they outlive the picker's round trip. */
+    private var pickedBundles by mutableStateOf<List<PickedBundle>>(emptyList())
+
+    /**
+     * [pickedBundles] as they would import together: a file landing on the same source as an
+     * earlier one adds nothing of its own. Two versions of one new bundle would each add a source,
+     * so they are told apart by the bundle name, and the first picked is the one kept.
+     */
+    val pickedBundleImports: List<PickedBundle>
+        get() {
+            val targets = mutableSetOf<String>()
+            return pickedBundles.map { picked ->
+                val target = when (val check = picked.check) {
+                    is LocalFileCheck.New -> picked.bundleName?.lowercase(Locale.US) ?: "uid:${check.uid}"
+                    is LocalFileCheck.Update -> "uid:${check.uid}"
+                    else -> null
+                }
+                if (target != null && !targets.add(target)) picked.copy(check = LocalFileCheck.Duplicate) else picked
+            }
+        }
+
+    /** Adds files to the add source dialog and reads what importing each would do. */
+    fun pickBundles(uris: List<Uri>) {
+        val fresh = uris.distinct().filter { uri -> pickedBundles.none { it.uri == uri } }.map { uri ->
+            val name = uri.displayName(contentResolver) ?: uri.lastPathSegment ?: uri.toString()
+            val isBundle = name.endsWith(".mpp", ignoreCase = true)
+            PickedBundle(uri, name, bundleName = null, check = if (isBundle) null else LocalFileCheck.NotBundle)
+        }
+        pickedBundles = pickedBundles + fresh
+        fresh.filter { it.check == null }.forEach { picked ->
+            viewModelScope.launch {
+                val bundleName = withContext(Dispatchers.IO) { picked.uri.readMppManifest(contentResolver)?.name }
+                val check = runCatching {
+                    patchBundleRepository.checkLocal(bundleName) {
+                        contentResolver.openInputStream(picked.uri) ?: throw FileNotFoundException("Unable to open ${picked.uri}")
+                    }
+                }.getOrElse { LocalFileCheck.NotBundle }
+                pickedBundles = pickedBundles.map {
+                    if (it.uri == picked.uri) it.copy(bundleName = bundleName, check = check) else it
+                }
+            }
+        }
+    }
+
+    fun unpickBundle(uri: Uri) {
+        pickedBundles = pickedBundles.filterNot { it.uri == uri }
+    }
+
+    fun clearPickedBundles() {
+        pickedBundles = emptyList()
+    }
+
+    /**
+     * Imports the picked files: a new bundle as a source of its own, and another version of a local
+     * source into it, as its update action would. Files already added are left out.
+     */
+    fun importPickedBundles(chooseApps: Boolean) {
+        val imports = pickedBundleImports.mapNotNull { picked ->
+            when (val check = picked.check) {
+                is LocalFileCheck.New -> picked.uri to null
+                is LocalFileCheck.Update -> picked.uri to check.uid
+                else -> null
+            }
+        }
+        pickedBundles = emptyList()
+        importLocalSources(imports, chooseApps)
+    }
 
     /** Local source waiting for a replacement file, so the picker result knows what it updates. */
     var localBundleUpdateUid by mutableStateOf<Int?>(null)
@@ -1243,108 +1323,116 @@ class HomeViewModel(
         }
     }
 
-    fun createLocalSource(patchBundle: Uri, chooseApps: Boolean = false): Job {
-        watchForAddedSource(chooseApps)
-        return importLocalSource(patchBundle, replacingUid = null)
+    /**
+     * Imports each file, as a new local source or into the one its uid names, one after another
+     * under one import toast. With [chooseApps] the app list of each new source opens once its
+     * patches have loaded.
+     */
+    private fun importLocalSources(imports: List<Pair<Uri, Int?>>, chooseApps: Boolean) = viewModelScope.launch {
+        val added = withContext(NonCancellable) {
+            withPersistentImportToast {
+                imports.mapNotNull { (uri, replacingUid) ->
+                    importLocalFile(uri, replacingUid).takeIf { replacingUid == null }
+                }
+            }
+        }
+        // Two files carrying the same bundle land on the same source
+        onSourcesAdded(added.distinct(), chooseApps)
     }
 
-    private var addedSourceWatch: Job? = null
+    /**
+     * Adds a remote source for each of [urls], downloaded together as one update. With
+     * [chooseApps] the app list of each added source opens once its patches have loaded.
+     */
+    fun createRemoteSources(urls: List<String>, chooseApps: Boolean = false) = viewModelScope.launch {
+        val added = withContext(NonCancellable) {
+            patchBundleRepository.createRemotes(urls, autoUpdate = true)
+        }
+        onSourcesAdded(added, chooseApps)
+    }
 
     /**
-     * Opens the app list of the source about to be added, once its patches have loaded.
+     * Queues the app list of each of [uids] that has apps to list as its patches load, then hints
+     * at the swipe gestures of the source cards.
      *
-     * The sources are read before the add starts, so the next one to load is the one being added.
      * A source only appears among the loaded ones once its patches are in, which is also what the
-     * list is built from. An add that is refused or never loads opens nothing, and every later add
-     * drops the wait, so a refused one cannot open the list of whatever is added after it.
+     * list is built from. The sources load together, so they are taken as each one arrives rather
+     * than in turn, and one that never loads holds back none of the others.
      */
-    private fun watchForAddedSource(chooseApps: Boolean) {
-        addedSourceWatch?.cancel()
-        addedSourceWatch = null
-        if (!chooseApps) return
+    private suspend fun onSourcesAdded(uids: List<Int>, chooseApps: Boolean) {
+        if (uids.isEmpty()) return
 
-        val known = patchBundleRepository.sources.value.mapTo(mutableSetOf()) { it.uid }
-        addedSourceWatch = viewModelScope.launch {
-            val added = withTimeoutOrNull(NEW_SOURCE_LOAD_TIMEOUT) {
-                patchBundleRepository.allBundlesInfoFlow
-                    .mapNotNull { info -> info.values.firstOrNull { it.uid !in known } }
-                    .first()
-            } ?: return@launch
-            // Universal patches put no app on the home screen, so there would be nothing to list
-            if (added.listedApps().isNotEmpty()) sourceAppsDialogUid = added.uid
+        val pending = uids.toMutableList()
+        withTimeoutOrNull(NEW_SOURCE_LOAD_TIMEOUT) {
+            patchBundleRepository.allBundlesInfoFlow.first { info ->
+                pending.removeAll { uid ->
+                    val loaded = info[uid] ?: return@removeAll false
+                    // Universal patches put no app on the home screen, so there would be nothing to list
+                    if (chooseApps && loaded.listedApps().isNotEmpty()) sourceAppsQueue += uid
+                    true
+                }
+                pending.isEmpty()
+            }
         }
+        delay(1.5.seconds)
+        showSwipeGestureHint.value = true
     }
 
     /**
      * Points an existing local source at a newly picked file. Adding the updated file instead
      * would create a second source and strand the patch selection on the old one.
      */
-    fun updateLocalSource(uid: Int, patchBundle: Uri) = importLocalSource(patchBundle, replacingUid = uid)
+    fun updateLocalSource(uid: Int, patchBundle: Uri) = importLocalSources(listOf(patchBundle to uid), chooseApps = false)
 
+    /** @return The uid of the source [patchBundle] landed under, or null when it could not be read. */
     @SuppressLint("Recycle")
-    private fun importLocalSource(patchBundle: Uri, replacingUid: Int?) = viewModelScope.launch {
-        withContext(NonCancellable) {
-            withPersistentImportToast {
-                val permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                var persistedPermission = false
-                val size = runCatching {
-                    contentResolver.openFileDescriptor(patchBundle, "r")
-                        ?.use { it.statSize.takeIf { sz -> sz > 0 } }
-                        ?: contentResolver.query(
-                            patchBundle,
-                            arrayOf(OpenableColumns.SIZE),
-                            null,
-                            null,
-                            null
-                        )
-                            ?.use { cursor ->
-                                val index = cursor.getColumnIndex(OpenableColumns.SIZE)
-                                if (index != -1 && cursor.moveToFirst()) cursor.getLong(index) else null
-                            }
-                }.getOrNull()?.takeIf { it > 0L }
-                try {
-                    contentResolver.takePersistableUriPermission(patchBundle, permissionFlags)
-                    persistedPermission = true
-                } catch (_: SecurityException) {
-                    // Provider may not support persistable permissions; fall back to transient grant
-                }
+    private suspend fun importLocalFile(patchBundle: Uri, replacingUid: Int?): Int? {
+        val permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        var persistedPermission = false
+        val size = runCatching {
+            contentResolver.openFileDescriptor(patchBundle, "r")
+                ?.use { it.statSize.takeIf { sz -> sz > 0 } }
+                ?: contentResolver.query(
+                    patchBundle,
+                    arrayOf(OpenableColumns.SIZE),
+                    null,
+                    null,
+                    null
+                )
+                    ?.use { cursor ->
+                        val index = cursor.getColumnIndex(OpenableColumns.SIZE)
+                        if (index != -1 && cursor.moveToFirst()) cursor.getLong(index) else null
+                    }
+        }.getOrNull()?.takeIf { it > 0L }
+        try {
+            contentResolver.takePersistableUriPermission(patchBundle, permissionFlags)
+            persistedPermission = true
+        } catch (_: SecurityException) {
+            // Provider may not support persistable permissions; fall back to transient grant
+        }
 
-                val openStream: suspend () -> InputStream = {
-                    contentResolver.openInputStream(patchBundle)
-                        ?: throw FileNotFoundException("Unable to open $patchBundle")
-                }
+        val openStream: suspend () -> InputStream = {
+            contentResolver.openInputStream(patchBundle)
+                ?: throw FileNotFoundException("Unable to open $patchBundle")
+        }
+        return try {
+            if (replacingUid != null) {
+                patchBundleRepository.replaceLocal(replacingUid, size, openStream)
+            } else {
+                patchBundleRepository.createLocal(size, openStream)
+            }
+        } finally {
+            if (persistedPermission) {
                 try {
-                    if (replacingUid != null) {
-                        patchBundleRepository.replaceLocal(replacingUid, size, openStream)
-                    } else {
-                        patchBundleRepository.createLocal(size, openStream)
-                    }
-                } finally {
-                    if (persistedPermission) {
-                        try {
-                            contentResolver.releasePersistableUriPermission(
-                                patchBundle,
-                                permissionFlags
-                            )
-                        } catch (_: SecurityException) {
-                            // Ignore if provider revoked or already released
-                        }
-                    }
+                    contentResolver.releasePersistableUriPermission(
+                        patchBundle,
+                        permissionFlags
+                    )
+                } catch (_: SecurityException) {
+                    // Ignore if provider revoked or already released
                 }
             }
         }
-    }
-
-    fun createRemoteSource(apiUrl: String, autoUpdate: Boolean, chooseApps: Boolean = false) = viewModelScope.launch {
-        watchForAddedSource(chooseApps)
-        withContext(NonCancellable) {
-            patchBundleRepository.createRemote(apiUrl, autoUpdate)
-        }
-        patchBundleRepository.bundleUpdateProgress
-            .dropWhile { it == null }
-            .first { it == null }
-        delay(1.5.seconds)
-        showSwipeGestureHint.value = true
     }
 
     /**
@@ -1360,7 +1448,7 @@ class HomeViewModel(
     fun confirmDeepLinkBundle(chooseApps: Boolean) {
         val bundle = deepLinkPendingBundle ?: return
         deepLinkPendingBundle = null
-        createRemoteSource(bundle.url, autoUpdate = true, chooseApps = chooseApps)
+        createRemoteSources(listOf(bundle.url), chooseApps)
     }
 
     /** User dismissed the deep link confirmation dialog. */
@@ -1390,9 +1478,8 @@ class HomeViewModel(
         showRenameBundleDialog = false
         bundleToRename = null
         showAddSourceDialog = false
-        sourceAppsDialogUid = null
-        selectedBundleUri = null
-        selectedBundlePath = null
+        sourceAppsQueue = emptyList()
+        pickedBundles = emptyList()
         cleanupPendingData()
     }
 

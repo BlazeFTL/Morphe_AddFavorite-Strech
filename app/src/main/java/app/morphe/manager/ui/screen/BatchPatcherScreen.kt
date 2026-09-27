@@ -532,7 +532,8 @@ fun BatchPatcherScreen(
                     TitleAction(
                         icon = Icons.Outlined.Refresh,
                         contentDescription = stringResource(R.string.retry),
-                        onClick = viewModel::retryUnfinished
+                        onClick = viewModel::retryUnfinished,
+                        style = TitleActionStyle.Accent
                     )
                 }
             } else {

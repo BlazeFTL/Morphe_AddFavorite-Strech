@@ -22,6 +22,7 @@ import app.morphe.manager.domain.repository.StorageStats
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.StorageManagementViewModel
 import app.morphe.manager.util.formatBytes
+import app.morphe.manager.util.formatUsedFree
 import app.morphe.manager.util.openAppDetailsSettings
 import app.morphe.manager.util.toast
 import org.koin.androidx.compose.koinViewModel
@@ -73,18 +74,10 @@ fun StorageManagementDialog(
 
     AppDialog(
         onDismissRequest = onDismissRequest,
-        title = stringResource(R.string.settings_system_storage_management_title),
         padding = DialogPadding.Compact,
-        titleTrailingContent = {
-            TitleAction(
-                icon = Icons.Outlined.Refresh,
-                contentDescription = stringResource(R.string.refresh),
-                onClick = {
-                    viewModel.refresh()
-                    histogramNonce++
-                }
-            )
-        },
+        scrollable = false,
+        contentArrangement = Arrangement.Top,
+        fillContentHeight = true,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -93,13 +86,35 @@ fun StorageManagementDialog(
             )
         }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
+        // Headed like the other lists, with how much Morphe holds against what is left free
+        // where the subtitle goes, above the breakdown that scrolls under it
+        val accent = MaterialTheme.colorScheme.primary
+        ListDialogHeader(
+            icon = { modifier ->
+                ListDialogHeaderIcon(icon = Icons.Outlined.Storage, color = accent, modifier = modifier)
+            },
+            title = stringResource(R.string.settings_system_storage_management_title),
+            subtitle = context.formatUsedFree(used = stats.appUsedBytes, free = stats.deviceFreeBytes),
+            accentColor = accent
+        ) {
+            TitleAction(
+                icon = Icons.Outlined.Refresh,
+                contentDescription = stringResource(R.string.refresh),
+                onClick = {
+                    viewModel.refresh()
+                    histogramNonce++
+                },
+                style = TitleActionStyle.Accent
+            )
+        }
+
+        DialogScrollColumn(
+            modifier = Modifier.weight(1f),
+            contentPadding = PaddingValues(vertical = Defaults.ItemSpacing),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+        ) {
             key(histogramNonce) {
-                StorageHistogram(
-                    used = stats.appUsedBytes,
-                    deviceFreeBytes = stats.deviceFreeBytes,
-                    segments = stats.toSegments()
-                )
+                StorageHistogram(segments = stats.toSegments())
             }
 
             SettingsGroup {

@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.ui.screen.shared.LocalDialogSecondaryTextColor
 import app.morphe.manager.ui.screen.shared.LocalDialogTextColor
 import app.morphe.manager.util.formatBytes
-import app.morphe.manager.util.formatUsedFree
 
 /** A single stacked-bar segment. Order in the caller-provided list determines stacking order. */
 data class StorageSegment(
@@ -50,12 +49,10 @@ private val BAR_LEGEND_SPACING = 20.dp
 /**
  * Stacked vertical bar of [segments] (proportional to their byte sum) with a legend on the
  * right. Segments animate up from zero on first composition and animate smoothly when their
- * byte size changes. [deviceFreeBytes] renders as a subtitle above the bar for context only.
+ * byte size changes. The total they add up to is left to whatever heads the bar.
  */
 @Composable
 fun StorageHistogram(
-    used: Long,
-    deviceFreeBytes: Long,
     segments: List<StorageSegment>,
     modifier: Modifier = Modifier
 ) {
@@ -68,13 +65,6 @@ fun StorageHistogram(
             .padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text(
-            text = LocalContext.current.formatUsedFree(used = used, free = deviceFreeBytes),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            color = LocalDialogTextColor.current
-        )
-
         HistogramLayout(
             bar = {
                 HistogramBar(

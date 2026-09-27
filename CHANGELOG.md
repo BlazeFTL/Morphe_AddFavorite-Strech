@@ -1,3 +1,20 @@
+# [1.33.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.5...v1.33.0-dev.6) (2026-09-27)
+
+
+### Bug Fixes
+
+* Keep a disabled source's color on the headers of its dialogs ([0bb4d2e](https://github.com/MorpheApp/morphe-manager/commit/0bb4d2eba2c4e358e316237733c4285e7d990577))
+* Let two-button dialog footers sit side by side when their labels fit ([196af29](https://github.com/MorpheApp/morphe-manager/commit/196af29dcf49f922df21671383911e5f5e19c6f9))
+* Preview app card colors on an app's own color, the way the home screen shows it ([4fecf5a](https://github.com/MorpheApp/morphe-manager/commit/4fecf5a35e848c3a69ae58b63136351e7c8cec6f))
+* Scroll lists back to the top in one motion, past a pinned search header too ([1180e59](https://github.com/MorpheApp/morphe-manager/commit/1180e5978a3d701bf3861185eb488a7e9367207e))
+* Show a finished expert patch run in the success color rather than teal ([171e421](https://github.com/MorpheApp/morphe-manager/commit/171e421feb1fe25be5d6e4e1dd9a6e851514da7a))
+* Show the patch options notices in the neutral tone rather than as success ([6140ade](https://github.com/MorpheApp/morphe-manager/commit/6140ade2d7c85c3205b1e0e741d05fecf1d6a3a9))
+
+
+### Features
+
+* Tint the expert log panel and its live dot with the color of the app being patched ([b664be8](https://github.com/MorpheApp/morphe-manager/commit/b664be87d5fc93ad6c7ea617d4428d986070ae4c))
+
 # [1.33.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.4...v1.33.0-dev.5) (2026-09-27)
 
 

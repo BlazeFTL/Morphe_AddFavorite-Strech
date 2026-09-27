@@ -143,8 +143,8 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  * The header sits on a band like the app details' one, which gives the list scrolling under it an
  * edge to stop at.
  *
- * @param accentColor Color of the app the list belongs to, which tints the band, or null for a
- *   neutral one.
+ * @param accentColor Color of the app the list belongs to, which tints the band and the title
+ *   actions on it, or null for a neutral band and actions in the theme's palette.
  * @param badges What the whole list shares, in a row under the title as the app details keep theirs.
  * @param actions Title actions drawn ahead of the search toggle.
  */
@@ -225,21 +225,23 @@ fun ListDialogHeader(
             }
             // Only a header with controls lays them out, so one without leaves the title no gap
             if (actions != null || search != null) {
-                Row(
-                    modifier = Modifier.headerBadgeEntrance(entrance),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
-                ) {
-                    actions?.invoke(this)
-                    if (search != null) {
-                        TitleAction(
-                            icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
-                            contentDescription = searchLabel ?: stringResource(R.string.search),
-                            onClick = { search.toggle() },
-                            style = TitleActionStyle.Toggle,
-                            active = search.visible,
-                            enabled = searchEnabled
-                        )
+                CompositionLocalProvider(LocalTitleActionAccent provides usableAppAccent(accentColor)) {
+                    Row(
+                        modifier = Modifier.headerBadgeEntrance(entrance),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(DialogHeaderDefaults.IconSpacing)
+                    ) {
+                        actions?.invoke(this)
+                        if (search != null) {
+                            TitleAction(
+                                icon = if (search.visible) Icons.Outlined.SearchOff else Icons.Outlined.Search,
+                                contentDescription = searchLabel ?: stringResource(R.string.search),
+                                onClick = { search.toggle() },
+                                style = TitleActionStyle.Toggle,
+                                active = search.visible,
+                                enabled = searchEnabled
+                            )
+                        }
                     }
                 }
             }

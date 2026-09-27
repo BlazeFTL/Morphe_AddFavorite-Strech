@@ -1118,9 +1118,9 @@ private fun logLevelColors(level: LogLevel): LogEntryColors = when (level) {
         text    = MaterialTheme.colorScheme.error
     )
     LogLevel.WARN -> LogEntryColors(
-        rowBg   = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.12f),
-        badgeBg = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-        text    = MaterialTheme.colorScheme.tertiary
+        rowBg   = SemanticTone.Warning.container.copy(alpha = 0.12f),
+        badgeBg = SemanticTone.Warning.container.copy(alpha = 0.5f),
+        text    = SemanticTone.Warning.accent
     )
     LogLevel.INFO -> LogEntryColors(
         rowBg   = Color.Unspecified,

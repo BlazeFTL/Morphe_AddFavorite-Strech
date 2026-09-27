@@ -88,7 +88,7 @@ fun RadioSelectionCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            if (hasWarning) colors.secondaryContainer.copy(alpha = 0.7f)
+                            if (hasWarning) SemanticTone.Warning.container.copy(alpha = 0.7f)
                             else colors.onSurface.copy(alpha = 0.06f)
                         )
                         .padding(

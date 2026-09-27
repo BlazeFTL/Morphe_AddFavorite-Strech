@@ -66,8 +66,6 @@ import kotlinx.coroutines.withContext
 import java.util.Locale
 import org.koin.compose.koinInject
 
-private val ColorValid = Color(0xFF4CAF50)
-
 /**
  * Dialog for adding patch bundles.
  */
@@ -281,7 +279,7 @@ private fun RemoteTabContent(
                 val (icon, color, text) = when (urlValidation) {
                     FieldValidation.Valid -> Triple(
                         Icons.Outlined.CheckCircle,
-                        ColorValid,
+                        SemanticTone.Success.accent,
                         stringResource(R.string.sources_dialog_url_valid)
                     )
                     FieldValidation.Invalid -> Triple(
@@ -391,7 +389,7 @@ private fun LocalTabContent(
                         imageVector = if (isValid) Icons.Outlined.CheckCircle else Icons.Outlined.ErrorOutline,
                         contentDescription = null,
                         modifier = Modifier.size(Defaults.IconSizeSmall),
-                        tint = if (isValid) ColorValid else MaterialTheme.colorScheme.error
+                        tint = if (isValid) SemanticTone.Success.accent else MaterialTheme.colorScheme.error
                     )
                     Column(modifier = Modifier.weight(1f)) {
                         Text(

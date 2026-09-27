@@ -491,7 +491,7 @@ private fun UpdateCompletedContent(version: String?) {
     ) {
         Surface(
             shape = CircleShape,
-            color = MaterialTheme.colorScheme.tertiaryContainer,
+            color = SemanticTone.Success.container,
             modifier = Modifier
                 .size(SuccessIconContainerSize)
                 .scale(scale)
@@ -499,7 +499,7 @@ private fun UpdateCompletedContent(version: String?) {
             Box(contentAlignment = Alignment.Center) {
                 ThemedIcon(
                     icon = Icons.Outlined.CheckCircle,
-                    tint = MaterialTheme.colorScheme.tertiary,
+                    tint = SemanticTone.Success.content,
                     size = SuccessIconSize
                 )
             }

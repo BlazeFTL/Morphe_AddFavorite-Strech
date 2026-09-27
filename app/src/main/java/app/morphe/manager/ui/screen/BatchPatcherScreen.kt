@@ -917,7 +917,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.Warning,
                                 contentDescription = forceLabel,
                                 tooltip = forceLabel,
-                                colors = ActionPillColors.secondary()
+                                colors = ActionPillColors.warning()
                             )
                         }
 
@@ -930,7 +930,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.GppBad,
                                 contentDescription = acceptLabel,
                                 tooltip = acceptLabel,
-                                colors = ActionPillColors.secondary()
+                                colors = ActionPillColors.warning()
                             )
                         }
 

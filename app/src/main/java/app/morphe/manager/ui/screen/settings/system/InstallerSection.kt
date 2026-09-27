@@ -785,7 +785,7 @@ fun InstallerOptionItem(
         footerContent = (reasonText ?: footerText)?.let { text ->
             {
                 val tint = if (footerText != null) {
-                    MaterialTheme.colorScheme.onSecondaryContainer
+                    SemanticTone.Warning.content
                 } else {
                     MaterialTheme.colorScheme.onSurfaceVariant
                 }

@@ -506,19 +506,10 @@ private fun ExpertProgressHeader(
                     }
 
                     if (total > 0) {
-                        // A finished run wears the same teal as the success card
+                        // A finished run wears the same success tone as the success card
                         StatusBadge(
                             text = stringResource(R.string.patcher_patches_progress_format, completed, total),
-                            containerColor = if (patcherSucceeded == true) {
-                                MorpheBrandTeal.copy(alpha = 0.18f)
-                            } else {
-                                SemanticTone.Primary.container
-                            },
-                            contentColor = if (patcherSucceeded == true) {
-                                MorpheBrandTeal
-                            } else {
-                                SemanticTone.Primary.content
-                            }
+                            tone = if (patcherSucceeded == true) SemanticTone.Success else SemanticTone.Primary
                         )
                     }
 
@@ -776,11 +767,11 @@ private fun PatcherInfoCard(
 ) {
     val accentColor = when (variant) {
         CardVariant.Start   -> MaterialTheme.colorScheme.primary
-        CardVariant.Success -> MorpheBrandTeal
+        CardVariant.Success -> SemanticTone.Success.accent
     }
     val bgColor = when (variant) {
         CardVariant.Start   -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
-        CardVariant.Success -> MorpheBrandTeal.copy(alpha = 0.10f)
+        CardVariant.Success -> SemanticTone.Success.accent.copy(alpha = 0.10f)
     }
 
     Surface(

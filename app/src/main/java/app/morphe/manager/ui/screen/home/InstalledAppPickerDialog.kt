@@ -123,7 +123,7 @@ fun InstalledAppPickerDialog(
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            fadeTop = false,
+            pinnedFirstRow = true,
             userScrollEnabled = !isLoading
         ) {
             // Kept while the field is closed, so its share of the spacing makes the gap under

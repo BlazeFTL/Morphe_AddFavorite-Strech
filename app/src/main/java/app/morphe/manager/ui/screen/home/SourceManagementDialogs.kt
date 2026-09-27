@@ -1116,7 +1116,7 @@ fun SourceAppsDialog(
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(itemSpacing),
-            fadeTop = false
+            pinnedFirstRow = true
         ) {
             // Kept while the field is closed, so its share of the spacing makes the gap under
             // the header

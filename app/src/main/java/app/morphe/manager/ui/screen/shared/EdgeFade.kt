@@ -35,12 +35,16 @@ val EdgeFadeWidth = 24.dp
  *
  * @param length How far in from each edge the fade reaches.
  * @param orientation Which edges fade: start and end of a row, or top and bottom of a column.
+ * @param startInset How far in from the start edge its fade begins, in pixels, leaving what lies
+ *   before it as drawn. For content pinned over the start, which stays whole while the rest
+ *   fades out under it.
  */
 fun Modifier.edgeFade(
     length: Dp,
     hiddenAtStart: () -> Float,
     hiddenAtEnd: () -> Float,
-    orientation: Orientation = Orientation.Horizontal
+    orientation: Orientation = Orientation.Horizontal,
+    startInset: () -> Float = { 0f }
 ): Modifier = clipToBounds()
     .graphicsLayer {
         // The fade masks what is already drawn, which takes a layer of its own
@@ -52,12 +56,13 @@ fun Modifier.edgeFade(
     }
     .drawWithContent {
         drawContent()
-        val extent = if (orientation == Orientation.Horizontal) size.width else size.height
+        val inset = startInset().coerceAtLeast(0f)
+        val extent = (if (orientation == Orientation.Horizontal) size.width else size.height) - inset
         val fadeLength = length.toPx().coerceAtMost(extent / 2)
         if (fadeLength <= 0f) return@drawWithContent
         // A row starts on the right in a right-to-left layout, a column always at the top
         val startIsFirst = orientation == Orientation.Vertical || layoutDirection == LayoutDirection.Ltr
-        fadeEdge(orientation, atFirst = startIsFirst, strength = hiddenAtStart() / fadeLength, length = fadeLength)
+        fadeEdge(orientation, atFirst = startIsFirst, strength = hiddenAtStart() / fadeLength, length = fadeLength, inset = inset)
         fadeEdge(orientation, atFirst = !startIsFirst, strength = hiddenAtEnd() / fadeLength, length = fadeLength)
     }
 
@@ -72,23 +77,31 @@ fun Modifier.verticalScrollFade(scrollState: ScrollState, length: Dp = EdgeFadeW
 /**
  * [edgeFade] for a lazy column, fading whichever end [state] has more past.
  *
- * @param fadeTop False for a list whose first row sticks to its top, a search field say, which
- *   the fade would otherwise wash out instead of the rows scrolling under it.
+ * @param pinnedFirstRow Whether the first row sticks to the top, a search field say. The top fade
+ *   then starts under it, so the rows fade out as they scroll beneath it and the row stays whole.
  */
 fun Modifier.verticalScrollFade(
     state: LazyListState,
     length: Dp = EdgeFadeWidth,
-    fadeTop: Boolean = true
+    pinnedFirstRow: Boolean = false
 ): Modifier = edgeFade(
     length = length,
-    hiddenAtStart = { if (fadeTop) state.hiddenAtStart() else 0f },
+    hiddenAtStart = { state.hiddenAtStart() },
     hiddenAtEnd = { state.hiddenAtEnd() },
-    orientation = Orientation.Vertical
+    orientation = Orientation.Vertical,
+    startInset = { if (pinnedFirstRow) state.firstRowEnd() else 0f }
 )
 
 // A lazy list measures only the rows in view, so a row out of sight counts as more than any fade
 private fun LazyListState.hiddenAtStart(): Float =
     if (firstVisibleItemIndex > 0) Float.MAX_VALUE else firstVisibleItemScrollOffset.toFloat()
+
+// Where the first row ends, measured from the top of the list, or 0 once it is out of view
+private fun LazyListState.firstRowEnd(): Float {
+    val info = layoutInfo
+    val first = info.visibleItemsInfo.firstOrNull { it.index == 0 } ?: return 0f
+    return (first.offset + first.size - info.viewportStartOffset).coerceAtLeast(0).toFloat()
+}
 
 private fun LazyListState.hiddenAtEnd(): Float {
     val info = layoutInfo
@@ -106,15 +119,24 @@ private fun Modifier.scrollFade(scrollState: ScrollState, length: Dp, orientatio
     orientation = orientation
 )
 
-/** Fades one edge: the left or top one when [atFirst], the right or bottom one otherwise. */
-private fun DrawScope.fadeEdge(orientation: Orientation, atFirst: Boolean, strength: Float, length: Float) {
+/**
+ * Fades one edge: the left or top one when [atFirst], the right or bottom one otherwise, starting
+ * [inset] in from it.
+ */
+private fun DrawScope.fadeEdge(
+    orientation: Orientation,
+    atFirst: Boolean,
+    strength: Float,
+    length: Float,
+    inset: Float = 0f
+) {
     val fraction = strength.coerceIn(0f, 1f)
     if (fraction == 0f) return
     val edge = Color.Black.copy(alpha = 1f - fraction)
     val colors = if (atFirst) listOf(edge, Color.Black) else listOf(Color.Black, edge)
 
     if (orientation == Orientation.Horizontal) {
-        val left = if (atFirst) 0f else size.width - length
+        val left = if (atFirst) inset else size.width - length - inset
         drawRect(
             brush = Brush.horizontalGradient(colors, startX = left, endX = left + length),
             topLeft = Offset(left, 0f),
@@ -122,7 +144,7 @@ private fun DrawScope.fadeEdge(orientation: Orientation, atFirst: Boolean, stren
             blendMode = BlendMode.DstIn
         )
     } else {
-        val top = if (atFirst) 0f else size.height - length
+        val top = if (atFirst) inset else size.height - length - inset
         drawRect(
             brush = Brush.verticalGradient(colors, startY = top, endY = top + length),
             topLeft = Offset(0f, top),

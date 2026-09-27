@@ -87,7 +87,7 @@ fun LanguagePickerDialog(
             modifier = Modifier.fillMaxWidth(),
             state = listState,
             verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            fadeTop = false
+            pinnedFirstRow = true
         ) {
             // Kept while the field is closed, so its share of the spacing makes the gap under
             // the header

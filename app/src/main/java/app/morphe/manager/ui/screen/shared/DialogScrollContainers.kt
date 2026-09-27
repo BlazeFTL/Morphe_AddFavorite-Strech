@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
  * A dialog's lazy list, fading at whichever end has more to show, with a [ListScrollbar] and a
  * [ScrollToTopButton] set out at the dialog's true edge rather than its content inset.
  *
- * @param fadeTop False for a list whose first row sticks to its top, see [verticalScrollFade].
+ * @param pinnedFirstRow Whether the first row sticks to the top, see [verticalScrollFade].
  */
 @Composable
 fun DialogLazyList(
@@ -29,7 +29,7 @@ fun DialogLazyList(
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
-    fadeTop: Boolean = true,
+    pinnedFirstRow: Boolean = false,
     userScrollEnabled: Boolean = true,
     content: LazyListScope.() -> Unit
 ) {
@@ -40,7 +40,7 @@ fun DialogLazyList(
             state = state,
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScrollFade(state, fadeTop = fadeTop),
+                .verticalScrollFade(state, pinnedFirstRow = pinnedFirstRow),
             contentPadding = contentPadding,
             verticalArrangement = verticalArrangement,
             userScrollEnabled = userScrollEnabled,

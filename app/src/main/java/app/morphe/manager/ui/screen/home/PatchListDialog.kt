@@ -206,7 +206,7 @@ internal fun PatchListDialog(
                     modifier = Modifier.fillMaxSize(),
                     state = listState,
                     verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-                    fadeTop = false
+                    pinnedFirstRow = true
                 ) {
                     // A row of the list rather than a field above it, so the rows below ease into
                     // place as it comes and goes. The row stays while the field is closed, and its

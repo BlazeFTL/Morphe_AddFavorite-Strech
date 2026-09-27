@@ -915,7 +915,7 @@ private fun ApkManagementDialogContent(
         DialogLazyList(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            fadeTop = false
+            pinnedFirstRow = true
         ) {
             // Kept while the field is closed, so its share of the spacing makes the gap under
             // the header

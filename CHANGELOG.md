@@ -1,3 +1,15 @@
+# [1.33.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.6...v1.33.0-dev.7) (2026-09-27)
+
+
+### Bug Fixes
+
+* Drop the white plate behind icon pack icons on One UI ([4950240](https://github.com/MorpheApp/morphe-manager/commit/49502406613fabbdf17d177c6f3f4ccb8bd2a253))
+
+
+### Features
+
+* Add several patch sources at once, from pasted links or picked files ([907362f](https://github.com/MorpheApp/morphe-manager/commit/907362f4896e0f3da448fd20ac6ffdefb6059eda))
+
 # [1.33.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.5...v1.33.0-dev.6) (2026-09-27)
 
 

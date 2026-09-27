@@ -27,13 +27,14 @@ import androidx.compose.ui.unit.dp
 val EdgeFadeWidth = 24.dp
 
 /**
- * Clips to bounds and fades the start and end edges, each in step with how many pixels of content
- * it hides, so an edge only fades while something is actually cut off behind it.
+ * Clips to bounds and fades the start and end edges out to nothing, each over as many pixels as
+ * it hides, up to [length]. An edge fades only while something is cut off behind it, and a sliver
+ * cut off still fades softly rather than ending in a hard line.
  *
  * Fades the content itself rather than laying a strip of one color over it, so it works on any
  * surface, tinted ones included, which no single gradient color could match.
  *
- * @param length How far in from each edge the fade reaches.
+ * @param length The furthest in from an edge its fade reaches.
  * @param orientation Which edges fade: start and end of a row, or top and bottom of a column.
  * @param startInset How far in from the start edge its fade begins, in pixels, leaving what lies
  *   before it as drawn. For content pinned over the start, which stays whole while the rest
@@ -58,12 +59,12 @@ fun Modifier.edgeFade(
         drawContent()
         val inset = startInset().coerceAtLeast(0f)
         val extent = (if (orientation == Orientation.Horizontal) size.width else size.height) - inset
-        val fadeLength = length.toPx().coerceAtMost(extent / 2)
-        if (fadeLength <= 0f) return@drawWithContent
+        val maxLength = length.toPx().coerceAtMost(extent / 2)
+        if (maxLength <= 0f) return@drawWithContent
         // A row starts on the right in a right-to-left layout, a column always at the top
         val startIsFirst = orientation == Orientation.Vertical || layoutDirection == LayoutDirection.Ltr
-        fadeEdge(orientation, atFirst = startIsFirst, strength = hiddenAtStart() / fadeLength, length = fadeLength, inset = inset)
-        fadeEdge(orientation, atFirst = !startIsFirst, strength = hiddenAtEnd() / fadeLength, length = fadeLength)
+        fadeEdge(orientation, atFirst = startIsFirst, length = hiddenAtStart().coerceAtMost(maxLength), inset = inset)
+        fadeEdge(orientation, atFirst = !startIsFirst, length = hiddenAtEnd().coerceAtMost(maxLength))
     }
 
 /** [edgeFade] for a row that scrolls sideways, fading whichever end [scrollState] has more past. */
@@ -119,21 +120,22 @@ private fun Modifier.scrollFade(scrollState: ScrollState, length: Dp, orientatio
     orientation = orientation
 )
 
+// Masks the fade draws with, kept rather than built on every frame an edge fades
+private val FadeInMask = listOf(Color.Transparent, Color.Black)
+private val FadeOutMask = listOf(Color.Black, Color.Transparent)
+
 /**
- * Fades one edge: the left or top one when [atFirst], the right or bottom one otherwise, starting
- * [inset] in from it.
+ * Fades one edge out to nothing over [length]: the left or top one when [atFirst], the right or
+ * bottom one otherwise, starting [inset] in from it.
  */
 private fun DrawScope.fadeEdge(
     orientation: Orientation,
     atFirst: Boolean,
-    strength: Float,
     length: Float,
     inset: Float = 0f
 ) {
-    val fraction = strength.coerceIn(0f, 1f)
-    if (fraction == 0f) return
-    val edge = Color.Black.copy(alpha = 1f - fraction)
-    val colors = if (atFirst) listOf(edge, Color.Black) else listOf(Color.Black, edge)
+    if (length <= 0f) return
+    val colors = if (atFirst) FadeInMask else FadeOutMask
 
     if (orientation == Orientation.Horizontal) {
         val left = if (atFirst) inset else size.width - length - inset

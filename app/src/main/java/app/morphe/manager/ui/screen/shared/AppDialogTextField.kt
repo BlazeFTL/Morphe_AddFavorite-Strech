@@ -110,8 +110,7 @@ fun AppDialogTextField(
                                     stringResource(R.string.settings_system_hide_password_field)
                                 } else {
                                     stringResource(R.string.settings_system_show_password_field)
-                                },
-                                tint = textColor.copy(alpha = 0.7f)
+                                }
                             )
                         }
                     }
@@ -124,8 +123,7 @@ fun AppDialogTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Clear,
-                                contentDescription = stringResource(R.string.clear),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.clear)
                             )
                         }
                     }
@@ -138,8 +136,7 @@ fun AppDialogTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.FolderOpen,
-                                contentDescription = stringResource(R.string.select_folder),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.select_folder)
                             )
                         }
                     }
@@ -152,8 +149,7 @@ fun AppDialogTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Outlined.InsertDriveFile,
-                                contentDescription = stringResource(R.string.select_file),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.select_file)
                             )
                         }
                     }
@@ -362,8 +358,7 @@ fun AppDialogDropdownTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.FolderOpen,
-                                contentDescription = stringResource(R.string.select_folder),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.select_folder)
                             )
                         }
                     }
@@ -376,8 +371,7 @@ fun AppDialogDropdownTextField(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Clear,
-                                contentDescription = stringResource(R.string.clear),
-                                tint = textColor.copy(alpha = 0.7f)
+                                contentDescription = stringResource(R.string.clear)
                             )
                         }
                     }
@@ -402,8 +396,7 @@ fun AppDialogDropdownTextField(
                                 Icons.Outlined.ExpandLess
                             else
                                 Icons.Outlined.ExpandMore,
-                            contentDescription = null,
-                            tint = textColor.copy(alpha = 0.7f)
+                            contentDescription = null
                         )
                     }
                 }

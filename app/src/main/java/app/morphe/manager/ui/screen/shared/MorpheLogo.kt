@@ -18,7 +18,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.graphics.createBitmap
 import app.morphe.manager.R
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 /**
  * The Morphe launcher logo in its own colors, for the white circle Morphe itself is shown in: the

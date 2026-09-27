@@ -36,9 +36,6 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.navigation.compose)
 
-    // Accompanist
-    implementation(libs.accompanist.drawablepainter)
-
     // Placeholder
     implementation(libs.placeholder.material3)
 

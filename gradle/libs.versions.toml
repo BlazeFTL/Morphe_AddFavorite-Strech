@@ -1,6 +1,5 @@
 [versions]
 about-libraries = "15.2.0"
-accompanist = "0.37.3"
 activity = "1.13.0"
 android-gradle-plugin = "9.4.1"
 app-icon-loader-coil = "1.5.0"
@@ -69,9 +68,6 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 # Coil
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-appiconloader = { group = "me.zhanghai.android.appiconloader", name = "appiconloader-coil", version.ref = "app-icon-loader-coil" }
-
-# Accompanist
-accompanist-drawablepainter = { group = "com.google.accompanist", name = "accompanist-drawablepainter", version.ref = "accompanist" }
 
 # Placeholder
 placeholder-material3 = { group = "io.github.fornewid", name = "placeholder-material3", version.ref = "placeholder"}

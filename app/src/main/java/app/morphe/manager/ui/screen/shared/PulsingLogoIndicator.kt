@@ -25,7 +25,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
 /**
  * Branded loading animation that pulses the Morphe logo icon.

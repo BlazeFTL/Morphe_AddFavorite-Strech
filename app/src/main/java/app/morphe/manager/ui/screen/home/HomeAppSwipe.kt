@@ -39,6 +39,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.SelectableCard
+import app.morphe.manager.ui.screen.shared.appAccentContent
+import app.morphe.manager.ui.screen.shared.rememberAppColor
+import app.morphe.manager.ui.screen.shared.usableAppAccent
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.startToEndGradient
 import kotlinx.coroutines.delay
@@ -52,6 +55,32 @@ internal data class SwipeActionConfig(
     val containerColor: Color,
     val contentColor: Color
 )
+
+/**
+ * Swipe action opening an app's patches, in the app's own color where its sources declare one, as
+ * its card and dialogs wear it, or the theme's where they do not.
+ */
+@Composable
+internal fun rememberPatchesSwipeAction(packageName: String): SwipeActionConfig {
+    val label = stringResource(R.string.patches)
+    val accent = usableAppAccent(rememberAppColor(packageName))
+    val container = accent ?: MaterialTheme.colorScheme.primaryContainer
+    val content = if (accent != null) appAccentContent(container) else MaterialTheme.colorScheme.onPrimaryContainer
+    return remember(label, container, content) {
+        SwipeActionConfig(icon = Icons.Outlined.Extension, label = label, containerColor = container, contentColor = content)
+    }
+}
+
+/** Swipe action bringing a hidden app back onto the list. */
+@Composable
+internal fun rememberUnhideSwipeAction(): SwipeActionConfig {
+    val label = stringResource(R.string.unhide)
+    val container = MaterialTheme.colorScheme.tertiaryContainer
+    val content = MaterialTheme.colorScheme.onTertiaryContainer
+    return remember(label, container, content) {
+        SwipeActionConfig(icon = Icons.Outlined.Visibility, label = label, containerColor = container, contentColor = content)
+    }
+}
 
 /**
  * Semi-transparent background that reveals contextual action icons as the user drags the card.
@@ -295,8 +324,6 @@ internal fun DynamicAppCard(
     val moveDownLabel = stringResource(R.string.accessibility_move_down)
     val errorContainer = MaterialTheme.colorScheme.errorContainer
     val onErrorContainer = MaterialTheme.colorScheme.onErrorContainer
-    val primaryContainer = MaterialTheme.colorScheme.primaryContainer
-    val onPrimaryContainer = MaterialTheme.colorScheme.onPrimaryContainer
 
     val startConfig = remember(hideLabel, errorContainer, onErrorContainer) {
         SwipeActionConfig(
@@ -306,14 +333,7 @@ internal fun DynamicAppCard(
             contentColor = onErrorContainer
         )
     }
-    val endConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
-        SwipeActionConfig(
-            icon = Icons.Outlined.Extension,
-            label = patchesLabel,
-            containerColor = primaryContainer,
-            contentColor = onPrimaryContainer
-        )
-    }
+    val endConfig = rememberPatchesSwipeAction(item.packageName)
 
     Box(modifier = modifier.fillMaxWidth().semantics {
         customActions = buildList {
@@ -431,29 +451,8 @@ internal fun HiddenSearchAppCard(
     val actionThresholdPx = with(density) { 90.dp.toPx() }
     val offsetX = remember { Animatable(0f) }
 
-    val patchesLabel = stringResource(R.string.patches)
-    val unhideLabel = stringResource(R.string.unhide)
-    val primaryContainer = MaterialTheme.colorScheme.primaryContainer
-    val onPrimaryContainer = MaterialTheme.colorScheme.onPrimaryContainer
-    val tertiaryContainer = MaterialTheme.colorScheme.tertiaryContainer
-    val onTertiaryContainer = MaterialTheme.colorScheme.onTertiaryContainer
-
-    val startConfig = remember(unhideLabel, tertiaryContainer, onTertiaryContainer) {
-        SwipeActionConfig(
-            icon = Icons.Outlined.Visibility,
-            label = unhideLabel,
-            containerColor = tertiaryContainer,
-            contentColor = onTertiaryContainer
-        )
-    }
-    val endConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
-        SwipeActionConfig(
-            icon = Icons.Outlined.Extension,
-            label = patchesLabel,
-            containerColor = primaryContainer,
-            contentColor = onPrimaryContainer
-        )
-    }
+    val startConfig = rememberUnhideSwipeAction()
+    val endConfig = rememberPatchesSwipeAction(item.packageName)
 
     Box(
         modifier = modifier

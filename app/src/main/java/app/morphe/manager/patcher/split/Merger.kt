@@ -77,8 +77,7 @@ internal object Merger {
         apkDir: Path,
         outputApk: File,
         skipModules: Set<String> = emptySet(),
-        onEvent: ((SplitPreparationEvent) -> Unit)? = null,
-        sortApkEntries: Boolean = false
+        onEvent: ((SplitPreparationEvent) -> Unit)? = null
     ) {
         val closeables = mutableSetOf<Closeable>()
         try {
@@ -118,15 +117,6 @@ internal object Merger {
                         setLoadDefaultFramework(false)
                     }
                     closeables.add(mergedModule)
-
-                    if (sortApkEntries && mergedModule.hasTableBlock()) {
-                        val table = mergedModule.tableBlock
-                        table.sortPackages()
-                        table.refresh()
-                    }
-                    if (sortApkEntries) {
-                        mergedModule.zipEntryMap.autoSortApkFiles()
-                    }
                     mergedModule
                 } catch (error: Throwable) {
                     val cause = error.cause

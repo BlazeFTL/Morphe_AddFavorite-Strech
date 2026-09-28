@@ -66,8 +66,7 @@ object SplitApkPreparer {
         workspace: File,
         logger: Logger = DefaultLogger,
         skipUnneededSplits: Boolean = false,
-        onEvent: ((SplitPreparationEvent) -> Unit)? = null,
-        sortMergedApkEntries: Boolean = false
+        onEvent: ((SplitPreparationEvent) -> Unit)? = null
     ): PreparationResult {
         if (!isSplitArchive(source)) {
             return PreparationResult(source, merged = false)
@@ -107,8 +106,7 @@ object SplitApkPreparer {
                 apkDir = modulesDir.toPath(),
                 outputApk = mergedApk,
                 skipModules = skippedModules,
-                onEvent = onEvent,
-                sortApkEntries = sortMergedApkEntries
+                onEvent = onEvent
             )
 
             onEvent?.invoke(SplitPreparationEvent.Finalizing)

@@ -669,10 +669,12 @@ private fun InstallActionButton(
             }
         },
         enabled = !isInstalling,
-        modifier = modifier.height(56.dp),
+        // A floor rather than a fixed height, so a large font scale or a long translation that
+        // wraps grows the button instead of cutting its label off
+        modifier = modifier.heightIn(min = 56.dp),
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         colors = buttonColors,
-        contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+        contentPadding = PaddingValues(horizontal = 32.dp, vertical = 12.dp)
     ) {
         if (isInstalling) {
             CircularProgressIndicator(
@@ -687,7 +689,8 @@ private fun InstallActionButton(
                     else R.string.installing_ellipsis
                 ),
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
             )
         } else {
             ThemedIcon(
@@ -710,7 +713,8 @@ private fun InstallActionButton(
                     }
                 ),
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
             )
         }
     }

@@ -40,7 +40,7 @@ object AccentAlpha {
     /** A header band, which spans the dialog and only has to hint at the color. */
     const val BAND = 0.15f
 
-    /** A group header or a picked card, over [BAND] since at that alpha a larger area reads as a shade. */
+    /** A group header, over [BAND] since at that alpha a larger area reads as a shade. */
     const val CARD = 0.18f
 
     /** A control or panel a step over the surface it sits on, such as a badge, so it stands out of it. */
@@ -61,7 +61,7 @@ object AccentAlpha {
 fun appAccentFill(accentColor: Color?): Color =
     appAccentTint(accentColor, alpha = AccentAlpha.BAND, neutral = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f))
 
-/** Fill of a group header or a picked card in an app's own color, or null without one. Other cards take [cardFill]. */
+/** Fill of a group header in an app's own color, or null without one. Cards take [cardFill]. */
 @Composable
 fun appAccentCardFill(accentColor: Color?): Color? = usableAppAccent(accentColor)?.copy(alpha = AccentAlpha.CARD)
 

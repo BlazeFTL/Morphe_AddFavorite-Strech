@@ -45,10 +45,8 @@ import androidx.compose.ui.unit.dp
  * @param role            What the card is announced as. A list where several rows can be on at
  *                        once passes [Role.Checkbox] along with a leading indicator to match,
  *                        since a screen reader offers to turn a checkbox off and a radio never.
- * @param accentColor     Color of what the card stands for, such as a source's icon, or the
- *                        surrounding one by default, see [LocalAccent]. The card takes it on
- *                        while selected and stays neutral while not, the way a switched off
- *                        source does in the source list.
+ * @param accentColor     Color of what the card stands for, or the surrounding one, see [LocalAccent].
+ *                        A selected card wears it on its edge and indicator, never as a fill.
  */
 @Composable
 fun RadioSelectionCard(
@@ -67,16 +65,11 @@ fun RadioSelectionCard(
 ) {
     val colors = MaterialTheme.colorScheme
     val accent = usableAppAccent(accentColor)?.takeIf { selected && enabled }
-    val targetFill = appAccentCardFill(accent) ?: cardFill()
+    val fill = cardFill()
     val borderColor by animateColorAsState(
         targetValue = if (accent != null) appAccentBorder(accent) else selectionBorderColor(selected, enabled),
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "radio_card_border"
-    )
-    val cardColor by animateColorAsState(
-        targetValue = targetFill,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "radio_card_fill"
     )
     // The footer eases out with what it last showed rather than going blank as it leaves
     var shownFooter by remember { mutableStateOf(footerContent) }
@@ -96,7 +89,7 @@ fun RadioSelectionCard(
         enabled = enabled,
         showBorder = true,
         borderColor = borderColor,
-        color = cardColor,
+        color = fill,
         modifier = modifier.semantics {
             this.role = role
             this.selected = selected
@@ -104,8 +97,8 @@ fun RadioSelectionCard(
             if (stateDescription != null) this.stateDescription = stateDescription
         }
     ) {
-        // Passed on, so the badges on a picked card take its color as the card does
-        ProvideCardAccent(accent, targetFill) {
+        // Passed on, so the badges on a picked card take its color as its edge does
+        ProvideCardAccent(accent, fill) {
             Column {
                 Row(
                     modifier = Modifier

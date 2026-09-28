@@ -1420,7 +1420,10 @@ private fun LoadingOrIcon(isLoading: Boolean, action: ActionItem, tint: Color) {
     }
 }
 
-/** Shared Surface shell for all action buttons. Color computation lives in callers. */
+/**
+ * Shared Surface shell for all action buttons. Callers pick the colors of a button in reach, and
+ * any button out of reach, primary included, takes the same muted look.
+ */
 @Composable
 private fun ActionButton(
     action: ActionItem,
@@ -1431,6 +1434,11 @@ private fun ActionButton(
     vertical: Boolean = false
 ) {
     val isEnabled = action.enabled && !action.isLoading
+    // A button still loading is busy rather than unavailable, so only a disabled one is muted
+    val colors = MaterialTheme.colorScheme
+    val container = if (action.enabled) containerColor else colors.surfaceVariant.copy(alpha = 0.4f)
+    val content = if (action.enabled) contentColor else colors.onSurface.copy(alpha = 0.35f)
+    val border = if (action.enabled) borderColor else colors.outlineVariant.copy(alpha = 0.2f)
     val interactionSource = remember { MutableInteractionSource() }
 
     Surface(
@@ -1444,9 +1452,9 @@ private fun ActionButton(
                 label = "info_action_press_scale"
             ),
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
-        color = containerColor,
-        contentColor = contentColor,
-        border = BorderStroke(1.dp, borderColor),
+        color = container,
+        contentColor = content,
+        border = BorderStroke(1.dp, border),
         interactionSource = interactionSource
     ) {
         if (vertical) {
@@ -1457,7 +1465,7 @@ private fun ActionButton(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                LoadingOrIcon(action.isLoading, action, contentColor)
+                LoadingOrIcon(action.isLoading, action, content)
                 Spacer(Modifier.height(3.dp))
                 Text(
                     text = action.text,
@@ -1475,7 +1483,7 @@ private fun ActionButton(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                LoadingOrIcon(action.isLoading, action, contentColor)
+                LoadingOrIcon(action.isLoading, action, content)
                 Spacer(Modifier.width(Defaults.ContentPaddingSmall))
                 Text(
                     text = action.text,
@@ -1527,18 +1535,15 @@ private fun TileActionButton(
         action = action,
         containerColor = when {
             action.isDestructive -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.45f)
-            !action.enabled -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
             else -> accentFill ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
         },
         contentColor = when {
             action.isDestructive -> MaterialTheme.colorScheme.error
-            !action.enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f)
             accentFill != null -> appAccentContent(accentFill)
             else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
         },
         borderColor = when {
             action.isDestructive -> MaterialTheme.colorScheme.error.copy(alpha = 0.35f)
-            !action.enabled -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.2f)
             else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
         },
         modifier = modifier,

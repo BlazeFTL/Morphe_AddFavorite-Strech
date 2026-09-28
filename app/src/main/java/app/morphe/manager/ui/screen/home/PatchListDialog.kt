@@ -409,7 +409,7 @@ internal fun PatchItemCard(
     val versions = compatible?.versions.orEmpty().takeIf { it != commonVersions }.orEmpty().toList()
     val isExpertOnly = !patch.include && onExpertBadgeClick != null
 
-    val cardColor = appCardFill()
+    val cardColor = cardFill()
 
     SettingsItemCard(
         onClick = if (options.isNotEmpty()) {

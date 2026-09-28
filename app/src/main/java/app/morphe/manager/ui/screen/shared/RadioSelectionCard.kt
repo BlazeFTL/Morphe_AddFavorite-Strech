@@ -19,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -68,7 +67,7 @@ fun RadioSelectionCard(
 ) {
     val colors = MaterialTheme.colorScheme
     val accent = usableAppAccent(accentColor)?.takeIf { selected && enabled }
-    val targetFill = appAccentCardFill(accent) ?: colors.surfaceColorAtElevation(3.dp)
+    val targetFill = appAccentCardFill(accent) ?: cardFill()
     val borderColor by animateColorAsState(
         targetValue = if (accent != null) appAccentBorder(accent) else selectionBorderColor(selected, enabled),
         animationSpec = tween(Defaults.ANIMATION_DURATION),

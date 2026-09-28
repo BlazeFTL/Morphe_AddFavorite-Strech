@@ -245,10 +245,16 @@ fun StatusBadgeRow(
 private fun SemanticTone.cardPrimary(): Color? =
     if (this == SemanticTone.Primary) LocalAccent.current else null
 
+/** Whether this is a neutral badge on a card in an app's or a source's own color, see [neutralBadgeFill]. */
 @Composable
-private fun SemanticTone.badgeContainer(): Color =
-    cardPrimary()?.copy(alpha = AccentAlpha.LEAD) ?: container
+private fun SemanticTone.isCardNeutral(): Boolean = this == SemanticTone.Neutral && LocalAccent.current != null
+
+@Composable
+private fun SemanticTone.badgeContainer(): Color = when {
+    isCardNeutral() -> neutralBadgeFill()
+    else -> cardPrimary()?.copy(alpha = AccentAlpha.LEAD) ?: container
+}
 
 @Composable
 private fun SemanticTone.badgeContent(): Color =
-    if (cardPrimary() != null) MaterialTheme.colorScheme.onBackground else content
+    if (cardPrimary() != null || isCardNeutral()) MaterialTheme.colorScheme.onBackground else content

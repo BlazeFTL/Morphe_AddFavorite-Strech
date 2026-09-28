@@ -305,5 +305,5 @@ private fun ActionTone.accentColor(): Color = when (this) {
     ActionTone.Primary -> MaterialTheme.colorScheme.primary
     ActionTone.Secondary -> MaterialTheme.colorScheme.secondary
     ActionTone.Tertiary -> MaterialTheme.colorScheme.tertiary
-    ActionTone.Destructive -> MaterialTheme.colorScheme.error
+    ActionTone.Destructive -> destructiveColor()
 }

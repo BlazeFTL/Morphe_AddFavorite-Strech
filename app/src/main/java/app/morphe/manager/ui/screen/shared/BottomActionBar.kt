@@ -326,10 +326,11 @@ private fun BottomActionTone.colors(): BottomActionColors {
             border = GlassButtonDefaults.borderColor(scheme.tertiary, selected = true)
         )
 
+        // The neutral glass with a red label and edge, see [destructiveColor]
         BottomActionTone.Destructive -> BottomActionColors(
-            container = GlassButtonDefaults.containerColor(scheme.errorContainer, selected = true),
-            content = GlassButtonDefaults.contentColor(scheme.onErrorContainer, selected = true),
-            border = GlassButtonDefaults.borderColor(scheme.error, selected = true)
+            container = GlassButtonDefaults.containerColor(),
+            content = GlassButtonDefaults.contentColor(destructiveColor(), selected = false),
+            border = GlassButtonDefaults.borderColor(destructiveColor(), selected = true)
         )
     }
 }

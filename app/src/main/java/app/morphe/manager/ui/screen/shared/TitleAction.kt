@@ -30,7 +30,7 @@ enum class TitleActionStyle {
      * that keeps its header out of the primary palette, so they sit beside its toggles as one row
      */
     Neutral,
-    /** Tonal circle in the error palette. Use for bulk destructive actions */
+    /** Neutral tonal circle with an icon in the error color. Use for bulk destructive actions */
     Destructive,
     /** Neutral tonal circle that fills with the primary palette while active */
     Toggle
@@ -66,8 +66,8 @@ fun TitleAction(
     val containerColor = when (style) {
         TitleActionStyle.Plain -> null
         TitleActionStyle.Accent -> accent?.copy(alpha = AccentAlpha.LEAD) ?: MaterialTheme.colorScheme.primaryContainer
-        // Kept in the error palette on any header, where the red warns rather than decorates
-        TitleActionStyle.Destructive -> MaterialTheme.colorScheme.errorContainer
+        // Neutral on any header, with the red kept to the icon, where it warns rather than decorates
+        TitleActionStyle.Destructive -> MaterialTheme.colorScheme.surfaceVariant
         TitleActionStyle.Toggle -> if (active) {
             accent ?: MaterialTheme.colorScheme.primaryContainer
         } else {
@@ -99,10 +99,10 @@ fun TitleAction(
             )
         }
     } else {
-        val contentColor = if (accent == null || style == TitleActionStyle.Destructive) {
-            contentColorFor(containerColor)
-        } else {
-            appAccentContent(containerColor)
+        val contentColor = when {
+            style == TitleActionStyle.Destructive -> destructiveColor()
+            accent == null -> contentColorFor(containerColor)
+            else -> appAccentContent(containerColor)
         }
 
         FilledTonalIconButton(

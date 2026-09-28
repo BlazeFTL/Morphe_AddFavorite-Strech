@@ -110,6 +110,13 @@ object Defaults {
 }
 
 /**
+ * Fill of a plain card, which cards standing for an app or a source take too, leaving their color to
+ * the edge and controls, since filled ones read as a wash of color on a colored dialog.
+ */
+@Composable
+fun cardFill(): Color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
+
+/**
  * Elevated card with proper Material 3 theming.
  * Base card for all other card types.
  */
@@ -122,7 +129,7 @@ fun SurfaceCard(
     cornerRadius: Dp = Defaults.CardCornerRadius,
     showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
-    color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+    color: Color = cardFill(),
     content: @Composable () -> Unit
 ) {
     Surface(
@@ -437,7 +444,7 @@ fun SettingsItemCard(
     enabled: Boolean = true,
     showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
-    color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+    color: Color = cardFill(),
     content: @Composable () -> Unit
 ) {
     SurfaceCard(
@@ -574,7 +581,7 @@ fun SectionCard(
     accentColor: Color? = null,
     content: @Composable () -> Unit
 ) {
-    val fill = appCardFill()
+    val fill = cardFill()
     SurfaceCard(
         onClick = onClick,
         elevation = Defaults.CardElevation,

@@ -54,14 +54,11 @@ import kotlin.time.Duration.Companion.milliseconds
 
 private val PillShape = Defaults.PillShape
 
-/** Alpha of the error-colored edge a destructive action carries, pill or tile alike. */
-const val DESTRUCTIVE_BORDER_ALPHA = 0.35f
-
 /** Edge of a destructive pill, faded along with the pill while it is out of reach. */
 @Composable
 private fun destructiveBorder(enabled: Boolean): BorderStroke {
-    val alpha = if (enabled) DESTRUCTIVE_BORDER_ALPHA else DESTRUCTIVE_BORDER_ALPHA * Defaults.DISABLED_ALPHA
-    return BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = alpha))
+    val edge = destructiveEdgeColor()
+    return BorderStroke(1.dp, if (enabled) edge else edge.copy(alpha = edge.alpha * Defaults.DISABLED_ALPHA))
 }
 
 /** Inset between a pill's edge and any text it carries. */
@@ -143,12 +140,9 @@ object ActionPillColors {
         MaterialTheme.colorScheme.onTertiaryContainer
     )
 
-    /** Removes, discards or hides something. */
+    /** Removes, discards or hides something, see [destructiveColor]. */
     @Composable
-    fun destructive(): IconButtonColors = tonal(
-        MaterialTheme.colorScheme.errorContainer,
-        MaterialTheme.colorScheme.onErrorContainer
-    )
+    fun destructive(): IconButtonColors = tonal(destructiveFill(), destructiveColor())
 
     @Composable
     private fun tonal(container: Color, content: Color): IconButtonColors =
@@ -158,8 +152,8 @@ object ActionPillColors {
 /**
  * Pill-shaped action button with an icon, optional text label, and optional long-press tooltip.
  *
- * A [destructive] pill is drawn in the error palette and edged in the error color, as the app
- * details edge theirs, so it stays apart on a card whose own color is a red.
+ * A [destructive] pill draws its content and edge in red over a veil, see [destructiveFill], so it
+ * stays apart on a card whose own color is a red.
  *
  * A non-null [confirmation] answers every tap in place: the pill widens to show it in place of
  * its own content, then settles back. Text too long for the room it gets scrolls through once.
@@ -195,12 +189,12 @@ fun ActionPillButton(
     // would grey out the very confirmation of it, so the pill keeps its colors while one shows
     val looksEnabled = enabled || message != null
 
-    // These fills are tinted translucent, so the palette's own pairing describes a background
-    // that never gets drawn and the content has to be checked against the real one
+    // Translucent fills never match the palette's pairing, so content is checked against the real
+    // background; a destructive red is picked for its veil, and the check would weigh it as dark
     val surface = MaterialTheme.colorScheme.surface
     val targetContainerColor = if (looksEnabled) colors.containerColor else colors.disabledContainerColor
     val targetContentColor = (if (looksEnabled) colors.contentColor else colors.disabledContentColor)
-        .readableOn(targetContainerColor, surface)
+        .let { if (destructive) it else it.readableOn(targetContainerColor, surface) }
     val containerColor by animateColorAsState(targetContainerColor, label = "action_pill_container")
     val contentColor by animateColorAsState(targetContentColor, label = "action_pill_content")
 

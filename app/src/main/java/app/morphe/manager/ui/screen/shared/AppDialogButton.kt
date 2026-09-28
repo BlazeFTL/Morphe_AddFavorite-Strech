@@ -28,20 +28,6 @@ private val DialogButtonHorizontalPadding = 16.dp
 private val DialogButtonVerticalPadding = 14.dp
 private val DialogButtonIconSpacing = 8.dp
 
-/** Destructive content color for dark dialog backgrounds. */
-private val DestructiveColorDark = Color(0xFFFF6B6B)
-
-/** Destructive content color for light dialog backgrounds. */
-private val DestructiveColorLight = Color(0xFFD32F2F)
-
-/**
- * Destructive content color readable on the current dialog background.
- * Shared with dialog content that marks a destructive choice outside a button.
- */
-@Composable
-fun dialogDestructiveColor(): Color =
-    if (LocalDialogTextColor.current.isDarkBackground()) DestructiveColorLight else DestructiveColorDark
-
 /** Resolved colors for a dialog button variant. */
 private data class DialogButtonColors(
     val containerColor: Color,
@@ -63,10 +49,11 @@ private fun resolveButtonColors(isDestructive: Boolean, filled: Boolean): Dialog
     val isDark = !textColor.isDarkBackground()
 
     return if (isDestructive) {
+        // A veil, with the red on the label and edge alone, see Destructive.kt
         DialogButtonColors(
-            containerColor = if (filled) Color.Red.copy(alpha = if (isDark) 0.25f else 0.2f) else Color.Transparent,
+            containerColor = if (filled) destructiveFill(textColor) else Color.Transparent,
             contentColor = dialogDestructiveColor(),
-            borderColor = Color.Red.copy(alpha = if (isDark) 0.4f else 0.35f)
+            borderColor = destructiveEdgeColor(dialogDestructiveColor())
         )
     } else {
         DialogButtonColors(

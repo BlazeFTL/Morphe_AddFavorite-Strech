@@ -657,7 +657,7 @@ private fun BundleManagementCard(
     val cardColor = when {
         isBlocked -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.15f)
         isUnavailable -> SemanticTone.Warning.container.copy(alpha = 0.15f)
-        else -> appCardFill()
+        else -> cardFill()
     }
     val animatedColor by animateColorAsState(cardColor, label = "bundle_card_color")
 

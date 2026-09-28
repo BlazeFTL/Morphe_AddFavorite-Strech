@@ -1042,7 +1042,7 @@ private fun InfoSection(
         cornerRadius = Defaults.CardCornerRadius,
         showBorder = true,
         borderColor = appAccentBorder(accentColor),
-        color = appCardFill(),
+        color = cardFill(),
         modifier = modifier
     ) {
         Column {
@@ -1516,19 +1516,19 @@ private fun TileActionButton(
     modifier: Modifier = Modifier,
     horizontal: Boolean = false
 ) {
-    // Neutral, so the primary action is the one tile in the app's color
+    // Neutral, so the primary action is the one tile in a color
     ActionButton(
         action = action,
         containerColor = when {
-            action.isDestructive -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.45f)
+            action.isDestructive -> destructiveFill()
             else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
         },
         contentColor = when {
-            action.isDestructive -> MaterialTheme.colorScheme.error
+            action.isDestructive -> destructiveColor()
             else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
         },
         borderColor = when {
-            action.isDestructive -> MaterialTheme.colorScheme.error.copy(alpha = DESTRUCTIVE_BORDER_ALPHA)
+            action.isDestructive -> destructiveEdgeColor()
             else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
         },
         modifier = modifier,

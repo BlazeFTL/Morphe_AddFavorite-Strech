@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -14,7 +13,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
@@ -46,7 +44,7 @@ object AccentAlpha {
     const val LEAD = 0.3f
 
     /**
-     * A card's edge. The card's fill stays neutral, see [appCardFill], so the edge is where the color
+     * A card's edge. The card's fill stays neutral, see [cardFill], so the edge is where the color
      * shows, and has to hold even a dark icon color apart from a black background.
      */
     const val BORDER = 0.6f
@@ -60,21 +58,10 @@ object AccentAlpha {
 fun appAccentFill(accentColor: Color?): Color =
     appAccentTint(accentColor, alpha = AccentAlpha.BAND, neutral = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f))
 
-/**
- * Fill of a group header or a picked card in an app's or a source's own color, or null where
- * [usableAppAccent] finds none. A card that merely stands for an app takes [appCardFill] instead.
- */
+/** Fill of a group header or a picked card in an app's own color, or null without one. Other cards take [cardFill]. */
 @Composable
 fun appAccentCardFill(accentColor: Color?): Color? = usableAppAccent(accentColor)?.copy(alpha = AccentAlpha.CARD)
 
-/**
- * Fill of a card that stands for an app or a source. Neutral, with the color left to its edge and
- * the controls on it: filled cards stacked on a colored dialog read as one wash of color, and a
- * list of sources as patches of unrelated ones.
- */
-@Composable
-fun appCardFill(): Color =
-    ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
 
 /** Border of a card that carries an app's own color, see [AccentAlpha.BORDER]. */
 @Composable
@@ -124,7 +111,7 @@ fun AppAccentBadge(
         icon = icon,
         tone = tone,
         containerColor = if (veiled) {
-            appAccentTint(accentColor, alpha = AccentAlpha.STEP, neutral = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f))
+            appAccentTint(accentColor, alpha = AccentAlpha.STEP, neutral = neutralBadgeFill())
         } else {
             tone.container
         },
@@ -132,6 +119,13 @@ fun AppAccentBadge(
         onClick = onClick
     )
 }
+
+/**
+ * Fill of a neutral badge beside badges in an app's own color: the same veil over the surface in
+ * gray, where a solid fill would outweigh the colored ones.
+ */
+@Composable
+fun neutralBadgeFill(): Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f)
 
 /**
  * Content color over [fill], a tint of an app's color: the header's text over a see-through tint,

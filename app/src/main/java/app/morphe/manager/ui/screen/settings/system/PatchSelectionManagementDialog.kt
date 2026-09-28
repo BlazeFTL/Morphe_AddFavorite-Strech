@@ -552,7 +552,8 @@ private fun PackageSelectionItem(
         isSelected = isSelected,
         isSelectionMode = isSelectionMode
     ) {
-        SectionCard {
+        // Worn the way the home screen wears it, so the app reads as itself here too
+        SectionCard(accentColor = rememberAppColor(packageName)) {
             Column {
                 // Header with app icon
                 Row(
@@ -733,14 +734,14 @@ private fun BundleSelectionItem(
     ) {
         SettingsDivider(fullWidth = true)
 
-        // Bundle info card
-        BundleInfoCard(
-            modifier = Modifier.fillMaxWidth(),
-            icon = Icons.Outlined.Extension,
-            title = displayName,
-            value = patchCountText,
-            onClick = onShowDetails
-        )
+        InfoPanel {
+            InfoRow(
+                icon = Icons.Outlined.Extension,
+                label = displayName,
+                value = patchCountText,
+                onClick = onShowDetails
+            )
+        }
 
         ActionPillRow {
             val copyLabel = stringResource(R.string.copy)
@@ -778,7 +779,7 @@ private fun BundleSelectionItem(
                 icon = Icons.Outlined.Restore,
                 contentDescription = resetLabel,
                 tooltip = resetLabel,
-                colors = ActionPillColors.destructive()
+                destructive = true
             )
         }
     }

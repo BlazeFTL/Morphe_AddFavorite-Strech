@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.util.toHsv
 import org.koin.compose.koinInject
 
 /**
@@ -59,25 +58,6 @@ internal fun rememberPatchMatcher(query: String, patches: List<PatchInfo>): (Pat
         }
     }
 }
-
-/**
- * Fill that an accent color takes on a patch card.
- *
- * The accents themselves are picked for contrast against each other, not for sitting behind
- * text, so only their hue survives: the rest is a fixed wash the card content stays readable on.
- */
-@Composable
-internal fun rememberAccentCardColor(accentColor: Color?): Color? =
-    // The hue conversion is a native call that allocates, so it must not run per frame
-    remember(accentColor) {
-        if (accentColor == null) return@remember null
-        Color.hsl(
-            hue = accentColor.toHsv().first,
-            saturation = 0.35f,
-            lightness = 0.55f,
-            alpha = 0.2f
-        )
-    }
 
 /**
  * One collapsible block of a patch list.
@@ -287,7 +267,7 @@ internal fun PatchGroupHeader(
             }
         },
         cornerRadius = Defaults.SettingsCornerRadius,
-        color = rememberAccentCardColor(accentColor),
+        color = appAccentCardFill(accentColor),
         borderColor = accentColor?.let { appAccentBorder(it) },
         modifier = modifier
     )

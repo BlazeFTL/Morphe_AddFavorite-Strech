@@ -441,6 +441,8 @@ fun AppPatchSourcesDialog(
         ) {
             items(items = rows, key = { (uid, _, _) -> uid }) { (uid, title, counts) ->
                 val (held, reaches) = counts
+                // Worn the way the source list wears it, so a source reads as the same one there
+                val accentColor = sourcesByUid[uid]?.let { rememberBundleAccent(it) }
                 val state = when (held) {
                     0 -> ToggleableState.On
                     reaches -> ToggleableState.Off
@@ -467,7 +469,8 @@ fun AppPatchSourcesDialog(
                         }
                     },
                     role = Role.Checkbox,
-                    leadingContent = { SelectionCheckIndicator(state) },
+                    leadingContent = { SelectionCheckIndicator(state, accentColor = accentColor) },
+                    accentColor = accentColor,
                     modifier = Modifier
                         .fillMaxWidth()
                         .animatedListItem(this)

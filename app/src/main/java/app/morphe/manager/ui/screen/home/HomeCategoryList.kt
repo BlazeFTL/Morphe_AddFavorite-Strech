@@ -32,6 +32,7 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
 import app.morphe.manager.ui.screen.shared.MorpheLauncherLogo
 import app.morphe.manager.ui.screen.shared.appAccentBorder
+import app.morphe.manager.ui.screen.shared.appAccentCardFill
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.RemoteAvatar
 import app.morphe.manager.util.rememberSourceAccent
@@ -312,7 +313,7 @@ internal fun HomeCategoryHeader(
                 )
             }
         },
-        color = rememberAccentCardColor(sourceAccent),
+        color = appAccentCardFill(sourceAccent),
         borderColor = sourceAccent?.let { appAccentBorder(it) },
         modifier = modifier
     )

@@ -771,7 +771,9 @@ private fun BatchItemCard(
     val hasResultActions = !editable &&
             (onInstall != null || onExport != null || onOpen != null || failed)
 
-    SectionCard(modifier = Modifier.fillMaxWidth()) {
+    // Worn the way the home screen wears it, so the app reads as itself in the queue too. Looked
+    // up by the app's own package, which a clone being rebuilt does not carry
+    SectionCard(modifier = Modifier.fillMaxWidth(), accentColor = rememberAppColor(item.packageName)) {
         Column {
             Row(
                 modifier = Modifier
@@ -943,7 +945,7 @@ private fun BatchItemCard(
                             icon = if (excluded) Icons.Outlined.AddCircleOutline else Icons.Outlined.RemoveCircleOutline,
                             contentDescription = toggleLabel,
                             tooltip = toggleLabel,
-                            colors = if (excluded) ActionPillColors.neutral() else ActionPillColors.destructive()
+                            destructive = !excluded
                         )
                     }
                 }
@@ -969,7 +971,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.ErrorOutline,
                                 contentDescription = errorLabel,
                                 tooltip = errorLabel,
-                                colors = ActionPillColors.destructive()
+                                destructive = true
                             )
                         }
 

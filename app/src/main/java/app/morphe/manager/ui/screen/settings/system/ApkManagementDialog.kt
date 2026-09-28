@@ -78,7 +78,12 @@ data class ApkItemData(
     val isInstalledOnDevice: Boolean = false,
     val abis: List<String> = emptyList(),
     /** Info of the APK the row stands for, so its icon comes from that APK without another lookup. */
-    val packageInfo: PackageInfo? = null
+    val packageInfo: PackageInfo? = null,
+    /**
+     * Package the sources know the app by, which a patched app renamed on the way no longer
+     * carries itself. Its color is looked up by this one, as the home screen does.
+     */
+    val originalPackageName: String = packageName
 )
 
 private val ApkItemData.selectionKey: String
@@ -119,7 +124,8 @@ private data class ApkItemDataWithApp(
         installType = installType,
         isInstalledOnDevice = isInstalledOnDevice,
         abis = abis,
-        packageInfo = packageInfo
+        packageInfo = packageInfo,
+        originalPackageName = installedApp.originalPackageName
     )
 }
 
@@ -780,6 +786,7 @@ private fun ApkManagementDialogContent(
         onDismissRequest = {
             if (!isExporting) onDismissRequest()
         },
+        accentColor = meta.accentColor,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -899,8 +906,7 @@ private fun ApkManagementDialogContent(
             subtitleLoading = meta.isLoading,
             search = search,
             searchLabel = stringResource(R.string.search),
-            searchEnabled = isSearchable,
-            accentColor = meta.accentColor
+            searchEnabled = isSearchable
         ) {
             TitleAction(
                 icon = Icons.Outlined.DeleteForever,
@@ -1065,7 +1071,8 @@ private fun ApkItemCard(
         isSelectionMode = selectionMode,
         checkmarkContentDescription = stringResource(R.string.selected)
     ) {
-        SectionCard {
+        // Worn the way the home screen wears it, so the app reads as itself here too
+        SectionCard(accentColor = rememberAppColor(data.originalPackageName)) {
             Column {
                 // Header with app icon
                 Row(
@@ -1171,7 +1178,7 @@ private fun ApkItemCard(
                                     icon = Icons.Outlined.DeleteForever,
                                     contentDescription = uninstallLabel,
                                     tooltip = uninstallLabel,
-                                    colors = ActionPillColors.destructive()
+                                    destructive = true
                                 )
                             } else if (onInstall != null) {
                                 val isMountType = data.installType == InstallType.MOUNT
@@ -1190,7 +1197,7 @@ private fun ApkItemCard(
                                 icon = Icons.Outlined.Delete,
                                 contentDescription = deleteLabel,
                                 tooltip = deleteLabel,
-                                colors = ActionPillColors.destructive()
+                                destructive = true
                             )
                         }
                     }

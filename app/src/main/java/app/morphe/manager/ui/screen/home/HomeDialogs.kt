@@ -1991,6 +1991,7 @@ fun SimpleBundleSelectDialog(
 ) {
     val selected = remember { mutableStateOf(candidates.firstOrNull()?.uid) }
     val rememberChoice = remember { mutableStateOf(false) }
+    val sourcesByUid = rememberSourcesByUid()
 
     AppDialog(
         onDismissRequest = onDismiss,
@@ -2019,6 +2020,10 @@ fun SimpleBundleSelectDialog(
             val recommendedVersionLabel = stringResource(R.string.home_recommended_version)
             candidates.forEach { candidate ->
                 val isSelected = selected.value == candidate.uid
+                // Drawn and colored the way the source list draws it, so the source is recognized
+                // at a glance
+                val source = sourcesByUid[candidate.uid]
+                val accentColor = source?.let { rememberBundleAccent(it) }
                 val patchCountText = pluralStringResource(
                     R.plurals.patch_count,
                     candidate.patchCount,
@@ -2047,8 +2052,12 @@ fun SimpleBundleSelectDialog(
                 RadioSelectionCard(
                     selected = isSelected,
                     onSelect = { selected.value = candidate.uid },
-                    contentDescription = cardContentDescription
+                    contentDescription = cardContentDescription,
+                    accentColor = accentColor
                 ) {
+                    if (source != null) {
+                        BundleIcon(bundle = source, modifier = Modifier.size(40.dp))
+                    }
                     Column(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -2069,20 +2078,20 @@ fun SimpleBundleSelectDialog(
                         }
                         Text(
                             text = patchCountText,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodySmall,
                             color = LocalDialogSecondaryTextColor.current
                         )
                         if (patchVersionText != null) {
                             Text(
                                 text = patchVersionText,
-                                style = MaterialTheme.typography.bodyMedium,
+                                style = MaterialTheme.typography.bodySmall,
                                 color = LocalDialogSecondaryTextColor.current
                             )
                         }
                         if (recommendedVersionText != null) {
                             Text(
                                 text = recommendedVersionText,
-                                style = MaterialTheme.typography.bodyMedium,
+                                style = MaterialTheme.typography.bodySmall,
                                 color = LocalDialogSecondaryTextColor.current
                             )
                         }

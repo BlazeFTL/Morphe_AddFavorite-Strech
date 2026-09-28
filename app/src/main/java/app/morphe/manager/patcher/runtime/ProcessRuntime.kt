@@ -346,13 +346,7 @@ class ProcessRuntime(
                     onProgress(name, state?.let { enumValueOf<State>(it) }, msg)
 
                 override fun splitProgress(eventType: String?, apkName: String?) {
-                    val event = when (eventType) {
-                        "Extracting" -> SplitPreparationEvent.Extracting
-                        "Merging" -> SplitPreparationEvent.Merging(apkName.orEmpty())
-                        "Writing" -> SplitPreparationEvent.Writing
-                        "Finalizing" -> SplitPreparationEvent.Finalizing
-                        else -> return
-                    }
+                    val event = SplitPreparationEvent.fromWire(eventType, apkName) ?: return
                     val message = event.toLocalizedString(context)
                     logger.info(message)
                     onProgress(message, State.RUNNING, null)

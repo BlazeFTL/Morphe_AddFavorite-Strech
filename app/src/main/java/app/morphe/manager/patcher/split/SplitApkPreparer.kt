@@ -34,6 +34,26 @@ sealed class SplitPreparationEvent {
     data class Merging(val apkName: String) : SplitPreparationEvent()
     data object Writing : SplitPreparationEvent()
     data object Finalizing : SplitPreparationEvent()
+
+    /** The name this event crosses the patcher process boundary under, read back by [fromWire]. */
+    val wireType: String
+        get() = when (this) {
+            Extracting -> "Extracting"
+            is Merging -> "Merging"
+            Writing -> "Writing"
+            Finalizing -> "Finalizing"
+        }
+
+    companion object {
+        /** The event sent as [wireType] and, for [Merging], the module name, or null if unknown. */
+        fun fromWire(type: String?, apkName: String?): SplitPreparationEvent? = when (type) {
+            "Extracting" -> Extracting
+            "Merging" -> Merging(apkName.orEmpty())
+            "Writing" -> Writing
+            "Finalizing" -> Finalizing
+            else -> null
+        }
+    }
 }
 
 /**

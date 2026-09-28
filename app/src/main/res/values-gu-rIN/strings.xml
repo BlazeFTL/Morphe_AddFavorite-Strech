@@ -63,7 +63,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">મૂળ APK ડાઉનલોડ કરો</string>
-    <string name="home_download_instructions_steps_title">સૂચનાઓ:</string>
     <string name="home_download_instructions_step1">નીચેનું \'%s\' બટન દબાવો</string>
     <string name="home_download_instructions_step2_part1">વેબપેજ નીચે સ્ક્રોલ કરો અને દબાવો</string>
     <string name="home_download_instructions_download_button_toast">વેબસાઇટ પર ડાઉનલોડ દબાવો, અને અહીં નહીં 😊</string>
@@ -123,7 +122,6 @@
     <string name="patcher_conflict_subtitle">તમારે વર્તમાન સંસ્કરણને અનઇન્સ્ટોલ કરવાની જરૂર છે</string>
     <string name="patcher_install_error_title">ઇન્સ્ટોલેશન ભૂલ</string>
     <string name="patcher_install_error_subtitle">અનઇન્સ્ટોલ કરી અને ફરીથી ઇન્સ્ટોલ કરવાનો પ્રયાસ કરો</string>
-    <string name="patcher_ready_to_install_subtitle">ઇન્સ્ટોલ કરવા માટે નીચેનું બટન દબાવો</string>
     <string name="patcher_ready_to_mount_subtitle">માઉન્ટ કરવા માટે નીચેનું બટન દબાવો</string>
     <!-- Patcher Screen - Patcher Steps -->
     <!-- Battery optimization pre-flight dialog -->
@@ -241,7 +239,6 @@ morphe_header_custom_dark.png
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
-    <string name="settings_system_patch_options_section">પેચ વિકલ્પો</string>
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
     <!-- Settings - System Tab - APK download helper -->
@@ -257,7 +254,7 @@ morphe_header_custom_dark.png
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->

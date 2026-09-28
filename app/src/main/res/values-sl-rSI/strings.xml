@@ -238,7 +238,6 @@ Vse, kar dodate s tega spletišča, uporabljate na lastno odgovornost.  "</strin
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nima podprtih različic za Android %2$s (API %3$s). Vse objavljene različice zahtevajo višjo različico Androida.</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Prenesi izvirni APK</string>
-    <string name="home_download_instructions_steps_title">Navodila:</string>
     <string name="home_download_instructions_finding">Iskanje strani za prenos…</string>
     <string name="home_download_instructions_step1">Pritisnite gumb \"%s\" spodaj</string>
     <string name="home_download_instructions_step2_part1">Podrsajte po spletni strani navzdol in pritisni</string>
@@ -554,7 +553,6 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
 Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_install_error_title">Napaka pri namestitvi</string>
     <string name="patcher_install_error_subtitle">Poskusite aplikacijo ponovno odstraniti in namestiti</string>
-    <string name="patcher_ready_to_install_subtitle">Pritisnite gumb spodaj za namestitev</string>
     <string name="patcher_ready_to_mount_subtitle">Pritisnite gumb spodaj za montažo</string>
     <string name="patcher_patches_excluded_for_installer">Ni na voljo za to metodo namestitve in je izključeno: %s</string>
     <string name="patcher_back_to_game_hint">Dotakni se %1$s, da se vrneš v svojo igro.</string>
@@ -1123,7 +1121,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Ni bilo mogoče uvoziti podatkov vira</string>
     <string name="settings_system_import_source_data_success">Podatki vira so bili uspešno uvoženi</string>
     <string name="settings_system_selected_patches_section">Izbrani popravki</string>
-    <string name="settings_system_patch_options_section">Možnosti popravkov</string>
     <string name="settings_system_no_patches_or_options">Ni shranjenih popravkov ali možnosti</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Kopiraj izbiro iz…</string>
@@ -1309,8 +1306,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_section_app_support">Podpora za aplikacije</string>
     <string name="changelog_section_other">Spremembe</string>
     <string name="changelog_badge_latest">Najnovejše</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">V uporabi</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Predizdaja</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Prikaži vse (%s)</string>

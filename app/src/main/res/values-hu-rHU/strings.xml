@@ -238,7 +238,6 @@ Bármit is ad hozzá erről a weboldalról, azt saját felelősségére teszi."<
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nem rendelkezik az Android %2$s (API %3$s) verziójával kompatibilis verziókkal. A megadott összes verzió magasabb Android verziót igényel</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Az eredeti APK letöltése</string>
-    <string name="home_download_instructions_steps_title">Útmutató:</string>
     <string name="home_download_instructions_finding">A letöltési oldal keresése…</string>
     <string name="home_download_instructions_step1">Koppints az alábbi „%s” gombra</string>
     <string name="home_download_instructions_step2_part1">Görgess le a weboldalon, majd nyomd meg:</string>
@@ -554,7 +553,6 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
 Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patcher_install_error_title">Telepítési hiba</string>
     <string name="patcher_install_error_subtitle">Próbáld meg eltávolítani és újratelepíteni</string>
-    <string name="patcher_ready_to_install_subtitle">Nyomd meg az alábbi gombot a telepítéshez</string>
     <string name="patcher_ready_to_mount_subtitle">Nyomd meg az alábbi gombot a csatoláshoz</string>
     <string name="patcher_patches_excluded_for_installer">Nem érhető el a telepítési módszerhez és kizárt: %s</string>
     <string name="patcher_back_to_game_hint">Koppints a(z) %1$s elemre a játékhoz való visszatéréshez</string>
@@ -711,6 +709,10 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="settings_appearance_accent_color">Kiemelőszín</string>
     <string name="settings_appearance_pure_black">Tiszta fekete</string>
     <string name="settings_appearance_pure_black_description">Valódi fekete háttér használata</string>
+    <string name="settings_appearance_color_accents">Alkalmazás- és forrásszínek</string>
+    <string name="settings_appearance_color_accents_description">Az egyes alkalmazások és források saját színét használja a kiemelő szín helyett</string>
+    <string name="settings_appearance_outlines">Körvonalak</string>
+    <string name="settings_appearance_outlines_description">Vékony szegélyt rajzol a kártyák, panelek és gombok köré</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Nyelv &amp; megjelenítés</string>
     <string name="settings_appearance_app_language">Alkalmazás nyelve</string>
@@ -1122,7 +1124,6 @@ Részletek: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Nem sikerült a forrásadatok importálása</string>
     <string name="settings_system_import_source_data_success">Forrásadatok sikeresen importálva</string>
     <string name="settings_system_selected_patches_section">Kiválasztott módosítások</string>
-    <string name="settings_system_patch_options_section">Módosítási opciók</string>
     <string name="settings_system_no_patches_or_options">Nincsenek mentett módosítások vagy beállítások</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Másolás…</string>
@@ -1308,8 +1309,7 @@ Részletek: %2$s"</string>
     <string name="changelog_section_app_support">Alkalmazás-támogatás</string>
     <string name="changelog_section_other">Változások</string>
     <string name="changelog_badge_latest">Legújabb</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">Használatban</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Előzetes kiadás</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Összes megjelenítése (%s)</string>

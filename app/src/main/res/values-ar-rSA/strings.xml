@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; لا يحتوي على إصدارات مدعومة لنظام Android %2$s (واجهة برمجة التطبيقات %3$s). جميع الإصدارات المعلنة تتطلب إصدار Android أعلى</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">تنزيل ملف APK الأصلي</string>
-    <string name="home_download_instructions_steps_title">التعليمات:</string>
     <string name="home_download_instructions_finding">جارٍ العثور على صفحة التنزيل…</string>
     <string name="home_download_instructions_step1">انقر على زر \'%s\' أدناه</string>
     <string name="home_download_instructions_step2_part1">مرر لأسفل صفحة الويب واضغط</string>
@@ -554,7 +553,6 @@
 سيؤدي إلغاء التثبيت إلى محو جميع بيانات التطبيق بشكل دائم"</string>
     <string name="patcher_install_error_title">خطأ في التثبيت</string>
     <string name="patcher_install_error_subtitle">جرب إلغاء التثبيت والتثبيت مرة أخرى</string>
-    <string name="patcher_ready_to_install_subtitle">اضغط على الزر أدناه للتثبيت</string>
     <string name="patcher_ready_to_mount_subtitle">اضغط على الزر أدناه للتركيب</string>
     <string name="patcher_patches_excluded_for_installer">غير متاح لطريقة التثبيت هذه وتم استبعاده: %s</string>
     <string name="patcher_back_to_game_hint">انقر على %1$s للعودة إلى لعبتك</string>
@@ -715,6 +713,9 @@
     <string name="settings_appearance_accent_color">لون التمييز</string>
     <string name="settings_appearance_pure_black">اسود نقي</string>
     <string name="settings_appearance_pure_black_description">استخدام خلفيات سوداء حقيقية</string>
+    <string name="settings_appearance_color_accents">ألوان التطبيقات والمصادر</string>
+    <string name="settings_appearance_outlines">الخطوط المحيطة</string>
+    <string name="settings_appearance_outlines_description">يرسم حافة رفيعة حول البطاقات واللوحات والأزرار</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">اللغة &amp; العرض</string>
     <string name="settings_appearance_app_language">لغة التطبيق</string>
@@ -1128,7 +1129,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_import_source_data_fail">فشل استيراد بيانات المصدر</string>
     <string name="settings_system_import_source_data_success">تم استيراد بيانات المصدر بنجاح</string>
     <string name="settings_system_selected_patches_section">التعديلات المحددة</string>
-    <string name="settings_system_patch_options_section">خيارات التعديل</string>
     <string name="settings_system_no_patches_or_options">لا يوجد تعديلات أو خيارات محفوظة</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">نسخ المحدد من…</string>
@@ -1314,8 +1314,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_section_app_support">دعم التطبيق</string>
     <string name="changelog_section_other">التغييرات</string>
     <string name="changelog_badge_latest">الأحدث</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">قيد الاستخدام</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">إصدار ما قبل الإطلاق</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">عرض الكل (%s)</string>

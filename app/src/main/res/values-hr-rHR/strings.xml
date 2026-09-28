@@ -239,7 +239,6 @@ Sve što dodate s ove web stranice koristite na vlastitu odgovornost."</string>
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nema podržane verzije za Android %2$s (API %3$s). Sve deklarirane verzije zahtijevaju višu verziju Androida</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Preuzmite originalnu aplikaciju</string>
-    <string name="home_download_instructions_steps_title">Upute:</string>
     <string name="home_download_instructions_finding">Pronalaženje stranice za preuzimanje…</string>
     <string name="home_download_instructions_step1">Dodirnite tipku \'%s\' ispod</string>
     <string name="home_download_instructions_step2_part1">Povucite stranicu prema dolje i dodirnite</string>
@@ -558,7 +557,6 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
 Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="patcher_install_error_title">Pogreška pri instalaciji</string>
     <string name="patcher_install_error_subtitle">Pokušajte deinstalirati i instalirati ponovo</string>
-    <string name="patcher_ready_to_install_subtitle">Pritisnite tipku ispod za instalaciju</string>
     <string name="patcher_ready_to_mount_subtitle">Pritisnite tipku ispod da učitate</string>
     <string name="patcher_patches_excluded_for_installer">Nije dostupno za ovu metodu instalacije i isključeno je: %s</string>
     <string name="patcher_back_to_game_hint">Dodirnite %1$s za povratak u igru</string>
@@ -715,6 +713,10 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_accent_color">Akcentna boja</string>
     <string name="settings_appearance_pure_black">Čisto crna</string>
     <string name="settings_appearance_pure_black_description">Koristi prave crne pozadine</string>
+    <string name="settings_appearance_color_accents">Boje aplikacija i izvora</string>
+    <string name="settings_appearance_color_accents_description">Koristi vlastitu boju svake aplikacije i izvora umjesto akcentne boje.</string>
+    <string name="settings_appearance_outlines">Obrisi</string>
+    <string name="settings_appearance_outlines_description">Crta tanak obrub oko kartica, ploča i gumba.</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Jezik &amp; prikaz</string>
     <string name="settings_appearance_app_language">Jezik aplikacije</string>
@@ -1126,7 +1128,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Neuspjeh pri uvozu podataka izvora</string>
     <string name="settings_system_import_source_data_success">Podaci izvora uspješno uvezeni</string>
     <string name="settings_system_selected_patches_section">Odabrani patchevi</string>
-    <string name="settings_system_patch_options_section">Opcije patchanja</string>
     <string name="settings_system_no_patches_or_options">Nema spremljenih patchova ili opcija</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Kopiraj odabir iz…</string>
@@ -1312,8 +1313,7 @@ Detalji: %2$s"</string>
     <string name="changelog_section_app_support">Podrška za aplikaciju</string>
     <string name="changelog_section_other">Promjene</string>
     <string name="changelog_badge_latest">Najnovije</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">U upotrebi</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Predizdanje</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Prikaži sve (%s)</string>

@@ -238,7 +238,6 @@ Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nu are versiuni suportate pentru Android %2$s (API %3$s). Toate versiunile declarate necesită o versiune Android mai mare</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descarcă APK-ul original</string>
-    <string name="home_download_instructions_steps_title">Instrucțiuni:</string>
     <string name="home_download_instructions_finding">Se caută pagina de descărcare…</string>
     <string name="home_download_instructions_step1">Apasă pe butonul \'%s\' de mai jos</string>
     <string name="home_download_instructions_step2_part1">Derulează în josul paginii și apasă</string>
@@ -554,7 +553,6 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
 Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_install_error_title">Eroare la instalare</string>
     <string name="patcher_install_error_subtitle">Încearcă să dezinstalezi și să instalezi din nou</string>
-    <string name="patcher_ready_to_install_subtitle">Apasă butonul de mai jos pentru instalare</string>
     <string name="patcher_ready_to_mount_subtitle">Apăsați butonul de mai jos pentru a monta</string>
     <string name="patcher_patches_excluded_for_installer">Nu este disponibil pentru această metodă de instalare și exclus: %s</string>
     <string name="patcher_back_to_game_hint">Atinge %1$s pentru a reveni la jocul tău</string>
@@ -1122,7 +1120,6 @@ Detalii: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Eșec la importarea datelor sursei</string>
     <string name="settings_system_import_source_data_success">Datele sursei importate cu succes</string>
     <string name="settings_system_selected_patches_section">Patch-uri selectate</string>
-    <string name="settings_system_patch_options_section">Opțiuni de patch-uri</string>
     <string name="settings_system_no_patches_or_options">Nicio pachet sau opțiune salvată</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Copiază selecția de…</string>
@@ -1308,8 +1305,7 @@ Detalii: %2$s"</string>
     <string name="changelog_section_app_support">Suport aplicații</string>
     <string name="changelog_section_other">Modificări</string>
     <string name="changelog_badge_latest">Ultima</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">În uz</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Pre-lansare</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Afișează toate (%s)</string>

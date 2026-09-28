@@ -238,7 +238,6 @@ Enigiets wat jy van hierdie webwerf byvoeg, word op jou eie risiko gebruik."</st
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; het geen ondersteunde weergawes vir Android %2$s (API %3$s) nie. Alle verklaarde weergawes vereis \'n hoër Android-weergawe</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Laai die oorspronklike APK af</string>
-    <string name="home_download_instructions_steps_title">Instruksies:</string>
     <string name="home_download_instructions_finding">Besig om die aflaaibladsy te vind…</string>
     <string name="home_download_instructions_step1">Druk op die \'%s\' knoppie hieronder</string>
     <string name="home_download_instructions_step2_part1">Rol af op die webblad en druk</string>
@@ -554,7 +553,6 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
 Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="patcher_install_error_title">Installasiefout</string>
     <string name="patcher_install_error_subtitle">Probeer deïnstalleer en weer installeer</string>
-    <string name="patcher_ready_to_install_subtitle">Druk op die knoppie hieronder om te installeer</string>
     <string name="patcher_ready_to_mount_subtitle">Druk op die knoppie hieronder om te monteer</string>
     <string name="patcher_patches_excluded_for_installer">Nie beskikbaar vir hierdie installasiemethode en uitgesluit: %s</string>
     <string name="patcher_back_to_game_hint">Tik op %1$s om terug te gaan na jou speletjie</string>
@@ -1123,7 +1121,6 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Kon nie bron data invoer nie</string>
     <string name="settings_system_import_source_data_success">Bron data suksesvol uitgevoer</string>
     <string name="settings_system_selected_patches_section">Gekose patchs</string>
-    <string name="settings_system_patch_options_section">Verandering opsies</string>
     <string name="settings_system_no_patches_or_options">Geen patches of opsies gered nie</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Kopieer seleksie van…</string>
@@ -1309,8 +1306,7 @@ Besonderhede: %2$s"</string>
     <string name="changelog_section_app_support">Toep-ondersteuning</string>
     <string name="changelog_section_other">Veranderinge</string>
     <string name="changelog_badge_latest">Nuutste</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">In gebruik</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Voorvrystelling</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Wys alles (%s)</string>

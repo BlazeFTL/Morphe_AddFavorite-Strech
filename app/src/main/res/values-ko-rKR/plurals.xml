@@ -82,13 +82,13 @@
         <item quantity="other">%s 개의 코어</item>
     </plurals>
     <plurals name="changelog_new_count">
-        <item quantity="other">%s 개의 신규</item>
+        <item quantity="other">%s 개의 신규 사항</item>
     </plurals>
     <plurals name="changelog_fix_count">
-        <item quantity="other">%s 개의 수정</item>
+        <item quantity="other">%s 개의 수정 사항</item>
     </plurals>
     <plurals name="changelog_change_count">
-        <item quantity="other">%s 개의 변경</item>
+        <item quantity="other">%s 개의 변경 사항</item>
     </plurals>
     <plurals name="changelog_new_releases">
         <item quantity="other">%s 개의 새 릴리스</item>

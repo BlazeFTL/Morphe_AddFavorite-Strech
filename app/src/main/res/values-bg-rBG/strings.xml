@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; няма поддържани версии за Android %2$s (API %3$s). Всички декларирани версии изискват по-нова версия на Android</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Изтеглете оригинален APK</string>
-    <string name="home_download_instructions_steps_title">Инструкции:</string>
     <string name="home_download_instructions_finding">Намиране на страницата за изтегляне…</string>
     <string name="home_download_instructions_step1">Натиснете бутона \'%s\' отдолу</string>
     <string name="home_download_instructions_step2_part1">Скролни надолу страницата и натиснете</string>
@@ -554,7 +553,6 @@
 Деинсталирането ще изтрие трайно всички данни на приложението."</string>
     <string name="patcher_install_error_title">Грешка при инсталация</string>
     <string name="patcher_install_error_subtitle">Опитайте да деинсталирате и инсталирате отново</string>
-    <string name="patcher_ready_to_install_subtitle">Натиснете бутона по-долу за инсталиране</string>
     <string name="patcher_ready_to_mount_subtitle">Натиснете бутона по-долу за монтиране</string>
     <string name="patcher_patches_excluded_for_installer">Не е налично за този метод на инсталиране и е изключено: %s</string>
     <string name="patcher_back_to_game_hint">Докоснете %1$s, за да се върнете към играта си</string>
@@ -711,6 +709,9 @@
     <string name="settings_appearance_accent_color">Цвят на акцент</string>
     <string name="settings_appearance_pure_black">Натурално черно</string>
     <string name="settings_appearance_pure_black_description">Използва истински черни фонове</string>
+    <string name="settings_appearance_color_accents">Цветове на приложения и източници</string>
+    <string name="settings_appearance_outlines">Контури</string>
+    <string name="settings_appearance_outlines_description">Изчертава тънък контур около карти, панели и бутони.</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Език и дисплей</string>
     <string name="settings_appearance_app_language">Език на приложението</string>
@@ -1123,7 +1124,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">Неуспешно импортиране на данни за източника</string>
     <string name="settings_system_import_source_data_success">Данните за източника са импортирани успешно</string>
     <string name="settings_system_selected_patches_section">Избрани пачове</string>
-    <string name="settings_system_patch_options_section">Опции за пачове</string>
     <string name="settings_system_no_patches_or_options">Няма запазени пакети или опции</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Копиране на селекция от…</string>
@@ -1240,6 +1240,8 @@ morphe_header_custom_dark.png
     <string name="accessibility_scroll_to_top">Превъртете до началото на списъка</string>
     <string name="rename">Преименуване</string>
     <string name="import_">Импортиране</string>
+    <string name="export">Експорт</string>
+    <string name="copy">Копиране</string>
     <string name="copied_to_clipboard">Копирано в клипборда</string>
     <string name="download">Свали</string>
     <string name="less">Morphe</string>
@@ -1307,8 +1309,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_app_support">Поддръжка на приложението</string>
     <string name="changelog_section_other">Промени</string>
     <string name="changelog_badge_latest">Най-нова</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">В употреба</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Предварителна версия</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Покажи всички (%s)</string>

@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; δεν έχει υποστηριζόμενες εκδόσεις για Android %2$s (API %3$s). Όλες οι δηλωμένες εκδόσεις απαιτούν μια υψηλότερη έκδοση Android</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Λήψη του αρχικού APK</string>
-    <string name="home_download_instructions_steps_title">Οδηγίες:</string>
     <string name="home_download_instructions_finding">Εντοπισμός της σελίδας λήψης…</string>
     <string name="home_download_instructions_step1">Πατήστε το παρακάτω κουμπί \'%s\'</string>
     <string name="home_download_instructions_step2_part1">Κάντε κύλιση της ιστοσελίδας προς τα κάτω και πατήστε</string>
@@ -554,7 +553,6 @@
 Η απεγκατάσταση θα διαγράψει οριστικά όλα τα δεδομένα της εφαρμογής."</string>
     <string name="patcher_install_error_title">Σφάλμα εγκατάστασης</string>
     <string name="patcher_install_error_subtitle">Δοκιμάστε να απεγκαταστήσετε και να εγκαταστήσετε ξανά</string>
-    <string name="patcher_ready_to_install_subtitle">Πατήστε το παρακάτω κουμπί για εγκατάσταση</string>
     <string name="patcher_ready_to_mount_subtitle">Πατήστε το παρακάτω κουμπί για προσάρτηση</string>
     <string name="patcher_patches_excluded_for_installer">Δεν είναι διαθέσιμο για αυτήν τη μέθοδο εγκατάστασης και εξαιρέθηκε: %s</string>
     <string name="patcher_back_to_game_hint">Πάτα %1$s για να επιστρέψεις στο παιχνίδι σου</string>
@@ -1123,7 +1121,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">Αποτυχία εισαγωγής δεδομένων πηγής</string>
     <string name="settings_system_import_source_data_success">Επιτυχής εισαγωγή δεδομένων πηγής</string>
     <string name="settings_system_selected_patches_section">Επιλεγμένες τροποποιήσεις</string>
-    <string name="settings_system_patch_options_section">Επιλογές τροποποιήσεων</string>
     <string name="settings_system_no_patches_or_options">Δεν υπάρχουν αποθηκευμένες τροποποιήσεις ή επιλογές</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Αντιγραφή επιλογής από…</string>
@@ -1309,8 +1306,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_app_support">Υποστήριξη εφαρμογών</string>
     <string name="changelog_section_other">Αλλαγές</string>
     <string name="changelog_badge_latest">Τελευταία</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">Σε χρήση</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Προέκδοση</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Εμφάνιση όλων (%s)</string>

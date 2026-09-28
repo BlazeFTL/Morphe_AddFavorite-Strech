@@ -238,7 +238,6 @@ Tutto ciò che aggiungi da questo sito viene utilizzato a tuo rischio."</string>
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; non ha versioni supportate per Android %2$s (API %3$s). Tutte le versioni dichiarate richiedono una versione di Android superiore</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Scarica l\'APK originale</string>
-    <string name="home_download_instructions_steps_title">Istruzioni:</string>
     <string name="home_download_instructions_finding">Ricerca della pagina di download…</string>
     <string name="home_download_instructions_step1">Premi il pulsante \'%s\' qui sotto</string>
     <string name="home_download_instructions_step2_part1">Scorri verso il basso la pagina web e premi</string>
@@ -554,7 +553,6 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
 La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_install_error_title">Errore di installazione</string>
     <string name="patcher_install_error_subtitle">Prova a disinstallare e installare di nuovo</string>
-    <string name="patcher_ready_to_install_subtitle">Premi il pulsante qui sotto per installare</string>
     <string name="patcher_ready_to_mount_subtitle">Premi il pulsante qui sotto per montare</string>
     <string name="patcher_patches_excluded_for_installer">Non disponibile per questo metodo di installazione ed escluso: %s</string>
     <string name="patcher_back_to_game_hint">Tocca %1$s per tornare al tuo gioco</string>
@@ -711,6 +709,10 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="settings_appearance_accent_color">Tonalità in risalto</string>
     <string name="settings_appearance_pure_black">Nero assoluto</string>
     <string name="settings_appearance_pure_black_description">Usa sfondi con neri assoluti</string>
+    <string name="settings_appearance_color_accents">Colori dell\'app e della sorgente</string>
+    <string name="settings_appearance_color_accents_description">Usa il colore di ciascuna app e sorgente al posto del colore accento</string>
+    <string name="settings_appearance_outlines">Contorni</string>
+    <string name="settings_appearance_outlines_description">Disegna un bordo sottile attorno a schede, pannelli e pulsanti</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Lingua &amp; display</string>
     <string name="settings_appearance_app_language">Lingua dell\'app</string>
@@ -1123,7 +1125,6 @@ Dettagli: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Impossibile importare i dati della fonte</string>
     <string name="settings_system_import_source_data_success">I dati della fonte sono stati importati con successo</string>
     <string name="settings_system_selected_patches_section">Patch selezionate</string>
-    <string name="settings_system_patch_options_section">Opzioni patch</string>
     <string name="settings_system_no_patches_or_options">Nessuna patch o opzione salvata</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Copia selezione da…</string>
@@ -1309,8 +1310,7 @@ Dettagli: %2$s"</string>
     <string name="changelog_section_app_support">Supporto app</string>
     <string name="changelog_section_other">Modifiche</string>
     <string name="changelog_badge_latest">Ultima</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">In uso</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Pre-release</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Mostra tutto (%s)</string>

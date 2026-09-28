@@ -238,7 +238,6 @@ Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; no tiene versiones compatibles con Android %2$s (API %3$s). Todas las versiones declaradas requieren una versión de Android superior</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descargar el APK original</string>
-    <string name="home_download_instructions_steps_title">Instrucciones:</string>
     <string name="home_download_instructions_finding">Buscando la página de descarga…</string>
     <string name="home_download_instructions_step1">Pulsa el botón \'%s\' de abajo</string>
     <string name="home_download_instructions_step2_part1">Desplázate hacia abajo en la página web y pulsa</string>
@@ -554,7 +553,6 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador
 Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"</string>
     <string name="patcher_install_error_title">Error de instalación</string>
     <string name="patcher_install_error_subtitle">Intenta desinstalar y volver a instalar</string>
-    <string name="patcher_ready_to_install_subtitle">Pulsa el botón de abajo para instalar</string>
     <string name="patcher_ready_to_mount_subtitle">Pulsa el botón más abajo para montar</string>
     <string name="patcher_patches_excluded_for_installer">No disponible para este método de instalación y excluido: %s</string>
     <string name="patcher_back_to_game_hint">Pulsa %1$s para volver a tu juego</string>
@@ -711,6 +709,10 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_accent_color">Color de acento</string>
     <string name="settings_appearance_pure_black">Negro puro</string>
     <string name="settings_appearance_pure_black_description">Utiliza fondos de pantalla realmente negros</string>
+    <string name="settings_appearance_color_accents">Colores de aplicaciones y fuentes</string>
+    <string name="settings_appearance_color_accents_description">Utiliza el color propio de cada aplicación y fuente en lugar del color de acento</string>
+    <string name="settings_appearance_outlines">Contornos</string>
+    <string name="settings_appearance_outlines_description">Dibuja un borde fino alrededor de las tarjetas, los paneles y los botones</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Idioma y pantalla</string>
     <string name="settings_appearance_app_language">Idioma de la aplicación</string>
@@ -1123,7 +1125,6 @@ Detalles: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Error al importar datos de fuente</string>
     <string name="settings_system_import_source_data_success">Datos de fuente importados correctamente</string>
     <string name="settings_system_selected_patches_section">Parches seleccionados</string>
-    <string name="settings_system_patch_options_section">Opciones de parches</string>
     <string name="settings_system_no_patches_or_options">No hay parches ni opciones guardadas</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Copiar selección de…</string>
@@ -1309,8 +1310,7 @@ Detalles: %2$s"</string>
     <string name="changelog_section_app_support">Compatibilidad de aplicaciones</string>
     <string name="changelog_section_other">Cambios</string>
     <string name="changelog_badge_latest">Última</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">En uso</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Pre-lanzamiento</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Mostrar todos (%s)</string>

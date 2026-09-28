@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; 沒有支援 Android %2$s (API %3$s) 的版本。所有已宣告的版本都需要更高版本的 Android</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">下載原始 APK</string>
-    <string name="home_download_instructions_steps_title">步驟如下：</string>
     <string name="home_download_instructions_finding">正在尋找下載頁面…</string>
     <string name="home_download_instructions_step1">請選取下方的「%s」按鈕</string>
     <string name="home_download_instructions_step2_part1">請往下滑動網頁，然後點選</string>
@@ -554,7 +553,6 @@
 解除安裝將永久刪除所有應用程式資料"</string>
     <string name="patcher_install_error_title">安裝錯誤</string>
     <string name="patcher_install_error_subtitle">嘗試解除安裝並重新安裝</string>
-    <string name="patcher_ready_to_install_subtitle">點擊下方的按鈕進行安裝</string>
     <string name="patcher_ready_to_mount_subtitle">點擊下方的按鈕進行掛載</string>
     <string name="patcher_patches_excluded_for_installer">未針對此安裝方法提供且已排除：%s</string>
     <string name="patcher_back_to_game_hint">點擊%1$s返回您的遊戲</string>
@@ -711,6 +709,8 @@
     <string name="settings_appearance_accent_color">強調色</string>
     <string name="settings_appearance_pure_black">純黑</string>
     <string name="settings_appearance_pure_black_description">使用純黑背景</string>
+    <string name="settings_appearance_color_accents">應用程式與來源顏色</string>
+    <string name="settings_appearance_color_accents_description">使用每個應用程式和來源自己的顏色，而不是強調色。</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">語言與顯示</string>
     <string name="settings_appearance_app_language">應用程式語言</string>
@@ -1120,7 +1120,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">無法匯入來源資料</string>
     <string name="settings_system_import_source_data_success">來源資料匯入成功</string>
     <string name="settings_system_selected_patches_section">已選取的修補程式</string>
-    <string name="settings_system_patch_options_section">修補選項</string>
     <string name="settings_system_no_patches_or_options">未儲存任何修補程式或選項</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">從…複製選取項目</string>
@@ -1306,8 +1305,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_app_support">應用程式支援</string>
     <string name="changelog_section_other">變更</string>
     <string name="changelog_badge_latest">最新</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">使用中</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">預先發佈</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">顯示全部（%s）</string>

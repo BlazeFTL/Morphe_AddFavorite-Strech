@@ -59,7 +59,6 @@
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descarrega l\'APK original</string>
-    <string name="home_download_instructions_steps_title">Instruccions:</string>
     <string name="home_download_instructions_step1">Premeu el botó \'%s\' de sota</string>
     <string name="home_download_instructions_step2_part1">Desplaceu-vos per la pàgina web i premeu</string>
     <string name="home_download_instructions_download_button_toast">Premeu \'descarrega\' al lloc web, i no aquí 😊</string>
@@ -155,7 +154,7 @@
     <!-- Button that starts patching the selected app. A verb, as in "patch this app" -->
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->

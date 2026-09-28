@@ -132,7 +132,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; tidak mempunyai versi yang disokong untuk Android %2$s (API %3$s). Semua versi yang dinyatakan memerlukan versi Android yang lebih tinggi</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Muat turun APK asal</string>
-    <string name="home_download_instructions_steps_title">Arahan:</string>
     <string name="home_download_instructions_step1">Tekan butang \'%s\' dibawah</string>
     <string name="home_download_instructions_step2_part1">Tatal laman sesawang ke bawah dan tekan</string>
     <string name="home_download_instructions_download_button_toast">Tekan muat turun pada tapak sesawang, bukannya di sini 😊</string>
@@ -319,7 +318,6 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="patcher_installed_conflict_title">Nyahpasang diperlukan</string>
     <string name="patcher_install_error_title">Ralat pemasangan</string>
     <string name="patcher_install_error_subtitle">Cuba nyahpasang dan pasang semula</string>
-    <string name="patcher_ready_to_install_subtitle">Tekan butang dibawah untung pasang</string>
     <string name="patcher_ready_to_mount_subtitle">Tekan butang dibawah untuk memasang</string>
     <string name="patcher_storage_permission_dialog_title">Laluan storan tidak dapat diakses</string>
     <string name="patcher_incompatible_patcher_title">Kemas kini diperlukan</string>
@@ -633,7 +631,6 @@ Dimensi gambar mestilah seperti berikut:
     <string name="settings_system_export_source_data_success">Data sumber dieksport dengan jayanya</string>
     <string name="settings_system_import_source_data_fail">Gagal mengimport data sumber</string>
     <string name="settings_system_import_source_data_success">Data sumber diimport dengan jayanya</string>
-    <string name="settings_system_patch_options_section">Pilihan tampalan</string>
     <string name="settings_system_no_patches_or_options">Tiada tampalan atau pilihan yang disimpan</string>
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
@@ -720,7 +717,7 @@ Dimensi gambar mestilah seperti berikut:
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="changelog_section_new">Baharu</string>
-    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <!-- "%s" is the number of changes in the section -->
     <string name="no_network_toast">Tiada sambungan internet tersedia</string>
     <string name="update_available">Kemas kini tersedia</string>

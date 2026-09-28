@@ -5,6 +5,10 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -13,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
@@ -134,6 +139,23 @@ fun neutralBadgeFill(): Color = MaterialTheme.colorScheme.onBackground.copy(alph
 @Composable
 fun appAccentContent(fill: Color): Color =
     if (fill.alpha < 1f) MaterialTheme.colorScheme.onBackground else fill.contrastingContent()
+
+/**
+ * Line in the surrounding color, see [LocalAccent], hanging content from what it belongs to, such as
+ * download steps or a patch's options. It fills the height given, so its row is measured to content.
+ */
+@Composable
+fun AccentRail(modifier: Modifier = Modifier) {
+    val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
+    Box(
+        modifier = modifier
+            .width(AccentRailWidth)
+            .background(accent.copy(alpha = AccentAlpha.BORDER), CircleShape)
+    )
+}
+
+/** Width of an [AccentRail]. */
+val AccentRailWidth = 2.dp
 
 /** What the sources declare about each app they patch, by package name. */
 @Composable

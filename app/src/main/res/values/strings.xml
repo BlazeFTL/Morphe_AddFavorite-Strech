@@ -1206,7 +1206,6 @@ Details: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Failed to import source data</string>
     <string name="settings_system_import_source_data_success">Source data imported successfully</string>
     <string name="settings_system_selected_patches_section">Selected patches</string>
-    <string name="settings_system_patch_options_section">Patch options</string>
     <string name="settings_system_no_patches_or_options">No patches or options saved</string>
 
     <!-- Copy selection from another bundle -->

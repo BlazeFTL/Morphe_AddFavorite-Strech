@@ -818,7 +818,7 @@ private fun BundleManagementCard(
                                 enabled = !isBlocked && !isUpdating && patchCount > 0
                             )
 
-                            SettingsDivider(fullWidth = true)
+                            SettingsDivider()
 
                             InfoRow(
                                 modifier = Modifier.reportBounds(onVersionPositioned),
@@ -834,7 +834,7 @@ private fun BundleManagementCard(
                             // patches in
                             val (offeredApps, listedApps) = appCount
                             if (listedApps > 0) {
-                                SettingsDivider(fullWidth = true)
+                                SettingsDivider()
 
                                 InfoRow(
                                     icon = Icons.Outlined.Apps,

@@ -989,12 +989,38 @@ private fun PatchDetailsDialog(
         isLoading = false
     }
 
+    val patchList = details?.patchList.orEmpty()
+    // Options outlive their patch being deselected, so those are listed too, dimmed as not in effect
+    val entries = remember(details) {
+        details?.let { loaded ->
+            val selected = loaded.patchList.toSet()
+            patchEntries(
+                keys = (loaded.patchList + loaded.optionsMap.keys).distinct(),
+                options = loaded.optionsMap,
+                displayName = loaded.displayNames::get,
+                dimmed = { it !in selected }
+            )
+        }.orEmpty()
+    }
+    val subtitle = bundleName ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid)
+    val copyToClipboard = rememberCopyToClipboard()
+
     DetailsDialog(
         onDismissRequest = onDismiss,
         icon = { modifier -> AppIcon(packageName = packageName, contentDescription = null, modifier = modifier) },
         title = appDisplayName,
-        subtitle = bundleName ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid),
-        accentColor = rememberAppColor(packageName)
+        subtitle = subtitle,
+        accentColor = rememberAppColor(packageName),
+        actions = listOf(
+            DialogAction(
+                text = stringResource(R.string.copy),
+                icon = Icons.Outlined.ContentCopy,
+                enabled = entries.isNotEmpty(),
+                onClick = {
+                    copyToClipboard(patchListText(title = appDisplayName, lists = listOf(subtitle to entries)))
+                }
+            )
+        )
     ) {
         if (isLoading) {
             Box(
@@ -1006,40 +1032,17 @@ private fun PatchDetailsDialog(
                 CircularProgressIndicator()
             }
         } else {
-            val patchList = details?.patchList ?: emptyList()
-            val optionsMap = details?.optionsMap ?: emptyMap()
-            // Stored keys carry a suffix when the bundle ships duplicate patch names
-            val displayNames = details?.displayNames ?: emptyMap()
-
-            // Patches section
-            if (patchList.isNotEmpty()) {
+            if (entries.isNotEmpty()) {
                 LabeledSection(
                     title = stringResource(R.string.settings_system_selected_patches_section),
                     count = patchList.size
                 ) {
-                    DividedRows(patchList.toList()) { patchName ->
-                        PatchNameRow(name = displayNames[patchName] ?: patchName)
-                    }
-                }
-            }
-
-            // Options section
-            if (optionsMap.isNotEmpty()) {
-                LabeledSection(
-                    title = stringResource(R.string.settings_system_patch_options_section),
-                    count = optionsMap.size
-                ) {
-                    DividedRows(optionsMap.entries.toList()) { (patchName, options) ->
-                        PatchOptionsGroup(
-                            patchName = displayNames[patchName] ?: patchName,
-                            options = options
-                        )
-                    }
+                    PatchEntryList(entries)
                 }
             }
 
             // Empty state
-            if (patchList.isEmpty() && optionsMap.isEmpty()) {
+            if (entries.isEmpty()) {
                 Notice(
                     text = stringResource(R.string.settings_system_no_patches_or_options),
                     tone = SemanticTone.Neutral,

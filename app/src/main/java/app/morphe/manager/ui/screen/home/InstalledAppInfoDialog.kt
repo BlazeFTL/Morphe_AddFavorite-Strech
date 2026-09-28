@@ -1666,6 +1666,20 @@ private fun AppliedPatchesDialog(
     }
 
     val patchCount = bundles.sumOf { it.patchInfos.size + it.fallbackNames.size }
+    // Options are stored under the selection key, which is suffixed on duplicate names
+    val entriesByBundle = remember(bundles, bundleOptionsMap) {
+        bundles.map { bundle ->
+            val displayNames = bundle.patchInfos.associate { it.name to it.displayName }
+            val fallbackNames = bundle.fallbackNames.toSet()
+            bundle to patchEntries(
+                keys = bundle.patchInfos.map { it.name } + bundle.fallbackNames,
+                options = bundleOptionsMap[bundle.uid].orEmpty(),
+                displayName = displayNames::get,
+                dimmed = { it in fallbackNames }
+            )
+        }
+    }
+    val copyToClipboard = rememberCopyToClipboard()
 
     DetailsDialog(
         onDismissRequest = onDismiss,
@@ -1678,42 +1692,32 @@ private fun AppliedPatchesDialog(
             bundles.singleOrNull()?.title
                 ?: pluralStringResource(R.plurals.source_count, bundles.size, bundles.size.toString())
         ).joinToString(" · "),
-        accentColor = accentColor
+        accentColor = accentColor,
+        actions = listOf(
+            DialogAction(
+                text = stringResource(R.string.copy),
+                icon = Icons.Outlined.ContentCopy,
+                onClick = {
+                    copyToClipboard(
+                        patchListText(
+                            title = appLabel,
+                            lists = entriesByBundle.map { (bundle, entries) ->
+                                listOfNotNull(bundle.title, bundle.version).joinToString(" ") to entries
+                            }
+                        )
+                    )
+                }
+            )
+        )
     ) {
-        bundles.forEach { bundle ->
-            val bundleOptions = bundleOptionsMap[bundle.uid] ?: emptyMap()
-            // Options are stored under the selection key, which is suffixed on duplicate names
-            val patchDisplayNames = bundle.patchInfos.associate { it.name to it.displayName }
-            val bundlePatchCount = bundle.patchInfos.size + bundle.fallbackNames.size
-
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+        entriesByBundle.forEach { (bundle, entries) ->
+            // A lone source's count is the one the header already states
+            LabeledSection(
+                title = stringResource(R.string.home_app_info_applied_patches),
+                version = if (bundles.size > 1) bundle.title else null,
+                count = entries.size.takeIf { bundles.size > 1 }
             ) {
-                // A lone source's count is the one the header already states
-                LabeledSection(
-                    title = stringResource(R.string.home_app_info_applied_patches),
-                    version = if (bundles.size > 1) bundle.title else null,
-                    count = bundlePatchCount.takeIf { bundles.size > 1 }
-                ) {
-                    val rows = bundle.patchInfos.map { it.displayName to false } +
-                            bundle.fallbackNames.map { it to true }
-                    DividedRows(rows) { (name, dimmed) -> PatchNameRow(name = name, dimmed = dimmed) }
-                }
-
-                if (bundleOptions.isNotEmpty()) {
-                    LabeledSection(
-                        title = stringResource(R.string.settings_system_patch_options_section),
-                        count = bundleOptions.size
-                    ) {
-                        DividedRows(bundleOptions.entries.toList()) { (patchName, options) ->
-                            PatchOptionsGroup(
-                                patchName = patchDisplayNames[patchName] ?: patchName,
-                                options = options
-                            )
-                        }
-                    }
-                }
+                PatchEntryList(entries)
             }
         }
     }

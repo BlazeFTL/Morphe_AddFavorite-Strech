@@ -22,17 +22,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 /**
- * Panel holding [InfoRow]s inside a card, set apart from the card by a fill alone since the card's
- * own edge already holds it. Rows are separated with [SettingsDivider]s.
- *
- * The fill is neutral even on a card in an app's own color: the panel holds values to read rather
- * than something to act on, and a tint stacked on the card's own would wash its text out.
+ * Panel of [InfoRow]s inside a card, parted by inset [SettingsDivider]s. Its fill stays neutral so a
+ * stacked tint cannot wash out the values, and its edge in the card's color ties it to the card.
  */
 @Composable
 fun InfoPanel(
@@ -42,10 +40,42 @@ fun InfoPanel(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+        border = CardBorder.of(appAccentBorder(LocalAccent.current))
     ) {
         Column(content = content)
     }
+}
+
+/** Label of a listed value, set alike in an [InfoRow] and under a patch. It fades [color], the value's. */
+@Composable
+fun ValueLabel(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.onSurface
+) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelSmall,
+        color = color.copy(alpha = 0.45f),
+        fontWeight = FontWeight.Medium,
+        modifier = modifier
+    )
+}
+
+/** Value a [ValueLabel] names. */
+@Composable
+fun ValueText(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.onSurface
+) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodyMedium,
+        color = color,
+        modifier = modifier
+    )
 }
 
 /**
@@ -89,17 +119,8 @@ fun InfoRow(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(1.dp)
         ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = onSurface.copy(alpha = 0.45f),
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = onSurface
-            )
+            ValueLabel(text = label)
+            ValueText(text = value)
         }
         when {
             trailing != null -> trailing()

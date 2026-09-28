@@ -498,7 +498,6 @@ private fun InstructionStep(
 ) {
     val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val disc = accent.copy(alpha = AccentAlpha.LEAD)
-    val rail = accent.copy(alpha = AccentAlpha.BORDER)
 
     Row(
         modifier = Modifier.height(IntrinsicSize.Min),
@@ -521,14 +520,7 @@ private fun InstructionStep(
                     color = appAccentContent(disc)
                 )
             }
-            if (!isLast) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .width(2.dp)
-                        .background(rail)
-                )
-            }
+            if (!isLast) AccentRail(modifier = Modifier.weight(1f))
         }
         Column(
             modifier = Modifier

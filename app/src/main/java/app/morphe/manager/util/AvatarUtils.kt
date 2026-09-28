@@ -40,9 +40,24 @@ private const val ACCENT_MIN_VALUE = 0.2f
 object AvatarCache {
     private val cache = ConcurrentHashMap<String, Bitmap>()
 
+    // Kept beside the bitmaps, so a list that brings the same avatars back on every scroll reads
+    // each one's color once rather than every time its row returns
+    private val accents = ConcurrentHashMap<String, Accent>()
+
     operator fun get(url: String): Bitmap? = cache[url]
     operator fun set(url: String, bitmap: Bitmap) { cache[url] = bitmap }
+
+    /** [accentColor] of the avatar at [url], or null while its bitmap is not in the cache. */
+    fun accent(url: String): Accent? =
+        accents[url] ?: cache[url]?.let { bitmap -> Accent(bitmap.accentColor()).also { accents[url] = it } }
+
+    /** An avatar's accent, [color] null for one with no color of its own, which the map cannot hold bare. */
+    class Accent(val color: Color?)
 }
+
+/** [accentColor] of the app's own icon, which never changes while the app runs. */
+@Volatile
+private var launcherAccent: AvatarCache.Accent? = null
 
 /**
  * Load a remote avatar image from [url], storing the result in [AvatarCache].
@@ -109,15 +124,16 @@ fun Bitmap.accentColor(): Color? {
 @Composable
 fun rememberAvatarAccent(url: String?, fallbackUrl: String? = null): Color? {
     // An avatar already in the cache is read right away, so what shows it opens in its color
-    var accent by remember(url, fallbackUrl) {
-        mutableStateOf((url?.let { AvatarCache[it] } ?: fallbackUrl?.let { AvatarCache[it] })?.accentColor())
+    val known = remember(url, fallbackUrl) {
+        url?.let(AvatarCache::accent) ?: fallbackUrl?.let(AvatarCache::accent)
     }
+    var accent by remember(url, fallbackUrl) { mutableStateOf(known?.color) }
     LaunchedEffect(url, fallbackUrl) {
-        if (accent != null) return@LaunchedEffect
-        val bitmap = url?.let { loadRemoteAvatar(it) }
-            ?: fallbackUrl?.let { loadRemoteAvatar(it) }
+        if (known != null) return@LaunchedEffect
+        val loadedUrl = url?.takeIf { loadRemoteAvatar(it) != null }
+            ?: fallbackUrl?.takeIf { loadRemoteAvatar(it) != null }
             ?: return@LaunchedEffect
-        accent = withContext(Dispatchers.Default) { bitmap.accentColor() }
+        accent = withContext(Dispatchers.Default) { AvatarCache.accent(loadedUrl)?.color }
     }
     return accent
 }
@@ -131,7 +147,9 @@ fun rememberSourceAccent(isDefault: Boolean, avatarUrl: String?, fallbackAvatarU
     val context = LocalContext.current
     val defaultAccent = remember(isDefault) {
         if (isDefault) {
-            AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)?.toBitmap()?.accentColor()
+            (launcherAccent ?: AvatarCache.Accent(
+                AppCompatResources.getDrawable(context, R.drawable.ic_launcher_foreground)?.toBitmap()?.accentColor()
+            ).also { launcherAccent = it }).color
         } else null
     }
     val avatarAccent = rememberAvatarAccent(

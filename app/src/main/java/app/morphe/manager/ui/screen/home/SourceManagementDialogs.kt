@@ -863,11 +863,9 @@ fun BundleChangelogDialog(
 
     val loadOlder: () -> Unit = load@{
         if (olderState is OlderBundleState.Loading || olderState is OlderBundleState.Loaded) return@load
-        val shownVersions = (state as? BundleChangelogState.Entries)
-            ?.entries
-            ?.map { it.version.removePrefix("v").trim() }
-            ?.toSet()
-            .orEmpty()
+        val shownEntries = (state as? BundleChangelogState.Entries)?.entries.orEmpty()
+        val shownVersions = shownEntries.map { it.version.removePrefix("v").trim() }.toSet()
+        val oldestShown = shownEntries.lastOrNull()?.version
         olderState = OlderBundleState.Loading
         scope.launch {
             olderState = withContext(Dispatchers.Default) {
@@ -878,6 +876,9 @@ fun BundleChangelogDialog(
                         // history is meaningful only as the stable timeline
                         it.version.removePrefix("v").trim() !in shownVersions
                                 && !it.version.contains("-")
+                                // A dev changelog lagging behind the stable one must not put newer
+                                // releases under the earlier ones
+                                && (oldestShown == null || !isNewerVersion(oldestShown, it.version))
                     }
                     OlderBundleState.Loaded(
                         ChangelogParser.entriesFor(filtered, appNames, generalChangesHeading)

@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.state.ToggleableState
@@ -280,6 +281,10 @@ fun SelectionCheckRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            // Pressed on a rounded plate around the box and its label, as a menu item is, rather
+            // than across the whole width the row is centered in
+            .wrapContentWidth(Alignment.CenterHorizontally)
+            .clip(RoundedCornerShape(Defaults.CompactCornerRadius))
             .toggleable(
                 value = checked,
                 enabled = enabled,

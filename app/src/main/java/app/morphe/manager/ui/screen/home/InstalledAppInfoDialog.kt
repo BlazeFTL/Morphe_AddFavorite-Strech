@@ -576,39 +576,39 @@ fun InstalledAppInfoDialog(
                     modifier = modifier.fillMaxWidth()
                 )
             }
-            // Stagger index counter: hero header is index 0 (animated independently). The banners
-            // always occupy index 1 (a permanent item, AnimatedVisibility controls visibility) so
-            // later indices are stable regardless of banner state
+            // Stagger index counter: hero header is index 0, the banners always 1, so later indices
+            // hold whatever banners show. They share the info's row, since an empty row of their
+            // own counts as scrolled past and fades the list's top while it rests there
             val infoItems: LazyListScope.() -> Unit = {
-                item(key = "banners") {
-                    InstalledAppBanners(
-                        viewModel = viewModel,
-                        showsRebuildBanner = showsRebuildBanner,
-                        versionBehind = versionBehind,
-                        versionAhead = versionAhead,
-                        entered = entered.value,
-                        staggerIndex = 1,
-                        accentColor = infoAccentColor,
-                        onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
-                        onShowUpdateChangelog = onShowUpdateChangelog,
-                        onIgnoreVersion = onIgnoreVersion,
-                        modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
-                    )
-                }
                 item(key = "info") {
-                    StaggeredItem(entered = entered.value, index = 2) {
-                        InfoSection(
-                            installedApp = installedApp,
-                            supportedVersion = supportedVersion?.version,
-                            onStopIgnoringVersion = onStopIgnoringVersion,
-                            appliedPatches = appliedPatches,
-                            bundlesUsedSummary = bundlesUsedSummary,
-                            onShowPatches = { showAppliedPatchesDialog.value = true },
+                    Column {
+                        InstalledAppBanners(
+                            viewModel = viewModel,
+                            showsRebuildBanner = showsRebuildBanner,
+                            versionBehind = versionBehind,
+                            versionAhead = versionAhead,
+                            entered = entered.value,
+                            staggerIndex = 1,
                             accentColor = infoAccentColor,
-                            modifier = Modifier
-                                .padding(horizontal = Defaults.ContentPadding)
-                                .padding(top = Defaults.ItemSpacing)
+                            onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
+                            onShowUpdateChangelog = onShowUpdateChangelog,
+                            onIgnoreVersion = onIgnoreVersion,
+                            modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
                         )
+                        StaggeredItem(entered = entered.value, index = 2) {
+                            InfoSection(
+                                installedApp = installedApp,
+                                supportedVersion = supportedVersion?.version,
+                                onStopIgnoringVersion = onStopIgnoringVersion,
+                                appliedPatches = appliedPatches,
+                                bundlesUsedSummary = bundlesUsedSummary,
+                                onShowPatches = { showAppliedPatchesDialog.value = true },
+                                accentColor = infoAccentColor,
+                                modifier = Modifier
+                                    .padding(horizontal = Defaults.ContentPadding)
+                                    .padding(top = Defaults.ItemSpacing)
+                            )
+                        }
                     }
                 }
             }

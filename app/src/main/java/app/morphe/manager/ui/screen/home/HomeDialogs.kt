@@ -148,6 +148,8 @@ fun HomeDialogs(
         val usingMountInstall = homeViewModel.usingMountInstall
         // Remember packageName to prevent color flickering during exit animation
         val packageName = remember { homeViewModel.pendingPackageName }
+        // Remembered for the same reason, since the pending data is cleared as the dialog leaves
+        val appName = remember { homeViewModel.pendingAppName.orEmpty() }
         // Settled in dialog 1 and remembered for the same reason, so the steps stay put on the way out
         val requestedVersion = remember {
             (homeViewModel.pendingSelectedDownloadVersion ?: homeViewModel.pendingRecommendedVersion)?.version
@@ -167,6 +169,7 @@ fun HomeDialogs(
 
         PatchingAppColor(packageName) {
             DownloadInstructionsDialog(
+                appName = appName,
                 downloadUrl = homeViewModel.resolvedDownloadUrl,
                 requestedVersion = requestedVersion,
                 usingMountInstall = usingMountInstall,

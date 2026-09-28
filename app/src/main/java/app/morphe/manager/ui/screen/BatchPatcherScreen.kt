@@ -312,6 +312,7 @@ fun BatchPatcherScreen(
         val metadata = bundleMetadata[search.item.packageName]
 
         DownloadInstructionsDialog(
+            appName = search.item.appName,
             downloadUrl = search.url,
             requestedVersion = search.version,
             usingMountInstall = false,

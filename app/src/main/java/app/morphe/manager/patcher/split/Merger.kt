@@ -76,7 +76,6 @@ internal object Merger {
     suspend fun merge(
         apkDir: Path,
         outputApk: File,
-        skipModules: Set<String> = emptySet(),
         onEvent: ((SplitPreparationEvent) -> Unit)? = null
     ) {
         val closeables = mutableSetOf<Closeable>()
@@ -91,22 +90,6 @@ internal object Merger {
                     val modules = bundle.apkModuleList
                     if (modules.isEmpty()) {
                         throw FileNotFoundException("Nothing to merge, empty modules")
-                    }
-
-                    val skipped = skipModules
-                        .map { it.lowercase() }
-                        .toSet()
-                    if (skipped.isNotEmpty()) {
-                        val skipLookup = skipped.map(::normalizeModuleName).toSet()
-                        val baseModule = bundle.baseModule
-                        bundle.apkModuleList.toList().forEach { module ->
-                            if (module === baseModule) return@forEach
-                            val normalized = normalizeModuleName(module.moduleName)
-                            if (skipLookup.contains(normalized)) {
-                                // The bundle closes only the modules it still holds
-                                bundle.removeApkModule(module.moduleName)?.close()
-                            }
-                        }
                     }
 
                     closeables.add(bundle)
@@ -206,65 +189,6 @@ internal object Merger {
             closeables.forEach(Closeable::close)
         }
     }
-
-    fun listMergeOrder(apkDir: Path): List<String> {
-        val closeables = mutableSetOf<Closeable>()
-        try {
-            val bundle = ApkBundle().apply {
-                setAPKLogger(ApkEditorLogger())
-                loadApkDirectory(apkDir.toFile())
-            }
-            val modules = bundle.apkModuleList
-            if (modules.isEmpty()) {
-                throw FileNotFoundException("Nothing to merge, empty modules")
-            }
-            closeables.addAll(modules)
-
-            val baseModule = bundle.baseModule
-                ?: findLargestTableModule(modules)
-                ?: modules.first()
-            return buildMergeOrder(modules, baseModule).map(::moduleDisplayName)
-        } finally {
-            closeables.forEach(Closeable::close)
-        }
-    }
-
-    private fun buildMergeOrder(
-        modules: List<ApkModule>,
-        baseModule: ApkModule
-    ): List<ApkModule> {
-        val order = ArrayList<ApkModule>(modules.size)
-        order.add(baseModule)
-        modules.forEach { module ->
-            if (module !== baseModule) {
-                order.add(module)
-            }
-        }
-        return order
-    }
-
-    private fun findLargestTableModule(modules: List<ApkModule>): ApkModule? {
-        var candidate: ApkModule? = null
-        var largestSize = 0
-        modules.forEach { module ->
-            if (!module.hasTableBlock()) return@forEach
-            val header = module.tableBlock.headerBlock ?: return@forEach
-            val size = header.chunkSize
-            if (candidate == null || size > largestSize) {
-                largestSize = size
-                candidate = module
-            }
-        }
-        return candidate
-    }
-
-    private fun moduleDisplayName(module: ApkModule): String {
-        val name = module.moduleName
-        return if (name.endsWith(".apk", ignoreCase = true)) name else "$name.apk"
-    }
-
-    private fun normalizeModuleName(name: String): String =
-        name.lowercase(Locale.ROOT).removeSuffix(".apk")
 
     private fun removeSplitMetaResources(
         module: ApkModule,

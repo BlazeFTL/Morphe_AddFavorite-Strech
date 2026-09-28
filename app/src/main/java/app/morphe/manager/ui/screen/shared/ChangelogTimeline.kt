@@ -113,7 +113,7 @@ private val CodeFontScale = 0.9.em
 /** Marker a release carries on the timeline, listed from the strongest when several apply. */
 enum class ChangelogBadge(@param:StringRes val label: Int, val tone: SemanticTone) {
     INSTALLED(R.string.installed, SemanticTone.Success),
-    IN_USE(R.string.changelog_badge_in_use, SemanticTone.Success),
+    DOWNLOADED(R.string.changelog_badge_downloaded, SemanticTone.Success),
     PRERELEASE(R.string.changelog_badge_prerelease, SemanticTone.Warning),
     LATEST(R.string.changelog_badge_latest, SemanticTone.Primary)
 }
@@ -927,7 +927,7 @@ private fun DrawScope.drawTimeline(
             drawCircle(colors.accent, radius = radius, center = center)
         }
 
-        ChangelogBadge.INSTALLED, ChangelogBadge.IN_USE -> {
+        ChangelogBadge.INSTALLED, ChangelogBadge.DOWNLOADED -> {
             val ring = 3.dp.toPx()
             drawCircle(colors.accent, radius = radius - ring / 2, center = center, style = Stroke(ring))
         }

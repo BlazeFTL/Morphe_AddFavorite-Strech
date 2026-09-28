@@ -1008,7 +1008,7 @@ private fun BundleChangelogContent(
                         // The gap under the header is the list's own, so releases scroll up to its edge
                         contentPadding = PaddingValues(top = Defaults.ItemSpacing),
                         // The version a source holds is the one it patches with, nothing on the device
-                        currentBadge = ChangelogBadge.IN_USE
+                        currentBadge = ChangelogBadge.DOWNLOADED
                     )
                 }
             }

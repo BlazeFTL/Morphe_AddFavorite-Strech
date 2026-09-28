@@ -1401,8 +1401,8 @@ Details: %2$s"</string>
     <string name="changelog_section_app_support">App support</string>
     <string name="changelog_section_other">Changes</string>
     <string name="changelog_badge_latest">Latest</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">In use</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Downloaded</string>
     <string name="changelog_badge_prerelease">Pre-release</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Show all (%s)</string>

@@ -54,8 +54,8 @@ import kotlin.time.Duration.Companion.milliseconds
 
 private val PillShape = Defaults.PillShape
 
-/** Alpha of a destructive pill's edge, the one the app details' destructive actions carry. */
-private const val DESTRUCTIVE_BORDER_ALPHA = 0.35f
+/** Alpha of the error-colored edge a destructive action carries, pill or tile alike. */
+const val DESTRUCTIVE_BORDER_ALPHA = 0.35f
 
 /** Edge of a destructive pill, faded along with the pill while it is out of reach. */
 @Composable

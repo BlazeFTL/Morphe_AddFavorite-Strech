@@ -548,7 +548,6 @@ fun InstalledAppInfoDialog(
                     isInstalling = isInstalling,
                     mountOperation = mountOperation,
                     patchOfferedAbove = showsRebuildBanner,
-                    accentColor = infoAccentColor,
                     onPatchClick = { handlePatchClick() },
                     onUninstall = { showUninstallConfirm.value = true },
                     onDelete = { showDeleteDialog.value = true },
@@ -885,12 +884,10 @@ private fun WarningBanner(
     secondaryActions: List<ActionItem> = emptyList()
 ) {
     val baseColor = if (isError) MaterialTheme.colorScheme.error else accentColor
-    val containerColor = if (baseColor.isExtremeAccent()) MaterialTheme.colorScheme.surfaceVariant else baseColor.copy(alpha = AccentAlpha.BAND)
+    val accent = readableAccent(baseColor)
+    val containerColor = accent?.copy(alpha = AccentAlpha.BAND) ?: MaterialTheme.colorScheme.surfaceVariant
     val contentColor = appAccentContent(containerColor)
-    val borderColor = if (baseColor.isExtremeAccent())
-        MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
-    else
-        baseColor.copy(alpha = 0.35f)
+    val borderColor = accent?.copy(alpha = 0.35f) ?: MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
 
     Column(
         modifier = modifier
@@ -1165,7 +1162,6 @@ private fun ActionsSection(
     isInstalling: Boolean,
     mountOperation: InstallViewModel.MountOperation?,
     patchOfferedAbove: Boolean,
-    accentColor: Color,
     onPatchClick: () -> Unit,
     onUninstall: () -> Unit,
     onDelete: () -> Unit,
@@ -1272,15 +1268,10 @@ private fun ActionsSection(
                             }
                         }
 
-                        // Check if mount warning is needed
-                        if (viewModel.primaryInstallerIsMount && installedApp.installType != InstallType.MOUNT) {
-                            // Show mount warning dialog
-                            onShowMountWarning(installAction)
-                        } else if (!viewModel.primaryInstallerIsMount && installedApp.installType == InstallType.MOUNT) {
-                            // Show mount mismatch warning
+                        // Warned about either way the installer and the install differ on mounting
+                        if (viewModel.primaryInstallerIsMount != (installedApp.installType == InstallType.MOUNT)) {
                             onShowMountWarning(installAction)
                         } else {
-                            // No warning needed, install directly
                             installAction()
                         }
                     }
@@ -1360,7 +1351,6 @@ private fun ActionsSection(
             primaryActions.forEach { action ->
                 PrimaryActionButton(
                     action = action,
-                    accentColor = accentColor,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -1383,7 +1373,7 @@ private fun ActionsSection(
                         horizontalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        rowActions.forEachIndexed { _, action ->
+                        rowActions.forEach { action ->
                             TileActionButton(
                                 action = action,
                                 modifier = if (rowActions.size == 1) Modifier.fillMaxWidth()
@@ -1497,27 +1487,28 @@ private fun ActionButton(
     }
 }
 
-/** Full-width primary button with accent color palette. */
+/**
+ * Full-width primary button with accent color palette.
+ *
+ * @param accentColor The dialog's color by default, or a banner's own, such as its error red.
+ */
 @Composable
 private fun PrimaryActionButton(
     action: ActionItem,
-    accentColor: Color,
     modifier: Modifier = Modifier,
+    accentColor: Color? = LocalAccent.current,
     contentColorOverride: Color? = null
 ) {
+    // Readable rather than usable, see readableAccent, so a banner's error red stays red
+    val accent = readableAccent(accentColor)
     // A step over the other tiles, which take the app's color at the band's fill, so it leads them
-    val containerColor = if (accentColor.isExtremeAccent())
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.9f)
-    else
-        accentColor.copy(alpha = AccentAlpha.LEAD)
+    val containerColor = accent?.copy(alpha = AccentAlpha.LEAD)
+        ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.9f)
     ActionButton(
         action = action,
         containerColor = containerColor,
         contentColor = contentColorOverride ?: appAccentContent(containerColor),
-        borderColor = if (accentColor.isExtremeAccent())
-            MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
-        else
-            accentColor.copy(alpha = 0.35f),
+        borderColor = accent?.copy(alpha = 0.35f) ?: MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f),
         modifier = modifier
     )
 }
@@ -1543,7 +1534,7 @@ private fun TileActionButton(
             else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
         },
         borderColor = when {
-            action.isDestructive -> MaterialTheme.colorScheme.error.copy(alpha = 0.35f)
+            action.isDestructive -> MaterialTheme.colorScheme.error.copy(alpha = DESTRUCTIVE_BORDER_ALPHA)
             else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
         },
         modifier = modifier,

@@ -92,14 +92,14 @@ fun ProvideCardAccent(accentColor: Color?, fill: Color, content: @Composable () 
 
 /**
  * A [StatusBadge] laid on a surface in an app's own color, a step stronger than [appAccentFill] so
- * it stands out of it. The color is the surrounding one by default, see [LocalAccent]. Without one
+ * it stands out of it. The color is the surrounding one by default, see [LocalAccent]. Without one,
  * it keeps [tone]'s own look.
  */
 @Composable
 fun AppAccentBadge(
     text: String,
-    accentColor: Color? = LocalAccent.current,
     modifier: Modifier = Modifier,
+    accentColor: Color? = LocalAccent.current,
     icon: ImageVector? = null,
     tone: SemanticTone = SemanticTone.Neutral,
     onClick: (() -> Unit)? = null
@@ -143,13 +143,19 @@ fun rememberAppMetadata(): Map<String, BundleAppMetadata> {
 fun rememberAppColor(packageName: String): Color? = rememberAppMetadata()[packageName]?.downloadColor
 
 /**
- * [accentColor] as it can be shown, or null where there is none to show. A near-black or near-white
- * color reads as a stain rather than a color, so it counts as none, and the monochrome theme swaps
- * the color for its own accent.
+ * [accentColor] as it can be shown, or null where there is none to show. The monochrome theme swaps
+ * the color for its own accent, and what is left must pass [readableAccent].
  */
 @Composable
 fun usableAppAccent(accentColor: Color?): Color? =
-    accentColor?.let { MonochromeThemeDefaults.accentColor(it) }?.takeUnless { it.isExtremeAccent() }
+    readableAccent(accentColor?.let { MonochromeThemeDefaults.accentColor(it) })
+
+/**
+ * [accentColor], or null where it is near-black or near-white and reads as a stain rather than a
+ * color. Kept as given otherwise, for a color picked for what it says, such as an error red, which
+ * [usableAppAccent] would trade for the monochrome theme's accent.
+ */
+fun readableAccent(accentColor: Color?): Color? = accentColor?.takeUnless { it.isExtremeAccent() }
 
 /** [accentColor] at [alpha], or [neutral] where [usableAppAccent] finds none. */
 @Composable

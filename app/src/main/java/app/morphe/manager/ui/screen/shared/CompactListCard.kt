@@ -44,7 +44,7 @@ fun CompactListCard(
     SettingsItemCard(
         onClick = onClick,
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = MaterialTheme.colorScheme.outlineVariant,
         modifier = modifier
     ) {

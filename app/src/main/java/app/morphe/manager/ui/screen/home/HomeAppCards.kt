@@ -46,8 +46,8 @@ import app.morphe.manager.ui.model.HomeAppItem
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
 import app.morphe.manager.ui.theme.LocalAppCardColorResolver
-import app.morphe.manager.ui.theme.LocalMonochromeTheme
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.ui.theme.LocalThemeTraits
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.*
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
@@ -61,6 +61,7 @@ private const val MAX_BADGE_VERSION_LENGTH = 10
 
 private data class HomeAppCardStyle(
     val monochrome: Boolean,
+    val outlines: Boolean,
     val colorResolver: AppCardColorResolver?,
     val iconSize: Dp,
     val titleColor: Color,
@@ -105,15 +106,17 @@ private data class HomeAppCardStyle(
 
 @Composable
 private fun homeAppCardStyle(subtitleAlpha: Float = 0.75f): HomeAppCardStyle {
-    val monochrome = LocalMonochromeTheme.current
-    val titleShadow = MonochromeThemeDefaults.textShadow(
+    // The cards draw a palette of their own rather than shared tokens, so they read the traits directly
+    val traits = LocalThemeTraits.current
+    val monochrome = traits.monochrome
+    val titleShadow = ThemeTraitsDefaults.textShadow(
         Shadow(
             color = Color.Black.copy(alpha = 0.4f),
             offset = Offset(0f, 2f),
             blurRadius = 4f
         )
     )
-    val subtitleShadow = MonochromeThemeDefaults.textShadow(
+    val subtitleShadow = ThemeTraitsDefaults.textShadow(
         Shadow(
             color = Color.Black.copy(alpha = 0.4f),
             offset = Offset(0f, 1f),
@@ -123,6 +126,7 @@ private fun homeAppCardStyle(subtitleAlpha: Float = 0.75f): HomeAppCardStyle {
 
     return HomeAppCardStyle(
         monochrome = monochrome,
+        outlines = traits.outlines,
         colorResolver = LocalAppCardColorResolver.current,
         iconSize = 60.dp,
         titleColor = if (monochrome) MaterialTheme.colorScheme.onSurface else Color.White,
@@ -600,11 +604,13 @@ internal fun AppCardLayout(
 
                     drawContent()
 
-                    drawRoundRect(
-                        brush = border,
-                        cornerRadius = cr,
-                        style = borderStroke
-                    )
+                    if (cardStyle.outlines) {
+                        drawRoundRect(
+                            brush = border,
+                            cornerRadius = cr,
+                            style = borderStroke
+                        )
+                    }
                 }
             }
             .combinedClickable(

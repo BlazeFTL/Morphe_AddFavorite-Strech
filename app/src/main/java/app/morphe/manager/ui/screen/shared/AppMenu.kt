@@ -5,7 +5,6 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
@@ -34,7 +33,7 @@ private val MenuShadowElevation = 6.dp
 private fun menuContainerColor() = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
 
 @Composable
-private fun menuBorder() = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+private fun menuBorder() = CardBorder.of(MaterialTheme.colorScheme.outlineVariant)
 
 /**
  * Popup menu in the app's own look: a rounded card outlined as the app's cards are, in place of

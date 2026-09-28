@@ -433,9 +433,7 @@ private fun AdaptiveIconPreview(
 ) {
     // Guide color adapts to background brightness to keep circles visible
     val previewGuideColor = remember(backgroundColor) {
-        val bgColor = backgroundColor.toColorOrNull()
-            ?: Color.Black
-        if (bgColor.isDarkBackground()) Color.White else Color.Black
+        (backgroundColor.toColorOrNull() ?: Color.Black).contrastingContent()
     }
     // Dashed effect for snap guides and outer safe zone
     val dashEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 6f), 0f)

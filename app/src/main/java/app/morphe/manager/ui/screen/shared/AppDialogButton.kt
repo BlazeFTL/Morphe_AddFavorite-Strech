@@ -149,7 +149,8 @@ private fun DialogButton(
             label = "dialog_button_press_scale"
         )
     val shape = RoundedCornerShape(Defaults.CardCornerRadius)
-    val border = BorderStroke(1.dp, colors.borderColor)
+    // An outlined button is drawn by its edge alone, so it keeps one whatever the outlines setting says
+    val border = if (filled) CardBorder.of(colors.borderColor) else BorderStroke(1.dp, colors.borderColor)
     val contentPadding = PaddingValues(
         horizontal = DialogButtonHorizontalPadding,
         vertical = DialogButtonVerticalPadding

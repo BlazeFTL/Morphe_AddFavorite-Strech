@@ -19,11 +19,11 @@ import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isDefault
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.BundleAppMetadata
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.compositeOver
+import app.morphe.manager.util.contrastingContent
 import app.morphe.manager.util.isExtremeAccent
 import app.morphe.manager.util.rememberSourceAccent
-import app.morphe.manager.util.requiresLightContent
 import org.koin.compose.koinInject
 
 /**
@@ -124,11 +124,8 @@ fun AppAccentBadge(
  * as its badges have, and whichever of black and white stands out of the solid color.
  */
 @Composable
-fun appAccentContent(fill: Color): Color = when {
-    fill.alpha < 1f -> MaterialTheme.colorScheme.onBackground
-    fill.requiresLightContent() -> Color.White
-    else -> Color.Black
-}
+fun appAccentContent(fill: Color): Color =
+    if (fill.alpha < 1f) MaterialTheme.colorScheme.onBackground else fill.contrastingContent()
 
 /** What the sources declare about each app they patch, by package name. */
 @Composable
@@ -143,12 +140,12 @@ fun rememberAppMetadata(): Map<String, BundleAppMetadata> {
 fun rememberAppColor(packageName: String): Color? = rememberAppMetadata()[packageName]?.downloadColor
 
 /**
- * [accentColor] as it can be shown, or null where there is none to show. The monochrome theme swaps
- * the color for its own accent, and what is left must pass [readableAccent].
+ * [accentColor] as it can be shown, or null where there is none to show. Monochrome and the color
+ * accents setting swap the color for the theme's accent, and what is left must pass [readableAccent].
  */
 @Composable
 fun usableAppAccent(accentColor: Color?): Color? =
-    readableAccent(accentColor?.let { MonochromeThemeDefaults.accentColor(it) })
+    readableAccent(accentColor?.let { ThemeTraitsDefaults.accentColor(it) })
 
 /**
  * [accentColor], or null where it is near-black or near-white and reads as a stain rather than a

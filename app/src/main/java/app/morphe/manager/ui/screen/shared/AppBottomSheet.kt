@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -24,7 +23,7 @@ import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import kotlinx.coroutines.launch
 
 /**
@@ -58,7 +57,7 @@ fun AppBottomSheet(
     showDragHandle: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val effectiveContainerColor = MonochromeThemeDefaults.surfaceColor(containerColor)
+    val effectiveContainerColor = ThemeTraitsDefaults.surfaceColor(containerColor)
     val backProgress = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
 
@@ -104,7 +103,7 @@ fun AppBottomSheet(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .border(CardBorder.neutral, shape)
+                        .cardBorder(CardBorder.neutral, shape)
                 ) {
                     if (showDragHandle) SheetDragHandle(contentColor, onDismissRequest)
                     content()

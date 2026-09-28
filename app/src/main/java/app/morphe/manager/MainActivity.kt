@@ -127,6 +127,8 @@ class MainActivity : AppCompatActivity() {
             val theme by vm.prefs.theme.getAsState()
             val themeStyle by vm.prefs.themeStyle.getAsState()
             val pureBlackTheme by vm.prefs.pureBlackTheme.getAsState()
+            val colorAccents by vm.prefs.colorAccents.getAsState()
+            val outlines by vm.prefs.outlines.getAsState()
             val customAccentColor by vm.prefs.customAccentColor.getAsState()
             val customThemeColor by vm.prefs.customThemeColor.getAsState()
             val appCardColorMode by vm.prefs.appCardColorMode.getAsState()
@@ -146,7 +148,11 @@ class MainActivity : AppCompatActivity() {
                 darkTheme = darkTheme,
                 dynamicColor = effectiveThemeStyle == ThemeStyle.MATERIAL_YOU,
                 pureBlackTheme = pureBlackTheme,
-                monochromeTheme = effectiveThemeStyle == ThemeStyle.MONOCHROME,
+                traits = ThemeTraits(
+                    monochrome = effectiveThemeStyle == ThemeStyle.MONOCHROME,
+                    colorAccents = colorAccents,
+                    outlines = outlines
+                ),
                 accentColorHex = customAccentColor.takeUnless { it.isBlank() },
                 themeColorHex = customThemeColor.takeUnless { it.isBlank() },
                 appCardColorMode = appCardColorMode,

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.colorpicker.*
-import app.morphe.manager.util.requiresLightContent
+import app.morphe.manager.util.contrastingContent
 import app.morphe.manager.util.toColorOrNull
 import app.morphe.manager.util.toHexString
 import app.morphe.manager.util.toHsv
@@ -280,7 +280,7 @@ private fun ColorPreview(color: Color, gradient: List<Color>?, label: String, he
                 text = label,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = if (animated.requiresLightContent()) Color.White else Color.Black
+                color = animated.contrastingContent()
             )
         }
     }

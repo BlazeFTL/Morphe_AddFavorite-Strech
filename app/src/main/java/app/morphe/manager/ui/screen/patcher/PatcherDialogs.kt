@@ -548,7 +548,7 @@ private fun ErrorInfoCard(
     errorBadge: String? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    SurfaceCard(modifier = modifier.fillMaxWidth(), borderWidth = 1.dp) {
+    SurfaceCard(modifier = modifier.fillMaxWidth(), showBorder = true) {
         Column {
             Surface(
                 modifier = Modifier.fillMaxWidth(),

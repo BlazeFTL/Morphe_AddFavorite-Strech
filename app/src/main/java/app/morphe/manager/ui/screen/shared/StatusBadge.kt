@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.ui.theme.*
-import app.morphe.manager.util.isDarkBackground
 import app.morphe.manager.util.readableOn
 
 /**
@@ -75,11 +74,6 @@ enum class SemanticTone {
             Error -> MaterialTheme.colorScheme.error
         }
 }
-
-// Read from the background rather than a theme flag, so a pure black or custom colored theme
-// still picks the green and amber meant for it
-@Composable
-private fun isDarkTheme(): Boolean = MaterialTheme.colorScheme.background.isDarkBackground()
 
 /** Sizing shared by every badge, so badges line up wherever they end up side by side. */
 private object BadgeDefaults {

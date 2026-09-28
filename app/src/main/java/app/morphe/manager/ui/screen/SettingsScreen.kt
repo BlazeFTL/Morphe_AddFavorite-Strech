@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -629,9 +628,6 @@ private fun NavigationItem(
         selected = isSelected,
         onClick = onClick,
         modifier = modifier,
-        containerColor = GlassButtonDefaults.containerColor(isSelected),
-        contentColor = GlassButtonDefaults.contentColor(isSelected),
-        border = BorderStroke(1.dp, GlassButtonDefaults.borderColor(isSelected)),
         pressScale = true,
         hapticFeedback = true
     )

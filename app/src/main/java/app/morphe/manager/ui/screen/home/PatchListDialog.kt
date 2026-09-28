@@ -416,7 +416,7 @@ internal fun PatchItemCard(
             { expandOptions = !expandOptions }
         } else null,
         modifier = modifier,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = appAccentBorder(accentColor),
         color = cardColor
     ) {

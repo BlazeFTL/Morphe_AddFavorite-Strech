@@ -217,7 +217,7 @@ internal fun PatchCard(
     SettingsItemCard(
         onClick = onCardClick,
         color = containerColor,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = when {
             showMissingRequired -> colors.error.copy(alpha = 0.6f)
             !isEnabled -> colors.outlineVariant.copy(alpha = 0.5f)

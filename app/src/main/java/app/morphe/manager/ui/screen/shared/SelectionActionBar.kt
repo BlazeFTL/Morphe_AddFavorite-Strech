@@ -28,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 
 /** Shape of the [MultiSelectShell] surface: rounded where it leaves the bottom edge, like a sheet. */
 private val ShellShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
@@ -69,7 +69,7 @@ fun MultiSelectShell(
             shape = ShellShape,
             // Drawn like an AppBottomSheet, on the dialogs' background with an edge of its own, so
             // a panel docked over a list reads as the same kind of surface as a sheet
-            color = MonochromeThemeDefaults.surfaceColor(MaterialTheme.colorScheme.background),
+            color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.background),
             border = CardBorder.neutral,
             shadowElevation = 8.dp
         ) {

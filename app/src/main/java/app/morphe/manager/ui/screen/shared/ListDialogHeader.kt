@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import app.morphe.manager.R
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 
 /** How a dialog heads itself, shared by the list dialogs and the app details so they read alike. */
 object DialogHeaderDefaults {
@@ -269,7 +269,7 @@ fun ListDialogHeader(
  */
 @Composable
 fun ListDialogHeaderIcon(icon: ImageVector, color: Color, modifier: Modifier = Modifier) {
-    val accent = MonochromeThemeDefaults.accentColor(color)
+    val accent = ThemeTraitsDefaults.accentColor(color)
     StatusCircleIcon(
         icon = icon,
         containerColor = accent.copy(alpha = 0.2f),

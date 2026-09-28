@@ -58,7 +58,7 @@ import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
 import app.morphe.manager.ui.screen.settings.system.InstallerUnavailableDialog
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.screen.shared.Animations
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
@@ -175,7 +175,7 @@ fun InstalledAppInfoDialog(
     val bundleAppMetadata by homeViewModel.bundleAppMetadataFlow.collectAsStateWithLifecycle()
     val appAccentColor = rememberAppColor(viewModel.installedApp?.originalPackageName ?: packageName)
         ?: KnownApps.DEFAULT_DOWNLOAD_COLOR
-    val infoAccentColor = MonochromeThemeDefaults.accentColor(appAccentColor)
+    val infoAccentColor = ThemeTraitsDefaults.accentColor(appAccentColor)
 
     // Dialog states
     val showUninstallConfirm = remember { mutableStateOf(false) }
@@ -889,7 +889,7 @@ private fun WarningBanner(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(Defaults.ItemSpacing))
-            .border(1.dp, borderColor, RoundedCornerShape(Defaults.ItemSpacing))
+            .cardBorder(CardBorder.of(borderColor), RoundedCornerShape(Defaults.ItemSpacing))
             .background(containerColor)
             .padding(Defaults.ItemSpacing),
         verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
@@ -1040,7 +1040,7 @@ private fun InfoSection(
     // Filled like the app's cards elsewhere, so the panel reads as part of the app's dialog
     SurfaceCard(
         cornerRadius = Defaults.CardCornerRadius,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = appAccentBorder(accentColor),
         color = appAccentCardFill(accentColor) ?: MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         modifier = modifier
@@ -1440,7 +1440,7 @@ private fun ActionButton(
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         color = container,
         contentColor = content,
-        border = BorderStroke(1.dp, border),
+        border = CardBorder.of(border),
         interactionSource = interactionSource
     ) {
         if (vertical) {

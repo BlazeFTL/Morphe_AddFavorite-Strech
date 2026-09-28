@@ -95,7 +95,7 @@ fun RadioSelectionCard(
     SettingsItemCard(
         onClick = onSelect,
         enabled = enabled,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = borderColor,
         color = cardColor,
         modifier = modifier.semantics {

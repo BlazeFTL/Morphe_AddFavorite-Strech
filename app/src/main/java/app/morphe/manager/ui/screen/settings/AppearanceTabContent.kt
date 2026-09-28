@@ -70,6 +70,8 @@ fun AppearanceTabContent(
     val appLanguage by AppLocale.selected.collectAsStateWithLifecycle()
     val showGreetingPhrases by themeViewModel.prefs.showGreetingPhrases.getAsState()
     val showRepatchNotice by themeViewModel.prefs.showRepatchNotice.getAsState()
+    val colorAccents by themeViewModel.prefs.colorAccents.getAsState()
+    val outlines by themeViewModel.prefs.outlines.getAsState()
     val appCardColorMode by themeViewModel.prefs.appCardColorMode.getAsState()
     val customAppCardColors by themeViewModel.prefs.customAppCardColors.getAsState()
     val showAppGroupingSwitcher by homeAppButtonPrefs.showCategoryViewSwitcher.collectAsStateWithLifecycle()
@@ -127,6 +129,10 @@ fun AppearanceTabContent(
             onThemeSelected = themeViewModel::setThemeMode,
             onStyleSelected = themeViewModel::setThemeStyle,
             onPureBlackToggle = { themeViewModel.setPureBlackTheme(!pureBlackTheme) },
+            colorAccents = colorAccents,
+            onColorAccentsToggle = { themeViewModel.toggleColorAccents(colorAccents) },
+            outlines = outlines,
+            onOutlinesToggle = { themeViewModel.toggleOutlines(outlines) },
             backgroundType = backgroundType,
             randomInterval = randomInterval,
             onBackgroundClick = { showBackgroundDialog.value = true },
@@ -299,8 +305,8 @@ private fun LanguageAndDisplaySection(
 }
 
 /**
- * Theme mode and color style, then how the rest of the manager is dressed: pure black, the
- * animated background and the launcher icon.
+ * Theme mode and color style, then how the rest of the manager is dressed: pure black, the colors
+ * apps and sources wear, outlines, the animated background and the launcher icon.
  */
 @Composable
 private fun ThemeSection(
@@ -312,6 +318,10 @@ private fun ThemeSection(
     onThemeSelected: (Theme) -> Unit,
     onStyleSelected: (ThemeStyle) -> Unit,
     onPureBlackToggle: () -> Unit,
+    colorAccents: Boolean,
+    onColorAccentsToggle: () -> Unit,
+    outlines: Boolean,
+    onOutlinesToggle: () -> Unit,
     backgroundType: BackgroundType,
     randomInterval: RandomInterval,
     onBackgroundClick: () -> Unit,
@@ -362,6 +372,34 @@ private fun ThemeSection(
                 SettingsDivider()
             }
         }
+
+        // Monochrome already trades every app's and source's color for its own accent
+        AnimatedVisibility(
+            visible = themeStyle != ThemeStyle.MONOCHROME,
+            enter = Animations.expandFadeEnter,
+            exit = Animations.shrinkFadeExit
+        ) {
+            Column {
+                SettingsSwitchItem(
+                    title = stringResource(R.string.settings_appearance_color_accents),
+                    subtitle = stringResource(R.string.settings_appearance_color_accents_description),
+                    icon = Icons.Outlined.FormatColorFill,
+                    checked = colorAccents,
+                    onToggle = onColorAccentsToggle
+                )
+                SettingsDivider()
+            }
+        }
+
+        SettingsSwitchItem(
+            title = stringResource(R.string.settings_appearance_outlines),
+            subtitle = stringResource(R.string.settings_appearance_outlines_description),
+            icon = Icons.Outlined.BorderStyle,
+            checked = outlines,
+            onToggle = onOutlinesToggle
+        )
+
+        SettingsDivider()
 
         BackgroundSettingsItem(
             selectedBackground = backgroundType,

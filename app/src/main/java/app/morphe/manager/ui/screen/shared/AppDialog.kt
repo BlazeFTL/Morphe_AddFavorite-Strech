@@ -32,7 +32,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
-import app.morphe.manager.util.isDarkBackground
+import app.morphe.manager.ui.theme.isDarkTheme
 import kotlin.time.Duration.Companion.milliseconds
 
 /** Provides the primary text color for dialog content. */
@@ -126,7 +126,7 @@ fun AppDialog(
     onEntered: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
-    val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
+    val isDarkTheme = isDarkTheme()
     var visible by remember { mutableStateOf(false) }
 
     DisposableEffect(Unit) {
@@ -236,7 +236,7 @@ fun Overlay(
 ) {
     // Drawn over the theme background, so the bars read against the same thing an AppDialog gives
     // them even though this one lets some of the screen behind show through
-    val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
+    val isDarkTheme = isDarkTheme()
 
     AnimatedVisibility(
         visible = visible,

@@ -688,7 +688,7 @@ private fun SelectableVersionListCard(
 
                 VersionPanel(
                     border = if (hasMultipleBundles && usableAppAccent(sourceColor) != null) {
-                        BorderStroke(1.dp, appAccentBorder(sourceColor))
+                        CardBorder.of(appAccentBorder(sourceColor))
                     } else {
                         CardBorder.neutral
                     },
@@ -787,7 +787,7 @@ private fun VersionListCard(
 private fun VersionPanel(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-    border: BorderStroke = CardBorder.neutral,
+    border: BorderStroke? = CardBorder.neutral,
     header: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {

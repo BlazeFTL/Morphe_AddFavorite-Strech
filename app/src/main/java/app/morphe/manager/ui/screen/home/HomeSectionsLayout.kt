@@ -13,7 +13,6 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.*
@@ -545,9 +544,6 @@ private fun HomeFooterControls(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 12.dp),
-                    containerColor = GlassButtonDefaults.containerColor(),
-                    contentColor = GlassButtonDefaults.contentColor(),
-                    border = BorderStroke(1.dp, GlassButtonDefaults.borderColor()),
                     role = Role.Button,
                     pressScale = true,
                     hapticFeedback = true

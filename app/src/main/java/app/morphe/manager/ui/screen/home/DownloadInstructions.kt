@@ -322,7 +322,7 @@ internal fun DownloadInstructionsDialog(
             // On a card of their own, as the version lists before them are, numbered down a rail
             SurfaceCard(
                 cornerRadius = Defaults.SettingsCornerRadius,
-                borderWidth = 1.dp,
+                showBorder = true,
                 color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
             ) {
                 Column(
@@ -404,7 +404,7 @@ private fun SiteDownloadButton(
         // APKMirror tints its download button with the app's own accent color
         SiteButton.ApkMirror -> {
             val buttonColor = downloadColor.ensureContrast(MaterialTheme.colorScheme.background)
-            val contentColor = if (buttonColor.requiresLightContent()) Color.White else Color.Black
+            val contentColor = buttonColor.contrastingContent()
 
             Surface(
                 onClick = onClick,

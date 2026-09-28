@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,12 +20,10 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -40,10 +37,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.Defaults.MinTouchTarget
 import app.morphe.manager.ui.screen.shared.Defaults.TallTouchTarget
-import app.morphe.manager.ui.theme.LocalMonochromeTheme
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.ui.theme.MorpheBrandBlue
 import app.morphe.manager.ui.theme.MorpheBrandTeal
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.readableOn
 
@@ -124,18 +120,11 @@ fun SurfaceCard(
     enabled: Boolean = true,
     elevation: Dp = Defaults.CardElevation,
     cornerRadius: Dp = Defaults.CardCornerRadius,
-    borderWidth: Dp = 0.dp,
+    showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
     color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
     content: @Composable () -> Unit
 ) {
-    val monochromeTheme = LocalMonochromeTheme.current
-    val effectiveColor = MonochromeThemeDefaults.surfaceColor(color)
-    val effectiveBorder = when {
-        borderWidth > 0.dp && !monochromeTheme -> BorderStroke(borderWidth, borderColor)
-        else -> null
-    }
-
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -146,11 +135,11 @@ fun SurfaceCard(
                 } else Modifier
             ),
         shape = RoundedCornerShape(cornerRadius),
-        color = effectiveColor,
+        color = ThemeTraitsDefaults.surfaceColor(color),
         contentColor = MaterialTheme.colorScheme.onSurface,
-        tonalElevation = if (monochromeTheme) 0.dp else elevation,
+        tonalElevation = ThemeTraitsDefaults.cardElevation(elevation),
         shadowElevation = 0.dp,
-        border = effectiveBorder
+        border = if (showBorder) CardBorder.of(borderColor) else null
     ) {
         content()
     }
@@ -164,19 +153,9 @@ fun SettingsDivider(
     modifier: Modifier = Modifier,
     fullWidth: Boolean = false
 ) {
-    val monochromeTheme = LocalMonochromeTheme.current
-    val outlineVariant = MaterialTheme.colorScheme.outlineVariant
-    val surfaceTint = MaterialTheme.colorScheme.surfaceTint
-    val color = remember(outlineVariant, surfaceTint, monochromeTheme) {
-        if (monochromeTheme) {
-            outlineVariant.copy(alpha = 0.28f)
-        } else {
-            lerp(outlineVariant, surfaceTint, 0.18f).copy(alpha = 0.55f)
-        }
-    }
     HorizontalDivider(
         modifier = if (fullWidth) modifier else modifier.padding(horizontal = Defaults.ContentPadding),
-        color = color
+        color = ThemeTraitsDefaults.dividerColor()
     )
 }
 
@@ -388,13 +367,13 @@ fun GradientCircleIcon(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .background(brush = MonochromeThemeDefaults.iconBackground(gradientColors)),
+            .background(brush = ThemeTraitsDefaults.iconBackground(gradientColors)),
         contentAlignment = Alignment.Center
     ) {
         ThemedIcon(
             icon = icon,
             contentDescription = contentDescription,
-            tint = MonochromeThemeDefaults.iconTint(Color.White),
+            tint = ThemeTraitsDefaults.iconTint(Color.White),
             size = iconSize
         )
     }
@@ -456,7 +435,7 @@ fun SettingsItemCard(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    borderWidth: Dp = 0.dp,
+    showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
     color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
     content: @Composable () -> Unit
@@ -466,7 +445,7 @@ fun SettingsItemCard(
         enabled = enabled,
         elevation = 1.dp,
         cornerRadius = Defaults.SettingsCornerRadius,
-        borderWidth = borderWidth,
+        showBorder = showBorder,
         borderColor = borderColor,
         color = color,
         modifier = modifier
@@ -518,7 +497,7 @@ fun SettingsItem(
 ) {
     SettingsItemCard(
         onClick = onClick,
-        borderWidth = if (showBorder) 1.dp else 0.dp,
+        showBorder = showBorder,
         modifier = modifier
     ) {
         IconTextRow(
@@ -600,7 +579,7 @@ fun SectionCard(
         onClick = onClick,
         elevation = Defaults.CardElevation,
         cornerRadius = Defaults.SectionCornerRadius,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = appAccentBorder(accentColor),
         color = fill ?: MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         modifier = modifier

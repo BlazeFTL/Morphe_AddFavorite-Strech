@@ -445,6 +445,7 @@ fun InstalledAppInfoDialog(
         title = null,
         dismissOnClickOutside = true,
         padding = DialogPadding.None,
+        accentColor = infoAccentColor,
         footer = null,
         onEntered = { entered.value = true }
     ) {
@@ -1043,9 +1044,12 @@ private fun InfoSection(
         } catch (_: Exception) { emptyList() }
     }
 
+    // Filled like the app's cards elsewhere, so the panel reads as part of the app's dialog
     SurfaceCard(
         cornerRadius = Defaults.ItemSpacing,
         borderWidth = 1.dp,
+        borderColor = appAccentBorder(accentColor),
+        color = appAccentCardFill(accentColor) ?: MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         modifier = modifier
     ) {
         Column {
@@ -1075,7 +1079,6 @@ private fun InfoSection(
                         icon = Icons.Outlined.VisibilityOff,
                         label = supportedVersionLabel,
                         value = supportedVersion.withVersionPrefix(),
-                        accentColor = accentColor,
                         onAction = onStopIgnoringVersion,
                         actionIcon = Icons.Outlined.Visibility,
                         actionContentDescription = stringResource(R.string.stop_ignoring)
@@ -1113,7 +1116,6 @@ private fun InfoSection(
                     icon = Icons.Outlined.DoneAll,
                     label = stringResource(R.string.home_app_info_applied_patches),
                     value = pluralStringResource(R.plurals.patch_count, totalPatches, totalPatches.toString()),
-                    accentColor = accentColor,
                     onAction = onShowPatches
                 )
             }
@@ -1135,7 +1137,6 @@ private fun InfoRowWithAction(
     icon: ImageVector,
     label: String,
     value: String,
-    accentColor: Color,
     onAction: () -> Unit,
     actionIcon: ImageVector = Icons.AutoMirrored.Outlined.List,
     actionContentDescription: String = stringResource(R.string.view),
@@ -1145,14 +1146,11 @@ private fun InfoRowWithAction(
         label = label,
         value = value,
         trailing = {
+            // A plain pill takes the app's color the dialog hands it, as the pills on its cards do
             ActionPillButton(
                 onClick = onAction,
                 icon = actionIcon,
-                contentDescription = actionContentDescription,
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = accentColor.copy(alpha = AccentAlpha.STEP),
-                    contentColor = appAccentContent(accentColor.copy(alpha = AccentAlpha.STEP))
-                )
+                contentDescription = actionContentDescription
             )
         }
     )
@@ -1499,10 +1497,11 @@ private fun PrimaryActionButton(
     modifier: Modifier = Modifier,
     contentColorOverride: Color? = null
 ) {
+    // A step over the other tiles, which take the app's color at the band's fill, so it leads them
     val containerColor = if (accentColor.isExtremeAccent())
         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.9f)
     else
-        accentColor.copy(alpha = AccentAlpha.STEP)
+        accentColor.copy(alpha = AccentAlpha.LEAD)
     ActionButton(
         action = action,
         containerColor = containerColor,
@@ -1522,16 +1521,19 @@ private fun TileActionButton(
     modifier: Modifier = Modifier,
     horizontal: Boolean = false
 ) {
+    // Tinted with the app's color at the primary action's fill, which its colored edge keeps ahead
+    val accentFill = LocalAccent.current?.copy(alpha = AccentAlpha.BAND)
     ActionButton(
         action = action,
         containerColor = when {
             action.isDestructive -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.45f)
             !action.enabled -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-            else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+            else -> accentFill ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
         },
         contentColor = when {
             action.isDestructive -> MaterialTheme.colorScheme.error
             !action.enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f)
+            accentFill != null -> appAccentContent(accentFill)
             else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
         },
         borderColor = when {

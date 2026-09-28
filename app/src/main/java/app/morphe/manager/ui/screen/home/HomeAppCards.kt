@@ -744,30 +744,16 @@ fun AppLoadingCard(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Box(
-                    modifier = Modifier.height(titleRowHeight),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    ShimmerBox(
-                        modifier = Modifier
-                            .fillMaxWidth(0.6f)
-                            .height(20.dp),
-                        shape = RoundedCornerShape(4.dp),
-                        baseColor = skeletonColor.copy(alpha = 0.25f)
-                    )
-                }
-                Box(
-                    modifier = Modifier.height(statusBadgeHeight),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    ShimmerBox(
-                        modifier = Modifier
-                            .fillMaxWidth(0.4f)
-                            .height(14.dp),
-                        shape = RoundedCornerShape(4.dp),
-                        baseColor = skeletonColor.copy(alpha = 0.15f)
-                    )
-                }
+                ShimmerLine(
+                    height = titleRowHeight,
+                    widthFraction = 0.6f,
+                    baseColor = skeletonColor.copy(alpha = 0.25f)
+                )
+                ShimmerLine(
+                    height = statusBadgeHeight,
+                    widthFraction = 0.4f,
+                    baseColor = skeletonColor.copy(alpha = 0.15f)
+                )
             }
         }
     }

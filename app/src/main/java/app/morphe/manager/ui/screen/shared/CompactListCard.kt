@@ -59,24 +59,6 @@ fun CompactListCard(
     }
 }
 
-/** Placeholder of a [CompactListCard] while the list it belongs to is read. */
-@Composable
-fun ShimmerCompactListCard() {
-    CompactListCard(onClick = null) {
-        ShimmerBox(
-            modifier = Modifier.size(CompactCardIconSize),
-            shape = RoundedCornerShape(Defaults.CompactCornerRadius)
-        )
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            ShimmerText(widthFraction = 0.55f, height = 14.dp)
-            ShimmerText(widthFraction = 0.35f, height = 12.dp)
-        }
-    }
-}
-
 /**
  * Tinted tile leading a [CompactListCard] whose entry has no picture of its own, holding a glyph
  * of [CompactCardGlyphSize] drawn in [contentColor].

@@ -48,11 +48,8 @@ object AccentAlpha {
     /** A control a step over [STEP], for one that leads, such as a pill or an engaged title action. */
     const val LEAD = 0.3f
 
-    /**
-     * A card's edge. The card's fill stays neutral, see [cardFill], so the edge is where the color
-     * shows, and has to hold even a dark icon color apart from a black background.
-     */
-    const val BORDER = 0.6f
+    /** A card's or an outlined control's edge, one alpha for both so neither pulls the eye. */
+    const val BORDER = 0.3f
 }
 
 /**
@@ -66,7 +63,6 @@ fun appAccentFill(accentColor: Color?): Color =
 /** Fill of a group header or a picked card in an app's own color, or null without one. Other cards take [cardFill]. */
 @Composable
 fun appAccentCardFill(accentColor: Color?): Color? = usableAppAccent(accentColor)?.copy(alpha = AccentAlpha.CARD)
-
 
 /** Border of a card that carries an app's own color, see [AccentAlpha.BORDER]. */
 @Composable

@@ -59,7 +59,8 @@ private fun resolveButtonColors(isDestructive: Boolean, filled: Boolean): Dialog
         DialogButtonColors(
             containerColor = if (filled) primaryColor.copy(alpha = if (isDark) 0.3f else 0.25f) else Color.Transparent,
             contentColor = if (filled) textColor else textColor.copy(alpha = 0.85f),
-            borderColor = primaryColor.copy(alpha = if (isDark) (if (filled) 0.5f else 0.3f) else (if (filled) 0.4f else 0.25f))
+            // An outlined button is edged as the cards above it are, see AccentAlpha.BORDER
+            borderColor = primaryColor.copy(alpha = if (filled) (if (isDark) 0.5f else 0.4f) else AccentAlpha.BORDER)
         )
     }
 }

@@ -92,6 +92,8 @@ fun HomeDialogs(
         exit = Animations.fadeOut(if (homeViewModel.showDownloadInstructionsDialog) 0 else Defaults.ANIMATION_DURATION)
     ) {
         val appName = homeViewModel.pendingAppName ?: return@AnimatedVisibility
+        // Remembered so the color holds through the exit animation, as the download dialog's does
+        val packageName = remember { homeViewModel.pendingPackageName }
         val recommendedVersion = homeViewModel.pendingRecommendedVersion
         val compatibleVersions = homeViewModel.pendingCompatibleVersions
         val selectedDownloadVersion = homeViewModel.pendingSelectedDownloadVersion
@@ -102,41 +104,43 @@ fun HomeDialogs(
         val installedAppVersion = homeViewModel.pendingInstalledAppVersion
         val stockAppInstalled = homeViewModel.pendingStockAppInstalled == true
 
-        ApkAvailabilityDialog(
-            appName = appName,
-            recommendedVersion = recommendedVersion,
-            compatibleVersions = compatibleVersions,
-            selectedDownloadVersion = selectedDownloadVersion,
-            onVersionSelect = { homeViewModel.pendingSelectedDownloadVersion = it },
-            usingMountInstall = usingMountInstall,
-            stockAppInstalled = stockAppInstalled,
-            isExpertMode = isExpertMode,
-            savedApkInfo = savedApkInfo,
-            installedApkInfo = installedApkInfo,
-            installedAppVersion = installedAppVersion,
-            onDismiss = {
-                homeViewModel.showApkAvailabilityDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onHaveApk = {
-                homeViewModel.showApkAvailabilityDialog = false
-                storagePickerLauncher()
-            },
-            onNeedApk = {
-                homeViewModel.showApkAvailabilityDialog = false
-                scope.launch {
-                    delay(50.milliseconds)
-                    homeViewModel.showDownloadInstructionsDialog = true
-                    homeViewModel.resolveDownloadRedirect()
+        PatchingAppColor(packageName) {
+            ApkAvailabilityDialog(
+                appName = appName,
+                recommendedVersion = recommendedVersion,
+                compatibleVersions = compatibleVersions,
+                selectedDownloadVersion = selectedDownloadVersion,
+                onVersionSelect = { homeViewModel.pendingSelectedDownloadVersion = it },
+                usingMountInstall = usingMountInstall,
+                stockAppInstalled = stockAppInstalled,
+                isExpertMode = isExpertMode,
+                savedApkInfo = savedApkInfo,
+                installedApkInfo = installedApkInfo,
+                installedAppVersion = installedAppVersion,
+                onDismiss = {
+                    homeViewModel.showApkAvailabilityDialog = false
+                    homeViewModel.cleanupPendingData()
+                },
+                onHaveApk = {
+                    homeViewModel.showApkAvailabilityDialog = false
+                    storagePickerLauncher()
+                },
+                onNeedApk = {
+                    homeViewModel.showApkAvailabilityDialog = false
+                    scope.launch {
+                        delay(50.milliseconds)
+                        homeViewModel.showDownloadInstructionsDialog = true
+                        homeViewModel.resolveDownloadRedirect()
+                    }
+                },
+                onUseSaved = {
+                    homeViewModel.handleSavedApkSelection()
+                },
+                onUseInstalled = {
+                    homeViewModel.handleInstalledApkSelection()
                 }
-            },
-            onUseSaved = {
-                homeViewModel.handleSavedApkSelection()
-            },
-            onUseInstalled = {
-                homeViewModel.handleInstalledApkSelection()
-            }
-        )
+            )
+        }
     }
 
     // Dialog 2: Download instructions
@@ -167,25 +171,27 @@ fun HomeDialogs(
             bundleMetadata[packageName ?: ""]?.apkFileType?.isApk == false
         }
 
-        DownloadInstructionsDialog(
-            downloadUrl = homeViewModel.resolvedDownloadUrl,
-            requestedVersion = requestedVersion,
-            usingMountInstall = usingMountInstall,
-            stockAppInstalled = homeViewModel.pendingStockAppInstalled == true,
-            downloadColor = downloadColor,
-            isApkBundle = isApkBundle,
-            onDismiss = {
-                homeViewModel.showDownloadInstructionsDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onOpenApkDownloadHelper = openApkDownloadHelper
-        ) {
-            homeViewModel.handleDownloadInstructionsContinue { url ->
-                try {
-                    uriHandler.openUri(url)
-                    true
-                } catch (_: Exception) {
-                    false
+        PatchingAppColor(packageName) {
+            DownloadInstructionsDialog(
+                downloadUrl = homeViewModel.resolvedDownloadUrl,
+                requestedVersion = requestedVersion,
+                usingMountInstall = usingMountInstall,
+                stockAppInstalled = homeViewModel.pendingStockAppInstalled == true,
+                downloadColor = downloadColor,
+                isApkBundle = isApkBundle,
+                onDismiss = {
+                    homeViewModel.showDownloadInstructionsDialog = false
+                    homeViewModel.cleanupPendingData()
+                },
+                onOpenApkDownloadHelper = openApkDownloadHelper
+            ) {
+                homeViewModel.handleDownloadInstructionsContinue { url ->
+                    try {
+                        uriHandler.openUri(url)
+                        true
+                    } catch (_: Exception) {
+                        false
+                    }
                 }
             }
         }
@@ -198,24 +204,27 @@ fun HomeDialogs(
         exit = Animations.overlayExit
     ) {
         val appName = homeViewModel.pendingAppName ?: return@AnimatedVisibility
-        val isOtherApps = homeViewModel.pendingPackageName == null
+        val packageName = remember { homeViewModel.pendingPackageName }
+        val isOtherApps = packageName == null
 
-        FilePickerPromptDialog(
-            appName = appName,
-            isOtherApps = isOtherApps,
-            isLoadingInstalledApps = homeViewModel.loadingInstalledApps,
-            onDismiss = {
-                homeViewModel.showFilePickerPromptDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onOpenFilePicker = {
-                homeViewModel.showFilePickerPromptDialog = false
-                storagePickerLauncher()
-            },
-            onUseInstalledApp = if (isOtherApps) {
-                { homeViewModel.loadInstalledAppsForPicker() }
-            } else null
-        )
+        PatchingAppColor(packageName) {
+            FilePickerPromptDialog(
+                appName = appName,
+                isOtherApps = isOtherApps,
+                isLoadingInstalledApps = homeViewModel.loadingInstalledApps,
+                onDismiss = {
+                    homeViewModel.showFilePickerPromptDialog = false
+                    homeViewModel.cleanupPendingData()
+                },
+                onOpenFilePicker = {
+                    homeViewModel.showFilePickerPromptDialog = false
+                    storagePickerLauncher()
+                },
+                onUseInstalledApp = if (isOtherApps) {
+                    { homeViewModel.loadInstalledAppsForPicker() }
+                } else null
+            )
+        }
     }
 
     // Dialog 3.5: Installed app picker (universal patches)
@@ -244,19 +253,21 @@ fun HomeDialogs(
         val dialogState = homeViewModel.showUnsupportedVersionDialog ?: return@AnimatedVisibility
         val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
 
-        UnsupportedVersionWarningDialog(
-            version = dialogState.version,
-            versionCode = dialogState.versionCode,
-            recommendedVersion = dialogState.recommendedVersion?.version,
-            allCompatibleVersions = dialogState.compatibleVersionNames,
-            versionDescriptions = dialogState.compatibleVersionDescriptions,
-            compatibleVersionCodes = dialogState.compatibleVersionCodes,
-            experimentalVersions = homeViewModel.getExperimentalVersionsForPackage(dialogState.packageName),
-            isExperimental = dialogState.isExperimental,
-            isExpertMode = isExpertMode,
-            onDismiss = { homeViewModel.dismissUnsupportedVersionDialog() },
-            onProceed = { homeViewModel.proceedWithUnsupportedVersion() }
-        )
+        PatchingAppColor(dialogState.packageName) {
+            UnsupportedVersionWarningDialog(
+                version = dialogState.version,
+                versionCode = dialogState.versionCode,
+                recommendedVersion = dialogState.recommendedVersion?.version,
+                allCompatibleVersions = dialogState.compatibleVersionNames,
+                versionDescriptions = dialogState.compatibleVersionDescriptions,
+                compatibleVersionCodes = dialogState.compatibleVersionCodes,
+                experimentalVersions = homeViewModel.getExperimentalVersionsForPackage(dialogState.packageName),
+                isExperimental = dialogState.isExperimental,
+                isExpertMode = isExpertMode,
+                onDismiss = { homeViewModel.dismissUnsupportedVersionDialog() },
+                onProceed = { homeViewModel.proceedWithUnsupportedVersion() }
+            )
+        }
     }
 
     // Experimental version warning dialog
@@ -267,11 +278,13 @@ fun HomeDialogs(
     ) {
         val dialogState = homeViewModel.showExperimentalVersionDialog ?: return@AnimatedVisibility
 
-        ExperimentalVersionWarningDialog(
-            appName = dialogState.packageName.let { homeViewModel.bundleAppMetadataFlow.value[it]?.displayName ?: it },
-            onDismiss = { homeViewModel.dismissExperimentalVersionDialog() },
-            onProceed = { homeViewModel.proceedWithExperimentalVersion() }
-        )
+        PatchingAppColor(dialogState.packageName) {
+            ExperimentalVersionWarningDialog(
+                appName = dialogState.packageName.let { homeViewModel.bundleAppMetadataFlow.value[it]?.displayName ?: it },
+                onDismiss = { homeViewModel.dismissExperimentalVersionDialog() },
+                onProceed = { homeViewModel.proceedWithExperimentalVersion() }
+            )
+        }
     }
 
     // Wrong package dialog
@@ -282,11 +295,13 @@ fun HomeDialogs(
     ) {
         val dialogState = homeViewModel.showWrongPackageDialog ?: return@AnimatedVisibility
 
-        WrongPackageDialog(
-            expectedPackage = dialogState.expectedPackage,
-            actualPackage = dialogState.actualPackage,
-            onDismiss = { homeViewModel.dismissWrongPackageDialog() }
-        )
+        PatchingAppColor(dialogState.expectedPackage) {
+            WrongPackageDialog(
+                expectedPackage = dialogState.expectedPackage,
+                actualPackage = dialogState.actualPackage,
+                onDismiss = { homeViewModel.dismissWrongPackageDialog() }
+            )
+        }
     }
 
     // No compatible versions dialog - shown when every declared version requires a higher SDK
@@ -298,37 +313,43 @@ fun HomeDialogs(
         val packageName = homeViewModel.showNoCompatibleVersionsDialog ?: return@AnimatedVisibility
         val appName = homeViewModel.bundleAppMetadataFlow.value[packageName]?.displayName
             ?: KnownApps.getAppName(packageName)
-        NoCompatibleVersionsDialog(
-            appName = appName,
-            onDismiss = { homeViewModel.showNoCompatibleVersionsDialog = null }
-        )
+        PatchingAppColor(packageName) {
+            NoCompatibleVersionsDialog(
+                appName = appName,
+                onDismiss = { homeViewModel.showNoCompatibleVersionsDialog = null }
+            )
+        }
     }
 
     // Split APK Warning Dialog - shown when user picks a split APK for an app that prefers full APK
     if (homeViewModel.showSplitApkWarningDialog) {
         val appName = homeViewModel.pendingAppName ?: ""
-        SplitApkWarningDialog(
-            appName = appName,
-            onProceed = { homeViewModel.proceedWithSplitApk() },
-            onPickAnother = {
-                homeViewModel.dismissSplitApkWarning()
-                storagePickerLauncher()
-            },
-            onDismiss = { homeViewModel.dismissSplitApkWarning() }
-        )
+        PatchingAppColor(homeViewModel.pendingPackageName) {
+            SplitApkWarningDialog(
+                appName = appName,
+                onProceed = { homeViewModel.proceedWithSplitApk() },
+                onPickAnother = {
+                    homeViewModel.dismissSplitApkWarning()
+                    storagePickerLauncher()
+                },
+                onDismiss = { homeViewModel.dismissSplitApkWarning() }
+            )
+        }
     }
 
     // Invalid Signature Dialog - shown when the APK is not signed by the expected certificate
     homeViewModel.showInvalidSignatureDialog?.let { dialogState ->
-        InvalidSignatureDialog(
-            appName = dialogState.appName,
-            onPickAnother = {
-                homeViewModel.dismissInvalidSignatureDialog()
-                storagePickerLauncher()
-            },
-            onProceed = { homeViewModel.proceedIgnoringSignature() },
-            onDismiss = { homeViewModel.dismissInvalidSignatureDialog() }
-        )
+        PatchingAppColor(homeViewModel.pendingPackageName) {
+            InvalidSignatureDialog(
+                appName = dialogState.appName,
+                onPickAnother = {
+                    homeViewModel.dismissInvalidSignatureDialog()
+                    storagePickerLauncher()
+                },
+                onProceed = { homeViewModel.proceedIgnoringSignature() },
+                onDismiss = { homeViewModel.dismissInvalidSignatureDialog() }
+            )
+        }
     }
 
     // Metered Data dialog
@@ -1031,7 +1052,7 @@ private fun UnsupportedVersionWarningDialog(
 
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
+                        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
                         color = tone.container.copy(alpha = 0.3f),
                         tonalElevation = 1.dp,
                         border = CardBorder.tinted(tone.accent)
@@ -1351,7 +1372,7 @@ private fun SelectableVersionListCard(
 
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(14.dp),
+        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
         tonalElevation = 1.dp,
         border = CardBorder.neutral
@@ -1379,9 +1400,7 @@ private fun SelectableVersionListCard(
                 // Bundle section header - only when multiple bundles are present and uid changes
                 if (hasMultipleBundles && bundled.bundleUid != lastBundleUid) {
                     if (lastBundleUid != -1) {
-                        HorizontalDivider(
-                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
-                        )
+                        SettingsDivider(fullWidth = true)
                     }
                     Row(
                         modifier = Modifier
@@ -1493,10 +1512,7 @@ private fun SelectableVersionListCard(
                 val isLastInBundle = index == versions.lastIndex ||
                         (hasMultipleBundles && versions[index + 1].bundleUid != bundled.bundleUid)
                 if (index < versions.lastIndex && !isLastInBundle) {
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)
-                    )
+                    SettingsDivider()
                 }
             }
         }
@@ -1534,7 +1550,7 @@ private fun VersionListCard(
 
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(14.dp),
+        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
         color = containerColor,
         tonalElevation = 1.dp,
         border = CardBorder.neutral
@@ -1607,9 +1623,7 @@ private fun VersionListCard(
 
                 // Divider between versions
                 if (index < versions.lastIndex) {
-                    HorizontalDivider(
-                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)
-                    )
+                    SettingsDivider(fullWidth = true)
                 }
             }
         }
@@ -2140,3 +2154,9 @@ fun Android11Dialog(
 
 private fun buildVersionSuffix(version: String, versionCode: Long?): String =
     if (versionCode != null) "v$version ($versionCode)" else "v$version"
+
+/** Hands the color of the app being patched to one of its patching dialogs, as its other dialogs wear it. */
+@Composable
+private fun PatchingAppColor(packageName: String?, content: @Composable () -> Unit) {
+    ProvideAccent(packageName?.let { rememberAppColor(it) }, content)
+}

@@ -198,6 +198,7 @@ fun ExpertModeDialog(
         onDismissRequest = onDismiss,
         title = null,
         dismissOnClickOutside = false,
+        accentColor = appColor,
         footer = {
             AppDialogActions(
                 // A row lays its actions out from the right, so patching ends up there
@@ -248,8 +249,7 @@ fun ExpertModeDialog(
                         allPatchesInfo.singleOrNull()?.first?.name
                     ).joinToString("\n"),
                     search = search,
-                    searchLabel = searchLabel,
-                    accentColor = appColor
+                    searchLabel = searchLabel
                 ) {
                     // The counter already stands for the selection, so it doubles as the way to filter
                     // the list down to it
@@ -580,6 +580,9 @@ fun ExpertModeDialog(
  * One source's tab: the icon the source wears everywhere else, beside its name over how much of it
  * is picked. Stacked rather than in a line, so the row fits more sources before it scrolls. Each
  * sits on a pill, the open one filled with the accent.
+ *
+ * @param accentColor Color of the app being patched, which the open tab fills with as the header's
+ *   actions do. The dialog's own by default, or null for the theme's palette.
  */
 @Composable
 private fun SourceTab(
@@ -587,12 +590,15 @@ private fun SourceTab(
     name: String,
     count: String,
     selected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    accentColor: Color? = LocalAccent.current
 ) {
+    val accent = usableAppAccent(accentColor)
+    val selectedFill = accent?.copy(alpha = AccentAlpha.LEAD) ?: MaterialTheme.colorScheme.primaryContainer
     val fill by animateColorAsState(
         // A faint pill of its own while closed, so every tab reads as the button it is
         targetValue = if (selected) {
-            MaterialTheme.colorScheme.primaryContainer
+            selectedFill
         } else {
             MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
         },
@@ -611,7 +617,11 @@ private fun SourceTab(
             .padding(end = Defaults.ContentPaddingSmall)
             .clip(Defaults.PillShape)
             .background(fill),
-        selectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        selectedContentColor = if (accent != null) {
+            appAccentContent(selectedFill)
+        } else {
+            MaterialTheme.colorScheme.onPrimaryContainer
+        },
         unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
     ) {
         Row(

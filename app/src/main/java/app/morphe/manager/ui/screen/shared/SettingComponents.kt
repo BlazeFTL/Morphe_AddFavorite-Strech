@@ -207,7 +207,7 @@ fun ToggleRow(
 
     Column(modifier = modifier) {
         if (showDivider) {
-            HorizontalDivider(modifier = Modifier.padding(top = 4.dp))
+            SettingsDivider(modifier = Modifier.padding(top = 4.dp), fullWidth = true)
         }
         Row(
             modifier = rowModifier

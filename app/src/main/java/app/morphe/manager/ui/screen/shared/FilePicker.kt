@@ -365,7 +365,7 @@ fun FilePicker(
                             }
                         )
                     }
-                    HorizontalDivider()
+                    SettingsDivider(fullWidth = true)
                     AppDropdownMenuItem(
                         text = stringResource(R.string.file_picker_show_hidden_files),
                         trailing = {

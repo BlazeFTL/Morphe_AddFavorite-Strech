@@ -314,7 +314,7 @@ internal fun PatchCard(
             }
 
             if (lockedMessage != null) {
-                HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.5f))
+                SettingsDivider(fullWidth = true)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()

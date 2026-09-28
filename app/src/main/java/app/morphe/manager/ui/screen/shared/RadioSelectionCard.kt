@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Remove
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.Text
@@ -129,7 +128,7 @@ fun RadioSelectionCard(
                     exit = Animations.shrinkFadeExit
                 ) {
                     Column {
-                        HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.5f))
+                        SettingsDivider(fullWidth = true)
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()

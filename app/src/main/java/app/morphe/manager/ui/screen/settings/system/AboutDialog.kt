@@ -238,7 +238,7 @@ private fun SocialIconButton(
     Surface(
         onClick = onClick,
         modifier = Modifier.size(52.dp),
-        shape = RoundedCornerShape(14.dp),
+        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
         color = textColor.copy(alpha = 0.1f)
     ) {
         Box(contentAlignment = Alignment.Center) {

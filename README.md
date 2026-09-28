@@ -48,6 +48,9 @@ New switch in **Settings > Advanced** (visible only with Expert mode on). Based 
 
 Android normally rejects unsigned APKs. Use this for external signing tools or workflows that re-sign afterwards.
 
+### Strech Ui To Fill
+- Makes The Ui On Side Fill The Screen
+
 ### Fork identity
 
 Installs side by side with the official Morphe Manager.

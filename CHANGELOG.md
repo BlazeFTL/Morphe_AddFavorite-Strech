@@ -1,3 +1,10 @@
+# [1.33.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.11...v1.33.0-dev.12) (2026-09-28)
+
+
+### Features
+
+* Let the appearance settings take off the colors of apps and sources and the outlines of cards and buttons ([8f54d0f](https://github.com/MorpheApp/morphe-manager/commit/8f54d0fd9b067e4264b9208045f21d79cd882334))
+
 # [1.33.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.10...v1.33.0-dev.11) (2026-09-28)
 
 

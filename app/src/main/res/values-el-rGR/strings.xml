@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Οι ενημερώσεις παραλείφθηκαν</string>
     <string name="home_update_skipped_metered_subtitle">Τα δεδομένα κινητής τηλεφωνίας είναι ενεργά</string>
     <string name="home_updating_sources">Ενημέρωση πηγών…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Η ενημέρωση πηγών ολοκληρώθηκε</string>
     <string name="home_update_success_subtitle">Οι πηγές σας είναι ενημερωμένες</string>
     <string name="home_sources_are_loading">Οι πηγές φορτώνονται, παρακαλώ περιμένετε…</string>
@@ -177,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Διαγραφή πηγής \"%s\"; Αυτό δεν μπορεί να αναστραφεί.</string>
     <string name="sources_dialog_remote">Απομακρυσμένη</string>
     <string name="sources_dialog_remote_url">URL Πηγής</string>
-    <string name="sources_dialog_remote_url_formats_title">Παραδείγματα:</string>
+    <string name="sources_dialog_remote_url_hint">Ένα αποθετήριο ή ένας σύνδεσμος προς ένα .json πακέτο ενημερώσεων. Επικολλήστε πολλά ταυτόχρονα για να τα προσθέσετε όλα.</string>
+    <string name="sources_dialog_paste_no_links">Δεν βρέθηκαν σύνδεσμοι στο πρόχειρο.</string>
     <string name="sources_dialog_local">Τοπική</string>
-    <string name="sources_dialog_local_file">Επιλογή αρχείου πηγής τροποποιήσεων</string>
+    <string name="sources_dialog_local_files">Επιλέξτε αρχεία πηγής ενημερώσεων.</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Προσθήκη περισσότερων αρχείων</string>
     <string name="sources_dialog_local_file_tap_hint">Πατήστε για να περιηγηθείτε στην αποθήκευση</string>
-    <string name="sources_dialog_local_file_description">Επιλογή αρχείου πηγής τροποποιήσεων .mpp από τον χώρο αποθήκευσης</string>
     <string name="sources_dialog_local_invalid_extension">Το αρχείο πρέπει να έχει επέκταση .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Ενημερώσεις %s</string>
     <string name="sources_dialog_url_valid">Έγκυρο αποθετήριο ή διεύθυνση URL JSON</string>
     <string name="sources_dialog_url_invalid">Η διεύθυνση URL πρέπει να δείχνει σε ένα αποθετήριο GitHub/GitLab ή σε ένα αρχείο .json</string>
-    <string name="sources_dialog_local_change_file">Αλλαγή αρχείου</string>
     <string name="sources_dialog_preinstalled">Προεγκατεστημένες</string>
     <string name="sources_dialog_community">Κοινοτικά patches</string>
     <string name="sources_dialog_choose_apps">Επιλογή εφαρμογών</string>
@@ -215,7 +215,8 @@
     <string name="home_apk_helper_download">Χρησιμοποιήστε μια βοηθητική εφαρμογή</string>
     <string name="home_apk_helper_title">Λήψη με μια βοηθητική εφαρμογή</string>
     <string name="home_apk_helper_description">Το Morphe θα ζητήσει από την βοηθητική εφαρμογή παρακάτω να κατεβάσει το αρχικό APK και να παραδώσει το αρχείο</string>
-    <string name="home_apk_helper_continue">Άνοιγμα βοηθητικής εφαρμογής</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Άνοιγμα βοηθού</string>
     <string name="home_apk_helper_warning">Συνεχίστε μόνο εάν εμπιστεύεστε αυτή τη βοηθητική εφαρμογή. Η Morphe ελέγχει το πακέτο, την έκδοση και την υπογραφή όποιου κι αν λάβει περιεχόμενο πριν από την εφαρμογή διορθώσεων</string>
     <string name="home_apk_helper_warning_unverified">Συνεχίστε μόνο εάν εμπιστεύεστε αυτή τη βοηθητική εφαρμογή. Η Morphe δεν μπορεί να επαληθεύσει την υπογραφή αυτού του APK, επομένως ένα τροποποιημένο αρχείο δεν θα ανιχνευθεί</string>
     <string name="home_apk_helper_no_result">Η βοηθητική εφαρμογή δεν επέστρεψε ένα APK</string>
@@ -321,6 +322,7 @@
     <string name="morphe_experimental_app_version_dialog_message">Αυτή η έκδοση του &lt;b&gt;%s&lt;/b&gt; έχει πρώιμη πειραματική υποστήριξη&lt;br/&gt;&lt;br/&gt;🔧 Αναμένετε ιδιόρρυθμη συμπεριφορά της εφαρμογής ή μη προσδιορισμένα σφάλματα καθώς οι τροποποιήσεις βελτιώνονται για αυτήν την έκδοση της εφαρμογής</string>
     <string name="home_dialog_unsupported_version_dialog_title">Μη υποστηριγμένη έκδοση</string>
     <string name="home_dialog_unsupported_version_dialog_description">Αυτό το APK δεν είναι μια συνιστώμενη έκδοση εφαρμογής. Η συνέχεια μπορεί να οδηγήσει σε μη λειτουργική εφαρμογή</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Συνέχεια παρ’ όλα αυτά</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Συμβατές εκδόσεις:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Μη υποστηριζόμενο</string>
@@ -356,12 +358,21 @@
     <string name="patch_option_slider_range_end">Έως</string>
     <string name="patch_option_list_duplicate">Αυτή η τιμή υπάρχει ήδη</string>
     <string name="patch_option_list_empty">Η τιμή δεν μπορεί να είναι κενή</string>
-    <string name="patch_option_list_empty_state">Δεν προστέθηκαν ακόμη τιμές</string>
     <string name="patch_option_required_missing">%s: συμπληρώστε όλες τις απαιτούμενες επιλογές</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Αλλαγμένο</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Υποχρεωτικό</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Προτεινόμενο: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Δημιουργία προσαρμοσμένου εικονιδίου</string>
     <string name="adaptive_icon_select_image">Επιλογή εικόνας</string>
     <string name="adaptive_icon_change_image">Αλλαγή εικόνας</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Εικόνα προσκηνίου</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Εικονίδιο εκκινητή</string>
     <string name="adaptive_icon_background_color">Χρώμα φόντου</string>
     <string name="adaptive_icon_reset_transform">Επαναφορά θέσης και κλίμακας</string>
     <string name="adaptive_icon_safe_zone_inner">Περιοχή ασφαλείας (πάντα ορατός)</string>
@@ -413,16 +424,18 @@
     <string name="batch_patch_source_file">Επισυναπτόμενο αρχείο</string>
     <string name="batch_patch_source_unavailable">Το APK δεν μπόρεσε να προετοιμαστεί</string>
     <string name="batch_patch_force_version">Διόρθωση ούτως ή άλλως</string>
-    <string name="batch_patch_force_version_done">Προστέθηκε στην ουρά ούτως ή άλλως, οι ενημερώσεις για άλλες εκδόσεις ενδέχεται να προκαλέσουν προβλήματα στην εφαρμογή</string>
-    <string name="batch_patch_accept_signature_done">Προστέθηκε στην ουρά ούτως ή άλλως, αυτό το APK μπορεί να μην είναι το πρωτότυπο</string>
+    <string name="batch_patch_force_version_done">Προστέθηκε στην ουρά ούτως ή άλλως, η εφαρμογή μπορεί να χαλάσει</string>
+    <string name="batch_patch_accept_signature_done">Προστέθηκε στην ουρά ούτως ή άλλως, το APK δεν επαληθεύτηκε</string>
     <string name="batch_patch_edit_patches">Επιλέξτε διορθώσεις</string>
     <string name="batch_patch_state_no_apk">Δεν υπάρχει APK</string>
     <string name="batch_patch_state_no_patches">Δεν υπάρχουν διορθώσεις</string>
     <string name="batch_patch_policy_install">Εγκατάσταση μετά την ολοκλήρωση</string>
     <string name="batch_patch_policy_install_description">Εγκαθιστά κάθε διορθωμένη εφαρμογή αμέσως μετά την ολοκλήρωση της ουράς. Η απενεργοποίηση διατηρεί τα APK για αργότερα</string>
-    <string name="batch_patch_start">Έναρξη διόρθωσης</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Αρχή</string>
     <string name="batch_patch_stop_title">Διακοπή ομαδικής διόρθωσης;</string>
     <string name="batch_patch_stop_description">Η εφαρμογή που διορθώνεται αυτήν τη στιγμή και ό,τι έχει οριστεί στην ουρά θα ακυρωθεί</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Εγκατάσταση όλων</string>
     <string name="batch_patch_install_failed">Η εγκατάσταση απέτυχε</string>
     <string name="batch_patch_in_progress">Η ομαδική διόρθωση είναι ήδη σε εξέλιξη</string>
@@ -669,6 +682,7 @@
     <string name="system">Σύστημα</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Κινούμενο σχέδιο ταπετσαρίας</string>
+    <string name="settings_appearance_background_description">Το animation που αναπαράγεται πίσω από τις οθόνες της εφαρμογής</string>
     <string name="settings_appearance_background_circles">Κύκλοι</string>
     <string name="settings_appearance_background_rings">Δακτύλιοι</string>
     <string name="settings_appearance_background_mesh">Πλέγμα</string>
@@ -737,6 +751,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">Χρησιμοποιήστε το δικό σας χρώμα για κάθε εφαρμογή εδώ, με αυτόματη απόχρωση ώστε να ταιριάζει</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Εικονίδιο εφαρμογής</string>
+    <string name="settings_appearance_app_icon_selector_description">Πώς φαίνεται το Morphe στην αρχική οθόνη και στο συρτάρι εφαρμογών</string>
     <string name="settings_appearance_app_icon_default">Προεπιλογή</string>
     <string name="settings_appearance_app_icon_light_2">Ουρανός</string>
     <string name="settings_appearance_app_icon_light_3">Δύση ηλίου </string>
@@ -745,6 +760,7 @@
     <string name="settings_appearance_app_icon_dark_3">Ίντιγκο</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Αλλαγή εικονιδίου της εφαρμογής;</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Αλλαγή σε &lt;b&gt;%s&lt;/b&gt; και επανεκκίνηση;</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Αλλαγή εικονιδίου</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Ενημερώσεις</string>
@@ -1126,7 +1142,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_apk_download_helper_installed_by">Εγκαταστάθηκε από %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Άγνωστος εγκαταστάτης</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Προηγούμενος κατάλογος</string>
     <string name="file_picker_no_files">Δεν υπάρχουν αρχεία εδώ</string>
     <string name="file_picker_read_error">Δεν είναι δυνατή η ανάγνωση αυτού του καταλόγου</string>
     <string name="file_picker_internal_storage">Εσωτερική αποθήκευση</string>
@@ -1157,11 +1172,9 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_red_toast_again">Πίσω στη βροχή</string>
     <string name="easter_egg_pill_blue_toast_again">Αποσυνδεδεμένος. Ο δρόμος επιστροφής είναι εκεί που ήταν πάντα.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Επιλογή αρχείου</string>
+    <string name="select_files">Επιλογή αρχείων</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Επιλογή φακέλου</string>
     <string name="patches">Τροποποιήσεις</string>
     <string name="home">Αρχική</string>
@@ -1188,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">Τέλος</string>
     <string name="skip">Παράλειψη</string>
     <string name="clear">Εκκαθάριση</string>
+    <string name="paste">Επικόλληση</string>
     <string name="delete">Διαγραφή</string>
     <string name="delete_all">Διαγραφή όλων</string>
     <string name="remove">Αφαίρεση</string>
@@ -1282,9 +1296,11 @@ morphe_header_custom_dark.png
     <string name="changelog_earlier_releases">Παλαιότερες εκδόσεις</string>
     <string name="changelog_older_empty">Δεν υπάρχουν παλαιότερες εκδόσεις για εμφάνιση</string>
     <string name="changelog_older_failed">Δεν ήταν δυνατή η φόρτωση παλαιότερων εκδόσεων</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Σελίδα έκδοσης</string>
     <string name="content_translate">Μετάφραση</string>
-    <string name="content_show_original">Εμφάνιση πρωτοτύπου</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Αρχικό</string>
     <string name="content_translation_failed">Αποτυχία μετάφρασης: %s</string>
     <string name="changelog_section_new">Νέο</string>
     <string name="changelog_section_fixes">Διορθώσεις</string>
@@ -1306,8 +1322,10 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">Η εγκατάσταση της ενημέρωσης απέτυχε</string>
     <string name="installing_manager_update">Εγκατάσταση ενημέρωσης…</string>
     <string name="downloading_manager_update">Λήψη ενημέρωσης…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Λήφθηκαν %1$s MB</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Αυτή η έκδοση δημοσιεύεται ακόμα. Επαναλάβετε σε λίγα λεπτά</string>
     <string name="update_download_missing">Η ληφθείσα ενημέρωση δεν είναι πλέον διαθέσιμη. Κατεβάστε την ξανά</string>
     <string name="download_manager_failed">Αποτυχία λήψης ενημέρωσης: %s</string>
@@ -1339,6 +1357,7 @@ morphe_header_custom_dark.png
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Γρήγορη περιήγηση λειτουργιών</string>
     <string name="tour_prompt_desc">Θέλετε μια γρήγορη περιήγηση στις βασικές λειτουργίες του Morphe;</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Δείξτε μου γύρω</string>
     <string name="onboarding_restart_title">Περιήγηση λειτουργιών</string>
     <string name="onboarding_restart_desc">Μια ξενάγηση στα βασικά χαρακτηριστικά</string>

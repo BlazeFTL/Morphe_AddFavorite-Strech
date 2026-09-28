@@ -1271,13 +1271,11 @@ internal fun rememberSourcesByUid(): Map<Int, PatchBundleSource> {
 
 /**
  * Color a source's own dialogs head themselves with: its icon's, or the theme's accent where the
- * icon has none. None for a source that is off, as its icon grays out.
+ * icon has none. A source that is off keeps it, since its dialogs say so in words of their own.
  */
 @Composable
-internal fun rememberSourceHeaderColor(bundle: PatchBundleSource): Color? {
-    val accent = rememberBundleAccent(bundle)
-    return if (bundle.enabled) accent ?: MaterialTheme.colorScheme.primary else null
-}
+internal fun rememberSourceHeaderColor(bundle: PatchBundleSource): Color =
+    rememberBundleAccent(bundle) ?: MaterialTheme.colorScheme.primary
 
 /** The color [bundle]'s icon reads as, see [rememberSourceAccent]. */
 @Composable

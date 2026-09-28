@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Actualizări omise</string>
     <string name="home_update_skipped_metered_subtitle">Date mobile sunt activate</string>
     <string name="home_updating_sources">Se actualizează sursele…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Actualizarea surselor finalizată</string>
     <string name="home_update_success_subtitle">Sursele tale sunt la zi</string>
     <string name="home_sources_are_loading">Sursele se încarcă, te rugăm să aștepți…</string>
@@ -177,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Ștergi sursa \"%s\"? Acest lucru nu poate fi anulat.</string>
     <string name="sources_dialog_remote">Distanță</string>
     <string name="sources_dialog_remote_url">URL-ul sursei</string>
-    <string name="sources_dialog_remote_url_formats_title">Exemple:</string>
+    <string name="sources_dialog_remote_url_hint">Un repository sau un link către un pachet de corecții .json. Lipește mai multe deodată pentru a le adăuga pe toate</string>
+    <string name="sources_dialog_paste_no_links">Nu s-au găsit linkuri în clipboard</string>
     <string name="sources_dialog_local">Local</string>
-    <string name="sources_dialog_local_file">Selectează fișierul cu patch-uri</string>
+    <string name="sources_dialog_local_files">Selectează fișierele sursă de corecții</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Adaugă mai multe fișiere</string>
     <string name="sources_dialog_local_file_tap_hint">Atingeți pentru a răsfoi stocarea</string>
-    <string name="sources_dialog_local_file_description">Selectează un fișier .mpp cu patch-uri din stocare</string>
     <string name="sources_dialog_local_invalid_extension">Fișierul trebuie să aibă o extensie .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Actualizează %s</string>
     <string name="sources_dialog_url_valid">URL valid al depozitului sau JSON</string>
     <string name="sources_dialog_url_invalid">URL-ul trebuie să indice un depozit GitHub/GitLab sau un fișier .json</string>
-    <string name="sources_dialog_local_change_file">Schimbă fișierul</string>
     <string name="sources_dialog_preinstalled">Preinstalate</string>
     <string name="sources_dialog_community">Patch-uri comunitare</string>
     <string name="sources_dialog_choose_apps">Alegeți aplicații</string>
@@ -215,7 +215,8 @@ Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <string name="home_apk_helper_download">Utilizați o aplicație de asistență</string>
     <string name="home_apk_helper_title">Descărcare cu o aplicație de asistență</string>
     <string name="home_apk_helper_description">Morphe va solicita aplicației de asistență de mai jos să descarce APK-ul original și să returneze fișierul</string>
-    <string name="home_apk_helper_continue">Deschideți aplicația de asistență</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Deschide asistentul</string>
     <string name="home_apk_helper_warning">Continuă numai dacă ai încredere în această aplicație auxiliară. Morphe verifică pachetul, versiunea și semnătura oricărui element primit înainte de aplicarea modificărilor</string>
     <string name="home_apk_helper_warning_unverified">Continuă numai dacă ai încredere în această aplicație auxiliară. Morphe nu poate verifica semnătura acestui APK, astfel încât un fișier modificat nu ar fi detectat</string>
     <string name="home_apk_helper_no_result">Aplicația auxiliară nu a returnat un APK</string>
@@ -321,6 +322,7 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="morphe_experimental_app_version_dialog_message">Această versiune a &lt;b&gt;%s&lt;/b&gt; are suport experimental timpuriu&lt;br/&gt;&lt;br/&gt;🔧 Așteptați-vă la un comportament ciudat al aplicației sau la erori nedetectate, deoarece patch-urile sunt rafinate pentru această versiune a aplicației</string>
     <string name="home_dialog_unsupported_version_dialog_title">Versiune neacceptată</string>
     <string name="home_dialog_unsupported_version_dialog_description">Acest APK nu este o versiune recomandată a aplicației. Continuarea poate duce la o aplicație nefuncțională</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Continuă oricum</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Versiuni compatibile:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Incompatibil</string>
@@ -356,12 +358,21 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="patch_option_slider_range_end">La</string>
     <string name="patch_option_list_duplicate">Această valoare există deja</string>
     <string name="patch_option_list_empty">Valoarea nu poate fi goală</string>
-    <string name="patch_option_list_empty_state">Nu au fost adăugate valori încă</string>
     <string name="patch_option_required_missing">%s: completați toate opțiunile obligatorii</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Modificat</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Obligatoriu</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Recomandat: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Creează iconiță adaptivă</string>
     <string name="adaptive_icon_select_image">Selectează imagine</string>
     <string name="adaptive_icon_change_image">Schimbă imagine</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Imagine de prim-plan</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Pictogramă de lansator</string>
     <string name="adaptive_icon_background_color">Culoare de fundal</string>
     <string name="adaptive_icon_reset_transform">Reinitalizați poziția și scalarea</string>
     <string name="adaptive_icon_safe_zone_inner">Zonă sigură (totdeauna vizibilă)</string>
@@ -413,16 +424,18 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="batch_patch_source_file">Fișier atașat</string>
     <string name="batch_patch_source_unavailable">APK-ul nu a putut fi pregătit</string>
     <string name="batch_patch_force_version">Aplică patch oricum</string>
-    <string name="batch_patch_force_version_done">Adăugat în coadă oricum, patch-urile realizate pentru alte versiuni pot strica aplicația</string>
-    <string name="batch_patch_accept_signature_done">Pus în coadă oricum, acest APK poate să nu fie original</string>
+    <string name="batch_patch_force_version_done">Adăugat în coadă oricum, aplicația s-ar putea strica.</string>
+    <string name="batch_patch_accept_signature_done">Adăugat în coadă oricum, APK neverificat.</string>
     <string name="batch_patch_edit_patches">Alege patch-uri</string>
     <string name="batch_patch_state_no_apk">Nu este disponibil niciun APK</string>
     <string name="batch_patch_state_no_patches">Nu sunt disponibile patch-uri</string>
     <string name="batch_patch_policy_install">Instalează când este finalizat</string>
     <string name="batch_patch_policy_install_description">Instalează fiecare aplicație modificată imediat ce coada se termină. Oprire păstrează APK-urile pentru mai târziu</string>
-    <string name="batch_patch_start">Începe aplicarea patch-urilor</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Pornire</string>
     <string name="batch_patch_stop_title">Oprește aplicarea patch-urilor în masă?</string>
     <string name="batch_patch_stop_description">Aplicația care se modifică acum și tot ce este încă în coadă va fi anulat</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Instalează tot</string>
     <string name="batch_patch_install_failed">Instalare eșuată</string>
     <string name="batch_patch_in_progress">Aplicarea patch-urilor în masă este deja în desfășurare</string>
@@ -669,6 +682,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="system">Sistem</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Animație de fond</string>
+    <string name="settings_appearance_background_description">Animația care se redă în spatele ecranelor aplicației</string>
     <string name="settings_appearance_background_circles">Cercuri</string>
     <string name="settings_appearance_background_rings">Ringe</string>
     <string name="settings_appearance_background_mesh">Rețea</string>
@@ -736,6 +750,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Utilizează culoarea proprie a fiecărei aplicații aici, nuanțată automat pentru a se potrivi</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Pictogramă aplicație</string>
+    <string name="settings_appearance_app_icon_selector_description">Cum arată Morphe pe ecranul de pornire și în sertarul de aplicații</string>
     <string name="settings_appearance_app_icon_default">Implicit</string>
     <string name="settings_appearance_app_icon_light_2">Cer</string>
     <string name="settings_appearance_app_icon_light_3">Amurg</string>
@@ -744,6 +759,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Schimbi pictograma aplicației?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Schimbă în &lt;b&gt;%s&lt;/b&gt; și repornește?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Schimbă pictograma</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Actualizări</string>
@@ -1125,7 +1141,6 @@ Detalii: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">Instalat de %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Instalator necunoscut</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Director anterior</string>
     <string name="file_picker_no_files">Nu există fișiere aici</string>
     <string name="file_picker_read_error">Nu se poate citi acest director</string>
     <string name="file_picker_internal_storage">Stocare internă</string>
@@ -1156,11 +1171,9 @@ Detalii: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Înapoi în ploaie</string>
     <string name="easter_egg_pill_blue_toast_again">Deconectat. Calea de întoarcere este acolo unde a fost întotdeauna.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Selectează fișierul</string>
+    <string name="select_files">Selectează fișierele</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Selecteazã folderul</string>
     <string name="patches">Patch-uri</string>
     <string name="home">Acasă</string>
@@ -1187,6 +1200,7 @@ Detalii: %2$s"</string>
     <string name="done">Gata</string>
     <string name="skip">Omitere</string>
     <string name="clear">Golește</string>
+    <string name="paste">Lipește</string>
     <string name="delete">Șterge</string>
     <string name="delete_all">Șterge tot</string>
     <string name="remove">Elimină</string>
@@ -1281,9 +1295,11 @@ Detalii: %2$s"</string>
     <string name="changelog_earlier_releases">Versiuni anterioare</string>
     <string name="changelog_older_empty">Nu există versiuni mai vechi de afișat</string>
     <string name="changelog_older_failed">Nu s-au putut încărca versiunile mai vechi</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Pagina de lansare</string>
     <string name="content_translate">Traduceți</string>
-    <string name="content_show_original">Afișați originalul</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Original</string>
     <string name="content_translation_failed">Traducerea a eșuat: %s</string>
     <string name="changelog_section_new">Nou</string>
     <string name="changelog_section_fixes">Remedieri</string>
@@ -1305,8 +1321,10 @@ Detalii: %2$s"</string>
     <string name="install_update_manager_failed">Eroare la instalarea actualizării</string>
     <string name="installing_manager_update">Se instalează actualizarea...</string>
     <string name="downloading_manager_update">Se descarcă actualizarea...</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB descărcați</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Această versiune este încă în curs de publicare. Încearcă din nou în câteva minute</string>
     <string name="update_download_missing">Actualizarea descărcată nu mai este disponibilă. Descarc-o din nou.</string>
     <string name="download_manager_failed">Descărcarea actualizării a eșuat: %s</string>
@@ -1338,6 +1356,7 @@ Doriți totuși să continuați?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Tur rapid de prezentare</string>
     <string name="tour_prompt_desc">Dorești un tur rapid al funcțiilor cheie Morphe?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Arată-mi</string>
     <string name="onboarding_restart_title">Tur de prezentare</string>
     <string name="onboarding_restart_desc">Un tur ghidat al funcțiilor cheie</string>

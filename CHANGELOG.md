@@ -1,3 +1,80 @@
+# [1.33.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.7...v1.33.0-dev.8) (2026-09-27)
+
+
+### Bug Fixes
+
+* Clean up the split workspace before the patcher process reports back and exits ([f41d328](https://github.com/MorpheApp/morphe-manager/commit/f41d3284256b4962a8c2d2bf81656805a7511e5f))
+* Keep the settings button neutral in expert mode, the icon already marks it ([df48ead](https://github.com/MorpheApp/morphe-manager/commit/df48ead15afcf5ccde12f3070a94cc08d3edfdff))
+* Let the patcher strip unused native libraries instead of rewriting the APK afterwards ([cbf6930](https://github.com/MorpheApp/morphe-manager/commit/cbf693045bc91795aedfab99269c87bc8e250534))
+* Show the update summary counts as pills so long labels no longer get cut off ([af84434](https://github.com/MorpheApp/morphe-manager/commit/af844348c5d4c1a4e9b1b11e35be10d117036706))
+
+
+### Features
+
+* Show patching progress as an Android 16 Live Update ([253cdd1](https://github.com/MorpheApp/morphe-manager/commit/253cdd13d0c096ccbefff10281d38d72e9671fe3))
+
+# [1.33.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.6...v1.33.0-dev.7) (2026-09-27)
+
+
+### Bug Fixes
+
+* Drop the white plate behind icon pack icons on One UI ([4950240](https://github.com/MorpheApp/morphe-manager/commit/49502406613fabbdf17d177c6f3f4ccb8bd2a253))
+
+
+### Features
+
+* Add several patch sources at once, from pasted links or picked files ([907362f](https://github.com/MorpheApp/morphe-manager/commit/907362f4896e0f3da448fd20ac6ffdefb6059eda))
+
+# [1.33.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.5...v1.33.0-dev.6) (2026-09-27)
+
+
+### Bug Fixes
+
+* Keep a disabled source's color on the headers of its dialogs ([0bb4d2e](https://github.com/MorpheApp/morphe-manager/commit/0bb4d2eba2c4e358e316237733c4285e7d990577))
+* Let two-button dialog footers sit side by side when their labels fit ([196af29](https://github.com/MorpheApp/morphe-manager/commit/196af29dcf49f922df21671383911e5f5e19c6f9))
+* Preview app card colors on an app's own color, the way the home screen shows it ([4fecf5a](https://github.com/MorpheApp/morphe-manager/commit/4fecf5a35e848c3a69ae58b63136351e7c8cec6f))
+* Scroll lists back to the top in one motion, past a pinned search header too ([1180e59](https://github.com/MorpheApp/morphe-manager/commit/1180e5978a3d701bf3861185eb488a7e9367207e))
+* Show a finished expert patch run in the success color rather than teal ([171e421](https://github.com/MorpheApp/morphe-manager/commit/171e421feb1fe25be5d6e4e1dd9a6e851514da7a))
+* Show the patch options notices in the neutral tone rather than as success ([6140ade](https://github.com/MorpheApp/morphe-manager/commit/6140ade2d7c85c3205b1e0e741d05fecf1d6a3a9))
+
+
+### Features
+
+* Tint the expert log panel and its live dot with the color of the app being patched ([b664be8](https://github.com/MorpheApp/morphe-manager/commit/b664be87d5fc93ad6c7ea617d4428d986070ae4c))
+
+# [1.33.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.4...v1.33.0-dev.5) (2026-09-27)
+
+
+### Bug Fixes
+
+* Color only the selected version in the version lists, leaving tags to their badges ([6491711](https://github.com/MorpheApp/morphe-manager/commit/64917115074221318d2443d0988610bc541a9a15))
+* Fade list edges out fully over what they hide, so a sliver no longer ends in a hard line ([ff82c73](https://github.com/MorpheApp/morphe-manager/commit/ff82c73eed03db9a61c48dcc92dc19fb45037495))
+* Hold the storage dialog at one height while its sizes load ([d2c8f62](https://github.com/MorpheApp/morphe-manager/commit/d2c8f624ec9833962e903520883633437be1d4e9))
+* Keep dialog footer labels short so their buttons stay on one row ([870495e](https://github.com/MorpheApp/morphe-manager/commit/870495efecc7c8386bf5828d965f886cf8a6ff17))
+* Let text fields color their own icons and labels ([6381dd4](https://github.com/MorpheApp/morphe-manager/commit/6381dd447ecc18356997d5e9ddc929c31bef0508))
+* Open dialog links through the text itself instead of the deprecated ClickableText ([d9384da](https://github.com/MorpheApp/morphe-manager/commit/d9384da7f52fc1861b465a4eafad68137b1a1fe3))
+* Shorten the batch patching confirmation toasts ([5ee7d8a](https://github.com/MorpheApp/morphe-manager/commit/5ee7d8ab97af22887e618a12371cb0610496022d))
+* Space the expert mode source tabs like the lone source layout ([fc7dd84](https://github.com/MorpheApp/morphe-manager/commit/fc7dd8408b1ce90143d0391b90a5054289e6a60a))
+* Space the file picker's folder chips evenly above and below ([d7fa036](https://github.com/MorpheApp/morphe-manager/commit/d7fa036ed77bc32b53b8696769b49d07034f4ff5))
+
+
+### Features
+
+* Animate selection cards between picked and not ([55dd6af](https://github.com/MorpheApp/morphe-manager/commit/55dd6af5debd2df9e7f655e616ef41203966b257))
+* Card the installed app picker's rows like the file picker's ([9d6e647](https://github.com/MorpheApp/morphe-manager/commit/9d6e647f2f3fe3c7597f97b6ccf7799977e6d790))
+* Describe the notifications and UI scale dialogs, and give the settings backup its signing key note as a description ([0d41edb](https://github.com/MorpheApp/morphe-manager/commit/0d41edb5526fae078d74624e77ad1301150cd580))
+* Fade dialog lists under a pinned search row instead of leaving their top edge hard ([3e6ab84](https://github.com/MorpheApp/morphe-manager/commit/3e6ab84fd0455d1c37a45a55156653bcd64efd7f))
+* Give warnings an amber and successes a green of their own ([c25e3ed](https://github.com/MorpheApp/morphe-manager/commit/c25e3ede195f5468410b93bea5f8ec63e5e26196))
+* Head storage management like the other lists, with its usage as the subtitle and tinted header actions ([7766024](https://github.com/MorpheApp/morphe-manager/commit/7766024b14376fb8687128f27bdfc1a66a0fce01))
+* Head the batch patching dialog like the other lists, with the run's summary as its subtitle ([1e07daf](https://github.com/MorpheApp/morphe-manager/commit/1e07daf1e0f30e5bc0519ae63157ca8150caeae5))
+* Keep the installer dialog's title to itself and Shizuku's actions inside its card ([555e481](https://github.com/MorpheApp/morphe-manager/commit/555e4815a9965d22371dd8585470975a82c0ae2d))
+* Pin the app info header above its list, with dialog lists on one shared frame ([8769460](https://github.com/MorpheApp/morphe-manager/commit/8769460ae1705bcaad9175fcc3cc8072d0b902df))
+* Rebuild the home alerts on one card, with the source update shown in a progress ring ([259ff32](https://github.com/MorpheApp/morphe-manager/commit/259ff324a9a929e97ce0ab60024c0b4f4d045c59))
+* Set dialog descriptions under their titles in one style, with smaller titles and even edges ([1d5054e](https://github.com/MorpheApp/morphe-manager/commit/1d5054e2b9d84fb7d161ed60848f94f8df11c935))
+* Size the home greeting like the dialog titles ([e11defa](https://github.com/MorpheApp/morphe-manager/commit/e11defa3e1d1963b700990e999cded4bcce6e773))
+* Tint the expert mode counter with the header color like its search ([9566bc1](https://github.com/MorpheApp/morphe-manager/commit/9566bc12b1afc0225fe00e7bbc77a4595d2d2b63))
+* Tint the title actions of an accented header with its color ([185c2ba](https://github.com/MorpheApp/morphe-manager/commit/185c2ba7cec19c389e64ee2ec362e90f2a2c5f27))
+
 # [1.33.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.3...v1.33.0-dev.4) (2026-09-27)
 
 

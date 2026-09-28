@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">การอัปเดตถูกข้าม</string>
     <string name="home_update_skipped_metered_subtitle">กำลังใช้งานข้อมูลมือถือ</string>
     <string name="home_updating_sources">กำลังอัปเดตแหล่งที่มา…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">อัปเดตแหล่งที่มาเสร็จสมบูรณ์</string>
     <string name="home_update_success_subtitle">แหล่งทีมาของคุณเป็นเวอร์ชันล่าสุดแล้ว</string>
     <string name="home_sources_are_loading">กำลังโหลดแหล่งที่มา กรุณารอสักครู่…</string>
@@ -177,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">ลบแหล่งที่มา “%s”? ขั้นตอนนี้ไม่สามารถย้อนกลับได้</string>
     <string name="sources_dialog_remote">รีโมต</string>
     <string name="sources_dialog_remote_url">URL แหล่งที่มา</string>
-    <string name="sources_dialog_remote_url_formats_title">ตัวอย่าง:</string>
+    <string name="sources_dialog_remote_url_hint">ที่เก็บหรือลิงก์ไปยัง .json ของชุดแพตช์ วางหลายรายการพร้อมกันเพื่อเพิ่มทั้งหมด</string>
+    <string name="sources_dialog_paste_no_links">ไม่พบลิงก์ในคลิปบอร์ด</string>
     <string name="sources_dialog_local">อุปกรณ์</string>
-    <string name="sources_dialog_local_file">เลือกไฟล์แหล่งที่มา</string>
+    <string name="sources_dialog_local_files">เลือกไฟล์ต้นทางแพตช์</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">เพิ่มไฟล์เพิ่มเติม</string>
     <string name="sources_dialog_local_file_tap_hint">แตะเพื่อเรียกดูที่เก็บข้อมูล</string>
-    <string name="sources_dialog_local_file_description">เลือกไฟล์ .mpp จากแหล่งข้อมูลอยู่บนที่เก็บข้อมูลภายใน</string>
     <string name="sources_dialog_local_invalid_extension">ไฟล์ต้องมีนามสกุล .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">อัปเดต %s</string>
     <string name="sources_dialog_url_valid">ที่อยู่ URL หรือ JSON ที่ถูกต้อง</string>
     <string name="sources_dialog_url_invalid">URL ต้องชี้ไปยัง GitHub/GitLab repo หรือไฟล์ .json</string>
-    <string name="sources_dialog_local_change_file">เปลี่ยนไฟล์</string>
     <string name="sources_dialog_preinstalled">ติดตั้งล่วงหน้าแล้ว</string>
     <string name="sources_dialog_community">แพตช์ชุมชน</string>
     <string name="sources_dialog_choose_apps">เลือกแอป</string>
@@ -215,7 +215,8 @@
     <string name="home_apk_helper_download">ใช้แอปตัวช่วย</string>
     <string name="home_apk_helper_title">ดาวน์โหลดด้วยแอปตัวช่วย</string>
     <string name="home_apk_helper_description">Morphe จะขอให้แอปตัวช่วยด้านล่างดาวน์โหลด APK ต้นฉบับและส่งคืนไฟล์</string>
-    <string name="home_apk_helper_continue">เปิดแอปตัวช่วย</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">เปิดตัวช่วย</string>
     <string name="home_apk_helper_warning">ดำเนินการต่อหากคุณเชื่อถือแอปตัวช่วยนี้เท่านั้น Morphe จะตรวจสอบแพ็คเกจ เวอร์ชัน และลายเซ็นของสิ่งที่ได้รับก่อนทำการแพตช์</string>
     <string name="home_apk_helper_warning_unverified">ดำเนินการต่อหากคุณเชื่อถือแอปตัวช่วยนี้เท่านั้น Morphe ไม่สามารถยืนยันลายเซ็นของ APK นี้ ดังนั้นจึงจะตรวจไม่พบไฟล์ที่แก้ไข</string>
     <string name="home_apk_helper_no_result">แอปตัวช่วยไม่ได้ส่งคืน APK</string>
@@ -321,6 +322,7 @@
     <string name="morphe_experimental_app_version_dialog_message">เวอร์ชั่นนี้ของ &lt;b&gt;%s&lt;/b&gt; มีการรองรับแบบทดลองในระยะเริ่มต้น&lt;br/&gt;&lt;br/&gt;🔧 โปรดคาดว่าแอปจะทำงานแปลกๆ หรือมีข้อผิดพลาดที่ไม่สามารถระบุได้ ในขณะที่แพตช์ถูกปรับปรุงสำหรับแอปเวอร์ชันนี้</string>
     <string name="home_dialog_unsupported_version_dialog_title">เวอร์ชันนี้ไม่รองรับ</string>
     <string name="home_dialog_unsupported_version_dialog_description">ไฟล์ APK นี้ไม่ใช่เวอร์ชันแอปที่แนะนำ หากดำเนินต่อไปอาจจะใช้งานไม่ได้</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">ดำเนินต่อไป</string>
     <string name="home_dialog_unsupported_version_compatible_versions">เวอร์ชันที่เข้ากันได้:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">ไม่รองรับ</string>
@@ -356,12 +358,21 @@
     <string name="patch_option_slider_range_end">ถึง</string>
     <string name="patch_option_list_duplicate">ค่านี้มีอยู่แล้ว</string>
     <string name="patch_option_list_empty">ไม่สามารถเว้นว่างได้</string>
-    <string name="patch_option_list_empty_state">ยังไม่ได้เพิ่มค่าใดๆ</string>
     <string name="patch_option_required_missing">%s: กรอกตัวเลือกที่จำเป็นทั้งหมด</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">เปลี่ยนแปลงแล้ว</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">จำเป็น</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">แนะนำ: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">สร้างไอคอนปรับตัวได้</string>
     <string name="adaptive_icon_select_image">เลือกภาพ</string>
     <string name="adaptive_icon_change_image">เปลี่ยนภาพ</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">ภาพพื้นหน้า</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">ไอคอนตัวเรียกใช้</string>
     <string name="adaptive_icon_background_color">สีพื้นหลัง</string>
     <string name="adaptive_icon_reset_transform">รีเซ็ตตำแหน่งและขนาด</string>
     <string name="adaptive_icon_safe_zone_inner">เขตปลอดภัย (ปรากฏเสมอ)</string>
@@ -413,16 +424,18 @@
     <string name="batch_patch_source_file">ไฟล์ที่แนบมา</string>
     <string name="batch_patch_source_unavailable">ไม่สามารถเตรียม APK ได้</string>
     <string name="batch_patch_force_version">แพตช์อยู่ดี</string>
-    <string name="batch_patch_force_version_done">อย่างไรก็ตาม แพตช์ที่สร้างขึ้นสำหรับเวอร์ชันอื่นอาจทำให้แอปเสียหายได้</string>
-    <string name="batch_patch_accept_signature_done">แม้จะถูกจัดคิวแล้ว APK นี้ก็อาจไม่ใช่ต้นฉบับ</string>
+    <string name="batch_patch_force_version_done">จัดคิวไว้แล้วก็ตาม แอปอาจพัง</string>
+    <string name="batch_patch_accept_signature_done">จัดคิวไว้แล้วก็ตาม APK ไม่ได้รับการตรวจสอบ</string>
     <string name="batch_patch_edit_patches">เลือกแพตช์</string>
     <string name="batch_patch_state_no_apk">ไม่มี APK</string>
     <string name="batch_patch_state_no_patches">ไม่มีแพตช์</string>
     <string name="batch_patch_policy_install">ติดตั้งเมื่อเสร็จสิ้น</string>
     <string name="batch_patch_policy_install_description">ติดตั้งแอปที่แพตช์ทุกแอปทันทีที่คิวเสร็จสิ้น ปิดจะเก็บ APK ไว้ในภายหลัง</string>
-    <string name="batch_patch_start">เริ่มแพตช์</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">เริ่มต้น</string>
     <string name="batch_patch_stop_title">หยุดแพตช์กลุ่ม?</string>
     <string name="batch_patch_stop_description">แอปที่กำลังแพตช์อยู่ตอนนี้และทุกอย่างที่อยู่ในคิวจะถูกยกเลิก</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">ติดตั้งทั้งหมด</string>
     <string name="batch_patch_install_failed">ติดตั้งล้มเหลว</string>
     <string name="batch_patch_in_progress">กำลังแพตช์กลุ่มอยู่แล้ว</string>
@@ -669,6 +682,7 @@
     <string name="system">ระบบ</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">ภาพเคลื่อนไหวพื้นหลัง</string>
+    <string name="settings_appearance_background_description">แอนิเมชันที่เล่นอยู่เบื้องหลังหน้าจอต่างๆ ของแอป</string>
     <string name="settings_appearance_background_circles">วงกลม</string>
     <string name="settings_appearance_background_rings">วงแหวน</string>
     <string name="settings_appearance_background_mesh">เส้นผ่านศูนย์กลาง</string>
@@ -737,6 +751,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">ใช้สีของแอปแต่ละแอปที่นี่ ซึ่งจะปรับเฉดสีโดยอัตโนมัติเพื่อให้เข้ากัน</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">ไอคอนแอป</string>
+    <string name="settings_appearance_app_icon_selector_description">หน้าตาของ Morphe บนหน้าจอหลักและในลิ้นชักแอป</string>
     <string name="settings_appearance_app_icon_default">ค่าเริ่มต้น</string>
     <string name="settings_appearance_app_icon_light_2">สีฟ้า</string>
     <string name="settings_appearance_app_icon_light_3">สีพระอาทิตย์ตก</string>
@@ -745,6 +760,7 @@
     <string name="settings_appearance_app_icon_dark_3">สีคราม</string>
     <string name="settings_appearance_app_icon_change_dialog_title">เปลี่ยนไอคอนแอป?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">เปลี่ยนเป็น &lt;b&gt;%s&lt;/b&gt; แล้วเริ่มใหม่หรือไม่?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">เปลี่ยนไอคอน</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">อัปเดต</string>
@@ -1126,7 +1142,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_apk_download_helper_installed_by">ติดตั้งโดย %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">ไม่ทราบผู้ติดตั้ง</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">ไดเรกทอรีก่อนหน้า</string>
     <string name="file_picker_no_files">ไม่มีไฟล์อยู่ที่นี่</string>
     <string name="file_picker_read_error">ไม่สามารถอ่านไดเรกทอรีนี้ได้</string>
     <string name="file_picker_internal_storage">หน่วยความจำภายใน</string>
@@ -1157,11 +1172,9 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_red_toast_again">กลับไปในสายฝน</string>
     <string name="easter_egg_pill_blue_toast_again">ถอดปลั๊กแล้ว. ทางกลับคือที่เดิม</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">เลือกไฟล์</string>
+    <string name="select_files">เลือกไฟล์</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">เลือกโฟลเดอร์</string>
     <string name="patches">แพตช์</string>
     <string name="home">หน้าแรก</string>
@@ -1188,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">เสร็จสิ้น</string>
     <string name="skip">ข้าม</string>
     <string name="clear">ล้าง</string>
+    <string name="paste">วาง</string>
     <string name="delete">ลบ</string>
     <string name="delete_all">ลบทั้งหมด</string>
     <string name="remove">นำออก</string>
@@ -1282,9 +1296,11 @@ morphe_header_custom_dark.png
     <string name="changelog_earlier_releases">รุ่นก่อนหน้า</string>
     <string name="changelog_older_empty">ไม่มีเวอร์ชันเก่ากว่าให้แสดง</string>
     <string name="changelog_older_failed">ไม่สามารถโหลดรุ่นที่เก่ากว่าได้</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">หน้ารุ่น</string>
     <string name="content_translate">แปลภาษา</string>
-    <string name="content_show_original">แสดงต้นฉบับ</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">ต้นฉบับ</string>
     <string name="content_translation_failed">การแปลล้มเหลว: %s</string>
     <string name="changelog_section_new">ใหม่</string>
     <string name="changelog_section_fixes">การแก้ไข</string>
@@ -1306,8 +1322,10 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">ไม่สามารถติดตั้งอัปเดตได้</string>
     <string name="installing_manager_update">กำลังติดตั้งอัปเดต…</string>
     <string name="downloading_manager_update">กำลังดาวน์โหลดอัปเดต…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">ดาวน์โหลดแล้ว %1$s MB</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">รุ่นนี้ยังอยู่ในระหว่างการเผยแพร่ ลองอีกครั้งในไม่กี่นาที</string>
     <string name="update_download_missing">อัปเดตที่ดาวน์โหลดมาไม่พร้อมใช้งานอีกต่อไป ดาวน์โหลดอีกครั้ง</string>
     <string name="download_manager_failed">ไม่สามารถดาวน์โหลดอัปเดตได้: %s</string>
@@ -1339,6 +1357,7 @@ morphe_header_custom_dark.png
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">ทัวร์คุณสมบัติอย่างรวดเร็ว</string>
     <string name="tour_prompt_desc">ต้องการทัวร์อย่างรวดเร็วเกี่ยวกับคุณสมบัติหลักของ Morphe หรือไม่</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">พาฉันดูรอบๆ</string>
     <string name="onboarding_restart_title">ทัวร์คุณสมบัติ</string>
     <string name="onboarding_restart_desc">ทัวร์นำชมฟีเจอร์สำคัญ</string>

@@ -20,7 +20,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
@@ -72,7 +71,7 @@ fun PatcherScreen(
 ) {
     val view = LocalView.current
 
-    val patcherSucceeded by patcherViewModel.patcherSucceeded.observeAsState(null)
+    val patcherSucceeded by patcherViewModel.patcherSucceeded.collectAsStateWithLifecycle()
 
     // Remember patcher state
     val state = rememberPatcherScreenState(patcherViewModel)

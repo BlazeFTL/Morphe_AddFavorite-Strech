@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">更新をスキップしました</string>
     <string name="home_update_skipped_metered_subtitle">モバイルデータ通信が有効です</string>
     <string name="home_updating_sources">ソースを更新中…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d ・ %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">ソースの更新が完了しました</string>
     <string name="home_update_success_subtitle">ソースは最新の状態です</string>
     <string name="home_sources_are_loading">ソースを読み込んでいます。しばらくお待ちください…</string>
@@ -177,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">ソース 「%s」 を削除しますか？ この操作は元に戻せません</string>
     <string name="sources_dialog_remote">リモート</string>
     <string name="sources_dialog_remote_url">ソース URL</string>
-    <string name="sources_dialog_remote_url_formats_title">例:</string>
+    <string name="sources_dialog_remote_url_hint">リポジトリ、またはパッチバンドル（.json）へのリンク。一度に複数貼り付けると、すべて追加されます。</string>
+    <string name="sources_dialog_paste_no_links">クリップボードにリンクが見つかりません</string>
     <string name="sources_dialog_local">ローカル</string>
-    <string name="sources_dialog_local_file">パッチソースファイルを選択</string>
+    <string name="sources_dialog_local_files">パッチソースファイルを選択</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">ファイルをさらに追加</string>
     <string name="sources_dialog_local_file_tap_hint">タップしてストレージを参照</string>
-    <string name="sources_dialog_local_file_description">ストレージから .mpp パッチソースファイルを選択してください</string>
     <string name="sources_dialog_local_invalid_extension">ファイルは .mpp 拡張子でなければなりません</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">%s を更新</string>
     <string name="sources_dialog_url_valid">有効なリポジトリまたは JSON URL</string>
     <string name="sources_dialog_url_invalid">URL は GitHub または GitLab のリポジトリ、もしくは .json ファイルを指している必要があります</string>
-    <string name="sources_dialog_local_change_file">ファイルを変更</string>
     <string name="sources_dialog_preinstalled">プリインストール</string>
     <string name="sources_dialog_community">コミュニティ パッチ</string>
     <string name="sources_dialog_choose_apps">アプリの選択</string>
@@ -215,7 +215,8 @@
     <string name="home_apk_helper_download">ヘルパーアプリを使用する</string>
     <string name="home_apk_helper_title">ヘルパーアプリでダウンロードする</string>
     <string name="home_apk_helper_description">Morphe は、以下のヘルパーアプリにオリジナル APK をダウンロードしてもらい、そのファイルを受け取ります</string>
-    <string name="home_apk_helper_continue">ヘルパーアプリを開く</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">ヘルパーを開く</string>
     <string name="home_apk_helper_warning">このヘルパーアプリを信頼できる場合のみ続行してください。Morphe はパッチ適用前に、受け取った APK のパッケージ名、バージョン、署名を確認します</string>
     <string name="home_apk_helper_warning_unverified">このヘルパーアプリを信頼できる場合のみ続行してください。Morphe はこの APK の署名を検証できないため、改ざんされたファイルを検出できません</string>
     <string name="home_apk_helper_no_result">ヘルパーアプリから APK が返されませんでした</string>
@@ -297,7 +298,7 @@
     <string name="expert_mode_selected_only_on">選択されたパッチのみを表示</string>
     <string name="expert_mode_selected_only_off">すべてのパッチを表示</string>
     <string name="expert_mode_universal_patches">ユニバーサルパッチ</string>
-    <string name="expert_mode_new_patches">新規</string>
+    <string name="expert_mode_new_patches">新着</string>
     <string name="expert_mode_options_customized">カスタマイズ済み</string>
     <string name="expert_mode_patch_required_by_installer">選択したインストール対象に必要です</string>
     <string name="expert_mode_patch_unavailable_for_installer">選択したインストール対象では利用できません</string>
@@ -321,6 +322,7 @@
     <string name="morphe_experimental_app_version_dialog_message">このバージョンの &lt;b&gt;%s&lt;/b&gt; は、初期段階の実験的なサポートのみとなっています&lt;br/&gt;&lt;br/&gt;🔧 パッチはまだ最適化中のため、アプリの動作が不安定になったり、予期しない不具合が発生する可能性があります</string>
     <string name="home_dialog_unsupported_version_dialog_title">非対応のバージョン</string>
     <string name="home_dialog_unsupported_version_dialog_description">この APK は推奨バージョンではありません。続行すると、アプリが正常に動作しなくなる可能性があります</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">このまま続行する</string>
     <string name="home_dialog_unsupported_version_compatible_versions">互換性のあるバージョン:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">非対応</string>
@@ -356,12 +358,21 @@
     <string name="patch_option_slider_range_end">終了</string>
     <string name="patch_option_list_duplicate">この値はすでに存在します</string>
     <string name="patch_option_list_empty">値は空にできません</string>
-    <string name="patch_option_list_empty_state">まだ値が追加されていません</string>
     <string name="patch_option_required_missing">%s: すべての必須項目を入力してください</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">変更済み</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">必須</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">推奨：%1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">アダプティブ アイコンを作成</string>
     <string name="adaptive_icon_select_image">画像を選択</string>
     <string name="adaptive_icon_change_image">画像を変更</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">前景画像</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">ランチャーアイコン</string>
     <string name="adaptive_icon_background_color">背景色</string>
     <string name="adaptive_icon_reset_transform">位置とスケールをリセット</string>
     <string name="adaptive_icon_safe_zone_inner">セーフゾーン（常に表示される）</string>
@@ -413,16 +424,18 @@
     <string name="batch_patch_source_file">添付ファイル</string>
     <string name="batch_patch_source_unavailable">APK を準備できませんでした</string>
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
-    <string name="batch_patch_force_version_done">キューに追加しましたが、他のバージョン向けのパッチによってアプリが正常に動作しなくなる可能性があります</string>
-    <string name="batch_patch_accept_signature_done">キューに追加しましたが、この APK はオリジナルではない可能性があります</string>
+    <string name="batch_patch_force_version_done">とにかくキューに追加されます。アプリが壊れる可能性があります。</string>
+    <string name="batch_patch_accept_signature_done">とにかくキューに追加します。APK は検証されていません</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
     <string name="batch_patch_state_no_apk">APK がありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>
     <string name="batch_patch_policy_install">完了後にインストールする</string>
     <string name="batch_patch_policy_install_description">キューの処理が完了すると、パッチ適用済みアプリをすべて自動でインストールします。オフにすると、APK を保存して後でインストールできます</string>
-    <string name="batch_patch_start">パッチ処理を開始する</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">開始</string>
     <string name="batch_patch_stop_title">一括パッチを停止しますか？</string>
     <string name="batch_patch_stop_description">現在パッチを適用中のアプリと、まだキューに登録されているアプリはキャンセルされます</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">すべてインストールする</string>
     <string name="batch_patch_install_failed">インストールに失敗しました</string>
     <string name="batch_patch_in_progress">一括パッチはすでに実行中です</string>
@@ -670,6 +683,7 @@
     <string name="system">システム</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">背景アニメーション</string>
+    <string name="settings_appearance_background_description">アプリの画面の背後で再生されるアニメーション</string>
     <string name="settings_appearance_background_circles">円</string>
     <string name="settings_appearance_background_rings">リング</string>
     <string name="settings_appearance_background_mesh">メッシュ</string>
@@ -737,6 +751,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">アプリのテーマカラーを使用し、自動でなじむように色調を調整します</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">アプリアイコン</string>
+    <string name="settings_appearance_app_icon_selector_description">ホーム画面とアプリドロワーでの Morphe の見た目</string>
     <string name="settings_appearance_app_icon_default">デフォルト</string>
     <string name="settings_appearance_app_icon_light_2">スカイ</string>
     <string name="settings_appearance_app_icon_light_3">サンセット</string>
@@ -745,6 +760,7 @@
     <string name="settings_appearance_app_icon_dark_3">インディゴ</string>
     <string name="settings_appearance_app_icon_change_dialog_title">アプリのアイコンを変更しますか？</string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt; に変更して再起動しますか？</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">アイコンを変更</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">更新</string>
@@ -1127,11 +1143,10 @@ morphe_header_custom_dark.png
     <string name="settings_system_apk_download_helper_installed_by">インストール元: %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">不明なインストーラー</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">前のディレクトリ</string>
     <string name="file_picker_no_files">ファイルが見つかりません</string>
     <string name="file_picker_read_error">このディレクトリを読み取ることができません</string>
     <string name="file_picker_internal_storage">内部ストレージ</string>
-    <string name="file_picker_sd_card">SDカード</string>
+    <string name="file_picker_sd_card">SD カード</string>
     <string name="file_picker_root">ルート (/)</string>
     <string name="file_picker_sort_name_asc">名前（A–Z）</string>
     <string name="file_picker_sort_name_desc">名前（Z–A）</string>
@@ -1158,11 +1173,9 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_red_toast_again">また雨の中へ</string>
     <string name="easter_egg_pill_blue_toast_again">接続を解除しました。戻る道は、いつでもそこにあります</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">ファイルを選択</string>
+    <string name="select_files">ファイルを選択</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">フォルダーを選択</string>
     <string name="patches">パッチ</string>
     <string name="home">ホーム</string>
@@ -1189,6 +1202,7 @@ morphe_header_custom_dark.png
     <string name="done">完了</string>
     <string name="skip">スキップ</string>
     <string name="clear">クリア</string>
+    <string name="paste">貼り付け</string>
     <string name="delete">削除</string>
     <string name="delete_all">すべて削除</string>
     <string name="remove">削除</string>
@@ -1280,14 +1294,16 @@ morphe_header_custom_dark.png
     <string name="changelog_description">このバージョンの新機能</string>
     <string name="changelog_download_fail">変更履歴のダウンロードに失敗しました: %s</string>
     <string name="changelog_empty">利用可能な更新はありません</string>
-    <string name="changelog_earlier_releases">以前のリリース</string>
+    <string name="changelog_earlier_releases">過去のリリース</string>
     <string name="changelog_older_empty">表示可能な過去のリリースはありません</string>
-    <string name="changelog_older_failed">以前のリリースを読み込めませんでした</string>
+    <string name="changelog_older_failed">過去のリリースを読み込めませんでした</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">リリースページ</string>
     <string name="content_translate">翻訳</string>
-    <string name="content_show_original">原文を表示</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">オリジナル</string>
     <string name="content_translation_failed">翻訳に失敗しました：%s</string>
-    <string name="changelog_section_new">New</string>
+    <string name="changelog_section_new">新着</string>
     <string name="changelog_section_fixes">修正</string>
     <string name="changelog_section_performance">パフォーマンス</string>
     <string name="changelog_section_improvements">改善</string>
@@ -1307,8 +1323,10 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">アップデートのインストールに失敗しました</string>
     <string name="installing_manager_update">アップデートをインストールしています…</string>
     <string name="downloading_manager_update">アップデートをダウンロードしています…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB ダウンロード済み</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">このリリースはまだ公開中です。しばらくしてから再度お試しください</string>
     <string name="update_download_missing">ダウンロードした更新は利用できなくなりました。再度ダウンロードしてください</string>
     <string name="download_manager_failed">アップデートのダウンロードに失敗しました: %s</string>
@@ -1340,6 +1358,7 @@ morphe_header_custom_dark.png
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">かんたん機能ガイド</string>
     <string name="tour_prompt_desc">Morphe の主な機能を簡単に見てみませんか？</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">ガイドを開始</string>
     <string name="onboarding_restart_title">機能ガイド</string>
     <string name="onboarding_restart_desc">主な機能をガイド付きでご紹介します</string>

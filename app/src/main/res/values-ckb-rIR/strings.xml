@@ -22,8 +22,6 @@
     <string name="home_update_skipped_metered">نوێکردنەوەکان پەڕێندرا</string>
     <string name="home_update_skipped_metered_subtitle">داتای مۆبایل چاڵاکە</string>
     <string name="home_updating_sources">نوێکردنەوەی سەرچاوەکان...</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
     <string name="home_update_success">نوێکردنەوەی سەرچاوە تەواوبوو</string>
     <string name="home_update_success_subtitle">سەرچاوەکانت نوێن</string>
     <string name="home_sources_are_loading">سەرچاوەکان باردەکرێن، تکایە چاوەڕوان بە...</string>
@@ -77,15 +75,13 @@
     <string name="sources_dialog_delete_confirm_message">سڕینەوای سەرچاوەی \"%s\"؟ ئەمە ناتوانرێت هەڵبوەشێتەوە</string>
     <string name="sources_dialog_remote">دوورەدەست</string>
     <string name="sources_dialog_remote_url">URLی سەرچاوە</string>
-    <string name="sources_dialog_remote_url_formats_title">نموونەکان:</string>
     <string name="sources_dialog_local">ناوخۆ</string>
-    <string name="sources_dialog_local_file">پەڕگەی سەرچاوەی پینە هەڵبژێرە</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">بۆ گەڕان بەناو کۆگادا پەنجە بنێ</string>
-    <string name="sources_dialog_local_file_description">پەڕگەیەکی سەرچاوەی .mpp پینە لە کۆگا هەڵبژێرە</string>
     <string name="sources_dialog_local_invalid_extension">پەڕگەکە دەبێت درێژکراوەی .mpp ی هەبێت</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">عەمباری دروست یان URL JSON</string>
     <string name="sources_dialog_url_invalid">بەستەرەکە دەبێت ئاماژە بە ڕیپۆیەکی GitHub/GitLab یان پەڕگەیەکی .json بکات</string>
-    <string name="sources_dialog_local_change_file">گۆڕینی پەڕگە</string>
     <string name="sources_dialog_preinstalled">پێشوەختە دامەزراو</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">نوێکردنەوە سەرکەوتوو بوو</string>
@@ -104,6 +100,7 @@
     <string name="home_apk_availability_incompatible_label">نەگونجان</string>
     <string name="home_apk_availability_yes">بەڵێ، یارمەتیم بدە لە دۆزینەوەی APK</string>
     <string name="home_apk_availability_no">نەخێر پێشتر APK هەیە</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_app_info_no_saved_apk">APK پاشەکەوت نەکراوە. پینەکردن پێویستی بە دیاریکردنی فایلی APK دووبارە هەیە</string>
     <string name="home_version_requires_android">پێویستی بە ئەندرۆید %s+ هەیە</string>
     <string name="home_apk_no_compatible_versions_title">پشتگیری نەکراوە لەسەر ئەم ئامێرە</string>
@@ -162,6 +159,7 @@
     <string name="morphe_experimental_app_version_dialog_message">ئەم وەشانەی &lt;b&gt;%s&lt;/b&gt; پاڵپشتی ئەزموونی سەرەتایی هەیە &lt;br/&gt;&lt;br/&gt; 🔧 چاوەڕێی هەڵسوکەوتی نائاسایی ئەپەکە یان هەڵەی نەناسراو بکە کاتێک پینەکراوەکان بۆ ئەم وەشانە پوختەکراون</string>
     <string name="home_dialog_unsupported_version_dialog_title">وەشانی پشتگیری نەکراو</string>
     <string name="home_dialog_unsupported_version_dialog_description">ئەم APK وەشانێکی ئەپی پێشنیارکراو نیە. لەوانەیە بەردەوامبوون ببێتە هۆی ئەپێکی کارا نەکراو</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">هەرچۆنێک بێت بەردەوام بە</string>
     <string name="home_dialog_unsupported_version_compatible_versions">وەشانە گونجاوەکان:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">پشتگیری نەکراوە</string>
@@ -189,12 +187,16 @@
     <string name="patch_option_enter_decimal">ژمارەی دەیی بنووسە</string>
     <string name="patch_option_list_duplicate">ئەم بەهایە بوونی هەیە</string>
     <string name="patch_option_list_empty">بەها ناتواندرێ بەتاڵ بێت</string>
-    <string name="patch_option_list_empty_state">هیج بەهایەک زیادنەکراوە هێشتا</string>
     <string name="patch_option_required_missing">%s: هەموو هەڵبژاردنە پێویستەکان پڕبکەرەوە</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">دروستکردنی ئایکۆنی گونجاندن</string>
     <string name="adaptive_icon_select_image">وێنە دیاریبکە</string>
     <string name="adaptive_icon_change_image">گۆڕینی وێنە</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
     <string name="adaptive_icon_background_color">ڕەنگی پاشخان</string>
     <string name="adaptive_icon_reset_transform">ڕێکخستنەوەی شوێن و پێوانە</string>
     <string name="adaptive_icon_safe_zone_inner">ناوچەی پارێزراو (هەمیشە بینراوە)</string>
@@ -212,6 +214,9 @@
     <string name="header_creator_failed">شکستی هێنا لە دروستکردنی سەرپەڕە</string>
     <!-- Batch patching -->
     <string name="batch_patch_action">پینە دیاریکراوە</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">دەستپێکردن</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="shortcut_check_updates_short">پشکنینی نوێکردنەوەکان</string>
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_remove_app_warning">ئایا تۆ پشتڕاستیت کە دەتەوێت ئەم کاربەرنامەیە لابدەیت؟</string>
@@ -392,6 +397,7 @@
     <string name="settings_appearance_app_icon_dark_3">نیلی</string>
     <string name="settings_appearance_app_icon_change_dialog_title">وێنۆچکەی ئەپەکە بگۆڕیت؟</string>
     <string name="settings_appearance_app_icon_change_dialog_message">بگۆڕە بۆ &lt;b&gt;%s&lt;/b&gt; وە دەستپێکردنەوە؟</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">گۆڕینی وێنۆچکە</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">نوێکردنەوەکان</string>
@@ -479,9 +485,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="credits">کۆددان</string>
     <!-- Easter egg offered after seven taps on the version in the About dialog -->
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="patches">پینەکان</string>
     <string name="settings">ڕێکخستنەکان</string>
     <string name="skip">لەوەشدا بجە</string>
@@ -497,12 +501,17 @@ morphe_adaptive_monochrome_custom.xml
     <string name="patching">پینەکردن</string>
     <string name="patched">پینەکراو</string>
     <string name="allow">ڕێگەپێدان</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">ڕەسەن</string>
     <string name="changelog_section_new">نوێ</string>
     <!-- Marks the version of a patch source the manager patches with -->
     <!-- "%s" is the number of changes in the section -->
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
     <!-- Onboarding coach marks -->
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <!-- Translate "System" the same way as the System settings tab -->
     <!-- Tour prompt dialog shown after first successful patch install -->
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
 </resources>

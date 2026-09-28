@@ -5,17 +5,24 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /** Size of the picture leading a [CompactListCard]. */
 val CompactCardIconSize = 36.dp
+
+/** Size of a glyph drawn on a [CompactCardIconTile]. */
+val CompactCardGlyphSize = 20.dp
 
 /** Gap between the [CompactListCard]s of a list. */
 val CompactCardSpacing = 6.dp
@@ -66,6 +73,28 @@ fun ShimmerCompactListCard() {
         ) {
             ShimmerText(widthFraction = 0.55f, height = 14.dp)
             ShimmerText(widthFraction = 0.35f, height = 12.dp)
+        }
+    }
+}
+
+/**
+ * Tinted tile leading a [CompactListCard] whose entry has no picture of its own, holding a glyph
+ * of [CompactCardGlyphSize] drawn in [contentColor].
+ */
+@Composable
+fun CompactCardIconTile(
+    containerColor: Color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    content: @Composable BoxScope.() -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(CompactCardIconSize)
+            .background(containerColor, RoundedCornerShape(Defaults.CompactCornerRadius)),
+        contentAlignment = Alignment.Center
+    ) {
+        CompositionLocalProvider(LocalContentColor provides contentColor) {
+            content()
         }
     }
 }

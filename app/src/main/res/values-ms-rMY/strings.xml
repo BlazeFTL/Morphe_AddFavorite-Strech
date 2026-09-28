@@ -22,8 +22,6 @@
     <string name="home_update_skipped_metered">Kemas kini taraf dilangkau</string>
     <string name="home_update_skipped_metered_subtitle">Data mudah alih aktif</string>
     <string name="home_updating_sources">Kemas kini sumber-sumber… </string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
     <string name="home_update_success">Kemas kini sumber selesai</string>
     <string name="home_update_success_subtitle">Sumber-sumbee anda adalah yang terkini</string>
     <string name="home_sources_are_loading">Sumber sedang di muat naik, sila tunggu… </string>
@@ -100,15 +98,13 @@
     <string name="sources_dialog_delete_confirm_message">Padam sumber \"%s\"? Tindakan ini tidak boleh diundurkan</string>
     <string name="sources_dialog_remote">Jauh</string>
     <string name="sources_dialog_remote_url">URL sumber</string>
-    <string name="sources_dialog_remote_url_formats_title">Contoh:</string>
     <string name="sources_dialog_local">Tempatan</string>
-    <string name="sources_dialog_local_file">Pilih fail sumber tampalan</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Ketik untuk menyemak imbas storan</string>
-    <string name="sources_dialog_local_file_description">Pilih fail sumber tampalan .mpp daripada storan</string>
     <string name="sources_dialog_local_invalid_extension">Fail mestilah mempunyai lanjutan .mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Repositori atau URL JSON yang sah</string>
     <string name="sources_dialog_url_invalid">URL mestilah menghala ke repositori GitHub/GitLab atau fail .json</string>
-    <string name="sources_dialog_local_change_file">Tukar fail</string>
     <string name="sources_dialog_preinstalled">Prapasang</string>
     <!-- Shown before leaving Morphe for the community patches website. The sources listed there are not reviewed by Morphe -->
     <string name="sources_update_success">Kemas kini berjaya</string>
@@ -127,6 +123,7 @@
     <string name="home_apk_availability_incompatible_label">Tidak serasi</string>
     <string name="home_apk_availability_yes">Ya, bantu saya mencari APK</string>
     <string name="home_apk_availability_no">Tidak, saya ada APK</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_apk_use_saved">Guna APK tersimpan</string>
     <string name="home_apk_use_installed">Guna APK terpasang</string>
     <string name="home_app_info_no_saved_apk">Tiada APK tersimpan. Tampalan akan memerlukan fail APK yang dipilih semula</string>
@@ -200,6 +197,7 @@ Untuk hasil yang terbaik, aplikasi ini merekomenkan tampalan &lt;b&gt; APK penuh
     <string name="home_dialog_unsupported_version_dialog_title">Versi tidak disokong</string>
     <string name="home_dialog_unsupported_version_dialog_description">APK ini bukan versi aplikasi yang disyorkan.
 Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Teruskan juga</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Versi-versi bersesuaian:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Tidak disokong</string>
@@ -229,12 +227,16 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="patch_option_enter_decimal">Masukkan perpuluhan</string>
     <string name="patch_option_list_duplicate">Nilai ini sudah wujud</string>
     <string name="patch_option_list_empty">Nilai tidak boleh kosong</string>
-    <string name="patch_option_list_empty_state">Tiada nilai ditambah lagi</string>
     <string name="patch_option_required_missing">%s: isikan semua pilihan yang diperlukan</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Cipta ikon adaptif</string>
     <string name="adaptive_icon_select_image">Pilih imej</string>
     <string name="adaptive_icon_change_image">Tukar imej</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
     <string name="adaptive_icon_background_color">Warna latar belakang</string>
     <string name="adaptive_icon_reset_transform">Balik ke kedudukan dan skala asal</string>
     <string name="adaptive_icon_safe_zone_inner">Zon selamat (selalu dapat dilihat)</string>
@@ -264,6 +266,8 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="header_creator_guide_themes_body">Kebanyakan aplikasi memerlukan imej berasingan untuk tema cerah dan gelap. Sesetengah aplikasi (seperti YouTube Music) hanya menggunakan tema gelap, jadi hanya bahagian itu yang ditunjukkan.</string>
     <string name="header_creator_guide_positioning_title">Kedudukan dan penskalaan</string>
     <!-- Batch patching -->
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Home Screen - App Info Screen -->
     <string name="home_app_info_uninstall_app_confirmation">Adakah anda pasti mahu menyahpasang aplikasi ini?</string>
     <string name="home_app_info_remove_app_warning">Ini akan dipadam secara kekal:</string>
@@ -441,6 +445,7 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="settings_appearance_app_icon_dark_2">Sunyi</string>
     <string name="settings_appearance_app_icon_dark_3">Ungu</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Tukar ikon aplikasi?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Tukar ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Kemas kini</string>
@@ -642,9 +647,7 @@ Dimensi gambar mestilah seperti berikut:
     <string name="opensource_licenses">Lesen sumber terbuka</string>
     <!-- Easter egg offered after seven taps on the version in the About dialog -->
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="patches">Tampalan</string>
     <string name="home">Rumah</string>
     <string name="settings">Pengaturan</string>
@@ -714,6 +717,8 @@ Dimensi gambar mestilah seperti berikut:
     <string name="changelog">Lihat log perubahan</string>
     <string name="changelog_download_fail">Gagal untuk memuat turun log perubahan: %s</string>
     <string name="changelog_empty">Tiada log perubahan tersedia</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="changelog_section_new">Baharu</string>
     <!-- Marks the version of a patch source the manager patches with -->
     <!-- "%s" is the number of changes in the section -->
@@ -724,7 +729,8 @@ Dimensi gambar mestilah seperti berikut:
     <string name="install_update_manager_failed">Gagal memasang kemas kini</string>
     <string name="installing_manager_update">Memasang kemas kini…</string>
     <string name="downloading_manager_update">Memukim kemas kini…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
     <string name="download_manager_failed">Gagal memukim kemas kini: %s</string>
     <string name="failed_to_check_updates">Gagal menyemak kemas kini: %s</string>
     <string name="failed_to_download_update">Gagal memukim kemas kini: %s</string>
@@ -736,4 +742,5 @@ Adakah anda masih ingin meneruskan?"</string>
     <!-- %1$s = current step number, %2$s = total number of steps (e.g. "3 of 13") -->
     <!-- Translate "System" the same way as the System settings tab -->
     <!-- Tour prompt dialog shown after first successful patch install -->
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
 </resources>

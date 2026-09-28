@@ -8,6 +8,13 @@
         <item quantity="one">%s yamaq seçimi</item>
         <item quantity="other">%s yamaq seçimi</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s element</item>
+        <item quantity="other">%s element</item>
+    </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <!-- Button that adds every source waiting in the add source dialog -->
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">%s tətbiq üçün yamaq mənbələri</item>
         <item quantity="other">%s tətbiq üçün yamaq mənbələri</item>

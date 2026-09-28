@@ -8,6 +8,21 @@
         <item quantity="one">%s Opção de patch</item>
         <item quantity="other">%s Opções de patch</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s item</item>
+        <item quantity="other">%s itens</item>
+    </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Selecionar %s arquivo</item>
+        <item quantity="other">Selecionar %s arquivos</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Adicionar %s origem</item>
+        <item quantity="other">Adicionar %s origens</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Fontes de patches para %s aplicativo</item>
         <item quantity="other">Fontes de patches para %s aplicativos</item>

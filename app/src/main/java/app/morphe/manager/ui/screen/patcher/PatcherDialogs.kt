@@ -77,25 +77,16 @@ fun IncompatiblePatcherVersionDialog(
             requiredVersion
         )),
         footer = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                AppDialogButton(
-                    text = stringResource(R.string.patcher_incompatible_patcher_update_button),
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, MORPHE_WEBSITE_URL.toUri())
-                        context.startActivity(intent)
-                    },
-                    icon = Icons.Outlined.SystemUpdate,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogButtonRow(
+                primaryText = stringResource(R.string.patcher_incompatible_patcher_update_button),
+                onPrimaryClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, MORPHE_WEBSITE_URL.toUri())
+                    context.startActivity(intent)
+                },
+                primaryIcon = Icons.Outlined.SystemUpdate,
+                secondaryText = stringResource(R.string.close),
+                onSecondaryClick = onDismiss
+            )
         }
     )
 }
@@ -258,69 +249,60 @@ fun UnusableOptionPathsDialog(
             }
         ),
         footer = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                if (!storageAccessCanHelp) {
-                    // Nothing left to grant, so dropping the paths is the way to go on
-                    if (canClearPaths) {
-                        AppDialogButton(
-                            text = stringResource(R.string.patcher_option_paths_clear),
-                            onClick = onClearPaths,
-                            icon = Icons.Outlined.FolderOff,
-                            modifier = Modifier.fillMaxWidth()
+            val clearPaths = DialogAction(
+                text = stringResource(R.string.patcher_option_paths_clear),
+                onClick = onClearPaths,
+                icon = Icons.Outlined.FolderOff
+            )
+            val grant = when {
+                // Nothing left to grant, so dropping the paths is the way to go on
+                !storageAccessCanHelp -> clearPaths.takeIf { canClearPaths }
+
+                // Android 11+ open the dedicated all-files-access settings screen
+                isApi30Plus -> DialogAction(
+                    text = stringResource(R.string.patcher_storage_permission_open_settings),
+                    onClick = {
+                        // Open the per-app "Allow management of all files" system screen
+                        // When the user comes back, onRetryAfterPermission re-runs preflight
+                        val intent = Intent(
+                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                            Uri.fromParts("package", context.packageName, null)
                         )
-                    }
-                } else if (isApi30Plus) {
-                    // Android 11+ open the dedicated all-files-access settings screen
-                    AppDialogButton(
-                        text = stringResource(R.string.patcher_storage_permission_open_settings),
-                        onClick = {
-                            // Open the per-app "Allow management of all files" system screen
-                            // When the user comes back, onRetryAfterPermission re-runs preflight
-                            val intent = Intent(
-                                Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                                Uri.fromParts("package", context.packageName, null)
-                            )
-                            context.startActivity(intent)
-                            // Trigger re-validation; if the user actually granted the
-                            // permission the patcher will start when they return
-                            onRetryAfterPermission()
-                        },
-                        icon = Icons.Outlined.Settings,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                } else {
-                    // Android 10 and below request READ_EXTERNAL_STORAGE inline
-                    AppDialogButton(
-                        text = stringResource(R.string.patcher_storage_permission_grant),
-                        onClick = {
-                            permissionDenied.value = false
-                            readStorageLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        },
-                        icon = Icons.Outlined.Lock,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                        context.startActivity(intent)
+                        // Trigger re-validation; if the user actually granted the
+                        // permission the patcher will start when they return
+                        onRetryAfterPermission()
+                    },
+                    icon = Icons.Outlined.Settings
+                )
 
-                // A path can be gone while storage access is missing as well, so the way out
-                // is offered below the permission button rather than instead of it
-                if (canClearPaths && storageAccessCanHelp) {
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.patcher_option_paths_clear),
-                        onClick = onClearPaths,
-                        icon = Icons.Outlined.FolderOff,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-
-                AppDialogOutlinedButton(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
+                // Android 10 and below request READ_EXTERNAL_STORAGE inline
+                else -> DialogAction(
+                    text = stringResource(R.string.patcher_storage_permission_grant),
+                    onClick = {
+                        permissionDenied.value = false
+                        readStorageLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    },
+                    icon = Icons.Outlined.Lock
                 )
             }
+
+            val actions = listOfNotNull(
+                grant,
+                // A path can be gone while storage access is missing as well, so the way out
+                // is offered next to the permission button rather than instead of it
+                clearPaths.takeIf { canClearPaths && storageAccessCanHelp },
+                DialogAction(
+                    text = stringResource(android.R.string.cancel),
+                    onClick = onDismiss,
+                    emphasis = DialogActionEmphasis.Outlined
+                )
+            )
+            AppDialogActions(
+                actions = actions,
+                // Three choices stack, as in the other dialogs that offer as many
+                layout = if (actions.size > 2) DialogButtonLayout.Vertical else DialogButtonLayout.Auto
+            )
         }
     ) {
         val secondaryColor = LocalDialogSecondaryTextColor.current
@@ -422,25 +404,16 @@ fun BatteryOptimizationDialog(
         title = stringResource(R.string.battery_optimization_dialog_title),
         description = stringResource(R.string.battery_optimization_dialog_description),
         footer = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                AppDialogButton(
-                    text = stringResource(R.string.allow),
-                    onClick = {
-                        context.requestIgnoreBatteryOptimizations()
-                        onResult()
-                    },
-                    icon = Icons.Outlined.BatterySaver,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.battery_optimization_not_now),
-                    onClick = onResult,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            AppDialogButtonRow(
+                primaryText = stringResource(R.string.allow),
+                onPrimaryClick = {
+                    context.requestIgnoreBatteryOptimizations()
+                    onResult()
+                },
+                primaryIcon = Icons.Outlined.BatterySaver,
+                secondaryText = stringResource(R.string.battery_optimization_not_now),
+                onSecondaryClick = onResult
+            )
         }
     )
 }
@@ -474,27 +447,20 @@ fun MemoryAdjustmentDialog(
             )
         },
         footer = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                if (canAdjust) {
-                    AppDialogButton(
-                        text = stringResource(
-                            R.string.patcher_memory_adjustment_apply,
-                            suggestedLimit
-                        ),
+            AppDialogActions(
+                actions = listOfNotNull(
+                    DialogAction(
+                        text = stringResource(R.string.patcher_memory_adjustment_apply, suggestedLimit),
                         onClick = onApply,
-                        icon = Icons.Outlined.Memory,
-                        modifier = Modifier.fillMaxWidth()
+                        icon = Icons.Outlined.Memory
+                    ).takeIf { canAdjust },
+                    DialogAction(
+                        text = stringResource(R.string.close),
+                        onClick = onDismiss,
+                        emphasis = DialogActionEmphasis.Outlined
                     )
-                }
-                AppDialogOutlinedButton(
-                    text = stringResource(R.string.close),
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
                 )
-            }
+            )
         }
     )
 }

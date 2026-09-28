@@ -142,8 +142,7 @@ private fun ApkDownloadHelperDialog(
                 primaryIcon = Icons.Outlined.Download,
                 primaryEnabled = selected != null,
                 secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss,
-                layout = DialogButtonLayout.Vertical
+                onSecondaryClick = onDismiss
             )
         }
     ) {

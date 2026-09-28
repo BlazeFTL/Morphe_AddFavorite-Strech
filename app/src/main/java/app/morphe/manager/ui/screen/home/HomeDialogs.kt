@@ -551,29 +551,20 @@ fun HomeDialogs(
         AddSourceDialog(
             onDismiss = {
                 homeViewModel.showAddSourceDialog = false
-                homeViewModel.selectedBundleUri = null
-                homeViewModel.selectedBundlePath = null
+                homeViewModel.clearPickedBundles()
+            },
+            onRemoteSubmit = { urls, chooseApps ->
+                homeViewModel.showAddSourceDialog = false
+                homeViewModel.createRemoteSources(urls, chooseApps)
             },
             onLocalSubmit = { chooseApps ->
                 homeViewModel.showAddSourceDialog = false
-                homeViewModel.selectedBundleUri?.let { uri ->
-                    homeViewModel.createLocalSource(uri, chooseApps)
-                }
-                homeViewModel.selectedBundleUri = null
-                homeViewModel.selectedBundlePath = null
+                homeViewModel.importPickedBundles(chooseApps)
             },
-            onRemoteSubmit = { url, chooseApps ->
-                homeViewModel.showAddSourceDialog = false
-                homeViewModel.createRemoteSource(url, autoUpdate = true, chooseApps = chooseApps)
-            },
-            onLocalPick = {
-                openBundlePicker()
-            },
-            selectedLocalPath = homeViewModel.selectedBundlePath,
-            selectedLocalUri = homeViewModel.selectedBundleUri,
-            onValidateUrl = { url ->
-                runCatching { homeViewModel.patchBundleRepository.normalizeRemoteBundleUrl(url) }.isSuccess
-            }
+            onLocalPick = openBundlePicker,
+            onLocalRemove = homeViewModel::unpickBundle,
+            localFiles = homeViewModel.pickedBundleImports,
+            onCheckUrl = homeViewModel.patchBundleRepository::checkRemoteUrl
         )
     }
 
@@ -603,7 +594,7 @@ fun HomeDialogs(
         val source = sources.firstOrNull { it.uid == uid }
         if (source != null) {
             SourceAppsDialog(
-                onDismissRequest = { homeViewModel.sourceAppsDialogUid = null },
+                onDismissRequest = homeViewModel::dismissSourceApps,
                 src = source
             )
         }
@@ -1194,8 +1185,7 @@ fun SplitApkWarningDialog(
                 onPrimaryClick = onProceed,
                 secondaryText = stringResource(R.string.home_split_apk_warning_pick_another),
                 onSecondaryClick = onPickAnother,
-                secondaryIcon = Icons.Outlined.FolderOpen,
-                layout = DialogButtonLayout.Vertical
+                secondaryIcon = Icons.Outlined.FolderOpen
             )
         }
     ) {

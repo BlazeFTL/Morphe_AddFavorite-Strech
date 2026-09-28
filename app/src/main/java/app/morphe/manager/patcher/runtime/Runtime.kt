@@ -42,7 +42,8 @@ sealed class Runtime(context: Context) : KoinComponent {
      * @param logger           Sink for everything the run reports.
      * @param onPatchCompleted Called with the name of each patch that finished.
      * @param onProgress       Called as the run moves between steps.
-     * @param skipUnneededSplits Whether split configurations the device cannot use are dropped.
+     * @param stripUnusedNativeLibs Whether native libraries and split configurations the device
+     *                         cannot use are dropped.
      * @param onMergedApkReady Called with the merged APK when the input was a split archive.
      * @param onRestart        Called when the current attempt is abandoned and patching starts over,
      *                         so progress reported so far can be dropped instead of accumulating.
@@ -56,7 +57,7 @@ sealed class Runtime(context: Context) : KoinComponent {
         logger: Logger,
         onPatchCompleted: suspend (String) -> Unit,
         onProgress: ProgressEventHandler,
-        skipUnneededSplits: Boolean,
+        stripUnusedNativeLibs: Boolean,
         onMergedApkReady: (suspend (File) -> Unit)? = null,
         onRestart: suspend () -> Unit = {},
     )

@@ -17,7 +17,7 @@ import android.util.Log
 import app.morphe.manager.patcher.logger.LogLevel
 import app.morphe.manager.patcher.logger.Logger
 import app.morphe.manager.patcher.util.Abi
-import app.morphe.manager.patcher.util.NativeLibStripper
+import app.morphe.manager.patcher.util.NativeLibs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runInterruptible
 import java.io.File
@@ -144,7 +144,7 @@ object SplitApkPreparer {
                 modules.mapNotNull { Abi.namedIn(it.name) }.distinct().ifEmpty {
                     modules
                         .flatMap { module ->
-                            zip.getInputStream(module).use(NativeLibStripper::extractAbisFromStream)
+                            zip.getInputStream(module).use(NativeLibs::extractAbisFromStream)
                         }
                         .distinct()
                 }

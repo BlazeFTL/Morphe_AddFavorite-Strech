@@ -29,7 +29,6 @@ import app.morphe.manager.domain.installer.ShizukuEnvironment
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -536,8 +535,7 @@ private fun AutoUninstallWarningDialog(
                         text = stringResource(android.R.string.cancel),
                         onClick = onDismiss
                     )
-                ),
-                layout = DialogButtonLayout.Vertical
+                )
             )
         }
     ) {
@@ -958,8 +956,7 @@ fun PlayStoreInstallerWarningDialog(
                         text = stringResource(android.R.string.cancel),
                         onClick = onDismiss
                     )
-                ),
-                layout = DialogButtonLayout.Vertical
+                )
             )
         }
     ) {

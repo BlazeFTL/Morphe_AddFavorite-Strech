@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Opdateringer oversprunget</string>
     <string name="home_update_skipped_metered_subtitle">Mobildata er aktiv</string>
     <string name="home_updating_sources">Opdaterer kilder…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s (%5$d%%)</string>
     <string name="home_update_success">Opdatering af kilder fuldført</string>
     <string name="home_update_success_subtitle">Dine kilder er opdaterede</string>
     <string name="home_sources_are_loading">Kilder hentes, vent venligst…</string>
@@ -177,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Slet kilde \"%s\"? Dette kan ikke fortrydes</string>
     <string name="sources_dialog_remote">Fjernt</string>
     <string name="sources_dialog_remote_url">Kilde-URL</string>
-    <string name="sources_dialog_remote_url_formats_title">Eksempler:</string>
+    <string name="sources_dialog_remote_url_hint">Et repository eller et link til en patch-bundle .json. Indsæt flere på én gang for at tilføje dem alle</string>
+    <string name="sources_dialog_paste_no_links">Ingen links fundet på udklipsholderen</string>
     <string name="sources_dialog_local">Lokalt</string>
-    <string name="sources_dialog_local_file">Vælg patch kildefil</string>
+    <string name="sources_dialog_local_files">Vælg kildefiler til patches</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Tilføj flere filer</string>
     <string name="sources_dialog_local_file_tap_hint">Tryk for at gennemse lager</string>
-    <string name="sources_dialog_local_file_description">Vælg en .mpp patch kildefil fra lagring</string>
     <string name="sources_dialog_local_invalid_extension">Filen skal have en .mpp-udvidelse</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Opdaterer %s</string>
     <string name="sources_dialog_url_valid">Gyldigt repository eller JSON-URL</string>
     <string name="sources_dialog_url_invalid">URL\'en skal pege på et GitHub/GitLab-lager eller en .json-fil</string>
-    <string name="sources_dialog_local_change_file">Ændre fil</string>
     <string name="sources_dialog_preinstalled">Forhåndsinstalleret</string>
     <string name="sources_dialog_community">Fællesskabets patches</string>
     <string name="sources_dialog_choose_apps">Vælg apps</string>
@@ -215,7 +215,8 @@ Alt, hvad du tilføjer fra denne hjemmeside, bruges på egen risiko."</string>
     <string name="home_apk_helper_download">Brug en hjælpeapp</string>
     <string name="home_apk_helper_title">Download med en hjælpeapp</string>
     <string name="home_apk_helper_description">Morphe vil bede hjælpeappen nedenfor om at downloade den originale APK og give filen tilbage</string>
-    <string name="home_apk_helper_continue">Åbn hjælpeapp</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Åbn hjælper</string>
     <string name="home_apk_helper_warning">Fortsæt kun, hvis du stoler på denne hjælpeapp. Morphe tjekker pakken, versionen og signaturen af det, den modtager, før den patcer</string>
     <string name="home_apk_helper_warning_unverified">Fortsæt kun, hvis du stoler på denne hjælpeapp. Morphe kan ikke verificere signaturen af denne APK, så en modificeret fil vil ikke blive opdaget</string>
     <string name="home_apk_helper_no_result">Hjælpeappen returnerede ikke en APK</string>
@@ -321,6 +322,7 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="morphe_experimental_app_version_dialog_message">Denne version af &lt;b&gt;%s&lt;/b&gt; har tidlig eksperimentel understøttelse&lt;br/&gt;&lt;br/&gt;🔧 Forvent mærkelig app-adfærd eller uidentificerede fejl, mens patchesene bliver finpudset til denne appversion</string>
     <string name="home_dialog_unsupported_version_dialog_title">Ugyldig version</string>
     <string name="home_dialog_unsupported_version_dialog_description">Denne APK er ikke en anbefalet app-version. At fortsætte kan resultere i en ikke-fungerende app</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Fortsæt alligevel</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Kompatible versioner:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Ikke understøttet</string>
@@ -356,12 +358,21 @@ For de bedste resultater anbefaler denne app at patche en &lt;b&gt;fuld APK&lt;/
     <string name="patch_option_slider_range_end">Til</string>
     <string name="patch_option_list_duplicate">Denne værdi eksisterer allerede</string>
     <string name="patch_option_list_empty">Værdien må ikke være tom</string>
-    <string name="patch_option_list_empty_state">Ingen værdier tilføjet endnu</string>
     <string name="patch_option_required_missing">%s: Udfyld alle nødvendige felter</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Ændret</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Påkrævet</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Anbefalet: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Opret adaptiv ikon</string>
     <string name="adaptive_icon_select_image">Vælg billede</string>
     <string name="adaptive_icon_change_image">Ændre billede</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Forgrundsbillede</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Launcher-ikon</string>
     <string name="adaptive_icon_background_color">Baggrundsfarve</string>
     <string name="adaptive_icon_reset_transform">Nulstil position og skala</string>
     <string name="adaptive_icon_safe_zone_inner">Sikker zone (altid synlig)</string>
@@ -413,16 +424,18 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="batch_patch_source_file">Vedhæftet fil</string>
     <string name="batch_patch_source_unavailable">APK\'en kunne ikke forberedes</string>
     <string name="batch_patch_force_version">Patch alligevel</string>
-    <string name="batch_patch_force_version_done">Queued anyway, patches made for other versions may break the app</string>
-    <string name="batch_patch_accept_signature_done">Sat i kø alligevel, denne APK er muligvis ikke den originale</string>
+    <string name="batch_patch_force_version_done">Sat i kø alligevel, appen kan gå i stykker</string>
+    <string name="batch_patch_accept_signature_done">Sat i kø alligevel, APK ikke verificeret</string>
     <string name="batch_patch_edit_patches">Vælg patches</string>
     <string name="batch_patch_state_no_apk">Ingen APK</string>
     <string name="batch_patch_state_no_patches">Ingen patches</string>
     <string name="batch_patch_policy_install">Installer når færdig</string>
     <string name="batch_patch_policy_install_description">Installerer hver rettet app lige efter køen er afsluttet. Fra giver mulighed for senere installation af APK\'er</string>
-    <string name="batch_patch_start">Start patching</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Start</string>
     <string name="batch_patch_stop_title">Stop batch patching?</string>
     <string name="batch_patch_stop_description">Appen, der patchess lige nu, og alt, der stadig er i kø, annulleres</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Installer alle</string>
     <string name="batch_patch_install_failed">Installation mislykkedes</string>
     <string name="batch_patch_in_progress">Batch patching er allerede i gang</string>
@@ -669,6 +682,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="system">System</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Baggrundsanimation</string>
+    <string name="settings_appearance_background_description">Animationen, der afspilles bag appens skærme</string>
     <string name="settings_appearance_background_circles">Cirkler</string>
     <string name="settings_appearance_background_rings">Ringe</string>
     <string name="settings_appearance_background_mesh">Net</string>
@@ -736,6 +750,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Brug hver apps egen farve her, med automatisk skyggelægning, så den passer</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Appikon</string>
+    <string name="settings_appearance_app_icon_selector_description">Sådan ser Morphe ud på din startskærm og i app-skuffen</string>
     <string name="settings_appearance_app_icon_default">Standard</string>
     <string name="settings_appearance_app_icon_light_2">Himmel</string>
     <string name="settings_appearance_app_icon_light_3">Solnedgang</string>
@@ -744,6 +759,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_app_icon_dark_3">Indigo</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Ændre appikon? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">Skift til &lt;b&gt;%s&lt;/b&gt; og genstart?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Ændre ikon</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Opdateringer</string>
@@ -1125,7 +1141,6 @@ Detaljer: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">Installeret af %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Installeret af ukendt</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Forrige mappe</string>
     <string name="file_picker_no_files">Ingen filer her</string>
     <string name="file_picker_read_error">Kan ikke læse denne mappe</string>
     <string name="file_picker_internal_storage">Intern lagring</string>
@@ -1156,11 +1171,9 @@ Detaljer: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Tilbage i regnen</string>
     <string name="easter_egg_pill_blue_toast_again">Frakoblet. Vejen tilbage er, hvor den altid var</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Vælg fil</string>
+    <string name="select_files">Vælg filer</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Vælg mappe</string>
     <string name="patches">Patches</string>
     <string name="home">Hjem</string>
@@ -1187,6 +1200,7 @@ Detaljer: %2$s"</string>
     <string name="done">Færdig</string>
     <string name="skip">Spring over</string>
     <string name="clear">Ryd</string>
+    <string name="paste">Indsæt</string>
     <string name="delete">Slet</string>
     <string name="delete_all">Slet alle</string>
     <string name="remove">Fjern</string>
@@ -1281,9 +1295,11 @@ Detaljer: %2$s"</string>
     <string name="changelog_earlier_releases">Tidligere udgivelser</string>
     <string name="changelog_older_empty">Ingen ældre udgivelser at vise</string>
     <string name="changelog_older_failed">Kunne ikke indlæse ældre udgivelser</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Udgivelsesside</string>
     <string name="content_translate">Oversæt</string>
-    <string name="content_show_original">Vis original</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Original</string>
     <string name="content_translation_failed">Kunne ikke oversætte: %s</string>
     <string name="changelog_section_new">Nyt</string>
     <string name="changelog_section_fixes">Rettelser</string>
@@ -1305,8 +1321,10 @@ Detaljer: %2$s"</string>
     <string name="install_update_manager_failed">Kunne ikke installere opdatering</string>
     <string name="installing_manager_update">Installerer opdatering…</string>
     <string name="downloading_manager_update">Downloader opdatering…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB downloadet</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Denne udgivelse er stadig ved at blive publiceret. Prøv igen om et par minutter</string>
     <string name="update_download_missing">Den downloadede opdatering er ikke længere tilgængelig. Download den igen</string>
     <string name="download_manager_failed">Kunne ikke downloade opdatering: %s</string>
@@ -1338,6 +1356,7 @@ Vil du stadig fortsætte?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Hurtig rundvisning i funktioner</string>
     <string name="tour_prompt_desc">Vil du have en hurtig rundvisning i Morph’s vigtigste funktioner?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Vis mig rundt</string>
     <string name="onboarding_restart_title">Funktionstur</string>
     <string name="onboarding_restart_desc">En guidet rundvisning i de vigtigste funktioner</string>

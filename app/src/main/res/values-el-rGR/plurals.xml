@@ -8,6 +8,21 @@
         <item quantity="one">%s επιλογή τροποποίησης</item>
         <item quantity="other">%s επιλογές τροποποίησης</item>
     </plurals>
+    <!-- How many files and folders a folder holds, under its name in the file picker -->
+    <plurals name="file_picker_item_count">
+        <item quantity="one">%s αντικείμενο</item>
+        <item quantity="other">%s αντικείμενα</item>
+    </plurals>
+    <!-- Button that confirms the files checked in the file picker -->
+    <plurals name="file_picker_select_count">
+        <item quantity="one">Επίλεξε %s αρχείο</item>
+        <item quantity="other">Επίλεξε %s αρχεία</item>
+    </plurals>
+    <!-- Button that adds every source waiting in the add source dialog -->
+    <plurals name="sources_dialog_add_count">
+        <item quantity="one">Προσθήκη %s πηγής</item>
+        <item quantity="other">Προσθήκη %s πηγών</item>
+    </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Πηγές ενημερώσεων για %s εφαρμογή</item>
         <item quantity="other">Πηγές ενημερώσεων για %s εφαρμογές</item>

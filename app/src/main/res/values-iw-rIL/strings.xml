@@ -42,9 +42,6 @@
     <string name="home_update_skipped_metered">עדכונים שדולגו</string>
     <string name="home_update_skipped_metered_subtitle">הנתונים הניידים פעילים</string>
     <string name="home_updating_sources">מעדכן מקורות…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">עדכון המקורות הושלם</string>
     <string name="home_update_success_subtitle">המקורות שלך מעודכנים</string>
     <string name="home_sources_are_loading">המקורות נטענים, נא להמתין…</string>
@@ -178,15 +175,18 @@
     <string name="sources_dialog_delete_confirm_message">מחק את מקור \"%s\"? זה לא ניתן לשחזר</string>
     <string name="sources_dialog_remote">רחוק</string>
     <string name="sources_dialog_remote_url">כתובת תצוג</string>
-    <string name="sources_dialog_remote_url_formats_title">דוגמאות:</string>
+    <string name="sources_dialog_remote_url_hint">מאגר או קישור לחבילת תיקונים .json. הדבק כמה בבת אחת כדי להוסיף את כולם</string>
+    <string name="sources_dialog_paste_no_links">לא נמצאו קישורים בלוח הגזירים</string>
     <string name="sources_dialog_local">אנל</string>
-    <string name="sources_dialog_local_file">בחר קובץ תצוג</string>
+    <string name="sources_dialog_local_files">בחר קבצי מקור לתיקונים</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">הוסף קבצים נוספים</string>
     <string name="sources_dialog_local_file_tap_hint">הקש כדי לעיין באחסון</string>
-    <string name="sources_dialog_local_file_description">בחר קובץ .mpp תצוג מותאם</string>
     <string name="sources_dialog_local_invalid_extension">הקובץ חייב להיות עם סיומת ‎.mpp</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">מעדכן את %s</string>
     <string name="sources_dialog_url_valid">כתובת מאגר או URL חוקיים בפורמט JSON</string>
     <string name="sources_dialog_url_invalid">הכתובת חייבת להפנות למאגר GitHub/GitLab או לקובץ ‎.json</string>
-    <string name="sources_dialog_local_change_file">שנה קובץ</string>
     <string name="sources_dialog_preinstalled">מובן מראשון</string>
     <string name="sources_dialog_community">תיקוני קהילה</string>
     <string name="sources_dialog_choose_apps">בחירת אפליקציות</string>
@@ -216,7 +216,8 @@
     <string name="home_apk_helper_download">השתמש באפליקציה מסייעת</string>
     <string name="home_apk_helper_title">הורד באמצעות אפליקציה מסייעת</string>
     <string name="home_apk_helper_description">Morphe תבקש מהאפליקציה המסייעת להלן להוריד את קובץ ה-APK המקורי ולהחזיר את הקובץ</string>
-    <string name="home_apk_helper_continue">פתח אפליקציה מסייעת</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">פתח עוזר</string>
     <string name="home_apk_helper_warning">המשך רק אם אתה סומך על האפליקציה המסייעת הזו. Morphe בודקת את החבילה, הגרסה והחתימה של כל מה שהיא מקבלת לפני תיקון</string>
     <string name="home_apk_helper_warning_unverified">המשך רק אם אתה סומך על האפליקציה המסייעת הזו. Morphe אינה יכולה לאמת את החתימה של קובץ ה-APK הזה, ולכן קובץ ששוּנה לא יזוהה</string>
     <string name="home_apk_helper_no_result">האפליקציה המסייעת לא החזירה APK</string>
@@ -322,6 +323,7 @@
     <string name="morphe_experimental_app_version_dialog_message">הגרסה הזו של &lt;b&gt;%s&lt;/b&gt; בעלת תמיכה מוקדמת ניסיונית&lt;br/&gt;&lt;br/&gt;🔧 צפה להתנהגות מוזרה של האפליקציה או באגים בלתי מזוהים מכיוון שהתיקונים מיושרים עבור גרסת האפליקציה הזו</string>
     <string name="home_dialog_unsupported_version_dialog_title">גרסה לא מומלצת</string>
     <string name="home_dialog_unsupported_version_dialog_description">APK זה אינו גרסה מומלצת של האפליקציה. להמשיך ייתכן שיביא לפגיעה בתפקוד של האפליקציה</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">המשך בכל זאת</string>
     <string name="home_dialog_unsupported_version_compatible_versions">גרסאות תואמות:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">לא תואם</string>
@@ -357,12 +359,21 @@
     <string name="patch_option_slider_range_end">עד</string>
     <string name="patch_option_list_duplicate">ערך זה כבר קיים</string>
     <string name="patch_option_list_empty">ערך לא יכול להיות ריק</string>
-    <string name="patch_option_list_empty_state">עדיין לא נוספו ערכים</string>
     <string name="patch_option_required_missing">%s: מלא את כל האפשרויות הנדרשות</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">השתנה</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">נדרש</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">מומלץ: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">צור סמל אדפטיבי</string>
     <string name="adaptive_icon_select_image">בחר תמונה</string>
     <string name="adaptive_icon_change_image">שנה תמונה</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">תמונת חזית</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">סמל ההפעלה</string>
     <string name="adaptive_icon_background_color">צבע רקע</string>
     <string name="adaptive_icon_reset_transform">אפס מיקום ומספר</string>
     <string name="adaptive_icon_safe_zone_inner">אזור בטוח (תמיד מראה)</string>
@@ -414,16 +425,18 @@
     <string name="batch_patch_source_file">קובץ מצורף</string>
     <string name="batch_patch_source_unavailable">לא ניתן היה להכין את ה-APK</string>
     <string name="batch_patch_force_version">טלא באופן אוטומטי</string>
-    <string name="batch_patch_force_version_done">תורן בכל זאת, תיקונים שנעשו לגרסאות אחרות עלולים לשבור את האפליקציה</string>
-    <string name="batch_patch_accept_signature_done">הועלה לתור בכל זאת, ייתכן ש-APK זה אינו המקורי</string>
+    <string name="batch_patch_force_version_done">הוכנס לתור בכל זאת, האפליקציה עלולה להישבר</string>
+    <string name="batch_patch_accept_signature_done">הוכנס לתור בכל זאת, APK לא אומת</string>
     <string name="batch_patch_edit_patches">בחר טלאים</string>
     <string name="batch_patch_state_no_apk">אין APK</string>
     <string name="batch_patch_state_no_patches">אין טלאים</string>
     <string name="batch_patch_policy_install">התקן לאחר סיום</string>
     <string name="batch_patch_policy_install_description">מתקין כל אפליקציה שעברה תיקון מיד לאחר סיום התור. כבוי שומר את ה-APKs לשימוש מאוחר יותר</string>
-    <string name="batch_patch_start">התחל תיקון</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">התחלה</string>
     <string name="batch_patch_stop_title">עצור תיקון באצווה?</string>
     <string name="batch_patch_stop_description">האפליקציה שעוברת תיקון כרגע וכל מה שעדיין בתור יבוטל</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">התקן הכל</string>
     <string name="batch_patch_install_failed">ההתקנה נכשלה</string>
     <string name="batch_patch_in_progress">תיקון באצווה כבר פועל</string>
@@ -670,6 +683,7 @@
     <string name="system">מערכת</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">אנימציית רקע</string>
+    <string name="settings_appearance_background_description">האנימציה שמופעלת מאחורי מסכי האפליקציה</string>
     <string name="settings_appearance_background_circles">מעגלים</string>
     <string name="settings_appearance_background_rings">טבעות</string>
     <string name="settings_appearance_background_mesh">רשת</string>
@@ -738,6 +752,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">השתמש בצבע של כל אפליקציה כאן, מוצללים אוטומטית להתאמה</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">אייקון האפליקציה</string>
+    <string name="settings_appearance_app_icon_selector_description">איך Morphe נראה על מסך הבית ובמגירת האפליקציות</string>
     <string name="settings_appearance_app_icon_default">ברירת מחדל</string>
     <string name="settings_appearance_app_icon_light_2">שמיים</string>
     <string name="settings_appearance_app_icon_light_3">שקיעה</string>
@@ -746,6 +761,7 @@
     <string name="settings_appearance_app_icon_dark_3">אינדיגו</string>
     <string name="settings_appearance_app_icon_change_dialog_title">שנה את סמל האפליקציה? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">שנה ל-&lt;b&gt;%s&lt;/b&gt; והפעל מחדש?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">שנה סמל</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">עדכונים</string>
@@ -1137,7 +1153,6 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="settings_system_apk_download_helper_installed_by">הותקן על ידי %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">המתקין לא ידוע</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">ספרייה קודמת</string>
     <string name="file_picker_no_files">אין קבצים כאן</string>
     <string name="file_picker_read_error">לא ניתן לקרוא תיקייה זו</string>
     <string name="file_picker_internal_storage">אחסון פנימי</string>
@@ -1168,11 +1183,9 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="easter_egg_pill_red_toast_again">חזרה בגשם</string>
     <string name="easter_egg_pill_blue_toast_again">מנותק. הדרך חזרה היא במקום שבו תמיד הייתה.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">בחר קובץ</string>
+    <string name="select_files">בחר קבצים</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">בחר תיקייה</string>
     <string name="patches">תיקונים</string>
     <string name="home">בית</string>
@@ -1199,6 +1212,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="done">סיום</string>
     <string name="skip">דילוג</string>
     <string name="clear">נקה</string>
+    <string name="paste">הדבק</string>
     <string name="delete">מחק</string>
     <string name="delete_all">למחוק הכל</string>
     <string name="remove">הסר</string>
@@ -1293,9 +1307,11 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="changelog_earlier_releases">מהדורות קודמות</string>
     <string name="changelog_older_empty">אין גרסאות ישנות יותר להצגה</string>
     <string name="changelog_older_failed">לא ניתן היה לטעון מהדורות ישנות יותר</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">דף המהדורה</string>
     <string name="content_translate">תרגם</string>
-    <string name="content_show_original">הצג מקור</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">מקורי</string>
     <string name="content_translation_failed">התרגום נכשל: %s</string>
     <string name="changelog_section_new">חדש</string>
     <string name="changelog_section_fixes">תיקונים</string>
@@ -1317,8 +1333,10 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="install_update_manager_failed">שגיאה בהתקנת עדכון</string>
     <string name="installing_manager_update">מתקין עדכון…</string>
     <string name="downloading_manager_update">מוריד עדכון…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">הורדו %1$s MB</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">גרסה זו עדיין מפורסמת. נסה שוב בעוד מספר דקות</string>
     <string name="update_download_missing">העדכון שהורד כבר אינו זמין. הורד אותו שוב</string>
     <string name="download_manager_failed">שגיאה בהורדת עדכון: %s</string>
@@ -1350,6 +1368,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">סיור תכונות מהיר</string>
     <string name="tour_prompt_desc">רוצה סיור מהיר בתכונות המרכזיות של Morphe?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">הראה לי את הסביבה</string>
     <string name="onboarding_restart_title">סיור תכונות</string>
     <string name="onboarding_restart_desc">סיור מודרך בתכונות המרכזיות</string>

@@ -30,7 +30,6 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.manager.AppIconManager
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.util.htmlAnnotatedString
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import kotlinx.coroutines.launch
 
 /**

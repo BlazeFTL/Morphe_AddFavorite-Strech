@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Yenilənmələr ötürüldü</string>
     <string name="home_update_skipped_metered_subtitle">Mobil data işləkdir</string>
     <string name="home_updating_sources">Mənbələr yenilənir…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Mənbələri yeniləmə tamamlandı</string>
     <string name="home_update_success_subtitle">Mənbələriniz yenilənib</string>
     <string name="home_sources_are_loading">Mənbələr yüklənilir, xahiş olunur gözləyin...</string>
@@ -177,15 +174,13 @@
     <string name="sources_dialog_delete_confirm_message">\"%s\" mənbəsini silməlimi? Bu geri alına bilməz</string>
     <string name="sources_dialog_remote">Uzaqdan</string>
     <string name="sources_dialog_remote_url">Mənbə URL-si</string>
-    <string name="sources_dialog_remote_url_formats_title">Nümunələr:</string>
     <string name="sources_dialog_local">Yerli</string>
-    <string name="sources_dialog_local_file">Yamaq mənbəsi faylını seçin</string>
+    <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_file_tap_hint">Saxlancı araşdırmaq üçün toxun</string>
-    <string name="sources_dialog_local_file_description">Saxlancdan .mpp yamaq mənbə faylı seçin</string>
     <string name="sources_dialog_local_invalid_extension">Faylın .mpp əlavəsi olmalıdır</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
     <string name="sources_dialog_url_valid">Etibarlı depo və ya JSON URL</string>
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab depo və ya .json faylın göstərməlidir</string>
-    <string name="sources_dialog_local_change_file">Faylı dəyişdir</string>
     <string name="sources_dialog_preinstalled">İlkin quraşdırılan</string>
     <string name="sources_dialog_community">İcma yamaqları</string>
     <string name="sources_dialog_choose_apps">Tətbiqləri seç</string>
@@ -215,7 +210,8 @@ Bu veb saytdan əlavə etdiyiniz hər şey öz riskinizlə istifadə olunur"</st
     <string name="home_apk_helper_download">Köməkçi tətbiq istifadə et</string>
     <string name="home_apk_helper_title">Köməkçi tətbiq ilə yüklə</string>
     <string name="home_apk_helper_description">Morphe orijinal APK-nı yükləmək və faylı geri vermək üçün aşağıdakı köməkçi tətbiqə sorğu göndərəcək</string>
-    <string name="home_apk_helper_continue">Köməkçi tətbiqi aç</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Köməkçini aç</string>
     <string name="home_apk_helper_warning">Yalnız bu köməkçi tətbiqə etibar edirsinizsə davam edin. Morphe yamaqlamazdan əvvəl qəbul etdiyi hər şeyin paketini, versiyasını və imzasını yoxlayır</string>
     <string name="home_apk_helper_warning_unverified">Yalnız bu köməkçi tətbiqə etibar edirsinizsə davam edin. Morphe bu APK-nın imzasını təsdiqləyə bilmir, buna görə də dəyişdirilmiş fayl aşkarlanmayacaq</string>
     <string name="home_apk_helper_no_result">Köməkçi tətbiq APK-nı qaytarmadı</string>
@@ -321,6 +317,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="morphe_experimental_app_version_dialog_message">&lt;b&gt;%s&lt;/b&gt; tətbiqinin bu versiyası erkən təcrübi dəstəyə sahibdir&lt;br/&gt;&lt;br/&gt; 🔧Yamaqlar bu tətbiq versiyası üçün təkmilləşdirildikcə qəribə tətbiq davranışı və ya bilinməyən səhvlər gözləyin</string>
     <string name="home_dialog_unsupported_version_dialog_title">Dəstəklənməyən Versiya</string>
     <string name="home_dialog_unsupported_version_dialog_description">Bu APK tövsiyə olunan tətbiq versiyası deyil. Fəaliyyətdə qalmaq, tətbiqin işləməməsi ilə nəticələnə bilər</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Yenə də davam edilsin?</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Uyuşan versiyalar:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Dəstəklənməyən</string>
@@ -356,12 +353,21 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="patch_option_slider_range_end">Bura</string>
     <string name="patch_option_list_duplicate">Bu dəyər artıq var</string>
     <string name="patch_option_list_empty">Dəyər boş ola bilməz</string>
-    <string name="patch_option_list_empty_state">Hələ dəyər əlavə edilməyib</string>
     <string name="patch_option_required_missing">%s: bütün tələb olunan seçimləri doldur</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Dəyişdirildi</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Tələb olunur</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Tövsiyə olunur: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Uyğun simvol yarat</string>
     <string name="adaptive_icon_select_image">Şəkil seçin</string>
     <string name="adaptive_icon_change_image">Şəkli dəyişdir</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Ön plan şəkli</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Başlanğıc simvolu</string>
     <string name="adaptive_icon_background_color">Fon rəngi</string>
     <string name="adaptive_icon_reset_transform">Mövqeyi və miqyası standarta qaytar</string>
     <string name="adaptive_icon_safe_zone_inner">Etibarlı yer (həmişə görünən)</string>
@@ -413,16 +419,18 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="batch_patch_source_file">Əlavə olunmuş fayl</string>
     <string name="batch_patch_source_unavailable">APK hazır vəziyyətə gətirilə bilmədi</string>
     <string name="batch_patch_force_version">Yenə də yamaqla</string>
-    <string name="batch_patch_force_version_done">Yenə də növbəyə əlavə edildi, digər versiyalar üçün hazırlanmış yamaqlar tətbiqin işini poza bilər</string>
-    <string name="batch_patch_accept_signature_done">Yenə də növbəyə alındı, bu APK orijinal olmaya da bilər</string>
+    <string name="batch_patch_force_version_done">Yenə də növbəyə qoyuldu, tətbiq pozula bilər</string>
+    <string name="batch_patch_accept_signature_done">Yenə də növbəyə qoyuldu, APK təsdiqlənməyib</string>
     <string name="batch_patch_edit_patches">Yamaqları seç</string>
     <string name="batch_patch_state_no_apk">APK Yoxdur</string>
     <string name="batch_patch_state_no_patches">Yamaq yoxdur</string>
     <string name="batch_patch_policy_install">Bitdikdə quraşdır</string>
     <string name="batch_patch_policy_install_description">Növbə bitdikdən dərhal sonra hər bir yamaqlanmış tətbiqi quraşdırır. Qapalıdırsa, APK-lar daha sonra üçün saxlanılır</string>
-    <string name="batch_patch_start">Yamaqlamağa başla</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Başlanğıc</string>
     <string name="batch_patch_stop_title">Toplu yamaqlama dayandırılsın?</string>
     <string name="batch_patch_stop_description">Hal-hazırda yamaqlanan tətbiq və növbədə olan hər şey ləğv ediləcək</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Hamısını quraşdır</string>
     <string name="batch_patch_install_failed">Quraşdırma uğursuz oldu</string>
     <string name="batch_patch_in_progress">Toplu yamaqlama artıq icra olunur</string>
@@ -669,6 +677,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="system">Sistem</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Fon animasiyası</string>
+    <string name="settings_appearance_background_description">Tətbiq pəncərələri arxasında oynadılan animasiya</string>
     <string name="settings_appearance_background_circles">Dairələr</string>
     <string name="settings_appearance_background_rings">Halqalar</string>
     <string name="settings_appearance_background_mesh">Tor</string>
@@ -736,6 +745,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_app_card_colors_bundle_description">Bura hər tətbiqin öz rəngini istifadə et, uyğunlaşdırmaq üçün avtomatik kölgələndir</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Tətbiq simvolu</string>
+    <string name="settings_appearance_app_icon_selector_description">Morphe-nin əsas ekranınızda və tətbiq bölməsində necə göründüyü</string>
     <string name="settings_appearance_app_icon_default">İlkin</string>
     <string name="settings_appearance_app_icon_light_2">Səma</string>
     <string name="settings_appearance_app_icon_light_3">Qürub</string>
@@ -744,6 +754,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_app_icon_dark_3">Tünd göy</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Tətbiq simvolu dəyişdirilsin?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt; olaraq dəyişdirilib yenidən başladılsın?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Simvolu dəyişdir</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Yenilənmələr</string>
@@ -1123,7 +1134,6 @@ Təfərrüatlar: %2$s"</string>
     <string name="settings_system_apk_download_helper_installed_by">%s tərəfindən quraşdırılıb</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Bilinməyən quraşdırıcı</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Əvvəlki kataloq</string>
     <string name="file_picker_no_files">Burada fayl yoxdur</string>
     <string name="file_picker_read_error">Bu kataloqu oxumaq olmur</string>
     <string name="file_picker_internal_storage">Daxili yaddaş yeri</string>
@@ -1154,11 +1164,8 @@ Təfərrüatlar: %2$s"</string>
     <string name="easter_egg_pill_red_toast_again">Yenidən yağışda</string>
     <string name="easter_egg_pill_blue_toast_again">Şəbəkədən ayrıldı. Geriyə yol həmişə olduğu yerdədir</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Faylı seç</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Qovluq seç</string>
     <string name="patches">Yamaqlar</string>
     <string name="home">Əsas səhifə</string>
@@ -1279,9 +1286,11 @@ Təfərrüatlar: %2$s"</string>
     <string name="changelog_earlier_releases">Əvvəlki buraxılışlar</string>
     <string name="changelog_older_empty">Göstəriləcək daha köhnə buraxılışlar yoxdur</string>
     <string name="changelog_older_failed">Daha köhnə buraxılışlar yüklənilə bilmədi</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Buraxılış səhifəsi</string>
     <string name="content_translate">Tərcümə et</string>
-    <string name="content_show_original">Orijinalı göstər</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Orijinal</string>
     <string name="content_translation_failed">Tərcümə etmək olmadı: %s</string>
     <string name="changelog_section_new">Yeni</string>
     <string name="changelog_section_fixes">Düzəlişlər</string>
@@ -1303,8 +1312,10 @@ Təfərrüatlar: %2$s"</string>
     <string name="install_update_manager_failed">Yeniləməni quraşdırmaq olmadı</string>
     <string name="installing_manager_update">Yeniləmə quraşdırılır…</string>
     <string name="downloading_manager_update">Yenilənmə yüklənilir…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB yüklənildi</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Bu buraxılış hələ də dərc olunur. Bir neçə dəqiqə sonra təkrar cəhd et</string>
     <string name="update_download_missing">Yüklənilmiş yeniləmə artıq əlçatan deyil. Onu təkrar yüklə</string>
     <string name="download_manager_failed">Yeniləməni yükləmək olmadı: %s</string>
@@ -1336,6 +1347,7 @@ Hələ də davam etmək istəyirsiniz?"</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Sürətli xüsusiyyət tanışlığı</string>
     <string name="tour_prompt_desc">Morphe-nin əsas xüsusiyyətlərinə qısa baxış istəyirsiniz?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Mənə göstər</string>
     <string name="onboarding_restart_title">Xüsusiyyət tanışlığı</string>
     <string name="onboarding_restart_desc">Əsas xüsusiyyətlərin bələdçi turu</string>

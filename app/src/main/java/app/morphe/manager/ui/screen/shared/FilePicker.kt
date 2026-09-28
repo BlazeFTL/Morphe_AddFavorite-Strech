@@ -13,7 +13,6 @@ import android.util.LruCache
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
@@ -210,12 +209,16 @@ private fun formatModDate(timestamp: Long): String =
  * Navigates storage roots and subdirectories, shown as a trail of the folders above the open one;
  * files show their size and modification time, folders how much they hold.
  * Filters visible files to [mimeTypes] when a precise mapping exists.
+ *
+ * [onPicked] gets the open folder with [allowFolderSelection], the tapped file by default, and
+ * with [multiple] the files checked across every folder visited, in the order they were checked.
  */
 @Composable
 fun FilePicker(
     mimeTypes: Array<String>,
     onDismiss: () -> Unit,
-    onFilePicked: (File) -> Unit,
+    onPicked: (List<File>) -> Unit,
+    multiple: Boolean = false,
     allowFolderSelection: Boolean = false
 ) {
     val prefs: PreferencesManager = koinInject()
@@ -240,6 +243,7 @@ fun FilePicker(
     var showHiddenFiles by remember { mutableStateOf(prefs.filePickerShowHiddenFiles.getBlocking()) }
     var showViewMenu by remember { mutableStateOf(false) }
     val search = rememberSearchFieldState(searchable = currentDir != null)
+    val checkedFiles = remember { mutableStateListOf<File>() }
 
     val breadcrumbs = remember(currentDir, roots) {
         val dir = currentDir ?: return@remember emptyList()
@@ -283,8 +287,20 @@ fun FilePicker(
             if (allowFolderSelection) {
                 AppDialogButtonRow(
                     primaryText = stringResource(R.string.select_folder),
-                    onPrimaryClick = { currentDir?.let(onFilePicked) },
+                    onPrimaryClick = { currentDir?.let { onPicked(listOf(it)) } },
                     primaryEnabled = currentDir != null,
+                    secondaryText = stringResource(R.string.close),
+                    onSecondaryClick = onDismiss
+                )
+            } else if (multiple) {
+                AppDialogButtonRow(
+                    primaryText = if (checkedFiles.isEmpty()) {
+                        stringResource(R.string.select_files)
+                    } else {
+                        pluralStringResource(R.plurals.file_picker_select_count, checkedFiles.size, checkedFiles.size.toString())
+                    },
+                    onPrimaryClick = { onPicked(checkedFiles.toList()) },
+                    primaryEnabled = checkedFiles.isNotEmpty(),
                     secondaryText = stringResource(R.string.close),
                     onSecondaryClick = onDismiss
                 )
@@ -311,7 +327,13 @@ fun FilePicker(
                     modifier = modifier
                 )
             },
-            title = stringResource(if (allowFolderSelection) R.string.select_folder else R.string.select_file),
+            title = stringResource(
+                when {
+                    allowFolderSelection -> R.string.select_folder
+                    multiple -> R.string.select_files
+                    else -> R.string.select_file
+                }
+            ),
             // What the picker takes where it narrows the files down, else where it is
             subtitle = allowedExtensions?.sorted()?.joinToString(" · ") { ".$it" }
                 ?: breadcrumbs.lastOrNull()?.first.orEmpty(),
@@ -419,8 +441,15 @@ fun FilePicker(
                 refreshKey = refreshKey,
                 pm = pm,
                 mppIcon = mppIcon,
+                checkedFiles = if (multiple) checkedFiles else null,
                 onOpen = { currentDir = it },
-                onFilePicked = { if (!allowFolderSelection) onFilePicked(it) },
+                onFilePicked = { file ->
+                    when {
+                        allowFolderSelection -> Unit
+                        multiple -> if (!checkedFiles.remove(file)) checkedFiles += file
+                        else -> onPicked(listOf(file))
+                    }
+                },
                 onRetry = { refreshKey++ }
             )
         }
@@ -493,6 +522,8 @@ private fun FolderListing(
     refreshKey: Int,
     pm: PM,
     mppIcon: ImageBitmap?,
+    /** Files checked so far where several can be picked, else null. */
+    checkedFiles: List<File>?,
     onOpen: (File) -> Unit,
     onFilePicked: (File) -> Unit,
     onRetry: () -> Unit
@@ -578,6 +609,7 @@ private fun FolderListing(
                     file = file,
                     pm = pm,
                     mppIcon = mppIcon,
+                    checked = checkedFiles?.takeUnless { file.isDirectory }?.let { file in it },
                     onClick = { if (file.isDirectory) onOpen(file) else onFilePicked(file) },
                     modifier = Modifier.animatedListItem(this)
                 )
@@ -598,6 +630,8 @@ private fun FileEntryRow(
     file: File,
     pm: PM,
     mppIcon: ImageBitmap?,
+    /** Whether the file is checked, or null where files are picked outright rather than checked. */
+    checked: Boolean?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -665,11 +699,14 @@ private fun FileEntryRow(
         name = file.name,
         detail = detail,
         onClick = onClick,
-        modifier = modifier
+        modifier = modifier,
+        trailing = checked?.let { isChecked ->
+            {
+                SelectionCheckIndicator(if (isChecked) ToggleableState.On else ToggleableState.Off)
+            }
+        }
     )
 }
-
-private val FileGlyphSize = 20.dp
 
 /**
  * One card of the picker, set like the patch cards: the entry's picture on a tinted tile where it
@@ -684,7 +721,8 @@ private fun FilePickerRow(
     modifier: Modifier = Modifier,
     packageInfo: PackageInfo? = null,
     iconBitmap: ImageBitmap? = null,
-    thumbnail: ImageBitmap? = null
+    thumbnail: ImageBitmap? = null,
+    trailing: (@Composable () -> Unit)? = null
 ) {
     CompactListCard(onClick = onClick, modifier = modifier) {
         when {
@@ -703,24 +741,16 @@ private fun FilePickerRow(
                     .clip(RoundedCornerShape(Defaults.CompactCornerRadius))
             )
 
-            else -> Box(
-                modifier = Modifier
-                    .size(CompactCardIconSize)
-                    .background(
-                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
-                        RoundedCornerShape(Defaults.CompactCornerRadius)
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                val tint = MaterialTheme.colorScheme.onPrimaryContainer
+            else -> CompactCardIconTile {
                 if (iconBitmap != null) {
-                    Icon(bitmap = iconBitmap, contentDescription = null, tint = tint, modifier = Modifier.size(FileGlyphSize))
+                    Icon(bitmap = iconBitmap, contentDescription = null, modifier = Modifier.size(CompactCardGlyphSize))
                 } else if (icon != null) {
-                    Icon(imageVector = icon, contentDescription = null, tint = tint, modifier = Modifier.size(FileGlyphSize))
+                    Icon(imageVector = icon, contentDescription = null, modifier = Modifier.size(CompactCardGlyphSize))
                 }
             }
         }
 
         CardHeadingText(name = name, description = detail, modifier = Modifier.weight(1f))
+        trailing?.invoke()
     }
 }

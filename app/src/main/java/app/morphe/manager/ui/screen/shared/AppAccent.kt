@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.patcher.patch.BundleAppMetadata
 import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.util.isExtremeAccent
 import app.morphe.manager.util.requiresLightContent
@@ -79,13 +80,17 @@ fun appAccentContent(fill: Color): Color = when {
     else -> Color.Black
 }
 
-/** Color the sources declare [packageName] with, or null where none of them does. */
+/** What the sources declare about each app they patch, by package name. */
 @Composable
-fun rememberAppColor(packageName: String): Color? {
+fun rememberAppMetadata(): Map<String, BundleAppMetadata> {
     val patchBundleRepository: PatchBundleRepository = koinInject()
     val metadata by patchBundleRepository.allAppMetadata.collectAsStateWithLifecycle()
-    return metadata[packageName]?.downloadColor
+    return metadata
 }
+
+/** Color the sources declare [packageName] with, or null where none of them does. */
+@Composable
+fun rememberAppColor(packageName: String): Color? = rememberAppMetadata()[packageName]?.downloadColor
 
 /**
  * [accentColor] as it can be shown, or null where there is none to show. A near-black or near-white

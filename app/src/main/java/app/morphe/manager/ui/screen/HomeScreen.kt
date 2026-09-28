@@ -136,16 +136,9 @@ fun HomeScreen(
         onResult = { uri -> uri?.let { homeViewModel.handleApkSelection(it) } }
     )
 
-    val openBundlePicker = rememberAdaptiveFilePicker(
+    val openBundlePicker = rememberAdaptiveMultiFilePicker(
         mimeTypes = MPP_FILE_MIME_TYPES,
-        onResult = { uri ->
-            uri?.let {
-                homeViewModel.selectedBundleUri = it
-                homeViewModel.selectedBundlePath = it.displayName(context.contentResolver)
-                    ?: it.lastPathSegment
-                    ?: it.toString()
-            }
-        }
+        onResult = homeViewModel::pickBundles
     )
 
     val installAppsPermissionLauncher = rememberLauncherForActivityResult(

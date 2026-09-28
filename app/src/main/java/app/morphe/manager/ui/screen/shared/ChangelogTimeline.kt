@@ -434,32 +434,29 @@ fun ChangelogUpdateSummary(
                 textAlign = TextAlign.Center
             )
 
-            when {
-                features > 0 && fixes > 0 -> Row(
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+            if (features > 0 || fixes > 0) {
+                // Pills take the width their text needs, and a pair too wide for one line wraps
+                // instead of shortening either
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(
+                        Defaults.ContentPaddingSmall,
+                        Alignment.CenterHorizontally
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
-                    SummaryTile(
-                        count = features,
-                        style = sectionStyleOf(ChangelogSection.Kind.FEATURES, title = null),
-                        modifier = Modifier.weight(1f)
-                    )
-                    SummaryTile(
-                        count = fixes,
-                        style = sectionStyleOf(ChangelogSection.Kind.FIXES, title = null),
-                        modifier = Modifier.weight(1f)
-                    )
+                    if (features > 0) {
+                        SummaryPill(
+                            text = pluralStringResource(R.plurals.changelog_new_count, features, features.toString()),
+                            style = sectionStyleOf(ChangelogSection.Kind.FEATURES, title = null)
+                        )
+                    }
+                    if (fixes > 0) {
+                        SummaryPill(
+                            text = pluralStringResource(R.plurals.changelog_fix_count, fixes, fixes.toString()),
+                            style = sectionStyleOf(ChangelogSection.Kind.FIXES, title = null)
+                        )
+                    }
                 }
-
-                // A single kind fills no pair with tiles, so it reads as one line instead
-                features > 0 -> SummaryPill(
-                    text = pluralStringResource(R.plurals.changelog_new_count, features, features.toString()),
-                    style = sectionStyleOf(ChangelogSection.Kind.FEATURES, title = null)
-                )
-
-                fixes > 0 -> SummaryPill(
-                    text = pluralStringResource(R.plurals.changelog_fix_count, fixes, fixes.toString()),
-                    style = sectionStyleOf(ChangelogSection.Kind.FIXES, title = null)
-                )
             }
         }
     }
@@ -479,37 +476,6 @@ private fun SummaryPill(
         horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
         SectionLabel(style = style, text = text)
-    }
-}
-
-@Composable
-private fun SummaryTile(
-    count: Int,
-    style: SectionStyle,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(Defaults.CardCornerRadius))
-            .background(style.tone.container)
-            .padding(14.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-    ) {
-        // Takes what the count leaves, so a long title shortens instead of pushing the count out
-        Row(
-            modifier = Modifier.weight(1f),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            SectionLabel(style = style, text = style.title)
-        }
-        Text(
-            text = count.toString(),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            color = style.tone.content
-        )
     }
 }
 

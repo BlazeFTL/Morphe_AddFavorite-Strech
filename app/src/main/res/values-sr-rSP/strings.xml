@@ -41,9 +41,6 @@
     <string name="home_update_skipped_metered">Пропуштено ажурирања</string>
     <string name="home_update_skipped_metered_subtitle">Мобилни подаци су активни</string>
     <string name="home_updating_sources">Ажурирање извора…</string>
-    <!-- Download progress across several bundles. "%1$d" and "%2$d" count the bundles, "%3$s" and
-         "%4$s" are the megabytes read and expected, "%5$d" is the percentage. -->
-    <string name="home_update_bundle_count_with_bytes">%1$d / %2$d  ·  %3$s / %4$s MB (%5$d%%)</string>
     <string name="home_update_success">Ажурирање извора завршено</string>
     <string name="home_update_success_subtitle">Ваши извори су ажурни</string>
     <string name="home_sources_are_loading">Извори се учитавају, молимо сачекајте…</string>
@@ -177,15 +174,18 @@
     <string name="sources_dialog_delete_confirm_message">Уклонити изворну \"%s\"? Ово не може да се врати.</string>
     <string name="sources_dialog_remote">Удаљни извор</string>
     <string name="sources_dialog_remote_url">УДЛАЈНИ УРЛ</string>
-    <string name="sources_dialog_remote_url_formats_title">Примери:</string>
+    <string name="sources_dialog_remote_url_hint">Репозиторијум или линк ка .json пакету закрпа. Налепите неколико одједном да бисте их све додали</string>
+    <string name="sources_dialog_paste_no_links">Нема веза у клипборду</string>
     <string name="sources_dialog_local">Локални</string>
-    <string name="sources_dialog_local_file">Одаберите фајл извора</string>
+    <string name="sources_dialog_local_files">Изаберите изворне датотеке закрпа</string>
+    <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Додајте још датотека</string>
     <string name="sources_dialog_local_file_tap_hint">Додирните за прегледање складишта</string>
-    <string name="sources_dialog_local_file_description">Одаберите .mpp фајл извора са складишта</string>
     <string name="sources_dialog_local_invalid_extension">Датотека мора имати .mpp екстензију</string>
+    <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Ажурира %s</string>
     <string name="sources_dialog_url_valid">Важећи репозиторијум или JSON URL</string>
     <string name="sources_dialog_url_invalid">УРЛ мора да указује на GitHub/GitLab репозиторијум или .json датотеку</string>
-    <string name="sources_dialog_local_change_file">Промени фајл</string>
     <string name="sources_dialog_preinstalled">Предпостављени</string>
     <string name="sources_dialog_community">Патчеви заједнице</string>
     <string name="sources_dialog_choose_apps">Изаберите апликације</string>
@@ -215,7 +215,8 @@
     <string name="home_apk_helper_download">Користи помоћну апликацију</string>
     <string name="home_apk_helper_title">Преузми уз помоћну апликацију</string>
     <string name="home_apk_helper_description">Морфе ће затражити од помоћне апликације да преузме оригинални APK и врати фајл</string>
-    <string name="home_apk_helper_continue">Отвори помоћну апликацију</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="home_apk_helper_continue">Отвори помоћника</string>
     <string name="home_apk_helper_warning">Наставите само ако верујете овој помоћној апликацији. Морфе проверава пакет, верзију и потпис онога што прими пре закрпљивања</string>
     <string name="home_apk_helper_warning_unverified">Наставите само ако верујете овој помоћној апликацији. Морфе не може да верификује потпис овог APK-а, тако да модификована датотека не би била откривена</string>
     <string name="home_apk_helper_no_result">Помоћна апликација није вратила APK</string>
@@ -321,6 +322,7 @@
     <string name="morphe_experimental_app_version_dialog_message">Ова верзија &lt;b&gt;%s&lt;/b&gt; има рану експерименталну подршку&lt;br/&gt;&lt;br/&gt;🔧 Очекујте чудно понашање апликације или неоткривене грешке док се поправке унапређују за ову верзију апликације</string>
     <string name="home_dialog_unsupported_version_dialog_title">Неподржана верзија</string>
     <string name="home_dialog_unsupported_version_dialog_description">Овај APK није препоручена верзија апликације. Настављање може резултирати нефункционалном апликацијом</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="home_dialog_unsupported_version_dialog_proceed">Ипак настави</string>
     <string name="home_dialog_unsupported_version_compatible_versions">Дозвољене верзије:</string>
     <string name="home_dialog_unsupported_version_unsupported_label">Недозвољен</string>
@@ -356,12 +358,21 @@
     <string name="patch_option_slider_range_end">До</string>
     <string name="patch_option_list_duplicate">Ova vrednost već postoji</string>
     <string name="patch_option_list_empty">Vrednost ne može biti prazna</string>
-    <string name="patch_option_list_empty_state">Nisu dodate nijedne vrednosti</string>
     <string name="patch_option_required_missing">%s: попуните сва обавезna поља</string>
+    <!-- Badge on a patch option whose value differs from the patch's own, which resets it when tapped -->
+    <string name="patch_option_changed">Измењено</string>
+    <!-- Badge on a patch option that has to be filled in before patching -->
+    <string name="patch_option_required">Обавезно</string>
+    <!-- Hint under an image patch option. "%1$s" is the width and "%2$s" the height in pixels -->
+    <string name="patch_option_recommended_size">Препоручено: %1$s×%2$s</string>
     <!-- Adaptive Icon Creator -->
     <string name="adaptive_icon_create">Направи адаптивни икону</string>
     <string name="adaptive_icon_select_image">Изабери слику</string>
     <string name="adaptive_icon_change_image">Промени слику</string>
+    <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
+    <string name="adaptive_icon_foreground">Слика у првом плану</string>
+    <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
+    <string name="adaptive_icon_launcher">Икона покретача</string>
     <string name="adaptive_icon_background_color">Боја позадине</string>
     <string name="adaptive_icon_reset_transform">Ресетујте положај и скала</string>
     <string name="adaptive_icon_safe_zone_inner">Зона безбедности (увек видљива)</string>
@@ -413,16 +424,18 @@
     <string name="batch_patch_source_file">Приложена датотека</string>
     <string name="batch_patch_source_unavailable">APK није могао да се припреми</string>
     <string name="batch_patch_force_version">Ипак настави</string>
-    <string name="batch_patch_force_version_done">Ипак је додато у ред, закрпе направљене за друге верзије могу прекинути рад апликације</string>
-    <string name="batch_patch_accept_signature_done">Ипак у реду, овај APK можда није оригинал</string>
+    <string name="batch_patch_force_version_done">Ипак стављено у ред, апликација може да се поквари</string>
+    <string name="batch_patch_accept_signature_done">Ипак стављено у ред, APK није верификован</string>
     <string name="batch_patch_edit_patches">Изаберите печеве</string>
     <string name="batch_patch_state_no_apk">Нема APK-а</string>
     <string name="batch_patch_state_no_patches">Нема печева</string>
     <string name="batch_patch_policy_install">Инсталирај када се заврши</string>
     <string name="batch_patch_policy_install_description">Инсталира сваку печену апликацију одмах након што се заврши ред. Искључено задржава APK-ове за касније</string>
-    <string name="batch_patch_start">Почните са печењем</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
+    <string name="batch_patch_start">Početak</string>
     <string name="batch_patch_stop_title">Заустави групно печење?</string>
     <string name="batch_patch_stop_description">Апликација која се пече управо и све што је још у реду ће бити отказано</string>
+    <!-- Label of a footer button beside "Done". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="batch_patch_install_all">Инсталирај све</string>
     <string name="batch_patch_install_failed">Инсталација је неуспела</string>
     <string name="batch_patch_in_progress">Групно печење је већ у току</string>
@@ -669,6 +682,7 @@
     <string name="system">Систем</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">Анимација позадине</string>
+    <string name="settings_appearance_background_description">Анимација која се приказује иза екрана апликације</string>
     <string name="settings_appearance_background_circles">Кружеви</string>
     <string name="settings_appearance_background_rings">Пружеви</string>
     <string name="settings_appearance_background_mesh">Mreža</string>
@@ -737,6 +751,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">Користи боју сваке апликације овде, аутоматски затамњену да би се уклопила</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">Иконица апликације</string>
+    <string name="settings_appearance_app_icon_selector_description">Како Morphe изгледа на вашем почетном екрану и у фиоци апликација</string>
     <string name="settings_appearance_app_icon_default">Подразумеван</string>
     <string name="settings_appearance_app_icon_light_2">Небо</string>
     <string name="settings_appearance_app_icon_light_3">Залаз сунца</string>
@@ -745,6 +760,7 @@
     <string name="settings_appearance_app_icon_dark_3">Индиго</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Променити икону</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Промените у &lt;b&gt;%s&lt;/b&gt; и поново покрените?</string>
+    <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="settings_appearance_app_icon_change_dialog_confirm">Променити икону</string>
     <!-- Settings - Advanced Tab - Updates Section -->
     <string name="settings_advanced_updates">Ажурирања</string>
@@ -1126,7 +1142,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_apk_download_helper_installed_by">Инсталирао %s</string>
     <string name="settings_system_apk_download_helper_installed_by_unknown">Непознати инсталер</string>
     <!-- File Picker -->
-    <string name="file_picker_previous_directory">Претходни директоријум</string>
     <string name="file_picker_no_files">Нема фајлова овде</string>
     <string name="file_picker_read_error">Не могу да прочитам ову директорију</string>
     <string name="file_picker_internal_storage">Интерна складиште</string>
@@ -1157,11 +1172,9 @@ morphe_header_custom_dark.png
     <string name="easter_egg_pill_red_toast_again">Поново у киши</string>
     <string name="easter_egg_pill_blue_toast_again">Искључен. Пут назад је тамо где је одувек био.</string>
     <!-- Shared strings -->
-    <!-- Download progress of a bundle or of the manager itself. "%1$s" and "%2$s" are the
-         megabytes read and expected, "%3$s" is the percentage; the doubled "%%" after it is
-         how a literal percent sign is written here. -->
-    <string name="download_progress">%1$s MB / %2$s MB (%3$s%%)</string>
     <string name="select_file">Изаберите датотеку</string>
+    <string name="select_files">Изаберите датотеке</string>
+    <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Изаберите фолдер</string>
     <string name="patches">Флатери</string>
     <string name="home">Почетак</string>
@@ -1188,6 +1201,7 @@ morphe_header_custom_dark.png
     <string name="done">Готово</string>
     <string name="skip">Прескочи</string>
     <string name="clear">Очисти</string>
+    <string name="paste">Налепи</string>
     <string name="delete">Избриши</string>
     <string name="delete_all">Обрисати све</string>
     <string name="remove">Ukloni</string>
@@ -1282,9 +1296,11 @@ morphe_header_custom_dark.png
     <string name="changelog_earlier_releases">Ранија издања</string>
     <string name="changelog_older_empty">Нема старијих верзија за приказ</string>
     <string name="changelog_older_failed">Није успело учитавање старијих издања</string>
+    <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="changelog_release_page">Страница издања</string>
     <string name="content_translate">Преведи</string>
-    <string name="content_show_original">Прикажи оригинал</string>
+    <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
+    <string name="content_show_original">Оригинална</string>
     <string name="content_translation_failed">Превођење није успело: %s</string>
     <string name="changelog_section_new">Ново</string>
     <string name="changelog_section_fixes">Исправке</string>
@@ -1306,8 +1322,10 @@ morphe_header_custom_dark.png
     <string name="install_update_manager_failed">Неуспешно инсталирање ажурирања</string>
     <string name="installing_manager_update">Инсталирање ажурирања…</string>
     <string name="downloading_manager_update">Преузимање ажурирања…</string>
-    <!-- Shown while downloading, before the total size is known. "%1$s" is the megabytes so far. -->
+    <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Преузето %1$s MB</string>
+    <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->
+    <string name="manager_update_progress_size">%1$s / %2$s MB</string>
     <string name="manager_update_not_ready">Овај издање је и даље у процесу објављивања. Покушајте поново за неколико минута</string>
     <string name="update_download_missing">Преузето ажурирање више није доступно. Преузмите га поново.</string>
     <string name="download_manager_failed">Није успело преузимање ажурирања: %s</string>
@@ -1339,6 +1357,7 @@ morphe_header_custom_dark.png
     <!-- Tour prompt dialog shown after first successful patch install -->
     <string name="tour_prompt_title">Брзи водич кроз функције</string>
     <string name="tour_prompt_desc">Желите брзи водич кроз кључне функције Морфе?</string>
+    <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">Покажи ми</string>
     <string name="onboarding_restart_title">Водич кроз функције</string>
     <string name="onboarding_restart_desc">Вођена тура кроз кључне функције</string>

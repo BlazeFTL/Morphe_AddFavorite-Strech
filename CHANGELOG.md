@@ -1,3 +1,25 @@
+# [1.33.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.12...v1.33.0-dev.13) (2026-09-28)
+
+
+### Bug Fixes
+
+* Draw destructive actions in one bright red over a faint veil, and neutral badges on colored cards as a veil too ([864ac99](https://github.com/MorpheApp/morphe-manager/commit/864ac99ebc997aa7f33fc9f19944a2c614e425b7))
+* Edge cards in their color as faintly as the outlined buttons under them ([ada6579](https://github.com/MorpheApp/morphe-manager/commit/ada6579c373a2adf34f188334228e533d93fb3d5))
+* Keep app and source cards neutral, leaving their colors to the edges and controls on them ([d2c84e9](https://github.com/MorpheApp/morphe-manager/commit/d2c84e926281edd0577c7eb18a1103c1c9b52736))
+* Keep releases newer than the shown changelog out of a source's earlier releases ([b914cae](https://github.com/MorpheApp/morphe-manager/commit/b914caebe6ca3e3894899f9ad8fbba3960c47a11))
+* Lay out list and app card placeholders on the lines of the text they stand in for ([c869a15](https://github.com/MorpheApp/morphe-manager/commit/c869a154177a6801409a1a06dd09ef102489ef96))
+* Let the appearance tiles grow with their labels instead of clipping them under a large font ([2a6a123](https://github.com/MorpheApp/morphe-manager/commit/2a6a1232474ca9064593817b3a287204c3a58b4e))
+* Let the install button grow with its label instead of clipping it under a large font ([4086b05](https://github.com/MorpheApp/morphe-manager/commit/4086b05dfa070055cc15346d0861755c5cd670b9))
+* Mark a picked selection card by its edge and check instead of filling it with color ([f33ab60](https://github.com/MorpheApp/morphe-manager/commit/f33ab60cf1bc4608fc52432ecd9cbcc6b0c5dfb8))
+* Mark a source's downloaded patches as downloaded rather than in use ([2923629](https://github.com/MorpheApp/morphe-manager/commit/292362991e59d6cc8356c1c7af51d3bc956cab7a))
+* Put neutral badges, destructive actions and plain tiles on one shared veil ([44baccb](https://github.com/MorpheApp/morphe-manager/commit/44baccb5f6ef3d014b5b50fd6d981783f4135fad))
+
+
+### Features
+
+* List each applied patch with its options under it and copy them all from the dialog footer ([fb285a6](https://github.com/MorpheApp/morphe-manager/commit/fb285a61b0f9478b368518d5c0772244aa1551e3))
+* Show the patched app in its own light on the success screen and carry its color through expert mode ([166f19e](https://github.com/MorpheApp/morphe-manager/commit/166f19ee3da5d9f9d2da3af720fa86b23bfca173))
+
 # [1.33.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.11...v1.33.0-dev.12) (2026-09-28)
 
 

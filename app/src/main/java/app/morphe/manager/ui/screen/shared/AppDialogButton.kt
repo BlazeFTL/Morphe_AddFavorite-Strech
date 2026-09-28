@@ -57,7 +57,8 @@ private data class DialogButtonColors(
  */
 @Composable
 private fun resolveButtonColors(isDestructive: Boolean, filled: Boolean): DialogButtonColors {
-    val primaryColor = MaterialTheme.colorScheme.primary
+    // A dialog in an app's own color hands it to its buttons, see [LocalAccent]
+    val primaryColor = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val textColor = LocalDialogTextColor.current
     val isDark = !textColor.isDarkBackground()
 

@@ -144,7 +144,8 @@ private fun Float.startingAt(start: Float): Float = ((this - start) / (1f - star
  * edge to stop at.
  *
  * @param accentColor Color of the app the list belongs to, which tints the band and the title
- *   actions on it, or null for a neutral band and actions in the theme's palette.
+ *   actions and badges on it, or null for a neutral band and actions in the theme's palette. The
+ *   dialog's own by default, see [AppDialog].
  * @param badges What the whole list shares, in a row under the title as the app details keep theirs.
  * @param actions Title actions drawn ahead of the search toggle.
  */
@@ -158,7 +159,7 @@ fun ListDialogHeader(
     search: SearchFieldState? = null,
     searchLabel: String? = null,
     searchEnabled: Boolean = true,
-    accentColor: Color? = null,
+    accentColor: Color? = LocalAccent.current,
     badges: (@Composable FlowRowScope.() -> Unit)? = null,
     actions: (@Composable RowScope.() -> Unit)? = null
 ) {
@@ -225,7 +226,7 @@ fun ListDialogHeader(
             }
             // Only a header with controls lays them out, so one without leaves the title no gap
             if (actions != null || search != null) {
-                CompositionLocalProvider(LocalTitleActionAccent provides usableAppAccent(accentColor)) {
+                ProvideAccent(accentColor) {
                     Row(
                         modifier = Modifier.headerBadgeEntrance(entrance),
                         verticalAlignment = Alignment.CenterVertically,
@@ -249,13 +250,15 @@ fun ListDialogHeader(
         if (badges != null) {
             // A row that folds its chips out resizes on the list's own spring, as the list's rows do,
             // without the settle, which would dip below the chips and clip them
-            StatusBadgeRow(
-                modifier = Modifier
-                    .padding(top = Defaults.ContentPaddingSmall)
-                    .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
-                    .headerBadgeEntrance(entrance),
-                content = badges
-            )
+            ProvideAccent(accentColor) {
+                StatusBadgeRow(
+                    modifier = Modifier
+                        .padding(top = Defaults.ContentPaddingSmall)
+                        .animateContentSize(Animations.listSpring(dampingRatio = Spring.DampingRatioNoBouncy))
+                        .headerBadgeEntrance(entrance),
+                    content = badges
+                )
+            }
         }
     }
 }

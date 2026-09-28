@@ -256,12 +256,12 @@ fun ExpertModeDialog(
                     val badgeTone = if (totalSelectedCount > 0) SemanticTone.Primary else SemanticTone.Neutral
                     // In the header's color like the search beside it: tinted while it counts,
                     // filled while it filters
-                    val accent = LocalTitleActionAccent.current
+                    val accent = LocalAccent.current
                     val badgeContainer = when {
                         accent == null -> if (isSelectedOnly) MaterialTheme.colorScheme.primary else badgeTone.container
                         isSelectedOnly -> accent
-                        totalSelectedCount > 0 -> accent.copy(alpha = APP_ACCENT_LEAD_ALPHA)
-                        else -> accent.copy(alpha = APP_ACCENT_STEP_ALPHA)
+                        totalSelectedCount > 0 -> accent.copy(alpha = AccentAlpha.LEAD)
+                        else -> accent.copy(alpha = AccentAlpha.STEP)
                     }
                     val badgeContent = when {
                         accent != null -> appAccentContent(badgeContainer)

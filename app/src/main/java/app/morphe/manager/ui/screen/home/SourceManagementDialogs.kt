@@ -899,6 +899,7 @@ fun BundleChangelogDialog(
 
     AppDialog(
         onDismissRequest = onDismissRequest,
+        accentColor = rememberSourceHeaderColor(src),
         // Start fetch only after the dialog enter animation completes so the shimmer
         // is always visible first, even when data is cached and would resolve instantly
         onEntered = { if (fetchTrigger == 0) fetchTrigger = 1 },
@@ -958,8 +959,7 @@ fun BundleChangelogDialog(
             icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
             title = src.displayTitle,
             subtitle = appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
-                ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty(),
-            accentColor = rememberSourceHeaderColor(src)
+                ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty()
         )
 
         BundleChangelogContent(
@@ -1148,6 +1148,7 @@ fun SourceAppsDialog(
 
     AppDialog(
         onDismissRequest = onDismissRequest,
+        accentColor = rememberSourceHeaderColor(src),
         dismissOnClickOutside = !isMultiSelectMode,
         footer = {
             AppDialogOutlinedButton(
@@ -1206,8 +1207,7 @@ fun SourceAppsDialog(
             search = search,
             searchLabel = stringResource(R.string.home_search_apps),
             // A lone app leaves nothing to search through
-            searchEnabled = apps.size > 1,
-            accentColor = rememberSourceHeaderColor(src)
+            searchEnabled = apps.size > 1
         )
 
         DialogLazyList(

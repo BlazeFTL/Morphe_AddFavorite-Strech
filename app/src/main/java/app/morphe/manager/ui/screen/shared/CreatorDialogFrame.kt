@@ -47,6 +47,7 @@ fun CreatorDialogFrame(
 
     AppDialog(
         onDismissRequest = { if (!isCreating) onDismiss() },
+        accentColor = rememberAppColor(packageName),
         footer = {
             AppDialogButton(
                 text = title,
@@ -68,8 +69,7 @@ fun CreatorDialogFrame(
                         AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
                     },
                     title = title,
-                    subtitle = KnownApps.getAppName(packageName),
-                    accentColor = rememberAppColor(packageName)
+                    subtitle = KnownApps.getAppName(packageName)
                 ) {
                     TitleAction(
                         icon = Icons.Outlined.Info,

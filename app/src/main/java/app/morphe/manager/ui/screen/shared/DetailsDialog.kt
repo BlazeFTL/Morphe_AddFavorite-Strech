@@ -29,6 +29,7 @@ fun DetailsDialog(
 ) {
     AppDialog(
         onDismissRequest = onDismissRequest,
+        accentColor = accentColor,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -41,7 +42,7 @@ fun DetailsDialog(
         contentArrangement = Arrangement.Top,
         fillContentHeight = true
     ) {
-        ListDialogHeader(icon = icon, title = title, subtitle = subtitle, accentColor = accentColor)
+        ListDialogHeader(icon = icon, title = title, subtitle = subtitle)
 
         DialogScrollColumn(
             modifier = Modifier.weight(1f),

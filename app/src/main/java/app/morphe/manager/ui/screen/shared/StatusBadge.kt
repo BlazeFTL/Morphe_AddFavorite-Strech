@@ -108,7 +108,9 @@ val statusBadgeHeight: Dp
  *   for markers sharing a row with badges that need the room for their own words.
  * @param icon Optional icon drawn before the label
  * @param tone Semantic color role
- * @param containerColor Background override, for badges drawn over custom artwork
+ * @param containerColor Background override, for badges drawn over custom artwork. A
+ *   [SemanticTone.Primary] badge on a card in an app's or a source's own color takes that color by
+ *   default, see [LocalAccent], as the pills on the card do
  * @param contentColor Content override, paired with [containerColor]
  * @param onClick Makes the badge act as a control, as the version list expander does. A badge
  *   that carries one sinks while held, the way the surrounding buttons do
@@ -120,8 +122,8 @@ fun StatusBadge(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     tone: SemanticTone = SemanticTone.Neutral,
-    containerColor: Color = tone.container,
-    contentColor: Color = tone.content,
+    containerColor: Color = tone.badgeContainer(),
+    contentColor: Color = tone.badgeContent(),
     onClick: (() -> Unit)? = null
 ) {
     // Add zero-width space so long tokens can break at "/" and "." - cached per text value.
@@ -240,3 +242,19 @@ fun StatusBadgeRow(
         content = content
     )
 }
+
+/**
+ * Color a [SemanticTone.Primary] badge takes on a card in an app's or a source's own color, where
+ * the theme's primary would sit on it as a color of its own. Null for any other badge.
+ */
+@Composable
+private fun SemanticTone.cardPrimary(): Color? =
+    if (this == SemanticTone.Primary) LocalAccent.current else null
+
+@Composable
+private fun SemanticTone.badgeContainer(): Color =
+    cardPrimary()?.copy(alpha = AccentAlpha.LEAD) ?: container
+
+@Composable
+private fun SemanticTone.badgeContent(): Color =
+    if (cardPrimary() != null) MaterialTheme.colorScheme.onBackground else content

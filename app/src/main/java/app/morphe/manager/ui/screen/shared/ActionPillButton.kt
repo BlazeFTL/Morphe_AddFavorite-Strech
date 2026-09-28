@@ -12,6 +12,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -52,6 +53,16 @@ import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.milliseconds
 
 private val PillShape = Defaults.PillShape
+
+/** Alpha of a destructive pill's edge, the one the app details' destructive actions carry. */
+private const val DESTRUCTIVE_BORDER_ALPHA = 0.35f
+
+/** Edge of a destructive pill, faded along with the pill while it is out of reach. */
+@Composable
+private fun destructiveBorder(enabled: Boolean): BorderStroke {
+    val alpha = if (enabled) DESTRUCTIVE_BORDER_ALPHA else DESTRUCTIVE_BORDER_ALPHA * Defaults.DISABLED_ALPHA
+    return BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = alpha))
+}
 
 /** Inset between a pill's edge and any text it carries. */
 private val PillTextPadding = 16.dp
@@ -103,8 +114,16 @@ fun rememberPillConfirmationState(): PillConfirmationState = remember { PillConf
  * the same color in every row it appears in.
  */
 object ActionPillColors {
+    /**
+     * The plain pill, tinted with the color of the card it sits on, see [LocalAccent], so a
+     * row of them reads as part of that card.
+     */
     @Composable
-    fun neutral(): IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors()
+    fun neutral(): IconButtonColors {
+        val accent = LocalAccent.current ?: return IconButtonDefaults.filledTonalIconButtonColors()
+        val container = accent.copy(alpha = AccentAlpha.LEAD)
+        return tonal(container, appAccentContent(container))
+    }
 
     /** The action a row leads with. */
     @Composable
@@ -139,6 +158,9 @@ object ActionPillColors {
 /**
  * Pill-shaped action button with an icon, optional text label, and optional long-press tooltip.
  *
+ * A [destructive] pill is drawn in the error palette and edged in the error color, as the app
+ * details edge theirs, so it stays apart on a card whose own color is a red.
+ *
  * A non-null [confirmation] answers every tap in place: the pill widens to show it in place of
  * its own content, then settles back. Text too long for the room it gets scrolls through once.
  * [confirmationState] plays one on demand instead.
@@ -156,7 +178,8 @@ fun ActionPillButton(
     tooltip: String? = null,
     confirmation: String? = null,
     confirmationState: PillConfirmationState = rememberPillConfirmationState(),
-    colors: IconButtonColors = ActionPillColors.neutral(),
+    destructive: Boolean = false,
+    colors: IconButtonColors = if (destructive) ActionPillColors.destructive() else ActionPillColors.neutral(),
     pressScale: Boolean = true
 ) {
     val height = if (large) Defaults.PillHeightLarge else Defaults.PillHeight
@@ -197,6 +220,7 @@ fun ActionPillButton(
             shape = PillShape,
             color = containerColor,
             contentColor = contentColor,
+            border = if (destructive) destructiveBorder(looksEnabled) else null,
             interactionSource = interactionSource,
             modifier = Modifier
                 .fillMaxWidth()
@@ -543,7 +567,6 @@ fun CardActionRow(
             horizontalArrangement = if (hasBoth) Arrangement.spacedBy(8.dp) else Arrangement.Center
         ) {
             actions.forEach { action ->
-                val colors = if (action.destructive) ActionPillColors.destructive() else ActionPillColors.neutral()
                 ActionPillButton(
                     onClick = action.onClick,
                     icon = action.icon,
@@ -556,7 +579,7 @@ fun CardActionRow(
                     } else {
                         Modifier.widthIn(min = singleActionMinWidth)
                     },
-                    colors = colors
+                    destructive = action.destructive
                 )
             }
         }

@@ -185,6 +185,7 @@ fun SettingsDivider(
  *
  * @param rowModifier  Applied to the inner [Row], use for positioning callbacks.
  * @param isLoading    When true, replaces the switch with a [CircularProgressIndicator].
+ * @param accentColor  Color of the card the row sits on, see [ToggleSwitch].
  */
 @Composable
 fun ToggleRow(
@@ -198,7 +199,8 @@ fun ToggleRow(
     isLoading: Boolean = false,
     showDivider: Boolean = true,
     icon: ImageVector? = null,
-    iconTint: Color = MaterialTheme.colorScheme.primary
+    iconTint: Color = MaterialTheme.colorScheme.primary,
+    accentColor: Color? = LocalAccent.current
 ) {
     val enabledLabel = stringResource(R.string.enabled)
     val disabledLabel = stringResource(R.string.disabled)
@@ -254,10 +256,11 @@ fun ToggleRow(
                     if (loading) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(24.dp),
+                            color = usableAppAccent(accentColor) ?: ProgressIndicatorDefaults.circularColor,
                             strokeWidth = 2.dp
                         )
                     } else {
-                        ToggleSwitch(checked = checked, onCheckedChange = null)
+                        ToggleSwitch(checked = checked, onCheckedChange = null, accentColor = accentColor)
                     }
                 }
             }
@@ -307,14 +310,28 @@ fun ToggleSwitch(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    accentColor: Color? = LocalAccent.current
 ) {
+    // On a card in an app's own color a switch that is on fills with it outright, as an engaged
+    // toggle on that app's header does, so the theme's blue does not sit on a card of another hue
+    val accent = usableAppAccent(accentColor)
     Switch(
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,
         enabled = enabled,
-        colors = SwitchDefaults.colors(checkedIconColor = MaterialTheme.colorScheme.primary),
+        colors = if (accent == null) {
+            SwitchDefaults.colors(checkedIconColor = MaterialTheme.colorScheme.primary)
+        } else {
+            val onAccent = appAccentContent(accent)
+            SwitchDefaults.colors(
+                checkedTrackColor = accent,
+                checkedBorderColor = accent,
+                checkedThumbColor = onAccent,
+                checkedIconColor = accent
+            )
+        },
         thumbContent = {
             Icon(
                 imageVector = if (checked) Icons.Filled.Check else Icons.Filled.Close,
@@ -567,21 +584,28 @@ fun SettingsSwitchItem(
 
 /**
  * Section container card.
+ *
+ * @param accentColor Color of the app or source the card stands for, which fills it the way the
+ *   source list fills its cards and carries on to the controls inside, see [LocalAccent].
  */
 @Composable
 fun SectionCard(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
+    accentColor: Color? = null,
     content: @Composable () -> Unit
 ) {
+    val fill = appAccentCardFill(accentColor)
     SurfaceCard(
         onClick = onClick,
         elevation = Defaults.CardElevation,
         cornerRadius = Defaults.SectionCornerRadius,
         borderWidth = 1.dp,
+        borderColor = appAccentBorder(accentColor),
+        color = fill ?: MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         modifier = modifier
     ) {
-        content()
+        if (fill == null) content() else ProvideCardAccent(accentColor, fill, content)
     }
 }
 

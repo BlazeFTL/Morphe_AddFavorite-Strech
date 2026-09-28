@@ -174,11 +174,16 @@
     <string name="sources_dialog_delete_confirm_message">\"%s\" mənbəsini silməlimi? Bu geri alına bilməz</string>
     <string name="sources_dialog_remote">Uzaqdan</string>
     <string name="sources_dialog_remote_url">Mənbə URL-si</string>
+    <string name="sources_dialog_remote_url_hint">Depo və ya yamaq paketi .json üçün link. Hamısını əlavə etmək üçün eyni anda bir neçəsini yapışdır</string>
+    <string name="sources_dialog_paste_no_links">Buferdə heç bir keçid tapılmadı</string>
     <string name="sources_dialog_local">Yerli</string>
+    <string name="sources_dialog_local_files">Yamaq mənbəsi fayllarını seç</string>
     <!-- Button under the files already picked, which opens the picker again -->
+    <string name="sources_dialog_local_add_more">Daha çox fayl əlavə et</string>
     <string name="sources_dialog_local_file_tap_hint">Saxlancı araşdırmaq üçün toxun</string>
     <string name="sources_dialog_local_invalid_extension">Faylın .mpp əlavəsi olmalıdır</string>
     <!-- %s is the name of the local source that another version of the same bundle replaces -->
+    <string name="sources_dialog_local_updates">Yeniləmələr %s</string>
     <string name="sources_dialog_url_valid">Etibarlı depo və ya JSON URL</string>
     <string name="sources_dialog_url_invalid">URL GitHub/GitLab depo və ya .json faylın göstərməlidir</string>
     <string name="sources_dialog_preinstalled">İlkin quraşdırılan</string>
@@ -1165,6 +1170,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="easter_egg_pill_blue_toast_again">Şəbəkədən ayrıldı. Geriyə yol həmişə olduğu yerdədir</string>
     <!-- Shared strings -->
     <string name="select_file">Faylı seç</string>
+    <string name="select_files">Faylları seç</string>
     <!-- Label of a footer button beside "Close". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="select_folder">Qovluq seç</string>
     <string name="patches">Yamaqlar</string>
@@ -1192,6 +1198,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="done">Bitdi</string>
     <string name="skip">Ötür</string>
     <string name="clear">Təmizlə</string>
+    <string name="paste">Yapışdır</string>
     <string name="delete">Sil</string>
     <string name="delete_all">Hamısını sil</string>
     <string name="remove">Sil</string>

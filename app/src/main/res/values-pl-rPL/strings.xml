@@ -175,10 +175,10 @@
     <string name="sources_dialog_delete_confirm_message">Usunąć źródło \"%s\"? Tej operacji nie da się cofnąć</string>
     <string name="sources_dialog_remote">Zdalne</string>
     <string name="sources_dialog_remote_url">Adres źródła</string>
-    <string name="sources_dialog_remote_url_hint">Repozytorium lub link do pakietu łatek .json. Wklej kilka naraz, aby dodać je wszystkie</string>
+    <string name="sources_dialog_remote_url_hint">Repozytorium lub link do pakietu modyfikacji .json. Wklej kilka naraz, aby dodać wszystkie</string>
     <string name="sources_dialog_paste_no_links">Nie znaleziono linków w schowku</string>
     <string name="sources_dialog_local">Lokalne</string>
-    <string name="sources_dialog_local_files">Wybierz pliki źródłowe łatek</string>
+    <string name="sources_dialog_local_files">Wybierz pliki źródłowe modyfikacji</string>
     <!-- Button under the files already picked, which opens the picker again -->
     <string name="sources_dialog_local_add_more">Dodaj więcej plików</string>
     <string name="sources_dialog_local_file_tap_hint">Dotknij, aby przeglądać pliki</string>

@@ -24,14 +24,14 @@
         <item quantity="one">Wybierz %s plik</item>
         <item quantity="few">Wybierz %s pliki</item>
         <item quantity="many">Wybierz %s plików</item>
-        <item quantity="other">Wybierz %s pliku</item>
+        <item quantity="other">Wybierz %s plików</item>
     </plurals>
     <!-- Button that adds every source waiting in the add source dialog -->
     <plurals name="sources_dialog_add_count">
         <item quantity="one">Dodaj %s źródło</item>
         <item quantity="few">Dodaj %s źródła</item>
         <item quantity="many">Dodaj %s źródeł</item>
-        <item quantity="other">Dodaj %s źródła</item>
+        <item quantity="other">Dodaj %s źródeł</item>
     </plurals>
     <plurals name="home_app_patch_sources_title">
         <item quantity="one">Źródła modyfikacji dla %s aplikacji</item>

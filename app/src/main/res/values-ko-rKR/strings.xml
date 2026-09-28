@@ -174,8 +174,8 @@
     <string name="sources_dialog_delete_confirm_message">\'%s\' 소스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다</string>
     <string name="sources_dialog_remote">원격</string>
     <string name="sources_dialog_remote_url">소스 URL</string>
-    <string name="sources_dialog_remote_url_hint">저장소 또는 패치 번들 .json 링크를 입력하세요. 여러 개를 한 번에 붙여넣어 모두 추가할 수 있습니다.</string>
-    <string name="sources_dialog_paste_no_links">클립보드에서 링크를 찾을 수 없습니다.</string>
+    <string name="sources_dialog_remote_url_hint">저장소 또는 패치 번들 .json 링크를 입력하세요. 여러 개를 한 번에 붙여넣어 모두 추가할 수 있습니다</string>
+    <string name="sources_dialog_paste_no_links">클립보드에서 링크를 찾을 수 없습니다</string>
     <string name="sources_dialog_local">로컬</string>
     <string name="sources_dialog_local_files">패치 소스 파일 선택</string>
     <!-- Button under the files already picked, which opens the picker again -->
@@ -1301,9 +1301,9 @@ morphe_header_custom_dark.png
     <string name="content_show_original">원본</string>
     <string name="content_translation_failed">번역할 수 없습니다: %s</string>
     <string name="changelog_section_new">신규</string>
-    <string name="changelog_section_fixes">수정 사항</string>
+    <string name="changelog_section_fixes">수정</string>
     <string name="changelog_section_performance">성능</string>
-    <string name="changelog_section_improvements">개선 사항</string>
+    <string name="changelog_section_improvements">개선</string>
     <string name="changelog_section_app_support">앱 지원</string>
     <string name="changelog_section_other">변경 사항</string>
     <string name="changelog_badge_latest">최신</string>

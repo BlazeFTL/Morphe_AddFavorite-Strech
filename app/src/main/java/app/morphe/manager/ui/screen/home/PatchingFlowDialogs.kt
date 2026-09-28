@@ -13,10 +13,14 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -25,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -35,7 +40,9 @@ import app.morphe.manager.domain.apk.InstalledApkInfo
 import app.morphe.manager.domain.apk.SavedApkInfo
 import app.morphe.manager.domain.bundles.*
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.util.*
+import app.morphe.manager.util.androidVersionName
+import app.morphe.manager.util.htmlAnnotatedString
+import app.morphe.manager.util.withVersionPrefix
 import app.morphe.patcher.patch.AppTarget
 
 /**
@@ -378,100 +385,47 @@ internal fun UnsupportedVersionWarningDialog(
             )
         }
     ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                // Selected version card
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.home_selected_version),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
+            VersionSection(stringResource(R.string.home_selected_version)) {
+                VersionPanel(
+                    color = tone.container.copy(alpha = 0.3f),
+                    border = CardBorder.tinted(tone.accent)
+                ) {
+                    VersionRow(
+                        version = version,
+                        tags = tags,
+                        buildCode = versionCode,
+                        emphasized = true,
+                        versionColor = tone.accent
                     )
-
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
-                        color = tone.container.copy(alpha = 0.3f),
-                        tonalElevation = 1.dp,
-                        border = CardBorder.tinted(tone.accent)
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                Text(
-                                    text = version,
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    fontFamily = FontFamily.Monospace,
-                                    fontWeight = FontWeight.Bold,
-                                    color = tone.accent
-                                )
-                                if (versionCode != null) {
-                                    Text(
-                                        text = stringResource(R.string.home_dialog_unsupported_version_build, versionCode),
-                                        style = MaterialTheme.typography.bodySmall,
-                                        fontFamily = FontFamily.Monospace,
-                                        color = secondaryColor
-                                    )
-                                }
-                            }
-
-                            VersionTagBadges(tags)
-                        }
-                    }
                 }
+            }
 
-                // Compatible versions section
-                if (isExpertMode && allCompatibleVersions.isNotEmpty()) {
-                    // Expert mode: show all compatible versions in unified card
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(R.string.home_dialog_unsupported_version_compatible_versions),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = secondaryColor
-                        )
-
-                        VersionListCard(
-                            versions = allCompatibleVersions,
-                            recommendedIndex = allCompatibleVersions
-                                .indexOfFirst { it !in experimentalVersions }
-                                .takeIf { it >= 0 } ?: 0,
-                            isCompatible = true,
-                            experimentalVersions = experimentalVersions,
-                            descriptions = versionDescriptions,
-                            versionCodes = compatibleVersionCodes
-                        )
-                    }
-                } else if (recommendedVersion != null) {
-                    // Simple mode or single version: show recommended version card
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(R.string.home_recommended_version),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = secondaryColor
-                        )
-
-                        VersionListCard(
-                            versions = listOf(recommendedVersion),
-                            recommendedIndex = 0,
-                            isCompatible = true,
-                            experimentalVersions = experimentalVersions,
-                            versionCodes = compatibleVersionCodes
-                        )
-                    }
+            if (isExpertMode && allCompatibleVersions.isNotEmpty()) {
+                // Expert mode: every compatible version
+                VersionSection(stringResource(R.string.home_dialog_unsupported_version_compatible_versions)) {
+                    VersionListCard(
+                        versions = allCompatibleVersions,
+                        recommendedIndex = allCompatibleVersions
+                            .indexOfFirst { it !in experimentalVersions }
+                            .takeIf { it >= 0 } ?: 0,
+                        experimentalVersions = experimentalVersions,
+                        descriptions = versionDescriptions,
+                        versionCodes = compatibleVersionCodes
+                    )
+                }
+            } else if (recommendedVersion != null) {
+                // Simple mode or single version: the recommended one alone
+                VersionSection(stringResource(R.string.home_recommended_version)) {
+                    VersionListCard(
+                        versions = listOf(recommendedVersion),
+                        recommendedIndex = 0,
+                        experimentalVersions = experimentalVersions,
+                        versionCodes = compatibleVersionCodes
+                    )
                 }
             }
         }
@@ -716,12 +670,6 @@ private fun SelectableVersionListCard(
                 section.installable().firstOrNull { !it.target.isExperimental }?.target?.version
             }
     }
-
-    // The pick is marked by a check in the color of the app being patched, as the buttons under the
-    // list wear it. The version itself keeps the text color, so an app in a red of its own does
-    // not paint its picked version the color of an error
-    val panelColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-    val selectionColor = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val sourcesByUid = rememberSourcesByUid()
     val selectedLabel = stringResource(R.string.home_selected_version)
 
@@ -738,59 +686,50 @@ private fun SelectableVersionListCard(
                 val source = sourcesByUid[bundleUid]
                 val sourceColor = source?.let { rememberBundleAccent(it) }
 
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
-                    color = panelColor,
-                    tonalElevation = 1.dp,
+                VersionPanel(
                     border = if (hasMultipleBundles && usableAppAccent(sourceColor) != null) {
                         BorderStroke(1.dp, appAccentBorder(sourceColor))
                     } else {
                         CardBorder.neutral
-                    }
+                    },
+                    header = if (hasMultipleBundles) {
+                        { VersionPanelSourceHeader(source = source, name = section.first().bundleName) }
+                    } else null
                 ) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        if (hasMultipleBundles) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = Defaults.ContentPadding)
-                                    .padding(top = Defaults.ItemSpacing, bottom = Defaults.ContentPaddingSmall),
-                                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                if (source != null) {
-                                    BundleIcon(bundle = source, modifier = Modifier.size(24.dp))
-                                }
-                                Text(
-                                    text = section.first().bundleName,
-                                    style = MaterialTheme.typography.titleSmall,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = LocalDialogTextColor.current,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-                            }
-                            SettingsDivider(fullWidth = true)
+                    section.forEachIndexed { index, bundled ->
+                        val target = bundled.target
+                        val versionString = target.version ?: anyString
+                        val isIncompatibleSdk = target.version != null && target.version in incompatibleSdkVersions
+                        val isSelected = !isIncompatibleSdk && target.version != null &&
+                                target.version == selectedVersion?.version
+                        val tags = versionTagsOf(
+                            requiresAndroidSdk = target.minSdk.takeIf { isIncompatibleSdk },
+                            isIncompatible = isIncompatibleSdk && target.minSdk == null,
+                            isExperimental = target.isExperimental,
+                            isRecommended = !isIncompatibleSdk && target.version != null &&
+                                    target.version == recommendedByBundle[bundleUid],
+                            isSaved = target.version != null && target.version == savedVersion,
+                            isInstalled = target.version != null && target.version == installedVersion
+                        )
+                        val rowContentDescription = buildString {
+                            append(versionString)
+                            tags.labels().forEach { append(", $it") }
+                            if (isSelected) append(", $selectedLabel")
+                            target.description?.let { append(", $it") }
+                            if (hasMultipleBundles) append(", ${bundled.bundleName}")
                         }
 
-                        section.forEachIndexed { index, bundled ->
-                            VersionRow(
-                                bundled = bundled,
-                                anyString = anyString,
-                                incompatibleSdkVersions = incompatibleSdkVersions,
-                                selectedVersion = selectedVersion,
-                                recommendedVersion = recommendedByBundle[bundleUid],
-                                savedVersion = savedVersion,
-                                installedVersion = installedVersion,
-                                hasMultipleBundles = hasMultipleBundles,
-                                selectionColor = selectionColor,
-                                selectedLabel = selectedLabel,
-                                onVersionSelect = onVersionSelect
-                            )
-                            if (index < section.lastIndex) {
-                                SettingsDivider()
-                            }
+                        VersionRow(
+                            version = versionString,
+                            tags = tags,
+                            description = target.description,
+                            selected = isSelected,
+                            enabled = !isIncompatibleSdk,
+                            onClick = { onVersionSelect(target) },
+                            contentDescription = rowContentDescription
+                        )
+                        if (index < section.lastIndex) {
+                            SettingsDivider()
                         }
                     }
                 }
@@ -799,130 +738,12 @@ private fun SelectableVersionListCard(
     }
 }
 
-/** One version of [SelectableVersionListCard], checked in [selectionColor] while it is the pick. */
-@Composable
-private fun VersionRow(
-    bundled: BundledAppTarget,
-    anyString: String,
-    incompatibleSdkVersions: Set<String>,
-    selectedVersion: AppTarget?,
-    recommendedVersion: String?,
-    savedVersion: String?,
-    installedVersion: String?,
-    hasMultipleBundles: Boolean,
-    selectionColor: Color,
-    selectedLabel: String,
-    onVersionSelect: (AppTarget) -> Unit
-) {
-    val target = bundled.target
-    val versionString = target.version ?: anyString
-    val isIncompatibleSdk = target.version != null && target.version in incompatibleSdkVersions
-    val isSelected = !isIncompatibleSdk && target.version != null && target.version == selectedVersion?.version
-    val isRecommended = !isIncompatibleSdk && target.version != null && target.version == recommendedVersion
-    val tags = versionTagsOf(
-        requiresAndroidSdk = target.minSdk.takeIf { isIncompatibleSdk },
-        isIncompatible = isIncompatibleSdk && target.minSdk == null,
-        isExperimental = target.isExperimental,
-        isRecommended = isRecommended,
-        isSaved = target.version != null && target.version == savedVersion,
-        isInstalled = target.version != null && target.version == installedVersion
-    )
-
-    val tagLabels = tags.labels()
-    val rowContentDesc = buildString {
-        append(versionString)
-        tagLabels.forEach { append(", $it") }
-        if (isSelected) append(", $selectedLabel")
-        target.description?.let { append(", $it") }
-        if (hasMultipleBundles) append(", ${bundled.bundleName}")
-    }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(
-                if (isIncompatibleSdk) Modifier
-                else Modifier.selectable(
-                    selected = isSelected,
-                    onClick = { onVersionSelect(target) },
-                    role = Role.RadioButton
-                )
-            )
-            .semantics { contentDescription = rowContentDesc }
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Checkmark column - fixed width so text aligns across all rows
-        Box(
-            modifier = Modifier.size(18.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            if (isSelected) {
-                Icon(
-                    imageVector = Icons.Filled.Check,
-                    contentDescription = null,
-                    tint = selectionColor,
-                    modifier = Modifier.size(18.dp)
-                )
-            }
-        }
-
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .then(if (isIncompatibleSdk) Modifier.alpha(0.4f) else Modifier),
-            verticalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = versionString,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontFamily = FontFamily.Monospace,
-                    // The check marks the pick, the weight backs it up, and the badges carry every tag
-                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                    color = LocalDialogTextColor.current,
-                    modifier = Modifier
-                        .weight(1f)
-                        .basicMarquee(iterations = Int.MAX_VALUE),
-                    maxLines = 1,
-                )
-
-                // A lone tag sits beside the version. Several go on a line of their own under it,
-                // since beside it they would squeeze the version out of sight
-                if (tags.size == 1) VersionTagBadge(tags.single())
-            }
-
-            if (tags.size > 1) {
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-                ) {
-                    tags.forEach { VersionTagBadge(it) }
-                }
-            }
-
-            val description = target.description
-            if (description != null) {
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-        }
-    }
-}
-
+/** Versions only read rather than picked from, in one [VersionPanel]. */
 @Composable
 private fun VersionListCard(
     modifier: Modifier = Modifier,
     versions: List<String>,
     recommendedIndex: Int = 0,
-    isCompatible: Boolean = false,
     showUnpatchedBadge: Boolean = false,
     experimentalVersions: Set<String> = emptySet(),
     descriptions: Map<String, String> = emptyMap(),
@@ -933,95 +754,188 @@ private fun VersionListCard(
 ) {
     if (versions.isEmpty()) return
 
-    val containerColor = if (isCompatible) {
-        MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.25f)
-    } else {
-        MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+    VersionPanel(modifier = modifier) {
+        versions.forEachIndexed { index, version ->
+            val tags = versionTagsOf(
+                isIncompatible = version in incompatibleSdkVersions,
+                isExperimental = version in experimentalVersions,
+                isUnpatched = showUnpatchedBadge && versions.size == 1,
+                isRecommended = index == recommendedIndex && !showUnpatchedBadge,
+                isSaved = version == savedVersion,
+                isInstalled = version == installedVersion
+            )
+            VersionRow(
+                version = version,
+                tags = tags,
+                buildCode = versionCodes[version]?.firstOrNull()?.toLong(),
+                description = descriptions[version],
+                enabled = version !in incompatibleSdkVersions,
+                emphasized = index == recommendedIndex
+            )
+            if (index < versions.lastIndex) {
+                SettingsDivider()
+            }
+        }
     }
+}
 
-    val textColor = if (isCompatible) {
-        Color.Green.copy(alpha = 0.9f)
-    } else {
-        LocalDialogTextColor.current
-    }
-
+/**
+ * A card holding versions, one [VersionRow] after another: a source's own, in the neutral card or
+ * edged in its color, or [color] and [border] for a card that stands for a verdict, such as a warning.
+ */
+@Composable
+private fun VersionPanel(
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
+    border: BorderStroke = CardBorder.neutral,
+    header: (@Composable () -> Unit)? = null,
+    content: @Composable ColumnScope.() -> Unit
+) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
-        color = containerColor,
+        color = color,
         tonalElevation = 1.dp,
-        border = CardBorder.neutral
+        border = border
     ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            if (header != null) {
+                header()
+                SettingsDivider(fullWidth = true)
+            }
+            content()
+        }
+    }
+}
+
+/** Heading of a [VersionPanel] holding one source's versions: the source's icon beside its name. */
+@Composable
+private fun VersionPanelSourceHeader(source: PatchBundleSource?, name: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = Defaults.ContentPadding)
+            .padding(top = Defaults.ItemSpacing, bottom = Defaults.ContentPaddingSmall),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (source != null) {
+            BundleIcon(bundle = source, modifier = Modifier.size(24.dp))
+        }
+        Text(
+            text = name,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = LocalDialogTextColor.current,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+/** A block of a dialog named by [label], holding a [VersionPanel]. */
+@Composable
+private fun VersionSection(label: String, content: @Composable () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelMedium,
+            color = LocalDialogSecondaryTextColor.current
+        )
+        content()
+    }
+}
+
+/**
+ * One version of a [VersionPanel]: the version, its build and description, and its tags. A lone
+ * tag sits beside the version, where most rows carry theirs, and several go on a line of their
+ * own under it, since beside it, they would squeeze the version out of sight.
+ *
+ * @param selected Whether it is the pick, for a list picked from, which checks it in the app's
+ *   color. Null for a list only read, which keeps no room for a check.
+ * @param emphasized Sets the version in bold, as the pick or the recommended one is.
+ * @param contentDescription What a screen reader announces the row as, in place of its texts.
+ */
+@Composable
+private fun VersionRow(
+    version: String,
+    tags: List<VersionTag>,
+    modifier: Modifier = Modifier,
+    buildCode: Long? = null,
+    description: String? = null,
+    selected: Boolean? = null,
+    enabled: Boolean = true,
+    emphasized: Boolean = selected == true,
+    versionColor: Color = LocalDialogTextColor.current,
+    onClick: (() -> Unit)? = null,
+    contentDescription: String? = null
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .then(
+                if (selected != null && onClick != null && enabled) {
+                    Modifier.selectable(selected = selected, onClick = onClick, role = Role.RadioButton)
+                } else Modifier
+            )
+            .then(if (contentDescription != null) Modifier.semantics { this.contentDescription = contentDescription } else Modifier)
+            .padding(horizontal = Defaults.ContentPadding, vertical = Defaults.ItemSpacing),
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // The app's own round check, in its color, as the other pickers mark their pick
+        if (selected != null) {
+            SelectionCheckIndicator(
+                state = if (selected) ToggleableState.On else ToggleableState.Off,
+                enabled = enabled
+            )
+        }
+
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+                .weight(1f)
+                .then(if (enabled) Modifier else Modifier.alpha(Defaults.DISABLED_ALPHA)),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            versions.forEachIndexed { index, version ->
-                val isExperimentalVersion = version in experimentalVersions
-                val isIncompatibleSdk = version in incompatibleSdkVersions
-                val versionDescription = descriptions[version]
-                val buildCode = versionCodes[version]?.firstOrNull()
-
-                // Resolved once - drives both the badges and the version text color
-                val tags = versionTagsOf(
-                    isIncompatible = isIncompatibleSdk,
-                    isExperimental = isExperimentalVersion,
-                    isUnpatched = showUnpatchedBadge && versions.size == 1,
-                    isRecommended = index == recommendedIndex && !showUnpatchedBadge,
-                    isSaved = version == savedVersion,
-                    isInstalled = version == installedVersion
-                )
-
-                Column(
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = version,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = if (emphasized) FontWeight.Bold else FontWeight.Normal,
+                    color = versionColor,
+                    maxLines = 1,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .then(if (isIncompatibleSdk) Modifier.alpha(0.4f) else Modifier),
-                    verticalArrangement = Arrangement.spacedBy(3.dp)
+                        .weight(1f)
+                        .basicMarquee(iterations = Int.MAX_VALUE)
+                )
+                if (tags.size == 1) VersionTagBadge(tags.single())
+            }
+            if (buildCode != null) {
+                Text(
+                    text = stringResource(R.string.home_dialog_unsupported_version_build, buildCode),
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = FontFamily.Monospace,
+                    color = LocalDialogSecondaryTextColor.current
+                )
+            }
+            if (tags.size > 1) {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
-                    // Version + its tags inline
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = version,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = if (index == recommendedIndex) FontWeight.Bold else FontWeight.Normal,
-                            color = textColor,
-                            modifier = Modifier.weight(1f),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        VersionTagBadges(tags)
-                    }
-
-                    // Build number
-                    if (buildCode != null) {
-                        Text(
-                            text = stringResource(R.string.home_dialog_unsupported_version_build, buildCode),
-                            style = MaterialTheme.typography.bodySmall,
-                            fontFamily = FontFamily.Monospace,
-                            color = LocalDialogSecondaryTextColor.current
-                        )
-                    }
-
-                    // Optional per-version description
-                    if (versionDescription != null) {
-                        Text(
-                            text = versionDescription,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = LocalDialogSecondaryTextColor.current
-                        )
-                    }
+                    tags.forEach { VersionTagBadge(it) }
                 }
-
-                // Divider between versions
-                if (index < versions.lastIndex) {
-                    SettingsDivider(fullWidth = true)
-                }
+            }
+            if (description != null) {
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = LocalDialogSecondaryTextColor.current
+                )
             }
         }
     }

@@ -7,6 +7,7 @@ package app.morphe.manager.ui.screen.home
 
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -1370,155 +1371,205 @@ private fun SelectableVersionListCard(
             }
     }
 
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        tonalElevation = 1.dp,
-        border = CardBorder.neutral
+    // The pick is marked by a check in the color of the app being patched, as the buttons under the
+    // list wear it. The version itself keeps the text color, so an app in a red of its own does
+    // not paint its picked version the color of an error
+    val panelColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+    val selectionColor = LocalAccent.current ?: MaterialTheme.colorScheme.primary
+    val sourcesByUid = rememberSourcesByUid()
+    val selectedLabel = stringResource(R.string.home_selected_version)
+
+    // A card of its own for each source, headed by it and edged in its color, as the patch list
+    // blocks out its sources. A lone source needs no heading, the dialog is about it already
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .selectableGroup(),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
-        Column(modifier = Modifier.fillMaxWidth().selectableGroup()) {
-            var lastBundleUid = -1
+        versions.groupBy { it.bundleUid }.forEach { (bundleUid, section) ->
+            key(bundleUid) {
+                val source = sourcesByUid[bundleUid]
+                val sourceColor = source?.let { rememberBundleAccent(it) }
 
-            versions.forEachIndexed { index, bundled ->
-                val target = bundled.target
-                val versionString = target.version ?: anyString
-                val isIncompatibleSdk = target.version != null && target.version in incompatibleSdkVersions
-                val isSelected = !isIncompatibleSdk && target.version != null && target.version == selectedVersion?.version
-                val isRecommended = !isIncompatibleSdk && target.version != null &&
-                        target.version == recommendedByBundle[bundled.bundleUid]
-                val selectedLabel = stringResource(R.string.home_selected_version)
-                val tags = versionTagsOf(
-                    requiresAndroidSdk = target.minSdk.takeIf { isIncompatibleSdk },
-                    isIncompatible = isIncompatibleSdk && target.minSdk == null,
-                    isExperimental = target.isExperimental,
-                    isRecommended = isRecommended,
-                    isSaved = target.version != null && target.version == savedVersion,
-                    isInstalled = target.version != null && target.version == installedVersion
-                )
-
-                // Bundle section header - only when multiple bundles are present and uid changes
-                if (hasMultipleBundles && bundled.bundleUid != lastBundleUid) {
-                    if (lastBundleUid != -1) {
-                        SettingsDivider(fullWidth = true)
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(Defaults.SettingsCornerRadius),
+                    color = panelColor,
+                    tonalElevation = 1.dp,
+                    border = if (hasMultipleBundles && usableAppAccent(sourceColor) != null) {
+                        BorderStroke(1.dp, appAccentBorder(sourceColor))
+                    } else {
+                        CardBorder.neutral
                     }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 7.dp),
-                        horizontalArrangement = Arrangement.spacedBy(5.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Extension,
-                            contentDescription = null,
-                            modifier = Modifier.size(12.dp),
-                            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.65f)
-                        )
-                        Text(
-                            text = bundled.bundleName,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.65f),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                    lastBundleUid = bundled.bundleUid
-                }
-
-                val tagLabels = tags.labels()
-                val rowContentDesc = buildString {
-                    append(versionString)
-                    tagLabels.forEach { append(", $it") }
-                    if (isSelected) append(", $selectedLabel")
-                    target.description?.let { append(", $it") }
-                    if (hasMultipleBundles) append(", ${bundled.bundleName}")
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .then(
-                            if (isIncompatibleSdk) Modifier
-                            else Modifier.selectable(
-                                selected = isSelected,
-                                onClick = { onVersionSelect(target) },
-                                role = Role.RadioButton
-                            )
-                        )
-                        .semantics { contentDescription = rowContentDesc }
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Checkmark column - fixed width so text aligns across all rows
-                    Box(
-                        modifier = Modifier.size(18.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        if (isSelected) {
-                            Icon(
-                                imageVector = Icons.Filled.Check,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(18.dp)
-                            )
-                        }
-                    }
-
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .then(if (isIncompatibleSdk) Modifier.alpha(0.4f) else Modifier),
-                        verticalArrangement = Arrangement.spacedBy(2.dp)
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = versionString,
-                                style = MaterialTheme.typography.bodyLarge,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                // Color marks the selection alone, and the badges carry every tag
-                                color = if (isSelected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    LocalDialogTextColor.current
-                                },
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        if (hasMultipleBundles) {
+                            Row(
                                 modifier = Modifier
-                                    .weight(1f)
-                                    .basicMarquee(iterations = Int.MAX_VALUE),
-                                maxLines = 1,
-                            )
-
-                            VersionTagBadges(tags)
+                                    .fillMaxWidth()
+                                    .padding(horizontal = Defaults.ContentPadding)
+                                    .padding(top = Defaults.ItemSpacing, bottom = Defaults.ContentPaddingSmall),
+                                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                if (source != null) {
+                                    BundleIcon(bundle = source, modifier = Modifier.size(24.dp))
+                                }
+                                Text(
+                                    text = section.first().bundleName,
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = LocalDialogTextColor.current,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                            SettingsDivider(fullWidth = true)
                         }
 
-                        val description = target.description
-                        if (description != null) {
-                            Text(
-                                text = description,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = LocalDialogSecondaryTextColor.current
+                        section.forEachIndexed { index, bundled ->
+                            VersionRow(
+                                bundled = bundled,
+                                anyString = anyString,
+                                incompatibleSdkVersions = incompatibleSdkVersions,
+                                selectedVersion = selectedVersion,
+                                recommendedVersion = recommendedByBundle[bundleUid],
+                                savedVersion = savedVersion,
+                                installedVersion = installedVersion,
+                                hasMultipleBundles = hasMultipleBundles,
+                                selectionColor = selectionColor,
+                                selectedLabel = selectedLabel,
+                                onVersionSelect = onVersionSelect
                             )
+                            if (index < section.lastIndex) {
+                                SettingsDivider()
+                            }
                         }
                     }
-                }
-
-                // Row divider - skip after last row in a bundle group (section divider handles it)
-                val isLastInBundle = index == versions.lastIndex ||
-                        (hasMultipleBundles && versions[index + 1].bundleUid != bundled.bundleUid)
-                if (index < versions.lastIndex && !isLastInBundle) {
-                    SettingsDivider()
                 }
             }
         }
     }
 }
 
+/** One version of [SelectableVersionListCard], checked in [selectionColor] while it is the pick. */
+@Composable
+private fun VersionRow(
+    bundled: BundledAppTarget,
+    anyString: String,
+    incompatibleSdkVersions: Set<String>,
+    selectedVersion: AppTarget?,
+    recommendedVersion: String?,
+    savedVersion: String?,
+    installedVersion: String?,
+    hasMultipleBundles: Boolean,
+    selectionColor: Color,
+    selectedLabel: String,
+    onVersionSelect: (AppTarget) -> Unit
+) {
+    val target = bundled.target
+    val versionString = target.version ?: anyString
+    val isIncompatibleSdk = target.version != null && target.version in incompatibleSdkVersions
+    val isSelected = !isIncompatibleSdk && target.version != null && target.version == selectedVersion?.version
+    val isRecommended = !isIncompatibleSdk && target.version != null && target.version == recommendedVersion
+    val tags = versionTagsOf(
+        requiresAndroidSdk = target.minSdk.takeIf { isIncompatibleSdk },
+        isIncompatible = isIncompatibleSdk && target.minSdk == null,
+        isExperimental = target.isExperimental,
+        isRecommended = isRecommended,
+        isSaved = target.version != null && target.version == savedVersion,
+        isInstalled = target.version != null && target.version == installedVersion
+    )
+
+    val tagLabels = tags.labels()
+    val rowContentDesc = buildString {
+        append(versionString)
+        tagLabels.forEach { append(", $it") }
+        if (isSelected) append(", $selectedLabel")
+        target.description?.let { append(", $it") }
+        if (hasMultipleBundles) append(", ${bundled.bundleName}")
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(
+                if (isIncompatibleSdk) Modifier
+                else Modifier.selectable(
+                    selected = isSelected,
+                    onClick = { onVersionSelect(target) },
+                    role = Role.RadioButton
+                )
+            )
+            .semantics { contentDescription = rowContentDesc }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Checkmark column - fixed width so text aligns across all rows
+        Box(
+            modifier = Modifier.size(18.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isSelected) {
+                Icon(
+                    imageVector = Icons.Filled.Check,
+                    contentDescription = null,
+                    tint = selectionColor,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .then(if (isIncompatibleSdk) Modifier.alpha(0.4f) else Modifier),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = versionString,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontFamily = FontFamily.Monospace,
+                    // The check marks the pick, the weight backs it up, and the badges carry every tag
+                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                    color = LocalDialogTextColor.current,
+                    modifier = Modifier
+                        .weight(1f)
+                        .basicMarquee(iterations = Int.MAX_VALUE),
+                    maxLines = 1,
+                )
+
+                // A lone tag sits beside the version. Several go on a line of their own under it,
+                // since beside it they would squeeze the version out of sight
+                if (tags.size == 1) VersionTagBadge(tags.single())
+            }
+
+            if (tags.size > 1) {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                ) {
+                    tags.forEach { VersionTagBadge(it) }
+                }
+            }
+
+            val description = target.description
+            if (description != null) {
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = LocalDialogSecondaryTextColor.current
+                )
+            }
+        }
+    }
+}
 
 @Composable
 private fun VersionListCard(

@@ -1692,17 +1692,15 @@ private fun AppliedPatchesDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
             ) {
+                // A lone source's count is the one the header already states
                 LabeledSection(
                     title = stringResource(R.string.home_app_info_applied_patches),
                     version = if (bundles.size > 1) bundle.title else null,
-                    count = bundlePatchCount
+                    count = bundlePatchCount.takeIf { bundles.size > 1 }
                 ) {
-                    bundle.patchInfos.forEach { patch ->
-                        PatchNameRow(name = patch.displayName)
-                    }
-                    bundle.fallbackNames.forEach { patchName ->
-                        PatchNameRow(name = patchName, dimmed = true)
-                    }
+                    val rows = bundle.patchInfos.map { it.displayName to false } +
+                            bundle.fallbackNames.map { it to true }
+                    DividedRows(rows) { (name, dimmed) -> PatchNameRow(name = name, dimmed = dimmed) }
                 }
 
                 if (bundleOptions.isNotEmpty()) {
@@ -1710,7 +1708,7 @@ private fun AppliedPatchesDialog(
                         title = stringResource(R.string.settings_system_patch_options_section),
                         count = bundleOptions.size
                     ) {
-                        bundleOptions.entries.forEach { (patchName, options) ->
+                        DividedRows(bundleOptions.entries.toList()) { (patchName, options) ->
                             PatchOptionsGroup(
                                 patchName = patchDisplayNames[patchName] ?: patchName,
                                 options = options

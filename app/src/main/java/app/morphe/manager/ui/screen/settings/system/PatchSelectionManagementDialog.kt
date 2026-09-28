@@ -1017,7 +1017,7 @@ private fun PatchDetailsDialog(
                     title = stringResource(R.string.settings_system_selected_patches_section),
                     count = patchList.size
                 ) {
-                    patchList.forEach { patchName ->
+                    DividedRows(patchList.toList()) { patchName ->
                         PatchNameRow(name = displayNames[patchName] ?: patchName)
                     }
                 }
@@ -1029,7 +1029,7 @@ private fun PatchDetailsDialog(
                     title = stringResource(R.string.settings_system_patch_options_section),
                     count = optionsMap.size
                 ) {
-                    optionsMap.entries.forEach { (patchName, options) ->
+                    DividedRows(optionsMap.entries.toList()) { (patchName, options) ->
                         PatchOptionsGroup(
                             patchName = displayNames[patchName] ?: patchName,
                             options = options

@@ -6,9 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,30 +13,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+/**
+ * One patch of a [LabeledSection] list, its rows parted by [DividedRows]. Every row of the list is a
+ * patch that applies, so a mark on each would tell them nothing apart. [dimmed] is for a patch
+ * known only by name, whose source no longer describes it.
+ */
 @Composable
 fun PatchNameRow(
     name: String,
     modifier: Modifier = Modifier,
     dimmed: Boolean = false
 ) {
-    val colors = MaterialTheme.colorScheme
-    Row(
+    Text(
+        text = name,
+        style = MaterialTheme.typography.bodyMedium,
+        color = LocalDialogTextColor.current.let { if (dimmed) it.copy(alpha = 0.5f) else it },
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Defaults.ContentPadding),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        ThemedIcon(
-            icon = Icons.Outlined.CheckCircle,
-            tint = if (dimmed) colors.onSurfaceVariant.copy(alpha = 0.4f) else colors.primary
-        )
-        Text(
-            text = name,
-            style = MaterialTheme.typography.bodyMedium,
-            color = if (dimmed) colors.onSurface.copy(alpha = 0.5f) else colors.onSurface,
-            modifier = Modifier.weight(1f)
-        )
+            .padding(horizontal = Defaults.ContentPadding)
+    )
+}
+
+/** [items] one under another in a [LabeledSection], parted by dividers as the version lists are. */
+@Composable
+fun <T> DividedRows(items: List<T>, row: @Composable (T) -> Unit) {
+    items.forEachIndexed { index, item ->
+        if (index > 0) SettingsDivider()
+        row(item)
     }
 }
 
@@ -102,27 +102,14 @@ fun PatchOptionsGroup(
             .padding(horizontal = Defaults.ContentPadding),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ThemedIcon(
-                icon = Icons.Outlined.Tune,
-                tint = MaterialTheme.colorScheme.primary
-            )
-            Text(
-                text = patchName,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = LocalDialogTextColor.current,
-                modifier = Modifier.weight(1f)
-            )
-        }
+        Text(
+            text = patchName,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = LocalDialogTextColor.current
+        )
         options.forEach { (key, value) ->
-            Column(
-                modifier = Modifier.padding(start = Defaults.ItemSpacing),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
                     text = key,
                     style = MaterialTheme.typography.bodySmall,

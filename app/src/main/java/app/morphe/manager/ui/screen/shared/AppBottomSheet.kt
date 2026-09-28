@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -33,7 +34,8 @@ import kotlinx.coroutines.launch
  * @param modifier           Modifier applied to the sheet surface.
  * @param sheetState         Controls the sheet expand/collapse animation.
  * @param shape              Shape of the sheet (top corners).
- * @param containerColor     Background color of the sheet.
+ * @param containerColor     Background color of the sheet, the dialogs' own by default so the cards
+ *                           and headers tinted over it read the same in both.
  * @param contentColor       Preferred content color inside the sheet.
  * @param scrimColor         Color of the scrim behind the sheet.
  * @param showDragHandle     Whether to show the drag handle pill. Default true.
@@ -50,7 +52,7 @@ fun AppBottomSheet(
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
     ),
     shape: Shape = BottomSheetDefaults.ExpandedShape,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
+    containerColor: Color = MaterialTheme.colorScheme.background,
     contentColor: Color = contentColorFor(containerColor),
     scrimColor: Color = BottomSheetDefaults.ScrimColor,
     showDragHandle: Boolean = true,
@@ -73,35 +75,8 @@ fun AppBottomSheet(
         containerColor = effectiveContainerColor,
         contentColor = contentColor,
         scrimColor = scrimColor,
-        // The drag handle is rendered by ModalBottomSheet *above* the content area.
-        // Because statusBarsPadding() only affects the sheet surface (not the drag-handle slot),
-        // we add windowInsetsPadding(statusBars) to the handle Box so
-        // it shifts down by exactly the status-bar height and stays visible below it.
-        dragHandle = if (showDragHandle) {
-            {
-                val closeLabel = stringResource(R.string.close)
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        // Push the handle below the status bar inside the drag-handle slot
-                        .windowInsetsPadding(WindowInsets.statusBars)
-                        .padding(top = 12.dp, bottom = 4.dp)
-                        .semantics {
-                            contentDescription = closeLabel
-                            dismiss { onDismissRequest(); true }
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Surface(
-                        modifier = Modifier
-                            .width(32.dp)
-                            .height(4.dp),
-                        shape = RoundedCornerShape(50),
-                        color = contentColor.copy(alpha = 0.4f)
-                    ) {}
-                }
-            }
-        } else null,
+        // Drawn with the content instead, inside the edge below
+        dragHandle = null,
         contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
         // The sheet's own predictive back shrinks the content harder than the surrounding surface,
         // leaving bare sheet below whatever list it holds, so back is handled below instead
@@ -121,9 +96,46 @@ fun AppBottomSheet(
             // a sheet in the light theme would otherwise hand to everything it holds
             CompositionLocalProvider(
                 LocalDialogTextColor provides contentColor,
-                LocalDialogSecondaryTextColor provides contentColor.copy(alpha = 0.7f),
-                content = { content() }
-            )
+                LocalDialogSecondaryTextColor provides contentColor.copy(alpha = 0.7f)
+            ) {
+                // On the dialogs' background the sheet has nothing but an edge of its own to tell
+                // it from the screen dimmed behind it. The sheet's modifier sits outside the offset
+                // it slides in by, so the edge goes around the content, handle included
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(CardBorder.neutral, shape)
+                ) {
+                    if (showDragHandle) SheetDragHandle(contentColor, onDismissRequest)
+                    content()
+                }
+            }
         }
     )
+}
+
+@Composable
+private fun SheetDragHandle(contentColor: Color, onDismissRequest: () -> Unit) {
+    val closeLabel = stringResource(R.string.close)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            // The sheet already stops short of the status bar, which leaves this at zero there. It
+            // keeps the handle clear of the bar wherever the insets reach this far
+            .windowInsetsPadding(WindowInsets.statusBars)
+            .padding(top = 12.dp, bottom = 4.dp)
+            .semantics {
+                contentDescription = closeLabel
+                dismiss { onDismissRequest(); true }
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            modifier = Modifier
+                .width(32.dp)
+                .height(4.dp),
+            shape = RoundedCornerShape(50),
+            color = contentColor.copy(alpha = 0.4f)
+        ) {}
+    }
 }

@@ -1,3 +1,11 @@
+# [1.33.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.9...v1.33.0-dev.10) (2026-09-28)
+
+
+### Bug Fixes
+
+* Delete the bundle DEX directories older patchers left in the app cache ([6b92f02](https://github.com/MorpheApp/morphe-manager/commit/6b92f02ca70c34dc14c0acea20af5e1faec59c24))
+* Move the merged APK into place instead of copying it twice after patching a split archive ([aa1b42b](https://github.com/MorpheApp/morphe-manager/commit/aa1b42becd347e0920542ea8f6daae47b730c20f))
+
 # [1.33.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.8...v1.33.0-dev.9) (2026-09-28)
 
 

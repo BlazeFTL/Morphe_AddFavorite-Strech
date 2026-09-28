@@ -51,7 +51,7 @@ private fun resolveButtonColors(isDestructive: Boolean, filled: Boolean): Dialog
     return if (isDestructive) {
         // A veil, with the red on the label and edge alone, see Destructive.kt
         DialogButtonColors(
-            containerColor = if (filled) destructiveFill(textColor) else Color.Transparent,
+            containerColor = if (filled) neutralVeil(textColor) else Color.Transparent,
             contentColor = dialogDestructiveColor(),
             borderColor = destructiveEdgeColor(dialogDestructiveColor())
         )

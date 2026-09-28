@@ -1516,13 +1516,10 @@ private fun TileActionButton(
     modifier: Modifier = Modifier,
     horizontal: Boolean = false
 ) {
-    // Neutral, so the primary action is the one tile in a color
+    // One veil for every tile, so only the primary action wears a color and destructive ones their red
     ActionButton(
         action = action,
-        containerColor = when {
-            action.isDestructive -> destructiveFill()
-            else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
-        },
+        containerColor = neutralVeil(),
         contentColor = when {
             action.isDestructive -> destructiveColor()
             else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)

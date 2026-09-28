@@ -27,6 +27,7 @@ import app.morphe.manager.patcher.patch.BundleAppMetadata
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.compositeOver
 import app.morphe.manager.util.contrastingContent
+import app.morphe.manager.util.isDarkBackground
 import app.morphe.manager.util.isExtremeAccent
 import app.morphe.manager.util.rememberSourceAccent
 import org.koin.compose.koinInject
@@ -94,7 +95,7 @@ fun ProvideCardAccent(accentColor: Color?, fill: Color, content: @Composable () 
 
 /**
  * A [StatusBadge] a step over the app-colored surface it sits on, see [LocalAccent]. Without a color,
- * a neutral badge takes a gray veil so it does not outweigh colored ones, other tones keep theirs.
+ * a neutral badge takes [neutralVeil] so it does not outweigh colored ones, other tones keep theirs.
  */
 @Composable
 fun AppAccentBadge(
@@ -112,7 +113,7 @@ fun AppAccentBadge(
         icon = icon,
         tone = tone,
         containerColor = if (veiled) {
-            appAccentTint(accentColor, alpha = AccentAlpha.STEP, neutral = neutralBadgeFill())
+            appAccentTint(accentColor, alpha = AccentAlpha.STEP, neutral = neutralVeil())
         } else {
             tone.container
         },
@@ -122,11 +123,12 @@ fun AppAccentBadge(
 }
 
 /**
- * Fill of a neutral badge beside badges in an app's own color: the same veil over the surface in
- * gray, where a solid fill would outweigh the colored ones.
+ * Veil of [ink], the text color of the surface below, for anything that must stand on any surface
+ * without tinting it: neutral badges, destructive actions, plain tiles. One veil, so no stray grays.
  */
 @Composable
-fun neutralBadgeFill(): Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f)
+fun neutralVeil(ink: Color = MaterialTheme.colorScheme.onBackground): Color =
+    ink.copy(alpha = if (ink.isDarkBackground()) 0.08f else 0.1f)
 
 /**
  * Content color over [fill], a tint of an app's color: the header's text over a see-through tint,

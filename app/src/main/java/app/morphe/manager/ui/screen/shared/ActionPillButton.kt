@@ -142,7 +142,7 @@ object ActionPillColors {
 
     /** Removes, discards or hides something, see [destructiveColor]. */
     @Composable
-    fun destructive(): IconButtonColors = tonal(destructiveFill(), destructiveColor())
+    fun destructive(): IconButtonColors = tonal(neutralVeil(), destructiveColor())
 
     @Composable
     private fun tonal(container: Color, content: Color): IconButtonColors =
@@ -152,7 +152,7 @@ object ActionPillColors {
 /**
  * Pill-shaped action button with an icon, optional text label, and optional long-press tooltip.
  *
- * A [destructive] pill draws its content and edge in red over a veil, see [destructiveFill], so it
+ * A [destructive] pill draws its content and edge in red over a veil, see [neutralVeil], so it
  * stays apart on a card whose own color is a red.
  *
  * A non-null [confirmation] answers every tap in place: the pill widens to show it in place of

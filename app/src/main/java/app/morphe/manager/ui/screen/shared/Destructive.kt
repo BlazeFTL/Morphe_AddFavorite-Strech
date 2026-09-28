@@ -5,14 +5,13 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import app.morphe.manager.ui.theme.isDarkTheme
 import app.morphe.manager.util.isDarkBackground
 
 /*
- * A destructive action sits on a faint veil with red only on its content and edge, so it never
+ * A destructive action sits on [neutralVeil] with red only on its content and edge, so it never
  * outweighs the primary action, even on a red card. Every destructive pill, tile and button uses these.
  */
 
@@ -39,14 +38,6 @@ fun dialogDestructiveColor(): Color =
  */
 @Composable
 fun destructiveColor(): Color = if (isDarkTheme()) DestructiveColorDark else DestructiveColorLight
-
-/**
- * Fill of a destructive action: a veil of [ink], the color text takes on the surface below, so it
- * lifts the action off any background without tinting it.
- */
-@Composable
-fun destructiveFill(ink: Color = MaterialTheme.colorScheme.onBackground): Color =
-    ink.copy(alpha = if (ink.isDarkBackground()) 0.08f else 0.1f)
 
 /** Edge of a destructive action drawn in [red]. */
 @Composable

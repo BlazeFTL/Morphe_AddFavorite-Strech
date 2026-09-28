@@ -625,12 +625,10 @@ private fun InstallActions(
             enter = Animations.fadeIn,
             exit = Animations.fadeOut
         ) {
-            TextButton(onClick = onIgnoreSignatureMismatch) {
-                Text(
-                    text = stringResource(R.string.install_ignore_signature),
-                    style = MaterialTheme.typography.labelLarge
-                )
-            }
+            AppDialogOutlinedButton(
+                text = stringResource(R.string.install_ignore_signature),
+                onClick = onIgnoreSignatureMismatch
+            )
         }
     }
 }
@@ -651,16 +649,15 @@ private fun InstallActionButton(
     val isInstalled = installState is InstallState.Installed
     val conflictPackageName = (installState as? InstallState.Conflict)?.packageName
 
+    // Solid in the app's color, the one the screen wears, or the theme's where there is none
+    val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val buttonColors = if (installState.failed) {
         ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.error,
             contentColor = MaterialTheme.colorScheme.onError
         )
     } else {
-        ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
-        )
+        ButtonDefaults.buttonColors(containerColor = accent, contentColor = appAccentContent(accent))
     }
 
     Button(
@@ -673,7 +670,7 @@ private fun InstallActionButton(
         },
         enabled = !isInstalling,
         modifier = modifier.height(56.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(Defaults.CardCornerRadius),
         colors = buttonColors,
         contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
     ) {

@@ -1037,12 +1037,12 @@ private fun InfoSection(
         } catch (_: Exception) { emptyList() }
     }
 
-    // Filled like the app's cards elsewhere, so the panel reads as part of the app's dialog
+    // Edged like the app's cards elsewhere, so the panel reads as part of the app's dialog
     SurfaceCard(
         cornerRadius = Defaults.CardCornerRadius,
         showBorder = true,
         borderColor = appAccentBorder(accentColor),
-        color = appAccentCardFill(accentColor) ?: MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+        color = appCardFill(),
         modifier = modifier
     ) {
         Column {
@@ -1516,17 +1516,15 @@ private fun TileActionButton(
     modifier: Modifier = Modifier,
     horizontal: Boolean = false
 ) {
-    // Tinted with the app's color at the primary action's fill, which its colored edge keeps ahead
-    val accentFill = LocalAccent.current?.copy(alpha = AccentAlpha.BAND)
+    // Neutral, so the primary action is the one tile in the app's color
     ActionButton(
         action = action,
         containerColor = when {
             action.isDestructive -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.45f)
-            else -> accentFill ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+            else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
         },
         contentColor = when {
             action.isDestructive -> MaterialTheme.colorScheme.error
-            accentFill != null -> appAccentContent(accentFill)
             else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
         },
         borderColor = when {

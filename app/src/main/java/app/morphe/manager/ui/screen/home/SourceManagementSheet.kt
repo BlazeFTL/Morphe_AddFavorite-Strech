@@ -651,16 +651,13 @@ private fun BundleManagementCard(
     val isEnabled = bundle.enabled && !isBlocked
     val isUnavailable = metadataFetchError != null || bundle.state is PatchBundleSource.State.Missing
 
-    // A working source wears its icon's color, as its dialogs and patch cards do, held back by alpha
-    // alone so it reads as itself at a glance. One switched off drops to the neutral card and says
-    // so in its badge, so a list of mostly disabled sources does not read as a list of errors. Red
-    // and amber stay for a source that cannot be used as it is. Every fill is a veil over the sheet,
-    // the neutral one included, so no card sinks below the sheet beside the rest
+    // Neutral fill for all, so the sheet reads as one list; a working source keeps its color on the edge
+    // and controls, a disabled one drops it rather than turn red, which stays for an unusable source
     val accentColor = usableAppAccent(rememberBundleAccent(bundle).takeIf { isEnabled && !isUnavailable })
     val cardColor = when {
         isBlocked -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.15f)
         isUnavailable -> SemanticTone.Warning.container.copy(alpha = 0.15f)
-        else -> appAccentCardFill(accentColor) ?: appAccentFill(null)
+        else -> appCardFill()
     }
     val animatedColor by animateColorAsState(cardColor, label = "bundle_card_color")
 
@@ -1109,8 +1106,11 @@ private fun BundleCardHeader(
                     )
                 }
 
-                // Bundle type badge
-                BundleTypeBadge(bundle.sourceType)
+                // Bundle type badge, faded with the title since it describes the source as well
+                BundleTypeBadge(
+                    type = bundle.sourceType,
+                    modifier = Modifier.graphicsLayer { alpha = titleAlpha }
+                )
 
                 SourceStateBadge(
                     visible = unavailable,
@@ -1172,7 +1172,7 @@ private fun RowScope.SourceStateBadge(
         enter = Animations.expandHorizFadeIn,
         exit = Animations.shrinkHorizFadeOut
     ) {
-        StatusBadge(text = text, tone = tone)
+        AppAccentBadge(text = text, accentColor = null, tone = tone)
     }
 }
 
@@ -1208,13 +1208,17 @@ private fun Modifier.reportBounds(onPositioned: ((Rect) -> Unit)?): Modifier =
  *   [LocalAccent]. Null for the neutral badge.
  */
 @Composable
-fun BundleTypeBadge(type: BundleSourceType, accentColor: Color? = LocalAccent.current) {
+fun BundleTypeBadge(
+    type: BundleSourceType,
+    modifier: Modifier = Modifier,
+    accentColor: Color? = LocalAccent.current
+) {
     val text = when (type) {
         BundleSourceType.PreInstalled -> stringResource(R.string.sources_dialog_preinstalled)
         BundleSourceType.Remote -> stringResource(R.string.sources_dialog_remote)
         BundleSourceType.Local -> stringResource(R.string.sources_dialog_local)
     }
-    AppAccentBadge(text = text, accentColor = accentColor)
+    AppAccentBadge(text = text, modifier = modifier, accentColor = accentColor)
 }
 
 /**

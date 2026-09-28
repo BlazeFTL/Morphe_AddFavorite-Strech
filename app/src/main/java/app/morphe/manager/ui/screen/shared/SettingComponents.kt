@@ -564,8 +564,8 @@ fun SettingsSwitchItem(
 /**
  * Section container card.
  *
- * @param accentColor Color of the app or source the card stands for, which fills it the way the
- *   source list fills its cards and carries on to the controls inside, see [LocalAccent].
+ * @param accentColor Color of the app or source the card stands for, drawn on its edge and passed to
+ *   the controls inside, see [LocalAccent]. The fill stays neutral, see [cardFill].
  */
 @Composable
 fun SectionCard(
@@ -574,17 +574,17 @@ fun SectionCard(
     accentColor: Color? = null,
     content: @Composable () -> Unit
 ) {
-    val fill = appAccentCardFill(accentColor)
+    val fill = appCardFill()
     SurfaceCard(
         onClick = onClick,
         elevation = Defaults.CardElevation,
         cornerRadius = Defaults.SectionCornerRadius,
         showBorder = true,
         borderColor = appAccentBorder(accentColor),
-        color = fill ?: MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+        color = fill,
         modifier = modifier
     ) {
-        if (fill == null) content() else ProvideCardAccent(accentColor, fill, content)
+        if (accentColor == null) content() else ProvideCardAccent(accentColor, fill, content)
     }
 }
 

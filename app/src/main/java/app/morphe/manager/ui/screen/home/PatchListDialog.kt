@@ -409,7 +409,7 @@ internal fun PatchItemCard(
     val versions = compatible?.versions.orEmpty().takeIf { it != commonVersions }.orEmpty().toList()
     val isExpertOnly = !patch.include && onExpertBadgeClick != null
 
-    val cardColor = appAccentCardFill(accentColor) ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+    val cardColor = appCardFill()
 
     SettingsItemCard(
         onClick = if (options.isNotEmpty()) {
@@ -420,8 +420,7 @@ internal fun PatchItemCard(
         borderColor = appAccentBorder(accentColor),
         color = cardColor
     ) {
-        // Card colors come from the app's own icon, so no fixed badge fill can be counted on to
-        // show, and the badges on it take that color as the card does
+        // The badges on the card take the app's color, as its edge does
         ProvideCardAccent(accentColor, cardColor) {
             Column(
                 modifier = Modifier.padding(Defaults.ContentPadding),

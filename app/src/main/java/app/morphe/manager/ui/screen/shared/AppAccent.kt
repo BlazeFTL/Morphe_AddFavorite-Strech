@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -13,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.avatarUrls
@@ -34,10 +36,7 @@ object AccentAlpha {
     /** A header band, which spans the dialog and only has to hint at the color. */
     const val BAND = 0.15f
 
-    /**
-     * A card, a touch over [BAND]. A card covers far more of the background than a band does, and
-     * at the band's alpha its color reads as a shade.
-     */
+    /** A group header or a picked card, over [BAND] since at that alpha a larger area reads as a shade. */
     const val CARD = 0.18f
 
     /** A control or panel a step over the surface it sits on, such as a badge, so it stands out of it. */
@@ -46,8 +45,11 @@ object AccentAlpha {
     /** A control a step over [STEP], for one that leads, such as a pill or an engaged title action. */
     const val LEAD = 0.3f
 
-    /** A card's edge. The fill behind the card's text stays muted for the text's sake, so the edge is where the color shows. */
-    const val BORDER = 0.4f
+    /**
+     * A card's edge. The card's fill stays neutral, see [appCardFill], so the edge is where the color
+     * shows, and has to hold even a dark icon color apart from a black background.
+     */
+    const val BORDER = 0.6f
 }
 
 /**
@@ -58,9 +60,21 @@ object AccentAlpha {
 fun appAccentFill(accentColor: Color?): Color =
     appAccentTint(accentColor, alpha = AccentAlpha.BAND, neutral = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f))
 
-/** Fill of a card in an app's or a source's own color, or null where [usableAppAccent] finds none. */
+/**
+ * Fill of a group header or a picked card in an app's or a source's own color, or null where
+ * [usableAppAccent] finds none. A card that merely stands for an app takes [appCardFill] instead.
+ */
 @Composable
 fun appAccentCardFill(accentColor: Color?): Color? = usableAppAccent(accentColor)?.copy(alpha = AccentAlpha.CARD)
+
+/**
+ * Fill of a card that stands for an app or a source. Neutral, with the color left to its edge and
+ * the controls on it: filled cards stacked on a colored dialog read as one wash of color, and a
+ * list of sources as patches of unrelated ones.
+ */
+@Composable
+fun appCardFill(): Color =
+    ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
 
 /** Border of a card that carries an app's own color, see [AccentAlpha.BORDER]. */
 @Composable
@@ -91,9 +105,8 @@ fun ProvideCardAccent(accentColor: Color?, fill: Color, content: @Composable () 
 }
 
 /**
- * A [StatusBadge] laid on a surface in an app's own color, a step stronger than [appAccentFill] so
- * it stands out of it. The color is the surrounding one by default, see [LocalAccent]. Without one,
- * it keeps [tone]'s own look.
+ * A [StatusBadge] a step over the app-colored surface it sits on, see [LocalAccent]. Without a color,
+ * a neutral badge takes a gray veil so it does not outweigh colored ones, other tones keep theirs.
  */
 @Composable
 fun AppAccentBadge(
@@ -104,17 +117,18 @@ fun AppAccentBadge(
     tone: SemanticTone = SemanticTone.Neutral,
     onClick: (() -> Unit)? = null
 ) {
+    val veiled = accentColor != null || tone == SemanticTone.Neutral
     StatusBadge(
         text = text,
         modifier = modifier,
         icon = icon,
         tone = tone,
-        containerColor = if (accentColor != null) {
+        containerColor = if (veiled) {
             appAccentTint(accentColor, alpha = AccentAlpha.STEP, neutral = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f))
         } else {
             tone.container
         },
-        contentColor = if (accentColor != null) MaterialTheme.colorScheme.onBackground else tone.content,
+        contentColor = if (veiled) MaterialTheme.colorScheme.onBackground else tone.content,
         onClick = onClick
     )
 }

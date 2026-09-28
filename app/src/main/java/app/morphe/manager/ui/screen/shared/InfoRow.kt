@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -32,20 +31,18 @@ import androidx.compose.ui.unit.dp
  * Panel holding [InfoRow]s inside a card, set apart from the card by a fill alone since the card's
  * own edge already holds it. Rows are separated with [SettingsDivider]s.
  *
- * @param accentColor Color the card wears, which the panel takes a step further, as badges do on an
- *   app's header. A neutral fill there would grey the card's color out.
+ * The fill is neutral even on a card in an app's own color: the panel holds values to read rather
+ * than something to act on, and a tint stacked on the card's own would wash its text out.
  */
 @Composable
 fun InfoPanel(
     modifier: Modifier = Modifier,
-    accentColor: Color? = LocalAccent.current,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-        color = usableAppAccent(accentColor)?.copy(alpha = AccentAlpha.STEP)
-            ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
     ) {
         Column(content = content)
     }

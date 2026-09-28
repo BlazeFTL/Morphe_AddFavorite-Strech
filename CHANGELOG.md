@@ -1,3 +1,10 @@
+# [1.33.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.8...v1.33.0-dev.9) (2026-09-28)
+
+
+### Bug Fixes
+
+* Skip unneeded splits before unpacking the bundle, keeping any module whose manifest declares no split ([ab112d7](https://github.com/MorpheApp/morphe-manager/commit/ab112d774eb7feb5cccdfd862066883dacdc1f2f))
+
 # [1.33.0-dev.8](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.7...v1.33.0-dev.8) (2026-09-27)
 
 

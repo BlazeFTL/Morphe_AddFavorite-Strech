@@ -137,6 +137,29 @@ fun PatcherScreen(
         }
     }
 
+    // What the success screen's button starts: a mount, or an install that checks for a rename first
+    fun installPatchedApp() {
+        if (usingMountInstall) {
+            installViewModel.installMount(
+                outputFile = outputFile,
+                inputFile = patcherViewModel.inputFile,
+                inputIsTemporary = patcherViewModel.inputFileIsDisposable,
+                packageName = patcherViewModel.packageName,
+                onPersistApp = patcherViewModel::persistPatchedApp
+            )
+        } else {
+            scope.launch {
+                startInstall {
+                    installViewModel.install(
+                        outputFile = outputFile,
+                        originalPackageName = patcherViewModel.packageName,
+                        onPersistApp = patcherViewModel::persistPatchedApp
+                    )
+                }
+            }
+        }
+    }
+
     // Auto-install: driven by ViewModel so it fires in the background even if the app is not
     // in the foreground when patching completes. UI-only guards checked here.
     LaunchedEffect(Unit) {
@@ -147,7 +170,7 @@ fun PatcherScreen(
                 installViewModel.install(
                     outputFile = outputFile,
                     originalPackageName = patcherViewModel.packageName,
-                    onPersistApp = { pkg, type -> patcherViewModel.persistPatchedApp(pkg, type) },
+                    onPersistApp = patcherViewModel::persistPatchedApp,
                     autoUninstallOnConflict = true
                 )
             }
@@ -450,6 +473,11 @@ fun PatcherScreen(
         )
     }
 
+    // Named on the success screen, read once since the run's selection no longer changes
+    val patchSources by produceState(emptyList(), patcherViewModel) {
+        value = patcherViewModel.collectSelectedBundleMetadata()
+    }
+
     // Main content
     // Worn by everything the screen shows, as the app's dialogs wear it, down to the install button
     ProvideAccent(rememberAppColor(patcherViewModel.packageName)) {
@@ -494,8 +522,7 @@ fun PatcherScreen(
                                 patchProgress = patcherViewModel.patchRun,
                                 packageName = patcherViewModel.packageName,
                                 showLongStepWarning = showLongStepWarning,
-                                onCancelClick = { state.showCancelDialog = true },
-                                onHomeClick = onBackClick
+                                onCancelClick = { state.showCancelDialog = true }
                             )
                         }
                     }
@@ -521,6 +548,10 @@ fun PatcherScreen(
                         }
 
                         PatchingSuccess(
+                            packageName = patcherViewModel.packageName,
+                            version = patcherViewModel.version,
+                            patchCount = patcherViewModel.patchCount,
+                            sources = patchSources,
                             installState = shownInstallState,
                             installedPackageName = installedPackageName,
                             usingMountInstall = usingMountInstall,
@@ -534,33 +565,7 @@ fun PatcherScreen(
                                 }
                                 patcherViewModel.hideSuccessScreen()
                             },
-                            onInstall = {
-                                if (usingMountInstall) {
-                                    // Mount install
-                                    installViewModel.installMount(
-                                        outputFile = outputFile,
-                                        inputFile = patcherViewModel.inputFile,
-                                        inputIsTemporary = patcherViewModel.inputFileIsDisposable,
-                                        packageName = patcherViewModel.packageName,
-                                        onPersistApp = { pkg, type ->
-                                            patcherViewModel.persistPatchedApp(pkg, type)
-                                        }
-                                    )
-                                } else {
-                                    // Regular installation with pre-conflict check
-                                    scope.launch {
-                                        startInstall {
-                                            installViewModel.install(
-                                                outputFile = outputFile,
-                                                originalPackageName = patcherViewModel.packageName,
-                                                onPersistApp = { pkg, type ->
-                                                    patcherViewModel.persistPatchedApp(pkg, type)
-                                                }
-                                            )
-                                        }
-                                    }
-                                }
-                            },
+                            onInstall = ::installPatchedApp,
                             onUninstall = { packageName ->
                                 installViewModel.requestUninstall(packageName, installAfterUninstall = true)
                             },

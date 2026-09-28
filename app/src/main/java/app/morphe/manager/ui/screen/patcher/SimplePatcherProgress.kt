@@ -51,8 +51,7 @@ fun SimplePatchingInProgress(
     packageName: String? = null,
     showLongStepWarning: Boolean = false,
     queueHeader: (@Composable () -> Unit)? = null,
-    onCancelClick: () -> Unit,
-    onHomeClick: () -> Unit
+    onCancelClick: () -> Unit
 ) {
     val windowSize = rememberWindowSize()
     val (completed, total) = patchesProgress
@@ -96,22 +95,15 @@ fun SimplePatchingInProgress(
                 showLongStepWarning = showLongStepWarning,
                 patchProgress = patchProgress,
                 queueHeader = queueHeader,
-                onCancelClick = onCancelClick,
-                onHomeClick = onHomeClick
+                onCancelClick = onCancelClick
             )
         }
 
         // Bottom action bar
         if (!isLandscape()) {
             PatcherBottomActionBar(
-                showCancelButton = true,
                 showHomeButton = false,
-                showSaveButton = false,
-                showErrorButton = false,
-                onCancelClick = onCancelClick,
-                onHomeClick = onHomeClick,
-                onSaveClick = {},
-                onErrorClick = {}
+                onCancelClick = onCancelClick
             )
         }
     }
@@ -131,8 +123,7 @@ private fun AdaptiveProgressContent(
     showLongStepWarning: Boolean,
     patchProgress: PatchProgressSource,
     queueHeader: (@Composable () -> Unit)? = null,
-    onCancelClick: () -> Unit = {},
-    onHomeClick: () -> Unit = {}
+    onCancelClick: () -> Unit
 ) {
     val contentPadding = windowSize.contentPadding
     val itemSpacing = windowSize.itemSpacing
@@ -173,14 +164,8 @@ private fun AdaptiveProgressContent(
                 // Action bar
                 PatcherBottomActionBar(
                     horizontalPadding = 0.dp,
-                    showCancelButton = true,
                     showHomeButton = false,
-                    showSaveButton = false,
-                    showErrorButton = false,
-                    onCancelClick = onCancelClick,
-                    onHomeClick = onHomeClick,
-                    onSaveClick = {},
-                    onErrorClick = {}
+                    onCancelClick = onCancelClick
                 )
             }
 
@@ -397,6 +382,8 @@ fun CurrentStepIndicator(
     }
     val reduceMotion = rememberAccessibilityEnabled()
     val stepName = currentStep?.name
+    // In the app's color, as the ring above it is
+    val stepColor = LocalAccent.current ?: MaterialTheme.colorScheme.primary
 
     val stepStyle = when (windowSize.widthSizeClass) {
         WindowWidthSizeClass.Compact -> MaterialTheme.typography.bodyLarge
@@ -409,7 +396,7 @@ fun CurrentStepIndicator(
             Text(
                 text = stepName,
                 style = stepStyle,
-                color = MaterialTheme.colorScheme.primary,
+                color = stepColor,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -424,7 +411,7 @@ fun CurrentStepIndicator(
                 Text(
                     text = name,
                     style = stepStyle,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = stepColor,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )

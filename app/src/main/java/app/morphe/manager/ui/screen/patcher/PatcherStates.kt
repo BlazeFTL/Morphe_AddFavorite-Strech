@@ -7,7 +7,9 @@ package app.morphe.manager.ui.screen.patcher
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +19,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.InstallMobile
 import androidx.compose.material.icons.outlined.Link
@@ -26,20 +29,25 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
+import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_PREFIX_BUILD
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_PREFIX_DEVICE
 import app.morphe.manager.patcher.worker.PatcherWorker.Companion.LOG_WORKER_PREFIX_SOURCE
 import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.InstallViewModel.InstallState
 import app.morphe.manager.ui.viewmodel.PatcherViewModel
+import app.morphe.manager.util.contrastingContent
 
 /**
  * Snapshot of patched-app metadata shown in the error dialog.
@@ -49,12 +57,10 @@ data class PatcherErrorInfo(
     val packageName: String,
     val appVersion: String,
     val patchCount: Int,
-    val bundles: List<BundleInfo>,
+    val bundles: List<PatchSourceRef>,
     /** Null where the setting the run used is no longer known, as in a batch run. */
     val stripsNativeLibs: Boolean?
-) {
-    data class BundleInfo(val name: String, val version: String?)
-}
+)
 
 /**
  * Log lines the error dialog already spells out field by field in its diagnostics card, dropped
@@ -135,6 +141,10 @@ private val InstallState.failed get() = this is InstallState.Error || this is In
  */
 @Composable
 fun PatchingSuccess(
+    packageName: String,
+    version: String?,
+    patchCount: Int,
+    sources: List<PatchSourceRef>,
     installState: InstallState,
     installedPackageName: String?,
     usingMountInstall: Boolean,
@@ -151,228 +161,48 @@ fun PatchingSuccess(
     isSaving: Boolean
 ) {
     val windowSize = rememberWindowSize()
+    val failed = installState.failed
+    // In the app's color, as the install button under it is, or the theme where there is none
+    val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
 
-    val iconTint = if (installState.failed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-    val iconBackgroundColor = if (installState.failed) {
-        MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f)
-    } else {
-        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-    }
-    val icon = if (installState.failed) Icons.Default.Close else Icons.Default.Check
-
-    // Main content area
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-    ) {
-        // Content
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            AdaptiveSuccessContent(
-                windowSize = windowSize,
-                icon = icon,
-                iconTint = iconTint,
-                iconBackgroundColor = iconBackgroundColor,
-                installState = installState,
-                installedPackageName = installedPackageName,
-                usingMountInstall = usingMountInstall,
-                excludedPatches = excludedPatches,
-                onInstall = onInstall,
-                onUninstall = onUninstall,
-                onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
-                onOpen = onOpen,
-                isExpertMode = isExpertMode,
-                showBackToGameHint = showBackToGameHint,
-                onHomeClick = onHomeClick,
-                onLogsClick = onLogsClick,
-                onSaveClick = onSaveClick,
-                isSaving = isSaving
-            )
-        }
-
-        // Bottom action bar (portrait only - in landscape it lives inside the left column)
-        if (!isLandscape()) {
-            BackToGameCallout(visible = showBackToGameHint && !installState.failed)
-
-            PatcherBottomActionBar(
-                showCancelButton = false,
-                showLogsButton = isExpertMode,
-                showHomeButton = true,
-                showSaveButton = true,
-                showErrorButton = false,
-                onCancelClick = {},
-                onLogsClick = onLogsClick,
-                onHomeClick = onHomeClick,
-                onSaveClick = onSaveClick,
-                isSaving = isSaving,
-                onErrorClick = {}
-            )
-        }
-    }
-}
-
-/**
- * Adaptive content layout for success screen.
- */
-@Composable
-private fun AdaptiveSuccessContent(
-    windowSize: WindowSize,
-    icon: ImageVector,
-    iconTint: Color,
-    iconBackgroundColor: Color,
-    installState: InstallState,
-    installedPackageName: String?,
-    usingMountInstall: Boolean,
-    excludedPatches: List<String>,
-    onInstall: () -> Unit,
-    onUninstall: (String) -> Unit,
-    onIgnoreSignatureMismatch: () -> Unit,
-    onOpen: () -> Unit,
-    isExpertMode: Boolean = false,
-    showBackToGameHint: Boolean = false,
-    onHomeClick: () -> Unit = {},
-    onLogsClick: () -> Unit = {},
-    onSaveClick: () -> Unit = {},
-    isSaving: Boolean = false
-) {
-    val contentPadding = windowSize.contentPadding
-    val itemSpacing = windowSize.itemSpacing
-    val useTwoColumns = isLandscape()
-
-    if (useTwoColumns) {
-        // Two-column layout for landscape
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = contentPadding),
-            horizontalArrangement = Arrangement.spacedBy(itemSpacing * 3),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Left column: Icon, status, and action bar
-            Column(
-                modifier = Modifier
-                    .weight(0.5f)
-                    .fillMaxHeight(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Box(
-                    modifier = Modifier.weight(1f),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(itemSpacing)
-                    ) {
-                        SuccessIcon(
-                            icon = icon,
-                            iconTint = iconTint,
-                            iconBackgroundColor = iconBackgroundColor,
-                            windowSize = windowSize
-                        )
-
-                        SuccessStatusText(
-                            installState = installState,
-                            installedPackageName = installedPackageName,
-                            windowSize = windowSize
-                        )
-                    }
-                }
-
-                BackToGameCallout(visible = showBackToGameHint && !installState.failed)
-
-                PatcherBottomActionBar(
-                    horizontalPadding = 0.dp,
-                    showCancelButton = false,
-                    showLogsButton = isExpertMode,
-                    showHomeButton = true,
-                    showSaveButton = true,
-                    showErrorButton = false,
-                    onCancelClick = {},
-                    onLogsClick = onLogsClick,
-                    onHomeClick = onHomeClick,
-                    onSaveClick = onSaveClick,
-                    isSaving = isSaving,
-                    onErrorClick = {}
-                )
-            }
-
-            // Right column: Instructions and actions
-            Column(
-                modifier = Modifier
-                    .weight(0.5f)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                SuccessInstructionsText(
-                    installState = installState,
-                    installedPackageName = installedPackageName,
-                    usingMountInstall = usingMountInstall
-                )
-
-                SuccessErrorMessage(installState = installState)
-
-                SuccessConflictHint(installState = installState)
-
-                SuccessExcludedPatchesHint(
-                    excludedPatches = excludedPatches,
-                    isReady = installState is InstallState.Ready
-                )
-
-                Spacer(Modifier.height(itemSpacing))
-
-                InstallActions(
-                    installState = installState,
-                    usingMountInstall = usingMountInstall,
-                    onInstall = onInstall,
-                    onUninstall = onUninstall,
-                    onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
-                    onOpen = onOpen
-                )
-            }
-        }
-    } else {
-        // Single-column layout for compact windows (portrait)
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = contentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(itemSpacing * 3)
-        ) {
+    SuccessLayout(
+        windowSize = windowSize,
+        header = {
             SuccessIcon(
-                icon = icon,
-                iconTint = iconTint,
-                iconBackgroundColor = iconBackgroundColor,
-                windowSize = windowSize
+                icon = if (failed) Icons.Default.Close else Icons.Default.Check,
+                iconTint = if (failed) MaterialTheme.colorScheme.error else accent,
+                glowColor = if (failed) MaterialTheme.colorScheme.error else accent,
+                windowSize = windowSize,
+                packageName = packageName
             )
-
-            SuccessStatusText(
-                installState = installState,
-                installedPackageName = installedPackageName,
-                windowSize = windowSize
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(windowSize.itemSpacing)
+            ) {
+                SuccessStatusText(installState, installedPackageName, windowSize)
+                SuccessAppSummary(packageName, version, patchCount, sources)
+            }
+        },
+        details = {
+            SuccessInstructionsText(installState, installedPackageName, usingMountInstall)
+            SuccessNotice(
+                text = (installState as? InstallState.Error)?.message,
+                tone = SemanticTone.Error,
+                icon = Icons.Outlined.ErrorOutline
             )
-
-            SuccessInstructionsText(
-                installState = installState,
-                installedPackageName = installedPackageName,
-                usingMountInstall = usingMountInstall
+            SuccessNotice(
+                text = stringResource(R.string.patcher_conflict_hint).takeIf { installState is InstallState.Conflict },
+                tone = SemanticTone.Error,
+                icon = Icons.Outlined.Warning
             )
-
-            SuccessErrorMessage(installState = installState)
-
-            SuccessConflictHint(installState = installState)
-
-            SuccessExcludedPatchesHint(
-                excludedPatches = excludedPatches,
-                isReady = installState is InstallState.Ready
+            SuccessNotice(
+                text = stringResource(R.string.patcher_patches_excluded_for_installer, excludedPatches.joinToString())
+                    .takeIf { excludedPatches.isNotEmpty() && installState is InstallState.Ready },
+                tone = SemanticTone.Neutral,
+                icon = Icons.Outlined.Info
             )
-
+        },
+        actions = {
             InstallActions(
                 installState = installState,
                 usingMountInstall = usingMountInstall,
@@ -381,37 +211,212 @@ private fun AdaptiveSuccessContent(
                 onIgnoreSignatureMismatch = onIgnoreSignatureMismatch,
                 onOpen = onOpen
             )
+        },
+        bottomBar = { horizontalPadding ->
+            BackToGameCallout(visible = showBackToGameHint && !failed)
+            PatcherBottomActionBar(
+                horizontalPadding = horizontalPadding,
+                showCancelButton = false,
+                showLogsButton = isExpertMode,
+                showSaveButton = true,
+                onLogsClick = onLogsClick,
+                onHomeClick = onHomeClick,
+                onSaveClick = onSaveClick,
+                isSaving = isSaving
+            )
+        }
+    )
+}
+
+/**
+ * Lays the success screen out: one column over the bar in portrait, or the [header] over the bar
+ * beside the [details] and [actions] in landscape, so each part is written once.
+ */
+@Composable
+private fun SuccessLayout(
+    windowSize: WindowSize,
+    header: @Composable ColumnScope.() -> Unit,
+    details: @Composable ColumnScope.() -> Unit,
+    actions: @Composable () -> Unit,
+    bottomBar: @Composable ColumnScope.(horizontalPadding: Dp) -> Unit
+) {
+    val itemSpacing = windowSize.itemSpacing
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+    ) {
+        if (isLandscape()) {
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(horizontal = windowSize.contentPadding),
+                horizontalArrangement = Arrangement.spacedBy(itemSpacing * 3)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .fillMaxHeight(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(itemSpacing, Alignment.CenterVertically),
+                        content = header
+                    )
+                    bottomBar(0.dp)
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .fillMaxHeight(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(itemSpacing, Alignment.CenterVertically)
+                ) {
+                    details()
+                    actions()
+                }
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(horizontal = windowSize.contentPadding),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(itemSpacing * 3, Alignment.CenterVertically)
+            ) {
+                header()
+                details()
+                actions()
+            }
+            bottomBar(Defaults.ContentPadding)
         }
     }
 }
 
+/** How long the ring marking the result takes to spread and fade. */
+private const val PULSE_MILLIS = 1100
+
 /**
- * Success screen icon.
+ * One ring in [color] spreading from a circle [from] across and fading, drawn past this element's
+ * bounds. It marks each result once rather than moving for as long as the screen shows.
+ */
+@Composable
+private fun Modifier.resultPulse(color: Color, from: Dp): Modifier {
+    // Skipped where accessibility services ask for less motion
+    val reduceMotion = rememberAccessibilityEnabled()
+    val progress = remember { Animatable(1f) }
+    LaunchedEffect(color) {
+        if (reduceMotion) return@LaunchedEffect
+        progress.snapTo(0f)
+        progress.animateTo(1f, tween(PULSE_MILLIS, easing = FastOutSlowInEasing))
+    }
+
+    // Read while drawing, so the ring spreads without recomposing what it lies under
+    return drawBehind {
+        val t = progress.value
+        if (t >= 1f) return@drawBehind
+        val startRadius = from.toPx() / 2f
+        drawCircle(
+            color = color.copy(alpha = 0.5f * (1f - t)),
+            radius = startRadius * (1f + 0.8f * t),
+            style = Stroke(width = (1.dp + 5.dp * (1f - t)).toPx())
+        )
+    }
+}
+
+/**
+ * Status icon marked by a [resultPulse] in [glowColor]. With a [packageName] it is the patched app's
+ * own icon carrying [icon] as a badge.
  */
 @Composable
 private fun SuccessIcon(
     icon: ImageVector,
     iconTint: Color,
-    iconBackgroundColor: Color,
-    windowSize: WindowSize
+    glowColor: Color,
+    windowSize: WindowSize,
+    packageName: String? = null
 ) {
+    val compact = windowSize.widthSizeClass == WindowWidthSizeClass.Compact
+    // An app icon carries its own picture, so it is drawn larger than a bare glyph to read as one
+    val iconSize = when {
+        packageName != null -> if (compact) 112.dp else 96.dp
+        else -> if (compact) 80.dp else 64.dp
+    }
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .size(if (windowSize.widthSizeClass == WindowWidthSizeClass.Compact) 140.dp else 120.dp)
-            .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(iconBackgroundColor, Color.Transparent)
-                ),
-                shape = CircleShape
-            )
+            .size(iconSize * 1.4f)
+            .resultPulse(glowColor, from = iconSize)
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier.size(if (windowSize.widthSizeClass == WindowWidthSizeClass.Compact) 80.dp else 64.dp),
-            tint = iconTint
+        if (packageName == null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(iconSize),
+                tint = iconTint
+            )
+        } else {
+            Box(modifier = Modifier.size(iconSize)) {
+                AppIcon(
+                    packageName = packageName,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset(x = 6.dp, y = 6.dp)
+                        .size(iconSize * 0.4f)
+                        .background(iconTint, CircleShape)
+                        .border(3.dp, MaterialTheme.colorScheme.background, CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier = Modifier.size(iconSize * 0.24f),
+                        tint = iconTint.contrastingContent()
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** Name, version, patch count and sources of what was patched, under the screen's title. */
+@Composable
+private fun SuccessAppSummary(packageName: String, version: String?, patchCount: Int, sources: List<PatchSourceRef>) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        AppLabel(
+            packageName = packageName,
+            style = MaterialTheme.typography.titleLarge.copy(
+                color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.SemiBold
+            )
         )
+        Text(
+            text = listOfNotNull(
+                version?.let { "v$it" },
+                pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
+            ).joinToString(" · "),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
+        if (sources.isNotEmpty()) {
+            Text(
+                text = sources.joinToString(", ") { listOfNotNull(it.name, it.version).joinToString(" ") },
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
@@ -475,71 +480,6 @@ private fun SuccessInstructionsText(
 }
 
 /**
- * Success screen error message.
- */
-@Composable
-private fun SuccessErrorMessage(installState: InstallState) {
-    val errorMessage = (installState as? InstallState.Error)?.message
-
-    AnimatedVisibility(
-        visible = errorMessage != null,
-        enter = Animations.fadeIn,
-        exit = Animations.fadeOut
-    ) {
-        errorMessage?.let { message ->
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
-                border = CardBorder.tinted(MaterialTheme.colorScheme.error)
-            ) {
-                Text(
-                    text = message,
-                    modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
-    }
-}
-
-/**
- * Success screen conflict hint.
- */
-@Composable
-private fun SuccessConflictHint(installState: InstallState) {
-    SuccessHint(
-        visible = installState is InstallState.Conflict,
-        text = stringResource(R.string.patcher_conflict_hint),
-        icon = Icons.Outlined.Warning,
-        containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
-        iconTint = MaterialTheme.colorScheme.error
-    )
-}
-
-/**
- * Success screen hint naming the patches the sources ruled out for the chosen install method.
- */
-@Composable
-private fun SuccessExcludedPatchesHint(
-    excludedPatches: List<String>,
-    isReady: Boolean
-) {
-    SuccessHint(
-        visible = excludedPatches.isNotEmpty() && isReady,
-        text = stringResource(
-            R.string.patcher_patches_excluded_for_installer,
-            excludedPatches.joinToString()
-        ),
-        icon = Icons.Outlined.Info,
-        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-        iconTint = MaterialTheme.colorScheme.primary
-    )
-}
-
-/**
  * Callout pointing at the button that leads back to the mini-game this screen took the place of.
  * It sits on the button because the way back is not obvious from a label reading "Logs".
  */
@@ -556,43 +496,18 @@ private fun BackToGameCallout(visible: Boolean) {
     )
 }
 
+/** A [Notice] explaining the install state, easing in and out as [text] comes and goes. */
 @Composable
-private fun SuccessHint(
-    visible: Boolean,
-    text: String,
-    icon: ImageVector,
-    containerColor: Color,
-    iconTint: Color
-) {
+private fun SuccessNotice(text: String?, tone: SemanticTone, icon: ImageVector) {
     AnimatedVisibility(
-        visible = visible,
+        visible = text != null,
         enter = Animations.fadeIn,
         exit = Animations.fadeOut
     ) {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-            color = containerColor,
-            border = CardBorder.tinted(iconTint)
-        ) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = iconTint,
-                    modifier = Modifier.size(Defaults.IconSizeSmall)
-                )
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-        }
+        // Kept through the exit, so the notice fades with what it said rather than going blank
+        var shown by remember { mutableStateOf(text.orEmpty()) }
+        if (text != null) shown = text
+        Notice(text = shown, tone = tone, icon = icon)
     }
 }
 
@@ -649,7 +564,7 @@ private fun InstallActionButton(
     val isInstalled = installState is InstallState.Installed
     val conflictPackageName = (installState as? InstallState.Conflict)?.packageName
 
-    // Solid in the app's color, the one the screen wears, or the theme's where there is none
+    // Solid in the app's color, the one the screen wears, or the theme where there is none
     val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val buttonColors = if (installState.failed) {
         ButtonDefaults.buttonColors(
@@ -669,8 +584,6 @@ private fun InstallActionButton(
             }
         },
         enabled = !isInstalling,
-        // A floor rather than a fixed height, so a large font scale or a long translation that
-        // wraps grows the button instead of cutting its label off
         modifier = modifier.heightIn(min = 56.dp),
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         colors = buttonColors,
@@ -743,7 +656,8 @@ private fun subtitleFor(
     installedPackageName != null || installState is InstallState.Installed -> R.string.patcher_success_subtitle
     installState is InstallState.Conflict -> R.string.patcher_conflict_subtitle
     installState is InstallState.Error -> R.string.patcher_install_error_subtitle
-    else -> if (usingMountInstall) R.string.patcher_ready_to_mount_subtitle else R.string.patcher_ready_to_install_subtitle
+    // The install button says as much, so only mounting, which works differently, is explained
+    else -> if (usingMountInstall) R.string.patcher_ready_to_mount_subtitle else 0
 }
 
 /**
@@ -779,7 +693,7 @@ fun PatchingFailed(
                 SuccessIcon(
                     icon = Icons.Default.Error,
                     iconTint = MaterialTheme.colorScheme.error,
-                    iconBackgroundColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
+                    glowColor = MaterialTheme.colorScheme.error,
                     windowSize = windowSize
                 )
 
@@ -803,12 +717,8 @@ fun PatchingFailed(
         // Bottom action bar
         PatcherBottomActionBar(
             showCancelButton = false,
-            showHomeButton = true,
-            showSaveButton = false,
             showErrorButton = true,
-            onCancelClick = {},
             onHomeClick = onHomeClick,
-            onSaveClick = {},
             onErrorClick = onErrorClick
         )
     }

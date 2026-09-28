@@ -38,6 +38,7 @@ import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.ui.model.PatchRunProgress
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.patcher.ExpertPatchingInProgress
@@ -409,7 +410,7 @@ fun BatchPatcherScreen(
                 appVersion = item.version.orEmpty(),
                 patchCount = item.selection.values.sumOf { it.size },
                 bundles = item.bundles.map {
-                    PatcherErrorInfo.BundleInfo(name = it.name, version = null)
+                    PatchSourceRef(name = it.name, version = null)
                 },
                 stripsNativeLibs = null
             ),
@@ -480,8 +481,7 @@ fun BatchPatcherScreen(
                             packageName = shownPackageName,
                             showLongStepWarning = longStepWarning,
                             queueHeader = { BatchRunHeader(state = current) },
-                            onCancelClick = { showCancelDialog = true },
-                            onHomeClick = onBackClick
+                            onCancelClick = { showCancelDialog = true }
                         )
                     }
                 }

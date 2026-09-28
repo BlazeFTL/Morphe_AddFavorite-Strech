@@ -50,11 +50,11 @@ fun PatcherBottomActionBar(
     showLogsButton: Boolean = false,
     showInstallButton: Boolean = false,
 
-    // Actions
-    onCancelClick: () -> Unit,
-    onHomeClick: () -> Unit,
-    onSaveClick: () -> Unit,
-    onErrorClick: () -> Unit,
+    // Actions, needed only for the buttons shown
+    onCancelClick: () -> Unit = {},
+    onHomeClick: () -> Unit = {},
+    onSaveClick: () -> Unit = {},
+    onErrorClick: () -> Unit = {},
     onCopyLogsClick: () -> Unit = {},
     onLogsClick: () -> Unit = {},
     onInstallClick: () -> Unit = {},

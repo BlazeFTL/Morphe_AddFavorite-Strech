@@ -704,12 +704,6 @@ fun InstalledAppInfoDialog(
     }
 }
 
-@Composable
-private fun Color.accentContentColor(alpha: Float): Color =
-    if (isExtremeAccent()) MaterialTheme.colorScheme.onSurfaceVariant
-    else if (compositeOver(MaterialTheme.colorScheme.surface, alpha)
-            .requiresLightContent()) Color.White else Color.Black
-
 /**
  * The banners above an installed app's information. Each carries the gap above it, so a hidden
  * one leaves no space behind in a list that spaces nothing of its own.
@@ -890,8 +884,8 @@ private fun WarningBanner(
     secondaryActions: List<ActionItem> = emptyList()
 ) {
     val baseColor = if (isError) MaterialTheme.colorScheme.error else accentColor
-    val containerColor = if (baseColor.isExtremeAccent()) MaterialTheme.colorScheme.surfaceVariant else baseColor.copy(alpha = 0.15f)
-    val contentColor = baseColor.accentContentColor(0.15f)
+    val containerColor = if (baseColor.isExtremeAccent()) MaterialTheme.colorScheme.surfaceVariant else baseColor.copy(alpha = AccentAlpha.BAND)
+    val contentColor = appAccentContent(containerColor)
     val borderColor = if (baseColor.isExtremeAccent())
         MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
     else
@@ -1137,44 +1131,6 @@ private fun InfoSection(
 }
 
 @Composable
-private fun InfoRow(
-    icon: ImageVector,
-    label: String,
-    value: String,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Defaults.ItemSpacing, vertical = Defaults.ContentPaddingSmall),
-        horizontalArrangement = Arrangement.spacedBy(14.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier.size(18.dp),
-            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
-        )
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(1.dp)
-        ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f),
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-    }
-}
-
-@Composable
 private fun InfoRowWithAction(
     icon: ImageVector,
     label: String,
@@ -1184,45 +1140,22 @@ private fun InfoRowWithAction(
     actionIcon: ImageVector = Icons.AutoMirrored.Outlined.List,
     actionContentDescription: String = stringResource(R.string.view),
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Defaults.ItemSpacing, vertical = Defaults.ContentPaddingSmall),
-        horizontalArrangement = Arrangement.spacedBy(14.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier.size(18.dp),
-            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
-        )
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(1.dp)
-        ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f),
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+    InfoRow(
+        icon = icon,
+        label = label,
+        value = value,
+        trailing = {
+            ActionPillButton(
+                onClick = onAction,
+                icon = actionIcon,
+                contentDescription = actionContentDescription,
+                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                    containerColor = accentColor.copy(alpha = AccentAlpha.STEP),
+                    contentColor = appAccentContent(accentColor.copy(alpha = AccentAlpha.STEP))
+                )
             )
         }
-        ActionPillButton(
-            onClick = onAction,
-            icon = actionIcon,
-            contentDescription = actionContentDescription,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(
-                containerColor = accentColor.copy(alpha = 0.18f),
-                contentColor = accentColor.accentContentColor(0.18f)
-            )
-        )
-    }
+    )
 }
 
 @Composable
@@ -1569,11 +1502,11 @@ private fun PrimaryActionButton(
     val containerColor = if (accentColor.isExtremeAccent())
         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.9f)
     else
-        accentColor.copy(alpha = 0.18f)
+        accentColor.copy(alpha = AccentAlpha.STEP)
     ActionButton(
         action = action,
         containerColor = containerColor,
-        contentColor = contentColorOverride ?: accentColor.accentContentColor(0.18f),
+        contentColor = contentColorOverride ?: appAccentContent(containerColor),
         borderColor = if (accentColor.isExtremeAccent())
             MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
         else

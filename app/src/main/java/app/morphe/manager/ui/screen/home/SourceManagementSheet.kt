@@ -685,7 +685,7 @@ private fun BundleManagementCard(
         modifier = modifier
             .fillMaxWidth()
             .graphicsLayer { scaleX = scale; scaleY = scale },
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(Defaults.CardCornerRadius),
         tonalElevation = if (isDragging) 8.dp else 3.dp,
         color = animatedColor,
         border = BorderStroke(1.dp, animatedBorderColor)

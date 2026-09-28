@@ -1046,7 +1046,7 @@ private fun InfoSection(
 
     // Filled like the app's cards elsewhere, so the panel reads as part of the app's dialog
     SurfaceCard(
-        cornerRadius = Defaults.ItemSpacing,
+        cornerRadius = Defaults.CardCornerRadius,
         borderWidth = 1.dp,
         borderColor = appAccentBorder(accentColor),
         color = appAccentCardFill(accentColor) ?: MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),

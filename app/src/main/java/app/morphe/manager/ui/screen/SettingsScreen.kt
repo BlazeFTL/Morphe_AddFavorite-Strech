@@ -12,13 +12,11 @@ import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Palette
@@ -30,15 +28,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.SettingsSection
@@ -423,18 +418,19 @@ private fun LandscapeNavPanel(
     onAppearanceTabPositioned: ((Rect) -> Unit)? = null,
     onSystemTabPositioned: ((Rect) -> Unit)? = null
 ) {
-    Box(
+    Column(
         modifier = modifier
             .width(220.dp)
             .fillMaxHeight()
-            .padding(horizontal = 12.dp, vertical = 24.dp)
+            .padding(horizontal = 12.dp, vertical = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
+        // Centered in the room above Back, so the two never close up on a short screen
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
-                .align(Alignment.Center),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+                .weight(1f),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing, Alignment.CenterVertically)
         ) {
             SettingsTab.entries.forEach { tab ->
                 val positionedModifier = when (tab) {
@@ -444,114 +440,26 @@ private fun LandscapeNavPanel(
                         Modifier.onGloballyPositioned { onSystemTabPositioned(it.boundsInWindow()) }
                     else -> Modifier
                 }
-                LandscapeNavItem(
-                    tab = tab,
-                    isSelected = currentTab == tab,
+                // The tabs of the portrait bar, every label shown since the sidebar has the room
+                GlassButton(
+                    icon = tab.icon,
+                    label = stringResource(tab.titleRes),
+                    selected = currentTab == tab,
                     onClick = { onTabSelected(tab) },
-                    modifier = Modifier.fillMaxWidth().then(positionedModifier)
+                    modifier = Modifier.fillMaxWidth().then(positionedModifier),
+                    pressScale = true,
+                    hapticFeedback = true,
+                    showLabel = true
                 )
             }
         }
-        LandscapeNavItem(
-            icon = Icons.AutoMirrored.Outlined.ArrowBack,
-            label = stringResource(R.string.back),
+        ActionGlassButton(
             onClick = onBack,
-            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).semantics { traversalIndex = -1f }
+            icon = Icons.AutoMirrored.Outlined.ArrowBack,
+            text = stringResource(R.string.back),
+            showLabel = true,
+            modifier = Modifier.fillMaxWidth().semantics { traversalIndex = -1f }
         )
-    }
-}
-
-/**
- * Individual sidebar navigation item.
- */
-@Composable
-private fun LandscapeNavItem(
-    tab: SettingsTab,
-    isSelected: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val containerColor by animateColorAsState(
-        targetValue = if (isSelected) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
-        label = "navItemBg"
-    )
-    val contentColor by animateColorAsState(
-        targetValue = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
-        label = "navItemFg"
-    )
-    val tabLabel = stringResource(tab.titleRes)
-
-    Surface(
-        onClick = onClick,
-        modifier = modifier
-            .height(Defaults.TallTouchTarget)
-            .semantics {
-                role = Role.Tab
-                selected = isSelected
-            },
-        color = containerColor,
-        shape = RoundedCornerShape(Defaults.CardCornerRadius)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = tab.icon,
-                contentDescription = null,
-                tint = contentColor,
-                modifier = Modifier.size(22.dp)
-            )
-            Text(
-                text = tabLabel,
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = contentColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    }
-}
-
-@Composable
-private fun LandscapeNavItem(
-    icon: ImageVector,
-    label: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        onClick = onClick,
-        modifier = modifier.height(Defaults.TallTouchTarget),
-        color = Color.Transparent,
-        shape = RoundedCornerShape(Defaults.CardCornerRadius)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(22.dp)
-            )
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
     }
 }
 

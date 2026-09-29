@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; nemá podporované verzie pre Android %2$s (API %3$s). Všetky deklarované verzie vyžadujú vyššiu verziu Androidu.</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Stiahnutie originálneho APK súboru</string>
-    <string name="home_download_instructions_steps_title">Pokyny:</string>
     <string name="home_download_instructions_finding">Hľadá sa stránka na stiahnutie…</string>
     <string name="home_download_instructions_step1">Stlačte tlačidlo \'%s\' nižšie</string>
     <string name="home_download_instructions_step2_part1">Prejdite na webovej stránke nižšie a stlačte</string>
@@ -554,7 +553,6 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
 Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="patcher_install_error_title">Chyba pri inštalácii</string>
     <string name="patcher_install_error_subtitle">Skúste odinštalovať a znovu nainštalovať</string>
-    <string name="patcher_ready_to_install_subtitle">Stlačte tlačidlo nižšie pre inštaláciu</string>
     <string name="patcher_ready_to_mount_subtitle">Stlačte tlačidlo nižšie na pripojenie</string>
     <string name="patcher_patches_excluded_for_installer">Nie je dostupné pre tento spôsob inštalácie a vylúčené: %s</string>
     <string name="patcher_back_to_game_hint">Klepnutím na %1$s sa vrátite do svojej hry.</string>
@@ -711,6 +709,9 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_accent_color">Farba akcentu</string>
     <string name="settings_appearance_pure_black">Čistá čierna</string>
     <string name="settings_appearance_pure_black_description">Použiť úplne čierne pozadie</string>
+    <string name="settings_appearance_color_accents">Farby aplikácie a zdroja</string>
+    <string name="settings_appearance_outlines">Obrysy</string>
+    <string name="settings_appearance_outlines_description">Kreslí tenký okraj okolo kariet, panelov a tlačidiel</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Jazyk &amp; zobrazenie</string>
     <string name="settings_appearance_app_language">Jazyk aplikácie</string>
@@ -1123,7 +1124,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Nepodarilo sa importovať zdrojové dáta</string>
     <string name="settings_system_import_source_data_success">Zdrojové dáta boli importované </string>
     <string name="settings_system_selected_patches_section">Vybrané záplaty</string>
-    <string name="settings_system_patch_options_section">Nastavenia záplaty</string>
     <string name="settings_system_no_patches_or_options">Neboli uložené žiadne záplaty ani možnosti</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Kopírovať výber z…</string>
@@ -1309,8 +1309,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_section_app_support">Podpora aplikácií</string>
     <string name="changelog_section_other">Zmeny</string>
     <string name="changelog_badge_latest">Najnovšie</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">Používaná</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">Predbežné vydanie</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Zobraziť všetky (%s)</string>

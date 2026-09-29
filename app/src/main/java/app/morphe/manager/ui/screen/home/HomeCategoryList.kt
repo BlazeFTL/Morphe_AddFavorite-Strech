@@ -29,9 +29,11 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppCategoryState
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.screen.shared.CardBorder
 import app.morphe.manager.ui.screen.shared.GlassButtonDefaults
 import app.morphe.manager.ui.screen.shared.MorpheLauncherLogo
 import app.morphe.manager.ui.screen.shared.appAccentBorder
+import app.morphe.manager.ui.screen.shared.appAccentCardFill
 import app.morphe.manager.ui.viewmodel.HomeAppSourceGroup
 import app.morphe.manager.util.RemoteAvatar
 import app.morphe.manager.util.rememberSourceAccent
@@ -218,7 +220,7 @@ internal fun HomeGlassCategoryRow(
         color = containerColor,
         contentColor = contentColor,
         shape = shape,
-        border = BorderStroke(1.dp, borderColor)
+        border = CardBorder.of(borderColor)
     ) {
         Row(
             modifier = Modifier
@@ -312,7 +314,7 @@ internal fun HomeCategoryHeader(
                 )
             }
         },
-        color = rememberAccentCardColor(sourceAccent),
+        color = appAccentCardFill(sourceAccent),
         borderColor = sourceAccent?.let { appAccentBorder(it) },
         modifier = modifier
     )

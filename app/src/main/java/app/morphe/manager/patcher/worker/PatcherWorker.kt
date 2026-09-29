@@ -433,7 +433,8 @@ class PatcherWorker(
             val options = args.options.restrictTo(args.selectedPatches)
 
             // After merging a split archive (in either runtime), save the resulting mono-APK
-            // directly to originalApksDir so it is used for repatching instead of the archive
+            // directly to originalApksDir so it is used for repatching instead of the archive.
+            // The runtime is done with the file by then, so it is moved rather than copied
             val onMergedApkReady: suspend (File) -> Unit = { mergedFile ->
                 val version = pm.getPackageInfo(mergedFile)?.versionName
                     ?.takeUnless { it.isBlank() }
@@ -442,7 +443,8 @@ class PatcherWorker(
                 val savedFile = originalApkRepository.saveOriginalApk(
                     packageName = args.packageName,
                     version = version,
-                    sourceFile = mergedFile
+                    sourceFile = mergedFile,
+                    moveSource = true
                 )
                 args.setInputFile(savedFile ?: mergedFile, true, true)
             }

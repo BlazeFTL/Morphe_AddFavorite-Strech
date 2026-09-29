@@ -410,10 +410,24 @@ private fun RemoteTabContent(state: RemoteLinksState) {
 
         // What a link can be, shown until the first one is in the list to point at
         if (state.entries.isEmpty()) {
-            InfoBox(
-                title = stringResource(R.string.sources_dialog_remote_url_hint),
-                titleColor = LocalDialogTextColor.current
-            ) {
+            // A sentence rather than a name, so it leads the card as text instead of heading it
+            LabeledSection {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = null,
+                        tint = LocalDialogSecondaryTextColor.current,
+                        modifier = Modifier.padding(top = 1.dp).size(14.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.sources_dialog_remote_url_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = LocalDialogSecondaryTextColor.current
+                    )
+                }
                 UrlFormatRow(icon = FontAwesomeIcons.Brands.Github, text = "github.com/owner/repo")
                 UrlFormatRow(icon = FontAwesomeIcons.Brands.Gitlab, text = "gitlab.com/owner/repo")
                 UrlFormatRow(icon = Icons.Outlined.Link, text = "example.com/patches-bundle.json")
@@ -443,7 +457,7 @@ private fun UrlFormatRow(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.padding(horizontal = 4.dp)
+        modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
     ) {
         Icon(
             imageVector = icon,
@@ -863,11 +877,9 @@ fun BundleChangelogDialog(
 
     val loadOlder: () -> Unit = load@{
         if (olderState is OlderBundleState.Loading || olderState is OlderBundleState.Loaded) return@load
-        val shownVersions = (state as? BundleChangelogState.Entries)
-            ?.entries
-            ?.map { it.version.removePrefix("v").trim() }
-            ?.toSet()
-            .orEmpty()
+        val shownEntries = (state as? BundleChangelogState.Entries)?.entries.orEmpty()
+        val shownVersions = shownEntries.map { it.version.removePrefix("v").trim() }.toSet()
+        val oldestShown = shownEntries.lastOrNull()?.version
         olderState = OlderBundleState.Loading
         scope.launch {
             olderState = withContext(Dispatchers.Default) {
@@ -878,6 +890,9 @@ fun BundleChangelogDialog(
                         // history is meaningful only as the stable timeline
                         it.version.removePrefix("v").trim() !in shownVersions
                                 && !it.version.contains("-")
+                                // A dev changelog lagging behind the stable one must not put newer
+                                // releases under the earlier ones
+                                && (oldestShown == null || !isNewerVersion(oldestShown, it.version))
                     }
                     OlderBundleState.Loaded(
                         ChangelogParser.entriesFor(filtered, appNames, generalChangesHeading)
@@ -899,6 +914,7 @@ fun BundleChangelogDialog(
 
     AppDialog(
         onDismissRequest = onDismissRequest,
+        accentColor = rememberSourceHeaderColor(src),
         // Start fetch only after the dialog enter animation completes so the shimmer
         // is always visible first, even when data is cached and would resolve instantly
         onEntered = { if (fetchTrigger == 0) fetchTrigger = 1 },
@@ -958,8 +974,7 @@ fun BundleChangelogDialog(
             icon = { modifier -> BundleIcon(bundle = src, modifier = modifier) },
             title = src.displayTitle,
             subtitle = appNames.firstOrNull()?.let { stringResource(R.string.changelog_for_app, it) }
-                ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty(),
-            accentColor = rememberSourceHeaderColor(src)
+                ?: src.installedVersionSignature?.withVersionPrefix()?.isolateLtr().orEmpty()
         )
 
         BundleChangelogContent(
@@ -1007,7 +1022,7 @@ private fun BundleChangelogContent(
                         // The gap under the header is the list's own, so releases scroll up to its edge
                         contentPadding = PaddingValues(top = Defaults.ItemSpacing),
                         // The version a source holds is the one it patches with, nothing on the device
-                        currentBadge = ChangelogBadge.IN_USE
+                        currentBadge = ChangelogBadge.DOWNLOADED
                     )
                 }
             }
@@ -1148,6 +1163,7 @@ fun SourceAppsDialog(
 
     AppDialog(
         onDismissRequest = onDismissRequest,
+        accentColor = rememberSourceHeaderColor(src),
         dismissOnClickOutside = !isMultiSelectMode,
         footer = {
             AppDialogOutlinedButton(
@@ -1206,8 +1222,7 @@ fun SourceAppsDialog(
             search = search,
             searchLabel = stringResource(R.string.home_search_apps),
             // A lone app leaves nothing to search through
-            searchEnabled = apps.size > 1,
-            accentColor = rememberSourceHeaderColor(src)
+            searchEnabled = apps.size > 1
         )
 
         DialogLazyList(

@@ -14,17 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.contentColorFor
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-
-/**
- * Color of the header a [TitleAction] sits in, as [usableAppAccent] gives it, so its circle reads
- * as part of that header rather than the surrounding theme. Null keeps the theme's palette.
- */
-val LocalTitleActionAccent = compositionLocalOf<Color?> { null }
 
 /** Visual style of a [TitleAction]. */
 enum class TitleActionStyle {
@@ -32,19 +25,22 @@ enum class TitleActionStyle {
     Plain,
     /** Tonal circle in the primary palette. Use for standing actions such as add or sort */
     Accent,
-    /** Tonal circle in the error palette. Use for bulk destructive actions */
+    /**
+     * Neutral tonal circle, the one an idle [Toggle] draws. Use for standing actions on a panel
+     * that keeps its header out of the primary palette, so they sit beside its toggles as one row
+     */
+    Neutral,
+    /** Neutral tonal circle with an icon in the error color. Use for bulk destructive actions */
     Destructive,
     /** Neutral tonal circle that fills with the primary palette while active */
-    Toggle,
-    /** Toggle for headers whose other actions are already [Accent], so it lifts a further step */
-    AccentToggle
+    Toggle
 }
 
 /**
  * Icon action rendered in the title row of an [AppDialog] or [AppBottomSheet]. Uniforms the
  * button styles used across headers so callers only pick an icon and a semantic style.
  *
- * @param active Whether a [TitleActionStyle.Toggle] or [TitleActionStyle.AccentToggle] is engaged.
+ * @param active Whether a [TitleActionStyle.Toggle] is engaged.
  * @param enabled Whether the action can be used. A header keeps its actions in place while they
  * are out of reach, so the title never shifts as they come and go.
  */
@@ -64,25 +60,21 @@ fun TitleAction(
 
     // An accented header tints its circles a step over its band, as it does its badges, and fills
     // an engaged toggle with the accent outright so the state reads as plainly as on the theme
-    val accent = LocalTitleActionAccent.current
+    val accent = LocalAccent.current
 
     // Null marks the flat variant, which draws no circle at all
     val containerColor = when (style) {
         TitleActionStyle.Plain -> null
-        TitleActionStyle.Accent -> accent?.copy(alpha = APP_ACCENT_LEAD_ALPHA) ?: MaterialTheme.colorScheme.primaryContainer
-        // Kept in the error palette on any header, where the red warns rather than decorates
-        TitleActionStyle.Destructive -> MaterialTheme.colorScheme.errorContainer
+        TitleActionStyle.Accent -> accent?.copy(alpha = AccentAlpha.LEAD) ?: MaterialTheme.colorScheme.primaryContainer
+        // Neutral on any header, with the red kept to the icon, where it warns rather than decorates
+        TitleActionStyle.Destructive -> MaterialTheme.colorScheme.surfaceVariant
         TitleActionStyle.Toggle -> if (active) {
             accent ?: MaterialTheme.colorScheme.primaryContainer
         } else {
-            accent?.copy(alpha = APP_ACCENT_STEP_ALPHA) ?: MaterialTheme.colorScheme.surfaceVariant
+            neutralContainer(accent)
         }
 
-        TitleActionStyle.AccentToggle -> if (active) {
-            accent ?: MaterialTheme.colorScheme.primary
-        } else {
-            accent?.copy(alpha = APP_ACCENT_LEAD_ALPHA) ?: MaterialTheme.colorScheme.primaryContainer
-        }
+        TitleActionStyle.Neutral -> neutralContainer(accent)
     }
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -107,10 +99,10 @@ fun TitleAction(
             )
         }
     } else {
-        val contentColor = if (accent == null || style == TitleActionStyle.Destructive) {
-            contentColorFor(containerColor)
-        } else {
-            appAccentContent(containerColor)
+        val contentColor = when {
+            style == TitleActionStyle.Destructive -> destructiveColor()
+            accent == null -> contentColorFor(containerColor)
+            else -> appAccentContent(containerColor)
         }
 
         FilledTonalIconButton(
@@ -134,3 +126,8 @@ fun TitleAction(
         }
     }
 }
+
+/** Circle of an action that is not engaged: a step over an accented header, or the theme's neutral. */
+@Composable
+private fun neutralContainer(accent: Color?): Color =
+    accent?.copy(alpha = AccentAlpha.STEP) ?: MaterialTheme.colorScheme.surfaceVariant

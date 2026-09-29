@@ -8,7 +8,6 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.Orientation
@@ -154,7 +153,7 @@ private fun SegmentedSelector(
         modifier = Modifier.fillMaxWidth(),
         shape = Defaults.PillShape,
         color = textColor.copy(alpha = 0.06f),
-        border = BorderStroke(0.5.dp, textColor.copy(alpha = 0.2f))
+        border = CardBorder.of(textColor.copy(alpha = 0.2f), 0.5.dp)
     ) {
         BoxWithConstraints(modifier = Modifier.padding(SegmentInset)) {
             val segmentWidth = maxWidth / options.size

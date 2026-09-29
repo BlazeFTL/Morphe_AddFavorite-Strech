@@ -243,6 +243,7 @@ private fun SettingsOptionsDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         footer = {
             AppDialogButtonRow(
                 primaryText = stringResource(R.string.save),
@@ -263,8 +264,7 @@ private fun SettingsOptionsDialog(
                 AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
             },
             title = title,
-            subtitle = KnownApps.getAppName(packageName),
-            accentColor = rememberAppColor(packageName)
+            subtitle = KnownApps.getAppName(packageName)
         )
 
         Column(

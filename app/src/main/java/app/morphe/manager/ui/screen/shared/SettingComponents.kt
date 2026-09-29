@@ -6,8 +6,8 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,12 +21,12 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -40,10 +40,9 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.Defaults.MinTouchTarget
 import app.morphe.manager.ui.screen.shared.Defaults.TallTouchTarget
-import app.morphe.manager.ui.theme.LocalMonochromeTheme
-import app.morphe.manager.ui.theme.MonochromeThemeDefaults
 import app.morphe.manager.ui.theme.MorpheBrandBlue
 import app.morphe.manager.ui.theme.MorpheBrandTeal
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.readableOn
 
@@ -114,6 +113,13 @@ object Defaults {
 }
 
 /**
+ * Fill of a plain card, which cards standing for an app or a source take too, leaving their color to
+ * the edge and controls, since filled ones read as a wash of color on a colored dialog.
+ */
+@Composable
+fun cardFill(): Color = ThemeTraitsDefaults.surfaceColor(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
+
+/**
  * Elevated card with proper Material 3 theming.
  * Base card for all other card types.
  */
@@ -124,18 +130,11 @@ fun SurfaceCard(
     enabled: Boolean = true,
     elevation: Dp = Defaults.CardElevation,
     cornerRadius: Dp = Defaults.CardCornerRadius,
-    borderWidth: Dp = 0.dp,
+    showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
-    color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+    color: Color = cardFill(),
     content: @Composable () -> Unit
 ) {
-    val monochromeTheme = LocalMonochromeTheme.current
-    val effectiveColor = MonochromeThemeDefaults.surfaceColor(color)
-    val effectiveBorder = when {
-        borderWidth > 0.dp && !monochromeTheme -> BorderStroke(borderWidth, borderColor)
-        else -> null
-    }
-
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -146,11 +145,11 @@ fun SurfaceCard(
                 } else Modifier
             ),
         shape = RoundedCornerShape(cornerRadius),
-        color = effectiveColor,
+        color = ThemeTraitsDefaults.surfaceColor(color),
         contentColor = MaterialTheme.colorScheme.onSurface,
-        tonalElevation = if (monochromeTheme) 0.dp else elevation,
+        tonalElevation = ThemeTraitsDefaults.cardElevation(elevation),
         shadowElevation = 0.dp,
-        border = effectiveBorder
+        border = if (showBorder) CardBorder.of(borderColor) else null
     ) {
         content()
     }
@@ -164,19 +163,9 @@ fun SettingsDivider(
     modifier: Modifier = Modifier,
     fullWidth: Boolean = false
 ) {
-    val monochromeTheme = LocalMonochromeTheme.current
-    val outlineVariant = MaterialTheme.colorScheme.outlineVariant
-    val surfaceTint = MaterialTheme.colorScheme.surfaceTint
-    val color = remember(outlineVariant, surfaceTint, monochromeTheme) {
-        if (monochromeTheme) {
-            outlineVariant.copy(alpha = 0.28f)
-        } else {
-            lerp(outlineVariant, surfaceTint, 0.18f).copy(alpha = 0.55f)
-        }
-    }
     HorizontalDivider(
         modifier = if (fullWidth) modifier else modifier.padding(horizontal = Defaults.ContentPadding),
-        color = color
+        color = ThemeTraitsDefaults.dividerColor()
     )
 }
 
@@ -185,6 +174,7 @@ fun SettingsDivider(
  *
  * @param rowModifier  Applied to the inner [Row], use for positioning callbacks.
  * @param isLoading    When true, replaces the switch with a [CircularProgressIndicator].
+ * @param accentColor  Color of the card the row sits on, see [ToggleSwitch].
  */
 @Composable
 fun ToggleRow(
@@ -198,14 +188,15 @@ fun ToggleRow(
     isLoading: Boolean = false,
     showDivider: Boolean = true,
     icon: ImageVector? = null,
-    iconTint: Color = MaterialTheme.colorScheme.primary
+    iconTint: Color = MaterialTheme.colorScheme.primary,
+    accentColor: Color? = LocalAccent.current
 ) {
     val enabledLabel = stringResource(R.string.enabled)
     val disabledLabel = stringResource(R.string.disabled)
 
     Column(modifier = modifier) {
         if (showDivider) {
-            HorizontalDivider(modifier = Modifier.padding(top = 4.dp))
+            SettingsDivider(modifier = Modifier.padding(top = 4.dp), fullWidth = true)
         }
         Row(
             modifier = rowModifier
@@ -254,10 +245,11 @@ fun ToggleRow(
                     if (loading) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(24.dp),
+                            color = usableAppAccent(accentColor) ?: ProgressIndicatorDefaults.circularColor,
                             strokeWidth = 2.dp
                         )
                     } else {
-                        ToggleSwitch(checked = checked, onCheckedChange = null)
+                        ToggleSwitch(checked = checked, onCheckedChange = null, accentColor = accentColor)
                     }
                 }
             }
@@ -307,14 +299,28 @@ fun ToggleSwitch(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    accentColor: Color? = LocalAccent.current
 ) {
+    // On a card in an app's own color a switch that is on fills with it outright, as an engaged
+    // toggle on that app's header does, so the theme's blue does not sit on a card of another hue
+    val accent = usableAppAccent(accentColor)
     Switch(
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,
         enabled = enabled,
-        colors = SwitchDefaults.colors(checkedIconColor = MaterialTheme.colorScheme.primary),
+        colors = if (accent == null) {
+            SwitchDefaults.colors(checkedIconColor = MaterialTheme.colorScheme.primary)
+        } else {
+            val onAccent = appAccentContent(accent)
+            SwitchDefaults.colors(
+                checkedTrackColor = accent,
+                checkedBorderColor = accent,
+                checkedThumbColor = onAccent,
+                checkedIconColor = accent
+            )
+        },
         thumbContent = {
             Icon(
                 imageVector = if (checked) Icons.Filled.Check else Icons.Filled.Close,
@@ -371,13 +377,13 @@ fun GradientCircleIcon(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .background(brush = MonochromeThemeDefaults.iconBackground(gradientColors)),
+            .background(brush = ThemeTraitsDefaults.iconBackground(gradientColors)),
         contentAlignment = Alignment.Center
     ) {
         ThemedIcon(
             icon = icon,
             contentDescription = contentDescription,
-            tint = MonochromeThemeDefaults.iconTint(Color.White),
+            tint = ThemeTraitsDefaults.iconTint(Color.White),
             size = iconSize
         )
     }
@@ -439,9 +445,9 @@ fun SettingsItemCard(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    borderWidth: Dp = 0.dp,
+    showBorder: Boolean = false,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
-    color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+    color: Color = cardFill(),
     content: @Composable () -> Unit
 ) {
     SurfaceCard(
@@ -449,13 +455,42 @@ fun SettingsItemCard(
         enabled = enabled,
         elevation = 1.dp,
         cornerRadius = Defaults.SettingsCornerRadius,
-        borderWidth = borderWidth,
+        showBorder = showBorder,
         borderColor = borderColor,
         color = color,
         modifier = modifier
     ) {
         content()
     }
+}
+
+/**
+ * Chevron that turns over as [expanded] changes, so a fold reads as one control in both states.
+ *
+ * @param announced Whether it names the action a tap takes, for a chevron read out on its own
+ *   rather than as part of a row that already says so.
+ */
+@Composable
+fun ExpandChevron(
+    expanded: Boolean,
+    modifier: Modifier = Modifier,
+    tint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    announced: Boolean = false
+) {
+    val rotation by animateFloatAsState(
+        targetValue = if (expanded) 180f else 0f,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "expand_chevron"
+    )
+    Icon(
+        imageVector = Icons.Outlined.ExpandMore,
+        contentDescription = if (announced) {
+            stringResource(if (expanded) R.string.collapse else R.string.expand)
+        } else null,
+        tint = tint,
+        // Turned while drawing, so the animation does not recompose the icon every frame
+        modifier = modifier.graphicsLayer { rotationZ = rotation }
+    )
 }
 
 /**
@@ -501,7 +536,7 @@ fun SettingsItem(
 ) {
     SettingsItemCard(
         onClick = onClick,
-        borderWidth = if (showBorder) 1.dp else 0.dp,
+        showBorder = showBorder,
         modifier = modifier
     ) {
         IconTextRow(
@@ -567,21 +602,28 @@ fun SettingsSwitchItem(
 
 /**
  * Section container card.
+ *
+ * @param accentColor Color of the app or source the card stands for, drawn on its edge and passed to
+ *   the controls inside, see [LocalAccent]. The fill stays neutral, see [cardFill].
  */
 @Composable
 fun SectionCard(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
+    accentColor: Color? = null,
     content: @Composable () -> Unit
 ) {
+    val fill = cardFill()
     SurfaceCard(
         onClick = onClick,
         elevation = Defaults.CardElevation,
         cornerRadius = Defaults.SectionCornerRadius,
-        borderWidth = 1.dp,
+        showBorder = true,
+        borderColor = appAccentBorder(accentColor),
+        color = fill,
         modifier = modifier
     ) {
-        content()
+        if (accentColor == null) content() else ProvideCardAccent(accentColor, fill, content)
     }
 }
 
@@ -627,34 +669,6 @@ fun SectionTitle(
 }
 
 /**
- * Card header with icon and text.
- */
-@Composable
-fun CardHeader(
-    modifier: Modifier = Modifier,
-    icon: ImageVector,
-    title: String,
-    description: String? = null
-) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-            shape = RoundedCornerShape(topStart = Defaults.SectionCornerRadius, topEnd = Defaults.SectionCornerRadius)
-        ) {
-            IconTextRow(
-                modifier = Modifier.padding(Defaults.ContentPadding),
-                leadingContent = { ThemedIcon(icon = icon) },
-                title = title,
-                description = description
-            )
-        }
-
-        SettingsDivider(fullWidth = true)
-    }
-}
-
-/**
  * A single item in a deletion list with an icon and text.
  * Used inside [LabeledSection] in destructive confirmation dialogs.
  */
@@ -684,16 +698,13 @@ fun DeleteListItem(
     }
 }
 
-/**
- * Statistical variant of [InfoBox] used to display a single prominent value with an optional
- * caption below it. Shares the container styling of [InfoBox] but centers a headline-sized value.
- */
+/** A single prominent value with an optional caption below it. */
 @Composable
 fun InfoStatBox(
     value: String,
     modifier: Modifier = Modifier,
     subtitle: String? = null,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+    containerColor: Color = neutralVeil(),
     valueColor: Color = MaterialTheme.colorScheme.onSurface
 ) {
     Surface(
@@ -718,57 +729,6 @@ fun InfoStatBox(
                     style = MaterialTheme.typography.bodySmall,
                     color = valueColor.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center
-                )
-            }
-        }
-    }
-}
-
-/**
- * Info box component to display grouped information in a visually distinct container.
- */
-@Composable
-fun InfoBox(
-    title: String,
-    modifier: Modifier = Modifier,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-    titleColor: Color = MaterialTheme.colorScheme.onSurface,
-    icon: ImageVector? = null,
-    iconTint: Color = MaterialTheme.colorScheme.primary,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-        color = containerColor
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Main content column
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium,
-                    color = titleColor
-                )
-
-                content()
-            }
-
-            // Trailing icon
-            icon?.let {
-                Icon(
-                    imageVector = it,
-                    contentDescription = null,
-                    modifier = Modifier.size(32.dp),
-                    tint = iconTint
                 )
             }
         }

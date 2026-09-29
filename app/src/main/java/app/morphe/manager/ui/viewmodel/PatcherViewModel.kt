@@ -411,9 +411,7 @@ class PatcherViewModel(
                 else -> pm.getPackageInfo(packageName)
             }?.let { with(pm) { it.label() } }
         }.getOrNull()
-        val bundles = collectSelectedBundleMetadata().map {
-            PatcherErrorInfo.BundleInfo(name = it.name, version = it.version)
-        }
+        val bundles = collectSelectedBundleMetadata()
         return PatcherErrorInfo(
             appName = label ?: packageName,
             packageName = packageName,
@@ -467,7 +465,7 @@ class PatcherViewModel(
 
     val outputFile = tempDir.resolve("output.apk")
 
-    private val patchCount = input.selectedPatches.values.sumOf { it.size }
+    val patchCount = input.selectedPatches.values.sumOf { it.size }
 
     private val restoredProgress: Bundle? = savedStateHandle[KEY_PROGRESS]
 

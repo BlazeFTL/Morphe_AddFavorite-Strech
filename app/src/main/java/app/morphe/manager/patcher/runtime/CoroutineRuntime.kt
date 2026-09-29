@@ -75,7 +75,6 @@ class CoroutineRuntime(private val context: Context) : Runtime(context) {
             try {
                 if (preparation.merged) {
                     onProgress(null, State.COMPLETED, null)
-                    onMergedApkReady?.invoke(preparation.file)
                 }
 
                 Session(
@@ -92,6 +91,11 @@ class CoroutineRuntime(private val context: Context) : Runtime(context) {
                         File(outputFile),
                         patchList
                     )
+                }
+
+                // Handed over only once the session has closed its input, as ProcessRuntime does
+                if (preparation.merged) {
+                    onMergedApkReady?.invoke(preparation.file)
                 }
             } finally {
                 preparation.cleanup()

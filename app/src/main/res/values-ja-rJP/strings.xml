@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; には、Android %2$s（API %3$s）に対応したバージョンがありません。利用可能なすべてのバージョンで、より新しい Android を必要とします</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">オリジナルの APK をダウンロード</string>
-    <string name="home_download_instructions_steps_title">操作手順:</string>
     <string name="home_download_instructions_finding">ダウンロードページを探しています…</string>
     <string name="home_download_instructions_step1">下の 「%s」 ボタンをタップする</string>
     <string name="home_download_instructions_step2_part1">ウェブページを下にスクロールして、このボタンをタップする</string>
@@ -391,7 +390,7 @@
     <string name="adaptive_icon_guide_notification_title">通知アイコン</string>
     <string name="adaptive_icon_guide_notification_body">前景画像から自動生成されます。サイズは「通知」スライダーで調整できます。表示される内容は、ステータスバーではすべて白色で表示されます。</string>
     <string name="adaptive_icon_guide_monochrome_title">モノクロアイコン</string>
-    <string name="adaptive_icon_guide_monochrome_body">前景画像をもとに、同じアダプティブアイコン変換を使用して自動生成されます。Android 13 以降では、壁紙のアクセントカラーが適用されます。</string>
+    <string name="adaptive_icon_guide_monochrome_body">前景画像をもとに、同じアダプティブ アイコン変換を使用して自動的に生成されます。Android 13 以降では、壁紙のアクセント カラーが適用されます。</string>
     <string name="notification_icon_preview">通知</string>
     <!-- Header Creator -->
     <string name="header_creator_create">カスタム ヘッダーを作成</string>
@@ -554,7 +553,6 @@
 アンインストールすると、アプリのデータは完全に消去されます"</string>
     <string name="patcher_install_error_title">インストールエラー</string>
     <string name="patcher_install_error_subtitle">一度アンインストールしてから、再度インストールしてください</string>
-    <string name="patcher_ready_to_install_subtitle">インストールするには以下のボタンを押してください</string>
     <string name="patcher_ready_to_mount_subtitle">マウントするには以下のボタンを押してください</string>
     <string name="patcher_patches_excluded_for_installer">このインストール方法では利用できません: %s</string>
     <string name="patcher_back_to_game_hint">%1$s をタップしてゲームを再開</string>
@@ -709,9 +707,13 @@
     <string name="settings_appearance_monochrome">モノクロ</string>
     <string name="settings_appearance_color_style">カラーモード</string>
     <string name="settings_appearance_colors">色</string>
-    <string name="settings_appearance_accent_color">アクセントカラー</string>
+    <string name="settings_appearance_accent_color">アクセント カラー</string>
     <string name="settings_appearance_pure_black">ピュアブラック</string>
     <string name="settings_appearance_pure_black_description">真っ黒な背景を使用します</string>
+    <string name="settings_appearance_color_accents">アプリとソースの色</string>
+    <string name="settings_appearance_color_accents_description">アクセントカラーの代わりに、各アプリとソース固有の色を使用します。</string>
+    <string name="settings_appearance_outlines">アウトライン</string>
+    <string name="settings_appearance_outlines_description">カード、パネル、ボタンの周囲に細い枠線を描画します</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">言語と表示</string>
     <string name="settings_appearance_app_language">アプリの言語</string>
@@ -738,7 +740,7 @@
     <string name="settings_appearance_app_card_colors_default">デフォルト</string>
     <string name="settings_appearance_app_card_colors_default_description">ホーム画面のアプリカードに各アプリのバンドルカラーを使用します</string>
     <string name="settings_appearance_app_card_colors_accent">アクセント</string>
-    <string name="settings_appearance_app_card_colors_accent_description">ホーム画面のアプリカードにアプリのアクセントカラーを使用します</string>
+    <string name="settings_appearance_app_card_colors_accent_description">ホーム画面のアプリカードにアプリのアクセント カラーを使用します</string>
     <string name="settings_appearance_app_card_colors_gradient">グラデーション</string>
     <string name="settings_appearance_app_card_colors_gradient_description">ホーム画面のアプリカードにグラデーションを使用します</string>
     <string name="settings_appearance_app_card_colors_solid">単色</string>
@@ -1124,7 +1126,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">ソースデータのインポートに失敗しました</string>
     <string name="settings_system_import_source_data_success">ソースデータのインポートに成功しました</string>
     <string name="settings_system_selected_patches_section">選択したパッチ</string>
-    <string name="settings_system_patch_options_section">パッチ オプション</string>
     <string name="settings_system_no_patches_or_options">保存されたパッチやオプションなし</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">セレクションのコピー元を選択</string>
@@ -1310,8 +1311,8 @@ morphe_header_custom_dark.png
     <string name="changelog_section_app_support">アプリのサポート</string>
     <string name="changelog_section_other">変更</string>
     <string name="changelog_badge_latest">最新</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">使用中</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">ダウンロード済み</string>
     <string name="changelog_badge_prerelease">プレリリース</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">すべて表示 (%s)</string>
@@ -1346,8 +1347,8 @@ morphe_header_custom_dark.png
     <string name="onboarding_sources_patches_desc">タップすると、このソースで利用できるすべてのパッチを表示できます</string>
     <string name="onboarding_sources_version_desc">バージョンをタップすると、このソースの変更履歴を確認できます</string>
     <string name="onboarding_sources_prerelease_desc">有効にすると、このソースからプレリリース版のパッチを受け取れます</string>
-    <string name="onboarding_appearance_tab_desc">テーマやアクセントカラー、背景など、アプリの外観をカスタマイズできます</string>
-    <string name="onboarding_appearance_theme_desc">ライト、ダーク、システムのテーマを選択できます。アクセントカラーをカスタマイズしたり、ダイナミックカラーを有効にしたりすることもできます</string>
+    <string name="onboarding_appearance_tab_desc">アプリの見た目をカスタマイズします：テーマ、アクセント カラー、背景</string>
+    <string name="onboarding_appearance_theme_desc">ライト、ダーク、またはシステムのテーマから選択できます。カスタム アクセント カラーを選択したり、ダイナミック カラーを有効にしたりすることもできます</string>
     <string name="onboarding_expert_mode_desc">エキスパート モードを有効にすると、パッチ セレクションや詳細設定などの高度な機能が利用できます</string>
     <!-- Translate "System" the same way as the System settings tab -->
     <string name="onboarding_system_tab_title">システムタブ</string>

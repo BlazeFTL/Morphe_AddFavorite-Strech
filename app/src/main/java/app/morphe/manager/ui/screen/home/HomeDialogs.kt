@@ -5,43 +5,36 @@
 
 package app.morphe.manager.ui.screen.home
 
-import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
-import app.morphe.manager.domain.apk.InstalledApkInfo
-import app.morphe.manager.domain.apk.SavedApkInfo
-import app.morphe.manager.domain.bundles.*
+import app.morphe.manager.domain.bundles.BundleSourceType
+import app.morphe.manager.domain.bundles.PatchBundleSource
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.sourceType
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
+import app.morphe.manager.domain.bundles.RemotePatchBundle
+import app.morphe.manager.domain.bundles.recommended
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.model.HomeAppItem
@@ -50,7 +43,6 @@ import app.morphe.manager.ui.screen.shared.*
 import app.morphe.manager.ui.viewmodel.HomeViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.util.*
-import app.morphe.patcher.patch.AppTarget
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -92,6 +84,8 @@ fun HomeDialogs(
         exit = Animations.fadeOut(if (homeViewModel.showDownloadInstructionsDialog) 0 else Defaults.ANIMATION_DURATION)
     ) {
         val appName = homeViewModel.pendingAppName ?: return@AnimatedVisibility
+        // Remembered so the color holds through the exit animation, as the download dialog's does
+        val packageName = remember { homeViewModel.pendingPackageName }
         val recommendedVersion = homeViewModel.pendingRecommendedVersion
         val compatibleVersions = homeViewModel.pendingCompatibleVersions
         val selectedDownloadVersion = homeViewModel.pendingSelectedDownloadVersion
@@ -102,41 +96,43 @@ fun HomeDialogs(
         val installedAppVersion = homeViewModel.pendingInstalledAppVersion
         val stockAppInstalled = homeViewModel.pendingStockAppInstalled == true
 
-        ApkAvailabilityDialog(
-            appName = appName,
-            recommendedVersion = recommendedVersion,
-            compatibleVersions = compatibleVersions,
-            selectedDownloadVersion = selectedDownloadVersion,
-            onVersionSelect = { homeViewModel.pendingSelectedDownloadVersion = it },
-            usingMountInstall = usingMountInstall,
-            stockAppInstalled = stockAppInstalled,
-            isExpertMode = isExpertMode,
-            savedApkInfo = savedApkInfo,
-            installedApkInfo = installedApkInfo,
-            installedAppVersion = installedAppVersion,
-            onDismiss = {
-                homeViewModel.showApkAvailabilityDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onHaveApk = {
-                homeViewModel.showApkAvailabilityDialog = false
-                storagePickerLauncher()
-            },
-            onNeedApk = {
-                homeViewModel.showApkAvailabilityDialog = false
-                scope.launch {
-                    delay(50.milliseconds)
-                    homeViewModel.showDownloadInstructionsDialog = true
-                    homeViewModel.resolveDownloadRedirect()
+        PatchingAppColor(packageName) {
+            ApkAvailabilityDialog(
+                appName = appName,
+                recommendedVersion = recommendedVersion,
+                compatibleVersions = compatibleVersions,
+                selectedDownloadVersion = selectedDownloadVersion,
+                onVersionSelect = { homeViewModel.pendingSelectedDownloadVersion = it },
+                usingMountInstall = usingMountInstall,
+                stockAppInstalled = stockAppInstalled,
+                isExpertMode = isExpertMode,
+                savedApkInfo = savedApkInfo,
+                installedApkInfo = installedApkInfo,
+                installedAppVersion = installedAppVersion,
+                onDismiss = {
+                    homeViewModel.showApkAvailabilityDialog = false
+                    homeViewModel.cleanupPendingData()
+                },
+                onHaveApk = {
+                    homeViewModel.showApkAvailabilityDialog = false
+                    storagePickerLauncher()
+                },
+                onNeedApk = {
+                    homeViewModel.showApkAvailabilityDialog = false
+                    scope.launch {
+                        delay(50.milliseconds)
+                        homeViewModel.showDownloadInstructionsDialog = true
+                        homeViewModel.resolveDownloadRedirect()
+                    }
+                },
+                onUseSaved = {
+                    homeViewModel.handleSavedApkSelection()
+                },
+                onUseInstalled = {
+                    homeViewModel.handleInstalledApkSelection()
                 }
-            },
-            onUseSaved = {
-                homeViewModel.handleSavedApkSelection()
-            },
-            onUseInstalled = {
-                homeViewModel.handleInstalledApkSelection()
-            }
-        )
+            )
+        }
     }
 
     // Dialog 2: Download instructions
@@ -150,6 +146,8 @@ fun HomeDialogs(
         val usingMountInstall = homeViewModel.usingMountInstall
         // Remember packageName to prevent color flickering during exit animation
         val packageName = remember { homeViewModel.pendingPackageName }
+        // Remembered for the same reason, since the pending data is cleared as the dialog leaves
+        val appName = remember { homeViewModel.pendingAppName.orEmpty() }
         // Settled in dialog 1 and remembered for the same reason, so the steps stay put on the way out
         val requestedVersion = remember {
             (homeViewModel.pendingSelectedDownloadVersion ?: homeViewModel.pendingRecommendedVersion)?.version
@@ -167,25 +165,28 @@ fun HomeDialogs(
             bundleMetadata[packageName ?: ""]?.apkFileType?.isApk == false
         }
 
-        DownloadInstructionsDialog(
-            downloadUrl = homeViewModel.resolvedDownloadUrl,
-            requestedVersion = requestedVersion,
-            usingMountInstall = usingMountInstall,
-            stockAppInstalled = homeViewModel.pendingStockAppInstalled == true,
-            downloadColor = downloadColor,
-            isApkBundle = isApkBundle,
-            onDismiss = {
-                homeViewModel.showDownloadInstructionsDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onOpenApkDownloadHelper = openApkDownloadHelper
-        ) {
-            homeViewModel.handleDownloadInstructionsContinue { url ->
-                try {
-                    uriHandler.openUri(url)
-                    true
-                } catch (_: Exception) {
-                    false
+        PatchingAppColor(packageName) {
+            DownloadInstructionsDialog(
+                appName = appName,
+                downloadUrl = homeViewModel.resolvedDownloadUrl,
+                requestedVersion = requestedVersion,
+                usingMountInstall = usingMountInstall,
+                stockAppInstalled = homeViewModel.pendingStockAppInstalled == true,
+                downloadColor = downloadColor,
+                isApkBundle = isApkBundle,
+                onDismiss = {
+                    homeViewModel.showDownloadInstructionsDialog = false
+                    homeViewModel.cleanupPendingData()
+                },
+                onOpenApkDownloadHelper = openApkDownloadHelper
+            ) {
+                homeViewModel.handleDownloadInstructionsContinue { url ->
+                    try {
+                        uriHandler.openUri(url)
+                        true
+                    } catch (_: Exception) {
+                        false
+                    }
                 }
             }
         }
@@ -198,24 +199,27 @@ fun HomeDialogs(
         exit = Animations.overlayExit
     ) {
         val appName = homeViewModel.pendingAppName ?: return@AnimatedVisibility
-        val isOtherApps = homeViewModel.pendingPackageName == null
+        val packageName = remember { homeViewModel.pendingPackageName }
+        val isOtherApps = packageName == null
 
-        FilePickerPromptDialog(
-            appName = appName,
-            isOtherApps = isOtherApps,
-            isLoadingInstalledApps = homeViewModel.loadingInstalledApps,
-            onDismiss = {
-                homeViewModel.showFilePickerPromptDialog = false
-                homeViewModel.cleanupPendingData()
-            },
-            onOpenFilePicker = {
-                homeViewModel.showFilePickerPromptDialog = false
-                storagePickerLauncher()
-            },
-            onUseInstalledApp = if (isOtherApps) {
-                { homeViewModel.loadInstalledAppsForPicker() }
-            } else null
-        )
+        PatchingAppColor(packageName) {
+            FilePickerPromptDialog(
+                appName = appName,
+                isOtherApps = isOtherApps,
+                isLoadingInstalledApps = homeViewModel.loadingInstalledApps,
+                onDismiss = {
+                    homeViewModel.showFilePickerPromptDialog = false
+                    homeViewModel.cleanupPendingData()
+                },
+                onOpenFilePicker = {
+                    homeViewModel.showFilePickerPromptDialog = false
+                    storagePickerLauncher()
+                },
+                onUseInstalledApp = if (isOtherApps) {
+                    { homeViewModel.loadInstalledAppsForPicker() }
+                } else null
+            )
+        }
     }
 
     // Dialog 3.5: Installed app picker (universal patches)
@@ -244,19 +248,21 @@ fun HomeDialogs(
         val dialogState = homeViewModel.showUnsupportedVersionDialog ?: return@AnimatedVisibility
         val isExpertMode = homeViewModel.prefs.useExpertMode.getBlocking()
 
-        UnsupportedVersionWarningDialog(
-            version = dialogState.version,
-            versionCode = dialogState.versionCode,
-            recommendedVersion = dialogState.recommendedVersion?.version,
-            allCompatibleVersions = dialogState.compatibleVersionNames,
-            versionDescriptions = dialogState.compatibleVersionDescriptions,
-            compatibleVersionCodes = dialogState.compatibleVersionCodes,
-            experimentalVersions = homeViewModel.getExperimentalVersionsForPackage(dialogState.packageName),
-            isExperimental = dialogState.isExperimental,
-            isExpertMode = isExpertMode,
-            onDismiss = { homeViewModel.dismissUnsupportedVersionDialog() },
-            onProceed = { homeViewModel.proceedWithUnsupportedVersion() }
-        )
+        PatchingAppColor(dialogState.packageName) {
+            UnsupportedVersionWarningDialog(
+                version = dialogState.version,
+                versionCode = dialogState.versionCode,
+                recommendedVersion = dialogState.recommendedVersion?.version,
+                allCompatibleVersions = dialogState.compatibleVersionNames,
+                versionDescriptions = dialogState.compatibleVersionDescriptions,
+                compatibleVersionCodes = dialogState.compatibleVersionCodes,
+                experimentalVersions = homeViewModel.getExperimentalVersionsForPackage(dialogState.packageName),
+                isExperimental = dialogState.isExperimental,
+                isExpertMode = isExpertMode,
+                onDismiss = { homeViewModel.dismissUnsupportedVersionDialog() },
+                onProceed = { homeViewModel.proceedWithUnsupportedVersion() }
+            )
+        }
     }
 
     // Experimental version warning dialog
@@ -267,11 +273,13 @@ fun HomeDialogs(
     ) {
         val dialogState = homeViewModel.showExperimentalVersionDialog ?: return@AnimatedVisibility
 
-        ExperimentalVersionWarningDialog(
-            appName = dialogState.packageName.let { homeViewModel.bundleAppMetadataFlow.value[it]?.displayName ?: it },
-            onDismiss = { homeViewModel.dismissExperimentalVersionDialog() },
-            onProceed = { homeViewModel.proceedWithExperimentalVersion() }
-        )
+        PatchingAppColor(dialogState.packageName) {
+            ExperimentalVersionWarningDialog(
+                appName = dialogState.packageName.let { homeViewModel.bundleAppMetadataFlow.value[it]?.displayName ?: it },
+                onDismiss = { homeViewModel.dismissExperimentalVersionDialog() },
+                onProceed = { homeViewModel.proceedWithExperimentalVersion() }
+            )
+        }
     }
 
     // Wrong package dialog
@@ -282,11 +290,13 @@ fun HomeDialogs(
     ) {
         val dialogState = homeViewModel.showWrongPackageDialog ?: return@AnimatedVisibility
 
-        WrongPackageDialog(
-            expectedPackage = dialogState.expectedPackage,
-            actualPackage = dialogState.actualPackage,
-            onDismiss = { homeViewModel.dismissWrongPackageDialog() }
-        )
+        PatchingAppColor(dialogState.expectedPackage) {
+            WrongPackageDialog(
+                expectedPackage = dialogState.expectedPackage,
+                actualPackage = dialogState.actualPackage,
+                onDismiss = { homeViewModel.dismissWrongPackageDialog() }
+            )
+        }
     }
 
     // No compatible versions dialog - shown when every declared version requires a higher SDK
@@ -298,37 +308,43 @@ fun HomeDialogs(
         val packageName = homeViewModel.showNoCompatibleVersionsDialog ?: return@AnimatedVisibility
         val appName = homeViewModel.bundleAppMetadataFlow.value[packageName]?.displayName
             ?: KnownApps.getAppName(packageName)
-        NoCompatibleVersionsDialog(
-            appName = appName,
-            onDismiss = { homeViewModel.showNoCompatibleVersionsDialog = null }
-        )
+        PatchingAppColor(packageName) {
+            NoCompatibleVersionsDialog(
+                appName = appName,
+                onDismiss = { homeViewModel.showNoCompatibleVersionsDialog = null }
+            )
+        }
     }
 
     // Split APK Warning Dialog - shown when user picks a split APK for an app that prefers full APK
     if (homeViewModel.showSplitApkWarningDialog) {
         val appName = homeViewModel.pendingAppName ?: ""
-        SplitApkWarningDialog(
-            appName = appName,
-            onProceed = { homeViewModel.proceedWithSplitApk() },
-            onPickAnother = {
-                homeViewModel.dismissSplitApkWarning()
-                storagePickerLauncher()
-            },
-            onDismiss = { homeViewModel.dismissSplitApkWarning() }
-        )
+        PatchingAppColor(homeViewModel.pendingPackageName) {
+            SplitApkWarningDialog(
+                appName = appName,
+                onProceed = { homeViewModel.proceedWithSplitApk() },
+                onPickAnother = {
+                    homeViewModel.dismissSplitApkWarning()
+                    storagePickerLauncher()
+                },
+                onDismiss = { homeViewModel.dismissSplitApkWarning() }
+            )
+        }
     }
 
     // Invalid Signature Dialog - shown when the APK is not signed by the expected certificate
     homeViewModel.showInvalidSignatureDialog?.let { dialogState ->
-        InvalidSignatureDialog(
-            appName = dialogState.appName,
-            onPickAnother = {
-                homeViewModel.dismissInvalidSignatureDialog()
-                storagePickerLauncher()
-            },
-            onProceed = { homeViewModel.proceedIgnoringSignature() },
-            onDismiss = { homeViewModel.dismissInvalidSignatureDialog() }
-        )
+        PatchingAppColor(homeViewModel.pendingPackageName) {
+            InvalidSignatureDialog(
+                appName = dialogState.appName,
+                onPickAnother = {
+                    homeViewModel.dismissInvalidSignatureDialog()
+                    storagePickerLauncher()
+                },
+                onProceed = { homeViewModel.proceedIgnoringSignature() },
+                onDismiss = { homeViewModel.dismissInvalidSignatureDialog() }
+            )
+        }
     }
 
     // Metered Data dialog
@@ -671,952 +687,6 @@ fun HomeDialogs(
 }
 
 /**
- * Dialog 1: Initial "Do you have the APK?" dialog.
- *
- * In expert mode the version list is selectable: the user can tap any version to set it as the
- * download target. [selectedDownloadVersion] reflects the current selection (defaults to
- * [recommendedVersion]); [onVersionSelect] propagates the change to the ViewModel.
- * In simple mode there is only one version and no selection UI is shown.
- */
-@Composable
-internal fun ApkAvailabilityDialog(
-    appName: String,
-    recommendedVersion: AppTarget?,
-    compatibleVersions: List<BundledAppTarget>,
-    selectedDownloadVersion: AppTarget?,
-    onVersionSelect: (AppTarget) -> Unit,
-    usingMountInstall: Boolean,
-    stockAppInstalled: Boolean,
-    isExpertMode: Boolean,
-    savedApkInfo: SavedApkInfo?,
-    installedApkInfo: InstalledApkInfo?,
-    installedAppVersion: String?,
-    onDismiss: () -> Unit,
-    onHaveApk: () -> Unit,
-    onNeedApk: () -> Unit,
-    onUseSaved: () -> Unit,
-    onUseInstalled: () -> Unit
-) {
-    // Every check below still runs against the full set: an APK already on the device stays
-    // usable whatever the experimental toggle says, it is only the picker that narrows
-    val offeredVersions = remember(compatibleVersions) { compatibleVersions.offered() }
-
-    // The installed APK is dropped upstream when the patches do not target it, but a saved
-    // copy is offered whatever it is: it may be the only APK the user still has
-    val savedApkMatchesTargets = remember(savedApkInfo, compatibleVersions) {
-        savedApkInfo == null ||
-            compatibleVersions.patchableAt(savedApkInfo.version, savedApkInfo.versionCode)
-    }
-
-    // The build code is worth printing only where it is the whole difference: the targets name
-    // this version, and refuse this build of it. A version they do not name at all is already
-    // visible in the version beside the button
-    val savedApkBuildRefused = remember(savedApkInfo, savedApkMatchesTargets, compatibleVersions) {
-        savedApkInfo != null && !savedApkMatchesTargets &&
-            compatibleVersions.any { it.target.version == savedApkInfo.version }
-    }
-
-    // What the list below prints: the version on the device is called out under it only when
-    // the list is not already showing that version
-    val listedVersions = remember(isExpertMode, offeredVersions, recommendedVersion) {
-        if (isExpertMode && offeredVersions.isNotEmpty()) {
-            offeredVersions.mapNotNullTo(mutableSetOf()) { it.target.version }
-        } else {
-            setOfNotNull(recommendedVersion?.version)
-        }
-    }
-    val unlistedInstalledVersion = installedAppVersion?.takeIf { it !in listedVersions }
-
-    // Versions whose minSdk exceeds the current device - shown greyed-out and non-selectable
-    val incompatibleSdkVersions: Set<String> = remember(offeredVersions) {
-        offeredVersions
-            .filterNot { it.installableOnDevice() }
-            .mapNotNullTo(mutableSetOf()) { it.target.version }
-    }
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_apk_availability_dialog_title),
-        padding = DialogPadding.Compact,
-        footer = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                // Main action buttons
-                AppDialogButtonRow(
-                    primaryText = stringResource(R.string.home_apk_availability_yes),
-                    onPrimaryClick = onNeedApk,
-                    primaryIcon = Icons.Outlined.Download,
-                    secondaryText = stringResource(R.string.home_apk_availability_no),
-                    onSecondaryClick = onHaveApk,
-                    secondaryIcon = Icons.Outlined.Check,
-                    layout = DialogButtonLayout.Vertical
-                )
-
-                // When saved and installed APKs share the same version, prefer the saved copy.
-                // Hide the installed button in that case to avoid showing two equivalent sources
-                val preferSavedOverInstalled = savedApkInfo != null &&
-                    savedApkInfo.version == installedApkInfo?.version
-
-                // Saved APK button - always shown when a saved APK exists
-                if (savedApkInfo != null) {
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.home_apk_use_saved),
-                        textSuffix = if (savedApkBuildRefused) {
-                            buildVersionSuffix(savedApkInfo.version, savedApkInfo.versionCode)
-                        } else {
-                            "v${savedApkInfo.version}"
-                        },
-                        onClick = onUseSaved,
-                        icon = Icons.Outlined.History,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    // Taking it leads to the unsupported-version dialog, which is a wasted tap
-                    // unless the user is told here what is wrong with the copy they kept
-                    if (!savedApkMatchesTargets) {
-                        Notice(
-                            text = stringResource(R.string.home_apk_use_saved_unsupported),
-                            tone = SemanticTone.Warning,
-                            icon = Icons.Outlined.Warning,
-                            density = NoticeDensity.Compact
-                        )
-                    }
-                }
-
-                // Installed APK button - hidden when saved mono-APK covers the same split version
-                if (installedApkInfo != null && !preferSavedOverInstalled) {
-                    AppDialogOutlinedButton(
-                        text = stringResource(R.string.home_apk_use_installed),
-                        // Never the wrong build: an installed APK the patches do not target is
-                        // dropped before it reaches this dialog
-                        textSuffix = "v${installedApkInfo.version}",
-                        onClick = onUseInstalled,
-                        icon = Icons.Outlined.PhoneAndroid,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    // The certificate check could not run, so the installed app may already be patched
-                    if (installedApkInfo.patchStateUnknown) {
-                        Notice(
-                            text = stringResource(R.string.home_apk_use_installed_unverified),
-                            tone = SemanticTone.Warning,
-                            icon = Icons.Outlined.Warning,
-                            density = NoticeDensity.Compact
-                        )
-                    }
-                }
-            }
-        }
-    ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-        val anyString = stringResource(R.string.any_version)
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            if (isExpertMode && offeredVersions.isNotEmpty()) {
-                // Expert mode: selectable version list
-                Text(
-                    text = htmlAnnotatedString(stringResource(
-                        R.string.home_apk_availability_dialog_expert,
-                        appName
-                    )),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = secondaryColor,
-                    textAlign = TextAlign.Center
-                )
-
-                if (offeredVersions.size > 1) {
-                    SelectableVersionListCard(
-                        versions = offeredVersions,
-                        selectedVersion = selectedDownloadVersion,
-                        onVersionSelect = onVersionSelect,
-                        anyString = anyString,
-                        hasMultipleBundles = offeredVersions.map { it.bundleUid }.distinct().size > 1,
-                        incompatibleSdkVersions = incompatibleSdkVersions,
-                        savedVersion = savedApkInfo?.version,
-                        installedVersion = installedAppVersion,
-                    )
-                } else {
-                    VersionListCard(
-                        versions = offeredVersions.map { it.target.version ?: anyString },
-                        experimentalVersions = offeredVersions.experimentalVersions(),
-                        descriptions = offeredVersions
-                            .mapNotNull { b -> b.target.version?.let { v -> b.target.description?.let { d -> v to d } } }
-                            .toMap(),
-                        incompatibleSdkVersions = incompatibleSdkVersions,
-                        versionCodes = offeredVersions
-                            .mapNotNull { b ->
-                                val v = b.target.version ?: return@mapNotNull null
-                                val codes = b.buildCodes ?: return@mapNotNull null
-                                v to codes
-                            }
-                            .toMap(),
-                        savedVersion = savedApkInfo?.version,
-                        installedVersion = installedAppVersion,
-                    )
-                }
-            } else {
-                // Simple mode: single static version, no selection
-                Text(
-                    text = htmlAnnotatedString(stringResource(
-                        R.string.home_apk_availability_dialog_simple,
-                        appName
-                    )),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = secondaryColor,
-                    textAlign = TextAlign.Center
-                )
-
-                VersionListCard(
-                    versions = listOf(recommendedVersion?.version ?: anyString),
-                    showUnpatchedBadge = true,
-                    versionCodes = compatibleVersions
-                        .firstOrNull { it.target.version == recommendedVersion?.version }
-                        ?.let { b -> b.target.version?.let { v -> b.buildCodes?.let { mapOf(v to it) } } }
-                        ?: emptyMap(),
-                    savedVersion = savedApkInfo?.version,
-                    installedVersion = installedAppVersion
-                )
-            }
-
-            // The version on the device is missing from the list above, so patching will need
-            // another APK than the one already installed
-            unlistedInstalledVersion?.let {
-                Notice(
-                    text = stringResource(
-                        R.string.home_apk_availability_installed_version,
-                        it.withVersionPrefix()
-                    ),
-                    tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.InstallMobile,
-                    density = NoticeDensity.Compact
-                )
-            }
-
-            // Root mode warning - only when there is no app on the device to mount over
-            if (usingMountInstall && !stockAppInstalled) {
-                Notice(
-                    text = stringResource(R.string.root_install_apk_required),
-                    tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.Warning
-                )
-            }
-        }
-    }
-}
-
-/**
- * Dialog 3: File picker prompt dialog.
- */
-@Composable
-internal fun FilePickerPromptDialog(
-    appName: String,
-    isOtherApps: Boolean,
-    isLoadingInstalledApps: Boolean,
-    onDismiss: () -> Unit,
-    onOpenFilePicker: () -> Unit,
-    onUseInstalledApp: (() -> Unit)?
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(
-            if (isOtherApps) {
-                R.string.home_select_apk_title
-            } else {
-                R.string.home_file_picker_prompt_title
-            }
-        ),
-        description = if (isOtherApps) {
-            stringResource(R.string.home_select_any_apk_description)
-        } else {
-            htmlAnnotatedString(stringResource(R.string.home_file_picker_prompt_description, appName))
-        },
-        footer = {
-            AppDialogActions(
-                actions = buildList {
-                    if (isOtherApps && onUseInstalledApp != null) {
-                        add(
-                            DialogAction(
-                                text = stringResource(R.string.home_use_installed_app),
-                                onClick = onUseInstalledApp,
-                                icon = Icons.Outlined.PhoneAndroid,
-                                enabled = !isLoadingInstalledApps
-                            )
-                        )
-                    }
-                    add(
-                        DialogAction(
-                            text = stringResource(R.string.home_file_picker_prompt_open_apk),
-                            onClick = onOpenFilePicker,
-                            icon = Icons.Outlined.FolderOpen
-                        )
-                    )
-                    add(
-                        DialogAction(
-                            text = stringResource(android.R.string.cancel),
-                            onClick = onDismiss
-                        )
-                    )
-                },
-                layout = DialogButtonLayout.Vertical
-            )
-        }
-    )
-}
-
-/**
- * Unsupported version warning dialog.
- */
-@Composable
-private fun UnsupportedVersionWarningDialog(
-    version: String,
-    versionCode: Long? = null,
-    recommendedVersion: String?,
-    allCompatibleVersions: List<String>,
-    versionDescriptions: Map<String, String> = emptyMap(),
-    compatibleVersionCodes: Map<String, Set<Int>> = emptyMap(),
-    experimentalVersions: Set<String> = emptySet(),
-    isExperimental: Boolean = false,
-    isExpertMode: Boolean,
-    onDismiss: () -> Unit,
-    onProceed: () -> Unit
-) {
-    val versionCodeMismatch = !isExperimental && versionCode != null && version == recommendedVersion
-    val tags = versionTagsOf(isExperimental = isExperimental, isUnsupported = !isExperimental)
-    // The card is tinted by the same tag it is badged with, so it cannot read as two verdicts
-    val tone = tags.firstOrNull()?.tone ?: SemanticTone.Error
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_dialog_unsupported_version_dialog_title),
-        description = stringResource(
-            when {
-                isExperimental -> R.string.home_dialog_unsupported_version_experimental_description
-                versionCodeMismatch -> R.string.home_dialog_unsupported_version_build_mismatch_description
-                else -> R.string.home_dialog_unsupported_version_dialog_description
-            }
-        ),
-        padding = DialogPadding.Compact,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
-                onPrimaryClick = onProceed,
-                isPrimaryDestructive = true,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
-        val secondaryColor = LocalDialogSecondaryTextColor.current
-
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                // Selected version card
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.home_selected_version),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = secondaryColor
-                    )
-
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(14.dp),
-                        color = tone.container.copy(alpha = 0.3f),
-                        tonalElevation = 1.dp,
-                        border = CardBorder.tinted(tone.accent)
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                Text(
-                                    text = version,
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    fontFamily = FontFamily.Monospace,
-                                    fontWeight = FontWeight.Bold,
-                                    color = tone.accent
-                                )
-                                if (versionCode != null) {
-                                    Text(
-                                        text = stringResource(R.string.home_dialog_unsupported_version_build, versionCode),
-                                        style = MaterialTheme.typography.bodySmall,
-                                        fontFamily = FontFamily.Monospace,
-                                        color = secondaryColor
-                                    )
-                                }
-                            }
-
-                            VersionTagBadges(tags)
-                        }
-                    }
-                }
-
-                // Compatible versions section
-                if (isExpertMode && allCompatibleVersions.isNotEmpty()) {
-                    // Expert mode: show all compatible versions in unified card
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(R.string.home_dialog_unsupported_version_compatible_versions),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = secondaryColor
-                        )
-
-                        VersionListCard(
-                            versions = allCompatibleVersions,
-                            recommendedIndex = allCompatibleVersions
-                                .indexOfFirst { it !in experimentalVersions }
-                                .takeIf { it >= 0 } ?: 0,
-                            isCompatible = true,
-                            experimentalVersions = experimentalVersions,
-                            descriptions = versionDescriptions,
-                            versionCodes = compatibleVersionCodes
-                        )
-                    }
-                } else if (recommendedVersion != null) {
-                    // Simple mode or single version: show recommended version card
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(R.string.home_recommended_version),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = secondaryColor
-                        )
-
-                        VersionListCard(
-                            versions = listOf(recommendedVersion),
-                            recommendedIndex = 0,
-                            isCompatible = true,
-                            experimentalVersions = experimentalVersions,
-                            versionCodes = compatibleVersionCodes
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-/**
- * Warning dialog shown when the selected APK's signing certificate does not match
- * the expected signatures declared in the patch bundle.
- */
-@Composable
-fun InvalidSignatureDialog(
-    appName: String,
-    onPickAnother: () -> Unit,
-    onProceed: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_invalid_signature_title),
-        description = htmlAnnotatedString(
-            stringResource(R.string.home_invalid_signature_message, appName)
-        ),
-        footer = {
-            AppDialogActions(
-                actions = listOf(
-                    DialogAction(
-                        text = stringResource(R.string.home_split_apk_warning_pick_another),
-                        onClick = onPickAnother,
-                        icon = Icons.Outlined.FolderOpen
-                    ),
-                    DialogAction(
-                        text = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
-                        onClick = onProceed
-                    ),
-                    DialogAction(
-                        text = stringResource(android.R.string.cancel),
-                        onClick = onDismiss
-                    )
-                ),
-                layout = DialogButtonLayout.Vertical
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Notice(
-                text = stringResource(R.string.home_invalid_signature_badge),
-                tone = SemanticTone.Error,
-                icon = Icons.Outlined.Warning
-            )
-        }
-    }
-}
-
-/**
- * Warning dialog shown when the user selects a split APK archive (.apks / .apkm / .xapk)
- * for an app that requires a full APK.
- */
-@Composable
-fun SplitApkWarningDialog(
-    appName: String,
-    onProceed: () -> Unit,
-    onPickAnother: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_split_apk_warning_title),
-        description = htmlAnnotatedString(
-            stringResource(R.string.home_split_apk_warning_message, appName)
-        ),
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
-                onPrimaryClick = onProceed,
-                secondaryText = stringResource(R.string.home_split_apk_warning_pick_another),
-                onSecondaryClick = onPickAnother,
-                secondaryIcon = Icons.Outlined.FolderOpen
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-        }
-    }
-}
-
-/**
- * Warning dialog shown when the user selects an APK version that is marked experimental
- * in the patch bundle AND experimental-version mode is enabled for that bundle.
- */
-@Composable
-fun ExperimentalVersionWarningDialog(
-    appName: String,
-    onDismiss: () -> Unit,
-    onProceed: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.morphe_experimental_app_version_dialog_title),
-        description = htmlAnnotatedString(
-            stringResource(R.string.morphe_experimental_app_version_dialog_message, appName)
-        ),
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.home_dialog_unsupported_version_dialog_proceed),
-                onPrimaryClick = onProceed,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-        }
-    }
-}
-
-/**
- * Wrong package dialog.
- */
-@Composable
-fun WrongPackageDialog(
-    expectedPackage: String,
-    actualPackage: String,
-    onDismiss: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_dialog_wrong_package_title),
-        description = stringResource(R.string.home_dialog_wrong_package_description),
-        padding = DialogPadding.Compact,
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
-            ) {
-                // The two are read against each other, so the tone carries which is which
-                MonospaceValuePanel(
-                    value = expectedPackage,
-                    label = stringResource(R.string.home_dialog_expected_package),
-                    tone = SemanticTone.Success
-                )
-
-                MonospaceValuePanel(
-                    value = actualPackage,
-                    label = stringResource(R.string.home_dialog_selected_package),
-                    tone = SemanticTone.Error
-                )
-            }
-        }
-    }
-}
-
-/**
- * Shown when the device SDK is lower than the minSdk of every declared AppTarget for this app.
- * Informs the user that their device does not meet the requirements for any supported version.
- */
-@Composable
-private fun NoCompatibleVersionsDialog(
-    appName: String,
-    onDismiss: () -> Unit
-) {
-    val deviceSdk = Build.VERSION.SDK_INT
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.home_apk_no_compatible_versions_title),
-        description = htmlAnnotatedString(
-            stringResource(
-                R.string.home_apk_no_compatible_versions_message,
-                appName,
-                deviceSdk.androidVersionName(),
-                deviceSdk
-            )
-        ),
-        footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-        }
-    }
-}
-
-/**
- * Version list card where each row is tappable.
- * The selected version gets a checkmark; the recommended version is labeled when not selected.
- * Experimental versions are always labeled regardless of selection state.
- * Versions whose [AppTarget.minSdk] exceeds the current device SDK are shown greyed-out
- * and cannot be selected.
- */
-@Composable
-private fun SelectableVersionListCard(
-    modifier: Modifier = Modifier,
-    versions: List<BundledAppTarget>,
-    selectedVersion: AppTarget?,
-    onVersionSelect: (AppTarget) -> Unit,
-    anyString: String,
-    hasMultipleBundles: Boolean,
-    incompatibleSdkVersions: Set<String> = emptySet(),
-    savedVersion: String? = null,
-    installedVersion: String? = null
-) {
-    if (versions.isEmpty()) return
-
-    // The version each source stands behind, experimental ones aside: a source does not
-    // recommend a version it marks experimental, whatever the toggle promotes above it
-    val recommendedByBundle = remember(versions) {
-        versions.groupBy { it.bundleUid }
-            .mapValues { (_, section) ->
-                section.installable().firstOrNull { !it.target.isExperimental }?.target?.version
-            }
-    }
-
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(14.dp),
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        tonalElevation = 1.dp,
-        border = CardBorder.neutral
-    ) {
-        Column(modifier = Modifier.fillMaxWidth().selectableGroup()) {
-            var lastBundleUid = -1
-
-            versions.forEachIndexed { index, bundled ->
-                val target = bundled.target
-                val versionString = target.version ?: anyString
-                val isIncompatibleSdk = target.version != null && target.version in incompatibleSdkVersions
-                val isSelected = !isIncompatibleSdk && target.version != null && target.version == selectedVersion?.version
-                val isRecommended = !isIncompatibleSdk && target.version != null &&
-                        target.version == recommendedByBundle[bundled.bundleUid]
-                val selectedLabel = stringResource(R.string.home_selected_version)
-                val tags = versionTagsOf(
-                    requiresAndroidSdk = target.minSdk.takeIf { isIncompatibleSdk },
-                    isIncompatible = isIncompatibleSdk && target.minSdk == null,
-                    isExperimental = target.isExperimental,
-                    isRecommended = isRecommended,
-                    isSaved = target.version != null && target.version == savedVersion,
-                    isInstalled = target.version != null && target.version == installedVersion
-                )
-
-                // Bundle section header - only when multiple bundles are present and uid changes
-                if (hasMultipleBundles && bundled.bundleUid != lastBundleUid) {
-                    if (lastBundleUid != -1) {
-                        HorizontalDivider(
-                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 7.dp),
-                        horizontalArrangement = Arrangement.spacedBy(5.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Extension,
-                            contentDescription = null,
-                            modifier = Modifier.size(12.dp),
-                            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.65f)
-                        )
-                        Text(
-                            text = bundled.bundleName,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.65f),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                    lastBundleUid = bundled.bundleUid
-                }
-
-                val tagLabels = tags.labels()
-                val rowContentDesc = buildString {
-                    append(versionString)
-                    tagLabels.forEach { append(", $it") }
-                    if (isSelected) append(", $selectedLabel")
-                    target.description?.let { append(", $it") }
-                    if (hasMultipleBundles) append(", ${bundled.bundleName}")
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .then(
-                            if (isIncompatibleSdk) Modifier
-                            else Modifier.selectable(
-                                selected = isSelected,
-                                onClick = { onVersionSelect(target) },
-                                role = Role.RadioButton
-                            )
-                        )
-                        .semantics { contentDescription = rowContentDesc }
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Checkmark column - fixed width so text aligns across all rows
-                    Box(
-                        modifier = Modifier.size(18.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        if (isSelected) {
-                            Icon(
-                                imageVector = Icons.Filled.Check,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(18.dp)
-                            )
-                        }
-                    }
-
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .then(if (isIncompatibleSdk) Modifier.alpha(0.4f) else Modifier),
-                        verticalArrangement = Arrangement.spacedBy(2.dp)
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = versionString,
-                                style = MaterialTheme.typography.bodyLarge,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                // Color marks the selection alone, and the badges carry every tag
-                                color = if (isSelected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    LocalDialogTextColor.current
-                                },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .basicMarquee(iterations = Int.MAX_VALUE),
-                                maxLines = 1,
-                            )
-
-                            VersionTagBadges(tags)
-                        }
-
-                        val description = target.description
-                        if (description != null) {
-                            Text(
-                                text = description,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = LocalDialogSecondaryTextColor.current
-                            )
-                        }
-                    }
-                }
-
-                // Row divider - skip after last row in a bundle group (section divider handles it)
-                val isLastInBundle = index == versions.lastIndex ||
-                        (hasMultipleBundles && versions[index + 1].bundleUid != bundled.bundleUid)
-                if (index < versions.lastIndex && !isLastInBundle) {
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)
-                    )
-                }
-            }
-        }
-    }
-}
-
-
-@Composable
-private fun VersionListCard(
-    modifier: Modifier = Modifier,
-    versions: List<String>,
-    recommendedIndex: Int = 0,
-    isCompatible: Boolean = false,
-    showUnpatchedBadge: Boolean = false,
-    experimentalVersions: Set<String> = emptySet(),
-    descriptions: Map<String, String> = emptyMap(),
-    incompatibleSdkVersions: Set<String> = emptySet(),
-    versionCodes: Map<String, Set<Int>> = emptyMap(),
-    savedVersion: String? = null,
-    installedVersion: String? = null
-) {
-    if (versions.isEmpty()) return
-
-    val containerColor = if (isCompatible) {
-        MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.25f)
-    } else {
-        MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-    }
-
-    val textColor = if (isCompatible) {
-        Color.Green.copy(alpha = 0.9f)
-    } else {
-        LocalDialogTextColor.current
-    }
-
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(14.dp),
-        color = containerColor,
-        tonalElevation = 1.dp,
-        border = CardBorder.neutral
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            versions.forEachIndexed { index, version ->
-                val isExperimentalVersion = version in experimentalVersions
-                val isIncompatibleSdk = version in incompatibleSdkVersions
-                val versionDescription = descriptions[version]
-                val buildCode = versionCodes[version]?.firstOrNull()
-
-                // Resolved once - drives both the badges and the version text color
-                val tags = versionTagsOf(
-                    isIncompatible = isIncompatibleSdk,
-                    isExperimental = isExperimentalVersion,
-                    isUnpatched = showUnpatchedBadge && versions.size == 1,
-                    isRecommended = index == recommendedIndex && !showUnpatchedBadge,
-                    isSaved = version == savedVersion,
-                    isInstalled = version == installedVersion
-                )
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .then(if (isIncompatibleSdk) Modifier.alpha(0.4f) else Modifier),
-                    verticalArrangement = Arrangement.spacedBy(3.dp)
-                ) {
-                    // Version + its tags inline
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = version,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = if (index == recommendedIndex) FontWeight.Bold else FontWeight.Normal,
-                            color = textColor,
-                            modifier = Modifier.weight(1f),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        VersionTagBadges(tags)
-                    }
-
-                    // Build number
-                    if (buildCode != null) {
-                        Text(
-                            text = stringResource(R.string.home_dialog_unsupported_version_build, buildCode),
-                            style = MaterialTheme.typography.bodySmall,
-                            fontFamily = FontFamily.Monospace,
-                            color = LocalDialogSecondaryTextColor.current
-                        )
-                    }
-
-                    // Optional per-version description
-                    if (versionDescription != null) {
-                        Text(
-                            text = versionDescription,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = LocalDialogSecondaryTextColor.current
-                        )
-                    }
-                }
-
-                // Divider between versions
-                if (index < versions.lastIndex) {
-                    HorizontalDivider(
-                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)
-                    )
-                }
-            }
-        }
-    }
-}
-
-/**
  * Warning dialog shown before patching starts when the device has less free storage than
  * [thresholdBytes].
  */
@@ -1782,30 +852,14 @@ fun DeepLinkAddSourceDialog(
             )
 
             // Bundle details card
-            Surface(
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    if (name != null) {
-                        Text(
-                            text = name,
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = LocalDialogTextColor.current
-                        )
-                    }
-                    Text(
-                        text = url,
-                        style = MaterialTheme.typography.bodySmall,
-                        fontFamily = FontFamily.Monospace,
-                        color = LocalDialogSecondaryTextColor.current
-                    )
-                }
+            LabeledSection(title = name) {
+                Text(
+                    text = url,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = FontFamily.Monospace,
+                    color = LocalDialogSecondaryTextColor.current,
+                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                )
             }
 
             Notice(
@@ -1855,95 +909,85 @@ fun MppImportDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Bundle details card
-            Surface(
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    // Name (bold title)
-                    val displayName = manifest?.name ?: fileName
-                    if (displayName != null) {
-                        Text(
-                            text = displayName,
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = LocalDialogTextColor.current,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+            // Bundle details card, without a body when the name is all there is
+            val displayName = manifest?.name ?: fileName
+            val hasDetails = manifest?.description != null || manifest?.version != null ||
+                    manifest?.author != null || manifest?.source != null ||
+                    (fileName != null && manifest?.name != null)
+            SectionCard(accentColor = LocalAccent.current) {
+                Column {
+                    if (displayName != null) CardHeader(title = displayName)
+                    if (hasDetails) Column(
+                        modifier = Modifier.padding(Defaults.ContentPadding),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        // Description
+                        manifest?.description?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = LocalDialogSecondaryTextColor.current,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
 
-                    // Description
-                    manifest?.description?.let {
-                        Text(
-                            text = it,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = LocalDialogSecondaryTextColor.current,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-
-                    // Metadata row: version, author
-                    if (manifest?.version != null || manifest?.author != null) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            manifest.version?.let { version ->
-                                StatusBadge(
-                                    text = "v$version",
-                                    icon = Icons.Outlined.NewReleases,
-                                    tone = SemanticTone.Primary
-                                )
-                            }
-                            manifest.author?.let { author ->
-                                StatusBadge(
-                                    text = author,
-                                    icon = Icons.Outlined.Person,
-                                    tone = SemanticTone.Neutral
-                                )
+                        // Metadata row: version, author
+                        if (manifest?.version != null || manifest?.author != null) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                manifest.version?.let { version ->
+                                    StatusBadge(
+                                        text = "v$version",
+                                        icon = Icons.Outlined.NewReleases,
+                                        tone = SemanticTone.Primary
+                                    )
+                                }
+                                manifest.author?.let { author ->
+                                    StatusBadge(
+                                        text = author,
+                                        icon = Icons.Outlined.Person,
+                                        tone = SemanticTone.Neutral
+                                    )
+                                }
                             }
                         }
-                    }
 
-                    // Source URL
-                    manifest?.source?.let { source ->
-                        Text(
-                            text = source,
-                            style = MaterialTheme.typography.bodySmall,
-                            fontFamily = FontFamily.Monospace,
-                            color = LocalDialogSecondaryTextColor.current,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-
-                    // Filename (always shown as secondary info)
-                    if (fileName != null && manifest?.name != null) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Description,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.size(12.dp)
-                            )
+                        // Source URL
+                        manifest?.source?.let { source ->
                             Text(
-                                text = fileName,
+                                text = source,
                                 style = MaterialTheme.typography.bodySmall,
                                 fontFamily = FontFamily.Monospace,
                                 color = LocalDialogSecondaryTextColor.current,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
+                        }
+
+                        // Filename (always shown as secondary info)
+                        if (fileName != null && manifest?.name != null) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Description,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Text(
+                                    text = fileName,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = LocalDialogSecondaryTextColor.current,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
                         }
                     }
                 }
@@ -1991,6 +1035,7 @@ fun SimpleBundleSelectDialog(
 ) {
     val selected = remember { mutableStateOf(candidates.firstOrNull()?.uid) }
     val rememberChoice = remember { mutableStateOf(false) }
+    val sourcesByUid = rememberSourcesByUid()
 
     AppDialog(
         onDismissRequest = onDismiss,
@@ -2019,6 +1064,10 @@ fun SimpleBundleSelectDialog(
             val recommendedVersionLabel = stringResource(R.string.home_recommended_version)
             candidates.forEach { candidate ->
                 val isSelected = selected.value == candidate.uid
+                // Drawn and colored the way the source list draws it, so the source is recognized
+                // at a glance
+                val source = sourcesByUid[candidate.uid]
+                val accentColor = source?.let { rememberBundleAccent(it) }
                 val patchCountText = pluralStringResource(
                     R.plurals.patch_count,
                     candidate.patchCount,
@@ -2047,8 +1096,12 @@ fun SimpleBundleSelectDialog(
                 RadioSelectionCard(
                     selected = isSelected,
                     onSelect = { selected.value = candidate.uid },
-                    contentDescription = cardContentDescription
+                    contentDescription = cardContentDescription,
+                    accentColor = accentColor
                 ) {
+                    if (source != null) {
+                        BundleIcon(bundle = source, modifier = Modifier.size(40.dp))
+                    }
                     Column(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -2069,20 +1122,20 @@ fun SimpleBundleSelectDialog(
                         }
                         Text(
                             text = patchCountText,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodySmall,
                             color = LocalDialogSecondaryTextColor.current
                         )
                         if (patchVersionText != null) {
                             Text(
                                 text = patchVersionText,
-                                style = MaterialTheme.typography.bodyMedium,
+                                style = MaterialTheme.typography.bodySmall,
                                 color = LocalDialogSecondaryTextColor.current
                             )
                         }
                         if (recommendedVersionText != null) {
                             Text(
                                 text = recommendedVersionText,
-                                style = MaterialTheme.typography.bodyMedium,
+                                style = MaterialTheme.typography.bodySmall,
                                 color = LocalDialogSecondaryTextColor.current
                             )
                         }
@@ -2128,6 +1181,3 @@ fun Android11Dialog(
         }
     )
 }
-
-private fun buildVersionSuffix(version: String, versionCode: Long?): String =
-    if (versionCode != null) "v$version ($versionCode)" else "v$version"

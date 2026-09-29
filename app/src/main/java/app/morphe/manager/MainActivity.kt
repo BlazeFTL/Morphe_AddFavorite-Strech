@@ -127,6 +127,8 @@ class MainActivity : AppCompatActivity() {
             val theme by vm.prefs.theme.getAsState()
             val themeStyle by vm.prefs.themeStyle.getAsState()
             val pureBlackTheme by vm.prefs.pureBlackTheme.getAsState()
+            val colorAccents by vm.prefs.colorAccents.getAsState()
+            val outlines by vm.prefs.outlines.getAsState()
             val customAccentColor by vm.prefs.customAccentColor.getAsState()
             val customThemeColor by vm.prefs.customThemeColor.getAsState()
             val appCardColorMode by vm.prefs.appCardColorMode.getAsState()
@@ -146,7 +148,11 @@ class MainActivity : AppCompatActivity() {
                 darkTheme = darkTheme,
                 dynamicColor = effectiveThemeStyle == ThemeStyle.MATERIAL_YOU,
                 pureBlackTheme = pureBlackTheme,
-                monochromeTheme = effectiveThemeStyle == ThemeStyle.MONOCHROME,
+                traits = ThemeTraits(
+                    monochrome = effectiveThemeStyle == ThemeStyle.MONOCHROME,
+                    colorAccents = colorAccents,
+                    outlines = outlines
+                ),
                 accentColorHex = customAccentColor.takeUnless { it.isBlank() },
                 themeColorHex = customThemeColor.takeUnless { it.isBlank() },
                 appCardColorMode = appCardColorMode,
@@ -276,7 +282,7 @@ class MainActivity : AppCompatActivity() {
 
         val isAddSource = data.scheme == "https" &&
                 data.host == "morphe.software" &&
-                data.path?.startsWith("/add-source") == true
+                data.path?.startsWith(ADD_SOURCE_PATH) == true
         if (!isAddSource) return
 
         val name = data.getQueryParameter("name")?.takeIf { it.isNotBlank() }
@@ -481,7 +487,7 @@ private fun MorpheManager(vm: MainViewModel) {
                 getBounds = { homeOnboardingState.firstAppCardBounds },
                 onShow = {
                     homeOnboardingState.swipeActive = true
-                    homeViewModel.triggerSwipeGestureHint()
+                    homeViewModel.apps.triggerSwipeGestureHint()
                 }
             ),
             StepDef(
@@ -489,7 +495,7 @@ private fun MorpheManager(vm: MainViewModel) {
                 getBounds = { homeOnboardingState.sourcesButtonBounds },
                 onShow = {
                     homeOnboardingState.swipeActive = false
-                    homeViewModel.markSwipeGestureHintShown()
+                    homeViewModel.apps.markSwipeGestureHintShown()
                 }
             )
         )
@@ -679,7 +685,7 @@ private fun MorpheManager(vm: MainViewModel) {
                     },
                     onStartTour = startOnboardingTour,
                     onDeclineTour = declineOnboardingTour,
-                    onAppStateChanged = homeViewModel::notifyAppStateChanged,
+                    onAppStateChanged = homeViewModel.apps::notifyAppStateChanged,
                     onBackgroundSpeedChange = { patcherBackgroundSpeed.floatValue = it },
                     onPatchingCompleted = { patchingCompleted.value = true }
                 )
@@ -740,7 +746,7 @@ private fun MorpheManager(vm: MainViewModel) {
                         OnboardingPhase.HOME -> {
                             phaseInitialStep = 0
                             homeOnboardingState.swipeActive = false
-                            homeViewModel.markSwipeGestureHintShown()
+                            homeViewModel.apps.markSwipeGestureHintShown()
                             homeViewModel.showBundleManagementSheet = true
                             globalOnboardingState.sheetOnboardingActive = true
                             scope.launch {
@@ -806,7 +812,7 @@ private fun MorpheManager(vm: MainViewModel) {
                 }
                 val onSkip: () -> Unit = {
                     homeOnboardingState.swipeActive = false
-                    homeViewModel.markSwipeGestureHintShown()
+                    homeViewModel.apps.markSwipeGestureHintShown()
                     globalOnboardingState.sheetOnboardingActive = false
                     homeViewModel.showBundleManagementSheet = false
                     onboardingPhase = OnboardingPhase.DONE

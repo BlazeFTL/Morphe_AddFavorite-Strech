@@ -146,7 +146,7 @@
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="content_show_original">ច្បាប់ដើម</string>
-    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->

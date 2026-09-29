@@ -113,7 +113,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; non ten versións compatibles para Android %2$s (API %3$s). Todas as versións declaradas requiren unha versión superior de Android</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Descargar o APK orixinal</string>
-    <string name="home_download_instructions_steps_title">Instrucións:</string>
     <string name="home_download_instructions_step1">Prema o botón \'%s\' de abaixo</string>
     <string name="home_download_instructions_step2_part1">Desprácese cara abaixo no sitio web e pulse</string>
     <string name="home_download_instructions_download_button_toast">Prema ao botón de descarga no sitio web, e non aquí 😊</string>
@@ -313,7 +312,6 @@ Elixe outro APK</string>
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
-    <string name="settings_system_patch_options_section">Opcións de parche</string>
     <!-- Copy selection from another bundle -->
     <!-- Settings - System Tab - Custom file picker -->
     <!-- Settings - System Tab - APK download helper -->
@@ -339,7 +337,7 @@ Elixe outro APK</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
     <string name="changelog_section_new">Novo</string>
-    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <!-- "%s" is the number of changes in the section -->
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <!-- Shown under the download percentage. "%1$s" is the megabytes so far, "%2$s" the total. -->

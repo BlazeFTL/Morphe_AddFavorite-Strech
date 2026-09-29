@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Remove
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.Dp
@@ -44,6 +45,8 @@ import androidx.compose.ui.unit.dp
  * @param role            What the card is announced as. A list where several rows can be on at
  *                        once passes [Role.Checkbox] along with a leading indicator to match,
  *                        since a screen reader offers to turn a checkbox off and a radio never.
+ * @param accentColor     Color of what the card stands for, or the surrounding one, see [LocalAccent].
+ *                        A selected card wears it on its edge and indicator, never as a fill.
  */
 @Composable
 fun RadioSelectionCard(
@@ -57,11 +60,14 @@ fun RadioSelectionCard(
     role: Role = Role.RadioButton,
     leadingContent: (@Composable () -> Unit)? = null,
     footerContent: (@Composable () -> Unit)? = null,
+    accentColor: Color? = LocalAccent.current,
     content: @Composable RowScope.() -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
+    val accent = usableAppAccent(accentColor)?.takeIf { selected && enabled }
+    val fill = cardFill()
     val borderColor by animateColorAsState(
-        targetValue = selectionBorderColor(selected, enabled),
+        targetValue = if (accent != null) appAccentBorder(accent) else selectionBorderColor(selected, enabled),
         animationSpec = tween(Defaults.ANIMATION_DURATION),
         label = "radio_card_border"
     )
@@ -81,8 +87,9 @@ fun RadioSelectionCard(
     SettingsItemCard(
         onClick = onSelect,
         enabled = enabled,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = borderColor,
+        color = fill,
         modifier = modifier.semantics {
             this.role = role
             this.selected = selected
@@ -90,40 +97,43 @@ fun RadioSelectionCard(
             if (stateDescription != null) this.stateDescription = stateDescription
         }
     ) {
-        Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(Defaults.ContentPadding),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (leadingContent != null) {
-                    leadingContent()
-                } else {
-                    DefaultRadioIndicator(selected = selected, enabled = enabled)
+        // Passed on, so the badges on a picked card take its color as its edge does
+        ProvideCardAccent(accent, fill) {
+            Column {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Defaults.ContentPadding),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (leadingContent != null) {
+                        leadingContent()
+                    } else {
+                        DefaultRadioIndicator(selected = selected, enabled = enabled, accentColor = accentColor)
+                    }
+                    content()
                 }
-                content()
-            }
-            AnimatedVisibility(
-                visible = footerContent != null,
-                enter = Animations.expandFadeEnter,
-                exit = Animations.shrinkFadeExit
-            ) {
-                Column {
-                    HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.5f))
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(footerColor)
-                            .animateContentSize()
-                            .padding(
-                                horizontal = Defaults.ContentPadding,
-                                vertical = Defaults.ContentPaddingSmall
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        shownFooter?.invoke()
+                AnimatedVisibility(
+                    visible = footerContent != null,
+                    enter = Animations.expandFadeEnter,
+                    exit = Animations.shrinkFadeExit
+                ) {
+                    Column {
+                        SettingsDivider(fullWidth = true)
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(footerColor)
+                                .animateContentSize()
+                                .padding(
+                                    horizontal = Defaults.ContentPadding,
+                                    vertical = Defaults.ContentPaddingSmall
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            shownFooter?.invoke()
+                        }
                     }
                 }
             }
@@ -209,14 +219,21 @@ fun SelectionLeadingBox(
 /**
  * The round indicator [RadioSelectionCard] carries, in the three states a list where several rows
  * can be on at once needs. A dash stands for "some of them", which neither circle can say.
+ *
+ * @param accentColor Color of the card the indicator sits on, see [RadioSelectionCard] and
+ *   [LocalAccent].
  */
 @Composable
 fun SelectionCheckIndicator(
     state: ToggleableState,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    accentColor: Color? = LocalAccent.current
 ) {
     val colors = MaterialTheme.colorScheme
+    val accent = usableAppAccent(accentColor)
+    val container = accent?.copy(alpha = AccentAlpha.LEAD) ?: colors.primaryContainer
+    val content = if (accent != null) appAccentContent(container) else colors.onPrimaryContainer
     // Eased between the states, so picking a card fades its mark in as its border comes up
     Crossfade(
         targetState = state,
@@ -232,10 +249,10 @@ fun SelectionCheckIndicator(
 
         StatusCircleIcon(
             icon = icon,
-            containerColor = if (enabled) colors.primaryContainer
-            else colors.primaryContainer.copy(alpha = 0.38f),
-            contentColor = if (enabled) colors.onPrimaryContainer
-            else colors.onPrimaryContainer.copy(alpha = 0.38f)
+            containerColor = if (enabled) container
+            else container.copy(alpha = container.alpha * Defaults.DISABLED_ALPHA),
+            contentColor = if (enabled) content
+            else content.copy(alpha = Defaults.DISABLED_ALPHA)
         )
     }
 }
@@ -255,6 +272,10 @@ fun SelectionCheckRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            // Pressed on a rounded plate around the box and its label, as a menu item is, rather
+            // than across the whole width the row is centered in
+            .wrapContentWidth(Alignment.CenterHorizontally)
+            .clip(RoundedCornerShape(Defaults.CompactCornerRadius))
             .toggleable(
                 value = checked,
                 enabled = enabled,
@@ -286,7 +307,8 @@ private fun selectionBorderColor(selected: Boolean, enabled: Boolean) = when {
 }
 
 @Composable
-private fun DefaultRadioIndicator(selected: Boolean, enabled: Boolean) = SelectionCheckIndicator(
+private fun DefaultRadioIndicator(selected: Boolean, enabled: Boolean, accentColor: Color?) = SelectionCheckIndicator(
     state = if (selected) ToggleableState.On else ToggleableState.Off,
-    enabled = enabled
+    enabled = enabled,
+    accentColor = accentColor
 )

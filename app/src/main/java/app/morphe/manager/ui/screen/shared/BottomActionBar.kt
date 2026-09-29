@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -238,7 +237,7 @@ fun BottomActionBarScope.BottomActionButton(
             contentDescription = accessibleLabel,
             containerColor = colors.container.dim(enabled),
             contentColor = colors.content.dim(enabled),
-            border = BorderStroke(1.dp, colors.border.dim(enabled)),
+            border = CardBorder.of(colors.border.dim(enabled)),
             role = Role.Button,
             pressScale = true,
             hapticFeedback = true,
@@ -327,10 +326,11 @@ private fun BottomActionTone.colors(): BottomActionColors {
             border = GlassButtonDefaults.borderColor(scheme.tertiary, selected = true)
         )
 
+        // The neutral glass with a red label and edge, see [destructiveColor]
         BottomActionTone.Destructive -> BottomActionColors(
-            container = GlassButtonDefaults.containerColor(scheme.errorContainer, selected = true),
-            content = GlassButtonDefaults.contentColor(scheme.onErrorContainer, selected = true),
-            border = GlassButtonDefaults.borderColor(scheme.error, selected = true)
+            container = GlassButtonDefaults.containerColor(),
+            content = GlassButtonDefaults.contentColor(destructiveColor(), selected = false),
+            border = GlassButtonDefaults.borderColor(destructiveColor(), selected = true)
         )
     }
 }

@@ -237,7 +237,6 @@ Alles, was Sie von dieser Website hinzufügen, geschieht auf eigenes Risiko"</st
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; hat keine unterstützten Versionen für Android %2$s (API %3$s). Alle deklarierten Versionen erfordern eine höhere Android-Version</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Laden Sie die originale APK herunter </string>
-    <string name="home_download_instructions_steps_title">Anleitung:</string>
     <string name="home_download_instructions_finding">Suche nach der Download-Seite …</string>
     <string name="home_download_instructions_step1">Drücken Sie die Taste \'%s\' unten </string>
     <string name="home_download_instructions_step2_part1">Scrollen Sie auf der Webseite nach unten und drücken Sie </string>
@@ -554,7 +553,6 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
 Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="patcher_install_error_title">Fehler bei der Installation</string>
     <string name="patcher_install_error_subtitle">Versuche, die App zu entfernen und erneut zu installieren</string>
-    <string name="patcher_ready_to_install_subtitle">Drücke die Schaltfläche unten zum Installieren</string>
     <string name="patcher_ready_to_mount_subtitle">Drücke die Schaltfläche unten zum Mounten</string>
     <string name="patcher_patches_excluded_for_installer">Nicht verfügbar für diese Installationsmethode und ausgeschlossen: %s</string>
     <string name="patcher_back_to_game_hint">Tippe auf %1$s, um zu deinem Spiel zurückzukehren</string>
@@ -1123,7 +1121,6 @@ Details: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Import der Quelldaten fehlgeschlagen</string>
     <string name="settings_system_import_source_data_success">Quelldaten erfolgreich importiert</string>
     <string name="settings_system_selected_patches_section">Ausgewählte Patches</string>
-    <string name="settings_system_patch_options_section">Patch-Optionen</string>
     <string name="settings_system_no_patches_or_options">Keine Patches oder Optionen gespeichert</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Auswahl von… kopieren</string>
@@ -1309,8 +1306,8 @@ Details: %2$s"</string>
     <string name="changelog_section_app_support">App-Support</string>
     <string name="changelog_section_other">Änderungen</string>
     <string name="changelog_badge_latest">Neueste</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">In Verwendung</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Heruntergeladen</string>
     <string name="changelog_badge_prerelease">Vorabversion</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Alle anzeigen (%s)</string>

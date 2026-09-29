@@ -10,7 +10,6 @@ import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
@@ -22,7 +21,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -542,17 +540,14 @@ private fun PackageSelectionItem(
     val totalPatches = remember(bundleMap) { bundleMap.values.sum() }
     // In selection mode force cards closed so nested bundle taps do not race with tap-to-toggle
     val effectiveExpanded = expanded && !isSelectionMode
-    val expandRotation by animateFloatAsState(
-        targetValue = if (effectiveExpanded) 180f else 0f,
-        label = "expand_rotation"
-    )
 
     SelectableCard(
         modifier = Modifier.fillMaxWidth(),
         isSelected = isSelected,
         isSelectionMode = isSelectionMode
     ) {
-        SectionCard {
+        // Worn the way the home screen wears it, so the app reads as itself here too
+        SectionCard(accentColor = rememberAppColor(packageName)) {
             Column {
                 // Header with app icon
                 Row(
@@ -633,14 +628,10 @@ private fun PackageSelectionItem(
                         enter = Animations.expandFadeEnter,
                         exit = Animations.shrinkFadeExit
                     ) {
-                        Icon(
-                            imageVector = Icons.Outlined.ExpandMore,
-                            contentDescription = if (effectiveExpanded)
-                                stringResource(R.string.collapse)
-                            else
-                                stringResource(R.string.expand),
+                        ExpandChevron(
+                            expanded = effectiveExpanded,
                             tint = LocalDialogSecondaryTextColor.current,
-                            modifier = Modifier.rotate(expandRotation)
+                            announced = true
                         )
                     }
                 }
@@ -733,14 +724,14 @@ private fun BundleSelectionItem(
     ) {
         SettingsDivider(fullWidth = true)
 
-        // Bundle info card
-        BundleInfoCard(
-            modifier = Modifier.fillMaxWidth(),
-            icon = Icons.Outlined.Extension,
-            title = displayName,
-            value = patchCountText,
-            onClick = onShowDetails
-        )
+        InfoPanel {
+            InfoRow(
+                icon = Icons.Outlined.Extension,
+                label = displayName,
+                value = patchCountText,
+                onClick = onShowDetails
+            )
+        }
 
         ActionPillRow {
             val copyLabel = stringResource(R.string.copy)
@@ -778,7 +769,7 @@ private fun BundleSelectionItem(
                 icon = Icons.Outlined.Restore,
                 contentDescription = resetLabel,
                 tooltip = resetLabel,
-                colors = ActionPillColors.destructive()
+                destructive = true
             )
         }
     }
@@ -988,12 +979,38 @@ private fun PatchDetailsDialog(
         isLoading = false
     }
 
+    val patchList = details?.patchList.orEmpty()
+    // Options outlive their patch being deselected, so those are listed too, dimmed as not in effect
+    val entries = remember(details) {
+        details?.let { loaded ->
+            val selected = loaded.patchList.toSet()
+            patchEntries(
+                keys = (loaded.patchList + loaded.optionsMap.keys).distinct(),
+                options = loaded.optionsMap,
+                displayName = loaded.displayNames::get,
+                dimmed = { it !in selected }
+            )
+        }.orEmpty()
+    }
+    val subtitle = bundleName ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid)
+    val copyToClipboard = rememberCopyToClipboard()
+
     DetailsDialog(
         onDismissRequest = onDismiss,
         icon = { modifier -> AppIcon(packageName = packageName, contentDescription = null, modifier = modifier) },
         title = appDisplayName,
-        subtitle = bundleName ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid),
-        accentColor = rememberAppColor(packageName)
+        subtitle = subtitle,
+        accentColor = rememberAppColor(packageName),
+        actions = listOf(
+            DialogAction(
+                text = stringResource(R.string.copy),
+                icon = Icons.Outlined.ContentCopy,
+                enabled = entries.isNotEmpty(),
+                onClick = {
+                    copyToClipboard(patchListText(title = appDisplayName, lists = listOf(subtitle to entries)))
+                }
+            )
+        )
     ) {
         if (isLoading) {
             Box(
@@ -1005,40 +1022,18 @@ private fun PatchDetailsDialog(
                 CircularProgressIndicator()
             }
         } else {
-            val patchList = details?.patchList ?: emptyList()
-            val optionsMap = details?.optionsMap ?: emptyMap()
-            // Stored keys carry a suffix when the bundle ships duplicate patch names
-            val displayNames = details?.displayNames ?: emptyMap()
-
-            // Patches section
-            if (patchList.isNotEmpty()) {
+            if (entries.isNotEmpty()) {
                 LabeledSection(
                     title = stringResource(R.string.settings_system_selected_patches_section),
-                    count = patchList.size
+                    count = patchList.size,
+                    icon = Icons.Outlined.Checklist
                 ) {
-                    patchList.forEach { patchName ->
-                        PatchNameRow(name = displayNames[patchName] ?: patchName)
-                    }
-                }
-            }
-
-            // Options section
-            if (optionsMap.isNotEmpty()) {
-                LabeledSection(
-                    title = stringResource(R.string.settings_system_patch_options_section),
-                    count = optionsMap.size
-                ) {
-                    optionsMap.entries.forEach { (patchName, options) ->
-                        PatchOptionsGroup(
-                            patchName = displayNames[patchName] ?: patchName,
-                            options = options
-                        )
-                    }
+                    PatchEntryList(entries)
                 }
             }
 
             // Empty state
-            if (patchList.isEmpty() && optionsMap.isEmpty()) {
+            if (entries.isEmpty()) {
                 Notice(
                     text = stringResource(R.string.settings_system_no_patches_or_options),
                     tone = SemanticTone.Neutral,

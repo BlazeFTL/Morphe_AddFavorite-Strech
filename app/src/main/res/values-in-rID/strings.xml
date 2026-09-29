@@ -238,7 +238,6 @@ Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; tidak memiliki versi yang didukung untuk Android %2$s (API %3$s). Semua versi yang tersedia memerlukan versi Android yang lebih tinggi</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Unduh APK asli</string>
-    <string name="home_download_instructions_steps_title">Petunjuk:</string>
     <string name="home_download_instructions_finding">Mencari halaman unduh…</string>
     <string name="home_download_instructions_step1">Tekan tombol \'%s\' di bawah ini</string>
     <string name="home_download_instructions_step2_part1">Geser halaman web ke bawah dan tekan</string>
@@ -470,7 +469,7 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="home_app_info_patch_update_available">Pembaruan tambalan tersedia</string>
     <string name="home_app_info_patch_update_available_description">Versi tambalan lebih baru tersedia. Tambal ulang aplikasi Anda untuk mendapatkan pembaruan terbaru dan perbaikan</string>
     <string name="home_app_info_app_update_available">Pembaruan aplikasi tersedia</string>
-    <string name="home_app_info_app_update_available_description">Sumber patch mendukung versi yang lebih barru dari aplikasi ini. Patch lagi untuk berpindah ke versi tersebut.</string>
+    <string name="home_app_info_app_update_available_description">Sumber tambalan mendukung versi terbaru dari aplikasi ini. Tambal lagi untuk berpindah ke versi tersebut</string>
     <string name="home_app_info_newest_supported_version">Versi terbaru yang didukung</string>
     <string name="home_app_info_version_move">Versi terpasang %1$s, versi terbaru yang didukung %2$s</string>
     <string name="home_app_info_app_deleted_warning">Aplikasi telah dicopot</string>
@@ -555,7 +554,6 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
 Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="patcher_install_error_title">Kesalahan pemasangan</string>
     <string name="patcher_install_error_subtitle">Coba copot dan pasang lagi</string>
-    <string name="patcher_ready_to_install_subtitle">Tekan tombol di bawah untuk memasang</string>
     <string name="patcher_ready_to_mount_subtitle">Tekan tombol di bawah untuk mount</string>
     <string name="patcher_patches_excluded_for_installer">Tidak tersedia untuk metode pemasangan ini dan dikecualikan: %s</string>
     <string name="patcher_back_to_game_hint">Ketuk %1$s untuk kembali ke permainan Anda</string>
@@ -1124,7 +1122,6 @@ Rincian: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Gagal mengimpor data sumber</string>
     <string name="settings_system_import_source_data_success">Data sumber berhasil diimpor</string>
     <string name="settings_system_selected_patches_section">Tambalan yang dipilih</string>
-    <string name="settings_system_patch_options_section">Opsi tambalan</string>
     <string name="settings_system_no_patches_or_options">Tidak ada tambalan atau opsi yang disimpan</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Salin pilihan dari…</string>
@@ -1310,8 +1307,8 @@ Rincian: %2$s"</string>
     <string name="changelog_section_app_support">Dukungan aplikasi</string>
     <string name="changelog_section_other">Perubahan</string>
     <string name="changelog_badge_latest">Terbaru</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">Digunakan</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Diunduh</string>
     <string name="changelog_badge_prerelease">Pra-rilis</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Tampilkan semua (%s)</string>

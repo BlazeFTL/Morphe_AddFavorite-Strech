@@ -241,7 +241,6 @@ Tout ce que vous ajoutez depuis ce site web est utilisé à vos propres risques"
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; n\'a pas de versions compatibles pour Android %2$s (API %3$s). Toutes les versions déclarées nécessitent une version Android plus récente</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Télécharger l\'APK d\'origine</string>
-    <string name="home_download_instructions_steps_title">Instructions :</string>
     <string name="home_download_instructions_finding">Recherche de la page de téléchargement…</string>
     <string name="home_download_instructions_step1">Appuyez sur le bouton \'%s\' ci-dessous</string>
     <string name="home_download_instructions_step2_part1">Faites défiler la page Web et appuyez sur</string>
@@ -557,7 +556,6 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
 La désinstallation effacera définitivement toutes les données de l'application"</string>
     <string name="patcher_install_error_title">Erreur d\'installation</string>
     <string name="patcher_install_error_subtitle">Essayez de désinstaller puis de réinstaller</string>
-    <string name="patcher_ready_to_install_subtitle">Appuyez sur le bouton ci-dessous pour installer</string>
     <string name="patcher_ready_to_mount_subtitle">Appuyez sur le bouton ci-dessous pour monter</string>
     <string name="patcher_patches_excluded_for_installer">Indisponible pour cette méthode d\'installation et exclu : %s</string>
     <string name="patcher_back_to_game_hint">Appuyez sur %1$s pour revenir à votre jeu</string>
@@ -714,6 +712,10 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_accent_color">Couleur d\'accentuation</string>
     <string name="settings_appearance_pure_black">Noir pur</string>
     <string name="settings_appearance_pure_black_description">Utilise des fonds véritablement noirs</string>
+    <string name="settings_appearance_color_accents">Couleurs de l\'application et de la source</string>
+    <string name="settings_appearance_color_accents_description">Utilise la couleur propre à chaque application et à chaque source au lieu de la couleur d\'accentuation</string>
+    <string name="settings_appearance_outlines">Contours</string>
+    <string name="settings_appearance_outlines_description">Dessine un fin contour autour des cartes, des panneaux et des boutons</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Langue &amp; affichage</string>
     <string name="settings_appearance_app_language">Langue de l\'application</string>
@@ -1129,7 +1131,6 @@ Détails : %2$s"</string>
     <string name="settings_system_import_source_data_fail">Échec de l\'importation des données de source</string>
     <string name="settings_system_import_source_data_success">Données de source importées avec succès</string>
     <string name="settings_system_selected_patches_section">Patchs sélectionnés</string>
-    <string name="settings_system_patch_options_section">Options de patch</string>
     <string name="settings_system_no_patches_or_options">Aucun patch ou option enregistré</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Copier la sélection depuis…</string>
@@ -1315,8 +1316,8 @@ Détails : %2$s"</string>
     <string name="changelog_section_app_support">Prise en charge des applications</string>
     <string name="changelog_section_other">Changements</string>
     <string name="changelog_badge_latest">Dernier</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">En cours d\'utilisation</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Téléchargée</string>
     <string name="changelog_badge_prerelease">Préversion</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Tout afficher (%s)</string>

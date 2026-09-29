@@ -88,7 +88,7 @@ fun OptionCard(
     SettingsItemCard(
         onClick = onClick,
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = if (heading.missing) {
             MaterialTheme.colorScheme.error.copy(alpha = 0.6f)
         } else {

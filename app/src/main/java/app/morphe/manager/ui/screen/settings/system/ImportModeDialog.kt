@@ -76,7 +76,7 @@ private fun ImportModeOption(
 
     SettingsItemCard(
         onClick = onClick,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = if (isDestructive) {
             destructiveColor.copy(alpha = 0.5f)
         } else {

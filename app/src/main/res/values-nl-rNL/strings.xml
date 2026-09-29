@@ -238,7 +238,6 @@ Alles wat u van deze website toevoegt, gebruikt u op eigen risico"</string>
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; heeft geen ondersteunde versies voor Android %2$s (API %3$s). Alle gedeclareerde versies vereisen een hogere Android versie</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Download de originele .APK-bestand</string>
-    <string name="home_download_instructions_steps_title">Instructies:</string>
     <string name="home_download_instructions_finding">De downloadpagina zoeken…</string>
     <string name="home_download_instructions_step1">Druk op de \'%s\' knop hieronder</string>
     <string name="home_download_instructions_step2_part1">Scroll naar beneden op de webpagina en druk op</string>
@@ -554,7 +553,6 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
 Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_install_error_title">Installatiefout</string>
     <string name="patcher_install_error_subtitle">Probeer opnieuw te verwijderen en te installeren</string>
-    <string name="patcher_ready_to_install_subtitle">Druk op de onderstaande knop om te installeren</string>
     <string name="patcher_ready_to_mount_subtitle">Druk op de onderstaande knop om te koppelen</string>
     <string name="patcher_patches_excluded_for_installer">Niet beschikbaar voor deze installatiemethode en uitgesloten: %s</string>
     <string name="patcher_back_to_game_hint">Tik op %1$s om terug te keren naar je spel</string>
@@ -711,6 +709,10 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="settings_appearance_accent_color">Accentkleur</string>
     <string name="settings_appearance_pure_black">Puur Zwart</string>
     <string name="settings_appearance_pure_black_description">Gebruikt echte zwarte achtergronden</string>
+    <string name="settings_appearance_color_accents">App- en bronkleuren</string>
+    <string name="settings_appearance_color_accents_description">Gebruikt de eigen kleur van elke app en bron in plaats van de accentkleur</string>
+    <string name="settings_appearance_outlines">Contouren</string>
+    <string name="settings_appearance_outlines_description">Tekent een dunne rand rond kaarten, panelen en knoppen</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Taal &amp; weergave</string>
     <string name="settings_appearance_app_language">App-taal</string>
@@ -1123,7 +1125,6 @@ Details: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Kan brongegevens niet importeren</string>
     <string name="settings_system_import_source_data_success">Brongegevens succesvol geïmporteerd</string>
     <string name="settings_system_selected_patches_section">Geselecteerde patches</string>
-    <string name="settings_system_patch_options_section">Patch opties</string>
     <string name="settings_system_no_patches_or_options">Geen patches of opties opgeslagen</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Selectie kopiëren van…</string>
@@ -1309,8 +1310,8 @@ Details: %2$s"</string>
     <string name="changelog_section_app_support">App-ondersteuning</string>
     <string name="changelog_section_other">Wijzigingen</string>
     <string name="changelog_badge_latest">Nieuwste</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">In gebruik</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Gedownload</string>
     <string name="changelog_badge_prerelease">Pre-release</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Alles tonen (%s)</string>

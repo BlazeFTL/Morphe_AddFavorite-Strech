@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
@@ -26,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -36,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.screen.shared.*
-import app.morphe.manager.util.toHsv
 import org.koin.compose.koinInject
 
 /**
@@ -59,25 +55,6 @@ internal fun rememberPatchMatcher(query: String, patches: List<PatchInfo>): (Pat
         }
     }
 }
-
-/**
- * Fill that an accent color takes on a patch card.
- *
- * The accents themselves are picked for contrast against each other, not for sitting behind
- * text, so only their hue survives: the rest is a fixed wash the card content stays readable on.
- */
-@Composable
-internal fun rememberAccentCardColor(accentColor: Color?): Color? =
-    // The hue conversion is a native call that allocates, so it must not run per frame
-    remember(accentColor) {
-        if (accentColor == null) return@remember null
-        Color.hsl(
-            hue = accentColor.toHsv().first,
-            saturation = 0.35f,
-            lightness = 0.55f,
-            alpha = 0.2f
-        )
-    }
 
 /**
  * One collapsible block of a patch list.
@@ -221,12 +198,6 @@ internal fun PatchGroupHeader(
     accentColor: Color? = null,
     selectedCount: Int = 0
 ) {
-    // One chevron that turns, so the fold reads as the same control in both states
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (isExpanded) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "patch_group_chevron"
-    )
 
     // Held while the badge fades out, so the count does not blink to zero on its way off
     val lastSelectedCount = remember { mutableIntStateOf(selectedCount) }
@@ -273,21 +244,16 @@ internal fun PatchGroupHeader(
                     enter = Animations.expandHorizFadeIn,
                     exit = Animations.shrinkHorizFadeOut
                 ) {
-                    Icon(
-                        imageVector = Icons.Outlined.ExpandMore,
-                        contentDescription = stringResource(
-                            if (isExpanded) R.string.collapse else R.string.expand
-                        ),
-                        modifier = Modifier
-                            .size(24.dp)
-                            .graphicsLayer { rotationZ = chevronRotation },
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    ExpandChevron(
+                        expanded = isExpanded,
+                        modifier = Modifier.size(24.dp),
+                        announced = true
                     )
                 }
             }
         },
         cornerRadius = Defaults.SettingsCornerRadius,
-        color = rememberAccentCardColor(accentColor),
+        color = appAccentCardFill(accentColor),
         borderColor = accentColor?.let { appAccentBorder(it) },
         modifier = modifier
     )

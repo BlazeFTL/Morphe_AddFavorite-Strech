@@ -238,7 +238,6 @@ Alt, hvad du tilføjer fra denne hjemmeside, bruges på egen risiko."</string>
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; har ingen understøttede versioner til Android %2$s (API %3$s). Alle deklarerede versioner kræver en højere Android-version</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Download den originale APK</string>
-    <string name="home_download_instructions_steps_title">Instruktioner:</string>
     <string name="home_download_instructions_finding">Finder downloadsiden…</string>
     <string name="home_download_instructions_step1">Tryk på \'%s\' knappen nedenfor</string>
     <string name="home_download_instructions_step2_part1">Rul ned på websiden og tryk</string>
@@ -554,7 +553,6 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
 Afinstallation sletter permanent alle appdata."</string>
     <string name="patcher_install_error_title">Installationsfejl</string>
     <string name="patcher_install_error_subtitle">Prøv at afinstallere og installere igen</string>
-    <string name="patcher_ready_to_install_subtitle">Tryk på knappen nedenfor for at installere</string>
     <string name="patcher_ready_to_mount_subtitle">Tryk på knappen nedenfor for at montere</string>
     <string name="patcher_patches_excluded_for_installer">Ikke tilgængelig for denne installationsmetode og udeladt: %s</string>
     <string name="patcher_back_to_game_hint">Tryk på %1$s for at gå tilbage til dit spil</string>
@@ -711,6 +709,7 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_accent_color">Accentfarve</string>
     <string name="settings_appearance_pure_black">Ægte sort</string>
     <string name="settings_appearance_pure_black_description">Brug ægte sort i baggrunde</string>
+    <string name="settings_appearance_color_accents_description">Bruger hver apps og kildes egen farve i stedet for accentfarven</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Sprog &amp; skærm</string>
     <string name="settings_appearance_app_language">App-sprog</string>
@@ -1122,7 +1121,6 @@ Detaljer: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Kunne ikke importere kilde-data</string>
     <string name="settings_system_import_source_data_success">Kilde-data importeret med succes</string>
     <string name="settings_system_selected_patches_section">Valgte patches</string>
-    <string name="settings_system_patch_options_section">Patchvalg</string>
     <string name="settings_system_no_patches_or_options">Ingen patches eller valg gemt</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Kopier udvalg fra…</string>
@@ -1308,8 +1306,8 @@ Detaljer: %2$s"</string>
     <string name="changelog_section_app_support">App-support</string>
     <string name="changelog_section_other">Ændringer</string>
     <string name="changelog_badge_latest">Seneste</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">I brug</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Downloadet</string>
     <string name="changelog_badge_prerelease">Prerelease</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Vis alle (%s)</string>

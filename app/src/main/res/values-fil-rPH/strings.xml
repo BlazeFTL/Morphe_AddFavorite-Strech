@@ -238,7 +238,6 @@ Anumang idagdag mo mula sa website na ito ay gagamitin sa iyong sariling pangani
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; ay walang sinusuportahang bersyon para sa Android %2$s (API %3$s). Lahat ng idineklarang bersyon ay nangangailangan ng mas mataas na bersyon ng Android.</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">I-download ang orihinal na APK</string>
-    <string name="home_download_instructions_steps_title">Mga Tagubilin:</string>
     <string name="home_download_instructions_finding">Hinahanap ang pahina ng pag-download…</string>
     <string name="home_download_instructions_step1">Pindutin ang \'%s\' na button sa ibaba</string>
     <string name="home_download_instructions_step2_part1">I-scroll pababa ang webpage at pindutin</string>
@@ -554,7 +553,6 @@ Panlabas na zone (dashed): maaaring i-clip ng launcher mask—panatilihin ang ma
 Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="patcher_install_error_title">Pagkakamali sa pag-install</string>
     <string name="patcher_install_error_subtitle">Subukan mong burahin at i-install muli</string>
-    <string name="patcher_ready_to_install_subtitle">Pindutin ang button sa ibaba upang ma-install</string>
     <string name="patcher_ready_to_mount_subtitle">Pindutin ang button sa ibaba upang i-mount</string>
     <string name="patcher_patches_excluded_for_installer">Hindi magagamit para sa paraang ito ng pag-install at hindi kasama: %s</string>
     <string name="patcher_back_to_game_hint">I-tap ang %1$s upang bumalik sa iyong laro</string>
@@ -711,6 +709,10 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_accent_color">Accent na kulay</string>
     <string name="settings_appearance_pure_black">Purong Itim</string>
     <string name="settings_appearance_pure_black_description">Gamitin ang totoong maitim na mga background</string>
+    <string name="settings_appearance_color_accents">Mga kulay ng app at source</string>
+    <string name="settings_appearance_color_accents_description">Ginagamit ang sariling kulay ng bawat app at source sa halip na ang accent color</string>
+    <string name="settings_appearance_outlines">Mga balangkas</string>
+    <string name="settings_appearance_outlines_description">Gumuguhit ito ng manipis na gilid sa paligid ng mga card, panel, at button.</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Wika &amp; display</string>
     <string name="settings_appearance_app_language">Wika ng aplikasyon</string>
@@ -1123,7 +1125,6 @@ Mga Detalye: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Nabigong ma-import ang pinagmulan ng datos</string>
     <string name="settings_system_import_source_data_success">Matagumpay na na-import ang pinagmulan ng datos</string>
     <string name="settings_system_selected_patches_section">Piniling mga patch</string>
-    <string name="settings_system_patch_options_section">Mga pagpipilian ng patch</string>
     <string name="settings_system_no_patches_or_options">Walang naka-save na mga patch o pagpipilian</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Kopyahin ang pagpili mula…</string>
@@ -1309,8 +1310,8 @@ Mga Detalye: %2$s"</string>
     <string name="changelog_section_app_support">Suporta sa app</string>
     <string name="changelog_section_other">Mga Pagbabago</string>
     <string name="changelog_badge_latest">Pinakabago</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">Ginagamit</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Na-download</string>
     <string name="changelog_badge_prerelease">Pre-release</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Ipakita ang lahat (%s)</string>

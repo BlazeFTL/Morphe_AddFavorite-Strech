@@ -12,6 +12,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -53,8 +54,18 @@ import kotlin.time.Duration.Companion.milliseconds
 
 private val PillShape = Defaults.PillShape
 
+/** Edge of a destructive pill, faded along with the pill while it is out of reach. */
+@Composable
+private fun destructiveBorder(enabled: Boolean): BorderStroke {
+    val edge = destructiveEdgeColor()
+    return BorderStroke(1.dp, if (enabled) edge else edge.copy(alpha = edge.alpha * Defaults.DISABLED_ALPHA))
+}
+
 /** Inset between a pill's edge and any text it carries. */
 private val PillTextPadding = 16.dp
+
+/** Narrowest an icon-only pill gets in a crowded [ActionPillRow], still a full touch target. */
+private val CompactPillWidth = 48.dp
 
 /** Width of the fade on an edge of an [ActionPillRow] its pills have been slid past. */
 
@@ -103,8 +114,16 @@ fun rememberPillConfirmationState(): PillConfirmationState = remember { PillConf
  * the same color in every row it appears in.
  */
 object ActionPillColors {
+    /**
+     * The plain pill, tinted with the color of the card it sits on, see [LocalAccent], so a
+     * row of them reads as part of that card.
+     */
     @Composable
-    fun neutral(): IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors()
+    fun neutral(): IconButtonColors {
+        val accent = LocalAccent.current ?: return IconButtonDefaults.filledTonalIconButtonColors()
+        val container = accent.copy(alpha = AccentAlpha.LEAD)
+        return tonal(container, appAccentContent(container))
+    }
 
     /** The action a row leads with. */
     @Composable
@@ -124,12 +143,9 @@ object ActionPillColors {
         MaterialTheme.colorScheme.onTertiaryContainer
     )
 
-    /** Removes, discards or hides something. */
+    /** Removes, discards or hides something, see [destructiveColor]. */
     @Composable
-    fun destructive(): IconButtonColors = tonal(
-        MaterialTheme.colorScheme.errorContainer,
-        MaterialTheme.colorScheme.onErrorContainer
-    )
+    fun destructive(): IconButtonColors = tonal(neutralVeil(), destructiveColor())
 
     @Composable
     private fun tonal(container: Color, content: Color): IconButtonColors =
@@ -138,6 +154,9 @@ object ActionPillColors {
 
 /**
  * Pill-shaped action button with an icon, optional text label, and optional long-press tooltip.
+ *
+ * A [destructive] pill draws its content and edge in red over a veil, see [neutralVeil], so it
+ * stays apart on a card whose own color is a red.
  *
  * A non-null [confirmation] answers every tap in place: the pill widens to show it in place of
  * its own content, then settles back. Text too long for the room it gets scrolls through once.
@@ -156,7 +175,8 @@ fun ActionPillButton(
     tooltip: String? = null,
     confirmation: String? = null,
     confirmationState: PillConfirmationState = rememberPillConfirmationState(),
-    colors: IconButtonColors = ActionPillColors.neutral(),
+    destructive: Boolean = false,
+    colors: IconButtonColors = if (destructive) ActionPillColors.destructive() else ActionPillColors.neutral(),
     pressScale: Boolean = true
 ) {
     val height = if (large) Defaults.PillHeightLarge else Defaults.PillHeight
@@ -172,12 +192,12 @@ fun ActionPillButton(
     // would grey out the very confirmation of it, so the pill keeps its colors while one shows
     val looksEnabled = enabled || message != null
 
-    // These fills are tinted translucent, so the palette's own pairing describes a background
-    // that never gets drawn and the content has to be checked against the real one
+    // Translucent fills never match the palette's pairing, so content is checked against the real
+    // background; a destructive red is picked for its veil, and the check would weigh it as dark
     val surface = MaterialTheme.colorScheme.surface
     val targetContainerColor = if (looksEnabled) colors.containerColor else colors.disabledContainerColor
     val targetContentColor = (if (looksEnabled) colors.contentColor else colors.disabledContentColor)
-        .readableOn(targetContainerColor, surface)
+        .let { if (destructive) it else it.readableOn(targetContainerColor, surface) }
     val containerColor by animateColorAsState(targetContainerColor, label = "action_pill_container")
     val contentColor by animateColorAsState(targetContentColor, label = "action_pill_content")
 
@@ -197,6 +217,7 @@ fun ActionPillButton(
             shape = PillShape,
             color = containerColor,
             contentColor = contentColor,
+            border = if (destructive) destructiveBorder(looksEnabled) else null,
             interactionSource = interactionSource,
             modifier = Modifier
                 .fillMaxWidth()
@@ -243,7 +264,7 @@ fun ActionPillButton(
     // here, from the pill's own content but no narrower than asked, and the pill fills it
     Box(
         modifier = modifier
-            .then(PillEmphasisElement(playback.emphasis))
+            .then(PillEmphasisElement(playback.emphasis, compactWidth = if (label == null) CompactPillWidth else null))
             .width(IntrinsicSize.Max),
         propagateMinConstraints = true
     ) {
@@ -486,17 +507,25 @@ private fun ScrollingLabel(text: String, style: TextStyle, playback: Confirmatio
     }
 }
 
-/** Tells the enclosing [ActionPillRow] how far a pill's confirmation is open. */
-private class PillEmphasisElement(val emphasis: () -> Float) : ModifierNodeElement<PillEmphasisNode>() {
-    override fun create() = PillEmphasisNode(emphasis)
+/**
+ * Tells the enclosing [ActionPillRow] how far a pill's confirmation is open, and how narrow the
+ * pill can get without cutting any of its content ([compactWidth], null for none narrower).
+ */
+private class PillEmphasisElement(
+    val emphasis: () -> Float,
+    val compactWidth: Dp?
+) : ModifierNodeElement<PillEmphasisNode>() {
+    override fun create() = PillEmphasisNode(emphasis, compactWidth)
 
     override fun update(node: PillEmphasisNode) {
         node.emphasis = emphasis
+        node.compactWidth = compactWidth
     }
 
-    override fun equals(other: Any?) = other is PillEmphasisElement && other.emphasis === emphasis
+    override fun equals(other: Any?) =
+        other is PillEmphasisElement && other.emphasis === emphasis && other.compactWidth == compactWidth
 
-    override fun hashCode() = emphasis.hashCode()
+    override fun hashCode() = 31 * emphasis.hashCode() + compactWidth.hashCode()
 
     // The lambda itself tells the inspector nothing, the value it reads right now does
     override fun InspectorInfo.inspectableProperties() {
@@ -505,7 +534,10 @@ private class PillEmphasisElement(val emphasis: () -> Float) : ModifierNodeEleme
     }
 }
 
-private class PillEmphasisNode(var emphasis: () -> Float) : Modifier.Node(), ParentDataModifierNode {
+private class PillEmphasisNode(
+    var emphasis: () -> Float,
+    var compactWidth: Dp?
+) : Modifier.Node(), ParentDataModifierNode {
     override fun Density.modifyParentData(parentData: Any?): Any = this@PillEmphasisNode
 }
 
@@ -543,7 +575,6 @@ fun CardActionRow(
             horizontalArrangement = if (hasBoth) Arrangement.spacedBy(8.dp) else Arrangement.Center
         ) {
             actions.forEach { action ->
-                val colors = if (action.destructive) ActionPillColors.destructive() else ActionPillColors.neutral()
                 ActionPillButton(
                     onClick = action.onClick,
                     icon = action.icon,
@@ -556,7 +587,7 @@ fun CardActionRow(
                     } else {
                         Modifier.widthIn(min = singleActionMinWidth)
                     },
-                    colors = colors
+                    destructive = action.destructive
                 )
             }
         }
@@ -565,7 +596,8 @@ fun CardActionRow(
 
 /**
  * Row that lays out its [ActionPillButton] children at their natural width and centers them.
- * If the natural total overflows the available width, the widest pills give way first.
+ * If the natural total overflows the available width, icon-only pills first give up the room
+ * they keep beyond a touch target, so a label stays whole, and only then the widest give way.
  *
  * A pill playing a confirmation widens as far as the whole row without taking anything from its
  * neighbors: the row slides them aside instead, past edges that fade out, keeping the widening
@@ -599,10 +631,14 @@ fun ActionPillRow(
         val spacingPx = spacing.roundToPx()
         val available = (rowWidth - spacingPx * (measurables.size - 1)).coerceAtLeast(0)
         val natural = IntArray(measurables.size) { measurables[it].maxIntrinsicWidth(constraints.maxHeight) }
-        val emphasis = FloatArray(measurables.size) {
-            ((measurables[it].parentData as? PillEmphasisNode)?.emphasis?.invoke() ?: 0f).coerceIn(0f, 1f)
+        val pillData = measurables.map { it.parentData as? PillEmphasisNode }
+        val compact = IntArray(measurables.size) {
+            pillData[it]?.compactWidth?.roundToPx()?.coerceAtMost(natural[it]) ?: natural[it]
         }
-        val widths = pillWidths(natural, emphasis, available, rowWidth)
+        val emphasis = FloatArray(measurables.size) {
+            (pillData[it]?.emphasis?.invoke() ?: 0f).coerceIn(0f, 1f)
+        }
+        val widths = pillWidths(natural, compact, emphasis, available, rowWidth)
 
         val placeables = measurables.mapIndexed { index, measurable ->
             val width = widths[index]
@@ -644,10 +680,28 @@ private class RowOverflow {
  * Splits [available] between pills that would like their [natural] widths, then lets each
  * emphasized pill ease from its share towards its natural width, capped at [rowWidth]. The
  * others keep their share, so at zero emphasis this is exactly the plain split.
+ *
+ * A short row first takes the room pills keep beyond their [compact] widths, evenly, and cuts
+ * into content only once that is gone.
  */
-private fun pillWidths(natural: IntArray, emphasis: FloatArray, available: Int, rowWidth: Int): IntArray {
+private fun pillWidths(
+    natural: IntArray,
+    compact: IntArray,
+    emphasis: FloatArray,
+    available: Int,
+    rowWidth: Int
+): IntArray {
     val widths = IntArray(natural.size)
-    fairShare(natural, natural.indices.toList(), available, widths)
+    val indices = natural.indices.toList()
+    val excess = natural.sum() - available
+    val slack = IntArray(natural.size) { natural[it] - compact[it] }
+    if (excess > 0 && excess <= slack.sum()) {
+        val cuts = IntArray(natural.size)
+        fairShare(slack, indices, excess, cuts)
+        indices.forEach { widths[it] = natural[it] - cuts[it] }
+    } else {
+        fairShare(if (excess > 0) compact else natural, indices, available, widths)
+    }
     natural.indices.forEach { index ->
         if (emphasis[index] > 0f) {
             val full = maxOf(widths[index], minOf(natural[index], rowWidth))

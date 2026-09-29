@@ -38,6 +38,7 @@ import app.morphe.manager.domain.batch.*
 import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.usesPrerelease
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.domain.repository.PatchBundleRepository
+import app.morphe.manager.patcher.patch.PatchSourceRef
 import app.morphe.manager.ui.model.PatchRunProgress
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.patcher.ExpertPatchingInProgress
@@ -312,6 +313,7 @@ fun BatchPatcherScreen(
         val metadata = bundleMetadata[search.item.packageName]
 
         DownloadInstructionsDialog(
+            appName = search.item.appName,
             downloadUrl = search.url,
             requestedVersion = search.version,
             usingMountInstall = false,
@@ -408,7 +410,7 @@ fun BatchPatcherScreen(
                 appVersion = item.version.orEmpty(),
                 patchCount = item.selection.values.sumOf { it.size },
                 bundles = item.bundles.map {
-                    PatcherErrorInfo.BundleInfo(name = it.name, version = null)
+                    PatchSourceRef(name = it.name, version = null)
                 },
                 stripsNativeLibs = null
             ),
@@ -479,8 +481,7 @@ fun BatchPatcherScreen(
                             packageName = shownPackageName,
                             showLongStepWarning = longStepWarning,
                             queueHeader = { BatchRunHeader(state = current) },
-                            onCancelClick = { showCancelDialog = true },
-                            onHomeClick = onBackClick
+                            onCancelClick = { showCancelDialog = true }
                         )
                     }
                 }
@@ -771,7 +772,9 @@ private fun BatchItemCard(
     val hasResultActions = !editable &&
             (onInstall != null || onExport != null || onOpen != null || failed)
 
-    SectionCard(modifier = Modifier.fillMaxWidth()) {
+    // Worn the way the home screen wears it, so the app reads as itself in the queue too. Looked
+    // up by the app's own package, which a clone being rebuilt does not carry
+    SectionCard(modifier = Modifier.fillMaxWidth(), accentColor = rememberAppColor(item.packageName)) {
         Column {
             Row(
                 modifier = Modifier
@@ -943,7 +946,7 @@ private fun BatchItemCard(
                             icon = if (excluded) Icons.Outlined.AddCircleOutline else Icons.Outlined.RemoveCircleOutline,
                             contentDescription = toggleLabel,
                             tooltip = toggleLabel,
-                            colors = if (excluded) ActionPillColors.neutral() else ActionPillColors.destructive()
+                            destructive = !excluded
                         )
                     }
                 }
@@ -969,7 +972,7 @@ private fun BatchItemCard(
                                 icon = Icons.Outlined.ErrorOutline,
                                 contentDescription = errorLabel,
                                 tooltip = errorLabel,
-                                colors = ActionPillColors.destructive()
+                                destructive = true
                             )
                         }
 

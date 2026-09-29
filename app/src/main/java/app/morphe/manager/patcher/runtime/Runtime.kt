@@ -44,7 +44,8 @@ sealed class Runtime(context: Context) : KoinComponent {
      * @param onProgress       Called as the run moves between steps.
      * @param stripUnusedNativeLibs Whether native libraries and split configurations the device
      *                         cannot use are dropped.
-     * @param onMergedApkReady Called with the merged APK when the input was a split archive.
+     * @param onMergedApkReady Called with the merged APK when a split archive patched successfully.
+     *                         The runtime has no further use for the file, so it may be moved.
      * @param onRestart        Called when the current attempt is abandoned and patching starts over,
      *                         so progress reported so far can be dropped instead of accumulating.
      */

@@ -61,9 +61,6 @@ data class PatchBundle(val patchesJar: String) : Parcelable {
             validateDexEntries(bundle.patchesJar)
             val patchFiles = runCatching {
                 val jarFile = File(bundle.patchesJar)
-                // TODO: The patcher extracts the bundle's DEX into a morphe-extracted-patches*
-                //  directory under java.io.tmpdir on every load and never deletes it. Delete it in
-                //  PatchLoader.Dex (Patch.kt) once the classes are read
                 loadPatchesFromDex(
                     setOf(jarFile),
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {

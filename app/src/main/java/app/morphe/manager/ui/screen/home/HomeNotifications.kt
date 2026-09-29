@@ -12,7 +12,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -456,7 +455,7 @@ private fun StatusCard(
             .padding(horizontal = Defaults.ContentPadding),
         shape = RoundedCornerShape(Defaults.CardCornerRadius),
         color = containerColor,
-        border = BorderStroke(1.dp, borderColor),
+        border = CardBorder.of(borderColor),
         shadowElevation = 2.dp
     ) {
         Row(

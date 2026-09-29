@@ -1,3 +1,98 @@
+# [1.33.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.13...v1.33.0-dev.14) (2026-09-29)
+
+
+### Bug Fixes
+
+* Dim a switched off source's card by graying its icon and name instead of fading them into the card ([b92e481](https://github.com/MorpheApp/morphe-manager/commit/b92e4817aca1f96745f913f9009f8f4799e035ea))
+* Head changelog sections inside their cards ([a833e7c](https://github.com/MorpheApp/morphe-manager/commit/a833e7c53c5bb9eaa0f86709d1b6dce23e4006aa))
+* Keep app details banners neutral with a colored edge ([409813c](https://github.com/MorpheApp/morphe-manager/commit/409813cf691dcb215cdd99ee1d0e695cc14e17bf))
+* Keep the loading logo out of dialogs that load at once ([aad44be](https://github.com/MorpheApp/morphe-manager/commit/aad44be9da69b4b2ce315a885f66587cbad3776a))
+* Mark the picked menu entry in the surrounding color ([44469ac](https://github.com/MorpheApp/morphe-manager/commit/44469acd8fbe4ffb08138e1375bdad66a01e56d3))
+* Match icon placeholders to the system icons and keep them steady ([c720021](https://github.com/MorpheApp/morphe-manager/commit/c72002165ff04f4adbf95be2cc850072605d1e23))
+* Move leftover gray cards onto SectionCard ([0f7d8ea](https://github.com/MorpheApp/morphe-manager/commit/0f7d8ea41d309a4f1226c506ab1e44f215a7f43f))
+* Quiet patch options and drop their count badge ([745844d](https://github.com/MorpheApp/morphe-manager/commit/745844d00cd4e268e57a6d047b4ed994e7b93d00))
+* Set only the build number in monospace ([1b05dfb](https://github.com/MorpheApp/morphe-manager/commit/1b05dfbccc9baa4b9f8beef4cbdb47c7d4de8a81))
+* Show saved and installed APKs under the version instead of as badges ([e9366a4](https://github.com/MorpheApp/morphe-manager/commit/e9366a4158115541c59bcbdc3857a6129724918d))
+* Show the installed version note as neutral ([96c4050](https://github.com/MorpheApp/morphe-manager/commit/96c4050de6928a7f4f3aad314403e6cab8ff8e2b))
+* Tint option sliders in the surrounding color ([11ef7f2](https://github.com/MorpheApp/morphe-manager/commit/11ef7f2fcc4bb6cfd377594ace46c25791f78363))
+
+
+### Features
+
+* Follow the device's 12/24-hour time format in the file picker ([#1040](https://github.com/MorpheApp/morphe-manager/issues/1040)) ([6f26a15](https://github.com/MorpheApp/morphe-manager/commit/6f26a157e5f99144cb71427ffa85d69dcaa468d6))
+* Tell apart apps of the same name by their package ([d8ed95c](https://github.com/MorpheApp/morphe-manager/commit/d8ed95cc2261f1faa19347323f6e94f59f83d2db))
+
+
+### Performance Improvements
+
+* Show cached home cards at once and build fresh ones lighter ([970ac9a](https://github.com/MorpheApp/morphe-manager/commit/970ac9a57c0afb3221db61c9e1c7353b04aa055e))
+
+# [1.33.0-dev.13](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.12...v1.33.0-dev.13) (2026-09-28)
+
+
+### Bug Fixes
+
+* Draw destructive actions in one bright red over a faint veil, and neutral badges on colored cards as a veil too ([864ac99](https://github.com/MorpheApp/morphe-manager/commit/864ac99ebc997aa7f33fc9f19944a2c614e425b7))
+* Edge cards in their color as faintly as the outlined buttons under them ([ada6579](https://github.com/MorpheApp/morphe-manager/commit/ada6579c373a2adf34f188334228e533d93fb3d5))
+* Keep app and source cards neutral, leaving their colors to the edges and controls on them ([d2c84e9](https://github.com/MorpheApp/morphe-manager/commit/d2c84e926281edd0577c7eb18a1103c1c9b52736))
+* Keep releases newer than the shown changelog out of a source's earlier releases ([b914cae](https://github.com/MorpheApp/morphe-manager/commit/b914caebe6ca3e3894899f9ad8fbba3960c47a11))
+* Lay out list and app card placeholders on the lines of the text they stand in for ([c869a15](https://github.com/MorpheApp/morphe-manager/commit/c869a154177a6801409a1a06dd09ef102489ef96))
+* Let the appearance tiles grow with their labels instead of clipping them under a large font ([2a6a123](https://github.com/MorpheApp/morphe-manager/commit/2a6a1232474ca9064593817b3a287204c3a58b4e))
+* Let the install button grow with its label instead of clipping it under a large font ([4086b05](https://github.com/MorpheApp/morphe-manager/commit/4086b05dfa070055cc15346d0861755c5cd670b9))
+* Mark a picked selection card by its edge and check instead of filling it with color ([f33ab60](https://github.com/MorpheApp/morphe-manager/commit/f33ab60cf1bc4608fc52432ecd9cbcc6b0c5dfb8))
+* Mark a source's downloaded patches as downloaded rather than in use ([2923629](https://github.com/MorpheApp/morphe-manager/commit/292362991e59d6cc8356c1c7af51d3bc956cab7a))
+* Put neutral badges, destructive actions and plain tiles on one shared veil ([44baccb](https://github.com/MorpheApp/morphe-manager/commit/44baccb5f6ef3d014b5b50fd6d981783f4135fad))
+
+
+### Features
+
+* List each applied patch with its options under it and copy them all from the dialog footer ([fb285a6](https://github.com/MorpheApp/morphe-manager/commit/fb285a61b0f9478b368518d5c0772244aa1551e3))
+* Show the patched app in its own light on the success screen and carry its color through expert mode ([166f19e](https://github.com/MorpheApp/morphe-manager/commit/166f19ee3da5d9f9d2da3af720fa86b23bfca173))
+
+# [1.33.0-dev.12](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.11...v1.33.0-dev.12) (2026-09-28)
+
+
+### Features
+
+* Let the appearance settings take off the colors of apps and sources and the outlines of cards and buttons ([8f54d0f](https://github.com/MorpheApp/morphe-manager/commit/8f54d0fd9b067e4264b9208045f21d79cd882334))
+
+# [1.33.0-dev.11](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.10...v1.33.0-dev.11) (2026-09-28)
+
+
+### Bug Fixes
+
+* Keep the app details in the app's color while the source that declares it is disabled ([d42c1f8](https://github.com/MorpheApp/morphe-manager/commit/d42c1f8776c74f51a44d278676ff996980820b60))
+* Press the check rows on a rounded plate around their content rather than across the whole width ([0129fa8](https://github.com/MorpheApp/morphe-manager/commit/0129fa85f1732481c7e1f921465004bcd068a695))
+* Read each source icon's color once instead of every time its card scrolls back into view ([2f9ae39](https://github.com/MorpheApp/morphe-manager/commit/2f9ae3910f461e187592061181d0e5d238adc2cf))
+* Redesign applied patches dialog ([c60146e](https://github.com/MorpheApp/morphe-manager/commit/c60146e1ff7b86a493ad4bccb063176bed47a4a9))
+* Round the app details panel like the buttons under it ([b0712fe](https://github.com/MorpheApp/morphe-manager/commit/b0712fe5cd9c1a7f5c7a876a1c51774c16460ffd))
+* Show the app details' patch button as unavailable while there is nothing to patch with ([1ccfe63](https://github.com/MorpheApp/morphe-manager/commit/1ccfe63620dc43a77dc0a16847cef39fbd3555d0))
+* Stop the app details fading their top edge while the list rests at the top ([634c107](https://github.com/MorpheApp/morphe-manager/commit/634c107d737b8e55625d5c161435195d4381d8e1))
+
+
+### Features
+
+* Fill expert mode with the app's color, from its source tabs and checks to its patch button ([7c681eb](https://github.com/MorpheApp/morphe-manager/commit/7c681eba93d62f0afa2805f6a621fa908bf45b63))
+* Fill the app details with the app's color, from its info panel and tiles to its close button ([71f7a7c](https://github.com/MorpheApp/morphe-manager/commit/71f7a7c776572157bb49dc1f1448d7588c7141d7))
+* Give each source its own card in the version picker, headed by its icon and checked in the app's color ([046cc51](https://github.com/MorpheApp/morphe-manager/commit/046cc51d032c470a1bd694eb12f3d8d8fac91946))
+* Lay out every version list while patching on one row and card, checked with the app's own round check ([91ab1d2](https://github.com/MorpheApp/morphe-manager/commit/91ab1d2a895de9da610c86c6103c9798fd86add1))
+* Let a colored card, dialog or header hand its color on to the controls drawn on it ([f9c1832](https://github.com/MorpheApp/morphe-manager/commit/f9c1832f676ed73824590d90f88234a497d72c05))
+* Number the download steps down a rail in the app's color, on a card named after the app and version ([db9fb0e](https://github.com/MorpheApp/morphe-manager/commit/db9fb0ea26b2e6d1cdbc97ff159cf3dc61969958))
+* Redesign the source cards on their icon colors, with disabled sources shown neutral rather than red ([031a557](https://github.com/MorpheApp/morphe-manager/commit/031a557023dd928b82e22f43d899d436d4fc0a95))
+* Set bottom sheets and selection panels on the dialogs' background with an edge of their own ([fa8782f](https://github.com/MorpheApp/morphe-manager/commit/fa8782ff3d34b53094ec0d907a2fdde3e269dfed))
+* Show the patches swipe action in the app's own color, from one place for every card ([c16d5d6](https://github.com/MorpheApp/morphe-manager/commit/c16d5d63f47d51b99c30e961b4625f24c1e3e255))
+* Tint app and source cards across the dialogs with their own colors, the way the source cards are ([0ccf438](https://github.com/MorpheApp/morphe-manager/commit/0ccf4384ac7cccb02d3ed5f3122ceb4f1d832ee6))
+* Wear the app's color across the patching screen, with its prompt and install button on the shared components ([e46b5a1](https://github.com/MorpheApp/morphe-manager/commit/e46b5a1772c147a6ae28983132f3b7e31e6c7b16))
+* Wear the app's color in the dialogs met while patching it ([7a2613a](https://github.com/MorpheApp/morphe-manager/commit/7a2613ab9d6475b861e37fd5a1fc1ce120a8ac22))
+
+# [1.33.0-dev.10](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.9...v1.33.0-dev.10) (2026-09-28)
+
+
+### Bug Fixes
+
+* Delete the bundle DEX directories older patchers left in the app cache ([6b92f02](https://github.com/MorpheApp/morphe-manager/commit/6b92f02ca70c34dc14c0acea20af5e1faec59c24))
+* Move the merged APK into place instead of copying it twice after patching a split archive ([aa1b42b](https://github.com/MorpheApp/morphe-manager/commit/aa1b42becd347e0920542ea8f6daae47b730c20f))
+
 # [1.33.0-dev.9](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.8...v1.33.0-dev.9) (2026-09-28)
 
 

@@ -304,7 +304,7 @@ private fun GamePickerGridCard(
     SurfaceCard(
         onClick = onClick,
         cornerRadius = Defaults.CompactCornerRadius,
-        borderWidth = 1.dp,
+        showBorder = true,
         modifier = modifier
     ) {
         Column(

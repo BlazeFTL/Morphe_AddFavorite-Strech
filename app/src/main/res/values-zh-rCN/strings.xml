@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; 没有支持 Android %2$s (API %3$s) 的版本。所有声明的版本都需要更高的 Android 版本</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">下载原始 APK</string>
-    <string name="home_download_instructions_steps_title">说明：</string>
     <string name="home_download_instructions_finding">正在查找下载页面…</string>
     <string name="home_download_instructions_step1">请按下下面的“%s”按钮。</string>
     <string name="home_download_instructions_step2_part1">向下滚动网页并按</string>
@@ -554,7 +553,6 @@
 卸载将永久删除所有应用数据"</string>
     <string name="patcher_install_error_title">安装错误</string>
     <string name="patcher_install_error_subtitle">尝试重新卸载并安装</string>
-    <string name="patcher_ready_to_install_subtitle">按下方按钮安装</string>
     <string name="patcher_ready_to_mount_subtitle">按下方按钮挂载</string>
     <string name="patcher_patches_excluded_for_installer">不适用于此安装方法并已排除：%s</string>
     <string name="patcher_back_to_game_hint">点击%1$s返回游戏</string>
@@ -711,6 +709,10 @@
     <string name="settings_appearance_accent_color">强调色</string>
     <string name="settings_appearance_pure_black">纯黑</string>
     <string name="settings_appearance_pure_black_description">使用真正的黑色背景</string>
+    <string name="settings_appearance_color_accents">应用和来源颜色</string>
+    <string name="settings_appearance_color_accents_description">使用每个应用和来源自己的颜色，而不是强调色</string>
+    <string name="settings_appearance_outlines">轮廓</string>
+    <string name="settings_appearance_outlines_description">在卡片、面板和按钮周围绘制细边</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">语言 &amp; 显示</string>
     <string name="settings_appearance_app_language">应用语言</string>
@@ -1123,7 +1125,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">导入源数据失败</string>
     <string name="settings_system_import_source_data_success">源数据导入成功</string>
     <string name="settings_system_selected_patches_section">所选补丁</string>
-    <string name="settings_system_patch_options_section">补丁选项</string>
     <string name="settings_system_no_patches_or_options">没有保存的补丁或选项</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">从…复制选定的内容</string>
@@ -1309,8 +1310,8 @@ morphe_header_custom_dark.png
     <string name="changelog_section_app_support">应用支持</string>
     <string name="changelog_section_other">变更</string>
     <string name="changelog_badge_latest">最新</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">使用中</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">已下载</string>
     <string name="changelog_badge_prerelease">预发布</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">显示全部（%s）</string>

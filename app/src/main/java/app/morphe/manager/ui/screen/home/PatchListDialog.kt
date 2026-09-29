@@ -27,7 +27,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -131,6 +130,7 @@ internal fun PatchListDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         title = null,
+        accentColor = accentColor,
         footer = { PatchListFooter(onClose = onDismiss) },
         padding = DialogPadding.Compact,
         scrollable = false,
@@ -151,7 +151,6 @@ internal fun PatchListDialog(
                 subtitleLoading = isLoading,
                 search = search,
                 searchLabel = searchLabel,
-                accentColor = accentColor,
                 badges = if (headerTarget == null || isLoading) null else {
                     {
                         var expanded by rememberSaveable(saveStateKey, "header_versions") {
@@ -191,7 +190,7 @@ internal fun PatchListDialog(
             ) { loading ->
                 if (loading) {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        PulsingLogoIndicator()
+                        PulsingLogoIndicator(delayed = true)
                     }
                     return@AnimatedContent
                 }
@@ -410,21 +409,19 @@ internal fun PatchItemCard(
     val versions = compatible?.versions.orEmpty().takeIf { it != commonVersions }.orEmpty().toList()
     val isExpertOnly = !patch.include && onExpertBadgeClick != null
 
-    val cardColor = rememberAccentCardColor(accentColor)
-    val effectiveCardColor = cardColor ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
-    // Card colors come from the app's own icon, so no fixed badge fill can be counted on to show
-    val cardBackground = effectiveCardColor.compositeOver(MaterialTheme.colorScheme.background)
+    val cardColor = cardFill()
 
     SettingsItemCard(
         onClick = if (options.isNotEmpty()) {
             { expandOptions = !expandOptions }
         } else null,
         modifier = modifier,
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = appAccentBorder(accentColor),
-        color = effectiveCardColor
+        color = cardColor
     ) {
-        CompositionLocalProvider(LocalCardBackground provides cardBackground) {
+        // The badges on the card take the app's color, as its edge does
+        ProvideCardAccent(accentColor, cardColor) {
             Column(
                 modifier = Modifier.padding(Defaults.ContentPadding),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
@@ -507,7 +504,7 @@ internal fun PatchItemCard(
  * The versions an app is patched at: the first, then the rest behind a badge that folds them out,
  * one after another. Emitted into the caller's row, so a card keeps its other badges beside them.
  *
- * @param accentColor Color of the header or block the badges belong to, see [PatchVersionBadge].
+ * @param accentColor Color of the header, block or card the badges belong to, see [PatchVersionBadge].
  */
 @Composable
 private fun VersionBadges(
@@ -515,7 +512,7 @@ private fun VersionBadges(
     experimental: Set<String>,
     expanded: Boolean,
     onToggle: () -> Unit,
-    accentColor: Color? = null
+    accentColor: Color? = LocalAccent.current
 ) {
     versions.forEachIndexed { index, version ->
         // The first version stands from the start, and only the ones folding out animate

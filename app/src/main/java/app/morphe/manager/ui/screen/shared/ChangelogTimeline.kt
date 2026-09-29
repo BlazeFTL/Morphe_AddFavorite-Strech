@@ -10,8 +10,6 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.automirrored.outlined.Notes
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -80,7 +76,6 @@ private val SummaryPadding = 20.dp
 private val SummaryArrowSize = 18.dp
 private val SectionIconSize = 28.dp
 private val SectionIconShape = RoundedCornerShape(9.dp)
-private val SectionIconGap = 10.dp
 private val ItemDotSize = 6.dp
 
 /** Sets the dot level with the middle of the first line: the change's, or its smaller scope label's. */
@@ -114,7 +109,7 @@ private val CodeFontScale = 0.9.em
 /** Marker a release carries on the timeline, listed from the strongest when several apply. */
 enum class ChangelogBadge(@param:StringRes val label: Int, val tone: SemanticTone) {
     INSTALLED(R.string.installed, SemanticTone.Success),
-    IN_USE(R.string.changelog_badge_in_use, SemanticTone.Success),
+    DOWNLOADED(R.string.changelog_badge_downloaded, SemanticTone.Success),
     PRERELEASE(R.string.changelog_badge_prerelease, SemanticTone.Warning),
     LATEST(R.string.changelog_badge_latest, SemanticTone.Primary)
 }
@@ -198,47 +193,39 @@ private fun ReleaseHeaderPlaceholder() {
     }
 }
 
-/** Stands in for a section: its icon and title over a card of changes. */
+/** Stands in for a section: a card of changes headed by its icon and title. */
 @Composable
 private fun SectionGroupPlaceholder(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(SectionIconGap)
-        ) {
-            ShimmerBox(
-                modifier = Modifier.size(SectionIconSize),
-                shape = SectionIconShape
+    SectionCard(modifier = modifier.fillMaxWidth()) {
+        Column {
+            CardHeader(
+                title = null,
+                accentColor = null,
+                leading = {
+                    ShimmerBox(modifier = Modifier.size(SectionIconSize), shape = SectionIconShape)
+                    ShimmerText(widthFraction = 0.3f, height = 16.dp)
+                }
             )
-            ShimmerText(widthFraction = 0.3f, height = 16.dp)
-        }
-
-        SectionCard(modifier = Modifier.fillMaxWidth()) {
-            Column {
-                repeat(SECTION_ITEM_PLACEHOLDERS) { index ->
-                    if (index > 0) ItemDivider()
-                    Row(
+            repeat(SECTION_ITEM_PLACEHOLDERS) { index ->
+                if (index > 0) SettingsDivider(fullWidth = true)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(ItemPadding),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                ) {
+                    ShimmerBox(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(ItemPadding),
-                        horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
+                            .padding(top = ItemDotOffset)
+                            .size(ItemDotSize),
+                        shape = CircleShape
+                    )
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        ShimmerBox(
-                            modifier = Modifier
-                                .padding(top = ItemDotOffset)
-                                .size(ItemDotSize),
-                            shape = CircleShape
-                        )
-                        Column(
-                            modifier = Modifier.weight(1f),
-                            verticalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            ShimmerText(widthFraction = if (index % 2 == 0) 0.9f else 0.75f, height = 14.dp)
-                            ShimmerText(widthFraction = 0.5f, height = 14.dp)
-                        }
+                        ShimmerText(widthFraction = if (index % 2 == 0) 0.9f else 0.75f, height = 14.dp)
+                        ShimmerText(widthFraction = 0.5f, height = 14.dp)
                     }
                 }
             }
@@ -475,27 +462,21 @@ private fun SummaryPill(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
     ) {
-        SectionLabel(style = style, text = text)
+        Icon(
+            imageVector = style.icon,
+            contentDescription = null,
+            tint = style.tone.content,
+            modifier = Modifier.size(16.dp)
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelLarge,
+            color = style.tone.content,
+            // A long translation shortens rather than dropping under the icon
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
     }
-}
-
-/** The section's icon and [text], in its tone, for the summary on its tinted ground. */
-@Composable
-private fun SectionLabel(style: SectionStyle, text: String) {
-    Icon(
-        imageVector = style.icon,
-        contentDescription = null,
-        tint = style.tone.content,
-        modifier = Modifier.size(16.dp)
-    )
-    Text(
-        text = text,
-        style = MaterialTheme.typography.labelLarge,
-        color = style.tone.content,
-        // A long translation shortens rather than dropping under the icon
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
 }
 
 /** Version, badge and a line on when the release came out and what it brought. */
@@ -507,12 +488,6 @@ private fun ReleaseHeader(
     expanded: Boolean,
     onToggle: (() -> Unit)?
 ) {
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (expanded) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "releaseChevron"
-    )
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -552,12 +527,7 @@ private fun ReleaseHeader(
             }
         }
         if (onToggle != null) {
-            Icon(
-                imageVector = Icons.Outlined.ExpandMore,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.rotate(chevronRotation)
-            )
+            ExpandChevron(expanded = expanded)
         }
     }
 }
@@ -588,7 +558,7 @@ private fun ReleaseBody(
     }
 }
 
-/** Heading with the number of changes, over a card that lists them, shortened while folded. */
+/** A card of changes headed by the section and their number, shortened while folded. */
 @Composable
 private fun ChangelogSectionGroup(
     section: ChangelogSection,
@@ -600,57 +570,44 @@ private fun ChangelogSectionGroup(
     val isCollapsible = section.items.size > SECTION_PREVIEW_LIMIT
     val shownItems = if (isCollapsible && !expanded) section.items.take(SECTION_PREVIEW_SIZE) else section.items
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(SectionIconGap)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(SectionIconSize)
-                    .clip(SectionIconShape)
-                    .background(style.tone.container),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = style.icon,
-                    contentDescription = null,
-                    tint = style.tone.content,
-                    modifier = Modifier.size(16.dp)
-                )
-            }
-            // The count reads as part of the title, a space after it, and wraps along with it
-            val countColor = MaterialTheme.colorScheme.onSurfaceVariant
-            Text(
-                text = buildAnnotatedString {
-                    append(style.title)
-                    // A section of notes alone has no changes to count
-                    if (changeCount > 0) {
-                        withStyle(SpanStyle(color = countColor, fontWeight = FontWeight.Medium)) {
-                            append(" ($changeCount)")
-                        }
+    SectionCard(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.animateContentSize()) {
+            // The section's color is on its icon, so the band stays neutral like the card's edge
+            CardHeader(
+                title = style.title,
+                accentColor = null,
+                leading = {
+                    Box(
+                        modifier = Modifier
+                            .size(SectionIconSize)
+                            .clip(SectionIconShape)
+                            .background(style.tone.container),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = style.icon,
+                            contentDescription = null,
+                            tint = style.tone.content,
+                            modifier = Modifier.size(16.dp)
+                        )
                     }
                 },
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold,
-                color = LocalDialogTextColor.current
+                // A section of notes alone has no changes to count
+                trailing = if (changeCount > 0) {
+                    { StatusBadge(text = changeCount.toString()) }
+                } else null
             )
-        }
-
-        SectionCard(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.animateContentSize()) {
-                shownItems.forEachIndexed { index, item ->
-                    if (index > 0) ItemDivider()
-                    ChangelogItemRow(item = item, dotColor = style.tone.accent)
-                }
-                if (isCollapsible) {
-                    ItemDivider()
-                    SectionExpander(
-                        expanded = expanded,
-                        total = changeCount,
-                        onToggle = onToggle
-                    )
-                }
+            shownItems.forEachIndexed { index, item ->
+                if (index > 0) SettingsDivider(fullWidth = true)
+                ChangelogItemRow(item = item, dotColor = style.tone.accent)
+            }
+            if (isCollapsible) {
+                SettingsDivider(fullWidth = true)
+                SectionExpander(
+                    expanded = expanded,
+                    total = changeCount,
+                    onToggle = onToggle
+                )
             }
         }
     }
@@ -695,24 +652,12 @@ private fun ChangelogItemRow(
     }
 }
 
-/** Rule between the changes of a section card. */
-@Composable
-private fun ItemDivider() {
-    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
-}
-
 @Composable
 private fun SectionExpander(
     expanded: Boolean,
     total: Int,
     onToggle: () -> Unit
 ) {
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (expanded) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "sectionChevron"
-    )
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -727,13 +672,10 @@ private fun SectionExpander(
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary
         )
-        Icon(
-            imageVector = Icons.Outlined.ExpandMore,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .size(18.dp)
-                .rotate(chevronRotation)
+        ExpandChevron(
+            expanded = expanded,
+            modifier = Modifier.size(18.dp),
+            tint = MaterialTheme.colorScheme.primary
         )
     }
 }
@@ -928,7 +870,7 @@ private fun DrawScope.drawTimeline(
             drawCircle(colors.accent, radius = radius, center = center)
         }
 
-        ChangelogBadge.INSTALLED, ChangelogBadge.IN_USE -> {
+        ChangelogBadge.INSTALLED, ChangelogBadge.DOWNLOADED -> {
             val ring = 3.dp.toPx()
             drawCircle(colors.accent, radius = radius - ring / 2, center = center, style = Stroke(ring))
         }

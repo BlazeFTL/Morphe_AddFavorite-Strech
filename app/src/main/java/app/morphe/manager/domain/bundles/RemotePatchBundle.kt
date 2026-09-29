@@ -7,8 +7,10 @@ import app.morphe.manager.network.dto.MorpheAsset
 import app.morphe.manager.network.service.AssetDownloader
 import app.morphe.manager.network.service.HttpService
 import app.morphe.manager.network.utils.getOrThrow
+import app.morphe.manager.util.ADD_SOURCE_PATH
 import app.morphe.manager.util.ChangelogEntry
 import app.morphe.manager.util.ChangelogParser
+import app.morphe.manager.util.MORPHE_WEBSITE_URL
 import app.morphe.manager.util.SOURCE_REPO_URL
 import app.morphe.manager.util.TimedCache
 import app.morphe.manager.util.compareVersions
@@ -31,6 +33,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.File
 import java.io.IOException
+import java.net.URLEncoder
 import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.ZipInputStream
 
@@ -159,6 +162,13 @@ sealed class RemotePatchBundle(
             ?: browsePageUrl
 
     /**
+     * Link that adds this source on another device, or null when it cannot be shared that way.
+     * See [addSourceLinkForEndpoint].
+     */
+    open val addSourceLink: String?
+        get() = addSourceLinkForEndpoint(endpoint, name)
+
+    /**
      * Shared cache logic for [fetchChangelogEntries] and its overrides.
      */
     protected suspend fun fetchAndCacheEntries(
@@ -205,6 +215,9 @@ sealed class RemotePatchBundle(
         const val BRANCH_STABLE = "main"
         const val BRANCH_DEV = "dev"
 
+        /** Bundle file a repository-only link resolves to. */
+        private const val DEFAULT_BUNDLE_FILE = "patches-bundle.json"
+
         internal const val CHANGELOG_CACHE_TTL = 10 * 60 * 1000L
         private val releaseInfoCache = TimedCache<String, MorpheAsset>(CHANGELOG_CACHE_TTL)
         private val entriesCache = TimedCache<String, List<ChangelogEntry>>(CHANGELOG_CACHE_TTL)
@@ -217,26 +230,59 @@ sealed class RemotePatchBundle(
          * Returns null for hosts other than GitHub and GitLab, whose repository layout is unknown.
          */
         fun inferPageUrlFromEndpoint(endpoint: String): String? {
-            return try {
-                val uri = java.net.URI(endpoint)
-                val host = uri.host?.lowercase(java.util.Locale.US)
-                val segments = uri.path?.trim('/')?.split('/')?.filter { it.isNotBlank() }
+            val (host, segments) = endpointParts(endpoint) ?: return null
+            if (segments.size < 2) return null
 
-                when (host) {
-                    "raw.githubusercontent.com", "github.com" -> {
-                        segments?.takeIf { it.size >= 2 }
-                            ?.let { "https://github.com/${it[0]}/${it[1]}" }
-                    }
-                    "gitlab.com" -> {
-                        // gitlab.com/owner/repo/-/raw/branch/... or gitlab.com/owner/repo
-                        segments?.takeIf { it.size >= 2 }
-                            ?.let { "https://gitlab.com/${it[0]}/${it[1]}" }
-                    }
-                    else -> null
-                }
-            } catch (_: Exception) {
-                null
+            return when (host) {
+                "raw.githubusercontent.com", "github.com" -> "https://github.com/${segments[0]}/${segments[1]}"
+                // gitlab.com/owner/repo/-/raw/branch/... or gitlab.com/owner/repo
+                "gitlab.com" -> "https://gitlab.com/${segments[0]}/${segments[1]}"
+                else -> null
             }
+        }
+
+        /**
+         * Add-source link that recreates the source at [endpoint] on another device, or null when
+         * the link cannot express it.
+         *
+         * The link names only the repository, which the receiving manager expands to the bundle
+         * file at the repository root of the stable branch, and the website accepts nothing longer.
+         * A source with its own file, folder or branch would therefore arrive as a different one.
+         * The dev branch still qualifies, since the pre-release toggle is what selects it.
+         */
+        fun addSourceLinkForEndpoint(endpoint: String, name: String?): String? {
+            val (host, segments) = endpointParts(endpoint) ?: return null
+            val branches = setOf(BRANCH_STABLE, BRANCH_DEV)
+
+            val provider = when (host) {
+                "raw.githubusercontent.com" -> "github".takeIf {
+                    segments.size == 4 && segments[2] in branches && segments[3] == DEFAULT_BUNDLE_FILE
+                }
+
+                "gitlab.com" -> "gitlab".takeIf {
+                    segments.size == 6 && segments[2] == "-" && segments[3] == "raw" &&
+                            segments[4] in branches && segments[5] == DEFAULT_BUNDLE_FILE
+                }
+
+                else -> null
+            } ?: return null
+
+            return buildString {
+                append("$MORPHE_WEBSITE_URL$ADD_SOURCE_PATH?$provider=${segments[0]}/${segments[1]}")
+                name?.takeIf { it.isNotBlank() }?.let {
+                    append("&name=").append(URLEncoder.encode(it, "UTF-8").replace("+", "%20"))
+                }
+            }
+        }
+
+        /** Lowercased host and path segments of [endpoint], or null when it is not a valid URL. */
+        private fun endpointParts(endpoint: String): Pair<String, List<String>>? = try {
+            val uri = java.net.URI(endpoint)
+            uri.host?.lowercase(java.util.Locale.US)?.let { host ->
+                host to uri.path.orEmpty().trim('/').split('/').filter { it.isNotBlank() }
+            }
+        } catch (_: Exception) {
+            null
         }
 
         /**
@@ -501,6 +547,9 @@ class APIPatchBundle(
     override val browsePageUrl: String get() = SOURCE_REPO_URL
 
     override val issuesPageUrl: String get() = "$SOURCE_REPO_URL/issues"
+
+    // Every install already has the default source, so there is nothing to share
+    override val addSourceLink: String? get() = null
 
     override suspend fun fetchChangelogEntries(sinceVersion: String?): List<ChangelogEntry> {
         val branch = if (usePrerelease) BRANCH_DEV else BRANCH_STABLE

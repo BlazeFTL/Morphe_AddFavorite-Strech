@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt;-এর Android %2$s (API %3$s)-এর জন্য কোনো সমর্থিত সংস্করণ নেই। ঘোষিত সমস্ত সংস্করণগুলির জন্য উচ্চতর Android সংস্করণ প্রয়োজন।</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">মূল APK ডাউনলোড করুন</string>
-    <string name="home_download_instructions_steps_title">নির্দেশাবলী:</string>
     <string name="home_download_instructions_finding">ডাউনলোড পেজ খোঁজা হচ্ছে…</string>
     <string name="home_download_instructions_step1">নিচের \'%s\' বোতামটি চাপুন</string>
     <string name="home_download_instructions_step2_part1">ওয়েবপেজটি স্ক্রোল করুন এবং চাপুন</string>
@@ -554,7 +553,6 @@
 আনইনস্টল করলে সমস্ত অ্যাপের ডেটা স্থায়ীভাবে মুছে যাবে"</string>
     <string name="patcher_install_error_title">ইনস্টলেশন ত্রুটি</string>
     <string name="patcher_install_error_subtitle">আনইনস্টল করে আবার ইনস্টল করার চেষ্টা করুন</string>
-    <string name="patcher_ready_to_install_subtitle">ইনস্টল করতে নিচের বোতামটি টিপুন</string>
     <string name="patcher_ready_to_mount_subtitle">মাউন্ট করতে নিচের বোতামটি টিপুন</string>
     <string name="patcher_patches_excluded_for_installer">এটি এই ইনস্টল পদ্ধতি এবং বাদ দেওয়ার জন্য পাওয়া যাচ্ছে না: %s</string>
     <string name="patcher_back_to_game_hint">আপনার গেমে ফিরে যেতে %1$s ট্যাপ করুন</string>
@@ -711,6 +709,9 @@
     <string name="settings_appearance_accent_color">অ্যাকসেন্ট রঙ</string>
     <string name="settings_appearance_pure_black">পুরো কালো</string>
     <string name="settings_appearance_pure_black_description">ব্যবহার করে খাঁটি কালো ব্যাকগ্রাউন্ড।</string>
+    <string name="settings_appearance_color_accents">অ্যাপ এবং উৎসের রং</string>
+    <string name="settings_appearance_outlines">আউটলাইন</string>
+    <string name="settings_appearance_outlines_description">কার্ড, প্যানেল এবং বাটনের চারপাশে একটি পাতলা কিনারা আঁকে।</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">ভাষা এবং ডিসপ্লে</string>
     <string name="settings_appearance_app_language">অ্যাপ্লিকেশনের ভাষা</string>
@@ -1115,7 +1116,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_import_source_data_fail">উৎস ডাটা আমদানি করতে ব্যর্থ হয়েছে</string>
     <string name="settings_system_import_source_data_success">উৎস ডাটা সফলভাবে আমদানি করা হয়েছে</string>
     <string name="settings_system_selected_patches_section">নির্বাচিত প্যাচ</string>
-    <string name="settings_system_patch_options_section">প্যাচ অপশন</string>
     <string name="settings_system_no_patches_or_options">কোনো সংরক্ষিত প্যাচ বা বিকল্প নেই</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">অন্য বান্ডেল থেকে নির্বাচন কপি করুন…</string>
@@ -1301,8 +1301,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_section_app_support">অ্যাপ সমর্থন</string>
     <string name="changelog_section_other">পরিবর্তন</string>
     <string name="changelog_badge_latest">সর্বশেষ</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">ব্যবহৃত</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_prerelease">প্রি-রিলিজ</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">সব দেখান (%s)</string>

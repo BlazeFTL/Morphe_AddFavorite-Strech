@@ -7,7 +7,6 @@ package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -183,7 +183,7 @@ fun ShimmerBundleRow() {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+        border = CardBorder.of(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
     ) {
         Row(
             modifier = Modifier
@@ -207,5 +207,57 @@ fun ShimmerBundleRow() {
                 )
             }
         }
+    }
+}
+
+/** Placeholder of a [CompactListCard] while its list is read, with as many [descriptionLines] as its rows. */
+@Composable
+fun ShimmerCompactListCard(descriptionLines: Int = 1) {
+    CompactListCard(onClick = null) {
+        ShimmerBox(
+            modifier = Modifier.size(CompactCardIconSize),
+            shape = RoundedCornerShape(Defaults.CompactCornerRadius)
+        )
+        // Laid out on the lines of the text it stands in for, see [CardHeadingText], so the card
+        // keeps its height at any font scale once the real row replaces it
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            val density = LocalDensity.current
+            ShimmerLine(
+                height = with(density) { MaterialTheme.typography.titleSmall.lineHeight.toDp() },
+                widthFraction = 0.55f
+            )
+            Column {
+                repeat(descriptionLines) { line ->
+                    ShimmerLine(
+                        height = with(density) { MaterialTheme.typography.bodySmall.lineHeight.toDp() },
+                        widthFraction = if (line == 0) 0.35f else 0.25f
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * A bar on a line of [height], the height of the text or badge it stands in for, so the row keeps
+ * its height when the real content replaces it.
+ */
+@Composable
+fun ShimmerLine(
+    height: Dp,
+    widthFraction: Float,
+    baseColor: Color = Color.Unspecified
+) {
+    Box(modifier = Modifier.height(height), contentAlignment = Alignment.CenterStart) {
+        ShimmerBox(
+            modifier = Modifier
+                .fillMaxWidth(widthFraction)
+                .height(height * 0.7f),
+            shape = RoundedCornerShape(4.dp),
+            baseColor = baseColor
+        )
     }
 }

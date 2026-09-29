@@ -44,7 +44,7 @@ fun CompactListCard(
     SettingsItemCard(
         onClick = onClick,
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        borderWidth = 1.dp,
+        showBorder = true,
         borderColor = MaterialTheme.colorScheme.outlineVariant,
         modifier = modifier
     ) {
@@ -56,24 +56,6 @@ fun CompactListCard(
             verticalAlignment = Alignment.CenterVertically,
             content = content
         )
-    }
-}
-
-/** Placeholder of a [CompactListCard] while the list it belongs to is read. */
-@Composable
-fun ShimmerCompactListCard() {
-    CompactListCard(onClick = null) {
-        ShimmerBox(
-            modifier = Modifier.size(CompactCardIconSize),
-            shape = RoundedCornerShape(Defaults.CompactCornerRadius)
-        )
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            ShimmerText(widthFraction = 0.55f, height = 14.dp)
-            ShimmerText(widthFraction = 0.35f, height = 12.dp)
-        }
     }
 }
 

@@ -209,7 +209,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; मध्ये Android %2$s (API %3$s) साठी कोणतेही सपोर्टेड व्हर्जन नाही. सर्व घोषित व्हर्जन्सना Android चे उच्च व्हर्जन आवश्यक आहे</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">मूळ APK डाउनलोड करा</string>
-    <string name="home_download_instructions_steps_title">सूचना</string>
     <string name="home_download_instructions_finding">डाउनलोड पेज शोधत आहे…</string>
     <string name="home_download_instructions_step1">खालील \'%s\' बटण दाबा</string>
     <string name="home_download_instructions_step2_part1">वेबपेजवर खाली स्क्रोल करा आणि दाबा</string>
@@ -481,7 +480,6 @@
 अस्थिर केल्याने ॲपचा सर्व डेटा कायमचा नष्ट होईल."</string>
     <string name="patcher_install_error_title">इंस्टॉलेशन एरर</string>
     <string name="patcher_install_error_subtitle">अनइंस्टॉल करून पुन्हा इंस्टॉल करण्याचा प्रयत्न करा</string>
-    <string name="patcher_ready_to_install_subtitle">इंस्टॉल करण्यासाठी खालील बटण दाबा</string>
     <string name="patcher_ready_to_mount_subtitle">माउंट करण्यासाठी खालील बटण दाबा</string>
     <string name="patcher_patches_excluded_for_installer">या इन्स्टॉल पद्धतीसाठी उपलब्ध नाही आणि वगळण्यात आले आहे: %s</string>
     <string name="patcher_back_to_game_hint">तुमच्या गेमवर परत जाण्यासाठी %1$s वर टॅप करा</string>
@@ -996,7 +994,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">स्रोत डेटा आयात करण्यात अयशस्वी</string>
     <string name="settings_system_import_source_data_success">स्रोत डेटा यशस्वीरित्या आयात केला</string>
     <string name="settings_system_selected_patches_section">निवडलेले पॅच</string>
-    <string name="settings_system_patch_options_section">पॅच पर्याय</string>
     <string name="settings_system_no_patches_or_options">कोणतेही पॅच किंवा पर्याय जतन केलेले नाहीत</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">\u0928\u093e\u0932\u093e \u0926\u0941\u0928\u0941\u0928\u093e \u0928\u093e\u0932\u093e…</string>
@@ -1154,7 +1151,7 @@ morphe_header_custom_dark.png
     <string name="changelog_older_empty">दर्शविण्यासाठी जुने रिलीझ नाहीत</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <!-- Marks the version of a patch source the manager patches with -->
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <!-- "%s" is the number of changes in the section -->
     <string name="no_network_toast">इंटरनेट कनेक्शन उपलब्ध नाही</string>
     <string name="update_available">अपडेट उपलब्ध आहे</string>

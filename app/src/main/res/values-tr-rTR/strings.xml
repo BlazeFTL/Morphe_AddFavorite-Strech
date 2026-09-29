@@ -238,7 +238,6 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; Android %2$s (API %3$s) için desteklenen bir sürümü yok. Bildirilen tüm sürümler daha yüksek bir Android sürümü gerektiriyor.</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Orijinal APK\'yi indir</string>
-    <string name="home_download_instructions_steps_title">Talimatlar:</string>
     <string name="home_download_instructions_finding">İndirme sayfası aranıyor…</string>
     <string name="home_download_instructions_step1">Aşağıdaki \"%s\" düğmesine tıklayın</string>
     <string name="home_download_instructions_step2_part1">Web sayfasını aşağı kaydırın ve</string>
@@ -554,7 +553,6 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
 Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patcher_install_error_title">Yükleme hatası</string>
     <string name="patcher_install_error_subtitle">Kaldırıp tekrar yüklemeyi deneyin</string>
-    <string name="patcher_ready_to_install_subtitle">Yüklemek için aşağıdaki düğmeye basın</string>
     <string name="patcher_ready_to_mount_subtitle">Bağlamak için aşağıdaki düğmeye basın</string>
     <string name="patcher_patches_excluded_for_installer">Bu kurulum yöntemi için kullanılamıyor ve hariç tutuldu: %s</string>
     <string name="patcher_back_to_game_hint">Geri dönmek için %1$s\'e dokunun</string>
@@ -711,6 +709,10 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_accent_color">Vurgu rengi</string>
     <string name="settings_appearance_pure_black">Saf Siyah</string>
     <string name="settings_appearance_pure_black_description">Gerçek siyah arka plan kullanır</string>
+    <string name="settings_appearance_color_accents">Uygulama ve kaynak renkleri</string>
+    <string name="settings_appearance_color_accents_description">Her uygulamanın ve kaynağın kendi rengini vurgu rengi yerine kullanır.</string>
+    <string name="settings_appearance_outlines">Anahatlar</string>
+    <string name="settings_appearance_outlines_description">Kartlar, paneller ve düğmelerin çevresine ince bir kenar çizer</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Dil ve ekran</string>
     <string name="settings_appearance_app_language">Uygulama dili</string>
@@ -1122,7 +1124,6 @@ Ayrıntılar: %2$s"</string>
     <string name="settings_system_import_source_data_fail">Kaynak verisinin içe aktarılması başarısız oldu</string>
     <string name="settings_system_import_source_data_success">Kaynak verisi başarıyla içe aktarıldı</string>
     <string name="settings_system_selected_patches_section">Seçili yamalar</string>
-    <string name="settings_system_patch_options_section">Yama seçenekleri</string>
     <string name="settings_system_no_patches_or_options">Hiçbir yama veya seçenek kaydedilmedi</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Seçimi kopyala…</string>
@@ -1308,8 +1309,8 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_section_app_support">Uygulama desteği</string>
     <string name="changelog_section_other">Değişiklikler</string>
     <string name="changelog_badge_latest">En son</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">Kullanımda</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">İndirildi</string>
     <string name="changelog_badge_prerelease">Ön sürüm</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Tümünü göster (%s)</string>

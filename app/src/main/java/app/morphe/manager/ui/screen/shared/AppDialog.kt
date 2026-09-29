@@ -32,7 +32,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
-import app.morphe.manager.util.isDarkBackground
+import app.morphe.manager.ui.theme.isDarkTheme
 import kotlin.time.Duration.Companion.milliseconds
 
 /** Provides the primary text color for dialog content. */
@@ -84,6 +84,9 @@ enum class DialogPadding {
  *   [AnnotatedString] for one with emphasis.
  * @param titleTrailingContent Optional actions displayed after the title, laid out in a row.
  * @param footer Optional footer content.
+ * @param accentColor Color of the app or source the dialog is about. Its header, content and
+ *   buttons all take it on through [LocalAccent], so the dialog reads as one surface in that color.
+ *   Null leaves them in the theme's palette, or in whatever color surrounds the dialog.
  * @param bottomBar Optional bar docked to the bottom edge of the screen, edge to edge, such as a
  * [MultiSelectShell] while a selection is being made. While there is one it takes the place of
  * the [footer], clears the navigation bar and the keyboard itself, and the content ends right
@@ -111,6 +114,7 @@ fun AppDialog(
     description: CharSequence? = null,
     titleTrailingContent: (@Composable RowScope.() -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
+    accentColor: Color? = null,
     bottomBar: (@Composable () -> Unit)? = null,
     dismissOnClickOutside: Boolean = false,
     scrollable: Boolean = true,
@@ -122,7 +126,7 @@ fun AppDialog(
     onEntered: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
-    val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
+    val isDarkTheme = isDarkTheme()
     var visible by remember { mutableStateOf(false) }
 
     DisposableEffect(Unit) {
@@ -173,20 +177,24 @@ fun AppDialog(
                 exit = Animations.dialogExit,
                 modifier = Modifier.fillMaxSize()
             ) {
-                DialogContent(
-                    title = title,
-                    description = description,
-                    titleTrailingContent = titleTrailingContent,
-                    footer = footer,
-                    bottomBar = bottomBar,
-                    isDarkTheme = isDarkTheme,
-                    scrollable = scrollable,
-                    padding = padding,
-                    contentArrangement = contentArrangement,
-                    fillContentHeight = fillContentHeight,
-                    hideFooterWhileTyping = hideFooterWhileTyping,
-                    content = content
-                )
+                val dialogContent = @Composable {
+                    DialogContent(
+                        title = title,
+                        description = description,
+                        titleTrailingContent = titleTrailingContent,
+                        footer = footer,
+                        bottomBar = bottomBar,
+                        isDarkTheme = isDarkTheme,
+                        scrollable = scrollable,
+                        padding = padding,
+                        contentArrangement = contentArrangement,
+                        fillContentHeight = fillContentHeight,
+                        hideFooterWhileTyping = hideFooterWhileTyping,
+                        content = content
+                    )
+                }
+                // Provided only when there is one, so a dialog opened from a colored one keeps its color
+                if (accentColor != null) ProvideAccent(accentColor, dialogContent) else dialogContent()
             }
         }
     }
@@ -228,7 +236,7 @@ fun Overlay(
 ) {
     // Drawn over the theme background, so the bars read against the same thing an AppDialog gives
     // them even though this one lets some of the screen behind show through
-    val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
+    val isDarkTheme = isDarkTheme()
 
     AnimatedVisibility(
         visible = visible,

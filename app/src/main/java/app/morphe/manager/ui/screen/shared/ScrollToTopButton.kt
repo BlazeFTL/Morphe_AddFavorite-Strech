@@ -9,7 +9,6 @@ import android.view.HapticFeedbackConstants
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -144,7 +143,7 @@ private fun ScrollToTopButtonImpl(
                 .size(ButtonSize)
                 .clip(CircleShape)
                 .background(background)
-                .border(1.dp, borderColor, CircleShape)
+                .cardBorder(CardBorder.of(borderColor), CircleShape)
                 .semantics { role = Role.Button }
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },

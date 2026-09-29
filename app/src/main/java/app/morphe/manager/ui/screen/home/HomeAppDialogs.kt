@@ -213,29 +213,7 @@ internal fun HiddenAppsDialog(
     val density = LocalDensity.current
     val actionThresholdPx = with(density) { 90.dp.toPx() }
 
-    val patchesLabel = stringResource(R.string.patches)
-    val unhideLabel = stringResource(R.string.unhide)
-    val primaryContainer = MaterialTheme.colorScheme.primaryContainer
-    val onPrimaryContainer = MaterialTheme.colorScheme.onPrimaryContainer
-    val tertiaryContainer = MaterialTheme.colorScheme.tertiaryContainer
-    val onTertiaryContainer = MaterialTheme.colorScheme.onTertiaryContainer
-
-    val startConfig = remember(unhideLabel, tertiaryContainer, onTertiaryContainer) {
-        SwipeActionConfig(
-            icon = Icons.Outlined.Visibility,
-            label = unhideLabel,
-            containerColor = tertiaryContainer,
-            contentColor = onTertiaryContainer
-        )
-    }
-    val endConfig = remember(patchesLabel, primaryContainer, onPrimaryContainer) {
-        SwipeActionConfig(
-            icon = Icons.Outlined.Extension,
-            label = patchesLabel,
-            containerColor = primaryContainer,
-            contentColor = onPrimaryContainer
-        )
-    }
+    val startConfig = rememberUnhideSwipeAction()
 
     AppDialog(
         onDismissRequest = onDismiss,
@@ -327,7 +305,7 @@ internal fun HiddenAppsDialog(
                                     startProgress = startProgress,
                                     endProgress = endProgress,
                                     startConfig = startConfig,
-                                    endConfig = endConfig,
+                                    endConfig = rememberPatchesSwipeAction(item.packageName),
                                     modifier = Modifier
                                         .matchParentSize()
                                         .clip(RoundedCornerShape(24.dp))
@@ -441,6 +419,8 @@ fun AppPatchSourcesDialog(
         ) {
             items(items = rows, key = { (uid, _, _) -> uid }) { (uid, title, counts) ->
                 val (held, reaches) = counts
+                // Worn the way the source list wears it, so a source reads as the same one there
+                val accentColor = sourcesByUid[uid]?.let { rememberBundleAccent(it) }
                 val state = when (held) {
                     0 -> ToggleableState.On
                     reaches -> ToggleableState.Off
@@ -467,7 +447,8 @@ fun AppPatchSourcesDialog(
                         }
                     },
                     role = Role.Checkbox,
-                    leadingContent = { SelectionCheckIndicator(state) },
+                    leadingContent = { SelectionCheckIndicator(state, accentColor = accentColor) },
+                    accentColor = accentColor,
                     modifier = Modifier
                         .fillMaxWidth()
                         .animatedListItem(this)

@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; нема подржане верзије за Android %2$s (API %3$s). Све декларисане верзије захтевају вишу Android верзију</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">Преузмите оригинални APK</string>
-    <string name="home_download_instructions_steps_title">Упутства:</string>
     <string name="home_download_instructions_finding">Проналажење странице за преузимање…</string>
     <string name="home_download_instructions_step1">Кликните на дугме „%s” испод</string>
     <string name="home_download_instructions_step2_part1">Скролујте низ веб-страницу и притисните</string>
@@ -554,7 +553,6 @@
 Деинсталација ће трајно избрисати све податке апликације"</string>
     <string name="patcher_install_error_title">Грешка при инсталацији</string>
     <string name="patcher_install_error_subtitle">Покушајте деинсталирати па поново инсталирати</string>
-    <string name="patcher_ready_to_install_subtitle">Притисните дугме испод за инсталирање</string>
     <string name="patcher_ready_to_mount_subtitle">Притисните дугме испод за монтирање</string>
     <string name="patcher_patches_excluded_for_installer">Није доступно за ову методу инсталације и искључено: %s</string>
     <string name="patcher_back_to_game_hint">Додирните %1$s да се вратите на своју игру</string>
@@ -711,6 +709,10 @@
     <string name="settings_appearance_accent_color">Акцент боја</string>
     <string name="settings_appearance_pure_black">Svetlo crno</string>
     <string name="settings_appearance_pure_black_description">Користи праву црну позадину</string>
+    <string name="settings_appearance_color_accents">Боје апликација и извора</string>
+    <string name="settings_appearance_color_accents_description">Користи сопствену боју сваке апликације и сваког извора уместо акцентне боје</string>
+    <string name="settings_appearance_outlines">Контуре</string>
+    <string name="settings_appearance_outlines_description">Црта танку ивицу око картица, панела и дугмади.</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Језик &amp; приказ</string>
     <string name="settings_appearance_app_language">Језик апликације</string>
@@ -1123,7 +1125,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">Неуспешан увоз података извора</string>
     <string name="settings_system_import_source_data_success">Подаци извора успешно увезени</string>
     <string name="settings_system_selected_patches_section">Изабрани пакети</string>
-    <string name="settings_system_patch_options_section">Опције поправке</string>
     <string name="settings_system_no_patches_or_options">Нema сачуваних пакета или опција</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">Копирај селекцију из…</string>
@@ -1309,8 +1310,8 @@ morphe_header_custom_dark.png
     <string name="changelog_section_app_support">Подршка за апликације</string>
     <string name="changelog_section_other">Промене</string>
     <string name="changelog_badge_latest">Најновије</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">У употреби</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Преузето</string>
     <string name="changelog_badge_prerelease">Пре издања</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Прикажи све (%s)</string>

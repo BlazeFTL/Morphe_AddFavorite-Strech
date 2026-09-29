@@ -49,6 +49,13 @@ sealed interface VersionTag {
     data object Installed : VersionTag
 }
 
+/**
+ * Whether the tag is about an APK on hand rather than the version itself, which a row notes in a
+ * quiet line of its own instead of a badge, leaving its badge to what it says of the version.
+ */
+val VersionTag.isOnHand: Boolean
+    get() = this == VersionTag.Saved || this == VersionTag.Installed
+
 val VersionTag.tone: SemanticTone
     get() = when (this) {
         is VersionTag.RequiresAndroid, VersionTag.Incompatible, VersionTag.Unsupported ->
@@ -137,17 +144,4 @@ fun VersionTagBadge(tag: VersionTag, modifier: Modifier = Modifier) {
         icon = tag.icon,
         tone = tag.tone
     )
-}
-
-/**
- * Every tag of a version, stacked at the edge of its row. A long version string shortens
- * itself rather than pushing the tags out of shape, and they line up down the card edge.
- */
-@Composable
-fun VersionTagBadges(tags: List<VersionTag>, modifier: Modifier = Modifier) {
-    if (tags.isEmpty()) return
-
-    StatusBadgeColumn(modifier = modifier) {
-        tags.forEach { VersionTagBadge(it) }
-    }
 }

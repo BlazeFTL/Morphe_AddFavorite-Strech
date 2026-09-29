@@ -129,7 +129,7 @@ fun InstalledAppPickerDialog(
             }
 
             if (isLoading) {
-                items(10) { ShimmerCompactListCard() }
+                items(10) { ShimmerCompactListCard(descriptionLines = 2) }
             } else {
                 if (filtered.isEmpty()) {
                     item(key = "empty_state") {

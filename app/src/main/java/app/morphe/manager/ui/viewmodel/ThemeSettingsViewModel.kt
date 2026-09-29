@@ -115,6 +115,14 @@ class ThemeSettingsViewModel(
         prefs.pureBlackTheme.update(enabled)
     }
 
+    fun toggleColorAccents(current: Boolean) = viewModelScope.launch {
+        prefs.colorAccents.update(!current)
+    }
+
+    fun toggleOutlines(current: Boolean) = viewModelScope.launch {
+        prefs.outlines.update(!current)
+    }
+
     fun setBackgroundType(type: BackgroundType) = viewModelScope.launch {
         prefs.backgroundType.update(type)
     }

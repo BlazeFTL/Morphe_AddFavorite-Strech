@@ -175,7 +175,7 @@ private fun SigningKeyPreview(key: SigningKeyInfo) {
     val copyToClipboard = rememberCopyToClipboard()
     val view = LocalView.current
 
-    SettingsItemCard(onClick = null, borderWidth = 1.dp) {
+    SettingsItemCard(onClick = null, showBorder = true) {
         Column(
             modifier = Modifier
                 .combinedClickable(

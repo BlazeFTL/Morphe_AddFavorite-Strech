@@ -138,7 +138,7 @@ private fun AppIconCard(
         stateDescription = stringResource(
             if (isSelected) R.string.selected else R.string.not_selected
         ),
-        modifier = modifier.height(cardHeight)
+        modifier = modifier.heightIn(min = cardHeight)
     ) {
         Column(
             modifier = Modifier

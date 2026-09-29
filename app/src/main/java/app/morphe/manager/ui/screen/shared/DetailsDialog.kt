@@ -17,6 +17,7 @@ import app.morphe.manager.R
  * header holds its place under the status bar, and only the [content] below it scrolls.
  *
  * @param accentColor Color of the app or source the dialog is about, see [ListDialogHeader].
+ * @param actions Offered beside Close, which stays primary, so they are outlined unless they ask otherwise.
  */
 @Composable
 fun DetailsDialog(
@@ -25,15 +26,21 @@ fun DetailsDialog(
     title: String,
     subtitle: String,
     accentColor: Color?,
+    actions: List<DialogAction> = emptyList(),
     content: @Composable ColumnScope.() -> Unit
 ) {
     AppDialog(
         onDismissRequest = onDismissRequest,
+        accentColor = accentColor,
         footer = {
-            AppDialogOutlinedButton(
-                text = stringResource(R.string.close),
-                onClick = onDismissRequest,
-                modifier = Modifier.fillMaxWidth()
+            AppDialogActions(
+                actions = listOf(
+                    DialogAction(
+                        text = stringResource(R.string.close),
+                        onClick = onDismissRequest,
+                        emphasis = DialogActionEmphasis.Outlined
+                    )
+                ) + actions
             )
         },
         padding = DialogPadding.Compact,
@@ -41,7 +48,7 @@ fun DetailsDialog(
         contentArrangement = Arrangement.Top,
         fillContentHeight = true
     ) {
-        ListDialogHeader(icon = icon, title = title, subtitle = subtitle, accentColor = accentColor)
+        ListDialogHeader(icon = icon, title = title, subtitle = subtitle)
 
         DialogScrollColumn(
             modifier = Modifier.weight(1f),

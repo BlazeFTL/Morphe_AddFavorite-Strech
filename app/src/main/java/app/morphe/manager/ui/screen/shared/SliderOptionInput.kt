@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.RangeSliderState
 import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.SliderState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -122,7 +121,7 @@ fun SliderOptionInput(
                 dragging = false
                 onValueChange(position)
             },
-            colors = SliderDefaults.colors(),
+            colors = accentSliderColors(),
             modifier = Modifier.fillMaxWidth()
         )
     }
@@ -237,7 +236,7 @@ fun RangeSliderOptionInput(
                 dragging = false
                 onValueChange(position)
             },
-            colors = SliderDefaults.colors(),
+            colors = accentSliderColors(),
             modifier = Modifier.fillMaxWidth()
         )
     }

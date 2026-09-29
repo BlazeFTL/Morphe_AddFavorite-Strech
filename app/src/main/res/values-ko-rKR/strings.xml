@@ -174,8 +174,8 @@
     <string name="sources_dialog_delete_confirm_message">\'%s\' 소스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다</string>
     <string name="sources_dialog_remote">원격</string>
     <string name="sources_dialog_remote_url">소스 URL</string>
-    <string name="sources_dialog_remote_url_hint">저장소 또는 패치 번들 .json 링크를 입력하세요. 여러 개를 한 번에 붙여넣어 모두 추가할 수 있습니다.</string>
-    <string name="sources_dialog_paste_no_links">클립보드에서 링크를 찾을 수 없습니다.</string>
+    <string name="sources_dialog_remote_url_hint">저장소 또는 패치 번들 .json 링크를 입력하세요. 여러 개를 한 번에 붙여넣어 모두 추가할 수 있습니다</string>
+    <string name="sources_dialog_paste_no_links">클립보드에서 링크를 찾을 수 없습니다</string>
     <string name="sources_dialog_local">로컬</string>
     <string name="sources_dialog_local_files">패치 소스 파일 선택</string>
     <!-- Button under the files already picked, which opens the picker again -->
@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt;는 Android %2$s (API %3$s)에서 지원되는 버전이 없습니다. 선언된 모든 앱 버전은 더 높은 Android 버전을 요구합니다</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">원본 APK 다운로드</string>
-    <string name="home_download_instructions_steps_title">설명서:</string>
     <string name="home_download_instructions_finding">다운로드 페이지를 찾는 중…</string>
     <string name="home_download_instructions_step1">아래 \'%s\' 버튼을 탭하세요</string>
     <string name="home_download_instructions_step2_part1">웹페이지를 아래로 스크롤 한 후에 이 버튼을 탭하세요</string>
@@ -469,7 +468,7 @@
     <string name="home_app_info_patch_update_available">패치 업데이트 사용 가능</string>
     <string name="home_app_info_patch_update_available_description">새 버전의 패치가 있습니다. 최신 개선 사항 및 수정 사항을 적용하려면 앱을 다시 패치하세요</string>
     <string name="home_app_info_app_update_available">앱 업데이트 사용 가능</string>
-    <string name="home_app_info_app_update_available_description">패치 소스가 이 앱의 최신 버전을 지원합니다. 해당 버전으로 이동하려면 다시 패치하세요.</string>
+    <string name="home_app_info_app_update_available_description">패치 소스가 이 앱의 최신 버전을 지원합니다. 해당 버전으로 이동하려면 다시 패치하세요</string>
     <string name="home_app_info_newest_supported_version">지원되는 최신 버전</string>
     <string name="home_app_info_version_move">설치된 버전 %1$s, 지원되는 최신 버전 %2$s</string>
     <string name="home_app_info_app_deleted_warning">앱이 제거되었습니다</string>
@@ -554,7 +553,6 @@
 앱을 제거하면 모든 앱 데이터가 영구적으로 삭제됩니다"</string>
     <string name="patcher_install_error_title">설치 오류</string>
     <string name="patcher_install_error_subtitle">앱을 제거한 후에 다시 설치하세요</string>
-    <string name="patcher_ready_to_install_subtitle">설치하시려면 아래 버튼을 탭하세요</string>
     <string name="patcher_ready_to_mount_subtitle">마운트하려면 아래 버튼을 탭하세요</string>
     <string name="patcher_patches_excluded_for_installer">이 설치 방법에는 사용할 수 없으며 제외됩니다: %s</string>
     <string name="patcher_back_to_game_hint">게임으로 돌아가려면 \'%1$s\'를 탭하세요</string>
@@ -711,6 +709,10 @@
     <string name="settings_appearance_accent_color">강조 색상</string>
     <string name="settings_appearance_pure_black">순수 검정</string>
     <string name="settings_appearance_pure_black_description">순수 검정 배경을 사용합니다</string>
+    <string name="settings_appearance_color_accents">앱 및 소스 색상</string>
+    <string name="settings_appearance_color_accents_description">강조 색상 대신 각 앱과 소스의 고유 색상을 사용합니다</string>
+    <string name="settings_appearance_outlines">윤곽선</string>
+    <string name="settings_appearance_outlines_description">카드, 패널, 버튼의 가장자리에 얇은 테두리를 표시합니다</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">언어 및 디스플레이</string>
     <string name="settings_appearance_app_language">앱 언어</string>
@@ -816,7 +818,7 @@
     <string name="settings_advanced_strip_unused_libs">기기 아키텍처에 맞게 최적화</string>
     <string name="settings_advanced_strip_unused_libs_description">사용하지 않는 CPU 아키텍처 라이브러리 및 분할 APK 모듈을 제거합니다</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat_description">풀 리퀘스트 소스에 필요합니다</string>
+    <string name="settings_advanced_github_pat_description">Pull requests 소스에 필요합니다</string>
     <string name="settings_advanced_github_pat_configured">토큰을 설정하였습니다</string>
     <string name="settings_advanced_github_pat_how_to_get">토큰 얻는 방법</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
@@ -1121,7 +1123,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">소스 데이터를 가저올 수 없습니다</string>
     <string name="settings_system_import_source_data_success">소스 데이터를 성공적으로 가져왔습니다</string>
     <string name="settings_system_selected_patches_section">선택된 패치</string>
-    <string name="settings_system_patch_options_section">패치 옵션</string>
     <string name="settings_system_no_patches_or_options">저장된 패치 또는 옵션이 없습니다</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">선택 목록 복사…</string>
@@ -1298,17 +1299,17 @@ morphe_header_custom_dark.png
     <string name="changelog_release_page">릴리스 페이지</string>
     <string name="content_translate">번역</string>
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <string name="content_show_original">원본</string>
+    <string name="content_show_original">원문</string>
     <string name="content_translation_failed">번역할 수 없습니다: %s</string>
-    <string name="changelog_section_new">신규</string>
+    <string name="changelog_section_new">신규 사항</string>
     <string name="changelog_section_fixes">수정 사항</string>
     <string name="changelog_section_performance">성능</string>
     <string name="changelog_section_improvements">개선 사항</string>
     <string name="changelog_section_app_support">앱 지원</string>
     <string name="changelog_section_other">변경 사항</string>
     <string name="changelog_badge_latest">최신</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">사용 중</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">다운로드</string>
     <string name="changelog_badge_prerelease">Pre-release</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">모두 표시 (%s)</string>

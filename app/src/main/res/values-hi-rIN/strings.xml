@@ -238,7 +238,6 @@
     <string name="home_apk_no_compatible_versions_message">&lt;b&gt;%1$s&lt;/b&gt; के Android %2$s (API %3$s) के लिए कोई समर्थित संस्करण नहीं है। सभी घोषित संस्करणों के लिए उच्चतर Android संस्करण की आवश्यकता है</string>
     <!-- Home Screen - Dialog 2: Download Instructions -->
     <string name="home_download_instructions_title">ओरिजनल APK डाउनलोड करें</string>
-    <string name="home_download_instructions_steps_title">निर्देश:</string>
     <string name="home_download_instructions_finding">डाउनलोड पेज ढूंढा जा रहा है…</string>
     <string name="home_download_instructions_step1">नीचे दिया गया \'%s\' बटन दबाएं</string>
     <string name="home_download_instructions_step2_part1">वेबपेज पर नीचे की ओर स्क्रोल करें और दबाएं</string>
@@ -554,7 +553,6 @@
 अनइंस्टॉल करने से सभी ऐप डेटा स्थायी रूप से मिट जाएगा।"</string>
     <string name="patcher_install_error_title">Installation error</string>
     <string name="patcher_install_error_subtitle">Try uninstalling and installing again</string>
-    <string name="patcher_ready_to_install_subtitle">Press the button below to install</string>
     <string name="patcher_ready_to_mount_subtitle">Press the button below to mount</string>
     <string name="patcher_patches_excluded_for_installer">यह इंस्टॉलेशन विधि के लिए उपलब्ध नहीं है और बहिष्कृत है: %s</string>
     <string name="patcher_back_to_game_hint">अपने गेम पर वापस जाने के लिए %1$s टैप करें</string>
@@ -711,6 +709,10 @@
     <string name="settings_appearance_accent_color">अक्सेंट रंग</string>
     <string name="settings_appearance_pure_black">शुद्ध काला</string>
     <string name="settings_appearance_pure_black_description">सही काले रंग की पृष्ठभूमि का उपयोग करता है।</string>
+    <string name="settings_appearance_color_accents">ऐप और सोर्स रंग</string>
+    <string name="settings_appearance_color_accents_description">एक्सेंट रंग के बजाय प्रत्येक ऐप और स्रोत का अपना-अपना रंग उपयोग करता है</string>
+    <string name="settings_appearance_outlines">आउटलाइन</string>
+    <string name="settings_appearance_outlines_description">कार्ड, पैनल और बटन के चारों ओर एक पतली किनारी बनाता है</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">भाषा &amp; प्रदर्शन</string>
     <string name="settings_appearance_app_language">एप्लिकेशन भाषा</string>
@@ -1123,7 +1125,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_source_data_fail">स्रोत डेटा आयात करने में विफल</string>
     <string name="settings_system_import_source_data_success">स्रोत डेटा सफलतापूर्वक आयात किया गया</string>
     <string name="settings_system_selected_patches_section">चयनित पैच</string>
-    <string name="settings_system_patch_options_section">पैच विकल्प</string>
     <string name="settings_system_no_patches_or_options">कोई पटच या विकल्प सहेजे गए नहीं</string>
     <!-- Copy selection from another bundle -->
     <string name="copy_selection_title">किसी अन्य बंडल से चयन कॉपी करें…</string>
@@ -1309,8 +1310,8 @@ morphe_header_custom_dark.png
     <string name="changelog_section_app_support">ऐप समर्थन</string>
     <string name="changelog_section_other">परिवर्तन</string>
     <string name="changelog_badge_latest">नवीनतम</string>
-    <!-- Marks the version of a patch source the manager patches with -->
-    <string name="changelog_badge_in_use">उपयोग में</string>
+    <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">डाउनलोड किया गया</string>
     <string name="changelog_badge_prerelease">प्री-रिलीज़</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">सभी दिखाएँ (%s)</string>

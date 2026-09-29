@@ -225,6 +225,7 @@ internal fun PatchOptionsDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = accentColor,
         footer = {
             AppDialogOutlinedButton(
                 text = stringResource(R.string.close),
@@ -246,8 +247,7 @@ internal fun PatchOptionsDialog(
             subtitle = listOf(
                 appName,
                 pluralStringResource(R.plurals.option_count, options.size, options.size.toString())
-            ).joinToString(" · "),
-            accentColor = accentColor
+            ).joinToString(" · ")
         ) {
             TitleAction(
                 icon = Icons.Outlined.Restore,

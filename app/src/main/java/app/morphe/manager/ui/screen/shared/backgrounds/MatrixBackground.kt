@@ -16,7 +16,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -31,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.createBitmap
 import app.morphe.manager.ui.theme.MorpheBrandBlue
 import app.morphe.manager.ui.theme.MorpheBrandTeal
-import app.morphe.manager.util.isDarkBackground
+import app.morphe.manager.ui.theme.isDarkTheme
 import kotlinx.coroutines.launch
 import kotlin.math.ceil
 import kotlin.random.Random
@@ -104,7 +103,7 @@ fun MatrixBackground(
     speedMultiplier: Float = 1f,
     patchingCompleted: Boolean = false
 ) {
-    val isDarkTheme = MaterialTheme.colorScheme.background.isDarkBackground()
+    val isDarkTheme = isDarkTheme()
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 

@@ -290,7 +290,7 @@ internal fun PatchListDialog(
                                     patch = patch,
                                     saveStateKey = "$saveStateKey:${section.key}",
                                     packageName = section.packageName,
-                                    commonVersions = commonTargets[section.key]?.versions,
+                                    commonVersions = target?.versions,
                                     onExpertBadgeClick = onExpertBadgeClick,
                                     accentColor = section.accentColor,
                                     modifier = Modifier.animatedListItem(this)
@@ -351,26 +351,32 @@ private fun SectionFilterSheet(
                 .navigationBarsPadding()
         ) {
             PanelHeader(title = { PanelTitle(text = stringResource(R.string.filter)) })
-            FlowRow(
-                modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(start = Defaults.ContentPadding, end = Defaults.ContentPadding, bottom = Defaults.ContentPadding),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-            ) {
-                AppFilterChip(
-                    selected = selectedKey == null,
-                    onClick = { onSelect(null) },
-                    label = stringResource(R.string.all),
-                    selectedIcon = Icons.Outlined.DoneAll
-                )
-                sections.forEach { section ->
-                    val isSelected = section.key == selectedKey
+            val scrollState = rememberScrollState()
+            Box(Modifier.fillMaxWidth()) {
+                FlowRow(
+                    modifier = Modifier
+                        .verticalScrollFade(scrollState)
+                        .verticalScroll(scrollState)
+                        .padding(start = Defaults.ContentPadding, end = Defaults.ContentPadding, bottom = Defaults.ContentPadding),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                ) {
                     AppFilterChip(
-                        selected = isSelected,
-                        onClick = { onSelect(if (isSelected) null else section.key) },
-                        label = section.title
+                        selected = selectedKey == null,
+                        onClick = { onSelect(null) },
+                        label = stringResource(R.string.all),
+                        selectedIcon = Icons.Outlined.DoneAll
                     )
+                    sections.forEach { section ->
+                        val isSelected = section.key == selectedKey
+                        AppFilterChip(
+                            selected = isSelected,
+                            onClick = { onSelect(if (isSelected) null else section.key) },
+                            label = section.title
+                        )
+                    }
                 }
+
+                ListScrollbar(scrollState = scrollState)
             }
         }
     }

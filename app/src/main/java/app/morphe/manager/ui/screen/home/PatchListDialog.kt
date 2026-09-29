@@ -235,8 +235,14 @@ internal fun PatchListDialog(
                         // A filter narrows the list far enough that a fold would only hide results
                         val isFolded = !isFiltering && section.key in foldedKeys
 
+                        val target = commonTargets[section.key]
+                        val targetVersions = target?.versions.orEmpty().toList()
+
                         if (hasSections) {
                             item(key = "section_${section.key}") {
+                                var versionsExpanded by rememberSaveable(saveStateKey, section.key) {
+                                    mutableStateOf(false)
+                                }
                                 PatchGroupHeader(
                                     title = section.title,
                                     count = groups.sumOf { it.items.size },
@@ -247,32 +253,20 @@ internal fun PatchListDialog(
                                     }),
                                     leading = { section.icon(Modifier.size(24.dp)) },
                                     accentColor = section.accentColor,
+                                    // The versions belong to the block's app, unless the list's header names them
+                                    badges = if (headerTarget == null && targetVersions.isNotEmpty()) {
+                                        {
+                                            VersionBadges(
+                                                versions = targetVersions,
+                                                experimental = target?.experimentalVersions.orEmpty(),
+                                                expanded = versionsExpanded,
+                                                onToggle = { versionsExpanded = !versionsExpanded },
+                                                accentColor = section.accentColor
+                                            )
+                                        }
+                                    } else null,
                                     modifier = Modifier.animatedListItem(this)
                                 )
-                            }
-                        }
-
-                        val target = commonTargets[section.key]
-                        val targetVersions = target?.versions.orEmpty().toList()
-                        // Named once for the block under its header, unless the list's header names them
-                        if (!isFolded && headerTarget == null && targetVersions.isNotEmpty()) {
-                            item(key = "versions_${section.key}") {
-                                var expanded by rememberSaveable(saveStateKey, section.key) {
-                                    mutableStateOf(false)
-                                }
-                                FlowRow(
-                                    modifier = Modifier.animatedListItem(this),
-                                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-                                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-                                ) {
-                                    VersionBadges(
-                                        versions = targetVersions,
-                                        experimental = target?.experimentalVersions.orEmpty(),
-                                        expanded = expanded,
-                                        onToggle = { expanded = !expanded },
-                                        accentColor = section.accentColor
-                                    )
-                                }
                             }
                         }
 
@@ -416,6 +410,8 @@ internal fun PatchItemCard(
     val isExpertOnly = !patch.include && onExpertBadgeClick != null
 
     val cardColor = cardFill()
+    // A card without a color of its own still wears the dialog's on its badges
+    val badgeAccent = accentColor ?: LocalAccent.current
 
     SettingsItemCard(
         onClick = if (options.isNotEmpty()) {
@@ -427,7 +423,7 @@ internal fun PatchItemCard(
         color = cardColor
     ) {
         // The badges on the card take the app's color, as its edge does
-        ProvideCardAccent(accentColor, cardColor) {
+        ProvideCardAccent(badgeAccent, cardColor) {
             Column(
                 modifier = Modifier.padding(Defaults.ContentPadding),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
@@ -447,10 +443,9 @@ internal fun PatchItemCard(
                         )
 
                         if (options.isNotEmpty()) {
-                            StatusBadge(
+                            AppAccentBadge(
                                 text = pluralStringResource(R.plurals.option_count, options.size, options.size.toString()),
                                 icon = if (expandOptions) Icons.Outlined.ExpandLess else Icons.Outlined.Tune,
-                                tone = SemanticTone.Primary,
                                 onClick = { expandOptions = !expandOptions }
                             )
                         }

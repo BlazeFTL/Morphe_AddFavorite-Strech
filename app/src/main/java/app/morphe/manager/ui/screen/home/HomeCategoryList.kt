@@ -182,7 +182,7 @@ private fun List<HomeAppItem>.orderedByPackageOrder(packageOrder: List<String>):
  * on a non-tappable row.
  *
  * A non-null [color] replaces the frosted fill, for rows that belong to something already
- * carrying a color of its own.
+ * carrying a color of its own. [below] goes under the row inside the same card.
  */
 @Composable
 internal fun HomeGlassCategoryRow(
@@ -195,6 +195,7 @@ internal fun HomeGlassCategoryRow(
     cornerRadius: Dp = 20.dp,
     color: Color? = null,
     borderColor: Color? = null,
+    below: (@Composable () -> Unit)? = null,
     trailing: @Composable RowScope.() -> Unit = {}
 ) {
     val shape = RoundedCornerShape(cornerRadius)
@@ -222,38 +223,43 @@ internal fun HomeGlassCategoryRow(
         shape = shape,
         border = CardBorder.of(borderColor)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 48.dp)
-                .padding(horizontal = 12.dp, vertical = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            leading?.invoke()
+        Column {
             Row(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp)
+                    .padding(horizontal = 12.dp, vertical = 6.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.Medium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f, fill = false)
-                )
-                if (count != null) {
+                leading?.invoke()
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
                     Text(
-                        text = count,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = mutedContentColor,
-                        maxLines = 1
+                        text = title,
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Medium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
                     )
+                    if (count != null) {
+                        Text(
+                            text = count,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = mutedContentColor,
+                            maxLines = 1
+                        )
+                    }
                 }
+                trailing()
             }
-            trailing()
+            if (below != null) {
+                Box(modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 12.dp)) { below() }
+            }
         }
     }
 }

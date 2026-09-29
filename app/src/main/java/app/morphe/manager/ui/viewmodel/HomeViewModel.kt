@@ -387,7 +387,10 @@ class HomeViewModel(
                 val bundleName = withContext(Dispatchers.IO) { picked.uri.readMppManifest(contentResolver)?.name }
                 val check = runCatching {
                     patchBundleRepository.checkLocal(bundleName) {
-                        contentResolver.openInputStream(picked.uri) ?: throw FileNotFoundException("Unable to open ${picked.uri}")
+                        // Closed by checkLocal, which reads it through use
+                        @SuppressLint("Recycle")
+                        val stream = contentResolver.openInputStream(picked.uri)
+                        stream ?: throw FileNotFoundException("Unable to open ${picked.uri}")
                     }
                 }.getOrElse { LocalFileCheck.NotBundle }
                 pickedBundles = pickedBundles.map {

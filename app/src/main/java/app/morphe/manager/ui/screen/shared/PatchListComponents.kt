@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -45,8 +43,8 @@ fun patchEntries(
 }
 
 /**
- * [entries] in a [LabeledSection], parted by dividers. Only patches with options carry a mark, since
- * every row applies and a mark on each would tell nothing apart.
+ * [entries] in a [LabeledSection], parted by dividers. A patch's options hang under its name in a
+ * quieter hand, so they read as a note to it rather than rows of their own.
  */
 @Composable
 fun PatchEntryList(entries: List<PatchEntry>) {
@@ -62,33 +60,21 @@ private const val OPTION_KEY_MAX_FRACTION = 0.4f
 @Composable
 private fun PatchEntryRow(entry: PatchEntry) {
     val textColor = LocalDialogTextColor.current
+    val secondaryColor = LocalDialogSecondaryTextColor.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = Defaults.ContentPadding),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-        ) {
-            Text(
-                text = entry.name,
-                style = MaterialTheme.typography.bodyMedium,
-                color = if (entry.dimmed) textColor.copy(alpha = 0.5f) else textColor,
-                modifier = Modifier.weight(1f)
-            )
-            if (entry.options.isNotEmpty()) {
-                StatusBadge(
-                    text = entry.options.size.toString(),
-                    icon = Icons.Outlined.Tune,
-                    tone = SemanticTone.Primary
-                )
-            }
-        }
+        Text(
+            text = entry.name,
+            style = MaterialTheme.typography.bodyMedium,
+            color = if (entry.dimmed) textColor.copy(alpha = 0.5f) else textColor
+        )
         if (entry.options.isNotEmpty()) {
             // A capped key cannot squeeze its value to a few letters a line, and the rail hangs the
-            // options from their patch, whose name they would otherwise match in size
+            // options from their patch, whose name they would otherwise pass for
             BoxWithConstraints {
                 val keyMaxWidth = (maxWidth - AccentRailWidth - Defaults.ItemSpacing) * OPTION_KEY_MAX_FRACTION
                 Row(
@@ -101,7 +87,8 @@ private fun PatchEntryRow(entry: PatchEntry) {
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         entry.options.forEach { (key, value) ->
-                            // Set as the info panels set theirs, side by side on one baseline
+                            // Side by side on one baseline as the info panels set theirs, the value
+                            // smaller so the patch name stays the lead
                             Row(horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
                                 ValueLabel(
                                     text = key,
@@ -110,9 +97,10 @@ private fun PatchEntryRow(entry: PatchEntry) {
                                         .alignByBaseline()
                                         .widthIn(max = keyMaxWidth)
                                 )
-                                ValueText(
+                                Text(
                                     text = formatOptionValue(value),
-                                    color = textColor,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = secondaryColor,
                                     modifier = Modifier
                                         .alignByBaseline()
                                         .weight(1f)

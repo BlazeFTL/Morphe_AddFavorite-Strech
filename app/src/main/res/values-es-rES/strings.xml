@@ -710,7 +710,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_pure_black">Negro puro</string>
     <string name="settings_appearance_pure_black_description">Utiliza fondos de pantalla realmente negros</string>
     <string name="settings_appearance_color_accents">Colores de aplicaciones y fuentes</string>
-    <string name="settings_appearance_color_accents_description">Utiliza el color propio de cada aplicación y fuente en lugar del color de acento</string>
+    <string name="settings_appearance_color_accents_description">Usa el color propio de cada aplicación y fuente en lugar del color de acento</string>
     <string name="settings_appearance_outlines">Contornos</string>
     <string name="settings_appearance_outlines_description">Dibuja un borde fino alrededor de las tarjetas, los paneles y los botones</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1311,6 +1311,7 @@ Detalles: %2$s"</string>
     <string name="changelog_section_other">Cambios</string>
     <string name="changelog_badge_latest">Última</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Descargado</string>
     <string name="changelog_badge_prerelease">Pre-lanzamiento</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Mostrar todos (%s)</string>

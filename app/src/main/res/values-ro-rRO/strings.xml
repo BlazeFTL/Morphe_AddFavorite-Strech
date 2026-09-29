@@ -709,6 +709,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_accent_color">Culoare accent</string>
     <string name="settings_appearance_pure_black">Negru pur</string>
     <string name="settings_appearance_pure_black_description">Folosește fundaluri negre pure</string>
+    <string name="settings_appearance_color_accents_description">Folosește culoarea proprie a fiecărei aplicații și surse în locul culorii de accent.</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Limbă și afișare</string>
     <string name="settings_appearance_app_language">Limbă aplicație</string>
@@ -1306,6 +1307,7 @@ Detalii: %2$s"</string>
     <string name="changelog_section_other">Modificări</string>
     <string name="changelog_badge_latest">Ultima</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Descărcat</string>
     <string name="changelog_badge_prerelease">Pre-lansare</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Afișează toate (%s)</string>

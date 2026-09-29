@@ -710,6 +710,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Bruker ekte svarte bakgrunner</string>
     <string name="settings_appearance_color_accents">App- og kildefarger</string>
+    <string name="settings_appearance_color_accents_description">Bruker hver app og kildes egen farge i stedet for aksentfargen</string>
     <string name="settings_appearance_outlines">Konturer</string>
     <string name="settings_appearance_outlines_description">Tegner en tynn kant rundt kort, paneler og knapper</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1310,6 +1311,7 @@ Detaljer: %2$s"</string>
     <string name="changelog_section_other">Endringer</string>
     <string name="changelog_badge_latest">Siste</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Nedlastet</string>
     <string name="changelog_badge_prerelease">Forhåndsutgivelse</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Vis alle (%s)</string>

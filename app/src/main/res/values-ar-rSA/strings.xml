@@ -714,6 +714,7 @@
     <string name="settings_appearance_pure_black">اسود نقي</string>
     <string name="settings_appearance_pure_black_description">استخدام خلفيات سوداء حقيقية</string>
     <string name="settings_appearance_color_accents">ألوان التطبيقات والمصادر</string>
+    <string name="settings_appearance_color_accents_description">يستخدم كل تطبيق ومصدر لونه الخاص بدلًا من لون التمييز</string>
     <string name="settings_appearance_outlines">الخطوط المحيطة</string>
     <string name="settings_appearance_outlines_description">يرسم حافة رفيعة حول البطاقات واللوحات والأزرار</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1095,7 +1096,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_save_patched_apks_title">احتفظ بملفات APK المعدلة</string>
     <string name="settings_system_save_patched_apks_description">حفظ نسخة من ملف APK المعدل للتصدير لاحقًا أو لإعادة التثبيت من خلال المدير</string>
     <!-- Settings - System Tab - Storage Management - Patched APKs Management -->
-    <string name="settings_system_patched_apks_title">APKs معدلة</string>
+    <string name="settings_system_patched_apks_title">ملفات APK معدلة</string>
     <string name="settings_system_patched_apks_description">يدير ملفات التطبيقات المُعدّلة المحفوظة</string>
     <string name="settings_system_patched_apks_empty">لم يتم حفظ أي تعديلات تطبيقات حتى الآن</string>
     <string name="settings_system_patched_apks_delete_title">حذف ملف APK المعدل؟</string>
@@ -1315,6 +1316,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_section_other">التغييرات</string>
     <string name="changelog_badge_latest">الأحدث</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">تم التنزيل</string>
     <string name="changelog_badge_prerelease">إصدار ما قبل الإطلاق</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">عرض الكل (%s)</string>

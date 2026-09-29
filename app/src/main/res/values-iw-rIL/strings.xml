@@ -1321,6 +1321,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="changelog_section_other">שינויים</string>
     <string name="changelog_badge_latest">העדכנית ביותר</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">הורד</string>
     <string name="changelog_badge_prerelease">טרום-שחרור</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">הצג הכול (%s)</string>

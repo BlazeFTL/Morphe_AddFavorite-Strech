@@ -713,7 +713,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_pure_black">Noir pur</string>
     <string name="settings_appearance_pure_black_description">Utilise des fonds véritablement noirs</string>
     <string name="settings_appearance_color_accents">Couleurs de l\'application et de la source</string>
-    <string name="settings_appearance_color_accents_description">Utilise la couleur propre à chaque application et source au lieu de la couleur d\'accent.</string>
+    <string name="settings_appearance_color_accents_description">Utilise la couleur propre à chaque application et à chaque source au lieu de la couleur d\'accentuation</string>
     <string name="settings_appearance_outlines">Contours</string>
     <string name="settings_appearance_outlines_description">Dessine un fin contour autour des cartes, des panneaux et des boutons</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1317,6 +1317,7 @@ Détails : %2$s"</string>
     <string name="changelog_section_other">Changements</string>
     <string name="changelog_badge_latest">Dernier</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Téléchargée</string>
     <string name="changelog_badge_prerelease">Préversion</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Tout afficher (%s)</string>

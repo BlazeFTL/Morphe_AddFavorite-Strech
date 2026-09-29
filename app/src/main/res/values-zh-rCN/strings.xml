@@ -1311,6 +1311,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_other">变更</string>
     <string name="changelog_badge_latest">最新</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">已下载</string>
     <string name="changelog_badge_prerelease">预发布</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">显示全部（%s）</string>

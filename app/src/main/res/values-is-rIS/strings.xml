@@ -1303,6 +1303,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="changelog_section_other">Breytingar</string>
     <string name="changelog_badge_latest">Nýjasta</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Sótt</string>
     <string name="changelog_badge_prerelease">Forútgáfa</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Sýna allt (%s)</string>

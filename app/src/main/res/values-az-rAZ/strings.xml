@@ -710,6 +710,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="settings_appearance_pure_black">Təmiz Qara</string>
     <string name="settings_appearance_pure_black_description">Təmiz qara fonlar istifadə edilir</string>
     <string name="settings_appearance_color_accents">Tətbiq və mənbə rəngləri</string>
+    <string name="settings_appearance_color_accents_description">Cila rəngi əvəzinə hər tətbiqin və mənbənin öz rəngini istifadə edir</string>
     <string name="settings_appearance_outlines">Cizgilər</string>
     <string name="settings_appearance_outlines_description">Kartların, panellərin və düymələrin ətrafına nazik kənar xətt çəkir</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1307,6 +1308,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="changelog_section_other">Dəyişikliklər</string>
     <string name="changelog_badge_latest">Ən son</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Yüklənildi</string>
     <string name="changelog_badge_prerelease">İlkin buraxılış</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Hamısını göstər (%s)</string>

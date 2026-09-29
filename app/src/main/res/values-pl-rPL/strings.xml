@@ -711,6 +711,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="settings_appearance_pure_black">Głęboka czerń</string>
     <string name="settings_appearance_pure_black_description">Używa prawdziwie czarnego tła</string>
     <string name="settings_appearance_color_accents">Kolory aplikacji i źródeł</string>
+    <string name="settings_appearance_color_accents_description">Używa własnych kolorów poszczególnych aplikacji i źródeł zamiast koloru akcentu</string>
     <string name="settings_appearance_outlines">Obramowania</string>
     <string name="settings_appearance_outlines_description">Dodaje cienką obwódkę wokół kart, paneli i przycisków</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1311,6 +1312,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="changelog_section_other">Zmiany</string>
     <string name="changelog_badge_latest">Najnowsza</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Pobrane</string>
     <string name="changelog_badge_prerelease">Przedpremierowa</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Pokaż wszystkie (%s)</string>

@@ -710,6 +710,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="settings_appearance_pure_black">Saf Siyah</string>
     <string name="settings_appearance_pure_black_description">Gerçek siyah arka plan kullanır</string>
     <string name="settings_appearance_color_accents">Uygulama ve kaynak renkleri</string>
+    <string name="settings_appearance_color_accents_description">Her uygulamanın ve kaynağın kendi rengini vurgu rengi yerine kullanır.</string>
     <string name="settings_appearance_outlines">Anahatlar</string>
     <string name="settings_appearance_outlines_description">Kartlar, paneller ve düğmelerin çevresine ince bir kenar çizer</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1309,6 +1310,7 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_section_other">Değişiklikler</string>
     <string name="changelog_badge_latest">En son</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">İndirildi</string>
     <string name="changelog_badge_prerelease">Ön sürüm</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Tümünü göster (%s)</string>

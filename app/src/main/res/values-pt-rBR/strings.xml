@@ -711,6 +711,7 @@ A desinstalação apagará permanentemente todos os dados do aplicativo"</string
     <string name="settings_appearance_pure_black">Preto Puro</string>
     <string name="settings_appearance_pure_black_description">Usa fundos pretos verdadeiros</string>
     <string name="settings_appearance_color_accents">Cores do aplicativo e da fonte</string>
+    <string name="settings_appearance_color_accents_description">Usa a própria cor de cada aplicativo e fonte em vez da cor de destaque.</string>
     <string name="settings_appearance_outlines">Contornos</string>
     <string name="settings_appearance_outlines_description">Desenha uma borda fina ao redor de cartões, painéis e botões</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1311,6 +1312,7 @@ Detalhes: %2$s"</string>
     <string name="changelog_section_other">Alterações</string>
     <string name="changelog_badge_latest">Mais recente</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Baixado</string>
     <string name="changelog_badge_prerelease">Pré-lançamento</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Mostrar tudo (%s)</string>

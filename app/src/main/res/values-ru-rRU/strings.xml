@@ -710,6 +710,7 @@
     <string name="settings_appearance_pure_black">Чисто черный</string>
     <string name="settings_appearance_pure_black_description">Использует настоящие черные фоны</string>
     <string name="settings_appearance_color_accents">Цвета приложений и источников</string>
+    <string name="settings_appearance_color_accents_description">Использует собственный цвет каждого приложения и источника вместо акцентного цвета</string>
     <string name="settings_appearance_outlines">Контуры</string>
     <string name="settings_appearance_outlines_description">Рисует тонкий контур вокруг карточек, панелей и кнопок.</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1309,6 +1310,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_other">Изменения</string>
     <string name="changelog_badge_latest">Последняя</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Скачано</string>
     <string name="changelog_badge_prerelease">Пре-релиз</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Показать все (%s)</string>

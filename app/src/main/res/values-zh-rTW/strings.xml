@@ -711,6 +711,8 @@
     <string name="settings_appearance_pure_black_description">使用純黑背景</string>
     <string name="settings_appearance_color_accents">應用程式與來源顏色</string>
     <string name="settings_appearance_color_accents_description">使用每個應用程式和來源自己的顏色，而不是強調色。</string>
+    <string name="settings_appearance_outlines">輪廓線</string>
+    <string name="settings_appearance_outlines_description">在卡片、面板和按鈕周圍繪製細邊</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">語言與顯示</string>
     <string name="settings_appearance_app_language">應用程式語言</string>
@@ -1306,6 +1308,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_other">變更</string>
     <string name="changelog_badge_latest">最新</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">已下載</string>
     <string name="changelog_badge_prerelease">預先發佈</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">顯示全部（%s）</string>

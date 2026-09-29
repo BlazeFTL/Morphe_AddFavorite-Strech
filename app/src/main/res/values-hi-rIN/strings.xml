@@ -709,7 +709,7 @@
     <string name="settings_appearance_accent_color">अक्सेंट रंग</string>
     <string name="settings_appearance_pure_black">शुद्ध काला</string>
     <string name="settings_appearance_pure_black_description">सही काले रंग की पृष्ठभूमि का उपयोग करता है।</string>
-    <string name="settings_appearance_color_accents">ऐप और स्रोत रंग</string>
+    <string name="settings_appearance_color_accents">ऐप और सोर्स रंग</string>
     <string name="settings_appearance_color_accents_description">एक्सेंट रंग के बजाय प्रत्येक ऐप और स्रोत का अपना-अपना रंग उपयोग करता है</string>
     <string name="settings_appearance_outlines">आउटलाइन</string>
     <string name="settings_appearance_outlines_description">कार्ड, पैनल और बटन के चारों ओर एक पतली किनारी बनाता है</string>
@@ -1311,6 +1311,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_other">परिवर्तन</string>
     <string name="changelog_badge_latest">नवीनतम</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">डाउनलोड किया गया</string>
     <string name="changelog_badge_prerelease">प्री-रिलीज़</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">सभी दिखाएँ (%s)</string>

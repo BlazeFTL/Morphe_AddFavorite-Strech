@@ -468,7 +468,7 @@
     <string name="home_app_info_patch_update_available">패치 업데이트 사용 가능</string>
     <string name="home_app_info_patch_update_available_description">새 버전의 패치가 있습니다. 최신 개선 사항 및 수정 사항을 적용하려면 앱을 다시 패치하세요</string>
     <string name="home_app_info_app_update_available">앱 업데이트 사용 가능</string>
-    <string name="home_app_info_app_update_available_description">패치 소스가 이 앱의 최신 버전을 지원합니다. 해당 버전으로 이동하려면 다시 패치하세요.</string>
+    <string name="home_app_info_app_update_available_description">패치 소스가 이 앱의 최신 버전을 지원합니다. 해당 버전으로 이동하려면 다시 패치하세요</string>
     <string name="home_app_info_newest_supported_version">지원되는 최신 버전</string>
     <string name="home_app_info_version_move">설치된 버전 %1$s, 지원되는 최신 버전 %2$s</string>
     <string name="home_app_info_app_deleted_warning">앱이 제거되었습니다</string>
@@ -818,7 +818,7 @@
     <string name="settings_advanced_strip_unused_libs">기기 아키텍처에 맞게 최적화</string>
     <string name="settings_advanced_strip_unused_libs_description">사용하지 않는 CPU 아키텍처 라이브러리 및 분할 APK 모듈을 제거합니다</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat_description">풀 리퀘스트 소스에 필요합니다</string>
+    <string name="settings_advanced_github_pat_description">Pull requests 소스에 필요합니다</string>
     <string name="settings_advanced_github_pat_configured">토큰을 설정하였습니다</string>
     <string name="settings_advanced_github_pat_how_to_get">토큰 얻는 방법</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->

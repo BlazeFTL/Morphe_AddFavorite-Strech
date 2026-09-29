@@ -710,6 +710,7 @@
     <string name="settings_appearance_pure_black">Svetlo crno</string>
     <string name="settings_appearance_pure_black_description">Користи праву црну позадину</string>
     <string name="settings_appearance_color_accents">Боје апликација и извора</string>
+    <string name="settings_appearance_color_accents_description">Користи сопствену боју сваке апликације и сваког извора уместо акцентне боје</string>
     <string name="settings_appearance_outlines">Контуре</string>
     <string name="settings_appearance_outlines_description">Црта танку ивицу око картица, панела и дугмади.</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1310,6 +1311,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_other">Промене</string>
     <string name="changelog_badge_latest">Најновије</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Преузето</string>
     <string name="changelog_badge_prerelease">Пре издања</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Прикажи све (%s)</string>

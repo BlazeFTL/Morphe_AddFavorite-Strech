@@ -1327,7 +1327,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="update_completed">تم تثبيت التحديث</string>
     <string name="install_update_manager_failed">فشل تثبيت التحديث</string>
     <string name="installing_manager_update">جارٍ تثبيت التحديث...</string>
-    <string name="installing_manager_update_hint">سيغلق Morphe لإنهاء التحديث</string>
+    <string name="installing_manager_update_hint">سيُغلق Morphe لإتمام التحديث</string>
     <string name="downloading_manager_update">جارٍ تنزيل التحديث...</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s م.ب تم تنزيلها</string>

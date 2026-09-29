@@ -1323,6 +1323,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="update_completed">Zainstalowano aktualizację</string>
     <string name="install_update_manager_failed">Nie udało się zainstalować aktualizacji</string>
     <string name="installing_manager_update">Instalowanie aktualizacji…</string>
+    <string name="installing_manager_update_hint">Morphe zamknie się, aby dokończyć aktualizację</string>
     <string name="downloading_manager_update">Pobieranie aktualizacji…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Pobrano %1$s MB</string>

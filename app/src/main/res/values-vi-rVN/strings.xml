@@ -1322,6 +1322,7 @@ Chi tiết: %2$s"</string>
     <string name="update_completed">Đã cài đặt bản cập nhật</string>
     <string name="install_update_manager_failed">Không thể cài đặt bản cập nhật</string>
     <string name="installing_manager_update">Đang cài đặt bản cập nhật…</string>
+    <string name="installing_manager_update_hint">Morphe sẽ đóng lại để hoàn tất cập nhật</string>
     <string name="downloading_manager_update">Đang tải bản cập nhật…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Đã tải xuống %1$s MB</string>

@@ -1321,6 +1321,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">Обновление установлено</string>
     <string name="install_update_manager_failed">Не удалось установить обновление</string>
     <string name="installing_manager_update">Установка обновления…</string>
+    <string name="installing_manager_update_hint">Morphe закроется, чтобы завершить обновление</string>
     <string name="downloading_manager_update">Загрузка обновления…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Загружено %1$s МБ</string>

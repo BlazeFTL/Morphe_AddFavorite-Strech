@@ -1317,6 +1317,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">ติดตั้งอัปเดตแล้ว</string>
     <string name="install_update_manager_failed">ไม่สามารถติดตั้งอัปเดตได้</string>
     <string name="installing_manager_update">กำลังติดตั้งอัปเดต…</string>
+    <string name="installing_manager_update_hint">Morphe จะปิดเพื่อเสร็จสิ้นการอัปเดต</string>
     <string name="downloading_manager_update">กำลังดาวน์โหลดอัปเดต…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">ดาวน์โหลดแล้ว %1$s MB</string>

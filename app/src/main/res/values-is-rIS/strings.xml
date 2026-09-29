@@ -1314,6 +1314,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="update_completed">Uppfærsla uppsett</string>
     <string name="install_update_manager_failed">Ekki tókst að setja upp uppfærslu</string>
     <string name="installing_manager_update">Sæti uppfærslu…</string>
+    <string name="installing_manager_update_hint">Morphe mun loka sér til að ljúka uppfærslunni</string>
     <string name="downloading_manager_update">Sæki uppfærslu…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB niðurhalað</string>

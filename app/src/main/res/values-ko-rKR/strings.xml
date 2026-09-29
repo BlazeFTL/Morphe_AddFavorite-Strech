@@ -1320,6 +1320,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">업데이트하였습니다</string>
     <string name="install_update_manager_failed">업데이트를 할 수 없습니다</string>
     <string name="installing_manager_update">업데이트를 설치하는 중…</string>
+    <string name="installing_manager_update_hint">Morphe가 업데이트를 완료하기 위해 종료됩니다.</string>
     <string name="downloading_manager_update">업데이트를 다운로드하는 중…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB 다운로드됨</string>

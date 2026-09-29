@@ -1318,6 +1318,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">Η ενημέρωση εγκαταστάθηκε</string>
     <string name="install_update_manager_failed">Η εγκατάσταση της ενημέρωσης απέτυχε</string>
     <string name="installing_manager_update">Εγκατάσταση ενημέρωσης…</string>
+    <string name="installing_manager_update_hint">Το Morphe θα κλείσει για να ολοκληρωθεί η ενημέρωση</string>
     <string name="downloading_manager_update">Λήψη ενημέρωσης…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Λήφθηκαν %1$s MB</string>

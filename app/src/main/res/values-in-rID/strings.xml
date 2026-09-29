@@ -1319,6 +1319,7 @@ Rincian: %2$s"</string>
     <string name="update_completed">Pembaruan terpasang</string>
     <string name="install_update_manager_failed">Gagal memasang pembaruan</string>
     <string name="installing_manager_update">Memasang pembaruan…</string>
+    <string name="installing_manager_update_hint">Morphe akan ditutup untuk menyelesaikan pembaruan</string>
     <string name="downloading_manager_update">Mengunduh pembaruan…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB diunduh</string>

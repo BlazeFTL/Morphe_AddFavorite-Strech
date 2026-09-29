@@ -1332,6 +1332,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="update_completed">העדכון הותקן</string>
     <string name="install_update_manager_failed">שגיאה בהתקנת עדכון</string>
     <string name="installing_manager_update">מתקין עדכון…</string>
+    <string name="installing_manager_update_hint">Morphe ייסגר כדי לסיים את העדכון</string>
     <string name="downloading_manager_update">מוריד עדכון…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">הורדו %1$s MB</string>

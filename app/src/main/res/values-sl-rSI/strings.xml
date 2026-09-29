@@ -1318,6 +1318,7 @@ Podrobnosti: %2$s"</string>
     <string name="update_completed">Posodobitev je bila uspešno nameščena</string>
     <string name="install_update_manager_failed">Posodobitev ni uspela</string>
     <string name="installing_manager_update">Nameščanje posodobitve…</string>
+    <string name="installing_manager_update_hint">Morphe se bo zaprl, da dokonča posodobitev</string>
     <string name="downloading_manager_update">Prenašanje posodobitve…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Preneseno %1$s MB</string>

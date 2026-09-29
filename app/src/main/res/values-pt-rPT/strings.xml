@@ -1322,6 +1322,7 @@ Detalhes: %2$s"</string>
     <string name="update_completed">Atualização instalada</string>
     <string name="install_update_manager_failed">Erro ao instalar a atualização</string>
     <string name="installing_manager_update">A instalar atualização…</string>
+    <string name="installing_manager_update_hint">O Morphe será fechado para concluir a atualização</string>
     <string name="downloading_manager_update">A transferir atualização…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB transferidos</string>

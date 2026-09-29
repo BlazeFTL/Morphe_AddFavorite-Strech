@@ -1321,6 +1321,7 @@ Ayrıntılar: %2$s"</string>
     <string name="update_completed">Güncelleme yüklendi</string>
     <string name="install_update_manager_failed">Güncelleme yüklenemedi</string>
     <string name="installing_manager_update">Güncelleme yükleniyor…</string>
+    <string name="installing_manager_update_hint">Morphe, güncellemeyi tamamlamak için kapanacak</string>
     <string name="downloading_manager_update">Güncelleme indiriliyor…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB indirildi</string>

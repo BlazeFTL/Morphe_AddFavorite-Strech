@@ -1323,6 +1323,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">アップデートがインストールされました</string>
     <string name="install_update_manager_failed">アップデートのインストールに失敗しました</string>
     <string name="installing_manager_update">アップデートをインストールしています…</string>
+    <string name="installing_manager_update_hint">Morpheはアップデートを完了するために終了します。</string>
     <string name="downloading_manager_update">アップデートをダウンロードしています…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB ダウンロード済み</string>

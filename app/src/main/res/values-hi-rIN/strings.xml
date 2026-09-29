@@ -1322,6 +1322,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">अपडेट इंस्टॉल हो गया</string>
     <string name="install_update_manager_failed">अपडेट स्थापित करने में विफल</string>
     <string name="installing_manager_update">अपडेट इंस्टॉल हो रहा है…</string>
+    <string name="installing_manager_update_hint">अपडेट पूरा करने के लिए Morphe बंद हो जाएगा</string>
     <string name="downloading_manager_update">अपडेट डाउनलोड हो रहा है…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB डाउनलोड किया गया</string>

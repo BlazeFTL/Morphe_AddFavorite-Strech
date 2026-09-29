@@ -261,15 +261,14 @@ internal fun ApkAvailabilityDialog(
                 )
             }
 
-            // The version on the device is missing from the list above, so patching will need
-            // another APK than the one already installed
+            // For reference only, so neutral rather than a warning
             unlistedInstalledVersion?.let {
                 Notice(
                     text = stringResource(
                         R.string.home_apk_availability_installed_version,
                         it.withVersionPrefix()
                     ),
-                    tone = SemanticTone.Warning,
+                    tone = SemanticTone.Neutral,
                     icon = Icons.Outlined.InstallMobile,
                     density = NoticeDensity.Compact
                 )

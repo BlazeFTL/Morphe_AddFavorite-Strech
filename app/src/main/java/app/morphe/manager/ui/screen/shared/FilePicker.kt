@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.graphics.BitmapFactory
 import android.os.Environment
+import android.text.format.DateFormat
 import android.util.LruCache
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -197,12 +198,12 @@ private fun applySort(files: List<File>, mode: SortMode): List<File> {
     return dirs.sortedBy { it.name.lowercase() } + sortedFiles
 }
 
-private val modDateFormatter = ThreadLocal.withInitial {
-    SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.getDefault())
+/** How a file's modification time reads, the time as the device's 12 or 24-hour clock shows it. */
+private fun modDateFormat(context: Context): SimpleDateFormat {
+    val locale = Locale.getDefault()
+    val skeleton = if (DateFormat.is24HourFormat(context)) "Hm" else "hm"
+    return SimpleDateFormat("dd.MM.yyyy, ${DateFormat.getBestDateTimePattern(locale, skeleton)}", locale)
 }
-
-private fun formatModDate(timestamp: Long): String =
-    modDateFormatter.get()!!.format(Date(timestamp))
 
 /**
  * Fullscreen file browser dialog, headed and laid out like the app's other list dialogs.
@@ -227,6 +228,7 @@ fun FilePicker(
     val coroutineScope = rememberCoroutineScope()
     val allowedExtensions = remember(mimeTypes) { resolveAllowedExtensions(mimeTypes) }
     val mppIcon = rememberMorpheLogoBitmap()
+    val modDateFormat = remember { modDateFormat(context) }
     val hasRoot = remember { Shell.isAppGrantedRoot() == true }
     val roots = remember(hasRoot) { storageRoots(context, hasRoot) }
 
@@ -441,6 +443,7 @@ fun FilePicker(
                 refreshKey = refreshKey,
                 pm = pm,
                 mppIcon = mppIcon,
+                modDateFormat = modDateFormat,
                 checkedFiles = if (multiple) checkedFiles else null,
                 onOpen = { currentDir = it },
                 onFilePicked = { file ->
@@ -522,6 +525,7 @@ private fun FolderListing(
     refreshKey: Int,
     pm: PM,
     mppIcon: ImageBitmap?,
+    modDateFormat: SimpleDateFormat,
     /** Files checked so far where several can be picked, else null. */
     checkedFiles: List<File>?,
     onOpen: (File) -> Unit,
@@ -609,6 +613,7 @@ private fun FolderListing(
                     file = file,
                     pm = pm,
                     mppIcon = mppIcon,
+                    modDateFormat = modDateFormat,
                     checked = checkedFiles?.takeUnless { file.isDirectory }?.let { file in it },
                     onClick = { if (file.isDirectory) onOpen(file) else onFilePicked(file) },
                     modifier = Modifier.animatedListItem(this)
@@ -630,6 +635,7 @@ private fun FileEntryRow(
     file: File,
     pm: PM,
     mppIcon: ImageBitmap?,
+    modDateFormat: SimpleDateFormat,
     /** Whether the file is checked, or null where files are picked outright rather than checked. */
     checked: Boolean?,
     onClick: () -> Unit,
@@ -688,7 +694,7 @@ private fun FileEntryRow(
     val detail = if (isDir) {
         itemCount?.let { pluralStringResource(R.plurals.file_picker_item_count, it, it.toString()) }
     } else {
-        "${context.formatBytes(file.length())} · ${formatModDate(file.lastModified())}"
+        "${context.formatBytes(file.length())} · ${modDateFormat.format(Date(file.lastModified()))}"
     }
 
     FilePickerRow(

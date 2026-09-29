@@ -205,23 +205,6 @@ fun StatusBadge(
 }
 
 /**
- * Badges stacked at the end of a row, so a long neighbor shortens itself instead of
- * squeezing them.
- */
-@Composable
-fun StatusBadgeColumn(
-    modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.End,
-        verticalArrangement = Arrangement.spacedBy(BadgeDefaults.ItemSpacing),
-        content = content
-    )
-}
-
-/**
  * Badges on a line of their own, wrapping onto the next one when they run out of room.
  */
 @Composable

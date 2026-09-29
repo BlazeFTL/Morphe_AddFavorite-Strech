@@ -14,6 +14,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -848,8 +849,9 @@ private fun VersionSection(label: String, content: @Composable () -> Unit) {
 
 /**
  * One version of a [VersionPanel]: the version, its build and description, and its tags. A lone
- * tag sits beside the version, where most rows carry theirs, and several go on a line of their
- * own under it, since beside it, they would squeeze the version out of sight.
+ * badge sits beside the version, where most rows carry theirs, and several go on a line of their
+ * own under it, since beside it, they would squeeze the version out of sight. Tags about the APKs
+ * on hand are no badges but a quiet line under the version, see [isOnHand].
  *
  * @param selected Whether it is the pick, for a list picked from, which checks it in the app's
  *   color. Null for a list only read, which keeps no room for a check.
@@ -870,6 +872,8 @@ private fun VersionRow(
     onClick: (() -> Unit)? = null,
     contentDescription: String? = null
 ) {
+    val (onHandTags, badgeTags) = tags.partition { it.isOnHand }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -912,7 +916,7 @@ private fun VersionRow(
                         .weight(1f)
                         .basicMarquee(iterations = Int.MAX_VALUE)
                 )
-                if (tags.size == 1) VersionTagBadge(tags.single())
+                if (badgeTags.size == 1) VersionTagBadge(badgeTags.single())
             }
             if (buildCode != null) {
                 Text(
@@ -922,12 +926,15 @@ private fun VersionRow(
                     color = LocalDialogSecondaryTextColor.current
                 )
             }
-            if (tags.size > 1) {
+            if (onHandTags.isNotEmpty()) {
+                OnHandLine(onHandTags)
+            }
+            if (badgeTags.size > 1) {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
                     verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
                 ) {
-                    tags.forEach { VersionTagBadge(it) }
+                    badgeTags.forEach { VersionTagBadge(it) }
                 }
             }
             if (description != null) {
@@ -936,6 +943,36 @@ private fun VersionRow(
                     style = MaterialTheme.typography.bodySmall,
                     color = LocalDialogSecondaryTextColor.current
                 )
+            }
+        }
+    }
+}
+
+/** The APKs on hand at a version, each by its icon and name, in the secondary text color. */
+@Composable
+private fun OnHandLine(tags: List<VersionTag>) {
+    val color = LocalDialogSecondaryTextColor.current
+
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        itemVerticalAlignment = Alignment.CenterVertically
+    ) {
+        tags.forEachIndexed { index, tag ->
+            if (index > 0) {
+                Text(text = "·", style = MaterialTheme.typography.bodySmall, color = color)
+            }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = tag.icon,
+                    contentDescription = null,
+                    tint = color,
+                    modifier = Modifier.size(14.dp)
+                )
+                Text(text = tag.label(), style = MaterialTheme.typography.bodySmall, color = color)
             }
         }
     }

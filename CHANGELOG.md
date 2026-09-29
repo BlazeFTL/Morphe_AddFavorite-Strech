@@ -1,3 +1,17 @@
+# [1.33.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.15...v1.33.0-dev.16) (2026-09-29)
+
+
+### Bug Fixes
+
+* Build the scroll to top button like the other buttons ([43d449e](https://github.com/MorpheApp/morphe-manager/commit/43d449ec82f371e9aeb025122efb69feb0857425))
+* Give app dialogs their app's color everywhere ([980b3a6](https://github.com/MorpheApp/morphe-manager/commit/980b3a612187fc4196926d7b3097bd195707b804))
+* Keep patch group versions in their header, badges in card color ([752829e](https://github.com/MorpheApp/morphe-manager/commit/752829e53d1d2af739952ae421e2aed877916663))
+* Keep the sources sheet under the add source dialog ([84ec384](https://github.com/MorpheApp/morphe-manager/commit/84ec38477d9259fff56f9159bc5c41ae95772c47))
+* Match the source card action rows ([cb23056](https://github.com/MorpheApp/morphe-manager/commit/cb2305669bc2c656be0abebc8ca733735c119d7c))
+* Show that the patch filter sheet scrolls ([ae34442](https://github.com/MorpheApp/morphe-manager/commit/ae3444255548b6cb52a7b8ecc758f08e2b9a7ea9))
+* Unify delete, clear and reset confirmations ([acd6379](https://github.com/MorpheApp/morphe-manager/commit/acd637995049f04bd1b00d066f02acbd78faf92e))
+* Use the glass buttons in landscape sidebars ([4130f95](https://github.com/MorpheApp/morphe-manager/commit/4130f957e65185cb537fefc1f8cb982da64e2020))
+
 # [1.33.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.14...v1.33.0-dev.15) (2026-09-29)
 
 

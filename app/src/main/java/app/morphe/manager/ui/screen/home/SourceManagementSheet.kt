@@ -254,7 +254,6 @@ fun BundleManagementSheet(
             }
         }
 
-        // System share sheet, which also offers copying the text
         fun shareText(text: String) {
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
@@ -870,10 +869,12 @@ private fun BundleManagementCard(
                             }
                         }
 
-                        // Actions about the same repository, styled like the action bar below.
-                        // Regular pills use small text, which leaves room for the primary label
+                        // Repository actions, as wide as the four pill action bar below
                         if (bundle is RemotePatchBundle) {
-                            ActionPillRow {
+                            ActionPillRow(
+                                modifier = Modifier.padding(vertical = 4.dp),
+                                stretchLabelsTo = 4
+                            ) {
                                 ActionPillButton(
                                     onClick = onOpenInBrowser,
                                     icon = Icons.AutoMirrored.Outlined.OpenInNew,

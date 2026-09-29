@@ -10,8 +10,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.*
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -442,12 +444,16 @@ fun InstalledAppInfoDialog(
         dismissOnClickOutside = true,
         padding = DialogPadding.None,
         accentColor = infoAccentColor,
-        footer = null,
-        onEntered = { entered.value = true }
+        footer = null
     ) {
         AnimatedContent(
             targetState = isLoading || installedApp == null,
-            transitionSpec = Animations.fadeCrossfade(),
+            // Content brings its own entrance through the header and the staggered items, so a
+            // fade here would only stack on theirs and hold it back
+            transitionSpec = {
+                val enter = if (targetState) Animations.fadeIn else EnterTransition.None
+                enter togetherWith Animations.fadeOut
+            },
             modifier = Modifier.fillMaxSize(),
             label = "installedAppInfo"
         ) { loading ->
@@ -462,6 +468,10 @@ fun InstalledAppInfoDialog(
 
                 return@AnimatedContent
             }
+
+            // Starts together with the dialog's own enter, and only once content is here to
+            // animate, so a slow load does not skip the cascade
+            LaunchedEffect(Unit) { entered.value = true }
 
             val windowSize = rememberWindowSize()
             val landscape = isLandscape()
@@ -972,7 +982,7 @@ private val InstallType.badge: Pair<ImageVector, Int>
  * Wraps content with a staggered entrance animation.
  * Uses a single progress float (0 to 1); alpha, offsetY and scale are
  * derived via lerp - one Recomposition subscriber instead of three.
- * Each item appears [index] * 60ms after [entered] becomes true.
+ * Each item appears [index] * [Animations.STAGGER_STEP] ms after [entered] becomes true.
  */
 @Composable
 private fun StaggeredItem(
@@ -983,8 +993,8 @@ private fun StaggeredItem(
     val progress by animateFloatAsState(
         targetValue = if (entered) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 280,
-            delayMillis = index * 60,
+            durationMillis = Defaults.ANIMATION_DURATION,
+            delayMillis = index * Animations.STAGGER_STEP,
             easing = EaseOutCubic
         ),
         label = "itemProgress$index"

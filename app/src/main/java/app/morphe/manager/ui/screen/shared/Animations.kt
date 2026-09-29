@@ -86,7 +86,7 @@ object Animations {
     val expandHorizFadeIn = expandHorizontally(defaultTween()) + fadeIn
     val shrinkHorizFadeOut = shrinkHorizontally(defaultTween()) + fadeOut
 
-    private const val STAGGER_STEP = 40
+    const val STAGGER_STEP = 40
     private const val STAGGER_MAX_STEPS = 8
 
     /**

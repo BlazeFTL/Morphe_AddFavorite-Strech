@@ -519,10 +519,8 @@ fun HomeDialogs(
     if (homeViewModel.showBundleManagementSheet) {
         BundleManagementSheet(
             onDismissRequest = { homeViewModel.showBundleManagementSheet = false },
-            onAddSource = {
-                homeViewModel.showBundleManagementSheet = false
-                homeViewModel.showAddSourceDialog = true
-            },
+            // The sheet stays under the dialog, so nothing shows through while it opens
+            onAddSource = { homeViewModel.showAddSourceDialog = true },
             onDelete = { bundle ->
                 scope.launch {
                     homeViewModel.patchBundleRepository.remove(bundle)
@@ -571,10 +569,12 @@ fun HomeDialogs(
             },
             onRemoteSubmit = { urls, chooseApps ->
                 homeViewModel.showAddSourceDialog = false
+                homeViewModel.showBundleManagementSheet = false
                 homeViewModel.createRemoteSources(urls, chooseApps)
             },
             onLocalSubmit = { chooseApps ->
                 homeViewModel.showAddSourceDialog = false
+                homeViewModel.showBundleManagementSheet = false
                 homeViewModel.importPickedBundles(chooseApps)
             },
             onLocalPick = openBundlePicker,
@@ -922,7 +922,7 @@ fun MppImportDialog(
                         verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         // Description
-                        manifest?.description?.let {
+                        manifest.description?.let {
                             Text(
                                 text = it,
                                 style = MaterialTheme.typography.bodySmall,
@@ -933,7 +933,7 @@ fun MppImportDialog(
                         }
 
                         // Metadata row: version, author
-                        if (manifest?.version != null || manifest?.author != null) {
+                        if (manifest.version != null || manifest.author != null) {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalAlignment = Alignment.CenterVertically
@@ -956,7 +956,7 @@ fun MppImportDialog(
                         }
 
                         // Source URL
-                        manifest?.source?.let { source ->
+                        manifest.source?.let { source ->
                             Text(
                                 text = source,
                                 style = MaterialTheme.typography.bodySmall,
@@ -968,7 +968,7 @@ fun MppImportDialog(
                         }
 
                         // Filename (always shown as secondary info)
-                        if (fileName != null && manifest?.name != null) {
+                        if (fileName != null && manifest.name != null) {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                                 verticalAlignment = Alignment.CenterVertically

@@ -9,7 +9,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
@@ -25,7 +24,6 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -854,30 +852,14 @@ fun DeepLinkAddSourceDialog(
             )
 
             // Bundle details card
-            Surface(
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    if (name != null) {
-                        Text(
-                            text = name,
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = LocalDialogTextColor.current
-                        )
-                    }
-                    Text(
-                        text = url,
-                        style = MaterialTheme.typography.bodySmall,
-                        fontFamily = FontFamily.Monospace,
-                        color = LocalDialogSecondaryTextColor.current
-                    )
-                }
+            LabeledSection(title = name) {
+                Text(
+                    text = url,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = FontFamily.Monospace,
+                    color = LocalDialogSecondaryTextColor.current,
+                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                )
             }
 
             Notice(
@@ -927,95 +909,85 @@ fun MppImportDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Bundle details card
-            Surface(
-                shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    // Name (bold title)
-                    val displayName = manifest?.name ?: fileName
-                    if (displayName != null) {
-                        Text(
-                            text = displayName,
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = LocalDialogTextColor.current,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+            // Bundle details card, without a body when the name is all there is
+            val displayName = manifest?.name ?: fileName
+            val hasDetails = manifest?.description != null || manifest?.version != null ||
+                    manifest?.author != null || manifest?.source != null ||
+                    (fileName != null && manifest?.name != null)
+            SectionCard(accentColor = LocalAccent.current) {
+                Column {
+                    if (displayName != null) CardHeader(title = displayName)
+                    if (hasDetails) Column(
+                        modifier = Modifier.padding(Defaults.ContentPadding),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        // Description
+                        manifest?.description?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = LocalDialogSecondaryTextColor.current,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
 
-                    // Description
-                    manifest?.description?.let {
-                        Text(
-                            text = it,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = LocalDialogSecondaryTextColor.current,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-
-                    // Metadata row: version, author
-                    if (manifest?.version != null || manifest?.author != null) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            manifest.version?.let { version ->
-                                StatusBadge(
-                                    text = "v$version",
-                                    icon = Icons.Outlined.NewReleases,
-                                    tone = SemanticTone.Primary
-                                )
-                            }
-                            manifest.author?.let { author ->
-                                StatusBadge(
-                                    text = author,
-                                    icon = Icons.Outlined.Person,
-                                    tone = SemanticTone.Neutral
-                                )
+                        // Metadata row: version, author
+                        if (manifest?.version != null || manifest?.author != null) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                manifest.version?.let { version ->
+                                    StatusBadge(
+                                        text = "v$version",
+                                        icon = Icons.Outlined.NewReleases,
+                                        tone = SemanticTone.Primary
+                                    )
+                                }
+                                manifest.author?.let { author ->
+                                    StatusBadge(
+                                        text = author,
+                                        icon = Icons.Outlined.Person,
+                                        tone = SemanticTone.Neutral
+                                    )
+                                }
                             }
                         }
-                    }
 
-                    // Source URL
-                    manifest?.source?.let { source ->
-                        Text(
-                            text = source,
-                            style = MaterialTheme.typography.bodySmall,
-                            fontFamily = FontFamily.Monospace,
-                            color = LocalDialogSecondaryTextColor.current,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-
-                    // Filename (always shown as secondary info)
-                    if (fileName != null && manifest?.name != null) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Description,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.size(12.dp)
-                            )
+                        // Source URL
+                        manifest?.source?.let { source ->
                             Text(
-                                text = fileName,
+                                text = source,
                                 style = MaterialTheme.typography.bodySmall,
                                 fontFamily = FontFamily.Monospace,
                                 color = LocalDialogSecondaryTextColor.current,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
+                        }
+
+                        // Filename (always shown as secondary info)
+                        if (fileName != null && manifest?.name != null) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Description,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Text(
+                                    text = fileName,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = LocalDialogSecondaryTextColor.current,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
                         }
                     }
                 }

@@ -410,10 +410,24 @@ private fun RemoteTabContent(state: RemoteLinksState) {
 
         // What a link can be, shown until the first one is in the list to point at
         if (state.entries.isEmpty()) {
-            InfoBox(
-                title = stringResource(R.string.sources_dialog_remote_url_hint),
-                titleColor = LocalDialogTextColor.current
-            ) {
+            // A sentence rather than a name, so it leads the card as text instead of heading it
+            LabeledSection {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = null,
+                        tint = LocalDialogSecondaryTextColor.current,
+                        modifier = Modifier.padding(top = 1.dp).size(14.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.sources_dialog_remote_url_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = LocalDialogSecondaryTextColor.current
+                    )
+                }
                 UrlFormatRow(icon = FontAwesomeIcons.Brands.Github, text = "github.com/owner/repo")
                 UrlFormatRow(icon = FontAwesomeIcons.Brands.Gitlab, text = "gitlab.com/owner/repo")
                 UrlFormatRow(icon = Icons.Outlined.Link, text = "example.com/patches-bundle.json")
@@ -443,7 +457,7 @@ private fun UrlFormatRow(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.padding(horizontal = 4.dp)
+        modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
     ) {
         Icon(
             imageVector = icon,

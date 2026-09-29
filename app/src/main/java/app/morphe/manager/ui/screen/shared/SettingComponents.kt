@@ -666,16 +666,13 @@ fun DeleteListItem(
     }
 }
 
-/**
- * Statistical variant of [InfoBox] used to display a single prominent value with an optional
- * caption below it. Shares the container styling of [InfoBox] but centers a headline-sized value.
- */
+/** A single prominent value with an optional caption below it. */
 @Composable
 fun InfoStatBox(
     value: String,
     modifier: Modifier = Modifier,
     subtitle: String? = null,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+    containerColor: Color = neutralVeil(),
     valueColor: Color = MaterialTheme.colorScheme.onSurface
 ) {
     Surface(
@@ -700,57 +697,6 @@ fun InfoStatBox(
                     style = MaterialTheme.typography.bodySmall,
                     color = valueColor.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center
-                )
-            }
-        }
-    }
-}
-
-/**
- * Info box component to display grouped information in a visually distinct container.
- */
-@Composable
-fun InfoBox(
-    title: String,
-    modifier: Modifier = Modifier,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-    titleColor: Color = MaterialTheme.colorScheme.onSurface,
-    icon: ImageVector? = null,
-    iconTint: Color = MaterialTheme.colorScheme.primary,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Defaults.CompactCornerRadius),
-        color = containerColor
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Main content column
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium,
-                    color = titleColor
-                )
-
-                content()
-            }
-
-            // Trailing icon
-            icon?.let {
-                Icon(
-                    imageVector = it,
-                    contentDescription = null,
-                    modifier = Modifier.size(32.dp),
-                    tint = iconTint
                 )
             }
         }

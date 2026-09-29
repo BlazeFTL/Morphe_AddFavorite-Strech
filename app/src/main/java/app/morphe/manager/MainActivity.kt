@@ -487,7 +487,7 @@ private fun MorpheManager(vm: MainViewModel) {
                 getBounds = { homeOnboardingState.firstAppCardBounds },
                 onShow = {
                     homeOnboardingState.swipeActive = true
-                    homeViewModel.triggerSwipeGestureHint()
+                    homeViewModel.apps.triggerSwipeGestureHint()
                 }
             ),
             StepDef(
@@ -495,7 +495,7 @@ private fun MorpheManager(vm: MainViewModel) {
                 getBounds = { homeOnboardingState.sourcesButtonBounds },
                 onShow = {
                     homeOnboardingState.swipeActive = false
-                    homeViewModel.markSwipeGestureHintShown()
+                    homeViewModel.apps.markSwipeGestureHintShown()
                 }
             )
         )
@@ -685,7 +685,7 @@ private fun MorpheManager(vm: MainViewModel) {
                     },
                     onStartTour = startOnboardingTour,
                     onDeclineTour = declineOnboardingTour,
-                    onAppStateChanged = homeViewModel::notifyAppStateChanged,
+                    onAppStateChanged = homeViewModel.apps::notifyAppStateChanged,
                     onBackgroundSpeedChange = { patcherBackgroundSpeed.floatValue = it },
                     onPatchingCompleted = { patchingCompleted.value = true }
                 )
@@ -746,7 +746,7 @@ private fun MorpheManager(vm: MainViewModel) {
                         OnboardingPhase.HOME -> {
                             phaseInitialStep = 0
                             homeOnboardingState.swipeActive = false
-                            homeViewModel.markSwipeGestureHintShown()
+                            homeViewModel.apps.markSwipeGestureHintShown()
                             homeViewModel.showBundleManagementSheet = true
                             globalOnboardingState.sheetOnboardingActive = true
                             scope.launch {
@@ -812,7 +812,7 @@ private fun MorpheManager(vm: MainViewModel) {
                 }
                 val onSkip: () -> Unit = {
                     homeOnboardingState.swipeActive = false
-                    homeViewModel.markSwipeGestureHintShown()
+                    homeViewModel.apps.markSwipeGestureHintShown()
                     globalOnboardingState.sheetOnboardingActive = false
                     homeViewModel.showBundleManagementSheet = false
                     onboardingPhase = OnboardingPhase.DONE

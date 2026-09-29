@@ -97,7 +97,7 @@ fun HomeScreen(
     // Collect state flows
     val availablePatches by homeViewModel.availablePatches.collectAsStateWithLifecycle(0)
     // Atomic home state - null means pipeline is still initializing (shimmer)
-    val homeAppState by homeViewModel.homeAppState.collectAsStateWithLifecycle()
+    val homeAppState by homeViewModel.apps.homeAppState.collectAsStateWithLifecycle()
     val homeAppItems = homeAppState?.visible ?: emptyList()
     val hiddenAppItems = homeAppState?.hidden ?: emptyList()
     val homeAppSortMode = homeAppState?.sortMode ?: HomeAppSortMode.MANUAL
@@ -106,14 +106,14 @@ fun HomeScreen(
     val showCategoryViewSwitcher = homeAppState?.showCategoryViewSwitcher == true
     val homeAppSourceGroups = homeAppState?.sourceGroups ?: emptyList()
     val bundlePipelineLoading = homeAppState == null
-    val showOtherAppsButton by homeViewModel.showOtherAppsButton.collectAsStateWithLifecycle()
-    val showSearchButton by homeViewModel.showSearchButton.collectAsStateWithLifecycle()
+    val showOtherAppsButton by homeViewModel.apps.showOtherAppsButton.collectAsStateWithLifecycle()
+    val showSearchButton by homeViewModel.apps.showSearchButton.collectAsStateWithLifecycle()
     val batchRun by homeViewModel.batchRun.collectAsStateWithLifecycle()
     val showSortButtonPref by homeAppButtonPrefs.showSortButton.collectAsStateWithLifecycle()
     val useExpertMode by prefs.useExpertMode.getAsState()
 
     // Gesture hint: shown once per bundle addition, in-memory
-    val showGestureHint by homeViewModel.showSwipeGestureHint.collectAsStateWithLifecycle()
+    val showGestureHint by homeViewModel.apps.showSwipeGestureHint.collectAsStateWithLifecycle()
 
     val isDeviceRooted = homeViewModel.rootInstaller.isDeviceRooted()
     if (!isDeviceRooted) {
@@ -162,7 +162,7 @@ fun HomeScreen(
                     homeViewModel.persistReinstalledApp(installed, packageName, installType)
                 },
                 onInstalled = { packageName ->
-                    homeViewModel.notifyAppStateChanged(packageName)
+                    homeViewModel.apps.notifyAppStateChanged(packageName)
                 }
             )
         }
@@ -326,49 +326,49 @@ fun HomeScreen(
                             homeViewModel.openInstalledAppInfo(it.currentPackageName)
                         }
                     },
-                    onHideApp = { packageName -> homeViewModel.hideApp(packageName) },
-                    onHideMultiple = { packageNames -> packageNames.forEach { homeViewModel.hideApp(it) } },
+                    onHideApp = { packageName -> homeViewModel.apps.hideApp(packageName) },
+                    onHideMultiple = { packageNames -> packageNames.forEach { homeViewModel.apps.hideApp(it) } },
                     onUninstallMultiple = { items -> homeViewModel.uninstallApps(items) },
                     onReinstallMultiple = { items -> startBatchReinstall(items) },
                     onPatchMultiple = { items -> startBatchPatch(items) },
-                    onUnhideApp = { packageName -> homeViewModel.unhideApp(packageName) },
+                    onUnhideApp = { packageName -> homeViewModel.apps.unhideApp(packageName) },
                     onShowPatches = { item -> patchesSheetItem.value = item },
                     onGestureHintShown = {
-                        homeViewModel.markSwipeGestureHintShown()
+                        homeViewModel.apps.markSwipeGestureHintShown()
                         if (onboardingState != null && onboardingState.swipeActive) {
                             scope.launch {
                                 delay(600.milliseconds)
-                                if (onboardingState.swipeActive) homeViewModel.triggerSwipeGestureHint()
+                                if (onboardingState.swipeActive) homeViewModel.apps.triggerSwipeGestureHint()
                             }
                         }
                     },
-                    onSaveOrder = { packageNames -> homeViewModel.saveAppOrder(packageNames) },
+                    onSaveOrder = { packageNames -> homeViewModel.apps.saveAppOrder(packageNames) },
                     onSaveSourceOrder = { sourceUid, packageNames ->
-                        homeViewModel.saveAppSourceOrder(sourceUid, packageNames)
+                        homeViewModel.apps.saveAppSourceOrder(sourceUid, packageNames)
                     },
-                    onResetOrder = { homeViewModel.resetAppOrder() },
-                    onResetSourceOrder = { sourceUid -> homeViewModel.resetAppSourceOrder(sourceUid) },
+                    onResetOrder = { homeViewModel.apps.resetAppOrder() },
+                    onResetSourceOrder = { sourceUid -> homeViewModel.apps.resetAppSourceOrder(sourceUid) },
                     onSaveSourceGroupOrder = { sourceUids ->
-                        homeViewModel.saveAppSourceGroupOrder(sourceUids)
+                        homeViewModel.apps.saveAppSourceGroupOrder(sourceUids)
                     },
-                    onSortModeChange = { mode -> homeViewModel.setAppSortMode(mode) },
-                    onCategoryViewModeChange = { mode -> homeViewModel.setAppCategoryViewMode(mode) },
-                    onCreateCategory = { name -> homeViewModel.createAppCategory(name) },
+                    onSortModeChange = { mode -> homeViewModel.apps.setAppSortMode(mode) },
+                    onCategoryViewModeChange = { mode -> homeViewModel.apps.setAppCategoryViewMode(mode) },
+                    onCreateCategory = { name -> homeViewModel.apps.createAppCategory(name) },
                     onRenameCategory = { categoryId, name ->
-                        homeViewModel.renameAppCategory(categoryId, name)
+                        homeViewModel.apps.renameAppCategory(categoryId, name)
                     },
-                    onDeleteCategory = { categoryId -> homeViewModel.deleteAppCategory(categoryId) },
+                    onDeleteCategory = { categoryId -> homeViewModel.apps.deleteAppCategory(categoryId) },
                     onSaveCategoryOrder = { categoryIds ->
-                        homeViewModel.saveAppCategoryOrder(categoryIds)
+                        homeViewModel.apps.saveAppCategoryOrder(categoryIds)
                     },
                     onToggleCategoryCollapsed = { categoryId ->
-                        homeViewModel.toggleAppCategoryCollapsed(categoryId)
+                        homeViewModel.apps.toggleAppCategoryCollapsed(categoryId)
                     },
                     onToggleSourceGroupCollapsed = { sourceUid ->
-                        homeViewModel.toggleAppSourceGroupCollapsed(sourceUid)
+                        homeViewModel.apps.toggleAppSourceGroupCollapsed(sourceUid)
                     },
                     onAssignAppsToCategory = { packageNames, categoryId ->
-                        homeViewModel.assignAppsToCategory(packageNames, categoryId)
+                        homeViewModel.apps.assignAppsToCategory(packageNames, categoryId)
                     }
                 ),
                 chromeActions = HomeChromeActions(

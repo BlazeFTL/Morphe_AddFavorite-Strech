@@ -128,7 +128,7 @@ fun InstalledAppInfoDialog(
     val mountOperation = installViewModel.mountOperation
 
     // Get update status from the shared HomeViewModel instance
-    val appUpdates by homeViewModel.appUpdatesAvailable.collectAsStateWithLifecycle()
+    val appUpdates by homeViewModel.apps.appUpdatesAvailable.collectAsStateWithLifecycle()
     val appUpdate = appUpdates?.get(packageName)
     val hasUpdate = appUpdate != null
     // What the install itself is in speaks louder than what is pending for it, so a record in one
@@ -142,7 +142,7 @@ fun InstalledAppInfoDialog(
     // package the sources know it as, which is the original one for a build that was renamed.
     val catalogPackageName = installedApp?.originalPackageName ?: packageName
     val supportedVersions by homeViewModel.recommendedVersionsFlow.collectAsStateWithLifecycle()
-    val ignoredVersions by homeViewModel.ignoredAppVersions.collectAsStateWithLifecycle()
+    val ignoredVersions by homeViewModel.apps.ignoredAppVersions.collectAsStateWithLifecycle()
     val supportedVersion = supportedVersions[catalogPackageName]
     val ignoredVersion = ignoredVersions[catalogPackageName]
     val installedVersionStatus = remember(supportedVersion, ignoredVersion, appInfo, installedApp) {
@@ -161,13 +161,13 @@ fun InstalledAppInfoDialog(
     val showsRebuildBanner = patchUpdatePending || versionBehind != null
     // Spent on the version it names, so the banner comes back for whatever the sources support next
     val onIgnoreVersion = versionBehind?.let { status ->
-        { homeViewModel.ignoreSupportedVersion(catalogPackageName, status.supportedVersion) }
+        { homeViewModel.apps.ignoreSupportedVersion(catalogPackageName, status.supportedVersion) }
     }
     // Offered only while the turned-down version is still the one on offer, since a newer one
     // brings the banner back on its own and leaves nothing to undo
     val onStopIgnoringVersion = ignoredVersion
         ?.takeIf { it == supportedVersion?.version }
-        ?.let { { homeViewModel.stopIgnoringSupportedVersion(catalogPackageName) } }
+        ?.let { { homeViewModel.apps.stopIgnoringSupportedVersion(catalogPackageName) } }
 
     // Accent color resolution order: bundle metadata (appIconColor) -> default. Read from every
     // source, a disabled one included, so the app keeps its color with nothing left to patch it.
@@ -260,14 +260,14 @@ fun InstalledAppInfoDialog(
         } else if (hadMountOperation) {
             hadMountOperation = false
             viewModel.refreshCurrentAppState()
-            installedApp?.currentPackageName?.let(homeViewModel::notifyAppStateChanged)
+            installedApp?.currentPackageName?.let(homeViewModel.apps::notifyAppStateChanged)
         }
     }
 
     // Set back click handler
     SideEffect {
         viewModel.onBackClick = onDismiss
-        viewModel.onAppStateChanged = { pkg -> homeViewModel.notifyAppStateChanged(pkg) }
+        viewModel.onAppStateChanged = { pkg -> homeViewModel.apps.notifyAppStateChanged(pkg) }
     }
 
     // Handle install result
@@ -294,7 +294,7 @@ fun InstalledAppInfoDialog(
                     else -> InstallType.DEFAULT
                 }
                 viewModel.updateInstallType(finalPackageName, newInstallType)
-                homeViewModel.notifyAppStateChanged(finalPackageName)
+                homeViewModel.apps.notifyAppStateChanged(finalPackageName)
             }
             is InstallViewModel.InstallState.Conflict -> {
                 signatureConflict.value = installState

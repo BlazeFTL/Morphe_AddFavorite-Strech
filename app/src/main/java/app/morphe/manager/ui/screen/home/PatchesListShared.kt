@@ -6,8 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
@@ -26,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -201,12 +198,6 @@ internal fun PatchGroupHeader(
     accentColor: Color? = null,
     selectedCount: Int = 0
 ) {
-    // One chevron that turns, so the fold reads as the same control in both states
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (isExpanded) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "patch_group_chevron"
-    )
 
     // Held while the badge fades out, so the count does not blink to zero on its way off
     val lastSelectedCount = remember { mutableIntStateOf(selectedCount) }
@@ -253,15 +244,10 @@ internal fun PatchGroupHeader(
                     enter = Animations.expandHorizFadeIn,
                     exit = Animations.shrinkHorizFadeOut
                 ) {
-                    Icon(
-                        imageVector = Icons.Outlined.ExpandMore,
-                        contentDescription = stringResource(
-                            if (isExpanded) R.string.collapse else R.string.expand
-                        ),
-                        modifier = Modifier
-                            .size(24.dp)
-                            .graphicsLayer { rotationZ = chevronRotation },
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    ExpandChevron(
+                        expanded = isExpanded,
+                        modifier = Modifier.size(24.dp),
+                        announced = true
                     )
                 }
             }

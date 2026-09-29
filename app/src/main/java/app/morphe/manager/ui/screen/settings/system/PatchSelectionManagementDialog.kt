@@ -10,7 +10,6 @@ import android.view.HapticFeedbackConstants
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
@@ -22,7 +21,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -542,10 +540,6 @@ private fun PackageSelectionItem(
     val totalPatches = remember(bundleMap) { bundleMap.values.sum() }
     // In selection mode force cards closed so nested bundle taps do not race with tap-to-toggle
     val effectiveExpanded = expanded && !isSelectionMode
-    val expandRotation by animateFloatAsState(
-        targetValue = if (effectiveExpanded) 180f else 0f,
-        label = "expand_rotation"
-    )
 
     SelectableCard(
         modifier = Modifier.fillMaxWidth(),
@@ -634,14 +628,10 @@ private fun PackageSelectionItem(
                         enter = Animations.expandFadeEnter,
                         exit = Animations.shrinkFadeExit
                     ) {
-                        Icon(
-                            imageVector = Icons.Outlined.ExpandMore,
-                            contentDescription = if (effectiveExpanded)
-                                stringResource(R.string.collapse)
-                            else
-                                stringResource(R.string.expand),
+                        ExpandChevron(
+                            expanded = effectiveExpanded,
                             tint = LocalDialogSecondaryTextColor.current,
-                            modifier = Modifier.rotate(expandRotation)
+                            announced = true
                         )
                     }
                 }

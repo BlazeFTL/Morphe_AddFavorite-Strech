@@ -28,7 +28,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Color
@@ -1007,10 +1006,6 @@ private fun BundleCardHeader(
     patchMatchCount: Int? = null,
     onShowPatchMatches: (() -> Unit)? = null,
 ) {
-    val rotation by animateFloatAsState(
-        targetValue = if (expanded) 180f else 0f,
-        label = "expand_chevron"
-    )
     // The name dims by color rather than alpha so it stays crisp and above the lines under it,
     // which fade along with the icon, so a source switched off reads as such before its badge is read
     val titleColor by animateColorAsState(
@@ -1160,12 +1155,7 @@ private fun BundleCardHeader(
 
         // Chevron
         if (showChevron) {
-            Icon(
-                imageVector = Icons.Outlined.ExpandMore,
-                contentDescription = null,
-                modifier = Modifier.rotate(rotation),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            ExpandChevron(expanded = expanded)
         }
     }
 }

@@ -10,8 +10,6 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -33,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -506,12 +503,6 @@ private fun ReleaseHeader(
     expanded: Boolean,
     onToggle: (() -> Unit)?
 ) {
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (expanded) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "releaseChevron"
-    )
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -551,12 +542,7 @@ private fun ReleaseHeader(
             }
         }
         if (onToggle != null) {
-            Icon(
-                imageVector = Icons.Outlined.ExpandMore,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.rotate(chevronRotation)
-            )
+            ExpandChevron(expanded = expanded)
         }
     }
 }
@@ -706,12 +692,6 @@ private fun SectionExpander(
     total: Int,
     onToggle: () -> Unit
 ) {
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (expanded) 180f else 0f,
-        animationSpec = tween(Defaults.ANIMATION_DURATION),
-        label = "sectionChevron"
-    )
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -726,13 +706,10 @@ private fun SectionExpander(
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary
         )
-        Icon(
-            imageVector = Icons.Outlined.ExpandMore,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .size(18.dp)
-                .rotate(chevronRotation)
+        ExpandChevron(
+            expanded = expanded,
+            modifier = Modifier.size(18.dp),
+            tint = MaterialTheme.colorScheme.primary
         )
     }
 }

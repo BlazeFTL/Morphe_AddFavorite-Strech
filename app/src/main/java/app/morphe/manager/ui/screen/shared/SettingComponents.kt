@@ -6,6 +6,7 @@
 package app.morphe.manager.ui.screen.shared
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,10 +21,12 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -459,6 +462,35 @@ fun SettingsItemCard(
     ) {
         content()
     }
+}
+
+/**
+ * Chevron that turns over as [expanded] changes, so a fold reads as one control in both states.
+ *
+ * @param announced Whether it names the action a tap takes, for a chevron read out on its own
+ *   rather than as part of a row that already says so.
+ */
+@Composable
+fun ExpandChevron(
+    expanded: Boolean,
+    modifier: Modifier = Modifier,
+    tint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    announced: Boolean = false
+) {
+    val rotation by animateFloatAsState(
+        targetValue = if (expanded) 180f else 0f,
+        animationSpec = tween(Defaults.ANIMATION_DURATION),
+        label = "expand_chevron"
+    )
+    Icon(
+        imageVector = Icons.Outlined.ExpandMore,
+        contentDescription = if (announced) {
+            stringResource(if (expanded) R.string.collapse else R.string.expand)
+        } else null,
+        tint = tint,
+        // Turned while drawing, so the animation does not recompose the icon every frame
+        modifier = modifier.graphicsLayer { rotationZ = rotation }
+    )
 }
 
 /**

@@ -22,6 +22,8 @@ data class HomeAppItem(
     val gradientColors: List<Color>,
     val installedApp: InstalledApp?,
     val packageInfo: PackageInfo?,
+    /** Installed version from the device, else the one the record kept. */
+    val version: String,
     val isPinnedByDefault: Boolean,
     val isInstalledOnDevice: Boolean,
     val isDeleted: Boolean,
@@ -37,9 +39,6 @@ data class HomeAppItem(
     val nameSuffix: String? = null
 ) {
     val hasSavedCopy: Boolean get() = savedApkFile != null
-
-    /** The version this card is about: what the device reports, or what the record kept of it. */
-    val version: String get() = packageInfo?.versionName ?: installedApp?.version.orEmpty()
 
     /**
      * Whether the install is settled enough for pending work on it to be worth surfacing. A record

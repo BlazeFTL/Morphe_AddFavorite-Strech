@@ -6,7 +6,6 @@
 package app.morphe.manager.ui.screen.home
 
 import android.view.HapticFeedbackConstants
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -58,7 +57,7 @@ internal data class SwipeActionConfig(
 
 /**
  * Swipe action opening an app's patches, in the app's own color where its sources declare one, as
- * its card and dialogs wear it, or the theme's where they do not.
+ * its card and dialogs wear it, or the theme where they do not.
  */
 @Composable
 internal fun rememberPatchesSwipeAction(packageName: String): SwipeActionConfig {
@@ -275,7 +274,6 @@ internal fun SwipeableCardContainer(
 internal fun DynamicAppCard(
     modifier: Modifier = Modifier,
     item: HomeAppItem,
-    isLoading: Boolean,
     onAppClick: () -> Unit,
     onHide: () -> Unit,
     onShowPatches: () -> Unit,
@@ -302,8 +300,8 @@ internal fun DynamicAppCard(
     }
 
     // Hint animation: nudge toward the end then the start, once (only first card)
-    LaunchedEffect(showGestureHint, isLoading) {
-        if (!showGestureHint || isLoading) {
+    LaunchedEffect(showGestureHint) {
+        if (!showGestureHint) {
             offsetX.snapTo(0f)
             return@LaunchedEffect
         }
@@ -379,26 +377,16 @@ internal fun DynamicAppCard(
                 // The drag handle already sits in the corner the check badge would land in
                 showCheckmark = dragHandleModifier == null
             ) {
-                Crossfade(
-                    targetState = isLoading,
-                    animationSpec = tween(300),
-                    label = "app_card_crossfade_${item.id}"
-                ) { loading ->
-                    if (loading) {
-                        AppLoadingCard(gradientColors = item.gradientColors)
-                    } else {
-                        HomeAppCard(
-                            item = item,
-                            onClick = onAppClick,
-                            // The drag handle takes the end of the card over while reordering
-                            showStatusBadges = dragHandleModifier == null,
-                            onLongClick = {
-                                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-                                onLongPress()
-                            }
-                        )
+                HomeAppCard(
+                    item = item,
+                    onClick = onAppClick,
+                    // The drag handle takes the end of the card over while reordering
+                    showStatusBadges = dragHandleModifier == null,
+                    onLongClick = {
+                        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                        onLongPress()
                     }
-                }
+                )
             }
         }
 

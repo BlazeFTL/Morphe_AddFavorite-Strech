@@ -12,6 +12,8 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import app.morphe.manager.data.platform.Filesystem
+import app.morphe.manager.data.room.apps.installed.InstalledApp
+import app.morphe.manager.data.room.apps.original.OriginalApk
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
@@ -35,15 +37,37 @@ enum class AppDataSource {
 
 /**
  * Resolved app data from any available source.
+ *
+ * @param loadIcon Decodes the icon on first read of [icon], so unseen rows are not decoded
  */
 data class ResolvedAppData(
     val packageName: String,
     val displayName: String,
     val version: String?,
-    val icon: Drawable?,
     val packageInfo: PackageInfo?,
-    val source: AppDataSource
-)
+    val source: AppDataSource,
+    private val loadIcon: () -> Drawable? = { null }
+) {
+    val icon: Drawable? by lazy(loadIcon)
+}
+
+/**
+ * Tracked installs and saved original APKs, read once per lookup or once per batch.
+ */
+class ResolverRecords(installed: List<InstalledApp>, originals: List<OriginalApk>) {
+    private val installedByPackage = installed.associateBy { it.currentPackageName }
+    private val installedByApp = installed.groupBy { it.originalPackageName }
+    private val originalsByPackage = originals.associateBy { it.packageName }
+
+    fun original(packageName: String): OriginalApk? = originalsByPackage[packageName]
+
+    /**
+     * The record for [packageName], else the app's only install when patching renamed it. With
+     * several installs there is no fallback, since any of the clones could be meant.
+     */
+    fun installed(packageName: String): InstalledApp? =
+        installedByPackage[packageName] ?: installedByApp[packageName]?.singleOrNull()
+}
 
 /**
  * Universal app data resolver that checks multiple sources in priority order:
@@ -100,12 +124,14 @@ class AppDataResolver(
      *
      * @param packageName Package name to resolve
      * @param preferredSource Preferred data source for icon/packageInfo (will still fallback)
+     * @param records Preloaded records for batch callers, read from the database otherwise
      * @return [ResolvedAppData] with the best available name and icon, potentially from
      *   different sources
      */
     suspend fun resolveAppData(
         packageName: String,
-        preferredSource: AppDataSource = AppDataSource.INSTALLED
+        preferredSource: AppDataSource = AppDataSource.INSTALLED,
+        records: ResolverRecords? = null
     ): ResolvedAppData = withContext(Dispatchers.IO) {
         cache[packageName to preferredSource]?.let { return@withContext it }
 
@@ -129,7 +155,16 @@ class AppDataResolver(
         }
 
         // Phase 1: find the best available icon + packageInfo from APK sources
-        val apkResult = apkSources.firstNotNullOfOrNull { source -> resolveFromSource(packageName, source) }
+        // Read only once a saved APK is looked for, and then once for the whole lookup
+        var lookupRecords = records
+        val apkResult = apkSources.firstNotNullOfOrNull { source ->
+            resolveFromSource(packageName, source) {
+                lookupRecords ?: ResolverRecords(
+                    installedAppRepository.getAll().first(),
+                    originalApkRepository.getAll().first()
+                ).also { lookupRecords = it }
+            }
+        }
 
         // Phase 2: display name
         // apkResult already reflects the preferred source order (PATCHED_APK → ORIGINAL_APK → INSTALLED),
@@ -143,29 +178,45 @@ class AppDataResolver(
             packageName = packageName,
             displayName = displayName,
             version = apkResult?.version,
-            icon = apkResult?.icon,
             packageInfo = apkResult?.packageInfo,
-            source = apkResult?.source ?: if (bundleName != null) AppDataSource.BUNDLE_METADATA else AppDataSource.CONSTANTS
+            source = apkResult?.source
+                ?: if (bundleName != null) AppDataSource.BUNDLE_METADATA else AppDataSource.CONSTANTS,
+            loadIcon = { apkResult?.icon }
         ).also { cache[packageName to preferredSource] = it }
     }
 
     /**
-     * Reads one source, reusing the previous answer for that exact source. A miss is remembered
-     * too, so a package without a saved APK does not reparse on every lookup.
+     * Package manager data for [packageName], or null when not installed. Saved APKs are not read,
+     * so a caller describing many packages is not held up by archive parsing.
      */
+    suspend fun resolveInstalled(packageName: String): ResolvedAppData? =
+        withContext(Dispatchers.IO) {
+            cachedSource(packageName, AppDataSource.INSTALLED) { tryGetFromInstalled(packageName) }
+        }
+
+    /** Reads one source, see [cachedSource]. */
     private suspend fun resolveFromSource(
         packageName: String,
-        source: AppDataSource
-    ): ResolvedAppData? = sourceCache.getOrPut(packageName to source) {
-        Optional.ofNullable(
-            when (source) {
-                AppDataSource.INSTALLED -> tryGetFromInstalled(packageName)
-                AppDataSource.ORIGINAL_APK -> tryGetFromOriginalApk(packageName)
-                AppDataSource.PATCHED_APK -> tryGetFromPatchedApk(packageName)
-                else -> null
-            }
-        )
-    }.orElse(null)
+        source: AppDataSource,
+        records: suspend () -> ResolverRecords
+    ): ResolvedAppData? = cachedSource(packageName, source) {
+        when (source) {
+            AppDataSource.INSTALLED -> tryGetFromInstalled(packageName)
+            AppDataSource.ORIGINAL_APK -> tryGetFromOriginalApk(packageName, records())
+            AppDataSource.PATCHED_APK -> tryGetFromPatchedApk(packageName, records())
+            else -> null
+        }
+    }
+
+    /**
+     * [read] once per package and source. Misses are cached too, so a missing APK is not reparsed.
+     */
+    private inline fun cachedSource(
+        packageName: String,
+        source: AppDataSource,
+        read: () -> ResolvedAppData?
+    ): ResolvedAppData? =
+        sourceCache.getOrPut(packageName to source) { Optional.ofNullable(read()) }.orElse(null)
 
     /**
      * Try to get app data from installed app.
@@ -182,9 +233,9 @@ class AppDataResolver(
                 packageName = packageName,
                 displayName = appInfo.loadLabel(packageManager).toString(),
                 version = packageInfo.versionName,
-                icon = appInfo.loadIcon(packageManager),
                 packageInfo = packageInfo,
-                source = AppDataSource.INSTALLED
+                source = AppDataSource.INSTALLED,
+                loadIcon = { appInfo.loadIcon(packageManager) }
             )
         } catch (_: Exception) {
             null
@@ -194,9 +245,9 @@ class AppDataResolver(
     /**
      * Try to get app data from saved original APK.
      */
-    private suspend fun tryGetFromOriginalApk(packageName: String): ResolvedAppData? {
+    private fun tryGetFromOriginalApk(packageName: String, records: ResolverRecords): ResolvedAppData? {
         return try {
-            val originalApk = originalApkRepository.get(packageName) ?: return null
+            val originalApk = records.original(packageName) ?: return null
             val file = File(originalApk.filePath).takeIf { it.exists() } ?: return null
 
             readApkArchive(packageName, file, originalApk.version, AppDataSource.ORIGINAL_APK)
@@ -205,20 +256,10 @@ class AppDataResolver(
         }
     }
 
-    /**
-     * Try to get app data from saved patched APK.
-     *
-     * The record is the one that answers to [packageName], falling back to the app's only install
-     * when the name is the app's own and patching renamed that install. An app with several
-     * installs has no such fallback: any of them could be the one meant, and describing the app
-     * as whichever came first would attribute one clone's build to another.
-     */
-    private suspend fun tryGetFromPatchedApk(packageName: String): ResolvedAppData? {
+    /** Try to get app data from saved patched APK, see [ResolverRecords.installed]. */
+    private fun tryGetFromPatchedApk(packageName: String, records: ResolverRecords): ResolvedAppData? {
         return try {
-            val installedApp = installedAppRepository.get(packageName)
-                ?: installedAppRepository.getAll().first()
-                    .singleOrNull { it.originalPackageName == packageName }
-                ?: return null
+            val installedApp = records.installed(packageName) ?: return null
 
             // Get saved APK file from filesystem - try both current and original package names
             val savedFile = listOf(
@@ -254,9 +295,9 @@ class AppDataResolver(
             packageName = packageName,
             displayName = appInfo?.loadLabel(packageManager)?.toString() ?: packageName,
             version = version,
-            icon = appInfo?.let(::archiveIcon),
             packageInfo = packageInfo,
-            source = source
+            source = source,
+            loadIcon = { appInfo?.let(::archiveIcon) }
         )
     }
 
@@ -287,7 +328,6 @@ class AppDataResolver(
             packageName = packageName,
             displayName = displayName,
             version = null,
-            icon = null,
             packageInfo = null,
             source = AppDataSource.BUNDLE_METADATA
         )
@@ -301,7 +341,6 @@ class AppDataResolver(
             packageName = packageName,
             displayName = KnownApps.getAppName(packageName),
             version = null,
-            icon = null,
             packageInfo = null,
             source = AppDataSource.CONSTANTS
         )

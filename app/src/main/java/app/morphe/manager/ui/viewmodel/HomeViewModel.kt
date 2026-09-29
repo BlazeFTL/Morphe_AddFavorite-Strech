@@ -192,7 +192,7 @@ data class HomeAppSourceGroup(
     val collapsible: Boolean get() = !isDefault
 }
 
-private data class HomePrefs(
+internal data class HomePrefs(
     val hiddenPackages: Set<String>,
     val customOrder: List<String>,
     val sourceOrders: Map<Int, List<String>>,
@@ -564,9 +564,9 @@ class HomeViewModel(
     /** Convenience accessor - reads expert mode preference without blocking. */
     private suspend fun isExpertMode() = prefs.useExpertMode.get()
 
-    // Track available updates for installed apps
-    private val _appUpdatesAvailable = MutableStateFlow<Map<String, AppPatchUpdate>>(emptyMap())
-    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>> = _appUpdatesAvailable.asStateFlow()
+    // Updates available for installed apps, null until the first check lands
+    private val _appUpdatesAvailable = MutableStateFlow<Map<String, AppPatchUpdate>?>(null)
+    val appUpdatesAvailable: StateFlow<Map<String, AppPatchUpdate>?> = _appUpdatesAvailable.asStateFlow()
 
     // Ticker to force homeAppState recomputation after install/uninstall without changing DB state
     private val _appStateTicker = MutableStateFlow(0L)
@@ -716,7 +716,8 @@ class HomeViewModel(
                 previousOriginalEvidence?.let {
                     addAll(changedMapKeys(it, inputs.originalEvidence))
                 }
-                previousBundleSignatures?.let {
+                // A first bundle load refines the verdict, so the old one stays until the new lands
+                previousBundleSignatures?.takeIf { it.isNotEmpty() }?.let {
                     addAll(changedMapKeys(it, inputs.bundleSignatures))
                 }
             }
@@ -1564,6 +1565,24 @@ class HomeViewModel(
     fun stopIgnoringSupportedVersion(packageName: String) =
         homeAppButtonPrefs.stopIgnoringVersion(packageName)
 
+    private val homeCardCache = HomeCardCache(filesystem.homeCardCacheDir.resolve("cards.json"))
+
+    // Read once, shown until the bundles load
+    private val cachedHomeCards by lazy { homeCardCache.read() }
+    private val cachedUpdateIds by lazy { cachedHomeCards?.idsWithUpdate().orEmpty() }
+
+    // Serial writes, off the path to the screen
+    private val homeCardCacheWrites = Dispatchers.IO.limitedParallelism(1)
+
+    /** Everything the home cards are built from, read together. */
+    private data class HomeInputs(
+        val bundle: HomeBundleState,
+        val prefs: HomePrefs,
+        val installedApps: List<InstalledApp>,
+        val updates: Map<String, AppPatchUpdate>?,
+        val trackedSnapshots: Map<String, TrackedSnapshotEntry>
+    )
+
     /**
     * Sorted list of visible and hidden home app items.
     *
@@ -1587,9 +1606,21 @@ class HomeViewModel(
         },
         _appUpdatesAvailable,
         appStateSignal,
-    ) { (bundleState, supportedVersions, ignoredVersions, keptFrom), homePrefs, installedApps, updatesMap, (_, trackedSnapshots) ->
+    ) { bundle, prefs, installedApps, updates, (_, trackedSnapshots) ->
+        HomeInputs(bundle, prefs, installedApps, updates, trackedSnapshots)
+    }
+        // Inputs arriving mid-build are coalesced, only the newest one is built
+        .conflate()
+        .map(::buildHomeAppState)
+        .flowOn(Dispatchers.IO)
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    /** The home cards for [inputs], or the cached ones while the bundles load. */
+    private suspend fun buildHomeAppState(inputs: HomeInputs): HomeAppState? {
+        val (homeBundle, homePrefs, installedApps, updatesMap, trackedSnapshots) = inputs
+        val (bundleState, supportedVersions, ignoredVersions, keptFrom) = homeBundle
         val ready = bundleState as? PatchBundleRepository.BundleState.Ready
-            ?: return@combine null
+            ?: return cachedHomeCards?.toState(installedApps, homePrefs)
 
         val enabledInfo = ready.info.filter { (_, info) -> info.enabled }
         val metadata = BundleAppMetadata.buildFrom(enabledInfo)
@@ -1607,6 +1638,8 @@ class HomeViewModel(
         )
 
         val recordsByApp = installedApps.groupBy { it.originalPackageName }
+        // One query for installed packages instead of one per card
+        val installedPackages = pm.getInstalledPackages().mapTo(HashSet()) { it.packageName }
 
         suspend fun buildItem(slot: HomeAppSlot): HomeAppItem {
             val packageName = slot.packageName
@@ -1614,20 +1647,15 @@ class HomeViewModel(
             val bundleMeta = metadata[packageName]
             val knownApp = KnownApps.fromPackage(packageName)
             val gradientColors = bundleMeta?.gradientColors ?: KnownApps.DEFAULT_COLORS
-            // Read under the package the card stands for: a clone is a separate install and
-            // carries its own name, icon and version
-            val resolvedData = appDataResolver.resolveAppData(
-                packageName = slot.id,
-                preferredSource = AppDataSource.PATCHED_APK
-            )
-            // Down to the name the record kept from patch time, which is all that outlives both
-            // the artifacts and the bundle the app came from
-            val displayName = resolvedData.displayName.takeIf {
-                resolvedData.source == AppDataSource.INSTALLED || resolvedData.source == AppDataSource.PATCHED_APK
-            }
+            // Package manager data only, saved APKs are left to inspection and on-screen icons
+            val installedData = (installedApp?.currentPackageName ?: slot.id)
+                .takeIf { it in installedPackages }
+                ?.let { appDataResolver.resolveInstalled(it) }
+            // The record's patch-time label first, it outlives the artifacts and the bundle
+            val displayName = installedApp?.appLabel
+                ?: installedData?.displayName
                 ?: bundleMeta?.displayName
                 ?: allMetadata[packageName]?.displayName
-                ?: installedApp?.appLabel
                 ?: KnownApps.getAppName(packageName)
             val trackedEntry = installedApp?.let { tracked ->
                 trackedSnapshots[tracked.currentPackageName]?.takeIf { it.app == tracked }
@@ -1645,10 +1673,15 @@ class HomeViewModel(
             // An unjudged record is described the way the package manager sees it
             val isUninspectedInstall = installedApp != null &&
                     trackedSnapshot == null &&
-                    pm.getPackageInfo(installedApp.currentPackageName) != null
+                    installedApp.currentPackageName in installedPackages
             val isInstallStatePending = installedApp != null && trackedSnapshot == null
             val isInstalledOnDevice = trackedPresentation?.isPatched == true
-            val hasUpdate = installedApp != null && installedApp.currentPackageName in updatesMap
+            // Until the first check lands, a card keeps the badge it was cached with
+            val hasUpdate = installedApp != null && if (updatesMap != null) {
+                installedApp.currentPackageName in updatesMap
+            } else {
+                slot.id in cachedUpdateIds
+            }
 
             if (installedApp != null && trackedSnapshot != null && isInstalledOnDevice) {
                 reconcileInstalledVersion(installedApp, trackedSnapshot.installedPackageInfo)
@@ -1661,7 +1694,8 @@ class HomeViewModel(
                 trackedPresentation = trackedPresentation,
                 installedPackageInfo = trackedSnapshot?.installedPackageInfo,
                 savedPackageInfo = savedPackageInfo,
-                untrackedPackageInfo = resolvedData.packageInfo
+                // A record not judged yet shows its own version rather than the device's
+                untrackedPackageInfo = installedData?.packageInfo.takeIf { installedApp == null }
             )
 
             return HomeAppItem(
@@ -1671,10 +1705,11 @@ class HomeViewModel(
                 gradientColors = gradientColors,
                 installedApp = installedApp,
                 packageInfo = packageInfo,
+                version = packageInfo?.versionName ?: installedApp?.version.orEmpty(),
                 isPinnedByDefault = knownApp?.isPinnedByDefault == true,
                 isInstalledOnDevice = (trackedPresentation?.showsInstalledPackage == true) ||
                         isUninspectedInstall ||
-                        (installedApp == null && resolvedData.source == AppDataSource.INSTALLED),
+                        (installedApp == null && installedData != null),
                 isDeleted = trackedPresentation?.isDeleted == true,
                 isInstallStateNotPatched = trackedPresentation?.isNotPatched == true,
                 isInstallStateUnknown = trackedPresentation?.isUnknown == true,
@@ -1727,7 +1762,7 @@ class HomeViewModel(
             customOrder = homePrefs.customOrder
         )
 
-        HomeAppState(
+        val state = HomeAppState(
             visible = visible,
             hidden = hidden,
             sortMode = homePrefs.sortMode,
@@ -1736,9 +1771,9 @@ class HomeViewModel(
             showCategoryViewSwitcher = homePrefs.showCategoryViewSwitcher,
             sourceGroups = sourceGroups
         )
+        viewModelScope.launch(homeCardCacheWrites) { homeCardCache.write(state) }
+        return state
     }
-        .flowOn(Dispatchers.IO)
-        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /**
      * Aligns the recorded version with the running one after an in-place update.

@@ -129,7 +129,7 @@ fun InstalledAppInfoDialog(
 
     // Get update status from the shared HomeViewModel instance
     val appUpdates by homeViewModel.appUpdatesAvailable.collectAsStateWithLifecycle()
-    val appUpdate = appUpdates[packageName]
+    val appUpdate = appUpdates?.get(packageName)
     val hasUpdate = appUpdate != null
     // What the install itself is in speaks louder than what is pending for it, so a record in one
     // of those states is described by that rather than by the work waiting on it

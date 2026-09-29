@@ -20,6 +20,7 @@ class HomeAppNameSuffixTest {
         gradientColors = emptyList(),
         installedApp = null,
         packageInfo = null,
+        version = "",
         isPinnedByDefault = false,
         isInstalledOnDevice = false,
         isDeleted = false,

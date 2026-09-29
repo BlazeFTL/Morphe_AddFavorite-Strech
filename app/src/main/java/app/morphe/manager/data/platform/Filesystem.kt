@@ -58,6 +58,9 @@ class Filesystem(private val app: Application) {
      * Paths to this directory can be safely stored in parcels.
      */
     val uiTempDir: File = app.getDir("ui_ephemeral", Context.MODE_PRIVATE)
+
+    /** Home card cache, kept apart so storage management does not take it for patcher scratch. */
+    val homeCardCacheDir: File = app.cacheDir.resolve("home")
     private val patchedAppsDir: File = app.getDir("patched-apps", Context.MODE_PRIVATE).apply { mkdirs() }
 
     /**

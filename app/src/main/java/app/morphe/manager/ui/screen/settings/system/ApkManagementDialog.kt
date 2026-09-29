@@ -52,6 +52,7 @@ import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -206,6 +207,7 @@ private fun PatchedApksContent(
     val apksDeletedAllText = stringResource(R.string.settings_system_apks_deleted_all)
     val apksDeleteFailedText = stringResource(R.string.settings_system_apks_delete_failed)
     val repository: InstalledAppRepository = koinInject()
+    val originalApkRepository: OriginalApkRepository = koinInject()
     val appDataResolver: AppDataResolver = koinInject()
     val prefs: PreferencesManager = koinInject()
     val pm: PM = koinInject()
@@ -222,6 +224,8 @@ private fun PatchedApksContent(
         ) { apps, _ -> apps }.collectLatest { apps ->
             state = ApkLoadState.Loaded(
                 withContext(Dispatchers.IO) {
+                    // Records read once for all rows
+                    val records = ResolverRecords(apps, originalApkRepository.getAll().first())
                     apps.mapNotNull { app ->
                         // Only the copies this record owns, so a renamed app never lists the
                         // archive an unrenamed record keeps under the same original name
@@ -233,7 +237,8 @@ private fun PatchedApksContent(
                         // Use AppDataResolver to get data
                         val resolvedData = appDataResolver.resolveAppData(
                             app.currentPackageName,
-                            preferredSource = AppDataSource.PATCHED_APK
+                            preferredSource = AppDataSource.PATCHED_APK,
+                            records = records
                         )
                         // Taken from the archive the row actually points at, which can differ from
                         // the resolver's answer once the installed app is no longer the patched one
@@ -491,6 +496,7 @@ private fun OriginalApksContent(
     val originalApksDeletedText = stringResource(R.string.settings_system_original_apks_deleted)
     val apksDeletedAllText = stringResource(R.string.settings_system_apks_deleted_all)
     val repository: OriginalApkRepository = koinInject()
+    val installedAppRepository: InstalledAppRepository = koinInject()
     val appDataResolver: AppDataResolver = koinInject()
     val prefs: PreferencesManager = koinInject()
     val pm: PM = koinInject()
@@ -505,10 +511,13 @@ private fun OriginalApksContent(
         repository.getAll().collect { apks ->
             state = ApkLoadState.Loaded(
                 withContext(Dispatchers.IO) {
+                    // Records read once for all rows
+                    val records = ResolverRecords(installedAppRepository.getAll().first(), apks)
                     apks.map { apk ->
                         val resolvedData = appDataResolver.resolveAppData(
                             apk.packageName,
-                            preferredSource = AppDataSource.ORIGINAL_APK
+                            preferredSource = AppDataSource.ORIGINAL_APK,
+                            records = records
                         )
                         val apkFile = File(apk.filePath).takeIf { it.exists() }
 

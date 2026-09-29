@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity() {
 
         val isAddSource = data.scheme == "https" &&
                 data.host == "morphe.software" &&
-                data.path?.startsWith("/add-source") == true
+                data.path?.startsWith(ADD_SOURCE_PATH) == true
         if (!isAddSource) return
 
         val name = data.getQueryParameter("name")?.takeIf { it.isNotBlank() }

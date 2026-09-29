@@ -64,6 +64,9 @@ private fun destructiveBorder(enabled: Boolean): BorderStroke {
 /** Inset between a pill's edge and any text it carries. */
 private val PillTextPadding = 16.dp
 
+/** Narrowest an icon-only pill gets in a crowded [ActionPillRow], still a full touch target. */
+private val CompactPillWidth = 48.dp
+
 /** Width of the fade on an edge of an [ActionPillRow] its pills have been slid past. */
 
 /** Pace a confirmation too long for its pill scrolls at, slow enough to read along. */
@@ -261,7 +264,7 @@ fun ActionPillButton(
     // here, from the pill's own content but no narrower than asked, and the pill fills it
     Box(
         modifier = modifier
-            .then(PillEmphasisElement(playback.emphasis))
+            .then(PillEmphasisElement(playback.emphasis, compactWidth = if (label == null) CompactPillWidth else null))
             .width(IntrinsicSize.Max),
         propagateMinConstraints = true
     ) {
@@ -504,17 +507,25 @@ private fun ScrollingLabel(text: String, style: TextStyle, playback: Confirmatio
     }
 }
 
-/** Tells the enclosing [ActionPillRow] how far a pill's confirmation is open. */
-private class PillEmphasisElement(val emphasis: () -> Float) : ModifierNodeElement<PillEmphasisNode>() {
-    override fun create() = PillEmphasisNode(emphasis)
+/**
+ * Tells the enclosing [ActionPillRow] how far a pill's confirmation is open, and how narrow the
+ * pill can get without cutting any of its content ([compactWidth], null for none narrower).
+ */
+private class PillEmphasisElement(
+    val emphasis: () -> Float,
+    val compactWidth: Dp?
+) : ModifierNodeElement<PillEmphasisNode>() {
+    override fun create() = PillEmphasisNode(emphasis, compactWidth)
 
     override fun update(node: PillEmphasisNode) {
         node.emphasis = emphasis
+        node.compactWidth = compactWidth
     }
 
-    override fun equals(other: Any?) = other is PillEmphasisElement && other.emphasis === emphasis
+    override fun equals(other: Any?) =
+        other is PillEmphasisElement && other.emphasis === emphasis && other.compactWidth == compactWidth
 
-    override fun hashCode() = emphasis.hashCode()
+    override fun hashCode() = 31 * emphasis.hashCode() + compactWidth.hashCode()
 
     // The lambda itself tells the inspector nothing, the value it reads right now does
     override fun InspectorInfo.inspectableProperties() {
@@ -523,7 +534,10 @@ private class PillEmphasisElement(val emphasis: () -> Float) : ModifierNodeEleme
     }
 }
 
-private class PillEmphasisNode(var emphasis: () -> Float) : Modifier.Node(), ParentDataModifierNode {
+private class PillEmphasisNode(
+    var emphasis: () -> Float,
+    var compactWidth: Dp?
+) : Modifier.Node(), ParentDataModifierNode {
     override fun Density.modifyParentData(parentData: Any?): Any = this@PillEmphasisNode
 }
 
@@ -582,7 +596,8 @@ fun CardActionRow(
 
 /**
  * Row that lays out its [ActionPillButton] children at their natural width and centers them.
- * If the natural total overflows the available width, the widest pills give way first.
+ * If the natural total overflows the available width, icon-only pills first give up the room
+ * they keep beyond a touch target, so a label stays whole, and only then the widest give way.
  *
  * A pill playing a confirmation widens as far as the whole row without taking anything from its
  * neighbors: the row slides them aside instead, past edges that fade out, keeping the widening
@@ -616,10 +631,14 @@ fun ActionPillRow(
         val spacingPx = spacing.roundToPx()
         val available = (rowWidth - spacingPx * (measurables.size - 1)).coerceAtLeast(0)
         val natural = IntArray(measurables.size) { measurables[it].maxIntrinsicWidth(constraints.maxHeight) }
-        val emphasis = FloatArray(measurables.size) {
-            ((measurables[it].parentData as? PillEmphasisNode)?.emphasis?.invoke() ?: 0f).coerceIn(0f, 1f)
+        val pillData = measurables.map { it.parentData as? PillEmphasisNode }
+        val compact = IntArray(measurables.size) {
+            pillData[it]?.compactWidth?.roundToPx()?.coerceAtMost(natural[it]) ?: natural[it]
         }
-        val widths = pillWidths(natural, emphasis, available, rowWidth)
+        val emphasis = FloatArray(measurables.size) {
+            (pillData[it]?.emphasis?.invoke() ?: 0f).coerceIn(0f, 1f)
+        }
+        val widths = pillWidths(natural, compact, emphasis, available, rowWidth)
 
         val placeables = measurables.mapIndexed { index, measurable ->
             val width = widths[index]
@@ -661,10 +680,28 @@ private class RowOverflow {
  * Splits [available] between pills that would like their [natural] widths, then lets each
  * emphasized pill ease from its share towards its natural width, capped at [rowWidth]. The
  * others keep their share, so at zero emphasis this is exactly the plain split.
+ *
+ * A short row first takes the room pills keep beyond their [compact] widths, evenly, and cuts
+ * into content only once that is gone.
  */
-private fun pillWidths(natural: IntArray, emphasis: FloatArray, available: Int, rowWidth: Int): IntArray {
+private fun pillWidths(
+    natural: IntArray,
+    compact: IntArray,
+    emphasis: FloatArray,
+    available: Int,
+    rowWidth: Int
+): IntArray {
     val widths = IntArray(natural.size)
-    fairShare(natural, natural.indices.toList(), available, widths)
+    val indices = natural.indices.toList()
+    val excess = natural.sum() - available
+    val slack = IntArray(natural.size) { natural[it] - compact[it] }
+    if (excess > 0 && excess <= slack.sum()) {
+        val cuts = IntArray(natural.size)
+        fairShare(slack, indices, excess, cuts)
+        indices.forEach { widths[it] = natural[it] - cuts[it] }
+    } else {
+        fairShare(if (excess > 0) compact else natural, indices, available, widths)
+    }
     natural.indices.forEach { index ->
         if (emphasis[index] > 0f) {
             val full = maxOf(widths[index], minOf(natural[index], rowWidth))

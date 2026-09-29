@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.home
 
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -253,6 +254,15 @@ fun BundleManagementSheet(
             }
         }
 
+        // System share sheet, which also offers copying the text
+        fun shareText(text: String) {
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, text)
+            }
+            context.startActivity(Intent.createChooser(intent, null))
+        }
+
         // Registered inside the sheet content so it outranks the sheet's own dismiss handler
         SearchFieldBackHandler(search)
 
@@ -449,6 +459,9 @@ fun BundleManagementSheet(
                                     onReportIssue = {
                                         openUrl((bundle as? RemotePatchBundle)?.issuesPageUrl ?: SOURCE_REPO_URL)
                                     },
+                                    onShare = (bundle as? RemotePatchBundle)?.addSourceLink?.let { link ->
+                                        { shareText(link) }
+                                    },
                                     forceExpanded = isSingleDefaultBundle,
                                     isDragging = itemIsDragging,
                                     // Reorder maps list positions onto the full order, so a
@@ -640,6 +653,7 @@ private fun BundleManagementCard(
     onVersionClick: () -> Unit,
     onOpenInBrowser: () -> Unit,
     onReportIssue: () -> Unit,
+    onShare: (() -> Unit)?,
     onOutdatedManagerClick: () -> Unit,
     forceExpanded: Boolean = false
 ) {
@@ -650,6 +664,7 @@ private fun BundleManagementCard(
     val disabledState = stringResource(R.string.disabled)
     val openInBrowser = stringResource(R.string.sources_management_open_in_browser)
     val reportIssue = stringResource(R.string.sources_management_report_issue)
+    val share = stringResource(R.string.share)
     val patchesLabel = stringResource(R.string.patches)
 
     val isBlocked = blockedInfo != null
@@ -855,28 +870,32 @@ private fun BundleManagementCard(
                             }
                         }
 
-                        // Both actions leave for the same repository, so they share a row.
-                        // Only the primary one carries a label, keeping it clear of the
-                        // width its own translation happens to need
+                        // Actions about the same repository, styled like the action bar below.
+                        // Regular pills use small text, which leaves room for the primary label
                         if (bundle is RemotePatchBundle) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-                            ) {
+                            ActionPillRow {
                                 ActionPillButton(
                                     onClick = onOpenInBrowser,
                                     icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                                    contentDescription = openInBrowser,
+                                    contentDescription = openInBrowser + " " + bundle.displayTitle,
                                     label = openInBrowser,
-                                    large = true,
-                                    modifier = Modifier.weight(1f)
+                                    tooltip = openInBrowser
                                 )
+
+                                if (onShare != null) {
+                                    ActionPillButton(
+                                        onClick = onShare,
+                                        icon = Icons.Outlined.Share,
+                                        contentDescription = share + " " + bundle.displayTitle,
+                                        tooltip = share
+                                    )
+                                }
 
                                 ActionPillButton(
                                     onClick = onReportIssue,
                                     icon = Icons.Outlined.BugReport,
                                     contentDescription = reportIssue + " " + bundle.displayTitle,
-                                    tooltip = reportIssue,
-                                    large = true
+                                    tooltip = reportIssue
                                 )
                             }
                         }

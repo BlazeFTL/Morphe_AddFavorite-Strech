@@ -24,6 +24,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderColors
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.SliderState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +51,22 @@ import kotlin.math.roundToInt
  * the scale labels and the arithmetic that keeps a value on the scale a patch declared.
  * [SliderOptionInput] and [RangeSliderOptionInput] are built from these.
  */
+
+/**
+ * Slider colors in [accentColor], as a switch that is on takes it, so the theme's blue does not sit
+ * in a dialog of another hue. The theme's own where there is none.
+ */
+@Composable
+fun accentSliderColors(accentColor: Color? = LocalAccent.current): SliderColors {
+    val accent = usableAppAccent(accentColor) ?: return SliderDefaults.colors()
+    return SliderDefaults.colors(
+        thumbColor = accent,
+        activeTrackColor = accent,
+        activeTickColor = appAccentContent(accent),
+        inactiveTrackColor = accent.copy(alpha = AccentAlpha.LEAD),
+        inactiveTickColor = accent
+    )
+}
 
 /** Above this many steps the tick marks turn into visual noise, so they are dropped */
 private const val MAX_VISIBLE_TICKS = 20
@@ -132,16 +151,14 @@ fun SliderValuePill(
         ),
         label = "pillScale"
     )
+    // A faint ground in the slider's color while it is dragged, as a picked menu entry has
+    val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
     val container by animateColorAsState(
-        targetValue = if (active) MaterialTheme.colorScheme.primaryContainer
+        targetValue = if (active) accent.copy(alpha = AccentAlpha.STEP)
         else LocalDialogTextColor.current.copy(alpha = 0.06f),
         label = "pillContainer"
     )
-    val content by animateColorAsState(
-        targetValue = if (active) MaterialTheme.colorScheme.onPrimaryContainer
-        else LocalDialogTextColor.current,
-        label = "pillContent"
-    )
+    val content = LocalDialogTextColor.current
 
     val shape = RoundedCornerShape(percent = 50)
 

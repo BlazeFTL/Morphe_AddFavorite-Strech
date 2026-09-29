@@ -79,8 +79,8 @@ fun ExposedDropdownMenuBoxScope.AppExposedDropdownMenu(
 }
 
 /**
- * Entry of an [AppDropdownMenu]. The entry in effect sits on a tinted, rounded ground with a check,
- * so the current choice shows at a glance rather than only by a mark at its edge.
+ * Entry of an [AppDropdownMenu]. The entry in effect sits on a faint ground with a check, both in
+ * the surrounding color, see [LocalAccent], so the current choice shows at a glance.
  *
  * @param selected Whether this entry is the one in effect.
  * @param trailing Takes the place of the check, for an entry that shows its state another way.
@@ -94,8 +94,8 @@ fun AppDropdownMenuItem(
     leadingIcon: ImageVector? = null,
     trailing: (@Composable () -> Unit)? = null
 ) {
-    val colors = MaterialTheme.colorScheme
-    val contentColor = if (selected) colors.onPrimaryContainer else LocalDialogTextColor.current
+    val accent = LocalAccent.current ?: MaterialTheme.colorScheme.primary
+    val contentColor = LocalDialogTextColor.current
 
     DropdownMenuItem(
         text = {
@@ -109,7 +109,7 @@ fun AppDropdownMenuItem(
         modifier = modifier
             .padding(horizontal = MenuItemInset)
             .clip(MenuItemShape)
-            .background(if (selected) colors.primaryContainer.copy(alpha = 0.7f) else Color.Transparent)
+            .background(if (selected) accent.copy(alpha = AccentAlpha.STEP) else Color.Transparent)
             .semantics { this.selected = selected },
         leadingIcon = leadingIcon?.let { icon -> { Icon(icon, contentDescription = null) } },
         trailingIcon = trailing ?: if (selected) {
@@ -118,7 +118,7 @@ fun AppDropdownMenuItem(
         colors = MenuDefaults.itemColors(
             textColor = contentColor,
             leadingIconColor = contentColor.copy(alpha = 0.8f),
-            trailingIconColor = if (selected) colors.primary else contentColor
+            trailingIconColor = if (selected) accent else contentColor
         )
     )
 }

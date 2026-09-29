@@ -1,3 +1,21 @@
+# [1.33.0-dev.15](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.14...v1.33.0-dev.15) (2026-09-29)
+
+
+### Bug Fixes
+
+* Shorten the app info dialog entrance ([091fee4](https://github.com/MorpheApp/morphe-manager/commit/091fee4a614f32375ab36a19e3a261f3abbf07fc))
+* Warn the app will close instead of repeating the install title ([b469f45](https://github.com/MorpheApp/morphe-manager/commit/b469f45a64cc39f9f855d3accbfb561d8fe90256))
+
+
+### Features
+
+* Share patch sources via add-source link ([66d0741](https://github.com/MorpheApp/morphe-manager/commit/66d074143e979de67f2d37bdd8e6e1ddb7af3b1c))
+
+
+### Performance Improvements
+
+* Use the MorpheApp ARSCLib fork with faster, leaner split merging ([#1043](https://github.com/MorpheApp/morphe-manager/issues/1043)) ([95deaf3](https://github.com/MorpheApp/morphe-manager/commit/95deaf34b699111a4e4845034d4132908c27b53e))
+
 # [1.33.0-dev.14](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.13...v1.33.0-dev.14) (2026-09-29)
 
 

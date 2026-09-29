@@ -31,6 +31,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -850,8 +852,8 @@ private fun VersionSection(label: String, content: @Composable () -> Unit) {
 /**
  * One version of a [VersionPanel]: the version, its build and description, and its tags. A lone
  * badge sits beside the version, where most rows carry theirs, and several go on a line of their
- * own under it, since beside it, they would squeeze the version out of sight. Tags about the APKs
- * on hand are no badges but a quiet line under the version, see [isOnHand].
+ * own under it, since beside it, they would squeeze the version out of sight. The build and the
+ * APKs on hand, see [isOnHand], are no badges but one quiet line under the version.
  *
  * @param selected Whether it is the pick, for a list picked from, which checks it in the app's
  *   color. Null for a list only read, which keeps no room for a check.
@@ -918,16 +920,8 @@ private fun VersionRow(
                 )
                 if (badgeTags.size == 1) VersionTagBadge(badgeTags.single())
             }
-            if (buildCode != null) {
-                Text(
-                    text = stringResource(R.string.home_dialog_unsupported_version_build, buildCode),
-                    style = MaterialTheme.typography.bodySmall,
-                    fontFamily = FontFamily.Monospace,
-                    color = LocalDialogSecondaryTextColor.current
-                )
-            }
-            if (onHandTags.isNotEmpty()) {
-                OnHandLine(onHandTags)
+            if (buildCode != null || onHandTags.isNotEmpty()) {
+                VersionDetailsLine(buildCode = buildCode, onHandTags = onHandTags)
             }
             if (badgeTags.size > 1) {
                 FlowRow(
@@ -948,18 +942,37 @@ private fun VersionRow(
     }
 }
 
-/** The APKs on hand at a version, each by its icon and name, in the secondary text color. */
+/**
+ * A version's build and the APKs on hand at it, parted by dots in the secondary text color. Only the
+ * build number is set in monospace, lining up with the version above it, and its label reads as text.
+ */
 @Composable
-private fun OnHandLine(tags: List<VersionTag>) {
+private fun VersionDetailsLine(buildCode: Long?, onHandTags: List<VersionTag>) {
     val color = LocalDialogSecondaryTextColor.current
+    val buildText = buildCode?.let { stringResource(R.string.home_dialog_unsupported_version_build, it) }
+    val buildLabel = remember(buildText, buildCode) {
+        buildText?.let { text ->
+            buildAnnotatedString {
+                append(text)
+                val number = buildCode.toString()
+                val start = text.indexOf(number)
+                if (start >= 0) {
+                    addStyle(SpanStyle(fontFamily = FontFamily.Monospace), start, start + number.length)
+                }
+            }
+        }
+    }
 
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
         verticalArrangement = Arrangement.spacedBy(2.dp),
         itemVerticalAlignment = Alignment.CenterVertically
     ) {
-        tags.forEachIndexed { index, tag ->
-            if (index > 0) {
+        buildLabel?.let {
+            Text(text = it, style = MaterialTheme.typography.bodySmall, color = color)
+        }
+        onHandTags.forEachIndexed { index, tag ->
+            if (index > 0 || buildLabel != null) {
                 Text(text = "·", style = MaterialTheme.typography.bodySmall, color = color)
             }
             Row(

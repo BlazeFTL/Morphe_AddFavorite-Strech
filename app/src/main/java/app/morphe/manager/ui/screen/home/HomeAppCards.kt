@@ -289,6 +289,10 @@ private fun InstalledAppCard(
     }
 
     val version = remember(item) { item.version.withVersionPrefix() }
+    // What tells the app from a namesake leads the row, ahead of the version
+    val subtitle = remember(item) {
+        listOfNotNull(item.nameSuffix, version.ifEmpty { null }).joinToString(" • ")
+    }
 
     // The version worth badging, out of the one the sources support: only when it is short enough
     // to leave the row its width, with the long build-stamped kind left to the app's dialog, which
@@ -318,6 +322,7 @@ private fun InstalledAppCard(
     ) {
         buildString {
             append(item.displayName)
+            item.nameSuffix?.let { append(", $it") }
             if (item.isClone) append(", $cloneLabel")
             if (version.isNotEmpty()) {
                 append(", $versionLabel $version")
@@ -402,7 +407,7 @@ private fun InstalledAppCard(
                 // a version string of whatever length
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = version,
+                    text = subtitle,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = cardStyle.subtitleStyle,
@@ -487,7 +492,7 @@ private fun NotPatchedAppCard(
     // rather than by an install, and that version answers a different question
     val subtitle = remember(item, notPatchedText) {
         val version = item.version.takeIf { item.isInstalledOnDevice && it.isNotEmpty() }
-        version?.let { "${it.withVersionPrefix()} • $notPatchedText" } ?: notPatchedText
+        listOfNotNull(item.nameSuffix, version?.withVersionPrefix(), notPatchedText).joinToString(" • ")
     }
 
     val contentDesc = remember(item.displayName, subtitle) {

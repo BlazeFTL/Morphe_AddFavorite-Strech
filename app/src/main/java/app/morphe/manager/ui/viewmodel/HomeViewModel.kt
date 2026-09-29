@@ -1708,7 +1708,7 @@ class HomeViewModel(
             (visibleSlots + hiddenSlots)
                 .map { slot -> async { buildItem(slot) } }
                 .awaitAll()
-        }
+        }.withNameSuffixes()
         val visibleItems = builtItems.subList(0, visibleSlots.size)
         val hiddenItems = builtItems.subList(visibleSlots.size, builtItems.size)
 

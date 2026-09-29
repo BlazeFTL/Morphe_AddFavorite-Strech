@@ -5,12 +5,22 @@
 
 package app.morphe.manager.ui.screen.shared
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
@@ -18,28 +28,51 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
+import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 
+/** One thing a confirmed action removes or resets, with its size or amount as [detail]. */
+@Immutable
+data class ConfirmItem(
+    val icon: ImageVector,
+    val text: String,
+    val detail: String? = null
+)
+
 /**
- * Asks to confirm an action, the [message] saying what it does: plain text, or an
- * [AnnotatedString] for one with emphasis.
+ * Asks to confirm an action, the one dialog every delete, clear and reset goes through so they
+ * all read alike.
+ *
+ * @param message What the action does: plain text, or an [AnnotatedString] for one with emphasis.
+ * @param subject The one thing the action is about, see [ConfirmSubject].
+ * @param accentColor Color of that thing, which the dialog then wears as its other dialogs do.
+ * @param items What the action removes, in a card headed by [itemsTitle], each with its size.
+ * @param notice What the action leaves in place or makes harder later.
  */
 @Composable
 fun ConfirmDialog(
     title: String,
-    message: CharSequence,
     primaryText: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
+    message: CharSequence? = null,
     isPrimaryDestructive: Boolean = true,
-    secondaryText: String = stringResource(android.R.string.cancel)
+    secondaryText: String = stringResource(android.R.string.cancel),
+    subject: (@Composable () -> Unit)? = null,
+    accentColor: Color? = null,
+    items: List<ConfirmItem> = emptyList(),
+    itemsTitle: String? = null,
+    notice: String? = null
 ) {
+    val hasContent = subject != null || items.isNotEmpty() || notice != null
     AppDialog(
         onDismissRequest = onDismiss,
         title = title,
         description = message,
+        accentColor = accentColor,
         footer = {
             AppDialogButtonRow(
                 primaryText = primaryText,
@@ -49,7 +82,54 @@ fun ConfirmDialog(
                 onSecondaryClick = onDismiss
             )
         }
-    )
+    ) {
+        if (hasContent) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+            ) {
+                subject?.invoke()
+                if (items.isNotEmpty()) {
+                    LabeledSection(
+                        title = itemsTitle,
+                        icon = Icons.Outlined.Delete.takeIf { itemsTitle != null }
+                    ) {
+                        items.forEach { DeleteListItem(icon = it.icon, text = it.text, detail = it.detail) }
+                    }
+                }
+                if (notice != null) {
+                    Notice(
+                        text = notice,
+                        tone = SemanticTone.Warning,
+                        icon = Icons.Outlined.Info,
+                        density = NoticeDensity.Compact
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** Head of a [ConfirmDialog] about one thing: its [icon] over its [name]. */
+@Composable
+fun ConfirmSubject(
+    name: String,
+    icon: @Composable (Modifier) -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
+    ) {
+        icon(Modifier.size(64.dp))
+        Text(
+            text = name,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold,
+            color = LocalDialogTextColor.current,
+            textAlign = TextAlign.Center
+        )
+    }
 }
 
 /**

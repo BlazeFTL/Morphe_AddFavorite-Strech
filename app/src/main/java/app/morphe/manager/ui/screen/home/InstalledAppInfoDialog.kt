@@ -309,6 +309,20 @@ fun InstalledAppInfoDialog(
         }
     }
 
+    // Head of the delete and uninstall confirmations
+    @Composable
+    fun AppConfirmSubject() {
+        ConfirmSubject(name = appLabel) { modifier ->
+            AppIcon(
+                packageInfo = viewModel.appInfo,
+                packageName = packageName,
+                contentDescription = null,
+                placeholderGradientColors = listOf(infoAccentColor),
+                modifier = modifier
+            )
+        }
+    }
+
     // Everything this dialog opens wears the app's color, as the dialog itself does
     ProvideAccent(infoAccentColor) {
         // Installer unavailable dialog
@@ -379,6 +393,7 @@ fun InstalledAppInfoDialog(
                 title = stringResource(R.string.uninstall),
                 message = stringResource(R.string.home_app_info_uninstall_app_confirmation),
                 primaryText = stringResource(R.string.uninstall),
+                subject = { AppConfirmSubject() },
                 onConfirm = {
                     viewModel.uninstall()
                     showUninstallConfirm.value = false
@@ -410,23 +425,36 @@ fun InstalledAppInfoDialog(
             )
         }
 
-        DeleteConfirmDialog(
-            show = showDeleteDialog.value,
-            isSavedOnly = installedApp?.installType == InstallType.SAVED,
-            appInfo = viewModel.appInfo,
-            packageName = packageName,
-            appLabel = appLabel,
-            accentColor = infoAccentColor,
-            hasSavedApk = viewModel.hasSavedCopy,
-            deletesOriginalApk = viewModel.deletesOriginalApk,
-            onConfirm = {
-                viewModel.removeAppCompletely()
-                showDeleteDialog.value = false
-            },
-            onDismiss = {
-                showDeleteDialog.value = false
+        if (showDeleteDialog.value) {
+            val isSavedOnly = installedApp?.installType == InstallType.SAVED
+            val items = buildList {
+                if (isSavedOnly) {
+                    add(ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.home_app_info_delete_item_patched_apk)))
+                } else {
+                    // A record can outlive both archives, so only list the files that are there
+                    add(ConfirmItem(Icons.Outlined.Storage, stringResource(R.string.home_app_info_delete_item_database)))
+                    if (viewModel.hasSavedCopy) {
+                        add(ConfirmItem(Icons.Outlined.Android, stringResource(R.string.home_app_info_delete_item_patched_apk)))
+                    }
+                    if (viewModel.deletesOriginalApk) {
+                        add(ConfirmItem(Icons.Outlined.FilePresent, stringResource(R.string.home_app_info_delete_item_original_apk)))
+                    }
+                }
             }
-        )
+            ConfirmDialog(
+                title = stringResource(R.string.delete),
+                primaryText = stringResource(R.string.delete),
+                onConfirm = {
+                    viewModel.removeAppCompletely()
+                    showDeleteDialog.value = false
+                },
+                onDismiss = { showDeleteDialog.value = false },
+                subject = { AppConfirmSubject() },
+                items = items,
+                itemsTitle = stringResource(R.string.home_app_info_remove_app_warning),
+                notice = stringResource(R.string.home_app_info_delete_preservation_note).takeUnless { isSavedOnly }
+            )
+        }
     }
 
     // Patch flow always starts with onTriggerPatchFlow → showPatchDialog → ApkAvailabilityDialog,
@@ -1559,94 +1587,6 @@ private fun MountWarningDialog(
             )
         }
     )
-}
-
-@Composable
-private fun DeleteConfirmDialog(
-    show: Boolean,
-    isSavedOnly: Boolean,
-    appInfo: PackageInfo?,
-    packageName: String,
-    appLabel: String,
-    accentColor: Color,
-    hasSavedApk: Boolean,
-    deletesOriginalApk: Boolean,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    if (!show) return
-
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.delete),
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.delete),
-                onPrimaryClick = onConfirm,
-                isPrimaryDestructive = true,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
-        ) {
-            AppIcon(
-                packageInfo = appInfo,
-                packageName = packageName,
-                contentDescription = null,
-                placeholderGradientColors = listOf(accentColor),
-                modifier = Modifier.size(64.dp)
-            )
-            Text(
-                text = appLabel,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold,
-                color = LocalDialogTextColor.current,
-                textAlign = TextAlign.Center
-            )
-            LabeledSection(
-                title = stringResource(R.string.home_app_info_remove_app_warning),
-                icon = Icons.Outlined.Delete
-            ) {
-                if (isSavedOnly) {
-                    DeleteListItem(
-                        icon = Icons.Outlined.Delete,
-                        text = stringResource(R.string.home_app_info_delete_item_patched_apk)
-                    )
-                } else {
-                    // A record can outlive both archives, so only list the files that are there
-                    DeleteListItem(
-                        icon = Icons.Outlined.Storage,
-                        text = stringResource(R.string.home_app_info_delete_item_database)
-                    )
-                    if (hasSavedApk) {
-                        DeleteListItem(
-                            icon = Icons.Outlined.Android,
-                            text = stringResource(R.string.home_app_info_delete_item_patched_apk)
-                        )
-                    }
-                    if (deletesOriginalApk) {
-                        DeleteListItem(
-                            icon = Icons.Outlined.FilePresent,
-                            text = stringResource(R.string.home_app_info_delete_item_original_apk)
-                        )
-                    }
-                }
-            }
-            if (!isSavedOnly) {
-                Notice(
-                    text = stringResource(R.string.home_app_info_delete_preservation_note),
-                    tone = SemanticTone.Warning,
-                    icon = Icons.Outlined.Info,
-                    density = NoticeDensity.Compact
-                )
-            }
-        }
-    }
 }
 
 /**

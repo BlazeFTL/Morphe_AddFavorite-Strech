@@ -514,14 +514,20 @@ fun BundleManagementSheet(
     }
 
     // Delete confirmation dialog
-    if (bundleToDelete.value != null) {
+    bundleToDelete.value?.let { bundle ->
         ConfirmDialog(
             title = stringResource(R.string.delete),
-            message = stringResource(R.string.sources_dialog_delete_confirm_message, bundleToDelete.value!!.displayTitle),
+            message = stringResource(R.string.sources_dialog_delete_confirm_body),
             primaryText = stringResource(R.string.delete),
+            subject = {
+                ConfirmSubject(name = bundle.displayTitle) { modifier ->
+                    BundleIcon(bundle = bundle, modifier = modifier)
+                }
+            },
+            accentColor = rememberSourceHeaderColor(bundle),
             onDismiss = { bundleToDelete.value = null },
             onConfirm = {
-                onDelete(bundleToDelete.value!!)
+                onDelete(bundle)
                 bundleToDelete.value = null
             }
         )

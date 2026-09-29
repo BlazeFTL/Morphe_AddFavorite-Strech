@@ -775,35 +775,6 @@ private fun BundleSelectionItem(
     }
 }
 
-@Composable
-private fun ConfirmResetDialog(
-    title: String,
-    message: CharSequence,
-    primaryText: String,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit,
-    summaryItems: @Composable () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = title,
-        description = message,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = primaryText,
-                onPrimaryClick = onConfirm,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss,
-                isPrimaryDestructive = true
-            )
-        }
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            LabeledSection { summaryItems() }
-        }
-    }
-}
-
 /**
  * Confirmation dialog for resetting selections across the currently selected packages.
  */
@@ -816,18 +787,16 @@ private fun ConfirmResetSelectedDialog(
 ) {
     val patchesText = pluralStringResource(R.plurals.patch_count, totalPatches, totalPatches.toString())
     val packagesText = pluralStringResource(R.plurals.package_count, packageCount, packageCount.toString())
-    ConfirmResetDialog(
+    ConfirmDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_selected_confirm_title),
         message = stringResource(R.string.settings_system_patch_selection_reset_selected_warning),
         primaryText = stringResource(R.string.reset),
         onConfirm = onConfirm,
-        onDismiss = onDismiss
-    ) {
-        DeleteListItem(
-            icon = Icons.Outlined.Delete,
-            text = stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText)
+        onDismiss = onDismiss,
+        items = listOfNotNull(
+            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText))
         )
-    }
+    )
 }
 
 /**
@@ -850,24 +819,17 @@ private fun ConfirmResetAllDialog(
 
     val patchesText = pluralStringResource(R.plurals.patch_count, totalSelections, totalSelections.toString())
     val packagesText = pluralStringResource(R.plurals.package_count, packageCount, packageCount.toString())
-    ConfirmResetDialog(
+    ConfirmDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_all_confirm_title),
         message = stringResource(R.string.settings_system_patch_selection_reset_all_warning),
         primaryText = stringResource(R.string.reset_all),
         onConfirm = onConfirm,
-        onDismiss = onDismiss
-    ) {
-        DeleteListItem(
-            icon = Icons.Outlined.Delete,
-            text = stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText)
+        onDismiss = onDismiss,
+        items = listOfNotNull(
+            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_total_summary_format, patchesText, packagesText)),
+            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, totalOptions, totalOptions.toString())).takeIf { totalOptions > 0 }
         )
-        if (totalOptions > 0) {
-            DeleteListItem(
-                icon = Icons.Outlined.Tune,
-                text = pluralStringResource(R.plurals.option_count, totalOptions, totalOptions.toString())
-            )
-        }
-    }
+    )
 }
 
 /**
@@ -893,24 +855,17 @@ private fun ConfirmResetPackageDialog(
 
     val patchesText = pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
     val sourcesText = pluralStringResource(R.plurals.source_count, bundleCount, bundleCount.toString())
-    ConfirmResetDialog(
+    ConfirmDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_package_confirm_title),
         message = htmlAnnotatedString(stringResource(R.string.settings_system_patch_selection_reset_package_warning, displayName)),
         primaryText = stringResource(R.string.reset),
         onConfirm = onConfirm,
-        onDismiss = onDismiss
-    ) {
-        DeleteListItem(
-            icon = Icons.Outlined.Delete,
-            text = stringResource(R.string.settings_system_patch_selection_patches_in_sources_format, patchesText, sourcesText)
+        onDismiss = onDismiss,
+        items = listOfNotNull(
+            ConfirmItem(Icons.Outlined.Delete, stringResource(R.string.settings_system_patch_selection_patches_in_sources_format, patchesText, sourcesText)),
+            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())).takeIf { optionsCount > 0 }
         )
-        if (optionsCount > 0) {
-            DeleteListItem(
-                icon = Icons.Outlined.Tune,
-                text = pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())
-            )
-        }
-    }
+    )
 }
 
 /**
@@ -937,24 +892,17 @@ private fun ConfirmResetPackageBundleDialog(
 
     val bundleDisplayName = bundleName
         ?: stringResource(R.string.settings_system_patch_selection_source_format, bundleUid)
-    ConfirmResetDialog(
+    ConfirmDialog(
         title = stringResource(R.string.settings_system_patch_selection_reset_source_confirm_title),
         message = htmlAnnotatedString(stringResource(R.string.settings_system_patch_selection_reset_source_warning, displayName, bundleDisplayName)),
         primaryText = stringResource(R.string.reset),
         onConfirm = onConfirm,
-        onDismiss = onDismiss
-    ) {
-        DeleteListItem(
-            icon = Icons.Outlined.Delete,
-            text = pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())
+        onDismiss = onDismiss,
+        items = listOfNotNull(
+            ConfirmItem(Icons.Outlined.Delete, pluralStringResource(R.plurals.patch_count, patchCount, patchCount.toString())),
+            ConfirmItem(Icons.Outlined.Tune, pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())).takeIf { optionsCount > 0 }
         )
-        if (optionsCount > 0) {
-            DeleteListItem(
-                icon = Icons.Outlined.Tune,
-                text = pluralStringResource(R.plurals.option_count, optionsCount, optionsCount.toString())
-            )
-        }
-    }
+    )
 }
 
 /**

@@ -669,14 +669,15 @@ fun SectionTitle(
 }
 
 /**
- * A single item in a deletion list with an icon and text.
+ * A single item in a deletion list with an icon, text and an optional [detail] such as its size.
  * Used inside [LabeledSection] in destructive confirmation dialogs.
  */
 @Composable
 fun DeleteListItem(
     icon: ImageVector,
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    detail: String? = null
 ) {
     Row(
         modifier = modifier
@@ -695,6 +696,13 @@ fun DeleteListItem(
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f)
         )
+        if (detail != null) {
+            Text(
+                text = detail,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }
 

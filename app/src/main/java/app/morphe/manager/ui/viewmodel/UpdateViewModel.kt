@@ -80,6 +80,10 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     var changelogEntries: List<ChangelogEntry>? by mutableStateOf(null)
         private set
 
+    // Why the releases above could not be loaded, shown by the dialog in their place
+    var changelogError: Throwable? by mutableStateOf(null)
+        private set
+
     // How many of the changelog entries lead the list as newer than the installed version
     var newReleaseCount by mutableIntStateOf(0)
         private set
@@ -399,8 +403,13 @@ class UpdateViewModel : ViewModel(), KoinComponent {
      */
     fun loadChangelog() {
         changelogJob?.cancel()
+        // A retry after a failure shows the list loading again rather than the error it replaces
+        if (changelogError != null) {
+            changelogError = null
+            changelogEntries = null
+        }
         changelogJob = viewModelScope.launch {
-            uiSafe(app, R.string.download_manager_failed, "Failed to load changelog") {
+            try {
                 val installedVersion = BuildConfig.VERSION_NAME.normalizeVersion()
                 val release = releaseInfo
 
@@ -435,9 +444,13 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                 val shownVersions = newer.map { it.version.normalizeVersion() }.toSet()
                 changelogEntries = newer + installed.filter { it.version.normalizeVersion() !in shownVersions }
                 newReleaseCount = newer.size
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // The dialog shows the failure in place of the list, next to its retry
+                Log.e(tag, "Failed to load changelog", e)
+                changelogError = e
             }
-            // A failed first load still leaves the history below to fetch, rather than a list stuck loading
-            if (changelogEntries == null) changelogEntries = emptyList()
         }
     }
 

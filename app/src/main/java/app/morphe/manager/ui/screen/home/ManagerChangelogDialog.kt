@@ -59,6 +59,7 @@ private val AbandonedInstallGrace = 1500.milliseconds
  */
 private enum class UpdateDialogContent {
     DetailsLoading,
+    DetailsFailed,
     Details,
     Downloading,
     Installing,
@@ -69,9 +70,11 @@ private enum class UpdateDialogContent {
 /** Resolves the body to show, the changelog or a stage of the update. */
 private fun updateDialogContentOf(updateViewModel: UpdateViewModel): UpdateDialogContent =
     when (updateViewModel.state) {
-        UpdateViewModel.State.CAN_DOWNLOAD, UpdateViewModel.State.CAN_INSTALL ->
-            if (updateViewModel.changelogEntries == null) UpdateDialogContent.DetailsLoading
-            else UpdateDialogContent.Details
+        UpdateViewModel.State.CAN_DOWNLOAD, UpdateViewModel.State.CAN_INSTALL -> when {
+            updateViewModel.changelogError != null -> UpdateDialogContent.DetailsFailed
+            updateViewModel.changelogEntries == null -> UpdateDialogContent.DetailsLoading
+            else -> UpdateDialogContent.Details
+        }
 
         UpdateViewModel.State.DOWNLOADING -> UpdateDialogContent.Downloading
         UpdateViewModel.State.INSTALLING -> UpdateDialogContent.Installing
@@ -187,6 +190,8 @@ fun ManagerChangelogDialog(
                     modifier = Modifier.padding(top = Defaults.ItemSpacing)
                 )
 
+                UpdateDialogContent.DetailsFailed -> updateViewModel.changelogError?.let { ChangelogError(it) }
+
                 UpdateDialogContent.Details -> {
                     val entries = updateViewModel.changelogEntries.orEmpty()
                     val newReleases = entries.take(updateViewModel.newReleaseCount)
@@ -276,6 +281,15 @@ private fun UpdateDialogFooter(
         UpdateViewModel.State.CAN_DOWNLOAD -> buildList {
             // Opened for the changelog alone, the dialog offers the download only once an update turns up
             if (releaseInfo == null && !expectsUpdate) {
+                if (updateViewModel.changelogError != null) {
+                    add(
+                        DialogAction(
+                            text = stringResource(R.string.retry),
+                            onClick = { updateViewModel.loadChangelog() },
+                            icon = Icons.Outlined.Refresh
+                        )
+                    )
+                }
                 add(
                     DialogAction(
                         text = stringResource(R.string.close),

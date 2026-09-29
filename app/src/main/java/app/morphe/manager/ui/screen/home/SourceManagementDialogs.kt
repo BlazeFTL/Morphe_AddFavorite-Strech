@@ -14,7 +14,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -946,7 +945,8 @@ fun BundleChangelogDialog(
                         actions = listOf(
                             DialogAction(
                                 text = stringResource(R.string.retry),
-                                onClick = { fetchTrigger++ }
+                                onClick = { fetchTrigger++ },
+                                icon = Icons.Outlined.Refresh
                             ),
                             DialogAction(
                                 text = stringResource(R.string.close),
@@ -1003,7 +1003,7 @@ private fun BundleChangelogContent(
             BundleChangelogState.Loading -> ChangelogListLoading(
                 modifier = Modifier.padding(top = Defaults.ItemSpacing)
             )
-            is BundleChangelogState.Error -> BundleChangelogError(error = current.throwable)
+            is BundleChangelogState.Error -> ChangelogError(error = current.throwable)
             is BundleChangelogState.Entries -> {
                 if (current.entries.isEmpty()) {
                     Text(
@@ -1026,50 +1026,6 @@ private fun BundleChangelogContent(
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun BundleChangelogError(
-    error: Throwable
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 48.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            // Error icon with circular background
-            Surface(
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
-                modifier = Modifier.size(80.dp)
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = Icons.Outlined.ErrorOutline,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.size(40.dp)
-                    )
-                }
-            }
-
-            // Error details
-            Text(
-                text = stringResource(
-                    R.string.changelog_download_fail,
-                    error.simpleMessage().orEmpty()
-                ),
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Bold,
-                color = LocalDialogTextColor.current
-            )
         }
     }
 }

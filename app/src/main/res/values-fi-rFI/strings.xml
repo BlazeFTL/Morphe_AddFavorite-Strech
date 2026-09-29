@@ -1318,6 +1318,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="update_completed">Päivitys asennettu</string>
     <string name="install_update_manager_failed">Päivityksen asentaminen epäonnistui</string>
     <string name="installing_manager_update">Asennetaan päivitystä…</string>
+    <string name="installing_manager_update_hint">Morphe sulkeutuu viimeistelläkseen päivityksen</string>
     <string name="downloading_manager_update">Ladataan päivitystä…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Ladattu %1$s Mt</string>

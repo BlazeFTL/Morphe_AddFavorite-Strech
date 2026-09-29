@@ -1319,6 +1319,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">更新已安裝</string>
     <string name="install_update_manager_failed">無法安裝更新</string>
     <string name="installing_manager_update">正在安裝更新……</string>
+    <string name="installing_manager_update_hint">Morphe 將關閉以完成更新</string>
     <string name="downloading_manager_update">正在下載更新……</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB 已下載</string>

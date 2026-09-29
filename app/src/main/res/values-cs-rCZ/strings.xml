@@ -1321,6 +1321,7 @@ Podrobnosti: %2$s"</string>
     <string name="update_completed">Aktualizace nainstalována</string>
     <string name="install_update_manager_failed">Selhání instalace aktualizace</string>
     <string name="installing_manager_update">Instaluje se aktualizace…</string>
+    <string name="installing_manager_update_hint">Morphe se zavře, aby dokončil aktualizaci</string>
     <string name="downloading_manager_update">Stahování aktualizace…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Staženo %1$s MB</string>

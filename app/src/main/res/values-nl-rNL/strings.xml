@@ -1322,6 +1322,7 @@ Details: %2$s"</string>
     <string name="update_completed">Update geïnstalleerd</string>
     <string name="install_update_manager_failed">Fout bij het installeren van update</string>
     <string name="installing_manager_update">Update installeren…</string>
+    <string name="installing_manager_update_hint">Morphe zal sluiten om de update af te ronden</string>
     <string name="downloading_manager_update">Update downloaden…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB gedownload</string>

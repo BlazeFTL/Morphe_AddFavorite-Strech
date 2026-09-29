@@ -150,7 +150,7 @@
     <string name="sources_prerelease_warning_message">プレリリース版は現在開発中です。パッチに失敗したり、アプリが正常に動作しなくなったりする可能性があります。また、予告なく機能が変更される場合があります</string>
     <string name="expert_mode_prerelease_notice">このソースはプレリリース版パッチを使用しています。パッチ適用が失敗したり、予期しない動作が発生したりする可能性があります</string>
     <string name="sources_management_experimental_versions_toggle">実験的なバージョンのアプリを使用</string>
-    <string name="sources_management_experimental_versions_toggle_description">実験的に対応されているアプリを表示します</string>
+    <string name="sources_management_experimental_versions_toggle_description">実験的なアプリをパッチ対象として表示します</string>
     <string name="sources_management_already_exists">このソースは既に存在します</string>
     <string name="sources_management_invalid_url">無効なソース URL です。アドレスを確認してもう一度お試しください</string>
     <string name="sources_management_blocked">このパッチソースはブロックされており、追加できません</string>
@@ -174,7 +174,7 @@
     <string name="sources_dialog_delete_confirm_message">ソース 「%s」 を削除しますか？ この操作は元に戻せません</string>
     <string name="sources_dialog_remote">リモート</string>
     <string name="sources_dialog_remote_url">ソース URL</string>
-    <string name="sources_dialog_remote_url_hint">リポジトリ、またはパッチバンドル（.json）へのリンク。一度に複数貼り付けると、すべて追加されます。</string>
+    <string name="sources_dialog_remote_url_hint">リポジトリまたはパッチバンドル (.json) へのリンクです。複数まとめて貼り付けると、一度に追加できます</string>
     <string name="sources_dialog_paste_no_links">クリップボードにリンクが見つかりません</string>
     <string name="sources_dialog_local">ローカル</string>
     <string name="sources_dialog_local_files">パッチソースファイルを選択</string>
@@ -407,7 +407,7 @@
     <string name="header_creator_guide_positioning_title">位置とサイズ調整</string>
     <string name="header_creator_guide_positioning_body">プレビュー上でピンチズームやドラッグ操作を使用して、画像の位置やサイズを調整できます。画像が中央付近にあるときにスナップガイドが表示されます。プレビュー下のスライダーを使用して調整することもできます。</string>
     <!-- Batch patching -->
-    <string name="batch_patch_action">パッチを選択中</string>
+    <string name="batch_patch_action">選択したアプリにパッチを適用</string>
     <string name="batch_patch_title">一括パッチ</string>
     <string name="batch_patch_planning">キューを準備しています…</string>
     <string name="batch_patch_preparing_next">次のアプリを準備しています…</string>
@@ -423,8 +423,8 @@
     <string name="batch_patch_source_file">添付ファイル</string>
     <string name="batch_patch_source_unavailable">APK を準備できませんでした</string>
     <string name="batch_patch_force_version">とにかくパッチを適用する</string>
-    <string name="batch_patch_force_version_done">とにかくキューに追加されます。アプリが壊れる可能性があります。</string>
-    <string name="batch_patch_accept_signature_done">とにかくキューに追加します。APK は検証されていません</string>
+    <string name="batch_patch_force_version_done">キューに追加しましたが、アプリが正常に動作しない可能性があります</string>
+    <string name="batch_patch_accept_signature_done">キューに追加しましたが、APK は検証されていません</string>
     <string name="batch_patch_edit_patches">パッチを選択する</string>
     <string name="batch_patch_state_no_apk">APK がありません</string>
     <string name="batch_patch_state_no_patches">パッチがありません</string>
@@ -681,7 +681,7 @@
     <string name="system">システム</string>
     <!-- Settings - Appearance Tab - Background animation -->
     <string name="settings_appearance_background">背景アニメーション</string>
-    <string name="settings_appearance_background_description">アプリの画面の背後で再生されるアニメーション</string>
+    <string name="settings_appearance_background_description">アプリの画面の背景で再生されます</string>
     <string name="settings_appearance_background_circles">円</string>
     <string name="settings_appearance_background_rings">リング</string>
     <string name="settings_appearance_background_mesh">メッシュ</string>
@@ -711,7 +711,7 @@
     <string name="settings_appearance_pure_black">ピュアブラック</string>
     <string name="settings_appearance_pure_black_description">真っ黒な背景を使用します</string>
     <string name="settings_appearance_color_accents">アプリとソースの色</string>
-    <string name="settings_appearance_color_accents_description">アクセントカラーの代わりに、各アプリとソース固有の色を使用します。</string>
+    <string name="settings_appearance_color_accents_description">アクセントカラーの代わりに、各アプリやソース固有のカラーを使用します</string>
     <string name="settings_appearance_outlines">アウトライン</string>
     <string name="settings_appearance_outlines_description">カード、パネル、ボタンの周囲に細い枠線を描画します</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -753,7 +753,7 @@
     <string name="settings_appearance_app_card_colors_bundle_description">アプリのテーマカラーを使用し、自動でなじむように色調を調整します</string>
     <!-- Settings - Appearance Tab - App Icon Selector -->
     <string name="settings_appearance_app_icon_selector_title">アプリアイコン</string>
-    <string name="settings_appearance_app_icon_selector_description">ホーム画面とアプリドロワーでの Morphe の見た目</string>
+    <string name="settings_appearance_app_icon_selector_description">ホーム画面やアプリドロワーでの Morphe の見た目です</string>
     <string name="settings_appearance_app_icon_default">デフォルト</string>
     <string name="settings_appearance_app_icon_light_2">スカイ</string>
     <string name="settings_appearance_app_icon_light_3">サンセット</string>
@@ -1292,7 +1292,7 @@ morphe_header_custom_dark.png
     <string name="changelog_for_app">%s の変更</string>
     <string name="changelog_general_changes">一般的な変更</string>
     <string name="whats_new">新着情報</string>
-    <string name="changelog_description">このバージョンの新機能</string>
+    <string name="changelog_description">このバージョンの新機能を確認できます</string>
     <string name="changelog_download_fail">変更履歴のダウンロードに失敗しました: %s</string>
     <string name="changelog_empty">利用可能な更新はありません</string>
     <string name="changelog_earlier_releases">過去のリリース</string>
@@ -1302,9 +1302,9 @@ morphe_header_custom_dark.png
     <string name="changelog_release_page">リリースページ</string>
     <string name="content_translate">翻訳</string>
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <string name="content_show_original">オリジナル</string>
+    <string name="content_show_original">原文</string>
     <string name="content_translation_failed">翻訳に失敗しました：%s</string>
-    <string name="changelog_section_new">新着</string>
+    <string name="changelog_section_new">新機能</string>
     <string name="changelog_section_fixes">修正</string>
     <string name="changelog_section_performance">パフォーマンス</string>
     <string name="changelog_section_improvements">改善</string>

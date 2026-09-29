@@ -1,3 +1,10 @@
+# [1.33.0-dev.17](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.16...v1.33.0-dev.17) (2026-09-29)
+
+
+### Bug Fixes
+
+* Say there is no connection when a changelog cannot load ([4b2f8ba](https://github.com/MorpheApp/morphe-manager/commit/4b2f8ba5d20cd227ac3852378e8909c32b3d773c))
+
 # [1.33.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.15...v1.33.0-dev.16) (2026-09-29)
 
 

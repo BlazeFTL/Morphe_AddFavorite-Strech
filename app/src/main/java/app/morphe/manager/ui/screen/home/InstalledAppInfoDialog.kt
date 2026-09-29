@@ -457,7 +457,7 @@ fun InstalledAppInfoDialog(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    PulsingLogoIndicator()
+                    PulsingLogoIndicator(delayed = true)
                 }
 
                 return@AnimatedContent

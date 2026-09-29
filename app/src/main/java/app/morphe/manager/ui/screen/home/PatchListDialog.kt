@@ -190,7 +190,7 @@ internal fun PatchListDialog(
             ) { loading ->
                 if (loading) {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        PulsingLogoIndicator()
+                        PulsingLogoIndicator(delayed = true)
                     }
                     return@AnimatedContent
                 }

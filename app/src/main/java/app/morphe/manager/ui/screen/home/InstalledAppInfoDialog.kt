@@ -862,6 +862,10 @@ private fun VersionTransition(
 /**
  * Unified banner component for warnings and updates.
  *
+ * Neutral like the app's other cards, with its color on the edge: red for an [isError] banner, whose
+ * heading takes the same red, the app's own otherwise. Its button is the app's either way, being the
+ * way out rather than a destructive action.
+ *
  * [versions] is the move being offered, from the version installed to the one it would end up on,
  * printed under the description as one line.
  */
@@ -879,74 +883,74 @@ private fun WarningBanner(
     versions: Pair<String, String>? = null,
     secondaryActions: List<ActionItem> = emptyList()
 ) {
-    val baseColor = if (isError) MaterialTheme.colorScheme.error else accentColor
-    val accent = readableAccent(baseColor)
-    val containerColor = accent?.copy(alpha = AccentAlpha.BAND) ?: MaterialTheme.colorScheme.surfaceVariant
-    val contentColor = appAccentContent(containerColor)
-    val borderColor = accent?.copy(alpha = 0.35f) ?: MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f)
+    val fill = cardFill()
+    val contentColor = MaterialTheme.colorScheme.onSurface
+    // The warning is carried by the heading rather than the fill, which would only muddy the red
+    val headingColor = if (isError) destructiveColor() else contentColor
+    val borderColor = if (isError) destructiveEdgeColor() else appAccentBorder(accentColor)
 
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(Defaults.ItemSpacing))
-            .cardBorder(CardBorder.of(borderColor), RoundedCornerShape(Defaults.ItemSpacing))
-            .background(containerColor)
-            .padding(Defaults.ItemSpacing),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Header with icon
-        Row(
-            modifier = Modifier.wrapContentWidth(),
-            horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-            verticalAlignment = Alignment.CenterVertically
+    ProvideCardAccent(accentColor, fill) {
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(Defaults.ItemSpacing))
+                .cardBorder(CardBorder.of(borderColor), RoundedCornerShape(Defaults.ItemSpacing))
+                .background(fill)
+                .padding(Defaults.ItemSpacing),
+            verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = contentColor,
-                modifier = Modifier.size(Defaults.ContentPadding)
-            )
+            // Header with icon
+            Row(
+                modifier = Modifier.wrapContentWidth(),
+                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = headingColor,
+                    modifier = Modifier.size(Defaults.ContentPadding)
+                )
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = headingColor,
+                    textAlign = TextAlign.Center
+                )
+            }
+
+            // Description
             Text(
-                text = title,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold,
-                color = contentColor,
+                text = description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
-        }
 
-        // Description
-        Text(
-            text = description,
-            style = MaterialTheme.typography.bodySmall,
-            color = contentColor.copy(alpha = 0.9f),
-            textAlign = TextAlign.Center
-        )
+            versions?.let { VersionTransition(versions = it, contentColor = contentColor) }
 
-        versions?.let { VersionTransition(versions = it, contentColor = contentColor) }
+            // Action button
+            PrimaryActionButton(
+                action = ActionItem(text = buttonText, icon = buttonIcon, onClick = onClick),
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        // Action button
-        PrimaryActionButton(
-            action = ActionItem(text = buttonText, icon = buttonIcon, onClick = onClick),
-            accentColor = baseColor,
-            contentColorOverride = contentColor,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        // Side by side, because the banner's own button is the one meant to stand out and a
-        // column of full-width buttons under it reads as three offers of equal weight
-        if (secondaryActions.isNotEmpty()) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-            ) {
-                secondaryActions.forEach { action ->
-                    TileActionButton(
-                        action = action,
-                        horizontal = true,
-                        modifier = Modifier.weight(1f)
-                    )
+            // Side by side, because the banner's own button is the one meant to stand out and a
+            // column of full-width buttons under it reads as three offers of equal weight
+            if (secondaryActions.isNotEmpty()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
+                ) {
+                    secondaryActions.forEach { action ->
+                        TileActionButton(
+                            action = action,
+                            horizontal = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
                 }
             }
         }
@@ -1483,27 +1487,20 @@ private fun ActionButton(
     }
 }
 
-/**
- * Full-width primary button with accent color palette.
- *
- * @param accentColor The dialog's color by default, or a banner's own, such as its error red.
- */
+/** Full-width primary button in the app's color, see [LocalAccent]. */
 @Composable
 private fun PrimaryActionButton(
     action: ActionItem,
-    modifier: Modifier = Modifier,
-    accentColor: Color? = LocalAccent.current,
-    contentColorOverride: Color? = null
+    modifier: Modifier = Modifier
 ) {
-    // Readable rather than usable, see readableAccent, so a banner's error red stays red
-    val accent = readableAccent(accentColor)
+    val accent = LocalAccent.current
     // A step over the other tiles, which take the app's color at the band's fill, so it leads them
     val containerColor = accent?.copy(alpha = AccentAlpha.LEAD)
         ?: MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.9f)
     ActionButton(
         action = action,
         containerColor = containerColor,
-        contentColor = contentColorOverride ?: appAccentContent(containerColor),
+        contentColor = appAccentContent(containerColor),
         borderColor = accent?.copy(alpha = 0.35f) ?: MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f),
         modifier = modifier
     )

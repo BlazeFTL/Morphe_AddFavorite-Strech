@@ -27,9 +27,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -75,8 +81,8 @@ private val SourceShimmerRows = (0 until 4).toList()
 /** Share of a source's disc its fallback glyph takes, the 24dp a 44dp disc has always given it. */
 private const val BUNDLE_GLYPH_FRACTION = 0.55f
 
-/** How far a switched off source's icon and name fade back. */
-private const val DISABLED_SOURCE_ALPHA = 0.5f
+/** How far a switched off source's icon and the lines under its name fade back. */
+private const val DISABLED_SOURCE_ALPHA = 0.7f
 
 /**
  * Bottom sheet for managing patch bundles.
@@ -1005,10 +1011,15 @@ private fun BundleCardHeader(
         targetValue = if (expanded) 180f else 0f,
         label = "expand_chevron"
     )
-    // Fades along with the icon, so a source switched off reads as such before its badge is read
-    val titleAlpha by animateFloatAsState(
+    // The name dims by color rather than alpha so it stays crisp and above the lines under it,
+    // which fade along with the icon, so a source switched off reads as such before its badge is read
+    val titleColor by animateColorAsState(
+        targetValue = if (enabled) LocalContentColor.current else MaterialTheme.colorScheme.onSurfaceVariant,
+        label = "bundle_title_color"
+    )
+    val detailsAlpha by animateFloatAsState(
         targetValue = if (enabled) 1f else DISABLED_SOURCE_ALPHA,
-        label = "bundle_title_alpha"
+        label = "bundle_details_alpha"
     )
 
     Row(
@@ -1031,9 +1042,9 @@ private fun BundleCardHeader(
                 text = bundle.displayTitle,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
+                color = titleColor,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.graphicsLayer { alpha = titleAlpha }
+                overflow = TextOverflow.Ellipsis
             )
 
             // Version • date
@@ -1045,6 +1056,7 @@ private fun BundleCardHeader(
 
             if (versionText != null || dateText != null) {
                 Row(
+                    modifier = Modifier.graphicsLayer { alpha = detailsAlpha },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
@@ -1106,10 +1118,10 @@ private fun BundleCardHeader(
                     )
                 }
 
-                // Bundle type badge, faded with the title since it describes the source as well
+                // Bundle type badge, faded with the version line since it describes the source as well
                 BundleTypeBadge(
                     type = bundle.sourceType,
-                    modifier = Modifier.graphicsLayer { alpha = titleAlpha }
+                    modifier = Modifier.graphicsLayer { alpha = detailsAlpha }
                 )
 
                 SourceStateBadge(
@@ -1132,7 +1144,8 @@ private fun BundleCardHeader(
                 SourceStateBadge(
                     visible = !enabled && blockedInfo == null,
                     text = stringResource(R.string.disabled),
-                    tone = SemanticTone.Neutral
+                    tone = SemanticTone.Neutral,
+                    icon = Icons.Outlined.PowerSettingsNew
                 )
 
                 // Update badge
@@ -1165,14 +1178,15 @@ private fun BundleCardHeader(
 private fun RowScope.SourceStateBadge(
     visible: Boolean,
     text: String,
-    tone: SemanticTone = SemanticTone.Error
+    tone: SemanticTone = SemanticTone.Error,
+    icon: ImageVector? = null
 ) {
     AnimatedVisibility(
         visible = visible,
         enter = Animations.expandHorizFadeIn,
         exit = Animations.shrinkHorizFadeOut
     ) {
-        AppAccentBadge(text = text, accentColor = null, tone = tone)
+        AppAccentBadge(text = text, accentColor = null, icon = icon, tone = tone)
     }
 }
 
@@ -1257,9 +1271,16 @@ fun BundleIcon(
         targetValue = if (enabled) 1f else DISABLED_SOURCE_ALPHA,
         label = "bundle_icon_alpha"
     )
+    // Drained of color as well as faded, since a faded photo alone reads as murky rather than off
+    val animatedSaturation by animateFloatAsState(
+        targetValue = if (enabled) 1f else 0f,
+        label = "bundle_icon_saturation"
+    )
 
     Surface(
-        modifier = modifier.graphicsLayer { alpha = animatedAlpha },
+        modifier = modifier
+            .graphicsLayer { alpha = animatedAlpha }
+            .saturation(animatedSaturation),
         shape = CircleShape,
         color = animatedColor
     ) {
@@ -1312,3 +1333,19 @@ fun BundleIcon(
  * small disc such as a tab's instead of a fixed inset leaving it a speck.
  */
 private fun Modifier.bundleGlyph(): Modifier = wrapContentSize().fillMaxSize(BUNDLE_GLYPH_FRACTION)
+
+/** Draws the content at [saturation], from 0 for grayscale to 1 for its own colors. */
+private fun Modifier.saturation(saturation: Float): Modifier = drawWithCache {
+    // Full color skips the offscreen layer, which every source that is on would otherwise pay for
+    if (saturation >= 1f) return@drawWithCache onDrawWithContent { drawContent() }
+    val paint = Paint().apply {
+        colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(saturation) })
+    }
+    onDrawWithContent {
+        drawIntoCanvas { canvas ->
+            canvas.saveLayer(size.toRect(), paint)
+            drawContent()
+            canvas.restore()
+        }
+    }
+}

@@ -230,6 +230,7 @@ private fun ApkDownloadSource.instructionSteps(
 @Composable
 internal fun DownloadInstructionsDialog(
     appName: String,
+    packageName: String?,
     downloadUrl: String?,
     requestedVersion: String?,
     usingMountInstall: Boolean,
@@ -267,6 +268,7 @@ internal fun DownloadInstructionsDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_download_instructions_title),
         // What the steps fetch, since the dialog before this one named it and is gone by now
         description = listOfNotNull(appName, requestedVersion?.withVersionPrefix()).joinToString(" · "),

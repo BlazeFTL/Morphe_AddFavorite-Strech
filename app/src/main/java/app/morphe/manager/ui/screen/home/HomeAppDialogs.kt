@@ -138,6 +138,7 @@ internal fun HideAppDialog(
 ) {
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(item.packageName),
         title = stringResource(R.string.home_app_hide_title),
         footer = {
             AppDialogButtonRow(

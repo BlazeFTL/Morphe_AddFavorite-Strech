@@ -309,122 +309,125 @@ fun InstalledAppInfoDialog(
         }
     }
 
-    // Installer unavailable dialog
-    installViewModel.installerUnavailableDialog?.let { dialogState ->
-        InstallerUnavailableDialog(
-            state = dialogState,
-            onOpenApp = installViewModel::openInstallerApp,
-            onRetry = installViewModel::retryWithPreferredInstaller,
-            onUseFallback = installViewModel::proceedWithFallbackInstaller,
-            onDismiss = installViewModel::dismissInstallerUnavailableDialog
-        )
-    }
-
-    // Installer selection dialog (shown when promptInstallerOnInstall is enabled)
-    if (installViewModel.showInstallerSelectionDialog) {
-        val options = remember { installViewModel.getInstallerOptions() }
-        val primaryToken = remember { installViewModel.getPrimaryInstallerToken() }
-        InstallerSelectionDialog(
-            options = options,
-            selected = primaryToken,
-            onDismiss = installViewModel::dismissInstallerSelectionDialog,
-            onConfirm = { token ->
-                installViewModel.proceedWithSelectedInstaller(token)
-            },
-            onOpenShizuku = installViewModel::openShizukuApp,
-            shizukuStatusProvider = installViewModel::getShizukuStatus,
-            onRequestShizukuPermission = installViewModel::requestShizukuPermission
-        )
-    }
-
-    // Sub-dialogs
-    if (showAppliedPatchesDialog.value && appliedPatches != null) {
-        AppliedPatchesDialog(
-            appLabel = appLabel,
-            appInfo = appInfo,
-            accentColor = appAccentColor,
-            packageName = installedApp?.originalPackageName ?: packageName,
-            bundles = appliedBundles,
-            settingsViewModel = settingsViewModel,
-            onDismiss = { showAppliedPatchesDialog.value = false }
-        )
-    }
-
-    // What the pending patch update changed for this app
-    BundleChangelogHost(
-        request = changelogRequest.value,
-        sources = sources,
-        onDismissRequest = { changelogRequest.value = null }
-    )
-
-    // Mount warning dialog
-    if (showMountWarningDialog.value) {
-        MountWarningDialog(
-            onConfirm = {
-                showMountWarningDialog.value = false
-                pendingMountWarningAction.value?.invoke()
-                pendingMountWarningAction.value = null
-            },
-            onDismiss = {
-                showMountWarningDialog.value = false
-                pendingMountWarningAction.value = null
-            }
-        )
-    }
-
-    if (showUninstallConfirm.value) {
-        ConfirmDialog(
-            title = stringResource(R.string.uninstall),
-            message = stringResource(R.string.home_app_info_uninstall_app_confirmation),
-            primaryText = stringResource(R.string.uninstall),
-            onConfirm = {
-                viewModel.uninstall()
-                showUninstallConfirm.value = false
-            },
-            onDismiss = { showUninstallConfirm.value = false }
-        )
-    }
-
-    signatureConflict.value?.let { conflict ->
-        SignatureConflictDialog(
-            title = stringResource(R.string.patcher_conflict_title),
-            message = stringResource(R.string.patcher_conflict_subtitle),
-            onUninstall = {
-                signatureConflict.value = null
-                installViewModel.requestUninstall(conflict.packageName, installAfterUninstall = true)
-            },
-            onDismiss = {
-                signatureConflict.value = null
-                installViewModel.resetInstallState()
-            },
-            onIgnore = if (conflict.canIgnoreSignatureMismatch) {
-                {
-                    signatureConflict.value = null
-                    installViewModel.installIgnoringSignatureMismatch()
-                }
-            } else {
-                null
-            }
-        )
-    }
-
-    DeleteConfirmDialog(
-        show = showDeleteDialog.value,
-        isSavedOnly = installedApp?.installType == InstallType.SAVED,
-        appInfo = viewModel.appInfo,
-        packageName = packageName,
-        appLabel = appLabel,
-        accentColor = infoAccentColor,
-        hasSavedApk = viewModel.hasSavedCopy,
-        deletesOriginalApk = viewModel.deletesOriginalApk,
-        onConfirm = {
-            viewModel.removeAppCompletely()
-            showDeleteDialog.value = false
-        },
-        onDismiss = {
-            showDeleteDialog.value = false
+    // Everything this dialog opens wears the app's color, as the dialog itself does
+    ProvideAccent(infoAccentColor) {
+        // Installer unavailable dialog
+        installViewModel.installerUnavailableDialog?.let { dialogState ->
+            InstallerUnavailableDialog(
+                state = dialogState,
+                onOpenApp = installViewModel::openInstallerApp,
+                onRetry = installViewModel::retryWithPreferredInstaller,
+                onUseFallback = installViewModel::proceedWithFallbackInstaller,
+                onDismiss = installViewModel::dismissInstallerUnavailableDialog
+            )
         }
-    )
+
+        // Installer selection dialog (shown when promptInstallerOnInstall is enabled)
+        if (installViewModel.showInstallerSelectionDialog) {
+            val options = remember { installViewModel.getInstallerOptions() }
+            val primaryToken = remember { installViewModel.getPrimaryInstallerToken() }
+            InstallerSelectionDialog(
+                options = options,
+                selected = primaryToken,
+                onDismiss = installViewModel::dismissInstallerSelectionDialog,
+                onConfirm = { token ->
+                    installViewModel.proceedWithSelectedInstaller(token)
+                },
+                onOpenShizuku = installViewModel::openShizukuApp,
+                shizukuStatusProvider = installViewModel::getShizukuStatus,
+                onRequestShizukuPermission = installViewModel::requestShizukuPermission
+            )
+        }
+
+        // Sub-dialogs
+        if (showAppliedPatchesDialog.value && appliedPatches != null) {
+            AppliedPatchesDialog(
+                appLabel = appLabel,
+                appInfo = appInfo,
+                accentColor = appAccentColor,
+                packageName = installedApp?.originalPackageName ?: packageName,
+                bundles = appliedBundles,
+                settingsViewModel = settingsViewModel,
+                onDismiss = { showAppliedPatchesDialog.value = false }
+            )
+        }
+
+        // What the pending patch update changed for this app
+        BundleChangelogHost(
+            request = changelogRequest.value,
+            sources = sources,
+            onDismissRequest = { changelogRequest.value = null }
+        )
+
+        // Mount warning dialog
+        if (showMountWarningDialog.value) {
+            MountWarningDialog(
+                onConfirm = {
+                    showMountWarningDialog.value = false
+                    pendingMountWarningAction.value?.invoke()
+                    pendingMountWarningAction.value = null
+                },
+                onDismiss = {
+                    showMountWarningDialog.value = false
+                    pendingMountWarningAction.value = null
+                }
+            )
+        }
+
+        if (showUninstallConfirm.value) {
+            ConfirmDialog(
+                title = stringResource(R.string.uninstall),
+                message = stringResource(R.string.home_app_info_uninstall_app_confirmation),
+                primaryText = stringResource(R.string.uninstall),
+                onConfirm = {
+                    viewModel.uninstall()
+                    showUninstallConfirm.value = false
+                },
+                onDismiss = { showUninstallConfirm.value = false }
+            )
+        }
+
+        signatureConflict.value?.let { conflict ->
+            SignatureConflictDialog(
+                title = stringResource(R.string.patcher_conflict_title),
+                message = stringResource(R.string.patcher_conflict_subtitle),
+                onUninstall = {
+                    signatureConflict.value = null
+                    installViewModel.requestUninstall(conflict.packageName, installAfterUninstall = true)
+                },
+                onDismiss = {
+                    signatureConflict.value = null
+                    installViewModel.resetInstallState()
+                },
+                onIgnore = if (conflict.canIgnoreSignatureMismatch) {
+                    {
+                        signatureConflict.value = null
+                        installViewModel.installIgnoringSignatureMismatch()
+                    }
+                } else {
+                    null
+                }
+            )
+        }
+
+        DeleteConfirmDialog(
+            show = showDeleteDialog.value,
+            isSavedOnly = installedApp?.installType == InstallType.SAVED,
+            appInfo = viewModel.appInfo,
+            packageName = packageName,
+            appLabel = appLabel,
+            accentColor = infoAccentColor,
+            hasSavedApk = viewModel.hasSavedCopy,
+            deletesOriginalApk = viewModel.deletesOriginalApk,
+            onConfirm = {
+                viewModel.removeAppCompletely()
+                showDeleteDialog.value = false
+            },
+            onDismiss = {
+                showDeleteDialog.value = false
+            }
+        )
+    }
 
     // Patch flow always starts with onTriggerPatchFlow → showPatchDialog → ApkAvailabilityDialog,
     // where the user picks the APK source. Expert mode dialog opens after APK selection.

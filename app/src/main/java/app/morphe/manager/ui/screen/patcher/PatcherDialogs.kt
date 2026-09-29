@@ -487,6 +487,7 @@ fun PatcherErrorDialog(
 
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(errorInfo?.packageName),
         title = stringResource(R.string.patcher_failed_dialog_title),
         padding = DialogPadding.Compact,
         scrollable = false,

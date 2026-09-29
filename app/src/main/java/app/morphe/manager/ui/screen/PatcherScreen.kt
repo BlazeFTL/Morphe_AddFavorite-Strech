@@ -66,6 +66,34 @@ fun PatcherScreen(
     onStartTour: () -> Unit = {},
     onDeclineTour: () -> Unit = {}
 ) {
+    // Worn by everything the screen shows, its dialogs included, down to the install button
+    ProvideAccent(rememberAppColor(patcherViewModel.packageName)) {
+        PatcherScreenContent(
+            onBackClick = onBackClick,
+            patcherViewModel = patcherViewModel,
+            usingMountInstall = usingMountInstall,
+            installViewModel = installViewModel,
+            prefs = prefs,
+            onBackgroundSpeedChange = onBackgroundSpeedChange,
+            onPatchingCompleted = onPatchingCompleted,
+            onStartTour = onStartTour,
+            onDeclineTour = onDeclineTour
+        )
+    }
+}
+
+@Composable
+private fun PatcherScreenContent(
+    onBackClick: () -> Unit,
+    patcherViewModel: PatcherViewModel,
+    usingMountInstall: Boolean,
+    installViewModel: InstallViewModel,
+    prefs: PreferencesManager,
+    onBackgroundSpeedChange: (Float) -> Unit,
+    onPatchingCompleted: () -> Unit,
+    onStartTour: () -> Unit,
+    onDeclineTour: () -> Unit
+) {
     val view = LocalView.current
 
     val patcherSucceeded by patcherViewModel.patcherSucceeded.collectAsStateWithLifecycle()
@@ -479,116 +507,113 @@ fun PatcherScreen(
     }
 
     // Main content
-    // Worn by everything the screen shows, as the app's dialogs wear it, down to the install button
-    ProvideAccent(rememberAppColor(patcherViewModel.packageName)) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-        ) {
-            val useExpertMode by prefs.useExpertMode.getAsState()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+    ) {
+        val useExpertMode by prefs.useExpertMode.getAsState()
 
-            // Retired for good once the user has taken the way back it points at
-            val backToGameHintSeen by prefs.backToGameHintSeen.getAsState()
-            val showBackToGameHint = useExpertMode && miniGameState.hasOpenGame && !backToGameHintSeen
+        // Retired for good once the user has taken the way back it points at
+        val backToGameHintSeen by prefs.backToGameHintSeen.getAsState()
+        val showBackToGameHint = useExpertMode && miniGameState.hasOpenGame && !backToGameHintSeen
 
-            AnimatedContent(
-                targetState = if (showSuccessScreen) state.currentPatcherState else PatcherState.IN_PROGRESS,
-                transitionSpec = if (reduceMotion) {
-                    { EnterTransition.None togetherWith ExitTransition.None }
-                } else {
-                    Animations.fadeCrossfade(800)
-                },
-                label = "patcher_state_animation"
-            ) { patcherState ->
-                when (patcherState) {
-                    PatcherState.IN_PROGRESS -> {
-                        if (useExpertMode) {
-                            ExpertPatchingInProgress(
-                                progress = displayProgress.value,
-                                patchesProgress = patchesProgress,
-                                patchProgress = patcherViewModel.patchRun,
-                                packageName = patcherViewModel.packageName,
-                                patcherSucceeded = patcherSucceeded,
-                                miniGameState = miniGameState,
-                                onCancelClick = { state.showCancelDialog = true },
-                                onInstallClick = { patcherViewModel.showSuccess() },
-                                onHomeClick = onBackClick
-                            )
-                        } else {
-                            SimplePatchingInProgress(
-                                progress = displayProgress.value,
-                                patchesProgress = patchesProgress,
-                                patchProgress = patcherViewModel.patchRun,
-                                packageName = patcherViewModel.packageName,
-                                showLongStepWarning = showLongStepWarning,
-                                onCancelClick = { state.showCancelDialog = true }
-                            )
-                        }
-                    }
-
-                    PatcherState.SUCCESS -> {
-                        val effectiveIsInstalling = isInstalling || (
-                                patcherViewModel.autoInstallPending &&
-                                        patcherSucceeded == true &&
-                                        !usingMountInstall &&
-                                        installState is InstallViewModel.InstallState.Ready &&
-                                        // Auto-install stops at the rename warning, so the screen must
-                                        // not go on claiming install the user has yet to allow
-                                        heldInstall == null && !renameDeclined
-                                )
-                        // The state the screen is drawn from answers two things the installer's own
-                        // does not: an auto-install is under way before it is reported, and a conflict
-                        // this run resolves by dialog is not a screen state at all
-                        val shownInstallState = when {
-                            effectiveIsInstalling -> InstallViewModel.InstallState.Installing
-                            installState is InstallViewModel.InstallState.Conflict && autoHandleConflict ->
-                                InstallViewModel.InstallState.Ready
-                            else -> installState
-                        }
-
-                        PatchingSuccess(
+        AnimatedContent(
+            targetState = if (showSuccessScreen) state.currentPatcherState else PatcherState.IN_PROGRESS,
+            transitionSpec = if (reduceMotion) {
+                { EnterTransition.None togetherWith ExitTransition.None }
+            } else {
+                Animations.fadeCrossfade(800)
+            },
+            label = "patcher_state_animation"
+        ) { patcherState ->
+            when (patcherState) {
+                PatcherState.IN_PROGRESS -> {
+                    if (useExpertMode) {
+                        ExpertPatchingInProgress(
+                            progress = displayProgress.value,
+                            patchesProgress = patchesProgress,
+                            patchProgress = patcherViewModel.patchRun,
                             packageName = patcherViewModel.packageName,
-                            version = patcherViewModel.version,
-                            patchCount = patcherViewModel.patchCount,
-                            sources = patchSources,
-                            installState = shownInstallState,
-                            installedPackageName = installedPackageName,
-                            usingMountInstall = usingMountInstall,
-                            excludedPatches = excludedPatches,
-                            isExpertMode = useExpertMode,
-                            showBackToGameHint = showBackToGameHint,
-                            onLogsClick = {
-                                // Only the hint that was actually on screen counts as found
-                                if (showBackToGameHint) {
-                                    scope.launch { prefs.backToGameHintSeen.update(true) }
-                                }
-                                patcherViewModel.hideSuccessScreen()
-                            },
-                            onInstall = ::installPatchedApp,
-                            onUninstall = { packageName ->
-                                installViewModel.requestUninstall(packageName, installAfterUninstall = true)
-                            },
-                            onIgnoreSignatureMismatch = installViewModel::installIgnoringSignatureMismatch,
-                            onOpen = {
-                                installViewModel.openApp()
-                            },
-                            onHomeClick = onBackClick,
-                            onSaveClick = {
-                                if (!isSaving) {
-                                    exportApkLauncher.launch(patcherViewModel.exportFileName)
-                                }
-                            },
-                            isSaving = isSaving
+                            patcherSucceeded = patcherSucceeded,
+                            miniGameState = miniGameState,
+                            onCancelClick = { state.showCancelDialog = true },
+                            onInstallClick = { patcherViewModel.showSuccess() },
+                            onHomeClick = onBackClick
                         )
+                    } else {
+                        SimplePatchingInProgress(
+                            progress = displayProgress.value,
+                            patchesProgress = patchesProgress,
+                            patchProgress = patcherViewModel.patchRun,
+                            packageName = patcherViewModel.packageName,
+                            showLongStepWarning = showLongStepWarning,
+                            onCancelClick = { state.showCancelDialog = true }
+                        )
+                    }
+                }
+
+                PatcherState.SUCCESS -> {
+                    val effectiveIsInstalling = isInstalling || (
+                            patcherViewModel.autoInstallPending &&
+                                    patcherSucceeded == true &&
+                                    !usingMountInstall &&
+                                    installState is InstallViewModel.InstallState.Ready &&
+                                    // Auto-install stops at the rename warning, so the screen must
+                                    // not go on claiming install the user has yet to allow
+                                    heldInstall == null && !renameDeclined
+                            )
+                    // The state the screen is drawn from answers two things the installer's own
+                    // does not: an auto-install is under way before it is reported, and a conflict
+                    // this run resolves by dialog is not a screen state at all
+                    val shownInstallState = when {
+                        effectiveIsInstalling -> InstallViewModel.InstallState.Installing
+                        installState is InstallViewModel.InstallState.Conflict && autoHandleConflict ->
+                            InstallViewModel.InstallState.Ready
+                        else -> installState
                     }
 
-                    PatcherState.FAILED -> {
-                        PatchingFailed(
-                            onHomeClick = onBackClick,
-                            onErrorClick = { state.showErrorDialog = true }
-                        )
-                    }
+                    PatchingSuccess(
+                        packageName = patcherViewModel.packageName,
+                        version = patcherViewModel.version,
+                        patchCount = patcherViewModel.patchCount,
+                        sources = patchSources,
+                        installState = shownInstallState,
+                        installedPackageName = installedPackageName,
+                        usingMountInstall = usingMountInstall,
+                        excludedPatches = excludedPatches,
+                        isExpertMode = useExpertMode,
+                        showBackToGameHint = showBackToGameHint,
+                        onLogsClick = {
+                            // Only the hint that was actually on screen counts as found
+                            if (showBackToGameHint) {
+                                scope.launch { prefs.backToGameHintSeen.update(true) }
+                            }
+                            patcherViewModel.hideSuccessScreen()
+                        },
+                        onInstall = ::installPatchedApp,
+                        onUninstall = { packageName ->
+                            installViewModel.requestUninstall(packageName, installAfterUninstall = true)
+                        },
+                        onIgnoreSignatureMismatch = installViewModel::installIgnoringSignatureMismatch,
+                        onOpen = {
+                            installViewModel.openApp()
+                        },
+                        onHomeClick = onBackClick,
+                        onSaveClick = {
+                            if (!isSaving) {
+                                exportApkLauncher.launch(patcherViewModel.exportFileName)
+                            }
+                        },
+                        isSaving = isSaving
+                    )
+                }
+
+                PatcherState.FAILED -> {
+                    PatchingFailed(
+                        onHomeClick = onBackClick,
+                        onErrorClick = { state.showErrorDialog = true }
+                    )
                 }
             }
         }

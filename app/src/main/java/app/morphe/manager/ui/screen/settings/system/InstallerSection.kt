@@ -989,12 +989,14 @@ fun PlayStoreInstallerWarningDialog(
  */
 @Composable
 fun PrePatchInstallerDialog(
+    packageName: String?,
     onSelectMount: () -> Unit,
     onSelectStandard: () -> Unit,
     onDismiss: () -> Unit
 ) {
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.root_pre_patch_installer_title),
         description = stringResource(R.string.root_pre_patch_installer_description),
         footer = {

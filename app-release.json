@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-29T21:07:41",
-  "description": "# [1.33.0-dev.16](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.15...v1.33.0-dev.16) (2026-09-29)\n\n\n### Bug Fixes\n\n* Build the scroll to top button like the other buttons ([43d449e](https://github.com/MorpheApp/morphe-manager/commit/43d449ec82f371e9aeb025122efb69feb0857425))\n* Give app dialogs their app's color everywhere ([980b3a6](https://github.com/MorpheApp/morphe-manager/commit/980b3a612187fc4196926d7b3097bd195707b804))\n* Keep patch group versions in their header, badges in card color ([752829e](https://github.com/MorpheApp/morphe-manager/commit/752829e53d1d2af739952ae421e2aed877916663))\n* Keep the sources sheet under the add source dialog ([84ec384](https://github.com/MorpheApp/morphe-manager/commit/84ec38477d9259fff56f9159bc5c41ae95772c47))\n* Match the source card action rows ([cb23056](https://github.com/MorpheApp/morphe-manager/commit/cb2305669bc2c656be0abebc8ca733735c119d7c))\n* Show that the patch filter sheet scrolls ([ae34442](https://github.com/MorpheApp/morphe-manager/commit/ae3444255548b6cb52a7b8ecc758f08e2b9a7ea9))\n* Unify delete, clear and reset confirmations ([acd6379](https://github.com/MorpheApp/morphe-manager/commit/acd637995049f04bd1b00d066f02acbd78faf92e))\n* Use the glass buttons in landscape sidebars ([4130f95](https://github.com/MorpheApp/morphe-manager/commit/4130f957e65185cb537fefc1f8cb982da64e2020))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.16/morphe-manager-1.33.0-dev.16.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.16/morphe-manager-1.33.0-dev.16.apk.asc",
-  "version": "1.33.0-dev.16"
+  "created_at": "2026-09-29T21:51:05",
+  "description": "# [1.33.0-dev.17](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.16...v1.33.0-dev.17) (2026-09-29)\n\n\n### Bug Fixes\n\n* Say there is no connection when a changelog cannot load ([4b2f8ba](https://github.com/MorpheApp/morphe-manager/commit/4b2f8ba5d20cd227ac3852378e8909c32b3d773c))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.17/morphe-manager-1.33.0-dev.17.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.17/morphe-manager-1.33.0-dev.17.apk.asc",
+  "version": "1.33.0-dev.17"
 }

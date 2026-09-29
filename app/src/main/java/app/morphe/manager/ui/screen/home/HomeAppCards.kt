@@ -181,8 +181,7 @@ internal fun RowScope.AppCardContent(
         contentDescription = null,
         modifier = Modifier.size(cardStyle.iconSize),
         preferredSource = AppDataSource.PATCHED_APK,
-        placeholderGradientColors = cardStyle.cardColors(gradientColors),
-        placeholderInnerPadding = 6.dp
+        placeholderGradientColors = cardStyle.cardColors(gradientColors)
     )
 
     Column(
@@ -365,8 +364,7 @@ private fun InstalledAppCard(
             preferredSource = AppDataSource.INSTALLED,
             // A record can outlive every artifact carrying its icon, and the glass placeholder is
             // what the rest of the list shows in that case
-            placeholderGradientColors = cardStyle.cardColors(item.gradientColors),
-            placeholderInnerPadding = 6.dp
+            placeholderGradientColors = cardStyle.cardColors(item.gradientColors)
         )
 
         // App info
@@ -735,12 +733,13 @@ fun AppLoadingCard(
             horizontalArrangement = Arrangement.spacedBy(cardStyle.contentSpacing),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Icon skeleton, inset and rounded like the glass placeholder it stands in for
+            // Icon skeleton, sized and shaped like the glass placeholder
             ShimmerBox(
                 modifier = Modifier
                     .size(cardStyle.iconSize)
-                    .padding(6.dp),
-                shape = RoundedCornerShape(percent = 20),
+                    .wrapContentSize()
+                    .fillMaxSize(AppIconContentFraction),
+                shape = AppIconShape,
                 baseColor = skeletonColor.copy(alpha = 0.2f)
             )
 

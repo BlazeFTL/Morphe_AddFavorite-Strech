@@ -38,6 +38,7 @@ dependencies {
     // Coil (async image loading, network image)
     implementation(libs.coil.compose)
     implementation(libs.coil.appiconloader)
+    implementation(libs.appiconloader.iconloaderlib)
 
     // KotlinX
     implementation(libs.kotlinx.serialization.json)

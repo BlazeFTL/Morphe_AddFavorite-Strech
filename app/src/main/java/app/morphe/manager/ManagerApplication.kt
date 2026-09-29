@@ -24,6 +24,7 @@ import app.morphe.manager.domain.repository.BlocklistRepository
 import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository.Companion.DEFAULT_SOURCE_UID
+import app.morphe.manager.ui.screen.shared.AppIconPixels
 import app.morphe.manager.util.*
 import app.morphe.manager.worker.UpdateCheckWorker
 import coil.Coil
@@ -115,7 +116,6 @@ class ManagerApplication : Application() {
         }
 
         // App icon loader (Coil)
-        val pixels = 512
         // Non-adaptive icons are drawn as they are rather than shrunk onto a white plate: icon
         // packs on One UI hand out finished bitmap icons, and the plate showed around each of them
         val shrinkNonAdaptiveIcons = false
@@ -123,7 +123,7 @@ class ManagerApplication : Application() {
             ImageLoader.Builder(this)
                 .components {
                     add(AppIconKeyer())
-                    add(AppIconFetcher.Factory(pixels, shrinkNonAdaptiveIcons, this@ManagerApplication))
+                    add(AppIconFetcher.Factory(AppIconPixels, shrinkNonAdaptiveIcons, this@ManagerApplication))
                 }
                 .build()
         )

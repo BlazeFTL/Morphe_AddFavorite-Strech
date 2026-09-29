@@ -495,14 +495,12 @@ fun InstalledAppInfoDialog(
                                 // Resolved by name when the record has no metadata to show. A record
                                 // whose artifacts are gone carries no icon either, and the glass
                                 // placeholder tinted to the app's accent is what the home card shows
-                                // for it. The inset keeps its own rounding clear of the clip the real
-                                // icons need.
+                                // for it
                                 AppIcon(
                                     packageInfo = appInfo,
                                     packageName = packageName,
                                     contentDescription = null,
                                     placeholderGradientColors = listOf(infoAccentColor),
-                                    placeholderInnerPadding = 4.dp,
                                     modifier = iconModifier.clip(RoundedCornerShape(DialogHeaderDefaults.IconCornerRadius))
                                 )
                             },
@@ -1588,7 +1586,6 @@ private fun DeleteConfirmDialog(
                 packageName = packageName,
                 contentDescription = null,
                 placeholderGradientColors = listOf(accentColor),
-                placeholderInnerPadding = 6.dp,
                 modifier = Modifier.size(64.dp)
             )
             Text(

@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -36,7 +37,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.apk.InstalledApkInfo
@@ -391,44 +391,49 @@ internal fun UnsupportedVersionWarningDialog(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
         ) {
-            VersionSection(stringResource(R.string.home_selected_version)) {
-                VersionPanel(
-                    color = tone.container.copy(alpha = 0.3f),
-                    border = CardBorder.tinted(tone.accent)
-                ) {
-                    VersionRow(
-                        version = version,
-                        tags = tags,
-                        buildCode = versionCode,
-                        emphasized = true,
-                        versionColor = tone.accent
+            VersionPanel(
+                color = tone.container.copy(alpha = 0.3f),
+                border = CardBorder.tinted(tone.accent),
+                header = {
+                    CardHeader(
+                        title = stringResource(R.string.home_selected_version),
+                        accentColor = tone.accent,
+                        icon = Icons.Outlined.CheckCircle
                     )
                 }
+            ) {
+                VersionRow(
+                    version = version,
+                    tags = tags,
+                    buildCode = versionCode,
+                    emphasized = true,
+                    versionColor = tone.accent
+                )
             }
 
             if (isExpertMode && allCompatibleVersions.isNotEmpty()) {
                 // Expert mode: every compatible version
-                VersionSection(stringResource(R.string.home_dialog_unsupported_version_compatible_versions)) {
-                    VersionListCard(
-                        versions = allCompatibleVersions,
-                        recommendedIndex = allCompatibleVersions
-                            .indexOfFirst { it !in experimentalVersions }
-                            .takeIf { it >= 0 } ?: 0,
-                        experimentalVersions = experimentalVersions,
-                        descriptions = versionDescriptions,
-                        versionCodes = compatibleVersionCodes
-                    )
-                }
+                VersionListCard(
+                    title = stringResource(R.string.home_dialog_unsupported_version_compatible_versions),
+                    icon = Icons.Outlined.Checklist,
+                    versions = allCompatibleVersions,
+                    recommendedIndex = allCompatibleVersions
+                        .indexOfFirst { it !in experimentalVersions }
+                        .takeIf { it >= 0 } ?: 0,
+                    experimentalVersions = experimentalVersions,
+                    descriptions = versionDescriptions,
+                    versionCodes = compatibleVersionCodes
+                )
             } else if (recommendedVersion != null) {
                 // Simple mode or single version: the recommended one alone
-                VersionSection(stringResource(R.string.home_recommended_version)) {
-                    VersionListCard(
-                        versions = listOf(recommendedVersion),
-                        recommendedIndex = 0,
-                        experimentalVersions = experimentalVersions,
-                        versionCodes = compatibleVersionCodes
-                    )
-                }
+                VersionListCard(
+                    title = stringResource(R.string.home_recommended_version),
+                    icon = VersionTag.Recommended.icon,
+                    versions = listOf(recommendedVersion),
+                    recommendedIndex = 0,
+                    experimentalVersions = experimentalVersions,
+                    versionCodes = compatibleVersionCodes
+                )
             }
         }
     }
@@ -687,15 +692,25 @@ private fun SelectableVersionListCard(
             key(bundleUid) {
                 val source = sourcesByUid[bundleUid]
                 val sourceColor = source?.let { rememberBundleAccent(it) }
+                // Shared by the edge and the header band
+                val edgeColor = usableAppAccent(sourceColor).takeIf { hasMultipleBundles }
 
                 VersionPanel(
-                    border = if (hasMultipleBundles && usableAppAccent(sourceColor) != null) {
+                    border = if (edgeColor != null) {
                         CardBorder.of(appAccentBorder(sourceColor))
                     } else {
                         CardBorder.neutral
                     },
                     header = if (hasMultipleBundles) {
-                        { VersionPanelSourceHeader(source = source, name = section.first().bundleName) }
+                        {
+                            CardHeader(
+                                title = section.first().bundleName,
+                                accentColor = edgeColor,
+                                leading = source?.let {
+                                    { BundleIcon(bundle = it, modifier = Modifier.size(24.dp)) }
+                                }
+                            )
+                        }
                     } else null
                 ) {
                     section.forEachIndexed { index, bundled ->
@@ -740,10 +755,12 @@ private fun SelectableVersionListCard(
     }
 }
 
-/** Versions only read rather than picked from, in one [VersionPanel]. */
+/** Versions only read rather than picked from, in one [VersionPanel] with an optional [title]. */
 @Composable
 private fun VersionListCard(
     modifier: Modifier = Modifier,
+    title: String? = null,
+    icon: ImageVector? = null,
     versions: List<String>,
     recommendedIndex: Int = 0,
     showUnpatchedBadge: Boolean = false,
@@ -756,7 +773,11 @@ private fun VersionListCard(
 ) {
     if (versions.isEmpty()) return
 
-    VersionPanel(modifier = modifier) {
+    VersionPanel(
+        modifier = modifier,
+        // Neutral edge, so a neutral header band
+        header = title?.let { { CardHeader(title = it, accentColor = null, icon = icon) } }
+    ) {
         versions.forEachIndexed { index, version ->
             val tags = versionTagsOf(
                 isIncompatible = version in incompatibleSdkVersions,
@@ -784,6 +805,7 @@ private fun VersionListCard(
 /**
  * A card holding versions, one [VersionRow] after another: a source's own, in the neutral card or
  * edged in its color, or [color] and [border] for a card that stands for a verdict, such as a warning.
+ * [header] is usually a [CardHeader].
  */
 @Composable
 private fun VersionPanel(
@@ -801,50 +823,9 @@ private fun VersionPanel(
         border = border
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            if (header != null) {
-                header()
-                SettingsDivider(fullWidth = true)
-            }
+            header?.invoke()
             content()
         }
-    }
-}
-
-/** Heading of a [VersionPanel] holding one source's versions: the source's icon beside its name. */
-@Composable
-private fun VersionPanelSourceHeader(source: PatchBundleSource?, name: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Defaults.ContentPadding)
-            .padding(top = Defaults.ItemSpacing, bottom = Defaults.ContentPaddingSmall),
-        horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if (source != null) {
-            BundleIcon(bundle = source, modifier = Modifier.size(24.dp))
-        }
-        Text(
-            text = name,
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold,
-            color = LocalDialogTextColor.current,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-    }
-}
-
-/** A block of a dialog named by [label], holding a [VersionPanel]. */
-@Composable
-private fun VersionSection(label: String, content: @Composable () -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = LocalDialogSecondaryTextColor.current
-        )
-        content()
     }
 }
 

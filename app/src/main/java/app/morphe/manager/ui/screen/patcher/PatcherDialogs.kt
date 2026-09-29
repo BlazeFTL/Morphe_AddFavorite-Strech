@@ -27,7 +27,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -507,79 +506,45 @@ fun PatcherErrorDialog(
                 .fillMaxHeight(),
             verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
         ) {
-            ErrorInfoCard(
-                label = stringResource(R.string.patcher_error_dialog_diagnostics),
-                icon = Icons.Outlined.Info
-            ) {
-                DiagnosticsContent(diagnostics)
+            SectionCard(accentColor = LocalAccent.current) {
+                Column {
+                    CardHeader(
+                        title = stringResource(R.string.patcher_error_dialog_diagnostics),
+                        icon = Icons.Outlined.Info
+                    )
+                    DiagnosticsContent(diagnostics)
+                }
             }
 
             // Error log card
-            ErrorInfoCard(
-                label = stringResource(R.string.patcher_error_log),
-                icon = Icons.Outlined.BugReport,
-                errorBadge = stringResource(R.string.patcher_error_technical),
-                modifier = Modifier.weight(1f)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .padding(horizontal = Defaults.ContentPadding, vertical = 4.dp),
-                ) {
-                    Text(
-                        text = errorMessage,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontFamily = FontFamily.Monospace,
-                        lineHeight = 16.sp
+            SectionCard(modifier = Modifier.weight(1f), accentColor = LocalAccent.current) {
+                Column {
+                    CardHeader(
+                        title = stringResource(R.string.patcher_error_log),
+                        icon = Icons.Outlined.BugReport,
+                        trailing = {
+                            StatusBadge(
+                                text = stringResource(R.string.patcher_error_technical),
+                                tone = SemanticTone.Error
+                            )
+                        }
                     )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(horizontal = Defaults.ContentPadding, vertical = 4.dp),
+                    ) {
+                        Text(
+                            text = errorMessage,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontFamily = FontFamily.Monospace,
+                            lineHeight = 16.sp
+                        )
+                    }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun ErrorInfoCard(
-    modifier: Modifier = Modifier,
-    label: String,
-    icon: ImageVector,
-    errorBadge: String? = null,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    SurfaceCard(modifier = modifier.fillMaxWidth(), showBorder = true) {
-        Column {
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(
-                    topStart = Defaults.CardCornerRadius,
-                    topEnd = Defaults.CardCornerRadius
-                )
-            ) {
-                IconTextRow(
-                    modifier = Modifier.padding(
-                        horizontal = Defaults.ContentPadding,
-                        vertical = Defaults.ContentPaddingSmall
-                    ),
-                    leadingContent = {
-                        ThemedIcon(
-                            icon = icon,
-                            size = 18.dp,
-                            tint = if (errorBadge != null) MaterialTheme.colorScheme.error
-                            else MaterialTheme.colorScheme.primary
-                        )
-                    },
-                    title = label,
-                    titleStyle = MaterialTheme.typography.labelLarge,
-                    titleWeight = FontWeight.SemiBold
-                )
-            }
-
-            SettingsDivider(fullWidth = true)
-
-            content()
         }
     }
 }

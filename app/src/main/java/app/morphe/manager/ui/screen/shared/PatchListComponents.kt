@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 /**
@@ -126,45 +125,34 @@ fun patchListText(title: String, lists: List<Pair<String?, List<PatchEntry>>>): 
         ).joinToString("\n")
     }).joinToString("\n\n")
 
+/** A [SectionCard] headed by a [CardHeader], with [version] and [count] as badges. */
 @Composable
 fun LabeledSection(
     modifier: Modifier = Modifier,
     title: String? = null,
     version: String? = null,
     count: Int? = null,
+    icon: ImageVector? = null,
+    leading: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val effectiveVersion = version?.takeIf { it.isNotBlank() }
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-    ) {
-        if (title != null || effectiveVersion != null || count != null) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)
-            ) {
-                if (title != null) {
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                effectiveVersion?.let { v ->
-                    StatusBadge(text = v)
-                }
-                if (count != null) {
-                    StatusBadge(
-                        text = count.toString(),
-                        tone = SemanticTone.Primary
-                    )
-                }
+    // Edged in the color of the dialog it sits in, as the app's other cards are
+    SectionCard(modifier = modifier.fillMaxWidth(), accentColor = LocalAccent.current) {
+        Column {
+            if (title != null || effectiveVersion != null || count != null) {
+                CardHeader(
+                    title = title,
+                    icon = icon,
+                    leading = leading,
+                    trailing = {
+                        effectiveVersion?.let { StatusBadge(text = it) }
+                        if (count != null) {
+                            StatusBadge(text = count.toString(), tone = SemanticTone.Primary)
+                        }
+                    }
+                )
             }
-        }
-        // Edged in the color of the dialog it sits in, as the app's other cards are
-        SectionCard(accentColor = LocalAccent.current) {
             Column(
                 modifier = Modifier.padding(vertical = Defaults.ItemSpacing),
                 verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall)

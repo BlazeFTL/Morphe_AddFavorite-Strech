@@ -637,34 +637,6 @@ fun SectionTitle(
 }
 
 /**
- * Card header with icon and text.
- */
-@Composable
-fun CardHeader(
-    modifier: Modifier = Modifier,
-    icon: ImageVector,
-    title: String,
-    description: String? = null
-) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-            shape = RoundedCornerShape(topStart = Defaults.SectionCornerRadius, topEnd = Defaults.SectionCornerRadius)
-        ) {
-            IconTextRow(
-                modifier = Modifier.padding(Defaults.ContentPadding),
-                leadingContent = { ThemedIcon(icon = icon) },
-                title = title,
-                description = description
-            )
-        }
-
-        SettingsDivider(fullWidth = true)
-    }
-}
-
-/**
  * A single item in a deletion list with an icon and text.
  * Used inside [LabeledSection] in destructive confirmation dialogs.
  */

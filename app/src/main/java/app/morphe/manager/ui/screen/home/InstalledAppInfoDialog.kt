@@ -1599,7 +1599,8 @@ private fun DeleteConfirmDialog(
                 textAlign = TextAlign.Center
             )
             LabeledSection(
-                title = stringResource(R.string.home_app_info_remove_app_warning)
+                title = stringResource(R.string.home_app_info_remove_app_warning),
+                icon = Icons.Outlined.Delete
             ) {
                 if (isSavedOnly) {
                     DeleteListItem(
@@ -1674,6 +1675,7 @@ private fun AppliedPatchesDialog(
         }
     }
     val copyToClipboard = rememberCopyToClipboard()
+    val sourcesByUid = rememberSourcesByUid()
 
     DetailsDialog(
         onDismissRequest = onDismiss,
@@ -1704,12 +1706,18 @@ private fun AppliedPatchesDialog(
             )
         )
     ) {
+        val multipleSources = bundles.size > 1
         entriesByBundle.forEach { (bundle, entries) ->
-            // A lone source's count is the one the header already states
+            // A lone source's count is already in the dialog header
+            val source = sourcesByUid[bundle.uid]
             LabeledSection(
-                title = stringResource(R.string.home_app_info_applied_patches),
-                version = if (bundles.size > 1) bundle.title else null,
-                count = entries.size.takeIf { bundles.size > 1 }
+                title = if (multipleSources) bundle.title
+                else stringResource(R.string.home_app_info_applied_patches),
+                count = entries.size.takeIf { multipleSources },
+                icon = Icons.Outlined.DoneAll,
+                leading = source?.takeIf { multipleSources }?.let {
+                    { BundleIcon(bundle = it, modifier = Modifier.size(24.dp)) }
+                }
             ) {
                 PatchEntryList(entries)
             }

@@ -1035,7 +1035,8 @@ private fun PatchDetailsDialog(
             if (entries.isNotEmpty()) {
                 LabeledSection(
                     title = stringResource(R.string.settings_system_selected_patches_section),
-                    count = patchList.size
+                    count = patchList.size,
+                    icon = Icons.Outlined.Checklist
                 ) {
                     PatchEntryList(entries)
                 }

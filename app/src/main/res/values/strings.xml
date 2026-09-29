@@ -1414,6 +1414,7 @@ Details: %2$s"</string>
     <string name="update_completed">Update installed</string>
     <string name="install_update_manager_failed">Failed to install update</string>
     <string name="installing_manager_update">Installing update…</string>
+    <string name="installing_manager_update_hint">Morphe will close to finish the update</string>
     <string name="downloading_manager_update">Downloading update…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB downloaded</string>

@@ -233,10 +233,8 @@ fun ManagerChangelogDialog(
                     )
                 }
 
-                // The caption repeats the dialog title, since eyes on the pulsing logo easily miss
-                // the header above it
                 UpdateDialogContent.Installing -> CenteredStatus {
-                    PulsingLogoWithCaption(caption = stringResource(R.string.installing_manager_update))
+                    PulsingLogoWithCaption(caption = stringResource(R.string.installing_manager_update_hint))
                 }
 
                 UpdateDialogContent.Failed -> CenteredStatus {

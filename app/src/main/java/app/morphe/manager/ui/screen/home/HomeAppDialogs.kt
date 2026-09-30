@@ -267,9 +267,9 @@ internal fun HiddenAppsDialog(
         scrollable = false
     ) {
         if (hiddenAppItems.isEmpty()) {
-            HomeEmptyState(
-                icon = Icons.Outlined.Visibility,
-                title = stringResource(R.string.home_app_no_hidden)
+            EmptyState(
+                message = stringResource(R.string.home_app_no_hidden),
+                icon = Icons.Outlined.Visibility
             )
         } else {
             DialogLazyList(

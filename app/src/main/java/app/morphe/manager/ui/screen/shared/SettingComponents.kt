@@ -723,39 +723,65 @@ fun InfoStatBox(
     }
 }
 
+/**
+ * What a list or a screen shows while it has nothing in it: an [icon], the [message] and an
+ * optional [subtitle] under it, and an [action] that gets the user out of it.
+ *
+ * @param contentColor Ink of the surface below. Dialogs hand theirs down, a screen passes its own.
+ */
 @Composable
 fun EmptyState(
     message: String,
     modifier: Modifier = Modifier,
     icon: ImageVector? = Icons.Outlined.FolderOff,
-    actionLabel: String? = null,
-    onAction: (() -> Unit)? = null
+    subtitle: String? = null,
+    action: CardAction? = null,
+    contentColor: Color = LocalDialogSecondaryTextColor.current
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
+            // Held to a readable width and centered in whatever room a wide screen gives it
+            .wrapContentWidth()
+            .widthIn(max = Defaults.ContentMaxWidth)
             .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
         if (icon != null) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(64.dp),
-                tint = LocalDialogSecondaryTextColor.current.copy(alpha = 0.5f)
+                modifier = Modifier.size(56.dp),
+                tint = contentColor.copy(alpha = 0.5f)
             )
         }
         Text(
             text = message,
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
+            // Heads the line under it when there is one, and stands as a plain sentence otherwise
+            style = if (subtitle != null) MaterialTheme.typography.titleMedium else MaterialTheme.typography.bodyLarge,
+            fontWeight = if (subtitle != null) FontWeight.SemiBold else null,
+            color = contentColor,
             textAlign = TextAlign.Center
         )
-        if (actionLabel != null && onAction != null) {
-            OutlinedButton(onClick = onAction) {
-                Text(actionLabel)
-            }
+        if (subtitle != null) {
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = contentColor.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
+        }
+        if (action != null) {
+            ActionPillButton(
+                onClick = action.onClick,
+                icon = action.icon,
+                contentDescription = action.label,
+                label = action.label,
+                large = true,
+                enabled = action.enabled,
+                modifier = Modifier.padding(top = 4.dp)
+            )
         }
     }
 }

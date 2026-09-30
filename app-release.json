@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-30T09:18:31",
-  "description": "# [1.33.0-dev.18](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.17...v1.33.0-dev.18) (2026-09-30)\n\n\n### Bug Fixes\n\n* Verify a saved APK when the device reports no signers ([92d3118](https://github.com/MorpheApp/morphe-manager/commit/92d3118f5c63efd28894b850eccd9ced34620b29))\n\n\n### Features\n\n* Show every patching result on one screen with the app's details ([c3e97fe](https://github.com/MorpheApp/morphe-manager/commit/c3e97febb407dc39f33f31faebc777ed05105b69))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.18/morphe-manager-1.33.0-dev.18.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.18/morphe-manager-1.33.0-dev.18.apk.asc",
-  "version": "1.33.0-dev.18"
+  "created_at": "2026-09-30T10:28:34",
+  "description": "# [1.33.0-dev.19](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.18...v1.33.0-dev.19) (2026-09-30)\n\n\n### Bug Fixes\n\n* Keep numeric app names such as 1.1.1.1 whole ([068686f](https://github.com/MorpheApp/morphe-manager/commit/068686f7cde2d2307eb19164a5837036a097039b))\n* Show a picked app's icon before it is installed or kept ([4c2de08](https://github.com/MorpheApp/morphe-manager/commit/4c2de08899527f0bf3254f8ff79723b7436f3edd))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.19/morphe-manager-1.33.0-dev.19.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.0-dev.19/morphe-manager-1.33.0-dev.19.apk.asc",
+  "version": "1.33.0-dev.19"
 }

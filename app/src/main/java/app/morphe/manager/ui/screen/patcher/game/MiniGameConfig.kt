@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DirectionsRun
@@ -37,10 +38,16 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.screen.patcher.PatcherCardPadding
-import app.morphe.manager.ui.screen.shared.GradientCircleIcon
+import app.morphe.manager.ui.screen.shared.AccentAlpha
 import app.morphe.manager.ui.screen.shared.Animations
-import app.morphe.manager.ui.screen.shared.SurfaceCard
 import app.morphe.manager.ui.screen.shared.Defaults
+import app.morphe.manager.ui.screen.shared.SurfaceCard
+import app.morphe.manager.ui.screen.shared.ThemedIcon
+import app.morphe.manager.ui.screen.shared.appAccentBorder
+import app.morphe.manager.ui.screen.shared.usableAppAccent
+import app.morphe.manager.ui.screen.shared.verticalScrollFade
+import app.morphe.manager.ui.theme.MorpheBrandBlue
+import app.morphe.manager.ui.theme.MorpheBrandTeal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -52,24 +59,64 @@ import kotlinx.coroutines.launch
  * Available mini-games that can be played during patching.
  * Each entry carries what the picker needs to present it, so a new game is one entry
  * here plus its state in [MiniGameState] and its canvas in [GameCanvasSlot].
+ *
+ * @param accent The color the game is known by, taken from its own palette, which its picker
+ *   card wears the way an app card wears the app's.
  */
 enum class MiniGame(
     @StringRes val titleRes: Int,
     @StringRes val subtitleRes: Int,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val accent: Color
 ) {
-    GAME_2048(R.string.mini_game_2048, R.string.mini_game_2048_picker_subtitle, Icons.Outlined.Grid4x4),
-    FLAPPY(R.string.mini_game_flappy, R.string.mini_game_flappy_picker_subtitle, Icons.Outlined.Air),
-    SNAKE(R.string.mini_game_snake, R.string.mini_game_snake_picker_subtitle, Icons.Outlined.Gesture),
+    GAME_2048(
+        R.string.mini_game_2048,
+        R.string.mini_game_2048_picker_subtitle,
+        Icons.Outlined.Grid4x4,
+        Color(0xFFF59563)
+    ),
+    FLAPPY(
+        R.string.mini_game_flappy,
+        R.string.mini_game_flappy_picker_subtitle,
+        Icons.Outlined.Air,
+        Color(0xFF73C02A)
+    ),
+    SNAKE(
+        R.string.mini_game_snake,
+        R.string.mini_game_snake_picker_subtitle,
+        Icons.Outlined.Gesture,
+        MorpheBrandTeal
+    ),
     DINO(
         R.string.mini_game_dino,
         R.string.mini_game_dino_picker_subtitle,
-        Icons.AutoMirrored.Outlined.DirectionsRun
+        Icons.AutoMirrored.Outlined.DirectionsRun,
+        Color(0xFFC8B060)
     ),
-    BLOCKS(R.string.mini_game_blocks, R.string.mini_game_blocks_picker_subtitle, Icons.Outlined.Dashboard),
-    BRICKS(R.string.mini_game_bricks, R.string.mini_game_bricks_picker_subtitle, Icons.Outlined.SportsTennis),
-    MINER(R.string.mini_game_miner, R.string.mini_game_miner_picker_subtitle, Icons.Outlined.Flag),
-    PAIRS(R.string.mini_game_pairs, R.string.mini_game_pairs_picker_subtitle, Icons.Outlined.Style)
+    BLOCKS(
+        R.string.mini_game_blocks,
+        R.string.mini_game_blocks_picker_subtitle,
+        Icons.Outlined.Dashboard,
+        Color(0xFF7E57C2)
+    ),
+    BRICKS(
+        R.string.mini_game_bricks,
+        R.string.mini_game_bricks_picker_subtitle,
+        Icons.Outlined.SportsTennis,
+        Color(0xFFEF5350)
+    ),
+    MINER(
+        R.string.mini_game_miner,
+        R.string.mini_game_miner_picker_subtitle,
+        Icons.Outlined.Flag,
+        Color(0xFF64B5F6)
+    ),
+    PAIRS(
+        R.string.mini_game_pairs,
+        R.string.mini_game_pairs_picker_subtitle,
+        Icons.Outlined.Style,
+        MorpheBrandBlue
+    )
 }
 
 /** Common state contract for all mini-games, exposes only what the shared UI layer needs. */
@@ -265,6 +312,8 @@ internal fun GameChip(
 // picker stays two-up on a phone and fills the row on a tablet or in landscape
 private val GamePickerMinCardWidth = 150.dp
 private val GamePickerCardHeight = 140.dp
+private val GamePickerIconTileSize = 44.dp
+private val GamePickerIconTileShape = RoundedCornerShape(14.dp)
 
 /**
  * Game selection screen shown when no game is active yet.
@@ -274,18 +323,19 @@ internal fun GamePickerContent(
     onSelect: (MiniGame) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val gridState = rememberLazyGridState()
+
     LazyVerticalGrid(
         columns = GridCells.Adaptive(GamePickerMinCardWidth),
-        modifier = modifier,
+        state = gridState,
+        modifier = modifier.verticalScrollFade(gridState),
         contentPadding = PaddingValues(PatcherCardPadding),
         horizontalArrangement = Arrangement.spacedBy(PatcherCardPadding),
         verticalArrangement = Arrangement.spacedBy(PatcherCardPadding)
     ) {
         items(MiniGame.entries, key = { it.name }) { game ->
             GamePickerGridCard(
-                icon = game.icon,
-                title = stringResource(game.titleRes),
-                subtitle = stringResource(game.subtitleRes),
+                game = game,
                 onClick = { onSelect(game) },
                 modifier = Modifier.height(GamePickerCardHeight)
             )
@@ -295,16 +345,18 @@ internal fun GamePickerContent(
 
 @Composable
 private fun GamePickerGridCard(
-    icon: ImageVector,
-    title: String,
-    subtitle: String,
+    game: MiniGame,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Falls back to the theme's accent where the appearance settings keep colors off cards
+    val accent = usableAppAccent(game.accent) ?: MaterialTheme.colorScheme.primary
+
     SurfaceCard(
         onClick = onClick,
         cornerRadius = Defaults.CompactCornerRadius,
         showBorder = true,
+        borderColor = appAccentBorder(game.accent),
         modifier = modifier
     ) {
         Column(
@@ -316,10 +368,17 @@ private fun GamePickerGridCard(
             // whether a card's subtitle takes one line or two
             verticalArrangement = Arrangement.Top
         ) {
-            GradientCircleIcon(icon = icon, size = 44.dp, iconSize = 24.dp)
+            Box(
+                modifier = Modifier
+                    .size(GamePickerIconTileSize)
+                    .background(accent.copy(alpha = AccentAlpha.STEP), GamePickerIconTileShape),
+                contentAlignment = Alignment.Center
+            ) {
+                ThemedIcon(icon = game.icon, tint = accent)
+            }
             Spacer(Modifier.height(10.dp))
             Text(
-                text = title,
+                text = stringResource(game.titleRes),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -327,7 +386,7 @@ private fun GamePickerGridCard(
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = subtitle,
+                text = stringResource(game.subtitleRes),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center

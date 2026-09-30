@@ -1,3 +1,15 @@
+# [1.33.0-dev.18](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.17...v1.33.0-dev.18) (2026-09-30)
+
+
+### Bug Fixes
+
+* Verify a saved APK when the device reports no signers ([92d3118](https://github.com/MorpheApp/morphe-manager/commit/92d3118f5c63efd28894b850eccd9ced34620b29))
+
+
+### Features
+
+* Show every patching result on one screen with the app's details ([c3e97fe](https://github.com/MorpheApp/morphe-manager/commit/c3e97febb407dc39f33f31faebc777ed05105b69))
+
 # [1.33.0-dev.17](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.16...v1.33.0-dev.17) (2026-09-29)
 
 

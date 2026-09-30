@@ -36,6 +36,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import app.morphe.manager.R
 import app.morphe.manager.patcher.logger.LogLevel
 import app.morphe.manager.patcher.logger.logField
@@ -560,6 +562,9 @@ private fun ExpertLogPanel(
     LaunchedEffect(activeTab) {
         if (activeTab != LOG_PANEL_TAB_GAMES) miniGameState.pauseActiveGame()
     }
+    // Waits behind its pause overlay while the manager is away, rather than playing on the
+    // moment it is back, before the player has their eyes on it again
+    LifecycleEventEffect(Lifecycle.Event.ON_STOP) { miniGameState.pauseActiveGame() }
     // Lines there were when the logs were last in view, so the tab can say the run moved on
     var seenLogCount by rememberSaveable { mutableIntStateOf(rawLogs.size) }
     LaunchedEffect(activeTab, rawLogs.size) {

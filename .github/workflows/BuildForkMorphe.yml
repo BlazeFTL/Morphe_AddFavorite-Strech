@@ -71,21 +71,22 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Extracted version: $VERSION"
 
-      - name: Rename APK
+      - name: Stage single APK with fixed name
         run: |
+          mkdir -p /tmp/out
           APK_PATH=$(find source/app/build/outputs/apk/release -name "*.apk" -type f | head -1)
           if [ -z "$APK_PATH" ]; then
             echo "::error::No APK found in build output"
             exit 1
           fi
-          cp "$APK_PATH" "MorpheFork-V${{ steps.version.outputs.version }}.apk"
-          echo "Renamed to: MorpheFork-V${{ steps.version.outputs.version }}.apk"
+          cp "$APK_PATH" "/tmp/out/MorpheFork-V${{ steps.version.outputs.version }}.apk"
+          echo "Staged to: /tmp/out/MorpheFork-V${{ steps.version.outputs.version }}.apk"
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload raw APK (no zip)
+        uses: actions/upload-artifact@v7
         with:
-          name: MorpheFork-V${{ steps.version.outputs.version }}
-          path: MorpheFork-V${{ steps.version.outputs.version }}.apk
+          path: /tmp/out/MorpheFork-V${{ steps.version.outputs.version }}.apk
+          archive: false
 
       - name: Create GitHub Release
         if: github.event_name == 'workflow_dispatch' && inputs.create_release == true
@@ -93,7 +94,7 @@ jobs:
         with:
           tag_name: v${{ steps.version.outputs.version }}
           name: MorpheFork V${{ steps.version.outputs.version }}
-          files: MorpheFork-V${{ steps.version.outputs.version }}.apk
+          files: /tmp/out/MorpheFork-V${{ steps.version.outputs.version }}.apk
           generate_release_notes: true
           draft: false
           prerelease: false

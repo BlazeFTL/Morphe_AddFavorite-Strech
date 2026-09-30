@@ -15,6 +15,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.SportsEsports
+import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -532,9 +535,12 @@ private fun ExpertProgressHeader(
     }
 }
 
+private const val LOG_PANEL_TAB_LOGS = 0
+private const val LOG_PANEL_TAB_GAMES = 1
+
 /**
  * Scrollable log panel backed directly by [PatchProgressSource.logs].
- * The header tab row lets the user switch between logs and the mini-game.
+ * Tabs over it switch between the logs and the mini-game, by a tap or a swipe.
  */
 @Composable
 private fun ExpertLogPanel(
@@ -550,10 +556,14 @@ private fun ExpertLogPanel(
     val dotColor = appAccent ?: MorpheBrandTeal
     // Convert the full list in one stateful pass so banner cards can aggregate metadata from auxiliary lines
     val logItems = remember(rawLogs, rawLogs.size) { rawLogs.toLogItems() }
-    // 0 = logs, 1 = game
-    var activeTab by rememberSaveable { mutableIntStateOf(0) }
+    var activeTab by rememberSaveable { mutableIntStateOf(LOG_PANEL_TAB_LOGS) }
     LaunchedEffect(activeTab) {
-        if (activeTab != 1) miniGameState.pauseActiveGame()
+        if (activeTab != LOG_PANEL_TAB_GAMES) miniGameState.pauseActiveGame()
+    }
+    // Lines there were when the logs were last in view, so the tab can say the run moved on
+    var seenLogCount by rememberSaveable { mutableIntStateOf(rawLogs.size) }
+    LaunchedEffect(activeTab, rawLogs.size) {
+        if (activeTab == LOG_PANEL_TAB_LOGS) seenLogCount = rawLogs.size
     }
 
     Surface(
@@ -565,140 +575,87 @@ private fun ExpertLogPanel(
     ) {
         // Handed to the log cards, which a queue renders without the screen's own accent around them
         ProvideAccent(appAccent) {
-            Column(modifier = Modifier.fillMaxSize()) {
-                LogPanelTabHeader(
-                    accentColor = appAccent,
-                    activeTab = activeTab,
-                    onTabSelect = { activeTab = it }
-                )
-
-                HorizontalDivider(color = GlassButtonDefaults.borderColor())
-
-                AnimatedContent(
-                    targetState = activeTab,
-                    transitionSpec = Animations.fadeCrossfade(200),
-                    modifier = Modifier.weight(1f).fillMaxWidth(),
-                    label = "log_game_tab"
-                ) { tab ->
-                    when (tab) {
-                        1 -> MiniGameContent(state = miniGameState)
-                        else -> {
-                            LazyColumn(
-                                state = listState,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(vertical = PatcherCardMargin),
-                            ) {
-                                if (rawLogs.isEmpty()) {
-                                    item {
-                                        Box(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(vertical = 48.dp),
-                                            contentAlignment = Alignment.Center
+            SegmentedTabs(
+                options = listOf(
+                    SegmentedTab(
+                        label = stringResource(R.string.patcher_tab_logs),
+                        icon = Icons.Outlined.Terminal,
+                        badge = activeTab != LOG_PANEL_TAB_LOGS && rawLogs.size > seenLogCount
+                    ),
+                    SegmentedTab(
+                        label = stringResource(R.string.patcher_tab_game),
+                        icon = Icons.Outlined.SportsEsports
+                    )
+                ),
+                selectedIndex = activeTab,
+                onSelect = { activeTab = it },
+                spacing = 0.dp,
+                compact = true,
+                fillHeight = true,
+                selectorPadding = PaddingValues(
+                    start = PatcherCardPadding,
+                    top = PatcherCardPadding,
+                    end = PatcherCardPadding
+                ),
+                contentColor = MaterialTheme.colorScheme.onSurface,
+                // A game in play takes the drags over it, the picker has none of its own
+                pageSwipeEnabled = { page -> page != LOG_PANEL_TAB_GAMES || !miniGameState.hasOpenGame },
+                modifier = Modifier.fillMaxSize()
+            ) { tab ->
+                when (tab) {
+                    LOG_PANEL_TAB_GAMES -> MiniGameContent(state = miniGameState)
+                    else -> {
+                        LazyColumn(
+                            state = listState,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .verticalScrollFade(listState),
+                            contentPadding = PaddingValues(vertical = PatcherCardMargin)
+                        ) {
+                            if (rawLogs.isEmpty()) {
+                                item {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 48.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Column(
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            verticalArrangement = Arrangement.spacedBy(10.dp)
                                         ) {
-                                            Column(
-                                                horizontalAlignment = Alignment.CenterHorizontally,
-                                                verticalArrangement = Arrangement.spacedBy(10.dp)
-                                            ) {
-                                                // Nothing is going to arrive for a run whose log died
-                                                // with its process, so the live dot would be a lie
-                                                if (!patchProgress.logsLost) {
-                                                    LiveIndicatorDot(color = dotColor, size = 10.dp)
-                                                }
-                                                Text(
-                                                    text = stringResource(
-                                                        if (patchProgress.logsLost) R.string.patcher_logs_lost
-                                                        else R.string.patcher_logs_waiting
-                                                    ),
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                                        .copy(alpha = 0.45f),
-                                                    fontFamily = FontFamily.Monospace,
-                                                    textAlign = TextAlign.Center
-                                                )
+                                            // Nothing is going to arrive for a run whose log died
+                                            // with its process, so the live dot would be a lie
+                                            if (!patchProgress.logsLost) {
+                                                LiveIndicatorDot(color = dotColor, size = 10.dp)
                                             }
+                                            Text(
+                                                text = stringResource(
+                                                    if (patchProgress.logsLost) R.string.patcher_logs_lost
+                                                    else R.string.patcher_logs_waiting
+                                                ),
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                                    .copy(alpha = 0.45f),
+                                                fontFamily = FontFamily.Monospace,
+                                                textAlign = TextAlign.Center
+                                            )
                                         }
                                     }
                                 }
+                            }
 
-                                items(
-                                    count = logItems.size,
-                                    key = { index -> index }
-                                ) { index ->
-                                    LogItemContent(logItems[index])
-                                }
+                            items(
+                                count = logItems.size,
+                                key = { index -> index }
+                            ) { index ->
+                                LogItemContent(logItems[index])
                             }
                         }
                     }
                 }
             }
         }
-    }
-}
-
-/**
- * Tab header that switches the log panel between patcher logs and the mini-game.
- */
-@Composable
-private fun LogPanelTabHeader(
-    accentColor: Color?,
-    activeTab: Int,
-    onTabSelect: (Int) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 2.dp),
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        LogTabChip(
-            label = stringResource(R.string.patcher_tab_logs),
-            selected = activeTab == 0,
-            onClick = { onTabSelect(0) },
-            accentColor = accentColor,
-            modifier = Modifier.weight(1f, fill = false)
-        )
-        LogTabChip(
-            label = stringResource(R.string.patcher_tab_game),
-            selected = activeTab == 1,
-            onClick = { onTabSelect(1) },
-            accentColor = accentColor,
-            modifier = Modifier.weight(1f, fill = false)
-        )
-    }
-}
-
-/** A log panel tab, the picked one in the app's color as the screen's other controls are. */
-@Composable
-private fun LogTabChip(
-    label: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-    accentColor: Color?,
-    modifier: Modifier = Modifier
-) {
-    val selectedFill = accentColor?.copy(alpha = AccentAlpha.LEAD) ?: MaterialTheme.colorScheme.primaryContainer
-    Surface(
-        onClick = onClick,
-        shape = RoundedCornerShape(8.dp),
-        color = if (selected) selectedFill else Color.Transparent,
-        modifier = modifier
-    ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
-            color = when {
-                !selected -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                accentColor != null -> appAccentContent(selectedFill)
-                else -> MaterialTheme.colorScheme.onPrimaryContainer
-            },
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
-        )
     }
 }
 

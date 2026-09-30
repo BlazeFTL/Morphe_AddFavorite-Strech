@@ -6,8 +6,10 @@
 package app.morphe.manager.ui.screen.settings.system
 
 import android.view.HapticFeedbackConstants
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Settings
@@ -17,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -29,6 +32,7 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.manager.SettingsSection
 import app.morphe.manager.domain.manager.SigningKeyInfo
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.ui.viewmodel.ImportExportViewModel
 import java.text.DateFormat
 import java.util.Date
@@ -194,11 +198,7 @@ private fun SigningKeyPreview(key: SigningKeyInfo) {
                 horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                GradientCircleIcon(
-                    icon = Icons.Outlined.Key,
-                    size = 48.dp,
-                    gradientColors = fingerprintColors(key.sha256)
-                )
+                FingerprintBadge(key.sha256)
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = key.alias,
@@ -271,6 +271,24 @@ private val SettingsSection.descriptionRes: Int
         SettingsSection.SOURCES -> R.string.settings_system_backup_sources_description
         SettingsSection.PATCH_SELECTIONS -> R.string.settings_system_backup_patch_selections_description
     }
+
+/** Key icon on a gradient of two hues read off [sha256], see [fingerprintColors]. */
+@Composable
+private fun FingerprintBadge(sha256: String) {
+    val colors = remember(sha256) { fingerprintColors(sha256) }
+    Box(
+        modifier = Modifier
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(brush = ThemeTraitsDefaults.iconBackground(colors)),
+        contentAlignment = Alignment.Center
+    ) {
+        ThemedIcon(
+            icon = Icons.Outlined.Key,
+            tint = ThemeTraitsDefaults.iconTint(Color.White)
+        )
+    }
+}
 
 /** Two hues read off the fingerprint: always the same for one key, and rarely alike for two. */
 private fun fingerprintColors(sha256: String): List<Color> {

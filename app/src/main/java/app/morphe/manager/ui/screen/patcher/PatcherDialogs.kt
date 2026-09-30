@@ -531,10 +531,12 @@ fun PatcherErrorDialog(
                             )
                         }
                     )
+                    val errorScrollState = rememberScrollState()
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .verticalScroll(rememberScrollState())
+                            .verticalScrollFade(errorScrollState)
+                            .verticalScroll(errorScrollState)
                             .padding(horizontal = Defaults.ContentPadding, vertical = 4.dp),
                     ) {
                         Text(

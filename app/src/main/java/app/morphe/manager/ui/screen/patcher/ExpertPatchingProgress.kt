@@ -379,10 +379,12 @@ fun ExpertPatchingInProgress(
                 ) {
                     // The usage graphs can outgrow a short window, so the header scrolls while
                     // the action bar below it stays put
+                    val headerScrollState = rememberScrollState()
                     Column(
                         modifier = Modifier
                             .weight(1f)
-                            .verticalScroll(rememberScrollState())
+                            .verticalScrollFade(headerScrollState)
+                            .verticalScroll(headerScrollState)
                     ) {
                         queueHeader?.invoke()
 

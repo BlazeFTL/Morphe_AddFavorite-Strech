@@ -458,10 +458,12 @@ private fun CenteredScrollColumn(
     spacing: Dp,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    val scrollState = rememberScrollState()
     BoxWithConstraints(modifier = modifier, contentAlignment = Alignment.TopCenter) {
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
+                .verticalScrollFade(scrollState)
+                .verticalScroll(scrollState)
                 .heightIn(min = maxHeight)
                 .widthIn(max = Defaults.ContentMaxWidth)
                 .fillMaxWidth(),

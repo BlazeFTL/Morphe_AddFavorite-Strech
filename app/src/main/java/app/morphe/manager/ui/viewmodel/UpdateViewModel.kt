@@ -396,8 +396,8 @@ class UpdateViewModel : ViewModel(), KoinComponent {
     /**
      * Loads the releases the changelog dialog opens with: those newer than the installed version
      * when an update is available, then the installed version itself. On a pre-release build the
-     * installed version brings along every dev entry down to, but not including, the last stable
-     * release, since no stable entry sums those up yet.
+     * installed version brings along every dev entry down to the last stable release, which ends
+     * the list as the one they build on, the way the patches changelog ends its dev releases.
      *
      * Runs again once the update check resolves, so a dialog opened before then catches up.
      */
@@ -437,7 +437,11 @@ class UpdateViewModel : ViewModel(), KoinComponent {
                 val installedIndex = entries.indexOfFirst { it.version.normalizeVersion() == installedVersion }
                 val installed = when {
                     installedIndex < 0 -> emptyList()
-                    entries[installedIndex].isPrerelease -> entries.drop(installedIndex).takeWhile { it.isPrerelease }
+                    entries[installedIndex].isPrerelease -> {
+                        val devRun = entries.drop(installedIndex).takeWhile { it.isPrerelease }
+                        // Ends on the stable release the run was built on, as the patches changelog does
+                        devRun + listOfNotNull(entries.getOrNull(installedIndex + devRun.size))
+                    }
                     else -> listOf(entries[installedIndex])
                 }
 

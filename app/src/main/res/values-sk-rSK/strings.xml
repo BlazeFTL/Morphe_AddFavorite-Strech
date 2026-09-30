@@ -661,6 +661,8 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="mini_game_try_again">Skúsiť znova</string>
     <string name="mini_game_paused">Pozastavené</string>
     <string name="mini_game_resume">Pokračovať</string>
+    <string name="mini_game_restart">Začať odznova</string>
+    <string name="mini_game_change">Vybrať inú hru</string>
     <string name="mini_game_2048_picker_subtitle">Posúvajte dlaždice, aby ste ich spojili</string>
     <string name="mini_game_flappy_picker_subtitle">Ťuknite a prelette cez rúry</string>
     <string name="mini_game_flappy_tap_to_start">Ťuknite a lietajte</string>
@@ -710,6 +712,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="settings_appearance_pure_black">Čistá čierna</string>
     <string name="settings_appearance_pure_black_description">Použiť úplne čierne pozadie</string>
     <string name="settings_appearance_color_accents">Farby aplikácie a zdroja</string>
+    <string name="settings_appearance_color_accents_description">Používa vlastnú farbu každej aplikácie a zdroja namiesto akcentovej farby</string>
     <string name="settings_appearance_outlines">Obrysy</string>
     <string name="settings_appearance_outlines_description">Kreslí tenký okraj okolo kariet, panelov a tlačidiel</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1309,6 +1312,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_section_other">Zmeny</string>
     <string name="changelog_badge_latest">Najnovšie</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Stiahnutá</string>
     <string name="changelog_badge_prerelease">Predbežné vydanie</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Zobraziť všetky (%s)</string>

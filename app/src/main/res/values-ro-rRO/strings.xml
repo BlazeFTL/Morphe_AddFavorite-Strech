@@ -661,6 +661,8 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="mini_game_try_again">Încearcă din nou</string>
     <string name="mini_game_paused">Pauză</string>
     <string name="mini_game_resume">Continuă</string>
+    <string name="mini_game_restart">Reîncepe</string>
+    <string name="mini_game_change">Alege alt joc</string>
     <string name="mini_game_2048_picker_subtitle">Glisează plăcile pentru a le îmbina</string>
     <string name="mini_game_flappy_picker_subtitle">Atinge pentru a zbura printre țevi</string>
     <string name="mini_game_flappy_tap_to_start">Atinge pentru a zbura</string>
@@ -709,7 +711,10 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="settings_appearance_accent_color">Culoare accent</string>
     <string name="settings_appearance_pure_black">Negru pur</string>
     <string name="settings_appearance_pure_black_description">Folosește fundaluri negre pure</string>
+    <string name="settings_appearance_color_accents">Culorile aplicației și ale sursei</string>
     <string name="settings_appearance_color_accents_description">Folosește culoarea proprie a fiecărei aplicații și surse în locul culorii de accent.</string>
+    <string name="settings_appearance_outlines">Contururi</string>
+    <string name="settings_appearance_outlines_description">Desenează un contur subțire în jurul cardurilor, panourilor și butoanelor</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Limbă și afișare</string>
     <string name="settings_appearance_app_language">Limbă aplicație</string>

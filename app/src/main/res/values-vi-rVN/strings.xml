@@ -663,6 +663,8 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="mini_game_try_again">Thử lại</string>
     <string name="mini_game_paused">Tạm dừng</string>
     <string name="mini_game_resume">Tiếp tục</string>
+    <string name="mini_game_restart">Bắt đầu lại</string>
+    <string name="mini_game_change">Chọn một trò chơi khác</string>
     <string name="mini_game_2048_picker_subtitle">Vuốt để ghép các ô lại với nhau</string>
     <string name="mini_game_flappy_picker_subtitle">Chạm để bay lách qua các ống</string>
     <string name="mini_game_flappy_tap_to_start">Chạm để bay</string>
@@ -711,6 +713,10 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="settings_appearance_accent_color">Màu nổi bật</string>
     <string name="settings_appearance_pure_black">Đen tuyền</string>
     <string name="settings_appearance_pure_black_description">Nền đen thực sự</string>
+    <string name="settings_appearance_color_accents">Màu ứng dụng và nguồn</string>
+    <string name="settings_appearance_color_accents_description">Sử dụng màu riêng của từng ứng dụng và nguồn thay vì màu nhấn</string>
+    <string name="settings_appearance_outlines">Đường viền</string>
+    <string name="settings_appearance_outlines_description">Vẽ một đường viền mỏng xung quanh các thẻ, bảng và nút bấm</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Ngôn ngữ &amp; hiển thị</string>
     <string name="settings_appearance_app_language">Ngôn ngữ</string>
@@ -1311,6 +1317,7 @@ Chi tiết: %2$s"</string>
     <string name="changelog_section_other">Thay đổi</string>
     <string name="changelog_badge_latest">Mới nhất</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Đã tải xuống</string>
     <string name="changelog_badge_prerelease">Bản phát hành trước</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Hiện tất cả (%s)</string>

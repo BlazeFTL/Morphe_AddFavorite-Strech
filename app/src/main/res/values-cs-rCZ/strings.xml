@@ -661,6 +661,8 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="mini_game_try_again">Zkusit znovu</string>
     <string name="mini_game_paused">Pozastaveno</string>
     <string name="mini_game_resume">Pokračovat</string>
+    <string name="mini_game_restart">Začít znovu</string>
+    <string name="mini_game_change">Vybrat jinou hru</string>
     <string name="mini_game_2048_picker_subtitle">Skládejte dlaždice, abyste je spojili</string>
     <string name="mini_game_flappy_picker_subtitle">Klepnutím proleťte trubkami</string>
     <string name="mini_game_flappy_tap_to_start">Klepnutím pro létání</string>

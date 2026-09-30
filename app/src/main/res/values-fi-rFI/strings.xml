@@ -662,6 +662,8 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="mini_game_try_again">Yritä uudelleen</string>
     <string name="mini_game_paused">Tauolla</string>
     <string name="mini_game_resume">Jatka</string>
+    <string name="mini_game_restart">Aloita alusta</string>
+    <string name="mini_game_change">Valitse toinen peli</string>
     <string name="mini_game_2048_picker_subtitle">Liu\'uta laattoja yhdistääksesi ne</string>
     <string name="mini_game_flappy_picker_subtitle">Napauta lentääksesi putkien läpi</string>
     <string name="mini_game_flappy_tap_to_start">Napauta lentääksesi</string>
@@ -710,7 +712,10 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="settings_appearance_accent_color">Korostusväri</string>
     <string name="settings_appearance_pure_black">Täysin musta</string>
     <string name="settings_appearance_pure_black_description">Käytä täysin mustia taustoja</string>
+    <string name="settings_appearance_color_accents">Sovelluksen ja lähteen värit</string>
     <string name="settings_appearance_color_accents_description">Käyttää kunkin sovelluksen ja lähteen omaa väriä korostusvärin sijaan</string>
+    <string name="settings_appearance_outlines">Ääriviivat</string>
+    <string name="settings_appearance_outlines_description">Piirtää ohuen reunan korttien, paneelien ja painikkeiden ympärille</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Kieli &amp; näyttö</string>
     <string name="settings_appearance_app_language">Sovelluksen kieli</string>

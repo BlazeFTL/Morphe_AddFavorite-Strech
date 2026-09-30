@@ -659,6 +659,8 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="mini_game_try_again">Reyna aftur</string>
     <string name="mini_game_paused">Hætt</string>
     <string name="mini_game_resume">Halda áfram</string>
+    <string name="mini_game_restart">Byrja upp á nýtt</string>
+    <string name="mini_game_change">Veldu annan leik</string>
     <string name="mini_game_2048_picker_subtitle">Hreistu flísar til að sameina</string>
     <string name="mini_game_flappy_picker_subtitle">Smelltu til að fljúga í gegnum rör</string>
     <string name="mini_game_flappy_tap_to_start">Smelltu til að fljúga</string>
@@ -707,7 +709,10 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="settings_appearance_accent_color">Aðallitur</string>
     <string name="settings_appearance_pure_black">Liturjöfur svart</string>
     <string name="settings_appearance_pure_black_description">Nota svarta bakgrunni</string>
+    <string name="settings_appearance_color_accents">Litir apps og upprunans</string>
     <string name="settings_appearance_color_accents_description">Notar eigin lit hvers apps og hverrar uppsprettu í stað áherslulitarins</string>
+    <string name="settings_appearance_outlines">Útlínur</string>
+    <string name="settings_appearance_outlines_description">Teiknar þunna brún í kringum kort, spjöld og hnappa</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Tungumál og sýnishringur</string>
     <string name="settings_appearance_app_language">App tungumál</string>

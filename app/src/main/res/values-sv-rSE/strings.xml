@@ -662,6 +662,7 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="mini_game_paused">Pausat</string>
     <string name="mini_game_resume">Fortsätt</string>
     <string name="mini_game_restart">Starta om</string>
+    <string name="mini_game_change">Välj ett annat spel</string>
     <string name="mini_game_2048_picker_subtitle">Flytta brickorna och slå ihop dem</string>
     <string name="mini_game_flappy_picker_subtitle">Tryck för att flyga mellan rören</string>
     <string name="mini_game_flappy_tap_to_start">Tryck för att flyga</string>

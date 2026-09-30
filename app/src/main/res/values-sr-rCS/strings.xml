@@ -661,6 +661,8 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="mini_game_try_again">Pokušaj ponovo</string>
     <string name="mini_game_paused">Pauza</string>
     <string name="mini_game_resume">Nastavi</string>
+    <string name="mini_game_restart">Počni ispočetka</string>
+    <string name="mini_game_change">Izaberi drugu igru</string>
     <string name="mini_game_2048_picker_subtitle">Kliznite pločicama da biste ih spojili</string>
     <string name="mini_game_flappy_picker_subtitle">Dodirnite da letite kroz cevi</string>
     <string name="mini_game_flappy_tap_to_start">Dodirnite da letite</string>
@@ -709,7 +711,10 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="settings_appearance_accent_color">Naglašena boja</string>
     <string name="settings_appearance_pure_black">Čisto Crna</string>
     <string name="settings_appearance_pure_black_description">Koristi istinski crne pozadine</string>
+    <string name="settings_appearance_color_accents">Boje aplikacije i izvora</string>
     <string name="settings_appearance_color_accents_description">Koristi sopstvene boje svake aplikacije i izvora umesto akcentne boje</string>
+    <string name="settings_appearance_outlines">Obrisi</string>
+    <string name="settings_appearance_outlines_description">Crta tanku ivicu oko kartica, panela i dugmića</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Jezik &amp; prikaz</string>
     <string name="settings_appearance_app_language">Jezik aplikacije</string>

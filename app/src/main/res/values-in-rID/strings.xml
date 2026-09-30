@@ -662,6 +662,8 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="mini_game_try_again">Coba Lagi</string>
     <string name="mini_game_paused">Dijeda</string>
     <string name="mini_game_resume">Lanjutkan</string>
+    <string name="mini_game_restart">Mulai dari Awal</string>
+    <string name="mini_game_change">Pilih permainan lain</string>
     <string name="mini_game_2048_picker_subtitle">Geser balok untuk menggabungkan</string>
     <string name="mini_game_flappy_picker_subtitle">Ketuk untuk terbang melewati pipa</string>
     <string name="mini_game_flappy_tap_to_start">Ketuk untuk terbang</string>

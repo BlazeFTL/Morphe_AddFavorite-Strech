@@ -661,6 +661,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="mini_game_try_again">Erneut versuchen</string>
     <string name="mini_game_paused">Pausiert</string>
     <string name="mini_game_resume">Weiter</string>
+    <string name="mini_game_restart">Neu starten</string>
+    <string name="mini_game_change">Ein anderes Spiel wählen</string>
     <string name="mini_game_2048_picker_subtitle">Schieben Sie die Kacheln, um sie zu verbinden</string>
     <string name="mini_game_flappy_picker_subtitle">Tippen, um durch Rohre zu fliegen</string>
     <string name="mini_game_flappy_tap_to_start">Tippen zum Fliegen</string>
@@ -709,6 +711,10 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_accent_color">Akzentfarbe</string>
     <string name="settings_appearance_pure_black">OLED-Optimierung</string>
     <string name="settings_appearance_pure_black_description">Verwendet echte schwarze Hintergründe</string>
+    <string name="settings_appearance_color_accents">App- und Quellenfarben</string>
+    <string name="settings_appearance_color_accents_description">Verwendet die eigene Farbe jeder App und Quelle anstelle der Akzentfarbe</string>
+    <string name="settings_appearance_outlines">Umrandungen</string>
+    <string name="settings_appearance_outlines_description">Zeichnet eine dünne Umrandung um Karten, Panels und Schaltflächen</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Sprache &amp; Anzeige</string>
     <string name="settings_appearance_app_language">App-Sprache</string>

@@ -665,6 +665,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="mini_game_paused">En pause</string>
     <string name="mini_game_resume">Continuer</string>
     <string name="mini_game_restart">Recommencer</string>
+    <string name="mini_game_change">Choisir un autre jeu</string>
     <string name="mini_game_2048_picker_subtitle">Glissez les tuiles pour les fusionner</string>
     <string name="mini_game_flappy_picker_subtitle">Touchez pour voler entre les tuyaux</string>
     <string name="mini_game_flappy_tap_to_start">Touchez pour voler</string>

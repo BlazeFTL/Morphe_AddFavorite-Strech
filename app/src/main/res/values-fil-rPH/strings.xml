@@ -661,6 +661,8 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="mini_game_try_again">Subukan Muli</string>
     <string name="mini_game_paused">Naka-pause</string>
     <string name="mini_game_resume">Magpatuloy</string>
+    <string name="mini_game_restart">Magsimula muli</string>
+    <string name="mini_game_change">Pumili ng ibang laro</string>
     <string name="mini_game_2048_picker_subtitle">I-slide ang mga tile para pagsamahin</string>
     <string name="mini_game_flappy_picker_subtitle">I-tap para lumipad sa mga tubo</string>
     <string name="mini_game_flappy_tap_to_start">I-tap para lumipad</string>

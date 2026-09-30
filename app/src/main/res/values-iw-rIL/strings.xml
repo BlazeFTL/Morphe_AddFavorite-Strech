@@ -662,6 +662,8 @@
     <string name="mini_game_try_again">נסה שוב</string>
     <string name="mini_game_paused">מושהה</string>
     <string name="mini_game_resume">המשך</string>
+    <string name="mini_game_restart">התחל מחדש</string>
+    <string name="mini_game_change">בחר משחק אחר</string>
     <string name="mini_game_2048_picker_subtitle">החלק כדי למזג אריחים</string>
     <string name="mini_game_flappy_picker_subtitle">הקש כדי לעוף דרך הצינורות</string>
     <string name="mini_game_flappy_tap_to_start">הקש כדי לעוף</string>
@@ -711,6 +713,7 @@
     <string name="settings_appearance_pure_black">שחור טהור</string>
     <string name="settings_appearance_pure_black_description">משתמש ברקעים שחורים אמיתיים</string>
     <string name="settings_appearance_color_accents">צבעי אפליקציה ומקור</string>
+    <string name="settings_appearance_color_accents_description">משתמש בצבע של כל אפליקציה ומקור במקום צבע ההדגשה</string>
     <string name="settings_appearance_outlines">קווי מתאר</string>
     <string name="settings_appearance_outlines_description">מצייר קו מתאר דק סביב כרטיסים, פאנלים וכפתורים</string>
     <!-- Settings - Appearance Tab - Language Selector -->

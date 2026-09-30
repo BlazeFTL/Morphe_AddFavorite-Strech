@@ -661,6 +661,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="mini_game_try_again">Poskusite znova</string>
     <string name="mini_game_paused">Pavza</string>
     <string name="mini_game_resume">Nadaljuj</string>
+    <string name="mini_game_restart">Začni znova</string>
+    <string name="mini_game_change">Izberi drugo igro</string>
     <string name="mini_game_2048_picker_subtitle">Združite ploščice, da pridete do čim višje številke</string>
     <string name="mini_game_flappy_picker_subtitle">Tapkajte in poletite skozi cevi</string>
     <string name="mini_game_flappy_tap_to_start">Tapnite za polet</string>
@@ -709,6 +711,10 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_accent_color">Barva poudarkov</string>
     <string name="settings_appearance_pure_black">Črnina</string>
     <string name="settings_appearance_pure_black_description">Uporablja prava črne ozadja</string>
+    <string name="settings_appearance_color_accents">Barve aplikacij in virov</string>
+    <string name="settings_appearance_color_accents_description">Uporabi lastno barvo vsake aplikacije in vira namesto poudarjene barve</string>
+    <string name="settings_appearance_outlines">Obrisi</string>
+    <string name="settings_appearance_outlines_description">Okoli kartic, plošč in gumbov nariše tanek rob</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Jezik in prikaz</string>
     <string name="settings_appearance_app_language">Jezik aplikacije</string>

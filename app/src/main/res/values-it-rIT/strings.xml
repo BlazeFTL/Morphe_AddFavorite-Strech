@@ -661,6 +661,8 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="mini_game_try_again">Riprova</string>
     <string name="mini_game_paused">In pausa</string>
     <string name="mini_game_resume">Continua</string>
+    <string name="mini_game_restart">Ricomincia</string>
+    <string name="mini_game_change">Scegli un altro gioco</string>
     <string name="mini_game_2048_picker_subtitle">Fai scorrere le tessere per unirle</string>
     <string name="mini_game_flappy_picker_subtitle">Tocca per volare tra i tubi</string>
     <string name="mini_game_flappy_tap_to_start">Tocca per volare</string>

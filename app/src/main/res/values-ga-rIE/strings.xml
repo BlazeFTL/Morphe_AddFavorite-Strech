@@ -662,6 +662,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="mini_game_paused">Sosaithe</string>
     <string name="mini_game_resume">Lean ar aghaidh</string>
     <string name="mini_game_restart">Tosaigh arís</string>
+    <string name="mini_game_change">Roghnaigh cluiche eile</string>
     <string name="mini_game_2048_picker_subtitle">Sleamhnaigh tíleanna le cumasc</string>
     <string name="mini_game_flappy_picker_subtitle">Beartaigh chun eitilt trí phíopaí</string>
     <string name="mini_game_flappy_tap_to_start">Beartaigh le heitilt</string>
@@ -710,6 +711,10 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="settings_appearance_accent_color">Dath béime</string>
     <string name="settings_appearance_pure_black">Dubh Glan</string>
     <string name="settings_appearance_pure_black_description">Úsáideann sé cúlraí fíor-dhubha</string>
+    <string name="settings_appearance_color_accents">Dathanna an aip agus na foinse</string>
+    <string name="settings_appearance_color_accents_description">Úsáideann sé dath ar leith an aip agus na foinse in ionad an datha béime</string>
+    <string name="settings_appearance_outlines">Imlínte</string>
+    <string name="settings_appearance_outlines_description">Tarraingíonn sé imeall tanaí timpeall ar chártaí, ar phainéil agus ar chnaipí</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Teanga &amp; taispeáint</string>
     <string name="settings_appearance_app_language">Teanga an aip</string>

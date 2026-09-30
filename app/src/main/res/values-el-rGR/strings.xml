@@ -171,6 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Μια πηγή τροποποίησης με το ίδιο όνομα υπάρχει ήδη</string>
     <string name="sources_dialog_missing_error">Ανεπιτυχής ενημέρωση της πηγής τροποποίησης</string>
     <string name="sources_dialog_add_source">Προσθήκη πηγής τροποποίησης</string>
+    <string name="sources_dialog_delete_confirm_body">Αυτό δεν μπορεί να αναιρεθεί</string>
     <string name="sources_dialog_remote">Απομακρυσμένη</string>
     <string name="sources_dialog_remote_url">URL Πηγής</string>
     <string name="sources_dialog_remote_url_hint">Ένα αποθετήριο ή ένας σύνδεσμος προς ένα .json πακέτο ενημερώσεων. Επικολλήστε πολλά ταυτόχρονα για να τα προσθέσετε όλα.</string>
@@ -660,6 +661,8 @@
     <string name="mini_game_try_again">Δοκιμάστε ξανά</string>
     <string name="mini_game_paused">Σε παύση</string>
     <string name="mini_game_resume">Συνέχεια</string>
+    <string name="mini_game_restart">Ξεκινήστε από την αρχή</string>
+    <string name="mini_game_change">Επιλέξτε άλλο παιχνίδι</string>
     <string name="mini_game_2048_picker_subtitle">Σύρετε τα πλακίδια για να τα συγχωνεύσετε</string>
     <string name="mini_game_flappy_picker_subtitle">Πατήστε για να πετάξετε ανάμεσα από τους σωλήνες</string>
     <string name="mini_game_flappy_tap_to_start">Πατήστε για να πετάξετε</string>
@@ -708,6 +711,10 @@
     <string name="settings_appearance_accent_color">Χρώμα έμφασης</string>
     <string name="settings_appearance_pure_black">Αληθινό μαύρο</string>
     <string name="settings_appearance_pure_black_description">Χρησιμοποιεί αληθινά μαύρα φόντα</string>
+    <string name="settings_appearance_color_accents">Χρώματα εφαρμογών και πηγών</string>
+    <string name="settings_appearance_color_accents_description">Χρησιμοποιεί το χρώμα κάθε εφαρμογής και πηγής αντί για το χρώμα έμφασης</string>
+    <string name="settings_appearance_outlines">Περιγράμματα</string>
+    <string name="settings_appearance_outlines_description">Σχεδιάζει ένα λεπτό περίγραμμα γύρω από κάρτες, πάνελ και κουμπιά</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Γλώσσα &amp; οθόνη</string>
     <string name="settings_appearance_app_language">Γλώσσα εφαρμογής</string>
@@ -1098,6 +1105,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_original_apks_empty">Δεν υπάρχουν αποθηκευμένες πρωτότυπες APKs</string>
     <string name="settings_system_original_apks_deleted">Η πρωτότυπη APK διαγράφτηκε επιτυχώς</string>
     <string name="settings_system_original_apks_delete_title">Διαγραφή αρχικού APK;</string>
+    <string name="settings_system_original_apks_delete_notice">Δεν θα μπορείτε να κάνετε ξανά patch χωρίς να παρέχετε νέο APK</string>
     <string name="settings_system_original_apks_delete_all_title">Διαγραφή όλων των αρχικών APK;</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Επιλεγμένες τροποποιήσεις</string>

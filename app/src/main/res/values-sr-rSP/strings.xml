@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">Покушај поново</string>
     <string name="mini_game_paused">Пауза</string>
     <string name="mini_game_resume">Настави</string>
+    <string name="mini_game_restart">Почни поново</string>
+    <string name="mini_game_change">Изабери другу игру</string>
     <string name="mini_game_2048_picker_subtitle">Превлачите плочице да би их спојили</string>
     <string name="mini_game_flappy_picker_subtitle">Додирните да прођете кроз цеви</string>
     <string name="mini_game_flappy_tap_to_start">Додирните да летите</string>

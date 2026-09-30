@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">再試一次</string>
     <string name="mini_game_paused">已暫停</string>
     <string name="mini_game_resume">繼續</string>
+    <string name="mini_game_restart">重新開始</string>
+    <string name="mini_game_change">選擇其他遊戲</string>
     <string name="mini_game_2048_picker_subtitle">滑動方塊合併</string>
     <string name="mini_game_flappy_picker_subtitle">點擊穿過管道</string>
     <string name="mini_game_flappy_tap_to_start">點擊飛行</string>

@@ -661,6 +661,8 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="mini_game_try_again">Prøv igjen</string>
     <string name="mini_game_paused">Pauset</string>
     <string name="mini_game_resume">Fortsett</string>
+    <string name="mini_game_restart">Start på nytt</string>
+    <string name="mini_game_change">Velg et annet spill</string>
     <string name="mini_game_2048_picker_subtitle">Skyv brikkene for å slå dem sammen</string>
     <string name="mini_game_flappy_picker_subtitle">Trykk for å fly gjennom rørene</string>
     <string name="mini_game_flappy_tap_to_start">Trykk for å fly</string>

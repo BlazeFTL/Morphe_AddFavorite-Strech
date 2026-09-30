@@ -662,6 +662,8 @@
     <string name="mini_game_try_again">リトライ</string>
     <string name="mini_game_paused">ポーズ中</string>
     <string name="mini_game_resume">続行</string>
+    <string name="mini_game_restart">やり直す</string>
+    <string name="mini_game_change">別のゲームを選ぶ</string>
     <string name="mini_game_2048_picker_subtitle">タイルをスライドして合体させよう</string>
     <string name="mini_game_flappy_picker_subtitle">タップしてパイプの間を飛び抜けよう</string>
     <string name="mini_game_flappy_tap_to_start">タップして開始</string>

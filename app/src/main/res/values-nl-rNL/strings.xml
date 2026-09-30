@@ -661,6 +661,8 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="mini_game_try_again">Probeer opnieuw</string>
     <string name="mini_game_paused">Pauze</string>
     <string name="mini_game_resume">Doorgaan</string>
+    <string name="mini_game_restart">Opnieuw beginnen</string>
+    <string name="mini_game_change">Kies een ander spel</string>
     <string name="mini_game_2048_picker_subtitle">Schuif tegels om ze te combineren</string>
     <string name="mini_game_flappy_picker_subtitle">Tik om door de pijpen te vliegen</string>
     <string name="mini_game_flappy_tap_to_start">Tik om te vliegen</string>

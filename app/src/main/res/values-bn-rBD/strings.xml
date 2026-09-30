@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">আবার চেষ্টা করুন</string>
     <string name="mini_game_paused">বিরতি</string>
     <string name="mini_game_resume">এগিয়ে যান</string>
+    <string name="mini_game_restart">নতুন করে শুরু করুন</string>
+    <string name="mini_game_change">অন্য একটি গেম বেছে নিন</string>
     <string name="mini_game_2048_picker_subtitle">একসাথে মার্জ করার জন্য টাইলস স্লাইড করুন</string>
     <string name="mini_game_flappy_picker_subtitle">পাইপের মধ্যে দিয়ে উড়তে ট্যাপ করুন</string>
     <string name="mini_game_flappy_tap_to_start">উড়তে ট্যাপ করুন</string>
@@ -710,6 +712,7 @@
     <string name="settings_appearance_pure_black">পুরো কালো</string>
     <string name="settings_appearance_pure_black_description">ব্যবহার করে খাঁটি কালো ব্যাকগ্রাউন্ড।</string>
     <string name="settings_appearance_color_accents">অ্যাপ এবং উৎসের রং</string>
+    <string name="settings_appearance_color_accents_description">অ্যাকসেন্ট রঙের পরিবর্তে প্রতিটি অ্যাপ ও উৎসের নিজস্ব রঙ ব্যবহার করা হয়</string>
     <string name="settings_appearance_outlines">আউটলাইন</string>
     <string name="settings_appearance_outlines_description">কার্ড, প্যানেল এবং বাটনের চারপাশে একটি পাতলা কিনারা আঁকে।</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1301,6 +1304,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_section_other">পরিবর্তন</string>
     <string name="changelog_badge_latest">সর্বশেষ</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">ডাউনলোড করা হয়েছে</string>
     <string name="changelog_badge_prerelease">প্রি-রিলিজ</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">সব দেখান (%s)</string>

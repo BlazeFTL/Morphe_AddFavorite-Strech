@@ -661,6 +661,8 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="mini_game_try_again">Prøv igen</string>
     <string name="mini_game_paused">Pauset</string>
     <string name="mini_game_resume">Fortsæt</string>
+    <string name="mini_game_restart">Start forfra</string>
+    <string name="mini_game_change">Vælg et andet spil</string>
     <string name="mini_game_2048_picker_subtitle">Skub fliser for at sammenlægge</string>
     <string name="mini_game_flappy_picker_subtitle">Tryk for at flyve gennem rør</string>
     <string name="mini_game_flappy_tap_to_start">Tryk for at flyve</string>
@@ -709,7 +711,10 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_accent_color">Accentfarve</string>
     <string name="settings_appearance_pure_black">Ægte sort</string>
     <string name="settings_appearance_pure_black_description">Brug ægte sort i baggrunde</string>
+    <string name="settings_appearance_color_accents">App- og kildefarver</string>
     <string name="settings_appearance_color_accents_description">Bruger hver apps og kildes egen farve i stedet for accentfarven</string>
+    <string name="settings_appearance_outlines">Omrids</string>
+    <string name="settings_appearance_outlines_description">Tegner en tynd kant omkring kort, paneler og knapper</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Sprog &amp; skærm</string>
     <string name="settings_appearance_app_language">App-sprog</string>

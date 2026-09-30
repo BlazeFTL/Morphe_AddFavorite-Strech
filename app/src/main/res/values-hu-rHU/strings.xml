@@ -661,6 +661,8 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="mini_game_try_again">Próbálja újra</string>
     <string name="mini_game_paused">Szüneteltetve</string>
     <string name="mini_game_resume">Folytatás</string>
+    <string name="mini_game_restart">Újrakezdés</string>
+    <string name="mini_game_change">Válassz másik játékot</string>
     <string name="mini_game_2048_picker_subtitle">Húzd a lapkákat összevonáshoz</string>
     <string name="mini_game_flappy_picker_subtitle">Érintsd meg, hogy átrepülj a csővázakon</string>
     <string name="mini_game_flappy_tap_to_start">Érintsd meg a repüléshez</string>

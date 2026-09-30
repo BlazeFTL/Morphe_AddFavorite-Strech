@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">Опитай отново</string>
     <string name="mini_game_paused">Пауза</string>
     <string name="mini_game_resume">Продължи</string>
+    <string name="mini_game_restart">Започни отначало</string>
+    <string name="mini_game_change">Избери друга игра</string>
     <string name="mini_game_2048_picker_subtitle">Плъзнете плочките, за да ги обедините</string>
     <string name="mini_game_flappy_picker_subtitle">Докоснете, за да прелетите през тръбите</string>
     <string name="mini_game_flappy_tap_to_start">Докоснете, за да летите</string>
@@ -710,6 +712,7 @@
     <string name="settings_appearance_pure_black">Натурално черно</string>
     <string name="settings_appearance_pure_black_description">Използва истински черни фонове</string>
     <string name="settings_appearance_color_accents">Цветове на приложения и източници</string>
+    <string name="settings_appearance_color_accents_description">Използва собствения цвят на всяко приложение и източник вместо акцентния цвят</string>
     <string name="settings_appearance_outlines">Контури</string>
     <string name="settings_appearance_outlines_description">Изчертава тънък контур около карти, панели и бутони.</string>
     <!-- Settings - Appearance Tab - Language Selector -->

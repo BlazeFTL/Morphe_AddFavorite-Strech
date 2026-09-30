@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">ลองอีกครั้ง</string>
     <string name="mini_game_paused">หยุดชั่วคราว</string>
     <string name="mini_game_resume">ดำเนินการต่อ</string>
+    <string name="mini_game_restart">เริ่มใหม่</string>
+    <string name="mini_game_change">เลือกเกมอื่น</string>
     <string name="mini_game_2048_picker_subtitle">เลื่อนไทล์เพื่อรวมกัน</string>
     <string name="mini_game_flappy_picker_subtitle">แตะเพื่อบินผ่านท่อ</string>
     <string name="mini_game_flappy_tap_to_start">แตะเพื่อบิน</string>
@@ -709,6 +711,10 @@
     <string name="settings_appearance_accent_color">สีเน้น</string>
     <string name="settings_appearance_pure_black">ดำสีบริสุทธิ์</string>
     <string name="settings_appearance_pure_black_description">ใช้พื้นหลังสีดำสนิท</string>
+    <string name="settings_appearance_color_accents">สีของแอปและแหล่งที่มา</string>
+    <string name="settings_appearance_color_accents_description">ใช้สีเฉพาะของแต่ละแอปและแหล่งที่มาแทนสีเน้น</string>
+    <string name="settings_appearance_outlines">โครงร่าง</string>
+    <string name="settings_appearance_outlines_description">วาดเส้นขอบบาง ๆ รอบการ์ด แผง และปุ่ม</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">ภาษา &amp; การแสดงผล</string>
     <string name="settings_appearance_app_language">ภาษาของแอป</string>
@@ -1306,6 +1312,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_other">การเปลี่ยนแปลง</string>
     <string name="changelog_badge_latest">ล่าสุด</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">ดาวน์โหลดแล้ว</string>
     <string name="changelog_badge_prerelease">เวอร์ชันก่อนเผยแพร่</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">แสดงทั้งหมด (%s)</string>

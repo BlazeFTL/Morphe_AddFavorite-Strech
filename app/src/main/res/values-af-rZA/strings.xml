@@ -661,6 +661,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="mini_game_try_again">Probeer weer</string>
     <string name="mini_game_paused">Pauze</string>
     <string name="mini_game_resume">Gaan voort</string>
+    <string name="mini_game_restart">Begin oor</string>
+    <string name="mini_game_change">Kies \'n ander speletjie</string>
     <string name="mini_game_2048_picker_subtitle">Skuif teëls om te saamsmelt</string>
     <string name="mini_game_flappy_picker_subtitle">Tik om deur die pype te vlieg</string>
     <string name="mini_game_flappy_tap_to_start">Tik om te vlieg</string>
@@ -709,6 +711,10 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_accent_color">Aksentkleur</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Gebruik ware swart agtergronde</string>
+    <string name="settings_appearance_color_accents">Toep- en bronkleure</string>
+    <string name="settings_appearance_color_accents_description">Gebruik elke toep en bron se eie kleur in plaas van die aksentkleur</string>
+    <string name="settings_appearance_outlines">Omlyne</string>
+    <string name="settings_appearance_outlines_description">Teken \'n dun randjie om kaarte, panele en knoppies</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Taal en vertoning</string>
     <string name="settings_appearance_app_language">App taal</string>
@@ -1306,6 +1312,7 @@ Besonderhede: %2$s"</string>
     <string name="changelog_section_other">Veranderinge</string>
     <string name="changelog_badge_latest">Nuutste</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Afgelaai</string>
     <string name="changelog_badge_prerelease">Voorvrystelling</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Wys alles (%s)</string>

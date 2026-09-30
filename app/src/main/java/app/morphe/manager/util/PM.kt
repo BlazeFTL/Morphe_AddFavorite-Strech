@@ -326,15 +326,21 @@ class PM(
  *
  * Apps without a real label fall back to their package or a launcher class, and only those are
  * worth reducing to a last segment. A brand that simply contains a dot must survive, so a dotted
- * label only qualifies with the shape of a package: no spaces, three or more segments, and a
- * lowercase top-level domain in front.
+ * label only qualifies with the shape of a package: no spaces, three or more segments that each
+ * start with a letter or underscore, and a lowercase top-level domain in front.
  */
 private fun looksLikeIdentifierLabel(label: String, packageName: String): Boolean {
     if (label.any(Char::isWhitespace)) return false
     if (packageName.isNotEmpty() && label.contains(packageName)) return true
-    if (label.count { it == '.' } < 2) return false
-    if (!label.all { it.isLetterOrDigit() || it == '.' || it == '_' }) return false
-    return label.substringBefore('.').none(Char::isUpperCase)
+    val segments = label.split('.')
+    if (segments.size < 3) return false
+    if (!segments.all(::isIdentifierSegment)) return false
+    return segments.first().none(Char::isUpperCase)
+}
+
+private fun isIdentifierSegment(segment: String): Boolean {
+    val first = segment.firstOrNull() ?: return false
+    return (first.isLetter() || first == '_') && segment.all { it.isLetterOrDigit() || it == '_' }
 }
 
 /**

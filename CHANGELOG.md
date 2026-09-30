@@ -1,3 +1,24 @@
+# [1.33.0-dev.20](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.19...v1.33.0-dev.20) (2026-09-30)
+
+
+### Bug Fixes
+
+* Build the game controls from the shared pills and badges ([cc0607d](https://github.com/MorpheApp/morphe-manager/commit/cc0607db7552e2353d125244ee0099cfc6217b54))
+* Color the add button in list options like the dialog around it ([af1f3d8](https://github.com/MorpheApp/morphe-manager/commit/af1f3d8b84a119d899975a2a64255c995d461145))
+* Draw the onboarding card like the selection panel ([ca2f40c](https://github.com/MorpheApp/morphe-manager/commit/ca2f40c600bbc965037097c759163ed24462dcb7))
+* End the manager's dev changelog on the stable release it builds on, as the patches one does ([0b867eb](https://github.com/MorpheApp/morphe-manager/commit/0b867eb455ba77b1924f1a392b3d15966d533d6f))
+* Fade the patcher's scrolling columns at their edges ([de527c8](https://github.com/MorpheApp/morphe-manager/commit/de527c8a758a86383c840479565cbd0c2c84a53c))
+* Give each game in the picker its own color ([2cd49fd](https://github.com/MorpheApp/morphe-manager/commit/2cd49fd5bfcf91677c1cd2e02135c33de0ef0ef8))
+* Keep settings section titles quieter than the cards under them ([2cb21d6](https://github.com/MorpheApp/morphe-manager/commit/2cb21d6fbf8f3d5fbc4ed518d470f82848030a49))
+* Pause the game while the manager is in the background ([f63c0bf](https://github.com/MorpheApp/morphe-manager/commit/f63c0bf3b29e818cc8683b7d5070eac014381d22))
+* Set the app icon in About on a plain tile ([5af355f](https://github.com/MorpheApp/morphe-manager/commit/5af355f9dc968286fa33c944c44e95bf1aa7f08d))
+* Share one empty state across the manager, with its action as a pill ([caf2708](https://github.com/MorpheApp/morphe-manager/commit/caf2708d729adf1c90fec0adc9c02bc19bd8196e))
+
+
+### Features
+
+* Swipe between patcher logs and games, marking new log lines ([6980d85](https://github.com/MorpheApp/morphe-manager/commit/6980d8563b1fe866f00e3b6b8ae1f78a0d84f004))
+
 # [1.33.0-dev.19](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.18...v1.33.0-dev.19) (2026-09-30)
 
 

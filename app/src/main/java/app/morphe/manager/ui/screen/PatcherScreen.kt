@@ -219,7 +219,7 @@ private fun PatcherScreenContent(
             val failedStep = steps.firstOrNull { it.state == State.FAILED }
             state.errorMessage = failedStep?.message.orEmpty()
             state.errorInfo = patcherViewModel.buildErrorInfo()
-            state.showErrorDialog = true
+            state.shownFailure = PatcherFailure.PATCHING
         }
     }
 
@@ -388,7 +388,7 @@ private fun PatcherScreenContent(
 
     // Memory limit dialog, shown after the system killed the patcher process.
     // Waits for the error dialog to close: that one explains the failure this one offers a fix for
-    if (!state.showErrorDialog) {
+    if (state.shownFailure == null) {
         patcherViewModel.memoryAdjustmentDialog?.let { dialogState ->
             MemoryAdjustmentDialog(
                 currentLimit = dialogState.currentLimit,
@@ -416,12 +416,22 @@ private fun PatcherScreenContent(
         )
     }
 
-    // Error dialog
-    if (state.showErrorDialog) {
+    // Error dialog, for a failed run and a failed install alike
+    state.shownFailure?.let { failure ->
+        val errorMessage = when (failure) {
+            PatcherFailure.PATCHING -> state.effectiveErrorMessage
+            PatcherFailure.INSTALL -> (installState as? InstallViewModel.InstallState.Error)?.message.orEmpty()
+        }
         PatcherErrorDialog(
-            errorMessage = state.effectiveErrorMessage.ifBlank { unknownErrorText },
+            title = stringResource(
+                when (failure) {
+                    PatcherFailure.PATCHING -> R.string.patcher_failed_dialog_title
+                    PatcherFailure.INSTALL -> R.string.patcher_install_error_title
+                }
+            ),
+            errorMessage = errorMessage.ifBlank { unknownErrorText },
             errorInfo = state.errorInfo,
-            onDismiss = { state.showErrorDialog = false }
+            onDismiss = { state.shownFailure = null }
         )
     }
 
@@ -599,6 +609,13 @@ private fun PatcherScreenContent(
                         onOpen = {
                             installViewModel.openApp()
                         },
+                        onShowInstallError = {
+                            scope.launch {
+                                // A run that patched fine has not collected these yet
+                                if (state.errorInfo == null) state.errorInfo = patcherViewModel.buildErrorInfo()
+                                state.shownFailure = PatcherFailure.INSTALL
+                            }
+                        },
                         onHomeClick = onBackClick,
                         onSaveClick = {
                             if (!isSaving) {
@@ -611,8 +628,13 @@ private fun PatcherScreenContent(
 
                 PatcherState.FAILED -> {
                     PatchingFailed(
+                        packageName = patcherViewModel.packageName,
+                        version = patcherViewModel.version,
+                        patchCount = patcherViewModel.patchCount,
+                        sources = patchSources,
+                        errorMessage = state.errorMessage,
                         onHomeClick = onBackClick,
-                        onErrorClick = { state.showErrorDialog = true }
+                        onErrorClick = { state.shownFailure = PatcherFailure.PATCHING }
                     )
                 }
             }

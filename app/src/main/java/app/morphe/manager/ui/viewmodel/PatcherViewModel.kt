@@ -401,7 +401,8 @@ class PatcherViewModel(
 
     /**
      * Collects app and bundle metadata to populate [PatcherErrorInfo] in the error dialog.
-     * Called after patching fails so the dialog opens instantly without an extra async wait.
+     * Called as soon as patching fails so the dialog opens without an extra async wait, and
+     * before the dialog opens on a failed install.
      */
     suspend fun buildErrorInfo(): PatcherErrorInfo {
         // Read from what the run started with, since a failed run leaves no output APK to name

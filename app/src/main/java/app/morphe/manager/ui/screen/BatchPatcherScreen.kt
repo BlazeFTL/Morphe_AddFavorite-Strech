@@ -407,6 +407,7 @@ fun BatchPatcherScreen(
     var errorItem by remember { mutableStateOf<BatchPatchItem?>(null) }
     errorItem?.let { item ->
         PatcherErrorDialog(
+            title = stringResource(R.string.patcher_failed_dialog_title),
             errorMessage = item.message ?: stringResource(R.string.patcher_unknown_error),
             errorInfo = PatcherErrorInfo(
                 appName = item.appName,

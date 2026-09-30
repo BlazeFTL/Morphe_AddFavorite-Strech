@@ -465,10 +465,11 @@ fun MemoryAdjustmentDialog(
 }
 
 /**
- * Full-screen error dialog shown when patching fails.
+ * Full-screen error dialog shown when patching or installing the patched app fails.
  */
 @Composable
 fun PatcherErrorDialog(
+    title: String,
     errorMessage: String,
     errorInfo: PatcherErrorInfo?,
     onDismiss: () -> Unit
@@ -488,7 +489,7 @@ fun PatcherErrorDialog(
     AppDialog(
         onDismissRequest = onDismiss,
         accentColor = rememberAppColor(errorInfo?.packageName),
-        title = stringResource(R.string.patcher_failed_dialog_title),
+        title = title,
         padding = DialogPadding.Compact,
         scrollable = false,
         footer = {

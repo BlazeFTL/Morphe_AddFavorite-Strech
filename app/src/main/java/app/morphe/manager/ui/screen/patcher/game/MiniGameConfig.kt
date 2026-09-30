@@ -33,13 +33,16 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.ui.screen.patcher.PatcherCardPadding
 import app.morphe.manager.ui.screen.shared.AccentAlpha
+import app.morphe.manager.ui.screen.shared.ActionPillButton
 import app.morphe.manager.ui.screen.shared.Animations
+import app.morphe.manager.ui.screen.shared.AppAccentBadge
+import app.morphe.manager.ui.screen.shared.CardAction
+import app.morphe.manager.ui.screen.shared.CardActionRow
 import app.morphe.manager.ui.screen.shared.Defaults
 import app.morphe.manager.ui.screen.shared.SurfaceCard
 import app.morphe.manager.ui.screen.shared.ThemedIcon
@@ -281,33 +284,6 @@ class MiniGameState(prefs: PreferencesManager, scope: CoroutineScope) {
     }
 }
 
-/**
- * Reusable chip used in the header row of every mini-game.
- */
-@Composable
-internal fun GameChip(
-    onClick: (() -> Unit)? = null,
-    verticalPadding: Dp = 12.dp,
-    content: @Composable () -> Unit
-) {
-    if (onClick != null) {
-        Surface(
-            onClick = onClick,
-            shape = RoundedCornerShape(10.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant
-        ) {
-            Box(modifier = Modifier.padding(horizontal = 12.dp, vertical = verticalPadding)) { content() }
-        }
-    } else {
-        Surface(
-            shape = RoundedCornerShape(10.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant
-        ) {
-            Box(modifier = Modifier.padding(horizontal = 12.dp, vertical = verticalPadding)) { content() }
-        }
-    }
-}
-
 // Cards keep a readable width and the column count follows the space available, so the
 // picker stays two-up on a phone and fills the row on a tablet or in landscape
 private val GamePickerMinCardWidth = 150.dp
@@ -400,10 +376,7 @@ private fun GamePickerGridCard(
  * Handles all picker/game switching internally so callers only need to pass state.
  */
 @Composable
-internal fun MiniGameContent(
-    state: MiniGameState,
-    progress: Float? = null
-) {
+internal fun MiniGameContent(state: MiniGameState) {
     AnimatedContent(
         targetState = state.selectedGame,
         transitionSpec = Animations.fadeCrossfade(200),
@@ -424,7 +397,6 @@ internal fun MiniGameContent(
                 ) {
                     GameScoreRow(
                         score = activeState.score,
-                        progress = progress,
                         onRestart = activeState::restart,
                         onChangeGame = { state.selectedGame = null }
                     )
@@ -481,13 +453,12 @@ private fun GameCanvasSlot(selected: MiniGame, state: MiniGameState) {
 }
 
 /**
- * Shared score row shown at the top of every mini-game (portrait layout).
- * Displays the [score], an optional patching [progress] percentage chip, and a restart button.
+ * Shared score row shown at the top of every mini-game: the [score], then the actions to start
+ * over and to pick another game, in the pills every other action on the screen wears.
  */
 @Composable
 internal fun GameScoreRow(
     score: Int,
-    progress: Float?,
     onRestart: () -> Unit,
     onChangeGame: () -> Unit
 ) {
@@ -496,37 +467,22 @@ internal fun GameScoreRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GameChip(verticalPadding = 8.dp) {
-            Text(
-                stringResource(R.string.mini_game_score, score),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
-            )
-        }
-        if (progress != null) {
-            GameChip(verticalPadding = 8.dp) {
-                Text(
-                    "${(progress * 100).toInt()}%",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
-        }
+        AppAccentBadge(text = stringResource(R.string.mini_game_score, score))
         Spacer(Modifier.weight(1f))
-        GameChip(onClick = onRestart) {
-            Icon(
-                imageVector = Icons.Outlined.Refresh,
-                contentDescription = null,
-                modifier = Modifier.size(Defaults.IconSizeSmall)
-            )
-        }
-        GameChip(onClick = onChangeGame) {
-            Icon(
-                imageVector = Icons.Outlined.SportsEsports,
-                contentDescription = null,
-                modifier = Modifier.size(Defaults.IconSizeSmall)
-            )
-        }
+        val restart = stringResource(R.string.mini_game_restart)
+        ActionPillButton(
+            onClick = onRestart,
+            icon = Icons.Outlined.Refresh,
+            contentDescription = restart,
+            tooltip = restart
+        )
+        val changeGame = stringResource(R.string.mini_game_change)
+        ActionPillButton(
+            onClick = onChangeGame,
+            icon = Icons.Outlined.SportsEsports,
+            contentDescription = changeGame,
+            tooltip = changeGame
+        )
     }
 }
 
@@ -573,9 +529,15 @@ internal fun GameOverOverlay(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            Button(onClick = onRestart) {
-                Text(stringResource(R.string.mini_game_try_again))
-            }
+            CardActionRow(
+                actions = listOf(
+                    CardAction(
+                        icon = Icons.Outlined.Refresh,
+                        label = stringResource(R.string.mini_game_try_again),
+                        onClick = onRestart
+                    )
+                )
+            )
         }
     }
 }
@@ -597,9 +559,15 @@ internal fun GamePauseOverlay(onResume: () -> Unit, modifier: Modifier = Modifie
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
             )
-            Button(onClick = onResume) {
-                Text(stringResource(R.string.mini_game_resume))
-            }
+            CardActionRow(
+                actions = listOf(
+                    CardAction(
+                        icon = Icons.Outlined.PlayArrow,
+                        label = stringResource(R.string.mini_game_resume),
+                        onClick = onResume
+                    )
+                )
+            )
         }
     }
 }

@@ -18,7 +18,6 @@ import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.Restore
-import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -815,12 +814,12 @@ private fun ListStringInputOption(
                 keyboardActions = KeyboardActions(onDone = { addInput() }),
                 modifier = Modifier.weight(1f)
             )
-            FilledTonalIconButton(onClick = ::addInput) {
-                Icon(
-                    imageVector = Icons.Outlined.Add,
-                    contentDescription = stringResource(R.string.add)
-                )
-            }
+            TitleAction(
+                icon = Icons.Outlined.Add,
+                contentDescription = stringResource(R.string.add),
+                onClick = ::addInput,
+                style = TitleActionStyle.Accent
+            )
         }
 
         error?.let {

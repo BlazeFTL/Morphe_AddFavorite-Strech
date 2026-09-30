@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">En patchkilde med dette navn findes allerede</string>
     <string name="sources_dialog_missing_error">Kunne ikke opdatere denne patchkilde</string>
     <string name="sources_dialog_add_source">Tilføj patchkilde</string>
-    <string name="sources_dialog_delete_confirm_message">Slet kilde \"%s\"? Dette kan ikke fortrydes</string>
+    <string name="sources_dialog_delete_confirm_body">Dette kan ikke fortrydes</string>
     <string name="sources_dialog_remote">Fjernt</string>
     <string name="sources_dialog_remote_url">Kilde-URL</string>
     <string name="sources_dialog_remote_url_hint">Et repository eller et link til en patch-bundle .json. Indsæt flere på én gang for at tilføje dem alle</string>
@@ -537,8 +537,8 @@ Ydre zone (stiplet): Kan blive beskåret af launcher-masken – hold vigtige det
     <string name="patcher_success_subtitle">Din app er patchet og installeret!</string>
     <string name="patcher_complete_title">Patch fuldført! ✨</string>
     <string name="patcher_failed_title">Ups! Noget gik galt</string>
-    <string name="patcher_failed_hint">Tryk på %s for at se, hvad der gik galt</string>
     <string name="patcher_failed_dialog_title">Patch mislykkedes</string>
+    <string name="patcher_error_details">Fejloplysninger</string>
     <string name="patcher_unknown_error">Ukendt fejl opstod</string>
     <string name="patcher_split_step_extracting">Udpakker split-APK\'er</string>
     <string name="patcher_split_step_merging">Sammenlægning af %s</string>
@@ -661,6 +661,8 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="mini_game_try_again">Prøv igen</string>
     <string name="mini_game_paused">Pauset</string>
     <string name="mini_game_resume">Fortsæt</string>
+    <string name="mini_game_restart">Start forfra</string>
+    <string name="mini_game_change">Vælg et andet spil</string>
     <string name="mini_game_2048_picker_subtitle">Skub fliser for at sammenlægge</string>
     <string name="mini_game_flappy_picker_subtitle">Tryk for at flyve gennem rør</string>
     <string name="mini_game_flappy_tap_to_start">Tryk for at flyve</string>
@@ -709,7 +711,10 @@ Afinstallation sletter permanent alle appdata."</string>
     <string name="settings_appearance_accent_color">Accentfarve</string>
     <string name="settings_appearance_pure_black">Ægte sort</string>
     <string name="settings_appearance_pure_black_description">Brug ægte sort i baggrunde</string>
+    <string name="settings_appearance_color_accents">App- og kildefarver</string>
     <string name="settings_appearance_color_accents_description">Bruger hver apps og kildes egen farve i stedet for accentfarven</string>
+    <string name="settings_appearance_outlines">Omrids</string>
+    <string name="settings_appearance_outlines_description">Tegner en tynd kant omkring kort, paneler og knapper</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Sprog &amp; skærm</string>
     <string name="settings_appearance_app_language">App-sprog</string>
@@ -1091,7 +1096,6 @@ Detaljer: %2$s"</string>
     <string name="settings_system_patched_apks_description">Håndter gemte patchet APK filer</string>
     <string name="settings_system_patched_apks_empty">Ingen patchet APK\'er er gemt endnu</string>
     <string name="settings_system_patched_apks_delete_title">Slet patchet APK? </string>
-    <string name="settings_system_patched_apks_delete_confirm">Er du sikker på, at du vil slette den gemte patched APK for &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">App slettet</string>
     <string name="settings_system_patched_apks_delete_all_title">Slet alle rettede APK\'er?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1100,7 +1104,7 @@ Detaljer: %2$s"</string>
     <string name="settings_system_original_apks_empty">Ingen lagrede originale APK-er</string>
     <string name="settings_system_original_apks_deleted">Original APK slettet</string>
     <string name="settings_system_original_apks_delete_title">Slet original APK? </string>
-    <string name="settings_system_original_apks_delete_confirm">Slet original APK for &lt;b&gt;%s&lt;/b&gt;? Du vil ikke kunne repatche uden at tilbyde en ny APK</string>
+    <string name="settings_system_original_apks_delete_notice">Du vil ikke kunne repatche uden at levere en ny APK</string>
     <string name="settings_system_original_apks_delete_all_title">Slet alle originale APK\'er?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Patchvalg</string>
@@ -1318,6 +1322,7 @@ Detaljer: %2$s"</string>
     <string name="update_completed">Opdatering installeret</string>
     <string name="install_update_manager_failed">Kunne ikke installere opdatering</string>
     <string name="installing_manager_update">Installerer opdatering…</string>
+    <string name="installing_manager_update_hint">Morphe lukkes for at fuldføre opdateringen</string>
     <string name="downloading_manager_update">Downloader opdatering…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB downloadet</string>

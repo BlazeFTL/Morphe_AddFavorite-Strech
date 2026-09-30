@@ -5,7 +5,9 @@
 
 package app.morphe.manager.ui.screen.home
 
-import androidx.compose.animation.*
+import android.graphics.drawable.Drawable
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -13,8 +15,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.*
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Image
+import androidx.compose.material.icons.outlined.Restore
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -27,7 +33,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.patcher.patch.*
 import app.morphe.manager.ui.screen.shared.*
@@ -200,6 +205,7 @@ private fun optionValueEquals(a: Any?, b: Any?): Boolean = when {
  *
  * @param packageName App being patched, whose icon heads the dialog.
  * @param appName Name of that app, shown with the option count under the patch name.
+ * @param appIcon Icon of that app where no source has one.
  * @param accentColor Color of that app, which tints the header band.
  */
 @Composable
@@ -207,6 +213,7 @@ internal fun PatchOptionsDialog(
     patch: PatchInfo,
     packageName: String,
     appName: String,
+    appIcon: Drawable?,
     accentColor: Color?,
     isDefaultBundle: Boolean,
     values: Map<String, Any?>?,
@@ -241,7 +248,7 @@ internal fun PatchOptionsDialog(
     ) {
         ListDialogHeader(
             icon = { modifier ->
-                AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
+                AppIcon(packageName = packageName, icon = appIcon, contentDescription = null, modifier = modifier)
             },
             title = patch.displayName,
             subtitle = listOf(
@@ -807,12 +814,12 @@ private fun ListStringInputOption(
                 keyboardActions = KeyboardActions(onDone = { addInput() }),
                 modifier = Modifier.weight(1f)
             )
-            FilledTonalIconButton(onClick = ::addInput) {
-                Icon(
-                    imageVector = Icons.Outlined.Add,
-                    contentDescription = stringResource(R.string.add)
-                )
-            }
+            TitleAction(
+                icon = Icons.Outlined.Add,
+                contentDescription = stringResource(R.string.add),
+                onClick = ::addInput,
+                style = TitleActionStyle.Accent
+            )
         }
 
         error?.let {

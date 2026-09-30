@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Sumber tambalan dengan nama ini sudah ada</string>
     <string name="sources_dialog_missing_error">Tidak dapat memperbarui sumber tambalan ini</string>
     <string name="sources_dialog_add_source">Tambah sumber tambalan</string>
-    <string name="sources_dialog_delete_confirm_message">Hapus sumber \"%s\"? Ini tidak dapat dikembalikan</string>
+    <string name="sources_dialog_delete_confirm_body">Tindakan ini tidak dapat dibatalkan</string>
     <string name="sources_dialog_remote">Daring</string>
     <string name="sources_dialog_remote_url">Sumber URL</string>
     <string name="sources_dialog_remote_url_hint">Repositori atau tautan ke bundel patch .json. Tempel beberapa sekaligus untuk menambahkan semuanya.</string>
@@ -286,7 +286,7 @@ Segala sesuatu yang Anda tambahkan dari situs web ini digunakan atas risiko Anda
     <string name="expert_mode_enable_all_done">Semua tambalan diaktifkan</string>
     <string name="expert_mode_enable_all_universal_pending">Ketuk lagi untuk tambalan universal</string>
     <string name="expert_mode_universal_all_warning_title">Aktifkan semua tambalan universal?</string>
-    <string name="expert_mode_universal_all_warning_message">Tambalan universal tidak diuji secara bersamaan. Mengaktifkan semuanya sekaligus dapat menyebabkan konflik, kegagalan dalam penambalan, atau crash.</string>
+    <string name="expert_mode_universal_all_warning_message">Tambalan universal tidak diuji secara bersamaan. Mengaktifkan semuanya sekaligus dapat menyebabkan konflik, kegagalan dalam penambalan, atau crash</string>
     <string name="expert_mode_reset_to_default">Aktifkan tambalan yang direkomendasikan</string>
     <string name="expert_mode_reset_to_default_done">Tambalan yang direkomendasikan diterapkan</string>
     <string name="expert_mode_restore_saved">Kembalikan pilihan yang disimpan</string>
@@ -538,8 +538,8 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="patcher_success_subtitle">Aplikasi Anda telah ditambal dan dipasang!</string>
     <string name="patcher_complete_title">Penambalan selesai! ✨</string>
     <string name="patcher_failed_title">Oops! Terjadi kesalahan</string>
-    <string name="patcher_failed_hint">Ketuk %s untuk melihat apa yang salah</string>
     <string name="patcher_failed_dialog_title">Gagal Menambal</string>
+    <string name="patcher_error_details">Detail kesalahan</string>
     <string name="patcher_unknown_error">Terjadi kesalahan yang tidak diketahui</string>
     <string name="patcher_split_step_extracting">Mengekstrak APK yang terpisah</string>
     <string name="patcher_split_step_merging">Menggabungkan %s</string>
@@ -662,6 +662,8 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="mini_game_try_again">Coba Lagi</string>
     <string name="mini_game_paused">Dijeda</string>
     <string name="mini_game_resume">Lanjutkan</string>
+    <string name="mini_game_restart">Mulai dari Awal</string>
+    <string name="mini_game_change">Pilih permainan lain</string>
     <string name="mini_game_2048_picker_subtitle">Geser balok untuk menggabungkan</string>
     <string name="mini_game_flappy_picker_subtitle">Ketuk untuk terbang melewati pipa</string>
     <string name="mini_game_flappy_tap_to_start">Ketuk untuk terbang</string>
@@ -710,6 +712,10 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="settings_appearance_accent_color">Warna aksen</string>
     <string name="settings_appearance_pure_black">Hitam Pekat</string>
     <string name="settings_appearance_pure_black_description">Menggunakan latar belakang hitam pekat</string>
+    <string name="settings_appearance_color_accents">Warna aplikasi dan sumber</string>
+    <string name="settings_appearance_color_accents_description">Menggunakan warna masing-masing aplikasi dan sumber bukan warna aksen</string>
+    <string name="settings_appearance_outlines">Garis tepi</string>
+    <string name="settings_appearance_outlines_description">Menggambar tepian tipis di sekeliling kartu, panel, dan tombol</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Bahasa &amp; tampilan</string>
     <string name="settings_appearance_app_language">Bahasa aplikasi</string>
@@ -1092,7 +1098,6 @@ Rincian: %2$s"</string>
     <string name="settings_system_patched_apks_description">Mengelola berkas aplikasi yang ditambal dan disimpan</string>
     <string name="settings_system_patched_apks_empty">Belum ada APK yang ditambal dan disimpan hingga saat ini</string>
     <string name="settings_system_patched_apks_delete_title">Hapus APK yang ditambal?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Apakah Anda yakin ingin menghapus APK yang disimpan dan ditambal untuk &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">APK yang ditambal berhasil dihapus</string>
     <string name="settings_system_patched_apks_delete_all_title">Hapus semua APK yang ditambal?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1101,7 +1106,7 @@ Rincian: %2$s"</string>
     <string name="settings_system_original_apks_empty">Tidak ada APK asli yang disimpan</string>
     <string name="settings_system_original_apks_deleted">APK asli berhasil dihapus</string>
     <string name="settings_system_original_apks_delete_title">Hapus APK asli?</string>
-    <string name="settings_system_original_apks_delete_confirm">Hapus APK asli untuk &lt;b&gt;%s&lt;/b&gt;? Anda tidak akan dapat menambal ulang tanpa menyediakan APK baru</string>
+    <string name="settings_system_original_apks_delete_notice">Anda tidak akan dapat melakukan repatch tanpa menyediakan APK baru</string>
     <string name="settings_system_original_apks_delete_all_title">Hapus semua APK asli?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Pilihan tambalan</string>
@@ -1319,6 +1324,7 @@ Rincian: %2$s"</string>
     <string name="update_completed">Pembaruan terpasang</string>
     <string name="install_update_manager_failed">Gagal memasang pembaruan</string>
     <string name="installing_manager_update">Memasang pembaruan…</string>
+    <string name="installing_manager_update_hint">Morphe akan ditutup untuk menyelesaikan pembaruan</string>
     <string name="downloading_manager_update">Mengunduh pembaruan…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB diunduh</string>

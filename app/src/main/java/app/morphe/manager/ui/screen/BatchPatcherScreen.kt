@@ -284,6 +284,7 @@ fun BatchPatcherScreen(
     viewModel.apkChoice?.let { choice ->
         ApkAvailabilityDialog(
             appName = choice.item.appName,
+            packageName = choice.item.packageName,
             recommendedVersion = choice.recommended,
             compatibleVersions = choice.compatible,
             selectedDownloadVersion = choice.selectedVersion,
@@ -314,6 +315,7 @@ fun BatchPatcherScreen(
 
         DownloadInstructionsDialog(
             appName = search.item.appName,
+            packageName = search.item.packageName,
             downloadUrl = search.url,
             requestedVersion = search.version,
             usingMountInstall = false,
@@ -334,6 +336,7 @@ fun BatchPatcherScreen(
     viewModel.attachPrompt?.let { item ->
         FilePickerPromptDialog(
             appName = item.appName,
+            packageName = item.packageName,
             isOtherApps = false,
             isLoadingInstalledApps = false,
             onDismiss = viewModel::dismissAttachPrompt,
@@ -350,6 +353,7 @@ fun BatchPatcherScreen(
         // Offered from the full plan, not the narrowed selection, so switching sources works
         val offered = item.resolvedSelection ?: item.selection
         SimpleBundleSelectDialog(
+            packageName = item.packageName,
             candidates = item.bundles
                 .filter { it.uid in offered.keys }
                 .map { bundle ->
@@ -403,6 +407,7 @@ fun BatchPatcherScreen(
     var errorItem by remember { mutableStateOf<BatchPatchItem?>(null) }
     errorItem?.let { item ->
         PatcherErrorDialog(
+            title = stringResource(R.string.patcher_failed_dialog_title),
             errorMessage = item.message ?: stringResource(R.string.patcher_unknown_error),
             errorInfo = PatcherErrorInfo(
                 appName = item.appName,

@@ -1141,22 +1141,28 @@ internal fun MainAppsSection(
         ) { empty ->
             if (empty) {
                 if (isAllHiddenState) {
-                    HomeEmptyState(
+                    EmptyState(
+                        message = stringResource(R.string.home_all_apps_hidden_title),
                         icon = Icons.Outlined.VisibilityOff,
-                        title = stringResource(R.string.home_all_apps_hidden_title),
                         subtitle = stringResource(R.string.home_all_apps_hidden_subtitle),
-                        actionIcon = Icons.Outlined.Visibility,
-                        actionLabel = pluralStringResource(R.plurals.home_app_show_hidden_count, hiddenAppItems.size, hiddenAppItems.size.toString()),
-                        onAction = { state.showHiddenAppsDialog = true }
+                        action = CardAction(
+                            icon = Icons.Outlined.Visibility,
+                            label = pluralStringResource(R.plurals.home_app_show_hidden_count, hiddenAppItems.size, hiddenAppItems.size.toString()),
+                            onClick = { state.showHiddenAppsDialog = true }
+                        ),
+                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 } else {
-                    HomeEmptyState(
+                    EmptyState(
+                        message = stringResource(R.string.home_no_apps_title),
                         icon = Icons.Outlined.Inbox,
-                        title = stringResource(R.string.home_no_apps_title),
                         subtitle = stringResource(R.string.home_no_apps_subtitle, stringResource(R.string.sources_management_title)),
-                        actionIcon = Icons.Outlined.Source,
-                        actionLabel = stringResource(R.string.sources_management_title),
-                        onAction = onBundlesClick
+                        action = CardAction(
+                            icon = Icons.Outlined.Source,
+                            label = stringResource(R.string.sources_management_title),
+                            onClick = onBundlesClick
+                        ),
+                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             } else {
@@ -1455,16 +1461,19 @@ private fun LazyListScope.filterEmptyState(
     if (!isFilterEmpty) return
 
     item(key = "${keyPrefix}filter_empty") {
-        HomeEmptyState(
+        EmptyState(
+            message = stringResource(R.string.home_no_apps_filter_title),
             icon = Icons.Outlined.FilterListOff,
-            title = stringResource(R.string.home_no_apps_filter_title),
             subtitle = stringResource(
                 R.string.home_no_apps_filter_subtitle,
                 stringResource(filterMode.labelRes)
             ),
-            actionIcon = Icons.Outlined.FilterList,
-            actionLabel = stringResource(R.string.clear),
-            onAction = onClearFilter,
+            action = CardAction(
+                icon = Icons.Outlined.FilterList,
+                label = stringResource(R.string.clear),
+                onClick = onClearFilter
+            ),
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.animateItem()
         )
     }

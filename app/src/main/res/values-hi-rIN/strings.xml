@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">इस नाम के साथ पहले से एक पैच स्रोत मौजूद है</string>
     <string name="sources_dialog_missing_error">यह पैच स्रोत अपडेट नहीं हो सका</string>
     <string name="sources_dialog_add_source">पैच स्रोत जोड़ें</string>
-    <string name="sources_dialog_delete_confirm_message">डिलीट करें \"%s\"? यह वापस लाना संभव नहीं होगा।</string>
+    <string name="sources_dialog_delete_confirm_body">इसको वापस पहले जैसा नहीं किया जा सकता</string>
     <string name="sources_dialog_remote">रिमोट</string>
     <string name="sources_dialog_remote_url">स्रोत URL</string>
     <string name="sources_dialog_remote_url_hint">कोई रिपॉजिटरी या पैच बंडल .json का लिंक। एक साथ कई लिंक जोड़ने के लिए उन्हें यहाँ पेस्ट करें</string>
@@ -537,8 +537,8 @@
     <string name="patcher_success_subtitle">Your app is patched and installed!</string>
     <string name="patcher_complete_title">पैचिंग पूरी हुई! ✨</string>
     <string name="patcher_failed_title">Oops! Something went wrong</string>
-    <string name="patcher_failed_hint">क्या गलत हुआ यह देखने के लिए %s टैप करें</string>
     <string name="patcher_failed_dialog_title">पैचिंग विफल रही</string>
+    <string name="patcher_error_details">गड़बड़ी का विवरण</string>
     <string name="patcher_unknown_error">Unknown error occurred</string>
     <string name="patcher_split_step_extracting">स्प्लिट APK निकाल रहे हैं</string>
     <string name="patcher_split_step_merging">%s मिला रहे हैं</string>
@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">फिर से प्रयास करें</string>
     <string name="mini_game_paused">विराम</string>
     <string name="mini_game_resume">जारी रखें</string>
+    <string name="mini_game_restart">शुरू से खेलें</string>
+    <string name="mini_game_change">कोई दूसरा गेम चुनें</string>
     <string name="mini_game_2048_picker_subtitle">टाइल्स को मर्ज करने के लिए स्लाइड करें</string>
     <string name="mini_game_flappy_picker_subtitle">पाइपों के बीच से उड़ने के लिए टैप करें</string>
     <string name="mini_game_flappy_tap_to_start">उड़ने के लिए टैप करें</string>
@@ -1095,7 +1097,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_patched_apks_description">संरक्षित पैच किए गए एप्लिकेशन फ़ाइलों का प्रबंधन करता है।</string>
     <string name="settings_system_patched_apks_empty">अभी तक कोई सहेजा गया पैच किया गया एपीके नहीं है</string>
     <string name="settings_system_patched_apks_delete_title">सहेजे गए पैच किए गए एपीके को हटाएं?</string>
-    <string name="settings_system_patched_apks_delete_confirm">क्या आप &lt;b&gt;%s&lt;/b&gt; के लिए सहेजे गए पैच्ड APK को हटाने के लिए निश्चित हैं?</string>
     <string name="settings_system_patched_apks_deleted">%s के लिए सहेजे गए पैच किए गए एपीके सफलतापूर्वक हटाए गए</string>
     <string name="settings_system_patched_apks_delete_all_title">क्या आप सभी पैच किए गए APK हटाना चाहते हैं?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1104,7 +1105,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_original_apks_empty">कोई सहेजा गया अरिजनल एपीके नहीं है</string>
     <string name="settings_system_original_apks_deleted">%s के लिए अरिजनल एपीके सफलतापूर्वक हटाए गए</string>
     <string name="settings_system_original_apks_delete_title">अरिजनल एपीके को हटाएं?</string>
-    <string name="settings_system_original_apks_delete_confirm">&lt;b&gt;%s&lt;/b&gt; के लिए मूल APK को हटाएं? आप बिना नया APK प्रदान किए फिर से पैच करने में सक्षम नहीं होंगे</string>
+    <string name="settings_system_original_apks_delete_notice">नया APK दिए बिना आप दोबारा पैच नहीं कर पाएंगे</string>
     <string name="settings_system_original_apks_delete_all_title">क्या आप सभी मूल APK हटाना चाहते हैं?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">पथच चयन</string>
@@ -1322,6 +1323,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">अपडेट इंस्टॉल हो गया</string>
     <string name="install_update_manager_failed">अपडेट स्थापित करने में विफल</string>
     <string name="installing_manager_update">अपडेट इंस्टॉल हो रहा है…</string>
+    <string name="installing_manager_update_hint">अपडेट पूरा करने के लिए Morphe बंद हो जाएगा</string>
     <string name="downloading_manager_update">अपडेट डाउनलोड हो रहा है…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB डाउनलोड किया गया</string>

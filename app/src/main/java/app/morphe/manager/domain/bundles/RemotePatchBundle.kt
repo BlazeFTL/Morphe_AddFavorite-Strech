@@ -161,10 +161,7 @@ sealed class RemotePatchBundle(
             ?: manifestPageUrl?.let { issuesUrlForRepoUrl(it) }
             ?: browsePageUrl
 
-    /**
-     * Link that adds this source on another device, or null when it cannot be shared that way.
-     * See [addSourceLinkForEndpoint].
-     */
+    /** Add-source link for this source, see [addSourceLinkForEndpoint]. */
     open val addSourceLink: String?
         get() = addSourceLinkForEndpoint(endpoint, name)
 
@@ -242,13 +239,9 @@ sealed class RemotePatchBundle(
         }
 
         /**
-         * Add-source link that recreates the source at [endpoint] on another device, or null when
-         * the link cannot express it.
-         *
-         * The link names only the repository, which the receiving manager expands to the bundle
-         * file at the repository root of the stable branch, and the website accepts nothing longer.
-         * A source with its own file, folder or branch would therefore arrive as a different one.
-         * The dev branch still qualifies, since the pre-release toggle is what selects it.
+         * Add-source link for [endpoint], or null when it would add a different source. The link
+         * carries only owner/repo, which expands to the root bundle file, so only that layout on
+         * the stable or dev branch qualifies.
          */
         fun addSourceLinkForEndpoint(endpoint: String, name: String?): String? {
             val (host, segments) = endpointParts(endpoint) ?: return null
@@ -548,7 +541,7 @@ class APIPatchBundle(
 
     override val issuesPageUrl: String get() = "$SOURCE_REPO_URL/issues"
 
-    // Every install already has the default source, so there is nothing to share
+    // Every install already has the default source
     override val addSourceLink: String? get() = null
 
     override suspend fun fetchChangelogEntries(sinceVersion: String?): List<ChangelogEntry> {

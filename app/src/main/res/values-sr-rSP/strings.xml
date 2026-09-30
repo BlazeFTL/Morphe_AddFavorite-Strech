@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Извор са именом %s већ постоји</string>
     <string name="sources_dialog_missing_error">Nije moguće ažurirati ovaj patch izvor</string>
     <string name="sources_dialog_add_source">Додај извор</string>
-    <string name="sources_dialog_delete_confirm_message">Уклонити изворну \"%s\"? Ово не може да се врати.</string>
+    <string name="sources_dialog_delete_confirm_body">Ово се не може поништити</string>
     <string name="sources_dialog_remote">Удаљни извор</string>
     <string name="sources_dialog_remote_url">УДЛАЈНИ УРЛ</string>
     <string name="sources_dialog_remote_url_hint">Репозиторијум или линк ка .json пакету закрпа. Налепите неколико одједном да бисте их све додали</string>
@@ -537,8 +537,8 @@
     <string name="patcher_success_subtitle">Ваша апликација је печована и инсталирана!</string>
     <string name="patcher_complete_title">Закрапа завршено! ✨</string>
     <string name="patcher_failed_title">Упс! Дошло је до грешке</string>
-    <string name="patcher_failed_hint">Додирните %s да бисте видели шта је пошло по злу</string>
     <string name="patcher_failed_dialog_title">Закрапа није успела</string>
+    <string name="patcher_error_details">Детаљи грешке</string>
     <string name="patcher_unknown_error">Дошло је до непознате грешке</string>
     <string name="patcher_split_step_extracting">Екстракција подељених APK-ова</string>
     <string name="patcher_split_step_merging">Спајање %s</string>
@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">Покушај поново</string>
     <string name="mini_game_paused">Пауза</string>
     <string name="mini_game_resume">Настави</string>
+    <string name="mini_game_restart">Почни поново</string>
+    <string name="mini_game_change">Изабери другу игру</string>
     <string name="mini_game_2048_picker_subtitle">Превлачите плочице да би их спојили</string>
     <string name="mini_game_flappy_picker_subtitle">Додирните да прођете кроз цеви</string>
     <string name="mini_game_flappy_tap_to_start">Додирните да летите</string>
@@ -1095,7 +1097,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_patched_apks_description">Управља сачуваним закрпљеним датотекама апликација</string>
     <string name="settings_system_patched_apks_empty">Још увек није сачуван ни један патчеви</string>
     <string name="settings_system_patched_apks_delete_title">Да ли сте сигурни да желите да обришете сачувани патчеви?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Да ли сте сигурни да желите да избришете сачувани поправљени APK за &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">Сачувани патчеви успешно обришани</string>
     <string name="settings_system_patched_apks_delete_all_title">Обрисати све подешене APK-ове?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1104,7 +1105,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_original_apks_empty">Нема сачуваних оригиналних APK(и)</string>
     <string name="settings_system_original_apks_deleted">Оригинални APK успешно обришани</string>
     <string name="settings_system_original_apks_delete_title">Да ли сте сигурни да желите да обришете оригинални APK?</string>
-    <string name="settings_system_original_apks_delete_confirm">Избрисати оригинални APK за &lt;b&gt;%s&lt;/b&gt;? Нећете моћи поново да га поправљате без пружања новог APK-а</string>
+    <string name="settings_system_original_apks_delete_notice">Нећете моћи поново да пачујете ако не обезбедите нови АПК</string>
     <string name="settings_system_original_apks_delete_all_title">Обрисати све оригиналне APK-ове?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Патч селекције</string>
@@ -1322,6 +1323,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">Ажурирање инсталирано</string>
     <string name="install_update_manager_failed">Неуспешно инсталирање ажурирања</string>
     <string name="installing_manager_update">Инсталирање ажурирања…</string>
+    <string name="installing_manager_update_hint">Morphe ће се затворити да би завршио ажурирање.</string>
     <string name="downloading_manager_update">Преузимање ажурирања…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Преузето %1$s MB</string>

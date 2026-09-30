@@ -267,8 +267,7 @@ private fun PatchedApksContent(
     val isLoading = state is ApkLoadState.Loading
     val apkItems = (state as? ApkLoadState.Loaded)?.items ?: emptyList()
     val totalSize = remember(state) { apkItems.sumOf { it.fileSize } }
-    val itemToDelete = remember { mutableStateOf<InstalledApp?>(null) }
-    var deleteDisplayName by remember { mutableStateOf("") }
+    var pendingDelete by remember { mutableStateOf<Pair<ApkItemData, InstalledApp>?>(null) }
 
     // Look up by selectionKey to avoid index shifts on concurrent list updates
     val displayItems = remember(state) { apkItems.map { it.toApkItemData() }.sortedByDisplayName() }
@@ -446,8 +445,7 @@ private fun PatchedApksContent(
             onUninstall = { item -> uninstallItems(listOf(item)) },
             onUninstallSelected = { selectedItems -> uninstallItems(selectedItems) },
             onDelete = { item ->
-                deleteDisplayName = item.displayName
-                appByKey[item.selectionKey]?.let { itemToDelete.value = it }
+                appByKey[item.selectionKey]?.let { pendingDelete = item to it }
             },
             onDeleteSelectedConfirm = { selectedItems ->
                 val appsToDelete = selectedItems.mapNotNull { appByKey[it.selectionKey] }
@@ -468,17 +466,18 @@ private fun PatchedApksContent(
         onDismissRequest = onDismissRequest
     )
 
-    if (itemToDelete.value != null) {
-        ConfirmDialog(
+    pendingDelete?.let { (data, app) ->
+        ApkDeleteConfirmDialog(
+            data = data,
             title = stringResource(R.string.settings_system_patched_apks_delete_title),
-            message = htmlAnnotatedString(stringResource(R.string.settings_system_patched_apks_delete_confirm, deleteDisplayName)),
-            primaryText = stringResource(R.string.delete),
-            onDismiss = { itemToDelete.value = null },
+            fileIcon = Icons.Outlined.Android,
+            fileLabel = stringResource(R.string.home_app_info_delete_item_patched_apk),
+            onDismiss = { pendingDelete = null },
             onConfirm = {
                 scope.launch {
-                    val deleted = repository.deleteSavedPatchedApk(itemToDelete.value!!)
+                    val deleted = repository.deleteSavedPatchedApk(app)
                     context.toast(if (deleted) patchedApksDeletedText else apksDeleteFailedText)
-                    itemToDelete.value = null
+                    pendingDelete = null
                 }
             }
         )
@@ -545,8 +544,7 @@ private fun OriginalApksContent(
     val apkItems = remember(state) { entries.map { it.data }.sortedByDisplayName() }
     val apkByKey = remember(state) { entries.associate { it.data.selectionKey to it.apk } }
     val totalSize = remember(state) { apkItems.sumOf { it.fileSize } }
-    val itemToDelete = remember { mutableStateOf<OriginalApk?>(null) }
-    var deleteDisplayName by remember { mutableStateOf("") }
+    var pendingDelete by remember { mutableStateOf<Pair<ApkItemData, OriginalApk>?>(null) }
 
     fun updateInstalledState(packageName: String, installed: Boolean) {
         val loaded = state as? ApkLoadState.Loaded ?: return
@@ -681,8 +679,7 @@ private fun OriginalApksContent(
             onUninstall = { item -> uninstallItems(listOf(item)) },
             onUninstallSelected = { selectedItems -> uninstallItems(selectedItems) },
             onDelete = { item ->
-                deleteDisplayName = item.displayName
-                apkByKey[item.selectionKey]?.let { itemToDelete.value = it }
+                apkByKey[item.selectionKey]?.let { pendingDelete = item to it }
             },
             onDeleteSelectedConfirm = { selectedItems ->
                 val apksToDelete = selectedItems.mapNotNull { apkByKey[it.selectionKey] }
@@ -703,17 +700,19 @@ private fun OriginalApksContent(
         onDismissRequest = onDismissRequest
     )
 
-    if (itemToDelete.value != null) {
-        ConfirmDialog(
+    pendingDelete?.let { (data, apk) ->
+        ApkDeleteConfirmDialog(
+            data = data,
             title = stringResource(R.string.settings_system_original_apks_delete_title),
-            message = htmlAnnotatedString(stringResource(R.string.settings_system_original_apks_delete_confirm, deleteDisplayName)),
-            primaryText = stringResource(R.string.delete),
-            onDismiss = { itemToDelete.value = null },
+            fileIcon = Icons.Outlined.FilePresent,
+            fileLabel = stringResource(R.string.home_app_info_delete_item_original_apk),
+            notice = stringResource(R.string.settings_system_original_apks_delete_notice),
+            onDismiss = { pendingDelete = null },
             onConfirm = {
                 scope.launch {
-                    repository.delete(itemToDelete.value!!)
+                    repository.delete(apk)
                     context.toast(originalApksDeletedText)
-                    itemToDelete.value = null
+                    pendingDelete = null
                 }
             }
         )
@@ -1000,12 +999,11 @@ private fun ApkManagementDialogContent(
     }
 
     if (showDeleteAllConfirmation && meta.deleteAllTitle != null && actions.onDeleteAllConfirm != null) {
-        DeleteAllConfirmationDialog(
+        ConfirmDialog(
             title = meta.deleteAllTitle,
             message = stringResource(R.string.settings_system_apks_delete_all_confirm),
             primaryText = stringResource(R.string.delete_all),
-            count = meta.count,
-            totalSize = meta.totalSize,
+            items = listOf(apkCountItem(meta.count, meta.totalSize)),
             onDismiss = { showDeleteAllConfirmation = false },
             onConfirm = {
                 actions.onDeleteAllConfirm.invoke()
@@ -1015,12 +1013,11 @@ private fun ApkManagementDialogContent(
     }
 
     if (showDeleteSelectedConfirmation) {
-        DeleteAllConfirmationDialog(
+        ConfirmDialog(
             title = stringResource(R.string.settings_system_apks_delete_selected_title),
             message = stringResource(R.string.settings_system_apks_delete_selected_confirm),
             primaryText = stringResource(R.string.delete),
-            count = selectedItems.size,
-            totalSize = selectedTotalSize,
+            items = listOf(apkCountItem(selectedItems.size, selectedTotalSize)),
             onDismiss = { showDeleteSelectedConfirmation = false },
             onConfirm = {
                 actions.onDeleteSelectedConfirm(selectedItems)
@@ -1051,6 +1048,8 @@ private fun ApkManagementDialogContent(
             title = pluralStringResource(R.plurals.batch_uninstall_confirm_title, 1, "1"),
             message = stringResource(R.string.batch_uninstall_confirm_body),
             primaryText = stringResource(R.string.uninstall),
+            subject = { ApkConfirmSubject(item) },
+            accentColor = rememberAppColor(item.originalPackageName),
             onConfirm = {
                 actions.onUninstall?.invoke(item)
                 itemToUninstallConfirm = null
@@ -1228,44 +1227,50 @@ private suspend fun uninstallStorageItem(
     }
 }
 
+/** Confirms deleting the one APK of [data], naming its app and the file with its size. */
 @Composable
-private fun DeleteAllConfirmationDialog(
+private fun ApkDeleteConfirmDialog(
+    data: ApkItemData,
     title: String,
-    message: String,
-    primaryText: String,
-    count: Int,
-    totalSize: Long,
+    fileIcon: ImageVector,
+    fileLabel: String,
+    onConfirm: () -> Unit,
     onDismiss: () -> Unit,
-    onConfirm: () -> Unit
+    notice: String? = null
 ) {
-    AppDialog(
-        onDismissRequest = onDismiss,
+    ConfirmDialog(
         title = title,
-        description = message,
-        footer = {
-            AppDialogButtonRow(
-                primaryText = primaryText,
-                onPrimaryClick = onConfirm,
-                isPrimaryDestructive = true,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            LabeledSection {
-                DeleteListItem(
-                    icon = Icons.Outlined.Delete,
-                    text = pluralStringResource(R.plurals.settings_system_apks_count, count, count.toString())
-                )
-                DeleteListItem(
-                    icon = Icons.Outlined.Storage,
-                    text = stringResource(R.string.settings_system_apks_size, LocalContext.current.formatBytes(totalSize))
-                )
-            }
-        }
+        primaryText = stringResource(R.string.delete),
+        onConfirm = onConfirm,
+        onDismiss = onDismiss,
+        subject = { ApkConfirmSubject(data) },
+        accentColor = rememberAppColor(data.originalPackageName),
+        items = listOf(ConfirmItem(fileIcon, fileLabel, LocalContext.current.formatBytes(data.fileSize))),
+        itemsTitle = stringResource(R.string.home_app_info_remove_app_warning),
+        notice = notice
+    )
+}
+
+/** Head of a confirmation about one APK: the app's icon over its name. */
+@Composable
+private fun ApkConfirmSubject(data: ApkItemData) {
+    ConfirmSubject(name = data.displayName) { modifier ->
+        AppIcon(
+            packageInfo = data.packageInfo,
+            packageName = data.packageName,
+            contentDescription = null,
+            modifier = modifier
+        )
     }
 }
+
+/** How many APKs an action removes and how much room that frees, as the one line of its confirmation. */
+@Composable
+private fun apkCountItem(count: Int, totalSize: Long) = ConfirmItem(
+    icon = Icons.Outlined.Delete,
+    text = pluralStringResource(R.plurals.settings_system_apks_count, count, count.toString()),
+    detail = LocalContext.current.formatBytes(totalSize)
+)
 
 private suspend fun shareApkFiles(context: Context, files: List<File>) {
     val existingFiles = files.filter { it.exists() }

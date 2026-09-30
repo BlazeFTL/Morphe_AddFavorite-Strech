@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -111,7 +110,8 @@ fun AppearanceTabContent(
             .fillMaxSize()
             .verticalScrollFade(scrollState)
             .verticalScroll(scrollState)
-            .padding(settingsTabPadding())
+            .padding(settingsTabPadding()),
+        verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)
     ) {
         LanguageAndDisplaySection(
             appLanguage = appLanguage,
@@ -269,38 +269,36 @@ private fun LanguageAndDisplaySection(
         LanguageRepository.getLanguage(appLanguage, context)
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-        SectionTitle(
-            text = stringResource(R.string.settings_appearance_language_and_display),
-            icon = Icons.Outlined.Language
-        )
+    SectionTitle(
+        text = stringResource(R.string.settings_appearance_language_and_display),
+        icon = Icons.Outlined.Language
+    )
 
-        SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
-            SettingsItem(
-                onClick = onLanguageClick,
-                title = stringResource(R.string.settings_appearance_app_language_current),
-                subtitle = currentLanguage.displayName,
-                leadingContent = {
-                    Box(
-                        modifier = Modifier.size(Defaults.IconSize),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = currentLanguage.flag,
-                            fontSize = 20.sp,
-                            lineHeight = 20.sp
-                        )
-                    }
+    SettingsGroup {
+        SettingsItem(
+            onClick = onLanguageClick,
+            title = stringResource(R.string.settings_appearance_app_language_current),
+            subtitle = currentLanguage.displayName,
+            leadingContent = {
+                Box(
+                    modifier = Modifier.size(Defaults.IconSize),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = currentLanguage.flag,
+                        fontSize = 20.sp,
+                        lineHeight = 20.sp
+                    )
                 }
-            )
-            SettingsDivider()
-            SettingsItem(
-                onClick = onUiScaleClick,
-                title = stringResource(R.string.settings_appearance_ui_scale),
-                subtitle = "${uiScale.toUiScalePercent()}%",
-                leadingContent = { ThemedIcon(icon = Icons.Outlined.FormatSize) }
-            )
-        }
+            }
+        )
+        SettingsDivider()
+        SettingsItem(
+            onClick = onUiScaleClick,
+            title = stringResource(R.string.settings_appearance_ui_scale),
+            subtitle = "${uiScale.toUiScalePercent()}%",
+            leadingContent = { ThemedIcon(icon = Icons.Outlined.FormatSize) }
+        )
     }
 }
 
@@ -328,14 +326,13 @@ private fun ThemeSection(
     onSelectorPositioned: ((Rect) -> Unit)?,
     onSelectorScrollTarget: ((Int) -> Unit)?
 ) {
-    SectionHeader(
+    SectionTitle(
         text = stringResource(R.string.settings_appearance_theme),
         icon = Icons.Outlined.Palette
     )
 
     Box(
         Modifier
-            .padding(bottom = Defaults.ContentPadding)
             .fillMaxWidth()
             .then(
                 if (onSelectorPositioned != null || onSelectorScrollTarget != null)
@@ -355,7 +352,7 @@ private fun ThemeSection(
         )
     }
 
-    SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
+    SettingsGroup {
         AnimatedVisibility(
             visible = supportsPureBlack,
             enter = Animations.expandFadeEnter,
@@ -425,7 +422,7 @@ private fun ColorsSection(
     onAccentSelected: (Color?) -> Unit,
     onAppCardColorsClick: () -> Unit
 ) {
-    SectionHeader(
+    SectionTitle(
         text = stringResource(R.string.settings_appearance_colors),
         icon = Icons.Outlined.ColorLens
     )
@@ -433,9 +430,9 @@ private fun ColorsSection(
     // Dynamic color derives the accent from the wallpaper, leaving nothing to pick here
     val showAccent = themeStyle != ThemeStyle.MATERIAL_YOU
 
-    // Monochrome leaves app cards colorless and Material You has no accent to pick, and no style
+    // Monochrome leaves app cards colorless and `Material You` has no accent to pick, and no style
     // is both, so the group always has at least one of the two
-    SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
+    SettingsGroup {
         AnimatedVisibility(
             visible = showAccent,
             enter = Animations.expandFadeEnter,
@@ -480,12 +477,12 @@ private fun HomeScreenSection(
     onSortButtonToggle: () -> Unit,
     onAppGroupingToggle: () -> Unit
 ) {
-    SectionHeader(
+    SectionTitle(
         text = stringResource(R.string.settings_appearance_home_screen),
         icon = Icons.Outlined.Dashboard
     )
 
-    SettingsGroup(modifier = Modifier.padding(bottom = Defaults.ContentPadding)) {
+    SettingsGroup {
         SettingsSwitchItem(
             title = stringResource(R.string.settings_appearance_greeting_phrases),
             subtitle = stringResource(R.string.settings_appearance_greeting_phrases_subtitle),
@@ -519,14 +516,3 @@ private fun HomeScreenSection(
         )
     }
 }
-
-/**
- * [SectionTitle] with the spacing every section on this tab uses.
- */
-@Composable
-private fun SectionHeader(text: String, icon: ImageVector) {
-    Box(Modifier.padding(bottom = Defaults.ContentPadding).fillMaxWidth()) {
-        SectionTitle(text = text, icon = icon)
-    }
-}
-

@@ -172,7 +172,7 @@ Ovaj izvor se nalazi na predizdanjima patcheva. Patchanje može propasti ili se 
     <string name="sources_dialog_duplicate_name_error">Izvor patcha s ovim nazivom već postoji</string>
     <string name="sources_dialog_missing_error">Nije moguće ažurirati ovaj izvor patcha</string>
     <string name="sources_dialog_add_source">Dodaj izvor patcha</string>
-    <string name="sources_dialog_delete_confirm_message">Izbrisati izvor \"%s\"? To se ne može poništiti</string>
+    <string name="sources_dialog_delete_confirm_body">Ovo se ne može poništiti</string>
     <string name="sources_dialog_remote">Daljnji</string>
     <string name="sources_dialog_remote_url">Izvor poveznice</string>
     <string name="sources_dialog_remote_url_hint">Repozitorij ili poveznica na .json datoteku sa skupom zakrpa. Zalijepi nekoliko odjednom i sve će se dodati.</string>
@@ -541,8 +541,8 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="patcher_success_subtitle">Vaša aplikacija je patchana i instalirana!</string>
     <string name="patcher_complete_title">Patchanje gotovo! ✨</string>
     <string name="patcher_failed_title">Ups! Nešto je pošlo po zlu</string>
-    <string name="patcher_failed_hint">Dodirnite %s da vidite što je pošlo po krivu</string>
     <string name="patcher_failed_dialog_title">Patchanje nije uspjelo</string>
+    <string name="patcher_error_details">Detalji pogreške</string>
     <string name="patcher_unknown_error">Došlo je do nepoznate pogreške</string>
     <string name="patcher_split_step_extracting">Izdvajanje podijeljenih APK-ova</string>
     <string name="patcher_split_step_merging">Spajanje %s</string>
@@ -665,6 +665,8 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="mini_game_try_again">Pokušaj ponovo</string>
     <string name="mini_game_paused">Pauzirano</string>
     <string name="mini_game_resume">Nastavi</string>
+    <string name="mini_game_restart">Započni ispočetka</string>
+    <string name="mini_game_change">Odaberi drugu igru</string>
     <string name="mini_game_2048_picker_subtitle">Povucite pločice za spajanje</string>
     <string name="mini_game_flappy_picker_subtitle">Dodirnite za letenje kroz cijevi</string>
     <string name="mini_game_flappy_tap_to_start">Dodirnite za let</string>
@@ -1098,7 +1100,6 @@ Detalji: %2$s"</string>
     <string name="settings_system_patched_apks_description">Upravljajte spremljenim patchanim aplikacijama</string>
     <string name="settings_system_patched_apks_empty">Još nema spremljenih patchanih aplikacija</string>
     <string name="settings_system_patched_apks_delete_title">Izbrisati patchanu aplikaciju?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Jeste li sigurni da želite izbrisati spremljeni patchani  APK za &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">Uspješno izbrisana patchirana aplikacija</string>
     <string name="settings_system_patched_apks_delete_all_title">Izbrisati sve patchane APK-ove?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1107,7 +1108,7 @@ Detalji: %2$s"</string>
     <string name="settings_system_original_apks_empty">Nema pohranjenih originalnih aplikacija</string>
     <string name="settings_system_original_apks_deleted">Uspješno izbrisana originalna aplikacija</string>
     <string name="settings_system_original_apks_delete_title">Želite li izbrisati originalnu aplikaciju?</string>
-    <string name="settings_system_original_apks_delete_confirm">Izbrisati originalni APK za &lt;b&gt;%s&lt;/b&gt;? Nećete moći ponovno patchati bez pružanja novog APK-a.</string>
+    <string name="settings_system_original_apks_delete_notice">Nećete moći ponovno zakrpati bez pružanja novog APK-a</string>
     <string name="settings_system_original_apks_delete_all_title">Želite li izbrisati sve originalne APK datoteke?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Odabir patcheva</string>
@@ -1325,6 +1326,7 @@ Detalji: %2$s"</string>
     <string name="update_completed">Ažuriranje instalirano</string>
     <string name="install_update_manager_failed">Instaliranje ažuriranja nije uspjelo</string>
     <string name="installing_manager_update">Instaliranje ažuriranja…</string>
+    <string name="installing_manager_update_hint">Morphe će se zatvoriti kako bi dovršio ažuriranje.</string>
     <string name="downloading_manager_update">Preuzimanje ažuriranja…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB preuzeto</string>

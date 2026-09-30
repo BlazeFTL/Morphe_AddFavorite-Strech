@@ -59,6 +59,7 @@ import app.morphe.patcher.patch.AppTarget
 @Composable
 internal fun ApkAvailabilityDialog(
     appName: String,
+    packageName: String?,
     recommendedVersion: AppTarget?,
     compatibleVersions: List<BundledAppTarget>,
     selectedDownloadVersion: AppTarget?,
@@ -113,6 +114,7 @@ internal fun ApkAvailabilityDialog(
     }
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_apk_availability_dialog_title),
         padding = DialogPadding.Compact,
         footer = {
@@ -292,6 +294,7 @@ internal fun ApkAvailabilityDialog(
 @Composable
 internal fun FilePickerPromptDialog(
     appName: String,
+    packageName: String?,
     isOtherApps: Boolean,
     isLoadingInstalledApps: Boolean,
     onDismiss: () -> Unit,
@@ -300,6 +303,7 @@ internal fun FilePickerPromptDialog(
 ) {
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(
             if (isOtherApps) {
                 R.string.home_select_apk_title
@@ -350,6 +354,7 @@ internal fun FilePickerPromptDialog(
  */
 @Composable
 internal fun UnsupportedVersionWarningDialog(
+    packageName: String?,
     version: String,
     versionCode: Long? = null,
     recommendedVersion: String?,
@@ -368,6 +373,7 @@ internal fun UnsupportedVersionWarningDialog(
     val tone = tags.firstOrNull()?.tone ?: SemanticTone.Error
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_dialog_unsupported_version_dialog_title),
         description = stringResource(
             when {
@@ -446,12 +452,14 @@ internal fun UnsupportedVersionWarningDialog(
 @Composable
 fun InvalidSignatureDialog(
     appName: String,
+    packageName: String?,
     onPickAnother: () -> Unit,
     onProceed: () -> Unit,
     onDismiss: () -> Unit
 ) {
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_invalid_signature_title),
         description = htmlAnnotatedString(
             stringResource(R.string.home_invalid_signature_message, appName)
@@ -498,12 +506,14 @@ fun InvalidSignatureDialog(
 @Composable
 fun SplitApkWarningDialog(
     appName: String,
+    packageName: String?,
     onProceed: () -> Unit,
     onPickAnother: () -> Unit,
     onDismiss: () -> Unit
 ) {
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_split_apk_warning_title),
         description = htmlAnnotatedString(
             stringResource(R.string.home_split_apk_warning_message, appName)
@@ -534,11 +544,13 @@ fun SplitApkWarningDialog(
 @Composable
 fun ExperimentalVersionWarningDialog(
     appName: String,
+    packageName: String?,
     onDismiss: () -> Unit,
     onProceed: () -> Unit
 ) {
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.morphe_experimental_app_version_dialog_title),
         description = htmlAnnotatedString(
             stringResource(R.string.morphe_experimental_app_version_dialog_message, appName)
@@ -572,6 +584,7 @@ fun WrongPackageDialog(
 ) {
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(expectedPackage),
         title = stringResource(R.string.home_dialog_wrong_package_title),
         description = stringResource(R.string.home_dialog_wrong_package_description),
         padding = DialogPadding.Compact,
@@ -616,12 +629,14 @@ fun WrongPackageDialog(
 @Composable
 internal fun NoCompatibleVersionsDialog(
     appName: String,
+    packageName: String?,
     onDismiss: () -> Unit
 ) {
     val deviceSdk = Build.VERSION.SDK_INT
 
     AppDialog(
         onDismissRequest = onDismiss,
+        accentColor = rememberAppColor(packageName),
         title = stringResource(R.string.home_apk_no_compatible_versions_title),
         description = htmlAnnotatedString(
             stringResource(
@@ -974,8 +989,3 @@ private fun VersionDetailsLine(buildCode: Long?, onHandTags: List<VersionTag>) {
 private fun buildVersionSuffix(version: String, versionCode: Long?): String =
     if (versionCode != null) "v$version ($versionCode)" else "v$version"
 
-/** Hands the color of the app being patched to one of its patching dialogs, as its other dialogs wear it. */
-@Composable
-internal fun PatchingAppColor(packageName: String?, content: @Composable () -> Unit) {
-    ProvideAccent(packageName?.let { rememberAppColor(it) }, content)
-}

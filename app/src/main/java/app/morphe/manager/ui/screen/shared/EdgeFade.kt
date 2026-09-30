@@ -8,6 +8,7 @@ package app.morphe.manager.ui.screen.shared
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
@@ -109,6 +110,29 @@ private fun LazyListState.hiddenAtEnd(): Float {
     val last = info.visibleItemsInfo.lastOrNull() ?: return 0f
     if (last.index < info.totalItemsCount - 1) return Float.MAX_VALUE
     return (last.offset + last.size + info.afterContentPadding - info.viewportEndOffset)
+        .coerceAtLeast(0)
+        .toFloat()
+}
+
+/** [edgeFade] for a lazy grid, fading whichever end [state] has more past. */
+fun Modifier.verticalScrollFade(state: LazyGridState, length: Dp = EdgeFadeWidth): Modifier = edgeFade(
+    length = length,
+    hiddenAtStart = { state.hiddenAtStart() },
+    hiddenAtEnd = { state.hiddenAtEnd() },
+    orientation = Orientation.Vertical
+)
+
+// The first visible item always opens a line, so past index 0 the whole first line is out of view
+private fun LazyGridState.hiddenAtStart(): Float =
+    if (firstVisibleItemIndex > 0) Float.MAX_VALUE else firstVisibleItemScrollOffset.toFloat()
+
+// Cells of the last line may differ in height, so the lowest edge among them is what counts
+private fun LazyGridState.hiddenAtEnd(): Float {
+    val info = layoutInfo
+    val last = info.visibleItemsInfo.lastOrNull() ?: return 0f
+    if (last.index < info.totalItemsCount - 1) return Float.MAX_VALUE
+    val bottom = info.visibleItemsInfo.maxOf { it.offset.y + it.size.height }
+    return (bottom + info.afterContentPadding - info.viewportEndOffset)
         .coerceAtLeast(0)
         .toFloat()
 }

@@ -5,11 +5,8 @@
 
 package app.morphe.manager.ui.screen.shared
 
-import android.view.HapticFeedbackConstants
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -20,18 +17,14 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ripple
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.role
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
@@ -123,7 +116,6 @@ private fun ScrollToTopButtonImpl(
     extraBottomPadding: Dp = 0.dp
 ) {
     val a11y = rememberAccessibilityEnabled()
-    val view = LocalView.current
     val label = stringResource(R.string.accessibility_scroll_to_top)
 
     AnimatedVisibility(
@@ -135,29 +127,30 @@ private fun ScrollToTopButtonImpl(
             bottom = ButtonPadding + extraBottomPadding
         )
     ) {
-        val background = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f)
-        val borderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
-        Box(
-            contentAlignment = Alignment.Center,
+        val interactionSource = remember { MutableInteractionSource() }
+        // Nearly opaque rather than glass, since it floats over rows of text
+        Surface(
+            onClick = rememberHapticClick(onClick),
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f),
+            contentColor = MaterialTheme.colorScheme.onSurface,
+            // Edged in the dialog's color, as its outlined buttons are
+            border = CardBorder.of(
+                LocalAccent.current?.let { appAccentBorder(it) }
+                    ?: MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
+            ),
+            interactionSource = interactionSource,
             modifier = Modifier
                 .size(ButtonSize)
-                .clip(CircleShape)
-                .background(background)
-                .cardBorder(CardBorder.of(borderColor), CircleShape)
-                .semantics { role = Role.Button }
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = ripple(bounded = true),
-                    onClickLabel = label
-                ) {
-                    view.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
-                    onClick()
-                }
+                .pressScale(interactionSource, label = "scroll_to_top_press_scale")
         ) {
-            ThemedIcon(
-                icon = Icons.Rounded.KeyboardArrowUp,
-                contentDescription = label
-            )
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = Icons.Rounded.KeyboardArrowUp,
+                    contentDescription = label,
+                    modifier = Modifier.size(Defaults.IconSize)
+                )
+            }
         }
     }
 }

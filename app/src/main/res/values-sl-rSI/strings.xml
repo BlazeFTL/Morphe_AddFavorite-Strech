@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Vir s tem imenom že obstaja</string>
     <string name="sources_dialog_missing_error">Ni mogoče posodobiti tega vira popravkov.</string>
     <string name="sources_dialog_add_source">Dodaj vir popravka</string>
-    <string name="sources_dialog_delete_confirm_message">Izbrišem vir \"%s\"? Tega ni mogoče razveljaviti.</string>
+    <string name="sources_dialog_delete_confirm_body">Tega ni mogoče razveljaviti</string>
     <string name="sources_dialog_remote">Oddaljen</string>
     <string name="sources_dialog_remote_url">Izvorni URL</string>
     <string name="sources_dialog_remote_url_hint">Repozitorij ali povezava do paketa popravkov .json. Prilepi več naenkrat, da jih dodaš vse.</string>
@@ -537,8 +537,8 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="patcher_success_subtitle">Vaša aplikacija je popravljena in nameščena!</string>
     <string name="patcher_complete_title">Popravljanje končano! ✨</string>
     <string name="patcher_failed_title">Ojoj! Nekaj je šlo narobe</string>
-    <string name="patcher_failed_hint">Tapni %s, da vidiš, kaj je šlo narobe</string>
     <string name="patcher_failed_dialog_title">Popravljanje je spodletelo</string>
+    <string name="patcher_error_details">Podrobnosti napake</string>
     <string name="patcher_unknown_error">Prišlo je do neznane napake</string>
     <string name="patcher_split_step_extracting">Izvlečenje razdeljenih datotek APK</string>
     <string name="patcher_split_step_merging">Združevanje %s</string>
@@ -661,6 +661,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="mini_game_try_again">Poskusite znova</string>
     <string name="mini_game_paused">Pavza</string>
     <string name="mini_game_resume">Nadaljuj</string>
+    <string name="mini_game_restart">Začni znova</string>
+    <string name="mini_game_change">Izberi drugo igro</string>
     <string name="mini_game_2048_picker_subtitle">Združite ploščice, da pridete do čim višje številke</string>
     <string name="mini_game_flappy_picker_subtitle">Tapkajte in poletite skozi cevi</string>
     <string name="mini_game_flappy_tap_to_start">Tapnite za polet</string>
@@ -709,6 +711,10 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_accent_color">Barva poudarkov</string>
     <string name="settings_appearance_pure_black">Črnina</string>
     <string name="settings_appearance_pure_black_description">Uporablja prava črne ozadja</string>
+    <string name="settings_appearance_color_accents">Barve aplikacij in virov</string>
+    <string name="settings_appearance_color_accents_description">Uporabi lastno barvo vsake aplikacije in vira namesto poudarjene barve</string>
+    <string name="settings_appearance_outlines">Obrisi</string>
+    <string name="settings_appearance_outlines_description">Okoli kartic, plošč in gumbov nariše tanek rob</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Jezik in prikaz</string>
     <string name="settings_appearance_app_language">Jezik aplikacije</string>
@@ -1091,7 +1097,6 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_patched_apks_description">Upravlja shranjene datoteke popravljenih aplikacij</string>
     <string name="settings_system_patched_apks_empty">Ni shranjenih popravljenih APK-jev</string>
     <string name="settings_system_patched_apks_delete_title">Izbrišem popravljeni APK?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Ste prepričani, da želite izbrisati shranjeno popravljeno datoteko APK za &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">Uspešno izbrisan popravljen APK</string>
     <string name="settings_system_patched_apks_delete_all_title">Izbrišem vse popravljene datoteke APK?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1100,7 +1105,7 @@ Podrobnosti: %2$s"</string>
     <string name="settings_system_original_apks_empty">Ni shranjenih izvirnih APK-jev</string>
     <string name="settings_system_original_apks_deleted">Uspešno izbrisan izvirni APK</string>
     <string name="settings_system_original_apks_delete_title">Izbriši izvirni APK?</string>
-    <string name="settings_system_original_apks_delete_confirm">&lt;/b&gt;Izbriši izvirno datoteko APK za &lt;b&gt;%s&lt;/b&gt;? Aplikacije ne boste mogli več popraviti brez zagotovitve nove datoteke APK.</string>
+    <string name="settings_system_original_apks_delete_notice">Če ne zagotovite nove datoteke APK, ne boste mogli znova zakrpati</string>
     <string name="settings_system_original_apks_delete_all_title">Izbrišem vse originalne datoteke APK?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Izbira popravkov</string>
@@ -1318,6 +1323,7 @@ Podrobnosti: %2$s"</string>
     <string name="update_completed">Posodobitev je bila uspešno nameščena</string>
     <string name="install_update_manager_failed">Posodobitev ni uspela</string>
     <string name="installing_manager_update">Nameščanje posodobitve…</string>
+    <string name="installing_manager_update_hint">Morphe se bo zaprl, da dokonča posodobitev</string>
     <string name="downloading_manager_update">Prenašanje posodobitve…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">Preneseno %1$s MB</string>

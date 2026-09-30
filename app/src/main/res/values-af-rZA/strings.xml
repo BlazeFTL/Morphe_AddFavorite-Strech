@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">\'n Verandering oorsprong met hierdie naam bestaan reeds</string>
     <string name="sources_dialog_missing_error">Kon nie hierdie verandering oorsprong opdateer nie</string>
     <string name="sources_dialog_add_source">Voeg verandering oorsprong by</string>
-    <string name="sources_dialog_delete_confirm_message">Verwyder bron \"%s\"? Dit kan nie ongedaan gemaak word nie</string>
+    <string name="sources_dialog_delete_confirm_body">Dit kan nie ongedaan gemaak word nie</string>
     <string name="sources_dialog_remote">Afstand</string>
     <string name="sources_dialog_remote_url">Oorsprong URL</string>
     <string name="sources_dialog_remote_url_hint">’n Bewaarplek of ’n skakel na ’n patchbondel .json. Plak verskeie op een slag om hulle almal by te voeg.</string>
@@ -537,8 +537,8 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="patcher_success_subtitle">Jou app is gepatch en geïnstalleer!</string>
     <string name="patcher_complete_title">Patcher voltooi! ✨</string>
     <string name="patcher_failed_title">Oeps! Iets het fout geloop</string>
-    <string name="patcher_failed_hint">Raak aan %s om te sien wat verkeerd geloep het</string>
     <string name="patcher_failed_dialog_title">Patcher het misluk</string>
+    <string name="patcher_error_details">Foutbesonderhede</string>
     <string name="patcher_unknown_error">Onbekende fout het voorgekom</string>
     <string name="patcher_split_step_extracting">Ekstraheer gesplitte APK\'s</string>
     <string name="patcher_split_step_merging">Voeg %s saam</string>
@@ -661,6 +661,8 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="mini_game_try_again">Probeer weer</string>
     <string name="mini_game_paused">Pauze</string>
     <string name="mini_game_resume">Gaan voort</string>
+    <string name="mini_game_restart">Begin oor</string>
+    <string name="mini_game_change">Kies \'n ander speletjie</string>
     <string name="mini_game_2048_picker_subtitle">Skuif teëls om te saamsmelt</string>
     <string name="mini_game_flappy_picker_subtitle">Tik om deur die pype te vlieg</string>
     <string name="mini_game_flappy_tap_to_start">Tik om te vlieg</string>
@@ -709,6 +711,10 @@ Deïnstallering sal alle toepassingsdata permanent uitwis."</string>
     <string name="settings_appearance_accent_color">Aksentkleur</string>
     <string name="settings_appearance_pure_black">Pure Black</string>
     <string name="settings_appearance_pure_black_description">Gebruik ware swart agtergronde</string>
+    <string name="settings_appearance_color_accents">Toep- en bronkleure</string>
+    <string name="settings_appearance_color_accents_description">Gebruik elke toep en bron se eie kleur in plaas van die aksentkleur</string>
+    <string name="settings_appearance_outlines">Omlyne</string>
+    <string name="settings_appearance_outlines_description">Teken \'n dun randjie om kaarte, panele en knoppies</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">Taal en vertoning</string>
     <string name="settings_appearance_app_language">App taal</string>
@@ -1091,7 +1097,6 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_patched_apks_description">Bestuur gestoorde gepatchte toepassingslêers</string>
     <string name="settings_system_patched_apks_empty">Geen gepatched APK\'s stoor nie</string>
     <string name="settings_system_patched_apks_delete_title">Verwyder gepatched APK?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Is jy seker dat jy die gestoorde gepatchde APK vir &lt;b&gt;%s&lt;/b&gt; wil uitvee?</string>
     <string name="settings_system_patched_apks_deleted">Gepatched APK suksesvol verwyder</string>
     <string name="settings_system_patched_apks_delete_all_title">Alle patched APK\'s verwyder?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1100,7 +1105,7 @@ Besonderhede: %2$s"</string>
     <string name="settings_system_original_apks_empty">Geen original APK\'s gestoor nie</string>
     <string name="settings_system_original_apks_deleted">Original APK suksesvol verwyder</string>
     <string name="settings_system_original_apks_delete_title">Verwyder original APK?</string>
-    <string name="settings_system_original_apks_delete_confirm">Verwyder oorspronklike APK vir &lt;b&gt;%s&lt;/b&gt;? Jy sal nie in staat wees om dit weer te patch nie sonder om \'n nuwe APK te verskaf.</string>
+    <string name="settings_system_original_apks_delete_notice">Jy sal nie kan herpatcheer sonder om \'n nuwe APK te verskaf nie</string>
     <string name="settings_system_original_apks_delete_all_title">Alle oorspronklike APK\'s verwyder?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Patch seleksies</string>
@@ -1307,6 +1312,7 @@ Besonderhede: %2$s"</string>
     <string name="changelog_section_other">Veranderinge</string>
     <string name="changelog_badge_latest">Nuutste</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">Afgelaai</string>
     <string name="changelog_badge_prerelease">Voorvrystelling</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">Wys alles (%s)</string>
@@ -1317,6 +1323,7 @@ Besonderhede: %2$s"</string>
     <string name="update_completed">Opdatering geïnstalleer</string>
     <string name="install_update_manager_failed">Kon nie opdatering installeer nie</string>
     <string name="installing_manager_update">Installeer opdatering…</string>
+    <string name="installing_manager_update_hint">Morphe sal sluit om die opdatering te voltooi</string>
     <string name="downloading_manager_update">Laai opdatering af…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB afgelaai</string>

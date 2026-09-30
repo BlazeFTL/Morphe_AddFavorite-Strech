@@ -9,8 +9,10 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import app.morphe.manager.data.platform.Filesystem
 import app.morphe.manager.data.room.apps.installed.InstalledApp
 import app.morphe.manager.data.room.apps.original.OriginalApk
@@ -18,7 +20,10 @@ import app.morphe.manager.domain.repository.InstalledAppRepository
 import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Optional
@@ -82,9 +87,11 @@ class AppDataResolver(
     private val originalApkRepository: OriginalApkRepository,
     private val installedAppRepository: InstalledAppRepository,
     private val filesystem: Filesystem,
-    private val patchBundleRepository: PatchBundleRepository
+    private val patchBundleRepository: PatchBundleRepository,
+    scope: AppCoroutineScope
 ) {
     private val packageManager: PackageManager = context.packageManager
+    private val resources = context.resources
 
     // In-memory cache - keyed by packageName + preferredSource.
     // Avoids redundant IO when multiple composables resolve the same package simultaneously.
@@ -96,6 +103,25 @@ class AppDataResolver(
     // The same APK is otherwise re-read once per preferredSource, and every archive read costs a
     // full PackageManager parse that leaks an ApkAssets object until the finalizer runs.
     private val sourceCache = ConcurrentHashMap<Pair<String, AppDataSource>, Optional<ResolvedAppData>>()
+
+    init {
+        // An original is kept partway through patching, after its app may already have been looked
+        // up without one, so an app is looked up again whenever its kept original comes or goes
+        scope.launch {
+            var kept: Map<String, Pair<String, Long>>? = null
+            originalApkRepository.getAll()
+                .map { apks -> apks.associate { it.packageName to (it.filePath to it.fileSize) } }
+                .distinctUntilChanged()
+                .collect { current ->
+                    kept?.let { previous ->
+                        (previous.keys + current.keys)
+                            .filter { previous[it] != current[it] }
+                            .forEach(::invalidate)
+                    }
+                    kept = current
+                }
+        }
+    }
 
     /**
      * Invalidate cached data for a specific package.
@@ -308,10 +334,19 @@ class AppDataResolver(
      * round. Falls back the way [ApplicationInfo.loadIcon] does.
      */
     private fun archiveIcon(appInfo: ApplicationInfo): Drawable =
+        archiveIconOrNull(appInfo) ?: packageManager.defaultActivityIcon
+
+    private fun archiveIconOrNull(appInfo: ApplicationInfo): Drawable? =
         runCatching {
             val resources = packageManager.getResourcesForApplication(appInfo)
             appInfo.icon.takeIf { it != 0 }?.let { ResourcesCompat.getDrawable(resources, it, null) }
-        }.getOrNull() ?: packageManager.defaultActivityIcon
+        }.getOrNull()
+
+    /** Icon of a parsed archive drawn into a bitmap, so it outlives the file. Null where it has none. */
+    fun detachedArchiveIcon(packageInfo: PackageInfo): Drawable? =
+        packageInfo.applicationInfo
+            ?.let(::archiveIconOrNull)
+            ?.let { icon -> runCatching { BitmapDrawable(resources, icon.toBitmap()) }.getOrNull() }
 
     /**
      * Try to get app display name from patch bundle metadata.

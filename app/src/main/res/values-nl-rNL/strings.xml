@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Er bestaat al een patchbron met deze naam</string>
     <string name="sources_dialog_missing_error">Kon deze patchbron niet bijwerken.</string>
     <string name="sources_dialog_add_source">Patchbron toevoegen</string>
-    <string name="sources_dialog_delete_confirm_message">Verwijder bron \"%s\"? Dit kan niet ongedaan gemaakt worden</string>
+    <string name="sources_dialog_delete_confirm_body">Dit kan niet ongedaan worden gemaakt</string>
     <string name="sources_dialog_remote">Remote</string>
     <string name="sources_dialog_remote_url">Bron-URL</string>
     <string name="sources_dialog_remote_url_hint">Een repository of een link naar een patchbundel .json. Plak er meerdere tegelijk om ze allemaal toe te voegen</string>
@@ -537,8 +537,8 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="patcher_success_subtitle">Je app is gepatcht en geïnstalleerd!</string>
     <string name="patcher_complete_title">Patchen voltooid! ✨</string>
     <string name="patcher_failed_title">Oeps! Er ging iets mis</string>
-    <string name="patcher_failed_hint">Tik op %s om te zien wat er misging</string>
     <string name="patcher_failed_dialog_title">Patchen mislukt</string>
+    <string name="patcher_error_details">Foutdetails</string>
     <string name="patcher_unknown_error">Onbekende fout opgetreden</string>
     <string name="patcher_split_step_extracting">Het uitpakken van split APKs</string>
     <string name="patcher_split_step_merging">Het samenvoegen van %s</string>
@@ -661,6 +661,8 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="mini_game_try_again">Probeer opnieuw</string>
     <string name="mini_game_paused">Pauze</string>
     <string name="mini_game_resume">Doorgaan</string>
+    <string name="mini_game_restart">Opnieuw beginnen</string>
+    <string name="mini_game_change">Kies een ander spel</string>
     <string name="mini_game_2048_picker_subtitle">Schuif tegels om ze te combineren</string>
     <string name="mini_game_flappy_picker_subtitle">Tik om door de pijpen te vliegen</string>
     <string name="mini_game_flappy_tap_to_start">Tik om te vliegen</string>
@@ -1095,7 +1097,6 @@ Details: %2$s"</string>
     <string name="settings_system_patched_apks_description">Beheert opgeslagen gepatchte applicatiebestanden</string>
     <string name="settings_system_patched_apks_empty">Nog geen gepatchte APK\'s opgeslagen</string>
     <string name="settings_system_patched_apks_delete_title">Gepatchte APK verwijderen?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Weet u zeker dat u de opgeslagen gepatchte APK voor &lt;b&gt;%s&lt;/b&gt; wilt verwijderen?</string>
     <string name="settings_system_patched_apks_deleted">Gepatchte APK verwijderd</string>
     <string name="settings_system_patched_apks_delete_all_title">Alle gepatchte APK\'s verwijderen?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1104,7 +1105,7 @@ Details: %2$s"</string>
     <string name="settings_system_original_apks_empty">Geen originele APK\'s opgeslagen</string>
     <string name="settings_system_original_apks_deleted">Originele APK verwijderd</string>
     <string name="settings_system_original_apks_delete_title">Originele APK verwijderen?</string>
-    <string name="settings_system_original_apks_delete_confirm">Originele APK voor %s verwijderen? Je kunt deze app niet meer opnieuw patchen zonder een nieuw APK-bestand aan te leveren</string>
+    <string name="settings_system_original_apks_delete_notice">Je kunt niet opnieuw patchen zonder een nieuwe APK te verstrekken</string>
     <string name="settings_system_original_apks_delete_all_title">Alle originele APK\'s verwijderen?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Geselecteerde patches</string>
@@ -1322,6 +1323,7 @@ Details: %2$s"</string>
     <string name="update_completed">Update geïnstalleerd</string>
     <string name="install_update_manager_failed">Fout bij het installeren van update</string>
     <string name="installing_manager_update">Update installeren…</string>
+    <string name="installing_manager_update_hint">Morphe zal sluiten om de update af te ronden</string>
     <string name="downloading_manager_update">Update downloaden…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB gedownload</string>

@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">এই নামের একটি প্যাচ সোর্স ইতিমধ্যে রয়েছে</string>
     <string name="sources_dialog_missing_error">এই প্যাচ সোর্স আপডেট করা যায়নি</string>
     <string name="sources_dialog_add_source">প্যাচ সোর্স যোগ করুন</string>
-    <string name="sources_dialog_delete_confirm_message">\"%s\" সোর্সটি ডিলিট করুন? এটি ফেরত আনা যাবে না</string>
+    <string name="sources_dialog_delete_confirm_body">এটি ফিরিয়ে আনা যাবে না</string>
     <string name="sources_dialog_remote">রিমোট</string>
     <string name="sources_dialog_remote_url">সোর্স URL</string>
     <string name="sources_dialog_remote_url_hint">একটি রিপোজিটরি বা একটি প্যাচ বান্ডেল .json-এর লিংক। একাধিক লিংক একসাথে পেস্ট করলে সব যোগ হবে।</string>
@@ -537,8 +537,8 @@
     <string name="patcher_success_subtitle">আপনার অ্যাপটি প্যাচ করা এবং ইনস্টল করা হয়েছে!</string>
     <string name="patcher_complete_title">প্যাচিং সম্পন্ন! ✨</string>
     <string name="patcher_failed_title">ওহ! কিছু একটা ভুল হয়েছে</string>
-    <string name="patcher_failed_hint">কী ভুল হয়েছে তা দেখতে %s-এ আলতো চাপুন</string>
     <string name="patcher_failed_dialog_title">প্যাচিং ব্যর্থ হয়েছে</string>
+    <string name="patcher_error_details">ত্রুটির বিবরণ</string>
     <string name="patcher_unknown_error">অজানা ত্রুটি ঘটেছে</string>
     <string name="patcher_split_step_extracting">স্প্লিট APK এক্সট্রাক্ট করা হচ্ছে</string>
     <string name="patcher_split_step_merging">মার্জ করা হচ্ছে %s</string>
@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">আবার চেষ্টা করুন</string>
     <string name="mini_game_paused">বিরতি</string>
     <string name="mini_game_resume">এগিয়ে যান</string>
+    <string name="mini_game_restart">নতুন করে শুরু করুন</string>
+    <string name="mini_game_change">অন্য একটি গেম বেছে নিন</string>
     <string name="mini_game_2048_picker_subtitle">একসাথে মার্জ করার জন্য টাইলস স্লাইড করুন</string>
     <string name="mini_game_flappy_picker_subtitle">পাইপের মধ্যে দিয়ে উড়তে ট্যাপ করুন</string>
     <string name="mini_game_flappy_tap_to_start">উড়তে ট্যাপ করুন</string>
@@ -710,6 +712,7 @@
     <string name="settings_appearance_pure_black">পুরো কালো</string>
     <string name="settings_appearance_pure_black_description">ব্যবহার করে খাঁটি কালো ব্যাকগ্রাউন্ড।</string>
     <string name="settings_appearance_color_accents">অ্যাপ এবং উৎসের রং</string>
+    <string name="settings_appearance_color_accents_description">অ্যাকসেন্ট রঙের পরিবর্তে প্রতিটি অ্যাপ ও উৎসের নিজস্ব রঙ ব্যবহার করা হয়</string>
     <string name="settings_appearance_outlines">আউটলাইন</string>
     <string name="settings_appearance_outlines_description">কার্ড, প্যানেল এবং বাটনের চারপাশে একটি পাতলা কিনারা আঁকে।</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -1086,7 +1089,6 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_patched_apks_description">সংরক্ষিত প্যাচ করা অ্যাপ্লিকেশন ফাইলগুলি পরিচালনা করে।</string>
     <string name="settings_system_patched_apks_empty">কোনো প্যাচকৃত APK সংরক্ষিত হয়নি</string>
     <string name="settings_system_patched_apks_delete_title">প্যাচড APK মুছে ফেলতে চানেন? </string>
-    <string name="settings_system_patched_apks_delete_confirm">আপনি কি নিশ্চিত &lt;b&gt;%s&lt;/b&gt;-এর জন্য সংরক্ষিত প্যাচযুক্ত APK মুছে ফেলতে চান?</string>
     <string name="settings_system_patched_apks_deleted">প্যাচড APK মুছে ফেল হয়েছে</string>
     <string name="settings_system_patched_apks_delete_all_title">সমস্ত প্যাচ করা APK মুছে ফেলতে চান?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1095,7 +1097,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="settings_system_original_apks_empty">কোনো মূল APK ফাইল সংরক্ষিত হয়নি</string>
     <string name="settings_system_original_apks_deleted">মূল APK মুছে ফেল হয়েছে</string>
     <string name="settings_system_original_apks_delete_title">মূল APK মুছে ফেলতে চানেন? </string>
-    <string name="settings_system_original_apks_delete_confirm">&lt;b&gt;%s&lt;/b&gt;-এর জন্য আসল APK মুছে ফেলবেন? নতুন APK প্রদান না করে আপনি রিপ্যাচ করতে পারবেন না।</string>
+    <string name="settings_system_original_apks_delete_notice">নতুন APK প্রদান না করলে আপনি পুনরায় প্যাচ করতে পারবেন না</string>
     <string name="settings_system_original_apks_delete_all_title">সমস্ত আসল APK মুছে ফেলতে চান?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">প্যাচ নির্বাচন</string>
@@ -1302,6 +1304,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_section_other">পরিবর্তন</string>
     <string name="changelog_badge_latest">সর্বশেষ</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">ডাউনলোড করা হয়েছে</string>
     <string name="changelog_badge_prerelease">প্রি-রিলিজ</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">সব দেখান (%s)</string>
@@ -1312,6 +1315,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="update_completed">আপডেট ইনস্টল করা হয়েছে</string>
     <string name="install_update_manager_failed">আপডেট ইনস্টল করতে ব্যর্থ</string>
     <string name="installing_manager_update">আপডেট ইনস্টল করা হচ্ছে…</string>
+    <string name="installing_manager_update_hint">আপডেট শেষ করতে Morphe বন্ধ হয়ে যাবে</string>
     <string name="downloading_manager_update">আপডেট ডাউনলোড হচ্ছে…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB ডাউনলোড হয়েছে</string>

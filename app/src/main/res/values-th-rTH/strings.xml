@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">มีแหล่งที่มาที่ชื่อนี้อยู่แล้ว</string>
     <string name="sources_dialog_missing_error">ไม่สามารถอัปเดตแหล่งที่มานี้</string>
     <string name="sources_dialog_add_source">เพิ่มแหล่งที่มา</string>
-    <string name="sources_dialog_delete_confirm_message">ลบแหล่งที่มา “%s”? ขั้นตอนนี้ไม่สามารถย้อนกลับได้</string>
+    <string name="sources_dialog_delete_confirm_body">การกระทำนี้ไม่สามารถย้อนกลับได้</string>
     <string name="sources_dialog_remote">รีโมต</string>
     <string name="sources_dialog_remote_url">URL แหล่งที่มา</string>
     <string name="sources_dialog_remote_url_hint">ที่เก็บหรือลิงก์ไปยัง .json ของชุดแพตช์ วางหลายรายการพร้อมกันเพื่อเพิ่มทั้งหมด</string>
@@ -537,8 +537,8 @@
     <string name="patcher_success_subtitle">แอปของคุณได้รับการแพตช์และถูกติดตั้งแล้ว!</string>
     <string name="patcher_complete_title">การแพตช์เสร็จสมบูรณ์แล้ว! ✨</string>
     <string name="patcher_failed_title">อุ๊ย! เกิดข้อผิดพลาดบางอย่างขึ้น</string>
-    <string name="patcher_failed_hint">แตะ %s เพื่อดูว่ามีอะไรผิดพลาด</string>
     <string name="patcher_failed_dialog_title">การแพตช์ล้มเหลว</string>
+    <string name="patcher_error_details">รายละเอียดข้อผิดพลาด</string>
     <string name="patcher_unknown_error">เกิดข้อผิดพลาดที่ไม่รู้จัก</string>
     <string name="patcher_split_step_extracting">กำลังแยกไฟล์ APK</string>
     <string name="patcher_split_step_merging">กำลังรวม %s</string>
@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">ลองอีกครั้ง</string>
     <string name="mini_game_paused">หยุดชั่วคราว</string>
     <string name="mini_game_resume">ดำเนินการต่อ</string>
+    <string name="mini_game_restart">เริ่มใหม่</string>
+    <string name="mini_game_change">เลือกเกมอื่น</string>
     <string name="mini_game_2048_picker_subtitle">เลื่อนไทล์เพื่อรวมกัน</string>
     <string name="mini_game_flappy_picker_subtitle">แตะเพื่อบินผ่านท่อ</string>
     <string name="mini_game_flappy_tap_to_start">แตะเพื่อบิน</string>
@@ -709,6 +711,10 @@
     <string name="settings_appearance_accent_color">สีเน้น</string>
     <string name="settings_appearance_pure_black">ดำสีบริสุทธิ์</string>
     <string name="settings_appearance_pure_black_description">ใช้พื้นหลังสีดำสนิท</string>
+    <string name="settings_appearance_color_accents">สีของแอปและแหล่งที่มา</string>
+    <string name="settings_appearance_color_accents_description">ใช้สีเฉพาะของแต่ละแอปและแหล่งที่มาแทนสีเน้น</string>
+    <string name="settings_appearance_outlines">โครงร่าง</string>
+    <string name="settings_appearance_outlines_description">วาดเส้นขอบบาง ๆ รอบการ์ด แผง และปุ่ม</string>
     <!-- Settings - Appearance Tab - Language Selector -->
     <string name="settings_appearance_language_and_display">ภาษา &amp; การแสดงผล</string>
     <string name="settings_appearance_app_language">ภาษาของแอป</string>
@@ -1091,7 +1097,6 @@ morphe_header_custom_dark.png
     <string name="settings_system_patched_apks_description">จัดการไฟล์แอปพลิเคชันที่แพตช์แล้วที่บันทึกไว้</string>
     <string name="settings_system_patched_apks_empty">ยังไม่มี APK ที่แพตช์ที่บันทึกไว้</string>
     <string name="settings_system_patched_apks_delete_title">ลบ APK ที่แพตช์?</string>
-    <string name="settings_system_patched_apks_delete_confirm">คุณแน่ใจหรือไม่ว่าต้องการลบ APK ที่มีการแพตช์ที่บันทึกไว้สำหรับ &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">ลบ APK ที่แพตช์สำเร็จ</string>
     <string name="settings_system_patched_apks_delete_all_title">ลบ APK ที่แพตช์ทั้งหมด?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1100,7 +1105,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_original_apks_empty">ไม่มี APK ต้นฉบับเก็บไว้</string>
     <string name="settings_system_original_apks_deleted">ลบ APK ต้นฉบับสำเร็จ</string>
     <string name="settings_system_original_apks_delete_title">ลบ APK ต้นฉบับ?</string>
-    <string name="settings_system_original_apks_delete_confirm">ลบ APK ต้นฉบับของ &lt;b&gt;%s&lt;/b&gt; หรือไม่? คุณจะไม่สามารถแพตช์ซ้ำได้หากไม่มี APK ใหม่</string>
+    <string name="settings_system_original_apks_delete_notice">คุณจะไม่สามารถแพตช์ใหม่ได้หากไม่ได้ระบุ APK ใหม่</string>
     <string name="settings_system_original_apks_delete_all_title">ลบ APK ต้นฉบับทั้งหมด?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">การเลือกแพตช์</string>
@@ -1307,6 +1312,7 @@ morphe_header_custom_dark.png
     <string name="changelog_section_other">การเปลี่ยนแปลง</string>
     <string name="changelog_badge_latest">ล่าสุด</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
+    <string name="changelog_badge_downloaded">ดาวน์โหลดแล้ว</string>
     <string name="changelog_badge_prerelease">เวอร์ชันก่อนเผยแพร่</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">แสดงทั้งหมด (%s)</string>
@@ -1317,6 +1323,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">ติดตั้งอัปเดตแล้ว</string>
     <string name="install_update_manager_failed">ไม่สามารถติดตั้งอัปเดตได้</string>
     <string name="installing_manager_update">กำลังติดตั้งอัปเดต…</string>
+    <string name="installing_manager_update_hint">Morphe จะปิดเพื่อเสร็จสิ้นการอัปเดต</string>
     <string name="downloading_manager_update">กำลังดาวน์โหลดอัปเดต…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">ดาวน์โหลดแล้ว %1$s MB</string>

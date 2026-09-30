@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Det finns redan en tilläggskälla med det här namnet</string>
     <string name="sources_dialog_missing_error">Det gick inte att uppdatera den här tilläggskällan</string>
     <string name="sources_dialog_add_source">Lägg till tilläggskälla</string>
-    <string name="sources_dialog_delete_confirm_message">Radera källan %s? Det går inte att ångra den här åtgärden</string>
+    <string name="sources_dialog_delete_confirm_body">Detta kan inte ångras</string>
     <string name="sources_dialog_remote">Fjärrkälla</string>
     <string name="sources_dialog_remote_url">Källadress</string>
     <string name="sources_dialog_remote_url_hint">En lagringsplats eller en länk till ett tilläggspakets .json-fil. Klistra in flera på en gång för att lägga till alla</string>
@@ -537,8 +537,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_success_subtitle">Appen är modifierad och installerad!</string>
     <string name="patcher_complete_title">Modifieringen är klar! ✨</string>
     <string name="patcher_failed_title">Hoppsan! Något gick fel</string>
-    <string name="patcher_failed_hint">Tryck på %s för att se vad som gick fel</string>
     <string name="patcher_failed_dialog_title">Modifieringen misslyckades</string>
+    <string name="patcher_error_details">Feluppgifter</string>
     <string name="patcher_unknown_error">Okänt fel uppstod</string>
     <string name="patcher_split_step_extracting">Extraherar delade APK-filer</string>
     <string name="patcher_split_step_merging">Slår samman %s</string>
@@ -548,7 +548,9 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_conflict_subtitle">Du måste avinstallera den befintliga versionen</string>
     <string name="patcher_conflict_hint">Den modifierade appen använder ett annat certifikat än den installerade versionen. Om du avinstallerar raderas alla appdata</string>
     <string name="patcher_installed_conflict_title">Avinstallation krävs</string>
-    <string name="patcher_installed_conflict_body">"Morphe signerar modifierade appar med sitt eget certifikat, vilket skiljer sig från det ursprungliga. Android kräver att du tar bort den befintliga versionen innan den modifierade appen kan installeras."</string>
+    <string name="patcher_installed_conflict_body">"Morphe signerar modifierade appar med sitt eget certifikat som skiljer sig från det ursprungliga. Android kräver att du tar bort den befintliga versionen innan den modifierade appen kan installeras.
+
+Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="patcher_install_error_title">Installationsfel</string>
     <string name="patcher_install_error_subtitle">Försök att avinstallera och installera igen</string>
     <string name="patcher_ready_to_mount_subtitle">Tryck på knappen nedan för att montera</string>
@@ -659,6 +661,8 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="mini_game_try_again">Försök igen</string>
     <string name="mini_game_paused">Pausat</string>
     <string name="mini_game_resume">Fortsätt</string>
+    <string name="mini_game_restart">Starta om</string>
+    <string name="mini_game_change">Välj ett annat spel</string>
     <string name="mini_game_2048_picker_subtitle">Flytta brickorna och slå ihop dem</string>
     <string name="mini_game_flappy_picker_subtitle">Tryck för att flyga mellan rören</string>
     <string name="mini_game_flappy_tap_to_start">Tryck för att flyga</string>
@@ -693,7 +697,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_background_random_interval_daily">Varje dag</string>
     <string name="settings_appearance_background_random_interval_3days">Var tredje dag</string>
     <string name="settings_appearance_parallax_effect">Parallaxeffekt</string>
-    <string name="settings_appearance_parallax_effect_description">Bakgrunden flyttas jämnt när enheten lutas</string>
+    <string name="settings_appearance_parallax_effect_description">Bakgrunden flyttas jämnt när du lutar enheten</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Temaläge</string>
@@ -708,6 +712,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_pure_black">Rent svart</string>
     <string name="settings_appearance_pure_black_description">Använder rent svarta bakgrunder</string>
     <string name="settings_appearance_color_accents">App- och källfärger</string>
+    <string name="settings_appearance_color_accents_description">Använder varje apps och källas egen färg istället för accentfärgen</string>
     <string name="settings_appearance_outlines">Konturer</string>
     <string name="settings_appearance_outlines_description">Ritar en tunn kant runt kort, paneler och knappar</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -735,7 +740,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_sort_button_description">Visa knappen för att sortera och filtrera på startskärmen</string>
     <string name="settings_appearance_app_card_colors">Färger för appkort</string>
     <string name="settings_appearance_app_card_colors_default">Standard</string>
-    <string name="settings_appearance_app_card_colors_default_description">Ge varje app färgen från sitt eget paket</string>
+    <string name="settings_appearance_app_card_colors_default_description">Ge varje app sitt eget pakets färg</string>
     <string name="settings_appearance_app_card_colors_accent">Accentfärg</string>
     <string name="settings_appearance_app_card_colors_accent_description">Använd appens accentfärg för appkort på startskärmen</string>
     <string name="settings_appearance_app_card_colors_gradient">Övertoning</string>
@@ -1092,7 +1097,6 @@ Information: %2$s"</string>
     <string name="settings_system_patched_apks_description">Hanterar sparade modifierade appfiler</string>
     <string name="settings_system_patched_apks_empty">Inga modifierade APK-filer har sparats än</string>
     <string name="settings_system_patched_apks_delete_title">Radera modifierad APK-fil?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Är du säker på att du vill radera den sparade modifierade APK-filen för &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">Modifierad APK-fil har raderats</string>
     <string name="settings_system_patched_apks_delete_all_title">Radera alla modifierade APK-filer?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1101,7 +1105,7 @@ Information: %2$s"</string>
     <string name="settings_system_original_apks_empty">Inga ursprungliga APK-filer lagras</string>
     <string name="settings_system_original_apks_deleted">Ursprunglig APK-fil har tagits bort</string>
     <string name="settings_system_original_apks_delete_title">Radera ursprunglig APK-fil?</string>
-    <string name="settings_system_original_apks_delete_confirm">Radera den ursprungliga APK-filen för &lt;b&gt;%s&lt;/b&gt;? Du kan inte modifiera appen igen utan att ange en ny APK-fil</string>
+    <string name="settings_system_original_apks_delete_notice">Du kommer inte att kunna patcha om utan att ange en ny APK</string>
     <string name="settings_system_original_apks_delete_all_title">Radera alla ursprungliga APK-filer?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Tilläggsurval</string>
@@ -1319,6 +1323,7 @@ Information: %2$s"</string>
     <string name="update_completed">Uppdatering installerades</string>
     <string name="install_update_manager_failed">Det gick inte att installera uppdateringen</string>
     <string name="installing_manager_update">Installerar uppdatering …</string>
+    <string name="installing_manager_update_hint">Morphe stängs för att slutföra uppdateringen</string>
     <string name="downloading_manager_update">Laddar ned uppdatering …</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB har laddats ned</string>

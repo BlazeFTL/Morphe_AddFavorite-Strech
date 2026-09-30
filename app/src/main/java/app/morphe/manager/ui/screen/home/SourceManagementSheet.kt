@@ -254,7 +254,6 @@ fun BundleManagementSheet(
             }
         }
 
-        // System share sheet, which also offers copying the text
         fun shareText(text: String) {
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
@@ -515,14 +514,20 @@ fun BundleManagementSheet(
     }
 
     // Delete confirmation dialog
-    if (bundleToDelete.value != null) {
+    bundleToDelete.value?.let { bundle ->
         ConfirmDialog(
             title = stringResource(R.string.delete),
-            message = stringResource(R.string.sources_dialog_delete_confirm_message, bundleToDelete.value!!.displayTitle),
+            message = stringResource(R.string.sources_dialog_delete_confirm_body),
             primaryText = stringResource(R.string.delete),
+            subject = {
+                ConfirmSubject(name = bundle.displayTitle) { modifier ->
+                    BundleIcon(bundle = bundle, modifier = modifier)
+                }
+            },
+            accentColor = rememberSourceHeaderColor(bundle),
             onDismiss = { bundleToDelete.value = null },
             onConfirm = {
-                onDelete(bundleToDelete.value!!)
+                onDelete(bundle)
                 bundleToDelete.value = null
             }
         )
@@ -870,10 +875,12 @@ private fun BundleManagementCard(
                             }
                         }
 
-                        // Actions about the same repository, styled like the action bar below.
-                        // Regular pills use small text, which leaves room for the primary label
+                        // Repository actions, as wide as the four pill action bar below
                         if (bundle is RemotePatchBundle) {
-                            ActionPillRow {
+                            ActionPillRow(
+                                modifier = Modifier.padding(vertical = 4.dp),
+                                stretchLabelsTo = 4
+                            ) {
                                 ActionPillButton(
                                     onClick = onOpenInBrowser,
                                     icon = Icons.AutoMirrored.Outlined.OpenInNew,

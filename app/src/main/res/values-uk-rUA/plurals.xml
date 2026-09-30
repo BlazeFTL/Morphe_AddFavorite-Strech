@@ -160,7 +160,7 @@
         <item quantity="other">%s ядер</item>
     </plurals>
     <plurals name="changelog_new_count">
-        <item quantity="one">%s нова</item>
+        <item quantity="one">%s нове</item>
         <item quantity="few">%s нові</item>
         <item quantity="many">%s нових</item>
         <item quantity="other">%s нових</item>

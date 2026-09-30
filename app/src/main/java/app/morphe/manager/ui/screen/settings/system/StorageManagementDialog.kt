@@ -62,12 +62,23 @@ fun StorageManagementDialog(
     }
 
     if (showClearAllConfirm) {
-        ClearCachesConfirmationDialog(
-            totalBytes = stats.totalCacheBytes,
-            onDismiss = { showClearAllConfirm = false },
+        ConfirmDialog(
+            title = stringResource(R.string.settings_system_storage_clear_all),
+            message = stringResource(R.string.settings_system_storage_clear_all_confirm),
+            primaryText = stringResource(R.string.clear),
             onConfirm = {
                 showClearAllConfirm = false
                 viewModel.clearAllCaches(onCleared)
+            },
+            onDismiss = { showClearAllConfirm = false },
+            // Empty caches free nothing, so they are left out
+            items = listOf(
+                Triple(Icons.Outlined.CloudDownload, R.string.settings_system_storage_http_cache_title, stats.httpCacheBytes),
+                Triple(Icons.Outlined.Share, R.string.settings_system_storage_installer_cache_title, stats.installerShareBytes),
+                Triple(Icons.Outlined.Build, R.string.settings_system_storage_patcher_workspace_title, stats.patcherWorkspaceBytes),
+                Triple(Icons.Outlined.HourglassEmpty, R.string.settings_system_storage_temporary_title, stats.temporaryBytes)
+            ).filter { (_, _, bytes) -> bytes > 0 }.map { (icon, title, bytes) ->
+                ConfirmItem(icon, stringResource(title), context.formatBytes(bytes))
             }
         )
     }
@@ -245,51 +256,6 @@ private fun CacheActionRow(
                 )
             )
         )
-    }
-}
-
-@Composable
-private fun ClearCachesConfirmationDialog(
-    totalBytes: Long,
-    onDismiss: () -> Unit,
-    onConfirm: () -> Unit
-) {
-    AppDialog(
-        onDismissRequest = onDismiss,
-        title = stringResource(R.string.settings_system_storage_clear_all),
-        description = stringResource(R.string.settings_system_storage_clear_all_confirm),
-        footer = {
-            AppDialogButtonRow(
-                primaryText = stringResource(R.string.clear),
-                onPrimaryClick = onConfirm,
-                isPrimaryDestructive = true,
-                secondaryText = stringResource(android.R.string.cancel),
-                onSecondaryClick = onDismiss
-            )
-        }
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(Defaults.ContentPadding)) {
-            LabeledSection(
-                version = stringResource(R.string.settings_system_apks_size, LocalContext.current.formatBytes(totalBytes))
-            ) {
-                DeleteListItem(
-                    icon = Icons.Outlined.CloudDownload,
-                    text = stringResource(R.string.settings_system_storage_http_cache_title)
-                )
-                DeleteListItem(
-                    icon = Icons.Outlined.Share,
-                    text = stringResource(R.string.settings_system_storage_installer_cache_title)
-                )
-                DeleteListItem(
-                    icon = Icons.Outlined.Build,
-                    text = stringResource(R.string.settings_system_storage_patcher_workspace_title)
-                )
-                DeleteListItem(
-                    icon = Icons.Outlined.HourglassEmpty,
-                    text = stringResource(R.string.settings_system_storage_temporary_title)
-                )
-            }
-        }
     }
 }
 

@@ -261,6 +261,7 @@ fun HomeScreen(
     // which patches are applied.
     if (homeViewModel.showPrePatchInstallerDialog) {
         PrePatchInstallerDialog(
+            packageName = homeViewModel.pendingPackageName,
             onSelectMount = { homeViewModel.resolvePrePatchInstallerChoice(useMount = true) },
             onSelectStandard = { homeViewModel.resolvePrePatchInstallerChoice(useMount = false) },
             onDismiss = homeViewModel::dismissPrePatchInstallerDialog

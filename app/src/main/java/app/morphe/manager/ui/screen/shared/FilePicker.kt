@@ -589,8 +589,11 @@ private fun FolderListing(
                 EmptyState(
                     message = stringResource(R.string.file_picker_read_error),
                     icon = Icons.Outlined.Lock,
-                    actionLabel = stringResource(R.string.retry),
-                    onAction = onRetry
+                    action = CardAction(
+                        icon = Icons.Outlined.Refresh,
+                        label = stringResource(R.string.retry),
+                        onClick = onRetry
+                    )
                 )
             }
 

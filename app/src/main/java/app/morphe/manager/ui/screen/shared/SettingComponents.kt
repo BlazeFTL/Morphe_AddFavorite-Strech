@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
@@ -40,8 +41,6 @@ import androidx.compose.ui.unit.dp
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.Defaults.MinTouchTarget
 import app.morphe.manager.ui.screen.shared.Defaults.TallTouchTarget
-import app.morphe.manager.ui.theme.MorpheBrandBlue
-import app.morphe.manager.ui.theme.MorpheBrandTeal
 import app.morphe.manager.ui.theme.ThemeTraitsDefaults
 import app.morphe.manager.util.isRtl
 import app.morphe.manager.util.readableOn
@@ -92,9 +91,6 @@ object Defaults {
     val ContentPaddingMedium = 24.dp
     val ContentPaddingExpanded = 32.dp
     val ItemSpacing = 12.dp
-
-    // Gradient colors for GradientCircleIcon
-    val DefaultGradientColors = listOf(MorpheBrandBlue, MorpheBrandTeal)
 
     // Animation durations
     /** Duration used for dialog enter/exit and overlay transitions. */
@@ -362,34 +358,6 @@ fun StatusCircleIcon(
 }
 
 /**
- * Circular icon with gradient background for section titles.
- */
-@Composable
-fun GradientCircleIcon(
-    icon: ImageVector,
-    modifier: Modifier = Modifier,
-    size: Dp = 40.dp,
-    iconSize: Dp = Defaults.IconSize,
-    contentDescription: String? = null,
-    gradientColors: List<Color> = Defaults.DefaultGradientColors
-) {
-    Box(
-        modifier = modifier
-            .size(size)
-            .clip(CircleShape)
-            .background(brush = ThemeTraitsDefaults.iconBackground(gradientColors)),
-        contentAlignment = Alignment.Center
-    ) {
-        ThemedIcon(
-            icon = icon,
-            contentDescription = contentDescription,
-            tint = ThemeTraitsDefaults.iconTint(Color.White),
-            size = iconSize
-        )
-    }
-}
-
-/**
  * Row with optional icon and text content.
  */
 @Composable
@@ -641,7 +609,8 @@ fun SettingsGroup(
 }
 
 /**
- * Section title with gradient icon.
+ * Title over a settings section. Kept lighter than the cards below so they carry the weight, and
+ * inset by their padding so the icon and text line up with the icons and titles of the rows.
  */
 @Composable
 fun SectionTitle(
@@ -649,34 +618,46 @@ fun SectionTitle(
     icon: ImageVector? = null
 ) {
     Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            // The extra room above ties the title to the section below rather than the one above
+            .padding(
+                start = Defaults.ContentPadding,
+                end = Defaults.ContentPadding,
+                top = Defaults.ContentPaddingSmall
+            )
+            .semantics { heading() },
         horizontalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
-            GradientCircleIcon(
-                icon = icon,
-                size = 36.dp,
-                iconSize = 20.dp
-            )
+            // Smaller glyph in a row icon's slot, so the title starts where the row titles do
+            Box(
+                modifier = Modifier.size(Defaults.IconSize),
+                contentAlignment = Alignment.Center
+            ) {
+                ThemedIcon(icon = icon, size = 20.dp)
+            }
         }
         Text(
             text = text,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
 
 /**
- * A single item in a deletion list with an icon and text.
+ * A single item in a deletion list with an icon, text and an optional [detail] such as its size.
  * Used inside [LabeledSection] in destructive confirmation dialogs.
  */
 @Composable
 fun DeleteListItem(
     icon: ImageVector,
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    detail: String? = null
 ) {
     Row(
         modifier = modifier
@@ -695,6 +676,13 @@ fun DeleteListItem(
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f)
         )
+        if (detail != null) {
+            Text(
+                text = detail,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }
 
@@ -735,39 +723,65 @@ fun InfoStatBox(
     }
 }
 
+/**
+ * What a list or a screen shows while it has nothing in it: an [icon], the [message] and an
+ * optional [subtitle] under it, and an [action] that gets the user out of it.
+ *
+ * @param contentColor Ink of the surface below. Dialogs hand theirs down, a screen passes its own.
+ */
 @Composable
 fun EmptyState(
     message: String,
     modifier: Modifier = Modifier,
     icon: ImageVector? = Icons.Outlined.FolderOff,
-    actionLabel: String? = null,
-    onAction: (() -> Unit)? = null
+    subtitle: String? = null,
+    action: CardAction? = null,
+    contentColor: Color = LocalDialogSecondaryTextColor.current
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
+            // Held to a readable width and centered in whatever room a wide screen gives it
+            .wrapContentWidth()
+            .widthIn(max = Defaults.ContentMaxWidth)
             .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(Defaults.ItemSpacing)
     ) {
         if (icon != null) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(64.dp),
-                tint = LocalDialogSecondaryTextColor.current.copy(alpha = 0.5f)
+                modifier = Modifier.size(56.dp),
+                tint = contentColor.copy(alpha = 0.5f)
             )
         }
         Text(
             text = message,
-            style = MaterialTheme.typography.bodyLarge,
-            color = LocalDialogSecondaryTextColor.current,
+            // Heads the line under it when there is one, and stands as a plain sentence otherwise
+            style = if (subtitle != null) MaterialTheme.typography.titleMedium else MaterialTheme.typography.bodyLarge,
+            fontWeight = if (subtitle != null) FontWeight.SemiBold else null,
+            color = contentColor,
             textAlign = TextAlign.Center
         )
-        if (actionLabel != null && onAction != null) {
-            OutlinedButton(onClick = onAction) {
-                Text(actionLabel)
-            }
+        if (subtitle != null) {
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = contentColor.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
+        }
+        if (action != null) {
+            ActionPillButton(
+                onClick = action.onClick,
+                icon = action.icon,
+                contentDescription = action.label,
+                label = action.label,
+                large = true,
+                enabled = action.enabled,
+                modifier = Modifier.padding(top = 4.dp)
+            )
         }
     }
 }

@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Já existe uma fonte de modificações com este nome</string>
     <string name="sources_dialog_missing_error">Não foi possível atualizar esta fonte de modificações</string>
     <string name="sources_dialog_add_source">Adicionar fonte de modificações</string>
-    <string name="sources_dialog_delete_confirm_message">Eliminar a fonte \"%s\"? Isto não poderá ser anulado</string>
+    <string name="sources_dialog_delete_confirm_body">Isto não pode ser desfeito</string>
     <string name="sources_dialog_remote">Remoto</string>
     <string name="sources_dialog_remote_url">URL da fonte</string>
     <string name="sources_dialog_remote_url_hint">Um repositório ou um link para um pacote de patch .json. Cole vários de uma vez para adicioná-los todos.</string>
@@ -537,8 +537,8 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="patcher_success_subtitle">A tua aplicação foi modificada e instalada!</string>
     <string name="patcher_complete_title">Modificação Concluída! ✨</string>
     <string name="patcher_failed_title">Ups! Algo correu mal</string>
-    <string name="patcher_failed_hint">Toque em %s para ver o que deu errado</string>
     <string name="patcher_failed_dialog_title">Erro ao aplicar modificações</string>
+    <string name="patcher_error_details">Detalhes do erro</string>
     <string name="patcher_unknown_error">Ocorreu um erro desconhecido</string>
     <string name="patcher_split_step_extracting">Extraindo APKs divididos</string>
     <string name="patcher_split_step_merging">Unindo %s</string>
@@ -661,6 +661,8 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="mini_game_try_again">Tentar novamente</string>
     <string name="mini_game_paused">Pausado</string>
     <string name="mini_game_resume">Continuar</string>
+    <string name="mini_game_restart">Recomeçar</string>
+    <string name="mini_game_change">Escolher outro jogo</string>
     <string name="mini_game_2048_picker_subtitle">Deslize os blocos para mesclar</string>
     <string name="mini_game_flappy_picker_subtitle">Toque para voar entre os canos</string>
     <string name="mini_game_flappy_tap_to_start">Toque para voar</string>
@@ -1095,7 +1097,6 @@ Detalhes: %2$s"</string>
     <string name="settings_system_patched_apks_description">Gerir ficheiros de aplicações modificadas guardadas</string>
     <string name="settings_system_patched_apks_empty">Ainda não foi guardado nenhum APK</string>
     <string name="settings_system_patched_apks_delete_title">Eliminar APK modificado?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Tens a certeza de que queres eliminar o APK modificado para <b>%s</b>?</string>
     <string name="settings_system_patched_apks_deleted">APK modificado eliminado com sucesso</string>
     <string name="settings_system_patched_apks_delete_all_title">Eliminar todos os APKs modificados?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1104,7 +1105,7 @@ Detalhes: %2$s"</string>
     <string name="settings_system_original_apks_empty">Nenhum APK original guardado</string>
     <string name="settings_system_original_apks_deleted">APK original eliminado com sucesso</string>
     <string name="settings_system_original_apks_delete_title">Eliminar APK original?</string>
-    <string name="settings_system_original_apks_delete_confirm">Eliminar o APK original para <b>%s</b>? Não poderás modificar de novo sem forneceres num novo APK</string>
+    <string name="settings_system_original_apks_delete_notice">Você não poderá aplicar o patch novamente sem fornecer um novo APK</string>
     <string name="settings_system_original_apks_delete_all_title">Eliminar todos os APKs originais?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Seleções de modificações</string>
@@ -1322,6 +1323,7 @@ Detalhes: %2$s"</string>
     <string name="update_completed">Atualização instalada</string>
     <string name="install_update_manager_failed">Erro ao instalar a atualização</string>
     <string name="installing_manager_update">A instalar atualização…</string>
+    <string name="installing_manager_update_hint">O Morphe será fechado para concluir a atualização</string>
     <string name="downloading_manager_update">A transferir atualização…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB transferidos</string>

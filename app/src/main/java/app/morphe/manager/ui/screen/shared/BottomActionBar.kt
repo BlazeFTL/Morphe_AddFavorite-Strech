@@ -196,17 +196,7 @@ fun BottomActionBarScope.BottomActionButton(
     contentDescription: String? = null,
     stateDescription: String? = null
 ) {
-    val colors = tone.colors()
-    val loadingLabel = stringResource(R.string.loading)
-
     val label = contentDescription ?: text
-    val accessibleLabel = remember(label, showProgress, loadingLabel) {
-        when {
-            label == null -> null
-            showProgress -> "$label, $loadingLabel"
-            else -> label
-        }
-    }
 
     // Entry is animated through the weight, so the row genuinely reflows and neighbors can never
     // be drawn over each other. A button that arrives with the bar is laid out at full width
@@ -217,31 +207,17 @@ fun BottomActionBarScope.BottomActionButton(
     }
 
     val button: @Composable (Modifier) -> Unit = { outerModifier ->
-        GlassButton(
-            label = text.orEmpty(),
-            selected = false,
+        ActionGlassButton(
             onClick = onClick,
-            modifier = outerModifier
-                .fillMaxWidth()
-                .semantics {
-                    if (stateDescription != null) {
-                        this.stateDescription = stateDescription
-                    }
-                    if (showProgress) {
-                        liveRegion = LiveRegionMode.Polite
-                    }
-                },
             icon = icon,
+            modifier = outerModifier.fillMaxWidth(),
+            text = text,
+            showLabel = showLabel,
+            tone = tone,
             enabled = enabled,
             showProgress = showProgress,
-            contentDescription = accessibleLabel,
-            containerColor = colors.container.dim(enabled),
-            contentColor = colors.content.dim(enabled),
-            border = CardBorder.of(colors.border.dim(enabled)),
-            role = Role.Button,
-            pressScale = true,
-            hapticFeedback = true,
-            showLabel = showLabel
+            contentDescription = contentDescription,
+            stateDescription = stateDescription
         )
     }
 
@@ -270,6 +246,61 @@ fun BottomActionBarScope.BottomActionButton(
             button(Modifier.fillMaxWidth())
         }
     }
+}
+
+/**
+ * The glass action button of a [BottomActionBar], for a layout of its own such as the landscape
+ * sidebar, so the buttons read the same whichever way the screen is turned.
+ */
+@Composable
+fun ActionGlassButton(
+    onClick: () -> Unit,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    text: String? = null,
+    showLabel: Boolean = false,
+    tone: BottomActionTone = BottomActionTone.Neutral,
+    enabled: Boolean = true,
+    showProgress: Boolean = false,
+    contentDescription: String? = null,
+    stateDescription: String? = null
+) {
+    val colors = tone.colors()
+    val loadingLabel = stringResource(R.string.loading)
+
+    val label = contentDescription ?: text
+    val accessibleLabel = remember(label, showProgress, loadingLabel) {
+        when {
+            label == null -> null
+            showProgress -> "$label, $loadingLabel"
+            else -> label
+        }
+    }
+
+    GlassButton(
+        label = text.orEmpty(),
+        selected = false,
+        onClick = onClick,
+        modifier = modifier.semantics {
+            if (stateDescription != null) {
+                this.stateDescription = stateDescription
+            }
+            if (showProgress) {
+                liveRegion = LiveRegionMode.Polite
+            }
+        },
+        icon = icon,
+        enabled = enabled,
+        showProgress = showProgress,
+        contentDescription = accessibleLabel,
+        containerColor = colors.container.dim(enabled),
+        contentColor = colors.content.dim(enabled),
+        border = CardBorder.of(colors.border.dim(enabled)),
+        role = Role.Button,
+        pressScale = true,
+        hapticFeedback = true,
+        showLabel = showLabel
+    )
 }
 
 /** Whether every one of [labels] fits its slot of a bar [barWidth] wide. */

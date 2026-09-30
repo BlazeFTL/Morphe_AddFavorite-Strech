@@ -163,9 +163,12 @@ fun rememberAppMetadata(): Map<String, BundleAppMetadata> {
     return metadata
 }
 
-/** Color the sources declare [packageName] with, or null where none of them does. */
+/** Color the sources declare [packageName] with, or null where none of them does or there is no app. */
 @Composable
-fun rememberAppColor(packageName: String): Color? = rememberAppMetadata()[packageName]?.downloadColor
+fun rememberAppColor(packageName: String?): Color? {
+    val metadata = rememberAppMetadata()
+    return packageName?.let { metadata[it]?.downloadColor }
+}
 
 /**
  * [accentColor] as it can be shown, or null where there is none to show. Monochrome and the color

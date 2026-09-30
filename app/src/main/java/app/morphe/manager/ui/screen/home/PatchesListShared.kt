@@ -185,6 +185,7 @@ internal fun <T> rememberPatchGroups(
  * can be enabled without being visible.
  *
  * @param leading Drawn in place of [icon], for a block that stands for an app or a source.
+ * @param badges What the whole block shares, such as the app versions, under the title.
  */
 @Composable
 internal fun PatchGroupHeader(
@@ -196,7 +197,8 @@ internal fun PatchGroupHeader(
     icon: ImageVector = Icons.Outlined.Category,
     leading: (@Composable () -> Unit)? = null,
     accentColor: Color? = null,
-    selectedCount: Int = 0
+    selectedCount: Int = 0,
+    badges: (@Composable FlowRowScope.() -> Unit)? = null
 ) {
 
     // Held while the badge fades out, so the count does not blink to zero on its way off
@@ -255,6 +257,15 @@ internal fun PatchGroupHeader(
         cornerRadius = Defaults.SettingsCornerRadius,
         color = appAccentCardFill(accentColor),
         borderColor = accentColor?.let { appAccentBorder(it) },
+        below = badges?.let { content ->
+            {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                    verticalArrangement = Arrangement.spacedBy(Defaults.ContentPaddingSmall),
+                    content = content
+                )
+            }
+        },
         modifier = modifier
     )
 }

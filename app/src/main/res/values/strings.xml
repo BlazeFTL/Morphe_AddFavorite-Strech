@@ -176,7 +176,7 @@
     <string name="sources_dialog_duplicate_name_error">A patch source with this name already exists</string>
     <string name="sources_dialog_missing_error">Could not update this patch source</string>
     <string name="sources_dialog_add_source">Add patch source</string>
-    <string name="sources_dialog_delete_confirm_message">Delete source \"%s\"? This cannot be undone</string>
+    <string name="sources_dialog_delete_confirm_body">This cannot be undone</string>
     <string name="sources_dialog_remote">Remote</string>
     <string name="sources_dialog_remote_url">Source URL</string>
     <string name="sources_dialog_remote_url_hint">A repository or a link to a patch bundle .json. Paste several at once to add them all</string>
@@ -558,8 +558,8 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="patcher_success_subtitle">Your app is patched and installed!</string>
     <string name="patcher_complete_title">Patching complete! ✨</string>
     <string name="patcher_failed_title">Oops! Something went wrong</string>
-    <string name="patcher_failed_hint">Tap %s to see what went wrong</string>
     <string name="patcher_failed_dialog_title">Patching failed</string>
+    <string name="patcher_error_details">Error details</string>
     <string name="patcher_unknown_error">Unknown error occurred</string>
     <string name="patcher_split_step_extracting">Extracting split APKs</string>
     <string name="patcher_split_step_merging">Merging %s</string>
@@ -692,6 +692,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="mini_game_try_again">Try Again</string>
     <string name="mini_game_paused">Paused</string>
     <string name="mini_game_resume">Continue</string>
+    <string name="mini_game_restart">Start over</string>
+    <string name="mini_game_change">Choose another game</string>
 
     <string name="mini_game_2048" translatable="false">2048</string>
     <string name="mini_game_2048_picker_subtitle">Slide tiles to merge</string>
@@ -1171,7 +1173,6 @@ Details: %2$s"</string>
     <string name="settings_system_patched_apks_description">Manages saved patched application files</string>
     <string name="settings_system_patched_apks_empty">No patched APKs saved yet</string>
     <string name="settings_system_patched_apks_delete_title">Delete patched APK?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Are you sure you want to delete the saved patched APK for &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">Patched APK deleted successfully</string>
     <string name="settings_system_patched_apks_delete_all_title">Delete all patched APKs?</string>
     <string name="settings_system_patched_apks_export_zip_name" translatable="false">morphe-patched-apks.zip</string>
@@ -1182,7 +1183,7 @@ Details: %2$s"</string>
     <string name="settings_system_original_apks_empty">No original APKs stored</string>
     <string name="settings_system_original_apks_deleted">Original APK deleted successfully</string>
     <string name="settings_system_original_apks_delete_title">Delete original APK?</string>
-    <string name="settings_system_original_apks_delete_confirm">Delete original APK for &lt;b&gt;%s&lt;/b&gt;? You won\'t be able to repatch without providing a new APK</string>
+    <string name="settings_system_original_apks_delete_notice">You won\'t be able to repatch without providing a new APK</string>
     <string name="settings_system_original_apks_delete_all_title">Delete all original APKs?</string>
     <string name="settings_system_original_apks_export_zip_name" translatable="false">morphe-original-apks.zip</string>
 

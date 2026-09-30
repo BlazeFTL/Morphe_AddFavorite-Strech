@@ -13,6 +13,7 @@ import android.content.pm.PackageInfo
 import android.net.Uri
 import android.os.Build
 import android.os.StatFs
+import android.graphics.drawable.Drawable
 import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.Toast
@@ -261,6 +262,14 @@ class HomeViewModel(
     // Expert mode state
     var showExpertModeDialog by mutableStateOf(false)
     var expertModeSelectedApp by mutableStateOf<SelectedApp?>(null)
+
+    private var pickedApkIcon by mutableStateOf<Pair<File, Drawable>?>(null)
+
+    /** Icon read from the file picked for expert mode, for an app no source has one for yet. */
+    val expertModeAppIcon: Drawable?
+        get() = pickedApkIcon
+            ?.takeIf { (file, _) -> (expertModeSelectedApp as? SelectedApp.Local)?.file == file }
+            ?.second
     var expertModeBundles by mutableStateOf<List<PatchBundleInfo.Scoped>>(emptyList())
     // Everything the app has patches in, so a source it is kept from can be offered back without
     // reopening the dialog. Only ever a superset of expertModeBundles
@@ -1716,7 +1725,10 @@ class HomeViewModel(
                 }
 
                 when (result) {
-                    is ApkLoadResult.Success -> processSelectedApp(result.app)
+                    is ApkLoadResult.Success -> {
+                        pickedApkIcon = result.icon?.let { result.app.file to it }
+                        processSelectedApp(result.app)
+                    }
                     is ApkLoadResult.Unreadable -> app.toast(app.getString(R.string.home_invalid_apk_unreadable))
                     is ApkLoadResult.NotAnApk -> app.toast(app.getString(R.string.home_invalid_apk_not_an_apk))
                     is ApkLoadResult.IoError -> app.toast(app.getString(R.string.home_invalid_apk_io_error))
@@ -2783,11 +2795,14 @@ class HomeViewModel(
                 return@withContext ApkLoadResult.Unreadable
             }
 
-            // A split archive is read through its base module
-            val packageInfo = SplitApkInspector.withRepresentativeApk(
+            // A split archive is read through its base module, deleted after the call, so the icon is read in it
+            val (packageInfo, icon) = SplitApkInspector.withRepresentativeApk(
                 source = tempFile,
                 workspace = filesystem.uiTempDir
-            ) { apk -> pm.getPackageInfo(apk) }
+            ) { apk ->
+                val info = pm.getPackageInfo(apk)
+                info to info?.let(appDataResolver::detachedArchiveIcon)
+            }
 
             if (packageInfo == null) {
                 Log.w(tag, "Picked file $fileName could not be parsed as an APK")
@@ -2802,7 +2817,8 @@ class HomeViewModel(
                     versionCode = pm.getVersionCode(packageInfo),
                     file = tempFile,
                     temporary = true
-                )
+                ),
+                icon
             )
         } catch (e: Exception) {
             Log.e(tag, "Failed to load APK", e)
@@ -2813,8 +2829,8 @@ class HomeViewModel(
 
 /** Result of attempting to load a local APK file. */
 private sealed interface ApkLoadResult {
-    /** File was read and parsed successfully. */
-    data class Success(val app: SelectedApp.Local) : ApkLoadResult
+    /** File was read and parsed successfully, with the app's icon where it carries one. */
+    data class Success(val app: SelectedApp.Local, val icon: Drawable?) : ApkLoadResult
     /** File could not be read - provider returned null stream or zero bytes. */
     data object Unreadable : ApkLoadResult
     /** File was read but is not a valid APK/split archive. */

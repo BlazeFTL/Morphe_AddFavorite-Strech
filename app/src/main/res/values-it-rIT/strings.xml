@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">Esiste già una fonte delle patch con questo nome</string>
     <string name="sources_dialog_missing_error">Impossibile aggiornare questa fonte delle patch</string>
     <string name="sources_dialog_add_source">Aggiungi fonte delle patch</string>
-    <string name="sources_dialog_delete_confirm_message">Elimina la fonte \"%s\"? Questa operazione non può essere annullata</string>
+    <string name="sources_dialog_delete_confirm_body">Questa operazione non può essere annullata</string>
     <string name="sources_dialog_remote">A distanza</string>
     <string name="sources_dialog_remote_url">URL della fonte</string>
     <string name="sources_dialog_remote_url_hint">Un repository o un link a un bundle di patch .json. Incolla più link in una volta per aggiungerli tutti</string>
@@ -537,8 +537,8 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="patcher_success_subtitle">La tua app è patchata e installata!</string>
     <string name="patcher_complete_title">Patching completato! ✨</string>
     <string name="patcher_failed_title">Ops! Qualcosa è andato storto</string>
-    <string name="patcher_failed_hint">Tocca %s per vedere cosa è andato storto</string>
     <string name="patcher_failed_dialog_title">Patching fallito</string>
+    <string name="patcher_error_details">Dettagli errore</string>
     <string name="patcher_unknown_error">Si è verificato un errore sconosciuto</string>
     <string name="patcher_split_step_extracting">Estrazione degli APK divisi</string>
     <string name="patcher_split_step_merging">Unione %s</string>
@@ -661,6 +661,8 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="mini_game_try_again">Riprova</string>
     <string name="mini_game_paused">In pausa</string>
     <string name="mini_game_resume">Continua</string>
+    <string name="mini_game_restart">Ricomincia</string>
+    <string name="mini_game_change">Scegli un altro gioco</string>
     <string name="mini_game_2048_picker_subtitle">Fai scorrere le tessere per unirle</string>
     <string name="mini_game_flappy_picker_subtitle">Tocca per volare tra i tubi</string>
     <string name="mini_game_flappy_tap_to_start">Tocca per volare</string>
@@ -1095,7 +1097,6 @@ Dettagli: %2$s"</string>
     <string name="settings_system_patched_apks_description">Gestione dei file delle applicazioni patchate</string>
     <string name="settings_system_patched_apks_empty">Non ci sono APK patchati salvati</string>
     <string name="settings_system_patched_apks_delete_title">Cancellare l\'APK patchato?</string>
-    <string name="settings_system_patched_apks_delete_confirm">Sei sicuro di voler eliminare l\'APK modificato salvato per &lt;b&gt;%s&lt;/b&gt;?</string>
     <string name="settings_system_patched_apks_deleted">L\'APK patchato è stato eliminato correttamente </string>
     <string name="settings_system_patched_apks_delete_all_title">Eliminare tutti gli APK modificati?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
@@ -1104,7 +1105,7 @@ Dettagli: %2$s"</string>
     <string name="settings_system_original_apks_empty">Non ci sono APK originali archiviati</string>
     <string name="settings_system_original_apks_deleted">L\'APK originale è stato eliminato correttamente </string>
     <string name="settings_system_original_apks_delete_title">Eliminare APK originale?</string>
-    <string name="settings_system_original_apks_delete_confirm">Eliminare l\'APK originale per &lt;b&gt;%s&lt;/b&gt;? Non potrai modificarlo di nuovo senza fornire un nuovo APK</string>
+    <string name="settings_system_original_apks_delete_notice">Non potrai riapplicare la patch senza fornire un nuovo APK</string>
     <string name="settings_system_original_apks_delete_all_title">Eliminare tutti gli APK originali?</string>
     <!-- Settings - System Tab - Storage Management - Patch Selection Management -->
     <string name="settings_system_patch_selections_title">Selezioni delle patch</string>
@@ -1322,6 +1323,7 @@ Dettagli: %2$s"</string>
     <string name="update_completed">Aggiornamento installato</string>
     <string name="install_update_manager_failed">Impossibile installare l\'aggiornamento</string>
     <string name="installing_manager_update">Installazione dell\'aggiornamento in corso…</string>
+    <string name="installing_manager_update_hint">Morphe si chiuderà per completare l\'aggiornamento</string>
     <string name="downloading_manager_update">Download dell\'aggiornamento in corso…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB scaricato</string>

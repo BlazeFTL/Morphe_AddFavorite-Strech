@@ -1,3 +1,11 @@
+# [1.33.0-dev.19](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.18...v1.33.0-dev.19) (2026-09-30)
+
+
+### Bug Fixes
+
+* Keep numeric app names such as 1.1.1.1 whole ([068686f](https://github.com/MorpheApp/morphe-manager/commit/068686f7cde2d2307eb19164a5837036a097039b))
+* Show a picked app's icon before it is installed or kept ([4c2de08](https://github.com/MorpheApp/morphe-manager/commit/4c2de08899527f0bf3254f8ff79723b7436f3edd))
+
 # [1.33.0-dev.18](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0-dev.17...v1.33.0-dev.18) (2026-09-30)
 
 

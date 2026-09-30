@@ -56,7 +56,7 @@ import android.graphics.Path as AndroidPath
  * installed app → original APK → patched APK → constants → fallback
  *
  * A handed in [packageInfo] and one resolved from [packageName] share one code path, so the icon
- * stays on screen when a card gets its info later.
+ * stays on screen when a card gets its info later. [icon] stands in where no source has one.
  */
 @Composable
 fun AppIcon(
@@ -64,6 +64,7 @@ fun AppIcon(
     packageInfo: PackageInfo? = null,
     packageName: String? = null,
     contentDescription: String?,
+    icon: Drawable? = null,
     preferredSource: AppDataSource = AppDataSource.INSTALLED,
     placeholderGradientColors: List<Color>? = null
 ) {
@@ -71,6 +72,7 @@ fun AppIcon(
     val resolved = rememberResolvedIcon(packageName.takeIf { packageInfo == null }, preferredSource)
     val resolving = packageInfo == null && packageName != null && resolved == null
     val shownInfo = packageInfo ?: resolved?.packageInfo
+    val shownDrawable = resolved?.drawable ?: icon
 
     when {
         shownInfo != null -> SimpleAppIcon(
@@ -78,9 +80,9 @@ fun AppIcon(
             contentDescription = contentDescription,
             modifier = modifier
         )
-        // No packageInfo but a raw Drawable was resolved (rare path)
-        resolved?.drawable != null -> DrawableAppIcon(
-            drawable = resolved.drawable,
+        // No packageInfo but a Drawable, resolved (rare path) or handed in
+        shownDrawable != null -> DrawableAppIcon(
+            drawable = shownDrawable,
             contentDescription = contentDescription,
             modifier = modifier
         )

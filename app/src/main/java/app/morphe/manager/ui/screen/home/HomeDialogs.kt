@@ -418,6 +418,7 @@ fun HomeDialogs(
             val allPatchesInfo = homeViewModel.expertModeAllPatchesInfo
             ExpertModeDialog(
                 packageName = homeViewModel.expertModeSelectedApp?.packageName.orEmpty(),
+                appIcon = homeViewModel.expertModeAppIcon,
                 newPatches = homeViewModel.expertModeNewPatches,
                 options = homeViewModel.expertModeOptions,
                 allPatchesInfo = allPatchesInfo,

@@ -5,6 +5,7 @@
 
 package app.morphe.manager.ui.screen.home
 
+import android.graphics.drawable.Drawable
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -73,11 +74,13 @@ class ExpertPatchActions(
  *
  * @param packageName App being patched, which the header names and takes its color from.
  * @param appName Name to head the dialog with, where the caller knows one better than the sources.
+ * @param appIcon Icon for the header where no source has one, as for a file picked from storage.
  */
 @Composable
 fun ExpertModeDialog(
     packageName: String,
     appName: String? = null,
+    appIcon: Drawable? = null,
     newPatches: Map<Int, Set<String>> = emptyMap(),
     options: Options,
     allPatchesInfo: List<Pair<PatchBundleInfo.Scoped, List<Pair<PatchInfo, Boolean>>>>,
@@ -241,7 +244,7 @@ fun ExpertModeDialog(
                 // second line rather than a row of its own, while several get their tabs below
                 ListDialogHeader(
                     icon = { modifier ->
-                        AppIcon(packageName = packageName, contentDescription = null, modifier = modifier)
+                        AppIcon(packageName = packageName, icon = appIcon, contentDescription = null, modifier = modifier)
                     },
                     title = headerTitle,
                     subtitle = listOfNotNull(
@@ -556,6 +559,7 @@ fun ExpertModeDialog(
             patch = patch,
             packageName = packageName,
             appName = headerTitle,
+            appIcon = appIcon,
             accentColor = appColor,
             isDefaultBundle = bundleUid == 0,
             values = options[bundleUid]?.get(patch.name),

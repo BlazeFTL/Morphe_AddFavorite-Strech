@@ -665,6 +665,8 @@
     <string name="mini_game_try_again">حاول مرة أخرى</string>
     <string name="mini_game_paused">متوقفة</string>
     <string name="mini_game_resume">متابعة</string>
+    <string name="mini_game_restart">البدء من جديد</string>
+    <string name="mini_game_change">اختر لعبة أخرى</string>
     <string name="mini_game_2048_picker_subtitle">حرك البلاطات لدمجها</string>
     <string name="mini_game_flappy_picker_subtitle">انقر للطيران عبر الأنابيب</string>
     <string name="mini_game_flappy_tap_to_start">انقر للطيران</string>

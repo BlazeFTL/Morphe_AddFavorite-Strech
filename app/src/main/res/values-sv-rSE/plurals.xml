@@ -108,12 +108,12 @@
         <item quantity="other">%s kärnor</item>
     </plurals>
     <plurals name="changelog_new_count">
-        <item quantity="one">%s ny</item>
-        <item quantity="other">%s nya</item>
+        <item quantity="one">%s nyhet</item>
+        <item quantity="other">%s nyheter</item>
     </plurals>
     <plurals name="changelog_fix_count">
-        <item quantity="one">%s korrigering</item>
-        <item quantity="other">%s korrigeringar</item>
+        <item quantity="one">%s felkorrigering</item>
+        <item quantity="other">%s felkorrigeringar</item>
     </plurals>
     <plurals name="changelog_change_count">
         <item quantity="one">%s ändring</item>

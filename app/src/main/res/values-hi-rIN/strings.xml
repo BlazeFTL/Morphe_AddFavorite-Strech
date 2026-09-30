@@ -538,7 +538,7 @@
     <string name="patcher_complete_title">पैचिंग पूरी हुई! ✨</string>
     <string name="patcher_failed_title">Oops! Something went wrong</string>
     <string name="patcher_failed_dialog_title">पैचिंग विफल रही</string>
-    <string name="patcher_error_details">त्रुटि विवरण</string>
+    <string name="patcher_error_details">गड़बड़ी का विवरण</string>
     <string name="patcher_unknown_error">Unknown error occurred</string>
     <string name="patcher_split_step_extracting">स्प्लिट APK निकाल रहे हैं</string>
     <string name="patcher_split_step_merging">%s मिला रहे हैं</string>
@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">फिर से प्रयास करें</string>
     <string name="mini_game_paused">विराम</string>
     <string name="mini_game_resume">जारी रखें</string>
+    <string name="mini_game_restart">शुरू से खेलें</string>
+    <string name="mini_game_change">कोई दूसरा गेम चुनें</string>
     <string name="mini_game_2048_picker_subtitle">टाइल्स को मर्ज करने के लिए स्लाइड करें</string>
     <string name="mini_game_flappy_picker_subtitle">पाइपों के बीच से उड़ने के लिए टैप करें</string>
     <string name="mini_game_flappy_tap_to_start">उड़ने के लिए टैप करें</string>

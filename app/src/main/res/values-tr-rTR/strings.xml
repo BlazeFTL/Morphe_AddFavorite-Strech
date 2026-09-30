@@ -661,6 +661,8 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="mini_game_try_again">Tekrar Dene</string>
     <string name="mini_game_paused">Duraklatıldı</string>
     <string name="mini_game_resume">Devam et</string>
+    <string name="mini_game_restart">Yeniden başla</string>
+    <string name="mini_game_change">Başka bir oyun seç</string>
     <string name="mini_game_2048_picker_subtitle">Karoları birleştirmek için kaydır</string>
     <string name="mini_game_flappy_picker_subtitle">Borulardan uçmak için dokun</string>
     <string name="mini_game_flappy_tap_to_start">Uçmak için dokunun</string>

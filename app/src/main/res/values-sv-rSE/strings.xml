@@ -548,7 +548,9 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_conflict_subtitle">Du måste avinstallera den befintliga versionen</string>
     <string name="patcher_conflict_hint">Den modifierade appen använder ett annat certifikat än den installerade versionen. Om du avinstallerar raderas alla appdata</string>
     <string name="patcher_installed_conflict_title">Avinstallation krävs</string>
-    <string name="patcher_installed_conflict_body">"Morphe signerar modifierade appar med sitt eget certifikat, vilket skiljer sig från det ursprungliga. Android kräver att du tar bort den befintliga versionen innan den modifierade appen kan installeras."</string>
+    <string name="patcher_installed_conflict_body">"Morphe signerar modifierade appar med sitt eget certifikat som skiljer sig från det ursprungliga. Android kräver att du tar bort den befintliga versionen innan den modifierade appen kan installeras.
+
+Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="patcher_install_error_title">Installationsfel</string>
     <string name="patcher_install_error_subtitle">Försök att avinstallera och installera igen</string>
     <string name="patcher_ready_to_mount_subtitle">Tryck på knappen nedan för att montera</string>
@@ -659,6 +661,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="mini_game_try_again">Försök igen</string>
     <string name="mini_game_paused">Pausat</string>
     <string name="mini_game_resume">Fortsätt</string>
+    <string name="mini_game_restart">Starta om</string>
     <string name="mini_game_2048_picker_subtitle">Flytta brickorna och slå ihop dem</string>
     <string name="mini_game_flappy_picker_subtitle">Tryck för att flyga mellan rören</string>
     <string name="mini_game_flappy_tap_to_start">Tryck för att flyga</string>
@@ -693,7 +696,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_background_random_interval_daily">Varje dag</string>
     <string name="settings_appearance_background_random_interval_3days">Var tredje dag</string>
     <string name="settings_appearance_parallax_effect">Parallaxeffekt</string>
-    <string name="settings_appearance_parallax_effect_description">Bakgrunden flyttas jämnt när enheten lutas</string>
+    <string name="settings_appearance_parallax_effect_description">Bakgrunden flyttas jämnt när du lutar enheten</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Temaläge</string>
@@ -708,6 +711,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_pure_black">Rent svart</string>
     <string name="settings_appearance_pure_black_description">Använder rent svarta bakgrunder</string>
     <string name="settings_appearance_color_accents">App- och källfärger</string>
+    <string name="settings_appearance_color_accents_description">Använder varje apps och källas egen färg istället för accentfärgen</string>
     <string name="settings_appearance_outlines">Konturer</string>
     <string name="settings_appearance_outlines_description">Ritar en tunn kant runt kort, paneler och knappar</string>
     <!-- Settings - Appearance Tab - Language Selector -->
@@ -735,7 +739,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="settings_appearance_sort_button_description">Visa knappen för att sortera och filtrera på startskärmen</string>
     <string name="settings_appearance_app_card_colors">Färger för appkort</string>
     <string name="settings_appearance_app_card_colors_default">Standard</string>
-    <string name="settings_appearance_app_card_colors_default_description">Ge varje app färgen från sitt eget paket</string>
+    <string name="settings_appearance_app_card_colors_default_description">Ge varje app sitt eget pakets färg</string>
     <string name="settings_appearance_app_card_colors_accent">Accentfärg</string>
     <string name="settings_appearance_app_card_colors_accent_description">Använd appens accentfärg för appkort på startskärmen</string>
     <string name="settings_appearance_app_card_colors_gradient">Övertoning</string>

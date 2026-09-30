@@ -541,7 +541,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="patcher_complete_title">Patching terminé ! ✨</string>
     <string name="patcher_failed_title">Oups ! Quelque chose s\'est mal passé</string>
     <string name="patcher_failed_dialog_title">Échec du patching</string>
-    <string name="patcher_error_details">Détails de l’erreur</string>
+    <string name="patcher_error_details">Détails de l\'erreur</string>
     <string name="patcher_unknown_error">Une erreur inconnue s\'est produite</string>
     <string name="patcher_split_step_extracting">Extraction des APK fractionnés</string>
     <string name="patcher_split_step_merging">Fusion de %s</string>
@@ -664,6 +664,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="mini_game_try_again">Réessayer</string>
     <string name="mini_game_paused">En pause</string>
     <string name="mini_game_resume">Continuer</string>
+    <string name="mini_game_restart">Recommencer</string>
     <string name="mini_game_2048_picker_subtitle">Glissez les tuiles pour les fusionner</string>
     <string name="mini_game_flappy_picker_subtitle">Touchez pour voler entre les tuyaux</string>
     <string name="mini_game_flappy_tap_to_start">Touchez pour voler</string>

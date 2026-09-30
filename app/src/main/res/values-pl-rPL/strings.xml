@@ -662,6 +662,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="mini_game_try_again">Spróbuj ponownie</string>
     <string name="mini_game_paused">Pauza</string>
     <string name="mini_game_resume">Kontynuuj</string>
+    <string name="mini_game_restart">Zacznij od nowa</string>
     <string name="mini_game_2048_picker_subtitle">Przesuwaj i łącz kafelki</string>
     <string name="mini_game_flappy_picker_subtitle">Dotykaj, by lecieć między rurami</string>
     <string name="mini_game_flappy_tap_to_start">Dotknij, aby lecieć</string>

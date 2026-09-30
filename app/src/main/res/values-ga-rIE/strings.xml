@@ -661,6 +661,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="mini_game_try_again">Bain Triail Arís</string>
     <string name="mini_game_paused">Sosaithe</string>
     <string name="mini_game_resume">Lean ar aghaidh</string>
+    <string name="mini_game_restart">Tosaigh arís</string>
     <string name="mini_game_2048_picker_subtitle">Sleamhnaigh tíleanna le cumasc</string>
     <string name="mini_game_flappy_picker_subtitle">Beartaigh chun eitilt trí phíopaí</string>
     <string name="mini_game_flappy_tap_to_start">Beartaigh le heitilt</string>

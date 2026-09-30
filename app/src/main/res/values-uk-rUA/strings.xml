@@ -661,6 +661,8 @@
     <string name="mini_game_try_again">Спробувати ще раз</string>
     <string name="mini_game_paused">Призупинено</string>
     <string name="mini_game_resume">Продовжити</string>
+    <string name="mini_game_restart">Почати спочатку</string>
+    <string name="mini_game_change">Виберіть іншу гру</string>
     <string name="mini_game_2048_picker_subtitle">Зсувайте плитки, щоб об’єднати їх</string>
     <string name="mini_game_flappy_picker_subtitle">Натискайте, щоб пролетіти крізь труби</string>
     <string name="mini_game_flappy_tap_to_start">Натисніть, щоб полетіти</string>

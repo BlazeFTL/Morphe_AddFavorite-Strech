@@ -661,6 +661,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="mini_game_try_again">Volver a intentar</string>
     <string name="mini_game_paused">En pausa</string>
     <string name="mini_game_resume">Continuar</string>
+    <string name="mini_game_restart">Empezar de nuevo</string>
     <string name="mini_game_2048_picker_subtitle">Desliza las fichas para combinarlas</string>
     <string name="mini_game_flappy_picker_subtitle">Pulsa para volar entre los tubos</string>
     <string name="mini_game_flappy_tap_to_start">Pulsa para volar</string>

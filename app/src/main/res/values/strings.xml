@@ -283,6 +283,7 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_installed_app_picker_filter_system">System apps only</string>
     <string name="home_invalid_apk_unreadable">Could not read the file. Check that \'External Storage\' is not battery restricted</string>
     <string name="home_invalid_apk_not_an_apk">The selected file is not a valid APK</string>
+    <string name="home_invalid_apk_already_patched">The selected APK is already patched. Select the original app instead</string>
     <string name="home_invalid_apk_io_error">Failed to open the file. Please try again</string>
     <string name="home_external_apk_expert_mode_required">This feature is only available in Expert mode</string>
 

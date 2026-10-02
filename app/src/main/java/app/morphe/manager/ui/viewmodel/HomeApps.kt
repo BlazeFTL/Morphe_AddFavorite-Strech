@@ -460,7 +460,6 @@ class HomeApps(
             expandedSourceGroups = homePrefs.expandedSourceGroups
         )
 
-        val recordsByApp = installedApps.groupBy { it.originalPackageName }
         // One query for installed packages instead of one per card
         val installedPackages = pm.getInstalledPackages().mapTo(HashSet()) { it.packageName }
 
@@ -551,15 +550,9 @@ class HomeApps(
             )
         }
 
-        // Include apps patched with universal patches through "Other apps", and patched apps no
-        // source brings anymore: they are not in the list but must still appear as cards so users
-        // can reinstall/uninstall/see updates
-        val universalOnlyPackages = recordsByApp.keys.filter { it !in packages }.toSet()
-        val allPackages = packages + universalOnlyPackages
-
-        val allSlots = allPackages.flatMap { pkg ->
-            homeAppSlots(pkg, recordsByApp[pkg].orEmpty())
-        }
+        // Apps patched through "Other apps" and apps no source brings anymore are not in the
+        // list, but still need cards so users can reinstall/uninstall/see updates
+        val allSlots = homeAppSlots(packages, installedApps)
 
         val visibleSlots = allSlots.filter { it.id !in homePrefs.hiddenPackages }
         val hiddenSlots = allSlots.filter { it.id in homePrefs.hiddenPackages }

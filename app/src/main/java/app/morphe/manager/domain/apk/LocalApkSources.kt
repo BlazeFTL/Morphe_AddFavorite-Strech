@@ -17,6 +17,9 @@ import app.morphe.manager.domain.repository.OriginalApkRepository
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.util.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import java.io.File
 
@@ -230,6 +233,43 @@ class LocalApkSources(
         Log.e(tag, "Failed to load installed app info", e)
         InstalledAppSource.None
     }
+
+    /**
+     * The packages among [installed] that are patched builds rather than the apps themselves.
+     *
+     * Patching such a build again yields a broken APK, and the result would be tracked as an app
+     * of its own beside the install it came from. Meant for a sweep over every app on the device,
+     * so the archive on disk is only read for a tracked package, the only kind a mount overlays.
+     */
+    suspend fun patchedInstalls(installed: List<PackageInfo>): Set<String> = withContext(Dispatchers.IO) {
+        val records = installedAppRepository.getAll().first().associateBy { it.currentPackageName }
+        installed.map { info ->
+            async {
+                val packageName = info.packageName
+                val record = records[packageName]
+                val patched = record.isRenamedByPatch || patchState(
+                    packageName = packageName,
+                    installedVersion = info.versionName?.takeUnless { it.isBlank() },
+                    mounted = record != null && pm.hasSourceApkSignatureMismatch(packageName)
+                ) == InstalledPatchState.Patched
+                packageName.takeIf { patched }
+            }
+        }.awaitAll().filterNotNullTo(HashSet())
+    }
+
+    /**
+     * Whether [apk], a plain APK of [packageName], is a patched build: it carries Morphe's own
+     * signature, or a package name only a patch gives an app.
+     */
+    suspend fun isPatchedApk(apk: File, packageName: String): Boolean = withContext(Dispatchers.IO) {
+        if (installedAppRepository.get(packageName).isRenamedByPatch) return@withContext true
+        val signingHashes = keystoreManager.signingCertificateHashes()
+        pm.getApkFileSignatureHashes(apk).any { it in signingHashes }
+    }
+
+    // Nothing but a patch gives an app another package name, so whatever goes by it is patched
+    private val InstalledApp?.isRenamedByPatch: Boolean
+        get() = this != null && currentPackageName != originalPackageName
 
     /**
      * Identifies whether the package currently occupying a tracked app's package name is still

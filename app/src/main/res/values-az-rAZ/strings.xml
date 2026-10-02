@@ -555,7 +555,7 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patcher_install_error_subtitle">Silməyə və təkrar quraşdırmağa çalış</string>
     <string name="patcher_ready_to_mount_subtitle">Montajlamaq üçün aşağıdakı düyməyə toxun</string>
     <string name="patcher_patches_excluded_for_installer">Bu quraşdırma üsulu üçün əlçatan deyil və xaric edilib: %s</string>
-    <string name="patcher_back_to_game_hint">Oyununuza qayıtmaq üçün %1$s toxunun</string>
+    <string name="patcher_back_to_game_hint">Oyununuza qayıtmaq üçün %1$s kliklə</string>
     <string name="patcher_storage_permission_dialog_title">Saxlanc keçidinə keçmək olmur</string>
     <string name="patcher_incompatible_patcher_title">Yenilənmə tələb olundu</string>
     <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; paketi &lt;b&gt;%2$s&lt;/b&gt; və ya daha yeni versiya yamaqlayıcı tələb edir. Xahiş olunur, bu tətbiqi yamaqlamaq üçün Morphe-ni yenilə</string>
@@ -661,6 +661,8 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="mini_game_try_again">Təkrar cəhd et</string>
     <string name="mini_game_paused">Fasilə edildi</string>
     <string name="mini_game_resume">Davam et</string>
+    <string name="mini_game_restart">Yenidən başla</string>
+    <string name="mini_game_change">Başqa bir oyun seç</string>
     <string name="mini_game_2048_picker_subtitle">Birləşdirmək üçün xanaları sürüşdür</string>
     <string name="mini_game_flappy_picker_subtitle">Borular arasından uçmaq üçün toxun</string>
     <string name="mini_game_flappy_tap_to_start">Uçmaq üçün toxun</string>

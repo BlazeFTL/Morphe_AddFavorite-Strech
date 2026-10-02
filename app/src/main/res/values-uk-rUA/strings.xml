@@ -275,6 +275,7 @@
     <string name="home_installed_app_picker_filter_system">Лише системні застосунки</string>
     <string name="home_invalid_apk_unreadable">Не вдалося прочитати файл. Перевірте, чи не обмежено використання батареї для \"Зовнішньої пам’яті\"</string>
     <string name="home_invalid_apk_not_an_apk">Вибраний файл не є дійсним APK</string>
+    <string name="home_invalid_apk_already_patched">Вибраний APK уже пропатчено. Виберіть замість нього оригінальний застосунок</string>
     <string name="home_invalid_apk_io_error">Не вдалося відкрити файл. Будь ласка, спробуйте ще раз</string>
     <string name="home_external_apk_expert_mode_required">Ця функція доступна лише в режимі Експерта</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->

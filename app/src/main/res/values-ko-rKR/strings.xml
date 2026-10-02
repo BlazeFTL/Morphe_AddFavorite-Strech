@@ -1300,7 +1300,7 @@ morphe_header_custom_dark.png
     <string name="changelog_release_page">릴리스 페이지</string>
     <string name="content_translate">번역</string>
     <!-- Label of a footer button beside other buttons, which reads "Translate" until pressed. Keep it as short as "Translate", a longer one moves the buttons onto two rows -->
-    <string name="content_show_original">원문</string>
+    <string name="content_show_original">원본</string>
     <string name="content_translation_failed">번역할 수 없습니다: %s</string>
     <string name="changelog_section_new">신규 사항</string>
     <string name="changelog_section_fixes">수정 사항</string>
@@ -1314,7 +1314,7 @@ morphe_header_custom_dark.png
     <string name="changelog_badge_prerelease">Pre-release</string>
     <!-- "%s" is the number of changes in the section -->
     <string name="changelog_show_all">모두 표시 (%s)</string>
-    <string name="changelog_show_less">간략히 보기</string>
+    <string name="changelog_show_less">간단히 보기</string>
     <string name="no_network_toast">인터넷에 연결할 수 없습니다</string>
     <string name="update_available">업데이트 사용 가능</string>
     <string name="ready_to_install_update">업데이트 설치 준비 완료</string>

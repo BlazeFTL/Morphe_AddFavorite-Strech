@@ -167,7 +167,7 @@
     <string name="sources_management_source_updating">Aggiornamento sorgente</string>
     <!-- Home Screen - Sources Dialogs -->
     <string name="sources_dialog_display_name">Nome visualizzato</string>
-    <string name="sources_dialog_rename">Rinomina la fonte delle patch</string>
+    <string name="sources_dialog_rename">Rinomina la fonte</string>
     <string name="sources_dialog_duplicate_name_error">Esiste già una fonte delle patch con questo nome</string>
     <string name="sources_dialog_missing_error">Impossibile aggiornare questa fonte delle patch</string>
     <string name="sources_dialog_add_source">Aggiungi fonte delle patch</string>

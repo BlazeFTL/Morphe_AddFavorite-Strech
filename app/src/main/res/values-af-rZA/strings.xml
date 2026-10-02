@@ -275,6 +275,7 @@ Enigiets wat jy van hierdie webwerf byvoeg, word op jou eie risiko gebruik."</st
     <string name="home_installed_app_picker_filter_system">Slegs stelseltoepings</string>
     <string name="home_invalid_apk_unreadable">Kon nie die lêer lees nie. Gaan na of \'Eksterne stoorplek\' nie beperk is vir die battery nie</string>
     <string name="home_invalid_apk_not_an_apk">Die gekose lêer is nie \'n geldige APK nie</string>
+    <string name="home_invalid_apk_already_patched">Die geselekteerde APK is reeds gepatch. Kies eerder die oorspronklike app</string>
     <string name="home_invalid_apk_io_error">Kon die lêer nie oopmaak nie. Probeer weer</string>
     <string name="home_external_apk_expert_mode_required">Hierdie funksie is slegs beskikbaar in Ekspermodus</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->

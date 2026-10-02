@@ -1,3 +1,10 @@
+## [1.33.1-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.33.1-dev.1...v1.33.1-dev.2) (2026-10-02)
+
+
+### Bug Fixes
+
+* Lead the file picker's folder trail with a chip back to the list of storages ([9d4f3ae](https://github.com/MorpheApp/morphe-manager/commit/9d4f3ae64d4b83e22ec4996c489701ce8f659b29))
+
 ## [1.33.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0...v1.33.1-dev.1) (2026-10-02)
 
 

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-02T08:12:49",
-  "description": "## [1.33.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0...v1.33.1-dev.1) (2026-10-02)\n\n\n### Bug Fixes\n\n* Keep one home card per install when a patched build is patched again or listed by a source ([b57e5c8](https://github.com/MorpheApp/morphe-manager/commit/b57e5c897de3d2777c35e3c08982e5cb2aebe1a4))",
-  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.1-dev.1/morphe-manager-1.33.1-dev.1.apk",
-  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.1-dev.1/morphe-manager-1.33.1-dev.1.apk.asc",
-  "version": "1.33.1-dev.1"
+  "created_at": "2026-10-02T12:45:32",
+  "description": "## [1.33.1-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.33.1-dev.1...v1.33.1-dev.2) (2026-10-02)\n\n\n### Bug Fixes\n\n* Lead the file picker's folder trail with a chip back to the list of storages ([9d4f3ae](https://github.com/MorpheApp/morphe-manager/commit/9d4f3ae64d4b83e22ec4996c489701ce8f659b29))",
+  "download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.1-dev.2/morphe-manager-1.33.1-dev.2.apk",
+  "signature_download_url": "https://github.com/MorpheApp/morphe-manager/releases/download/v1.33.1-dev.2/morphe-manager-1.33.1-dev.2.apk.asc",
+  "version": "1.33.1-dev.2"
 }

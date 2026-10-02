@@ -1,3 +1,10 @@
+## [1.33.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0...v1.33.1-dev.1) (2026-10-02)
+
+
+### Bug Fixes
+
+* Keep one home card per install when a patched build is patched again or listed by a source ([b57e5c8](https://github.com/MorpheApp/morphe-manager/commit/b57e5c897de3d2777c35e3c08982e5cb2aebe1a4))
+
 # [1.33.0](https://github.com/MorpheApp/morphe-manager/compare/v1.32.0...v1.33.0) (2026-09-30)
 
 

@@ -1234,6 +1234,7 @@ Details: %2$s"</string>
     <string name="file_picker_internal_storage">Internal storage</string>
     <string name="file_picker_sd_card">SD card</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Storages</string>
     <string name="file_picker_sort_name_asc">Name (A–Z)</string>
     <string name="file_picker_sort_name_desc">Name (Z–A)</string>
     <string name="file_picker_sort_size_desc">Size (largest first)</string>

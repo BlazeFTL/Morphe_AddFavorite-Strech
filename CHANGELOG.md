@@ -1,3 +1,15 @@
+# [1.34.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.2...v1.34.0-dev.3) (2026-10-03)
+
+
+### Bug Fixes
+
+* Translate through a second Google endpoint when the first one turns the app away ([eae76ff](https://github.com/MorpheApp/morphe-manager/commit/eae76ffa642da341cbdd67e2eb83cc6141ad6d7f))
+
+
+### Performance Improvements
+
+* Read the scroll fade alpha only while drawing ([#1099](https://github.com/MorpheApp/morphe-manager/issues/1099)) ([24faa4f](https://github.com/MorpheApp/morphe-manager/commit/24faa4f87c840653e31d46fe0c5a19e94bd119c0))
+
 # [1.34.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.1...v1.34.0-dev.2) (2026-10-03)
 
 

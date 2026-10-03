@@ -1,3 +1,25 @@
+# [1.34.0-dev.2](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.1...v1.34.0-dev.2) (2026-10-03)
+
+
+### Bug Fixes
+
+* Load picked images in the icon and header creators ([ff09b5c](https://github.com/MorpheApp/morphe-manager/commit/ff09b5c432de85951b70cca86b21cd22477c22cd))
+* **redux:** decouple channel send from mutex and ensure action runner resets on error ([#1097](https://github.com/MorpheApp/morphe-manager/issues/1097)) ([6837f7e](https://github.com/MorpheApp/morphe-manager/commit/6837f7e1b1665fc2339d82c9ab999752f754a816))
+* Show the icon of a disabled or renamed install when no APK is saved ([513734f](https://github.com/MorpheApp/morphe-manager/commit/513734f74c21040c6b637a1869d1bc20a6a748c7))
+* Update to latest patcher ([0d68bb3](https://github.com/MorpheApp/morphe-manager/commit/0d68bb36cdcc01f7fdba03cf6cacf1a0d3e816ae))
+* **worker:** prevent work collisions and ensure thread-safe worker inputs ([#1094](https://github.com/MorpheApp/morphe-manager/issues/1094)) ([7c47566](https://github.com/MorpheApp/morphe-manager/commit/7c4756685e2cc474aa9d69d892f5c9b9e79c8c08))
+* Write root module APKs through staging file and validate package names ([#1096](https://github.com/MorpheApp/morphe-manager/issues/1096)) ([d0fb6ed](https://github.com/MorpheApp/morphe-manager/commit/d0fb6ed42272ae8255a002f4cf6c3509296bb1df))
+
+
+### Features
+
+* Cut the status mark out of the patched app's icon ([d11ed9a](https://github.com/MorpheApp/morphe-manager/commit/d11ed9a0e5daf42f80161c690fe19d5f278cdf0b))
+
+
+### Performance Improvements
+
+* Optimize changelog fetching, avatar caching and streaming timeouts ([#1095](https://github.com/MorpheApp/morphe-manager/issues/1095)) ([3d3b985](https://github.com/MorpheApp/morphe-manager/commit/3d3b985d894ec420f1db12bf23e903b158ed64f5))
+
 # [1.34.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.33.1-dev.3...v1.34.0-dev.1) (2026-10-03)
 
 

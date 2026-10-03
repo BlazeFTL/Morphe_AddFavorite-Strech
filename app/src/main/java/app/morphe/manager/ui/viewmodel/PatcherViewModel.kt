@@ -1177,6 +1177,7 @@ class PatcherViewModel(
         patcherWorkerId?.uuid?.let(workManager::cancelWorkById)
         cleanupTemporaryInput()
         stopCompletionSound()
+        patchRun.finish()
 
         // Clean up the installer temp directory (contains output.apk and any intermediate files).
         // This covers the case where the user navigates away before installing/exporting,

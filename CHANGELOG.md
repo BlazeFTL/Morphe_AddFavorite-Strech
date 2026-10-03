@@ -1,3 +1,16 @@
+# [1.34.0-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.33.1-dev.3...v1.34.0-dev.1) (2026-10-03)
+
+
+### Features
+
+* Add a copy button for the APK download link ([41c8745](https://github.com/MorpheApp/morphe-manager/commit/41c87458c158bac9439d0c31ea29fb1c8870c909))
+* Count performance changes in the changelog summary ([21cb821](https://github.com/MorpheApp/morphe-manager/commit/21cb8210d4fdb8f8a59e63f755e010b71070d00f))
+
+
+### Performance Improvements
+
+* Sign patched APKs in place with a preloaded key ([#1088](https://github.com/MorpheApp/morphe-manager/issues/1088)) ([fb3bfc9](https://github.com/MorpheApp/morphe-manager/commit/fb3bfc92bfa9292d7f21f05140b1a9875bffded8))
+
 ## [1.33.1-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.33.1-dev.2...v1.33.1-dev.3) (2026-10-03)
 
 

@@ -2707,10 +2707,10 @@ class HomeViewModel(
     /**
      * Handle download instructions continue.
      */
-    fun handleDownloadInstructionsContinue(onOpenUrl: (String) -> Boolean) {
+    fun handleDownloadInstructionsContinue(handOff: (String) -> Boolean) {
         val urlToOpen = resolvedDownloadUrl!!
 
-        if (onOpenUrl(urlToOpen)) {
+        if (handOff(urlToOpen)) {
             showDownloadInstructionsDialog = false
             showFilePickerPromptDialog = true
         } else {

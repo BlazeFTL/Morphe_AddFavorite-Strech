@@ -266,6 +266,8 @@ Anything you add from this website is used at your own risk"</string>
     <string name="home_download_instructions_step4_mount">After installing the original APK, return to Morphe</string>
     <string name="home_download_instructions_continue_to">Continue to %s</string>
     <string name="home_download_instructions_destination">the download page</string>
+    <string name="home_download_instructions_copy_link">Copy link</string>
+    <string name="home_download_instructions_link_copied">Link copied</string>
 
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Select downloaded APK</string>

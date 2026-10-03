@@ -125,22 +125,24 @@ class SessionInstaller(private val app: Application) {
             }
         }
 
-        // The copy and fsync of a multi-hundred-megabyte archive must not run on the caller's thread
-        val sessionId = withContext(Dispatchers.IO) {
-            val id = installer.createSession(params)
-            Log.d(TAG, "Created session $id for ${apkFile.name}")
-            try {
-                installer.openSession(id).use { session ->
+        val sessionId = installer.createSession(params)
+        Log.d(TAG, "Created session $sessionId for ${apkFile.name}")
+
+        try {
+            // The copy and fsync of a multi-hundred-megabyte archive must not run on the caller's thread
+            withContext(Dispatchers.IO) {
+                installer.openSession(sessionId).use { session ->
                     session.openWrite("base.apk", 0, apkFile.length()).use { out ->
                         apkFile.inputStream().use { it.copyTo(out) }
                         session.fsync(out)
                     }
                 }
-            } catch (e: Exception) {
-                runCatching { installer.abandonSession(id) }
-                throw e
             }
-            id
+        } catch (e: Throwable) {
+            // Cancellation too: it surfaces once the copy is done, and a session left behind holds
+            // the whole APK until the system expires it
+            runCatching { installer.abandonSession(sessionId) }
+            throw e
         }
 
         return suspendCancellableCoroutine { cont ->

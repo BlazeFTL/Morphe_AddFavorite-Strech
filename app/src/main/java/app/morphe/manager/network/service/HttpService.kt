@@ -57,15 +57,18 @@ class HttpService(
      * or [APIResponse.Failure] on network/parse exceptions.
      *
      * Special case: if [T] is [String], returns the raw body text without deserialization.
+     *
+     * [retryOn429] off answers a 429 at once, for a caller that has somewhere else to turn.
      */
     suspend inline fun <reified T> request(
+        retryOn429: Boolean = true,
         // noinline so the builder can also be handed to hostOf for the circuit breaker
         noinline builder: HttpRequestBuilder.() -> Unit = {}
     ): APIResponse<T> {
         var body: String? = null
         return try {
             runWithRetry("request", host = hostOf(builder)) {
-                runWith429Retry("request") {
+                runWith429Retry("request", retry = retryOn429) {
                     try {
                         val response = http.request {
                             builder()
@@ -414,11 +417,12 @@ class HttpService(
      * Retries [block] up to [MAX_RETRY_ATTEMPTS] times on HTTP 429 responses.
      *
      * Respects the Retry-After response header if present; otherwise falls back to exponential
-     * backoff starting at [INITIAL_RETRY_DELAY_MS].
+     * backoff starting at [INITIAL_RETRY_DELAY_MS]. With [retry] off the first 429 is thrown.
      */
     @PublishedApi
     internal suspend fun <T> runWith429Retry(
         operationName: String,
+        retry: Boolean = true,
         block: suspend () -> T
     ): T {
         var attempt = 0
@@ -428,7 +432,7 @@ class HttpService(
                 attempt++
                 return block()
             } catch (t: TooManyRequestsException) {
-                if (attempt >= MAX_RETRY_ATTEMPTS) throw t
+                if (!retry || attempt >= MAX_RETRY_ATTEMPTS) throw t
                 val wait = (t.retryAfterMillis ?: delayMs).coerceAtMost(MAX_RETRY_DELAY_MS)
                 Log.w(tag, "$operationName hit 429 (attempt $attempt/$MAX_RETRY_ATTEMPTS), waiting ${wait}ms")
                 delay(wait.milliseconds)

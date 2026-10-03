@@ -107,13 +107,17 @@
         <item quantity="one">%s núcleo</item>
         <item quantity="other">%s núcleos</item>
     </plurals>
-    <plurals name="changelog_new_count">
-        <item quantity="one">%s novedad</item>
-        <item quantity="other">%s novedades</item>
+    <plurals name="changelog_feature_count">
+        <item quantity="one">%s característica</item>
+        <item quantity="other">%s características</item>
     </plurals>
     <plurals name="changelog_fix_count">
         <item quantity="one">%s corrección</item>
         <item quantity="other">%s correcciones</item>
+    </plurals>
+    <plurals name="changelog_performance_count">
+        <item quantity="one">%s optimización</item>
+        <item quantity="other">%s optimizaciones</item>
     </plurals>
     <plurals name="changelog_change_count">
         <item quantity="one">%s cambio</item>

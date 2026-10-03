@@ -370,6 +370,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="adaptive_icon_create">Búa til adaptive tákn</string>
     <string name="adaptive_icon_select_image">Velja mynd</string>
     <string name="adaptive_icon_change_image">Breyta mynd</string>
+    <string name="image_load_failed">Ekki tókst að hlaða þessa mynd</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Forgrunnsmynd</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

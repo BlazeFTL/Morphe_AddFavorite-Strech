@@ -371,6 +371,7 @@
     <string name="adaptive_icon_create">إنشاء أيقونة تكيفية</string>
     <string name="adaptive_icon_select_image">تحديد صورة</string>
     <string name="adaptive_icon_change_image">تغيير الصورة</string>
+    <string name="image_load_failed">تعذر تحميل هذه الصورة</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">صورة المقدمة</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

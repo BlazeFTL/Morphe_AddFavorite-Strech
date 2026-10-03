@@ -370,6 +370,7 @@
     <string name="adaptive_icon_create">Създай адаптивен икон</string>
     <string name="adaptive_icon_select_image">Избери снимка</string>
     <string name="adaptive_icon_change_image">Промени снимка</string>
+    <string name="image_load_failed">Не можа да се зареди това изображение</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Изображение на преден план</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

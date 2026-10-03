@@ -372,6 +372,7 @@
     <string name="adaptive_icon_create">צור סמל אדפטיבי</string>
     <string name="adaptive_icon_select_image">בחר תמונה</string>
     <string name="adaptive_icon_change_image">שנה תמונה</string>
+    <string name="image_load_failed">לא ניתן היה לטעון את התמונה</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">תמונת חזית</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

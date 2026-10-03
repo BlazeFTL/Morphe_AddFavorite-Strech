@@ -81,11 +81,14 @@
     <plurals name="core_count">
         <item quantity="other">%s コア</item>
     </plurals>
-    <plurals name="changelog_new_count">
-        <item quantity="other">%s 件の新規</item>
+    <plurals name="changelog_feature_count">
+        <item quantity="other">%s個の機能</item>
     </plurals>
     <plurals name="changelog_fix_count">
         <item quantity="other">%s 件の修正</item>
+    </plurals>
+    <plurals name="changelog_performance_count">
+        <item quantity="other">%s件の最適化</item>
     </plurals>
     <plurals name="changelog_change_count">
         <item quantity="other">%s 件の変更</item>

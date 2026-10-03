@@ -371,6 +371,7 @@ Tốt nhất bạn nên chuyển sang &lt;b&gt;APK đầy đủ&lt;/b&gt; để 
     <string name="adaptive_icon_create">Tạo biểu tượng thích ứng</string>
     <string name="adaptive_icon_select_image">Chọn ảnh</string>
     <string name="adaptive_icon_change_image">Đổi ảnh</string>
+    <string name="image_load_failed">Không thể tải hình ảnh này</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Hình ảnh tiền cảnh</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

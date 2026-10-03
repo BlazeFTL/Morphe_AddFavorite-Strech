@@ -371,6 +371,7 @@ Para obteres os melhores resultados, este ficheiro recomenda a modificação de 
     <string name="adaptive_icon_create">Criar ícone adaptável</string>
     <string name="adaptive_icon_select_image">Selecionar imagem</string>
     <string name="adaptive_icon_change_image">Alterar imagem</string>
+    <string name="image_load_failed">Não foi possível carregar esta imagem</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Imagem de primeiro plano</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

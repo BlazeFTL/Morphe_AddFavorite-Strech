@@ -374,6 +374,7 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="adaptive_icon_create">Stvori adaptivnu ikonu</string>
     <string name="adaptive_icon_select_image">Odaberite sliku</string>
     <string name="adaptive_icon_change_image">Promijeni sliku</string>
+    <string name="image_load_failed">Nije moguće učitati ovu sliku</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Prednja slika</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

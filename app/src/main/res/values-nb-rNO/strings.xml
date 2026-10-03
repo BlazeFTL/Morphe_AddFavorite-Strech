@@ -371,6 +371,7 @@ For de beste resultatene anbefaler denne appen å patche en &lt;b&gt;full APK-fi
     <string name="adaptive_icon_create">Opprett adaptivt ikon</string>
     <string name="adaptive_icon_select_image">Velg bilde</string>
     <string name="adaptive_icon_change_image">Endre bilde</string>
+    <string name="image_load_failed">Kunne ikke laste dette bildet</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Forgrunnsbilde</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

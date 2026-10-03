@@ -371,6 +371,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="adaptive_icon_create">Adaptif simge oluştur</string>
     <string name="adaptive_icon_select_image">Resim seç</string>
     <string name="adaptive_icon_change_image">Resmi değiştir</string>
+    <string name="image_load_failed">Bu görsel yüklenemedi</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Ön plan görüntüsü</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

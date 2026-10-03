@@ -371,6 +371,7 @@ Da li ste sigurni da želite nastaviti?"</string>
     <string name="adaptive_icon_create">Napravi adaptivni ikon</string>
     <string name="adaptive_icon_select_image">Izaberi sliku</string>
     <string name="adaptive_icon_change_image">Promeni sliku</string>
+    <string name="image_load_failed">Ne mogu da učitam ovu sliku</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Slika u prvom planu</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

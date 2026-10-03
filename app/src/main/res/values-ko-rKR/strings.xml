@@ -371,6 +371,7 @@
     <string name="adaptive_icon_create">적응형 아이콘 만들기</string>
     <string name="adaptive_icon_select_image">이미지 선택</string>
     <string name="adaptive_icon_change_image">이미지 변경</string>
+    <string name="image_load_failed">이 이미지를 불러올 수 없습니다</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">전경 이미지</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

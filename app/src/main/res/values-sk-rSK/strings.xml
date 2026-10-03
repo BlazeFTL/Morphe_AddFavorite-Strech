@@ -371,6 +371,7 @@ Pre najlepšie výsledky sa odporúča záplatovať &lt;b&gt;úplný APK&lt;/b&g
     <string name="adaptive_icon_create">Vytvoriť adaptívnu ikonu</string>
     <string name="adaptive_icon_select_image">Vybrať obrázok</string>
     <string name="adaptive_icon_change_image">Zmeniť obrázok</string>
+    <string name="image_load_failed">Nepodarilo sa načítať tento obrázok</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Obrázok v popredí</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

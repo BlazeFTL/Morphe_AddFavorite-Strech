@@ -373,6 +373,7 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="adaptive_icon_create">Créer une icône adaptative</string>
     <string name="adaptive_icon_select_image">Sélectionner une image</string>
     <string name="adaptive_icon_change_image">Changer d\'image</string>
+    <string name="image_load_failed">Impossible de charger cette image</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Image de premier plan</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

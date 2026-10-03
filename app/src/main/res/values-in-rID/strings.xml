@@ -372,6 +372,7 @@ Bersiap untuk perilaku aplikasi yang tidak biasa atau bug yang belum teridentifi
     <string name="adaptive_icon_create">Buat ikon adaptif</string>
     <string name="adaptive_icon_select_image">Pilih gambar</string>
     <string name="adaptive_icon_change_image">Ubah gambar</string>
+    <string name="image_load_failed">Tidak dapat memuat gambar ini</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Gambar latar depan</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

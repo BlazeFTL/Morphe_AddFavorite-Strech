@@ -371,6 +371,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="adaptive_icon_create">Skapa adaptiv ikon</string>
     <string name="adaptive_icon_select_image">Välj bild</string>
     <string name="adaptive_icon_change_image">Ändra bild</string>
+    <string name="image_load_failed">Kunde inte ladda den här bilden</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Förgrundsbild</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

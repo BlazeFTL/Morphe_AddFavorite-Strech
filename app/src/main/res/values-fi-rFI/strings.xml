@@ -371,6 +371,7 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="adaptive_icon_create">Luo adaptiivinen kuvake</string>
     <string name="adaptive_icon_select_image">Valitse kuva</string>
     <string name="adaptive_icon_change_image">Vaihda kuva</string>
+    <string name="image_load_failed">Tätä kuvaa ei voitu ladata</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Etualan kuva</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

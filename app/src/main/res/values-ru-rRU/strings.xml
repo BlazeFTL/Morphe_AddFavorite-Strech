@@ -371,6 +371,7 @@
     <string name="adaptive_icon_create">Создать адаптивную иконку</string>
     <string name="adaptive_icon_select_image">Выбрать изображение</string>
     <string name="adaptive_icon_change_image">Изменить изображение</string>
+    <string name="image_load_failed">Не удалось загрузить это изображение</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Изображение переднего плана</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

@@ -370,6 +370,7 @@
     <string name="adaptive_icon_create">创建自适应图标</string>
     <string name="adaptive_icon_select_image">选择图像</string>
     <string name="adaptive_icon_change_image">更改图像</string>
+    <string name="image_load_failed">无法加载此图片</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">前景图像</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

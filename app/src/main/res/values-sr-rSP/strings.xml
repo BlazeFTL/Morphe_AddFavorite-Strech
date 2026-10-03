@@ -371,6 +371,7 @@
     <string name="adaptive_icon_create">Направи адаптивни икону</string>
     <string name="adaptive_icon_select_image">Изабери слику</string>
     <string name="adaptive_icon_change_image">Промени слику</string>
+    <string name="image_load_failed">Не могу да учитам ову слику</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Слика у првом плану</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

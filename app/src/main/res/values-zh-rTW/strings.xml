@@ -371,6 +371,7 @@
     <string name="adaptive_icon_create">建立自動調整圖示</string>
     <string name="adaptive_icon_select_image">選取影像</string>
     <string name="adaptive_icon_change_image">變更影像</string>
+    <string name="image_load_failed">無法載入此圖片</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">前景圖片</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

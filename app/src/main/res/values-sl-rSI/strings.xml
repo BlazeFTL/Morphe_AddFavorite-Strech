@@ -371,6 +371,7 @@ Za najboljše rezultate ta aplikacija priporoča popravljanje &lt;b&gt;polnega A
     <string name="adaptive_icon_create">Ustvarite prilagojeno ikono</string>
     <string name="adaptive_icon_select_image">Izberite sliko</string>
     <string name="adaptive_icon_change_image">Spremenite sliko</string>
+    <string name="image_load_failed">Te slike ni bilo mogoče naložiti</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Slika ospredja</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

@@ -371,6 +371,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="adaptive_icon_create">Cruthaigh deilbhín oiriúnaitheach</string>
     <string name="adaptive_icon_select_image">Roghnaigh íomhá</string>
     <string name="adaptive_icon_change_image">Athraigh íomhá</string>
+    <string name="image_load_failed">Níorbh fhéidir an íomhá seo a lódáil</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Íomhá sa tulra</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

@@ -370,6 +370,7 @@
     <string name="adaptive_icon_create">অ্যাডাপ্টিভ আইকন তৈরি করুন</string>
     <string name="adaptive_icon_select_image">চিত্র নির্বাচন করুন</string>
     <string name="adaptive_icon_change_image">চিত্র পরিবর্তন করুন</string>
+    <string name="image_load_failed">এই ছবিটি লোড করা যায়নি</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">অগ্রভাগের চিত্র</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

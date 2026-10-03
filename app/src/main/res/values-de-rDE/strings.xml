@@ -369,6 +369,7 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="adaptive_icon_create">Adaptives Icon erstellen</string>
     <string name="adaptive_icon_select_image">Bild auswählen</string>
     <string name="adaptive_icon_change_image">Bild ändern</string>
+    <string name="image_load_failed">Dieses Bild konnte nicht geladen werden</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Vordergrundbild</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

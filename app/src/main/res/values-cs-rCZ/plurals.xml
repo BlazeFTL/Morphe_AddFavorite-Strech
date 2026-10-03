@@ -159,17 +159,23 @@
         <item quantity="many">%s jader</item>
         <item quantity="other">%s jádra</item>
     </plurals>
-    <plurals name="changelog_new_count">
-        <item quantity="one">%s novinka</item>
-        <item quantity="few">%s novinky</item>
-        <item quantity="many">%s novinek</item>
-        <item quantity="other">%s novinek</item>
+    <plurals name="changelog_feature_count">
+        <item quantity="one">%s funkce</item>
+        <item quantity="few">%s funkce</item>
+        <item quantity="many">%s funkce</item>
+        <item quantity="other">%s funkcí</item>
     </plurals>
     <plurals name="changelog_fix_count">
         <item quantity="one">%s oprava</item>
         <item quantity="few">%s opravy</item>
         <item quantity="many">%s oprav</item>
         <item quantity="other">%s oprav</item>
+    </plurals>
+    <plurals name="changelog_performance_count">
+        <item quantity="one">%s optimalizace</item>
+        <item quantity="few">%s optimalizace</item>
+        <item quantity="many">%s optimalizace</item>
+        <item quantity="other">%s optimalizací</item>
     </plurals>
     <plurals name="changelog_change_count">
         <item quantity="one">%s změna</item>

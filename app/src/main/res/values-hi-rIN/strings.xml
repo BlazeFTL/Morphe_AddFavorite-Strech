@@ -371,6 +371,7 @@
     <string name="adaptive_icon_create">अनुकूलित आइकॉन बनाएं</string>
     <string name="adaptive_icon_select_image">छवि चयन करें</string>
     <string name="adaptive_icon_change_image">छवि बदलें</string>
+    <string name="image_load_failed">यह छवि लोड नहीं की जा सकी</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">अग्रभूमि छवि</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

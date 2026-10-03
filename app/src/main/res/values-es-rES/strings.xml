@@ -371,6 +371,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="adaptive_icon_create">Crear icono adaptable</string>
     <string name="adaptive_icon_select_image">Seleccionar imagen</string>
     <string name="adaptive_icon_change_image">Cambiar imagen</string>
+    <string name="image_load_failed">No se pudo cargar esta imagen</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Imagen de primer plano</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

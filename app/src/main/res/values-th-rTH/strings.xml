@@ -371,6 +371,7 @@
     <string name="adaptive_icon_create">สร้างไอคอนปรับตัวได้</string>
     <string name="adaptive_icon_select_image">เลือกภาพ</string>
     <string name="adaptive_icon_change_image">เปลี่ยนภาพ</string>
+    <string name="image_load_failed">ไม่สามารถโหลดรูปภาพนี้ได้</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">ภาพพื้นหน้า</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

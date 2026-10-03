@@ -371,6 +371,7 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="adaptive_icon_create">Creează iconiță adaptivă</string>
     <string name="adaptive_icon_select_image">Selectează imagine</string>
     <string name="adaptive_icon_change_image">Schimbă imagine</string>
+    <string name="image_load_failed">Nu s-a putut încărca această imagine</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Imagine de prim-plan</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->

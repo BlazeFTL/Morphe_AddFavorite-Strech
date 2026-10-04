@@ -290,6 +290,8 @@ Norint gauti geriausią rezultatą, ši programa rekomenduoja pataisyti &lt;b&gt
     <string name="home_app_info_patch_update_available_description">Yra naujesnė pataisymų versija. Iš naujo įdiekite savo programėlę, kad gautumėte naujausius patobulinimus ir pataisymus</string>
     <string name="home_app_info_app_deleted_warning">Programėlė buvo pašalinta</string>
     <string name="home_app_info_app_deleted_description">Ši programa buvo pašalinta nenaudojant Morphe. Įdiekite ją iš naujo, kad atkurtumėte funkcionalumą</string>
+    <string name="app_links_badge_enabled">Įjungtas</string>
+    <string name="app_links_badge_disabled">Išjungtas</string>
     <string name="home_app_info_apk_size">APK dydis</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Norint naudoti root režimą, prieš diegiant pataisą įrenginyje turi būti įdiegtas originalus APK</string>
@@ -333,8 +335,6 @@ Pašalinus bus visam laikui ištrinti visi programos duomenys."</string>
     <string name="patcher_ready_to_mount_subtitle">Paspauskite žemiau esantį mygtuką, kad montuotimete</string>
     <string name="patcher_storage_permission_dialog_title">Nepavyksta pasiekti saugyklos kelio</string>
     <string name="patcher_incompatible_patcher_title">Būtina atnaujinti</string>
-    <string name="patcher_incompatible_patcher_description">Paketui  &lt;b&gt;%1$s&lt;/b&gt; reikalinga pataisymų programos versija &lt;b&gt;%2$s&lt;/b&gt; arba naujesnė. Norėdami įdiegti pataisymus, atnaujinkite Morphe</string>
-    <string name="patcher_incompatible_patcher_update_button">Parsisiųsti ir atnaujinti Morphe</string>
     <string name="patcher_storage_permission_description_api30">Viena ar kelios pataisų parinktys nurodo kelius, kurių „Morphe“ negali nuskaityti. Suteikite prieigą prie saugyklos ir palieskite mygtuką, tada pataisų diegimas prasidės automatiškai</string>
     <string name="patcher_storage_permission_description_legacy">Vienas ar daugiau pataisymo parinkčių veda į failų nuorodas, kurių negalima pasiekti. Atnaujinkite nuorodas pataisymų nustatymuose ir bandykite vėl</string>
     <string name="patcher_storage_permission_grant">Suteikti leidimą pasiekti saugyklą</string>

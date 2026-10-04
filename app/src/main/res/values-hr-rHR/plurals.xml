@@ -133,15 +133,20 @@
         <item quantity="few">%s jezgre</item>
         <item quantity="other">%s jezgri</item>
     </plurals>
-    <plurals name="changelog_new_count">
-        <item quantity="one">%s novost</item>
-        <item quantity="few">%s novosti</item>
-        <item quantity="other">%s novosti</item>
+    <plurals name="changelog_feature_count">
+        <item quantity="one">%s značajka</item>
+        <item quantity="few">%s značajke</item>
+        <item quantity="other">%s značajaka</item>
     </plurals>
     <plurals name="changelog_fix_count">
         <item quantity="one">%s ispravak</item>
         <item quantity="few">%s ispravka</item>
         <item quantity="other">%s ispravaka</item>
+    </plurals>
+    <plurals name="changelog_performance_count">
+        <item quantity="one">%s optimizacija</item>
+        <item quantity="few">%s optimizacije</item>
+        <item quantity="other">%s optimizacija</item>
     </plurals>
     <plurals name="changelog_change_count">
         <item quantity="one">%s promjena</item>

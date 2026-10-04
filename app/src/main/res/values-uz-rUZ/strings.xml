@@ -487,8 +487,6 @@ O‘rnatish barcha ilova ma'lumotlarini o‘chiradi"</string>
     <string name="patcher_back_to_game_hint">O\'yiningizga qaytish uchun %1$s ni bosing</string>
     <string name="patcher_storage_permission_dialog_title">Haqida</string>
     <string name="patcher_incompatible_patcher_title">Yangilash talab qilinadi</string>
-    <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; to‘plami patcher versiyasi &lt;b&gt;%2$s&lt;/b&gt; yoki undan yangiroqni talab qiladi. Ushbu ilovani patchlash uchun Morphe ni yangilang</string>
-    <string name="patcher_incompatible_patcher_update_button">Morphe ni yuklab oling va yangilang</string>
     <string name="patcher_storage_permission_description_api30">Bir nechta patch opsiyalari Morphe o\'qiy olmaydigan yo\'llarga ishorat qiladi. Xotira ruxsatini bering va keyin patchlash avtomatik ravishda boshlanadi</string>
     <string name="patcher_storage_permission_description_legacy">Bir nechta patch opsiyalari Morphe o\'qiy olmaydigan yo\'llarga ishorat qiladi. Xotira ruxsatini bering va tugmani bosing, keyin patchlash avtomatik ravishda boshlanadi</string>
     <string name="patcher_storage_permission_grant">Xotira ruxsatini bering</string>

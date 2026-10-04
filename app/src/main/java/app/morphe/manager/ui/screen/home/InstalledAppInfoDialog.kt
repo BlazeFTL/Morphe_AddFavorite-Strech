@@ -48,12 +48,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.*
 import app.morphe.manager.domain.bundles.AppVersionStatus
 import app.morphe.manager.domain.bundles.RemotePatchBundle
 import app.morphe.manager.domain.bundles.versionStatus
+import app.morphe.manager.domain.links.AppLinksStatus
 import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.patcher.util.NativeLibs
 import app.morphe.manager.ui.screen.settings.system.InstallerSelectionDialog
@@ -183,6 +186,12 @@ fun InstalledAppInfoDialog(
     val showUninstallConfirm = remember { mutableStateOf(false) }
     val showDeleteDialog = remember { mutableStateOf(false) }
     val showAppliedPatchesDialog = remember { mutableStateOf(false) }
+    val showAppLinksDialog = remember { mutableStateOf(false) }
+
+    // The link selection is only ever changed on a system screen, which is left by coming back here
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.refreshAppLinks()
+    }
     val changelogRequest = remember { mutableStateOf<BundleChangelogRequest?>(null) }
     val showMountWarningDialog = remember { mutableStateOf(false) }
     val signatureConflict = remember { mutableStateOf<InstallViewModel.InstallState.Conflict?>(null) }
@@ -363,6 +372,19 @@ fun InstalledAppInfoDialog(
                 bundles = appliedBundles,
                 settingsViewModel = settingsViewModel,
                 onDismiss = { showAppliedPatchesDialog.value = false }
+            )
+        }
+
+        val appLinksStatus = viewModel.appLinksStatus
+        if (showAppLinksDialog.value && appLinksStatus?.hasSupportedLinks == true) {
+            AppLinksDialog(
+                appLabel = appLabel,
+                appInfo = appInfo,
+                accentColor = appAccentColor,
+                packageName = installedApp?.currentPackageName ?: packageName,
+                status = appLinksStatus,
+                onRefresh = viewModel::refreshAppLinks,
+                onDismiss = { showAppLinksDialog.value = false }
             )
         }
 
@@ -627,6 +649,7 @@ fun InstalledAppInfoDialog(
                             onPatch = { onTriggerPatchFlow(installedApp.originalPackageName, installedApp.trackingKey) },
                             onShowUpdateChangelog = onShowUpdateChangelog,
                             onIgnoreVersion = onIgnoreVersion,
+                            onOpenAppLinks = { showAppLinksDialog.value = true },
                             modifier = Modifier.padding(horizontal = Defaults.ContentPadding)
                         )
                         StaggeredItem(entered = entered.value, index = 2) {
@@ -636,7 +659,9 @@ fun InstalledAppInfoDialog(
                                 onStopIgnoringVersion = onStopIgnoringVersion,
                                 appliedPatches = appliedPatches,
                                 bundlesUsedSummary = bundlesUsedSummary,
+                                appLinksStatus = viewModel.appLinksStatus,
                                 onShowPatches = { showAppliedPatchesDialog.value = true },
+                                onOpenAppLinks = { showAppLinksDialog.value = true },
                                 accentColor = infoAccentColor,
                                 modifier = Modifier
                                     .padding(horizontal = Defaults.ContentPadding)
@@ -755,8 +780,13 @@ private fun InstalledAppBanners(
     onPatch: () -> Unit,
     onShowUpdateChangelog: (() -> Unit)?,
     onIgnoreVersion: (() -> Unit)?,
+    onOpenAppLinks: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val ignoredAppLinksPackages by viewModel.ignoredAppLinksPackages.collectAsStateWithLifecycle(emptySet())
+    val showsAppLinksBanner = viewModel.appLinksStatus?.opensInBrowser == true &&
+            viewModel.installedApp?.currentPackageName !in ignoredAppLinksPackages
+
     Column(modifier = modifier) {
         BannerSlot(
             visible = viewModel.isAppDeleted && !viewModel.isInstallStateNotPatched,
@@ -841,6 +871,29 @@ private fun InstalledAppBanners(
                             onClick = it
                         )
                     }
+                )
+            )
+        }
+        // Last, since links opening in the browser is an inconvenience the app works fine with
+        BannerSlot(
+            visible = showsAppLinksBanner,
+            entered = entered,
+            staggerIndex = staggerIndex
+        ) {
+            WarningBanner(
+                icon = Icons.Outlined.LinkOff,
+                title = stringResource(R.string.app_links_unverified_banner_title),
+                description = stringResource(R.string.app_links_unverified_banner_description),
+                buttonText = stringResource(R.string.app_links_fix),
+                buttonIcon = Icons.Outlined.Link,
+                onClick = onOpenAppLinks,
+                accentColor = accentColor,
+                secondaryActions = listOf(
+                    ActionItem(
+                        text = stringResource(R.string.ignore),
+                        icon = Icons.Outlined.VisibilityOff,
+                        onClick = viewModel::ignoreAppLinks
+                    )
                 )
             )
         }
@@ -1012,7 +1065,7 @@ private val InstallType.badge: Pair<ImageVector, Int>
 /**
  * Wraps content with a staggered entrance animation.
  * Uses a single progress float (0 to 1); alpha, offsetY and scale are
- * derived via lerp - one Recomposition subscriber instead of three.
+ * derived via [lerp] - one Recomposition subscriber instead of three.
  * Each item appears [index] * [Animations.STAGGER_STEP] ms after [entered] becomes true.
  */
 @Composable
@@ -1050,7 +1103,9 @@ private fun InfoSection(
     onStopIgnoringVersion: (() -> Unit)?,
     appliedPatches: Map<Int, Set<String>>?,
     bundlesUsedSummary: String,
+    appLinksStatus: AppLinksStatus?,
     onShowPatches: () -> Unit,
+    onOpenAppLinks: () -> Unit,
     accentColor: Color,
     modifier: Modifier = Modifier
 ) {
@@ -1075,7 +1130,7 @@ private fun InfoSection(
         try {
             val pm = context.packageManager
             val info = pm.getPackageInfo(installedApp.currentPackageName, 0)
-            val sourceDir = info.applicationInfo?.sourceDir ?: return@remember emptyList<String>()
+            val sourceDir = info.applicationInfo?.sourceDir ?: return@remember emptyList()
             NativeLibs.extractAbisFromApk(File(sourceDir))
         } catch (_: Exception) { emptyList() }
     }
@@ -1162,6 +1217,31 @@ private fun InfoSection(
                     icon = Icons.Outlined.Source,
                     label = stringResource(R.string.home_app_info_patch_source_used),
                     value = bundlesUsedSummary
+                )
+            }
+
+            if (appLinksStatus?.hasSupportedLinks == true) {
+                SettingsDivider()
+                val linksValue = if (appLinksStatus.isFullyConfigured) {
+                    pluralStringResource(
+                        R.plurals.app_links_count_enabled,
+                        appLinksStatus.domains.size,
+                        appLinksStatus.domains.size
+                    )
+                } else {
+                    pluralStringResource(
+                        R.plurals.app_links_count_unverified,
+                        appLinksStatus.unhandledDomains.size,
+                        appLinksStatus.unhandledDomains.size
+                    )
+                }
+                InfoRowWithAction(
+                    icon = if (appLinksStatus.isFullyConfigured) Icons.Outlined.Link else Icons.Outlined.LinkOff,
+                    label = stringResource(R.string.app_links_title),
+                    value = linksValue,
+                    onAction = onOpenAppLinks,
+                    actionIcon = Icons.Outlined.Settings,
+                    actionContentDescription = stringResource(R.string.configure)
                 )
             }
         }

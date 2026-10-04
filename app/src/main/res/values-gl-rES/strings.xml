@@ -220,6 +220,8 @@ Elixe outro APK</string>
     <string name="home_app_info_patch_update_available">Actualización de parche dispoñible</string>
     <string name="home_app_info_app_deleted_warning">A aplicación foi desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicación foi desinstalada fóra de Morphe. Volva a parchear para restaurar a súa funcionalidade</string>
+    <string name="app_links_badge_enabled">Activado</string>
+    <string name="app_links_badge_disabled">Desactivado</string>
     <string name="home_app_info_apk_size">Tamaño da APK</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">O modo raíz (root) require que o arquivo APK orixinal estea instalado no teu dispositivo antes de ser parcheado</string>

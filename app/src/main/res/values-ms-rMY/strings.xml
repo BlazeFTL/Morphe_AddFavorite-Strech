@@ -286,6 +286,8 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="home_app_info_patch_update_available_description">Versi patch yang lebih baru tersedia. Repatch aplikasi anda untuk mendapatkan penambahbaikan dan pembaikan terkini</string>
     <string name="home_app_info_app_deleted_warning">Aplikasi telah dinyahpasangkan</string>
     <string name="home_app_info_app_deleted_description">Aplikasi ini telah dinyahpasangkan di luar Morphe. Kembalikan ia untuk memulihkan fungsi</string>
+    <string name="app_links_badge_enabled">Didayakan</string>
+    <string name="app_links_badge_disabled">Dilumpuhkan</string>
     <string name="home_app_info_apk_size">Saiz APK</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Mod root memerlukan APK asal diinstal pada peranti anda sebelum menampal</string>
@@ -320,7 +322,6 @@ Teruskannya mungkin boleh menyebabkan aplikasi tidak dapat berfungsi</string>
     <string name="patcher_ready_to_mount_subtitle">Tekan butang dibawah untuk memasang</string>
     <string name="patcher_storage_permission_dialog_title">Laluan storan tidak dapat diakses</string>
     <string name="patcher_incompatible_patcher_title">Kemas kini diperlukan</string>
-    <string name="patcher_incompatible_patcher_update_button">Muat turun dan kemas kini Morphe</string>
     <string name="patcher_storage_permission_description_api30">Satu atau lebih pilihan tampalan menuju ke laluan yang Morphe tidak dapat baca. Benarkan akses storan dan tekan butang kemudian tampalan akan mula secara automatik</string>
     <string name="patcher_storage_permission_description_legacy">Satu atau lebih pilihan tampalan menuju ke laluan yang tidak dapat diakses. Kemas kini laluan pada pilihan tampalan dan cuba semula</string>
     <string name="patcher_storage_permission_grant">Berikan akses storan</string>

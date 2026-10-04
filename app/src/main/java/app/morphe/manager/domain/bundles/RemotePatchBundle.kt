@@ -1,20 +1,24 @@
+/*
+ * Copyright 2026 Morphe.
+ * https://github.com/MorpheApp/morphe-manager
+ *
+ * Original hard forked code:
+ * https://github.com/Jman-Github/Universal-ReVanced-Manager/blob/597b3173a004f5a9aae54326046dd7fd4c5b7777/app/src/main/java/app/revanced/manager/domain/bundles/RemotePatchBundle.kt
+ *
+ * See the included NOTICE file for GPLv3 Section 7 terms that apply to Morphe contributions.
+ */
+
 package app.morphe.manager.domain.bundles
 
-import app.morphe.manager.domain.bundles.RemotePatchBundle.Companion.CHANGELOG_CACHE_TTL
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.network.api.MorpheAPI
 import app.morphe.manager.network.dto.MorpheAsset
 import app.morphe.manager.network.service.AssetDownloader
 import app.morphe.manager.network.service.HttpService
 import app.morphe.manager.network.utils.getOrThrow
-import app.morphe.manager.util.ADD_SOURCE_PATH
-import app.morphe.manager.util.ChangelogEntry
-import app.morphe.manager.util.ChangelogParser
-import app.morphe.manager.util.MORPHE_WEBSITE_URL
-import app.morphe.manager.util.SOURCE_REPO_URL
-import app.morphe.manager.util.TimedCache
-import app.morphe.manager.util.compareVersions
-import app.morphe.manager.util.releasePageUrl
+import app.morphe.manager.util.*
+import io.ktor.client.plugins.HttpTimeoutConfig
+import io.ktor.client.plugins.timeout
 import io.ktor.client.request.header
 import io.ktor.client.request.prepareGet
 import io.ktor.client.request.url
@@ -23,10 +27,7 @@ import io.ktor.http.contentLength
 import io.ktor.http.contentType
 import io.ktor.utils.io.jvm.javaio.toInputStream
 import io.ktor.utils.io.readAvailable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.koin.core.component.KoinComponent
@@ -170,28 +171,47 @@ sealed class RemotePatchBundle(
      */
     protected suspend fun fetchAndCacheEntries(
         cacheKey: String,
-        sinceVersion: String?,
         fetch: suspend () -> List<ChangelogEntry>
-    ): List<ChangelogEntry> {
-        val allEntries = entriesCache[cacheKey] ?: fetch().also { entriesCache[cacheKey] = it }
-
-        return if (sinceVersion != null)
-            ChangelogParser.entriesNewerThan(allEntries, sinceVersion)
-        else allEntries
-    }
+    ): List<ChangelogEntry> = entriesCache[cacheKey] ?: fetch().also { entriesCache[cacheKey] = it }
 
     /**
      * Fetches entries from CHANGELOG.md next to the bundle endpoint.
      * Results cached for [CHANGELOG_CACHE_TTL]; invalidate via [clearChangelogCache].
      */
-    open suspend fun fetchChangelogEntries(
-        sinceVersion: String? = null
-    ): List<ChangelogEntry> {
+    open suspend fun fetchChangelogEntries(): List<ChangelogEntry> {
         val api: MorpheAPI by inject()
         val changelogUrl = api.changelogUrlFromBundleEndpoint(endpoint) ?: return emptyList()
-        return fetchAndCacheEntries("$uid|$changelogUrl", sinceVersion) {
+        return fetchAndCacheEntries("$uid|$changelogUrl") {
             api.fetchChangelogFromUrl(changelogUrl)
         }
+    }
+
+    /**
+     * [fetchChangelogEntries] as the source's channel reads it. The stable changelog also keeps
+     * the dev builds merged into each release, which the release itself already sums up.
+     */
+    suspend fun fetchChannelChangelogEntries(): List<ChangelogEntry> {
+        val entries = fetchChangelogEntries()
+        return if (usesPrerelease) entries else entries.filterNot { it.isPrerelease }
+    }
+
+    /**
+     * Releases on the source's channel that an app patched with [version] has yet to get, see
+     * [ChangelogParser.entriesSince]. The stable history a dev changelog stops short of is read
+     * only when needed, and the dev entries alone stand in for it when it cannot be.
+     */
+    suspend fun fetchChangelogSince(version: String?): List<ChangelogEntry> {
+        val entries = fetchChannelChangelogEntries()
+        val stableHistory = if (usesPrerelease && ChangelogParser.stopsAbove(entries, version)) {
+            try {
+                fetchFullChangelogEntries()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                emptyList()
+            }
+        } else emptyList()
+        return ChangelogParser.entriesSince(entries, version, stableHistory)
     }
 
     /**
@@ -441,12 +461,12 @@ class JsonPatchBundle(
         }
     }
 
-    override suspend fun fetchChangelogEntries(sinceVersion: String?): List<ChangelogEntry> {
+    override suspend fun fetchChangelogEntries(): List<ChangelogEntry> {
         // endpoint stores the original branch - rebuild the URL for the active branch
         val api: MorpheAPI by inject()
         val activeEndpoint = resolveBranchUrl(endpoint)
         val changelogUrl = api.changelogUrlFromBundleEndpoint(activeEndpoint) ?: return emptyList()
-        return fetchAndCacheEntries("$uid|$changelogUrl", sinceVersion) {
+        return fetchAndCacheEntries("$uid|$changelogUrl") {
             api.fetchChangelogFromUrl(changelogUrl, stopAfterFirstStable = usePrerelease)
         }
     }
@@ -455,7 +475,7 @@ class JsonPatchBundle(
         val api: MorpheAPI by inject()
         val stableEndpoint = switchBranchInUrl(endpoint, BRANCH_STABLE)
         val changelogUrl = api.changelogUrlFromBundleEndpoint(stableEndpoint) ?: return emptyList()
-        return fetchAndCacheEntries("$uid|$changelogUrl|full", sinceVersion = null) {
+        return fetchAndCacheEntries("$uid|$changelogUrl|full") {
             api.fetchChangelogFromUrl(changelogUrl, stopAfterFirstStable = false)
         }
     }
@@ -544,15 +564,15 @@ class APIPatchBundle(
     // Every install already has the default source
     override val addSourceLink: String? get() = null
 
-    override suspend fun fetchChangelogEntries(sinceVersion: String?): List<ChangelogEntry> {
+    override suspend fun fetchChangelogEntries(): List<ChangelogEntry> {
         val branch = if (usePrerelease) BRANCH_DEV else BRANCH_STABLE
-        return fetchAndCacheEntries("$uid|$branch", sinceVersion) {
+        return fetchAndCacheEntries("$uid|$branch") {
             api.fetchPatchesChangelog(branch, stopAfterFirstStable = usePrerelease)
         }
     }
 
     override suspend fun fetchFullChangelogEntries(): List<ChangelogEntry> =
-        fetchAndCacheEntries("$uid|$BRANCH_STABLE|full", sinceVersion = null) {
+        fetchAndCacheEntries("$uid|$BRANCH_STABLE|full") {
             api.fetchPatchesChangelog(BRANCH_STABLE, stopAfterFirstStable = false)
         }
 
@@ -611,6 +631,10 @@ class GitHubPullRequestBundle(
                 prepareGet {
                     url(info.downloadUrl)
                     header("Authorization", "Bearer $gitHubPat")
+                    // The client's request timeout covers the whole body, which a large bundle on a
+                    // slow link outlasts while bytes are still arriving. The socket timeout still
+                    // ends a stalled connection.
+                    timeout { requestTimeoutMillis = HttpTimeoutConfig.INFINITE_TIMEOUT_MS }
                 }.execute { httpResponse ->
                     val contentType = httpResponse.contentType()?.toString() ?: ""
                     val contentLength = httpResponse.contentLength()

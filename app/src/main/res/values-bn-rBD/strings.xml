@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">APK ইনস্টল করার পর, Morphe-তে ফিরে যান</string>
     <string name="home_download_instructions_continue_to">%s-এ এগিয়ে যান</string>
     <string name="home_download_instructions_destination">ডাউনলোড পেজ</string>
+    <string name="home_download_instructions_copy_link">লিংক কপি করুন</string>
+    <string name="home_download_instructions_link_copied">লিঙ্ক কপি করা হয়েছে</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">নির্বাচিত ডাউনলোডকৃত এপিকে</string>
     <string name="home_file_picker_prompt_description">নির্বাচন করুন যুয়ুশি &lt;b&gt;%s&lt;/b&gt; APK ফাইল, যা তুমি জুয়ুশি ডাউনলোড করেছো</string>
@@ -368,6 +370,7 @@
     <string name="adaptive_icon_create">অ্যাডাপ্টিভ আইকন তৈরি করুন</string>
     <string name="adaptive_icon_select_image">চিত্র নির্বাচন করুন</string>
     <string name="adaptive_icon_change_image">চিত্র পরিবর্তন করুন</string>
+    <string name="image_load_failed">এই ছবিটি লোড করা যায়নি</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">অগ্রভাগের চিত্র</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +477,15 @@
     <string name="home_app_info_app_deleted_warning">অ্যাপটি বের করা হয়েছে</string>
     <string name="home_app_info_app_deleted_description">এই অ্যাপটি মরফে বাইরে বের করা হয়েছে। ফাংশনালিটি পুনরুদ্ধার করতে পুনরায় প্যাচ করুন</string>
     <string name="home_app_info_not_patched_description">এই অ্যাপের একটি অপ্যাচড সংস্করণ ইনস্টল করা আছে। Morphe এখনও তার পূর্ববর্তী প্যাচ রেকর্ড ধারণ করে।</string>
+    <string name="app_links_title">সমর্থিত ওয়েব লিঙ্ক</string>
+    <string name="app_links_description">Android 12+ এ, সমর্থিত ডোমেইনের লিঙ্কগুলি অনুমোদিত না হলে ডিফল্টরূপে আপনার ব্রাউজারে খোলে</string>
+    <string name="app_links_unverified_banner_title">ওয়েব লিঙ্ক যাচাই করা হয়নি</string>
+    <string name="app_links_unverified_banner_description">সমর্থিত ওয়েব লিঙ্কগুলি বর্তমানে এই অ্যাপের পরিবর্তে আপনার ব্রাউজারে খোলে</string>
+    <string name="app_links_enable_auto">স্বয়ংক্রিয়ভাবে সক্রিয় করুন</string>
+    <string name="app_links_enable_auto_in_progress">লিঙ্ক সক্রিয় করা হচ্ছে…</string>
+    <string name="app_links_open_settings">লিঙ্ক সেটিংস খুলুন</string>
+    <string name="app_links_repair_success">অ্যাপ লিঙ্ক সফলভাবে সক্রিয় করা হয়েছে</string>
+    <string name="app_links_badge_disabled">বন্ধ রাখুন</string>
     <string name="patcher_rename_title">এটি একটি ক্লোন ইনস্টল করবে</string>
     <string name="patcher_rename_description">প্যাচগুলো এই অ্যাপটি তাদের নিজস্ব প্যাকেজ নামে তৈরি করেছে, তাই এটি ইনস্টল করলে <b>%s</b>-এর পাশাপাশি একটি ক্লোন যুক্ত হবে, এটি আপডেট করার পরিবর্তে।</string>
     <string name="patcher_rename_result_package">হিসাবে ইনস্টল হবে</string>
@@ -558,8 +570,6 @@
     <string name="patcher_back_to_game_hint">আপনার গেমে ফিরে যেতে %1$s ট্যাপ করুন</string>
     <string name="patcher_storage_permission_dialog_title">স্টোরেজ পথে অ্যাক্সেস করতে পারেনি</string>
     <string name="patcher_incompatible_patcher_title">আপডেট প্রয়োজন</string>
-    <string name="patcher_incompatible_patcher_description">বান্ডেল &lt;b&gt;%1$s&lt;/b&gt;-এর জন্য প্যাচার সংস্করণ &lt;b&gt;%2$s&lt;/b&gt; অথবা তার চেয়ে নতুন সংস্করণ প্রয়োজন। এই অ্যাপটি প্যাচ করার জন্য অনুগ্রহ করে Morphe আপডেট করুন</string>
-    <string name="patcher_incompatible_patcher_update_button">মর্ফে ডাউনলোড এবং আপডেট করুন</string>
     <string name="patcher_storage_permission_description_api30">একটি বা একাধিক প্যাচ অপশন এমন পথে নির্দেশ করে যা Morphe পড়তে পারে না। স্টোরেজ অ্যাক্সেস দিন এবং বোতামটি টিপুন, তাহলে প্যাচিং স্বয়ংক্রিয়ভাবে শুরু হবে।</string>
     <string name="patcher_storage_permission_description_legacy">এক বা একাধিক প্যাচ বিকল্প অ্যাক্সেস করতে পারে না। প্যাচ বিকল্পগুলিতে পথ আপডেট করুন এবং আবার চেষ্টা করুন</string>
     <string name="patcher_storage_permission_grant">স্টোরেজ অনুমতি দিন</string>

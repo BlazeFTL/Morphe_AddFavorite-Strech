@@ -484,8 +484,6 @@
     <string name="patcher_back_to_game_hint">तुमच्या गेमवर परत जाण्यासाठी %1$s वर टॅप करा</string>
     <string name="patcher_storage_permission_dialog_title">स्टोरेज पाथ ॲक्सेस करू शकत नाही</string>
     <string name="patcher_incompatible_patcher_title">अद्यतन आवश्यक आहे</string>
-    <string name="patcher_incompatible_patcher_description">बंडल &lt;b&gt;%1$s&lt;/b&gt; ला पॅचर व्हर्जन &lt;b&gt;%2$s&lt;/b&gt; किंवा नवीनची आवश्यकता आहे. कृपया हे ॲप पॅच करण्यासाठी Morphe अपडेट करा.</string>
-    <string name="patcher_incompatible_patcher_update_button">Morphe डाउनलोड आणि अपडेट करा</string>
     <string name="patcher_storage_permission_description_api30">एक किंवा अधिक पॅच पर्याय अशा मार्गांकडे निर्देशित करतात जे Morphe वाचू शकत नाही. स्टोरेज प्रवेश द्या आणि नंतर पॅचिंग आपोआप सुरू होईल</string>
     <string name="patcher_storage_permission_description_legacy">एक किंवा अधिक पॅच पर्याय अशा मार्गांकडे निर्देशित करतात जे ॲक्सेस केले जाऊ शकत नाहीत. पॅच पर्यायामधील मार्ग अद्यतनित करा आणि पुन्हा प्रयत्न करा</string>
     <string name="patcher_storage_permission_grant">स्टोरेज परवानग्या द्या</string>

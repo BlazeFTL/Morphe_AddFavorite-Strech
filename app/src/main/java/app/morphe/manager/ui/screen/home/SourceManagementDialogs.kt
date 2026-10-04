@@ -782,9 +782,11 @@ fun BundleChangelogHost(
  * Changelog dialog for a bundle.
  *
  * Prerelease channel: entries from the last stable release onwards.
- * Stable: entries newer than the installed version, plus the installed version itself.
- * A [sinceVersion] replaces both baselines with the caller's own, and [appNames] narrows
- * every entry to the bullets scoped to one app.
+ * Stable: entries newer than the installed version, plus the installed version itself, with
+ * no prerelease builds, as each release already sums up the builds that led to it.
+ * A [sinceVersion] replaces both baselines with the caller's own, see
+ * [RemotePatchBundle.fetchChangelogSince], and [appNames] narrows every entry to the bullets
+ * scoped to one app.
  *
  * Fetched once and cached; cache invalidated on channel switch.
  * Falls back to GitHub Release info if CHANGELOG.md is unavailable.
@@ -808,33 +810,22 @@ fun BundleChangelogDialog(
         state = BundleChangelogState.Loading
         state = withContext(Dispatchers.Default) {
             try {
-                val usePrerelease = src.usesPrerelease
-
-                val allEntries = src.fetchChangelogEntries(sinceVersion = null)
-
-                val shownEntries = when {
+                val shownEntries = if (sinceVersion != null) {
                     // A caller's baseline asks what changed since it, not including it
-                    sinceVersion != null ->
-                        ChangelogParser.entriesNewerThan(allEntries, sinceVersion)
-
-                    usePrerelease -> {
+                    src.fetchChangelogSince(sinceVersion)
+                } else {
+                    val allEntries = src.fetchChannelChangelogEntries()
+                    if (src.usesPrerelease) {
                         // Prerelease: from the last stable release onwards
-                        val lastStable = allEntries.firstOrNull { !it.version.contains("-") }
+                        val lastStable = allEntries.firstOrNull { !it.isPrerelease }
                         if (lastStable != null)
                             ChangelogParser.entriesNewerThan(allEntries, lastStable.version) + lastStable
                         else allEntries.take(30)
-                    }
-
-                    else -> {
+                    } else {
                         // Stable: from the installed version onwards
                         val installed = src.installedVersionSignature
-                        val installedEntry = installed?.let {
-                            ChangelogParser.findVersion(allEntries, it)
-                        }
-                        val newer = if (installed != null)
-                            ChangelogParser.entriesNewerThan(allEntries, installed)
-                        else allEntries
-                        if (installedEntry != null) newer + installedEntry else newer
+                        ChangelogParser.entriesNewerThan(allEntries, installed) +
+                                listOfNotNull(installed?.let { ChangelogParser.findVersion(allEntries, it) })
                     }
                 }
                 val entries = ChangelogParser.entriesFor(shownEntries, appNames, generalChangesHeading)
@@ -877,7 +868,7 @@ fun BundleChangelogDialog(
     val loadOlder: () -> Unit = load@{
         if (olderState is OlderBundleState.Loading || olderState is OlderBundleState.Loaded) return@load
         val shownEntries = (state as? BundleChangelogState.Entries)?.entries.orEmpty()
-        val shownVersions = shownEntries.map { it.version.removePrefix("v").trim() }.toSet()
+        val shownVersions = shownEntries.mapTo(HashSet()) { it.version.normalizeVersion() }
         val oldestShown = shownEntries.lastOrNull()?.version
         olderState = OlderBundleState.Loading
         scope.launch {
@@ -887,8 +878,8 @@ fun BundleChangelogDialog(
                     val filtered = all.filter {
                         // Skip versions already shown above and any pre-release leftovers;
                         // history is meaningful only as the stable timeline
-                        it.version.removePrefix("v").trim() !in shownVersions
-                                && !it.version.contains("-")
+                        it.version.normalizeVersion() !in shownVersions
+                                && !it.isPrerelease
                                 // A dev changelog lagging behind the stable one must not put newer
                                 // releases under the earlier ones
                                 && (oldestShown == null || !isNewerVersion(oldestShown, it.version))

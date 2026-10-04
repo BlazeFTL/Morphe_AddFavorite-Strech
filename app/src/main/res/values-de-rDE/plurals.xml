@@ -107,13 +107,17 @@
         <item quantity="one">%s Kern</item>
         <item quantity="other">%s Kerne</item>
     </plurals>
-    <plurals name="changelog_new_count">
-        <item quantity="one">%s Neuerung</item>
-        <item quantity="other">%s Neuerungen</item>
+    <plurals name="changelog_feature_count">
+        <item quantity="one">%s Funktion</item>
+        <item quantity="other">%s Funktionen</item>
     </plurals>
     <plurals name="changelog_fix_count">
         <item quantity="one">%s Fehlerbehebung</item>
         <item quantity="other">%s Fehlerbehebungen</item>
+    </plurals>
+    <plurals name="changelog_performance_count">
+        <item quantity="one">%s Optimierung</item>
+        <item quantity="other">%s Optimierungen</item>
     </plurals>
     <plurals name="changelog_change_count">
         <item quantity="one">%s Änderung</item>

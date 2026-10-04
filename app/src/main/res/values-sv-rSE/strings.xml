@@ -259,6 +259,8 @@ Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <string name="home_download_instructions_step4_mount"> Öppna Morphe igen när du har installerat den ursprungliga APK-filen</string>
     <string name="home_download_instructions_continue_to">Fortsätt till %s</string>
     <string name="home_download_instructions_destination">nedladdningssidan</string>
+    <string name="home_download_instructions_copy_link">Kopiera länk</string>
+    <string name="home_download_instructions_link_copied">Länken har kopierats</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Välj den nedladdade APK-filen</string>
     <string name="home_file_picker_prompt_description">Välj den &lt;b&gt;%s&lt;/b&gt;-APK-fil som du just laddade ned</string>
@@ -275,6 +277,7 @@ Allt du lägger till från den här webbplatsen används på egen risk"</string>
     <string name="home_installed_app_picker_filter_system">Endast systemappar</string>
     <string name="home_invalid_apk_unreadable">Det gick inte att läsa filen. Kontrollera att Extern lagring inte har batteribegränsningar</string>
     <string name="home_invalid_apk_not_an_apk">Den valda filen är inte en giltig APK-fil</string>
+    <string name="home_invalid_apk_already_patched">Den valda APK-filen är redan patchad. Välj den ursprungliga appen istället</string>
     <string name="home_invalid_apk_io_error">Det gick inte att öppna filen. Försök igen</string>
     <string name="home_external_apk_expert_mode_required">Den här funktionen är endast tillgänglig i expertläget</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ För bästa resultat rekommenderar den här appen att du modifierar en &lt;b&gt;
     <string name="adaptive_icon_create">Skapa adaptiv ikon</string>
     <string name="adaptive_icon_select_image">Välj bild</string>
     <string name="adaptive_icon_change_image">Ändra bild</string>
+    <string name="image_load_failed">Kunde inte ladda den här bilden</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Förgrundsbild</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,16 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="home_app_info_app_deleted_warning">Appen har avinstallerats</string>
     <string name="home_app_info_app_deleted_description">Den här appen avinstallerades utanför Morphe. Modifiera den igen för att återställa funktionaliteten</string>
     <string name="home_app_info_not_patched_description">En omodifierad version av den här appen är installerad. Morphe har fortfarande sin tidigare modifieringspost.</string>
+    <string name="app_links_title">Webblänkar som stöds</string>
+    <string name="app_links_description">På Android 12+ öppnas länkar till stödda domäner i din webbläsare som standard om de inte godkänts</string>
+    <string name="app_links_unverified_banner_title">Webblänkar är inte verifierade</string>
+    <string name="app_links_unverified_banner_description">Webblänkar som stöds öppnas för närvarande i din webbläsare istället för i den här appen</string>
+    <string name="app_links_enable_auto">Aktivera automatiskt</string>
+    <string name="app_links_enable_auto_in_progress">Aktiverar länkar…</string>
+    <string name="app_links_open_settings">Öppna länkinställningar</string>
+    <string name="app_links_repair_success">Applänkar har aktiverats</string>
+    <string name="app_links_badge_enabled">Aktiverad</string>
+    <string name="app_links_badge_disabled">Inaktiverad</string>
     <string name="patcher_rename_title">Detta kommer att installera en klon</string>
     <string name="patcher_rename_description">Tilläggen byggde den här appen under ett eget paketnamn, så om den installeras läggs en klon till  bredvid &lt;b&gt;%s&lt;/b&gt; istället för att uppdatera den</string>
     <string name="patcher_rename_result_package">Installeras som</string>
@@ -514,7 +528,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_field_memory">Minne</string>
     <string name="patcher_field_storage">Lagringsutrymme</string>
     <!-- Size of the patched APK, once patching finished -->
-    <string name="patcher_field_output_size">Utdata storlek</string>
+    <string name="patcher_field_output_size">Storlek på utdata</string>
     <!-- How long patching took -->
     <string name="patcher_field_time">Tid</string>
     <!-- Average and peak memory the patcher process held while it ran -->
@@ -558,8 +572,6 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="patcher_back_to_game_hint">Tryck på %1$s för att gå tillbaka till spelet</string>
     <string name="patcher_storage_permission_dialog_title">Det går inte att komma åt lagringssökväg</string>
     <string name="patcher_incompatible_patcher_title">Uppdatering krävs</string>
-    <string name="patcher_incompatible_patcher_description">Arkivet &lt;b&gt;%1$s&lt;/b&gt; kräver version &lt;b&gt;%2$s&lt;/b&gt; eller senare av modifieringsverktyget. Uppdatera Morphe för att modifiera den här appen</string>
-    <string name="patcher_incompatible_patcher_update_button">Ladda ned och uppdatera Morphe</string>
     <string name="patcher_storage_permission_description_api30">Ett eller flera tilläggsalternativ pekar på sökvägar som Morphe inte kan läsa. Ge åtkomst till lagringen och tryck på knappen så startas modifieringen automatiskt</string>
     <string name="patcher_storage_permission_description_legacy">Ett eller flera tilläggsalternativ pekar på sökvägar som inte går att komma åt. Uppdatera sökvägarna i tilläggsalternativen och försök igen</string>
     <string name="patcher_storage_permission_grant">Ge åtkomst till lagring</string>
@@ -1149,6 +1161,7 @@ Information: %2$s"</string>
     <string name="file_picker_internal_storage">Intern lagring</string>
     <string name="file_picker_sd_card">SD-kort</string>
     <string name="file_picker_root">Rotkatalog (/)</string>
+    <string name="file_picker_storages">Lagringsplatser</string>
     <string name="file_picker_sort_name_asc">Namn (A–Ö)</string>
     <string name="file_picker_sort_name_desc">Namn (Ö–A)</string>
     <string name="file_picker_sort_size_desc">Storlek (största först)</string>
@@ -1305,7 +1318,7 @@ Information: %2$s"</string>
     <string name="content_show_original">Ursprunglig</string>
     <string name="content_translation_failed">Det gick inte att översätta: %s</string>
     <string name="changelog_section_new">Nytt</string>
-    <string name="changelog_section_fixes">Korrigeringar</string>
+    <string name="changelog_section_fixes">Felkorrigeringar</string>
     <string name="changelog_section_performance">Prestanda</string>
     <string name="changelog_section_improvements">Förbättringar</string>
     <string name="changelog_section_app_support">Appstöd</string>

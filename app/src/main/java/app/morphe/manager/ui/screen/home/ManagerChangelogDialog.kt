@@ -205,7 +205,7 @@ fun ManagerChangelogDialog(
                     ChangelogList(
                         entries = entries,
                         older = older,
-                        currentVersion = BuildConfig.VERSION_NAME,
+                        badges = mapOf(BuildConfig.VERSION_NAME to ChangelogBadge.INSTALLED),
                         // The gap under the header is the list's own, so releases scroll up to its edge
                         contentPadding = PaddingValues(top = Defaults.ItemSpacing),
                         header = when {

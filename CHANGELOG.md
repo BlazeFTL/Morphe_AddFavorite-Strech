@@ -1,3 +1,11 @@
+# [1.34.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.4...v1.34.0-dev.5) (2026-10-04)
+
+
+### Bug Fixes
+
+* Base the patch update badge and its changelog on the same releases ([936daf5](https://github.com/MorpheApp/morphe-manager/commit/936daf51b225e10fd608f5d7a26ffb64e4de914b))
+* Show every release since the patched version in the prerelease changelog ([4cf0f5b](https://github.com/MorpheApp/morphe-manager/commit/4cf0f5b97adc1c179289883ea87ed43266ecfc92))
+
 # [1.34.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.3...v1.34.0-dev.4) (2026-10-04)
 
 

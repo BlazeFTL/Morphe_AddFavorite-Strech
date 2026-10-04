@@ -126,8 +126,6 @@ fun AppLinksDialog(
             )
         }
 
-        Spacer(Modifier.height(Defaults.ItemSpacing))
-
         SurfaceCard(
             cornerRadius = Defaults.CardCornerRadius,
             showBorder = true,

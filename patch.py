@@ -604,35 +604,67 @@ def worker_sign(src):
         return None
     h = hits[0]
     ind = h.group(1)
-    parts = split_top(src[h.start(2):h.end(2)])
-    if len(parts) < 2:
+    sign_args = src[h.start(2):h.end(2)]
+    parts = [x.strip() for x in split_top(sign_args)]
+    if len(parts) == 1 and parts[0]:
+        a_in = a_out = parts[0]
+        in_place = True
+    elif len(parts) >= 2:
+        a_in, a_out = parts[0], parts[1]
+        in_place = False
+    else:
         return None
-    a_in, a_out = parts[0].strip(), parts[1].strip()
-    region_start = h.start()
+
+    decl = "val skipSigning = prefs.skipApkSigning.get()"
+    hoist = None
+    ls = line_start(m, h.start())
+    k = ls
+    while k > 0:
+        pls = line_start(m, k - 1)
+        line = m[pls:k]
+        k = pls
+        if not line.strip():
+            continue
+        lind = re.match(r"[ \t]*", line).group(0)
+        if len(lind) < len(ind) and line.rstrip().endswith("{"):
+            if "measureTime" in line:
+                hoist = pls
+            break
     notif = None
-    if region_start > 0:
+    region_start = h.start()
+    if hoist is None and region_start > 0:
         pls = line_start(src, region_start - 1)
         prev = m[pls:region_start]
         if re.match(r"\s*updatePatcherNotification\(.*signingApkLabel.*\)\s*$", prev):
             notif = src[pls:region_start].strip()
             region_start = pls
+
     lines = [
-        "val skipSigning = prefs.skipApkSigning.get()",
         "if (skipSigning) {",
         "    if (SplitApkPreparer.isSplitArchive(inputFile)) {",
         '        args.logger.warn("Signing skipped, but the input was a split bundle: merging already cleared the original META-INF, so there is nothing to restore")',
-        "        %s.copyTo(%s, overwrite = true)" % (a_in, a_out),
+    ]
+    if not in_place:
+        lines.append("        %s.copyTo(%s, overwrite = true)" % (a_in, a_out))
+    lines += [
         "    } else {",
         '        args.logger.info("Signing skipped by user preference, restoring original META-INF")',
-        "        SignatureRestorer.restore(inputFile, %s, %s)" % (a_in, a_out),
+        "        withContext(Dispatchers.IO) {",
+        "            SignatureRestorer.restore(inputFile, %s, %s)" % (a_in, a_out),
+        "        }",
         "    }",
         "} else {",
     ]
     if notif:
         lines.append("    " + notif)
-    lines += ["    keystoreManager.sign(%s)" % src[h.start(2):h.end(2)], "}"]
+    lines += ["    keystoreManager.sign(%s)" % sign_args, "}"]
     block = reindent("\n".join(lines), ind)
-    return src[:region_start] + block + src[h.end():]
+
+    if hoist is not None:
+        out = src[:region_start] + block + src[h.end():]
+        hind = indent_of(src, hoist)
+        return out[:hoist] + hind + decl + "\n" + out[hoist:]
+    return src[:region_start] + reindent(decl, ind) + "\n" + block + src[h.end():]
 
 
 def worker_autoinstall(src):

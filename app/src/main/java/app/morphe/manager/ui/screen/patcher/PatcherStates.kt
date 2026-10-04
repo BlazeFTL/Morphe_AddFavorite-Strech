@@ -28,6 +28,7 @@ import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.InstallMobile
 import androidx.compose.material.icons.outlined.Link
+import androidx.compose.material.icons.outlined.LinkOff
 import androidx.compose.material.icons.outlined.Source
 import androidx.compose.material.icons.outlined.SportsEsports
 import androidx.compose.material.icons.outlined.Update
@@ -247,6 +248,7 @@ fun PatchingSuccess(
     excludedPatches: List<String> = emptyList(),
     isExpertMode: Boolean = false,
     showBackToGameHint: Boolean = false,
+    onConfigureAppLinks: (() -> Unit)? = null,
     onInstall: () -> Unit,
     onUninstall: (String) -> Unit,
     onIgnoreSignatureMismatch: () -> Unit,
@@ -283,6 +285,13 @@ fun PatchingSuccess(
                     .takeIf { excludedPatches.isNotEmpty() && installState is InstallState.Ready },
                 tone = SemanticTone.Neutral,
                 icon = Icons.Outlined.Info
+            )
+            ResultNotice(
+                text = stringResource(R.string.app_links_unverified_banner_description)
+                    .takeIf { installState is InstallState.Installed && onConfigureAppLinks != null },
+                tone = SemanticTone.Warning,
+                icon = Icons.Outlined.LinkOff,
+                action = onConfigureAppLinks?.let { NoticeAction(stringResource(R.string.app_links_fix), it) }
             )
         },
         actions = {
@@ -672,7 +681,8 @@ private fun ResultNotice(
     tone: SemanticTone,
     icon: ImageVector,
     maxLines: Int = Int.MAX_VALUE,
-    overflowAction: NoticeAction? = null
+    overflowAction: NoticeAction? = null,
+    action: NoticeAction? = null
 ) {
     AnimatedVisibility(
         visible = text != null,
@@ -687,7 +697,8 @@ private fun ResultNotice(
             tone = tone,
             icon = icon,
             maxLines = maxLines,
-            overflowAction = overflowAction
+            overflowAction = overflowAction,
+            action = action
         )
     }
 }

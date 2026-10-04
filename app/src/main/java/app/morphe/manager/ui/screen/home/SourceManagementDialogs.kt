@@ -971,6 +971,7 @@ fun BundleChangelogDialog(
         BundleChangelogContent(
             state = state,
             installedVersion = src.installedVersionSignature,
+            patchedVersion = sinceVersion,
             older = older,
             modifier = Modifier.weight(1f)
         )
@@ -981,6 +982,7 @@ fun BundleChangelogDialog(
 private fun BundleChangelogContent(
     state: BundleChangelogState,
     installedVersion: String?,
+    patchedVersion: String?,
     older: OlderReleases,
     modifier: Modifier = Modifier
 ) {
@@ -1006,14 +1008,26 @@ private fun BundleChangelogContent(
                             .padding(top = Defaults.ItemSpacing)
                     )
                 } else {
+                    // The release the app was patched with, the point its changes are counted from,
+                    // marked where it is listed and named over the history where it is not, as a dev
+                    // build or a release with no changes for the app is not
+                    val isPatchedListed = patchedVersion != null &&
+                            (current.entries + older.entries.orEmpty()).any {
+                                it.version.normalizeVersion() == patchedVersion.normalizeVersion()
+                            }
                     ChangelogList(
                         entries = current.entries,
                         older = older,
-                        currentVersion = installedVersion,
-                        // The gap under the header is the list's own, so releases scroll up to its edge
-                        contentPadding = PaddingValues(top = Defaults.ItemSpacing),
                         // The version a source holds is the one it patches with, nothing on the device
-                        currentBadge = ChangelogBadge.DOWNLOADED
+                        badges = buildMap {
+                            patchedVersion?.let { put(it, ChangelogBadge.INSTALLED) }
+                            installedVersion?.let { put(it, ChangelogBadge.DOWNLOADED) }
+                        },
+                        olderLabel = patchedVersion?.takeUnless { isPatchedListed }?.let {
+                            stringResource(R.string.changelog_patched_with, it.withVersionPrefix().isolateLtr())
+                        },
+                        // The gap under the header is the list's own, so releases scroll up to its edge
+                        contentPadding = PaddingValues(top = Defaults.ItemSpacing)
                     )
                 }
             }

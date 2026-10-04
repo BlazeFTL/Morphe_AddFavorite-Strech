@@ -1403,6 +1403,7 @@ Details: %2$s"</string>
     <string name="changelog_download_fail">Failed to download changelog: %s</string>
     <string name="changelog_empty">No changelog available</string>
     <string name="changelog_earlier_releases">Earlier releases</string>
+    <string name="changelog_patched_with">Patched with %s</string>
     <string name="changelog_older_empty">No older releases to show</string>
     <string name="changelog_older_failed">Couldn\'t load older releases</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

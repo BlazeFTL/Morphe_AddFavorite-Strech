@@ -1,3 +1,10 @@
+# [1.34.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.5...v1.34.0-dev.6) (2026-10-04)
+
+
+### Features
+
+* Mark the patches version an app was patched with in its changelog ([028c20c](https://github.com/MorpheApp/morphe-manager/commit/028c20c72e96a0c3e74c6c4e128b90bf6352b452))
+
 # [1.34.0-dev.5](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.4...v1.34.0-dev.5) (2026-10-04)
 
 

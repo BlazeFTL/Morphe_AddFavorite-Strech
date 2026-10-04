@@ -1,3 +1,16 @@
+# [1.34.0-dev.4](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.3...v1.34.0-dev.4) (2026-10-04)
+
+
+### Bug Fixes
+
+* Leave pre-release builds out of the stable patches changelog ([9d882e5](https://github.com/MorpheApp/morphe-manager/commit/9d882e5e7f342ec9d74167a9f869d60eb09b2dfe))
+* Open the in-app updater from the "Update required" dialog ([#1104](https://github.com/MorpheApp/morphe-manager/issues/1104)) ([369d2ae](https://github.com/MorpheApp/morphe-manager/commit/369d2ae441ec510f59c04137ff6d1d950ccacce2))
+
+
+### Features
+
+* Guide and restore app links for re-signed apps ([#1100](https://github.com/MorpheApp/morphe-manager/issues/1100)) ([8ef213a](https://github.com/MorpheApp/morphe-manager/commit/8ef213a8c992fdc483aa70b38cef4478715d43ce))
+
 # [1.34.0-dev.3](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.2...v1.34.0-dev.3) (2026-10-03)
 
 

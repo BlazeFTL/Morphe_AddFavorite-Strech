@@ -784,9 +784,9 @@ fun BundleChangelogHost(
  * Prerelease channel: entries from the last stable release onwards.
  * Stable: entries newer than the installed version, plus the installed version itself, with
  * no prerelease builds, as each release already sums up the builds that led to it.
- * A [sinceVersion] replaces both baselines with the caller's own, reaching past the last stable
- * release on the prerelease channel when it is older, and [appNames] narrows
- * every entry to the bullets scoped to one app.
+ * A [sinceVersion] replaces both baselines with the caller's own, see
+ * [RemotePatchBundle.fetchChangelogSince], and [appNames] narrows every entry to the bullets
+ * scoped to one app.
  *
  * Fetched once and cached; cache invalidated on channel switch.
  * Falls back to GitHub Release info if CHANGELOG.md is unavailable.
@@ -810,37 +810,18 @@ fun BundleChangelogDialog(
         state = BundleChangelogState.Loading
         state = withContext(Dispatchers.Default) {
             try {
-                val usePrerelease = src.usesPrerelease
-                // The stable changelog keeps the dev builds merged into each release as well
-                val allEntries = src.fetchChangelogEntries().let { entries ->
-                    if (usePrerelease) entries else entries.filterNot { it.isPrerelease }
-                }
-
-                val shownEntries = when {
+                val shownEntries = if (sinceVersion != null) {
                     // A caller's baseline asks what changed since it, not including it
-                    sinceVersion != null -> {
-                        val newer = ChangelogParser.entriesNewerThan(allEntries, sinceVersion)
-                        // The dev changelog ends at its last stable release, so the releases between
-                        // it and an older baseline come from the stable history
-                        val devBaseline = allEntries.lastOrNull()?.takeIf { usePrerelease && !it.isPrerelease }
-                        if (devBaseline != null && isNewerVersion(sinceVersion, devBaseline.version)) {
-                            val stableHistory = runCatching { src.fetchFullChangelogEntries() }.getOrDefault(emptyList())
-                            newer + stableHistory.filter {
-                                !it.isPrerelease && isNewerVersion(sinceVersion, it.version) &&
-                                        isNewerVersion(it.version, devBaseline.version)
-                            }
-                        } else newer
-                    }
-
-                    usePrerelease -> {
+                    src.fetchChangelogSince(sinceVersion)
+                } else {
+                    val allEntries = src.fetchChannelChangelogEntries()
+                    if (src.usesPrerelease) {
                         // Prerelease: from the last stable release onwards
                         val lastStable = allEntries.firstOrNull { !it.isPrerelease }
                         if (lastStable != null)
                             ChangelogParser.entriesNewerThan(allEntries, lastStable.version) + lastStable
                         else allEntries.take(30)
-                    }
-
-                    else -> {
+                    } else {
                         // Stable: from the installed version onwards
                         val installed = src.installedVersionSignature
                         ChangelogParser.entriesNewerThan(allEntries, installed) +

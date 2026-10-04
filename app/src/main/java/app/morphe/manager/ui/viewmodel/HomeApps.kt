@@ -738,8 +738,7 @@ class HomeApps(
             hasThirdPartySource,
             prefs.useExpertMode.flow
         ) { state, thirdParty, expertMode ->
-            if (state?.visible.isNullOrEmpty()) false
-            else expertMode || thirdParty
+            !state?.visible.isNullOrEmpty() && (expertMode || thirdParty)
         }.stateIn(scope, SharingStarted.Eagerly, false)
 
     /**
@@ -925,15 +924,14 @@ class HomeApps(
             return@withContext
         }
 
-        // Pre-fetch changelog entries for the remote bundles that have an outdated app, keyed by uid.
-        // runCatching per bundle so a network failure in one doesn't block others.
-        val changelogByUid: Map<Int, List<ChangelogEntry>?> = sources
+        // Remote bundles with an outdated app whose changelog can be read, tried once each up front
+        // so a failing one is not retried for every app. runCatching per bundle so a network failure
+        // in one doesn't block others
+        val readableByUid: Map<Int, RemotePatchBundle> = sources
             .filter { it.uid in outdatedUids }
-            .associate { source ->
-                source.uid to runCatching {
-                    source.asRemoteOrNull?.fetchChangelogEntries(sinceVersion = null)
-                }.getOrNull()
-            }
+            .mapNotNull { it.asRemoteOrNull }
+            .filter { runCatching { it.fetchChangelogEntries() }.isSuccess }
+            .associateBy { it.uid }
 
         val updates = mutableMapOf<String, AppPatchUpdate>()
 
@@ -947,12 +945,16 @@ class HomeApps(
                 if (!isNewerVersion(storedVersion, currentVersion)) return@firstNotNullOfOrNull null
 
                 // Bundle is newer - refine with changelog if available.
-                // No changelog (null) → show badge (network error or local bundle).
+                // No changelog → show badge (network error or local bundle).
                 // No resolvable app name → show badge (can't match scopes).
                 // Known name, no matching scope → no badge.
                 val unscoped = AppPatchUpdate(bundleUid, storedVersion)
-                val entries = changelogByUid[bundleUid] ?: return@firstNotNullOfOrNull unscoped
+                val source = readableByUid[bundleUid] ?: return@firstNotNullOfOrNull unscoped
                 if (appNames.isEmpty()) return@firstNotNullOfOrNull unscoped
+                // The same releases the update's changelog lists, so the badge never promises
+                // changes the dialog does not show, nor misses ones it does
+                val entries = runCatching { source.fetchChangelogSince(storedVersion) }.getOrNull()
+                    ?: return@firstNotNullOfOrNull unscoped
 
                 AppPatchUpdate(bundleUid, storedVersion, appNames).takeIf {
                     ChangelogParser.hasChangesFor(

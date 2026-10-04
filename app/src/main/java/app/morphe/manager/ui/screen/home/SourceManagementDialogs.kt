@@ -784,7 +784,8 @@ fun BundleChangelogHost(
  * Prerelease channel: entries from the last stable release onwards.
  * Stable: entries newer than the installed version, plus the installed version itself, with
  * no prerelease builds, as each release already sums up the builds that led to it.
- * A [sinceVersion] replaces both baselines with the caller's own, and [appNames] narrows
+ * A [sinceVersion] replaces both baselines with the caller's own, reaching past the last stable
+ * release on the prerelease channel when it is older, and [appNames] narrows
  * every entry to the bullets scoped to one app.
  *
  * Fetched once and cached; cache invalidated on channel switch.
@@ -817,8 +818,19 @@ fun BundleChangelogDialog(
 
                 val shownEntries = when {
                     // A caller's baseline asks what changed since it, not including it
-                    sinceVersion != null ->
-                        ChangelogParser.entriesNewerThan(allEntries, sinceVersion)
+                    sinceVersion != null -> {
+                        val newer = ChangelogParser.entriesNewerThan(allEntries, sinceVersion)
+                        // The dev changelog ends at its last stable release, so the releases between
+                        // it and an older baseline come from the stable history
+                        val devBaseline = allEntries.lastOrNull()?.takeIf { usePrerelease && !it.isPrerelease }
+                        if (devBaseline != null && isNewerVersion(sinceVersion, devBaseline.version)) {
+                            val stableHistory = runCatching { src.fetchFullChangelogEntries() }.getOrDefault(emptyList())
+                            newer + stableHistory.filter {
+                                !it.isPrerelease && isNewerVersion(sinceVersion, it.version) &&
+                                        isNewerVersion(it.version, devBaseline.version)
+                            }
+                        } else newer
+                    }
 
                     usePrerelease -> {
                         // Prerelease: from the last stable release onwards

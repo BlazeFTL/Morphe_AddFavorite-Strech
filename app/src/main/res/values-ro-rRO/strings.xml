@@ -478,6 +478,16 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_app_deleted_warning">Aplicația a fost dezinstalată</string>
     <string name="home_app_info_app_deleted_description">Această aplicație a fost dezinstalată în afara Morphe. Aplica-o din nou pentru a restabili funcționalitatea</string>
     <string name="home_app_info_not_patched_description">O versiune necorectată a acestei aplicații este instalată. Morphe încă are înregistrarea anterioară a corecțiilor sale.</string>
+    <string name="app_links_title">Linkuri web acceptate</string>
+    <string name="app_links_description">Pe Android 12+, linkurile către domeniile acceptate se deschid implicit în browserul dvs., cu excepția cazului în care acestea sunt aprobate</string>
+    <string name="app_links_unverified_banner_title">Linkuri web neverificate</string>
+    <string name="app_links_unverified_banner_description">Linkurile web acceptate se deschid în prezent în browserul dvs., în locul acestei aplicații</string>
+    <string name="app_links_enable_auto">Activați automat</string>
+    <string name="app_links_enable_auto_in_progress">Se activează linkurile…</string>
+    <string name="app_links_open_settings">Deschideți setările pentru linkuri</string>
+    <string name="app_links_repair_success">Linkurile aplicației au fost activate cu succes</string>
+    <string name="app_links_badge_enabled">Activat</string>
+    <string name="app_links_badge_disabled">Dezactivat</string>
     <string name="patcher_rename_title">Aceasta va instala o clonă</string>
     <string name="patcher_rename_description">Patch-urile au construit această aplicație sub un nume de pachet propriu, așa că instalarea acesteia adaugă o clonă alături de &lt;b&gt;%s&lt;/b&gt; în loc să o actualizeze.</string>
     <string name="patcher_rename_result_package">Se va instala ca</string>
@@ -562,8 +572,6 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_back_to_game_hint">Atinge %1$s pentru a reveni la jocul tău</string>
     <string name="patcher_storage_permission_dialog_title">Nu se poate accesa calea de stocare</string>
     <string name="patcher_incompatible_patcher_title">Actualizare necesară</string>
-    <string name="patcher_incompatible_patcher_description">Pachetul &lt;b&gt;%1$s&lt;/b&gt; necesită versiunea patcher-ului &lt;b&gt;%2$s&lt;/b&gt; sau mai nouă. Vă rugăm să actualizați Morphe pentru a aplica patch la această aplicație</string>
-    <string name="patcher_incompatible_patcher_update_button">Descărcă și actualizează Morphe</string>
     <string name="patcher_storage_permission_description_api30">Una sau mai multe opțiuni de patch indică către căi pe care Morphe nu le poate citi. Acordă acces la stocare și atinge butonul, apoi patch-uirea va începe automat</string>
     <string name="patcher_storage_permission_description_legacy">Una sau mai multe opțiuni de patch indică căi de stocare care nu pot fi accesate. Actualizați căile în opțiunile de patch și încercați din nou</string>
     <string name="patcher_storage_permission_grant">Acordați permisiunea de stocare</string>

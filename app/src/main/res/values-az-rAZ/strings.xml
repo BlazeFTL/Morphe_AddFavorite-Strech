@@ -371,6 +371,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="adaptive_icon_create">Uyğun simvol yarat</string>
     <string name="adaptive_icon_select_image">Şəkil seçin</string>
     <string name="adaptive_icon_change_image">Şəkli dəyişdir</string>
+    <string name="image_load_failed">Bu şəkli yükləmək olmadı</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Ön plan şəkli</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -477,6 +478,8 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="home_app_info_app_deleted_warning">Tətbiq quraşdırması silindi</string>
     <string name="home_app_info_app_deleted_description">Bu tətbiq Morphe xarici silindi. Funksionallığı qaytarmaq üçün onu təkrar quraşdır</string>
     <string name="home_app_info_not_patched_description">Bu tətbiqin yamaqlanmamış versiyası quraşdırılıb. Morphe-də hələ də əvvəlki yamaq qeydi qalır</string>
+    <string name="app_links_badge_enabled">Aktivdir</string>
+    <string name="app_links_badge_disabled">Deaktivdir</string>
     <string name="patcher_rename_title">Bu dublikatı quraşdıracaq</string>
     <string name="patcher_rename_description">Yamaqlar bu tətbiqi öz paket adı altında qurdu, bu səbəbdən quraşdırmaq onu yeniləmək əvəzinə &lt;b&gt;%s&lt;/b&gt; ilə birlikdə dublikatını əlavə edir</string>
     <string name="patcher_rename_result_package">Bu adla quraşdırılacaq</string>
@@ -561,8 +564,6 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patcher_back_to_game_hint">Oyununuza qayıtmaq üçün %1$s kliklə</string>
     <string name="patcher_storage_permission_dialog_title">Saxlanc keçidinə keçmək olmur</string>
     <string name="patcher_incompatible_patcher_title">Yenilənmə tələb olundu</string>
-    <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; paketi &lt;b&gt;%2$s&lt;/b&gt; və ya daha yeni versiya yamaqlayıcı tələb edir. Xahiş olunur, bu tətbiqi yamaqlamaq üçün Morphe-ni yenilə</string>
-    <string name="patcher_incompatible_patcher_update_button">Morphe-ni yüklə və yenilə</string>
     <string name="patcher_storage_permission_description_api30">Bir və ya daha çox yamaq seçimi Morphe-nin oxuya bilmədiyi yolları işarə edir. Saxlanc girişin qəbul et və düyməyə toxun, sonra yamaqlanma birbaşa başlayacaq</string>
     <string name="patcher_storage_permission_description_legacy">Bir və ya daha çox yamaq seçimi giriş olmayan yolları göstərir. Yamaq seçimlərindəki yolları yeniləyin və təkrar cəhd edin</string>
     <string name="patcher_storage_permission_grant">Saxlanc icazəsin qəbul et</string>

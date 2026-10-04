@@ -478,6 +478,15 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="home_app_info_app_deleted_warning">L\'app è stata disinstallata</string>
     <string name="home_app_info_app_deleted_description">Questa app è stata disinstallata al di fuori di Morphe. Ripatchala per ripristinare la funzionalità</string>
     <string name="home_app_info_not_patched_description">Una versione non patchata di questa app è installata. Morphe ha ancora il suo record di patch precedente</string>
+    <string name="app_links_title">Collegamenti web supportati</string>
+    <string name="app_links_description">Su Android 12+, i collegamenti ai domini supportati si aprono nel browser per impostazione predefinita, a meno che non siano approvati</string>
+    <string name="app_links_unverified_banner_title">Collegamenti web non verificati</string>
+    <string name="app_links_unverified_banner_description">I collegamenti web supportati attualmente si aprono nel browser invece che in questa app</string>
+    <string name="app_links_enable_auto">Abilita automaticamente</string>
+    <string name="app_links_enable_auto_in_progress">Abilitazione dei collegamenti…</string>
+    <string name="app_links_open_settings">Apri le impostazioni dei collegamenti</string>
+    <string name="app_links_repair_success">Collegamenti all\'app abilitati correttamente</string>
+    <string name="app_links_badge_disabled">Disattivato</string>
     <string name="patcher_rename_title">Questo installerà un clone</string>
     <string name="patcher_rename_description">Le patch hanno compilato questa app con un nome del pacchetto proprio, quindi installarla aggiunge un clone accanto a &lt;b&gt;%s&lt;/b&gt; invece di aggiornarla</string>
     <string name="patcher_rename_result_package">Verrà installato come</string>
@@ -562,8 +571,6 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_back_to_game_hint">Tocca %1$s per tornare al tuo gioco</string>
     <string name="patcher_storage_permission_dialog_title">Non è possibile accedere alla cartella di archiviazione</string>
     <string name="patcher_incompatible_patcher_title">Aggiornamento richiesto</string>
-    <string name="patcher_incompatible_patcher_description">Il bundle &lt;b&gt;%1$s&lt;/b&gt; richiede la versione del patcher &lt;b&gt;%2$s&lt;/b&gt; o successiva. Aggiorna Morphe per poter patchare questa app</string>
-    <string name="patcher_incompatible_patcher_update_button">Scarica e aggiorna Morphe</string>
     <string name="patcher_storage_permission_description_api30">Una o più opzioni delle patch fanno riferimento a percorsi che Morphe non può leggere. Concedi l\'accesso alla memoria di archiviazione e tocca il pulsante, quindi il patching partirà automaticamente</string>
     <string name="patcher_storage_permission_description_legacy">Una o più opzioni delle patch fanno riferimento a percorsi non raggiungibili. Aggiorna i percorsi nelle opzioni delle patch e riprova</string>
     <string name="patcher_storage_permission_grant">Concedi l\'autorizzazione alla memoria di archiviazione</string>

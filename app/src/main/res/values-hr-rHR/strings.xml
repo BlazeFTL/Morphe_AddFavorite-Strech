@@ -482,6 +482,16 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova je aplikacija deinstalirana izvan Morphea. Ponovno je patchajte kako biste vratili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nepatchana verzija ove aplikacije. Morphe i dalje ima prethodni zapis patchanja</string>
+    <string name="app_links_title">Podržane web poveznice</string>
+    <string name="app_links_description">Na Androidu 12+ poveznice na podržane domene otvaraju se u vašem pregledniku prema zadanim postavkama, osim ako nisu odobrene</string>
+    <string name="app_links_unverified_banner_title">Web poveznice nisu provjerene</string>
+    <string name="app_links_unverified_banner_description">Podržane web poveznice trenutačno se otvaraju u vašem pregledniku umjesto u ovoj aplikaciji</string>
+    <string name="app_links_enable_auto">Omogući automatski</string>
+    <string name="app_links_enable_auto_in_progress">Omogućavanje poveznica…</string>
+    <string name="app_links_open_settings">Otvori postavke poveznica</string>
+    <string name="app_links_repair_success">Poveznice aplikacije uspješno su omogućene</string>
+    <string name="app_links_badge_enabled">Omogućeno</string>
+    <string name="app_links_badge_disabled">Onemogućeno</string>
     <string name="patcher_rename_title">Ovo će instalirati klon</string>
     <string name="patcher_rename_description">Patchevi grade ovu aplikaciju pod vlastitim nazivom paketa, pa se instaliranjem dodaje klon &lt;b&gt;%s&lt;/b&gt; umjesto ažuriranja</string>
     <string name="patcher_rename_result_package">Instalirat će se kao</string>
@@ -566,8 +576,6 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="patcher_back_to_game_hint">Dodirnite %1$s za povratak u igru</string>
     <string name="patcher_storage_permission_dialog_title">Nije moguće pristupiti putanji pohrane</string>
     <string name="patcher_incompatible_patcher_title">Potrebno je ažuriranje</string>
-    <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahtijeva verziju patchera &lt;b&gt;%2$s&lt;/b&gt; ili noviju. Molimo ažurirajte Morphe kako biste patchali ovu aplikaciju</string>
-    <string name="patcher_incompatible_patcher_update_button">Preuzmite i ažurirajte Morphe</string>
     <string name="patcher_storage_permission_description_api30">Jedna ili više opcija patcha upućuju na putanje koje Morphe ne može pročitati. Omogućite pristup pohrani i dodirnite tipku, nakon čega će se patchanje automatski pokrenuti.</string>
     <string name="patcher_storage_permission_description_legacy">Jedna ili više opcija patchanja upućuju na putanje kojima se ne može pristupiti. Ažurirajte putanje u opcijama patcha i pokušajte ponovno.</string>
     <string name="patcher_storage_permission_grant">Odobri dopuštenje za pohranu</string>

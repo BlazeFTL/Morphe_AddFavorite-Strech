@@ -478,6 +478,15 @@
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Инсталирана је незакрпљена верзија ове апликације. Morphe и даље има свој претходни запис о закрпама</string>
+    <string name="app_links_title">Подржани веб линкови</string>
+    <string name="app_links_description">На Android 12+, линкови ка подржаним доменима се подразумевано отварају у вашем прегледачу, осим ако су одобрени</string>
+    <string name="app_links_unverified_banner_title">Веб линкови нису верификовани</string>
+    <string name="app_links_unverified_banner_description">Подржани веб линкови се тренутно отварају у вашем прегледачу уместо у овој апликацији</string>
+    <string name="app_links_enable_auto">Омогући аутоматски</string>
+    <string name="app_links_enable_auto_in_progress">Омогућавање линкова…</string>
+    <string name="app_links_open_settings">Отвори подешавања линкова</string>
+    <string name="app_links_repair_success">Апликациони линкови су успешно омогућени</string>
+    <string name="app_links_badge_disabled">Онемогућен</string>
     <string name="patcher_rename_title">Ово ће инсталирати клон</string>
     <string name="patcher_rename_description">Пачови су направили ову апликацију под сопственим именом пакета, тако да инсталација додаје клон поред &lt;b&gt;%s&lt;/b&gt; уместо да је ажурира</string>
     <string name="patcher_rename_result_package">Инсталираће се као</string>
@@ -562,8 +571,6 @@
     <string name="patcher_back_to_game_hint">Додирните %1$s да се вратите на своју игру</string>
     <string name="patcher_storage_permission_dialog_title">Не могу приступити до пута складиштења</string>
     <string name="patcher_incompatible_patcher_title">Захтевано је ажурирање</string>
-    <string name="patcher_incompatible_patcher_description">Пакетић &lt;b&gt;%1$s&lt;/b&gt; захтева верзију закрпе &lt;b&gt;%2$s&lt;/b&gt; или новију. Молимо вас да ажурирате Morphe како бисте применили ову апликацију</string>
-    <string name="patcher_incompatible_patcher_update_button">Преузми и ажурирај Morphe</string>
     <string name="patcher_storage_permission_description_api30">Једна или више опција исправки указују на путеве које Morphe не може да чита. Доделите дозволу за складиште и додирните дугме, а затим ће почети аутоматско отклањање грешака</string>
     <string name="patcher_storage_permission_description_legacy">Један или више опција пачања указују на путеве које не могу да се приступе. Ажурирајте путеве у опцијама пачања и покушајте поново</string>
     <string name="patcher_storage_permission_grant">Дозволите приступ складишту</string>

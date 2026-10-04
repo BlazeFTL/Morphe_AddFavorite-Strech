@@ -478,6 +478,15 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="home_app_info_app_deleted_warning">Aplikacija je bila odstranjena</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacija je bila odstranjena izven aplikacije Morphe. Ponovno jo popravite, da obnovite funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Nameščena je nepopravljena različica te aplikacije. Morphe še vedno ima svoj prejšnji zapis o popravku.</string>
+    <string name="app_links_title">Podprte spletne povezave</string>
+    <string name="app_links_description">V sistemu Android 12+ se povezave do podprtih domen privzeto odpirajo v vašem brskalniku, razen če so odobrene</string>
+    <string name="app_links_unverified_banner_title">Spletne povezave niso preverjene</string>
+    <string name="app_links_unverified_banner_description">Podprte spletne povezave se trenutno odpirajo v vašem brskalniku namesto v tej aplikaciji</string>
+    <string name="app_links_enable_auto">Omogoči samodejno</string>
+    <string name="app_links_enable_auto_in_progress">Omogočanje povezav…</string>
+    <string name="app_links_open_settings">Odpri nastavitve povezav</string>
+    <string name="app_links_repair_success">Povezave aplikacij so uspešno omogočene</string>
+    <string name="app_links_badge_disabled">Onemogočeno</string>
     <string name="patcher_rename_title">To bo namestilo klon</string>
     <string name="patcher_rename_description">Popravki so to aplikacijo zgradili pod lastnim imenom paketa, zato njena namestitev doda klon poleg &lt;b&gt;%s&lt;/b&gt; namesto da bi jo posodobila</string>
     <string name="patcher_rename_result_package">Bo nameščeno kot</string>
@@ -562,8 +571,6 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_back_to_game_hint">Dotakni se %1$s, da se vrneš v svojo igro.</string>
     <string name="patcher_storage_permission_dialog_title">Dostopa do poti shrambe ni možen</string>
     <string name="patcher_incompatible_patcher_title">Posodobitev je zahtevana</string>
-    <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahteva različico popravljalca &lt;b&gt;%2$s&lt;/b&gt; ali novejšo. Posodobite Morphe, da popravite to aplikacijo</string>
-    <string name="patcher_incompatible_patcher_update_button">Prenesi in posodobi Morphe</string>
     <string name="patcher_storage_permission_description_api30">Ena ali več možnosti popravka se sklicujejo na poti, do katerih Morphe ne more dostopati. Dovolite dostop do shrambe in nato pritisnite gumb, nato se bo popravljanje začelo samodejno</string>
     <string name="patcher_storage_permission_description_legacy">Ena ali več možnosti popravka se sklicujejo na poti, do katerih ni mogoče dostopiti. Posodobite poti v možnostih popravka in poskusite znova</string>
     <string name="patcher_storage_permission_grant">Dovoli dostop do shrambe</string>

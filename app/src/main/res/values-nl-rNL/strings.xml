@@ -477,6 +477,16 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="home_app_info_app_deleted_warning">App was verwijderd</string>
     <string name="home_app_info_app_deleted_description">Deze app is buiten Morphe verwijderd. Installeer de patch om de functionaliteit te herstellen</string>
     <string name="home_app_info_not_patched_description">Er is een niet-gepatchte versie van deze app geïnstalleerd. Morphe heeft nog steeds zijn eerdere patchrecord.</string>
+    <string name="app_links_title">Ondersteunde weblinks</string>
+    <string name="app_links_description">Op Android 12+ worden links naar ondersteunde domeinen standaard in je browser geopend, tenzij ze zijn goedgekeurd</string>
+    <string name="app_links_unverified_banner_title">Weblinks niet geverifieerd</string>
+    <string name="app_links_unverified_banner_description">Ondersteunde weblinks worden momenteel in je browser geopend in plaats van in deze app</string>
+    <string name="app_links_enable_auto">Automatisch inschakelen</string>
+    <string name="app_links_enable_auto_in_progress">Links inschakelen…</string>
+    <string name="app_links_open_settings">Linkinstellingen openen</string>
+    <string name="app_links_repair_success">App-links succesvol ingeschakeld</string>
+    <string name="app_links_badge_enabled">Ingeschakeld</string>
+    <string name="app_links_badge_disabled">Uitgeschakeld</string>
     <string name="patcher_rename_title">Dit zal een kloon installeren</string>
     <string name="patcher_rename_description">De patches hebben deze app gebouwd onder een eigen pakketnaam, dus het installeren voegt een kloon toe naast <b>%s</b> in plaats van het bij te werken</string>
     <string name="patcher_rename_result_package">Zal installeren als</string>
@@ -561,8 +571,6 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_back_to_game_hint">Tik op %1$s om terug te keren naar je spel</string>
     <string name="patcher_storage_permission_dialog_title">Kan opslagpad niet openen</string>
     <string name="patcher_incompatible_patcher_title">Update vereist</string>
-    <string name="patcher_incompatible_patcher_description">Het bundel &lt;b&gt;%1$s&lt;/b&gt; vereist patcher versie &lt;b&gt;%2$s&lt;/b&gt; of hoger. Update Morphe om deze app te patchen</string>
-    <string name="patcher_incompatible_patcher_update_button">Download en update Morphe</string>
     <string name="patcher_storage_permission_description_api30">Een of meer patchopties verwijzen naar paden die Morphe niet kan lezen. Geef toegang tot de opslag en tik op de knop; het patchproces start dan automatisch</string>
     <string name="patcher_storage_permission_description_legacy">Een of meer patch-opties wijzen naar bestanden die niet kunnen worden geopend. Update de bestanden in patch-opties en probeer het nogmaals</string>
     <string name="patcher_storage_permission_grant">Geef opslagtoegang</string>

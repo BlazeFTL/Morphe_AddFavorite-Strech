@@ -477,6 +477,16 @@
     <string name="home_app_info_app_deleted_warning">Η εφαρμογή έχει απεγκατασταθεί</string>
     <string name="home_app_info_app_deleted_description">Η εφαρμογή αυτή απεγκαταστάθηκε εκτός του Morphe. Τροποποιήστε την ξανά για την επαναφορά λειτουργικότητά της</string>
     <string name="home_app_info_not_patched_description">Μια μη ενημερωμένη έκδοση αυτής της εφαρμογής είναι εγκατεστημένη. Το Morphe εξακολουθεί να έχει το προηγούμενο αρχείο επιδιορθώσεων.</string>
+    <string name="app_links_title">Υποστηριζόμενοι σύνδεσμοι ιστού</string>
+    <string name="app_links_description">Σε Android 12+, οι σύνδεσμοι προς υποστηριζόμενους τομείς ανοίγουν στο πρόγραμμα περιήγησης από προεπιλογή, εκτός εάν έχουν εγκριθεί</string>
+    <string name="app_links_unverified_banner_title">Μη επαληθευμένοι σύνδεσμοι ιστού</string>
+    <string name="app_links_unverified_banner_description">Οι υποστηριζόμενοι σύνδεσμοι ιστού ανοίγουν αυτήν τη στιγμή στο πρόγραμμα περιήγησής σας αντί για αυτήν την εφαρμογή</string>
+    <string name="app_links_enable_auto">Αυτόματη ενεργοποίηση</string>
+    <string name="app_links_enable_auto_in_progress">Ενεργοποίηση συνδέσμων…</string>
+    <string name="app_links_open_settings">Άνοιγμα ρυθμίσεων συνδέσμων</string>
+    <string name="app_links_repair_success">Οι σύνδεσμοι εφαρμογής ενεργοποιήθηκαν με επιτυχία</string>
+    <string name="app_links_badge_enabled">Ενεργοποιημένο</string>
+    <string name="app_links_badge_disabled">Απενεργοποιημένο</string>
     <string name="patcher_rename_title">Αυτό θα εγκαταστήσει ένα κλώνο</string>
     <string name="patcher_rename_description">Οι τροποποιήσεις δημιούργησαν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, οπότε η εγκατάστασή της προσθέτει ένα κλώνο δίπλα στο <b>%s</b> αντί να την ενημερώσει</string>
     <string name="patcher_rename_result_package">Θα εγκατασταθεί ως</string>
@@ -561,8 +571,6 @@
     <string name="patcher_back_to_game_hint">Πάτα %1$s για να επιστρέψεις στο παιχνίδι σου</string>
     <string name="patcher_storage_permission_dialog_title">Δεν είναι δυνατή η πρόσβαση στη διαδρομή αποθηκευτικού χώρου</string>
     <string name="patcher_incompatible_patcher_title">Απαιτείται ενημέρωση</string>
-    <string name="patcher_incompatible_patcher_description">Το πακέτο &lt;b&gt;%1$s&lt;/b&gt; απαιτεί έκδοση επεξεργαστή &lt;b&gt;%2$s&lt;/b&gt; ή νεότερη. Παρακαλώ ενημερώστε το Morphe για να εφαρμόσετε αυτήν την εφαρμογή</string>
-    <string name="patcher_incompatible_patcher_update_button">Λήψη και ενημέρωση του Morphe</string>
     <string name="patcher_storage_permission_description_api30">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που το Morphe δεν μπορεί να διαβάσει. Δώστε άδεια αποθήκευσης και πατήστε το κουμπί, στη συνέχεια η διαδικασία τροποποίησης θα ξεκινήσει αυτόματα</string>
     <string name="patcher_storage_permission_description_legacy">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που δεν είναι προσβάσιμες. Ενημερώστε τις διαδρομές στις επιλογές τροποποιήσεων και δοκιμάστε ξανά</string>
     <string name="patcher_storage_permission_grant">Επιτρέψτε την πρόσβαση στον αποθηκευτικό χώρο</string>

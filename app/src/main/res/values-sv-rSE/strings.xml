@@ -478,6 +478,16 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="home_app_info_app_deleted_warning">Appen har avinstallerats</string>
     <string name="home_app_info_app_deleted_description">Den här appen avinstallerades utanför Morphe. Modifiera den igen för att återställa funktionaliteten</string>
     <string name="home_app_info_not_patched_description">En omodifierad version av den här appen är installerad. Morphe har fortfarande sin tidigare modifieringspost.</string>
+    <string name="app_links_title">Webblänkar som stöds</string>
+    <string name="app_links_description">På Android 12+ öppnas länkar till stödda domäner i din webbläsare som standard om de inte godkänts</string>
+    <string name="app_links_unverified_banner_title">Webblänkar är inte verifierade</string>
+    <string name="app_links_unverified_banner_description">Webblänkar som stöds öppnas för närvarande i din webbläsare istället för i den här appen</string>
+    <string name="app_links_enable_auto">Aktivera automatiskt</string>
+    <string name="app_links_enable_auto_in_progress">Aktiverar länkar…</string>
+    <string name="app_links_open_settings">Öppna länkinställningar</string>
+    <string name="app_links_repair_success">Applänkar har aktiverats</string>
+    <string name="app_links_badge_enabled">Aktiverad</string>
+    <string name="app_links_badge_disabled">Inaktiverad</string>
     <string name="patcher_rename_title">Detta kommer att installera en klon</string>
     <string name="patcher_rename_description">Tilläggen byggde den här appen under ett eget paketnamn, så om den installeras läggs en klon till  bredvid &lt;b&gt;%s&lt;/b&gt; istället för att uppdatera den</string>
     <string name="patcher_rename_result_package">Installeras som</string>
@@ -562,8 +572,6 @@ Om du avinstallerar raderas alla appdata permanent"</string>
     <string name="patcher_back_to_game_hint">Tryck på %1$s för att gå tillbaka till spelet</string>
     <string name="patcher_storage_permission_dialog_title">Det går inte att komma åt lagringssökväg</string>
     <string name="patcher_incompatible_patcher_title">Uppdatering krävs</string>
-    <string name="patcher_incompatible_patcher_description">Arkivet &lt;b&gt;%1$s&lt;/b&gt; kräver version &lt;b&gt;%2$s&lt;/b&gt; eller senare av modifieringsverktyget. Uppdatera Morphe för att modifiera den här appen</string>
-    <string name="patcher_incompatible_patcher_update_button">Ladda ned och uppdatera Morphe</string>
     <string name="patcher_storage_permission_description_api30">Ett eller flera tilläggsalternativ pekar på sökvägar som Morphe inte kan läsa. Ge åtkomst till lagringen och tryck på knappen så startas modifieringen automatiskt</string>
     <string name="patcher_storage_permission_description_legacy">Ett eller flera tilläggsalternativ pekar på sökvägar som inte går att komma åt. Uppdatera sökvägarna i tilläggsalternativen och försök igen</string>
     <string name="patcher_storage_permission_grant">Ge åtkomst till lagring</string>

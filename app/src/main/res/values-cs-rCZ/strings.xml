@@ -477,6 +477,15 @@ Vnějní zóna (přerušovaná): může být ořezaná maskou spouštěčé - ud
     <string name="home_app_info_app_deleted_warning">Aplikace byla odinstalována</string>
     <string name="home_app_info_app_deleted_description">Tuto aplikaci bylo odinstalováno mimo Morphe. Zápalte ji znovu, abyste obnovili funkčnost</string>
     <string name="home_app_info_not_patched_description">Je nainstalována neopatchovaná verze této aplikace. Morphe má stále svůj předchozí záznam o záplatě</string>
+    <string name="app_links_title">Podporované webové odkazy</string>
+    <string name="app_links_description">Na Androidu 12+ se odkazy na podporované domény ve výchozím nastavení otevírají ve vašem prohlížeči, pokud nejsou schváleny</string>
+    <string name="app_links_unverified_banner_title">Neověřené webové odkazy</string>
+    <string name="app_links_unverified_banner_description">Podporované webové odkazy se nyní otevírají ve vašem prohlížeči místo v této aplikaci</string>
+    <string name="app_links_enable_auto">Povolit automaticky</string>
+    <string name="app_links_enable_auto_in_progress">Povolování odkazů…</string>
+    <string name="app_links_open_settings">Otevřít nastavení odkazů</string>
+    <string name="app_links_repair_success">Odkazy aplikací byly úspěšně povoleny</string>
+    <string name="app_links_badge_disabled">Vypnuto</string>
     <string name="patcher_rename_title">Toto nainstaluje klon</string>
     <string name="patcher_rename_description">Záplaty vytvořily tuto aplikaci pod vlastním názvem balíčku, takže instalace přidá klon vedle &lt;b&gt;%s&lt;/b&gt; místo aktualizace.</string>
     <string name="patcher_rename_result_package">Nainstaluje se jako</string>
@@ -561,8 +570,6 @@ Odinstalace trvale smaže všechna data aplikace"</string>
     <string name="patcher_back_to_game_hint">Klepněte na %1$s pro návrat do hry</string>
     <string name="patcher_storage_permission_dialog_title">Nelze přistupovat k cestě úložiště</string>
     <string name="patcher_incompatible_patcher_title">Aktualizace požadována</string>
-    <string name="patcher_incompatible_patcher_description">Balíček &lt;b&gt;%1$s&lt;/b&gt; vyžaduje verzi opravovače &lt;b&gt;%2$s&lt;/b&gt; nebo novější. Aktualizujte Morphe pro opravu této aplikace</string>
-    <string name="patcher_incompatible_patcher_update_button">Stáhnout a aktualizovat Morphe</string>
     <string name="patcher_storage_permission_description_api30">Jedna nebo více možností záplaty odkazuje na cesty, které Morphe nemůže číst. Udělte oprávnění ke úložišti a klepněte na tlačítko, poté se záplatování spustí automaticky</string>
     <string name="patcher_storage_permission_description_legacy">Jeden nebo více možnosti pro patchování ukazují na cesty, které nelze přistupovat. Upravte cesty v možnostech pro patchování a zkuste to znovu</string>
     <string name="patcher_storage_permission_grant">Povolte přístup k úložišti</string>

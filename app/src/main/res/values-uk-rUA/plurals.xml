@@ -189,4 +189,16 @@
         <item quantity="many">%s нових релізів</item>
         <item quantity="other">%s нових релізів</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d посилання увімкнено</item>
+        <item quantity="few">%d посилання увімкнено</item>
+        <item quantity="many">%d посилань увімкнено</item>
+        <item quantity="other">%d посилань увімкнено</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d непідтверджене посилання</item>
+        <item quantity="few">%d непідтверджені посилання</item>
+        <item quantity="many">%d непідтверджених посилань</item>
+        <item quantity="other">%d непідтверджених посилань</item>
+    </plurals>
 </resources>

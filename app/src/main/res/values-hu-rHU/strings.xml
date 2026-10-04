@@ -478,6 +478,16 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="home_app_info_app_deleted_warning">Az alkalmazást eltávolították</string>
     <string name="home_app_info_app_deleted_description">Ezt az alkalmazást a Morphén kívül távolították el. Alkalmazd újra a módosításokat a működés helyreállításához.</string>
     <string name="home_app_info_not_patched_description">Az alkalmazás nem javított verziója van telepítve. A Morphe még mindig tartalmazza a korábbi javítási rekordját.</string>
+    <string name="app_links_title">Támogatott webes hivatkozások</string>
+    <string name="app_links_description">Android 12+ rendszeren a támogatott domainekre mutató hivatkozások alapértelmezetten a böngésződben nyílnak meg, hacsak nem hagyod jóvá</string>
+    <string name="app_links_unverified_banner_title">Nem ellenőrzött webes hivatkozások</string>
+    <string name="app_links_unverified_banner_description">A támogatott webes hivatkozások jelenleg a böngésződben nyílnak meg az alkalmazás helyett</string>
+    <string name="app_links_enable_auto">Automatikus engedélyezés</string>
+    <string name="app_links_enable_auto_in_progress">Hivatkozások engedélyezése…</string>
+    <string name="app_links_open_settings">Hivatkozásbeállítások megnyitása</string>
+    <string name="app_links_repair_success">Alkalmazáshivatkozások sikeresen engedélyezve</string>
+    <string name="app_links_badge_enabled">Engedélyezve</string>
+    <string name="app_links_badge_disabled">Kikapcsolva</string>
     <string name="patcher_rename_title">Ez egy klónt telepít</string>
     <string name="patcher_rename_description">A javítócsomagok saját csomagnév alatt építették ezt az alkalmazást, így a telepítése egy klónt ad hozzá a &lt;b&gt;%s&lt;/b&gt; mellé a frissítés helyett.</string>
     <string name="patcher_rename_result_package">Telepítés mint</string>
@@ -562,8 +572,6 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patcher_back_to_game_hint">Koppints a(z) %1$s elemre a játékhoz való visszatéréshez</string>
     <string name="patcher_storage_permission_dialog_title">Az elérési útvonal nem hozzáférhető</string>
     <string name="patcher_incompatible_patcher_title">Frissítés szükséges</string>
-    <string name="patcher_incompatible_patcher_description">A &lt;b&gt;%1$s&lt;/b&gt; csomag a &lt;b&gt;%2$s&lt;/b&gt; vagy újabb módosításverziót igényli. Kérjük, frissítsd a Morphe-t az alkalmazás módosításához.</string>
-    <string name="patcher_incompatible_patcher_update_button">Töltsd le és frissítsd a Morphe alkalmazást</string>
     <string name="patcher_storage_permission_description_api30">Egy vagy több módosítási opció olyan elérési útra mutat, amelyeket a Morphe nem tud olvasni. Add meg a tárhely hozzáférést, majd koppints a gombra, és a módosítás automatikusan elindul</string>
     <string name="patcher_storage_permission_description_legacy">Egy vagy több módosítási opció olyan elérési útra mutat, amelyekhez nem lehet hozzáférni. Frissítsd az útvonalakat a módosítási opciókban és próbáld újra</string>
     <string name="patcher_storage_permission_grant">Tárhelyhozzáférés engedélyezése</string>

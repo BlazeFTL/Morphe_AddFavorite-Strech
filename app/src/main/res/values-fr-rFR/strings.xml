@@ -481,6 +481,16 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_app_deleted_description">Cette application a été désinstallée en dehors de Morphe. Re-patchez-la pour restaurer les fonctionnalités
 </string>
     <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
+    <string name="app_links_title">Liens web pris en charge</string>
+    <string name="app_links_description">Sur Android 12 et plus, les liens vers les domaines pris en charge s\'ouvrent dans votre navigateur par défaut, sauf s\'ils sont approuvés</string>
+    <string name="app_links_unverified_banner_title">Liens web non vérifiés</string>
+    <string name="app_links_unverified_banner_description">Les liens web pris en charge s\'ouvrent actuellement dans votre navigateur au lieu de cette application</string>
+    <string name="app_links_enable_auto">Activer automatiquement</string>
+    <string name="app_links_enable_auto_in_progress">Activation des liens…</string>
+    <string name="app_links_open_settings">Ouvrir les paramètres des liens</string>
+    <string name="app_links_repair_success">Liens d\'application activés avec succès</string>
+    <string name="app_links_badge_enabled">Activée</string>
+    <string name="app_links_badge_disabled">Désactivée</string>
     <string name="patcher_rename_title">Cela installera un clone</string>
     <string name="patcher_rename_description">Les patchs ont compilé cette application sous leur propre nom de paquet, donc l\'installer ajoute un clone à côté de <b>%s</b> au lieu de le mettre à jour</string>
     <string name="patcher_rename_result_package">Sera installé en tant que</string>
@@ -565,8 +575,6 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_back_to_game_hint">Appuyez sur %1$s pour revenir à votre jeu</string>
     <string name="patcher_storage_permission_dialog_title">Impossible d\'accéder au chemin de stockage</string>
     <string name="patcher_incompatible_patcher_title">Mise à jour nécessaire</string>
-    <string name="patcher_incompatible_patcher_description">Le bundle &lt;b&gt;%1$s&lt;/b&gt; nécessite la version &lt;b&gt;%2$s&lt;/b&gt; du patcheur ou une version plus récente. Veuillez mettre à jour Morphe pour patcher cette application</string>
-    <string name="patcher_incompatible_patcher_update_button">Télécharger et mettre à jour Morphe</string>
     <string name="patcher_storage_permission_description_api30">Une ou plusieurs options de patch pointent vers des chemins que Morphe ne peut pas lire. Accordez l\'accès au stockage puis appuyez sur le bouton le patching commencera automatiquement</string>
     <string name="patcher_storage_permission_description_legacy">Une ou plusieurs options de patch pointent vers des chemins inaccessibles. Mettez à jour les chemins dans les options de patch puis réessayez</string>
     <string name="patcher_storage_permission_grant">Accorder l\'autorisation d\'accès au stockage</string>

@@ -479,6 +479,16 @@
     <string name="home_app_info_app_deleted_warning">האפליקציה הוסרה</string>
     <string name="home_app_info_app_deleted_description">האפליקציה הוסרה מחוץ ל-Morphe. התאם כדי לשחזר את הפונקציונליות</string>
     <string name="home_app_info_not_patched_description">מותקנת גרסה לא מתוקנת של אפליקציה זו. ל-Morphe עדיין יש רשומת תיקון קודמת.</string>
+    <string name="app_links_title">קישורי אינטרנט נתמכים</string>
+    <string name="app_links_description">באנדרואיד 12+, קישורים לדומיינים נתמכים נפתחים בדפדפן כברירת מחדל אלא אם כן אושרו</string>
+    <string name="app_links_unverified_banner_title">קישורי אינטרנט לא מאומתים</string>
+    <string name="app_links_unverified_banner_description">קישורי אינטרנט נתמכים נפתחים כרגע בדפדפן שלך במקום באפליקציה זו</string>
+    <string name="app_links_enable_auto">הפעל אוטומטית</string>
+    <string name="app_links_enable_auto_in_progress">מפעיל קישורים…</string>
+    <string name="app_links_open_settings">פתח הגדרות קישורים</string>
+    <string name="app_links_repair_success">קישורי אפליקציה הופעלו בהצלחה</string>
+    <string name="app_links_badge_enabled">מופעל</string>
+    <string name="app_links_badge_disabled">מושבת</string>
     <string name="patcher_rename_title">זה יתקין שיבוט</string>
     <string name="patcher_rename_description">התיקונים בנו את האפליקציה תחת שם חבילה משלהם, ולכן התקנתה תוסיף שיבוט לצד &lt;b&gt;%s&lt;/b&gt; במקום לעדכן אותה</string>
     <string name="patcher_rename_result_package">יותקן כ</string>
@@ -563,8 +573,6 @@
     <string name="patcher_back_to_game_hint">הקש על %1$s כדי לחזור למשחק שלך</string>
     <string name="patcher_storage_permission_dialog_title">לא ניתן לגשת לדרך אחסון</string>
     <string name="patcher_incompatible_patcher_title">עדכון נדרש</string>
-    <string name="patcher_incompatible_patcher_description">החבילה &lt;b&gt;%1$s&lt;/b&gt; דורשת גרסת מתקן &lt;b&gt;%2$s&lt;/b&gt; ומעלה. אנא עדכן את Morphe כדי לתקן את האפליקציה הזו</string>
-    <string name="patcher_incompatible_patcher_update_button">הורד ועדכן את Morphe</string>
     <string name="patcher_storage_permission_description_api30">אפשרות אחת או יותר של תיקונים מצביעה על נתיבים ש-Morphe לא יכול לקרוא. הענק גישה לאחסון ולחץ על הכפתור ואז התיקון יתחיל באופן אוטומטי</string>
     <string name="patcher_storage_permission_description_legacy">אחד או יותר אופציות תיקון מצביעות על דרכים שאינן נגישות. עדכן את הדרכים באופציות התיקון ונסה שוב</string>
     <string name="patcher_storage_permission_grant">אשר אישור גישה לאחסון</string>

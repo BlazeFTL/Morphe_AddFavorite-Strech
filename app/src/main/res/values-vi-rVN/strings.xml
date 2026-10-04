@@ -478,6 +478,16 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="home_app_info_app_deleted_warning">Ứng dụng đã bị gỡ cài đặt</string>
     <string name="home_app_info_app_deleted_description">Ứng dụng này đã bị gỡ bên ngoài Morphe. Hãy vá lại để khôi phục chức năng</string>
     <string name="home_app_info_not_patched_description">Bạn đang cài đặt phiên bản chưa vá của ứng dụng. Đừng lo, Morphe vẫn còn lưu bản đã vá trước đó</string>
+    <string name="app_links_title">Liên kết web được hỗ trợ</string>
+    <string name="app_links_description">Trên Android 12+, các liên kết đến miền được hỗ trợ sẽ mở trong trình duyệt của bạn theo mặc định trừ khi được chấp thuận</string>
+    <string name="app_links_unverified_banner_title">Liên kết web chưa được xác minh</string>
+    <string name="app_links_unverified_banner_description">Các liên kết web được hỗ trợ hiện đang mở trong trình duyệt của bạn thay vì trong ứng dụng này</string>
+    <string name="app_links_enable_auto">Bật tự động</string>
+    <string name="app_links_enable_auto_in_progress">Đang bật liên kết…</string>
+    <string name="app_links_open_settings">Mở cài đặt liên kết</string>
+    <string name="app_links_repair_success">Đã bật liên kết ứng dụng thành công</string>
+    <string name="app_links_badge_enabled">Đang bật</string>
+    <string name="app_links_badge_disabled">Đang tắt</string>
     <string name="patcher_rename_title">Cài đặt như bản sao</string>
     <string name="patcher_rename_description">Các bản vá sẽ dựng ứng dụng với một tên gói khác, vì vậy khi cài đặt sẽ có thêm một ứng dụng khác cùng với &lt;b&gt;%s&lt;/b&gt; thay vì cập nhật lên</string>
     <string name="patcher_rename_result_package">Cài đặt với tên</string>
@@ -564,8 +574,6 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_back_to_game_hint">Chạm vào %1$s để quay lại trò chơi của bạn</string>
     <string name="patcher_storage_permission_dialog_title">Không thể truy cập đường dẫn bộ nhớ</string>
     <string name="patcher_incompatible_patcher_title">Cần phải cập nhật</string>
-    <string name="patcher_incompatible_patcher_description">Gói &lt;b&gt;%1$s&lt;/b&gt; yêu cầu phiên bản trình vá &lt;b&gt;%2$s&lt;/b&gt; trở lên. Vui lòng cập nhật Morphe để vá ứng dụng này</string>
-    <string name="patcher_incompatible_patcher_update_button">Tải về và cập nhật Morphe</string>
     <string name="patcher_storage_permission_description_api30">Một hoặc nhiều tuỳ chỉnh bản vá đang trỏ đến thư mục mà Morphe không thể truy cập. Hãy cấp quyền truy cập bộ nhớ, sau đó bấm nút và quá trình vá sẽ tự động bắt đầu</string>
     <string name="patcher_storage_permission_description_legacy">Một hoặc nhiều tuỳ chỉnh bản vá đang trỏ đến đường dẫn không thể truy cập. Hãy cập nhật lại đường dẫn trong phần tuỳ chỉnh bản vá và thử lại</string>
     <string name="patcher_storage_permission_grant">Cấp quyền truy cập bộ nhớ</string>

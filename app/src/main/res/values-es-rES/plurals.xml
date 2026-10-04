@@ -127,4 +127,12 @@
         <item quantity="one">%s nueva versión</item>
         <item quantity="other">%s nuevas versiones</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d enlace activado</item>
+        <item quantity="other">%d enlaces activados</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d enlace no verificado</item>
+        <item quantity="other">%d enlaces no verificados</item>
+    </plurals>
 </resources>

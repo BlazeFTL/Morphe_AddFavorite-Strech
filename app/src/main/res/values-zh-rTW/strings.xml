@@ -260,7 +260,7 @@
     <string name="home_download_instructions_continue_to">繼續前往%s</string>
     <string name="home_download_instructions_destination">下載頁面</string>
     <string name="home_download_instructions_copy_link">複製連結</string>
-    <string name="home_download_instructions_link_copied">連結已複製</string>
+    <string name="home_download_instructions_link_copied">已複製連結</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">選取已下載的 APK</string>
     <string name="home_file_picker_prompt_description">選取您剛才下載的 <b>%s</b> APK 檔案</string>
@@ -478,6 +478,16 @@
     <string name="home_app_info_app_deleted_warning">應用程式已解除安裝</string>
     <string name="home_app_info_app_deleted_description">此應用程式已在 Morphe 外部被解除安裝。重新修補以還原功能</string>
     <string name="home_app_info_not_patched_description">已安裝此應用程式的未修補版本。Morphe 仍保留其先前的修補記錄。</string>
+    <string name="app_links_title">支援的網頁連結</string>
+    <string name="app_links_description">在 Android 12 以上版本，除非經過核准，否則指向支援網域的連結預設會在您的瀏覽器中開啟</string>
+    <string name="app_links_unverified_banner_title">網頁連結未經驗證</string>
+    <string name="app_links_unverified_banner_description">目前支援的網頁連結會在您的瀏覽器中開啟，而非在此應用程式中開啟</string>
+    <string name="app_links_enable_auto">自動啟用</string>
+    <string name="app_links_enable_auto_in_progress">正在啟用連結……</string>
+    <string name="app_links_open_settings">開啟連結設定</string>
+    <string name="app_links_repair_success">已成功啟用應用程式連結</string>
+    <string name="app_links_badge_enabled">已啟用</string>
+    <string name="app_links_badge_disabled">已停用</string>
     <string name="patcher_rename_title">這將安裝一個克隆應用程式</string>
     <string name="patcher_rename_description">這些修補程式是以它們自己的套件名稱來建置此應用程式，因此安裝它會在&lt;b&gt;%s&lt;/b&gt;旁新增一個克隆，而不是更新它</string>
     <string name="patcher_rename_result_package">將安裝為</string>
@@ -562,8 +572,6 @@
     <string name="patcher_back_to_game_hint">點擊%1$s返回您的遊戲</string>
     <string name="patcher_storage_permission_dialog_title">無法存取儲存路徑</string>
     <string name="patcher_incompatible_patcher_title">需要更新</string>
-    <string name="patcher_incompatible_patcher_description">套件 <b>%1$s</b> 需要修補程式版本 <b>%2$s</b> 或更新版本。請更新 Morphe 以修補此應用程式</string>
-    <string name="patcher_incompatible_patcher_update_button">下載並更新 Morphe</string>
     <string name="patcher_storage_permission_description_api30">一個或多個修補選項指向 Morphe 無法讀取的路徑。授予儲存空間存取權限並輕觸按鈕，修補將自動開始</string>
     <string name="patcher_storage_permission_description_legacy">一個或多個修補選項指向無法存取的路徑。更新修補選項中的路徑並重試</string>
     <string name="patcher_storage_permission_grant">授予儲存空間權限</string>

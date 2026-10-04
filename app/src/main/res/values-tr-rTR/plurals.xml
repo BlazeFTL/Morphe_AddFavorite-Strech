@@ -127,4 +127,12 @@
         <item quantity="one">%s yeni sürüm</item>
         <item quantity="other">%s yeni sürüm</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d bağlantı etkinleştirildi</item>
+        <item quantity="other">%d bağlantılar etkinleştirildi</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d doğrulanmamış bağlantı</item>
+        <item quantity="other">%d doğrulanmamış bağlantılar</item>
+    </plurals>
 </resources>

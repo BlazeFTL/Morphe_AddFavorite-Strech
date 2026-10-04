@@ -478,6 +478,15 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nezakrpana verzija ove aplikacije. Morphe i dalje ima svoj prethodni zapis o zakrpi</string>
+    <string name="app_links_title">Podržani veb linkovi</string>
+    <string name="app_links_description">Na Androidu 12+, linkovi ka podržanim domenima se podrazumevano otvaraju u vašem pregledaču, osim ako su odobreni</string>
+    <string name="app_links_unverified_banner_title">Veb linkovi nisu verifikovani</string>
+    <string name="app_links_unverified_banner_description">Podržani veb linkovi se trenutno otvaraju u vašem pregledaču umesto u ovoj aplikaciji</string>
+    <string name="app_links_enable_auto">Omogući automatski</string>
+    <string name="app_links_enable_auto_in_progress">Omogućavanje linkova…</string>
+    <string name="app_links_open_settings">Otvori podešavanja linkova</string>
+    <string name="app_links_repair_success">Linkovi aplikacije su uspešno omogućeni</string>
+    <string name="app_links_badge_disabled">Onemogućen</string>
     <string name="patcher_rename_title">Ovo će instalirati klon</string>
     <string name="patcher_rename_description">Zakrpe su napravile ovu aplikaciju pod sopstvenim imenom paketa, tako da njeno instaliranje dodaje klon pored &lt;b&gt;%s&lt;/b&gt; umesto da je ažurira.</string>
     <string name="patcher_rename_result_package">Instaliraće se kao</string>
@@ -562,8 +571,6 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="patcher_back_to_game_hint">Dodirni %1$s da se vratiš u svoju igru.}}</string>
     <string name="patcher_storage_permission_dialog_title">Ne mogu pristupiti putu za pohranu</string>
     <string name="patcher_incompatible_patcher_title">Ažuriranje je potrebno</string>
-    <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahteva verziju zakrpe &lt;b&gt;%2$s&lt;/b&gt; ili noviju. Molimo ažurirajte Morphe da biste zakrpili ovu aplikaciju</string>
-    <string name="patcher_incompatible_patcher_update_button">Preuzmi i ažuriraj Morphe</string>
     <string name="patcher_storage_permission_description_api30">Jedna ili više opcija patch-a pokazuju na putanje koje Morphe ne može da čita. Dajte dozvolu za skladište i dodirnite dugme, a zatim će se patching automatski pokrenuti</string>
     <string name="patcher_storage_permission_description_legacy">Jedan ili više opcija za patching ukazuju na putove koje ne mogu biti pristupili. Ažurirajte putove u opcijama za patching i pokušajte ponovo</string>
     <string name="patcher_storage_permission_grant">Dajte dozvolu za pohranu</string>

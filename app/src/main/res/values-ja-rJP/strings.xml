@@ -171,7 +171,7 @@
     <string name="sources_dialog_duplicate_name_error">同じ名前のパッチソースが既に存在します</string>
     <string name="sources_dialog_missing_error">このパッチソースを更新できませんでした</string>
     <string name="sources_dialog_add_source">パッチソースの追加</string>
-    <string name="sources_dialog_delete_confirm_body">これは元に戻せません</string>
+    <string name="sources_dialog_delete_confirm_body">この操作は元に戻せません</string>
     <string name="sources_dialog_remote">リモート</string>
     <string name="sources_dialog_remote_url">ソース URL</string>
     <string name="sources_dialog_remote_url_hint">リポジトリまたはパッチバンドル (.json) へのリンクです。複数まとめて貼り付けると、一度に追加できます</string>
@@ -277,7 +277,7 @@
     <string name="home_installed_app_picker_filter_system">システムアプリのみ</string>
     <string name="home_invalid_apk_unreadable">ファイルを読み込めませんでした。「外部ストレージ」がバッテリー制限の対象になっていないか確認してください</string>
     <string name="home_invalid_apk_not_an_apk">選択されたファイルは有効な APK ではありません</string>
-    <string name="home_invalid_apk_already_patched">選択した APK はすでにパッチが適用されています。代わりに元のアプリを選択してください</string>
+    <string name="home_invalid_apk_already_patched">選択した APK にはすでにパッチが適用されています。オリジナルのアプリを選択してください</string>
     <string name="home_invalid_apk_io_error">ファイルを開けませんでした。もう一度お試しください</string>
     <string name="home_external_apk_expert_mode_required">この機能は、エキスパート モードでのみ利用可能です</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -478,6 +478,16 @@
     <string name="home_app_info_app_deleted_warning">アプリがアンインストールされました</string>
     <string name="home_app_info_app_deleted_description">このアプリは Morphe の外でアンインストールされました。機能を復元するには、再度パッチを適用してください</string>
     <string name="home_app_info_not_patched_description">このアプリには未パッチ版がインストールされています。Morphe には以前のパッチ履歴が残っています</string>
+    <string name="app_links_title">サポート対象のウェブリンク</string>
+    <string name="app_links_description">Android 12以降では、承認されていない限り、サポート対象ドメインへのリンクはデフォルトでブラウザで開きます</string>
+    <string name="app_links_unverified_banner_title">未検証のウェブリンク</string>
+    <string name="app_links_unverified_banner_description">現在、サポート対象のウェブリンクはこのアプリではなくブラウザで開かれます</string>
+    <string name="app_links_enable_auto">自動的に有効にする</string>
+    <string name="app_links_enable_auto_in_progress">リンクを有効化しています…</string>
+    <string name="app_links_open_settings">リンク設定を開く</string>
+    <string name="app_links_repair_success">アプリリンクが正常に有効化されました</string>
+    <string name="app_links_badge_enabled">有効</string>
+    <string name="app_links_badge_disabled">無効</string>
     <string name="patcher_rename_title">クローンをインストールします</string>
     <string name="patcher_rename_description">このパッチでは独自のパッケージ名でアプリがビルドされるため、インストールすると &lt;b&gt;%s&lt;/b&gt; が更新されるのではなく、クローンアプリとして追加されます</string>
     <string name="patcher_rename_result_package">インストール先</string>
@@ -542,7 +552,7 @@
     <string name="patcher_complete_title">パッチが完了しました！✨</string>
     <string name="patcher_failed_title">おっと！何か問題が発生したようです</string>
     <string name="patcher_failed_dialog_title">パッチに失敗しました</string>
-    <string name="patcher_error_details">エラー詳細</string>
+    <string name="patcher_error_details">エラーの詳細</string>
     <string name="patcher_unknown_error">不明なエラーが発生しました</string>
     <string name="patcher_split_step_extracting">分割 APK の抽出中</string>
     <string name="patcher_split_step_merging">%s をマージ</string>
@@ -562,8 +572,6 @@
     <string name="patcher_back_to_game_hint">%1$s をタップしてゲームを再開</string>
     <string name="patcher_storage_permission_dialog_title">ストレージパスにアクセスできません</string>
     <string name="patcher_incompatible_patcher_title">アップデートが必要です</string>
-    <string name="patcher_incompatible_patcher_description">バンドル &lt;b&gt;%1$s&lt;/b&gt; には、パッチャー バージョン &lt;b&gt;%2$s&lt;/b&gt; 以降が必要です。このアプリをパッチするには、Morphe をアップデートしてください</string>
-    <string name="patcher_incompatible_patcher_update_button">Morphe をダウンロードしてアップデート</string>
     <string name="patcher_storage_permission_description_api30">一部のパッチオプションが、Morphe が読み取れないパスを参照しています。ストレージへのアクセス権限を許可してボタンをタップすると、パッチ処理が自動的に開始されます</string>
     <string name="patcher_storage_permission_description_legacy">一部のパッチ オプションが、アクセスできないパスを参照しています。パッチ オプション内のパスを修正して再度お試しください</string>
     <string name="patcher_storage_permission_grant">ストレージへのアクセス権限を許可する</string>
@@ -825,7 +833,7 @@
     <string name="settings_advanced_strip_unused_libs">デバイスのアーキテクチャに最適化</string>
     <string name="settings_advanced_strip_unused_libs_description">使用されていない CPU アーキテクチャのライブラリと分割 APK モジュールを削除します</string>
     <!-- Settings - Advanced Tab - GitHub PAT Settings -->
-    <string name="settings_advanced_github_pat_description">プルリクエスト ソースに必要です</string>
+    <string name="settings_advanced_github_pat_description">プルリクエストのソースに必要です</string>
     <string name="settings_advanced_github_pat_configured">PAT が設定されました</string>
     <string name="settings_advanced_github_pat_how_to_get">PAT を取得するには</string>
     <!-- "%s" is "GitHub Personal Access Token", kept in English because GitHub has no localized UI -->
@@ -1329,7 +1337,7 @@ morphe_header_custom_dark.png
     <string name="update_completed">アップデートがインストールされました</string>
     <string name="install_update_manager_failed">アップデートのインストールに失敗しました</string>
     <string name="installing_manager_update">アップデートをインストールしています…</string>
-    <string name="installing_manager_update_hint">Morphe はアップデートを完了するために終了します</string>
+    <string name="installing_manager_update_hint">更新を完了するため、Morphe を終了します</string>
     <string name="downloading_manager_update">アップデートをダウンロードしています…</string>
     <!-- Shown while downloading when the server does not report the total size. "%1$s" is the megabytes so far. -->
     <string name="manager_update_progress_downloaded">%1$s MB ダウンロード済み</string>
@@ -1364,7 +1372,7 @@ morphe_header_custom_dark.png
     <string name="onboarding_system_process_runtime_desc">パッチ処理を別プロセスで実行することで、安定性を高め、メモリ使用量を抑えられます。大きなアプリにおすすめです</string>
     <string name="onboarding_system_file_picker_desc">有効にすると、APK やキーストアを選択する際に、システム標準ではなく内蔵ファイルブラウザーを使用します</string>
     <!-- Tour prompt dialog shown after first successful patch install -->
-    <string name="tour_prompt_title">かんたん機能ガイド</string>
+    <string name="tour_prompt_title">機能紹介</string>
     <string name="tour_prompt_desc">Morphe の主な機能を簡単に見てみませんか？</string>
     <!-- Label of a footer button beside "Skip". Keep it short, a longer one moves the buttons onto two rows -->
     <string name="tour_prompt_confirm">ガイドを開始</string>

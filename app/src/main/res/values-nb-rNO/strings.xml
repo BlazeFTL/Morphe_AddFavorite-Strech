@@ -478,6 +478,14 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="home_app_info_app_deleted_warning">Appen ble avinstallert</string>
     <string name="home_app_info_app_deleted_description">Denne appen ble avinstallert utenfor Morphe. Patch den på nytt for å gjenopprette funksjonaliteten</string>
     <string name="home_app_info_not_patched_description">En uoppdatert versjon av denne appen er installert. Morphe har fortsatt sin tidligere patchregistrering</string>
+    <string name="app_links_title">Støttede nettlenker</string>
+    <string name="app_links_description">På Android 12+ åpnes lenker til støttede domener i nettleseren din som standard med mindre de er godkjent</string>
+    <string name="app_links_unverified_banner_title">Nettlenker ikke verifisert</string>
+    <string name="app_links_unverified_banner_description">Støttede nettlenker åpnes for øyeblikket i nettleseren din i stedet for denne appen</string>
+    <string name="app_links_enable_auto">Aktiver automatisk</string>
+    <string name="app_links_enable_auto_in_progress">Aktiverer lenker…</string>
+    <string name="app_links_open_settings">Åpne lenkeinnstillinger</string>
+    <string name="app_links_repair_success">App-lenker ble aktivert</string>
     <string name="patcher_rename_title">Dette vil installere en klon</string>
     <string name="patcher_rename_description">Patchene bygde denne appen under et eget pakkenavn, så installasjonen legger til en klon sammen med &lt;b&gt;%s&lt;/b&gt; i stedet for å oppdatere den</string>
     <string name="patcher_rename_result_package">Vil installere som</string>
@@ -562,8 +570,6 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="patcher_back_to_game_hint">Trykk %1$s for å gå tilbake til spillet ditt.</string>
     <string name="patcher_storage_permission_dialog_title">Kan ikke få tilgang til lagringsbane</string>
     <string name="patcher_incompatible_patcher_title">Oppdatering kreves</string>
-    <string name="patcher_incompatible_patcher_description">Pakken &lt;b&gt;%1$s&lt;/b&gt; krever patcher-versjon &lt;b&gt;%2$s&lt;/b&gt; eller nyere. Oppdater Morphe for å patche denne appen</string>
-    <string name="patcher_incompatible_patcher_update_button">Last ned og oppdater Morphe</string>
     <string name="patcher_storage_permission_description_api30">Én eller flere patch-alternativer peker til baner som Morphe ikke kan lese. Gi tilgang til lagring og trykk på knappen, så starter patching automatisk</string>
     <string name="patcher_storage_permission_description_legacy">Ett eller flere patch-alternativer peker til baner som ikke kan nås. Oppdater banene i patch-alternativene og prøv igjen</string>
     <string name="patcher_storage_permission_grant">Gi lagringstillatelse</string>

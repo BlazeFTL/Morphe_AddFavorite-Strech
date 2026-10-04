@@ -145,7 +145,7 @@
     <string name="sources_apps_leave_out_done">แยกออกแล้ว</string>
     <string name="sources_apps_bring_back">นำกลับมา</string>
     <string name="sources_management_prerelease_toggle">แพตช์ก่อนเปิดตัว</string>
-    <string name="sources_management_prerelease_toggle_description">รับสิทธิ์เข้าถึงแพทช์ใหม่เวอร์ชันทดลองแต่เนิ่นๆ</string>
+    <string name="sources_management_prerelease_toggle_description">รับสิทธิ์เข้าถึงแพตช์ใหม่เวอร์ชันทดลองแต่เนิ่นๆ</string>
     <string name="sources_prerelease_warning_title">เปิดใช้แพตช์ก่อนเผยแพร่หรือไม่?</string>
     <string name="sources_prerelease_warning_message">บิลด์ก่อนเผยแพร่ยังอยู่ระหว่างการพัฒนา แพตช์อาจล้มเหลวหรือทำให้แอปเสียหาย และฟีเจอร์อาจเปลี่ยนแปลงได้โดยไม่มีการแจ้งเตือน</string>
     <string name="expert_mode_prerelease_notice">แหล่งที่มานี้อยู่ในแพตช์ก่อนเผยแพร่ การแพตช์อาจล้มเหลวหรือทำงานผิดปกติ</string>
@@ -478,6 +478,15 @@
     <string name="home_app_info_app_deleted_warning">แอปถูกถอนการติดตั้ง</string>
     <string name="home_app_info_app_deleted_description">แอปนี้ถูกลบออกนอก Morphe. แพตช์อีกครั้งเพื่อฟื้นฟูฟังก์ชัน</string>
     <string name="home_app_info_not_patched_description">แอปเวอร์ชันที่ไม่ได้รับการแพตช์ถูกติดตั้งไว้ Morphe ยังคงมีบันทึกแพตช์ก่อนหน้า</string>
+    <string name="app_links_title">ลิงก์เว็บที่รองรับ</string>
+    <string name="app_links_description">บน Android 12+ ลิงก์ไปยังโดเมนที่รองรับจะเปิดในเบราว์เซอร์ของคุณโดยค่าเริ่มต้น เว้นแต่จะได้รับการอนุมัติ</string>
+    <string name="app_links_unverified_banner_title">ลิงก์เว็บที่ไม่ได้รับการยืนยัน</string>
+    <string name="app_links_unverified_banner_description">ขณะนี้ลิงก์เว็บที่รองรับเปิดในเบราว์เซอร์ของคุณแทนที่จะเป็นในแอปนี้</string>
+    <string name="app_links_enable_auto">เปิดใช้โดยอัตโนมัติ</string>
+    <string name="app_links_enable_auto_in_progress">กำลังเปิดใช้ลิงก์…</string>
+    <string name="app_links_open_settings">เปิดการตั้งค่าลิงก์</string>
+    <string name="app_links_repair_success">เปิดใช้ลิงก์แอปสำเร็จแล้ว</string>
+    <string name="app_links_badge_disabled">ปิดการใช้งานอยู่</string>
     <string name="patcher_rename_title">การดำเนินการนี้จะติดตั้งโคลน</string>
     <string name="patcher_rename_description">แพตช์ได้สร้างแอปนี้ภายใต้ชื่อแพ็คเกจของตนเอง ดังนั้นการติดตั้งจะเพิ่มโคลนควบคู่ไปกับ &lt;b&gt;%s&lt;/b&gt; แทนที่จะอัปเดต</string>
     <string name="patcher_rename_result_package">จะติดตั้งเป็น</string>
@@ -562,8 +571,6 @@
     <string name="patcher_back_to_game_hint">แตะ %1$s เพื่อกลับไปยังเกมของคุณ</string>
     <string name="patcher_storage_permission_dialog_title">ไม่สามารถเข้าถึงเส้นทางเก็บข้อมูล</string>
     <string name="patcher_incompatible_patcher_title">จำเป็นต้องอัปเดต</string>
-    <string name="patcher_incompatible_patcher_description">ชุดข้อมูล &lt;b&gt;%1$s&lt;/b&gt; จำเป็นต้องใช้ตัวแพตช์เวอร์ชัน &lt;b&gt;%2$s&lt;/b&gt; หรือใหม่กว่า โปรดอัปเดต Morphe เพื่อแพตช์แอปนี้</string>
-    <string name="patcher_incompatible_patcher_update_button">ดาวน์โหลดและอัปเดต Morphe</string>
     <string name="patcher_storage_permission_description_api30">ตัวเลือกแพตช์อย่างน้อยหนึ่งรายการชี้ไปยังพาธที่ Morphe ไม่สามารถอ่านได้ ให้สิทธิ์การเข้าถึงพื้นที่เก็บข้อมูลและแตะปุ่ม จากนั้นการแพตช์จะเริ่มทำงานโดยอัตโนมัติ</string>
     <string name="patcher_storage_permission_description_legacy">ตัวเลือกแพตช์บางตัวอ้างอิงไปยังเส้นทางที่ไม่สามารถเข้าถึงได้ อัปเดตเส้นทางในตัวเลือกแพตช์และลองใหม่อีกครั้ง</string>
     <string name="patcher_storage_permission_grant">ยืนยันสิทธิ์การเข้าถึงเก็บข้อมูล</string>
@@ -994,9 +1001,9 @@ morphe_header_custom_dark.png
     <string name="settings_system_process_runtime_description">เรียกใช้การแพตช์ในกระบวนการแยกต่างหากเพื่อเพิ่มความเสถียร</string>
     <string name="settings_system_process_runtime_memory_limit_description">ขีดจำกัดที่สูงขึ้นช่วยเพิ่มความเร็วในการแพตช์บนอุปกรณ์ที่รองรับ</string>
     <string name="settings_system_process_runtime_enable">เปิดใช้การทำงานของโปรเซส</string>
-    <string name="settings_system_memory_limit_subtitle">ขนาดความจำที่ใช้สำหรับการแพตช์</string>
+    <string name="settings_system_memory_limit_subtitle">ขนาดหน่วยความจำที่ใช้สำหรับการแพตช์</string>
     <string name="settings_system_process_runtime_heap_limit_ignored">อุปกรณ์นี้เพิกเฉยต่อขีดจำกัดหน่วยความจำในการรันครั้งล่าสุด ดังนั้นการแพตช์อาจย้อนกลับไปทำงานภายใน Morphe</string>
-    <string name="settings_system_memory_limit_warning">ขนาดความจำต่ำหรืออาจทำให้การนำพัท์ล้ม</string>
+    <string name="settings_system_memory_limit_warning">ขีดจำกัดหน่วยความจำต่ำอาจทำให้เกิดความล้มเหลวเมื่อทำการแพตช์แอปขนาดใหญ่</string>
     <string name="settings_system_memory_limit_high_warning">ขีดจำกัดหน่วยความจำที่สูงอาจทำให้การแพตช์ช้าลงมากบนอุปกรณ์บางเครื่อง ให้เพิ่มเฉพาะเมื่อการแพตช์ล้มเหลวที่ขีดจำกัดต่ำกว่า</string>
     <string name="settings_system_process_runtime_enabled_description">%s MB จำกัด</string>
     <string name="settings_system_process_runtime_disabled_description">คลิกเพื่อตั้งค่า</string>
@@ -1049,7 +1056,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_import_manager_settings_mode_title">นำเข้าการตั้งค่า Morphe</string>
     <string name="settings_system_import_manager_settings_mode_description">เลือกวิธีการใช้การตั้งค่าและแหล่งที่มาที่นำเข้า</string>
     <string name="settings_system_import_selections_mode_title">นำเข้าการเลือกแพตช์</string>
-    <string name="settings_system_import_selections_mode_description">เลือกวิธีการนำเข้าตัวเลือกที่เลือกและตัวเลือกการแพทช์ไปใช้</string>
+    <string name="settings_system_import_selections_mode_description">เลือกวิธีการนำเข้าตัวเลือกที่เลือกและตัวเลือกการแพตช์ไปใช้</string>
     <string name="import_mode_replace_title">แทนที่ที่มีอยู่</string>
     <string name="import_mode_replace_description">ตรงกับข้อมูลสำรองอย่างแน่นอน รายการที่ไม่มีในข้อมูลสำรองจะถูกลบออก</string>
     <string name="import_mode_merge_title">รวมเข้ากับที่มีอยู่</string>
@@ -1104,7 +1111,7 @@ morphe_header_custom_dark.png
     <string name="settings_system_patched_apks_deleted">ลบ APK ที่แพตช์สำเร็จ</string>
     <string name="settings_system_patched_apks_delete_all_title">ลบ APK ที่แพตช์ทั้งหมด?</string>
     <!-- Settings - System Tab - Storage Management - Original APKs Management -->
-    <string name="settings_system_original_apks_title">ลบแอปต้นฉบับ %s? คุณไม่สามารถนำพัท์แอปใหม่ได้</string>
+    <string name="settings_system_original_apks_title">APK ต้นฉบับ</string>
     <string name="settings_system_original_apks_description">บันทึกไว้สำหรับการแพตช์ซ้ำ เก็บเวอร์ชันละหนึ่งรายการต่อแอป</string>
     <string name="settings_system_original_apks_empty">ไม่มี APK ต้นฉบับเก็บไว้</string>
     <string name="settings_system_original_apks_deleted">ลบ APK ต้นฉบับสำเร็จ</string>

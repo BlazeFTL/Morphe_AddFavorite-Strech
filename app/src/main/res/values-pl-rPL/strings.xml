@@ -372,7 +372,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="adaptive_icon_create">Utwórz ikonę adaptacyjną</string>
     <string name="adaptive_icon_select_image">Wybierz obraz</string>
     <string name="adaptive_icon_change_image">Zmień obraz</string>
-    <string name="image_load_failed">Nie można było wczytać tego obrazu</string>
+    <string name="image_load_failed">Nie udało się wczytać tego obrazu</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Obraz pierwszoplanowy</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -479,6 +479,16 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_app_deleted_warning">Aplikacja została odinstalowana</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacja została odinstalowana poza Morphe. Zmodyfikuj ją ponownie, aby przywrócić jej funkcjonalność</string>
     <string name="home_app_info_not_patched_description">Zainstalowano niezmodyfikowaną wersję tej aplikacji. Morphe wciąż posiada zapis jej poprzedniej modyfikacji</string>
+    <string name="app_links_title">Obsługiwane linki internetowe</string>
+    <string name="app_links_description">Na Androidzie 12+ linki do obsługiwanych domen otwierają się domyślnie w przeglądarce, chyba że zostały zatwierdzone</string>
+    <string name="app_links_unverified_banner_title">Linki internetowe niezweryfikowane</string>
+    <string name="app_links_unverified_banner_description">Obsługiwane linki internetowe otwierają się obecnie w przeglądarce zamiast w tej aplikacji</string>
+    <string name="app_links_enable_auto">Włącz automatycznie</string>
+    <string name="app_links_enable_auto_in_progress">Włączanie linków…</string>
+    <string name="app_links_open_settings">Otwórz ustawienia linków</string>
+    <string name="app_links_repair_success">Linki aplikacji zostały pomyślnie włączone</string>
+    <string name="app_links_badge_enabled">Włączone</string>
+    <string name="app_links_badge_disabled">Wyłączona</string>
     <string name="patcher_rename_title">To zainstaluje klona</string>
     <string name="patcher_rename_description">Modyfikacje zbudowały tę aplikację pod własną nazwą pakietu, więc jej instalacja doda klona obok &lt;b&gt;%s&lt;/b&gt; zamiast ją aktualizować</string>
     <string name="patcher_rename_result_package">Zainstaluje się jako</string>
@@ -563,8 +573,6 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patcher_back_to_game_hint">Dotknij %1$s, aby wrócić do gry</string>
     <string name="patcher_storage_permission_dialog_title">Brak dostępu do ścieżki pamięci</string>
     <string name="patcher_incompatible_patcher_title">Wymagana aktualizacja</string>
-    <string name="patcher_incompatible_patcher_description">Pakiet &lt;b&gt;%1$s&lt;/b&gt; wymaga modyfikatora w wersji &lt;b&gt;%2$s&lt;/b&gt; lub nowszej. Zaktualizuj Morphe, aby zmodyfikować tę aplikację</string>
-    <string name="patcher_incompatible_patcher_update_button">Pobierz i zaktualizuj Morphe</string>
     <string name="patcher_storage_permission_description_api30">Przynajmniej jedna opcja modyfikacji wskazuje na ścieżki, których Morphe nie może odczytać. Przyznaj dostęp do pamięci i dotknij przycisk, a modyfikowanie rozpocznie się automatycznie</string>
     <string name="patcher_storage_permission_description_legacy">Przynajmniej jedna opcji modyfikacji wskazuje na ścieżki, do których nie można uzyskać dostępu. Zaktualizuj ścieżki w opcjach i spróbuj ponownie</string>
     <string name="patcher_storage_permission_grant">Przyznaj uprawnienia dostępu do pamięci</string>

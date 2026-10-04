@@ -274,6 +274,8 @@
     <string name="home_app_info_patch_update_available_description">Достапна е нова верзија на закрпи. Закрпете ја вашата апликација за да ги добиете најновите подобрувања и поправки</string>
     <string name="home_app_info_app_deleted_warning">Апликацијата беше деинсталирана</string>
     <string name="home_app_info_app_deleted_description">Оваа апликација беше деинсталирана надвор од Morphe. Повторно закрпете ја за да ја вратите функционалноста</string>
+    <string name="app_links_badge_enabled">Овозможено</string>
+    <string name="app_links_badge_disabled">Оневозможено</string>
     <string name="home_app_info_apk_size">Големина на APK</string>
     <!-- Home Screen - Root Mode -->
     <string name="root_install_apk_required">Оригиналниот APK не е пронајден. Не можете повторно да закрпите оваа апликација</string>
@@ -309,8 +311,6 @@
     <string name="patcher_ready_to_mount_subtitle">Притиснете го копчето подолу за да монтирате</string>
     <string name="patcher_storage_permission_dialog_title">Не може да пристапи до патеката за складиште</string>
     <string name="patcher_incompatible_patcher_title">Бара ажурирање</string>
-    <string name="patcher_incompatible_patcher_description">Пакувањето &lt;b&gt;%1$s&lt;/b&gt; бара верзија на закрпувач &lt;b&gt;%2$s&lt;/b&gt; или понова. Ве молиме ажурирајте го Morphe за да го закрпите оваа апликација</string>
-    <string name="patcher_incompatible_patcher_update_button">Преземете и ажурирајте го Morphe</string>
     <string name="patcher_storage_permission_description_api30">Еден или повеќе опции за закрпување укажуваат на патеки до кои Morphe не може да пристапи. Доделете пристап до складиште и допрете го копчето, а потоа закрпувањето ќе започне автоматски</string>
     <string name="patcher_storage_permission_description_legacy">Еден или повеќе опции за закрпи укажуваат на патеки до кои не можете да пристапите. Ажурирајте ги патеките во опциите за закрпи и обидете се повторно</string>
     <string name="patcher_storage_permission_grant">Додели пристап до складиште</string>

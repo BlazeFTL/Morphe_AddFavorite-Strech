@@ -477,6 +477,14 @@
     <string name="home_app_info_app_deleted_warning">Приложението беше деинсталирано</string>
     <string name="home_app_info_app_deleted_description">Това приложение беше деинсталирано извън Morphe. Поправете го отново, за да възстановите функционалността</string>
     <string name="home_app_info_not_patched_description">Инсталирана е версия без пачове на това приложение. Morphe все още има своя предишен запис за пач</string>
+    <string name="app_links_title">Поддържани уеб връзки</string>
+    <string name="app_links_description">На Android 12+ връзките към поддържани домейни по подразбиране се отварят в браузъра, освен ако не са одобрени</string>
+    <string name="app_links_unverified_banner_title">Непроверени уеб връзки</string>
+    <string name="app_links_unverified_banner_description">Поддържаните уеб връзки в момента се отварят в браузъра вместо в това приложение</string>
+    <string name="app_links_enable_auto">Автоматично активиране</string>
+    <string name="app_links_enable_auto_in_progress">Активиране на връзките…</string>
+    <string name="app_links_open_settings">Отваряне на настройките за връзки</string>
+    <string name="app_links_repair_success">Връзките към приложението са активирани успешно</string>
     <string name="patcher_rename_title">Това ще инсталира клонинг</string>
     <string name="patcher_rename_description">Пачовете изградиха това приложение под собствено име на пакет, така че инсталирането му добавя клонинг до &lt;b&gt;%s&lt;/b&gt;, вместо да го актуализира</string>
     <string name="patcher_rename_result_package">Ще се инсталира като</string>
@@ -561,8 +569,6 @@
     <string name="patcher_back_to_game_hint">Докоснете %1$s, за да се върнете към играта си</string>
     <string name="patcher_storage_permission_dialog_title">Не е възможно да се достъпи до пата за съхранение</string>
     <string name="patcher_incompatible_patcher_title">Необходима е актуализация</string>
-    <string name="patcher_incompatible_patcher_description">Пакетът &lt;b&gt;%1$s&lt;/b&gt; изисква версия на пачера &lt;b&gt;%2$s&lt;/b&gt; или по-нова. Моля, актуализирайте Morphe, за да пачнете това приложение</string>
-    <string name="patcher_incompatible_patcher_update_button">Изтеглете и актуализирайте Morphe</string>
     <string name="patcher_storage_permission_description_api30">Една или повече опции за корекции сочат към пътища, които Morphe не може да прочете. Предоставете достъп до хранилището и натиснете бутона, след което корекциите ще започнат автоматично</string>
     <string name="patcher_storage_permission_description_legacy">Едно или повече опции за патч сочат към пътища, които не могат да бъдат достъпени. Актуализирайте пътищата в опциите за патч и опитайте отново</string>
     <string name="patcher_storage_permission_grant">Дайте разрешение за съхранение</string>

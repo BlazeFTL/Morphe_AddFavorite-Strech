@@ -476,6 +476,14 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_app_deleted_warning">App var afhent</string>
     <string name="home_app_info_app_deleted_description">Þetta app var afhent utan Morphe. Endurpakkalaðu það til að endurheimta virkni</string>
     <string name="home_app_info_not_patched_description">Óplötuð útgáfa af þessu forriti er uppsett. Morphe hefur enn fyrri plástursskrá sína</string>
+    <string name="app_links_title">Studdir veftenglar</string>
+    <string name="app_links_description">Á Android 12+ opnast tenglar á studd lén sjálfgefið í vafranum þínum nema þeir séu samþykktir</string>
+    <string name="app_links_unverified_banner_title">Veftenglar ekki staðfestir</string>
+    <string name="app_links_unverified_banner_description">Studdir veftenglar opnast nú í vafranum þínum í staðinn fyrir þetta forrit</string>
+    <string name="app_links_enable_auto">Virkja sjálfkrafa</string>
+    <string name="app_links_enable_auto_in_progress">Er að virkja tengla…</string>
+    <string name="app_links_open_settings">Opna tenglastillingar</string>
+    <string name="app_links_repair_success">Tókst að virkja forritstengla</string>
     <string name="patcher_rename_title">Þetta mun setja upp klón</string>
     <string name="patcher_rename_description">Plástrarnir byggðu þetta forrit undir pakkanafni sínu, svo að uppsetning þess bætir við klóni við hliðina á <b>%s</b> í stað þess að uppfæra það</string>
     <string name="patcher_rename_result_package">Mun setja upp sem</string>
@@ -560,8 +568,6 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patcher_back_to_game_hint">Ýttu á %1$s til að fara aftur í leikinn</string>
     <string name="patcher_storage_permission_dialog_title">Ekki hægt að fá aðgang að geymslushörðu</string>
     <string name="patcher_incompatible_patcher_title">Uppfærsla krafist</string>
-    <string name="patcher_incompatible_patcher_description">Pakkinn &lt;b&gt;%1$s&lt;/b&gt; krefst Morphe útgáfu &lt;b&gt;%2$s&lt;/b&gt; eða nýrri. Vinsamlegast uppfæra Morphe til að breyta þessari forrit</string>
-    <string name="patcher_incompatible_patcher_update_button">Sæktu og uppfæra Morphe</string>
     <string name="patcher_storage_permission_description_api30">Einn eða fleiri pakkningaval benda á slóð sem Morphe gat ekki lesið. Veittu geymsluheimild og smelltu á hnappinn þá mun pakkningin hefjast sjálfkrafa</string>
     <string name="patcher_storage_permission_description_legacy">Einn eða fleiri pakkningaval benda á slóð sem ekkert lið veitir aðgang að. Endurskoða slóðir í pakkningavalum og reyndu aftur</string>
     <string name="patcher_storage_permission_grant">Veittu geymsluheimild</string>

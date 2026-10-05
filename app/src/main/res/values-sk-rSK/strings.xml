@@ -557,6 +557,7 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="patcher_failed_title">Ups! Niečo sa pokazilo</string>
     <string name="patcher_failed_dialog_title">Oprava zlyhala</string>
     <string name="patcher_error_details">Podrobnosti chyby</string>
+    <string name="patcher_change_patches">Zmeniť záplaty</string>
     <string name="patcher_unknown_error">Vyskytla sa neznáma chyba</string>
     <string name="patcher_split_step_extracting">Extrahujem rozdelené APK</string>
     <string name="patcher_split_step_merging">Zlúčim %s</string>

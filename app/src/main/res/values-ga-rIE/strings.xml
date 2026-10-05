@@ -481,9 +481,9 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="app_links_title">Naisc ghréasáin thacaithe</string>
     <string name="app_links_description">Ar Android 12+, osclaítear naisc chuig fearainn thacaithe i do bhrabhsálaí go réamhshocraithe mura gceadaítear iad</string>
     <string name="app_links_unverified_banner_title">Naisc ghréasáin gan fíorú</string>
-    <string name="app_links_unverified_banner_description">Faoi láthair, osclaítear naisc ghréasáin thacaithe i do bhrabhsálaí seachas an aip seo</string>
+    <string name="app_links_unverified_banner_description">Osclaítear na naisc ghréasáin a dtacaítear leo i do bhrabhsálaí faoi láthair, seachas san aip seo.</string>
     <string name="app_links_enable_auto">Cumasaigh go huathoibríoch</string>
-    <string name="app_links_enable_auto_in_progress">Naisc á gcumasú…</string>
+    <string name="app_links_enable_auto_in_progress">Ag cumasú na naisc…</string>
     <string name="app_links_open_settings">Oscail socruithe naisc</string>
     <string name="app_links_repair_success">Cumasaíodh naisc aip go rathúil</string>
     <string name="app_links_repair_failed">Theip ar naisc aipeanna a chumasú go huathoibríoch</string>

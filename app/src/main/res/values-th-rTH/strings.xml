@@ -557,6 +557,7 @@
     <string name="patcher_failed_title">อุ๊ย! เกิดข้อผิดพลาดบางอย่างขึ้น</string>
     <string name="patcher_failed_dialog_title">การแพตช์ล้มเหลว</string>
     <string name="patcher_error_details">รายละเอียดข้อผิดพลาด</string>
+    <string name="patcher_change_patches">เปลี่ยนแพตช์</string>
     <string name="patcher_unknown_error">เกิดข้อผิดพลาดที่ไม่รู้จัก</string>
     <string name="patcher_split_step_extracting">กำลังแยกไฟล์ APK</string>
     <string name="patcher_split_step_merging">กำลังรวม %s</string>

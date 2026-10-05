@@ -557,6 +557,7 @@
     <string name="patcher_failed_title">Ой! Что-то пошло не так</string>
     <string name="patcher_failed_dialog_title">Установка патча не удалась</string>
     <string name="patcher_error_details">Сведения об ошибке</string>
+    <string name="patcher_change_patches">Изменить патчи</string>
     <string name="patcher_unknown_error">Произошла неизвестная ошибка</string>
     <string name="patcher_split_step_extracting">Извлечение разделенных APK</string>
     <string name="patcher_split_step_merging">Объединение %s</string>

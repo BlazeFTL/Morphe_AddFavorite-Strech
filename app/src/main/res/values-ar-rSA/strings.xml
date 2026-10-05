@@ -557,7 +557,7 @@
     <string name="patcher_failed_title">عفوًا! حدث خطأ ما</string>
     <string name="patcher_failed_dialog_title">فشل التعديل</string>
     <string name="patcher_error_details">تفاصيل الخطأ</string>
-    <string name="patcher_change_patches">تغيير التصحيحات</string>
+    <string name="patcher_change_patches">تغيير التعديلات</string>
     <string name="patcher_unknown_error">حدث خطأ غير معروف</string>
     <string name="patcher_split_step_extracting">استخراج ملفات APK المقسمة</string>
     <string name="patcher_split_step_merging">دمج %s</string>

@@ -557,6 +557,7 @@
     <string name="patcher_failed_title">Упс! Дошло је до грешке</string>
     <string name="patcher_failed_dialog_title">Закрапа није успела</string>
     <string name="patcher_error_details">Детаљи грешке</string>
+    <string name="patcher_change_patches">Промени закрпе</string>
     <string name="patcher_unknown_error">Дошло је до непознате грешке</string>
     <string name="patcher_split_step_extracting">Екстракција подељених APK-ова</string>
     <string name="patcher_split_step_merging">Спајање %s</string>

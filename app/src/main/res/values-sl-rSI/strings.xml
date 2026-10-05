@@ -557,6 +557,7 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="patcher_failed_title">Ojoj! Nekaj je šlo narobe</string>
     <string name="patcher_failed_dialog_title">Popravljanje je spodletelo</string>
     <string name="patcher_error_details">Podrobnosti napake</string>
+    <string name="patcher_change_patches">Spremeni popravke</string>
     <string name="patcher_unknown_error">Prišlo je do neznane napake</string>
     <string name="patcher_split_step_extracting">Izvlečenje razdeljenih datotek APK</string>
     <string name="patcher_split_step_merging">Združevanje %s</string>

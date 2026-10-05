@@ -557,6 +557,7 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador
     <string name="patcher_failed_title">¡Ups! Algo salió mal</string>
     <string name="patcher_failed_dialog_title">Error al aplicar el parche</string>
     <string name="patcher_error_details">Detalles del error</string>
+    <string name="patcher_change_patches">Cambiar parches</string>
     <string name="patcher_unknown_error">Ocurrió un error desconocido</string>
     <string name="patcher_split_step_extracting">Extrayendo APKs divididos</string>
     <string name="patcher_split_step_merging">Fusionando %s</string>

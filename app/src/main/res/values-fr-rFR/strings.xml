@@ -560,7 +560,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="patcher_failed_title">Oups ! Quelque chose s\'est mal passé</string>
     <string name="patcher_failed_dialog_title">Échec du patching</string>
     <string name="patcher_error_details">Détails de l\'erreur</string>
-    <string name="patcher_change_patches">Modifier les correctifs</string>
+    <string name="patcher_change_patches">Changer les patchs</string>
     <string name="patcher_unknown_error">Une erreur inconnue s\'est produite</string>
     <string name="patcher_split_step_extracting">Extraction des APK fractionnés</string>
     <string name="patcher_split_step_merging">Fusion de %s</string>

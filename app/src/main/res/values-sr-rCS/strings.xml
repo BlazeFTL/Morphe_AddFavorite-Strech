@@ -557,6 +557,7 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="patcher_failed_title">Ups! Nešto je pošlo po zlu</string>
     <string name="patcher_failed_dialog_title">Pečanje je neuspešno</string>
     <string name="patcher_error_details">Detalji greške</string>
+    <string name="patcher_change_patches">Promeni zakrpe</string>
     <string name="patcher_unknown_error">Dogodila se nepoznata greška</string>
     <string name="patcher_split_step_extracting">Ekstrahovanje split APK-ova</string>
     <string name="patcher_split_step_merging">Spajanje %s</string>

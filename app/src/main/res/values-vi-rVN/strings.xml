@@ -559,6 +559,7 @@ Nếu không, APK đã vá và được gắn có thể sẽ không hoạt độ
     <string name="patcher_failed_title">Ui, có lỗi xảy ra rồi!</string>
     <string name="patcher_failed_dialog_title">Không thể vá</string>
     <string name="patcher_error_details">Chi tiết lỗi</string>
+    <string name="patcher_change_patches">Thay đổi bản vá</string>
     <string name="patcher_unknown_error">Đã xảy ra lỗi không xác định</string>
     <string name="patcher_split_step_extracting">Đang giải nén các APK chia nhỏ</string>
     <string name="patcher_split_step_merging">Đang gộp %s</string>

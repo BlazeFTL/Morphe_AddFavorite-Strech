@@ -557,6 +557,7 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="patcher_failed_title">Eyvah! Bir şeyler ters gitti</string>
     <string name="patcher_failed_dialog_title">Yamalama başarısız oldu</string>
     <string name="patcher_error_details">Hata ayrıntıları</string>
+    <string name="patcher_change_patches">Yamaları değiştir</string>
     <string name="patcher_unknown_error">Bilinmeyen bir hata oluştu</string>
     <string name="patcher_split_step_extracting">Bölünmüş APK\'ler ayıklanıyor</string>
     <string name="patcher_split_step_merging">%s birleştiriliyor</string>

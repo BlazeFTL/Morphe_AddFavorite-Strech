@@ -557,6 +557,7 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="patcher_failed_title">Ups! Ceva nu a mers bine</string>
     <string name="patcher_failed_dialog_title">Aplicarea patch-ului a eșuat</string>
     <string name="patcher_error_details">Detalii eroare</string>
+    <string name="patcher_change_patches">Schimbă patch-urile</string>
     <string name="patcher_unknown_error">A apărut o eroare necunoscută</string>
     <string name="patcher_split_step_extracting">Extragerea fișierelor APK divizate</string>
     <string name="patcher_split_step_merging">Îmbinarea %s</string>

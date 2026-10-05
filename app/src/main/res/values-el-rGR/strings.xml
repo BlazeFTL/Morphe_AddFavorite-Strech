@@ -4,13 +4,13 @@
     <string name="home_other_apps">Άλλες εφαρμογές</string>
     <string name="home_other_apps_action">Επιλογή άλλων εφαρμογών</string>
     <string name="home_not_patched_yet">Δεν τροποποιήθηκε ακόμη</string>
-    <string name="home_unpatched_version_installed">Εγκαταστάθηκε μη τροποποιημένη έκδοση</string>
+    <string name="home_unpatched_version_installed">Εγκαταστάθηκε η μη τροποποιημένη έκδοση</string>
     <string name="home_unpatched_badge">Δεν τροποποιήθηκε</string>
     <string name="home_no_patches_available">Δεν υπάρχουν διαθέσιμες τροποποιήσεις</string>
     <string name="home_app_hide_title"> Απόκρυψη αυτής της εφαρμογής;</string>
     <string name="home_app_hide_message">Αυτή η εφαρμογή θα αποκρυφθεί από την αρχική οθόνη. Μπορείτε να την επαναφέρετε αργότερα από τις κρυφές εφαρμογές χρησιμοποιώντας το κουμπί στο κάτω μέρος της λίστας</string>
     <string name="home_app_will_be_hidden">Αυτή η εφαρμογή θα αποκρυφθεί</string>
-    <string name="home_app_no_hidden">Καμία κρυφή εφαρμογή</string>
+    <string name="home_app_no_hidden">Καμία κρυμμένη εφαρμογή</string>
     <string name="home_app_hidden_apps_title">Κρυφές εφαρμογές</string>
     <string name="home_app_hidden_apps_hint">Πατήστε για επανεμφάνιση</string>
     <string name="home_app_patch_sources_description">Οι πηγές που δεν είναι επιλεγμένες δεν προσφέρονται όταν αυτές οι εφαρμογές διορθώνονται, και οι διορθώσεις αυτών των πηγών δεν συμπεριλαμβάνονται ποτέ από μόνες τους σε μια επιλογή. Κάθε πηγή παραμένει ενεργή για κάθε άλλη εφαρμογή.</string>

@@ -108,7 +108,7 @@
     <!-- Afternoon greetings (12:00–16:59) -->
     <string name="home_greeting_afternoon_1">Eftermiddagssvacka? Modifiera något</string>
     <string name="home_greeting_afternoon_2">Modifiering efter lunchen har en annan känsla</string>
-    <string name="home_greeting_afternoon_3">Eftermiddagsskiftet: modifieringsutgåvan</string>
+    <string name="home_greeting_afternoon_3">Eftermiddagsskift: modifieringsutgåva</string>
     <!-- Evening greetings (17:00–21:59) -->
     <string name="home_greeting_evening_1">God kväll! Modifiering på kvällen har en annan känsla</string>
     <string name="home_greeting_evening_2">Varvar du ned? Modifiera en app först</string>
@@ -557,6 +557,7 @@ Yttre zonen (streckad): kan beskäras av startprogrammets mask – håll viktiga
     <string name="patcher_failed_title">Hoppsan! Något gick fel</string>
     <string name="patcher_failed_dialog_title">Modifieringen misslyckades</string>
     <string name="patcher_error_details">Feluppgifter</string>
+    <string name="patcher_change_patches">Ändra tillägg</string>
     <string name="patcher_unknown_error">Okänt fel uppstod</string>
     <string name="patcher_split_step_extracting">Extraherar delade APK-filer</string>
     <string name="patcher_split_step_merging">Slår samman %s</string>

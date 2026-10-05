@@ -262,6 +262,8 @@ Tout ce que vous ajoutez depuis ce site web est utilisé à vos propres risques"
     <string name="home_download_instructions_step4_mount">Après avoir installé l\'APK d\'origine, revenez sur Morphe</string>
     <string name="home_download_instructions_continue_to">Continuer vers %s</string>
     <string name="home_download_instructions_destination">la page de téléchargement</string>
+    <string name="home_download_instructions_copy_link">Copier le lien</string>
+    <string name="home_download_instructions_link_copied">Lien copié</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Sélectionner l\'APK téléchargé</string>
     <string name="home_file_picker_prompt_description">Sélectionnez le fichier APK &lt;b&gt;%s&lt;/b&gt; que vous venez de télécharger</string>
@@ -278,6 +280,7 @@ Tout ce que vous ajoutez depuis ce site web est utilisé à vos propres risques"
     <string name="home_installed_app_picker_filter_system">Applications système uniquement</string>
     <string name="home_invalid_apk_unreadable">Impossible de lire le fichier. Vérifiez que le \'Stockage externe\' n\'est pas restreint par la batterie</string>
     <string name="home_invalid_apk_not_an_apk">Le fichier sélectionné n\'est pas un APK valide</string>
+    <string name="home_invalid_apk_already_patched">L\'APK sélectionné est déjà patché. Sélectionnez plutôt l\'application originale</string>
     <string name="home_invalid_apk_io_error">Échec de l\'ouverture du fichier. Veuillez réessayer</string>
     <string name="home_external_apk_expert_mode_required">Cette fonctionnalité est uniquement disponible en mode Expert</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -370,6 +373,7 @@ Pour de meilleurs résultats, cette application recommande d'effectuer le patchi
     <string name="adaptive_icon_create">Créer une icône adaptative</string>
     <string name="adaptive_icon_select_image">Sélectionner une image</string>
     <string name="adaptive_icon_change_image">Changer d\'image</string>
+    <string name="image_load_failed">Impossible de charger cette image</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Image de premier plan</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -477,6 +481,20 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="home_app_info_app_deleted_description">Cette application a été désinstallée en dehors de Morphe. Re-patchez-la pour restaurer les fonctionnalités
 </string>
     <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
+    <string name="app_links_title">Liens web pris en charge</string>
+    <string name="app_links_description">Sur Android 12 et plus, les liens vers les domaines pris en charge s\'ouvrent par défaut dans votre navigateur, sauf s\'ils sont approuvés</string>
+    <string name="app_links_unverified_banner_title">Liens web non vérifiés</string>
+    <string name="app_links_unverified_banner_description">Les liens web pris en charge s\'ouvrent actuellement dans votre navigateur au lieu de cette application</string>
+    <string name="app_links_enable_auto">Activer automatiquement</string>
+    <string name="app_links_enable_auto_in_progress">Activation des liens…</string>
+    <string name="app_links_open_settings">Ouvrir les paramètres des liens</string>
+    <string name="app_links_repair_success">Liens d\'application activés avec succès</string>
+    <string name="app_links_repair_failed">Échec de l\'activation automatique des liens d\'application</string>
+    <string name="app_links_badge_enabled">Activé</string>
+    <string name="app_links_badge_disabled">Désactivé</string>
+    <string name="app_links_all_verified">Tous les liens pris en charge sont configurés pour s\'ouvrir dans cette application</string>
+    <string name="app_links_fix">Corriger les liens</string>
+    <string name="configure">Configurer</string>
     <string name="patcher_rename_title">Cela installera un clone</string>
     <string name="patcher_rename_description">Les patchs ont compilé cette application sous leur propre nom de paquet, donc l\'installer ajoute un clone à côté de <b>%s</b> au lieu de le mettre à jour</string>
     <string name="patcher_rename_result_package">Sera installé en tant que</string>
@@ -542,6 +560,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="patcher_failed_title">Oups ! Quelque chose s\'est mal passé</string>
     <string name="patcher_failed_dialog_title">Échec du patching</string>
     <string name="patcher_error_details">Détails de l\'erreur</string>
+    <string name="patcher_change_patches">Changer les patchs</string>
     <string name="patcher_unknown_error">Une erreur inconnue s\'est produite</string>
     <string name="patcher_split_step_extracting">Extraction des APK fractionnés</string>
     <string name="patcher_split_step_merging">Fusion de %s</string>
@@ -561,8 +580,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_back_to_game_hint">Appuyez sur %1$s pour revenir à votre jeu</string>
     <string name="patcher_storage_permission_dialog_title">Impossible d\'accéder au chemin de stockage</string>
     <string name="patcher_incompatible_patcher_title">Mise à jour nécessaire</string>
-    <string name="patcher_incompatible_patcher_description">Le bundle &lt;b&gt;%1$s&lt;/b&gt; nécessite la version &lt;b&gt;%2$s&lt;/b&gt; du patcheur ou une version plus récente. Veuillez mettre à jour Morphe pour patcher cette application</string>
-    <string name="patcher_incompatible_patcher_update_button">Télécharger et mettre à jour Morphe</string>
+    <string name="patcher_incompatible_patcher_description">La source &lt;b&gt;%1$s&lt;/b&gt; nécessite le patcheur &lt;b&gt;%2$s&lt;/b&gt; ou une version plus récente. Mettez à jour Morphe pour pouvoir l\'utiliser</string>
     <string name="patcher_storage_permission_description_api30">Une ou plusieurs options de patch pointent vers des chemins que Morphe ne peut pas lire. Accordez l\'accès au stockage puis appuyez sur le bouton le patching commencera automatiquement</string>
     <string name="patcher_storage_permission_description_legacy">Une ou plusieurs options de patch pointent vers des chemins inaccessibles. Mettez à jour les chemins dans les options de patch puis réessayez</string>
     <string name="patcher_storage_permission_grant">Accorder l\'autorisation d\'accès au stockage</string>
@@ -1154,6 +1172,7 @@ Détails : %2$s"</string>
     <string name="file_picker_internal_storage">Stockage interne</string>
     <string name="file_picker_sd_card">Carte SD</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Stockages</string>
     <string name="file_picker_sort_name_asc">Nom (A–Z)</string>
     <string name="file_picker_sort_name_desc">Nom (Z–A)</string>
     <string name="file_picker_sort_size_desc">Taille (du plus grand au plus petit)</string>
@@ -1272,7 +1291,7 @@ Détails : %2$s"</string>
     <string name="remount">Remonter</string>
     <string name="share">Partager</string>
     <string name="install">Installer</string>
-    <string name="installed">Installé</string>
+    <string name="installed">Installée</string>
     <string name="reinstall">Réinstaller</string>
     <string name="uninstall">Désinstaller</string>
     <string name="uninstalled">Désinstallée</string>
@@ -1301,6 +1320,7 @@ Détails : %2$s"</string>
     <string name="changelog_download_fail">Échec du téléchargement du journal des modifications : %s</string>
     <string name="changelog_empty">Aucun journal des modifications disponible</string>
     <string name="changelog_earlier_releases">Versions précédentes</string>
+    <string name="changelog_patched_with">Patchée avec %s</string>
     <string name="changelog_older_empty">Aucune version antérieure à afficher</string>
     <string name="changelog_older_failed">Impossible de charger les anciennes versions</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1315,7 +1335,7 @@ Détails : %2$s"</string>
     <string name="changelog_section_improvements">Améliorations</string>
     <string name="changelog_section_app_support">Prise en charge des applications</string>
     <string name="changelog_section_other">Changements</string>
-    <string name="changelog_badge_latest">Dernier</string>
+    <string name="changelog_badge_latest">Dernière</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_downloaded">Téléchargée</string>
     <string name="changelog_badge_prerelease">Préversion</string>

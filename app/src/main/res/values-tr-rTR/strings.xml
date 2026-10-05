@@ -259,6 +259,8 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="home_download_instructions_step4_mount">Orijinal APK\'yi yükledikten sonra Morphe\'ye geri dönün</string>
     <string name="home_download_instructions_continue_to">%s sayfasına devam edin</string>
     <string name="home_download_instructions_destination">indirme sayfası</string>
+    <string name="home_download_instructions_copy_link">Bağlantıyı kopyala</string>
+    <string name="home_download_instructions_link_copied">Bağlantı kopyalandı</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">İndirilen APK\'yi seç</string>
     <string name="home_file_picker_prompt_description">İndirdiğiniz &lt;b&gt;%s&lt;/b&gt; APK dosyasını seçin</string>
@@ -275,6 +277,7 @@ Bu web sitesinden eklediğiniz her şey kendi sorumluluğunuzdadır."</string>
     <string name="home_installed_app_picker_filter_system">Yalnızca sistem uygulamaları</string>
     <string name="home_invalid_apk_unreadable">Dosya okunamadı. \'Harici Depolama\'nın pil kısıtlaması olmadığından emin olun</string>
     <string name="home_invalid_apk_not_an_apk">Seçilen dosya geçerli bir APK değil</string>
+    <string name="home_invalid_apk_already_patched">Seçilen APK zaten yamalı. Bunun yerine orijinal uygulamayı seçin</string>
     <string name="home_invalid_apk_io_error">Dosya açılamadı. Lütfen tekrar deneyin</string>
     <string name="home_external_apk_expert_mode_required">Bu özellik yalnızca Uzman modunda kullanılabilir</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ En iyi sonuçlar için bu uygulama, &lt;b&gt;tam APK&lt;/b&gt; dosyasını yamal
     <string name="adaptive_icon_create">Adaptif simge oluştur</string>
     <string name="adaptive_icon_select_image">Resim seç</string>
     <string name="adaptive_icon_change_image">Resmi değiştir</string>
+    <string name="image_load_failed">Bu görsel yüklenemedi</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Ön plan görüntüsü</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="home_app_info_app_deleted_warning">Uygulama kaldırıldı</string>
     <string name="home_app_info_app_deleted_description">Bu uygulama Morphe dışından kaldırıldı. İşlevselliği geri getirmek için yeniden yamalayın</string>
     <string name="home_app_info_not_patched_description">Bu uygulamanın yamalanmamış bir sürümü yüklü. Morphe hâlâ önceki yama kaydına sahiptir</string>
+    <string name="app_links_title">Desteklenen web bağlantıları</string>
+    <string name="app_links_description">Android 12 ve sonraki sürümlerde, desteklenen alan adlarına ait bağlantılar, onay verilmediği sürece varsayılan olarak tarayıcınızda açılır.</string>
+    <string name="app_links_unverified_banner_title">Web bağlantıları doğrulanmadı</string>
+    <string name="app_links_unverified_banner_description">Desteklenen web bağlantıları şu anda bu uygulama yerine tarayıcınızda açılıyor.</string>
+    <string name="app_links_enable_auto">Otomatik olarak etkinleştir</string>
+    <string name="app_links_enable_auto_in_progress">Bağlantılar etkinleştiriliyor…</string>
+    <string name="app_links_open_settings">Bağlantı ayarlarını aç</string>
+    <string name="app_links_repair_success">Uygulama bağlantıları başarıyla etkinleştirildi</string>
+    <string name="app_links_repair_failed">Uygulama bağlantıları otomatik olarak etkinleştirilemedi</string>
+    <string name="app_links_badge_enabled">Etkin</string>
+    <string name="app_links_badge_disabled">Devre dışı</string>
+    <string name="app_links_all_verified">Desteklenen tüm bağlantılar, bu uygulamada açılacak şekilde yapılandırılmıştır.</string>
+    <string name="app_links_fix">Bağlantıları düzelt</string>
+    <string name="configure">Yapılandır</string>
     <string name="patcher_rename_title">Bu bir klon yükleyecek</string>
     <string name="patcher_rename_description">Yamalar bu uygulamayı kendi paket adlarıyla oluşturdu, bu yüzden yüklemek, onu güncellemek yerine &lt;b&gt;%s&lt;/b&gt; yanına bir klon ekler</string>
     <string name="patcher_rename_result_package">Olarak yüklenecek</string>
@@ -539,6 +557,7 @@ Dış bölge (kesikli): launcher maskesi tarafından kırpılabilir - önemli ay
     <string name="patcher_failed_title">Eyvah! Bir şeyler ters gitti</string>
     <string name="patcher_failed_dialog_title">Yamalama başarısız oldu</string>
     <string name="patcher_error_details">Hata ayrıntıları</string>
+    <string name="patcher_change_patches">Yamaları değiştir</string>
     <string name="patcher_unknown_error">Bilinmeyen bir hata oluştu</string>
     <string name="patcher_split_step_extracting">Bölünmüş APK\'ler ayıklanıyor</string>
     <string name="patcher_split_step_merging">%s birleştiriliyor</string>
@@ -558,8 +577,7 @@ Kaldırma işlemi tüm uygulama verilerini kalıcı olarak silecektir"</string>
     <string name="patcher_back_to_game_hint">Geri dönmek için %1$s\'e dokunun</string>
     <string name="patcher_storage_permission_dialog_title">Depolama yoluna erişilemiyor</string>
     <string name="patcher_incompatible_patcher_title">Güncelleme gerekiyor</string>
-    <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; paketi, &lt;b&gt;%2$s&lt;/b&gt; veya daha yeni patcher sürümü gerektiriyor. Bu uygulamayı yamalamak için lütfen Morphe\'yi güncelleyin</string>
-    <string name="patcher_incompatible_patcher_update_button">Morphe\'yi indir ve güncelle</string>
+    <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; kaynağı, &lt;b&gt;%2$s&lt;/b&gt; veya daha yeni bir yamalayıcı sürümü gerektiriyor. Bu kaynağı kullanmak için Morphe’yi güncelleyin.</string>
     <string name="patcher_storage_permission_description_api30">Bir veya daha fazla yama seçeneği, Morphe\'nin okuyamadığı yollara işaret ediyor. Depolama erişimini verin ve düğmeye dokunun, ardından yamalama otomatik olarak başlayacaktır</string>
     <string name="patcher_storage_permission_description_legacy">Bir veya daha fazla yama seçeneği, erişilemeyen yollara işaret ediyor. Yama seçeneklerindeki yolları güncelleyin ve tekrar deneyin</string>
     <string name="patcher_storage_permission_grant">Depolama izni verin</string>
@@ -1148,6 +1166,7 @@ Ayrıntılar: %2$s"</string>
     <string name="file_picker_internal_storage">Dahili depolama</string>
     <string name="file_picker_sd_card">SD kart</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Depolama Alanları</string>
     <string name="file_picker_sort_name_asc">Ad (A–Z)</string>
     <string name="file_picker_sort_name_desc">Ad (Z–A)</string>
     <string name="file_picker_sort_size_desc">Boyut (en büyüğü önce)</string>
@@ -1295,6 +1314,7 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_download_fail">Değişiklik günlüğü indirilemedi: %s</string>
     <string name="changelog_empty">Değişiklik günlüğü yok</string>
     <string name="changelog_earlier_releases">Önceki sürümler</string>
+    <string name="changelog_patched_with">%s ile yamalandı</string>
     <string name="changelog_older_empty">Gösterilebilecek daha eski sürüm yok</string>
     <string name="changelog_older_failed">Daha eski sürümler yüklenemedi</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

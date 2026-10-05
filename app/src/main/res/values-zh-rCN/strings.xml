@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">安装原始APK后，返回Morphe</string>
     <string name="home_download_instructions_continue_to">继续前往 %s</string>
     <string name="home_download_instructions_destination">下载页面</string>
+    <string name="home_download_instructions_copy_link">复制链接</string>
+    <string name="home_download_instructions_link_copied">链接已复制</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">选择下载的 APK</string>
     <string name="home_file_picker_prompt_description">选择您刚刚下载的&lt;b&gt;%s&lt;/b&gt; APK 文件</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">仅系统应用</string>
     <string name="home_invalid_apk_unreadable">无法读取文件。请检查“外部存储”是否被限制电池使用</string>
     <string name="home_invalid_apk_not_an_apk">所选文件不是有效的 APK</string>
+    <string name="home_invalid_apk_already_patched">所选 APK 已被修补。请改为选择原始应用</string>
     <string name="home_invalid_apk_io_error">无法打开文件。请重试</string>
     <string name="home_external_apk_expert_mode_required">此功能仅在专家模式下可用</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@
     <string name="adaptive_icon_create">创建自适应图标</string>
     <string name="adaptive_icon_select_image">选择图像</string>
     <string name="adaptive_icon_change_image">更改图像</string>
+    <string name="image_load_failed">无法加载此图片</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">前景图像</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@
     <string name="home_app_info_app_deleted_warning">应用已卸载</string>
     <string name="home_app_info_app_deleted_description">此应用已在 Morphe 外卸载。重新安装以恢复功能</string>
     <string name="home_app_info_not_patched_description">此应用安装的是未修补版本。Morphe仍保留其先前的补丁记录。</string>
+    <string name="app_links_title">支持的网页链接</string>
+    <string name="app_links_description">在 Android 12 及更高版本中，指向受支持域的链接默认会在浏览器中打开，除非已获得批准</string>
+    <string name="app_links_unverified_banner_title">网页链接未经验证</string>
+    <string name="app_links_unverified_banner_description">受支持的网页链接目前会在您的浏览器中打开，而不是在此应用中打开</string>
+    <string name="app_links_enable_auto">自动启用</string>
+    <string name="app_links_enable_auto_in_progress">正在启用链接……</string>
+    <string name="app_links_open_settings">打开链接设置</string>
+    <string name="app_links_repair_success">应用链接已成功启用</string>
+    <string name="app_links_repair_failed">自动启用应用链接失败</string>
+    <string name="app_links_badge_enabled">已启用</string>
+    <string name="app_links_badge_disabled">已禁用</string>
+    <string name="app_links_all_verified">所有受支持的链接均已配置为在此应用中打开</string>
+    <string name="app_links_fix">修复链接</string>
+    <string name="configure">配置</string>
     <string name="patcher_rename_title">这将安装一个克隆</string>
     <string name="patcher_rename_description">补丁以它们自己的包名构建了这个应用，因此安装它会添加一个克隆，与 &lt;b&gt;%s&lt;/b&gt; 并列，而不是更新它。</string>
     <string name="patcher_rename_result_package">将安装为</string>
@@ -539,6 +557,7 @@
     <string name="patcher_failed_title">哎呀！出现错误</string>
     <string name="patcher_failed_dialog_title">补丁失败</string>
     <string name="patcher_error_details">错误详情</string>
+    <string name="patcher_change_patches">更改补丁</string>
     <string name="patcher_unknown_error">发生未知错误</string>
     <string name="patcher_split_step_extracting">提取拆分 APK</string>
     <string name="patcher_split_step_merging">合并 %s</string>
@@ -558,8 +577,7 @@
     <string name="patcher_back_to_game_hint">点击%1$s返回游戏</string>
     <string name="patcher_storage_permission_dialog_title">无法访问存储路径</string>
     <string name="patcher_incompatible_patcher_title">更新要求</string>
-    <string name="patcher_incompatible_patcher_description">该补丁包&lt;b&gt;%1$s&lt;/b&gt;需要补丁程序版本&lt;b&gt;%2$s&lt;/b&gt;或更高版本。请更新 Morphe 以补丁此应用</string>
-    <string name="patcher_incompatible_patcher_update_button">下载并更新 Morphe</string>
+    <string name="patcher_incompatible_patcher_description">源 &lt;b&gt;%1$s&lt;/b&gt; 需要修补程序 &lt;b&gt;%2$s&lt;/b&gt; 或更高版本。更新 Morphe 以使用它</string>
     <string name="patcher_storage_permission_description_api30">一个或多个补丁选项指向Morphe无法读取的路径。授予存储访问权限并点击按钮，然后补丁将自动开始</string>
     <string name="patcher_storage_permission_description_legacy">一个或多个补丁选项指向无法访问的路径。更新补丁选项中的路径，然后重试</string>
     <string name="patcher_storage_permission_grant">授予存储权限</string>
@@ -1149,6 +1167,7 @@ morphe_header_custom_dark.png
     <string name="file_picker_internal_storage">内部存储空间</string>
     <string name="file_picker_sd_card">SD卡</string>
     <string name="file_picker_root">根目录 (/)</string>
+    <string name="file_picker_storages">存储</string>
     <string name="file_picker_sort_name_asc">名称 (A–Z)</string>
     <string name="file_picker_sort_name_desc">名称 (Z–A)</string>
     <string name="file_picker_sort_size_desc">大小 (从大到小)</string>
@@ -1296,6 +1315,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">下载更新日志失败：%s</string>
     <string name="changelog_empty">无可用更新日志</string>
     <string name="changelog_earlier_releases">更早的版本</string>
+    <string name="changelog_patched_with">已使用 %s 修补</string>
     <string name="changelog_older_empty">没有更多旧版本显示</string>
     <string name="changelog_older_failed">无法加载更早的版本</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

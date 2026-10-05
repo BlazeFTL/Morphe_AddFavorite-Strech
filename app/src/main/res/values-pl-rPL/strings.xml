@@ -260,6 +260,8 @@ Wszystko, co dodasz z tej strony, używasz na własne ryzyko"</string>
     <string name="home_download_instructions_step4_mount">Po zainstalowaniu oryginalnego pliku APK wróć do Morphe</string>
     <string name="home_download_instructions_continue_to">Przejdź do %s</string>
     <string name="home_download_instructions_destination">strony pobierania</string>
+    <string name="home_download_instructions_copy_link">Skopiuj link</string>
+    <string name="home_download_instructions_link_copied">Skopiowano link</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Wybierz pobrany plik APK</string>
     <string name="home_file_picker_prompt_description">Wybierz pobrany przed chwilą plik APK &lt;b&gt;%s&lt;/b&gt;</string>
@@ -276,6 +278,7 @@ Wszystko, co dodasz z tej strony, używasz na własne ryzyko"</string>
     <string name="home_installed_app_picker_filter_system">Tylko aplikacje systemowe</string>
     <string name="home_invalid_apk_unreadable">Nie udało się odczytać pliku. Sprawdź, czy \"Pamięć zewnętrzna\" nie ma włączonych ograniczeń baterii</string>
     <string name="home_invalid_apk_not_an_apk">Wybrany plik nie jest prawidłowym plikiem APK</string>
+    <string name="home_invalid_apk_already_patched">Wybrany plik APK został już zmodyfikowany. Zamiast tego wybierz oryginalną aplikację</string>
     <string name="home_invalid_apk_io_error">Nie udało się otworzyć pliku. Spróbuj ponownie</string>
     <string name="home_external_apk_expert_mode_required">Ta funkcja jest dostępna tylko w trybie eksperckim</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -369,6 +372,7 @@ Aby uzyskać najlepszy efekt, zalecamy zmodyfikowanie &lt;b&gt;pełnego pliku AP
     <string name="adaptive_icon_create">Utwórz ikonę adaptacyjną</string>
     <string name="adaptive_icon_select_image">Wybierz obraz</string>
     <string name="adaptive_icon_change_image">Zmień obraz</string>
+    <string name="image_load_failed">Nie udało się wczytać tego obrazu</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Obraz pierwszoplanowy</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -475,6 +479,20 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_app_deleted_warning">Aplikacja została odinstalowana</string>
     <string name="home_app_info_app_deleted_description">Ta aplikacja została odinstalowana poza Morphe. Zmodyfikuj ją ponownie, aby przywrócić jej funkcjonalność</string>
     <string name="home_app_info_not_patched_description">Zainstalowano niezmodyfikowaną wersję tej aplikacji. Morphe wciąż posiada zapis jej poprzedniej modyfikacji</string>
+    <string name="app_links_title">Obsługiwane linki internetowe</string>
+    <string name="app_links_description">W systemie Android 12+ linki do obsługiwanych domen otwierają się domyślnie w przeglądarce, chyba że zostaną zatwierdzone</string>
+    <string name="app_links_unverified_banner_title">Niezweryfikowane linki internetowe</string>
+    <string name="app_links_unverified_banner_description">Obsługiwane linki internetowe otwierają się obecnie w przeglądarce zamiast w tej aplikacji</string>
+    <string name="app_links_enable_auto">Włącz automatycznie</string>
+    <string name="app_links_enable_auto_in_progress">Włączanie linków…</string>
+    <string name="app_links_open_settings">Otwórz ustawienia linków</string>
+    <string name="app_links_repair_success">Pomyślnie włączono linki aplikacji</string>
+    <string name="app_links_repair_failed">Nie udało się automatycznie włączyć linków aplikacji</string>
+    <string name="app_links_badge_enabled">Włączone</string>
+    <string name="app_links_badge_disabled">Wyłączone</string>
+    <string name="app_links_all_verified">Wszystkie obsługiwane linki są skonfigurowane tak, aby otwierać się w tej aplikacji</string>
+    <string name="app_links_fix">Napraw linki</string>
+    <string name="configure">Konfiguruj</string>
     <string name="patcher_rename_title">To zainstaluje klona</string>
     <string name="patcher_rename_description">Modyfikacje zbudowały tę aplikację pod własną nazwą pakietu, więc jej instalacja doda klona obok &lt;b&gt;%s&lt;/b&gt; zamiast ją aktualizować</string>
     <string name="patcher_rename_result_package">Zainstaluje się jako</string>
@@ -540,6 +558,7 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="patcher_failed_title">Ups! Coś poszło nie tak</string>
     <string name="patcher_failed_dialog_title">Błąd modyfikacji</string>
     <string name="patcher_error_details">Szczegóły błędu</string>
+    <string name="patcher_change_patches">Zmień modyfikacje</string>
     <string name="patcher_unknown_error">Wystąpił nieznany błąd</string>
     <string name="patcher_split_step_extracting">Wyodrębnianie podzielonych plików APK</string>
     <string name="patcher_split_step_merging">Scalanie %s</string>
@@ -559,8 +578,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patcher_back_to_game_hint">Dotknij %1$s, aby wrócić do gry</string>
     <string name="patcher_storage_permission_dialog_title">Brak dostępu do ścieżki pamięci</string>
     <string name="patcher_incompatible_patcher_title">Wymagana aktualizacja</string>
-    <string name="patcher_incompatible_patcher_description">Pakiet &lt;b&gt;%1$s&lt;/b&gt; wymaga modyfikatora w wersji &lt;b&gt;%2$s&lt;/b&gt; lub nowszej. Zaktualizuj Morphe, aby zmodyfikować tę aplikację</string>
-    <string name="patcher_incompatible_patcher_update_button">Pobierz i zaktualizuj Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Źródło &lt;b&gt;%1$s&lt;/b&gt; wymaga modyfikatora w wersji &lt;b&gt;%2$s&lt;/b&gt; lub nowszej. Zaktualizuj Morphe, aby go używać</string>
     <string name="patcher_storage_permission_description_api30">Przynajmniej jedna opcja modyfikacji wskazuje na ścieżki, których Morphe nie może odczytać. Przyznaj dostęp do pamięci i dotknij przycisk, a modyfikowanie rozpocznie się automatycznie</string>
     <string name="patcher_storage_permission_description_legacy">Przynajmniej jedna opcji modyfikacji wskazuje na ścieżki, do których nie można uzyskać dostępu. Zaktualizuj ścieżki w opcjach i spróbuj ponownie</string>
     <string name="patcher_storage_permission_grant">Przyznaj uprawnienia dostępu do pamięci</string>
@@ -1150,6 +1168,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="file_picker_internal_storage">Pamięć wewnętrzna</string>
     <string name="file_picker_sd_card">Karta SD</string>
     <string name="file_picker_root">Katalog główny (/)</string>
+    <string name="file_picker_storages">Nośniki pamięci</string>
     <string name="file_picker_sort_name_asc">Nazwa (A - Z)</string>
     <string name="file_picker_sort_name_desc">Nazwa (Z - A)</string>
     <string name="file_picker_sort_size_desc">Rozmiar (od największego)</string>
@@ -1297,6 +1316,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="changelog_download_fail">Nie udało się pobrać historii zmian: %s</string>
     <string name="changelog_empty">Brak dostępnej historii zmian</string>
     <string name="changelog_earlier_releases">Wcześniejsze wydania</string>
+    <string name="changelog_patched_with">Zmodyfikowano przy użyciu %s</string>
     <string name="changelog_older_empty">Brak starszych wersji do wyświetlenia</string>
     <string name="changelog_older_failed">Nie udało się wczytać starszych wydań</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

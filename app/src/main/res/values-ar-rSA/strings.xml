@@ -42,7 +42,7 @@
     <string name="home_update_skipped_metered_subtitle">بيانات الجوّال نشطة</string>
     <string name="home_updating_sources">جارٍ تحديث المصادر…</string>
     <string name="home_update_success">اكتمل تحديث المصادر</string>
-    <string name="home_update_success_subtitle">مصادرك محدثة</string>
+    <string name="home_update_success_subtitle">تم تحديث المصادر</string>
     <string name="home_sources_are_loading">جارٍ تحميل المصادر، يرجى الانتظار…</string>
     <string name="home_search_apps">البحث عن التطبيقات</string>
     <string name="home_app_list_options_title">فرز وتصفية</string>
@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">بعد تثبيت ملف APK الأصلي، ارجع إلى Morphe</string>
     <string name="home_download_instructions_continue_to">متابعة إلى %s</string>
     <string name="home_download_instructions_destination">صفحة التنزيل</string>
+    <string name="home_download_instructions_copy_link">نسخ الرابط</string>
+    <string name="home_download_instructions_link_copied">تم نسخ الرابط</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">تحديد ملف APK الذي تم تنزيله</string>
     <string name="home_file_picker_prompt_description">الآن حدد ملف APK &lt;b&gt;%s&lt;/b&gt; الذي قمت بتنزيله للتو</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">تطبيقات النظام فقط</string>
     <string name="home_invalid_apk_unreadable">⁯لا يمكن قراءة الملف. تحقق من أن \'وحدة التخزين الخارجية\' غير مقيدة بالبطارية</string>
     <string name="home_invalid_apk_not_an_apk">الملف المحدد ليس ملف APK صالحًا</string>
+    <string name="home_invalid_apk_already_patched">ملف APK المحدد تم تعديله بالفعل. يرجى اختيار التطبيق الأصلي بدلًا منه</string>
     <string name="home_invalid_apk_io_error">فشل فتح الملف. الرجاء المحاولة مرة أخرى</string>
     <string name="home_external_apk_expert_mode_required">هذه الميزة متاحة فقط في وضع الخبير</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@
     <string name="adaptive_icon_create">إنشاء أيقونة تكيفية</string>
     <string name="adaptive_icon_select_image">تحديد صورة</string>
     <string name="adaptive_icon_change_image">تغيير الصورة</string>
+    <string name="image_load_failed">تعذر تحميل هذه الصورة</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">صورة المقدمة</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@
     <string name="home_app_info_app_deleted_warning">التطبيق غير مثبت</string>
     <string name="home_app_info_app_deleted_description">تم إلغاء تثبيت هذا التطبيق من خارج Morphe. اعد تعديله لاستعادة الوظائف</string>
     <string name="home_app_info_not_patched_description">تم تثبيت إصدار غير معدل من هذا التطبيق. لا يزال Morphe يحتفظ بسجل التعديل السابق</string>
+    <string name="app_links_title">روابط الويب المدعومة</string>
+    <string name="app_links_description">على أندرويد 12+، تُفتح روابط النطاقات المدعومة في متصفحك افتراضيًا ما لم تتم الموافقة عليها</string>
+    <string name="app_links_unverified_banner_title">روابط الويب غير الموثَّقة</string>
+    <string name="app_links_unverified_banner_description">تُفتح روابط الويب المدعومة حاليًا في متصفحك بدلًا من هذا التطبيق</string>
+    <string name="app_links_enable_auto">تمكين تلقائيًا</string>
+    <string name="app_links_enable_auto_in_progress">جارٍ تمكين الروابط…</string>
+    <string name="app_links_open_settings">فتح إعدادات الروابط</string>
+    <string name="app_links_repair_success">تم تمكين روابط التطبيق بنجاح</string>
+    <string name="app_links_repair_failed">تعذّر تمكين روابط التطبيقات تلقائيًا</string>
+    <string name="app_links_badge_enabled">تمكين</string>
+    <string name="app_links_badge_disabled">معطّل</string>
+    <string name="app_links_all_verified">تم تكوين جميع الروابط المدعومة لتُفتح في هذا التطبيق</string>
+    <string name="app_links_fix">إصلاح الروابط</string>
+    <string name="configure">تكوين</string>
     <string name="patcher_rename_title">سيؤدي هذا إلى تثبيت نسخة مستنسخة</string>
     <string name="patcher_rename_description">تم إنشاء هذا التطبيق باستخدام اسم حزمة مختلف بسبب التعديلات، لذا فإن تثبيته سيضيف نسخة مستنسخة إلى جانب &lt;b&gt;%s&lt;/b&gt; بدلًا من تحديثه</string>
     <string name="patcher_rename_result_package">سيتم التثبيت كـ</string>
@@ -539,6 +557,7 @@
     <string name="patcher_failed_title">عفوًا! حدث خطأ ما</string>
     <string name="patcher_failed_dialog_title">فشل التعديل</string>
     <string name="patcher_error_details">تفاصيل الخطأ</string>
+    <string name="patcher_change_patches">تغيير التعديلات</string>
     <string name="patcher_unknown_error">حدث خطأ غير معروف</string>
     <string name="patcher_split_step_extracting">استخراج ملفات APK المقسمة</string>
     <string name="patcher_split_step_merging">دمج %s</string>
@@ -558,8 +577,7 @@
     <string name="patcher_back_to_game_hint">انقر على %1$s للعودة إلى لعبتك</string>
     <string name="patcher_storage_permission_dialog_title">لا يمكن الوصول إلى مسار التخزين</string>
     <string name="patcher_incompatible_patcher_title">التحديث مطلوب</string>
-    <string name="patcher_incompatible_patcher_description">تتطلب الحزمة &lt;b&gt;%1$s&lt;/b&gt; إصدار أداة التعديل &lt;b&gt;%2$s&lt;/b&gt; أو أحدث. يرجى تحديث Morphe لتعديل هذا التطبيق</string>
-    <string name="patcher_incompatible_patcher_update_button">تنزيل وتحديث Morphe</string>
+    <string name="patcher_incompatible_patcher_description">المصدر &lt;b&gt;%1$s&lt;/b&gt; يتطلب أداة التعديل &lt;b&gt;%2$s&lt;/b&gt; أو إصدارًا أحدث. حدِّث Morphe لاستخدامها</string>
     <string name="patcher_storage_permission_description_api30">إحدى خيارات التعديل أو أكثر تشير إلى مسارات لا يمكن لـ Morphe قراءتها. قم بتخصيص الوصول إلى التخزين وانقر على الزر ثم سيبدأ التعديل تلقائيًا</string>
     <string name="patcher_storage_permission_description_legacy">يشير خيار واحد أو أكثر من خيارات التعديل إلى مسارات لا يمكن الوصول إليها. قم بتحديث المسارات في خيارات التعديل وحاول مرة أخرى</string>
     <string name="patcher_storage_permission_grant">منح إذن الوصول</string>
@@ -1154,6 +1172,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="file_picker_internal_storage">التخزين الداخلي</string>
     <string name="file_picker_sd_card">الذاكرة الخارجية SD</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">التخزين</string>
     <string name="file_picker_sort_name_asc">الاسم (A–Z)</string>
     <string name="file_picker_sort_name_desc">الاسم (Z–A)</string>
     <string name="file_picker_sort_size_desc">الحجم (الأكبر أولًا)</string>
@@ -1301,6 +1320,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_download_fail">فشل تنزيل سجل التغييرات: %s</string>
     <string name="changelog_empty">لا يتوفر سجل تغييرات</string>
     <string name="changelog_earlier_releases">الإصدارات السابقة</string>
+    <string name="changelog_patched_with">تم التعديل باستخدام %s</string>
     <string name="changelog_older_empty">لا توجد إصدارات أقدم لعرضها</string>
     <string name="changelog_older_failed">تعذّر تحميل الإصدارات الأقدم</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

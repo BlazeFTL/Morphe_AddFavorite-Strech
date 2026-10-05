@@ -259,6 +259,8 @@ Bu veb saytdan əlavə etdiyiniz hər şey öz riskinizlə istifadə olunur"</st
     <string name="home_download_instructions_step4_mount">Əsil APK-nı quraşdırandan sonra, Morphe-yə qayıt</string>
     <string name="home_download_instructions_continue_to">%s ilə davam et</string>
     <string name="home_download_instructions_destination">yükləmə səhifəsi</string>
+    <string name="home_download_instructions_copy_link">Linki köçür</string>
+    <string name="home_download_instructions_link_copied">Link köçürüldü</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Yüklənilmiş APK-nı seç</string>
     <string name="home_file_picker_prompt_description">İndicə yüklədiyiniz &lt;b&gt;%s&lt;/b&gt; APK faylını seçin</string>
@@ -275,6 +277,7 @@ Bu veb saytdan əlavə etdiyiniz hər şey öz riskinizlə istifadə olunur"</st
     <string name="home_installed_app_picker_filter_system">Ancaq sistem tətbiqləri</string>
     <string name="home_invalid_apk_unreadable">Faylı oxumaq mümkün olmadı. \'Xarici Saxlancın\' batareya məhdudiyyətli olmadığını yoxlayın</string>
     <string name="home_invalid_apk_not_an_apk">Seçilən fayl yararlı APK deyil</string>
+    <string name="home_invalid_apk_already_patched">Seçilmiş APK artıq yamaqlanıb. Əvəzinə orijinal tətbiqi seç</string>
     <string name="home_invalid_apk_io_error">Faylı açmaq olmadı. Xahiş olunur, təkrar cəhd et</string>
     <string name="home_external_apk_expert_mode_required">Bu xüsusiyyət yalnız mütəxəssis rejimində əlçatandır</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ Davam etmək istədiyinizə əminsiniz?"</string>
     <string name="adaptive_icon_create">Uyğun simvol yarat</string>
     <string name="adaptive_icon_select_image">Şəkil seçin</string>
     <string name="adaptive_icon_change_image">Şəkli dəyişdir</string>
+    <string name="image_load_failed">Bu şəkli yükləmək olmadı</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Ön plan şəkli</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@ Xarici sahə (ştrixli): başladıcı örtüyündən kəsilə bilər - mühüm h
     <string name="home_app_info_app_deleted_warning">Tətbiq quraşdırması silindi</string>
     <string name="home_app_info_app_deleted_description">Bu tətbiq Morphe xarici silindi. Funksionallığı qaytarmaq üçün onu təkrar quraşdır</string>
     <string name="home_app_info_not_patched_description">Bu tətbiqin yamaqlanmamış versiyası quraşdırılıb. Morphe-də hələ də əvvəlki yamaq qeydi qalır</string>
+    <string name="app_links_title">Dəstəklənən veb linklər</string>
+    <string name="app_links_description">Android 12+\'da, dəstəklənən domenlərin keçidləri təsdiqlənmədiyi təqdirdə standarta görə brauzerinizdə açılır</string>
+    <string name="app_links_unverified_banner_title">Veb linklər təsdiqlənməyib</string>
+    <string name="app_links_unverified_banner_description">Dəstəklənən veb keçidlər hazırda bu tətbiq əvəzinə brauzerinizdə açılır</string>
+    <string name="app_links_enable_auto">Avtomatik olaraq aktivləşdir</string>
+    <string name="app_links_enable_auto_in_progress">Linklər aktivləşdirilir…</string>
+    <string name="app_links_open_settings">Link tənzimləmələrini aç</string>
+    <string name="app_links_repair_success">Tətbiq linkləri uğurla aktivləşdirildi</string>
+    <string name="app_links_repair_failed">Tətbiq linklərini avtomatik aktivləşdirmək olmadı</string>
+    <string name="app_links_badge_enabled">Aktivdir</string>
+    <string name="app_links_badge_disabled">Qapalıdı</string>
+    <string name="app_links_all_verified">Bütün dəstəklənən keçidlər bu tətbiqdə açılmaq üçün tənzimlənib</string>
+    <string name="app_links_fix">Linkləri düzəlt</string>
+    <string name="configure">Tənzimlə</string>
     <string name="patcher_rename_title">Bu dublikatı quraşdıracaq</string>
     <string name="patcher_rename_description">Yamaqlar bu tətbiqi öz paket adı altında qurdu, bu səbəbdən quraşdırmaq onu yeniləmək əvəzinə &lt;b&gt;%s&lt;/b&gt; ilə birlikdə dublikatını əlavə edir</string>
     <string name="patcher_rename_result_package">Bu adla quraşdırılacaq</string>
@@ -555,11 +573,10 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="patcher_install_error_subtitle">Silməyə və təkrar quraşdırmağa çalış</string>
     <string name="patcher_ready_to_mount_subtitle">Montajlamaq üçün aşağıdakı düyməyə toxun</string>
     <string name="patcher_patches_excluded_for_installer">Bu quraşdırma üsulu üçün əlçatan deyil və xaric edilib: %s</string>
-    <string name="patcher_back_to_game_hint">Oyununuza qayıtmaq üçün %1$s toxunun</string>
+    <string name="patcher_back_to_game_hint">Oyununuza qayıtmaq üçün %1$s kliklə</string>
     <string name="patcher_storage_permission_dialog_title">Saxlanc keçidinə keçmək olmur</string>
     <string name="patcher_incompatible_patcher_title">Yenilənmə tələb olundu</string>
-    <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; paketi &lt;b&gt;%2$s&lt;/b&gt; və ya daha yeni versiya yamaqlayıcı tələb edir. Xahiş olunur, bu tətbiqi yamaqlamaq üçün Morphe-ni yenilə</string>
-    <string name="patcher_incompatible_patcher_update_button">Morphe-ni yüklə və yenilə</string>
+    <string name="patcher_incompatible_patcher_description">&lt;b&gt;%1$s&lt;/b&gt; mənbəsi &lt;b&gt;%2$s&lt;/b&gt; və ya daha yeni yamaqlayıcı tələb edir. Onu istifadə etmək üçün Morphe-ni yenilə</string>
     <string name="patcher_storage_permission_description_api30">Bir və ya daha çox yamaq seçimi Morphe-nin oxuya bilmədiyi yolları işarə edir. Saxlanc girişin qəbul et və düyməyə toxun, sonra yamaqlanma birbaşa başlayacaq</string>
     <string name="patcher_storage_permission_description_legacy">Bir və ya daha çox yamaq seçimi giriş olmayan yolları göstərir. Yamaq seçimlərindəki yolları yeniləyin və təkrar cəhd edin</string>
     <string name="patcher_storage_permission_grant">Saxlanc icazəsin qəbul et</string>
@@ -661,6 +678,8 @@ Quraşdırma ləğvi bütün tətbiq məlumatını qalıcı siləcək"</string>
     <string name="mini_game_try_again">Təkrar cəhd et</string>
     <string name="mini_game_paused">Fasilə edildi</string>
     <string name="mini_game_resume">Davam et</string>
+    <string name="mini_game_restart">Yenidən başla</string>
+    <string name="mini_game_change">Başqa bir oyun seç</string>
     <string name="mini_game_2048_picker_subtitle">Birləşdirmək üçün xanaları sürüşdür</string>
     <string name="mini_game_flappy_picker_subtitle">Borular arasından uçmaq üçün toxun</string>
     <string name="mini_game_flappy_tap_to_start">Uçmaq üçün toxun</string>
@@ -1144,6 +1163,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="file_picker_internal_storage">Daxili yaddaş yeri</string>
     <string name="file_picker_sd_card">SD kart</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Saxlanclar</string>
     <string name="file_picker_sort_name_asc">Ad (A–Z)</string>
     <string name="file_picker_sort_name_desc">Ad (Z–A)</string>
     <string name="file_picker_sort_size_desc">Həcm (əvvəlcə ən çox)</string>
@@ -1291,6 +1311,7 @@ Təfərrüatlar: %2$s"</string>
     <string name="changelog_download_fail">Dəyişiklik jurnalın yükləmək olmadı: %s</string>
     <string name="changelog_empty">Dəyişiklik jurnalı mövcud deyil</string>
     <string name="changelog_earlier_releases">Əvvəlki buraxılışlar</string>
+    <string name="changelog_patched_with">%s ilə yamaqlandı</string>
     <string name="changelog_older_empty">Göstəriləcək daha köhnə buraxılışlar yoxdur</string>
     <string name="changelog_older_failed">Daha köhnə buraxılışlar yüklənilə bilmədi</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

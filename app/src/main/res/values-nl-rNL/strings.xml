@@ -259,6 +259,8 @@ Alles wat u van deze website toevoegt, gebruikt u op eigen risico"</string>
     <string name="home_download_instructions_step4_mount">Na het installeren van het oorspronkelijke APK, ga terug naar Morphe</string>
     <string name="home_download_instructions_continue_to">Ga verder naar %s</string>
     <string name="home_download_instructions_destination">de downloadpagina</string>
+    <string name="home_download_instructions_copy_link">Link kopiëren</string>
+    <string name="home_download_instructions_link_copied">Link gekopieerd</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Selecteer gedownloade APK</string>
     <string name="home_file_picker_prompt_description">Selecteer het &lt;b&gt;%s&lt;/b&gt; APK bestand dat u net gedownload hebt</string>
@@ -275,6 +277,7 @@ Alles wat u van deze website toevoegt, gebruikt u op eigen risico"</string>
     <string name="home_installed_app_picker_filter_system">Alleen systeemapps</string>
     <string name="home_invalid_apk_unreadable">Kon het bestand niet lezen. Controleer of \'Opslag\' niet beperkt is qua batterijgebruik</string>
     <string name="home_invalid_apk_not_an_apk">Het geselecteerde bestand is geen geldig APK-bestand</string>
+    <string name="home_invalid_apk_already_patched">De geselecteerde APK is al gepatcht. Selecteer in plaats daarvan de originele app</string>
     <string name="home_invalid_apk_io_error">Het bestand kon niet worden geopend. Probeer het opnieuw</string>
     <string name="home_external_apk_expert_mode_required">Deze functie is alleen beschikbaar in de Expert-modus</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ Voor de beste resultaten beveelt deze app aan om een &lt;b&gt;volledig APK&lt;/b
     <string name="adaptive_icon_create">Adaptieve icoon maken</string>
     <string name="adaptive_icon_select_image">Afbeelding selecteren</string>
     <string name="adaptive_icon_change_image">Afbeelding wijzigen</string>
+    <string name="image_load_failed">Kan deze afbeelding niet laden</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Voorgrondafbeelding</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="home_app_info_app_deleted_warning">App was verwijderd</string>
     <string name="home_app_info_app_deleted_description">Deze app is buiten Morphe verwijderd. Installeer de patch om de functionaliteit te herstellen</string>
     <string name="home_app_info_not_patched_description">Er is een niet-gepatchte versie van deze app geïnstalleerd. Morphe heeft nog steeds zijn eerdere patchrecord.</string>
+    <string name="app_links_title">Ondersteunde weblinks</string>
+    <string name="app_links_description">Op Android 12+ worden links naar ondersteunde domeinen standaard in je browser geopend, tenzij ze zijn goedgekeurd</string>
+    <string name="app_links_unverified_banner_title">Weblinks niet geverifieerd</string>
+    <string name="app_links_unverified_banner_description">Ondersteunde weblinks worden momenteel in je browser geopend in plaats van in deze app</string>
+    <string name="app_links_enable_auto">Automatisch inschakelen</string>
+    <string name="app_links_enable_auto_in_progress">Links inschakelen…</string>
+    <string name="app_links_open_settings">Linkinstellingen openen</string>
+    <string name="app_links_repair_success">App-links succesvol ingeschakeld</string>
+    <string name="app_links_repair_failed">Het is niet gelukt om app-links automatisch in te schakelen</string>
+    <string name="app_links_badge_enabled">Ingeschakeld</string>
+    <string name="app_links_badge_disabled">Uitgeschakeld</string>
+    <string name="app_links_all_verified">Alle ondersteunde links zijn geconfigureerd om in deze app te worden geopend</string>
+    <string name="app_links_fix">Links herstellen</string>
+    <string name="configure">Configureren</string>
     <string name="patcher_rename_title">Dit zal een kloon installeren</string>
     <string name="patcher_rename_description">De patches hebben deze app gebouwd onder een eigen pakketnaam, dus het installeren voegt een kloon toe naast <b>%s</b> in plaats van het bij te werken</string>
     <string name="patcher_rename_result_package">Zal installeren als</string>
@@ -539,6 +557,7 @@ Buitenste zone (gestippeld): kan worden afgesneden door het launcher-masker - ho
     <string name="patcher_failed_title">Oeps! Er ging iets mis</string>
     <string name="patcher_failed_dialog_title">Patchen mislukt</string>
     <string name="patcher_error_details">Foutdetails</string>
+    <string name="patcher_change_patches">Patches wijzigen</string>
     <string name="patcher_unknown_error">Onbekende fout opgetreden</string>
     <string name="patcher_split_step_extracting">Het uitpakken van split APKs</string>
     <string name="patcher_split_step_merging">Het samenvoegen van %s</string>
@@ -558,8 +577,7 @@ Deïnstalleren wist alle app-gegevens permanent."</string>
     <string name="patcher_back_to_game_hint">Tik op %1$s om terug te keren naar je spel</string>
     <string name="patcher_storage_permission_dialog_title">Kan opslagpad niet openen</string>
     <string name="patcher_incompatible_patcher_title">Update vereist</string>
-    <string name="patcher_incompatible_patcher_description">Het bundel &lt;b&gt;%1$s&lt;/b&gt; vereist patcher versie &lt;b&gt;%2$s&lt;/b&gt; of hoger. Update Morphe om deze app te patchen</string>
-    <string name="patcher_incompatible_patcher_update_button">Download en update Morphe</string>
+    <string name="patcher_incompatible_patcher_description">De bron &lt;b&gt;%1$s&lt;/b&gt; vereist patcher &lt;b&gt;%2$s&lt;/b&gt; of nieuwer. Werk Morphe bij om deze te gebruiken</string>
     <string name="patcher_storage_permission_description_api30">Een of meer patchopties verwijzen naar paden die Morphe niet kan lezen. Geef toegang tot de opslag en tik op de knop; het patchproces start dan automatisch</string>
     <string name="patcher_storage_permission_description_legacy">Een of meer patch-opties wijzen naar bestanden die niet kunnen worden geopend. Update de bestanden in patch-opties en probeer het nogmaals</string>
     <string name="patcher_storage_permission_grant">Geef opslagtoegang</string>
@@ -1149,6 +1167,7 @@ Details: %2$s"</string>
     <string name="file_picker_internal_storage">Interne opslag</string>
     <string name="file_picker_sd_card">SD-kaart</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Opslag</string>
     <string name="file_picker_sort_name_asc">Naam (A–Z)</string>
     <string name="file_picker_sort_name_desc">Naam (Z–A)</string>
     <string name="file_picker_sort_size_desc">Grootte (grootste eerst)</string>
@@ -1296,6 +1315,7 @@ Details: %2$s"</string>
     <string name="changelog_download_fail">Fout bij het downloaden van de wijzigingslogboek: %s</string>
     <string name="changelog_empty">Geen changelog beschikbaar</string>
     <string name="changelog_earlier_releases">Eerdere versies</string>
+    <string name="changelog_patched_with">Gepatcht met %s</string>
     <string name="changelog_older_empty">Er zijn geen oudere releases om te tonen</string>
     <string name="changelog_older_failed">Kon oudere versies niet laden</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

@@ -4,13 +4,13 @@
     <string name="home_other_apps">Άλλες εφαρμογές</string>
     <string name="home_other_apps_action">Επιλογή άλλων εφαρμογών</string>
     <string name="home_not_patched_yet">Δεν τροποποιήθηκε ακόμη</string>
-    <string name="home_unpatched_version_installed">Εγκαταστάθηκε μη τροποποιημένη έκδοση</string>
+    <string name="home_unpatched_version_installed">Εγκαταστάθηκε η μη τροποποιημένη έκδοση</string>
     <string name="home_unpatched_badge">Δεν τροποποιήθηκε</string>
     <string name="home_no_patches_available">Δεν υπάρχουν διαθέσιμες τροποποιήσεις</string>
     <string name="home_app_hide_title"> Απόκρυψη αυτής της εφαρμογής;</string>
     <string name="home_app_hide_message">Αυτή η εφαρμογή θα αποκρυφθεί από την αρχική οθόνη. Μπορείτε να την επαναφέρετε αργότερα από τις κρυφές εφαρμογές χρησιμοποιώντας το κουμπί στο κάτω μέρος της λίστας</string>
     <string name="home_app_will_be_hidden">Αυτή η εφαρμογή θα αποκρυφθεί</string>
-    <string name="home_app_no_hidden">Καμία κρυφή εφαρμογή</string>
+    <string name="home_app_no_hidden">Καμία κρυμμένη εφαρμογή</string>
     <string name="home_app_hidden_apps_title">Κρυφές εφαρμογές</string>
     <string name="home_app_hidden_apps_hint">Πατήστε για επανεμφάνιση</string>
     <string name="home_app_patch_sources_description">Οι πηγές που δεν είναι επιλεγμένες δεν προσφέρονται όταν αυτές οι εφαρμογές διορθώνονται, και οι διορθώσεις αυτών των πηγών δεν συμπεριλαμβάνονται ποτέ από μόνες τους σε μια επιλογή. Κάθε πηγή παραμένει ενεργή για κάθε άλλη εφαρμογή.</string>
@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">Μετά την εγκατάσταση του πρωτότυπου APK, επιστρέψτε στο Morphe</string>
     <string name="home_download_instructions_continue_to">Συνεχίστε στη %s</string>
     <string name="home_download_instructions_destination">σελίδα λήψης</string>
+    <string name="home_download_instructions_copy_link">Αντιγραφή συνδέσμου</string>
+    <string name="home_download_instructions_link_copied">Ο σύνδεσμος αντιγράφηκε</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Επιλογή ληφθέντος APK</string>
     <string name="home_file_picker_prompt_description">Επιλέξτε το &lt;b&gt;%s&lt;/b&gt; APK που μόλις ελήφθη</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">Μόνο εφαρμογές συστήματος</string>
     <string name="home_invalid_apk_unreadable">Δεν ήταν δυνατή η ανάγνωση του αρχείου. Ελέγξτε ότι ο \'Εξωτερικός χώρος αποθήκευσης\' δεν περιορίζεται από την μπαταρία</string>
     <string name="home_invalid_apk_not_an_apk">Το επιλεγμένο αρχείο δεν είναι ένα έγκυρο APK</string>
+    <string name="home_invalid_apk_already_patched">Το επιλεγμένο APK είναι ήδη επιδιορθωμένο. Επιλέξτε την αρχική εφαρμογή αντί αυτού</string>
     <string name="home_invalid_apk_io_error">Απέτυχε το άνοιγμα του αρχείου. Παρακαλώ προσπαθήστε ξανά</string>
     <string name="home_external_apk_expert_mode_required">Αυτή η λειτουργία είναι διαθέσιμη μόνο στην Εξειδικευμένη λειτουργία</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@
     <string name="adaptive_icon_create">Δημιουργία προσαρμοσμένου εικονιδίου</string>
     <string name="adaptive_icon_select_image">Επιλογή εικόνας</string>
     <string name="adaptive_icon_change_image">Αλλαγή εικόνας</string>
+    <string name="image_load_failed">Δεν ήταν δυνατή η φόρτωση αυτής της εικόνας</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Εικόνα προσκηνίου</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@
     <string name="home_app_info_app_deleted_warning">Η εφαρμογή έχει απεγκατασταθεί</string>
     <string name="home_app_info_app_deleted_description">Η εφαρμογή αυτή απεγκαταστάθηκε εκτός του Morphe. Τροποποιήστε την ξανά για την επαναφορά λειτουργικότητά της</string>
     <string name="home_app_info_not_patched_description">Μια μη ενημερωμένη έκδοση αυτής της εφαρμογής είναι εγκατεστημένη. Το Morphe εξακολουθεί να έχει το προηγούμενο αρχείο επιδιορθώσεων.</string>
+    <string name="app_links_title">Υποστηριζόμενοι σύνδεσμοι ιστού</string>
+    <string name="app_links_description">Σε Android 12+, οι σύνδεσμοι προς υποστηριζόμενους τομείς ανοίγουν στο πρόγραμμα περιήγησης από προεπιλογή, εκτός εάν έχουν εγκριθεί</string>
+    <string name="app_links_unverified_banner_title">Μη επαληθευμένοι σύνδεσμοι ιστού</string>
+    <string name="app_links_unverified_banner_description">Οι υποστηριζόμενοι σύνδεσμοι ιστού ανοίγουν αυτήν τη στιγμή στο πρόγραμμα περιήγησής σας αντί για αυτήν την εφαρμογή</string>
+    <string name="app_links_enable_auto">Αυτόματη ενεργοποίηση</string>
+    <string name="app_links_enable_auto_in_progress">Ενεργοποίηση συνδέσμων…</string>
+    <string name="app_links_open_settings">Άνοιγμα ρυθμίσεων συνδέσμων</string>
+    <string name="app_links_repair_success">Οι σύνδεσμοι εφαρμογής ενεργοποιήθηκαν με επιτυχία</string>
+    <string name="app_links_repair_failed">Αποτυχία αυτόματης ενεργοποίησης των συνδέσμων εφαρμογής</string>
+    <string name="app_links_badge_enabled">Ενεργοποιημένο</string>
+    <string name="app_links_badge_disabled">Απενεργοποιημένο</string>
+    <string name="app_links_all_verified">Όλοι οι υποστηριζόμενοι σύνδεσμοι έχουν ρυθμιστεί να ανοίγουν σε αυτήν την εφαρμογή</string>
+    <string name="app_links_fix">Διόρθωση συνδέσμων</string>
+    <string name="configure">Διαμόρφωση</string>
     <string name="patcher_rename_title">Αυτό θα εγκαταστήσει ένα κλώνο</string>
     <string name="patcher_rename_description">Οι τροποποιήσεις δημιούργησαν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, οπότε η εγκατάστασή της προσθέτει ένα κλώνο δίπλα στο <b>%s</b> αντί να την ενημερώσει</string>
     <string name="patcher_rename_result_package">Θα εγκατασταθεί ως</string>
@@ -539,6 +557,7 @@
     <string name="patcher_failed_title">Ωχ! Κάτι πήγε στραβά</string>
     <string name="patcher_failed_dialog_title">Απέτυχε η τροποποίηση</string>
     <string name="patcher_error_details">Λεπτομέρειες σφάλματος</string>
+    <string name="patcher_change_patches">Αλλαγή patches</string>
     <string name="patcher_unknown_error">Παρουσιάστηκε άγνωστο σφάλμα</string>
     <string name="patcher_split_step_extracting">Εξαγωγή διαχωρισμένων APK</string>
     <string name="patcher_split_step_merging">Συγχώνευση %s</string>
@@ -558,8 +577,7 @@
     <string name="patcher_back_to_game_hint">Πάτα %1$s για να επιστρέψεις στο παιχνίδι σου</string>
     <string name="patcher_storage_permission_dialog_title">Δεν είναι δυνατή η πρόσβαση στη διαδρομή αποθηκευτικού χώρου</string>
     <string name="patcher_incompatible_patcher_title">Απαιτείται ενημέρωση</string>
-    <string name="patcher_incompatible_patcher_description">Το πακέτο &lt;b&gt;%1$s&lt;/b&gt; απαιτεί έκδοση επεξεργαστή &lt;b&gt;%2$s&lt;/b&gt; ή νεότερη. Παρακαλώ ενημερώστε το Morphe για να εφαρμόσετε αυτήν την εφαρμογή</string>
-    <string name="patcher_incompatible_patcher_update_button">Λήψη και ενημέρωση του Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Η πηγή &lt;b&gt;%1$s&lt;/b&gt; απαιτεί τον patcher &lt;b&gt;%2$s&lt;/b&gt; ή νεότερο. Ενημερώστε το Morphe για να τον χρησιμοποιήσει</string>
     <string name="patcher_storage_permission_description_api30">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που το Morphe δεν μπορεί να διαβάσει. Δώστε άδεια αποθήκευσης και πατήστε το κουμπί, στη συνέχεια η διαδικασία τροποποίησης θα ξεκινήσει αυτόματα</string>
     <string name="patcher_storage_permission_description_legacy">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που δεν είναι προσβάσιμες. Ενημερώστε τις διαδρομές στις επιλογές τροποποιήσεων και δοκιμάστε ξανά</string>
     <string name="patcher_storage_permission_grant">Επιτρέψτε την πρόσβαση στον αποθηκευτικό χώρο</string>
@@ -1149,6 +1167,7 @@ morphe_header_custom_dark.png
     <string name="file_picker_internal_storage">Εσωτερική αποθήκευση</string>
     <string name="file_picker_sd_card">Κάρτα SD</string>
     <string name="file_picker_root">Ρίζα (/)</string>
+    <string name="file_picker_storages">Αποθηκεύσεις</string>
     <string name="file_picker_sort_name_asc">Όνομα (Α–Ω)</string>
     <string name="file_picker_sort_name_desc">Όνομα (Ω–Α)</string>
     <string name="file_picker_sort_size_desc">Μέγεθος (μεγαλύτερο πρώτο)</string>
@@ -1296,6 +1315,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Αποτυχία λήψης αρχείου καταγραφής αλλαγών: %s</string>
     <string name="changelog_empty">Δεν υπάρχει διαθέσιμο αρχείο καταγραφών αλλαγών </string>
     <string name="changelog_earlier_releases">Παλαιότερες εκδόσεις</string>
+    <string name="changelog_patched_with">Επιδιορθώθηκε με %s</string>
     <string name="changelog_older_empty">Δεν υπάρχουν παλαιότερες εκδόσεις για εμφάνιση</string>
     <string name="changelog_older_failed">Δεν ήταν δυνατή η φόρτωση παλαιότερων εκδόσεων</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

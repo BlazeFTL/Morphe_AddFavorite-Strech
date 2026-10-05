@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">После установки оригинального APK, вернитесь в Morphe</string>
     <string name="home_download_instructions_continue_to">Перейти на %s</string>
     <string name="home_download_instructions_destination">страницу загрузки</string>
+    <string name="home_download_instructions_copy_link">Копировать ссылку</string>
+    <string name="home_download_instructions_link_copied">Ссылка скопирована</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Выберите загруженный APK</string>
     <string name="home_file_picker_prompt_description">Выберите файл %s APK, который вы только что загрузили</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">Только системные приложения</string>
     <string name="home_invalid_apk_unreadable">Не удалось прочитать файл. Убедитесь, что \'Внешнее хранилище\' не ограничено по энергопотреблению</string>
     <string name="home_invalid_apk_not_an_apk">Выбранный файл не является допустимым APK</string>
+    <string name="home_invalid_apk_already_patched">Выбранный APK уже пропатчен. Выберите вместо этого оригинальное приложение</string>
     <string name="home_invalid_apk_io_error">Не удалось открыть файл. Пожалуйста, попробуйте еще раз</string>
     <string name="home_external_apk_expert_mode_required">Эта функция доступна только в режиме эксперта</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@
     <string name="adaptive_icon_create">Создать адаптивную иконку</string>
     <string name="adaptive_icon_select_image">Выбрать изображение</string>
     <string name="adaptive_icon_change_image">Изменить изображение</string>
+    <string name="image_load_failed">Не удалось загрузить это изображение</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Изображение переднего плана</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@
     <string name="home_app_info_app_deleted_warning">Приложение было удалено.</string>
     <string name="home_app_info_app_deleted_description">Это приложение было удалено вне устройства Morphe. Переустановите его, чтобы восстановить работоспособность.</string>
     <string name="home_app_info_not_patched_description">Установлена непатченная версия этого приложения. Morphe по-прежнему имеет свою предыдущую запись о патче.</string>
+    <string name="app_links_title">Поддерживаемые веб-ссылки</string>
+    <string name="app_links_description">На Android 12+ ссылки на поддерживаемые домены по умолчанию открываются в браузере, если они не одобрены</string>
+    <string name="app_links_unverified_banner_title">Веб-ссылки не проверены</string>
+    <string name="app_links_unverified_banner_description">Поддерживаемые веб-ссылки сейчас открываются в вашем браузере, а не в этом приложении</string>
+    <string name="app_links_enable_auto">Включить автоматически</string>
+    <string name="app_links_enable_auto_in_progress">Включение ссылок…</string>
+    <string name="app_links_open_settings">Открыть настройки ссылок</string>
+    <string name="app_links_repair_success">Ссылки на приложение успешно включены</string>
+    <string name="app_links_repair_failed">Не удалось автоматически включить ссылки приложения</string>
+    <string name="app_links_badge_enabled">Включено</string>
+    <string name="app_links_badge_disabled">Выключено</string>
+    <string name="app_links_all_verified">Все поддерживаемые ссылки настроены на открытие в этом приложении</string>
+    <string name="app_links_fix">Исправить ссылки</string>
+    <string name="configure">Настроить</string>
     <string name="patcher_rename_title">Это установит клон</string>
     <string name="patcher_rename_description">Патчи собрали это приложение под собственным именем пакета, поэтому его установка добавит клон рядом с <b>%s</b> вместо обновления</string>
     <string name="patcher_rename_result_package">Будет установлено как</string>
@@ -539,6 +557,7 @@
     <string name="patcher_failed_title">Ой! Что-то пошло не так</string>
     <string name="patcher_failed_dialog_title">Установка патча не удалась</string>
     <string name="patcher_error_details">Сведения об ошибке</string>
+    <string name="patcher_change_patches">Изменить патчи</string>
     <string name="patcher_unknown_error">Произошла неизвестная ошибка</string>
     <string name="patcher_split_step_extracting">Извлечение разделенных APK</string>
     <string name="patcher_split_step_merging">Объединение %s</string>
@@ -558,8 +577,7 @@
     <string name="patcher_back_to_game_hint">Нажмите %1$s, чтобы вернуться в игру</string>
     <string name="patcher_storage_permission_dialog_title">Невозможно получить доступ к пути хранения</string>
     <string name="patcher_incompatible_patcher_title">Требуется обновление</string>
-    <string name="patcher_incompatible_patcher_description">Для пакета &lt;b&gt;%1$s&lt;/b&gt; требуется версия патчера &lt;b&gt;%2$s&lt;/b&gt; или более поздняя. Пожалуйста, обновите Morphe, чтобы пропатчить это приложение</string>
-    <string name="patcher_incompatible_patcher_update_button">Скачать и обновить Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Источник &lt;b&gt;%1$s&lt;/b&gt; требует патчер &lt;b&gt;%2$s&lt;/b&gt; или новее. Обновите Morphe, чтобы использовать его</string>
     <string name="patcher_storage_permission_description_api30">Один или несколько параметров патча указывают на пути, которые Morphe не может прочесть. Предоставьте доступ к хранилищу и нажмите кнопку, после чего патч начнется автоматически</string>
     <string name="patcher_storage_permission_description_legacy">Один или несколько параметров патча указывают на пути, к которым нельзя получить доступ. Обновите пути в параметрах патча и повторите попытку</string>
     <string name="patcher_storage_permission_grant">Предоставить доступ к хранилищу</string>
@@ -1148,6 +1166,7 @@ morphe_header_custom_dark.png
     <string name="file_picker_internal_storage">Внутренняя память</string>
     <string name="file_picker_sd_card">SD-карта</string>
     <string name="file_picker_root">Корень (/)</string>
+    <string name="file_picker_storages">Хранилища</string>
     <string name="file_picker_sort_name_asc">Имя (A–Z)</string>
     <string name="file_picker_sort_name_desc">Имя (Z–A)</string>
     <string name="file_picker_sort_size_desc">Размер (от большего к меньшему)</string>
@@ -1295,6 +1314,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Не удалось загрузить историю изменений: %s</string>
     <string name="changelog_empty">Нет доступных изменений</string>
     <string name="changelog_earlier_releases">Более ранние релизы</string>
+    <string name="changelog_patched_with">Исправлено с помощью %s</string>
     <string name="changelog_older_empty">Нет более старых версий для отображения</string>
     <string name="changelog_older_failed">Не удалось загрузить более старые релизы</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

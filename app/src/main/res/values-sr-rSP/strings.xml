@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">Након инсталирања оригиналног АПК-а, вратите се у Морфе</string>
     <string name="home_download_instructions_continue_to">Наставите на %s</string>
     <string name="home_download_instructions_destination">страницу за преузимање</string>
+    <string name="home_download_instructions_copy_link">Копирај линк</string>
+    <string name="home_download_instructions_link_copied">Линк је копиран</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Odaberite preuzete APK</string>
     <string name="home_file_picker_prompt_description">Изаберите &lt;b&gt;%s&lt;/b&gt; APK фајл који сте управо преузели</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">Само системске апликације</string>
     <string name="home_invalid_apk_unreadable">Није могуће прочитати датотеку. Проверите да \'Екстерна складишта\' није ограничено од стране батерије</string>
     <string name="home_invalid_apk_not_an_apk">Избрана датотека није валидан APK.</string>
+    <string name="home_invalid_apk_already_patched">Изабрани APK је већ закрпљен. Изаберите оригиналну апликацију уместо тога</string>
     <string name="home_invalid_apk_io_error">Није успело отварање датотеке. Поново покушајте.</string>
     <string name="home_external_apk_expert_mode_required">Ова функција је доступна само у режиму за напредне кориснике</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@
     <string name="adaptive_icon_create">Направи адаптивни икону</string>
     <string name="adaptive_icon_select_image">Изабери слику</string>
     <string name="adaptive_icon_change_image">Промени слику</string>
+    <string name="image_load_failed">Не могу да учитам ову слику</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Слика у првом плану</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova aplikacija je deinstalirana izvan Morphe. Ponovo je instalirajte da bi obnovili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Инсталирана је незакрпљена верзија ове апликације. Morphe и даље има свој претходни запис о закрпама</string>
+    <string name="app_links_title">Подржани веб линкови</string>
+    <string name="app_links_description">На Android 12+, линкови ка подржаним доменима се подразумевано отварају у вашем прегледачу, осим ако су одобрени</string>
+    <string name="app_links_unverified_banner_title">Веб линкови нису верификовани</string>
+    <string name="app_links_unverified_banner_description">Подржани веб линкови се тренутно отварају у вашем прегледачу уместо у овој апликацији</string>
+    <string name="app_links_enable_auto">Омогући аутоматски</string>
+    <string name="app_links_enable_auto_in_progress">Омогућавање линкова…</string>
+    <string name="app_links_open_settings">Отвори подешавања линкова</string>
+    <string name="app_links_repair_success">Апликациони линкови су успешно омогућени</string>
+    <string name="app_links_repair_failed">Аутоматско омогућавање апликационих линкова није успело</string>
+    <string name="app_links_badge_enabled">Омогућено</string>
+    <string name="app_links_badge_disabled">Онемогућен</string>
+    <string name="app_links_all_verified">Сви подржани линкови су подешени да се отварају у овој апликацији</string>
+    <string name="app_links_fix">Поправи линкове</string>
+    <string name="configure">Подеси</string>
     <string name="patcher_rename_title">Ово ће инсталирати клон</string>
     <string name="patcher_rename_description">Пачови су направили ову апликацију под сопственим именом пакета, тако да инсталација додаје клон поред &lt;b&gt;%s&lt;/b&gt; уместо да је ажурира</string>
     <string name="patcher_rename_result_package">Инсталираће се као</string>
@@ -539,6 +557,7 @@
     <string name="patcher_failed_title">Упс! Дошло је до грешке</string>
     <string name="patcher_failed_dialog_title">Закрапа није успела</string>
     <string name="patcher_error_details">Детаљи грешке</string>
+    <string name="patcher_change_patches">Промени закрпе</string>
     <string name="patcher_unknown_error">Дошло је до непознате грешке</string>
     <string name="patcher_split_step_extracting">Екстракција подељених APK-ова</string>
     <string name="patcher_split_step_merging">Спајање %s</string>
@@ -558,8 +577,7 @@
     <string name="patcher_back_to_game_hint">Додирните %1$s да се вратите на своју игру</string>
     <string name="patcher_storage_permission_dialog_title">Не могу приступити до пута складиштења</string>
     <string name="patcher_incompatible_patcher_title">Захтевано је ажурирање</string>
-    <string name="patcher_incompatible_patcher_description">Пакетић &lt;b&gt;%1$s&lt;/b&gt; захтева верзију закрпе &lt;b&gt;%2$s&lt;/b&gt; или новију. Молимо вас да ажурирате Morphe како бисте применили ову апликацију</string>
-    <string name="patcher_incompatible_patcher_update_button">Преузми и ажурирај Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Извор &lt;b&gt;%1$s&lt;/b&gt; захтева патчер &lt;b&gt;%2$s&lt;/b&gt; или новији. Ажурирајте Morphe да бисте га користили</string>
     <string name="patcher_storage_permission_description_api30">Једна или више опција исправки указују на путеве које Morphe не може да чита. Доделите дозволу за складиште и додирните дугме, а затим ће почети аутоматско отклањање грешака</string>
     <string name="patcher_storage_permission_description_legacy">Један или више опција пачања указују на путеве које не могу да се приступе. Ажурирајте путеве у опцијама пачања и покушајте поново</string>
     <string name="patcher_storage_permission_grant">Дозволите приступ складишту</string>
@@ -1149,6 +1167,7 @@ morphe_header_custom_dark.png
     <string name="file_picker_internal_storage">Интерна складиште</string>
     <string name="file_picker_sd_card">SD картица</string>
     <string name="file_picker_root">Корен (/)</string>
+    <string name="file_picker_storages">Складишта</string>
     <string name="file_picker_sort_name_asc">Назив (А–Ш)</string>
     <string name="file_picker_sort_name_desc">Назив (Ш–А)</string>
     <string name="file_picker_sort_size_desc">Величина (највећа прва)</string>
@@ -1296,6 +1315,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Није успело преузимање дневника промена: %s</string>
     <string name="changelog_empty">Нема доступних промена</string>
     <string name="changelog_earlier_releases">Ранија издања</string>
+    <string name="changelog_patched_with">Закрпљено са %s</string>
     <string name="changelog_older_empty">Нема старијих верзија за приказ</string>
     <string name="changelog_older_failed">Није успело учитавање старијих издања</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

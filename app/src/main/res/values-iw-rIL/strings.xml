@@ -260,6 +260,8 @@
     <string name="home_download_instructions_step4_mount">לאחר התקנת APK המקורית, חזרו ל-Morphe</string>
     <string name="home_download_instructions_continue_to">המשיכו אל %s</string>
     <string name="home_download_instructions_destination">דף ההורדה</string>
+    <string name="home_download_instructions_copy_link">העתק קישור</string>
+    <string name="home_download_instructions_link_copied">הקישור הועתק</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">בחרו קובץ APK שהורד</string>
     <string name="home_file_picker_prompt_description">בחר את קובץ ה-APK &lt;b&gt;%s&lt;/b&gt; שהורדת זה עתה</string>
@@ -276,6 +278,7 @@
     <string name="home_installed_app_picker_filter_system">אפליקציות מערכת בלבד</string>
     <string name="home_invalid_apk_unreadable">לא ניתן לקרוא את הקובץ. בדוק ש\'אחסון חיצוני\' אינו מוגבל על ידי הסוללה</string>
     <string name="home_invalid_apk_not_an_apk">הקובץ שנבחר אינו קובץ APK תקין</string>
+    <string name="home_invalid_apk_already_patched">ה-APK שנבחר כבר עבר טלאי. בחר באפליקציה המקורית במקום זאת</string>
     <string name="home_invalid_apk_io_error">נכשל בפתיחת הקובץ. אנא נסה שוב</string>
     <string name="home_external_apk_expert_mode_required">תכונה זו זמינה רק במצב מומחה</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -369,6 +372,7 @@
     <string name="adaptive_icon_create">צור סמל אדפטיבי</string>
     <string name="adaptive_icon_select_image">בחר תמונה</string>
     <string name="adaptive_icon_change_image">שנה תמונה</string>
+    <string name="image_load_failed">לא ניתן היה לטעון את התמונה</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">תמונת חזית</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -475,6 +479,20 @@
     <string name="home_app_info_app_deleted_warning">האפליקציה הוסרה</string>
     <string name="home_app_info_app_deleted_description">האפליקציה הוסרה מחוץ ל-Morphe. התאם כדי לשחזר את הפונקציונליות</string>
     <string name="home_app_info_not_patched_description">מותקנת גרסה לא מתוקנת של אפליקציה זו. ל-Morphe עדיין יש רשומת תיקון קודמת.</string>
+    <string name="app_links_title">קישורי אינטרנט נתמכים</string>
+    <string name="app_links_description">באנדרואיד 12+, קישורים לדומיינים נתמכים נפתחים בדפדפן כברירת מחדל אלא אם כן אושרו</string>
+    <string name="app_links_unverified_banner_title">קישורי אינטרנט לא מאומתים</string>
+    <string name="app_links_unverified_banner_description">קישורי אינטרנט נתמכים נפתחים כרגע בדפדפן שלך במקום באפליקציה זו</string>
+    <string name="app_links_enable_auto">הפעל אוטומטית</string>
+    <string name="app_links_enable_auto_in_progress">מפעיל קישורים…</string>
+    <string name="app_links_open_settings">פתח הגדרות קישורים</string>
+    <string name="app_links_repair_success">קישורי אפליקציה הופעלו בהצלחה</string>
+    <string name="app_links_repair_failed">הפעלת קישורי אפליקציות באופן אוטומטי נכשלה</string>
+    <string name="app_links_badge_enabled">מופעל</string>
+    <string name="app_links_badge_disabled">מושבת</string>
+    <string name="app_links_all_verified">כל הקישורים הנתמכים מוגדרים להיפתח באפליקציה זו</string>
+    <string name="app_links_fix">תקן קישורים</string>
+    <string name="configure">הגדר</string>
     <string name="patcher_rename_title">זה יתקין שיבוט</string>
     <string name="patcher_rename_description">התיקונים בנו את האפליקציה תחת שם חבילה משלהם, ולכן התקנתה תוסיף שיבוט לצד &lt;b&gt;%s&lt;/b&gt; במקום לעדכן אותה</string>
     <string name="patcher_rename_result_package">יותקן כ</string>
@@ -540,6 +558,7 @@
     <string name="patcher_failed_title">אופס! משהו השתבש</string>
     <string name="patcher_failed_dialog_title">התיקון נכשל</string>
     <string name="patcher_error_details">פרטי שגיאה</string>
+    <string name="patcher_change_patches">שנה תיקונים</string>
     <string name="patcher_unknown_error">אירעה שגיאה לא ידועה</string>
     <string name="patcher_split_step_extracting">חילוץ קבצי APK מפוצלים</string>
     <string name="patcher_split_step_merging">מיזוג %s</string>
@@ -559,8 +578,7 @@
     <string name="patcher_back_to_game_hint">הקש על %1$s כדי לחזור למשחק שלך</string>
     <string name="patcher_storage_permission_dialog_title">לא ניתן לגשת לדרך אחסון</string>
     <string name="patcher_incompatible_patcher_title">עדכון נדרש</string>
-    <string name="patcher_incompatible_patcher_description">החבילה &lt;b&gt;%1$s&lt;/b&gt; דורשת גרסת מתקן &lt;b&gt;%2$s&lt;/b&gt; ומעלה. אנא עדכן את Morphe כדי לתקן את האפליקציה הזו</string>
-    <string name="patcher_incompatible_patcher_update_button">הורד ועדכן את Morphe</string>
+    <string name="patcher_incompatible_patcher_description">המקור &lt;b&gt;%1$s&lt;/b&gt; דורש את הפאצ׳ר &lt;b&gt;%2$s&lt;/b&gt; ומעלה. עדכן את Morphe כדי להשתמש בו</string>
     <string name="patcher_storage_permission_description_api30">אפשרות אחת או יותר של תיקונים מצביעה על נתיבים ש-Morphe לא יכול לקרוא. הענק גישה לאחסון ולחץ על הכפתור ואז התיקון יתחיל באופן אוטומטי</string>
     <string name="patcher_storage_permission_description_legacy">אחד או יותר אופציות תיקון מצביעות על דרכים שאינן נגישות. עדכן את הדרכים באופציות התיקון ונסה שוב</string>
     <string name="patcher_storage_permission_grant">אשר אישור גישה לאחסון</string>
@@ -1160,6 +1178,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="file_picker_internal_storage">אחסון פנימי</string>
     <string name="file_picker_sd_card">כרטיס SD</string>
     <string name="file_picker_root">שורש (/)</string>
+    <string name="file_picker_storages">אחסון</string>
     <string name="file_picker_sort_name_asc">שם (A–Z)</string>
     <string name="file_picker_sort_name_desc">שם (Z–A)</string>
     <string name="file_picker_sort_size_desc">גודל (מהגדול לקטן)</string>
@@ -1307,6 +1326,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="changelog_download_fail">שגיאה בהורדת היסטוריית שינויים: %s</string>
     <string name="changelog_empty">אין תיקון זמין</string>
     <string name="changelog_earlier_releases">מהדורות קודמות</string>
+    <string name="changelog_patched_with">תוקן עם %s</string>
     <string name="changelog_older_empty">אין גרסאות ישנות יותר להצגה</string>
     <string name="changelog_older_failed">לא ניתן היה לטעון מהדורות ישנות יותר</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

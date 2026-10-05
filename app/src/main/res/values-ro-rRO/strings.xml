@@ -259,6 +259,8 @@ Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <string name="home_download_instructions_step4_mount">După instalarea APK-ului original, revino la Morphe</string>
     <string name="home_download_instructions_continue_to">Continuă la %s</string>
     <string name="home_download_instructions_destination">pagina de descărcare</string>
+    <string name="home_download_instructions_copy_link">Copiază linkul</string>
+    <string name="home_download_instructions_link_copied">Link copiat</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Selectează APK-ul descărcat</string>
     <string name="home_file_picker_prompt_description">Selectează fișierul APK &lt;b&gt;%s&lt;/b&gt; pe care tocmai l-ai descărcat</string>
@@ -275,6 +277,7 @@ Orice adaugi de pe acest site este folosit pe propriul risc."</string>
     <string name="home_installed_app_picker_filter_system">Doar aplicații de sistem</string>
     <string name="home_invalid_apk_unreadable">Nu s-a putut citi fișierul. Verificați dacă \'Stocare Externă\' nu este restricționată de baterie</string>
     <string name="home_invalid_apk_not_an_apk">Fișierul selectat nu este un APK valid</string>
+    <string name="home_invalid_apk_already_patched">APK-ul selectat este deja patchuit. Selectați în schimb aplicația originală</string>
     <string name="home_invalid_apk_io_error">Nu s-a putut deschide fișierul. Vă rugăm încercați din nou</string>
     <string name="home_external_apk_expert_mode_required">Această funcție este disponibilă doar în modul Expert</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ Pentru cele mai bune rezultate, această aplicație recomandă patch-uirea unui 
     <string name="adaptive_icon_create">Creează iconiță adaptivă</string>
     <string name="adaptive_icon_select_image">Selectează imagine</string>
     <string name="adaptive_icon_change_image">Schimbă imagine</string>
+    <string name="image_load_failed">Nu s-a putut încărca această imagine</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Imagine de prim-plan</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="home_app_info_app_deleted_warning">Aplicația a fost dezinstalată</string>
     <string name="home_app_info_app_deleted_description">Această aplicație a fost dezinstalată în afara Morphe. Aplica-o din nou pentru a restabili funcționalitatea</string>
     <string name="home_app_info_not_patched_description">O versiune necorectată a acestei aplicații este instalată. Morphe încă are înregistrarea anterioară a corecțiilor sale.</string>
+    <string name="app_links_title">Linkuri web acceptate</string>
+    <string name="app_links_description">Pe Android 12+, linkurile către domeniile acceptate se deschid implicit în browserul dvs., cu excepția cazului în care acestea sunt aprobate</string>
+    <string name="app_links_unverified_banner_title">Linkuri web neverificate</string>
+    <string name="app_links_unverified_banner_description">Linkurile web acceptate se deschid în prezent în browserul dvs., în locul acestei aplicații</string>
+    <string name="app_links_enable_auto">Activați automat</string>
+    <string name="app_links_enable_auto_in_progress">Se activează linkurile…</string>
+    <string name="app_links_open_settings">Deschideți setările pentru linkuri</string>
+    <string name="app_links_repair_success">Linkurile aplicației au fost activate cu succes</string>
+    <string name="app_links_repair_failed">Nu s-a reușit activarea automată a linkurilor aplicației</string>
+    <string name="app_links_badge_enabled">Activat</string>
+    <string name="app_links_badge_disabled">Dezactivat</string>
+    <string name="app_links_all_verified">Toate linkurile acceptate sunt configurate să se deschidă în această aplicație</string>
+    <string name="app_links_fix">Repară linkurile</string>
+    <string name="configure">Configurează</string>
     <string name="patcher_rename_title">Aceasta va instala o clonă</string>
     <string name="patcher_rename_description">Patch-urile au construit această aplicație sub un nume de pachet propriu, așa că instalarea acesteia adaugă o clonă alături de &lt;b&gt;%s&lt;/b&gt; în loc să o actualizeze.</string>
     <string name="patcher_rename_result_package">Se va instala ca</string>
@@ -539,6 +557,7 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="patcher_failed_title">Ups! Ceva nu a mers bine</string>
     <string name="patcher_failed_dialog_title">Aplicarea patch-ului a eșuat</string>
     <string name="patcher_error_details">Detalii eroare</string>
+    <string name="patcher_change_patches">Schimbă patch-urile</string>
     <string name="patcher_unknown_error">A apărut o eroare necunoscută</string>
     <string name="patcher_split_step_extracting">Extragerea fișierelor APK divizate</string>
     <string name="patcher_split_step_merging">Îmbinarea %s</string>
@@ -558,8 +577,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_back_to_game_hint">Atinge %1$s pentru a reveni la jocul tău</string>
     <string name="patcher_storage_permission_dialog_title">Nu se poate accesa calea de stocare</string>
     <string name="patcher_incompatible_patcher_title">Actualizare necesară</string>
-    <string name="patcher_incompatible_patcher_description">Pachetul &lt;b&gt;%1$s&lt;/b&gt; necesită versiunea patcher-ului &lt;b&gt;%2$s&lt;/b&gt; sau mai nouă. Vă rugăm să actualizați Morphe pentru a aplica patch la această aplicație</string>
-    <string name="patcher_incompatible_patcher_update_button">Descărcă și actualizează Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Sursa &lt;b&gt;%1$s&lt;/b&gt; necesită patcher-ul &lt;b&gt;%2$s&lt;/b&gt; sau o versiune mai nouă. Actualizează Morphe pentru a o folosi</string>
     <string name="patcher_storage_permission_description_api30">Una sau mai multe opțiuni de patch indică către căi pe care Morphe nu le poate citi. Acordă acces la stocare și atinge butonul, apoi patch-uirea va începe automat</string>
     <string name="patcher_storage_permission_description_legacy">Una sau mai multe opțiuni de patch indică căi de stocare care nu pot fi accesate. Actualizați căile în opțiunile de patch și încercați din nou</string>
     <string name="patcher_storage_permission_grant">Acordați permisiunea de stocare</string>
@@ -1148,6 +1166,7 @@ Detalii: %2$s"</string>
     <string name="file_picker_internal_storage">Stocare internă</string>
     <string name="file_picker_sd_card">Card SD</string>
     <string name="file_picker_root">Rădăcină (/)</string>
+    <string name="file_picker_storages">Stocări</string>
     <string name="file_picker_sort_name_asc">Nume (A–Z)</string>
     <string name="file_picker_sort_name_desc">Nume (Z–A)</string>
     <string name="file_picker_sort_size_desc">Dimensiune (cea mai mare prima)</string>
@@ -1295,6 +1314,7 @@ Detalii: %2$s"</string>
     <string name="changelog_download_fail">Nu s-a putut descărca jurnalul de modificări: %s</string>
     <string name="changelog_empty">Nu există jurnale disponibile</string>
     <string name="changelog_earlier_releases">Versiuni anterioare</string>
+    <string name="changelog_patched_with">Patch aplicat cu %s</string>
     <string name="changelog_older_empty">Nu există versiuni mai vechi de afișat</string>
     <string name="changelog_older_failed">Nu s-au putut încărca versiunile mai vechi</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

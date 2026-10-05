@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">Tar éis an APK bunaidh a shuiteáil, téigh ar ais chuig Morphe</string>
     <string name="home_download_instructions_continue_to">Lean ar aghaidh go %s</string>
     <string name="home_download_instructions_destination">an leathanach íoslódála</string>
+    <string name="home_download_instructions_copy_link">Cóipeáil nasc</string>
+    <string name="home_download_instructions_link_copied">Nasc cóipeáilte</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Roghnaigh APK íoslódáilte</string>
     <string name="home_file_picker_prompt_description">Roghnaigh an comhad &lt;b&gt;%s&lt;/b&gt; APK a d’íoslódálais tú díreach</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">Aipeanna córais amháin</string>
     <string name="home_invalid_apk_unreadable">Níorbh fhéidir an comhad a léamh. Seiceáil nach bhfuil srian ceallraí ar \'Stóráil Sheachtrach\'</string>
     <string name="home_invalid_apk_not_an_apk">Ní APK bailí an comhad roghnaithe</string>
+    <string name="home_invalid_apk_already_patched">Tá an APK roghnaithe paisteáilte cheana féin. Roghnaigh an aip bhunaidh ina ionad</string>
     <string name="home_invalid_apk_io_error">Theip ar an gcomhad a oscailt. Déan iarracht arís.</string>
     <string name="home_external_apk_expert_mode_required">Níl an ghné seo ar fáil ach amháin i mód Saineolaí</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ Chun na torthaí is fearr a fháil, molann an aip seo paiste a chur ar &lt;b&gt;
     <string name="adaptive_icon_create">Cruthaigh deilbhín oiriúnaitheach</string>
     <string name="adaptive_icon_select_image">Roghnaigh íomhá</string>
     <string name="adaptive_icon_change_image">Athraigh íomhá</string>
+    <string name="image_load_failed">Níorbh fhéidir an íomhá seo a lódáil</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Íomhá sa tulra</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="home_app_info_app_deleted_warning">Díshuiteáladh an aip</string>
     <string name="home_app_info_app_deleted_description">Díshuiteáladh an aip seo lasmuigh de Morphe. Athphaisteáil í chun feidhmiúlacht a athbhunú.</string>
     <string name="home_app_info_not_patched_description">Tá leagan neamhphaiste den aip seo suiteáilte. Tá taifead paiste roimhe seo Morphe fós.</string>
+    <string name="app_links_title">Naisc ghréasáin thacaithe</string>
+    <string name="app_links_description">Ar Android 12+, osclaítear naisc chuig fearainn thacaithe i do bhrabhsálaí go réamhshocraithe mura gceadaítear iad</string>
+    <string name="app_links_unverified_banner_title">Naisc ghréasáin gan fíorú</string>
+    <string name="app_links_unverified_banner_description">Osclaítear na naisc ghréasáin a dtacaítear leo i do bhrabhsálaí faoi láthair, seachas san aip seo.</string>
+    <string name="app_links_enable_auto">Cumasaigh go huathoibríoch</string>
+    <string name="app_links_enable_auto_in_progress">Ag cumasú na naisc…</string>
+    <string name="app_links_open_settings">Oscail socruithe naisc</string>
+    <string name="app_links_repair_success">Cumasaíodh naisc aip go rathúil</string>
+    <string name="app_links_repair_failed">Theip ar naisc aipeanna a chumasú go huathoibríoch</string>
+    <string name="app_links_badge_enabled">Cumasaithe</string>
+    <string name="app_links_badge_disabled">Díchumasaithe</string>
+    <string name="app_links_all_verified">Tá na naisc thacaithe go léir cumraithe le hoscailt san aip seo</string>
+    <string name="app_links_fix">Deisigh naisc</string>
+    <string name="configure">Cumraigh</string>
     <string name="patcher_rename_title">Déanfaidh sé seo clón a shuiteáil</string>
     <string name="patcher_rename_description">Thóg na paistí an aip seo faoina n-ainm pacáiste féin, mar sin má shuiteáiltear é cuirfear clón leis taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú</string>
     <string name="patcher_rename_result_package">Suiteáil mar</string>
@@ -539,6 +557,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="patcher_failed_title">Úps! Chuaigh rud éigin mícheart.</string>
     <string name="patcher_failed_dialog_title">Theip ar phaisteáil</string>
     <string name="patcher_error_details">Sonraí earráide</string>
+    <string name="patcher_change_patches">Athraigh paistí</string>
     <string name="patcher_unknown_error">Tharla earráid anaithnid</string>
     <string name="patcher_split_step_extracting">Ag baint APKanna scoilte</string>
     <string name="patcher_split_step_merging">Ag cumasc %s</string>
@@ -558,8 +577,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patcher_back_to_game_hint">Tapáil %1$s chun filleadh ar do chluiche</string>
     <string name="patcher_storage_permission_dialog_title">Ní féidir rochtain a fháil ar an gcosán stórála</string>
     <string name="patcher_incompatible_patcher_title">Nuashonrú ag teastáil</string>
-    <string name="patcher_incompatible_patcher_description">Éilíonn an pacáiste &lt;b&gt;%1$s&lt;/b&gt; leagan paisteora &lt;b&gt;%2$s&lt;/b&gt; nó níos nuaí. Nuashonraigh Morphe le do thoil chun an aip seo a phaisteáil.</string>
-    <string name="patcher_incompatible_patcher_update_button">Íoslódáil agus nuashonraigh Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Éilíonn an fhoinse &lt;b&gt;%1$s&lt;/b&gt; paitseálaí &lt;b&gt;%2$s&lt;/b&gt; nó níos nuaí. Nuashonraigh Morphe chun é a úsáid</string>
     <string name="patcher_storage_permission_description_api30">Léiríonn rogha paiste amháin nó níos mó cosáin nach féidir le Morphe a léamh. Deonaigh rochtain stórála agus tapáil an cnaipe ansin tosóidh an paisteáil go huathoibríoch.</string>
     <string name="patcher_storage_permission_description_legacy">Léiríonn rogha paiste amháin nó níos mó cosáin nach féidir rochtain a fháil orthu. Nuashonraigh na cosáin sna roghanna paiste agus déan iarracht arís.</string>
     <string name="patcher_storage_permission_grant">Deonaigh cead stórála</string>
@@ -1147,6 +1165,7 @@ Sonraí: %2$s"</string>
     <string name="file_picker_internal_storage">Stóráil inmheánach</string>
     <string name="file_picker_sd_card">Cárta SD</string>
     <string name="file_picker_root">Fréamh (/)</string>
+    <string name="file_picker_storages">Stórais</string>
     <string name="file_picker_sort_name_asc">Ainm (A–Z)</string>
     <string name="file_picker_sort_name_desc">Ainm (Z–A)</string>
     <string name="file_picker_sort_size_desc">Méid (an ceann is mó ar dtús)</string>
@@ -1294,6 +1313,7 @@ Sonraí: %2$s"</string>
     <string name="changelog_download_fail">Theip ar an logála hathruithe a íoslódáil: %s</string>
     <string name="changelog_empty">Níl aon loga athraithe ar fáil</string>
     <string name="changelog_earlier_releases">Eisiúintí níos luaithe</string>
+    <string name="changelog_patched_with">Paisteáilte le %s</string>
     <string name="changelog_older_empty">Gan aon eisiúintí níos sine le taispeáint</string>
     <string name="changelog_older_failed">Níorbh fhéidir na heisiúintí níos sine a lódáil</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

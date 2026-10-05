@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">Po nainštalovaní pôvodného APK súboru sa vráťte do Morphe</string>
     <string name="home_download_instructions_continue_to">Pokračovať na %s</string>
     <string name="home_download_instructions_destination">stránku na stiahnutie</string>
+    <string name="home_download_instructions_copy_link">Kopírovať odkaz</string>
+    <string name="home_download_instructions_link_copied">Odkaz skopírovaný</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Vyberte stiahnutý APK súbor</string>
     <string name="home_file_picker_prompt_description">Vyberte &lt;b&gt;%s&lt;/b&gt; APK súbor, ktorý ste práve stiahli</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">Iba systémové aplikácie</string>
     <string name="home_invalid_apk_unreadable">Nepodarilo sa prečítať súbor. Skontrolujte, či \'Externé úložisko\' nie je obmedzené v spotrebe batérie</string>
     <string name="home_invalid_apk_not_an_apk">Vybraný súbor nie je platný APK</string>
+    <string name="home_invalid_apk_already_patched">Vybraný APK je už opatchovaný. Namiesto toho vyberte pôvodnú aplikáciu</string>
     <string name="home_invalid_apk_io_error">Nepodarilo sa otvoriť súbor. Skúste to znova</string>
     <string name="home_external_apk_expert_mode_required">Táto funkcia je dostupná iba v expert móde</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ Pre najlepšie výsledky sa odporúča záplatovať &lt;b&gt;úplný APK&lt;/b&g
     <string name="adaptive_icon_create">Vytvoriť adaptívnu ikonu</string>
     <string name="adaptive_icon_select_image">Vybrať obrázok</string>
     <string name="adaptive_icon_change_image">Zmeniť obrázok</string>
+    <string name="image_load_failed">Nepodarilo sa načítať tento obrázok</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Obrázok v popredí</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="home_app_info_app_deleted_warning">Aplikácia bola odinštalovaná</string>
     <string name="home_app_info_app_deleted_description">Táto aplikácia bola odinštalovaná mimo Morphe. Znovu ju zaplátajte aby ste obnovili jej funkčnosť</string>
     <string name="home_app_info_not_patched_description">Nainštalovaná je nezapatchovaná verzia tejto aplikácie. Morphe má stále svoj predchádzajúci záznam o oprave</string>
+    <string name="app_links_title">Podporované webové odkazy</string>
+    <string name="app_links_description">V systéme Android 12 a novšom sa odkazy na podporované domény štandardne otvárajú v prehliadači, pokiaľ ich neschválite</string>
+    <string name="app_links_unverified_banner_title">Neoverené webové odkazy</string>
+    <string name="app_links_unverified_banner_description">Podporované webové odkazy sa momentálne otvárajú vo vašom prehliadači namiesto v tejto aplikácii</string>
+    <string name="app_links_enable_auto">Povoliť automaticky</string>
+    <string name="app_links_enable_auto_in_progress">Povoľujú sa odkazy…</string>
+    <string name="app_links_open_settings">Otvoriť nastavenia odkazov</string>
+    <string name="app_links_repair_success">Odkazy aplikácie boli úspešne povolené</string>
+    <string name="app_links_repair_failed">Nepodarilo sa automaticky povoliť odkazy aplikácie</string>
+    <string name="app_links_badge_enabled">Povolené</string>
+    <string name="app_links_badge_disabled">Vypnutý</string>
+    <string name="app_links_all_verified">Všetky podporované odkazy sú nakonfigurované tak, aby sa otvárali v tejto aplikácii</string>
+    <string name="app_links_fix">Opraviť odkazy</string>
+    <string name="configure">Konfigurovať</string>
     <string name="patcher_rename_title">Toto nainštaluje klon</string>
     <string name="patcher_rename_description">Záplaty vytvorili túto aplikáciu pod vlastným názvom balíka, takže jej inštalácia pridá klon vedľa &lt;b&gt;%s&lt;/b&gt; namiesto jej aktualizácie</string>
     <string name="patcher_rename_result_package">Nainštaluje sa ako</string>
@@ -539,6 +557,7 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="patcher_failed_title">Ups! Niečo sa pokazilo</string>
     <string name="patcher_failed_dialog_title">Oprava zlyhala</string>
     <string name="patcher_error_details">Podrobnosti chyby</string>
+    <string name="patcher_change_patches">Zmeniť záplaty</string>
     <string name="patcher_unknown_error">Vyskytla sa neznáma chyba</string>
     <string name="patcher_split_step_extracting">Extrahujem rozdelené APK</string>
     <string name="patcher_split_step_merging">Zlúčim %s</string>
@@ -558,8 +577,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="patcher_back_to_game_hint">Klepnutím na %1$s sa vrátite do svojej hry.</string>
     <string name="patcher_storage_permission_dialog_title">Nedá sa získať prístup k ceste na úložisku</string>
     <string name="patcher_incompatible_patcher_title">Aktualizácia je potrebná</string>
-    <string name="patcher_incompatible_patcher_description">Balíček &lt;b&gt;%1$s&lt;/b&gt; vyžaduje verziu záplatovača &lt;b&gt;%2$s&lt;/b&gt; alebo novšiu. Aktualizujte Morphe, aby ste mohli opraviť túto aplikáciu.</string>
-    <string name="patcher_incompatible_patcher_update_button">Stiahnuť a aktualizovať Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Zdroj &lt;b&gt;%1$s&lt;/b&gt; vyžaduje patcher &lt;b&gt;%2$s&lt;/b&gt; alebo novší. Aktualizujte Morphe, aby ste ho mohli používať</string>
     <string name="patcher_storage_permission_description_api30">Jedna alebo viacero možností záplat odkazuje na cesty, ktoré Morphe nemôže čítať. Udeľte prístup k úložisku a ťuknite na tlačidlo, opravy sa spustia automaticky</string>
     <string name="patcher_storage_permission_description_legacy">Jedna alebo viacero možností záplat odkazuje na cesty, ktoré nie sú prístupné. Aktualizujte cesty v možnostiach záplat a skúste to znova</string>
     <string name="patcher_storage_permission_grant">Udeľte povolenia na prístup k úložisku</string>
@@ -1149,6 +1167,7 @@ Podrobnosti: %2$s"</string>
     <string name="file_picker_internal_storage">Interná pamäť</string>
     <string name="file_picker_sd_card">SD karta</string>
     <string name="file_picker_root">Koreň (/)</string>
+    <string name="file_picker_storages">Úložiská</string>
     <string name="file_picker_sort_name_asc">Názov (A–Z)</string>
     <string name="file_picker_sort_name_desc">Názov (Z–A)</string>
     <string name="file_picker_sort_size_desc">Veľkosť (najväčšie najprv)</string>
@@ -1296,6 +1315,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_download_fail">Nepodarilo sa stiahnuť zoznam zmien: %s</string>
     <string name="changelog_empty">Zoznam zmien nie je k dispozícii</string>
     <string name="changelog_earlier_releases">Staršie vydania</string>
+    <string name="changelog_patched_with">Opravené pomocou %s</string>
     <string name="changelog_older_empty">Nenašli sa žiadne staršie verzie na zobrazenie</string>
     <string name="changelog_older_failed">Nepodarilo sa načítať staršie vydania</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

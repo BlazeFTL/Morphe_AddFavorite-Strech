@@ -259,6 +259,8 @@ Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad
     <string name="home_download_instructions_step4_mount">Después de instalar el APK original, vuelve a Morphe</string>
     <string name="home_download_instructions_continue_to">Continuar a %s</string>
     <string name="home_download_instructions_destination">la página de descarga</string>
+    <string name="home_download_instructions_copy_link">Copiar enlace</string>
+    <string name="home_download_instructions_link_copied">Enlace copiado</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Selecciona el APK descargado</string>
     <string name="home_file_picker_prompt_description">Selecciona el archivo APK de &lt;b&gt;%s&lt;/b&gt; que acabas de descargar</string>
@@ -275,6 +277,7 @@ Todo lo que añadas desde este sitio web lo haces bajo tu propia responsabilidad
     <string name="home_installed_app_picker_filter_system">Solo aplicaciones del sistema</string>
     <string name="home_invalid_apk_unreadable">No se pudo leer el archivo. Verifica que \'Almacenamiento externo\' no esté restringido por la batería</string>
     <string name="home_invalid_apk_not_an_apk">El archivo seleccionado no es un APK válido</string>
+    <string name="home_invalid_apk_already_patched">El APK seleccionado ya está parcheado. Selecciona la aplicación original en su lugar</string>
     <string name="home_invalid_apk_io_error">Error al abrir el archivo. Inténtalo de nuevo</string>
     <string name="home_external_apk_expert_mode_required">Esta función solo está disponible en el modo Experto</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@ Para un mejor resultado, esta aplicación te recomienda parchear un &lt;b&gt;APK
     <string name="adaptive_icon_create">Crear icono adaptable</string>
     <string name="adaptive_icon_select_image">Seleccionar imagen</string>
     <string name="adaptive_icon_change_image">Cambiar imagen</string>
+    <string name="image_load_failed">No se pudo cargar esta imagen</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Imagen de primer plano</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador
     <string name="home_app_info_app_deleted_warning">La aplicación fue desinstalada</string>
     <string name="home_app_info_app_deleted_description">Esta aplicación fue desinstalada fuera de Morphe. Vuelve a parchearla para restaurar su funcionalidad</string>
     <string name="home_app_info_not_patched_description">Una versión sin parchear de esta aplicación está instalada. Morphe aún conserva su registro de parches anterior</string>
+    <string name="app_links_title">Enlaces web compatibles</string>
+    <string name="app_links_description">En Android 12 o posterior, los enlaces a dominios compatibles se abren en el navegador de forma predeterminada a menos que se aprueben</string>
+    <string name="app_links_unverified_banner_title">Enlaces web no verificados</string>
+    <string name="app_links_unverified_banner_description">Los enlaces web compatibles se abren actualmente en tu navegador en lugar de en esta aplicación</string>
+    <string name="app_links_enable_auto">Activar automáticamente</string>
+    <string name="app_links_enable_auto_in_progress">Activando enlaces…</string>
+    <string name="app_links_open_settings">Abrir ajustes de enlaces</string>
+    <string name="app_links_repair_success">Enlaces de aplicaciones activados correctamente</string>
+    <string name="app_links_repair_failed">Error al activar automáticamente los enlaces de aplicaciones</string>
+    <string name="app_links_badge_enabled">Activado</string>
+    <string name="app_links_badge_disabled">Desactivado</string>
+    <string name="app_links_all_verified">Todos los enlaces compatibles están configurados para abrirse en esta aplicación</string>
+    <string name="app_links_fix">Corregir enlaces</string>
+    <string name="configure">Configurar</string>
     <string name="patcher_rename_title">Esto instalará un clon</string>
     <string name="patcher_rename_description">Los parches han compilado esta aplicación con un nombre de paquete propio, por lo que al instalarla se añade un clon junto a &lt;b&gt;%s&lt;/b&gt; en lugar de actualizarla</string>
     <string name="patcher_rename_result_package">Se instalará como</string>
@@ -539,6 +557,7 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador
     <string name="patcher_failed_title">¡Ups! Algo salió mal</string>
     <string name="patcher_failed_dialog_title">Error al aplicar el parche</string>
     <string name="patcher_error_details">Detalles del error</string>
+    <string name="patcher_change_patches">Cambiar parches</string>
     <string name="patcher_unknown_error">Ocurrió un error desconocido</string>
     <string name="patcher_split_step_extracting">Extrayendo APKs divididos</string>
     <string name="patcher_split_step_merging">Fusionando %s</string>
@@ -558,8 +577,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="patcher_back_to_game_hint">Pulsa %1$s para volver a tu juego</string>
     <string name="patcher_storage_permission_dialog_title">No se puede acceder a la ruta de almacenamiento</string>
     <string name="patcher_incompatible_patcher_title">Actualización necesaria</string>
-    <string name="patcher_incompatible_patcher_description">El paquete &lt;b&gt;%1$s&lt;/b&gt; requiere la versión &lt;b&gt;%2$s&lt;/b&gt; o más reciente del parcheador. Por favor, actualiza Morphe para parchear esta aplicación</string>
-    <string name="patcher_incompatible_patcher_update_button">Descarga y actualiza Morphe</string>
+    <string name="patcher_incompatible_patcher_description">La fuente &lt;b&gt;%1$s&lt;/b&gt; requiere el parcheador &lt;b&gt;%2$s&lt;/b&gt; o una versión posterior. Actualiza Morphe para usarlo</string>
     <string name="patcher_storage_permission_description_api30">Una o varias opciones de parches apuntan a rutas que Morphe no puede leer. Concede acceso al almacenamiento y pulsa el botón para que el parcheo empiece automáticamente</string>
     <string name="patcher_storage_permission_description_legacy">Una o varias opciones de parches apuntan a rutas que no se pueden acceder. Actualiza las rutas en las opciones de parches y vuelve a intentarlo</string>
     <string name="patcher_storage_permission_grant">Conceder permiso de almacenamiento</string>
@@ -662,7 +680,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="mini_game_paused">En pausa</string>
     <string name="mini_game_resume">Continuar</string>
     <string name="mini_game_restart">Empezar de nuevo</string>
-    <string name="mini_game_change">Elige otro juego</string>
+    <string name="mini_game_change">Elegir otro juego</string>
     <string name="mini_game_2048_picker_subtitle">Desliza las fichas para combinarlas</string>
     <string name="mini_game_flappy_picker_subtitle">Pulsa para volar entre los tubos</string>
     <string name="mini_game_flappy_tap_to_start">Pulsa para volar</string>
@@ -837,7 +855,7 @@ Los parches no se ven afectados: habilita los parches pre-lanzamiento para cada 
     <!-- Settings - Advanced Tab - Patch Options Section -->
     <string name="settings_advanced_patch_options">Opciones de parches</string>
     <string name="settings_advanced_patch_options_youtube_description">Opciones de marca y encabezado</string>
-    <string name="settings_advanced_patch_options_restart_message">Para que los cambios en las opciones de parches surtan efecto, es necesario volver a parchear la aplicación</string>
+    <string name="settings_advanced_patch_options_restart_message">Cambiar las opciones de parches requiere volver a parchear la aplicación para que surtan efecto</string>
     <string name="settings_advanced_patch_options_expert_mode_notice">En el modo Experto, las opciones de parches estarán disponibles durante el proceso de parcheo</string>
     <string name="settings_advanced_patch_options_loading">Cargando opciones de parches…</string>
     <string name="settings_advanced_patch_options_waiting_for_source">Esperar hasta que la fuente de parches se actualice</string>
@@ -1149,6 +1167,7 @@ Detalles: %2$s"</string>
     <string name="file_picker_internal_storage">Almacenamiento interno</string>
     <string name="file_picker_sd_card">Tarjeta SD</string>
     <string name="file_picker_root">Raíz (/)</string>
+    <string name="file_picker_storages">Almacenamientos</string>
     <string name="file_picker_sort_name_asc">Nombre (A–Z)</string>
     <string name="file_picker_sort_name_desc">Nombre (Z–A)</string>
     <string name="file_picker_sort_size_desc">Tamaño (más grande primero)</string>
@@ -1296,6 +1315,7 @@ Detalles: %2$s"</string>
     <string name="changelog_download_fail">Error al descargar el registro de cambios: %s</string>
     <string name="changelog_empty">No hay registro de cambios disponible</string>
     <string name="changelog_earlier_releases">Versiones anteriores</string>
+    <string name="changelog_patched_with">Parcheado con %s</string>
     <string name="changelog_older_empty">No hay versiones anteriores para mostrar</string>
     <string name="changelog_older_failed">No se pudieron cargar las versiones anteriores</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

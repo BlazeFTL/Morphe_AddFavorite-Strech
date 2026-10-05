@@ -260,6 +260,8 @@ Sve što dodate s ove web stranice koristite na vlastitu odgovornost."</string>
     <string name="home_download_instructions_step4_mount">Nakon instaliranja originalne aplikacije, vrati se u Morphe</string>
     <string name="home_download_instructions_continue_to">Nastavite na %s</string>
     <string name="home_download_instructions_destination">stranicu preuzimanja</string>
+    <string name="home_download_instructions_copy_link">Kopiraj poveznicu</string>
+    <string name="home_download_instructions_link_copied">Poveznica kopirana</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Odaberite preuzetu aplikaciju</string>
     <string name="home_file_picker_prompt_description">Odaberite &lt;b&gt;%s&lt;/b&gt; aplikaciju koju ste upravo preuzeli</string>
@@ -278,6 +280,7 @@ Sve što dodate s ove web stranice koristite na vlastitu odgovornost."</string>
     <string name="home_installed_app_picker_filter_system">Samo aplikacije sustava</string>
     <string name="home_invalid_apk_unreadable">Nije moguće pročitati datoteku. Provjerite je li \'Vanjska pohrana\' ograničena baterijom</string>
     <string name="home_invalid_apk_not_an_apk">Odabrana datoteka nije valjani APK</string>
+    <string name="home_invalid_apk_already_patched">Odabrani APK je već zakrpan. Odaberite originalnu aplikaciju umjesto toga</string>
     <string name="home_invalid_apk_io_error">Nije moguće otvoriti datoteku. Molimo pokušajte ponovo</string>
     <string name="home_external_apk_expert_mode_required">Ova je značajka dostupna samo u načinu rada za stručnjake</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -371,6 +374,7 @@ Za najbolje rezultate,  patchanje ove aplikacija preporučuje &lt;b&gt;cijeli AP
     <string name="adaptive_icon_create">Stvori adaptivnu ikonu</string>
     <string name="adaptive_icon_select_image">Odaberite sliku</string>
     <string name="adaptive_icon_change_image">Promijeni sliku</string>
+    <string name="image_load_failed">Nije moguće učitati ovu sliku</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Prednja slika</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -478,6 +482,20 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="home_app_info_app_deleted_warning">Aplikacija je deinstalirana</string>
     <string name="home_app_info_app_deleted_description">Ova je aplikacija deinstalirana izvan Morphea. Ponovno je patchajte kako biste vratili funkcionalnost</string>
     <string name="home_app_info_not_patched_description">Instalirana je nepatchana verzija ove aplikacije. Morphe i dalje ima prethodni zapis patchanja</string>
+    <string name="app_links_title">Podržane web poveznice</string>
+    <string name="app_links_description">Na Androidu 12+ poveznice na podržane domene otvaraju se u vašem pregledniku prema zadanim postavkama, osim ako nisu odobrene</string>
+    <string name="app_links_unverified_banner_title">Web poveznice nisu provjerene</string>
+    <string name="app_links_unverified_banner_description">Podržane web poveznice trenutačno se otvaraju u vašem pregledniku umjesto u ovoj aplikaciji</string>
+    <string name="app_links_enable_auto">Omogući automatski</string>
+    <string name="app_links_enable_auto_in_progress">Omogućavanje poveznica…</string>
+    <string name="app_links_open_settings">Otvori postavke poveznica</string>
+    <string name="app_links_repair_success">Poveznice aplikacije uspješno su omogućene</string>
+    <string name="app_links_repair_failed">Nije uspjelo automatsko omogućavanje aplikacijskih poveznica</string>
+    <string name="app_links_badge_enabled">Omogućeno</string>
+    <string name="app_links_badge_disabled">Onemogućeno</string>
+    <string name="app_links_all_verified">Sve podržane poveznice konfigurirane su za otvaranje u ovoj aplikaciji</string>
+    <string name="app_links_fix">Popravi poveznice</string>
+    <string name="configure">Konfiguriraj</string>
     <string name="patcher_rename_title">Ovo će instalirati klon</string>
     <string name="patcher_rename_description">Patchevi grade ovu aplikaciju pod vlastitim nazivom paketa, pa se instaliranjem dodaje klon &lt;b&gt;%s&lt;/b&gt; umjesto ažuriranja</string>
     <string name="patcher_rename_result_package">Instalirat će se kao</string>
@@ -543,6 +561,7 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="patcher_failed_title">Ups! Nešto je pošlo po zlu</string>
     <string name="patcher_failed_dialog_title">Patchanje nije uspjelo</string>
     <string name="patcher_error_details">Detalji pogreške</string>
+    <string name="patcher_change_patches">Promijeni zakrpe</string>
     <string name="patcher_unknown_error">Došlo je do nepoznate pogreške</string>
     <string name="patcher_split_step_extracting">Izdvajanje podijeljenih APK-ova</string>
     <string name="patcher_split_step_merging">Spajanje %s</string>
@@ -562,8 +581,7 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="patcher_back_to_game_hint">Dodirnite %1$s za povratak u igru</string>
     <string name="patcher_storage_permission_dialog_title">Nije moguće pristupiti putanji pohrane</string>
     <string name="patcher_incompatible_patcher_title">Potrebno je ažuriranje</string>
-    <string name="patcher_incompatible_patcher_description">Paket &lt;b&gt;%1$s&lt;/b&gt; zahtijeva verziju patchera &lt;b&gt;%2$s&lt;/b&gt; ili noviju. Molimo ažurirajte Morphe kako biste patchali ovu aplikaciju</string>
-    <string name="patcher_incompatible_patcher_update_button">Preuzmite i ažurirajte Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Izvor &lt;b&gt;%1$s&lt;/b&gt; zahtijeva patcher &lt;b&gt;%2$s&lt;/b&gt; ili noviji. Ažuriraj Morphe kako bi se mogao koristiti</string>
     <string name="patcher_storage_permission_description_api30">Jedna ili više opcija patcha upućuju na putanje koje Morphe ne može pročitati. Omogućite pristup pohrani i dodirnite tipku, nakon čega će se patchanje automatski pokrenuti.</string>
     <string name="patcher_storage_permission_description_legacy">Jedna ili više opcija patchanja upućuju na putanje kojima se ne može pristupiti. Ažurirajte putanje u opcijama patcha i pokušajte ponovno.</string>
     <string name="patcher_storage_permission_grant">Odobri dopuštenje za pohranu</string>
@@ -1152,6 +1170,7 @@ Detalji: %2$s"</string>
     <string name="file_picker_internal_storage">Unutarnja pohrana</string>
     <string name="file_picker_sd_card">SD kartica</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Pohrane</string>
     <string name="file_picker_sort_name_asc">Naziv (A-Z)</string>
     <string name="file_picker_sort_name_desc">Naziv (Z–A)</string>
     <string name="file_picker_sort_size_desc">Veličina (od najveće)</string>
@@ -1299,6 +1318,7 @@ Detalji: %2$s"</string>
     <string name="changelog_download_fail">Neuspjelo preuzimanje zapisa promjena: %s</string>
     <string name="changelog_empty">Nema dostupnog zapisa o promjenama</string>
     <string name="changelog_earlier_releases">Ranija izdanja</string>
+    <string name="changelog_patched_with">Zakrpano s %s</string>
     <string name="changelog_older_empty">Nema starijih verzija za prikaz</string>
     <string name="changelog_older_failed">Nije moguće učitati starija izdanja</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

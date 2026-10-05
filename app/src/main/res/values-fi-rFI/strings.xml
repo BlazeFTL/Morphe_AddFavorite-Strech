@@ -259,6 +259,8 @@ Kaikki mitä lisäät tältä verkkosivustolta, on oma riskisi."</string>
     <string name="home_download_instructions_step4_mount">Kun olet asentanut alkuperäisen APK:n, palaa Morpheen</string>
     <string name="home_download_instructions_continue_to">Jatka %s</string>
     <string name="home_download_instructions_destination">lataussivulle</string>
+    <string name="home_download_instructions_copy_link">Kopioi linkki</string>
+    <string name="home_download_instructions_link_copied">Linkki kopioitu</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Valitse ladattu APK</string>
     <string name="home_file_picker_prompt_description">Valitse juuri lataamasi APK sovellukselle: &lt;b&gt;%s&lt;/b&gt;</string>
@@ -275,6 +277,7 @@ Kaikki mitä lisäät tältä verkkosivustolta, on oma riskisi."</string>
     <string name="home_installed_app_picker_filter_system">Vain järjestelmäsovellukset</string>
     <string name="home_invalid_apk_unreadable">Tiedoston lukeminen epäonnistui. Tarkista, ettei ulkoisen tallennustilan akunkäyttöä ole rajoitettu.</string>
     <string name="home_invalid_apk_not_an_apk">Valittu tiedosto ei ole kelvollinen APK</string>
+    <string name="home_invalid_apk_already_patched">Valittu APK on jo paikattu. Valitse sen sijaan alkuperäinen sovellus</string>
     <string name="home_invalid_apk_io_error">Tiedoston avaaminen epäonnistui. Yritä uudelleen</string>
     <string name="home_external_apk_expert_mode_required">Tämä ominaisuus on käytettävissä vain asiantuntijatilassa</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -369,6 +372,7 @@ Sovelluksen &lt;b&gt;%s&lt;/b&gt; tässä versiossa on varhainen kokeellinen tuk
     <string name="adaptive_icon_create">Luo adaptiivinen kuvake</string>
     <string name="adaptive_icon_select_image">Valitse kuva</string>
     <string name="adaptive_icon_change_image">Vaihda kuva</string>
+    <string name="image_load_failed">Tätä kuvaa ei voitu ladata</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Etualan kuva</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -475,6 +479,20 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="home_app_info_app_deleted_warning">Sovellus poistettiin</string>
     <string name="home_app_info_app_deleted_description">Tämä sovellus poistettiin Morphen ulkopuolelta. Muokkaa sitä uudelleen palauttaaksesi toiminnot</string>
     <string name="home_app_info_not_patched_description">Tästä sovelluksesta on asennettu korjaamaton versio. Morphella on edelleen aiempi korjaustietue.</string>
+    <string name="app_links_title">Tuetut verkkolinkit</string>
+    <string name="app_links_description">Android 12+:ssa linkit tuettuihin verkkotunnuksiin avautuvat oletuksena selaimessasi, ellei niitä ole hyväksytty</string>
+    <string name="app_links_unverified_banner_title">Vahvistamattomat verkkolinkit</string>
+    <string name="app_links_unverified_banner_description">Tuetut verkkolinkit avautuvat tällä hetkellä selaimessasi tämän sovelluksen sijaan</string>
+    <string name="app_links_enable_auto">Ota käyttöön automaattisesti</string>
+    <string name="app_links_enable_auto_in_progress">Otetaan linkkejä käyttöön…</string>
+    <string name="app_links_open_settings">Avaa linkkien asetukset</string>
+    <string name="app_links_repair_success">Sovelluslinkit on otettu käyttöön onnistuneesti</string>
+    <string name="app_links_repair_failed">Sovelluslinkkien automaattinen käyttöönotto epäonnistui</string>
+    <string name="app_links_badge_enabled">Käytössä</string>
+    <string name="app_links_badge_disabled">Pois käytöstä</string>
+    <string name="app_links_all_verified">Kaikki tuetut linkit on määritetty avautumaan tässä sovelluksessa</string>
+    <string name="app_links_fix">Korjaa linkit</string>
+    <string name="configure">Määritä</string>
     <string name="patcher_rename_title">Tämä asentaa kloonin</string>
     <string name="patcher_rename_description">Laastarit rakensivat tämän sovelluksen omalla pakettinimellään, joten sen asentaminen lisää kloonin &lt;b&gt;%s&lt;/b&gt; rinnalle päivittämisen sijaan</string>
     <string name="patcher_rename_result_package">Asennetaan nimellä</string>
@@ -540,6 +558,7 @@ Ulkopuolinen alue (katkoviiva): käynnistimen maski saattaa leikata osia siitä 
     <string name="patcher_failed_title">Hups! Jotain meni vikaan</string>
     <string name="patcher_failed_dialog_title">Paikkaus epäonnistui</string>
     <string name="patcher_error_details">Virheen tiedot</string>
+    <string name="patcher_change_patches">Vaihda paikkauksia</string>
     <string name="patcher_unknown_error">Tapahtui tuntematon virhe</string>
     <string name="patcher_split_step_extracting">Ositettujen APK-tiedostojen purkaminen</string>
     <string name="patcher_split_step_merging">Yhdistetään %s</string>
@@ -559,8 +578,7 @@ Poistaminen poistaa pysyvästi kaikki sovelluksen tiedot."</string>
     <string name="patcher_back_to_game_hint">Napauta %1$s palataksesi peliisi</string>
     <string name="patcher_storage_permission_dialog_title">Tallennuspolkua ei voida käyttää</string>
     <string name="patcher_incompatible_patcher_title">Päivitys vaaditaan</string>
-    <string name="patcher_incompatible_patcher_description">Paketti &lt;b&gt;%1$s&lt;/b&gt; vaatii muokkaustyökalun version &lt;b&gt;%2$s&lt;/b&gt; tai uudemman. Päivitä Morphe muokataksesi tätä sovellusta</string>
-    <string name="patcher_incompatible_patcher_update_button">Lataa ja päivitä Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Lähde &lt;b&gt;%1$s&lt;/b&gt; vaatii &lt;b&gt;%2$s&lt;/b&gt;-patcherin tai uudemman. Päivitä Morphe käyttääksesi sitä</string>
     <string name="patcher_storage_permission_description_api30">Yksi tai useampi lisäosien asetus osoittaa polkuihin, joita Morphe ei voi lukea. Anna lupa tallennustilan käyttöön ja napauta painiketta, niin muokkaus alkaa automaattisesti</string>
     <string name="patcher_storage_permission_description_legacy">Yksi tai useampi lisäosien asetus osoittaa polkuihin, joita ei voida käyttää. Päivitä polut lisäosien asetuksissa ja yritä uudelleen</string>
     <string name="patcher_storage_permission_grant">Anna lupa tallennustilan käyttöön</string>
@@ -1148,6 +1166,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="file_picker_internal_storage">Sisäinen tallennustila</string>
     <string name="file_picker_sd_card">SD-kortti</string>
     <string name="file_picker_root">Juurihakemisto (/)</string>
+    <string name="file_picker_storages">Tallennustilat</string>
     <string name="file_picker_sort_name_asc">Nimi (A–Ö)</string>
     <string name="file_picker_sort_name_desc">Nimi (Ö–A)</string>
     <string name="file_picker_sort_size_desc">Koko (suurin ensin)</string>
@@ -1295,6 +1314,7 @@ Yksityiskohdat: %2$s"</string>
     <string name="changelog_download_fail">Muutoslokin lataaminen epäonnistui: %s</string>
     <string name="changelog_empty">Muutoslokia ei ole saatavilla</string>
     <string name="changelog_earlier_releases">Aiemmat julkaisut</string>
+    <string name="changelog_patched_with">Paikattu sovelluksella %s</string>
     <string name="changelog_older_empty">Ei vanhempia julkaisuja näytettäväksi</string>
     <string name="changelog_older_failed">Vanhempia julkaisuja ei voitu ladata</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

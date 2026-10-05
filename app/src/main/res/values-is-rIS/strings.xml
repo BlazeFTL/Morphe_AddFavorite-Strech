@@ -259,6 +259,8 @@ Allt sem þú bætir við frá þessari vefsíðu er notað á eigin ábyrgð."<
     <string name="home_download_instructions_step4_mount">Eftir að setja upp upprunalega APK-skrána, farðu aftur til Morphe</string>
     <string name="home_download_instructions_continue_to">Halda áfram til %s</string>
     <string name="home_download_instructions_destination">niðurhalssíðan</string>
+    <string name="home_download_instructions_copy_link">Afrita tengil</string>
+    <string name="home_download_instructions_link_copied">Tengill afritaður</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Velja skrá</string>
     <string name="home_file_picker_prompt_description">Veldu &lt;b&gt;%s&lt;/b&gt; APK skrána sem þú hlaðið niður</string>
@@ -275,6 +277,7 @@ Allt sem þú bætir við frá þessari vefsíðu er notað á eigin ábyrgð."<
     <string name="home_installed_app_picker_filter_system">Aðeins kerfisforrit</string>
     <string name="home_invalid_apk_unreadable">Gat ekki lesið skrána. Athyglið að „Utanlandsgagnagáfa“ er ekki takmarkað af rafhlöðu</string>
     <string name="home_invalid_apk_not_an_apk">Valda skráin er ekki gilt APk</string>
+    <string name="home_invalid_apk_already_patched">Valið APK er þegar plástrað. Veldu upprunalega appið í staðinn</string>
     <string name="home_invalid_apk_io_error">Gat ekki opnað skrána. Reyndu aftur</string>
     <string name="home_external_apk_expert_mode_required">Þessi eiginleiki er eingöngu fáanlegur á sérfærnisstillingu</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -367,6 +370,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="adaptive_icon_create">Búa til adaptive tákn</string>
     <string name="adaptive_icon_select_image">Velja mynd</string>
     <string name="adaptive_icon_change_image">Breyta mynd</string>
+    <string name="image_load_failed">Ekki tókst að hlaða þessa mynd</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Forgrunnsmynd</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -472,6 +476,20 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="home_app_info_app_deleted_warning">App var afhent</string>
     <string name="home_app_info_app_deleted_description">Þetta app var afhent utan Morphe. Endurpakkalaðu það til að endurheimta virkni</string>
     <string name="home_app_info_not_patched_description">Óplötuð útgáfa af þessu forriti er uppsett. Morphe hefur enn fyrri plástursskrá sína</string>
+    <string name="app_links_title">Studdir veftenglar</string>
+    <string name="app_links_description">Á Android 12+ opnast tenglar á studd lén sjálfgefið í vafranum þínum nema þeir séu samþykktir</string>
+    <string name="app_links_unverified_banner_title">Veftenglar ekki staðfestir</string>
+    <string name="app_links_unverified_banner_description">Studdir veftenglar opnast nú í vafranum þínum í staðinn fyrir þetta forrit</string>
+    <string name="app_links_enable_auto">Virkja sjálfkrafa</string>
+    <string name="app_links_enable_auto_in_progress">Er að virkja tengla…</string>
+    <string name="app_links_open_settings">Opna tenglastillingar</string>
+    <string name="app_links_repair_success">Tókst að virkja forritstengla</string>
+    <string name="app_links_repair_failed">Mistókst að virkja app-tengla sjálfkrafa</string>
+    <string name="app_links_badge_enabled">Virkt</string>
+    <string name="app_links_badge_disabled">Slökkt</string>
+    <string name="app_links_all_verified">Allir studdir tenglar eru stilltir til að opnast í þessu appi</string>
+    <string name="app_links_fix">Laga tengla</string>
+    <string name="configure">Stilla</string>
     <string name="patcher_rename_title">Þetta mun setja upp klón</string>
     <string name="patcher_rename_description">Plástrarnir byggðu þetta forrit undir pakkanafni sínu, svo að uppsetning þess bætir við klóni við hliðina á <b>%s</b> í stað þess að uppfæra það</string>
     <string name="patcher_rename_result_package">Mun setja upp sem</string>
@@ -537,6 +555,7 @@ Fyrir bestu niðurstöður mælt er með því að breyta &lt;b&gt;fullu APK&lt;
     <string name="patcher_failed_title">Afsakið! Eitthvað fór úrskeikur</string>
     <string name="patcher_failed_dialog_title">Viðgerðin mislukkaðist</string>
     <string name="patcher_error_details">Villuupplýsingar</string>
+    <string name="patcher_change_patches">Breyta plástrum</string>
     <string name="patcher_unknown_error">Óþekkt villa kom upp</string>
     <string name="patcher_split_step_extracting">Útdráttur af flíknum APK</string>
     <string name="patcher_split_step_merging">Samruni %s</string>
@@ -556,8 +575,7 @@ Afnaman eyðir varanlega öllum forritsgögnum"</string>
     <string name="patcher_back_to_game_hint">Ýttu á %1$s til að fara aftur í leikinn</string>
     <string name="patcher_storage_permission_dialog_title">Ekki hægt að fá aðgang að geymslushörðu</string>
     <string name="patcher_incompatible_patcher_title">Uppfærsla krafist</string>
-    <string name="patcher_incompatible_patcher_description">Pakkinn &lt;b&gt;%1$s&lt;/b&gt; krefst Morphe útgáfu &lt;b&gt;%2$s&lt;/b&gt; eða nýrri. Vinsamlegast uppfæra Morphe til að breyta þessari forrit</string>
-    <string name="patcher_incompatible_patcher_update_button">Sæktu og uppfæra Morphe</string>
+    <string name="patcher_incompatible_patcher_description">Uppsprettan &lt;b&gt;%1$s&lt;/b&gt; krefst patcher &lt;b&gt;%2$s&lt;/b&gt; eða nýrri. Uppfærðu Morphe til að nota það</string>
     <string name="patcher_storage_permission_description_api30">Einn eða fleiri pakkningaval benda á slóð sem Morphe gat ekki lesið. Veittu geymsluheimild og smelltu á hnappinn þá mun pakkningin hefjast sjálfkrafa</string>
     <string name="patcher_storage_permission_description_legacy">Einn eða fleiri pakkningaval benda á slóð sem ekkert lið veitir aðgang að. Endurskoða slóðir í pakkningavalum og reyndu aftur</string>
     <string name="patcher_storage_permission_grant">Veittu geymsluheimild</string>
@@ -1144,6 +1162,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="file_picker_internal_storage">Innri geymsla</string>
     <string name="file_picker_sd_card">SD kort</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Geymslur</string>
     <string name="file_picker_sort_name_asc">Nafn (A–Ö)</string>
     <string name="file_picker_sort_name_desc">Nafn (Ö–A)</string>
     <string name="file_picker_sort_size_desc">Stærð (störra fyrst)</string>
@@ -1291,6 +1310,7 @@ Nánari upplýsingar: %2$s"</string>
     <string name="changelog_download_fail">Ekki tókst að sækja breytingaskrá: %s</string>
     <string name="changelog_empty">Engin breytingaskrá í boði</string>
     <string name="changelog_earlier_releases">Fyrri útgáfur</string>
+    <string name="changelog_patched_with">Plástrað með %s</string>
     <string name="changelog_older_empty">Engar eldri útgáfur til sýnis</string>
     <string name="changelog_older_failed">Ekki tókst að hlaða eldri útgáfur</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

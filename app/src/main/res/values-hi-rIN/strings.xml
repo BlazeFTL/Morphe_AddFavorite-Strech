@@ -259,6 +259,8 @@
     <string name="home_download_instructions_step4_mount">अपने APK को इंस्टॉल करने के बाद, वापस मॉर्फ पर जाएं</string>
     <string name="home_download_instructions_continue_to">%s पर आगे बढ़ें</string>
     <string name="home_download_instructions_destination">डाउनलोड पेज</string>
+    <string name="home_download_instructions_copy_link">लिंक कॉपी करें</string>
+    <string name="home_download_instructions_link_copied">लिंक कॉपी हो गया</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">चयनित डाउनलोड एपीके</string>
     <string name="home_file_picker_prompt_description">अपना डाउनलोड की गई &lt;b&gt;b>%s&lt;b&gt;/b> APK फ़ाइल चुनें</string>
@@ -275,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">केवल सिस्टम ऐप</string>
     <string name="home_invalid_apk_unreadable">फ़ाइल पढ़ने में असमर्थ। जाँच करें कि \'External Storage\' बैटरी द्वारा प्रतिबंधित तो नहीं है</string>
     <string name="home_invalid_apk_not_an_apk">चयनित फ़ाइल एक वैध APK नहीं है</string>
+    <string name="home_invalid_apk_already_patched">चयनित APK पहले से ही पैच किया हुआ है। इसके बजाय मूल ऐप चुनें</string>
     <string name="home_invalid_apk_io_error">फ़ाइल खोलने में विफल। कृपया फिर से प्रयास करें</string>
     <string name="home_external_apk_expert_mode_required">यह सुविधा केवल विशेषज्ञ मोड में उपलब्ध है</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -368,6 +371,7 @@
     <string name="adaptive_icon_create">अनुकूलित आइकॉन बनाएं</string>
     <string name="adaptive_icon_select_image">छवि चयन करें</string>
     <string name="adaptive_icon_change_image">छवि बदलें</string>
+    <string name="image_load_failed">यह छवि लोड नहीं की जा सकी</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">अग्रभूमि छवि</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -474,6 +478,20 @@
     <string name="home_app_info_app_deleted_warning">एप्लिकेशन उन्मोदन किया गया</string>
     <string name="home_app_info_app_deleted_description">इस ऐप को बाहर से उन्मोदन किया गया था। मॉर्फी में पुनः स्थापित करें कार्यक्षमता पुनः प्राप्त करने के लिए</string>
     <string name="home_app_info_not_patched_description">इस ऐप का एक अनपैच्ड संस्करण स्थापित है। Morphe के पास अभी भी उसका पिछला पैच रिकॉर्ड है</string>
+    <string name="app_links_title">समर्थित वेब लिंक</string>
+    <string name="app_links_description">Android 12+ पर, समर्थित डोमेन के लिंक डिफ़ॉल्ट रूप से आपके ब्राउज़र में खुलते हैं, जब तक कि अनुमोदित न हों</string>
+    <string name="app_links_unverified_banner_title">वेब लिंक सत्यापित नहीं हैं</string>
+    <string name="app_links_unverified_banner_description">समर्थित वेब लिंक वर्तमान में इस ऐप के बजाय आपके ब्राउज़र में खुलते हैं</string>
+    <string name="app_links_enable_auto">स्वचालित रूप से सक्षम करें</string>
+    <string name="app_links_enable_auto_in_progress">लिंक सक्षम किए जा रहे हैं…</string>
+    <string name="app_links_open_settings">लिंक सेटिंग खोलें</string>
+    <string name="app_links_repair_success">ऐप लिंक सफलतापूर्वक सक्षम हो गए</string>
+    <string name="app_links_repair_failed">ऐप लिंक को स्वचालित रूप से सक्षम करने में विफल</string>
+    <string name="app_links_badge_enabled">चालू किया गया</string>
+    <string name="app_links_badge_disabled">बंद किया गया</string>
+    <string name="app_links_all_verified">सभी समर्थित लिंक इस ऐप में खोलने के लिए कॉन्फ़िगर किए गए हैं</string>
+    <string name="app_links_fix">लिंक ठीक करें</string>
+    <string name="configure">कॉन्फ़िगर करें</string>
     <string name="patcher_rename_title">यह एक क्लोन स्थापित करेगा</string>
     <string name="patcher_rename_description">पैच ने इस ऐप को अपने पैकेज नाम के साथ बनाया है, इसलिए इसे इंस्टॉल करने पर &lt;b&gt;%s&lt;/b&gt; के साथ एक क्लोन जुड़ जाता है, बजाय इसे अपडेट करने के।</string>
     <string name="patcher_rename_result_package">इस रूप में इंस्टॉल होगा</string>
@@ -539,6 +557,7 @@
     <string name="patcher_failed_title">Oops! Something went wrong</string>
     <string name="patcher_failed_dialog_title">पैचिंग विफल रही</string>
     <string name="patcher_error_details">गड़बड़ी का विवरण</string>
+    <string name="patcher_change_patches">पैच बदलें</string>
     <string name="patcher_unknown_error">Unknown error occurred</string>
     <string name="patcher_split_step_extracting">स्प्लिट APK निकाल रहे हैं</string>
     <string name="patcher_split_step_merging">%s मिला रहे हैं</string>
@@ -558,8 +577,7 @@
     <string name="patcher_back_to_game_hint">अपने गेम पर वापस जाने के लिए %1$s टैप करें</string>
     <string name="patcher_storage_permission_dialog_title">स्तोरेज पथ तक पहुंच नहीं हो सकती है</string>
     <string name="patcher_incompatible_patcher_title">अपडेट आवश्यक है</string>
-    <string name="patcher_incompatible_patcher_description">बंडल &lt;b&gt;%1$s&lt;/b&gt; को पैचर संस्करण &lt;b&gt;%2$s&lt;/b&gt; या नया संस्करण की आवश्यकता है। कृपया इस ऐप को पैच करने के लिए Morphe को अपडेट करें।</string>
-    <string name="patcher_incompatible_patcher_update_button">डाउनलोड करें और मोर्फ़ अपडेट करें</string>
+    <string name="patcher_incompatible_patcher_description">स्रोत &lt;b&gt;%1$s&lt;/b&gt; के लिए पैचर &lt;b&gt;%2$s&lt;/b&gt; या उससे नया संस्करण आवश्यक है। इसका उपयोग करने के लिए Morphe को अपडेट करें</string>
     <string name="patcher_storage_permission_description_api30">एक या अधिक पैच विकल्प ऐसे पथों की ओर इशारा करते हैं जिन्हें मोर्फे नहीं पढ़ सकता है। स्टोरेज एक्सेस प्रदान करें और बटन पर टैप करें, फिर पैचिंग स्वचालित रूप से शुरू हो जाएगी</string>
     <string name="patcher_storage_permission_description_legacy">एक या अधिक पैच ऑप्शन को पथ्स को पॉइंट करता है जो पहुंच नहीं हो सकती है। पैच ऑप्शन में पथ्स को अद्यतन करें और पुन: प्रयास करें</string>
     <string name="patcher_storage_permission_grant">स्टोरेज अनुमति प्रदान करें</string>
@@ -1149,6 +1167,7 @@ morphe_header_custom_dark.png
     <string name="file_picker_internal_storage">आंतरिक संग्रहण</string>
     <string name="file_picker_sd_card">एसडी कार्ड</string>
     <string name="file_picker_root">रूट (/)</string>
+    <string name="file_picker_storages">स्टोरेज</string>
     <string name="file_picker_sort_name_asc">नाम (अ–ज़)</string>
     <string name="file_picker_sort_name_desc">नाम (ज़–अ)</string>
     <string name="file_picker_sort_size_desc">आकार (सबसे बड़ा पहले)</string>
@@ -1296,6 +1315,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">परिवर्तन लॉग डाउनलोड करने में विफल: %s</string>
     <string name="changelog_empty">कोई चेंजलॉग उपलब्ध नहीं है</string>
     <string name="changelog_earlier_releases">पिछले रिलीज़</string>
+    <string name="changelog_patched_with">%s के साथ पैच किया गया</string>
     <string name="changelog_older_empty">दिखाने के लिए कोई पुराना रिलीज़ नहीं है</string>
     <string name="changelog_older_failed">पुराने रिलीज़ लोड नहीं हो सके</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

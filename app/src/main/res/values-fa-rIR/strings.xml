@@ -446,6 +446,8 @@
     <string name="home_app_info_app_deleted_warning">برنامه حذف شده است</string>
     <string name="home_app_info_app_deleted_description">این برنامه خارج از Morphe حذف شده است. برای بازگرداندن عملکرد، آن را دوباره پچ کنید</string>
     <string name="home_app_info_not_patched_description">نسخهٔ پچ‌نشدهٔ این برنامه نصب است. Morphe همچنان سابقهٔ پچ قبلی آن را دارد</string>
+    <string name="app_links_badge_enabled">فعال</string>
+    <string name="app_links_badge_disabled">غیرفعال</string>
     <string name="patcher_rename_title">یک نسخهٔ کلون نصب می‌شود</string>
     <string name="patcher_rename_description">پچ‌ها این برنامه را با نام بستهٔ مخصوص خود ساخته‌اند؛ بنابراین نصب آن، نسخه‌ای کلون را در کنار &lt;b&gt;%s&lt;/b&gt; اضافه می‌کند، نه اینکه آن را به‌روزرسانی کند</string>
     <string name="patcher_rename_result_package">با این نام نصب می‌شود</string>
@@ -529,8 +531,6 @@
     <string name="patcher_back_to_game_hint">برای بازگشت به بازی، %1$s را بزنید</string>
     <string name="patcher_storage_permission_dialog_title">دسترسی به مسیر ذخیره‌سازی ممکن نیست</string>
     <string name="patcher_incompatible_patcher_title">به‌روزرسانی لازم است</string>
-    <string name="patcher_incompatible_patcher_description">بستهٔ &lt;b&gt;%1$s&lt;/b&gt; به نسخهٔ پچر &lt;b&gt;%2$s&lt;/b&gt; یا جدیدتر نیاز دارد. برای پچ‌کردن این برنامه، Morphe را به‌روز کنید</string>
-    <string name="patcher_incompatible_patcher_update_button">دانلود و به‌روزرسانی Morphe</string>
     <string name="patcher_storage_permission_description_api30">یک یا چند گزینهٔ پچ به مسیرهایی اشاره می‌کنند که Morphe نمی‌تواند بخواند. دسترسی ذخیره‌سازی را اعطا کنید و دکمه را بزنید؛ سپس پچ‌کردن خودکار شروع می‌شود</string>
     <string name="patcher_storage_permission_description_legacy">یک یا چند گزینهٔ پچ به مسیرهایی اشاره می‌کنند که قابل دسترسی نیستند. مسیرها را در گزینه‌های پچ به‌روز و دوباره تلاش کنید</string>
     <string name="patcher_storage_permission_grant">اعطای مجوز ذخیره‌سازی</string>

@@ -258,6 +258,8 @@ Alles, was Sie von dieser Website hinzufügen, geschieht auf eigenes Risiko"</st
     <string name="home_download_instructions_step4_mount">Nach der Installation der originalen APK, kehren Sie zu Morphe zurück</string>
     <string name="home_download_instructions_continue_to">Weiter zu %s</string>
     <string name="home_download_instructions_destination">der Download-Seite</string>
+    <string name="home_download_instructions_copy_link">Link kopieren</string>
+    <string name="home_download_instructions_link_copied">Link kopiert</string>
     <!-- Home Screen - Dialog 3: File Picker Prompt -->
     <string name="home_file_picker_prompt_title">Heruntergeladene APK-Datei auswählen</string>
     <string name="home_file_picker_prompt_description">Wählen Sie die &lt;b&gt;%s&lt;/b&gt; APK-Datei aus, die Sie gerade heruntergeladen haben</string>
@@ -274,6 +276,7 @@ Alles, was Sie von dieser Website hinzufügen, geschieht auf eigenes Risiko"</st
     <string name="home_installed_app_picker_filter_system">Nur System-Apps</string>
     <string name="home_invalid_apk_unreadable">Die Datei konnte nicht gelesen werden. Bitte überprüfen Sie, ob \'Externer Speicher\' nicht durch die Batterie eingeschränkt ist</string>
     <string name="home_invalid_apk_not_an_apk">Die ausgewählte Datei ist keine gültige APK</string>
+    <string name="home_invalid_apk_already_patched">Die ausgewählte APK ist bereits gepatcht. Wähle stattdessen die originale App aus</string>
     <string name="home_invalid_apk_io_error">Die Datei konnte nicht geöffnet werden. Bitte versuchen Sie es erneut</string>
     <string name="home_external_apk_expert_mode_required">Diese Funktion ist nur im Expertenmodus verfügbar</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -367,6 +370,7 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="adaptive_icon_create">Adaptives Icon erstellen</string>
     <string name="adaptive_icon_select_image">Bild auswählen</string>
     <string name="adaptive_icon_change_image">Bild ändern</string>
+    <string name="image_load_failed">Dieses Bild konnte nicht geladen werden</string>
     <!-- Card of the adaptive icon creator holding the picture every icon is made from -->
     <string name="adaptive_icon_foreground">Vordergrundbild</string>
     <!-- Card of the adaptive icon creator previewing the icon on the home screen -->
@@ -473,6 +477,20 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="home_app_info_app_deleted_warning">App wurde deinstalliert</string>
     <string name="home_app_info_app_deleted_description">Diese App wurde außerhalb von Morphe deinstalliert. Repatchen Sie sie, um die Funktionalität wiederherzustellen</string>
     <string name="home_app_info_not_patched_description">Eine ungepatchte Version dieser App ist installiert. Morphe hat immer noch seinen vorherigen Patch-Datensatz</string>
+    <string name="app_links_title">Unterstützte Weblinks</string>
+    <string name="app_links_description">Unter Android 12+ werden Links zu unterstützten Domains standardmäßig in Ihrem Browser geöffnet, sofern sie nicht genehmigt wurden</string>
+    <string name="app_links_unverified_banner_title">Weblinks nicht verifiziert</string>
+    <string name="app_links_unverified_banner_description">Unterstützte Weblinks werden derzeit in Ihrem Browser geöffnet, anstatt in dieser App</string>
+    <string name="app_links_enable_auto">Automatisch aktivieren</string>
+    <string name="app_links_enable_auto_in_progress">Links werden aktiviert…</string>
+    <string name="app_links_open_settings">Link-Einstellungen öffnen</string>
+    <string name="app_links_repair_success">App-Links erfolgreich aktiviert</string>
+    <string name="app_links_repair_failed">Automatisches Aktivieren von App-Links fehlgeschlagen</string>
+    <string name="app_links_badge_enabled">Aktiviert</string>
+    <string name="app_links_badge_disabled">Deaktiviert</string>
+    <string name="app_links_all_verified">Alle unterstützten Links sind so konfiguriert, dass sie in dieser App geöffnet werden</string>
+    <string name="app_links_fix">Links reparieren</string>
+    <string name="configure">Konfigurieren</string>
     <string name="patcher_rename_title">Dies installiert einen Klon</string>
     <string name="patcher_rename_description">Die Patches haben diese App unter einem eigenen Paketnamen erstellt, daher fügt die Installation einen Klon neben &lt;b&gt;%s&lt;/b&gt; hinzu, anstatt es zu aktualisieren</string>
     <string name="patcher_rename_result_package">Wird installiert als</string>
@@ -538,6 +556,7 @@ Für optimale Ergebnisse empfiehlt diese App, eine &lt;b&gt;vollständige APK&lt
     <string name="patcher_failed_title">Hoppla! Da ist etwas schiefgelaufen</string>
     <string name="patcher_failed_dialog_title">Patch-Vorgang fehlgeschlagen</string>
     <string name="patcher_error_details">Fehlerdetails</string>
+    <string name="patcher_change_patches">Patches ändern</string>
     <string name="patcher_unknown_error">Ein unbekannter Fehler ist aufgetreten</string>
     <string name="patcher_split_step_extracting">Extrahiere Split-APKs</string>
     <string name="patcher_split_step_merging">%s wird zusammengeführt</string>
@@ -558,8 +577,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="patcher_back_to_game_hint">Tippe auf %1$s, um zu deinem Spiel zurückzukehren</string>
     <string name="patcher_storage_permission_dialog_title">Auf den Speicherpfad kann nicht zugegriffen werden</string>
     <string name="patcher_incompatible_patcher_title">Update erforderlich</string>
-    <string name="patcher_incompatible_patcher_description">Das Bundle &lt;b&gt;%1$s&lt;/b&gt; benötigt Patcher-Version &lt;b&gt;%2$s&lt;/b&gt; oder neuer. Bitte aktualisiere Morphe, um diese App zu patchen</string>
-    <string name="patcher_incompatible_patcher_update_button">Morphe herunterladen und aktualisieren</string>
+    <string name="patcher_incompatible_patcher_description">Die Quelle &lt;b&gt;%1$s&lt;/b&gt; erfordert Patcher &lt;b&gt;%2$s&lt;/b&gt; oder neuer. Aktualisiere Morphe, um sie zu verwenden</string>
     <string name="patcher_storage_permission_description_api30">Eine oder mehrere Patch-Optionen verweisen auf Pfade, die Morphe nicht lesen kann. Erlaube den Speicherzugriff und tippe auf die Schaltfläche, dann beginnt das Patchen automatisch</string>
     <string name="patcher_storage_permission_description_legacy">Eine oder mehrere Patch-Optionen verweisen auf Pfade, auf die nicht zugegriffen werden kann. Aktualisiere die Pfade in den Patch-Optionen und versuche es erneut</string>
     <string name="patcher_storage_permission_grant">Speicherberechtigung erteilen</string>
@@ -1149,6 +1167,7 @@ Details: %2$s"</string>
     <string name="file_picker_internal_storage">Interner Speicher</string>
     <string name="file_picker_sd_card">SD-Karte</string>
     <string name="file_picker_root">Stammverzeichnis (/)</string>
+    <string name="file_picker_storages">Speicherorte</string>
     <string name="file_picker_sort_name_asc">Name (A–Z)</string>
     <string name="file_picker_sort_name_desc">Name (Z–A)</string>
     <string name="file_picker_sort_size_desc">Größe (größte zuerst)</string>
@@ -1296,6 +1315,7 @@ Details: %2$s"</string>
     <string name="changelog_download_fail">Download des Changelogs fehlgeschlagen: %s</string>
     <string name="changelog_empty">Kein Changelog verfügbar</string>
     <string name="changelog_earlier_releases">Frühere Versionen</string>
+    <string name="changelog_patched_with">Mit %s gepatcht</string>
     <string name="changelog_older_empty">Keine älteren Versionen zum Anzeigen</string>
     <string name="changelog_older_failed">Ältere Versionen konnten nicht geladen werden</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

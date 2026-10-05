@@ -1,3 +1,11 @@
+## [1.34.1-dev.1](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0...v1.34.1-dev.1) (2026-10-05)
+
+
+### Bug Fixes
+
+* Install through Shizuku+ 13.7 without a null package installer ([5716b0e](https://github.com/MorpheApp/morphe-manager/commit/5716b0ee50cd270cb501d050c5884828556b108d))
+* Offer only stable builds on the stable update channel ([f079374](https://github.com/MorpheApp/morphe-manager/commit/f07937453c9f412079f08fb16d32268678099fac))
+
 # [1.34.0](https://github.com/MorpheApp/morphe-manager/compare/v1.33.0...v1.34.0) (2026-10-05)
 
 

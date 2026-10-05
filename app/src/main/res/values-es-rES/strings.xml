@@ -479,14 +479,14 @@ Zona exterior (discontinua): puede quedar recortada por la máscara del lanzador
     <string name="home_app_info_app_deleted_description">Esta aplicación fue desinstalada fuera de Morphe. Vuelve a parchearla para restaurar su funcionalidad</string>
     <string name="home_app_info_not_patched_description">Una versión sin parchear de esta aplicación está instalada. Morphe aún conserva su registro de parches anterior</string>
     <string name="app_links_title">Enlaces web compatibles</string>
-    <string name="app_links_description">En Android 12 o versiones posteriores, los enlaces a dominios compatibles se abren en tu navegador de forma predeterminada, a menos que estén aprobados</string>
+    <string name="app_links_description">En Android 12 o posterior, los enlaces a dominios compatibles se abren en el navegador de forma predeterminada a menos que se aprueben</string>
     <string name="app_links_unverified_banner_title">Enlaces web no verificados</string>
     <string name="app_links_unverified_banner_description">Los enlaces web compatibles se abren actualmente en tu navegador en lugar de en esta aplicación</string>
     <string name="app_links_enable_auto">Activar automáticamente</string>
-    <string name="app_links_enable_auto_in_progress">Activando enlaces...</string>
+    <string name="app_links_enable_auto_in_progress">Activando enlaces…</string>
     <string name="app_links_open_settings">Abrir ajustes de enlaces</string>
-    <string name="app_links_repair_success">Enlaces de la aplicación activados correctamente</string>
-    <string name="app_links_repair_failed">No se han podido activar los enlaces de la aplicación automáticamente</string>
+    <string name="app_links_repair_success">Enlaces de aplicaciones activados correctamente</string>
+    <string name="app_links_repair_failed">Error al activar automáticamente los enlaces de aplicaciones</string>
     <string name="app_links_badge_enabled">Activado</string>
     <string name="app_links_badge_disabled">Desactivado</string>
     <string name="app_links_all_verified">Todos los enlaces compatibles están configurados para abrirse en esta aplicación</string>
@@ -1314,6 +1314,7 @@ Detalles: %2$s"</string>
     <string name="changelog_download_fail">Error al descargar el registro de cambios: %s</string>
     <string name="changelog_empty">No hay registro de cambios disponible</string>
     <string name="changelog_earlier_releases">Versiones anteriores</string>
+    <string name="changelog_patched_with">Parcheado con %s</string>
     <string name="changelog_older_empty">No hay versiones anteriores para mostrar</string>
     <string name="changelog_older_failed">No se pudieron cargar las versiones anteriores</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

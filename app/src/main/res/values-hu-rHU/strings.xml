@@ -486,8 +486,12 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="app_links_enable_auto_in_progress">Hivatkozások engedélyezése…</string>
     <string name="app_links_open_settings">Hivatkozásbeállítások megnyitása</string>
     <string name="app_links_repair_success">Alkalmazáshivatkozások sikeresen engedélyezve</string>
+    <string name="app_links_repair_failed">Nem sikerült automatikusan engedélyezni az alkalmazáshivatkozásokat</string>
     <string name="app_links_badge_enabled">Engedélyezve</string>
     <string name="app_links_badge_disabled">Kikapcsolva</string>
+    <string name="app_links_all_verified">Minden támogatott hivatkozás úgy van beállítva, hogy ebben az alkalmazásban nyíljon meg</string>
+    <string name="app_links_fix">Hivatkozások javítása</string>
+    <string name="configure">Beállítás</string>
     <string name="patcher_rename_title">Ez egy klónt telepít</string>
     <string name="patcher_rename_description">A javítócsomagok saját csomagnév alatt építették ezt az alkalmazást, így a telepítése egy klónt ad hozzá a &lt;b&gt;%s&lt;/b&gt; mellé a frissítés helyett.</string>
     <string name="patcher_rename_result_package">Telepítés mint</string>
@@ -553,6 +557,7 @@ Külső zóna (szaggatott): az indító maszk levághatja – tartsa a fontos r�
     <string name="patcher_failed_title">Hoppá! Valami hiba történt</string>
     <string name="patcher_failed_dialog_title">A javítás sikertelen</string>
     <string name="patcher_error_details">Hiba részletei</string>
+    <string name="patcher_change_patches">Patchok módosítása</string>
     <string name="patcher_unknown_error">Ismeretlen hiba történt</string>
     <string name="patcher_split_step_extracting">Osztott APK-k kibontása</string>
     <string name="patcher_split_step_merging">%s egyesítése</string>
@@ -572,6 +577,7 @@ Az eltávolítás véglegesen törli az alkalmazás összes adatát."</string>
     <string name="patcher_back_to_game_hint">Koppints a(z) %1$s elemre a játékhoz való visszatéréshez</string>
     <string name="patcher_storage_permission_dialog_title">Az elérési útvonal nem hozzáférhető</string>
     <string name="patcher_incompatible_patcher_title">Frissítés szükséges</string>
+    <string name="patcher_incompatible_patcher_description">A &lt;b&gt;%1$s&lt;/b&gt; forrás a &lt;b&gt;%2$s&lt;/b&gt; vagy újabb patchert igényel. A használatához frissítse a Morphe-ot</string>
     <string name="patcher_storage_permission_description_api30">Egy vagy több módosítási opció olyan elérési útra mutat, amelyeket a Morphe nem tud olvasni. Add meg a tárhely hozzáférést, majd koppints a gombra, és a módosítás automatikusan elindul</string>
     <string name="patcher_storage_permission_description_legacy">Egy vagy több módosítási opció olyan elérési útra mutat, amelyekhez nem lehet hozzáférni. Frissítsd az útvonalakat a módosítási opciókban és próbáld újra</string>
     <string name="patcher_storage_permission_grant">Tárhelyhozzáférés engedélyezése</string>
@@ -1308,6 +1314,7 @@ Részletek: %2$s"</string>
     <string name="changelog_download_fail">Nem sikerült letölteni a változásnaplót: %s</string>
     <string name="changelog_empty">A változásnapló nem elérhető</string>
     <string name="changelog_earlier_releases">Korábbi kiadások</string>
+    <string name="changelog_patched_with">Javítva a következővel: %s</string>
     <string name="changelog_older_empty">Nincsenek megjeleníthető régi kiadások</string>
     <string name="changelog_older_failed">Nem sikerült betölteni a régebbi kiadásokat</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

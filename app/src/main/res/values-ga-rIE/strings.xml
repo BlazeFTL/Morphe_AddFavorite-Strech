@@ -486,8 +486,12 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="app_links_enable_auto_in_progress">Naisc á gcumasú…</string>
     <string name="app_links_open_settings">Oscail socruithe naisc</string>
     <string name="app_links_repair_success">Cumasaíodh naisc aip go rathúil</string>
+    <string name="app_links_repair_failed">Theip ar naisc aipeanna a chumasú go huathoibríoch</string>
     <string name="app_links_badge_enabled">Cumasaithe</string>
     <string name="app_links_badge_disabled">Díchumasaithe</string>
+    <string name="app_links_all_verified">Tá na naisc thacaithe go léir cumraithe le hoscailt san aip seo</string>
+    <string name="app_links_fix">Deisigh naisc</string>
+    <string name="configure">Cumraigh</string>
     <string name="patcher_rename_title">Déanfaidh sé seo clón a shuiteáil</string>
     <string name="patcher_rename_description">Thóg na paistí an aip seo faoina n-ainm pacáiste féin, mar sin má shuiteáiltear é cuirfear clón leis taobh le &lt;b&gt;%s&lt;/b&gt; in ionad é a nuashonrú</string>
     <string name="patcher_rename_result_package">Suiteáil mar</string>
@@ -553,6 +557,7 @@ Crios seachtrach (daite): féadfaidh masc an lainseálaí é a bhearradh - coinn
     <string name="patcher_failed_title">Úps! Chuaigh rud éigin mícheart.</string>
     <string name="patcher_failed_dialog_title">Theip ar phaisteáil</string>
     <string name="patcher_error_details">Sonraí earráide</string>
+    <string name="patcher_change_patches">Athraigh paistí</string>
     <string name="patcher_unknown_error">Tharla earráid anaithnid</string>
     <string name="patcher_split_step_extracting">Ag baint APKanna scoilte</string>
     <string name="patcher_split_step_merging">Ag cumasc %s</string>
@@ -572,6 +577,7 @@ Scriosfaidh díshuiteáil gach sonraí aip go buan."</string>
     <string name="patcher_back_to_game_hint">Tapáil %1$s chun filleadh ar do chluiche</string>
     <string name="patcher_storage_permission_dialog_title">Ní féidir rochtain a fháil ar an gcosán stórála</string>
     <string name="patcher_incompatible_patcher_title">Nuashonrú ag teastáil</string>
+    <string name="patcher_incompatible_patcher_description">Éilíonn an fhoinse &lt;b&gt;%1$s&lt;/b&gt; paitseálaí &lt;b&gt;%2$s&lt;/b&gt; nó níos nuaí. Nuashonraigh Morphe chun é a úsáid</string>
     <string name="patcher_storage_permission_description_api30">Léiríonn rogha paiste amháin nó níos mó cosáin nach féidir le Morphe a léamh. Deonaigh rochtain stórála agus tapáil an cnaipe ansin tosóidh an paisteáil go huathoibríoch.</string>
     <string name="patcher_storage_permission_description_legacy">Léiríonn rogha paiste amháin nó níos mó cosáin nach féidir rochtain a fháil orthu. Nuashonraigh na cosáin sna roghanna paiste agus déan iarracht arís.</string>
     <string name="patcher_storage_permission_grant">Deonaigh cead stórála</string>
@@ -1307,6 +1313,7 @@ Sonraí: %2$s"</string>
     <string name="changelog_download_fail">Theip ar an logála hathruithe a íoslódáil: %s</string>
     <string name="changelog_empty">Níl aon loga athraithe ar fáil</string>
     <string name="changelog_earlier_releases">Eisiúintí níos luaithe</string>
+    <string name="changelog_patched_with">Paisteáilte le %s</string>
     <string name="changelog_older_empty">Gan aon eisiúintí níos sine le taispeáint</string>
     <string name="changelog_older_failed">Níorbh fhéidir na heisiúintí níos sine a lódáil</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

@@ -486,8 +486,12 @@ Vùng ngoài (nét đứt): có thể bị cắt theo hình dạng biểu tượ
     <string name="app_links_enable_auto_in_progress">Đang bật liên kết…</string>
     <string name="app_links_open_settings">Mở cài đặt liên kết</string>
     <string name="app_links_repair_success">Đã bật liên kết ứng dụng thành công</string>
+    <string name="app_links_repair_failed">Không thể tự động bật liên kết ứng dụng</string>
     <string name="app_links_badge_enabled">Đang bật</string>
     <string name="app_links_badge_disabled">Đang tắt</string>
+    <string name="app_links_all_verified">Tất cả các liên kết được hỗ trợ đều được cấu hình để mở trong ứng dụng này</string>
+    <string name="app_links_fix">Sửa liên kết</string>
+    <string name="configure">Cấu hình</string>
     <string name="patcher_rename_title">Cài đặt như bản sao</string>
     <string name="patcher_rename_description">Các bản vá sẽ dựng ứng dụng với một tên gói khác, vì vậy khi cài đặt sẽ có thêm một ứng dụng khác cùng với &lt;b&gt;%s&lt;/b&gt; thay vì cập nhật lên</string>
     <string name="patcher_rename_result_package">Cài đặt với tên</string>
@@ -574,6 +578,7 @@ Gỡ cài đặt sẽ xóa vĩnh viễn toàn bộ dữ liệu ứng dụng"</st
     <string name="patcher_back_to_game_hint">Chạm vào %1$s để quay lại trò chơi của bạn</string>
     <string name="patcher_storage_permission_dialog_title">Không thể truy cập đường dẫn bộ nhớ</string>
     <string name="patcher_incompatible_patcher_title">Cần phải cập nhật</string>
+    <string name="patcher_incompatible_patcher_description">Nguồn &lt;b&gt;%1$s&lt;/b&gt; yêu cầu patcher &lt;b&gt;%2$s&lt;/b&gt; trở lên. Cập nhật Morphe để sử dụng nó</string>
     <string name="patcher_storage_permission_description_api30">Một hoặc nhiều tuỳ chỉnh bản vá đang trỏ đến thư mục mà Morphe không thể truy cập. Hãy cấp quyền truy cập bộ nhớ, sau đó bấm nút và quá trình vá sẽ tự động bắt đầu</string>
     <string name="patcher_storage_permission_description_legacy">Một hoặc nhiều tuỳ chỉnh bản vá đang trỏ đến đường dẫn không thể truy cập. Hãy cập nhật lại đường dẫn trong phần tuỳ chỉnh bản vá và thử lại</string>
     <string name="patcher_storage_permission_grant">Cấp quyền truy cập bộ nhớ</string>
@@ -1314,6 +1319,7 @@ Chi tiết: %2$s"</string>
     <string name="changelog_download_fail">Không thể tải lịch sử cập nhật: %s</string>
     <string name="changelog_empty">Không có lịch sử cập nhật</string>
     <string name="changelog_earlier_releases">Các bản phát hành trước</string>
+    <string name="changelog_patched_with">Đã vá bằng %s</string>
     <string name="changelog_older_empty">Không có bản phát hành nào trước đây</string>
     <string name="changelog_older_failed">Không thể tải các bản phát hành cũ hơn</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

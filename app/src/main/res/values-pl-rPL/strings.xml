@@ -480,15 +480,19 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="home_app_info_app_deleted_description">Ta aplikacja została odinstalowana poza Morphe. Zmodyfikuj ją ponownie, aby przywrócić jej funkcjonalność</string>
     <string name="home_app_info_not_patched_description">Zainstalowano niezmodyfikowaną wersję tej aplikacji. Morphe wciąż posiada zapis jej poprzedniej modyfikacji</string>
     <string name="app_links_title">Obsługiwane linki internetowe</string>
-    <string name="app_links_description">Na Androidzie 12+ linki do obsługiwanych domen otwierają się domyślnie w przeglądarce, chyba że zostały zatwierdzone</string>
-    <string name="app_links_unverified_banner_title">Linki internetowe niezweryfikowane</string>
+    <string name="app_links_description">W systemie Android 12+ linki do obsługiwanych domen otwierają się domyślnie w przeglądarce, chyba że zostaną zatwierdzone</string>
+    <string name="app_links_unverified_banner_title">Niezweryfikowane linki internetowe</string>
     <string name="app_links_unverified_banner_description">Obsługiwane linki internetowe otwierają się obecnie w przeglądarce zamiast w tej aplikacji</string>
     <string name="app_links_enable_auto">Włącz automatycznie</string>
     <string name="app_links_enable_auto_in_progress">Włączanie linków…</string>
     <string name="app_links_open_settings">Otwórz ustawienia linków</string>
-    <string name="app_links_repair_success">Linki aplikacji zostały pomyślnie włączone</string>
+    <string name="app_links_repair_success">Pomyślnie włączono linki aplikacji</string>
+    <string name="app_links_repair_failed">Nie udało się automatycznie włączyć linków aplikacji</string>
     <string name="app_links_badge_enabled">Włączone</string>
-    <string name="app_links_badge_disabled">Wyłączona</string>
+    <string name="app_links_badge_disabled">Wyłączone</string>
+    <string name="app_links_all_verified">Wszystkie obsługiwane linki są skonfigurowane tak, aby otwierać się w tej aplikacji</string>
+    <string name="app_links_fix">Napraw linki</string>
+    <string name="configure">Konfiguruj</string>
     <string name="patcher_rename_title">To zainstaluje klona</string>
     <string name="patcher_rename_description">Modyfikacje zbudowały tę aplikację pod własną nazwą pakietu, więc jej instalacja doda klona obok &lt;b&gt;%s&lt;/b&gt; zamiast ją aktualizować</string>
     <string name="patcher_rename_result_package">Zainstaluje się jako</string>
@@ -554,6 +558,7 @@ Strefa zewnętrzna (linia przerywana): może zostać przycięta - najważniejsze
     <string name="patcher_failed_title">Ups! Coś poszło nie tak</string>
     <string name="patcher_failed_dialog_title">Błąd modyfikacji</string>
     <string name="patcher_error_details">Szczegóły błędu</string>
+    <string name="patcher_change_patches">Zmień modyfikacje</string>
     <string name="patcher_unknown_error">Wystąpił nieznany błąd</string>
     <string name="patcher_split_step_extracting">Wyodrębnianie podzielonych plików APK</string>
     <string name="patcher_split_step_merging">Scalanie %s</string>
@@ -573,6 +578,7 @@ Odinstalowanie bezpowrotnie usunie wszystkie dane aplikacji"</string>
     <string name="patcher_back_to_game_hint">Dotknij %1$s, aby wrócić do gry</string>
     <string name="patcher_storage_permission_dialog_title">Brak dostępu do ścieżki pamięci</string>
     <string name="patcher_incompatible_patcher_title">Wymagana aktualizacja</string>
+    <string name="patcher_incompatible_patcher_description">Źródło &lt;b&gt;%1$s&lt;/b&gt; wymaga modyfikatora w wersji &lt;b&gt;%2$s&lt;/b&gt; lub nowszej. Zaktualizuj Morphe, aby go używać</string>
     <string name="patcher_storage_permission_description_api30">Przynajmniej jedna opcja modyfikacji wskazuje na ścieżki, których Morphe nie może odczytać. Przyznaj dostęp do pamięci i dotknij przycisk, a modyfikowanie rozpocznie się automatycznie</string>
     <string name="patcher_storage_permission_description_legacy">Przynajmniej jedna opcji modyfikacji wskazuje na ścieżki, do których nie można uzyskać dostępu. Zaktualizuj ścieżki w opcjach i spróbuj ponownie</string>
     <string name="patcher_storage_permission_grant">Przyznaj uprawnienia dostępu do pamięci</string>
@@ -1310,6 +1316,7 @@ Wymagane są następujące wymiary obrazów:
     <string name="changelog_download_fail">Nie udało się pobrać historii zmian: %s</string>
     <string name="changelog_empty">Brak dostępnej historii zmian</string>
     <string name="changelog_earlier_releases">Wcześniejsze wydania</string>
+    <string name="changelog_patched_with">Zmodyfikowano przy użyciu %s</string>
     <string name="changelog_older_empty">Brak starszych wersji do wyświetlenia</string>
     <string name="changelog_older_failed">Nie udało się wczytać starszych wydań</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

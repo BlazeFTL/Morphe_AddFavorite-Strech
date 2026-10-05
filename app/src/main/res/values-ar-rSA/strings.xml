@@ -481,13 +481,17 @@
     <string name="app_links_title">روابط الويب المدعومة</string>
     <string name="app_links_description">على أندرويد 12+، تُفتح روابط النطاقات المدعومة في متصفحك افتراضيًا ما لم تتم الموافقة عليها</string>
     <string name="app_links_unverified_banner_title">روابط الويب غير الموثَّقة</string>
-    <string name="app_links_unverified_banner_description">تُفتح روابط الويب المدعومة حاليًا في متصفحك بدلاً من هذا التطبيق</string>
-    <string name="app_links_enable_auto">تفعيل تلقائيًا</string>
-    <string name="app_links_enable_auto_in_progress">جارٍ تفعيل الروابط…</string>
+    <string name="app_links_unverified_banner_description">تُفتح روابط الويب المدعومة حاليًا في متصفحك بدلًا من هذا التطبيق</string>
+    <string name="app_links_enable_auto">تمكين تلقائيًا</string>
+    <string name="app_links_enable_auto_in_progress">جارٍ تمكين الروابط…</string>
     <string name="app_links_open_settings">فتح إعدادات الروابط</string>
-    <string name="app_links_repair_success">تم تفعيل روابط التطبيق بنجاح</string>
+    <string name="app_links_repair_success">تم تمكين روابط التطبيق بنجاح</string>
+    <string name="app_links_repair_failed">تعذّر تمكين روابط التطبيقات تلقائيًا</string>
     <string name="app_links_badge_enabled">تمكين</string>
     <string name="app_links_badge_disabled">معطّل</string>
+    <string name="app_links_all_verified">تم تكوين جميع الروابط المدعومة لتُفتح في هذا التطبيق</string>
+    <string name="app_links_fix">إصلاح الروابط</string>
+    <string name="configure">تكوين</string>
     <string name="patcher_rename_title">سيؤدي هذا إلى تثبيت نسخة مستنسخة</string>
     <string name="patcher_rename_description">تم إنشاء هذا التطبيق باستخدام اسم حزمة مختلف بسبب التعديلات، لذا فإن تثبيته سيضيف نسخة مستنسخة إلى جانب &lt;b&gt;%s&lt;/b&gt; بدلًا من تحديثه</string>
     <string name="patcher_rename_result_package">سيتم التثبيت كـ</string>
@@ -553,6 +557,7 @@
     <string name="patcher_failed_title">عفوًا! حدث خطأ ما</string>
     <string name="patcher_failed_dialog_title">فشل التعديل</string>
     <string name="patcher_error_details">تفاصيل الخطأ</string>
+    <string name="patcher_change_patches">تغيير التصحيحات</string>
     <string name="patcher_unknown_error">حدث خطأ غير معروف</string>
     <string name="patcher_split_step_extracting">استخراج ملفات APK المقسمة</string>
     <string name="patcher_split_step_merging">دمج %s</string>
@@ -572,6 +577,7 @@
     <string name="patcher_back_to_game_hint">انقر على %1$s للعودة إلى لعبتك</string>
     <string name="patcher_storage_permission_dialog_title">لا يمكن الوصول إلى مسار التخزين</string>
     <string name="patcher_incompatible_patcher_title">التحديث مطلوب</string>
+    <string name="patcher_incompatible_patcher_description">المصدر &lt;b&gt;%1$s&lt;/b&gt; يتطلب أداة التعديل &lt;b&gt;%2$s&lt;/b&gt; أو إصدارًا أحدث. حدِّث Morphe لاستخدامها</string>
     <string name="patcher_storage_permission_description_api30">إحدى خيارات التعديل أو أكثر تشير إلى مسارات لا يمكن لـ Morphe قراءتها. قم بتخصيص الوصول إلى التخزين وانقر على الزر ثم سيبدأ التعديل تلقائيًا</string>
     <string name="patcher_storage_permission_description_legacy">يشير خيار واحد أو أكثر من خيارات التعديل إلى مسارات لا يمكن الوصول إليها. قم بتحديث المسارات في خيارات التعديل وحاول مرة أخرى</string>
     <string name="patcher_storage_permission_grant">منح إذن الوصول</string>
@@ -1314,6 +1320,7 @@ morphe_adaptive_monochrome_custom.xml
     <string name="changelog_download_fail">فشل تنزيل سجل التغييرات: %s</string>
     <string name="changelog_empty">لا يتوفر سجل تغييرات</string>
     <string name="changelog_earlier_releases">الإصدارات السابقة</string>
+    <string name="changelog_patched_with">تم التعديل باستخدام %s</string>
     <string name="changelog_older_empty">لا توجد إصدارات أقدم لعرضها</string>
     <string name="changelog_older_failed">تعذّر تحميل الإصدارات الأقدم</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

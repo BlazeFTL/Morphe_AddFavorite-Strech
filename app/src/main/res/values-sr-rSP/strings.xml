@@ -486,7 +486,12 @@
     <string name="app_links_enable_auto_in_progress">Омогућавање линкова…</string>
     <string name="app_links_open_settings">Отвори подешавања линкова</string>
     <string name="app_links_repair_success">Апликациони линкови су успешно омогућени</string>
+    <string name="app_links_repair_failed">Аутоматско омогућавање апликационих линкова није успело</string>
+    <string name="app_links_badge_enabled">Омогућено</string>
     <string name="app_links_badge_disabled">Онемогућен</string>
+    <string name="app_links_all_verified">Сви подржани линкови су подешени да се отварају у овој апликацији</string>
+    <string name="app_links_fix">Поправи линкове</string>
+    <string name="configure">Подеси</string>
     <string name="patcher_rename_title">Ово ће инсталирати клон</string>
     <string name="patcher_rename_description">Пачови су направили ову апликацију под сопственим именом пакета, тако да инсталација додаје клон поред &lt;b&gt;%s&lt;/b&gt; уместо да је ажурира</string>
     <string name="patcher_rename_result_package">Инсталираће се као</string>
@@ -571,6 +576,7 @@
     <string name="patcher_back_to_game_hint">Додирните %1$s да се вратите на своју игру</string>
     <string name="patcher_storage_permission_dialog_title">Не могу приступити до пута складиштења</string>
     <string name="patcher_incompatible_patcher_title">Захтевано је ажурирање</string>
+    <string name="patcher_incompatible_patcher_description">Извор &lt;b&gt;%1$s&lt;/b&gt; захтева патчер &lt;b&gt;%2$s&lt;/b&gt; или новији. Ажурирајте Morphe да бисте га користили</string>
     <string name="patcher_storage_permission_description_api30">Једна или више опција исправки указују на путеве које Morphe не може да чита. Доделите дозволу за складиште и додирните дугме, а затим ће почети аутоматско отклањање грешака</string>
     <string name="patcher_storage_permission_description_legacy">Један или више опција пачања указују на путеве које не могу да се приступе. Ажурирајте путеве у опцијама пачања и покушајте поново</string>
     <string name="patcher_storage_permission_grant">Дозволите приступ складишту</string>
@@ -1308,6 +1314,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Није успело преузимање дневника промена: %s</string>
     <string name="changelog_empty">Нема доступних промена</string>
     <string name="changelog_earlier_releases">Ранија издања</string>
+    <string name="changelog_patched_with">Закрпљено са %s</string>
     <string name="changelog_older_empty">Нема старијих верзија за приказ</string>
     <string name="changelog_older_failed">Није успело учитавање старијих издања</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

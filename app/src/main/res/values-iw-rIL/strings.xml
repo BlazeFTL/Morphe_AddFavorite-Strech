@@ -487,8 +487,12 @@
     <string name="app_links_enable_auto_in_progress">מפעיל קישורים…</string>
     <string name="app_links_open_settings">פתח הגדרות קישורים</string>
     <string name="app_links_repair_success">קישורי אפליקציה הופעלו בהצלחה</string>
+    <string name="app_links_repair_failed">הפעלת קישורי אפליקציות באופן אוטומטי נכשלה</string>
     <string name="app_links_badge_enabled">מופעל</string>
     <string name="app_links_badge_disabled">מושבת</string>
+    <string name="app_links_all_verified">כל הקישורים הנתמכים מוגדרים להיפתח באפליקציה זו</string>
+    <string name="app_links_fix">תקן קישורים</string>
+    <string name="configure">הגדר</string>
     <string name="patcher_rename_title">זה יתקין שיבוט</string>
     <string name="patcher_rename_description">התיקונים בנו את האפליקציה תחת שם חבילה משלהם, ולכן התקנתה תוסיף שיבוט לצד &lt;b&gt;%s&lt;/b&gt; במקום לעדכן אותה</string>
     <string name="patcher_rename_result_package">יותקן כ</string>
@@ -554,6 +558,7 @@
     <string name="patcher_failed_title">אופס! משהו השתבש</string>
     <string name="patcher_failed_dialog_title">התיקון נכשל</string>
     <string name="patcher_error_details">פרטי שגיאה</string>
+    <string name="patcher_change_patches">שנה תיקונים</string>
     <string name="patcher_unknown_error">אירעה שגיאה לא ידועה</string>
     <string name="patcher_split_step_extracting">חילוץ קבצי APK מפוצלים</string>
     <string name="patcher_split_step_merging">מיזוג %s</string>
@@ -573,6 +578,7 @@
     <string name="patcher_back_to_game_hint">הקש על %1$s כדי לחזור למשחק שלך</string>
     <string name="patcher_storage_permission_dialog_title">לא ניתן לגשת לדרך אחסון</string>
     <string name="patcher_incompatible_patcher_title">עדכון נדרש</string>
+    <string name="patcher_incompatible_patcher_description">המקור &lt;b&gt;%1$s&lt;/b&gt; דורש את הפאצ׳ר &lt;b&gt;%2$s&lt;/b&gt; ומעלה. עדכן את Morphe כדי להשתמש בו</string>
     <string name="patcher_storage_permission_description_api30">אפשרות אחת או יותר של תיקונים מצביעה על נתיבים ש-Morphe לא יכול לקרוא. הענק גישה לאחסון ולחץ על הכפתור ואז התיקון יתחיל באופן אוטומטי</string>
     <string name="patcher_storage_permission_description_legacy">אחד או יותר אופציות תיקון מצביעות על דרכים שאינן נגישות. עדכן את הדרכים באופציות התיקון ונסה שוב</string>
     <string name="patcher_storage_permission_grant">אשר אישור גישה לאחסון</string>
@@ -1172,6 +1178,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="file_picker_internal_storage">אחסון פנימי</string>
     <string name="file_picker_sd_card">כרטיס SD</string>
     <string name="file_picker_root">שורש (/)</string>
+    <string name="file_picker_storages">אחסון</string>
     <string name="file_picker_sort_name_asc">שם (A–Z)</string>
     <string name="file_picker_sort_name_desc">שם (Z–A)</string>
     <string name="file_picker_sort_size_desc">גודל (מהגדול לקטן)</string>
@@ -1319,6 +1326,7 @@ drawable-xxhdpi: 387x144 פיקסלים
     <string name="changelog_download_fail">שגיאה בהורדת היסטוריית שינויים: %s</string>
     <string name="changelog_empty">אין תיקון זמין</string>
     <string name="changelog_earlier_releases">מהדורות קודמות</string>
+    <string name="changelog_patched_with">תוקן עם %s</string>
     <string name="changelog_older_empty">אין גרסאות ישנות יותר להצגה</string>
     <string name="changelog_older_failed">לא ניתן היה לטעון מהדורות ישנות יותר</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

@@ -1313,6 +1313,7 @@ Ayrıntılar: %2$s"</string>
     <string name="changelog_download_fail">Değişiklik günlüğü indirilemedi: %s</string>
     <string name="changelog_empty">Değişiklik günlüğü yok</string>
     <string name="changelog_earlier_releases">Önceki sürümler</string>
+    <string name="changelog_patched_with">%s ile yamalandı</string>
     <string name="changelog_older_empty">Gösterilebilecek daha eski sürüm yok</string>
     <string name="changelog_older_failed">Daha eski sürümler yüklenemedi</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

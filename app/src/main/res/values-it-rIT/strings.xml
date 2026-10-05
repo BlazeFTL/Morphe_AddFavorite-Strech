@@ -486,7 +486,12 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="app_links_enable_auto_in_progress">Abilitazione dei collegamenti…</string>
     <string name="app_links_open_settings">Apri le impostazioni dei collegamenti</string>
     <string name="app_links_repair_success">Collegamenti all\'app abilitati correttamente</string>
+    <string name="app_links_repair_failed">Non è stato possibile abilitare automaticamente i collegamenti all\'app</string>
+    <string name="app_links_badge_enabled">Abilitato</string>
     <string name="app_links_badge_disabled">Disattivato</string>
+    <string name="app_links_all_verified">Tutti i collegamenti supportati sono configurati per aprirsi in questa app</string>
+    <string name="app_links_fix">Correggi i collegamenti</string>
+    <string name="configure">Configura</string>
     <string name="patcher_rename_title">Questo installerà un clone</string>
     <string name="patcher_rename_description">Le patch hanno compilato questa app con un nome del pacchetto proprio, quindi installarla aggiunge un clone accanto a &lt;b&gt;%s&lt;/b&gt; invece di aggiornarla</string>
     <string name="patcher_rename_result_package">Verrà installato come</string>
@@ -552,6 +557,7 @@ Zona esterna (tratteggiata): potrebbe essere ritagliata dalla maschera di avvio:
     <string name="patcher_failed_title">Ops! Qualcosa è andato storto</string>
     <string name="patcher_failed_dialog_title">Patching fallito</string>
     <string name="patcher_error_details">Dettagli errore</string>
+    <string name="patcher_change_patches">Cambia patch</string>
     <string name="patcher_unknown_error">Si è verificato un errore sconosciuto</string>
     <string name="patcher_split_step_extracting">Estrazione degli APK divisi</string>
     <string name="patcher_split_step_merging">Unione %s</string>
@@ -571,6 +577,7 @@ La disinstallazione cancellerà definitivamente tutti i dati dell'app."</string>
     <string name="patcher_back_to_game_hint">Tocca %1$s per tornare al tuo gioco</string>
     <string name="patcher_storage_permission_dialog_title">Non è possibile accedere alla cartella di archiviazione</string>
     <string name="patcher_incompatible_patcher_title">Aggiornamento richiesto</string>
+    <string name="patcher_incompatible_patcher_description">La sorgente &lt;b&gt;%1$s&lt;/b&gt; richiede il patcher &lt;b&gt;%2$s&lt;/b&gt; o una versione successiva. Aggiorna Morphe per usarla</string>
     <string name="patcher_storage_permission_description_api30">Una o più opzioni delle patch fanno riferimento a percorsi che Morphe non può leggere. Concedi l\'accesso alla memoria di archiviazione e tocca il pulsante, quindi il patching partirà automaticamente</string>
     <string name="patcher_storage_permission_description_legacy">Una o più opzioni delle patch fanno riferimento a percorsi non raggiungibili. Aggiorna i percorsi nelle opzioni delle patch e riprova</string>
     <string name="patcher_storage_permission_grant">Concedi l\'autorizzazione alla memoria di archiviazione</string>
@@ -1308,6 +1315,7 @@ Dettagli: %2$s"</string>
     <string name="changelog_download_fail">Download del registro delle modifiche non riuscito: %s</string>
     <string name="changelog_empty">Nessun registro delle modifiche disponibile</string>
     <string name="changelog_earlier_releases">Versioni precedenti</string>
+    <string name="changelog_patched_with">Corretto con %s</string>
     <string name="changelog_older_empty">Nessuna versione precedente da visualizzare </string>
     <string name="changelog_older_failed">Impossibile caricare le versioni precedenti</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

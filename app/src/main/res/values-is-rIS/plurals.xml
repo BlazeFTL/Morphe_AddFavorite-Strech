@@ -127,4 +127,12 @@
         <item quantity="one">%s ný útgáfa</item>
         <item quantity="other">%s nýjar útgáfur</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d virkur tengill</item>
+        <item quantity="other">%d virkir tenglar</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d óstaðfestur tengill</item>
+        <item quantity="other">%d óstaðfestir tenglar</item>
+    </plurals>
 </resources>

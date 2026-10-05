@@ -479,15 +479,19 @@
     <string name="home_app_info_app_deleted_description">このアプリは Morphe の外でアンインストールされました。機能を復元するには、再度パッチを適用してください</string>
     <string name="home_app_info_not_patched_description">このアプリには未パッチ版がインストールされています。Morphe には以前のパッチ履歴が残っています</string>
     <string name="app_links_title">サポート対象のウェブリンク</string>
-    <string name="app_links_description">Android 12以降では、承認されていない限り、サポート対象ドメインへのリンクはデフォルトでブラウザで開きます</string>
+    <string name="app_links_description">Android 12 以降では、承認されていない限り、サポートされているドメインへのリンクはデフォルトのブラウザで開きます</string>
     <string name="app_links_unverified_banner_title">未検証のウェブリンク</string>
     <string name="app_links_unverified_banner_description">現在、サポート対象のウェブリンクはこのアプリではなくブラウザで開かれます</string>
     <string name="app_links_enable_auto">自動的に有効にする</string>
     <string name="app_links_enable_auto_in_progress">リンクを有効化しています…</string>
     <string name="app_links_open_settings">リンク設定を開く</string>
     <string name="app_links_repair_success">アプリリンクが正常に有効化されました</string>
+    <string name="app_links_repair_failed">アプリリンクを自動的に有効にできませんでした</string>
     <string name="app_links_badge_enabled">有効</string>
     <string name="app_links_badge_disabled">無効</string>
+    <string name="app_links_all_verified">サポートされているすべてのリンクは、このアプリで開くように設定されています</string>
+    <string name="app_links_fix">リンクを修正</string>
+    <string name="configure">設定</string>
     <string name="patcher_rename_title">クローンをインストールします</string>
     <string name="patcher_rename_description">このパッチでは独自のパッケージ名でアプリがビルドされるため、インストールすると &lt;b&gt;%s&lt;/b&gt; が更新されるのではなく、クローンアプリとして追加されます</string>
     <string name="patcher_rename_result_package">インストール先</string>
@@ -553,6 +557,7 @@
     <string name="patcher_failed_title">おっと！何か問題が発生したようです</string>
     <string name="patcher_failed_dialog_title">パッチに失敗しました</string>
     <string name="patcher_error_details">エラーの詳細</string>
+    <string name="patcher_change_patches">パッチを変更</string>
     <string name="patcher_unknown_error">不明なエラーが発生しました</string>
     <string name="patcher_split_step_extracting">分割 APK の抽出中</string>
     <string name="patcher_split_step_merging">%s をマージ</string>
@@ -572,6 +577,7 @@
     <string name="patcher_back_to_game_hint">%1$s をタップしてゲームを再開</string>
     <string name="patcher_storage_permission_dialog_title">ストレージパスにアクセスできません</string>
     <string name="patcher_incompatible_patcher_title">アップデートが必要です</string>
+    <string name="patcher_incompatible_patcher_description">ソース &lt;b&gt;%1$s&lt;/b&gt; にはパッチャー &lt;b&gt;%2$s&lt;/b&gt; 以降が必要です。これを使用するには Morphe を更新してください</string>
     <string name="patcher_storage_permission_description_api30">一部のパッチオプションが、Morphe が読み取れないパスを参照しています。ストレージへのアクセス権限を許可してボタンをタップすると、パッチ処理が自動的に開始されます</string>
     <string name="patcher_storage_permission_description_legacy">一部のパッチ オプションが、アクセスできないパスを参照しています。パッチ オプション内のパスを修正して再度お試しください</string>
     <string name="patcher_storage_permission_grant">ストレージへのアクセス権限を許可する</string>
@@ -1310,6 +1316,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">変更履歴のダウンロードに失敗しました: %s</string>
     <string name="changelog_empty">利用可能な更新はありません</string>
     <string name="changelog_earlier_releases">過去のリリース</string>
+    <string name="changelog_patched_with">パッチ適用: %s</string>
     <string name="changelog_older_empty">表示可能な過去のリリースはありません</string>
     <string name="changelog_older_failed">過去のリリースを読み込めませんでした</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

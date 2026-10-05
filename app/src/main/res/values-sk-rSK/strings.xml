@@ -486,8 +486,12 @@ Vnútorná zóna (čiarkovaná): môže byť orezaná maskou spúšťača – uc
     <string name="app_links_enable_auto_in_progress">Povoľujú sa odkazy…</string>
     <string name="app_links_open_settings">Otvoriť nastavenia odkazov</string>
     <string name="app_links_repair_success">Odkazy aplikácie boli úspešne povolené</string>
+    <string name="app_links_repair_failed">Nepodarilo sa automaticky povoliť odkazy aplikácie</string>
     <string name="app_links_badge_enabled">Povolené</string>
     <string name="app_links_badge_disabled">Vypnutý</string>
+    <string name="app_links_all_verified">Všetky podporované odkazy sú nakonfigurované tak, aby sa otvárali v tejto aplikácii</string>
+    <string name="app_links_fix">Opraviť odkazy</string>
+    <string name="configure">Konfigurovať</string>
     <string name="patcher_rename_title">Toto nainštaluje klon</string>
     <string name="patcher_rename_description">Záplaty vytvorili túto aplikáciu pod vlastným názvom balíka, takže jej inštalácia pridá klon vedľa &lt;b&gt;%s&lt;/b&gt; namiesto jej aktualizácie</string>
     <string name="patcher_rename_result_package">Nainštaluje sa ako</string>
@@ -572,6 +576,7 @@ Odinštalovanie trvalo vymaže všetky údaje aplikácie."</string>
     <string name="patcher_back_to_game_hint">Klepnutím na %1$s sa vrátite do svojej hry.</string>
     <string name="patcher_storage_permission_dialog_title">Nedá sa získať prístup k ceste na úložisku</string>
     <string name="patcher_incompatible_patcher_title">Aktualizácia je potrebná</string>
+    <string name="patcher_incompatible_patcher_description">Zdroj &lt;b&gt;%1$s&lt;/b&gt; vyžaduje patcher &lt;b&gt;%2$s&lt;/b&gt; alebo novší. Aktualizujte Morphe, aby ste ho mohli používať</string>
     <string name="patcher_storage_permission_description_api30">Jedna alebo viacero možností záplat odkazuje na cesty, ktoré Morphe nemôže čítať. Udeľte prístup k úložisku a ťuknite na tlačidlo, opravy sa spustia automaticky</string>
     <string name="patcher_storage_permission_description_legacy">Jedna alebo viacero možností záplat odkazuje na cesty, ktoré nie sú prístupné. Aktualizujte cesty v možnostiach záplat a skúste to znova</string>
     <string name="patcher_storage_permission_grant">Udeľte povolenia na prístup k úložisku</string>
@@ -1309,6 +1314,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_download_fail">Nepodarilo sa stiahnuť zoznam zmien: %s</string>
     <string name="changelog_empty">Zoznam zmien nie je k dispozícii</string>
     <string name="changelog_earlier_releases">Staršie vydania</string>
+    <string name="changelog_patched_with">Opravené pomocou %s</string>
     <string name="changelog_older_empty">Nenašli sa žiadne staršie verzie na zobrazenie</string>
     <string name="changelog_older_failed">Nepodarilo sa načítať staršie vydania</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

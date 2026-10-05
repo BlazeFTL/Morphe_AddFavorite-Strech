@@ -127,4 +127,12 @@
         <item quantity="one">%s ny version</item>
         <item quantity="other">%s nya versioner</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d aktiverad länk</item>
+        <item quantity="other">%d aktiverade länkar</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d overifierad länk</item>
+        <item quantity="other">%d overifierade länkar</item>
+    </plurals>
 </resources>

@@ -482,15 +482,19 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
 </string>
     <string name="home_app_info_not_patched_description">Une version non patchée de cette application est installée. Morphe conserve toujours son ancien patch</string>
     <string name="app_links_title">Liens web pris en charge</string>
-    <string name="app_links_description">Sur Android 12 et plus, les liens vers les domaines pris en charge s\'ouvrent dans votre navigateur par défaut, sauf s\'ils sont approuvés</string>
+    <string name="app_links_description">Sur Android 12 et plus, les liens vers les domaines pris en charge s\'ouvrent par défaut dans votre navigateur, sauf s\'ils sont approuvés</string>
     <string name="app_links_unverified_banner_title">Liens web non vérifiés</string>
     <string name="app_links_unverified_banner_description">Les liens web pris en charge s\'ouvrent actuellement dans votre navigateur au lieu de cette application</string>
     <string name="app_links_enable_auto">Activer automatiquement</string>
     <string name="app_links_enable_auto_in_progress">Activation des liens…</string>
     <string name="app_links_open_settings">Ouvrir les paramètres des liens</string>
     <string name="app_links_repair_success">Liens d\'application activés avec succès</string>
-    <string name="app_links_badge_enabled">Activée</string>
-    <string name="app_links_badge_disabled">Désactivée</string>
+    <string name="app_links_repair_failed">Échec de l\'activation automatique des liens d\'application</string>
+    <string name="app_links_badge_enabled">Activé</string>
+    <string name="app_links_badge_disabled">Désactivé</string>
+    <string name="app_links_all_verified">Tous les liens pris en charge sont configurés pour s\'ouvrir dans cette application</string>
+    <string name="app_links_fix">Corriger les liens</string>
+    <string name="configure">Configurer</string>
     <string name="patcher_rename_title">Cela installera un clone</string>
     <string name="patcher_rename_description">Les patchs ont compilé cette application sous leur propre nom de paquet, donc l\'installer ajoute un clone à côté de <b>%s</b> au lieu de le mettre à jour</string>
     <string name="patcher_rename_result_package">Sera installé en tant que</string>
@@ -556,6 +560,7 @@ Zone extérieure (pointillée) : peut être rognée par le masque du lanceur - g
     <string name="patcher_failed_title">Oups ! Quelque chose s\'est mal passé</string>
     <string name="patcher_failed_dialog_title">Échec du patching</string>
     <string name="patcher_error_details">Détails de l\'erreur</string>
+    <string name="patcher_change_patches">Modifier les correctifs</string>
     <string name="patcher_unknown_error">Une erreur inconnue s\'est produite</string>
     <string name="patcher_split_step_extracting">Extraction des APK fractionnés</string>
     <string name="patcher_split_step_merging">Fusion de %s</string>
@@ -575,6 +580,7 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="patcher_back_to_game_hint">Appuyez sur %1$s pour revenir à votre jeu</string>
     <string name="patcher_storage_permission_dialog_title">Impossible d\'accéder au chemin de stockage</string>
     <string name="patcher_incompatible_patcher_title">Mise à jour nécessaire</string>
+    <string name="patcher_incompatible_patcher_description">La source &lt;b&gt;%1$s&lt;/b&gt; nécessite le patcheur &lt;b&gt;%2$s&lt;/b&gt; ou une version plus récente. Mettez à jour Morphe pour pouvoir l\'utiliser</string>
     <string name="patcher_storage_permission_description_api30">Une ou plusieurs options de patch pointent vers des chemins que Morphe ne peut pas lire. Accordez l\'accès au stockage puis appuyez sur le bouton le patching commencera automatiquement</string>
     <string name="patcher_storage_permission_description_legacy">Une ou plusieurs options de patch pointent vers des chemins inaccessibles. Mettez à jour les chemins dans les options de patch puis réessayez</string>
     <string name="patcher_storage_permission_grant">Accorder l\'autorisation d\'accès au stockage</string>
@@ -1285,7 +1291,7 @@ Détails : %2$s"</string>
     <string name="remount">Remonter</string>
     <string name="share">Partager</string>
     <string name="install">Installer</string>
-    <string name="installed">Installé</string>
+    <string name="installed">Installée</string>
     <string name="reinstall">Réinstaller</string>
     <string name="uninstall">Désinstaller</string>
     <string name="uninstalled">Désinstallée</string>
@@ -1314,6 +1320,7 @@ Détails : %2$s"</string>
     <string name="changelog_download_fail">Échec du téléchargement du journal des modifications : %s</string>
     <string name="changelog_empty">Aucun journal des modifications disponible</string>
     <string name="changelog_earlier_releases">Versions précédentes</string>
+    <string name="changelog_patched_with">Patchée avec %s</string>
     <string name="changelog_older_empty">Aucune version antérieure à afficher</string>
     <string name="changelog_older_failed">Impossible de charger les anciennes versions</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->
@@ -1328,7 +1335,7 @@ Détails : %2$s"</string>
     <string name="changelog_section_improvements">Améliorations</string>
     <string name="changelog_section_app_support">Prise en charge des applications</string>
     <string name="changelog_section_other">Changements</string>
-    <string name="changelog_badge_latest">Dernier</string>
+    <string name="changelog_badge_latest">Dernière</string>
     <!-- Marks the version of a patch source downloaded to the manager, which patches with it rather than the one an installed app was patched with -->
     <string name="changelog_badge_downloaded">Téléchargée</string>
     <string name="changelog_badge_prerelease">Préversion</string>

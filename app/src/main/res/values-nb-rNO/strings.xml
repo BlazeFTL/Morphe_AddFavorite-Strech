@@ -486,6 +486,12 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="app_links_enable_auto_in_progress">Aktiverer lenker…</string>
     <string name="app_links_open_settings">Åpne lenkeinnstillinger</string>
     <string name="app_links_repair_success">App-lenker ble aktivert</string>
+    <string name="app_links_repair_failed">Kunne ikke aktivere app-lenker automatisk</string>
+    <string name="app_links_badge_enabled">Aktivert</string>
+    <string name="app_links_badge_disabled">Deaktivert</string>
+    <string name="app_links_all_verified">Alle støttede lenker er konfigurert til å åpnes i denne appen</string>
+    <string name="app_links_fix">Reparer lenker</string>
+    <string name="configure">Konfigurer</string>
     <string name="patcher_rename_title">Dette vil installere en klon</string>
     <string name="patcher_rename_description">Patchene bygde denne appen under et eget pakkenavn, så installasjonen legger til en klon sammen med &lt;b&gt;%s&lt;/b&gt; i stedet for å oppdatere den</string>
     <string name="patcher_rename_result_package">Vil installere som</string>
@@ -551,6 +557,7 @@ Ytre sone (stiplet): kan bli beskåret av launcher-masken – hold viktig inform
     <string name="patcher_failed_title">Oops! Noe gikk galt</string>
     <string name="patcher_failed_dialog_title">Patchingen mislyktes</string>
     <string name="patcher_error_details">Feildetaljer</string>
+    <string name="patcher_change_patches">Endre patcher</string>
     <string name="patcher_unknown_error">Ukjent feil oppstod</string>
     <string name="patcher_split_step_extracting">Utpakking av delte APK-er</string>
     <string name="patcher_split_step_merging">Slår sammen %s</string>
@@ -570,6 +577,7 @@ Avinstallering vil permanent slette alle appdata"</string>
     <string name="patcher_back_to_game_hint">Trykk %1$s for å gå tilbake til spillet ditt.</string>
     <string name="patcher_storage_permission_dialog_title">Kan ikke få tilgang til lagringsbane</string>
     <string name="patcher_incompatible_patcher_title">Oppdatering kreves</string>
+    <string name="patcher_incompatible_patcher_description">Kilden &lt;b&gt;%1$s&lt;/b&gt; krever patcher &lt;b&gt;%2$s&lt;/b&gt; eller nyere. Oppdater Morphe for å bruke den</string>
     <string name="patcher_storage_permission_description_api30">Én eller flere patch-alternativer peker til baner som Morphe ikke kan lese. Gi tilgang til lagring og trykk på knappen, så starter patching automatisk</string>
     <string name="patcher_storage_permission_description_legacy">Ett eller flere patch-alternativer peker til baner som ikke kan nås. Oppdater banene i patch-alternativene og prøv igjen</string>
     <string name="patcher_storage_permission_grant">Gi lagringstillatelse</string>
@@ -1307,6 +1315,7 @@ Detaljer: %2$s"</string>
     <string name="changelog_download_fail">Kunne ikke laste ned endringslogg: %s</string>
     <string name="changelog_empty">Ingen endringslogg tilgjengelig</string>
     <string name="changelog_earlier_releases">Tidligere utgivelser</string>
+    <string name="changelog_patched_with">Lappet med %s</string>
     <string name="changelog_older_empty">Ingen eldre utgivelser å vise</string>
     <string name="changelog_older_failed">Kunne ikke laste inn eldre utgivelser</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

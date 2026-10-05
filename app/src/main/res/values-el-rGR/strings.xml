@@ -277,6 +277,7 @@
     <string name="home_installed_app_picker_filter_system">Μόνο εφαρμογές συστήματος</string>
     <string name="home_invalid_apk_unreadable">Δεν ήταν δυνατή η ανάγνωση του αρχείου. Ελέγξτε ότι ο \'Εξωτερικός χώρος αποθήκευσης\' δεν περιορίζεται από την μπαταρία</string>
     <string name="home_invalid_apk_not_an_apk">Το επιλεγμένο αρχείο δεν είναι ένα έγκυρο APK</string>
+    <string name="home_invalid_apk_already_patched">Το επιλεγμένο APK είναι ήδη επιδιορθωμένο. Επιλέξτε την αρχική εφαρμογή αντί αυτού</string>
     <string name="home_invalid_apk_io_error">Απέτυχε το άνοιγμα του αρχείου. Παρακαλώ προσπαθήστε ξανά</string>
     <string name="home_external_apk_expert_mode_required">Αυτή η λειτουργία είναι διαθέσιμη μόνο στην Εξειδικευμένη λειτουργία</string>
     <!-- Home Screen - Dialog 4: Expert Mode Dialog -->
@@ -485,8 +486,12 @@
     <string name="app_links_enable_auto_in_progress">Ενεργοποίηση συνδέσμων…</string>
     <string name="app_links_open_settings">Άνοιγμα ρυθμίσεων συνδέσμων</string>
     <string name="app_links_repair_success">Οι σύνδεσμοι εφαρμογής ενεργοποιήθηκαν με επιτυχία</string>
+    <string name="app_links_repair_failed">Αποτυχία αυτόματης ενεργοποίησης των συνδέσμων εφαρμογής</string>
     <string name="app_links_badge_enabled">Ενεργοποιημένο</string>
     <string name="app_links_badge_disabled">Απενεργοποιημένο</string>
+    <string name="app_links_all_verified">Όλοι οι υποστηριζόμενοι σύνδεσμοι έχουν ρυθμιστεί να ανοίγουν σε αυτήν την εφαρμογή</string>
+    <string name="app_links_fix">Διόρθωση συνδέσμων</string>
+    <string name="configure">Διαμόρφωση</string>
     <string name="patcher_rename_title">Αυτό θα εγκαταστήσει ένα κλώνο</string>
     <string name="patcher_rename_description">Οι τροποποιήσεις δημιούργησαν αυτήν την εφαρμογή με δικό τους όνομα πακέτου, οπότε η εγκατάστασή της προσθέτει ένα κλώνο δίπλα στο <b>%s</b> αντί να την ενημερώσει</string>
     <string name="patcher_rename_result_package">Θα εγκατασταθεί ως</string>
@@ -552,6 +557,7 @@
     <string name="patcher_failed_title">Ωχ! Κάτι πήγε στραβά</string>
     <string name="patcher_failed_dialog_title">Απέτυχε η τροποποίηση</string>
     <string name="patcher_error_details">Λεπτομέρειες σφάλματος</string>
+    <string name="patcher_change_patches">Αλλαγή patches</string>
     <string name="patcher_unknown_error">Παρουσιάστηκε άγνωστο σφάλμα</string>
     <string name="patcher_split_step_extracting">Εξαγωγή διαχωρισμένων APK</string>
     <string name="patcher_split_step_merging">Συγχώνευση %s</string>
@@ -571,6 +577,7 @@
     <string name="patcher_back_to_game_hint">Πάτα %1$s για να επιστρέψεις στο παιχνίδι σου</string>
     <string name="patcher_storage_permission_dialog_title">Δεν είναι δυνατή η πρόσβαση στη διαδρομή αποθηκευτικού χώρου</string>
     <string name="patcher_incompatible_patcher_title">Απαιτείται ενημέρωση</string>
+    <string name="patcher_incompatible_patcher_description">Η πηγή &lt;b&gt;%1$s&lt;/b&gt; απαιτεί τον patcher &lt;b&gt;%2$s&lt;/b&gt; ή νεότερο. Ενημερώστε το Morphe για να τον χρησιμοποιήσει</string>
     <string name="patcher_storage_permission_description_api30">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που το Morphe δεν μπορεί να διαβάσει. Δώστε άδεια αποθήκευσης και πατήστε το κουμπί, στη συνέχεια η διαδικασία τροποποίησης θα ξεκινήσει αυτόματα</string>
     <string name="patcher_storage_permission_description_legacy">Μία ή περισσότερες επιλογές τροποποιήσεων πηγαίνουν σε διαδρομές που δεν είναι προσβάσιμες. Ενημερώστε τις διαδρομές στις επιλογές τροποποιήσεων και δοκιμάστε ξανά</string>
     <string name="patcher_storage_permission_grant">Επιτρέψτε την πρόσβαση στον αποθηκευτικό χώρο</string>
@@ -1308,6 +1315,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Αποτυχία λήψης αρχείου καταγραφής αλλαγών: %s</string>
     <string name="changelog_empty">Δεν υπάρχει διαθέσιμο αρχείο καταγραφών αλλαγών </string>
     <string name="changelog_earlier_releases">Παλαιότερες εκδόσεις</string>
+    <string name="changelog_patched_with">Επιδιορθώθηκε με %s</string>
     <string name="changelog_older_empty">Δεν υπάρχουν παλαιότερες εκδόσεις για εμφάνιση</string>
     <string name="changelog_older_failed">Δεν ήταν δυνατή η φόρτωση παλαιότερων εκδόσεων</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

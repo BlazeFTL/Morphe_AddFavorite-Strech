@@ -557,6 +557,7 @@
     <string name="patcher_failed_title">Ой! Щось пішло не так</string>
     <string name="patcher_failed_dialog_title">Помилка патчингу</string>
     <string name="patcher_error_details">Деталі помилки</string>
+    <string name="patcher_change_patches">Змінити патчі</string>
     <string name="patcher_unknown_error">Сталася невідома помилка</string>
     <string name="patcher_split_step_extracting">Видобування split APK файлів</string>
     <string name="patcher_split_step_merging">Об\'єднання %s</string>
@@ -1314,6 +1315,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Не вдалося завантажити список змін: %s</string>
     <string name="changelog_empty">Список змін відсутній</string>
     <string name="changelog_earlier_releases">Попередні релізи</string>
+    <string name="changelog_patched_with">Пропатчено за допомогою %s</string>
     <string name="changelog_older_empty">Немає старіших релізів для показу</string>
     <string name="changelog_older_failed">Не вдалося завантажити попередні релізи</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

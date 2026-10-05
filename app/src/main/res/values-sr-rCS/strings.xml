@@ -486,7 +486,12 @@ Spoljna zona (isprekidana): može biti isečena maskom pokretača – držite va
     <string name="app_links_enable_auto_in_progress">Omogućavanje linkova…</string>
     <string name="app_links_open_settings">Otvori podešavanja linkova</string>
     <string name="app_links_repair_success">Linkovi aplikacije su uspešno omogućeni</string>
+    <string name="app_links_repair_failed">Automatsko omogućavanje aplikacionih linkova nije uspelo</string>
+    <string name="app_links_badge_enabled">Omogućeno</string>
     <string name="app_links_badge_disabled">Onemogućen</string>
+    <string name="app_links_all_verified">Svi podržani linkovi su konfigurisani da se otvaraju u ovoj aplikaciji</string>
+    <string name="app_links_fix">Popravite linkove</string>
+    <string name="configure">Konfigurišite</string>
     <string name="patcher_rename_title">Ovo će instalirati klon</string>
     <string name="patcher_rename_description">Zakrpe su napravile ovu aplikaciju pod sopstvenim imenom paketa, tako da njeno instaliranje dodaje klon pored &lt;b&gt;%s&lt;/b&gt; umesto da je ažurira.</string>
     <string name="patcher_rename_result_package">Instaliraće se kao</string>
@@ -571,6 +576,7 @@ Deinstalacija će trajno obrisati sve podatke aplikacije"</string>
     <string name="patcher_back_to_game_hint">Dodirni %1$s da se vratiš u svoju igru.}}</string>
     <string name="patcher_storage_permission_dialog_title">Ne mogu pristupiti putu za pohranu</string>
     <string name="patcher_incompatible_patcher_title">Ažuriranje je potrebno</string>
+    <string name="patcher_incompatible_patcher_description">Izvor &lt;b&gt;%1$s&lt;/b&gt; zahteva patcher &lt;b&gt;%2$s&lt;/b&gt; ili noviji. Ažurirajte Morphe da biste ga koristili</string>
     <string name="patcher_storage_permission_description_api30">Jedna ili više opcija patch-a pokazuju na putanje koje Morphe ne može da čita. Dajte dozvolu za skladište i dodirnite dugme, a zatim će se patching automatski pokrenuti</string>
     <string name="patcher_storage_permission_description_legacy">Jedan ili više opcija za patching ukazuju na putove koje ne mogu biti pristupili. Ažurirajte putove u opcijama za patching i pokušajte ponovo</string>
     <string name="patcher_storage_permission_grant">Dajte dozvolu za pohranu</string>
@@ -1292,6 +1298,7 @@ Detalji: %2$s"</string>
     <string name="changelog_download_fail">Preuzimanje zapisa o promenama nije uspelo: %s</string>
     <string name="changelog_empty">Nema dostupne verzije promjene</string>
     <string name="changelog_earlier_releases">Ranija izdanja</string>
+    <string name="changelog_patched_with">Zakrpljeno sa %s</string>
     <string name="changelog_older_empty">Nema starijih verzija za prikaz</string>
     <string name="changelog_older_failed">Ne mogu da se učitaju starija izdanja</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

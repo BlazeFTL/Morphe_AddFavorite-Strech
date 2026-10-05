@@ -486,7 +486,12 @@ Zunanje območje (črtkano): maska zaganjalnika ga lahko obreže – pomembne po
     <string name="app_links_enable_auto_in_progress">Omogočanje povezav…</string>
     <string name="app_links_open_settings">Odpri nastavitve povezav</string>
     <string name="app_links_repair_success">Povezave aplikacij so uspešno omogočene</string>
+    <string name="app_links_repair_failed">Ni uspelo samodejno omogočiti povezav aplikacij</string>
+    <string name="app_links_badge_enabled">Omogočeno</string>
     <string name="app_links_badge_disabled">Onemogočeno</string>
+    <string name="app_links_all_verified">Vse podprte povezave so nastavljene tako, da se odpirajo v tej aplikaciji</string>
+    <string name="app_links_fix">Popravite povezave</string>
+    <string name="configure">Nastavite</string>
     <string name="patcher_rename_title">To bo namestilo klon</string>
     <string name="patcher_rename_description">Popravki so to aplikacijo zgradili pod lastnim imenom paketa, zato njena namestitev doda klon poleg &lt;b&gt;%s&lt;/b&gt; namesto da bi jo posodobila</string>
     <string name="patcher_rename_result_package">Bo nameščeno kot</string>
@@ -571,6 +576,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="patcher_back_to_game_hint">Dotakni se %1$s, da se vrneš v svojo igro.</string>
     <string name="patcher_storage_permission_dialog_title">Dostopa do poti shrambe ni možen</string>
     <string name="patcher_incompatible_patcher_title">Posodobitev je zahtevana</string>
+    <string name="patcher_incompatible_patcher_description">Vir &lt;b&gt;%1$s&lt;/b&gt; zahteva orodje za krpanje &lt;b&gt;%2$s&lt;/b&gt; ali novejše. Posodobite Morphe, da ga boste lahko uporabili</string>
     <string name="patcher_storage_permission_description_api30">Ena ali več možnosti popravka se sklicujejo na poti, do katerih Morphe ne more dostopati. Dovolite dostop do shrambe in nato pritisnite gumb, nato se bo popravljanje začelo samodejno</string>
     <string name="patcher_storage_permission_description_legacy">Ena ali več možnosti popravka se sklicujejo na poti, do katerih ni mogoče dostopiti. Posodobite poti v možnostih popravka in poskusite znova</string>
     <string name="patcher_storage_permission_grant">Dovoli dostop do shrambe</string>
@@ -1308,6 +1314,7 @@ Podrobnosti: %2$s"</string>
     <string name="changelog_download_fail">Ni mogoče prenesti dnevnika sprememb: %s</string>
     <string name="changelog_empty">Ni na voljo dnevnika sprememb</string>
     <string name="changelog_earlier_releases">Starejše izdaje</string>
+    <string name="changelog_patched_with">Zakrpano z %s</string>
     <string name="changelog_older_empty">Ni starejših različic za prikaz</string>
     <string name="changelog_older_failed">Ni bilo mogoče naložiti starejših izdaj</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

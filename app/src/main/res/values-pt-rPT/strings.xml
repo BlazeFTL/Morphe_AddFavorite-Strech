@@ -486,8 +486,12 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="app_links_enable_auto_in_progress">Ativando links…</string>
     <string name="app_links_open_settings">Abrir configurações de links</string>
     <string name="app_links_repair_success">Links do app ativados com sucesso</string>
+    <string name="app_links_repair_failed">Falha ao ativar os links do aplicativo automaticamente</string>
     <string name="app_links_badge_enabled">Ativado</string>
     <string name="app_links_badge_disabled">Desativado</string>
+    <string name="app_links_all_verified">Todos os links compatíveis estão configurados para abrir neste aplicativo</string>
+    <string name="app_links_fix">Corrigir links</string>
+    <string name="configure">Configurar</string>
     <string name="patcher_rename_title">Isto irá instalar uma cópia</string>
     <string name="patcher_rename_description">Os patches compilaram este aplicativo com um nome de pacote próprio, portanto, instalá-lo adiciona uma cópia ao lado de &lt;b&gt;%s&lt;/b&gt; em vez de atualizá-lo</string>
     <string name="patcher_rename_result_package">Será instalado como</string>
@@ -553,6 +557,7 @@ Zona externa (tracejada): pode ser cortada pela máscara do iniciador - mantenha
     <string name="patcher_failed_title">Ups! Algo correu mal</string>
     <string name="patcher_failed_dialog_title">Erro ao aplicar modificações</string>
     <string name="patcher_error_details">Detalhes do erro</string>
+    <string name="patcher_change_patches">Alterar patches</string>
     <string name="patcher_unknown_error">Ocorreu um erro desconhecido</string>
     <string name="patcher_split_step_extracting">Extraindo APKs divididos</string>
     <string name="patcher_split_step_merging">Unindo %s</string>
@@ -572,6 +577,7 @@ Desinstalar apagará permanentemente todos os dados do aplicativo."</string>
     <string name="patcher_back_to_game_hint">Toque em %1$s para voltar ao seu jogo</string>
     <string name="patcher_storage_permission_dialog_title">Não foi possível aceder ao caminho de armazenamento</string>
     <string name="patcher_incompatible_patcher_title">Atualização necessária</string>
+    <string name="patcher_incompatible_patcher_description">A fonte &lt;b&gt;%1$s&lt;/b&gt; requer o patcher &lt;b&gt;%2$s&lt;/b&gt; ou mais recente. Atualize o Morphe para usá-la</string>
     <string name="patcher_storage_permission_description_api30">Uma ou mais opções de modificação apontam para caminhos que o Morphe não consegue ler. Concede acesso ao armazenamento e toca no botão, a modificação começará automaticamente</string>
     <string name="patcher_storage_permission_description_legacy">Uma ou mais opções de modificação apontam para caminhos que não podem ser acedidos. Atualiza os caminhos nas opções das modificações e tenta de novo</string>
     <string name="patcher_storage_permission_grant">Conceder permissão de armazenamento</string>
@@ -1309,6 +1315,7 @@ Detalhes: %2$s"</string>
     <string name="changelog_download_fail">Erro ao transferir registo de alterações: %s</string>
     <string name="changelog_empty">Nenhum registo de alterações disponível</string>
     <string name="changelog_earlier_releases">Versões anteriores</string>
+    <string name="changelog_patched_with">Corrigido com %s</string>
     <string name="changelog_older_empty">Não há versões anteriores para mostrar</string>
     <string name="changelog_older_failed">Não foi possível carregar versões anteriores</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

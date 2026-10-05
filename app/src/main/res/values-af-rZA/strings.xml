@@ -557,6 +557,7 @@ Outerlike sone (gestippel): kan deur die lanseerder masker afgesny word - hou be
     <string name="patcher_failed_title">Oeps! Iets het fout geloop</string>
     <string name="patcher_failed_dialog_title">Patcher het misluk</string>
     <string name="patcher_error_details">Foutbesonderhede</string>
+    <string name="patcher_change_patches">Verander patches</string>
     <string name="patcher_unknown_error">Onbekende fout het voorgekom</string>
     <string name="patcher_split_step_extracting">Ekstraheer gesplitte APK\'s</string>
     <string name="patcher_split_step_merging">Voeg %s saam</string>
@@ -1314,6 +1315,7 @@ Besonderhede: %2$s"</string>
     <string name="changelog_download_fail">Kon nie veranderingslogboek aflaai nie: %s</string>
     <string name="changelog_empty">Geen wysiging beskikbaar nie</string>
     <string name="changelog_earlier_releases">Vroeëre weergawes</string>
+    <string name="changelog_patched_with">Gepatch met %s</string>
     <string name="changelog_older_empty">Geen ouer vrystellings om te wys nie</string>
     <string name="changelog_older_failed">Kon nie ouer weergawes laai nie</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

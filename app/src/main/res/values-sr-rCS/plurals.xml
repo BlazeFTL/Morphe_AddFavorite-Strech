@@ -158,4 +158,14 @@
         <item quantity="few">%s nova izdanja</item>
         <item quantity="other">%s novih izdanja</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d omogućen link</item>
+        <item quantity="few">%d omogućena linka</item>
+        <item quantity="other">%d omogućenih linkova</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d nepotvrđen link</item>
+        <item quantity="few">%d nepotvrđena linka</item>
+        <item quantity="other">%d nepotvrđenih linkova</item>
+    </plurals>
 </resources>

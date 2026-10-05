@@ -490,8 +490,12 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="app_links_enable_auto_in_progress">Omogućavanje poveznica…</string>
     <string name="app_links_open_settings">Otvori postavke poveznica</string>
     <string name="app_links_repair_success">Poveznice aplikacije uspješno su omogućene</string>
+    <string name="app_links_repair_failed">Nije uspjelo automatsko omogućavanje aplikacijskih poveznica</string>
     <string name="app_links_badge_enabled">Omogućeno</string>
     <string name="app_links_badge_disabled">Onemogućeno</string>
+    <string name="app_links_all_verified">Sve podržane poveznice konfigurirane su za otvaranje u ovoj aplikaciji</string>
+    <string name="app_links_fix">Popravi poveznice</string>
+    <string name="configure">Konfiguriraj</string>
     <string name="patcher_rename_title">Ovo će instalirati klon</string>
     <string name="patcher_rename_description">Patchevi grade ovu aplikaciju pod vlastitim nazivom paketa, pa se instaliranjem dodaje klon &lt;b&gt;%s&lt;/b&gt; umjesto ažuriranja</string>
     <string name="patcher_rename_result_package">Instalirat će se kao</string>
@@ -557,6 +561,7 @@ Vanjska zona (isprekidana): može biti odrezana maskom pokretača - važne detal
     <string name="patcher_failed_title">Ups! Nešto je pošlo po zlu</string>
     <string name="patcher_failed_dialog_title">Patchanje nije uspjelo</string>
     <string name="patcher_error_details">Detalji pogreške</string>
+    <string name="patcher_change_patches">Promijeni zakrpe</string>
     <string name="patcher_unknown_error">Došlo je do nepoznate pogreške</string>
     <string name="patcher_split_step_extracting">Izdvajanje podijeljenih APK-ova</string>
     <string name="patcher_split_step_merging">Spajanje %s</string>
@@ -576,6 +581,7 @@ Deinstaliranje će trajno izbrisati sve podatke aplikacije"</string>
     <string name="patcher_back_to_game_hint">Dodirnite %1$s za povratak u igru</string>
     <string name="patcher_storage_permission_dialog_title">Nije moguće pristupiti putanji pohrane</string>
     <string name="patcher_incompatible_patcher_title">Potrebno je ažuriranje</string>
+    <string name="patcher_incompatible_patcher_description">Izvor &lt;b&gt;%1$s&lt;/b&gt; zahtijeva patcher &lt;b&gt;%2$s&lt;/b&gt; ili noviji. Ažuriraj Morphe kako bi se mogao koristiti</string>
     <string name="patcher_storage_permission_description_api30">Jedna ili više opcija patcha upućuju na putanje koje Morphe ne može pročitati. Omogućite pristup pohrani i dodirnite tipku, nakon čega će se patchanje automatski pokrenuti.</string>
     <string name="patcher_storage_permission_description_legacy">Jedna ili više opcija patchanja upućuju na putanje kojima se ne može pristupiti. Ažurirajte putanje u opcijama patcha i pokušajte ponovno.</string>
     <string name="patcher_storage_permission_grant">Odobri dopuštenje za pohranu</string>
@@ -1164,6 +1170,7 @@ Detalji: %2$s"</string>
     <string name="file_picker_internal_storage">Unutarnja pohrana</string>
     <string name="file_picker_sd_card">SD kartica</string>
     <string name="file_picker_root">Root (/)</string>
+    <string name="file_picker_storages">Pohrane</string>
     <string name="file_picker_sort_name_asc">Naziv (A-Z)</string>
     <string name="file_picker_sort_name_desc">Naziv (Z–A)</string>
     <string name="file_picker_sort_size_desc">Veličina (od najveće)</string>
@@ -1311,6 +1318,7 @@ Detalji: %2$s"</string>
     <string name="changelog_download_fail">Neuspjelo preuzimanje zapisa promjena: %s</string>
     <string name="changelog_empty">Nema dostupnog zapisa o promjenama</string>
     <string name="changelog_earlier_releases">Ranija izdanja</string>
+    <string name="changelog_patched_with">Zakrpano s %s</string>
     <string name="changelog_older_empty">Nema starijih verzija za prikaz</string>
     <string name="changelog_older_failed">Nije moguće učitati starija izdanja</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

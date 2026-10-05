@@ -486,7 +486,12 @@
     <string name="app_links_enable_auto_in_progress">กำลังเปิดใช้ลิงก์…</string>
     <string name="app_links_open_settings">เปิดการตั้งค่าลิงก์</string>
     <string name="app_links_repair_success">เปิดใช้ลิงก์แอปสำเร็จแล้ว</string>
+    <string name="app_links_repair_failed">ไม่สามารถเปิดใช้งานลิงก์แอปโดยอัตโนมัติได้</string>
+    <string name="app_links_badge_enabled">เปิดใช้งานแล้ว</string>
     <string name="app_links_badge_disabled">ปิดการใช้งานอยู่</string>
+    <string name="app_links_all_verified">ลิงก์ที่รองรับทั้งหมดได้รับการกำหนดค่าให้เปิดในแอปนี้แล้ว</string>
+    <string name="app_links_fix">แก้ไขลิงก์</string>
+    <string name="configure">กำหนดค่า</string>
     <string name="patcher_rename_title">การดำเนินการนี้จะติดตั้งโคลน</string>
     <string name="patcher_rename_description">แพตช์ได้สร้างแอปนี้ภายใต้ชื่อแพ็คเกจของตนเอง ดังนั้นการติดตั้งจะเพิ่มโคลนควบคู่ไปกับ &lt;b&gt;%s&lt;/b&gt; แทนที่จะอัปเดต</string>
     <string name="patcher_rename_result_package">จะติดตั้งเป็น</string>
@@ -571,6 +576,7 @@
     <string name="patcher_back_to_game_hint">แตะ %1$s เพื่อกลับไปยังเกมของคุณ</string>
     <string name="patcher_storage_permission_dialog_title">ไม่สามารถเข้าถึงเส้นทางเก็บข้อมูล</string>
     <string name="patcher_incompatible_patcher_title">จำเป็นต้องอัปเดต</string>
+    <string name="patcher_incompatible_patcher_description">แหล่งที่มา &lt;b&gt;%1$s&lt;/b&gt; ต้องใช้แพตเชอร์ &lt;b&gt;%2$s&lt;/b&gt; หรือใหม่กว่า อัปเดต Morphe เพื่อใช้งาน</string>
     <string name="patcher_storage_permission_description_api30">ตัวเลือกแพตช์อย่างน้อยหนึ่งรายการชี้ไปยังพาธที่ Morphe ไม่สามารถอ่านได้ ให้สิทธิ์การเข้าถึงพื้นที่เก็บข้อมูลและแตะปุ่ม จากนั้นการแพตช์จะเริ่มทำงานโดยอัตโนมัติ</string>
     <string name="patcher_storage_permission_description_legacy">ตัวเลือกแพตช์บางตัวอ้างอิงไปยังเส้นทางที่ไม่สามารถเข้าถึงได้ อัปเดตเส้นทางในตัวเลือกแพตช์และลองใหม่อีกครั้ง</string>
     <string name="patcher_storage_permission_grant">ยืนยันสิทธิ์การเข้าถึงเก็บข้อมูล</string>
@@ -1308,6 +1314,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">ไม่สามารถดาวน์โหลดบันทึกการเปลี่ยนแปลงได้: %s</string>
     <string name="changelog_empty">ไม่มีรายการอัปเดต</string>
     <string name="changelog_earlier_releases">รุ่นก่อนหน้า</string>
+    <string name="changelog_patched_with">แพตช์ด้วย %s</string>
     <string name="changelog_older_empty">ไม่มีเวอร์ชันเก่ากว่าให้แสดง</string>
     <string name="changelog_older_failed">ไม่สามารถโหลดรุ่นที่เก่ากว่าได้</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

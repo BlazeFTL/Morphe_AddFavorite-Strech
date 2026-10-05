@@ -486,7 +486,12 @@
     <string name="app_links_enable_auto_in_progress">Включение ссылок…</string>
     <string name="app_links_open_settings">Открыть настройки ссылок</string>
     <string name="app_links_repair_success">Ссылки на приложение успешно включены</string>
+    <string name="app_links_repair_failed">Не удалось автоматически включить ссылки приложения</string>
+    <string name="app_links_badge_enabled">Включено</string>
     <string name="app_links_badge_disabled">Выключено</string>
+    <string name="app_links_all_verified">Все поддерживаемые ссылки настроены на открытие в этом приложении</string>
+    <string name="app_links_fix">Исправить ссылки</string>
+    <string name="configure">Настроить</string>
     <string name="patcher_rename_title">Это установит клон</string>
     <string name="patcher_rename_description">Патчи собрали это приложение под собственным именем пакета, поэтому его установка добавит клон рядом с <b>%s</b> вместо обновления</string>
     <string name="patcher_rename_result_package">Будет установлено как</string>
@@ -571,6 +576,7 @@
     <string name="patcher_back_to_game_hint">Нажмите %1$s, чтобы вернуться в игру</string>
     <string name="patcher_storage_permission_dialog_title">Невозможно получить доступ к пути хранения</string>
     <string name="patcher_incompatible_patcher_title">Требуется обновление</string>
+    <string name="patcher_incompatible_patcher_description">Источник &lt;b&gt;%1$s&lt;/b&gt; требует патчер &lt;b&gt;%2$s&lt;/b&gt; или новее. Обновите Morphe, чтобы использовать его</string>
     <string name="patcher_storage_permission_description_api30">Один или несколько параметров патча указывают на пути, которые Morphe не может прочесть. Предоставьте доступ к хранилищу и нажмите кнопку, после чего патч начнется автоматически</string>
     <string name="patcher_storage_permission_description_legacy">Один или несколько параметров патча указывают на пути, к которым нельзя получить доступ. Обновите пути в параметрах патча и повторите попытку</string>
     <string name="patcher_storage_permission_grant">Предоставить доступ к хранилищу</string>
@@ -1307,6 +1313,7 @@ morphe_header_custom_dark.png
     <string name="changelog_download_fail">Не удалось загрузить историю изменений: %s</string>
     <string name="changelog_empty">Нет доступных изменений</string>
     <string name="changelog_earlier_releases">Более ранние релизы</string>
+    <string name="changelog_patched_with">Исправлено с помощью %s</string>
     <string name="changelog_older_empty">Нет более старых версий для отображения</string>
     <string name="changelog_older_failed">Не удалось загрузить более старые релизы</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

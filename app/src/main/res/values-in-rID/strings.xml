@@ -487,7 +487,12 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="app_links_enable_auto_in_progress">Mengaktifkan tautan…</string>
     <string name="app_links_open_settings">Buka pengaturan tautan</string>
     <string name="app_links_repair_success">Tautan aplikasi berhasil diaktifkan</string>
+    <string name="app_links_repair_failed">Gagal mengaktifkan tautan aplikasi secara otomatis</string>
+    <string name="app_links_badge_enabled">Aktif</string>
     <string name="app_links_badge_disabled">Tidak aktif</string>
+    <string name="app_links_all_verified">Semua tautan yang didukung dikonfigurasi untuk dibuka di aplikasi ini</string>
+    <string name="app_links_fix">Perbaiki tautan</string>
+    <string name="configure">Konfigurasi</string>
     <string name="patcher_rename_title">Ini akan memasang klon</string>
     <string name="patcher_rename_description">Penambalan membuat aplikasi ini dengan nama paket tersendiri, sehingga pemasangan ini menambahkan klon di samping &lt;b&gt;%s&lt;/b&gt; alih-alih memperbaruinya</string>
     <string name="patcher_rename_result_package">Akan dipasang sebagai</string>
@@ -553,6 +558,7 @@ Zona luar (putus-putus): mungkin terpotong oleh masker launcher - jaga detail pe
     <string name="patcher_failed_title">Oops! Terjadi kesalahan</string>
     <string name="patcher_failed_dialog_title">Gagal Menambal</string>
     <string name="patcher_error_details">Detail kesalahan</string>
+    <string name="patcher_change_patches">Ganti tambalan</string>
     <string name="patcher_unknown_error">Terjadi kesalahan yang tidak diketahui</string>
     <string name="patcher_split_step_extracting">Mengekstrak APK yang terpisah</string>
     <string name="patcher_split_step_merging">Menggabungkan %s</string>
@@ -572,6 +578,7 @@ Mencopot akan menghapus semua data aplikasi secara permanen"</string>
     <string name="patcher_back_to_game_hint">Ketuk %1$s untuk kembali ke permainan Anda</string>
     <string name="patcher_storage_permission_dialog_title">Tidak dapat mengakses jalur penyimpanan</string>
     <string name="patcher_incompatible_patcher_title">Pembaruan diperlukan</string>
+    <string name="patcher_incompatible_patcher_description">Sumber &lt;b&gt;%1$s&lt;/b&gt; memerlukan patcher &lt;b&gt;%2$s&lt;/b&gt; atau yang lebih baru. Perbarui Morphe untuk menggunakannya</string>
     <string name="patcher_storage_permission_description_api30">Satu atau lebih opsi tambalan yang mengarah pada jalur Morphe tidak dapat dibaca. Beri akses penyimpanan dan ketuk tombol lalu penambalan akan dimulai secara otomatis</string>
     <string name="patcher_storage_permission_description_legacy">Satu atau lebih opsi tambalan yang mengarah ke jalur yang tidak dapat diakses. Perbarui jalur dalam opsi tambalan dan coba lagi</string>
     <string name="patcher_storage_permission_grant">Beri izin penyimpanan</string>
@@ -1309,6 +1316,7 @@ Rincian: %2$s"</string>
     <string name="changelog_download_fail">Gagal mengunduh catatan perubahan: %s</string>
     <string name="changelog_empty">Tidak ada catatan perubahan tersedia</string>
     <string name="changelog_earlier_releases">Rilis sebelumnya</string>
+    <string name="changelog_patched_with">Ditambal dengan %s</string>
     <string name="changelog_older_empty">Tidak ada rilis yang lebih lama untuk ditampilkan</string>
     <string name="changelog_older_failed">Tidak dapat memuat rilis yang lebih lama</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

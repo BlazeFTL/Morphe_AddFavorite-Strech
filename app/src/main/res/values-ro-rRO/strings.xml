@@ -486,8 +486,12 @@ Zona exterioară (întreruptă): poate fi decupată de masca lansatorului - păs
     <string name="app_links_enable_auto_in_progress">Se activează linkurile…</string>
     <string name="app_links_open_settings">Deschideți setările pentru linkuri</string>
     <string name="app_links_repair_success">Linkurile aplicației au fost activate cu succes</string>
+    <string name="app_links_repair_failed">Nu s-a reușit activarea automată a linkurilor aplicației</string>
     <string name="app_links_badge_enabled">Activat</string>
     <string name="app_links_badge_disabled">Dezactivat</string>
+    <string name="app_links_all_verified">Toate linkurile acceptate sunt configurate să se deschidă în această aplicație</string>
+    <string name="app_links_fix">Repară linkurile</string>
+    <string name="configure">Configurează</string>
     <string name="patcher_rename_title">Aceasta va instala o clonă</string>
     <string name="patcher_rename_description">Patch-urile au construit această aplicație sub un nume de pachet propriu, așa că instalarea acesteia adaugă o clonă alături de &lt;b&gt;%s&lt;/b&gt; în loc să o actualizeze.</string>
     <string name="patcher_rename_result_package">Se va instala ca</string>
@@ -572,6 +576,7 @@ Dezinstalarea va șterge definitiv toate datele aplicației."</string>
     <string name="patcher_back_to_game_hint">Atinge %1$s pentru a reveni la jocul tău</string>
     <string name="patcher_storage_permission_dialog_title">Nu se poate accesa calea de stocare</string>
     <string name="patcher_incompatible_patcher_title">Actualizare necesară</string>
+    <string name="patcher_incompatible_patcher_description">Sursa &lt;b&gt;%1$s&lt;/b&gt; necesită patcher-ul &lt;b&gt;%2$s&lt;/b&gt; sau o versiune mai nouă. Actualizează Morphe pentru a o folosi</string>
     <string name="patcher_storage_permission_description_api30">Una sau mai multe opțiuni de patch indică către căi pe care Morphe nu le poate citi. Acordă acces la stocare și atinge butonul, apoi patch-uirea va începe automat</string>
     <string name="patcher_storage_permission_description_legacy">Una sau mai multe opțiuni de patch indică căi de stocare care nu pot fi accesate. Actualizați căile în opțiunile de patch și încercați din nou</string>
     <string name="patcher_storage_permission_grant">Acordați permisiunea de stocare</string>
@@ -1308,6 +1313,7 @@ Detalii: %2$s"</string>
     <string name="changelog_download_fail">Nu s-a putut descărca jurnalul de modificări: %s</string>
     <string name="changelog_empty">Nu există jurnale disponibile</string>
     <string name="changelog_earlier_releases">Versiuni anterioare</string>
+    <string name="changelog_patched_with">Patch aplicat cu %s</string>
     <string name="changelog_older_empty">Nu există versiuni mai vechi de afișat</string>
     <string name="changelog_older_failed">Nu s-au putut încărca versiunile mai vechi</string>
     <!-- Label of a footer button beside "Translate". Keep it short, a longer one moves the buttons onto two rows -->

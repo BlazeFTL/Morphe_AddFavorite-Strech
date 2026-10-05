@@ -127,4 +127,12 @@
         <item quantity="one">%s ny utgivelse</item>
         <item quantity="other">%s nye utgivelser</item>
     </plurals>
+    <plurals name="app_links_count_enabled">
+        <item quantity="one">%d lenke aktivert</item>
+        <item quantity="other">%d lenker aktivert</item>
+    </plurals>
+    <plurals name="app_links_count_unverified">
+        <item quantity="one">%d uverifisert lenke</item>
+        <item quantity="other">%d uverifiserte lenker</item>
+    </plurals>
 </resources>

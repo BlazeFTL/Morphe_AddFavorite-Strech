@@ -21,7 +21,6 @@ import app.morphe.manager.R
 import app.morphe.manager.data.room.apps.installed.supportsMount
 import app.morphe.manager.data.room.apps.installed.trackingKey
 import app.morphe.manager.domain.batch.BatchTarget
-import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isHeldBack
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
@@ -215,12 +214,11 @@ fun HomeScreen(
 
     // Sources built for a newer patcher than this manager ships. They cannot be loaded or patched
     // with until the app is updated, so surface it instead of leaving the source silently broken
-    val bundleSources by homeViewModel.patchBundleRepository.sources.collectAsStateWithLifecycle(emptyList())
-    val hasOutdatedManagerSources = bundleSources.any { it.requiresManagerUpdate }
+    val hasOutdatedManagerSources by homeViewModel.patchBundleRepository.hasOutdatedManagerSources.collectAsStateWithLifecycle()
 
     // Reading these took the process down, so they are skipped until the file changes. Nothing
     // else on this screen would explain why their patches are suddenly gone
-    val hasHeldBackSources = bundleSources.any { it.isHeldBack }
+    val hasHeldBackSources by homeViewModel.patchBundleRepository.hasHeldBackSources.collectAsStateWithLifecycle()
 
     // Manager update details dialog
     if (showUpdateDetailsDialog.value) {

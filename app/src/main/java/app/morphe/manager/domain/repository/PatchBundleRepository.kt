@@ -17,11 +17,13 @@ import app.morphe.manager.data.room.bundles.PatchBundleEntity
 import app.morphe.manager.data.room.bundles.PatchBundleProperties
 import app.morphe.manager.data.room.bundles.Source
 import app.morphe.manager.domain.bundles.*
+import app.morphe.manager.domain.bundles.PatchBundleSource.Extensions.isHeldBack
 import app.morphe.manager.domain.manager.PreferencesManager
 import app.morphe.manager.network.utils.APIError
 import app.morphe.manager.patcher.patch.BundleAppMetadata
 import app.morphe.manager.patcher.patch.PatchBundle
 import app.morphe.manager.patcher.patch.PatchBundleInfo
+import app.morphe.manager.patcher.patch.PatchInfo
 import app.morphe.manager.ui.viewmodel.BundleSnapshot
 import app.morphe.manager.util.*
 import io.ktor.client.plugins.ResponseException
@@ -63,6 +65,15 @@ class PatchBundleRepository(
     /** Crash attribution for every in-process bundle read, the patcher runtime's included. */
     val loadGuard = PatchBundleLoadGuard(app, bundlesDir)
 
+    /**
+     * Patches read from each bundle, keyed by uid and tagged with the stamp of the file they came
+     * from. A reload follows nearly every change to the source list, so a change to one bundle
+     * must not read the dex of all the others again.
+     */
+    private val metadataCache = ConcurrentHashMap<Int, CachedMetadata>()
+
+    private data class CachedMetadata(val stamp: String, val patches: List<PatchInfo>)
+
     private val scope = CoroutineScope(Dispatchers.Default)
     private val store = Store<BundleState>(scope, BundleState.Loading)
 
@@ -79,6 +90,19 @@ class PatchBundleRepository(
         }?.toMap() ?: emptyMap()
     }
     val allBundlesInfoFlow = store.state.map { (it as? BundleState.Ready)?.info ?: persistentMapOf() }
+
+    /**
+     * Whether a source was built for a newer patcher than this manager ships. Answered here
+     * rather than on screen, as reading what a source requires opens its patches.jar.
+     */
+    val hasOutdatedManagerSources: StateFlow<Boolean> = sources
+        .map { list -> list.any { it.requiresManagerUpdate } }
+        .stateIn(scope, SharingStarted.Eagerly, false)
+
+    /** Whether a source is skipped for having taken the process down while being read. */
+    val hasHeldBackSources: StateFlow<Boolean> = sources
+        .map { list -> list.any { it.isHeldBack } }
+        .stateIn(scope, SharingStarted.Eagerly, false)
 
     /**
      * Sources that appear on the remote blocklist, keyed by source uid.
@@ -425,7 +449,18 @@ class PatchBundleRepository(
 
             ready.copy(sources = sources.toPersistentMap(), info = info.toPersistentMap())
         }
-        val info = loadMetadata(sources).toMutableMap()
+        // Only enabled sources hold the screens back. Disabled ones are read in an action of their
+        // own, so the list is ready without waiting on sources nothing is patched with
+        val info = loadMetadata(sources.filterValues { it.enabled }).toMutableMap()
+        if (sources.values.any { !it.enabled && it.patchBundle != null }) dispatchAction(
+            "Load disabled bundles"
+        ) { state ->
+            val ready = state as? BundleState.Ready ?: return@dispatchAction state
+            // Read from the sources as they are now, as actions queued ahead may have changed them
+            val unread = ready.sources.filter { (uid, src) -> uid !in ready.info && src.patchBundle != null }
+            if (unread.isEmpty()) return@dispatchAction state
+            ready.copy(info = ready.info.putAll(loadMetadata(unread)))
+        }
 
         // Ensure official bundle has default display name if none is set
         val officialSource = sources[0]
@@ -477,9 +512,7 @@ class PatchBundleRepository(
                     version = bundle.manifestAttributes?.version,
                     uid = src.uid,
                     enabled = src.enabled,
-                    patches = loadGuard.read(src.uid, src.patchesJarFile) {
-                        PatchBundle.Loader.metadata(bundle)
-                    },
+                    patches = readPatches(src.uid, src.patchesJarFile, bundle),
                     patcherVersion = bundle.manifestAttributes?.patcherVersion,
                 )
             } catch (error: Throwable) {
@@ -517,6 +550,21 @@ class PatchBundleRepository(
         }
 
         return metadata
+    }
+
+    /** The patches in [bundle], read from its dex only when the file changed since the last read. */
+    private fun readPatches(uid: Int, patchesJar: File, bundle: PatchBundle): List<PatchInfo> {
+        val stamp = loadGuard.stampOf(patchesJar)
+        metadataCache[uid]?.takeIf { it.stamp == stamp }?.let { return it.patches }
+
+        return loadGuard.read(uid, patchesJar) { PatchBundle.Loader.metadata(bundle) }
+            .also { metadataCache[uid] = CachedMetadata(stamp, it) }
+    }
+
+    /** Drops everything kept about [uid], for a bundle that is being taken off disk. */
+    private fun forgetBundle(uid: Int) {
+        loadGuard.forget(uid)
+        metadataCache.remove(uid)
     }
 
     /**
@@ -693,7 +741,7 @@ class PatchBundleRepository(
         dao.reset()
         (state as? BundleState.Ready)?.sources?.keys?.forEach {
             directoryOf(it).deleteRecursively()
-            loadGuard.forget(it)
+            forgetBundle(it)
         }
         doReload()
     }
@@ -847,7 +895,7 @@ class PatchBundleRepository(
             bundles.forEach {
                 dao.remove(it.uid)
                 directoryOf(it.uid).deleteRecursively()
-                loadGuard.forget(it.uid)
+                forgetBundle(it.uid)
                 sources.remove(it.uid)
                 info.remove(it.uid)
             }
@@ -1347,8 +1395,7 @@ class PatchBundleRepository(
      * logcat for support/diagnostics.
      */
     suspend fun logBlockedSources() {
-        bundleState.first { it is BundleState.Ready }
-        val ready = bundleState.value as? BundleState.Ready ?: return
+        val ready = awaitReady()
         val blocked = blocklistRepository.entries.value
 
         val matched = ready.sources.values.mapNotNull { src ->
@@ -1362,6 +1409,10 @@ class PatchBundleRepository(
             Log.i(tag, "Blocked source disabled: $name endpoint=$endpoint reason=${entry.reason}")
         }
     }
+
+    /** Suspends until the sources have been read from the database for the first time. */
+    private suspend fun awaitReady(): BundleState.Ready =
+        bundleState.filterIsInstance<BundleState.Ready>().first()
 
     /** Returns the blocklist key for a normalized bundle URL, or null for non-GitHub/GitLab hosts. */
     private fun toBlocklistKey(normalizedUrl: String): String? = try {
@@ -1593,6 +1644,7 @@ class PatchBundleRepository(
      * Waits for any in-progress update to finish first, then runs its own update directly.
      */
     suspend fun updateCheckAndAwait(allowUnsafeNetwork: Boolean = false) {
+        awaitReady()
         awaitCurrentUpdateJob()
         performRemoteUpdateWithResult(
             UpdateRequest(
@@ -1615,12 +1667,14 @@ class PatchBundleRepository(
      *   dialog action).
      */
     suspend fun updateCheck(allowUnsafeNetwork: Boolean = false) {
-        store.dispatch(
-            Update(
-                UpdateRequest(
-                    target = UpdateTarget(autoUpdatable = true),
-                    allowUnsafeNetwork = allowUnsafeNetwork,
-                )
+        // Launch dispatches this alongside the first reload, and a check that runs ahead of it
+        // finds no sources and leaves the whole launch without updates. Started past the store
+        // queue, so it does not wait out the disabled sources being read in the meantime
+        awaitReady()
+        startRemoteUpdateJob(
+            UpdateRequest(
+                target = UpdateTarget(autoUpdatable = true),
+                allowUnsafeNetwork = allowUnsafeNetwork,
             )
         )
         checkManualUpdates()
@@ -2212,6 +2266,7 @@ class PatchBundleRepository(
                     toRemove.forEach { bundle ->
                         dao.remove(bundle.uid)
                         directoryOf(bundle.uid).deleteRecursively()
+                        forgetBundle(bundle.uid)
                     }
                     val removedUids = toRemove.map { it.uid }.toSet()
                     removedUids.forEach { uid ->

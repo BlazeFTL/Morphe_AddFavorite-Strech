@@ -69,6 +69,8 @@ import app.morphe.manager.ui.viewmodel.InstallViewModel
 import app.morphe.manager.ui.viewmodel.InstalledAppInfoViewModel
 import app.morphe.manager.ui.viewmodel.SettingsViewModel
 import app.morphe.manager.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
 
@@ -1112,27 +1114,27 @@ private fun InfoSection(
     val totalPatches = appliedPatches?.values?.sumOf { it.size } ?: 0
     val context = LocalContext.current
 
-    // APK size from sourceDir
-    val apkSize = remember(installedApp.currentPackageName) {
-        try {
-            val pm = context.packageManager
-            val info = pm.getPackageInfo(installedApp.currentPackageName, 0)
-
-            val bytes = File(
-                info.applicationInfo?.sourceDir ?: return@remember null
-            ).length()
-
-            context.formatBytes(bytes)
-        } catch (_: Exception) { null }
+    // Read off the main thread: listing the native libraries walks the whole APK, which for the
+    // largest apps holds the dialog's first frame back noticeably
+    val installedApk by produceState<File?>(null, installedApp.currentPackageName) {
+        value = withContext(Dispatchers.IO) {
+            try {
+                context.packageManager.getPackageInfo(installedApp.currentPackageName, 0)
+                    .applicationInfo?.sourceDir?.let(::File)
+            } catch (_: Exception) { null }
+        }
     }
 
-    val apkAbis = remember(installedApp.currentPackageName) {
-        try {
-            val pm = context.packageManager
-            val info = pm.getPackageInfo(installedApp.currentPackageName, 0)
-            val sourceDir = info.applicationInfo?.sourceDir ?: return@remember emptyList()
-            NativeLibs.extractAbisFromApk(File(sourceDir))
-        } catch (_: Exception) { emptyList() }
+    // APK size from sourceDir
+    val apkSize = remember(installedApk) { installedApk?.let { context.formatBytes(it.length()) } }
+
+    val apkAbis by produceState(emptyList(), installedApk) {
+        val apk = installedApk ?: return@produceState
+        value = withContext(Dispatchers.IO) {
+            try {
+                NativeLibs.extractAbisFromApk(apk)
+            } catch (_: Exception) { emptyList() }
+        }
     }
 
     // Edged like the app's cards elsewhere, so the panel reads as part of the app's dialog

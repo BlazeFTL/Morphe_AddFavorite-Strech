@@ -165,7 +165,6 @@ class BatchPlanResolver(
         // resolving it per app would repeat that work for each one of them
         val recommended = versionCatalog.recommendedVersions.first()
         targets
-            .distinctBy { it.id }
             .map { target ->
                 async {
                     resolve(target, useMount, suggestedVersion = recommended[target.packageName]?.version)

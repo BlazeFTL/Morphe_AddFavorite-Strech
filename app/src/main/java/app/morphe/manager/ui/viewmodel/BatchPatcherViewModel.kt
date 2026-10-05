@@ -241,13 +241,16 @@ class BatchPatcherViewModel : ViewModel(), KoinComponent, ApkDownloadHelperHost 
      * apps is reused so rotation does not restart planning.
      */
     fun ensurePlan(targets: List<BatchTarget>, useMount: Boolean) {
+        // Two cards can stand for the same install, such as a mount and a renamed build of one
+        // app, and the queue lists each install once
+        val queued = targets.distinctBy { it.id }
         val current = state.value
         if (current != null) {
             if (current.phase == BatchPhase.PLANNING || current.phase == BatchPhase.RUNNING) return
-            if (current.targets == targets) return
+            if (current.targets == queued) return
             coordinator.clear()
         }
-        coordinator.plan(targets, useMount, BatchInstallPolicy.SAVE_ONLY)
+        coordinator.plan(queued, useMount, BatchInstallPolicy.SAVE_ONLY)
     }
 
     fun requestAttach(packageName: String) {

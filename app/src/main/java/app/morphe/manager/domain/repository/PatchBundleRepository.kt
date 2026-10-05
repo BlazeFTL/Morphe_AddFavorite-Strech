@@ -459,7 +459,7 @@ class PatchBundleRepository(
             // Read from the sources as they are now, as actions queued ahead may have changed them
             val unread = ready.sources.filter { (uid, src) -> uid !in ready.info && src.patchBundle != null }
             if (unread.isEmpty()) return@dispatchAction state
-            ready.copy(info = ready.info.putAll(loadMetadata(unread)))
+            ready.copy(info = ready.info.puttingAll(loadMetadata(unread)))
         }
 
         // Ensure official bundle has default display name if none is set
@@ -1357,10 +1357,9 @@ class PatchBundleRepository(
      * - the uid is already stored in [PreferencesManager.bundlePrereleasesEnabled] (user toggled it on)
      * - the endpoint URL explicitly targets the "dev" branch.
      */
-    private fun shouldUsePrerelease(uid: Int, url: String): Boolean {
-        if (prefs.bundlePrereleasesEnabled.getBlocking().contains(uid.toString())) return true
-        return JsonPatchBundle.extractBranch(url) == "dev"
-    }
+    private fun shouldUsePrerelease(uid: Int, url: String): Boolean =
+        prefs.bundlePrereleasesEnabled.getBlocking().contains(uid.toString()) ||
+                JsonPatchBundle.extractBranch(url) == "dev"
 
     /**
      * Extracts the HTTP status code from an exception.
@@ -1677,7 +1676,7 @@ class PatchBundleRepository(
                 allowUnsafeNetwork = allowUnsafeNetwork,
             )
         )
-        checkManualUpdates()
+        scope.launch { checkManualUpdates() }
     }
 
     /** A remote source that has an update waiting, and the version waiting for it. */
@@ -1736,8 +1735,75 @@ class PatchBundleRepository(
         }
     }
 
-    suspend fun checkManualUpdates(vararg bundleUids: Int) =
-        store.dispatch(ManualUpdateCheck(bundleUids.toSet().takeIf { it.isNotEmpty() }))
+    /**
+     * Looks up the latest release of the sources that are not updated automatically, or of
+     * [bundleUids] when given, and publishes what is waiting in [manualUpdateInfo].
+     *
+     * Runs outside the store: it only reads the sources, and holding the queue for as long as
+     * the network takes to answer would stall every change to them in the meantime.
+     */
+    suspend fun checkManualUpdates(vararg bundleUids: Int) = coroutineScope {
+        val targetUids = bundleUids.toSet().takeIf { it.isNotEmpty() }
+        val ready = awaitReady()
+        val manualBundles = ready.sources.values
+            .filterIsInstance<RemotePatchBundle>()
+            .filter {
+                targetUids?.contains(it.uid) ?: !it.autoUpdate
+            }
+
+        if (manualBundles.isEmpty()) {
+            if (targetUids != null) {
+                manualUpdateInfoFlow.update { it - targetUids }
+            } else {
+                manualUpdateInfoFlow.update { map ->
+                    map.filterKeys { uid ->
+                        val bundle = ready.sources[uid] as? RemotePatchBundle
+                        bundle != null && !bundle.autoUpdate
+                    }
+                }
+            }
+            return@coroutineScope
+        }
+
+        val allowMeteredUpdates = prefs.allowMeteredUpdates.get()
+        if (!allowMeteredUpdates && networkInfo.isMetered()) {
+            Log.d(tag, "Skipping manual update check because the network is down or metered.")
+            return@coroutineScope
+        }
+
+        val results = manualBundles
+            .map { bundle ->
+                async {
+                    try {
+                        val info = bundle.fetchLatestReleaseInfo()
+                        val latestSignature = info.version.takeUnless { it.isBlank() }
+                        val installedSignature = bundle.installedVersionSignature
+                        val hasUpdate = latestSignature == null || installedSignature != latestSignature
+                        if (!hasUpdate) return@async bundle.uid to null
+                        bundle.uid to ManualBundleUpdateInfo(
+                            latestVersion = latestSignature ?: bundle.version,
+                            pageUrl = info.pageUrl
+                        )
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (t: Throwable) {
+                        Log.e(tag, "Failed to check manual update for ${bundle.name}", t)
+                        bundle.uid to null
+                    }
+                }
+            }
+            .awaitAll()
+
+        manualUpdateInfoFlow.update { map ->
+            val next = map.toMutableMap()
+            val manualUids = manualBundles.map(RemotePatchBundle::uid).toSet()
+            next.keys.retainAll(manualUids)
+            results.forEach { (uid, info) ->
+                if (info == null) next.remove(uid) else next[uid] = info
+            }
+            next
+        }
+    }
 
     private inner class Update(private val request: UpdateRequest) : Action<BundleState> {
         override fun toString() = if (request.force) "Redownload remote bundles" else "Update check"
@@ -2023,72 +2089,6 @@ class PatchBundleRepository(
     }
 
     private class BundleUpdateCancelled : Exception()
-
-    private inner class ManualUpdateCheck(
-        private val targetUids: Set<Int>? = null
-    ) : Action<BundleState> {
-        override suspend fun ActionContext.execute(current: BundleState) = coroutineScope {
-            val ready = current as? BundleState.Ready ?: return@coroutineScope current
-            val manualBundles = ready.sources.values
-                .filterIsInstance<RemotePatchBundle>()
-                .filter {
-                    targetUids?.contains(it.uid) ?: !it.autoUpdate
-                }
-
-            if (manualBundles.isEmpty()) {
-                if (targetUids != null) {
-                    manualUpdateInfoFlow.update { it - targetUids }
-                } else {
-                    manualUpdateInfoFlow.update { map ->
-                        map.filterKeys { uid ->
-                            val bundle = ready.sources[uid] as? RemotePatchBundle
-                            bundle != null && !bundle.autoUpdate
-                        }
-                    }
-                }
-                return@coroutineScope current
-            }
-
-            val allowMeteredUpdates = prefs.allowMeteredUpdates.get()
-            if (!allowMeteredUpdates && networkInfo.isMetered()) {
-                Log.d(tag, "Skipping manual update check because the network is down or metered.")
-                return@coroutineScope current
-            }
-
-            val results = manualBundles
-                .map { bundle ->
-                    async {
-                        try {
-                            val info = bundle.fetchLatestReleaseInfo()
-                            val latestSignature = info.version.takeUnless { it.isBlank() }
-                            val installedSignature = bundle.installedVersionSignature
-                            val hasUpdate = latestSignature == null || installedSignature != latestSignature
-                            if (!hasUpdate) return@async bundle.uid to null
-                            bundle.uid to ManualBundleUpdateInfo(
-                                latestVersion = latestSignature ?: bundle.version,
-                                pageUrl = info.pageUrl
-                            )
-                        } catch (t: Throwable) {
-                            Log.e(tag, "Failed to check manual update for ${bundle.name}", t)
-                            bundle.uid to null
-                        }
-                    }
-                }
-                .awaitAll()
-
-            manualUpdateInfoFlow.update { map ->
-                val next = map.toMutableMap()
-                val manualUids = manualBundles.map(RemotePatchBundle::uid).toSet()
-                next.keys.retainAll(manualUids)
-                results.forEach { (uid, info) ->
-                    if (info == null) next.remove(uid) else next[uid] = info
-                }
-                next
-            }
-
-            current
-        }
-    }
 
     sealed class BundleState {
         /** DB not yet read - UI shows shimmer */

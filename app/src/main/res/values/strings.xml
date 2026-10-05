@@ -578,6 +578,7 @@ Outer zone (dashed): may be clipped by the launcher mask - keep important detail
     <string name="patcher_failed_title">Oops! Something went wrong</string>
     <string name="patcher_failed_dialog_title">Patching failed</string>
     <string name="patcher_error_details">Error details</string>
+    <string name="patcher_change_patches">Change patches</string>
     <string name="patcher_unknown_error">Unknown error occurred</string>
     <string name="patcher_split_step_extracting">Extracting split APKs</string>
     <string name="patcher_split_step_merging">Merging %s</string>

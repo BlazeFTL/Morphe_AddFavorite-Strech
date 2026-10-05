@@ -67,7 +67,8 @@ fun PatcherScreen(
     onBackgroundSpeedChange: (Float) -> Unit = {},
     onPatchingCompleted: () -> Unit = {},
     onStartTour: () -> Unit = {},
-    onDeclineTour: () -> Unit = {}
+    onDeclineTour: () -> Unit = {},
+    onChangePatches: () -> Unit = {}
 ) {
     // Worn by everything the screen shows, its dialogs included, down to the install button
     ProvideAccent(rememberAppColor(patcherViewModel.packageName)) {
@@ -80,7 +81,8 @@ fun PatcherScreen(
             onBackgroundSpeedChange = onBackgroundSpeedChange,
             onPatchingCompleted = onPatchingCompleted,
             onStartTour = onStartTour,
-            onDeclineTour = onDeclineTour
+            onDeclineTour = onDeclineTour,
+            onChangePatches = onChangePatches
         )
     }
 }
@@ -95,7 +97,8 @@ private fun PatcherScreenContent(
     onBackgroundSpeedChange: (Float) -> Unit,
     onPatchingCompleted: () -> Unit,
     onStartTour: () -> Unit,
-    onDeclineTour: () -> Unit
+    onDeclineTour: () -> Unit,
+    onChangePatches: () -> Unit
 ) {
     val view = LocalView.current
 
@@ -661,7 +664,9 @@ private fun PatcherScreenContent(
                         sources = patchSources,
                         errorMessage = state.errorMessage,
                         onHomeClick = onBackClick,
-                        onErrorClick = { state.shownFailure = PatcherFailure.PATCHING }
+                        onErrorClick = { state.shownFailure = PatcherFailure.PATCHING },
+                        // Simple mode keeps no selection of its own to return to
+                        onChangePatchesClick = onChangePatches.takeIf { useExpertMode }
                     )
                 }
             }

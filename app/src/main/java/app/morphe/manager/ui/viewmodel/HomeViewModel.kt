@@ -42,6 +42,7 @@ import app.morphe.manager.patcher.patch.PatchBundleInfo.Extensions.toPatchSelect
 import app.morphe.manager.patcher.split.SplitApkInspector
 import app.morphe.manager.patcher.split.SplitApkPreparer
 import app.morphe.manager.ui.model.*
+import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.shared.CopySelectionCandidate
 import app.morphe.manager.util.*
 import app.morphe.manager.util.PatchSelectionUtils.applyAvailability
@@ -114,20 +115,6 @@ data class InvalidSignatureDialogState(
     val packageName: String,
     val appName: String,
 )
-
-/**
- * Quick patch parameters.
- *
- * @param targetPackageName The install being rebuilt when that is a clone rather than the app's
- *   own, so the run can tell the name it was aimed at from the one its patches produce.
- */
-data class QuickPatchParams(
-    val selectedApp: SelectedApp,
-    val patches: PatchSelection,
-    val options: Options,
-    val targetPackageName: String? = null
-)
-
 
 /** An installed app entry shown in the universal-patch app picker. */
 data class InstalledAppPickerItem(
@@ -683,7 +670,7 @@ class HomeViewModel(
     }
 
     // Callback for starting patch
-    var onStartQuickPatch: ((QuickPatchParams) -> Unit)? = null
+    var onStartQuickPatch: ((Patcher.ViewModelParams) -> Unit)? = null
 
     init {
         observeManagerUpdate()
@@ -779,10 +766,8 @@ class HomeViewModel(
      * Returns `true` when the user has disabled metered updates AND is currently on
      * a metered (mobile data) connection - meaning patches may not be up to date.
      */
-    fun isOnMeteredWithUpdatesDisabled(): Boolean {
-        if (prefs.allowMeteredUpdates.getBlocking()) return false
-        return networkInfo.isMetered()
-    }
+    fun isOnMeteredWithUpdatesDisabled(): Boolean =
+        !prefs.allowMeteredUpdates.getBlocking() && networkInfo.isMetered()
 
     /** True while a batch queue is patching, so callers can explain why a start was ignored. */
     val batchPatchRunning: Boolean get() = batchPatchCoordinator.isRunning
@@ -2202,7 +2187,7 @@ class HomeViewModel(
                         .mapTo(mutableSetOf()) { it.name }
                     if (patchNames.isNotEmpty()) {
                         val patches = mapOf(bundle.uid to patchNames).applyInstallerRules()
-                        proceedWithPatching(selectedApp, patches, emptyMap())
+                        proceedWithPatching(selectedApp, patches, emptyMap(), allowIncompatible = true)
                         return
                     }
                 }
@@ -2222,7 +2207,7 @@ class HomeViewModel(
                 .associate { (bundle, patches) -> bundle.uid to patches }
                 .applyInstallerRules()
 
-            proceedWithPatching(selectedApp, patches, emptyMap())
+            proceedWithPatching(selectedApp, patches, emptyMap(), allowIncompatible)
         }
     }
 
@@ -2264,20 +2249,22 @@ class HomeViewModel(
     fun proceedWithPatching(
         selectedApp: SelectedApp,
         patches: PatchSelection,
-        options: Options
+        options: Options,
+        allowIncompatible: Boolean
     ) {
         // Dismiss InstalledAppInfoDialog here, right before navigating to PatcherScreen.
         // This ensures there is never a gap between the info dialog closing and the next screen appearing
         dismissInstalledAppInfo()
 
         onStartQuickPatch?.invoke(
-            QuickPatchParams(
+            Patcher.ViewModelParams(
                 selectedApp = selectedApp,
-                patches = patches,
+                selectedPatches = patches,
                 options = options,
                 // Handed over before the state below is cleared, since the run has no other way
                 // to learn which install it was started for
-                targetPackageName = pendingRepatchPackageName
+                targetPackageName = pendingRepatchPackageName,
+                allowIncompatible = allowIncompatible
             )
         )
 
@@ -2292,6 +2279,22 @@ class HomeViewModel(
         resolvedDownloadUrl = null
         showDownloadInstructionsDialog = false
         showFilePickerPromptDialog = false
+    }
+
+    /**
+     * Reopens the selection a failed [run] was started from, so the patch that failed it can be
+     * dropped without picking the APK again. The selection itself was saved before the run.
+     */
+    fun reopenPatchSelection(run: Patcher.ViewModelParams) {
+        // A failed run leaves its input in place, but storage cleanup may have taken it since
+        if ((run.selectedApp as? SelectedApp.Local)?.file?.exists() == false) {
+            app.toast(app.getString(R.string.home_invalid_apk_io_error))
+            return
+        }
+        pendingRepatchPackageName = run.targetPackageName
+        viewModelScope.launch {
+            startPatchingWithApp(run.selectedApp, run.allowIncompatible)
+        }
     }
 
     /**
@@ -2615,7 +2618,7 @@ class HomeViewModel(
                 saveSeenPatchesForBundles(configurationKey)
             }
 
-            proceedWithPatching(selectedApp, finalPatches, patcherOptions)
+            proceedWithPatching(selectedApp, finalPatches, patcherOptions, expertModeAllowIncompatible)
             cleanupExpertModeData()
         }
     }

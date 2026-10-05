@@ -636,15 +636,7 @@ private fun MorpheManager(vm: MainViewModel) {
                     globalOnboardingState = if (showOnboarding) globalOnboardingState else null,
                     onStartQuickPatch = { params ->
                         entry.lifecycleScope.launch {
-                            navController.navigateComplex(
-                                Patcher,
-                                Patcher.ViewModelParams(
-                                    selectedApp = params.selectedApp,
-                                    selectedPatches = params.patches,
-                                    options = params.options,
-                                    targetPackageName = params.targetPackageName
-                                )
-                            )
+                            navController.navigateComplex(Patcher, params)
                         }
                     },
                     onStartBatchPatch = { targets, useMount ->
@@ -688,19 +680,24 @@ private fun MorpheManager(vm: MainViewModel) {
             composable<Patcher> { it ->
                 val params = it.getComplexArg<Patcher.ViewModelParams>() ?: return@composable
                 val patcherViewModel: PatcherViewModel = koinViewModel { parametersOf(params) }
+                val leavePatcher: () -> Unit = {
+                    patcherViewModel.stopCompletionSound()
+                    patcherBackgroundSpeed.floatValue = 1f
+                    patchingCompleted.value = false
+                    navController.popBackStack()
+                }
                 PatcherScreen(
-                    onBackClick = {
-                        patcherViewModel.stopCompletionSound()
-                        patcherBackgroundSpeed.floatValue = 1f
-                        patchingCompleted.value = false
-                        navController.popBackStack()
-                    },
+                    onBackClick = leavePatcher,
                     patcherViewModel = patcherViewModel,
                     usingMountInstall = usingMountInstallState.value,
                     onBackgroundSpeedChange = { patcherBackgroundSpeed.floatValue = it },
                     onPatchingCompleted = { patchingCompleted.value = true },
                     onStartTour = startOnboardingTour,
-                    onDeclineTour = declineOnboardingTour
+                    onDeclineTour = declineOnboardingTour,
+                    onChangePatches = {
+                        leavePatcher()
+                        homeViewModel.reopenPatchSelection(params)
+                    }
                 )
             }
 

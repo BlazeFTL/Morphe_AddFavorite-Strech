@@ -24,6 +24,7 @@ import app.morphe.manager.domain.batch.BatchTarget
 import app.morphe.manager.domain.manager.*
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.ui.model.HomeAppItem
+import app.morphe.manager.ui.model.navigation.Patcher
 import app.morphe.manager.ui.screen.home.*
 import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
@@ -43,7 +44,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun HomeScreen(
     onSettingsClick: () -> Unit,
-    onStartQuickPatch: (QuickPatchParams) -> Unit,
+    onStartQuickPatch: (Patcher.ViewModelParams) -> Unit,
     onStartBatchPatch: (List<BatchTarget>, Boolean) -> Unit,
     homeViewModel: HomeViewModel = koinViewModel(),
     prefs: PreferencesManager = koinInject(),

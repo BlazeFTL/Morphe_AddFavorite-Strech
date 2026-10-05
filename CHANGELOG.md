@@ -1,3 +1,24 @@
+# [1.34.0-dev.7](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.6...v1.34.0-dev.7) (2026-10-05)
+
+
+### Bug Fixes
+
+* Keep the dev builds of the current cycle in the prerelease changelog history ([2e9790c](https://github.com/MorpheApp/morphe-manager/commit/2e9790c71a0d7f8e5be058d5a28af3cd89463361))
+
+
+### Features
+
+* Animate the installed app details as they load ([4055fb8](https://github.com/MorpheApp/morphe-manager/commit/4055fb8849548715701b04a2605588645fd857bf))
+* Draw an even outline around solid-colored app cards ([dcc5466](https://github.com/MorpheApp/morphe-manager/commit/dcc5466be18a406877e8950aa6314db7f4d7350c))
+* Load patch sources from private GitHub repositories with the configured PAT ([bf4729c](https://github.com/MorpheApp/morphe-manager/commit/bf4729cbd89081fa245598123ebb159bed8196d3))
+* Return to the patch selection after a failed run ([7eff321](https://github.com/MorpheApp/morphe-manager/commit/7eff32161af7fa69f70ec4cb61f7e2d0592a1912))
+
+
+### Performance Improvements
+
+* Check manual sources for updates outside the store queue ([7a22e4b](https://github.com/MorpheApp/morphe-manager/commit/7a22e4ba322f0f775d10591cba82a92c56041e5c))
+* Keep the manager responsive while patch sources load ([55804c6](https://github.com/MorpheApp/morphe-manager/commit/55804c655aa906cf9a966a77b41f9c6337af8fc9))
+
 # [1.34.0-dev.6](https://github.com/MorpheApp/morphe-manager/compare/v1.34.0-dev.5...v1.34.0-dev.6) (2026-10-04)
 
 

@@ -18,6 +18,11 @@
     <uses-permission android:name="android.permission.ENFORCE_UPDATE_OWNERSHIP" />
     <uses-permission android:name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION" />
 
+    <!-- Marks Morphe as a current Shizuku API client for Shizuku+, which otherwise treats apps
+         declaring only the original permission as legacy ones and remaps their binder calls.
+         See https://github.com/MorpheApp/morphe-manager/issues/1117 -->
+    <uses-permission android:name="af.shizuku.plus.permission.API_V23" />
+
     <!-- Foreground Services -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />

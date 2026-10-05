@@ -11,6 +11,7 @@ import app.morphe.manager.network.utils.getOrNull
 import app.morphe.manager.util.*
 import io.ktor.client.request.header
 import io.ktor.client.request.url
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,6 +21,13 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Instant
 
 private const val GITHUB_DOWNLOAD_PREFIX = "https://github.com/"
+
+private const val GITHUB_RAW_HOST = "raw.githubusercontent.com"
+
+/** Whether [url] is a file served from a repository by raw.githubusercontent.com. */
+internal fun isRawGitHubUrl(url: String): Boolean = runCatching {
+    java.net.URI(url).host.equals(GITHUB_RAW_HOST, ignoreCase = true)
+}.getOrDefault(false)
 
 /** Coordinates of a single asset inside a GitHub release download link. */
 internal data class ReleaseAssetRef(
@@ -73,7 +81,7 @@ internal fun parseReleaseAssetUrl(downloadUrl: String): ReleaseAssetRef? {
  * except [getAssetFromPullRequest], which throws on hard failure.
  */
 class MorpheAPI(
-    private val client: HttpService,
+    @PublishedApi internal val client: HttpService,
     private val prefs: PreferencesManager
 ) {
     /**
@@ -184,6 +192,27 @@ class MorpheAPI(
     }
 
     /**
+     * Fetches a source's file, retrying a raw.githubusercontent.com 404 with the user's PAT. GitHub
+     * answers a stale token with 404 even on public files, so the token only follows a miss.
+     */
+    suspend inline fun <reified T> rawFileRequest(url: String): APIResponse<T> {
+        val response: APIResponse<T> = client.request { url(url) }
+        val pat = patForMissingRawFile(url, response) ?: return response
+        return client.request {
+            header(HttpHeaders.Authorization, "Bearer $pat")
+            url(url)
+        }
+    }
+
+    /** The PAT to retry [url] with after [response], or null when a retry cannot help. */
+    @PublishedApi
+    internal suspend fun patForMissingRawFile(url: String, response: APIResponse<*>): String? {
+        val missing = response is APIResponse.Error && response.error.statusCode == HttpStatusCode.NotFound
+        if (!missing || !isRawGitHubUrl(url)) return null
+        return prefs.gitHubPat.get().takeIf { it.isNotBlank() && it != rejectedPat }
+    }
+
+    /**
      * Makes a request to the Morphe backend API at [route].
      *
      * Note: [HttpService.request] already retries 429 and dropped connections internally, so
@@ -196,7 +225,7 @@ class MorpheAPI(
 
     /**
      * Fetches a raw file directly from GitHub (raw.githubusercontent.com).
-     * Does not attach auth headers — raw files are always public.
+     * Does not attach auth headers, as the Morphe repositories are public.
      */
     private suspend inline fun <reified T> rawPatchesBundleRequest(
         config: RepoConfig,
@@ -549,7 +578,7 @@ class MorpheAPI(
      */
     suspend fun fetchChangelogFromUrl(changelogUrl: String, stopAfterFirstStable: Boolean = false): List<ChangelogEntry> {
         Log.d(tag, "fetchChangelogFromUrl: $changelogUrl")
-        return parseChangelog(client.request<String> { url(changelogUrl) }, stopAfterFirstStable, changelogUrl)
+        return parseChangelog(rawFileRequest<String>(changelogUrl), stopAfterFirstStable, changelogUrl)
     }
 
     private suspend fun fetchChangelogFromRepo(

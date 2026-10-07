@@ -30,6 +30,7 @@ import app.morphe.manager.ui.screen.settings.system.InstallerFlowDialogs
 import app.morphe.manager.ui.screen.settings.system.PrePatchInstallerDialog
 import app.morphe.manager.ui.screen.shared.InstallQueueRequest
 import app.morphe.manager.ui.screen.shared.rememberInstallQueue
+import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.viewmodel.*
 import app.morphe.manager.util.*
 import kotlinx.coroutines.delay
@@ -75,10 +76,14 @@ fun HomeScreen(
     // Reactively observe the preference so the greeting updates immediately
     val showGreetingPhrases by prefs.showGreetingPhrases.getAsState()
     val showRepatchNotice by prefs.showRepatchNotice.getAsState()
+    val seasonalThemes by prefs.seasonalThemes.getAsState()
+    val seasonalEvent = remember(seasonalThemes) { SeasonalEvent.on().takeIf { seasonalThemes } }
 
-    // Re-evaluated whenever showPatchingPhrases changes
-    var greetingResId by remember(showGreetingPhrases) {
-        mutableStateOf(if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context) else null)
+    // Re-evaluated whenever showPatchingPhrases or the seasonal event changes
+    var greetingResId by remember(showGreetingPhrases, seasonalEvent) {
+        mutableStateOf(
+            if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context, seasonalEvent) else null
+        )
     }
     val greetingMessage = greetingResId?.let { stringResource(it) }
 
@@ -88,7 +93,7 @@ fun HomeScreen(
     val onRefresh: () -> Unit = {
         view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         HomeAndPatcherMessages.resetHomeMessage()
-        greetingResId = if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context) else null
+        greetingResId = if (showGreetingPhrases) HomeAndPatcherMessages.getHomeMessage(context, seasonalEvent) else null
         homeViewModel.refresh()
     }
 

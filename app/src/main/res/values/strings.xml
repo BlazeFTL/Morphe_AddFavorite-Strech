@@ -126,6 +126,13 @@
     <string name="home_greeting_super_late_3">At this point, just stay up and patch</string>
     <string name="home_greeting_super_late_4">You and the servers, both awake</string>
     <string name="home_greeting_super_late_5">Nocturnal and productive</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Trick or patch?</string>
+    <string name="home_greeting_halloween_2">No ghosts in these APKs, we checked</string>
+    <string name="home_greeting_halloween_3">Spooky season, fresh patches</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Something wicked this way patches</string>
 
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch sources</string>
@@ -761,6 +768,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_background_grid">Grid</string>
     <string name="settings_appearance_background_particles">Particles</string>
     <string name="settings_appearance_background_matrix" translatable="false">Matrix</string>
+    <string name="settings_appearance_background_halloween">Halloween</string>
     <string name="settings_appearance_background_none">None</string>
     <string name="settings_appearance_background_random">Random</string>
     <string name="settings_appearance_background_random_interval_launch">On launch</string>
@@ -768,6 +776,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_background_random_interval_3days">Every 3 days</string>
     <string name="settings_appearance_parallax_effect">Parallax effect</string>
     <string name="settings_appearance_parallax_effect_description">Smooth background shifting when tilting the device</string>
+    <string name="settings_appearance_seasonal_themes">Seasonal themes</string>
+    <string name="settings_appearance_seasonal_themes_description">Holiday backgrounds and greetings, such as Halloween, while the holiday lasts</string>
 
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Theme</string>

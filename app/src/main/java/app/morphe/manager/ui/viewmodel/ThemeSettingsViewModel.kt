@@ -161,6 +161,10 @@ class ThemeSettingsViewModel(
         prefs.enableBackgroundParallax.update(!current)
     }
 
+    fun toggleSeasonalThemes(current: Boolean) = viewModelScope.launch {
+        prefs.seasonalThemes.update(!current)
+    }
+
     fun setThemeMode(theme: Theme) = viewModelScope.launch {
         prefs.theme.update(theme)
         if (theme == Theme.LIGHT) {

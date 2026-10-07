@@ -44,7 +44,8 @@ fun BackgroundSettingsItem(
  * Background animation picker. A pick applies at once and plays behind the dialog, so the dialog
  * stays open to try another.
  * RANDOM is one more tile. Below a divider sit the settings of the pick: how often RANDOM changes,
- * and the parallax every background but NONE can take.
+ * and the parallax every background but NONE can take. Last comes the switch for seasonal themes,
+ * which put an event's own background over the pick while the event runs.
  *
  * @param resolvedRandomBackground The background RANDOM currently stands for, previewed while it
  *        is the pick.
@@ -59,6 +60,8 @@ fun BackgroundPickerDialog(
     resolvedRandomBackground: BackgroundType?,
     enableParallax: Boolean,
     onParallaxToggle: () -> Unit,
+    seasonalThemes: Boolean,
+    onSeasonalThemesToggle: () -> Unit,
     matrixUnlocked: Boolean = false
 ) {
     val windowSize = rememberWindowSize()
@@ -68,8 +71,10 @@ fun BackgroundPickerDialog(
         WindowWidthSizeClass.Expanded -> 5
     }
 
-    // Every type, minus the hidden ones still to be found
-    val gridTypes = BackgroundType.entries.filter { matrixUnlocked || it !in BackgroundType.HIDDEN }
+    // Every type, minus the hidden ones still to be found and the ones only an event puts on
+    val gridTypes = BackgroundType.entries.filter {
+        it !in BackgroundType.SEASONAL && (matrixUnlocked || it !in BackgroundType.HIDDEN)
+    }
 
     AppDialog(
         onDismissRequest = onDismiss,
@@ -150,6 +155,18 @@ fun BackgroundPickerDialog(
                     }
                 }
             }
+
+            // Kept out of the block above: an event also brings its own greetings, which a
+            // background of NONE does not switch off
+            SettingsGroup(modifier = Modifier.padding(top = 8.dp)) {
+                SettingsSwitchItem(
+                    title = stringResource(R.string.settings_appearance_seasonal_themes),
+                    subtitle = stringResource(R.string.settings_appearance_seasonal_themes_description),
+                    icon = Icons.Outlined.Celebration,
+                    checked = seasonalThemes,
+                    onToggle = onSeasonalThemesToggle
+                )
+            }
         }
     }
 }
@@ -161,6 +178,7 @@ private fun backgroundIcon(type: BackgroundType): ImageVector = when (type) {
     BackgroundType.SPACE     -> Icons.Outlined.AutoAwesome
     BackgroundType.SHAPES    -> Icons.Outlined.Pentagon
     BackgroundType.SNOW      -> Icons.Outlined.AcUnit
+    BackgroundType.HALLOWEEN -> Icons.Outlined.NightsStay
     BackgroundType.GRID      -> Icons.Outlined.Apps
     BackgroundType.PARTICLES -> Icons.Outlined.BubbleChart
     BackgroundType.MATRIX    -> Icons.Outlined.Code

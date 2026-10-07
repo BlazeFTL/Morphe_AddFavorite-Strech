@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import app.morphe.manager.R
 import app.morphe.manager.ui.screen.shared.backgrounds.*
+import app.morphe.manager.ui.theme.SeasonalEvent
 
 /**
  * Types of animated backgrounds available in the app.
@@ -28,6 +29,7 @@ enum class BackgroundType(val displayNameResId: Int) {
     GRID(R.string.settings_appearance_background_grid),
     PARTICLES(R.string.settings_appearance_background_particles),
     MATRIX(R.string.settings_appearance_background_matrix),
+    HALLOWEEN(R.string.settings_appearance_background_halloween),
     NONE(R.string.settings_appearance_background_none),
     RANDOM(R.string.settings_appearance_background_random);
 
@@ -37,9 +39,12 @@ enum class BackgroundType(val displayNameResId: Int) {
         /** Types the picker keeps out of sight until they are unlocked. */
         val HIDDEN: Set<BackgroundType> = setOf(MATRIX)
 
+        /** Types worn only during their [SeasonalEvent], never picked by hand or by the shuffle. */
+        val SEASONAL: Set<BackgroundType> = setOf(HALLOWEEN)
+
         /** All types that can be picked when RANDOM is active (excludes NONE and RANDOM itself). */
         val RANDOMIZABLE: List<BackgroundType> =
-            entries.filter { it != NONE && it != RANDOM && it !in HIDDEN }
+            entries.filter { it != NONE && it != RANDOM && it !in HIDDEN && it !in SEASONAL }
 
         /**
          * The pool RANDOM draws from. A hidden type joins it only once unlocked, otherwise the
@@ -133,6 +138,12 @@ fun AnimatedBackground(
                 patchingCompleted = resolvedPatchingCompleted
             )
             BackgroundType.MATRIX -> MatrixBackground(
+                modifier = Modifier.fillMaxSize(),
+                enableParallax = enableParallax,
+                speedMultiplier = resolvedSpeed,
+                patchingCompleted = resolvedPatchingCompleted
+            )
+            BackgroundType.HALLOWEEN -> HalloweenBackground(
                 modifier = Modifier.fillMaxSize(),
                 enableParallax = enableParallax,
                 speedMultiplier = resolvedSpeed,

@@ -344,6 +344,9 @@ private fun MorpheManager(vm: MainViewModel) {
     val enableParallax by prefs.enableBackgroundParallax.getAsState()
     val randomInterval by prefs.randomBackgroundInterval.getAsState()
     val resolvedRandomBackground by themeViewModel.resolvedRandomBackground.collectAsStateWithLifecycle()
+    val seasonalThemes by prefs.seasonalThemes.getAsState()
+    // Read once per launch, so an event that begins while the app is open waits for the next one
+    val seasonalEvent = remember { SeasonalEvent.on() }
 
     // Resolve which background to show whenever RANDOM mode is active or the interval changes
     LaunchedEffect(backgroundType, randomInterval) {
@@ -596,8 +599,12 @@ private fun MorpheManager(vm: MainViewModel) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         // Show animated background
+        // An event dresses up any background but NONE, which asked for no animation at all
         AnimatedBackground(
-            type = backgroundType,
+            type = seasonalEvent
+                ?.takeIf { seasonalThemes && backgroundType != BackgroundType.NONE }
+                ?.background
+                ?: backgroundType,
             resolvedType = resolvedRandomBackground,
             enableParallax = enableParallax,
             speedMultiplier = { patcherBackgroundSpeed.floatValue },

@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">Sa puntong ito, magising na lang at mag-patch na lang</string>
     <string name="home_greeting_super_late_4">Ikaw at ang mga server, parehong gising</string>
     <string name="home_greeting_super_late_5">Pang-gabi at produktibo</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Trick o patch?</string>
+    <string name="home_greeting_halloween_2">Walang multo sa mga APK na ito, na-check namin</string>
+    <string name="home_greeting_halloween_3">Panahon ng katatakutan, mga sariwang patch</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">May isang bagay na masama na nagpapa-patch papunta rito</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Maligayang Kapaskuhan, mga sariwang patch</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Hayaang umulan ng niyebe, hayaang mag-patch</string>
+    <string name="home_greeting_winter_3">Bagong Taon, mga bagong patch</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Nagpapa-patch sa niyebe</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">I-patch ang mapagkukunan</string>
     <string name="sources_search">Maghanap ng mga source at mga patch</string>
@@ -716,6 +732,7 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_background_random_interval_3days">Bawat 3 araw</string>
     <string name="settings_appearance_parallax_effect">Epekto ng parallax</string>
     <string name="settings_appearance_parallax_effect_description">Maayos na paglilipat ng background kapag tinatagilid ang device</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Tema</string>
@@ -777,9 +794,8 @@ Ang pag-uninstall ay permanenteng bubura sa lahat ng data ng app."</string>
     <string name="settings_appearance_app_icon_default">Panimula</string>
     <string name="settings_appearance_app_icon_light_2">Langit</string>
     <string name="settings_appearance_app_icon_light_3">Paglubog ng araw</string>
-    <string name="settings_appearance_app_icon_dark_1">Dagat</string>
     <string name="settings_appearance_app_icon_dark_2">Void</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_mark_color">Kulay</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Baguhin ang icon ng aplikasyon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Baguhin sa &lt;b&gt;%s&lt;/b&gt; at i-restart?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

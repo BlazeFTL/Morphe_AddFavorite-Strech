@@ -97,9 +97,9 @@
         <item quantity="other">%s 件の新規リリース</item>
     </plurals>
     <plurals name="app_links_count_enabled">
-        <item quantity="other">%d件のアプリリンクが有効です</item>
+        <item quantity="other">%d 件のアプリリンクが有効です</item>
     </plurals>
     <plurals name="app_links_count_unverified">
-        <item quantity="other">%d件の未確認のアプリリンク</item>
+        <item quantity="other">%d 件の未検証のアプリリンク</item>
     </plurals>
 </resources>

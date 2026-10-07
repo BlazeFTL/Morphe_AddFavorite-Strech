@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">في هذه المرحلة، ابق مستيقظًا وقم بالتعديل</string>
     <string name="home_greeting_super_late_4">أنت والخوادم، كلاكما مستيقظان</string>
     <string name="home_greeting_super_late_5">ليلي ومنتج</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">خدعة أم رقعة؟</string>
+    <string name="home_greeting_halloween_2">لا أشباح في ملفات APK هذه، لقد تأكدنا</string>
+    <string name="home_greeting_halloween_3">موسم الرعب، ترقيعات جديدة</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">شيء شرير يرقّع طريقه إلينا</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">أعياد سعيدة، ترقيعات جديدة</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">دعها تثلج، دعها ترقّع</string>
+    <string name="home_greeting_winter_3">عام جديد، ترقيعات جديدة</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">نرقّع طريقنا عبر الثلج</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">مصادر التعديل</string>
     <string name="sources_search">البحث في المصادر والتعديلات</string>
@@ -487,7 +503,7 @@
     <string name="app_links_open_settings">فتح إعدادات الروابط</string>
     <string name="app_links_repair_success">تم تمكين روابط التطبيق بنجاح</string>
     <string name="app_links_repair_failed">تعذّر تمكين روابط التطبيقات تلقائيًا</string>
-    <string name="app_links_badge_enabled">تمكين</string>
+    <string name="app_links_badge_enabled">مفعّل</string>
     <string name="app_links_badge_disabled">معطّل</string>
     <string name="app_links_all_verified">تم تكوين جميع الروابط المدعومة لتُفتح في هذا التطبيق</string>
     <string name="app_links_fix">إصلاح الروابط</string>
@@ -720,6 +736,7 @@
     <string name="settings_appearance_background_random_interval_3days">كل 3 أيام</string>
     <string name="settings_appearance_parallax_effect">تأثير المنظر البانورامي</string>
     <string name="settings_appearance_parallax_effect_description">تغيير سلس للخلفية عند إمالة الجهاز</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">المظهر</string>
     <string name="settings_appearance_theme_mode">وضع المظهر</string>
@@ -781,9 +798,11 @@
     <string name="settings_appearance_app_icon_default">الافتراضي</string>
     <string name="settings_appearance_app_icon_light_2">السماء</string>
     <string name="settings_appearance_app_icon_light_3">غروب الشمس</string>
-    <string name="settings_appearance_app_icon_dark_1">البحر</string>
     <string name="settings_appearance_app_icon_dark_2">الفراغ</string>
-    <string name="settings_appearance_app_icon_dark_3">الأزرق الداكن</string>
+    <string name="settings_appearance_app_icon_background">الخلفية</string>
+    <string name="settings_appearance_app_icon_mark_color">اللون</string>
+    <string name="settings_appearance_app_icon_mark_white">أبيض</string>
+    <string name="settings_appearance_app_icon_mark_black">أسود</string>
     <string name="settings_appearance_app_icon_change_dialog_title">تغيير أيقونة التطبيق؟</string>
     <string name="settings_appearance_app_icon_change_dialog_message">تغيير إلى &lt;b&gt;%s&lt;/b&gt; وإعادة التشغيل؟</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->
@@ -815,7 +834,6 @@
     <string name="settings_advanced_update_interval_chip_subtitle">تكرار التحقق في الخلفية</string>
     <string name="settings_advanced_update_interval_battery_warning">قد لا يعمل التحقق في الخلفية بشكل موثوق على بعض الأجهزة. غالبًا ماتقيّد الشركات المصنعة مثل Xiaomi، Huawei، Samsung، و OnePlus عمليات الخلفية بشدة لتوفير البطارية</string>
     <string name="settings_advanced_external_batch_patch">السماح بالمشغلات الخارجية</string>
-    <string name="settings_advanced_external_batch_patch_description">يسمح لتطبيقات الأتمتة ببدء التعديل الجماعي عبر أمر محدد</string>
     <string name="external_batch_patch_title">بدء تعديل التطبيقات على دفعات؟</string>
     <string name="external_batch_patch_description">%s يريد من Morphe تعديل التطبيقات وتثبيتها</string>
     <string name="external_batch_patch_trust_caller">السماح لهذا التطبيق دائمًا</string>

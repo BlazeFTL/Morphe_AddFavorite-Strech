@@ -123,6 +123,26 @@
     <string name="home_greeting_super_late_3">A estas alturas, quédate despierto y parchea</string>
     <string name="home_greeting_super_late_4">Tú y los servidores, ambos despiertos</string>
     <string name="home_greeting_super_late_5">Nocturno y productivo</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">¿Truco o parche?</string>
+    <string name="home_greeting_halloween_2">No hay fantasmas en estos APK, comprobado</string>
+    <string name="home_greeting_halloween_3">Temporada escalofriante, parches recién salidos</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Algo maligno viene parcheando</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Felices fiestas, parches recién salidos</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Nieve y parches para todos</string>
+    <string name="home_greeting_winter_3">Año nuevo, parches nuevos</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Parcheando entre la nieve</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <string name="home_greeting_new_year_1">¡Feliz Año Nuevo!</string>
+    <string name="home_greeting_new_year_2">Cuenta atrás para parches recién salidos</string>
+    <string name="home_greeting_new_year_3">Año nuevo, mismas aplicaciones sin anuncios</string>
+    <!-- Pun on the saying "Out with the old, in with the new" -->
+    <string name="home_greeting_new_year_4">Fuera versiones viejas, que entren las nuevas</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Fuentes de parches</string>
     <string name="sources_search">Buscar fuentes y parches</string>
@@ -577,7 +597,7 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="patcher_back_to_game_hint">Pulsa %1$s para volver a tu juego</string>
     <string name="patcher_storage_permission_dialog_title">No se puede acceder a la ruta de almacenamiento</string>
     <string name="patcher_incompatible_patcher_title">Actualización necesaria</string>
-    <string name="patcher_incompatible_patcher_description">La fuente &lt;b&gt;%1$s&lt;/b&gt; requiere el parcheador &lt;b&gt;%2$s&lt;/b&gt; o una versión posterior. Actualiza Morphe para usarlo</string>
+    <string name="patcher_incompatible_patcher_description">La fuente &lt;b&gt;%1$s&lt;/b&gt; requiere el parcheador &lt;b&gt;%2$s&lt;/b&gt; o una versión posterior. Actualiza Morphe para usarla</string>
     <string name="patcher_storage_permission_description_api30">Una o varias opciones de parches apuntan a rutas que Morphe no puede leer. Concede acceso al almacenamiento y pulsa el botón para que el parcheo empiece automáticamente</string>
     <string name="patcher_storage_permission_description_legacy">Una o varias opciones de parches apuntan a rutas que no se pueden acceder. Actualiza las rutas en las opciones de parches y vuelve a intentarlo</string>
     <string name="patcher_storage_permission_grant">Conceder permiso de almacenamiento</string>
@@ -709,6 +729,9 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_background_snow">Nieve</string>
     <string name="settings_appearance_background_grid">Cuadrícula</string>
     <string name="settings_appearance_background_particles">Partículas</string>
+    <string name="settings_appearance_background_lava">Lámpara de lava</string>
+    <string name="settings_appearance_background_halloween">Halloween</string>
+    <string name="settings_appearance_background_fireworks">Fuegos artificiales</string>
     <string name="settings_appearance_background_none">Ninguna</string>
     <string name="settings_appearance_background_random">Aleatorio</string>
     <string name="settings_appearance_background_random_interval_launch">Al inicio</string>
@@ -716,6 +739,10 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_background_random_interval_3days">Cada 3 días</string>
     <string name="settings_appearance_parallax_effect">Efecto parallax</string>
     <string name="settings_appearance_parallax_effect_description">Desplazamiento suave del fondo al inclinar el dispositivo</string>
+    <string name="settings_appearance_seasonal_themes">Temas de temporada</string>
+    <string name="settings_appearance_seasonal_themes_description">Fondos y saludos festivos durante las vacaciones</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
+    <string name="settings_appearance_seasonal_background_notice">El fondo %1$s está activo hasta el %2$s mientras los temas de temporada estén activados</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Modo del tema</string>
@@ -777,9 +804,24 @@ Al desinstalarla se borrarán permanentemente todos los datos de la aplicación"
     <string name="settings_appearance_app_icon_default">Predeterminado</string>
     <string name="settings_appearance_app_icon_light_2">Cielo</string>
     <string name="settings_appearance_app_icon_light_3">Atardecer</string>
-    <string name="settings_appearance_app_icon_dark_1">Océano</string>
+    <string name="settings_appearance_app_icon_light_4">Lavanda</string>
+    <string name="settings_appearance_app_icon_light_5">Glaciar</string>
+    <string name="settings_appearance_app_icon_light_6">Niebla</string>
+    <string name="settings_appearance_app_icon_light_7">Arena</string>
+    <string name="settings_appearance_app_icon_dark_1">Verde azulado</string>
     <string name="settings_appearance_app_icon_dark_2">Vacío</string>
-    <string name="settings_appearance_app_icon_dark_3">Índigo</string>
+    <string name="settings_appearance_app_icon_dark_3">Ciruela</string>
+    <string name="settings_appearance_app_icon_dark_4">Medianoche</string>
+    <string name="settings_appearance_app_icon_dark_5">Pizarra</string>
+    <string name="settings_appearance_app_icon_accent_1">Aurora</string>
+    <string name="settings_appearance_app_icon_accent_2">Tinta</string>
+    <string name="settings_appearance_app_icon_accent_3">Papel</string>
+    <string name="settings_appearance_app_icon_accent_4">Crepúsculo</string>
+    <string name="settings_appearance_app_icon_background">Fondo</string>
+    <string name="settings_appearance_app_icon_mark">Logo</string>
+    <string name="settings_appearance_app_icon_mark_color">Color</string>
+    <string name="settings_appearance_app_icon_mark_white">Blanco</string>
+    <string name="settings_appearance_app_icon_mark_black">Negro</string>
     <string name="settings_appearance_app_icon_change_dialog_title">¿Cambiar el icono de la aplicación?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">¿Cambiar a &lt;b&gt;%s&lt;/b&gt; y reiniciar?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

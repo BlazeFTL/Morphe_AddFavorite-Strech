@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">Bleib lieber wach und patche</string>
     <string name="home_greeting_super_late_4">Du und die Server, beide noch wach</string>
     <string name="home_greeting_super_late_5">Nachtaktiv und produktiv</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Süßes oder Patches?</string>
+    <string name="home_greeting_halloween_2">In diesen APKs stecken keine Geister, wir haben nachgesehen</string>
+    <string name="home_greeting_halloween_3">Gruselsaison, frische Patches</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Etwas Böses patcht daher</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Frohe Feiertage, frische Patches</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Lass es schneien, lass es patchen</string>
+    <string name="home_greeting_winter_3">Neues Jahr, neue Patches</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Patchen durch den Schnee</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch-Quellen</string>
     <string name="sources_search">Quellen und Patches durchsuchen</string>
@@ -716,6 +732,7 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_background_random_interval_3days">Alle 3 Tage</string>
     <string name="settings_appearance_parallax_effect">Parallax-Effekt</string>
     <string name="settings_appearance_parallax_effect_description">Sanfte Hintergrundverschiebung beim Neigen des Geräts</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Thema</string>
     <string name="settings_appearance_theme_mode">Erscheinungsbild</string>
@@ -777,9 +794,8 @@ Durch die Deinstallation werden alle App-Daten dauerhaft gelöscht"</string>
     <string name="settings_appearance_app_icon_default">Standard</string>
     <string name="settings_appearance_app_icon_light_2">Himmel</string>
     <string name="settings_appearance_app_icon_light_3">Sonne</string>
-    <string name="settings_appearance_app_icon_dark_1">Ozean</string>
     <string name="settings_appearance_app_icon_dark_2">Leere</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_mark_color">Farbe</string>
     <string name="settings_appearance_app_icon_change_dialog_title">App-Icon ändern?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Zu &lt;b&gt;%s&lt;/b&gt; ändern und neu starten?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

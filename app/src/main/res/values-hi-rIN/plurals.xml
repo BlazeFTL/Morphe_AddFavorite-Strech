@@ -128,11 +128,11 @@
         <item quantity="other">%s नई रिलीज़ें</item>
     </plurals>
     <plurals name="app_links_count_enabled">
-        <item quantity="one">%d लिंक सक्षम किया गया</item>
-        <item quantity="other">%d लिंक सक्षम किए गए</item>
+        <item quantity="one">%d लिंक चालू किया गया</item>
+        <item quantity="other">%d लिंक चालू किए गए</item>
     </plurals>
     <plurals name="app_links_count_unverified">
-        <item quantity="one">%d असत्यापित लिंक</item>
-        <item quantity="other">%d असत्यापित लिंक</item>
+        <item quantity="one">%d अनवेरिफ़ाइड लिंक</item>
+        <item quantity="other">%d अनवेरिफ़ाइड लिंक</item>
     </plurals>
 </resources>

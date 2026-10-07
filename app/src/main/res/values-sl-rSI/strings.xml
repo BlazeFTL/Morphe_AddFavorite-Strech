@@ -123,6 +123,14 @@
     <string name="home_greeting_super_late_3">Na tej točki samo ostanite budni in popravljajte</string>
     <string name="home_greeting_super_late_4">Vi in strežniki, vsi budni</string>
     <string name="home_greeting_super_late_5">Nočni in produktivni</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Viri popravkov</string>
     <string name="sources_search">Išči vire in popravke</string>
@@ -716,6 +724,7 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_background_random_interval_3days">Vsake 3 dni</string>
     <string name="settings_appearance_parallax_effect">Paralaksni učinek</string>
     <string name="settings_appearance_parallax_effect_description">Gladko premikanje ozadja med nagibanjem naprave.</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Tema</string>
     <string name="settings_appearance_theme_mode">Način teme</string>
@@ -777,9 +786,8 @@ Odstranitev bo trajno izbrisala vse podatke aplikacije."</string>
     <string name="settings_appearance_app_icon_default">Privzeta</string>
     <string name="settings_appearance_app_icon_light_2">Nebo</string>
     <string name="settings_appearance_app_icon_light_3">Sončni zahod</string>
-    <string name="settings_appearance_app_icon_dark_1">Ocean</string>
     <string name="settings_appearance_app_icon_dark_2">Praznina</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_mark_color">Barva</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Spremeni ikono aplikacije?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Spremeni v &lt;b&gt;%s&lt;/b&gt; in ponovno zaženi?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

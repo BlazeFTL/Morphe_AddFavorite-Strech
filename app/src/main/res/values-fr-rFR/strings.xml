@@ -123,6 +123,26 @@
     <string name="home_greeting_super_late_3">À ce stade, autant rester éveillé et patcher</string>
     <string name="home_greeting_super_late_4">Vous et les serveurs, tous les deux réveillés</string>
     <string name="home_greeting_super_late_5">Nocturne et productif</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">Des bonbons ou un patch ?</string>
+    <string name="home_greeting_halloween_2">Aucun fantôme dans ces APK, on a vérifié</string>
+    <string name="home_greeting_halloween_3">Saison des frissons, nouveaux patchs</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">Quelque chose de patché arrive par ici</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Joyeuses fêtes, nouveaux patchs</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Que la neige tombe, que les patchs tombent</string>
+    <string name="home_greeting_winter_3">Nouvelle année, nouveaux patchs</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Patching à travers la neige</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <string name="home_greeting_new_year_1">Bonne année !</string>
+    <string name="home_greeting_new_year_2">Compte à rebours avant de nouveaux patchs</string>
+    <string name="home_greeting_new_year_3">Nouvelle année, mêmes applis sans publicité</string>
+    <!-- Pun on the saying "Out with the old, in with the new" -->
+    <string name="home_greeting_new_year_4">Adieu les anciennes versions, place aux nouvelles</string>
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Sources de patchs</string>
     <string name="sources_search">Rechercher des sources et des patchs</string>
@@ -712,6 +732,9 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_background_snow">Neige</string>
     <string name="settings_appearance_background_grid">Grille</string>
     <string name="settings_appearance_background_particles">Particules</string>
+    <string name="settings_appearance_background_lava">Lampe à lave</string>
+    <string name="settings_appearance_background_halloween">Halloween</string>
+    <string name="settings_appearance_background_fireworks">Feux d\'artifice</string>
     <string name="settings_appearance_background_none">Aucune</string>
     <string name="settings_appearance_background_random">Aléatoire</string>
     <string name="settings_appearance_background_random_interval_launch">Au démarrage</string>
@@ -719,6 +742,10 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_background_random_interval_3days">Tous les 3 jours</string>
     <string name="settings_appearance_parallax_effect">Effet de parallaxe</string>
     <string name="settings_appearance_parallax_effect_description">Déplacement d\'arrière-plan fluide lors de l\'inclinaison de l\'appareil</string>
+    <string name="settings_appearance_seasonal_themes">Thèmes saisonniers</string>
+    <string name="settings_appearance_seasonal_themes_description">Arrière-plans festifs et messages de vœux pendant les fêtes</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
+    <string name="settings_appearance_seasonal_background_notice">L\'arrière-plan %1$s est activé jusqu\'au %2$s lorsque les thèmes saisonniers sont activés</string>
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Thème</string>
     <string name="settings_appearance_theme_mode">Mode du thème</string>
@@ -780,9 +807,24 @@ La désinstallation effacera définitivement toutes les données de l'applicatio
     <string name="settings_appearance_app_icon_default">Par défaut</string>
     <string name="settings_appearance_app_icon_light_2">Ciel</string>
     <string name="settings_appearance_app_icon_light_3">Coucher de soleil</string>
-    <string name="settings_appearance_app_icon_dark_1">Océan</string>
+    <string name="settings_appearance_app_icon_light_4">Lavande</string>
+    <string name="settings_appearance_app_icon_light_5">Glacier</string>
+    <string name="settings_appearance_app_icon_light_6">Brume</string>
+    <string name="settings_appearance_app_icon_light_7">Sable</string>
+    <string name="settings_appearance_app_icon_dark_1">Sarcelle</string>
     <string name="settings_appearance_app_icon_dark_2">Néant</string>
-    <string name="settings_appearance_app_icon_dark_3">Indigo</string>
+    <string name="settings_appearance_app_icon_dark_3">Prune</string>
+    <string name="settings_appearance_app_icon_dark_4">Minuit</string>
+    <string name="settings_appearance_app_icon_dark_5">Ardoise</string>
+    <string name="settings_appearance_app_icon_accent_1">Aurore</string>
+    <string name="settings_appearance_app_icon_accent_2">Encre</string>
+    <string name="settings_appearance_app_icon_accent_3">Papier</string>
+    <string name="settings_appearance_app_icon_accent_4">Crépuscule</string>
+    <string name="settings_appearance_app_icon_background">Arrière-plan</string>
+    <string name="settings_appearance_app_icon_mark">Logo</string>
+    <string name="settings_appearance_app_icon_mark_color">Coloré</string>
+    <string name="settings_appearance_app_icon_mark_white">Blanc</string>
+    <string name="settings_appearance_app_icon_mark_black">Noir</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Changer l\'icône de l\'application ? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">Changer pour &lt;b&gt;%s&lt;/b&gt; et redémarrer ?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

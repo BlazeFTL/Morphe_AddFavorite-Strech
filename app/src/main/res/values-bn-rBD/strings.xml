@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">এখন আর ঘুমিয়ে কী হবে, বরং জেগেই থাকুন আর একটা কিছু প্যাচ করে ফেলুন</string>
     <string name="home_greeting_super_late_4">আপনি এবং সার্ভার, দুজনেই কিন্তু এখনো জেগে আছেন</string>
     <string name="home_greeting_super_late_5">রাতও জাগছেন, আবার কাজের কাজও করে ফেলছেন</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">ট্রিক নাকি প্যাচ?</string>
+    <string name="home_greeting_halloween_2">এই APK-গুলিতে কোনো ভূত নেই, আমরা পরীক্ষা করে দেখেছি</string>
+    <string name="home_greeting_halloween_3">ভুতুড়ে মৌসুম, নতুন প্যাচ</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">অশুভ কিছু এই পথে প্যাচ নিয়ে আসে</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">শুভ ছুটির দিন, নতুন প্যাচ</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">তুষার পড়ুক, প্যাচ আসুক</string>
+    <string name="home_greeting_winter_3">নতুন বছর, নতুন প্যাচ</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">তুষার ভেদ করে প্যাচ করা</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">প্যাচ সোর্সগুলো</string>
     <string name="sources_search">উৎস এবং প্যাচ অনুসন্ধান করুন</string>
@@ -716,6 +732,7 @@
     <string name="settings_appearance_background_random_interval_3days">প্রতি ৩ দিনে</string>
     <string name="settings_appearance_parallax_effect">প্যারাল্যাক্স ইফেক্ট</string>
     <string name="settings_appearance_parallax_effect_description">ডিভাইসকে কাঁটিলে পটভূমি পরিবর্তনের সাবলীলতা</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">সিস্টেম</string>
     <string name="settings_appearance_theme_mode">বিষয়বস্তুর ধরণ</string>
@@ -777,9 +794,8 @@
     <string name="settings_appearance_app_icon_default">ডিফল্ট</string>
     <string name="settings_appearance_app_icon_light_2">স্কাই</string>
     <string name="settings_appearance_app_icon_light_3">সানসেট</string>
-    <string name="settings_appearance_app_icon_dark_1">ওশান</string>
     <string name="settings_appearance_app_icon_dark_2">ভয়েড</string>
-    <string name="settings_appearance_app_icon_dark_3">ইন্ডিগো</string>
+    <string name="settings_appearance_app_icon_mark_color">রং</string>
     <string name="settings_appearance_app_icon_change_dialog_title">অ্যাপ আইকন পরিবর্তন? </string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt;-এ পরিবর্তন করুন এবং পুনরায় চালু করুন?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

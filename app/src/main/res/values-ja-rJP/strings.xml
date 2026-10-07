@@ -123,6 +123,22 @@
     <string name="home_greeting_super_late_3">ここまで来たら、もう寝ずにパッチしましょう</string>
     <string name="home_greeting_super_late_4">あなたもサーバーも、夜更かし中</string>
     <string name="home_greeting_super_late_5">夜型、絶好調</string>
+    <!-- Halloween greetings, shown instead of the ones above around October 31 -->
+    <!-- Pun on "Trick or treat" -->
+    <string name="home_greeting_halloween_1">トリック・オア・パッチ？</string>
+    <string name="home_greeting_halloween_2">これらのAPKにはゴーストはいません。確認済みです</string>
+    <string name="home_greeting_halloween_3">不気味な季節、新しいパッチ</string>
+    <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
+    <string name="home_greeting_halloween_4">邪悪なものがこちらへパッチしてくる</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">ハッピーホリデー、新しいパッチ</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">雪よ降れ、パッチよ降れ</string>
+    <string name="home_greeting_winter_3">新年、新パッチ</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">雪の中をパッチして</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <!-- Pun on the saying "Out with the old, in with the new" -->
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">パッチソース</string>
     <string name="sources_search">ソースとパッチを検索</string>
@@ -717,6 +733,7 @@
     <string name="settings_appearance_background_random_interval_3days">3日ごと</string>
     <string name="settings_appearance_parallax_effect">視差効果</string>
     <string name="settings_appearance_parallax_effect_description">デバイスを傾けた時に背景が滑らかに移動します</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">テーマ</string>
     <string name="settings_appearance_theme_mode">テーマモード</string>
@@ -777,9 +794,10 @@
     <string name="settings_appearance_app_icon_default">デフォルト</string>
     <string name="settings_appearance_app_icon_light_2">スカイ</string>
     <string name="settings_appearance_app_icon_light_3">サンセット</string>
-    <string name="settings_appearance_app_icon_dark_1">オーシャン</string>
     <string name="settings_appearance_app_icon_dark_2">ブラック</string>
-    <string name="settings_appearance_app_icon_dark_3">インディゴ</string>
+    <string name="settings_appearance_app_icon_background">バックグラウンド</string>
+    <string name="settings_appearance_app_icon_mark_color">カラー</string>
+    <string name="settings_appearance_app_icon_mark_white">ホワイト</string>
     <string name="settings_appearance_app_icon_change_dialog_title">アプリのアイコンを変更しますか？</string>
     <string name="settings_appearance_app_icon_change_dialog_message">&lt;b&gt;%s&lt;/b&gt; に変更して再起動しますか？</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

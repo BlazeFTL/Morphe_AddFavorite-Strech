@@ -66,6 +66,12 @@ enum class SeasonalEvent(
     private fun isRunningOn(day: MonthDay) =
         if (start <= end) day in start..end else day >= start || day <= end
 
+    /** The last day of the run of this event that is on, or next to come, as of [today]. */
+    fun endDate(today: LocalDate = LocalDate.now()): LocalDate {
+        val thisYear = end.atYear(today.year)
+        return if (thisYear < today) end.atYear(today.year + 1) else thisYear
+    }
+
     companion object {
         /** The event running on [date], or null on an ordinary day. */
         fun on(date: LocalDate = LocalDate.now()): SeasonalEvent? {
@@ -74,3 +80,10 @@ enum class SeasonalEvent(
         }
     }
 }
+
+/**
+ * The background shown in place of [picked]: this event's own while [seasonalThemes] is on, except
+ * over NONE, which asked for no animation at all.
+ */
+fun SeasonalEvent?.backgroundOver(picked: BackgroundType, seasonalThemes: Boolean): BackgroundType =
+    this?.takeIf { seasonalThemes && picked != BackgroundType.NONE }?.background ?: picked

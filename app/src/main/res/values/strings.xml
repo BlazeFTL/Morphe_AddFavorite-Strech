@@ -792,6 +792,8 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_parallax_effect_description">Smooth background shifting when tilting the device</string>
     <string name="settings_appearance_seasonal_themes">Seasonal themes</string>
     <string name="settings_appearance_seasonal_themes_description">Festive backgrounds and greetings during holidays</string>
+    <!-- %1$s is a holiday background name, such as Halloween. %2$s is a date, such as November 1 -->
+    <string name="settings_appearance_seasonal_background_notice">The %1$s background is on until %2$s while seasonal themes are on</string>
 
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Theme</string>

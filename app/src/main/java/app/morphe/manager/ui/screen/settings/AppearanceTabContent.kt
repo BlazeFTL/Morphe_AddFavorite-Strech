@@ -32,6 +32,7 @@ import app.morphe.manager.R
 import app.morphe.manager.domain.manager.HomeAppButtonPreferences
 import app.morphe.manager.ui.screen.settings.appearance.*
 import app.morphe.manager.ui.screen.shared.*
+import app.morphe.manager.ui.theme.SeasonalEvent
 import app.morphe.manager.ui.theme.Theme
 import app.morphe.manager.ui.theme.ThemeStyle
 import app.morphe.manager.ui.theme.resolveThemeStyle
@@ -80,6 +81,7 @@ fun AppearanceTabContent(
     val randomInterval by themeViewModel.prefs.randomBackgroundInterval.getAsState()
     val matrixUnlocked by themeViewModel.prefs.matrixBackgroundUnlocked.getAsState()
     val seasonalThemes by themeViewModel.prefs.seasonalThemes.getAsState()
+    val seasonalEvent = remember { SeasonalEvent.on() }
     val resolvedRandomBackground by themeViewModel.resolvedRandomBackground.collectAsStateWithLifecycle()
     val effectiveThemeStyle = resolveThemeStyle(themeStyle, supportsDynamicColor)
     val showAppCardColorSetting = effectiveThemeStyle != ThemeStyle.MONOCHROME
@@ -173,6 +175,7 @@ fun AppearanceTabContent(
             enableParallax = enableParallax,
             onParallaxToggle = { themeViewModel.toggleBackgroundParallax(enableParallax) },
             seasonalThemes = seasonalThemes,
+            seasonalEvent = seasonalEvent,
             onSeasonalThemesToggle = { themeViewModel.toggleSeasonalThemes(seasonalThemes) },
             matrixUnlocked = matrixUnlocked
         )

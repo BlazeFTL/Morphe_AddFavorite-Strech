@@ -599,12 +599,8 @@ private fun MorpheManager(vm: MainViewModel) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         // Show animated background
-        // An event dresses up any background but NONE, which asked for no animation at all
         AnimatedBackground(
-            type = seasonalEvent
-                ?.takeIf { seasonalThemes && backgroundType != BackgroundType.NONE }
-                ?.background
-                ?: backgroundType,
+            type = seasonalEvent.backgroundOver(backgroundType, seasonalThemes),
             resolvedType = resolvedRandomBackground,
             enableParallax = enableParallax,
             speedMultiplier = { patcherBackgroundSpeed.floatValue },

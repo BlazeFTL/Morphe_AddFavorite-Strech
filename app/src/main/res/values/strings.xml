@@ -133,6 +133,13 @@
     <string name="home_greeting_halloween_3">Spooky season, fresh patches</string>
     <!-- Pun on "Something wicked this way comes", a line from Shakespeare's Macbeth -->
     <string name="home_greeting_halloween_4">Something wicked this way patches</string>
+    <!-- Winter holiday greetings, shown instead of the ones above from late December to early January -->
+    <string name="home_greeting_winter_1">Happy holidays, fresh patches</string>
+    <!-- Pun on the song "Let It Snow! Let It Snow! Let It Snow!" -->
+    <string name="home_greeting_winter_2">Let it snow, let it patch</string>
+    <string name="home_greeting_winter_3">New year, new patches</string>
+    <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
+    <string name="home_greeting_winter_4">Patching through the snow</string>
 
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch sources</string>
@@ -777,7 +784,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_parallax_effect">Parallax effect</string>
     <string name="settings_appearance_parallax_effect_description">Smooth background shifting when tilting the device</string>
     <string name="settings_appearance_seasonal_themes">Seasonal themes</string>
-    <string name="settings_appearance_seasonal_themes_description">Holiday backgrounds and greetings, such as Halloween, while the holiday lasts</string>
+    <string name="settings_appearance_seasonal_themes_description">Festive backgrounds and greetings during holidays</string>
 
     <!-- Settings - Appearance Tab - Theme -->
     <string name="settings_appearance_theme">Theme</string>

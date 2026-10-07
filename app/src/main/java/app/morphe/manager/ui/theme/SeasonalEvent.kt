@@ -35,6 +35,19 @@ enum class SeasonalEvent(
             R.string.home_greeting_halloween_3,
             R.string.home_greeting_halloween_4
         )
+    ),
+
+    // Christmas through New Year, up to Orthodox Christmas on January 7
+    WINTER_HOLIDAYS(
+        start = MonthDay.of(12, 20),
+        end = MonthDay.of(1, 7),
+        background = BackgroundType.SNOW,
+        greetings = listOf(
+            R.string.home_greeting_winter_1,
+            R.string.home_greeting_winter_2,
+            R.string.home_greeting_winter_3,
+            R.string.home_greeting_winter_4
+        )
     );
 
     private fun isRunningOn(day: MonthDay) =

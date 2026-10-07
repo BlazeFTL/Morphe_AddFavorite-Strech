@@ -881,8 +881,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_app_icon_mark_color">Color</string>
     <string name="settings_appearance_app_icon_mark_white">White</string>
     <string name="settings_appearance_app_icon_mark_black">Black</string>
-    <!-- An icon outside the presets. %1$s is a background name, such as Ink. %2$s is a logo color, such as White -->
-    <string name="settings_appearance_app_icon_combined">%1$s · %2$s</string>
+    <string name="settings_appearance_app_icon_combined" translatable="false">%1$s · %2$s</string>
     <string name="settings_appearance_app_icon_change_dialog_title">Change app icon?</string>
     <string name="settings_appearance_app_icon_change_dialog_message">Change to &lt;b&gt;%s&lt;/b&gt; and restart?</string>
     <!-- Label of a footer button beside "Cancel". Keep it short, a longer one moves the buttons onto two rows -->

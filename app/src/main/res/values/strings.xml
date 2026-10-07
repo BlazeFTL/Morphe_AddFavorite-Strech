@@ -140,6 +140,12 @@
     <string name="home_greeting_winter_3">New year, new patches</string>
     <!-- Pun on "Dashing through the snow", the opening line of "Jingle Bells" -->
     <string name="home_greeting_winter_4">Patching through the snow</string>
+    <!-- New Year greetings, shown instead of the ones above on December 31 and January 1 -->
+    <string name="home_greeting_new_year_1">Happy New Year!</string>
+    <string name="home_greeting_new_year_2">Counting down to fresh patches</string>
+    <string name="home_greeting_new_year_3">New year, same ad-free apps</string>
+    <!-- Pun on the saying "Out with the old, in with the new" -->
+    <string name="home_greeting_new_year_4">Out with the old versions, in with the new</string>
 
     <!-- Home Screen - Sources Management -->
     <string name="sources_management_title">Patch sources</string>
@@ -776,6 +782,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_background_particles">Particles</string>
     <string name="settings_appearance_background_matrix" translatable="false">Matrix</string>
     <string name="settings_appearance_background_halloween">Halloween</string>
+    <string name="settings_appearance_background_fireworks">Fireworks</string>
     <string name="settings_appearance_background_none">None</string>
     <string name="settings_appearance_background_random">Random</string>
     <string name="settings_appearance_background_random_interval_launch">On launch</string>

@@ -30,6 +30,7 @@ enum class BackgroundType(val displayNameResId: Int) {
     PARTICLES(R.string.settings_appearance_background_particles),
     MATRIX(R.string.settings_appearance_background_matrix),
     HALLOWEEN(R.string.settings_appearance_background_halloween),
+    FIREWORKS(R.string.settings_appearance_background_fireworks),
     NONE(R.string.settings_appearance_background_none),
     RANDOM(R.string.settings_appearance_background_random);
 
@@ -40,7 +41,7 @@ enum class BackgroundType(val displayNameResId: Int) {
         val HIDDEN: Set<BackgroundType> = setOf(MATRIX)
 
         /** Types worn only during their [SeasonalEvent], never picked by hand or by the shuffle. */
-        val SEASONAL: Set<BackgroundType> = setOf(HALLOWEEN)
+        val SEASONAL: Set<BackgroundType> = setOf(HALLOWEEN, FIREWORKS)
 
         /** All types that can be picked when RANDOM is active (excludes NONE and RANDOM itself). */
         val RANDOMIZABLE: List<BackgroundType> =
@@ -144,6 +145,12 @@ fun AnimatedBackground(
                 patchingCompleted = resolvedPatchingCompleted
             )
             BackgroundType.HALLOWEEN -> HalloweenBackground(
+                modifier = Modifier.fillMaxSize(),
+                enableParallax = enableParallax,
+                speedMultiplier = resolvedSpeed,
+                patchingCompleted = resolvedPatchingCompleted
+            )
+            BackgroundType.FIREWORKS -> FireworksBackground(
                 modifier = Modifier.fillMaxSize(),
                 enableParallax = enableParallax,
                 speedMultiplier = resolvedSpeed,

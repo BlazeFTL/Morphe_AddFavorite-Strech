@@ -179,6 +179,7 @@ private fun backgroundIcon(type: BackgroundType): ImageVector = when (type) {
     BackgroundType.SHAPES    -> Icons.Outlined.Pentagon
     BackgroundType.SNOW      -> Icons.Outlined.AcUnit
     BackgroundType.HALLOWEEN -> Icons.Outlined.NightsStay
+    BackgroundType.FIREWORKS -> Icons.Outlined.Flare
     BackgroundType.GRID      -> Icons.Outlined.Apps
     BackgroundType.PARTICLES -> Icons.Outlined.BubbleChart
     BackgroundType.MATRIX    -> Icons.Outlined.Code

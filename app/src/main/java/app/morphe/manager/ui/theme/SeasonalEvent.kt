@@ -37,6 +37,19 @@ enum class SeasonalEvent(
         )
     ),
 
+    // Listed before the winter holidays, which span these days too: the first event that runs wins
+    NEW_YEAR(
+        start = MonthDay.of(12, 31),
+        end = MonthDay.of(1, 1),
+        background = BackgroundType.FIREWORKS,
+        greetings = listOf(
+            R.string.home_greeting_new_year_1,
+            R.string.home_greeting_new_year_2,
+            R.string.home_greeting_new_year_3,
+            R.string.home_greeting_new_year_4
+        )
+    ),
+
     // Christmas through New Year, up to Orthodox Christmas on January 7
     WINTER_HOLIDAYS(
         start = MonthDay.of(12, 20),

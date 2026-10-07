@@ -27,6 +27,8 @@ import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Animated space background with stars moving towards the viewer (warp-style perspective).
+ * Stars come in a few temperatures and the far ones twinkle, and once the speed picks up the
+ * near stars stretch into warp streaks.
  * Uses frame-based time so [speedMultiplier] changes smoothly without restarting animations.
  * On patching completion fires a white flash overlay that fades out slowly.
  */
@@ -38,7 +40,13 @@ fun SpaceBackground(
     patchingCompleted: Boolean = false
 ) {
     val isDarkTheme = isDarkTheme()
-    val starColor = if (isDarkTheme) Color.White else Color(0xFF1A2530)
+    // Mostly white, with a share of blue and warm stars, as a real sky has
+    val starTints = if (isDarkTheme) {
+        listOf(Color.White, Color(0xFFCAD8FF), Color(0xFFFFE6C2))
+    } else {
+        listOf(Color(0xFF1A2530), Color(0xFF213A6B), Color(0xFF5C4223))
+    }
+    val starColor = starTints[0]
     val context = LocalContext.current
 
     // Parallax tilt from accelerometer
@@ -55,6 +63,9 @@ fun SpaceBackground(
     // baseProgress drives the Z-depth of all stars each frame
     var baseProgress by remember { mutableFloatStateOf(0f) }
 
+    // The eased speed the warp currently runs at, which stretches the near stars into streaks
+    var warpSpeed by remember { mutableFloatStateOf(1f) }
+
     // flashAlpha 0→0.45→0: full-screen white flash on patching completion.
     // Snaps to its peak, the abruptness is intentional and feels like a camera flash,
     // then fades out slowly so the eye can adjust naturally
@@ -68,9 +79,10 @@ fun SpaceBackground(
     // Stars lean three times as hard into a speed-up as the other backgrounds, and the 5.0/sec
     // ramp gives ~0.4s to reach full speed, matching the "warp engine" feel.
     // The warp integrates the time it skipped, so a slower step covers the same distance
-    BackgroundStepEffect(speedMultiplier, boost = 3f, rampPerSecond = 5f) { scaledMs ->
+    BackgroundStepEffect(speedMultiplier, boost = 3f, rampPerSecond = 5f) { scaledMs, speed ->
         // Normalize baseProgress increment to 60fps baseline so delta spikes don't jump
         baseProgress += 0.0025f * (scaledMs / 16.67f)
+        warpSpeed = speed
 
         // Regenerate stars that have passed the camera (adjustedProgress wraps to 0..1)
         stars.forEachIndexed { index, star ->
@@ -125,6 +137,8 @@ fun SpaceBackground(
         val tiltX   = parallaxState.tiltX.value
         val tiltY   = parallaxState.tiltY.value
         val fa = flashAlpha.value // 0..1, drives white flash overlay
+        // Streaks only once the warp is clearly faster than cruising, growing with the speed
+        val streak = ((warpSpeed - 1.3f) / 4f).coerceIn(0f, 1f) * 0.12f
 
         // Render stars
         stars.forEach { star ->
@@ -158,11 +172,26 @@ fun SpaceBackground(
                 z < 0.3f -> (z / 0.3f).coerceIn(0f, 1f)
                 else     -> 1f
             }
-            val baseAlpha = (star.baseAlpha * distAlpha * fadeIn * fadeOut).coerceIn(0f, 1f)
+            // Far stars twinkle, near ones are too bright and too brief for it to read
+            val twinkle = if (z > 0.5f) 0.7f + 0.3f * sin(baseProgress * 40f * star.twinkleRate + star.twinklePhase) else 1f
+            val baseAlpha = (star.baseAlpha * distAlpha * fadeIn * fadeOut * twinkle).coerceIn(0f, 1f)
+            val color = starTints[star.tint]
+            val head = Offset(finalX, finalY)
 
-            // Glow + solid dot
-            drawCircle(color = starColor, radius = finalSize * 1.8f, center = Offset(finalX, finalY), alpha = baseAlpha * 0.2f)
-            drawCircle(color = starColor, radius = finalSize * 1.1f, center = Offset(finalX, finalY), alpha = baseAlpha)
+            if (streak > 0f && z < 0.8f) {
+                // Warp streak: the tail is where the star stood a little further away, so it
+                // points back at the vanishing point and lengthens as the star closes in
+                val tailFactor = 1f / (z + streak)
+                val tail = Offset(
+                    centerX + baseX * tailFactor + tiltX * parallaxStrength,
+                    centerY + baseY * tailFactor + tiltY * parallaxStrength
+                )
+                drawLine(color, tail, head, strokeWidth = finalSize * 1.4f, cap = StrokeCap.Round, alpha = baseAlpha * 0.8f)
+            } else {
+                // Glow + solid dot
+                drawCircle(color = color, radius = finalSize * 1.8f, center = head, alpha = baseAlpha * 0.2f)
+            }
+            drawCircle(color = color, radius = finalSize * 1.1f, center = head, alpha = baseAlpha)
         }
 
         // Render meteor
@@ -230,6 +259,9 @@ private fun generateStarPool(): List<StarData> = List(300) { index ->
         y             = y,
         size          = 2f + Random.nextFloat() * 3.5f,
         baseAlpha     = 0.6f + Random.nextFloat() * 0.4f,
+        tint          = Random.nextFloat().let { if (it < 0.7f) 0 else if (it < 0.88f) 1 else 2 },
+        twinkleRate   = 0.5f + Random.nextFloat(),
+        twinklePhase  = Random.nextFloat() * 6.2832f,
         depth         = depthLayer,
         speed         = 0.3f + depthLayer * 2.2f,
         initialOffset = Random.nextFloat(), // Stagger stars along Z-axis for density
@@ -242,6 +274,9 @@ private data class StarData(
     val y: Float,
     val size: Float,
     val baseAlpha: Float,
+    val tint: Int, // Index into the theme's star tints: 0 white, 1 blue, 2 warm
+    val twinkleRate: Float,
+    val twinklePhase: Float,
     val depth: Float,
     val speed: Float,
     val initialOffset: Float, // Offset along Z-axis to distribute stars

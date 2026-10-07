@@ -66,8 +66,8 @@ private const val ANIMATED_TIME_WRAP_MS = 3_600_000f
 /**
  * Steps a background once per [BACKGROUND_STEP_INTERVAL_MS], handing [onStep] the milliseconds of
  * animation since the previous step: real time scaled by a speed that eases toward
- * [speedMultiplier] instead of jumping to it. Shared by the clock most backgrounds read and by the
- * ones that integrate their own physics.
+ * [speedMultiplier] instead of jumping to it, along with that eased speed itself. Shared by the
+ * clock most backgrounds read and by the ones that integrate their own physics.
  * Named with uppercase as required by Compose convention for Unit-returning Composables.
  *
  * @param boost How much further than [speedMultiplier] this background leans into a speed-up,
@@ -79,7 +79,7 @@ fun BackgroundStepEffect(
     speedMultiplier: Float,
     boost: Float = 1f,
     rampPerSecond: Float = 2.5f,
-    onStep: (scaledMs: Float) -> Unit
+    onStep: (scaledMs: Float, speed: Float) -> Unit
 ) {
     // targetSpeed is updated every recomposition via SideEffect (composition thread, safe to read in frame callback)
     val targetSpeed = remember { mutableFloatStateOf(speedMultiplier) }
@@ -106,7 +106,7 @@ fun BackgroundStepEffect(
                 elapsedMs += delta
                 pendingMs += delta * currentSpeed
                 if (elapsedMs >= BACKGROUND_STEP_INTERVAL_MS) {
-                    currentOnStep(pendingMs)
+                    currentOnStep(pendingMs, currentSpeed)
                     // Carry the remainder so the step keeps its cadence on 90 Hz panels too
                     elapsedMs -= BACKGROUND_STEP_INTERVAL_MS
                     pendingMs = 0f
@@ -126,7 +126,7 @@ fun BackgroundStepEffect(
 @Composable
 fun rememberAnimatedTime(speedMultiplier: Float): State<Float> {
     val time = remember { mutableFloatStateOf(0f) }
-    BackgroundStepEffect(speedMultiplier) { scaledMs ->
+    BackgroundStepEffect(speedMultiplier) { scaledMs, _ ->
         time.floatValue = (time.floatValue + scaledMs) % ANIMATED_TIME_WRAP_MS
     }
     return time

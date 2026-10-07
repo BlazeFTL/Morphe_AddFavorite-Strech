@@ -76,7 +76,7 @@ fun ParticlesBackground(
 
     // Physics integrates the time it skipped, so a slower step moves particles the same
     // distance in fewer, larger increments
-    BackgroundStepEffect(speedMultiplier) { scaledMs ->
+    BackgroundStepEffect(speedMultiplier) { scaledMs, _ ->
         val speedScale = scaledMs / 16.67f
 
         particles.forEach { p ->

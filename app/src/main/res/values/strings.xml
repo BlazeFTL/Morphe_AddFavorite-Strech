@@ -780,6 +780,7 @@ Uninstalling will permanently erase all app data"</string>
     <string name="settings_appearance_background_snow">Snow</string>
     <string name="settings_appearance_background_grid">Grid</string>
     <string name="settings_appearance_background_particles">Particles</string>
+    <string name="settings_appearance_background_lava">Lava lamp</string>
     <string name="settings_appearance_background_matrix" translatable="false">Matrix</string>
     <string name="settings_appearance_background_halloween">Halloween</string>
     <string name="settings_appearance_background_fireworks">Fireworks</string>

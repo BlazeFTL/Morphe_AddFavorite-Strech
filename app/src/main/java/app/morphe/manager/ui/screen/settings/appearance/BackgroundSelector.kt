@@ -216,6 +216,7 @@ private fun backgroundIcon(type: BackgroundType): ImageVector = when (type) {
     BackgroundType.FIREWORKS -> Icons.Outlined.Flare
     BackgroundType.GRID      -> Icons.Outlined.Apps
     BackgroundType.PARTICLES -> Icons.Outlined.BubbleChart
+    BackgroundType.LAVA      -> Icons.Outlined.WaterDrop
     BackgroundType.MATRIX    -> Icons.Outlined.Code
     BackgroundType.NONE      -> Icons.Outlined.VisibilityOff
     BackgroundType.RANDOM    -> Icons.Outlined.Shuffle

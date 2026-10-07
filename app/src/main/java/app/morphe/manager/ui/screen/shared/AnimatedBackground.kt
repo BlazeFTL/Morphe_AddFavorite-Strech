@@ -28,6 +28,7 @@ enum class BackgroundType(val displayNameResId: Int) {
     SNOW(R.string.settings_appearance_background_snow),
     GRID(R.string.settings_appearance_background_grid),
     PARTICLES(R.string.settings_appearance_background_particles),
+    LAVA(R.string.settings_appearance_background_lava),
     MATRIX(R.string.settings_appearance_background_matrix),
     HALLOWEEN(R.string.settings_appearance_background_halloween),
     FIREWORKS(R.string.settings_appearance_background_fireworks),
@@ -133,6 +134,12 @@ fun AnimatedBackground(
                 patchingCompleted = resolvedPatchingCompleted
             )
             BackgroundType.PARTICLES -> ParticlesBackground(
+                modifier = Modifier.fillMaxSize(),
+                enableParallax = enableParallax,
+                speedMultiplier = resolvedSpeed,
+                patchingCompleted = resolvedPatchingCompleted
+            )
+            BackgroundType.LAVA -> LavaBackground(
                 modifier = Modifier.fillMaxSize(),
                 enableParallax = enableParallax,
                 speedMultiplier = resolvedSpeed,

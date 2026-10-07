@@ -140,7 +140,8 @@ fun BackgroundPickerDialog(
                     onClick = { onBackgroundSelected(bgType) },
                     icon = backgroundIcon(bgType),
                     label = stringResource(bgType.displayNameResId),
-                    modifier = itemModifier
+                    modifier = itemModifier,
+                    compact = true
                 )
             }
 
@@ -173,7 +174,8 @@ fun BackgroundPickerDialog(
                                 onClick = { onIntervalSelected(interval) },
                                 icon = intervalIcon(interval),
                                 label = stringResource(interval.labelResId),
-                                modifier = itemModifier
+                                modifier = itemModifier,
+                                compact = true
                             )
                         }
                     }

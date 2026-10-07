@@ -16,9 +16,6 @@ import app.morphe.manager.MainActivity
 import app.morphe.manager.R
 import app.morphe.manager.domain.repository.PatchBundleRepository
 import app.morphe.manager.patcher.worker.PatcherWorker
-import app.morphe.manager.util.UpdateNotificationManager.Companion.CHANNEL_MANAGER_UPDATES
-import app.morphe.manager.util.UpdateNotificationManager.Companion.CHANNEL_PATCH_UPDATES
-import app.morphe.manager.util.UpdateNotificationManager.Companion.EXTRA_TRIGGER_UPDATE_CHECK
 
 /**
  * Manages Android system notifications for Morphe Manager update events.

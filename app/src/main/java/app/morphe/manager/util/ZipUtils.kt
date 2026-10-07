@@ -17,9 +17,7 @@ object ZipUtils {
      */
     fun zip(context: Context, uri: Uri, files: List<File>): Boolean {
         val existingFiles = files.filter { it.exists() }
-        if (existingFiles.isEmpty()) return false
-
-        return runCatching {
+        return existingFiles.isNotEmpty() && runCatching {
             context.contentResolver.openOutputStream(uri)?.use { output ->
                 val usedNames = mutableSetOf<String>()
                 ZipOutputStream(output).use { zip ->

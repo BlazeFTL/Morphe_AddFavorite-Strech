@@ -110,7 +110,7 @@ class PatchRunProgress(
                     buffer.clear()
                 }
             } catch (_: CancellationException) {
-                // Cancelled when run finishes or closes
+                // Canceled when run finishes or closes
             }
         }
     }

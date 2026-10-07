@@ -1269,9 +1269,8 @@ class InstallViewModel : ViewModel(), KoinComponent {
 
         val isShizukuInstall = token == InstallerManager.Token.Shizuku ||
                 token == InstallerManager.Token.ShizukuPlayStore
-        if (!isShizukuInstall) return false
 
-        return withContext(Dispatchers.IO) {
+        return isShizukuInstall && withContext(Dispatchers.IO) {
             sessionInstaller.shizukuAvailability(InstallerManager.InstallTarget.PATCHER).available
         }
     }

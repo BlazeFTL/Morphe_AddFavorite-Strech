@@ -18,7 +18,8 @@ import kotlin.math.PI
 import kotlin.math.sin
 
 /**
- * Rings background - concentric stroke circles with parallax effect.
+ * Rings background - groups of concentric stroke circles that ripple outward like rings on water,
+ * each group at its own pace, with parallax effect.
  * Uses frame-based time so [speedMultiplier] changes smoothly without restarting animations.
  * On patching completion each ring group surges outward in radius and fades - staggered by
  * group index - then eases back to normal.
@@ -93,22 +94,24 @@ fun RingsBackground(
             val radiusScale = if (bp > 0f) 1f + localBp * 1.8f else 1f
             val burstAlpha  = if (bp > 0f) (1f - localBp).coerceIn(0f, 1f) else 1f
 
-            // Draw multiple concentric rings per group
-            config.radii.forEachIndexed { ringIndex, radius ->
-                val alpha = when (ringIndex) {
-                    0    -> 0.14f
-                    1    -> 0.10f
-                    2    -> 0.07f
-                    else -> 0.06f
-                }
-                val strokeWidth = when (ringIndex) {
-                    0    -> 2.0f
-                    1    -> 1.7f
-                    else -> 1.3f
-                } * density
+            // The rings of a group ripple outward like rings on water: each one is born at the
+            // innermost radius, widens and thins out to the outermost, and fades as the next one
+            // takes its place. Every group ripples at a pace of its own
+            val inner   = config.radii.first()
+            val outer   = config.radii.last()
+            val count   = config.radii.size
+            val spacing = (outer - inner) / (count - 1)
+            val ripple  = (t / RIPPLE_PERIODS[index % RIPPLE_PERIODS.size]) % 1f
+            for (ringIndex in 0 until count) {
+                // 0 at the innermost radius, count - 1 at the outermost
+                val position = ringIndex + ripple
+                val travelled = position / count
+                val fadeIn = (position / 0.6f).coerceAtMost(1f)
+                val alpha = 0.15f * (1f - travelled) * fadeIn
+                val strokeWidth = (2.0f - 0.8f * travelled) * density
                 drawCircle(
                     color  = baseColor.copy(alpha = alpha * burstAlpha),
-                    radius = radius * density * radiusScale,
+                    radius = (inner + position * spacing) * density * radiusScale,
                     center = center,
                     style  = Stroke(width = strokeWidth)
                 )
@@ -116,6 +119,10 @@ fun RingsBackground(
         }
     }
 }
+
+// Milliseconds for one ring to ripple from the innermost radius to the next, a little different for
+// every group so no two pulse together
+private val RIPPLE_PERIODS = floatArrayOf(2600f, 3400f, 2200f, 3000f, 3700f, 2800f)
 
 private data class RingConfig(
     val startX: Float,

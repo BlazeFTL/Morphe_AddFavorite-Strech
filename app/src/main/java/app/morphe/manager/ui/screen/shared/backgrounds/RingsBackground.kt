@@ -5,17 +5,14 @@
 
 package app.morphe.manager.ui.screen.shared.backgrounds
 
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.sin
 
@@ -36,7 +33,6 @@ fun RingsBackground(
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val tertiaryColor  = MaterialTheme.colorScheme.tertiary
     val context        = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
@@ -58,24 +54,9 @@ fun RingsBackground(
 
     val time = rememberAnimatedTime(speedMultiplier)
 
-    // burstProgress 0→1: each ring group expands radius and fades, staggered by group index.
-    // Snaps back to 0f after completion so rings return to normal state.
-    val burstProgress = remember { Animatable(0f) }
-
-    CompletionEffect(patchingCompleted) {
-        coroutineScope.launch {
-            burstProgress.snapTo(0f)
-            burstProgress.animateTo(
-                targetValue   = 1f,
-                animationSpec = tween(durationMillis = 1100, easing = FastOutSlowInEasing)
-            )
-            // Smooth return - rings ease back to normal radius and alpha
-            burstProgress.animateTo(
-                targetValue   = 0f,
-                animationSpec = tween(durationMillis = 450, easing = FastOutSlowInEasing)
-            )
-        }
-    }
+    // burstProgress 0→1: each ring group expands radius and fades, staggered by group index,
+    // then eases back so rings return to normal
+    val burstProgress = rememberCompletionPulse(patchingCompleted, riseMillis = 1100, fallMillis = 450)
 
     Canvas(modifier = modifier.fillMaxSize()) {
         val t     = time.value

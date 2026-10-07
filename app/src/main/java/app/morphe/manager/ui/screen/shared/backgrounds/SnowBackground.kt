@@ -5,13 +5,10 @@
 
 package app.morphe.manager.ui.screen.shared.backgrounds
 
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.launch
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
@@ -41,7 +38,6 @@ fun SnowBackground(
     val isDarkTheme = isDarkTheme()
     val snowColor = if (isDarkTheme) Color.White else Color(0xFF4A5F7A)
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
@@ -58,7 +54,7 @@ fun SnowBackground(
         )
     }
 
-    // Generate snowflakes with depth layers
+    // Generate snowflakes with depth layers, sorted far to close once for proper layering
     val snowflakes = remember {
         List(40) {
             val depth = Random.nextFloat()
@@ -93,30 +89,19 @@ fun SnowBackground(
                 depth = depth,
                 layer = layer
             )
-        }
+        }.sortedBy { it.depth }
     }
+
+    // One paint for every flake, its alpha set per draw, rather than a fresh one per flake per frame
+    val flakePaint = remember { Paint() }
 
     // Frame-based time - accumulates in ms at speed 1x, respects speedMultiplier smoothly.
     // Wraps at 120 000 ms to keep values manageable (same cycle as original)
     val animatedTime = rememberAnimatedTime(speedMultiplier)
 
-    // Blizzard burst: snowflakes suddenly fly upward and fade out on completion
-    val burstProgress = remember { Animatable(0f) }
-
-    CompletionEffect(patchingCompleted) {
-        coroutineScope.launch {
-            burstProgress.snapTo(0f)
-            burstProgress.animateTo(
-                targetValue   = 1f,
-                animationSpec = tween(durationMillis = 1400, easing = FastOutSlowInEasing)
-            )
-            // Smooth return - snowflakes settle back down and fade in gently
-            burstProgress.animateTo(
-                targetValue   = 0f,
-                animationSpec = tween(durationMillis = 600, easing = FastOutSlowInEasing)
-            )
-        }
-    }
+    // Blizzard burst: snowflakes suddenly fly upward and fade out on completion,
+    // then settle back down and fade in gently
+    val burstProgress = rememberCompletionPulse(patchingCompleted, riseMillis = 1400, fallMillis = 600)
 
     Canvas(modifier = modifier.fillMaxSize()) {
         val width = size.width
@@ -133,8 +118,7 @@ fun SnowBackground(
             else -> 1f
         }
 
-        // Sort snowflakes by depth (far to close) for proper layering
-        snowflakes.sortedBy { it.depth }.forEach { flake ->
+        snowflakes.forEach { flake ->
             // Calculate continuous fall progress
             val timeProgress = globalTime / flake.fallSpeed
             val fallProgress = (flake.initialProgress + timeProgress) % 1f
@@ -194,9 +178,7 @@ fun SnowBackground(
                         srcSize = IntSize(bitmap.width, bitmap.height),
                         dstOffset = IntOffset((-drawSize / 2).toInt(), (-drawSize / 2).toInt()),
                         dstSize = IntSize(drawSize.toInt(), drawSize.toInt()),
-                        paint = Paint().apply {
-                            alpha = finalAlpha
-                        }
+                        paint = flakePaint.apply { alpha = finalAlpha }
                     )
 
                     canvas.restore()

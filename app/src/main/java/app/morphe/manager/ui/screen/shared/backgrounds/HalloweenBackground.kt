@@ -5,14 +5,10 @@
 
 package app.morphe.manager.ui.screen.shared.backgrounds
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -22,7 +18,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalContext
 import app.morphe.manager.ui.theme.isDarkTheme
-import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.min
 import kotlin.math.sin
@@ -50,7 +45,6 @@ fun HalloweenBackground(
     val moonAlpha = if (isDarkTheme) 0.5f else 0.4f
     val lanternAlpha = if (isDarkTheme) 0.35f else 0.3f
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
@@ -97,21 +91,7 @@ fun HalloweenBackground(
 
     val animatedTime = rememberAnimatedTime(speedMultiplier)
 
-    val scatter = remember { Animatable(0f) }
-
-    CompletionEffect(patchingCompleted) {
-        coroutineScope.launch {
-            scatter.snapTo(0f)
-            scatter.animateTo(
-                targetValue = 1f,
-                animationSpec = tween(durationMillis = 1400, easing = FastOutSlowInEasing)
-            )
-            scatter.animateTo(
-                targetValue = 0f,
-                animationSpec = tween(durationMillis = 600, easing = FastOutSlowInEasing)
-            )
-        }
-    }
+    val scatter = rememberCompletionPulse(patchingCompleted, riseMillis = 1400, fallMillis = 600)
 
     Canvas(modifier = modifier.fillMaxSize()) {
         val width = size.width

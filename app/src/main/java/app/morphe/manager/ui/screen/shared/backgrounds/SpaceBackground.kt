@@ -6,10 +6,8 @@
 package app.morphe.manager.ui.screen.shared.backgrounds
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.withInfiniteAnimationFrameMillis
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
@@ -21,7 +19,6 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import app.morphe.manager.ui.theme.isDarkTheme
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -43,7 +40,6 @@ fun SpaceBackground(
     val isDarkTheme = isDarkTheme()
     val starColor = if (isDarkTheme) Color.White else Color(0xFF1A2530)
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     // Parallax tilt from accelerometer
     val parallaxState = rememberParallaxState(
@@ -59,70 +55,38 @@ fun SpaceBackground(
     // baseProgress drives the Z-depth of all stars each frame
     var baseProgress by remember { mutableFloatStateOf(0f) }
 
-    // flashAlpha 0→1→0: full-screen white flash on patching completion
-    // Ramps up instantly then fades out slowly so it reads as a "success" moment
-    val flashAlpha = remember { Animatable(0f) }
+    // flashAlpha 0→0.45→0: full-screen white flash on patching completion.
+    // Snaps to its peak, the abruptness is intentional and feels like a camera flash,
+    // then fades out slowly so the eye can adjust naturally
+    val flashAlpha = rememberCompletionPulse(
+        patchingCompleted,
+        riseMillis = 100,
+        fallMillis = 500,
+        peak = 0.45f
+    )
 
-    CompletionEffect(patchingCompleted) {
-        coroutineScope.launch {
-            flashAlpha.snapTo(0f)
-            // Snap to peak - the abruptness is intentional, feels like a camera flash
-            flashAlpha.animateTo(0.45f, tween(100, easing = FastOutSlowInEasing))
-            // Slow fade out so the eye can adjust naturally
-            flashAlpha.animateTo(0f, tween(500, easing = FastOutSlowInEasing))
-        }
-    }
+    // Stars lean three times as hard into a speed-up as the other backgrounds, and the 5.0/sec
+    // ramp gives ~0.4s to reach full speed, matching the "warp engine" feel.
+    // The warp integrates the time it skipped, so a slower step covers the same distance
+    BackgroundStepEffect(speedMultiplier, boost = 3f, rampPerSecond = 5f) { scaledMs ->
+        // Normalize baseProgress increment to 60fps baseline so delta spikes don't jump
+        baseProgress += 0.0025f * (scaledMs / 16.67f)
 
-    // targetSpeedState is written every recomposition via SideEffect so the frame loop
-    // can read it reactively without being restarted.
-    val targetSpeedState = remember { mutableFloatStateOf(speedMultiplier) }
-    SideEffect { targetSpeedState.floatValue = speedMultiplier }
-
-    // Main star animation loop - runs every frame via withInfiniteAnimationFrameMillis
-    AnimationFrameEffect {
-        var lastFrameMs = withInfiniteAnimationFrameMillis { it }
-        var currentSpeed = targetSpeedState.floatValue
-        // The warp integrates the time it skipped, so a slower step covers the same distance
-        var elapsedMs = 0f
-        var pendingDelta = 0f
-        while (true) {
-            withInfiniteAnimationFrameMillis { frameMs ->
-                val delta = (frameMs - lastFrameMs).coerceIn(0L, 64L).toFloat()
-                lastFrameMs = frameMs
-
-                val speedBoost = 3f // Local boost on top of global speedMultiplier; increase for more dramatic warp
-
-                // Lerp toward target speed with a local 2x boost on top of the global speedMultiplier -
-                // stars accelerate twice as fast as other backgrounds during patching.
-                // 5.0/sec ramp gives ~0.4s to reach full speed, matching the "warp engine" feel.
-                currentSpeed += (1f + (targetSpeedState.floatValue - 1f) * speedBoost - currentSpeed) * (delta / 1000f) * 5.0f
-
-                elapsedMs += delta
-                pendingDelta += delta
-                if (elapsedMs < BACKGROUND_STEP_INTERVAL_MS) return@withInfiniteAnimationFrameMillis
-                elapsedMs -= BACKGROUND_STEP_INTERVAL_MS
-
-                // Normalize baseProgress increment to 60fps baseline so delta spikes don't jump
-                baseProgress += 0.0025f * currentSpeed * (pendingDelta / 16.67f)
-                pendingDelta = 0f
-
-                // Regenerate stars that have passed the camera (adjustedProgress wraps to 0..1)
-                stars.forEachIndexed { index, star ->
-                    val adjustedProgress = ((baseProgress * star.speed) + star.initialOffset) % 1f
-                    if (adjustedProgress !in 0.01f..0.98f) {
-                        if (star.lastRegen != baseProgress.toInt()) {
-                            // Pick a new random position outside the center exclusion zone
-                            var newX: Float; var newY: Float; var newDistance: Float
-                            do {
-                                val newAngle = Random.nextFloat() * 360f
-                                newDistance = sqrt(Random.nextFloat()) * 1.5f
-                                val newAngleRad = newAngle * (Math.PI / 180f).toFloat()
-                                newX = cos(newAngleRad) * newDistance
-                                newY = sin(newAngleRad) * newDistance
-                            } while (newDistance < 0.15f)
-                            stars[index] = star.copy(x = newX, y = newY, lastRegen = baseProgress.toInt())
-                        }
-                    }
+        // Regenerate stars that have passed the camera (adjustedProgress wraps to 0..1)
+        stars.forEachIndexed { index, star ->
+            val adjustedProgress = ((baseProgress * star.speed) + star.initialOffset) % 1f
+            if (adjustedProgress !in 0.01f..0.98f) {
+                if (star.lastRegen != baseProgress.toInt()) {
+                    // Pick a new random position outside the center exclusion zone
+                    var newX: Float; var newY: Float; var newDistance: Float
+                    do {
+                        val newAngle = Random.nextFloat() * 360f
+                        newDistance = sqrt(Random.nextFloat()) * 1.5f
+                        val newAngleRad = newAngle * (Math.PI / 180f).toFloat()
+                        newX = cos(newAngleRad) * newDistance
+                        newY = sin(newAngleRad) * newDistance
+                    } while (newDistance < 0.15f)
+                    stars[index] = star.copy(x = newX, y = newY, lastRegen = baseProgress.toInt())
                 }
             }
         }

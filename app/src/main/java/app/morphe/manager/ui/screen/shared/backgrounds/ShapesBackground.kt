@@ -5,16 +5,12 @@
 
 package app.morphe.manager.ui.screen.shared.backgrounds
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.lerp
@@ -22,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -49,7 +44,6 @@ fun ShapesBackground(
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val tertiaryColor  = MaterialTheme.colorScheme.tertiary
     val context        = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
@@ -85,14 +79,7 @@ fun ShapesBackground(
 
     val time = rememberAnimatedTime(speedMultiplier)
 
-    val scatterProgress = remember { Animatable(0f) }
-    CompletionEffect(patchingCompleted) {
-        coroutineScope.launch {
-            scatterProgress.snapTo(0f)
-            scatterProgress.animateTo(1f, tween(1000, easing = FastOutSlowInEasing))
-            scatterProgress.animateTo(0f, tween(600,  easing = FastOutSlowInEasing))
-        }
-    }
+    val scatterProgress = rememberCompletionPulse(patchingCompleted, riseMillis = 1000, fallMillis = 600)
 
     // Smoothed positions - lerped toward raw Lissajous targets each frame
     val smoothedPositions = remember { mutableStateListOf<Offset>() }

@@ -10,13 +10,11 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -40,7 +38,6 @@ fun MeshBackground(
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val tertiaryColor  = MaterialTheme.colorScheme.tertiary
     val context        = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
@@ -55,23 +52,14 @@ fun MeshBackground(
     val time = rememberAnimatedTime(speedMultiplier)
 
     // rippleProgress 0→1: a circular pulse wave sweeps from mesh center to edges,
-    // lifting nodes along Z before settling. Linear easing keeps the wave front at constant speed.
-    val rippleProgress = remember { Animatable(0f) }
-
-    CompletionEffect(patchingCompleted) {
-        coroutineScope.launch {
-            rippleProgress.snapTo(0f)
-            rippleProgress.animateTo(
-                targetValue   = 1f,
-                animationSpec = tween(durationMillis = 1200, easing = LinearEasing)
-            )
-            // Smooth return - ripple amplitude decays back to zero
-            rippleProgress.animateTo(
-                targetValue   = 0f,
-                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
-            )
-        }
-    }
+    // lifting nodes along Z before the amplitude decays back to zero.
+    // Linear easing keeps the wave front at constant speed.
+    val rippleProgress = rememberCompletionPulse(
+        patchingCompleted,
+        riseMillis = 1200,
+        fallMillis = 500,
+        riseEasing = LinearEasing
+    )
 
     // One path and stroke for every triangle: a fresh pair per cell per frame is hundreds of
     // native allocations a second

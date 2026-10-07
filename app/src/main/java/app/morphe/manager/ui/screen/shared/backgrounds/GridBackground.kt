@@ -5,19 +5,13 @@
 
 package app.morphe.manager.ui.screen.shared.backgrounds
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -40,7 +34,6 @@ fun GridBackground(
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val tertiaryColor  = MaterialTheme.colorScheme.tertiary
     val context        = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     val parallaxState = rememberParallaxState(
         enableParallax = enableParallax,
@@ -51,15 +44,7 @@ fun GridBackground(
     val time = rememberAnimatedTime(speedMultiplier)
 
     // shockwaveProgress 0→1: a burst pulse radiates from center on completion
-    val shockwaveProgress = remember { Animatable(0f) }
-
-    CompletionEffect(patchingCompleted) {
-        coroutineScope.launch {
-            shockwaveProgress.snapTo(0f)
-            shockwaveProgress.animateTo(1f, tween(1100, easing = FastOutSlowInEasing))
-            shockwaveProgress.animateTo(0f, tween(500, easing = FastOutSlowInEasing))
-        }
-    }
+    val shockwaveProgress = rememberCompletionPulse(patchingCompleted, riseMillis = 1100, fallMillis = 500)
 
     Canvas(modifier = modifier.fillMaxSize()) {
         val t     = time.value
